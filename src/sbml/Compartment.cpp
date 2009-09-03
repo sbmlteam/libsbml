@@ -248,16 +248,16 @@ Compartment::getSpatialDimensions () const
       if (ceil(mSpatialDimensionsDouble) == 
           floor(mSpatialDimensionsDouble))
       {
-        return static_cast<int>(mSpatialDimensionsDouble);
+        return static_cast<unsigned int>(mSpatialDimensionsDouble);
       }
       else
       {
-        return numeric_limits<int>::quiet_NaN();
+        return numeric_limits<unsigned int>::quiet_NaN();
       }
     }
     else
     {
-      return static_cast<int>(mSpatialDimensionsDouble);
+      return static_cast<unsigned int>(mSpatialDimensionsDouble);
     }
   }
 }

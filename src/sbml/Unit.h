@@ -277,7 +277,15 @@ public:
    * 
    * @return the "exponent" value of this Unit, as an integer
    */
-  double getExponent () const;
+  int getExponent () const;
+
+
+  /**
+   * Returns the value of the "exponent" attribute of this unit.
+   * 
+   * @return the "exponent" value of this Unit, as a double
+   */
+  double getExponentAsDouble () const;
 
 
   /**
@@ -996,7 +1004,8 @@ protected:
   static bool isL2UnitKind (const std::string& name);
 
   UnitKind_t  mKind;
-  double      mExponent;
+  int         mExponent;
+  double      mExponentDouble;
   int         mScale;
   double      mMultiplier;
   double      mOffset; 

@@ -47,6 +47,7 @@ Unit::Unit (unsigned int level, unsigned int version) :
    SBase ( level, version )
   , mKind      ( UNIT_KIND_INVALID )
   , mExponent  ( 1   )
+  , mExponentDouble  ( 1   )
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
@@ -60,7 +61,7 @@ Unit::Unit (unsigned int level, unsigned int version) :
   // if level 3 values have no defaults
   if (level == 3)
   {
-    mExponent = numeric_limits<double>::quiet_NaN();
+    mExponentDouble = numeric_limits<double>::quiet_NaN();
     mScale = numeric_limits<int>::quiet_NaN();
     mMultiplier = numeric_limits<double>::quiet_NaN();
   }
@@ -71,6 +72,7 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
   , mKind      ( UNIT_KIND_INVALID )
   , mExponent  ( 1  )
+  , mExponentDouble  ( 1  )
   , mScale     ( 0      )
   , mMultiplier( 1.0 )
   , mOffset    ( 0.0     )
@@ -84,7 +86,7 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
   // if level 3 values have no defaults
   if (sbmlns->getLevel() == 3)
   {
-    mExponent = numeric_limits<double>::quiet_NaN();
+    mExponentDouble = numeric_limits<double>::quiet_NaN();
     mScale = numeric_limits<double>::quiet_NaN();
     mMultiplier = numeric_limits<double>::quiet_NaN();
   }
@@ -115,6 +117,7 @@ Unit::Unit(const Unit& orig) :
     SBase      ( orig             )
   , mKind      ( orig.mKind       )
   , mExponent  ( orig.mExponent   )
+  , mExponentDouble  ( orig.mExponentDouble   )
   , mScale     ( orig.mScale      )
   , mMultiplier( orig.mMultiplier )
   , mOffset    ( orig.mOffset     )
@@ -135,6 +138,7 @@ Unit& Unit::operator=(const Unit& rhs)
     this->SBase::operator =(rhs);
     mKind       = rhs.mKind       ;
     mExponent   = rhs.mExponent   ;
+    mExponentDouble   = rhs.mExponentDouble   ;
     mScale      = rhs.mScale      ;
     mMultiplier = rhs.mMultiplier ;
     mOffset     = rhs.mOffset     ;
@@ -205,10 +209,42 @@ Unit::getKind () const
 /*
  * @return the exponent of this Unit.
  */
-double
+int
 Unit::getExponent () const
 {
-  return mExponent;
+  if (getLevel() < 3)
+  {
+    return mExponent;
+  }
+  else
+  {
+    if (isSetExponent())
+    {
+      if (ceil(mExponentDouble) == 
+          floor(mExponentDouble))
+      {
+        return static_cast<int>(mExponentDouble);
+      }
+      else
+      {
+        return numeric_limits<int>::quiet_NaN();
+      }
+    }
+    else
+    {
+      return static_cast<int>(mExponentDouble);
+    }
+  }
+}
+
+
+double
+Unit::getExponentAsDouble () const
+{
+  if (getLevel() > 2)
+    return mExponentDouble;
+  else
+    return static_cast<double>(mExponent);
 }
 
 
