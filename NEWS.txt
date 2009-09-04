@@ -28,6 +28,24 @@ Features that are not yet implemented:
 
 - conversion to or from L3
 
+Note that since the type of both the spatialDimensions attribute
+on a <Compartment> and the exponent attribute on a <Unit> have
+changed to double there are functions
+
+double  getSpatialDimensionsAsDouble()
+
+double  getExponentAsDouble()
+
+in addition to the existing
+
+unsigned int getSpatialDimensions()
+
+int getExponent().
+
+The former functions will return L2 values as doubles 
+whilst the latter will only return the value of the L3 
+attribute if it can be cast appropriately.
+ 
 The implementation works for all language bindings except
 MATLAB and Octave.
 
