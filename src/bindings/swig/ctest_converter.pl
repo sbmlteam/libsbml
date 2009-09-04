@@ -2689,7 +2689,7 @@ sub convertCFuncCall
     ##################################################
     $fcall = "self." . $fcall if($Target eq 'python');
   }
-  elsif( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf ) /x )
+  elsif( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf | isnan ) /x )
   {
     $fname = "isnan" if $fname =~ /isnan/;
     my $args = join(',', @arg);
@@ -3819,6 +3819,12 @@ $patchClassTop{'ruby'}{'TestWriteMathML'} = $patchClassTop{'ruby'}{'TestWriteSBM
 $patchClassTop{'ruby'}{'TestRDFAnnotation'}  = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
 $patchClassTop{'ruby'}{'TestRDFAnnotation2'} = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
 
+$patchClassTop{'ruby'}{'TestReadFromFile9'} = <<'EOF';
+  def isnan(x)
+    return (x != x)
+  end
+EOF
+
 #--------------------------------------------------
 
 $patchClassTop{'ruby'}{'TestReadMathML'} = <<'EOF';
@@ -3956,7 +3962,11 @@ EOF
 
 $patchGlobal{'python'}{'TestXMLAttributes'} = $patchGlobal{'python'}{'TestWriteSBML'}; 
 $patchGlobal{'python'}{'TestWriteMathML'}   = $patchGlobal{'python'}{'TestWriteSBML'}; 
-
+$patchGlobal{'python'}{'TestReadFromFile9'} = <<'EOF';
+def isnan(x):
+  return (x != x)
+  pass
+EOF
 
 $patchClassTop{'python'}{'TestWriteSBML'} = <<'EOF';
   def equals(self, *x):
@@ -4184,6 +4194,7 @@ $patchClassTop{'java'}{'TestWriteMathML'} = $patchClassTop{'java'}{'TestWriteSBM
 
 $patchClassTop{'java'}{'TestRDFAnnotation'}  = $patchClassTop{'java'}{'TestWriteSBML'}; 
 $patchClassTop{'java'}{'TestRDFAnnotation2'} = $patchClassTop{'java'}{'TestWriteSBML'}; 
+$patchClassTop{'java'}{'TestReadFileFrom9'} = $patchClassTop{'java'}{'TestWriteSBML'}; 
 
 $patchClassTop{'java'}{'TestReadMathML'} = <<'EOF';
   public boolean util_isInf(double x)
@@ -4193,6 +4204,14 @@ $patchClassTop{'java'}{'TestReadMathML'} = <<'EOF';
 
 EOF
 $patchClassTop{'java'}{'TestReadMathML'} .= $patchClassTop{'java'}{'TestXMLAttributes'}; 
+
+$patchClassTop{'java'}{'TestReadFromFile9'} = <<'EOF';
+  public boolean isnan(double x)
+  {
+    return (x != x);
+  }
+
+EOF
 
 #--------------------------------------------------
 
@@ -4342,6 +4361,8 @@ $patchClassTop{'csharp'}{'TestWriteMathML'}   = $patchClassTop{'csharp'}{'TestWr
 $patchClassTop{'csharp'}{'TestRDFAnnotation'}  = $patchClassTop{'csharp'}{'TestWriteSBML'};
 $patchClassTop{'csharp'}{'TestRDFAnnotation2'} = $patchClassTop{'csharp'}{'TestWriteSBML'};
 
+$patchClassTop{'csharp'}{'TestReadFileFrom9'} = $patchClassTop{'csharp'}{'TestWriteSBML'};
+
 $patchClassTop{'csharp'}{'TestReadMathML'} = <<'EOF';
   public bool util_isInf(double x)
   {
@@ -4350,6 +4371,14 @@ $patchClassTop{'csharp'}{'TestReadMathML'} = <<'EOF';
 
 EOF
 $patchClassTop{'csharp'}{'TestReadMathML'} .= $patchClassTop{'csharp'}{'TestXMLAttributes'};
+
+$patchClassTop{'csharp'}{'TestReadFromFile9'} = <<'EOF';
+    public bool isnan(double x)
+    {
+      return (x != x);
+    }
+
+EOF
 
 
 #--------------------------------------------------

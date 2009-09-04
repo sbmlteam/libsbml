@@ -123,6 +123,11 @@ namespace LibSBMLCSTest {
     }
 
 
+    public bool isnan(double x)
+    {
+      return (x != x);
+    }
+
     public void test_read_l3v1_new()
     {
       SBMLReader reader = new SBMLReader();
@@ -168,6 +173,8 @@ namespace LibSBMLCSTest {
       assertEquals( false, u.isSetExponent() );
       assertEquals( false, u.isSetScale() );
       assertEquals( false, u.isSetMultiplier() );
+      assertEquals( true, isnan(u.getExponentAsDouble()) );
+      assertEquals( true, isnan(u.getMultiplier()) );
       ud = m.getUnitDefinition(1);
       assertTrue( ud.getNumUnits() == 3 );
       u = ud.getUnit(0);
@@ -175,12 +182,14 @@ namespace LibSBMLCSTest {
       assertEquals( true, u.isSetScale() );
       assertEquals( true, u.isSetMultiplier() );
       assertTrue( u.getExponent() == -1 );
+      assertTrue( u.getExponentAsDouble() == -1 );
       assertTrue( u.getScale() == 2 );
       assertTrue( u.getMultiplier() == 1.3 );
       u = ud.getUnit(1);
       assertEquals( true, u.isSetExponent() );
       assertEquals( true, u.isSetScale() );
       assertEquals( true, u.isSetMultiplier() );
+      assertTrue( u.getExponentAsDouble() == 1.5 );
       assertTrue( u.getScale() == 10 );
       assertTrue( u.getMultiplier() == 0.5 );
       u = ud.getUnit(2);
@@ -198,6 +207,7 @@ namespace LibSBMLCSTest {
       assertTrue( c.getId() ==  "comp" );
       assertTrue( c.getSize() == 1e-14 );
       assertTrue( c.getSpatialDimensions() == 3 );
+      assertTrue( c.getSpatialDimensionsAsDouble() == 3 );
       assertTrue( c.getUnits() ==  "litre" );
       assertTrue( c.getConstant() == true );
       c = m.getCompartment(1);
@@ -205,11 +215,15 @@ namespace LibSBMLCSTest {
       assertEquals( false, c.isSetSpatialDimensions() );
       assertEquals( true, c.isSetConstant() );
       assertTrue( c.getId() ==  "comp1" );
+      assertEquals( true, isnan(c.getSize()) );
+      assertEquals( true, isnan(c.getSpatialDimensionsAsDouble()) );
       assertTrue( c.getConstant() == false );
       c = m.getCompartment(2);
       assertEquals( false, c.isSetSize() );
+      assertEquals( true, c.isSetSpatialDimensions() );
       assertEquals( false, c.isSetConstant() );
       assertTrue( c.getId() ==  "comp2" );
+      assertTrue( c.getSpatialDimensionsAsDouble() == 4.6 );
       assertTrue( m.getNumSpecies() == 2 );
       s = m.getSpecies(0);
       assertTrue( s.getId() ==  "ES" );
@@ -224,6 +238,10 @@ namespace LibSBMLCSTest {
       assertTrue( s.getSubstanceUnits() ==  "mole" );
       assertEquals( true, s.isSetConstant() );
       assertTrue( s.getConstant() == false );
+      assertEquals( true, s.isSetInitialAmount() );
+      assertTrue( s.getInitialAmount() == 0 );
+      assertEquals( false, s.isSetInitialConcentration() );
+      assertEquals( true, isnan(s.getInitialConcentration()) );
       s = m.getSpecies(1);
       assertTrue( s.getId() ==  "P" );
       assertTrue( s.getCompartment() ==  "comp" );
@@ -234,6 +252,10 @@ namespace LibSBMLCSTest {
       assertEquals( false, s.isSetSubstanceUnits() );
       assertTrue( s.getSubstanceUnits() ==  "" );
       assertEquals( false, s.isSetConstant() );
+      assertEquals( false, s.isSetInitialAmount() );
+      assertEquals( true, isnan(s.getInitialAmount()) );
+      assertEquals( false, s.isSetInitialConcentration() );
+      assertEquals( true, isnan(s.getInitialConcentration()) );
       assertTrue( m.getNumParameters() == 3 );
       p = m.getParameter(0);
       assertTrue( p.getId() ==  "Keq" );
@@ -246,6 +268,7 @@ namespace LibSBMLCSTest {
       p = m.getParameter(1);
       assertTrue( p.getId() ==  "Keq1" );
       assertEquals( false, p.isSetValue() );
+      assertEquals( true, isnan(p.getValue()) );
       assertEquals( false, p.isSetUnits() );
       assertTrue( p.getUnits() ==  "" );
       assertEquals( true, p.isSetConstant() );
@@ -253,6 +276,7 @@ namespace LibSBMLCSTest {
       p = m.getParameter(2);
       assertTrue( p.getId() ==  "Keq2" );
       assertEquals( false, p.isSetValue() );
+      assertEquals( true, isnan(p.getValue()) );
       assertEquals( false, p.isSetUnits() );
       assertTrue( p.getUnits() ==  "" );
       assertEquals( false, p.isSetConstant() );
@@ -267,11 +291,15 @@ namespace LibSBMLCSTest {
       sr = r.getReactant(0);
       assertEquals( true, sr.isSetConstant() );
       assertTrue( sr.getConstant() == true );
+      assertEquals( true, sr.isSetStoichiometry() );
+      assertTrue( sr.getStoichiometry() == 1 );
       sr = r.getProduct(0);
       assertEquals( true, sr.isSetConstant() );
       assertTrue( sr.getConstant() == false );
+      assertEquals( false, sr.isSetStoichiometry() );
+      assertEquals( true, isnan(sr.getStoichiometry()) );
       kl = r.getKineticLaw();
-      assertTrue( kl.getNumLocalParameters() == 1 );
+      assertTrue( kl.getNumLocalParameters() == 2 );
       assertTrue( kl.getNumParameters() == 0 );
       p = kl.getParameter(0);
       assertTrue( p == null );
@@ -280,6 +308,11 @@ namespace LibSBMLCSTest {
       assertTrue( lp.getUnits() ==  "per_second" );
       assertEquals( true, lp.isSetValue() );
       assertTrue( lp.getValue() == 0.1 );
+      lp = kl.getLocalParameter(1);
+      assertEquals( false, lp.isSetUnits() );
+      assertTrue( lp.getUnits() ==  "" );
+      assertEquals( false, lp.isSetValue() );
+      assertEquals( true, isnan(lp.getValue()) );
       r = m.getReaction(1);
       assertEquals( true, r.isSetFast() );
       assertTrue( r.getFast() == true );
