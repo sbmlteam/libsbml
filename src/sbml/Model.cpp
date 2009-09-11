@@ -4181,7 +4181,7 @@ Model::writeElements (XMLOutputStream& stream) const
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
-  if (level > 2 && getNumFunctionDefinitions() > 0)
+  if (level > 1 && getNumFunctionDefinitions() > 0)
   {
     mFunctionDefinitions.write(stream);
   }
@@ -4212,7 +4212,7 @@ Model::writeElements (XMLOutputStream& stream) const
 
   if ( getNumReactions() > 0 ) mReactions.write(stream);
 
-  if (level > 2 && getNumEvents () > 0 )
+  if (level > 1 && getNumEvents () > 0 )
   {
     mEvents.write(stream);
   }
