@@ -908,6 +908,12 @@ sub parseAssertion
                            |Value
                            |Charge
                            |Math
+                           |Constant
+                           |Fast
+                           |Reversible
+                           |UseValuesFromTriggerTime
+                           |BoundaryCondition
+                           |HasOnlySubstanceUnits
                         )
                      )
 
@@ -1027,6 +1033,10 @@ sub parseAssertion
                           |SeverityAsString
                           |CategoryAsString
                           |SBOTermID
+                          |ConversionFactor
+                          |VolumeUnits
+                          |AreaUnits
+                          |LengthUnits
                         ) $prexp
                      /x 
     )
@@ -1885,13 +1895,23 @@ sub addAssertion2
              )
       {
         # sbml/TestCopyAndClone.cpp
-        unless ( $left =~ /getParentSBMLObject/ && $right =~ /getParentSBMLObject/ )
+        unless ( ($left =~ /getParentSBMLObject/ && $right =~ /getParentSBMLObject/)
+                 || 
+                 ($left =~ /get ( InitialAmount
+                                |InitialConcentration
+                                |ExponentAsDouble
+                                |Multiplier
+                                |Scale
+                                |Size
+                                |Stoichiometry
+                                )
+                          /x)
+                  ||
+                  ($CurLine =~ /ASTNode_getCharacter/ )
+               )
         {
-          unless ( $CurLine =~ /ASTNode_getCharacter/ )
-          {
-            $equation = $left . ".equals($right)";
-            $equation = "!" . $equation if ( $op =~ "!=" );
-          }
+          $equation = $left . ".equals($right)";
+          $equation = "!" . $equation if ( $op =~ "!=" );
         }
       }
     }
@@ -2229,6 +2249,8 @@ sub convertSBaseCFuncCall
   $fname =~ s/( addAttr ) With (?:NS|Triple)/$1/x;
   $fname =~ s/( add ) With (?:Triple)/$1/x;
   $fname =~ s/( setSBOTerm ) ID /$1/x;
+  $fname =~ s/( setExponent ) AsDouble /$1/x;
+  $fname =~ s/( setSpatialDimensions ) AsDouble /$1/x;
 
   push (@arg, $IdTRUE{$Target} ) if ($fname =~ s/ (setLevelAndVersion) Strict/$1/x );
 
@@ -3825,6 +3847,12 @@ $patchClassTop{'ruby'}{'TestReadFromFile9'} = <<'EOF';
   end
 EOF
 
+$patchClassTop{'ruby'}{'TestL3Compartment'}      = $patchClassTop{'ruby'}{'TestReadFromFile9'};
+$patchClassTop{'ruby'}{'TestL3Unit'}             = $patchClassTop{'ruby'}{'TestReadFromFile9'};
+$patchClassTop{'ruby'}{'TestL3Parameter'}        = $patchClassTop{'ruby'}{'TestReadFromFile9'};
+$patchClassTop{'ruby'}{'TestL3Species'}          = $patchClassTop{'ruby'}{'TestReadFromFile9'};
+$patchClassTop{'ruby'}{'TestL3SpeciesReference'} = $patchClassTop{'ruby'}{'TestReadFromFile9'};
+
 #--------------------------------------------------
 
 $patchClassTop{'ruby'}{'TestReadMathML'} = <<'EOF';
@@ -3962,11 +3990,18 @@ EOF
 
 $patchGlobal{'python'}{'TestXMLAttributes'} = $patchGlobal{'python'}{'TestWriteSBML'}; 
 $patchGlobal{'python'}{'TestWriteMathML'}   = $patchGlobal{'python'}{'TestWriteSBML'}; 
+
 $patchGlobal{'python'}{'TestReadFromFile9'} = <<'EOF';
 def isnan(x):
   return (x != x)
   pass
 EOF
+
+$patchGlobal{'python'}{'TestL3Compartment'}      = $patchGlobal{'python'}{'TestReadFromFile9'};
+$patchGlobal{'python'}{'TestL3Unit'}             = $patchGlobal{'python'}{'TestReadFromFile9'};
+$patchGlobal{'python'}{'TestL3Parameter'}        = $patchGlobal{'python'}{'TestReadFromFile9'};
+$patchGlobal{'python'}{'TestL3Species'}          = $patchGlobal{'python'}{'TestReadFromFile9'};
+$patchGlobal{'python'}{'TestL3SpeciesReference'} = $patchGlobal{'python'}{'TestReadFromFile9'};
 
 $patchClassTop{'python'}{'TestWriteSBML'} = <<'EOF';
   def equals(self, *x):
@@ -4213,6 +4248,12 @@ $patchClassTop{'java'}{'TestReadFromFile9'} = <<'EOF';
 
 EOF
 
+$patchClassTop{'java'}{'TestL3Compartment'}      = $patchClassTop{'java'}{'TestReadFromFile9'};
+$patchClassTop{'java'}{'TestL3Unit'}             = $patchClassTop{'java'}{'TestReadFromFile9'};
+$patchClassTop{'java'}{'TestL3Parameter'}        = $patchClassTop{'java'}{'TestReadFromFile9'};
+$patchClassTop{'java'}{'TestL3Species'}          = $patchClassTop{'java'}{'TestReadFromFile9'};
+$patchClassTop{'java'}{'TestL3SpeciesReference'} = $patchClassTop{'java'}{'TestReadFromFile9'};
+
 #--------------------------------------------------
 
 $patchClassTop{'java'}{'TestASTNode'} = <<'EOF';
@@ -4379,6 +4420,12 @@ $patchClassTop{'csharp'}{'TestReadFromFile9'} = <<'EOF';
     }
 
 EOF
+
+$patchClassTop{'csharp'}{'TestL3Compartment'}      = $patchClassTop{'csharp'}{'TestReadFromFile9'};
+$patchClassTop{'csharp'}{'TestL3Unit'}             = $patchClassTop{'csharp'}{'TestReadFromFile9'};
+$patchClassTop{'csharp'}{'TestL3Parameter'}        = $patchClassTop{'csharp'}{'TestReadFromFile9'};
+$patchClassTop{'csharp'}{'TestL3Species'}          = $patchClassTop{'csharp'}{'TestReadFromFile9'};
+$patchClassTop{'csharp'}{'TestL3SpeciesReference'} = $patchClassTop{'csharp'}{'TestReadFromFile9'};
 
 
 #--------------------------------------------------
