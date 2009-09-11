@@ -531,6 +531,7 @@ int
 Reaction::setReversible (bool value)
 {
   mReversible = value;
+  mIsSetReversible = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -544,6 +545,29 @@ Reaction::setFast (bool value)
   mFast      = value;
   mIsSetFast = true;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the compartment of this SBML object to a copy of sid.
+ */
+int
+Reaction::setCompartment (const std::string& sid)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mCompartment = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -610,6 +634,31 @@ Reaction::unsetFast ()
   mIsSetFast = false;
 
   if (!mIsSetFast)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the compartment of this SBML object.
+ */
+int
+Reaction::unsetCompartment ()
+{
+  if (getLevel() < 3) 
+  {
+    mCompartment.erase();
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  mCompartment.erase();
+
+  if (mCompartment.empty())
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -1270,9 +1319,19 @@ Reaction::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  /* required attributes for reaction: id (name in L1) */
+  /* required attributes for reaction: 
+  * @li id (name in L1)
+  * @li fast (in L3 only)
+  * @li reversible (in L3 only)
+  */
 
   if (!isSetId())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetFast())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetReversible())
     allPresent = false;
 
   return allPresent;
@@ -2071,6 +2130,29 @@ Reaction_setFast (Reaction_t *r, int value)
 
 
 /**
+ * Sets the compartment of this Reaction to a copy of compartment.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with the compartment set to NULL is equivalent to
+ * unsetting the "compartment" attribute.
+ */
+LIBSBML_EXTERN
+int
+Reaction_setCompartment (Reaction_t *r, const char *compartment)
+{
+  return (compartment == NULL) ? r->unsetCompartment() : 
+                                 r->setCompartment(compartment);
+}
+
+
+/**
  * Unsets the name of this Reaction.
  *
  * @return integer value indicating success/failure of the
@@ -2085,6 +2167,25 @@ int
 Reaction_unsetName (Reaction_t *r)
 {
   return r->unsetName();
+}
+
+
+/**
+ * Unsets the compartment of this Reaction.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Reaction_unsetCompartment (Reaction_t *r)
+{
+  return r->unsetCompartment();
 }
 
 
@@ -2125,6 +2226,29 @@ int
 Reaction_unsetFast (Reaction_t *r)
 {
   return r->unsetFast();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this Reaction object
+  * have been set.
+  *
+ * @param r the Reaction_t structure to check.
+ *
+  * @note The required attributes for a Reaction object are:
+  * @li id (name in L1)
+  * @li fast (in L3 only)
+  * @li reversible (in L3 only)
+  *
+  * @return a true if all the required
+  * attributes for this object have been defined, false otherwise.
+  */
+LIBSBML_EXTERN
+int
+Reaction_hasRequiredAttributes(Reaction_t *r)
+{
+  return static_cast<int>(r->hasRequiredAttributes());
 }
 
 

@@ -693,6 +693,20 @@ int
 Unit::setExponent (int value)
 {
   mExponent = value;
+  mExponentDouble = (double) (value);
+  mIsSetExponent = true;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+/*
+ * Sets the exponent of this Unit to the given value.
+ */
+int
+Unit::setExponent (double value)
+{
+  mExponentDouble = value;
+  mExponent = (int) (value);
   mIsSetExponent = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -778,9 +792,19 @@ Unit::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  /* required attributes for unit: kind */
+  /* required attributes for unit: 
+  kind (exp, multiplier scale from L3)*/
 
   if (!isSetKind())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetExponent())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetMultiplier())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetScale())
     allPresent = false;
 
   return allPresent;
@@ -2600,6 +2624,57 @@ Unit_isSetKind (const Unit_t *u)
 
 
 /**
+ * Predicate to test whether the "exponent" attribute of the given Unit_t
+ * structure @p u has been set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "exponent" attribute of the given
+ * Unit_t structure has been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSetExponent (const Unit_t *u)
+{
+  return static_cast<int>( u->isSetExponent() );
+}
+
+
+/**
+ * Predicate to test whether the "multiplier" attribute of the given Unit_t
+ * structure @p u has been set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "multiplier" attribute of the given
+ * Unit_t structure has been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSetMultiplier (const Unit_t *u)
+{
+  return static_cast<int>( u->isSetMultiplier() );
+}
+
+
+/**
+ * Predicate to test whether the "scale" attribute of the given Unit_t
+ * structure @p u has been set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "scale" attribute of the given
+ * Unit_t structure has been set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSetScale (const Unit_t *u)
+{
+  return static_cast<int>( u->isSetScale() );
+}
+
+
+/**
  * Sets the kind of the given Unit_t structure @p u to the given
  * UnitKind_t value.
  *
@@ -2636,6 +2711,26 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
 LIBSBML_EXTERN
 int
 Unit_setExponent (Unit_t *u, int value)
+{
+  return u->setExponent(value);
+}
+
+
+/**
+ * Sets the "exponent" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the double to which the attribute "exponent" should be set
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ */
+LIBSBML_EXTERN
+int
+Unit_setExponentAsDouble (Unit_t *u, double value)
 {
   return u->setExponent(value);
 }
@@ -2709,6 +2804,28 @@ int
 Unit_setOffset (Unit_t *u, double value)
 {
   return u->setOffset(value);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this Unit object
+ * have been set.
+ *
+ * @note The required attributes for a Unit object are:
+ * @li kind
+ * @li exponent (L3 on)
+ * @li multiplier (L3 on)
+ * @li scale (L3 on)
+ *
+ * @return a boolean value indicating whether all the required
+ * elements for this object have been defined.
+ */
+LIBSBML_EXTERN
+int
+Unit_hasRequiredAttributes(Unit_t *u)
+{
+  return static_cast <int> (u->hasRequiredAttributes());
 }
 
 

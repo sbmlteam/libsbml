@@ -616,6 +616,126 @@ public:
 
 
   /**
+   * Sets the value of the "substanceUnits" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new substanceUnits for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setSubstanceUnits (const std::string& units);
+
+
+  /**
+   * Sets the value of the "timeUnits" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new timeUnits for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setTimeUnits (const std::string& units);
+
+
+  /**
+   * Sets the value of the "volumeUnits" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new volumeUnits for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setVolumeUnits (const std::string& units);
+
+
+  /**
+   * Sets the value of the "areaUnits" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new areaUnits for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setAreaUnits (const std::string& units);
+
+
+  /**
+   * Sets the value of the "lengthUnits" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new lengthUnits for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setLengthUnits (const std::string& units);
+
+
+  /**
+   * Sets the value of the "conversionFactor" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new conversionFactor for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setConversionFactor (const std::string& units);
+
+
+  /**
    * Unsets the value of the "id" attribute of this Model.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -658,6 +778,96 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   int unsetModelHistory();
+
+
+  /**
+   * Unsets the value of the "substanceUnits" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetSubstanceUnits ();
+
+
+  /**
+   * Unsets the value of the "timeUnits" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetTimeUnits ();
+
+
+  /**
+   * Unsets the value of the "volumeUnits" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetVolumeUnits ();
+
+
+  /**
+   * Unsets the value of the "areaUnits" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetAreaUnits ();
+
+
+  /**
+   * Unsets the value of the "lengthUnits" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetLengthUnits ();
+
+
+  /**
+   * Unsets the value of the "conversionFactor" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetConversionFactor ();
 
 
   /**
@@ -3116,12 +3326,73 @@ Model_setName (Model_t *m, const char *name);
 
 LIBSBML_EXTERN
 int
+Model_setSubstanceUnits (Model_t *m, const char *units);
+
+
+LIBSBML_EXTERN
+int
+Model_setTimeUnits (Model_t *m, const char *units);
+
+
+LIBSBML_EXTERN
+int
+Model_setVolumeUnits (Model_t *m, const char *units);
+
+
+LIBSBML_EXTERN
+int
+Model_setAreaUnits (Model_t *m, const char *units);
+
+
+LIBSBML_EXTERN
+int
+Model_setLengthUnits (Model_t *m, const char *units);
+
+
+LIBSBML_EXTERN
+int
+Model_setConversionFactor (Model_t *m, const char *sid);
+
+
+LIBSBML_EXTERN
+int
 Model_unsetId (Model_t *m);
 
 
 LIBSBML_EXTERN
 int
 Model_unsetName (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetSubstanceUnits (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetTimeUnits (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetVolumeUnits (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetAreaUnits (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetLengthUnits (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetConversionFactor (Model_t *m);
+
 
 LIBSBML_EXTERN
 ModelHistory_t * 

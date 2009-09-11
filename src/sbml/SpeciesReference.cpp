@@ -481,6 +481,7 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
  , mStoichiometryMath    ( 0   )
  , mConstant             (false)
  , mIsSetConstant        (false)
+ , mIsSetStoichiometry   (false)
 {
 
   // if level 3 values have no defaults
@@ -781,6 +782,26 @@ SpeciesReference::setDenominator (int value)
 
 
 /*
+ * Sets the constant field of this SpeciesReference to value.
+ */
+int
+SpeciesReference::setConstant (bool flag)
+{
+  if ( getLevel() < 3 )
+  {
+    mConstant = flag;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mConstant = flag;
+    mIsSetConstant = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Unsets the "stoichiometryMath" subelement of this SpeciesReference.
  */
 int 
@@ -790,6 +811,22 @@ SpeciesReference::unsetStoichiometryMath ()
   mStoichiometryMath = 0;
 
   if (mStoichiometryMath == NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+/* unset the stoichiometry */
+int
+SpeciesReference::unsetStoichiometry ()
+{
+  mStoichiometry      = numeric_limits<double>::quiet_NaN();
+  mIsSetStoichiometry = false;
+  if (!isSetStoichiometry())
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -850,6 +887,9 @@ bool
 SpeciesReference::hasRequiredAttributes() const
 {
   bool allPresent = SimpleSpeciesReference::hasRequiredAttributes();
+
+  if (getLevel() > 2 && !isSetConstant())
+    allPresent = false;
 
   return allPresent;
 }
@@ -2500,6 +2540,28 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value)
 }
 
 
+/**
+ * Assign the "constant" attribute of a SpeciesReference_t structure.
+ *
+ * @param p the SpeciesReference_t structure to set.
+ * @param value the value to assign as the "constant" attribute
+ * of the speciesReference, either zero for false or nonzero for true.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_setConstant (SpeciesReference_t *sr, int value)
+{
+  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  return static_cast<SpeciesReference*>(sr)->setConstant(value);
+}
+
 
 /**
  * Unsets the value of the "id" attribute of the given SpeciesReference_t
@@ -2565,6 +2627,55 @@ SpeciesReference_unsetStoichiometryMath (SpeciesReference_t *sr)
   if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
   return static_cast<SpeciesReference*>(sr)->unsetStoichiometryMath();
 }
+
+
+/**
+ * Unsets the content of the "stoichiometry" attribute of the given
+ * SpeciesReference_t structure.
+ *
+ * This function has no effect if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr)
+{
+  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  return static_cast<SpeciesReference*>(sr)->unsetStoichiometry();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this SpeciesReference object
+  * have been set.
+  *
+ * @param p the SpeciesReference_t structure to check.
+ *
+  * @note The required attributes for a SpeciesReference object are:
+  * @li species
+  * @li constant (in L3 only)
+  *
+  * @return a true if all the required
+  * attributes for this object have been defined, false otherwise.
+  */
+LIBSBML_EXTERN
+int
+SpeciesReference_hasRequiredAttributes(SpeciesReference_t *sr)
+{
+  return static_cast<int>(
+    static_cast<SpeciesReference*>(sr)->hasRequiredAttributes());
+}
+
 
 /**
  * @return item in this ListOfSpeciesReference with the given id or NULL if no such

@@ -73,7 +73,7 @@ START_TEST (test_internal_consistency_check_99901)
   d->setLevelAndVersion(1, 2);
   Model *m = d->createModel();
 
-  c->setSpatialDimensions(2);
+  c->setSpatialDimensions((unsigned int)(2));
   c->setId("c");
   m->addCompartment(c);
 

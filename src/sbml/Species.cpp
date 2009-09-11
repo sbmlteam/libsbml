@@ -804,6 +804,28 @@ Species::setConstant (bool value)
 
 
 /*
+ * Sets the conversionFactor field of this Species to a copy of sid.
+ */
+int
+Species::setConversionFactor (const std::string& sid)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mConversionFactor = sid;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Unsets the name of this SBML object.
  */
 int
@@ -965,6 +987,26 @@ Species::unsetCharge ()
   }    
 }
 
+
+/*
+ * Unsets the conversionFactor of this Species.
+ */
+int
+Species::unsetConversionFactor ()
+{
+  mConversionFactor.erase();
+
+  if (mConversionFactor.empty()) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
 /*
   * Constructs and returns a UnitDefinition that expresses the units of this 
   * Species.
@@ -1043,8 +1085,14 @@ Species::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  /* required attributes for species: id (name in L1); comp
-   * initialAmount (L1 only)*/
+  /* required attributes for species: 
+   * @li id (name L1)
+   * @li compartment
+   * @li initialAmount (L1 only)
+   * @li hasOnlySubstanceUnits (L3 on)
+   * @li boundaryCondition (L3 on)
+   * @li constant (L3 on)
+   */
 
   if (!isSetId())
     allPresent = false;
@@ -1053,6 +1101,15 @@ Species::hasRequiredAttributes() const
     allPresent = false;
 
   if (getLevel() == 1 && !isSetInitialAmount())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetHasOnlySubstanceUnits())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetBoundaryCondition())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetConstant())
     allPresent = false;
 
   return allPresent;
@@ -2635,6 +2692,37 @@ Species_setConstant (Species_t *s, int value)
 
 
 /**
+ * Sets the "conversionFactor" attribute of the given Species_t structure.
+ *
+ * This function copies the string given in @p sid.  If the string
+ * is NULL, this function performs unsetConversionFactor() instead.
+ *
+ * @param s the Species_t structure
+ * 
+ * @param conversionFactor the identifer to which the "conversionFactor" attribute
+ * should be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ *
+ * @note Using this function with an id of NULL is equivalent to
+ * unsetting the "conversionFactor" attribute.
+ */
+LIBSBML_EXTERN
+int
+Species_setConversionFactor (Species_t *s, const char *sid)
+{
+  return (sid == NULL) ? s->unsetConversionFactor() : 
+                         s->setConversionFactor(sid);
+}
+
+
+/**
  * Unsets the "name" attribute of the given Species_t structure.
  *
  * @return integer value indicating success/failure of the
@@ -2815,6 +2903,26 @@ Species_unsetCharge (Species_t *s)
 
 
 /**
+ * Unsets the "conversionFactor" attribute of the given Species_t structure.
+ *
+ * @param s the Species_t structure whose attribute is to be unset.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Species_unsetConversionFactor (Species_t *s)
+{
+  return s->unsetConversionFactor();
+}
+
+
+/**
  * Constructs and returns a UnitDefinition_t structure that expresses 
  * the units of this Species_t structure.
  *
@@ -2839,6 +2947,32 @@ UnitDefinition_t *
 Species_getDerivedUnitDefinition(Species_t *s)
 {
   return s->getDerivedUnitDefinition();
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether
+ * all the required attributes for this Species object
+ * have been set.
+ *
+ * @param s the Species_t structure to check.
+ *
+ * @note The required attributes for a Species object are:
+ * @li id (name L1)
+ * @li compartment
+ * @li initialAmount (L1 only)
+ * @li hasOnlySubstanceUnits (L3 on)
+ * @li boundaryCondition (L3 on)
+ * @li constant (L3 on)
+ *
+ * @return a true if all the required
+ * attributes for this object have been defined, false otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_hasRequiredAttributes(Species_t *s)
+{
+  return static_cast<int>(s->hasRequiredAttributes());
 }
 
 

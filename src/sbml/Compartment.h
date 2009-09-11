@@ -713,6 +713,25 @@ public:
 
 
   /**
+   * Sets the "spatialDimensions" attribute of this Compartment as a double.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param value a double indicating the number of dimensions
+   * of this compartment.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   */
+  int setSpatialDimensions (double value);
+
+
+  /**
    * Sets the "size" attribute (or "volume" in SBML Level 1) of this
    * Compartment.
    *
@@ -903,6 +922,23 @@ public:
 
 
   /**
+   * Unsets the value of the "spatialDimensions" attribute of this Compartment.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
+   * @note This function is only valid for SBML L3
+   */
+  int unsetSpatialDimensions ();
+
+
+  /**
    * Constructs and returns a UnitDefinition that corresponds to the units
    * of this Compartment's designated size.
    *
@@ -1009,7 +1045,8 @@ public:
    * have been set.
    *
    * @note The required attributes for a Compartment object are:
-   * id (name in L1)
+   * @li id (name in L1)
+   * @li constant (in L3 only)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -1431,6 +1468,11 @@ Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value);
 
 LIBSBML_EXTERN
 int
+Compartment_setSpatialDimensionsAsDouble (Compartment_t *c, double value);
+
+
+LIBSBML_EXTERN
+int
 Compartment_setSize (Compartment_t *c, double value);
 
 
@@ -1485,8 +1527,18 @@ Compartment_unsetOutside (Compartment_t *c);
 
 
 LIBSBML_EXTERN
+int
+Compartment_unsetSpatialDimensions (Compartment_t *c);
+
+
+LIBSBML_EXTERN
 UnitDefinition_t * 
 Compartment_getDerivedUnitDefinition(Compartment_t *c);
+
+
+LIBSBML_EXTERN
+int
+Compartment_hasRequiredAttributes (Compartment_t *c);
 
 
 LIBSBML_EXTERN

@@ -981,6 +981,26 @@ public:
 
 
   /**
+   * Sets the value of the "conversionFactor" attribute of this Species.
+   *
+   * The string in @p sid is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param conversionFactor the new conversionFactor for the Species
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setConversionFactor (const std::string& sid);
+
+
+  /**
    * Unsets the value of the "name" attribute of this Species.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -1119,6 +1139,22 @@ public:
 
 
   /**
+   * Unsets the "conversionFactor" attribute value of this Species.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetConversionFactor ();
+
+
+  /**
    * Constructs and returns a UnitDefinition that corresponds to the units
    * of this Species' amount or concentration.
    *
@@ -1237,7 +1273,12 @@ public:
    * have been set.
    *
    * @note The required attributes for a Species object are:
-   * id (name L1); compartment; initialAmount (L1 only)
+   * @li id (name L1)
+   * @li compartment
+   * @li initialAmount (L1 only)
+   * @li hasOnlySubstanceUnits (L3 on)
+   * @li boundaryCondition (L3 on)
+   * @li constant (L3 on)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -1756,6 +1797,11 @@ Species_setConstant (Species_t *s, int value);
 
 LIBSBML_EXTERN
 int
+Species_setConversionFactor (Species_t *s, const char *sid);
+
+
+LIBSBML_EXTERN
+int
 Species_unsetName (Species_t *s);
 
 
@@ -1794,8 +1840,18 @@ int
 Species_unsetCharge (Species_t *s);
 
 LIBSBML_EXTERN
+int
+Species_unsetConversionFactor (Species_t *s);
+
+
+LIBSBML_EXTERN
 UnitDefinition_t * 
 Species_getDerivedUnitDefinition(Species_t *s);
+
+
+LIBSBML_EXTERN
+int
+Species_hasRequiredAttributes (Species_t *c);
 
 
 LIBSBML_EXTERN

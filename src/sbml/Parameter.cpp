@@ -584,7 +584,8 @@ Parameter::hasRequiredAttributes() const
   bool allPresent = true;
 
   /* required attributes for parameter: id (name in L1)
-   * and value (in L1V1 only)*/
+   * and value (in L1V1 only)
+   * and constant (in L3) */
 
   if (!isSetId())
     allPresent = false;
@@ -592,6 +593,9 @@ Parameter::hasRequiredAttributes() const
   if (getLevel() == 1
     && getVersion() == 1
     && !isSetValue())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetConstant())
     allPresent = false;
 
   return allPresent;
@@ -1451,6 +1455,28 @@ UnitDefinition_t *
 Parameter_getDerivedUnitDefinition(Parameter_t *p)
 {
   return p->getDerivedUnitDefinition();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this Parameter object
+  * have been set.
+  *
+ * @param p the Parameter_t structure to check.
+ *
+  * @note The required attributes for a Parameter object are:
+  * @li id (name in L1)
+  * @li constant (in L3 only)
+  *
+  * @return a true if all the required
+  * attributes for this object have been defined, false otherwise.
+  */
+LIBSBML_EXTERN
+int
+Parameter_hasRequiredAttributes(Parameter_t *p)
+{
+  return static_cast<int>(p->hasRequiredAttributes());
 }
 
 

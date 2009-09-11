@@ -860,6 +860,23 @@ public:
 
 
   /**
+   * Sets the "constant" attribute of this SpeciesReference to the given boolean
+   * @p flag.
+   *
+   * @param flag a boolean, the value for the "constant" attribute of this
+   * SpeciesReference instance
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   */
+  int setConstant (bool flag);
+
+
+  /**
    * Unsets the "stoichiometryMath" subelement of this SpeciesReference.
    *
    * @return integer value indicating success/failure of the
@@ -889,6 +906,20 @@ public:
    * 
    */
   int unsetStoichiometryMath ();
+
+
+  /**
+   * Unsets the "stoichiometry" attribute of this SpeciesReference.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   *
+   */
+  int unsetStoichiometry ();
 
 
   /**
@@ -1060,7 +1091,8 @@ public:
    * have been set.
    *
    * @note The required attributes for a SpeciesReference object are:
-   * species
+   * @li species
+   * @li constant (in L3 only)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -1675,6 +1707,11 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
 
 LIBSBML_EXTERN
 int
+SpeciesReference_setConstant (SpeciesReference_t *sr, int value);
+
+
+LIBSBML_EXTERN
+int
 SpeciesReference_unsetId (SpeciesReference_t *sr);
 
 
@@ -1686,6 +1723,16 @@ SpeciesReference_unsetName (SpeciesReference_t *sr);
 LIBSBML_EXTERN
 int
 SpeciesReference_unsetStoichiometryMath (SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr);
+
+
+LIBSBML_EXTERN
+int
+SpeciesReference_hasRequiredAttributes (SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN

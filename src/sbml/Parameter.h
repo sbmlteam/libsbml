@@ -1059,6 +1059,11 @@ Parameter_getDerivedUnitDefinition(Parameter_t *p);
 
 
 LIBSBML_EXTERN
+int
+Parameter_hasRequiredAttributes (Parameter_t *p);
+
+
+LIBSBML_EXTERN
 Parameter_t *
 ListOfParameters_getById (ListOf_t *lo, const char *sid);
 

@@ -411,6 +411,27 @@ public:
 
 
   /**
+   * Predicate for testing whether the "useValuesFromTriggerTime" attribute of this Event
+   * has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return @c true if the "useValuesFromTriggerTime" attribute of this Event has been
+   * set, @c false otherwise.
+   *
+   * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
+   * and&nbsp;2 included the additional attribute called "timeUnits", but
+   * it was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML supports
+   * this attribute for compatibility with previous versions of SBML
+   * Level&nbsp;2, but its use is discouraged since models in Level 2
+   * Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a Version&nbsp;3
+   * or&nbsp;4 model sets the attribute, the consistency-checking method
+   * SBMLDocument::checkConsistency() will report an error.
+   */
+  bool isSetUseValuesFromTriggerTime () const;
+
+
+  /**
    * Sets the value of the "id" attribute of this Event.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
@@ -877,11 +898,23 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether
+   * all the required attributes for this Event object
+   * have been set.
+   *
+   * @note The required attributes for a Event object are:
+   * @li useValuesfromTriggerTime ( L3 onwards )
+   */
+  virtual bool hasRequiredAttributes() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether
    * all the required elements for this Event object
    * have been set.
    *
    * @note The required elements for a Event object are:
-   * trigger; listOfEventAssignments
+   * @li trigger
+   * @li listOfEventAssignments (requirement removed in L3)
    */
   virtual bool hasRequiredElements() const;
 
@@ -924,6 +957,7 @@ protected:
   Delay*                  mDelay;
   std::string             mTimeUnits;
   bool                    mUseValuesFromTriggerTime;
+  bool                    mIsSetUseValuesFromTriggerTime;
   bool mInternalIdOnly;
   ListOfEventAssignments  mEventAssignments;
   
@@ -1240,6 +1274,11 @@ Event_isSetTimeUnits (const Event_t *e);
 
 LIBSBML_EXTERN
 int
+Event_isSetUseValuesFromTriggerTime (const Event_t *e);
+
+
+LIBSBML_EXTERN
+int
 Event_setId (Event_t *e, const char *sid);
 
 
@@ -1286,6 +1325,16 @@ Event_unsetDelay (Event_t *e);
 LIBSBML_EXTERN
 int
 Event_unsetTimeUnits (Event_t *e);
+
+
+LIBSBML_EXTERN
+int
+Event_hasRequiredAttributes (Event_t *e);
+
+
+LIBSBML_EXTERN
+int
+Event_hasRequiredElements (Event_t *e);
 
 
 LIBSBML_EXTERN

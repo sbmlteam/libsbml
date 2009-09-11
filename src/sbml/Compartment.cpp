@@ -195,7 +195,8 @@ Compartment::initDefaults ()
     mSize      = 1.0;    // Actually, setting L1 volume not
     mIsSetSize = false;  // L2 size.
 
-    setSpatialDimensions(3);
+    unsigned int dims = 3;
+    setSpatialDimensions(dims);
     setConstant(1);
   }
 }
@@ -538,6 +539,27 @@ Compartment::setSpatialDimensions (unsigned int value)
 
 
 /*
+ * Sets the spatialDimensions of this Compartment to value.
+ */
+int
+Compartment::setSpatialDimensions (double value)
+{
+  if (getLevel() < 3)
+  {
+    // spatialDimensions must always be 3 in a level 1 compartment
+    mSpatialDimensions = 3;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSpatialDimensionsDouble = value;
+    mIsSetSpatialDimensions  = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the size (volume in L1) of this Compartment to value.
  */
 int
@@ -769,6 +791,35 @@ Compartment::unsetOutside ()
 }
 
 /*
+ * Unsets the spatialDimensions of this Compartment.
+ */
+int
+Compartment::unsetSpatialDimensions ()
+{
+  if (getLevel() < 3) 
+  {
+    mSpatialDimensions = 3;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mSpatialDimensionsDouble = numeric_limits<double>::quiet_NaN();
+  }
+
+  mIsSetSpatialDimensions = false;
+  
+  if (!isSetSpatialDimensions())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
   * Constructs and returns a UnitDefinition that expresses the units of this 
   * Compartment.
   */
@@ -844,9 +895,14 @@ Compartment::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  /* required attributes for compartment: id (name in L1) */
+  /* required attributes for compartment: id (name in L1) 
+   * constant (L3 -> )
+   */
 
   if (!isSetId())
+    allPresent = false;
+
+  if (getLevel() > 2 && !isSetConstant())
     allPresent = false;
 
   return allPresent;
@@ -1896,6 +1952,30 @@ Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
 
 
 /**
+ * Sets the "spatialDimensions" attribute of the given Compartment_t
+ * structure.
+ *
+ * @param c the Compartment_t structure
+ * @param value a double indicating the number of dimensions
+ * of the given compartment.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ */
+LIBSBML_EXTERN
+int
+Compartment_setSpatialDimensionsAsDouble (Compartment_t *c, double value)
+{
+  return c->setSpatialDimensions(value);
+}
+
+
+/**
  * Sets the "size" attribute (or "volume" in SBML Level 1) of the given
  * Compartment_t structure.
  *
@@ -2150,6 +2230,27 @@ Compartment_unsetOutside (Compartment_t *c)
 
 
 /**
+ * Unsets the value of the "spatialDimensions" attribute of the given Compartment_t
+ * structure.
+ *
+ * @param c the Compartment_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Compartment_unsetSpatialDimensions (Compartment_t *c)
+{
+  return c->unsetSpatialDimensions();
+}
+
+
+/**
  * Constructs and returns a UnitDefinition_t structure that expresses 
  * the units of this Compartment_t structure.
  *
@@ -2174,6 +2275,28 @@ UnitDefinition_t *
 Compartment_getDerivedUnitDefinition(Compartment_t *c)
 {
   return c->getDerivedUnitDefinition();
+}
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this Compartment object
+  * have been set.
+  *
+ * @param c the Compartment_t structure to check.
+ *
+  * @note The required attributes for a Compartment object are:
+  * @li id (name in L1)
+  * @li constant (in L3 only)
+  *
+  * @return a true if all the required
+  * attributes for this object have been defined, false otherwise.
+  */
+LIBSBML_EXTERN
+int
+Compartment_hasRequiredAttributes(Compartment_t *c)
+{
+  return static_cast<int>(c->hasRequiredAttributes());
 }
 
 

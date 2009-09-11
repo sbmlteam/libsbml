@@ -641,6 +641,138 @@ Model::setName (const std::string& name)
 }
 
 
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
+Model::setSubstanceUnits (const std::string& units)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mSubstanceUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
+Model::setTimeUnits (const std::string& units)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mTimeUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
+Model::setVolumeUnits (const std::string& units)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mVolumeUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
+Model::setAreaUnits (const std::string& units)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mAreaUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
+Model::setLengthUnits (const std::string& units)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mLengthUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
+Model::setConversionFactor (const std::string& id)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(id)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mConversionFactor = id;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
 int
 Model::setModelHistory(ModelHistory * history)
 {
@@ -729,6 +861,156 @@ Model::unsetModelHistory()
   else
   {
     return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Unsets the SubstanceUnits of this SBML object.
+ */
+int
+Model::unsetSubstanceUnits ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mSubstanceUnits.erase();
+
+  if (mSubstanceUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the TimeUnits of this SBML object.
+ */
+int
+Model::unsetTimeUnits ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mTimeUnits.erase();
+
+  if (mTimeUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the VolumeUnits of this SBML object.
+ */
+int
+Model::unsetVolumeUnits ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mVolumeUnits.erase();
+
+  if (mVolumeUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the AreaUnits of this SBML object.
+ */
+int
+Model::unsetAreaUnits ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mAreaUnits.erase();
+
+  if (mAreaUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the LengthUnits of this SBML object.
+ */
+int
+Model::unsetLengthUnits ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mLengthUnits.erase();
+
+  if (mLengthUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the ConversionFactor of this SBML object.
+ */
+int
+Model::unsetConversionFactor ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mConversionFactor.erase();
+
+  if (mConversionFactor.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
   }
 }
 
@@ -5074,6 +5356,174 @@ Model_setName (Model_t *m, const char *name)
 
 
 /**
+ * Set the substanceUnits attribute of a given Model_t structure.
+ *
+ * This copies the string in @p units.
+ * 
+ * @param m the Model_t structure
+ * @param units the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units NULL is equivalent to
+ * unsetting the "substanceUnits" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setSubstanceUnits (Model_t *m, const char *units)
+{
+  return (units == NULL) ? m->unsetSubstanceUnits() : 
+                                     m->setSubstanceUnits(units);
+}
+
+
+/**
+ * Set the timeUnits attribute of a given Model_t structure.
+ *
+ * This copies the string in @p units.
+ * 
+ * @param m the Model_t structure
+ * @param units the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units NULL is equivalent to
+ * unsetting the "timeUnits" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setTimeUnits (Model_t *m, const char *units)
+{
+  return (units == NULL) ? m->unsetTimeUnits() : 
+                                     m->setTimeUnits(units);
+}
+
+
+/**
+ * Set the volumeUnits attribute of a given Model_t structure.
+ *
+ * This copies the string in @p units.
+ * 
+ * @param m the Model_t structure
+ * @param units the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units NULL is equivalent to
+ * unsetting the "volumeUnits" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setVolumeUnits (Model_t *m, const char *units)
+{
+  return (units == NULL) ? m->unsetVolumeUnits() : 
+                                     m->setVolumeUnits(units);
+}
+
+
+/**
+ * Set the areaUnits attribute of a given Model_t structure.
+ *
+ * This copies the string in @p units.
+ * 
+ * @param m the Model_t structure
+ * @param units the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units NULL is equivalent to
+ * unsetting the "areaUnits" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setAreaUnits (Model_t *m, const char *units)
+{
+  return (units == NULL) ? m->unsetAreaUnits() : 
+                                     m->setAreaUnits(units);
+}
+
+
+/**
+ * Set the lengthUnits attribute of a given Model_t structure.
+ *
+ * This copies the string in @p units.
+ * 
+ * @param m the Model_t structure
+ * @param units the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units NULL is equivalent to
+ * unsetting the "lengthUnits" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setLengthUnits (Model_t *m, const char *units)
+{
+  return (units == NULL) ? m->unsetLengthUnits() : 
+                                     m->setLengthUnits(units);
+}
+
+
+/**
+ * Set the conversionFactor attribute of a given Model_t structure.
+ *
+ * This copies the string in @p sid.
+ * 
+ * @param m the Model_t structure
+ * @param sid the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with sid NULL is equivalent to
+ * unsetting the "conversionFactor" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setConversionFactor (Model_t *m, const char *sid)
+{
+  return (sid == NULL) ? m->unsetConversionFactor() : 
+                                     m->setConversionFactor(sid);
+}
+
+
+/**
  * Unsets the "id" attribute of the given Model_t structure.
  *
  * @param m the Model_t structure
@@ -5110,6 +5560,132 @@ int
 Model_unsetName (Model_t *m)
 {
   return m->unsetName();
+}
+
+
+/**
+ * Unsets the "substanceUnits" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetSubstanceUnits (Model_t *m)
+{
+  return m->unsetSubstanceUnits();
+}
+
+
+/**
+ * Unsets the "timeUnits" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetTimeUnits (Model_t *m)
+{
+  return m->unsetTimeUnits();
+}
+
+
+/**
+ * Unsets the "volumeUnits" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetVolumeUnits (Model_t *m)
+{
+  return m->unsetVolumeUnits();
+}
+
+
+/**
+ * Unsets the "areaUnits" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetAreaUnits (Model_t *m)
+{
+  return m->unsetAreaUnits();
+}
+
+
+/**
+ * Unsets the "lengthUnits" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetLengthUnits (Model_t *m)
+{
+  return m->unsetLengthUnits();
+}
+
+
+/**
+ * Unsets the "conversionFactor" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetConversionFactor (Model_t *m)
+{
+  return m->unsetConversionFactor();
 }
 
 

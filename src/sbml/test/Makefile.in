@@ -50,12 +50,14 @@ test_sources =                   \
   TestWriteSBML.cpp              \
   TestRunner.c                   \
   TestCompartment.c              \
+  TestL3Compartment.c            \
   TestCompartment_newSetters.c   \
   TestCompartmentType.c          \
   TestCompartmentType_newSetters.c   \
   TestConstraint.c               \
   TestConstraint_newSetters.c    \
   TestEvent.c                    \
+  TestL3Event.c                  \
   TestEvent_newSetters.c         \
   TestEventAssignment.c          \
   TestEventAssignment_newSetters.c          \
@@ -67,18 +69,23 @@ test_sources =                   \
   TestKineticLaw_newSetters.c    \
   TestListOf.c                   \
   TestParameter.c                \
+  TestL3Parameter.c                \
   TestParameter_newSetters.c     \
   TestReaction.c                 \
+  TestL3Reaction.c                 \
   TestReaction_newSetters.c      \
   TestRule.c                     \
   TestRule_newSetters.c          \
   TestSpecies.c                  \
+  TestL3Species.c                  \
   TestSpecies_newSetters.c       \
   TestSpeciesReference.c         \
+  TestL3SpeciesReference.c         \
   TestSpeciesReference_newSetters.c         \
   TestSpeciesType.c              \
   TestSpeciesType_newSetters.c   \
   TestUnit.c                     \
+  TestL3Unit.c                     \
   TestUnit_newSetters.c          \
   TestUnitDefinition.c           \
   TestUnitDefinition_newSetters.c           \
@@ -90,6 +97,7 @@ test_sources =                   \
   TestDelay.c                    \
   TestTrigger.c                  \
   TestModel.c                    \
+  TestL3Model.c                    \
   TestModel_newSetters.c         \
   TestSBase.cpp                  \
   TestSBase_newSetters.cpp       \

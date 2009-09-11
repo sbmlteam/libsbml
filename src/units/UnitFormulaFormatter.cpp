@@ -428,7 +428,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
 
   UnitDefinition * tempUD;
   unsigned int i;
-  unsigned int newExp = 0;
+  int newExp = 0;
   Unit * unit;
   ASTNode * child;
   unsigned int found = 0;
@@ -451,7 +451,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     // need to check type
     if (child->isInteger()) 
     {
-      unit->setExponent(child->getInteger() * unit->getExponent());
+      unit->setExponent((int)(child->getInteger() * unit->getExponent()));
     }
     else if (child->isName())
     {
@@ -591,7 +591,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
                  double(unit->getExponent())/double(child->getInteger());
         if (floor(doubleExponent) != doubleExponent)
           mContainsUndeclaredUnits = true;
-        unit->setExponent(unit->getExponent()/child->getInteger());
+        unit->setExponent((int)(unit->getExponent()/child->getInteger()));
       }
       else if (child->isReal())
       {

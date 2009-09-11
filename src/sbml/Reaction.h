@@ -565,6 +565,26 @@ public:
 
 
   /**
+   * Sets the value of the "compartment" attribute of this Reaction.
+   *
+   * The string @p sid is copied.  
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param sid the string to use as the compartment of this Reaction
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setCompartment (const std::string& sid);
+
+
+  /**
    * Unsets the value of the "name" attribute of this Reaction.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -622,6 +642,22 @@ public:
    * considered to be fast in this sense.
    */
   int unsetFast ();
+
+
+  /**
+   * Unsets the value of the "compartment" attribute of this Reaction.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetCompartment ();
 
 
   /**
@@ -1169,7 +1205,9 @@ public:
    * have been set.
    *
    * @note The required attributes for a Reaction object are:
-   * id
+   * @li id (name in L1)
+   * @li fast (in L3 only)
+   * @li reversible (in L3 only)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -1554,6 +1592,11 @@ Reaction_setFast (Reaction_t *r, int value);
 
 LIBSBML_EXTERN
 int
+Reaction_setCompartment (Reaction_t *r, const char *compartment);
+
+
+LIBSBML_EXTERN
+int
 Reaction_unsetName (Reaction_t *r);
 
 
@@ -1565,6 +1608,16 @@ Reaction_unsetKineticLaw (Reaction_t *r);
 LIBSBML_EXTERN
 int
 Reaction_unsetFast (Reaction_t *r);
+
+
+LIBSBML_EXTERN
+int
+Reaction_unsetCompartment (Reaction_t *r);
+
+
+LIBSBML_EXTERN
+int
+Reaction_hasRequiredAttributes (Reaction_t *p);
 
 
 LIBSBML_EXTERN

@@ -700,6 +700,20 @@ public:
 
 
   /**
+   * Sets the "exponent" attribute value of this Unit.
+   *
+   * @param value the double to which the attribute "exponent" should be set
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   */
+  int setExponent (double value);
+
+
+  /**
    * Sets the "scale" attribute value of this Unit.
    *
    * @param value the integer to which the attribute "scale" should be set
@@ -938,7 +952,10 @@ public:
    * have been set.
    *
    * @note The required attributes for a Unit object are:
-   * kind
+   * @li kind
+   * @li exponent (L3 on)
+   * @li multiplier (L3 on)
+   * @li scale (L3 on)
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -1419,12 +1436,32 @@ Unit_isSetKind (const Unit_t *u);
 
 LIBSBML_EXTERN
 int
+Unit_isSetExponent (const Unit_t *u);
+
+
+LIBSBML_EXTERN
+int
+Unit_isSetMultiplier (const Unit_t *u);
+
+
+LIBSBML_EXTERN
+int
+Unit_isSetScale (const Unit_t *u);
+
+
+LIBSBML_EXTERN
+int
 Unit_setKind (Unit_t *u, UnitKind_t kind);
 
 
 LIBSBML_EXTERN
 int
 Unit_setExponent (Unit_t *u, int value);
+
+
+LIBSBML_EXTERN
+int
+Unit_setExponentAsDouble (Unit_t *u, double value);
 
 
 LIBSBML_EXTERN
@@ -1440,6 +1477,11 @@ Unit_setMultiplier (Unit_t *u, double value);
 LIBSBML_EXTERN
 int
 Unit_setOffset (Unit_t *u, double value);
+
+
+LIBSBML_EXTERN
+int
+Unit_hasRequiredAttributes(Unit_t *u);
 
 
 LIBSBML_EXTERN

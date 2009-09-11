@@ -53,6 +53,7 @@ Event::Event (unsigned int level, unsigned int version) :
  , mTrigger                  ( 0    )
  , mDelay                    ( 0    )
  , mUseValuesFromTriggerTime ( true )
+ , mIsSetUseValuesFromTriggerTime ( false )
 {
   mInternalIdOnly = false;
   if (!hasValidLevelVersionNamespaceCombination())
@@ -67,6 +68,7 @@ Event::Event (SBMLNamespaces * sbmlns) :
  , mTrigger                  ( 0    )
  , mDelay                    ( 0    )
  , mUseValuesFromTriggerTime ( true )
+ , mIsSetUseValuesFromTriggerTime (false )
 {
   mInternalIdOnly = false;
 
@@ -106,6 +108,7 @@ Event::Event (const Event& orig) :
  , mDelay                    ( 0                              )
  , mTimeUnits                ( orig.mTimeUnits                )
  , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
+ , mIsSetUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
  , mInternalIdOnly           ( orig.mInternalIdOnly           )
  , mEventAssignments         ( orig.mEventAssignments         )
 {
@@ -142,6 +145,7 @@ Event& Event::operator=(const Event& rhs)
     mName = rhs.mName;
     mTimeUnits        = rhs.mTimeUnits        ;
     mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
+    mIsSetUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
     mInternalIdOnly   = rhs.mInternalIdOnly   ;
     mEventAssignments = rhs.mEventAssignments ;
 
@@ -356,6 +360,16 @@ Event::isSetTimeUnits () const
 
 
 /*
+ * @return true if the mUseValuesFromTriggerTime of this Event has been set, false otherwise.
+ */
+bool
+Event::isSetUseValuesFromTriggerTime () const
+{
+  return mIsSetUseValuesFromTriggerTime;
+}
+
+
+/*
  * Sets the id of this SBML object to a copy of sid.
  */
 int
@@ -526,6 +540,7 @@ Event::setUseValuesFromTriggerTime (bool value)
   else
   {
     mUseValuesFromTriggerTime = value;
+    mIsSetUseValuesFromTriggerTime = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -923,16 +938,32 @@ Event::getElementName () const
 
 
 bool 
+Event::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for event: useValuesFromtriggerTime (L3 ->) */
+
+  if (getLevel() > 2 && !isSetUseValuesFromTriggerTime())
+    allPresent = false;
+
+  return allPresent;
+}
+
+
+bool 
 Event::hasRequiredElements() const
 {
   bool allPresent = true;
 
-  /* required attributes for event: trigger; listOfEventAssignments */
+  /* required attributes for event: trigger; 
+   * listOfEventAssignments (not L3)
+  */
 
   if (!isSetTrigger())
     allPresent = false;
 
-  if (getNumEventAssignments() == 0)
+  if (getLevel() < 3 && getNumEventAssignments() == 0)
     allPresent = false;
 
   return allPresent;
@@ -1115,10 +1146,20 @@ Event::readAttributes (const XMLAttributes& attributes)
 
   //
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
+  // useValuesFromTriggerTime: bool {use="required" } (L3 ->)
   //
-  if (!(level == 2 && version < 4))
+  if (level == 2 && version  == 4)
+  {
     attributes.readInto("useValuesFromTriggerTime", mUseValuesFromTriggerTime);
+  }
+  else if (level > 2)
+  {
+    mIsSetUseValuesFromTriggerTime = attributes.readInto(
+      "useValuesFromTriggerTime", mUseValuesFromTriggerTime, 
+       getErrorLog(), true);
+  }
 }
+
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -1171,11 +1212,18 @@ Event::writeAttributes (XMLOutputStream& stream) const
 
   //
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
+  // useValuesFromTriggerTime: bool {use="required"} (L3 ->)
   //
-  if (!(level == 2 && version < 4))
+  if (level == 2 && version == 4)
   {
     if (!mUseValuesFromTriggerTime)
-      stream.writeAttribute("useValuesFromTriggerTime", mUseValuesFromTriggerTime);
+      stream.writeAttribute("useValuesFromTriggerTime", 
+                            mUseValuesFromTriggerTime);
+  }
+  else if (level > 2)
+  {
+    stream.writeAttribute("useValuesFromTriggerTime", 
+                          mUseValuesFromTriggerTime);
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1673,6 +1721,23 @@ Event_isSetTimeUnits (const Event_t *e)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's useValuesFromTriggerTime attribute has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if the "useValuesFromTriggerTime" attribute of the given
+ * Event_t structure has been set, zero (false) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Event_isSetUseValuesFromTriggerTime (const Event_t *e)
+{
+  return static_cast<int>( e->isSetUseValuesFromTriggerTime() );
+}
+
+
+/**
  * Assigns the identifier of an Event_t structure.
  *
  * This makes a copy of the string passed in the param @p sid.
@@ -1903,6 +1968,41 @@ Event_unsetTimeUnits (Event_t *e)
 {
   return e->unsetTimeUnits();
 }
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this Event object
+  * have been set.
+  *
+  * @note The required attributes for a Event object are:
+  * @li useValuesfromTriggerTime ( L3 onwards )
+  */
+LIBSBML_EXTERN
+int
+Event_hasRequiredAttributes (Event_t *e)
+{
+  return static_cast <int> (e->hasRequiredAttributes());
+}
+
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for this Event object
+  * have been set.
+  *
+  * @note The required elements for a Event object are:
+  * @li trigger
+  * @li listOfEventAssignments (requirement removed in L3)
+  */
+LIBSBML_EXTERN
+int
+Event_hasRequiredElements (Event_t *e)
+{
+  return static_cast <int> (e->hasRequiredElements() );
+}
+
 
 
 /**
