@@ -114,9 +114,6 @@ public:
 protected:
 
   std::list< TConstraint<T>* > constraints;
-
-
-  friend class Validator;
 };
 
 
