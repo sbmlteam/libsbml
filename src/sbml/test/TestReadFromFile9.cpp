@@ -127,7 +127,7 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!u->isSetScale());
   fail_unless(!u->isSetMultiplier());
   fail_unless(isnan(u->getExponentAsDouble()));
-//  fail_unless(isnan(u->getScale()));
+  fail_unless( u->getScale() == SBML_INT_MAX );
   fail_unless(isnan(u->getMultiplier()));
 
   

@@ -141,6 +141,7 @@
 
 #include <math.h>
 
+#include <sbml/common/common.h>
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/UnitKind.h>

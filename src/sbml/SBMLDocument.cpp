@@ -363,7 +363,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
    */
   getErrorLog()->clearLog();
 
-  if (this->getLevel() == 3 || level == 3)
+  // this is a hack
+  // we call this function from a document constructor
+  // which if we are creating L3 we want to work
+  // so check whther there is a model
+  // if not we are not attempting conversion
+  if (getModel() != NULL && (this->getLevel() == 3 || level == 3))
   {
     logError(L3NotSupported);
     return false;
@@ -869,6 +874,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
     if (sbmlDecl)
       mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version4", "sbml");
     mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version4");
+  }
+  else if (mLevel == 3 && mVersion == 1)
+  {
+    if (sbmlDecl)
+      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level3/version1/core", "sbml");
+    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level3/version1/core");
   }
 
   mSBMLNamespaces->setLevel(mLevel);

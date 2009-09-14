@@ -62,7 +62,7 @@ Unit::Unit (unsigned int level, unsigned int version) :
   if (level == 3)
   {
     mExponentDouble = numeric_limits<double>::quiet_NaN();
-    mScale = numeric_limits<int>::quiet_NaN();
+    mScale = SBML_INT_MAX;//numeric_limits<int>::max();
     mMultiplier = numeric_limits<double>::quiet_NaN();
   }
 }
@@ -87,7 +87,7 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
   if (sbmlns->getLevel() == 3)
   {
     mExponentDouble = numeric_limits<double>::quiet_NaN();
-    mScale = numeric_limits<double>::quiet_NaN();
+    mScale = numeric_limits<int>::max();
     mMultiplier = numeric_limits<double>::quiet_NaN();
   }
 }
@@ -1646,7 +1646,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   }
   else
   {
-    stream.writeAttribute("exponent", mExponent);
+    stream.writeAttribute("exponent", mExponentDouble);
   }
  
   //

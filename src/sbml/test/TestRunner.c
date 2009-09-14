@@ -69,6 +69,7 @@ BEGIN_C_DECLS
 
 Suite *create_suite_ReadSBML                 (void);
 Suite *create_suite_WriteSBML                (void);
+Suite *create_suite_WriteL3SBML                (void);
 
 Suite *create_suite_AlgebraicRule            (void);
 Suite *create_suite_AssignmentRule           (void);
@@ -207,6 +208,7 @@ main (int argc, char* argv[])
 
   SRunner *runner = srunner_create( create_suite_ReadSBML() );
   srunner_add_suite( runner, create_suite_WriteSBML() );
+  srunner_add_suite( runner, create_suite_WriteL3SBML() );
   srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
   srunner_add_suite( runner, create_suite_AssignmentRule  () );
   srunner_add_suite( runner, create_suite_Compartment              () );

@@ -3,7 +3,7 @@
  * \brief   L3 Unit unit tests
  * \author  Sarah Keating
  *
- * $Kind:  $
+ * $Id$
  * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ START_TEST (test_L3_Unit_create)
   fail_unless( Unit_getKind     (U) == UNIT_KIND_INVALID );
   fail_unless( isnan(Unit_getExponentAsDouble (U)) );
   fail_unless( isnan(Unit_getMultiplier (U)) );
-//  fail_unless( isnan((double)(Unit_getScale (U))) );
+  fail_unless( Unit_getScale (U) == SBML_INT_MAX );
 
   fail_unless( !Unit_isSetKind     (U) );
   fail_unless( !Unit_isSetExponent (U) );
@@ -131,7 +131,7 @@ START_TEST (test_L3_Unit_scale)
   int scale = 2;
 
   fail_unless( !Unit_isSetScale(U));
-//  fail_unless( isnan(Unit_getScale(U)));
+  fail_unless( Unit_getScale (U) == SBML_INT_MAX );
   
   Unit_setScale(U, scale);
 

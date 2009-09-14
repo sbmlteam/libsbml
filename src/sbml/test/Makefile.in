@@ -48,6 +48,7 @@ thisdir   = src/sbml/test
 test_sources =                   \
   TestReadSBML.cpp               \
   TestWriteSBML.cpp              \
+  TestWriteL3SBML.cpp            \
   TestRunner.c                   \
   TestCompartment.c              \
   TestL3Compartment.c            \
