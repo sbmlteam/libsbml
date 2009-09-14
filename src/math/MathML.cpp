@@ -45,8 +45,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
-static const int SBML_INT_MAX = 2147483647;
-static const int SBML_INT_MIN = -2147483647 - 1;
+//static const int SBML_INT_MAX = 2147483647;
+//static const int SBML_INT_MIN = -2147483647 - 1;
 
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";

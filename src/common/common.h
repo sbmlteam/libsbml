@@ -61,6 +61,9 @@
 
 #define LIBSBML_DOUBLE_PRECISION 15
 
+static const int SBML_INT_MAX = 2147483647;
+static const int SBML_INT_MIN = -2147483647 - 1;
+
 
 #include <sbml/common/extern.h>
 #include <sbml/util/memory.h>
