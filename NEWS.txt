@@ -1,6 +1,14 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Version 4.1.0-b2
+======================================================================
+
+This is a second beta version which adds support for setting
+new attributes as defined in the L3 specification 
+Public Review Draft published 2009-08-22.
+
+======================================================================
 Version 4.1.0-b1 (released 2009-09-04)
 ======================================================================
 
