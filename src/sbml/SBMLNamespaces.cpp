@@ -130,6 +130,15 @@ SBMLNamespaces::getSBMLNamespaceURI(unsigned int level,
   case 1:
     return SBML_XMLNS_L1;
     break;
+  case 3:
+    switch(version)
+    {
+    case 1:
+    default:
+      return SBML_XMLNS_L3V1;
+      break;
+    }
+    break;
   case 2:
   default:
     switch (version)
