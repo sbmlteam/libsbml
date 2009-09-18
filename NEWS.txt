@@ -8,6 +8,30 @@ This is a second beta version which adds support for setting
 new attributes as defined in the L3 specification 
 Public Review Draft published 2009-08-22.
 
+Features introduced in this version:
+
+- setFoo(xxx) functions for all new attributes
+
+- unsetFoo() functions for all new optional attributes
+
+- the "sbml:units" attribute on the cn element is now supported.
+  This includes reading and writing and getUnits, isSetUnits, 
+  setUnits and unsetUnits functions for manipulating the 
+  attribute on an ASTNode.  Note that the support for 
+  reading/writing is minimal and writing out a math element that 
+  uses the attribute will always use 'sbml' as the prefix.  This 
+  implementation is temporary to allow users to work with the
+  attribute but complete implementation will require some
+  internal redesign.  
+
+Features that are not yet implemented:
+
+- the "required" attribute for packages on the sbml element
+
+- validation
+
+- conversion to or from L3
+
 ======================================================================
 Version 4.1.0-b1 (released 2009-09-04)
 ======================================================================
