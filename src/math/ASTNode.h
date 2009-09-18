@@ -218,6 +218,7 @@
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/xml/XMLAttributes.h>
+#include <sbml/SyntaxChecker.h>
 
 #include <sbml/common/operationReturnValues.h>
 
@@ -796,6 +797,17 @@ public:
 
 
   /**
+   * Get the units of this ASTNode.  
+   * 
+   * Only applies to cn elements
+   *
+   * @return the units of this ASTNode.
+   */
+  LIBSBML_EXTERN
+  std::string getUnits () const;
+
+
+  /**
    * Predicate returning true (non-zero) if this node has a boolean type (a
    * logical operator, a relational operator, or the constants @c true or
    * @c false).
@@ -1031,6 +1043,28 @@ public:
 
 
   /**
+   * Predicate returning true (non-zero) if this node has sbml:units.
+   * 
+   * Only applies to cn elements.
+   * 
+   * @return true if this ASTNode has units, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetUnits() const;
+  
+  
+  /**
+   * Predicate returning true (non-zero) if this node 
+   * or any of its children nodes have sbml:units.
+   * 
+   * @return true if this ASTNode or its children has units, 
+   * false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool hasUnits() const;
+  
+  
+  /**
    * Sets the value of this ASTNode to the given character.  If character
    * is one of @c +, @c -, @c *, @c / or @c ^, the node type will be set
    * accordingly.  For all other characters, the node type will be set to
@@ -1180,6 +1214,26 @@ public:
 
 
   /**
+   * Sets the units of this ASTNode to units.
+   *
+   * The units will be set <em>only if</em> the
+   * ASTNode represents an <cn> element. Use isNumber().
+   *
+   * @param units @c string representing units
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  LIBSBML_EXTERN
+  int setUnits (std::string units);
+
+
+  /**
    * Swap the children of this ASTNode with the children of @p that
      ASTNode.
    *
@@ -1194,6 +1248,21 @@ public:
    */
   LIBSBML_EXTERN
   int swapChildren (ASTNode *that);
+
+
+  /**
+   * Unsets the units of this ASTNode.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  LIBSBML_EXTERN
+  int unsetUnits ();
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1386,6 +1455,7 @@ protected:
 
   SBase *mParentSBMLObject;
 
+  std::string mUnits;
   void *mUserData;
 
 
@@ -1661,6 +1731,12 @@ LIBSBML_EXTERN
 ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node);
 
+
+LIBSBML_EXTERN
+const char *
+ASTNode_getUnits(const ASTNode_t * node);
+
+
 /**
  * @return true (non-zero) if this ASTNode is a boolean (a logical
  * operator, a relational operator, or the constants true or false), false
@@ -1847,6 +1923,16 @@ int
 ASTNode_isUnknown (const ASTNode_t *node);
 
 
+LIBSBML_EXTERN
+int
+ASTNode_isSetUnits (const ASTNode_t *node);
+
+
+LIBSBML_EXTERN
+int
+ASTNode_hasUnits (const ASTNode_t *node);
+
+
 /**
  * Sets the value of this ASTNode to the given character.  If character is
  * one of '+', '-', '*', '/' or '\^', the node type will be set accordingly.
@@ -1913,12 +1999,22 @@ int
 ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
 
 
+LIBSBML_EXTERN
+int
+ASTNode_setUnits (ASTNode_t *node, const char *units);
+
 /**
  * Swap the children of this ASTNode with the children of that ASTNode.
  */
 LIBSBML_EXTERN
 int
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
+
+
+LIBSBML_EXTERN
+int
+ASTNode_unsetUnits (ASTNode_t *node);
+
 
 LIBSBML_EXTERN
 void

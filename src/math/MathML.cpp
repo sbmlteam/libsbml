@@ -354,6 +354,10 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   string type = "real";
   element.getAttributes().readInto("type", type);
 
+  // here is the only place we might encounter the sbml:units attribute
+  string units = "";
+  element.getAttributes().readInto("units", units);
+
   if (type == "real")
   {
     double value = 0;
@@ -463,6 +467,15 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     static_cast <SBMLErrorLog*>
       (stream.getErrorLog())->logError(DisallowedMathTypeAttributeValue);
   }
+
+  // set the units
+  // has to be here so node knows it is a number
+  if (!units.empty())
+  { 
+    node.setUnits(units);
+  }
+
+
 }
 
 
@@ -840,6 +853,11 @@ writeCN (const ASTNode& node, XMLOutputStream& stream)
   else
   {
     stream.startElement("cn");
+    if (!node.getUnits().empty())
+    {
+      stream.writeAttribute("sbml:units", node.getUnits());
+    }
+    
     stream.setAutoIndent(false);
 
     if ( node.isInteger() )
@@ -1355,6 +1373,13 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
 
   stream.startElement("math");
   stream.writeAttribute("xmlns", uri);
+
+  // FIX-ME need to know what level and version
+  if (node->hasUnits())
+  {
+    stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
+                       SBMLNamespaces::getSBMLNamespaceURI(3,1));
+  }
 
   if (node) writeNode(*node, stream);
 

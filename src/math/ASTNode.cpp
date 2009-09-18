@@ -176,6 +176,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mInteger       = 0;
   mDenominator   = 1;
   mParentSBMLObject = NULL;
+  mUnits         = "";
   mUserData      = NULL;
 
   setType(type);
@@ -203,6 +204,7 @@ ASTNode::ASTNode (Token_t* token)
   mInteger       = 0;
   mDenominator   = 1;
   mParentSBMLObject = NULL;
+  mUnits         = "";
   mUserData      = NULL;
 
   mChildren             = new List;
@@ -249,6 +251,7 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mChildren             ( new List() )
  ,mSemanticsAnnotations ( new List() )
  ,mParentSBMLObject     ( orig.mParentSBMLObject )
+ ,mUnits                ( orig.mUnits)
  ,mUserData             ( orig.mUserData )
 {
   if (orig.mName)
@@ -1092,6 +1095,13 @@ ASTNode::getType () const
 }
 
 
+LIBSBML_EXTERN
+std::string
+ASTNode::getUnits() const
+{
+  return mUnits;
+}
+
 /*
  * @return true if this ASTNode is a boolean (a logical operator, a
  * relational operator, or the constants true or false), false otherwise.
@@ -1400,6 +1410,31 @@ ASTNode::isUnknown () const
 }
 
 
+LIBSBML_EXTERN
+bool 
+ASTNode::isSetUnits() const
+{
+  return (mUnits.empty() == false);
+}
+  
+
+LIBSBML_EXTERN
+bool 
+ASTNode::hasUnits() const
+{
+  bool hasUnits = isSetUnits();
+
+  unsigned int n = 0;
+  while(!hasUnits && n < getNumChildren())
+  {
+    hasUnits = getChild(n)->hasUnits();
+    n++;
+  }
+
+  return hasUnits;
+}
+
+  
 /*
  * Sets the value of this ASTNode to the given character.  If character is
  * one of '+', '-', '*', '/' or '\^', the node type will be set
@@ -1576,6 +1611,21 @@ ASTNode::setType (ASTNodeType_t type)
 }
 
 
+LIBSBML_EXTERN
+int
+ASTNode::setUnits (std::string units)
+{
+  if (!isNumber())
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+
+  if (!SyntaxChecker::isValidUnitSId(units))
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+
+  mUnits     = units;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
+
 /*
  * Swap the children of this ASTNode with the children of that ASTNode.
  */
@@ -1590,6 +1640,26 @@ ASTNode::swapChildren (ASTNode *that)
   this->mChildren = that->mChildren;
   that->mChildren = temp;
   return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode::unsetUnits ()
+{
+  if (!isNumber())
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+
+  mUnits.erase();
+
+  if (mUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
 }
 
 
@@ -2299,6 +2369,21 @@ ASTNode_getType (const ASTNode_t *node)
 
 
 /**
+ * Get the units of this ASTNode.  
+ * 
+ * Only applies to cn elements
+ *
+ * @return the units of this ASTNode.
+ */
+LIBSBML_EXTERN
+const char *
+ASTNode_getUnits(const ASTNode_t * node)
+{
+  return node->getUnits().c_str();
+}
+
+
+/**
  * @return true (non-zero) if this ASTNode is a boolean (a logical
  * operator, a relational operator, or the constants true or false), false
  * (0) otherwise.
@@ -2563,6 +2648,36 @@ ASTNode_isUnknown (const ASTNode_t *node)
 
 
 /**
+ * Predicate returning true (non-zero) if this node has sbml:units.
+ * 
+ * Only applies to cn elements.
+ * 
+ * @return true if this ASTNode has units, false otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isSetUnits (const ASTNode_t *node)
+{
+  return static_cast<int>(node->isSetUnits());
+}
+
+
+/**
+ * Predicate returning true (non-zero) if this node 
+ * or any of its children nodes have sbml:units.
+ * 
+ * @return true if this ASTNode or its children has units, 
+ * false otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_hasUnits (const ASTNode_t *node)
+{
+  return static_cast<int>(node->hasUnits());
+}
+
+
+/**
  * Sets the value of this ASTNode to the given character.  If character is
  * one of '+', '-', '*', '/' or '\^', the node type will be set accordingly.
  * For all other characters, the node type will be set to AST_UNKNOWN.
@@ -2698,6 +2813,29 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type)
 
 
 /**
+ * Sets the units of this ASTNode to units.
+ *
+ * The units will be set <em>only if</em> the
+ * ASTNode represents an <cn> element. Use isNumber().
+ *
+ * @param units @c string representing units
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ */
+LIBSBML_EXTERN
+int
+ASTNode_setUnits (ASTNode_t *node, const char *units)
+{
+  return static_cast<ASTNode*>(node)->setUnits(units);
+}
+
+/**
  * Swap the children of this ASTNode with the children of that ASTNode.
  *
  * @param node the first ASTNode_t structure
@@ -2715,6 +2853,25 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that)
 {
   return static_cast<ASTNode*>(node)
                          ->swapChildren( static_cast<ASTNode*>(that) );
+}
+
+
+/**
+ * Unsets the units of this ASTNode.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+ASTNode_unsetUnits (ASTNode_t *node)
+{
+  return static_cast<ASTNode*>(node)->unsetUnits();
 }
 
 /**

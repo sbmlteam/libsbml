@@ -2083,6 +2083,45 @@ START_TEST (test_ASTNode_addSemanticsAnnotation)
 END_TEST
 
 
+START_TEST (test_ASTNode_units)
+{
+  ASTNode_t *n = ASTNode_create();
+
+
+  ASTNode_setType(n, AST_REAL);
+  ASTNode_setReal(n, 1.6);
+  
+  int i = ASTNode_setUnits(n, "mole");
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ASTNode_isSetUnits(n) == 1);
+  fail_unless(!strcmp(ASTNode_getUnits(n), "mole"));
+
+  i = ASTNode_unsetUnits(n);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ASTNode_isSetUnits(n) == 0);
+  fail_unless(!strcmp(ASTNode_getUnits(n), ""));
+
+  i = ASTNode_setUnits(n, "1mole");
+
+  fail_unless(i == LIBSBML_INVALID_ATTRIBUTE_VALUE);
+  fail_unless(ASTNode_isSetUnits(n) == 0);
+
+  ASTNode_setType(n, AST_FUNCTION);
+
+  i = ASTNode_setUnits(n, "mole");
+
+  fail_unless(i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+  fail_unless(ASTNode_isSetUnits(n) == 0);
+  fail_unless(!strcmp(ASTNode_getUnits(n), ""));
+
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -2127,6 +2166,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_prependChild1           );
   tcase_add_test( tcase, test_ASTNode_freeName                );
   tcase_add_test( tcase, test_ASTNode_addSemanticsAnnotation  );
+  tcase_add_test( tcase, test_ASTNode_units                   );
 
   suite_add_tcase(suite, tcase);
 

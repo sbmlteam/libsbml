@@ -48,9 +48,12 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 #define XML_HEADER    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 #define MATHML_HEADER "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+#define MATHML_HEADER_UNITS  "<math xmlns=\"http://www.w3.org/1998/Math/MathML\""
+#define MATHML_HEADER_UNITS2  " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version1/core\">\n"
 #define MATHML_FOOTER "</math>"
 
 #define wrapMathML(s)   XML_HEADER MATHML_HEADER s MATHML_FOOTER
+#define wrapMathMLUnits(s)  XML_HEADER MATHML_HEADER_UNITS MATHML_HEADER_UNITS2 s MATHML_FOOTER
 
 
 static ASTNode* N;
@@ -940,6 +943,19 @@ START_TEST (test_MathMLFormatter_semantics_annxml)
 END_TEST
 
 
+START_TEST (test_MathMLFormatter_cn_units)
+{
+  const char *expected = wrapMathMLUnits("  <cn sbml:units=\"mole\"> 1.2 </cn>\n");
+
+  N = SBML_parseFormula("1.2");
+  N->setUnits("mole");
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_WriteMathML ()
 {
@@ -993,6 +1009,8 @@ create_suite_WriteMathML ()
   tcase_add_test( tcase, test_MathMLFormatter_semantics_url         );
   tcase_add_test( tcase, test_MathMLFormatter_semantics_ann         );
   tcase_add_test( tcase, test_MathMLFormatter_semantics_annxml      );
+
+  tcase_add_test( tcase, test_MathMLFormatter_cn_units           );
 
   suite_add_tcase(suite, tcase);
 

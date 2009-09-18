@@ -41,10 +41,13 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 #define XML_HEADER     "<?xml version='1.0' encoding='UTF-8'?>\n"
 #define MATHML_HEADER  "<math xmlns='http://www.w3.org/1998/Math/MathML'>\n"
+#define MATHML_HEADER_UNITS  "<math xmlns='http://www.w3.org/1998/Math/MathML'\n"
+#define MATHML_HEADER_UNITS2  " xmlns:sbml='http://www.sbml.org/sbml/level3/version1/core'>\n"
 #define MATHML_FOOTER  "</math>"
 
 #define wrapXML(s)     XML_HEADER s
 #define wrapMathML(s)  XML_HEADER MATHML_HEADER s MATHML_FOOTER
+#define wrapMathMLUnits(s)  XML_HEADER MATHML_HEADER_UNITS MATHML_HEADER_UNITS2 s MATHML_FOOTER
 
 
 static ASTNode* N;
@@ -1788,6 +1791,22 @@ START_TEST (test_element_invalid_mathml)
 END_TEST
 
 
+START_TEST (test_element_cn_units)
+{
+  const char* s = wrapMathMLUnits("<cn sbml:units=\"mole\"> 12345.7 </cn>");  
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getType()        == AST_REAL );
+  fail_unless( N->getReal()        == 12345.7  );
+  fail_unless( N->getUnits()       == "mole"   );
+  fail_unless( N->getNumChildren() == 0        );
+}
+END_TEST
+
+
 Suite *
 create_suite_ReadMathML ()
 {
@@ -1891,6 +1910,7 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_bug_csymbol_delay_1       );
 
   tcase_add_test( tcase, test_element_invalid_mathml       );
+  tcase_add_test( tcase, test_element_cn_units       );
 
   suite_add_tcase(suite, tcase);
 
