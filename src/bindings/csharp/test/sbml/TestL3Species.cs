@@ -3,7 +3,7 @@
 ///  @brief   L3 Species unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -155,7 +155,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Species_compartment()
     {
-      string compartment =  "cell";;
+      string compartment =  "cell";;
       assertEquals( false, S.isSetCompartment() );
       S.setCompartment(compartment);
       assertTrue(( compartment == S.getCompartment() ));
@@ -178,7 +178,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Species_conversionFactor()
     {
-      string units =  "volume";;
+      string units =  "volume";;
       assertEquals( false, S.isSetConversionFactor() );
       S.setConversionFactor(units);
       assertTrue(( units == S.getConversionFactor() ));
@@ -293,7 +293,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Species_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, S.isSetId() );
       S.setId(id);
       assertTrue(( id == S.getId() ));
@@ -331,7 +331,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Species_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, S.isSetName() );
       S.setName(name);
       assertTrue(( name == S.getName() ));
@@ -348,7 +348,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Species_substanceUnits()
     {
-      string units =  "volume";;
+      string units =  "volume";;
       assertEquals( false, S.isSetSubstanceUnits() );
       S.setSubstanceUnits(units);
       assertTrue(( units == S.getSubstanceUnits() ));

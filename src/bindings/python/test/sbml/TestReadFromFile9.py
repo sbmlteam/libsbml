@@ -32,8 +32,9 @@ import libsbml
 def isnan(x):
   return (x != x)
   pass
-
+SBML_INT_MAX = 2147483647
 class TestReadFromFile9(unittest.TestCase):
+
 
   def test_read_l3v1_new(self):
     reader = libsbml.SBMLReader()
@@ -68,6 +69,7 @@ class TestReadFromFile9(unittest.TestCase):
     self.assertEqual( False, u.isSetScale() )
     self.assertEqual( False, u.isSetMultiplier() )
     self.assertEqual( True, isnan(u.getExponentAsDouble()) )
+    self.assert_( u.getScale() == SBML_INT_MAX )
     self.assertEqual( True, isnan(u.getMultiplier()) )
     ud = m.getUnitDefinition(1)
     self.assert_( ud.getNumUnits() == 3 )

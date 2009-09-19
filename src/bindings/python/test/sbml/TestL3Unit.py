@@ -3,7 +3,7 @@
 # @brief   L3 Unit unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -32,6 +32,7 @@ import libsbml
 def isnan(x):
   return (x != x)
   pass
+SBML_INT_MAX = 2147483647
 class TestL3Unit(unittest.TestCase):
 
   U = None
@@ -54,6 +55,7 @@ class TestL3Unit(unittest.TestCase):
     self.assert_( self.U.getKind() == libsbml.UNIT_KIND_INVALID )
     self.assertEqual( True, isnan(self.U.getExponentAsDouble()) )
     self.assertEqual( True, isnan(self.U.getMultiplier()) )
+    self.assert_( self.U.getScale() == SBML_INT_MAX )
     self.assertEqual( False, self.U.isSetKind() )
     self.assertEqual( False, self.U.isSetExponent() )
     self.assertEqual( False, self.U.isSetMultiplier() )
@@ -130,6 +132,7 @@ class TestL3Unit(unittest.TestCase):
   def test_L3_Unit_scale(self):
     scale = 2
     self.assertEqual( False, self.U.isSetScale() )
+    self.assert_( self.U.getScale() == SBML_INT_MAX )
     self.U.setScale(scale)
     self.assert_( self.U.getScale() == scale )
     self.assertEqual( True, self.U.isSetScale() )

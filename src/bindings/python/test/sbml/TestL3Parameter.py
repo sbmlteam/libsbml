@@ -3,7 +3,7 @@
 # @brief   L3 Parameter unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$

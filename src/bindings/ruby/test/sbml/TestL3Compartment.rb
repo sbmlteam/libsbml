@@ -3,7 +3,7 @@
 # @brief   L3 Compartment unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$

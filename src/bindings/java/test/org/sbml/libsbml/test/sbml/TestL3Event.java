@@ -4,7 +4,7 @@
  * @brief   L3 Event unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -193,7 +193,7 @@ public class TestL3Event {
 
   public void test_L3_Event_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, E.isSetId() );
     E.setId(id);
     assertTrue(E.getId().equals(id));
@@ -210,7 +210,7 @@ public class TestL3Event {
 
   public void test_L3_Event_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, E.isSetName() );
     E.setName(name);
     assertTrue(E.getName().equals(name));

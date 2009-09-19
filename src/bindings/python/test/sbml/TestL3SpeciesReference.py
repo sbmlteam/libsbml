@@ -3,7 +3,7 @@
 # @brief   L3 SpeciesReference unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$

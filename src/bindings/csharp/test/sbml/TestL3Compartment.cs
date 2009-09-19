@@ -3,7 +3,7 @@
 ///  @brief   L3 Compartment unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -226,7 +226,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Compartment_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, C.isSetId() );
       C.setId(id);
       assertTrue(( id == C.getId() ));
@@ -238,7 +238,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Compartment_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, C.isSetName() );
       C.setName(name);
       assertTrue(( name == C.getName() ));
@@ -280,7 +280,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Compartment_units()
     {
-      string units =  "volume";;
+      string units =  "volume";;
       assertEquals( false, C.isSetUnits() );
       C.setUnits(units);
       assertTrue(( units == C.getUnits() ));

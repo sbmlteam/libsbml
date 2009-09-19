@@ -3,7 +3,7 @@
 # @brief   L3 Reaction unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$

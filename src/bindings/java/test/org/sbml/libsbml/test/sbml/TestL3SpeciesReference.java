@@ -4,7 +4,7 @@
  * @brief   L3 SpeciesReference unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -209,7 +209,7 @@ public class TestL3SpeciesReference {
 
   public void test_L3_SpeciesReference_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, SR.isSetId() );
     SR.setId(id);
     assertTrue(SR.getId().equals(id));
@@ -221,7 +221,7 @@ public class TestL3SpeciesReference {
 
   public void test_L3_SpeciesReference_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, SR.isSetName() );
     SR.setName(name);
     assertTrue(SR.getName().equals(name));
@@ -238,7 +238,7 @@ public class TestL3SpeciesReference {
 
   public void test_L3_SpeciesReference_species()
   {
-    String species =  "cell";;
+    String species =  "cell";;
     assertEquals( false, SR.isSetSpecies() );
     SR.setSpecies(species);
     assertTrue(SR.getSpecies().equals(species));

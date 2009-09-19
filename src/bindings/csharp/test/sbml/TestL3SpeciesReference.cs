@@ -3,7 +3,7 @@
 ///  @brief   L3 SpeciesReference unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -216,7 +216,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_SpeciesReference_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, SR.isSetId() );
       SR.setId(id);
       assertTrue(( id == SR.getId() ));
@@ -228,7 +228,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_SpeciesReference_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, SR.isSetName() );
       SR.setName(name);
       assertTrue(( name == SR.getName() ));
@@ -245,7 +245,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_SpeciesReference_species()
     {
-      string species =  "cell";;
+      string species =  "cell";;
       assertEquals( false, SR.isSetSpecies() );
       SR.setSpecies(species);
       assertTrue(( species == SR.getSpecies() ));

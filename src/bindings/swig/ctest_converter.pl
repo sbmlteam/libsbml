@@ -234,6 +234,13 @@ my %constDBL_EPSILON = (
   csharp => "DBL_EPSILON",
 );
 
+my %constSBML_INT_MAX = (
+  ruby   => "\@\@SBML_INT_MAX",
+  python => "SBML_INT_MAX",
+  java   => "SBML_INT_MAX",
+  csharp => "SBML_INT_MAX",
+);
+
 
 my $JavaPackage = "org.sbml.libsbml.test";
 my $CSNamespace = "LibSBMLCSTest";
@@ -2927,6 +2934,7 @@ sub convertVal
      $val = $Prefix{$Target} . $val  if ( $val =~ /^UnknownError/);
 
      $val = $constDBL_EPSILON{$Target} if ( $val =~ /^DBL_EPSILON$/);
+     $val = $constSBML_INT_MAX{$Target} if ( $val =~ /SBML_INT_MAX/);
      $val = $IdTRUE{$Target}   if ( $val =~ /^true$/);
      $val = $IdFALSE{$Target}  if ( $val =~ /^false$/);
 
@@ -3836,7 +3844,8 @@ $patchClassTop{'ruby'}{'TestWriteSBML'} = <<'EOF';
 EOF
 
 $patchClassTop{'ruby'}{'TestXMLAttributes'} = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
-$patchClassTop{'ruby'}{'TestWriteMathML'} = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
+$patchClassTop{'ruby'}{'TestWriteMathML'}   = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
+$patchClassTop{'ruby'}{'TestWriteL3SBML'}   = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
 
 $patchClassTop{'ruby'}{'TestRDFAnnotation'}  = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
 $patchClassTop{'ruby'}{'TestRDFAnnotation2'} = $patchClassTop{'ruby'}{'TestWriteSBML'}; 
@@ -3868,6 +3877,14 @@ $patchClassTop{'ruby'}{'TestReadMathML'} .=  $patchClassTop{'ruby'}{'TestWriteSB
 
 $patchClassTop{'ruby'}{'TestASTNode'} = <<'EOF';
   @@DBL_EPSILON =  2.2204460492503131e-16
+EOF
+
+$patchClassTop{'ruby'}{'TestL3Unit'} .= <<'EOF';
+  @@SBML_INT_MAX = 2147483647
+EOF
+
+$patchClassTop{'ruby'}{'TestReadFromFile9'} .= <<'EOF';
+  @@SBML_INT_MAX = 2147483647
 EOF
 #--------------------------------------------------
 
@@ -3913,6 +3930,16 @@ $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZlib/
 
 $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =  $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
 $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =~ s/gz/zip/g;
+
+
+$patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} = $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_gzip'}; 
+$patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} = $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'}; 
+$patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFuncReplace{'ruby'}{'TestWriteSBML'}{'test_WriteSBML_zip'}; 
+$patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
 
 #--------------------------------------------------
 }
@@ -3990,6 +4017,7 @@ EOF
 
 $patchGlobal{'python'}{'TestXMLAttributes'} = $patchGlobal{'python'}{'TestWriteSBML'}; 
 $patchGlobal{'python'}{'TestWriteMathML'}   = $patchGlobal{'python'}{'TestWriteSBML'}; 
+$patchGlobal{'python'}{'TestWriteL3SBML'}   = $patchGlobal{'python'}{'TestWriteSBML'}; 
 
 $patchGlobal{'python'}{'TestReadFromFile9'} = <<'EOF';
 def isnan(x):
@@ -4012,9 +4040,10 @@ $patchClassTop{'python'}{'TestWriteSBML'} = <<'EOF';
 
 EOF
 
-$patchClassTop{'python'}{'TestWriteMathML'}  = $patchClassTop{'python'}{'TestWriteSBML'}; 
+$patchClassTop{'python'}{'TestWriteMathML'}    = $patchClassTop{'python'}{'TestWriteSBML'}; 
 $patchClassTop{'python'}{'TestRDFAnnotation'}  = $patchClassTop{'python'}{'TestWriteSBML'}; 
 $patchClassTop{'python'}{'TestRDFAnnotation2'} = $patchClassTop{'python'}{'TestWriteSBML'}; 
+$patchClassTop{'python'}{'TestWriteL3SBML'}    = $patchClassTop{'python'}{'TestWriteSBML'}; 
 
 #--------------------------------------------------
 
@@ -4046,6 +4075,14 @@ $patchGlobal{'python'}{'TestSBase_newSetters'} = $patchGlobal{'python'}{'TestSBa
 $patchGlobal{'python'}{'TestASTNode'} = <<'EOF';
 DBL_EPSILON =  2.2204460492503131e-16
 
+EOF
+
+$patchGlobal{'python'}{'TestL3Unit'} .= <<'EOF';
+SBML_INT_MAX = 2147483647
+EOF
+
+$patchGlobal{'python'}{'TestReadFromFile9'} .= <<'EOF';
+SBML_INT_MAX = 2147483647
 EOF
 #--------------------------------------------------
 
@@ -4089,6 +4126,16 @@ $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZli
 
 $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =  $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
 $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =~ s/gz/zip/g;
+
+
+$patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} = $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_gzip'}; 
+$patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} = $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'}; 
+$patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_zip'}; 
+$patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
 
 #--------------------------------------------------
 }
@@ -4191,11 +4238,6 @@ $patchClassTop{'java'}{'TestWriteSBML'} = <<'EOF';
     return -1.0/z;
   }
 
-//  public boolean equals(String s)
-//  {
-//    return s.equals(OSS.str());
-//  }
-
   public boolean equals(String s1, String s2)
   {
     return s1.equals(s2);
@@ -4229,7 +4271,8 @@ $patchClassTop{'java'}{'TestWriteMathML'} = $patchClassTop{'java'}{'TestWriteSBM
 
 $patchClassTop{'java'}{'TestRDFAnnotation'}  = $patchClassTop{'java'}{'TestWriteSBML'}; 
 $patchClassTop{'java'}{'TestRDFAnnotation2'} = $patchClassTop{'java'}{'TestWriteSBML'}; 
-$patchClassTop{'java'}{'TestReadFileFrom9'} = $patchClassTop{'java'}{'TestWriteSBML'}; 
+$patchClassTop{'java'}{'TestReadFileFrom9'}  = $patchClassTop{'java'}{'TestWriteSBML'}; 
+$patchClassTop{'java'}{'TestWriteL3SBML'}    = $patchClassTop{'java'}{'TestWriteSBML'}; 
 
 $patchClassTop{'java'}{'TestReadMathML'} = <<'EOF';
   public boolean util_isInf(double x)
@@ -4259,6 +4302,14 @@ $patchClassTop{'java'}{'TestL3SpeciesReference'} = $patchClassTop{'java'}{'TestR
 $patchClassTop{'java'}{'TestASTNode'} = <<'EOF';
   public static final double DBL_EPSILON =  2.2204460492503131e-016;
 
+EOF
+
+$patchClassTop{'java'}{'TestL3Unit'} .= <<'EOF';
+  public static final int SBML_INT_MAX = 2147483647;
+EOF
+
+$patchClassTop{'java'}{'TestReadFromFile9'} .= <<'EOF';
+  public static final int SBML_INT_MAX = 2147483647;
 EOF
 #--------------------------------------------------
 
@@ -4308,6 +4359,16 @@ $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZlib/
 
 $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =  $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
 $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =~ s/gz/zip/g;
+
+
+$patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} = $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_gzip'}; 
+$patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} = $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'}; 
+$patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFuncReplace{'java'}{'TestWriteSBML'}{'test_WriteSBML_zip'}; 
+$patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
 
 #--------------------------------------------------
 }
@@ -4403,6 +4464,7 @@ $patchClassTop{'csharp'}{'TestRDFAnnotation'}  = $patchClassTop{'csharp'}{'TestW
 $patchClassTop{'csharp'}{'TestRDFAnnotation2'} = $patchClassTop{'csharp'}{'TestWriteSBML'};
 
 $patchClassTop{'csharp'}{'TestReadFileFrom9'} = $patchClassTop{'csharp'}{'TestWriteSBML'};
+$patchClassTop{'csharp'}{'TestWriteL3SBML'}   = $patchClassTop{'csharp'}{'TestWriteSBML'};
 
 $patchClassTop{'csharp'}{'TestReadMathML'} = <<'EOF';
   public bool util_isInf(double x)
@@ -4430,9 +4492,17 @@ $patchClassTop{'csharp'}{'TestL3SpeciesReference'} = $patchClassTop{'csharp'}{'T
 
 #--------------------------------------------------
 
-$patchGlobal{'csharp'}{'TestASTNode'} = <<'EOF';
+$patchClassTop{'csharp'}{'TestASTNode'} = <<'EOF';
   private const double DBL_EPSILON =  2.2204460492503131e-016;
 
+EOF
+
+$patchClassTop{'csharp'}{'TestL3Unit'} .= <<'EOF';
+  private const int SBML_INT_MAX = 2147483647;
+EOF
+
+$patchClassTop{'csharp'}{'TestReadFromFile9'} .= <<'EOF';
+  private const int SBML_INT_MAX = 2147483647;
 EOF
 #--------------------------------------------------
 
@@ -4482,6 +4552,16 @@ $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'} =~ s/hasZli
 
 $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =  $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_gzip'};
 $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_zip'} =~ s/gz/zip/g;
+
+
+$patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} = $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_gzip'}; 
+$patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_gzip'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} = $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_bzip2'}; 
+$patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} =~ s/level-2/level-3/g;
+
+$patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_zip'}; 
+$patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
 #--------------------------------------------------
 
 }

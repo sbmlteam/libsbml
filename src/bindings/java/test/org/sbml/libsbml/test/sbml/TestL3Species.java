@@ -4,7 +4,7 @@
  * @brief   L3 Species unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -148,7 +148,7 @@ public class TestL3Species {
 
   public void test_L3_Species_compartment()
   {
-    String compartment =  "cell";;
+    String compartment =  "cell";;
     assertEquals( false, S.isSetCompartment() );
     S.setCompartment(compartment);
     assertTrue(S.getCompartment().equals(compartment));
@@ -171,7 +171,7 @@ public class TestL3Species {
 
   public void test_L3_Species_conversionFactor()
   {
-    String units =  "volume";;
+    String units =  "volume";;
     assertEquals( false, S.isSetConversionFactor() );
     S.setConversionFactor(units);
     assertTrue(S.getConversionFactor().equals(units));
@@ -286,7 +286,7 @@ public class TestL3Species {
 
   public void test_L3_Species_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, S.isSetId() );
     S.setId(id);
     assertTrue(S.getId().equals(id));
@@ -324,7 +324,7 @@ public class TestL3Species {
 
   public void test_L3_Species_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, S.isSetName() );
     S.setName(name);
     assertTrue(S.getName().equals(name));
@@ -341,7 +341,7 @@ public class TestL3Species {
 
   public void test_L3_Species_substanceUnits()
   {
-    String units =  "volume";;
+    String units =  "volume";;
     assertEquals( false, S.isSetSubstanceUnits() );
     S.setSubstanceUnits(units);
     assertTrue(S.getSubstanceUnits().equals(units));

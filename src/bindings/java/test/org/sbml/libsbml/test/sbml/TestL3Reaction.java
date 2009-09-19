@@ -4,7 +4,7 @@
  * @brief   L3 Reaction unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -132,7 +132,7 @@ public class TestL3Reaction {
 
   public void test_L3_Reaction_compartment()
   {
-    String compartment =  "cell";;
+    String compartment =  "cell";;
     assertEquals( false, R.isSetCompartment() );
     R.setCompartment(compartment);
     assertTrue(R.getCompartment().equals(compartment));
@@ -223,7 +223,7 @@ public class TestL3Reaction {
 
   public void test_L3_Reaction_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, R.isSetId() );
     R.setId(id);
     assertTrue(R.getId().equals(id));
@@ -235,7 +235,7 @@ public class TestL3Reaction {
 
   public void test_L3_Reaction_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, R.isSetName() );
     R.setName(name);
     assertTrue(R.getName().equals(name));

@@ -3,7 +3,7 @@
 # @brief   L3 Unit unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -33,6 +33,7 @@ class TestL3Unit < Test::Unit::TestCase
   def isnan(x)
     return (x != x)
   end
+  @@SBML_INT_MAX = 2147483647
   def setup
     @@u = LibSBML::Unit.new(3,1)
     if (@@u == nil)
@@ -51,6 +52,7 @@ class TestL3Unit < Test::Unit::TestCase
     assert( @@u.getKind() == LibSBML::UNIT_KIND_INVALID )
     assert_equal true, isnan(@@u.getExponentAsDouble())
     assert_equal true, isnan(@@u.getMultiplier())
+    assert( @@u.getScale() == @@SBML_INT_MAX )
     assert_equal false, @@u.isSetKind()
     assert_equal false, @@u.isSetExponent()
     assert_equal false, @@u.isSetMultiplier()
@@ -127,6 +129,7 @@ class TestL3Unit < Test::Unit::TestCase
   def test_L3_Unit_scale
     scale = 2
     assert_equal false, @@u.isSetScale()
+    assert( @@u.getScale() == @@SBML_INT_MAX )
     @@u.setScale(scale)
     assert( @@u.getScale() == scale )
     assert_equal true, @@u.isSetScale()

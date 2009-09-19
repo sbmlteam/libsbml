@@ -1551,6 +1551,139 @@ class TestWriteSBML(unittest.TestCase):
     pass
 
 
+  def test_WriteSBML_elements_L1v2(self):
+    self.D.setLevelAndVersion(1,2)
+    expected = wrapSBML_L1v2("  <model>\n" + 
+    "    <listOfUnitDefinitions>\n" + 
+    "      <unitDefinition/>\n" + 
+    "    </listOfUnitDefinitions>\n" + 
+    "    <listOfCompartments>\n" + 
+    "      <compartment/>\n" + 
+    "    </listOfCompartments>\n" + 
+    "    <listOfSpecies>\n" + 
+    "      <species initialAmount=\"0\"/>\n" + 
+    "    </listOfSpecies>\n" + 
+    "    <listOfParameters>\n" + 
+    "      <parameter/>\n" + 
+    "    </listOfParameters>\n" + 
+    "    <listOfRules>\n" + 
+    "      <algebraicRule/>\n" + 
+    "    </listOfRules>\n" + 
+    "    <listOfReactions>\n" + 
+    "      <reaction/>\n" + 
+    "    </listOfReactions>\n" + 
+    "  </model>\n")
+    m = self.D.createModel()
+    m.createUnitDefinition()
+    m.createCompartment()
+    m.createParameter()
+    m.createAlgebraicRule()
+    m.createReaction()
+    m.createSpecies()
+    self.S = libsbml.writeSBMLToString(self.D)
+    self.assertEqual( True, self.equals(expected,self.S) )
+    pass  
+
+  def test_WriteSBML_elements_L2v1(self):
+    self.D.setLevelAndVersion(2,1)
+    expected = wrapSBML_L2v1("  <model>\n" + 
+    "    <listOfFunctionDefinitions>\n" + 
+    "      <functionDefinition/>\n" + 
+    "    </listOfFunctionDefinitions>\n" + 
+    "    <listOfUnitDefinitions>\n" + 
+    "      <unitDefinition/>\n" + 
+    "    </listOfUnitDefinitions>\n" + 
+    "    <listOfCompartments>\n" + 
+    "      <compartment/>\n" + 
+    "    </listOfCompartments>\n" + 
+    "    <listOfSpecies>\n" + 
+    "      <species/>\n" + 
+    "    </listOfSpecies>\n" + 
+    "    <listOfParameters>\n" + 
+    "      <parameter/>\n" + 
+    "    </listOfParameters>\n" + 
+    "    <listOfRules>\n" + 
+    "      <algebraicRule/>\n" + 
+    "    </listOfRules>\n" + 
+    "    <listOfReactions>\n" + 
+    "      <reaction/>\n" + 
+    "    </listOfReactions>\n" + 
+    "    <listOfEvents>\n" + 
+    "      <event/>\n" + 
+    "    </listOfEvents>\n" + 
+    "  </model>\n")
+    m = self.D.createModel()
+    m.createUnitDefinition()
+    m.createFunctionDefinition()
+    m.createCompartment()
+    m.createEvent()
+    m.createParameter()
+    m.createAlgebraicRule()
+    m.createInitialAssignment()
+    m.createConstraint()
+    m.createReaction()
+    m.createSpecies()
+    self.S = libsbml.writeSBMLToString(self.D)
+    self.assertEqual( True, self.equals(expected,self.S) )
+    pass  
+
+  def test_WriteSBML_elements_L2v2(self):
+    self.D.setLevelAndVersion(2,2)
+    expected = wrapSBML_L2v2("  <model>\n" + 
+    "    <listOfFunctionDefinitions>\n" + 
+    "      <functionDefinition/>\n" + 
+    "    </listOfFunctionDefinitions>\n" + 
+    "    <listOfUnitDefinitions>\n" + 
+    "      <unitDefinition/>\n" + 
+    "    </listOfUnitDefinitions>\n" + 
+    "    <listOfCompartmentTypes>\n" + 
+    "      <compartmentType/>\n" + 
+    "    </listOfCompartmentTypes>\n" + 
+    "    <listOfSpeciesTypes>\n" + 
+    "      <speciesType/>\n" + 
+    "    </listOfSpeciesTypes>\n" + 
+    "    <listOfCompartments>\n" + 
+    "      <compartment/>\n" + 
+    "    </listOfCompartments>\n" + 
+    "    <listOfSpecies>\n" + 
+    "      <species/>\n" + 
+    "    </listOfSpecies>\n" + 
+    "    <listOfParameters>\n" + 
+    "      <parameter/>\n" + 
+    "    </listOfParameters>\n" + 
+    "    <listOfInitialAssignments>\n" + 
+    "      <initialAssignment/>\n" + 
+    "    </listOfInitialAssignments>\n" + 
+    "    <listOfRules>\n" + 
+    "      <algebraicRule/>\n" + 
+    "    </listOfRules>\n" + 
+    "    <listOfConstraints>\n" + 
+    "      <constraint/>\n" + 
+    "    </listOfConstraints>\n" + 
+    "    <listOfReactions>\n" + 
+    "      <reaction/>\n" + 
+    "    </listOfReactions>\n" + 
+    "    <listOfEvents>\n" + 
+    "      <event/>\n" + 
+    "    </listOfEvents>\n" + 
+    "  </model>\n")
+    m = self.D.createModel()
+    m.createUnitDefinition()
+    m.createFunctionDefinition()
+    m.createCompartmentType()
+    m.createSpeciesType()
+    m.createCompartment()
+    m.createEvent()
+    m.createParameter()
+    m.createAlgebraicRule()
+    m.createInitialAssignment()
+    m.createConstraint()
+    m.createReaction()
+    m.createSpecies()
+    self.S = libsbml.writeSBMLToString(self.D)
+    self.assertEqual( True, self.equals(expected,self.S) )
+    pass  
+
   def test_WriteSBML_error(self):
     d = libsbml.SBMLDocument()
     w = libsbml.SBMLWriter()

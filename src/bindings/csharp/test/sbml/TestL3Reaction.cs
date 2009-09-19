@@ -3,7 +3,7 @@
 ///  @brief   L3 Reaction unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -139,7 +139,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Reaction_compartment()
     {
-      string compartment =  "cell";;
+      string compartment =  "cell";;
       assertEquals( false, R.isSetCompartment() );
       R.setCompartment(compartment);
       assertTrue(( compartment == R.getCompartment() ));
@@ -230,7 +230,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Reaction_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, R.isSetId() );
       R.setId(id);
       assertTrue(( id == R.getId() ));
@@ -242,7 +242,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Reaction_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, R.isSetName() );
       R.setName(name);
       assertTrue(( name == R.getName() ));

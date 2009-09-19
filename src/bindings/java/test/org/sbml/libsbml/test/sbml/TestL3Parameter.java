@@ -4,7 +4,7 @@
  * @brief   L3 Parameter unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -209,7 +209,7 @@ public class TestL3Parameter {
 
   public void test_L3_Parameter_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, P.isSetId() );
     P.setId(id);
     assertTrue(P.getId().equals(id));
@@ -221,7 +221,7 @@ public class TestL3Parameter {
 
   public void test_L3_Parameter_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, P.isSetName() );
     P.setName(name);
     assertTrue(P.getName().equals(name));
@@ -238,7 +238,7 @@ public class TestL3Parameter {
 
   public void test_L3_Parameter_units()
   {
-    String units =  "volume";;
+    String units =  "volume";;
     assertEquals( false, P.isSetUnits() );
     P.setUnits(units);
     assertTrue(P.getUnits().equals(units));

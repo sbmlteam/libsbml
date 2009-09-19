@@ -33,6 +33,7 @@ class TestReadFromFile9 < Test::Unit::TestCase
   def isnan(x)
     return (x != x)
   end
+  @@SBML_INT_MAX = 2147483647
   def test_read_l3v1_new
     reader = LibSBML::SBMLReader.new()
     filename = "../../sbml/test/test-data/"
@@ -66,6 +67,7 @@ class TestReadFromFile9 < Test::Unit::TestCase
     assert_equal false, u.isSetScale()
     assert_equal false, u.isSetMultiplier()
     assert_equal true, isnan(u.getExponentAsDouble())
+    assert( u.getScale() == @@SBML_INT_MAX )
     assert_equal true, isnan(u.getMultiplier())
     ud = m.getUnitDefinition(1)
     assert( ud.getNumUnits() == 3 )

@@ -4,7 +4,7 @@
  * @brief   L3 Unit unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -122,6 +122,7 @@ public class TestL3Unit {
     return (x != x);
   }
 
+  public static final int SBML_INT_MAX = 2147483647;
   protected void setUp() throws Exception
   {
     U = new  Unit(3,1);
@@ -144,6 +145,7 @@ public class TestL3Unit {
     assertTrue( U.getKind() == libsbml.UNIT_KIND_INVALID );
     assertEquals( true, isnan(U.getExponentAsDouble()) );
     assertEquals( true, isnan(U.getMultiplier()) );
+    assertTrue( U.getScale() == SBML_INT_MAX );
     assertEquals( false, U.isSetKind() );
     assertEquals( false, U.isSetExponent() );
     assertEquals( false, U.isSetMultiplier() );
@@ -206,7 +208,7 @@ public class TestL3Unit {
 
   public void test_L3_Unit_kind()
   {
-    String kind =  "mole";;
+    String kind =  "mole";;
     assertEquals( false, U.isSetKind() );
     U.setKind(libsbml.UnitKind_forName(kind));
     assertTrue( U.getKind() == libsbml.UNIT_KIND_MOLE );
@@ -227,6 +229,7 @@ public class TestL3Unit {
   {
     int scale = 2;
     assertEquals( false, U.isSetScale() );
+    assertTrue( U.getScale() == SBML_INT_MAX );
     U.setScale(scale);
     assertTrue( U.getScale() == scale );
     assertEquals( true, U.isSetScale() );

@@ -121,6 +121,7 @@ public class TestReadFromFile9 {
     return (x != x);
   }
 
+  public static final int SBML_INT_MAX = 2147483647;
   public void test_read_l3v1_new()
   {
     SBMLReader reader = new SBMLReader();
@@ -167,6 +168,7 @@ public class TestReadFromFile9 {
     assertEquals( false, u.isSetScale() );
     assertEquals( false, u.isSetMultiplier() );
     assertEquals( true, isnan(u.getExponentAsDouble()) );
+    assertTrue( u.getScale() == SBML_INT_MAX );
     assertEquals( true, isnan(u.getMultiplier()) );
     ud = m.getUnitDefinition(1);
     assertTrue( ud.getNumUnits() == 3 );

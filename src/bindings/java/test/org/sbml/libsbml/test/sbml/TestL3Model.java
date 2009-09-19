@@ -4,7 +4,7 @@
  * @brief   L3 Model unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -132,7 +132,7 @@ public class TestL3Model {
 
   public void test_L3_Model_areaUnits()
   {
-    String units =  "mole";;
+    String units =  "mole";;
     assertEquals( false, M.isSetAreaUnits() );
     M.setAreaUnits(units);
     assertTrue(M.getAreaUnits().equals(units));
@@ -149,7 +149,7 @@ public class TestL3Model {
 
   public void test_L3_Model_conversionFactor()
   {
-    String units =  "mole";;
+    String units =  "mole";;
     assertEquals( false, M.isSetConversionFactor() );
     M.setConversionFactor(units);
     assertTrue(M.getConversionFactor().equals(units));
@@ -228,7 +228,7 @@ public class TestL3Model {
 
   public void test_L3_Model_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, M.isSetId() );
     M.setId(id);
     assertTrue(M.getId().equals(id));
@@ -245,7 +245,7 @@ public class TestL3Model {
 
   public void test_L3_Model_lengthUnits()
   {
-    String units =  "mole";;
+    String units =  "mole";;
     assertEquals( false, M.isSetLengthUnits() );
     M.setLengthUnits(units);
     assertTrue(M.getLengthUnits().equals(units));
@@ -262,7 +262,7 @@ public class TestL3Model {
 
   public void test_L3_Model_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, M.isSetName() );
     M.setName(name);
     assertTrue(M.getName().equals(name));
@@ -279,7 +279,7 @@ public class TestL3Model {
 
   public void test_L3_Model_substanceUnits()
   {
-    String units =  "mole";;
+    String units =  "mole";;
     assertEquals( false, M.isSetSubstanceUnits() );
     M.setSubstanceUnits(units);
     assertTrue(M.getSubstanceUnits().equals(units));
@@ -296,7 +296,7 @@ public class TestL3Model {
 
   public void test_L3_Model_timeUnits()
   {
-    String units =  "mole";;
+    String units =  "mole";;
     assertEquals( false, M.isSetTimeUnits() );
     M.setTimeUnits(units);
     assertTrue(M.getTimeUnits().equals(units));
@@ -313,7 +313,7 @@ public class TestL3Model {
 
   public void test_L3_Model_volumeUnits()
   {
-    String units =  "mole";;
+    String units =  "mole";;
     assertEquals( false, M.isSetVolumeUnits() );
     M.setVolumeUnits(units);
     assertTrue(M.getVolumeUnits().equals(units));

@@ -3,7 +3,7 @@
 ///  @brief   L3 Model unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -139,7 +139,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_areaUnits()
     {
-      string units =  "mole";;
+      string units =  "mole";;
       assertEquals( false, M.isSetAreaUnits() );
       M.setAreaUnits(units);
       assertTrue(( units == M.getAreaUnits() ));
@@ -156,7 +156,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_conversionFactor()
     {
-      string units =  "mole";;
+      string units =  "mole";;
       assertEquals( false, M.isSetConversionFactor() );
       M.setConversionFactor(units);
       assertTrue(( units == M.getConversionFactor() ));
@@ -235,7 +235,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, M.isSetId() );
       M.setId(id);
       assertTrue(( id == M.getId() ));
@@ -252,7 +252,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_lengthUnits()
     {
-      string units =  "mole";;
+      string units =  "mole";;
       assertEquals( false, M.isSetLengthUnits() );
       M.setLengthUnits(units);
       assertTrue(( units == M.getLengthUnits() ));
@@ -269,7 +269,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, M.isSetName() );
       M.setName(name);
       assertTrue(( name == M.getName() ));
@@ -286,7 +286,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_substanceUnits()
     {
-      string units =  "mole";;
+      string units =  "mole";;
       assertEquals( false, M.isSetSubstanceUnits() );
       M.setSubstanceUnits(units);
       assertTrue(( units == M.getSubstanceUnits() ));
@@ -303,7 +303,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_timeUnits()
     {
-      string units =  "mole";;
+      string units =  "mole";;
       assertEquals( false, M.isSetTimeUnits() );
       M.setTimeUnits(units);
       assertTrue(( units == M.getTimeUnits() ));
@@ -320,7 +320,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Model_volumeUnits()
     {
-      string units =  "mole";;
+      string units =  "mole";;
       assertEquals( false, M.isSetVolumeUnits() );
       M.setVolumeUnits(units);
       assertTrue(( units == M.getVolumeUnits() ));

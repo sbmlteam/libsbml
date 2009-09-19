@@ -3,7 +3,7 @@
 ///  @brief   L3 Parameter unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -216,7 +216,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Parameter_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, P.isSetId() );
       P.setId(id);
       assertTrue(( id == P.getId() ));
@@ -228,7 +228,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Parameter_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, P.isSetName() );
       P.setName(name);
       assertTrue(( name == P.getName() ));
@@ -245,7 +245,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Parameter_units()
     {
-      string units =  "volume";;
+      string units =  "volume";;
       assertEquals( false, P.isSetUnits() );
       P.setUnits(units);
       assertTrue(( units == P.getUnits() ));

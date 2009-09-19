@@ -4,7 +4,7 @@
  * @brief   L3 Compartment unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -219,7 +219,7 @@ public class TestL3Compartment {
 
   public void test_L3_Compartment_id()
   {
-    String id =  "mitochondria";;
+    String id =  "mitochondria";;
     assertEquals( false, C.isSetId() );
     C.setId(id);
     assertTrue(C.getId().equals(id));
@@ -231,7 +231,7 @@ public class TestL3Compartment {
 
   public void test_L3_Compartment_name()
   {
-    String name =  "My_Favorite_Factory";;
+    String name =  "My_Favorite_Factory";;
     assertEquals( false, C.isSetName() );
     C.setName(name);
     assertTrue(C.getName().equals(name));
@@ -273,7 +273,7 @@ public class TestL3Compartment {
 
   public void test_L3_Compartment_units()
   {
-    String units =  "volume";;
+    String units =  "volume";;
     assertEquals( false, C.isSetUnits() );
     C.setUnits(units);
     assertTrue(C.getUnits().equals(units));

@@ -3,7 +3,7 @@
 ///  @brief   L3 Event unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -200,7 +200,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Event_id()
     {
-      string id =  "mitochondria";;
+      string id =  "mitochondria";;
       assertEquals( false, E.isSetId() );
       E.setId(id);
       assertTrue(( id == E.getId() ));
@@ -217,7 +217,7 @@ namespace LibSBMLCSTest {
 
     public void test_L3_Event_name()
     {
-      string name =  "My_Favorite_Factory";;
+      string name =  "My_Favorite_Factory";;
       assertEquals( false, E.isSetName() );
       E.setName(name);
       assertTrue(( name == E.getName() ));

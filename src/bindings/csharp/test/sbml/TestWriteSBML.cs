@@ -266,11 +266,6 @@ namespace LibSBMLCSTest {
     return -1.0/z;
   }
 
-//  public bool equals(string s)
-//  {
-//    return s == OSS.str();
-//  }
-
   public bool equals(string s1, string s2)
   {
     return (s1 ==s2);
@@ -1769,6 +1764,142 @@ namespace LibSBMLCSTest {
       }
   }
 
+
+    public void test_WriteSBML_elements_L1v2()
+    {
+      D.setLevelAndVersion(1,2);
+      string expected = wrapSBML_L1v2("  <model>\n" + 
+    "    <listOfUnitDefinitions>\n" + 
+    "      <unitDefinition/>\n" + 
+    "    </listOfUnitDefinitions>\n" + 
+    "    <listOfCompartments>\n" + 
+    "      <compartment/>\n" + 
+    "    </listOfCompartments>\n" + 
+    "    <listOfSpecies>\n" + 
+    "      <species initialAmount=\"0\"/>\n" + 
+    "    </listOfSpecies>\n" + 
+    "    <listOfParameters>\n" + 
+    "      <parameter/>\n" + 
+    "    </listOfParameters>\n" + 
+    "    <listOfRules>\n" + 
+    "      <algebraicRule/>\n" + 
+    "    </listOfRules>\n" + 
+    "    <listOfReactions>\n" + 
+    "      <reaction/>\n" + 
+    "    </listOfReactions>\n" + 
+    "  </model>\n");
+      Model m = D.createModel();
+      m.createUnitDefinition();
+      m.createCompartment();
+      m.createParameter();
+      m.createAlgebraicRule();
+      m.createReaction();
+      m.createSpecies();
+      S = libsbml.writeSBMLToString(D);
+      assertEquals( true, equals(expected,S) );
+    }
+
+    public void test_WriteSBML_elements_L2v1()
+    {
+      D.setLevelAndVersion(2,1);
+      string expected = wrapSBML_L2v1("  <model>\n" + 
+    "    <listOfFunctionDefinitions>\n" + 
+    "      <functionDefinition/>\n" + 
+    "    </listOfFunctionDefinitions>\n" + 
+    "    <listOfUnitDefinitions>\n" + 
+    "      <unitDefinition/>\n" + 
+    "    </listOfUnitDefinitions>\n" + 
+    "    <listOfCompartments>\n" + 
+    "      <compartment/>\n" + 
+    "    </listOfCompartments>\n" + 
+    "    <listOfSpecies>\n" + 
+    "      <species/>\n" + 
+    "    </listOfSpecies>\n" + 
+    "    <listOfParameters>\n" + 
+    "      <parameter/>\n" + 
+    "    </listOfParameters>\n" + 
+    "    <listOfRules>\n" + 
+    "      <algebraicRule/>\n" + 
+    "    </listOfRules>\n" + 
+    "    <listOfReactions>\n" + 
+    "      <reaction/>\n" + 
+    "    </listOfReactions>\n" + 
+    "    <listOfEvents>\n" + 
+    "      <event/>\n" + 
+    "    </listOfEvents>\n" + 
+    "  </model>\n");
+      Model m = D.createModel();
+      m.createUnitDefinition();
+      m.createFunctionDefinition();
+      m.createCompartment();
+      m.createEvent();
+      m.createParameter();
+      m.createAlgebraicRule();
+      m.createInitialAssignment();
+      m.createConstraint();
+      m.createReaction();
+      m.createSpecies();
+      S = libsbml.writeSBMLToString(D);
+      assertEquals( true, equals(expected,S) );
+    }
+
+    public void test_WriteSBML_elements_L2v2()
+    {
+      D.setLevelAndVersion(2,2);
+      string expected = wrapSBML_L2v2("  <model>\n" + 
+    "    <listOfFunctionDefinitions>\n" + 
+    "      <functionDefinition/>\n" + 
+    "    </listOfFunctionDefinitions>\n" + 
+    "    <listOfUnitDefinitions>\n" + 
+    "      <unitDefinition/>\n" + 
+    "    </listOfUnitDefinitions>\n" + 
+    "    <listOfCompartmentTypes>\n" + 
+    "      <compartmentType/>\n" + 
+    "    </listOfCompartmentTypes>\n" + 
+    "    <listOfSpeciesTypes>\n" + 
+    "      <speciesType/>\n" + 
+    "    </listOfSpeciesTypes>\n" + 
+    "    <listOfCompartments>\n" + 
+    "      <compartment/>\n" + 
+    "    </listOfCompartments>\n" + 
+    "    <listOfSpecies>\n" + 
+    "      <species/>\n" + 
+    "    </listOfSpecies>\n" + 
+    "    <listOfParameters>\n" + 
+    "      <parameter/>\n" + 
+    "    </listOfParameters>\n" + 
+    "    <listOfInitialAssignments>\n" + 
+    "      <initialAssignment/>\n" + 
+    "    </listOfInitialAssignments>\n" + 
+    "    <listOfRules>\n" + 
+    "      <algebraicRule/>\n" + 
+    "    </listOfRules>\n" + 
+    "    <listOfConstraints>\n" + 
+    "      <constraint/>\n" + 
+    "    </listOfConstraints>\n" + 
+    "    <listOfReactions>\n" + 
+    "      <reaction/>\n" + 
+    "    </listOfReactions>\n" + 
+    "    <listOfEvents>\n" + 
+    "      <event/>\n" + 
+    "    </listOfEvents>\n" + 
+    "  </model>\n");
+      Model m = D.createModel();
+      m.createUnitDefinition();
+      m.createFunctionDefinition();
+      m.createCompartmentType();
+      m.createSpeciesType();
+      m.createCompartment();
+      m.createEvent();
+      m.createParameter();
+      m.createAlgebraicRule();
+      m.createInitialAssignment();
+      m.createConstraint();
+      m.createReaction();
+      m.createSpecies();
+      S = libsbml.writeSBMLToString(D);
+      assertEquals( true, equals(expected,S) );
+    }
 
     public void test_WriteSBML_error()
     {
