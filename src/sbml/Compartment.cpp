@@ -532,6 +532,7 @@ Compartment::setSpatialDimensions (unsigned int value)
   else
   {
     mSpatialDimensions = value;
+    mSpatialDimensionsDouble = (double) (value);
     mIsSetSpatialDimensions  = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
