@@ -1074,7 +1074,13 @@ SBase::setName (const std::string& name)
 int 
 SBase::setAnnotation (const XMLNode* annotation)
 {
-  syncAnnotation();
+  //
+  // (*NOTICE*) 
+  //
+  // syncAnnotation() must not be invoked in this function.
+  // 
+  // 
+
   if (annotation == NULL)
   {
     delete mAnnotation;
@@ -1151,7 +1157,13 @@ SBase::setAnnotation (const std::string& annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
 
-  syncAnnotation();
+  //
+  // (*NOTICE*) 
+  //
+  // syncAnnotation() must not be invoked in this function.
+  // 
+  // 
+
   if(annotation.empty()) 
   {
     unsetAnnotation();
@@ -1189,7 +1201,14 @@ int
 SBase::appendAnnotation (const XMLNode* annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  syncAnnotation();
+
+  //
+  // (*NOTICE*)
+  //
+  // syncAnnotation() doesn't need to be invoked in this function because
+  // existing mCVTerm objects are properly merged in the following code.
+  //
+
   if(!annotation) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
@@ -1274,6 +1293,13 @@ SBase::appendAnnotation (const XMLNode* annotation)
 int
 SBase::appendAnnotation (const std::string& annotation)
 {
+  //
+  // (*NOTICE*)
+  //
+  // syncAnnotation() doesn't need to be invoked in this function because
+  // existing mCVTerm objects are properly merged in the following code.
+  //
+
   int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
   if (getSBMLDocument())
@@ -2990,12 +3016,26 @@ SBase::syncAnnotation ()
 {
   bool hasRDF = false;
   bool hasAdditionalRDF = false;
-  
-  if (this->getCVTerms() == NULL || this->getCVTerms()->getSize() == 0)
-  {
-    // no CVTerms  do nothing
-    return;
-  }
+
+  //
+  // (*NOTICE*) 
+  //
+  // syncAnnotation() must not exit here even if the CVTerm objects (mCVTerms) 
+  // in this SBase object is null or empty (0 CVTerm object).
+  // The reason is that syncAnnotation updates the mAnnotation (an XMLNode object 
+  // of annotation element in this SBase object) as follows:
+  //
+  //   (1) removes XMLNode elements corresponding to CVTerm and/or ModelHistory 
+  //       objects from the mAnnotation, and
+  //   (2) converts the current mCVTerms object (and mHistory objcect in 
+  //       Model::syncAnnotation()) into corresponding temporary XMLNode objects,
+  //       and
+  //   (3) merges the temporary XMLNode objects into the mAnnotation 
+  //
+  // For example, an SBase object with null or empty mCVTerms needs to be updated
+  // if mAnnotation contains XMLNode objects corresponding to CVTerm. 
+  // (This can happen when unsetCVTerms() function invoked after addCVTerm() function.)
+  //
 
   // determine status of existing annotation before doing anything
   if (mAnnotation)
