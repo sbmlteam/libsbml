@@ -2438,7 +2438,6 @@ SBase::hasValidLevelVersionNamespaceCombination()
         || typecode == SBML_MODIFIER_SPECIES_REFERENCE
         || typecode == SBML_TRIGGER
         || typecode == SBML_DELAY
-        || typecode == SBML_LOCAL_PARAMETER
         || typecode == SBML_STOICHIOMETRY_MATH)
         valid = false;
      switch (version)
@@ -2461,8 +2460,8 @@ SBase::hasValidLevelVersionNamespaceCombination()
         }
       break;
     case 2:
-      if (typecode == SBML_LOCAL_PARAMETER)
-        valid = false;
+      //if (typecode == SBML_LOCAL_PARAMETER)
+      //  valid = false;
       switch (version)
       {
         case 1:

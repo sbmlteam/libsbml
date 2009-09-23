@@ -1457,6 +1457,23 @@ public:
 
 
   /**
+   * Creates a new LocalParameter inside the KineticLaw object of the last
+   * Reaction created inside this Model, and returns a pointer to it.
+   *
+   * The last KineticLaw object in this Model could have been created in a
+   * variety of ways.  For example, it could have been added using
+   * createKineticLaw(), or it could be the result of using
+   * Reaction::createKineticLaw() on the Reaction object created by a
+   * createReaction().  If a Reaction does not exist for this model, or the
+   * last Reaction does not contain a KineticLaw object, a new Parameter is
+   * @em not created and NULL is returned instead.
+   *
+   * @return the Parameter object created
+   */
+  LocalParameter* createKineticLawLocalParameter ();
+
+
+  /**
    * Creates a new Event inside this Model and returns it.
    *
    * @return the Event object created
@@ -3566,6 +3583,11 @@ Model_createKineticLaw (Model_t *m);
 LIBSBML_EXTERN
 Parameter_t *
 Model_createKineticLawParameter (Model_t *m);
+
+
+LIBSBML_EXTERN
+LocalParameter_t *
+Model_createKineticLawLocalParameter (Model_t *m);
 
 
 LIBSBML_EXTERN

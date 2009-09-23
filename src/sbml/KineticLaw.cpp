@@ -479,7 +479,38 @@ KineticLaw::addParameter (const Parameter* p)
   }
   else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
   {
-    return LIBSBML_INVALID_OBJECT;
+    /* 
+     * in an attempt to make existing code work with the new localParameter
+     * class this requires a further check
+     */
+    if (getLevel() < 3)
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+    else
+    {
+      /* hack so this will deal with local parameters */
+      LocalParameter *lp = new LocalParameter(*p);//->getSBMLNamespaces());
+
+      if (!(lp->hasRequiredAttributes()) || !(lp->hasRequiredElements()))
+      {
+        return LIBSBML_INVALID_OBJECT;
+      }
+      else
+      {
+
+        /* if the ListOf is empty it doesnt know its parent */
+        if (mLocalParameters.size() == 0)
+        {
+          mLocalParameters.setSBMLDocument(this->getSBMLDocument());
+          mLocalParameters.setParentSBMLObject(this);
+        }
+        
+        mLocalParameters.append(lp);
+
+        return LIBSBML_OPERATION_SUCCESS;
+      }
+    }
   }
   else if (getLevel() != p->getLevel())
   {
@@ -560,31 +591,61 @@ KineticLaw::addLocalParameter (const LocalParameter* p)
 Parameter*
 KineticLaw::createParameter ()
 {
-  Parameter* p = 0;
+  if (getLevel() < 3)
+  {
+    Parameter* p = 0;
+    
+    try
+    {
+      p = new Parameter(getSBMLNamespaces());
+    }
+    catch (...)
+    {
+      /* here we do not create a default object as the level/version must
+      * match the parent object
+      *
+      * so do nothing
+      */
+    }
+    
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mParameters.size() == 0)
+    {
+      mParameters.setSBMLDocument(this->getSBMLDocument());
+      mParameters.setParentSBMLObject(this);
+    }
+    
+    if (p) mParameters.appendAndOwn(p);
 
-  try
-  {
-    p = new Parameter(getSBMLNamespaces());
+    return p;
   }
-  catch (...)
+  else
   {
-    /* here we do not create a default object as the level/version must
-     * match the parent object
-     *
-     * so do nothing
-     */
-  }
-  
-  /* if the ListOf is empty it doesnt know its parent */
-  if (mParameters.size() == 0)
-  {
-    mParameters.setSBMLDocument(this->getSBMLDocument());
-    mParameters.setParentSBMLObject(this);
-  }
-  
-  if (p) mParameters.appendAndOwn(p);
+    LocalParameter *p = 0;
+    try
+    {
+      p = new LocalParameter(getSBMLNamespaces());
+    }
+    catch (...)
+    {
+      /* here we do not create a default object as the level/version must
+      * match the parent object
+      *
+      * so do nothing
+      */
+    }
+    
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mLocalParameters.size() == 0)
+    {
+      mLocalParameters.setSBMLDocument(this->getSBMLDocument());
+      mLocalParameters.setParentSBMLObject(this);
+    }
+    
+    if (p) mLocalParameters.appendAndOwn(p);
 
-  return p;
+    return static_cast <Parameter *> (p);
+  }
 }
 
 
@@ -669,7 +730,11 @@ KineticLaw::getListOfLocalParameters ()
 const Parameter*
 KineticLaw::getParameter (unsigned int n) const
 {
-  return static_cast<const Parameter*>( mParameters.get(n) );
+  if (getLevel() < 3)
+    return static_cast<const Parameter*>( mParameters.get(n) );
+  else
+    return static_cast<const Parameter*>( mLocalParameters.get(n) );
+
 }
 
 
@@ -679,7 +744,10 @@ KineticLaw::getParameter (unsigned int n) const
 Parameter*
 KineticLaw::getParameter (unsigned int n)
 {
-  return static_cast<Parameter*>( mParameters.get(n) );
+  if (getLevel() < 3)
+    return static_cast<Parameter*>( mParameters.get(n) );
+  else
+    return static_cast<Parameter*>( mLocalParameters.get(n) );
 }
 
 
@@ -710,7 +778,10 @@ KineticLaw::getLocalParameter (unsigned int n)
 const Parameter*
 KineticLaw::getParameter (const std::string& sid) const
 {
-  return static_cast<const Parameter*>( mParameters.get(sid) );
+  if (getLevel() < 3)
+    return static_cast<const Parameter*>( mParameters.get(sid) );
+  else
+    return static_cast<const Parameter*>( mLocalParameters.get(sid) );
 }
 
 
@@ -721,7 +792,10 @@ KineticLaw::getParameter (const std::string& sid) const
 Parameter*
 KineticLaw::getParameter (const std::string& sid)
 {
-  return static_cast<Parameter*>( mParameters.get(sid) );
+  if (getLevel() < 3)
+    return static_cast<Parameter*>( mParameters.get(sid) );
+  else
+    return static_cast<Parameter*>( mLocalParameters.get(sid) );
 }
 
 
@@ -753,7 +827,10 @@ KineticLaw::getLocalParameter (const std::string& sid)
 unsigned int
 KineticLaw::getNumParameters () const
 {
-  return mParameters.size();
+  if (getLevel() < 3)
+    return mParameters.size();
+  else
+    return mLocalParameters.size();
 }
 
 /*

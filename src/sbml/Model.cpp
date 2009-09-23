@@ -1309,7 +1309,16 @@ Model::addParameter (const Parameter* p)
       mParameters.setParentSBMLObject(this);
     }
 
-    mParameters.append(p);
+    /* hack so that this will accept a local parameter !! */
+    if (p->getTypeCode() == SBML_LOCAL_PARAMETER)
+    {
+      Parameter *p1 = new Parameter(*p);
+      mParameters.append(p1);
+    }
+    else
+    {
+      mParameters.append(p);
+    }
 
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -2065,6 +2074,29 @@ Model::createKineticLawParameter ()
   {
     KineticLaw* kl = getReaction(size - 1)->getKineticLaw();
     if (kl) return kl->createParameter();
+  }
+
+  return 0;
+}
+
+
+/*
+ * Creates a new Parameter (of a KineticLaw) inside this Model and returns
+ * a pointer to it.  The Parameter is associated with the KineticLaw of the
+ * last Reaction created.
+ *
+ * If a Reaction does not exist for this model, or a KineticLaw for the
+ * Reaction, a new Parameter is not created and NULL is returned.
+ */
+LocalParameter*
+Model::createKineticLawLocalParameter ()
+{
+  unsigned int size = getNumReactions();
+
+  if (size > 0)
+  {
+    KineticLaw* kl = getReaction(size - 1)->getKineticLaw();
+    if (kl) return kl->createLocalParameter();
   }
 
   return 0;
@@ -6389,6 +6421,32 @@ Parameter_t *
 Model_createKineticLawParameter (Model_t *m)
 {
   return m->createKineticLawParameter();
+}
+
+
+/**
+ * Creates a new LocalParameter_t structure inside the KineticLaw_t
+ * structure of the last Reaction_t structure created inside the given
+ * model, and returns a pointer to it.
+ *
+ * The last KineticLaw_t structure could have been created in a variety of
+ * ways.  For example, it could have been added using
+ * Model_createKineticLaw(), or it could be the result of using
+ * Reaction_createKineticLaw() on the Reaction_t structure created by a
+ * Model_createReaction().  If a Reaction_t structure does not exist for
+ * this model, or the last Reaction_t structure does not contain a
+ * KineticLaw_t structure, a new Parameter_t is @em not created and NULL is
+ * returned instead.
+ *
+ * @param m the Model_t structure
+ *
+ * @return the LocalParameter object created
+ */
+LIBSBML_EXTERN
+LocalParameter_t *
+Model_createKineticLawLocalParameter (Model_t *m)
+{
+  return m->createKineticLawLocalParameter();
 }
 
 

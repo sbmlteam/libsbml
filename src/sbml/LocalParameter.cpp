@@ -45,11 +45,7 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 LocalParameter::LocalParameter (unsigned int level, unsigned int version) :
-   SBase ( level, version )
- , mId        ( ""       )
- , mName      ( ""       )
- , mValue     ( 0.0      )
- , mIsSetValue( false    )
+   Parameter ( level, version )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -63,11 +59,7 @@ LocalParameter::LocalParameter (unsigned int level, unsigned int version) :
 
 
 LocalParameter::LocalParameter (SBMLNamespaces * sbmlns) :
-   SBase      ( sbmlns   )
- , mId        ( ""       )
- , mName      ( ""       )
- , mValue     ( 0.0      )
- , mIsSetValue( false    )
+   Parameter      ( sbmlns   )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -84,7 +76,7 @@ LocalParameter::LocalParameter (SBMLNamespaces * sbmlns) :
 
 /* constructor for validators */
 LocalParameter::LocalParameter() :
-  SBase()
+  Parameter()
 {
 }
 
@@ -102,16 +94,18 @@ LocalParameter::~LocalParameter ()
  * Copy constructor. Creates a copy of this LocalParameter.
  */
 LocalParameter::LocalParameter(const LocalParameter& orig) :
-    SBase      ( orig             )
-  , mId        ( orig.mId         )  
-  , mName      ( orig.mName       )
-  , mValue     ( orig.mValue      )
-  , mUnits     ( orig.mUnits      )
-  , mIsSetValue( orig.mIsSetValue )
+    Parameter      ( orig             )
 {
 }
 
 
+/*
+ * Copy constructor. Creates a copy of this LocalParameter.
+ */
+LocalParameter::LocalParameter(const Parameter& orig) :
+    Parameter      ( orig             )
+{
+}
 /*
  * Assignment operator.
  */
@@ -119,12 +113,7 @@ LocalParameter& LocalParameter::operator=(const LocalParameter& rhs)
 {
   if(&rhs!=this)
   {
-    this->SBase::operator =(rhs);
-    mValue      = rhs.mValue    ;
-    mUnits      = rhs.mUnits    ;
-    mIsSetValue = rhs.mIsSetValue;
-    mId = rhs.mId;
-    mName = rhs.mName;
+    this->Parameter::operator =(rhs);
   }
 
   return *this;
@@ -155,253 +144,254 @@ LocalParameter::clone () const
 }
 
 
-/*
- * @return the id of this SBML object.
- */
-const string&
-LocalParameter::getId () const
-{
-  return mId;
-}
-
-
-/*
- * @return the name of this SBML object.
- */
-const string&
-LocalParameter::getName () const
-{
-  return (getLevel() == 1) ? mId : mName;
-}
-
-
-/*
- * @return the value of this LocalParameter.
- */
-double
-LocalParameter::getValue () const
-{
-  return mValue;
-}
-
-
-/*
- * @return the units of this LocalParameter.
- */
-const string&
-LocalParameter::getUnits () const
-{
-  return mUnits;
-}
-
-
-/*
- * @return true if the id of this SBML object has been set, false
- * otherwise.
- */
-bool
-LocalParameter::isSetId () const
-{
-  return (mId.empty() == false);
-}
-
-
-/*
- * @return true if the name of this SBML object has been set, false
- * otherwise.
- */
-bool
-LocalParameter::isSetName () const
-{
-  return (getLevel() == 1) ? (mId.empty() == false) : 
-                            (mName.empty() == false);
-}
-
-
-/*
- * @return true if the value of this LocalParameter has been set, false
- * otherwise.
- *
- * In SBML L1v1, a LocalParameter value is required and therefore <b>should
- * always be set</b>.  In L1v2 and beyond, a value is optional and as such
- * may or may not be set.
- */
-bool
-LocalParameter::isSetValue () const
-{
-  return mIsSetValue;
-}
-
-
-/*
- * @return true if the units of this LocalParameter has been set, false
- * otherwise.
- */
-bool
-LocalParameter::isSetUnits () const
-{
-  return (mUnits.empty() == false);
-}
-
-
-/*
- * Sets the id of this SBML object to a copy of sid.
- */
-int
-LocalParameter::setId (const std::string& sid)
-{
-  /* since the setId function has been used as an
-   * alias for setName we cant require it to only
-   * be used on a L2 model
-   */
-/*  if (getLevel() == 1)
-  {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-*/
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mId = sid;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Sets the name of this SBML object to a copy of name.
- */
-int
-LocalParameter::setName (const std::string& name)
-{
-  /* if this is setting an L2 name the type is string
-   * whereas if it is setting an L1 name its type is SId
-   */
-  if (getLevel() == 1)
-  {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
-    {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-      mId = name;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-  }
-  else
-  {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Sets the value of this LocalParameter to value and marks the field as set.
- */
-int
-LocalParameter::setValue (double value)
-{
-  mValue      = value;
-  mIsSetValue = true;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Sets the units of this LocalParameter to a copy of sid.
- */
-int
-LocalParameter::setUnits (const std::string& units)
-{
-  if (!(SyntaxChecker::isValidUnitSId(units)))
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mUnits = units;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Unsets the name of this SBML object.
- */
-int
-LocalParameter::unsetName ()
-{
-  if (getLevel() == 1) 
-  {
-    mId.erase();
-  }
-  else 
-  {
-    mName.erase();
-  }
-
-  if (getLevel() == 1 && mId.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (mName.empty())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the value of this LocalParameter.
- *
- * In SBML L1v1, a LocalParameter value is required and therefore <b>should
- * always be set</b>.  In L1v2 and beyond, a value is optional and as such
- * may or may not be set.
- */
-int
-LocalParameter::unsetValue ()
-{
-  mValue      = numeric_limits<double>::quiet_NaN();
-  mIsSetValue = false;
-  if (!isSetValue())
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
-/*
- * Unsets the units of this LocalParameter.
- */
-int
-LocalParameter::unsetUnits ()
-{
-  mUnits.erase();
-
-  if (mUnits.empty()) 
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-}
-
-
+// TAKE OUT
+///*
+// * @return the id of this SBML object.
+// */
+//const string&
+//LocalParameter::getId () const
+//{
+//  return mId;
+//}
+//
+//
+///*
+// * @return the name of this SBML object.
+// */
+//const string&
+//LocalParameter::getName () const
+//{
+//  return (getLevel() == 1) ? mId : mName;
+//}
+//
+//
+///*
+// * @return the value of this LocalParameter.
+// */
+//double
+//LocalParameter::getValue () const
+//{
+//  return mValue;
+//}
+//
+//
+///*
+// * @return the units of this LocalParameter.
+// */
+//const string&
+//LocalParameter::getUnits () const
+//{
+//  return mUnits;
+//}
+//
+//
+///*
+// * @return true if the id of this SBML object has been set, false
+// * otherwise.
+// */
+//bool
+//LocalParameter::isSetId () const
+//{
+//  return (mId.empty() == false);
+//}
+//
+//
+///*
+// * @return true if the name of this SBML object has been set, false
+// * otherwise.
+// */
+//bool
+//LocalParameter::isSetName () const
+//{
+//  return (getLevel() == 1) ? (mId.empty() == false) : 
+//                            (mName.empty() == false);
+//}
+//
+//
+///*
+// * @return true if the value of this LocalParameter has been set, false
+// * otherwise.
+// *
+// * In SBML L1v1, a LocalParameter value is required and therefore <b>should
+// * always be set</b>.  In L1v2 and beyond, a value is optional and as such
+// * may or may not be set.
+// */
+//bool
+//LocalParameter::isSetValue () const
+//{
+//  return mIsSetValue;
+//}
+//
+//
+///*
+// * @return true if the units of this LocalParameter has been set, false
+// * otherwise.
+// */
+//bool
+//LocalParameter::isSetUnits () const
+//{
+//  return (mUnits.empty() == false);
+//}
+//
+//
+///*
+// * Sets the id of this SBML object to a copy of sid.
+// */
+//int
+//LocalParameter::setId (const std::string& sid)
+//{
+//  /* since the setId function has been used as an
+//   * alias for setName we cant require it to only
+//   * be used on a L2 model
+//   */
+///*  if (getLevel() == 1)
+//  {
+//    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+//  }
+//*/
+//  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+//  {
+//    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//  }
+//  else
+//  {
+//    mId = sid;
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//}
+//
+//
+///*
+// * Sets the name of this SBML object to a copy of name.
+// */
+//int
+//LocalParameter::setName (const std::string& name)
+//{
+//  /* if this is setting an L2 name the type is string
+//   * whereas if it is setting an L1 name its type is SId
+//   */
+//  if (getLevel() == 1)
+//  {
+//    if (!(SyntaxChecker::isValidSBMLSId(name)))
+//    {
+//      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//    }
+//    else
+//    {
+//      mId = name;
+//      return LIBSBML_OPERATION_SUCCESS;
+//    }
+//  }
+//  else
+//  {
+//    mName = name;
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//}
+//
+//
+///*
+// * Sets the value of this LocalParameter to value and marks the field as set.
+// */
+//int
+//LocalParameter::setValue (double value)
+//{
+//  mValue      = value;
+//  mIsSetValue = true;
+//  return LIBSBML_OPERATION_SUCCESS;
+//}
+//
+//
+///*
+// * Sets the units of this LocalParameter to a copy of sid.
+// */
+//int
+//LocalParameter::setUnits (const std::string& units)
+//{
+//  if (!(SyntaxChecker::isValidUnitSId(units)))
+//  {
+//    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+//  }
+//  else
+//  {
+//    mUnits = units;
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//}
+//
+//
+///*
+// * Unsets the name of this SBML object.
+// */
+//int
+//LocalParameter::unsetName ()
+//{
+//  if (getLevel() == 1) 
+//  {
+//    mId.erase();
+//  }
+//  else 
+//  {
+//    mName.erase();
+//  }
+//
+//  if (getLevel() == 1 && mId.empty())
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else if (mName.empty())
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else
+//  {
+//    return LIBSBML_OPERATION_FAILED;
+//  }
+//}
+//
+//
+///*
+// * Unsets the value of this LocalParameter.
+// *
+// * In SBML L1v1, a LocalParameter value is required and therefore <b>should
+// * always be set</b>.  In L1v2 and beyond, a value is optional and as such
+// * may or may not be set.
+// */
+//int
+//LocalParameter::unsetValue ()
+//{
+//  mValue      = numeric_limits<double>::quiet_NaN();
+//  mIsSetValue = false;
+//  if (!isSetValue())
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else
+//  {
+//    return LIBSBML_OPERATION_FAILED;
+//  }
+//}
+//
+//
+///*
+// * Unsets the units of this LocalParameter.
+// */
+//int
+//LocalParameter::unsetUnits ()
+//{
+//  mUnits.erase();
+//
+//  if (mUnits.empty()) 
+//  {
+//    return LIBSBML_OPERATION_SUCCESS;
+//  }
+//  else
+//  {
+//    return LIBSBML_OPERATION_FAILED;
+//  }
+//}
+//
+//
 /*
   * Constructs and returns a UnitDefinition that expresses the units of this 
   * LocalParameter.
@@ -522,68 +512,102 @@ LocalParameter::hasRequiredAttributes() const
 void
 LocalParameter::readAttributes (const XMLAttributes& attributes)
 {
-  SBase::readAttributes(attributes);
+  Parameter::readAttributes(attributes);
 
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
+  // TAKE OUT
+  //const unsigned int level   = getLevel  ();
+  //const unsigned int version = getVersion();
 
-  std::vector<std::string> expectedAttributes;
-  expectedAttributes.clear();
-  expectedAttributes.push_back("name");
-  expectedAttributes.push_back("units");
-  expectedAttributes.push_back("value");
-  expectedAttributes.push_back("metaid");
-  expectedAttributes.push_back("id");
-  expectedAttributes.push_back("sboTerm");
+  //std::vector<std::string> expectedAttributes;
+  //expectedAttributes.clear();
+  //expectedAttributes.push_back("name");
+  //expectedAttributes.push_back("units");
+  //expectedAttributes.push_back("value");
 
-  // check that all attributes are expected
-  for (int i = 0; i < attributes.getLength(); i++)
-  {
-    std::vector<std::string>::const_iterator end = expectedAttributes.end();
-    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
-    std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
-    {
-      logUnknownAttribute(name, level, version, "<localParameter>");
-    }
-  }
+  //if (level > 1)
+  //{
+  //  expectedAttributes.push_back("metaid");
+  //  expectedAttributes.push_back("id");
+  //  if (this->getTypeCode() == SBML_PARAMETER)
+  //  {
+  //    expectedAttributes.push_back("constant");
+  //  }
+  //  if (!(level == 2 && version == 1))
+  //  {
+  //    expectedAttributes.push_back("sboTerm");
+  //  }
+  //}
 
-  //   id: SId     { use="required" }  (L3v1 ->)
-  //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
-  if (assigned && mId.size() == 0)
-  {
-    logEmptyString("id", level, version, "<localParameter>");
-  }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  //// check that all attributes are expected
+  //for (int i = 0; i < attributes.getLength(); i++)
+  //{
+  //  std::vector<std::string>::const_iterator end = expectedAttributes.end();
+  //  std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+  //  std::string name = attributes.getName(i);
+  //  if (std::find(begin, end, name) == end)
+  //  {
+  //    if (this->getTypeCode() == SBML_PARAMETER)
+  //    {
+  //      logUnknownAttribute(name, level, version, "<parameter>");
+  //    }
+  //    else
+  //    {
+  //      logUnknownAttribute(name, level, version, "<localParameter>");
+  //    }
+  //  }
+  //}
 
-  //
-  // value: double  { use="optional" }  (L3v2->)
-  //
-  mIsSetValue = attributes.readInto("value", mValue);
+  ////   id: SId     { use="required" }  (L3v1 ->)
+  ////
+  //const string id = (level == 1) ? "name" : "id";
+  //bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  //if (assigned && mId.size() == 0)
+  //{
+  //  logEmptyString(id, level, version, "<parameter>");
+  //}
+  //if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
-  //
-  // units: SId    { use="optional" }  (L2v1, L2v2)
-  //
-  assigned = attributes.readInto("units", mUnits);
-  if (assigned && mUnits.size() == 0)
-  {
-    logEmptyString("units", level, version, "<localParameter>");
-  }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
-  {
-    logError(InvalidUnitIdSyntax);
-  }
+  ////
+  //// value: double  { use="required" }  (L1v2)
+  //// value: double  { use="optional" }  (L1v2->)
+  ////
+  //if (level == 1 && version == 1)
+  //{
+  //  mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), true);
+  //}
+  //else
+  //{
+  //  mIsSetValue = attributes.readInto("value", mValue);
+  //}
 
-  //
-  // name: string  { use="optional" }  (Lsv1 ->)
-  //
-  attributes.readInto("name", mName);
+  ////
+  //// units: SName  { use="optional" }  (L1v1, L1v2)
+  //// units: SId    { use="optional" }  (L2v1, L2v2)
+  ////
+  //assigned = attributes.readInto("units", mUnits);
+  //if (assigned && mUnits.size() == 0)
+  //{
+  //  logEmptyString("units", level, version, "<localParameter>");
+  //}
+  //if (!SyntaxChecker::isValidUnitSId(mUnits))
+  //{
+  //  logError(InvalidUnitIdSyntax);
+  //}
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
-  //
-  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  //if (level > 1)
+  //{
+  //  //
+  //  // name: string  { use="optional" }  (L2v1 ->)
+  //  //
+  //  attributes.readInto("name", mName);
+
+
+  //  //
+  //  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  //  //
+  //  if (!(level == 2 && version == 1)) 
+  //    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+  //}
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -599,41 +623,43 @@ LocalParameter::readAttributes (const XMLAttributes& attributes)
 void
 LocalParameter::writeAttributes (XMLOutputStream& stream) const
 {
-  SBase::writeAttributes(stream);
+  Parameter::writeAttributes(stream);
 
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
+  // TAKE OUT
+  //const unsigned int level   = getLevel  ();
+  //const unsigned int version = getVersion();
 
-  //
-  // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1->)
-  //
-  stream.writeAttribute("id", mId);
+  ////
+  //// name: SName   { use="required" }  (L1v1, L1v2)
+  ////   id: SId     { use="required" }  (L2v1->)
+  ////
+  //  const string id = (level == 1) ? "name" : "id";
+  //  stream.writeAttribute(id, mId);
 
-  //
-  // name: string  { use="optional" }  (L2v1->)
-  //
-  stream.writeAttribute("name", mName);
+  ////
+  //// name: string  { use="optional" }  (L2v1->)
+  ////
+  //stream.writeAttribute("name", mName);
 
-  //
-  // value: double  { use="required" }  (L1v1)
-  // value: double  { use="optional" }  (L1v2->)
-  //
-  if (mIsSetValue)
-  {
-    stream.writeAttribute("value", mValue);
-  }
+  ////
+  //// value: double  { use="required" }  (L1v1)
+  //// value: double  { use="optional" }  (L1v2->)
+  ////
+  //if (mIsSetValue)
+  //{
+  //  stream.writeAttribute("value", mValue);
+  //}
 
-  //
-  // units: SName  { use="optional" }  (L1v1, L1v2)
-  // units: SId    { use="optional" }  (L2v1-> )
-  //
-  stream.writeAttribute("units", mUnits);
+  ////
+  //// units: SName  { use="optional" }  (L1v1, L1v2)
+  //// units: SId    { use="optional" }  (L2v1-> )
+  ////
+  //stream.writeAttribute("units", mUnits);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
-  //
-  SBO::writeTerm(stream, mSBOTerm);
+  ////
+  //// sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  ////
+  //SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */
 

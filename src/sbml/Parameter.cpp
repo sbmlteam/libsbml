@@ -49,6 +49,7 @@ Parameter::Parameter (unsigned int level, unsigned int version) :
  , mId        ( ""       )
  , mName      ( ""       )
  , mValue     ( 0.0      )
+ , mUnits     ( ""       )
  , mConstant  ( true     )
  , mIsSetValue( false    )
  , mIsSetConstant (false )
@@ -68,6 +69,7 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
    SBase      ( sbmlns   )
  , mId        ( ""       )
  , mName      ( ""       )
+ , mUnits     ( ""       )
  , mValue     ( 0.0      )
  , mConstant  ( true     )
  , mIsSetValue( false    )
@@ -628,7 +630,10 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   {
     expectedAttributes.push_back("metaid");
     expectedAttributes.push_back("id");
-    expectedAttributes.push_back("constant");
+    if (this->getTypeCode() == SBML_PARAMETER)
+    {
+      expectedAttributes.push_back("constant");
+    }
 
     if (!(level == 2 && version == 1))
     {
@@ -644,11 +649,16 @@ Parameter::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      logUnknownAttribute(name, level, version, "<parameter>");
+      if (this->getTypeCode() == SBML_PARAMETER)
+      {
+        logUnknownAttribute(name, level, version, "<parameter>");
+      }
+      else
+      {
+        logUnknownAttribute(name, level, version, "<localParameter>");
+      }
     }
   }
-
-  //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
@@ -702,7 +712,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
     {
       attributes.readInto("constant", mConstant);
     }
-    else
+    else if (this->getTypeCode() == SBML_PARAMETER)
     {
       mIsSetConstant = attributes.readInto("constant", mConstant,
                                            getErrorLog(), true);
@@ -777,7 +787,7 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
         stream.writeAttribute("constant", mConstant);
       }
     }
-    else
+    else if (this->getTypeCode() == SBML_PARAMETER)
     {
       stream.writeAttribute("constant", mConstant);
     }

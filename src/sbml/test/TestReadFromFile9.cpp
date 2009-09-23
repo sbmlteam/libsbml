@@ -318,11 +318,14 @@ START_TEST (test_read_l3v1_new)
   kl = r->getKineticLaw();
 
   fail_unless(kl->getNumLocalParameters() == 2);
-  fail_unless(kl->getNumParameters() == 0);
+  fail_unless(kl->getNumParameters() == 2);
 
   p = kl->getParameter(0);
   
-  fail_unless(p == NULL);
+  fail_unless(p->isSetUnits());
+  fail_unless(p->getUnits() == "per_second");
+  fail_unless(p->isSetValue());
+  fail_unless(p->getValue() == 0.1);
 
   lp = kl->getLocalParameter(0);
 

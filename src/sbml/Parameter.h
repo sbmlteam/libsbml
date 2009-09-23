@@ -271,7 +271,7 @@ public:
    */
   void initDefaults ();
 
-
+  
   /**
    * Returns the value of the "id" attribute of this Parameter.
    * 
@@ -695,7 +695,6 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
-
 
   std::string  mId;
   std::string  mName;
