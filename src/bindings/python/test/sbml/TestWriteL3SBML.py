@@ -181,7 +181,6 @@ class TestWriteL3SBML(unittest.TestCase):
     p = kl.createLocalParameter()
     p.setId("n")
     p.setValue(1.2)
-    kl.addLocalParameter(p)
     self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 

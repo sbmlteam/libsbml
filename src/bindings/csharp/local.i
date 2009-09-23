@@ -251,6 +251,10 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		             {
 		               return new ListOfParameters(cPtr, owner);
 		             }
+		             else if(name == "listOfLocalParameters")
+		             {
+		               return new ListOfLocalParameters(cPtr, owner);
+		             }
 			     else if(name == "listOfReactions")
 		             {
 		               return new ListOfReactions(cPtr, owner);
@@ -298,6 +302,9 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_PARAMETER:
 				return new Parameter(cPtr, owner);
+				
+			case (int) libsbml.SBML_LOCAL_PARAMETER:
+				return new LocalParameter(cPtr, owner);
 				
 			case (int) libsbml.SBML_REACTION:
 				return new Reaction(cPtr, owner);
@@ -425,6 +432,10 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		             {
 		               return new ListOfParameters(cPtr, owner);
 		             }
+		             else if(name == "listOfLocalParameters")
+		             {
+		               return new ListOfLocalParameters(cPtr, owner);
+		             }
 			     else if(name == "listOfReactions")
 		             {
 		               return new ListOfReactions(cPtr, owner);
@@ -504,6 +515,9 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_PARAMETER:
 				return new Parameter(cPtr, owner);
+				
+			case (int) libsbml.SBML_LOCAL_PARAMETER:
+				return new LocalParameter(cPtr, owner);
 				
 			case (int) libsbml.SBML_REACTION:
 				return new Reaction(cPtr, owner);
@@ -838,6 +852,7 @@ COVARIANT_RTYPE_CLONE(InitialAssignment)
 COVARIANT_RTYPE_CLONE(KineticLaw)
 COVARIANT_RTYPE_CLONE(Model)
 COVARIANT_RTYPE_CLONE(Parameter)
+COVARIANT_RTYPE_CLONE(LocalParameter)
 COVARIANT_RTYPE_CLONE(Reaction)
 COVARIANT_RTYPE_CLONE(Rule)
 COVARIANT_RTYPE_CLONE(AlgebraicRule)
@@ -860,6 +875,7 @@ COVARIANT_RTYPE_CLONE(ListOfEvents)
 COVARIANT_RTYPE_CLONE(ListOfFunctionDefinitions)
 COVARIANT_RTYPE_CLONE(ListOfInitialAssignments)
 COVARIANT_RTYPE_CLONE(ListOfParameters)
+COVARIANT_RTYPE_CLONE(ListOfLocalParameters)
 COVARIANT_RTYPE_CLONE(ListOfReactions)
 COVARIANT_RTYPE_CLONE(ListOfRules)
 COVARIANT_RTYPE_CLONE(ListOfSpecies)
@@ -915,6 +931,7 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(Event)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(FunctionDefinition)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(InitialAssignment)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Parameter)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(LocalParameter)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Reaction)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Rule)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesType)
@@ -1052,6 +1069,7 @@ SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
 SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
 SBMLCONSTRUCTOR_EXCEPTION(Model)
 SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(LocalParameter)
 SBMLCONSTRUCTOR_EXCEPTION(Reaction)
 SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
 SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)

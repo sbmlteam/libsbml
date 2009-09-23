@@ -277,7 +277,6 @@ public class TestWriteL3SBML {
     LocalParameter p = kl.createLocalParameter();
     p.setId("n");
     p.setValue(1.2);
-    kl.addLocalParameter(p);
     assertEquals( true, equals(expected,kl.toSBML()) );
   }
 

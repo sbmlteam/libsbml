@@ -716,7 +716,6 @@ class TestWriteSBML < Test::Unit::TestCase
     p = kl.createParameter()
     p.setName("n")
     p.setValue(1.2)
-    kl.addParameter(p)
     assert_equal true, equals(expected,kl.toSBML())
   end
 

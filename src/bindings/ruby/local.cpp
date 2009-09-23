@@ -94,6 +94,9 @@ GetDowncastSwigType (SBase* sb)
       else if(name == "listOfParameters"){
         return SWIGTYPE_p_ListOfParameters;
       }
+      else if(name == "listOfLocalParameters"){
+        return SWIGTYPE_p_ListOfLocalParameters;
+      }
       else if(name == "listOfReactions"){
         return SWIGTYPE_p_ListOfReactions;
       }
@@ -157,6 +160,9 @@ GetDowncastSwigType (SBase* sb)
 
     case SBML_PARAMETER:
       return SWIGTYPE_p_Parameter;
+
+    case SBML_LOCAL_PARAMETER:
+      return SWIGTYPE_p_LocalParameter;
 
     case SBML_REACTION:
       return SWIGTYPE_p_Reaction;

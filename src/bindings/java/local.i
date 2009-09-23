@@ -67,6 +67,7 @@ COVARIANT_RTYPE_CLONE(InitialAssignment)
 COVARIANT_RTYPE_CLONE(KineticLaw)
 COVARIANT_RTYPE_CLONE(ListOf)
 COVARIANT_RTYPE_CLONE(Model)
+COVARIANT_RTYPE_CLONE(LocalParameter)
 COVARIANT_RTYPE_CLONE(Parameter)
 COVARIANT_RTYPE_CLONE(Reaction)
 COVARIANT_RTYPE_CLONE(Rule)
@@ -90,6 +91,7 @@ COVARIANT_RTYPE_CLONE(ListOfEvents)
 COVARIANT_RTYPE_CLONE(ListOfFunctionDefinitions)
 COVARIANT_RTYPE_CLONE(ListOfInitialAssignments)
 COVARIANT_RTYPE_CLONE(ListOfParameters)
+COVARIANT_RTYPE_CLONE(ListOfLocalParameters)
 COVARIANT_RTYPE_CLONE(ListOfReactions)
 COVARIANT_RTYPE_CLONE(ListOfRules)
 COVARIANT_RTYPE_CLONE(ListOfSpecies)
@@ -139,6 +141,7 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(EventAssignment)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Event)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(FunctionDefinition)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(InitialAssignment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(LocalParameter)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Parameter)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Reaction)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Rule)
@@ -231,6 +234,7 @@ SBMLCONSTRUCTOR_EXCEPTION(FunctionDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
 SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
 SBMLCONSTRUCTOR_EXCEPTION(Model)
+SBMLCONSTRUCTOR_EXCEPTION(LocalParameter)
 SBMLCONSTRUCTOR_EXCEPTION(Parameter)
 SBMLCONSTRUCTOR_EXCEPTION(Reaction)
 SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
@@ -391,6 +395,9 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
         else if(name.equals("listOfParameters")){
           return new ListOfParameters(cPtr, owner);
         }
+        else if(name.equals("listOfLocalParameters")){
+          return new ListOfLocalParameters(cPtr, owner);
+        }
 	else if(name.equals("listOfReactions")){
           return new ListOfReactions(cPtr, owner);
 	}
@@ -428,6 +435,9 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 
       case libsbmlConstants.SBML_PARAMETER:
         return new Parameter(cPtr, owner);
+
+      case libsbmlConstants.SBML_LOCAL_PARAMETER:
+        return new LocalParameter(cPtr, owner);
 
       case libsbmlConstants.SBML_REACTION:
         return new Reaction(cPtr, owner);
@@ -552,6 +562,9 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
         else if(name.equals("listOfParameters")){
           return new ListOfParameters(cPtr, owner);
         }
+        else if(name.equals("listOfLocalParameters")){
+          return new ListOfLocalParameters(cPtr, owner);
+        }
         else if(name.equals("listOfReactions")){
           return new ListOfReactions(cPtr, owner);
         }
@@ -613,6 +626,9 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 
       case libsbmlConstants.SBML_PARAMETER:
         return new Parameter(cPtr, owner);
+
+      case libsbmlConstants.SBML_LOCAL_PARAMETER:
+        return new LocalParameter(cPtr, owner);
 
       case libsbmlConstants.SBML_REACTION:
         return new Reaction(cPtr, owner);

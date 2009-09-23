@@ -175,7 +175,6 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p = kl.createLocalParameter()
     p.setId("n")
     p.setValue(1.2)
-    kl.addLocalParameter(p)
     assert_equal true, equals(expected,kl.toSBML())
   end
 

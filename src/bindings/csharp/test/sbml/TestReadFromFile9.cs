@@ -302,9 +302,12 @@ namespace LibSBMLCSTest {
       assertEquals( true, isnan(sr.getStoichiometry()) );
       kl = r.getKineticLaw();
       assertTrue( kl.getNumLocalParameters() == 2 );
-      assertTrue( kl.getNumParameters() == 0 );
+      assertTrue( kl.getNumParameters() == 2 );
       p = kl.getParameter(0);
-      assertTrue( p == null );
+      assertEquals( true, p.isSetUnits() );
+      assertTrue( p.getUnits() ==  "per_second" );
+      assertEquals( true, p.isSetValue() );
+      assertTrue( p.getValue() == 0.1 );
       lp = kl.getLocalParameter(0);
       assertEquals( true, lp.isSetUnits() );
       assertTrue( lp.getUnits() ==  "per_second" );

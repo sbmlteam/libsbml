@@ -722,7 +722,6 @@ class TestWriteSBML(unittest.TestCase):
     p = kl.createParameter()
     p.setName("n")
     p.setValue(1.2)
-    kl.addParameter(p)
     self.assertEqual( True, self.equals(expected,kl.toSBML()) )
     pass  
 
