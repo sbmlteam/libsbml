@@ -539,7 +539,6 @@ START_TEST (test_WriteL3SBML_KineticLaw_ListOfParameters)
   LocalParameter *p = kl->createLocalParameter();
   p->setId("n");
   p->setValue(1.2);
-  kl->addLocalParameter( p );
 
   fail_unless( equals(expected,kl->toSBML()) );
 }

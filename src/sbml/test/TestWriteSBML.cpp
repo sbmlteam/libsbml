@@ -1726,7 +1726,6 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters)
   Parameter *p = kl->createParameter();
   p->setName("n");
   p->setValue(1.2);
-  kl->addParameter( p );
 
   fail_unless( equals(expected,kl->toSBML()) );
 }
