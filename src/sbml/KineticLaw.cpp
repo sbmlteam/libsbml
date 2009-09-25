@@ -690,7 +690,10 @@ KineticLaw::createLocalParameter ()
 const ListOfParameters*
 KineticLaw::getListOfParameters () const
 {
-  return &mParameters;
+  if (getLevel() < 3)
+    return &mParameters;
+  else
+    return static_cast <const ListOfParameters *> (&mLocalParameters);
 }
 
 
@@ -700,7 +703,10 @@ KineticLaw::getListOfParameters () const
 ListOfParameters*
 KineticLaw::getListOfParameters ()
 {
-  return &mParameters;
+  if (getLevel() < 3)
+    return &mParameters;
+  else
+    return static_cast <ListOfParameters *> (&mLocalParameters);
 }
 
 
