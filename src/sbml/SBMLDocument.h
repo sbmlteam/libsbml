@@ -270,6 +270,8 @@ class XMLError;
 #define PracticeCheckOFF  0xbf
 #define AllChecksON       0x7f
 
+typedef std::pair<std::string, bool> PackageReqd;
+
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -983,6 +985,7 @@ protected:
   unsigned char mApplicableValidators;
   unsigned char mApplicableValidatorsForConversion;
 
+  std::vector<PackageReqd> mPackageRequirements;
 
   friend class SBase;
   friend class SBMLReader;
