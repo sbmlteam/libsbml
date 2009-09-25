@@ -1635,6 +1635,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("version");
   expectedAttributes.push_back("metaid");
   expectedAttributes.push_back("schemaLocation");
+  expectedAttributes.push_back("required");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -1691,16 +1692,17 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   }
   
   /* check that sbml namespace has been set */
+  XMLNamespaces *ns = mSBMLNamespaces->getNamespaces();
   unsigned int match = 0;
-  if (mSBMLNamespaces->getNamespaces() == NULL)
+  if (ns == NULL)
   {
     logError(InvalidNamespaceOnSBML);
   }
   else 
   {
-    for (int n = 0; n < mSBMLNamespaces->getNamespaces()->getLength(); n++)
+    for (int n = 0; n < ns->getLength(); n++)
     {
-      if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+      if (!strcmp(ns->getURI(n).c_str(), 
                   "http://www.sbml.org/sbml/level1"))
       {
         match = 1;
@@ -1714,7 +1716,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
        break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+      else if (!strcmp(ns->getURI(n).c_str(), 
                 "http://www.sbml.org/sbml/level2"))
       {
         match = 1;
@@ -1728,7 +1730,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+      else if (!strcmp(ns->getURI(n).c_str(), 
                 "http://www.sbml.org/sbml/level2/version2"))
       {
         match = 1;
@@ -1742,7 +1744,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+      else if (!strcmp(ns->getURI(n).c_str(), 
                 "http://www.sbml.org/sbml/level2/version3"))
       {
         match = 1;
@@ -1756,7 +1758,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+      else if (!strcmp(ns->getURI(n).c_str(), 
                 "http://www.sbml.org/sbml/level2/version4"))
       {
         match = 1;
@@ -1770,7 +1772,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      else if (!strcmp(mSBMLNamespaces->getNamespaces()->getURI(n).c_str(), 
+      else if (!strcmp(ns->getURI(n).c_str(), 
                 "http://www.sbml.org/sbml/level3/version1/core"))
       {
         match = 1;
@@ -1796,6 +1798,22 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
     }
 
   }
+
+  bool reqd;
+  /* look for namespaces with other prefixes */
+  for (int i = 0; i < ns->getLength(); i++)
+  {
+    std::string prefix = ns->getPrefix(i);
+    /* will need to do a check that prefix is a package */
+    // HACK for moment
+    if (prefix == "multi" || prefix == "layout")
+    {
+      XMLTriple triple("required", ns->getURI(i), prefix);
+      attributes.readInto(triple, reqd, getErrorLog(), true);
+      mPackageRequirements.push_back( make_pair(prefix, reqd) );
+    }
+  }
+
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1856,6 +1874,16 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
   // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
   stream.writeAttribute("version", mVersion);
+
+  //vector<PackageReqd>::const_iterator i;
+  //for (i = mPackageRequirements.begin(); 
+  //         i != mPackageRequirements.end(); i++)
+  for (unsigned int i = 0; i < mPackageRequirements.size(); i++)
+  {
+    std::string name = mPackageRequirements.at(i).first + ":required";
+    stream.writeAttribute(name, mPackageRequirements.at(i).second);
+  }
+
 }
 /** @endcond doxygen-libsbml-internal */
 
