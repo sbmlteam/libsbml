@@ -334,6 +334,10 @@ SBase::getId () const
     return static_cast <const Parameter *> (this)->getId();
     break;
 
+  case SBML_LOCAL_PARAMETER:
+    return static_cast <const LocalParameter *> (this)->getId();
+    break;
+
   case SBML_REACTION:
     return static_cast <const Reaction *> (this)->getId();
     break;
@@ -421,6 +425,10 @@ SBase::getName () const
         return static_cast <const Parameter *> (this)->getId();
         break;
 
+      case SBML_LOCAL_PARAMETER:
+        return static_cast <const LocalParameter *> (this)->getId();
+        break;
+
       case SBML_REACTION:
         return static_cast <const Reaction *> (this)->getId();
         break;
@@ -493,6 +501,10 @@ SBase::getName () const
 
     case SBML_PARAMETER:
       return static_cast <const Parameter *> (this)->getName();
+      break;
+
+    case SBML_LOCAL_PARAMETER:
+      return static_cast <const LocalParameter *> (this)->getName();
       break;
 
     case SBML_REACTION:
@@ -860,6 +872,10 @@ SBase::setId (const std::string& sid)
     return static_cast <Parameter *> (this)->setId(sid);
     break;
 
+  case SBML_LOCAL_PARAMETER:
+    return static_cast <LocalParameter *> (this)->setId(sid);
+    break;
+
   case SBML_REACTION:
     return static_cast <Reaction *> (this)->setId(sid);
     break;
@@ -952,6 +968,10 @@ SBase::setName (const std::string& name)
         return static_cast <Parameter *> (this)->setId(name);
         break;
 
+      case SBML_LOCAL_PARAMETER:
+        return static_cast <LocalParameter *> (this)->setId(name);
+        break;
+
       case SBML_REACTION:
         return static_cast <Reaction *> (this)->setId(name);
         break;
@@ -1031,6 +1051,10 @@ SBase::setName (const std::string& name)
 
     case SBML_PARAMETER:
       return static_cast <Parameter *> (this)->setName(name);
+      break;
+
+    case SBML_LOCAL_PARAMETER:
+      return static_cast <LocalParameter *> (this)->setName(name);
       break;
 
     case SBML_REACTION:
