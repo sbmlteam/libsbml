@@ -238,25 +238,26 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mLevel   ( level   )
  , mVersion ( version )
  , mModel   ( 0       )
+ , mApplicableValidators ( AllChecksON)
+ , mApplicableValidatorsForConversion ( AllChecksON )
  , mPackageRequirements ( 0 )
 {
-  bool setExplicitly = (mLevel != 0 && mVersion != 0);
-
   mSBML = this;
 
-  if (mLevel   == 0)  mLevel   = getDefaultLevel  ();
-  if (mVersion == 0)  mVersion = getDefaultVersion();
-
-  if (setExplicitly)
+  if (mLevel   == 0)  
   {
-    setLevelAndVersion(mLevel, mVersion);
+    mLevel   = getDefaultLevel  ();
+    mSBMLNamespaces->setLevel(mLevel);
   }
 
-  mApplicableValidators = AllChecksON; // turn all validators ON
-  mApplicableValidatorsForConversion = AllChecksON; // turn all validators ON
+  if (mVersion == 0)
+  {
+    mVersion = getDefaultVersion();
+    mSBMLNamespaces->setVersion(mVersion);
+  }
 
-  mSBMLNamespaces->setLevel(mLevel);
-  mSBMLNamespaces->setVersion(mVersion);
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
@@ -370,11 +371,11 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
   // which if we are creating L3 we want to work
   // so check whther there is a model
   // if not we are not attempting conversion
-  if (getModel() != NULL && (this->getLevel() == 3 || level == 3))
-  {
-    logError(L3NotSupported);
-    return false;
-  }
+  //if (getModel() != NULL && (this->getLevel() == 3 || level == 3))
+  //{
+  //  logError(L3NotSupported);
+  //  return false;
+  //}
 
   bool conversionSuccess = false;
 
