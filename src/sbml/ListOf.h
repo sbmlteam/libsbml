@@ -403,13 +403,15 @@ LIBSBML_EXTERN
 SBase_t *
 ListOf_get (ListOf_t *lo, unsigned int n);
 
+#if (0)
 /**
  * @return item in this ListOf items with the given id or NULL if no such
  * item exists.
  */
-//LIBSBML_EXTERN
-//SBase_t *
-//ListOf_getById (ListOf_t *lo, const char *sid);
+LIBSBML_EXTERN
+SBase_t *
+ListOf_getById (ListOf_t *lo, const char *sid);
+#endif
 
 /**
  * Removes all items in this ListOf object.
@@ -427,14 +429,16 @@ LIBSBML_EXTERN
 SBase_t *
 ListOf_remove (ListOf_t *lo, unsigned int n);
 
+#if (0)
 /**
  * Removes item in this ListOf items with the given id or NULL if no such
  * item exists.  The caller owns the returned item and is repsonsible for
  * deleting it.
  */
-//LIBSBML_EXTERN
-//SBase_t *
-//ListOf_removeById (ListOf_t *lo, const char *sid);
+LIBSBML_EXTERN
+SBase_t *
+ListOf_removeById (ListOf_t *lo, const char *sid);
+#endif
 
 /**
  * Returns the number of items in this ListOf items.

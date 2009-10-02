@@ -279,7 +279,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #ifndef SWIG
-//BEGIN_C_DECLS
+/*BEGIN_C_DECLS */
 
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
@@ -287,7 +287,7 @@ LIBSBML_CPP_NAMESPACE_END
 
 #include <sbml/common/sbmlfwd.h>
 
-//END_C_DECLS
+/* END_C_DECLS */
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN
