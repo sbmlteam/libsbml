@@ -178,7 +178,7 @@ int main ()
 
   return 1;
 }
-])], AC_MSG_RESULT(yes), no_expat=yes)
+])], AC_MSG_RESULT(yes), no_expat=yes, [AC_MSG_WARN([cross compiling: not checking test program]) ])
 
     CFLAGS="$tmp_CFLAGS"
     LDFLAGS="$tmp_LDFLAGS"
