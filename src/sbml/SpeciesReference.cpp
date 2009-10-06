@@ -489,6 +489,12 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
   {
     mStoichiometry = numeric_limits<double>::quiet_NaN();
   }
+ 
+  // if level 1/2 stoichiometry is set by default
+  if (level < 3)
+  {
+    setStoichiometry(1.0);
+  }
 }
 
 SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
@@ -507,6 +513,12 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
   if (sbmlns->getLevel() == 3)
   {
     mStoichiometry = numeric_limits<double>::quiet_NaN();
+  }
+
+  // if level 1/2 stoichiometry is set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    setStoichiometry(1.0);
   }
 }
 
@@ -1101,6 +1113,8 @@ SpeciesReference::createObject (XMLInputStream& stream)
                                            SBMLDocument::getDefaultLevel(),
                                            SBMLDocument::getDefaultVersion());
     }
+    // clear the default value for stoichiometry
+    unsetStoichiometry();
     return mStoichiometryMath;
   }
   else
