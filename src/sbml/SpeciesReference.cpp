@@ -745,21 +745,19 @@ SpeciesReference::setStoichiometry (double value)
 int
 SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 {
-  if ( (getLevel() < 2))
+  if ( getLevel() != 2 )
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
   else if (mStoichiometryMath == math) 
   {
-    mStoichiometry = 1;
+    mIsSetStoichiometry = false;
+    mStoichiometry = 1.0;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (math == NULL)
   {
-    mStoichiometry = 1;
-    delete mStoichiometryMath;
-    mStoichiometryMath = 0;
-    return LIBSBML_OPERATION_SUCCESS;
+    return unsetStoichiometryMath();
   }
   else if (getLevel() != math->getLevel())
   {
@@ -771,7 +769,9 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
   }
   else
   {
-    mStoichiometry = 1;
+    mIsSetStoichiometry = false;
+    mStoichiometry      = 1.0;
+
     delete mStoichiometryMath;
     mStoichiometryMath = static_cast<StoichiometryMath*>(math->clone());
     if (mStoichiometryMath) mStoichiometryMath->setSBMLDocument(mSBML);
@@ -822,6 +822,17 @@ SpeciesReference::unsetStoichiometryMath ()
   delete mStoichiometryMath;
   mStoichiometryMath = 0;
 
+  if ( getLevel() == 2 && !mIsSetStoichiometry)
+  {
+    // 
+    // In SBML Level2, "stoichiometry" attribute is set to 1 (default value)
+    // if neither the "stoichiometry" attribute and the "stoichiometryMath" 
+    // element are present.
+    //
+    mIsSetStoichiometry = true;
+    mStoichiometry = 1.0;
+  }
+
   if (mStoichiometryMath == NULL)
   {
     return LIBSBML_OPERATION_SUCCESS;
@@ -836,16 +847,51 @@ SpeciesReference::unsetStoichiometryMath ()
 int
 SpeciesReference::unsetStoichiometry ()
 {
-  mStoichiometry      = numeric_limits<double>::quiet_NaN();
-  mIsSetStoichiometry = false;
-  if (!isSetStoichiometry())
+  const int level = getLevel();
+
+  if ( level > 2 )
   {
-    return LIBSBML_OPERATION_SUCCESS;
+    mStoichiometry      = numeric_limits<double>::quiet_NaN();
+    mIsSetStoichiometry = false;
+    if (!isSetStoichiometry())
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
   }
   else
   {
-    return LIBSBML_OPERATION_FAILED;
+    mStoichiometry      = 1.0;
+
+    if ( level == 2 ) 
+    {
+      // 
+      // In SBML Level2, "stoichiometry" attribute is set to 1 (default value)
+      // if neither the "stoichiometry" attribute and the "stoichiometryMath" 
+      // element are present.
+      //
+      if (!isSetStoichiometryMath())
+      {
+        mIsSetStoichiometry = true;
+      }
+      else
+      {
+        mIsSetStoichiometry = false;
+      }
+    }
+    else
+    {
+      //
+      // In SBML Level 1, "stoichiometry" is always set (default is 1.0).
+      //
+      mIsSetStoichiometry = true;
+    }
   }
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
@@ -1076,6 +1122,25 @@ SpeciesReference::sortMath()
     mStoichiometryMath = 0;
   }
 }
+
+
+/*
+ * Sets the "stoichiometry" attribute of SBML Level 2 to 1.0 (default)
+ * if neither the "stoichiometry" attribute nor the "stoichiometrymath"
+ * subelement are present.
+ * (This function is internally invoked in SBase::read().)
+ */
+void 
+SpeciesReference::initL2Stoichiometry()
+{
+  if (getLevel() != 2) return;
+
+  if (!isSetStoichiometry() && !isSetStoichiometryMath())
+  {
+    setStoichiometry(1.0);
+  }
+}
+
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -1113,8 +1178,16 @@ SpeciesReference::createObject (XMLInputStream& stream)
                                            SBMLDocument::getDefaultLevel(),
                                            SBMLDocument::getDefaultVersion());
     }
+
     // clear the default value for stoichiometry
-    unsetStoichiometry();
+    //
+    // unsetStoichiometry();
+    //
+    // unsetStoichiometry() must not be invoked here to validate
+    // an error in which the both of stoichiometry attribute and
+    // stoichiometryMath element defined in this speciesreference object. 
+    //
+
     return mStoichiometryMath;
   }
   else
@@ -1266,18 +1339,36 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
 {
   SimpleSpeciesReference::readAttributes(attributes);
 
+  const int level = getLevel();
+
   //
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
-  if (getLevel() < 3)
+  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
+  if (!mIsSetStoichiometry)
   {
-    attributes.readInto("stoichiometry", mStoichiometry);
-  }
-  else
-  {
-    mIsSetStoichiometry = attributes.readInto("stoichiometry", 
-                                               mStoichiometry);
+    //  
+    // setting default value
+    //
+    if (level == 1)
+    {
+      mStoichiometry = 1;
+      mIsSetStoichiometry = true;
+    }
+
+    //  
+    // (NOTICE)
+    //
+    // In Level 2, setting default value will be done in SBase::read() 
+    // by invoking initL2Stoichiometry() if neither "stoichiometry" attribute 
+    // nor "stoichiometrymath" subelement are present in this SpeciesReference.  
+    //
+    // This trick is needed because it is impossible to detect if the
+    // "stoichiometrymath" subelement are present in the target model
+    // in this function (SpeciesReference::createObject() will be invoked
+    // after this function when reading an SBML file/string).
+    //
   }
 
   //

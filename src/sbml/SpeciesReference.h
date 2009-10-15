@@ -785,6 +785,11 @@ public:
    * 
    * @param value the new value of the "stoichiometry" attribute
    *
+   * @note In SBML Level 2, the "stoichiometryMath" subelement of this 
+   *       SpeciesReference object will be unset because the "stoichiometry" 
+   *       attribute and the stoichiometryMath" subelement are mutually 
+   *       exclusive.
+   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -819,6 +824,12 @@ public:
    * 
    * @param math the StoichiometryMath expression that is to be copied as the
    * content of the "stoichiometryMath" subelement.
+   *
+   * @note In SBML Level 2, the "stoichiometry" attribute of this 
+   *       SpeciesReference object will be unset (isSetStoichiometry() will 
+   *       return @c false although getStoichiometry() will return 1.0) if the 
+   *       given math is not null because the "stoichiometry" attribute and the 
+   *       stoichiometryMath" subelement are mutually exclusive.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -903,6 +914,10 @@ public:
    * attribute should be used in preference to "stoichiometryMath" when a
    * species' stoichiometry is a simple scalar number (integer or
    * decimal).
+   *
+   * @note In SBML Level 2, the "stoichiometry" attribute of this 
+   *       SpeciesReference object will be reset to default (1.0) if the
+   *       "stoichiometry" attribute has not been set.
    * 
    */
   int unsetStoichiometryMath ();
@@ -917,6 +932,18 @@ public:
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
+   *
+   * @note In SBML Level 1, the "stoichiometry" attribute of this 
+   *       SpeciesReference object will be just reset to default (1.0) and
+   *       isSetStoichiometry() will still return @c true.
+   *       In SBML Level 2, the "stoichiometry" attribute of this object will 
+   *       be unset (isSetStoichiometry() will return @c false although
+   *       getStoichiometry() will return 1.0) if the "stoichiometryMath" 
+   *       subelement has been set, otherwise the attribute will be just reset 
+   *       to default (1.0) (isSetStoichiometry() will still return @c true).
+   *       In SBML Level 3, the "stoichiometry" attribute of this object will
+   *       be set to NaN and isSetStoichiometry() will return @c false.
+   * 
    *
    */
   int unsetStoichiometry ();
@@ -1082,6 +1109,15 @@ public:
    * a rational and produces values for stoichiometry and denominator
    */
   void sortMath();
+
+
+  /*
+   * Sets the "stoichiometry" attribute of SBML Level 2 to 1.0 (default) 
+   * if neither the "stoichiometry" attribute nor the "stoichiometrymath" 
+   * subelement are present. 
+   * (This function is internally invoked in SBase::read().)
+   */
+  void initL2Stoichiometry();
   /** @endcond doxygen-libsbml-internal */
 
 

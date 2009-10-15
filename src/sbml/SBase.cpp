@@ -2666,9 +2666,14 @@ SBase::read (XMLInputStream& stream)
         if ( !stream.isGood() ) break;
 
         if (object->getTypeCode() == SBML_SPECIES_REFERENCE 
-            && object->getLevel() > 1)
+            && object->getLevel() == 2)
         {
-          static_cast <SpeciesReference *> (object)->sortMath();
+          SpeciesReference* spr = static_cast <SpeciesReference *> (object);
+          //
+          // initL2Stoichiometry() must be invoked before sortMath().
+          //
+          spr->initL2Stoichiometry();
+          spr->sortMath();
         }
         checkListOfPopulated(object);
       }

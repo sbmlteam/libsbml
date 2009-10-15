@@ -1645,7 +1645,7 @@ START_CONSTRAINT (21113, SpeciesReference, sr)
   //  "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3.)";
 
 
-  inv( sr.getStoichiometry() == 1.0 );
+  inv( !sr.isSetStoichiometry() );
 }
 END_CONSTRAINT
 
