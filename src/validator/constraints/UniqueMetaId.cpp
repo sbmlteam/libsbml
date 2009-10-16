@@ -196,45 +196,127 @@ UniqueMetaId::getMessage (const string& id, const SBase& object)
 void
 UniqueMetaId::doCheck (const Model& m)
 {
-  unsigned int n, size;
+  unsigned int n, size, j, num;
+
+  /* check any metaid on the sbml container */
+  doCheckMetaId(*m.getSBMLDocument());
 
   doCheckMetaId( m );
 
   size = m.getNumFunctionDefinitions();
+  if (size > 0) doCheckMetaId(*m.getListOfFunctionDefinitions());
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getFunctionDefinition(n) );
 
   size = m.getNumUnitDefinitions();
-  for (n = 0; n < size; ++n) doCheckMetaId( *m.getUnitDefinition(n) );
+  if (size > 0) doCheckMetaId(*m.getListOfUnitDefinitions());
+  for (n = 0; n < size; ++n) 
+  {
+    const UnitDefinition *ud = m.getUnitDefinition(n);
+    doCheckMetaId( *ud );
+    num = ud->getNumUnits();
+    if (num > 0) doCheckMetaId(*ud->getListOfUnits());
+    for (j = 0; j < num; j++)
+    {
+      doCheckMetaId(*ud->getUnit(j));
+    }
+  }
 
   size = m.getNumCompartmentTypes();
+  if (size > 0) doCheckMetaId(*m.getListOfCompartmentTypes());
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getCompartmentType(n) );
 
   size = m.getNumSpeciesTypes();
+  if (size > 0) doCheckMetaId(*m.getListOfSpeciesTypes());
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getSpeciesType(n) );
 
   size = m.getNumCompartments();
+  if (size > 0) doCheckMetaId(*m.getListOfCompartments());
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getCompartment(n) );
 
   size = m.getNumSpecies();
+  if (size > 0) doCheckMetaId(*m.getListOfSpecies());
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getSpecies(n) );
 
   size = m.getNumParameters();
+  if (size > 0) doCheckMetaId(*m.getListOfParameters()); 
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getParameter(n) );
 
   size = m.getNumInitialAssignments();
+  if (size > 0) doCheckMetaId(*m.getListOfInitialAssignments()); 
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getInitialAssignment(n) );
 
   size = m.getNumRules();
+  if (size > 0) doCheckMetaId(*m.getListOfRules()); 
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getRule(n) );
 
   size = m.getNumConstraints();
+  if (size > 0) doCheckMetaId(*m.getListOfConstraints()); 
   for (n = 0; n < size; ++n) doCheckMetaId( *m.getConstraint(n) );
 
   size = m.getNumReactions();
-  for (n = 0; n < size; ++n) doCheckMetaId( *m.getReaction(n) );
+  if (size > 0) doCheckMetaId(*m.getListOfReactions()); 
+  for (n = 0; n < size; ++n) 
+  {
+    const Reaction *r = m.getReaction(n);
+    doCheckMetaId( *r );
+
+    if (r->isSetKineticLaw())
+    {
+      doCheckMetaId(*r->getKineticLaw());
+      num = r->getKineticLaw()->getNumParameters();
+      if (num > 0) doCheckMetaId(*r->getKineticLaw()->getListOfParameters());
+      for (j = 0; j < num; j++)
+      {
+        doCheckMetaId(*r->getKineticLaw()->getParameter(j));
+      }
+    }
+
+    num = r->getNumReactants();
+    if (num > 0) doCheckMetaId(*r->getListOfReactants());
+    for (j = 0; j < num; j++)
+    {
+      doCheckMetaId(*r->getReactant(j));
+    }
+
+    num = r->getNumProducts();
+    if (num > 0) doCheckMetaId(*r->getListOfProducts());
+    for (j = 0; j < num; j++)
+    {
+      doCheckMetaId(*r->getProduct(j));
+    }
+
+    num = r->getNumModifiers();
+    if (num > 0) doCheckMetaId(*r->getListOfModifiers());
+    for (j = 0; j < num; j++)
+    {
+      doCheckMetaId(*r->getModifier(j));
+    }
+  }
 
   size = m.getNumEvents();
-  for (n = 0; n < size; ++n) doCheckMetaId( *m.getEvent(n) );
+  if (size > 0) doCheckMetaId(*m.getListOfEvents()); 
+  for (n = 0; n < size; ++n) 
+  {
+    const Event *e = m.getEvent(n);
+    doCheckMetaId( *e );
+ 
+    if (e->isSetTrigger())
+    {
+      doCheckMetaId( *e->getTrigger());
+    }
+
+    if (e->isSetDelay())
+    {
+      doCheckMetaId( *e->getDelay());
+    }
+
+    num = e->getNumEventAssignments();
+    if (num > 0) doCheckMetaId(*e->getListOfEventAssignments());
+    for (j = 0; j < num; j++)
+    {
+      doCheckMetaId(*e->getEventAssignment(j));
+    }
+  }
 
   reset();
 }
