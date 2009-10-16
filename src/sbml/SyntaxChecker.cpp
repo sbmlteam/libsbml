@@ -231,7 +231,6 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
 {
   bool correctSyntax = true;
   unsigned int i;
-  int n;
 
   /*
   * namespace declaration is variable
