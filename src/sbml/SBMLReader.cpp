@@ -100,6 +100,16 @@ SBMLReader::readSBML (const std::string& filename)
 
 /*
  * Reads an SBML document from the given XML string.
+ */
+SBMLDocument*
+SBMLReader::readSBMLFromFile (const std::string& filename)
+{
+  return readInternal(filename.c_str(), true);
+}
+
+
+/*
+ * Reads an SBML document from the given XML string.
  *
  * If the string does not begin with XML declaration:
  *
