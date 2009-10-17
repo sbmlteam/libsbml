@@ -355,6 +355,38 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 
 
 /**
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, an error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
+ *
+ * <code>
+ *   SBMLReader_t   *sr;\n
+ *   SBMLDocument_t *d;
+ *
+ *   sr = SBMLReader_create();
+ *
+ *   d = SBMLReader_readSBML(reader, filename);
+ *
+ *   if (SBMLDocument_getNumErrors(d) > 0)\n
+ *   {\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_FILE_NOT_FOUND)\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_NOT_SBML)\n
+ *   }\n
+ * </code>
+ *
+ * @return a pointer to the SBMLDocument read.
+ */
+LIBSBML_EXTERN
+SBMLDocument_t *
+SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename)
+{
+  return (filename != NULL) ? sr->readSBML(filename) : sr->readSBML("");
+}
+
+
+/**
  * Reads an SBML document from the given XML string.
  *
  * If the string does not begin with XML declaration:
@@ -448,6 +480,54 @@ SBMLReader_hasBzip2 ()
 LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename)
+{
+  SBMLReader sr;
+  return sr.readSBML(filename);
+}
+
+
+/**
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, an error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
+ *
+ * <code>
+ *   SBMLReader_t   *sr;\n
+ *   SBMLDocument_t *d;
+ *
+ *   sr = SBMLReader_create();
+ *
+ *   d = SBMLReader_readSBML(reader, filename);
+ *
+ *   if (SBMLDocument_getNumErrors(d) > 0)\n
+ *   {\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_FILE_NOT_FOUND)\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_NOT_SBML)\n
+ *   }\n
+ * </code>
+ *
+ * If the filename ends with @em .gz, the file will be read as a @em gzip file.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * read as a @em zip or @em bzip2 file, respectively. Otherwise, the fill will be
+ * read as an uncompressed file.
+ * If the filename ends with @em .zip, only the first file in the archive will
+ * be read if the zip archive contains two or more files.
+ *
+ * To read a gzip/zip file, underlying libSBML needs to be linked with zlib
+ * at compile time. Also, underlying libSBML needs to be linked with bzip2 
+ * to read a bzip2 file. File unreadable error will be logged if a compressed 
+ * file name is given and underlying libSBML is not linked with the corresponding 
+ * required library.
+ * SBMLReader_hasZlib() and SBMLReader_hasBzip2() can be used to check 
+ * whether libSBML is linked with each library.
+ *
+ * @return a pointer to the SBMLDocument read.
+ */
+LIBSBML_EXTERN
+SBMLDocument_t *
+readSBMLFromFile (const char *filename)
 {
   SBMLReader sr;
   return sr.readSBML(filename);

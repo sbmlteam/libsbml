@@ -410,6 +410,10 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
 
+LIBSBML_EXTERN
+SBMLDocument_t *
+SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename);
+
 /**
  * Reads an SBML document from the given XML string.
  *
@@ -468,6 +472,11 @@ SBMLReader_hasBzip2 ();
 LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename);
+
+
+LIBSBML_EXTERN
+SBMLDocument_t *
+readSBMLFromFile (const char *filename);
 
 
 /**
