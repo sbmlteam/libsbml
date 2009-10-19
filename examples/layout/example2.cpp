@@ -359,8 +359,8 @@ tGlyph->setGraphicalObjectId(glyph_ADP_1->getId());
 
 
 tGlyph=layout->createTextGlyph();
-tGlyph->setId("TextGlyph+_01");
-bb=BoundingBox("bb+_01",350,140,20,20);
+tGlyph->setId("TextGlyph_plus_01");
+bb=BoundingBox("bb_plus_01",350,140,20,20);
 tGlyph->setBoundingBox(&bb);
 tGlyph->setText("+");
 
@@ -440,8 +440,8 @@ tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_2->getId());
 
 tGlyph=layout->createTextGlyph();
-tGlyph->setId("TextGlyph+_02");
-bb=BoundingBox("bb+_02",350,480,20,20);
+tGlyph->setId("TextGlyph_plus_02");
+bb=BoundingBox("bb_plus_02",350,480,20,20);
 tGlyph->setBoundingBox(&bb);
 tGlyph->setText("+");
 
@@ -520,8 +520,8 @@ tGlyph->setOriginOfTextId(species_NAD->getId());
 tGlyph->setGraphicalObjectId(glyph_NAD_1->getId());
 
 tGlyph=layout->createTextGlyph();
-tGlyph->setId("TextGlyph+_06");
-bb=BoundingBox("bb+_06",350,750,20,20);
+tGlyph->setId("TextGlyph_plus_06");
+bb=BoundingBox("bb_plus_06",350,750,20,20);
 tGlyph->setBoundingBox(&bb);
 tGlyph->setText("+");
 
@@ -555,8 +555,8 @@ tGlyph->setGraphicalObjectId(glyph_NADH_1->getId());
 
 
 tGlyph=layout->createTextGlyph();
-tGlyph->setId("TextGlyph+_06");
-bb=BoundingBox("bb+_06",365,820,20,20);
+tGlyph->setId("TextGlyph_plus_06");
+bb=BoundingBox("bb_plus_06",365,820,20,20);
 tGlyph->setBoundingBox(&bb);
 tGlyph->setText("+");
 
@@ -604,8 +604,8 @@ tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_3->getId());
 
 tGlyph=layout->createTextGlyph();
-tGlyph->setId("TextGlyph+_03");
-bb=BoundingBox("bb+_03",350,920,20,20);
+tGlyph->setId("TextGlyph_plus_03");
+bb=BoundingBox("bb_plus_03",350,920,20,20);
 tGlyph->setBoundingBox(&bb);
 tGlyph->setText("+");
 
@@ -711,8 +711,8 @@ tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_4->getId());
 
 tGlyph=layout->createTextGlyph();
-tGlyph->setId("TextGlyph+_04");
-bb=BoundingBox("bb+_04",345,1430,20,20);
+tGlyph->setId("TextGlyph_plus_04");
+bb=BoundingBox("bb_plus_04",345,1430,20,20);
 tGlyph->setBoundingBox(&bb);
 tGlyph->setText("+");
 
