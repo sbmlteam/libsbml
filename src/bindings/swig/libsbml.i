@@ -328,9 +328,11 @@ LIBSBML_CPP_NAMESPACE_USE
 %newobject *::clone;
 %newobject SBase::toSBML;
 %newobject SBMLReader::readSBMLFromString;
+%newobject SBMLReader::readSBMLFromFile;
 %newobject SBMLReader::readSBML;
 %newobject readSBML(const char *);
 %newobject readSBMLFromString(const char *);
+%newobject readSBMLFromFile(const char *);
 %newobject SBMLWriter::writeToString;
 %newobject writeSBMLToString;
 %newobject readMathMLFromString;
