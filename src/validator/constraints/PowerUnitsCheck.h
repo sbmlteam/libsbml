@@ -102,6 +102,8 @@ protected:
                                              const SBase & sb);
   void logRationalPowerConflict (const ASTNode & node, 
                                              const SBase & sb);
+  void logExpressionPowerConflict (const ASTNode & node, 
+                                             const SBase & sb);
   /* HACK: until I rewrite the unit stuff
    * if a mathml has pow(p, 0.5)/ pow (p, 0.5) then its valid
    * at moment it will fire this constraint twice

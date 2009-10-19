@@ -159,6 +159,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   ASTNode *child = node.getRightChild();
   unitFormat->resetFlags();
   unitsArgPower = unitFormat->getUnitDefinition(child, inKL, reactNo);
+
   unsigned int undeclaredUnitsPower = 
     unitFormat->getContainsUndeclaredUnits();
 
@@ -178,6 +179,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
     // if not argument needs to be an integer or a rational 
     unsigned int isInteger = 0;
     unsigned int isRational = 0;
+    unsigned int isExpression = 0;
     /* power must be an integer
      * but need to check that it is not a real
      * number that is integral
@@ -198,7 +200,13 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
         isInteger = 1;
       }
     }
-    else
+    else if (child->getNumChildren() > 0)
+
+    {
+      // power might itself be an expression - then we cant check
+      isExpression = 1;     
+    }
+    else 
     {
       // power could be a parameter
       const Parameter *param = NULL;
@@ -270,6 +278,10 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
       if (impossible)
         logRationalPowerConflict(node, sb);
 
+    }
+    else if (isExpression == 1)
+    {
+      logExpressionPowerConflict(node, sb);
     }
     else if (isInteger == 0)
     {
@@ -523,6 +535,28 @@ PowerUnitsCheck::logRationalPowerConflict (const ASTNode & node,
   msg += getTypename(sb);
   msg += " contains a rational power that is inconsistent and thus may produce ";
   msg += "invalid units.";
+  safe_free(formula);
+  
+  logFailure(sb, msg);
+
+}
+
+
+void 
+PowerUnitsCheck::logExpressionPowerConflict (const ASTNode & node, 
+                                             const SBase & sb)
+{
+  char * formula = SBML_formulaToString(&node);
+  msg = "The formula '"; 
+  msg += formula;
+  msg += "' in the ";
+  msg += getFieldname();
+  msg += " element of the " ;
+  msg += getTypename(sb);
+  msg += " contains an expression for the exponent of the power function ";
+  msg += "and thus cannot be checked for unit validity.";
+
+  
   safe_free(formula);
   
   logFailure(sb, msg);
