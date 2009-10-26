@@ -187,6 +187,25 @@ DOLT
 AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
 AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
 
+
+#
+# Checks whether -Wno-long-double option is supported.
+#
+# (On MacOS X, compilation generates a warning about `long double'
+#  with Python and Ruby bindings).
+#
+saved_CPPFLAGS=$CPPFLAGS
+CPPFLAGS="-Wno-long-double"
+AC_MSG_CHECKING([whether -Wno-long-double is supported])
+AC_COMPILE_IFELSE(
+  [AC_LANG_SOURCE([])],
+  [AC_SUBST(HAS_GCC_WNO_LONG_DOUBLE, 1)
+   AC_MSG_RESULT([yes])],
+  [AC_MSG_RESULT([no])]
+)
+CPPFLAGS=$saved_CPPFLAGS
+
+
 # The Lisp language binding has been removed for the time being, because it
 # no longer works in recent versions of libSBML.
 
@@ -257,6 +276,7 @@ dnl ---------------------------------------------------------------------------
 if ($CXX -V 2>&1 | grep 'Sun C++')  >/dev/null 2>/dev/null; then
   AC_SUBST(USE_SUN_CC, 1)
 fi
+
 
 dnl ---------------------------------------------------------------------------
 dnl Miscellaneous

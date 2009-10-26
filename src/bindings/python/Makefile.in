@@ -75,7 +75,9 @@ endif # USE_LAYOUT
 # On MacOS X, compilation generates a warning about `long double'.
 
 ifeq "$(HOST_TYPE)" "darwin"
-  extra_CPPFLAGS += -Wno-long-double
+  ifdef HAS_GCC_WNO_LONG_DOUBLE
+    extra_CPPFLAGS += -Wno-long-double
+  endif
 endif
 
 extra_LDFLAGS  = $(PYTHON_LDFLAGS) 
