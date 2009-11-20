@@ -277,7 +277,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int errors = 0;
   unsigned int warnings = 0;
   unsigned int fatals = 0;
-  mxArray * mxErrors[1];
+  mxArray * mxErrors[1], *mxMe[1];
   char * pacErrors, * pacError;
   unsigned int i;
   mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1];
@@ -286,7 +286,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   char *pacReply;
   char *pacWarn;
   char *pacList = "Do you want to exclude the warnings from the list? Enter y/n ";
-  
+const XMLError_t *e;  
   pacCSymbolTime = NULL;
   pacCSymbolDelay = NULL;
   
@@ -425,7 +425,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (validateFlag > 0)
   {
-    errors += SBMLDocument_checkConsistency(sbmlDocument);
+   errors += SBMLDocument_checkConsistency(sbmlDocument);
   }
   for (i = 0; i < errors; i++)
   {
@@ -504,8 +504,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     sprintf(pacErrors, "\n************************************\nLine ErrorId Severity Message\n");
     for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
     {
-      const XMLError_t *e =
-	    (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
+      e = (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
       if (listFlag == 1)
       {
         sprintf(pacError, "%u: (%u)  %s %s\n",
@@ -4494,27 +4493,30 @@ GetEvent (Model_t      *pModel,
       /* END OF HACK */
 
 
-      /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
-
-      mxInput[0] = mxCreateString(pacDelay);
-      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-
-      if (nStatus != 0)
+      if (Event_isSetDelay(pEvent)) 
       {
-          mexErrMsgTxt("Failed to convert formula");
+        /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+        mxInput[0] = mxCreateString(pacDelay);
+        nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+        if (nStatus != 0)
+        {
+            mexErrMsgTxt("Failed to convert formula");
+        }
+
+        /* get the formula returned */
+        nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+        pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
+        nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
+
+        if (nStatus != 0)
+        {
+            mexErrMsgTxt("Cannot copy formula");
+        }
+
+        /* END OF HACK */
       }
-
-      /* get the formula returned */
-      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-      pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
-
-      if (nStatus != 0)
-      {
-          mexErrMsgTxt("Cannot copy formula");
-      }
-
-      /* END OF HACK */
     }
     else
     {
