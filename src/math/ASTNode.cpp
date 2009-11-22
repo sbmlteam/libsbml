@@ -270,6 +270,61 @@ ASTNode::ASTNode (const ASTNode& orig) :
   }
 }
 
+/**
+ * 
+ * assignment operator
+ *
+ */
+LIBSBML_EXTERN
+ASTNode& ASTNode::operator=(const ASTNode& rhs)
+{
+  if(&rhs!=this)
+  {
+    mType                 = rhs.mType;
+    mChar                 = rhs.mChar;
+    mInteger              = rhs.mInteger;
+    mReal                 = rhs.mReal;
+    mDenominator          = rhs.mDenominator;
+    mExponent             = rhs.mExponent;
+    hasSemantics          = rhs.hasSemantics;
+    mParentSBMLObject     = rhs.mParentSBMLObject;
+    mUnits                = rhs.mUnits;
+    mUserData             = rhs.mUserData;
+    if (rhs.mName)
+    {
+      mName = safe_strdup(rhs.mName);
+    }
+    else
+    {
+      mName = NULL;
+    }
+
+    unsigned int size = mChildren->getSize();
+    while (size--) delete static_cast<ASTNode*>( mChildren->remove(0) );
+    delete mChildren;
+    mChildren = new List();
+
+    for (unsigned int c = 0; c < rhs.getNumChildren(); ++c)
+    {
+      addChild( rhs.getChild(c)->deepCopy() );
+    }
+
+    size = mSemanticsAnnotations->getSize();
+    while (size--)  delete static_cast<XMLNode*>(mSemanticsAnnotations->remove(0) );
+    delete mSemanticsAnnotations;
+    mSemanticsAnnotations = new List();
+
+    for (unsigned int c = 0; c < rhs.getNumSemanticsAnnotations(); ++c)
+    {
+      addSemanticsAnnotation( rhs.getSemanticsAnnotation(c)->clone() );
+    }
+    
+    delete mDefinitionURL;
+    mDefinitionURL        = rhs.mDefinitionURL->clone();	
+  }
+  return *this;
+}
+
 /*
  * Destroys this ASTNode including any child nodes.
  */
