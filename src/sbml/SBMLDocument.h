@@ -237,6 +237,7 @@
 #include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBase.h>
+#include <sbml/SBMLTransforms.h>
 
 
 #ifdef __cplusplus
@@ -415,6 +416,29 @@ public:
    * @see createModel()
    */
   Model* getModel ();
+
+
+  /**
+   * Removes any FunctionDefinitions from the document and expands
+   * any instances of their use within <math> elements.
+   *
+   * For example a Model contains a FunctionDefinition with id f
+   * representing the math expression: f(x, y) = x * y.
+   * The math element of the KineticLaw uses f(s, p).
+   * The outcome of the function is that the math of the KineticLaw
+   * now represents the math expression: s * p and the model no longer
+   * contains any FunctionDefinitions.
+   * 
+   * @ return bool @true if the transformation was successful, 
+   * @false, otherwise.
+   *
+   * @note This function will check the consistency of a model
+   * before attemptimg the transformation.  In the case of a model
+   * with invalid SBML the transformation will not be done and the
+   * function will return @false.
+   * 
+   */
+  bool expandFunctionDefinitions();
 
 
   /**
@@ -975,6 +999,11 @@ protected:
   bool hasStrictSBO();
 
 
+  /*
+   * Predicate returning true if the errors encountered are not ignorable.
+   */
+  bool expandFD_errors(unsigned int errors);
+
   int mLevel;
   int mVersion;
 
@@ -1045,6 +1074,11 @@ Model_t *
 SBMLDocument_getModel (SBMLDocument_t *d);
 
 
+LIBSBML_EXTERN
+int
+SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d);
+
+                                 
 LIBSBML_EXTERN
 int
 SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d

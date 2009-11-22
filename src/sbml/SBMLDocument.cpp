@@ -191,6 +191,36 @@ SBMLDocument::hasStrictSBO()
   return (errors == 0);
 
 }
+/*
+ * Predicate returning true if the errors encountered are not ignorable.
+ */
+bool
+SBMLDocument::expandFD_errors(unsigned int errors)
+{
+  if (errors > 0)
+  {
+    if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      return true;
+    else
+    {  /* in L2V1 error 10214 (ie function used but not defined)
+        * is actually reported as a warning
+        */
+      for (unsigned int i = 0; i < mErrorLog.getNumErrors(); i++)
+      {
+        if (mErrorLog.getError(i)->getErrorId() == ApplyCiMustBeUserFunction)
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }
+  else
+  {
+    return false;
+  }
+}
 /** @endcond doxygen-libsbml-internal */
 
 
@@ -342,6 +372,136 @@ SBMLDocument::getModel ()
   return mModel;
 }
 
+/* 
+ * removes FD and expands them in math elements
+ */
+bool
+SBMLDocument::expandFunctionDefinitions()
+{
+  bool success = false;
+  unsigned int i, j;
+
+  /* check consistency of model */
+  /* since this function will write to the error log we should
+   * clear anything in the log first
+   */
+  getErrorLog()->clearLog();
+  unsigned char origValidators = mApplicableValidators;
+
+  mApplicableValidators = AllChecksON;
+
+  unsigned int errors = checkConsistency();
+  
+  if (!expandFD_errors(errors))
+  {
+    // for any math in document replace each function def
+    for (i = 0; i < mModel->getNumRules(); i++)
+    {
+      if (mModel->getRule(i)->isSetMath())
+      {
+        SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel->getRule(i)
+          ->getMath()), mModel->getListOfFunctionDefinitions());
+      }
+    }
+    for (i = 0; i < mModel->getNumInitialAssignments(); i++)
+    {
+      if (mModel->getInitialAssignment(i)->isSetMath())
+      {
+        SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel
+          ->getInitialAssignment(i)->getMath()), 
+          mModel->getListOfFunctionDefinitions());
+      }
+    }
+    for (i = 0; i < mModel->getNumConstraints(); i++)
+    {
+      if (mModel->getConstraint(i)->isSetMath())
+      {
+        SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel
+          ->getConstraint(i)->getMath()), 
+          mModel->getListOfFunctionDefinitions());
+      }
+    }
+    for (i = 0; i < mModel->getNumReactions(); i++)
+    {
+      if (mModel->getReaction(i)->isSetKineticLaw())
+      {
+        if (mModel->getReaction(i)->getKineticLaw()->isSetMath())
+        {
+          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+              ->getReaction(i)->getKineticLaw()->getMath()), 
+              mModel->getListOfFunctionDefinitions());
+        }
+      }
+      for (j = 0; j < mModel->getReaction(i)->getNumReactants(); j++)
+      {
+        if (mModel->getReaction(i)->getReactant(j)->isSetStoichiometryMath())
+        {
+          if (mModel->getReaction(i)->getReactant(j)->getStoichiometryMath()
+            ->isSetMath())
+          {
+            SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+                ->getReaction(i)->getReactant(j)->getStoichiometryMath()->getMath()), 
+                mModel->getListOfFunctionDefinitions());
+          }
+        }
+      }
+      for (j = 0; j < mModel->getReaction(i)->getNumProducts(); j++)
+      {
+        if (mModel->getReaction(i)->getProduct(j)->isSetStoichiometryMath())
+        {
+          if (mModel->getReaction(i)->getProduct(j)->getStoichiometryMath()
+            ->isSetMath())
+          {
+            SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+                ->getReaction(i)->getProduct(j)->getStoichiometryMath()->getMath()), 
+                mModel->getListOfFunctionDefinitions());
+          }
+        }
+      }
+    }
+    for (i = 0; i < mModel->getNumEvents(); i++)
+    {
+      if (mModel->getEvent(i)->isSetTrigger())
+      {
+        if (mModel->getEvent(i)->getTrigger()->isSetMath())
+        {
+          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+            ->getEvent(i)->getTrigger()->getMath()),
+            mModel->getListOfFunctionDefinitions());
+        }
+      }
+      if (mModel->getEvent(i)->isSetDelay())
+      {
+        if (mModel->getEvent(i)->getDelay()->isSetMath())
+        {
+          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+            ->getEvent(i)->getDelay()->getMath()),
+            mModel->getListOfFunctionDefinitions());
+        }
+      }
+
+      for(j = 0; j < mModel->getEvent(i)->getNumEventAssignments(); j++)
+      {
+        if (mModel->getEvent(i)->getEventAssignment(j)->isSetMath())
+        {
+          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+            ->getEvent(i)->getEventAssignment(j)->getMath()),
+            mModel->getListOfFunctionDefinitions());
+        }
+      }
+    }
+
+    unsigned int size = mModel->getNumFunctionDefinitions();
+    while (size--) mModel->getListOfFunctionDefinitions()->remove(size);
+  }
+
+  success = (mModel->getNumFunctionDefinitions() == 0);
+
+  /* replace original consistency checks */
+  mApplicableValidators = origValidators;
+
+  return success;
+}
 
 /*
  * Sets the level and version of this SBMLDocument.  Valid
@@ -2021,6 +2181,36 @@ Model_t *
 SBMLDocument_getModel (SBMLDocument_t *d)
 {
   return d->getModel();
+}
+
+
+/**
+ * Removes any FunctionDefinitions from the document and expands
+ * any instances of their use within <math> elements.
+ *
+ * For example a Model contains a FunctionDefinition with id f
+ * representing the math expression: f(x, y) = x * y.
+ * The math element of the KineticLaw uses f(s, p).
+ * The outcome of the function is that the math of the KineticLaw
+ * now represents the math expression: s * p and the model no longer
+ * contains any FunctionDefinitions.
+ * 
+ * @param d the SBMLDocument_t structure
+ *
+ * @return true (non-zero) if the transformation was successful,
+ * false (0) otherwise.
+ *
+ * @note This function will check the consistency of a model
+ * before attemptimg the transformation.  In the case of a model
+ * with invalid SBML the transformation will not be done and the
+ * function will return @false.
+ * 
+ */
+LIBSBML_EXTERN
+int
+SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d)
+{
+  return static_cast <int> (d->expandFunctionDefinitions());
 }
 
 
