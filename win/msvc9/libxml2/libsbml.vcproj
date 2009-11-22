@@ -645,6 +645,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\sbml\SBMLTransforms.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\sbml\SBMLTypeCodes.cpp"
 				>
 			</File>
@@ -1290,6 +1294,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\sbml\SBMLReader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\sbml\SBMLTransforms.h"
 				>
 			</File>
 			<File
