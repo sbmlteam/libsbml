@@ -161,6 +161,8 @@ Suite *create_suite_HasReqdElements (void);
 Suite *create_suite_SyntaxChecker (void);
 Suite *create_suite_SBMLConstructorException (void);
 
+Suite *create_suite_TestSBMLTransforms (void);
+
 END_C_DECLS
 
 
@@ -288,6 +290,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SBMLNamespaces() );
   srunner_add_suite( runner, create_suite_SyntaxChecker() );
   srunner_add_suite( runner, create_suite_SBMLConstructorException() );
+  srunner_add_suite( runner, create_suite_SBMLTransforms() );
 
 
   setTestDataDirectory();
