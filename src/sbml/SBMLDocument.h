@@ -1105,13 +1105,13 @@ SBMLDocument_createModel (SBMLDocument_t *d);
 LIBSBML_EXTERN
 void
 SBMLDocument_setConsistencyChecks(SBMLDocument_t *d, 
-                                     int validator,
+                                     SBMLErrorCategory_t category,
                                      int apply);
 
 LIBSBML_EXTERN
 void
 SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t *d, 
-                                     int validator,
+                                     SBMLErrorCategory_t category,
                                      int apply);
 
 LIBSBML_EXTERN
