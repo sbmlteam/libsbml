@@ -547,11 +547,28 @@ END_TEST
 
 START_TEST (test_WriteL3SBML_Event)
 {
-  const char* expected = "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
+  const char* expected = "<event id=\"e\"/>";
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
   e->setUseValuesFromTriggerTime(true);
+  
+  fail_unless( equals(expected,e->toSBML()) );
+}
+END_TEST
+
+
+START_TEST (test_WriteL3SBML_Event_useValues)
+{
+  const char* expected = 
+    "<event id=\"e\" useValuesFromTriggerTime=\"false\">\n"
+    "  <delay/>\n"
+    "</event>";
+
+  Event *e = D->createModel()->createEvent();
+  e->setId("e");
+  e->setUseValuesFromTriggerTime(false);
+  e->createDelay();
   
   fail_unless( equals(expected,e->toSBML()) );
 }
@@ -794,7 +811,7 @@ START_TEST (test_WriteL3SBML_elements)
     "      <reaction reversible=\"true\" fast=\"false\"/>\n"
     "    </listOfReactions>\n"
     "    <listOfEvents>\n"
-    "      <event useValuesFromTriggerTime=\"true\"/>\n"
+    "      <event/>\n"
     "    </listOfEvents>\n"
     "  </model>\n");
 
@@ -881,6 +898,7 @@ create_suite_WriteL3SBML ()
 
   //// Event
   tcase_add_test( tcase, test_WriteL3SBML_Event         );
+  tcase_add_test( tcase, test_WriteL3SBML_Event_useValues );
  
    // Miscellaneous
   tcase_add_test( tcase, test_WriteL3SBML_NaN     );

@@ -1146,7 +1146,7 @@ Event::readAttributes (const XMLAttributes& attributes)
 
   //
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
-  // useValuesFromTriggerTime: bool {use="required" } (L3 ->)
+  // useValuesFromTriggerTime: bool {use="optional" } (L3 ->)
   //
   if (level == 2 && version  == 4)
   {
@@ -1156,7 +1156,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   {
     mIsSetUseValuesFromTriggerTime = attributes.readInto(
       "useValuesFromTriggerTime", mUseValuesFromTriggerTime, 
-       getErrorLog(), true);
+       getErrorLog(), false);
   }
 }
 
@@ -1220,7 +1220,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
       stream.writeAttribute("useValuesFromTriggerTime", 
                             mUseValuesFromTriggerTime);
   }
-  else if (level > 2)
+  else if (level > 2 && isSetDelay())
   {
     stream.writeAttribute("useValuesFromTriggerTime", 
                           mUseValuesFromTriggerTime);
