@@ -320,7 +320,7 @@ CVTerm::getResourceURI(unsigned int n)
   * adds a resource to the term
   */
 int 
-CVTerm::addResource(std::string resource)
+CVTerm::addResource(const std::string& resource)
 {
   if (resource.empty())
   {

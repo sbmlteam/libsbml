@@ -71,6 +71,7 @@ typedef enum
 {
     BQM_IS
   , BQM_IS_DESCRIBED_BY
+  , BQM_IS_DERIVED_FROM
   , BQM_UNKNOWN
 } ModelQualifierType_t;
 
@@ -86,6 +87,8 @@ typedef enum
   , BQB_IS_ENCODED_BY
   , BQB_ENCODES
   , BQB_OCCURS_IN
+  , BQB_HAS_PROPERTY
+  , BQB_IS_PROPERTY_OF
   , BQB_UNKNOWN
 } BiolQualifierType_t;
 
@@ -310,7 +313,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    * @li LIBSBML_OPERATION_FAILED
    */
-  int addResource(std::string resource);
+  int addResource(const std::string& resource);
 
 
   /**
