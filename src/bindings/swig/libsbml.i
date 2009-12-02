@@ -476,6 +476,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/SyntaxChecker.h
 %include sbml/StoichiometryMath.h
 %include sbml/SBMLNamespaces.h
+%include sbml/SBMLTransforms.h
 
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h

@@ -108,6 +108,7 @@ my %MiscClass = (
    RDFAnnotationParser => 0,
    SBMLNamespaces  => 0,
    SyntaxChecker   => 0,
+   SBMLTransforms  => 0,
 );
 
 my %IgnoredClass = (
@@ -1269,9 +1270,9 @@ sub parseBlock
 
   if ( ( $Target eq 'python' ) || ($Target eq 'ruby') )
   {
-    # remove static_cast<...>( )
+    # remove static_cast<...>( ) and const_cast<...>()
     $line =~ s{ 
-                static_cast\s*< \s* \w+? \s* \*? \s*> \s* ($re_np) 
+                (?:static|const)_cast\s*< \s* \w+? \s* \*? \s*> \s* ($re_np) 
               }
               { 
                 (my $r = $1)  =~ s,(?:^\(|\)$),,g;  
@@ -1286,7 +1287,7 @@ sub parseBlock
    # SHOULD BE FIXED
 
     $line =~ s{ 
-                static_cast\s*< \s* ( \w+? ) \s* \*? \s*> \s* ($re_np) 
+                (?:static|const)_cast\s*< \s* ( \w+? ) \s* \*? \s*> \s* ($re_np) 
               }
               { 
                 my $l = $1; (my $r = $2)  =~ s,(?:^\(|\)$),,g;  
