@@ -223,6 +223,16 @@ START_TEST (test_L3_Event_hasRequiredElements )
 END_TEST
 
 
+START_TEST (test_L3_Event_NS)
+{
+  fail_unless( Event_getNamespaces     (E) != NULL );
+  fail_unless( XMLNamespaces_getLength(Event_getNamespaces(E)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Event_getNamespaces(E), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Event (void)
 {
@@ -242,6 +252,7 @@ create_suite_L3_Event (void)
   tcase_add_test( tcase, test_L3_Event_createWithNS         );
   tcase_add_test( tcase, test_L3_Event_hasRequiredAttributes        );
   tcase_add_test( tcase, test_L3_Event_hasRequiredElements        );
+  tcase_add_test( tcase, test_L3_Event_NS              );
 
   suite_add_tcase(suite, tcase);
 

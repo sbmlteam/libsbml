@@ -250,6 +250,16 @@ START_TEST (test_L3_SpeciesReference_hasRequiredAttributes )
 END_TEST
 
 
+START_TEST (test_L3_SpeciesReference_NS)
+{
+  fail_unless( SpeciesReference_getNamespaces     (SR) != NULL );
+  fail_unless( XMLNamespaces_getLength(SpeciesReference_getNamespaces(SR)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(SpeciesReference_getNamespaces(SR), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_SpeciesReference (void)
 {
@@ -270,6 +280,7 @@ create_suite_L3_SpeciesReference (void)
   tcase_add_test( tcase, test_L3_SpeciesReference_constant);
   tcase_add_test( tcase, test_L3_SpeciesReference_createWithNS         );
   tcase_add_test( tcase, test_L3_SpeciesReference_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_L3_SpeciesReference_NS              );
 
   suite_add_tcase(suite, tcase);
 

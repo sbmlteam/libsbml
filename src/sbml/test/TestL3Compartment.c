@@ -288,6 +288,16 @@ START_TEST (test_L3_Compartment_hasRequiredAttributes )
 END_TEST
 
 
+START_TEST (test_L3_Compartment_NS)
+{
+  fail_unless( Compartment_getNamespaces     (C) != NULL );
+  fail_unless( XMLNamespaces_getLength(Compartment_getNamespaces(C)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Compartment_getNamespaces(C), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Compartment (void)
 {
@@ -309,6 +319,7 @@ create_suite_L3_Compartment (void)
   tcase_add_test( tcase, test_L3_Compartment_spatialDimensions);
   tcase_add_test( tcase, test_L3_Compartment_createWithNS         );
   tcase_add_test( tcase, test_L3_Compartment_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_L3_Compartment_NS              );
 
   suite_add_tcase(suite, tcase);
 

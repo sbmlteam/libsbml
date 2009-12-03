@@ -205,6 +205,16 @@ START_TEST (test_L3_Unit_hasRequiredAttributes )
 END_TEST
 
 
+START_TEST (test_L3_Unit_NS)
+{
+  fail_unless( Unit_getNamespaces     (U) != NULL );
+  fail_unless( XMLNamespaces_getLength(Unit_getNamespaces(U)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Unit_getNamespaces(U), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Unit (void)
 {
@@ -224,6 +234,7 @@ create_suite_L3_Unit (void)
   tcase_add_test( tcase, test_L3_Unit_scale);
   tcase_add_test( tcase, test_L3_Unit_createWithNS         );
   tcase_add_test( tcase, test_L3_Unit_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_L3_Unit_NS              );
 
   suite_add_tcase(suite, tcase);
 

@@ -1004,6 +1004,7 @@ END_TEST
 START_TEST (test_internal_consistency_check_99911_ea)
 {
   SBMLDocument*     d = new SBMLDocument();
+  d->setLevelAndVersion(2, 1);
   unsigned int errors;
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1011,7 +1012,6 @@ START_TEST (test_internal_consistency_check_99911_ea)
   c->setConstant(false);
   Event *e = m->createEvent();
   EventAssignment *ea = new EventAssignment(2, 4);
-  d->setLevelAndVersion(2, 1);
 
   ea->setVariable("c");
   ea->setSBOTerm(2);
@@ -1060,12 +1060,12 @@ END_TEST
 START_TEST (test_internal_consistency_check_99911_kl)
 {
   SBMLDocument*     d = new SBMLDocument();
+  d->setLevelAndVersion(2, 1);
   unsigned int errors;
   Model *m = d->createModel();
   Reaction *r = m->createReaction();
   r->setId("r");
   KineticLaw *kl = new KineticLaw(2, 4);
-  d->setLevelAndVersion(2, 1);
 
   kl->setSBOTerm(2);
   Parameter *p = kl->createParameter();

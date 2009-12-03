@@ -260,6 +260,16 @@ START_TEST (test_L3_Reaction_hasRequiredAttributes )
 END_TEST
 
 
+START_TEST (test_L3_Reaction_NS)
+{
+  fail_unless( Reaction_getNamespaces     (R) != NULL );
+  fail_unless( XMLNamespaces_getLength(Reaction_getNamespaces(R)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Reaction_getNamespaces(R), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Reaction (void)
 {
@@ -280,6 +290,7 @@ create_suite_L3_Reaction (void)
   tcase_add_test( tcase, test_L3_Reaction_reversible);
   tcase_add_test( tcase, test_L3_Reaction_createWithNS         );
   tcase_add_test( tcase, test_L3_Reaction_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_L3_Reaction_NS              );
 
   suite_add_tcase(suite, tcase);
 

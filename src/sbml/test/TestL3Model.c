@@ -367,6 +367,16 @@ START_TEST (test_L3_Model_createWithNS )
 END_TEST
 
 
+START_TEST (test_L3_Model_NS)
+{
+  fail_unless( Model_getNamespaces     (M) != NULL );
+  fail_unless( XMLNamespaces_getLength(Model_getNamespaces(M)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Model_getNamespaces(M), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Model (void)
 {
@@ -389,6 +399,7 @@ create_suite_L3_Model (void)
   tcase_add_test( tcase, test_L3_Model_lengthUnits   );
   tcase_add_test( tcase, test_L3_Model_conversionFactor   );
   tcase_add_test( tcase, test_L3_Model_createWithNS         );
+  tcase_add_test( tcase, test_L3_Model_NS              );
 
   suite_add_tcase(suite, tcase);
 

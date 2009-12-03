@@ -44,7 +44,6 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
     mNamespaces->add(SBML_XMLNS_L1);
     break;
   case 2:
-  default:
     switch (version)
     {
     case 1:
@@ -59,6 +58,16 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
     case 4:
     default:
       mNamespaces->add(SBML_XMLNS_L2V4);
+      break;
+    }
+    break;
+  case 3:
+  default:
+    switch (version)
+    {
+    case 1:
+    default:
+      mNamespaces->add(SBML_XMLNS_L3V1);
       break;
     }
     break;

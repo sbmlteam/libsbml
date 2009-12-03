@@ -256,6 +256,16 @@ START_TEST (test_L3_Parameter_hasRequiredAttributes )
 END_TEST
 
 
+START_TEST (test_L3_Parameter_NS)
+{
+  fail_unless( Parameter_getNamespaces     (P) != NULL );
+  fail_unless( XMLNamespaces_getLength(Parameter_getNamespaces(P)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Parameter_getNamespaces(P), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Parameter (void)
 {
@@ -276,6 +286,7 @@ create_suite_L3_Parameter (void)
   tcase_add_test( tcase, test_L3_Parameter_value);
   tcase_add_test( tcase, test_L3_Parameter_createWithNS         );
   tcase_add_test( tcase, test_L3_Parameter_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_L3_Parameter_NS              );
 
   suite_add_tcase(suite, tcase);
 

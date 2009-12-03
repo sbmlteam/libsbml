@@ -398,6 +398,16 @@ START_TEST (test_L3_Species_hasRequiredAttributes )
 END_TEST
 
 
+START_TEST (test_L3_Species_NS)
+{
+  fail_unless( Species_getNamespaces     (S) != NULL );
+  fail_unless( XMLNamespaces_getLength(Species_getNamespaces(S)) == 1 );
+  fail_unless( !strcmp( XMLNamespaces_getURI(Species_getNamespaces(S), 0),
+    "http://www.sbml.org/sbml/level3/version1/core"));
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Species (void)
 {
@@ -423,6 +433,7 @@ create_suite_L3_Species (void)
   tcase_add_test( tcase, test_L3_Species_conversionFactor);
   tcase_add_test( tcase, test_L3_Species_createWithNS         );
   tcase_add_test( tcase, test_L3_Species_hasRequiredAttributes        );
+  tcase_add_test( tcase, test_L3_Species_NS              );
 
   suite_add_tcase(suite, tcase);
 
