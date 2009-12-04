@@ -4771,7 +4771,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99998
   {   
     L3NotSupported,   
-    "Attribute 'offset' on units only available in SBML Level 2 Version 1",
+    "SBML Level 3 is not yet supported",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
