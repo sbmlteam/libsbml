@@ -23,6 +23,7 @@
 
 #include <sbml/SBMLTransforms.h>
 #include <cstring>
+#include "../../src/validator/constraints/IdList.h"
 
 /** @cond doxygen-ignored */
 
@@ -109,7 +110,7 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
 }
 
 bool
-SBMLTransforms::checkNodeForIds(ASTNode * node, IdList ids)
+SBMLTransforms::checkNodeForIds(ASTNode * node, IdList& ids)
 {
   bool present = false;
   unsigned int i = 0;

@@ -35,7 +35,6 @@
 #include <sbml/util/util.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/FunctionDefinition.h>
-#include "../../src/validator/constraints/IdList.h"
 
 #ifdef __cplusplus
 
@@ -43,6 +42,8 @@
 #include <string>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+class IdList;
 
 class LIBSBML_EXTERN SBMLTransforms
 {
@@ -99,7 +100,7 @@ protected:
 
   /** @cond doxygen-libsbml-internal */
   
-  static bool checkNodeForIds(ASTNode * node, IdList ids);
+  static bool checkNodeForIds(ASTNode * node, IdList& ids);
 
   /** @endcond doxygen-libsbml-internal */
 };
