@@ -2634,6 +2634,16 @@ SBase::read (XMLInputStream& stream)
   setSBaseFields( element );
   readAttributes( element.getAttributes() );
 
+  /* if we are reading a document pass the
+   * SBML Namespace information to the input stream object
+   * thus the MathML reader can find out what level/version
+   * of SBML it is parsing
+   */
+  if (element.getName() == "sbml")
+  {
+    stream.setSBMLNamespaces(this->getSBMLNamespaces());
+  }
+
   if ( element.isEnd() ) return;
 
   while ( stream.isGood() )

@@ -330,13 +330,17 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     string url;
     element.getAttributes().readInto("definitionURL", url);
 
-         if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
+    if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
     else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
     else 
     {
       static_cast <SBMLErrorLog*>
-	(stream.getErrorLog())->logError(BadCsymbolDefinitionURLValue);
+	        (stream.getErrorLog())->logError(BadCsymbolDefinitionURLValue);
     }
+  }
+  else if (element.getName() == "ci")
+  {
+    node.setDefinitionURL(element.getAttributes());
   }
 
   const string name = trim( stream.next().getCharacters() );
@@ -605,13 +609,27 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   }
 
   // allow definition url on csymbol/semantics and bvar
-  if ( !url.empty() && (name != "csymbol"
-                     && name != "semantics"))
-  {
-    static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(DisallowedDefinitionURLUse);
-  }
+  // and on ci in L3
+  if ( !url.empty())
+  {  
+    if (stream.getSBMLNamespaces()->getLevel() > 2)
+    {
+      if (name != "csymbol" && name != "semantics" && name != "ci")
+      {
+        static_cast <SBMLErrorLog*>
+          (stream.getErrorLog())->logError(DisallowedDefinitionURLUse);
+      }
+    }
+    else
+    {
+      if (name != "csymbol" && name != "semantics")
+      {
+        static_cast <SBMLErrorLog*>
+          (stream.getErrorLog())->logError(DisallowedDefinitionURLUse);
+      }
+    }
 
+  }
 
 
   if (name == "apply" || name == "lambda" || name == "piecewise")
@@ -814,6 +832,9 @@ writeCI (const ASTNode& node, XMLOutputStream& stream)
   {
     stream.startElement("ci");
     stream.setAutoIndent(false);
+  if (node.getDefinitionURL())
+    stream.writeAttribute("definitionURL", 
+                            node.getDefinitionURL()->getValue(0));
 
     stream << " " << node.getName() << " ";
 
@@ -1133,9 +1154,6 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream)
   for (n = 0; n < bvars; n++)
   {
     stream.startElement("bvar");
-    if (node.getChild(n)->getDefinitionURL())
-      stream.writeAttribute("definitionURL", 
-      node.getChild(n)->getDefinitionURL()->getValue(0));
     writeNode(*node.getChild(n), stream);
     stream.endElement("bvar");
   }
@@ -1335,10 +1353,9 @@ readMathML (XMLInputStream& stream)
         message += "> cannot be used directly following a";
         message += " <math> tag.";
 
-        // the mathML reader doesnt know what level and version it is reading!
-        // FIX ME
         static_cast <SBMLErrorLog*> (stream.getErrorLog())
-          ->logError(BadMathMLNodeType, 2, 1, message);
+          ->logError(BadMathMLNodeType, stream.getSBMLNamespaces()->getLevel(),
+          stream.getSBMLNamespaces()->getVersion(), message);
     }
 
     stream.skipPastEnd(elem);
@@ -1437,6 +1454,7 @@ readMathMLFromString (const char *xml)
   SBMLErrorLog   log;
 
   stream.setErrorLog(&log);
+  stream.setSBMLNamespaces(new SBMLNamespaces());
 
   ASTNode_t* ast = readMathML(stream);
   if (log.getNumErrors() > 0)

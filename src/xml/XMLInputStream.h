@@ -168,6 +168,9 @@ public:
    */
   std::string toString ();
 
+  SBMLNamespaces * getSBMLNamespaces();
+
+  void setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
 protected:
 
@@ -189,6 +192,8 @@ protected:
   XMLToken     mEOF;
   XMLTokenizer mTokenizer;
   XMLParser*   mParser;
+
+  SBMLNamespaces* mSBMLns;
 
 };
 

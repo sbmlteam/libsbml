@@ -50,6 +50,7 @@ XMLInputStream::XMLInputStream (  const char*   content
 
    mIsError ( false )
  , mParser  ( XMLParser::create( mTokenizer, library) )
+ , mSBMLns  ( 0 )
 {
   if ( !isGood() ) return;
   if ( errorLog ) setErrorLog(errorLog);
@@ -236,6 +237,17 @@ XMLInputStream::toString ()
   return mTokenizer.toString();
 }
 
+SBMLNamespaces *
+XMLInputStream::getSBMLNamespaces()
+{
+  return mSBMLns;
+}
+
+void
+XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
+{
+  mSBMLns = sbmlns;
+}
 /**
  * 
  **/
