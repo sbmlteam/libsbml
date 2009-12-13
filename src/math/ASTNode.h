@@ -280,6 +280,7 @@ typedef enum
   , AST_RATIONAL
 
   , AST_NAME
+  , AST_NAME_AVOGADRO
   , AST_NAME_TIME
 
   , AST_CONSTANT_E

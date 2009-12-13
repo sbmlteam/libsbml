@@ -956,6 +956,37 @@ START_TEST (test_MathMLFormatter_cn_units)
 END_TEST
 
 
+START_TEST (test_MathMLFormatter_csymbol_avogadro)
+{
+  const char* expected = wrapMathML
+  (
+    "  <csymbol encoding=\"text\" "
+    "definitionURL=\"http://www.sbml.org/sbml/symbols/avogadro\"> NA </csymbol>\n"
+  );
+
+  N = new ASTNode(AST_NAME_AVOGADRO);
+  N->setName("NA");
+
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_ci_definitionURL)
+{
+  const char* expected = wrapMathML("  <ci definitionURL=\"http://someurl\"> foo </ci>\n");
+
+  N = SBML_parseFormula("foo");
+//  N->setDefinitionURL("http://someurl");
+  S = writeMathMLToString(N);
+
+  fail_unless( equals(expected, S) );
+}
+END_TEST
+
+
 Suite *
 create_suite_WriteMathML ()
 {
@@ -1010,7 +1041,11 @@ create_suite_WriteMathML ()
   tcase_add_test( tcase, test_MathMLFormatter_semantics_ann         );
   tcase_add_test( tcase, test_MathMLFormatter_semantics_annxml      );
 
+  /* L3 additions */
   tcase_add_test( tcase, test_MathMLFormatter_cn_units           );
+
+  tcase_add_test( tcase, test_MathMLFormatter_csymbol_avogadro         );
+// tcase_add_test( tcase, test_MathMLFormatter_ci_definitionURL         );
 
   suite_add_tcase(suite, tcase);
 

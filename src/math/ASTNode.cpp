@@ -1789,6 +1789,7 @@ ASTNode::hasCorrectNumberArguments() const
   case AST_REAL_E:
   case AST_RATIONAL:
   case AST_NAME:
+  case AST_NAME_AVOGADRO:
   case AST_NAME_TIME:
   case AST_CONSTANT_E:
   case AST_CONSTANT_FALSE:

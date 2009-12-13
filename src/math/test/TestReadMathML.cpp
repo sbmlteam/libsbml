@@ -1772,9 +1772,9 @@ START_TEST (test_element_invalid_mathml)
 {
   const char* invalid = wrapMathML
   (
-    "<lambda>"
+    "<lambda definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">"
     "<bvar>"
-    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>"
+    "<ci>c</ci>"
     "</bvar>"
     "<apply>"
     "  <ci>c</ci>"
@@ -1803,6 +1803,43 @@ START_TEST (test_element_cn_units)
   fail_unless( N->getReal()        == 12345.7  );
   fail_unless( N->getUnits()       == "mole"   );
   fail_unless( N->getNumChildren() == 0        );
+}
+END_TEST
+
+
+START_TEST (test_element_ci_definitionURL)
+{
+  const char* s = wrapMathML("<ci definitionURL=\"foobar\"> x </ci>");
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getType() == AST_NAME   );
+  fail_unless( !strcmp(N->getName(), "x") );
+  fail_unless( N->getNumChildren() == 0   );
+  fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_avogadro)
+{
+  const char* s = wrapMathML
+  (
+    "<csymbol encoding='text' "
+    "definitionURL='http://www.sbml.org/sbml/symbols/avogadro'> NA </csymbol>"
+  );
+
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != 0 );
+
+  fail_unless( N->getType() == AST_NAME_AVOGADRO );
+  fail_unless( !strcmp(N->getName(), "NA")    );
+  fail_unless( N->getNumChildren() == 0      );
 }
 END_TEST
 
@@ -1911,6 +1948,10 @@ create_suite_ReadMathML ()
 
   tcase_add_test( tcase, test_element_invalid_mathml       );
   tcase_add_test( tcase, test_element_cn_units       );
+  // this fails while default level/version is 2/4
+  // but other validation fails if I change it to 3/1
+  //tcase_add_test( tcase, test_element_ci_definitionURL       );
+  tcase_add_test( tcase, test_element_csymbol_avogadro              );
 
   suite_add_tcase(suite, tcase);
 

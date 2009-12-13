@@ -50,6 +50,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
+static const char* URL_AVOGADRO = "http://www.sbml.org/sbml/symbols/avogadro";
 
 static const char* MATHML_ELEMENTS[] =
 {
@@ -332,6 +333,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
     if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
     else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
+    else if ( url == URL_AVOGADRO  ) node.setType(AST_NAME_AVOGADRO);
     else 
     {
       static_cast <SBMLErrorLog*>
@@ -824,7 +826,8 @@ writeCI (const ASTNode& node, XMLOutputStream& stream)
 {
   ASTNodeType_t type = node.getType();
 
-  if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME)
+  if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME
+    || type == AST_NAME_AVOGADRO )
   {
     writeCSymbol(node, stream);
   }
@@ -941,6 +944,7 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream)
 
        if (type == AST_FUNCTION_DELAY) url = URL_DELAY;
   else if (type == AST_NAME_TIME)      url = URL_TIME;
+  else if (type == AST_NAME_AVOGADRO)  url = URL_AVOGADRO;
 
   stream.startElement("csymbol");
   stream.setAutoIndent(false);
