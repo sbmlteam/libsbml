@@ -1014,8 +1014,6 @@ protected:
   unsigned char mApplicableValidators;
   unsigned char mApplicableValidatorsForConversion;
 
-  std::vector<PackageReqd> mPackageRequirements;
-
   friend class SBase;
   friend class SBMLReader;
 

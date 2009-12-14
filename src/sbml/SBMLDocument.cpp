@@ -270,7 +270,6 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mModel   ( 0       )
  , mApplicableValidators ( AllChecksON)
  , mApplicableValidatorsForConversion ( AllChecksON )
- , mPackageRequirements ( 0 )
 {
   mSBML = this;
 
@@ -310,7 +309,6 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
  , mModel   ( 0             )
  , mApplicableValidators (orig.mApplicableValidators)
  , mApplicableValidatorsForConversion (orig.mApplicableValidatorsForConversion)
- , mPackageRequirements ( orig.mPackageRequirements )
 {
   mSBML = this;
 
@@ -1963,23 +1961,6 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
 
   }
 
-  if (getLevel() > 2)
-  {
-    bool reqd;
-    /* look for namespaces with other prefixes */
-    for (int i = 0; i < ns->getLength(); i++)
-    {
-      std::string prefix = ns->getPrefix(i);
-      /* will need to do a check that prefix is a package */
-      // HACK for moment
-      if (prefix == "multi" || prefix == "layout")
-      {
-        XMLTriple triple("required", ns->getURI(i), prefix);
-        attributes.readInto(triple, reqd, getErrorLog(), true);
-        mPackageRequirements.push_back( make_pair(prefix, reqd) );
-      }
-    }
-  }
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -2041,14 +2022,6 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("version", mVersion);
 
-  if (getLevel() > 2) 
-  {
-    for (unsigned int i = 0; i < mPackageRequirements.size(); i++)
-    {
-      std::string name = mPackageRequirements.at(i).first + ":required";
-      stream.writeAttribute(name, mPackageRequirements.at(i).second);
-    }
-  }
 }
 /** @endcond doxygen-libsbml-internal */
 
