@@ -131,8 +131,10 @@ all: Makefile
 
 tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
-
-otherdirs     = .. ../../util ../../compress ../../common
+otherdirs     = .. ../../util ../../annotation ../../sbml \
+	 ../../validator ../../validator/constraints ../../units ../../compress \
+	 ../../common ../../math
+	 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)

@@ -246,7 +246,10 @@ XMLInputStream::getSBMLNamespaces()
 void
 XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 {
-  mSBMLns = sbmlns;
+  if (sbmlns)
+    mSBMLns = sbmlns->clone();
+  else
+    mSBMLns = 0;
 }
 /**
  * 

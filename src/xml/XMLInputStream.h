@@ -33,6 +33,7 @@
 #include <sbml/xml/XMLToken.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/common/operationReturnValues.h>
+#include <sbml/SBMLNamespaces.h>
 
 
 #ifdef __cplusplus

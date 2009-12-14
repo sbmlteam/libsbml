@@ -1458,7 +1458,8 @@ readMathMLFromString (const char *xml)
   SBMLErrorLog   log;
 
   stream.setErrorLog(&log);
-  stream.setSBMLNamespaces(new SBMLNamespaces());
+  SBMLNamespaces sbmlns;
+  stream.setSBMLNamespaces(&sbmlns);
 
   ASTNode_t* ast = readMathML(stream);
   if (log.getNumErrors() > 0)
