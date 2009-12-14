@@ -1633,6 +1633,12 @@ ASTNode::setType (ASTNodeType_t type)
     mInteger = 0;
   }
 
+  /* if avogadro set value */
+  if (type == AST_NAME_AVOGADRO)
+  {
+    setValue(6.02214179e23);
+  }
+
   /**
    * Free name only if the ASTNodeType is being set to something that
    * cannot contain a string.

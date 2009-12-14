@@ -979,7 +979,9 @@ START_TEST (test_MathMLFormatter_ci_definitionURL)
   const char* expected = wrapMathML("  <ci definitionURL=\"http://someurl\"> foo </ci>\n");
 
   N = SBML_parseFormula("foo");
-//  N->setDefinitionURL("http://someurl");
+  XMLAttributes xml;
+  xml.add("", "http://someurl");
+  N->setDefinitionURL(xml);
   S = writeMathMLToString(N);
 
   fail_unless( equals(expected, S) );
@@ -1045,7 +1047,7 @@ create_suite_WriteMathML ()
   tcase_add_test( tcase, test_MathMLFormatter_cn_units           );
 
   tcase_add_test( tcase, test_MathMLFormatter_csymbol_avogadro         );
-// tcase_add_test( tcase, test_MathMLFormatter_ci_definitionURL         );
+  tcase_add_test( tcase, test_MathMLFormatter_ci_definitionURL         );
 
   suite_add_tcase(suite, tcase);
 
