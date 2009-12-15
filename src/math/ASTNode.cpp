@@ -1777,6 +1777,7 @@ ASTNode::getSemanticsFlag() const
 int 
 ASTNode::setDefinitionURL(XMLAttributes url)
 {
+  delete mDefinitionURL;
   mDefinitionURL = static_cast<XMLAttributes *>(url.clone());
   return LIBSBML_OPERATION_SUCCESS;
 }

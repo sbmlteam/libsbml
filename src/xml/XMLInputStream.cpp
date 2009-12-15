@@ -77,6 +77,7 @@ XMLInputStream::~XMLInputStream ()
     if ( errorLog ) errorLog->setParser(NULL);
   }
   delete mParser;
+  delete mSBMLns;
 }
 
 
