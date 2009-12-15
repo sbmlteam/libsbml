@@ -150,10 +150,21 @@ class TestWriteL3SBML < Test::Unit::TestCase
   end
 
   def test_WriteL3SBML_Event
-    expected =  "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
+    expected =  "<event id=\"e\"/>";
     e = @@d.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(true)
+    assert_equal true, equals(expected,e.toSBML())
+  end
+
+  def test_WriteL3SBML_Event_useValues
+    expected = "<event id=\"e\" useValuesFromTriggerTime=\"false\">\n" + 
+    "  <delay/>\n" + 
+    "</event>"
+    e = @@d.createModel().createEvent()
+    e.setId("e")
+    e.setUseValuesFromTriggerTime(false)
+    e.createDelay()
     assert_equal true, equals(expected,e.toSBML())
   end
 
@@ -461,7 +472,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
+    "      <event/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n")
     m = @@d.createModel()

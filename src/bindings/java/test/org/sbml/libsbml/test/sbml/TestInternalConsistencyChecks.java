@@ -52,6 +52,10 @@ public class TestInternalConsistencyChecks {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestInternalConsistencyChecks {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -646,6 +654,7 @@ public class TestInternalConsistencyChecks {
   public void test_internal_consistency_check_99911_ea()
   {
     SBMLDocument d = new SBMLDocument();
+    d.setLevelAndVersion(2,1);
     long errors;
     Model m = d.createModel();
     Compartment c = m.createCompartment();
@@ -653,7 +662,6 @@ public class TestInternalConsistencyChecks {
     c.setConstant(false);
     Event e = m.createEvent();
     EventAssignment ea = new EventAssignment(2,4);
-    d.setLevelAndVersion(2,1);
     ea.setVariable("c");
     ea.setSBOTerm(2);
     e.addEventAssignment(ea);
@@ -694,12 +702,12 @@ public class TestInternalConsistencyChecks {
   public void test_internal_consistency_check_99911_kl()
   {
     SBMLDocument d = new SBMLDocument();
+    d.setLevelAndVersion(2,1);
     long errors;
     Model m = d.createModel();
     Reaction r = m.createReaction();
     r.setId("r");
     KineticLaw kl = new KineticLaw(2,4);
-    d.setLevelAndVersion(2,1);
     kl.setSBOTerm(2);
     Parameter p = kl.createParameter();
     p.setId("p");

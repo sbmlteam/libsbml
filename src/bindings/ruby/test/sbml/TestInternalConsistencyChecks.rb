@@ -505,13 +505,13 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
 
   def test_internal_consistency_check_99911_ea
     d = LibSBML::SBMLDocument.new()
+    d.setLevelAndVersion(2,1)
     m = d.createModel()
     c = m.createCompartment()
     c.setId("c")
     c.setConstant(false)
     e = m.createEvent()
     ea = LibSBML::EventAssignment.new(2,4)
-    d.setLevelAndVersion(2,1)
     ea.setVariable("c")
     ea.setSBOTerm(2)
     e.addEventAssignment(ea)
@@ -547,11 +547,11 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
 
   def test_internal_consistency_check_99911_kl
     d = LibSBML::SBMLDocument.new()
+    d.setLevelAndVersion(2,1)
     m = d.createModel()
     r = m.createReaction()
     r.setId("r")
     kl = LibSBML::KineticLaw.new(2,4)
-    d.setLevelAndVersion(2,1)
     kl.setSBOTerm(2)
     p = kl.createParameter()
     p.setId("p")

@@ -156,10 +156,21 @@ class TestWriteL3SBML(unittest.TestCase):
     pass  
 
   def test_WriteL3SBML_Event(self):
-    expected =  "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
+    expected =  "<event id=\"e\"/>";
     e = self.D.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(True)
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
+    pass  
+
+  def test_WriteL3SBML_Event_useValues(self):
+    expected = wrapString("<event id=\"e\" useValuesFromTriggerTime=\"false\">\n" + 
+    "  <delay/>\n" + 
+    "</event>")
+    e = self.D.createModel().createEvent()
+    e.setId("e")
+    e.setUseValuesFromTriggerTime(False)
+    e.createDelay()
     self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
@@ -465,7 +476,7 @@ class TestWriteL3SBML(unittest.TestCase):
     "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
+    "      <event/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n")
     m = self.D.createModel()
