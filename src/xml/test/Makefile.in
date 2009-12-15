@@ -134,6 +134,10 @@ localobjfiles = $(filter %.lo,$(tmp))
 otherdirs     = .. ../../util ../../annotation ../../sbml \
 	 ../../validator ../../validator/constraints ../../units ../../compress \
 	 ../../common ../../math
+
+ifdef USE_LAYOUT
+  otherdirs += ../../sbml/layout
+endif
 	 
 otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
