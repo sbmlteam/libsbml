@@ -32,6 +32,11 @@ Features that are not yet implemented:
 
 - conversion to or from L3
 
+* Bug fixes:
+
+ - Added missing checks for default namespaces which are not schema
+   conformant. Thanks to Camille Laibe for reporting this problem.
+
 ======================================================================
 Version 4.1.0-b1 (released 2009-09-04)
 ======================================================================

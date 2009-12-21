@@ -2643,6 +2643,14 @@ SBase::read (XMLInputStream& stream)
   {
     stream.setSBMLNamespaces(this->getSBMLNamespaces());
   }
+  else
+  {
+    //
+    // checks if the given default namespace (if any) is a valid
+    // SBML namespace
+    //
+    checkDefaultNamespace(mSBMLNamespaces->getNamespaces(), element.getName());
+  }
 
   if ( element.isEnd() ) return;
 
@@ -2865,6 +2873,14 @@ SBase::readNotes (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
+
+    //
+    // checks if the given default namespace (if any) is a valid
+    // SBML namespace
+    //
+    const XMLNamespaces &xmlns = mNotes->getNamespaces();
+    checkDefaultNamespace(&xmlns,"notes");
+
     if (getSBMLDocument() != NULL)
     {
       if (getSBMLDocument()->getNumErrors() == 0)
@@ -3238,6 +3254,32 @@ SBase::checkListOfPopulated(SBase* object)
 
 
 /** @cond doxygen-libsbml-internal */
+
+void 
+SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elementName)
+{
+  //
+  // checks if the given default namespace (if any) is a valid
+  // SBML namespace
+  //
+  if (xmlns && xmlns->getLength() > 0)
+  {
+    unsigned int level   = getLevel();
+    unsigned int version = getVersion();
+    const std::string currentURI = SBMLNamespaces::getSBMLNamespaceURI(level,version); 
+    const std::string defaultURI = xmlns->getURI();
+    if (currentURI != defaultURI)
+    {
+      static ostringstream errMsg;
+      errMsg.str("");
+      errMsg << "xmlns=\"" << defaultURI << "\" in <" << elementName
+             << "> element is an invalid namespace." << endl;
+      
+      logError(NotSchemaConformant, level, version, errMsg.str());
+    }
+  }
+}
+
 /**
   * Checks the annotation does not declare an sbml namespace.
   * If the annotation declares an sbml namespace an error is logged.
@@ -3250,6 +3292,16 @@ SBase::checkAnnotation()
   int n = 0;
   std::vector<std::string> prefixes;
   prefixes.clear();
+
+  if (!mAnnotation) return;
+
+  //
+  // checks if the given default namespace (if any) is a valid
+  // SBML namespace
+  //
+  const XMLNamespaces &xmlns = mAnnotation->getNamespaces();
+  checkDefaultNamespace(&xmlns,"annotation");
+
   while (nNodes < mAnnotation->getNumChildren())
   {
     XMLNode topLevel = mAnnotation->getChild(nNodes);
@@ -3334,6 +3386,8 @@ SBase::checkAnnotation()
 void
 SBase::checkXHTML(const XMLNode * xhtml)
 {
+  if (!xhtml) return;
+
   const string&  name = xhtml->getName();
   unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
 

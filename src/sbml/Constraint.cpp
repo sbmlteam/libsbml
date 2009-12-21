@@ -407,6 +407,14 @@ Constraint::readOtherXML (XMLInputStream& stream)
     delete mMessage;
 
     mMessage = new XMLNode(stream);
+
+    //
+    // checks if the given default namespace (if any) is a valid
+    // SBML namespace
+    //
+    const XMLNamespaces &xmlns = mMessage->getNamespaces();
+    checkDefaultNamespace(&xmlns,"message");
+
     if (getSBMLDocument() != NULL)
     {
       if (getSBMLDocument()->getNumErrors() == 0)
