@@ -1842,6 +1842,44 @@ START_TEST (test_SBase_setNamespaces)
 END_TEST
 
 
+START_TEST (test_SBase_setModelHistory)
+{
+  SBase_t *sb = new Species(2,4);
+  ModelHistory_t *mh = ModelHistory_create();
+  int i = SBase_setModelHistory(sb, mh);
+
+  fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE );
+
+  ModelHistory_free(mh);
+}
+END_TEST
+
+
+START_TEST (test_SBase_setModelHistory_Model)
+{
+  ModelHistory_t * history = ModelHistory_create();
+  ModelCreator_t * mc = ModelCreator_create();
+  Date_t * date = 
+    Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+
+  ModelCreator_setFamilyName(mc, "Keating");
+  ModelCreator_setGivenName(mc, "Sarah");
+  ModelCreator_setEmail(mc, "sbml-team@caltech.edu");
+  ModelCreator_setOrganisation(mc, "UH");
+
+  ModelHistory_addCreator(history, mc);
+  ModelHistory_setCreatedDate(history, date);
+  ModelHistory_setModifiedDate(history, date);
+
+  int i = SBase_setModelHistory(S, history);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+
+  ModelHistory_free(history);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBase_newSetters (void)
 {
@@ -1887,6 +1925,8 @@ create_suite_SBase_newSetters (void)
   tcase_add_test(tcase, test_SBase_setSBOTerm1     );
   tcase_add_test(tcase, test_SBase_setSBOTerm2     );
   tcase_add_test(tcase, test_SBase_setNamespaces   );
+  tcase_add_test(tcase, test_SBase_setModelHistory   );
+  tcase_add_test(tcase, test_SBase_setModelHistory_Model   );
 
   suite_add_tcase(suite, tcase);
 

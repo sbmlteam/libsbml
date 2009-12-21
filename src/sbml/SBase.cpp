@@ -82,6 +82,7 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
+ , mHistory   ( 0 )
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
@@ -105,6 +106,7 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
+ , mHistory   ( 0 )
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
@@ -124,6 +126,7 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mColumn    ( 0 )
  , mParentSBMLObject (0)
  , mCVTerms   ( 0 )
+ , mHistory   ( 0 )
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
@@ -178,6 +181,15 @@ SBase::SBase(const SBase& orig)
     this->mCVTerms = 0;
   }
 
+  if (orig.mHistory)
+  {
+    this->mHistory = orig.mHistory->clone();
+  }
+  else
+  {
+    this->mHistory = 0;
+  }
+
   this->mHasBeenDeleted = false;
 
 }
@@ -198,6 +210,7 @@ SBase::~SBase ()
     while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
     delete mCVTerms;
   }
+  if (mHistory) delete mHistory;
   mHasBeenDeleted = true;
 }
 
@@ -259,6 +272,16 @@ SBase& SBase::operator=(const SBase& orig)
     else
     {
       this->mCVTerms = 0;
+    }
+
+    delete this->mHistory;
+    if (orig.mHistory)
+    {
+      this->mHistory = orig.mHistory->clone();
+    }
+    else
+    {
+      this->mHistory = 0;
     }
 
     this->mHasBeenDeleted = orig.mHasBeenDeleted;
@@ -723,6 +746,18 @@ SBase::getColumn () const
 }
 
 
+ModelHistory* 
+SBase::getModelHistory() const
+{
+  return mHistory;
+}
+
+ModelHistory* 
+SBase::getModelHistory()
+{
+  return mHistory;
+}
+
 /*
  * @return true if the metaid of this SBML object has been set, false
  * otherwise.
@@ -798,6 +833,12 @@ SBase::isSetSBOTerm () const
   return (mSBOTerm != -1);
 }
 
+
+bool
+SBase::isSetModelHistory()
+{
+  return (mHistory != 0);
+}
 
 /*
  * Sets the metaid field of the given SBML object to a copy of metaid.
@@ -1821,6 +1862,42 @@ SBase::appendNotes(const std::string& notes)
   return success;
 }
 
+int
+SBase::setModelHistory(ModelHistory * history)
+{
+  /* ModelHistory is only allowed on Model in L2
+   * but on any element in L3
+   */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  if (mHistory == history) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (history == NULL)
+  {
+    delete mHistory;
+    mHistory = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!(history->hasRequiredAttributes()))
+  {
+    delete mHistory;
+    mHistory = 0;
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    delete mHistory;
+    mHistory = static_cast<ModelHistory*>( history->clone() );
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -2235,6 +2312,31 @@ SBase::unsetCVTerms()
     return LIBSBML_OPERATION_FAILED;
   else
     return LIBSBML_OPERATION_SUCCESS;
+}
+
+
+int 
+SBase::unsetModelHistory()
+{
+  delete mHistory;
+  mHistory = 0;
+
+  /* ModelHistory is only allowed on Model in L2
+   * but on any element in L3
+   */
+  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
+  if (mHistory)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -3680,6 +3782,76 @@ int
 SBase_unsetCVTerms(SBase_t *sb)
 {
   return sb->unsetCVTerms();
+}
+
+
+/**
+ * Returns the ModelHistory of the given SBase_t structure.
+ *
+ * @return the ModelHistory of the given SBase_t structure.
+ * 
+ * @param m the SBase_t structure
+ */
+LIBSBML_EXTERN
+ModelHistory_t * 
+SBase_getModelHistory(SBase_t *sb)
+{
+  return sb->getModelHistory();
+}
+
+/**
+ * Predicate for testing whether the ModelHistory of a given SBase_t structure has
+ * been assigned.
+ * 
+ * @param m the SBase_t structure
+ * 
+ * @return nonzero if the ModelHistory of this SBase_t structure has
+ * been set, zero (0) otherwise.
+ */LIBSBML_EXTERN
+int 
+SBase_isSetModelHistory(SBase_t *sb)
+{
+  return static_cast<int>( sb->isSetModelHistory() );
+}
+
+
+/**
+ * Set the ModelHistory of the given SBase_t structure.
+ * 
+ * @param m the SBase_t structure
+ * @param history the ModelHistory_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
+ */
+LIBSBML_EXTERN
+int 
+SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history)
+{
+  return sb->setModelHistory(history);
+}
+
+/**
+ * Unsets the ModelHistory of the given SBase_t structure.
+ * 
+ * @param m the SBase_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int 
+SBase_unsetModelHistory(SBase_t *sb)
+{
+  return sb->unsetModelHistory();
 }
 
 

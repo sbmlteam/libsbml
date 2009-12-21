@@ -858,6 +858,22 @@ public:
 
 
   /**
+   * Returns the ModelHistory of this SBase object.
+   * 
+   * @return ModelHistory of this SBase object.
+   */
+  ModelHistory* getModelHistory() const;
+
+
+  /**
+   * Returns the ModelHistory of this SBase object.
+   * 
+   * @return ModelHistory of this SBase object.
+   */
+  ModelHistory* getModelHistory();
+
+
+  /**
    * Predicate returning @c true or @c false depending on whether this
    * object's "metaid" attribute has been set.
    *
@@ -1108,6 +1124,18 @@ public:
    * @see isSetMetaId()
    */
   int setMetaId (const std::string& metaid);
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's ModelHistory has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the ModelHistory of this SBase object
+   * has been set, @c false otherwise.
+   */
+  bool isSetModelHistory();
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1571,6 +1599,23 @@ public:
   int appendNotes(const std::string& notes);
 
 
+  /**
+   * Sets the ModelHistory of this SBase object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @param history ModelHistory of this SBase object.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_INVALID_OBJECT
+   */
+  int setModelHistory(ModelHistory * history);
+
+
   /** @cond doxygen-libsbml-internal */
   /**
    * Sets the parent SBMLDocument of this SBML object.
@@ -1941,6 +1986,21 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   int unsetCVTerms();
+
+
+  /**
+   * Unsets the ModelHistory of this SBase object.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetModelHistory();
 
 
   /**
@@ -2373,6 +2433,7 @@ protected:
 
   /* storing annotations */
   List * mCVTerms;
+  ModelHistory*   mHistory;
 
   /* flag that allows object to know its been deleted
    * for OS where the memory is still readable after a delete
@@ -2616,6 +2677,24 @@ SBase_getCVTerm(SBase_t *sb, unsigned int n);
 LIBSBML_EXTERN
 int 
 SBase_unsetCVTerms(SBase_t *sb);
+
+
+LIBSBML_EXTERN
+ModelHistory_t * 
+SBase_getModelHistory(SBase_t *sb);
+
+LIBSBML_EXTERN
+int 
+SBase_isSetModelHistory(SBase_t *sb);
+
+
+LIBSBML_EXTERN
+int 
+SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history);
+
+LIBSBML_EXTERN
+int 
+SBase_unsetModelHistory(SBase_t *sb);
 
 
 LIBSBML_EXTERN
