@@ -4053,6 +4053,176 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"http://www.sbml.org/libsbml/annotation\""
   },
 
+  //96001
+  {
+    NoSpeciesTypeInL3v1,
+    "SBML Level 3 Version 1 does not support species types",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "<speciesType> definitions cannot be represented in SBML Level 3 "
+    "Version 1."
+  },
+
+  //96002
+  {
+    NoCompartmentTypeInL3v1,
+    "SBML Level 3 Version 1 does not support compartment types",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "<compartmentType> definitions cannot be represented in SBML Level 3 "
+    "Version 1."
+  },
+
+  //96003
+  {
+    NoUnitOffsetInL3v1,
+    "The unit 'offset' attribute is invalid in this Level+Version of SBML",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
+    "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
+    "L2V2 Section 4.4.)"
+  },
+
+  //96004
+  {
+    NoKineticLawTimeUnitsInL3v1,
+    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
+    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 3, the time units of a reaction rate "
+    "expression are those of the global 'time' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //96005
+  {
+    NoKineticLawSubstanceUnitsInL3v1,
+    "The 'substanceUnits' attribute is invalid in this Level+Version of SBML",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 3, the substance units of a reaction "
+    "rate expression are those of the global 'substance' units of the model. "
+    "(References: L2V2 Section 4.13.5.)"
+  },
+
+  //96006
+  {
+    NoSpeciesSpatialSizeUnitsInL3v1,
+    "The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'spatialSizeUnits' attribute on <species>, previously available "
+    "in SBML Level 2 versions prior to Version 3, has been removed as "
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
+  },
+
+  //96007
+  {
+    NoEventTimeUnitsInL3v1,
+    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The 'timeUnits' attribute on <event>, previously available in SBML "
+    "Level 2 versions prior to Version 3, has been removed as of SBML "
+    "Level 2 Version 3. (References: L2V3 Section 4.14; L2V4 Section 4.14)"
+  },
+
+  //96008
+  {
+    ModelSBOBranchChangedInL3v1,
+    "The allowable 'sboTerm' values for model differ for this SBML Level+Version",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "In SBML Level 2 prior to Version 4 the value  of the 'sboTerm' "
+    "attribute on a <model> is expected to be a term "
+    "derived from SBO:0000004, \"modeling framework\"; in Version 4 "
+    "and above it is expected to be a term derived from SBO:0000231 "
+    "\"interaction\". Using the existing term will create an invalid "
+    " L2V4 model. (References: L2V2 Section 4.2.1; L2V3 "
+    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+  },
+
+  //96009
+  {
+    DuplicateAnnotationInvalidInL3v1,
+    "Duplicate top level annotations invalid in L3V1",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "In SBML prior to Level 2 Version 1 annotations it was permissible "
+    "to have multiple top level elements using the same namespace. "
+    "This is no longer valid.  (References: L2V2 Section 3.3.3; "
+    "L2V3 Section 3.2.4; L2V4 Section 3.2.4.)  Any duplicate top level "
+    "elements will be placed inside a new top level element named "
+    "\"duplicateTopLevelElements\" with the namespace "
+    "\"http://www.sbml.org/libsbml/annotation\""
+  },
+
+  //96010
+  {
+    NoCompartmentOutsideInL3v1,
+    "The 'outside' attribute is invalid in this Level+Version of SBML",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "The 'outside' attribute on <compartment>, previously available "
+    "in SBML Level 2 has been removed as "
+    "of SBML Level 3 Version 1."
+  },
+
   //99101
   {
     InvalidSBMLLevelVersion,

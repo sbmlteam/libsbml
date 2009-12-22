@@ -1348,6 +1348,7 @@ protected:
   friend class L2v2CompatibilityValidator;
   friend class L2v3CompatibilityValidator;
   friend class L2v4CompatibilityValidator;
+  friend class L3v1CompatibilityValidator;
   friend class MathMLConsistencyValidator;
   friend class ModelingPracticeValidator;
   friend class OverdeterminedValidator;

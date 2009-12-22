@@ -29,44 +29,12 @@
 #include <sbml/Compartment.h>
 #include <sbml/SpeciesReference.h>
 
+#include "../validator/constraints/IdList.h"
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygen-libsbml-internal **/
 
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";
-
-
-/*
- * Converts the model to a from SBML L2 to L1.  Most of the necessary
- * changes occur during the various writeAttributes() methods, however
- * there are some difference between L1 and L2 that require the underlying
- * Model to be changed.
- */
-void 
-Model::convertToL1 (bool strict)
-{
-  //
-  // Level 2 allows a model to be specified without a Compartment.  However
-  // this is not valid in Level 1.  Thus if a L2 model has no Compartment
-  // one must be included and any species are assumed to be within it.
-  //
-  if (getNumCompartments() == 0)
-  {
-    createCompartment()->setId(ASSIGNED_COMPARTMENT);
-
-    for (unsigned int n = 0; n < getNumSpecies(); ++n) 
-    {
-      getSpecies(n)->setCompartment(ASSIGNED_COMPARTMENT);
-    }
-  }
-
-  /* make sure underlying model is correct */
-  if (strict)
-  {
-    removeMetaId();
-    removeSBOTerms();
-    removeHasOnlySubstanceUnits();
-  }
-}
 
 
 /*
@@ -76,10 +44,35 @@ Model::convertToL1 (bool strict)
  * Model to be changed.
  */
 void 
-Model::convertToL2 ()
+Model::convertL1ToL2 ()
+{
+  addModifiers();
+
+  addConstantAttribute();
+}
+
+/* convert from L1 to L3 */
+void 
+Model::convertL1ToL3 ()
+{
+  addModifiers();
+
+  addConstantAttribute();
+
+  setSpatialDimensions();
+
+  addDefinitionsForDefaultUnits();
+}
+
+
+/* adds species referred to in a KineticLaw to the ListOfModifiers
+ * this will only be applicable when up converting an L1 model
+ */
+void 
+Model::addModifiers ()
 {
   //
-  // Level 2 has a listOfModifiers associated with a Reaction
+  // Level 2/3 has a listOfModifiers associated with a Reaction
   // which are not listed in a L1 Model.
   // For each symbol in the Reaction's KineticLaw,
   // that symbol is a modifier iff:
@@ -129,6 +122,16 @@ Model::convertToL2 ()
 
     delete names;
   }
+}
+
+
+/* declares constant = false for any L1 compartment/parameter
+ * assigned by a rule
+ */
+void
+Model::addConstantAttribute()
+{
+  unsigned int n;
   // parameters and compartments are declared to have constant=true
   // by default. Since in L1 the constant attribute didnt exist 
   // parameters/compartments that are the subjcet of rules must have
@@ -150,6 +153,144 @@ Model::convertToL2 ()
     }
   }
 }
+
+
+/* in L1 spatialDimensions did not exist as an attribute
+ * but was considered to be '3'
+ * L3 does not require the attribute and will
+ * only record it is officially set
+ */
+void
+Model::setSpatialDimensions(double dims)
+{
+  for (unsigned int n = 0; n < getNumCompartments(); n++)
+  {
+    getCompartment(n)->setSpatialDimensions(dims);
+  }
+}
+
+/* in L1 and L2 there were built in values for key units
+ * such as 'volume', 'length', 'area', 'substance' and 'time'
+ * In L3 these have been removed - thus if a model uses one of these
+ * it needs a unitDefinition to define it
+ */
+void
+Model::addDefinitionsForDefaultUnits()
+{
+  /* create a list of unit values */
+  IdList unitsUsed;
+  unsigned int n;
+
+  for (n = 0; n < getNumCompartments(); n++)
+  {
+    if (getCompartment(n)->isSetUnits())
+      unitsUsed.append(getCompartment(n)->getUnits());
+  }
+
+  for (n = 0; n < getNumSpecies(); n++)
+  {
+    if (getSpecies(n)->isSetSubstanceUnits())
+      unitsUsed.append(getSpecies(n)->getSubstanceUnits());
+ 
+    if (getSpecies(n)->isSetSpatialSizeUnits())
+      unitsUsed.append(getSpecies(n)->getSpatialSizeUnits());
+  }
+
+  for (n = 0; n < getNumParameters(); n++)
+  {
+    if (getParameter(n)->isSetUnits())
+      unitsUsed.append(getParameter(n)->getUnits());
+  }
+
+  if (unitsUsed.contains("volume") && getUnitDefinition("volume") == NULL)
+  {
+    UnitDefinition * ud = createUnitDefinition();
+    ud->setId("volume");
+    Unit * u = ud->createUnit();
+    u->setKind(UnitKind_forName("litre"));
+    u->setScale(0);
+    u->setExponent(1.0);
+    u->setMultiplier(1.0);
+  }
+
+  if (unitsUsed.contains("substance") && getUnitDefinition("substance") == NULL)
+  {
+    UnitDefinition * ud = createUnitDefinition();
+    ud->setId("substance");
+    Unit * u = ud->createUnit();
+    u->setKind(UnitKind_forName("mole"));
+    u->setScale(0);
+    u->setExponent(1.0);
+    u->setMultiplier(1.0);
+  }
+
+  if (unitsUsed.contains("area") && getUnitDefinition("area") == NULL)
+  {
+    UnitDefinition * ud = createUnitDefinition();
+    ud->setId("area");
+    Unit * u = ud->createUnit();
+    u->setKind(UnitKind_forName("metre"));
+    u->setScale(0);
+    u->setExponent(2.0);
+    u->setMultiplier(1.0);
+  }
+
+  if (unitsUsed.contains("length") && getUnitDefinition("length") == NULL)
+  {
+    UnitDefinition * ud = createUnitDefinition();
+    ud->setId("length");
+    Unit * u = ud->createUnit();
+    u->setKind(UnitKind_forName("metre"));
+    u->setScale(0);
+    u->setExponent(1.0);
+    u->setMultiplier(1.0);
+  }
+
+  if (unitsUsed.contains("time") && getUnitDefinition("time") == NULL)
+  {
+    UnitDefinition * ud = createUnitDefinition();
+    ud->setId("time");
+    Unit * u = ud->createUnit();
+    u->setKind(UnitKind_forName("second"));
+    u->setScale(0);
+    u->setExponent(1.0);
+    u->setMultiplier(1.0);
+  }
+
+}
+/*
+ * Converts the model to a from SBML L2 to L1.  Most of the necessary
+ * changes occur during the various writeAttributes() methods, however
+ * there are some difference between L1 and L2 that require the underlying
+ * Model to be changed.
+ */
+void 
+Model::convertToL1 (bool strict)
+{
+  //
+  // Level 2 allows a model to be specified without a Compartment.  However
+  // this is not valid in Level 1.  Thus if a L2 model has no Compartment
+  // one must be included and any species are assumed to be within it.
+  //
+  if (getNumCompartments() == 0)
+  {
+    createCompartment()->setId(ASSIGNED_COMPARTMENT);
+
+    for (unsigned int n = 0; n < getNumSpecies(); ++n) 
+    {
+      getSpecies(n)->setCompartment(ASSIGNED_COMPARTMENT);
+    }
+  }
+
+  /* make sure underlying model is correct */
+  if (strict)
+  {
+    removeMetaId();
+    removeSBOTerms();
+    removeHasOnlySubstanceUnits();
+  }
+}
+
 
 /* the new strict setters mean that for a conversion to L2 to
  * take place the model needs to think it still l1 for

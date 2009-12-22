@@ -841,7 +841,20 @@ typedef enum
  , ModelSBOBranchChangedInL2v4           = 95006 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
  , DuplicateAnnotationInvalidInL2v4      = 95007 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
 
-  /* These are errors checked by libSBML that were never
+  /* L3v1 compatability */
+
+ , NoSpeciesTypeInL3v1                   = 96001 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support species types */
+ , NoCompartmentTypeInL3v1               = 96002 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support compartment types */
+ , NoUnitOffsetInL3v1                    = 96003 /*!< The unit <code>offset</code> attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawTimeUnitsInL3v1           = 96004 /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoKineticLawSubstanceUnitsInL3v1      = 96005 /*!< The <code>substanceUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoSpeciesSpatialSizeUnitsInL3v1       = 96006 /*!< The <code>spatialSizeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , NoEventTimeUnitsInL3v1                = 96007 /*!< The <code>timeUnits</code> attribute is invalid in this Level+Version of SBML */
+ , ModelSBOBranchChangedInL3v1           = 96008 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
+ , DuplicateAnnotationInvalidInL3v1      = 96009 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
+ , NoCompartmentOutsideInL3v1            = 96010 /*!< The unit <code>offset</code> attribute is invalid in this Level+Version of SBML */
+
+ /* These are errors checked by libSBML that were never
    * published in a spec. */
 
  , InvalidSBMLLevelVersion               = 99101 /*!< Invalid SBML Level and Version */
@@ -1005,6 +1018,12 @@ typedef enum
      * translation from one Level/Version of SBML to another.  This
      * particular category applies to errors encountered while trying to
      * convert a model to SBML Level&nbsp;2 Version&nbsp;4. */
+
+  , LIBSBML_CAT_SBML_L3V1_COMPAT
+    /*!< Category of errors that can only occur during attempted
+     * translation from one Level/Version of SBML to another.  This
+     * particular category applies to errors encountered while trying to
+     * convert a model to SBML Level&nbsp;3 Version&nbsp;1. */
 
 } SBMLErrorCategory_t;
 

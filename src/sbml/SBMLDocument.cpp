@@ -519,21 +519,15 @@ bool
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                                   bool strict)
 {
+  /* check we are not already the level and version */
+  if (mLevel == level && mVersion == version)
+  {
+    return true;
+  }
   /* since this function will write to the error log we should
    * clear anything in the log first
    */
   getErrorLog()->clearLog();
-
-  // this is a hack
-  // we call this function from a document constructor
-  // which if we are creating L3 we want to work
-  // so check whther there is a model
-  // if not we are not attempting conversion
-  //if (getModel() != NULL && (this->getLevel() == 3 || level == 3))
-  //{
-  //  logError(L3NotSupported);
-  //  return false;
-  //}
 
   bool conversionSuccess = false;
 
@@ -566,11 +560,6 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
 
 
 
-  //mLevel   = level;
-  //mVersion = version;
-  //mSBMLNamespaces->setLevel(mLevel);
-  //mSBMLNamespaces->setVersion(mVersion);
-
   unsigned int i;
   bool duplicateAnn = false;
   //look at annotation on sbml element - since validation only happens on teh model :-(
@@ -587,146 +576,183 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
       }
     }
   }
+
+
   if (mModel != 0)
   {
     if (!strict)
     {
-      if (mLevel == 1 && level == 2)
+      if (mLevel == 1)
       {
-        mLevel   = level;
-        mVersion = version;
-        mSBMLNamespaces->setLevel(mLevel);
-        mSBMLNamespaces->setVersion(mVersion);
-        mModel->convertToL2();
-        conversionSuccess = true;
+        switch (level)
+        {
+        case 1:
+          switch (version)
+          {
+          case 1:
+            mErrorLog.add(CannotConvertToL1V1);
+            break;
+          case 2:
+          default:
+            conversionSuccess = true;
+            break;
+          }
+          break;
+        case 2:
+          mLevel   = level;
+          mVersion = version;
+          mSBMLNamespaces->setLevel(mLevel);
+          mSBMLNamespaces->setVersion(mVersion);
+          mModel->convertL1ToL2();
+          conversionSuccess = true;
+          break;
+        case 3:
+        default:
+          mLevel   = level;
+          mVersion = version;
+          mSBMLNamespaces->setLevel(mLevel);
+          mSBMLNamespaces->setVersion(mVersion);
+          mModel->convertL1ToL3();
+          conversionSuccess = true;
+          break;
+        }
       }
       else if (mLevel == 2)
       {
-        if (level == 1)
+        switch (level)
         {
-          if (version == 1)
+        case 1:
+          switch (version)
           {
+          case 1:
             mErrorLog.add(CannotConvertToL1V1);
-          }
-          else if (!conversion_errors(checkL1Compatibility()))
-          {
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
+            break;
+          case 2:
+          default:
+            if (!conversion_errors(checkL1Compatibility()))
             {
-              logError(StrictUnitsRequiredInL1);
-            }
-            //else
-            //{
-              mModel->convertToL1();
+              /* if existing model is L2V4 need to check that
+              * units are strict
+              */
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL1);
+              }
+
+              mLevel   = level;
+              mVersion = version;
+              mSBMLNamespaces->setLevel(mLevel);
+              mSBMLNamespaces->setVersion(mVersion);
               conversionSuccess = true;
-            //}
-          }
-        }
-        /* check for conversion between L2 versions */
-        else if (version == 1)
-        {
-          if (!conversion_errors(checkL2v1Compatibility()))
-          {
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              logError(StrictUnitsRequiredInL2v1);
             }
-            //else
-            //{
+            break;
+          }
+          break;
+        case 2:
+          switch (version)
+          {
+          case 1:
+            if (!conversion_errors(checkL2v1Compatibility()))
+            {
+              /* if existing model is L2V4 need to check that
+              * units are strict
+              */
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL2v1);
+              }
               conversionSuccess = true;
-            //}
-          }
-        }
-        else if (version == 2)
-        {
-          if (!conversion_errors(checkL2v2Compatibility()))
-          {
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              logError(StrictUnitsRequiredInL2v2);
             }
-            
-            if (mVersion == 4 && !hasStrictSBO())
+            break;
+          case 2:
+            if (!conversion_errors(checkL2v2Compatibility()))
             {
-              logError(StrictSBORequiredInL2v2);
-            }
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                                  == DuplicateAnnotationInvalidInL2v2)
-                duplicateAnn = true;
-            }
-            if (duplicateAnn)
-            {
-              this->removeDuplicateAnnotations();
-              mModel->removeDuplicateTopLevelAnnotations();
-            }
-            //else
-            //{
+              /* if existing model is L2V4 need to check that
+              * units are strict
+              */
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL2v2);
+              }
+              
+              if (mVersion == 4 && !hasStrictSBO())
+              {
+                logError(StrictSBORequiredInL2v2);
+              }
+              // look for duplicate top level annotations
+              for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+              {
+                if (getErrorLog()->getError(i)->getErrorId() 
+                                    == DuplicateAnnotationInvalidInL2v2)
+                  duplicateAnn = true;
+              }
+              if (duplicateAnn)
+              {
+                this->removeDuplicateAnnotations();
+                mModel->removeDuplicateTopLevelAnnotations();
+              }
               conversionSuccess = true;
-            //}
-          }
-        }
-        else if (version == 3)
-        {
-          if (!conversion_errors(checkL2v3Compatibility()))
-          {
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              logError(StrictUnitsRequiredInL2v3);
             }
-            if (mVersion == 4 && !hasStrictSBO())
+            break;
+          case 3:
+            if (!conversion_errors(checkL2v3Compatibility()))
             {
-              logError(StrictSBORequiredInL2v3);
-            }
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                               == DuplicateAnnotationInvalidInL2v3)
-                duplicateAnn = true;
-            }
-            if (duplicateAnn)
-            {
-              this->removeDuplicateAnnotations();
-              mModel->removeDuplicateTopLevelAnnotations();
-            }
-            //else
-            //{
+              /* if existing model is L2V4 need to check that
+              * units are strict
+              */
+              if (mVersion == 4 && !hasStrictUnits())
+              {
+                logError(StrictUnitsRequiredInL2v3);
+              }
+              if (mVersion == 4 && !hasStrictSBO())
+              {
+                logError(StrictSBORequiredInL2v3);
+              }
+              // look for duplicate top level annotations
+              for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+              {
+                if (getErrorLog()->getError(i)->getErrorId() 
+                                == DuplicateAnnotationInvalidInL2v3)
+                  duplicateAnn = true;
+              }
+              if (duplicateAnn)
+              {
+                this->removeDuplicateAnnotations();
+                mModel->removeDuplicateTopLevelAnnotations();
+              }
               conversionSuccess = true;
-            //}
+            }
+            break;
+          case 4:
+          default:
+            if (!conversion_errors(checkL2v4Compatibility()))
+            {
+              // look for duplicate top level annotations
+              for (i = 0; i < getErrorLog()->getNumErrors(); i++)
+              {
+                if (getErrorLog()->getError(i)->getErrorId() 
+                                == DuplicateAnnotationInvalidInL2v4)
+                  duplicateAnn = true;
+              }
+              if (duplicateAnn)
+              {
+                this->removeDuplicateAnnotations();
+                mModel->removeDuplicateTopLevelAnnotations();
+              }
+              conversionSuccess = true;
+            }
+            break;
           }
-        }
-        else if (version == 4)
-        {
-          if (!conversion_errors(checkL2v4Compatibility()))
+          break;
+        case 3:
+        default:
+          switch (version)
           {
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                               == DuplicateAnnotationInvalidInL2v4)
-                duplicateAnn = true;
-            }
-            if (duplicateAnn)
-            {
-              this->removeDuplicateAnnotations();
-              mModel->removeDuplicateTopLevelAnnotations();
-            }
-            conversionSuccess = true;
+          case 1:
+          default:
+            break;
           }
+          break;
         }
 
         if (!conversionSuccess)
@@ -753,7 +779,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
         mVersion = version;
         mSBMLNamespaces->setLevel(mLevel);
         mSBMLNamespaces->setVersion(mVersion);
-        mModel->convertToL2();
+        mModel->convertL1ToL2();
         conversionSuccess = true;
       }
       else if (mLevel == 2)

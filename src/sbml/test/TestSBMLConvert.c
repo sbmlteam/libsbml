@@ -263,6 +263,43 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Compartment_t  *c = Model_createCompartment(m);
+
+  Compartment_setId   ( c, sid );
+  Compartment_setSize ( c, 1.2 ); 
+  Compartment_setUnits( c, "volume");
+
+  fail_unless(Model_getNumUnitDefinitions(m) == 0);
+  
+  SBMLDocument_setLevelAndVersion(d, 3, 1);
+
+
+  fail_unless(Model_getNumUnitDefinitions(m) == 1);
+
+  UnitDefinition_t *ud = Model_getUnitDefinition(m, 0);
+
+  fail_unless (ud != NULL);
+  fail_unless (!strcmp(UnitDefinition_getId( ud), "volume"));
+  fail_unless(UnitDefinition_getNumUnits(ud) == 1);
+
+  Unit_t * u = UnitDefinition_getUnit(ud, 0);
+
+  fail_unless(Unit_getKind(u) == UNIT_KIND_LITRE);
+  fail_unless(Unit_getExponent(u) == 1);
+  fail_unless(Unit_getMultiplier(u) == 1);
+  fail_unless(Unit_getScale(u) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -277,6 +314,7 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL1_Species_Concentration );
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc );
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_defaultUnits );
 
   suite_add_tcase(suite, tcase);
 

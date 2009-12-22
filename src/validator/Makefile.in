@@ -61,6 +61,7 @@ headers =								\
   L2v2CompatibilityValidator.h			\
   L2v3CompatibilityValidator.h			\
   L2v4CompatibilityValidator.h			\
+  L3v1CompatibilityValidator.h			\
   Validator.h
 
 header_inst_prefix = validator
@@ -80,6 +81,7 @@ sources =								\
   L2v2CompatibilityValidator.cpp		\
   L2v3CompatibilityValidator.cpp		\
   L2v4CompatibilityValidator.cpp		\
+  L3v1CompatibilityValidator.cpp		\
   Validator.cpp
 
 subdirs = constraints test

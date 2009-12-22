@@ -2317,34 +2317,6 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-  
-  /*
-   * Converts the model to a from SBML Level 2 to Level 1.
-   *
-   * Most of the necessary changes occur during the various
-   * writeAttributes() methods, however there are some difference between
-   * L1 and L2 that require the underlying Model to be changed.
-   */
-  void convertToL1 (bool strict = false);
-
-  /** @endcond doxygen-libsbml-internal */
-
-
-  /** @cond doxygen-libsbml-internal */
-
-  /*
-   * Converts the model to a from SBML Level 1 to Level 2.
-   *
-   * Most of the necessary changes occur during the various
-   * writeAttributes() methods, however there are some difference between
-   * L1 and L2 that require the underlying Model to be changed.
-   */
-  void convertToL2 ();
-
-  /** @endcond doxygen-libsbml-internal */
-
-
-  /** @cond doxygen-libsbml-internal */
 
 
   /**
@@ -2362,7 +2334,99 @@ public:
 
   /** @endcond doxygen-libsbml-internal */
 
+  /** @cond doxygen-libsbml-internal */
 
+
+ /**************************************************************
+  * Conversion between levels/versions
+  *
+  * these are internal functions used when converting
+  * they are actually defined in the file SBMLConvert.cpp
+  ***************************************************************/
+
+
+  /*
+   * Converts the model to a from SBML Level 1 to Level 2.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L2 that require the underlying Model to be changed.
+   */
+  void convertL1ToL2 ();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  /*
+   * Converts the model to a from SBML Level 1 to Level 3.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L3 that require the underlying Model to be changed.
+   */
+  void convertL1ToL3 ();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
+  
+  /*
+   * Converts the model to a from SBML Level 2 to Level 1.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L2 that require the underlying Model to be changed.
+   */
+  void convertToL1 (bool strict = false);
+
+  /** @endcond doxygen-libsbml-internal */
+
+  /** @cond doxygen-libsbml-internal */
+
+  /*****************************************************
+   * helper functions used by the main conversion functions 
+   *******************************************************/
+
+  /* adds species referred to in a KineticLaw to the ListOfModifiers
+   * this will only be applicable when up converting an L1 model
+   */
+  void addModifiers ();
+
+  /** @endcond doxygen-libsbml-internal */
+  
+  /** @cond doxygen-libsbml-internal */
+
+  /* declares constant = false for any L1 compartment/parameter
+   * assigned by a rule
+   */
+  void addConstantAttribute ();
+
+  /** @endcond doxygen-libsbml-internal */
+
+  /** @cond doxygen-libsbml-internal */
+
+  /* in L1 spatialDimensions did not exist as an attribute
+   * but was considered to be '3'
+   * L3 does not require the attribute and will
+   * only record it is officially set
+   */
+  void setSpatialDimensions (double dims = 3.0);
+
+  /** @endcond doxygen-libsbml-internal */
+
+  /** @cond doxygen-libsbml-internal */
+
+  /* in L1 and L2 there were built in values for key units
+   * such as 'volume', 'length', 'area', 'substance' and 'time'
+   * In L3 these have been removed - thus if a model uses one of these
+   * it needs a unitDefinition to define it
+   */
+  void addDefinitionsForDefaultUnits ();
+
+  /** @endcond doxygen-libsbml-internal */
   /** @cond doxygen-libsbml-internal */
 
   /* new functions for strict conversion */
@@ -3192,6 +3256,7 @@ protected:
   friend class L2v2CompatibilityValidator;
   friend class L2v3CompatibilityValidator;
   friend class L2v4CompatibilityValidator;
+  friend class L3v1CompatibilityValidator;
   friend class MathMLConsistencyValidator;
   friend class ModelingPracticeValidator;
   friend class OverdeterminedValidator;
