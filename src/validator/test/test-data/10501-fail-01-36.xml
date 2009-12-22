@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" metaid="metaid_0000001" version="3">
-  <model id="model_0000001" metaid="metaid_0000002" name="model" >
+  <model id="model_0000001" metaid="metaid_0000002" name="model" xmlns:sbml="http://www.sbml.org/sbml/level2/version3">
  <listOfUnitDefinitions>
       <unitDefinition id="joule_per_mole_kelvin" name="joule_per_kilomole_kelvin">
         <listOfUnits>

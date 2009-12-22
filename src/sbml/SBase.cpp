@@ -3370,7 +3370,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elem
     unsigned int version = getVersion();
     const std::string currentURI = SBMLNamespaces::getSBMLNamespaceURI(level,version); 
     const std::string defaultURI = xmlns->getURI();
-    if (currentURI != defaultURI)
+    if (!defaultURI.empty() && currentURI != defaultURI)
     {
       static ostringstream errMsg;
       errMsg.str("");
