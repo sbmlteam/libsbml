@@ -531,6 +531,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
 
   bool conversionSuccess = false;
 
+  /* do not allow conversion to or from L3 */
+  if (mLevel == 3 || level == 3)
+  {
+    logError(L3NotSupported, mLevel, mVersion);
+    return conversionSuccess;
+  }
   unsigned char origValidators = mApplicableValidators;
   mApplicableValidators = mApplicableValidatorsForConversion;
   /* if strict = true we will only convert a valid model
