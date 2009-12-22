@@ -34,8 +34,54 @@ Features that are not yet implemented:
 
 * Bug fixes:
 
- - Added missing checks for default namespaces which are not schema
-   conformant. Thanks to Camille Laibe for reporting this problem.
+ - No errors were reported when reading an SBML file/string which
+   contains one or more default namespaces which are not schema 
+   conformant. This has been fixed. Thanks to Camille Laibe for 
+   reporting this problem.
+
+ - [Tracker issue #2878770]
+   The code that checked uniqueness of metaids was not checking all 
+   of them.  This has been fixed. Thanks to Frank Bergmann for 
+   spotting this problem.
+
+ - [Tracker issue #2859186]
+   When the exponent argument to a power function is itself an 
+   expression it was messing up unit checking. This is now reported 
+   more clearly.
+
+ - SpeciesReference::isSetStoichiometry() function wrongly returned 
+   false when a stoichiometry attribute is absent in an input SBML 
+   Level 2. This has been fixed. Thanks to Frank Bergmann for spotting 
+   this.
+
+ - The configure script failed in a test program for expat when 
+   cross compiling detected. This has been fixed. Thanks to Lucian 
+   Smith for reporting this.
+
+ - [Tracker issue #2865288]
+   Removed C++ style comments in C code (in List.h and ListOf.h) 
+   which can cause compilation errors.
+
+ - Macros in SBMLDocument.h containd unnecessary ';'. This has been
+   fixed. Thanks to Lucian Smith for reporting this problem.
+
+ - MIRIAM annotations could not be properly cleared after 
+   SBase::unsetCVTerms() function invoked. This has been fixed. 
+   Thanks to Allyson Lister for spotting this problem.
+
+ - MIRIAM annotations could be wrongly updated when adding/removing 
+   MIRIAM annotations. This has been fixed. Thanks to Allyson Lister 
+   for spotting this problem.
+
+ - Compartment::setSpatialDimensions(unsigned int) function didn't
+   update a corresponding internal double value of spatialDimensions 
+   attribute. This has been fixed. Thanks to Frank Bergmann for 
+   reporting this.
+
+ - [Tracker issue #2856390]
+   FunctionDefinition elements and Event elements were not written 
+   when writing an SBML Level 2 file/string. This has been fixed. 
+   Thanks to Lucian for reporting this problem.
 
 ======================================================================
 Version 4.1.0-b1 (released 2009-09-04)
