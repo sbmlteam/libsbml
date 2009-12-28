@@ -34,7 +34,7 @@ Features that are not yet implemented:
 
 * Bug fixes:
 
- - [Tracker issue #2878770]
+ - [Tracker issue #2895082]
    Building matlab bindings failed due to a wrong build argument.
    This has been fixed. Thanks to Javier for reporting this problem.
 
