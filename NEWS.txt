@@ -34,6 +34,10 @@ Features that are not yet implemented:
 
 * Bug fixes:
 
+ - [Tracker issue #2878770]
+   Building matlab bindings failed due to a wrong build argument.
+   This has been fixed. Thanks to Javier for reporting this problem.
+
  - No errors were reported when reading an SBML file/string which
    contains one or more default namespaces which are not schema 
    conformant. This has been fixed. Thanks to Camille Laibe for 
