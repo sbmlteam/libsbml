@@ -65,6 +65,48 @@ Model::convertL1ToL3 ()
 }
 
 
+/* convert from L2 to L3 */
+void 
+Model::convertL2ToL3 ()
+{
+  addDefinitionsForDefaultUnits();
+}
+
+
+/*
+ * Converts the model to a from SBML L2 to L1.  Most of the necessary
+ * changes occur during the various writeAttributes() methods, however
+ * there are some difference between L1 and L2 that require the underlying
+ * Model to be changed.
+ */
+void 
+Model::convertL2ToL1 (bool strict)
+{
+  //
+  // Level 2 allows a model to be specified without a Compartment.  However
+  // this is not valid in Level 1.  Thus if a L2 model has no Compartment
+  // one must be included and any species are assumed to be within it.
+  //
+  if (getNumCompartments() == 0)
+  {
+    createCompartment()->setId(ASSIGNED_COMPARTMENT);
+
+    for (unsigned int n = 0; n < getNumSpecies(); ++n) 
+    {
+      getSpecies(n)->setCompartment(ASSIGNED_COMPARTMENT);
+    }
+  }
+
+  /* make sure underlying model is correct */
+  if (strict)
+  {
+    removeMetaId();
+    removeSBOTerms();
+    removeHasOnlySubstanceUnits();
+  }
+}
+
+
 /* adds species referred to in a KineticLaw to the ListOfModifiers
  * this will only be applicable when up converting an L1 model
  */
@@ -180,17 +222,48 @@ Model::addDefinitionsForDefaultUnits()
   /* create a list of unit values */
   IdList unitsUsed;
   unsigned int n;
+  bool implicitVolume = false;
+  bool implicitArea = false;
+  bool implicitLength = false;
+  bool implicitSubstance = false;
 
   for (n = 0; n < getNumCompartments(); n++)
   {
     if (getCompartment(n)->isSetUnits())
+    {
       unitsUsed.append(getCompartment(n)->getUnits());
+    }
+    else
+    {
+      if (getCompartment(n)->getSpatialDimensions() == 3)
+      {
+        implicitVolume = true;
+        getCompartment(n)->setUnits("volume");
+      }
+      else if (getCompartment(n)->getSpatialDimensions() == 2)
+      {
+        implicitArea = true;
+        getCompartment(n)->setUnits("area");
+      }
+      else if (getCompartment(n)->getSpatialDimensions() == 1)
+      {
+        implicitLength = true;
+        getCompartment(n)->setUnits("length");
+      }
+    }
   }
 
   for (n = 0; n < getNumSpecies(); n++)
   {
     if (getSpecies(n)->isSetSubstanceUnits())
+    {
       unitsUsed.append(getSpecies(n)->getSubstanceUnits());
+    }
+    else
+    {
+      implicitSubstance = true;
+      getSpecies(n)->setSubstanceUnits("substance");
+    }
  
     if (getSpecies(n)->isSetSpatialSizeUnits())
       unitsUsed.append(getSpecies(n)->getSpatialSizeUnits());
@@ -202,7 +275,8 @@ Model::addDefinitionsForDefaultUnits()
       unitsUsed.append(getParameter(n)->getUnits());
   }
 
-  if (unitsUsed.contains("volume") && getUnitDefinition("volume") == NULL)
+  if (getUnitDefinition("volume") == NULL 
+    && (unitsUsed.contains("volume") || implicitVolume))
   {
     UnitDefinition * ud = createUnitDefinition();
     ud->setId("volume");
@@ -213,7 +287,8 @@ Model::addDefinitionsForDefaultUnits()
     u->setMultiplier(1.0);
   }
 
-  if (unitsUsed.contains("substance") && getUnitDefinition("substance") == NULL)
+  if (getUnitDefinition("substance") == NULL 
+    && (unitsUsed.contains("substance") || implicitSubstance))
   {
     UnitDefinition * ud = createUnitDefinition();
     ud->setId("substance");
@@ -224,7 +299,8 @@ Model::addDefinitionsForDefaultUnits()
     u->setMultiplier(1.0);
   }
 
-  if (unitsUsed.contains("area") && getUnitDefinition("area") == NULL)
+  if (getUnitDefinition("area") == NULL
+    && (unitsUsed.contains("area") || implicitArea))
   {
     UnitDefinition * ud = createUnitDefinition();
     ud->setId("area");
@@ -235,7 +311,8 @@ Model::addDefinitionsForDefaultUnits()
     u->setMultiplier(1.0);
   }
 
-  if (unitsUsed.contains("length") && getUnitDefinition("length") == NULL)
+  if (getUnitDefinition("length") == NULL
+    && (unitsUsed.contains("length") || implicitLength))
   {
     UnitDefinition * ud = createUnitDefinition();
     ud->setId("length");
@@ -246,7 +323,7 @@ Model::addDefinitionsForDefaultUnits()
     u->setMultiplier(1.0);
   }
 
-  if (unitsUsed.contains("time") && getUnitDefinition("time") == NULL)
+  if (getUnitDefinition("time") == NULL)
   {
     UnitDefinition * ud = createUnitDefinition();
     ud->setId("time");
@@ -258,46 +335,12 @@ Model::addDefinitionsForDefaultUnits()
   }
 
 }
-/*
- * Converts the model to a from SBML L2 to L1.  Most of the necessary
- * changes occur during the various writeAttributes() methods, however
- * there are some difference between L1 and L2 that require the underlying
- * Model to be changed.
- */
-void 
-Model::convertToL1 (bool strict)
-{
-  //
-  // Level 2 allows a model to be specified without a Compartment.  However
-  // this is not valid in Level 1.  Thus if a L2 model has no Compartment
-  // one must be included and any species are assumed to be within it.
-  //
-  if (getNumCompartments() == 0)
-  {
-    createCompartment()->setId(ASSIGNED_COMPARTMENT);
-
-    for (unsigned int n = 0; n < getNumSpecies(); ++n) 
-    {
-      getSpecies(n)->setCompartment(ASSIGNED_COMPARTMENT);
-    }
-  }
-
-  /* make sure underlying model is correct */
-  if (strict)
-  {
-    removeMetaId();
-    removeSBOTerms();
-    removeHasOnlySubstanceUnits();
-  }
-}
-
-
 /* the new strict setters mean that for a conversion to L2 to
  * take place the model needs to think it still l1 for
  * some actions and think it is already L2 for others
  */
 void 
-Model::convertToL2Strict ()
+Model::removeParameterRuleUnits ()
 {
   /* in L1 a parameterRule coulkd specify units
    * for a strict conversion this attribute should be unset
@@ -311,33 +354,6 @@ Model::convertToL2Strict ()
   }
 
 }
-
-/*
- * Converts the model to a from SBML L2V? to L2V1. 
- */
-void 
-Model::convertToL2V1 (bool strict)
-{
-  /* make sure underlying model is correct */
-  if (strict)
-  {
-    removeSBOTerms();
-  }
-}
-
-/*
- * Converts the model to a from SBML L2V? to L2V2. 
- */
-void 
-Model::convertToL2V2 (bool strict)
-{
-  /* make sure underlying model is correct */
-  if (strict)
-  {
-    removeSBOTermsNotInL2V2();
-  }
-}
-
 
 /* converting to l1 any metaid attributes should be removed */
 void

@@ -280,7 +280,7 @@ START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
   SBMLDocument_setLevelAndVersion(d, 3, 1);
 
 
-  fail_unless(Model_getNumUnitDefinitions(m) == 1);
+  fail_unless(Model_getNumUnitDefinitions(m) == 2);
 
   UnitDefinition_t *ud = Model_getUnitDefinition(m, 0);
 
@@ -295,10 +295,67 @@ START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
   fail_unless(Unit_getMultiplier(u) == 1);
   fail_unless(Unit_getScale(u) == 0);
 
+  ud = Model_getUnitDefinition(m, 1);
+
+  fail_unless (ud != NULL);
+  fail_unless (!strcmp(UnitDefinition_getId( ud), "time"));
+  fail_unless(UnitDefinition_getNumUnits(ud) == 1);
+  
+  u = UnitDefinition_getUnit(ud, 0);
+
+  fail_unless(Unit_getKind(u) == UNIT_KIND_SECOND);
+  fail_unless(Unit_getExponent(u) == 1);
+  fail_unless(Unit_getMultiplier(u) == 1);
+  fail_unless(Unit_getScale(u) == 0);
+
   SBMLDocument_free(d);
 }
 END_TEST
 
+
+START_TEST (test_SBMLConvert_convertFromL3)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Compartment_t  *c = Model_createCompartment(m);
+
+  Compartment_setId   ( c, sid );
+  Compartment_setSize ( c, 1.2 ); 
+  Compartment_setUnits( c, "volume");
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_invalidLevelVersion)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Compartment_t  *c = Model_createCompartment(m);
+
+  Compartment_setId   ( c, sid );
+  Compartment_setSize ( c, 1.2 ); 
+  Compartment_setUnits( c, "volume");
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 5) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 3, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 4, 1) == 0);
+
+}
+END_TEST
 
 Suite *
 create_suite_SBMLConvert (void) 
@@ -315,6 +372,8 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc );
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_defaultUnits );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3 );
+  tcase_add_test( tcase, test_SBMLConvert_invalidLevelVersion );
 
   suite_add_tcase(suite, tcase);
 

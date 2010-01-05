@@ -2372,6 +2372,20 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
+
+  /*
+   * Converts the model to a from SBML Level 2 to Level 3.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L2 and L3 that require the underlying Model to be changed.
+   */
+  void convertL2ToL3 ();
+
+  /** @endcond doxygen-libsbml-internal */
+
+
+  /** @cond doxygen-libsbml-internal */
   
   /*
    * Converts the model to a from SBML Level 2 to Level 1.
@@ -2380,7 +2394,7 @@ public:
    * writeAttributes() methods, however there are some difference between
    * L1 and L2 that require the underlying Model to be changed.
    */
-  void convertToL1 (bool strict = false);
+  void convertL2ToL1 (bool strict = false);
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -2458,20 +2472,6 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
-  void convertToL2V1 (bool strict = false);
-
-  /** @endcond doxygen-libsbml-internal */
-
-
-  /** @cond doxygen-libsbml-internal */
-
-  void convertToL2V2 (bool strict = false);
-
-  /** @endcond doxygen-libsbml-internal */
-
-
-  /** @cond doxygen-libsbml-internal */
-
   void removeDuplicateTopLevelAnnotations();
 
   /** @endcond doxygen-libsbml-internal */
@@ -2480,13 +2480,8 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /*
-   * Converts the model to a from SBML Level 1 to Level 2.
-   *
-   * Most of the necessary changes occur during the various
-   * writeAttributes() methods, however there are some difference between
-   * L1 and L2 that require the underlying Model to be changed.
    */
-  void convertToL2Strict ();
+  void removeParameterRuleUnits ();
 
   /** @endcond doxygen-libsbml-internal */
 

@@ -4938,6 +4938,20 @@ static const sbmlErrorTableEntry errorTable[] =
     "be correct, the value for the offset member variable should be '0'."
   }, 
 
+  //99997
+  {   
+    InvalidTargetLevelVersion,   
+    "The target Level/Version does not exist",
+    LIBSBML_CAT_INTERNAL_CONSISTENCY,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "Conversion is only possible to an existing SBML Level and Version."
+  },
+
   //99998
   {   
     L3NotSupported,   
@@ -4949,7 +4963,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
-    "Validation or conversion to or from L3 documents/models is not yet "
+    "Validation of or conversion from L3 documents/models is not yet "
     "supported."
   } 
 

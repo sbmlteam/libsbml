@@ -824,6 +824,19 @@ public:
 
 
   /**
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level&nbsp;3 Version&nbsp;1 and can
+   * be converted to Level&nbsp;3 Version&nbsp;1.
+   *
+   * Callers should query the results of the consistency check by calling
+   * @if clike SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL3v1Compatibility ();
+
+
+  /**
    * Returns the nth error or warning encountered during parsing,
    * consistency checking, or attempted translation of this model.
    *
