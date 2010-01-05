@@ -450,6 +450,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\validator\constraints\L3v1CompatibilityConstraints.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\L3v1CompatibilityValidator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\validator\constraints\LambdaMathCheck.cpp"
 				>
 			</File>
@@ -1099,6 +1107,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\validator\L2v4CompatibilityValidator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\L3v1CompatibilityValidator.h"
 				>
 			</File>
 			<File
