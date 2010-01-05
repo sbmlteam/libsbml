@@ -406,8 +406,13 @@ public:
   ASTNode (const ASTNode& orig);
   
 
+  /**
+   * Assignment operator for ASTNode.
+   */
   LIBSBML_EXTERN
   ASTNode& operator=(const ASTNode& rhs);
+
+
   /**
    * Destroys this ASTNode, including any child nodes.
    */
