@@ -49,6 +49,7 @@ matlab_sources = \
   BuildTranslate_Win32.m               \
   CheckAndConvert.m                    \
   Contents.m                           \
+  isoctave.m                           \
   README.txt                           \
   TranslateSBML.c                      \
   TranslateSBML.m                      \

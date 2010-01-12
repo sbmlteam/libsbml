@@ -123,12 +123,14 @@ void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
   /* variables */
-  char *pacFilename, *pacTempString1, *pacTempString2;
+  char *pacFilename = NULL;
+  char *pacTempString1, *pacTempString2;
   int nBufferLen, nStatus, nBuflen;
   FILE *fp;
   mxArray * mxFilename[2], * mxExt[1];
   int validateFlag = 0;
   int listFlag = 0;
+  int verboseFlag = 1;
  
   int nNoFields_l1v1 = 13;
   int nNoFields_l2v1 = 19;
@@ -136,6 +138,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nNoFields_l2v3 = 24;
   int nNoFields_l2v4 = 24;
 
+  const char *error_struct[] =
+  {
+    "line",
+    "errorId",
+    "severity",
+    "message"
+  };
 
   const char *field_names_l1v1[] =
   {
@@ -262,6 +271,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   };
 
   int dims[2] = {1, 1};
+  int errordims[2];
 
   SBMLDocument_t *sbmlDocument;
   Model_t *sbmlModel;
@@ -278,30 +288,53 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int totalerrors = 0;
   unsigned int warnings = 0;
   unsigned int errors = 0;
-  mxArray * mxErrors[1];
+  mxArray * mxErrors[1], *mxNone[1];
   char * pacErrors, * pacError;
   char * pacErrors1, * pacError1;
   unsigned int i;
-  mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1];
+  mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1], *mxPrompt1[2];
   char *pacPromptValid = "Do you want to validate the model? Enter y/n ";
   char *pacPromptLoadAnyway = "Do you want to load the model anyway? Enter y/n ";
   char *pacReply;
   char *pacWarn;
+  char *pacNone = "No model returned.";
   char *pacList = "Do you want to exclude the warnings from the list? Enter y/n ";
-  
+  unsigned int usingOctave = 0;
+  mxArray * mxOctave[1];
+  int outputErrors = 0;
+
   pacCSymbolTime = NULL;
   pacCSymbolDelay = NULL;
   
+  /* determine whether we are in octave or matlab */
 
-  /**
+  mexCallMATLAB(1, mxOctave, 0, NULL, "isoctave");
+  
+  nBuflen = (mxGetM(mxOctave[0])*mxGetN(mxOctave[0])+1);
+  pacTempString1 = (char *) mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxOctave[0], pacTempString1, nBuflen);
+
+  if (nStatus != 0)
+  {
+    mexErrMsgTxt("Bad octave read");
+  }
+
+  if (!(strcmp_insensitive(pacTempString1, "0") == 0))
+    usingOctave = 1;
+
+ /**
    * check number and type of arguments
-   * cannot write to more than one output argument
+   * cannot write to more than two output argument
    */
-  if (nlhs > 1)
+  if (nlhs > 2)
   {
     mexErrMsgTxt("Too many output arguments.");
   }
 
+  if (nlhs > 1)
+  {
+    outputErrors = 1;
+  }
   /** 
    * need the name of the sbml file to translate
    * can supply by name
@@ -316,16 +349,20 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         * first argument must be a row vector of type string
         * i.e. the filename containing the sbml to be read
         */
-        if ((nrhs > 2) || (mxIsChar(prhs[0]) != 1) || (mxGetM(prhs[0]) != 1))
+        if ((nrhs > 3) || (mxIsChar(prhs[0]) != 1) || (mxGetM(prhs[0]) != 1))
         {
-            mexErrMsgTxt("Usage: = TranslateSBML(filename, validFlag(optional))");
+            mexErrMsgTxt("Usage: = TranslateSBML(filename, validFlag(optional), verboseFlag(optional))");
         }
         
-        if (nrhs == 2 && !mxIsNumeric(prhs[1]))
+        if (nrhs > 1 && !mxIsNumeric(prhs[1]))
         {
-            mexErrMsgTxt("Usage:TranslateSBML(filename, flag(optional))\n flag is optional but must be a number");
+            mexErrMsgTxt("Usage:TranslateSBML(filename, validFlag(optional), verboseFlag(optional))\n validFlag is optional but must be a number");
         }
 
+        if (nrhs > 2 && !mxIsNumeric(prhs[2]))
+        {
+            mexErrMsgTxt("Usage:TranslateSBML(filename, validFlag(optional), verboseFlag(optional))\n verboseFlag is optional but must be a number");
+        }
        /**
         * get length of input string 
         * allocate memory and copy to a C string
@@ -353,15 +390,25 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         /* if a second argument has been given this is the flag indicating
          * whether to validate the model or not
          */
-        if (nrhs == 2)
+        if (nrhs > 1)
         {
           validateFlag = (int) mxGetScalar(prhs[1]);   
+        }
+        
+        /* if a third argument has been given this is the flag indicating
+         * whether to print out errors or not
+         */
+        if (nrhs > 2)
+        {
+          verboseFlag = (int) mxGetScalar(prhs[2]);   
         }
             
    }
    /* no argument supplied - browse */
    else
    {
+     if (usingOctave == 0)
+     {
         /* extension to look for */
         mxExt[0] = mxCreateString(".xml");
         nStatus = mexCallMATLAB(2, mxFilename, 1, mxExt, "uigetfile");
@@ -416,7 +463,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         {
             validateFlag = 1;
         }
- 
+     }
+     else
+     {
+       mexErrMsgTxt("Octave requires the filename as argument"); 
+     } 
   }
 
 
@@ -430,6 +481,21 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     pacReply = (char *)mxCalloc(3,sizeof(char));
     pacReply = "n";
     mxPrompt[0] = mxCreateString("Fatal errors were encountered; read was abandoned");
+    if (outputErrors == 1)
+    {
+      totalerrors = SBMLDocument_getNumErrors(sbmlDocument);
+      errordims[0] = 1;
+      errordims[1] = totalerrors;
+      plhs[1] = mxCreateStructArray(2, errordims, 4, error_struct);
+      for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
+      {
+        e = (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
+        mxSetField(plhs[1], i, "line", CreateIntScalar(XMLError_getLine(e)));
+        mxSetField(plhs[1], i, "errorId", CreateIntScalar(XMLError_getErrorId(e)));
+        mxSetField(plhs[1], i, "severity", mxCreateString(ErrorSeverity_toString(XMLError_getSeverity(e))));
+        mxSetField(plhs[1], i, "message", mxCreateString(XMLError_getMessage(e)));
+      }
+    }
   }
   else
   {
@@ -453,6 +519,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
     }
     errors = totalerrors - warnings;
+
+    if (outputErrors == 1)
+    {
+      errordims[0] = 1;
+      errordims[1] = totalerrors;
+      plhs[1] = mxCreateStructArray(2, errordims, 4, error_struct);
+    }
   
   /**
    *  if errors occur report these 
@@ -478,30 +551,28 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
       if (warnings > 0)
       {
-        mxPrompt[0]= mxCreateString(pacList);
-        mxPrompt[1]= mxCreateString("s");
-        mxErrors[0] = mxCreateString(pacErrors1);
-
-        mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-        mexCallMATLAB(1, mxWarn, 2, mxPrompt, "input");
-
-        nBufferLen = (mxGetM(mxWarn[0])*mxGetN(mxWarn[0])+1);
-        pacWarn = (char *) mxCalloc(nBufferLen, sizeof(char));
-        mxGetString(mxWarn[0], pacWarn, nBufferLen);
-
-        if (strcmp_insensitive(pacWarn, "n") == 0) 
+        if (verboseFlag == 1)
         {
-          listFlag = 1;
+          mxPrompt[0]= mxCreateString(pacList);
+          mxPrompt[1]= mxCreateString("s");
+          mxErrors[0] = mxCreateString(pacErrors1);
+
+          mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+          mexCallMATLAB(1, mxWarn, 2, mxPrompt, "input");
+
+          nBufferLen = (mxGetM(mxWarn[0])*mxGetN(mxWarn[0])+1);
+          pacWarn = (char *) mxCalloc(nBufferLen, sizeof(char));
+          mxGetString(mxWarn[0], pacWarn, nBufferLen);
+
+          if (strcmp_insensitive(pacWarn, "n") == 0) 
+          {
+            listFlag = 1;
+          }
         }
       }
-      else
-      {
-        mxErrors[0] = mxCreateString(pacErrors1);
-        mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-      }
-      
-      mxPrompt[0]= mxCreateString(pacPromptLoadAnyway);
-      mxPrompt[1]= mxCreateString("s");
+
+      mxPrompt1[0]= mxCreateString(pacPromptLoadAnyway);
+      mxPrompt1[1]= mxCreateString("s");
 
       pacErrors = (char *) mxCalloc(totalerrors * 1000, sizeof(char));
       pacError  = (char *) mxCalloc(1000, sizeof(char));
@@ -525,6 +596,14 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	          XMLError_getMessage(e));
           pacErrors = safe_strcat(pacErrors, pacError);
         }
+        if (outputErrors == 1)
+        {
+          mxSetField(plhs[1], i, "line", CreateIntScalar(XMLError_getLine(e)));
+          mxSetField(plhs[1], i, "errorId", CreateIntScalar(XMLError_getErrorId(e)));
+          mxSetField(plhs[1], i, "severity", mxCreateString(ErrorSeverity_toString(XMLError_getSeverity(e))));
+          mxSetField(plhs[1], i, "message", mxCreateString(XMLError_getMessage(e)));
+        }
+
       }
       
       if (errors == 0 && listFlag == 0)
@@ -534,19 +613,29 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
       else if (validateFlag == 0)
       {
+        mxErrors[0] = mxCreateString("Error encountered during read.");
+        mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
         pacReply = (char *)mxCalloc(3,sizeof(char));
         pacReply = "n";
       }
       else
       {
-        mxErrors[0] = mxCreateString(pacErrors);
+        if (verboseFlag == 1)
+        {
+          mxErrors[0] = mxCreateString(pacErrors);
 
-        mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-        mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+          mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+          mexCallMATLAB(1, mxReply, 2, mxPrompt1, "input");
 
-        nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
-        pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
-        mxGetString(mxReply[0], pacReply, nBufferLen);
+          nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
+          pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
+          mxGetString(mxReply[0], pacReply, nBufferLen);
+        }
+        else
+        {
+          pacReply = (char *)mxCalloc(3,sizeof(char));
+          pacReply = "y";
+        }
       }
     }
     else
@@ -727,8 +816,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   else
   {
     /* we havent read in a model */
-    mexCallMATLAB(0, NULL, 1, mxPrompt, "disp");
-    plhs[0] = mxCreateStructArray(0, 0, 0, "");
+    mxNone[0] = mxCreateString(pacNone);
+    mexCallMATLAB(0, NULL, 1, mxNone, "disp");
+    plhs[0] = mxCreateStructArray(0, 0, 0, NULL);
   }
 
 }
@@ -4511,25 +4601,25 @@ GetEvent (Model_t      *pModel,
       {
         /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
 
-        mxInput[0] = mxCreateString(pacDelay);
-        nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+      mxInput[0] = mxCreateString(pacDelay);
+      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
 
-        if (nStatus != 0)
-        {
-            mexErrMsgTxt("Failed to convert formula");
-        }
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Failed to convert formula");
+      }
 
-        /* get the formula returned */
-        nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-        pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
+      /* get the formula returned */
+      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+      pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
+      nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
 
-        if (nStatus != 0)
-        {
-            mexErrMsgTxt("Cannot copy formula");
-        }
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Cannot copy formula");
+      }
 
-        /* END OF HACK */
+      /* END OF HACK */
       }
     }
     else

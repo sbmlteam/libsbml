@@ -59,6 +59,7 @@ distfiles = \
 	BuildTranslate_Win32.m \
 	CheckAndConvert.m      \
 	Contents.m             \
+	isoctave.m             \
 	Makefile.in            \
 	README.txt             \
 	TranslateSBML.c        \
@@ -110,17 +111,27 @@ check: all check-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-libraries install-checkandconvert
+install: all install-libraries install-checkandconvert install-isoctave
 
 installdirs: all
 
-uninstall: uninstall-libraries uninstall-checkandconvert
+uninstall: uninstall-libraries uninstall-checkandconvert uninstall-isoctave
 
 install-checkandconvert:
 	$(INSTALL_SH) -m 644 CheckAndConvert.m "$(DESTDIR)$(LIBDIR)"
 
 uninstall-checkandconvert:
 	@target="$(DESTDIR)$(LIBDIR)/CheckAndConvert.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
+install-isoctave:
+	$(INSTALL_SH) -m 644 isoctave.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-isoctave:
+	@target="$(DESTDIR)$(LIBDIR)/isoctave.m"; \
 	if test -f $$target ; then \
 	  echo rm $$target; \
 	  rm $$target; \
