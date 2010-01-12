@@ -92,7 +92,8 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
       if (name2 == "bqbiol" || name2 == "bqmodel")
       {
         term = new CVTerm(RDFTop->getChild(n));
-        CVTerms->add((void *)term);
+        if (term->getResources()->getLength() > 0)
+          CVTerms->add((void *)term);
       }
       n++;
     }
