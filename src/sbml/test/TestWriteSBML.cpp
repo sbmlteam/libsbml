@@ -168,7 +168,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SBMLDocument_L1v1)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char *expected = wrapXML
   (
@@ -186,7 +186,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SBMLDocument_L1v2)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = wrapXML
   (
@@ -204,7 +204,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SBMLDocument_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = wrapXML
   (
@@ -222,7 +222,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SBMLDocument_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = wrapXML
   (
@@ -241,7 +241,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = wrapSBML_L1v1("  <model name=\"Branch\"/>\n");
 
@@ -256,7 +256,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model_skipOptional)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = wrapSBML_L1v2("  <model/>\n");
 
@@ -271,7 +271,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = wrapSBML_L2v1("  <model id=\"Branch\"/>\n");
 
@@ -286,7 +286,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model_L2v1_skipOptional)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = wrapSBML_L2v1("  <model/>\n");
 
@@ -301,7 +301,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = wrapSBML_L2v2("  <model id=\"Branch\" sboTerm=\"SBO:0000004\"/>\n");
 
@@ -372,7 +372,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Unit)
 {
-  D->setLevelAndVersion(2, 4);
+  D->setLevelAndVersion(2, 4, false);
 
   const char* expected = "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
 
@@ -389,7 +389,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Unit_l2v3)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
 
@@ -407,7 +407,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Unit_defaults)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<unit kind=\"kilogram\"/>";
 
@@ -422,7 +422,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Unit_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
 
@@ -438,7 +438,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_UnitDefinition)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<unitDefinition name=\"mmls\"/>";
 
@@ -453,7 +453,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_UnitDefinition_full)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<unitDefinition name=\"mmls\">\n"
@@ -485,7 +485,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_UnitDefinition_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<unitDefinition id=\"mmls\"/>";
 
@@ -500,7 +500,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_UnitDefinition_L2v1_full)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = 
     "<unitDefinition id=\"Fahrenheit\">\n"
@@ -524,7 +524,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
 
@@ -541,7 +541,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_unsetVolume)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<compartment name=\"A\"/>";
 
@@ -557,7 +557,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
 
@@ -574,7 +574,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v1_constant)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
 
@@ -590,7 +590,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v1_unsetSize)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<compartment id=\"A\"/>";
 
@@ -606,7 +606,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v2_compartmentType)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<compartment id=\"cell\" compartmentType=\"ct\"/>";
 
@@ -621,7 +621,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v3_SBO)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";
 
@@ -636,7 +636,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
@@ -658,7 +658,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L1v1)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = 
     "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
@@ -681,7 +681,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_defaults)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
@@ -704,7 +704,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_skipOptional)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
 
@@ -722,7 +722,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = 
     "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" "
@@ -743,7 +743,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L2v1_skipOptional)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<species id=\"Ca2\" compartment=\"cell\"/>";
 
@@ -758,7 +758,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
     "<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" "
@@ -780,7 +780,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L2v3)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";
 
@@ -797,7 +797,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
 
@@ -814,7 +814,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L1v1_required)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = "<parameter name=\"Km1\" value=\"NaN\"/>";
 
@@ -830,7 +830,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L1v2_skipOptional)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<parameter name=\"Km1\"/>";
 
@@ -847,7 +847,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
 
@@ -864,7 +864,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v1_skipOptional)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<parameter id=\"Km1\"/>";
 
@@ -879,7 +879,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v1_constant)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = "<parameter id=\"x\" constant=\"false\"/>";
 
@@ -896,7 +896,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";
 
@@ -914,7 +914,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_AlgebraicRule)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = "<algebraicRule formula=\"x + 1\"/>";
 
@@ -929,7 +929,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_AlgebraicRule_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = 
     "<algebraicRule>\n"
@@ -953,7 +953,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_AlgebraicRule_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
     "<algebraicRule sboTerm=\"SBO:0000004\">\n"
@@ -978,7 +978,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesConcentrationRule)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<speciesConcentrationRule "
@@ -1000,7 +1000,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesConcentrationRule_defaults)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
 
@@ -1019,7 +1019,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesConcentrationRule_L1v1)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
 
@@ -1039,7 +1039,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = 
     "<assignmentRule variable=\"s\">\n"
@@ -1068,7 +1068,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
   "<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n"
@@ -1098,7 +1098,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentVolumeRule)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = 
     "<compartmentVolumeRule "
@@ -1120,7 +1120,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentVolumeRule_defaults)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
 
@@ -1140,7 +1140,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2,1, false);
 
   const char* expected = 
     "<assignmentRule variable=\"c\">\n"
@@ -1169,7 +1169,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
   "<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n"
@@ -1199,7 +1199,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_ParameterRule)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = 
     "<parameterRule "
@@ -1221,7 +1221,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_ParameterRule_defaults)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = "<parameterRule formula=\"p * t\" name=\"p\"/>";
 
@@ -1241,7 +1241,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_ParameterRule_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<rateRule variable=\"p\">\n"
@@ -1270,7 +1270,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_ParameterRule_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
   "<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n"
@@ -1300,7 +1300,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Reaction)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
 
@@ -1317,7 +1317,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Reaction_defaults)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<reaction name=\"r\"/>";
 
@@ -1332,7 +1332,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Reaction_full)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<reaction name=\"v1\">\n"
@@ -1365,7 +1365,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Reaction_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<reaction id=\"r\" reversible=\"false\"/>";
 
@@ -1381,7 +1381,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Reaction_L2v1_full)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<reaction id=\"v1\">\n"
@@ -1434,7 +1434,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Reaction_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";
 
@@ -1453,7 +1453,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
 
@@ -1470,7 +1470,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_L1v1)
 {
-  D->setLevelAndVersion(1, 1);
+  D->setLevelAndVersion(1, 1, false);
 
   const char* expected = "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
 
@@ -1487,7 +1487,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_defaults)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<speciesReference species=\"s\"/>";
 
@@ -1502,7 +1502,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_L2v1_1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<speciesReference species=\"s\">\n"
@@ -1527,7 +1527,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_L2v1_2)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
 
@@ -1544,7 +1544,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<speciesReference species=\"s\">\n"
@@ -1574,7 +1574,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_L2v2_1)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
   "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n"
@@ -1605,7 +1605,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesReference_L2v3_1)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";
 
@@ -1625,7 +1625,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_StoichiometryMath)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<stoichiometryMath>\n"
@@ -1649,7 +1649,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_StoichiometryMath_withSBO)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = 
   "<stoichiometryMath sboTerm=\"SBO:0000333\">\n"
@@ -1674,7 +1674,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_KineticLaw)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<kineticLaw formula=\"k * e\" timeUnits=\"second\" "
@@ -1693,7 +1693,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_KineticLaw_skipOptional)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = "<kineticLaw formula=\"k * e\"/>";
 
@@ -1708,7 +1708,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_KineticLaw_ListOfParameters)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = 
     "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
@@ -1734,7 +1734,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_KineticLaw_l2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n"
@@ -1768,7 +1768,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_KineticLaw_withSBO)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
   "<kineticLaw sboTerm=\"SBO:0000001\">\n"
@@ -1801,7 +1801,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Event)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
   const char* expected = "<event id=\"e\"/>";
 
   Event *e = D->createModel()->createEvent();
@@ -1814,7 +1814,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Event_WithSBO)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
   const char* expected = "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";
 
 
@@ -1830,7 +1830,7 @@ END_TEST
 START_TEST (test_WriteSBML_Event_WithUseValuesFromTriggerTime)
 {
   const char* expected = "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";
-  D->setLevelAndVersion(2, 4);
+  D->setLevelAndVersion(2, 4, false);
 
 
   Event *e = D->createModel()->createEvent();
@@ -1856,7 +1856,7 @@ START_TEST (test_WriteSBML_Event_trigger)
     "    </math>\n"
     "  </trigger>\n"
     "</event>";
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -1880,7 +1880,7 @@ START_TEST (test_WriteSBML_Event_delay)
     "    </math>\n"
     "  </delay>\n"
     "</event>";
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -1904,7 +1904,7 @@ START_TEST (test_WriteSBML_Event_delayWithSBO)
     "    </math>\n"
     "  </delay>\n"
     "</event>";
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -1933,7 +1933,7 @@ START_TEST (test_WriteSBML_Event_trigger_withSBO)
     "    </math>\n"
     "  </trigger>\n"
     "</event>";
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -1967,7 +1967,7 @@ START_TEST (test_WriteSBML_Event_both)
     "    </math>\n"
     "  </delay>\n"
     "</event>";
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -2006,7 +2006,7 @@ START_TEST (test_WriteSBML_Event_full)
     "    </eventAssignment>\n"
     "  </listOfEventAssignments>\n"
     "</event>";
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -2029,7 +2029,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentType)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<compartmentType id=\"ct\"/>";
 
@@ -2045,7 +2045,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentType_withSBO)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";
 
@@ -2061,7 +2061,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesType)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<speciesType id=\"st\"/>";
 
@@ -2077,7 +2077,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesType_withSBO)
 {
-  D->setLevelAndVersion(2, 3);
+  D->setLevelAndVersion(2, 3, false);
 
   const char* expected = "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";
 
@@ -2093,7 +2093,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Constraint)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<constraint sboTerm=\"SBO:0000064\"/>";
 
@@ -2108,7 +2108,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Constraint_math)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
     "<constraint>\n"
@@ -2132,7 +2132,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Constraint_full)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = 
   "<constraint sboTerm=\"SBO:0000064\">\n"
@@ -2177,7 +2177,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_InitialAssignment)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";
 
@@ -2415,7 +2415,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_elements_L1v2)
 {
-  D->setLevelAndVersion(1, 2);
+  D->setLevelAndVersion(1, 2, false);
 
   const char* expected = wrapSBML_L1v2(
     "  <model>\n"
@@ -2456,7 +2456,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_elements_L2v1)
 {
-  D->setLevelAndVersion(2, 1);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = wrapSBML_L2v1(
     "  <model>\n"
@@ -2507,7 +2507,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_elements_L2v2)
 {
-  D->setLevelAndVersion(2, 2);
+  D->setLevelAndVersion(2, 2, false);
 
   const char* expected = wrapSBML_L2v2(
     "  <model>\n"

@@ -63,7 +63,7 @@ static void
 WriteL3SBML_setup ()
 {
   D = new SBMLDocument();
-  D->setLevelAndVersion(3, 1);
+  D->setLevelAndVersion(3, 1, false);
   S = 0;
 }
 

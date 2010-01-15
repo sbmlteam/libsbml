@@ -70,7 +70,7 @@ START_TEST (test_internal_consistency_check_99901)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setSpatialDimensions((unsigned int)(2));
@@ -101,7 +101,7 @@ START_TEST (test_internal_consistency_check_99902)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setCompartmentType("hh");
@@ -132,7 +132,7 @@ START_TEST (test_internal_consistency_check_99903)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setConstant(true);
@@ -168,7 +168,7 @@ START_TEST (test_internal_consistency_check_99903_param)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Parameter *p = new Parameter(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -204,7 +204,7 @@ START_TEST (test_internal_consistency_check_99903_localparam)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Parameter *p = new Parameter(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -236,7 +236,7 @@ START_TEST (test_internal_consistency_check_99904)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setId("c");
@@ -268,7 +268,7 @@ START_TEST (test_internal_consistency_check_99904_kl)
   unsigned int errors;
   KineticLaw *kl = new KineticLaw(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Compartment *c = m->createCompartment();
   c->setId("cc");
   Reaction *r = m->createReaction();
@@ -296,7 +296,7 @@ START_TEST (test_internal_consistency_check_99904_model)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model * m = new Model(2, 4);
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -326,7 +326,7 @@ START_TEST (test_internal_consistency_check_99904_param)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Parameter *p = new Parameter(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -354,7 +354,7 @@ START_TEST (test_internal_consistency_check_99904_react)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Reaction *r = new Reaction(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -382,7 +382,7 @@ START_TEST (test_internal_consistency_check_99904_rule_assign)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Rule *r = new AssignmentRule(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -412,7 +412,7 @@ START_TEST (test_internal_consistency_check_99904_rule_rate)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Rule *r = new RateRule(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -442,7 +442,7 @@ START_TEST (test_internal_consistency_check_99904_rule_alg)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Rule *r = new AlgebraicRule(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -470,7 +470,7 @@ START_TEST (test_internal_consistency_check_99904_species)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -499,7 +499,7 @@ START_TEST (test_internal_consistency_check_99904_speciesRef)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   SpeciesReference *sr = new SpeciesReference(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -532,7 +532,7 @@ START_TEST (test_internal_consistency_check_99904_unit)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Unit *u = new Unit(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -562,7 +562,7 @@ START_TEST (test_internal_consistency_check_99904_unitdef)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   UnitDefinition *u = new UnitDefinition(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -591,7 +591,7 @@ START_TEST (test_internal_consistency_check_99905)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setId("c");
@@ -623,7 +623,7 @@ START_TEST (test_internal_consistency_check_99905_ct)
   unsigned int errors;
   CompartmentType *ct = new CompartmentType(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   
   ct->setId("ct");
   ct->setSBOTerm(5);
@@ -650,7 +650,7 @@ START_TEST (test_internal_consistency_check_99905_delay)
   Delay *delay = new Delay(2, 4);
   Event *e = new Event(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   delay->setSBOTerm(5);
   e->setDelay(delay);
   m->addEvent(e);
@@ -674,7 +674,7 @@ START_TEST (test_internal_consistency_check_99905_species)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -704,7 +704,7 @@ START_TEST (test_internal_consistency_check_99905_st)
   unsigned int errors;
   SpeciesType *ct = new SpeciesType(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   
   ct->setId("st");
   ct->setSBOTerm(5);
@@ -730,7 +730,7 @@ START_TEST (test_internal_consistency_check_99905_stoichmath)
   unsigned int errors;
   StoichiometryMath *sm = new StoichiometryMath(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   Species *s = m->createSpecies();
   s->setId("s");
   Compartment *c = m->createCompartment();
@@ -765,7 +765,7 @@ START_TEST (test_internal_consistency_check_99905_trigger)
   Trigger *trigger = new Trigger(2, 4);
   Event *e = new Event(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   trigger->setSBOTerm(5);
   e->setTrigger(trigger);
   m->addEvent(e);
@@ -789,7 +789,7 @@ START_TEST (test_internal_consistency_check_99905_unit)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Unit *u = new Unit(2, 4);
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   Model *m = d->createModel();
   UnitDefinition *ud = m->createUnitDefinition();
   ud->setId("ud");
@@ -817,7 +817,7 @@ START_TEST (test_internal_consistency_check_99905_unitdef)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   UnitDefinition *u = new UnitDefinition(2, 4);
-  d->setLevelAndVersion(2, 2);
+  d->setLevelAndVersion(2, 2, false);
   Model *m = d->createModel();
 
   u->setId("ud");
@@ -844,7 +844,7 @@ START_TEST (test_internal_consistency_check_99906)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setId("c");
@@ -875,7 +875,7 @@ START_TEST (test_internal_consistency_check_99907)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Compartment *c = new Compartment(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
 
   c->setId("c");
@@ -906,7 +906,7 @@ START_TEST (test_internal_consistency_check_99908)
   unsigned int errors;
   CompartmentType *ct = new CompartmentType(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   ct->setId("ct");
   m->addCompartmentType(ct);
@@ -933,7 +933,7 @@ START_TEST (test_internal_consistency_check_99909)
   Constraint *ct = new Constraint(2, 4);
   Model *m = d->createModel();
 
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
   m->addConstraint(ct);
 
   errors = d->checkInternalConsistency();
@@ -956,7 +956,7 @@ START_TEST (test_internal_consistency_check_99910)
   unsigned int errors;
   Event *e = new Event(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Compartment *c = m->createCompartment();
   c->setId("cc");
   c->setConstant(false);
@@ -982,7 +982,7 @@ START_TEST (test_internal_consistency_check_99911_event)
   unsigned int errors;
   Event *e = new Event(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   e->setSBOTerm(2);
   m->addEvent(e);
@@ -1004,7 +1004,7 @@ END_TEST
 START_TEST (test_internal_consistency_check_99911_ea)
 {
   SBMLDocument*     d = new SBMLDocument();
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
   unsigned int errors;
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
@@ -1037,7 +1037,7 @@ START_TEST (test_internal_consistency_check_99911_fd)
   unsigned int errors;
   Model *m = d->createModel();
   FunctionDefinition *fd = new FunctionDefinition(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   fd->setId("fd");
   fd->setSBOTerm(2);
@@ -1060,7 +1060,7 @@ END_TEST
 START_TEST (test_internal_consistency_check_99911_kl)
 {
   SBMLDocument*     d = new SBMLDocument();
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
   unsigned int errors;
   Model *m = d->createModel();
   Reaction *r = m->createReaction();
@@ -1090,7 +1090,7 @@ START_TEST (test_internal_consistency_check_99911_model)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
   Model * m = new Model(2, 4);
 
   m->setSBOTerm(2);
@@ -1119,7 +1119,7 @@ START_TEST (test_internal_consistency_check_99911_param)
   unsigned int errors;
   Model *m = d->createModel();
   Parameter *p = new Parameter(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   p->setId("p");
   p->setSBOTerm(2);
@@ -1145,7 +1145,7 @@ START_TEST (test_internal_consistency_check_99911_react)
   unsigned int errors;
   Model *m = d->createModel();
   Reaction *r = new Reaction(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   r->setId("r");
   r->setSBOTerm(2);
@@ -1174,7 +1174,7 @@ START_TEST (test_internal_consistency_check_99911_rule_assign)
   p->setId("p");
   p->setConstant(false);
   Rule *r = new AssignmentRule(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   r->setVariable("p");
   r->setSBOTerm(2);
@@ -1203,7 +1203,7 @@ START_TEST (test_internal_consistency_check_99911_rule_rate)
   p->setId("p");
   p->setConstant(false);
   Rule *r = new RateRule(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   r->setVariable("p");
   r->setSBOTerm(2);
@@ -1229,7 +1229,7 @@ START_TEST (test_internal_consistency_check_99911_rule_alg)
   unsigned int errors;
   Model *m = d->createModel();
   Rule *r = new AlgebraicRule(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   r->setSBOTerm(2);
   m->addRule(r );
@@ -1253,7 +1253,7 @@ START_TEST (test_internal_consistency_check_99911_speciesRef)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   SpeciesReference *sr = new SpeciesReference(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -1287,7 +1287,7 @@ START_TEST (test_internal_consistency_check_99912)
   unsigned int errors;
   FunctionDefinition *fd = new FunctionDefinition(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Compartment *c = m->createCompartment();
   c->setId("cc");
   c->setConstant(false);
@@ -1314,7 +1314,7 @@ START_TEST (test_internal_consistency_check_99913)
   unsigned int errors;
   InitialAssignment *ia = new InitialAssignment(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Compartment *c = m->createCompartment();
   c->setId("cc");
   c->setConstant(false);
@@ -1340,7 +1340,7 @@ START_TEST (test_internal_consistency_check_99914)
   unsigned int errors;
   Model *m = d->createModel();
   Rule *r = new AlgebraicRule(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   r->setVariable("kk");
   m->addRule(r );
@@ -1366,7 +1366,7 @@ START_TEST (test_internal_consistency_check_99915_alg)
   unsigned int errors;
   Model *m = d->createModel();
   Rule *r = new AlgebraicRule(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
 
   r->setUnits("kk");
   m->addRule(r );
@@ -1390,7 +1390,7 @@ START_TEST (test_internal_consistency_check_99915_assign)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -1421,7 +1421,7 @@ START_TEST (test_internal_consistency_check_99915_rate)
 {
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -1453,7 +1453,7 @@ START_TEST (test_internal_consistency_check_99916_rule)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
   c->setId("c");
@@ -1491,7 +1491,7 @@ START_TEST (test_internal_consistency_check_99916_reaction)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
   c->setId("c");
@@ -1524,7 +1524,7 @@ START_TEST (test_internal_consistency_check_99917)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
   c->setId("c");
@@ -1553,7 +1553,7 @@ START_TEST (test_internal_consistency_check_99918)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
   c->setId("c");
@@ -1582,7 +1582,7 @@ START_TEST (test_internal_consistency_check_99919)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Species *s = new Species(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment * c = m->createCompartment();
   c->setId("c");
@@ -1611,7 +1611,7 @@ START_TEST (test_internal_consistency_check_99920)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   SpeciesReference *sr = new SpeciesReference(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -1645,7 +1645,7 @@ START_TEST (test_internal_consistency_check_99921)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   SpeciesReference *sr = new SpeciesReference(2, 4);
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("c");
@@ -1681,7 +1681,7 @@ START_TEST (test_internal_consistency_check_99922)
   Model *m = d->createModel();
 
   ct->setId("st");
-  d->setLevelAndVersion(2, 1);
+  d->setLevelAndVersion(2, 1, false);
   m->addSpeciesType(ct);
 
   errors = d->checkInternalConsistency();
@@ -1705,7 +1705,7 @@ START_TEST (test_internal_consistency_check_99923)
   unsigned int errors;
   StoichiometryMath *sm = new StoichiometryMath(2, 4);
   Model *m = d->createModel();
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Species *s = m->createSpecies();
   s->setId("s");
   Compartment *c = m->createCompartment();
@@ -1737,7 +1737,7 @@ START_TEST (test_internal_consistency_check_99924)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Unit *u = new Unit(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");
@@ -1767,7 +1767,7 @@ START_TEST (test_internal_consistency_check_99925)
   SBMLDocument*     d = new SBMLDocument();
   unsigned int errors;
   Unit *u = new Unit(2, 4);
-  d->setLevelAndVersion(1, 2);
+  d->setLevelAndVersion(1, 2, false);
   Model *m = d->createModel();
   Compartment *c = m->createCompartment();
   c->setId("cc");

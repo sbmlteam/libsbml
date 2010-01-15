@@ -551,8 +551,17 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
   {
     /* use validators that the user has selected
     */
-    unsigned int errors = checkConsistency();
+    /* hack to catch errors caught at read time */
+    SBMLDocument *d = readSBMLFromString(writeSBMLToString(this));
+    unsigned int errors = d->getNumErrors();
 
+    for (unsigned int i = 0; i < errors; i++)
+    {
+      mErrorLog.add(*(d->getError(i)));
+    }
+    delete d;
+
+    errors += checkConsistency();
     errors = getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
 
     /* if the current model is not valid dont convert 

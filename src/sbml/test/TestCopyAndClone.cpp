@@ -1491,7 +1491,7 @@ END_TEST
 START_TEST ( test_SBMLDocument_copyConstructor )
 {
     SBMLDocument* o1=new SBMLDocument();
-    o1->setLevelAndVersion(2, 1);
+    o1->setLevelAndVersion(2, 1, false);
     
     fail_unless(o1->getLevel() == 2);
     fail_unless(o1->getVersion() == 1);
@@ -1509,7 +1509,7 @@ END_TEST
 START_TEST ( test_SBMLDocument_assignmentOperator )
 {
     SBMLDocument* o1=new SBMLDocument();
-    o1->setLevelAndVersion(2, 1);
+    o1->setLevelAndVersion(2, 1, false);
     
     fail_unless(o1->getLevel() == 2);
     fail_unless(o1->getVersion() == 1);
@@ -1529,7 +1529,7 @@ END_TEST
 START_TEST ( test_SBMLDocument_clone )
 {
     SBMLDocument* o1=new SBMLDocument();
-    o1->setLevelAndVersion(1, 1);
+    o1->setLevelAndVersion(1, 1, false);
     Model *m = new Model(1, 1);
     m->setId("foo");
     o1->setModel(m);
