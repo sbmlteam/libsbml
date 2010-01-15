@@ -83,8 +83,8 @@ catch
     Path_to_libs = strcat(Path_to_libs, '\bin\win32');
 
     % determine the location of the library files
-    lib{1} = '..\..\..\win32\bin\libsbml.lib';
-    lib{2} = '..\..\..\win32\bin\libsbml.dll';
+    lib{1} = '..\..\..\win\bin\libsbml.lib';
+    lib{2} = '..\..\..\win\bin\libsbml.dll';
 
     for i = 1:2
         copyfile(lib{i}, Path_to_libs);

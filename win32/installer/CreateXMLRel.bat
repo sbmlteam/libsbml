@@ -52,7 +52,7 @@ copy ..\..\..\..\..\src\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw3
 copy ..\..\..\..\..\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
 copy ..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
 copy ..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
-copy ..\..\..\..\..\src\bindings\matlab\install_for_Win32installers.m install_Win32.m
+copy ..\..\..\..\..\src\bindings\matlab\install_for_Win32.m install_Win32.m
 copy ..\..\..\..\..\src\bindings\matlab\make.bat make.bat
 copy ..\..\..\..\..\src\bindings\matlab\README.txt README.txt
 copy ..\..\..\..\..\src\bindings\matlab\test.xml test.xml
