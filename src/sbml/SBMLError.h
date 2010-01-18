@@ -853,6 +853,7 @@ typedef enum
  , ModelSBOBranchChangedInL3v1           = 96008 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
  , DuplicateAnnotationInvalidInL3v1      = 96009 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
  , NoCompartmentOutsideInL3v1            = 96010 /*!< The unit <code>offset</code> attribute is invalid in this Level+Version of SBML */
+ , NoStoichiometryMathInL3v1             = 96011
 
  /* These are errors checked by libSBML that were never
    * published in a spec. */

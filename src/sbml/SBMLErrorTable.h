@@ -4223,6 +4223,21 @@ static const sbmlErrorTableEntry errorTable[] =
     "of SBML Level 3 Version 1."
   },
 
+  //96011
+  {
+    NoStoichiometryMathInL3v1,
+    "SBML Level 3 Version 1 does not support stoichiometryMath",
+    LIBSBML_CAT_SBML_L3V1_COMPAT,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "Conversion of a model with <stoichiometryMath> to SBML Level 3 is not "
+    "yet supported."
+  },
+
   //99101
   {
     InvalidSBMLLevelVersion,
