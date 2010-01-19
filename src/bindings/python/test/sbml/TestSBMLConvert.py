@@ -66,6 +66,23 @@ class TestSBMLConvert(unittest.TestCase):
     d = None
     pass  
 
+  def test_SBMLConvert_convertFromL3(self):
+    d = libsbml.SBMLDocument(3,1)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    c.setSize(1.2)
+    c.setUnits( "volume")
+    self.assert_( d.setLevelAndVersion(1,1,False) == False )
+    self.assert_( d.setLevelAndVersion(1,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,1,False) == False )
+    self.assert_( d.setLevelAndVersion(2,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,3,False) == False )
+    self.assert_( d.setLevelAndVersion(2,4,False) == False )
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    pass  
+
   def test_SBMLConvert_convertToL1_SBMLDocument(self):
     d = libsbml.SBMLDocument(2,1)
     d.setLevelAndVersion(1,2,False)
@@ -156,6 +173,52 @@ class TestSBMLConvert(unittest.TestCase):
     m = d.getModel()
     self.assert_( (m).getAnnotation().getNumChildren() == 1 )
     d = None
+    pass  
+
+  def test_SBMLConvert_convertToL3_defaultUnits(self):
+    d = libsbml.SBMLDocument(1,2)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    c.setSize(1.2)
+    c.setUnits( "volume")
+    self.assert_( m.getNumUnitDefinitions() == 0 )
+    d.setLevelAndVersion(3,1,False)
+    self.assert_( m.getNumUnitDefinitions() == 2 )
+    ud = m.getUnitDefinition(0)
+    self.assert_( ud != None )
+    self.assert_((  "volume" == ud.getId() ))
+    self.assert_( ud.getNumUnits() == 1 )
+    u = ud.getUnit(0)
+    self.assert_( u.getKind() == libsbml.UNIT_KIND_LITRE )
+    self.assert_( u.getExponent() == 1 )
+    self.assert_( u.getMultiplier() == 1 )
+    self.assert_( u.getScale() == 0 )
+    ud = m.getUnitDefinition(1)
+    self.assert_( ud != None )
+    self.assert_((  "time" == ud.getId() ))
+    self.assert_( ud.getNumUnits() == 1 )
+    u = ud.getUnit(0)
+    self.assert_( u.getKind() == libsbml.UNIT_KIND_SECOND )
+    self.assert_( u.getExponent() == 1 )
+    self.assert_( u.getMultiplier() == 1 )
+    self.assert_( u.getScale() == 0 )
+    d = None
+    pass  
+
+  def test_SBMLConvert_invalidLevelVersion(self):
+    d = libsbml.SBMLDocument(2,1)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    c.setSize(1.2)
+    c.setUnits( "volume")
+    self.assert_( d.setLevelAndVersion(1,3,False) == False )
+    self.assert_( d.setLevelAndVersion(2,5,False) == False )
+    self.assert_( d.setLevelAndVersion(3,2,False) == False )
+    self.assert_( d.setLevelAndVersion(4,1,False) == False )
     pass  
 
 def suite():

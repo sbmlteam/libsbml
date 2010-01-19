@@ -44,6 +44,12 @@ class TestL3Unit < Test::Unit::TestCase
     @@u = nil
   end
 
+  def test_L3_Unit_NS
+    assert( @@u.getNamespaces() != nil )
+    assert( @@u.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@u.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Unit_create
     assert( @@u.getTypeCode() == LibSBML::SBML_UNIT )
     assert( @@u.getMetaId() == "" )

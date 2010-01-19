@@ -200,7 +200,7 @@ namespace LibSBMLCSTest {
     public void setUp()
     {
       D = new SBMLDocument();
-      D.setLevelAndVersion(3,1);
+      D.setLevelAndVersion(3,1,false);
       S = null;
     }
 

@@ -135,6 +135,13 @@ public class TestL3Parameter {
     P = null;
   }
 
+  public void test_L3_Parameter_NS()
+  {
+    assertTrue( P.getNamespaces() != null );
+    assertTrue( P.getNamespaces().getLength() == 1 );
+    assertTrue(P.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Parameter_constant()
   {
     assertTrue( P.isSetConstant() == false );

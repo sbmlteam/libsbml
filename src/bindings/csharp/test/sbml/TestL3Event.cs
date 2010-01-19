@@ -137,6 +137,13 @@ namespace LibSBMLCSTest {
       E = null;
     }
 
+    public void test_L3_Event_NS()
+    {
+      assertTrue( E.getNamespaces() != null );
+      assertTrue( E.getNamespaces().getLength() == 1 );
+      assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == E.getNamespaces().getURI(0) ));
+    }
+
     public void test_L3_Event_create()
     {
       assertTrue( E.getTypeCode() == libsbml.SBML_EVENT );

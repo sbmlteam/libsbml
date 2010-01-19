@@ -259,11 +259,6 @@ public class TestWriteSBML {
     return -1.0/z;
   }
 
-//  public boolean equals(String s)
-//  {
-//    return s.equals(OSS.str());
-//  }
-
   public boolean equals(String s1, String s2)
   {
     return s1.equals(s2);
@@ -311,7 +306,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_AlgebraicRule()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected =  "<algebraicRule formula=\"x + 1\"/>";;
     AlgebraicRule r = D.createModel().createAlgebraicRule();
     r.setFormula("x + 1");
@@ -320,7 +315,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_AlgebraicRule_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<algebraicRule>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -337,7 +332,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_AlgebraicRule_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -355,7 +350,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("A");
@@ -366,7 +361,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_CompartmentType()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<compartmentType id=\"ct\"/>";;
     CompartmentType ct = D.createModel().createCompartmentType();
     ct.setId("ct");
@@ -376,7 +371,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_CompartmentType_withSBO()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";;
     CompartmentType ct = D.createModel().createCompartmentType();
     ct.setId("ct");
@@ -386,7 +381,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_CompartmentVolumeRule()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected = "<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>";;
     D.createModel();
     D.getModel().createCompartment().setId("c");
@@ -398,7 +393,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_CompartmentVolumeRule_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<assignmentRule variable=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -418,7 +413,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_CompartmentVolumeRule_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -439,7 +434,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_CompartmentVolumeRule_defaults()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected =  "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";;
     D.createModel();
     D.getModel().createCompartment().setId("c");
@@ -451,7 +446,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("M");
@@ -462,7 +457,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment_L2v1_constant()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("cell");
@@ -473,7 +468,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment_L2v1_unsetSize()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<compartment id=\"A\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("A");
@@ -483,7 +478,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment_L2v2_compartmentType()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<compartment id=\"cell\" compartmentType=\"ct\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("cell");
@@ -493,7 +488,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment_L2v3_SBO()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("cell");
@@ -503,7 +498,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Compartment_unsetVolume()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<compartment name=\"A\"/>";;
     Compartment c = D.createModel().createCompartment();
     c.setId("A");
@@ -513,7 +508,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Constraint()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<constraint sboTerm=\"SBO:0000064\"/>";;
     Constraint ct = D.createModel().createConstraint();
     ct.setSBOTerm(64);
@@ -522,7 +517,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Constraint_full()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<constraint sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -556,7 +551,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Constraint_math()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<constraint>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -574,7 +569,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Event()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<event id=\"e\"/>";;
     Event e = D.createModel().createEvent();
     e.setId("e");
@@ -583,7 +578,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Event_WithSBO()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";;
     Event e = D.createModel().createEvent();
     e.setId("e");
@@ -594,7 +589,7 @@ public class TestWriteSBML {
   public void test_WriteSBML_Event_WithUseValuesFromTriggerTime()
   {
     String expected =  "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";;
-    D.setLevelAndVersion(2,4);
+    D.setLevelAndVersion(2,4,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     e.setUseValuesFromTriggerTime(false);
@@ -619,7 +614,7 @@ public class TestWriteSBML {
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>";
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     ASTNode node1 = libsbml.parseFormula("leq(P1,t)");
@@ -642,7 +637,7 @@ public class TestWriteSBML {
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>";
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     ASTNode node = libsbml.parseFormula("5");
@@ -661,7 +656,7 @@ public class TestWriteSBML {
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>";
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     ASTNode node = libsbml.parseFormula("5");
@@ -692,7 +687,7 @@ public class TestWriteSBML {
     "    </eventAssignment>\n" + 
     "  </listOfEventAssignments>\n" + 
     "</event>";
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     ASTNode node = libsbml.parseFormula("leq(P1,t)");
@@ -721,7 +716,7 @@ public class TestWriteSBML {
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>";
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     ASTNode node = libsbml.parseFormula("leq(P1,t)");
@@ -744,7 +739,7 @@ public class TestWriteSBML {
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>";
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     Event e = D.createModel().createEvent();
     e.setId("e");
     ASTNode node = libsbml.parseFormula("leq(P1,t)");
@@ -811,7 +806,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_InitialAssignment()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";;
     InitialAssignment ia = D.createModel().createInitialAssignment();
     ia.setSBOTerm(64);
@@ -839,7 +834,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_KineticLaw()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>";;
     KineticLaw kl = D.createModel().createReaction().createKineticLaw();
     kl.setFormula("k * e");
@@ -850,7 +845,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_KineticLaw_ListOfParameters()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
     "substanceUnits=\"item\">\n" + 
     "  <listOfParameters>\n" + 
@@ -869,7 +864,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_KineticLaw_l2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -896,7 +891,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_KineticLaw_skipOptional()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<kineticLaw formula=\"k * e\"/>";;
     KineticLaw kl = D.createModel().createReaction().createKineticLaw();
     kl.setFormula("k * e");
@@ -905,7 +900,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_KineticLaw_withSBO()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -931,7 +926,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Model()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected = wrapSBML_L1v1("  <model name=\"Branch\"/>\n");
     D.createModel("Branch");
     S = libsbml.writeSBMLToString(D);
@@ -940,7 +935,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Model_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = wrapSBML_L2v1("  <model id=\"Branch\"/>\n");
     D.createModel("Branch");
     S = libsbml.writeSBMLToString(D);
@@ -949,7 +944,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Model_L2v1_skipOptional()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = wrapSBML_L2v1("  <model/>\n");
     D.createModel();
     S = libsbml.writeSBMLToString(D);
@@ -958,7 +953,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Model_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = wrapSBML_L2v2("  <model id=\"Branch\" sboTerm=\"SBO:0000004\"/>\n");
     Model m = D.createModel("Branch");
     m.setSBOTerm(4);
@@ -968,7 +963,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Model_skipOptional()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = wrapSBML_L1v2("  <model/>\n");
     D.createModel();
     S = libsbml.writeSBMLToString(D);
@@ -995,7 +990,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("Km1");
@@ -1006,7 +1001,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_ParameterRule()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected = "<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>";;
     D.createModel();
     D.getModel().createParameter().setId("p");
@@ -1018,7 +1013,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_ParameterRule_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<rateRule variable=\"p\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1038,7 +1033,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_ParameterRule_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1059,7 +1054,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_ParameterRule_defaults()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected =  "<parameterRule formula=\"p * t\" name=\"p\"/>";;
     D.createModel();
     D.getModel().createParameter().setId("p");
@@ -1071,7 +1066,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter_L1v1_required()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected =  "<parameter name=\"Km1\" value=\"NaN\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("Km1");
@@ -1081,7 +1076,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter_L1v2_skipOptional()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<parameter name=\"Km1\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("Km1");
@@ -1091,7 +1086,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("Km1");
@@ -1102,7 +1097,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter_L2v1_constant()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<parameter id=\"x\" constant=\"false\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("x");
@@ -1112,7 +1107,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter_L2v1_skipOptional()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<parameter id=\"Km1\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("Km1");
@@ -1121,7 +1116,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Parameter_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("Km1");
@@ -1133,7 +1128,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Reaction()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";;
     Reaction r = D.createModel().createReaction();
     r.setId("r");
@@ -1144,7 +1139,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Reaction_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<reaction id=\"r\" reversible=\"false\"/>";;
     Reaction r = D.createModel().createReaction();
     r.setId("r");
@@ -1154,7 +1149,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Reaction_L2v1_full()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<reaction id=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
@@ -1196,7 +1191,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Reaction_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";;
     Reaction r = D.createModel().createReaction();
     r.setId("r");
@@ -1209,7 +1204,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Reaction_defaults()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<reaction name=\"r\"/>";;
     Reaction r = D.createModel().createReaction();
     r.setId("r");
@@ -1218,7 +1213,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Reaction_full()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<reaction name=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
@@ -1240,7 +1235,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SBMLDocument_L1v1()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"1\"/>\n");
     S = libsbml.writeSBMLToString(D);
     assertEquals( true, equals(expected,S) );
@@ -1248,7 +1243,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SBMLDocument_L1v2()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"2\"/>\n");
     S = libsbml.writeSBMLToString(D);
     assertEquals( true, equals(expected,S) );
@@ -1256,7 +1251,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SBMLDocument_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" " + "level=\"2\" version=\"1\"/>\n");
     S = libsbml.writeSBMLToString(D);
     assertEquals( true, equals(expected,S) );
@@ -1264,7 +1259,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SBMLDocument_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version2\" " + "level=\"2\" version=\"2\"/>\n");
     S = libsbml.writeSBMLToString(D);
     assertEquals( true, equals(expected,S) );
@@ -1272,7 +1267,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";;
     Species s = D.createModel().createSpecies();
     s.setName("Ca2");
@@ -1286,7 +1281,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesConcentrationRule()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>";;
     D.createModel();
     D.getModel().createSpecies().setId("s");
@@ -1298,7 +1293,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesConcentrationRule_L1v1()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected =  "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";;
     D.createModel();
     D.getModel().createSpecies().setId("s");
@@ -1310,7 +1305,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesConcentrationRule_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<assignmentRule variable=\"s\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1330,7 +1325,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesConcentrationRule_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1351,7 +1346,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesConcentrationRule_defaults()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";;
     D.createModel();
     D.getModel().createSpecies().setId("s");
@@ -1363,7 +1358,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";;
     SpeciesReference sr = D.createModel().createReaction().createReactant();
     sr.setSpecies("s");
@@ -1374,7 +1369,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_L1v1()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected =  "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";;
     SpeciesReference sr = D.createModel().createReaction().createReactant();
     sr.setSpecies("s");
@@ -1385,7 +1380,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_L2v1_1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1402,7 +1397,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_L2v1_2()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";;
     SpeciesReference sr = D.createModel().createReaction().createReactant();
     sr.setSpecies("s");
@@ -1412,7 +1407,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_L2v1_3()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1435,7 +1430,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_L2v2_1()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1458,7 +1453,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_L2v3_1()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";;
     SpeciesReference sr = D.createModel().createReaction().createReactant();
     sr.setSpecies("s");
@@ -1471,7 +1466,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesReference_defaults()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<speciesReference species=\"s\"/>";;
     SpeciesReference sr = D.createModel().createReaction().createReactant();
     sr.setSpecies("s");
@@ -1480,7 +1475,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesType()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected =  "<speciesType id=\"st\"/>";;
     SpeciesType st = D.createModel().createSpeciesType();
     st.setId("st");
@@ -1490,7 +1485,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_SpeciesType_withSBO()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";;
     SpeciesType st = D.createModel().createSpeciesType();
     st.setId("st");
@@ -1500,7 +1495,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_L1v1()
   {
-    D.setLevelAndVersion(1,1);
+    D.setLevelAndVersion(1,1,false);
     String expected = "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";;
     Species s = D.createModel().createSpecies();
     s.setName("Ca2");
@@ -1514,7 +1509,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>";;
     Species s = D.createModel().createSpecies();
     s.setId("Ca2");
@@ -1527,7 +1522,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_L2v1_skipOptional()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<species id=\"Ca2\" compartment=\"cell\"/>";;
     Species s = D.createModel().createSpecies();
     s.setId("Ca2");
@@ -1537,7 +1532,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = "<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>";;
     Species s = D.createModel().createSpecies();
     s.setId("Ca2");
@@ -1551,7 +1546,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_L2v3()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";;
     Species s = D.createModel().createSpecies();
     s.setId("Ca2");
@@ -1562,7 +1557,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_defaults()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>";;
     Species s = D.createModel().createSpecies();
     s.setName("Ca2");
@@ -1575,7 +1570,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Species_skipOptional()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";;
     Species s = D.createModel().createSpecies();
     s.setId("Ca2");
@@ -1586,7 +1581,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_StoichiometryMath()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<stoichiometryMath>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1604,7 +1599,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_StoichiometryMath_withSBO()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected = "<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1623,7 +1618,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Unit()
   {
-    D.setLevelAndVersion(2,4);
+    D.setLevelAndVersion(2,4,false);
     String expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";;
     Unit u = D.createModel().createUnitDefinition().createUnit();
     u.setKind(libsbml.UNIT_KIND_KILOGRAM);
@@ -1634,7 +1629,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_UnitDefinition()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<unitDefinition name=\"mmls\"/>";;
     UnitDefinition ud = D.createModel().createUnitDefinition();
     ud.setId("mmls");
@@ -1643,7 +1638,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_UnitDefinition_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<unitDefinition id=\"mmls\"/>";;
     UnitDefinition ud = D.createModel().createUnitDefinition();
     ud.setId("mmls");
@@ -1652,7 +1647,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_UnitDefinition_L2v1_full()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = "<unitDefinition id=\"Fahrenheit\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" + 
@@ -1669,7 +1664,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_UnitDefinition_full()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = "<unitDefinition name=\"mmls\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"mole\" scale=\"-3\"/>\n" + 
@@ -1693,7 +1688,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Unit_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected =  "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";;
     Unit u = D.createModel().createUnitDefinition().createUnit();
     u.setKind(libsbml.UnitKind_forName("Celsius"));
@@ -1704,7 +1699,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Unit_defaults()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected =  "<unit kind=\"kilogram\"/>";;
     Unit u = D.createModel().createUnitDefinition().createUnit();
     u.setKind(libsbml.UNIT_KIND_KILOGRAM);
@@ -1713,7 +1708,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_Unit_l2v3()
   {
-    D.setLevelAndVersion(2,3);
+    D.setLevelAndVersion(2,3,false);
     String expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";;
     Unit u = D.createModel().createUnitDefinition().createUnit();
     u.setKind(libsbml.UNIT_KIND_KILOGRAM);
@@ -1764,7 +1759,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_elements_L1v2()
   {
-    D.setLevelAndVersion(1,2);
+    D.setLevelAndVersion(1,2,false);
     String expected = wrapSBML_L1v2("  <model>\n" + 
     "    <listOfUnitDefinitions>\n" + 
     "      <unitDefinition/>\n" + 
@@ -1798,7 +1793,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_elements_L2v1()
   {
-    D.setLevelAndVersion(2,1);
+    D.setLevelAndVersion(2,1,false);
     String expected = wrapSBML_L2v1("  <model>\n" + 
     "    <listOfFunctionDefinitions>\n" + 
     "      <functionDefinition/>\n" + 
@@ -1842,7 +1837,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_elements_L2v2()
   {
-    D.setLevelAndVersion(2,2);
+    D.setLevelAndVersion(2,2,false);
     String expected = wrapSBML_L2v2("  <model>\n" + 
     "    <listOfFunctionDefinitions>\n" + 
     "      <functionDefinition/>\n" + 

@@ -1072,6 +1072,116 @@ class TestReadSBML < Test::Unit::TestCase
     assert( @@d.getNumErrors() == 0 )
   end
 
+  def test_ReadSBML_invalid_default_namespace
+    valid = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\"> " + 
+    "   <model>" + 
+    "     <notes>" + 
+    "       <p xmlns=\"http://www.w3.org/1999/xhtml\">Some text.</p>" + 
+    "     </notes>" + 
+    "     <annotation>" + 
+    "       <example xmlns=\"http://www.example.org/\"/>" + 
+    "     </annotation>" + 
+    "     <listOfCompartments>" + 
+    "       <compartment id=\"compartmentOne\" size=\"1\"/>" + 
+    "     </listOfCompartments>" + 
+    "     <listOfSpecies>" + 
+    "       <species id=\"S1\" initialConcentration=\"1\" compartment=\"compartmentOne\"/>" + 
+    "       <species id=\"S2\" initialConcentration=\"0\" compartment=\"compartmentOne\"/>" + 
+    "     </listOfSpecies>" + 
+    "     <listOfParameters>" + 
+    "       <parameter id=\"t\" value = \"1\" units=\"second\"/>" + 
+    "     </listOfParameters>" + 
+    "     <listOfConstraints>" + 
+    "       <constraint sboTerm=\"SBO:0000064\">" + 
+    "         <math xmlns=\"http://www.w3.org/1998/Math/MathML\">" + 
+    "           <apply>" + 
+    "             <leq/>" + 
+    "             <ci> S1 </ci>" + 
+    "             <ci> t </ci>" + 
+    "           </apply>" + 
+    "         </math>" + 
+    "         <message>" + 
+    "           <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species S1 is out of range </p>" + 
+    "         </message>" + 
+    "       </constraint>" + 
+    "     </listOfConstraints>" + 
+    "     <listOfReactions>" + 
+    "       <reaction id=\"reaction_1\" reversible=\"false\">" + 
+    "           <listOfReactants>" + 
+    "             <speciesReference species=\"S1\"/>" + 
+    "           </listOfReactants>" + 
+    "           <listOfProducts>" + 
+    "             <speciesReference species=\"S2\">" + 
+    "             </speciesReference>" + 
+    "           </listOfProducts>" + 
+    "       </reaction>" + 
+    "     </listOfReactions>" + 
+    "   </model>" + 
+    " </sbml>")
+    invalid = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" level=\"2\" version=\"4\"> " + 
+    "   <model xmlns=\"http://invalid/custom/default/uri\">" + 
+    "     <notes xmlns=\"http://invalid/custom/default/uri/in/notes\">" + 
+    "       <p xmlns=\"http://www.w3.org/1999/xhtml\">Some text.</p>" + 
+    "     </notes>" + 
+    "     <annotation xmlns=\"http://invalid/custom/default/uri/in/annotation\">" + 
+    "       <example xmlns=\"http://www.example.org/\"/>" + 
+    "     </annotation>" + 
+    "     <listOfCompartments>" + 
+    "       <compartment id=\"compartmentOne\" size=\"1\"/>" + 
+    "     </listOfCompartments>" + 
+    "     <listOfSpecies>" + 
+    "       <notes xmlns=\"http://invalid/custom/default/uri/in/notes\">" + 
+    "         <p xmlns=\"http://www.w3.org/1999/xhtml\">Some text.</p>" + 
+    "       </notes>" + 
+    "       <annotation xmlns=\"http://invalid/custom/default/uri/in/annotation\">" + 
+    "         <example xmlns=\"http://www.example.org/\"/>" + 
+    "       </annotation>" + 
+    "       <species id=\"S1\" initialConcentration=\"1\" compartment=\"compartmentOne\"/>" + 
+    "       <species id=\"S2\" initialConcentration=\"0\" compartment=\"compartmentOne\"/>" + 
+    "     </listOfSpecies>" + 
+    "     <listOfParameters>" + 
+    "       <parameter id=\"t\" value = \"1\" units=\"second\"/>" + 
+    "     </listOfParameters>" + 
+    "     <listOfConstraints>" + 
+    "       <constraint sboTerm=\"SBO:0000064\">" + 
+    "         <math xmlns=\"http://www.w3.org/1998/Math/MathML\">" + 
+    "           <apply>" + 
+    "             <leq/>" + 
+    "             <ci> S1 </ci>" + 
+    "             <ci> t </ci>" + 
+    "           </apply>" + 
+    "         </math>" + 
+    "         <message xmlns=\"http://invalid/custom/default/uri/in/message\">" + 
+    "           <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species S1 is out of range </p>" + 
+    "         </message>" + 
+    "       </constraint>" + 
+    "     </listOfConstraints>" + 
+    "     <listOfReactions>" + 
+    "       <reaction id=\"reaction_1\" reversible=\"false\">" + 
+    "           <listOfReactants>" + 
+    "             <speciesReference xmlns=\"http://invalid/custom/default/uri\" species=\"S1\"/>" + 
+    "           </listOfReactants>" + 
+    "           <listOfProducts>" + 
+    "             <speciesReference species=\"S2\">" + 
+    "               <notes xmlns=\"http://invalid/custom/default/uri/in/notes\">" + 
+    "                 <p xmlns=\"http://www.w3.org/1999/xhtml\">Some text.</p>" + 
+    "               </notes>" + 
+    "               <annotation xmlns=\"http://invalid/custom/default/uri/in/annotation\">" + 
+    "                 <example xmlns=\"http://www.example.org/\"/>" + 
+    "               </annotation>" + 
+    "             </speciesReference>" + 
+    "           </listOfProducts>" + 
+    "       </reaction>" + 
+    "     </listOfReactions>" + 
+    "   </model>" + 
+    " </sbml>")
+    @@d = LibSBML::readSBMLFromString(valid)
+    assert( @@d.getNumErrors() == 0 )
+    @@d = nil
+    @@d = LibSBML::readSBMLFromString(invalid)
+    assert( @@d.getNumErrors() == 9 )
+  end
+
   def test_ReadSBML_line_col_numbers
     setXMLParser
 

@@ -188,7 +188,7 @@ public class TestWriteL3SBML {
   protected void setUp() throws Exception
   {
     D = new SBMLDocument();
-    D.setLevelAndVersion(3,1);
+    D.setLevelAndVersion(3,1,false);
     S = null;
   }
 

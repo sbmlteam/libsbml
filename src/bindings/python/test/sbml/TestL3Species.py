@@ -46,6 +46,36 @@ class TestL3Species(unittest.TestCase):
     self.S = None
     pass  
 
+  def test_L3_Species_ModelHistory(self):
+    history = libsbml.ModelHistory()
+    i = self.S.setModelHistory(history)
+    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assertEqual( False, self.S.isSetModelHistory() )
+    mc = libsbml.ModelCreator()
+    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
+    mc.setFamilyName( "Keating")
+    mc.setGivenName( "Sarah")
+    mc.setEmail( "sbml-team@caltech.edu")
+    mc.setOrganisation( "UH")
+    history.addCreator(mc)
+    history.setCreatedDate(date)
+    history.setModifiedDate(date)
+    i = self.S.setModelHistory(history)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertEqual( True, self.S.isSetModelHistory() )
+    i = self.S.unsetModelHistory()
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertEqual( False, self.S.isSetModelHistory() )
+    self.assert_( self.S.getModelHistory() == None )
+    history = None
+    pass  
+
+  def test_L3_Species_NS(self):
+    self.assert_( self.S.getNamespaces() != None )
+    self.assert_( self.S.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.S.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Species_boundaryCondition(self):
     self.assert_( self.S.isSetBoundaryCondition() == False )
     self.S.setBoundaryCondition(True)

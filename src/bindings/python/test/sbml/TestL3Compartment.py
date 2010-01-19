@@ -46,6 +46,12 @@ class TestL3Compartment(unittest.TestCase):
     self.C = None
     pass  
 
+  def test_L3_Compartment_NS(self):
+    self.assert_( self.C.getNamespaces() != None )
+    self.assert_( self.C.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.C.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Compartment_constant(self):
     self.assert_( self.C.isSetConstant() == False )
     self.C.setConstant(True)

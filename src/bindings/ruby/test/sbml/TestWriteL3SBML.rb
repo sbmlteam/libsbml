@@ -94,7 +94,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
 
   def setup
     @@d = LibSBML::SBMLDocument.new()
-    @@d.setLevelAndVersion(3,1)
+    @@d.setLevelAndVersion(3,1,false)
     @@s = 0
   end
 

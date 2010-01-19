@@ -700,7 +700,7 @@ class TestCopyAndClone < Test::Unit::TestCase
 
   def test_SBMLDocument_assignmentOperator
     o1 = LibSBML::SBMLDocument.new()
-    o1.setLevelAndVersion(2,1)
+    o1.setLevelAndVersion(2,1,false)
     assert( o1.getLevel() == 2 )
     assert( o1.getVersion() == 1 )
     o2 = LibSBML::SBMLDocument.new()
@@ -713,7 +713,7 @@ class TestCopyAndClone < Test::Unit::TestCase
 
   def test_SBMLDocument_clone
     o1 = LibSBML::SBMLDocument.new()
-    o1.setLevelAndVersion(1,1)
+    o1.setLevelAndVersion(1,1,false)
     m = LibSBML::Model.new(1,1)
     m.setId("foo")
     o1.setModel(m)
@@ -736,7 +736,7 @@ class TestCopyAndClone < Test::Unit::TestCase
 
   def test_SBMLDocument_copyConstructor
     o1 = LibSBML::SBMLDocument.new()
-    o1.setLevelAndVersion(2,1)
+    o1.setLevelAndVersion(2,1,false)
     assert( o1.getLevel() == 2 )
     assert( o1.getVersion() == 1 )
     o2 = LibSBML::SBMLDocument.new(o1)

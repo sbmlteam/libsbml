@@ -153,6 +153,24 @@ public class TestSBMLConvert {
     d = null;
   }
 
+  public void test_SBMLConvert_convertFromL3()
+  {
+    SBMLDocument d = new  SBMLDocument(3,1);
+    Model m = d.createModel();
+    String sid =  "C";;
+    Compartment c = m.createCompartment();
+    c.setId(sid);
+    c.setSize(1.2);
+    c.setUnits( "volume");
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
+    assertTrue( d.setLevelAndVersion(1,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,1,false) == false );
+    assertTrue( d.setLevelAndVersion(2,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,3,false) == false );
+    assertTrue( d.setLevelAndVersion(2,4,false) == false );
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+  }
+
   public void test_SBMLConvert_convertToL1_SBMLDocument()
   {
     SBMLDocument d = new  SBMLDocument(2,1);
@@ -249,6 +267,54 @@ public class TestSBMLConvert {
     m = d.getModel();
     assertTrue( (m).getAnnotation().getNumChildren() == 1 );
     d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_defaultUnits()
+  {
+    SBMLDocument d = new  SBMLDocument(1,2);
+    Model m = d.createModel();
+    String sid =  "C";;
+    Compartment c = m.createCompartment();
+    c.setId(sid);
+    c.setSize(1.2);
+    c.setUnits( "volume");
+    assertTrue( m.getNumUnitDefinitions() == 0 );
+    d.setLevelAndVersion(3,1,false);
+    assertTrue( m.getNumUnitDefinitions() == 2 );
+    UnitDefinition ud = m.getUnitDefinition(0);
+    assertTrue( ud != null );
+    assertTrue(ud.getId().equals( "volume"));
+    assertTrue( ud.getNumUnits() == 1 );
+    Unit u = ud.getUnit(0);
+    assertTrue( u.getKind() == libsbml.UNIT_KIND_LITRE );
+    assertTrue( u.getExponent() == 1 );
+    assertTrue( u.getMultiplier() == 1 );
+    assertTrue( u.getScale() == 0 );
+    ud = m.getUnitDefinition(1);
+    assertTrue( ud != null );
+    assertTrue(ud.getId().equals( "time"));
+    assertTrue( ud.getNumUnits() == 1 );
+    u = ud.getUnit(0);
+    assertTrue( u.getKind() == libsbml.UNIT_KIND_SECOND );
+    assertTrue( u.getExponent() == 1 );
+    assertTrue( u.getMultiplier() == 1 );
+    assertTrue( u.getScale() == 0 );
+    d = null;
+  }
+
+  public void test_SBMLConvert_invalidLevelVersion()
+  {
+    SBMLDocument d = new  SBMLDocument(2,1);
+    Model m = d.createModel();
+    String sid =  "C";;
+    Compartment c = m.createCompartment();
+    c.setId(sid);
+    c.setSize(1.2);
+    c.setUnits( "volume");
+    assertTrue( d.setLevelAndVersion(1,3,false) == false );
+    assertTrue( d.setLevelAndVersion(2,5,false) == false );
+    assertTrue( d.setLevelAndVersion(3,2,false) == false );
+    assertTrue( d.setLevelAndVersion(4,1,false) == false );
   }
 
   /**

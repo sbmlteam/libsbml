@@ -195,7 +195,7 @@ sub test_WriteSBML_error {
 #---
 sub test_WriteSBML_SBMLDocument_L1v1 {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " . 
                         "level=\"1\" version=\"1\"/>\n");
  my $S = $D->writeSBMLToString();
@@ -205,7 +205,7 @@ sub test_WriteSBML_SBMLDocument_L1v1 {
 #---
 sub test_WriteSBML_SBMLDocument_L1v2 {
  setUp();
- $D->setLevelAndVersion(1, 2);
+ $D->setLevelAndVersion(1, 2, 0);
  my $expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " . 
                         "level=\"1\" version=\"2\"/>\n");
  my $S = $D->writeSBMLToString();
@@ -215,7 +215,7 @@ sub test_WriteSBML_SBMLDocument_L1v2 {
 #---
 sub test_WriteSBML_SBMLDocument_L2v1 {
  setUp();
- $D->setLevelAndVersion(2, 1);
+ $D->setLevelAndVersion(2, 1, 0);
  my $expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" " . 
                         "level=\"2\" version=\"1\"/>\n");
  my $S = $D->writeSBMLToString();
@@ -225,7 +225,7 @@ sub test_WriteSBML_SBMLDocument_L2v1 {
 #---
 sub test_WriteSBML_SBMLDocument_L2v2 {
  setUp();
- $D->setLevelAndVersion(2, 2);
+ $D->setLevelAndVersion(2, 2, 0);
  my $expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version2\" " . 
                         "level=\"2\" version=\"2\"/>\n");
  my $S = $D->writeSBMLToString();
@@ -235,7 +235,7 @@ sub test_WriteSBML_SBMLDocument_L2v2 {
 #---
 sub test_WriteSBML_Model {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = wrapSBML_L1v1("  <model name=\"Branch\"/>\n");
  $D->createModel("Branch");
  my $S = $D->writeSBMLToString();
@@ -245,7 +245,7 @@ sub test_WriteSBML_Model {
 #---
 sub test_WriteSBML_Model_skipOptional {
  setUp();
- $D->setLevelAndVersion(1, 2);
+ $D->setLevelAndVersion(1, 2, 0);
  my $expected = wrapSBML_L1v2("  <model/>\n");
  $D->createModel();
  my $S = $D->writeSBMLToString();
@@ -255,7 +255,7 @@ sub test_WriteSBML_Model_skipOptional {
 #---
 sub test_WriteSBML_Model_L2v1 {
  setUp();
- $D->setLevelAndVersion(2, 1);
+ $D->setLevelAndVersion(2, 1, 0);
  my $expected = wrapSBML_L2v1("  <model id=\"Branch\"/>\n");
  $D->createModel("Branch");
  my $S = $D->writeSBMLToString();
@@ -265,7 +265,7 @@ sub test_WriteSBML_Model_L2v1 {
 #---
 sub test_WriteSBML_Model_L2v1_skipOptional {
  setUp();
- $D->setLevelAndVersion(2, 1);
+ $D->setLevelAndVersion(2, 1, 0);
  my $expected = wrapSBML_L2v1("  <model/>\n");
  $D->createModel();
  my $S = $D->writeSBMLToString();
@@ -650,7 +650,7 @@ sub test_WriteSBML_AlgebraicRule_L2v1 {
 #---
 sub test_WriteSBML_SpeciesConcentrationRule {
  setUp();
- $D->setLevelAndVersion(1, 2);
+ $D->setLevelAndVersion(1, 2, 0);
  my $expected = "<speciesConcentrationRule " . 
                         "formula=\"t * s\" type=\"rate\" species=\"s\"/>";
  $D->createModel();
@@ -664,7 +664,7 @@ sub test_WriteSBML_SpeciesConcentrationRule {
 #---
 sub test_WriteSBML_SpeciesConcentrationRule_defaults {
  setUp();
- $D->setLevelAndVersion(1, 2);
+ $D->setLevelAndVersion(1, 2, 0);
  my $expected = "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
  $D->createModel();
  $D->getModel()->createSpecies()->setId("s");
@@ -677,7 +677,7 @@ sub test_WriteSBML_SpeciesConcentrationRule_defaults {
 #---
 sub test_WriteSBML_SpeciesConcentrationRule_L1v1 {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
  $D->createModel();
  $D->getModel()->createSpecies()->setId("s");
@@ -711,7 +711,7 @@ sub test_WriteSBML_SpeciesConcentrationRule_L2v1 {
 #---
 sub test_WriteSBML_CompartmentVolumeRule {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = "<compartmentVolumeRule " . 
                         "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>";
  $D->createModel();
@@ -725,7 +725,7 @@ sub test_WriteSBML_CompartmentVolumeRule {
 #---
 sub test_WriteSBML_CompartmentVolumeRule_defaults {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
  $D->createModel();
  $D->getModel()->createCompartment()->setId("c");
@@ -759,7 +759,7 @@ sub test_WriteSBML_CompartmentVolumeRule_L2v1 {
 #---
 sub test_WriteSBML_ParameterRule {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = "<parameterRule " . 
                         "formula=\"p * t\" type=\"rate\" name=\"p\"/>";
  $D->createModel();
@@ -773,7 +773,7 @@ sub test_WriteSBML_ParameterRule {
 #---
 sub test_WriteSBML_ParameterRule_defaults {
  setUp();
- $D->setLevelAndVersion(1, 1);
+ $D->setLevelAndVersion(1, 1, 0);
  my $expected = "<parameterRule formula=\"p * t\" name=\"p\"/>";
  $D->createModel();
  $D->getModel()->createParameter()->setId("p");
@@ -829,7 +829,7 @@ sub test_WriteSBML_Reaction_defaults {
 #---
 sub test_WriteSBML_Reaction_full {
  setUp();
- $D->setLevelAndVersion(1, 2);
+ $D->setLevelAndVersion(1, 2, 0);
  my $expected = "<reaction name=\"v1\">\n" . 
                         "  <listOfReactants>\n" . 
                         "    <speciesReference species=\"x0\"/>\n" . 

@@ -135,6 +135,13 @@ public class TestL3Compartment {
     C = null;
   }
 
+  public void test_L3_Compartment_NS()
+  {
+    assertTrue( C.getNamespaces() != null );
+    assertTrue( C.getNamespaces().getLength() == 1 );
+    assertTrue(C.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Compartment_constant()
   {
     assertTrue( C.isSetConstant() == false );

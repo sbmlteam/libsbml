@@ -40,6 +40,12 @@ class TestL3Reaction < Test::Unit::TestCase
     @@r = nil
   end
 
+  def test_L3_Reaction_NS
+    assert( @@r.getNamespaces() != nil )
+    assert( @@r.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@r.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Reaction_compartment
     compartment =  "cell";
     assert_equal false, @@r.isSetCompartment()

@@ -47,6 +47,12 @@ class TestL3Unit(unittest.TestCase):
     self.U = None
     pass  
 
+  def test_L3_Unit_NS(self):
+    self.assert_( self.U.getNamespaces() != None )
+    self.assert_( self.U.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.U.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Unit_create(self):
     self.assert_( self.U.getTypeCode() == libsbml.SBML_UNIT )
     self.assert_( self.U.getMetaId() == "" )

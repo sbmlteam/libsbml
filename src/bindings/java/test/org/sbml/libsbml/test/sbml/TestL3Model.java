@@ -130,6 +130,13 @@ public class TestL3Model {
     M = null;
   }
 
+  public void test_L3_Model_NS()
+  {
+    assertTrue( M.getNamespaces() != null );
+    assertTrue( M.getNamespaces().getLength() == 1 );
+    assertTrue(M.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Model_areaUnits()
   {
     String units =  "mole";;

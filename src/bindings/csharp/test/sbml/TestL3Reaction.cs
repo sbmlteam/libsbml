@@ -137,6 +137,13 @@ namespace LibSBMLCSTest {
       R = null;
     }
 
+    public void test_L3_Reaction_NS()
+    {
+      assertTrue( R.getNamespaces() != null );
+      assertTrue( R.getNamespaces().getLength() == 1 );
+      assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == R.getNamespaces().getURI(0) ));
+    }
+
     public void test_L3_Reaction_compartment()
     {
       string compartment =  "cell";;

@@ -135,6 +135,38 @@ public class TestL3Species {
     S = null;
   }
 
+  public void test_L3_Species_ModelHistory()
+  {
+    ModelHistory history = new  ModelHistory();
+    long i = S.setModelHistory(history);
+    assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
+    assertEquals( false, S.isSetModelHistory() );
+    ModelCreator mc = new  ModelCreator();
+    Date date = new  Date(2005,12,30,12,15,45,1,2,0);
+    mc.setFamilyName( "Keating");
+    mc.setGivenName( "Sarah");
+    mc.setEmail( "sbml-team@caltech.edu");
+    mc.setOrganisation( "UH");
+    history.addCreator(mc);
+    history.setCreatedDate(date);
+    history.setModifiedDate(date);
+    i = S.setModelHistory(history);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertEquals( true, S.isSetModelHistory() );
+    i = S.unsetModelHistory();
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertEquals( false, S.isSetModelHistory() );
+    assertTrue( S.getModelHistory() == null );
+    history = null;
+  }
+
+  public void test_L3_Species_NS()
+  {
+    assertTrue( S.getNamespaces() != null );
+    assertTrue( S.getNamespaces().getLength() == 1 );
+    assertTrue(S.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Species_boundaryCondition()
   {
     assertTrue( S.isSetBoundaryCondition() == false );

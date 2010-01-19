@@ -43,6 +43,12 @@ class TestL3Compartment < Test::Unit::TestCase
     @@c = nil
   end
 
+  def test_L3_Compartment_NS
+    assert( @@c.getNamespaces() != nil )
+    assert( @@c.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@c.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Compartment_constant
     assert( @@c.isSetConstant() == false )
     @@c.setConstant(true)

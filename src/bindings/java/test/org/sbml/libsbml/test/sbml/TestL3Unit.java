@@ -136,6 +136,13 @@ public class TestL3Unit {
     U = null;
   }
 
+  public void test_L3_Unit_NS()
+  {
+    assertTrue( U.getNamespaces() != null );
+    assertTrue( U.getNamespaces().getLength() == 1 );
+    assertTrue(U.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Unit_create()
   {
     assertTrue( U.getTypeCode() == libsbml.SBML_UNIT );

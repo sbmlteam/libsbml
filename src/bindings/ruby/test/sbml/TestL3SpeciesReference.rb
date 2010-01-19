@@ -43,6 +43,12 @@ class TestL3SpeciesReference < Test::Unit::TestCase
     @@sr = nil
   end
 
+  def test_L3_SpeciesReference_NS
+    assert( @@sr.getNamespaces() != nil )
+    assert( @@sr.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@sr.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_SpeciesReference_constant
     assert( @@sr.isSetConstant() == false )
     @@sr.setConstant(true)

@@ -40,6 +40,12 @@ class TestL3Event < Test::Unit::TestCase
     @@e = nil
   end
 
+  def test_L3_Event_NS
+    assert( @@e.getNamespaces() != nil )
+    assert( @@e.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@e.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Event_create
     assert( @@e.getTypeCode() == LibSBML::SBML_EVENT )
     assert( @@e.getMetaId() == "" )

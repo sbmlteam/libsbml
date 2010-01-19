@@ -137,6 +137,13 @@ namespace LibSBMLCSTest {
       M = null;
     }
 
+    public void test_L3_Model_NS()
+    {
+      assertTrue( M.getNamespaces() != null );
+      assertTrue( M.getNamespaces().getLength() == 1 );
+      assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == M.getNamespaces().getURI(0) ));
+    }
+
     public void test_L3_Model_areaUnits()
     {
       string units =  "mole";;

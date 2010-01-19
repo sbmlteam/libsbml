@@ -43,6 +43,12 @@ class TestL3Model(unittest.TestCase):
     self.M = None
     pass  
 
+  def test_L3_Model_NS(self):
+    self.assert_( self.M.getNamespaces() != None )
+    self.assert_( self.M.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Model_areaUnits(self):
     units =  "mole";
     self.assertEqual( False, self.M.isSetAreaUnits() )

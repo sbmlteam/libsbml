@@ -135,6 +135,13 @@ public class TestL3SpeciesReference {
     SR = null;
   }
 
+  public void test_L3_SpeciesReference_NS()
+  {
+    assertTrue( SR.getNamespaces() != null );
+    assertTrue( SR.getNamespaces().getLength() == 1 );
+    assertTrue(SR.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_SpeciesReference_constant()
   {
     assertTrue( SR.isSetConstant() == false );

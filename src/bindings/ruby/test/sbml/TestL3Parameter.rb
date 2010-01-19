@@ -43,6 +43,12 @@ class TestL3Parameter < Test::Unit::TestCase
     @@p = nil
   end
 
+  def test_L3_Parameter_NS
+    assert( @@p.getNamespaces() != nil )
+    assert( @@p.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@p.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Parameter_constant
     assert( @@p.isSetConstant() == false )
     @@p.setConstant(true)

@@ -40,6 +40,12 @@ class TestL3Model < Test::Unit::TestCase
     @@m = nil
   end
 
+  def test_L3_Model_NS
+    assert( @@m.getNamespaces() != nil )
+    assert( @@m.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@m.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Model_areaUnits
     units =  "mole";
     assert_equal false, @@m.isSetAreaUnits()

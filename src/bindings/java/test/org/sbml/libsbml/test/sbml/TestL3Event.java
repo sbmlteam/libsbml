@@ -130,6 +130,13 @@ public class TestL3Event {
     E = null;
   }
 
+  public void test_L3_Event_NS()
+  {
+    assertTrue( E.getNamespaces() != null );
+    assertTrue( E.getNamespaces().getLength() == 1 );
+    assertTrue(E.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Event_create()
   {
     assertTrue( E.getTypeCode() == libsbml.SBML_EVENT );

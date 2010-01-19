@@ -142,6 +142,13 @@ namespace LibSBMLCSTest {
       C = null;
     }
 
+    public void test_L3_Compartment_NS()
+    {
+      assertTrue( C.getNamespaces() != null );
+      assertTrue( C.getNamespaces().getLength() == 1 );
+      assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == C.getNamespaces().getURI(0) ));
+    }
+
     public void test_L3_Compartment_constant()
     {
       assertTrue( C.isSetConstant() == false );

@@ -142,6 +142,13 @@ namespace LibSBMLCSTest {
       SR = null;
     }
 
+    public void test_L3_SpeciesReference_NS()
+    {
+      assertTrue( SR.getNamespaces() != null );
+      assertTrue( SR.getNamespaces().getLength() == 1 );
+      assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == SR.getNamespaces().getURI(0) ));
+    }
+
     public void test_L3_SpeciesReference_constant()
     {
       assertTrue( SR.isSetConstant() == false );

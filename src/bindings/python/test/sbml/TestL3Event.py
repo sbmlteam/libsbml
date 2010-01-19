@@ -43,6 +43,12 @@ class TestL3Event(unittest.TestCase):
     self.E = None
     pass  
 
+  def test_L3_Event_NS(self):
+    self.assert_( self.E.getNamespaces() != None )
+    self.assert_( self.E.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.E.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Event_create(self):
     self.assert_( self.E.getTypeCode() == libsbml.SBML_EVENT )
     self.assert_( self.E.getMetaId() == "" )

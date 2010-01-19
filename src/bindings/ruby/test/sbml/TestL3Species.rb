@@ -43,6 +43,36 @@ class TestL3Species < Test::Unit::TestCase
     @@s = nil
   end
 
+  def test_L3_Species_ModelHistory
+    history = LibSBML::ModelHistory.new()
+    i = @@s.setModelHistory(history)
+    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    assert_equal false, @@s.isSetModelHistory()
+    mc = LibSBML::ModelCreator.new()
+    date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
+    mc.setFamilyName( "Keating")
+    mc.setGivenName( "Sarah")
+    mc.setEmail( "sbml-team@caltech.edu")
+    mc.setOrganisation( "UH")
+    history.addCreator(mc)
+    history.setCreatedDate(date)
+    history.setModifiedDate(date)
+    i = @@s.setModelHistory(history)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, @@s.isSetModelHistory()
+    i = @@s.unsetModelHistory()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal false, @@s.isSetModelHistory()
+    assert( @@s.getModelHistory() == nil )
+    history = nil
+  end
+
+  def test_L3_Species_NS
+    assert( @@s.getNamespaces() != nil )
+    assert( @@s.getNamespaces().getLength() == 1 )
+    assert ((     "http://www.sbml.org/sbml/level3/version1/core" == @@s.getNamespaces().getURI(0) ))
+  end
+
   def test_L3_Species_boundaryCondition
     assert( @@s.isSetBoundaryCondition() == false )
     @@s.setBoundaryCondition(true)

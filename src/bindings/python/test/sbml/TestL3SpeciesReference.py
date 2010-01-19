@@ -46,6 +46,12 @@ class TestL3SpeciesReference(unittest.TestCase):
     self.SR = None
     pass  
 
+  def test_L3_SpeciesReference_NS(self):
+    self.assert_( self.SR.getNamespaces() != None )
+    self.assert_( self.SR.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.SR.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_SpeciesReference_constant(self):
     self.assert_( self.SR.isSetConstant() == False )
     self.SR.setConstant(True)

@@ -826,7 +826,7 @@ public class TestCopyAndClone {
   public void test_SBMLDocument_assignmentOperator()
   {
     SBMLDocument o1 = new SBMLDocument();
-    o1.setLevelAndVersion(2,1);
+    o1.setLevelAndVersion(2,1,false);
     assertTrue( o1.getLevel() == 2 );
     assertTrue( o1.getVersion() == 1 );
     SBMLDocument o2 = new SBMLDocument();
@@ -840,7 +840,7 @@ public class TestCopyAndClone {
   public void test_SBMLDocument_clone()
   {
     SBMLDocument o1 = new SBMLDocument();
-    o1.setLevelAndVersion(1,1);
+    o1.setLevelAndVersion(1,1,false);
     Model m = new Model(1,1);
     m.setId("foo");
     o1.setModel(m);
@@ -864,7 +864,7 @@ public class TestCopyAndClone {
   public void test_SBMLDocument_copyConstructor()
   {
     SBMLDocument o1 = new SBMLDocument();
-    o1.setLevelAndVersion(2,1);
+    o1.setLevelAndVersion(2,1,false);
     assertTrue( o1.getLevel() == 2 );
     assertTrue( o1.getVersion() == 1 );
     SBMLDocument o2 = new SBMLDocument(o1);

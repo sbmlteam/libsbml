@@ -46,6 +46,12 @@ class TestL3Parameter(unittest.TestCase):
     self.P = None
     pass  
 
+  def test_L3_Parameter_NS(self):
+    self.assert_( self.P.getNamespaces() != None )
+    self.assert_( self.P.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.P.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Parameter_constant(self):
     self.assert_( self.P.isSetConstant() == False )
     self.P.setConstant(True)

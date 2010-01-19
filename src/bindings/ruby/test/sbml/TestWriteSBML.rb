@@ -197,7 +197,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_AlgebraicRule
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected =  "<algebraicRule formula=\"x + 1\"/>";
     r = @@d.createModel().createAlgebraicRule()
     r.setFormula("x + 1")
@@ -205,7 +205,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_AlgebraicRule_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<algebraicRule>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -221,7 +221,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_AlgebraicRule_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -238,7 +238,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("A")
@@ -248,7 +248,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_CompartmentType
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<compartmentType id=\"ct\"/>";
     ct = @@d.createModel().createCompartmentType()
     ct.setId("ct")
@@ -257,7 +257,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_CompartmentType_withSBO
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";
     ct = @@d.createModel().createCompartmentType()
     ct.setId("ct")
@@ -266,7 +266,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_CompartmentVolumeRule
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected = "<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>";
     @@d.createModel()
     @@d.getModel().createCompartment().setId("c")
@@ -277,7 +277,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_CompartmentVolumeRule_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<assignmentRule variable=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -296,7 +296,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_CompartmentVolumeRule_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -316,7 +316,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_CompartmentVolumeRule_defaults
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected =  "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
     @@d.createModel()
     @@d.getModel().createCompartment().setId("c")
@@ -327,7 +327,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("M")
@@ -337,7 +337,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment_L2v1_constant
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("cell")
@@ -347,7 +347,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment_L2v1_unsetSize
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<compartment id=\"A\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("A")
@@ -356,7 +356,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment_L2v2_compartmentType
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<compartment id=\"cell\" compartmentType=\"ct\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("cell")
@@ -365,7 +365,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment_L2v3_SBO
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("cell")
@@ -374,7 +374,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Compartment_unsetVolume
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<compartment name=\"A\"/>";
     c = @@d.createModel().createCompartment()
     c.setId("A")
@@ -383,7 +383,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Constraint
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<constraint sboTerm=\"SBO:0000064\"/>";
     ct = @@d.createModel().createConstraint()
     ct.setSBOTerm(64)
@@ -391,7 +391,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Constraint_full
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<constraint sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -424,7 +424,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Constraint_math
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<constraint>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -441,7 +441,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Event
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<event id=\"e\"/>";
     e = @@d.createModel().createEvent()
     e.setId("e")
@@ -449,7 +449,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Event_WithSBO
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";
     e = @@d.createModel().createEvent()
     e.setId("e")
@@ -459,7 +459,7 @@ class TestWriteSBML < Test::Unit::TestCase
 
   def test_WriteSBML_Event_WithUseValuesFromTriggerTime
     expected =  "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";
-    @@d.setLevelAndVersion(2,4)
+    @@d.setLevelAndVersion(2,4,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(false)
@@ -483,7 +483,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>"
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     node1 = LibSBML::parseFormula("leq(P1,t)")
@@ -505,7 +505,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>"
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     node = LibSBML::parseFormula("5")
@@ -523,7 +523,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>"
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     node = LibSBML::parseFormula("5")
@@ -553,7 +553,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    </eventAssignment>\n" + 
     "  </listOfEventAssignments>\n" + 
     "</event>"
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     node = LibSBML::parseFormula("leq(P1,t)")
@@ -581,7 +581,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>"
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     node = LibSBML::parseFormula("leq(P1,t)")
@@ -603,7 +603,7 @@ class TestWriteSBML < Test::Unit::TestCase
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>"
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     e = @@d.createModel().createEvent()
     e.setId("e")
     node = LibSBML::parseFormula("leq(P1,t)")
@@ -666,7 +666,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_InitialAssignment
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";
     ia = @@d.createModel().createInitialAssignment()
     ia.setSBOTerm(64)
@@ -692,7 +692,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_KineticLaw
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>";
     kl = @@d.createModel().createReaction().createKineticLaw()
     kl.setFormula("k * e")
@@ -702,7 +702,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_KineticLaw_ListOfParameters
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
     "substanceUnits=\"item\">\n" + 
     "  <listOfParameters>\n" + 
@@ -720,7 +720,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_KineticLaw_l2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -746,7 +746,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_KineticLaw_skipOptional
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<kineticLaw formula=\"k * e\"/>";
     kl = @@d.createModel().createReaction().createKineticLaw()
     kl.setFormula("k * e")
@@ -754,7 +754,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_KineticLaw_withSBO
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -779,7 +779,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Model
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected = wrapSBML_L1v1("  <model name=\"Branch\"/>\n")
     @@d.createModel("Branch")
     @@s = LibSBML::writeSBMLToString(@@d)
@@ -787,7 +787,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Model_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = wrapSBML_L2v1("  <model id=\"Branch\"/>\n")
     @@d.createModel("Branch")
     @@s = LibSBML::writeSBMLToString(@@d)
@@ -795,7 +795,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Model_L2v1_skipOptional
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = wrapSBML_L2v1("  <model/>\n")
     @@d.createModel()
     @@s = LibSBML::writeSBMLToString(@@d)
@@ -803,7 +803,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Model_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = wrapSBML_L2v2("  <model id=\"Branch\" sboTerm=\"SBO:0000004\"/>\n")
     m = @@d.createModel("Branch")
     m.setSBOTerm(4)
@@ -812,7 +812,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Model_skipOptional
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = wrapSBML_L1v2("  <model/>\n")
     @@d.createModel()
     @@s = LibSBML::writeSBMLToString(@@d)
@@ -836,7 +836,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
     p = @@d.createModel().createParameter()
     p.setId("Km1")
@@ -846,7 +846,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_ParameterRule
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected = "<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>";
     @@d.createModel()
     @@d.getModel().createParameter().setId("p")
@@ -857,7 +857,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_ParameterRule_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<rateRule variable=\"p\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -876,7 +876,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_ParameterRule_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -896,7 +896,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_ParameterRule_defaults
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected =  "<parameterRule formula=\"p * t\" name=\"p\"/>";
     @@d.createModel()
     @@d.getModel().createParameter().setId("p")
@@ -907,7 +907,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter_L1v1_required
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected =  "<parameter name=\"Km1\" value=\"NaN\"/>";
     p = @@d.createModel().createParameter()
     p.setId("Km1")
@@ -916,7 +916,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter_L1v2_skipOptional
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<parameter name=\"Km1\"/>";
     p = @@d.createModel().createParameter()
     p.setId("Km1")
@@ -925,7 +925,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
     p = @@d.createModel().createParameter()
     p.setId("Km1")
@@ -935,7 +935,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter_L2v1_constant
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<parameter id=\"x\" constant=\"false\"/>";
     p = @@d.createModel().createParameter()
     p.setId("x")
@@ -944,7 +944,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter_L2v1_skipOptional
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<parameter id=\"Km1\"/>";
     p = @@d.createModel().createParameter()
     p.setId("Km1")
@@ -952,7 +952,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Parameter_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";
     p = @@d.createModel().createParameter()
     p.setId("Km1")
@@ -963,7 +963,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Reaction
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
     r = @@d.createModel().createReaction()
     r.setId("r")
@@ -973,7 +973,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Reaction_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<reaction id=\"r\" reversible=\"false\"/>";
     r = @@d.createModel().createReaction()
     r.setId("r")
@@ -982,7 +982,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Reaction_L2v1_full
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<reaction id=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
@@ -1023,7 +1023,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Reaction_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";
     r = @@d.createModel().createReaction()
     r.setId("r")
@@ -1035,7 +1035,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Reaction_defaults
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<reaction name=\"r\"/>";
     r = @@d.createModel().createReaction()
     r.setId("r")
@@ -1043,7 +1043,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Reaction_full
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<reaction name=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
@@ -1064,35 +1064,35 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SBMLDocument_L1v1
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"1\"/>\n")
     @@s = LibSBML::writeSBMLToString(@@d)
     assert_equal true, equals(expected,@@s)
   end
 
   def test_WriteSBML_SBMLDocument_L1v2
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"2\"/>\n")
     @@s = LibSBML::writeSBMLToString(@@d)
     assert_equal true, equals(expected,@@s)
   end
 
   def test_WriteSBML_SBMLDocument_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" " + "level=\"2\" version=\"1\"/>\n")
     @@s = LibSBML::writeSBMLToString(@@d)
     assert_equal true, equals(expected,@@s)
   end
 
   def test_WriteSBML_SBMLDocument_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version2\" " + "level=\"2\" version=\"2\"/>\n")
     @@s = LibSBML::writeSBMLToString(@@d)
     assert_equal true, equals(expected,@@s)
   end
 
   def test_WriteSBML_Species
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
     s = @@d.createModel().createSpecies()
     s.setName("Ca2")
@@ -1105,7 +1105,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesConcentrationRule
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>";
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
@@ -1116,7 +1116,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_L1v1
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected =  "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
@@ -1127,7 +1127,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<assignmentRule variable=\"s\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1146,7 +1146,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1166,7 +1166,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesConcentrationRule_defaults
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
     @@d.createModel()
     @@d.getModel().createSpecies().setId("s")
@@ -1177,7 +1177,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
     sr = @@d.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1187,7 +1187,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_L1v1
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected =  "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
     sr = @@d.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1197,7 +1197,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_L2v1_1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1213,7 +1213,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_L2v1_2
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
     sr = @@d.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1222,7 +1222,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_L2v1_3
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1244,7 +1244,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_L2v2_1
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1266,7 +1266,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_L2v3_1
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";
     sr = @@d.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1278,7 +1278,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesReference_defaults
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<speciesReference species=\"s\"/>";
     sr = @@d.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1286,7 +1286,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesType
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected =  "<speciesType id=\"st\"/>";
     st = @@d.createModel().createSpeciesType()
     st.setId("st")
@@ -1295,7 +1295,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_SpeciesType_withSBO
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";
     st = @@d.createModel().createSpeciesType()
     st.setId("st")
@@ -1304,7 +1304,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_L1v1
-    @@d.setLevelAndVersion(1,1)
+    @@d.setLevelAndVersion(1,1,false)
     expected = "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>";
     s = @@d.createModel().createSpecies()
     s.setName("Ca2")
@@ -1317,7 +1317,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>";
     s = @@d.createModel().createSpecies()
     s.setId("Ca2")
@@ -1329,7 +1329,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_L2v1_skipOptional
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<species id=\"Ca2\" compartment=\"cell\"/>";
     s = @@d.createModel().createSpecies()
     s.setId("Ca2")
@@ -1338,7 +1338,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = "<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>";
     s = @@d.createModel().createSpecies()
     s.setId("Ca2")
@@ -1351,7 +1351,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_L2v3
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";
     s = @@d.createModel().createSpecies()
     s.setId("Ca2")
@@ -1361,7 +1361,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_defaults
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>";
     s = @@d.createModel().createSpecies()
     s.setName("Ca2")
@@ -1373,7 +1373,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Species_skipOptional
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
     s = @@d.createModel().createSpecies()
     s.setId("Ca2")
@@ -1383,7 +1383,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_StoichiometryMath
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<stoichiometryMath>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1400,7 +1400,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_StoichiometryMath_withSBO
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected = "<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1418,7 +1418,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Unit
-    @@d.setLevelAndVersion(2,4)
+    @@d.setLevelAndVersion(2,4,false)
     expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
     u = @@d.createModel().createUnitDefinition().createUnit()
     u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
@@ -1428,7 +1428,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_UnitDefinition
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<unitDefinition name=\"mmls\"/>";
     ud = @@d.createModel().createUnitDefinition()
     ud.setId("mmls")
@@ -1436,7 +1436,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_UnitDefinition_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<unitDefinition id=\"mmls\"/>";
     ud = @@d.createModel().createUnitDefinition()
     ud.setId("mmls")
@@ -1444,7 +1444,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_UnitDefinition_L2v1_full
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = "<unitDefinition id=\"Fahrenheit\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" + 
@@ -1460,7 +1460,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_UnitDefinition_full
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = "<unitDefinition name=\"mmls\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"mole\" scale=\"-3\"/>\n" + 
@@ -1483,7 +1483,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Unit_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected =  "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
     u = @@d.createModel().createUnitDefinition().createUnit()
     u.setKind(LibSBML::UnitKind_forName("Celsius"))
@@ -1493,7 +1493,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Unit_defaults
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected =  "<unit kind=\"kilogram\"/>";
     u = @@d.createModel().createUnitDefinition().createUnit()
     u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
@@ -1501,7 +1501,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_Unit_l2v3
-    @@d.setLevelAndVersion(2,3)
+    @@d.setLevelAndVersion(2,3,false)
     expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
     u = @@d.createModel().createUnitDefinition().createUnit()
     u.setKind(LibSBML::UNIT_KIND_KILOGRAM)
@@ -1547,7 +1547,7 @@ class TestWriteSBML < Test::Unit::TestCase
 
 
   def test_WriteSBML_elements_L1v2
-    @@d.setLevelAndVersion(1,2)
+    @@d.setLevelAndVersion(1,2,false)
     expected = wrapSBML_L1v2("  <model>\n" + 
     "    <listOfUnitDefinitions>\n" + 
     "      <unitDefinition/>\n" + 
@@ -1580,7 +1580,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_elements_L2v1
-    @@d.setLevelAndVersion(2,1)
+    @@d.setLevelAndVersion(2,1,false)
     expected = wrapSBML_L2v1("  <model>\n" + 
     "    <listOfFunctionDefinitions>\n" + 
     "      <functionDefinition/>\n" + 
@@ -1623,7 +1623,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_elements_L2v2
-    @@d.setLevelAndVersion(2,2)
+    @@d.setLevelAndVersion(2,2,false)
     expected = wrapSBML_L2v2("  <model>\n" + 
     "    <listOfFunctionDefinitions>\n" + 
     "      <functionDefinition/>\n" + 

@@ -43,6 +43,12 @@ class TestL3Reaction(unittest.TestCase):
     self.R = None
     pass  
 
+  def test_L3_Reaction_NS(self):
+    self.assert_( self.R.getNamespaces() != None )
+    self.assert_( self.R.getNamespaces().getLength() == 1 )
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.R.getNamespaces().getURI(0) ))
+    pass  
+
   def test_L3_Reaction_compartment(self):
     compartment =  "cell";
     self.assertEqual( False, self.R.isSetCompartment() )

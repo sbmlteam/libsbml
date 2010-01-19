@@ -130,6 +130,13 @@ public class TestL3Reaction {
     R = null;
   }
 
+  public void test_L3_Reaction_NS()
+  {
+    assertTrue( R.getNamespaces() != null );
+    assertTrue( R.getNamespaces().getLength() == 1 );
+    assertTrue(R.getNamespaces().getURI(0).equals(    "http://www.sbml.org/sbml/level3/version1/core"));
+  }
+
   public void test_L3_Reaction_compartment()
   {
     String compartment =  "cell";;

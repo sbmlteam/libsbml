@@ -143,6 +143,13 @@ namespace LibSBMLCSTest {
       U = null;
     }
 
+    public void test_L3_Unit_NS()
+    {
+      assertTrue( U.getNamespaces() != null );
+      assertTrue( U.getNamespaces().getLength() == 1 );
+      assertTrue((     "http://www.sbml.org/sbml/level3/version1/core" == U.getNamespaces().getURI(0) ));
+    }
+
     public void test_L3_Unit_create()
     {
       assertTrue( U.getTypeCode() == libsbml.SBML_UNIT );

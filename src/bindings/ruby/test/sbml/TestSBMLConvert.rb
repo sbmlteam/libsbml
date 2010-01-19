@@ -64,6 +64,23 @@ class TestSBMLConvert < Test::Unit::TestCase
     d = nil
   end
 
+  def test_SBMLConvert_convertFromL3
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    c.setSize(1.2)
+    c.setUnits( "volume")
+    assert( d.setLevelAndVersion(1,1,false) == false )
+    assert( d.setLevelAndVersion(1,2,false) == false )
+    assert( d.setLevelAndVersion(2,1,false) == false )
+    assert( d.setLevelAndVersion(2,2,false) == false )
+    assert( d.setLevelAndVersion(2,3,false) == false )
+    assert( d.setLevelAndVersion(2,4,false) == false )
+    assert( d.setLevelAndVersion(3,1,false) == true )
+  end
+
   def test_SBMLConvert_convertToL1_SBMLDocument
     d = LibSBML::SBMLDocument.new(2,1)
     d.setLevelAndVersion(1,2,false)
@@ -154,6 +171,52 @@ class TestSBMLConvert < Test::Unit::TestCase
     m = d.getModel()
     assert( (m).getAnnotation().getNumChildren() == 1 )
     d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_defaultUnits
+    d = LibSBML::SBMLDocument.new(1,2)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    c.setSize(1.2)
+    c.setUnits( "volume")
+    assert( m.getNumUnitDefinitions() == 0 )
+    d.setLevelAndVersion(3,1,false)
+    assert( m.getNumUnitDefinitions() == 2 )
+    ud = m.getUnitDefinition(0)
+    assert( ud != nil )
+    assert ((  "volume" == ud.getId() ))
+    assert( ud.getNumUnits() == 1 )
+    u = ud.getUnit(0)
+    assert( u.getKind() == LibSBML::UNIT_KIND_LITRE )
+    assert( u.getExponent() == 1 )
+    assert( u.getMultiplier() == 1 )
+    assert( u.getScale() == 0 )
+    ud = m.getUnitDefinition(1)
+    assert( ud != nil )
+    assert ((  "time" == ud.getId() ))
+    assert( ud.getNumUnits() == 1 )
+    u = ud.getUnit(0)
+    assert( u.getKind() == LibSBML::UNIT_KIND_SECOND )
+    assert( u.getExponent() == 1 )
+    assert( u.getMultiplier() == 1 )
+    assert( u.getScale() == 0 )
+    d = nil
+  end
+
+  def test_SBMLConvert_invalidLevelVersion
+    d = LibSBML::SBMLDocument.new(2,1)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    c.setSize(1.2)
+    c.setUnits( "volume")
+    assert( d.setLevelAndVersion(1,3,false) == false )
+    assert( d.setLevelAndVersion(2,5,false) == false )
+    assert( d.setLevelAndVersion(3,2,false) == false )
+    assert( d.setLevelAndVersion(4,1,false) == false )
   end
 
 end

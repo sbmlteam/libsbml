@@ -203,7 +203,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_AlgebraicRule(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected =  "<algebraicRule formula=\"x + 1\"/>";
     r = self.D.createModel().createAlgebraicRule()
     r.setFormula("x + 1")
@@ -211,7 +211,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_AlgebraicRule_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<algebraicRule>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -227,7 +227,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_AlgebraicRule_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -244,7 +244,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("A")
@@ -254,7 +254,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_CompartmentType(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<compartmentType id=\"ct\"/>";
     ct = self.D.createModel().createCompartmentType()
     ct.setId("ct")
@@ -263,7 +263,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_CompartmentType_withSBO(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<compartmentType id=\"ct\" sboTerm=\"SBO:0000004\"/>";
     ct = self.D.createModel().createCompartmentType()
     ct.setId("ct")
@@ -272,7 +272,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected = wrapString("<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>")
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
@@ -283,7 +283,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<assignmentRule variable=\"c\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -302,7 +302,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -322,7 +322,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_CompartmentVolumeRule_defaults(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected =  "<compartmentVolumeRule formula=\"v + c\" compartment=\"c\"/>";
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
@@ -333,7 +333,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("M")
@@ -343,7 +343,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment_L2v1_constant(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("cell")
@@ -353,7 +353,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment_L2v1_unsetSize(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<compartment id=\"A\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("A")
@@ -362,7 +362,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment_L2v2_compartmentType(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<compartment id=\"cell\" compartmentType=\"ct\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("cell")
@@ -371,7 +371,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment_L2v3_SBO(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<compartment id=\"cell\" sboTerm=\"SBO:0000005\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("cell")
@@ -380,7 +380,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Compartment_unsetVolume(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<compartment name=\"A\"/>";
     c = self.D.createModel().createCompartment()
     c.setId("A")
@@ -389,7 +389,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Constraint(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<constraint sboTerm=\"SBO:0000064\"/>";
     ct = self.D.createModel().createConstraint()
     ct.setSBOTerm(64)
@@ -397,7 +397,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Constraint_full(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<constraint sboTerm=\"SBO:0000064\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -430,7 +430,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Constraint_math(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<constraint>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -447,7 +447,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<event id=\"e\"/>";
     e = self.D.createModel().createEvent()
     e.setId("e")
@@ -455,7 +455,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_WithSBO(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<event id=\"e\" sboTerm=\"SBO:0000076\"/>";
     e = self.D.createModel().createEvent()
     e.setId("e")
@@ -465,7 +465,7 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Event_WithUseValuesFromTriggerTime(self):
     expected =  "<event id=\"e\" useValuesFromTriggerTime=\"false\"/>";
-    self.D.setLevelAndVersion(2,4)
+    self.D.setLevelAndVersion(2,4,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(False)
@@ -489,7 +489,7 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>")
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     node1 = libsbml.parseFormula("leq(P1,t)")
@@ -511,7 +511,7 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>")
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     node = libsbml.parseFormula("5")
@@ -529,7 +529,7 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </delay>\n" + 
     "</event>")
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     node = libsbml.parseFormula("5")
@@ -559,7 +559,7 @@ class TestWriteSBML(unittest.TestCase):
     "    </eventAssignment>\n" + 
     "  </listOfEventAssignments>\n" + 
     "</event>")
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     node = libsbml.parseFormula("leq(P1,t)")
@@ -587,7 +587,7 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>")
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     node = libsbml.parseFormula("leq(P1,t)")
@@ -609,7 +609,7 @@ class TestWriteSBML(unittest.TestCase):
     "    </math>\n" + 
     "  </trigger>\n" + 
     "</event>")
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     e = self.D.createModel().createEvent()
     e.setId("e")
     node = libsbml.parseFormula("leq(P1,t)")
@@ -672,7 +672,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_InitialAssignment(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<initialAssignment symbol=\"c\" sboTerm=\"SBO:0000064\"/>";
     ia = self.D.createModel().createInitialAssignment()
     ia.setSBOTerm(64)
@@ -698,7 +698,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_KineticLaw(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>")
     kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setFormula("k * e")
@@ -708,7 +708,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_KineticLaw_ListOfParameters(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
     "substanceUnits=\"item\">\n" + 
     "  <listOfParameters>\n" + 
@@ -726,7 +726,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_KineticLaw_l2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -752,7 +752,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_KineticLaw_skipOptional(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<kineticLaw formula=\"k * e\"/>";
     kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setFormula("k * e")
@@ -760,7 +760,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_KineticLaw_withSBO(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -785,7 +785,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Model(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected = wrapSBML_L1v1("  <model name=\"Branch\"/>\n")
     self.D.createModel("Branch")
     self.S = libsbml.writeSBMLToString(self.D)
@@ -793,7 +793,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Model_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapSBML_L2v1("  <model id=\"Branch\"/>\n")
     self.D.createModel("Branch")
     self.S = libsbml.writeSBMLToString(self.D)
@@ -801,7 +801,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Model_L2v1_skipOptional(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapSBML_L2v1("  <model/>\n")
     self.D.createModel()
     self.S = libsbml.writeSBMLToString(self.D)
@@ -809,7 +809,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Model_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapSBML_L2v2("  <model id=\"Branch\" sboTerm=\"SBO:0000004\"/>\n")
     m = self.D.createModel("Branch")
     m.setSBOTerm(4)
@@ -818,7 +818,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Model_skipOptional(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapSBML_L1v2("  <model/>\n")
     self.D.createModel()
     self.S = libsbml.writeSBMLToString(self.D)
@@ -842,7 +842,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>";
     p = self.D.createModel().createParameter()
     p.setId("Km1")
@@ -852,7 +852,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_ParameterRule(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected = wrapString("<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>")
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
@@ -863,7 +863,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_ParameterRule_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<rateRule variable=\"p\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -882,7 +882,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_ParameterRule_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -902,7 +902,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_ParameterRule_defaults(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected =  "<parameterRule formula=\"p * t\" name=\"p\"/>";
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
@@ -913,7 +913,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter_L1v1_required(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected =  "<parameter name=\"Km1\" value=\"NaN\"/>";
     p = self.D.createModel().createParameter()
     p.setId("Km1")
@@ -922,7 +922,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter_L1v2_skipOptional(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<parameter name=\"Km1\"/>";
     p = self.D.createModel().createParameter()
     p.setId("Km1")
@@ -931,7 +931,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
     p = self.D.createModel().createParameter()
     p.setId("Km1")
@@ -941,7 +941,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter_L2v1_constant(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<parameter id=\"x\" constant=\"false\"/>";
     p = self.D.createModel().createParameter()
     p.setId("x")
@@ -950,7 +950,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter_L2v1_skipOptional(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<parameter id=\"Km1\"/>";
     p = self.D.createModel().createParameter()
     p.setId("Km1")
@@ -958,7 +958,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Parameter_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<parameter id=\"Km1\" value=\"2.3\" units=\"second\" sboTerm=\"SBO:0000002\"/>";
     p = self.D.createModel().createParameter()
     p.setId("Km1")
@@ -969,7 +969,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Reaction(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>";
     r = self.D.createModel().createReaction()
     r.setId("r")
@@ -979,7 +979,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Reaction_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<reaction id=\"r\" reversible=\"false\"/>";
     r = self.D.createModel().createReaction()
     r.setId("r")
@@ -988,7 +988,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Reaction_L2v1_full(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<reaction id=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
@@ -1029,7 +1029,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Reaction_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<reaction id=\"r\" name=\"r1\" reversible=\"false\" fast=\"true\" sboTerm=\"SBO:0000064\"/>";
     r = self.D.createModel().createReaction()
     r.setId("r")
@@ -1041,7 +1041,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Reaction_defaults(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<reaction name=\"r\"/>";
     r = self.D.createModel().createReaction()
     r.setId("r")
@@ -1049,7 +1049,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Reaction_full(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<reaction name=\"v1\">\n" + 
     "  <listOfReactants>\n" + 
     "    <speciesReference species=\"x0\"/>\n" + 
@@ -1070,35 +1070,35 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SBMLDocument_L1v1(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"1\"/>\n")
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L1v2(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"2\"/>\n")
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" " + "level=\"2\" version=\"1\"/>\n")
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version2\" " + "level=\"2\" version=\"2\"/>\n")
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_Species(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
     s = self.D.createModel().createSpecies()
     s.setName("Ca2")
@@ -1111,7 +1111,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>")
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
@@ -1122,7 +1122,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_L1v1(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected =  "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>";
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
@@ -1133,7 +1133,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<assignmentRule variable=\"s\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1152,7 +1152,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1172,7 +1172,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesConcentrationRule_defaults(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>";
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
@@ -1183,7 +1183,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1193,7 +1193,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_L1v1(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected =  "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>";
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1203,7 +1203,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v1_1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1219,7 +1219,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v1_2(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>";
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1228,7 +1228,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v1_3(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<speciesReference species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1250,7 +1250,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v2_1(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
     "  <stoichiometryMath>\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
@@ -1272,7 +1272,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_L2v3_1(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\" stoichiometry=\"3.2\"/>";
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1284,7 +1284,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesReference_defaults(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<speciesReference species=\"s\"/>";
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1292,7 +1292,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesType(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected =  "<speciesType id=\"st\"/>";
     st = self.D.createModel().createSpeciesType()
     st.setId("st")
@@ -1301,7 +1301,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_SpeciesType_withSBO(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<speciesType id=\"st\" sboTerm=\"SBO:0000004\"/>";
     st = self.D.createModel().createSpeciesType()
     st.setId("st")
@@ -1310,7 +1310,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_L1v1(self):
-    self.D.setLevelAndVersion(1,1)
+    self.D.setLevelAndVersion(1,1,False)
     expected = wrapString("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
     s = self.D.createModel().createSpecies()
     s.setName("Ca2")
@@ -1323,7 +1323,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
@@ -1335,7 +1335,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_L2v1_skipOptional(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<species id=\"Ca2\" compartment=\"cell\"/>";
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
@@ -1344,7 +1344,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapString("<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
@@ -1357,7 +1357,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_L2v3(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<species id=\"Ca2\" compartment=\"cell\" sboTerm=\"SBO:0000007\"/>";
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
@@ -1367,7 +1367,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_defaults(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>")
     s = self.D.createModel().createSpecies()
     s.setName("Ca2")
@@ -1379,7 +1379,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Species_skipOptional(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>";
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
@@ -1389,7 +1389,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_StoichiometryMath(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<stoichiometryMath>\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1406,7 +1406,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_StoichiometryMath_withSBO(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected = wrapString("<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "    <apply>\n" + 
@@ -1424,7 +1424,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Unit(self):
-    self.D.setLevelAndVersion(2,4)
+    self.D.setLevelAndVersion(2,4,False)
     expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
     u = self.D.createModel().createUnitDefinition().createUnit()
     u.setKind(libsbml.UNIT_KIND_KILOGRAM)
@@ -1434,7 +1434,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_UnitDefinition(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<unitDefinition name=\"mmls\"/>";
     ud = self.D.createModel().createUnitDefinition()
     ud.setId("mmls")
@@ -1442,7 +1442,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_UnitDefinition_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<unitDefinition id=\"mmls\"/>";
     ud = self.D.createModel().createUnitDefinition()
     ud.setId("mmls")
@@ -1450,7 +1450,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_UnitDefinition_L2v1_full(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapString("<unitDefinition id=\"Fahrenheit\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" + 
@@ -1466,7 +1466,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_UnitDefinition_full(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapString("<unitDefinition name=\"mmls\">\n" + 
     "  <listOfUnits>\n" + 
     "    <unit kind=\"mole\" scale=\"-3\"/>\n" + 
@@ -1489,7 +1489,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Unit_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected =  "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
     u = self.D.createModel().createUnitDefinition().createUnit()
     u.setKind(libsbml.UnitKind_forName("Celsius"))
@@ -1499,7 +1499,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Unit_defaults(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected =  "<unit kind=\"kilogram\"/>";
     u = self.D.createModel().createUnitDefinition().createUnit()
     u.setKind(libsbml.UNIT_KIND_KILOGRAM)
@@ -1507,7 +1507,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Unit_l2v3(self):
-    self.D.setLevelAndVersion(2,3)
+    self.D.setLevelAndVersion(2,3,False)
     expected =  "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>";
     u = self.D.createModel().createUnitDefinition().createUnit()
     u.setKind(libsbml.UNIT_KIND_KILOGRAM)
@@ -1551,7 +1551,7 @@ class TestWriteSBML(unittest.TestCase):
 
 
   def test_WriteSBML_elements_L1v2(self):
-    self.D.setLevelAndVersion(1,2)
+    self.D.setLevelAndVersion(1,2,False)
     expected = wrapSBML_L1v2("  <model>\n" + 
     "    <listOfUnitDefinitions>\n" + 
     "      <unitDefinition/>\n" + 
@@ -1584,7 +1584,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_elements_L2v1(self):
-    self.D.setLevelAndVersion(2,1)
+    self.D.setLevelAndVersion(2,1,False)
     expected = wrapSBML_L2v1("  <model>\n" + 
     "    <listOfFunctionDefinitions>\n" + 
     "      <functionDefinition/>\n" + 
@@ -1627,7 +1627,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_elements_L2v2(self):
-    self.D.setLevelAndVersion(2,2)
+    self.D.setLevelAndVersion(2,2,False)
     expected = wrapSBML_L2v2("  <model>\n" + 
     "    <listOfFunctionDefinitions>\n" + 
     "      <functionDefinition/>\n" + 
