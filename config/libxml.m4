@@ -311,12 +311,25 @@ main()
     dnl code where necessary.
 
     if test "$HOST_TYPE" = "darwin"\
-         -a `echo $XML2_CONFIG | sed 's,///*,/,g'` = "/usr/bin/xml2-config"\
-         -a "`$XML2_CONFIG --libtool-libs`" = "/usr/lib/libxml2.la"\
+         -a `echo $XML2_CONFIG | sed 's,///*,/,g'` = "/usr/bin/xml2-config"; then
+      dnl
+      dnl (Tiger, Leopard)
+      dnl
+      if test "`$XML2_CONFIG --libtool-libs`" = "/usr/lib/libxml2.la" \
          -a $xml_config_major_version -eq 2\
          -a $xml_config_minor_version -eq 6\
          -a $xml_config_micro_version -eq 16; then
-      AC_SUBST(BUGGY_APPLE_LIBXML,1)
+          AC_SUBST(BUGGY_APPLE_LIBXML,1)
+      else
+        dnl
+        dnl (Snow Leopard)
+        dnl
+        if test $xml_config_major_version -eq 2\
+         -a $xml_config_minor_version -eq 7\
+         -a $xml_config_micro_version -eq 3; then
+          AC_SUBST(BUGGY_APPLE_LIBXML,1)
+        fi
+      fi
     fi
   elif test "$with_expat" = "no" -a "$with_xerces" = "no"; then
     AC_MSG_ERROR([No XML parser was chosen. One of the underlying XML Parsers 
