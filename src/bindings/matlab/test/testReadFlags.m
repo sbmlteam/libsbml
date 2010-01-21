@@ -7,152 +7,192 @@ disp('**************************************');
 test = 69;
 Totalfail = 0;
 
-m = TranslateSBML('test-data\none.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'none.xml');
+m = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\none.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'none.xml');
+m = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\none.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'none.xml');
+m = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\none.xml', 1, 1);
+filename = fullfile(pwd,'test-data', 'none.xml');
+m = TranslateSBML(filename, 1, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\warn.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'warn.xml');
+m = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\warn.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'warn.xml');
+m = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\warn.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'warn.xml');
+m = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\errors.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'errors.xml');
+m = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\errors.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'errors.xml');
+m = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\errors.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'errors.xml');
+m = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\readerror.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'readerror.xml');
+m = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(isempty(m));
 
-m = TranslateSBML('test-data\readerror.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'readerror.xml');
+m = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\readerror.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'readerror.xml');
+m = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(isempty(m));
 
-m = TranslateSBML('test-data\both.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'both.xml');
+m = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\both.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'both.xml');
+m = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\both.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'both.xml');
+m = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 
-m = TranslateSBML('test-data\fatal.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+m = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(isempty(m));
 
-m = TranslateSBML('test-data\fatal.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+m = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(isempty(m));
 
-m = TranslateSBML('test-data\fatal.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+m = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(isempty(m));
 
-m = TranslateSBML('test-data\fatal.xml', 1, 1);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+m = TranslateSBML(filename, 1, 1);
 Totalfail = Totalfail + fail_unless(isempty(m));
 
-[m, e] = TranslateSBML('test-data\none.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'none.xml');
+[m, e] = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\none.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'none.xml');
+[m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\none.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'none.xml');
+[m, e] = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\none.xml', 1, 1);
+filename = fullfile(pwd,'test-data', 'none.xml');
+[m, e] = TranslateSBML(filename, 1, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\warn.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'warn.xml');
+[m, e] = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\warn.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'warn.xml');
+[m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==6);
 
-[m, e] = TranslateSBML('test-data\warn.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'warn.xml');
+[m, e] = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\errors.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'errors.xml');
+[m, e] = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\errors.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'errors.xml');
+[m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\errors.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'errors.xml');
+[m, e] = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\readerror.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'readerror.xml');
+[m, e] = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\readerror.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'readerror.xml');
+[m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\readerror.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'readerror.xml');
+[m, e] = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\both.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'both.xml');
+[m, e] = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\both.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'both.xml');
+[m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==4);
 
-[m, e] = TranslateSBML('test-data\both.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'both.xml');
+[m, e] = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(isempty(e));
 
-[m, e] = TranslateSBML('test-data\fatal.xml', 0, 0);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+[m, e] = TranslateSBML(filename, 0, 0);
 Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\fatal.xml', 1, 0);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+[m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\fatal.xml', 0, 1);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+[m, e] = TranslateSBML(filename, 0, 1);
 Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
-[m, e] = TranslateSBML('test-data\fatal.xml', 1, 1);
+filename = fullfile(pwd,'test-data', 'fatal.xml');
+[m, e] = TranslateSBML(filename, 1, 1);
 Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
