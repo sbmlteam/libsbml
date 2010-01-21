@@ -47,6 +47,31 @@ thisdir = src/bindings/ruby
 
 sources = libsbml_wrap.cpp
 
+#############################################################################
+#
+# Generates a C++ library for Ruby bindings with an object file in this 
+# directory (libsbml_wrap.o) and other object files in sub directories in 
+# 'src' directory (src/sbml, src/common, ... ) instead of linking a shared 
+# library of libSBML (libsbml.$(SHAREDLIBEXT)).
+#
+
+#
+# All directories that contain *.{c,cpp} (implementation) files of libSBML need
+# to be listed in the following 'otherdirs' variable.
+#
+otherdirs = ../../common ../../util ../../xml ../../math ../../validator \
+            ../../validator/constraints ../../units ../../annotation ../../compress \
+            ../../sbml/
+
+ifdef USE_LAYOUT
+  otherdirs += ../../sbml/layout
+endif
+
+objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+
+
+#############################################################################
+
 # What we're building is a module for use with ruby.
 
 ifeq "$(HOST_TYPE)" "darwin"
@@ -81,7 +106,8 @@ ifeq "$(HOST_TYPE)" "darwin"
 endif
 
 extra_LDFLAGS  = $(RUBY_LDFLAGS)
-extra_LIBS     = ../../libsbml.la $(RUBY_LIBS)
+extra_LIBS     = $(RUBY_LIBS)
+#extra_LIBS     = ../../libsbml.la $(RUBY_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -135,9 +161,6 @@ extra_clean     = build $(wildcard test.xml.*)
 
 .SUFFIXES:
 .SUFFIXES: .i .cpp .o .obj .lo .la
-
-objfiles = libsbml_wrap.lo
-test_objfiles = $(objfiles)
 
 # The default action is to remake everything.
 

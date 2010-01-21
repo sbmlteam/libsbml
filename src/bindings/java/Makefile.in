@@ -53,6 +53,31 @@ jnifile           = $(JNIBASENAME).$(JNIEXT)
 
 libraries         = $(jarfile) $(jnifile)
 
+##################################################################################
+#
+# Generates $(jnifile) (C++ library for System.loadLibrary) with an object file 
+# in this directory (libsbml_wrap.o) and other object files in sub directories 
+# in 'src' directory (src/sbml, src/common, ... ) instead of linking a shared 
+# library of libSBML (libsbml.$(SHAREDLIBEXT)).
+#
+
+#
+# All directories that contain *.{c,cpp} (implementation) files of libSBML need
+# to be listed in the following 'otherdirs' variable.
+#
+otherdirs = ../../common ../../util ../../xml ../../math ../../validator \
+            ../../validator/constraints ../../units ../../annotation ../../compress \
+            ../../sbml/
+
+ifdef USE_LAYOUT
+  otherdirs += ../../sbml/layout
+endif
+
+objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+
+##################################################################################
+
+
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
@@ -62,7 +87,8 @@ SWIGFLAGS        += $(JAVA_CPPFLAGS) -I../swig
 
 extra_LDFLAGS     = $(JAVA_LDFLAGS)
 
-extra_LIBS        = ../../libsbml.la $(JAVA_LIBS)
+#extra_LIBS        = ../../libsbml.la $(JAVA_LIBS)
+extra_LIBS        = $(JAVA_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 

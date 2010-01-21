@@ -94,6 +94,33 @@ sn_keyfile = libsbmlcs.snk
 
 libraries         = $(csproxy_lib) $(dllimport_lib)
 
+
+#############################################################################
+#
+# Generates $(dllimport_name).$(CSHARP_EXT) (C++ library for DllImport) with 
+# an object file in this directory (libsbml_wrap.o) and other object files 
+# in sub directories in 'src' directory (src/sbml, src/common, ... ) instead
+# of linking a shared library of libSBML (libsbml.$(SHAREDLIBEXT)).
+#
+
+#
+# All directories that contain *.{c,cpp} (implementation) files of libSBML need 
+# to be listed in the following 'otherdirs' variable.
+#
+otherdirs = ../../common ../../util ../../xml ../../math ../../validator \
+            ../../validator/constraints ../../units ../../annotation ../../compress \
+            ../../sbml/
+
+ifdef USE_LAYOUT
+  otherdirs += ../../sbml/layout
+endif
+
+objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+
+
+#############################################################################
+
+
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
@@ -104,7 +131,7 @@ SWIGFLAGS_WIN     = -DSWIGWIN -DSWIG_CSHARP_NO_WSTRING_HELPER
 
 extra_LDFLAGS     = $(CSHARP_LDFLAGS)
 
-extra_LIBS        = ../../libsbml.la
+#extra_LIBS        = ../../libsbml.la
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@
@@ -204,7 +231,7 @@ ifeq "$(HOST_TYPE)" "darwin"
   # to use -undefined dynamic_lookup.
   macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
   export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
-%.$(CSHARP_EXT): $(patsubst %.cpp, %.lo, $(patsubst %.c, %.lo, $(sources)))
+%.$(CSHARP_EXT): $(objfiles) 
 	$(call link_dl_lib,$@)
 endif
 

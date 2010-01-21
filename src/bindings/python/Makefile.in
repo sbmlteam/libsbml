@@ -51,12 +51,37 @@ sources = libsbml.py libsbml_wrap.cpp
 
 libraries = _libsbml.$(PYTHON_EXT)
 
+#############################################################################
+#
+# Generates _libsbml.$(PYTHON_EXT) (C++ library for Python bindings) with
+# an object file in this directory (libsbml_wrap.o) and other object files
+# in sub directories in 'src' directory (src/sbml, src/common, ... ) instead
+# of linking a shared library of libSBML (libsbml.$(SHAREDLIBEXT)).
+#
+
+#
+# All directories that contain *.{c,cpp} (implementation) files of libSBML need
+# to be listed in the following 'otherdirs' variable.
+#
+otherdirs = ../../common ../../util ../../xml ../../math ../../validator \
+            ../../validator/constraints ../../units ../../annotation ../../compress \
+            ../../sbml
+
+ifdef USE_LAYOUT
+  otherdirs += ../../sbml/layout
+endif
+
+objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+
+
+#############################################################################
+
 # environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
 # to use -undefined dynamic_lookup.
 ifeq "$(HOST_TYPE)" "darwin"
   macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
   export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
-%.so: $(patsubst %.cpp, %.lo, $(patsubst %.c, %.lo, $(sources)))
+%.so: $(objfiles)
 	$(call link_dl_lib,$@)
 endif
 
@@ -81,7 +106,7 @@ ifeq "$(HOST_TYPE)" "darwin"
 endif
 
 extra_LDFLAGS  = $(PYTHON_LDFLAGS) 
-extra_LIBS     = ../../libsbml.la $(PYTHON_LIBS)
+extra_LIBS     = $(PYTHON_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -146,9 +171,6 @@ extra_distclean = libsbml.pyc setup.py
 
 .SUFFIXES:
 .SUFFIXES: .i .cpp .py .pyc .pyo .o .obj .lo .la
-
-objfiles = libsbml_wrap.lo
-test_objfiles = $(objfiles)
 
 # The default action is to remake everything.
 
