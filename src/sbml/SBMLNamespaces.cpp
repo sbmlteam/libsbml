@@ -179,7 +179,21 @@ SBMLNamespaces::getLevel()
 
 
 unsigned int 
+SBMLNamespaces::getLevel() const
+{
+  return mLevel;
+}
+
+
+unsigned int 
 SBMLNamespaces::getVersion()
+{
+  return mVersion;
+}
+
+
+unsigned int 
+SBMLNamespaces::getVersion() const
 {
   return mVersion;
 }
@@ -190,6 +204,14 @@ SBMLNamespaces::getNamespaces()
 {
   return mNamespaces;
 }
+
+
+const XMLNamespaces * 
+SBMLNamespaces::getNamespaces() const
+{
+  return mNamespaces;
+}
+
 
 void
 SBMLNamespaces::addNamespaces(XMLNamespaces * xmlns)

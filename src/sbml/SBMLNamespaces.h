@@ -166,11 +166,29 @@ public:
 
 
   /**
+   * Get the SBML Level of this SBMLNamespaces object.
+   *
+   * @return the SBML Level of this SBMLNamespaces object.
+   */
+  unsigned int getLevel() const;
+
+
+
+  /**
    * Get the SBML Version of this SBMLNamespaces object.
    *
    * @return the SBML Version of this SBMLNamespaces object.
    */
   unsigned int getVersion();
+
+
+
+  /**
+   * Get the SBML Version of this SBMLNamespaces object.
+   *
+   * @return the SBML Version of this SBMLNamespaces object.
+   */
+  unsigned int getVersion() const;
 
 
 
@@ -188,6 +206,22 @@ public:
    * @return the XML namespaces of this SBMLNamespaces object.
    */
   XMLNamespaces * getNamespaces();
+
+
+  /**
+   * Get the XML namespaces list for this SBMLNamespaces object.
+   * 
+   * The plural is not a mistake, because in SBML Level&nbsp;3, objects may
+   * have extensions added by Level&nbsp;3 packages used by a given model,
+   * and therefore there may be multiple XML namespaces involved too.
+   * However, until the introduction of SBML Level&nbsp;3, the
+   * SBMLNamespaces object only records one SBML Level/Version/namespace
+   * combination at a time, and so this method will also only return
+   * a list of one item.
+   *
+   * @return the XML namespaces of this SBMLNamespaces object.
+   */
+ const XMLNamespaces * getNamespaces() const;
 
 
   /**
