@@ -266,6 +266,37 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       AC_MSG_ERROR([Cannot find Java include files.])
     fi
 
+    dnl
+    dnl enable --with-swig option if SWIG-generated files of Java bindings 
+    dnl (libsbml_wrap.cpp and java-files/**/*.java) need to be regenerated.
+    dnl 
+
+    java_dir="src/bindings/java"
+
+    if test "$with_swig" = "no" -o -z "$with_swig" ; then
+      AC_MSG_CHECKING(whether SWIG is required for Java bindings.)
+      if test ! -e "${java_dir}/libsbml_wrap.cpp" -o ! -d "${java_dir}/java-files" ; then
+        with_swig="yes"
+        AC_MSG_RESULT(yes)
+      else
+        if test "$enable_layout" = "no"; then
+          if grep -q getListOfLayouts "${java_dir}/libsbml_wrap.cpp"; then
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          else
+            AC_MSG_RESULT(no)
+          fi
+        else
+          if grep -q getListOfLayouts "${java_dir}/libsbml_wrap.cpp"; then
+            AC_MSG_RESULT(no)
+          else
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          fi
+        fi
+      fi
+    fi
+
     AC_DEFINE([USE_JAVA], 1, [Define to 1 to use Java])
     AC_SUBST(USE_JAVA, 1)
 

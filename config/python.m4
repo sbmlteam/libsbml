@@ -159,6 +159,37 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	;;
     esac
 
+    dnl
+    dnl enable --with-swig option if SWIG-generated files of Python bindings
+    dnl (libsbml_wrap.cpp and libsbml.py) need to be regenerated.
+    dnl
+
+    python_dir="src/bindings/python"
+
+    if test "$with_swig" = "no" -o -z "$with_swig" ; then
+      AC_MSG_CHECKING(whether SWIG is required for Python bindings.)
+      if test ! -e "${python_dir}/libsbml_wrap.cpp" -o ! -e "${python_dir}/libsbml.py" ; then
+        with_swig="yes"
+        AC_MSG_RESULT(yes)
+      else
+        if test "$enable_layout" = "no"; then
+          if grep -q getListOfLayouts "${python_dir}/libsbml_wrap.cpp"; then
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          else
+            AC_MSG_RESULT(no)
+          fi
+        else
+          if grep -q getListOfLayouts "${python_dir}/libsbml_wrap.cpp"; then
+            AC_MSG_RESULT(no)
+          else
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          fi
+        fi
+      fi
+    fi
+
     AC_DEFINE([USE_PYTHON], 1, [Define to 1 to use Python])
     AC_SUBST(USE_PYTHON, 1)
 

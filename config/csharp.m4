@@ -284,6 +284,38 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
         ;;
     esac
 
+    dnl
+    dnl enable --with-swig option if SWIG-generated files of C# bindings 
+    dnl (libsbml_wrap.cpp and csharp-files/*.cs) need to be regenerated.
+    dnl
+
+    csharp_dir="src/bindings/csharp"
+
+    if test "$with_swig" = "no" -o -z "$with_swig" ; then
+      AC_MSG_CHECKING(whether SWIG is required for CSharp bindings.)
+      if test ! -e "${csharp_dir}/libsbml_wrap.cpp" -o ! -d "${csharp_dir}/csharp-files" ; then
+        with_swig="yes"
+        AC_MSG_RESULT(yes)
+      else
+        if test "$enable_layout" = "no"; then
+          if grep -q getListOfLayouts "${csharp_dir}/libsbml_wrap.cpp"; then
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          else
+            AC_MSG_RESULT(no)
+          fi
+        else
+          if grep -q getListOfLayouts "${csharp_dir}/libsbml_wrap.cpp"; then
+            AC_MSG_RESULT(no)
+          else
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          fi
+        fi
+      fi
+    fi
+
+
     AC_DEFINE([USE_CSHARP], 1, [Define to 1 to use CSharp])
     AC_SUBST(USE_CSHARP, 1)
 

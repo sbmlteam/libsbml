@@ -57,6 +57,23 @@ AC_DEFUN([CONFIG_PROG_PERL],
       AC_MSG_ERROR([*** ExtUtils::MakeMaker module is missing - please install first or check config.log ***])
     fi
 
+    dnl
+    dnl enable --with-swig option if SWIG-generated files of Perl bindings
+    dnl (LibSBML_wrap.cxx and LibSBML.pm) need to be regenerated.
+    dnl
+
+    perl_dir="src/bindings/perl"
+
+    if test "$with_swig" = "no" -o -z "$with_swig" ; then
+      AC_MSG_CHECKING(whether SWIG is required for Perl bindings.)
+      if test ! -e "${perl_dir}/LibSBML_wrap.cxx" -o ! -e "${perl_dir}/LibSBML.pm" ; then
+        with_swig="yes"
+        AC_MSG_RESULT(yes)
+      else
+        AC_MSG_RESULT(no)
+      fi
+    fi
+
     AC_DEFINE([USE_PERL], 1, [Define to 1 to use Perl])
     AC_SUBST(USE_PERL, 1)
 

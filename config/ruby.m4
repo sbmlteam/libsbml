@@ -114,6 +114,37 @@ AC_DEFUN([CONFIG_PROG_RUBY],
 	;;
     esac
 
+    dnl
+    dnl enable --with-swig option if SWIG-generated files of Ruby bindings
+    dnl (libsbml_wrap.cpp) need to be regenerated.
+    dnl
+
+    ruby_dir="src/bindings/ruby"
+
+    if test "$with_swig" = "no" -o -z "$with_swig" ; then
+      AC_MSG_CHECKING(whether SWIG is required for Ruby bindings.)
+      if test ! -e "${ruby_dir}/libsbml_wrap.cpp" ; then
+        with_swig="yes"
+        AC_MSG_RESULT(yes)
+      else
+        if test "$enable_layout" = "no"; then
+          if grep -q getListOfLayouts "${ruby_dir}/libsbml_wrap.cpp"; then
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          else
+            AC_MSG_RESULT(no)
+          fi
+        else
+          if grep -q getListOfLayouts "${ruby_dir}/libsbml_wrap.cpp"; then
+            AC_MSG_RESULT(no)
+          else
+            with_swig="yes"
+            AC_MSG_RESULT(yes)
+          fi
+        fi
+      fi
+    fi
+
     AC_DEFINE([USE_RUBY], 1, [Define to 1 to use Ruby])
     AC_SUBST(USE_RUBY, 1)
 

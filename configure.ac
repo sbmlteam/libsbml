@@ -209,7 +209,6 @@ CPPFLAGS=$saved_CPPFLAGS
 # The Lisp language binding has been removed for the time being, because it
 # no longer works in recent versions of libSBML.
 
-CONFIG_PROG_SWIG(1.3.39)
 CONFIG_PROG_PYTHON
 CONFIG_PROG_PERL
 CONFIG_PROG_JAVA(1.5.0)
@@ -217,6 +216,7 @@ CONFIG_PROG_MATLAB
 CONFIG_PROG_OCTAVE(2.9.7,2.9.7)
 CONFIG_PROG_RUBY
 CONFIG_PROG_CSHARP
+CONFIG_PROG_SWIG(1.3.39)
 
 # Make sure to test doxygen *after* java, because there's a dependency on
 # in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
