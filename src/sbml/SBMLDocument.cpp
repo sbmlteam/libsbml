@@ -380,6 +380,12 @@ SBMLDocument::expandFunctionDefinitions()
   bool success = false;
   unsigned int i, j;
 
+  /* if there are no function definitions bail now */
+  if (mModel->getNumFunctionDefinitions() == 0)
+  {
+    return true;
+  }
+
   /* check consistency of model */
   /* since this function will write to the error log we should
    * clear anything in the log first
@@ -498,6 +504,40 @@ SBMLDocument::expandFunctionDefinitions()
 
   /* replace original consistency checks */
   mApplicableValidators = origValidators;
+
+  return success;
+}
+
+bool
+SBMLDocument::expandInitialAssignments()
+{
+  bool success = false;
+  /* if no initial assignments bail now */
+  if (mModel->getNumInitialAssignments() == 0)
+  {
+    return true;
+  }
+
+  /* check consistency of model */
+  /* since this function will write to the error log we should
+   * clear anything in the log first
+   */
+  getErrorLog()->clearLog();
+  unsigned char origValidators = mApplicableValidators;
+
+  mApplicableValidators = AllChecksON;
+
+  unsigned int errors = checkConsistency();
+  
+  if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0)
+  {
+    SBMLTransforms::expandInitialAssignments(getModel());
+  }
+
+  /* replace original consistency checks */
+  mApplicableValidators = origValidators;
+
+  success = (mModel->getNumInitialAssignments() == 0);
 
   return success;
 }
@@ -2673,6 +2713,41 @@ int
 SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d)
 {
   return static_cast <int> (d->expandFunctionDefinitions());
+}
+
+
+/**
+ * Removes any InitialAssignments from the document and replaces
+ * the appropriate values.
+ *
+ * For example a Model contains a InitialAssignment with symbol k
+ * where k is the id of a Parameter.
+ * The outcome of the function is that the value attribute of
+ * the Parameter is the value calculated using the math expression
+ * of the InitialAssignment and the corresponding InitialAssignment
+ * has been removed from the Model.
+ * 
+ * @param d the SBMLDocument_t structure
+ *
+ * @return true (non-zero) if the transformation was successful,
+ * false (0) otherwise.
+ *
+ *
+ * @note This function will check the consistency of a model
+ * before attemptimg the transformation.  In the case of a model
+ * with invalid SBML the transformation will not be done and the
+ * function will return @false.  As part of the process the 
+ * function will check that it has values for any components
+ * referred to by the math elements of InitialAssignments.  In
+ * the case where not all values have been declared the particular
+ * InitialAssignment will not be removed and the function will 
+ * return @false.
+ */
+LIBSBML_EXTERN
+int
+SBMLDocument_expandInitialAssignments (SBMLDocument_t *d)
+{
+  return static_cast <int> (d->expandInitialAssignments());
 }
 
 

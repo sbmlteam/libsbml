@@ -442,6 +442,33 @@ public:
 
 
   /**
+   * Removes any InitialAssignments from the document and replaces
+   * the appropriate values.
+   *
+   * For example a Model contains a InitialAssignment with symbol k
+   * where k is the id of a Parameter.
+   * The outcome of the function is that the value attribute of
+   * the Parameter is the value calculated using the math expression
+   * of the InitialAssignment and the corresponding InitialAssignment
+   * has been removed from the Model.
+   * 
+   * @ return bool @true if the transformation was successful, 
+   * @false, otherwise.
+   *
+   * @note This function will check the consistency of a model
+   * before attemptimg the transformation.  In the case of a model
+   * with invalid SBML the transformation will not be done and the
+   * function will return @false.  As part of the process the 
+   * function will check that it has values for any components
+   * referred to by the math elements of InitialAssignments.  In
+   * the case where not all values have been declared the particular
+   * InitialAssignment will not be removed and the function will 
+   * return @false.
+   */
+  bool expandInitialAssignments();
+
+
+  /**
    * Sets the SBML Level and Version of this SBMLDocument instance,
    * attempting to convert the model as needed.
    *
@@ -1088,6 +1115,11 @@ SBMLDocument_getModel (SBMLDocument_t *d);
 LIBSBML_EXTERN
 int
 SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d);
+
+                                 
+LIBSBML_EXTERN
+int
+SBMLDocument_expandInitialAssignments (SBMLDocument_t *d);
 
                                  
 LIBSBML_EXTERN

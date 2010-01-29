@@ -35,6 +35,9 @@
 #include <sbml/util/util.h>
 #include <sbml/math/ASTNode.h>
 #include <sbml/FunctionDefinition.h>
+#include <sbml/InitialAssignment.h>
+#include <sbml/SBMLTypes.h>
+#include <sbml/SpeciesReference.h>
 
 #ifdef __cplusplus
 
@@ -43,7 +46,13 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+typedef std::pair<double, bool>   ValueSet;
+typedef std::map<const std::string, ValueSet> IdValueMap;
+typedef IdValueMap::iterator                  IdValueIter;
+
 class IdList;
+
+static IdValueMap values;
 
 class LIBSBML_EXTERN SBMLTransforms
 {
@@ -91,6 +100,18 @@ public:
   
   /** @endcond doxygen-libsbml-internal */
 
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool expandInitialAssignments(Model * m);
+
+  /** @endcond doxygen-libsbml-internal */
+ 
+  /** @cond doxygen-libsbml-internal */
+  
+  static double evaluateASTNode(const ASTNode * node);
+
+  /** @endcond doxygen-libsbml-internal */
+
 protected:  
   /** @cond doxygen-libsbml-internal */
 
@@ -100,9 +121,53 @@ protected:
 
   /** @cond doxygen-libsbml-internal */
   
-  static bool checkNodeForIds(ASTNode * node, IdList& ids);
+  static bool checkFunctionNodeForIds(ASTNode * node, IdList& ids);
 
   /** @endcond doxygen-libsbml-internal */
+ 
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool nodeContainsId(const ASTNode * node, IdList& ids);
+
+  /** @endcond doxygen-libsbml-internal */
+ 
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool nodeContainsNameNotInList(const ASTNode * node, IdList& ids);
+
+  /** @endcond doxygen-libsbml-internal */
+
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool expandInitialAssignment(Parameter * p, 
+                                          const InitialAssignment *ia);
+  /** @endcond doxygen-libsbml-internal */
+
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool expandInitialAssignment(Compartment * c, 
+                                          const InitialAssignment *ia);
+  /** @endcond doxygen-libsbml-internal */
+  
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool expandInitialAssignment(SpeciesReference * sr, 
+                                          const InitialAssignment *ia);
+  /** @endcond doxygen-libsbml-internal */
+
+  
+  /** @cond doxygen-libsbml-internal */
+  
+  static bool expandInitialAssignment(Species * s, 
+                                          const InitialAssignment *ia);
+  /** @endcond doxygen-libsbml-internal */
+
+  /** @cond doxygen-libsbml-internal */
+  
+  static IdList mapComponentValues(const Model * m);
+
+  /** @endcond doxygen-libsbml-internal */
+
 };
 
 LIBSBML_CPP_NAMESPACE_END
