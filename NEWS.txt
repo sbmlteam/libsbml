@@ -4,11 +4,11 @@
 Version 4.1.0-b2
 ======================================================================
 
-This is a second beta version which adds support for setting
-new attributes as defined in the L3 specification 
-Public Review Draft published 2009-08-22.
+This is a second beta version which adds further support for SBML L3
+as defined in the L3 specification 
+Release 1 (Candidate) published 2009-12-31.
 
-Features introduced in this version:
+L3 Features introduced in this version:
 
 - setFoo(xxx) functions for all new attributes
 
@@ -17,57 +17,104 @@ Features introduced in this version:
 - the "sbml:units" attribute on the cn element is now supported.
   This includes reading and writing and getUnits, isSetUnits, 
   setUnits and unsetUnits functions for manipulating the 
-  attribute on an ASTNode.  Note that the support for 
-  reading/writing is minimal and writing out a math element that 
-  uses the attribute will always use 'sbml' as the prefix.  This 
-  implementation is temporary to allow users to work with the
-  attribute but complete implementation will require some
-  internal redesign.  
+  attribute on an ASTNode. 
+  
+- conversion to L3 
 
-Features that are not yet implemented:
+- csymbol avogadro
 
-- the "required" attribute for packages on the sbml element
+- ModelHistory element is now permissible on any element
+
+L3 Features that are not yet implemented:
 
 - validation
 
-- conversion to or from L3
+- conversion from L3
+
+Note on default values:
+
+  SBML L3 does not specify default values and libSBML-4.1.0-b1
+  implemented this.  Users reported that this on occasion
+  caused problems.  Whilst we are working on a more robust
+  solution the current version constructs objects without default
+  values but has reimplemented the initDefaults() functions to
+  apply the L2 default values, regardless of SBML Level.  Thus
+  
+	Unit * unit = new Unit(3,1);
+	
+	unit->initDefaults();
+	
+  will assign values to the relevant attributes.
+
+In addition the release also contains
+
+* New features:
+
+ - There are two new functions that allow within SBML 
+   transformations, removing components that software may be unable
+   to interpret and replacing them with appropriate attributes etc.
+   The first 'expandFunctionDefinitions' replaces any call to a
+   function with the appropriate math.  The second 
+   'expandInitialAssignments' replaces the appropriate value
+   attribute with the value calculated by applying the InitialAssignment.
+   
+ - The functions that look up SpeciesReference objects from the 
+   ListOfs within a Reaction, will now search both the 'species' and 
+   the 'id' attribute for a match.
 
 * Bug fixes:
-
- - [Tracker issue #2895082]
-   Building matlab bindings failed due to a wrong build argument.
-   This has been fixed. Thanks to Javier for reporting this problem.
-
- - No errors were reported when reading an SBML file/string which
-   contains one or more default namespaces which are not schema 
-   conformant. This has been fixed. Thanks to Camille Laibe for 
-   reporting this problem.
-
- - [Tracker issue #2878770]
-   The code that checked uniqueness of metaids was not checking all 
-   of them.  This has been fixed. Thanks to Frank Bergmann for 
-   spotting this problem.
-
- - [Tracker issue #2859186]
-   When the exponent argument to a power function is itself an 
-   expression it was messing up unit checking. This is now reported 
-   more clearly.
+ 
+ - [Tracker issue #2856390]
+   FunctionDefinition elements and Event elements were not written 
+   when writing an SBML Level 2 file/string. This has been fixed. 
+   Thanks to Lucian for reporting this problem.
 
  - SpeciesReference::isSetStoichiometry() function wrongly returned 
    false when a stoichiometry attribute is absent in an input SBML 
    Level 2. This has been fixed. Thanks to Frank Bergmann for spotting 
    this.
+ 
+ - Macros in SBMLDocument.h contained unnecessary ';'. This has been
+   fixed. Thanks to Lucian Smith for reporting this problem.
+ 
+ - Compartment::setSpatialDimensions(unsigned int) function didn't
+   update a corresponding internal double value of spatialDimensions 
+   attribute. This has been fixed. Thanks to Frank Bergmann for 
+   reporting this.
 
- - The configure script failed in a test program for expat when 
-   cross compiling detected. This has been fixed. Thanks to Lucian 
+* Bug fixes that were also included in libSBML-4.0.1
+
+ - [Tracker issue #2910508]
+   The install script for the matlab binding on Windows failed to
+   reflect the new directory name.  This has been fixed.
+
+ - [Tracker issue #2895082]
+   Building matlab bindings failed due to a wrong build argument.
+   This has been fixed. Thanks to Javier for reporting this problem.
+
+ - [Tracker issue #2879118]
+   Attempting conversion on a document that had failed during the read
+   was reporting success.  This has been fixed.  Thanks to Lucian
    Smith for reporting this.
+    
+ - [Tracker issue #2878770]
+   The code that checked uniqueness of metaids was not checking all 
+   of them.  This has been fixed. Thanks to Frank Bergmann for 
+   spotting this problem.
 
+ - [Tracker issue #2877180]
+   Added a readSBMLFromFile function as requested by Lucian Smith.
+   
  - [Tracker issue #2865288]
    Removed C++ style comments in C code (in List.h and ListOf.h) 
    which can cause compilation errors.
 
- - Macros in SBMLDocument.h containd unnecessary ';'. This has been
-   fixed. Thanks to Lucian Smith for reporting this problem.
+ - [Tracker issue #2859186]
+   The code that checks units cannot deal with an exponent that is
+   itself an expression. This has been made clearer. 
+
+ - The ASTNode class had no assignment operator.  This has been
+   added.
 
  - MIRIAM annotations could not be properly cleared after 
    SBase::unsetCVTerms() function invoked. This has been fixed. 
@@ -77,15 +124,27 @@ Features that are not yet implemented:
    MIRIAM annotations. This has been fixed. Thanks to Allyson Lister 
    for spotting this problem.
 
- - Compartment::setSpatialDimensions(unsigned int) function didn't
-   update a corresponding internal double value of spatialDimensions 
-   attribute. This has been fixed. Thanks to Frank Bergmann for 
-   reporting this.
+ - No errors were reported when reading an SBML file/string which
+   contains one or more default namespaces which are not schema 
+   conformant. This has been fixed. Thanks to Camille Laibe for 
+   reporting this problem.
 
- - [Tracker issue #2856390]
-   FunctionDefinition elements and Event elements were not written 
-   when writing an SBML Level 2 file/string. This has been fixed. 
-   Thanks to Lucian for reporting this problem.
+ - A mismatch in the argument names meant the 
+   SBMLDocument_setConsistencyChecks and 
+   SBMLDocument_setConsistencyChecksForConversion functions were not
+   being included in the library.
+   
+ - The MATLAB binding code caused a crash when used with octave.  
+   This has been fixed.
+
+ - The configure script failed in a test program for expat when 
+   cross compiling detected. This has been fixed. Thanks to Lucian 
+   Smith for reporting this.
+
+ - GCC's option "-Wno-long-double" has been removed on Snow Leopard
+   (Mac OS X 10.6) which caused some compilation errors.  This has
+   been fixed.  Thanks to Jacky Snoep for reporting this problem.
+   
 
 ======================================================================
 Version 4.1.0-b1 (released 2009-09-04)
