@@ -1,5 +1,6 @@
 
-     Example models from the SBML Level 3 Version 1 core draft specification
+     Example models from the 
+     SBML Level 3 Version 1 Release 1 (Candidate) specification
 
 	   Frank Bergmann, Michael Hucka, Stefan Hoops, Sarah Keating, 
 		     Sven Sahle, Darren Wilkinson
@@ -7,7 +8,8 @@
 
 This directory contains the text of sample SBML models taken from the
 latest SBML Level 3 specification (which, at the time of this writing,
-is Version 1 Core Release 1).  These models are not meant to be meaningful
+is Version 1 Core Release 1(Candidate)).  These models are not meant 
+to be meaningful
 in a biological sense; rather, they are meant to illustrate various
 SBML constructs and to serve as input for software testing.
 

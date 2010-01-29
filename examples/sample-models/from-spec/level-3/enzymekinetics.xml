@@ -19,13 +19,13 @@
        <compartment id="comp" size="1e-14" spatialDimensions="3" units="litre" constant="true"/>
      </listOfCompartments>
      <listOfSpecies>
-       <species compartment="comp" id="ES" initialAmount="0"     boundaryCondition="false"
-                hasOnlySubstanceUnits="false" substanceUnits="mole" constant="false"/>
-       <species compartment="comp" id="P"  initialAmount="0"     boundaryCondition="false"
+       <species compartment="comp" id="E"  initialAmount="5e-21" boundaryCondition="false"
                 hasOnlySubstanceUnits="false" substanceUnits="mole" constant="false"/>
        <species compartment="comp" id="S"  initialAmount="1e-20" boundaryCondition="false"
                 hasOnlySubstanceUnits="false" substanceUnits="mole" constant="false"/>
-       <species compartment="comp" id="E"  initialAmount="5e-21" boundaryCondition="false"
+       <species compartment="comp" id="P"  initialAmount="0"     boundaryCondition="false"
+                hasOnlySubstanceUnits="false" substanceUnits="mole" constant="false"/>
+       <species compartment="comp" id="ES" initialAmount="0"     boundaryCondition="false"
                 hasOnlySubstanceUnits="false" substanceUnits="mole" constant="false"/>
      </listOfSpecies>
      <listOfReactions>

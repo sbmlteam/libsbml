@@ -10,7 +10,7 @@
             </unitDefinition>
             <unitDefinition id="per_item_per_second">
                 <listOfUnits>
-                    <unit kind="item" exponent="-1" scale="0" multiplier="1"/>
+                    <unit kind="item"   exponent="-1" scale="0" multiplier="1"/>
                     <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
                 </listOfUnits>
             </unitDefinition>
@@ -49,10 +49,10 @@
                                 <apply>
                                     <minus/>
                                     <ci> P </ci>
-                                    <cn type="integer" sbml:unit="item"> 1 </cn>
+                                    <cn type="integer" sbml:units="item"> 1 </cn>
                                 </apply>
                             </apply>
-                            <cn type="integer" sbml:unit="dimensionless"> 2 </cn>
+                            <cn type="integer" sbml:units="dimensionless"> 2 </cn>
                         </apply>
                     </math>
                     <listOfLocalParameters>
