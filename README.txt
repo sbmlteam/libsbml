@@ -334,7 +334,7 @@ src/compress/00README.txt for more information about MiniZip
 
 Licensing and Distribution Terms for libSBML:
 
-Copyright 2005-2009 California Institute of Technology.
+Copyright 2005-2010 California Institute of Technology.
 Copyright 2002-2005 California Institute of Technology and the
 Japan Science and Technology Agency.
 

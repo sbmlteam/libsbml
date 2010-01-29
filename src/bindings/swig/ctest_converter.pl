@@ -3368,7 +3368,7 @@ $c<!---------------------------------------------------------------------------
 $c This file is part of libSBML.  Please visit http://sbml.org for more
 $c information about SBML, and the latest version of libSBML.
 $c
-$c Copyright 2005-2009 California Institute of Technology.
+$c Copyright 2005-2010 California Institute of Technology.
 $c Copyright 2002-2005 California Institute of Technology and
 $c                     Japan Science and Technology Corporation.
 $c 

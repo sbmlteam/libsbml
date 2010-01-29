@@ -3,8 +3,8 @@
  * @brief   Definition of wrapper classes for C++ standard output streams.
  * @author  Akiya Jouraku
  *
- * $Id:$
- * $URL:$
+ * $Id$
+ * $URL$
  *
  *<!-----------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
