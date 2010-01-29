@@ -412,10 +412,10 @@ START_TEST (test_L3_Species_ModelHistory)
 {
   ModelHistory_t * history = ModelHistory_create();
   
-  int i = SBase_setModelHistory(S, history);
+  int i = SBase_setModelHistory((SBase_t *)(S), history);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT );
-  fail_unless( !SBase_isSetModelHistory(S) );
+  fail_unless( !SBase_isSetModelHistory((SBase_t *)(S)) );
 
   ModelCreator_t * mc = ModelCreator_create();
   Date_t * date = 
@@ -430,16 +430,16 @@ START_TEST (test_L3_Species_ModelHistory)
   ModelHistory_setCreatedDate(history, date);
   ModelHistory_setModifiedDate(history, date);
 
-  i = SBase_setModelHistory(S, history);
+  i = SBase_setModelHistory((SBase_t *)(S), history);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
-  fail_unless( SBase_isSetModelHistory(S) );
+  fail_unless( SBase_isSetModelHistory((SBase_t *)(S)) );
   
-  i = SBase_unsetModelHistory(S);
+  i = SBase_unsetModelHistory((SBase_t *)(S));
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
-  fail_unless( !SBase_isSetModelHistory(S) );
-  fail_unless( SBase_getModelHistory(S) == NULL );
+  fail_unless( !SBase_isSetModelHistory((SBase_t *)(S)) );
+  fail_unless( SBase_getModelHistory((SBase_t *)(S)) == NULL );
 
   
   ModelHistory_free(history);
