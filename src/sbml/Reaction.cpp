@@ -60,6 +60,7 @@ GetSpeciesRef (ListOf& items, const string& species)
   {
     SpeciesReference* sr = static_cast<SpeciesReference*>( items.get(n) );
     if (sr->getSpecies() == species) return sr;
+    else if (sr->getId() == species) return sr;
   }
 
   return 0;

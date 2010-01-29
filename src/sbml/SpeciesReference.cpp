@@ -1789,7 +1789,8 @@ struct IdEqSR : public unary_function<SBase*, bool>
 
   IdEqSR (const string& id) : id(id) { }
   bool operator() (SBase* sb) 
-       { return static_cast <SimpleSpeciesReference *> (sb)->getId() == id; }
+       { return (static_cast <SimpleSpeciesReference *> (sb)->getId() == id)
+       || (static_cast <SimpleSpeciesReference *> (sb)->getSpecies() == id); }
 };
 
 
