@@ -632,12 +632,12 @@ SpeciesReference::clone () const
 void
 SpeciesReference::initDefaults ()
 {
-  // level 3 has no defaults
-  if (getLevel() < 3)
-  {
+  //// level 3 has no defaults
+  //if (getLevel() < 3)
+  //{
     mStoichiometry = 1.0;
     mDenominator   = 1;
-  }
+  //}
 }
 
 

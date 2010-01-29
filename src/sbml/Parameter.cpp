@@ -174,10 +174,10 @@ void
 Parameter::initDefaults ()
 {
   // level 3 has no defaults
-  if (getLevel() < 3)
-  {
+  //if (getLevel() < 3)
+  //{
     setConstant(true);
-  }
+  //}
 }
 
 

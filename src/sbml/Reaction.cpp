@@ -268,9 +268,9 @@ Reaction::clone () const
 void
 Reaction::initDefaults ()
 {
-  // level 3 has no defaults
-  if (getLevel() < 3)
-  {
+  //// level 3 has no defaults
+  //if (getLevel() < 3)
+  //{
     setReversible(true);
 
   //
@@ -286,7 +286,7 @@ Reaction::initDefaults ()
   //
     mFast      = false;
     mIsSetFast = false;
-  }
+  //}
 }
 
 

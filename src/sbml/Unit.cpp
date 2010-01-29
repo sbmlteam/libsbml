@@ -185,14 +185,14 @@ Unit::clone () const
 void
 Unit::initDefaults ()
 {
-  // level 3 has no defaults
-  if (getLevel() < 3)
-  {
+  //// level 3 has no defaults
+  //if (getLevel() < 3)
+  //{
     setExponent  ( 1   );
     setScale     ( 0   );
     setMultiplier( 1.0 );
     setOffset    ( 0.0 );
-  }
+  //}
 }
 
 
