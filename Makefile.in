@@ -149,7 +149,9 @@ examples =                                                       \
   examples/sample-models/from-spec/level-3/multicomp.xml         \
   examples/sample-models/from-spec/level-3/overdetermined.xml    \
   examples/sample-models/from-spec/level-3/twoalgebraicrules.xml \
-  examples/sample-models/from-spec/level-3/twodimensional.xml    
+  examples/sample-models/from-spec/level-3/twodimensional.xml    \
+  examples/sample-models/from-spec/level-3/conversionfactor1.xml \
+  examples/sample-models/from-spec/level-3/conversionfactor2.xml
 
 
 # The files listed in `docs' are copied to the documentation directory
