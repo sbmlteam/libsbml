@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The SBML Team")]
 [assembly: AssemblyProduct("libsbmlcsP.dll")]
-[assembly: AssemblyCopyright("Copyright (C) The SBML Team 2009")]
+[assembly: AssemblyCopyright("Copyright (C) The SBML Team 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -15,5 +15,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("14def7f4-5e60-4925-b81e-f297ad1c3265")]
 
-[assembly: AssemblyVersion("4.0.0.0")]
-[assembly: AssemblyFileVersion("4.0.0.0")]
+[assembly: AssemblyVersion("4.1.0.0")]
+[assembly: AssemblyFileVersion("4.1.0.0")]
