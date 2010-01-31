@@ -184,6 +184,7 @@ SBMLTransforms::nodeContainsNameNotInList(const ASTNode * node, IdList& ids)
 IdList 
 SBMLTransforms::mapComponentValues(const Model * m)
 {
+  values.clear();
   /* it is possible that a model does not have all 
    * the necessary values specified
    * in which case we can not calculate other values
