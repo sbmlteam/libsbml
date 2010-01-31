@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Version 4.1.0-b2
+Version 4.1.0-b2 (Released 2010-02-02)
 ======================================================================
 
 This is a second beta version which adds further support for SBML L3
