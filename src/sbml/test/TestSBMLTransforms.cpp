@@ -42,7 +42,7 @@ BEGIN_C_DECLS
 bool
 equalDouble (double a, double b)
 {
-  return (fabs(a-b) < __DBL_EPSILON__);
+  return (fabs(a-b) < sqrt(__DBL_EPSILON__));
 }
 
 extern char *TestDataDirectory;
