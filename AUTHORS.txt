@@ -1,4 +1,4 @@
-		 LibSBML was primarily developed by:
+		LibSBML 4.x was primarily developed by
  
 	      Sarah Keating, Ben Bornstein and Akiya Jouraku
 
