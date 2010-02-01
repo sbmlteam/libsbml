@@ -142,7 +142,7 @@ uninstall-isoctave:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: dist-normal dist-recursive
 
 distcheck: all distcheck-normal distcheck-recursive
 
