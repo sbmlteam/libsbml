@@ -4,93 +4,94 @@
 Version 4.1.0-b2 (Released 2010-02-02)
 ======================================================================
 
-This is a second beta version which adds further support for SBML L3
-as defined in the L3 specification 
-Release 1 (Candidate) published 2009-12-31.
+This is a second beta version which adds further support for SBML
+Level 3 as defined in the Level 3 specification Release 1 (Candidate)
+published 2009-12-31.
 
-L3 Features introduced in this version:
+* L3 Features introduced in this version:
 
-- setFoo(xxx) functions for all new attributes
+ - setFoo(xxx) functions for all new attributes in Level 3 Core
+ 
+ - unsetFoo() functions for all new optional attributes
+ 
+ - The "sbml:units" attribute on the MathML <cn> element is now
+   supported.  This includes reading and writing and getUnits,
+   isSetUnits, setUnits and unsetUnits functions for manipulating the
+   attribute on an ASTNode.
+   
+ - Support for the <csymbol> "avogadro"
 
-- unsetFoo() functions for all new optional attributes
+ - The ModelHistory element is now permissible on any SBML object
 
-- the "sbml:units" attribute on the cn element is now supported.
-  This includes reading and writing and getUnits, isSetUnits, 
-  setUnits and unsetUnits functions for manipulating the 
-  attribute on an ASTNode. 
-  
-- conversion to L3 
+ - Conversion to SBML Level 3 from Levels 1 & 2.
 
-- csymbol avogadro
 
-- ModelHistory element is now permissible on any element
+* The following Level 3 Features are not yet implemented:
 
-L3 Features that are not yet implemented:
+ - Validation of SBML Level 3 models
 
-- validation
+ - Conversion from Level 3 to other Levels/Versions of SBML
 
-- conversion from L3
 
-Note on default values:
-
-  SBML L3 does not specify default values and libSBML-4.1.0-b1
-  implemented this.  Users reported that this on occasion
-  caused problems.  Whilst we are working on a more robust
-  solution the current version constructs objects without default
-  values but has reimplemented the initDefaults() functions to
-  apply the L2 default values, regardless of SBML Level.  Thus
+* Here is an important note about default values of attributes: SBML
+  L3 does not specify default values, and libSBML-4.1.0-b1 followed
+  this principle.  Users reported that this on occasion caused
+  problems.  Although we are working on a more robust solution, the
+  current libSBML version constructs objects WITHOUT default values
+  but provides the initDefaults() functions to apply the L2 default
+  values, regardless of SBML Level.  In other words,
   
 	Unit * unit = new Unit(3,1);
-	
 	unit->initDefaults();
 	
   will assign values to the relevant attributes.
 
-In addition the release also contains
 
-* New features:
+* Additional new features in this release:
 
- - There are two new functions that allow within SBML 
-   transformations, removing components that software may be unable
-   to interpret and replacing them with appropriate attributes etc.
-   The first 'expandFunctionDefinitions' replaces any call to a
-   function with the appropriate math.  The second 
-   'expandInitialAssignments' replaces the appropriate value
-   attribute with the value calculated by applying the InitialAssignment.
+ - There are two new functions that allow within SBML transformations,
+   removing components that software may be unable to interpret and
+   replacing them with appropriate attributes etc.  The first
+   'expandFunctionDefinitions' replaces any call to a function with
+   the appropriate math.  The second 'expandInitialAssignments'
+   replaces the appropriate value attribute with the value calculated
+   by applying the InitialAssignment.
    
- - The functions that look up SpeciesReference objects from the 
-   ListOfs within a Reaction, will now search both the 'species' and 
+ - The functions that look up SpeciesReference objects from the
+   ListOfs within a Reaction, will now search both the 'species' and
    the 'id' attribute for a match.
 
-* Bug fixes:
+
+* Bug fixes new in this beta release:
  
  - [Tracker issue #2856390]
    FunctionDefinition elements and Event elements were not written 
-   when writing an SBML Level 2 file/string. This has been fixed. 
+   when writing an SBML Level 2 file/string.  This has been fixed. 
    Thanks to Lucian for reporting this problem.
 
- - SpeciesReference::isSetStoichiometry() function wrongly returned 
-   false when a stoichiometry attribute is absent in an input SBML 
-   Level 2. This has been fixed. Thanks to Frank Bergmann for spotting 
-   this.
+ - SpeciesReference::isSetStoichiometry() function wrongly returned
+   false when a stoichiometry attribute is absent in an input SBML
+   Level 2.  This has been fixed.  Thanks to Frank Bergmann for
+   spotting this.
  
- - Macros in SBMLDocument.h contained unnecessary ';'. This has been
-   fixed. Thanks to Lucian Smith for reporting this problem.
+ - Macros in SBMLDocument.h contained unnecessary ';'.  This has been
+   fixed.  Thanks to Lucian Smith for reporting this problem.
  
  - Compartment::setSpatialDimensions(unsigned int) function didn't
-   update a corresponding internal double value of spatialDimensions 
-   attribute. This has been fixed. Thanks to Frank Bergmann for 
+   update a corresponding internal double value of spatialDimensions
+   attribute.  This has been fixed.  Thanks to Frank Bergmann for
    reporting this.
+
 
 * Bug fixes that were also included in libSBML-4.0.1
 
  - [Tracker issue #2910508]
-   The install script for the matlab binding on Windows failed to
+   The install script for the MATLAB binding on Windows failed to
    reflect the new directory name.  This has been fixed.
 
  - [Tracker issue #2895082]
-   Building matlab bindings failed due to a wrong build argument.
-   This has been fixed. Thanks to Javier for reporting this problem.
+   Building MATLAB bindings failed due to a wrong build argument.
+   This has been fixed.  Thanks to Javier for reporting this problem.
 
  - [Tracker issue #2879118]
    Attempting conversion on a document that had failed during the read
@@ -99,7 +100,7 @@ In addition the release also contains
     
  - [Tracker issue #2878770]
    The code that checked uniqueness of metaids was not checking all 
-   of them.  This has been fixed. Thanks to Frank Bergmann for 
+   of them.  This has been fixed.  Thanks to Frank Bergmann for 
    spotting this problem.
 
  - [Tracker issue #2877180]
@@ -111,22 +112,22 @@ In addition the release also contains
 
  - [Tracker issue #2859186]
    The code that checks units cannot deal with an exponent that is
-   itself an expression. This has been made clearer. 
+   itself an expression.  This has been made clearer. 
 
- - The ASTNode class had no assignment operator.  This has been
-   added.
+ - The ASTNode class previously had no assignment operator.  This has
+   been added.
 
  - MIRIAM annotations could not be properly cleared after 
-   SBase::unsetCVTerms() function invoked. This has been fixed. 
+   SBase::unsetCVTerms() function invoked.  This has been fixed. 
    Thanks to Allyson Lister for spotting this problem.
 
- - MIRIAM annotations could be wrongly updated when adding/removing 
-   MIRIAM annotations. This has been fixed. Thanks to Allyson Lister 
+ - MIRIAM annotations could be wrongly updated when adding/removing
+   MIRIAM annotations.  This has been fixed.  Thanks to Allyson Lister
    for spotting this problem.
 
  - No errors were reported when reading an SBML file/string which
-   contains one or more default namespaces which are not schema 
-   conformant. This has been fixed. Thanks to Camille Laibe for 
+   contains one or more default namespaces which are not schema
+   conformant.  This has been fixed.  Thanks to Camille Laibe for
    reporting this problem.
 
  - A mismatch in the argument names meant the 
