@@ -3977,7 +3977,7 @@ def setXMLParser():
   re_libxml = re.compile('^ USE_LIBXML  \s* = \s* 1', re.X)
   re_xerces = re.compile('^ USE_XERCES  \s* = \s* 1', re.X)
 
-  f = file(make_config)
+  f = open(make_config)
   for line in f:
     if re_expat.match(line)  : USE_EXPAT   = 1 
     if re_libxml.match(line) : USE_LIBXML  = 1 
