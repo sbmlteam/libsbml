@@ -115,6 +115,7 @@ main (void)
 { 
   int num_failed;
 
+  setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_UtilsUnit() );
 
@@ -124,7 +125,6 @@ main (void)
   srunner_add_suite( runner, create_suite_FormulaUnitsData() );
   srunner_add_suite( runner, create_suite_DerivedUnitDefinition() );
   
-  setTestDataDirectory();
 
 
 #ifdef TRACE_MEMORY

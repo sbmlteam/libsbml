@@ -207,6 +207,7 @@ main (int argc, char* argv[])
 { 
   int num_failed;
 
+  setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_ReadSBML() );
   srunner_add_suite( runner, create_suite_WriteSBML() );
@@ -292,8 +293,6 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SBMLConstructorException() );
   srunner_add_suite( runner, create_suite_SBMLTransforms() );
 
-
-  setTestDataDirectory();
 
 #ifdef TRACE_MEMORY
   srunner_set_fork_status(runner, CK_NOFORK);

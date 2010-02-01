@@ -123,6 +123,7 @@ main (void)
 { 
   int num_failed;
 
+  setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_Point() );
 
@@ -144,7 +145,6 @@ main (void)
   srunner_add_suite( runner, create_suite_LayoutWriting         () );
  /* srunner_add_suite( runner, create_suite_Misc                  () ); */
 
-  setTestDataDirectory();
 
 #ifdef TRACE_MEMORY
   srunner_set_fork_status(runner, CK_NOFORK);

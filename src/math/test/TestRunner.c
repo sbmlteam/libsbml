@@ -94,6 +94,7 @@ main (void)
 { 
   int num_failed;
 
+  setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_ASTNode() );
 
@@ -108,7 +109,6 @@ main (void)
  
   srunner_add_suite( runner, create_suite_TestValidASTNode() );
 
-  setTestDataDirectory();
 
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
