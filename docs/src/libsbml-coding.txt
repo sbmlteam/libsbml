@@ -298,8 +298,8 @@ time of this writing:
  * @brief   The libSBML class of object implementing SBML's Compartment.
  * @author  Ben Bornstein
  *
- * $Id$
- * $HeadURL$
+ * $Id: libsbml-coding.txt 7249 2008-06-26 22:48:40Z bbornstei $
+ * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/sbml/Compartment.h $
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
@@ -351,7 +351,7 @@ header):
  * @brief   Definitions of CompartmentType and ListOfCompartmentTypes.
  * @author  Ben Bornstein
  *
- * $Id$
+ * $Id: libsbml-coding.txt 10899 2010-02-02 04:46:51Z mhucka $
  * $Source: /cvsroot/sbml/libsbml/src/sbml/CompartmentType.h,v $
  *
  *<!---------------------------------------------------------------------------
