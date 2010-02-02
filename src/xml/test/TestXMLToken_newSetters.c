@@ -3,8 +3,8 @@
  * \brief   XMLToken_newSetters unit tests
  * \author  Sarah Keating
  *
- * $Id: TestXMLToken_newSetters.c 7894 2008-08-13 18:11:57Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/xml/test/TestXMLToken_newSetters.c $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2007 California Institute of Technology.
  *

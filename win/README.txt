@@ -110,9 +110,9 @@ which use the code given in the ..\libsbml\examples\c++ directory
 
 -------------------------------------------
 File author: S. Keating
-Last Modified: $Date: 2009-01-03 18:26:05 -0800 (Sat, 03 Jan 2009) $
-Last Modified By: $Author: mhucka $
-$HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-4/win32/README.txt $
+Last Modified: $Date$
+Last Modified By: $Author$
+$HeadURL$
 -------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.
