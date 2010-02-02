@@ -3,8 +3,8 @@
  * \brief   Write SBML unit tests
  * \author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
