@@ -3,10 +3,10 @@
  * @brief   L3 compatibility for conversion from L2
  * @author  Sarah Keating
  *
- * $Id:  $
- * $HeadURL:  $
- */
-/* Copyright 2005 California Institute of Technology and Japan Science and
+ * $Id$
+ * $HeadURL$
+ *
+ * Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
