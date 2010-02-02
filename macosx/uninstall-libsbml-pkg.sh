@@ -4,8 +4,8 @@
 # @brief  This shell script uninstalls the libSBML package for MacOSX.
 # @author Akiya Jouraku
 #
-# $Id:$
-# $HeadURL:$
+# $Id$
+# $HeadURL$
 #
 #<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
