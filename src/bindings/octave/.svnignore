@@ -12,3 +12,4 @@ TranslateSBML.m
 Makefile
 TranslateSBML.mex
 .libs
+isoctave.m
