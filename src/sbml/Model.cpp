@@ -3318,6 +3318,7 @@ Model::getNumEvents () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * @return true if the given ASTNode is a boolean.  Often times, this
  * question can be answered with the ASTNode's own isBoolean() method,
@@ -3365,9 +3366,10 @@ Model::isBoolean (const ASTNode* node) const
 
   return false;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 /** @cond doxygen-libsbml-internal */
-
 /*
  * Sets the parent SBMLDocument of this SBML object.
  */
@@ -3389,8 +3391,10 @@ Model::setSBMLDocument (SBMLDocument* d)
   mReactions          .setSBMLDocument(d);
   mEvents             .setSBMLDocument(d);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Sets the parent SBML object of this SBML object.
   *

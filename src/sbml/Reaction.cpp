@@ -2511,7 +2511,7 @@ Reaction_getNumModifiers (const Reaction_t *r)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Reaction_t structure
+ * @param r the Reaction_t structure
  * @param n the integer index of the reactant SpeciesReference_t to remove
  *
  * @return the reactant SpeciesReference_t object removed.  As mentioned 
@@ -2534,7 +2534,7 @@ Reaction_removeReactant (Reaction_t *r, unsigned int n)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Reaction_t structure
+ * @param r the Reaction_t structure
  * @param species the "species" attribute of the reactant SpeciesReference_t 
  * to remove
  *
@@ -2558,7 +2558,7 @@ Reaction_removeReactantBySpecies (Reaction_t *r, const char *species)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Reaction_t structure
+ * @param r the Reaction_t structure
  * @param n the integer index of the product SpeciesReference_t to remove
  *
  * @return the product SpeciesReference_t object removed.  As mentioned 
@@ -2581,7 +2581,7 @@ Reaction_removeProduct (Reaction_t *r, unsigned int n)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Reaction_t structure
+ * @param r the Reaction_t structure
  * @param species the "species" attribute of the product SpeciesReference_t 
  * to remove
  *
@@ -2605,7 +2605,7 @@ Reaction_removeProductBySpecies (Reaction_t *r, const char *species)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Reaction_t structure
+ * @param r the Reaction_t structure
  * @param n the integer index of the modifier SpeciesReference_t to remove
  *
  * @return the modifier SpeciesReference_t object removed.  As mentioned 
@@ -2628,7 +2628,7 @@ Reaction_removeModifier (Reaction_t *r, unsigned int n)
  *
  * The caller owns the returned object and is responsible for deleting it.
  *
- * @param m the Reaction_t structure
+ * @param r the Reaction_t structure
  * @param species the "species" attribute of the modifier SpeciesReference_t 
  * to remove
  *

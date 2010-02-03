@@ -987,7 +987,7 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * @param conversionFactor the new conversionFactor for the Species
+   * @param sid the new conversionFactor for the Species
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

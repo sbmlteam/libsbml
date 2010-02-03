@@ -97,14 +97,15 @@ public:
    */
   static void replaceFD(ASTNode * math, const ListOfFunctionDefinitions * lofd);
 
-  
   /** @endcond doxygen-libsbml-internal */
+
 
   /** @cond doxygen-libsbml-internal */
   
   static bool expandInitialAssignments(Model * m);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond doxygen-libsbml-internal */w
+
  
   /** @cond doxygen-libsbml-internal */
   

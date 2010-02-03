@@ -34,6 +34,9 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+/** @cond doxygen-libsbml-internal */
+
 void
 SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd)
 {
@@ -109,6 +112,7 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
     (*node) = *fdMath;
 }
 
+
 bool
 SBMLTransforms::checkFunctionNodeForIds(ASTNode * node, IdList& ids)
 {
@@ -132,6 +136,7 @@ SBMLTransforms::checkFunctionNodeForIds(ASTNode * node, IdList& ids)
   
   return present;
 }
+
 
 bool
 SBMLTransforms::nodeContainsId(const ASTNode * node, IdList& ids)
@@ -946,6 +951,8 @@ SBMLTransforms::expandInitialAssignment(Species * s,
 
   return success;
 }
+
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-c-only */
 

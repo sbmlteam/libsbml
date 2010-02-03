@@ -2879,8 +2879,9 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type)
  * Sets the units of this ASTNode to units.
  *
  * The units will be set <em>only if</em> the
- * ASTNode represents an <cn> element. Use isNumber().
+ * ASTNode represents an &lt;cn&gt; element. Use isNumber().
  *
+ * @param node the ASTNode to set
  * @param units @c string representing units
  *
  * @return integer value indicating success/failure of the

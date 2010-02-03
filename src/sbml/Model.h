@@ -2318,7 +2318,6 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
-
   /**
    * Predicate returning @c true or @c false depending on whether the
    * given ASTNode is a boolean.
@@ -2333,6 +2332,7 @@ public:
   bool isBoolean (const ASTNode* node) const;
 
   /** @endcond doxygen-libsbml-internal */
+
 
   /** @cond doxygen-libsbml-internal */
 

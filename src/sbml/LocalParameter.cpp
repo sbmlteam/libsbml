@@ -1,5 +1,5 @@
 /**
- * @file    LocalLocalParameter.cpp
+ * @file    LocalParameter.cpp
  * @brief   Implementations of LocalLocalParameter and ListOfLocalLocalParameters.
  * @author  Sarah Keating
  *

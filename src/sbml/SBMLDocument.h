@@ -420,7 +420,7 @@ public:
 
   /**
    * Removes any FunctionDefinitions from the document and expands
-   * any instances of their use within <math> elements.
+   * any instances of their use within &lt;math&gt; elements.
    *
    * For example a Model contains a FunctionDefinition with id f
    * representing the math expression: f(x, y) = x * y.
@@ -429,13 +429,13 @@ public:
    * now represents the math expression: s * p and the model no longer
    * contains any FunctionDefinitions.
    * 
-   * @ return bool @true if the transformation was successful, 
-   * @false, otherwise.
+   * @return bool @c true if the transformation was successful, 
+   * @c false, otherwise.
    *
    * @note This function will check the consistency of a model
    * before attemptimg the transformation.  In the case of a model
    * with invalid SBML the transformation will not be done and the
-   * function will return @false.
+   * function will return @c false.
    * 
    */
   bool expandFunctionDefinitions();
@@ -452,18 +452,18 @@ public:
    * of the InitialAssignment and the corresponding InitialAssignment
    * has been removed from the Model.
    * 
-   * @ return bool @true if the transformation was successful, 
-   * @false, otherwise.
+   * @ return bool @c true if the transformation was successful, 
+   * @c false, otherwise.
    *
    * @note This function will check the consistency of a model
    * before attemptimg the transformation.  In the case of a model
    * with invalid SBML the transformation will not be done and the
-   * function will return @false.  As part of the process the 
+   * function will return @c false.  As part of the process the 
    * function will check that it has values for any components
    * referred to by the math elements of InitialAssignments.  In
    * the case where not all values have been declared the particular
    * InitialAssignment will not be removed and the function will 
-   * return @false.
+   * return @c false.
    */
   bool expandInitialAssignments();
 

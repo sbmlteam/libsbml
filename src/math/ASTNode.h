@@ -1225,7 +1225,7 @@ public:
    * Sets the units of this ASTNode to units.
    *
    * The units will be set <em>only if</em> the
-   * ASTNode represents an <cn> element. Use isNumber().
+   * ASTNode represents an &lt;cn&gt; element. Use isNumber().
    *
    * @param units @c string representing units
    *
