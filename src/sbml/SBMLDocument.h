@@ -503,7 +503,7 @@ public:
    *
    * @param strict boolean indicating whether to check consistency
    * of both the source and target model when performing
-   * conversion (defaults to <code> true <\code>)
+   * conversion (defaults to <code> true </code>)
    *
    * @note Calling this method will not @em necessarily lead to a successful
    * conversion.  If the conversion fails, it will be logged in the error
