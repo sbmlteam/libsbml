@@ -640,15 +640,14 @@ useful.  We therefore take this opportunity to illustrate the use of
 libSBML's validation and checking facilities.
 
 The rationale behind libSBML's consistency-checking and validation
-functions is the following.  In libSBML versions up to and including
-the version 3.3.x series, the individual methods for creating and
-setting attributes and other components are quite lenient, and allow a
-caller to compose SBML entities that may not, in the end, represent
-valid SBML.  This allows applications the freedom to do things such as
-save incomplete models (which is useful when models are being
-developed over long periods of time), but at the same time, it means
-that a separate validation step is necessary when a calling program
-finally wants to finish a complete SBML document.
+functions is the following.  The individual libSBML for creating and
+setting attributes and other components are generally quite lenient,
+and allow a caller to compose SBML entities that may not, in the end,
+represent valid SBML.  This allows applications the freedom to do
+things such as save incomplete models (which is useful when models are
+being developed over long periods of time), but at the same time, it
+means that a separate validation step is necessary when a calling
+program finally wants to finish a complete SBML document.
 
 LibSBML implements verification of SBML in two steps, represented by
 the two methods SBMLDocument::checkInternalConsistency() and
@@ -690,7 +689,7 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
   unsigned int numValidationErrors    = 0;
   unsigned int numValidationWarnings  = 0;
 
-  // LibSBML 3.3 is lenient when generating models from scratch using the
+  // LibSBML is lenient when generating models from scratch using the
   // API for creating objects.  Once the whole model is done and before it
   // gets written out, it's important to check that the whole model is in
   // fact complete, consistent and valid.

@@ -1,11 +1,12 @@
-@section rules-general General summary of SBML rules
+<h2>General General summary of SBML rules</h2>
 <p>
 In SBML Level&nbsp;2, rules are separated into three subclasses for the
-benefit of model analysis software.  The three subclasses are based on
-the following three different possible functional forms (where @em x is
-a variable, @em f is some arbitrary function returning a numerical
-result, <b>V</b> is a vector of variables that does not include @em x,
-and <b>W</b> is a vector of variables that may include @em x):
+benefit of model analysis software.  The three subclasses are based on the
+following three different possible functional forms (where <em>x</em> is a
+variable, <em>f</em> is some arbitrary function returning a numerical
+result, <b><em>V</em></b> is a vector of variables that does not include
+<em>x</em>, and <b><em>W</em></b> is a vector of variables that may include
+<em>x</em>):
 
 <p>
 <center>
@@ -18,11 +19,11 @@ and <b>W</b> is a vector of variables that may include @em x):
 
 <p>
 In their general form given above, there is little to distinguish
-between @em assignment and @em algebraic rules.  They are treated as
+between <em>assignment</em> and <em>algebraic</em> rules.  They are treated as
 separate cases for the following reasons:
 <p>
 <ul>
-<li> @em Assignment rules can simply be evaluated to calculate
+<li> <em>Assignment</em> rules can simply be evaluated to calculate
 intermediate values for use in numerical methods.  They are statements
 of equality that hold at all times.  (For assignments that are only
 performed once, see InitialAssignment.)<p>
@@ -36,11 +37,11 @@ as assignment rules may enable those simulators to process models they
 could not process if the same assignments were put in the form of
 general algebraic equations;<p>
 
-<li> Those simulators that @em can solve these algebraic equations make a
+<li> Those simulators that <em>can</em> solve these algebraic equations make a
 distinction between the different categories listed above; and<p>
 
 <li> Some specialized numerical analyses of models may only be applicable
-to models that do not contain @em algebraic rules.
+to models that do not contain <em>algebraic</em> rules.
 </ul>
 
 <p> The approach taken to covering these cases in SBML is to define an
@@ -58,7 +59,7 @@ The AssignmentRule and RateRule classes add an additional attribute,
 "variable".  See the definitions of AssignmentRule, AlgebraicRule and
 RateRule for details about the structure and interpretation of each one.
 
-@section rule-restrictions Additional restrictions on SBML rules
+<h2>Additional restrictions on SBML rules</h2>
 
 <p> An important design goal of SBML rule semantics is to ensure that a
 model's simulation and analysis results will not be dependent on when or
@@ -66,7 +67,7 @@ how often rules are evaluated.  To achieve this, SBML needs to place two
 restrictions on rule use.  The first concerns algebraic loops in the system
 of assignments in a model, and the second concerns overdetermined systems.
 
-@subsection rule-loops A model must not contain algebraic loops
+<h3>A model must not contain algebraic loops</h3>
 
 <p> The combined set of InitialAssignment, AssignmentRule and KineticLaw
 objects in a model constitute a set of assignment statements that should be
@@ -95,13 +96,13 @@ Conversely, the following set of equations would constitute a valid set of
 assignment statements: <em>x = 10</em>, <em>y = z + 200</em>, and <em>z = x
 + 100</em>.
 
-@subsection rules-overdetermined A model must not be overdetermined
+<h3>A model must not be overdetermined</h3>
 
 <p> An SBML model must not be overdetermined; that is, a model must not
 define more equations than there are unknowns in a model.  An SBML model
 that does not contain AlgebraicRule structures cannot be overdetermined.
 
-<p> LibSBML 3.3 implements the static analysis procedure described in
+<p> LibSBML implements the static analysis procedure described in
 Appendix D of the SBML Level&nbsp;2 Version&nbsp;4 specification for
 assessing whether a model is overdetermined.
 

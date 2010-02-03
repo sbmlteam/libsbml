@@ -127,9 +127,9 @@ Finally, another set of libsbml::SBMLDocument methods worth mentioning in
 the context of reading SBML are those for running consistency-checking and
 validation rules on the SBML content.  These methods assess whether the
 SBML is legal according to basic rules listed in the SBML Level&nbsp;2
-Version&nbsp;2 and Version&nbsp;3 specification documents.  Note that they
-are mostly structural checks, in the sense that they can indicate whether
-the SBML is properly constructed; they cannot tell if a model is nonsense.
+Version&nbsp;2 through&nbsp;4 specification documents.  Note that they are
+mostly structural checks, in the sense that they can indicate whether the
+SBML is properly constructed; they cannot tell if a model is nonsense.
 (But at least they can assess whether it's syntactically correct
 nonsense!).
 
@@ -155,9 +155,18 @@ peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
 returns the number of failures.  If all the checks succeed, it returns 0.
 
-At the time of this writing, the most recent release of SBML is
-Level&nbsp;2 Version&nbsp;3, which is why the compatibility checks above
-only refer to Level&nbsp;2 Version&nbsp;2 at the most.
+@li <code>int libsbml::SBMLDocument::checkL2v3Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;3, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+
+@li <code>int libsbml::SBMLDocument::checkL2v4Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;4, and
+returns the number of failures.  If all the checks succeed, it returns 0.
+
+This release of libSBML supports Levels/Versions of SBML up through
+Level&nbsp;2 Version&nbsp;4.
 
 
 @section rf-writing Writing SBML
