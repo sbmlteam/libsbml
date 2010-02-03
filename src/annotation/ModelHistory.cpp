@@ -1995,9 +1995,9 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * email)
  */
 LIBSBML_EXTERN
 int 
-ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
+ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
 {
-  return mc->setOrganisation(name);
+  return mc->setOrganisation(org);
 }
 
 
