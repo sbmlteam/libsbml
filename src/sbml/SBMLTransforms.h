@@ -104,7 +104,7 @@ public:
   
   static bool expandInitialAssignments(Model * m);
 
-  /** @endcond doxygen-libsbml-internal */w
+  /** @endcond doxygen-libsbml-internal */
 
  
   /** @cond doxygen-libsbml-internal */
