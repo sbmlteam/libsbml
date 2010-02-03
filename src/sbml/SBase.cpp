@@ -1975,7 +1975,7 @@ SBase::setSBOTerm (int value)
  * Sets the sboTerm field to value converted from the given string.
  */
 int
-SBase::setSBOTerm (const string &sboid)
+SBase::setSBOTerm (const std::string &sboid)
 {
   return setSBOTerm(SBO::stringToInt(sboid));
 }
