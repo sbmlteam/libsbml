@@ -1,5 +1,14 @@
            libSBML NEWS -- History of user-visible changes
 
+Current development
+
+* Bug fixes
+
+ - [Tracker issue #2946870]
+   The default level, version and namespaces were not consistent.
+   They are now; kept at L2V4 until all L3 support is finished.
+   Thanks to Lucian Smith for reporting this.
+  
 ======================================================================
 Version 4.1.0-b2 (Released 2010-02-02)
 ======================================================================
