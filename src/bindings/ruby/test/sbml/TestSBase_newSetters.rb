@@ -42,6 +42,30 @@ class TestSBase_newSetters < Test::Unit::TestCase
     @@s = nil
   end
 
+  def test_SBase_setModelHistory
+    sb = LibSBML::Species.new(2,4)
+    mh = LibSBML::ModelHistory.new()
+    i = sb.setModelHistory(mh)
+    assert( i == LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE )
+    mh = nil
+  end
+
+  def test_SBase_setModelHistory_Model
+    history = LibSBML::ModelHistory.new()
+    mc = LibSBML::ModelCreator.new()
+    date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
+    mc.setFamilyName( "Keating")
+    mc.setGivenName( "Sarah")
+    mc.setEmail( "sbml-team@caltech.edu")
+    mc.setOrganisation( "UH")
+    history.addCreator(mc)
+    history.setCreatedDate(date)
+    history.setModifiedDate(date)
+    i = @@s.setModelHistory(history)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    history = nil
+  end
+
   def test_SBase_addCVTerms
     cv = LibSBML::CVTerm.new(LibSBML::BIOLOGICAL_QUALIFIER)
     cv.setBiologicalQualifierType(LibSBML::BQB_ENCODES)

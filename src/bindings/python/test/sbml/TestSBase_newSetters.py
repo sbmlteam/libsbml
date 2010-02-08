@@ -991,6 +991,30 @@ class TestSBase_newSetters(unittest.TestCase):
     self.assertEqual( False, self.S.isSetMetaId() )
     pass  
 
+  def test_SBase_setModelHistory(self):
+    sb = libsbml.Species(2,4)
+    mh = libsbml.ModelHistory()
+    i = sb.setModelHistory(mh)
+    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    mh = None
+    pass  
+
+  def test_SBase_setModelHistory_Model(self):
+    history = libsbml.ModelHistory()
+    mc = libsbml.ModelCreator()
+    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
+    mc.setFamilyName( "Keating")
+    mc.setGivenName( "Sarah")
+    mc.setEmail( "sbml-team@caltech.edu")
+    mc.setOrganisation( "UH")
+    history.addCreator(mc)
+    history.setCreatedDate(date)
+    history.setModifiedDate(date)
+    i = self.S.setModelHistory(history)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    history = None
+    pass  
+
   def test_SBase_setNamespaces(self):
     ns = libsbml.XMLNamespaces()
     ns.add("url", "name")

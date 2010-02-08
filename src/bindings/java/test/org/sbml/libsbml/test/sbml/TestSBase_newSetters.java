@@ -1130,6 +1130,32 @@ public class TestSBase_newSetters {
     assertEquals( false, S.isSetMetaId() );
   }
 
+  public void test_SBase_setModelHistory()
+  {
+    SBase sb = new Species(2,4);
+    ModelHistory mh = new  ModelHistory();
+    long i = sb.setModelHistory(mh);
+    assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
+    mh = null;
+  }
+
+  public void test_SBase_setModelHistory_Model()
+  {
+    ModelHistory history = new  ModelHistory();
+    ModelCreator mc = new  ModelCreator();
+    Date date = new  Date(2005,12,30,12,15,45,1,2,0);
+    mc.setFamilyName( "Keating");
+    mc.setGivenName( "Sarah");
+    mc.setEmail( "sbml-team@caltech.edu");
+    mc.setOrganisation( "UH");
+    history.addCreator(mc);
+    history.setCreatedDate(date);
+    history.setModifiedDate(date);
+    long i = S.setModelHistory(history);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    history = null;
+  }
+
   public void test_SBase_setNamespaces()
   {
     XMLNamespaces ns = new XMLNamespaces();
