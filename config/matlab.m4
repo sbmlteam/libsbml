@@ -49,35 +49,53 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       AC_MSG_ERROR([Could not find 'mex' executable for MATLAB.])
     fi
 
-    dnl The mex extension really should be obtained using matlab's
-    dnl "mexext", but it lives in the matlab directory and there's no way
-    dnl to know a priori where that is.  After all, users may only have
-    dnl provided --with-matlab during configuration, without telling us the
-    dnl matlab installation directory.
+    dnl
+    dnl Obtain the matlab's install path 
+    dnl
+    MATLAB_PREFIX=`$MATLAB -e | grep '^MATLAB' | awk -F'=' '{print $2}'`
 
-    case $host in
-    *86-*-darwin*) 
-      MEXEXT="mexmaci"
-      ;;
+    dnl
+    dnl Obtain the mex extension by mexext command.
+    dnl
+    MATLAB_MEXEXT="${MATLAB_PREFIX}/bin/mexext"
+    MEXEXT=`${MATLAB_MEXEXT}`
 
-    *powerpc-*-darwin*) 
-      MEXEXT="mexmac"
-      ;;
+    dnl Checks if the matlab (32bit) is used on Snow Leopard.
+    dnl Since, by default, gcc generates a 64bit (x86_64) only binary on 
+    dnl Snow Leopard, a 32bit (i386) binary needs to be explicitly built by
+    dnl gcc with "-arch i386" option if matlab (32bit) is used.
+    dnl Thus, an error message is printed if "-arch i386" option is not 
+    dnl enabled with the combination of the matlab (32bit) and Snow Leopard.
 
-    *cygwin*) 
-      MEXEXT="dll"
-      ;;
+    OSX_SNOW_LEOPARD="no"
+    OSX_MAJOR_VER=`uname -r | awk -F. '{print $1}'`
+    if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
+      OSX_SNOW_LEOPARD="yes"
+    fi
 
-    *x86_64*)
-      MEXEXT="mexa64"
-      ;;
+    if test ${OSX_SNOW_LEOPARD} = "yes" -a ${MEXEXT} = "mexmaci"; then
+      AC_MSG_CHECKING(whether -arch i386 option is enabled for Matlab 32bit on Snow Leopard.)
+      OSX_ARCH_I386="no"
+      if echo $CXXFLAGS | grep -q "-arch i386"; then
+        OSX_ARCH_I386="yes"
+      elif echo $CPPFLAGS | grep -q "-arch i386"; then
+        OSX_ARCH_I386="yes"
+      fi
 
-    dnl Default is x86.
-    *)
-      MEXEXT="mexglx"
-      ;;
-
-    esac
+      if test ${OSX_ARCH_I386} = "no"; then
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR([libSBML needs to be built with a 32bit (i386) binary because your 
+                      Matlab is 32bit version (By default, only 64bit (x86_64) binary is 
+                      compiled by g++ on Snow Leopard). 
+                      Please add --enable-universal-binary="-arch i386 -arch x86_64" option 
+                      when running the configure script.  
+                      If you get a compilation error, please check if a dependent library 
+                      (expat, libxml, or xerces) is built with a 32bit (i386) binary.])
+      else
+        AC_MSG_RESULT(yes)
+      fi
+      
+    fi
 
     AC_DEFINE([USE_MATLAB], 1, [Define to 1 to use Matlab])
     AC_SUBST(USE_MATLAB, 1)

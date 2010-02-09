@@ -206,6 +206,12 @@ AC_COMPILE_IFELSE(
 CPPFLAGS=$saved_CPPFLAGS
 
 
+#
+# Checks --enable-universal-binary option 
+# (CONFIG_LIB_UNIVBINARY must be located before CONFIG_PROG_MATLAB)
+#
+CONFIG_LIB_UNIVBINARY
+
 # The Lisp language binding has been removed for the time being, because it
 # no longer works in recent versions of libSBML.
 
