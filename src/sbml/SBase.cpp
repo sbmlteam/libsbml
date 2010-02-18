@@ -1429,7 +1429,7 @@ SBase::setNotes(const XMLNode* notes)
     {
       for (unsigned int i=0; i < notes->getNumChildren(); i++)
       {
-        if (mNotes->addChild(notes->getChild(0)) < 0)
+        if (mNotes->addChild(notes->getChild(i)) < 0)
         {
           return LIBSBML_OPERATION_FAILED;
         }
