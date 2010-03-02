@@ -38,7 +38,7 @@ main (int argc, char* argv[])
   bool cont = true;
   while (hFind != INVALID_HANDLE_VALUE && cont)
   {
-    sprintf(command_line, "validateSBML.exe %s\\\\%s out.xml", argv[1],FindFileData.cFileName);
+    sprintf(command_line, "validateSBML.exe %s\\\\%s", argv[1],FindFileData.cFileName);
     cout << command_line << endl;
     system(command_line);
     cont = FindNextFile(hFind, &FindFileData);
