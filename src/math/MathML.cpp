@@ -593,10 +593,12 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   string encoding;
   string type;
   string url;
+  string units;
 
   elem.getAttributes().readInto( "encoding"     , encoding );
   elem.getAttributes().readInto( "type"         , type     );
   elem.getAttributes().readInto( "definitionURL", url      );
+  elem.getAttributes().readInto( "units"        , units );
 
   if ( !type.empty() && name != "cn")
   {
@@ -634,7 +636,15 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   }
 
 
-  if (name == "apply" || name == "lambda" || name == "piecewise")
+  if ( !units.empty() && name != "cn")
+  {
+    static_cast <SBMLErrorLog*>
+      (stream.getErrorLog())->logError(DisallowedMathUnitsUse, 
+                                      stream.getSBMLNamespaces()->getLevel(), 
+                                      stream.getSBMLNamespaces()->getVersion());
+  }
+
+   if (name == "apply" || name == "lambda" || name == "piecewise")
   {
     if (name == "apply")
     {

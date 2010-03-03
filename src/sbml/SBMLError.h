@@ -603,6 +603,7 @@ typedef enum
  , NotUTF8                               = 10101 /*!< Not UTF8 */
  , UnrecognizedElement                   = 10102 /*!< Unrecognized element */
  , NotSchemaConformant                   = 10103 /*!< Not conformant to SBML XML schema */
+ , L3NotSchemaConformant                 = 10104 /*!< Not conformant to SBML XML schema */
  , InvalidMathElement                    = 10201 /*!< Invalid MathML */
  , DisallowedMathMLSymbol                = 10202 /*!< Disallowed MathML symbol */
  , DisallowedMathMLEncodingUse           = 10203 /*!< Disallowed use of MathML <code>encoding</code> attribute */
@@ -622,6 +623,8 @@ typedef enum
  , MathResultMustBeNumeric               = 10217 /*!< Formula result is not a numerical value */
  , OpsNeedCorrectNumberOfArgs            = 10218 /*!< Incorrect number of arguments to operator */
  , InvalidNoArgsPassedToFunctionDef      = 10219 /*!< Incorrect number of arguments to function */
+ , DisallowedMathUnitsUse                = 10220 /*!< Incorrect number of arguments to function */
+ , InvalidUnitsValue                     = 10221 /*!< Incorrect number of arguments to function */
  , DuplicateComponentId                  = 10301 /*!< Duplicate component identifier */
  , DuplicateUnitDefinitionId             = 10302 /*!< Duplicate unit definition identifier */
  , DuplicateLocalParameterId             = 10303 /*!< Duplicate local parameter identifier */

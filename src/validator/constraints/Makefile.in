@@ -128,6 +128,7 @@ sources =                                     \
   UniqueVarsInInitialAssignmentsAndRules.cpp  \
   UniqueVarsInRules.cpp                       \
   UnitConsistencyConstraints.cpp              \
+  ValidCnUnitsValue.cpp                       \
   UnitsBase.cpp
 
 header_inst_prefix = validator/constraints
@@ -178,7 +179,8 @@ other_headers = \
   UniqueVarsInEventAssignments.h           \
   UniqueVarsInEventsAndRules.h             \
   UniqueVarsInInitialAssignmentsAndRules.h \
-  UniqueVarsInRules.h
+  UniqueVarsInRules.h                      \
+  ValidCnUnitsValue.h
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model>
-    <listOfCompartments>
-      <compartment id="c" constant="false"/>
-    </listOfCompartments>
-    <listOfSpecies>
-      <species id="s" compartment="c"/>
-    </listOfSpecies>
     <listOfParameters>
       <parameter id="y" constant="false"/>
       <parameter id="q" constant="true"/>
@@ -17,13 +11,13 @@
       <initialAssignment symbol="z">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <plus/>
+            <neq/>
             <apply>
               <gt/>
-              <ci> y </ci>
               <ci> z </ci>
+              <cn type="integer"> 6 </cn>
             </apply>
-            <ci> y </ci>
+            <true/>
           </apply>
         </math>
       </initialAssignment>

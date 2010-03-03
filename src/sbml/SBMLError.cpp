@@ -62,7 +62,7 @@ getSeverityForEntry(unsigned int index,
       return errorTable[index].l1v2_severity;
     }
   }
-  else   // Must be level 2.
+  else if ( level == 2)  // Must be level 2.
   {
     switch (version)
     {
@@ -78,6 +78,15 @@ getSeverityForEntry(unsigned int index,
     case 4:
     default:
       return errorTable[index].l2v4_severity;
+    }
+  }
+  else
+  {
+    switch (version)
+    {
+    case 1:
+    default:
+      return errorTable[index].l3v1_severity;
     }
   }
 }

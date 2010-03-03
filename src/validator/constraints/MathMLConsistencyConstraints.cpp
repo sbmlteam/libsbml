@@ -39,6 +39,7 @@
 #include "LocalParameterMathCheck.h"
 #include "NumberArgsMathCheck.h"
 #include "FunctionNoArgsMathCheck.h"
+#include "ValidCnUnitsValue.h"
 
 
 #endif
@@ -80,4 +81,8 @@ EXTERN_CONSTRAINT( 10216, LocalParameterMathCheck)
 EXTERN_CONSTRAINT( 10217, NumericReturnMathCheck )
 EXTERN_CONSTRAINT( 10218, NumberArgsMathCheck )
 EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
+
+// 10220: units only on cn - caught at read
+
+EXTERN_CONSTRAINT( 10221, ValidCnUnitsValue)
 

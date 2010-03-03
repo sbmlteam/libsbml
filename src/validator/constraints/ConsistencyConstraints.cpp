@@ -776,7 +776,14 @@ END_CONSTRAINT
 START_CONSTRAINT (20501, Compartment, c)
 {
   pre( c.getLevel() > 1);
-  pre( c.getSpatialDimensions() == 0 );
+  if (c.getLevel() == 2)
+  {
+    pre( c.getSpatialDimensions() == 0 );
+  }
+  else
+  {
+    pre( c.getSpatialDimensionsAsDouble() == 0);
+  }
   
   //msg =
   //  "The size of a <compartment> must not be set if the compartment's "
@@ -791,7 +798,14 @@ END_CONSTRAINT
 START_CONSTRAINT (20502, Compartment, c)
 {
   pre( c.getLevel() > 1);
-  pre( c.getSpatialDimensions() == 0 );
+  if (c.getLevel() == 2)
+  {
+    pre( c.getSpatialDimensions() == 0 );
+  }
+  else
+  {
+    pre( c.getSpatialDimensionsAsDouble() == 0);
+  }
 
   //msg =
   //  "If a <compartment> definition has a 'spatialDimensions' value of '0', "
@@ -808,8 +822,14 @@ END_CONSTRAINT
 START_CONSTRAINT (20503, Compartment, c)
 {
   pre( c.getLevel() > 1);
-  pre( c.getSpatialDimensions() == 0 );
-
+  if (c.getLevel() == 2)
+  {
+    pre( c.getSpatialDimensions() == 0 );
+  }
+  else
+  {
+    pre( c.getSpatialDimensionsAsDouble() == 0);
+  }
   //msg =
   //  "If a <compartment> definition has a 'spatialDimensions' value of '0', "
   //  "then its 'constant' attribute value must either default to or be set to "
