@@ -275,6 +275,48 @@ SBMLError::SBMLError (  const unsigned int errorId
     // Finish updating the (full) error message.
 
     newMsg << errorTable[index].message;
+    
+    // look for individual references
+    // if the code for this error does not yet exist skip
+
+    if (errorTable[index].reference.ref_l3v1 != NULL)
+    {
+
+      std::string ref;
+      switch(level)
+      {
+      case 1:
+        ref = errorTable[index].reference.ref_l1;
+        break;
+      case 2:
+        switch(version)
+        {
+        case 1:
+          ref = errorTable[index].reference.ref_l2v1;
+          break;
+        case 2:
+          ref = errorTable[index].reference.ref_l2v2;
+          break;
+        case 3:
+          ref = errorTable[index].reference.ref_l2v3;
+          break;
+        case 4:
+        default:
+          ref = errorTable[index].reference.ref_l2v4;
+          break;
+        }
+        break;
+      case 3:
+      default:
+        ref = errorTable[index].reference.ref_l3v1;
+        break;
+      }
+
+      if (!ref.empty())
+      {
+        newMsg << "\nReference: " << ref << endl;
+      }
+    }
     if (!details.empty())
     {
       newMsg << " " << details;

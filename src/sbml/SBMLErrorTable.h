@@ -32,6 +32,15 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
+typedef struct {
+  const char * ref_l1;
+  const char * ref_l2v1;
+  const char * ref_l2v2;
+  const char * ref_l2v3;
+  const char * ref_l2v4;
+  const char * ref_l3v1;
+} referenceEntry;
+
 
 typedef struct {
   unsigned int code;
@@ -45,6 +54,7 @@ typedef struct {
   unsigned int l2v4_severity;
   unsigned int l3v1_severity;
   const char*  message;
+  referenceEntry reference;
 } sbmlErrorTableEntry;
 
 
@@ -491,8 +501,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A MathML operator must be supplied the number of arguments "
-    "appropriate for that operator. (References: SBML L2V2 Section "
-    "SBML 3.5.1; L2V3 Section 3.4.1; L2V4 Section 3.4.1; L3V1 Section 3.4.1)"
+    "appropriate for that operator.",
+    {"",
+     "",
+     "L2V2 Section 3.5.1",
+     "L2V3 Section 3.4.1",
+     "L2V4 Section 3.4.1",
+     "L3V1 Section 3.4.1"}
   },
 
   //10219
