@@ -720,10 +720,12 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     while (stream.isGood() && stream.peek().isEndFor(elem) == false)
     {
       /* it is possible to have a piecewise with no otherwise
+       * OR a function with no arguments
        */
       stream.skipText();
       if (elem.getName() == "piecewise" 
         && stream.peek().getName() == "piecewise") continue;
+      else if (stream.peek().isEndFor(elem)) continue;
 
       ASTNodeType_t type = node.getType();
       if (type == AST_PLUS || type == AST_TIMES) reduceBinary(node);
