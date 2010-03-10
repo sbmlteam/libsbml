@@ -581,8 +581,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "<compartmentType>, <compartment>, <speciesType>, <species>, <reaction>, "
     "<speciesReference>, <modifierSpeciesReference>, <event>, and model-wide "
     "<parameter>s. Note that <unitDefinition> and parameters defined inside "
-    "a reaction are treated separately. (References: L2V1 Section 3.5; L2V2 "
-    "Section 3.4.1; L2V3 Section 3.3; L2V4 Section 3.3)"
+    "a reaction are treated separately. ",
+    {"",
+     "L2V1 Section 3.5",
+     "L2V2 Section 3.4.1",
+     "L2V3 Section 3.3",
+     "L2V4 Section 3.3",
+     "L3V1 Section 3.3"}
   },
 
   //10302
@@ -598,9 +603,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of the 'id' field of every <unitDefinition> must be unique "
-    "across the set of all <unitDefinition>s in the entire model. "
-    "(References: L2V1 Sections 3.5 and 4.4; L2V2 Sections 3.4.1 and 4.4; "
-    "L2V3 Sections 3.3 and 4.4; L2V4 Sections 3.3 and 4.4)"
+    "across the set of all <unitDefinition>s in the entire model. ",
+    {"",
+     "L2V1 Sections 3.5 and 4.4",
+     "L2V2 Sections 3.4.1 and 4.4",
+     "L2V3 Sections 3.3 and 4.4",
+     "L2V4 Sections 3.3 and 4.4",
+     "L3V1 Sections 3.3 and 4.4"}
   },
 
   //10303
@@ -617,9 +626,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'id' field of each parameter defined locally within a "
     "<kineticLaw> must be unique across the set of all such parameter "
-    "definitions in that <kineticLaw>. (References: L2V1 Sections 3.4.1 and "
-    "4.13.9; L2V2 Sections 3.4.1 and 4.13.5; L2V3 Sections 3.3.1 and 4.13.5; "
-    "L2V4 Sections 3.3.1 and 4.13.5)"
+    "definitions in that <kineticLaw>.",
+    {"",
+     "L2V1 Sections 3.4.1 and 4.13.9",
+     "L2V2 Sections 3.4.1 and 4.13.5",
+     "L2V3 Sections 3.3.1 and 4.13.5",
+     "L2V4 Sections 3.3.1 and 4.13.5",
+     "L3V1 Sections 3.3.1 and 4.11.5"}
   },
 
   //10304
@@ -636,8 +649,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the 'variable' field in all <assignmentRule> and "
     "<rateRule> definitions must be unique across the set of all such rule "
-    "definitions in a model. (References: L2V1 Section 4.8.4; L2V2 Section "
-    "4.11.3; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
+    "definitions in a model.",
+    {"",
+     "L2V1 Section 4.8.4",
+     "L2V2 Section 4.11.3",
+     "L2V3 Section 4.11.3",
+     "L2V4 Section 4.11.3",
+     "L3V1 Section 4.9.3"}
   },
 
   //10305
@@ -654,8 +672,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "In each <event>, the value of the 'variable' field within every "
     "<eventAssignment> definition must be unique across the set of all "
-    "<eventAssignment>s within that <event>. (References: L2V1 erratum 17; "
-    "L2V2 Section 4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
+    "<eventAssignment>s within that <event>.",
+    {"",
+     "L2V1 erratum 17",
+     "L2V2 Section 4.14.2",
+     "L2V3 Section 4.14.4",
+     "L2V4 Section 4.14.4",
+     "L3V1 Section 4.12.4"}
   },
 
   //10306
@@ -671,9 +694,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "An identifier used as the value of 'variable' in an <eventAssignment> "
-    "cannot also appear as the value of 'variable' in an <assignmentRule>. "
-    "(References: L2V1 Section 4.10.5; L2V2 Section 4.14; L2V3 Section 4.14.4; "
-    "L2V4 section 4.14.4)"
+    "cannot also appear as the value of 'variable' in an <assignmentRule>. ",
+    {"",
+     "L2V1 Section 4.10.5",
+     "L2V2 Section 4.14",
+     "L2V3 Section 4.14.4",
+     "L2V4 Section 4.14.4",
+     "L3V1 Section 4.12.4"}
   },
 
   //10307
@@ -689,8 +716,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Every 'metaid' attribute value must be unique across the set of all "
-    "'metaid' values in a model. (References: L2V2 Sections 3.3.1 and "
-    "3.1.6; L2V3 Sections 3.1.6 and 3.2.1; L2V4 Sections 3.1.6 and 3.2.1;)"
+    "'metaid' values in a model.",
+    {"",
+     "",
+     "L2V2 Sections 3.3.1 and 3.1.6",
+     "L2V3 Sections 3.1.6 and 3.2.1",
+     "L2V4 Sections 3.1.6 and 3.2.1",
+     "L3V1 Sections 3.1.6 and 3.2.1"}
   },
 
   //10308
