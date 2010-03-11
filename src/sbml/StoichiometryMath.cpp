@@ -393,7 +393,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes)
   // sboTerm: SBOTerm { use="optional" }  (L2v3->)
   //
   if (!(level == 2 && version < 3))
-    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
 /** @endcond doxygen-libsbml-internal */
 

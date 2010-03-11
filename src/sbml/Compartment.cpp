@@ -1069,7 +1069,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
     //
     if (!(level == 2 && version < 3)) 
     {
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
     }
   }
 }

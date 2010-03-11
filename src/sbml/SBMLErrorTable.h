@@ -739,8 +739,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of an 'sboTerm' attribute must have the data type 'SBOTerm', "
     "which is a string consisting of the characters 'S', 'B', 'O', ':' "
-    "followed by exactly seven digits. (References: L2V2 Section 3.1.9; L2V3 "
-    "Section 3.1.9; L2V4 Section 3.1.9)"
+    "followed by exactly seven digits.",
+    {"",
+     "",
+     "L2V2 Section 3.1.9",
+     "L2V3 Section 3.1.9",
+     "L2V4 Section 3.1.9",
+     "L3V1 Section 3.1.11"}
   },
 
   //10309

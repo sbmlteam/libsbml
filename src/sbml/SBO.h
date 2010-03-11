@@ -33,6 +33,7 @@
 
 
 #include <sbml/common/extern.h>
+#include <sbml/SBMLNamespaces.h>
 
 
 #ifdef __cplusplus
@@ -71,7 +72,9 @@ public:
    * @return the sboTerm as an integer or -1 if the sboTerm was not in the
    * correct format or not found.
    */
-  static int readTerm (const XMLAttributes& attributes, SBMLErrorLog* log);
+  static int readTerm (const XMLAttributes& attributes, SBMLErrorLog* log,
+    unsigned int level = SBML_DEFAULT_LEVEL, 
+    unsigned int version = SBML_DEFAULT_VERSION);
 
   /**
    * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.

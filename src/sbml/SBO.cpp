@@ -89,7 +89,8 @@ SBO::checkTerm (int sboTerm)
  * correct format or not found.
  */
 int
-SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
+SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log, 
+               unsigned int level, unsigned int version)
 {
   int index = attributes.getIndex("sboTerm");
   if (index == -1)
@@ -98,7 +99,7 @@ SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
   }
   else if (!checkTerm(attributes.getValue(index)))
   {
-    log->logError(InvalidSBOTermSyntax);
+    log->logError(InvalidSBOTermSyntax, level, version);
     return -1;
   }
   else

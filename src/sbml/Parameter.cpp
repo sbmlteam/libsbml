@@ -722,7 +722,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
     // sboTerm: SBOTerm { use="optional" }  (L2v2->)
     //
     if (!(level == 2 && version == 1)) 
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
+      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
   }
 }
 /** @endcond doxygen-libsbml-internal */
