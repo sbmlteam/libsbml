@@ -89,8 +89,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "precisely, the 'encoding' attribute of the XML declaration at the "
     "beginning of the XML data stream cannot have a value other than "
     "'UTF-8'. An example valid declaration is "
-    "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
-    "4.1; L2V3 Section 4.1; L2V4 Section 4.1; L3V1 Section 4.1)"
+    "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'.",
+    {"",
+     "",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     "L3V1 Section 4.1"}
   },
 
   //10102
@@ -108,8 +113,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "An SBML XML document must not contain undefined elements or attributes "
     "in the SBML namespace. Documents containing unknown elements or "
     "attributes placed in the SBML namespace do not conform to the SBML "
-    "specification. (References: L2V2 Section 4.1; L2V3 Section 4.1; L2V4 "
-    "Section 4.1; L3V1 Section 4.1)"  
+    "specification.",  
+    {"",
+     "",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     "L3V1 Section 4.1"}
   },
 
   //10103
@@ -127,8 +137,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "An SBML XML document must conform to the XML Schema for the corresponding "
     "SBML Level, Version and Release. The XML Schema for SBML defines the "
     "basic SBML object structure, the data types used by those objects, and the "
-    "order in which the objects may appear in an SBML document. (References: "
-    "L2V2 Section 4.1; L2V3 Section 4.1; L2V4 Section 4.1)"
+    "order in which the objects may appear in an SBML document.",
+    {"",
+     "",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     ""}
   },
 
   //10104
@@ -146,7 +161,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "An SBML document must conform to the rules of XML well-formedness "
     "defined in the XML 1.0 specification. These rules define the basic "
     "structural and syntactic constraints with which all XML documents "
-    "must comply. (References: SBML L3V1 Section 4.1)"
+    "must comply.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     ""}
   },
 
   //10201
@@ -163,8 +184,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "All MathML content in SBML must appear within a <math> element, and the "
     "<math> element must be either explicitly or implicitly in the XML "
-    "namespace \"http://www.w3.org/1998/Math/MathML\". (References: L2V2 "
-    "Section 3.5; L2V3 Section 3.4; L2V4 Section 3.4; L3V1 Section 3.4)"
+    "namespace \"http://www.w3.org/1998/Math/MathML\".",
+    {"",
+     "",
+     "L2V2 Section 3.5",
+     "L2V3 Section 3.4",
+     "L2V4 Section 3.4",
+     "L3V1 Section 3.4"}
   },
 
   //10202
@@ -761,8 +787,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The syntax of 'metaid' attribute values must conform to the syntax of the "
-    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6; L2V3 Sections "
-    "3.2.1 and 3.1.6; L2V4 Sections 3.2.1 and 3.1.6)" 
+    "XML type 'ID'.", 
+    {"",
+     "",
+     "L2V2 Sections 3.3.1 and 3.1.6",
+     "L2V3 Sections 3.2.1 and 3.1.6",
+     "L2V4 Sections 3.2.1 and 3.1.6",
+     "L3V1 Sections 3.2.1 and 3.1.6"}
   },
 
   //10310
@@ -778,9 +809,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The syntax of 'id' attribute values must conform to the syntax of the SBML "
-    "type 'SId'. (References: L2V2 Sections 3.1.7; L2V3 Section 3.1.7; L2V4 "
-    "Section 3.1.7)" 
-  },
+    "type 'SId'.", 
+    {"",
+     "",
+     "L2V2 Section 3.1.7",
+     "L2V3 Section 3.1.7",
+     "L2V4 Section 3.1.7",
+     "L3V1 Section 3.1.7"}
+},
 
   //10311
   {
@@ -797,8 +833,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The syntax of unit identifiers (i.e., the values of the id attribute "
     "on UnitDefinition, the units attribute on Compartment, the units "
     "attribute on Parameter, and the substanceUnits attribute on Species) "
-    "must conform to the syntax of the SBML type UnitSId. "
-    "(References: L2V3 Section 3.1.8; L2V4 Section 3.1.8)"
+    "must conform to the syntax of the SBML type UnitSId.",
+    {"",
+     "",
+     "",
+     "L2V3 Section 3.1.8",
+     "L2V4 Section 3.1.8",
+     "L3V1 Section 3.1.9"}
   },
 
   //10401
@@ -814,8 +855,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "Every top-level element within an annotation element must "
-    "have a namespace declared. (References: L2V2 Section 3.3.3; "
-    "L2V3 Section 3.2.4; L2V4 Section 3.2.4)" 
+    "have a namespace declared.",
+    {"",
+     "",
+     "L2V2 Section 3.3.3",
+     "L2V3 Section 3.2.4",
+     "L2V4 Section 3.2.4",
+     "L3V1 Section 3.2.4"}
   },
 
   //10402
@@ -831,9 +877,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "There cannot be more than one top-level element using a "
-    "given namespace inside a given annotation element. "
-    "(References: L2V2 Section 3.3.3; L2V3 Section 3.2.4; "
-    "L2V4 Section 3.2.4)" 
+    "given namespace inside a given annotation element. ", 
+    {"",
+     "",
+     "L2V2 Section 3.3.3",
+     "L2V3 Section 3.2.4",
+     "L2V4 Section 3.2.4",
+     "L3V1 Section 3.2.4"}
   },
 
   //10403
@@ -855,8 +905,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"http://www.sbml.org/sbml/level2/version2\", or "
     "\"http://www.sbml.org/sbml/level2/version3\", or "
     "\"http://www.sbml.org/sbml/level2/version4\", or implicitly (by failing "
-    "to declare any namespace). (References: L2V2 Section 3.3.3; L2V3 "
-    "Section 3.2.4; L2V4 Section 3.2.4)" 
+    "to declare any namespace).",
+    {"",
+     "",
+     "L2V2 Section 3.3.3",
+     "L2V3 Section 3.2.4",
+     "L2V4 Section 3.2.4",
+     ""}
   },
 
   //10501
@@ -1145,8 +1200,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The system of equations created from an SBML model must not be "
-    "overdetermined. (References: L2V2 Section 4.11.5; L2V3 Section 4.11.5; "
-    "L2V4 Section 4.11.5)"
+    "overdetermined.",
+    {"",
+     "",
+     "L2V2 Section 4.11.5",
+     "L2V3 Section 4.11.5",
+     "L2V4 Section 4.11.5",
+     "L3V1 Section 4.9.5"}
   },
 
   //10701
@@ -2497,9 +2557,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'units' in a <Parameter> definition must be a value chosen from "
     "among the following: a predefined unit (e.g., 'substance', 'time', "
     "etc.), the identifier of a <UnitDefinition> in the model, or one of the "
-    "base units in SBML (e.g., 'litre', 'mole', 'metre', etc.) (References: "
-    "L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3; L2V4 "
-    "Section 4.9.3)"
+    "base units in SBML (e.g., 'litre', 'mole', 'metre', etc.)",
+    {"",
+     "L2V1 Section 4.7.3",
+     "L2V2 Section 4.9.3",
+     "L2V3 Section 4.9.3",
+     "L2V4 Section 4.9.3",
+     "L3V1 Section 4.7.3"}
   },
 
   //20801
