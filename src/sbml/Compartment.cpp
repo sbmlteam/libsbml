@@ -1034,6 +1034,12 @@ Compartment::readAttributes (const XMLAttributes& attributes)
         getErrorLog()->logError(NotSchemaConformant, level, version,
                                                               message);
       }
+      else
+      {
+        // keep record as double
+        mSpatialDimensionsDouble = (double)(mSpatialDimensions);
+        mIsSetSpatialDimensions = true;
+      }
     }
     else
     {

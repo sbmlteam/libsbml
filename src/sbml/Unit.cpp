@@ -1562,8 +1562,11 @@ Unit::readAttributes (const XMLAttributes& attributes)
   //
   if (level < 3)
   {
-    attributes.readInto("exponent", mExponent, 
-                                         getErrorLog());
+    if (attributes.readInto("exponent", mExponent, getErrorLog()))
+    {
+      mExponentDouble = (double)(mExponent);
+      mIsSetExponent = true;
+    }
   }
   else
   {

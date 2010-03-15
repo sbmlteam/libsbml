@@ -114,7 +114,8 @@ Model::setSpeciesReferenceConstantValue()
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     Reaction *r = getReaction(i);
-    for (unsigned int j = 0; j < r->getNumReactants(); j++)
+    unsigned int j;
+    for (j = 0; j < r->getNumReactants(); j++)
     {
       if (!(r->getReactant(j)->isSetStoichiometryMath()))
       {

@@ -1288,9 +1288,16 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <annotation> element is permitted inside a "
-	       "particular containing element.");
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <annotation> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(MultipleAnnotations, getLevel(), getVersion());
+      }
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
@@ -1643,9 +1650,16 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <annotation> element is permitted inside a "
-	       "particular containing element.");
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <annotation> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(MultipleAnnotations, getLevel(), getVersion());
+      }
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);

@@ -639,6 +639,7 @@ typedef enum
  , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of XML namespace for annotation */
  , DuplicateAnnotationNamespaces         = 10402 /*!< Multiple annotations using same XML namespace */
  , SBMLNamespaceInAnnotation             = 10403 /*!< Invalid use of SBML XML namespace in annotation */
+ , MultipleAnnotations                   = 10404 /*!< Multiple annotations */
  , InconsistentArgUnits                  = 10501 /*!< Units of arguments to function call do not match function's definition */
  , AssignRuleCompartmentMismatch         = 10511 /*!< Mismatched units in assignment rule for compartment */
  , AssignRuleSpeciesMismatch             = 10512 /*!< Mismatched units in assignment rule for species */

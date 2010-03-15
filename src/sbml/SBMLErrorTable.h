@@ -914,6 +914,27 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
   },
 
+  //10404
+  {
+    MultipleAnnotations,
+    "Multiple annotation elements not allowed",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A given SBML element may contain at most one Annotation object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 3.2"}
+  },
+
   //10501
   {
     InconsistentArgUnits,
@@ -2201,10 +2222,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_WARNING,
     "The value of the 'units' attribute on a <compartment> having "
-    "'spatialDimensions' of '1' is restricted. "
-    "(References: L2V2 Section 4.7.5; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
+    "'spatialDimensions' of '1' is restricted. ",
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
+    {"",
+     "",
+     "L2V2 Section 4.7.5",
+     "L2V3 Section 4.7.5",
+     "L2V4 Section 4.7.5",
+     "L3V1 Section 4.5.4"}
   },
 
   //20508
