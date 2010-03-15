@@ -70,6 +70,8 @@ void
 Model::convertL2ToL3 ()
 {
   addDefinitionsForDefaultUnits();
+
+  setSpeciesReferenceConstantValue();
 }
 
 
@@ -106,7 +108,28 @@ Model::convertL2ToL1 (bool strict)
   }
 }
 
-
+void
+Model::setSpeciesReferenceConstantValue()
+{
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    Reaction *r = getReaction(i);
+    for (unsigned int j = 0; j < r->getNumReactants(); j++)
+    {
+      if (!(r->getReactant(j)->isSetStoichiometryMath()))
+      {
+        r->getReactant(j)->setConstant(true);
+      }
+    }
+    for (j = 0; j < r->getNumProducts(); j++)
+    {
+      if (!(r->getProduct(j)->isSetStoichiometryMath()))
+      {
+        r->getProduct(j)->setConstant(true);
+      }
+    }
+  }
+}
 /* adds species referred to in a KineticLaw to the ListOfModifiers
  * this will only be applicable when up converting an L1 model
  */
