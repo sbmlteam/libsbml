@@ -714,6 +714,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 1:
             if (!conversion_errors(checkL3v1Compatibility()))
             {
+              mModel->convertParametersToLocals();
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
@@ -877,6 +878,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
+              mModel->convertParametersToLocals();
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
@@ -1096,6 +1098,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL3v1Compatibility()))
             {
               mModel->removeParameterRuleUnits();
+              mModel->convertParametersToLocals();
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
@@ -1304,6 +1307,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
+              mModel->convertParametersToLocals();
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);

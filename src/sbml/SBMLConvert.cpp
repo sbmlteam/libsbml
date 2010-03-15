@@ -335,6 +335,25 @@ Model::addDefinitionsForDefaultUnits()
   }
 
 }
+
+void
+Model::convertParametersToLocals()
+{
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    Reaction *r = getReaction(i);
+    if (r->isSetKineticLaw())
+    {
+      KineticLaw *kl = r->getKineticLaw();
+      for (unsigned int j = 0; j < kl->getNumParameters(); j++)
+      {
+        LocalParameter *lp = new LocalParameter(kl->getSBMLNamespaces());
+        (*lp) = *(kl->getParameter(j));
+        kl->addLocalParameter(lp);
+      }
+    }
+  }
+}
 /* the new strict setters mean that for a conversion to L2 to
  * take place the model needs to think it still l1 for
  * some actions and think it is already L2 for others

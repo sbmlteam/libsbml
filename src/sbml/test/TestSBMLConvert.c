@@ -357,6 +357,46 @@ START_TEST (test_SBMLConvert_invalidLevelVersion)
 }
 END_TEST
 
+START_TEST (test_SBMLConvert_convertToL3_localParameters)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId   ( c, "c" );
+
+  Species_t *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+
+  Reaction_t * r = Model_createReaction(m);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+
+  KineticLaw_t *kl = Reaction_createKineticLaw(r);
+
+  KineticLaw_setFormula(kl, "s*k");
+  Parameter_t *p = KineticLaw_createParameter(kl);
+  Parameter_setId(p, "k");
+
+  fail_unless(KineticLaw_getNumLocalParameters(kl) == 0);
+  
+  SBMLDocument_setLevelAndVersion(d, 3, 1);
+
+  m = SBMLDocument_getModel(d);
+  r = Model_getReaction(m,0);
+  kl = Reaction_getKineticLaw(r);
+
+
+  fail_unless(KineticLaw_getNumLocalParameters(kl) == 1);
+
+  LocalParameter_t *lp = KineticLaw_getLocalParameter(kl, 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -374,6 +414,7 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_defaultUnits );
   tcase_add_test( tcase, test_SBMLConvert_convertFromL3 );
   tcase_add_test( tcase, test_SBMLConvert_invalidLevelVersion );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_localParameters );
 
   suite_add_tcase(suite, tcase);
 

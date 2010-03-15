@@ -2443,6 +2443,10 @@ public:
   /** @endcond doxygen-libsbml-internal */
   /** @cond doxygen-libsbml-internal */
 
+  void convertParametersToLocals();
+  /** @endcond doxygen-libsbml-internal */
+  /** @cond doxygen-libsbml-internal */
+
   /* new functions for strict conversion */
   void removeMetaId();
 
