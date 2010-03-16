@@ -844,13 +844,20 @@ Unit::isUnitKind(const std::string &name, unsigned int level,
   {
     return isL1UnitKind(name);
   }
-  else if (version == 1)
+  else if ( level == 2)
   {
-    return isL2V1UnitKind(name);
+    if (version == 1)
+    {
+      return isL2V1UnitKind(name);
+    }
+    else
+    {
+      return isL2UnitKind(name);
+    }
   }
   else
   {
-    return isL2UnitKind(name);
+    return isL3UnitKind(name);
   }
 }
 
@@ -1467,7 +1474,9 @@ Unit::convertToSI(const Unit * unit)
 bool
 Unit::isL2V1UnitKind (const std::string& name)
 {
-  if (name == "meter" || name == "liter")
+  if (name == "meter" 
+   || name == "liter"
+   || name == "avogadro")
     return false;
   else
     return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
@@ -1481,6 +1490,25 @@ Unit::isL2V1UnitKind (const std::string& name)
  */
 bool
 Unit::isL2UnitKind (const std::string& name)
+{
+  if (name == "meter" 
+   || name == "liter" 
+   || name == "Celsius"
+   || name == "avogadro")
+
+    return false;
+  else
+    return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * @return true if name is a valid UnitKind.
+ */
+bool
+Unit::isL3UnitKind (const std::string& name)
 {
   if (name == "meter" || name == "liter" || name == "Celsius")
     return false;

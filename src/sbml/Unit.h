@@ -1021,6 +1021,17 @@ protected:
    */
   static bool isL2UnitKind (const std::string& name);
 
+  /**
+   * Predicate to test whether a given string is the name of a valid base
+   * unit in SBML Level&nbsp;3 Version&nbsp;1 (such as @c "gram" or @c
+   * "mole")
+   *
+   * @param name a string to be tested
+   * 
+   * @return @c true if name is a valid UnitKind, @c false otherwise
+   */
+  static bool isL3UnitKind (const std::string& name);
+
   UnitKind_t  mKind;
   int         mExponent;
   double      mExponentDouble;

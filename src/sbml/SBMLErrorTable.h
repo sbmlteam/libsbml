@@ -1894,11 +1894,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of the 'id' attribute in a <unitDefinition> must be of "
-    "type 'UnitSId' and not be identical to any unit predefined in SBML. "
-    "(References: L2V1 erratum 14; L2V2 Section 4.4.2; L2V3 Section 4.4.2; "
-    "L2V4 Section 4.4.2)"
+    "type 'UnitSId' and not be identical to any unit predefined in SBML. ",
     // actual unit are listed in constraint 
     // as these vary between levels/versions
+    {"",
+     "L2V1 erratum 14",
+     "L2V2 Section 4.4.2",
+     "L2V3 Section 4.4.2",
+     "L2V4 Section 4.4.2",
+     "L3V1 Section 4.4.2"}
   },
 
   //20402
@@ -2059,8 +2063,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'kind' attribute of a <unit> can only be one of the "
     "base units enumerated by 'UnitKind'; that is, the SBML unit "
     "system is not hierarchical and user-defined units cannot be defined "
-    "using other user-defined units. (References: L2V2 Section 4.4.1; L2V3 "
-    "Section 4.4.2; L2V4 Section 4.4.2)"
+    "using other user-defined units. ",
+    {"",
+     "",
+     "L2V2 Section 4.4.1",
+     "L2V3 Section 4.4.2",
+     "L2V4 Section 4.4.2",
+     "L3V1 Section 4.4.2"}
   },
 
   //20411
@@ -2246,10 +2255,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_WARNING,
     "The value of the 'units' attribute on a <compartment> having "
-    "'spatialDimensions' of '2' is restricted. (References: L2V1 Section "
-    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
+    "'spatialDimensions' of '2' is restricted.",
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
+    {"",
+     "L2V1 Section 4.5.4",
+     "L2V2 Section 4.7.5",
+     "L2V3 Section 4.7.5",
+     "L2V4 Section 4.7.5",
+     "L3V1 Section 4.5.4"}
   },
 
   //20509
@@ -2265,10 +2279,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_WARNING,
     "The value of the 'units' attribute on a <compartment> having "
-    "'spatialDimensions' of '3' is restricted. (References: L2V1 Section "
-    "4.5.4; L2V2 Section 4.7.5; L2V3 Section 4.7.5; L2V4 Section 4.7.5)"
+    "'spatialDimensions' of '3' is restricted. ",
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
+    {"",
+     "L2V1 Section 4.5.4",
+     "L2V2 Section 4.7.5",
+     "L2V3 Section 4.7.5",
+     "L2V4 Section 4.7.5",
+     "L3V1 Section 4.5.4"}
   },
 
   //20510

@@ -28,6 +28,7 @@
 const char* UNIT_KIND_STRINGS[] =
 {
     "ampere"
+  , "avogadro"
   , "becquerel"
   , "candela"
   , "Celsius"

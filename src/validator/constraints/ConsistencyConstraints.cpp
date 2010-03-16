@@ -347,6 +347,20 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
         "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
         "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
     }
+    else if (ud.getLevel() == 3)
+    {
+      msg =
+        //"The value of the 'id' attribute in a <unitDefinition> must be of "
+        //"type 'UnitSId' and not be identical "
+        //"to any unit predefined in SBML. 
+        "That is, the identifier must not be "
+        "the same as any of the following predefined units: 'ampere' 'avogadro' "
+        "'gram' "
+        "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
+        "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
+        "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. ";
+    }
     else
     {
       msg =
