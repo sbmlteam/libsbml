@@ -99,6 +99,111 @@ START_TEST ( test_BoundingBox_create )
 }
 END_TEST
 
+START_TEST ( test_BoundingBox_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   BoundingBox *bb=new BoundingBox(level, version); 
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId()   == "" );
+
+   fail_unless(bb->getLevel() == level);
+   fail_unless(bb->getVersion() == version);
+
+   fail_unless( bb->isSetId() == false );
+   
+   Point *pos=bb->getPosition();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   Dimensions *dim=bb->getDimensions(); 
+   fail_unless(dim != NULL);
+   fail_unless(dim->getWidth () == 0.0);  
+   fail_unless(dim->getHeight() == 0.0);  
+   fail_unless(dim->getDepth () == 0.0);  
+   delete bb;
+
+   level=2;
+   version=3;
+   bb=new BoundingBox(level, version); 
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId()   == "" );
+
+   fail_unless(bb->getLevel() == level);
+   fail_unless(bb->getVersion() == version);
+
+   fail_unless( bb->isSetId() == false );
+   
+   pos=bb->getPosition();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   dim=bb->getDimensions(); 
+   fail_unless(dim != NULL);
+   fail_unless(dim->getWidth () == 0.0);  
+   fail_unless(dim->getHeight() == 0.0);  
+   fail_unless(dim->getDepth () == 0.0);  
+   delete bb;
+}
+END_TEST
+
+START_TEST ( test_BoundingBox_new_WithNamespace )
+{
+   SBMLNamespaces* ns=new SBMLNamespaces;
+   BoundingBox *bb=new BoundingBox(ns); 
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId()   == "" );
+
+   fail_unless(bb->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(bb->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( bb->isSetId() == false );
+   
+   Point *pos=bb->getPosition();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   Dimensions *dim=bb->getDimensions(); 
+   fail_unless(dim != NULL);
+   fail_unless(dim->getWidth () == 0.0);  
+   fail_unless(dim->getHeight() == 0.0);  
+   fail_unless(dim->getDepth () == 0.0);  
+   delete bb;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   bb=new BoundingBox(ns); 
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId()   == "" );
+
+   fail_unless(bb->getLevel() == 2);
+   fail_unless(bb->getVersion() == 3);
+
+   fail_unless( bb->isSetId() == false );
+   
+   pos=bb->getPosition();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   dim=bb->getDimensions(); 
+   fail_unless(dim != NULL);
+   fail_unless(dim->getWidth () == 0.0);  
+   fail_unless(dim->getHeight() == 0.0);  
+   fail_unless(dim->getDepth () == 0.0);  
+   delete bb;
+   delete ns;
+}
+END_TEST
+
+
 
 START_TEST ( test_BoundingBox_createWith )
 {
@@ -308,18 +413,21 @@ create_suite_BoundingBox (void)
                              BoundingBoxTest_setup,
                              BoundingBoxTest_teardown );
 
-  tcase_add_test( tcase, test_BoundingBox_create                     );
-  tcase_add_test( tcase, test_BoundingBox_createWith                 );
-  tcase_add_test( tcase, test_BoundingBox_createWith_NULL            );
-  tcase_add_test( tcase, test_BoundingBox_createWithCoordinates_NULL );
-  tcase_add_test( tcase, test_BoundingBox_setId                      );
-  tcase_add_test( tcase, test_BoundingBox_setId_NULL                 );
-  tcase_add_test( tcase, test_BoundingBox_setPosition                );
-  tcase_add_test( tcase, test_BoundingBox_setPosition_NULL           );
-  tcase_add_test( tcase, test_BoundingBox_setDimensions              );
-  tcase_add_test( tcase, test_BoundingBox_setDimensions_NULL         );
-  tcase_add_test( tcase, test_BoundingBox_copyConstructor            );
-  tcase_add_test( tcase, test_BoundingBox_assignmentOperator         );
+  tcase_add_test( tcase, test_BoundingBox_create                            );
+  tcase_add_test( tcase, test_BoundingBox_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_BoundingBox_new_WithNamespace                 );
+  tcase_add_test( tcase, test_BoundingBox_createWith                        );
+  tcase_add_test( tcase, test_BoundingBox_createWith_NULL                   );
+  tcase_add_test( tcase, test_BoundingBox_createWithCoordinates             );
+  tcase_add_test( tcase, test_BoundingBox_createWithCoordinates_NULL        );
+  tcase_add_test( tcase, test_BoundingBox_setId                             );
+  tcase_add_test( tcase, test_BoundingBox_setId_NULL                        );
+  tcase_add_test( tcase, test_BoundingBox_setPosition                       );
+  tcase_add_test( tcase, test_BoundingBox_setPosition_NULL                  );
+  tcase_add_test( tcase, test_BoundingBox_setDimensions                     );
+  tcase_add_test( tcase, test_BoundingBox_setDimensions_NULL                );
+  tcase_add_test( tcase, test_BoundingBox_copyConstructor                   );
+  tcase_add_test( tcase, test_BoundingBox_assignmentOperator                );
 
   suite_add_tcase(suite, tcase);
 

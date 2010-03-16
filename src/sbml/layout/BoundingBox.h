@@ -79,9 +79,13 @@ public:
    * Default Constructor set position and dimensions to (0.0,0.0,0.0) and
    * the id to an empty string.
    */ 
-  
   BoundingBox ();
+
   
+  BoundingBox (unsigned int level, unsigned int version);
+
+  BoundingBox (SBMLNamespaces* sbmlns);
+
   /**
    * Copy constructor.
    */
@@ -374,6 +378,35 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_create (void);
+
+/**
+ * Creates a new BoundingBox_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * BoundingBox
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * BoundingBox
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this BoundingBox
+ *
+ * @return a pointer to the newly created BoundingBox_t structure.
+ *
+ * @note Once a BoundingBox has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+BoundingBox_t *
+BoundingBox_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version);
 
 /**
  * ZFunction that creates a BoundingBox_t object with position set to

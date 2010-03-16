@@ -51,6 +51,7 @@
 #include "CubicBezier.h"
 #include "LayoutUtilities.h"
 
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
@@ -63,10 +64,25 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * Creates a curve with an empty list of segments.
  */ 
-Curve::Curve () : SBase ()
+Curve::Curve () : SBase ("", "", -1)
 {
 }
 
+Curve::Curve (unsigned int level, unsigned int version):
+   SBase (level , version)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+                          
+Curve::Curve (SBMLNamespaces *sbmlns) :
+   SBase (sbmlns)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+ 
 
 /**
  * Creates a new ReactionGlyph from the given XMLNode
@@ -209,10 +225,37 @@ Curve::getCurveSegment (unsigned int index)
 /**
  * Adds a new CurveSegment to the end of the list.
  */ 
-void
+int
 Curve::addCurveSegment (const LineSegment* segment)
 {
-  this->mCurveSegments.append(segment);
+  if (segment == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(segment->hasRequiredAttributes()) || !(segment->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != segment->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != segment->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    /* if the ListOf is empty it doesnt know its parent */
+    if (mCurveSegments.size() == 0)
+    {
+       mCurveSegments.setSBMLDocument(this->getSBMLDocument());
+       mCurveSegments.setParentSBMLObject(this);
+    }
+    this->mCurveSegments.append(segment);
+
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -233,9 +276,30 @@ Curve::getNumCurveSegments () const
 LineSegment*
 Curve::createLineSegment ()
 {
-  LineSegment* ls = new LineSegment();
+  LineSegment* ls = NULL;
+  try
+  {
+    ls = new LineSegment(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCurveSegments.size() == 0)
+  {
+    mCurveSegments.setSBMLDocument(this->getSBMLDocument());
+    mCurveSegments.setParentSBMLObject(this);
+  }
 
-  this->mCurveSegments.appendAndOwn(ls);
+  if(ls != NULL)
+  {
+      this->mCurveSegments.appendAndOwn(ls);
+  }
   return ls;
 }
 
@@ -246,9 +310,30 @@ Curve::createLineSegment ()
  */
 CubicBezier* Curve::createCubicBezier ()
 {
-  CubicBezier* cb = new CubicBezier();
+  CubicBezier* cb = NULL;
+  try
+  {
+    cb = new CubicBezier(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCurveSegments.size() == 0)
+  {
+    mCurveSegments.setSBMLDocument(this->getSBMLDocument());
+    mCurveSegments.setParentSBMLObject(this);
+  }
 
-  this->mCurveSegments.appendAndOwn(cb);
+  if(cb != NULL)
+  {
+      this->mCurveSegments.appendAndOwn(cb);
+  }
   return cb;
 }
 
@@ -566,7 +651,84 @@ Curve::accept (SBMLVisitor& v) const
   return false;
 }
 
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+Curve::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
+}
 
+/*
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+Curve::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+
+  mCurveSegments.setSBMLDocument(d);
+}
+
+
+
+/**
+ * Calculates the bounding box for the curve.
+ * Basepoints for cubic beziers are considered to belong inside the bounding
+ * box.
+ */
+BoundingBox Curve::calculateBoundingBox() const
+{
+    double xMin=std::numeric_limits<double>::max();
+    double yMin=xMin;
+    double xMax=-xMin;
+    double yMax=-xMin;
+    double x,y;
+    unsigned int i,iMax=this->getNumCurveSegments();
+    const LineSegment* pLS=NULL;
+    const CubicBezier* pCB=NULL;
+    const Point* pP=NULL;
+    for(i=0;i<iMax;++i)
+    {
+        pLS=this->getCurveSegment(i);
+        pP=pLS->getStart();
+        x=pP->x();
+        y=pP->y();
+        xMin=(xMin<x)?xMin:x;
+        yMin=(yMin<y)?yMin:y;
+        xMax=(xMax>x)?xMax:x;
+        yMax=(yMax>y)?yMax:y;
+        pP=pLS->getEnd();
+        x=pP->x();
+        y=pP->y();
+        xMin=(xMin<x)?xMin:x;
+        yMin=(yMin<y)?yMin:y;
+        xMax=(xMax>x)?xMax:x;
+        yMax=(yMax>y)?yMax:y;
+        pCB=dynamic_cast<const CubicBezier*>(pLS);
+        if(pCB)
+        {
+            pP=pCB->getBasePoint1();
+            x=pP->x();
+            y=pP->y();
+            xMin=(xMin<x)?xMin:x;
+            yMin=(yMin<y)?yMin:y;
+            xMax=(xMax>x)?xMax:x;
+            yMax=(yMax>y)?yMax:y;
+            pP=pCB->getBasePoint2();
+            x=pP->x();
+            y=pP->y();
+            xMin=(xMin<x)?xMin:x;
+            yMin=(yMin<y)?yMin:y;
+            xMax=(xMax>x)?xMax:x;
+            yMax=(yMax>y)?yMax:y;
+        }
+    }
+    return BoundingBox("bb",xMin,yMin,xMax-xMin,yMax-yMin);
+}
 
 
 
@@ -582,6 +744,40 @@ Curve_create (void)
 {
   return new(std::nothrow) Curve;
 }
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Creates a new Curve_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Curve
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Curve
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Curve
+ *
+ * @return a pointer to the newly created Curve_t structure.
+ *
+ * @note Once a Curve has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+Curve_t *
+Curve_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow) Curve(level, version);
+}
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

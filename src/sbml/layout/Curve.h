@@ -128,6 +128,9 @@ public:
   
   Curve ();
 
+  Curve (unsigned int level, unsigned int version);
+
+  Curve (SBMLNamespaces *sbmlns);
 
   /**
    * Creates a new Curve from the given XMLNode
@@ -184,13 +187,11 @@ public:
   /**
    * Adds a new CurveSegment to the end of the list.
    */ 
-  
-  void addCurveSegment (const LineSegment* segment);
+  int addCurveSegment (const LineSegment* segment);
   
   /**
    * Returns the number of curve segments.
    */ 
-  
   unsigned int getNumCurveSegments () const;
 
 
@@ -198,15 +199,25 @@ public:
    * Creates a new LineSegment and adds it to the end of the list.  A
    * reference to the new LineSegment object is returned.
    */
-  
   LineSegment* createLineSegment ();
 
   /**
    * Creates a new CubicBezier and adds it to the end of the list.  A
    * reference to the new CubicBezier object is returned.
    */
-  
   CubicBezier* createCubicBezier ();
+
+  /**
+   * Sets the parent SBML object of this SBML object.
+   *
+   * @param sb the SBML object to use
+   */
+  void setParentSBMLObject (SBase* sb);
+
+  /*
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  void setSBMLDocument (SBMLDocument* d);
 
   /**
    * Subclasses should override this method to write out their contained
@@ -254,6 +265,13 @@ public:
     * Creates an XMLNode object from this.
     */
     XMLNode toXML() const;
+
+    /**
+     * Calculates the bounding box for the curve.
+     * Basepoints for cubic beziers are considered to belong inside the bounding
+     * box.
+     */
+    BoundingBox calculateBoundingBox() const;
     
 protected:
   /**
@@ -304,6 +322,35 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 Curve_t *
 Curve_create ();
+
+/**
+ * Creates a new Curve_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Curve
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Curve
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Curve
+ *
+ * @return a pointer to the newly created Curve_t structure.
+ *
+ * @note Once a Curve has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+Curve_t *
+Curve_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version);
 
 /**
  * Creates a new Curve object from a template.

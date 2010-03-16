@@ -213,9 +213,9 @@ glyph_Hexokinase->setReactionId(reaction_Hexokinase->getId());
 
 Curve* curve_Hexokinase=glyph_Hexokinase->getCurve();
 LineSegment* ls=curve_Hexokinase->createLineSegment();
-Point p(170,100);
+Point p(170.0,100.0);
 ls->setStart(&p);
-p=Point(170,130);
+p=Point(170.0,130.0);
 ls->setEnd(&p);
 
 
@@ -234,9 +234,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_Gluc->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,100);
+p=Point(170.0,100.0);
 ls->setStart(&p);
-p=Point(170,50);
+p=Point(170.0,50.0);
 ls->setEnd(&p);
 
 // create species reference for ATP
@@ -255,13 +255,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ATP->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
 CubicBezier* cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,100);
+p=Point(170.0,100.0);
 cb->setStart(&p);
-p=Point(170,80);
+p=Point(170.0,80.0);
 cb->setBasePoint1(&p);
-p=Point(170,80);
+p=Point(170.0,80.0);
 cb->setBasePoint2(&p);
-p=Point(260,80);
+p=Point(260.0,80.0);
 cb->setEnd(&p);
 
 // create species reference for G6P
@@ -280,9 +280,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_G6P->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,130);
+p=Point(170.0,130.0);
 ls->setStart(&p);
-p=Point(170,180);
+p=Point(170.0,180.0);
 ls->setEnd(&p);
 
 // create species reference for ADP
@@ -301,13 +301,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ADP->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,130);
+p=Point(170.0,130.0);
 cb->setStart(&p);
-p=Point(170,150);
+p=Point(170.0,150.0);
 cb->setBasePoint1(&p);
-p=Point(170,150);
+p=Point(170.0,150.0);
 cb->setBasePoint2(&p);
-p=Point(260,150);
+p=Point(260.0,150.0);
 cb->setEnd(&p);
 
 
@@ -316,8 +316,6 @@ cb->setEnd(&p);
 ModifierSpeciesReference* reference_G6P_2=reaction_Hexokinase->createModifier();
 reference_G6P_2->setSpecies(species_G6P->getId());
 reference_G6P_2->setId("ModifierSpeciesReference_G6P");
-
-reaction_Hexokinase->addModifier(reference_G6P_2);
 
 // create species reference glyph for G6P as a modifier
 
@@ -328,13 +326,13 @@ speciesReferenceGlyph->setSpeciesGlyphId(glyph_G6P->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(45,200);
+p=Point(45.0,200.0);
 cb->setStart(&p);
-p=Point(0,200);
+p=Point(0.0,200.0);
 cb->setBasePoint1(&p);
-p=Point(0,120);
+p=Point(0.0,120.0);
 cb->setBasePoint2(&p);
-p=Point(165,120);
+p=Point(165.0,120.0);
 cb->setEnd(&p);
 
 // create modifier species reference for phosphate
@@ -342,8 +340,6 @@ cb->setEnd(&p);
 ModifierSpeciesReference* reference_Pi=reaction_Hexokinase->createModifier();
 reference_Pi->setSpecies(species_Pi->getId());
 reference_Pi->setId("ModifierSpeciesReference_Pi");
-
-reaction_Hexokinase->addModifier(reference_Pi);
 
 // create the species reference glyph for Phosphate
 speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
@@ -353,13 +349,13 @@ speciesReferenceGlyph->setSpeciesGlyphId(glyph_Pi->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_ACTIVATOR);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(115,110);
+p=Point(115.0,110.0);
 cb->setStart(&p);
-p=Point(140,110);
+p=Point(140.0,110.0);
 cb->setBasePoint1(&p);
-p=Point(140,110);
+p=Point(140.0,110.0);
 cb->setBasePoint2(&p);
-p=Point(165,110);
+p=Point(165.0,110.0);
 cb->setEnd(&p);
 
 // write model to file

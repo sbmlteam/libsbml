@@ -177,9 +177,9 @@ reactionGlyph1->setReactionId(reaction1->getId());
 
 Curve* reactionCurve1=reactionGlyph1->getCurve();
 LineSegment* ls=reactionCurve1->createLineSegment();
-Point p(165,105);
+Point p(165.0,105.0);
 ls->setStart(&p);
-p=Point(165,115);
+p=Point(165.0,115.0);
 ls->setEnd(&p);
 
 ReactionGlyph* reactionGlyph2=layout->createReactionGlyph();
@@ -188,9 +188,9 @@ reactionGlyph2->setReactionId(reaction2->getId());
 
 Curve* reactionCurve2=reactionGlyph2->getCurve();
 ls=reactionCurve2->createLineSegment();
-p=Point(235,105);
+p=Point(235.0,105.0);
 ls->setStart(&p);
-p=Point(235,115);
+p=Point(235.0,115.0);
 ls->setEnd(&p);
 
 // add the SpeciesReferenceGlyphs
@@ -203,13 +203,13 @@ speciesReferenceGlyph1->setRole(SPECIES_ROLE_SUBSTRATE);
 
 Curve* speciesReferenceCurve1=speciesReferenceGlyph1->getCurve();
 CubicBezier* cb=speciesReferenceCurve1->createCubicBezier();
-p=Point(165,105);
+p=Point(165.0,105.0);
 cb->setStart(&p);
-p=Point(165,90);
+p=Point(165.0,90.0);
 cb->setBasePoint1(&p);
-p=Point(165,90);
+p=Point(165.0,90.0);
 cb->setBasePoint2(&p);
-p=Point(195,60);
+p=Point(195.0,60.0);
 cb->setEnd(&p);
 
 SpeciesReferenceGlyph* speciesReferenceGlyph2=reactionGlyph1->createSpeciesReferenceGlyph();
@@ -220,13 +220,13 @@ speciesReferenceGlyph2->setRole(SPECIES_ROLE_PRODUCT);
 
 Curve* speciesReferenceCurve2=speciesReferenceGlyph2->getCurve();
 cb=speciesReferenceCurve2->createCubicBezier();
-p=Point(165,115);
+p=Point(165.0,115.0);
 cb->setStart(&p);
-p=Point(165,130);
+p=Point(165.0,130.0);
 cb->setBasePoint1(&p);
-p=Point(165,130);
+p=Point(165.0,130.0);
 cb->setBasePoint2(&p);
-p=Point(195,160);
+p=Point(195.0,160.0);
 cb->setEnd(&p);
 
 
@@ -238,13 +238,13 @@ speciesReferenceGlyph3->setRole(SPECIES_ROLE_SUBSTRATE);
 
 Curve* speciesReferenceCurve3=speciesReferenceGlyph3->getCurve();
 cb=speciesReferenceCurve3->createCubicBezier();
-p=Point(235,115);
+p=Point(235.0,115.0);
 cb->setStart(&p);
-p=Point(235,130);
+p=Point(235.0,130.0);
 cb->setBasePoint1(&p);
-p=Point(235,130);
+p=Point(235.0,130.0);
 cb->setBasePoint2(&p);
-p=Point(205,160);
+p=Point(205.0,160.0);
 cb->setEnd(&p);
 
 SpeciesReferenceGlyph* speciesReferenceGlyph4=reactionGlyph2->createSpeciesReferenceGlyph();
@@ -255,13 +255,13 @@ speciesReferenceGlyph4->setRole(SPECIES_ROLE_PRODUCT);
 
 Curve* speciesReferenceCurve4=speciesReferenceGlyph4->getCurve();
 cb=speciesReferenceCurve4->createCubicBezier();
-p=Point(235,105);
+p=Point(235.0,105.0);
 cb->setStart(&p);
-p=Point(235,90);
+p=Point(235.0,90.0);
 cb->setBasePoint1(&p);
-p=Point(235,90);
+p=Point(235.0,90.0);
 cb->setBasePoint2(&p);
-p=Point(205,60);
+p=Point(205.0,60.0);
 cb->setEnd(&p);
 
 

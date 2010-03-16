@@ -51,6 +51,7 @@
 
 #include "Layout.h"
 #include "LayoutUtilities.h"
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
@@ -63,10 +64,25 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * Creates a new Layout.
  */
-Layout::Layout () : SBase ()
+Layout::Layout () : SBase ("","",-1)
 {
 }
 
+Layout::Layout (unsigned int level, unsigned int version):
+   SBase (level, version)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+
+                          
+Layout::Layout (SBMLNamespaces *sbmlns) :
+   SBase (sbmlns)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+ 
 
 /**
  * Creates a new Layout with the given id and dimensions.
@@ -350,6 +366,29 @@ void Layout::unsetId ()
 {
   mId.erase();
 }
+
+/**
+ * Returns true if all required attributes are set
+ * on the layout.
+ * Currently the only required attribute is the id.
+ */
+bool Layout::hasRequiredAttributes() const
+{
+    return this->isSetId();
+}
+
+/**
+ * Returns true if all required elements are set
+ * on the layout.
+ * Currently the only required element are are the dimensions.
+ * The dimensions are actually always set. Maybe we should check
+ * if the values make sense.
+ */
+bool Layout::hasRequiredElements() const
+{
+    true;
+}
+
 
 /**
  * Returns the dimensions of the layout.
@@ -904,50 +943,215 @@ Layout::getAdditionalGraphicalObject (const std::string& id)
 /**
  * Adds a new compartment glyph.
  */
-void
+int
 Layout::addCompartmentGlyph (const CompartmentGlyph* glyph)
 {
-  this->mCompartmentGlyphs.append(glyph);
+  if (glyph == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(glyph->hasRequiredAttributes()) || !(glyph->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (glyph->isSetId() 
+       && (getListOfCompartmentGlyphs()->get(glyph->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+      /* if the ListOf is empty it doesnt know its parent */
+      if (mCompartmentGlyphs.size() == 0)
+      {
+          mCompartmentGlyphs.setSBMLDocument(this->getSBMLDocument());
+          mCompartmentGlyphs.setParentSBMLObject(this);
+      }
+      this->mCompartmentGlyphs.append(glyph);
+
+      return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /**
  * Adds a new species glyph.
  */
-void
+int
 Layout::addSpeciesGlyph (const SpeciesGlyph* glyph)
 {
-  this->mSpeciesGlyphs.append(glyph);
+  if (glyph == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(glyph->hasRequiredAttributes()) || !(glyph->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (glyph->isSetId() 
+       && (getListOfSpeciesGlyphs()->get(glyph->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+      /* if the ListOf is empty it doesnt know its parent */
+      if (mSpeciesGlyphs.size() == 0)
+      {
+          mSpeciesGlyphs.setSBMLDocument(this->getSBMLDocument());
+          mSpeciesGlyphs.setParentSBMLObject(this);
+      }
+      this->mSpeciesGlyphs.append(glyph);
+
+      return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /**
  * Adds a new reaction glyph.
  */
-void
+int
 Layout::addReactionGlyph (const ReactionGlyph* glyph)
 {
-  this->mReactionGlyphs.append(glyph);
+  if (glyph == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(glyph->hasRequiredAttributes()) || !(glyph->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (glyph->isSetId() 
+       && (getListOfReactionGlyphs()->get(glyph->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+      /* if the ListOf is empty it doesnt know its parent */
+      if (mReactionGlyphs.size() == 0)
+      {
+          mReactionGlyphs.setSBMLDocument(this->getSBMLDocument());
+          mReactionGlyphs.setParentSBMLObject(this);
+      }
+      this->mReactionGlyphs.append(glyph);
+
+      return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /**
  * Adds a new text glyph.
  */
-void
+int
 Layout::addTextGlyph (const TextGlyph* glyph)
 {
-  this->mTextGlyphs.append(glyph);
+  if (glyph == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(glyph->hasRequiredAttributes()) || !(glyph->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (glyph->isSetId() 
+       && (getListOfTextGlyphs()->get(glyph->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+      /* if the ListOf is empty it doesnt know its parent */
+      if (mTextGlyphs.size() == 0)
+      {
+          mTextGlyphs.setSBMLDocument(this->getSBMLDocument());
+          mTextGlyphs.setParentSBMLObject(this);
+      }
+      this->mTextGlyphs.append(glyph);
+
+      return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 /**
  * Adds a new additional graphical object glyph.
  */
-void
+int
 Layout::addAdditionalGraphicalObject (const GraphicalObject* glyph)
 {
-  this->mAdditionalGraphicalObjects.append(glyph);
+  if (glyph == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(glyph->hasRequiredAttributes()) || !(glyph->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (glyph->isSetId() 
+       && (getListOfAdditionalGraphicalObjects()->get(glyph->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+      /* if the ListOf is empty it doesnt know its parent */
+      if (mAdditionalGraphicalObjects.size() == 0)
+      {
+          mAdditionalGraphicalObjects.setSBMLDocument(this->getSBMLDocument());
+          mAdditionalGraphicalObjects.setParentSBMLObject(this);
+      }
+      this->mAdditionalGraphicalObjects.append(glyph);
+
+      return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -1008,9 +1212,30 @@ Layout::getNumAdditionalGraphicalObjects () const
 CompartmentGlyph* 
 Layout::createCompartmentGlyph ()
 {
-  CompartmentGlyph* p = new CompartmentGlyph();
+  CompartmentGlyph* p = NULL;
+  try
+  {
+    p = new CompartmentGlyph(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mCompartmentGlyphs.size() == 0)
+  {
+    mCompartmentGlyphs.setSBMLDocument(this->getSBMLDocument());
+    mCompartmentGlyphs.setParentSBMLObject(this);
+  }
 
-  this->mCompartmentGlyphs.appendAndOwn(p);
+  if(p != NULL)
+  {
+      this->mCompartmentGlyphs.appendAndOwn(p);
+  }
   return p;
 }
 
@@ -1022,9 +1247,31 @@ Layout::createCompartmentGlyph ()
 SpeciesGlyph* 
 Layout::createSpeciesGlyph ()
 {
-  SpeciesGlyph* p = new SpeciesGlyph();
+  SpeciesGlyph* p = NULL;
+  try
+  {
+    p = new SpeciesGlyph(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
 
-  this->mSpeciesGlyphs.appendAndOwn(p);
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mSpeciesGlyphs.size() == 0)
+  {
+    mSpeciesGlyphs.setSBMLDocument(this->getSBMLDocument());
+    mSpeciesGlyphs.setParentSBMLObject(this);
+  }
+
+  if(p != NULL)
+  {
+      this->mSpeciesGlyphs.appendAndOwn(p);
+  }
   return p;
 }
 
@@ -1036,9 +1283,30 @@ Layout::createSpeciesGlyph ()
 ReactionGlyph* 
 Layout::createReactionGlyph ()
 {
-  ReactionGlyph* p = new ReactionGlyph();
+  ReactionGlyph* p = NULL;
+  try
+  {
+    p = new ReactionGlyph(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mReactionGlyphs.size() == 0)
+  {
+    mReactionGlyphs.setSBMLDocument(this->getSBMLDocument());
+    mReactionGlyphs.setParentSBMLObject(this);
+  }
 
-  this->mReactionGlyphs.appendAndOwn(p);
+  if(p != NULL)
+  {
+      this->mReactionGlyphs.appendAndOwn(p);
+  }
   return p;
 }
 
@@ -1050,9 +1318,30 @@ Layout::createReactionGlyph ()
 TextGlyph* 
 Layout::createTextGlyph ()
 {
-  TextGlyph* p = new TextGlyph();
+  TextGlyph* p = NULL;
+  try
+  {
+    p = new TextGlyph(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mTextGlyphs.size() == 0)
+  {
+    mTextGlyphs.setSBMLDocument(this->getSBMLDocument());
+    mTextGlyphs.setParentSBMLObject(this);
+  }
 
-  this->mTextGlyphs.appendAndOwn(p);
+  if(p != NULL)
+  {
+      this->mTextGlyphs.appendAndOwn(p);
+  }
   return p;
 }
 
@@ -1065,9 +1354,30 @@ Layout::createTextGlyph ()
 GraphicalObject* 
 Layout::createAdditionalGraphicalObject ()
 {
-  GraphicalObject* p = new GraphicalObject();
+  GraphicalObject* p = NULL;
+  try
+  {
+    p = new GraphicalObject(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mAdditionalGraphicalObjects.size() == 0)
+  {
+    mAdditionalGraphicalObjects.setSBMLDocument(this->getSBMLDocument());
+    mAdditionalGraphicalObjects.setParentSBMLObject(this);
+  }
 
-  this->mAdditionalGraphicalObjects.appendAndOwn(p);
+  if(p != NULL)
+  {
+      this->mAdditionalGraphicalObjects.appendAndOwn(p);
+  }
   return p;
 }
 
@@ -1402,6 +1712,55 @@ ListOfLayouts::getElementName () const
   return name;
 }
 
+/* return nth item in list */
+Layout *
+ListOfLayouts::get(unsigned int n)
+{
+  return static_cast<Layout*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const Layout *
+ListOfLayouts::get(unsigned int n) const
+{
+  return static_cast<const Layout*>(ListOf::get(n));
+}
+
+
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqR_Layout : public std::unary_function<SBase*, bool>
+{
+  const std::string& id;
+
+  IdEqR_Layout (const std::string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <Layout *> (sb)->getId() == id; }
+};
+
+
+/* return item by id */
+Layout*
+ListOfLayouts::get (const std::string& sid)
+{
+  return const_cast<Layout*>( 
+    static_cast<const ListOfLayouts&>(*this).get(sid) );
+}
+
+
+/* return item by id */
+const Layout*
+ListOfLayouts::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_Layout(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <Layout*> (*result);
+}
+
+
 
 /**
  * @return the SBML object corresponding to next XMLToken in the
@@ -1532,6 +1891,54 @@ ListOfCompartmentGlyphs::getElementName () const
   static const std::string name = "listOfCompartmentGlyphs";
   return name;
 }
+
+/* return nth item in list */
+CompartmentGlyph *
+ListOfCompartmentGlyphs::get(unsigned int n)
+{
+  return static_cast<CompartmentGlyph*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const CompartmentGlyph *
+ListOfCompartmentGlyphs::get(unsigned int n) const
+{
+  return static_cast<const CompartmentGlyph*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+CompartmentGlyph*
+ListOfCompartmentGlyphs::get (const std::string& sid)
+{
+  return const_cast<CompartmentGlyph*>( 
+    static_cast<const ListOfCompartmentGlyphs&>(*this).get(sid) );
+}
+
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqR_GraphicalObject : public std::unary_function<SBase*, bool>
+{
+  const std::string& id;
+
+  IdEqR_GraphicalObject (const std::string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <GraphicalObject *> (sb)->getId() == id; }
+};
+
+
+/* return item by id */
+const CompartmentGlyph*
+ListOfCompartmentGlyphs::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_GraphicalObject(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <CompartmentGlyph*> (*result);
+}
+
 
 
 /**
@@ -1664,6 +2071,41 @@ ListOfSpeciesGlyphs::getElementName () const
 {
   static const std::string name = "listOfSpeciesGlyphs";
   return name;
+}
+
+/* return nth item in list */
+SpeciesGlyph *
+ListOfSpeciesGlyphs::get(unsigned int n)
+{
+  return static_cast<SpeciesGlyph*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const SpeciesGlyph *
+ListOfSpeciesGlyphs::get(unsigned int n) const
+{
+  return static_cast<const SpeciesGlyph*>(ListOf::get(n));
+}
+
+
+
+/* return item by id */
+SpeciesGlyph*
+ListOfSpeciesGlyphs::get (const std::string& sid)
+{
+  return const_cast<SpeciesGlyph*>( 
+    static_cast<const ListOfSpeciesGlyphs&>(*this).get(sid) );
+}
+
+/* return item by id */
+const SpeciesGlyph*
+ListOfSpeciesGlyphs::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_GraphicalObject(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <SpeciesGlyph*> (*result);
 }
 
 
@@ -1799,6 +2241,40 @@ ListOfReactionGlyphs::getElementName () const
   return name;
 }
 
+/* return nth item in list */
+ReactionGlyph *
+ListOfReactionGlyphs::get(unsigned int n)
+{
+  return static_cast<ReactionGlyph*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const ReactionGlyph *
+ListOfReactionGlyphs::get(unsigned int n) const
+{
+  return static_cast<const ReactionGlyph*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+ReactionGlyph*
+ListOfReactionGlyphs::get (const std::string& sid)
+{
+  return const_cast<ReactionGlyph*>( 
+    static_cast<const ListOfReactionGlyphs&>(*this).get(sid) );
+}
+
+/* return item by id */
+const ReactionGlyph*
+ListOfReactionGlyphs::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_GraphicalObject(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <ReactionGlyph*> (*result);
+}
+
 
 /**
  * @return the SBML object corresponding to next XMLToken in the
@@ -1928,6 +2404,41 @@ ListOfTextGlyphs::getElementName () const
 {
   static const std::string name = "listOfTextGlyphs";
   return name;
+}
+
+/* return nth item in list */
+TextGlyph *
+ListOfTextGlyphs::get(unsigned int n)
+{
+  return static_cast<TextGlyph*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const TextGlyph *
+ListOfTextGlyphs::get(unsigned int n) const
+{
+  return static_cast<const TextGlyph*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+TextGlyph*
+ListOfTextGlyphs::get (const std::string& sid)
+{
+  return const_cast<TextGlyph*>( 
+    static_cast<const ListOfTextGlyphs&>(*this).get(sid) );
+}
+
+
+/* return item by id */
+const TextGlyph*
+ListOfTextGlyphs::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_GraphicalObject(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <TextGlyph*> (*result);
 }
 
 
@@ -2063,6 +2574,40 @@ ListOfGraphicalObjects::getElementName () const
   return name;
 }
 
+/* return nth item in list */
+GraphicalObject *
+ListOfGraphicalObjects::get(unsigned int n)
+{
+  return static_cast<GraphicalObject*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const GraphicalObject *
+ListOfGraphicalObjects::get(unsigned int n) const
+{
+  return static_cast<const GraphicalObject*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+GraphicalObject*
+ListOfGraphicalObjects::get (const std::string& sid)
+{
+  return const_cast<GraphicalObject*>( 
+    static_cast<const ListOfGraphicalObjects&>(*this).get(sid) );
+}
+
+/* return item by id */
+const GraphicalObject*
+ListOfGraphicalObjects::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_GraphicalObject(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <GraphicalObject*> (*result);
+}
+
 
 /**
  * @return the SBML object corresponding to next XMLToken in the
@@ -2122,9 +2667,193 @@ XMLNode ListOfGraphicalObjects::toXML() const
   return node;
 }
 
+/*
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+Layout::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+  mDimensions.setSBMLDocument(d);
+  mCompartmentGlyphs.setSBMLDocument(d);
+  mSpeciesGlyphs .setSBMLDocument(d);
+  mReactionGlyphs.setSBMLDocument(d);
+  mTextGlyphs.setSBMLDocument(d);
+  mAdditionalGraphicalObjects.setSBMLDocument(d);
+}
+
+/**
+  * Sets the parent SBML object of this SBML object.
+  *
+  * @param sb the SBML object to use
+  */
+void 
+Layout::setParentSBMLObject (SBase* sb)
+{
+  mParentSBMLObject = sb;
+}
 
 
 
+/**
+ * This methods calculates the bounding box of the layout.
+ * It traverses all layout objects and looks for the minimal and maximal x
+ * and y values that occur in the layout.
+ * These values are returned in the form of a bounding box where the minimal
+ * values are stored in the position and the maxima are given as the minimal
+ * values plus the corresponding dimension.
+ */
+BoundingBox Layout::calculateBoundingBox() const
+{
+    double minX=std::numeric_limits<double>::max();
+    double minY=minX;
+    double maxX=-minX;
+    double maxY=-minX;
+
+    const GraphicalObject* pObject=NULL;
+    const Curve* pCurve=NULL;
+    const BoundingBox* pBB;
+    const Point* pP=NULL;
+    const Dimensions* pDim;
+    unsigned int i,iMax=this->getNumCompartmentGlyphs();
+    double x,y,x2,y2;
+    for(i=0;i<iMax;++i)
+    {
+        pObject=this->getCompartmentGlyph(i);
+        pBB=pObject->getBoundingBox();
+        pP=pBB->getPosition();
+        x=pP->x();
+        y=pP->y();
+        pDim=pBB->getDimensions();
+        x2=x+pDim->getWidth();
+        y2=y+pDim->getHeight();
+        minX=(minX<x)?minX:x;
+        minY=(minY<y)?minY:y;
+        maxX=(maxX>x2)?maxX:x2;
+        maxY=(maxY>y2)?maxY:y2;
+    }
+    iMax=this->getNumSpeciesGlyphs();
+    for(i=0;i<iMax;++i)
+    {
+        pObject=this->getSpeciesGlyph(i);
+        pBB=pObject->getBoundingBox();
+        pP=pBB->getPosition();
+        x=pP->x();
+        y=pP->y();
+        pDim=pBB->getDimensions();
+        x2=x+pDim->getWidth();
+        y2=y+pDim->getHeight();
+        minX=(minX<x)?minX:x;
+        minY=(minY<y)?minY:y;
+        maxX=(maxX>x2)?maxX:x2;
+        maxY=(maxY>y2)?maxY:y2;
+    }
+    iMax=this->getNumTextGlyphs();
+    for(i=0;i<iMax;++i)
+    {
+        pObject=this->getTextGlyph(i);
+        pBB=pObject->getBoundingBox();
+        pP=pBB->getPosition();
+        x=pP->x();
+        y=pP->y();
+        pDim=pBB->getDimensions();
+        x2=x+pDim->getWidth();
+        y2=y+pDim->getHeight();
+        minX=(minX<x)?minX:x;
+        minY=(minY<y)?minY:y;
+        maxX=(maxX>x2)?maxX:x2;
+        maxY=(maxY>y2)?maxY:y2;
+    }
+    iMax=this->getNumAdditionalGraphicalObjects();
+    for(i=0;i<iMax;++i)
+    {
+        pObject=this->getAdditionalGraphicalObject(i);
+        pBB=pObject->getBoundingBox();
+        pP=pBB->getPosition();
+        x=pP->x();
+        y=pP->y();
+        pDim=pBB->getDimensions();
+        x2=x+pDim->getWidth();
+        y2=y+pDim->getHeight();
+        minX=(minX<x)?minX:x;
+        minY=(minY<y)?minY:y;
+        maxX=(maxX>x2)?maxX:x2;
+        maxY=(maxY>y2)?maxY:y2;
+    }
+    const ReactionGlyph* pRG=NULL;
+    const SpeciesReferenceGlyph* pSRG=NULL;
+    unsigned int j,jMax;
+    iMax=this->getNumReactionGlyphs();
+    for(i=0;i<iMax;++i)
+    {
+        pRG=this->getReactionGlyph(i);
+        if(pRG->isSetCurve())
+        {
+            pCurve=pRG->getCurve();
+            BoundingBox bb=pCurve->calculateBoundingBox();
+            pP=bb.getPosition();
+            x=pP->x();
+            y=pP->y();
+            pDim=bb.getDimensions();
+            x2=x+pDim->getWidth();
+            y2=y+pDim->getHeight();
+            minX=(minX<x)?minX:x;
+            minY=(minY<y)?minY:y;
+            maxX=(maxX>x2)?maxX:x2;
+            maxY=(maxY>y2)?maxY:y2;
+        }
+        else
+        {
+          pBB=pRG->getBoundingBox();
+          pP=pBB->getPosition();
+          x=pP->x();
+          y=pP->y();
+          pDim=pBB->getDimensions();
+          x2=x+pDim->getWidth();
+          y2=y+pDim->getHeight();
+          minX=(minX<x)?minX:x;
+          minY=(minY<y)?minY:y;
+          maxX=(maxX>x2)?maxX:x2;
+          maxY=(maxY>y2)?maxY:y2;
+        }
+        jMax=pRG->getNumSpeciesReferenceGlyphs();
+        for(j=0;j<jMax;++j)
+        {
+            pSRG=pRG->getSpeciesReferenceGlyph(j);
+            if(pSRG->isSetCurve())
+            {
+                pCurve=pSRG->getCurve();
+                BoundingBox bb=pCurve->calculateBoundingBox();
+                pP=bb.getPosition();
+                x=pP->x();
+                y=pP->y();
+                pDim=bb.getDimensions();
+                x2=x+pDim->getWidth();
+                y2=y+pDim->getHeight();
+                minX=(minX<x)?minX:x;
+                minY=(minY<y)?minY:y;
+                maxX=(maxX>x2)?maxX:x2;
+                maxY=(maxY>y2)?maxY:y2;
+            }
+            else
+            {
+                pBB=pSRG->getBoundingBox();
+                pP=pBB->getPosition();
+                x=pP->x();
+                y=pP->y();
+                pDim=pBB->getDimensions();
+                x2=x+pDim->getWidth();
+                y2=y+pDim->getHeight();
+                minX=(minX<x)?minX:x;
+                minY=(minY<y)?minY:y;
+                maxX=(maxX>x2)?maxX:x2;
+                maxY=(maxY>y2)?maxY:y2;
+            }
+        }
+    }
+    return BoundingBox("bb",minX,minY,maxX-minX,maxY-minY);
+}
+ 
 
 
 
@@ -2145,6 +2874,40 @@ Layout_create (void)
 {
   return new(std::nothrow) Layout;
 }
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Creates a new Layout_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Layout
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Layout
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Layout
+ *
+ * @return a pointer to the newly created Layout_t structure.
+ *
+ * @note Once a Layout has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Layout_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow) Layout(level, version);
+}
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

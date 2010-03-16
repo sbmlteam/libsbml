@@ -87,6 +87,87 @@ START_TEST ( test_TextGlyph_new )
 }
 END_TEST
 
+START_TEST ( test_TextGlyph_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   TextGlyph *tg=new TextGlyph(level, version); 
+   fail_unless( tg->getTypeCode() == SBML_LAYOUT_TEXTGLYPH );
+   fail_unless( tg->getMetaId()   == "" );
+
+   fail_unless(tg->getLevel() == level);
+   fail_unless(tg->getVersion() == version);
+
+   fail_unless( tg->isSetId() == false );
+   fail_unless( tg->getId()          == "" );
+   fail_unless( !tg->isSetId());
+   fail_unless( !tg->isSetText());
+   fail_unless( !tg->isSetGraphicalObjectId());
+   fail_unless( !tg->isSetOriginOfTextId());
+   
+   delete tg;
+
+   level=2;
+   version=3;
+   tg=new TextGlyph(level, version); 
+   fail_unless( tg->getTypeCode() == SBML_LAYOUT_TEXTGLYPH );
+   fail_unless( tg->getMetaId()   == "" );
+
+   fail_unless(tg->getLevel() == level);
+   fail_unless(tg->getVersion() == version);
+
+   fail_unless( tg->isSetId() == false );
+   fail_unless( tg->getId()          == "" );
+   fail_unless( !tg->isSetId());
+   fail_unless( !tg->isSetText());
+   fail_unless( !tg->isSetGraphicalObjectId());
+   fail_unless( !tg->isSetOriginOfTextId());
+    
+   delete tg;
+}
+END_TEST
+
+START_TEST ( test_TextGlyph_new_WithNamespace )
+{
+   SBMLNamespaces* ns = new SBMLNamespaces;
+   TextGlyph *tg=new TextGlyph(ns); 
+   fail_unless( tg->getTypeCode() == SBML_LAYOUT_TEXTGLYPH );
+   fail_unless( tg->getMetaId()   == "" );
+
+   fail_unless(tg->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(tg->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( tg->isSetId() == false );
+   fail_unless( tg->getId()          == "" );
+   fail_unless( !tg->isSetId());
+   fail_unless( !tg->isSetText());
+   fail_unless( !tg->isSetGraphicalObjectId());
+   fail_unless( !tg->isSetOriginOfTextId());
+    
+   delete tg;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   tg=new TextGlyph(ns);
+   fail_unless( tg->getTypeCode() == SBML_LAYOUT_TEXTGLYPH );
+   fail_unless( tg->getMetaId()   == "" );
+
+   fail_unless(tg->getLevel() == 2);
+   fail_unless(tg->getVersion() == 3);
+
+   fail_unless( tg->isSetId() == false );
+   fail_unless( tg->getId()          == "" );
+   fail_unless( !tg->isSetId());
+   fail_unless( !tg->isSetText());
+   fail_unless( !tg->isSetGraphicalObjectId());
+   fail_unless( !tg->isSetOriginOfTextId());
+    
+   delete tg;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST ( test_TextGlyph_new_with_text )
 {
     std::string id="TestTextGlyphId";
@@ -171,13 +252,15 @@ create_suite_TextGlyph (void)
                              TextGlyphTest_teardown );
 
 
-  tcase_add_test(tcase , test_TextGlyph_new                  );
-  tcase_add_test(tcase , test_TextGlyph_new_with_text        );
-  tcase_add_test(tcase , test_TextGlyph_setText              );
-  tcase_add_test(tcase , test_TextGlyph_setGraphicalObjectId );
-  tcase_add_test(tcase , test_TextGlyph_setOriginOfTextId    );
-  tcase_add_test( tcase, test_TextGlyph_copyConstructor      );
-  tcase_add_test( tcase, test_TextGlyph_assignmentOperator   );
+  tcase_add_test(tcase , test_TextGlyph_new                               );
+  tcase_add_test( tcase, test_TextGlyph_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_TextGlyph_new_WithNamespace                 );
+  tcase_add_test(tcase , test_TextGlyph_new_with_text                     );
+  tcase_add_test(tcase , test_TextGlyph_setText                           );
+  tcase_add_test(tcase , test_TextGlyph_setGraphicalObjectId              );
+  tcase_add_test(tcase , test_TextGlyph_setOriginOfTextId                 );
+  tcase_add_test( tcase, test_TextGlyph_copyConstructor                   );
+  tcase_add_test( tcase, test_TextGlyph_assignmentOperator                );
   
   suite_add_tcase(suite, tcase);
 

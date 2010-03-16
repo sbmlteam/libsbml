@@ -47,6 +47,7 @@
 #include "SpeciesReferenceGlyph.h"
 #include "LayoutUtilities.h"
 
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -75,12 +76,25 @@ const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
  * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
  */
 SpeciesReferenceGlyph::SpeciesReferenceGlyph () :
-    mRole  ( SPECIES_ROLE_UNDEFINED )
+    GraphicalObject()
+   ,mRole  ( SPECIES_ROLE_UNDEFINED )
   
 {
 }
 
+SpeciesReferenceGlyph::SpeciesReferenceGlyph (unsigned int level, unsigned int version):
+   GraphicalObject (level, version)
+  ,mRole  ( SPECIES_ROLE_UNDEFINED )
+{
+}
 
+                          
+SpeciesReferenceGlyph::SpeciesReferenceGlyph (SBMLNamespaces *sbmlns) :
+   GraphicalObject (sbmlns)
+  ,mRole  ( SPECIES_ROLE_UNDEFINED )
+{
+}
+ 
 /**
  * Creates a new SpeciesReferenceGlyph.  The id is given as the first
  * argument, the id of the associated species reference is given as the
@@ -585,6 +599,40 @@ SpeciesReferenceGlyph_create(void)
 {
   return new(std::nothrow) SpeciesReferenceGlyph;
 }
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Creates a new SpeciesReferenceGlyph_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * SpeciesReferenceGlyph
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SpeciesReferenceGlyph
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this SpeciesReferenceGlyph
+ *
+ * @return a pointer to the newly created SpeciesReferenceGlyph_t structure.
+ *
+ * @note Once a SpeciesReferenceGlyph has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t *
+SpeciesReferenceGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow) SpeciesReferenceGlyph(level, version);
+}
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

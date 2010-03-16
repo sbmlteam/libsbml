@@ -46,10 +46,10 @@
 #include <assert.h>
 #include <limits>
 #include "ReactionGlyph.h"
-#include "SpeciesReferenceGlyph.h"
 #include "LayoutUtilities.h"
 
 
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -63,7 +63,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ReactionGlyph.  The list of species reference glyph is
  * empty and the id of the associated reaction is set to the empty string.
  */
-ReactionGlyph::ReactionGlyph() 
+ReactionGlyph::ReactionGlyph() :
+    GraphicalObject()
 {
 }
 
@@ -76,6 +77,17 @@ ReactionGlyph::ReactionGlyph (const std::string& id):
 {
 }
 
+ReactionGlyph::ReactionGlyph (unsigned int level, unsigned int version):
+   GraphicalObject (level, version)
+{
+}
+
+                          
+ReactionGlyph::ReactionGlyph (SBMLNamespaces *sbmlns) :
+   GraphicalObject (sbmlns)
+{
+}
+ 
 
 /**
  * Creates a ReactionGlyph with the given id and set the id of the
@@ -289,10 +301,43 @@ ReactionGlyph::getSpeciesReferenceGlyph (unsigned int index) const
 /**
  * Adds a new species reference glyph to the list.
  */
-void
+int
 ReactionGlyph::addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph)
 {
-  this->mSpeciesReferenceGlyphs.append(glyph);
+  if (glyph == NULL)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else if (!(glyph->hasRequiredAttributes()) || !(glyph->hasRequiredElements()))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else if (getLevel() != glyph->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != glyph->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (glyph->isSetId() 
+       && (getListOfSpeciesReferenceGlyphs()->get(glyph->getId())) != NULL)
+  {
+    // an object with this id already exists
+    return LIBSBML_DUPLICATE_OBJECT_ID;
+  }
+  else
+  {
+      /* if the ListOf is empty it doesn't know its parent */
+      if (mSpeciesReferenceGlyphs.size() == 0)
+      {
+          mSpeciesReferenceGlyphs.setSBMLDocument(this->getSBMLDocument());
+          mSpeciesReferenceGlyphs.setParentSBMLObject(this);
+      }
+      this->mSpeciesReferenceGlyphs.append(glyph);
+
+      return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -361,9 +406,31 @@ bool ReactionGlyph::isSetCurve () const
 SpeciesReferenceGlyph*
 ReactionGlyph::createSpeciesReferenceGlyph ()
 {
-  SpeciesReferenceGlyph* srg = new SpeciesReferenceGlyph();
+  SpeciesReferenceGlyph* srg = NULL;
 
-  this->mSpeciesReferenceGlyphs.appendAndOwn(srg);
+  try
+  {
+    srg = new SpeciesReferenceGlyph(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+  /* if the ListOf is empty it doesnt know its parent */
+  if (mSpeciesReferenceGlyphs.size() == 0)
+  {
+    mSpeciesReferenceGlyphs.setSBMLDocument(this->getSBMLDocument());
+    mSpeciesReferenceGlyphs.setParentSBMLObject(this);
+  }
+
+  if(srg != NULL) 
+  {
+      this->mSpeciesReferenceGlyphs.appendAndOwn(srg);
+  }
   return srg;
 }
 
@@ -669,6 +736,54 @@ ListOfSpeciesReferenceGlyphs::getElementName () const
   return name;
 }
 
+/* return nth item in list */
+SpeciesReferenceGlyph *
+ListOfSpeciesReferenceGlyphs::get(unsigned int n)
+{
+  return static_cast<SpeciesReferenceGlyph*>(ListOf::get(n));
+}
+
+
+/* return nth item in list */
+const SpeciesReferenceGlyph *
+ListOfSpeciesReferenceGlyphs::get(unsigned int n) const
+{
+  return static_cast<const SpeciesReferenceGlyph*>(ListOf::get(n));
+}
+
+
+/* return item by id */
+SpeciesReferenceGlyph*
+ListOfSpeciesReferenceGlyphs::get (const std::string& sid)
+{
+  return const_cast<SpeciesReferenceGlyph*>( 
+    static_cast<const ListOfSpeciesReferenceGlyphs&>(*this).get(sid) );
+}
+
+/**
+ * Used by ListOf::get() to lookup an SBase based by its id.
+ */
+struct IdEqR_SpeciesReferenceGlyph : public std::unary_function<SBase*, bool>
+{
+  const std::string& id;
+
+  IdEqR_SpeciesReferenceGlyph (const std::string& id) : id(id) { }
+  bool operator() (SBase* sb) 
+       { return static_cast <SpeciesReferenceGlyph *> (sb)->getId() == id; }
+};
+
+
+/* return item by id */
+const SpeciesReferenceGlyph*
+ListOfSpeciesReferenceGlyphs::get (const std::string& sid) const
+{
+    std::vector<SBase*>::const_iterator result;
+
+  result = find_if( mItems.begin(), mItems.end(), IdEqR_SpeciesReferenceGlyph(sid) );
+  return (result == mItems.end()) ? 0 : static_cast <SpeciesReferenceGlyph*> (*result);
+}
+
+
 
 /**
  * @return the SBML object corresponding to next XMLToken in the
@@ -750,6 +865,17 @@ ReactionGlyph::accept (SBMLVisitor& v) const
 }
 */
 
+/*
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+ReactionGlyph::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+
+  mSpeciesReferenceGlyphs.setSBMLDocument(d);
+}
+
 
 
 
@@ -769,6 +895,39 @@ ReactionGlyph_create (void)
   return new(std::nothrow) ReactionGlyph;
 }
 
+/** @cond doxygen-libsbml-internal */
+/**
+ * Creates a new ReactionGlyph_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * ReactionGlyph
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ReactionGlyph
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this ReactionGlyph
+ *
+ * @return a pointer to the newly created ReactionGlyph_t structure.
+ *
+ * @note Once a ReactionGlyph has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+ReactionGlyph_t *
+ReactionGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow) ReactionGlyph(level, version);
+}
+/** @endcond doxygen-libsbml-internal */
 
 /**
  * Creates a new ReactionGlyph with the given id

@@ -46,6 +46,7 @@
 
 #include "TextGlyph.h"
 #include "LayoutUtilities.h"
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -82,6 +83,17 @@ TextGlyph::TextGlyph (const std::string& id, const std::string& text):
 {
 }
 
+TextGlyph::TextGlyph (unsigned int level, unsigned int version):
+   GraphicalObject (level, version)
+{
+}
+
+                          
+TextGlyph::TextGlyph (SBMLNamespaces *sbmlns) :
+   GraphicalObject (sbmlns)
+{
+}
+ 
 /**
  * Creates a new TextGlyph from the given XMLNode
  */
@@ -390,6 +402,40 @@ TextGlyph_create (void)
 {
   return new(std::nothrow) TextGlyph;
 }
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Creates a new TextGlyph_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * TextGlyph
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * TextGlyph
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this TextGlyph
+ *
+ * @return a pointer to the newly created TextGlyph_t structure.
+ *
+ * @note Once a TextGlyph has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+TextGlyph_t *
+TextGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow) TextGlyph(level, version);
+}
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

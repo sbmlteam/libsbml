@@ -368,7 +368,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_CompartmentGlyph)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -427,7 +427,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_CompartmentGlyph_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -504,7 +504,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_annotation)
       "        </this-is-a-test>\n"
       "      </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -573,7 +573,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_CompartmentGlyph_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -632,7 +632,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesGlyph)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -691,7 +691,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesGlyph_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -768,7 +768,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_annotation)
       "        </this-is-a-test>\n"
       "      </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -836,7 +836,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesGlyph_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -896,7 +896,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_ReactionGlyph_Curve)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -964,7 +964,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_ReactionGlyph_BoundingBox)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1023,7 +1023,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_ReactionGlyph_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1099,7 +1099,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_annotation)
       "        </this-is-a-test>\n"
       "      </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1168,7 +1168,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_ReactionGlyph_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1227,7 +1227,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_Curve)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1319,7 +1319,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_BoundingBox)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1402,7 +1402,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1503,7 +1503,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_annotation)
       "            </this-is-a-test>\n"
       "          </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1596,7 +1596,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1679,7 +1679,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_TextGlyph_text)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1740,7 +1740,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_TextGlyph_originOfText)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1801,7 +1801,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_TextGlyph_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1880,7 +1880,7 @@ START_TEST (test_LayoutCreation_TextGlyph_annotation)
       "        </this-is-a-test>\n"
       "      </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -1951,7 +1951,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_TextGlyph_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2013,7 +2013,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_GraphicalObject)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2070,7 +2070,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_GraphicalObject_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2145,7 +2145,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_annotation)
       "        </this-is-a-test>\n"
       "      </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2213,7 +2213,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_Curve)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2280,7 +2280,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_Curve_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2365,7 +2365,7 @@ START_TEST (test_LayoutCreation_Curve_annotation)
       "          </this-is-a-test>\n"
       "        </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2439,7 +2439,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_Curve_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2487,7 +2487,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_LineSegment)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2551,7 +2551,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_LineSegment_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2633,7 +2633,7 @@ START_TEST (test_LayoutCreation_LineSegment_annotation)
       "              </this-is-a-test>\n"
       "            </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2707,7 +2707,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_CubicBezier)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2787,7 +2787,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_CubicBezier_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2883,7 +2883,7 @@ START_TEST (test_LayoutCreation_CubicBezier_annotation)
       "              </this-is-a-test>\n"
       "            </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -2970,7 +2970,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_Dimensions)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3007,7 +3007,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_Dimensions_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3063,7 +3063,7 @@ START_TEST (test_LayoutCreation_Dimensions_annotation)
       "      </this-is-a-test>\n"
       "    </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3112,7 +3112,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_Dimensions_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3151,7 +3151,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_BoundingBox)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3212,7 +3212,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_BoundingBox_notes)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3288,7 +3288,7 @@ START_TEST (test_LayoutCreation_BoundingBox_annotation)
       "          </this-is-a-test>\n"
       "        </annotation>";
 
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"
@@ -3357,7 +3357,7 @@ END_TEST
 
 START_TEST (test_LayoutCreation_BoundingBox_skipOptional)
 {
-    char* content=
+    const char* content=
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
       "<annotation>\n"
       "<listOfLayouts xmlns=\"http://projects.eml.org/bcb/sbml/level2\">\n"

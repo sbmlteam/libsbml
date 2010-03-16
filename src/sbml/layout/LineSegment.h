@@ -77,13 +77,15 @@ public:
   /**
    * Creates a line segment with both points set to (0.0,0.0,0.0)
    */ 
-  
   LineSegment ();
+
+  LineSegment (unsigned int level, unsigned int version);
+
+  LineSegment (SBMLNamespaces *sbmlns);
 
   /**
    * Creates a new line segment with the given 2D coordinates.
    */ 
-  
   LineSegment (double x1, double y1, double x2, double y2);
 
   /**
@@ -296,6 +298,35 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_create (void);
+
+/**
+ * Creates a new LineSegment_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * LineSegment
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * LineSegment
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this LineSegment
+ *
+ * @return a pointer to the newly created LineSegment_t structure.
+ *
+ * @note Once a LineSegment has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+LineSegment_t *
+LineSegment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version);
 
 
 /**

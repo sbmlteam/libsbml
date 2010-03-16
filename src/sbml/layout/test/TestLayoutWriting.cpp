@@ -1741,9 +1741,9 @@ START_TEST (test_LayoutWriting)
 
   Curve* curve=rg_malatedh_cyt->getCurve();
   LineSegment* ls=curve->createLineSegment();
-  Point p(700,381);
+  Point p(700.0,381.0);
   ls->setStart(&p);
-  p=Point(700,415);
+  p=Point(700.0,415.0);
   ls->setEnd(&p);
 
   tg=layout->createTextGlyph();
@@ -1760,9 +1760,9 @@ START_TEST (test_LayoutWriting)
 
   curve=rg_aspartateat_cyt->getCurve();
   ls=curve->createLineSegment();
-  p=Point(700,581);
+  p=Point(700.0,581.0);
   ls->setStart(&p);
-  p=Point(700,615);
+  p=Point(700.0,615.0);
   ls->setEnd(&p);
 
   tg=layout->createTextGlyph();
@@ -1783,9 +1783,9 @@ START_TEST (test_LayoutWriting)
   srg_malate_cyt_1->setRole(SPECIES_ROLE_SUBSTRATE);
 
   ls=srg_malate_cyt_1->createLineSegment();
-  p=Point(700,381);
+  p=Point(700.0,381.0);
   ls->setStart(&p);
-  p=Point(700,316);
+  p=Point(700.0,316.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_nad_cyt=rg_malatedh_cyt->createSpeciesReferenceGlyph();
@@ -1795,13 +1795,13 @@ START_TEST (test_LayoutWriting)
   srg_nad_cyt->setRole(SPECIES_ROLE_SUBSTRATE);
 
   CubicBezier* cb=srg_nad_cyt->createCubicBezier();
-  p=Point(700,381);
+  p=Point(700.0,381.0);
   cb->setStart(&p);
-  p=Point(700,362);
+  p=Point(700.0,362.0);
   cb->setBasePoint1(&p);
-  p=Point(700,362);
+  p=Point(700.0,362.0);
   cb->setBasePoint2(&p);
-  p=Point(620,362);
+  p=Point(620.0,362.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_oxaloacetate_cyt_1=rg_malatedh_cyt->createSpeciesReferenceGlyph();
@@ -1812,9 +1812,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_oxaloacetate_cyt_1->getCurve();
   ls=curve->createLineSegment();
-  p=Point(700,415);
+  p=Point(700.0,415.0);
   ls->setStart(&p);
-  p=Point(700,480);
+  p=Point(700.0,480.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_nadh_cyt=rg_malatedh_cyt->createSpeciesReferenceGlyph();
@@ -1824,13 +1824,13 @@ START_TEST (test_LayoutWriting)
   srg_nadh_cyt->setRole(SPECIES_ROLE_PRODUCT);
 
   cb=srg_nadh_cyt->createCubicBezier();
-  p=Point(700,415);
+  p=Point(700.0,415.0);
   cb->setStart(&p);
-  p=Point(700,442);
+  p=Point(700.0,442.0);
   cb->setBasePoint1(&p);
-  p=Point(700,442);
+  p=Point(700.0,442.0);
   cb->setBasePoint2(&p);
-  p=Point(620,442);
+  p=Point(620.0,442.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_h_cyt=rg_malatedh_cyt->createSpeciesReferenceGlyph();
@@ -1840,13 +1840,13 @@ START_TEST (test_LayoutWriting)
   srg_h_cyt->setRole(SPECIES_ROLE_PRODUCT);
 
   cb=srg_h_cyt->createCubicBezier();
-  p=Point(700,415); 
+  p=Point(700.0,415.0); 
   cb->setStart(&p);
-  p=Point(570,415);
+  p=Point(570.0,415.0);
   cb->setBasePoint1(&p);
-  p=Point(570,415);
+  p=Point(570.0,415.0);
   cb->setBasePoint2(&p);
-  p=Point(470,430);
+  p=Point(470.0,430.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_oxaloacetate_cyt_2=rg_aspartateat_cyt->createSpeciesReferenceGlyph();
@@ -1857,9 +1857,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_oxaloacetate_cyt_2->getCurve();
   ls=curve->createLineSegment();
-  p=Point(700,581);
+  p=Point(700.0,581.0);
   ls->setStart(&p);
-  p=Point(700,516);
+  p=Point(700.0,516.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_glutamate_cyt_1=rg_aspartateat_cyt->createSpeciesReferenceGlyph();
@@ -1870,13 +1870,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_glutamate_cyt_1->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(700,581);
+  p=Point(700.0,581.0);
   cb->setStart(&p);
-  p=Point(750,581);
+  p=Point(750.0,581.0);
   cb->setBasePoint1(&p);
-  p=Point(750,628);
+  p=Point(750.0,628.0);
   cb->setBasePoint2(&p);
-  p=Point(800,628);
+  p=Point(800.0,628.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_aspartate_cyt_1=rg_aspartateat_cyt->createSpeciesReferenceGlyph();
@@ -1887,9 +1887,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aspartate_cyt_1->getCurve();
   ls=curve->createLineSegment();
-  p=Point(700,615);
+  p=Point(700.0,615.0);
   ls->setStart(&p);
-  p=Point(700,680);
+  p=Point(700.0,680.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_aKetoglutarate_cyt_1=rg_aspartateat_cyt->createSpeciesReferenceGlyph();
@@ -1900,13 +1900,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aKetoglutarate_cyt_1->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(700,615);
+  p=Point(700.0,615.0);
   cb->setStart(&p);
-  p=Point(790,615);
+  p=Point(790.0,615.0);
   cb->setBasePoint1(&p);
-  p=Point(790,515);
+  p=Point(790.0,515.0);
   cb->setBasePoint2(&p);
-  p=Point(860,515);
+  p=Point(860.0,515.0);
   cb->setEnd(&p);
 
 
@@ -2031,9 +2031,9 @@ START_TEST (test_LayoutWriting)
 
   curve=rg_malatedh_mito3->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1970,181);
+  p=Point(1970.0,181.0);
   ls->setStart(&p);
-  p=Point(1970,215);
+  p=Point(1970.0,215.0);
   ls->setEnd(&p);
 
   tg=layout->createTextGlyph();
@@ -2049,9 +2049,9 @@ START_TEST (test_LayoutWriting)
 
   curve=rg_aspartateat_mito3->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1970,381);
+  p=Point(1970.0,381.0);
   ls->setStart(&p);
-  p=Point(1970,415);
+  p=Point(1970.0,415.0);
   ls->setEnd(&p);
 
   tg=layout->createTextGlyph();
@@ -2071,9 +2071,9 @@ START_TEST (test_LayoutWriting)
   srg_malate_mito3_1->setRole(SPECIES_ROLE_SUBSTRATE);
 
   ls=srg_malate_mito3_1->createLineSegment();
-  p=Point(1970,181);
+  p=Point(1970.0,181.0);
   ls->setStart(&p);
-  p=Point(1970,116);
+  p=Point(1970.0,116.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_nad_mito3=rg_malatedh_mito3->createSpeciesReferenceGlyph();
@@ -2083,13 +2083,13 @@ START_TEST (test_LayoutWriting)
   srg_nad_mito3->setRole(SPECIES_ROLE_SUBSTRATE);
 
   cb=srg_nad_mito3->createCubicBezier();
-  p=Point(1970,181);
+  p=Point(1970.0,181.0);
   cb->setStart(&p);
-  p=Point(1970,162);
+  p=Point(1970.0,162.0);
   cb->setBasePoint1(&p);
-  p=Point(1970,162);
+  p=Point(1970.0,162.0);
   cb->setBasePoint2(&p);
-  p=Point(2050,162);
+  p=Point(2050.0,162.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_oxaloacetate_mito3_1=rg_malatedh_mito3->createSpeciesReferenceGlyph();
@@ -2100,9 +2100,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_oxaloacetate_mito3_1->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1970,215);
+  p=Point(1970.0,215.0);
   ls->setStart(&p);
-  p=Point(1970,280);
+  p=Point(1970.0,280.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_nadh_mito3=rg_malatedh_mito3->createSpeciesReferenceGlyph();
@@ -2112,13 +2112,13 @@ START_TEST (test_LayoutWriting)
   srg_nadh_mito3->setRole(SPECIES_ROLE_PRODUCT);
 
   cb=srg_nadh_mito3->createCubicBezier();
-  p=Point(1970,215);
+  p=Point(1970.0,215.0);
   cb->setStart(&p);
-  p=Point(1970,242);
+  p=Point(1970.0,242.0);
   cb->setBasePoint1(&p);
-  p=Point(1970,242);
+  p=Point(1970.0,242.0);
   cb->setBasePoint2(&p);
-  p=Point(2050,242);
+  p=Point(2050.0,242.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_h_mito3=rg_malatedh_mito3->createSpeciesReferenceGlyph();
@@ -2128,13 +2128,13 @@ START_TEST (test_LayoutWriting)
   srg_h_mito3->setRole(SPECIES_ROLE_PRODUCT);
 
   cb=srg_h_mito3->createCubicBezier();
-  p=Point(1970,215);
+  p=Point(1970.0,215.0);
   cb->setStart(&p);
-  p=Point(2100,215);
+  p=Point(2100.0,215.0);
   cb->setBasePoint1(&p);
-  p=Point(2100,215);
+  p=Point(2100.0,215.0);
   cb->setBasePoint2(&p);
-  p=Point(2200,230);
+  p=Point(2200.0,230.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_oxaloacetate_mito3_2=rg_aspartateat_mito3->createSpeciesReferenceGlyph();
@@ -2145,9 +2145,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_oxaloacetate_mito3_2->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1970,381);
+  p=Point(1970.0,381.0);
   ls->setStart(&p);
-  p=Point(1970,316);
+  p=Point(1970.0,316.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_glutamate_mito3_1=rg_aspartateat_mito3->createSpeciesReferenceGlyph();
@@ -2158,13 +2158,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_glutamate_mito3_1->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1970,381);
+  p=Point(1970.0,381.0);
   cb->setStart(&p);
-  p=Point(1880,381);
+  p=Point(1880.0,381.0);
   cb->setBasePoint1(&p);
-  p=Point(1880,448);
+  p=Point(1880.0,448.0);
   cb->setBasePoint2(&p);
-  p=Point(1790,448);
+  p=Point(1790.0,448.0);
   cb->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_aspartate_mito3_1=rg_aspartateat_mito3->createSpeciesReferenceGlyph();
@@ -2175,9 +2175,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aspartate_mito3_1->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1970,415);
+  p=Point(1970.0,415.0);
   ls->setStart(&p);
-  p=Point(1970,480);
+  p=Point(1970.0,480.0);
   ls->setEnd(&p);
 
   SpeciesReferenceGlyph* srg_aKetoglutarate_mito3_1=rg_aspartateat_mito3->createSpeciesReferenceGlyph();
@@ -2188,13 +2188,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aKetoglutarate_mito3_1->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1970,415);
+  p=Point(1970.0,415.0);
   cb->setStart(&p);
-  p=Point(1880,415);
+  p=Point(1880.0,415.0);
   cb->setBasePoint1(&p);
-  p=Point(1880,315);
+  p=Point(1880.0,315.0);
   cb->setBasePoint2(&p);
-  p=Point(1810,315);
+  p=Point(1810.0,315.0);
   cb->setEnd(&p);
 
   // add the transport reaction glyphs
@@ -2205,9 +2205,9 @@ START_TEST (test_LayoutWriting)
 
   curve=rg_aspartateCarrier->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1420,530);
+  p=Point(1420.0,530.0);
   ls->setStart(&p);
-  p=Point(1360,550);
+  p=Point(1360.0,550.0);
   ls->setEnd(&p);
 
   tg=layout->createTextGlyph();
@@ -2224,9 +2224,9 @@ START_TEST (test_LayoutWriting)
 
   curve=rg_malateCarrier->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1420,320);
+  p=Point(1420.0,320.0);
   ls->setStart(&p);
-  p=Point(1360,340);
+  p=Point(1360.0,340.0);
   ls->setEnd(&p);
 
   tg=layout->createTextGlyph();
@@ -2248,9 +2248,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aKetoglutarate_mito3_2->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1420,320);
+  p=Point(1420.0,320.0);
   ls->setStart(&p);
-  p=Point(1530,318);
+  p=Point(1530.0,318.0);
   ls->setEnd(&p);
 
 
@@ -2262,9 +2262,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aKetoglutarate_cyt_2->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1360,340);
+  p=Point(1360.0,340.0);
   ls->setStart(&p);
-  p=Point(1140,518);
+  p=Point(1140.0,518.0);
   ls->setEnd(&p);
 
 
@@ -2276,13 +2276,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_malate_cyt_2->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1420,320);
+  p=Point(1420.0,320.0);
   cb->setStart(&p);
-  p=Point(1390,250);
+  p=Point(1390.0,250.0);
   cb->setBasePoint1(&p);
-  p=Point(1390,250);
+  p=Point(1390.0,250.0);
   cb->setBasePoint2(&p);
-  p=Point(820,298);
+  p=Point(820.0,298.0);
   cb->setEnd(&p);
 
 
@@ -2294,13 +2294,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_malate_mito3_2->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1360,340);
+  p=Point(1360.0,340.0);
   cb->setStart(&p);
-  p=Point(1390,150);
+  p=Point(1390.0,150.0);
   cb->setBasePoint1(&p);
-  p=Point(1390,150);
+  p=Point(1390.0,150.0);
   cb->setBasePoint2(&p);
-  p=Point(1850,98);
+  p=Point(1850.0,98.0);
   cb->setEnd(&p);
 
 
@@ -2316,9 +2316,9 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aspartate_mito3_2->getCurve();
   ls=curve->createLineSegment();
-  p=Point(1420,530);
+  p=Point(1420.0,530.0);
   ls->setStart(&p);
-  p=Point(1850,498);
+  p=Point(1850.0,498.0);
   ls->setEnd(&p);
 
 
@@ -2330,13 +2330,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_aspartate_cyt_2->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1360,550);
+  p=Point(1360.0,550.0);
   cb->setStart(&p);
-  p=Point(1390,698);
+  p=Point(1390.0,698.0);
   cb->setBasePoint1(&p);
-  p=Point(1390,698);
+  p=Point(1390.0,698.0);
   cb->setBasePoint2(&p);
-  p=Point(820,698);
+  p=Point(820.0,698.0);
   cb->setEnd(&p);
 
 
@@ -2348,13 +2348,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_glutamate_cyt_2->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1420,530);
+  p=Point(1420.0,530.0);
   cb->setStart(&p);
-  p=Point(1390,648);
+  p=Point(1390.0,648.0);
   cb->setBasePoint1(&p);
-  p=Point(1390,648);
+  p=Point(1390.0,648.0);
   cb->setBasePoint2(&p);
-  p=Point(1050,628);
+  p=Point(1050.0,628.0);
   cb->setEnd(&p);
 
 
@@ -2366,13 +2366,13 @@ START_TEST (test_LayoutWriting)
 
   curve=srg_glutamate_mito3_2->getCurve();
   cb=curve->createCubicBezier();
-  p=Point(1360,550);
+  p=Point(1360.0,550.0);
   cb->setStart(&p);
-  p=Point(1390,448);
+  p=Point(1390.0,448.0);
   cb->setBasePoint1(&p);
-  p=Point(1390,448);
+  p=Point(1390.0,448.0);
   cb->setBasePoint2(&p);
-  p=Point(1550,448);
+  p=Point(1550.0,448.0);
   cb->setEnd(&p);
 
   SBMLWriter writer;

@@ -100,6 +100,99 @@ START_TEST (test_GraphicalObject_new)
 }
 END_TEST
 
+START_TEST ( test_GraphicalObject_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   GraphicalObject *go=new GraphicalObject(level, version); 
+   fail_unless( go->getTypeCode() == SBML_LAYOUT_GRAPHICALOBJECT );
+   fail_unless( go->getMetaId()   == "" );
+
+   fail_unless(go->getLevel() == level);
+   fail_unless(go->getVersion() == version);
+
+   fail_unless( go->isSetId() == false );
+   const BoundingBox& bb=*(go->getBoundingBox());
+   const Point& pos=*(bb.getPosition());
+   const Dimensions& dim=*(bb.getDimensions());
+   fail_unless(pos.getXOffset() == 0.0);
+   fail_unless(pos.getYOffset() == 0.0);
+   fail_unless(pos.getZOffset() == 0.0);
+   fail_unless(dim.getWidth()  == 0.0);
+   fail_unless(dim.getHeight() == 0.0);
+   fail_unless(dim.getDepth()  == 0.0);
+   delete go;
+
+   level=2;
+   version=3;
+   go=new GraphicalObject(level, version); 
+   fail_unless( go->getTypeCode() == SBML_LAYOUT_GRAPHICALOBJECT );
+   fail_unless( go->getMetaId()   == "" );
+
+   fail_unless(go->getLevel() == level);
+   fail_unless(go->getVersion() == version);
+
+   fail_unless( go->isSetId() == false );
+   const BoundingBox& bb2=*(go->getBoundingBox());
+   const Point& pos2=*(bb2.getPosition());
+   const Dimensions& dim2=*(bb2.getDimensions());
+   fail_unless(pos2.getXOffset() == 0.0);
+   fail_unless(pos2.getYOffset() == 0.0);
+   fail_unless(pos2.getZOffset() == 0.0);
+   fail_unless(dim2.getWidth()  == 0.0);
+   fail_unless(dim2.getHeight() == 0.0);
+   fail_unless(dim2.getDepth()  == 0.0);
+   delete go;
+}
+END_TEST
+
+START_TEST ( test_GraphicalObject_new_WithNamespace )
+{
+   SBMLNamespaces* ns = new SBMLNamespaces;
+   GraphicalObject *go=new GraphicalObject(ns); 
+   fail_unless( go->getTypeCode() == SBML_LAYOUT_GRAPHICALOBJECT );
+   fail_unless( go->getMetaId()   == "" );
+
+   fail_unless(go->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(go->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( go->isSetId() == false );
+   const BoundingBox& bb=*(go->getBoundingBox());
+   const Point& pos=*(bb.getPosition());
+   const Dimensions& dim=*(bb.getDimensions());
+   fail_unless(pos.getXOffset() == 0.0);
+   fail_unless(pos.getYOffset() == 0.0);
+   fail_unless(pos.getZOffset() == 0.0);
+   fail_unless(dim.getWidth()  == 0.0);
+   fail_unless(dim.getHeight() == 0.0);
+   fail_unless(dim.getDepth()  == 0.0);
+   delete go;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   go=new GraphicalObject(ns); 
+   fail_unless( go->getTypeCode() == SBML_LAYOUT_GRAPHICALOBJECT );
+   fail_unless( go->getMetaId()   == "" );
+
+   fail_unless(go->getLevel() == 2);
+   fail_unless(go->getVersion() == 3);
+
+   fail_unless( go->isSetId() == false );
+   const BoundingBox& bb2=*(go->getBoundingBox());
+   const Point& pos2=*(bb2.getPosition());
+   const Dimensions& dim2=*(bb2.getDimensions());
+   fail_unless(pos2.getXOffset() == 0.0);
+   fail_unless(pos2.getYOffset() == 0.0);
+   fail_unless(pos2.getZOffset() == 0.0);
+   fail_unless(dim2.getWidth()  == 0.0);
+   fail_unless(dim2.getHeight() == 0.0);
+   fail_unless(dim2.getDepth()  == 0.0);
+   delete go;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST (test_GraphicalObject_new_with_id)
 {
     std::string id="TestGraphicalObject";
@@ -301,16 +394,18 @@ create_suite_GraphicalObject (void)
                              GraphicalObjectTest_setup,
                              GraphicalObjectTest_teardown );
 
-  tcase_add_test( tcase, test_GraphicalObject_new                              );
-  tcase_add_test( tcase, test_GraphicalObject_new_with_id                      );
-  tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_2D_coordinates   );
-  tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_3D_coordinates   );
-  tcase_add_test( tcase, test_GraphicalObject_new_with_id_point_and_dimensions );
-  tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_boundingbox      );
-  tcase_add_test( tcase, test_GraphicalObject_setId                            );
-  tcase_add_test( tcase, test_GraphicalObject_setBoundingBox                   );
-  tcase_add_test( tcase, test_GraphicalObject_copyConstructor                  );
-  tcase_add_test( tcase, test_GraphicalObject_assignmentOperator               );
+  tcase_add_test( tcase, test_GraphicalObject_new                               );
+  tcase_add_test( tcase, test_GraphicalObject_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_GraphicalObject_new_WithNamespace                 );
+  tcase_add_test( tcase, test_GraphicalObject_new_with_id                       );
+  tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_2D_coordinates    );
+  tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_3D_coordinates    );
+  tcase_add_test( tcase, test_GraphicalObject_new_with_id_point_and_dimensions  );
+  tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_boundingbox       );
+  tcase_add_test( tcase, test_GraphicalObject_setId                             );
+  tcase_add_test( tcase, test_GraphicalObject_setBoundingBox                    );
+  tcase_add_test( tcase, test_GraphicalObject_copyConstructor                   );
+  tcase_add_test( tcase, test_GraphicalObject_assignmentOperator                );
 
   suite_add_tcase(suite, tcase);
 

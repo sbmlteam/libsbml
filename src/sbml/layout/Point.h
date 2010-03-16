@@ -74,8 +74,9 @@ public:
   /**
    * Creates a new point with x,y and z set to 0.0.
    */ 
-  
   Point ();
+
+  Point (SBMLNamespaces *sbmlns);
         
   /**
    * Copy constructor.
@@ -106,6 +107,15 @@ public:
    */
   Point& operator=(const Point& orig);
 
+  /**
+   * comparison operator
+   */
+  bool operator==(const Point& orig) const;
+
+  /**
+   * comparison operator
+   */
+  bool operator!=(const Point& orig) const;
 
   /**
    * Returns the x offset.

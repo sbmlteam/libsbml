@@ -95,6 +95,79 @@ START_TEST ( test_ReactionGlyph_new )
 }
 END_TEST
 
+START_TEST ( test_ReactionGlyph_new_WithLevelVersionAndNamespaces )
+{
+    unsigned int level=1;
+    unsigned int version=2;
+    ReactionGlyph *rg=new ReactionGlyph(level, version); 
+    fail_unless( rg->getTypeCode() == SBML_LAYOUT_REACTIONGLYPH );
+    fail_unless( rg->getMetaId()   == "" );
+
+    fail_unless(rg->getLevel() == level);
+    fail_unless(rg->getVersion() == version);
+
+    fail_unless( rg->isSetId() == false );
+    fail_unless( !rg->isSetReactionId());
+    fail_unless( rg->getCurve() != NULL );
+    fail_unless( !rg->isSetCurve() );
+
+    delete rg;
+
+    level=2;
+    version=3;
+    rg=new ReactionGlyph(level, version); 
+    fail_unless( rg->getTypeCode() == SBML_LAYOUT_REACTIONGLYPH );
+    fail_unless( rg->getMetaId()   == "" );
+
+    fail_unless(rg->getLevel() == level);
+    fail_unless(rg->getVersion() == version);
+
+    fail_unless( rg->isSetId() == false );
+    fail_unless( !rg->isSetReactionId());
+    fail_unless( rg->getCurve() != NULL );
+    fail_unless( !rg->isSetCurve() );
+
+    delete rg;
+}
+END_TEST
+
+START_TEST ( test_ReactionGlyph_new_WithNamespace )
+{
+    SBMLNamespaces* ns= new SBMLNamespaces;
+    ReactionGlyph *rg=new ReactionGlyph(ns); 
+    fail_unless( rg->getTypeCode() == SBML_LAYOUT_REACTIONGLYPH );
+    fail_unless( rg->getMetaId()   == "" );
+
+    fail_unless(rg->getLevel() == SBML_DEFAULT_LEVEL);
+    fail_unless(rg->getVersion() == SBML_DEFAULT_VERSION);
+
+    fail_unless( rg->isSetId() == false );
+    fail_unless( !rg->isSetReactionId());
+    fail_unless( rg->getCurve() != NULL );
+    fail_unless( !rg->isSetCurve() );
+
+    delete rg;
+    delete ns;
+
+    ns = new SBMLNamespaces(2,3);
+    rg=new ReactionGlyph(ns);
+    fail_unless( rg->getTypeCode() == SBML_LAYOUT_REACTIONGLYPH );
+    fail_unless( rg->getMetaId()   == "" );
+
+    fail_unless(rg->getLevel() == 2);
+    fail_unless(rg->getVersion() == 3);
+
+    fail_unless( rg->isSetId() == false );
+    fail_unless( !rg->isSetReactionId());
+    fail_unless( rg->getCurve() != NULL );
+    fail_unless( !rg->isSetCurve() );
+
+    delete rg;
+    delete ns;
+}
+END_TEST
+
+
 START_TEST ( test_ReactionGlyph_new_with_reactionId )
 {
     std::string id="TestReactionGlyph";
@@ -341,19 +414,21 @@ create_suite_ReactionGlyph (void)
                              ReactionGlyphTest_teardown );
 
 
-  tcase_add_test (tcase , test_ReactionGlyph_new                          );
-  tcase_add_test (tcase , test_ReactionGlyph_new_with_reactionId          );
-  tcase_add_test (tcase , test_ReactionGlyph_setReactionId                );
-  tcase_add_test (tcase , test_ReactionGlyph_addSpeciesReferenceGlyph     );
-  tcase_add_test (tcase , test_ReactionGlyph_getNumSpeciesReferenceGlyphs );
-  tcase_add_test (tcase , test_ReactionGlyph_setCurve                     );
-  tcase_add_test (tcase , test_ReactionGlyph_setCurve_NULL                );
-  tcase_add_test (tcase , test_ReactionGlyph_isSetCurve                   );
-  tcase_add_test (tcase , test_ReactionGlyph_createSpeciesReferenceGlyph  );
-  tcase_add_test (tcase , test_ReactionGlyph_createLineSegment            );
-  tcase_add_test (tcase , test_ReactionGlyph_createCubicBezier            );
-  tcase_add_test( tcase , test_ReactionGlyph_copyConstructor              );
-  tcase_add_test( tcase , test_ReactionGlyph_assignmentOperator           );
+  tcase_add_test (tcase , test_ReactionGlyph_new                              );
+  tcase_add_test( tcase, test_ReactionGlyph_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_ReactionGlyph_new_WithNamespace                 );
+  tcase_add_test (tcase , test_ReactionGlyph_new_with_reactionId              );
+  tcase_add_test (tcase , test_ReactionGlyph_setReactionId                    );
+  tcase_add_test (tcase , test_ReactionGlyph_addSpeciesReferenceGlyph         );
+  tcase_add_test (tcase , test_ReactionGlyph_getNumSpeciesReferenceGlyphs     );
+  tcase_add_test (tcase , test_ReactionGlyph_setCurve                         );
+  tcase_add_test (tcase , test_ReactionGlyph_setCurve_NULL                    );
+  tcase_add_test (tcase , test_ReactionGlyph_isSetCurve                       );
+  tcase_add_test (tcase , test_ReactionGlyph_createSpeciesReferenceGlyph      );
+  tcase_add_test (tcase , test_ReactionGlyph_createLineSegment                );
+  tcase_add_test (tcase , test_ReactionGlyph_createCubicBezier                );
+  tcase_add_test( tcase , test_ReactionGlyph_copyConstructor                  );
+  tcase_add_test( tcase , test_ReactionGlyph_assignmentOperator               );
 
   
   suite_add_tcase(suite, tcase);

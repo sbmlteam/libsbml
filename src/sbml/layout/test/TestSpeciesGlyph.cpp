@@ -90,6 +90,79 @@ START_TEST ( test_SpeciesGlyph_new )
 }
 END_TEST
 
+START_TEST ( test_SpeciesGlyph_new_WithLevelVersionAndNamespaces )
+{
+    unsigned int level=1;
+    unsigned int version=2;
+    SpeciesGlyph *sg=new SpeciesGlyph(level, version); 
+    fail_unless( sg->getTypeCode() == SBML_LAYOUT_SPECIESGLYPH );
+    fail_unless( sg->getMetaId()   == "" );
+
+    fail_unless(sg->getLevel() == level);
+    fail_unless(sg->getVersion() == version);
+
+    fail_unless( sg->isSetId() == false );
+    fail_unless( sg->getId()          == "" );
+    fail_unless( !sg->isSetId());
+    fail_unless( !sg->isSetSpeciesId());
+
+    delete sg;
+
+    level=2;
+    version=3;
+    sg=new SpeciesGlyph(level, version); 
+    fail_unless( sg->getTypeCode() == SBML_LAYOUT_SPECIESGLYPH );
+    fail_unless( sg->getMetaId()   == "" );
+
+    fail_unless(sg->getLevel() == level);
+    fail_unless(sg->getVersion() == version);
+
+    fail_unless( sg->isSetId() == false );
+    fail_unless( sg->getId()          == "" );
+    fail_unless( !sg->isSetId());
+    fail_unless( !sg->isSetSpeciesId());
+
+    delete sg;
+}
+END_TEST
+
+START_TEST ( test_SpeciesGlyph_new_WithNamespace )
+{
+    SBMLNamespaces* ns = new SBMLNamespaces;
+    SpeciesGlyph *sg=new SpeciesGlyph(ns); 
+    fail_unless( sg->getTypeCode() == SBML_LAYOUT_SPECIESGLYPH );
+    fail_unless( sg->getMetaId()   == "" );
+
+    fail_unless(sg->getLevel() == SBML_DEFAULT_LEVEL);
+    fail_unless(sg->getVersion() == SBML_DEFAULT_VERSION);
+
+    fail_unless( sg->isSetId() == false );
+    fail_unless( sg->getId()          == "" );
+    fail_unless( !sg->isSetId());
+    fail_unless( !sg->isSetSpeciesId());
+
+    delete sg;
+    delete ns;
+
+    ns = new SBMLNamespaces(2,3);
+    sg=new SpeciesGlyph(ns);
+    fail_unless( sg->getTypeCode() == SBML_LAYOUT_SPECIESGLYPH );
+    fail_unless( sg->getMetaId()   == "" );
+
+    fail_unless(sg->getLevel() == 2);
+    fail_unless(sg->getVersion() == 3);
+
+    fail_unless( sg->isSetId() == false );
+    fail_unless( sg->getId()          == "" );
+    fail_unless( !sg->isSetId());
+    fail_unless( !sg->isSetSpeciesId());
+
+    delete sg;
+    delete ns;
+}
+END_TEST
+
+
 START_TEST ( test_SpeciesGlyph_new_with_id_and_speciesid)
 {
     
@@ -152,11 +225,13 @@ create_suite_SpeciesGlyph (void)
                              SpeciesGlyphTest_setup,
                              SpeciesGlyphTest_teardown );
 
-  tcase_add_test( tcase, test_SpeciesGlyph_new                       );
-  tcase_add_test( tcase, test_SpeciesGlyph_new_with_id_and_speciesid );
-  tcase_add_test( tcase, test_SpeciesGlyph_setSpeciesId              );
-  tcase_add_test( tcase, test_SpeciesGlyph_copyConstructor           );
-  tcase_add_test( tcase, test_SpeciesGlyph_assignmentOperator        );
+  tcase_add_test( tcase, test_SpeciesGlyph_new                               );
+  tcase_add_test( tcase, test_SpeciesGlyph_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_SpeciesGlyph_new_WithNamespace                 );
+  tcase_add_test( tcase, test_SpeciesGlyph_new_with_id_and_speciesid         );
+  tcase_add_test( tcase, test_SpeciesGlyph_setSpeciesId                      );
+  tcase_add_test( tcase, test_SpeciesGlyph_copyConstructor                   );
+  tcase_add_test( tcase, test_SpeciesGlyph_assignmentOperator                );
     
   
   suite_add_tcase(suite, tcase);

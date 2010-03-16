@@ -112,6 +112,161 @@ START_TEST ( test_CubicBezier_create )
 }
 END_TEST
 
+START_TEST ( test_CubicBezier_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   CubicBezier *cb=new CubicBezier(level, version); 
+   fail_unless( cb->getTypeCode() == SBML_LAYOUT_CUBICBEZIER );
+   fail_unless( cb->getMetaId()   == "" );
+
+   fail_unless(cb->getLevel() == level);
+   fail_unless(cb->getVersion() == version);
+
+   fail_unless( cb->isSetId() == false );
+   
+   Point *pos=cb->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getBasePoint1();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+
+   pos=cb->getBasePoint2();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete cb;
+
+   level=2;
+   version=3;
+   cb=new CubicBezier(level, version); 
+   fail_unless( cb->getTypeCode() == SBML_LAYOUT_CUBICBEZIER );
+   fail_unless( cb->getMetaId()   == "" );
+
+   fail_unless(cb->getLevel() == level);
+   fail_unless(cb->getVersion() == version);
+
+   fail_unless( cb->isSetId() == false );
+   
+   pos=cb->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getBasePoint1();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+
+   pos=cb->getBasePoint2();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete cb;
+}
+END_TEST
+
+START_TEST ( test_CubicBezier_new_WithNamespace )
+{
+   SBMLNamespaces* ns = new SBMLNamespaces;
+   CubicBezier *cb=new CubicBezier(ns); 
+   fail_unless( cb->getTypeCode() == SBML_LAYOUT_CUBICBEZIER );
+   fail_unless( cb->getMetaId()   == "" );
+
+   fail_unless(cb->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(cb->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( cb->isSetId() == false );
+   Point *pos=cb->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getBasePoint1();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+
+   pos=cb->getBasePoint2();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete cb;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   cb=new CubicBezier(ns); 
+   fail_unless( cb->getTypeCode() == SBML_LAYOUT_CUBICBEZIER );
+   fail_unless( cb->getMetaId()   == "" );
+
+   fail_unless(cb->getLevel() == 2);
+   fail_unless(cb->getVersion() == 3);
+
+   fail_unless( cb->isSetId() == false );
+   pos=cb->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getBasePoint1();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+
+   pos=cb->getBasePoint2();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=cb->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete cb;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST ( test_CubicBezier_createWithPoints )
 {
    Point_t *start=Point_createWithCoordinates(1.1,-2.2,3.3); 
@@ -479,22 +634,24 @@ create_suite_CubicBezier (void)
                              CubicBezierTest_setup,
                              CubicBezierTest_teardown );
 
-  tcase_add_test( tcase, test_CubicBezier_create                );
-  tcase_add_test( tcase, test_CubicBezier_createWithPoints      );
-  tcase_add_test( tcase, test_CubicBezier_createWithPoints_NULL );
-  tcase_add_test( tcase, test_CubicBezier_createWithCoordinates );
-  tcase_add_test( tcase, test_CubicBezier_free_NULL             );
-  tcase_add_test( tcase, test_CubicBezier_setStart              );
-  tcase_add_test( tcase, test_CubicBezier_setStart_NULL         );
-  tcase_add_test( tcase, test_CubicBezier_setBasePoint1         );
-  tcase_add_test( tcase, test_CubicBezier_setBasePoint1_NULL    );
-  tcase_add_test( tcase, test_CubicBezier_setBasePoint2         );
-  tcase_add_test( tcase, test_CubicBezier_setBasePoint2_NULL    );
-  tcase_add_test( tcase, test_CubicBezier_setEnd                );
-  tcase_add_test( tcase, test_CubicBezier_setEnd_NULL           );
-  tcase_add_test( tcase, test_CubicBezier_createFrom            );
-  tcase_add_test( tcase, test_CubicBezier_copyConstructor       );
-  tcase_add_test( tcase, test_CubicBezier_assignmentOperator    );
+  tcase_add_test( tcase, test_CubicBezier_create                            );
+  tcase_add_test( tcase, test_CubicBezier_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_CubicBezier_new_WithNamespace                 );
+  tcase_add_test( tcase, test_CubicBezier_createWithPoints                  );
+  tcase_add_test( tcase, test_CubicBezier_createWithPoints_NULL             );
+  tcase_add_test( tcase, test_CubicBezier_createWithCoordinates             );
+  tcase_add_test( tcase, test_CubicBezier_free_NULL                         );
+  tcase_add_test( tcase, test_CubicBezier_setStart                          );
+  tcase_add_test( tcase, test_CubicBezier_setStart_NULL                     );
+  tcase_add_test( tcase, test_CubicBezier_setBasePoint1                     );
+  tcase_add_test( tcase, test_CubicBezier_setBasePoint1_NULL                );
+  tcase_add_test( tcase, test_CubicBezier_setBasePoint2                     );
+  tcase_add_test( tcase, test_CubicBezier_setBasePoint2_NULL                );
+  tcase_add_test( tcase, test_CubicBezier_setEnd                            );
+  tcase_add_test( tcase, test_CubicBezier_setEnd_NULL                       );
+  tcase_add_test( tcase, test_CubicBezier_createFrom                        );
+  tcase_add_test( tcase, test_CubicBezier_copyConstructor                   );
+  tcase_add_test( tcase, test_CubicBezier_assignmentOperator                );
 
   suite_add_tcase(suite, tcase);
 

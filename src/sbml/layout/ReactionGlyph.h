@@ -61,6 +61,9 @@
 #include <sbml/ListOf.h>
 #include "Curve.h"
 #include "GraphicalObject.h"
+#include "SpeciesReferenceGlyph.h"
+
+class SpeciesReferenceGlyph;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -100,6 +103,63 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Get a SpeciesReferenceGlyph from the ListOfSpeciesReferenceGlyphs.
+   *
+   * @param n the index number of the Reaction to get.
+   * 
+   * @return the nth SpeciesReferenceGlyph in this
+   * ListOfSpeciesReferenceGlyphs.
+   *
+   * @see size()
+   */
+  virtual SpeciesReferenceGlyph * get(unsigned int n); 
+
+
+  /**
+   * Get a SpeciesReferenceGlyph from the ListOfSpeciesReferenceGlyphs.
+   *
+   * @param n the index number of the SpeciesReferenceGlyph to get.
+   * 
+   * @return the nth SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs.
+   *
+   * @see size()
+   */
+  virtual const SpeciesReferenceGlyph * get(unsigned int n) const; 
+
+  /**
+   * Get a SpeciesReferenceGlyph from the ListOfSpeciesReferenceGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesReferenceGlyph to get.
+   * 
+   * @return SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs
+   * with the given id or NULL if no such
+   * SpeciesReferenceGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual SpeciesReferenceGlyph* get (const std::string& sid);
+
+
+  /**
+   * Get a SpeciesReferenceGlyph from the ListOfSpeciesReferenceGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesReferenceGlyph to get.
+   * 
+   * @return SpeciesReferenceGlyph in this ListOfSpeciesReferenceGlyphs
+   * with the given id or NULL if no such
+   * SpeciesReferenceGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const SpeciesReferenceGlyph* get (const std::string& sid) const;
+
 
    /**
     * Creates an XMLNode object from this.
@@ -133,20 +193,21 @@ public:
    * empty and the id of the associated reaction is set to the empty
    * string.
    */ 
-   
   ReactionGlyph ();
-       
+
+  ReactionGlyph (unsigned int level, unsigned int version);
+
+  ReactionGlyph (SBMLNamespaces *sbmlns);
+
   /**
    * Creates a ResctionGlyph with the given id.
    */ 
-   
   ReactionGlyph (const std::string& id);
 
   /**
    * Creates a ResctionGlyph with the given id and set the id of the
    * associated reaction to the second argument.
    */ 
-   
   ReactionGlyph (const std::string& id, const std::string& reactionId);
        
 
@@ -168,71 +229,60 @@ public:
   /**
    * Destructor.
    */ 
-   
   virtual ~ReactionGlyph(); 
        
 
   /**
    * Returns the id of the associated reaction.
    */  
-   
   const std::string& getReactionId () const;
        
   /**
    * Sets the id of the associated reaction.
    */ 
-   
   void setReactionId (const std::string& id);
 
   /**
    * Returns true if the id of the associated reaction is not the empty
    * string.
    */ 
-  
   bool isSetReactionId () const;
        
   /**
    * Returns the ListOf object that hold the species reference glyphs.
    */  
-   
   const ListOfSpeciesReferenceGlyphs* getListOfSpeciesReferenceGlyphs () const;
 
   /**
    * Returns the ListOf object that hold the species reference glyphs.
    */  
-   
   ListOfSpeciesReferenceGlyphs* getListOfSpeciesReferenceGlyphs ();
        
   /**
    * Returns the species reference glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-   
   const SpeciesReferenceGlyph* getSpeciesReferenceGlyph (unsigned int index) const;
 
   /**
    * Returns the species reference glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-   
   SpeciesReferenceGlyph* getSpeciesReferenceGlyph (unsigned int index) ;
 
   /**
    * Adds a new species reference glyph to the list.
    */
-   
-  void addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph);
+  int addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph);
        
   /**
    * Returns the number of species reference glyph objects.
    */ 
-   
   unsigned int getNumSpeciesReferenceGlyphs () const;
        
   /**
    * Calls initDefaults from GraphicalObject.
    */ 
-   
   void initDefaults (); 
 
   /**
@@ -306,6 +356,12 @@ public:
   
   unsigned int
   getIndexForSpeciesReferenceGlyph(const std::string& id) const;
+
+  /*
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  void
+  setSBMLDocument (SBMLDocument* d);
 
 
   /**
@@ -404,6 +460,35 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_create (void);
+
+/**
+ * Creates a new ReactionGlyph_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * ReactionGlyph
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * ReactionGlyph
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this ReactionGlyph
+ *
+ * @return a pointer to the newly created ReactionGlyph_t structure.
+ *
+ * @note Once a ReactionGlyph has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+ReactionGlyph_t *
+ReactionGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version);
 
 
 /**

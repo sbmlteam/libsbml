@@ -49,6 +49,7 @@
 #include "LayoutUtilities.h"
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
@@ -61,16 +62,24 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 
-Dimensions::Dimensions (): SBase(), mW(0.0), mH(0.0), mD(0.0)
+Dimensions::Dimensions (): SBase("", "", -1), mW(0.0), mH(0.0), mD(0.0)
 {
 }
 
-
+                          
+Dimensions::Dimensions (SBMLNamespaces *sbmlns) :
+   SBase (sbmlns)
+, mW(0.0), mH(0.0), mD(0.0)
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+ 
 /**
  * Creates a new Dimensions object with the given sizes.
  */ 
 Dimensions::Dimensions (double width, double height, double depth) :
-  SBase(), mW(width), mH(height), mD(depth)
+  SBase("", "", -1), mW(width), mH(height), mD(depth)
 {
 }
 

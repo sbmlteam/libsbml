@@ -86,6 +86,44 @@ START_TEST (test_Point_create)
 }
 END_TEST
 
+
+START_TEST ( test_Point_new_WithNamespace )
+{
+    SBMLNamespaces* ns=new SBMLNamespaces;
+    Point *p=new Point(ns); 
+    fail_unless( p->getTypeCode() == SBML_LAYOUT_POINT );
+    fail_unless( p->getMetaId()   == "" );
+
+    fail_unless(p->getLevel() == SBML_DEFAULT_LEVEL);
+    fail_unless(p->getVersion() == SBML_DEFAULT_VERSION);
+
+    fail_unless( p->isSetId() == false );
+    fail_unless( p->getXOffset() == 0.0 );
+    fail_unless( p->getYOffset() == 0.0 );
+    fail_unless( p->getZOffset() == 0.0 );
+
+    delete p;
+    delete ns;
+
+    ns = new SBMLNamespaces(2,3);
+    p=new Point(ns); 
+    fail_unless( p->getTypeCode() == SBML_LAYOUT_POINT );
+    fail_unless( p->getMetaId()   == "" );
+
+    fail_unless(p->getLevel() == 2);
+    fail_unless(p->getVersion() == 3);
+
+    fail_unless( p->isSetId() == false );
+    fail_unless( p->getXOffset() == 0.0 );
+    fail_unless( p->getYOffset() == 0.0 );
+    fail_unless( p->getZOffset() == 0.0 );
+
+    delete p;
+    delete ns;
+}
+END_TEST
+
+
 START_TEST (test_Point_createWithCoordinates)
 {
     Point* p = new(std::nothrow) Point( 1.2 , 0.4 , 3.1415 );
@@ -211,16 +249,17 @@ create_suite_Point (void)
                              PointTest_setup,
                              PointTest_teardown );
 
-  tcase_add_test( tcase, test_Point_create                );
-  tcase_add_test( tcase, test_Point_createWithCoordinates );
-  tcase_add_test( tcase, test_Point_free_NULL             );
-  tcase_add_test( tcase, test_Point_setOffsets            );
-  tcase_add_test( tcase, test_Point_initDefaults          );
-  tcase_add_test( tcase, test_Point_setXOffset            );
-  tcase_add_test( tcase, test_Point_setYOffset            );
-  tcase_add_test( tcase, test_Point_setZOffset            );  
-  tcase_add_test( tcase, test_Point_copyConstructor       );
-  tcase_add_test( tcase, test_Point_assignmentOperator    );
+  tcase_add_test( tcase, test_Point_create                            );
+  tcase_add_test( tcase, test_Point_new_WithNamespace                 );
+  tcase_add_test( tcase, test_Point_createWithCoordinates             );
+  tcase_add_test( tcase, test_Point_free_NULL                         );
+  tcase_add_test( tcase, test_Point_setOffsets                        );
+  tcase_add_test( tcase, test_Point_initDefaults                      );
+  tcase_add_test( tcase, test_Point_setXOffset                        );
+  tcase_add_test( tcase, test_Point_setYOffset                        );
+  tcase_add_test( tcase, test_Point_setZOffset                        );  
+  tcase_add_test( tcase, test_Point_copyConstructor                   );
+  tcase_add_test( tcase, test_Point_assignmentOperator                );
   
 
   suite_add_tcase(suite, tcase);

@@ -97,6 +97,91 @@ START_TEST (test_SpeciesReferenceGlyph_new )
  }
 END_TEST
 
+START_TEST ( test_SpeciesReferenceGlyph_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   SpeciesReferenceGlyph *srg=new SpeciesReferenceGlyph(level, version); 
+   fail_unless( srg->getTypeCode() == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
+   fail_unless( srg->getMetaId()   == "" );
+
+   fail_unless(srg->getLevel() == level);
+   fail_unless(srg->getVersion() == version);
+
+   fail_unless( srg->isSetId() == false );
+   fail_unless( !srg->isSetSpeciesReferenceId() );
+   fail_unless( !srg->isSetSpeciesGlyphId() );
+   fail_unless( !srg->isSetRole() );
+   fail_unless( srg->getRole() == SPECIES_ROLE_UNDEFINED );
+   fail_unless( srg->getCurve() != NULL);
+   fail_unless( !srg->isSetCurve());
+   
+   delete srg;
+
+   level=2;
+   version=3;
+   srg=new SpeciesReferenceGlyph(level, version); 
+   fail_unless( srg->getTypeCode() == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
+   fail_unless( srg->getMetaId()   == "" );
+
+   fail_unless(srg->getLevel() == level);
+   fail_unless(srg->getVersion() == version);
+
+   fail_unless( srg->isSetId() == false );
+   fail_unless( !srg->isSetSpeciesReferenceId() );
+   fail_unless( !srg->isSetSpeciesGlyphId() );
+   fail_unless( !srg->isSetRole() );
+   fail_unless( srg->getRole() == SPECIES_ROLE_UNDEFINED );
+   fail_unless( srg->getCurve() != NULL);
+   fail_unless( !srg->isSetCurve());
+   
+   delete srg;
+}
+END_TEST
+
+START_TEST ( test_SpeciesReferenceGlyph_new_WithNamespace )
+{
+   SBMLNamespaces* ns = new SBMLNamespaces;
+   SpeciesReferenceGlyph *srg=new SpeciesReferenceGlyph(ns); 
+   fail_unless( srg->getTypeCode() == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
+   fail_unless( srg->getMetaId()   == "" );
+
+   fail_unless(srg->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(srg->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( srg->isSetId() == false );
+   fail_unless( !srg->isSetSpeciesReferenceId() );
+   fail_unless( !srg->isSetSpeciesGlyphId() );
+   fail_unless( !srg->isSetRole() );
+   fail_unless( srg->getRole() == SPECIES_ROLE_UNDEFINED );
+   fail_unless( srg->getCurve() != NULL);
+   fail_unless( !srg->isSetCurve());
+   
+   delete srg;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   srg=new SpeciesReferenceGlyph(ns);
+   fail_unless( srg->getTypeCode() == SBML_LAYOUT_SPECIESREFERENCEGLYPH );
+   fail_unless( srg->getMetaId()   == "" );
+
+   fail_unless(srg->getLevel() == 2);
+   fail_unless(srg->getVersion() == 3);
+
+   fail_unless( srg->isSetId() == false );
+   fail_unless( !srg->isSetSpeciesReferenceId() );
+   fail_unless( !srg->isSetSpeciesGlyphId() );
+   fail_unless( !srg->isSetRole() );
+   fail_unless( srg->getRole() == SPECIES_ROLE_UNDEFINED );
+   fail_unless( srg->getCurve() != NULL);
+   fail_unless( !srg->isSetCurve());
+   
+   delete srg;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST (test_SpeciesReferenceGlyph_new_with_data)
 {
     std::string sid="TestSpeciesReferenceGlyph";
@@ -323,19 +408,21 @@ create_suite_SpeciesReferenceGlyph (void)
                              SpeciesReferenceGlyphTest_setup,
                              SpeciesReferenceGlyphTest_teardown );
 
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_new                   );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_new_with_data         );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setSpeciesGlyphId     );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setSpeciesReferenceId );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setRole               );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_getRoleString         );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setRole_by_string     );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setCurve              );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setCurve_NULL         );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_createLineSegment     );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_createCubicBezier     );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_copyConstructor       );
-  tcase_add_test( tcase, test_SpeciesReferenceGlyph_assignmentOperator    );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_new                               );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_new_WithNamespace                 );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_new_with_data                     );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setSpeciesGlyphId                 );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setSpeciesReferenceId             );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setRole                           );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_getRoleString                     );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setRole_by_string                 );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setCurve                          );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_setCurve_NULL                     );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_createLineSegment                 );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_createCubicBezier                 );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_copyConstructor                   );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_assignmentOperator                );
   
   suite_add_tcase(suite, tcase);
 

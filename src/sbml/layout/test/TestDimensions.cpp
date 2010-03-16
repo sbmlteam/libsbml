@@ -87,6 +87,44 @@ START_TEST (test_Dimensions_create)
 }
 END_TEST
 
+
+START_TEST ( test_Dimensions_new_WithNamespace )
+{
+   SBMLNamespaces* ns=new SBMLNamespaces;
+   Dimensions *dim=new Dimensions(ns); 
+   fail_unless( dim->getTypeCode() == SBML_LAYOUT_DIMENSIONS );
+   fail_unless( dim->getMetaId()   == "" );
+
+   fail_unless(dim->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(dim->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( dim->isSetId() == false );
+   fail_unless( dim->getWidth () == 0.0 );
+   fail_unless( dim->getHeight() == 0.0 );
+   fail_unless( dim->getDepth () == 0.0 );
+   
+   delete dim;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   dim=new Dimensions(ns); 
+   fail_unless( dim->getTypeCode() == SBML_LAYOUT_DIMENSIONS );
+   fail_unless( dim->getMetaId()   == "" );
+
+   fail_unless(dim->getLevel() == 2);
+   fail_unless(dim->getVersion() == 3);
+
+   fail_unless( dim->isSetId() == false );
+   fail_unless( dim->getWidth () == 0.0 );
+   fail_unless( dim->getHeight() == 0.0 );
+   fail_unless( dim->getDepth () == 0.0 );
+   
+   delete dim;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST (test_Dimensions_createWithSize)
 {
     Dimensions* d = new(std::nothrow) Dimensions( 1.2 , 0.4 , 3.1415 );
@@ -206,16 +244,17 @@ create_suite_Dimensions (void)
                              DimensionsTest_setup,
                              DimensionsTest_teardown );
 
-  tcase_add_test( tcase, test_Dimensions_create                );
-  tcase_add_test( tcase, test_Dimensions_createWithSize        );
-  tcase_add_test( tcase, test_Dimensions_free_NULL             );
-  tcase_add_test( tcase, test_Dimensions_setBounds             );
-  tcase_add_test( tcase, test_Dimensions_initDefaults          );
-  tcase_add_test( tcase, test_Dimensions_setWidth              );
-  tcase_add_test( tcase, test_Dimensions_setHeight             );
-  tcase_add_test( tcase, test_Dimensions_setDepth              );
-  tcase_add_test( tcase, test_Dimensions_copyConstructor       );
-  tcase_add_test( tcase, test_Dimensions_assignmentOperator    );
+  tcase_add_test( tcase, test_Dimensions_create                            );
+  tcase_add_test( tcase, test_Dimensions_new_WithNamespace                 );
+  tcase_add_test( tcase, test_Dimensions_createWithSize                    );
+  tcase_add_test( tcase, test_Dimensions_free_NULL                         );
+  tcase_add_test( tcase, test_Dimensions_setBounds                         );
+  tcase_add_test( tcase, test_Dimensions_initDefaults                      );
+  tcase_add_test( tcase, test_Dimensions_setWidth                          );
+  tcase_add_test( tcase, test_Dimensions_setHeight                         );
+  tcase_add_test( tcase, test_Dimensions_setDepth                          );
+  tcase_add_test( tcase, test_Dimensions_copyConstructor                   );
+  tcase_add_test( tcase, test_Dimensions_assignmentOperator                );
 
   suite_add_tcase(suite, tcase);
 

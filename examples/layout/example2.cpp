@@ -767,9 +767,9 @@ glyph_Hexokinase->setReactionId(reaction_Hexokinase->getId());
 
 Curve* curve_Hexokinase=glyph_Hexokinase->getCurve();
 LineSegment* ls=curve_Hexokinase->createLineSegment();
-Point p(170,100);
+Point p(170.0,100.0);
 ls->setStart(&p);
-p=Point(170,130);
+p=Point(170.0,130.0);
 ls->setEnd(&p);
 
 ReactionGlyph* glyph_PGIsomerase=layout->createReactionGlyph();
@@ -778,9 +778,9 @@ glyph_PGIsomerase->setReactionId(reaction_PGIsomerase->getId());
 
 Curve* curve_PGIsomerase=glyph_PGIsomerase->getCurve();
 ls=curve_PGIsomerase->createLineSegment();
-p=Point(170,270);
+p=Point(170.0,270.0);
 ls->setStart(&p);
-p=Point(170,300);
+p=Point(170.0,300.0);
 ls->setEnd(&p);
 
 
@@ -790,9 +790,9 @@ glyph_PFK->setReactionId(reaction_PFK->getId());
 
 Curve* curve_PFK=glyph_PFK->getCurve();
 ls=curve_PFK->createLineSegment();
-p=Point(170,440);
+p=Point(170.0,440.0);
 ls->setStart(&p);
-p=Point(170,470);
+p=Point(170.0,470.0);
 ls->setEnd(&p);
 
 
@@ -802,9 +802,9 @@ glyph_Aldolase->setReactionId(reaction_Aldolase->getId());
 
 Curve* curve_Aldolase=glyph_Aldolase->getCurve();
 ls=curve_Aldolase->createLineSegment();
-p=Point(170,610);
+p=Point(170.0,610.0);
 ls->setStart(&p);
-p=Point(170,640);
+p=Point(170.0,640.0);
 ls->setEnd(&p);
 
 ReactionGlyph* glyph_TPI=layout->createReactionGlyph();
@@ -814,9 +814,9 @@ glyph_TPI->setReactionId(reaction_TPI->getId());
 
 Curve* curve_TPI=glyph_TPI->getCurve();
 ls=curve_TPI->createLineSegment();
-p=Point(515,700);
+p=Point(515.0,700.0);
 ls->setStart(&p);
-p=Point(515,700);
+p=Point(515.0,700.0);
 ls->setEnd(&p);
 
 
@@ -826,9 +826,9 @@ glyph_GAPDeh->setReactionId(reaction_GAPDeh->getId());
 
 Curve* curve_GAPDeh=glyph_GAPDeh->getCurve();
 ls=curve_GAPDeh->createLineSegment();
-p=Point(170,780);
+p=Point(170.0,780.0);
 ls->setStart(&p);
-p=Point(170,810);
+p=Point(170.0,810.0);
 ls->setEnd(&p);
 
 
@@ -838,9 +838,9 @@ glyph_PGK->setReactionId(reaction_PGK->getId());
 
 Curve* curve_PGK=glyph_PGK->getCurve();
 ls=curve_PGK->createLineSegment();
-p=Point(170,950);
+p=Point(170.0,950.0);
 ls->setStart(&p);
-p=Point(170,980);
+p=Point(170.0,980.0);
 ls->setEnd(&p);
 
 
@@ -850,9 +850,9 @@ glyph_PGM->setReactionId(reaction_PGM->getId());
 
 Curve* curve_PGM=glyph_PGM->getCurve();
 ls=curve_PGM->createLineSegment();
-p=Point(170,1120);
+p=Point(170.0,1120.0);
 ls->setStart(&p);
-p=Point(170,1150);
+p=Point(170.0,1150.0);
 ls->setEnd(&p);
 
 
@@ -862,9 +862,9 @@ glyph_Enolase->setReactionId(reaction_Enolase->getId());
 
 Curve* curve_Enolase=glyph_Enolase->getCurve();
 ls=curve_Enolase->createLineSegment();
-p=Point(170,1290);
+p=Point(170.0,1290.0);
 ls->setStart(&p);
-p=Point(170,1320);
+p=Point(170.0,1320.0);
 ls->setEnd(&p);
 
 
@@ -874,9 +874,9 @@ glyph_PK->setReactionId(reaction_PK->getId());
 
 Curve* curve_PK=glyph_PK->getCurve();
 ls=curve_PK->createLineSegment();
-p=Point(170,1460);
+p=Point(170.0,1460.0);
 ls->setStart(&p);
-p=Point(170,1490);
+p=Point(170.0,1490.0);
 ls->setEnd(&p);
 
 
@@ -891,9 +891,9 @@ speciesReferenceGlyph1->setSpeciesReferenceId(reference_Gluc->getId());
 speciesReferenceGlyph1->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph1->createLineSegment();
-p=Point(170,100);
+p=Point(170.0,100.0);
 ls->setStart(&p);
-p=Point(170,50);
+p=Point(170.0,50.0);
 ls->setEnd(&p);
 
 SpeciesReferenceGlyph* speciesReferenceGlyph=glyph_PGIsomerase->createSpeciesReferenceGlyph();
@@ -903,9 +903,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_G6P_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,270);
+p=Point(170.0,270.0);
 ls->setStart(&p);
-p=Point(170,220);
+p=Point(170.0,220.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PFK->createSpeciesReferenceGlyph();
@@ -915,9 +915,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_F6P_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,440);
+p=Point(170.0,440.0);
 ls->setStart(&p);
-p=Point(170,390);
+p=Point(170.0,390.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_Aldolase->createSpeciesReferenceGlyph();
@@ -927,9 +927,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_F16BP_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,610);
+p=Point(170.0,610.0);
 ls->setStart(&p);
-p=Point(170,560);
+p=Point(170.0,560.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_GAPDeh->createSpeciesReferenceGlyph();
@@ -939,9 +939,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_GAP_3->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,780);
+p=Point(170.0,780.0);
 ls->setStart(&p);
-p=Point(170,730);
+p=Point(170.0,730.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PGK->createSpeciesReferenceGlyph();
@@ -951,9 +951,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_BPG_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,950);
+p=Point(170.0,950.0);
 ls->setStart(&p);
-p=Point(170,900);
+p=Point(170.0,900.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PGM->createSpeciesReferenceGlyph();
@@ -963,9 +963,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_3PG_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,1120);
+p=Point(170.0,1120.0);
 ls->setStart(&p);
-p=Point(170,1070);
+p=Point(170.0,1070.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_Enolase->createSpeciesReferenceGlyph();
@@ -975,9 +975,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_2PG_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,1290);
+p=Point(170.0,1290.0);
 ls->setStart(&p);
-p=Point(170,1240);
+p=Point(170.0,1240.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PK->createSpeciesReferenceGlyph();
@@ -987,9 +987,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_PEP_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,1460);
+p=Point(170.0,1460.0);
 ls->setStart(&p);
-p=Point(170,1410);
+p=Point(170.0,1410.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_TPI->createSpeciesReferenceGlyph();
@@ -999,13 +999,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_DHAP_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
 CubicBezier* cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(515,700);
+p=Point(515.0,700.0);
 cb->setStart(&p);
-p=Point(535,680);
+p=Point(535.0,680.0);
 cb->setBasePoint1(&p);
-p=Point(535,680);
+p=Point(535.0,680.0);
 cb->setBasePoint2(&p);
-p=Point(535,625);
+p=Point(535.0,625.0);
 cb->setEnd(&p);
 
 // the main products
@@ -1016,9 +1016,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_G6P_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,130);
+p=Point(170.0,130.0);
 ls->setStart(&p);
-p=Point(170,180);
+p=Point(170.0,180.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PGIsomerase->createSpeciesReferenceGlyph();
@@ -1028,9 +1028,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_F6P_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,300);
+p=Point(170.0,300.0);
 ls->setStart(&p);
-p=Point(170,350);
+p=Point(170.0,350.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PFK->createSpeciesReferenceGlyph();
@@ -1040,9 +1040,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_F16BP_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,470);
+p=Point(170.0,470.0);
 ls->setStart(&p);
-p=Point(170,520);
+p=Point(170.0,520.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_Aldolase->createSpeciesReferenceGlyph();
@@ -1052,9 +1052,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_GAP_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,640);
+p=Point(170.0,640.0);
 ls->setStart(&p);
-p=Point(170,690);
+p=Point(170.0,690.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_Aldolase->createSpeciesReferenceGlyph();
@@ -1064,13 +1064,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_DHAP_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,640);
+p=Point(170.0,640.0);
 cb->setStart(&p);
-p=Point(270,700);
+p=Point(270.0,700.0);
 cb->setBasePoint1(&p);
-p=Point(270,605);
+p=Point(270.0,605.0);
 cb->setBasePoint2(&p);
-p=Point(370,605);
+p=Point(370.0,605.0);
 cb->setEnd(&p);
 
 speciesReferenceGlyph=glyph_GAPDeh->createSpeciesReferenceGlyph();
@@ -1080,9 +1080,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_BPG_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,810);
+p=Point(170.0,810.0);
 ls->setStart(&p);
-p=Point(170,860);
+p=Point(170.0,860.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PGK->createSpeciesReferenceGlyph();
@@ -1092,9 +1092,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_3PG_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,980);
+p=Point(170.0,980.0);
 ls->setStart(&p);
-p=Point(170,1030);
+p=Point(170.0,1030.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PGM->createSpeciesReferenceGlyph();
@@ -1104,9 +1104,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_2PG_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,1150);
+p=Point(170.0,1150.0);
 ls->setStart(&p);
-p=Point(170,1200);
+p=Point(170.0,1200.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_Enolase->createSpeciesReferenceGlyph();
@@ -1116,9 +1116,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_PEP_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,1320);
+p=Point(170.0,1320.0);
 ls->setStart(&p);
-p=Point(170,1370);
+p=Point(170.0,1370.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PK->createSpeciesReferenceGlyph();
@@ -1128,9 +1128,9 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_Pyr_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 ls=speciesReferenceGlyph->createLineSegment();
-p=Point(170,1490);
+p=Point(170.0,1490.0);
 ls->setStart(&p);
-p=Point(170,1540);
+p=Point(170.0,1540.0);
 ls->setEnd(&p);
 
 speciesReferenceGlyph=glyph_TPI->createSpeciesReferenceGlyph();
@@ -1140,13 +1140,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_GAP_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(515,700);
+p=Point(515.0,700.0);
 cb->setStart(&p);
-p=Point(505,710);
+p=Point(505.0,710.0);
 cb->setBasePoint1(&p);
-p=Point(505,710);
+p=Point(505.0,710.0);
 cb->setBasePoint2(&p);
-p=Point(370,710);
+p=Point(370.0,710.0);
 cb->setEnd(&p);
 
 
@@ -1160,13 +1160,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ATP_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,100);
+p=Point(170.0,100.0);
 cb->setStart(&p);
-p=Point(170,80);
+p=Point(170.0,80.0);
 cb->setBasePoint1(&p);
-p=Point(170,80);
+p=Point(170.0,80.0);
 cb->setBasePoint2(&p);
-p=Point(260,80);
+p=Point(260.0,80.0);
 cb->setEnd(&p);
 
 speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
@@ -1176,13 +1176,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ADP_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,130);
+p=Point(170.0,130.0);
 cb->setStart(&p);
-p=Point(170,150);
+p=Point(170.0,150.0);
 cb->setBasePoint1(&p);
-p=Point(170,150);
+p=Point(170.0,150.0);
 cb->setBasePoint2(&p);
-p=Point(260,150);
+p=Point(260.0,150.0);
 cb->setEnd(&p);
 
 // PFK
@@ -1193,13 +1193,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ATP_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,440);
+p=Point(170.0,440.0);
 cb->setStart(&p);
-p=Point(170,420);
+p=Point(170.0,420.0);
 cb->setBasePoint1(&p);
-p=Point(170,420);
+p=Point(170.0,420.0);
 cb->setBasePoint2(&p);
-p=Point(260,420);
+p=Point(260.0,420.0);
 cb->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PFK->createSpeciesReferenceGlyph();
@@ -1209,13 +1209,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ADP_2->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,470);
+p=Point(170.0,470.0);
 cb->setStart(&p);
-p=Point(170,490);
+p=Point(170.0,490.0);
 cb->setBasePoint1(&p);
-p=Point(170,490);
+p=Point(170.0,490.0);
 cb->setBasePoint2(&p);
-p=Point(260,490);
+p=Point(260.0,490.0);
 cb->setEnd(&p);
 
 // GAP Dehydrogenase
@@ -1226,13 +1226,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_NAD_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,780);
+p=Point(170.0,780.0);
 cb->setStart(&p);
-p=Point(170,760);
+p=Point(170.0,760.0);
 cb->setBasePoint1(&p);
-p=Point(170,760);
+p=Point(170.0,760.0);
 cb->setBasePoint2(&p);
-p=Point(260,760);
+p=Point(260.0,760.0);
 cb->setEnd(&p);
 
 speciesReferenceGlyph=glyph_GAPDeh->createSpeciesReferenceGlyph();
@@ -1242,13 +1242,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_NADH_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,810);
+p=Point(170.0,810.0);
 cb->setStart(&p);
-p=Point(170,830);
+p=Point(170.0,830.0);
 cb->setBasePoint1(&p);
-p=Point(170,830);
+p=Point(170.0,830.0);
 cb->setBasePoint2(&p);
-p=Point(260,830);
+p=Point(260.0,830.0);
 cb->setEnd(&p);
 
 // PGK
@@ -1259,13 +1259,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ADP_3->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,950);
+p=Point(170.0,950.0);
 cb->setStart(&p);
-p=Point(170,930);
+p=Point(170.0,930.0);
 cb->setBasePoint1(&p);
-p=Point(170,930);
+p=Point(170.0,930.0);
 cb->setBasePoint2(&p);
-p=Point(260,930);
+p=Point(260.0,930.0);
 cb->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PGK->createSpeciesReferenceGlyph();
@@ -1275,13 +1275,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ATP_3->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,980);
+p=Point(170.0,980.0);
 cb->setStart(&p);
-p=Point(170,1000);
+p=Point(170.0,1000.0);
 cb->setBasePoint1(&p);
-p=Point(170,1000);
+p=Point(170.0,1000.0);
 cb->setBasePoint2(&p);
-p=Point(260,1000);
+p=Point(260.0,1000.0);
 cb->setEnd(&p);
 
 //Enolase
@@ -1292,13 +1292,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_H2O_1->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,1320);
+p=Point(170.0,1320.0);
 cb->setStart(&p);
-p=Point(170,1360);
+p=Point(170.0,1360.0);
 cb->setBasePoint1(&p);
-p=Point(170,1360);
+p=Point(170.0,1360.0);
 cb->setBasePoint2(&p);
-p=Point(260,1360);
+p=Point(260.0,1360.0);
 cb->setEnd(&p);
 
 // PK
@@ -1309,13 +1309,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ADP_4->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,1460);
+p=Point(170.0,1460.0);
 cb->setStart(&p);
-p=Point(170,1440);
+p=Point(170.0,1440.0);
 cb->setBasePoint1(&p);
-p=Point(170,1440);
+p=Point(170.0,1440.0);
 cb->setBasePoint2(&p);
-p=Point(260,1440);
+p=Point(260.0,1440.0);
 cb->setEnd(&p);
 
 speciesReferenceGlyph=glyph_PK->createSpeciesReferenceGlyph();
@@ -1325,13 +1325,13 @@ speciesReferenceGlyph->setSpeciesReferenceId(reference_ATP_4->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
 cb=speciesReferenceGlyph->createCubicBezier();
-p=Point(170,1490);
+p=Point(170.0,1490.0);
 cb->setStart(&p);
-p=Point(170,1530);
+p=Point(170.0,1530.0);
 cb->setBasePoint1(&p);
-p=Point(170,1530);
+p=Point(170.0,1530.0);
 cb->setBasePoint2(&p);
-p=Point(260,1530);
+p=Point(260.0,1530.0);
 cb->setEnd(&p);
 
 

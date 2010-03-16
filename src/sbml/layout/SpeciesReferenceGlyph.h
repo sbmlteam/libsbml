@@ -82,8 +82,11 @@ public:
    * reference and the id of the associated species glyph are set to the
    * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
    */
-  
   SpeciesReferenceGlyph ();
+
+  SpeciesReferenceGlyph (unsigned int level, unsigned int version);
+
+  SpeciesReferenceGlyph (SBMLNamespaces *sbmlns);
         
   /**
    * Creates a new SpeciesReferenceGlyph.  The id is given as the first
@@ -337,6 +340,35 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
 SpeciesReferenceGlyph_create (void);
+
+/**
+ * Creates a new SpeciesReferenceGlyph_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * SpeciesReferenceGlyph
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * SpeciesReferenceGlyph
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this SpeciesReferenceGlyph
+ *
+ * @return a pointer to the newly created SpeciesReferenceGlyph_t structure.
+ *
+ * @note Once a SpeciesReferenceGlyph has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t *
+SpeciesReferenceGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version);
 
 /**
  * Creates a new SpeciesReferenceGlyph from a template.

@@ -66,61 +66,8 @@
 #include <sbml/layout/ReactionGlyph.h>
 #include <sbml/layout/TextGlyph.h>
 #include <sbml/layout/GraphicalObject.h>
-#include <sbml/layout/SpeciesReferenceGlyph.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-
-class LIBSBML_EXTERN ListOfLayouts : public ListOf
-{
-public:
-
-  /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
-   */
-  virtual SBase* clone () const;
-
-  /**
-   * Ctor.
-   */
-   ListOfLayouts():ListOf(){};
-
-  /**
-   * Copy constructor.
-   */
-   ListOfLayouts(const ListOfLayouts& source);
-
-  /**
-   * Assignment operator.
-   */
-   ListOfLayouts& operator=(const ListOfLayouts& source);
-
-
-  /**
-   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
-   * SBML_UNKNOWN (default).
-   */
-  virtual SBMLTypeCode_t getItemTypeCode () const;
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   */
-  virtual const std::string& getElementName () const;
-
-
-   /**
-    * Creates an XMLNode object from this.
-    */
-    XMLNode toXML() const;
-    
-protected:
-
-  /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
-   */
-  virtual SBase* createObject (XMLInputStream& stream);
-};
 
 class LIBSBML_EXTERN ListOfCompartmentGlyphs : public ListOf
 {
@@ -158,6 +105,62 @@ public:
    * this SBML object.
    */
   virtual const std::string& getElementName () const;
+
+  /**
+   * Get a CompartmentGlyph from the ListOfCompartmentGlyphs.
+   *
+   * @param n the index number of the CompartmentGlyph to get.
+   * 
+   * @return the nth CompartmentGlyph in this ListOfCompartmentGlyphs.
+   *
+   * @see size()
+   */
+  virtual CompartmentGlyph * get(unsigned int n); 
+
+
+  /**
+   * Get a CompartmentGlyph from the ListOfCompartmentGlyphs.
+   *
+   * @param n the index number of the CompartmentGlyph to get.
+   * 
+   * @return the nth CompartmentGlyph in this ListOfCompartmentGlyphs.
+   *
+   * @see size()
+   */
+  virtual const CompartmentGlyph * get(unsigned int n) const; 
+
+
+  /**
+   * Get a CompartmentGlyph from the ListOfCompartmentGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the CompartmentGlyph to get.
+   * 
+   * @return CompartmentGlyph in this ListOfCompartmentGlyphs
+   * with the given id or NULL if no such
+   * CompartmentGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual CompartmentGlyph* get (const std::string& sid);
+
+  /**
+   * Get a CompartmentGlyph from the ListOfCompartmentGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the CompartmentGlyph to get.
+   * 
+   * @return CompartmentGlyph in this ListOfCompartmentGlyphs
+   * with the given id or NULL if no such
+   * CompartmentGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const CompartmentGlyph* get (const std::string& sid) const;
 
 
    /**
@@ -210,6 +213,62 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Get a SpeciesGlyph from the ListOfSpeciesGlyphs.
+   *
+   * @param n the index number of the SpeciesGlyph to get.
+   * 
+   * @return the nth SpeciesGlyph in this ListOfSpeciesGlyphs.
+   *
+   * @see size()
+   */
+  virtual SpeciesGlyph * get(unsigned int n); 
+
+
+  /**
+   * Get a SpeciesGlyph from the ListOfSpeciesGlyphs.
+   *
+   * @param n the index number of the SpeciesGlyph to get.
+   * 
+   * @return the nth SpeciesGlyph in this ListOfSpeciesGlyphs.
+   *
+   * @see size()
+   */
+  virtual const SpeciesGlyph * get(unsigned int n) const; 
+
+
+  /**
+   * Get a SpeciesGlyph from the ListOfSpeciesGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesGlyph to get.
+   * 
+   * @return SpeciesGlyph in this ListOfSpeciesGlyphs
+   * with the given id or NULL if no such
+   * SpeciesGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual SpeciesGlyph* get (const std::string& sid);
+
+  /**
+   * Get a SpeciesGlyph from the ListOfSpeciesGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the SpeciesGlyph to get.
+   * 
+   * @return SpeciesGlyph in this ListOfSpeciesGlyphs
+   * with the given id or NULL if no such
+   * SpeciesGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const SpeciesGlyph* get (const std::string& sid) const;
+
 
    /**
     * Creates an XMLNode object from this.
@@ -260,6 +319,62 @@ public:
    * this SBML object.
    */
   virtual const std::string& getElementName () const;
+
+  /**
+   * Get a ReactionGlyph from the ListOfReactionGlyphs.
+   *
+   * @param n the index number of the ReactionGlyph to get.
+   * 
+   * @return the nth ReactionGlyph in this ListOfReactionGlyphs.
+   *
+   * @see size()
+   */
+  virtual ReactionGlyph * get(unsigned int n); 
+
+
+  /**
+   * Get a ReactionGlyph from the ListOfReactionGlyphs.
+   *
+   * @param n the index number of the ReactionGlyph to get.
+   * 
+   * @return the nth ReactionGlyph in this ListOfReactionGlyphs.
+   *
+   * @see size()
+   */
+  virtual const ReactionGlyph * get(unsigned int n) const; 
+
+
+  /**
+   * Get a ReactionGlyph from the ListOfReactionGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the ReactionGlyph to get.
+   * 
+   * @return ReactionGlyph in this ListOfReactionGlyphs
+   * with the given id or NULL if no such
+   * ReactionGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual ReactionGlyph* get (const std::string& sid);
+
+  /**
+   * Get a ReactionGlyph from the ListOfReactionGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the ReactionGlyph to get.
+   * 
+   * @return ReactionGlyph in this ListOfReactionGlyphs
+   * with the given id or NULL if no such
+   * ReactionGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const ReactionGlyph* get (const std::string& sid) const;
 
 
    /**
@@ -312,6 +427,62 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Get a TextGlyph from the ListOfTextGlyphs.
+   *
+   * @param n the index number of the TextGlyph to get.
+   * 
+   * @return the nth TextGlyph in this ListOfTextGlyphs.
+   *
+   * @see size()
+   */
+  virtual TextGlyph * get(unsigned int n); 
+
+
+  /**
+   * Get a TextGlyph from the ListOfTextGlyphs.
+   *
+   * @param n the index number of the TextGlyph to get.
+   * 
+   * @return the nth TextGlyph in this ListOfTextGlyphs.
+   *
+   * @see size()
+   */
+  virtual const TextGlyph * get(unsigned int n) const; 
+
+
+  /**
+   * Get a TextGlyph from the ListOfTextGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the TextGlyph to get.
+   * 
+   * @return TextGlyph in this ListOfTextGlyphs
+   * with the given id or NULL if no such
+   * TextGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual TextGlyph* get (const std::string& sid);
+
+  /**
+   * Get a TextGlyph from the ListOfTextGlyphs
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the TextGlyph to get.
+   * 
+   * @return TextGlyph in this ListOfTextGlyphs
+   * with the given id or NULL if no such
+   * TextGlyph exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const TextGlyph* get (const std::string& sid) const;
+
 
    /**
     * Creates an XMLNode object from this.
@@ -363,6 +534,62 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Get a GraphicalObject from the ListOfGraphicalObjects.
+   *
+   * @param n the index number of the GraphicalObject to get.
+   * 
+   * @return the nth GraphicalObject in this ListOfGraphicalObjects.
+   *
+   * @see size()
+   */
+  virtual GraphicalObject * get(unsigned int n); 
+
+
+  /**
+   * Get a GraphicalObject from the ListOfGraphicalObjects.
+   *
+   * @param n the index number of the GraphicalObject to get.
+   * 
+   * @return the nth GraphicalObject in this ListOfGraphicalObjects.
+   *
+   * @see size()
+   */
+  virtual const GraphicalObject * get(unsigned int n) const; 
+
+
+  /**
+   * Get a GraphicalObject from the ListOfGraphicalObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the GraphicalObject to get.
+   * 
+   * @return GraphicalObject in this ListOfGraphicalObjects
+   * with the given id or NULL if no such
+   * GraphicalObject exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual GraphicalObject* get (const std::string& sid);
+
+  /**
+   * Get a GraphicalObject from the ListOfGraphicalObjects
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the GraphicalObject to get.
+   * 
+   * @return GraphicalObject in this ListOfGraphicalObjects
+   * with the given id or NULL if no such
+   * GraphicalObject exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const GraphicalObject* get (const std::string& sid) const;
+
 
    /**
     * Creates an XMLNode object from this.
@@ -409,14 +636,17 @@ public:
   /**
    * Creates a new Layout.
    */
-  
   Layout ();
 
   /**
    * Creates a new Layout with the given id and dimensions.
    */
-  
   Layout (const std::string& id, const Dimensions* dimensions);
+  
+  Layout (unsigned int level, unsigned int version);
+
+  Layout (SBMLNamespaces *sbmlns);
+
 
   /**
    * Creates a new Layout from the given XMLNode
@@ -669,53 +899,45 @@ public:
    * Returns the reaction glyph that has the given id, or NULL if no
    * reaction glyph has the id.
    */
-  
   ReactionGlyph* getReactionGlyph (const std::string& id) ;
 
   /**
    * Returns the text glyph that has the given id, or NULL if no text glyph
    * has the id.
    */
-  
   TextGlyph* getTextGlyph (const std::string& id) ;
 
   /**
    * Returns the additional graphical object that has the given id, or NULL
    * if no graphical object has the id.
    */
-  
   GraphicalObject* getAdditionalGraphicalObject (const std::string& id) ;
 
 
   /**
    * Adds a new compartment glyph.
    */
-  
-  void addCompartmentGlyph (const CompartmentGlyph* glyph);
+  int addCompartmentGlyph (const CompartmentGlyph* glyph);
 
   /**
    * Adds a new species glyph.
    */
-  
-  void addSpeciesGlyph (const SpeciesGlyph* glyph);
+  int addSpeciesGlyph (const SpeciesGlyph* glyph);
 
   /**
    * Adds a new reaction glyph.
    */
-  
-  void addReactionGlyph (const ReactionGlyph* glyph);
+  int addReactionGlyph (const ReactionGlyph* glyph);
 
   /**
    * Adds a new text glyph.
    */
-  
-  void addTextGlyph (const TextGlyph* glyph);
+  int addTextGlyph (const TextGlyph* glyph);
 
   /**
    * Adds a new additional graphical object glyph.
    */
-  
-  void addAdditionalGraphicalObject (const GraphicalObject* glyph);
+  int addAdditionalGraphicalObject (const GraphicalObject* glyph);
 
 
   /**
@@ -912,6 +1134,21 @@ public:
   GraphicalObject*
   removeAdditionalGraphicalObject(const std::string id);
 
+  /*
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  void
+  setSBMLDocument (SBMLDocument* d);
+
+  /**
+   * Sets the parent SBML object of this SBML object.
+   *
+   * @param sb the SBML object to use
+   */
+  void 
+  setParentSBMLObject (SBase* sb);
+
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -958,8 +1195,34 @@ public:
     * Creates an XMLNode object from this.
     */
     XMLNode toXML() const;
-    
-protected:
+
+   /**
+    * This methods calculates the bounding box of the layout.
+    * It traverses all layout objects and looks for the minimal and maximal x
+    * and y values that occur in the layout.
+    * These values are returned in the form of a bounding box where the minimal
+    * values are stored in the position and the maxima are given as the minimal
+    * values plus the corresponding dimension.
+    */
+    BoundingBox calculateBoundingBox() const;
+
+
+    /**
+     * Returns true if all required attributes are set
+     * on the layout.
+     * Currently the only required attribute is the id.
+     */
+    virtual bool hasRequiredAttributes() const;
+
+    /**
+     * Returns true if all required elements are set
+     * on the layout.
+     * Currently the only required element are the dimensions.
+     */
+    virtual bool hasRequiredElements() const;
+
+
+ protected:
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
@@ -989,6 +1252,115 @@ protected:
 
 };
 
+class LIBSBML_EXTERN ListOfLayouts : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * Ctor.
+   */
+   ListOfLayouts():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfLayouts(const ListOfLayouts& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfLayouts& operator=(const ListOfLayouts& source);
+
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+  /**
+   * Get a Layout from the ListOfLayouts.
+   *
+   * @param n the index number of the Layout to get.
+   * 
+   * @return the nth Layout in this ListOfLayouts.
+   *
+   * @see size()
+   */
+  virtual Layout * get(unsigned int n); 
+
+
+  /**
+   * Get a Layout from the ListOfLayouts.
+   *
+   * @param n the index number of the Layout to get.
+   * 
+   * @return the nth Layout in this ListOfLayouts.
+   *
+   * @see size()
+   */
+  virtual const Layout * get(unsigned int n) const; 
+
+
+  /**
+   * Get a Layout from the ListOflayouts
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Layout to get.
+   * 
+   * @return Layout in this ListOfLayouts
+   * with the given id or NULL if no such
+   * Layout exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual Layout* get (const std::string& sid);
+
+  /**
+   * Get a Layout from the ListOfLayouts
+   * based on its identifier.
+   *
+   * @param sid a string representing the identifier 
+   * of the Layout to get.
+   * 
+   * @return Layout in this ListOfLayouts
+   * with the given id or NULL if no such
+   * Layout exists.
+   *
+   * @see get(unsigned int n)
+   * @see size()
+   */
+  virtual const Layout* get (const std::string& sid) const;
+
+
+   /**
+    * Creates an XMLNode object from this.
+    */
+    XMLNode toXML() const;
+    
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+
 LIBSBML_CPP_NAMESPACE_END
 
 #endif /* __cplusplus */
@@ -1006,6 +1378,35 @@ BEGIN_C_DECLS
 LIBSBML_EXTERN
 Layout_t *
 Layout_create (void);
+
+/**
+ * Creates a new Layout_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * Layout
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * Layout
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this Layout
+ *
+ * @return a pointer to the newly created Layout_t structure.
+ *
+ * @note Once a Layout has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Layout_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version);
 
 /**
  * Creates a new Layout with the given id and returns a pointer to it.

@@ -71,7 +71,6 @@ LayoutTest_setup (void)
     {
         fail("new(std::nothrow) Layout() returned a NULL pointer.");
     }
-
 }
 
 void 
@@ -100,6 +99,107 @@ START_TEST ( test_Layout_new )
     fail_unless ( L->getNumAdditionalGraphicalObjects() == 0 );
 }
 END_TEST
+
+START_TEST ( test_Layout_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   Layout *l=new Layout(level, version); 
+   fail_unless( l->getTypeCode() == SBML_LAYOUT_LAYOUT );
+   fail_unless( l->getMetaId()   == "" );
+
+   fail_unless(l->getLevel() == level);
+   fail_unless(l->getVersion() == version);
+
+   fail_unless( l->isSetId() == false );
+   const Dimensions& dim=*(L->getDimensions());
+   fail_unless (dim.getWidth()  == 0.0 );
+   fail_unless (dim.getHeight() == 0.0 );
+   fail_unless (dim.getDepth()  == 0.0 );
+
+   fail_unless ( l->getNumCompartmentGlyphs()         == 0 );
+   fail_unless ( l->getNumSpeciesGlyphs()             == 0 );
+   fail_unless ( l->getNumReactionGlyphs()            == 0 );
+   fail_unless ( l->getNumTextGlyphs()                == 0 );
+   fail_unless ( l->getNumAdditionalGraphicalObjects() == 0 );
+   
+   delete l;
+
+   level=2;
+   version=3;
+   l=new Layout(level, version); 
+   fail_unless( l->getTypeCode() == SBML_LAYOUT_LAYOUT );
+   fail_unless( l->getMetaId()   == "" );
+
+   fail_unless(l->getLevel() == level);
+   fail_unless(l->getVersion() == version);
+
+   fail_unless( l->isSetId() == false );
+   const Dimensions& dim2=*(L->getDimensions());
+   fail_unless (dim2.getWidth()  == 0.0 );
+   fail_unless (dim2.getHeight() == 0.0 );
+   fail_unless (dim2.getDepth()  == 0.0 );
+
+   fail_unless ( l->getNumCompartmentGlyphs()         == 0 );
+   fail_unless ( l->getNumSpeciesGlyphs()             == 0 );
+   fail_unless ( l->getNumReactionGlyphs()            == 0 );
+   fail_unless ( l->getNumTextGlyphs()                == 0 );
+   fail_unless ( l->getNumAdditionalGraphicalObjects() == 0 );
+   
+   delete l;
+}
+END_TEST
+
+START_TEST ( test_Layout_new_WithNamespace )
+{
+   SBMLNamespaces* ns = new SBMLNamespaces;
+   Layout *l=new Layout(ns); 
+   fail_unless( l->getTypeCode() == SBML_LAYOUT_LAYOUT );
+   fail_unless( l->getMetaId()   == "" );
+
+   fail_unless(l->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(l->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( l->isSetId() == false );
+   const Dimensions& dim=*(L->getDimensions());
+   fail_unless (dim.getWidth()  == 0.0 );
+   fail_unless (dim.getHeight() == 0.0 );
+   fail_unless (dim.getDepth()  == 0.0 );
+
+   fail_unless ( l->getNumCompartmentGlyphs()         == 0 );
+   fail_unless ( l->getNumSpeciesGlyphs()             == 0 );
+   fail_unless ( l->getNumReactionGlyphs()            == 0 );
+   fail_unless ( l->getNumTextGlyphs()                == 0 );
+   fail_unless ( l->getNumAdditionalGraphicalObjects() == 0 );
+   
+   delete l;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   l=new Layout(ns); 
+   fail_unless( l->getTypeCode() == SBML_LAYOUT_LAYOUT );
+   fail_unless( l->getMetaId()   == "" );
+
+   fail_unless(l->getLevel() == 2);
+   fail_unless(l->getVersion() == 3);
+
+   fail_unless( l->isSetId() == false );
+   const Dimensions& dim2=*(L->getDimensions());
+   fail_unless (dim2.getWidth()  == 0.0 );
+   fail_unless (dim2.getHeight() == 0.0 );
+   fail_unless (dim2.getDepth()  == 0.0 );
+
+   fail_unless ( l->getNumCompartmentGlyphs()         == 0 );
+   fail_unless ( l->getNumSpeciesGlyphs()             == 0 );
+   fail_unless ( l->getNumReactionGlyphs()            == 0 );
+   fail_unless ( l->getNumTextGlyphs()                == 0 );
+   fail_unless ( l->getNumAdditionalGraphicalObjects() == 0 );
+   
+   delete l;
+   delete ns;
+}
+END_TEST
+
 
 START_TEST ( test_Layout_new_with_id_and_dimensions )
 {
@@ -148,27 +248,36 @@ END_TEST
 
 START_TEST ( test_Layout_addCompartmentGlyph )
 {
-    CompartmentGlyph* cg=new CompartmentGlyph();
-    L->addCompartmentGlyph(cg);
-    fail_unless ( L->getNumCompartmentGlyphs() == 1 );
-    delete cg;
+  // we can only add valid objects to a layout
+  // which means that the CompartmentGlyph needs to have an id
+  CompartmentGlyph* cg=new CompartmentGlyph();
+  cg->setId("CompartmentGlyph_1");
+  L->addCompartmentGlyph(cg);
+  fail_unless ( L->getNumCompartmentGlyphs() == 1 );
+  delete cg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addSpeciesGlyph )
 {
-    SpeciesGlyph* sg=new SpeciesGlyph();
-    L->addSpeciesGlyph(sg);
-    fail_unless ( L->getNumSpeciesGlyphs() == 1 );
-    delete sg;
+  // we can only add valid objects to a layout
+  // which means that the SpeciesGlyph needs to have an id
+  SpeciesGlyph* sg=new SpeciesGlyph();
+  sg->setId("SpeciesGlyph_1");
+  L->addSpeciesGlyph(sg);
+  fail_unless ( L->getNumSpeciesGlyphs() == 1 );
+  delete sg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addReactionGlyph )
 {
-    ReactionGlyph* rg=new ReactionGlyph();
-    L->addReactionGlyph(rg);
-    fail_unless ( L->getNumReactionGlyphs() == 1 );
+  // we can only add valid objects to a layout
+  // which means that the ReactionGlyph needs to have an id
+  ReactionGlyph* rg=new ReactionGlyph();
+  rg->setId("ReactionGlyph_1");
+  L->addReactionGlyph(rg);
+  fail_unless ( L->getNumReactionGlyphs() == 1 );
 
     delete rg;
 }
@@ -176,20 +285,25 @@ END_TEST
 
 START_TEST ( test_Layout_addTextGlyph )
 {
-    TextGlyph* tg=new TextGlyph();
-    L->addTextGlyph(tg);
-    fail_unless ( L->getNumTextGlyphs() == 1 );
-
-    delete tg;
+  // we can only add valid objects to a layout
+  // which means that the TextGlyph needs to have an id
+  TextGlyph* tg=new TextGlyph();
+  tg->setId("TextGlyph_1");
+  L->addTextGlyph(tg);
+  fail_unless ( L->getNumTextGlyphs() == 1 );
+  delete tg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addAdditionalGraphicalObject )
 {
-    GraphicalObject* ago=new GraphicalObject();
-    L->addAdditionalGraphicalObject(ago);
-    fail_unless ( L->getNumAdditionalGraphicalObjects() == 1 );
-    delete ago;
+  // we can only add valid objects to a layout
+  // which means that the GraphicalObject needs to have an id
+  GraphicalObject* ago=new GraphicalObject();
+  ago->setId("GraphicalObject_1");
+  L->addAdditionalGraphicalObject(ago);
+  fail_unless ( L->getNumAdditionalGraphicalObjects() == 1 );
+  delete ago;
 }
 END_TEST
 
@@ -559,30 +673,32 @@ create_suite_Layout (void)
                              LayoutTest_setup,
                              LayoutTest_teardown );
 
-  tcase_add_test ( tcase , test_Layout_new                              );
-  tcase_add_test ( tcase , test_Layout_new_with_id_and_dimensions       );
-  tcase_add_test ( tcase , test_Layout_setId                            );
-  tcase_add_test ( tcase , test_Layout_setDimensions                    );
-  tcase_add_test ( tcase , test_Layout_addCompartmentGlyph              );
-  tcase_add_test ( tcase , test_Layout_addSpeciesGlyph                  );
-  tcase_add_test ( tcase , test_Layout_addReactionGlyph                 );
-  tcase_add_test ( tcase , test_Layout_addTextGlyph                     );
-  tcase_add_test ( tcase , test_Layout_addAdditionalGraphicalObject     );
-  tcase_add_test ( tcase , test_Layout_createCompartmentGlyph           );
-  tcase_add_test ( tcase , test_Layout_createSpeciesGlyph               );
-  tcase_add_test ( tcase , test_Layout_createReactionGlyph              );
-  tcase_add_test ( tcase , test_Layout_createTextGlyph                  );
-  tcase_add_test ( tcase , test_Layout_createAdditionalGraphicalObject  );
-  tcase_add_test ( tcase , test_Layout_createSpeciesReferenceGlyph      );
-  tcase_add_test ( tcase , test_Layout_createLineSegment                );
-  tcase_add_test ( tcase , test_Layout_createCubicBezier                );
-  tcase_add_test ( tcase , test_Layout_getNumCompartmentGlyphs          );
-  tcase_add_test ( tcase , test_Layout_getNumSpeciesGlyphs              );
-  tcase_add_test ( tcase , test_Layout_getNumReactionGlyphs             );
-  tcase_add_test ( tcase , test_Layout_getNumTextGlyphs                 );
-  tcase_add_test ( tcase , test_Layout_getNumAdditionalGraphicalObjects );
-  tcase_add_test(  tcase , test_Layout_copyConstructor                  );
-  tcase_add_test(  tcase , test_Layout_assignmentOperator               );
+  tcase_add_test ( tcase , test_Layout_new                               );
+  tcase_add_test ( tcase , test_Layout_new_WithLevelVersionAndNamespaces );
+  tcase_add_test ( tcase , test_Layout_new_WithNamespace                 );
+  tcase_add_test ( tcase , test_Layout_new_with_id_and_dimensions        );
+  tcase_add_test ( tcase , test_Layout_setId                             );
+  tcase_add_test ( tcase , test_Layout_setDimensions                     );
+  tcase_add_test ( tcase , test_Layout_addCompartmentGlyph               );
+  tcase_add_test ( tcase , test_Layout_addSpeciesGlyph                   );
+  tcase_add_test ( tcase , test_Layout_addReactionGlyph                  );
+  tcase_add_test ( tcase , test_Layout_addTextGlyph                      );
+  tcase_add_test ( tcase , test_Layout_addAdditionalGraphicalObject      );
+  tcase_add_test ( tcase , test_Layout_createCompartmentGlyph            );
+  tcase_add_test ( tcase , test_Layout_createSpeciesGlyph                );
+  tcase_add_test ( tcase , test_Layout_createReactionGlyph               );
+  tcase_add_test ( tcase , test_Layout_createTextGlyph                   );
+  tcase_add_test ( tcase , test_Layout_createAdditionalGraphicalObject   );
+  tcase_add_test ( tcase , test_Layout_createSpeciesReferenceGlyph       );
+  tcase_add_test ( tcase , test_Layout_createLineSegment                 );
+  tcase_add_test ( tcase , test_Layout_createCubicBezier                 );
+  tcase_add_test ( tcase , test_Layout_getNumCompartmentGlyphs           );
+  tcase_add_test ( tcase , test_Layout_getNumSpeciesGlyphs               );
+  tcase_add_test ( tcase , test_Layout_getNumReactionGlyphs              );
+  tcase_add_test ( tcase , test_Layout_getNumTextGlyphs                  );
+  tcase_add_test ( tcase , test_Layout_getNumAdditionalGraphicalObjects  );
+  tcase_add_test(  tcase , test_Layout_copyConstructor                   );
+  tcase_add_test(  tcase , test_Layout_assignmentOperator                );
   
   suite_add_tcase(suite, tcase);
 

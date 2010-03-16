@@ -46,6 +46,7 @@
 
 #include "LineSegment.h"
 #include "LayoutUtilities.h"
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
@@ -59,7 +60,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a line segment with both points set to (0.0,0.0,0.0)
  */ 
 LineSegment::LineSegment () :
-    SBase     ()
+    SBase     ("","",-1)
   , mStartPoint( 0.0, 0.0, 0.0 )
   , mEndPoint  ( 0.0, 0.0, 0.0 )
 {
@@ -67,6 +68,28 @@ LineSegment::LineSegment () :
   this->mEndPoint.setElementName("end");
 }
 
+LineSegment::LineSegment (unsigned int level, unsigned int version):
+   SBase (level , version)
+  , mStartPoint( 0.0, 0.0, 0.0 )
+  , mEndPoint  ( 0.0, 0.0, 0.0 )
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
+}
+
+                          
+LineSegment::LineSegment (SBMLNamespaces *sbmlns) :
+   SBase (sbmlns)
+  , mStartPoint( 0.0, 0.0, 0.0 )
+  , mEndPoint  ( 0.0, 0.0, 0.0 )
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
+}
 
 /**
  * Creates a new line segment with the given 2D coordinates.
@@ -470,6 +493,40 @@ LineSegment_create (void)
 {
   return new(std::nothrow) LineSegment;
 }
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * Creates a new LineSegment_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * LineSegment
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * LineSegment
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this LineSegment
+ *
+ * @return a pointer to the newly created LineSegment_t structure.
+ *
+ * @note Once a LineSegment has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+LineSegment_t *
+LineSegment_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow) LineSegment(level, version);
+}
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

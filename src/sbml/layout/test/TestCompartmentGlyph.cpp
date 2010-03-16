@@ -88,6 +88,79 @@ START_TEST ( test_CompartmentGlyph_new )
 }
 END_TEST
 
+START_TEST ( test_CompartmentGlyph_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   CompartmentGlyph *cg=new CompartmentGlyph(level, version); 
+   fail_unless( cg->getTypeCode() == SBML_LAYOUT_COMPARTMENTGLYPH );
+   fail_unless( cg->getMetaId()   == "" );
+
+   fail_unless(cg->getLevel() == level);
+   fail_unless(cg->getVersion() == version);
+
+   fail_unless( cg->isSetId() == false );
+   fail_unless( cg->getId()          == "" );
+   fail_unless( !cg->isSetId());
+   fail_unless( !cg->isSetCompartmentId());
+   
+   delete cg;
+
+   level=2;
+   version=3;
+   cg=new CompartmentGlyph(level, version); 
+   fail_unless( cg->getTypeCode() == SBML_LAYOUT_COMPARTMENTGLYPH );
+   fail_unless( cg->getMetaId()   == "" );
+
+   fail_unless(cg->getLevel() == level);
+   fail_unless(cg->getVersion() == version);
+
+   fail_unless( cg->isSetId() == false );
+   fail_unless( cg->getId()          == "" );
+   fail_unless( !cg->isSetId());
+   fail_unless( !cg->isSetCompartmentId());
+   
+   delete cg;
+}
+END_TEST
+
+START_TEST ( test_CompartmentGlyph_new_WithNamespace )
+{
+   SBMLNamespaces* ns = new SBMLNamespaces;
+   CompartmentGlyph *cg=new CompartmentGlyph(ns); 
+   fail_unless( cg->getTypeCode() == SBML_LAYOUT_COMPARTMENTGLYPH );
+   fail_unless( cg->getMetaId()   == "" );
+
+   fail_unless(cg->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(cg->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( cg->isSetId() == false );
+   fail_unless( cg->getId()          == "" );
+   fail_unless( !cg->isSetId());
+   fail_unless( !cg->isSetCompartmentId());
+
+   delete cg;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   cg=new CompartmentGlyph(ns); 
+   fail_unless( cg->getTypeCode() == SBML_LAYOUT_COMPARTMENTGLYPH );
+   fail_unless( cg->getMetaId()   == "" );
+
+   fail_unless(cg->getLevel() == 2);
+   fail_unless(cg->getVersion() == 3);
+
+   fail_unless( cg->isSetId() == false );
+   fail_unless( cg->getId()          == "" );
+   fail_unless( !cg->isSetId());
+   fail_unless( !cg->isSetCompartmentId());
+   
+   delete cg;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST ( test_CompartmentGlyph_new_with_id_and_compartmentid)
 {
     std::string id="TestCompartmentGlyph";
@@ -149,11 +222,13 @@ create_suite_CompartmentGlyph (void)
                              CompartmentGlyphTest_teardown );
 
 
-  tcase_add_test( tcase, test_CompartmentGlyph_new                           );
-  tcase_add_test( tcase, test_CompartmentGlyph_new_with_id_and_compartmentid );
-  tcase_add_test( tcase, test_CompartmentGlyph_setCompartmentId              );
-  tcase_add_test( tcase, test_CompartmentGlyph_copyConstructor            );
-  tcase_add_test( tcase, test_CompartmentGlyph_assignmentOperator         );
+  tcase_add_test( tcase, test_CompartmentGlyph_new                               );
+  tcase_add_test( tcase, test_CompartmentGlyph_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_CompartmentGlyph_new_WithNamespace                 );
+  tcase_add_test( tcase, test_CompartmentGlyph_new_with_id_and_compartmentid     );
+  tcase_add_test( tcase, test_CompartmentGlyph_setCompartmentId                  );
+  tcase_add_test( tcase, test_CompartmentGlyph_copyConstructor                   );
+  tcase_add_test( tcase, test_CompartmentGlyph_assignmentOperator                );
   
   suite_add_tcase(suite, tcase);
 

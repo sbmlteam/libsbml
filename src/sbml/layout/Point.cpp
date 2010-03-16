@@ -44,10 +44,12 @@
  */
 
 #include <sstream>
+#include <math.h>
 
 #include "Point.h"
 #include "LayoutUtilities.h"
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
@@ -60,10 +62,19 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * Creates a new point with x,y and z set  to 0.0.
  */ 
-Point::Point() : SBase(), mXOffset(0.0), mYOffset(0.0), mZOffset(0.0),mElementName("point")
+Point::Point() : SBase("", "", -1), mXOffset(0.0), mYOffset(0.0), mZOffset(0.0),mElementName("point")
 {
 }
 
+                          
+Point::Point (SBMLNamespaces *sbmlns) :
+   SBase (sbmlns)
+ , mXOffset(0.0), mYOffset(0.0), mZOffset(0.0),mElementName("point")
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+}
+ 
 /**
  * Copy constructor.
  */
@@ -493,6 +504,57 @@ bool Point::accept (SBMLVisitor& v) const
     return false;
 }
 
+
+/**
+ * comparison operator
+ */
+bool Point::operator==(const Point& orig) const
+{
+    bool result=true;
+    double diff;
+    diff=fabs(this->mXOffset-orig.mXOffset);
+    if(!(fabs(this->mXOffset) < 1e-12))
+    {
+      diff/=this->mXOffset;
+    }
+    if(diff < 1e-12)
+    {
+      diff=fabs(this->mYOffset-orig.mYOffset);
+      if(!(fabs(this->mYOffset) < 1e-12))
+      {
+        diff/=this->mYOffset;
+      }
+      if(diff < 1e-12)
+      {
+          diff=fabs(this->mZOffset-orig.mZOffset);
+          if(!(fabs(this->mZOffset) < 1e-12))
+          {
+              diff/=this->mZOffset;
+          }
+          if(diff >= 1e-12)
+          {
+              result=false;
+          }
+      }
+      else
+      {
+        result=false;
+      }
+    }
+    else
+    {
+        result=false;
+    }
+    return result;
+}
+
+/**
+ * comparison operator
+ */
+bool Point::operator!=(const Point& orig) const
+{
+    return !((*this)==orig);
+}
 
 
 

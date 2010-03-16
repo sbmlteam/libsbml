@@ -47,6 +47,7 @@
 #include "CubicBezier.h"
 #include "LayoutUtilities.h"
 
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -58,7 +59,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * Creates a CubicBezier and returns the pointer.
  */
-CubicBezier::CubicBezier()
+CubicBezier::CubicBezier() : LineSegment()
 {
   this->mStartPoint.setElementName("start");
   this->mEndPoint.setElementName("end");
@@ -66,7 +67,25 @@ CubicBezier::CubicBezier()
   this->mBasePoint2.setElementName("basePoint2");
 }
 
+CubicBezier::CubicBezier (unsigned int level, unsigned int version):
+   LineSegment (level, version)
+{
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
+}
 
+                          
+CubicBezier::CubicBezier (SBMLNamespaces *sbmlns) :
+   LineSegment (sbmlns)
+{
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
+}
+ 
 /**
  * Creates a CubicBezier with the given 2D coordinates and returns the
  * pointer.
@@ -523,6 +542,38 @@ CubicBezier_t *
 CubicBezier_create (void)
 {
   return new(std::nothrow) CubicBezier;
+}
+
+/**
+ * Creates a new CubicBezier_t structure using the given SBML @p 
+ * level and @p version values and a set of XMLNamespaces.
+ *
+ * @param level an unsigned int, the SBML Level to assign to this 
+ * CubicBezier
+ *
+ * @param version an unsigned int, the SBML Version to assign to this
+ * CubicBezier
+ * 
+ * @param xmlns XMLNamespaces, a pointer to an array of XMLNamespaces to
+ * assign to this CubicBezier
+ *
+ * @return a pointer to the newly created CubicBezier_t structure.
+ *
+ * @note Once a CubicBezier has been added to an SBMLDocument, the @p 
+ * level, @p version and @p xmlns namespaces for the document @em override 
+ * those used to create the Reaction.  Despite this, the ability 
+ * to supply the values at creation time is an important aid to creating 
+ * valid SBML.  Knowledge of the intended SBML Level and Version 
+ * determine whether it is valid to assign a particular value to an 
+ * attribute, or whether it is valid to add an object to an existing 
+ * SBMLDocument.
+ */
+LIBSBML_EXTERN
+CubicBezier_t *
+CubicBezier_createWithLevelVersionAndNamespaces (unsigned int level,
+              unsigned int version)
+{
+  return new(std::nothrow)CubicBezier(level, version );
 }
 
 

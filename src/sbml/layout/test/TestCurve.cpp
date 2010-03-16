@@ -81,9 +81,71 @@ START_TEST (test_Curve_create)
     fail_unless( SBase_getMetaId     ((SBase_t*) C) == NULL );
 //    fail_unless( SBase_getNotes      ((SBase_t*) C) == NULL );
 //    fail_unless( SBase_getAnnotation ((SBase_t*) C) == NULL );
-    
-    
+   fail_unless(C->getNumCurveSegments() == 0);   
+}
+END_TEST
 
+START_TEST ( test_Curve_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   Curve *c=new Curve(level, version); 
+   fail_unless( c->getTypeCode() == SBML_LAYOUT_CURVE );
+   fail_unless( c->getMetaId()   == "" );
+
+   fail_unless(c->getLevel() == level);
+   fail_unless(c->getVersion() == version);
+
+   fail_unless( c->isSetId() == false );
+   fail_unless( c->getNumCurveSegments() == 0);   
+   
+   delete c;
+
+   level=2;
+   version=3;
+   c=new Curve(level, version); 
+   fail_unless( c->getTypeCode() == SBML_LAYOUT_CURVE );
+   fail_unless( c->getMetaId()   == "" );
+
+   fail_unless(c->getLevel() == level);
+   fail_unless(c->getVersion() == version);
+
+   fail_unless( c->isSetId() == false );
+   fail_unless( c->getNumCurveSegments() == 0);   
+   
+   delete c;
+}
+END_TEST
+
+START_TEST ( test_Curve_new_WithNamespace )
+{
+   SBMLNamespaces* ns=new SBMLNamespaces;
+   Curve *c=new Curve(ns); 
+   fail_unless( c->getTypeCode() == SBML_LAYOUT_CURVE );
+   fail_unless( c->getMetaId()   == "" );
+
+   fail_unless(c->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(c->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( c->isSetId() == false );
+   fail_unless( c->getNumCurveSegments() == 0);   
+   
+   delete c;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   c=new Curve(ns); 
+   fail_unless( c->getTypeCode() == SBML_LAYOUT_CURVE );
+   fail_unless( c->getMetaId()   == "" );
+
+   fail_unless(c->getLevel() == 2);
+   fail_unless(c->getVersion() == 3);
+
+   fail_unless( c->isSetId() == false );
+   fail_unless( c->getNumCurveSegments() == 0);   
+   
+   delete c;
+   delete ns;
 }
 END_TEST
 
@@ -200,18 +262,20 @@ create_suite_Curve (void)
                              CurveTest_setup,
                              CurveTest_teardown );
 
-  tcase_add_test( tcase, test_Curve_create                           );
-  tcase_add_test( tcase, test_Curve_createFrom                       );
-  tcase_add_test( tcase, test_Curve_createFrom_NULL                  );
-  tcase_add_test( tcase, test_Curve_addCurveSegment                  );
-  tcase_add_test( tcase, test_Curve_addCurveSegment_NULL             );
-  tcase_add_test( tcase, test_Curve_getNumCurveSegments              );
-  tcase_add_test( tcase, test_Curve_getCurveSegment                  );
-  tcase_add_test( tcase, test_Curve_getListOfCurveSegments           );
-  tcase_add_test( tcase, test_Curve_createLineSegment                );
-  tcase_add_test( tcase, test_Curve_createCubicBezier                );
-  tcase_add_test( tcase, test_Curve_copyConstructor                  );
-  tcase_add_test( tcase, test_Curve_assignmentOperator               );
+  tcase_add_test( tcase, test_Curve_create                            );
+  tcase_add_test( tcase, test_Curve_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_Curve_new_WithNamespace                 );
+  tcase_add_test( tcase, test_Curve_createFrom                        );
+  tcase_add_test( tcase, test_Curve_createFrom_NULL                   );
+  tcase_add_test( tcase, test_Curve_addCurveSegment                   );
+  tcase_add_test( tcase, test_Curve_addCurveSegment_NULL              );
+  tcase_add_test( tcase, test_Curve_getNumCurveSegments               );
+  tcase_add_test( tcase, test_Curve_getCurveSegment                   );
+  tcase_add_test( tcase, test_Curve_getListOfCurveSegments            );
+  tcase_add_test( tcase, test_Curve_createLineSegment                 );
+  tcase_add_test( tcase, test_Curve_createCubicBezier                 );
+  tcase_add_test( tcase, test_Curve_copyConstructor                   );
+  tcase_add_test( tcase, test_Curve_assignmentOperator                );
 
   suite_add_tcase(suite, tcase);
 

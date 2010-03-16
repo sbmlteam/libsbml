@@ -74,8 +74,10 @@ public:
   /**
    * Creates a new Dimensions object with all sizes set to 0.0.
    */ 
-  
   Dimensions ();
+
+  Dimensions (SBMLNamespaces *sbmlns);
+
 
   /**
    * Copy constructor.

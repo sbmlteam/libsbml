@@ -100,6 +100,111 @@ START_TEST ( test_LineSegment_create )
 }
 END_TEST
 
+START_TEST ( test_LineSegment_new_WithLevelVersionAndNamespaces )
+{
+   unsigned int level=1;
+   unsigned int version=2;
+   LineSegment *ls=new LineSegment(level, version); 
+   fail_unless( ls->getTypeCode() == SBML_LAYOUT_LINESEGMENT );
+   fail_unless( ls->getMetaId()   == "" );
+
+   fail_unless(ls->getLevel() == level);
+   fail_unless(ls->getVersion() == version);
+
+   fail_unless( ls->isSetId() == false );
+   Point *pos=ls->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=ls->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete ls;
+
+   level=2;
+   version=3;
+   ls=new LineSegment(level, version); 
+   fail_unless( ls->getTypeCode() == SBML_LAYOUT_LINESEGMENT );
+   fail_unless( ls->getMetaId()   == "" );
+
+   fail_unless(ls->getLevel() == level);
+   fail_unless(ls->getVersion() == version);
+
+   fail_unless( ls->isSetId() == false );
+   pos=ls->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=ls->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete ls;
+}
+END_TEST
+
+START_TEST ( test_LineSegment_new_WithNamespace )
+{
+   SBMLNamespaces* ns=new SBMLNamespaces;
+   LineSegment *ls=new LineSegment(ns); 
+   fail_unless( ls->getTypeCode() == SBML_LAYOUT_LINESEGMENT );
+   fail_unless( ls->getMetaId()   == "" );
+
+   fail_unless(ls->getLevel() == SBML_DEFAULT_LEVEL);
+   fail_unless(ls->getVersion() == SBML_DEFAULT_VERSION);
+
+   fail_unless( ls->isSetId() == false );
+   Point *pos=ls->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=ls->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete ls;
+   delete ns;
+
+   ns = new SBMLNamespaces(2,3);
+   ls=new LineSegment(ns); 
+   fail_unless( ls->getTypeCode() == SBML_LAYOUT_LINESEGMENT );
+   fail_unless( ls->getMetaId()   == "" );
+
+   fail_unless(ls->getLevel() == 2);
+   fail_unless(ls->getVersion() == 3);
+
+   fail_unless( ls->isSetId() == false );
+   pos=ls->getStart();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+   
+   pos=ls->getEnd();
+   fail_unless(pos != NULL);
+   fail_unless(pos->getXOffset() == 0.0);  
+   fail_unless(pos->getYOffset() == 0.0);  
+   fail_unless(pos->getZOffset() == 0.0);  
+    
+   delete ls;
+   delete ns;
+}
+END_TEST
+
+
 START_TEST ( test_SBase_setId )
 {
     const char* id="LineSegment";
@@ -374,20 +479,22 @@ create_suite_LineSegment (void)
                              LineSegmentTest_setup,
                              LineSegmentTest_teardown );
 
-  tcase_add_test( tcase, test_LineSegment_create                );
-  tcase_add_test( tcase, test_SBase_setId                 );
-  tcase_add_test( tcase, test_SBase_setId_NULL            );
-  tcase_add_test( tcase, test_LineSegment_createWithPoints      );
-  tcase_add_test( tcase, test_LineSegment_createWithPoints_NULL );
-  tcase_add_test( tcase, test_LineSegment_createWithCoordinates );
-  tcase_add_test( tcase, test_LineSegment_free_NULL             );
-  tcase_add_test( tcase, test_LineSegment_setStart              );
-  tcase_add_test( tcase, test_LineSegment_setStart_NULL         );
-  tcase_add_test( tcase, test_LineSegment_setEnd                );
-  tcase_add_test( tcase, test_LineSegment_setEnd_NULL           );
-  tcase_add_test( tcase, test_LineSegment_createFrom            );
-  tcase_add_test( tcase, test_LineSegment_copyConstructor       );
-  tcase_add_test( tcase, test_LineSegment_assignmentOperator    );
+  tcase_add_test( tcase, test_LineSegment_create                            );
+  tcase_add_test( tcase, test_LineSegment_new_WithLevelVersionAndNamespaces );
+  tcase_add_test( tcase, test_LineSegment_new_WithNamespace                 );
+  tcase_add_test( tcase, test_SBase_setId                                   );
+  tcase_add_test( tcase, test_SBase_setId_NULL                              );
+  tcase_add_test( tcase, test_LineSegment_createWithPoints                  );
+  tcase_add_test( tcase, test_LineSegment_createWithPoints_NULL             );
+  tcase_add_test( tcase, test_LineSegment_createWithCoordinates             );
+  tcase_add_test( tcase, test_LineSegment_free_NULL                         );
+  tcase_add_test( tcase, test_LineSegment_setStart                          );
+  tcase_add_test( tcase, test_LineSegment_setStart_NULL                     );
+  tcase_add_test( tcase, test_LineSegment_setEnd                            );
+  tcase_add_test( tcase, test_LineSegment_setEnd_NULL                       );
+  tcase_add_test( tcase, test_LineSegment_createFrom                        );
+  tcase_add_test( tcase, test_LineSegment_copyConstructor                   );
+  tcase_add_test( tcase, test_LineSegment_assignmentOperator                );
 
   suite_add_tcase(suite, tcase);
 
