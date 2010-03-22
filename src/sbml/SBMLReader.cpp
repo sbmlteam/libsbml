@@ -261,7 +261,8 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
       if (d->getModel() == 0)
       {
-        d->getErrorLog()->logError(MissingModel);
+        d->getErrorLog()->logError(MissingModel, 
+                                   d->getLevel(), d->getVersion());
       }
       else if (d->getLevel() == 1)
       {

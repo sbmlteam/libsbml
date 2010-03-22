@@ -685,6 +685,17 @@ typedef enum
  , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components in model definition */
  , EmptyListElement                      = 20203 /*!< A given <code>listOf___</code>, if present, cannot be empty */
  , NeedCompartmentIfHaveSpecies          = 20204 /*!< Missing compartment in species definition */
+ , OneOfEachListOf                       = 20205 /*!< More than one of a listOf elementn */
+ , OnlyFuncDefsInListOfFuncDefs          = 20206 /*!< More than one of a listOf elementn */
+ , OnlyUnitDefsInListOfUnitDefs          = 20207 /*!< More than one of a listOf elementn */
+ , OnlyCompartmentsInListOfCompartments  = 20208 /*!< More than one of a listOf elementn */
+ , OnlySpeciesInListOfSpecies            = 20209 /*!< More than one of a listOf elementn */
+ , OnlyParametersInListOfParameters      = 20210 /*!< More than one of a listOf elementn */
+ , OnlyInitAssignsInListOfInitAssigns    = 20211 /*!< More than one of a listOf elementn */
+ , OnlyRulesInListOfRules                = 20212 /*!< More than one of a listOf elementn */
+ , OnlyConstraintsInListOfConstraints    = 20213 /*!< More than one of a listOf elementn */
+ , OnlyReactionsInListOfReactions        = 20214 /*!< More than one of a listOf elementn */
+ , OnlyEventsInListOfEvents              = 20215 /*!< More than one of a listOf elementn */
  , FunctionDefMathNotLambda              = 20301 /*!< Invalid expression in function definition */
  , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> value */
  , RecursiveFunctionDefinition           = 20303 /*!< Recursive function definition */

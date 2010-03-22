@@ -3810,7 +3810,14 @@ Model::createObject (XMLInputStream& stream)
 
     if (mFunctionDefinitions.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mFunctionDefinitions;
   }
@@ -3819,7 +3826,14 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mUnitDefinitions.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mUnitDefinitions;
   }
@@ -3858,7 +3872,14 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mCompartments.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mCompartments;
   }
@@ -3867,7 +3888,14 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mSpecies.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mSpecies;
   }
@@ -3876,7 +3904,14 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mParameters.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mParameters;
   }
@@ -3889,7 +3924,14 @@ Model::createObject (XMLInputStream& stream)
     }
     if (mInitialAssignments.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mInitialAssignments;
   }
@@ -3898,7 +3940,14 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mRules.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mRules;
   }
@@ -3911,7 +3960,14 @@ Model::createObject (XMLInputStream& stream)
     }
     if (mConstraints.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mConstraints;
   }
@@ -3920,7 +3976,14 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mReactions.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mReactions;
   }
@@ -3933,7 +3996,14 @@ Model::createObject (XMLInputStream& stream)
     }
     if (mEvents.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant);
+      }
+      else
+      {
+        logError(OneOfEachListOf);
+      }
     }
     object = &mEvents;
   }

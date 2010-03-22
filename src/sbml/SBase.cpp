@@ -3069,13 +3069,82 @@ SBase::logUnknownElement( string element,
 			  const unsigned int level,
 			  const unsigned int version )
 {
-  ostringstream msg;
+  bool logged = false;
+  if (level > 2 && getTypeCode() == SBML_LIST_OF)
+  {
+    std::string type = getElementName();
+    if (type == "listOfFunctionDefinitions")
+    {
+      getErrorLog()->logError(OnlyFuncDefsInListOfFuncDefs, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfUnitDefinitions")
+    {
+      getErrorLog()->logError(OnlyUnitDefsInListOfUnitDefs, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfCompartments")
+    {
+      getErrorLog()->logError(OnlyCompartmentsInListOfCompartments, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfSpecies")
+    {
+      getErrorLog()->logError(OnlySpeciesInListOfSpecies, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfParameters")
+    {
+      getErrorLog()->logError(OnlyParametersInListOfParameters, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfInitialAssignments")
+    {
+      getErrorLog()->logError(OnlyInitAssignsInListOfInitAssigns, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfConstraints")
+    {
+      getErrorLog()->logError(OnlyConstraintsInListOfConstraints, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfRules")
+    {
+      getErrorLog()->logError(OnlyRulesInListOfRules, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfReactions")
+    {
+      getErrorLog()->logError(OnlyReactionsInListOfReactions, 
+                                level, version);
+      logged = true;
+    }
+    else if (type == "listOfEvents")
+    {
+      getErrorLog()->logError(OnlyEventsInListOfEvents, 
+                                level, version);
+      logged = true;
+    }
+  }
 
-  msg << "Element '" << element << "' is not part of the definition of "
-      << "SBML Level " << level << " Version " << version << ".";
-      
-  getErrorLog()->logError(UnrecognizedElement,
-			  level, version, msg.str());
+  if (!logged)
+  {
+    ostringstream msg;
+
+    msg << "Element '" << element << "' is not part of the definition of "
+        << "SBML Level " << level << " Version " << version << ".";
+        
+    getErrorLog()->logError(UnrecognizedElement,
+			    level, version, msg.str());
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

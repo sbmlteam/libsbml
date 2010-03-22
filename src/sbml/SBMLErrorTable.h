@@ -1716,8 +1716,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "An SBML document must contain a <model> definition. (References: L2V1, "
-    "L2V2 and L2V3 Section 4.1; L2V4 Section 4.1)" 
+    "An SBML document must contain a <model> definition. ", 
+    {"",
+     "L2V1 Section 4.1",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     "L3V1 Section 4.1"}
   },
 
   //20202
@@ -1738,8 +1743,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "<listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>, "
     "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
     "<listOfRules>, <listOfConstraints>, <listOfReactions> "
-    "and <listOfEvents>. (References: L2V2 Section 4.2; L2V3 Section 4.2; "
-    "L2V4 Section 4.2)" 
+    "and <listOfEvents>. ", 
+    {"",
+     "",
+     "L2V2 Section 4.2",
+     "L2V3 Section 4.2",
+     "L2V4 Section 4.2",
+     ""}
   },
 
   //20203
@@ -1761,8 +1771,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "<listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>,  "
     "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
     "<listOfRules>, <listOfConstraints>, <listOfReactions> and "
-    "<listOfEvents>. (References: This is a requirement stemming from the "
-    "XML Schema used for SBML; L2V3 Section 4.2; L2V4 Section 4.2)" 
+    "<listOfEvents>.", 
+    {"",
+     "",
+     "L2V2 Section 4.2",
+     "L2V3 Section 4.2",
+     "L2V4 Section 4.2",
+     "L3V1 Section 4.2"}
   },
 
   //20204
@@ -1779,9 +1794,268 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "If a model defines any species, then the model must also define at "
     "least one compartment. This is an implication of the fact that the "
-    "'compartment' attribute on the <species> element is not optional. "
-    "(References: L2V1 Section 4.5; L2V2 Section 4.8.3; L2V3 Section "
-    "4.8.3; L2V4 Section 4.8.3)"
+    "'compartment' attribute on the <species> element is not optional. ",
+    {"",
+     "L2V1 Section 4.5",
+     "L2V2 Section 4.8.3",
+     "L2V3 Section 4.8.3",
+     "L2V4 Section 4.8.3",
+     "L3V1 Section 4.6.3"}
+  },
+
+  //20205
+  {
+    OneOfEachListOf,
+    "Only one of each ListOf element allowed",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "There may be at most one instance of each of the following kind of "
+    "object in a Model object: ListOfFunctionDefinitions, "
+    "ListOfUnitDefinitions, ListOfCompartments, ListOfSpecies, "
+    "ListOfParameters, ListOfInitialAssignments, ListOfRules, "
+    "ListOfConstraints, ListOfReactions and ListOfEvents.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2"}
+  },
+
+  //20206
+  {
+    OnlyFuncDefsInListOfFuncDefs,
+    "Only FunctionDefinitions allowed in ListOfFunctionDefinitions",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfFunctionDefinitions container object may only "
+    "contain FunctionDefinition objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20207
+  {
+    OnlyUnitDefsInListOfUnitDefs,
+    "Only UnitDefinitions allowed in ListOfUnitDefinitions",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfUnitDefinitions container object may only "
+    "contain UnitDefinition objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20208
+  {
+    OnlyCompartmentsInListOfCompartments,
+    "Only Compartments allowed in ListOfCompartments",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfCompartments container object may only "
+    "contain Compartment objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20209
+  {
+    OnlySpeciesInListOfSpecies,
+    "Only Species allowed in ListOfSpecies",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfSpecies container object may only "
+    "contain Species objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20210
+  {
+    OnlyParametersInListOfParameters,
+    "Only parameters allowed in ListOfParameters",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfParameters container object may only "
+    "contain Parameter objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20211
+  {
+    OnlyInitAssignsInListOfInitAssigns,
+    "Only InitialAssignments allowed in ListOfInitialAssignments",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfInitialAssignments container object may only "
+    "contain InitialAssignment objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20212
+  {
+    OnlyRulesInListOfRules,
+    "Only Rules allowed in ListOfRules",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfRules container object may only "
+    "contain Rule objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20213
+  {
+    OnlyConstraintsInListOfConstraints,
+    "Only Constraints allowed in ListOfConstraints",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfConstraints container object may only "
+    "contain Constraint objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20214
+  {
+    OnlyReactionsInListOfReactions,
+    "Only Reactions allowed in ListOfReactions",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfReactions container object may only "
+    "contain Reaction objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20215
+  {
+    OnlyEventsInListOfEvents,
+    "Only Events allowed in ListOfEvents",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfEvents container object may only "
+    "contain Event objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
   },
 
   //20301
