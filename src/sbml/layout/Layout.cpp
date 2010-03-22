@@ -48,6 +48,8 @@
 #include <iostream>
 #include <limits>
 #include <assert.h>
+#include <algorithm>
+#include <functional>
 
 #include "Layout.h"
 #include "LayoutUtilities.h"
@@ -386,7 +388,7 @@ bool Layout::hasRequiredAttributes() const
  */
 bool Layout::hasRequiredElements() const
 {
-    true;
+    return true;
 }
 
 

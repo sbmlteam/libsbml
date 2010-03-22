@@ -45,6 +45,9 @@
 
 #include <assert.h>
 #include <limits>
+#include <algorithm>
+#include <functional>
+
 #include "ReactionGlyph.h"
 #include "LayoutUtilities.h"
 
