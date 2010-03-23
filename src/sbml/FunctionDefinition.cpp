@@ -518,6 +518,20 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
+
+    if (mMath)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <math> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMathElementPerFunc, getLevel(), getVersion());
+      }
+    }
     /* check for MathML namespace 
      * this may be explicitly declared here
      * or implicitly declared on the whole document
@@ -607,14 +621,33 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      logUnknownAttribute(name, level, version, "<functionDefinition>");
+      if (level < 3)
+      {
+        logUnknownAttribute(name, level, version, "<functionDefinition>");
+      }
+      else
+      {
+        getErrorLog()->logError(AllowedAttributesOnFunc, level, version);
+      }
     }
   }
 
   //
   // id: SId  { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned;
+  if (level < 3)
+  {
+    assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  }
+  else
+  {
+    assigned = attributes.readInto("id", mId);
+    if (!assigned)
+    {
+      getErrorLog()->logError(AllowedAttributesOnFunc, level, version);
+    }
+  }
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<functionDefinition>");

@@ -701,6 +701,8 @@ typedef enum
  , RecursiveFunctionDefinition           = 20303 /*!< Recursive function definition */
  , InvalidCiInLambda                     = 20304 /*!< Unknown <code>&lt;ci&gt;</code> reference in <code>&lt;lambda&gt;</code> */
  , InvalidFunctionDefReturnType          = 20305 /*!< Function return type must be either numerical or boolean */
+ , OneMathElementPerFunc                 = 20306 /*!< Function return type must be either numerical or boolean */
+ , AllowedAttributesOnFunc               = 20307 /*!< Function return type must be either numerical or boolean */
  , InvalidUnitDefId                      = 20401 /*!< Invalid <code>id</code> value for unit definition */
  , InvalidSubstanceRedefinition          = 20402 /*!< Invalid redefinition of <code>substance</code> */
  , InvalidLengthRedefinition             = 20403 /*!< Invalid redefinition of <code>length</code> */

@@ -133,7 +133,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
     "An SBML XML document must conform to the XML Schema for the corresponding "
     "SBML Level, Version and Release. The XML Schema for SBML defines the "
     "basic SBML object structure, the data types used by those objects, and the "
@@ -215,8 +215,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "<arcsec>, <arccsc>, <arccot>, <arcsinh>, <arccosh>, <arctanh>, "
     "<arcsech>, <arccsch>, <arccoth>, <true>, <false>, <notanumber>, <pi>, "
     "<infinity>, <exponentiale>, <semantics>, <annotation>, and "
-    "<annotation-xml>. (References: L2V2 Section 3.5.1; L2V3 Section 3.4.1; "
-    "L2V4 Section 3.4.1; L3V1 Section 3.4.1)"
+    "<annotation-xml>. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.1",
+     "L2V3 Section 3.4.1",
+     "L2V4 Section 3.4.1",
+     "L3V1 Section 3.4.1"}
   },
 
   //10203
@@ -233,8 +238,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'encoding' is only permitted on <csymbol>. No other MathML elements may "
-    "have an 'encoding' attribute. (References: L2V2 Section 3.5.1; L2V3 "
-    "Section 3.4.1; L2V4 Section 3.4.1; L3V1 Section 3.4.1)."
+    "have an 'encoding' attribute. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.1",
+     "L2V3 Section 3.4.1",
+     "L2V4 Section 3.4.1",
+     "L3V1 Section 3.4.1"}
   },
 
   //10204
@@ -258,9 +268,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'definitionURL' is only permitted on <csymbol>, <semantics> or <bvar>. "
-    "No other MathML elements may have a 'definitionURL' attribute. "
-    "(References: L2V2 Section 3.5.1; L2V3 Section 3.4.1; L2V4 Section 3.4.1; "
-    "L3V1 Section 3.4.1)."
+    "No other MathML elements may have a 'definitionURL' attribute. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.1",
+     "L2V3 Section 3.4.1",
+     "L2V4 Section 3.4.1",
+     "L3V1 Section 3.4.1"}
   },
 
   //10205
@@ -2071,10 +2085,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The top-level element within <math> in a <functionDefinition> is "
-    "restricted. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2; "
-    "L2V3 Section 4.3.2; L2V4 Section 4.3.2)"
+    "restricted.",
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
+    {"",
+     "L2V1 Section 4.3.2",
+     "L2V2 Section 4.3.2",
+     "L2V3 Section 4.3.2",
+     "L2V4 Section 4.3.2",
+     "L3V1 Section 4.3.2"}
   },
 
   //20302
@@ -2094,8 +2113,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "be chosen from the set of identifiers of other SBML "
     "<functionDefinition>s defined prior to that point in the SBML model. In "
     "other words, forward references to user-defined functions are not "
-    "permitted. (References: L2V2 Section 3.5.3; L2V3 Section 3.4.3; L2V4 "
-    "Section 3.4.3)"
+    "permitted. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.3",
+     "L2V3 Section 3.4.3",
+     "",
+     ""}
   },
 
   //20303
@@ -2112,9 +2136,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "Inside the <lambda> of a <functionDefinition>, the identifier of that "
     "<functionDefinition> cannot appear as the value of a <ci> element. SBML "
-    "functions are not permitted to be recursive. (References: L2V2 Sections "
-    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2; L2V4 Sections 3.4.3 and "
-    "4.3.2)"
+    "functions are not permitted to be recursive. ",
+    {"",
+     "",
+     "L2V2 Sections 3.5.3 and 4.3.2",
+     "L2V3 Sections 3.4.3 and 4.3.2",
+     "L2V4 Sections 3.4.3 and 4.3.2",
+     "L3V1 Sections 3.4.3 and 4.3.2"}
   },
 
   //20304
@@ -2133,9 +2161,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "the first element within a MathML 'apply', then the 'ci''s value can "
     "only be the value of a 'bvar' element declared in that 'lambda'. In "
     "other words, all model entities referenced inside a function definition "
-    "must be passed arguments to that function. (References: L2V2 Sections "
-    "3.5.3 and 4.3.2; L2V3 Sections 3.4.3 and 4.3.2; L2V4 Sections 3.4.3 and "
-    "4.3.2)"
+    "must be passed arguments to that function. ",
+    {"",
+     "",
+     "L2V2 Sections 3.5.3 and 4.3.2",
+     "L2V3 Sections 3.4.3 and 4.3.2",
+     "L2V4 Sections 3.4.3 and 4.3.2",
+     "L3V1 Sections 3.4.3 and 4.3.2"}
   },
 
   //20305
@@ -2151,8 +2183,59 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value type returned by a <functionDefinition>'s <lambda> must be "
-    "either boolean or numeric. (References: L2V2 Section 3.5.8; L2V3 "
-    "Section 3.4.9; L2V4 Section 3.4.9)"
+    "either boolean or numeric.",
+    {"",
+     "",
+     "L2V2 Section 3.5.8",
+     "L2V3 Section 3.4.9",
+     "L2V4 Section 3.4.9",
+     "L3V1 Section 3.4.9"}
+  },
+
+  //20306
+  {
+    OneMathElementPerFunc,
+    "FunctionDefinition must contain one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A FunctionDefinition object must contain exactly one MathML math "
+    "element. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.3"}
+  },
+
+  //20307
+  {
+    AllowedAttributesOnFunc,
+    "FunctionDefinition must have id and optionally metaid and sboTerm",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "FunctionDefinition object must have the required attribute id, and "
+    "may have the optional attributes metaid, sboTerm and name. No other "
+    "attributes from the SBML Level 3 Core namespace are permitted on a "
+    "FunctionDefinition object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.3"}
   },
 
   //20401

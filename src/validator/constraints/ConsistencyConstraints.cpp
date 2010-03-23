@@ -274,6 +274,18 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20306, FunctionDefinition, fd)
+{
+  //only applies to level 3
+  pre( fd.getLevel() > 2        );
+
+  // fd must have exactly one math
+  inv( fd.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (99301, FunctionDefinition, fd)
 {
   // csymbol time shouldnt be used in function
