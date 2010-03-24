@@ -1016,8 +1016,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     "The units of the expressions used as arguments to a function call are expected to "
-    "match the units expected for the arguments of that function. "
-    "(References: L2V2 Section 3.5; L2V3 Section 3.4; L2V4 Section 3.4) "
+    "match the units expected for the arguments of that function. ",
+    {"",
+     "",
+     "L2V2 Section 3.5",
+     "L2V3 Section 3.4",
+     "L2V4 Section 3.4",
+     "L3V1 Section 3.4"}
   },
 
   //10511
@@ -1034,8 +1039,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the 'variable' in an <assignmentRule> refers to a <compartment>, "
     "the units of the rule's right-hand side are expected to be consistent with the "
-    "units of that compartment's size. (References: L2V2 Section 4.11.3; "
-    "L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
+    "units of that compartment's size. ",
+    {"",
+     "",
+     "L2V2 Section 4.11.3",
+     "L2V3 Section 4.11.3",
+     "L2V4 Section 4.11.3",
+     "L3V1 Section 4.9.3"}
   },
 
   //10512
@@ -1052,8 +1062,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the 'variable' in an <assignmentRule> refers to a <species>, the "
     "units of the rule's right-hand side are expected to be consistent with the units "
-    "of the species' quantity. (References: L2V2 Section 4.11.3; L2V3 "
-    "Section 4.11.3; L2V4 Section 4.11.3)"
+    "of the species' quantity.",
+    {"",
+     "",
+     "L2V2 Section 4.11.3",
+     "L2V3 Section 4.11.3",
+     "L2V4 Section 4.11.3",
+     "L3V1 Section 4.9.3"}
   },
 
   //10513
@@ -1070,8 +1085,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the 'variable' in an <assignmentRule> refers to a <parameter>, the "
     "units of the rule's right-hand side are expected to be consistent with the units "
-    "declared for that parameter. (References: L2V2 Section 4.11.3; L2V3 "
-    "Section 4.11.3; L2V4 Section 4.11.3)"
+    "declared for that parameter. ",
+    {"",
+     "",
+     "L2V2 Section 4.11.3",
+     "L2V3 Section 4.11.3",
+     "L2V4 Section 4.11.3",
+     "L3V1 Section 4.9.3"}
   },
 
   //10521
@@ -1315,8 +1335,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "Level 2 prior to Version 4 the value is expected to be a term "
     "derived from SBO:0000004, \"modeling framework\"; in Version 4 "
     "and above it is expected to be a term derived from SBO:0000231 "
-    "\"interaction\" (References: L2V2 Section 4.2.1; L2V3 "
-    "Sections 4.2.2 and 5; L2V4 Sections 4.2.2 and 5)"
+    "\"interaction\"",
+    {"",
+     "",
+     "L2V2 Section 4.2.1",
+     "L2V3 Sections 4.2.2 and 5",
+     "L2V4 Sections 4.2.2 and 5",
+     "L3V1 Section 5"}
   },
 
   //10702
@@ -1334,8 +1359,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <functionDefinition> is expected to be "
     "an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
-    "\"mathematical expression\"). "
-    "(References: L2V2 Section 4.3.3; L2V3 Section 4.3.3; L2V4 Section 4.3.3)"
+    "\"mathematical expression\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.3.3",
+     "L2V3 Sections 4.3.3 and 5",
+     "L2V4 Sections 4.3.3 and 5",
+     "L3V1 Section 5"}
   },
 
   //10703
@@ -1353,8 +1383,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <parameter> is expected to be an "
     "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "quantitative parameter defined in SBO (i.e., terms derived from "
-    "SBO:0000002, \"quantitative parameter\"). "
-    "(References: L2V2 Section 4.9.5; L2V3 Section 4.9.5; L2V4 Section 4.9.5)"
+    "SBO:0000002, \"quantitative parameter\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.9.5",
+     "L2V3 Sections 4.9.5 and 5",
+     "L2V4 Sections 4.9.5 and 5",
+     "L3V1 Section 5"}
   },
 
   //10704
@@ -1372,8 +1407,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on an <initialAssignment> is expected to "
     "be an SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
-    "\"mathematical expression\"). "
-    "(References: L2V2 Section 4.10.3; L2V3 Section 4.10.3; L2V4 Section 4.10.3)"
+    "\"mathematical expression\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.10.3",
+     "L2V3 Sections 4.10.3 and 5",
+     "L2V4 Sections 4.10.3 and 5",
+     "L3V1 Section 5"}
   },
 
   //10705
@@ -1392,7 +1432,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
     "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
     "Note: This applies to Algebraic Rules in addition to Rate and Assignment "
-    "Rules. (References: L2V2 Section 4.11.1; L2V3 Section 4.11.1; L2V4 Section 4.11.1)"
+    "Rules.",
+    {"",
+     "",
+     "L2V2 Section 4.11.1",
+     "L2V3 Sections 4.11.1 and 5",
+     "L2V4 Sections 4.11.1 and 5",
+     "L3V1 Section 5"}
   },
 
   //10706
@@ -1410,8 +1456,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <constraint> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). "
-    "(References: L2V2 Section 4.12.3; L2V3 Section 4.12.3; L2V4 Section 4.12.3)"
+    "expression\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.12.3",
+     "L2V3 Sections 4.12.3 and 5",
+     "L2V4 Sections 4.12.3 and 5",
+     "L3V1 Section 5"}
   },
 
   //10707
@@ -1428,8 +1479,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "The value of the 'sboTerm' attribute on a <reaction> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to an interaction defined "
-    "in SBO (i.e., terms derived from SBO:0000231, \"interaction\"). "
-    "(References: L2V2 Section 4.13.1; L2V3 Section 4.13.1; L2V4 Section 4.13.1)"
+    "in SBO (i.e., terms derived from SBO:0000231, \"interaction\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.13.1",
+     "L2V3 Sections 4.13.1 and 5",
+     "L2V4 Sections 4.13.1 and 5",
+     "L3V1 Section 5"}
   },
 
   //10708
@@ -1451,9 +1507,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "product or modifier. If a reactant, then it should be a term in the "
     "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
     "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then "
-    "it should be a term in the SBO:0000019, \"modifier\" hierarchy. "
-    "(References: L2V2 Section 4.13.2; L2V3 Sections 4.13.1 and 5; L2V4 "
-    "Sections 4.13.1 and 5)"
+    "it should be a term in the SBO:0000019, \"modifier\" hierarchy. ",
+    {"",
+     "",
+     "L2V2 Section 4.13.2",
+     "L2V3 Sections 4.13.1 and 5",
+     "L2V4 Sections 4.13.1 and 5",
+     "L3V1 Section 5"}
   },
 
   //10709
@@ -1470,8 +1530,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "The value of the 'sboTerm' attribute on a <kineticLaw> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring rate law defined "
-    "in SBO (i.e., terms derived from SBO:0000001, \"rate law\"). "
-    "(References: L2V2 Section 4.13.5; L2V3 Section 4.13.1; L2V4 Section 4.13.1)"
+    "in SBO (i.e., terms derived from SBO:0000001, \"rate law\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.13.5",
+     "L2V3 Sections 4.13.1 and 5",
+     "L2V4 Sections 4.13.1 and 5",
+     "L3V1 Section 5"}
   },
 
   //10710
@@ -1488,8 +1553,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "The value of the 'sboTerm' attribute on an <event> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to an interaction "
-    "defined in SBO (i.e., terms derived from SBO:0000231, \"interaction\"). "
-    "(References: L2V2 Section 4.14.1; L2V3 Section 4.14.1; L2V4 Section 4.14.1)"
+    "defined in SBO (i.e., terms derived from SBO:0000231, \"interaction\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.14.1",
+     "L2V3 Sections 4.14.1 and 5",
+     "L2V4 Sections 4.14.1 and 5",
+     "L3V1 Section 5"}
   },
 
   //10711
@@ -1507,8 +1577,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on an <eventAssignment> is expected to be an "
     "SBO identifier (http://www.biomodels.net/SBO/) referring to a "
     "mathematical expression (i.e., terms derived from SBO:0000064, "
-    "\"mathematical expression\"). "
-    "(References: L2V2 Section 4.14.2; L2V3 Section 4.14.1; L2V4 Section 4.14.1)"
+    "\"mathematical expression\"). ",
+    {"",
+     "",
+     "L2V2 Section 4.14.2",
+     "L2V3 Sections 4.14.1 and 5",
+     "L2V4 Sections 4.14.1 and 5",
+     "L3V1 Section 5"}
   },
 
   //10712
@@ -1529,7 +1604,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"); in Versions 4 and above it is expected to refer "
     "to a material entity (i.e., terms derived from SBO:0000240, "
-    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "\"material entity\").",
+    {"",
+     "",
+     "",
+     "L2V3 Section 5",
+     "L2V4 Section 5",
+     "L3V1 Section 5"}
   },
 
   //10713
@@ -1550,7 +1631,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"); in Versions 4 and above it is expected to refer "
     "to a material entity (i.e., terms derived from SBO:0000240, "
-    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "\"material entity\").",
+    {"",
+     "",
+     "",
+     "L2V3 Section 5",
+     "L2V4 Section 5",
+     "L3V1 Section 5"}
   },
 
   //10714
@@ -1571,7 +1658,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"); in Versions 4 and above it is expected to refer "
     "to a material entity (i.e., terms derived from SBO:0000240, "
-    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "\"material entity\").",
+    {"",
+     "",
+     "",
+     "L2V3 Section 5",
+     "L2V4 Section 5",
+     "L3V1 Section 5"}
   },
 
   //10715
@@ -1592,7 +1685,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "physical type (i.e., terms derived from SBO:0000236, \"participant "
     "physical type\"); in Versions 4 and above it is expected to refer "
     "to a material entity (i.e., terms derived from SBO:0000240, "
-    "\"material entity\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "\"material entity\"). ",
+    {"",
+     "",
+     "",
+     "L2V3 Section 5",
+     "L2V4 Section 5",
+     "L3V1 Section 5"}
   },
 
   //10716
@@ -1610,7 +1709,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <trigger> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "expression\"). ",
+    {"",
+     "",
+     "",
+     "L2V3 Section 5",
+     "L2V4 Section 5",
+     "L3V1 Section 5"}
   },
 
   //10717
@@ -1628,7 +1733,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The value of the 'sboTerm' attribute on a <delay> is expected to be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
     "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V3 Section 5; L2V4 Section 5)"
+    "expression\").",
+    {"",
+     "",
+     "",
+     "L2V3 Section 5",
+     "L2V4 Section 5",
+     "L3V1 Section 5"}
   },
 
   //10801

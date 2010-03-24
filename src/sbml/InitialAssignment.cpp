@@ -556,7 +556,8 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version > 1) 
+  if ((level == 2 && version > 1)
+    || level > 2)  
     SBO::writeTerm(stream, mSBOTerm);
 }
 /** @endcond doxygen-libsbml-internal */
