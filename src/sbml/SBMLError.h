@@ -715,6 +715,9 @@ typedef enum
  , InvalidUnitKind                       = 20410 /*!< Invalid value of <code>kind</code> in unit definition */
  , OffsetNoLongerValid                   = 20411 /*!< <code>offset</code> not supported in this Level+Version of SBML */
  , CelsiusNoLongerValid                  = 20412 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
+ , EmptyUnitListElement                  = 20413 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
+ , OneListOfUnitsPerUnitDef              = 20414 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
+ , OnlyUnitsInListOfUnits                = 20415
  , ZeroDimensionalCompartmentSize        = 20501 /*!< Use of <code>size</code> is invalid for a zero-dimensional compartment */
  , ZeroDimensionalCompartmentUnits       = 20502 /*!< Use of <code>units</code> is invalid for a zero-dimensional compartment */
  , ZeroDimensionalCompartmentConst       = 20503 /*!< Zero-dimensional compartments cannot be non-constant */

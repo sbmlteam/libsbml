@@ -292,8 +292,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "In SBML Level 2, the only values permitted for 'definitionURL' on "
     "a <csymbol> element are \"http://www.sbml.org/sbml/symbols/time\" "
     "and \"http://www.sbml.org/sbml/symbols/delay\". SBML Level 3 added "
-    "\"http://www.sbml.org/sbml/symbols/avogadro\".(References: L2V2 "
-    "Section 3.5.5; L2V3 Section 3.4.6; L2V4 Section 3.4.6; L3V1 Section 3.4.6)." 
+    "\"http://www.sbml.org/sbml/symbols/avogadro\". ", 
+    {"",
+     "",
+     "L2V2 Section 3.5.5",
+     "L2V3 Section 3.4.6",
+     "L2V4 Section 3.4.6",
+     "L3V1 Section 3.4.6"}
   },
 
   //10206
@@ -310,8 +315,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "'type' is only permitted on the <cn> construct. No other MathML elements "
-    "may have a 'type' attribute. (References: L2V2 Section 3.5.1; L2V3 "
-    "Section 3.4.1; L2V4 Section 3.4.1; L3V1 Section 3.4.1)." 
+    "may have a 'type' attribute.",
+    {"",
+     "",
+     "L2V2 Section 3.5.1",
+     "L2V3 Section 3.4.1",
+     "L2V4 Section 3.4.1",
+     "L3V1 Section 3.4.1"}
   },
 
   //10207
@@ -327,9 +337,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The only permitted values for the 'type' attribute on MathML <cn> "
-    "elements are 'e-notation', 'real', 'integer', and 'rational'. "
-    "(References: L2V2 Section 3.5.2; L2V3 Section 3.4.2; L2V4 Section 3.4.2; "
-    "L3V1 Section 3.4.2)"
+    "elements are 'e-notation', 'real', 'integer', and 'rational'. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.2",
+     "L2V3 Section 3.4.2",
+     "L2V4 Section 3.4.2",
+     "L3V1 Section 3.4.2"}
   },
 
   //10208
@@ -348,9 +362,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "the 'math' element of a <functionDefinition> or as the first element "
     "of a semantics element immediately inside inside the math element "
     "of a <functionDefinition>; they may not be used "
-    "elsewhere in an SBML model. (References: L2V2 Sections 3.5.1 and 4.3; L2V3 "
-    "Sections 3.4.1 and 4.3.2; L2V4 Sections 3.4.1 and 4.3.2; ; L3V1 "
-    "Sections 3.4.1 and 4.3.2)"
+    "elsewhere in an SBML model.",
+    {"",
+     "",
+     "L2V2 Sections 3.5.1 and 4.3",
+     "L2V3 Sections 3.4.1 and 4.3.2",
+     "L2V4 Sections 3.4.1 and 4.3.2",
+     "L3V1 Sections 3.4.1 and 4.3.2"}
   },
 
   //10209
@@ -366,8 +384,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
-    "'not' must have boolean values. (References: L2V2 Section 3.5.8; "
-    "L2V3 Section 3.4.9; L2V4 Section 3.4.9; L3V1 Section 3.4.9)"
+    "'not' must have boolean values.",
+    {"",
+     "",
+     "L2V2 Section 3.5.8",
+     "L2V3 Section 3.4.9",
+     "L2V4 Section 3.4.9",
+     "L3V1 Section 3.4.9"}
   },
 
   //10210
@@ -387,9 +410,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "'exp', 'ln', 'log', 'floor', 'ceiling', 'factorial', 'sin', 'cos', "
     "'tan', 'sec', 'csc', 'cot', 'sinh', 'cosh', 'tanh', 'sech', 'csch', "
     "'coth', 'arcsin', 'arccos', 'arctan', 'arcsec', 'arccsc', 'arccot', "
-    "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. "
-    "(References: L2V2 Section 3.5.8; L2V3 Section 3.4.9; L2V4 Section 3.4.9;"
-    " L3V1 Section 3.4.9)"
+    "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.8",
+     "L2V3 Section 3.4.9",
+     "L2V4 Section 3.4.9",
+     "L3V1 Section 3.4.9"}
   },
 
   //10211
@@ -405,9 +432,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The values of all arguments to 'eq' and 'neq' operators must have the "
-    "same type (either all boolean or all numeric). (References: L2V2 "
-    "Section 3.5.8.; L2V3 Section 3.4.9; L2V4 Section 3.4.9; L3V1 "
-    "Section 3.4.9)"
+    "same type (either all boolean or all numeric). ",
+    {"",
+     "",
+     "L2V2 Section 3.5.8",
+     "L2V3 Section 3.4.9",
+     "L2V4 Section 3.4.9",
+     "L3V1 Section 3.4.9"}
   },
 
   //10212
@@ -425,8 +456,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The types of values within 'piecewise' operators must all be "
     "consistent: the set of expressions that make up the first arguments of "
     "the 'piece' and 'otherwise' operators within the same 'piecewise' "
-    "operator should all return values of the same type. (References: L2V2 "
-    "Section 3.5.8; L2V3 Section 3.4.9; L2V4 Section 3.4.9; L3V1 Section 3.4.9)"
+    "operator should all return values of the same type.",
+    {"",
+     "",
+     "L2V2 Section 3.5.8",
+     "L2V3 Section 3.4.9",
+     "L2V4 Section 3.4.9",
+     "L3V1 Section 3.4.9"}
   },
 
   //10213
@@ -442,8 +478,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The second argument of a MathML 'piece' operator must have a boolean "
-    "value. (References: L2V2 Section 3.5.8; L2V3 Section 3.4.9; L2V4 "
-    "Section 3.4.9; L3V1 Section 3.4.9)"
+    "value. ",
+    {"",
+     "",
+     "L2V2 Section 3.5.8",
+     "L2V3 Section 3.4.9",
+     "L2V4 Section 3.4.9",
+     "L3V1 Section 3.4.9"}
   },
 
   //10214
@@ -461,8 +502,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "Outside of a <functionDefinition>, if a 'ci' element is the first "
     "element within a MathML 'apply', then the 'ci''s value can only be "
     "chosen from the set of identifiers of <functionDefinition>s defined in "
-    "the SBML model. (References: L2V2 Section 4.3.2; L2V3 Section 4.3.2; "
-    "L2V4 Section 4.3.2; L3V1 Section 4.3.2)"
+    "the SBML model.",
+    {"",
+     "",
+     "L2V2 Section 4.3.2",
+     "L2V3 Section 4.3.2",
+     "L2V4 Section 4.3.2",
+     "L3V1 Section 4.3.2"}
   },
 
   //10215
@@ -481,9 +527,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "element within a MathML 'apply', then the 'ci''s value can only be "
     "chosen from the set of identifiers of <species>, <compartment>, "
     "<parameter> or <reaction> objects defined in the SBML model (In L2V1, the "
-    "'ci''s value can't be chosen from the identifiers of <reaction> objects). "
-    "(References: L2V2 Section 3.5.4; L2V3 Section 3.4.3; L2V4 Section 3.4.3; "
-    "L3V1 Section 3.4.3)"
+    "'ci''s value can't be chosen from the identifiers of <reaction> objects). ",
+    {"",
+     "",
+     "L2V2 Section 3.5.4",
+     "L2V3 Section 3.4.3",
+     "L2V4 Section 3.4.3",
+     "L3V1 Section 3.4.3"}
   },
 
   //10216
@@ -501,9 +551,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
     "be used in 'ci' elements within the MathML content of that same "
     "<kineticLaw>; the identifier is not visible to other parts of the "
-    "model. (References: L2V2 Sections 3.4.1, 3.5.3 and 4.13.5; L2V3 Sections "
-    "3.3.1, 3.4.3 and 4.13.5; L2V4 Sections 3.3.1, 3.4.3 and 4.13.5; "
-    "L3V1 Sections 3.3.1, 3.4.3 and 4.11.5)"
+    "model. ",
+    {"",
+     "",
+     "L2V2 Sections 3.4.1, 3.5.3 and 4.13.5",
+     "L2V3 Sections 3.3.1, 3.4.3 and 4.13.5",
+     "L2V4 Sections 3.3.1, 3.4.3 and 4.13.5",
+     "L3V1 Sections 3.3.1, 3.4.3 and 4.13.5"}
   },
 
   //10217
@@ -2461,6 +2515,73 @@ static const sbmlErrorTableEntry errorTable[] =
     "The predefined unit 'Celsius', previously available in SBML Level 1 and "
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)"
+  },
+
+  //20413
+  {
+    EmptyUnitListElement,
+    "ListOfUnits must not be empty",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The ListOfUnits container object in a UnitDefinition object is "
+    "optional, but if present, it must not be empty.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.4"}
+  },
+
+  //20414
+  {
+    OneListOfUnitsPerUnitDef,
+    "Only one ListOfUnits element on UnitDefinition",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "There may be at most one ListOfUnits container objects in a "
+    "UnitDefinition object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.4"}
+  },
+
+  //20415
+  {
+    OnlyUnitsInListOfUnits,
+    "Only Units allowed in ListOfUnits",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfUnits container object may only contain "
+    "Unit objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
   },
 
   //20501

@@ -3070,68 +3070,80 @@ SBase::logUnknownElement( string element,
 			  const unsigned int version )
 {
   bool logged = false;
+  ostringstream msg;
+
   if (level > 2 && getTypeCode() == SBML_LIST_OF)
   {
-    std::string type = getElementName();
-    if (type == "listOfFunctionDefinitions")
+    SBMLTypeCode_t tc = static_cast<ListOf*>(this)->getItemTypeCode();
+    msg << "Element '" << element << "' is not part of the definition of "
+      << this->getElementName() << ".";
+    switch (tc)
     {
+    case SBML_UNIT:
+      getErrorLog()->logError(OnlyUnitsInListOfUnits, 
+                                level, version, msg.str());
+      logged = true;
+      break;
+    case SBML_FUNCTION_DEFINITION:
+    
       getErrorLog()->logError(OnlyFuncDefsInListOfFuncDefs, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfUnitDefinitions")
-    {
+      break;
+    case SBML_UNIT_DEFINITION:
+    
       getErrorLog()->logError(OnlyUnitDefsInListOfUnitDefs, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfCompartments")
-    {
+      break;
+    case SBML_COMPARTMENT:
+    
       getErrorLog()->logError(OnlyCompartmentsInListOfCompartments, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfSpecies")
-    {
+      break;
+    case SBML_SPECIES:
+    
       getErrorLog()->logError(OnlySpeciesInListOfSpecies, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfParameters")
-    {
+      break;
+    case SBML_PARAMETER:
+    
       getErrorLog()->logError(OnlyParametersInListOfParameters, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfInitialAssignments")
-    {
+      break;
+    case SBML_INITIAL_ASSIGNMENT:
+    
       getErrorLog()->logError(OnlyInitAssignsInListOfInitAssigns, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfConstraints")
-    {
+      break;
+    case SBML_CONSTRAINT:
+    
       getErrorLog()->logError(OnlyConstraintsInListOfConstraints, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfRules")
-    {
+      break;
+    case SBML_RULE:
+    
       getErrorLog()->logError(OnlyRulesInListOfRules, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfReactions")
-    {
+      break;
+    case SBML_REACTION:
+    
       getErrorLog()->logError(OnlyReactionsInListOfReactions, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
-    }
-    else if (type == "listOfEvents")
-    {
+      break;
+    case SBML_EVENT:
+    
       getErrorLog()->logError(OnlyEventsInListOfEvents, 
-                                level, version);
+                                level, version, msg.str());
       logged = true;
+      break;
     }
   }
 
@@ -3390,7 +3402,10 @@ SBase::checkListOfPopulated(SBase* object)
       switch (tc)
       {
       case SBML_UNIT:
-        error = EmptyListOfUnits;
+        if (object->getLevel() < 3)
+          error = EmptyListOfUnits;
+        else
+          error = EmptyUnitListElement;
         break;
 
       case SBML_SPECIES_REFERENCE:
