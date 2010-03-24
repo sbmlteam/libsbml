@@ -1691,7 +1691,7 @@ static const sbmlErrorTableEntry errorTable[] =
      "",
      "L2V3 Section 5",
      "L2V4 Section 5",
-     "L3V1 Section 5"}
+     ""}
   },
 
   //10716
@@ -1715,7 +1715,7 @@ static const sbmlErrorTableEntry errorTable[] =
      "",
      "L2V3 Section 5",
      "L2V4 Section 5",
-     "L3V1 Section 5"}
+     ""}
   },
 
   //10717
