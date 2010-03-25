@@ -2237,6 +2237,124 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.2.8"}
   },
 
+  //20217
+  {
+    L3TimeUnitsOnModel,
+    "Invalid value of 'timeUnits' on <model>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The value of the attribute timeUnits on a Model object should be either "
+    "the units 'second', 'dimensionless', or the identifier of a "
+    "UnitDefinition object based on these units.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.4"}
+  },
+
+  //20218
+  {
+    L3VolumeUnitsOnModel,
+    "Invalid value of 'volumeUnits' on <model>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The value of the attribute volumeUnits on a Model object should be "
+    "either the units 'litre', 'dimensionless', or the identifier of a "
+    "UnitDefinition object based on these units or a unit derived from "
+    "'metre' (with an exponent of '3').",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.5"}
+  },
+
+  //20219
+  {
+    L3AreaUnitsOnModel,
+    "Invalid value of 'areaUnits' on <model>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The value of the attribute areaUnits on a Model object should be "
+    "either 'dimensionless' or the identifier of a UnitDefinition object "
+    "based on 'dimensionless' or a unit derived from 'metre' (with an "
+    "exponent of '2').",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.5"}
+  },
+
+  //20220
+  {
+    L3LengthUnitsOnModel,
+    "Invalid value of 'lengthUnits' on <model>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The value of the attribute lengthUnits on a Model object should be "
+    "either the units 'metre', 'dimensionless', or the identifier of a "
+    "UnitDefinition object based on these units.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.5"}
+  },
+
+  //20221
+  {
+    L3ExtentUnitsOnModel,
+    "Invalid value of 'extentUnits' on <model>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The value of the attribute extentUnits on a Model object should be "
+    "either the units 'mole', 'item', 'avogadro', 'dimensionless', "
+    "'kilogram', 'gram', or the identifier of a UnitDefinition object "
+    "based on these units.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.6"}
+  },
+
   //20301
   {
     FunctionDefMathNotLambda,

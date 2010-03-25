@@ -129,6 +129,94 @@ START_CONSTRAINT (20204, Model, x)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20217, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetTimeUnits());
+
+  const string&         units = m.getTimeUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  inv_or( units == "second" );
+  inv_or( units == "dimensionless"  );
+  inv_or( defn  != NULL && defn->isVariantOfTime() );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20218, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetVolumeUnits());
+
+  const string&         units = m.getVolumeUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  inv_or( units == "litre" );
+  inv_or( units == "dimensionless"  );
+  inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20219, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetAreaUnits());
+
+  const string&         units = m.getAreaUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  inv_or( units == "dimensionless"  );
+  inv_or( defn  != NULL && defn->isVariantOfArea() );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20220, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetLengthUnits());
+
+  const string&         units = m.getLengthUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  inv_or( units == "metre" );
+  inv_or( units == "dimensionless"  );
+  inv_or( defn  != NULL && defn->isVariantOfLength() );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20221, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetExtentUnits());
+
+  const string&         units = m.getExtentUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  inv_or( units == "mole" );
+  inv_or( units == "item" );
+  inv_or( units == "dimensionless"  );
+  inv_or( units == "avogadro" );
+  inv_or( units == "kilogram" );
+  inv_or( units == "gram" );
+  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+}
+END_CONSTRAINT
+
+
 // FunctionDefinition validation
 
 START_CONSTRAINT (20301, FunctionDefinition, fd)

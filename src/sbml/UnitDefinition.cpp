@@ -352,6 +352,13 @@ UnitDefinition::isVariantOfSubstance () const
                 || u->isGram() || u->isKilogram())
                 && u->getExponent() == 1);
     }
+    else if (level > 2)
+    {
+      result = ((  u->isMole() || u->isItem() 
+                || u->isGram() || u->isKilogram()
+                || u->isAvogadro())
+                && u->getExponent() == 1);
+    }
     else
     {
       result        = (u->isMole() || u->isItem()) 

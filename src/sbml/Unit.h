@@ -333,6 +333,15 @@ public:
 
 
   /**
+   * Predicate for testing whether this Unit is of the kind @c avogadro.
+   * 
+   * @return @c true if the kind of this Unit is @c avogadro, @c false
+   * otherwise. 
+   */
+  bool isAvogadro () const;
+
+
+  /**
    * Predicate for testing whether this Unit is of the kind @c becquerel
    *
    * @return @c true if the kind of this Unit is @c becquerel, @c false

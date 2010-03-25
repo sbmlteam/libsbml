@@ -696,6 +696,11 @@ typedef enum
  , OnlyConstraintsInListOfConstraints    = 20213 /*!< More than one of a listOf elementn */
  , OnlyReactionsInListOfReactions        = 20214 /*!< More than one of a listOf elementn */
  , OnlyEventsInListOfEvents              = 20215 /*!< More than one of a listOf elementn */
+ , L3TimeUnitsOnModel                    = 20217
+ , L3VolumeUnitsOnModel                  = 20218
+ , L3AreaUnitsOnModel                    = 20219
+ , L3LengthUnitsOnModel                  = 20220
+ , L3ExtentUnitsOnModel                  = 20221
  , FunctionDefMathNotLambda              = 20301 /*!< Invalid expression in function definition */
  , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> value */
  , RecursiveFunctionDefinition           = 20303 /*!< Recursive function definition */

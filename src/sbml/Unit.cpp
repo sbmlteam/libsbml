@@ -289,6 +289,16 @@ Unit::isAmpere () const
 
 
 /*
+ * @return true if the kind of this Unit is 'avogadro', false otherwise.
+ */
+bool
+Unit::isAvogadro () const
+{
+  return (mKind == UNIT_KIND_AVOGADRO);
+}
+
+
+/*
  * @return true if the kind of this Unit is 'becquerel', false otherwise.
  */
 bool
