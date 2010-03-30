@@ -1755,7 +1755,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The contents of the <notes> element must be explicitly placed in the "
-    "XHTML XML namespace. (References: L2V3 Section 3.2.3; L2V4 Section 3.2.3)" 
+    "XHTML XML namespace.", 
+    {"",
+     "",
+     "",
+     "L2V3 Section 3.2.3",
+     "L2V4 Section 3.2.3",
+     "L3V1 Section 3.2.3"}
   },
 
   //10802
@@ -1772,8 +1778,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the <notes> element must not contain an XML declaration "
     "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
-    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3; L2V4 "
-    "Section 3.2.3)"
+    "or similar).",
+    {"",
+     "",
+     "",
+     "L2V3 Section 3.2.3",
+     "L2V4 Section 3.2.3",
+     "L3V1 Section 3.2.3"}
   },
 
   //10803
@@ -1789,8 +1800,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The contents of the <notes> element must not contain an XML DOCTYPE "
-    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3; L2V4 Section 3.2.3)"
+    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". ",
+    {"",
+     "",
+     "",
+     "L2V3 Section 3.2.3",
+     "L2V4 Section 3.2.3",
+     "L3V1 Section 3.2.3"}
   },
 
   //10804
@@ -1809,8 +1825,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "following general forms: (1) a complete XHTML document beginning with "
     "the element <html> and ending with </html>; (2) the \"body\" portion of "
     "a document beginning with the element <body> and ending with </body>; or "
-    "(3) XHTML content that is permitted within a <body> ... </body> elements. "
-    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3; L2V4 Section 3.2.3)"
+    "(3) XHTML content that is permitted within a <body> ... </body> elements. ",
+    {"",
+     "",
+     "L2V2 Section 3.3.2",
+     "L2V3 Section 3.2.3",
+     "L2V4 Section 3.2.3",
+     ""}
   },
 
   //20101
