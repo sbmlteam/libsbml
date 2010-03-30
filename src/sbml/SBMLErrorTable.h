@@ -1834,6 +1834,26 @@ static const sbmlErrorTableEntry errorTable[] =
      ""}
   },
 
+  //10805
+  {
+    OnlyOneNotesElementAllowed,
+    "Only one notes element allowed.",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A given SBML object may contain at most one <notes> subobject. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 3.2"}
+  },
   //20101
   {
     InvalidNamespaceOnSBML,
@@ -1848,8 +1868,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The <sbml> container element must declare the XML Namespace for SBML, "
     "and this declaration must be consistent with the values of the 'level' "
-    "and 'version' attributes on the <sbml> element. (References: L2V2 "
-    "Section 4.1; L2V3 Section 4.1; L2V4 Section 4.1)" 
+    "and 'version' attributes on the <sbml> element. ",
+    {"",
+     "",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     "L3V1 Section 4.1"}
   },
 
   //20102
@@ -1866,8 +1891,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The <sbml> container element must declare the SBML Level using the "
     "attribute 'level', and this declaration must be consistent with the XML "
-    "Namespace declared for the <sbml> element. (References: L2V2 Section "
-    "4.1; L2V3 Section 4.1; L2V4 Section 4.1)" 
+    "Namespace declared for the <sbml> element. ",
+    {"",
+     "",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     "L3V1 Section 4.1"}
   },
 
   //20103
@@ -1884,8 +1914,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The <sbml> container element must declare the SBML Version using the "
     "attribute 'version', and this declaration must be consistent with the "
-    "XML Namespace declared for the <sbml> element. (References: L2V2 "
-    "Section 4.1; L2V3 Section 4.1; L2V4 Section 4.1)" 
+    "XML Namespace declared for the <sbml> element. ", 
+    {"",
+     "",
+     "L2V2 Section 4.1",
+     "L2V3 Section 4.1",
+     "L2V4 Section 4.1",
+     "L3V1 Section 4.1"}
   },
 
   //20104   FIXME

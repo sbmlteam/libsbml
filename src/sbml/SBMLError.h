@@ -677,6 +677,7 @@ typedef enum
  , NotesContainsXMLDecl                  = 10802 /*!< XML declarations not permitted in notes */
  , NotesContainsDOCTYPE                  = 10803 /*!< XML <code>DOCTYPE</code> not permitted in notes */
  , InvalidNotesContent                   = 10804 /*!< Invalid notes content */
+ , OnlyOneNotesElementAllowed            = 10805
  , InvalidNamespaceOnSBML                = 20101 /*!< Invalid XML namespace for SBML container */
  , MissingOrInconsistentLevel            = 20102 /*!< Missing or inconsistent value for <code>level</code> attribute */
  , MissingOrInconsistentVersion          = 20103 /*!< Missing or inconsistent value for <code>version</code> attribute */

@@ -2968,9 +2968,16 @@ SBase::readNotes (XMLInputStream& stream)
 
     if (mNotes)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(),
-               "Only one <notes> element is permitted inside a "
-	       "particualr containing element.");
+      if (getLevel() < 3)
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+                "Only one <notes> element is permitted inside a "
+	        "particualr containing element.");
+      }
+      else
+      {
+        logError(OnlyOneNotesElementAllowed, getLevel(), getVersion());
+      }
     }
     else if (mAnnotation)
     {

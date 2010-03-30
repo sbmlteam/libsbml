@@ -2349,15 +2349,15 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
   // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
   //
-  attributes.readInto("level", mLevel, getErrorLog(), true);
+  attributes.readInto("level", mLevel, getErrorLog(), false);
 
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
   // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
-  attributes.readInto("version", mVersion, getErrorLog(), true);
-
+  attributes.readInto("version", mVersion, getErrorLog(), false);
+  
   /* check that the level and version are valid */
   if (mLevel == 1)
   {
