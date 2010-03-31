@@ -3254,6 +3254,77 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.2.8"}
   },
 
+  //20419
+  {
+    AllowedAttributesOnUnitDefinition,
+    "Invalid attribute on <unitDefinition>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A UnitDefinition object must have the required attribute id and "
+    "may have the optional attributes metaid, sboTerm and name. No other "
+    "attributes from the SBML Level 3 Core namespace are permitted on "
+    "a UnitDefinition object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.4"}
+  },
+
+  //20420
+  {
+    AllowedAttributesOnListOfUnits,
+    "Invalid attribute on <listOfUnits>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfUnits object may have the optional attributes metaid and "
+    "sboTerm. No other attributes from the SBML Level 3 Core namespace "
+    "are permitted on a ListOfUnits object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20421
+  {
+    AllowedAttributesOnUnit,
+    "Invalid attribute on <unit>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Unit object must have the required attributes kind, exponent, "
+    "scale and multiplier, and may have the optional attributes metaid "
+    "and sboTerm. No other attributes from the SBML Level 3 Core namespace "
+    "are permitted on a Unit object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.4"}
+  },
+
   //20501
   {
     ZeroDimensionalCompartmentSize,

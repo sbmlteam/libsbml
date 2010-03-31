@@ -3123,6 +3123,26 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnModel, level,
         version, msg.str());
     }
+    else if (element == "<listOfUnits>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfUnits, level,
+        version, msg.str());
+    }
+    else if (element == "<unitDefinition>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnUnitDefinition, level,
+        version, msg.str());
+    }
+    else if (element == "<unit>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnUnit, level,
+        version, msg.str());
+    }
+    else if (element == "<functionDefinition>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnFunc, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

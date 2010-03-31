@@ -1580,18 +1580,44 @@ Unit::readAttributes (const XMLAttributes& attributes)
   // kind: UnitKind  (L1v1, L1v2, L2v1->)
   //
   string kind;
-  if ( attributes.readInto("kind", kind, getErrorLog(), true) )
+  bool assigned;
+  if (level < 3)
   {
-    mKind = UnitKind_forName( kind.c_str() );
-    if (mKind == UNIT_KIND_CELSIUS)
+    if ( attributes.readInto("kind", kind, getErrorLog(), true) )
     {
-      if (!(level == 1) && !(level == 2 && version == 1))
+      mKind = UnitKind_forName( kind.c_str() );
+      if (mKind == UNIT_KIND_CELSIUS)
       {
-        SBMLError * err = new SBMLError(CelsiusNoLongerValid);
-        logError(NotSchemaConformant, level, version, err->getMessage());
-        delete err;
+        if (!(level == 1) && !(level == 2 && version == 1))
+        {
+          SBMLError * err = new SBMLError(CelsiusNoLongerValid);
+          logError(NotSchemaConformant, level, version, err->getMessage());
+          delete err;
+        }
       }
     }
+  }
+  else
+  {
+    assigned = attributes.readInto("kind", kind, getErrorLog());
+    if ( assigned)
+    {
+      mKind = UnitKind_forName( kind.c_str() );
+      if (mKind == UNIT_KIND_CELSIUS)
+      {
+        if (!(level == 1) && !(level == 2 && version == 1))
+        {
+          SBMLError * err = new SBMLError(CelsiusNoLongerValid);
+          logError(NotSchemaConformant, level, version, err->getMessage());
+          delete err;
+        }
+      }
+    }
+    else
+    {
+      logError(AllowedAttributesOnUnit, level, version);
+    }
+
   }
 
   //
@@ -1609,7 +1635,11 @@ Unit::readAttributes (const XMLAttributes& attributes)
   else
   {
     mIsSetExponent = attributes.readInto("exponent", mExponentDouble, 
-                                          getErrorLog(), true);
+                                          getErrorLog());
+    if (!mIsSetExponent)
+    {
+      logError(AllowedAttributesOnUnit, level, version);
+    }
   }
   //
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
@@ -1621,7 +1651,11 @@ Unit::readAttributes (const XMLAttributes& attributes)
   }
   else
   {
-    mIsSetScale = attributes.readInto("scale", mScale, getErrorLog(), true);
+    mIsSetScale = attributes.readInto("scale", mScale, getErrorLog());
+    if (!mIsSetScale)
+    {
+      logError(AllowedAttributesOnUnit, level, version);
+    }
   }
 
   if (level > 1)
@@ -1637,7 +1671,11 @@ Unit::readAttributes (const XMLAttributes& attributes)
     else
     {
       mIsSetMultiplier = attributes.readInto("multiplier", mMultiplier, 
-                                              getErrorLog(), true);
+                                              getErrorLog());
+      if (!mIsSetMultiplier)
+      {
+        logError(AllowedAttributesOnUnit, level, version);
+      }
     }
     //
     // offset  { use="optional" default="0" }  (L2v1)

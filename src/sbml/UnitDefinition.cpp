@@ -1309,7 +1309,19 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
-  bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  bool assigned;
+  if (level < 3)
+  {
+    assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  }
+  else
+  {
+    assigned = attributes.readInto("id", mId);
+    if (!assigned)
+    {
+      getErrorLog()->logError(AllowedAttributesOnUnitDefinition, level, version);
+    }
+  }
   if (assigned && mId.size() == 0)
   {
     logEmptyString(id, level, version, "<unitDefinition>");

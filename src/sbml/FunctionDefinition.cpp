@@ -621,14 +621,7 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      if (level < 3)
-      {
-        logUnknownAttribute(name, level, version, "<functionDefinition>");
-      }
-      else
-      {
-        getErrorLog()->logError(AllowedAttributesOnFunc, level, version);
-      }
+      logUnknownAttribute(name, level, version, "<functionDefinition>");
     }
   }
 
