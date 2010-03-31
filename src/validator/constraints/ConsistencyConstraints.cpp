@@ -217,6 +217,18 @@ START_CONSTRAINT (20221, Model, x)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20216, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetConversionFactor());
+
+  const string&         factor = m.getConversionFactor();
+  inv( m.getParameter( factor ) != NULL );
+}
+END_CONSTRAINT
+
+
 // FunctionDefinition validation
 
 START_CONSTRAINT (20301, FunctionDefinition, fd)

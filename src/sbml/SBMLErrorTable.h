@@ -2400,6 +2400,29 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.2.8"}
   },
 
+  //20216
+  {
+    L3ConversionFactorOnModel,
+    "ConversionFactor must be parameter",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute conversionFactor on a Model object "
+    "must be the identifier of an existing Parameter object defined "
+    "in the Model object’s ListOfParameters.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2"}
+  },
+
   //20217
   {
     L3TimeUnitsOnModel,

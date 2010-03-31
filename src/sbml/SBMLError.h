@@ -702,6 +702,7 @@ typedef enum
  , OnlyConstraintsInListOfConstraints    = 20213 /*!< More than one of a listOf elementn */
  , OnlyReactionsInListOfReactions        = 20214 /*!< More than one of a listOf elementn */
  , OnlyEventsInListOfEvents              = 20215 /*!< More than one of a listOf elementn */
+ , L3ConversionFactorOnModel             = 20216
  , L3TimeUnitsOnModel                    = 20217
  , L3VolumeUnitsOnModel                  = 20218
  , L3AreaUnitsOnModel                    = 20219

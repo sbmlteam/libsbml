@@ -3118,6 +3118,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnListOfEvents, level,
         version, msg.str());
     }
+    else if (element == "<model>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnModel, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */
