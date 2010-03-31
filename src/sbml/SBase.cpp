@@ -3060,9 +3060,65 @@ SBase::logUnknownAttribute( string attribute,
   msg << "Attribute '" << attribute << "' is not part of the "
       << "definition of an SBML Level " << level
       << " Version " << version << " " << element << " element.";
-      
-  getErrorLog()->logError(NotSchemaConformant,
-			  level, version, msg.str());
+   
+  if (level < 3)
+  {
+    getErrorLog()->logError(NotSchemaConformant,
+			    level, version, msg.str());
+  }
+  else
+  {
+    if (element == "<listOfFunctionDefinitions>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfFuncs, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfUnitDefinitions>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfUnitDefs, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfCompartments>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfComps, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfSpecies>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfSpecies, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfParameters>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfParams, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfInitialAssignments>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfInitAssign, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfRules>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfRules, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfConstraints>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfConstraints, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfReactions>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfReactions, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfEvents>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfEvents, level,
+        version, msg.str());
+    }
+  }
 }
 /** @endcond doxygen-libsbml-internal */
 

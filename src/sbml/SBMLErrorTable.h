@@ -1939,6 +1939,113 @@ static const sbmlErrorTableEntry errorTable[] =
     "an SBML Level 1 document."
   },
 
+  //20105
+  {
+    LevelPositiveInteger,
+    "'level' must be positive integer",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'level' on the sbml container element must have a value "
+    "of type positiveInteger.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 3.1.4"}
+  },
+
+  //20106
+  {
+    VersionPositiveInteger,
+    "'version' must be positive integer",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'version' on the sbml container element must have a value "
+    "of type positiveInteger.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 3.1.4"}
+  },
+
+  //20107
+  {
+    cc,
+    "",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section"}
+  },
+
+  //20108
+  {
+    dd,
+    "",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section"}
+  },
+
+  //20109
+  {
+    ee,
+    "",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section"}
+  },
+
   //20201
   {
     MissingModel,
@@ -2409,6 +2516,261 @@ static const sbmlErrorTableEntry errorTable[] =
      "",
      "",
      "L3V1 Section 4.2.6"}
+  },
+
+  //20222
+  {
+    AllowedAttributesOnModel,
+    "Invalid attribute on <model>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Model object may only have the following attributes, all of "
+    "which are optional: metaid, sboTerm, id, name, substanceUnits, "
+    "timeUnits, volumeUnits, areaUnits, lengthUnits, extentUnits and "
+    "conversionFactor. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a Model object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2"}
+  },
+
+  //20223
+  {
+    AllowedAttributesOnListOfFuncs,
+    "Invalid attribute on <listOfFunctionDefinitions>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfFunctionDefinitions object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfFunctionDefinitions object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20224
+  {
+    AllowedAttributesOnListOfUnitDefs,
+    "Invalid attribute on <listOfUnitDefinitions>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfUnitDefinitions object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfUnitDefinitions object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20225
+  {
+    AllowedAttributesOnListOfComps,
+    "Invalid attribute on <listOfCompartments>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfCompartments object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfCompartments object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20226
+  {
+    AllowedAttributesOnListOfSpecies,
+    "Invalid attribute on <listOfSpecies>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfSpecies object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfSpecies object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20227
+  {
+    AllowedAttributesOnListOfParams,
+    "Invalid attribute on <listOfParameters>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfParameters object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfParameters object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20228
+  {
+    AllowedAttributesOnListOfInitAssign,
+    "Invalid attribute on <listOfInitialAssignments>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfInitialAssignments object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfInitialAssignments object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20229
+  {
+    AllowedAttributesOnListOfRules,
+    "Invalid attribute on <listOfRules>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfRules object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfRules object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20230
+  {
+    AllowedAttributesOnListOfConstraints,
+    "Invalid attribute on <listOfConstraints>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfConstraints object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfConstraints object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20231
+  {
+    AllowedAttributesOnListOfReactions,
+    "Invalid attribute on <listOfReactions>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfReactions object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfReactions object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //20232
+  {
+    AllowedAttributesOnListOfEvents,
+    "Invalid attribute on <listOfEvents>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfEvents object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfEvents object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
   },
 
   //20301
