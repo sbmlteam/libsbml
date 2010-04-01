@@ -635,7 +635,7 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
   }
   else
   {
-    assigned = attributes.readInto("id", mId);
+    assigned = attributes.readInto("id", mId, getErrorLog());
     if (!assigned)
     {
       getErrorLog()->logError(AllowedAttributesOnFunc, level, version);

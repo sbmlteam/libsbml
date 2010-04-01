@@ -3527,6 +3527,108 @@ static const sbmlErrorTableEntry errorTable[] =
     "L2V4 Section 4.7.2)"
   },
 
+  //20511
+  {
+    OneDimensionalCompartmentUnits,
+    "No units for 1D Compartment",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "If the attribute units on a Compartment object having a spatialDimensions "
+    "attribute value of '1' has not been set, then the unit of measurement "
+    "associated with the compartment’s size is determined by the value of the "
+    "enclosing Model object’s lengthUnits attribute. If neither the Compartment "
+    "object’s units nor the enclosing Model object’s lengthUnits attributes "
+    "are set, the unit of compartment size is undefined.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.5.4"}
+  },
+
+  //20512
+  {
+    TwoDimensionalCompartmentUnits,
+    "No units for 2D Compartment",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "If the attribute units on a Compartment object having a spatialDimensions "
+    "attribute value of '2' has not been set, then the unit of measurement "
+    "associated with the compartment’s size is determined by the value of the "
+    "enclosing Model object’s areaUnits attribute. If neither the Compartment "
+    "object’s units nor the enclosing Model object’s areaUnits attributes "
+    "are set, the unit of compartment size is undefined.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.5.4"}
+  },
+
+  //20513
+  {
+    ThreeDimensionalCompartmentUnits,
+    "No units for 3D Compartment",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "If the attribute units on a Compartment object having a spatialDimensions "
+    "attribute value of '3' has not been set, then the unit of measurement "
+    "associated with the compartment’s size is determined by the value of the "
+    "enclosing Model object’s volumeUnits attribute. If neither the Compartment "
+    "object’s units nor the enclosing Model object’s volumeUnits attributes "
+    "are set, the unit of compartment size is undefined.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.5.4"}
+  },
+
+  //20517
+  {
+    AllowedAttributesOnCompartment,
+    "Invalid attribute on <compartment>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Compartment object must have the required attributes id and constant, "
+    "and may have the optional attributes metaid, sboTerm, name, "
+    "spatialDimensions, size and units. No other attributes from the SBML "
+    "Level 3 Core namespace are permitted on a Compartment object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.5"}
+  },
+
   //20601
   {
     InvalidSpeciesCompartmentRef,

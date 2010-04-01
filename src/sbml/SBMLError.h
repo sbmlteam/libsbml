@@ -754,6 +754,10 @@ typedef enum
  , Invalid2DCompartmentUnits             = 20508 /*!< Invalid value of <code>units</code> for a two-dimensional compartment */
  , Invalid3DCompartmentUnits             = 20509 /*!< Invalid value of <code>units</code> for a three-dimensional compartment */
  , InvalidCompartmentTypeRef             = 20510 /*!< Invalid <code>compartmentType</code> reference */
+ , OneDimensionalCompartmentUnits        = 20511
+ , TwoDimensionalCompartmentUnits        = 20512
+ , ThreeDimensionalCompartmentUnits      = 20513
+ , AllowedAttributesOnCompartment        = 20517
  , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid <code>compartment</code> reference */
  , HasOnlySubsNoSpatialUnits             = 20602 /*!< No <code>spatialSizeUnits</code> permitted if <code>hasOnlySubstanceUnits</code>=<code>true</code> */
  , NoSpatialUnitsInZeroD                 = 20603 /*!< No <code>spatialSizeUnits</code> permitted if compartment is zero-dimensional */

@@ -1160,6 +1160,36 @@ START_CONSTRAINT (20510, Compartment, c)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (20511, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+  pre( c.getSpatialDimensionsAsDouble() == 1);
+  pre( !(c.isSetUnits()));
+
+  inv( m.isSetLengthUnits());
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (20512, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+  pre( c.getSpatialDimensionsAsDouble() == 2);
+  pre( !(c.isSetUnits()));
+
+  inv( m.isSetAreaUnits());
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (20513, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+  pre( c.getSpatialDimensionsAsDouble() == 3);
+  pre( !(c.isSetUnits()));
+
+  inv( m.isSetVolumeUnits());
+}
+END_CONSTRAINT
+
 // Species validation
 
 START_CONSTRAINT (20601, Species, s)

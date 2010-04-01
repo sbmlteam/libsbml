@@ -922,42 +922,197 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+  //const unsigned int version = getVersion();
+
+  //std::vector<std::string> expectedAttributes;
+  //expectedAttributes.clear();
+  //expectedAttributes.push_back("name");
+  //expectedAttributes.push_back("units");
+
+  //if (level == 1)
+  //{
+  //  expectedAttributes.push_back("volume");
+  //  expectedAttributes.push_back("outside");
+  //}
+  //else
+  //{
+  //  expectedAttributes.push_back("metaid");
+  //  expectedAttributes.push_back("id");
+  //  expectedAttributes.push_back("size");
+  //  expectedAttributes.push_back("spatialDimensions");
+  //  expectedAttributes.push_back("constant");
+
+  //  if (!(level == 2 && version < 3))
+  //  {
+  //    expectedAttributes.push_back("sboTerm");
+  //  }
+
+  //  if (level == 2)
+  //  {
+  //    expectedAttributes.push_back("outside");
+  //    
+  //    if (version > 1)
+  //    {
+  //      expectedAttributes.push_back("compartmentType");
+  //    }
+  //  }
+  //}
+
+
+  //// check that all attributes are expected
+  //for (int i = 0; i < attributes.getLength(); i++)
+  //{
+  //  std::vector<std::string>::const_iterator end = expectedAttributes.end();
+  //  std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+  //  std::string name = attributes.getName(i);
+  //  if (std::find(begin, end, name) == end)
+  //  {
+  //    logUnknownAttribute(name, level, version, "<compartment>");
+  //  }
+  //}
+
+  ////
+  //// name: SName   { use="required" }  (L1v1, L1v2)
+  ////   id: SId     { use="required" }  (L2v1 ->)
+  ////
+  //const string id = (level == 1) ? "name" : "id";
+  //bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  //if (assigned && mId.size() == 0)
+  //{
+  //  logEmptyString(id, level, version, "<compartment>");
+  //}
+  //if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  ////
+  //// volume  { use="optional" default="1" }  (L1v1, L1v2)
+  //// size    { use="optional" }              (L2v1 ->)
+  ////
+  //const string size = (level == 1) ? "volume" : "size";
+  //mIsSetSize = attributes.readInto(size, mSize, getErrorLog(), false);
+
+  ////
+  //// units  { use="optional" }  (L1v1 ->)
+  ////
+  //assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  //if (assigned && mUnits.size() == 0)
+  //{
+  //  logEmptyString("units", level, version, "<compartment>");
+  //}
+  //if (!SyntaxChecker::isValidUnitSId(mUnits))
+  //{
+  //  logError(InvalidUnitIdSyntax);
+  //}
+
+  ////
+  //// outside  { use="optional" }  (L1v1 -> L2v4)
+  ////
+  //if (level < 3)
+  //{
+  //  attributes.readInto("outside", mOutside, getErrorLog(), false);
+  //}
+
+  //if (level > 1)
+  //{
+  //  //
+  //  // name: string  { use="optional" }  (L2v1 ->)
+  //  //
+  //  attributes.readInto("name", mName, getErrorLog(), false);
+  // 
+  //  //
+  //  // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
+  //  //                     default="3" }  (L2v1 ->)
+  //  // spatialDimensions { use="optional"}  (L3v1 ->)
+  //  //
+  //  if (level < 3)
+  //  {
+  //    attributes.readInto("spatialDimensions", mSpatialDimensions, 
+  //                                                    getErrorLog(), false);
+  //    if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
+  //    {
+  //      std::string message = "The spatialDimensions attribute on ";
+  //      message += "a <compartment> may only have values 0, 1, 2 or 3.";
+  //      getErrorLog()->logError(NotSchemaConformant, level, version,
+  //                                                            message);
+  //    }
+  //    else
+  //    {
+  //      // keep record as double
+  //      mSpatialDimensionsDouble = (double)(mSpatialDimensions);
+  //      mIsSetSpatialDimensions = true;
+  //    }
+  //  }
+  //  else
+  //  {
+  //    mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
+  //                        mSpatialDimensionsDouble, getErrorLog(), false);
+  //  }
+  //  
+  //  //
+  //  // constant  { use="optional" default="true" }  (L2v1 ->)
+  //  // constant  { use="required" }  (L3v1 ->)
+  //  //
+  //  if (level < 3)
+  //  {
+  //    attributes.readInto("constant", mConstant, getErrorLog(), false);
+  //  }
+  //  else
+  //  {
+  //    mIsSetConstant = attributes.readInto("constant", mConstant, 
+  //                                          getErrorLog(), true);
+  //  }
+
+  //  //
+  //  // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
+  //  //
+  //  if ( level == 2 && version != 1)
+  //  {
+  //    attributes.readInto("compartmentType", mCompartmentType, 
+  //                                       getErrorLog(), false);
+  //  }
+
+  //  //
+  //  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
+  //  //
+  //  if (!(level == 2 && version < 3)) 
+  //  {
+  //    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+  //  }
+  //}
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Compartment::readL1Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = 1;
   const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("name");
   expectedAttributes.push_back("units");
-
-  if (level == 1)
-  {
-    expectedAttributes.push_back("volume");
-    expectedAttributes.push_back("outside");
-  }
-  else
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("id");
-    expectedAttributes.push_back("size");
-    expectedAttributes.push_back("spatialDimensions");
-    expectedAttributes.push_back("constant");
-
-    if (!(level == 2 && version < 3))
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
-
-    if (level == 2)
-    {
-      expectedAttributes.push_back("outside");
-      
-      if (version > 1)
-      {
-        expectedAttributes.push_back("compartmentType");
-      }
-    }
-  }
-
+  expectedAttributes.push_back("volume");
+  expectedAttributes.push_back("outside");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -973,22 +1128,18 @@ Compartment::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1 ->)
   //
-  const string id = (level == 1) ? "name" : "id";
-  bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
   {
-    logEmptyString(id, level, version, "<compartment>");
+    logEmptyString("name", level, version, "<compartment>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
-  // size    { use="optional" }              (L2v1 ->)
   //
-  const string size = (level == 1) ? "volume" : "size";
-  mIsSetSize = attributes.readInto(size, mSize, getErrorLog(), false);
+  mIsSetSize = attributes.readInto("volume", mSize, getErrorLog(), false);
 
   //
   // units  { use="optional" }  (L1v1 ->)
@@ -1006,78 +1157,230 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //
   // outside  { use="optional" }  (L1v1 -> L2v4)
   //
-  if (level < 3)
+  attributes.readInto("outside", mOutside, getErrorLog(), false);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Compartment::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = 2;
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("size");
+  expectedAttributes.push_back("spatialDimensions");
+  expectedAttributes.push_back("constant");
+  expectedAttributes.push_back("outside");
+
+  if (version > 1)
   {
-    attributes.readInto("outside", mOutside, getErrorLog(), false);
+    expectedAttributes.push_back("compartmentType");
   }
 
-  if (level > 1)
+  if (version > 2)
   {
-    //
-    // name: string  { use="optional" }  (L2v1 ->)
-    //
-    attributes.readInto("name", mName, getErrorLog(), false);
+    expectedAttributes.push_back("sboTerm");
+  }
+
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<compartment>");
+    }
+  }
+
+  //
+  //   id: SId     { use="required" }  (L2v1 ->)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<compartment>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // size    { use="optional" }              (L2v1 ->)
+  //
+  mIsSetSize = attributes.readInto("size", mSize, getErrorLog(), false);
+
+  //
+  // units  { use="optional" }  (L1v1 ->)
+  //
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  if (assigned && mUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<compartment>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
+
+  //
+  // outside  { use="optional" }  (L1v1 -> L2v4)
+  //
+  attributes.readInto("outside", mOutside, getErrorLog(), false);
+
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName, getErrorLog(), false);
+  
+  //
+  // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
+  //                     default="3" }  (L2v1 ->)
+  attributes.readInto("spatialDimensions", mSpatialDimensions, 
+                                                  getErrorLog(), false);
+  if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
+  {
+    std::string message = "The spatialDimensions attribute on ";
+    message += "a <compartment> may only have values 0, 1, 2 or 3.";
+    getErrorLog()->logError(NotSchemaConformant, level, version,
+                                                          message);
+  }
+  else
+  {
+    // keep record as double
+    mSpatialDimensionsDouble = (double)(mSpatialDimensions);
+    mIsSetSpatialDimensions = true;
+  }
+
+  //
+  // constant  { use="optional" default="true" }  (L2v1 ->)
+  //
+  attributes.readInto("constant", mConstant, getErrorLog(), false);
+
+  //
+  // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
+  //
+  if (version != 1)
+  {
+    attributes.readInto("compartmentType", mCompartmentType, 
+                                        getErrorLog(), false);
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
+  //
+  if (version > 2) 
+  {
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Compartment::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = 3;
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("size");
+  expectedAttributes.push_back("spatialDimensions");
+  expectedAttributes.push_back("constant");
+  expectedAttributes.push_back("sboTerm");
+
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<compartment>");
+    }
+  }
+
+  //
+  //   id: SId     { use="required" }  (L2v1 ->)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  if (!assigned)
+  {
+    getErrorLog()->logError(AllowedAttributesOnCompartment, level, version);
+  }
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<compartment>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // size    { use="optional" }              (L2v1 ->)
+  //
+  mIsSetSize = attributes.readInto("size", mSize, getErrorLog(), false);
+
+  //
+  // units  { use="optional" }  (L1v1 ->)
+  //
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  if (assigned && mUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<compartment>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
+
+
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName, getErrorLog(), false);
    
-    //
-    // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
-    //                     default="3" }  (L2v1 ->)
-    // spatialDimensions { use="optional"}  (L3v1 ->)
-    //
-    if (level < 3)
-    {
-      attributes.readInto("spatialDimensions", mSpatialDimensions, 
-                                                      getErrorLog(), false);
-      if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
-      {
-        std::string message = "The spatialDimensions attribute on ";
-        message += "a <compartment> may only have values 0, 1, 2 or 3.";
-        getErrorLog()->logError(NotSchemaConformant, level, version,
-                                                              message);
-      }
-      else
-      {
-        // keep record as double
-        mSpatialDimensionsDouble = (double)(mSpatialDimensions);
-        mIsSetSpatialDimensions = true;
-      }
-    }
-    else
-    {
-      mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
-                          mSpatialDimensionsDouble, getErrorLog(), false);
-    }
+  //
+  // spatialDimensions { use="optional"}  (L3v1 ->)
+  //
+  mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
+                        mSpatialDimensionsDouble, getErrorLog(), false);
     
-    //
-    // constant  { use="optional" default="true" }  (L2v1 ->)
-    // constant  { use="required" }  (L3v1 ->)
-    //
-    if (level < 3)
-    {
-      attributes.readInto("constant", mConstant, getErrorLog(), false);
-    }
-    else
-    {
-      mIsSetConstant = attributes.readInto("constant", mConstant, 
-                                            getErrorLog(), true);
-    }
-
-    //
-    // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
-    //
-    if ( level == 2 && version != 1)
-    {
-      attributes.readInto("compartmentType", mCompartmentType, 
-                                         getErrorLog(), false);
-    }
-
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)
-    //
-    if (!(level == 2 && version < 3)) 
-    {
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
-    }
+  //
+  // constant  { use="required" }  (L3v1 ->)
+  //
+  mIsSetConstant = attributes.readInto("constant", mConstant, 
+                                          getErrorLog());
+  if (!mIsSetConstant)
+  {
+    logError(AllowedAttributesOnCompartment, level, version);
   }
+
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
 /** @endcond doxygen-libsbml-internal */
 
