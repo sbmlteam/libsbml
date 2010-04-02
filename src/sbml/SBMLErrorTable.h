@@ -3642,9 +3642,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of 'compartment' in a <species> definition must be the "
-    "identifier of an existing <compartment> defined in the model. "
-    "(References: L2V1 Section 4.6.2; L2V2 Section 4.8.3; L2V3 Section 4.8.3; "
-    "L2V4 Section 4.8.3)"
+    "identifier of an existing <compartment> defined in the model. ",
+    {"",
+     "L2V1 Section 4.6.2",
+     "L2V2 Section 4.8.3",
+     "L2V3 Section 4.8.3",
+     "L2V4 Section 4.8.3",
+     "L3V1 Section 4.6.3"}
   },
 
   //20602
@@ -3771,11 +3775,15 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_WARNING,
-    "The value of a <species>'s 'units' attribute is restricted. "
-    "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5; L2V3 Section 4.8.5; "
-    "L2V4 Section 4.8.5)"
+    "The value of a <species>'s 'units' attribute is restricted. ",
     // actual restrictions are listed in constraint 
     // as these vary between levels/versions
+    {"",
+     "L2V1 Section 4.6.4",
+     "L2V2 Section 4.8.5",
+     "L2V3 Section 4.8.5",
+     "L2V4 Section 4.8.5",
+     "L3V1 Section 4.6.5"}
   },
 
   //20609
@@ -3791,8 +3799,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <species> cannot set values for both 'initialConcentration' and "
-    "'initialAmount' because they are mutually exclusive. (References: L2V1 "
-    "Section 4.6.3; L2V2 Section 4.8.4; L2V3 Section 4.8.4; L2V4 Section 4.8.4)"
+    "'initialAmount' because they are mutually exclusive.",
+    {"",
+     "L2V1 Section 4.6.3",
+     "L2V2 Section 4.8.4",
+     "L2V3 Section 4.8.4",
+     "L2V4 Section 4.8.4",
+     "L3V1 Section 4.6.4"}
   },
 
   //20610
@@ -3812,8 +3825,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "definition having 'boundaryCondition'='false' and 'constant'='false' is "
     "referenced by a <speciesReference> anywhere in a model, then this "
     "identifier cannot also appear as the value of a 'variable' in an "
-    "<assignmentRule> or a <rateRule>. (References: L2V1 Section 4.6.5; L2V2 "
-    "Section 4.8.6; L2V3 Section 4.8.6; L2V4 Section 4.8.6)" 
+    "<assignmentRule> or a <rateRule>.", 
+    {"",
+     "L2V1 Section 4.6.5",
+     "L2V2 Section 4.8.6",
+     "L2V3 Section 4.8.6",
+     "L2V4 Section 4.8.6",
+     "L3V1 Section 4.6.6"}
   },
 
   //20611
@@ -3830,8 +3848,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "A <species> having boundaryCondition='false' cannot appear as a "
     "reactant or product in any reaction if that Species also has "
-    "constant='true'. (References: L2V1 Section 4.6.5; L2V2 Section "
-    "4.8.6; L2V3 Section 4.8.6; L2V4 Section 4.8.6)"
+    "constant='true'.",
+    {"",
+     "L2V1 Section 4.6.5",
+     "L2V2 Section 4.8.6",
+     "L2V3 Section 4.8.6",
+     "L2V4 Section 4.8.6",
+     "L3V1 Section 4.6.6"}
   },
 
   //20612
@@ -3887,8 +3910,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The 'compartment' attribute in a <species> is mandatory. A <species> "
-    "definition in a model must include a value for this attribute. "
-    "(References: L2V2 Section 4.8.3; L2V3 Section 4.8.3; L2V4 Section 4.8.3)"
+    "definition in a model must include a value for this attribute. ",
+    {"",
+     "",
+     "L2V2 Section 4.8.3",
+     "L2V3 Section 4.8.3",
+     "L2V4 Section 4.8.3",
+     "L3V1 Section 4.6.3"}
   },
 
   //20615

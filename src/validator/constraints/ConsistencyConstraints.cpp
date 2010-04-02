@@ -1389,9 +1389,9 @@ START_CONSTRAINT (20608, Species, s)
       "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
       "of '1').";
   }
-  else
+  else if (s.getLevel() == 2)
   {
-    if (s.getLevel() == 2 && s.getVersion() == 1)
+    if (s.getVersion() == 1)
     {
       msg =
         "The value of a <species>'s 'substanceUnits' attribute can only be one "
@@ -1411,6 +1411,16 @@ START_CONSTRAINT (20608, Species, s)
         "of '1'), or 'dimensionless'.";
     }
   }
+  else
+  {
+    msg =
+      "The value of a <species>'s 'substanceUnits' attribute can only be one "
+      "of the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
+      "'dimensionless', 'avogadro' or the identifier of a <unitDefinition> derived from "
+      "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
+      ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
+      "of '1'), 'avogadro' (with an 'exponent' of '1') or 'dimensionless'.";
+  }
 
   const string&         units = s.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -1424,7 +1434,7 @@ START_CONSTRAINT (20608, Species, s)
     inv_or( units == "mole"      );
     inv_or( defn  != NULL && defn->isVariantOfSubstance() );
   }
-  else
+  else if (s.getLevel() == 2)
   {
     inv_or( units == "substance"      );
     inv_or( units == "item"           );
@@ -1432,6 +1442,19 @@ START_CONSTRAINT (20608, Species, s)
     inv_or( units == "dimensionless"  );
     inv_or( units == "gram"           );
     inv_or( units == "kilogram"       );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    inv_or( defn  != NULL && defn->isVariantOfMass()          );
+  }
+  else if (s.getLevel() == 3)
+  {
+    inv_or( units == "substance"      );
+    inv_or( units == "item"           );
+    inv_or( units == "mole"           );
+    inv_or( units == "dimensionless"  );
+    inv_or( units == "gram"           );
+    inv_or( units == "kilogram"       );
+    inv_or( units == "avogadro"       );
     inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
     inv_or( defn  != NULL && defn->isVariantOfMass()          );
