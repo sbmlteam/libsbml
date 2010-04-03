@@ -773,6 +773,9 @@ typedef enum
  , MultSpeciesSameTypeInCompartment      = 20613 /*!< Cannot have multiple species of the same type in the same compartment */
  , MissingSpeciesCompartment             = 20614 /*!< Missing <code>compartment</code> value for species */
  , SpatialSizeUnitsRemoved               = 20615 /*!< Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML */
+ , SubstanceUnitsOnSpecies               = 20616
+ , ConversionFactorOnSpecies             = 20617
+ , AllowedAttributesOnSpecies            = 20623
  , InvalidParameterUnits                 = 20701 /*!< Invalid value for <code>units</code> in parameter definition */
  , InvalidInitAssignSymbol               = 20801 /*!< Invalid <code>symbol</code> reference in initial assignment */
  , MultipleInitAssignments               = 20802 /*!< Multiple initial assignments for the same <code>symbol</code> value */

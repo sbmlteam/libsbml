@@ -5,7 +5,7 @@
       <compartment id="c" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s" compartment="c" hasOnlySubstanceUnits="false"
+      <species id="s" compartment="c" substanceUnits="mole" hasOnlySubstanceUnits="false"
       boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>

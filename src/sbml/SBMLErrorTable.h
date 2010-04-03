@@ -3936,6 +3936,81 @@ static const sbmlErrorTableEntry errorTable[] =
     "of SBML Level 2 Version 3. (References: L2V3 Section 4.8; L2V4 Section 4.8)"
   },
 
+  //20616
+  {
+    SubstanceUnitsOnSpecies,
+    "No substance units for Species",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "If the attribute substanceUnits in a Species object has not been set, "
+    "then the unit of measurement associated with the species’ quantity is "
+    "determined by the value of the enclosing Model object’s substanceUnits "
+    "attribute. If neither the Species object’s substanceUnits attribute nor "
+    "the enclosing Model object’s substanceUnits attribute are set, then the "
+    "unit of that species’ quantity is undefined.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.6.5"}
+  },
+
+  //20617
+  {
+    ConversionFactorOnSpecies,
+    "Invalid conversionFactor attribute",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute conversionFactor on a Species object must be "
+    "the identifier of an existing Parameter object defined in the enclosing "
+    "Model object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.6.7"}
+  },
+
+  //20623
+  {
+    AllowedAttributesOnSpecies,
+    "Invalid attribute on <species>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Species object must have the required attributes id, compartment, "
+    "hasOnlySubstanceUnits, boundaryCondition and constant, and may have "
+    "the optional attributes metaid, sboTerm, name, initialAmount, "
+    "initialConcentration, substanceUnits and conversionFactor. No other "
+    "attributes from the SBML Level 3 Core namespace are permitted on a "
+    "Species object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.6"}
+  },
+
   //20701
   {
     InvalidParameterUnits,

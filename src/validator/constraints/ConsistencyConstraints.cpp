@@ -129,6 +129,18 @@ START_CONSTRAINT (20204, Model, x)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20216, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetConversionFactor());
+
+  const string&         factor = m.getConversionFactor();
+  inv( m.getParameter( factor ) != NULL );
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (20217, Model, x)
 {
   // level 3
@@ -213,18 +225,6 @@ START_CONSTRAINT (20221, Model, x)
   inv_or( units == "gram" );
   inv_or( defn  != NULL && defn->isVariantOfSubstance() );
   inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (20216, Model, x)
-{
-  // level 3
-  pre( m.getLevel() > 2);
-  pre( m.isSetConversionFactor());
-
-  const string&         factor = m.getConversionFactor();
-  inv( m.getParameter( factor ) != NULL );
 }
 END_CONSTRAINT
 
@@ -1528,6 +1528,8 @@ EXTERN_CONSTRAINT(20613, UniqueSpeciesTypesInCompartment)
 
 START_CONSTRAINT (20614, Species, s)
 {
+  // level 3 catches this elsewhere
+  pre (s.getLevel() < 3);
   //msg =
   //  "The 'compartment' attribute in a <species> is mandatory. A <species> "
   //  "definition in a model must include a value for this attribute. "
@@ -1551,6 +1553,28 @@ START_CONSTRAINT (20615, Species, s)
   //  "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)";
 
   inv( s.isSetSpatialSizeUnits() == false);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20616, Species, s)
+{
+  pre( s.getLevel() > 2);
+  pre( !(s.isSetSubstanceUnits()));
+
+  inv( m.isSetSubstanceUnits());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20617, Species, s)
+{
+  // level 3
+  pre( s.getLevel() > 2);
+  pre( s.isSetConversionFactor());
+
+  const string&         factor = s.getConversionFactor();
+  inv( m.getParameter( factor ) != NULL );
 }
 END_CONSTRAINT
 

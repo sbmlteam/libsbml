@@ -1128,7 +1128,37 @@ Species::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Species::readL1Attributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
+ 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("name");
@@ -1136,39 +1166,7 @@ Species::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("initialAmount");
   expectedAttributes.push_back("boundaryCondition");
   expectedAttributes.push_back("charge");
-  if (level == 1)
-  {
-    expectedAttributes.push_back("units");
-  }
-  else
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("id");
-    expectedAttributes.push_back("initialConcentration");
-    expectedAttributes.push_back("substanceUnits");
-    expectedAttributes.push_back("hasOnlySubstanceUnits");
-    expectedAttributes.push_back("constant");
-
-    if (level == 2 && version > 1)
-    {
-      expectedAttributes.push_back("speciesType");
-    }
-
-    if (level == 2 && version < 3)
-    {
-      expectedAttributes.push_back("spatialSizeUnits");
-    }
-
-    if (!(level == 2 && version < 3))
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
-
-    if (level > 2)
-    {
-      expectedAttributes.push_back("conversionFactor");
-    }
-  }
+  expectedAttributes.push_back("units");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -1185,38 +1183,278 @@ Species::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1->)
   //
-  const string id = (level == 1) ? "name" : "id";
-  bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
   {
-    logEmptyString(id, level, version, "<species>");
+    logEmptyString("name", level, version, "<species>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
-  // compartment: SId    { use="required" }  (L2v1->)
   //
   attributes.readInto("compartment", mCompartment, getErrorLog(), true);
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
-  // initialAmount: double  { use="optional" }  (L2v1->)
   //
-  if (level == 1)
-  {
-    mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount,
+  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount,
                                                   getErrorLog(), true);
-  }
-  else
-  {
-    mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
-  }
 
   //
   //          units: SName  { use="optional" }  (L1v1, L1v2)
+  //
+  assigned = attributes.readInto("units", mSubstanceUnits);
+  if (assigned && mSubstanceUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<species>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
+
+  //
+  // boundaryCondition: boolean
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
+  //
+  attributes.readInto("boundaryCondition", mBoundaryCondition);
+
+  //
+  // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  mIsSetCharge = attributes.readInto("charge", mCharge);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Species::readL2Attributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("compartment");
+  expectedAttributes.push_back("initialAmount");
+  expectedAttributes.push_back("boundaryCondition");
+  expectedAttributes.push_back("charge");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("initialConcentration");
+  expectedAttributes.push_back("substanceUnits");
+  expectedAttributes.push_back("hasOnlySubstanceUnits");
+  expectedAttributes.push_back("constant");
+
+  if (version > 1)
+  {
+    expectedAttributes.push_back("speciesType");
+  }
+
+  if (version < 3)
+  {
+    expectedAttributes.push_back("spatialSizeUnits");
+  }
+
+  if (version > 2)
+  {
+    expectedAttributes.push_back("sboTerm");
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<species>");
+    }
+  }
+
+
+  //
+  //   id: SId     { use="required" }  (L2v1->)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<species>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // compartment: SId    { use="required" }  (L2v1->)
+  //
+  attributes.readInto("compartment", mCompartment, getErrorLog(), true);
+
+  //
+  // initialAmount: double  { use="optional" }  (L2v1->)
+  //
+  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+
+  //
+  // substanceUntis: SId    { use="optional" }  (L2v1->)
+  //
+  assigned = attributes.readInto("substanceUnits", mSubstanceUnits);
+  if (assigned && mSubstanceUnits.size() == 0)
+  {
+    logEmptyString("substanceUnits", level, version, "<species>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
+
+  //
+  // boundaryCondition: boolean
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
+  //
+  attributes.readInto("boundaryCondition", mBoundaryCondition);
+
+  //
+  // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
+  // charge: integer  { use="optional" }  deprecated (L2v2)
+  //
+  mIsSetCharge = attributes.readInto("charge", mCharge);
+
+  //
+  // name: string  { use="optional" }  (L2v1->)
+  //
+  attributes.readInto("name", mName);
+
+  //
+  // speciesType: SId  { use="optional" }  (L2v2-> L2v4)
+  //
+  if (version > 1)
+  {
+    attributes.readInto("speciesType", mSpeciesType);
+  }
+
+  //
+  // initialConcentration: double  { use="optional" }  (L2v1->)
+  //
+  mIsSetInitialConcentration =
+      attributes.readInto("initialConcentration", mInitialConcentration);
+
+  //
+  // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
+  //
+  if (version < 3)
+  {
+    assigned = attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+    if (assigned && mSpatialSizeUnits.size() == 0)
+    {
+      logEmptyString("spatialSizeUnits", level, version, "<species>");
+    }
+    if (!SyntaxChecker::isValidUnitSId(mSpatialSizeUnits))
+    {
+      logError(InvalidUnitIdSyntax);
+    }
+  }
+
+  //
+  // hasOnlySubstanceUnits: boolean
+  // { use="optional" default="false" }  (L2v1->)
+  //
+  attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
+
+  //
+  // constant: boolean  { use="optional" default="false" }  (L2v1->)
+  //
+  attributes.readInto("constant", mConstant);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v3->)
+  //
+  if (version > 2) 
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Species::readL3Attributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("compartment");
+  expectedAttributes.push_back("initialAmount");
+  expectedAttributes.push_back("boundaryCondition");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("initialConcentration");
+  expectedAttributes.push_back("substanceUnits");
+  expectedAttributes.push_back("hasOnlySubstanceUnits");
+  expectedAttributes.push_back("constant");
+  expectedAttributes.push_back("sboTerm");
+  expectedAttributes.push_back("conversionFactor");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<species>");
+    }
+  }
+
+
+  //
+  //   id: SId     { use="required" }  (L2v1->)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  if (!assigned)
+  {
+    getErrorLog()->logError(AllowedAttributesOnSpecies, level, version);
+  }
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<species>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // compartment: SId    { use="required" }  (L2v1->)
+  //
+  assigned = attributes.readInto("compartment", mCompartment, getErrorLog());
+  if (!assigned)
+  {
+    logError(MissingSpeciesCompartment, level, version);
+  }
+
+  //
+  // initialAmount: double  { use="optional" }  (L2v1->)
+  //
+  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+
+  //
   // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
@@ -1232,112 +1470,59 @@ Species::readAttributes (const XMLAttributes& attributes)
 
   //
   // boundaryCondition: boolean
-  // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
   // { use="required" }  (L3v1->)
   //
-  if (level < 3)
+  mIsSetBoundaryCondition = attributes.readInto("boundaryCondition", 
+                               mBoundaryCondition, getErrorLog());
+  if (!mIsSetBoundaryCondition)
   {
-    attributes.readInto("boundaryCondition", mBoundaryCondition);
-  }
-  else
-  {
-    mIsSetBoundaryCondition = attributes.readInto("boundaryCondition", 
-                               mBoundaryCondition, getErrorLog(), true);
+    logError(AllowedAttributesOnSpecies, level, version);
   }
 
   //
-  // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
-  // charge: integer  { use="optional" }  deprecated (L2v2)
+  // name: string  { use="optional" }  (L2v1->)
   //
-  mIsSetCharge = attributes.readInto("charge", mCharge);
+  attributes.readInto("name", mName);
 
-  if (level > 1)
-  {
-    //
-    // name: string  { use="optional" }  (L2v1->)
-    //
-    attributes.readInto("name", mName);
-
-    //
-    // speciesType: SId  { use="optional" }  (L2v2-> L2v4)
-    //
-    if (level == 2 && version > 1)
-    {
-      attributes.readInto("speciesType", mSpeciesType);
-    }
-
-    //
-    // initialConcentration: double  { use="optional" }  (L2v1->)
-    //
-    mIsSetInitialConcentration =
+  //
+  // initialConcentration: double  { use="optional" }  (L2v1->)
+  //
+  mIsSetInitialConcentration =
         attributes.readInto("initialConcentration", mInitialConcentration);
 
-    //
-    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
-    //
-    if (level == 2 && version < 3)
-    {
-      assigned = attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
-      if (assigned && mSpatialSizeUnits.size() == 0)
-      {
-        logEmptyString("spatialSizeUnits", level, version, "<species>");
-      }
-      if (!SyntaxChecker::isValidUnitSId(mSpatialSizeUnits))
-      {
-        logError(InvalidUnitIdSyntax);
-      }
-    }
-
-    //
-    // hasOnlySubstanceUnits: boolean
-    // { use="optional" default="false" }  (L2v1->)
-    // { use="required" } (L3v1 -> )
-    //
-    if (level == 2)
-    {
-      attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
-    }
-    else
-    {
-      mIsSetHasOnlySubstanceUnits = attributes.readInto(
+  //
+  // hasOnlySubstanceUnits: boolean
+  // { use="required" } (L3v1 -> )
+  mIsSetHasOnlySubstanceUnits = attributes.readInto(
                          "hasOnlySubstanceUnits", mHasOnlySubstanceUnits,
-                          getErrorLog(), true);
-    }
+                          getErrorLog());
+  if (!mIsSetHasOnlySubstanceUnits)
+  {
+    logError(AllowedAttributesOnSpecies, level, version);
+  }
 
-    //
-    // constant: boolean  { use="optional" default="false" }  (L2v1->)
-    // constant: boolean  { use="required" }  (L3v1->)
-    //
-    if (level == 2)
-    {
-      attributes.readInto("constant", mConstant);
-    }
-    else
-    {
-      mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), true);
-    }
+  //
+  // constant: boolean  { use="required" }  (L3v1->)
+  //
+  mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog());
+  if (!mIsSetConstant)
+  {
+    logError(AllowedAttributesOnSpecies, level, version);
+  }
 
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v3->)
-    //
-    if (!(level == 2 && version < 3)) 
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
-    //
-    // conversionFactor: SIdRef {use="optional" } (L3v1 ->)
-    //
-    if (level > 2)
-    {
-      assigned = attributes.readInto("conversionFactor", mConversionFactor);
-      if (assigned && mConversionFactor.size() == 0)
-      {
-        logEmptyString("conversionFactor", level, version, "<species>");
-      }
-      if (!SyntaxChecker::isValidSBMLSId(mConversionFactor))
-      {
-        logError(InvalidIdSyntax);
-      }
-    }
+  //
+  // conversionFactor: SIdRef {use="optional" } (L3v1 ->)
+  //
+  assigned = attributes.readInto("conversionFactor", mConversionFactor);
+  if (assigned && mConversionFactor.size() == 0)
+  {
+    logEmptyString("conversionFactor", level, version, "<species>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mConversionFactor))
+  {
+    logError(InvalidIdSyntax);
   }
 }
 /** @endcond doxygen-libsbml-internal */
