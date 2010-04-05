@@ -2176,6 +2176,24 @@ public:
 
 
   /**
+   * Get a SpeciesReference object based on its identifier.
+   * 
+   * @return the SpeciesReference in this Model with the identifier @p sid or NULL
+   * if no such SpeciesReference exists.
+   */
+  SpeciesReference* getSpeciesReference (const std::string& sid);
+
+
+  /**
+   * Get a SpeciesReference object based on its identifier.
+   * 
+   * @return the SpeciesReference in this Model with the identifier @p sid or NULL
+   * if no such SpeciesReference exists.
+   */
+  const SpeciesReference* getSpeciesReference (const std::string& sid) const;
+
+
+  /**
    * Get the nth Event object in this Model.
    * 
    * @return the nth Event of this Model.
@@ -3845,6 +3863,11 @@ Model_getReaction (Model_t *m, unsigned int n);
 LIBSBML_EXTERN
 Reaction_t *
 Model_getReactionById (Model_t *m, const char *sid);
+
+
+LIBSBML_EXTERN
+SpeciesReference_t *
+Model_getSpeciesReferenceById (Model_t *m, const char *sid);
 
 
 LIBSBML_EXTERN

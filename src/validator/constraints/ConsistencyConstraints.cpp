@@ -1614,9 +1614,19 @@ START_CONSTRAINT (20801, InitialAssignment, ia)
 
   const string& id = ia.getSymbol();
 
-  inv_or( m.getCompartment(id) );
-  inv_or( m.getSpecies    (id) );
-  inv_or( m.getParameter  (id) );
+  if (ia.getLevel() == 2)
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+  }
+  else
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+    inv_or( m.getSpeciesReference  (id) );
+  }
 }
 END_CONSTRAINT
 

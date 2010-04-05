@@ -1079,6 +1079,22 @@ START_TEST (test_Model_getReactionById)
 }
 END_TEST
 
+START_TEST (test_Model_getSpeciesReferenceById)
+{
+  Reaction_t *r1 = Reaction_create(2, 4);
+
+  SpeciesReference_t *sr = Reaction_createReactant(r1);
+  SpeciesReference_setId(sr, "s1");
+
+  Model_addReaction(M, r1);
+
+  fail_unless( Model_getNumReactions(M) == 2 );
+
+  fail_unless( Model_getSpeciesReferenceById(M, "s1" ) != sr   );
+  fail_unless( Model_getReactionById(M, "s2" ) == NULL );
+}
+END_TEST
+
 /* THIS IS NOT LOGICAL BUT NEEDS A WHOLE MODEL TO TEST */
 START_TEST (test_KineticLaw_getParameterById)
 {

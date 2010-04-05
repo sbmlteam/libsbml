@@ -3137,6 +3137,42 @@ Model::getReaction (const std::string& sid)
 }
 
 
+/**
+ * Get a SpeciesReference object based on its identifier.
+ */
+SpeciesReference* 
+Model::getSpeciesReference (const std::string& sid)
+{
+  SpeciesReference* sr = NULL;
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    sr = getReaction(i)->getReactant(sid);
+    if (sr) break;
+
+    sr = getReaction(i)->getProduct(sid);
+    if (sr) break;
+  }
+
+  return sr;
+}
+
+const SpeciesReference* 
+Model::getSpeciesReference (const std::string& sid) const
+{
+  const SpeciesReference* sr = NULL;
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    sr = getReaction(i)->getReactant(sid);
+    if (sr) break;
+
+    sr = getReaction(i)->getProduct(sid);
+    if (sr) break;
+  }
+
+  return sr;
+}
+
+
 /*
  * @return the nth Event of this Model.
  */
@@ -7150,6 +7186,23 @@ Model_getReactionById (Model_t *m, const char *sid)
 {
   return (sid != NULL) ? m->getReaction(sid) : NULL;
 }
+
+/**
+ * Get the SpeciesReference_t structure whose identifier is @p sid in the
+ * given Model_t structure.
+ *
+ * @param m the Model_t structure
+ * @param sid the identifier of the SpeciesReference_t structure sought
+ *
+ * @return the SpeciesReference_t if found, or NULL if not found
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Model_getSpeciesReferenceById (Model_t *m, const char *sid)
+{
+  return (sid != NULL) ? m->getSpeciesReference(sid) : NULL;
+}
+
 
 
 /**

@@ -4049,8 +4049,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of 'symbol' in an <initialAssignment> definition must be the "
     "identifier of an existing <compartment>, <species>, or <parameter> "
-    "defined in the model. (References: L2V2 Section 4.10; L2V3 Section 4.10; "
-    "L2V4 Section 4.10)"
+    "defined in the model or <speciesReference> in Level 3.",
+    {"",
+     "",
+     "L2V2 Section 4.10",
+     "L2V3 Section 4.10",
+     "L2V4 Section 4.10",
+     "L3V1 Section 4.8"}
   },
 
   //20802
@@ -4066,8 +4071,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A given identifier cannot appear as the value of more than one 'symbol' "
-    "field across the set of <initialAssignment>s in a model. (References: "
-    "L2V2 Section 4.10; L2V3 Section 4.10; L2V4 Section 4.10)"
+    "field across the set of <initialAssignment>s in a model.",
+    {"",
+     "",
+     "L2V2 Section 4.10",
+     "L2V3 Section 4.10",
+     "L2V4 Section 4.10",
+     "L3V1 Section 4.8"}
   },
 
   //20803
@@ -4084,8 +4094,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of a 'symbol' field in any <initialAssignment> definition "
     "cannot also appear as the value of a 'variable' field in an "
-    "<assignmentRule>. (References: L2V2 Section 4.10.4; L2V3 Section 4.10; "
-    "L2V4 Section 4.10)"
+    "<assignmentRule>. ",
+    {"",
+     "",
+     "L2V2 Section 4.10.4",
+     "L2V3 Section 4.10",
+     "L2V4 Section 4.10",
+     "L3V1 Section 4.8"}
   },
 
   //20901
