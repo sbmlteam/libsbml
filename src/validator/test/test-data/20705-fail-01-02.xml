@@ -5,12 +5,10 @@
       <compartment id="a" spatialDimensions="3" units="volume" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s" compartment="a" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"
-               metaid="kkk" sboTerm="SBO:0000236" name="klk" initialAmount="9" substanceUnits="mole"
-               conversionFactor="p"/>
+      <species id="s" compartment="a" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" conversionFactor="p"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="p" constant="true" units="mole"/>
+      <parameter id="p" constant="false" units="mole"/>
     </listOfParameters>
   </model>
 </sbml>

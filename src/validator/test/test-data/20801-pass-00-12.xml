@@ -9,7 +9,7 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfParameters>
-      <parameter id="p" constant="false"/>
+      <parameter id="p" constant="false" units="time"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment symbol="p"/>

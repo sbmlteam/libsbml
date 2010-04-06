@@ -29,10 +29,5 @@
         </listOfUnits>
       </unitDefinition>
     </listOfUnitDefinitions>
-    <listOfParameters>
-      <parameter id="p" value="1" units="second" constant="false"/>
-      <parameter id="p1" value="1" units="minutes" constant="false"/>
-      <parameter id="p2" constant="false"/>
-    </listOfParameters>
   </model>
 </sbml>

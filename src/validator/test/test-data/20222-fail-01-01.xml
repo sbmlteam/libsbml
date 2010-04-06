@@ -12,7 +12,7 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfParameters>
-      <parameter id="p" constant="true"/>
+      <parameter id="p" constant="true" units="mole"/>
     </listOfParameters>
   </model>
 </sbml>

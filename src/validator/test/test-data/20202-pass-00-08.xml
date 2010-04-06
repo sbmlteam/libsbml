@@ -25,7 +25,7 @@
       <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="p" constant="true"/>
+      <parameter id="p" constant="true" units="mole"/>
     </listOfParameters>
   </model>
 </sbml>

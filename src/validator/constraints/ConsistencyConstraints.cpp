@@ -229,6 +229,22 @@ START_CONSTRAINT (20221, Model, x)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20705, Model, x)
+{
+  // level 3
+  pre( m.getLevel() > 2);
+  pre( m.isSetConversionFactor());
+
+  const string&         factor = m.getConversionFactor();
+  const Parameter* p  = m.getParameter(factor);
+
+  pre(p != NULL);
+
+  inv( p->getConstant() == true );
+}
+END_CONSTRAINT
+
+
 // FunctionDefinition validation
 
 START_CONSTRAINT (20301, FunctionDefinition, fd)
@@ -1579,6 +1595,21 @@ START_CONSTRAINT (20617, Species, s)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20705, Species, s)
+{
+  // level 3
+  pre( s.getLevel() > 2);
+  pre( s.isSetConversionFactor());
+
+  const string&         factor = s.getConversionFactor();
+  const Parameter* p  = m.getParameter(factor);
+  pre(p != NULL);
+
+  inv( p->getConstant() == true );
+}
+END_CONSTRAINT
+
+
 // Parameter validation
 
 START_CONSTRAINT (20701, Parameter, p)
@@ -1597,6 +1628,14 @@ START_CONSTRAINT (20701, Parameter, p)
   inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
   inv_or( Unit::isBuiltIn(units, p.getLevel())     );
   inv_or( m.getUnitDefinition(units) );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (20702, Parameter, p)
+{
+  pre( p.getLevel() > 2 );
+
+  inv( p.isSetUnits() );
 }
 END_CONSTRAINT
 

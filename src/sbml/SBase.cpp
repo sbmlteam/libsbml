@@ -3153,6 +3153,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnSpecies, level,
         version, msg.str());
     }
+    else if (element == "<parameter>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnParameter, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

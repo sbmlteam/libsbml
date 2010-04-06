@@ -618,6 +618,142 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+  //const unsigned int level   = getLevel  ();
+  //const unsigned int version = getVersion();
+
+  //std::vector<std::string> expectedAttributes;
+  //expectedAttributes.clear();
+  //expectedAttributes.push_back("name");
+  //expectedAttributes.push_back("units");
+  //expectedAttributes.push_back("value");
+
+  //if (level > 1)
+  //{
+  //  expectedAttributes.push_back("metaid");
+  //  expectedAttributes.push_back("id");
+  //  if (this->getTypeCode() == SBML_PARAMETER)
+  //  {
+  //    expectedAttributes.push_back("constant");
+  //  }
+
+  //  if (!(level == 2 && version == 1))
+  //  {
+  //    expectedAttributes.push_back("sboTerm");
+  //  }
+  //}
+
+  //// check that all attributes are expected
+  //for (int i = 0; i < attributes.getLength(); i++)
+  //{
+  //  std::vector<std::string>::const_iterator end = expectedAttributes.end();
+  //  std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+  //  std::string name = attributes.getName(i);
+  //  if (std::find(begin, end, name) == end)
+  //  {
+  //    if (this->getTypeCode() == SBML_PARAMETER)
+  //    {
+  //      logUnknownAttribute(name, level, version, "<parameter>");
+  //    }
+  //    else
+  //    {
+  //      logUnknownAttribute(name, level, version, "<localParameter>");
+  //    }
+  //  }
+  //}
+  //// name: SName   { use="required" }  (L1v1, L1v2)
+  ////   id: SId     { use="required" }  (L2v1, L2v2)
+  ////
+  //const string id = (level == 1) ? "name" : "id";
+  //bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  //if (assigned && mId.size() == 0)
+  //{
+  //  logEmptyString(id, level, version, "<parameter>");
+  //}
+  //if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  ////
+  //// value: double  { use="required" }  (L1v2)
+  //// value: double  { use="optional" }  (L1v2->)
+  ////
+  //if (level == 1 && version == 1)
+  //{
+  //  mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), true);
+  //}
+  //else
+  //{
+  //  mIsSetValue = attributes.readInto("value", mValue);
+  //}
+
+  ////
+  //// units: SName  { use="optional" }  (L1v1, L1v2)
+  //// units: SId    { use="optional" }  (L2v1, L2v2)
+  ////
+  //assigned = attributes.readInto("units", mUnits);
+  //if (assigned && mUnits.size() == 0)
+  //{
+  //  logEmptyString("units", level, version, "<parameter>");
+  //}
+  //if (!SyntaxChecker::isValidUnitSId(mUnits))
+  //{
+  //  logError(InvalidUnitIdSyntax);
+  //}
+
+  //if (level > 1)
+  //{
+  //  //
+  //  // name: string  { use="optional" }  (L2v1 ->)
+  //  //
+  //  attributes.readInto("name", mName);
+
+  //  //
+  //  // constant: boolean  { use="optional" default="true" }  (L2v1->)
+  //  // constant: boolean  { use="required" }  (L3v1->)
+  //  //
+  //  if (level == 2)
+  //  {
+  //    attributes.readInto("constant", mConstant);
+  //  }
+  //  else if (this->getTypeCode() == SBML_PARAMETER)
+  //  {
+  //    mIsSetConstant = attributes.readInto("constant", mConstant,
+  //                                         getErrorLog(), true);
+  //  }
+
+  //  //
+  //  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  //  //
+  //  if (!(level == 2 && version == 1)) 
+  //    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+  //}
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ *
+ * @param attributes the XMLAttributes object to use
+ */
+void
+Parameter::readL1Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
@@ -625,21 +761,6 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("name");
   expectedAttributes.push_back("units");
   expectedAttributes.push_back("value");
-
-  if (level > 1)
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("id");
-    if (this->getTypeCode() == SBML_PARAMETER)
-    {
-      expectedAttributes.push_back("constant");
-    }
-
-    if (!(level == 2 && version == 1))
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
-  }
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -660,13 +781,11 @@ Parameter::readAttributes (const XMLAttributes& attributes)
     }
   }
   // name: SName   { use="required" }  (L1v1, L1v2)
-  //   id: SId     { use="required" }  (L2v1, L2v2)
   //
-  const string id = (level == 1) ? "name" : "id";
-  bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
   {
-    logEmptyString(id, level, version, "<parameter>");
+    logEmptyString("name", level, version, "<parameter>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
@@ -674,7 +793,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   // value: double  { use="required" }  (L1v2)
   // value: double  { use="optional" }  (L1v2->)
   //
-  if (level == 1 && version == 1)
+  if (version == 1)
   {
     mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), true);
   }
@@ -685,6 +804,84 @@ Parameter::readAttributes (const XMLAttributes& attributes)
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
+  //
+  assigned = attributes.readInto("units", mUnits);
+  if (assigned && mUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<parameter>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ *
+ * @param attributes the XMLAttributes object to use
+ */
+void
+Parameter::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("value");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  if (this->getTypeCode() == SBML_PARAMETER)
+  {
+    expectedAttributes.push_back("constant");
+  }
+
+  if (version > 1)
+  {
+    expectedAttributes.push_back("sboTerm");
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      if (this->getTypeCode() == SBML_PARAMETER)
+      {
+        logUnknownAttribute(name, level, version, "<parameter>");
+      }
+      else
+      {
+        logUnknownAttribute(name, level, version, "<localParameter>");
+      }
+    }
+  }
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<parameter>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // value: double  { use="optional" }  (L1v2->)
+  //
+  mIsSetValue = attributes.readInto("value", mValue);
+
+  //
   // units: SId    { use="optional" }  (L2v1, L2v2)
   //
   assigned = attributes.readInto("units", mUnits);
@@ -697,33 +894,122 @@ Parameter::readAttributes (const XMLAttributes& attributes)
     logError(InvalidUnitIdSyntax);
   }
 
-  if (level > 1)
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName);
+
+  //
+  // constant: boolean  { use="optional" default="true" }  (L2v1->)
+  //
+  attributes.readInto("constant", mConstant);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  //
+  if (version > 1) 
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ *
+ * @param attributes the XMLAttributes object to use
+ */
+void
+Parameter::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("value");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  if (this->getTypeCode() == SBML_PARAMETER)
   {
-    //
-    // name: string  { use="optional" }  (L2v1 ->)
-    //
-    attributes.readInto("name", mName);
-
-    //
-    // constant: boolean  { use="optional" default="true" }  (L2v1->)
-    // constant: boolean  { use="required" }  (L3v1->)
-    //
-    if (level == 2)
-    {
-      attributes.readInto("constant", mConstant);
-    }
-    else if (this->getTypeCode() == SBML_PARAMETER)
-    {
-      mIsSetConstant = attributes.readInto("constant", mConstant,
-                                           getErrorLog(), true);
-    }
-
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
-    //
-    if (!(level == 2 && version == 1)) 
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+    expectedAttributes.push_back("constant");
   }
+  expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      if (this->getTypeCode() == SBML_PARAMETER)
+      {
+        logUnknownAttribute(name, level, version, "<parameter>");
+      }
+      else
+      {
+        logUnknownAttribute(name, level, version, "<localParameter>");
+      }
+    }
+  }
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  if (!assigned)
+  {
+    getErrorLog()->logError(AllowedAttributesOnParameter, level, version);
+  }
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<parameter>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // value: double  { use="optional" }  (L1v2->)
+  //
+  mIsSetValue = attributes.readInto("value", mValue);
+
+  //
+  // units: SId    { use="optional" }  (L2v1, L2v2)
+  //
+  assigned = attributes.readInto("units", mUnits);
+  if (assigned && mUnits.size() == 0)
+  {
+    logEmptyString("units", level, version, "<parameter>");
+  }
+  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  {
+    logError(InvalidUnitIdSyntax);
+  }
+
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName);
+
+  if (this->getTypeCode() == SBML_PARAMETER)
+  {
+    mIsSetConstant = attributes.readInto("constant", mConstant,
+                                          getErrorLog());
+    if (!mIsSetConstant)
+    {
+      getErrorLog()->logError(AllowedAttributesOnParameter, level, version);
+    }
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+
 }
 /** @endcond doxygen-libsbml-internal */
 

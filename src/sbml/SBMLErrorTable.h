@@ -4035,6 +4035,76 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.7.3"}
   },
 
+  //20702
+  {
+    ParameterUnits,
+    "No units for parameter",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "If the attribute units on a given Parameter object has not been set, "
+    "then the unit of measurement associated with that parameter’s value is "
+    "undefined.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.7.3"}
+  },
+
+  //20705
+  {
+    ConversionFactorMustConstant,
+    "ConversionFactor must be constant parameter",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Parameter object referenced by the attribute conversionFactor "
+    "on a Species or Model object must have a value of 'true for its "
+    "attribute constant.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.6.7"}
+  },
+
+  //20706
+  {
+    AllowedAttributesOnParameter,
+    "Invalid attribute on parameter",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Parameter object must have the required attributes id and constant, "
+    "and may have the optional attributes metaid, sboTerm, name, value and "
+    "units. No other attributes from the SBML Level 3 Core namespace are "
+    "permitted on a Parameter object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.7"}
+  },
+
   //20801
   {
     InvalidInitAssignSymbol,

@@ -2,8 +2,8 @@
 <sbml xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model>
 		<listOfParameters>
-			<parameter id="p" constant="false"/>
-			<parameter id="p1" constant="false"/>
+			<parameter id="p" constant="false" units="mole"/>
+			<parameter id="p1" constant="false" units="mole"/>
 		</listOfParameters>
     <listOfEvents metaid="ff" sboTerm="SBO:0000001" id="l">
       <event id="e1">

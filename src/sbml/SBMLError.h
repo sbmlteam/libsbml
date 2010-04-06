@@ -777,6 +777,9 @@ typedef enum
  , ConversionFactorOnSpecies             = 20617
  , AllowedAttributesOnSpecies            = 20623
  , InvalidParameterUnits                 = 20701 /*!< Invalid value for <code>units</code> in parameter definition */
+ , ParameterUnits                        = 20702
+ , ConversionFactorMustConstant          = 20705
+ , AllowedAttributesOnParameter          = 20706
  , InvalidInitAssignSymbol               = 20801 /*!< Invalid <code>symbol</code> reference in initial assignment */
  , MultipleInitAssignments               = 20802 /*!< Multiple initial assignments for the same <code>symbol</code> value */
  , InitAssignmentAndRuleForSameId        = 20803 /*!< Cannot set a value with both initial assignments and assignment rules simultaneously */
