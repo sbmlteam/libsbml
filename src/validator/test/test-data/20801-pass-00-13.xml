@@ -9,7 +9,15 @@
       <species id="b" compartment="c" substanceUnits="mole"  hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfInitialAssignments>
-      <initialAssignment symbol="s"/>
+      <initialAssignment symbol="s">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <cn> 2 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
     </listOfInitialAssignments>
     <listOfReactions>
       <reaction id="r">

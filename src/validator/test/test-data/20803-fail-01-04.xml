@@ -17,7 +17,15 @@
       <compartment id="c" spatialDimensions="3" units="volume" constant="false"/>
     </listOfCompartments>
     <listOfInitialAssignments>
-      <initialAssignment symbol="c"/>
+      <initialAssignment symbol="c">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <cn> 2 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
     </listOfInitialAssignments>
     <listOfRules>
       <assignmentRule variable="c"/>

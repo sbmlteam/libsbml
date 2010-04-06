@@ -12,7 +12,15 @@
       <parameter id="p" constant="false" units="time"/>
     </listOfParameters>
     <listOfInitialAssignments>
-      <initialAssignment symbol="p"/>
+      <initialAssignment symbol="p">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <cn> 2 </cn>
+          </apply>
+        </math>
+      </initialAssignment>
     </listOfInitialAssignments>
   </model>
 </sbml>

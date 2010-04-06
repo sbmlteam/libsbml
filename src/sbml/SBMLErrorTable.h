@@ -4173,6 +4173,51 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.8"}
   },
 
+  //20804
+  {
+    OneMathElementPerInitialAssign,
+    "InitialAssignment must contain one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An InitialAssignment object must contain exactly one MathML math element.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.8"}
+  },
+
+  //20805
+  {
+    AllowedAttributesOnInitialAssign,
+    "Invalid attribute on initialAssignment",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An InitialAssignment object must have the required attribute symbol and "
+    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "from the SBML Level 3 Core namespace are permitted on an "
+    "InitialAssignment object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.8"}
+  },
+
   //20901
   {
     InvalidAssignRuleVariable,

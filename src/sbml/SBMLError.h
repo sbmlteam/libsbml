@@ -783,6 +783,8 @@ typedef enum
  , InvalidInitAssignSymbol               = 20801 /*!< Invalid <code>symbol</code> reference in initial assignment */
  , MultipleInitAssignments               = 20802 /*!< Multiple initial assignments for the same <code>symbol</code> value */
  , InitAssignmentAndRuleForSameId        = 20803 /*!< Cannot set a value with both initial assignments and assignment rules simultaneously */
+ , OneMathElementPerInitialAssign        = 20804
+ , AllowedAttributesOnInitialAssign      = 20805
  , InvalidAssignRuleVariable             = 20901 /*!< Invalid <code>variable</code> reference in assignment rule */
  , InvalidRateRuleVariable               = 20902 /*!< Invalid <code>variable</code> reference in rate rule */
  , AssignmentToConstantEntity            = 20903 /*!< Cannot reassign a constant in an assignment rule */

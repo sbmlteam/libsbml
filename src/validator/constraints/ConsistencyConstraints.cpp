@@ -1673,6 +1673,19 @@ END_CONSTRAINT
 EXTERN_CONSTRAINT(20802, UniqueSymbolsInInitialAssignments)
 EXTERN_CONSTRAINT(20803, UniqueVarsInInitialAssignmentsAndRules)
 
+START_CONSTRAINT (20804, InitialAssignment, ia)
+{
+  //only applies to level 3
+  pre( ia.getLevel() > 2        );
+
+  // ia must have exactly one math
+  inv( ia.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
+
 
 // Assignment and rate Rule validation
 

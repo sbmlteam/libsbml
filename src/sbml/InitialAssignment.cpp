@@ -428,7 +428,20 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    /* check for MathML namespace 
+    if (mMath)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <math> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMathElementPerInitialAssign, getLevel(), getVersion());
+      }
+    }
+   /* check for MathML namespace 
      * this may be explicitly declared here
      * or implicitly declared on the whole document
      */
@@ -490,9 +503,39 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "InitialAssignment is not a valid component for this level/version.");
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
-  if (level < 2 || (level == 2 && version == 1))
+  if (version == 1)
   {
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "InitialAssignment is not a valid component for this level/version.");
@@ -520,6 +563,60 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   // symbol: SId  { use="required" }  (L2v2 -> )
   //
   bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog(), true);
+  if (assigned && mSymbol.size() == 0)
+  {
+    logEmptyString("symbol", level, version, "<initialAssignment>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mSymbol)) logError(InvalidIdSyntax);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("symbol");
+  expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<initialAssignment>");
+    }
+  }
+
+  //
+  // symbol: SId  { use="required" }  (L2v2 -> )
+  //
+  bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog());
+  if (!assigned)
+  {
+    getErrorLog()->logError(AllowedAttributesOnInitialAssign, level, version);
+  }
   if (assigned && mSymbol.size() == 0)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
