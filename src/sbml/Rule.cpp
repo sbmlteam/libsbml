@@ -817,6 +817,19 @@ Rule::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
+    if (mMath)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <math> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMathElementPerRule, getLevel(), getVersion());
+      }
+    }
     delete mMath;
 
     /* check for MathML namespace 
@@ -880,28 +893,140 @@ Rule::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Rule::readL1Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 1)
+
+  expectedAttributes.push_back("formula");
+  const string s = (level == 1 && version == 1) ? "specie" : "species";
+  expectedAttributes.push_back(s);
+  expectedAttributes.push_back("compartment");
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("type");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
   {
-    expectedAttributes.push_back("formula");
-    const string s = (level == 1 && version == 1) ? "specie" : "species";
-    expectedAttributes.push_back(s);
-    expectedAttributes.push_back("compartment");
-    expectedAttributes.push_back("name");
-    expectedAttributes.push_back("units");
-    expectedAttributes.push_back("type");
-  }
-  else
-  {
-    expectedAttributes.push_back("variable");
-    expectedAttributes.push_back("metaid");
-    if (!(level == 2 && version == 1))
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
     {
-      expectedAttributes.push_back("sboTerm");
+      logUnknownAttribute(name, level, version, "<rule>");
     }
+  }
+
+  //
+  // formula: string  { use="required" }  (L1v1, L1v2)
+  //
+  attributes.readInto("formula", mFormula, getErrorLog(), true);
+
+  //
+  // type { use="optional" default="scalar" }  (L1v1, L1v2)
+  //
+  // This attribute is handled by ListOfRules::createObject();
+  //
+
+  if ( isSpeciesConcentration() )
+  {
+    //
+    // specie : SName   { use="required" }  (L1v1)
+    // species: SName   { use="required" }  (L1v2)
+    //
+    const string s = (level == 1 && version == 1) ? "specie" : "species";
+    bool assigned = attributes.readInto(s, mVariable, getErrorLog(), true);
+    if (assigned && mVariable.size() == 0)
+    {
+      logEmptyString(s, level, version, "<rule>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+      logError(InvalidIdSyntax);
+  }
+  else if ( isCompartmentVolume() )
+  {
+    //
+    // compartment: SName  { use="required" }  (L1v1, L1v2)
+    //
+    bool assigned = attributes.readInto("compartment", mVariable, getErrorLog(), true);
+    if (assigned && mVariable.size() == 0)
+    {
+      logEmptyString("compartment", level, version, "<rule>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+      logError(InvalidIdSyntax);
+  }
+  else if ( isParameter() )
+  {
+    //
+    // name: SName  { use="required" } (L1v1, L1v2)
+    //
+    bool assigned = attributes.readInto("name", mVariable, getErrorLog(), true);
+    if (assigned && mVariable.size() == 0)
+    {
+      logEmptyString("name", level, version, "<rule>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+      logError(InvalidIdSyntax);
+
+    //
+    // units  { use="optional" }  (L1v1, L1v2);
+    //
+    attributes.readInto("units", mUnits);
+
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Rule::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("variable");
+  expectedAttributes.push_back("metaid");
+  if (version > 1)
+  {
+    expectedAttributes.push_back("sboTerm");
   }
 
   // check that all attributes are expected
@@ -916,89 +1041,94 @@ Rule::readAttributes (const XMLAttributes& attributes)
     }
   }
 
-  if (level == 1)
+  if (isAssignment() || isRate())
   {
     //
-    // formula: string  { use="required" }  (L1v1, L1v2)
+    // variable: SId  { use="required" }  (L2v1 ->)
     //
-    attributes.readInto("formula", mFormula, getErrorLog(), true);
-
-    //
-    // type { use="optional" default="scalar" }  (L1v1, L1v2)
-    //
-    // This attribute is handled by ListOfRules::createObject();
-    //
-
-    if ( isSpeciesConcentration() )
+    bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true);
+    if (assigned && mVariable.size() == 0)
     {
-      //
-      // specie : SName   { use="required" }  (L1v1)
-      // species: SName   { use="required" }  (L1v2)
-      //
-      const string s = (level == 1 && version == 1) ? "specie" : "species";
-      bool assigned = attributes.readInto(s, mVariable, getErrorLog(), true);
-      if (assigned && mVariable.size() == 0)
-      {
-        logEmptyString(s, level, version, "<rule>");
-      }
-      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
-        logError(InvalidIdSyntax);
+      logEmptyString("variable", level, version, "<rule>");
     }
-    else if ( isCompartmentVolume() )
-    {
-      //
-      // compartment: SName  { use="required" }  (L1v1, L1v2)
-      //
-      bool assigned = attributes.readInto("compartment", mVariable, getErrorLog(), true);
-      if (assigned && mVariable.size() == 0)
-      {
-        logEmptyString("compartment", level, version, "<rule>");
-      }
-      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
-        logError(InvalidIdSyntax);
-    }
-    else if ( isParameter() )
-    {
-      //
-      // name: SName  { use="required" } (L1v1, L1v2)
-      //
-      bool assigned = attributes.readInto("name", mVariable, getErrorLog(), true);
-      if (assigned && mVariable.size() == 0)
-      {
-        logEmptyString("name", level, version, "<rule>");
-      }
-      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
-        logError(InvalidIdSyntax);
+    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+      logError(InvalidIdSyntax);
+  }
 
-      //
-      // units  { use="optional" }  (L1v1, L1v2);
-      //
-      attributes.readInto("units", mUnits);
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  if (version > 1) 
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Rule::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  
+  expectedAttributes.push_back("variable");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      if (isAssignment())
+        logUnknownAttribute(name, level, version, "<assignmentRule>");
+      else if (isRate())
+        logUnknownAttribute(name, level, version, "<rateRule>");
+      else
+        logUnknownAttribute(name, level, version, "<algebraicRule>");
 
     }
   }
-  else if (level > 1)
-  {
-    if (isAssignment() || isRate())
-    {
-      //
-      // variable: SId  { use="required" }  (L2v1 ->)
-      //
-      bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true);
-      if (assigned && mVariable.size() == 0)
-      {
-        logEmptyString("variable", level, version, "<rule>");
-      }
-      if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
-        logError(InvalidIdSyntax);
-    }
 
+  if (isAssignment() || isRate())
+  {
     //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+    // variable: SId  { use="required" }  (L2v1 ->)
     //
-    if (!(level == 2 && version == 1)) 
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+    bool assigned = attributes.readInto("variable", mVariable, getErrorLog());
+    if (!assigned)
+    {
+      if (isAssignment())
+        getErrorLog()->logError(AllowedAttributesOnAssignRule, level, 
+                                version);
+      else
+        getErrorLog()->logError(AllowedAttributesOnRateRule, level, 
+                                version);
+
+    }
+    if (assigned && mVariable.size() == 0)
+    {
+      logEmptyString("variable", level, version, "<rule>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+      logError(InvalidIdSyntax);
   }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
 /** @endcond doxygen-libsbml-internal */
 

@@ -3163,6 +3163,21 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnInitialAssign, level,
         version, msg.str());
     }
+    else if (element == "<assignmentRule>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnAssignRule, level,
+        version, msg.str());
+    }
+    else if (element == "<rateRule>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnRateRule, level,
+        version, msg.str());
+    }
+    else if (element == "<algebraicRule>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnAlgRule, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

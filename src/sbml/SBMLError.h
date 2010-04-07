@@ -791,6 +791,10 @@ typedef enum
  , RateRuleForConstantEntity             = 20904 /*!< Cannot reassign a constant in a rate rule */
  , RepeatedRule10304                     = 20905 /*!<  */
  , CircularRuleDependency                = 20906 /*!< Circular dependency involving rules and reactions */
+ , OneMathElementPerRule                 = 20907
+ , AllowedAttributesOnAssignRule         = 20908
+ , AllowedAttributesOnRateRule           = 20909
+ , AllowedAttributesOnAlgRule            = 20910
  , ConstraintMathNotBoolean              = 21001 /*!< Non-boolean math expression in constraint definition */
  , IncorrectOrderInConstraint            = 21002 /*!< Incorrect order of elements in constraint definition */
  , ConstraintNotInXHTMLNamespace         = 21003 /*!< Constraint message is not in XHTML XML namespace */

@@ -26,7 +26,15 @@
       <species id="x" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfRules>
-      <assignmentRule variable="s"/>
+      <assignmentRule variable="s">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn> 2 </cn>
+            </apply>
+          </math>
+      </assignmentRule>
     </listOfRules>
     <listOfReactions>
       <reaction id="r" reversible="true" fast="false">

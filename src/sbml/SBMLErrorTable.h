@@ -4071,7 +4071,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A Parameter object referenced by the attribute conversionFactor "
-    "on a Species or Model object must have a value of 'true for its "
+    "on a Species or Model object must have a value of 'true' for its "
     "attribute constant.",
     {"",
      "",
@@ -4351,6 +4351,100 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V3 Section 4.11.5",
      "L2V4 Section 4.11.5",
      "L3V1 Section 4.9.5"}
+  },
+
+  //20907
+  {
+    OneMathElementPerRule,
+    "Rule must contain one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Every AssignmentRule, RateRule and AlgebraicRule object must contain "
+    "exactly one MathML math element.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.9"}
+  },
+
+  //20908
+  {
+    AllowedAttributesOnAssignRule,
+    "Invalid attribute on <assignmentRule>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An AssignmentRule object must have the required attribute variable and "
+    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "from the SBML Level 3 Core namespace are permitted on an "
+    "AssignmentRule object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.9"}
+  },
+
+  //20909
+  {
+    AllowedAttributesOnRateRule,
+    "Invalid attribute on <rateRule>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A RateRule object must have the required attribute variable and "
+    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "from the SBML Level 3 Core namespace are permitted on a "
+    "RateRule object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.9"}
+  },
+
+  //20910
+  {
+    AllowedAttributesOnAlgRule,
+    "Invalid attribute on <algebraicRule>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An AlgebraicRule object "
+    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "from the SBML Level 3 Core namespace are permitted on an "
+    "AlgebraicRule object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.9"}
   },
 
   //21001

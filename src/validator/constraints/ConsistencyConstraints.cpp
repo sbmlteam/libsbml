@@ -1851,6 +1851,43 @@ END_CONSTRAINT
 EXTERN_CONSTRAINT(20906, AssignmentCycles)
 EXTERN_CONSTRAINT(99106, AssignmentRuleOrdering)
 
+START_CONSTRAINT (20907, AssignmentRule, r)
+{
+  //only applies to level 3
+  pre( r.getLevel() > 2        );
+
+  // r must have exactly one math
+  inv( r.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20907, RateRule, r)
+{
+  //only applies to level 3
+  pre( r.getLevel() > 2        );
+
+  // r must have exactly one math
+  inv( r.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20907, AlgebraicRule, r)
+{
+  //only applies to level 3
+  pre( r.getLevel() > 2        );
+
+  // r must have exactly one math
+  inv( r.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
+
 
 // Constraint validation
 

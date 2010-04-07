@@ -23,17 +23,18 @@
     </listOfCompartments>
     <listOfSpecies>
       <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="s1" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfRules>
-      <assignmentRule variable="s">
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <cn> 1 </cn>
-              <cn> 2 </cn>
-            </apply>
-          </math>
-      </assignmentRule>
+      <algebraicRule metaid="dddd" sboTerm="SBO:0000001" value="67">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <ci> s1 </ci>
+            <cn> 2 </cn>
+          </apply>
+        </math>
+      </algebraicRule>
     </listOfRules>
   </model>
 </sbml>

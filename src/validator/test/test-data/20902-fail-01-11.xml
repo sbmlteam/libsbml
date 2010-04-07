@@ -9,7 +9,15 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfRules>
-      <rateRule variable="x"/>
+      <rateRule variable="x">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn> 2 </cn>
+            </apply>
+          </math>
+      </rateRule>
     </listOfRules>
   </model>
 </sbml>

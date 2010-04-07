@@ -26,13 +26,20 @@
     </listOfSpecies>
     <listOfRules>
       <assignmentRule variable="s">
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <cn> 1 </cn>
-              <cn> 2 </cn>
-            </apply>
-          </math>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <cn> 2 </cn>
+          </apply>
+        </math>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <cn> 2 </cn>
+          </apply>
+        </math>
       </assignmentRule>
     </listOfRules>
   </model>

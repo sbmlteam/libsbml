@@ -25,14 +25,14 @@
       <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfRules>
-      <assignmentRule variable="s">
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <cn> 1 </cn>
-              <cn> 2 </cn>
-            </apply>
-          </math>
+      <assignmentRule variable="s" value="8">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <times/>
+            <cn> 1 </cn>
+            <cn> 2 </cn>
+          </apply>
+        </math>
       </assignmentRule>
     </listOfRules>
   </model>

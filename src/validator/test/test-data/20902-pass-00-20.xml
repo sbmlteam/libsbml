@@ -25,7 +25,15 @@
       <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfRules>
-      <rateRule variable="s"/>
+      <rateRule variable="s">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn> 2 </cn>
+            </apply>
+          </math>
+      </rateRule>
     </listOfRules>
   </model>
 </sbml>

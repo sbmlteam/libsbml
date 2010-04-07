@@ -29,7 +29,15 @@
       </initialAssignment>
     </listOfInitialAssignments>
     <listOfRules>
-      <assignmentRule variable="c1"/>
+      <assignmentRule variable="c1">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn> 2 </cn>
+            </apply>
+          </math>
+      </assignmentRule>
     </listOfRules>
   </model>
 </sbml>

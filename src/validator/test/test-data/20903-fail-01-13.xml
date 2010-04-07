@@ -17,7 +17,15 @@
       <compartment id="c" spatialDimensions="3" units="volume" constant="true"/>
     </listOfCompartments>
     <listOfRules>
-      <assignmentRule variable="c"/>
+      <assignmentRule variable="c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <cn> 1 </cn>
+              <cn> 2 </cn>
+            </apply>
+          </math>
+      </assignmentRule>
     </listOfRules>
   </model>
 </sbml>
