@@ -4231,9 +4231,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of an <assignmentRule>'s 'variable' must be the identifier of "
-    "an existing <compartment>, <species>, or globally-defined <parameter>. "
-    "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3; L2V3 Section "
-    "4.11.3; L2V4 Section 4.11.3)"
+    "an existing <compartment>, <species>, or globally-defined <parameter>. ",
+    {"",
+     "L2V1 Section 4.8.2",
+     "L2V2 Section 4.11.3",
+     "L2V3 Section 4.11.3",
+     "L2V4 Section 4.11.3",
+     "L3V1 Section 4.9.3"}
   },
 
   //20902
@@ -4249,9 +4253,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of a <rateRule>'s 'variable' must be the identifier of an "
-    "existing <compartment>, <species>, or globally-defined <parameter>. "
-    "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4; L2V3 Section "
-    "4.11.4; L2V4 Section 4.11.4)"
+    "existing <compartment>, <species>, or globally-defined <parameter>. ",
+    {"",
+     "L2V1 Section 4.8.3",
+     "L2V2 Section 4.11.4",
+     "L2V3 Section 4.11.4",
+     "L2V4 Section 4.11.4",
+     "L3V1 Section 4.9.4"}
   },
 
   //20903
@@ -4268,8 +4276,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "Any <compartment>, <species> or <parameter> whose identifier is the "
     "value of a 'variable' attribute in an <assignmentRule>, must have a value "
-    "of 'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 "
-    "Section 4.11.3; L2V3 Section 4.11.3; L2V4 Section 4.11.3)"
+    "of 'false' for 'constant'.",
+    {"",
+     "L2V1 Section 4.8.4",
+     "L2V2 Section 4.11.3",
+     "L2V3 Section 4.11.3",
+     "L2V4 Section 4.11.3",
+     "L3V1 Section 4.9.3"}
   },
 
   //20904
@@ -4286,8 +4299,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "Any <compartment>, <species> or <parameter> whose identifier is the "
     "value of a 'variable' attribute in an <rateRule>, must have a value of "
-    "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
-    "4.11.4; L2V3 Section 4.11.4; L2V4 Section 4.11.4)"
+    "'false' for 'constant'.",
+    {"",
+     "L2V1 Section 4.8.4",
+     "L2V2 Section 4.11.4",
+     "L2V3 Section 4.11.4",
+     "L2V4 Section 4.11.4",
+     "L3V1 Section 4.9.4"}
   },
 
   //20905
@@ -4326,8 +4344,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "constructs computes the value using a mathematical formula. The formula "
     "for a given identifier cannot make reference to a second identifier "
     "whose own definition depends directly or indirectly on the first "
-    "identifier. (References: L2V2 Section 4.11.5; L2V3 Section 4.11.5; "
-    "L2V4 Section 4.11.5)" 
+    "identifier.",
+    {"",
+     "",
+     "L2V2 Section 4.11.5",
+     "L2V3 Section 4.11.5",
+     "L2V4 Section 4.11.5",
+     "L3V1 Section 4.9.5"}
   },
 
   //21001
