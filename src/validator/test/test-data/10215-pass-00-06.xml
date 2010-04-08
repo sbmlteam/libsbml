@@ -9,7 +9,7 @@
       <species id="s2" compartment="c" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfReactions>
-      <reaction id="R" reversible="false">
+      <reaction id="R" reversible="false" fast="false">
         <listOfReactants>
           <speciesReference species="s1" constant="true"/>
         </listOfReactants>
