@@ -4650,8 +4650,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "A <reaction> definition must contain at least one <speciesReference>, "
     "either in its <listOfReactants> or its <listOfProducts>. A reaction "
     "without any reactant or product species is not permitted, regardless of "
-    "whether the reaction has any modifier species. (References: L2V2 "
-    "Section 4.13.1; L2V3 Section 4.13.3; L2V4 Section 4.13.3)"
+    "whether the reaction has any modifier species.",
+    {"",
+     "",
+     "L2V2 Section 4.13.1",
+     "L2V3 Section 4.13.3",
+     "L2V4 Section 4.13.3",
+     "L3V1 Section 4.11.3"}
   },
 
   //21102
@@ -4686,8 +4691,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The following containers are all optional in a <reaction>, but if any "
     "is present, it must not be empty: <listOfReactants>, <listOfProducts>, "
-    "<listOfModifiers>, <kineticLaw>. (References: L2V2 Section 4.13; L2V3 "
-    "Section 4.13; L2V4 Section 4.13)" 
+    "<listOfModifiers>, <kineticLaw>.",
+    {"",
+     "",
+     "L2V2 Section 4.13",
+     "L2V3 Section 4.13",
+     "L2V4 Section 4.13",
+     "L3V1 Section 4.11"}
   },
 
   //21104
@@ -4704,8 +4714,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The list of reactants (<listOfReactants>) and list of products "
     "(<listOfProducts>) in a <reaction> can only contain <speciesReference> "
-    "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13; L2V3 Section "
-    "4.13; L2V4 Section 4.13)"
+    "elements.",
+    {"",
+     "L2V1 Section 4.9",
+     "L2V2 Section 4.13",
+     "L2V3 Section 4.13",
+     "L2V4 Section 4.13",
+     "L3V1 Section 4.11"}
   },
 
   //21105
@@ -4721,8 +4736,83 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The list of modifiers (<listOfModifiers>) in a <reaction> can only "
-    "contain <modifierSpeciesReference> elements. (References: L2V1 Section "
-    "4.9; L2V2 Section 4.13; L2V3 Section 4.13; L2V4 Section 4.13)" 
+    "contain <modifierSpeciesReference> elements.",
+    {"",
+     "L2V1 Section 4.9",
+     "L2V2 Section 4.13",
+     "L2V3 Section 4.13",
+     "L2V4 Section 4.13",
+     "L3V1 Section 4.11"}
+  },
+
+  //21106
+  {
+    OneSubElementPerReaction,
+    "Only one of subelement on <reaction>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Reaction object may contain at most one of each of the following "
+    "elements: listOfReactants, listOfProducts, listOfModifiers, and "
+    "kineticLaw.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+  },
+
+  //21107
+  {
+    CompartmentOnReaction,
+    "Invalid compartment attribute on <reaction>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The value of the attribute compartment in a Reaction object is "
+    "optional, but if present, must be the identifier of an existing "
+    "Compartment object defined in the model.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11.1"}
+  },
+
+  //21110
+  {
+    AllowedAttributesOnReaction,
+    "Invalid attribute on <reaction>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Reaction object must have the required attributes id, reversible "
+    "and fast, and may have the optional attributes metaid, sboTerm, name "
+    "and compartment. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a Reaction object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
   },
 
   //21111

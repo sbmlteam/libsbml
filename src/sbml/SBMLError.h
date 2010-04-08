@@ -809,6 +809,9 @@ typedef enum
  , EmptyListInReaction                   = 21103 /*!< Reaction components, if present, cannot be empty */
  , InvalidReactantsProductsList          = 21104 /*!< Invalid element in list of reactants or products */
  , InvalidModifiersList                  = 21105 /*!< Invalid element in list of modifiers */
+ , OneSubElementPerReaction              = 21106
+ , CompartmentOnReaction                 = 21107
+ , AllowedAttributesOnReaction           = 21110
  , InvalidSpeciesReference               = 21111 /*!< Invalid <code>species</code> value in species reference */
  , RepeatedRule20611                     = 21112 /*!<  */
  , BothStoichiometryAndMath              = 21113 /*!< Cannot use both <code>stoichiometry</code> and <code>&lt;stoichiometryMath&gt;</code> simultaneously */

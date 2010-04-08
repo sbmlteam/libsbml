@@ -3183,6 +3183,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnConstraint, level,
         version, msg.str());
     }
+    else if (element == "<reaction>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnReaction, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

@@ -1355,7 +1355,10 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mReactants.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+        logError(NotSchemaConformant);
+      else
+        logError(OneSubElementPerReaction, getLevel(), getVersion());
     }
     object = &mReactants;
   }
@@ -1363,7 +1366,10 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mProducts.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+        logError(NotSchemaConformant);
+      else
+        logError(OneSubElementPerReaction, getLevel(), getVersion());
     }
     object = &mProducts;
   }
@@ -1376,7 +1382,10 @@ Reaction::createObject (XMLInputStream& stream)
 
     if (mModifiers.size() != 0)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+        logError(NotSchemaConformant);
+      else
+        logError(OneSubElementPerReaction, getLevel(), getVersion());
     }
     object = &mModifiers;
   }
@@ -1384,7 +1393,10 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mKineticLaw)
     {
-      logError(NotSchemaConformant);
+      if (getLevel() < 3)
+        logError(NotSchemaConformant);
+      else
+        logError(OneSubElementPerReaction, getLevel(), getVersion());
     }
     delete mKineticLaw;
 
@@ -1423,6 +1435,33 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Reaction::readL1Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
@@ -1430,21 +1469,6 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   expectedAttributes.push_back("name");
   expectedAttributes.push_back("reversible");
   expectedAttributes.push_back("fast");
-
-  if (level > 1)
-  {
-    expectedAttributes.push_back("metaid");
-    expectedAttributes.push_back("id");
-
-    if (!(level == 2 && version == 1))
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
-  }
-  if (level > 2)
-  {
-    expectedAttributes.push_back("compartment");
-  }
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -1460,13 +1484,73 @@ Reaction::readAttributes (const XMLAttributes& attributes)
 
   //
   // name: SName  { use="required" }  (L1v1, L1v2)
-  //   id: SId    { use="required" }  (L2v1 ->)
   //
-  const string id = (level == 1) ? "name" : "id";
-  bool assigned = attributes.readInto(id, mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
   if (assigned && mId.size() == 0)
   {
-    logEmptyString(id, level, version, "<reaction>");
+    logEmptyString("name", level, version, "<reaction>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // reversible: boolean  { use="optional"  default="true" }
+  // (L1v1, L1v2, L2v1->)
+  //
+  attributes.readInto("reversible", mReversible);
+
+  //
+  // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
+  // fast: boolean  { use="optional" }                  (L2v1 ->)
+  //
+  mIsSetFast = attributes.readInto("fast", mFast);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Reaction::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("reversible");
+  expectedAttributes.push_back("fast");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+
+  if (version > 1)
+  {
+    expectedAttributes.push_back("sboTerm");
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<reaction>");
+    }
+  }
+
+  //
+  //   id: SId    { use="required" }  (L2v1 ->)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<reaction>");
   }
   if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
 
@@ -1475,46 +1559,113 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   // (L1v1, L1v2, L2v1->)
   // reversible: boolean  { use="required"} (L3v1->)
   //
-  if (level < 3)
-  {
-    attributes.readInto("reversible", mReversible);
-  }
-  else
-  {
-    mIsSetReversible = attributes.readInto("reversible", mReversible);
-  }
+  attributes.readInto("reversible", mReversible);
+
   //
-  // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
   // fast: boolean  { use="optional" }                  (L2v1 ->)
   //
   mIsSetFast = attributes.readInto("fast", mFast);
 
-  if (level > 1)
-  {
-    //
-    // name: string  { use="optional" }  (L2v1 ->)
-    //
-    attributes.readInto("name", mName);
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName);
   
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
-    //
-    if (!(level == 2 && version == 1)) 
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  if (version > 1) 
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Reaction::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("reversible");
+  expectedAttributes.push_back("fast");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("sboTerm");
+  expectedAttributes.push_back("compartment");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<reaction>");
+    }
   }
+
+  //
+  //   id: SId    { use="required" }  (L2v1 ->)
+  //
+  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  if (!assigned)
+  {
+    getErrorLog()->logError(AllowedAttributesOnReaction, level, version);
+  }
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<reaction>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // reversible: boolean  { use="required"} (L3v1->)
+  //
+  mIsSetReversible = attributes.readInto("reversible", mReversible);
+  if (!mIsSetReversible)
+  {
+    getErrorLog()->logError(AllowedAttributesOnReaction, level, version);
+  }
+
+  //
+  // fast: boolean  { use="required" }                  (L3v1 ->)
+  //
+  mIsSetFast = attributes.readInto("fast", mFast);
+  if (!mIsSetFast)
+  {
+    getErrorLog()->logError(AllowedAttributesOnReaction, level, version);
+  }
+
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
   //
   // compartment: string { use="optional" } (L3v1 -> )
   //
-  if (level > 2)
+  assigned = attributes.readInto("compartment", mCompartment);
+  if (assigned && mCompartment.size() == 0)
   {
-    assigned = attributes.readInto("compartment", mCompartment);
-    if (assigned && mCompartment.size() == 0)
-    {
-      logEmptyString("compartment", level, version, "<reaction>");
-    }
-    if (!SyntaxChecker::isValidSBMLSId(mCompartment)) logError(InvalidIdSyntax);
+    logEmptyString("compartment", level, version, "<reaction>");
   }
+  if (!SyntaxChecker::isValidSBMLSId(mCompartment)) logError(InvalidIdSyntax);
 }
 /** @endcond doxygen-libsbml-internal */
 
