@@ -801,6 +801,9 @@ typedef enum
  , ConstraintContainsXMLDecl             = 21004 /*!< XML declarations not permitted in constraint messages */
  , ConstraintContainsDOCTYPE             = 21005 /*!< XML <code>DOCTYPE</code> not permitted in constraint messages */
  , InvalidConstraintContent              = 21006 /*!< Invalid content for constraint message */
+ , OneMathElementPerConstraint           = 21007
+ , OneMessageElementPerConstraint        = 21008
+ , AllowedAttributesOnConstraint         = 21009
  , NoReactantsOrProducts                 = 21101 /*!< Cannot have a reaction with neither reactants nor products */
  , IncorrectOrderInReaction              = 21102 /*!< Incorrect ordering of components in reaction definition */
  , EmptyListInReaction                   = 21103 /*!< Reaction components, if present, cannot be empty */

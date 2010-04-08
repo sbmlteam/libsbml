@@ -3178,6 +3178,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnAlgRule, level,
         version, msg.str());
     }
+    else if (element == "<constraint>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnConstraint, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

@@ -1915,6 +1915,20 @@ END_CONSTRAINT
 // 21005: message - no DOCTYPE - caught at read
 // 21006: message format - caught at read
 
+
+START_CONSTRAINT (21007, Constraint, c)
+{
+  //only applies to level 3
+  pre( c.getLevel() > 2        );
+
+  // c must have exactly one math
+  inv( c.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
+
 //Reaction validation
 
 START_CONSTRAINT (21101, Reaction, r)

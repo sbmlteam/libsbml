@@ -4460,8 +4460,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <constraint>'s <math> expression must evaluate to a value of type "
-    "boolean. (References: L2V2 Section 4.12.1; L2V3 Section 4.12; L2V4 "
-    "Section 4.12)"
+    "boolean.",
+    {"",
+     "",
+     "L2V2 Section 4.12.1",
+     "L2V3 Section 4.12",
+     "L2V4 Section 4.12",
+     "L3V1 Section 4.10"}
   },
 
   //21002
@@ -4513,8 +4518,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The contents of the <message> element must not contain an XML declaration "
     "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
-    "or similar). (References: L2V3 Section 4.12.2; "
-    "L2V4 Section 4.12.2)" 
+    "or similar).",
+    {"",
+     "",
+     "",
+     "L2V3 Section 4.12.2",
+     "L2V4 Section 4.12.2",
+     "L3V1 Section 4.10.2"}
   },
 
   //21005
@@ -4530,8 +4540,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The contents of the message element must not contain an XML DOCTYPE "
-    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
-    "(References: L2V3 Section 4.12.2; L2V4 Section 4.12.2)" 
+    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". ",
+    {"",
+     "",
+     "",
+     "L2V3 Section 4.12.2",
+     "L2V4 Section 4.12.2",
+     "L3V1 Section 4.10.2"}
   },
 
   //21006
@@ -4552,6 +4567,72 @@ static const sbmlErrorTableEntry errorTable[] =
     "of a document beginning with the element <body> and ending with </body>; "
     "or (3) XHTML content that is permitted within a <body> ... </body> "
     "elements. (References: L2V3 Section 4.12.2; L2V4 Section 4.12.2)" 
+  },
+
+  //21007
+  {
+    OneMathElementPerConstraint,
+    "Only one math element on <constraint>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Constraint object must contain exactly one MathML math element",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.10"}
+  },
+
+  //21008
+  {
+    OneMessageElementPerConstraint,
+    "Only one message element on <constraint>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Constraint object may contain at most one Message subobject.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.10"}
+  },
+
+  //21009
+  {
+    AllowedAttributesOnConstraint,
+    "Invalid attribute on <constraint>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Constraint object "
+    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "from the SBML Level 3 Core namespace are permitted on a "
+    "Constraint object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.10"}
   },
 
   //21101

@@ -353,9 +353,22 @@ Constraint::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
+    if (mMath)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <math> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMathElementPerConstraint, getLevel(), getVersion());
+      }
+    }
     // If there's a <message>, it's supposed to show up first
 
-    if (mMessage) logError(IncorrectOrderInConstraint);
+    if (mMessage && getLevel() == 2) logError(IncorrectOrderInConstraint);
 
     /* check for MathML namespace 
      * this may be explicitly declared here
@@ -404,6 +417,19 @@ Constraint::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "message")
   {
+    if (mMessage)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <message> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMessageElementPerConstraint, getLevel(), getVersion());
+      }
+    }
     delete mMessage;
 
     mMessage = new XMLNode(stream);
@@ -441,15 +467,79 @@ Constraint::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 
+  const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    logError(NotSchemaConformant, getLevel(), getVersion(),
+	      "Constraint is not a valid component for this level/version.");
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Constraint::readL2Attributes (const XMLAttributes& attributes)
+{
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
-  if (level < 2 || (level == 2 && version == 1))
+  if (version == 1)
   {
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "Constraint is not a valid component for this level/version.");
     return;
   }
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<constraint>");
+    }
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 -> )
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Constraint::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
