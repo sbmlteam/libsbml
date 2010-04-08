@@ -1950,6 +1950,16 @@ END_CONSTRAINT
 // 21104: listOfReactants/Products must be speciesReference - caught at read
 // 21105: listOfModifiers must be ModifierSppeciesreference - caught at read 
 
+START_CONSTRAINT (21107, Reaction, r)
+{
+  pre (r.getLevel() > 2);
+  pre (r.isSetCompartment());
+
+  inv( m.getCompartment(r.getCompartment()) != NULL );
+}
+END_CONSTRAINT
+
+
 
 // SpeciesReference Validation
 
