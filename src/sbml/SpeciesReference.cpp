@@ -351,6 +351,26 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}
+
+
+void
+SimpleSpeciesReference::readL1Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
@@ -358,24 +378,48 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   const string s = (level == 1 && version == 1) ? "specie" : "species";
   expectedAttributes.push_back(s);
   expectedAttributes.push_back("stoichiometry");
+  expectedAttributes.push_back("denominator");
 
-  if (level == 1)
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
   {
-    expectedAttributes.push_back("denominator");
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      if (isModifier())
+        logUnknownAttribute(name, level, version, "<modifierSpeciesReference>");
+      else
+        logUnknownAttribute(name, level, version, "<speciesReference>");
+    }
   }
-  else
+
+
+  //
+  // specie : SName   { use="required" }  (L1v1)
+  // species: SName   { use="required" }  (L1v2, L2v1->)
+  //
+  attributes.readInto(s , mSpecies, getErrorLog(), true);
+}
+
+
+void
+SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("species");
+  expectedAttributes.push_back("stoichiometry");
+  expectedAttributes.push_back("metaid");
+  if (version > 1)
   {
-    expectedAttributes.push_back("metaid");
-    if (!(level == 2 && version == 1))
-    {
-      expectedAttributes.push_back("id");
-      expectedAttributes.push_back("name");
-      expectedAttributes.push_back("sboTerm");
-    }
-    if (level > 2)
-    {
-      expectedAttributes.push_back("constant");
-    }
+    expectedAttributes.push_back("id");
+    expectedAttributes.push_back("name");
+    expectedAttributes.push_back("sboTerm");
   }
 
   // check that all attributes are expected
@@ -386,43 +430,111 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     std::string name = attributes.getName(i);
     if (std::find(begin, end, name) == end)
     {
-      logUnknownAttribute(name, level, version, "<speciesReference>");
+      if (isModifier())
+        logUnknownAttribute(name, level, version, "<modifierSpeciesReference>");
+      else
+        logUnknownAttribute(name, level, version, "<speciesReference>");
     }
   }
 
-
-  if (level > 1)
-  {
-    if (!(level == 2 && version == 1))
-    {
-      //
-      // id: SId  { use="optional" }  (L2v2->)
-      //
-      bool assigned = attributes.readInto("id", mId, getErrorLog());
-      if (assigned && mId.size() == 0)
-      {
-        logEmptyString("id", level, version, "<speciesReference>");
-      }
-      if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
-
-      //
-      // name: string  { use="optional" }  (L2v2->)
-      //
-      attributes.readInto("name" , mName);
-
-      //
-      // sboTerm: SBOTerm { use="optional" }  (L2v2->)
-      //
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
-    }
-  }
 
   //
-  // specie : SName   { use="required" }  (L1v1)
   // species: SName   { use="required" }  (L1v2, L2v1->)
   //
-  //const string s = (level == 1 && version == 1) ? "specie" : "species";
-  attributes.readInto(s , mSpecies, getErrorLog(), true);
+  attributes.readInto("species" , mSpecies, getErrorLog(), true);
+  
+  if (version > 1)
+  {
+    //
+    // id: SId  { use="optional" }  (L2v2->)
+    //
+    bool assigned = attributes.readInto("id", mId, getErrorLog());
+    if (assigned && mId.size() == 0)
+    {
+      logEmptyString("id", level, version, "<speciesReference>");
+    }
+    if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+    //
+    // name: string  { use="optional" }  (L2v2->)
+    //
+    attributes.readInto("name" , mName);
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+    //
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+  }
+
+}
+
+
+void
+SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("species");
+  expectedAttributes.push_back("stoichiometry");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("sboTerm");
+  if (!isModifier())
+    expectedAttributes.push_back("constant");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      if (isModifier())
+        logUnknownAttribute(name, level, version, "<modifierSpeciesReference>");
+      else
+        logUnknownAttribute(name, level, version, "<speciesReference>");
+    }
+  }
+
+
+  //
+  // species: SName   { use="required" }  (L1v2, L2v1->)
+  //
+  bool assigned = attributes.readInto("species" , mSpecies);
+  if (!assigned)
+  {
+    if (isModifier())
+      getErrorLog()->logError(AllowedAttributesOnModifier, 
+                                                   level, version);
+    else
+      getErrorLog()->logError(AllowedAttributesOnSpeciesReference, 
+                                                   level, version);
+  }
+ 
+  //
+  // id: SId  { use="optional" }  (L2v2->)
+  //
+  assigned = attributes.readInto("id", mId, getErrorLog());
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<speciesReference>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // name: string  { use="optional" }  (L2v2->)
+  //
+  attributes.readInto("name" , mName);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1346,6 +1458,34 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
 {
   SimpleSpeciesReference::readAttributes(attributes);
 
+  const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+SpeciesReference::readL1Attributes (const XMLAttributes& attributes)
+{
+
   const int level = getLevel();
 
   //
@@ -1358,39 +1498,60 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
     //  
     // setting default value
     //
-    if (level == 1)
-    {
-      mStoichiometry = 1;
-      mIsSetStoichiometry = true;
-    }
-
-    //  
-    // (NOTICE)
-    //
-    // In Level 2, setting default value will be done in SBase::read() 
-    // by invoking initL2Stoichiometry() if neither "stoichiometry" attribute 
-    // nor "stoichiometrymath" subelement are present in this SpeciesReference.  
-    //
-    // This trick is needed because it is impossible to detect if the
-    // "stoichiometrymath" subelement are present in the target model
-    // in this function (SpeciesReference::createObject() will be invoked
-    // after this function when reading an SBML file/string).
-    //
+    mStoichiometry = 1;
+    mIsSetStoichiometry = true;
   }
 
   //
   // denominator: integer  { use="optional" default="1" }  (L1v1, L1v2)
   //
-  if (getLevel() == 1) attributes.readInto("denominator", mDenominator);
+  attributes.readInto("denominator", mDenominator);
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+SpeciesReference::readL2Attributes (const XMLAttributes& attributes)
+{
+  // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
+  //
+  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = 3;
+  const unsigned int version = getVersion();
+  //
+  // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
+  //
+  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
 
   //
   // constant: bool { use="required" } (L3v1 -> )
   //
-  if (getLevel() > 2)
+  mIsSetConstant = attributes.readInto("constant", mConstant);
+  if (!mIsSetConstant && !isModifier())
   {
-    mIsSetConstant = attributes.readInto("constant", mConstant,
-                                          getErrorLog(), true);
+    logError(AllowedAttributesOnSpeciesReference, level, version);
   }
+
 }
 /** @endcond doxygen-libsbml-internal */
 

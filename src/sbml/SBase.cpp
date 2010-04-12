@@ -3188,6 +3188,31 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnReaction, level,
         version, msg.str());
     }
+    else if (element == "<listOfReactants>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfSpeciesRef, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfProducts>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfSpeciesRef, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfModifiers>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfMods, level,
+        version, msg.str());
+    }
+    else if (element == "<speciesReference>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnSpeciesReference, level,
+        version, msg.str());
+    }
+    else if (element == "<modifierSpeciesReference>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnModifier, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

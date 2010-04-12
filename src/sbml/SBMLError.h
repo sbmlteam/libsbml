@@ -815,6 +815,8 @@ typedef enum
  , InvalidSpeciesReference               = 21111 /*!< Invalid <code>species</code> value in species reference */
  , RepeatedRule20611                     = 21112 /*!<  */
  , BothStoichiometryAndMath              = 21113 /*!< Cannot use both <code>stoichiometry</code> and <code>&lt;stoichiometryMath&gt;</code> simultaneously */
+ , AllowedAttributesOnSpeciesReference   = 21116
+ , AllowedAttributesOnModifier           = 21117
  , UndeclaredSpeciesRef                  = 21121 /*!< Undeclared species referenced in kinetic law formula */
  , IncorrectOrderInKineticLaw            = 21122 /*!< Incorrect ordering of components in kinetic law definition */
  , EmptyListInKineticLaw                 = 21123 /*!< The list of parameters component, if present, cannot be empty */
@@ -822,6 +824,8 @@ typedef enum
  , SubsUnitsNoLongerValid                = 21125 /*!< <code>substanceUnits</code> not supported in this Level+Version of SBML */
  , TimeUnitsNoLongerValid                = 21126 /*!< <code>timeUnits</code> not supported in this Level+Version of SBML */
  , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula */
+ , AllowedAttributesOnListOfSpeciesRef   = 21150
+ , AllowedAttributesOnListOfMods         = 21151
  , MissingTriggerInEvent                 = 21201 /*!< Missing trigger in event definition */
  , TriggerMathNotBoolean                 = 21202 /*!< Non-boolean math expression in trigger definition */
  , MissingEventAssignment                = 21203 /*!< Missing event assignment in event definition */

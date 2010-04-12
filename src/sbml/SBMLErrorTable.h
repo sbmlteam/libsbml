@@ -4828,9 +4828,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of a <speciesReference> 'species' attribute must be the "
-    "identifier of an existing <species> in the model. (References: L2V1 "
-    "Section 4.9.5; L2V2 Section 4.13.2. L2V3 Section 4.13.3; L2V4 Section "
-    "4.13.3)"
+    "identifier of an existing <species> in the model. ",
+    {"",
+     "L2V1 Section 4.9.5",
+     "L2V2 Section 4.13.2",
+     "L2V3 Section 4.13.3",
+     "L2V4 Section 4.13.3",
+     "L3V1 Section 4.11.3"}
   },
 
   //21112
@@ -4864,6 +4868,54 @@ static const sbmlErrorTableEntry errorTable[] =
     "'stoichiometryMath'; they are mutually exclusive. (References: L2V1 "
     "Section 4.9.5; L2V2 Section 4.13.3; L2V3 Section 4.13.3; L2V4 Section "
     "4.13.3)"
+  },
+
+  //21116
+  {
+    AllowedAttributesOnSpeciesReference,
+    "Invalid attribute on <speciesReference>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A SpeciesReference object must have the required attributes species "
+    "and constant, and may have the optional attributes metaid, sboTerm, name "
+    "id and stoichiometry. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a SpeciesReference object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+  },
+
+  //21117
+  {
+    AllowedAttributesOnModifier,
+    "Invalid attribute on <modifierSpeciesReference>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ModifierSpeciesReference object must have the required attribute species "
+    "and may have the optional attributes metaid, sboTerm, id "
+    "and name. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ModifierSpeciesReference object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
   },
 
   //21121
@@ -4999,6 +5051,52 @@ static const sbmlErrorTableEntry errorTable[] =
     "<speciesReference> or <modifierSpeciesReference> in the <reaction> "
     "definition. (References: L2V2 Sections 4.13.2 and 4.13.4; L2V3 Sections "
     "4.13.2 and 4.13.4; L2V4 Sections 4.13.2 and 4.13.4)"
+  },
+
+  //21150
+  {
+    AllowedAttributesOnListOfSpeciesRef,
+    "Invalid attribute on <listOfSpeciesReferences>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfSpeciesReferences object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfSpeciesReferences object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+  },
+
+  //21151
+  {
+    AllowedAttributesOnListOfMods,
+    "Invalid attribute on <listofModifiers>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfModifierSpeciesReferences object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfModifierSpeciesReferences object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
   },
 
   //21201
