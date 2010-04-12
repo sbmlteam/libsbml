@@ -3213,6 +3213,16 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnModifier, level,
         version, msg.str());
     }
+    else if (element == "<listOfLocalParameters>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfLocalParam, level,
+        version, msg.str());
+    }
+    else if (element == "<kineticLaw>")
+    {
+      getErrorLog()->logError(eeeFIX_ME, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -3299,6 +3309,12 @@ SBase::logUnknownElement( string element,
     case SBML_EVENT:
     
       getErrorLog()->logError(OnlyEventsInListOfEvents, 
+                                level, version, msg.str());
+      logged = true;
+      break;
+    case SBML_LOCAL_PARAMETER:
+    
+      getErrorLog()->logError(OnlyLocalParamsInListOfLocalParams, 
                                 level, version, msg.str());
       logged = true;
       break;
@@ -3572,6 +3588,7 @@ SBase::checkListOfPopulated(SBase* object)
         break;
 
       case SBML_PARAMETER:
+      case SBML_LOCAL_PARAMETER:
         // If listOfParameters is inside a KineticLaw, we have a separate code.
         if (this->getTypeCode() == SBML_KINETIC_LAW)
         {

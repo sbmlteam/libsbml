@@ -2062,6 +2062,18 @@ START_CONSTRAINT (21126, KineticLaw, kl)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (21130, KineticLaw, kl)
+{
+  //only applies to level 3
+  pre( kl.getLevel() > 2        );
+
+  // fd must have exactly one math
+  inv( kl.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
 
 START_CONSTRAINT (99127, KineticLaw, kl)
 {

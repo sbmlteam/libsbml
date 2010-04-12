@@ -4935,8 +4935,13 @@ static const sbmlErrorTableEntry errorTable[] =
     "<modifierSpeciesReference>. More formally, if a <species> identifier "
     "appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
     "same identifier must also appear in at least one <speciesReference> or "
-    "<modifierSpeciesReference> in the <reaction> definition. (References: "
-    "L2V2 Section 4.13.5; L2V3 Section 4.13.5; L2V4 Section 4.13.5)"
+    "<modifierSpeciesReference> in the <reaction> definition.",
+    {"",
+     "",
+     "L2V2 Section 4.13.5",
+     "L2V3 Section 4.13.5",
+     "L2V4 Section 4.13.5",
+     "L3V1 Section 4.11.5"}
   },
 
   //21122
@@ -4970,8 +4975,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "If present, the <listOfParameters> in a <kineticLaw> must not be an "
-    "empty list. (References: L2V2 Section 4.13.5; L2V3 Section 4.13; L2V4 "
-    "Section 4.13)" 
+    "empty list.",
+    {"",
+     "",
+     "L2V2 Section 4.13.5",
+     "L2V3 Section 4.13",
+     "L2V4 Section 4.13",
+     "L3V1 Section 4.11"}
   },
 
   //21124
@@ -5031,6 +5041,95 @@ static const sbmlErrorTableEntry errorTable[] =
     "(References: L2V2 Section 4.13.5.)"
   },
 
+  //21127
+  {
+    OneListOfPerKineticLaw,
+    "Only one listOfLocalParameters permitted on <kineticLaw>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A KineticLaw object may contain at most one ListOfLocalParameters "
+    "container object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+  },
+
+  //21128
+  {
+    OnlyLocalParamsInListOfLocalParams,
+    "Only LocalParameters allowed in ListOfLocalParameters",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfLocalParameters container object may only "
+    "contain LocalParameter objects.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.8"}
+  },
+
+  //21129
+  {
+    AllowedAttributesOnListOfLocalParam,
+    "Invalid attribute on <listOfLocalParameters>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfLocalParameters object may have the optional attributes metaid "
+    "and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfLocalParameters object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+  },
+
+  //21130
+  {
+    OneMathPerKineticLaw,
+    "Only one math element on <kineticLaw>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A KineticLaw object must contain exactly one MathML math element.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+  },
+
   //21131
   {
     UndeclaredSpeciesInStoichMath,
@@ -5051,6 +5150,29 @@ static const sbmlErrorTableEntry errorTable[] =
     "<speciesReference> or <modifierSpeciesReference> in the <reaction> "
     "definition. (References: L2V2 Sections 4.13.2 and 4.13.4; L2V3 Sections "
     "4.13.2 and 4.13.4; L2V4 Sections 4.13.2 and 4.13.4)"
+  },
+
+  //21132
+  {
+    eeeFIX_ME,
+    "Invalid attribute on <kineticLaw>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A KineticLaw object may have the optional attributes metaid and "
+    "sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a KineticLaw object.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
   },
 
   //21150

@@ -823,7 +823,12 @@ typedef enum
  , NonConstantLocalParameter             = 21124 /*!< Parameters local to a kinetic law must have <code>constant</code>=<code>true</code> */
  , SubsUnitsNoLongerValid                = 21125 /*!< <code>substanceUnits</code> not supported in this Level+Version of SBML */
  , TimeUnitsNoLongerValid                = 21126 /*!< <code>timeUnits</code> not supported in this Level+Version of SBML */
+ , OneListOfPerKineticLaw                = 21127
+ , OnlyLocalParamsInListOfLocalParams    = 21128
+ , AllowedAttributesOnListOfLocalParam   = 21129
+ , OneMathPerKineticLaw                  = 21130
  , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula */
+ , eeeFIX_ME                                   = 21132
  , AllowedAttributesOnListOfSpeciesRef   = 21150
  , AllowedAttributesOnListOfMods         = 21151
  , MissingTriggerInEvent                 = 21201 /*!< Missing trigger in event definition */

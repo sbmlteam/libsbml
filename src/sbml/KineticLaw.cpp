@@ -1121,9 +1121,7 @@ KineticLaw::createObject (XMLInputStream& stream)
   {
     if (mLocalParameters.size() != 0)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(),
-	       "Only one <listOfLocalParameters> elements is permitted "
-	       "in a given <kineticLaw> element.");
+      logError(OneListOfPerKineticLaw, getLevel(), getVersion());
     }
     return &mLocalParameters;
   }
@@ -1155,8 +1153,22 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
       delete mMath;
       return false;
     }
+    if (mMath)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <math> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMathPerKineticLaw, getLevel(), getVersion());
+      }
+    }
 
-    if (getNumParameters() > 0) logError(IncorrectOrderInKineticLaw);
+    if (getNumParameters() > 0 && getLevel() < 3) 
+      logError(IncorrectOrderInKineticLaw);
 
     /* check for MathML namespace 
      * this may be explicitly declared here
@@ -1219,31 +1231,40 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
+  switch (level)
+  {
+  case 1:
+    readL1Attributes(attributes);
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
+  }
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+KineticLaw::readL1Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
-  if (level == 1)
-  {
-    expectedAttributes.push_back("formula");
-    expectedAttributes.push_back("timeUnits");
-    expectedAttributes.push_back("substanceUnits");
-  }
-  else
-  {
-    expectedAttributes.push_back("metaid");
-
-    if (level == 2 && version == 1)
-    {
-      expectedAttributes.push_back("timeUnits");
-      expectedAttributes.push_back("substanceUnits");
-    }
-
-    if (!(level == 2 && version == 1))
-    {
-      expectedAttributes.push_back("sboTerm");
-    }
-  }
+  expectedAttributes.push_back("formula");
+  expectedAttributes.push_back("timeUnits");
+  expectedAttributes.push_back("substanceUnits");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -1257,48 +1278,119 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
     }
   }
 
-  if (level == 1) 
+  //
+  // formula: string  { use="required" }  (L1v1->)
+  //
+  attributes.readInto("formula", mFormula, getErrorLog(), true);
+
+  //
+  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  attributes.readInto("timeUnits", mTimeUnits);
+
+  //
+  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  attributes.readInto("substanceUnits", mSubstanceUnits);
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+KineticLaw::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  if (version == 1)
+  {
+    expectedAttributes.push_back("timeUnits");
+    expectedAttributes.push_back("substanceUnits");
+  }
+
+  if (version > 1)
+  {
+    expectedAttributes.push_back("sboTerm");
+  }
+
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<kineticLaw>");
+    }
+  }
+
+  if (version == 1)
   {
     //
-    // formula: string  { use="required" }  (L1v1->)
-    //
-    attributes.readInto("formula", mFormula, getErrorLog(), true);
-
-    //
-    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-    // removed in l2v3
+    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
     //
     attributes.readInto("timeUnits", mTimeUnits);
 
     //
-    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-    // removed in l2v3
+    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
     //
     attributes.readInto("substanceUnits", mSubstanceUnits);
   }
-  else
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  if (version > 1) 
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+KineticLaw::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
   {
-    if (level == 2 && version == 1)
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
     {
-      //
-      // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
-      // removed in l2v2
-      //
-      attributes.readInto("timeUnits", mTimeUnits);
-
-      //
-      // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
-      // removed in l2v2
-      //
-      attributes.readInto("substanceUnits", mSubstanceUnits);
+      logUnknownAttribute(name, level, version, "<kineticLaw>");
     }
-
-    //
-    // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
-    //
-    if (!(level == 2 && version == 1)) 
-      mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
   }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
 /** @endcond doxygen-libsbml-internal */
 
