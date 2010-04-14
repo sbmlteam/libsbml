@@ -964,7 +964,15 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   bool assigned = attributes.readInto("id", mId, getErrorLog());
   if (!assigned)
   {
-    getErrorLog()->logError(AllowedAttributesOnParameter, level, version);
+    if (this->getTypeCode() == SBML_PARAMETER)
+    {
+      getErrorLog()->logError(AllowedAttributesOnParameter, level, version);
+    }
+    else
+    {
+      getErrorLog()->logError(AllowedAttributesOnLocalParameter, 
+                              level, version);
+    }
   }
   if (assigned && mId.size() == 0)
   {

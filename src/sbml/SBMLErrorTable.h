@@ -928,6 +928,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 3.1.9"}
   },
 
+  //10312
+  {
+    InvalidNameSyntax,
+    "Invalid name syntax",
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 3.1.1"}
+},
+
   //10401
   {
     MissingAnnotationNamespace,
@@ -1043,6 +1064,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 3.4"}
   },
 
+  //10503
+  {
+    InconsistentKineticLawUnitsL3,
+    "Inconsistent <kineticLaw> units",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 3.4"}
+},
+
   //10511
   {
     AssignRuleCompartmentMismatch,
@@ -1112,6 +1154,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.9.3"}
   },
 
+  //10514
+  {
+    AssignRuleStoichiometryMismatch,
+    "Mismatched units in assignment rule for stoichiometry",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.9.3"}
+},
+
   //10521
   {
     InitAssignCompartmenMismatch,
@@ -1180,6 +1243,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V4 Section 4.11.3",
      "L3V1 Section 4.8"}
   },
+
+  //10524
+  {
+    InitAssignStoichiometryMismatch,
+    "Mismatched units in initial assignment to stoichiometry",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.8"}
+},
 
   //10531
   {
@@ -1255,6 +1339,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Sections 4.7.3, 4.2.4 AND 4.9.4"}
   },
 
+  //10534
+  {
+    RateRuleStoichiometryMismatch,
+    "Mismatched units in rate rule for stoichiometry",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Sections 4.11.3, 4.2.4 and 4.9.4"}
+},
+
   //10541
   {
     KineticLawNotSubstancePerTime,
@@ -1276,6 +1381,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V4 Section 4.13.5",
      "L3V1 Sections 4.11.7, 4.2.4 AND 4.9.4"}
   },
+
+  //10542
+  {
+    SpeciesInvalidExtentUnits,
+    "Species units nit extent by conversionFactor",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.6"}
+},
 
   //10551
   {
@@ -1369,6 +1495,27 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V4 Section 4.14.4",
      "L3V1 Section 4.12.4"}
   },
+
+  //10564
+  {
+    EventAssignStoichiometryMismatch,
+    "Mismatched units in event assignment for stoichiometry",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12.4"}
+},
 
   //10601
   {
@@ -2081,27 +2228,6 @@ static const sbmlErrorTableEntry errorTable[] =
   //20108
   {
     dd,
-    "",
-    LIBSBML_CAT_SBML,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "",
-    {"",
-     "",
-     "",
-     "",
-     "",
-     "L3V1 Section"}
-  },
-
-  //20109
-  {
-    ee,
     "",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5475,6 +5601,30 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.11"}
   },
 
+  //21172
+  {
+    AllowedAttributesOnLocalParameter,
+    "Invalid attribute on <localParameter>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A LocalParameter object must have the required attribute id and "
+    "may have the optional attributes metaid, sboTerm, name, value and "
+    "units. No other attributes from the SBML Level 3 Core namespace "
+    "are permitted on a LocalParameter object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.11"}
+},
+
   //21201
   {
     MissingTriggerInEvent,
@@ -5554,8 +5704,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The value of an <event>'s 'timeUnits' attribute must be 'time', 'second', "
     "'dimensionless', or the identifier of a <unitDefinition> derived from "
-    "either 'second' (with an 'exponent' value of '1') or 'dimensionless'. "
-    "(References: L2V1 Section 4.10.4; L2V2 Section 4.14.)"
+    "either 'second' (with an 'exponent' value of '1') or 'dimensionless'. ",
     {"",
      "L2V1 Section 4.10.4",
      "L2V2 Section 4.14",
@@ -5578,8 +5727,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     "The order of subelements within <event> must be the following: "
     "<trigger>, <delay>, <listOfEventAssignments>. The <delay> element "
-    "is optional, but if present, must follow <trigger>. (References: L2V2 "
-    "Section 4.14; L2V3 Section 4.14; L2V4 Section 4.14)" 
+    "is optional, but if present, must follow <trigger>.", 
     {"",
      "",
      "L2V2 Section 4.14",
@@ -5613,7 +5761,70 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.12"}
   },
 
-  //21211
+  //21207
+  {
+    DelayNeedsValuesFromTriggerTime,
+    "Delay requires useValuesFromTriggerTime",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21209
+  {
+    OneMathPerTrigger,
+    "Trigger must have one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21210
+  {
+    OneMathPerDelay,
+    "Delay must have one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Message", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+ //21211
   {
     InvalidEventAssignmentVariable,
     "Invalid value for 'variable' in event assignment",
@@ -5650,8 +5861,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "Any <compartment>, <species> or <parameter> definition whose identifier "
     "is used as the value of 'variable' in an <eventAssignment> must have a "
-    "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
-    "4.10.5; L2V2 Section 4.14.2; L2V3 Section 4.14.4; L2V4 Section 4.14.4)"
+    "value of 'false' for its 'constant' attribute.",
     {"",
      "L2V1 Section 4.10.5",
      "L2V2 Section 4.14.2",

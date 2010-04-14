@@ -636,25 +636,32 @@ typedef enum
  , InvalidMetaidSyntax                   = 10309 /*!< Invalid <code>metaid</code> value syntax */
  , InvalidIdSyntax                       = 10310 /*!< Invalid identifier syntax */
  , InvalidUnitIdSyntax                   = 10311 /*!< Invalid unit identifier syntax */
+ , InvalidNameSyntax                     = 10312
  , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of XML namespace for annotation */
  , DuplicateAnnotationNamespaces         = 10402 /*!< Multiple annotations using same XML namespace */
  , SBMLNamespaceInAnnotation             = 10403 /*!< Invalid use of SBML XML namespace in annotation */
  , MultipleAnnotations                   = 10404 /*!< Multiple annotations */
  , InconsistentArgUnits                  = 10501 /*!< Units of arguments to function call do not match function's definition */
+ , InconsistentKineticLawUnitsL3         = 10503
  , AssignRuleCompartmentMismatch         = 10511 /*!< Mismatched units in assignment rule for compartment */
  , AssignRuleSpeciesMismatch             = 10512 /*!< Mismatched units in assignment rule for species */
  , AssignRuleParameterMismatch           = 10513 /*!< Mismatched units in assignment rule for parameter */
+ , AssignRuleStoichiometryMismatch       = 10514
  , InitAssignCompartmenMismatch          = 10521 /*!< Mismatched units in initial assignment to compartment */
  , InitAssignSpeciesMismatch             = 10522 /*!< Mismatched units in initial assignment to species */
  , InitAssignParameterMismatch           = 10523 /*!< Mismatched units in initial assignment to parameter */
+ , InitAssignStoichiometryMismatch       = 10524
  , RateRuleCompartmentMismatch           = 10531 /*!< Mismatched units in rate rule for compartment */
  , RateRuleSpeciesMismatch               = 10532 /*!< Mismatched units in rate rule for species */
  , RateRuleParameterMismatch             = 10533 /*!< Mismatched units in rate rule for parameter */
+ , RateRuleStoichiometryMismatch         = 10534
  , KineticLawNotSubstancePerTime         = 10541 /*!< Kinetic law units are not <code>substance</code>/<code>time</code> */
+ , SpeciesInvalidExtentUnits             = 10542
  , DelayUnitsNotTime                     = 10551 /*!< Units of delay are not units of time */
  , EventAssignCompartmentMismatch        = 10561 /*!< Mismatched units in event assignment for compartment */
  , EventAssignSpeciesMismatch            = 10562 /*!< Mismatched units in event assignment for species */
  , EventAssignParameterMismatch          = 10563 /*!< Mismatched units in event assignment for parameter */
+ , EventAssignStoichiometryMismatch      = 10564
  , OverdeterminedSystem                  = 10601 /*!< Model is overdetermined */
  , InvalidModelSBOTerm                   = 10701 /*!< Invalid <code>sboTerm</code> value for model */
  , InvalidFunctionDefSBOTerm             = 10702 /*!< Invalid <code>sboTerm</code> value for function definition */
@@ -686,7 +693,6 @@ typedef enum
  , VersionPositiveInteger                = 20106
  , cc                                    = 20107
  , dd                                    = 20108
- , ee                                    = 20109
  , MissingModel                          = 20201 /*!< Missing model */
  , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components in model definition */
  , EmptyListElement                      = 20203 /*!< A given <code>listOf___</code>, if present, cannot be empty */
@@ -831,12 +837,16 @@ typedef enum
  , eeeFIX_ME                                   = 21132
  , AllowedAttributesOnListOfSpeciesRef   = 21150
  , AllowedAttributesOnListOfMods         = 21151
+ , AllowedAttributesOnLocalParameter     = 21172
  , MissingTriggerInEvent                 = 21201 /*!< Missing trigger in event definition */
  , TriggerMathNotBoolean                 = 21202 /*!< Non-boolean math expression in trigger definition */
  , MissingEventAssignment                = 21203 /*!< Missing event assignment in event definition */
  , TimeUnitsEvent                        = 21204 /*!< Units of <code>timeUnits</code> are not time units */
  , IncorrectOrderInEvent                 = 21205 /*!< Incorrect ordering of components in event definition */
  , ValuesFromTriggerTimeNeedDelay        = 21206 /*!< <code>useValuesFromTriggerTime</code>=<code>false</code>, but no delay defined in event */
+ , DelayNeedsValuesFromTriggerTime       = 21207
+ , OneMathPerTrigger                     = 21209
+ , OneMathPerDelay                       = 21210
  , InvalidEventAssignmentVariable        = 21211 /*!< Invalid value for <code>variable</code> in event assignment */
  , EventAssignmentForConstantEntity      = 21212 /*!< Cannot assign to a constant component in an event assignment */
 

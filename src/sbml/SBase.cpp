@@ -3223,6 +3223,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(eeeFIX_ME, level,
         version, msg.str());
     }
+    else if (element == "<localParameter>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnLocalParameter, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */
