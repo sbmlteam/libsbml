@@ -2375,5 +2375,17 @@ START_CONSTRAINT (21212, EventAssignment, ea)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (21213, EventAssignment, ea)
+{
+  //only applies to level 3
+  pre( ea.getLevel() > 2        );
+
+  // fd must have exactly one math
+  inv( ea.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
 
 

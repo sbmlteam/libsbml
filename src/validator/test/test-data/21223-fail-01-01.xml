@@ -38,7 +38,15 @@
         </delay>
         <listOfEventAssignments>
           <compartment/>
-          <eventAssignment variable="c"/>
+          <eventAssignment variable="c">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
     </listOfEvents>

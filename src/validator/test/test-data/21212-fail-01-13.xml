@@ -14,21 +14,19 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="3" units="volume" constant="false"/>
+      <compartment id="c" spatialDimensions="3" units="volume" constant="true"/>
     </listOfCompartments>
     <listOfEvents>
-      <event id="e" useValuesFromTriggerTime="false">
+      <event id="e">
         <trigger>
-        </trigger>
-        <delay>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <neq/>
               <cn type="integer"> 1 </cn>
               <cn type="integer"> 2 </cn>
             </apply>
           </math>
-        </delay>
+        </trigger>
         <listOfEventAssignments>
           <eventAssignment variable="c">
           <math xmlns="http://www.w3.org/1998/Math/MathML">

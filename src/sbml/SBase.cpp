@@ -3248,6 +3248,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnDelay, level,
         version, msg.str());
     }
+    else if (element == "<eventAssignment>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnEventAssignment, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */

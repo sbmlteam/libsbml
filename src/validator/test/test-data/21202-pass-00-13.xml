@@ -28,7 +28,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e2">
@@ -42,7 +50,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e3">
@@ -56,7 +72,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e4">
@@ -70,7 +94,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e5">
@@ -84,7 +116,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e6">
@@ -98,7 +138,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e7">
@@ -112,7 +160,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e8">
@@ -126,7 +182,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e9">
@@ -140,7 +204,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e10">
@@ -153,7 +225,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e11">
@@ -163,7 +243,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
       <event id="e12">
@@ -173,7 +261,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="compartment"/>
+          <eventAssignment variable="compartment">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
+              <cn type="integer"> 2 </cn>
+            </apply>
+          </math>
+         </eventAssignment>
         </listOfEventAssignments>
       </event>
     </listOfEvents>

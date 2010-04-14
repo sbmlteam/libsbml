@@ -575,6 +575,10 @@ protected:
    */
   virtual void readAttributes (const XMLAttributes& attributes);
 
+  void readL2Attributes (const XMLAttributes& attributes);
+  
+  void readL3Attributes (const XMLAttributes& attributes);
+
 
   /**
    * Subclasses should override this method to write their XML attributes

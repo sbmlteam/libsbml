@@ -7,6 +7,11 @@
           <unit kind="litre" exponent="1" scale="0" multiplier="1"/>
         </listOfUnits>
       </unitDefinition>
+      <unitDefinition id="substance">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
       <unitDefinition id="time">
         <listOfUnits>
           <unit kind="second" exponent="1" scale="0" multiplier="1"/>
@@ -14,23 +19,24 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="3" units="volume" constant="false"/>
+      <compartment id="c" spatialDimensions="3" units="volume" constant="true"/>
     </listOfCompartments>
+    <listOfSpecies>
+      <species id="s" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="true"/>
+    </listOfSpecies>
     <listOfEvents>
-      <event id="e" useValuesFromTriggerTime="false">
+      <event id="e">
         <trigger>
-        </trigger>
-        <delay>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <neq/>
               <cn type="integer"> 1 </cn>
               <cn type="integer"> 2 </cn>
             </apply>
           </math>
-        </delay>
+        </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="c">
+          <eventAssignment variable="s">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <plus/>

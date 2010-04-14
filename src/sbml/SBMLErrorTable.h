@@ -5871,6 +5871,51 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.12.4"}
   },
 
+  //21213
+  {
+    OneMathPerEventAssignment,
+    "EventAssignment must have one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An EventAssignment object must contain exactly one MathML math element.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21214
+  {
+    AllowedAttributesOnEventAssignment,
+    "Invalid attribute on <eventAssignment>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An EventAssignment object must have the required attribute variable and "
+    "may have the optional attributes metaid and sboTerm. No other "
+    "attributes from the SBML Level 3 Core namespace are permitted on "
+    "an EventAssignment object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
   //21221
   {
     OnlyOneDelayPerEvent,
