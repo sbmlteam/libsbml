@@ -5773,7 +5773,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Message", 
+    "If an Event object contains a Delay subobject, then the Event must "
+    "have a value for the attribute useValuesFromTriggerTime.", 
     {"",
      "",
      "",
@@ -5794,7 +5795,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Message", 
+    "A Trigger object must contain exactly one MathML math element.", 
     {"",
      "",
      "",
@@ -5815,7 +5816,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Message", 
+    "A Delay object must contain exactly one MathML math element.", 
     {"",
      "",
      "",
@@ -5869,6 +5870,164 @@ static const sbmlErrorTableEntry errorTable[] =
      "L2V4 Section 4.14.4",
      "L3V1 Section 4.12.4"}
   },
+
+  //21221
+  {
+    OnlyOneDelayPerEvent,
+    "Event can only have one <delay>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An Event object may contain at most one Delay object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21222
+  {
+    OneListOfEventAssignmentsPerEvent,
+    "Event can only have one <listOfEventAssignments>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An Event object may contain at most one ListOfEventAssignments object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21223
+  {
+    OnlyEventAssignInListOfEventAssign,
+    "<listOfEventAssignments> can only have <eventAssignment>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Apart from the general notes and annotation subobjects permitted on "
+    "all SBML components, a ListOfEventAssignments container object may "
+    "only contain EventAssignment objects.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12.4"}
+    },
+
+  //21224
+  {
+    AllowedAttributesOnListOfEventAssign,
+    "Invalid attribute on <listOfEventAssignments>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A ListOfEventAssignments object may have the optional attributes "
+    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "namespace are permitted on a ListOfEventAssignments object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21225
+  {
+    AllowedAttributesOnEvent,
+    "Invalid attribute on <event>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An Event object may have the optional attributes metaid, sboTerm, id, "
+    "name, and in addition, the contingently-optional attribute "
+    "useValuesFromTriggerTime. No other attributes from the SBML Level 3 "
+    "Core namespace are permitted on an Event object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21226
+  {
+    AllowedAttributesOnTrigger,
+    "Invalid attribute on <trigger>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Trigger object may have the optional attributes metaid and sboTerm. "
+    "No other attributes from the SBML Level 3 Core namespace are permitted "
+    "on a Trigger object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21227
+  {
+    AllowedAttributesOnDelay,
+    "Invalid attribute on <delay>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Delay object may have the optional attributes metaid and sboTerm. "
+    "No other attributes from the SBML Level 3 Core namespace are permitted "
+    "on a Delay object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
 
   // 80501
   {

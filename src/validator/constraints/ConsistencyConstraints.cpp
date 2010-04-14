@@ -2256,6 +2256,7 @@ END_CONSTRAINT
 // 21205: ordering - caught at read
 
 
+
 // FIXME
 
 START_CONSTRAINT (99206, Event, e)
@@ -2290,6 +2291,43 @@ START_CONSTRAINT (21206, Event, e)
 
 }
 END_CONSTRAINT
+
+
+START_CONSTRAINT (21207, Event, e)
+{
+  pre(e.getLevel() == 3);
+  pre(e.isSetDelay());
+
+  inv( e.isSetUseValuesFromTriggerTime() != 0 );
+}
+END_CONSTRAINT
+
+
+
+START_CONSTRAINT (21209, Trigger, t)
+{
+  //only applies to level 3
+  pre( t.getLevel() > 2        );
+
+  // fd must have exactly one math
+  inv( t.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21210, Delay, d)
+{
+  //only applies to level 3
+  pre( d.getLevel() > 2        );
+
+  // fd must have exactly one math
+  inv( d.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
 
 //EventAssignment validation
 

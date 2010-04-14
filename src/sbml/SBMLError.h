@@ -849,6 +849,14 @@ typedef enum
  , OneMathPerDelay                       = 21210
  , InvalidEventAssignmentVariable        = 21211 /*!< Invalid value for <code>variable</code> in event assignment */
  , EventAssignmentForConstantEntity      = 21212 /*!< Cannot assign to a constant component in an event assignment */
+ , OnlyOneDelayPerEvent                  = 21221
+ , OneListOfEventAssignmentsPerEvent     = 21222
+ , OnlyEventAssignInListOfEventAssign    = 21223
+ , AllowedAttributesOnListOfEventAssign  = 21224
+ , AllowedAttributesOnEvent              = 21225
+ , AllowedAttributesOnTrigger            = 21226
+ , AllowedAttributesOnDelay              = 21227
+
 
  , GeneralWarningNotSpecified            = 29999 /*!< Unknown error */
 

@@ -993,14 +993,27 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mEventAssignments.size() != 0)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(),
+      if (getLevel() < 3)
+        logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <listOfEventAssignments> elements is permitted "
 	       "in a single <event> element.");
+      else
+        logError(OneListOfEventAssignmentsPerEvent, getLevel(), getVersion());
     }
     return &mEventAssignments;
   }
   else if (name == "trigger")
   {
+    if (mTrigger)
+    {
+      if (getLevel() < 3)
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	       "Only one <trigger> elements is permitted "
+	       "in a single <event> element.");
+      else
+        logError(MissingTriggerInEvent, getLevel(), getVersion());
+    }
+
     delete mTrigger;
 
     try
@@ -1023,9 +1036,12 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mDelay)
     {
-      logError(NotSchemaConformant, getLevel(), getVersion(),
+      if (getLevel() < 3)
+        logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one <delay> element is permitted in a single "
 	       "<event> element.");
+      else
+        logError(OnlyOneDelayPerEvent, getLevel(), getVersion());
     }
     delete mDelay;
 
@@ -1064,32 +1080,54 @@ Event::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 
-  const unsigned int level = getLevel();
-  const unsigned int version = getVersion();
-
-  if (level < 2)
+  const unsigned int level   = getLevel  ();
+  switch (level)
   {
+  case 1:
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "Event is not a valid component for this level/version.");
     return;
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
   }
+}
+
+/** @cond doxygen-libsbml-internal */
+
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Event::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("metaid");
   expectedAttributes.push_back("name");
   expectedAttributes.push_back("id");
 
-  if (level == 2 && version < 3)
+  if (version < 3)
   {
     expectedAttributes.push_back("timeUnits");
   }
 
-  if (!(level == 2 && version == 1))
+  if (version > 1)
   {
     expectedAttributes.push_back("sboTerm");
   }
 
-  if (!(level == 2 && version < 4))
+  if (version == 4)
   {
     expectedAttributes.push_back("useValuesFromTriggerTime");
   }
@@ -1125,7 +1163,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
   // removed in l2v3
   //
-  if (level == 2 && version < 3)
+  if (version < 3)
   {
     assigned = attributes.readInto("timeUnits", mTimeUnits);
     if (assigned && mTimeUnits.size() == 0)
@@ -1141,24 +1179,84 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
   //
-  if (!(level == 2 && version == 1)) 
+  if (version > 1) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
   //
   // useValuesFromTriggerTime: bool {use="optional" default="true"} (L2V4 ->)
   // useValuesFromTriggerTime: bool {use="optional" } (L3 ->)
   //
-  if (level == 2 && version  == 4)
+  if (version  == 4)
   {
     attributes.readInto("useValuesFromTriggerTime", mUseValuesFromTriggerTime);
   }
-  else if (level > 2)
+}
+
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Event::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("id");
+  expectedAttributes.push_back("sboTerm");
+  expectedAttributes.push_back("useValuesFromTriggerTime");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
   {
-    mIsSetUseValuesFromTriggerTime = attributes.readInto(
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<event>");
+    }
+  }
+
+  //
+  // id: SId  { use="optional" }  (L2v1 ->)
+  //
+  bool assigned = attributes.readInto("id", mId);
+  if (assigned && mId.size() == 0)
+  {
+    logEmptyString("id", level, version, "<event>");
+  }
+  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+
+  //
+  // name: string  { use="optional" }  (L2v1 ->)
+  //
+  attributes.readInto("name", mName);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+
+  //
+  // useValuesFromTriggerTime: bool {use="optional" } (L3 ->)
+  //
+  mIsSetUseValuesFromTriggerTime = attributes.readInto(
       "useValuesFromTriggerTime", mUseValuesFromTriggerTime, 
        getErrorLog(), false);
-  }
 }
+
+/** @endcond doxygen-libsbml-internal */
+
 
 /** @endcond doxygen-libsbml-internal */
 

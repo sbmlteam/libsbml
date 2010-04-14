@@ -3228,6 +3228,26 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnLocalParameter, level,
         version, msg.str());
     }
+    else if (element == "<event>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnEvent, level,
+        version, msg.str());
+    }
+    else if (element == "<listOfEventAssignments>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnListOfEventAssign, level,
+        version, msg.str());
+    }
+    else if (element == "<trigger>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnTrigger, level,
+        version, msg.str());
+    }
+    else if (element == "<delay>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnDelay, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -3320,6 +3340,12 @@ SBase::logUnknownElement( string element,
     case SBML_LOCAL_PARAMETER:
     
       getErrorLog()->logError(OnlyLocalParamsInListOfLocalParams, 
+                                level, version, msg.str());
+      logged = true;
+      break;
+    case SBML_EVENT_ASSIGNMENT:
+    
+      getErrorLog()->logError(OnlyEventAssignInListOfEventAssign, 
                                 level, version, msg.str());
       logged = true;
       break;

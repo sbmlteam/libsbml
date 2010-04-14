@@ -296,6 +296,19 @@ Trigger::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
+    if (mMath)
+    {
+      if (getLevel() < 3) 
+      {
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	        "Only one <math> element is permitted inside a "
+	        "particular containing element.");
+      }
+      else
+      {
+        logError(OneMathPerTrigger, getLevel(), getVersion());
+      }
+    }
     /* check for MathML namespace 
      * this may be explicitly declared here
      * or implicitly declared on the whole document
@@ -357,18 +370,43 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
 
-  if (level < 2)
+  switch (level)
   {
+  case 1:
     logError(NotSchemaConformant, getLevel(), getVersion(),
 	      "Trigger is not a valid component for this level/version.");
     return;
+    break;
+  case 2:
+    readL2Attributes(attributes);
+    break;
+  case 3:
+  default:
+    readL3Attributes(attributes);
+    break;
   }
+
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Trigger::readL2Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
   expectedAttributes.push_back("metaid");
-  if (!(level == 2 && version < 3))
+  if (version > 2)
   {
     expectedAttributes.push_back("sboTerm");
   }
@@ -388,8 +426,45 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3->)
   //
-  if (!(level == 2 && version < 3))
+  if (version > 2)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Trigger::readL3Attributes (const XMLAttributes& attributes)
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, level, version, "<trigger>");
+    }
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v3->)
+  //
+  mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
 /** @endcond doxygen-libsbml-internal */
 
