@@ -2144,20 +2144,28 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.1"}
   },
 
-  //20104   FIXME
+  //20104 
   {
-    AnnotationNotesNotAllowedLevel1,
-    "Annotation on <sbml> not permitted in SBML Level 1",
+    PackageNSMustMatch,
+    "Invalid level/version on package namespace",
     LIBSBML_CAT_SBML,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    "The <sbml> container element cannot contain <notes> or <annotations> in "
-    "an SBML Level 1 document."
+    "The sbml container element must declare the XML Namespace for any "
+    "SBML Level 3 packages used within the SBML document. This declaration "
+    "must be consistent with the values of the level and version attributes "
+    "on the sbml element.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.1.2"}
   },
 
   //20105
@@ -7476,6 +7484,22 @@ static const sbmlErrorTableEntry errorTable[] =
     "The level and version specified for the document must be "
     "consistent with a valid published SBML specification.  These are "
     "Level 1, Versions 1 and 2 and Level 2, Versions 1, 2, 3 and 4."
+  },
+
+  //99104
+  {
+    AnnotationNotesNotAllowedLevel1,
+    "Annotation on <sbml> not permitted in SBML Level 1",
+    LIBSBML_CAT_SBML,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "The <sbml> container element cannot contain <notes> or <annotations> in "
+    "an SBML Level 1 document."
   },
 
   //99106

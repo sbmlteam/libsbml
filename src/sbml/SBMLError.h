@@ -688,7 +688,7 @@ typedef enum
  , InvalidNamespaceOnSBML                = 20101 /*!< Invalid XML namespace for SBML container */
  , MissingOrInconsistentLevel            = 20102 /*!< Missing or inconsistent value for <code>level</code> attribute */
  , MissingOrInconsistentVersion          = 20103 /*!< Missing or inconsistent value for <code>version</code> attribute */
- , AnnotationNotesNotAllowedLevel1       = 20104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
+ , PackageNSMustMatch                    = 20104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , LevelPositiveInteger                  = 20105
  , VersionPositiveInteger                = 20106
  , cc                                    = 20107
@@ -956,6 +956,7 @@ typedef enum
    * published in a spec. */
 
  , InvalidSBMLLevelVersion               = 99101 /*!< Invalid SBML Level and Version */
+ , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules */
 
  , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute <code>substanceUnits</code> */
