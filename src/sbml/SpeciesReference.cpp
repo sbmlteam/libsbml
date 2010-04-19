@@ -2753,6 +2753,13 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
 }
 
 
+LIBSBML_EXTERN
+StoichiometryMath_t *
+SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr)
+{
+  return static_cast<SpeciesReference*> (sr)->createStoichiometryMath();
+}
+
 /**
  * Sets the content of the "stoichiometryMath" subelement of the given
  * SpeciesReference_t structure.

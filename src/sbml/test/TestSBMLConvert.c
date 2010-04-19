@@ -52,6 +52,7 @@
 #include <sbml/common/common.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLTypes.h>
+#include <sbml/SpeciesReference.h>
 
 #include <check.h>
 
@@ -397,6 +398,47 @@ START_TEST (test_SBMLConvert_convertToL3_localParameters)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_convertToL3_stoichiometryMath)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId   ( c, "c" );
+
+  Species_t *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+
+  Reaction_t * r = Model_createReaction(m);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
+
+  ASTNode_t * ast = SBML_parseFormula("c*2");
+  StoichiometryMath_setMath(sm, ast);
+
+  fail_unless(Model_getNumRules(m) == 0);
+  fail_unless(SpeciesReference_isSetId(sr) == 0);
+  
+  SBMLDocument_setLevelAndVersion(d, 3, 1);
+
+  m = SBMLDocument_getModel(d);
+  r = Model_getReaction(m, 0);
+  sr = Reaction_getReactant(r, 0);
+
+  fail_unless(Model_getNumRules(m) == 1);
+  fail_unless(SpeciesReference_isSetId(sr) == 1);
+  
+  Rule_t *rule = Model_getRule(m, 0);
+
+  fail_unless(SpeciesReference_getId(sr) == Rule_getVariable(rule));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -415,6 +457,7 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertFromL3 );
   tcase_add_test( tcase, test_SBMLConvert_invalidLevelVersion );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_localParameters );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_stoichiometryMath );
 
   suite_add_tcase(suite, tcase);
 

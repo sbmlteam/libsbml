@@ -125,16 +125,14 @@ START_CONSTRAINT (96010, Compartment, c)
 }
 END_CONSTRAINT
 
-
-START_CONSTRAINT (96011, SpeciesReference, sr) 
-{
-  pre(!sr.isModifier());
-
-  pre( sr.isSetStoichiometryMath() );
-
-  inv_or( sr.getStoichiometryMath()->getMath()->isInteger()  );
-  inv_or( sr.getStoichiometryMath()->getMath()->isRational() );
-}
-END_CONSTRAINT
-
+//START_CONSTRAINT (96011, SpeciesReference, sr) 
+//{
+//  pre(!sr.isModifier());
+//
+//  pre( sr.isSetStoichiometryMath() );
+//
+//  inv_or( sr.getStoichiometryMath()->getMath()->isInteger()  );
+//  inv_or( sr.getStoichiometryMath()->getMath()->isRational() );
+//}
+//END_CONSTRAINT
 

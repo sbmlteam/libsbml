@@ -2517,6 +2517,15 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
+
+  /* StoichiometryMath does not exist in L3 but the id of
+   * the species Reference can be used as a variable
+   * on an assignment rule to achieve varying stoichiometry
+   */
+  void convertStoichiometryMath ();
+
+  /** @endcond doxygen-libsbml-internal */
+  /** @cond doxygen-libsbml-internal */
   
   /*
    * Sets the parent SBMLDocument of this SBML object.

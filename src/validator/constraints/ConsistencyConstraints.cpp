@@ -1734,9 +1734,20 @@ START_CONSTRAINT (20901, AssignmentRule, r)
 
   const string& id = r.getVariable();
 
-  inv_or( m.getCompartment(id) );
-  inv_or( m.getSpecies    (id) );
-  inv_or( m.getParameter  (id) );
+  if (r.getLevel() < 3)
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+  }
+  else
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+    inv_or( m.getSpeciesReference  (id) );
+
+  }
 }
 END_CONSTRAINT
 

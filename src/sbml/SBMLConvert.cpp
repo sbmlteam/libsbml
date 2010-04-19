@@ -72,6 +72,8 @@ Model::convertL2ToL3 ()
   addDefinitionsForDefaultUnits();
 
   setSpeciesReferenceConstantValue();
+
+  convertStoichiometryMath();
 }
 
 
@@ -622,6 +624,72 @@ Model::removeSBOTermsNotInL2V2()
     }
   }
 
+}
+
+void
+Model::convertStoichiometryMath()
+{
+  unsigned int n, j;
+  Reaction * r;
+  SpeciesReference *sr;
+  unsigned int idCount = 0;
+  char newid[15];
+  std::string id;
+
+  for (n = 0; n < getNumReactions(); n++)
+  {
+    r = getReaction(n);
+    for (j = 0; j < r->getNumReactants(); j++)
+    {
+      sr = r->getReactant(j);
+      if (sr->isSetStoichiometryMath())
+      {
+        if (!sr->isSetId())
+        {
+          sprintf(newid, "generatedId_%u", idCount);
+          id.assign(newid);
+          sr->setId(id);
+          idCount++;
+        }
+        else
+        {
+          id = sr->getId();
+        }
+
+        AssignmentRule * ar = createAssignmentRule();
+        ar->setVariable(id);
+        if (sr->getStoichiometryMath()->isSetMath())
+        {
+          ar->setMath(sr->getStoichiometryMath()->getMath());
+        }
+      }
+    }
+    for (j = 0; j < r->getNumProducts(); j++)
+    {
+      sr = r->getProduct(j);
+      if (sr->isSetStoichiometryMath())
+      {
+        if (!sr->isSetId())
+        {
+          sprintf(newid, "generatedId_%u", idCount);
+          id.assign(newid);
+          sr->setId(id);
+          idCount++;
+        }
+        else
+        {
+          id = sr->getId();
+        }
+
+        AssignmentRule * ar = createAssignmentRule();
+        ar->setVariable(id);
+        if (sr->getStoichiometryMath()->isSetMath())
+        {
+          ar->setMath(sr->getStoichiometryMath()->getMath());
+        }
+      }
+    }
+  }
 }
 
 //bool
