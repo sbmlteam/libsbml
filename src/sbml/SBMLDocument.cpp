@@ -2323,26 +2323,26 @@ void
 SBMLDocument::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
-  std::vector<std::string> expectedAttributes;
-  expectedAttributes.clear();
-  expectedAttributes.push_back("level");
-  expectedAttributes.push_back("version");
-  expectedAttributes.push_back("metaid");
-  expectedAttributes.push_back("schemaLocation");
-  if (getLevel() > 2)
-    expectedAttributes.push_back("required");
+  //std::vector<std::string> expectedAttributes;
+  //expectedAttributes.clear();
+  //expectedAttributes.push_back("level");
+  //expectedAttributes.push_back("version");
+  //expectedAttributes.push_back("metaid");
+  //expectedAttributes.push_back("schemaLocation");
+  //if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
+  //  expectedAttributes.push_back("sboTerm");
 
-  // check that all attributes are expected
-  for (int i = 0; i < attributes.getLength(); i++)
-  {
-    std::vector<std::string>::const_iterator end = expectedAttributes.end();
-    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
-    std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
-    {
-      logUnknownAttribute(name, getLevel(), getVersion(), "<sbml>");
-    }
-  }
+  //// check that all attributes are expected
+  //for (int i = 0; i < attributes.getLength(); i++)
+  //{
+  //  std::vector<std::string>::const_iterator end = expectedAttributes.end();
+  //  std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+  //  std::string name = attributes.getName(i);
+  //  if (std::find(begin, end, name) == end)
+  //  {
+  //    logUnknownAttribute(name, getLevel(), getVersion(), "<sbml>");
+  //  }
+  //}
 
 
   //
@@ -2358,6 +2358,28 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("version", mVersion, getErrorLog(), false);
   
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("level");
+  expectedAttributes.push_back("version");
+  expectedAttributes.push_back("metaid");
+  expectedAttributes.push_back("schemaLocation");
+  if ((getLevel() == 2 && getVersion() > 2) || getLevel() > 2)
+    expectedAttributes.push_back("sboTerm");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      logUnknownAttribute(name, getLevel(), getVersion(), "<sbml>");
+    }
+  }
+
+
   /* check that the level and version are valid */
   if (mLevel == 1)
   {

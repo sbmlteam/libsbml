@@ -3073,6 +3073,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnListOfFuncs, level,
         version, msg.str());
     }
+    else if (element == "<sbml>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnSBML, level,
+        version, msg.str());
+    }
     else if (element == "<listOfUnitDefinitions>")
     {
       getErrorLog()->logError(AllowedAttributesOnListOfUnitDefs, level,
@@ -3220,7 +3225,7 @@ SBase::logUnknownAttribute( string attribute,
     }
     else if (element == "<kineticLaw>")
     {
-      getErrorLog()->logError(eeeFIX_ME, level,
+      getErrorLog()->logError(AllowedAttributesOnKineticLaw, level,
         version, msg.str());
     }
     else if (element == "<localParameter>")

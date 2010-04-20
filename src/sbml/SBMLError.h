@@ -692,7 +692,7 @@ typedef enum
  , LevelPositiveInteger                  = 20105
  , VersionPositiveInteger                = 20106
  , cc                                    = 20107
- , dd                                    = 20108
+ , AllowedAttributesOnSBML               = 20108
  , MissingModel                          = 20201 /*!< Missing model */
  , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components in model definition */
  , EmptyListElement                      = 20203 /*!< A given <code>listOf___</code>, if present, cannot be empty */
@@ -834,7 +834,7 @@ typedef enum
  , AllowedAttributesOnListOfLocalParam   = 21129
  , OneMathPerKineticLaw                  = 21130
  , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula */
- , eeeFIX_ME                                   = 21132
+ , AllowedAttributesOnKineticLaw         = 21132
  , AllowedAttributesOnListOfSpeciesRef   = 21150
  , AllowedAttributesOnListOfMods         = 21151
  , AllowedAttributesOnLocalParameter     = 21172

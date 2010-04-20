@@ -2235,7 +2235,7 @@ static const sbmlErrorTableEntry errorTable[] =
 
   //20108
   {
-    dd,
+    AllowedAttributesOnSBML,
     "",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2245,13 +2245,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "",
+    "The sbml object may have the optional attributes metaid and sboTerm.",
     {"",
      "",
      "",
      "",
      "",
-     "L3V1 Section"}
+     "L3V1 Section 4.1"}
   },
 
   //20201
@@ -5542,7 +5542,7 @@ static const sbmlErrorTableEntry errorTable[] =
 
   //21132
   {
-    eeeFIX_ME,
+    AllowedAttributesOnKineticLaw,
     "Invalid attribute on <kineticLaw>",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
