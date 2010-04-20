@@ -1797,9 +1797,19 @@ START_CONSTRAINT (20902, RateRule, r)
 
   const string& id = r.getVariable();
 
-  inv_or( m.getCompartment(id) );
-  inv_or( m.getSpecies    (id) );
-  inv_or( m.getParameter  (id) );
+  if (r.getLevel() < 3)
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+  }
+  else
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+    inv_or( m.getSpeciesReference  (id) );
+  }
 }
 END_CONSTRAINT
 
@@ -1821,12 +1831,25 @@ START_CONSTRAINT (20903, AssignmentRule, r)
   const Compartment* c = m.getCompartment(id);
   const Species*     s = m.getSpecies    (id);
   const Parameter*   p = m.getParameter  (id);
+  const SpeciesReference* sr = m.getSpeciesReference(id);
 
-  pre( c || s || p );
+  if (r.getLevel() < 3)
+  {
+    pre( c || s || p );
 
-  inv_or( c && c->getConstant() == false );
-  inv_or( s && s->getConstant() == false );
-  inv_or( p && p->getConstant() == false );
+    inv_or( c && c->getConstant() == false );
+    inv_or( s && s->getConstant() == false );
+    inv_or( p && p->getConstant() == false );
+  }
+  else
+  {
+    pre( c || s || p || sr);
+
+    inv_or( c && c->getConstant() == false );
+    inv_or( s && s->getConstant() == false );
+    inv_or( p && p->getConstant() == false );
+    inv_or( sr && sr->getConstant() == false );
+  }
 }
 END_CONSTRAINT
 
@@ -1848,12 +1871,25 @@ START_CONSTRAINT (20904, RateRule, r)
   const Compartment* c = m.getCompartment(id);
   const Species*     s = m.getSpecies    (id);
   const Parameter*   p = m.getParameter  (id);
+  const SpeciesReference* sr = m.getSpeciesReference(id);
 
-  pre( c || s || p );
+  if (r.getLevel() < 3)
+  {
+    pre( c || s || p );
 
-  inv_or( c && c->getConstant() == false );
-  inv_or( s && s->getConstant() == false );
-  inv_or( p && p->getConstant() == false );
+    inv_or( c && c->getConstant() == false );
+    inv_or( s && s->getConstant() == false );
+    inv_or( p && p->getConstant() == false );
+  }
+  else
+  {
+    pre( c || s || p || sr);
+
+    inv_or( c && c->getConstant() == false );
+    inv_or( s && s->getConstant() == false );
+    inv_or( p && p->getConstant() == false );
+    inv_or( sr && sr->getConstant() == false );
+  }
 }
 END_CONSTRAINT
 
