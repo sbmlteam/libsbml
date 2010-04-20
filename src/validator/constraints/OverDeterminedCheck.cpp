@@ -187,7 +187,7 @@ OverDeterminedCheck::writeEquationVertexes(const Model& m)
 void
 OverDeterminedCheck::writeVariableVertexes(const Model& m)
 {
-  unsigned int n;
+  unsigned int n, k;
 
   for (n = 0; n < m.getNumCompartments(); n++)
   {
@@ -230,6 +230,27 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
     if (m.getReaction(n)->isSetKineticLaw())
     {
       mVariables.append(m.getReaction(n)->getId());
+    }
+    if (m.getLevel() > 2)
+    {
+      /* in L3 stoichiometry could be altered by rules
+       * so these need to be included
+       * where a speciesReference is marked as false
+       */
+      for (k = 0; k < m.getReaction(n)->getNumReactants(); k++)
+      {
+        if (m.getReaction(n)->getReactant(k)->getConstant() == false )
+        {
+          mVariables.append(m.getReaction(n)->getReactant(k)->getId());
+        }
+      }
+      for (k = 0; k < m.getReaction(n)->getNumProducts(); k++)
+      {
+        if (m.getReaction(n)->getProduct(k)->getConstant() == false )
+        {
+          mVariables.append(m.getReaction(n)->getProduct(k)->getId());
+        }
+      }
     }
   }
 }
@@ -566,8 +587,15 @@ OverDeterminedCheck::findMatching()
       for (n = 0; n < unmatch.size(); n++)
       {
         maximal = Recurse(unmatch.at(n));
+        if (maximal == 2) break;
       }
     }
+  }
+
+  if (maximal == 2)
+  {
+    // we have a flip flopping set of matches
+    unmatchedEquations.append(mMatching[unmatch.at(n)].at(0));
   }
   return unmatchedEquations;
 
@@ -581,6 +609,11 @@ OverDeterminedCheck::findMatching()
 unsigned int
 OverDeterminedCheck::Recurse(std::string v)
 {
+  static IdList visited;
+  if (!visited.contains(v))
+    visited.append(v);
+  else
+    return 2;
   unsigned int rec = 0;
   unsigned int n;
   IdList tempVarNeigh;

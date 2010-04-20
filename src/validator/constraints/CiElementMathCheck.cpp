@@ -129,14 +129,19 @@ CiElementMathCheck::checkCiElement (const Model& m,
   if (!mLocalParameters.contains(name))
   {
     bool allowReactionId = true;
+    bool allowSpeciesRef = false;
 
     if ( (m.getLevel() == 2) && (m.getVersion() == 1) )
       allowReactionId = false;
 
+    if (m.getLevel() > 2)
+      allowSpeciesRef = true;
+
     if (!m.getCompartment(name) &&
         !m.getSpecies(name)     &&
         !m.getParameter(name)   &&
-        (!allowReactionId || !m.getReaction(name))  )
+        (!allowReactionId || !m.getReaction(name)) &&
+        (!allowSpeciesRef || !m.getSpeciesReference(name)) )
     {
       /* check whether we are in a kinetic law since there
       * may be local parameters
