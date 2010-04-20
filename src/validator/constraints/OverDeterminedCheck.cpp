@@ -609,17 +609,17 @@ OverDeterminedCheck::findMatching()
 unsigned int
 OverDeterminedCheck::Recurse(std::string v)
 {
+  static graph revisited;
   static IdList visited;
-  if (!visited.contains(v))
-    visited.append(v);
-  else
-    return 2;
+  //else
+  //  return 2;
   unsigned int rec = 0;
   unsigned int n;
   IdList tempVarNeigh;
   IdList tempEqnNeigh;
   IdList L;
   IdList pu;
+  IdList prev;
 
   graph::iterator iter;
 
@@ -654,8 +654,43 @@ OverDeterminedCheck::Recurse(std::string v)
 
         if (pu.size() == 1 && !strcmp(pu.at(0).c_str(), "unmatched"))
         {
-          mMatching[v] = L;
-          rec = 1;
+          /* look to see if variable has been here before
+           * in order t catch variables that are flip flopping
+           * between equations
+           */
+          bool repeat = false;
+          if (!visited.contains(v))
+          {
+            visited.append(v);
+            revisited[v] = L;
+          }
+          else
+          {
+            prev = revisited[v];
+            unsigned int i;
+            for (i = 0; i < L.size(); i++)
+            {
+              if (prev.contains(L.at(i)))
+              {
+                repeat = true;
+              }
+              else
+              {
+                prev.append(L.at(i));
+              }
+              if (repeat) break;
+            }
+          }
+          if (!repeat)
+          {
+            mMatching[v] = L;
+            rec = 1;
+          }
+          else
+          {
+            rec = 2;
+            return rec;
+          }
         }
         else if (Recurse(pu.at(0)))
         {
