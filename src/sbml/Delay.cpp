@@ -521,9 +521,14 @@ Delay::readL2Attributes (const XMLAttributes& attributes)
     std::vector<std::string>::const_iterator end = expectedAttributes.end();
     std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
     std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
+    std::string prefix = attributes.getPrefix(i);
+    // only check attributes in the sbml namespace   
+    if (prefix.empty() || prefix == "sbml")
     {
-      logUnknownAttribute(name, level, version, "<delay>");
+      if (std::find(begin, end, name) == end)
+      {
+        logUnknownAttribute(name, level, version, "<delay>");
+      }
     }
   }
 
@@ -560,9 +565,14 @@ Delay::readL3Attributes (const XMLAttributes& attributes)
     std::vector<std::string>::const_iterator end = expectedAttributes.end();
     std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
     std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
+    std::string prefix = attributes.getPrefix(i);
+    // only check attributes in the sbml namespace   
+    if (prefix.empty() || prefix == "sbml")
     {
-      logUnknownAttribute(name, level, version, "<delay>");
+      if (std::find(begin, end, name) == end)
+      {
+        logUnknownAttribute(name, level, version, "<delay>");
+      }
     }
   }
 

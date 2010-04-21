@@ -940,9 +940,14 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     std::vector<std::string>::const_iterator end = expectedAttributes.end();
     std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
     std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
+    std::string prefix = attributes.getPrefix(i);
+    // only check attributes in the sbml namespace   
+    if (prefix.empty() || prefix == "sbml")
     {
-      logUnknownAttribute(name, level, version, "<rule>");
+      if (std::find(begin, end, name) == end)
+      {
+        logUnknownAttribute(name, level, version, "<rule>");
+      }
     }
   }
 
@@ -1035,9 +1040,14 @@ Rule::readL2Attributes (const XMLAttributes& attributes)
     std::vector<std::string>::const_iterator end = expectedAttributes.end();
     std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
     std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
+    std::string prefix = attributes.getPrefix(i);
+    // only check attributes in the sbml namespace   
+    if (prefix.empty() || prefix == "sbml")
     {
-      logUnknownAttribute(name, level, version, "<rule>");
+      if (std::find(begin, end, name) == end)
+      {
+        logUnknownAttribute(name, level, version, "<rule>");
+      }
     }
   }
 
@@ -1089,15 +1099,20 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
     std::vector<std::string>::const_iterator end = expectedAttributes.end();
     std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
     std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
+    std::string prefix = attributes.getPrefix(i);
+    // only check attributes in the sbml namespace   
+    if (prefix.empty() || prefix == "sbml")
     {
-      if (isAssignment())
-        logUnknownAttribute(name, level, version, "<assignmentRule>");
-      else if (isRate())
-        logUnknownAttribute(name, level, version, "<rateRule>");
-      else
-        logUnknownAttribute(name, level, version, "<algebraicRule>");
+      if (std::find(begin, end, name) == end)
+      {
+        if (isAssignment())
+          logUnknownAttribute(name, level, version, "<assignmentRule>");
+        else if (isRate())
+          logUnknownAttribute(name, level, version, "<rateRule>");
+        else
+          logUnknownAttribute(name, level, version, "<algebraicRule>");
 
+      }
     }
   }
 

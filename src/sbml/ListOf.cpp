@@ -408,10 +408,15 @@ ListOf::readAttributes (const XMLAttributes& attributes)
     std::vector<std::string>::const_iterator end = expectedAttributes.end();
     std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
     std::string name = attributes.getName(i);
-    if (std::find(begin, end, name) == end)
+    std::string prefix = attributes.getPrefix(i);
+    // only check attributes in the sbml namespace   
+    if (prefix.empty() || prefix == "sbml")
     {
-      std::string component = "<" + getElementName() + ">";
-      logUnknownAttribute(name, level, version, component);
+      if (std::find(begin, end, name) == end)
+      {
+        std::string component = "<" + getElementName() + ">";
+        logUnknownAttribute(name, level, version, component);
+      }
     }
   }
 
