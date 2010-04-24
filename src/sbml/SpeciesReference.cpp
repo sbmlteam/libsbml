@@ -58,8 +58,6 @@ SimpleSpeciesReference::SimpleSpeciesReference (unsigned int level,
  , mName   ( "" )
  , mSpecies( "" )
 {
-  if (!hasValidLevelVersionNamespaceCombination())
-    throw SBMLConstructorException();
 }
 
 
@@ -610,6 +608,9 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
  , mIsSetConstant        (false)
  , mIsSetStoichiometry   (false)
 {
+
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 
   // if level 3 values have no defaults
   if (level == 3)

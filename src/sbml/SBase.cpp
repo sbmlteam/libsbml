@@ -2550,6 +2550,17 @@ SBase::hasValidLevelVersionNamespaceCombination()
 
   SBMLTypeCode_t typecode = getTypeCode();
 
+  /* Ralph pointed out that calling a virtual function here 
+   * since this function is called from constructors could lead to problems
+   * I know SBMLTypeCode is an issue for libsbml-5 so for now I'm leaving
+   * it with a catch in case the type code is unknown
+   */
+  if (typecode == SBML_UNKNOWN)
+  {
+    valid = false;
+    return valid;
+  }
+
   switch (getLevel())
   {
     case 1:
