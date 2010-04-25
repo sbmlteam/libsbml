@@ -84,13 +84,15 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
       if test ${OSX_ARCH_I386} = "no"; then
         AC_MSG_RESULT(no)
-        AC_MSG_ERROR([libSBML needs to be built with a 32bit (i386) binary because your 
-                      Matlab is 32bit version (By default, only 64bit (x86_64) binary is 
-                      compiled by g++ on Snow Leopard). 
-                      Please add --enable-universal-binary="-arch i386 -arch x86_64" option 
-                      when running the configure script.  
-                      If you get a compilation error, please check if a dependent library 
-                      (expat, libxml, or xerces) is built with a 32bit (i386) binary.])
+        AC_MSG_ERROR([libSBML needs to be built explicitly to include a 32-bit (i386) version, 
+                      because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
+	 	      (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
+                            --enable-universal-binary="-arch i386 -arch x86_64" 
+                      to your configure options, re-run the configure step, and recompile.  If
+                      you get a compilation error, please check whether you have a private 
+                      version of a dependent library (e.g., expat, libxml, or xerces) that was 
+                      built only as a 32-bit version, and either remove or recompile it before
+	              proceeding future.])
       else
         AC_MSG_RESULT(yes)
       fi
