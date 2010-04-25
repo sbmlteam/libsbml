@@ -56,7 +56,17 @@ AC_DEFUN([CONFIG_LIB_UNIVBINARY],
       CFLAGS="${CFLAGS} $enable_univbinary"
       CXXFLAGS="${CXXFLAGS} $enable_univbinary"
     else
-      default_OPTS="-arch i386 -arch ppc"
+      dnl If we're on Snow Leopard, build 64-bit versions of the binaries in
+      dnl addition to PPC versions, because Snow Leopard builds everything
+      dnl else in 64-bit by default.  This makes libSBML more compatible.
+
+      OSX_MAJOR_VER=`uname -r | awk -F. '{print $1}'`
+      if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
+	default_OPTS="-arch i386 -arch x86_64 -arch ppc -arch ppc64"
+      elif expr ${OSX_MAJOR_VER} \>= 9 | grep -q 1; then
+	default_OPTS="-arch i386 -arch ppc"
+      fi
+
       LDFLAGS="${LDFLAGS} ${default_OPTS}"
       CFLAGS="${CFLAGS} ${default_OPTS}"
       CXXFLAGS="${CXXFLAGS} ${default_OPTS}"
