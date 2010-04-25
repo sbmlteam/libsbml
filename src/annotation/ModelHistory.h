@@ -1088,7 +1088,7 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * name);
 
 LIBSBML_EXTERN
 int 
-ModelCreator_setOrganisation(ModelCreator_t *mc, char * name);
+ModelCreator_setOrganisation(ModelCreator_t *mc, char * org);
 
 LIBSBML_EXTERN
 int 
