@@ -39,13 +39,15 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
+extern char *TestDataDirectory;
+
+
 bool
 equalDouble (double a, double b)
 {
   return (fabs(a-b) < sqrt(__DBL_EPSILON__));
 }
 
-extern char *TestDataDirectory;
 
 START_TEST (test_SBMLTransforms_replaceFD)
 {
