@@ -11,3 +11,4 @@ libsbml.pc
 makefile-common-vars.mk
 mkoctfile_wrapper.sh
 lt_link_helper.sh
+chk_swig_version.sh
