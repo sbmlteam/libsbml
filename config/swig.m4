@@ -31,7 +31,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
   AC_ARG_WITH([swig],
     AC_HELP_STRING([--with-swig=PREFIX],
-	           [Regenerate SWIG wrappers [[default=if needed]]]),
+	           [Regenerate SWIG wrappers [[default=if_needed]]]),
     [with_swig=$withval],
     [with_swig=no])
 
