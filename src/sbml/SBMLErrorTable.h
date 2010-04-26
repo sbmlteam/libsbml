@@ -2212,27 +2212,6 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 3.1.4"}
   },
 
-  //20107
-  {
-    cc,
-    "",
-    LIBSBML_CAT_SBML,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "",
-    {"",
-     "",
-     "",
-     "",
-     "",
-     "L3V1 Section"}
-  },
-
   //20108
   {
     AllowedAttributesOnSBML,

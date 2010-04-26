@@ -691,7 +691,6 @@ typedef enum
  , PackageNSMustMatch                    = 20104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , LevelPositiveInteger                  = 20105
  , VersionPositiveInteger                = 20106
- , cc                                    = 20107
  , AllowedAttributesOnSBML               = 20108
  , MissingModel                          = 20201 /*!< Missing model */
  , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components in model definition */
