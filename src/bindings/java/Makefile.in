@@ -259,59 +259,39 @@ $(outpath)/libsbml.class: libsbml_wrap.cpp
 # in the creation of the .java files too -- both are made by running swig.
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources)
-ifdef USE_SWIG
+	@top_srcdir@/config/chk_swig_version.sh || exit
 	test -d $(outpath) || mkdir -p $(outpath)
-	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
+	"$(SWIG)" $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -java -package $(java_package) \
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
-else
-	@echo
-	@echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
-	@echo "and the files in the java-files directory."
-	@echo
-	@exit 1
-endif
 
 javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py
 	../swig/swigdoc.py java -I../.. -D../../../docs/src ../swig/libsbml.i javadoc.i
 
-# If USE_SWIG is *not* in effect, things get tricky.  If the last run was
-# made with --enable-layout and this one isn't, or vice-versa, the swig
-# wrap files will be wrong for this run.  However, you can't tell just by
-# looking at file mod times, so you can't use normal make dependencies.  So
-# we do this grungy trick of looking at the file to see what's inside.
+# If the last run was made with --enable-layout and this one isn't, or
+# vice-versa, the swig wrap files will be wrong for this run.  However, you
+# can't tell just by looking at file mod times, so you can't use normal
+# make dependencies.  So we do this grungy trick of looking at the file to
+# see what's inside.
 
 recreate_java_files:;
-ifdef USE_SWIG
-	$(MAKE) -$(MAKEFLAGS) clean-swigfiles $(outpath)
-else
-  ifdef USE_LAYOUT
+ifdef USE_LAYOUT
 	@if test -z "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
-	  echo ;\
-	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
-	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
-	  echo ;\
-	  exit 1; \
+	  $(MAKE) -$(MAKEFLAGS) clean-swigfiles $(outpath); \
 	else \
 	  $(MAKE) -$(MAKEFLAGS) $(outpath); \
 	fi
-  else  # not USE_LAYOUT
+else  # not USE_LAYOUT
 	@if test -n "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
-	  echo ;\
-	  echo "The existing libsbml_wrap.cpp file contains the layout code."; \
-	  echo "Reconfigure --with-swig to correct this."; \
-	  echo ;\
-	  exit 1; \
+	  $(MAKE) -$(MAKEFLAGS) clean-swigfiles $(outpath); \
 	else \
 	  $(MAKE) -$(MAKEFLAGS) $(outpath); \
 	fi
-  endif # USE_LAYOUT  
-endif #USE_SWIG
+endif # USE_LAYOUT  
 
 
 clean-swigfiles: clean
 	-rm -rf $(outdir) libsbml_wrap.cpp 
-
 
 # -----------------------------------------------------------------------------
 # Checking.

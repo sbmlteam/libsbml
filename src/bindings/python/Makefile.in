@@ -207,30 +207,27 @@ swig-prereq:
 
 else # not USE_SWIG
 
-# If USE_SWIG is *not* in effect, things get tricky.  If the last run was
-# made with --enable-layout and this one isn't, or vice-versa, the swig
-# wrap files will be wrong for this run.  However, you can't tell just by
-# looking at file mod times, so you can't use normal make dependencies.  So
-# we do this grungy trick of looking at the file to see what's inside.
+# If the last run was made with --enable-layout and this one isn't, or
+# vice-versa, the swig wrap files will be wrong for this run.  However, you
+# can't tell just by looking at file mod times, so you can't use normal
+# make dependencies.  So we do this grungy trick of looking at the file to
+# see what's inside.
 
-ifdef USE_LAYOUT
 swig-prereq:
+ifdef USE_LAYOUT
 	@if test -z "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
-	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
-	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
-	  exit 1; \
+	  $(MAKE) swigfiles; \
 	else \
 	  $(MAKE) libsbml_wrap.cpp libsbml.py; \
 	fi
-
 else # not USE_LAYOUT
-swig-prereq:
 	@if test -n "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
 	  $(MAKE) swigfiles; \
 	else \
 	  $(MAKE) libsbml_wrap.cpp libsbml.py; \
 	fi
 endif # USE_LAYOUT
+
 endif # USE_SWIG
 
 # The next target is for forcing re-swigging.
@@ -249,7 +246,7 @@ endif # USE_SWIG
 #
 
 swigfiles:
-ifdef USE_SWIG
+	@top_srcdir@/config/chk_swig_version.sh || exit
 	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
@@ -258,15 +255,11 @@ ifdef USE_SWIG
 	echo 'from __future__ import generators' > libsbml.py
 	cat libsbml.pyc >> libsbml.py
 	if $(SWIG) -version | grep -q '1.3.39' ; then \
-	mv libsbml_wrap.cpp libsbml_wrap.cpp.org; \
-	sed -e \
-	's/PyBytes_AsStringAndSize(str, \&cstr, \&len);/PyBytes_AsStringAndSize(str, \&cstr, (Py_ssize_t*)\&len);/' \
-	libsbml_wrap.cpp.org > libsbml_wrap.cpp; \
+	  mv libsbml_wrap.cpp libsbml_wrap.cpp.org; \
+	  sed -e \
+	  's/PyBytes_AsStringAndSize(str, \&cstr, \&len);/PyBytes_AsStringAndSize(str, \&cstr, (Py_ssize_t*)\&len);/' \
+	  libsbml_wrap.cpp.org > libsbml_wrap.cpp; \
 	fi 	
-else
-	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
-	exit 1
-endif
 
 # The following are the normal dependency rules.
 

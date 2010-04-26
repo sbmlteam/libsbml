@@ -923,6 +923,7 @@ SWIGFLAGS
 SWIG_CPPFLAGS
 SWIG_LDFLAGS
 SWIG_LIBS
+SWIGNEEDVERSION
 DOXYGEN_CONFIG_OPT
 DOXYGEN
 USE_DOXYGEN
@@ -4562,7 +4563,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 4565 "configure"' > conftest.$ac_ext
+  echo '#line 4566 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7211,11 +7212,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7214: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7215: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7218: \$? = $ac_status" >&5
+   echo "$as_me:7219: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7501,11 +7502,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7504: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7505: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7508: \$? = $ac_status" >&5
+   echo "$as_me:7509: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7605,11 +7606,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7608: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7609: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7612: \$? = $ac_status" >&5
+   echo "$as_me:7613: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -9969,7 +9970,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9972 "configure"
+#line 9973 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10069,7 +10070,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 10072 "configure"
+#line 10073 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12474,11 +12475,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12477: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12478: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:12481: \$? = $ac_status" >&5
+   echo "$as_me:12482: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -12578,11 +12579,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12581: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12582: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:12585: \$? = $ac_status" >&5
+   echo "$as_me:12586: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -14161,11 +14162,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14164: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14165: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:14168: \$? = $ac_status" >&5
+   echo "$as_me:14169: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -14265,11 +14266,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14268: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14269: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:14272: \$? = $ac_status" >&5
+   echo "$as_me:14273: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -16476,11 +16477,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16479: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16480: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16483: \$? = $ac_status" >&5
+   echo "$as_me:16484: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16766,11 +16767,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16769: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16770: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16773: \$? = $ac_status" >&5
+   echo "$as_me:16774: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16870,11 +16871,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16873: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16874: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16877: \$? = $ac_status" >&5
+   echo "$as_me:16878: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -22798,50 +22799,6 @@ fi
     fi
 
 
-    if test -z "$SWIG" -o "$SWIG" = "no"; then
-      { { echo "$as_me:$LINENO: error: Could not find \`swig' executable." >&5
-echo "$as_me: error: Could not find \`swig' executable." >&2;}
-   { (exit 1); exit 1; }; }
-    fi
-
-
-
-      { echo "$as_me:$LINENO: checking $SWIG version >= 1.3.39" >&5
-echo $ECHO_N "checking $SWIG version >= 1.3.39... $ECHO_C" >&6; }
-
-
-
-      rx=`echo 1.3.39 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
-      ry=`echo 1.3.39 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
-      rz=`echo 1.3.39 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
-
-      version=`"$SWIG" -version | tr -d '\015'`
-
-      sx=`echo $version | sed -e 's/SWIG Version \([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
-      sy=`echo $version | sed -e 's/SWIG Version \([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
-      sz=`echo $version | sed -e 's/SWIG Version \([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
-
-
-
-      if test $sx -gt $rx \
-         || (test $sx -eq $rx && test $sy -gt $ry) \
-         || (test $sx -eq $rx && test $sy -eq $ry && test $sz -ge $rz); then
-        { echo "$as_me:$LINENO: result: yes (found $sx.$sy.$sz)" >&5
-echo "${ECHO_T}yes (found $sx.$sy.$sz)" >&6; }
-
-
-        SWIGLIB=`"$SWIG" -swiglib`
-      else
-        { echo "$as_me:$LINENO: result: no" >&5
-echo "${ECHO_T}no" >&6; }
-        { { echo "$as_me:$LINENO: error: Need SWIG version 1.3.39, but only found version $sx.$sy.$sz." >&5
-echo "$as_me: error: Need SWIG version 1.3.39, but only found version $sx.$sy.$sz." >&2;}
-   { (exit 1); exit 1; }; }
-      fi
-
-
-
-
 
 cat >>confdefs.h <<\_ACEOF
 #define USE_SWIG 1
@@ -22857,7 +22814,17 @@ _ACEOF
 
 
 
+  else
+        SWIG=swig
+
   fi
+
+
+  SWIGNEEDVERSION=1.3.39
+
+
+
+
 
 
   LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_SWIG"
@@ -26993,11 +26960,13 @@ _ACEOF
 
 
 
-ac_config_files="$ac_config_files config/lt_link_helper.sh"
-
 ac_config_files="$ac_config_files config/makefile-common-vars.mk"
 
+ac_config_files="$ac_config_files config/lt_link_helper.sh"
+
 ac_config_files="$ac_config_files config/mkoctfile_wrapper.sh"
+
+ac_config_files="$ac_config_files config/chk_swig_version.sh"
 
 ac_config_files="$ac_config_files ./Makefile"
 
@@ -27733,9 +27702,10 @@ do
     "src/common/libsbml-config-unix.h") CONFIG_HEADERS="$CONFIG_HEADERS src/common/libsbml-config-unix.h" ;;
     "src/common/libsbml-package.h") CONFIG_HEADERS="$CONFIG_HEADERS src/common/libsbml-package.h" ;;
     "src/common/libsbml-namespace.h") CONFIG_HEADERS="$CONFIG_HEADERS src/common/libsbml-namespace.h" ;;
-    "config/lt_link_helper.sh") CONFIG_FILES="$CONFIG_FILES config/lt_link_helper.sh" ;;
     "config/makefile-common-vars.mk") CONFIG_FILES="$CONFIG_FILES config/makefile-common-vars.mk" ;;
+    "config/lt_link_helper.sh") CONFIG_FILES="$CONFIG_FILES config/lt_link_helper.sh" ;;
     "config/mkoctfile_wrapper.sh") CONFIG_FILES="$CONFIG_FILES config/mkoctfile_wrapper.sh" ;;
+    "config/chk_swig_version.sh") CONFIG_FILES="$CONFIG_FILES config/chk_swig_version.sh" ;;
     "./Makefile") CONFIG_FILES="$CONFIG_FILES ./Makefile" ;;
     "libsbml.spec") CONFIG_FILES="$CONFIG_FILES libsbml.spec" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
@@ -28064,6 +28034,7 @@ SWIGFLAGS!$SWIGFLAGS$ac_delim
 SWIG_CPPFLAGS!$SWIG_CPPFLAGS$ac_delim
 SWIG_LDFLAGS!$SWIG_LDFLAGS$ac_delim
 SWIG_LIBS!$SWIG_LIBS$ac_delim
+SWIGNEEDVERSION!$SWIGNEEDVERSION$ac_delim
 DOXYGEN_CONFIG_OPT!$DOXYGEN_CONFIG_OPT$ac_delim
 DOXYGEN!$DOXYGEN$ac_delim
 USE_DOXYGEN!$USE_DOXYGEN$ac_delim
@@ -28100,7 +28071,7 @@ LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 90; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 91; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -28503,6 +28474,7 @@ echo "$as_me: $ac_file is unchanged" >&6;}
   case $ac_file$ac_mode in
     "config/lt_link_helper.sh":F) chmod a+x config/lt_link_helper.sh ;;
     "config/mkoctfile_wrapper.sh":F) chmod a+x config/mkoctfile_wrapper.sh ;;
+    "config/chk_swig_version.sh":F) chmod a+x config/chk_swig_version.sh ;;
     "macosx/build.sh":F) chmod a+x macosx/build.sh ;;
 
   esac

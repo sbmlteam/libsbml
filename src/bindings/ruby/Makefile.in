@@ -210,37 +210,30 @@ else # not USE_SWIG
 # looking at file mod times, so you can't use normal make dependencies.  So
 # we do this grungy trick of looking at the file to see what's inside.
 
-ifdef USE_LAYOUT
 swig-prereq:
+ifdef USE_LAYOUT
 	@if test -z "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
-	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
-	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
-	  exit 1; \
+	  $(MAKE) -$(MAKEFLAGS) swigfiles; \
 	else \
 	  $(MAKE) -$(MAKEFLAGS) libsbml_wrap.cpp; \
 	fi
-
 else # not USE_LAYOUT
-swig-prereq:
 	@if test -n "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
 	  $(MAKE) -$(MAKEFLAGS) swigfiles; \
 	else \
 	  $(MAKE) -$(MAKEFLAGS) libsbml_wrap.cpp; \
 	fi
 endif # USE_LAYOUT
+
 endif # USE_SWIG
 
 # The next target is for forcing re-swigging.
 
 swigfiles:
-ifdef USE_SWIG
+	@top_srcdir@/config/chk_swig_version.sh || exit
 	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -ruby -o libsbml_wrap.cpp libsbml.i
-else
-	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
-	exit 1
-endif
 
 # The following are the normal dependency rules.
 

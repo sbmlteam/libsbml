@@ -235,7 +235,8 @@ distfiles =                         \
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
 	src/common/config.h src/common/stamp-h1 config/lt_link_helper.sh \
-	config/mkoctfile_wrapper.sh libtool doltlibtool doltcompile
+	config/mkoctfile_wrapper.sh libtool doltlibtool doltcompile \
+	config/makefile-common-vars.mk config/chk_swig_version.sh
 
 # It's safer to remove and recreate the copy of the include files (in the
 # 'include' directory) after a make clean.  Previously we did it in a make

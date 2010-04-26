@@ -314,9 +314,10 @@ dnl ---------------------------------------------------------------------------
 dnl Output
 dnl ---------------------------------------------------------------------------
 
-AC_CONFIG_FILES([config/lt_link_helper.sh], [chmod a+x config/lt_link_helper.sh])
 AC_CONFIG_FILES([config/makefile-common-vars.mk])
+AC_CONFIG_FILES([config/lt_link_helper.sh], [chmod a+x config/lt_link_helper.sh])
 AC_CONFIG_FILES([config/mkoctfile_wrapper.sh], [chmod a+x config/mkoctfile_wrapper.sh])
+AC_CONFIG_FILES([config/chk_swig_version.sh], [chmod a+x config/chk_swig_version.sh])
 AC_CONFIG_FILES([./Makefile])
 
 AC_CONFIG_FILES([libsbml.spec])
