@@ -53,57 +53,34 @@ AC_DEFUN([CONFIG_PROG_SWIG],
       AC_PATH_PROG([SWIG], [swig])
     fi
 
-    dnl Sanity checks.
-
-    if test -z "$SWIG" -o "$SWIG" = "no"; then
-      AC_MSG_ERROR([Could not find `swig' executable.])
-    fi    
-
-    dnl Check the version if required.
-
-    m4_ifvaln([$1], [
-      AC_MSG_CHECKING($SWIG version >= $1)
-
-      changequote(<<, >>)
-
-      rx=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
-      ry=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
-      rz=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
-	
-      version=`"$SWIG" -version | tr -d '\015'`
-
-      sx=`echo $version | sed -e 's/SWIG Version \([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
-      sy=`echo $version | sed -e 's/SWIG Version \([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
-      sz=`echo $version | sed -e 's/SWIG Version \([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
-
-      changequote([, ])
-
-      if test $sx -gt $rx \
-         || (test $sx -eq $rx && test $sy -gt $ry) \
-         || (test $sx -eq $rx && test $sy -eq $ry && test $sz -ge $rz); then
-        AC_MSG_RESULT(yes (found $sx.$sy.$sz))
-
-        dnl Now ask swig for the list of libraries that it wants.
-
-        SWIGLIB=`"$SWIG" -swiglib`
-      else
-        AC_MSG_RESULT(no)
-        AC_MSG_ERROR([Need SWIG version $1, but only found version $sx.$sy.$sz.])
-      fi
-
-    ])
+    dnl Set up replacement variables, including some that we don't currently
+    dnl use but may in the future.
 
     AC_DEFINE([USE_SWIG], 1, [Define to 1 to use SWIG])
     AC_SUBST(USE_SWIG, 1)
 
-    AC_SUBST(SWIG)
     AC_SUBST(SWIGLIB)
     AC_SUBST(SWIGFLAGS)
 
     AC_SUBST(SWIG_CPPFLAGS)
     AC_SUBST(SWIG_LDFLAGS)
     AC_SUBST(SWIG_LIBS)
+
+  else
+    dnl --with-swig not given.  Use the simplest default.
+    SWIG=swig
+
   fi
+
+  dnl Record the version of SWIG we need, for later testing. 
+  dnl Note that this is always set, regardless of whether --with-swig is given.
+
+  SWIGNEEDVERSION=[$1]
+
+  dnl Do substitutions we always do.
+
+  AC_SUBST(SWIG)
+  AC_SUBST(SWIGNEEDVERSION)    
 
   dnl We record the USE_XXX flag, for later testing in Makefiles.
 

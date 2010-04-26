@@ -169,6 +169,7 @@ USE_SWIG          = @USE_SWIG@
 SWIG              = @SWIG@
 SWIGLIB           = @SWIGLIB@
 SWIGFLAGS         = @SWIGFLAGS@
+SWIGNEEDVERSION   = @SWIGNEEDVERSION@
 
 ACLOCAL           = @ACLOCAL@
 ACLOCAL_M4        = $(top_srcdir)/aclocal.m4
