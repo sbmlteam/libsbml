@@ -76,13 +76,32 @@ objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 
 #############################################################################
 
-# environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
+# Environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
 # to use -undefined dynamic_lookup.
+
 ifeq "$(HOST_TYPE)" "darwin"
-  macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
-  export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
+  export MACOSX_DEPLOYMENT_TARGET=$(MACOS_VERSION)
 %.so: $(objfiles)
 	$(call link_dl_lib,$@)
+endif
+
+# If we're building 64-bit binaries, but are not running under 10.6, the 
+# version of python will probably be 32 bit instead of 64 bit.
+
+ifdef USE_UNIVBINARY
+  ifneq "$(MACOS_VERSION)" "10.6"
+
+    filtered_cflags   = $(shell echo '$(CFLAGS)'   | sed -e "s/-arch x86_64//g")
+    filtered_cppflags = $(shell echo '$(CPPFLAGS)' | sed -e "s/-arch x86_64//g")
+    filtered_cxxflags = $(shell echo '$(CXXFLAGS)' | sed -e "s/-arch x86_64//g")
+    filtered_ldflags  = $(shell echo '$(LDFLAGS)'  | sed -e "s/-arch x86_64//g")
+    
+    CFLAGS   := $(filtered_cflags)
+    CPPFLAGS := $(filtered_cppflags)
+    CXXFLAGS := $(filtered_cxxflags)
+    LDFLAGS  := $(filtered_ldflags)
+    
+  endif
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
