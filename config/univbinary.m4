@@ -62,7 +62,7 @@ AC_DEFUN([CONFIG_LIB_UNIVBINARY],
 
       OSX_MAJOR_VER=`uname -r | awk -F. '{print $1}'`
       if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
-	default_OPTS="-arch i386 -arch x86_64 -arch ppc -arch ppc64"
+	default_OPTS="-arch i386 -arch x86_64 -arch ppc"
       elif expr ${OSX_MAJOR_VER} \>= 9 | grep -q 1; then
 	default_OPTS="-arch i386 -arch ppc"
       fi
