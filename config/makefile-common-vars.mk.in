@@ -217,6 +217,11 @@ EXEEXT            = @EXEEXT@
 HOST_OS           = @host_os@
 HOST_TYPE         = @HOST_TYPE@
 HOST_CPU          = @host_cpu@
+ifeq "$(HOST_TYPE)" "darwin"
+  MACOS_VERSION   = $(shell sw_vers -productVersion | cut -d"." -f1,2)
+else
+  MACOS_VERSION   =
+endif
 INSTALL           = @INSTALL@
 INSTALL_SH        = $(top_srcdir)/config/install-sh -c
 LDFLAGS           = @LDFLAGS@ @ZLIB_LDFLAGS@ @BZ2_LDFLAGS@
