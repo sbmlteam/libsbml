@@ -382,11 +382,39 @@ endif
 # This depends on $(check_driver) and $(test_objfiles) to have been defined
 # in the including Makefile.
 
+# 2010-04-26: if you build libSBML as a universal binary with x86_64 support
+# on MacOS 10.5, "make check" may fail because not all the libraries needed
+# by an executable are available in 64-bit form on the system.  We have to
+# drop down to 32-bit in that case.  Conversely, on 10.6, MacOS ships with
+# 64-bit binaries for (it seems) everything, and builds 64-bit executables
+# by default.  
+
+filtered_cflags   = $(shell echo '$(CFLAGS)'   | sed -e "s/-arch x86_64//g")
+filtered_cppflags = $(shell echo '$(CPPFLAGS)' | sed -e "s/-arch x86_64//g")
+filtered_ldflags  = $(shell echo '$(LDFLAGS)'  | sed -e "s/-arch x86_64//g")
+
 $(check_driver): $(test_objfiles)
-	$(LIBTOOL) --mode=link $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
-	  $(CPPFLAGS) $(CFLAGS) $(INCLUDES) \
+ifndef USE_UNIVBINARY
+	$(LIBTOOL) --mode=link $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) \
+	  $(default_includes) $(CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $(LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
+else
+	@version=`uname -r | awk -F. '{print $$1}'`;\
+	if test $$version -ge 10; then \
+	  cflags="$(CFLAGS)"; \
+	  cppflags="$(CPPFLAGS)"; \
+	  ldflags="$(LDFLAGS)"; \
+        else \
+	  cflags="$(filtered_cflags)";\
+	  cppflags="$(filtered_cppflags)";\
+	  ldflags="$(filtered_ldflags)";\
+	fi; \
+	$(LIBTOOL) --mode=link $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) \
+	  $(default_includes) $$cppflags $$cflags $(INCLUDES) \
+	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $$ldflags \
+	  $(LIBS) $(extra_LIBS) -o $@
+endif
 
 run-checks: $(check_driver) $(libraries)
 	@echo
