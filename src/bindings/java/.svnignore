@@ -16,6 +16,7 @@ javadoc.i
 test.xml.zip
 test_write.xml
 test.xml.bz
+test.xml.bz2
 test_copy1.xml
 TestFilenameFilter.class
 test.xml.gz
