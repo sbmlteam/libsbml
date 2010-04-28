@@ -17,5 +17,6 @@ libsbml.pyc
 libsbml_wrap.cpp
 test.xml.zip
 test.xml.bz
+test.xml.bz2
 test.xml.gz
 .libs
