@@ -195,6 +195,7 @@ distfiles =                         \
   VERSION.txt                       \
   aclocal.m4                        \
   acinclude.m4                      \
+  config/chk_swig_version.sh.in     \
   config/config.guess               \
   config/config.sub                 \
   config/doxygen.m4                 \
