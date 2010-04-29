@@ -820,6 +820,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\validator\constraints\ValidCnUnitsValue.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\validator\VConstraint.cpp"
 				>
 			</File>
@@ -1461,6 +1465,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\validator\Validator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\constraints\ValidCnUnitsValue.h"
 				>
 			</File>
 			<File
