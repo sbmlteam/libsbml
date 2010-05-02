@@ -292,6 +292,35 @@ START_TEST (test_L3_Model_lengthUnits)
 END_TEST
 
 
+START_TEST (test_L3_Model_extentUnits)
+{
+  char *units = "mole";
+
+
+  fail_unless( !Model_isSetExtentUnits(M) );
+
+  Model_setExtentUnits(M, units);
+
+  fail_unless( !strcmp(Model_getExtentUnits(M), units) );
+  fail_unless( Model_isSetExtentUnits(M) );
+
+  if (Model_getExtentUnits(M) == units)
+  {
+    fail("Model_setExtentUnits(...) did not make a copy of string.");
+  }
+
+  Model_unsetExtentUnits(M);
+  
+  fail_unless( !Model_isSetExtentUnits(M) );
+
+  if (Model_getExtentUnits(M) != NULL)
+  {
+    fail("Model_unsetExtentUnits(M) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_L3_Model_conversionFactor)
 {
   char *units = "mole";
@@ -397,6 +426,7 @@ create_suite_L3_Model (void)
   tcase_add_test( tcase, test_L3_Model_volumeUnits   );
   tcase_add_test( tcase, test_L3_Model_areaUnits   );
   tcase_add_test( tcase, test_L3_Model_lengthUnits   );
+  tcase_add_test( tcase, test_L3_Model_extentUnits   );
   tcase_add_test( tcase, test_L3_Model_conversionFactor   );
   tcase_add_test( tcase, test_L3_Model_createWithNS         );
   tcase_add_test( tcase, test_L3_Model_NS              );

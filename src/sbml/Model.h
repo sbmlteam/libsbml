@@ -716,6 +716,26 @@ public:
 
 
   /**
+   * Sets the value of the "extentUnits" attribute of this Model.
+   *
+   * The string in @p units is copied.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @param units the new extentUnits for the Model
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   */
+  int setExtentUnits (const std::string& units);
+
+
+  /**
    * Sets the value of the "conversionFactor" attribute of this Model.
    *
    * The string in @p units is copied.
@@ -853,6 +873,21 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   int unsetLengthUnits ();
+
+
+  /**
+   * Unsets the value of the "extentUnits" attribute of this Model.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li LIBSBML_OPERATION_SUCCESS
+   * @li LIBSBML_OPERATION_FAILED
+   */
+  int unsetExtentUnits ();
 
 
   /**
@@ -3467,6 +3502,11 @@ Model_setLengthUnits (Model_t *m, const char *units);
 
 LIBSBML_EXTERN
 int
+Model_setExtentUnits (Model_t *m, const char *units);
+
+
+LIBSBML_EXTERN
+int
 Model_setConversionFactor (Model_t *m, const char *sid);
 
 
@@ -3503,6 +3543,11 @@ Model_unsetAreaUnits (Model_t *m);
 LIBSBML_EXTERN
 int
 Model_unsetLengthUnits (Model_t *m);
+
+
+LIBSBML_EXTERN
+int
+Model_unsetExtentUnits (Model_t *m);
 
 
 LIBSBML_EXTERN

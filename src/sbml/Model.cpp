@@ -755,6 +755,28 @@ Model::setLengthUnits (const std::string& units)
  * Sets the substanceUnits of this SBML object.
  */
 int
+Model::setExtentUnits (const std::string& units)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mExtentUnits = units;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the substanceUnits of this SBML object.
+ */
+int
 Model::setConversionFactor (const std::string& id)
 {
   if (getLevel() < 3)
@@ -980,6 +1002,31 @@ Model::unsetLengthUnits ()
   mLengthUnits.erase();
 
   if (mLengthUnits.empty())
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the LengthUnits of this SBML object.
+ */
+int
+Model::unsetExtentUnits ()
+{
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  
+  mExtentUnits.erase();
+
+  if (mExtentUnits.empty())
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -5651,6 +5698,34 @@ Model_setLengthUnits (Model_t *m, const char *units)
 
 
 /**
+ * Set the extentUnits attribute of a given Model_t structure.
+ *
+ * This copies the string in @p units.
+ * 
+ * @param m the Model_t structure
+ * @param units the identifier string
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ *
+ * @note Using this function with units NULL is equivalent to
+ * unsetting the "extentUnits" attribute.
+ */
+LIBSBML_EXTERN
+int
+Model_setExtentUnits (Model_t *m, const char *units)
+{
+  return (units == NULL) ? m->unsetExtentUnits() : 
+                                     m->setExtentUnits(units);
+}
+
+
+/**
  * Set the conversionFactor attribute of a given Model_t structure.
  *
  * This copies the string in @p sid.
@@ -5820,6 +5895,27 @@ int
 Model_unsetLengthUnits (Model_t *m)
 {
   return m->unsetLengthUnits();
+}
+
+
+/**
+ * Unsets the "extentUnits" attribute of the given Model_t structure.
+ *
+ * @param m the Model_t structure
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Model_unsetExtentUnits (Model_t *m)
+{
+  return m->unsetExtentUnits();
 }
 
 
