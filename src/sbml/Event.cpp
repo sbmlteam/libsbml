@@ -391,6 +391,7 @@ Event::setId (const std::string& sid)
   else
   {
     mId = sid;
+    mInternalIdOnly = false;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
