@@ -52,9 +52,12 @@ typedef IdValueMap::iterator                  IdValueIter;
 
 class IdList;
 
+#ifndef SWIG
+
 static IdValueMap values;
 
-class LIBSBML_EXTERN SBMLTransforms
+#endif
+class SBMLTransforms
 {
 public:
 
