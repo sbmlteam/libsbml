@@ -4589,6 +4589,7 @@ Model::populateListFormulaUnitsData()
   {
     u = new Unit(getSBMLNamespaces());
     u->setKind(UNIT_KIND_MOLE);
+    u->initDefaults();
     ud->addUnit(u);
     delete u;
   }
@@ -4612,6 +4613,7 @@ Model::populateListFormulaUnitsData()
   {
     u = new Unit(getSBMLNamespaces());
     u->setKind(UNIT_KIND_SECOND);
+    u->initDefaults();
     u->setExponent(-1);
     ud->addUnit(u);
     delete u;
@@ -4635,6 +4637,7 @@ Model::populateListFormulaUnitsData()
       ud->addUnit(fud->getUnitDefinition()->getUnit(j));
     u = new Unit(getSBMLNamespaces());
     u->setKind(UNIT_KIND_SECOND);
+    u->initDefaults();
     u->setExponent(-1);
     ud->addUnit(u);
     delete u;
@@ -4666,6 +4669,7 @@ Model::populateListFormulaUnitsData()
         ud->addUnit(fud->getUnitDefinition()->getUnit(j));
       u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_SECOND);
+      u->initDefaults();
       u->setExponent(-1);
       ud->addUnit(u);
       delete u;
@@ -4695,6 +4699,7 @@ Model::populateListFormulaUnitsData()
         ud->addUnit(fud->getUnitDefinition()->getUnit(j));
       u = new Unit(getSBMLNamespaces());
       u->setKind(UNIT_KIND_SECOND);
+      u->initDefaults();
       u->setExponent(-1);
       ud->addUnit(u);
       UnitDefinition::simplify(ud);

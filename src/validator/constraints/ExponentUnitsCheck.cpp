@@ -139,6 +139,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
   UnitDefinition dim(m.getSBMLNamespaces());
   Unit unit(m.getSBMLNamespaces());
   unit.setKind(UNIT_KIND_DIMENSIONLESS);
+  unit.initDefaults();
   dim.addUnit(&unit);
   /* root (v, n) = v^1/n 
    * the exponent of the resulting unit must be integral

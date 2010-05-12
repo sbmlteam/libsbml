@@ -835,7 +835,7 @@ Unit::isBuiltIn (const std::string& name, unsigned int level)
       name == "volume"    ||
       name == "time";
   }
-  else
+  else if (level == 2)
   {
     return
       name == "substance" ||
@@ -844,6 +844,8 @@ Unit::isBuiltIn (const std::string& name, unsigned int level)
       name == "length"    ||
       name == "time";
   }
+  else
+    return false;
 }
 
 bool

@@ -156,6 +156,7 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
   UnitDefinition *time = new UnitDefinition(m.getSBMLNamespaces());
   Unit *unit = new Unit(m.getSBMLNamespaces());
   unit->setKind(UNIT_KIND_SECOND);
+  unit->initDefaults();
   UnitDefinition * tempUD;
   time->addUnit(unit);
   
@@ -202,6 +203,7 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   UnitDefinition *dim = new UnitDefinition(m.getSBMLNamespaces());
   Unit *unit = new Unit(m.getSBMLNamespaces());
   unit->setKind(UNIT_KIND_DIMENSIONLESS);
+  unit->initDefaults();
   UnitDefinition * tempUD;
   UnitDefinition * tempUD1 = NULL;
   dim->addUnit(unit);

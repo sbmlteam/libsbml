@@ -477,6 +477,7 @@ UnitDefinition::isVariantOfSubstancePerTime () const
   //Unit *u = new Unit(UNIT_KIND_SECOND);
   Unit *u = new Unit(ud->getSBMLNamespaces());
   u->setKind(UNIT_KIND_SECOND);
+  u->initDefaults();
   ud->addUnit(u);
 
   UnitDefinition::simplify(ud);
@@ -782,6 +783,7 @@ UnitDefinition::simplify(UnitDefinition * ud)
   {
     Unit tmpunit(ud->getSBMLNamespaces());
     tmpunit.setKind(UNIT_KIND_DIMENSIONLESS);
+    tmpunit.initDefaults();
     ud->addUnit(&tmpunit);
   }
 }

@@ -173,6 +173,7 @@ ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m,
   UnitDefinition *dim = new UnitDefinition(m.getSBMLNamespaces());
   Unit *unit = new Unit(m.getSBMLNamespaces());
   unit->setKind(UNIT_KIND_DIMENSIONLESS);
+  unit->initDefaults();
   UnitDefinition * tempUD;
   dim->addUnit(unit);
   

@@ -177,6 +177,7 @@ LocalParameter::getDerivedUnitDefinition()
       {
         Unit * unit = new Unit(getSBMLNamespaces());
         unit->setKind(UnitKind_forName(units));
+        unit->initDefaults();
         ud   = new UnitDefinition(getSBMLNamespaces());
         
         ud->addUnit(unit);
