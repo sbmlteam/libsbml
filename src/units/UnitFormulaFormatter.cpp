@@ -948,106 +948,134 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
   unsigned int n, p;
 
   const char * units = compartment->getUnits().c_str();
+  /* in l3 the units might be derived from attributes on the model */
+  if (!strcmp(units, "") && compartment->getLevel() > 2)
+  {
+    switch ((int)(compartment->getSpatialDimensions()))
+    {
+    case 1:
+      if (model->isSetLengthUnits())
+        units = model->getLengthUnits().c_str();
+      break;
+    case 2:
+      if (model->isSetAreaUnits())
+        units = model->getAreaUnits().c_str();
+      break;
+    case 3:
+      if (model->isSetVolumeUnits())
+        units = model->getVolumeUnits().c_str();
+      break;
+    default:
+      break;
+    }
+  }
 
   /* no units declared implies they default to the value appropriate
    * to the spatialDimensions of the compartment 
    * noting that it is possible that these have been overridden
    * using builtin units 
+   *
+   * BUT NO DEFAULTS IN L3
    */
   if (!strcmp(units, ""))
   {
-    switch ((int)(compartment->getSpatialDimensions()))
+    if (model->getLevel() < 3)
     {
-      case 0:
-        unit = new Unit(model->getSBMLNamespaces());
-        unit->setKind(UNIT_KIND_DIMENSIONLESS);
-        unit->initDefaults();
-        ud   = new UnitDefinition(model->getSBMLNamespaces());
-      
-        ud->addUnit(unit);
-        break;
-      case 1: 
-        /* check for builtin unit length redefined */
-        tempUD = model->getUnitDefinition("length");
-        if (!tempUD) 
-        {
+      switch ((int)(compartment->getSpatialDimensions()))
+      {
+        case 0:
           unit = new Unit(model->getSBMLNamespaces());
-          unit->setKind(UnitKind_forName("metre"));
+          unit->setKind(UNIT_KIND_DIMENSIONLESS);
           unit->initDefaults();
           ud   = new UnitDefinition(model->getSBMLNamespaces());
         
           ud->addUnit(unit);
-        }
-        else
-        {
-          ud   = new UnitDefinition(model->getSBMLNamespaces());
-
-          unit = new Unit(model->getSBMLNamespaces());
-          unit->setKind(tempUD->getUnit(0)->getKind());
-          unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
-          unit->setScale(tempUD->getUnit(0)->getScale());
-          unit->setExponent(tempUD->getUnit(0)->getExponent());
-          unit->setOffset(tempUD->getUnit(0)->getOffset());
-
-          ud->addUnit(unit);
-        }
-        break;
-      case 2:
-        /* check for builtin unit area redefined */
-        tempUD = model->getUnitDefinition("area");
-        if (!tempUD) 
-        {
-          unit = new Unit(model->getSBMLNamespaces());
-          unit->setKind(UnitKind_forName("metre"));
-          unit->initDefaults();
-          unit->setExponent(2);
-          ud   = new UnitDefinition(model->getSBMLNamespaces());
+          break;
+        case 1: 
+          /* check for builtin unit length redefined */
+          tempUD = model->getUnitDefinition("length");
+          if (!tempUD) 
+          {
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(UnitKind_forName("metre"));
+            unit->initDefaults();
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
           
-          ud->addUnit(unit);
-        }
-        else
-        {
-          ud   = new UnitDefinition(model->getSBMLNamespaces());
+            ud->addUnit(unit);
+          }
+          else
+          {
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
 
-          unit = new Unit(model->getSBMLNamespaces());
-          unit->setKind(tempUD->getUnit(0)->getKind());
-          unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
-          unit->setScale(tempUD->getUnit(0)->getScale());
-          unit->setExponent(tempUD->getUnit(0)->getExponent());
-          unit->setOffset(tempUD->getUnit(0)->getOffset());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(tempUD->getUnit(0)->getKind());
+            unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
+            unit->setScale(tempUD->getUnit(0)->getScale());
+            unit->setExponent(tempUD->getUnit(0)->getExponent());
+            unit->setOffset(tempUD->getUnit(0)->getOffset());
 
-          ud->addUnit(unit);
-        }
-        break;
-      default:
-        /* check for builtin unit volume redefined */
-        tempUD = model->getUnitDefinition("volume");
-        if (!tempUD) 
-        {
-          unit = new Unit(model->getSBMLNamespaces());
-          unit->setKind(UnitKind_forName("litre"));
-          unit->initDefaults();
-          ud   = new UnitDefinition(model->getSBMLNamespaces());
-        
-          ud->addUnit(unit);
-        }
-        else
-        {
-          ud   = new UnitDefinition(model->getSBMLNamespaces());
+            ud->addUnit(unit);
+          }
+          break;
+        case 2:
+          /* check for builtin unit area redefined */
+          tempUD = model->getUnitDefinition("area");
+          if (!tempUD) 
+          {
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(UnitKind_forName("metre"));
+            unit->initDefaults();
+            unit->setExponent(2);
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
+            
+            ud->addUnit(unit);
+          }
+          else
+          {
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
 
-          unit = new Unit(model->getSBMLNamespaces());
-          unit->setKind(tempUD->getUnit(0)->getKind());
-          unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
-          unit->setScale(tempUD->getUnit(0)->getScale());
-          unit->setExponent(tempUD->getUnit(0)->getExponent());
-          unit->setOffset(tempUD->getUnit(0)->getOffset());
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(tempUD->getUnit(0)->getKind());
+            unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
+            unit->setScale(tempUD->getUnit(0)->getScale());
+            unit->setExponent(tempUD->getUnit(0)->getExponent());
+            unit->setOffset(tempUD->getUnit(0)->getOffset());
 
-          ud->addUnit(unit);
-        }
-        break;
+            ud->addUnit(unit);
+          }
+          break;
+        case 3:
+          /* check for builtin unit volume redefined */
+          tempUD = model->getUnitDefinition("volume");
+          if (!tempUD) 
+          {
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(UnitKind_forName("litre"));
+            unit->initDefaults();
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
+          
+            ud->addUnit(unit);
+          }
+          else
+          {
+            ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(tempUD->getUnit(0)->getKind());
+            unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
+            unit->setScale(tempUD->getUnit(0)->getScale());
+            unit->setExponent(tempUD->getUnit(0)->getExponent());
+            unit->setOffset(tempUD->getUnit(0)->getOffset());
+
+            ud->addUnit(unit);
+          }
+          break;
+        default:
+          break;
+      }
+
+      delete unit;
     }
-
-    delete unit;
   }
   else
   {
@@ -1162,38 +1190,56 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   const char * spatialUnits = species->getSpatialSizeUnits().c_str();
 
 
+  /* in l3 the units might be derived from attributes on the model */
+  if (!strcmp(units, "") && species->getLevel() > 2)
+  {
+    if (model->isSetSubstanceUnits())
+      units = model->getSubstanceUnits().c_str();
+  }
   /* deal with substance units */
  
-  /* no units declared implies they default to the value substance */
+  /* no units declared implies they default to the value substance
+   * BUT NO DEFAULTS IN L3
+   */
   if (!strcmp(units, ""))
   {
-    /* check for builtin unit substance redefined */
-    tempUd = model->getUnitDefinition("substance");
-    if (!tempUd) 
+    if (species->getLevel() < 3)
     {
-      unit = new Unit(model->getSBMLNamespaces());
-      unit->setKind(UnitKind_forName("mole"));
-      unit->initDefaults();
-      subsUD   = new UnitDefinition(model->getSBMLNamespaces());
+      /* check for builtin unit substance redefined */
+      tempUd = model->getUnitDefinition("substance");
+      if (!tempUd) 
+      {
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UnitKind_forName("mole"));
+        unit->initDefaults();
+        subsUD   = new UnitDefinition(model->getSBMLNamespaces());
 
-      subsUD->addUnit(unit);
+        subsUD->addUnit(unit);
+      }
+      else
+      {
+        subsUD   = new UnitDefinition(model->getSBMLNamespaces());
+
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(tempUd->getUnit(0)->getKind());
+        unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
+        unit->setScale(tempUd->getUnit(0)->getScale());
+        unit->setExponent(tempUd->getUnit(0)->getExponent());
+        unit->setOffset(tempUd->getUnit(0)->getOffset());
+
+        subsUD->addUnit(unit);
+
+      }
+
+      delete unit;
     }
     else
     {
-      subsUD   = new UnitDefinition(model->getSBMLNamespaces());
+      // units is undefined 
 
-      unit = new Unit(model->getSBMLNamespaces());
-      unit->setKind(tempUd->getUnit(0)->getKind());
-      unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
-      unit->setScale(tempUd->getUnit(0)->getScale());
-      unit->setExponent(tempUd->getUnit(0)->getExponent());
-      unit->setOffset(tempUd->getUnit(0)->getOffset());
-
-      subsUD->addUnit(unit);
-
+      // as a safety catch
+      return new UnitDefinition(model->getSBMLNamespaces());
     }
-
-    delete unit;
   }
   else
   {
@@ -1277,7 +1323,9 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   /* get the compartment containing the species */
   c = model->getCompartment(species->getCompartment().c_str());
 
-  if (c && c->getSpatialDimensions() == 0)
+  if (c && ((c->getLevel() < 3 && c->getSpatialDimensions() == 0)
+    || (c->getLevel() > 2 && c->isSetSpatialDimensions() && 
+    c->getSpatialDimensions() == 0)))
   {
     ud = subsUD;
     return ud;
@@ -1289,6 +1337,12 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   if (!strcmp(spatialUnits, ""))
   {
     sizeUD   = getUnitDefinitionFromCompartment(c);
+    if (species->getLevel() > 2 && sizeUD->getNumUnits() == 0)
+    {
+      /* compartment units are not defined */
+      delete sizeUD;
+      return new UnitDefinition(model->getSBMLNamespaces());
+    }
   }
   else
   {

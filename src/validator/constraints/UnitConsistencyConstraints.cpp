@@ -274,6 +274,9 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
+  /* in level 3 need to check that the compartment has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre ( !formulaUnits->getContainsUndeclaredUnits()
@@ -339,6 +342,9 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
 
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
+
+  /* in level 3 need to check that the species has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
