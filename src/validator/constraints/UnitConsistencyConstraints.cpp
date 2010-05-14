@@ -480,6 +480,9 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
+  /* in level 3 need to check that the compartment has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre (!formulaUnits->getContainsUndeclaredUnits()
@@ -520,6 +523,9 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
 
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
+
+  /* in level 3 need to check that the species has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -621,6 +627,12 @@ START_CONSTRAINT (10531, RateRule, rr)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
+  /* in level 3 need to check that the compartment has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+  /* in L3 need to check that time units were set */
+  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+
+
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre (!formulaUnits->getContainsUndeclaredUnits()
@@ -637,7 +649,7 @@ START_CONSTRAINT (10531, RateRule, rr)
     "<compartment> definition, or (in the absence of explicit units declared "
     "for the compartment volume) the default units for that compartment, and "
     "_time_ refers to the units of time for the model. Expected units are ";    
-    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
     msg += " but the units returned by the <compartmentVolumeRule>'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
@@ -645,7 +657,7 @@ START_CONSTRAINT (10531, RateRule, rr)
   else
   {
     msg =  " Expected units are ";
-    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
     msg += " but the units returned by the <rateRule>'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
@@ -693,6 +705,12 @@ START_CONSTRAINT (10532, RateRule, rr)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
+  /* in level 3 need to check that the species has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+  /* in L3 need to check that time units were set */
+  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+
+
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre (!formulaUnits->getContainsUndeclaredUnits()
@@ -707,7 +725,7 @@ START_CONSTRAINT (10532, RateRule, rr)
     "the units of the rule's right-hand side must be of the form _x per "
     "time_, where _x_ is the units of that species' quantity, and _time_ "
     "refers to the units of time for the model. Expected units are ";    
-    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
     msg += " but the units returned by the <speciesConcentrationRule>'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
@@ -715,7 +733,7 @@ START_CONSTRAINT (10532, RateRule, rr)
   else
   {
     msg =  " Expected units are ";
-    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
     msg += " but the units returned by the <rateRule>'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
@@ -777,6 +795,9 @@ START_CONSTRAINT (10533, RateRule, rr)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
+  /* in L3 need to check that time units were set */
+  pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
+
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre (!formulaUnits->getContainsUndeclaredUnits()
@@ -791,7 +812,7 @@ START_CONSTRAINT (10533, RateRule, rr)
     "the units of the rule's right-hand side must be of the form _x per "
     "time_, where _x_ is the 'units' in that <parameter> definition, and "
     "_time_ refers to the units of time for the model. Expected units are ";    
-    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
     msg += " but the units returned by the <parameterRule>'s formula are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
@@ -799,7 +820,7 @@ START_CONSTRAINT (10533, RateRule, rr)
   else
   {
     msg =  " Expected units are ";
-    msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
+    msg += UnitDefinition::printUnits(variableUnits->getPerTimeUnitDefinition());
     msg += " but the units returned by the <rateRule>'s <math> expression are ";
     msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
     msg += ".";
@@ -906,6 +927,9 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
 
+  /* in level 3 need to check that the compartment has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
+
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
   pre (!formulaUnits->getContainsUndeclaredUnits()
@@ -949,6 +973,9 @@ START_CONSTRAINT (10562, EventAssignment, ea)
 
   pre ( formulaUnits != 0 );
   pre ( variableUnits != 0); 
+
+  /* in level 3 need to check that the species has units defined */
+  pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
