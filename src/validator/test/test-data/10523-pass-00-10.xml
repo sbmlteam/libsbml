@@ -40,17 +40,6 @@
         </math>
       </initialAssignment>
     </listOfInitialAssignments>
-    <listOfRules>
-      <assignmentRule variable="generatedId_0">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <times/>
-            <ci> s </ci>
-            <ci> p </ci>
-          </apply>
-        </math>
-      </assignmentRule>
-    </listOfRules>
     <listOfReactions>
       <reaction id="r" reversible="false" fast="true">
         <listOfReactants>

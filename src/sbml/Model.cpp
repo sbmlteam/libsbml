@@ -5108,6 +5108,67 @@ Model::populateListFormulaUnitsData()
         fud->setCanIgnoreUndeclaredUnits
                                   (unitFormatter->canIgnoreUndeclaredUnits());
       }
+
+      /* for l3 the id may represent the stoichiometry */
+      if (sr->getLevel() > 2 && sr->isSetId())
+      {
+        fud = createFormulaUnitsData();
+        fud->setUnitReferenceId(sr->getId());
+        fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+        /* in L3 there are only defined time units IF the model
+         * has the timeUnits attribute set
+         */
+        if (!isSetTimeUnits())
+        {
+          ud = new UnitDefinition(getSBMLNamespaces());
+          fud->setContainsParametersWithUndeclaredUnits(true);
+          fud->setCanIgnoreUndeclaredUnits(false);
+        }
+        else
+        {
+          std::string units = getTimeUnits();
+          ud = new UnitDefinition(getSBMLNamespaces());
+
+          /* either unit name or unitDefinition id */
+          if (UnitKind_isValidUnitKindString(units.c_str(), getLevel(), getVersion()))
+          {
+            u = new Unit(getSBMLNamespaces());
+            u->setKind(UnitKind_forName(units.c_str()));
+            u->initDefaults();
+            u->setExponent(-1);
+
+            ud->addUnit(u);
+            delete u;
+          }
+          else
+          {
+            for (j = 0; j < getNumUnitDefinitions(); j++)
+            {
+              if (!strcmp(units.c_str(), getUnitDefinition(j)->getId().c_str()))
+              {           
+                for (unsigned int pp = 0; 
+                  pp < getUnitDefinition(j)->getNumUnits(); pp++)
+                {
+                  u = new Unit(getSBMLNamespaces());
+                  u->setKind(getUnitDefinition(j)->getUnit(pp)->getKind());
+                  u->setMultiplier(getUnitDefinition(j)->getUnit(pp)
+                                                   ->getMultiplier());
+                  u->setScale(getUnitDefinition(j)->getUnit(pp)->getScale());
+                  u->setExponent(-1 * (getUnitDefinition(j)->getUnit(pp)
+                                       ->getExponent()));
+
+                  ud->addUnit(u);
+
+                  delete u;
+                }
+              }
+            }
+          }
+        }
+
+        
+        fud->setPerTimeUnitDefinition(ud);
+      }
     }
 
     for (j = 0; j < react->getNumProducts(); j++)

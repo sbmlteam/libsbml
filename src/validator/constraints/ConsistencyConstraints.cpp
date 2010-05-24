@@ -2391,9 +2391,19 @@ START_CONSTRAINT (21211, EventAssignment, ea)
 
   const string& id = ea.getVariable();
 
-  inv_or( m.getCompartment(id) );
-  inv_or( m.getSpecies    (id) );
-  inv_or( m.getParameter  (id) );
+  if (ea.getLevel() == 2)
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+  }
+  else
+  {
+    inv_or( m.getCompartment(id) );
+    inv_or( m.getSpecies    (id) );
+    inv_or( m.getParameter  (id) );
+    inv_or( m.getSpeciesReference  (id) );
+  }
 }
 END_CONSTRAINT
 

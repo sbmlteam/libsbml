@@ -1165,8 +1165,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "Message", 
+    LIBSBML_SEV_WARNING,
+    "When the value of the attribute variable in an AssignmentRule object "
+    "refers to a SpeciesReference object, the unit of measurement associated "
+    "with the rule’s right-hand side should be consistent with the unit of "
+    "stoichiometry, that is, dimensionless.", 
     {"",
      "",
      "",
@@ -1255,8 +1258,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "Message", 
+    LIBSBML_SEV_WARNING,
+    "When the value of the attribute variable in an InitialAssignment object "
+    "refers to a SpeciesReference object, the unit of measurement associated "
+    "with the InitialAssignment’s math expression should be consistent with "
+    "the unit of stoichiometry, that is, dimensionless.", 
     {"",
      "",
      "",
@@ -1350,8 +1356,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "Message", 
+    LIBSBML_SEV_WARNING,
+    "When the value of the attribute variable in a RateRule object refers to "
+    "a SpeciesReference object, the unit of measurement associated with the "
+    "RateRule’s math expression should be consistent with {unit derived from "
+    "dimensionless}/{unit of time}.", 
     {"",
      "",
      "",
@@ -1507,8 +1516,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "Message", 
+    LIBSBML_SEV_WARNING,
+    "When the value of the attribute variable of an EventAssignment object "
+    "is the identifier of a SpeciesReference object, the unit of measurement "
+    "associated with the EventAssignment’s math expression should be "
+    "consistent with the unit of stoichiometry, i.e., dimensionless.", 
     {"",
      "",
      "",
