@@ -1595,36 +1595,40 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
   unsigned int n, p;
 
   const char * units = event->getTimeUnits().c_str();
+  if (event->getLevel() > 2)
+    units = model->getTimeUnits().c_str();
 
  /* no units declared */
   if (!strcmp(units, ""))
   {
-    /* defaults to time
+    /* defaults to time in L2
     * check for redefinition of time
     */
-    tempUd = model->getUnitDefinition("time");
-
-    if (tempUd == NULL) 
+    if (event->getLevel() < 3)
     {
-      unit = new Unit(model->getSBMLNamespaces());
-      unit->setKind(UNIT_KIND_SECOND);
-      unit->initDefaults();
-      ud   = new UnitDefinition(model->getSBMLNamespaces());
-      
-      ud->addUnit(unit);
+      tempUd = model->getUnitDefinition("time");
 
-      delete unit;
-    }
-    else
-    {
-      ud   = new UnitDefinition(model->getSBMLNamespaces());
-
-      for (n = 0; n < tempUd->getNumUnits(); n++)
+      if (tempUd == NULL) 
       {
-        ud->addUnit(tempUd->getUnit(n));
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_SECOND);
+        unit->initDefaults();
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
+        
+        ud->addUnit(unit);
+
+        delete unit;
+      }
+      else
+      {
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+        for (n = 0; n < tempUd->getNumUnits(); n++)
+        {
+          ud->addUnit(tempUd->getUnit(n));
+        }
       }
     }
-
   }
   else
   {
@@ -1677,21 +1681,24 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
      * unit to be reassigned using a unit definition and thus will have 
      * been picked up above
      */
-    if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
+    if (event->getLevel() < 3)
     {
-      ud   = new UnitDefinition(model->getSBMLNamespaces());
-
-      if (!strcmp(units, "time"))
+      if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
       {
-        unit = new Unit(model->getSBMLNamespaces());
-        unit->setKind(UNIT_KIND_SECOND);
-        unit->initDefaults();
-        ud->addUnit(unit);
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
 
-        delete unit;
+        if (!strcmp(units, "time"))
+        {
+          unit = new Unit(model->getSBMLNamespaces());
+          unit->setKind(UNIT_KIND_SECOND);
+          unit->initDefaults();
+          ud->addUnit(unit);
+
+          delete unit;
+        }
       }
-    }
 
+    }
   }
   // as a safety catch 
   if (ud == NULL)

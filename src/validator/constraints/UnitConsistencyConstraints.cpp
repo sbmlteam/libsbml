@@ -855,7 +855,23 @@ START_CONSTRAINT (10541, KineticLaw, kl)
     || (formulaUnits->getContainsUndeclaredUnits() &&
         formulaUnits->getCanIgnoreUndeclaredUnits()));
 
+  /* check that the variable is okay 
+     ie has no parameters with undeclared units 
+     IT MIGHT IN L3 */
+  pre (!variableUnits->getContainsUndeclaredUnits()
+    || (variableUnits->getContainsUndeclaredUnits() &&
+        variableUnits->getCanIgnoreUndeclaredUnits()));
+
+  if (m.getLevel() > 2)
+  {
+  msg =
+    "In level 3 the expected units are extent_per_time.";
+  msg +=  " Expected units are ";
+  }
+  else
+  {
   msg =  "Expected units are ";
+  }
   msg += UnitDefinition::printUnits(variableUnits->getUnitDefinition());
   msg += " but the units returned by the <kineticLaw>'s <math> expression are ";
   msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());

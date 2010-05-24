@@ -4569,55 +4569,126 @@ Model::populateListFormulaUnitsData()
   fud = createFormulaUnitsData();
   fud->setUnitReferenceId("subs_per_time");
   fud->setComponentTypecode(SBML_UNKNOWN);
-  // unless substance has been overridden
-  if (getUnitDefinition("substance"))
+  if (getLevel() < 3)
   {
-    for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
+    // unless substance has been overridden
+    if (getUnitDefinition("substance"))
     {
-      // need to prevent level/version mismatches
-      // ud will have default level and veersion
-      uFromModel = getUnitDefinition("substance")->getUnit(n);
-      u = new Unit(uFromModel->getSBMLNamespaces());
-      u->setKind(uFromModel->getKind());
-      u->setExponent(uFromModel->getExponent());
-      u->setScale(uFromModel->getScale());
-      u->setMultiplier(uFromModel->getMultiplier());
+      for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
+      {
+        // need to prevent level/version mismatches
+        // ud will have default level and veersion
+        uFromModel = getUnitDefinition("substance")->getUnit(n);
+        u = new Unit(uFromModel->getSBMLNamespaces());
+        u->setKind(uFromModel->getKind());
+        u->setExponent(uFromModel->getExponent());
+        u->setScale(uFromModel->getScale());
+        u->setMultiplier(uFromModel->getMultiplier());
+        ud->addUnit(u);
+        delete u;
+      }
+    }
+    else
+    {
+      u = new Unit(getSBMLNamespaces());
+      u->setKind(UNIT_KIND_MOLE);
+      u->initDefaults();
       ud->addUnit(u);
       delete u;
     }
-  }
-  else
-  {
-    u = new Unit(getSBMLNamespaces());
-    u->setKind(UNIT_KIND_MOLE);
-    u->initDefaults();
-    ud->addUnit(u);
-    delete u;
-  }
 
-  if (getUnitDefinition("time"))
-  {
-    for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
+    if (getUnitDefinition("time"))
     {
-      uFromModel = getUnitDefinition("time")->getUnit(n);
-      u = new Unit(uFromModel->getSBMLNamespaces());
-      u->setKind(uFromModel->getKind());
-      u->setExponent(uFromModel->getExponent());
-      u->setScale(uFromModel->getScale());
-      u->setMultiplier(uFromModel->getMultiplier());
-      u->setExponent(u->getExponent() * -1);
+      for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
+      {
+        uFromModel = getUnitDefinition("time")->getUnit(n);
+        u = new Unit(uFromModel->getSBMLNamespaces());
+        u->setKind(uFromModel->getKind());
+        u->setExponent(uFromModel->getExponent());
+        u->setScale(uFromModel->getScale());
+        u->setMultiplier(uFromModel->getMultiplier());
+        u->setExponent(u->getExponent() * -1);
+        ud->addUnit(u);
+        delete u;
+      }
+    }
+    else
+    {
+      u = new Unit(getSBMLNamespaces());
+      u->setKind(UNIT_KIND_SECOND);
+      u->initDefaults();
+      u->setExponent(-1);
       ud->addUnit(u);
       delete u;
     }
   }
   else
   {
-    u = new Unit(getSBMLNamespaces());
-    u->setKind(UNIT_KIND_SECOND);
-    u->initDefaults();
-    u->setExponent(-1);
-    ud->addUnit(u);
-    delete u;
+    /* in L3 the units will be extent per time
+     * or possibly not declared at all !
+     */
+    std::string extentUnits = getExtentUnits();
+    if (UnitKind_isValidUnitKindString(extentUnits.c_str(), getLevel(), getVersion()))
+    {
+      u = new Unit(getSBMLNamespaces());
+      u->setKind(UnitKind_forName(extentUnits.c_str()));
+      u->initDefaults();
+      ud->addUnit(u);
+      delete u;
+    }
+    else if (getUnitDefinition(extentUnits))
+    {
+      for (n = 0; n < getUnitDefinition(extentUnits)->getNumUnits(); n++)
+      {
+        // need to prevent level/version mismatches
+        // ud will have default level and veersion
+        uFromModel = getUnitDefinition(extentUnits)->getUnit(n);
+        u = new Unit(uFromModel->getSBMLNamespaces());
+        u->setKind(uFromModel->getKind());
+        u->setExponent(uFromModel->getExponent());
+        u->setScale(uFromModel->getScale());
+        u->setMultiplier(uFromModel->getMultiplier());
+        ud->addUnit(u);
+        delete u;
+      }
+    }
+    else
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
+
+    std::string timeUnits = getTimeUnits();
+    if (UnitKind_isValidUnitKindString(timeUnits.c_str(), getLevel(), getVersion()))
+    {
+      u = new Unit(getSBMLNamespaces());
+      u->setKind(UnitKind_forName(timeUnits.c_str()));
+      u->initDefaults();
+      u->setExponent(-1);
+      ud->addUnit(u);
+      delete u;
+    }
+    else if (getUnitDefinition(timeUnits))
+    {
+      for (n = 0; n < getUnitDefinition(timeUnits)->getNumUnits(); n++)
+      {
+        // need to prevent level/version mismatches
+        // ud will have default level and veersion
+        uFromModel = getUnitDefinition(timeUnits)->getUnit(n);
+        u = new Unit(uFromModel->getSBMLNamespaces());
+        u->setKind(uFromModel->getKind());
+        u->setExponent(uFromModel->getExponent() * -1);
+        u->setScale(uFromModel->getScale());
+        u->setMultiplier(uFromModel->getMultiplier());
+        ud->addUnit(u);
+        delete u;
+      }
+    }
+    else
+    {
+      fud->setContainsParametersWithUndeclaredUnits(true);
+      fud->setCanIgnoreUndeclaredUnits(false);
+    }
   }
   fud->setUnitDefinition(ud);
 
@@ -5109,6 +5180,11 @@ Model::populateListFormulaUnitsData()
       /* get event time definition */
       unitFormatter->resetFlags();
       ud = unitFormatter->getUnitDefinitionFromEventTime(e);
+      if (ud->getNumUnits() == 0)
+      {
+        fud->setContainsParametersWithUndeclaredUnits(true);
+        fud->setCanIgnoreUndeclaredUnits(false);
+      }
       fud->setEventTimeUnitDefinition(ud);
     }
 
