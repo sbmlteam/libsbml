@@ -1337,7 +1337,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   if (!strcmp(spatialUnits, ""))
   {
     sizeUD   = getUnitDefinitionFromCompartment(c);
-    if (species->getLevel() > 2 && sizeUD->getNumUnits() == 0)
+    if (species->getLevel() > 2 && sizeUD && sizeUD->getNumUnits() == 0)
     {
       /* compartment units are not defined */
       delete sizeUD;
@@ -1706,6 +1706,308 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     ud = new UnitDefinition(model->getSBMLNamespaces());
   }
 
+  return ud;
+}
+
+/**
+* Returns the unitDefinition constructed
+* from the extent units of this Model.
+*/
+UnitDefinition * 
+UnitFormulaFormatter::getExtentUnitDefinition()
+{
+  UnitDefinition * ud = NULL;
+  Unit * unit = NULL;
+  unsigned int n, p;
+
+  const char * units = model->getExtentUnits().c_str();
+
+ /* no units declared */
+  if (!strcmp(units, ""))
+  {
+    ud   = new UnitDefinition(model->getSBMLNamespaces());
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = 0;
+  }
+  else
+  {
+    /* units can be a predefined unit kind
+    * a unit definition id or a builtin unit
+    */
+
+    if (UnitKind_isValidUnitKindString(units, 
+                              model->getLevel(), model->getVersion()))
+    {
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(units));
+      unit->initDefaults();
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
+      
+      ud->addUnit(unit);
+
+      delete unit;
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          ud = new UnitDefinition(model->getSBMLNamespaces());
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                   model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                        model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                       model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            ud->addUnit(unit);
+
+            delete unit;
+          }
+        }
+      }
+    }
+  }
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+  }
+
+  return ud;
+}
+
+UnitDefinition * 
+UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
+{
+  if (!species)
+  {
+    return NULL;
+  }
+  
+  UnitDefinition * ud = NULL;
+  const UnitDefinition * tempUd;
+  Unit * unit = NULL;
+  unsigned int n, p;
+
+  const char * units        = species->getSubstanceUnits().c_str();
+
+
+  /* in l3 the units might be derived from attributes on the model */
+  if (!strcmp(units, "") && species->getLevel() > 2)
+  {
+    if (model->isSetSubstanceUnits())
+      units = model->getSubstanceUnits().c_str();
+  }
+  /* deal with substance units */
+ 
+  /* no units declared implies they default to the value substance
+   * BUT NO DEFAULTS IN L3
+   */
+  if (!strcmp(units, ""))
+  {
+    if (species->getLevel() < 3)
+    {
+      /* check for builtin unit substance redefined */
+      tempUd = model->getUnitDefinition("substance");
+      if (!tempUd) 
+      {
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UnitKind_forName("mole"));
+        unit->initDefaults();
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+        ud->addUnit(unit);
+      }
+      else
+      {
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(tempUd->getUnit(0)->getKind());
+        unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
+        unit->setScale(tempUd->getUnit(0)->getScale());
+        unit->setExponent(tempUd->getUnit(0)->getExponent());
+        unit->setOffset(tempUd->getUnit(0)->getOffset());
+
+        ud->addUnit(unit);
+
+      }
+
+      delete unit;
+    }
+  }
+  else
+  {
+    /* units can be a predefined unit kind
+    * a unit definition id or a builtin unit
+    */
+    if (UnitKind_isValidUnitKindString(units, 
+                                 species->getLevel(), species->getVersion()))
+    {
+      unit = new Unit(model->getSBMLNamespaces());
+      unit->setKind(UnitKind_forName(units));
+      unit->initDefaults();
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
+      
+      ud->addUnit(unit);
+
+      delete unit;
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          ud = new UnitDefinition(model->getSBMLNamespaces());
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            unit = new Unit(model->getSBMLNamespaces());
+            unit->setKind(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(
+                   model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(
+                        model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(
+                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(
+                       model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            ud->addUnit(unit);
+
+            delete unit;
+          }
+        }
+      }
+    }
+    /* now check for builtin units 
+     * this check is left until now as it is possible for a builtin 
+     * unit to be reassigned using a unit definition and thus will have 
+     * been picked up above
+     */
+    if (Unit_isBuiltIn(units, model->getLevel()) && ud == NULL)
+    {
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+      if (!strcmp(units, "substance"))
+      {
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UNIT_KIND_MOLE);
+        unit->initDefaults();
+        ud->addUnit(unit);
+
+        delete unit;
+      }
+    }
+  }
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+  }
+
+  return ud;
+}
+
+UnitDefinition * 
+UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
+{
+  if (!species)
+  {
+    return NULL;
+  }
+  unsigned int n;
+  UnitDefinition * ud = NULL;
+  Unit * unit = NULL;
+
+  char * convFactor = "";
+
+  /* get model extent - if there is none then species has none */
+  UnitDefinition * modelExtent = getExtentUnitDefinition();
+  if (!modelExtent || modelExtent->getNumUnits() == 0)
+  {
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+    return ud;
+  }
+
+  UnitDefinition *conversion;
+
+  /* get conversionFactor - if none or if it has no units bail*/
+  if (species->isSetConversionFactor())
+  {
+    conversion = getUnitDefinitionFromParameter(
+      model->getParameter(species->getConversionFactor()));
+  }
+  else if (model->isSetConversionFactor())
+  {
+    conversion = getUnitDefinitionFromParameter(
+      model->getParameter(model->getConversionFactor()));
+  }
+    
+  if (!conversion || conversion->getNumUnits() == 0)
+  {
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+    return ud;
+  }
+  
+  /* both exist so multiply */
+  ud = new UnitDefinition(model->getSBMLNamespaces());
+  for (n = 0; n < modelExtent->getNumUnits(); n++)
+  {
+    unit = new Unit(model->getSBMLNamespaces());
+    unit->setKind(modelExtent->getUnit(n)->getKind());
+    unit->setMultiplier(
+            modelExtent->getUnit(n)->getMultiplier());
+    unit->setScale(
+            modelExtent->getUnit(n)->getScale());
+    unit->setExponent(
+            modelExtent->getUnit(n)->getExponent());
+    unit->setOffset(
+            modelExtent->getUnit(n)->getOffset());
+
+    ud->addUnit(unit);
+
+    delete unit;
+  }
+  for (n = 0; n < conversion->getNumUnits(); n++)
+  {
+    unit = new Unit(model->getSBMLNamespaces());
+    unit->setKind(conversion->getUnit(n)->getKind());
+    unit->setMultiplier(
+            conversion->getUnit(n)->getMultiplier());
+    unit->setScale(
+            conversion->getUnit(n)->getScale());
+    unit->setExponent(
+            conversion->getUnit(n)->getExponent());
+    unit->setOffset(
+            conversion->getUnit(n)->getOffset());
+
+    ud->addUnit(unit);
+
+    delete unit;
+  }
+
+
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+  }
+
+  UnitDefinition::simplify(ud);
+
+  delete modelExtent;
+  delete conversion;
   return ud;
 }
 

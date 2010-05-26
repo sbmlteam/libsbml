@@ -70,6 +70,7 @@ Suite *create_suite_UtilsUnit (void);
 Suite *create_suite_UtilsUnitDefinition (void);
 Suite *create_suite_UnitFormulaFormatter (void);
 Suite *create_suite_UnitFormulaFormatter1 (void);
+Suite *create_suite_UnitFormulaFormatter2 (void);
 Suite *create_suite_FormulaUnitsData (void);
 Suite *create_suite_DerivedUnitDefinition (void);
 
@@ -124,6 +125,7 @@ main (void)
   srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
   srunner_add_suite( runner, create_suite_FormulaUnitsData() );
   srunner_add_suite( runner, create_suite_DerivedUnitDefinition() );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter2() );
   
 
 

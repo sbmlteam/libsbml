@@ -164,7 +164,28 @@ public:
    */
   UnitDefinition * getUnitDefinitionFromEventTime(const Event * event);
 
-  /**
+   /**
+   * Returns the unitDefinition constructed
+   * from the extent units of this Model.
+   *
+   * @return the unitDefinition constructed to represent the extent units 
+   * of the Model.
+   */
+  UnitDefinition * getExtentUnitDefinition();
+
+   /**
+   * Returns the unitDefinition constructed
+   * from the substance units of this Species.
+   */
+  UnitDefinition * getSpeciesSubstanceUnitDefinition(const Species * species);
+
+   /**
+   * Returns the unitDefinition constructed
+   * from the substance units of this Species.
+   */
+  UnitDefinition * getSpeciesExtentUnitDefinition(const Species * species);
+
+ /**
    * Predicate returning @c true or @c false depending on whether 
    * undeclared units can be ignored.
    * 

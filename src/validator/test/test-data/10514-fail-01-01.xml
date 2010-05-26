@@ -23,10 +23,10 @@
     <listOfReactions>
       <reaction id="r" reversible="true" fast="false">
         <listOfReactants>
-          <speciesReference species="s" stoichiometry="1" constant="false" id="sr"/>
+          <speciesReference species="s" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="p" stoichiometry="1" constant="true"/>
+          <speciesReference species="p" stoichiometry="1" constant="false" id="sr"/>
         </listOfProducts>
       </reaction>
     </listOfReactions>
