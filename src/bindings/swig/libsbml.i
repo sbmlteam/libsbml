@@ -289,6 +289,13 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBMLNamespaces::setNamespaces;
 
 /**
+ * Ignore internal SBMLTransforms.
+ */
+%ignore SBMLTransforms::replaceFD;
+%ignore SBMLTransforms::expandInitialAssignments;
+%ignore SBMLTransforms::evaluateASTNode;
+
+/**
  * Ignore internal implementation methods in XMLToken
  */
 %ignore XMLToken::write;
@@ -476,6 +483,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/SyntaxChecker.h
 %include sbml/StoichiometryMath.h
 %include sbml/SBMLNamespaces.h
+%include sbml/SBMLTransforms.h
 
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h
