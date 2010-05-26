@@ -178,19 +178,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 
-
-#ifndef SWIG
-
-LIBSBML_CPP_NAMESPACE_BEGIN
-BEGIN_C_DECLS
-
-/*-----------------------------------------------------------------------------
- * See the .cpp file for the documentation of the following functions.
- *---------------------------------------------------------------------------*/
-
-END_C_DECLS
-LIBSBML_CPP_NAMESPACE_END
-
-
-#endif  /* !SWIG */
 #endif  /* SBMLTransforms_h */
