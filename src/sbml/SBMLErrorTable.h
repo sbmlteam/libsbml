@@ -1075,8 +1075,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "Message", 
+    LIBSBML_SEV_WARNING,
+    "The unit of measurement associated with the mathematical formula in the "
+    "MathML math element of every KineticLaw object in a model should be "
+    "identical to all KineticLaw objects in the model.", 
     {"",
      "",
      "",
@@ -1394,7 +1396,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10542
   {
     SpeciesInvalidExtentUnits,
-    "Species units nit extent by conversionFactor",
+    "Species units not consistent with extent",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1402,8 +1404,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    "Message", 
+    LIBSBML_SEV_WARNING,
+    "For every Species object produced or consumed in a reaction (that is, "
+    "referenced by a SpeciesReference object), the unit of measurement of the "
+    "species’ substance should be consistent with the unit of extent for the "
+    "model times the unit of the conversion factor for that species. More "
+    "precisely, the product of the units indicated by the Model object’s "
+    "extentUnits and the conversionFactor attribute for that particular "
+    "Species (whether the attribute is set directly on the Species object or "
+    "inherited from the enclosing Model object) should be consistent with the "
+    "unit specified by that Species object’s substanceUnits attribute value.", 
     {"",
      "",
      "",

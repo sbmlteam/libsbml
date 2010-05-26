@@ -284,6 +284,11 @@ public:
    */
   const UnitDefinition * getEventTimeUnitDefinition() const;
 
+  const UnitDefinition * getSpeciesExtentUnitDefinition() const;
+  UnitDefinition * getSpeciesExtentUnitDefinition();
+  const UnitDefinition * getSpeciesSubstanceUnitDefinition() const;
+  UnitDefinition * getSpeciesSubstanceUnitDefinition();
+
   /**
    * Sets the unitReferenceId attribute of this FormulaUnitsData.
    *
@@ -347,6 +352,8 @@ public:
    */
   void setEventTimeUnitDefinition(UnitDefinition * ud);
 
+  void setSpeciesExtentUnitDefinition(UnitDefinition * ud);
+  void setSpeciesSubstanceUnitDefinition(UnitDefinition * ud);
 
 
 /** @cond doxygen-libsbml-internal */
@@ -380,6 +387,8 @@ protected:
     UnitDefinition * mUnitDefinition;
     UnitDefinition * mPerTimeUnitDefinition;
     UnitDefinition * mEventTimeUnitDefinition;
+    UnitDefinition * mSpeciesExtentUnitDefinition;
+    UnitDefinition * mSpeciesSubstanceUnitDefinition;
 
   /** @endcond doxygen-libsbml-internal */
 };

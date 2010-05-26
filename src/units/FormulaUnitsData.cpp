@@ -51,6 +51,12 @@ FormulaUnitsData::FormulaUnitsData()
   mEventTimeUnitDefinition = 
     new UnitDefinition(SBMLDocument::getDefaultLevel(),
                        SBMLDocument::getDefaultVersion());
+  mSpeciesExtentUnitDefinition = 
+    new UnitDefinition(SBMLDocument::getDefaultLevel(),
+                       SBMLDocument::getDefaultVersion());
+  mSpeciesSubstanceUnitDefinition = 
+    new UnitDefinition(SBMLDocument::getDefaultLevel(),
+                       SBMLDocument::getDefaultVersion());
 }
 
 FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
@@ -86,6 +92,24 @@ FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& orig)
   else
   {
     mEventTimeUnitDefinition = NULL;
+  }
+  if (orig.mSpeciesExtentUnitDefinition)
+  {
+    mSpeciesExtentUnitDefinition = static_cast <UnitDefinition*> 
+                               (orig.mSpeciesExtentUnitDefinition->clone());
+  }
+  else
+  {
+    mSpeciesExtentUnitDefinition = NULL;
+  }
+  if (orig.mSpeciesSubstanceUnitDefinition)
+  {
+    mSpeciesSubstanceUnitDefinition = static_cast <UnitDefinition*> 
+                               (orig.mSpeciesSubstanceUnitDefinition->clone());
+  }
+  else
+  {
+    mSpeciesSubstanceUnitDefinition = NULL;
   }
 }
 
@@ -134,6 +158,28 @@ FormulaUnitsData& FormulaUnitsData::operator=(const FormulaUnitsData& rhs)
     {
       mEventTimeUnitDefinition = NULL;
     }
+
+    delete mSpeciesExtentUnitDefinition;
+    if (rhs.mSpeciesExtentUnitDefinition)
+    {
+      mSpeciesExtentUnitDefinition = static_cast <UnitDefinition*> 
+                                (rhs.mSpeciesExtentUnitDefinition->clone());
+    }
+    else
+    {
+      mSpeciesExtentUnitDefinition = NULL;
+    }
+
+    delete mSpeciesSubstanceUnitDefinition;
+    if (rhs.mSpeciesSubstanceUnitDefinition)
+    {
+      mSpeciesSubstanceUnitDefinition = static_cast <UnitDefinition*> 
+                                (rhs.mSpeciesSubstanceUnitDefinition->clone());
+    }
+    else
+    {
+      mSpeciesSubstanceUnitDefinition = NULL;
+    }
   }
 
   return *this;
@@ -145,6 +191,8 @@ FormulaUnitsData::~FormulaUnitsData()
   if (mUnitDefinition)              delete mUnitDefinition;
   if (mPerTimeUnitDefinition)       delete mPerTimeUnitDefinition;
   if (mEventTimeUnitDefinition)     delete mEventTimeUnitDefinition;
+  if (mSpeciesExtentUnitDefinition)     delete mSpeciesExtentUnitDefinition;
+  if (mSpeciesSubstanceUnitDefinition)     delete mSpeciesSubstanceUnitDefinition;
 }
 
 SBase*
@@ -327,6 +375,30 @@ FormulaUnitsData::getEventTimeUnitDefinition() const
   return mEventTimeUnitDefinition; 
 }
 
+const UnitDefinition * 
+FormulaUnitsData::getSpeciesExtentUnitDefinition() const 
+{ 
+  return mSpeciesExtentUnitDefinition; 
+}
+
+UnitDefinition * 
+FormulaUnitsData::getSpeciesExtentUnitDefinition()
+{ 
+  return mSpeciesExtentUnitDefinition; 
+}
+
+const UnitDefinition * 
+FormulaUnitsData::getSpeciesSubstanceUnitDefinition() const 
+{ 
+  return mSpeciesSubstanceUnitDefinition; 
+}
+
+UnitDefinition * 
+FormulaUnitsData::getSpeciesSubstanceUnitDefinition()
+{ 
+  return mSpeciesSubstanceUnitDefinition; 
+}
+
 /**
   * Sets the unitReferenceId attribute of this FormulaUnitsData.
   *
@@ -426,6 +498,24 @@ FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition * ud)
   
   delete mEventTimeUnitDefinition;
   mEventTimeUnitDefinition = ud; 
+}
+
+void 
+FormulaUnitsData::setSpeciesExtentUnitDefinition(UnitDefinition * ud) 
+{ 
+  if(ud == mSpeciesExtentUnitDefinition) return;
+  
+  delete mSpeciesExtentUnitDefinition;
+  mSpeciesExtentUnitDefinition = ud; 
+}
+
+void 
+FormulaUnitsData::setSpeciesSubstanceUnitDefinition(UnitDefinition * ud) 
+{ 
+  if(ud == mSpeciesSubstanceUnitDefinition) return;
+  
+  delete mSpeciesSubstanceUnitDefinition;
+  mSpeciesSubstanceUnitDefinition = ud; 
 }
 
 /** @cond doxygen-libsbml-internal */

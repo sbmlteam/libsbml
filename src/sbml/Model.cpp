@@ -4887,6 +4887,48 @@ Model::populateListFormulaUnitsData()
     }
   }
 
+  
+  /* for L3 we need additional information relating to 
+   * extent and conversion factors
+   */
+  if (getLevel() > 2)
+  {
+    for (n=0; n < getNumSpecies(); n++)
+    {
+      s = getSpecies(n);
+      fud = createFormulaUnitsData();
+      fud->setUnitReferenceId(s->getId()+"subs");
+      fud->setComponentTypecode(SBML_SPECIES);
+      ud = unitFormatter->getSpeciesSubstanceUnitDefinition(s);
+      
+      if (ud != NULL)
+      {
+        fud->setSpeciesSubstanceUnitDefinition(ud);
+        fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
+      }
+    }
+    for (n=0; n < getNumSpecies(); n++)
+    {
+      s = getSpecies(n);
+      fud = createFormulaUnitsData();
+      fud->setUnitReferenceId(s->getId()+"extent");
+      fud->setComponentTypecode(SBML_SPECIES);
+      ud = unitFormatter->getSpeciesExtentUnitDefinition(s);
+      
+      if (ud != NULL)
+      {
+        fud->setSpeciesExtentUnitDefinition(ud);
+        fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
+        fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
+      }
+    }
+
+  }
   /* get unit data from each parameter    */
   for (n=0; n < getNumParameters(); n++)
   {

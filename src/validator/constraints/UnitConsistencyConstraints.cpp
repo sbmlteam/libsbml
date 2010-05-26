@@ -980,6 +980,52 @@ START_CONSTRAINT (10541, KineticLaw, kl)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (10542, Species, s)
+{
+  pre (s.getLevel() > 2);
+  pre (m.getSpeciesReference(s.getId()) != NULL);
+
+  //msg =
+  //  "The units of the 'math' formula in a <kineticLaw> definition must be "
+  //  "the equivalent of _substance per time_. (References: L2V2 Section "
+  //  "4.13.5.)";
+
+  const FormulaUnitsData * formulaUnits = 
+                            m.getFormulaUnitsData(s.getId()+"subs", 
+                                                  SBML_SPECIES);
+  const FormulaUnitsData * variableUnits = 
+                           m.getFormulaUnitsData(s.getId()+"extent", 
+                                                 SBML_SPECIES);
+
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
+  /* check that the formula is okay 
+     ie has no parameters with undeclared units */
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
+
+  /* check that the variable is okay 
+     ie has no parameters with undeclared units 
+     IT MIGHT IN L3 */
+  pre (!variableUnits->getContainsUndeclaredUnits()
+    || (variableUnits->getContainsUndeclaredUnits() &&
+        variableUnits->getCanIgnoreUndeclaredUnits()));
+
+  msg =  "Expected units are ";
+  msg += UnitDefinition::printUnits(formulaUnits->getSpeciesSubstanceUnitDefinition());
+  msg += " but the units returned by the the 'extent times conversionFactor' expression are ";
+  msg += UnitDefinition::printUnits(variableUnits->getSpeciesExtentUnitDefinition());
+  msg += ".";
+
+
+  inv (UnitDefinition::areEquivalent(formulaUnits->getSpeciesSubstanceUnitDefinition(), 
+                                      variableUnits->getSpeciesExtentUnitDefinition()) == 1);
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (10551, Event, e)
 {
   //msg =

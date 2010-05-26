@@ -1844,6 +1844,12 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
 
       delete unit;
     }
+    else
+    {
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
+      mContainsUndeclaredUnits = true;
+      mCanIgnoreUndeclaredUnits = 0;
+    }
   }
   else
   {
@@ -1937,6 +1943,8 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
   if (!modelExtent || modelExtent->getNumUnits() == 0)
   {
     ud = new UnitDefinition(model->getSBMLNamespaces());
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = 0;
     return ud;
   }
 
@@ -1957,6 +1965,8 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
   if (!conversion || conversion->getNumUnits() == 0)
   {
     ud = new UnitDefinition(model->getSBMLNamespaces());
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = 0;
     return ud;
   }
   

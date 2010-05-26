@@ -36,7 +36,7 @@
   </listOfUnitDefinitions>
   <listOfCompartments>
     <compartment id="cell" size="1" units="litre"/>
-    <compartment id="cell1" size="1" spatialDimension="1" units="length"/>
+    <compartment id="cell1" size="1" spatialDimensions="1" units="length"/>
  </listOfCompartments>
   <listOfSpecies>
     <species id="x" compartment="cell" initialConcentration="0.5" substanceUnits="mole" spatialSizeUnits="litre"/>
