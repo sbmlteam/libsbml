@@ -1176,35 +1176,36 @@ START_CONSTRAINT (20510, Compartment, c)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (20511, Compartment, c)
-{
-  pre( c.getLevel() > 2);
-  pre( c.getSpatialDimensionsAsDouble() == 1);
-  pre( !(c.isSetUnits()));
-
-  inv( m.isSetLengthUnits());
-}
-END_CONSTRAINT
-
-START_CONSTRAINT (20512, Compartment, c)
-{
-  pre( c.getLevel() > 2);
-  pre( c.getSpatialDimensionsAsDouble() == 2);
-  pre( !(c.isSetUnits()));
-
-  inv( m.isSetAreaUnits());
-}
-END_CONSTRAINT
-
-START_CONSTRAINT (20513, Compartment, c)
-{
-  pre( c.getLevel() > 2);
-  pre( c.getSpatialDimensionsAsDouble() == 3);
-  pre( !(c.isSetUnits()));
-
-  inv( m.isSetVolumeUnits());
-}
-END_CONSTRAINT
+/* moved to unit validator */
+//START_CONSTRAINT (20511, Compartment, c)
+//{
+//  pre( c.getLevel() > 2);
+//  pre( c.getSpatialDimensionsAsDouble() == 1);
+//  pre( !(c.isSetUnits()));
+//
+//  inv( m.isSetLengthUnits());
+//}
+//END_CONSTRAINT
+//
+//START_CONSTRAINT (20512, Compartment, c)
+//{
+//  pre( c.getLevel() > 2);
+//  pre( c.getSpatialDimensionsAsDouble() == 2);
+//  pre( !(c.isSetUnits()));
+//
+//  inv( m.isSetAreaUnits());
+//}
+//END_CONSTRAINT
+//
+//START_CONSTRAINT (20513, Compartment, c)
+//{
+//  pre( c.getLevel() > 2);
+//  pre( c.getSpatialDimensionsAsDouble() == 3);
+//  pre( !(c.isSetUnits()));
+//
+//  inv( m.isSetVolumeUnits());
+//}
+//END_CONSTRAINT
 
 // Species validation
 
@@ -1572,15 +1573,16 @@ START_CONSTRAINT (20615, Species, s)
 }
 END_CONSTRAINT
 
-
-START_CONSTRAINT (20616, Species, s)
-{
-  pre( s.getLevel() > 2);
-  pre( !(s.isSetSubstanceUnits()));
-
-  inv( m.isSetSubstanceUnits());
-}
-END_CONSTRAINT
+/* moved to unit validator */
+//
+//START_CONSTRAINT (20616, Species, s)
+//{
+//  pre( s.getLevel() > 2);
+//  pre( !(s.isSetSubstanceUnits()));
+//
+//  inv( m.isSetSubstanceUnits());
+//}
+//END_CONSTRAINT
 
 
 START_CONSTRAINT (20617, Species, s)
@@ -1631,15 +1633,16 @@ START_CONSTRAINT (20701, Parameter, p)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (20702, Parameter, p)
-{
-  pre( p.getLevel() > 2 );
-
-  inv( p.isSetUnits() );
-}
-END_CONSTRAINT
-
-
+/* moved to unit validator */
+//START_CONSTRAINT (20702, Parameter, p)
+//{
+//  pre( p.getLevel() > 2 );
+//
+//  inv( p.isSetUnits() );
+//}
+//END_CONSTRAINT
+//
+//
 // InitialAssignment validation
 
 START_CONSTRAINT (20801, InitialAssignment, ia)

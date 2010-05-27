@@ -14,7 +14,7 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" constant="false"/>
+      <compartment id="c" constant="false" units="area"/>
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="ampere" constant="false"/>

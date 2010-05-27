@@ -23,7 +23,6 @@
       <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p1" value="1" units="time" constant="false"/>
       <parameter id="p2" value="1" units="metre" constant="false"/>
-      <parameter id="p3" value="1" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <rateRule variable="s1">

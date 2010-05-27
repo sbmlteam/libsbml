@@ -203,6 +203,11 @@ TestFile::getFilesIn ( const string& directory,
       if (id == 1013 && num <= 10) continue;
       if (id == 1014 && num <= 4) continue;
 #endif
+
+      // leave out model constraints moved to units
+      if (id == 20702 || id == 20616
+        || id == 20511 || id == 20512 || id == 20513)
+        continue;
       //}
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))

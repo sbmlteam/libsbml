@@ -12,7 +12,7 @@
       <compartment id="c" spatialDimensions="3" units="litre" constant="false"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s1" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="s1" compartment="c" substanceUnits="mole" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>

@@ -12,7 +12,7 @@
       <compartment id="c" spatialDimensions="3" units="litre" constant="false"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p" value="1" constant="false"/>
+      <parameter id="p" value="1" constant="false" units="litre"/>
       <parameter id="p2" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfRules>

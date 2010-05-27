@@ -2,7 +2,7 @@
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model>
     <listOfCompartments>
-      <compartment id="c" constant="false"/>
+      <compartment id="c" constant="false" units="metre"/>
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="metre" constant="false"/>

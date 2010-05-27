@@ -224,6 +224,32 @@ START_CONSTRAINT (99505, EventAssignment, ea)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (99505, Compartment, c)
+{
+  pre ( c.getLevel() > 2);
+  
+  msg = "The units of the <compartment> '";
+  msg += c.getId() ;
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( !(c.getDerivedUnitDefinition()->getNumUnits() == 0));
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99505, Species, s)
+{
+  pre ( s.getLevel() > 2);
+  
+  msg = "The units of the <species> '";
+  msg += s.getId() ;
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( !(s.getDerivedUnitDefinition()->getNumUnits() == 0));
+}
+END_CONSTRAINT
+
 // General Unit validation
 
 
@@ -1225,6 +1251,56 @@ START_CONSTRAINT (10564, EventAssignment, ea)
   msg += ".";
   
   inv (formulaUnits->getUnitDefinition()->isVariantOfDimensionless());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20511, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+  pre( c.getSpatialDimensionsAsDouble() == 1);
+  pre( !(c.isSetUnits()));
+
+  inv( m.isSetLengthUnits());
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (20512, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+  pre( c.getSpatialDimensionsAsDouble() == 2);
+  pre( !(c.isSetUnits()));
+
+  inv( m.isSetAreaUnits());
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (20513, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+  pre( c.getSpatialDimensionsAsDouble() == 3);
+  pre( !(c.isSetUnits()));
+
+  inv( m.isSetVolumeUnits());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20616, Species, s)
+{
+  pre( s.getLevel() > 2);
+  pre( !(s.isSetSubstanceUnits()));
+
+  inv( m.isSetSubstanceUnits());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20702, Parameter, p)
+{
+  pre( p.getLevel() > 2 );
+
+  inv( p.isSetUnits() );
 }
 END_CONSTRAINT
 

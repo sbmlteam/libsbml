@@ -17,7 +17,7 @@
       <compartment id="c" spatialDimensions="3" units="volume" constant="false"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p" value="1" constant="false"/>
+      <parameter id="p" value="1" constant="false" units="metre" />
       <parameter id="p1" value="1" units="metre" constant="false"/>
     </listOfParameters>
     <listOfRules>

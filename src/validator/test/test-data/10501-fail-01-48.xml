@@ -17,7 +17,6 @@
       <compartment id="c" spatialDimensions="3" units="volume" constant="false"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p" value="1" constant="false"/>
       <parameter id="p1" value="1" units="metre" constant="false"/>
       <parameter id="p2" value="4" units="litre" constant="true"/>
       <parameter id="six" value="6" units="dimensionless" constant="true"/>

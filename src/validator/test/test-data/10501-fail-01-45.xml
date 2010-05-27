@@ -16,9 +16,6 @@
     <listOfCompartments>
       <compartment id="c" spatialDimensions="2" units="area" constant="false"/>
     </listOfCompartments>
-    <listOfParameters>
-      <parameter id="p" value="1" constant="false"/>
-    </listOfParameters>
     <listOfRules>
       <algebraicRule>
         <math xmlns="http://www.w3.org/1998/Math/MathML">

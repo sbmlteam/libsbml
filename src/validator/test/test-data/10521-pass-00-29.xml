@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
-  <model>
+  <model lengthUnits="length">
     <listOfUnitDefinitions>
       <unitDefinition id="length">
         <listOfUnits>
@@ -14,7 +14,7 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" constant="false"/>
+      <compartment id="c" constant="false" spatialDimensions="1"/>
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="metre" constant="false"/>

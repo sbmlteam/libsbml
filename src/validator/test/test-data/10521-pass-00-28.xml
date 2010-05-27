@@ -14,7 +14,7 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="1" constant="false"/>
+      <compartment id="c" spatialDimensions="1" constant="false" units="length"/>
     </listOfCompartments>
     <listOfParameters>
       <parameter id="p" value="1" units="metre" constant="false"/>

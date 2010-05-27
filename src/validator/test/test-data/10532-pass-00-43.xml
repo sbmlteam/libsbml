@@ -14,10 +14,10 @@
       </unitDefinition>
     </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" constant="false"/>
+      <compartment id="c" constant="false" units="litre"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s1" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="s1" substanceUnits="mole" compartment="c" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>

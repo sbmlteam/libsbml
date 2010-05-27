@@ -12,14 +12,14 @@
       <compartment id="c" spatialDimensions="3" units="litre" constant="false"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p" value="1" constant="false"/>
-      <parameter id="p2" value="1" units="dimensionless" constant="false"/>
+      <parameter id="p" value="1" constant="false" units="litre"/>
+      <parameter id="p2" value="1" units="time" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <rateRule variable="p">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <times/>
+            <divide/>
             <ci> c </ci>
             <ci> p2 </ci>
           </apply>
