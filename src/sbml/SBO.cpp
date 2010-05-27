@@ -23,6 +23,7 @@
 
 #include <iomanip>
 #include <sstream>
+#include <iterator>
 
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLOutputStream.h>
