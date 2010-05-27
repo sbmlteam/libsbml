@@ -358,6 +358,8 @@ Model::addDefinitionsForDefaultUnits()
     u->setScale(0);
     u->setExponent(1.0);
     u->setMultiplier(1.0);
+
+    setTimeUnits("time");
   }
 
 }

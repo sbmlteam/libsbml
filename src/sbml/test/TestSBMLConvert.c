@@ -309,6 +309,8 @@ START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
   fail_unless(Unit_getMultiplier(u) == 1);
   fail_unless(Unit_getScale(u) == 0);
 
+  fail_unless(!strcmp(Model_getTimeUnits(m), "time"));
+
   SBMLDocument_free(d);
 }
 END_TEST
