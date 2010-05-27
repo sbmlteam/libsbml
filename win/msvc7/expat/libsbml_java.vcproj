@@ -306,6 +306,9 @@
 				RelativePath="..\..\..\src\sbml\KineticLaw.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\validator\constraints\KineticLawUnitsCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\validator\constraints\KineticLawVars.cpp">
 			</File>
 			<File
@@ -815,6 +818,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\sbml\KineticLaw.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\constraints\KineticLawUnitsCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\validator\constraints\KineticLawVars.h">

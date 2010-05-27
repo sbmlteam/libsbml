@@ -406,6 +406,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\validator\constraints\KineticLawUnitsCheck.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\validator\constraints\KineticLawVars.cpp"
 				>
 			</File>
@@ -447,6 +451,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\validator\L2v4CompatibilityValidator.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\constraints\L3v1CompatibilityConstraints.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\L3v1CompatibilityValidator.cpp"
 				>
 			</File>
 			<File
@@ -1086,6 +1098,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\validator\constraints\KineticLawUnitsCheck.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\validator\constraints\KineticLawVars.h"
 				>
 			</File>
@@ -1107,6 +1123,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\validator\L2v4CompatibilityValidator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\validator\L3v1CompatibilityValidator.h"
 				>
 			</File>
 			<File
