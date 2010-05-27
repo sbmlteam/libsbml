@@ -1948,7 +1948,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
     return ud;
   }
 
-  UnitDefinition *conversion;
+  UnitDefinition *conversion = NULL;
 
   /* get conversionFactor - if none or if it has no units bail*/
   if (species->isSetConversionFactor())

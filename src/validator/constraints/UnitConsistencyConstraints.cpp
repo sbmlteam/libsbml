@@ -74,6 +74,7 @@
 #include "NumericReturnMathCheck.h"
 #include "LocalParameterMathCheck.h"
 #include "NumberArgsMathCheck.h"
+#include "KineticLawUnitsCheck.h"
 
 #include "OverDeterminedCheck.h"
 
@@ -230,10 +231,8 @@ EXTERN_CONSTRAINT(10501, ArgumentsUnitsCheck)
 EXTERN_CONSTRAINT(99502, ArgumentsUnitsCheckWarnings)
 EXTERN_CONSTRAINT(99503, PowerUnitsCheck)
 EXTERN_CONSTRAINT(99504, ExponentUnitsCheck)
-//EXTERN_CONSTRAINT(90501, ArgumentsUnitsCheck)
-//EXTERN_CONSTRAINT(90502, ArgumentsUnitsCheckWarnings)
-//EXTERN_CONSTRAINT(90503, PowerUnitsCheck)
-//EXTERN_CONSTRAINT(90504, ExponentUnitsCheck)
+
+EXTERN_CONSTRAINT(10503, KineticLawUnitsCheck)
 
 // Specific unit checks 
 

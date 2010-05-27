@@ -92,6 +92,7 @@ sources =                                     \
   IdList.cpp                                  \
   InternalConsistencyConstraints.cpp          \
   KineticLawVars.cpp                          \
+  KineticLawUnitsCheck.cpp                    \
   L1CompatibilityConstraints.cpp              \
   L2v1CompatibilityConstraints.cpp            \
   L2v2CompatibilityConstraints.cpp            \
@@ -156,6 +157,7 @@ other_headers = \
   FunctionDefinitionVars.h                 \
   FunctionNoArgsMathCheck.h                \
   FunctionReferredToExists.h               \
+  KineticLawUnitsCheck.h                   \
   KineticLawVars.h                         \
   LambdaMathCheck.h                        \
   LocalParameterMathCheck.h                \
