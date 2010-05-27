@@ -361,6 +361,10 @@ Model::addDefinitionsForDefaultUnits()
 
     setTimeUnits("time");
   }
+  else
+  {
+    setTimeUnits("time");
+  }
 
 }
 
