@@ -925,7 +925,7 @@ END_TEST
 
 START_TEST ( test_CompartmentType_parent_NULL )
 {
-  SBMLDocument *d = new SBMLDocument();
+  SBMLDocument *d = new SBMLDocument(2, 4);
   Model *m = d->createModel();
   CompartmentType *c = m->createCompartmentType();
   
@@ -961,7 +961,7 @@ END_TEST
 
 START_TEST ( test_Event_parent_NULL )
 {
-  SBMLDocument *d = new SBMLDocument();
+  SBMLDocument *d = new SBMLDocument(2, 4);
   Model *m = d->createModel();
   Event *c = m->createEvent();
   EventAssignment *ea = c->createEventAssignment();
@@ -1134,7 +1134,7 @@ END_TEST
 
 START_TEST ( test_SpeciesType_parent_NULL )
 {
-  SBMLDocument *d = new SBMLDocument();
+  SBMLDocument *d = new SBMLDocument(2, 4);
   Model *m = d->createModel();
   SpeciesType *c = m->createSpeciesType();
   

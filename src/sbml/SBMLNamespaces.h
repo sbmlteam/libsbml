@@ -63,8 +63,8 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-#define SBML_DEFAULT_LEVEL   2
-#define SBML_DEFAULT_VERSION 4
+#define SBML_DEFAULT_LEVEL   3
+#define SBML_DEFAULT_VERSION 1
 #define SBML_XMLNS_L1        "http://www.sbml.org/sbml/level1"
 #define SBML_XMLNS_L2V1      "http://www.sbml.org/sbml/level2"
 #define SBML_XMLNS_L2V2      "http://www.sbml.org/sbml/level2/version2"

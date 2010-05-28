@@ -73,8 +73,8 @@ START_TEST (test_SBMLDocument_create)
   fail_unless( SBase_getNotes     ((SBase_t *) d) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) d) == NULL );
 
-  fail_unless( SBMLDocument_getLevel  (d) == 2);
-  fail_unless( SBMLDocument_getVersion(d) == 4);
+  fail_unless( SBMLDocument_getLevel  (d) == 3);
+  fail_unless( SBMLDocument_getVersion(d) == 1);
 
   fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
 

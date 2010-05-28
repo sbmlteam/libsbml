@@ -2349,14 +2349,14 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
   // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
   //
-  attributes.readInto("level", mLevel, getErrorLog(), false);
+  bool levelRead = attributes.readInto("level", mLevel, getErrorLog(), false);
 
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
   // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
-  attributes.readInto("version", mVersion, getErrorLog(), false);
+  bool versionRead = attributes.readInto("version", mVersion, getErrorLog(), false);
   
   std::vector<std::string> expectedAttributes;
   expectedAttributes.clear();
@@ -2428,11 +2428,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
                   "http://www.sbml.org/sbml/level1"))
       {
         match = 1;
-        if (mLevel != 1)
+        if (mLevel != 1 || !levelRead)
         {
           logError(MissingOrInconsistentLevel);
         }
-        if (mVersion != 1 && mVersion != 2)
+        if ((mVersion != 1 && mVersion != 2) || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }
@@ -2442,11 +2442,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
                 "http://www.sbml.org/sbml/level2"))
       {
         match = 1;
-        if (mLevel != 2)
+        if (mLevel != 2 || !levelRead)
         {
           logError(MissingOrInconsistentLevel);
         }
-        if (mVersion != 1)
+        if (mVersion != 1 || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }
@@ -2456,11 +2456,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
                 "http://www.sbml.org/sbml/level2/version2"))
       {
         match = 1;
-        if (mLevel != 2)
+        if (mLevel != 2 || !levelRead)
         {
           logError(MissingOrInconsistentLevel);
         }
-        if (mVersion != 2)
+        if (mVersion != 2 || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }
@@ -2470,11 +2470,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
                 "http://www.sbml.org/sbml/level2/version3"))
       {
         match = 1;
-        if (mLevel != 2)
+        if (mLevel != 2 || !levelRead)
         {
           logError(MissingOrInconsistentLevel);
         }
-        if (mVersion != 3)
+        if (mVersion != 3 || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }
@@ -2484,11 +2484,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
                 "http://www.sbml.org/sbml/level2/version4"))
       {
         match = 1;
-        if (mLevel != 2)
+        if (mLevel != 2 || !levelRead)
         {
           logError(MissingOrInconsistentLevel);
         }
-        if (mVersion != 4)
+        if (mVersion != 4 || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }
@@ -2498,11 +2498,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
                 "http://www.sbml.org/sbml/level3/version1/core"))
       {
         match = 1;
-        if (mLevel != 3)
+        if (mLevel != 3 || !levelRead)
         {
           logError(MissingOrInconsistentLevel);
         }
-        if (mVersion != 1)
+        if (mVersion != 1 || !versionRead)
         {
           logError(MissingOrInconsistentVersion);
         }

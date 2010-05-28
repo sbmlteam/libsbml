@@ -45,11 +45,11 @@ LIBSBML_CPP_NAMESPACE_USE
 //TO DO - add namespace
 
 #define XML_HEADER        "<?xml version='1.0' encoding='UTF-8'?>\n"
-#define SBML_HEADER_L1v1  "<sbml level='1' version='1'> <model name='m'>\n"
-#define SBML_HEADER_L1v2  "<sbml level='1' version='2'> <model name='m'>\n"
-#define SBML_HEADER_L2v1  "<sbml level='2' version='1'> <model name='m'>\n"
-#define SBML_HEADER_L2v2  "<sbml level='2' version='2'> <model name='m'>\n"
-#define SBML_HEADER_L2v3  "<sbml level='2' version='3'> <model name='m'>\n"
+#define SBML_HEADER_L1v1  "<sbml xmlns='http://www.sbml.org/sbml/level1' level='1' version='1'> <model name='m'>\n"
+#define SBML_HEADER_L1v2  "<sbml xmlns='http://www.sbml.org/sbml/level1' level='1' version='2'> <model name='m'>\n"
+#define SBML_HEADER_L2v1  "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'> <model name='m'>\n"
+#define SBML_HEADER_L2v2  "<sbml xmlns='http://www.sbml.org/sbml/level2/version2' level='2' version='2'> <model name='m'>\n"
+#define SBML_HEADER_L2v3  "<sbml xmlns='http://www.sbml.org/sbml/level2/version3' level='2' version='3'> <model name='m'>\n"
 #define SBML_FOOTER       "</model> </sbml>"
 
 /**

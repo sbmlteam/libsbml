@@ -2216,7 +2216,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_NaN)
 {
-  const char* expected = "<parameter id=\"p\" value=\"NaN\"/>";
+  const char* expected = "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";
 
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
@@ -2230,7 +2230,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_INF)
 {
-  const char* expected = "<parameter id=\"p\" value=\"INF\"/>";
+  const char* expected = "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";
 
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
@@ -2244,7 +2244,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_NegINF)
 {
-  const char* expected = "<parameter id=\"p\" value=\"-INF\"/>";
+  const char* expected = "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";
 
 
   Parameter *p = D->createModel()->createParameter();
@@ -2258,7 +2258,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_locale)
 {
-  const char* expected = "<parameter id=\"p\" value=\"3.31\"/>";
+  const char* expected = "<parameter id=\"p\" value=\"3.31\" constant=\"true\"/>";
 
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
