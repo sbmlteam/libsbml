@@ -2122,7 +2122,7 @@ SBase::unsetSBOTerm ()
  * Adds a copy of the given CVTerm to this SBML object.
  */
 int
-SBase::addCVTerm(CVTerm * term)
+SBase::addCVTerm(CVTerm * term, bool newBag)
 {
   unsigned int added = 0;
   // shouldnt add a CVTerm to an object with no metaid 
@@ -2148,6 +2148,10 @@ SBase::addCVTerm(CVTerm * term)
   if (mCVTerms == NULL)
   {
     mCVTerms = new List();
+    mCVTerms->add((void *) term->clone());
+  }
+  else if (mCVTerms->getSize() == 0)
+  {
     mCVTerms->add((void *) term->clone());
   }
   else
@@ -2192,40 +2196,44 @@ SBase::addCVTerm(CVTerm * term)
     /* if the qualifier of the term being added is already present
      * add to the list of resources for that qualifier
      */
-    if (type == BIOLOGICAL_QUALIFIER)
+    if (!newBag)
     {
-      BiolQualifierType_t biol = copyTerm->getBiologicalQualifierType();
-      
-      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
+      if (type == BIOLOGICAL_QUALIFIER)
       {
-        if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
+        BiolQualifierType_t biol = copyTerm->getBiologicalQualifierType();
+        
+        for (unsigned int n = mCVTerms->getSize()-1; n > 0 && added == 0; n--)
         {
-          for (int r = 0; r < copyTerm->getResources()->getLength(); r++)
+          if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
           {
-            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-                copyTerm->getResources()->getValue(r));
+            for (int r = 0; r < copyTerm->getResources()->getLength(); r++)
+            {
+              static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+                  copyTerm->getResources()->getValue(r));
+            }
+            added = 1;
           }
-          added = 1;
+        }
+      }
+      else if (type == MODEL_QUALIFIER)
+      {
+        ModelQualifierType_t model = copyTerm->getModelQualifierType();
+        
+        for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
+        {
+          if (model == static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType())
+          {
+            for (int r = 0; r < copyTerm->getResources()->getLength(); r++)
+            {
+              static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+                  copyTerm->getResources()->getValue(r));
+            }
+            added = 1;
+          }
         }
       }
     }
-    else if (type == MODEL_QUALIFIER)
-    {
-      ModelQualifierType_t model = copyTerm->getModelQualifierType();
-      
-      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
-      {
-        if (model == static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType())
-        {
-          for (int r = 0; r < copyTerm->getResources()->getLength(); r++)
-          {
-            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-                copyTerm->getResources()->getValue(r));
-          }
-          added = 1;
-        }
-      }
-    }
+
     if (added == 0 && copyTerm->getResources()->getLength() > 0)
     {
       /* no matching copyTerms already in list */
@@ -4032,6 +4040,35 @@ int
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
 {
   return sb->addCVTerm(term);
+}
+
+
+/**
+ * Adds a copy of the given CVTerm to this SBML object creating
+ * a new bBag element with the same identifier.
+ *
+ * @param sb the object to add the CVTerm to
+ * @param term the CVTerm_t to assign
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_OBJECT
+ *
+ * @note The annotation constructed from a CVTerm uses the metaid
+ * of the object to identify it.  Adding a CVTerm to an object
+ * where the 'metaId' attribute has not been set will fail with the
+ * return value LIBSBML_UNEXPECTED_ATTRIBUTE.
+ */
+LIBSBML_EXTERN
+int 
+SBase_addCVTermNewBag(SBase_t *sb, CVTerm_t *term)
+{
+  return sb->addCVTerm(term, true);
 }
 
 

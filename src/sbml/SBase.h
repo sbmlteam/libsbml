@@ -1911,6 +1911,8 @@ public:
    * Adds a copy of the given CVTerm to this SBML object.
    *
    * @param term the CVTerm to assign
+   * @param newBag boolean indicating whether to create a new bag
+   * with the same identifier as a previous bag
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1933,7 +1935,7 @@ public:
    * addition, the caller should make sure to free the original object if
    * it is no longer being used, or else a memory leak will result.
    */
-  int addCVTerm(CVTerm * term);
+  int addCVTerm(CVTerm * term, bool newBag = false);
 
 
   /**
@@ -2657,6 +2659,11 @@ SBase_unsetSBOTerm (SBase_t *sb);
 LIBSBML_EXTERN
 int 
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
+
+
+LIBSBML_EXTERN
+int 
+SBase_addCVTermNewBag(SBase_t *sb, CVTerm_t *term);
 
 
 LIBSBML_EXTERN

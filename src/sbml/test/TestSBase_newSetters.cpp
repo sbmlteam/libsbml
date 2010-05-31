@@ -1629,6 +1629,66 @@ START_TEST(test_SBase_addCVTerms)
 END_TEST
 
 
+START_TEST(test_SBase_addCVTerms_newBag)
+{
+  SBase_setMetaId(S, "_id");
+  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv, BQB_ENCODES);
+  CVTerm_addResource(cv, "foo");
+  
+  int i = SBase_addCVTerm(S, cv);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SBase_getNumCVTerms(S) == 1);
+  fail_unless(SBase_getCVTerms(S) != NULL);
+
+  CVTerm_t * cv3 = SBase_getCVTerm(S, 0);
+
+  fail_unless( CVTerm_getNumResources(cv3) == 1);
+
+  CVTerm_t * cv1 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv1, BQB_ENCODES);
+  CVTerm_addResource(cv1, "foo1");
+ 
+  i = SBase_addCVTermNewBag(S, cv1);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+  fail_unless(SBase_getCVTerms(S) != NULL);
+
+  cv3 = SBase_getCVTerm(S, 0);
+
+  fail_unless( CVTerm_getNumResources(cv3) == 1);  
+  
+  cv3 = SBase_getCVTerm(S, 1);
+
+  fail_unless( CVTerm_getNumResources(cv3) == 1);  
+
+  CVTerm_t * cv2 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  CVTerm_setBiologicalQualifierType(cv2, BQB_ENCODES);
+  CVTerm_addResource(cv2, "foo2");
+ 
+  i = SBase_addCVTerm(S, cv2);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(SBase_getNumCVTerms(S) == 2);
+  fail_unless(SBase_getCVTerms(S) != NULL);
+
+  cv3 = SBase_getCVTerm(S, 0);
+
+  fail_unless( CVTerm_getNumResources(cv3) == 1);  
+  
+  cv3 = SBase_getCVTerm(S, 1);
+
+  fail_unless( CVTerm_getNumResources(cv3) == 2);  
+
+  CVTerm_free(cv);
+  CVTerm_free(cv1);
+  CVTerm_free(cv2);
+}
+END_TEST
+
+
 START_TEST(test_SBase_unsetCVTerms)
 {
   CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
@@ -1917,6 +1977,7 @@ create_suite_SBase_newSetters (void)
   tcase_add_test(tcase, test_SBase_appendNotesString7);
   tcase_add_test(tcase, test_SBase_appendNotesString8);
   tcase_add_test(tcase, test_SBase_addCVTerms );
+  tcase_add_test(tcase, test_SBase_addCVTerms_newBag );
   tcase_add_test(tcase, test_SBase_unsetCVTerms );
   tcase_add_test(tcase, test_SBase_setMetaId1     );
   tcase_add_test(tcase, test_SBase_setMetaId2     );
