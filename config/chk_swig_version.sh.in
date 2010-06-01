@@ -10,6 +10,22 @@
 SWIG="@SWIG@"
 NEED="@SWIGNEEDVERSION@"
 
+if test "$SWIG" = "no"; then
+  # This means --with-swig was given with an explicit argument/path, but
+  # when configure ran, it didn't actually find a swig program at that
+  # location.  That wouldn't matter if we never needed swig, but if this
+  # script (chk_swig_version.sh) is getting invoked, it means we need it.
+
+  echo
+  echo "libSBML was configured using --with-swig=SOMETHING, but the directory"
+  echo "SOMETHING/bin does not appear to contain a runnable 'swig' program."
+  echo "The current build situation requires 'swig' with version $NEED"
+  echo "or later.  Please re-run configure using appropriate corrections to"
+  echo "value of the argument given to --with-swig, and then re-make."
+  echo
+  exit 1;
+fi
+
 if ! ($SWIG -version > /dev/null 2>&1); then
   echo 
   echo One or more of the dependencies required to compile a file in the
