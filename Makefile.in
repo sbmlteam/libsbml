@@ -527,7 +527,7 @@ dist dist-zip: config-check dist-all
 
 # 2009-01-02 Lisp is now disabled.
 # check_vars_list = USE_SWIG USE_JAVA USE_LISP USE_PYTHON USE_PERL
-check_vars_list = USE_SWIG USE_JAVA USE_PYTHON USE_PERL
+check_vars_list = USE_JAVA USE_PYTHON USE_PERL
 num_vars        = $(words $(check_vars_list))
 num_vars_set    = $(words $(foreach var,$(check_vars_list),$($(var))))
 
