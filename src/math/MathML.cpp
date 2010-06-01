@@ -644,7 +644,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
                                       stream.getSBMLNamespaces()->getVersion());
   }
 
-   if (name == "apply" || name == "lambda" || name == "piecewise")
+  if (name == "apply" || name == "lambda" || name == "piecewise")
   {
     if (name == "apply")
     {
