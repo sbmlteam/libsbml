@@ -782,6 +782,11 @@ $(TOP_SRCDIR)/src/sbml/stamp-h1: $(TOP_SRCDIR)/./src/sbml/config.h.in \
 	@rm -f src/sbml/stamp-h1
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status src/sbml/config.h
 
+$(TOP_SRCDIR)/config/chk_swig_version.sh: $(TOP_SRCDIR)/configure \
+	    $(TOP_BUILDDIR)/config.status \
+	    $(TOP_BUILDDIR)/config/chk_swig_version.sh.in
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status config/chk_swig_version.sh
+
 
 # -----------------------------------------------------------------------------
 # Tags files.
