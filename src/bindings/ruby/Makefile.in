@@ -24,7 +24,7 @@
 ## and also available online as http://sbml.org/software/libsbml/license.html
 ##----------------------------------------------------------------------- -->*/
 
-
+
 # -----------------------------------------------------------------------------
 # Configuration variables
 # -----------------------------------------------------------------------------
@@ -45,41 +45,32 @@ thisdir = src/bindings/ruby
 # `sources' are used by the default rules to determine what needs to be
 # compiled.
 
-sources = libsbml_wrap.cpp
+sources       = libsbml_wrap.cpp
+extra_sources = libsbml.i local.i layout_local.i local.cpp
 
-#############################################################################
-#
-# Generates a C++ library for Ruby bindings with an object file in this 
-# directory (libsbml_wrap.o) and other object files in sub directories in 
-# 'src' directory (src/sbml, src/common, ... ) instead of linking a shared 
-# library of libSBML (libsbml.$(SHAREDLIBEXT)).
-#
+# The SWIG interface files should not need to be regenerated for recipients
+# of the libSBML distributions; only developers should need to regenerate
+# them.  The conditions for this are handled later below.
 
-#
-# All directories that contain *.{c,cpp} (implementation) files of libSBML need
-# to be listed in the following 'otherdirs' variable.
-#
-otherdirs = ../../common ../../util ../../xml ../../math ../../validator \
-            ../../validator/constraints ../../units ../../annotation ../../compress \
-            ../../sbml/
+swig_sources = $(extra_sources) ../swig/libsbml.h ../swig/libsbml.i
 
 ifdef USE_LAYOUT
-  otherdirs += ../../sbml/layout
+  swig_sources += ../swig/layout.i
 endif
 
-objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+# What we're building is a module for use with ruby.  
 
-
-#############################################################################
-
-# What we're building is a module for use with ruby.
+# The libSBML Ruby API library on MacOS X has to be built as a "bundle"
+# rather than a .dylib library.
 
 ifeq "$(HOST_TYPE)" "darwin"
-  # MacOS X note: this MUST remain .bundle.
-  libraries = libSBML.bundle
-  # environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
+  platform_link_flags = -bundle
+  libraries           = libSBML.bundle
+
+  # Environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
   # to use -undefined dynamic_lookup.
-  macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
+
+  macosx_version = $(shell sw_vers -productVersion | cut -d"." -f1,2)
   export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
 else
   libraries = libSBML.$(SHAREDLIBEXT)
@@ -108,11 +99,11 @@ endif
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = $(RUBY_CPPFLAGS) -I../swig -I../..
-SWIGFLAGS += $(RUBY_CPPFLAGS) -I../swig
+extra_CPPFLAGS += $(RUBY_CPPFLAGS) -I../swig -I../..
+SWIGFLAGS      += $(RUBY_CPPFLAGS) -I../swig
 
 ifdef USE_LAYOUT
-  SWIGFLAGS += -DUSE_LAYOUT
+  SWIGFLAGS      += -DUSE_LAYOUT
   extra_CPPFLAGS += -DUSE_LAYOUT
 endif # USE_LAYOUT  
 
@@ -126,7 +117,6 @@ endif
 
 extra_LDFLAGS  = $(RUBY_LDFLAGS)
 extra_LIBS     = $(RUBY_LIBS)
-#extra_LIBS     = ../../libsbml.la $(RUBY_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -153,27 +143,54 @@ endif
 # should be disabled by adding -fno-strict-aliasing option.
 
 ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
-      CXXFLAGS += -fno-strict-aliasing
+  CXXFLAGS += -fno-strict-aliasing
 endif
+
+# We generates a C++ library for Ruby bindings with an object file in this
+# directory (libsbml_wrap.o) and other object files in sub directories in
+# 'src' directory (src/sbml, src/common, ... ) instead of linking a shared
+# library of libSBML (libsbml.$(SHAREDLIBEXT)).
+
+# All directories that contain *.{c,cpp} (implementation) files of libSBML
+# need to be listed in the following 'otherdirs' variable.
+
+otherdirs = ../../common ../../util ../../xml ../../math ../../validator \
+            ../../validator/constraints ../../units ../../annotation ../../compress \
+            ../../sbml/
+
+ifdef USE_LAYOUT
+  otherdirs += ../../sbml/layout
+endif
+
+objfiles = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
+
+# Files for test system.
+
+test_dir      = test
+check_sources = test.rb $(wildcard $(test_dir)/**/Test*.rb)
+
+# `distfiles' determines the files and directories included in a
+# distribution.  `distfiles_exclude' is used to filter out specific items,
+# so that even if they appear in `distfiles', they will not be copied in
+# the distribution.
+
+distfiles = Makefile.in      \
+            $(check_sources) \
+            $(extra_sources) \
+            README.txt       \
+            $(sources)
+
+# `extra_clean' and `extra_distclean' determine the files and directories
+# removed during "make clean" and "make distclean".
+
+extra_clean = build $(wildcard test.xml.*)
 
 # For Linux/Unix LD_LIBRARY_PATH *may* need to contain one or more library
 # paths to libsbml.so, libxerces-c.so and/or libexpat.so and/or the
 # libSBML.so generated by this Makfile.  (For BSD/MacOS X replace 
 # LD_LIBRARY_PATH with DYLD_LIBRARY_PATH.)
 
-# `distfiles' determines the files and directories included in a distribution.
-# `distfiles_exclude' is used to filter out specific items, so that even if
-# they appear in `distfiles', they will not be copied in the distribution.
-
-ruby_test_path  = test
-ruby_test_files = test.rb $(wildcard $(ruby_test_path)/**/Test*.rb)
-ruby_swig_sources = libsbml.i local.i layout_local.i local.cpp
-
-distfiles = Makefile.in libsbml_wrap.cpp README.txt $(ruby_swig_sources) $(ruby_test_files)
-
-extra_clean     = build $(wildcard test.xml.*)
-
-
+
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
@@ -183,88 +200,61 @@ extra_clean     = build $(wildcard test.xml.*)
 
 # The default action is to remake everything.
 
-all: Makefile swig-prereq $(libraries)
-
-# The libSBML Ruby API library on MacOS X has to be built as a "bundle"
-# rather than a .dylib library.  This is different from the default rules
-# used elsewhere in libSBML and requires the following special value for
-# `platform_link_flags'.  The rest of the default rules for .bundle's will
-# behave properly once this is set.
-
-ifeq "$(HOST_TYPE)" "darwin"
-  platform_link_flags = -bundle
+ifdef USE_RUBY
+  all: Makefile libsbml_wrap.cpp $(libraries)
+else
+  all:
+	@echo
+	@echo "Reconfigure libSBML using --with-ruby to enable Ruby support.";
+	@echo
+	@exit 1
 endif
 
-# The following is for developers and maintainers.  Recipients of the
-# library distributions shouldn't have to run SWIG because we provide the
-# wrapper file ready-made.  This is only enabled if configure is given the
-# --with-swig flag.
-
-swig_sources = \
-	  ../swig/libsbml.h \
-	  ../swig/libsbml.i \
-      ../swig/swigdoc.py \
-      $(ruby_swig_sources)
-
-ifdef USE_LAYOUT
-  swig_sources += ../swig/layout.i
-endif
+# Rummage through ../swig/libsbml.i to figure out the core libSBML files that
+# are our dependencies.
 
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' | cut -f2 -d' ' \
   | cut -f2- -d'/' | sed -e '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
 
+# Recreate SWIG files when one of the following conditions is true:
+#
+#  (1) libsbml_wrap.cpp does not exist
+#  (2) libsbml_wrap.cpp exists, but the file is not consistent with the
+#       current USE_LAYOUT value.
 
-ifdef USE_SWIG
-# If swig is enabled, always rebuild the swig wrapper files.
+# If the last run was made with --enable-layout and this one isn't, or
+# vice-versa, the swig wrap files will be wrong for this run.  However, you
+# can't tell just by looking at file mod times, so you can't use normal
+# make dependencies.  So we do this grungy trick of looking inside
+# libsbml_wrap.cpp to see what's inside.
 
-swig-prereq:
-	$(MAKE) -$(MAKEFLAGS) swigfiles
+.PHONY: do_reswig
 
-else # not USE_SWIG
-
-# If USE_SWIG is *not* in effect, things get tricky.  If the last run was
-# made with --enable-layout and this one isn't, or vice-versa, the swig
-# wrap files will be wrong for this run.  However, you can't tell just by
-# looking at file mod times, so you can't use normal make dependencies.  So
-# we do this grungy trick of looking at the file to see what's inside.
-
-swig-prereq:
 ifdef USE_LAYOUT
-	@if test -z "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
-	  $(MAKE) -$(MAKEFLAGS) swigfiles; \
-	else \
-	  $(MAKE) -$(MAKEFLAGS) libsbml_wrap.cpp; \
-	fi
-else # not USE_LAYOUT
-	@if test -n "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
-	  $(MAKE) -$(MAKEFLAGS) swigfiles; \
-	else \
-	  $(MAKE) -$(MAKEFLAGS) libsbml_wrap.cpp; \
-	fi
-endif # USE_LAYOUT
-
-endif # USE_SWIG
-
-# The next target is for forcing re-swigging.
-
-swigfiles:
-	@top_srcdir@/config/chk_swig_version.sh || exit
-	$(SWIG) $(SWIGFLAGS) \
-	        $(sort $(default_includes) $(INCLUDES)) \
-		-c++ -ruby -o libsbml_wrap.cpp libsbml.i
-
-# The following are the normal dependency rules.
+  define check_layout
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -z "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+else
+  define check_layout
+    if test ! -f libsbml_wrap.cpp; then echo "do_reswig"; exit; fi; \
+    if test -n "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then echo "do_reswig"; fi;
+  endef
+endif
 
 libsbml_wrap.cpp: $(swig_sources) $(main_sources)
-	$(MAKE) -$(MAKEFLAGS) swigfiles
+	@top_srcdir@/config/chk_swig_version.sh || exit
+	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
+		-c++ -ruby -o libsbml_wrap.cpp libsbml.i
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: $(libraries)
+ifdef USE_LIBCHECK
+  check: $(libraries) $(shell $(call check_layout))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -272,7 +262,11 @@ check: $(libraries)
 	$(call libsbmlrun, $(RUBY) -I./ test.rb)
 	@echo -----------------------------------------------------------------
 	@echo
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
+
 # -----------------------------------------------------------------------------
 # Installation.
 # -----------------------------------------------------------------------------
@@ -292,6 +286,7 @@ uninstall:
 	  rm $(DESTDIR)$$archdir/$$i; \
 	done ; \
 
+
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
@@ -301,6 +296,7 @@ dist: libsbml_wrap.cpp dist-normal
 distcheck: distcheck-normal
 
 
+
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
@@ -308,6 +304,7 @@ distcheck: distcheck-normal
 include @top_srcdir@/config/makefile-common-actions.mk
 
 
+
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------

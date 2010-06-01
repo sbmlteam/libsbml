@@ -88,12 +88,8 @@ main_sources = \
 LibSBML.pm: LibSBML_wrap.cxx
 
 LibSBML_wrap.cxx: LibSBML.pod $(swig_sources)
-ifndef USE_SWIG
-	$(NOECHO) $(ECHO) "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
-	exit 1
-else
+	@top_srcdir@/config/chk_swig_version.sh || exit
 	@SWIG@ @SWIGFLAGS@ -c++ -perl5 -proxy -I../../../include LibSBML.i
-endif
 
 LibSBML.pod: $(main_sources) ../swig/libsbml.i ../swig/swigdoc.py
 	../swig/swigdoc.py perl -I../.. -D../../../docs/src ../swig/libsbml.i LibSBML.pod

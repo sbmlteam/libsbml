@@ -222,7 +222,7 @@ CONFIG_PROG_MATLAB
 CONFIG_PROG_OCTAVE(2.9.7,2.9.7)
 CONFIG_PROG_RUBY
 CONFIG_PROG_CSHARP
-CONFIG_PROG_SWIG(1.3.39)
+CONFIG_PROG_SWIG(1.3.40)
 
 # Make sure to test doxygen *after* java, because there's a dependency on
 # in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
