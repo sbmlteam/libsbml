@@ -140,9 +140,70 @@ ListOf::append (const SBase* item)
 void
 ListOf::appendAndOwn (SBase* item)
 {
-  mItems.push_back( item );
-  item->setSBMLDocument(mSBML);
-  item->setParentSBMLObject(this);
+  bool okayToAdd = false;
+  /* okay to add the object if
+   * 1) first object to be added to listOf doesnt have type
+   * 2) itemTypeCode of list matches typecode of object
+   *    - need to consider sub classed objects
+   * 3) where someone is dealing directly with a listOf object
+   *    the itemTypeCode is unknown but once one object has
+   *    been added only similar objects should be added
+   */
+  if (this->getItemTypeCode() == SBML_UNKNOWN)
+  {
+    if (mItems.size() == 0)
+    {
+      okayToAdd = true;
+    }
+    else
+    {
+      if (mItems.at(0)->getTypeCode() == item->getTypeCode())
+      {
+        okayToAdd = true;
+      }
+    }
+  }
+  else if (this->getItemTypeCode() == item->getTypeCode())
+  {
+    okayToAdd = true;
+  }
+  else
+  {
+    /* deal with objects that are sub classed */
+    SBMLTypeCode_t type = item->getTypeCode();
+    switch (type)
+    {
+      case SBML_ALGEBRAIC_RULE:
+      case SBML_ASSIGNMENT_RULE:
+      case SBML_RATE_RULE:
+      case SBML_SPECIES_CONCENTRATION_RULE:
+      case SBML_COMPARTMENT_VOLUME_RULE:
+      case SBML_PARAMETER_RULE:
+        if (this->getItemTypeCode() == SBML_RULE)
+          okayToAdd = true;
+        break;
+#ifdef USE_LAYOUT
+      case SBML_LAYOUT_COMPARTMENTGLYPH:
+      case SBML_LAYOUT_REACTIONGLYPH:
+      case SBML_LAYOUT_SPECIESGLYPH:
+      case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+      case SBML_LAYOUT_TEXTGLYPH:
+        if (this->getItemTypeCode() == SBML_LAYOUT_GRAPHICALOBJECT)
+          okayToAdd = true;
+        break;
+      case SBML_LAYOUT_CUBICBEZIER:
+        if (this->getItemTypeCode() == SBML_LAYOUT_LINESEGMENT)
+          okayToAdd = true;
+        break;
+#endif
+    }
+  }
+  if (okayToAdd)
+  {
+    mItems.push_back( item );
+    item->setSBMLDocument(mSBML);
+    item->setParentSBMLObject(this);
+  }
 }
 
 
