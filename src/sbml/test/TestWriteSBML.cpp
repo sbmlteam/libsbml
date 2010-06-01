@@ -204,7 +204,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SBMLDocument_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = wrapXML
   (
@@ -271,7 +271,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = wrapSBML_L2v1("  <model id=\"Branch\"/>\n");
 
@@ -286,7 +286,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Model_L2v1_skipOptional)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = wrapSBML_L2v1("  <model/>\n");
 
@@ -422,7 +422,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Unit_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>";
 
@@ -485,7 +485,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_UnitDefinition_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<unitDefinition id=\"mmls\"/>";
 
@@ -500,7 +500,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_UnitDefinition_L2v1_full)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<unitDefinition id=\"Fahrenheit\">\n"
@@ -557,7 +557,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>";
 
@@ -574,7 +574,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v1_constant)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>";
 
@@ -590,7 +590,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Compartment_L2v1_unsetSize)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<compartment id=\"A\"/>";
 
@@ -722,7 +722,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" "
@@ -743,7 +743,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Species_L2v1_skipOptional)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<species id=\"Ca2\" compartment=\"cell\"/>";
 
@@ -847,7 +847,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>";
 
@@ -864,7 +864,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v1_skipOptional)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<parameter id=\"Km1\"/>";
 
@@ -879,7 +879,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_Parameter_L2v1_constant)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = "<parameter id=\"x\" constant=\"false\"/>";
 
@@ -929,7 +929,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_AlgebraicRule_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<algebraicRule>\n"
@@ -1039,7 +1039,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_SpeciesConcentrationRule_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<assignmentRule variable=\"s\">\n"
@@ -1140,7 +1140,7 @@ END_TEST
 
 START_TEST (test_WriteSBML_CompartmentVolumeRule_L2v1)
 {
-  D->setLevelAndVersion(2,1, false);
+  D->setLevelAndVersion(2, 1, false);
 
   const char* expected = 
     "<assignmentRule variable=\"c\">\n"
