@@ -310,8 +310,7 @@ $(check_classes): Makefile $(libraries) $(check_sources)
 	@echo $(check_compile_command)
 	$(shell $(check_compile_command) 2>&1 | grep -v deprecat)
 
-ifdef USE_LIBCHECK
-  check: $(check_classes) $(shell $(call check_layout))
+check: $(check_classes) $(shell $(call check_layout))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -319,10 +318,6 @@ ifdef USE_LIBCHECK
 	$(call libsbmlrun,"$(JAVA)" -classpath "$(classpath)" AutoTestRunner)
 	@echo -----------------------------------------------------------------
 	@echo
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
-
 
 
 # -----------------------------------------------------------------------------
