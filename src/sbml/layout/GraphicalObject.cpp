@@ -229,7 +229,7 @@ bool GraphicalObject::isSetId () const
 /**
   * Sets the value of the "id" attribute of this GraphicalObject.
   */
-int GraphicalObject::setId (std::string id)
+int GraphicalObject::setId (const std::string& id)
 {
   if (!(SyntaxChecker::isValidSBMLSId(id)))
   {

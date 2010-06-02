@@ -347,7 +347,7 @@ bool Layout::isSetId () const
 /**
   * Sets the value of the "id" attribute of this Layout.
   */
-int Layout::setId (std::string id)
+int Layout::setId (const std::string& id)
 {
   if (!(SyntaxChecker::isValidSBMLSId(id)))
   {

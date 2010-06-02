@@ -153,7 +153,7 @@ public:
   /**
    * Sets the value of the "id" attribute of this BoundingBox.
    */
-  int setId (std::string id);
+  int setId (const std::string& id);
 
 
   /**

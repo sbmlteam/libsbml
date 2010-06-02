@@ -695,7 +695,7 @@ public:
   /**
    * Sets the value of the "id" attribute of this Layout.
    */
-  int setId (std::string id);
+  int setId (const std::string& id);
 
 
   /**

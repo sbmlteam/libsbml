@@ -235,7 +235,7 @@ bool LineSegment::isSetId () const
 /**
   * Sets the value of the "id" attribute of this BoundingBox.
   */
-int LineSegment::setId (std::string id)
+int LineSegment::setId (const std::string& id)
 {
   if (!(SyntaxChecker::isValidSBMLSId(id)))
   {
