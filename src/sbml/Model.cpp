@@ -2476,7 +2476,10 @@ Model::syncAnnotation ()
 
   if (this->getListOfLayouts()->size()!=0)
   {
-    XMLNode * layouts = parseLayouts(this);
+    /* turn off layout as an annotation in L3 */
+    XMLNode * layouts = NULL;
+    if (getLevel() < 3)
+      layouts = parseLayouts(this);
 
     if (layouts)
     {
