@@ -253,8 +253,7 @@ libsbml_wrap.cpp: $(swig_sources) $(main_sources)
 # Checking.
 # -----------------------------------------------------------------------------
 
-ifdef USE_LIBCHECK
-  check: $(libraries) $(shell $(call check_layout))
+check: $(libraries) $(shell $(call check_layout))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -262,9 +261,6 @@ ifdef USE_LIBCHECK
 	$(call libsbmlrun, $(RUBY) -I./ test.rb)
 	@echo -----------------------------------------------------------------
 	@echo
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
 
 
 # -----------------------------------------------------------------------------

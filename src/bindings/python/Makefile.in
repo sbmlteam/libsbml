@@ -278,8 +278,8 @@ libsbml_wrap.cpp: $(swig_sources) $(main_sources) $(shell $(call check_layout))
 # -----------------------------------------------------------------------------
 
 test_subdir_path = test/sbml:test/xml:test/annotation:test/math
-ifdef USE_LIBCHECK
-  check: $(libraries) $(shell $(call check_layout))
+
+check: $(libraries) $(shell $(call check_layout))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -288,9 +288,6 @@ ifdef USE_LIBCHECK
 	@echo -----------------------------------------------------------------
 	@echo All tests passed
 	@echo
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
 
 
 # -----------------------------------------------------------------------------
