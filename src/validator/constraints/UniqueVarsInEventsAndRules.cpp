@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueVarsInEventsAndRules.cpp
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -107,3 +109,5 @@ UniqueVarsInEventsAndRules::doCheck (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

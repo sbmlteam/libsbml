@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueVarsInEventAssignments.h
  * @brief   Ensures variables within a set of EventAssignments are unique
  * @author  Ben Bornstein
@@ -73,3 +75,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueVarsInEventAssignments_h */
+
+/** @endcond doxygen-libsbml-internal */

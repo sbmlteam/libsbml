@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ValidCnUnitsValue.h
  * @brief   Ensures units values are valid.
  * @author  Sarah Keating
@@ -98,3 +100,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ValidCnUnitsValue_h */
+
+/** @endcond doxygen-libsbml-internal */

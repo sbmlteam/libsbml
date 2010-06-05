@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UnitConsistencyConstraints.cpp
  * @brief   UnitConsistency check constraints.  See SBML Wiki
  * @author  Ben Bornstein
@@ -1305,3 +1307,5 @@ START_CONSTRAINT (20702, Parameter, p)
 END_CONSTRAINT
 
 
+
+/** @endcond doxygen-libsbml-internal */

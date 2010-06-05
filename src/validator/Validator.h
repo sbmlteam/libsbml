@@ -35,8 +35,13 @@
 #ifdef __cplusplus
 
 
+/** @cond doxygen-libsbml-internal */
+
 #include <list>
 #include <string>
+
+/** @endcond doxygen-libsbml-internal */
+
 
 #include <sbml/SBMLError.h>
 

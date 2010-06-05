@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    FunctionApplyMathCheck.h
  * @brief   Ensures <ci> after apply refers to function definition.
  * @author  Sarah Keating
@@ -98,3 +100,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* FunctionApplyMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

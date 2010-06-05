@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueIdsForUnitDefinitions.h
  * @brief   Ensures the ids for all UnitDefinitions in a Model are unique
  * @author  Ben Bornstein
@@ -66,3 +68,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueIdsForUnitDefinitions_h */
+
+/** @endcond doxygen-libsbml-internal */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    L1CompatibilityConstraints.cpp
  * @brief   L1 compatibility for conversion from L2
  * @author  Sarah Keating
@@ -303,3 +305,5 @@ START_CONSTRAINT (91013, KineticLaw, kl)
 END_CONSTRAINT
 
 
+
+/** @endcond doxygen-libsbml-internal */

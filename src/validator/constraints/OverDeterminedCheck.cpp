@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    OverDeterminedCheck.cpp
  * @brief   Checks for over determined models.
  * @author  Sarah Keating
@@ -720,3 +722,5 @@ OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& unmatch)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

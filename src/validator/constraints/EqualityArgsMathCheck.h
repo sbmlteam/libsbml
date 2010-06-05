@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    EqualityArgsMathCheck.h
  * @brief   Ensures arguments to eq and neq are consistent.
  * @author  Sarah Keating
@@ -99,3 +101,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* EqualityArgsMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

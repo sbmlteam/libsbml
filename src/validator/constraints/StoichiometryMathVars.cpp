@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    StoichiometryMathVars.cpp
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
  * @author  Ben Bornstein
@@ -150,3 +152,5 @@ StoichiometryMathVars::logUndefined ( const Reaction& r,
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

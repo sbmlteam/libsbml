@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UnitsBase.cpp
  * @brief   Ensures math units are consistent.
  * @author  Sarah Keating
@@ -265,3 +267,5 @@ UnitsBase::logUnitConflict (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

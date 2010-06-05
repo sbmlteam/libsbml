@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    DuplicateTopLevelAnnotation.cpp
  * @brief   Checks for duplicate top level annotations
  * @author  Sarah Keating
@@ -298,3 +300,5 @@ DuplicateTopLevelAnnotation::logDuplicate (std::string name, const SBase& object
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

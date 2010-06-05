@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ConsistencyConstraints.cpp
  * @brief   Consistency check constraints.  See SBML Wiki
  * @author  Ben Bornstein
@@ -11,6 +13,8 @@
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
+ * @cond doxygen-libsbml-internal
+ *
  * the Free Software Foundation.  A copy of the license agreement is
  * provided in the file named "LICENSE.txt" included with this software
  * distribution.  It is also available online at
@@ -2446,5 +2450,6 @@ START_CONSTRAINT (21213, EventAssignment, ea)
 END_CONSTRAINT
 
 
+/** @endcond doxygen-libsbml-internal */
 
-
+/** @endcond doxygen-libsbml-internal */

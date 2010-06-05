@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    StoichiometryMathVars.h
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
  * @author  Ben Bornstein
@@ -74,3 +76,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* StoichiometryMathVars_h */
+
+/** @endcond doxygen-libsbml-internal */

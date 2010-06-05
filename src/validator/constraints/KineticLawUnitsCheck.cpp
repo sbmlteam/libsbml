@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    KineticLawUnitsCheck.cpp
  * @brief   Ensures math units are consistent.
  * @author  Sarah Keating
@@ -195,3 +197,5 @@ KineticLawUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

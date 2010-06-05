@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueSymbolsInInitialAssignments.cpp
  * @brief   Ensures the ids for all UnitDefinitions in a Model are unique
  * @author  Ben Bornstein
@@ -83,3 +85,5 @@ UniqueSymbolsInInitialAssignments::doCheck (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

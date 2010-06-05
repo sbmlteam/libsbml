@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    LambdaMathCheck.h
  * @brief   Ensures a lambda function is not used outside a functionDefinition.
  * @author  Sarah Keating
@@ -91,3 +93,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LambdaMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

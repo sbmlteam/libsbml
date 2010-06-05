@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    AssignmentRuleOrdering.h
  * @brief   Checks rule ordering for l2v1 and l1
  * @author  Sarah Keating
@@ -79,3 +81,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* AssignmentRuleOrdering_h */
+
+/** @endcond doxygen-libsbml-internal */

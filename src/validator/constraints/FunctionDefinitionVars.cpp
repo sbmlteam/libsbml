@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    FunctionDefinitionVars.cpp
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
  * @author  Ben Bornstein
@@ -126,3 +128,5 @@ FunctionDefinitionVars::logUndefined ( const FunctionDefinition& fd,
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

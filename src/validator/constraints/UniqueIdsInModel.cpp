@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueIdsInModel.cpp
  * @brief   Ensures the appropriate ids within a Model are unique
  * @author  Ben Bornstein
@@ -132,3 +134,5 @@ UniqueIdsInModel::doCheck (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

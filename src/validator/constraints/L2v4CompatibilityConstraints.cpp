@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    L2v4CompatibilityConstraints.cpp
  * @brief   L2v4 compatibility for conversion
  * @author  Sarah Keating
@@ -113,3 +115,5 @@ START_CONSTRAINT (95006, Model, m1)
 END_CONSTRAINT
 
 EXTERN_CONSTRAINT(95007, DuplicateTopLevelAnnotation)
+
+/** @endcond doxygen-libsbml-internal */

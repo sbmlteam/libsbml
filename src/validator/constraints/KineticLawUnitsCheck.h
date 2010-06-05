@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    KineticLawUnitsCheck.h
  * @brief   Ensures units consistent with math
  * @author  Sarah Keating
@@ -107,3 +109,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* KineticLawUnitsCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

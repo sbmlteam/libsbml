@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    LocalParameterMathCheck.h
  * @brief   checks <ci> element of local parameter not used elsewhere 
  * @author  Sarah Keating
@@ -99,3 +101,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* LocalParameterMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

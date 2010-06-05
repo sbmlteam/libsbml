@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    CompartmentOutsideCycles.cpp
  * @brief   Ensures no cycles exist via a Compartment's 'outside' attribute.
  * @author  Ben Bornstein
@@ -160,3 +162,5 @@ CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

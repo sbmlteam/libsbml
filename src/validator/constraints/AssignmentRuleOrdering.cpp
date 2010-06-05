@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    AssignmentRuleOrdering.cpp
  * @brief   Checks rule ordering for l2v1 and l1
  * @author  Sarah Keating
@@ -199,3 +201,5 @@ AssignmentRuleOrdering::logForwardReference (const ASTNode & node,
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

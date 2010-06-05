@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    IdBase.cpp
  * @brief   Base class for Id constraints
  * @author  Ben Bornstein
@@ -233,3 +235,5 @@ IdBase::logIdConflict (const std::string& id, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

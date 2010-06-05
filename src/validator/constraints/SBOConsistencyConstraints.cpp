@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    SBOConsistencyConstraints.cpp
  * @brief   SBOConsistency check constraints.  See SBML Wiki
  * @author  Ben Bornstein
@@ -1183,3 +1185,5 @@ START_CONSTRAINT(99702, Delay, d)
 }
 END_CONSTRAINT
 
+
+/** @endcond doxygen-libsbml-internal */

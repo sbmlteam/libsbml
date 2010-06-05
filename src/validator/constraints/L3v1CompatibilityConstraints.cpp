@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    L3v1CompatibilityConstraints.cpp
  * @brief   L3 compatibility for conversion from L2
  * @author  Sarah Keating
@@ -136,3 +138,5 @@ END_CONSTRAINT
 //}
 //END_CONSTRAINT
 
+
+/** @endcond doxygen-libsbml-internal */

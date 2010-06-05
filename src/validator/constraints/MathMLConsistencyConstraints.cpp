@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    MathMLConsistencyConstraints.cpp
  * @brief   MathMLConsistency check constraints.  See SBML Wiki
  * @author  Ben Bornstein
@@ -86,3 +88,5 @@ EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
 
 EXTERN_CONSTRAINT( 10221, ValidCnUnitsValue)
 
+
+/** @endcond doxygen-libsbml-internal */

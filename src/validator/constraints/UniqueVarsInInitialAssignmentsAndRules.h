@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueVarsInInitialAssignmentsAndRules.h
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -68,3 +70,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueVarsInInitialAssignmentsAndRules_h */
+
+/** @endcond doxygen-libsbml-internal */

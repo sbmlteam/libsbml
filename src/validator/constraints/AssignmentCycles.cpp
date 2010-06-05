@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    AssignmentCycles.cpp
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -572,3 +574,5 @@ AssignmentCycles::logImplicitReference (const SBase* object,
 
 LIBSBML_CPP_NAMESPACE_END
 
+
+/** @endcond doxygen-libsbml-internal */

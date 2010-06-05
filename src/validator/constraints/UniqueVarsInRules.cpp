@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueVarsInRules.cpp
  * @brief   Ensures variables for all Rules are unique
  * @author  Ben Bornstein
@@ -90,3 +92,5 @@ UniqueVarsInRules::doCheck (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

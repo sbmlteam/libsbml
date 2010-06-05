@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    KineticLawVars.cpp
  * @brief   Ensures FunctionDefinitions contain no undefined variables.
  * @author  Ben Bornstein
@@ -124,3 +126,5 @@ KineticLawVars::logUndefined ( const Reaction& r,
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

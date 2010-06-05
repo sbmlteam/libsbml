@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueSpeciesTypesInCompartment.cpp
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -137,3 +139,5 @@ UniqueSpeciesTypesInCompartment::logConflict (const Species& s, const Compartmen
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

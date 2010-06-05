@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    IdBase.h
  * @brief   Base class for Id constraints
  * @author  Ben Bornstein
@@ -177,3 +179,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* IdBase_h */
+
+/** @cond doxygen-libsbml-internal */

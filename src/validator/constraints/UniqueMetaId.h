@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueMetaId.h
  * @brief   Base class for Id constraints
  * @author  Ben Bornstein
@@ -170,3 +172,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueMetaId_h */
+
+/** @endcond doxygen-libsbml-internal */

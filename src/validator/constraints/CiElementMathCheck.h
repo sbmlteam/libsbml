@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    CiElementMathCheck.h
  * @brief   checks <ci> element is the id of a component
  * @author  Sarah Keating
@@ -99,3 +101,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* CiElementMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

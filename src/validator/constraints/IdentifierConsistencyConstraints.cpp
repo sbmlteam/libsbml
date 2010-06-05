@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    IdentifierConsistencyConstraints.cpp
  * @brief   IdentifierConsistency check constraints.  See SBML Wiki
  * @author  Ben Bornstein
@@ -60,3 +62,4 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 // 10310: syntax of id - caught at read
 // 10311: syntax of UnitSId - caught at read
 
+/** @endcond doxygen-libsbml-internal */

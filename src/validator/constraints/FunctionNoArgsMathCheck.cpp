@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    FunctionNoArgsMathCheck.cpp
  * @brief   Ensures correct number of arguments to a function definition.
  * @author  Sarah Keating
@@ -165,3 +167,5 @@ FunctionNoArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

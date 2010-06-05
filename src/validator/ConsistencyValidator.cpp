@@ -28,7 +28,6 @@
 
 #include <sbml/validator/ConsistencyValidator.h>
 
-
 /*
  * Compile ConsistencyConstraints
  */

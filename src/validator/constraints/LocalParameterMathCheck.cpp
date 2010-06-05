@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    LocalParameterMathCheck.cpp
  * @brief   checks <ci> element of local parameter not used elsewhere
  * @author  Sarah Keating
@@ -175,3 +177,5 @@ LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    InternalConsistencyConstraints.cpp
  * @brief   Consistency check constraints.  See SBML Wiki
  * @author  Sarah Keating
@@ -695,3 +697,5 @@ START_CONSTRAINT (99925, Unit, u)
 END_CONSTRAINT
 
 
+
+/** @endcond doxygen-libsbml-internal */

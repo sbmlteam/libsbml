@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    FunctionApplyMathCheck.cpp
  * @brief   Ensures <ci> after apply refers to function definition.
  * @author  Sarah Keating
@@ -145,3 +147,5 @@ FunctionApplyMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueVarsInEventAssignments.cpp
  * @brief   Ensures variables within a set of EventAssignments are unique
  * @author  Ben Bornstein
@@ -102,3 +104,5 @@ UniqueVarsInEventAssignments::doCheck (const Model& m)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

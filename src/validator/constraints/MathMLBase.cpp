@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    MathMLBase.cpp
  * @brief   Base class for MathML Constraints.
  * @author  Sarah Keating
@@ -487,3 +489,5 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

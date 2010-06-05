@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    NumericArgsMathCheck.cpp
  * @brief   Ensures arguments to numeric operators/functions are consistent.
  * @author  Sarah Keating
@@ -199,3 +201,5 @@ NumericArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

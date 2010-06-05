@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    OverDeterminedCheck.h
  * @brief   Checks for over determined models.
  * @author  Sarah Keating
@@ -137,3 +139,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* OverDeterminedCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

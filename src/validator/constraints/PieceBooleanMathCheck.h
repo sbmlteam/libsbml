@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    PieceBooleanMathCheck.h
  * @brief   Ensures piecewise piece element returns boolean.
  * @author  Sarah Keating
@@ -98,3 +100,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* PieceBooleanMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

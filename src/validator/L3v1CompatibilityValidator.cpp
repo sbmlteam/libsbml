@@ -23,6 +23,8 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#ifndef doxygen_ignore
+
 #include <sbml/SBMLTypes.h>
 #include <sbml/validator/L3v1CompatibilityValidator.h>
 
@@ -45,5 +47,7 @@ L3v1CompatibilityValidator::init ()
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif
 
 /** @endcond doxygen-libsbml-internal */

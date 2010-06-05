@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    SpeciesReactionOrRule.cpp
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -153,3 +155,5 @@ SpeciesReactionOrRule::logConflict (const Species& s, const Reaction& r)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

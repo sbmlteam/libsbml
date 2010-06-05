@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ArgumentsUnitsCheckWarnings.h
  * @brief   Ensures units consistent with math
  * @author  Sarah Keating
@@ -107,3 +109,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* ArgumentsUnitsCheckWarnings_h */
+
+/** @endcond doxygen-libsbml-internal */

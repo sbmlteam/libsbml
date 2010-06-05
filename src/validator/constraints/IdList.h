@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    IdList.h
  * @brief   Maintains a list of SIds.  Useful for finding cycles.
  * @author  Ben Bornstein
@@ -92,3 +94,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* IdList_h */
+
+/** @endcond doxygen-libsbml-internal */

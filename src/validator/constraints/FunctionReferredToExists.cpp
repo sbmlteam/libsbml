@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    FunctionReferredToExists.cpp
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -142,3 +144,5 @@ FunctionReferredToExists::logUndefined ( const FunctionDefinition& fd,
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

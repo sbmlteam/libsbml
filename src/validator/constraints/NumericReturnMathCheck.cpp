@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    NumericReturnMathCheck.cpp
  * @brief   Ensures math returns a numeric result.
  * @author  Sarah Keating
@@ -159,3 +161,5 @@ NumericReturnMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

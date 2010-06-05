@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    PowerUnitsCheck.cpp
  * @brief   Ensures math units are consistent.
  * @author  Sarah Keating
@@ -566,3 +568,5 @@ PowerUnitsCheck::logExpressionPowerConflict (const ASTNode & node,
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

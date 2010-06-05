@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    NumberArgsMathCheck.h
  * @brief   Ensures number of arguments to functions are appropriate.
  * @author  Sarah Keating
@@ -118,3 +120,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* NumberArgsMathCheck_h */
+
+/** @endcond doxygen-libsbml-internal */

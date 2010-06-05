@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    AssignmentCycles.h
  * @brief   Ensures unique variables assigned by rules and events
  * @author  Sarah Keating
@@ -121,3 +123,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* AssignmentCycles_h */
+
+/** @endcond doxygen-libsbml-internal */

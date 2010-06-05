@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    OverdeterminedConstraints.cpp
  * @brief   Check on overdetermined models
  * @author  Sarah Keating
@@ -42,3 +44,5 @@ using namespace std;
 
 EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
+
+/** @endcond doxygen-libsbml-internal */

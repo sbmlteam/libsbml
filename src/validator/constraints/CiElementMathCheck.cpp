@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    CiElementMathCheck.cpp
  * @brief   checks <ci> element is the id of a component
  * @author  Sarah Keating
@@ -193,3 +195,5 @@ CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

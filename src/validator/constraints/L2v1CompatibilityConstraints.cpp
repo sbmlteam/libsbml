@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    L2v1CompatibilityConstraints.cpp
  * @brief   L1 compatibility for conversion from L2
  * @author  Sarah Keating
@@ -270,3 +272,5 @@ START_CONSTRAINT (92007, Event, e)
 }
 END_CONSTRAINT
 
+
+/** @endcond doxygen-libsbml-internal */

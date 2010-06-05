@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    LocalParameterShadowsIdInModel.cpp
  * @brief   Checks whether local parameters are shadowing another id
  * @author  Sarah Keating
@@ -182,3 +184,5 @@ LocalParameterShadowsIdInModel::logConflict (const Parameter& p,
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

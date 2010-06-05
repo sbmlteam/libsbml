@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    LambdaMathCheck.cpp
  * @brief   Ensures a lambda function is not used outside a functionDefinition.
  * @author  Sarah Keating
@@ -133,3 +135,5 @@ LambdaMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

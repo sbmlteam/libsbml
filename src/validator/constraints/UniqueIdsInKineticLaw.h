@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    UniqueIdsInKineticLaw.h
  * @brief   Ensures the ids for all Parameters in a KineticLaw are unique
  * @author  Ben Bornstein
@@ -66,3 +68,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* UniqueIdsInKineticLaw_h */
+
+/** @endcond doxygen-libsbml-internal */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ValidCnUnitsValue.cpp
  * @brief   Ensures units values are valid.
  * @author  Sarah Keating
@@ -175,3 +177,5 @@ ValidCnUnitsValue::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

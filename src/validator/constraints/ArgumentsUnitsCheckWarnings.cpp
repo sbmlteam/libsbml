@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ArgumentsUnitsCheckWarnings.cpp
  * @brief   Ensures math units are consistent.
  * @author  Sarah Keating
@@ -242,3 +244,5 @@ ArgumentsUnitsCheckWarnings::logInconsistentDimensionless (const ASTNode & node,
 
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

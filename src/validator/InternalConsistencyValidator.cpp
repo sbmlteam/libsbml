@@ -23,11 +23,12 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#ifndef doxygen_ignore
+
 #include <sbml/SBMLTypes.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 
 #include <sbml/validator/InternalConsistencyValidator.h>
-
 
 /*
  * Compile ConsistencyConstraints
@@ -47,5 +48,7 @@ InternalConsistencyValidator::init ()
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+#endif
 
 /** @endcond doxygen-libsbml-internal */

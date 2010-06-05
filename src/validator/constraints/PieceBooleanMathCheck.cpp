@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    PieceBooleanMathCheck.cpp
  * @brief   Ensures piecewise piece element returns boolean.
  * @author  Sarah Keating
@@ -160,3 +162,5 @@ PieceBooleanMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

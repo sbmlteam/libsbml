@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    LogicalArgsMathCheck.cpp
  * @brief   Ensures arguments to logical operators are consistent.
  * @author  Sarah Keating
@@ -160,3 +162,5 @@ LogicalArgsMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */

@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ModelingPracticeConstraints.cpp
  * @brief   ModelingPractice check constraints.  
  * @author  Sarah Keating
@@ -62,3 +64,5 @@ START_CONSTRAINT (80701, Parameter, p)
 END_CONSTRAINT
 
 
+
+/** @endcond doxygen-libsbml-internal */

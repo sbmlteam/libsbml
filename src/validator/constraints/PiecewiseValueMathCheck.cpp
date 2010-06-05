@@ -1,4 +1,8 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
+ * @cond doxygen-libsbml-internal
+ *
  * @file    PiecewiseValueMathCheck.cpp
  * @brief   Ensures types returned by branches of a piecewise are consistent.
  * @author  Sarah Keating
@@ -168,3 +172,7 @@ PiecewiseValueMathCheck::getMessage (const ASTNode& node, const SBase& object)
 }
 
 LIBSBML_CPP_NAMESPACE_END
+
+/** @endcond doxygen-libsbml-internal */
+
+/** @endcond doxygen-libsbml-internal */
