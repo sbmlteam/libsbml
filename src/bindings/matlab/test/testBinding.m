@@ -1,6 +1,10 @@
 function testBinding
 
-test = 14;
+if (strcmp(isoctave(), '0'))
+  test = 14;
+else
+  test = 13;
+end;
 Totalfail = 0;
 
 Totalfail = Totalfail + testReadFromFile1;
@@ -16,8 +20,9 @@ Totalfail = Totalfail + testReadFromFile10;
 Totalfail = Totalfail + testReadFromFile11;
 Totalfail = Totalfail + testReadFromFile12;
 Totalfail = Totalfail + testReadFromFile13;
-Totalfail = Totalfail + testReadFlags;
-
+if (strcmp(isoctave(), '0'))
+  Totalfail = Totalfail + testReadFlags;
+end;
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
