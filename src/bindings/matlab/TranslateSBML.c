@@ -137,6 +137,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nNoFields_l2v2 = 24;
   int nNoFields_l2v3 = 24;
   int nNoFields_l2v4 = 24;
+  int nNoFields_l3v1 = 29;
 
   const char *error_struct[] =
   {
@@ -270,6 +271,39 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "namespaces"
   };
 
+  const char *field_names_l3v1[] =
+  {
+    "typecode",
+    "metaid",
+    "notes",
+    "annotation",
+    "SBML_level",
+    "SBML_version",
+    "name",
+    "id",
+    "timeUnits",
+    "substanceUnits",
+    "volumeUnits",
+    "areaUnits",
+    "lengthUnits",
+    "extentUnits",
+    "conversionFactor",
+    "sboTerm",
+    "functionDefinition",
+    "unitDefinition",
+    "compartment",
+    "species",
+    "parameter",
+    "initialAssignment",
+    "rule",
+    "constraint",
+    "reaction",
+    "event",
+    "time_symbol",
+    "delay_symbol",
+    "namespaces"
+  };
+
   int dims[2] = {1, 1};
   int errordims[2];
 
@@ -282,6 +316,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   const char * pacNotes = NULL;
   const char * pacAnnotations = NULL;
   const char * pacTypecode = NULL;
+  const char * pacTimeUnits = NULL;
+  const char * pacSubstanceUnits = NULL;
+  const char * pacVolumeUnits = NULL;
+  const char * pacAreaUnits = NULL;
+  const char * pacLengthUnits = NULL;
+  const char * pacExtentUnits = NULL;
+  const char * pacConversionFactor = NULL;
   int nSBO = -1;
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
@@ -651,24 +692,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     unSBMLLevel   = SBMLDocument_getLevel(sbmlDocument);
     unSBMLVersion = SBMLDocument_getVersion(sbmlDocument);
-      
-    if (unSBMLLevel == 1)
-    {
-      pacName        = Model_getId(sbmlModel);
-    }
-    else
-    {
-      pacName       = Model_getName(sbmlModel);
-    }
-
+    
     pacTypecode    = TypecodeToChar(SBase_getTypeCode((SBase_t*) sbmlModel));
     pacNotes       = SBase_getNotesString((SBase_t*) sbmlModel);
     pacAnnotations = SBase_getAnnotationString((SBase_t*) sbmlModel);
-
-    if (pacName == NULL)
-    {
-      pacName = "";
-    }
+      
     if (pacTypecode == NULL)
     {
       pacTypecode = "";
@@ -680,6 +708,126 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if (pacAnnotations == NULL)
     {
       pacAnnotations = "";
+    }
+
+
+    GetNamespaces    (sbmlDocument);
+
+    GetCompartment   (sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetParameter     (sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetSpecies       (sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetUnitDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetRule          (sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetReaction      (sbmlModel, unSBMLLevel, unSBMLVersion);
+
+    switch (unSBMLLevel)
+    {
+    case 1:
+      pacName   = Model_getId(sbmlModel);
+      if (pacName == NULL)
+      {
+        pacName = "";
+      }
+      break;
+    case 2:
+      pacName   = Model_getName(sbmlModel);
+      pacMetaid = SBase_getMetaId((SBase_t*)sbmlModel);
+      pacId     = Model_getId(sbmlModel);
+      GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
+      GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
+
+      if (pacName == NULL)
+      {
+        pacName = "";
+      }
+      if (pacMetaid == NULL)
+      {
+        pacMetaid = "";
+      }
+      if (pacId == NULL){
+        pacId = "";
+      }
+      if (pacCSymbolTime == NULL) {
+        pacCSymbolTime = "";
+      }
+      if (pacCSymbolDelay == NULL) {
+        pacCSymbolDelay = "";
+      }
+      switch (unSBMLVersion)
+      {
+      case 1:
+        break;
+      case 2:
+      case 3:
+      case 4:
+        if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
+          nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
+        }
+        else
+        {
+          nSBO = -1;
+        }
+        GetCompartmentType  (sbmlModel, unSBMLLevel, unSBMLVersion);
+        GetSpeciesType      (sbmlModel, unSBMLLevel, unSBMLVersion);
+        GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
+        GetConstraint       (sbmlModel, unSBMLLevel, unSBMLVersion);
+        break;
+      }
+      break;
+    case 3:
+      if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
+        nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
+      }
+      else
+      {
+        nSBO = -1;
+      }
+      pacName             = Model_getName(sbmlModel);
+      pacMetaid           = SBase_getMetaId((SBase_t*)sbmlModel);
+      pacId               = Model_getId(sbmlModel);
+      pacTimeUnits        = Model_getTimeUnits(sbmlModel);
+      pacSubstanceUnits   = Model_getSubstanceUnits(sbmlModel);
+      pacVolumeUnits      = Model_getVolumeUnits(sbmlModel);
+      pacAreaUnits        = Model_getAreaUnits(sbmlModel);
+      pacLengthUnits      = Model_getLengthUnits(sbmlModel);
+      pacExtentUnits      = Model_getExtentUnits(sbmlModel);
+      pacConversionFactor = Model_getConversionFactor(sbmlModel);
+      GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
+      GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
+      GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
+      GetConstraint       (sbmlModel, unSBMLLevel, unSBMLVersion);
+      if (pacName == NULL)
+      {
+        pacName = "";
+      }
+      if (pacMetaid == NULL)
+      {
+        pacMetaid = "";
+      }
+      if (pacId == NULL){
+        pacId = "";
+      }
+      if (pacCSymbolTime == NULL) {
+        pacCSymbolTime = "";
+      }
+      if (pacCSymbolDelay == NULL) {
+        pacCSymbolDelay = "";
+      }
+      if ( pacTimeUnits == NULL )
+        pacTimeUnits = "";
+      if ( pacSubstanceUnits == NULL )
+        pacSubstanceUnits = "";
+      if ( pacVolumeUnits == NULL )
+        pacVolumeUnits = "";
+      if ( pacAreaUnits == NULL )
+        pacAreaUnits = "";
+      if ( pacLengthUnits == NULL )
+        pacLengthUnits = "";
+      if ( pacExtentUnits == NULL )
+        pacExtentUnits = "";
+      if ( pacConversionFactor == NULL )
+        pacConversionFactor = "";
+      break;
     }
 
     if (unSBMLLevel == 1)
@@ -702,63 +850,20 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     {
       plhs[0] = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
     }
-
-    GetNamespaces    (sbmlDocument);
-    
-    GetCompartment   (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetParameter     (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetSpecies       (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetUnitDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetReaction      (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetRule          (sbmlModel, unSBMLLevel, unSBMLVersion);
-    
-    if (unSBMLLevel == 2 && unSBMLVersion > 1)
+    else if (unSBMLLevel == 3 && unSBMLVersion == 1)
     {
-      if (SBase_isSetSBOTerm((SBase_t*)sbmlModel)) {
-        nSBO = SBase_getSBOTerm((SBase_t*)sbmlModel);
-      }
-      else
-      {
-        nSBO = -1;
-      }
-      GetCompartmentType  (sbmlModel, unSBMLLevel, unSBMLVersion);
-      GetSpeciesType      (sbmlModel, unSBMLLevel, unSBMLVersion);
-      GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
-      GetConstraint       (sbmlModel, unSBMLLevel, unSBMLVersion);
+      plhs[0] = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
     }
-
-    if (unSBMLLevel == 2)
-    {
-      pacMetaid = SBase_getMetaId((SBase_t*)sbmlModel);
-      pacId = Model_getId(sbmlModel);
-      GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
-      GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
-
-      if (pacMetaid == NULL)
-      {
-        pacMetaid = "";
-      }
-      if (pacId == NULL){
-        pacId = "";
-      }
-      if (pacCSymbolTime == NULL) {
-        pacCSymbolTime = "";
-      }
-      if (pacCSymbolDelay == NULL) {
-        pacCSymbolDelay = "";
-      }
-    }
-
 
 
     mxSetField( plhs[0], 0, "typecode", mxCreateString(pacTypecode) ); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel  > 1)
     {
       mxSetField(plhs[0], 0, "metaid", mxCreateString(pacMetaid));
     }
     mxSetField( plhs[0], 0, "name"    , mxCreateString(pacName)     );
 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(plhs[0], 0, "id", mxCreateString(pacId));
     }
@@ -776,6 +881,19 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       }
       mxSetField(plhs[0], 0,"functionDefinition", mxFunctionDefReturn);
     }
+    else if (unSBMLLevel > 2)
+    {
+
+      mxSetField( plhs[0], 0, "timeUnits"      , mxCreateString(pacTimeUnits)       );
+      mxSetField( plhs[0], 0, "substanceUnits"      , mxCreateString(pacSubstanceUnits)       );
+      mxSetField( plhs[0], 0, "volumeUnits"      , mxCreateString(pacVolumeUnits)       );
+      mxSetField( plhs[0], 0, "areaUnits"      , mxCreateString(pacAreaUnits)       );
+      mxSetField( plhs[0], 0, "lengthUnits"      , mxCreateString(pacLengthUnits)       );
+      mxSetField( plhs[0], 0, "extentUnits"      , mxCreateString(pacExtentUnits)       );
+      mxSetField( plhs[0], 0, "conversionFactor"      , mxCreateString(pacConversionFactor)       );
+      mxSetField(plhs[0], 0, "sboTerm", CreateIntScalar(nSBO));
+      mxSetField(plhs[0], 0,"functionDefinition", mxFunctionDefReturn);
+    }
 
     mxSetField( plhs[0], 0, "unitDefinition", mxUnitDefReturn   );
 
@@ -789,21 +907,21 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxSetField( plhs[0], 0, "species"       , mxSpeciesReturn   );
     mxSetField( plhs[0], 0, "parameter"     , mxParameterReturn );
 
-    if (unSBMLLevel == 2 && unSBMLVersion > 1)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 1) || unSBMLLevel > 2)
     {
       mxSetField(plhs[0], 0,"initialAssignment", mxInitialAssignReturn);
     }
 
     mxSetField( plhs[0], 0, "rule"          , mxListRuleReturn  );
 
-    if (unSBMLLevel == 2 && unSBMLVersion > 1)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 1) || unSBMLLevel > 2)
     {
       mxSetField(plhs[0], 0,"constraint", mxConstraintReturn);
     }
 
     mxSetField( plhs[0], 0, "reaction"      , mxReactionReturn  );
 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(plhs[0], 0, "event", mxEventReturn);
       mxSetField(plhs[0], 0, "time_symbol", mxCreateString(pacCSymbolTime));
@@ -1168,6 +1286,26 @@ GetSpecies ( Model_t      *pModel,
 		"isSetInitialConcentration", 
 		"isSetCharge"};
 
+   const int nNoFields_l3v1 = 17;
+   const char *field_names_l3v1[] = {	
+    "typecode",		
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"name", 
+		"id", 
+		"compartment",
+		"initialAmount", 
+		"initialConcentration", 
+		"substanceUnits",
+		"hasOnlySubstanceUnits", 
+		"boundaryCondition", 
+		"constant",
+    "conversionFactor",
+		"isSetInitialAmount", 
+		"isSetInitialConcentration"};
+
   /* values */
   const char * pacTypecode;
   const char * pacNotes = NULL;
@@ -1179,6 +1317,7 @@ GetSpecies ( Model_t      *pModel,
   const char * pacUnits = NULL;
   const char * pacSpatialSizeUnits = NULL;
   const char * pacSpeciesType = NULL;
+  const char * pacConversionFactor = NULL;
 
   double dInitialAmount = 0.0;
   double dInitialConcentration = 0.0;
@@ -1222,6 +1361,13 @@ GetSpecies ( Model_t      *pModel,
       mxSpeciesReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxSpeciesReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+    }
+  }
 
 
   for (i = 0; i < n; i++) {
@@ -1244,10 +1390,12 @@ GetSpecies ( Model_t      *pModel,
     pacCompartment     = Species_getCompartment(pSpecies);
     dInitialAmount     = Species_getInitialAmount(pSpecies);
     nBoundaryCondition = Species_getBoundaryCondition(pSpecies);
-    nCharge            = Species_getCharge(pSpecies);
     unIsSetInit        = Species_isSetInitialAmount(pSpecies);
-    unIsSetCharge      = Species_isSetCharge(pSpecies);
-    
+    if (unSBMLLevel < 3)
+    {
+      nCharge            = Species_getCharge(pSpecies);
+      unIsSetCharge      = Species_isSetCharge(pSpecies);
+    }
     if (unSBMLLevel == 1) 
     {
       pacUnits         = Species_getUnits(pSpecies);
@@ -1285,6 +1433,26 @@ GetSpecies ( Model_t      *pModel,
         break;
       default:
         break;
+      }
+    }
+    else if (unSBMLLevel == 3) 
+    {
+      pacId                 = Species_getId(pSpecies);
+      pacMetaid = SBase_getMetaId((SBase_t*)pSpecies);
+      dInitialConcentration = Species_getInitialConcentration(pSpecies);
+      pacUnits              = Species_getSubstanceUnits(pSpecies);
+      nHasOnlySubsUnits     = Species_getHasOnlySubstanceUnits(pSpecies);
+      nConstant             = Species_getConstant(pSpecies);
+      unIsSetInitConc       = Species_isSetInitialConcentration(pSpecies);
+      pacConversionFactor   = Species_getConversionFactor(pSpecies);
+    
+      if (SBase_isSetSBOTerm((SBase_t*) pSpecies)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pSpecies);
+      }
+      else
+      {
+        nSBO = -1;
       }
     }
 
@@ -1336,16 +1504,19 @@ GetSpecies ( Model_t      *pModel,
     if (pacSpeciesType == NULL) {
       pacSpeciesType = "";
     }
+    if (pacConversionFactor == NULL) {
+      pacConversionFactor = "";
+    }
 
     /* put into structure */
     mxSetField(mxSpeciesReturn,i,"typecode",mxCreateString(pacTypecode));
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxSpeciesReturn, i, "metaid", mxCreateString(pacMetaid));
     }
     mxSetField(mxSpeciesReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxSpeciesReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxSpeciesReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
@@ -1358,6 +1529,10 @@ GetSpecies ( Model_t      *pModel,
         mxSetField(mxSpeciesReturn,i,"speciesType",mxCreateString(pacSpeciesType));
       }
     }
+    else if (unSBMLLevel == 3) 
+    {
+      mxSetField(mxSpeciesReturn,i,"id",mxCreateString(pacId)); 
+    }
     mxSetField(mxSpeciesReturn,i,"compartment",mxCreateString(pacCompartment)); 
     mxSetField(mxSpeciesReturn,i,"initialAmount",mxCreateDoubleScalar(dInitialAmount)); 
     if (unSBMLLevel == 1) 
@@ -1366,6 +1541,7 @@ GetSpecies ( Model_t      *pModel,
       mxSetField(mxSpeciesReturn,i,"boundaryCondition",CreateIntScalar(nBoundaryCondition)); 
       mxSetField(mxSpeciesReturn,i,"charge",CreateIntScalar(nCharge)); 
       mxSetField(mxSpeciesReturn,i,"isSetInitialAmount",CreateIntScalar(unIsSetInit)); 
+      mxSetField(mxSpeciesReturn,i,"isSetCharge",CreateIntScalar(unIsSetCharge)); 
     }
     else if (unSBMLLevel == 2) 
     {
@@ -1381,8 +1557,19 @@ GetSpecies ( Model_t      *pModel,
       mxSetField(mxSpeciesReturn,i,"constant",CreateIntScalar(nConstant)); 
       mxSetField(mxSpeciesReturn,i,"isSetInitialAmount",CreateIntScalar(unIsSetInit)); 
       mxSetField(mxSpeciesReturn,i,"isSetInitialConcentration",CreateIntScalar(unIsSetInitConc)); 
+      mxSetField(mxSpeciesReturn,i,"isSetCharge",CreateIntScalar(unIsSetCharge)); 
     }
-    mxSetField(mxSpeciesReturn,i,"isSetCharge",CreateIntScalar(unIsSetCharge)); 
+    else if (unSBMLLevel == 3) 
+    {
+      mxSetField(mxSpeciesReturn,i,"initialConcentration",mxCreateDoubleScalar(dInitialConcentration)); 
+      mxSetField(mxSpeciesReturn,i,"substanceUnits",mxCreateString(pacUnits)); 
+      mxSetField(mxSpeciesReturn,i,"hasOnlySubstanceUnits",CreateIntScalar(nHasOnlySubsUnits)); 
+      mxSetField(mxSpeciesReturn,i,"boundaryCondition",CreateIntScalar(nBoundaryCondition)); 
+      mxSetField(mxSpeciesReturn,i,"constant",CreateIntScalar(nConstant)); 
+      mxSetField(mxSpeciesReturn,i,"conversionFactor",mxCreateString(pacConversionFactor)); 
+      mxSetField(mxSpeciesReturn,i,"isSetInitialAmount",CreateIntScalar(unIsSetInit)); 
+      mxSetField(mxSpeciesReturn,i,"isSetInitialConcentration",CreateIntScalar(unIsSetInitConc)); 
+    }
   }
 }
 
@@ -1469,6 +1656,13 @@ GetUnitDefinition ( Model_t      *pModel,
       mxUnitDefReturn = mxCreateStructArray(2, dims, nNoFields_l2, field_names_l2);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxUnitDefReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
 
   for (i = 0; i < n; i++) {
@@ -1490,7 +1684,7 @@ GetUnitDefinition ( Model_t      *pModel,
     }
     GetUnit(pUnitDefinition, unSBMLLevel, unSBMLVersion);
     
-if (unSBMLLevel == 2) 
+    if (unSBMLLevel == 2) 
     {
       pacId = UnitDefinition_getId(pUnitDefinition);
       pacMetaid = SBase_getMetaId((SBase_t*)pUnitDefinition);
@@ -1505,6 +1699,21 @@ if (unSBMLLevel == 2)
         {
           nSBO = -1;
         }
+      }
+    }
+
+    else if (unSBMLLevel == 3) 
+    {
+      pacId = UnitDefinition_getId(pUnitDefinition);
+      pacMetaid = SBase_getMetaId((SBase_t*)pUnitDefinition);
+      
+      if (SBase_isSetSBOTerm((SBase_t*) pUnitDefinition)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pUnitDefinition);
+      }
+      else
+      {
+        nSBO = -1;
       }
     }
 
@@ -1537,12 +1746,12 @@ if (unSBMLLevel == 2)
     }
     mxSetField(mxUnitDefReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxUnitDefReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxUnitDefReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxUnitDefReturn,i,"name",mxCreateString(pacName)); 
-    if (unSBMLLevel == 2) 
+    if (unSBMLLevel > 1) 
     {
       mxSetField(mxUnitDefReturn,i,"id",mxCreateString(pacId)); 
     }
@@ -1634,6 +1843,21 @@ GetCompartment ( Model_t      *pModel,
 		"isSetSize", 
 		"isSetVolume"};
 
+  const int nNoFields_l3v1 = 13;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"name", 
+		"id", 
+		"spatialDimensions", 
+		"size",
+		"units", 
+		"constant", 
+		"isSetSize", 
+		"isSetVolume"};
   /* field values */
   const char * pacTypecode;
   const char * pacNotes = NULL;
@@ -1642,11 +1866,12 @@ GetCompartment ( Model_t      *pModel,
   const char * pacId = NULL;
   const char * pacMetaid = NULL;
   const char * pacUnits;
-  const char * pacOutside;
+  const char * pacOutside = NULL;
   const char * pacCompartmentType = NULL;
 
   double dVolume = 1.0;
   double dSize = 1.0;
+  double dSpatialDimensions = 0.0;
 
   unsigned int unSpatialDimensions = 3;
   unsigned int unIsSetVolume = 1;
@@ -1680,6 +1905,13 @@ GetCompartment ( Model_t      *pModel,
       mxCompartReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxCompartReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+    }
+  }
 
   for (i = 0; i < n; i++) {
     pCompartment = Model_getCompartment(pModel, i);
@@ -1699,7 +1931,10 @@ GetCompartment ( Model_t      *pModel,
       pacName            = Compartment_getName(pCompartment);
     }
     pacUnits        = Compartment_getUnits(pCompartment);
-    pacOutside      = Compartment_getOutside(pCompartment);
+    if (unSBMLLevel < 3)
+    {
+      pacOutside      = Compartment_getOutside(pCompartment);
+    }
     unIsSetVolume   = Compartment_isSetVolume(pCompartment);
     
     if (unSBMLLevel == 1) 
@@ -1736,6 +1971,31 @@ GetCompartment ( Model_t      *pModel,
         break;
       default:
         break;
+      }
+    }
+    else if (unSBMLLevel == 3) 
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pCompartment);
+      pacId               = Compartment_getId(pCompartment);
+      if (Compartment_isSetSpatialDimensions(pCompartment))
+      {
+        dSpatialDimensions = Compartment_getSpatialDimensionsAsDouble(pCompartment);
+      }
+      else
+      {
+        dSpatialDimensions = 0.0/dZero;
+      }
+      dSize               = Compartment_getSize(pCompartment);
+      nConstant           = Compartment_getConstant(pCompartment);
+      unIsSetSize         = Compartment_isSetSize(pCompartment);
+  
+      if (SBase_isSetSBOTerm((SBase_t*) pCompartment)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pCompartment);
+      }
+      else
+      {
+        nSBO = -1;
       }
     }
 
@@ -1804,11 +2064,18 @@ GetCompartment ( Model_t      *pModel,
       mxSetField(mxCompartReturn,i,"spatialDimensions",CreateIntScalar(unSpatialDimensions)); 
       mxSetField(mxCompartReturn,i,"size",mxCreateDoubleScalar(dSize)); 
     }
+    else if (unSBMLLevel == 3) {
+      mxSetField(mxCompartReturn,i,"id",mxCreateString(pacId)); 
+      mxSetField(mxCompartReturn,i,"spatialDimensions",mxCreateDoubleScalar(dSpatialDimensions)); 
+      mxSetField(mxCompartReturn,i,"size",mxCreateDoubleScalar(dSize)); 
+    }
     
     mxSetField(mxCompartReturn,i,"units",mxCreateString(pacUnits)); 
-    mxSetField(mxCompartReturn,i,"outside",mxCreateString(pacOutside)); 
-    
-    if (unSBMLLevel == 2) {
+    if (unSBMLLevel < 3)
+    {
+      mxSetField(mxCompartReturn,i,"outside",mxCreateString(pacOutside)); 
+    }
+    if (unSBMLLevel > 1) {
       mxSetField(mxCompartReturn,i,"constant",CreateIntScalar(nConstant)); 
       mxSetField(mxCompartReturn,i,"isSetSize",CreateIntScalar(unIsSetSize)); 
     }
@@ -1926,6 +2193,13 @@ GetParameter ( Model_t      *pModel,
       mxParameterReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxParameterReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
 
   for (i = 0; i < n; i++) {
@@ -1984,6 +2258,20 @@ GetParameter ( Model_t      *pModel,
         break;
       }
     }
+    else if (unSBMLLevel == 3) 
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pParameter);
+      pacId     = Parameter_getId(pParameter);
+      nConstant = Parameter_getConstant(pParameter);
+      if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
+      }
+      else
+      {
+        nSBO = -1;
+      }
+    }
 
     /* record any unset values as NAN */
     if (unIsSetValue == 0) {
@@ -2021,21 +2309,22 @@ GetParameter ( Model_t      *pModel,
     }
     mxSetField(mxParameterReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxParameterReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxParameterReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxParameterReturn,i,"name",mxCreateString(pacName)); 
-    if (unSBMLLevel == 2) {
+    if (unSBMLLevel > 1) {
       mxSetField(mxParameterReturn,i,"id",mxCreateString(pacId)); 
     }
     mxSetField(mxParameterReturn,i,"value",mxCreateDoubleScalar(dValue)); 
     mxSetField(mxParameterReturn,i,"units",mxCreateString(pacUnits)); 
-    if (unSBMLLevel == 2) {
+    if (unSBMLLevel > 1) 
+    {
       mxSetField(mxParameterReturn,i,"constant",CreateIntScalar(nConstant)); 
-      if (unSBMLVersion == 2){
+    }
+    if (unSBMLLevel == 2 && unSBMLVersion == 2){
         mxSetField(mxParameterReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-      }
     }
     mxSetField(mxParameterReturn,i,"isSetValue",CreateIntScalar(unIsSetValue)); 
   }
@@ -2121,6 +2410,23 @@ void GetReaction ( Model_t      *pModel,
 		"reversible", 
 		"fast",
 		"isSetFast"};
+  const int nNoFields_l3v1 = 15;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"name", 
+		"id", 
+		"reactant",
+		"product", 
+		"modifier", 
+		"kineticLaw",
+		"reversible", 
+		"fast",
+    "compartment",
+		"isSetFast"};
 
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -2128,6 +2434,7 @@ void GetReaction ( Model_t      *pModel,
   const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
+  const char * pacCompartment = NULL;
   int nSBO = -1;
 
   int nReversible;
@@ -2158,6 +2465,14 @@ void GetReaction ( Model_t      *pModel,
       mxReactionReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxReactionReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+    }
+  }
+
 
   for (i = 0; i < n; i++) {
     pReaction = Model_getReaction(pModel, i);
@@ -2221,6 +2536,23 @@ void GetReaction ( Model_t      *pModel,
       default:
         break;
       }
+    }
+    else if (unSBMLLevel == 3) 
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pReaction);
+      pacId       = Reaction_getId(pReaction);
+      unIsSetFast = Reaction_isSetFast(pReaction);
+      GetModifier(pReaction, unSBMLLevel, unSBMLVersion);   
+      pacCompartment       = Reaction_getCompartment(pReaction);
+        
+      if (SBase_isSetSBOTerm((SBase_t*) pReaction)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pReaction);
+      }
+      else
+      {
+        nSBO = -1;
+      }
    }
 
     /* record any unset values as not specified */
@@ -2249,26 +2581,29 @@ void GetReaction ( Model_t      *pModel,
     if (pacAnnotations == NULL) {
       pacAnnotations = "";
     }
+    if (pacCompartment == NULL) {
+      pacCompartment = "";
+    }
 
     /* put into structure */
     mxSetField(mxReactionReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxReactionReturn, i, "metaid", mxCreateString(pacMetaid));
     }
     mxSetField(mxReactionReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxReactionReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxReactionReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxReactionReturn,i,"name",mxCreateString(pacName)); 
-    if (unSBMLLevel == 2) {
+    if (unSBMLLevel > 1) {
       mxSetField(mxReactionReturn,i,"id",mxCreateString(pacId)); 
     }
     mxSetField(mxReactionReturn,i,"reactant",mxReactantReturn); 
     mxSetField(mxReactionReturn,i,"product",mxProductReturn); 
-    if (unSBMLLevel == 2) {
+    if (unSBMLLevel > 1) {
       mxSetField(mxReactionReturn,i,"modifier",mxModifierReturn); 
     }
     mxSetField(mxReactionReturn,i,"kineticLaw",mxKineticLawReturn); 
@@ -2280,6 +2615,11 @@ void GetReaction ( Model_t      *pModel,
       }
       mxSetField(mxReactionReturn,i,"isSetFast",CreateIntScalar(unIsSetFast)); 
    }
+    else if (unSBMLLevel == 3)
+    {
+      mxSetField(mxReactionReturn,i,"compartment",mxCreateString(pacCompartment)); 
+      mxSetField(mxReactionReturn,i,"isSetFast",CreateIntScalar(unIsSetFast)); 
+    }
 
     mxReactantReturn   = NULL;
     mxProductReturn    = NULL;
@@ -2361,6 +2701,7 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
   double dMultiplier = 1.0;
   double dOffset = 0.0;
   int nSBO = -1;
+  double dExponent = 1.0;
 
   Unit_t *pUnit;
   int i;
@@ -2386,6 +2727,13 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
       mxUnitReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxUnitReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
   for (i = 0; i < n; i++) {
     pUnit = UnitDefinition_getUnit(pUnitDefinition, i);
@@ -2397,10 +2745,14 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     pacAnnotations  = SBase_getAnnotationString((SBase_t*) pUnit);
     
     pacUnitKind     = UnitKind_toString(Unit_getKind(pUnit));
-    nExponent       = Unit_getExponent(pUnit);
     nScale          = Unit_getScale(pUnit);
-    if (unSBMLLevel == 2) 
+    if (unSBMLLevel == 1) 
     {
+      nExponent       = Unit_getExponent(pUnit);
+    }
+    else if (unSBMLLevel == 2) 
+    {
+      nExponent       = Unit_getExponent(pUnit);
       pacMetaid = SBase_getMetaId((SBase_t*)pUnit);
       dMultiplier = Unit_getMultiplier(pUnit);
       switch (unSBMLVersion)
@@ -2423,6 +2775,21 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
         break;
       default:
         break;
+      }
+   }
+
+    else if (unSBMLLevel == 3) 
+    {
+      dExponent       = Unit_getExponentAsDouble(pUnit);
+      pacMetaid = SBase_getMetaId((SBase_t*)pUnit);
+      dMultiplier = Unit_getMultiplier(pUnit);
+      if (SBase_isSetSBOTerm((SBase_t*) pUnit)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pUnit);
+      }
+      else
+      {
+        nSBO = -1;
       }
    }
 
@@ -2452,18 +2819,29 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     }
     mxSetField(mxUnitReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxUnitReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxUnitReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxUnitReturn,i,"kind",mxCreateString(pacUnitKind)); 
-    mxSetField(mxUnitReturn,i,"exponent",CreateIntScalar(nExponent)); 
+    if (unSBMLLevel < 3)
+    {
+      mxSetField(mxUnitReturn,i,"exponent",CreateIntScalar(nExponent)); 
+    }
+    else
+    {
+      mxSetField(mxUnitReturn,i,"exponent",mxCreateDoubleScalar(dExponent)); 
+    }
     mxSetField(mxUnitReturn,i,"scale",CreateIntScalar(nScale)); 
     if (unSBMLLevel == 2) {
       mxSetField(mxUnitReturn,i,"multiplier",mxCreateDoubleScalar(dMultiplier)); 
       if (unSBMLVersion == 1) {
         mxSetField(mxUnitReturn,i,"offset",mxCreateDoubleScalar(dOffset)); 
       }
+    }
+    else if (unSBMLLevel > 2)
+    {
+      mxSetField(mxUnitReturn,i,"multiplier",mxCreateDoubleScalar(dMultiplier)); 
     }
   }
 }
@@ -2532,7 +2910,19 @@ GetReactants ( Reaction_t   *pReaction,
     "name",
 		"stoichiometry",
 		"stoichiometryMath"};
-  /* determine the values */
+  const int nNoFields_l3v1 = 10;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"species", 
+    "id",
+    "name",
+		"stoichiometry",
+		"constant"};
+   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
   const char * pacNotes = NULL;
@@ -2546,6 +2936,8 @@ GetReactants ( Reaction_t   *pReaction,
   int nStoichiometry = 1;
   int nDenominator = 1;
   
+  int nConstant = 1;
+
   double dStoichiometry = 1.0;
 
   SpeciesReference_t *pReactant;
@@ -2570,6 +2962,13 @@ GetReactants ( Reaction_t   *pReaction,
     else if (unSBMLVersion > 2) 
     {
       mxReactantReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxReactantReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
     }
   }
 
@@ -2637,7 +3036,21 @@ GetReactants ( Reaction_t   *pReaction,
       default:
         break;
       }
-     
+    }
+    else if (unSBMLLevel == 3) 
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pReactant);
+      dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
+      pacId       = SpeciesReference_getId(pReactant);
+      pacName     = SpeciesReference_getName(pReactant);
+      if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
+        nSBO = SBase_getSBOTerm((SBase_t*) pReactant);
+      }
+      else
+      {
+        nSBO = -1;
+      }
+      nConstant = SpeciesReference_getConstant(pReactant);
    }
         
     /**
@@ -2669,18 +3082,18 @@ GetReactants ( Reaction_t   *pReaction,
 
     /* put into structure */
     mxSetField(mxReactantReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxReactantReturn, i, "metaid", mxCreateString(pacMetaid));
     }
     mxSetField(mxReactantReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxReactantReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxReactantReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxReactantReturn,i,"species",mxCreateString(pacSpecies));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxReactantReturn,i,"id",mxCreateString(pacId));
       mxSetField(mxReactantReturn,i,"name",mxCreateString(pacName));
@@ -2709,6 +3122,10 @@ GetReactants ( Reaction_t   *pReaction,
         mxSetField(mxReactantReturn,i,"stoichiometryMath",mxStoichiometryMathReturn);
       }
     }
+    else if (unSBMLLevel == 3) {
+      mxSetField(mxReactantReturn,i,"stoichiometry",mxCreateDoubleScalar(dStoichiometry)); 
+      mxSetField(mxReactantReturn,i,"constant",CreateIntScalar(nConstant)); 
+     }
     
     mxStoichiometryMathReturn = NULL;
   }
@@ -2779,6 +3196,18 @@ const int nNoFields_l2v2 = 10;
     "name",
 		"stoichiometry",
 		"stoichiometryMath"};
+  const int nNoFields_l3v1 = 10;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"species", 
+    "id",
+    "name",
+		"stoichiometry",
+		"constant"};
    /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -2793,6 +3222,8 @@ const int nNoFields_l2v2 = 10;
   int nStoichiometry = 1;
   int nDenominator = 1;
   
+  int nConstant = 1;
+
   double dStoichiometry = 1.0;
 
   SpeciesReference_t *pProduct;
@@ -2817,6 +3248,13 @@ const int nNoFields_l2v2 = 10;
     else if (unSBMLVersion > 2) 
     {
       mxProductReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxProductReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
     }
   }
 
@@ -2884,7 +3322,21 @@ const int nNoFields_l2v2 = 10;
       default:
         break;
       }
-     
+    }
+    else if (unSBMLLevel == 3) 
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pProduct);
+      dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
+      pacId       = SpeciesReference_getId(pProduct);
+      pacName     = SpeciesReference_getName(pProduct);
+      if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
+        nSBO = SBase_getSBOTerm((SBase_t*) pProduct);
+      }
+      else
+      {
+        nSBO = -1;
+      }
+      nConstant = SpeciesReference_getConstant(pProduct);
    }
 
     /**
@@ -2916,28 +3368,28 @@ const int nNoFields_l2v2 = 10;
 
     /* put into structure */
     mxSetField(mxProductReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxProductReturn, i, "metaid", mxCreateString(pacMetaid));
     }
     mxSetField(mxProductReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxProductReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxProductReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxProductReturn,i,"species",mxCreateString(pacSpecies)); 
-    if (unSBMLLevel == 2 && unSBMLVersion > 2)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxProductReturn,i,"id",mxCreateString(pacId));
       mxSetField(mxProductReturn,i,"name",mxCreateString(pacName));
-   }
+    }
     if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxProductReturn,i,"id",mxCreateString(pacId));
       mxSetField(mxProductReturn,i,"name",mxCreateString(pacName));
       mxSetField(mxProductReturn,i,"sboTerm",CreateIntScalar(nSBO));
-   }
+    }
     if (unSBMLLevel == 1) {
       mxSetField(mxProductReturn,i,"stoichiometry",CreateIntScalar(nStoichiometry)); 
       mxSetField(mxProductReturn,i,"denominator",CreateIntScalar(nDenominator));
@@ -2956,6 +3408,10 @@ const int nNoFields_l2v2 = 10;
         mxSetField(mxProductReturn,i,"stoichiometryMath",mxStoichiometryMathReturn);
       }
     }
+    else if (unSBMLLevel == 3) {
+      mxSetField(mxProductReturn,i,"stoichiometry",mxCreateDoubleScalar(dStoichiometry)); 
+      mxSetField(mxProductReturn,i,"constant",CreateIntScalar(nConstant)); 
+     }
     
     mxStoichiometryMathReturn = NULL;
   }
@@ -3155,6 +3611,15 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"formula", 
 		"math", 
 		"parameter"};
+  const int nNoFields_l3v1 = 7;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"math", 
+		"localParameter"};
   /* determine the values */
   const char * pacTypecode = NULL;
   const char * pacMetaid = NULL;
@@ -3193,6 +3658,13 @@ GetKineticLaw ( Reaction_t   *pReaction,
       mxKineticLawReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxKineticLawReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+    }
+  }
 
   /* determine the values dealing with the very unusual situation in which
      no kinetic law has been set */
@@ -3207,7 +3679,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
     pacNotes          = SBase_getNotesString((SBase_t*) pKineticLaw);
     pacAnnotations    = SBase_getAnnotationString((SBase_t*) pKineticLaw);
     
-    pacFormula        = KineticLaw_getFormula(pKineticLaw);
+    if (unSBMLLevel < 3)
+    {
+      pacFormula        = KineticLaw_getFormula(pKineticLaw);
+    }
 
     GetKineticLawParameters(pKineticLaw, unSBMLLevel, unSBMLVersion);
     
@@ -3260,28 +3735,75 @@ GetKineticLaw ( Reaction_t   *pReaction,
         break;
       }
     }
+    else if (unSBMLLevel == 3)
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pKineticLaw);
+     /* if level two set the math formula */
+     if (KineticLaw_isSetMath(pKineticLaw)) 
+      {
+        /* look for csymbol time */
+        LookForCSymbolTime((ASTNode_t*)KineticLaw_getMath(pKineticLaw));
+        LookForCSymbolDelay((ASTNode_t*)KineticLaw_getMath(pKineticLaw));
+      /*  KineticLaw_setFormulaFromMath(pKineticLaw); */
+        pacMathFormula = SBML_formulaToString((ASTNode_t*)KineticLaw_getMath(pKineticLaw));
+      }
+      
+      if (SBase_isSetSBOTerm((SBase_t*) pKineticLaw)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pKineticLaw);
+      }
+        else
+      {
+        nSBO = -1;
+      }
+    }
     
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
     
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
-    
-    if (nStatus != 0)
+    if (unSBMLLevel < 3)
     {
-        mexErrMsgTxt("Failed to convert formula");
-    }
-    
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
-    
-    if (nStatus != 0)
-    {
-        mexErrMsgTxt("Cannot copy formula");
-    }
+      mxInput[0] = mxCreateString(pacFormula);
+      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+      
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Failed to convert formula");
+      }
+      
+      /* get the formula returned */
+      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+      pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+      
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Cannot copy formula");
+      }
 
-    /* END OF HACK */
+      /* END OF HACK */
+    }
+    else
+    {
+      mxInput[0] = mxCreateString(pacMathFormula);
+      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+      
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Failed to convert formula");
+      }
+      
+      /* get the formula returned */
+      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+      pacMathFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+      nStatus = mxGetString(mxOutput[0], (char *) pacMathFormula, nBuflen);
+      
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Cannot copy formula");
+      }
+
+      /* END OF HACK */
+    }
  }
   else 
   {
@@ -3322,22 +3844,32 @@ GetKineticLaw ( Reaction_t   *pReaction,
 
   /* put into structure */
   mxSetField(mxKineticLawReturn,0,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxKineticLawReturn, 0, "metaid", mxCreateString(pacMetaid));
     }
   mxSetField(mxKineticLawReturn, 0, "notes",mxCreateString(pacNotes));
   mxSetField(mxKineticLawReturn, 0, "annotation",mxCreateString(pacAnnotations));
-  if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+  if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
   {
     mxSetField(mxKineticLawReturn, 0,"sboTerm",CreateIntScalar(nSBO)); 
   }
-  mxSetField(mxKineticLawReturn,0,"formula",mxCreateString(pacFormula)); 
-  if (unSBMLLevel == 2) {
+  if (unSBMLLevel < 3)
+  {
+    mxSetField(mxKineticLawReturn,0,"formula",mxCreateString(pacFormula)); 
+  }
+  if (unSBMLLevel > 1) {
     mxSetField(mxKineticLawReturn,0,"math",mxCreateString(pacMathFormula)); 
   }
-  mxSetField(mxKineticLawReturn,0,"parameter",mxKineticLawParameterReturn); 
-  if (unSBMLLevel == 1 || unSBMLVersion == 1)
+  if (unSBMLLevel < 3)
+  {
+    mxSetField(mxKineticLawReturn,0,"parameter",mxKineticLawParameterReturn); 
+  }
+  else
+  {
+    mxSetField(mxKineticLawReturn,0,"localParameter",mxKineticLawParameterReturn); 
+  }
+  if (unSBMLLevel == 1 || (unSBMLLevel == 2 && unSBMLVersion == 1))
   {
     mxSetField(mxKineticLawReturn,0,"timeUnits",mxCreateString(pacTimeUnits)); 
     mxSetField(mxKineticLawReturn,0,"substanceUnits",mxCreateString(pacSubstanceUnits)); 
@@ -3417,6 +3949,18 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"units", 
 		"constant",
 		"isSetValue"};
+    const int nNoFields_l3v1 = 10;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"name", 
+		"id", 
+		"value",
+		"units", 
+		"isSetValue"};
  
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -3456,6 +4000,13 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     else if (unSBMLVersion > 2) 
     {
       mxKineticLawParameterReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxKineticLawParameterReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
     }
   }
 
@@ -3515,6 +4066,20 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
       }
     }
 
+   else if (unSBMLLevel == 3) 
+    {
+      pacMetaid = SBase_getMetaId((SBase_t*)pParameter);
+      pacId     = Parameter_getId(pParameter);
+      if (SBase_isSetSBOTerm((SBase_t*) pParameter)) 
+      {
+        nSBO = SBase_getSBOTerm((SBase_t*) pParameter);
+      }
+      else
+      {
+        nSBO = -1;
+      }
+    }
+
     /* record any unset values as NAN */
     if (unIsSetValue == 0) {
         dValue = 0.0/dZero;
@@ -3552,12 +4117,12 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     }
     mxSetField(mxKineticLawParameterReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxKineticLawParameterReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxKineticLawParameterReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxKineticLawParameterReturn,i,"name",mxCreateString(pacName)); 
-    if (unSBMLLevel == 2) {
+    if (unSBMLLevel > 1) {
       mxSetField(mxKineticLawParameterReturn,i,"id",mxCreateString(pacId)); 
     }
     mxSetField(mxKineticLawParameterReturn,i,"value",mxCreateDoubleScalar(dValue)); 
@@ -3656,6 +4221,14 @@ GetModifier ( Reaction_t   *pReaction,
       mxModifierReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxModifierReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
+
 
   for (i = 0; i < n; i++) {
     pModifier = Reaction_getModifier(pReaction, i);
@@ -3668,11 +4241,8 @@ GetModifier ( Reaction_t   *pReaction,
     pacMetaid = SBase_getMetaId((SBase_t*)pModifier);
     
     pacSpecies      = SpeciesReference_getSpecies(pModifier);
-    switch (unSBMLVersion)
+    if ((unSBMLLevel == 2 && unSBMLVersion > 1) || unSBMLLevel > 2)
     {
-    case 1:
-      break;
-    case 2:
       pacId   = SpeciesReference_getId(pModifier);
       pacName = SpeciesReference_getName(pModifier);
       if (SBase_isSetSBOTerm((SBase_t*) pModifier)) 
@@ -3683,24 +4253,7 @@ GetModifier ( Reaction_t   *pReaction,
       {
         nSBO = -1;
       }
-      break;
-    case 3:
-    case 4:
-      pacId   = SpeciesReference_getId(pModifier);
-      pacName = SpeciesReference_getName(pModifier);
-      if (SBase_isSetSBOTerm((SBase_t*) pModifier)) 
-      {
-        nSBO = SBase_getSBOTerm((SBase_t*) pModifier);
-      }
-      else
-      {
-        nSBO = -1;
-      }
-      break;
-    default:
-      break;
-    }
-       
+    }       
 
     /**
      * check for NULL strings - Matlab doesnt like creating 
@@ -3734,17 +4287,17 @@ GetModifier ( Reaction_t   *pReaction,
     }
     mxSetField(mxModifierReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxModifierReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxModifierReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxModifierReturn,i,"species",mxCreateString(pacSpecies)); 
-    if (unSBMLVersion != 1)
+    if (!(unSBMLLevel == 2 && unSBMLVersion == 1))
     {
       mxSetField(mxModifierReturn,i,"id",mxCreateString(pacId));
       mxSetField(mxModifierReturn,i,"name",mxCreateString(pacName));
     }
-    if (unSBMLVersion == 2)
+    if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxModifierReturn,i,"sboTerm",CreateIntScalar(nSBO));
     }
@@ -3865,12 +4418,19 @@ GetRule ( Model_t      *pModel,
       mxListRuleReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxListRuleReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
   for (i = 0; i < n; i++) {
     pRule = Model_getRule(pModel, i);
     /* determine the values */
     
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
       pacTypecode     = TypecodeToChar(Rule_getTypeCode(pRule));
     else
       pacTypecode     = TypecodeToChar(Rule_getL1TypeCode(pRule));
@@ -3888,7 +4448,7 @@ GetRule ( Model_t      *pModel,
     {
       pacFormula = Rule_getFormula(pRule);
     }
-    else if (unSBMLLevel == 2) 
+    else if (unSBMLLevel > 1) 
     {
       pacMetaid = SBase_getMetaId((SBase_t*)pRule);
       if (Rule_isSetFormula(pRule) == 1){
@@ -4121,7 +4681,7 @@ GetRule ( Model_t      *pModel,
         pacUnits = "";
         break;
     }
-    if (unSBMLVersion != 1)
+    if (!(unSBMLLevel == 2 && unSBMLVersion == 1))
     {
       if (SBase_isSetSBOTerm((SBase_t*) pRule))
       {
@@ -4170,7 +4730,7 @@ GetRule ( Model_t      *pModel,
     if (unSBMLLevel == 1){
         mxSetField(mxListRuleReturn,i,"type",mxCreateString(pacType));
     }
-    else if (unSBMLLevel == 2 && unSBMLVersion != 1)
+    else if ((unSBMLLevel == 2 && unSBMLVersion != 1) || unSBMLLevel > 2)
     {
       mxSetField(mxListRuleReturn, i, "sboTerm", CreateIntScalar(nSBO));
     }
@@ -4278,7 +4838,13 @@ GetFunctionDefinition ( Model_t      *pModel,
       mxFunctionDefReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
-
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxFunctionDefReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
   for (i = 0; i < n; i++) {
     pFuncDefinition = Model_getFunctionDefinition(pModel, i);
@@ -4292,12 +4858,9 @@ GetFunctionDefinition ( Model_t      *pModel,
     
     pacName             = FunctionDefinition_getName(pFuncDefinition);
     pacId               = FunctionDefinition_getId(pFuncDefinition);
-       
-    switch (unSBMLVersion)
+    
+    if ((unSBMLLevel == 2 && unSBMLVersion > 1) || unSBMLLevel > 2)
     {
-    case 1:
-      break;
-    case 2:
       if (SBase_isSetSBOTerm((SBase_t*) pFuncDefinition)) 
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pFuncDefinition);
@@ -4306,21 +4869,7 @@ GetFunctionDefinition ( Model_t      *pModel,
       {
         nSBO = -1;
       }
-      break;
-    case 3:
-    case 4:
-      if (SBase_isSetSBOTerm((SBase_t*) pFuncDefinition)) 
-      {
-        nSBO = SBase_getSBOTerm((SBase_t*) pFuncDefinition);
-      }
-      else
-      {
-        nSBO = -1;
-      }
-      break;
-    default:
-      break;
-    }
+   }
    if (FunctionDefinition_isSetMath(pFuncDefinition)) 
    {
       LookForCSymbolTime((ASTNode_t*)FunctionDefinition_getMath(pFuncDefinition));
@@ -4377,7 +4926,7 @@ GetFunctionDefinition ( Model_t      *pModel,
     mxSetField(mxFunctionDefReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxFunctionDefReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFunctionDefReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion != 1) 
+    if ((unSBMLLevel == 2 && unSBMLVersion != 1) || unSBMLLevel > 2)
     {
       mxSetField(mxFunctionDefReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
@@ -4503,7 +5052,13 @@ GetEvent (Model_t      *pModel,
       mxEventReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
     }
   }
-
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxEventReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
+    }
+  }
   for (i = 0; i < n; i++) {
     pEvent = Model_getEvent(pModel, i);
 
@@ -4517,13 +5072,12 @@ GetEvent (Model_t      *pModel,
     pacName         = Event_getName(pEvent);
     pacId = Event_getId(pEvent);
 
-    switch (unSBMLVersion)
+    if (unSBMLLevel == 2 && unSBMLVersion < 3)
     {
-    case 1:
       pacTimeUnits    = Event_getTimeUnits(pEvent);
-      break;
-    case 2:
-      pacTimeUnits    = Event_getTimeUnits(pEvent);
+    }
+    if ((unSBMLLevel == 2 && unSBMLVersion > 1) || unSBMLLevel > 2)
+    {
       if (SBase_isSetSBOTerm((SBase_t*) pEvent))
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
@@ -4532,34 +5086,14 @@ GetEvent (Model_t      *pModel,
       {
         nSBO = -1;
       }
-      break;
-    case 3:
-      if (SBase_isSetSBOTerm((SBase_t*) pEvent))
-      {
-        nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
-      }
-      else
-      {
-        nSBO = -1;
-      }
-      break;
-    case 4:
-      if (SBase_isSetSBOTerm((SBase_t*) pEvent))
-      {
-        nSBO = SBase_getSBOTerm((SBase_t*) pEvent);
-      }
-      else
-      {
-        nSBO = -1;
-      }
+    }
+    if ((unSBMLLevel == 2 && unSBMLVersion ==4) || unSBMLLevel > 2)
+    {
       nUseValuesFromTriggerTime = Event_getUseValuesFromTriggerTime(pEvent);
-      break;
-    default:
-      break;
     }
     GetEventAssignment(pEvent, unSBMLLevel, unSBMLVersion);
     
-    if (unSBMLVersion < 3)
+    if (unSBMLLevel == 2 && unSBMLVersion < 3)
     {
       if (Event_isSetTrigger(pEvent)) 
       {
@@ -4668,17 +5202,17 @@ GetEvent (Model_t      *pModel,
     mxSetField(mxEventReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxEventReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxEventReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxEventReturn,i,"name",mxCreateString(pacName)); 
     mxSetField(mxEventReturn,i,"id",mxCreateString(pacId)); 
-    if (unSBMLVersion == 4)
+    if ((unSBMLLevel == 2 && unSBMLVersion == 4) || unSBMLLevel > 2)
     {
       mxSetField(mxEventReturn,i,"useValuesFromTriggerTime",CreateIntScalar(nUseValuesFromTriggerTime)); 
     }
-    if (unSBMLVersion < 3)
+    if (unSBMLLevel == 2 && unSBMLVersion < 3)
     {
       mxSetField(mxEventReturn,i,"trigger",mxCreateString(pacTrigger)); 
       mxSetField(mxEventReturn,i,"delay",mxCreateString(pacDelay)); 
@@ -4688,11 +5222,11 @@ GetEvent (Model_t      *pModel,
       mxSetField(mxEventReturn,i,"trigger",mxTriggerReturn); 
       mxSetField(mxEventReturn,i,"delay",mxDelayReturn); 
     }
-    if (unSBMLVersion < 3)
+    if (unSBMLLevel == 2 && unSBMLVersion < 3)
     {
       mxSetField(mxEventReturn,i,"timeUnits",mxCreateString(pacTimeUnits));
     }
-    if (unSBMLVersion == 2)
+    if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxEventReturn,i,"sboTerm", CreateIntScalar(nSBO)); 
     }  
@@ -4789,6 +5323,13 @@ GetEventAssignment ( Event_t      *pEvent,
       mxEventAssignReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxEventAssignReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
  for (i = 0; i < n; i++) 
  {
@@ -4802,11 +5343,8 @@ GetEventAssignment ( Event_t      *pEvent,
     pacMetaid = SBase_getMetaId((SBase_t*)pEventAssignment);
     
     pacVariable       = EventAssignment_getVariable(pEventAssignment);
-    switch (unSBMLVersion)
+    if (!(unSBMLLevel == 2 && unSBMLVersion == 1))
     {
-    case 1:
-      break;
-    case 2:
       if (SBase_isSetSBOTerm((SBase_t*) pEventAssignment))
       {
         nSBO = SBase_getSBOTerm((SBase_t*) pEventAssignment);
@@ -4815,20 +5353,6 @@ GetEventAssignment ( Event_t      *pEvent,
       {
         nSBO = -1;
       }
-      break;
-    case 3:
-    case 4:
-      if (SBase_isSetSBOTerm((SBase_t*) pEventAssignment))
-      {
-        nSBO = SBase_getSBOTerm((SBase_t*) pEventAssignment);
-      }
-      else
-      {
-        nSBO = -1;
-      }
-      break;
-    default:
-      break;
     }
      
      if (EventAssignment_isSetMath(pEventAssignment)) {
@@ -4885,12 +5409,12 @@ GetEventAssignment ( Event_t      *pEvent,
     mxSetField(mxEventAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventAssignReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxEventAssignReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxEventAssignReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
     mxSetField(mxEventAssignReturn,i,"variable",mxCreateString(pacVariable)); 
-    if (unSBMLVersion == 2)
+    if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       mxSetField(mxEventAssignReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
 
@@ -4956,6 +5480,13 @@ GetTrigger ( Event_t      *pEvent,
     else  
     {
       mxTriggerReturn = NULL;
+    }
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxTriggerReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
 
@@ -5090,6 +5621,13 @@ GetDelay ( Event_t      *pEvent,
     else  
     {
       mxDelayReturn = NULL;
+    }
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxDelayReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
 
@@ -5630,6 +6168,13 @@ GetInitialAssignment (Model_t      *pModel,
       mxInitialAssignReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
   }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxInitialAssignReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
 
   for (i = 0; i < n; i++) {
     pInitialAssignment = Model_getInitialAssignment(pModel, i);
@@ -5706,7 +6251,7 @@ GetInitialAssignment (Model_t      *pModel,
     mxSetField(mxInitialAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxInitialAssignReturn, i, "notes",      mxCreateString(pacNotes));
     mxSetField(mxInitialAssignReturn, i, "annotation", mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2) 
     {
       mxSetField(mxInitialAssignReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
@@ -5791,6 +6336,13 @@ GetConstraint (Model_t      *pModel,
       mxConstraintReturn = mxCreateStructArray(2, dims, nNoFields_l2v2, field_names_l2v2);
     }
     else if (unSBMLVersion > 2) 
+    {
+      mxConstraintReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+    }
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
     {
       mxConstraintReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
     }
