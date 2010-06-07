@@ -49,11 +49,11 @@ mathematical formulas have variants that accept ASTs instead.
 The functions <code>char* SBML_formulaToString(const ASTNode* tree)</code>
 and <code>ASTNode* SBML_parseFormula(const char* formula)</code> can be
 used to convert mathematical formulas to/from a text-string format.
-However, MathML (the XML encoding format used in SBML Level&nbsp;2 for
-mathematical formulas) does not have a defined standard text-string
-representation.  LibSBML arbitrarily uses the syntax defined by SBML
-Level&nbsp;1 (which used a text-string representation of formulas and not
-MathML).  For the most part, this syntax maps directly to MathML, but
+However, MathML (the XML encoding format used in SBML Levels&nbsp;2
+and&nbsp;3 for mathematical formulas) does not have a defined standard
+text-string representation.  LibSBML arbitrarily uses the syntax defined by
+SBML Level&nbsp;1 (which used a text-string representation of formulas and
+not MathML).  For the most part, this syntax maps directly to MathML, but
 <em>there are differences</em> in a few of the symbols used to represent
 the common mathematical functions.  In particular, in the text-string
 syntax, <code>log(x)</code> represents the natural logarithm, whereas in
@@ -76,16 +76,17 @@ we are currently aware:
 
 <li style="margin-bottom: 1em">Libxml2 version 2.6.16 on MacOS&nbsp;X,
 which is the <strong>default version of libxml installed on Macs</strong>
-in /usr/lib up through at least 10.5.1, fails to report uses of undefined
-namespaces in an XML document.  This means that a construct such as
-<code>n:attribute</code>, where <code>n</code> is a namespace prefix that
-is not defined, will be silently ignored.  As a result, libSBML cannot
+in /usr/lib up through at least MacOS 10.5.8, fails to report uses of
+undefined namespaces in an XML document.  This means that a construct such
+as <code>n:attribute</code>, where <code>n</code> is a namespace prefix
+that is not defined, will be silently ignored.  As a result, libSBML cannot
 catch and report this error when libSBML has been configured with this
-version of libxml2.  We know of no workaround at this time except to
-compile your own copy of libxml2 or use another parser library.
-(Incredibly enough, libxml 2.6.16 built from original sources on a Mac
-<em>does</em> report the error.  The only explanation is that that Apple is
-shipping a modified version of libxml 2.6.16.)
+version of libxml2.  We know of no workaround at this time if you are using
+a system with libxml2 2.6.16, except to compile your own copy of libxml2 or
+use another parser library.  (Incredibly enough, libxml 2.6.16 built from
+original sources on a Mac <em>does</em> report the error.  The only
+explanation is that that Apple is shipping a modified version of libxml
+2.6.16 in versions of the operating system up through 10.5.8.)
 
 <li style="margin-bottom: 1em">Expat and libxml2 tend to quit earlier than
 Xerces when they encounter an XML error in an input stream, whereas Xerces

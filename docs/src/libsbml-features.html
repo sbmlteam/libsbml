@@ -1,24 +1,26 @@
 <p>
+
 LibSBML is an application programming interface (API) library for reading,
 writing and manipulating files and data streams containing SBML content.
 Developers can embed the library in their applications, saving themselves
 the work of implementing their own parsing, manipulation and validation
 software.  At the API level, the library provides the same interface to
 data structures independently of whether the model originated in SBML
-Level&nbsp;1 or 2.  The library currently also offers the ability to
-translate SBML Level&nbsp;1 models to SBML Level&nbsp;2 and (to some
-extent) from Level&nbsp;2 to Level&nbsp;1 as well.
+Level&nbsp;1, 2 or&nbsp;3.  The library currently also offers the ability
+to translate many models between SBML Levels and Versions.
 
 <p>
+
 LibSBML is written in ISO standard C++ and C and is highly portable.  It is
-currently supported on the Linux, Solaris, MacOS&nbsp;X, and Microsoft
-Windows operating systems.  The library provides language bindings for C,
-C++, C#, Java, Python, Perl, MATLAB, Octave, and Ruby, with support
-for other languages planned for the future.  The package is distributed in
-both source-code form and as precompiled dynamic libraries for the Microsoft
-Windows, Linux and Apple MacOS&nbsp;X operating systems; they are available
-from the <a href="http://sourceforge.net/projects/sbml"><code>sbml</code>
-project on SourceForge.net</a>.
+currently supported on the Linux, MacOS&nbsp;X, and Microsoft Windows
+operating systems, but it has been known to run under FreeBSD and Solaris
+with little or no modifications.  The library provides language bindings
+for C, C++, C#, Java, Python, Perl, MATLAB, Octave, and Ruby.  The package
+is distributed in both source-code form and as precompiled dynamic
+libraries for the Microsoft Windows, Linux and Apple MacOS&nbsp;X operating
+systems; they are available from the <a
+href="http://sourceforge.net/projects/sbml"><code>sbml</code> project on
+SourceForge.net</a>.
 
 
 <h2>Advantages of a dedicated library for SBML</h2>
@@ -30,21 +32,21 @@ library?  The answer is: while it is true that developers <em>can</em> use
 general-purpose XML libraries, there are many reasons why using a system
 such as libSBML is a vastly better choice.
 
-<p>
+<p> 
 One of the features of libSBML is its facilities for manipulating
 mathematical formulas supporting differences in representation between SBML
-Level&nbsp;1 and SBML Level&nbsp;2.  LibSBML provides an API that allows
-working with formulas in both text-string and MathML form, and to
+Level&nbsp;1 and higher Levels of SBML.  LibSBML provides an API that
+allows working with formulas in both text-string and MathML form, and to
 interconvert mathematical expressions between these forms.  The utility of
-this facility extends beyond converting between SBML Level&nbsp;1
-and&nbsp;2.  Many software packages provide users with the ability to
-express formulas for such things as reaction rate expressions, and these
-packages' interfaces often let users type in the formulas directly as text
-strings.  LibSBML saves application programmers the work of developing
-formula manipulation and translation functionality.  It makes it possible
-to translate those formula strings directly into Abstract Syntax Trees
-(ASTs), manipulate them using AST operations, and write them out in the
-MathML format of SBML Level&nbsp;2.
+this facility extends beyond converting between SBML Level&nbsp;1 and other
+Levels.  Many software packages provide users with the ability to express
+formulas for such things as reaction rate expressions, and these packages'
+interfaces often let users type in the formulas directly as text strings.
+LibSBML saves application programmers the work of developing formula
+manipulation and translation functionality.  It makes it possible to
+translate those formula strings directly into Abstract Syntax Trees (ASTs),
+manipulate them using AST operations, and write them out in the MathML
+format of SBML Levels&nbsp;2 and&nbsp;3.
 
 <p>
 Another feature of libSBML is the validation it performs on SBML inputs at
@@ -62,14 +64,14 @@ Some of the other features of libSBML include the following:
 <ul>
 
 <li style="margin-bottom: 1em">  <em>Full SBML Support</em>.
-  All constructs in SBML Level 1 (Versions 1 and 2) and SBML Level 2 are
-  supported.  For compatibility with some technically incorrect but popular
-  Level&nbsp;1 applications and models, the parser recognizes and stores
-  notes and annotations defined for the top-level <code>&lt;sbml&gt;</code>
-  element (logging a warning).</li>
+  All constructs in SBML Level&nbsp;1, 2 and&nbsp;3 are supported.  For
+  compatibility with some technically incorrect but popular Level&nbsp;1
+  applications and models, the parser recognizes and stores notes and
+  annotations defined for the top-level <code>&lt;sbml&gt;</code> element
+  (logging a warning).</li>
 
-<li style="margin-bottom: 1em">  <em>Unified SBML Level&nbsp;2 and
-  Level&nbsp;1 object models</em>.  All objects have
+<li style="margin-bottom: 1em"> <em>Unified SBML Level&nbsp;3, Level&nbsp;2
+  and Level&nbsp;1 object models</em>.  All objects have
   <code>getSBMLDocument()</code>, <code>getModel()</code>,
   <code>getLevel()</code>, and <code>getVersion()</code> methods, among
   other things.  Also, the interface to SBML's <em>Rules</em> abstracts
@@ -77,21 +79,21 @@ Some of the other features of libSBML include the following:
   differences.</li>
 
 <li style="margin-bottom: 1em">  <em>Full XML and SBML Validation</em>.
-  All XML and Schema warning, error and fatal error messages are logged
-  with line and column number information and may be retrieved and
-  manipulated programmatically.</li>
+  All XML warnings and errors are logged with line and column number
+  information and may be retrieved and manipulated programmatically.</li>
 
 <li style="margin-bottom: 1em">  <em>Dimensional analysis and unit
   checking</em>.  LibSBML implements a thorough system for dimensional
   analysis and checking units of quantities in a model.  The validation
-  rules for units that are specified in SBML Level 2 Version&nbsp;2 and
-  Version&nbsp;3 are fully implemented, including checking units in
-  mathematical formulas.</li>
+  rules for units that are specified in SBML Level&nbsp;2 Version&nbsp;2
+  and Version&nbsp;3, as well as the equivalent warnings defined in SBML
+  Level&nbsp;2 Version&nbsp;4 and Level&nbsp;3, are fully implemented,
+  including checking units in mathematical formulas.
 
 <li style="margin-bottom: 1em">  <em>Access to SBML annotations and notes
   as XML objects</em>.  Annotations and notes are read and manipulated as
   XML structures instead of text strings.  Further, in order to facilitate
-  the support of <a href="http://www.ebi.ac.uk/miriam">MIRIAM</a>
+  the support of <a href="http://biomodels.net/miriam">MIRIAM</a>
   compatible annotations, there are new object classes ModelHistory and
   CVTerm.  These classes facilitate the creation and addition of RDF
   annotations inside <code>&lt;annotation&gt;</code> elements by providing
@@ -99,6 +101,15 @@ Some of the other features of libSBML include the following:
   XMLNode objects implemented by the new XML layer.  Both ModelHistory and
   CVTerm follow the general libSBML format of providing getters and setters
   for each variable stored within the class.</li>
+
+<li style="margin-bottom: 1em"> <em>Support for SBO</em>.  The <a
+  href="http://biomodels.net/sbo">Systems Biology Ontology (SBO)</a> is a
+  machine-readable ontology tailored for computational modeling in systems
+  biology.  Annotating a model with SBO terms adds semantic information
+  that can permit better software interpretation of the model's
+  mathematical structure and (potentially) the ability to translate a model
+  between different mathematical frameworks.  LibSBML provides API methods
+  for adding and working with SBO terms in SBML models.
 
 <li style="margin-bottom: 1em"> <em>Support for compressed SBML files</em>.
   If an SBML file name ends in <code>.gz</code>, <code>.zip</code> or
@@ -115,9 +126,14 @@ Some of the other features of libSBML include the following:
   implementation of an abstraction layer, libSBML can use any of three
   different popular XML parser libraries: Expat, Apache Xerces-C++, and
   Libxml2.  LibSBML provides identical functionality and checking of XML
-  syntax is now available no matter which one is used.  SBML Documents are
+  syntax is available no matter which one is used.  SBML Documents are
   parsed and manipulated in the Unicode codepage for efficiency; however,
   strings are transcoded to the local code page for SBML structures.</li>
+
+<li style="margin-bottom: 1em"> <em>Convenience methods</em>.  LibSBML
+  provides many other useful methods, such as for obtaining a count of the
+  number of boundary condition species, determining the modifier species of
+  a reaction (assuming the reaction provides kinetics), and more.
 
 <li style="margin-bottom: 1em">  <em>Small memory footprint and fast runtime</em>.
   The parser is event-based (SAX2) and loads SBML data into C++ structures
@@ -135,9 +151,12 @@ Some of the other features of libSBML include the following:
   Wrapper Interface Generator; and the rest are implemented through custom
   hand-written interfaces.</li>
 
-<li style="margin-bottom: 1em">  <em>Well tested: version 3.0.0 has over
-  1280 unit tests and 5800 individual assertions</em>.  The entire library
-  was written using the test-first approach popularized by Kent Beck and
+<li style="margin-bottom: 1em"> <em>Well tested: libSBML has over
+  4300 unit tests containing a total of over 11,2000 individual
+  assertions</em>.  In addition to these tests, libSBML contains over 3000
+  individually hand-written SBML XML files containing different variations
+  of correct and incorrect SBML and XML syntax.  The entire library was
+  written using the test-first approach popularized by Kent Beck and
   eXtreme Programming, where it's one of the 12 principles.</li>
     
 <li style="margin-bottom: 1em">  <em>Written in portable, pure ISO C and
@@ -175,7 +194,7 @@ Trees</a> are well-known in the computer science community; they are simple
 recursive data structures useful for representing the syntactic structure
 of sentences in certain kinds of languages (mathematical or otherwise).
 Much as libSBML allows programmers to manipulate SBML at the level of
-domain-specific objects, regardless of SBML level or version, it also
+domain-specific objects, regardless of SBML Level or version, it also
 allows programmers to work with mathematical formula at the level of ASTs
 regardless of whether the original format was C-like infix or MathML.
 LibSBML goes one step further by allowing programmers to work exclusively

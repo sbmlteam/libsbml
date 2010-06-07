@@ -83,16 +83,14 @@
  * class="el" href="#ASTNodeType_t">ASTNodeType_t</a>.  The list of
  * possible types is quite long, because it covers all the mathematical
  * functions that are permitted in SBML.  The values are shown in the
- * following table; their names hopefully evoke the construct that they
- * represent: @endif@if java Every ASTNode has an associated
+ * following table: @endif@if java Every ASTNode has an associated
  * type code to indicate, for example, whether it holds a number or stands for
  * an arithmetic operator.  The type is recorded as a value drawn from a
  * set of static integer constants defined in the class {@link
  * libsbmlConstants}.  Their names begin with the characters @c AST_.  The
  * list of possible types is quite long, because it covers all the
  * mathematical functions that are permitted in SBML.  The values are shown
- * in the following table; their names hopefully evoke the construct that
- * they represent: @endif
+ * in the following table: @endif
  *
  * @htmlinclude libsbml-astnode-types.html
  *

@@ -1,4 +1,4 @@
-/** @page changes Summary of changes between libSBML versions
+/** @page changes Summary of changes between libSBML releases
 @n
 
 <!-- NEWS.txt is located in ../../.  The include search path for

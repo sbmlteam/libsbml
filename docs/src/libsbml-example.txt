@@ -1,8 +1,8 @@
 /** @page libsbml-example Tutorial: Creating a complete model, from start to finish
 
 This section presents a complete example program in C++ demonstrating
-how to create a complete SBML model programmatically and then writing
-the result to a file.  
+how to create a complete SBML Level&nbsp;2 model programmatically and
+then writing the result to a file.
 
 @section characteristics General characteristics of the model to be created
 
@@ -45,14 +45,14 @@ is shown below:
 <tr><td><em>ES</em></td><td>0</td><td></td>moles</tr>
 <tr><td><em>k<sub>on</sub></em></td><td>1 000 000</td><td>litre/mole/second</td></tr>
 <tr><td><em>k<sub>off</sub></em></td><td>0.2</td><td>1/second</td></tr>
-<tr><td><em>k<sub>cat</sub></em></td><td></td><td>1/second</td></tr>
+<tr><td><em>k<sub>cat</sub></em></td><td>0.1</td><td>1/second</td></tr>
 </table>
 </center>
 
-For variety, we will use substance units instead of concentration
-units for the initial values of the species.  This is reflected in the
-use of moles instead of moles/litre as the species quantity units in
-the table above.
+To add some spice to our boring (but instructive) example, we will use
+substance units instead of concentration units for the initial values
+of the species.  This is reflected in the use of moles instead of
+moles/litre as the species quantity units in the table above.
 
 
 @section code The program for creating the model
@@ -119,19 +119,19 @@ int
 main (int argc, char *argv[])
 {
   SBMLDocument* sbmlDoc = 0;
-  bool SBMLok           = false;
+  bool isValid          = false;
 
   try
   {
     sbmlDoc = createExampleEnzymaticReaction(); 
-    SBMLok  = validateExampleSBML(sbmlDoc);
-    if (SBMLok) writeExampleSBML(sbmlDoc, "enzymaticreaction.xml");
+    isValid = validateExampleSBML(sbmlDoc);
+    if (isValid) writeExampleSBML(sbmlDoc, "enzymaticreaction.xml");
 
     // Avoid memory leaks.
     delete sbmlDoc;
 
     // Return non-zero to indicate if a problem occurred.
-    if (!SBMLok) return 1;
+    if (!isValid) return 1;
   }
   catch (std::bad_alloc& e)
   {

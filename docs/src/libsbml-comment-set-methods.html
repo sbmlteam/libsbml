@@ -1,13 +1,13 @@
 <em>Some words of explanation about the</em>
 <code>set</code>/<code>unset</code>/<code>isSet</code> <em>methods</em>:
-SBML Levels 1 and 2 define certain attributes on some classes of objects as
-optional.  This requires an application to be careful about the distinction
-between two cases: (1) a given attribute has <em>never</em> been set to a
-value, and therefore should be assumed to have the SBML-defined default
-value, and (2) a given attribute has been set to a value, but the value
-happens to be an empty string.  LibSBML supports these distinctions by
-providing methods to set, unset, and query the status of attributes that
-are optional.  The methods have names of the form
+SBML define certain attributes on some classes of objects as optional.
+This requires an application to be careful about the distinction between
+two cases: (1) a given attribute has <em>never</em> been set to a value,
+and therefore should be assumed to have the SBML-defined default value, and
+(2) a given attribute has been set to a value, but the value happens to be
+an empty string.  LibSBML supports these distinctions by providing methods
+to set, unset, and query the status of attributes that are optional.  The
+methods have names of the form
 <code>set</code><i>Attribute</i><code>(...)</code>,
 <code>unset</code><i>Attribute</i><code>()</code>, and
 <code>isSet</code><i>Attribute</i><code>()</code>, where <i>Attribute</i>
