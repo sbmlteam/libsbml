@@ -266,6 +266,15 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node,
     canIgnoreUndeclaredUnitsMap.clear();
   }
 
+  /* if something is returned with an empty unitDefinition
+   * it means not all units could be determined
+   */
+  if (ud->getNumUnits() == 0)
+  {
+    mContainsUndeclaredUnits = true;
+    mCanIgnoreUndeclaredUnits = false;
+  }
+
   return ud;
 }
 
@@ -765,7 +774,43 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
    * the name of another element of the model
    */
 
-  if ((node->isNumber()) || (node->getType() == AST_CONSTANT_E))
+  if (node->isNumber())
+  {
+    /* in L3 a number can have units */
+    if (node->isSetUnits())
+    {
+      std::string units = node->getUnits();
+      if (UnitKind_isValidUnitKindString(units.c_str(), 
+                          model->getLevel(), model->getVersion()))
+      {
+        unit = new Unit(model->getSBMLNamespaces());
+        unit->setKind(UnitKind_forName(units.c_str()));
+        unit->initDefaults();
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+        ud->addUnit(unit);
+        delete unit;
+      }
+      else
+      {
+        tempUd = model->getUnitDefinition(units);
+        ud   = new UnitDefinition(model->getSBMLNamespaces());
+
+        for (n = 0; n < tempUd->getNumUnits(); n++)
+        {
+          ud->addUnit(tempUd->getUnit(n));
+        }
+
+      }
+    }
+    else
+    {
+      ud   = new UnitDefinition(model->getSBMLNamespaces());
+      mContainsUndeclaredUnits = true;
+      mCanIgnoreUndeclaredUnits = 0;
+    }
+  }
+  else if (node->getType() == AST_CONSTANT_E)
   {
     ud   = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;

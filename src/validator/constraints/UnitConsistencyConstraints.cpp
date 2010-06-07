@@ -488,6 +488,12 @@ START_CONSTRAINT (10514, AssignmentRule, ar)
 {
   const string& variable = ar.getVariable();
   const SpeciesReference* sr = m.getSpeciesReference(variable);
+  /* the getSpeciesReference function uses either the id or the species
+   * field - so need to check that this is indeed a SpeciesReference
+   * and not a Species we are dealing with
+   */
+  pre ( m.getSpecies(variable) == NULL);
+
 
   pre ( ar.getLevel() > 2);
   pre ( sr != NULL);
@@ -652,6 +658,12 @@ START_CONSTRAINT (10524, InitialAssignment, ia)
   pre ( ia.getLevel() > 2);
   pre ( sr != NULL);
   pre ( ia.isSetMath() == 1 );
+
+  /* the getSpeciesReference function uses either the id or the species
+   * field - so need to check that this is indeed a SpeciesReference
+   * and not a Species we are dealing with
+   */
+  pre ( m.getSpecies(variable) == NULL);
 
   const FormulaUnitsData * formulaUnits = 
                       m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
@@ -923,6 +935,11 @@ START_CONSTRAINT (10534, RateRule, rr)
 {
   const string& variable = rr.getVariable();
   const SpeciesReference* sr = m.getSpeciesReference(variable);
+  /* the getSpeciesReference function uses either the id or the species
+   * field - so need to check that this is indeed a SpeciesReference
+   * and not a Species we are dealing with
+   */
+  pre ( m.getSpecies(variable) == NULL);
 
   pre ( rr.getLevel() > 2);
   pre ( sr != NULL);
@@ -934,6 +951,7 @@ START_CONSTRAINT (10534, RateRule, rr)
                       m.getFormulaUnitsData(variable, SBML_SPECIES_REFERENCE);
 
   pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
 
   /* in L3 need to check that time units were set */
   pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
@@ -1228,6 +1246,12 @@ START_CONSTRAINT (10564, EventAssignment, ea)
 {
   const string& variable = ea.getVariable();
   const SpeciesReference* sr = m.getSpeciesReference(variable);
+  /* the getSpeciesReference function uses either the id or the species
+   * field - so need to check that this is indeed a SpeciesReference
+   * and not a Species we are dealing with
+   */
+  pre ( m.getSpecies(variable) == NULL);
+
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
   std::string eId = 
     static_cast <Event *> (pEa->getAncestorOfType(SBML_EVENT))->getId();
