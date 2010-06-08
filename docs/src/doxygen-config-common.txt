@@ -350,6 +350,8 @@ INPUT =                            \
   libsbml-papers.txt               \
   libsbml-reading-files.txt        \
   libsbml-uninstallation.txt       \
+  force-serif-font-on.html \
+  force-serif-font-off.html \
   ../../src/common                 \
   ../../src/annotation             \
   ../../src/math                   \

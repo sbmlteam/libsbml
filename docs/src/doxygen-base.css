@@ -42,25 +42,29 @@ TD.footer {
 }
 
 H1 {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
   padding-top: 2em;
 }
 
 H2 {
-  font-size: 18px;
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-size: 16px;
   padding-top: 1em;
 }
 
 H3 {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-style: italic;
-  font-size: 16px;
+  font-size: 14px;
   padding-top: 0.5em;
 }
 
 H4 {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-style: italic;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 DIV.qindex {
@@ -612,4 +616,12 @@ caption {
 .bigger-row-spacing td {
   padding-top: 0.35em !important;  
   padding-bottom: 0.35em !important;  
+}
+
+.ftvtree { 
+  background-color: #efefef
+}
+
+#main-page-sections ul a.el { 
+  font-family: Palatino, serif;
 }
