@@ -341,17 +341,7 @@ public:
    * @see getDefaultLevel()
    * @see getDefaultVersion()
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
 
@@ -565,17 +555,7 @@ public:
    *
    * @param sid the identifier of the new Model to create.
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    *
    * @see getModel()
    * @see @if clike SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif
@@ -886,6 +866,8 @@ public:
    * consistency checking, or attempted translation of this model.
    *
    * @return the number of errors or warnings encountered
+   *
+   * @see SBMLDocument::getError(unsigned int n)
    */
   unsigned int getNumErrors () const;
 
@@ -904,17 +886,7 @@ public:
      line NNN: (id) message
 @endverbatim
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 

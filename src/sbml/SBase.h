@@ -2188,17 +2188,7 @@ protected:
   /**
    * Only subclasses may create SBase objects.
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   SBase (const std::string& id = "", const std::string& name = "", int sboTerm = -1);
 
@@ -2269,17 +2259,7 @@ protected:
    *
    * This is essentially a short form of getErrorLog()->logError(...)
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   void logError (  unsigned int       id
                  , const unsigned int level   = 2
@@ -2373,17 +2353,7 @@ protected:
    * If the syntax of the unit attribute of this object is incorrect, 
    * an error is logged
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   void checkUnitSyntax(unsigned int flag = 0);
 #endif
