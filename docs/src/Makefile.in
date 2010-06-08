@@ -88,6 +88,7 @@ extra_distclean =               \
 distfiles =                                    \
         DoxygenLayout.xml                      \
         ExcludeDoclet.java                     \
+        Makefile.in                            \
         doxygen-base.css                       \
         doxygen-config-c.txt.in                \
         doxygen-config-common.txt              \
@@ -98,10 +99,11 @@ distfiles =                                    \
         doxygen-header.html                    \
         doxygen-tabs.css                       \
         doxygen-tree.css                       \
-        Makefile.in                            \
         examples/readmath.cpp                  \
         examples/readSBML.java                 \
         examples/simpleread.cpp                \
+	force-serif-font-on.html               \
+	force-serif-font-off.html              \
         graphics/astnode-illustration.jpg      \
         graphics/built-in-units.jpg            \
         graphics/compartment-size.jpg          \
@@ -184,6 +186,8 @@ distfiles =                                    \
         libsbml-uninstallation.txt             \
 	libsbml-unitkind-table.html            \
         pythondocfilter.py                     \
+	search.css                             \
+	search.png                             \
         sbml.js                                \
         templates/c++.txt                      \
         templates/c.txt                        \
@@ -280,8 +284,16 @@ define run_doxygen
     cat doxygen-tree.css >> tmp.html;\
     tail -n +15 $(2)/tree.html >> tmp.html;\
     mv -f tmp.html $(2)/tree.html;\
+  elif test $(doxygen-minor-version) -lt 6; then \
+    cp -rf doxygen-tabs.css $(2)/doxygen-tabs.css; \
+    sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML C++ Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML C Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML Perl Public API //' $(2)/tree.html;\
   else \
     cp -rf doxygen-tabs.css $(2)/doxygen-tabs.css; \
+    cp -rf search.png $(2)/search/search.png; \
+    cp -rf search.css $(2)/search/search.css; \
     sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C++ Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C Public API //' $(2)/tree.html;\
