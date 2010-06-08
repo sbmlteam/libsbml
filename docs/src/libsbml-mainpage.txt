@@ -8,6 +8,7 @@ libSBML, an open-source (LGPL) library for writing and manipulating the
 Systems Biology Markup Language (SBML).
 @htmlinclude libsbml-blurb.html
 
+@htmlinclude force-serif-font-on.html
 @section main-general General information
 - @subpage libsbml-installation
 - @subpage libsbml-accessing
@@ -26,6 +27,7 @@ Systems Biology Markup Language (SBML).
 - @subpage license
 - @subpage changes
 
+@htmlinclude force-serif-font-off.html
 @htmlinclude libsbml-papers.html
 
 @htmlinclude FUNDING.txt
