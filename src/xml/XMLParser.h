@@ -60,17 +60,7 @@ public:
    * If the XML compatibility layer has been linked against only a single
    * XML library, the library parameter is ignored.
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   static XMLParser* create (  XMLHandler&       handler
                             , const std::string library = "" );
@@ -91,17 +81,7 @@ public:
    *
    * @return true if the parse was successful, false otherwise.
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   virtual bool parse (const char* content, bool isFile = true) = 0;
 
@@ -122,17 +102,7 @@ public:
    * @return true if the first step of the progressive parse was
    * successful, false otherwise.
    *
-   * @docnote The native C++ implementation of this method defines a
-   * default argument value.  In the documentation generated for different
-   * libSBML language bindings, you may or may not see corresponding
-   * arguments in the method declarations.  For example, in Java, a default
-   * argument is handled by declaring two separate methods, with one of
-   * them having the argument and the other one lacking the argument.
-   * However, the libSBML documentation will be @em identical for both
-   * methods.  Consequently, if you are reading this and do not see an
-   * argument even though one is described, please look for descriptions of
-   * other variants of this method near where this one appears in the
-   * documentation.
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
    */
   virtual bool parseFirst (const char* content, bool isFile = true) = 0;
 
