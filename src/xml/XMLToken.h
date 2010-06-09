@@ -304,10 +304,9 @@ public:
    * @return the index of an attribute with the given local name and namespace URI, 
    * or -1 if not present.
    *
-e   */
-  * @cond doxygen-libsbml-internal
-*
- int getAttrIndex (const std::string& name, const std::string& uri="") const;
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   */
+  int getAttrIndex (const std::string& name, const std::string& uri="") const;
 
 
   /**
@@ -1333,4 +1332,3 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* !SWIG */
 #endif  /* XMLToken_h */
 
-/** @endcond doxygen-libsbml-internal */

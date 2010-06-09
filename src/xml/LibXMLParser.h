@@ -137,9 +137,9 @@ private:
   /**
    * Log or otherwise report the given error.
    *
-e   */
-  * @cond doxygen-libsbml-internal
-*
+   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   */
+
  void reportError (  const XMLErrorCode_t code
 		    , const std::string& extraMsg     = ""
 		    , const unsigned int lineNumber   = 0
@@ -147,7 +147,6 @@ e   */
 
 };
 
-/** @endcond doxygen-libsbml-internal */
 
 LIBSBML_CPP_NAMESPACE_END
 
