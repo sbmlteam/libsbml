@@ -260,6 +260,22 @@ SBMLWriter::writeToString (const SBMLDocument* d)
 }
 
 
+LIBSBML_EXTERN
+char*
+SBMLWriter::writeSBMLToString (const SBMLDocument* d)
+{
+  return writeToString(d);
+}
+
+
+LIBSBML_EXTERN
+bool
+SBMLWriter::writeSBMLToFile (const SBMLDocument* d, const std::string& filename)
+{
+  return writeSBML(d, filename);
+}
+
+
 /**
  * Predicate returning @c true or @c false depending on whether
  * underlying libSBML is linked with zlib.
@@ -390,6 +406,39 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
 
 
 /**
+ * Writes the given SBML document to filename.
+ *
+ * If the filename ends with @em .gz, the file will be compressed by @em gzip.
+ * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
+ * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
+ * uncompressed.
+ * If the filename ends with @em .zip, a filename that will be added to the
+ * zip archive file will end with @em .xml or @em .sbml. For example, the filename
+ * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
+ * or @em test.zip. Also, the filename in the archive will be @em test.sbml if the
+ * given filename is @em test.sbml.zip.
+ *
+ * @note To create a gzip/zip file, libSBML needs to be linked with zlib at 
+ * compile time. Also, libSBML needs to be linked with bzip2 to create a bzip2 file.
+ * File unwritable error will be logged and @c zero will be returned if a compressed 
+ * file name is given and libSBML is not linked with the required library.
+ * SBMLWriter_hasZlib() and SBMLWriter_hasBzip2() can be used to check whether
+ * libSBML was linked with the library at compile time.
+ *
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
+                       const SBMLDocument_t *d,
+                       const char           *filename )
+{
+  return static_cast<int>( sw->writeSBML(d, filename) );
+}
+
+
+/**
  * Writes the given SBML document to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
@@ -445,6 +494,24 @@ SBMLWriter_hasBzip2 ()
 LIBSBML_EXTERN
 int
 writeSBML (const SBMLDocument_t *d, const char *filename)
+{
+  SBMLWriter sw;
+  return static_cast<int>( sw.writeSBML(d, filename) );
+}
+
+
+/**
+ * Writes the given SBML document to filename.  This convenience function
+ * is functionally equivalent to:
+ *
+ *   SBMLWriter_writeSBMLToFile(SBMLWriter_create(), d, filename);
+ *
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.
+ */
+LIBSBML_EXTERN
+int
+writeSBMLToFile (const SBMLDocument_t *d, const char *filename)
 {
   SBMLWriter sw;
   return static_cast<int>( sw.writeSBML(d, filename) );

@@ -173,6 +173,8 @@ public:
   bool writeSBML (const SBMLDocument* d, std::ostream& stream);
 
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Writes the given SBML document to an in-memory string and returns a
    * pointer to it.
@@ -186,6 +188,62 @@ public:
    * components fail.
    */
   char* writeToString (const SBMLDocument* d);
+
+  /** @endcond doxygen-libsbml-internal */
+
+  /**
+   * Writes the given SBML document to filename.
+   *
+   * If the given filename ends with the suffix @c ".gz" (for example, @c
+   * "myfile.xml.gz"), libSBML assumes the caller wants the file to be
+   * written compressed in @em gzip.  Similarly, if the given filename ends
+   * with @c ".zip" or @c ".bz2", libSBML assumes the caller wants the file
+   * to be compressed in @em zip or @em bzip2 format (respectively).  Files
+   * whose names lack these suffixes will be written uncompressed.
+   * <em>Special considerations for the zip format</em>: If the given
+   * filename ends with @c ".zip", the file placed in the zip archive will
+   * have the suffix @c ".xml" or @c ".sbml".  For example, the file in
+   * the zip archive will be named @c "test.xml" if the given filename is
+   * @c "test.xml.zip" or @c "test.zip".  Similarly, the filename in the
+   * archive will be @c "test.sbml" if the given filename is @c
+   * "test.sbml.zip".
+   *
+   * @note To write a gzip/zip file, libSBML needs to be configured and
+   * linked with the <a href="http://www.zlib.net/">zlib</a> library at
+   * compile time.  It also needs to be linked with the <a
+   * href="">bzip2</a> library to write files in @em bzip2 format.  (Both
+   * of these are the default configurations for libSBML.)  Errors about
+   * unreadable files will be logged and this method will return @c false
+   * if a compressed filename is given and libSBML was @em not linked with
+   * the corresponding required library.
+   *
+   * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
+   * check whether libSBML has been linked with each library.
+   *
+   * @param d the SBML document to be written
+   *
+   * @param filename the name or full pathname of the file where the SBML
+   * is to be written. 
+   *
+   * @return @c true on success and @c false if the filename could not be
+   * opened for writing.
+   */
+  bool writeSBMLToFile (const SBMLDocument* d, const std::string& filename);
+
+
+  /**
+   * Writes the given SBML document to an in-memory string and returns a
+   * pointer to it.
+   *
+   * The string is owned by the caller and should be freed (with @c free())
+   * when no longer needed.
+   *
+   * @param d the SBML document to be written
+   *
+   * @return the string on success and @c 0 if one of the underlying parser
+   * components fail.
+   */
+  char* writeSBMLToString (const SBMLDocument* d);
 
 
   /**
@@ -317,6 +375,11 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
                        const SBMLDocument_t *d,
                        const char           *filename );
 
+LIBSBML_EXTERN
+int
+SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
+                       const SBMLDocument_t *d,
+                       const char           *filename );
 /**
  * Writes the given SBML document to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
@@ -382,6 +445,11 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
 LIBSBML_EXTERN
 char *
 writeSBMLToString (const SBMLDocument_t *d);
+
+
+LIBSBML_EXTERN
+int
+writeSBMLToFile (const SBMLDocument_t *d, const char *filename);
 
 
 END_C_DECLS
