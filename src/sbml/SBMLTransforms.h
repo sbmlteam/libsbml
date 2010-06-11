@@ -116,6 +116,12 @@ public:
 
   /** @endcond doxygen-libsbml-internal */
 
+  /** @cond doxygen-libsbml-internal */
+  
+  static IdList mapComponentValues(const Model * m);
+
+  /** @endcond doxygen-libsbml-internal */
+
 protected:  
   /** @cond doxygen-libsbml-internal */
 
@@ -166,11 +172,6 @@ protected:
                                           const InitialAssignment *ia);
   /** @endcond doxygen-libsbml-internal */
 
-  /** @cond doxygen-libsbml-internal */
-  
-  static IdList mapComponentValues(const Model * m);
-
-  /** @endcond doxygen-libsbml-internal */
 
 };
 

@@ -34,7 +34,9 @@
 #include <sbml/EventAssignment.h>
 #include <sbml/SpeciesReference.h>
 #include <sbml/Rule.h>
+#include <sbml/SBMLTransforms.h>
 #include <sbml/math/FormulaFormatter.h>
+#include "IdList.h"
 
 #include <sbml/units/UnitFormulaFormatter.h>
 
@@ -154,6 +156,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
+  UnitDefinition *tempUD = NULL;
   UnitDefinition *unitsArg1, *unitsArgPower;
   unitsArg1 = unitFormat->getUnitDefinition(node.getLeftChild(), inKL, reactNo);
   unsigned int undeclaredUnits = 
@@ -206,8 +209,33 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
     else if (child->getNumChildren() > 0)
 
     {
-      // power might itself be an expression - then we cant check
-      isExpression = 1;     
+      // power might itself be an expression
+      tempUD = unitFormat->getUnitDefinition(child, inKL, reactNo);
+      UnitDefinition::simplify(tempUD);
+
+      if (tempUD->isVariantOfDimensionless())
+      {
+        SBMLTransforms::mapComponentValues(&m);
+        double value = SBMLTransforms::evaluateASTNode(child);
+        if (!isnan(value))
+        {
+          if (floor(value) != value)
+            isExpression = 1;
+          else
+            isInteger = 1;
+        }
+        else
+        {
+          isExpression = 1;
+        }
+      }
+      else
+      {
+        /* here the child is an expression with units
+        * flag the expression as not checked
+        */
+        isExpression = 1;
+      }
     }
     else 
     {

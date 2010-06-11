@@ -24,6 +24,9 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/units/UnitFormulaFormatter.h>
+#include <sbml/SBMLTransforms.h>
+#include "../validator/constraints/IdList.h"
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -437,6 +440,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
    */
 
   UnitDefinition * tempUD;
+  UnitDefinition * tempUD2 = NULL;
   unsigned int i;
   int newExp = 0;
   Unit * unit;
@@ -515,10 +519,42 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
       
       unit->setExponent(newExp * unit->getExponent());
     }
+    else
+    {
+      tempUD2 = getUnitDefinition(child, inKL, reactNo);
+      UnitDefinition::simplify(tempUD2);
+
+      if (tempUD2->isVariantOfDimensionless())
+      {
+        SBMLTransforms::mapComponentValues(model);
+        value = SBMLTransforms::evaluateASTNode(child);
+        if (!isnan(value))
+        {
+          if (floor(value) != value)
+            mContainsUndeclaredUnits = true;
+          newExp = (int) (value);
+          
+          unit->setExponent(newExp * unit->getExponent());
+        }
+        else
+        {
+          mContainsUndeclaredUnits = true;
+        }
+      }
+      else
+      {
+        /* here the child is an expression with units
+        * flag the expression as not checked
+        */
+        mContainsUndeclaredUnits = true;
+      }
+    }
     ud->addUnit(unit);
   }
 
   delete tempUD;
+  if (tempUD2)
+    delete tempUD2;
 
   return ud;
 }
@@ -577,6 +613,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
    */
 
   UnitDefinition * tempUD;
+  UnitDefinition *tempUD2 = NULL;
   unsigned int i;
   Unit * unit;
   ASTNode * child;
@@ -613,17 +650,42 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
       }
       else
       {
-        /* here the child is an expression
-        * which for now i'm not going to attempt
-        * flag the expression as not checked
-        */
-        mContainsUndeclaredUnits = true;
+
+        tempUD2 = getUnitDefinition(child, inKL, reactNo);
+        UnitDefinition::simplify(tempUD2);
+
+        if (tempUD2->isVariantOfDimensionless())
+        {
+          SBMLTransforms::mapComponentValues(model);
+          double value = SBMLTransforms::evaluateASTNode(child);
+          if (!isnan(value))
+          {
+            double doubleExponent = 
+                                double(unit->getExponent())/value;
+            if (floor(doubleExponent) != doubleExponent)
+              mContainsUndeclaredUnits = true;
+            unit->setExponent((int)(unit->getExponent()/value));
+          }
+          else
+          {
+            mContainsUndeclaredUnits = true;
+          }
+        }
+        else
+        {
+          /* here the child is an expression with units
+          * flag the expression as not checked
+          */
+          mContainsUndeclaredUnits = true;
+        }
       }
     }
     ud->addUnit(unit);
   }
 
   delete tempUD;
+  if (tempUD2)
+    delete tempUD2;
 
   return ud;
 }

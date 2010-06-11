@@ -63,6 +63,10 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+#ifdef _MSC_VER
+#  define isnan(d)  _isnan(d)
+#endif
+
 class   LIBSBML_EXTERN UnitFormulaFormatter
 {
 public:
