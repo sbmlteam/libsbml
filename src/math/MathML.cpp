@@ -337,7 +337,9 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     else 
     {
       static_cast <SBMLErrorLog*>
-	        (stream.getErrorLog())->logError(BadCsymbolDefinitionURLValue);
+	        (stream.getErrorLog())->logError(BadCsymbolDefinitionURLValue,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
   }
   else if (element.getName() == "ci")
@@ -379,7 +381,9 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       )
     {
       static_cast <SBMLErrorLog*>
-        (stream.getErrorLog())->logError(FailedMathMLReadOfDouble);
+        (stream.getErrorLog())->logError(FailedMathMLReadOfDouble,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
 
   }
@@ -394,12 +398,16 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     if (isint.fail())
     {
       static_cast <SBMLErrorLog*>
-        (stream.getErrorLog())->logError(FailedMathMLReadOfInteger);
+        (stream.getErrorLog())->logError(FailedMathMLReadOfInteger,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
     else if ( sizeof(int) > 4 && ( (value > SBML_INT_MAX) || (value < SBML_INT_MIN) ) )
     {
       static_cast <SBMLErrorLog*>
-        (stream.getErrorLog())->logError(FailedMathMLReadOfInteger);
+        (stream.getErrorLog())->logError(FailedMathMLReadOfInteger,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
 
     node.setValue(value);
@@ -429,7 +437,9 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
       || node.isNegInfinity())
     {
       static_cast <SBMLErrorLog*>
-        (stream.getErrorLog())->logError(FailedMathMLReadOfExponential);
+        (stream.getErrorLog())->logError(FailedMathMLReadOfExponential,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
     
   }
@@ -454,7 +464,9 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     if (isnumerator.fail() || isdenominator.fail())
     {
       static_cast <SBMLErrorLog*>
-        (stream.getErrorLog())->logError(FailedMathMLReadOfRational);
+        (stream.getErrorLog())->logError(FailedMathMLReadOfRational,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
     else if ( sizeof(int) > 4 && 
         ( ( (numerator > SBML_INT_MAX) || (numerator < SBML_INT_MIN) ) 
@@ -463,7 +475,9 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
         ))
     {
       static_cast <SBMLErrorLog*>
-        (stream.getErrorLog())->logError(FailedMathMLReadOfRational);
+        (stream.getErrorLog())->logError(FailedMathMLReadOfRational,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
     }
 
     node.setValue(static_cast<long>(numerator), static_cast<long>(denominator));
@@ -471,7 +485,9 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   else
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(DisallowedMathTypeAttributeValue);
+      (stream.getErrorLog())->logError(DisallowedMathTypeAttributeValue,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion());
   }
 
   // set the units
@@ -587,7 +603,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   if (!found)
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(DisallowedMathMLSymbol);
+      (stream.getErrorLog())->logError(DisallowedMathMLSymbol, 
+      stream.getSBMLNamespaces()->getLevel(), 
+      stream.getSBMLNamespaces()->getVersion());
   }
 
   string encoding;
@@ -603,13 +621,17 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   if ( !type.empty() && name != "cn")
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(DisallowedMathTypeAttributeUse);
+      (stream.getErrorLog())->logError(DisallowedMathTypeAttributeUse, 
+      stream.getSBMLNamespaces()->getLevel(), 
+      stream.getSBMLNamespaces()->getVersion());
   }
 
   if ( !encoding.empty() && name != "csymbol")
   {
     static_cast <SBMLErrorLog*>
-      (stream.getErrorLog())->logError(DisallowedMathMLEncodingUse);
+      (stream.getErrorLog())->logError(DisallowedMathMLEncodingUse, 
+      stream.getSBMLNamespaces()->getLevel(), 
+      stream.getSBMLNamespaces()->getVersion());
   }
 
   // allow definition url on csymbol/semantics and bvar
@@ -621,7 +643,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       if (name != "csymbol" && name != "semantics" && name != "ci")
       {
         static_cast <SBMLErrorLog*>
-          (stream.getErrorLog())->logError(DisallowedDefinitionURLUse);
+          (stream.getErrorLog())->logError(DisallowedDefinitionURLUse, 
+      stream.getSBMLNamespaces()->getLevel(), 
+      stream.getSBMLNamespaces()->getVersion());
       }
     }
     else
@@ -629,7 +653,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       if (name != "csymbol" && name != "semantics")
       {
         static_cast <SBMLErrorLog*>
-          (stream.getErrorLog())->logError(DisallowedDefinitionURLUse);
+          (stream.getErrorLog())->logError(DisallowedDefinitionURLUse, 
+      stream.getSBMLNamespaces()->getLevel(), 
+      stream.getSBMLNamespaces()->getVersion());
       }
     }
 
@@ -676,8 +702,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
         // the mathML reader doesnt know what level and version it is reading!
         // FIX ME
         static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathML,
-                                                                     2, 1,
-                                                                     message);
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion(), message);
         return;
 
       }
@@ -695,8 +721,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
         // the mathML reader doesnt know what level and version it is reading!
         // FIX ME
         static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathML,
-                                                                     2, 1,
-                                                                     message);
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion(), message);
         return;
 
       }
@@ -749,10 +775,9 @@ readMathML (ASTNode& node, XMLInputStream& stream)
           message += "> cannot be used directly following a";
           message += " <bvar> element.";
 
-          // the mathML reader doesnt know what level and version it is reading!
-          // FIX ME
-          static_cast <SBMLErrorLog*> (stream.getErrorLog())
-            ->logError(BadMathMLNodeType, 2, 1, message);
+        static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathMLNodeType,
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion(), message);
         }
       }
 
