@@ -270,6 +270,36 @@ START_TEST (test_Compartment_setSpatialDimensions3)
 END_TEST
 
 
+START_TEST (test_Compartment_setSpatialDimensions4)
+{
+  Compartment_t *c = 
+    Compartment_create(2, 2);
+
+  int i = Compartment_setSpatialDimensionsAsDouble(c, 2.0);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+  fail_unless( Compartment_getSpatialDimensions(c) == 2 );
+
+  Compartment_free(c);
+}
+END_TEST
+
+
+START_TEST (test_Compartment_setSpatialDimensions5)
+{
+  Compartment_t *c = 
+    Compartment_create(2, 2);
+
+  int i = Compartment_setSpatialDimensionsAsDouble(c, 2.2);
+
+  fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
+  fail_unless( Compartment_getSpatialDimensions(c) == 3 );
+
+  Compartment_free(c);
+}
+END_TEST
+
+
 START_TEST (test_Compartment_setSize1)
 {
   int i = Compartment_setSize(C, 2.0);
@@ -473,6 +503,8 @@ create_suite_Compartment_newSetters (void)
   tcase_add_test( tcase, test_Compartment_setSpatialDimensions1       );
   tcase_add_test( tcase, test_Compartment_setSpatialDimensions2       );
   tcase_add_test( tcase, test_Compartment_setSpatialDimensions3       ); 
+  tcase_add_test( tcase, test_Compartment_setSpatialDimensions4       );
+  tcase_add_test( tcase, test_Compartment_setSpatialDimensions5       ); 
   tcase_add_test( tcase, test_Compartment_setSize1       );
   tcase_add_test( tcase, test_Compartment_setSize2       );
   tcase_add_test( tcase, test_Compartment_setVolume1       );

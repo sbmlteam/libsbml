@@ -109,6 +109,26 @@ START_TEST (test_Unit_setExponent1)
 END_TEST
 
 
+START_TEST (test_Unit_setExponent2)
+{
+  int i = Unit_setExponentAsDouble(U, 2.0);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+  fail_unless( Unit_getExponent(U) == 2 );
+}
+END_TEST
+
+
+START_TEST (test_Unit_setExponent3)
+{
+  int i = Unit_setExponentAsDouble(U, 2.2);
+
+  fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
+  fail_unless( Unit_getExponent(U) == 1 );
+}
+END_TEST
+
+
 START_TEST (test_Unit_setScale1)
 {
   int i = Unit_setScale(U, 2);
@@ -173,6 +193,8 @@ create_suite_Unit_newSetters (void)
   tcase_add_test( tcase, test_Unit_setMultiplier1       );
   tcase_add_test( tcase, test_Unit_setMultiplier2       );
   tcase_add_test( tcase, test_Unit_setExponent1       );
+  tcase_add_test( tcase, test_Unit_setExponent2       );
+  tcase_add_test( tcase, test_Unit_setExponent3       );
   tcase_add_test( tcase, test_Unit_setScale1       );
   tcase_add_test( tcase, test_Unit_setOffset1       );
   tcase_add_test( tcase, test_Unit_setOffset2       );

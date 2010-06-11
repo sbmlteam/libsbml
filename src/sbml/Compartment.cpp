@@ -519,23 +519,7 @@ Compartment::setCompartmentType (const std::string& sid)
 int
 Compartment::setSpatialDimensions (unsigned int value)
 {
-  if (getLevel() < 2)
-  {
-    // spatialDimensions must always be 3 in a level 1 compartment
-    mSpatialDimensions = 3;
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  }
-  else if (value < 0 || value > 3)
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mSpatialDimensions = value;
-    mSpatialDimensionsDouble = (double) (value);
-    mIsSetSpatialDimensions  = true;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
+  return setSpatialDimensions((double) value);
 }
 
 
@@ -545,17 +529,37 @@ Compartment::setSpatialDimensions (unsigned int value)
 int
 Compartment::setSpatialDimensions (double value)
 {
-  if (getLevel() < 3)
+  bool representsInteger = true;
+  if (floor(value) != value)
+    representsInteger = false;
+
+  switch (getLevel())
   {
-    // spatialDimensions must always be 3 in a level 1 compartment
+  case 1:
+    /* level 1 spatialDimensions was not an attribute */
     mSpatialDimensions = 3;
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
-  else
-  {
-    mSpatialDimensionsDouble = value;
-    mIsSetSpatialDimensions  = true;
-    return LIBSBML_OPERATION_SUCCESS;
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    break;
+  case 2:
+    if (!representsInteger || value < 0 || value > 3)
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mSpatialDimensions = (int) value;
+      mSpatialDimensionsDouble = value;
+      mIsSetSpatialDimensions  = true;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    break;
+  case 3:
+  default:
+      mSpatialDimensions = (int) value;
+      mSpatialDimensionsDouble = value;
+      mIsSetSpatialDimensions  = true;
+      return LIBSBML_OPERATION_SUCCESS;
+    break;
   }
 }
 

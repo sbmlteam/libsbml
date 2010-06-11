@@ -702,10 +702,7 @@ Unit::setKind (UnitKind_t kind)
 int
 Unit::setExponent (int value)
 {
-  mExponent = value;
-  mExponentDouble = (double) (value);
-  mIsSetExponent = true;
-  return LIBSBML_OPERATION_SUCCESS;
+  return setExponent((double) value);
 }
 
 
@@ -715,6 +712,25 @@ Unit::setExponent (int value)
 int
 Unit::setExponent (double value)
 {
+  bool representsInteger = true;
+  if (floor(value) != value)
+    representsInteger = false;
+
+  if (getLevel() < 3)
+  {
+    if (!representsInteger)
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
+    else
+    {
+      mExponentDouble = value;
+      mExponent = (int) (value);
+      mIsSetExponent = true;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
   mExponentDouble = value;
   mExponent = (int) (value);
   mIsSetExponent = true;
