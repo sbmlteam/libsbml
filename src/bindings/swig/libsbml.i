@@ -294,6 +294,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBMLTransforms::replaceFD;
 %ignore SBMLTransforms::expandInitialAssignments;
 %ignore SBMLTransforms::evaluateASTNode;
+%ignore SBMLTransforms::mapComponentValues;
 
 /**
  * Ignore internal implementation methods in XMLToken

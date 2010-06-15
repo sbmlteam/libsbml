@@ -62,6 +62,7 @@
 #include <sbml/SyntaxChecker.h>
 #include <sbml/StoichiometryMath.h>
 #include <sbml/SBMLNamespaces.h>
+#include <sbml/SBMLTransforms.h>
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>

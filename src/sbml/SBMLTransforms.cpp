@@ -34,6 +34,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+SBMLTransforms::IdValueMap SBMLTransforms::mValues;
 
 /** @cond doxygen-libsbml-internal */
 
@@ -189,7 +190,7 @@ SBMLTransforms::nodeContainsNameNotInList(const ASTNode * node, IdList& ids)
 IdList 
 SBMLTransforms::mapComponentValues(const Model * m)
 {
-  values.clear();
+  mValues.clear();
   /* it is possible that a model does not have all 
    * the necessary values specified
    * in which case we can not calculate other values
@@ -216,19 +217,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
       {
         ids.append(c->getId());
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        values.insert(pair<const std::string, ValueSet>(c->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
       }
       else
       {
         ValueSet v = make_pair(c->getSize(), true);
-        values.insert(pair<const std::string, ValueSet>(c->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
       }
     }
     else
     {
       /* is set by assignment - need to work it out */
       ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-      values.insert(pair<const std::string, ValueSet>(c->getId(), v));
+      mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
     }
   }
 
@@ -248,7 +249,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
       {
         ids.append(s->getId());
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
       }
       else
       {
@@ -259,42 +260,42 @@ SBMLTransforms::mapComponentValues(const Model * m)
         if (s->getHasOnlySubstanceUnits())
         {
           ValueSet v = make_pair(s->getInitialAmount(), true);
-          values.insert(pair<const std::string, ValueSet>(s->getId(), v));
-          //values.insert(pair<const std::string, double>(s->getId(), 
+          mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
+          //mValues.insert(pair<const std::string, double>(s->getId(), 
           //                                            s->getInitialAmount()));
         }
         else if (s->isSetInitialAmount())
         {
           /* at present only deal with case where compartment size is fixed */
           IdValueIter it;
-          it = values.find(s->getCompartment());
-          if (it != values.end())
+          it = mValues.find(s->getCompartment());
+          if (it != mValues.end())
           {
             /* compartment size is set */
             if (((*it).second).second)
             {
               double conc = s->getInitialAmount()/(((*it).second).first);
               ValueSet v = make_pair(conc, true);
-              values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+              mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
             }
             else
             {
               ids.append(s->getId());
               ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-              values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+              mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
             }
           }
           else
           {
             ids.append(s->getId());
             ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-            values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+            mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
           }
         }
         else
         {
           ValueSet v = make_pair(s->getInitialConcentration(), true);
-          values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+          mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
         }
 
       }
@@ -303,7 +304,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
     {
       /* is set by assignment - need to work it out */
       ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-      values.insert(pair<const std::string, ValueSet>(s->getId(), v));
+      mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
     }
   }
 
@@ -324,19 +325,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
       {
         ids.append(p->getId());
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        values.insert(pair<const std::string, ValueSet>(p->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
       }
       else
       {
         ValueSet v = make_pair(p->getValue(), true);
-        values.insert(pair<const std::string, ValueSet>(p->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
       }
     }
     else
     {
       /* is set by assignment - need to work it out */
       ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-      values.insert(pair<const std::string, ValueSet>(p->getId(), v));
+      mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
     }
   }
 
@@ -362,19 +363,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
         {
           ids.append(sr->getId());
           ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
         else
         {
           ValueSet v = make_pair(sr->getStoichiometry(), true);
-          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
       }
       else
       {
         /* is set by assignment - need to work it out */
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
 
@@ -395,19 +396,19 @@ SBMLTransforms::mapComponentValues(const Model * m)
         {
           ids.append(sr->getId());
           ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
         else
         {
           ValueSet v = make_pair(sr->getStoichiometry(), true);
-          values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+          mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
         }
       }
       else
       {
         /* is set by assignment - need to work it out */
         ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
-        values.insert(pair<const std::string, ValueSet>(sr->getId(), v));
+        mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
   }
@@ -443,11 +444,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node)
     break;
   
   case AST_NAME:
-    if (!values.empty())
+    if (!mValues.empty())
     {
-      if (values.find(node->getName()) != values.end())
+      if (mValues.find(node->getName()) != mValues.end())
       {
-        result = (values.find(node->getName())->second).first;
+        result = (mValues.find(node->getName())->second).first;
       }
       else
       {
@@ -767,7 +768,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
     
     /* list ids that have a calculated/assigned value */
     idsWithValues.clear();
-    for (iter = values.begin(); iter != values.end(); iter++)
+    for (iter = mValues.begin(); iter != mValues.end(); iter++)
     {
       if (((*iter).second).second)
       {
@@ -872,7 +873,7 @@ SBMLTransforms::expandInitialAssignment(Compartment * c,
   if (!isnan(value))
   {
     c->setSize(value);
-    IdValueIter it = values.find(c->getId());
+    IdValueIter it = mValues.find(c->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
@@ -893,7 +894,7 @@ SBMLTransforms::expandInitialAssignment(Parameter * p,
   if (!isnan(value))
   {
     p->setValue(value);
-    IdValueIter it = values.find(p->getId());
+    IdValueIter it = mValues.find(p->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
@@ -914,7 +915,7 @@ SBMLTransforms::expandInitialAssignment(SpeciesReference * sr,
   if (!isnan(value))
   {
     sr->setStoichiometry(value);
-    IdValueIter it = values.find(sr->getId());
+    IdValueIter it = mValues.find(sr->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;
@@ -943,7 +944,7 @@ SBMLTransforms::expandInitialAssignment(Species * s,
       s->setInitialConcentration(value);
     }
 
-    IdValueIter it = values.find(s->getId());
+    IdValueIter it = mValues.find(s->getId());
     ((*it).second).first = value;
     ((*it).second).second = true;
     success = true;

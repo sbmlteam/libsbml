@@ -46,20 +46,17 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-typedef std::pair<double, bool>   ValueSet;
-typedef std::map<const std::string, ValueSet> IdValueMap;
-typedef IdValueMap::iterator                  IdValueIter;
-
 class IdList;
 
-#ifndef SWIG
-
-static IdValueMap values;
-
-#endif
-class SBMLTransforms
+class LIBSBML_EXTERN SBMLTransforms
 {
 public:
+
+#ifndef SWIG
+  typedef std::pair<double, bool>   ValueSet;
+  typedef std::map<const std::string, ValueSet> IdValueMap;
+  typedef IdValueMap::iterator                  IdValueIter;
+#endif
 
   /** @cond doxygen-libsbml-internal */
   
@@ -172,6 +169,9 @@ protected:
                                           const InitialAssignment *ia);
   /** @endcond doxygen-libsbml-internal */
 
+
+
+  static IdValueMap mValues;
 
 };
 
