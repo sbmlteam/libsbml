@@ -279,6 +279,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "csharp-files-win\ListOfLocalParameters.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "csharp-files-win\ListOfParameters.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -335,6 +340,11 @@
                 />
                 <File
                     RelPath = "csharp-files-win\ListOfUnits.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "csharp-files-win\LocalParameter.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

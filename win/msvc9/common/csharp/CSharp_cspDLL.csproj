@@ -203,6 +203,9 @@
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\ListOfLineSegments.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\ListOfLocalParameters.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\ListOfParameters.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -237,6 +240,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\ListOfUnits.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\LocalParameter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\Model.cs">
