@@ -153,16 +153,23 @@ SBase::SBase(const SBase& orig)
     this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
   else
     this->mAnnotation = 0;
-  
+ 
+  /* the copy does not contain a pointer to the document since technically
+   * a copy is not part of the document
+   */
   this->mSBML       = NULL;
   this->mSBOTerm    = orig.mSBOTerm;
   this->mLine       = orig.mLine;
   this->mColumn     = orig.mColumn;
   this->mParentSBMLObject = NULL;
 
-  if(orig.mSBMLNamespaces)
+  /* if the object belongs to document that has had the level/version reset
+   * the copy will end up with the wrong namespace information
+   * need to use the default namespace NOT the namespace local to the object
+   */
+  if(orig.getSBMLNamespaces())
     this->mSBMLNamespaces = 
-    new SBMLNamespaces(*const_cast<SBase&>(orig).mSBMLNamespaces);
+    new SBMLNamespaces(*const_cast<SBase&>(orig).getSBMLNamespaces());
   else
     this->mSBMLNamespaces = 0;
 
