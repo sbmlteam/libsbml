@@ -364,15 +364,23 @@ SyntaxChecker::isCorrectHTMLNode(const XMLNode& node)
     }
     else
     {
-      /* head should have 1 child title */
-      if (node.getChild(0).getNumChildren() != 1)
+      /* head should have at least 1 child title */
+      if (!(node.getChild(0).getNumChildren() > 0))
       {
         correctSyntax = false;
         return correctSyntax;
       }
       else
       {
-        if (node.getChild(0).getChild(0).getName() != "title")
+        bool found = false;
+        for (unsigned int i = 0; i < node.getChild(0).getNumChildren(); i++)
+        {
+          if (node.getChild(0).getChild(i).getName() == "title")
+          {
+            found = true;
+          }
+        }
+        if (!found)
         {
           correctSyntax = false;
         }
