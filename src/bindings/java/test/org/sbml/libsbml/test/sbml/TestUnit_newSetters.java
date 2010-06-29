@@ -148,6 +148,20 @@ public class TestUnit_newSetters {
     assertTrue( U.getExponent() == 2 );
   }
 
+  public void test_Unit_setExponent2()
+  {
+    long i = U.setExponent(2.0);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( U.getExponent() == 2 );
+  }
+
+  public void test_Unit_setExponent3()
+  {
+    long i = U.setExponent(2.2);
+    assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE );
+    assertTrue( U.getExponent() == 1 );
+  }
+
   public void test_Unit_setKind1()
   {
     long i = U.setKind(libsbml.UnitKind_forName("cell"));

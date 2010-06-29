@@ -59,6 +59,18 @@ class TestUnit_newSetters(unittest.TestCase):
     self.assert_( self.U.getExponent() == 2 )
     pass  
 
+  def test_Unit_setExponent2(self):
+    i = self.U.setExponent(2.0)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( self.U.getExponent() == 2 )
+    pass  
+
+  def test_Unit_setExponent3(self):
+    i = self.U.setExponent(2.2)
+    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assert_( self.U.getExponent() == 1 )
+    pass  
+
   def test_Unit_setKind1(self):
     i = self.U.setKind(libsbml.UnitKind_forName("cell"))
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )

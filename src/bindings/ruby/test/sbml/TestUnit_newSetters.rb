@@ -56,6 +56,18 @@ class TestUnit_newSetters < Test::Unit::TestCase
     assert( @@u.getExponent() == 2 )
   end
 
+  def test_Unit_setExponent2
+    i = @@u.setExponent(2.0)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( @@u.getExponent() == 2 )
+  end
+
+  def test_Unit_setExponent3
+    i = @@u.setExponent(2.2)
+    assert( i == LibSBML::LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    assert( @@u.getExponent() == 1 )
+  end
+
   def test_Unit_setKind1
     i = @@u.setKind(LibSBML::UnitKind_forName("cell"))
     assert( i == LibSBML::LIBSBML_INVALID_ATTRIBUTE_VALUE )
