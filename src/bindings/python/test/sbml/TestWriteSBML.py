@@ -212,14 +212,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_AlgebraicRule_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<algebraicRule>\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <plus/>\n" + 
-    "      <ci> x </ci>\n" + 
-    "      <cn type=\"integer\"> 1 </cn>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<algebraicRule>\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <plus/>\n"
+ + 
+    "      <ci> x </ci>\n"
+ + 
+    "      <cn type=\"integer\"> 1 </cn>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</algebraicRule>")
     r = self.D.createModel().createAlgebraicRule()
     r.setFormula("x + 1")
@@ -228,14 +236,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_AlgebraicRule_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<algebraicRule sboTerm=\"SBO:0000004\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <plus/>\n" + 
-    "      <ci> x </ci>\n" + 
-    "      <cn type=\"integer\"> 1 </cn>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<algebraicRule sboTerm=\"SBO:0000004\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <plus/>\n"
+ + 
+    "      <ci> x </ci>\n"
+ + 
+    "      <cn type=\"integer\"> 1 </cn>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</algebraicRule>")
     r = self.D.createModel().createAlgebraicRule()
     r.setFormula("x + 1")
@@ -273,7 +289,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_CompartmentVolumeRule(self):
     self.D.setLevelAndVersion(1,1,False)
-    expected = wrapString("<compartmentVolumeRule " + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>")
+    expected = wrapString("<compartmentVolumeRule "
+ + "formula=\"v + c\" type=\"rate\" compartment=\"c\"/>")
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
     r = self.D.getModel().createRateRule()
@@ -284,14 +301,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_CompartmentVolumeRule_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<assignmentRule variable=\"c\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <plus/>\n" + 
-    "      <ci> v </ci>\n" + 
-    "      <ci> c </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<assignmentRule variable=\"c\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <plus/>\n"
+ + 
+    "      <ci> v </ci>\n"
+ + 
+    "      <ci> c </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</assignmentRule>")
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
@@ -303,14 +328,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_CompartmentVolumeRule_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <plus/>\n" + 
-    "      <ci> v </ci>\n" + 
-    "      <ci> c </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<assignmentRule variable=\"c\" sboTerm=\"SBO:0000005\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <plus/>\n"
+ + 
+    "      <ci> v </ci>\n"
+ + 
+    "      <ci> c </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</assignmentRule>")
     self.D.createModel()
     self.D.getModel().createCompartment().setId("c")
@@ -398,17 +431,28 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Constraint_full(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<constraint sboTerm=\"SBO:0000064\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <leq/>\n" + 
-    "      <ci> P1 </ci>\n" + 
-    "      <ci> t </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
-    "  <message>\n" + 
-    "    <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species P1 is out of range </p>\n" + 
-    "  </message>\n" + 
+    expected = wrapString("<constraint sboTerm=\"SBO:0000064\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <leq/>\n"
+ + 
+    "      <ci> P1 </ci>\n"
+ + 
+    "      <ci> t </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
+    "  <message>\n"
+ + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\"> Species P1 is out of range </p>\n"
+ + 
+    "  </message>\n"
+ + 
     "</constraint>")
     c = self.D.createModel().createConstraint()
     node = libsbml.parseFormula("leq(P1,t)")
@@ -431,14 +475,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Constraint_math(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<constraint>\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <leq/>\n" + 
-    "      <ci> P1 </ci>\n" + 
-    "      <ci> t </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<constraint>\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <leq/>\n"
+ + 
+    "      <ci> P1 </ci>\n"
+ + 
+    "      <ci> t </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</constraint>")
     c = self.D.createModel().createConstraint()
     node = libsbml.parseFormula("leq(P1,t)")
@@ -473,21 +525,36 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_both(self):
-    expected = wrapString("<event id=\"e\">\n" + 
-    "  <trigger>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <apply>\n" + 
-    "        <leq/>\n" + 
-    "        <ci> P1 </ci>\n" + 
-    "        <ci> t </ci>\n" + 
-    "      </apply>\n" + 
-    "    </math>\n" + 
-    "  </trigger>\n" + 
-    "  <delay>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <cn type=\"integer\"> 5 </cn>\n" + 
-    "    </math>\n" + 
-    "  </delay>\n" + 
+    expected = wrapString("<event id=\"e\">\n"
+ + 
+    "  <trigger>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <leq/>\n"
+ + 
+    "        <ci> P1 </ci>\n"
+ + 
+    "        <ci> t </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </trigger>\n"
+ + 
+    "  <delay>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <cn type=\"integer\"> 5 </cn>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </delay>\n"
+ + 
     "</event>")
     self.D.setLevelAndVersion(2,1,False)
     e = self.D.createModel().createEvent()
@@ -504,12 +571,18 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_delay(self):
-    expected = wrapString("<event id=\"e\">\n" + 
-    "  <delay>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <cn type=\"integer\"> 5 </cn>\n" + 
-    "    </math>\n" + 
-    "  </delay>\n" + 
+    expected = wrapString("<event id=\"e\">\n"
+ + 
+    "  <delay>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <cn type=\"integer\"> 5 </cn>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </delay>\n"
+ + 
     "</event>")
     self.D.setLevelAndVersion(2,1,False)
     e = self.D.createModel().createEvent()
@@ -522,12 +595,18 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_delayWithSBO(self):
-    expected = wrapString("<event id=\"e\">\n" + 
-    "  <delay sboTerm=\"SBO:0000064\">\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <cn type=\"integer\"> 5 </cn>\n" + 
-    "    </math>\n" + 
-    "  </delay>\n" + 
+    expected = wrapString("<event id=\"e\">\n"
+ + 
+    "  <delay sboTerm=\"SBO:0000064\">\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <cn type=\"integer\"> 5 </cn>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </delay>\n"
+ + 
     "</event>")
     self.D.setLevelAndVersion(2,3,False)
     e = self.D.createModel().createEvent()
@@ -541,23 +620,40 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_full(self):
-    expected = wrapString("<event id=\"e\">\n" + 
-    "  <trigger>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <apply>\n" + 
-    "        <leq/>\n" + 
-    "        <ci> P1 </ci>\n" + 
-    "        <ci> t </ci>\n" + 
-    "      </apply>\n" + 
-    "    </math>\n" + 
-    "  </trigger>\n" + 
-    "  <listOfEventAssignments>\n" + 
-    "    <eventAssignment variable=\"k2\" sboTerm=\"SBO:0000064\">\n" + 
-    "      <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "        <cn type=\"integer\"> 0 </cn>\n" + 
-    "      </math>\n" + 
-    "    </eventAssignment>\n" + 
-    "  </listOfEventAssignments>\n" + 
+    expected = wrapString("<event id=\"e\">\n"
+ + 
+    "  <trigger>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <leq/>\n"
+ + 
+    "        <ci> P1 </ci>\n"
+ + 
+    "        <ci> t </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </trigger>\n"
+ + 
+    "  <listOfEventAssignments>\n"
+ + 
+    "    <eventAssignment variable=\"k2\" sboTerm=\"SBO:0000064\">\n"
+ + 
+    "      <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "        <cn type=\"integer\"> 0 </cn>\n"
+ + 
+    "      </math>\n"
+ + 
+    "    </eventAssignment>\n"
+ + 
+    "  </listOfEventAssignments>\n"
+ + 
     "</event>")
     self.D.setLevelAndVersion(2,3,False)
     e = self.D.createModel().createEvent()
@@ -576,16 +672,26 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_trigger(self):
-    expected = wrapString("<event id=\"e\">\n" + 
-    "  <trigger>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <apply>\n" + 
-    "        <leq/>\n" + 
-    "        <ci> P1 </ci>\n" + 
-    "        <ci> t </ci>\n" + 
-    "      </apply>\n" + 
-    "    </math>\n" + 
-    "  </trigger>\n" + 
+    expected = wrapString("<event id=\"e\">\n"
+ + 
+    "  <trigger>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <leq/>\n"
+ + 
+    "        <ci> P1 </ci>\n"
+ + 
+    "        <ci> t </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </trigger>\n"
+ + 
     "</event>")
     self.D.setLevelAndVersion(2,1,False)
     e = self.D.createModel().createEvent()
@@ -598,16 +704,26 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_Event_trigger_withSBO(self):
-    expected = wrapString("<event id=\"e\">\n" + 
-    "  <trigger sboTerm=\"SBO:0000064\">\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <apply>\n" + 
-    "        <leq/>\n" + 
-    "        <ci> P1 </ci>\n" + 
-    "        <ci> t </ci>\n" + 
-    "      </apply>\n" + 
-    "    </math>\n" + 
-    "  </trigger>\n" + 
+    expected = wrapString("<event id=\"e\">\n"
+ + 
+    "  <trigger sboTerm=\"SBO:0000064\">\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <leq/>\n"
+ + 
+    "        <ci> P1 </ci>\n"
+ + 
+    "        <ci> t </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </trigger>\n"
+ + 
     "</event>")
     self.D.setLevelAndVersion(2,3,False)
     e = self.D.createModel().createEvent()
@@ -621,19 +737,32 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_FunctionDefinition(self):
-    expected = wrapString("<functionDefinition id=\"pow3\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <lambda>\n" + 
-    "      <bvar>\n" + 
-    "        <ci> x </ci>\n" + 
-    "      </bvar>\n" + 
-    "      <apply>\n" + 
-    "        <power/>\n" + 
-    "        <ci> x </ci>\n" + 
-    "        <cn type=\"integer\"> 3 </cn>\n" + 
-    "      </apply>\n" + 
-    "    </lambda>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<functionDefinition id=\"pow3\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <lambda>\n"
+ + 
+    "      <bvar>\n"
+ + 
+    "        <ci> x </ci>\n"
+ + 
+    "      </bvar>\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <power/>\n"
+ + 
+    "        <ci> x </ci>\n"
+ + 
+    "        <cn type=\"integer\"> 3 </cn>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </lambda>\n"
+ + 
+    "  </math>\n"
+ + 
     "</functionDefinition>")
     fd = libsbml.FunctionDefinition( 2,4 )
     fd.setId("pow3")
@@ -642,19 +771,32 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_FunctionDefinition_withSBO(self):
-    expected = wrapString("<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <lambda>\n" + 
-    "      <bvar>\n" + 
-    "        <ci> x </ci>\n" + 
-    "      </bvar>\n" + 
-    "      <apply>\n" + 
-    "        <power/>\n" + 
-    "        <ci> x </ci>\n" + 
-    "        <cn type=\"integer\"> 3 </cn>\n" + 
-    "      </apply>\n" + 
-    "    </lambda>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<functionDefinition id=\"pow3\" sboTerm=\"SBO:0000064\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <lambda>\n"
+ + 
+    "      <bvar>\n"
+ + 
+    "        <ci> x </ci>\n"
+ + 
+    "      </bvar>\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <power/>\n"
+ + 
+    "        <ci> x </ci>\n"
+ + 
+    "        <cn type=\"integer\"> 3 </cn>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </lambda>\n"
+ + 
+    "  </math>\n"
+ + 
     "</functionDefinition>")
     fd = libsbml.FunctionDefinition( 2,4 )
     fd.setId("pow3")
@@ -664,7 +806,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_INF(self):
-    expected =  "<parameter id=\"p\" value=\"INF\"/>";
+    expected =  "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_PosInf())
@@ -681,14 +823,22 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_InitialAssignment_math(self):
-    expected = wrapString("<initialAssignment symbol=\"c\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <plus/>\n" + 
-    "      <ci> a </ci>\n" + 
-    "      <ci> b </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<initialAssignment symbol=\"c\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <plus/>\n"
+ + 
+    "      <ci> a </ci>\n"
+ + 
+    "      <ci> b </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</initialAssignment>")
     ia = self.D.createModel().createInitialAssignment()
     node = libsbml.parseFormula("a + b")
@@ -699,7 +849,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_KineticLaw(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<kineticLaw formula=\"k * e\" timeUnits=\"second\" " + "substanceUnits=\"item\"/>")
+    expected = wrapString("<kineticLaw formula=\"k * e\" timeUnits=\"second\" "
+ + "substanceUnits=\"item\"/>")
     kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setFormula("k * e")
     kl.setTimeUnits("second")
@@ -709,11 +860,16 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_KineticLaw_ListOfParameters(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" " + 
-    "substanceUnits=\"item\">\n" + 
-    "  <listOfParameters>\n" + 
-    "    <parameter name=\"n\" value=\"1.2\"/>\n" + 
-    "  </listOfParameters>\n" + 
+    expected = wrapString("<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
+ + 
+    "substanceUnits=\"item\">\n"
+ + 
+    "  <listOfParameters>\n"
+ + 
+    "    <parameter name=\"n\" value=\"1.2\"/>\n"
+ + 
+    "  </listOfParameters>\n"
+ + 
     "</kineticLaw>")
     kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setFormula("nk * e")
@@ -727,22 +883,38 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_KineticLaw_l2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <divide/>\n" + 
-    "      <apply>\n" + 
-    "        <times/>\n" + 
-    "        <ci> vm </ci>\n" + 
-    "        <ci> s1 </ci>\n" + 
-    "      </apply>\n" + 
-    "      <apply>\n" + 
-    "        <plus/>\n" + 
-    "        <ci> km </ci>\n" + 
-    "        <ci> s1 </ci>\n" + 
-    "      </apply>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <divide/>\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <times/>\n"
+ + 
+    "        <ci> vm </ci>\n"
+ + 
+    "        <ci> s1 </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <plus/>\n"
+ + 
+    "        <ci> km </ci>\n"
+ + 
+    "        <ci> s1 </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</kineticLaw>")
     kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setTimeUnits("second")
@@ -761,22 +933,38 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_KineticLaw_withSBO(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<kineticLaw sboTerm=\"SBO:0000001\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <divide/>\n" + 
-    "      <apply>\n" + 
-    "        <times/>\n" + 
-    "        <ci> vm </ci>\n" + 
-    "        <ci> s1 </ci>\n" + 
-    "      </apply>\n" + 
-    "      <apply>\n" + 
-    "        <plus/>\n" + 
-    "        <ci> km </ci>\n" + 
-    "        <ci> s1 </ci>\n" + 
-    "      </apply>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<kineticLaw sboTerm=\"SBO:0000001\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <divide/>\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <times/>\n"
+ + 
+    "        <ci> vm </ci>\n"
+ + 
+    "        <ci> s1 </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <plus/>\n"
+ + 
+    "        <ci> km </ci>\n"
+ + 
+    "        <ci> s1 </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</kineticLaw>")
     kl = self.D.createModel().createReaction().createKineticLaw()
     kl.setFormula("(vm * s1)/(km + s1)")
@@ -826,7 +1014,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_NaN(self):
-    expected =  "<parameter id=\"p\" value=\"NaN\"/>";
+    expected =  "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NaN())
@@ -834,7 +1022,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_NegINF(self):
-    expected =  "<parameter id=\"p\" value=\"-INF\"/>";
+    expected =  "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NegInf())
@@ -853,7 +1041,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_ParameterRule(self):
     self.D.setLevelAndVersion(1,1,False)
-    expected = wrapString("<parameterRule " + "formula=\"p * t\" type=\"rate\" name=\"p\"/>")
+    expected = wrapString("<parameterRule "
+ + "formula=\"p * t\" type=\"rate\" name=\"p\"/>")
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
     r = self.D.getModel().createRateRule()
@@ -864,14 +1053,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_ParameterRule_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<rateRule variable=\"p\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <times/>\n" + 
-    "      <ci> p </ci>\n" + 
-    "      <ci> t </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<rateRule variable=\"p\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <times/>\n"
+ + 
+    "      <ci> p </ci>\n"
+ + 
+    "      <ci> t </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</rateRule>")
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
@@ -883,14 +1080,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_ParameterRule_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <times/>\n" + 
-    "      <ci> p </ci>\n" + 
-    "      <ci> t </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<rateRule variable=\"p\" sboTerm=\"SBO:0000007\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <times/>\n"
+ + 
+    "      <ci> p </ci>\n"
+ + 
+    "      <ci> t </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</rateRule>")
     self.D.createModel()
     self.D.getModel().createParameter().setId("p")
@@ -989,33 +1194,60 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Reaction_L2v1_full(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<reaction id=\"v1\">\n" + 
-    "  <listOfReactants>\n" + 
-    "    <speciesReference species=\"x0\"/>\n" + 
-    "  </listOfReactants>\n" + 
-    "  <listOfProducts>\n" + 
-    "    <speciesReference species=\"s1\"/>\n" + 
-    "  </listOfProducts>\n" + 
-    "  <listOfModifiers>\n" + 
-    "    <modifierSpeciesReference species=\"m1\"/>\n" + 
-    "  </listOfModifiers>\n" + 
-    "  <kineticLaw>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <apply>\n" + 
-    "        <divide/>\n" + 
-    "        <apply>\n" + 
-    "          <times/>\n" + 
-    "          <ci> vm </ci>\n" + 
-    "          <ci> s1 </ci>\n" + 
-    "        </apply>\n" + 
-    "        <apply>\n" + 
-    "          <plus/>\n" + 
-    "          <ci> km </ci>\n" + 
-    "          <ci> s1 </ci>\n" + 
-    "        </apply>\n" + 
-    "      </apply>\n" + 
-    "    </math>\n" + 
-    "  </kineticLaw>\n" + 
+    expected = wrapString("<reaction id=\"v1\">\n"
+ + 
+    "  <listOfReactants>\n"
+ + 
+    "    <speciesReference species=\"x0\"/>\n"
+ + 
+    "  </listOfReactants>\n"
+ + 
+    "  <listOfProducts>\n"
+ + 
+    "    <speciesReference species=\"s1\"/>\n"
+ + 
+    "  </listOfProducts>\n"
+ + 
+    "  <listOfModifiers>\n"
+ + 
+    "    <modifierSpeciesReference species=\"m1\"/>\n"
+ + 
+    "  </listOfModifiers>\n"
+ + 
+    "  <kineticLaw>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <divide/>\n"
+ + 
+    "        <apply>\n"
+ + 
+    "          <times/>\n"
+ + 
+    "          <ci> vm </ci>\n"
+ + 
+    "          <ci> s1 </ci>\n"
+ + 
+    "        </apply>\n"
+ + 
+    "        <apply>\n"
+ + 
+    "          <plus/>\n"
+ + 
+    "          <ci> km </ci>\n"
+ + 
+    "          <ci> s1 </ci>\n"
+ + 
+    "        </apply>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </kineticLaw>\n"
+ + 
     "</reaction>")
     self.D.createModel()
     r = self.D.getModel().createReaction()
@@ -1050,14 +1282,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Reaction_full(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<reaction name=\"v1\">\n" + 
-    "  <listOfReactants>\n" + 
-    "    <speciesReference species=\"x0\"/>\n" + 
-    "  </listOfReactants>\n" + 
-    "  <listOfProducts>\n" + 
-    "    <speciesReference species=\"s1\"/>\n" + 
-    "  </listOfProducts>\n" + 
-    "  <kineticLaw formula=\"(vm * s1)/(km + s1)\"/>\n" + 
+    expected = wrapString("<reaction name=\"v1\">\n"
+ + 
+    "  <listOfReactants>\n"
+ + 
+    "    <speciesReference species=\"x0\"/>\n"
+ + 
+    "  </listOfReactants>\n"
+ + 
+    "  <listOfProducts>\n"
+ + 
+    "    <speciesReference species=\"s1\"/>\n"
+ + 
+    "  </listOfProducts>\n"
+ + 
+    "  <kineticLaw formula=\"(vm * s1)/(km + s1)\"/>\n"
+ + 
     "</reaction>")
     self.D.createModel()
     r = self.D.getModel().createReaction()
@@ -1071,35 +1311,44 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SBMLDocument_L1v1(self):
     self.D.setLevelAndVersion(1,1,False)
-    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"1\"/>\n")
+    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
+ + "level=\"1\" version=\"1\"/>\n"
+)
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L1v2(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" " + "level=\"1\" version=\"2\"/>\n")
+    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
+ + "level=\"1\" version=\"2\"/>\n"
+)
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" " + "level=\"2\" version=\"1\"/>\n")
+    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
+ + "level=\"2\" version=\"1\"/>\n"
+)
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_SBMLDocument_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version2\" " + "level=\"2\" version=\"2\"/>\n")
+    expected = wrapXML("<sbml xmlns=\"http://www.sbml.org/sbml/level2/version2\" "
+ + "level=\"2\" version=\"2\"/>\n"
+)
     self.S = libsbml.writeSBMLToString(self.D)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
   def test_WriteSBML_Species(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
+    expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
+ + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
     s = self.D.createModel().createSpecies()
     s.setName("Ca2")
     s.setCompartment("cell")
@@ -1112,7 +1361,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SpeciesConcentrationRule(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<speciesConcentrationRule " + "formula=\"t * s\" type=\"rate\" species=\"s\"/>")
+    expected = wrapString("<speciesConcentrationRule "
+ + "formula=\"t * s\" type=\"rate\" species=\"s\"/>")
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
     r = self.D.getModel().createRateRule()
@@ -1134,14 +1384,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<assignmentRule variable=\"s\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <times/>\n" + 
-    "      <ci> t </ci>\n" + 
-    "      <ci> s </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<assignmentRule variable=\"s\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <times/>\n"
+ + 
+    "      <ci> t </ci>\n"
+ + 
+    "      <ci> s </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</assignmentRule>")
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
@@ -1153,14 +1411,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SpeciesConcentrationRule_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <times/>\n" + 
-    "      <ci> t </ci>\n" + 
-    "      <ci> s </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<assignmentRule variable=\"s\" sboTerm=\"SBO:0000006\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <times/>\n"
+ + 
+    "      <ci> t </ci>\n"
+ + 
+    "      <ci> s </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</assignmentRule>")
     self.D.createModel()
     self.D.getModel().createSpecies().setId("s")
@@ -1204,12 +1470,18 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SpeciesReference_L2v1_1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<speciesReference species=\"s\">\n" + 
-    "  <stoichiometryMath>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" + 
-    "    </math>\n" + 
-    "  </stoichiometryMath>\n" + 
+    expected = wrapString("<speciesReference species=\"s\">\n"
+ + 
+    "  <stoichiometryMath>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </stoichiometryMath>\n"
+ + 
     "</speciesReference>")
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1229,16 +1501,26 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SpeciesReference_L2v1_3(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<speciesReference species=\"s\">\n" + 
-    "  <stoichiometryMath>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <apply>\n" + 
-    "        <divide/>\n" + 
-    "        <cn type=\"integer\"> 1 </cn>\n" + 
-    "        <ci> d </ci>\n" + 
-    "      </apply>\n" + 
-    "    </math>\n" + 
-    "  </stoichiometryMath>\n" + 
+    expected = wrapString("<speciesReference species=\"s\">\n"
+ + 
+    "  <stoichiometryMath>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <apply>\n"
+ + 
+    "        <divide/>\n"
+ + 
+    "        <cn type=\"integer\"> 1 </cn>\n"
+ + 
+    "        <ci> d </ci>\n"
+ + 
+    "      </apply>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </stoichiometryMath>\n"
+ + 
     "</speciesReference>")
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1251,12 +1533,18 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_SpeciesReference_L2v2_1(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n" + 
-    "  <stoichiometryMath>\n" + 
-    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n" + 
-    "    </math>\n" + 
-    "  </stoichiometryMath>\n" + 
+    expected = wrapString("<speciesReference id=\"ss\" name=\"odd\" sboTerm=\"SBO:0000009\" species=\"s\">\n"
+ + 
+    "  <stoichiometryMath>\n"
+ + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "      <cn type=\"rational\"> 3 <sep/> 2 </cn>\n"
+ + 
+    "    </math>\n"
+ + 
+    "  </stoichiometryMath>\n"
+ + 
     "</speciesReference>")
     sr = self.D.createModel().createReaction().createReactant()
     sr.setSpecies("s")
@@ -1311,7 +1599,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Species_L1v1(self):
     self.D.setLevelAndVersion(1,1,False)
-    expected = wrapString("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
+    expected = wrapString("<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
+ + " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>")
     s = self.D.createModel().createSpecies()
     s.setName("Ca2")
     s.setCompartment("cell")
@@ -1324,7 +1613,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Species_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
+    expected = wrapString("<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" "
+ + "substanceUnits=\"mole\" constant=\"true\"/>")
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
     s.setCompartment("cell")
@@ -1345,7 +1635,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Species_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapString("<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" " + "substanceUnits=\"mole\" constant=\"true\"/>")
+    expected = wrapString("<species id=\"Ca2\" speciesType=\"st\" compartment=\"cell\" initialAmount=\"0.7\" "
+ + "substanceUnits=\"mole\" constant=\"true\"/>")
     s = self.D.createModel().createSpecies()
     s.setId("Ca2")
     s.setCompartment("cell")
@@ -1368,7 +1659,8 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_Species_defaults(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"" + " units=\"mole\" charge=\"2\"/>")
+    expected = wrapString("<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
+ + " units=\"mole\" charge=\"2\"/>")
     s = self.D.createModel().createSpecies()
     s.setName("Ca2")
     s.setCompartment("cell")
@@ -1390,14 +1682,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_StoichiometryMath(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<stoichiometryMath>\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <divide/>\n" + 
-    "      <cn type=\"integer\"> 1 </cn>\n" + 
-    "      <ci> d </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<stoichiometryMath>\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <divide/>\n"
+ + 
+    "      <cn type=\"integer\"> 1 </cn>\n"
+ + 
+    "      <ci> d </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</stoichiometryMath>")
     math = libsbml.parseFormula("1/d")
     stoich = self.D.createModel().createReaction().createReactant().createStoichiometryMath()
@@ -1407,14 +1707,22 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_StoichiometryMath_withSBO(self):
     self.D.setLevelAndVersion(2,3,False)
-    expected = wrapString("<stoichiometryMath sboTerm=\"SBO:0000333\">\n" + 
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
-    "    <apply>\n" + 
-    "      <divide/>\n" + 
-    "      <cn type=\"integer\"> 1 </cn>\n" + 
-    "      <ci> d </ci>\n" + 
-    "    </apply>\n" + 
-    "  </math>\n" + 
+    expected = wrapString("<stoichiometryMath sboTerm=\"SBO:0000333\">\n"
+ + 
+    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+ + 
+    "    <apply>\n"
+ + 
+    "      <divide/>\n"
+ + 
+    "      <cn type=\"integer\"> 1 </cn>\n"
+ + 
+    "      <ci> d </ci>\n"
+ + 
+    "    </apply>\n"
+ + 
+    "  </math>\n"
+ + 
     "</stoichiometryMath>")
     math = libsbml.parseFormula("1/d")
     stoich = self.D.createModel().createReaction().createReactant().createStoichiometryMath()
@@ -1451,10 +1759,14 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_UnitDefinition_L2v1_full(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapString("<unitDefinition id=\"Fahrenheit\">\n" + 
-    "  <listOfUnits>\n" + 
-    "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n" + 
-    "  </listOfUnits>\n" + 
+    expected = wrapString("<unitDefinition id=\"Fahrenheit\">\n"
+ + 
+    "  <listOfUnits>\n"
+ + 
+    "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n"
+ + 
+    "  </listOfUnits>\n"
+ + 
     "</unitDefinition>")
     ud = self.D.createModel().createUnitDefinition()
     ud.setId("Fahrenheit")
@@ -1467,12 +1779,18 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_UnitDefinition_full(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapString("<unitDefinition name=\"mmls\">\n" + 
-    "  <listOfUnits>\n" + 
-    "    <unit kind=\"mole\" scale=\"-3\"/>\n" + 
-    "    <unit kind=\"liter\" exponent=\"-1\"/>\n" + 
-    "    <unit kind=\"second\" exponent=\"-1\"/>\n" + 
-    "  </listOfUnits>\n" + 
+    expected = wrapString("<unitDefinition name=\"mmls\">\n"
+ + 
+    "  <listOfUnits>\n"
+ + 
+    "    <unit kind=\"mole\" scale=\"-3\"/>\n"
+ + 
+    "    <unit kind=\"liter\" exponent=\"-1\"/>\n"
+ + 
+    "    <unit kind=\"second\" exponent=\"-1\"/>\n"
+ + 
+    "  </listOfUnits>\n"
+ + 
     "</unitDefinition>")
     ud = self.D.createModel().createUnitDefinition()
     ud.setId("mmls")
@@ -1552,25 +1870,44 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_elements_L1v2(self):
     self.D.setLevelAndVersion(1,2,False)
-    expected = wrapSBML_L1v2("  <model>\n" + 
-    "    <listOfUnitDefinitions>\n" + 
-    "      <unitDefinition/>\n" + 
-    "    </listOfUnitDefinitions>\n" + 
-    "    <listOfCompartments>\n" + 
-    "      <compartment/>\n" + 
-    "    </listOfCompartments>\n" + 
-    "    <listOfSpecies>\n" + 
-    "      <species initialAmount=\"0\"/>\n" + 
-    "    </listOfSpecies>\n" + 
-    "    <listOfParameters>\n" + 
-    "      <parameter/>\n" + 
-    "    </listOfParameters>\n" + 
-    "    <listOfRules>\n" + 
-    "      <algebraicRule/>\n" + 
-    "    </listOfRules>\n" + 
-    "    <listOfReactions>\n" + 
-    "      <reaction/>\n" + 
-    "    </listOfReactions>\n" + 
+    expected = wrapSBML_L1v2("  <model>\n"
+ + 
+    "    <listOfUnitDefinitions>\n"
+ + 
+    "      <unitDefinition/>\n"
+ + 
+    "    </listOfUnitDefinitions>\n"
+ + 
+    "    <listOfCompartments>\n"
+ + 
+    "      <compartment/>\n"
+ + 
+    "    </listOfCompartments>\n"
+ + 
+    "    <listOfSpecies>\n"
+ + 
+    "      <species initialAmount=\"0\"/>\n"
+ + 
+    "    </listOfSpecies>\n"
+ + 
+    "    <listOfParameters>\n"
+ + 
+    "      <parameter/>\n"
+ + 
+    "    </listOfParameters>\n"
+ + 
+    "    <listOfRules>\n"
+ + 
+    "      <algebraicRule/>\n"
+ + 
+    "    </listOfRules>\n"
+ + 
+    "    <listOfReactions>\n"
+ + 
+    "      <reaction/>\n"
+ + 
+    "    </listOfReactions>\n"
+ + 
     "  </model>\n")
     m = self.D.createModel()
     m.createUnitDefinition()
@@ -1585,31 +1922,56 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_elements_L2v1(self):
     self.D.setLevelAndVersion(2,1,False)
-    expected = wrapSBML_L2v1("  <model>\n" + 
-    "    <listOfFunctionDefinitions>\n" + 
-    "      <functionDefinition/>\n" + 
-    "    </listOfFunctionDefinitions>\n" + 
-    "    <listOfUnitDefinitions>\n" + 
-    "      <unitDefinition/>\n" + 
-    "    </listOfUnitDefinitions>\n" + 
-    "    <listOfCompartments>\n" + 
-    "      <compartment/>\n" + 
-    "    </listOfCompartments>\n" + 
-    "    <listOfSpecies>\n" + 
-    "      <species/>\n" + 
-    "    </listOfSpecies>\n" + 
-    "    <listOfParameters>\n" + 
-    "      <parameter/>\n" + 
-    "    </listOfParameters>\n" + 
-    "    <listOfRules>\n" + 
-    "      <algebraicRule/>\n" + 
-    "    </listOfRules>\n" + 
-    "    <listOfReactions>\n" + 
-    "      <reaction/>\n" + 
-    "    </listOfReactions>\n" + 
-    "    <listOfEvents>\n" + 
-    "      <event/>\n" + 
-    "    </listOfEvents>\n" + 
+    expected = wrapSBML_L2v1("  <model>\n"
+ + 
+    "    <listOfFunctionDefinitions>\n"
+ + 
+    "      <functionDefinition/>\n"
+ + 
+    "    </listOfFunctionDefinitions>\n"
+ + 
+    "    <listOfUnitDefinitions>\n"
+ + 
+    "      <unitDefinition/>\n"
+ + 
+    "    </listOfUnitDefinitions>\n"
+ + 
+    "    <listOfCompartments>\n"
+ + 
+    "      <compartment/>\n"
+ + 
+    "    </listOfCompartments>\n"
+ + 
+    "    <listOfSpecies>\n"
+ + 
+    "      <species/>\n"
+ + 
+    "    </listOfSpecies>\n"
+ + 
+    "    <listOfParameters>\n"
+ + 
+    "      <parameter/>\n"
+ + 
+    "    </listOfParameters>\n"
+ + 
+    "    <listOfRules>\n"
+ + 
+    "      <algebraicRule/>\n"
+ + 
+    "    </listOfRules>\n"
+ + 
+    "    <listOfReactions>\n"
+ + 
+    "      <reaction/>\n"
+ + 
+    "    </listOfReactions>\n"
+ + 
+    "    <listOfEvents>\n"
+ + 
+    "      <event/>\n"
+ + 
+    "    </listOfEvents>\n"
+ + 
     "  </model>\n")
     m = self.D.createModel()
     m.createUnitDefinition()
@@ -1628,43 +1990,80 @@ class TestWriteSBML(unittest.TestCase):
 
   def test_WriteSBML_elements_L2v2(self):
     self.D.setLevelAndVersion(2,2,False)
-    expected = wrapSBML_L2v2("  <model>\n" + 
-    "    <listOfFunctionDefinitions>\n" + 
-    "      <functionDefinition/>\n" + 
-    "    </listOfFunctionDefinitions>\n" + 
-    "    <listOfUnitDefinitions>\n" + 
-    "      <unitDefinition/>\n" + 
-    "    </listOfUnitDefinitions>\n" + 
-    "    <listOfCompartmentTypes>\n" + 
-    "      <compartmentType/>\n" + 
-    "    </listOfCompartmentTypes>\n" + 
-    "    <listOfSpeciesTypes>\n" + 
-    "      <speciesType/>\n" + 
-    "    </listOfSpeciesTypes>\n" + 
-    "    <listOfCompartments>\n" + 
-    "      <compartment/>\n" + 
-    "    </listOfCompartments>\n" + 
-    "    <listOfSpecies>\n" + 
-    "      <species/>\n" + 
-    "    </listOfSpecies>\n" + 
-    "    <listOfParameters>\n" + 
-    "      <parameter/>\n" + 
-    "    </listOfParameters>\n" + 
-    "    <listOfInitialAssignments>\n" + 
-    "      <initialAssignment/>\n" + 
-    "    </listOfInitialAssignments>\n" + 
-    "    <listOfRules>\n" + 
-    "      <algebraicRule/>\n" + 
-    "    </listOfRules>\n" + 
-    "    <listOfConstraints>\n" + 
-    "      <constraint/>\n" + 
-    "    </listOfConstraints>\n" + 
-    "    <listOfReactions>\n" + 
-    "      <reaction/>\n" + 
-    "    </listOfReactions>\n" + 
-    "    <listOfEvents>\n" + 
-    "      <event/>\n" + 
-    "    </listOfEvents>\n" + 
+    expected = wrapSBML_L2v2("  <model>\n"
+ + 
+    "    <listOfFunctionDefinitions>\n"
+ + 
+    "      <functionDefinition/>\n"
+ + 
+    "    </listOfFunctionDefinitions>\n"
+ + 
+    "    <listOfUnitDefinitions>\n"
+ + 
+    "      <unitDefinition/>\n"
+ + 
+    "    </listOfUnitDefinitions>\n"
+ + 
+    "    <listOfCompartmentTypes>\n"
+ + 
+    "      <compartmentType/>\n"
+ + 
+    "    </listOfCompartmentTypes>\n"
+ + 
+    "    <listOfSpeciesTypes>\n"
+ + 
+    "      <speciesType/>\n"
+ + 
+    "    </listOfSpeciesTypes>\n"
+ + 
+    "    <listOfCompartments>\n"
+ + 
+    "      <compartment/>\n"
+ + 
+    "    </listOfCompartments>\n"
+ + 
+    "    <listOfSpecies>\n"
+ + 
+    "      <species/>\n"
+ + 
+    "    </listOfSpecies>\n"
+ + 
+    "    <listOfParameters>\n"
+ + 
+    "      <parameter/>\n"
+ + 
+    "    </listOfParameters>\n"
+ + 
+    "    <listOfInitialAssignments>\n"
+ + 
+    "      <initialAssignment/>\n"
+ + 
+    "    </listOfInitialAssignments>\n"
+ + 
+    "    <listOfRules>\n"
+ + 
+    "      <algebraicRule/>\n"
+ + 
+    "    </listOfRules>\n"
+ + 
+    "    <listOfConstraints>\n"
+ + 
+    "      <constraint/>\n"
+ + 
+    "    </listOfConstraints>\n"
+ + 
+    "    <listOfReactions>\n"
+ + 
+    "      <reaction/>\n"
+ + 
+    "    </listOfReactions>\n"
+ + 
+    "    <listOfEvents>\n"
+ + 
+    "      <event/>\n"
+ + 
+    "    </listOfEvents>\n"
+ + 
     "  </model>\n")
     m = self.D.createModel()
     m.createUnitDefinition()
@@ -1727,7 +2126,7 @@ class TestWriteSBML(unittest.TestCase):
 
 
   def test_WriteSBML_locale(self):
-    expected =  "<parameter id=\"p\" value=\"3.31\"/>";
+    expected =  "<parameter id=\"p\" value=\"3.31\" constant=\"true\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(3.31)

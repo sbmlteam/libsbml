@@ -33,7 +33,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
 
 
   def test_internal_consistency_check_99901(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -47,7 +47,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99902(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -61,7 +61,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99903(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -77,7 +77,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99903_localparam(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     p = libsbml.Parameter(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -96,7 +96,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99903_param(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     p = libsbml.Parameter(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -114,7 +114,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -128,7 +128,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_kl(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     kl = libsbml.KineticLaw(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,False)
@@ -145,7 +145,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_model(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     d.setLevelAndVersion(1,2,False)
     m = libsbml.Model(2,4)
     c = m.createCompartment()
@@ -159,7 +159,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_param(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     p = libsbml.Parameter(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -174,7 +174,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_react(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     r = libsbml.Reaction(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -189,7 +189,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_rule_alg(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     r = libsbml.AlgebraicRule(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -204,7 +204,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_rule_assign(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     r = libsbml.AssignmentRule(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -221,7 +221,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_rule_rate(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     r = libsbml.RateRule(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -238,7 +238,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_species(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -254,7 +254,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_speciesRef(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     sr = libsbml.SpeciesReference(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -274,7 +274,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_unit(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     u = libsbml.Unit(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -291,7 +291,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99904_unitdef(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     u = libsbml.UnitDefinition(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -307,7 +307,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -321,7 +321,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_ct(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     ct = libsbml.CompartmentType(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,2,False)
@@ -334,7 +334,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_delay(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     delay = libsbml.Delay(2,4)
     e = libsbml.Event(2,4)
     m = d.createModel()
@@ -348,7 +348,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_species(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -364,7 +364,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_st(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     ct = libsbml.SpeciesType(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,2,False)
@@ -377,7 +377,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_stoichmath(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     sm = libsbml.StoichiometryMath(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,2,False)
@@ -398,7 +398,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_trigger(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     trigger = libsbml.Trigger(2,4)
     e = libsbml.Event(2,4)
     m = d.createModel()
@@ -412,7 +412,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_unit(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     u = libsbml.Unit(2,4)
     d.setLevelAndVersion(2,2,False)
     m = d.createModel()
@@ -427,7 +427,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99905_unitdef(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     u = libsbml.UnitDefinition(2,4)
     d.setLevelAndVersion(2,2,False)
     m = d.createModel()
@@ -441,7 +441,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99906(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -455,7 +455,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99907(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -469,7 +469,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99908(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     ct = libsbml.CompartmentType(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,1,False)
@@ -481,7 +481,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99909(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     ct = libsbml.Constraint(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,1,False)
@@ -492,7 +492,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99910(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     e = libsbml.Event(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,False)
@@ -506,7 +506,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_ea(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     d.setLevelAndVersion(2,1,False)
     m = d.createModel()
     c = m.createCompartment()
@@ -523,7 +523,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_event(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     e = libsbml.Event(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,1,False)
@@ -535,7 +535,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_fd(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     fd = libsbml.FunctionDefinition(2,4)
     d.setLevelAndVersion(2,1,False)
@@ -548,7 +548,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_kl(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     d.setLevelAndVersion(2,1,False)
     m = d.createModel()
     r = m.createReaction()
@@ -564,7 +564,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_model(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     d.setLevelAndVersion(2,1,False)
     m = libsbml.Model(2,4)
     m.setSBOTerm(2)
@@ -576,7 +576,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_param(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     p = libsbml.Parameter(2,4)
     d.setLevelAndVersion(2,1,False)
@@ -589,7 +589,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_react(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     r = libsbml.Reaction(2,4)
     d.setLevelAndVersion(2,1,False)
@@ -602,7 +602,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_rule_alg(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     r = libsbml.AlgebraicRule(2,4)
     d.setLevelAndVersion(2,1,False)
@@ -614,7 +614,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_rule_assign(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     p = m.createParameter()
     p.setId("p")
@@ -630,7 +630,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_rule_rate(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     p = m.createParameter()
     p.setId("p")
@@ -646,7 +646,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99911_speciesRef(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     sr = libsbml.SpeciesReference(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -666,7 +666,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99912(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     fd = libsbml.FunctionDefinition(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,False)
@@ -680,7 +680,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99913(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     ia = libsbml.InitialAssignment(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,False)
@@ -694,7 +694,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99914(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     r = libsbml.AlgebraicRule(2,4)
     d.setLevelAndVersion(2,1,False)
@@ -706,7 +706,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99915_alg(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     r = libsbml.AlgebraicRule(2,4)
     d.setLevelAndVersion(2,1,False)
@@ -718,7 +718,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99915_assign(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
     c = m.createCompartment()
@@ -735,7 +735,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99915_rate(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
     c = m.createCompartment()
@@ -752,7 +752,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99916_reaction(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -772,7 +772,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99916_rule(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -791,7 +791,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99917(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -807,7 +807,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99918(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -823,7 +823,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99919(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     s = libsbml.Species(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -839,7 +839,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99920(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     sr = libsbml.SpeciesReference(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -859,7 +859,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99921(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     sr = libsbml.SpeciesReference(2,4)
     d.setLevelAndVersion(2,1,False)
     m = d.createModel()
@@ -879,7 +879,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99922(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     ct = libsbml.SpeciesType(2,4)
     m = d.createModel()
     ct.setId("st")
@@ -891,7 +891,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99923(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     sm = libsbml.StoichiometryMath(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,False)
@@ -911,7 +911,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99924(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     u = libsbml.Unit(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
@@ -928,7 +928,7 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     pass  
 
   def test_internal_consistency_check_99925(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     u = libsbml.Unit(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()

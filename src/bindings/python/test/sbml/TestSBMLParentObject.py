@@ -51,7 +51,7 @@ class TestSBMLParentObject(unittest.TestCase):
     pass  
 
   def test_CompartmentType_parent_NULL(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     c = m.createCompartmentType()
     c1 = c.clone()
@@ -187,7 +187,7 @@ class TestSBMLParentObject(unittest.TestCase):
     pass  
 
   def test_Event_parent_NULL(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     c = m.createEvent()
     ea = c.createEventAssignment()
@@ -590,7 +590,7 @@ class TestSBMLParentObject(unittest.TestCase):
     pass  
 
   def test_SpeciesType_parent_NULL(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m = d.createModel()
     c = m.createSpeciesType()
     c1 = c.clone()

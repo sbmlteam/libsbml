@@ -204,6 +204,59 @@ class TestSBMLConvert(unittest.TestCase):
     self.assert_( u.getExponent() == 1 )
     self.assert_( u.getMultiplier() == 1 )
     self.assert_( u.getScale() == 0 )
+    self.assert_((  "time" == m.getTimeUnits() ))
+    d = None
+    pass  
+
+  def test_SBMLConvert_convertToL3_localParameters(self):
+    d = libsbml.SBMLDocument(1,2)
+    m = d.createModel()
+    c = m.createCompartment()
+    c.setId( "c" )
+    s = m.createSpecies()
+    s.setId( "s")
+    s.setCompartment( "c")
+    r = m.createReaction()
+    sr = r.createReactant()
+    sr.setSpecies( "s")
+    kl = r.createKineticLaw()
+    kl.setFormula( "s*k")
+    p = kl.createParameter()
+    p.setId( "k")
+    self.assert_( kl.getNumLocalParameters() == 0 )
+    d.setLevelAndVersion(3,1,False)
+    m = d.getModel()
+    r = m.getReaction(0)
+    kl = r.getKineticLaw()
+    self.assert_( kl.getNumLocalParameters() == 1 )
+    lp = kl.getLocalParameter(0)
+    d = None
+    pass  
+
+  def test_SBMLConvert_convertToL3_stoichiometryMath(self):
+    d = libsbml.SBMLDocument(2,1)
+    m = d.createModel()
+    c = m.createCompartment()
+    c.setId( "c" )
+    s = m.createSpecies()
+    s.setId( "s")
+    s.setCompartment( "c")
+    r = m.createReaction()
+    sr = r.createReactant()
+    sr.setSpecies( "s")
+    sm = sr.createStoichiometryMath()
+    ast = libsbml.parseFormula("c*2")
+    sm.setMath(ast)
+    self.assert_( m.getNumRules() == 0 )
+    self.assert_( sr.isSetId() == 0 )
+    d.setLevelAndVersion(3,1,False)
+    m = d.getModel()
+    r = m.getReaction(0)
+    sr = r.getReactant(0)
+    self.assert_( m.getNumRules() == 1 )
+    self.assert_( sr.isSetId() == 1 )
+    rule = m.getRule(0)
+    self.assert_( sr.getId() == rule.getVariable() )
     d = None
     pass  
 

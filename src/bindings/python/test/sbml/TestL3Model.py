@@ -4,6 +4,7 @@
 #
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
+ 
 #
 # $Id$
 # $HeadURL$
@@ -46,7 +47,8 @@ class TestL3Model(unittest.TestCase):
   def test_L3_Model_NS(self):
     self.assert_( self.M.getNamespaces() != None )
     self.assert_( self.M.getNamespaces().getLength() == 1 )
-    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
+    self.assert_(( 
+    "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Model_areaUnits(self):
@@ -131,6 +133,20 @@ class TestL3Model(unittest.TestCase):
     self.assertEqual( False, m.isSetLengthUnits() )
     self.assertEqual( False, m.isSetConversionFactor() )
     m = None
+    pass  
+
+  def test_L3_Model_extentUnits(self):
+    units =  "mole";
+    self.assertEqual( False, self.M.isSetExtentUnits() )
+    self.M.setExtentUnits(units)
+    self.assert_(( units == self.M.getExtentUnits() ))
+    self.assertEqual( True, self.M.isSetExtentUnits() )
+    if (self.M.getExtentUnits() == units):
+      pass    
+    self.M.unsetExtentUnits()
+    self.assertEqual( False, self.M.isSetExtentUnits() )
+    if (self.M.getExtentUnits() != None):
+      pass    
     pass  
 
   def test_L3_Model_free_NULL(self):

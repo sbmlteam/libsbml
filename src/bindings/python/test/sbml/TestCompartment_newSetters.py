@@ -3,7 +3,8 @@
 # @brief   Compartment unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating
+ 
 #
 # $Id$
 # $HeadURL$
@@ -211,6 +212,22 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setSpatialDimensions(2)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getSpatialDimensions() == 2 )
+    c = None
+    pass  
+
+  def test_Compartment_setSpatialDimensions4(self):
+    c = libsbml.Compartment(2,2)
+    i = c.setSpatialDimensions(2.0)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( c.getSpatialDimensions() == 2 )
+    c = None
+    pass  
+
+  def test_Compartment_setSpatialDimensions5(self):
+    c = libsbml.Compartment(2,2)
+    i = c.setSpatialDimensions(2.2)
+    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assert_( c.getSpatialDimensions() == 3 )
     c = None
     pass  
 

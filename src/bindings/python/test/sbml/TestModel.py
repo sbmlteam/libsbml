@@ -627,6 +627,16 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getSpecies( "Glucose2"   ) == None )
     pass  
 
+  def test_Model_getSpeciesReferenceById(self):
+    r1 = libsbml.Reaction(2,4)
+    r1.setId("r1")
+    sr = r1.createReactant()
+    sr.setId( "s1")
+    self.M.addReaction(r1)
+    self.assert_( self.M.getNumReactions() == 1 )
+    self.assert_( self.M.getSpeciesReference( "s1" ) != sr )
+    pass  
+
   def test_Model_getUnitDefinition(self):
     ud1 = libsbml.UnitDefinition(2,4)
     ud2 = libsbml.UnitDefinition(2,4)

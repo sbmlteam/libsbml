@@ -37,8 +37,8 @@ class TestSBMLDocument(unittest.TestCase):
     self.assert_( d.getTypeCode() == libsbml.SBML_DOCUMENT )
     self.assert_( d.getNotes() == None )
     self.assert_( d.getAnnotation() == None )
-    self.assert_( d.getLevel() == 2 )
-    self.assert_( d.getVersion() == 4 )
+    self.assert_( d.getLevel() == 3 )
+    self.assert_( d.getVersion() == 1 )
     self.assert_( d.getNumErrors() == 0 )
     d = None
     pass  
