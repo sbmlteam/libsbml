@@ -1082,7 +1082,7 @@ END_TEST
 START_TEST (test_Model_getSpeciesReferenceById)
 {
   Reaction_t *r1 = Reaction_create(2, 4);
-  Reaction_setId("r1");
+  Reaction_setId(r1, "r1");
 
   SpeciesReference_t *sr = Reaction_createReactant(r1);
   SpeciesReference_setId(sr, "s1");
