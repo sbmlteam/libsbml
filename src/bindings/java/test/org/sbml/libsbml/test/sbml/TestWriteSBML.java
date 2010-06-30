@@ -797,7 +797,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_INF()
   {
-    String expected =  "<parameter id=\"p\" value=\"INF\"/>";;
+    String expected =  "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(util_PosInf());
@@ -972,7 +972,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_NaN()
   {
-    String expected =  "<parameter id=\"p\" value=\"NaN\"/>";;
+    String expected =  "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(util_NaN());
@@ -981,7 +981,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_NegINF()
   {
-    String expected =  "<parameter id=\"p\" value=\"-INF\"/>";;
+    String expected =  "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(util_NegInf());
@@ -1945,7 +1945,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_locale()
   {
-    String expected =  "<parameter id=\"p\" value=\"3.31\"/>";;
+    String expected =  "<parameter id=\"p\" value=\"3.31\" constant=\"true\"/>";;
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(3.31);

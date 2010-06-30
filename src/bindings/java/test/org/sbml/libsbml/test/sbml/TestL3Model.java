@@ -229,6 +229,23 @@ public class TestL3Model {
     m = null;
   }
 
+  public void test_L3_Model_extentUnits()
+  {
+    String units =  "mole";;
+    assertEquals( false, M.isSetExtentUnits() );
+    M.setExtentUnits(units);
+    assertTrue(M.getExtentUnits().equals(units));
+    assertEquals( true, M.isSetExtentUnits() );
+    if (M.getExtentUnits() == units);
+    {
+    }
+    M.unsetExtentUnits();
+    assertEquals( false, M.isSetExtentUnits() );
+    if (M.getExtentUnits() != null);
+    {
+    }
+  }
+
   public void test_L3_Model_free_NULL()
   {
   }

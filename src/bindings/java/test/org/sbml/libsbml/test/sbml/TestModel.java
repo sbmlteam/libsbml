@@ -786,6 +786,17 @@ public class TestModel {
     assertTrue( M.getSpecies( "Glucose2"   ) == null );
   }
 
+  public void test_Model_getSpeciesReferenceById()
+  {
+    Reaction r1 = new  Reaction(2,4);
+    r1.setId();
+    SpeciesReference sr = r1.createReactant();
+    sr.setId( "s1");
+    M.addReaction(r1);
+    assertTrue( M.getNumReactions() == 1 );
+    assertNotEquals(M.getSpeciesReference( "s1" ),sr);
+  }
+
   public void test_Model_getUnitDefinition()
   {
     UnitDefinition ud1 = new  UnitDefinition(2,4);

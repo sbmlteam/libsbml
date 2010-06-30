@@ -52,6 +52,10 @@ public class TestSBMLParentObject {
     {
       return;
     }
+    else if ( (a == null) || (b == null) )
+    {
+      throw new AssertionError();
+    }
     else if (a.equals(b))
     {
       return;
@@ -65,6 +69,10 @@ public class TestSBMLParentObject {
     if ( (a == null) && (b == null) )
     {
       throw new AssertionError();
+    }
+    else if ( (a == null) || (b == null) )
+    {
+      return;
     }
     else if (a.equals(b))
     {
@@ -130,7 +138,7 @@ public class TestSBMLParentObject {
 
   public void test_CompartmentType_parent_NULL()
   {
-    SBMLDocument d = new SBMLDocument();
+    SBMLDocument d = new SBMLDocument(2,4);
     Model m = d.createModel();
     CompartmentType c = m.createCompartmentType();
     CompartmentType c1 = c.cloneObject();
@@ -279,7 +287,7 @@ public class TestSBMLParentObject {
 
   public void test_Event_parent_NULL()
   {
-    SBMLDocument d = new SBMLDocument();
+    SBMLDocument d = new SBMLDocument(2,4);
     Model m = d.createModel();
     Event c = m.createEvent();
     EventAssignment ea = c.createEventAssignment();
@@ -717,7 +725,7 @@ public class TestSBMLParentObject {
 
   public void test_SpeciesType_parent_NULL()
   {
-    SBMLDocument d = new SBMLDocument();
+    SBMLDocument d = new SBMLDocument(2,4);
     Model m = d.createModel();
     SpeciesType c = m.createSpeciesType();
     SpeciesType c1 = c.cloneObject();
