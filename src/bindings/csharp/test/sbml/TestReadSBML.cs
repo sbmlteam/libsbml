@@ -132,27 +132,27 @@ namespace LibSBMLCSTest {
 
     public string SBML_HEADER_L1v1()
     {
-      return "<sbml level='1' version='1'> <model name='m'>\n";
+      return "<sbml xmlns='http://www.sbml.org/sbml/level1' level='1' version='1'> <model name='m'>\n";
     }
 
     public string SBML_HEADER_L1v2()
     {
-      return "<sbml level='1' version='2'> <model name='m'>\n";
+      return "<sbml xmlns='http://www.sbml.org/sbml/level1' level='1' version='2'> <model name='m'>\n";
     }
 
     public string SBML_HEADER_L2v1()
     {
-      return "<sbml level='2' version='1'> <model name='m'>\n";
+      return "<sbml xmlns='http://www.sbml.org/sbml/level2' level='2' version='1'> <model name='m'>\n";
     }
 
     public string SBML_HEADER_L2v2()
     {
-      return "<sbml level='2' version='2'> <model name='m'>\n";
+      return "<sbml xmlns='http://www.sbml.org/sbml/level2/version2' level='2' version='2'> <model name='m'>\n";
     }
 
     public string SBML_HEADER_L2v3()
     {
-      return "<sbml level='2' version='3'> <model name='m'>\n";
+      return "<sbml xmlns='http://www.sbml.org/sbml/level2/version3' level='2' version='3'> <model name='m'>\n";
     }
 
     public string XML_HEADER()

@@ -3,7 +3,7 @@
 ///  @brief   Compartment unit tests for new set function API
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -325,6 +325,24 @@ namespace LibSBMLCSTest {
       long i = c.setSpatialDimensions(2);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( c.getSpatialDimensions() == 2 );
+      c = null;
+    }
+
+    public void test_Compartment_setSpatialDimensions4()
+    {
+      Compartment c = new  Compartment(2,2);
+      long i = c.setSpatialDimensions(2.0);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( c.getSpatialDimensions() == 2 );
+      c = null;
+    }
+
+    public void test_Compartment_setSpatialDimensions5()
+    {
+      Compartment c = new  Compartment(2,2);
+      long i = c.setSpatialDimensions(2.2);
+      assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE );
+      assertTrue( c.getSpatialDimensions() == 3 );
       c = null;
     }
 

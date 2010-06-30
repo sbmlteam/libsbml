@@ -809,7 +809,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteSBML_INF()
     {
-      string expected =  "<parameter id=\"p\" value=\"INF\"/>";;
+      string expected =  "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";;
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(util_PosInf());
@@ -984,7 +984,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteSBML_NaN()
     {
-      string expected =  "<parameter id=\"p\" value=\"NaN\"/>";;
+      string expected =  "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";;
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(util_NaN());
@@ -993,7 +993,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteSBML_NegINF()
     {
-      string expected =  "<parameter id=\"p\" value=\"-INF\"/>";;
+      string expected =  "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";;
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(util_NegInf());
@@ -1957,7 +1957,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteSBML_locale()
     {
-      string expected =  "<parameter id=\"p\" value=\"3.31\"/>";;
+      string expected =  "<parameter id=\"p\" value=\"3.31\" constant=\"true\"/>";;
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(3.31);

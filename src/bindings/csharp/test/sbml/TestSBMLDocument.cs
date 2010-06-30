@@ -129,8 +129,8 @@ namespace LibSBMLCSTest {
       assertTrue( d.getTypeCode() == libsbml.SBML_DOCUMENT );
       assertTrue( d.getNotes() == null );
       assertTrue( d.getAnnotation() == null );
-      assertTrue( d.getLevel() == 2 );
-      assertTrue( d.getVersion() == 4 );
+      assertTrue( d.getLevel() == 3 );
+      assertTrue( d.getVersion() == 1 );
       assertTrue( d.getNumErrors() == 0 );
       d = null;
     }

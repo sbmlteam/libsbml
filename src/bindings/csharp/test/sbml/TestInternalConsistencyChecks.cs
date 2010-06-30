@@ -3,7 +3,8 @@
 ///  @brief   Tests the internal consistency validation.
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating
+ 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -125,7 +126,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99901()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -141,7 +142,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99902()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -157,7 +158,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99903()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -175,7 +176,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99903_localparam()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -196,7 +197,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99903_param()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -216,7 +217,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -232,7 +233,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_kl()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       KineticLaw kl = new KineticLaw(2,4);
       Model m = d.createModel();
@@ -251,7 +252,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_model()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       d.setLevelAndVersion(1,2,false);
       Model m = new Model(2,4);
@@ -267,7 +268,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_param()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Parameter p = new Parameter(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -284,7 +285,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_react()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Reaction r = new Reaction(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -301,7 +302,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_rule_alg()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Rule r = new AlgebraicRule(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -318,7 +319,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_rule_assign()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Rule r = new AssignmentRule(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -337,7 +338,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_rule_rate()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Rule r = new RateRule(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -356,7 +357,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_species()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -374,7 +375,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_speciesRef()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -396,7 +397,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_unit()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Unit u = new Unit(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -415,7 +416,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99904_unitdef()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       UnitDefinition u = new UnitDefinition(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -433,7 +434,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -449,7 +450,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_ct()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       CompartmentType ct = new CompartmentType(2,4);
       Model m = d.createModel();
@@ -464,7 +465,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_delay()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Delay delay = new Delay(2,4);
       Event e = new Event(2,4);
@@ -480,7 +481,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_species()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -498,7 +499,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_st()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       SpeciesType ct = new SpeciesType(2,4);
       Model m = d.createModel();
@@ -513,7 +514,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_stoichmath()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       StoichiometryMath sm = new StoichiometryMath(2,4);
       Model m = d.createModel();
@@ -536,7 +537,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_trigger()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Trigger trigger = new Trigger(2,4);
       Event e = new Event(2,4);
@@ -552,7 +553,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_unit()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Unit u = new Unit(2,4);
       d.setLevelAndVersion(2,2,false);
@@ -569,7 +570,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99905_unitdef()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       UnitDefinition u = new UnitDefinition(2,4);
       d.setLevelAndVersion(2,2,false);
@@ -585,7 +586,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99906()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -601,7 +602,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99907()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Compartment c = new Compartment(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -617,7 +618,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99908()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       CompartmentType ct = new CompartmentType(2,4);
       Model m = d.createModel();
@@ -631,7 +632,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99909()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Constraint ct = new Constraint(2,4);
       Model m = d.createModel();
@@ -644,7 +645,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99910()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Event e = new Event(2,4);
       Model m = d.createModel();
@@ -660,7 +661,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_ea()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       d.setLevelAndVersion(2,1,false);
       long errors;
       Model m = d.createModel();
@@ -679,7 +680,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_event()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Event e = new Event(2,4);
       Model m = d.createModel();
@@ -693,7 +694,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_fd()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       FunctionDefinition fd = new FunctionDefinition(2,4);
@@ -708,7 +709,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_kl()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       d.setLevelAndVersion(2,1,false);
       long errors;
       Model m = d.createModel();
@@ -726,7 +727,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_model()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       d.setLevelAndVersion(2,1,false);
       Model m = new Model(2,4);
@@ -740,7 +741,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_param()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Parameter p = new Parameter(2,4);
@@ -755,7 +756,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_react()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Reaction r = new Reaction(2,4);
@@ -770,7 +771,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_rule_alg()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Rule r = new AlgebraicRule(2,4);
@@ -784,7 +785,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_rule_assign()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Parameter p = m.createParameter();
@@ -802,7 +803,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_rule_rate()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Parameter p = m.createParameter();
@@ -820,7 +821,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99911_speciesRef()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -842,7 +843,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99912()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       FunctionDefinition fd = new FunctionDefinition(2,4);
       Model m = d.createModel();
@@ -858,7 +859,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99913()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       InitialAssignment ia = new InitialAssignment(2,4);
       Model m = d.createModel();
@@ -874,7 +875,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99914()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Rule r = new AlgebraicRule(2,4);
@@ -888,7 +889,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99915_alg()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Model m = d.createModel();
       Rule r = new AlgebraicRule(2,4);
@@ -902,7 +903,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99915_assign()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       d.setLevelAndVersion(1,2,false);
       Model m = d.createModel();
@@ -921,7 +922,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99915_rate()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       d.setLevelAndVersion(1,2,false);
       Model m = d.createModel();
@@ -940,7 +941,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99916_reaction()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -962,7 +963,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99916_rule()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -983,7 +984,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99917()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -1001,7 +1002,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99918()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -1019,7 +1020,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99919()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Species s = new Species(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -1037,7 +1038,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99920()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -1059,7 +1060,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99921()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       SpeciesReference sr = new SpeciesReference(2,4);
       d.setLevelAndVersion(2,1,false);
@@ -1081,7 +1082,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99922()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       SpeciesType ct = new SpeciesType(2,4);
       Model m = d.createModel();
@@ -1095,7 +1096,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99923()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       StoichiometryMath sm = new StoichiometryMath(2,4);
       Model m = d.createModel();
@@ -1117,7 +1118,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99924()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Unit u = new Unit(2,4);
       d.setLevelAndVersion(1,2,false);
@@ -1136,7 +1137,7 @@ namespace LibSBMLCSTest {
 
     public void test_internal_consistency_check_99925()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       long errors;
       Unit u = new Unit(2,4);
       d.setLevelAndVersion(1,2,false);

@@ -58,6 +58,10 @@ namespace LibSBMLCSTest {
       {
         return;
       }
+      else if ( (a == null) || (b == null) )
+      {
+        throw new AssertionError();
+      }
       else if (a.Equals(b))
       {
         return;
@@ -71,6 +75,10 @@ namespace LibSBMLCSTest {
       if ( (a == null) && (b == null) )
       {
         throw new AssertionError();
+      }
+      else if ( (a == null) || (b == null) )
+      {
+        return;
       }
       else if (a.Equals(b))
       {
@@ -137,7 +145,7 @@ namespace LibSBMLCSTest {
 
     public void test_CompartmentType_parent_NULL()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       Model m = d.createModel();
       CompartmentType c = m.createCompartmentType();
       CompartmentType c1 = c.clone();
@@ -286,7 +294,7 @@ namespace LibSBMLCSTest {
 
     public void test_Event_parent_NULL()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       Model m = d.createModel();
       Event c = m.createEvent();
       EventAssignment ea = c.createEventAssignment();
@@ -724,7 +732,7 @@ namespace LibSBMLCSTest {
 
     public void test_SpeciesType_parent_NULL()
     {
-      SBMLDocument d = new SBMLDocument();
+      SBMLDocument d = new SBMLDocument(2,4);
       Model m = d.createModel();
       SpeciesType c = m.createSpeciesType();
       SpeciesType c1 = c.clone();

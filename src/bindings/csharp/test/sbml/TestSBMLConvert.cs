@@ -306,6 +306,61 @@ namespace LibSBMLCSTest {
       assertTrue( u.getExponent() == 1 );
       assertTrue( u.getMultiplier() == 1 );
       assertTrue( u.getScale() == 0 );
+      assertTrue((  "time" == m.getTimeUnits() ));
+      d = null;
+    }
+
+    public void test_SBMLConvert_convertToL3_localParameters()
+    {
+      SBMLDocument d = new  SBMLDocument(1,2);
+      Model m = d.createModel();
+      Compartment c = m.createCompartment();
+      c.setId( "c" );
+      Species s = m.createSpecies();
+      s.setId( "s");
+      s.setCompartment( "c");
+      Reaction r = m.createReaction();
+      SpeciesReference sr = r.createReactant();
+      sr.setSpecies( "s");
+      KineticLaw kl = r.createKineticLaw();
+      kl.setFormula( "s*k");
+      Parameter p = kl.createParameter();
+      p.setId( "k");
+      assertTrue( kl.getNumLocalParameters() == 0 );
+      d.setLevelAndVersion(3,1,false);
+      m = d.getModel();
+      r = m.getReaction(0);
+      kl = r.getKineticLaw();
+      assertTrue( kl.getNumLocalParameters() == 1 );
+      LocalParameter lp = kl.getLocalParameter(0);
+      d = null;
+    }
+
+    public void test_SBMLConvert_convertToL3_stoichiometryMath()
+    {
+      SBMLDocument d = new  SBMLDocument(2,1);
+      Model m = d.createModel();
+      Compartment c = m.createCompartment();
+      c.setId( "c" );
+      Species s = m.createSpecies();
+      s.setId( "s");
+      s.setCompartment( "c");
+      Reaction r = m.createReaction();
+      SpeciesReference sr = r.createReactant();
+      sr.setSpecies( "s");
+      StoichiometryMath sm = sr.createStoichiometryMath();
+      ASTNode ast = libsbml.parseFormula("c*2");
+      sm.setMath(ast);
+      assertTrue( m.getNumRules() == 0 );
+      assertTrue( sr.isSetId() == 0 );
+      d.setLevelAndVersion(3,1,false);
+      m = d.getModel();
+      r = m.getReaction(0);
+      sr = r.getReactant(0);
+      assertTrue( m.getNumRules() == 1 );
+      assertTrue( sr.isSetId() == 1 );
+      Rule rule = m.getRule(0);
+      assertTrue( sr.getId() == rule.getVariable() );
       d = null;
     }
 
