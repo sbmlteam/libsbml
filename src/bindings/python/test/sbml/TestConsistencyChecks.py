@@ -35,7 +35,7 @@ class TestConsistencyChecks(unittest.TestCase):
   def test_consistency_checks(self):
     reader = libsbml.SBMLReader()
     d = libsbml.SBMLDocument()
-    filename = "../../../../sbml/test/test-data/"
+    filename = "../../sbml/test/test-data/"
     filename += "inconsistent.xml"
     d = reader.readSBML(filename)
     if (d == None):
