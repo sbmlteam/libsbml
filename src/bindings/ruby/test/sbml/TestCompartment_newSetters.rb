@@ -3,7 +3,7 @@
 # @brief   Compartment unit tests for new set function API
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -208,6 +208,22 @@ class TestCompartment_newSetters < Test::Unit::TestCase
     i = c.setSpatialDimensions(2)
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
     assert( c.getSpatialDimensions() == 2 )
+    c = nil
+  end
+
+  def test_Compartment_setSpatialDimensions4
+    c = LibSBML::Compartment.new(2,2)
+    i = c.setSpatialDimensions(2.0)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( c.getSpatialDimensions() == 2 )
+    c = nil
+  end
+
+  def test_Compartment_setSpatialDimensions5
+    c = LibSBML::Compartment.new(2,2)
+    i = c.setSpatialDimensions(2.2)
+    assert( i == LibSBML::LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    assert( c.getSpatialDimensions() == 3 )
     c = nil
   end
 

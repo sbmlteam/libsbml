@@ -35,8 +35,8 @@ class TestSBMLDocument < Test::Unit::TestCase
     assert( d.getTypeCode() == LibSBML::SBML_DOCUMENT )
     assert( d.getNotes() == nil )
     assert( d.getAnnotation() == nil )
-    assert( d.getLevel() == 2 )
-    assert( d.getVersion() == 4 )
+    assert( d.getLevel() == 3 )
+    assert( d.getVersion() == 1 )
     assert( d.getNumErrors() == 0 )
     d = nil
   end

@@ -130,6 +130,20 @@ class TestL3Model < Test::Unit::TestCase
     m = nil
   end
 
+  def test_L3_Model_extentUnits
+    units =  "mole";
+    assert_equal false, @@m.isSetExtentUnits()
+    @@m.setExtentUnits(units)
+    assert (( units == @@m.getExtentUnits() ))
+    assert_equal true, @@m.isSetExtentUnits()
+    if (@@m.getExtentUnits() == units)
+    end
+    @@m.unsetExtentUnits()
+    assert_equal false, @@m.isSetExtentUnits()
+    if (@@m.getExtentUnits() != nil)
+    end
+  end
+
   def test_L3_Model_free_NULL
   end
 

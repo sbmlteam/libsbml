@@ -49,7 +49,7 @@ class TestSBMLParentObject < Test::Unit::TestCase
   end
 
   def test_CompartmentType_parent_NULL
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     c = m.createCompartmentType()
     c1 = c.clone()
@@ -185,7 +185,7 @@ class TestSBMLParentObject < Test::Unit::TestCase
   end
 
   def test_Event_parent_NULL
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     c = m.createEvent()
     ea = c.createEventAssignment()
@@ -588,7 +588,7 @@ class TestSBMLParentObject < Test::Unit::TestCase
   end
 
   def test_SpeciesType_parent_NULL
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     c = m.createSpeciesType()
     c1 = c.clone()

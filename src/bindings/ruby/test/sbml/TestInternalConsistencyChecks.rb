@@ -3,7 +3,7 @@
 # @brief   Tests the internal consistency validation.
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -31,7 +31,7 @@ require 'libSBML'
 class TestInternalConsistencyChecks < Test::Unit::TestCase
 
   def test_internal_consistency_check_99901
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -45,7 +45,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99902
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -59,7 +59,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99903
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -75,7 +75,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99903_localparam
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     p = LibSBML::Parameter.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -94,7 +94,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99903_param
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     p = LibSBML::Parameter.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -112,7 +112,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -126,7 +126,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_kl
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     kl = LibSBML::KineticLaw.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,false)
@@ -143,7 +143,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_model
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = LibSBML::Model.new(2,4)
     c = m.createCompartment()
@@ -157,7 +157,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_param
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     p = LibSBML::Parameter.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -172,7 +172,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_react
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     r = LibSBML::Reaction.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -187,7 +187,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_rule_alg
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     r = LibSBML::AlgebraicRule.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -202,7 +202,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_rule_assign
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     r = LibSBML::AssignmentRule.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -219,7 +219,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_rule_rate
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     r = LibSBML::RateRule.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -236,7 +236,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_species
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -252,7 +252,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_speciesRef
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     sr = LibSBML::SpeciesReference.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -272,7 +272,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_unit
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     u = LibSBML::Unit.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -289,7 +289,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99904_unitdef
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     u = LibSBML::UnitDefinition.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -305,7 +305,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -319,7 +319,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_ct
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     ct = LibSBML::CompartmentType.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,2,false)
@@ -332,7 +332,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_delay
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     delay = LibSBML::Delay.new(2,4)
     e = LibSBML::Event.new(2,4)
     m = d.createModel()
@@ -346,7 +346,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_species
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -362,7 +362,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_st
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     ct = LibSBML::SpeciesType.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,2,false)
@@ -375,7 +375,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_stoichmath
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     sm = LibSBML::StoichiometryMath.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,2,false)
@@ -396,7 +396,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_trigger
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     trigger = LibSBML::Trigger.new(2,4)
     e = LibSBML::Event.new(2,4)
     m = d.createModel()
@@ -410,7 +410,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_unit
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     u = LibSBML::Unit.new(2,4)
     d.setLevelAndVersion(2,2,false)
     m = d.createModel()
@@ -425,7 +425,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99905_unitdef
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     u = LibSBML::UnitDefinition.new(2,4)
     d.setLevelAndVersion(2,2,false)
     m = d.createModel()
@@ -439,7 +439,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99906
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -453,7 +453,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99907
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     c = LibSBML::Compartment.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -467,7 +467,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99908
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     ct = LibSBML::CompartmentType.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,1,false)
@@ -479,7 +479,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99909
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     ct = LibSBML::Constraint.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,1,false)
@@ -490,7 +490,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99910
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     e = LibSBML::Event.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,false)
@@ -504,7 +504,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_ea
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     d.setLevelAndVersion(2,1,false)
     m = d.createModel()
     c = m.createCompartment()
@@ -521,7 +521,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_event
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     e = LibSBML::Event.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(2,1,false)
@@ -533,7 +533,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_fd
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     fd = LibSBML::FunctionDefinition.new(2,4)
     d.setLevelAndVersion(2,1,false)
@@ -546,7 +546,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_kl
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     d.setLevelAndVersion(2,1,false)
     m = d.createModel()
     r = m.createReaction()
@@ -562,7 +562,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_model
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     d.setLevelAndVersion(2,1,false)
     m = LibSBML::Model.new(2,4)
     m.setSBOTerm(2)
@@ -574,7 +574,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_param
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     p = LibSBML::Parameter.new(2,4)
     d.setLevelAndVersion(2,1,false)
@@ -587,7 +587,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_react
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     r = LibSBML::Reaction.new(2,4)
     d.setLevelAndVersion(2,1,false)
@@ -600,7 +600,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_rule_alg
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     r = LibSBML::AlgebraicRule.new(2,4)
     d.setLevelAndVersion(2,1,false)
@@ -612,7 +612,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_rule_assign
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     p = m.createParameter()
     p.setId("p")
@@ -628,7 +628,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_rule_rate
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     p = m.createParameter()
     p.setId("p")
@@ -644,7 +644,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99911_speciesRef
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     sr = LibSBML::SpeciesReference.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -664,7 +664,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99912
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     fd = LibSBML::FunctionDefinition.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,false)
@@ -678,7 +678,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99913
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     ia = LibSBML::InitialAssignment.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,false)
@@ -692,7 +692,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99914
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     r = LibSBML::AlgebraicRule.new(2,4)
     d.setLevelAndVersion(2,1,false)
@@ -704,7 +704,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99915_alg
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     m = d.createModel()
     r = LibSBML::AlgebraicRule.new(2,4)
     d.setLevelAndVersion(2,1,false)
@@ -716,7 +716,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99915_assign
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
     c = m.createCompartment()
@@ -733,7 +733,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99915_rate
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
     c = m.createCompartment()
@@ -750,7 +750,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99916_reaction
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -770,7 +770,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99916_rule
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -789,7 +789,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99917
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -805,7 +805,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99918
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -821,7 +821,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99919
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     s = LibSBML::Species.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -837,7 +837,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99920
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     sr = LibSBML::SpeciesReference.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -857,7 +857,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99921
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     sr = LibSBML::SpeciesReference.new(2,4)
     d.setLevelAndVersion(2,1,false)
     m = d.createModel()
@@ -877,7 +877,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99922
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     ct = LibSBML::SpeciesType.new(2,4)
     m = d.createModel()
     ct.setId("st")
@@ -889,7 +889,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99923
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     sm = LibSBML::StoichiometryMath.new(2,4)
     m = d.createModel()
     d.setLevelAndVersion(1,2,false)
@@ -909,7 +909,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99924
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     u = LibSBML::Unit.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
@@ -926,7 +926,7 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
   end
 
   def test_internal_consistency_check_99925
-    d = LibSBML::SBMLDocument.new()
+    d = LibSBML::SBMLDocument.new(2,4)
     u = LibSBML::Unit.new(2,4)
     d.setLevelAndVersion(1,2,false)
     m = d.createModel()
