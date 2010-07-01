@@ -5,8 +5,8 @@ use LibSBML;
 
 #########################
 
-my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $level   = 2;
+my $version = 4;
 
 # creation w/o arguments
 my $c = new LibSBML::Compartment($level,$version);

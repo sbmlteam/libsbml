@@ -6,8 +6,8 @@ use strict;
 
 #########################
 
-my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $level   = 2;
+my $version = 4;
 
 # create a listof
 my $lo = new LibSBML::ListOf();
@@ -22,13 +22,13 @@ my $c1 = new LibSBML::Compartment($level,$version);
 ok($c1->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
 my $c2 = new LibSBML::Compartment($level,$version);
 ok($c2->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
-my $s1 = new LibSBML::Species($level,$version);
-ok($s1->getTypeCode() == $LibSBML::SBML_SPECIES);
-my $s2 = new LibSBML::Species($level,$version);
-ok($s2->getTypeCode() == $LibSBML::SBML_SPECIES);
-my $s3 = new LibSBML::Species($level,$version);
-my $p1 = new LibSBML::Parameter($level,$version);
-ok($p1->getTypeCode() == $LibSBML::SBML_PARAMETER);
+my $s1 = new LibSBML::Compartment($level,$version);
+ok($s1->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
+my $s2 = new LibSBML::Compartment($level,$version);
+ok($s2->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
+my $s3 = new LibSBML::Compartment($level,$version);
+my $p1 = new LibSBML::Compartment($level,$version);
+ok($p1->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
 
 my @list = ($s1, $c1, $s2, $p1, $s3, $c2);
 my @roll = @list[5,0,1,2,3,4]; 

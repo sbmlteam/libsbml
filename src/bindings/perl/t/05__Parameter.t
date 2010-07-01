@@ -6,8 +6,8 @@ use strict;
 
 #########################
 
-my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $level   = 2;
+my $version = 4;
 
 my $id    = 'delay';
 my $value = 6.2;

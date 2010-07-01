@@ -7,8 +7,8 @@ use vars qw/$formula $f $tu $su $math $m/;
 
 #########################
 
-my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $level   = 2;
+my $version = 4;
 
 $tu = 'seconds';
 $su = 'ug';

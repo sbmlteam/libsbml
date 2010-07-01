@@ -7,8 +7,8 @@ use vars qw/$id $name $t_formula $trigger $t $d_formula $delay $d $units/;
 
 #########################
 
-my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $level   = 2;
+my $version = 4;
 
 $id = 'e1';
 $t_formula = 'leq(P1,t)';

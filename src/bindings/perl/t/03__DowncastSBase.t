@@ -74,8 +74,8 @@ my @MiscClassList = (
 
 my $lo = new LibSBML::ListOf;
 
-my $level   = LibSBML::SBMLDocument::getDefaultLevel();
-my $version = LibSBML::SBMLDocument::getDefaultVersion();
+my $level   = 2;
+my $version = 4;
 
 foreach my $class ( map { "LibSBML::" . $_ } @SBaseClassList )
 {
