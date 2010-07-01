@@ -199,7 +199,6 @@ extern std::ostream clog;
  *
  */
 
-/*
 %inline
 %{
   std::ostream& endl (std::ostream& os) 
@@ -207,7 +206,6 @@ extern std::ostream clog;
     return std::endl(os);
   }
 %}
-*/
 
 
 %include "OStream.h"
