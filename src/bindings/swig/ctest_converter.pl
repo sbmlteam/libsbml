@@ -185,6 +185,8 @@ my %IgnoreTestFunc = (
   test_SBMLConstructorException_AssignmentRule => 0,
   test_SBMLConstructorException_AlgebraicRule => 0,
   test_SBMLConstructorException_RateRule => 0,
+  test_Date_setHoursOffset => 0,
+  test_Date_setOffsetSign => 0,
 );
 
 ######################################################################
