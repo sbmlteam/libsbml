@@ -47,12 +47,24 @@ def util_NegInf():
 
   return -z 
 
+def wrapString(s):
+  return s
+  pass
+
 def MATHML_FOOTER():
   return "</math>"
   pass
 
 def MATHML_HEADER():
   return "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+  pass
+
+def MATHML_HEADER_UNITS():
+  return "<math xmlns=\"http://www.w3.org/1998/Math/MathML\""
+  pass
+
+def MATHML_HEADER_UNITS2():
+  return " xmlns:sbml=\"http://www.sbml.org/sbml/level3/version1/core\">\n"
   pass
 
 def XML_HEADER():
@@ -67,9 +79,21 @@ def wrapMathML(s):
   return r
   pass
 
+def wrapMathMLUnits(s):
+  r = XML_HEADER()
+  r += MATHML_HEADER_UNITS()
+  r += MATHML_HEADER_UNITS2()
+  r += s
+  r += MATHML_FOOTER()
+  return r
+  pass
+
+
 class TestWriteMathML(unittest.TestCase):
 
+  global S
   S = None
+  global N
   N = None
 
   def equals(self, *x):
@@ -195,6 +219,14 @@ class TestWriteMathML(unittest.TestCase):
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  
 
+  def test_MathMLFormatter_cn_units(self):
+    expected = wrapMathMLUnits("  <cn sbml:units=\"mole\"> 1.2 </cn>\n")
+    self.N = libsbml.parseFormula("1.2")
+    self.N.setUnits("mole")
+    self.S = libsbml.writeMathMLToString(self.N)
+    self.assertEqual( True, self.equals(expected,self.S) )
+    pass  
+
   def test_MathMLFormatter_constant_exponentiale(self):
     expected = wrapMathML("  <exponentiale/>\n")
     self.N = libsbml.ASTNode(libsbml.AST_CONSTANT_E)
@@ -237,6 +269,14 @@ class TestWriteMathML(unittest.TestCase):
   def test_MathMLFormatter_constant_true(self):
     expected = wrapMathML("  <true/>\n")
     self.N = libsbml.ASTNode(libsbml.AST_CONSTANT_TRUE)
+    self.S = libsbml.writeMathMLToString(self.N)
+    self.assertEqual( True, self.equals(expected,self.S) )
+    pass  
+
+  def test_MathMLFormatter_csymbol_avogadro(self):
+    expected = wrapMathML("  <csymbol encoding=\"text\" " + "definitionURL=\"http://www.sbml.org/sbml/symbols/avogadro\"> NA </csymbol>\n")
+    self.N = libsbml.ASTNode(libsbml.AST_NAME_AVOGADRO)
+    self.N.setName("NA")
     self.S = libsbml.writeMathMLToString(self.N)
     self.assertEqual( True, self.equals(expected,self.S) )
     pass  

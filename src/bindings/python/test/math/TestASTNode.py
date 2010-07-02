@@ -31,6 +31,7 @@ import libsbml
 
 DBL_EPSILON =  2.2204460492503131e-16
 
+
 class TestASTNode(unittest.TestCase):
 
 
@@ -55,7 +56,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "a" == node.getChild(0).getName() ))
     self.assert_((  "b" == node.getChild(1).getName() ))
     self.assert_((  "d" == node.getChild(2).getName() ))
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_addSemanticsAnnotation(self):
@@ -68,7 +69,16 @@ class TestASTNode(unittest.TestCase):
     i = node.addSemanticsAnnotation(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( node.getNumSemanticsAnnotations() == 1 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_ASTNode_avogadro(self):
+    n = libsbml.ASTNode()
+    n.setType(libsbml.AST_NAME_AVOGADRO)
+    n.setName( "NA")
+    self.assert_((  "NA" == n.getName() ))
+    self.assert_( n.getReal() == 6.02214179e23 )
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_canonicalizeConstants(self):
@@ -97,7 +107,7 @@ class TestASTNode(unittest.TestCase):
     self.assertEqual( True, n.isName() )
     n.canonicalize()
     self.assertEqual( True, n.isName() )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_canonicalizeFunctions(self):
@@ -281,7 +291,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.getType() == libsbml.AST_FUNCTION )
     n.canonicalize()
     self.assert_( n.getType() == libsbml.AST_FUNCTION )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_canonicalizeFunctionsL1(self):
@@ -310,7 +320,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.getType() == libsbml.AST_FUNCTION )
     n.canonicalize()
     self.assert_( n.getType() == libsbml.AST_FUNCTION_POWER )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     n = libsbml.ASTNode(libsbml.AST_FUNCTION)
     n.setName( "log")
     c = libsbml.ASTNode()
@@ -329,7 +339,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.getNumChildren() == 2 )
     n.canonicalize()
     self.assert_( n.getType() == libsbml.AST_FUNCTION_LOG )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     n = libsbml.ASTNode(libsbml.AST_FUNCTION)
     n.setName( "log10")
     c = libsbml.ASTNode()
@@ -346,7 +356,7 @@ class TestASTNode(unittest.TestCase):
     c = n.getRightChild()
     self.assert_( c.getType() == libsbml.AST_NAME )
     self.assert_((  "x" == c.getName() ))
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     n = libsbml.ASTNode(libsbml.AST_FUNCTION)
     n.setName( "sqr")
     c = libsbml.ASTNode()
@@ -363,7 +373,7 @@ class TestASTNode(unittest.TestCase):
     c = n.getRightChild()
     self.assert_( c.getType() == libsbml.AST_INTEGER )
     self.assert_( c.getInteger() == 2 )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     n = libsbml.ASTNode(libsbml.AST_FUNCTION)
     n.setName( "sqrt")
     c = libsbml.ASTNode()
@@ -380,7 +390,7 @@ class TestASTNode(unittest.TestCase):
     c = n.getRightChild()
     self.assert_( c.getType() == libsbml.AST_NAME )
     self.assert_((  "x" == c.getName() ))
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_canonicalizeLogical(self):
@@ -405,7 +415,7 @@ class TestASTNode(unittest.TestCase):
     n.canonicalize()
     self.assert_( n.getType() == libsbml.AST_LOGICAL_XOR )
     n.setType(libsbml.AST_FUNCTION)
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_canonicalizeRelational(self):
@@ -440,7 +450,7 @@ class TestASTNode(unittest.TestCase):
     n.canonicalize()
     self.assert_( n.getType() == libsbml.AST_RELATIONAL_NEQ )
     n.setType(libsbml.AST_FUNCTION)
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_children(self):
@@ -473,14 +483,12 @@ class TestASTNode(unittest.TestCase):
     self.assert_( parent.getChild(1) == right )
     self.assert_( parent.getChild(2) == right2 )
     self.assert_( parent.getChild(3) == None )
-    parent = None
+    _dummyList = [ parent ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_create(self):
     n = libsbml.ASTNode()
-    sbmlns = libsbml.SBMLNamespaces(2,4)
-    sbmlns.addNamespaces(None)
-    ea = libsbml.EventAssignment(sbmlns)
+    ea = libsbml.EventAssignment(2,4)
     self.assert_( n.getType() == libsbml.AST_UNKNOWN )
     self.assert_( n.getCharacter() ==  '\0'  )
     self.assert_( n.getName() == None )
@@ -488,8 +496,8 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.getExponent() == 0 )
     self.assert_( n.getNumChildren() == 0 )
     self.assert_( n.getParentSBMLObject() == None )
-    ea = None
-    n = None
+    _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_deepCopy_1(self):
@@ -525,8 +533,8 @@ class TestASTNode(unittest.TestCase):
     self.assert_( child.getType() == libsbml.AST_INTEGER )
     self.assert_( child.getInteger() == 2 )
     self.assert_( child.getNumChildren() == 0 )
-    node = None
-    copy = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ copy ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_deepCopy_2(self):
@@ -540,8 +548,8 @@ class TestASTNode(unittest.TestCase):
     self.assert_( copy.getType() == libsbml.AST_NAME )
     self.assert_((  "Foo" == copy.getName() ))
     self.assert_( copy.getNumChildren() == 0 )
-    node = None
-    copy = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ copy ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_deepCopy_3(self):
@@ -555,8 +563,8 @@ class TestASTNode(unittest.TestCase):
     self.assert_( copy.getType() == libsbml.AST_FUNCTION )
     self.assert_((  "Foo" == copy.getName() ))
     self.assert_( copy.getNumChildren() == 0 )
-    node = None
-    copy = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ copy ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_deepCopy_4(self):
@@ -570,8 +578,8 @@ class TestASTNode(unittest.TestCase):
     self.assert_( copy.getType() == libsbml.AST_FUNCTION_ABS )
     self.assert_((  "ABS" == copy.getName() ))
     self.assert_( copy.getNumChildren() == 0 )
-    node = None
-    copy = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ copy ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_freeName(self):
@@ -591,10 +599,11 @@ class TestASTNode(unittest.TestCase):
     i = node.freeName()
     self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assert_( node.getName() == None )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_getName(self):
@@ -648,7 +657,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "lt" == n.getName() ))
     n.setType(libsbml.AST_RELATIONAL_NEQ)
     self.assert_((  "neq" == n.getName() ))
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_getPrecedence(self):
@@ -671,7 +680,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.getPrecedence() == 6 )
     n.setType(libsbml.AST_FUNCTION)
     self.assert_( n.getPrecedence() == 6 )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_getReal(self):
@@ -685,7 +694,7 @@ class TestASTNode(unittest.TestCase):
     n.setType(libsbml.AST_RATIONAL)
     n.setValue(1,2)
     self.assert_( n.getReal() == 0.5 )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_insertChild(self):
@@ -719,7 +728,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 5 )
     self.assert_((  "and(a, d, e, b, c)" == libsbml.formulaToString(node) ))
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_isLog10(self):
@@ -736,7 +745,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.isLog10() == True )
     c.setValue(2)
     self.assert_( n.isLog10() == False )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_isSqrt(self):
@@ -753,7 +762,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.isSqrt() == True )
     c.setValue(3)
     self.assert_( n.isSqrt() == False )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_isUMinus(self):
@@ -762,7 +771,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.isUMinus() == False )
     n.addChild(libsbml.ASTNode(libsbml.AST_NAME))
     self.assert_( n.isUMinus() == True )
-    n = None
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_no_children(self):
@@ -771,7 +780,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getLeftChild() == None )
     self.assert_( node.getRightChild() == None )
     self.assert_( node.getChild(0) == None )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_one_child(self):
@@ -783,7 +792,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getRightChild() == None )
     self.assert_( node.getChild(0) == child )
     self.assert_( node.getChild(1) == None )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_prependChild1(self):
@@ -807,7 +816,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "d" == node.getChild(0).getName() ))
     self.assert_((  "a" == node.getChild(1).getName() ))
     self.assert_((  "b" == node.getChild(2).getName() ))
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_removeChild(self):
@@ -830,7 +839,7 @@ class TestASTNode(unittest.TestCase):
     i = node.removeChild(0)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 0 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_replaceChild(self):
@@ -862,7 +871,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 3 )
     self.assert_((  "and(d, a, c)" == libsbml.formulaToString(node) ))
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_setCharacter(self):
@@ -923,7 +932,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 1 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_setInteger(self):
@@ -952,7 +961,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 1 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_setName(self):
@@ -990,7 +999,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getReal() == 0 )
     self.assert_( node.getExponent() == 0 )
     self.assert_( node.getDenominator() == 1 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_setName_override(self):
@@ -1003,7 +1012,7 @@ class TestASTNode(unittest.TestCase):
     node.setName(None)
     self.assert_((  "sin" == node.getName() ))
     self.assert_( node.getType() == libsbml.AST_FUNCTION_SIN )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_setReal(self):
@@ -1037,7 +1046,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_( node.getExponent() == 4 )
     self.assert_( node.getDenominator() == 1 )
     self.assert_( node.getMantissa() == 32 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_setType(self):
@@ -1071,7 +1080,7 @@ class TestASTNode(unittest.TestCase):
     node.setType(libsbml.AST_POWER)
     self.assert_( node.getType() == libsbml.AST_POWER )
     self.assert_( node.getCharacter() ==  '^'        )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ASTNode_swapChildren(self):
@@ -1102,8 +1111,31 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "and(d, f)" == libsbml.formulaToString(node) ))
     self.assert_( node_1.getNumChildren() == 2 )
     self.assert_((  "and(a, b)" == libsbml.formulaToString(node_1) ))
-    node_1 = None
-    node = None
+    _dummyList = [ node_1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_ASTNode_units(self):
+    n = libsbml.ASTNode()
+    n.setType(libsbml.AST_REAL)
+    n.setValue(1.6)
+    i = n.setUnits( "mole")
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( n.isSetUnits() == 1 )
+    self.assert_((  "mole" == n.getUnits() ))
+    i = n.unsetUnits()
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( n.isSetUnits() == 0 )
+    self.assert_((  "" == n.getUnits() ))
+    i = n.setUnits( "1mole")
+    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assert_( n.isSetUnits() == 0 )
+    n.setType(libsbml.AST_FUNCTION)
+    i = n.setUnits( "mole")
+    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    self.assert_( n.isSetUnits() == 0 )
+    self.assert_((  "" == n.getUnits() ))
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

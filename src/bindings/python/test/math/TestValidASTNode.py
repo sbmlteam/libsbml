@@ -3,7 +3,7 @@
 # @brief   Test the isWellFormedASTNode function
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,113 +29,114 @@ import sys
 import unittest
 import libsbml
 
+
 class TestValidASTNode(unittest.TestCase):
 
 
   def test_ValidASTNode_Name(self):
-    N = libsbml.parseFormula("c")
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n = libsbml.parseFormula("c")
+    self.assertEqual( True, n.isWellFormedASTNode() )
     d = libsbml.parseFormula("d")
-    N.addChild(d)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
-    N = None
+    n.addChild(d)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
+    n = None
     pass  
 
   def test_ValidASTNode_Number(self):
-    N = libsbml.parseFormula("1.2")
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n = libsbml.parseFormula("1.2")
+    self.assertEqual( True, n.isWellFormedASTNode() )
     d = libsbml.parseFormula("d")
-    N.addChild(d)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
-    N = None
+    n.addChild(d)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
+    n = None
     pass  
 
   def test_ValidASTNode_binary(self):
-    N = libsbml.ASTNode(libsbml.AST_DIVIDE)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n = libsbml.ASTNode(libsbml.AST_DIVIDE)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     c = libsbml.parseFormula("c")
-    N.addChild(c)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n.addChild(c)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     d = libsbml.parseFormula("d")
-    N.addChild(d)
-    self.assertEqual( True, N.isWellFormedASTNode() )
-    N = None
+    n.addChild(d)
+    self.assertEqual( True, n.isWellFormedASTNode() )
+    n = None
     pass  
 
   def test_ValidASTNode_lambda(self):
-    N = libsbml.ASTNode(libsbml.AST_LAMBDA)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n = libsbml.ASTNode(libsbml.AST_LAMBDA)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     c = libsbml.parseFormula("c")
-    N.addChild(c)
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n.addChild(c)
+    self.assertEqual( True, n.isWellFormedASTNode() )
     d = libsbml.parseFormula("d")
-    N.addChild(d)
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n.addChild(d)
+    self.assertEqual( True, n.isWellFormedASTNode() )
     e = libsbml.parseFormula("e")
-    N.addChild(e)
-    self.assertEqual( True, N.isWellFormedASTNode() )
-    N = None
+    n.addChild(e)
+    self.assertEqual( True, n.isWellFormedASTNode() )
+    n = None
     pass  
 
   def test_ValidASTNode_nary(self):
-    N = libsbml.ASTNode(libsbml.AST_TIMES)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n = libsbml.ASTNode(libsbml.AST_TIMES)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     c = libsbml.parseFormula("c")
-    N.addChild(c)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n.addChild(c)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     d = libsbml.parseFormula("d")
-    N.addChild(d)
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n.addChild(d)
+    self.assertEqual( True, n.isWellFormedASTNode() )
     e = libsbml.parseFormula("e")
-    N.addChild(e)
-    self.assertEqual( True, N.isWellFormedASTNode() )
-    N = None
+    n.addChild(e)
+    self.assertEqual( True, n.isWellFormedASTNode() )
+    n = None
     pass  
 
   def test_ValidASTNode_root(self):
-    N = libsbml.ASTNode(libsbml.AST_FUNCTION_ROOT)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n = libsbml.ASTNode(libsbml.AST_FUNCTION_ROOT)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     c = libsbml.parseFormula("c")
-    N.addChild(c)
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n.addChild(c)
+    self.assertEqual( True, n.isWellFormedASTNode() )
     d = libsbml.parseFormula("3")
-    N.addChild(d)
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n.addChild(d)
+    self.assertEqual( True, n.isWellFormedASTNode() )
     e = libsbml.parseFormula("3")
-    N.addChild(e)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
-    N = None
+    n.addChild(e)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
+    n = None
     pass  
 
   def test_ValidASTNode_setType(self):
-    N = libsbml.ASTNode()
-    i = N.setType(libsbml.AST_REAL)
+    n = libsbml.ASTNode()
+    i = n.setType(libsbml.AST_REAL)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( N.getType() == libsbml.AST_REAL )
-    i = N.setType(libsbml.AST_PLUS)
+    self.assert_( n.getType() == libsbml.AST_REAL )
+    i = n.setType(libsbml.AST_PLUS)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( N.getType() == libsbml.AST_PLUS )
-    c = N.getCharacter()
-    self.assert_(("+"  == c ))
-    i = N.setType(libsbml.AST_FUNCTION_ARCCOSH)
+    self.assert_( n.getType() == libsbml.AST_PLUS )
+    c = n.getCharacter()
+    self.assert_( c ==  '+'  )
+    i = n.setType(libsbml.AST_FUNCTION_ARCCOSH)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( N.getType() == libsbml.AST_FUNCTION_ARCCOSH )
-    i = N.setType(libsbml.AST_UNKNOWN)
+    self.assert_( n.getType() == libsbml.AST_FUNCTION_ARCCOSH )
+    i = n.setType(libsbml.AST_UNKNOWN)
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( N.getType() == libsbml.AST_UNKNOWN )
-    N = None
+    self.assert_( n.getType() == libsbml.AST_UNKNOWN )
+    n = None
     pass  
 
   def test_ValidASTNode_unary(self):
-    N = libsbml.ASTNode(libsbml.AST_FUNCTION_ABS)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
+    n = libsbml.ASTNode(libsbml.AST_FUNCTION_ABS)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
     c = libsbml.parseFormula("c")
-    N.addChild(c)
-    self.assertEqual( True, N.isWellFormedASTNode() )
+    n.addChild(c)
+    self.assertEqual( True, n.isWellFormedASTNode() )
     d = libsbml.parseFormula("d")
-    N.addChild(d)
-    self.assertEqual( False, (N.isWellFormedASTNode()) )
-    N = None
+    n.addChild(d)
+    self.assertEqual( False, (n.isWellFormedASTNode()) )
+    n = None
     pass  
 
 def suite():

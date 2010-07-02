@@ -62,6 +62,14 @@ def MATHML_HEADER():
   return "<math xmlns='http://www.w3.org/1998/Math/MathML'>\n"
   pass
 
+def MATHML_HEADER_UNITS():
+  return "<math xmlns='http://www.w3.org/1998/Math/MathML'\n"
+  pass
+
+def MATHML_HEADER_UNITS2():
+  return " xmlns:sbml='http://www.sbml.org/sbml/level3/version1/core'>\n"
+  pass
+
 def XML_HEADER():
   return "<?xml version='1.0' encoding='UTF-8'?>\n"
   pass
@@ -78,15 +86,27 @@ def wrapMathML(s):
   return r
   pass
 
+def wrapMathMLUnits(s):
+  r = XML_HEADER()
+  r += MATHML_HEADER_UNITS()
+  r += MATHML_HEADER_UNITS2()
+  r += s
+  r += MATHML_FOOTER()
+  return r
+  pass
+
 def wrapXML(s):
   r = XML_HEADER()
   r += s
   return r
   pass
 
+
 class TestReadMathML(unittest.TestCase):
 
+  global F
   F = None
+  global N
   N = None
 
   def setUp(self):
@@ -362,6 +382,16 @@ class TestReadMathML(unittest.TestCase):
     self.assert_( self.N.getNumChildren() == 0 )
     pass  
 
+  def test_element_ci_definitionURL(self):
+    s = wrapMathML("<ci definitionURL=\"foobar\"> x </ci>")
+    self.N = libsbml.readMathMLFromString(s)
+    self.assert_( self.N != 0 )
+    self.assert_( self.N.getType() == libsbml.AST_NAME )
+    self.assert_((  "x" == self.N.getName() ))
+    self.assert_( self.N.getNumChildren() == 0 )
+    self.assert_( self.N.getDefinitionURL().getValue(0) ==  "foobar" )
+    pass  
+
   def test_element_ci_surrounding_spaces_bug(self):
     s = wrapMathML("  <ci> s </ci>  ")
     self.N = libsbml.readMathMLFromString(s)
@@ -416,6 +446,16 @@ class TestReadMathML(unittest.TestCase):
     self.assert_( self.N != 0 )
     self.assert_( self.N.getType() == libsbml.AST_REAL )
     self.assert_( self.N.getReal() == 12345.7 )
+    self.assert_( self.N.getNumChildren() == 0 )
+    pass  
+
+  def test_element_cn_units(self):
+    s = wrapMathMLUnits("<cn sbml:units=\"mole\"> 12345.7 </cn>")
+    self.N = libsbml.readMathMLFromString(s)
+    self.assert_( self.N != 0 )
+    self.assert_( self.N.getType() == libsbml.AST_REAL )
+    self.assert_( self.N.getReal() == 12345.7 )
+    self.assert_( self.N.getUnits() ==  "mole"    )
     self.assert_( self.N.getNumChildren() == 0 )
     pass  
 
@@ -515,6 +555,15 @@ class TestReadMathML(unittest.TestCase):
     self.assert_( self.N != 0 )
     self.F = libsbml.formulaToString(self.N)
     self.assert_((  "csch(x)" == self.F ))
+    pass  
+
+  def test_element_csymbol_avogadro(self):
+    s = wrapMathML("<csymbol encoding='text' " + "definitionURL='http://www.sbml.org/sbml/symbols/avogadro'> NA </csymbol>")
+    self.N = libsbml.readMathMLFromString(s)
+    self.assert_( self.N != 0 )
+    self.assert_( self.N.getType() == libsbml.AST_NAME_AVOGADRO )
+    self.assert_((  "NA" == self.N.getName() ))
+    self.assert_( self.N.getNumChildren() == 0 )
     pass  
 
   def test_element_csymbol_delay_1(self):
@@ -636,9 +685,9 @@ class TestReadMathML(unittest.TestCase):
     pass  
 
   def test_element_invalid_mathml(self):
-    invalid = wrapMathML("<lambda>" + 
+    invalid = wrapMathML("<lambda definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">" + 
     "<bvar>" + 
-    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "<ci>c</ci>" + 
     "</bvar>" + 
     "<apply>" + 
     "  <ci>c</ci>" + 
