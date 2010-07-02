@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestXMLAttributesC(unittest.TestCase):
 
 
@@ -45,8 +46,8 @@ class TestXMLAttributesC(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( xa.getLength() == 3 )
     self.assert_( xa.isEmpty() == False )
-    xa = None
-    xt2 = None
+    _dummyList = [ xa ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLAttributes_add_remove_qname_C(self):
@@ -159,12 +160,12 @@ class TestXMLAttributesC(unittest.TestCase):
     self.assert_( xa.isEmpty() == True )
     self.assert_( xa.hasAttribute( "noprefix"    ) == False )
     self.assert_( xa.hasAttribute( "noprefix", "") == False )
-    xa = None
-    xt1 = None
-    xt2 = None
-    xt3 = None
-    xt1a = None
-    xt2a = None
+    _dummyList = [ xa ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1a ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2a ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLAttributes_clear1(self):
@@ -179,8 +180,8 @@ class TestXMLAttributesC(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( xa.getLength() == 0 )
     self.assert_( xa.isEmpty() == True )
-    xa = None
-    xt2 = None
+    _dummyList = [ xa ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLAttributes_remove1(self):
@@ -209,8 +210,8 @@ class TestXMLAttributesC(unittest.TestCase):
     i = xa.remove( "name1", "http://name1.org/")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( xa.getLength() == 0 )
-    xa = None
-    xt2 = None
+    _dummyList = [ xa ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

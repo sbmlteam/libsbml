@@ -33,6 +33,7 @@ def wrapString(s):
   return s
   pass
 
+
 class TestXMLOutputStream(unittest.TestCase):
 
 
@@ -57,7 +58,7 @@ class TestXMLOutputStream(unittest.TestCase):
     "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>")
     s = oss.str()
     self.assert_(( expected == s ))
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_Elements(self):
@@ -69,7 +70,7 @@ class TestXMLOutputStream(unittest.TestCase):
     stream = libsbml.XMLOutputStream(oss,"",False)
     stream.startElement( "fred")
     stream.writeAttribute( "chars", "two")
-    stream.writeAttribute( "bool",True)
+    stream.writeAttributeBool( "bool",True)
     stream.writeAttribute( "double",d)
     stream.writeAttribute( "long",l)
     stream.writeAttribute( "uint",ui)
@@ -78,7 +79,7 @@ class TestXMLOutputStream(unittest.TestCase):
     expected =  "<fred chars=\"two\" bool=\"true\" double=\"2.4\" long=\"123456789\" uint=\"5\" int=\"-3\"/>";
     s = oss.str()
     self.assert_(( expected == s ))
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_PredefinedEntity(self):
@@ -99,19 +100,19 @@ class TestXMLOutputStream(unittest.TestCase):
     expected = wrapString("<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" ""quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" " + "pdelt=\"&lt;\" pdequot=\"&quot;\"/>")
     s = oss.str()
     self.assert_(( expected == s ))
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_createStdout(self):
     stream = libsbml.XMLOutputStream(libsbml.cout,"UTF-8",False)
     self.assert_( stream != None )
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_createStdoutWithProgramInfo(self):
     stream = libsbml.XMLOutputStream(libsbml.cout,"UTF-8",False, "foo", "bar")
     self.assert_( stream != None )
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_createString(self):
@@ -121,7 +122,7 @@ class TestXMLOutputStream(unittest.TestCase):
     self.assert_( stream != None )
     str = oss.str()
     self.assert_(( expected == str ))
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_createStringWithProgramInfo(self):
@@ -131,7 +132,7 @@ class TestXMLOutputStream(unittest.TestCase):
     self.assert_( stream != None )
     str = oss.str()
     self.assert_(( expected == str ))
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLOutputStream_startEnd(self):
@@ -141,7 +142,7 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.startEndElement( "id")
     str = oss.str()
     self.assert_((  "<id/>" == str ))
-    stream = None
+    _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

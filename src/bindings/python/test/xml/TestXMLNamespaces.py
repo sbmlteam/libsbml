@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestXMLNamespaces(unittest.TestCase):
 
+  global NS
   NS = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestXMLNamespaces(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.NS = None
+    _dummyList = [ self.NS ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNamespaces_add(self):

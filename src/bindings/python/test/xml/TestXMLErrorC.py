@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestXMLErrorC(unittest.TestCase):
 
 
@@ -39,11 +40,11 @@ class TestXMLErrorC(unittest.TestCase):
     self.assert_( error.isWarning() == False )
     self.assert_( error.isError() == False )
     self.assert_( error.isFatal() == True )
-    error = None
+    _dummyList = [ error ]; _dummyList[:] = []; del _dummyList
     error = libsbml.XMLError(12345, "My message")
     self.assert_( (  "My message" != error.getMessage() ) == False )
     self.assert_( error.getErrorId() == 12345 )
-    error = None
+    _dummyList = [ error ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLError_variablesAsStrings(self):
@@ -53,7 +54,7 @@ class TestXMLErrorC(unittest.TestCase):
     self.assert_((  "Error" == error.getSeverityAsString() ))
     self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_XML )
     self.assert_((  "XML content" == error.getCategoryAsString() ))
-    error = None
+    _dummyList = [ error ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

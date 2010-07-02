@@ -51,6 +51,7 @@ def wrapString(s):
   return s
   pass
 
+
 class TestXMLAttributes(unittest.TestCase):
 
 

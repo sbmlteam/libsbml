@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestXMLToken(unittest.TestCase):
 
 
@@ -146,14 +147,14 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token.isAttributesEmpty() == True )
     self.assert_( token.hasAttr( "noprefix"    ) == False )
     self.assert_( token.hasAttr( "noprefix", "") == False )
-    token = None
-    xt1 = None
-    xt2 = None
-    xt3 = None
-    xt1a = None
-    xt2a = None
-    triple = None
-    attr = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1a ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2a ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_attribute_set_clear(self):
@@ -202,16 +203,16 @@ class TestXMLToken(unittest.TestCase):
     token.clearAttributes()
     self.assert_( token.getAttributesLength() == 0 )
     self.assert_( token.isAttributesEmpty() != False )
-    nattr = None
-    triple = None
-    ntriple = None
-    attr = None
-    token = None
-    xt1 = None
-    xt2 = None
-    xt3 = None
-    xt4 = None
-    xt5 = None
+    _dummyList = [ nattr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ntriple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt4 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt5 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_chars(self):
@@ -222,20 +223,20 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token.isText() == True )
     self.assert_( token.isEOF() == False )
     self.assert_( (  "This is text" != token.getCharacters() ) == False )
-    token = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_create(self):
     token = libsbml.XMLToken()
     self.assert_( token != None )
-    token = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     triple = libsbml.XMLTriple("attr", "uri", "prefix")
     token = libsbml.XMLToken(triple)
     self.assert_( token != None )
     self.assert_( (  "attr" != token.getName() ) == False )
     self.assert_( (  "prefix" != token.getPrefix() ) == False )
     self.assert_( (  "uri" != token.getURI() ) == False )
-    token = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
     attr = libsbml.XMLAttributes()
     self.assert_( attr != None )
     attr.add( "attr2", "value")
@@ -243,9 +244,9 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token != None )
     returnattr = token.getAttributes()
     self.assert_( (  "attr2" != returnattr.getName(0) ) == False )
-    token = None
-    triple = None
-    attr = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_fields(self):
@@ -259,8 +260,8 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( (  "attr" != token.getName() ) == False )
     self.assert_( (  "uri" != token.getURI() ) == False )
     self.assert_( (  "prefix" != token.getPrefix() ) == False )
-    token = None
-    triple = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_namespace_add(self):
@@ -282,9 +283,9 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token.getNamespacesLength() == 3 )
     self.assert_( token.isNamespacesEmpty() == False )
     self.assert_( (token.getNamespaceIndex( "http://test1.org/") == -1) == False )
-    token = None
-    triple = None
-    attr = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_namespace_get(self):
@@ -328,9 +329,9 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token.hasNamespaceNS( "http://test5.org/", "test5") != False )
     self.assert_( token.hasNamespaceNS( "http://test9.org/", "test9") != False )
     self.assert_( token.hasNamespaceNS( "http://testX.org/", "testX") == False )
-    token = None
-    triple = None
-    attr = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_namespace_remove(self):
@@ -369,9 +370,9 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token.getNamespacesLength() == 1 )
     token.removeNamespace(0)
     self.assert_( token.getNamespacesLength() == 0 )
-    token = None
-    triple = None
-    attr = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_namespace_remove_by_prefix(self):
@@ -426,9 +427,9 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( token.getNamespacesLength() == 1 )
     token.removeNamespace( "test2")
     self.assert_( token.getNamespacesLength() == 0 )
-    token = None
-    triple = None
-    attr = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLToken_namespace_set_clear(self):
@@ -458,10 +459,10 @@ class TestXMLToken(unittest.TestCase):
     self.assert_( (  "http://test5.org/" != token.getNamespaceURI(4) ) == False )
     token.clearNamespaces()
     self.assert_( token.getNamespacesLength() == 0 )
-    ns = None
-    token = None
-    triple = None
-    attr = None
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

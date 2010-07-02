@@ -3,7 +3,7 @@
 # @brief   XMLNode unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestXMLNode_newSetters(unittest.TestCase):
 
 
@@ -38,8 +39,8 @@ class TestXMLNode_newSetters(unittest.TestCase):
     i = node.addChild(node2)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 1 )
-    node = None
-    node2 = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_addChild2(self):
@@ -50,10 +51,10 @@ class TestXMLNode_newSetters(unittest.TestCase):
     i = node.addChild(node2)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 1 )
-    triple = None
-    attr = None
-    node = None
-    node2 = None
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_addChild3(self):
@@ -63,21 +64,21 @@ class TestXMLNode_newSetters(unittest.TestCase):
     i = node.addChild(node2)
     self.assert_( i == libsbml.LIBSBML_INVALID_XML_OPERATION )
     self.assert_( node.getNumChildren() == 0 )
-    triple = None
-    node = None
-    node2 = None
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_clearAttributes(self):
     triple = libsbml.XMLTriple("test","","")
     attr = libsbml.XMLAttributes()
     node = libsbml.XMLNode(triple,attr)
-    xt2 = libsbml.XMLTriple("name3", "http://name3.org/", "p3")
-    xt1 = libsbml.XMLTriple("name5", "http://name5.org/", "p5")
+    xt2 = libsbml.XMLTriple("name3", "http://name3.org/", "p3")
+    xt1 = libsbml.XMLTriple("name5", "http://name5.org/", "p5")
     i = node.addAttr( "name1", "val1")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getAttributes().getLength() == 1 )
-    i = node.addAttr( "name2", "val2", "http://name1.org/", "p1")
+    i = node.addAttr( "name2", "val2", "http://name1.org/", "p1")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getAttributes().getLength() == 2 )
     i = node.addAttr(xt2, "val2")
@@ -89,11 +90,11 @@ class TestXMLNode_newSetters(unittest.TestCase):
     i = node.clearAttributes()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getAttributes().getLength() == 0 )
-    xt1 = None
-    xt2 = None
-    triple = None
-    attr = None
-    node = None
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_clearNamespaces(self):
@@ -102,28 +103,31 @@ class TestXMLNode_newSetters(unittest.TestCase):
     node = libsbml.XMLNode(triple,attr)
     i = node.addNamespace( "http://test1.org/", "test1")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 1 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 1 )
     i = node.addNamespace( "http://test2.org/", "test2")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 2 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 2 )
     i = node.clearNamespaces()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 0 )
-    triple = None
-    attr = None
-    node = None
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 0 )
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_removeAttributes(self):
     triple = libsbml.XMLTriple("test","","")
     attr = libsbml.XMLAttributes()
     node = libsbml.XMLNode(triple,attr)
-    xt2 = libsbml.XMLTriple("name3", "http://name3.org/", "p3")
-    xt1 = libsbml.XMLTriple("name5", "http://name5.org/", "p5")
+    xt2 = libsbml.XMLTriple("name3", "http://name3.org/", "p3")
+    xt1 = libsbml.XMLTriple("name5", "http://name5.org/", "p5")
     i = node.addAttr( "name1", "val1")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getAttributes().getLength() == 1 )
-    i = node.addAttr( "name2", "val2", "http://name1.org/", "p1")
+    i = node.addAttr( "name2", "val2", "http://name1.org/", "p1")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getAttributes().getLength() == 2 )
     i = node.addAttr(xt2, "val2")
@@ -153,11 +157,11 @@ class TestXMLNode_newSetters(unittest.TestCase):
     i = node.removeAttr(xt2)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getAttributes().getLength() == 0 )
-    xt1 = None
-    xt2 = None
-    triple = None
-    attr = None
-    node = None
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_removeChildren(self):
@@ -170,9 +174,9 @@ class TestXMLNode_newSetters(unittest.TestCase):
     i = node.removeChildren()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( node.getNumChildren() == 0 )
-    node = None
-    node2 = None
-    node3 = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_removeNamespaces(self):
@@ -181,25 +185,31 @@ class TestXMLNode_newSetters(unittest.TestCase):
     node = libsbml.XMLNode(triple,attr)
     i = node.addNamespace( "http://test1.org/", "test1")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 1 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 1 )
     i = node.addNamespace( "http://test2.org/", "test2")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 2 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 2 )
     i = node.removeNamespace(7)
     self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
-    self.assert_( node.getNamespaces().getLength() == 2 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 2 )
     i = node.removeNamespace( "name7")
     self.assert_( i == libsbml.LIBSBML_INDEX_EXCEEDS_SIZE )
-    self.assert_( node.getNamespaces().getLength() == 2 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 2 )
     i = node.removeNamespace(0)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 1 )
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 1 )
     i = node.removeNamespace( "test2")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( node.getNamespaces().getLength() == 0 )
-    triple = None
-    attr = None
-    node = None
+    nms = node.getNamespaces()
+    self.assert_( nms.getLength() == 0 )
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

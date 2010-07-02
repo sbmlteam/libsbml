@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestXMLTriple(unittest.TestCase):
 
 
@@ -36,21 +37,21 @@ class TestXMLTriple(unittest.TestCase):
     t = libsbml.XMLTriple()
     self.assert_( t != None )
     self.assert_( t.isEmpty() != False )
-    t = None
+    _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     t = libsbml.XMLTriple("attr", "uri", "prefix")
     self.assert_( (  "attr" != t.getName() ) == False )
     self.assert_( (  "uri" != t.getURI() ) == False )
     self.assert_( (  "prefix" != t.getPrefix() ) == False )
     self.assert_( (  "prefix:attr" != t.getPrefixedName() ) == False )
     self.assert_( t.isEmpty() == False )
-    t = None
+    _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     t = libsbml.XMLTriple("attr", "uri", "")
     self.assert_( (  "attr" != t.getName() ) == False )
     self.assert_( (  "uri" != t.getURI() ) == False )
     self.assert_( t.getPrefix() == "" )
     self.assert_( (  "attr" != t.getPrefixedName() ) == False )
     self.assert_( t.isEmpty() == False )
-    t = None
+    _dummyList = [ t ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

@@ -33,6 +33,7 @@ def wrapString(s):
   return s
   pass
 
+
 class TestXMLNode(unittest.TestCase):
 
 
@@ -150,14 +151,14 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( node.isAttributesEmpty() == True )
     self.assert_( node.hasAttr( "noprefix"    ) == False )
     self.assert_( node.hasAttr( "noprefix", "") == False )
-    node = None
-    xt1 = None
-    xt2 = None
-    xt3 = None
-    xt1a = None
-    xt2a = None
-    triple = None
-    attr = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1a ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2a ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_attribute_set_clear(self):
@@ -206,16 +207,16 @@ class TestXMLNode(unittest.TestCase):
     node.clearAttributes()
     self.assert_( node.getAttributesLength() == 0 )
     self.assert_( node.isAttributesEmpty() != False )
-    triple = None
-    ntriple = None
-    node = None
-    attr = None
-    nattr = None
-    xt1 = None
-    xt2 = None
-    xt3 = None
-    xt4 = None
-    xt5 = None
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ntriple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ nattr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt4 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ xt5 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_convert(self):
@@ -234,7 +235,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ns.getPrefix(0) == "" )
     toxmlstring = node.toXMLString()
     self.assert_( ( xmlstr != toxmlstring ) == False )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_convert_dummyroot(self):
@@ -254,7 +255,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test"  != gchild.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_nodummy1 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy2,None)
     self.assert_( rootnode.getNumChildren() == 1 )
     child = rootnode.getChild(0)
@@ -264,7 +265,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test"  != gchild.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_nodummy2 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy3,None)
     self.assert_( rootnode.getNumChildren() == 1 )
     child = rootnode.getChild(0)
@@ -274,7 +275,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test"  != gchild.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_nodummy3 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy4,None)
     self.assert_( rootnode.getNumChildren() == 1 )
     child = rootnode.getChild(0)
@@ -282,7 +283,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test"  != child.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_nodummy4 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_nodummy5,None)
     self.assert_( rootnode.getNumChildren() == 1 )
     child = rootnode.getChild(0)
@@ -292,7 +293,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test"  != gchild.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_nodummy5 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_dummy1,None)
     self.assert_( rootnode.isEOF() == True )
     self.assert_( rootnode.getNumChildren() == 2 )
@@ -306,7 +307,7 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test2"  != gchild.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_dummy1 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     rootnode = libsbml.XMLNode.convertStringToXMLNode(xmlstr_dummy2,None)
     self.assert_( rootnode.isEOF() == True )
     self.assert_( rootnode.getNumChildren() == 2 )
@@ -320,14 +321,14 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "test2"  != gchild.getCharacters() ) == False )
     toxmlstring = rootnode.toXMLString()
     self.assert_( ( xmlstr_dummy2 != toxmlstring ) == False )
-    rootnode = None
+    _dummyList = [ rootnode ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_create(self):
     node = libsbml.XMLNode()
     self.assert_( node != None )
     self.assert_( node.getNumChildren() == 0 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     node = libsbml.XMLNode()
     self.assert_( node != None )
     node2 = libsbml.XMLNode()
@@ -338,9 +339,9 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( node3 != None )
     node.addChild(node3)
     self.assert_( node.getNumChildren() == 2 )
-    node = None
-    node2 = None
-    node3 = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_createElement(self):
@@ -373,10 +374,10 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( (  "value" != cattr.getValue(0) ) == False )
     self.assert_( ( prefix != cattr.getPrefix(0) ) == False )
     self.assert_( ( uri != cattr.getURI(0) ) == False )
-    triple = None
-    attr = None
-    ns = None
-    snode = None
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ snode ]; _dummyList[:] = []; del _dummyList
     attr = libsbml.XMLAttributes()
     attr.add("id", "value")
     triple = libsbml.XMLTriple(name, "", "")
@@ -417,11 +418,11 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( tnode.isStart() == False )
     self.assert_( tnode.isEnd() == False )
     self.assert_( tnode.isText() == True )
-    triple = None
-    attr = None
-    snode = None
-    enode = None
-    tnode = None
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ snode ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ enode ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ tnode ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_createFromToken(self):
@@ -434,9 +435,9 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( (  "prefix" != node.getPrefix() ) == False )
     self.assert_( (  "uri" != node.getURI() ) == False )
     self.assert_( node.getChild(1) != None )
-    token = None
-    triple = None
-    node = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_getters(self):
@@ -466,9 +467,9 @@ class TestXMLNode(unittest.TestCase):
     returnNS = node.getNamespaces()
     self.assert_( returnNS.getLength() == 1 )
     self.assert_( returnNS.isEmpty() == False )
-    triple = None
-    token = None
-    node = None
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_insert(self):
@@ -542,19 +543,19 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( ( "child4" != tmp.getName() ) == False )
     tmp = p.insertChild(5,c5)
     self.assert_( ( "child5" != tmp.getName() ) == False )
-    p = None
-    c1 = None
-    c2 = None
-    c3 = None
-    c4 = None
-    c5 = None
-    attr = None
-    trp_p = None
-    trp_c1 = None
-    trp_c2 = None
-    trp_c3 = None
-    trp_c4 = None
-    trp_c5 = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c4 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c5 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c4 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c5 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_namespace_add(self):
@@ -576,9 +577,9 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( node.getNamespacesLength() == 3 )
     self.assert_( node.isNamespacesEmpty() == False )
     self.assert_( (node.getNamespaceIndex( "http://test1.org/") == -1) == False )
-    node = None
-    triple = None
-    attr = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_namespace_get(self):
@@ -622,9 +623,9 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( node.hasNamespaceNS( "http://test5.org/", "test5") != False )
     self.assert_( node.hasNamespaceNS( "http://test9.org/", "test9") != False )
     self.assert_( node.hasNamespaceNS( "http://testX.org/", "testX") == False )
-    node = None
-    triple = None
-    attr = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_namespace_remove(self):
@@ -663,9 +664,9 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( node.getNamespacesLength() == 1 )
     node.removeNamespace(0)
     self.assert_( node.getNamespacesLength() == 0 )
-    node = None
-    triple = None
-    attr = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_namespace_remove_by_prefix(self):
@@ -720,9 +721,9 @@ class TestXMLNode(unittest.TestCase):
     self.assert_( node.getNamespacesLength() == 1 )
     node.removeNamespace( "test2")
     self.assert_( node.getNamespacesLength() == 0 )
-    node = None
-    triple = None
-    attr = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_namespace_set_clear(self):
@@ -753,10 +754,10 @@ class TestXMLNode(unittest.TestCase):
     node.clearNamespaces()
     self.assert_( node.getNamespacesLength() == 0 )
     self.assert_( node.isAttributesEmpty() != False )
-    ns = None
-    node = None
-    triple = None
-    attr = None
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_XMLNode_remove(self):
@@ -783,23 +784,23 @@ class TestXMLNode(unittest.TestCase):
     r = p.removeChild(1)
     self.assert_( p.getNumChildren() == 4 )
     self.assert_( ( "child2" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(3)
     self.assert_( p.getNumChildren() == 3 )
     self.assert_( ( "child5" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 2 )
     self.assert_( ( "child1" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(1)
     self.assert_( p.getNumChildren() == 1 )
     self.assert_( ( "child4" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 0 )
     self.assert_( ( "child3" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     p.addChild(c1)
     p.addChild(c2)
     p.addChild(c3)
@@ -808,23 +809,23 @@ class TestXMLNode(unittest.TestCase):
     r = p.removeChild(4)
     self.assert_( p.getNumChildren() == 4 )
     self.assert_( ( "child5" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(3)
     self.assert_( p.getNumChildren() == 3 )
     self.assert_( ( "child4" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(2)
     self.assert_( p.getNumChildren() == 2 )
     self.assert_( ( "child3" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(1)
     self.assert_( p.getNumChildren() == 1 )
     self.assert_( ( "child2" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 0 )
     self.assert_( ( "child1" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     p.addChild(c1)
     p.addChild(c2)
     p.addChild(c3)
@@ -833,23 +834,23 @@ class TestXMLNode(unittest.TestCase):
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 4 )
     self.assert_( ( "child1" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 3 )
     self.assert_( ( "child2" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 2 )
     self.assert_( ( "child3" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 1 )
     self.assert_( ( "child4" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(0)
     self.assert_( p.getNumChildren() == 0 )
     self.assert_( ( "child5" != r.getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     p.addChild(c1)
     p.addChild(c2)
     p.addChild(c3)
@@ -860,44 +861,44 @@ class TestXMLNode(unittest.TestCase):
     p.insertChild(0,r)
     self.assert_( p.getNumChildren() == 5 )
     self.assert_( ( "child1" != p.getChild(0).getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(1)
     self.assert_( ( "child2" != r.getName() ) == False )
     p.insertChild(1,r)
     self.assert_( p.getNumChildren() == 5 )
     self.assert_( ( "child2" != p.getChild(1).getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(2)
     self.assert_( ( "child3" != r.getName() ) == False )
     p.insertChild(2,r)
     self.assert_( p.getNumChildren() == 5 )
     self.assert_( ( "child3" != p.getChild(2).getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(3)
     self.assert_( ( "child4" != r.getName() ) == False )
     p.insertChild(3,r)
     self.assert_( p.getNumChildren() == 5 )
     self.assert_( ( "child4" != p.getChild(3).getName() ) == False )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     r = p.removeChild(4)
     self.assert_( ( "child5" != r.getName() ) == False )
     p.insertChild(4,r)
     self.assert_( p.getNumChildren() == 5 )
     self.assert_( ( "child5" != p.getChild(4).getName() ) == False )
-    r = None
-    p = None
-    c1 = None
-    c2 = None
-    c3 = None
-    c4 = None
-    c5 = None
-    attr = None
-    trp_p = None
-    trp_c1 = None
-    trp_c2 = None
-    trp_c3 = None
-    trp_c4 = None
-    trp_c5 = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c4 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c5 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ attr ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c3 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c4 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ trp_c5 ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():
