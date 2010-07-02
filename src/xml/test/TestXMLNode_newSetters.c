@@ -24,6 +24,7 @@
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/xml/XMLNamespaces.h>
 
 #include <check.h>
 
@@ -232,37 +233,44 @@ START_TEST(test_XMLNode_removeNamespaces)
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLAttributes_t* attr   = XMLAttributes_create();
-  XMLNode_t*      node  = XMLNode_createStartElement(triple, attr);
+  XMLNode_t*       node   = XMLNode_createStartElement(triple, attr);
+  const XMLNamespaces_t* nms;
 
   int i = XMLNode_addNamespace(node, "http://test1.org/", "test1");
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 1);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 1);
 
   i = XMLNode_addNamespace(node, "http://test2.org/", "test2");
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 2);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 2);
 
   i = XMLNode_removeNamespace(node, 7);
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE );
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 2);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 2);
 
   i = XMLNode_removeNamespaceByPrefix(node, "name7");
 
   fail_unless ( i == LIBSBML_INDEX_EXCEEDS_SIZE );
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 2);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 2);
 
   i = XMLNode_removeNamespace(node, 0);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 1);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 1);
 
   i = XMLNode_removeNamespaceByPrefix(node, "test2");
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 0);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 0);
 
   XMLTriple_free(triple);
   XMLAttributes_free(attr);
@@ -277,23 +285,26 @@ START_TEST(test_XMLNode_clearNamespaces)
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLAttributes_t* attr   = XMLAttributes_create();
-  XMLNode_t*      node  = XMLNode_createStartElement(triple, attr);
+  XMLNode_t*       node   = XMLNode_createStartElement(triple, attr);
+  const XMLNamespaces_t* nms;
 
   int i = XMLNode_addNamespace(node, "http://test1.org/", "test1");
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 1);
-
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 1);
 
   i = XMLNode_addNamespace(node, "http://test2.org/", "test2");
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 2);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 2);
 
   i = XMLNode_clearNamespaces(node);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
-  fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 0);
+  nms = XMLNode_getNamespaces(node);
+  fail_unless (XMLNamespaces_getLength(nms) == 0);
 
   XMLTriple_free(triple);
   XMLAttributes_free(attr);
