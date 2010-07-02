@@ -1783,10 +1783,10 @@ START_TEST (test_element_invalid_mathml)
   );
 
   N = readMathMLFromString(NULL);
-  fail_unless( N == 0 );
+  fail_unless( N == NULL );
 
   N = readMathMLFromString(invalid);
-  fail_unless( N == 0 );
+  fail_unless( N == NULL );
 }
 END_TEST
 
