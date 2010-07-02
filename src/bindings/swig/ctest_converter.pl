@@ -2300,6 +2300,10 @@ sub convertSBaseCFuncCall
   my($cname,$fname,@arg) = @_;
   my $fcall = "";
 
+  print "[convertSBaseCFuncCall] cname = $cname\n" if $Debug > 2;
+  print "[convertSBaseCFuncCall] fname = $fname\n" if $Debug > 2;
+  print "[convertSBaseCFuncCall] arg   = @arg\n"   if $Debug > 2;
+
   foreach ( keys %IgnoredFunc )
   {
     if ( $fname =~ /$_/ )
@@ -2468,7 +2472,7 @@ sub convertSBaseCFuncCall
   }
   elsif ( $cname eq 'XMLOutputStream' )  
   {
-    if($fname =~ /^create/)
+    if ($fname =~ /^create/)
     {
       $arg[1] = $IdFALSE{$Target} if ( $arg[1] eq '0' );
       $arg[1] = $IdTRUE{$Target}  if ( $arg[1] eq '1' );
@@ -2477,13 +2481,13 @@ sub convertSBaseCFuncCall
       $arg[2] = $IdTRUE{$Target}  if ( $arg[2] eq '1' );
     }
 
-    if($fname =~ /^createAsStdout/)
+    if ($fname =~ /^createAsStdout/)
     {
       unshift ( @arg, $IdCOUT{$Target} );
 
       return &getCreateObjString($cname, join(",",@arg));
     }
-    elsif($fname =~ /^createAsString/)
+    elsif ($fname =~ /^createAsString/)
     {
       push (@{$FuncDef{$CurFunc}}, $IdOSS{$Target});
 
@@ -2491,12 +2495,12 @@ sub convertSBaseCFuncCall
 
       return &getCreateObjString($cname, join(",",@arg));
     }
-    elsif($fname =~ /^createFile/)
+    elsif ($fname =~ /^createFile/)
     {
       $arg[0] = &getCreateFileString($arg[0]);
       return &getCreateObjString($cname, join(",",@arg));
     }
-    elsif($fname =~ /^getString/)
+    elsif ($fname =~ /^getString/)
     {
       return "oss.str()";
     }
@@ -2589,7 +2593,7 @@ sub convertSBaseCFuncCall
     }
   }
 
-  if(defined($arg[0]))
+  if (defined($arg[0]))
   {
     if ($arg[0] =~ /^\((.*)\)/x)
     {
@@ -2599,7 +2603,7 @@ sub convertSBaseCFuncCall
 
     $fcall = $arg[0] . "." . $fname;
 
-    if(defined($arg[1])) 
+    if (defined($arg[1])) 
     {
       if ( $cname ne 'ASTNode' && 
            $fname =~ /^\s*set(  Id
@@ -2645,14 +2649,14 @@ sub convertSBaseCFuncCall
       {
         $arg[1] = "(XMLNode)null" if ( $arg[1] =~ /null/ );
       }
-      elsif($fname =~ /^(writeAttribute)/)
+      elsif ($fname =~ /^(writeAttribute)/)
       {
         my $lfname = $1;
 
         ##################################################
-        # Ruby 
+        # Ruby & Python
         ##################################################
-        if($Target eq 'ruby')
+        if ($Target eq 'ruby'|| $Target eq 'python')
         {
           if ( $arg[1] =~ /bool/)
           {
@@ -2664,7 +2668,7 @@ sub convertSBaseCFuncCall
 
         $fcall = $arg[0] . "." . $lfname;
       }
-      elsif($fname =~ /^ (add)With(?: Namespace | Triple ) /x )
+      elsif ($fname =~ /^ (add)With(?: Namespace | Triple ) /x )
       {
         my $lfname = $1;
 
@@ -2676,11 +2680,11 @@ sub convertSBaseCFuncCall
 
         $fcall = $arg[0] . "." . $lfname;
       }
-      elsif($fname =~ /^(hasAttribute)/)
+      elsif ($fname =~ /^(hasAttribute)/)
       {
         $fcall = $arg[0] . "." . $1;
       }
-      elsif($fname =~ /^(hasAttr)With/)
+      elsif ($fname =~ /^(hasAttr)With/)
       {
         $fcall = $arg[0] . "." . $1;
       }
