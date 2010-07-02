@@ -1862,7 +1862,7 @@ START_TEST (test_SBase_setSBOTerm2)
 
   /* check invalid attribute value */
 
-  i = SBase_setSBOTerm(S, INT_MAX);
+  i = SBase_setSBOTerm(S, SBML_INT_MAX);
 
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
   fail_unless( !SBase_isSetSBOTerm(S) );
