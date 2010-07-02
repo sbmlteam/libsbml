@@ -120,7 +120,9 @@ my %IgnoredFile = (
   TestFormulaTokenizer         => 0,
   TestSBMLTransforms           => 0,
   TestSBMLConstructorException => 0,
+  TestXMLErrorLog              => 0,
   TestXMLInputStream           => 0,
+  EchoHandler                  => 0,
   echoxml                      => 0,
 );
 
