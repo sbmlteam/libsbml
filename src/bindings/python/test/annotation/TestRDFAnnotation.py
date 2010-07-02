@@ -33,9 +33,12 @@ def wrapString(s):
   return s
   pass
 
+
 class TestRDFAnnotation(unittest.TestCase):
 
+  global d
   d = None
+  global m
   m = None
 
   def equals(self, *x):

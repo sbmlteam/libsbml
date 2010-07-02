@@ -3,7 +3,7 @@
 # @brief   RDFAnnotation parser unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,9 +29,12 @@ import sys
 import unittest
 import libsbml
 
+
 class TestRDFAnnotationC(unittest.TestCase):
 
+  global d
   d = None
+  global m
   m = None
 
   def setUp(self):
@@ -41,7 +44,7 @@ class TestRDFAnnotationC(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.d = None
+    _dummyList = [ self.d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_RDFAnnotation_C_delete(self):
@@ -50,7 +53,7 @@ class TestRDFAnnotationC(unittest.TestCase):
     n1 = libsbml.RDFAnnotationParser.deleteRDFAnnotation(node)
     self.assert_( n1.getNumChildren() == 0 )
     self.assert_((  "annotation" == n1.getName() ))
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_RDFAnnotation_C_getModelHistory(self):
@@ -129,7 +132,7 @@ class TestRDFAnnotationC(unittest.TestCase):
     self.assert_((  "rdf" == li3.getPrefix() ))
     self.assert_((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == li3.getURI() ))
     self.assert_( li3.getNumChildren() == 0 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_RDFAnnotation_C_parseModelHistory(self):
@@ -210,7 +213,7 @@ class TestRDFAnnotationC(unittest.TestCase):
     self.assert_((  "dcterms" == mo_date.getPrefix() ))
     self.assert_((  "http://purl.org/dc/terms/" == mo_date.getURI() ))
     self.assert_( mo_date.getNumChildren() == 1 )
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

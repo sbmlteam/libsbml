@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestModelHistory(unittest.TestCase):
 
 
@@ -44,7 +45,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( date.getSignOffset() == 1 )
     self.assert_( date.getHoursOffset() == 2 )
     self.assert_( date.getMinutesOffset() == 0 )
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_createFromString(self):
@@ -61,7 +62,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( date.getSignOffset() == 0 )
     self.assert_( date.getHoursOffset() == 0 )
     self.assert_( date.getMinutesOffset() == 0 )
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_getDateAsString(self):
@@ -87,7 +88,7 @@ class TestModelHistory(unittest.TestCase):
     date.setHoursOffset(2)
     date.setMinutesOffset(32)
     self.assert_((  "2012-03-28T23:04:32+02:32" == date.getDateAsString() ))
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setters(self):
@@ -112,13 +113,13 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( date.getHoursOffset() == 2 )
     self.assert_( date.getMinutesOffset() == 32 )
     self.assert_((  "2012-03-28T23:04:32+02:32" == date.getDateAsString() ))
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelCreator_create(self):
     mc = libsbml.ModelCreator()
     self.assert_( mc != None )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelCreator_setters(self):
@@ -159,7 +160,7 @@ class TestModelHistory(unittest.TestCase):
     mc.unsetOrganisation()
     self.assert_((  "" == mc.getOrganization() ))
     self.assert_( mc.isSetOrganization() == False )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_addCreator(self):
@@ -174,14 +175,14 @@ class TestModelHistory(unittest.TestCase):
     mc.setOrganisation( "UH")
     history.addCreator(mc)
     self.assert_( history.getNumCreators() == 1 )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     newMC = history.getListCreators().get(0)
     self.assert_( newMC != None )
     self.assert_((  "Keating" == newMC.getFamilyName() ))
     self.assert_((  "Sarah" == newMC.getGivenName() ))
     self.assert_((  "sbml-team@caltech.edu" == newMC.getEmail() ))
     self.assert_((  "UH" == newMC.getOrganisation() ))
-    history = None
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_addModifiedDate(self):
@@ -191,7 +192,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( history.getNumModifiedDates() == 0 )
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     history.addModifiedDate(date)
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     self.assert_( history.getNumModifiedDates() == 1 )
     self.assert_( history.isSetModifiedDate() == True )
     newdate = history.getListModifiedDates().get(0)
@@ -206,7 +207,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( newdate.getMinutesOffset() == 0 )
     date1 = libsbml.Date(2008,11,2,16,42,40,1,2,0)
     history.addModifiedDate(date1)
-    date1 = None
+    _dummyList = [ date1 ]; _dummyList[:] = []; del _dummyList
     self.assert_( history.getNumModifiedDates() == 2 )
     self.assert_( history.isSetModifiedDate() == True )
     newdate1 = history.getModifiedDate(1)
@@ -219,7 +220,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( newdate1.getSignOffset() == 1 )
     self.assert_( newdate1.getHoursOffset() == 2 )
     self.assert_( newdate1.getMinutesOffset() == 0 )
-    history = None
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_create(self):
@@ -228,7 +229,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( history.getListCreators() != None )
     self.assert_( history.getCreatedDate() == None )
     self.assert_( history.getModifiedDate() == None )
-    history = None
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setCreatedDate(self):
@@ -238,7 +239,7 @@ class TestModelHistory(unittest.TestCase):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     history.setCreatedDate(date)
     self.assert_( history.isSetCreatedDate() == True )
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     newdate = history.getCreatedDate()
     self.assert_( newdate.getYear() == 2005 )
     self.assert_( newdate.getMonth() == 12 )
@@ -249,7 +250,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( newdate.getSignOffset() == 1 )
     self.assert_( newdate.getHoursOffset() == 2 )
     self.assert_( newdate.getMinutesOffset() == 0 )
-    history = None
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setModifiedDate(self):
@@ -258,7 +259,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( history.isSetModifiedDate() == False )
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     history.setModifiedDate(date)
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     self.assert_( history.isSetModifiedDate() == True )
     newdate = history.getModifiedDate()
     self.assert_( newdate.getYear() == 2005 )
@@ -270,7 +271,7 @@ class TestModelHistory(unittest.TestCase):
     self.assert_( newdate.getSignOffset() == 1 )
     self.assert_( newdate.getHoursOffset() == 2 )
     self.assert_( newdate.getMinutesOffset() == 0 )
-    history = None
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCVTerms(unittest.TestCase):
 
 
@@ -42,14 +43,14 @@ class TestCVTerms(unittest.TestCase):
     self.assert_( xa.getLength() == 1 )
     self.assert_((  "rdf:resource" == xa.getName(0) ))
     self.assert_((  "GO6666" == xa.getValue(0) ))
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_create(self):
     term = libsbml.CVTerm(libsbml.MODEL_QUALIFIER)
     self.assert_( term != None )
     self.assert_( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_createFromNode(self):
@@ -75,18 +76,18 @@ class TestCVTerms(unittest.TestCase):
     self.assert_( xa.getLength() == 1 )
     self.assert_((  "rdf:resource" == xa.getName(0) ))
     self.assert_((  "This is my resource" == xa.getValue(0) ))
-    qual_triple = None
-    bag_triple = None
-    li_triple = None
-    li_token = None
-    bag_token = None
-    qual_token = None
-    att = None
-    att1 = None
-    term = None
-    node = None
-    bag = None
-    li = None
+    _dummyList = [ qual_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ bag_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ li_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ li_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ bag_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ qual_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ att1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ bag ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ li ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_getResources(self):
@@ -99,7 +100,7 @@ class TestCVTerms(unittest.TestCase):
     self.assert_( number == 2 )
     self.assert_((  "GO6666" == term.getResourceURI(0) ))
     self.assert_((  "OtherURI" == term.getResourceURI(1) ))
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_set_get(self):
@@ -114,7 +115,7 @@ class TestCVTerms(unittest.TestCase):
     term.setBiologicalQualifierType(libsbml.BQB_IS)
     self.assert_( term.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
     self.assert_( term.getBiologicalQualifierType() == libsbml.BQB_IS )
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

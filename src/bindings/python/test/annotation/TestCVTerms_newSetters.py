@@ -3,7 +3,7 @@
 # @brief   CVTerms unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCVTerms_newSetters(unittest.TestCase):
 
 
@@ -47,7 +48,7 @@ class TestCVTerms_newSetters(unittest.TestCase):
     self.assert_( xa.getLength() == 1 )
     self.assert_((  "rdf:resource" == xa.getName(0) ))
     self.assert_((  "GO6666" == xa.getValue(0) ))
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_removeResource(self):
@@ -66,7 +67,7 @@ class TestCVTerms_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     xa = term.getResources()
     self.assert_( xa.getLength() == 0 )
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_setBiolQualifierType(self):
@@ -90,7 +91,7 @@ class TestCVTerms_newSetters(unittest.TestCase):
     self.assert_( term.getQualifierType() == libsbml.MODEL_QUALIFIER )
     self.assert_( term.getModelQualifierType() == libsbml.BQM_UNKNOWN )
     self.assert_( term.getBiologicalQualifierType() == libsbml.BQB_UNKNOWN )
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CVTerm_setModelQualifierType(self):
@@ -114,7 +115,7 @@ class TestCVTerms_newSetters(unittest.TestCase):
     self.assert_( term.getQualifierType() == libsbml.BIOLOGICAL_QUALIFIER )
     self.assert_( term.getBiologicalQualifierType() == libsbml.BQB_UNKNOWN )
     self.assert_( term.getModelQualifierType() == libsbml.BQM_UNKNOWN )
-    term = None
+    _dummyList = [ term ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

@@ -3,7 +3,7 @@
 # @brief   Date unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestDate_newSetters(unittest.TestCase):
 
 
@@ -37,13 +38,13 @@ class TestDate_newSetters(unittest.TestCase):
     self.assert_( date != None )
     i = date.setDateAsString( "20081-12-30T12:15:45+02:00")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_(("2007-10-23T14:15:16+03:00" == date.getDateAsString() ))
+    self.assert_((                                 "2007-10-23T14:15:16+03:00" == date.getDateAsString() ))
     i = date.setDateAsString( "200-12-30T12:15:45+02:00")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_(("2007-10-23T14:15:16+03:00" == date.getDateAsString() ))
+    self.assert_((                                 "2007-10-23T14:15:16+03:00" == date.getDateAsString() ))
     i = date.setDateAsString("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_(("2000-01-01T00:00:00Z" == date.getDateAsString() ))
+    self.assert_((                             "2000-01-01T00:00:00Z" == date.getDateAsString() ))
     i = date.setDateAsString( "2008-12-30T12:15:45+02:00")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getYear() == 2008 )
@@ -55,7 +56,7 @@ class TestDate_newSetters(unittest.TestCase):
     self.assert_( date.getSignOffset() == 1 )
     self.assert_( date.getHoursOffset() == 2 )
     self.assert_( date.getMinutesOffset() == 0 )
-    date = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setDay(self):
@@ -70,8 +71,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setDay(15)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getDay() == 15 )
-    self.assert_(("2005-02-15T12:15:45+02:00" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2005-02-15T12:15:45+02:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setHour(self):
@@ -86,24 +87,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setHour(9)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getHour() == 9 )
-    self.assert_(("2005-12-30T09:15:45+02:00" == date.getDateAsString() ))
-    date = None
-    pass  
-
-  def test_Date_setHoursOffset(self):
-    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
-    self.assert_( date != None )
-    i = date.setHoursOffset(434)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( date.getHoursOffset() == 0 )
-    i = date.setHoursOffset(13)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( date.getHoursOffset() == 0 )
-    i = date.setHoursOffset(11)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( date.getHoursOffset() == 11 )
-    self.assert_(("2005-12-30T12:15:45+11:00" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2005-12-30T09:15:45+02:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setMinute(self):
@@ -118,8 +103,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setMinute(32)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getMinute() == 32 )
-    self.assert_(("2005-12-30T12:32:45+02:00" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2005-12-30T12:32:45+02:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setMinutesOffset(self):
@@ -134,8 +119,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setMinutesOffset(45)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getMinutesOffset() == 45 )
-    self.assert_(("2005-12-30T12:15:45+02:45" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2005-12-30T12:15:45+02:45" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setMonth(self):
@@ -150,24 +135,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setMonth(11)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getMonth() == 11 )
-    self.assert_(("2005-11-30T12:15:45+02:00" == date.getDateAsString() ))
-    date = None
-    pass  
-
-  def test_Date_setOffsetSign(self):
-    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
-    self.assert_( date != None )
-    i = date.setSignOffset(2)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( date.getSignOffset() == 0 )
-    i = date.setSignOffset(4)
-    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( date.getSignOffset() == 0 )
-    i = date.setSignOffset(0)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( date.getSignOffset() == 0 )
-    self.assert_(("2005-12-30T12:15:45-02:00" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2005-11-30T12:15:45+02:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setSecond(self):
@@ -182,8 +151,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setSecond(32)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getSecond() == 32 )
-    self.assert_(("2005-12-30T12:15:32+02:00" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2005-12-30T12:15:32+02:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Date_setYear(self):
@@ -198,8 +167,8 @@ class TestDate_newSetters(unittest.TestCase):
     i = date.setYear(2008)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( date.getYear() == 2008 )
-    self.assert_(("2008-12-30T12:15:45+02:00" == date.getDateAsString() ))
-    date = None
+    self.assert_((                             "2008-12-30T12:15:45+02:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

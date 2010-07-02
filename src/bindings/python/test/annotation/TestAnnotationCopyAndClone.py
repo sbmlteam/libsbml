@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestAnnotationCopyAndClone(unittest.TestCase):
 
 

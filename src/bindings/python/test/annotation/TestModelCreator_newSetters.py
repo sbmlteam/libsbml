@@ -3,7 +3,7 @@
 # @brief   ModelCreator unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestModelCreator_newSetters(unittest.TestCase):
 
 
@@ -47,7 +48,7 @@ class TestModelCreator_newSetters(unittest.TestCase):
     i = mc.unsetEmail()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( mc.isSetEmail() == False )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelCreator_setFamilyName(self):
@@ -65,7 +66,7 @@ class TestModelCreator_newSetters(unittest.TestCase):
     i = mc.unsetFamilyName()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( mc.isSetFamilyName() == False )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelCreator_setGivenName(self):
@@ -83,7 +84,7 @@ class TestModelCreator_newSetters(unittest.TestCase):
     i = mc.unsetGivenName()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( mc.isSetGivenName() == False )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelCreator_setOrganization(self):
@@ -101,7 +102,7 @@ class TestModelCreator_newSetters(unittest.TestCase):
     i = mc.unsetOrganization()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( mc.isSetOrganization() == False )
-    mc = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

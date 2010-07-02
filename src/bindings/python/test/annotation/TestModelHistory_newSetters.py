@@ -3,7 +3,7 @@
 # @brief   ModelHistory unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestModelHistory_newSetters(unittest.TestCase):
 
 
@@ -40,8 +41,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.addCreator(mc)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( mh.getNumCreators() == 1 )
-    mc = None
-    mh = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_addCreator2(self):
@@ -51,8 +52,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.addCreator(mc)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assert_( mh.getNumCreators() == 0 )
-    mc = None
-    mh = None
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_addCreator3(self):
@@ -61,7 +62,7 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.addCreator(mc)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( mh.getNumCreators() == 0 )
-    mh = None
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setCreatedDate1(self):
@@ -77,8 +78,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.setCreatedDate(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( mh.isSetCreatedDate() == False )
-    date = None
-    mh = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setCreatedDate2(self):
@@ -88,8 +89,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.setCreatedDate(date)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assert_( mh.isSetCreatedDate() == False )
-    date = None
-    mh = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setModifiedDate1(self):
@@ -105,8 +106,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.setModifiedDate(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( mh.isSetModifiedDate() == True )
-    date = None
-    mh = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModelHistory_setModifiedDate2(self):
@@ -116,8 +117,8 @@ class TestModelHistory_newSetters(unittest.TestCase):
     i = mh.setModifiedDate(date)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assert_( mh.isSetModifiedDate() == False )
-    date = None
-    mh = None
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():
