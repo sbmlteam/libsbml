@@ -130,8 +130,7 @@ START_TEST(test_XMLToken_newSetters_addAttributes1)
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLToken_t*      token  = XMLToken_createWithTripleAttr(triple, attr);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
-                                             "http://name3.org/", "p3");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
   /*-- test of adding attributes --*/
 
   int i = XMLToken_addAttr(token, "name1", "val1");
@@ -143,8 +142,7 @@ START_TEST(test_XMLToken_newSetters_addAttributes1)
   fail_unless( strcmp(XMLToken_getAttrName  (token, 0), "name1") == 0 );
   fail_unless( strcmp(XMLToken_getAttrValue (token, 0), "val1" ) == 0 );
 
-  i = XMLToken_addAttrWithNS(token, "name2", "val2", 
-                                             "http://name1.org/", "p1");
+  i = XMLToken_addAttrWithNS(token, "name2", "val2", "http://name1.org/", "p1");
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( XMLToken_getAttributesLength(token) == 2 );
@@ -182,8 +180,7 @@ START_TEST(test_XMLToken_newSetters_addAttributes2)
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLToken_t*      token  = XMLToken_createWithTriple(triple);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
-                                             "http://name3.org/", "p3");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
   /*-- test of adding attributes --*/
 
   int i = XMLToken_addAttr(token, "name1", "val1");
@@ -192,8 +189,7 @@ START_TEST(test_XMLToken_newSetters_addAttributes2)
   fail_unless( XMLToken_getAttributesLength(token) == 0 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 1 );
 
-  i = XMLToken_addAttrWithNS(token, "name2", "val2", 
-                                             "http://name1.org/", "p1");
+  i = XMLToken_addAttrWithNS(token, "name2", "val2", "http://name1.org/", "p1");
 
   fail_unless( i == LIBSBML_INVALID_XML_OPERATION );
   fail_unless( XMLToken_getAttributesLength(token) == 0 );
@@ -458,13 +454,10 @@ START_TEST(test_XMLToken_newSetters_removeAttributes1)
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLToken_t*      token  = XMLToken_createWithTripleAttr(triple, attr);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
-                                             "http://name3.org/", "p3");
-  XMLTriple_t* xt1    = XMLTriple_createWith("name5", 
-                                             "http://name5.org/", "p5");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
+  XMLTriple_t* xt1    = XMLTriple_createWith("name5", "http://name5.org/", "p5");
   int i = XMLToken_addAttr(token, "name1", "val1");
-  i = XMLToken_addAttrWithNS(token, "name2", "val2", 
-                                             "http://name1.org/", "p1");
+  i = XMLToken_addAttrWithNS(token, "name2", "val2", "http://name1.org/", "p1");
   i = XMLToken_addAttrWithTriple(token, xt2, "val2");
   i = XMLToken_addAttr(token, "name4", "val4");
 

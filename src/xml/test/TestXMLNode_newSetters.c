@@ -112,17 +112,14 @@ START_TEST(test_XMLNode_removeAttributes)
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLNode_t*      node  = XMLNode_createStartElement(triple, attr);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
-                                             "http://name3.org/", "p3");
-  XMLTriple_t* xt1    = XMLTriple_createWith("name5", 
-                                             "http://name5.org/", "p5");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
+  XMLTriple_t* xt1    = XMLTriple_createWith("name5", "http://name5.org/", "p5");
   int i = XMLNode_addAttr(node, "name1", "val1");
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless (XMLAttributes_getLength(XMLNode_getAttributes(node)) == 1);
 
-  i = XMLNode_addAttrWithNS(node, "name2", "val2", 
-                                             "http://name1.org/", "p1");
+  i = XMLNode_addAttrWithNS(node, "name2", "val2", "http://name1.org/", "p1");
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless (XMLAttributes_getLength(XMLNode_getAttributes(node)) == 2);
 
@@ -192,17 +189,14 @@ START_TEST(test_XMLNode_clearAttributes)
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLNode_t*      node  = XMLNode_createStartElement(triple, attr);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
-                                             "http://name3.org/", "p3");
-  XMLTriple_t* xt1    = XMLTriple_createWith("name5", 
-                                             "http://name5.org/", "p5");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
+  XMLTriple_t* xt1    = XMLTriple_createWith("name5", "http://name5.org/", "p5");
   int i = XMLNode_addAttr(node, "name1", "val1");
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless (XMLAttributes_getLength(XMLNode_getAttributes(node)) == 1);
 
-  i = XMLNode_addAttrWithNS(node, "name2", "val2", 
-                                             "http://name1.org/", "p1");
+  i = XMLNode_addAttrWithNS(node, "name2", "val2", "http://name1.org/", "p1");
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless (XMLAttributes_getLength(XMLNode_getAttributes(node)) == 2);
 
@@ -244,7 +238,6 @@ START_TEST(test_XMLNode_removeNamespaces)
   
   fail_unless(i == LIBSBML_OPERATION_SUCCESS);
   fail_unless (XMLNamespaces_getLength(XMLNode_getNamespaces(node)) == 1);
-
 
   i = XMLNode_addNamespace(node, "http://test2.org/", "test2");
   
