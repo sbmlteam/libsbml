@@ -46,147 +46,135 @@ my $version = "2009-08-22";
 ######################################################################
 
 my %SBaseClass = (
-    Compartment => 0,
-    CompartmentType => 0,
-    Constraint => 0,
-    Delay => 0,
-    Event => 0,
-    EventAssignment => 0,
-    FormulaUnitsData => 0,
-    FunctionDefinition => 0,
-    InitialAssignment => 0,
-    KineticLaw => 0,
-    ListOf => 0,
-    ListOfCompartmentTypes => 0,
-    ListOfCompartments => 0,
-    ListOfConstraints => 0,
-    ListOfEventAssignments => 0,
-    ListOfEvents => 0,
+    Compartment               => 0,
+    CompartmentType           => 0,
+    Constraint                => 0,
+    Delay                     => 0,
+    Event                     => 0,
+    EventAssignment           => 0,
+    FormulaUnitsData          => 0,
+    FunctionDefinition        => 0,
+    InitialAssignment         => 0,
+    KineticLaw                => 0,
+    ListOf                    => 0,
+    ListOfCompartmentTypes    => 0,
+    ListOfCompartments        => 0,
+    ListOfConstraints         => 0,
+    ListOfEventAssignments    => 0,
+    ListOfEvents              => 0,
     ListOfFunctionDefinitions => 0,
-    ListOfInitialAssignments => 0,
-    ListOfParameters => 0,
-    ListOfReactions => 0,
-    ListOfRules => 0,
-    ListOfSpecies => 0,
-    ListOfSpeciesReferences => 0,
-    ListOfSpeciesTypes => 0,
-    ListOfUnitDefinitions => 0,
-    ListOfUnits => 0,
-    ModifierSpeciesReference => 0,
-    Model => 0,
-    Parameter => 0,
-    AlgebraicRule => 0,
-    AssignmentRule => 0,
-    RateRule => 0,
-    Rule => 0,
-    Reaction => 0,
-    SBMLDocument => 0,
-    Species => 0,
-    SpeciesReference => 0,
-    SpeciesType => 0,
-    StoichiometryMath => 0,
-    Trigger => 0,
-    Unit => 0,
-    UnitDefinition => 0,
+    ListOfInitialAssignments  => 0,
+    ListOfParameters          => 0,
+    ListOfReactions           => 0,
+    ListOfRules               => 0,
+    ListOfSpecies             => 0,
+    ListOfSpeciesReferences   => 0,
+    ListOfSpeciesTypes        => 0,
+    ListOfUnitDefinitions     => 0,
+    ListOfUnits               => 0,
+    ModifierSpeciesReference  => 0,
+    Model                     => 0,
+    Parameter                 => 0,
+    AlgebraicRule             => 0,
+    AssignmentRule            => 0,
+    RateRule                  => 0,
+    Rule                      => 0,
+    Reaction                  => 0,
+    SBMLDocument              => 0,
+    Species                   => 0,
+    SpeciesReference          => 0,
+    SpeciesType               => 0,
+    StoichiometryMath         => 0,
+    Trigger                   => 0,
+    Unit                      => 0,
+    UnitDefinition            => 0,
 );
 
 my %MiscClass = (
-   ASTNode    => 0,
-   SBMLReader => 0,
-   SBMLWriter => 0,
-   XMLOutputStream => 0,
-   XMLInputStream  => 0,
-   XMLAttributes   => 0,
-   XMLNamespaces   => 0,
-   XMLTriple       => 0,
-   XMLNode         => 0,
-   XMLToken        => 0,
-   XMLError        => 0,
-   SBMLError       => 0,
-   CVTerm          => 0,
-   ModelHistory    => 0,
-   ModelCreator    => 0,
-   Date            => 0,
+   ASTNode             => 0,
+   SBMLReader          => 0,
+   SBMLWriter          => 0,
+   XMLOutputStream     => 0,
+   XMLInputStream      => 0,
+   XMLAttributes       => 0,
+   XMLNamespaces       => 0,
+   XMLTriple           => 0,
+   XMLNode             => 0,
+   XMLToken            => 0,
+   XMLError            => 0,
+   SBMLError           => 0,
+   CVTerm              => 0,
+   ModelHistory        => 0,
+   ModelCreator        => 0,
+   Date                => 0,
    RDFAnnotationParser => 0,
-   SBMLNamespaces  => 0,
-   SyntaxChecker   => 0,
-   SBMLTransforms  => 0,
+   SBMLNamespaces      => 0,
+   SyntaxChecker       => 0,
+   SBMLTransforms      => 0,
+);
+
+my %IgnoredFile = (
+  TestRunner                   => 0,
+  TestFormulaParser            => 0,
+  TestFormulaFormatter         => 0,
+  TestFormulaTokenizer         => 0,
+  TestSBMLTransforms           => 0,
+  TestSBMLConstructorException => 0,
+  TestXMLInputStream           => 0,
+  echoxml                      => 0,
 );
 
 my %IgnoredClass = (
   FormulaUnitsData => 0,
-  XMLInputStream   => 0,
   XMLErrorLog      => 0,
 );
 
 my %IgnoredFunc = (
   getNumFormulaUnitsData => 0,
   addFormulaUnitsData    => 0,
-  getInternalId => 0,
-  setInternalId => 0,
+  getInternalId          => 0,
+  setInternalId          => 0,
 );
 
 my %IgnoreTestFunc = (
-  test_ASTNode_getListOfNodes  => 0,
-  test_ASTNode_createFromToken => 0,
-  test_XMLOutputStream_createFile => 0,
+  test_ASTNode_getListOfNodes                    => 0,
+  test_ASTNode_createFromToken                   => 0,
+  test_XMLOutputStream_createFile                => 0,
   test_XMLOutputStream_createFileWithProgramInfo => 0,
-  test_XMLAttributes_readInto_bool   => 0,
-  test_XMLAttributes_readInto_long   => 0,
-  test_XMLAttributes_readInto_int    => 0,
-  test_XMLAttributes_readInto_double => 0,
-  test_XMLAttributes_create_C        => 0,
-  test_XMLAttributes_readInto_uint_C => 0,
-  test_XMLTriple_comparison => 0,
-  test_XMLAttributes_add_removeResource => 0,
-  test_XMLAttributes_readInto_boolean_C => 0,
-  test_XMLAttributes_readInto_double_C => 0,
-  test_XMLAttributes_readInto_long_C => 0,
-  test_XMLAttributes_readInto_int_C => 0,
-  test_XMLAttributes_readInto_string_C => 0,
-  test_SBML_formulaToString => 0,
-  test_element_semantics => 0,
-  test_element_semantics_URL => 0,
-  test_element_semantics_URL_lambda => 0,
-  test_element_semantics_ann_lambda => 0,
-  test_element_semantics_annotation => 0,
-  test_element_semantics_annxml => 0,
-  test_element_semantics_annxml_lambda => 0,
-  test_element_semantics_lambda => 0,
-  test_MathMLFormatter_semantics => 0,
-  test_MathMLFormatter_semantics_ann => 0,
-  test_MathMLFormatter_semantics_annxml => 0,
-  test_MathMLFormatter_semantics_url => 0,
-  test_MathMLFormatter_ci_definitionURL => 0,
-  test_ASTNode_replaceArgument => 0,
-  test_SBMLTransforms_replaceFD => 0,
-  test_SBMLTransforms_evaluateAST => 0,
-  test_SBase_addCVTerms_newBag => 0,
-  test_SBMLConstructorException_Compartment => 0,
-  test_SBMLConstructorException_CompartmentType => 0,
-  test_SBMLConstructorException_Constraint => 0,
-  test_SBMLConstructorException_InitialAssignment => 0,
-  test_SBMLConstructorException_Species => 0,
-  test_SBMLConstructorException_SpeciesType => 0,
-  test_SBMLConstructorException_Delay => 0,
-  test_SBMLConstructorException_Trigger => 0,
-  test_SBMLConstructorException_Event => 0,
-  test_SBMLConstructorException_EventAssignment => 0,
-  test_SBMLConstructorException_ModifierSpeciesReference => 0,
-  test_SBMLConstructorException_StoichiometryMath => 0,
-  test_SBMLConstructorException_SpeciesReference => 0,
-  test_SBMLConstructorException_FunctionDefinition => 0,
-  test_SBMLConstructorException_KineticLaw => 0,
-  test_SBMLConstructorException_Model => 0,
-  test_SBMLConstructorException_Parameter => 0,
-  test_SBMLConstructorException_Reaction => 0,
-  test_SBMLConstructorException_Unit => 0,
-  test_SBMLConstructorException_UnitDefinition => 0,
-  test_SBMLConstructorException_AssignmentRule => 0,
-  test_SBMLConstructorException_AlgebraicRule => 0,
-  test_SBMLConstructorException_RateRule => 0,
-  test_Date_setHoursOffset => 0,
-  test_Date_setOffsetSign => 0,
+  test_XMLAttributes_readInto_bool               => 0,
+  test_XMLAttributes_readInto_long               => 0,
+  test_XMLAttributes_readInto_int                => 0,
+  test_XMLAttributes_readInto_double             => 0,
+  test_XMLAttributes_create_C                    => 0,
+  test_XMLAttributes_readInto_uint_C             => 0,
+  test_XMLTriple_comparison                      => 0,
+  test_XMLAttributes_add_removeResource          => 0,
+  test_XMLAttributes_readInto_boolean_C          => 0,
+  test_XMLAttributes_readInto_double_C           => 0,
+  test_XMLAttributes_readInto_long_C             => 0,
+  test_XMLAttributes_readInto_int_C              => 0,
+  test_XMLAttributes_readInto_string_C           => 0,
+  test_XMLErrorLog_create                        => 0,
+  test_XMLErrorLog_add                           => 0,
+  test_XMLErrorLog_clear                         => 0,
+  test_SBML_formulaToString                      => 0,
+  test_element_semantics                         => 0,
+  test_element_semantics_URL                     => 0,
+  test_element_semantics_URL_lambda              => 0,
+  test_element_semantics_ann_lambda              => 0,
+  test_element_semantics_annotation              => 0,
+  test_element_semantics_annxml                  => 0,
+  test_element_semantics_annxml_lambda           => 0,
+  test_element_semantics_lambda                  => 0,
+  test_MathMLFormatter_semantics                 => 0,
+  test_MathMLFormatter_semantics_ann             => 0,
+  test_MathMLFormatter_semantics_annxml          => 0,
+  test_MathMLFormatter_semantics_url             => 0,
+  test_MathMLFormatter_ci_definitionURL          => 0,
+  test_ASTNode_replaceArgument                   => 0,
+  test_SBase_addCVTerms_newBag                   => 0,
+  test_Date_setHoursOffset                       => 0,
+  test_Date_setOffsetSign                        => 0,
 );
 
 ######################################################################
@@ -348,13 +336,16 @@ elsif ( $opts{'d'} )
 &reset();
 &initPatch();
 
-for my $file (@ARGV)
+INFILES: for my $file (@ARGV)
 {
-  next if ( $file =~ /TestRunner/ );
-  next if ( $file =~ /TestFormulaParser/ );
-  next if ( $file =~ /TestFormulaTokenizer/ );
-  next if ( $file =~ /TestFormulaFormatter/ );
-  next if ( $file =~ /echoxml/ );
+  foreach ( keys %IgnoredFile )
+  {
+    if ( $file =~ /$_/ )
+    {
+      print "(ignored) $file\n" ;
+      next INFILES;
+    }
+  }
 
   if ( $file =~ m| (\w+)/test/ |x )
   {
@@ -4145,7 +4136,13 @@ $patchClassTop{'python'}{'TestRDFAnnotation2'} = $patchClassTop{'python'}{'TestW
 $patchClassTop{'python'}{'TestWriteL3SBML'}    = $patchClassTop{'python'}{'TestWriteSBML'}; 
 
 $patchClassTop{'python'}{'TestSBMLConstructorException'} = <<'EOF';
-  current_not_converted_by_ctest_converter = 0
+  currently_not_converted_by_ctest_converter = 1
+
+
+EOF
+
+$patchClassTop{'python'}{'TestXMLErrorLog'} = <<'EOF';
+  currently_not_converted_by_ctest_converter = 1
 
 
 EOF
