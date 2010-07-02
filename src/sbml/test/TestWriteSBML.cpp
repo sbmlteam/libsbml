@@ -565,7 +565,8 @@ START_TEST (test_WriteSBML_Compartment_L2v1)
   Compartment *c = D->createModel()->createCompartment(); 
   c->setId("M");
   c->setSize(2.5);
-  c->setSpatialDimensions((unsigned int)(2));
+  unsigned int dim = 2;
+  c->setSpatialDimensions(dim);
 
   fail_unless( equals(expected,c->toSBML()) );
 }
