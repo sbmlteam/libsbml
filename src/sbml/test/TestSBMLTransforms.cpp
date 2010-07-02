@@ -404,7 +404,7 @@ START_TEST(test_SBMLTransforms_evaluateAST)
 
   node = SBML_parseFormula("arccosh(2.0)");
 
-  temp = log(2.0+pow(3.0, 0.5));
+  temp = log(2.0 + pow(3.0, 0.5));
   fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
 
   node = SBML_parseFormula("arccoth(2.0)");
@@ -483,9 +483,11 @@ START_TEST (test_SBMLTransforms_replaceIA)
 
   d->expandInitialAssignments();
 
-  fail_unless( d->getModel()->getNumInitialAssignments() == 0 );
-  fail_unless( d->getModel()->getCompartment(0)->isSetSize());
-  fail_unless( d->getModel()->getCompartment(0)->getSize() == 25.0);
+  m = d->getModel();
+
+  fail_unless( m->getNumInitialAssignments() == 0 );
+  fail_unless( m->getCompartment(0)->isSetSize());
+  fail_unless( m->getCompartment(0)->getSize() == 25.0);
   fail_unless( m->getParameter(1)->getValue() == 50);
   
 }
@@ -522,7 +524,9 @@ START_TEST (test_SBMLTransforms_replaceIA_species)
 
   d->expandInitialAssignments();
 
-  fail_unless( d->getModel()->getNumInitialAssignments() == 0 );
+  m = d->getModel();
+
+  fail_unless( m->getNumInitialAssignments() == 0 );
   fail_unless( m->getParameter(1)->getValue() == 3);
   fail_unless( m->getParameter(2)->isSetValue());
   fail_unless( m->getParameter(2)->getValue() == 0.75);
