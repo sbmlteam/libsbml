@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestReadFromFile4(unittest.TestCase):
 
 
@@ -64,7 +65,7 @@ class TestReadFromFile4(unittest.TestCase):
     self.assert_((  "y" == sr.getSpecies() ))
     self.assert_( sr.getStoichiometry() == 1 )
     self.assert_( sr.getDenominator() == 1 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

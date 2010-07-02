@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestRateRule(unittest.TestCase):
 
+  global RR
   RR = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestRateRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.RR = None
+    _dummyList = [ self.RR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_RateRule_create(self):
@@ -68,10 +70,11 @@ class TestRateRule(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_RateRule_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_RateRule_setVariable(self):

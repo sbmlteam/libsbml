@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestConstraint(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestConstraint(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_create(self):
@@ -66,10 +68,11 @@ class TestConstraint(unittest.TestCase):
     self.assert_( object.getVersion() == 2 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_setMath(self):
@@ -83,7 +86,7 @@ class TestConstraint(unittest.TestCase):
     self.assertEqual( False, self.C.isSetMath() )
     if (self.C.getMath() != None):
       pass    
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_setMessage(self):
@@ -108,7 +111,7 @@ class TestConstraint(unittest.TestCase):
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):
       pass    
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

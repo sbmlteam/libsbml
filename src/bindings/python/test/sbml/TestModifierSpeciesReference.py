@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestModifierSpeciesReference(unittest.TestCase):
 
+  global MSR
   MSR = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestModifierSpeciesReference(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.MSR = None
+    _dummyList = [ self.MSR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModifierSpeciesReference_create(self):
@@ -67,10 +69,11 @@ class TestModifierSpeciesReference(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModifierSpeciesReference_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ModifierSpeciesReference_setSpecies(self):

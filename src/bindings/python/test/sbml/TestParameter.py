@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestParameter(unittest.TestCase):
 
+  global P
   P = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestParameter(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.P = None
+    _dummyList = [ self.P ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_create(self):
@@ -72,10 +74,11 @@ class TestParameter(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setId(self):

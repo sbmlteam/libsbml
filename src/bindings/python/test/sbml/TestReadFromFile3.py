@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestReadFromFile3(unittest.TestCase):
 
 
@@ -146,7 +147,7 @@ class TestReadFromFile3(unittest.TestCase):
     self.assert_( sr.getDenominator() == 1 )
     kl = r.getKineticLaw()
     self.assert_((  "k4 * s2" == kl.getFormula() ))
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

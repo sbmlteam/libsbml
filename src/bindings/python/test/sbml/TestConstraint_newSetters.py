@@ -3,7 +3,7 @@
 # @brief   Constraint unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestConstraint_newSetters(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestConstraint_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_setMath1(self):
@@ -53,7 +55,7 @@ class TestConstraint_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.C.getMath() == None )
     self.assertEqual( False, self.C.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_setMath2(self):
@@ -61,7 +63,7 @@ class TestConstraint_newSetters(unittest.TestCase):
     i = self.C.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.C.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_setMessage1(self):
@@ -74,7 +76,7 @@ class TestConstraint_newSetters(unittest.TestCase):
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):
       pass    
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Constraint_setMessage2(self):
@@ -97,7 +99,7 @@ class TestConstraint_newSetters(unittest.TestCase):
     self.assertEqual( False, self.C.isSetMessage() )
     if (self.C.getMessage() != None):
       pass    
-    node = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

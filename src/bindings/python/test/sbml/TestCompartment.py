@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCompartment(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestCompartment(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_create(self):
@@ -76,7 +78,7 @@ class TestCompartment(unittest.TestCase):
     self.assert_( c.getConstant() == True )
     self.assertEqual( True, c.isSetId() )
     self.assertEqual( False, c.isSetName() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_createWithNS(self):
@@ -96,10 +98,11 @@ class TestCompartment(unittest.TestCase):
     self.assert_( c.getName() == "" )
     self.assert_( c.getSpatialDimensions() == 3 )
     self.assert_( c.getConstant() == True )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_getSpatialDimensions(self):
@@ -137,7 +140,7 @@ class TestCompartment(unittest.TestCase):
     self.assertEqual( False, c.isSetVolume() )
     self.assertEqual( False, c.isSetUnits() )
     self.assertEqual( False, c.isSetOutside() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setId(self):

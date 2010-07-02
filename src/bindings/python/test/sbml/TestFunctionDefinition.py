@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestFunctionDefinition(unittest.TestCase):
 
+  global FD
   FD = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestFunctionDefinition(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.FD = None
+    _dummyList = [ self.FD ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_FunctionDefinition_create(self):
@@ -72,8 +74,8 @@ class TestFunctionDefinition(unittest.TestCase):
     self.assertEqual( True, fd.isSetMath() )
     self.assert_((  "pow3" == fd.getId() ))
     self.assertEqual( True, fd.isSetId() )
-    math = None
-    fd = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ fd ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_FunctionDefinition_createWithNS(self):
@@ -90,10 +92,11 @@ class TestFunctionDefinition(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_FunctionDefinition_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_FunctionDefinition_getArguments(self):
@@ -121,7 +124,7 @@ class TestFunctionDefinition(unittest.TestCase):
     self.assertEqual( True, math.isName() )
     self.assert_((  "x" == math.getName() ))
     self.assert_( math.getNumChildren() == 0 )
-    math1 = None
+    _dummyList = [ math1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_FunctionDefinition_setId(self):

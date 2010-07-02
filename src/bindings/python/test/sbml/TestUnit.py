@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestUnit(unittest.TestCase):
 
+  global U
   U = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestUnit(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.U = None
+    _dummyList = [ self.U ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Unit_create(self):
@@ -69,10 +71,11 @@ class TestUnit(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Unit_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Unit_isBuiltIn(self):
@@ -179,7 +182,7 @@ class TestUnit(unittest.TestCase):
     self.assert_( u.getScale() == 4 )
     u.setMultiplier(3.2)
     self.assert_( u.getMultiplier() == 3.2 )
-    u = None
+    _dummyList = [ u ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

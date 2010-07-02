@@ -3,7 +3,7 @@
 # @brief   Rule unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestRule_newSetters(unittest.TestCase):
 
+  global R
   R = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestRule_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.R = None
+    _dummyList = [ self.R ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setFormula1(self):
@@ -80,7 +82,7 @@ class TestRule_newSetters(unittest.TestCase):
     formula = libsbml.formulaToString(math1)
     self.assert_( formula != None )
     self.assert_((  "a * b" == formula ))
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setMath2(self):
@@ -91,7 +93,7 @@ class TestRule_newSetters(unittest.TestCase):
     i = self.R.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.R.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setMath3(self):
@@ -115,7 +117,7 @@ class TestRule_newSetters(unittest.TestCase):
     i = R1.unsetUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, R1.isSetUnits() )
-    R1 = None
+    _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setUnits3(self):
@@ -127,7 +129,7 @@ class TestRule_newSetters(unittest.TestCase):
     i = R1.unsetUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, R1.isSetUnits() )
-    R1 = None
+    _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setUnits4(self):
@@ -139,7 +141,7 @@ class TestRule_newSetters(unittest.TestCase):
     i = R1.setUnits("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, R1.isSetUnits() )
-    R1 = None
+    _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_setVariable1(self):
@@ -162,7 +164,7 @@ class TestRule_newSetters(unittest.TestCase):
     i = R1.setVariable( "r")
     self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, R1.isSetVariable() )
-    R1 = None
+    _dummyList = [ R1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

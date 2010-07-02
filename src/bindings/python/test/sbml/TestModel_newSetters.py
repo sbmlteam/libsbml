@@ -3,7 +3,7 @@
 # @brief   Model unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestModel_newSetters(unittest.TestCase):
 
+  global M
   M = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestModel_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.M = None
+    _dummyList = [ self.M ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartment1(self):
@@ -52,8 +54,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartment(c)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumCompartments() == 1 )
-    c = None
-    m = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartment2(self):
@@ -63,8 +65,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartment(c)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumCompartments() == 0 )
-    c = None
-    m = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartment3(self):
@@ -74,8 +76,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartment(c)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumCompartments() == 0 )
-    c = None
-    m = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartment4(self):
@@ -84,7 +86,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartment(c)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumCompartments() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartment5(self):
@@ -99,9 +101,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartment(c1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumCompartments() == 1 )
-    c = None
-    c1 = None
-    m = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ c1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartmentType1(self):
@@ -113,8 +115,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartmentType(ct)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumCompartmentTypes() == 1 )
-    ct = None
-    m = None
+    _dummyList = [ ct ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartmentType2(self):
@@ -124,8 +126,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartmentType(ct)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumCompartmentTypes() == 0 )
-    ct = None
-    m = None
+    _dummyList = [ ct ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartmentType3(self):
@@ -134,7 +136,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartmentType(ct)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumCompartmentTypes() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addCompartmentType4(self):
@@ -149,9 +151,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addCompartmentType(ct1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumCompartmentTypes() == 1 )
-    ct = None
-    ct1 = None
-    m = None
+    _dummyList = [ ct ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ct1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addConstraint1(self):
@@ -163,8 +165,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addConstraint(c)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumConstraints() == 1 )
-    c = None
-    m = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addConstraint2(self):
@@ -174,8 +176,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addConstraint(c)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumConstraints() == 0 )
-    c = None
-    m = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addConstraint3(self):
@@ -184,7 +186,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addConstraint(c)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumConstraints() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addEvent1(self):
@@ -200,8 +202,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addEvent(e)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumEvents() == 1 )
-    e = None
-    m = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addEvent2(self):
@@ -213,8 +215,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addEvent(e)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumEvents() == 0 )
-    e = None
-    m = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addEvent3(self):
@@ -223,7 +225,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addEvent(e)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumEvents() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addEvent4(self):
@@ -243,9 +245,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addEvent(e1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumEvents() == 1 )
-    e = None
-    e1 = None
-    m = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ e1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addFunctionDefinition1(self):
@@ -260,8 +262,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addFunctionDefinition(fd)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumFunctionDefinitions() == 1 )
-    fd = None
-    m = None
+    _dummyList = [ fd ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addFunctionDefinition2(self):
@@ -272,8 +274,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addFunctionDefinition(fd)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumFunctionDefinitions() == 0 )
-    fd = None
-    m = None
+    _dummyList = [ fd ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addFunctionDefinition3(self):
@@ -282,7 +284,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addFunctionDefinition(fd)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumFunctionDefinitions() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addFunctionDefinition4(self):
@@ -299,9 +301,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addFunctionDefinition(fd1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumFunctionDefinitions() == 1 )
-    fd = None
-    fd1 = None
-    m = None
+    _dummyList = [ fd ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ fd1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addInitialAssignment1(self):
@@ -316,8 +318,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addInitialAssignment(ia)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumInitialAssignments() == 1 )
-    ia = None
-    m = None
+    _dummyList = [ ia ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addInitialAssignment2(self):
@@ -328,8 +330,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addInitialAssignment(ia)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumInitialAssignments() == 0 )
-    ia = None
-    m = None
+    _dummyList = [ ia ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addInitialAssignment3(self):
@@ -338,7 +340,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addInitialAssignment(ia)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumInitialAssignments() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addInitialAssignment4(self):
@@ -355,9 +357,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addInitialAssignment(ia1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumInitialAssignments() == 1 )
-    ia = None
-    ia1 = None
-    m = None
+    _dummyList = [ ia ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ia1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addParameter1(self):
@@ -369,8 +371,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumParameters() == 1 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addParameter2(self):
@@ -380,8 +382,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumParameters() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addParameter3(self):
@@ -391,8 +393,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumParameters() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addParameter4(self):
@@ -401,7 +403,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumParameters() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addParameter5(self):
@@ -416,9 +418,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addParameter(p1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumParameters() == 1 )
-    p = None
-    p1 = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addReaction1(self):
@@ -430,8 +432,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addReaction(r)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumReactions() == 1 )
-    r = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addReaction2(self):
@@ -441,8 +443,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addReaction(r)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumReactions() == 0 )
-    r = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addReaction3(self):
@@ -452,8 +454,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addReaction(r)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumReactions() == 0 )
-    r = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addReaction4(self):
@@ -462,7 +464,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addReaction(r)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumReactions() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addReaction5(self):
@@ -477,9 +479,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addReaction(r1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumReactions() == 1 )
-    r = None
-    r1 = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ r1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addRule1(self):
@@ -494,8 +496,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addRule(r)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumRules() == 1 )
-    r = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addRule2(self):
@@ -506,8 +508,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addRule(r)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumRules() == 0 )
-    r = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addRule3(self):
@@ -518,8 +520,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addRule(r)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumRules() == 0 )
-    r = None
-    m = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addRule4(self):
@@ -528,7 +530,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addRule(r)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumRules() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addRule5(self):
@@ -545,9 +547,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addRule(ar1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumRules() == 1 )
-    ar = None
-    ar1 = None
-    m = None
+    _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ar1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpecies1(self):
@@ -562,8 +564,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpecies(s)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumSpecies() == 1 )
-    s = None
-    m = None
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpecies2(self):
@@ -574,8 +576,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpecies(s)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumSpecies() == 0 )
-    s = None
-    m = None
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpecies3(self):
@@ -587,8 +589,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpecies(s)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumSpecies() == 0 )
-    s = None
-    m = None
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpecies4(self):
@@ -597,7 +599,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpecies(s)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumSpecies() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpecies5(self):
@@ -614,9 +616,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpecies(s1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumSpecies() == 1 )
-    s = None
-    s1 = None
-    m = None
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ s1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpeciesType1(self):
@@ -628,8 +630,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpeciesType(st)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumSpeciesTypes() == 1 )
-    st = None
-    m = None
+    _dummyList = [ st ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpeciesType2(self):
@@ -639,8 +641,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpeciesType(st)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumSpeciesTypes() == 0 )
-    st = None
-    m = None
+    _dummyList = [ st ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpeciesType3(self):
@@ -649,7 +651,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpeciesType(st)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumSpeciesTypes() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addSpeciesType4(self):
@@ -664,9 +666,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addSpeciesType(st1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumSpeciesTypes() == 1 )
-    st = None
-    st1 = None
-    m = None
+    _dummyList = [ st ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ st1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addUnitDefinition1(self):
@@ -681,8 +683,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addUnitDefinition(ud)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumUnitDefinitions() == 1 )
-    ud = None
-    m = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addUnitDefinition2(self):
@@ -693,8 +695,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addUnitDefinition(ud)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumUnitDefinitions() == 0 )
-    ud = None
-    m = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addUnitDefinition3(self):
@@ -705,8 +707,8 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addUnitDefinition(ud)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumUnitDefinitions() == 0 )
-    ud = None
-    m = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addUnitDefinition4(self):
@@ -715,7 +717,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addUnitDefinition(ud)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumUnitDefinitions() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_addUnitDefinition5(self):
@@ -732,9 +734,9 @@ class TestModel_newSetters(unittest.TestCase):
     i = m.addUnitDefinition(ud1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumUnitDefinitions() == 1 )
-    ud = None
-    ud1 = None
-    m = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ud1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createCompartment(self):
@@ -743,7 +745,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumCompartments() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createCompartmentType(self):
@@ -752,7 +754,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumCompartmentTypes() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createConstraint(self):
@@ -761,7 +763,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumConstraints() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createEvent(self):
@@ -770,7 +772,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumEvents() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createEventAssignment(self):
@@ -780,7 +782,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( p.getNumEventAssignments() == 1 )
     self.assert_( (ea).getLevel() == 2 )
     self.assert_( (ea).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createFunctionDefinition(self):
@@ -789,7 +791,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumFunctionDefinitions() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createInitialAssignment(self):
@@ -798,7 +800,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumInitialAssignments() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createKineticLaw(self):
@@ -808,7 +810,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( p.isSetKineticLaw() == True )
     self.assert_( (kl).getLevel() == 2 )
     self.assert_( (kl).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createKineticLawParameters(self):
@@ -820,7 +822,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( kl.getNumParameters() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createModifier(self):
@@ -830,7 +832,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( p.getNumModifiers() == 1 )
     self.assert_( (sr).getLevel() == 2 )
     self.assert_( (sr).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createParameter(self):
@@ -839,7 +841,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumParameters() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createProduct(self):
@@ -849,7 +851,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( p.getNumProducts() == 1 )
     self.assert_( (sr).getLevel() == 2 )
     self.assert_( (sr).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createReactant(self):
@@ -859,7 +861,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( p.getNumReactants() == 1 )
     self.assert_( (sr).getLevel() == 2 )
     self.assert_( (sr).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createReaction(self):
@@ -868,7 +870,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumReactions() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createRule(self):
@@ -877,7 +879,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumRules() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createSpecies(self):
@@ -886,7 +888,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumSpecies() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createSpeciesType(self):
@@ -895,7 +897,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumSpeciesTypes() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createUnit(self):
@@ -905,7 +907,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( p.getNumUnits() == 1 )
     self.assert_( (u).getLevel() == 2 )
     self.assert_( (u).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_createUnitDefinition(self):
@@ -914,7 +916,7 @@ class TestModel_newSetters(unittest.TestCase):
     self.assert_( m.getNumUnitDefinitions() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_setId1(self):
@@ -954,7 +956,7 @@ class TestModel_newSetters(unittest.TestCase):
     i = self.M.unsetModelHistory()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, self.M.isSetModelHistory() )
-    mh = None
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_setModelHistory2(self):

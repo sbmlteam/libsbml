@@ -3,7 +3,7 @@
 # @brief   Reaction unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestReaction_newSetters(unittest.TestCase):
 
+  global R
   R = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestReaction_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.R = None
+    _dummyList = [ self.R ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addModifier1(self):
@@ -59,9 +61,9 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addModifier(p1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumModifiers() == 1 )
-    p = None
-    p1 = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addModifier2(self):
@@ -71,8 +73,8 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addModifier(p)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumModifiers() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addModifier3(self):
@@ -81,7 +83,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addModifier(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumModifiers() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addProduct1(self):
@@ -100,9 +102,9 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addProduct(p1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumProducts() == 1 )
-    p = None
-    p1 = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addProduct2(self):
@@ -112,8 +114,8 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addProduct(p)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumProducts() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addProduct3(self):
@@ -123,8 +125,8 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addProduct(p)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumProducts() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addProduct4(self):
@@ -133,7 +135,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addProduct(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumProducts() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addReactant1(self):
@@ -152,9 +154,9 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addReactant(p1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( m.getNumReactants() == 1 )
-    p1 = None
-    p = None
-    m = None
+    _dummyList = [ p1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addReactant2(self):
@@ -164,8 +166,8 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addReactant(p)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumReactants() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addReactant3(self):
@@ -175,8 +177,8 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addReactant(p)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumReactants() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addReactant4(self):
@@ -185,7 +187,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = m.addReactant(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumReactants() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_createKineticLaw(self):
@@ -194,7 +196,7 @@ class TestReaction_newSetters(unittest.TestCase):
     self.assert_( r.isSetKineticLaw() == True )
     self.assert_( (kl).getLevel() == 2 )
     self.assert_( (kl).getVersion() == 2 )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_createModifier(self):
@@ -203,7 +205,7 @@ class TestReaction_newSetters(unittest.TestCase):
     self.assert_( m.getNumModifiers() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_createProduct(self):
@@ -212,7 +214,7 @@ class TestReaction_newSetters(unittest.TestCase):
     self.assert_( m.getNumProducts() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_createReactant(self):
@@ -221,7 +223,7 @@ class TestReaction_newSetters(unittest.TestCase):
     self.assert_( m.getNumReactants() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setFast1(self):
@@ -268,7 +270,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = self.R.setKineticLaw(kl)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assertEqual( False, self.R.isSetKineticLaw() )
-    kl = None
+    _dummyList = [ kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setKineticLaw2(self):
@@ -276,7 +278,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = self.R.setKineticLaw(kl)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assertEqual( False, self.R.isSetKineticLaw() )
-    kl = None
+    _dummyList = [ kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setKineticLaw3(self):
@@ -284,7 +286,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = self.R.setKineticLaw(kl)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, self.R.isSetKineticLaw() )
-    kl = None
+    _dummyList = [ kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setKineticLaw4(self):
@@ -313,7 +315,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = p.unsetName()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetName() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setName3(self):
@@ -321,7 +323,7 @@ class TestReaction_newSetters(unittest.TestCase):
     i = p.setName("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetName() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setReversible1(self):

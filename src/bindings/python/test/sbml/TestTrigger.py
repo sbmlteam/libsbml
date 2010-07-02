@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestTrigger(unittest.TestCase):
 
+  global D
   D = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestTrigger(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.D = None
+    _dummyList = [ self.D ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Trigger_create(self):
@@ -65,10 +67,11 @@ class TestTrigger(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Trigger_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Trigger_setMath(self):
@@ -103,7 +106,7 @@ class TestTrigger(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.D.getMath() == None )
     self.assertEqual( False, self.D.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Trigger_setMath2(self):
@@ -111,7 +114,7 @@ class TestTrigger(unittest.TestCase):
     i = self.D.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.D.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

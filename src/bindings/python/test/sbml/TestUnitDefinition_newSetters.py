@@ -3,7 +3,7 @@
 # @brief   SBML UnitDefinition unit tests for new API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  sarah Keating 
+# @author  sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestUnitDefinition_newSetters(unittest.TestCase):
 
+  global UD
   UD = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.UD = None
+    _dummyList = [ self.UD ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_addUnit1(self):
@@ -52,8 +54,8 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     i = m.addUnit(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( m.getNumUnits() == 1 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_addUnit2(self):
@@ -63,8 +65,8 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     i = m.addUnit(p)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( m.getNumUnits() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_addUnit3(self):
@@ -74,8 +76,8 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     i = m.addUnit(p)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( m.getNumUnits() == 0 )
-    p = None
-    m = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_addUnit4(self):
@@ -84,7 +86,7 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     i = m.addUnit(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( m.getNumUnits() == 0 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_createUnit(self):
@@ -93,7 +95,7 @@ class TestUnitDefinition_newSetters(unittest.TestCase):
     self.assert_( m.getNumUnits() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_setId1(self):

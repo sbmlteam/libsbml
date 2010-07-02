@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestReadFromFile2(unittest.TestCase):
 
 
@@ -101,7 +102,7 @@ class TestReadFromFile2(unittest.TestCase):
     sr.setSpecies( "x1")
     kl = m.createKineticLaw()
     kl.setFormula( "(vm * s1)/(km + s1)")
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_read_l1v1_units(self):
@@ -239,7 +240,7 @@ class TestReadFromFile2(unittest.TestCase):
     self.assert_( sr.getDenominator() == 1 )
     kl = r.getKineticLaw()
     self.assert_((  "cell * (vm * s1)/(km + s1)" == kl.getFormula() ))
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

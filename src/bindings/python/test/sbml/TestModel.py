@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestModel(unittest.TestCase):
 
+  global M
   M = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestModel(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.M = None
+    _dummyList = [ self.M ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_getParameterById(self):
@@ -423,10 +425,11 @@ class TestModel(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_getCompartment(self):
@@ -629,7 +632,7 @@ class TestModel(unittest.TestCase):
 
   def test_Model_getSpeciesReferenceById(self):
     r1 = libsbml.Reaction(2,4)
-    r1.setId("r1")
+    r1.setId( "r1")
     sr = r1.createReactant()
     sr.setId( "s1")
     self.M.addReaction(r1)
@@ -679,9 +682,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumCompartments() == 1 )
     self.assert_( self.M.removeCompartment("test") == o3 )
     self.assert_( self.M.getNumCompartments() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeCompartmentType(self):
@@ -695,9 +698,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumCompartmentTypes() == 1 )
     self.assert_( self.M.removeCompartmentType("test") == o3 )
     self.assert_( self.M.getNumCompartmentTypes() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeConstraint(self):
@@ -710,9 +713,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumConstraints() == 1 )
     self.assert_( self.M.removeConstraint(0) == o3 )
     self.assert_( self.M.getNumConstraints() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeEvent(self):
@@ -726,9 +729,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumEvents() == 1 )
     self.assert_( self.M.removeEvent("test") == o3 )
     self.assert_( self.M.getNumEvents() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeFunctionDefinition(self):
@@ -742,9 +745,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumFunctionDefinitions() == 1 )
     self.assert_( self.M.removeFunctionDefinition("test") == o3 )
     self.assert_( self.M.getNumFunctionDefinitions() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeInitialAssignment(self):
@@ -758,9 +761,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumInitialAssignments() == 1 )
     self.assert_( self.M.removeInitialAssignment("test") == o3 )
     self.assert_( self.M.getNumInitialAssignments() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeParameter(self):
@@ -774,9 +777,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumParameters() == 1 )
     self.assert_( self.M.removeParameter("test") == o3 )
     self.assert_( self.M.getNumParameters() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeReaction(self):
@@ -790,9 +793,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumReactions() == 1 )
     self.assert_( self.M.removeReaction("test") == o3 )
     self.assert_( self.M.getNumReactions() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeRule(self):
@@ -806,9 +809,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumRules() == 1 )
     self.assert_( self.M.removeRule("test") == o3 )
     self.assert_( self.M.getNumRules() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeSpecies(self):
@@ -822,9 +825,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumSpecies() == 1 )
     self.assert_( self.M.removeSpecies("test") == o3 )
     self.assert_( self.M.getNumSpecies() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeSpeciesType(self):
@@ -838,9 +841,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumSpeciesTypes() == 1 )
     self.assert_( self.M.removeSpeciesType("test") == o3 )
     self.assert_( self.M.getNumSpeciesTypes() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_removeUnitDefinition(self):
@@ -854,9 +857,9 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getNumUnitDefinitions() == 1 )
     self.assert_( self.M.removeUnitDefinition("test") == o3 )
     self.assert_( self.M.getNumUnitDefinitions() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Model_setId(self):
@@ -914,8 +917,8 @@ class TestModel(unittest.TestCase):
     self.assert_((  "UH" == newMC.getOrganisation() ))
     self.M.unsetModelHistory()
     self.assert_( self.M.isSetModelHistory() == False )
-    history = None
-    mc = None
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ mc ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

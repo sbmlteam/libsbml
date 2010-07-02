@@ -3,7 +3,7 @@
 # @brief   Test hasRequiredElements unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -28,6 +28,7 @@
 import sys
 import unittest
 import libsbml
+
 
 class TestRequiredElements(unittest.TestCase):
 

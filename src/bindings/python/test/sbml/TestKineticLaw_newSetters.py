@@ -3,7 +3,7 @@
 # @brief   KineticLaw unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestKineticLaw_newSetters(unittest.TestCase):
 
+  global kl
   kl = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.kl = None
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_addParameter1(self):
@@ -52,8 +54,8 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = self.kl.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.kl.getNumParameters() == 1 )
-    p = None
-    self.kl = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_addParameter2(self):
@@ -63,8 +65,8 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = self.kl.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( self.kl.getNumParameters() == 0 )
-    p = None
-    self.kl = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_addParameter3(self):
@@ -74,8 +76,8 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = self.kl.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
     self.assert_( self.kl.getNumParameters() == 0 )
-    p = None
-    self.kl = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_addParameter4(self):
@@ -84,7 +86,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = self.kl.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( self.kl.getNumParameters() == 0 )
-    self.kl = None
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_createParameter(self):
@@ -93,7 +95,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     self.assert_( self.kl.getNumParameters() == 1 )
     self.assert_( (p).getLevel() == 2 )
     self.assert_( (p).getVersion() == 2 )
-    self.kl = None
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setFormula1(self):
@@ -133,7 +135,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     formula = libsbml.formulaToString(math1)
     self.assert_( formula != None )
     self.assert_((  "a * b" == formula ))
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setMath2(self):
@@ -144,7 +146,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = self.kl.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.kl.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setMath3(self):
@@ -170,7 +172,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = kl1.unsetSubstanceUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, kl1.isSetSubstanceUnits() )
-    kl1 = None
+    _dummyList = [ kl1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setSubstanceUnits3(self):
@@ -181,7 +183,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = kl1.unsetSubstanceUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, kl1.isSetSubstanceUnits() )
-    kl1 = None
+    _dummyList = [ kl1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setSubstanceUnits4(self):
@@ -189,7 +191,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = kl1.setSubstanceUnits("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, kl1.isSetSubstanceUnits() )
-    kl1 = None
+    _dummyList = [ kl1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setTimeUnits1(self):
@@ -209,7 +211,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = kl1.unsetTimeUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, kl1.isSetTimeUnits() )
-    kl1 = None
+    _dummyList = [ kl1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setTimeUnits3(self):
@@ -220,7 +222,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = kl1.unsetTimeUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, kl1.isSetTimeUnits() )
-    kl1 = None
+    _dummyList = [ kl1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setTimeUnits4(self):
@@ -228,7 +230,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     i = kl1.setTimeUnits("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, kl1.isSetTimeUnits() )
-    kl1 = None
+    _dummyList = [ kl1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

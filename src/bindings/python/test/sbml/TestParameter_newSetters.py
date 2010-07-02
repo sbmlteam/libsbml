@@ -3,7 +3,7 @@
 # @brief   Parameter unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestParameter_newSetters(unittest.TestCase):
 
+  global P
   P = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestParameter_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.P = None
+    _dummyList = [ self.P ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setConstant1(self):
@@ -54,7 +56,7 @@ class TestParameter_newSetters(unittest.TestCase):
     i = p.setConstant(False)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( p.getConstant() == False )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setId1(self):
@@ -90,7 +92,7 @@ class TestParameter_newSetters(unittest.TestCase):
     i = p.unsetName()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetName() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setName3(self):
@@ -101,7 +103,7 @@ class TestParameter_newSetters(unittest.TestCase):
     i = p.setName("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetName() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Parameter_setUnits1(self):
@@ -143,7 +145,7 @@ class TestParameter_newSetters(unittest.TestCase):
     i = p.unsetValue()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, p.isSetValue() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

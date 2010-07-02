@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestReadFromFile1(unittest.TestCase):
 
 
@@ -146,7 +147,7 @@ class TestReadFromFile1(unittest.TestCase):
     p = kl.getParameter(0)
     self.assert_((  "k3" == p.getName() ))
     self.assert_( p.getValue() == 0 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

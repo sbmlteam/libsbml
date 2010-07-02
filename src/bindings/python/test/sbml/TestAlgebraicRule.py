@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestAlgebraicRule(unittest.TestCase):
 
+  global AR
   AR = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestAlgebraicRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.AR = None
+    _dummyList = [ self.AR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AlgebraicRule_create(self):
@@ -63,7 +65,7 @@ class TestAlgebraicRule(unittest.TestCase):
     self.assert_( formula != None )
     self.assert_((  "1 + 1" == formula ))
     self.assert_(( formula == ar.getFormula() ))
-    ar = None
+    _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AlgebraicRule_createWithMath(self):
@@ -74,7 +76,7 @@ class TestAlgebraicRule(unittest.TestCase):
     self.assert_( ar.getMetaId() == "" )
     self.assert_((  "1 + 1" == ar.getFormula() ))
     self.assert_( ar.getMath() != math )
-    ar = None
+    _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AlgebraicRule_createWithNS(self):
@@ -91,10 +93,11 @@ class TestAlgebraicRule(unittest.TestCase):
     self.assert_( r.getVersion() == 3 )
     self.assert_( r.getNamespaces() != None )
     self.assert_( r.getNamespaces().getLength() == 2 )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AlgebraicRule_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

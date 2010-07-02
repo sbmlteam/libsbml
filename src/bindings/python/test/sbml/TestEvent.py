@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestEvent(unittest.TestCase):
 
+  global E
   E = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestEvent(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.E = None
+    _dummyList = [ self.E ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_create(self):
@@ -70,10 +72,11 @@ class TestEvent(unittest.TestCase):
     self.assert_( object.getVersion() == 4 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_full(self):
@@ -91,8 +94,8 @@ class TestEvent(unittest.TestCase):
     e.addEventAssignment(ea)
     self.assert_( e.getNumEventAssignments() == 1 )
     self.assert_( e.getEventAssignment(0) != ea )
-    math = None
-    e = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_removeEventAssignment(self):
@@ -106,9 +109,9 @@ class TestEvent(unittest.TestCase):
     self.assert_( self.E.getNumEventAssignments() == 1 )
     self.assert_( self.E.removeEventAssignment("test") == o3 )
     self.assert_( self.E.getNumEventAssignments() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setDelay(self):
@@ -172,7 +175,7 @@ class TestEvent(unittest.TestCase):
     self.assertEqual( False, E1.isSetTimeUnits() )
     if (E1.getTimeUnits() != None):
       pass    
-    E1 = None
+    _dummyList = [ E1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setTrigger(self):
@@ -198,7 +201,7 @@ class TestEvent(unittest.TestCase):
     self.assert_( object.getUseValuesFromTriggerTime() == False )
     object.setUseValuesFromTriggerTime(True)
     self.assert_( object.getUseValuesFromTriggerTime() == True )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

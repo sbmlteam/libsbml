@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestSpeciesReference(unittest.TestCase):
 
+  global SR
   SR = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestSpeciesReference(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.SR = None
+    _dummyList = [ self.SR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_create(self):
@@ -63,7 +65,7 @@ class TestSpeciesReference(unittest.TestCase):
     self.assert_( sr.getNotes() == None )
     self.assert_( sr.getAnnotation() == None )
     self.assertEqual( True, sr.isModifier() )
-    sr = None
+    _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_createWithNS(self):
@@ -80,10 +82,11 @@ class TestSpeciesReference(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesReference_setId(self):

@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestSpeciesConcentrationRule(unittest.TestCase):
 
+  global SCR
   SCR = None
 
   def setUp(self):
@@ -41,7 +43,7 @@ class TestSpeciesConcentrationRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.SCR = None
+    _dummyList = [ self.SCR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesConcentrationRule_create(self):
@@ -56,6 +58,7 @@ class TestSpeciesConcentrationRule(unittest.TestCase):
     pass  
 
   def test_SpeciesConcentrationRule_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesConcentrationRule_setSpecies(self):

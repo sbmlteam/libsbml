@@ -3,7 +3,7 @@
 # @brief   Reads tests/l3v1-new.xml into memory and tests it.
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -33,6 +33,7 @@ def isnan(x):
   return (x != x)
   pass
 SBML_INT_MAX = 2147483647
+
 class TestReadFromFile9(unittest.TestCase):
 
 

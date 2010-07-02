@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestInitialAssignment(unittest.TestCase):
 
+  global IA
   IA = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestInitialAssignment(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.IA = None
+    _dummyList = [ self.IA ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_InitialAssignment_create(self):
@@ -66,10 +68,11 @@ class TestInitialAssignment(unittest.TestCase):
     self.assert_( object.getVersion() == 3 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_InitialAssignment_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_InitialAssignment_setMath(self):
@@ -93,7 +96,7 @@ class TestInitialAssignment(unittest.TestCase):
     self.assertEqual( False, self.IA.isSetMath() )
     if (self.IA.getMath() != None):
       pass    
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_InitialAssignment_setSymbol(self):

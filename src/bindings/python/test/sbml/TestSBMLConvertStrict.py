@@ -3,7 +3,7 @@
 # @brief   SBMLConvert unit tests for strict conversion
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestSBMLConvertStrict(unittest.TestCase):
 
 
@@ -52,7 +53,7 @@ class TestSBMLConvertStrict(unittest.TestCase):
     self.assert_( d.getVersion() == 1 )
     r1 = d.getModel().getRule(0)
     self.assert_( r1.getUnits() == "" )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvertStrict_convertNonStrictSBO(self):
@@ -82,7 +83,7 @@ class TestSBMLConvertStrict(unittest.TestCase):
     self.assert_( d.getVersion() == 2 )
     c2 = d.getModel().getCompartment(0)
     self.assert_( (c2).getSBOTerm() == -1 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvertStrict_convertNonStrictUnits(self):
@@ -114,7 +115,7 @@ class TestSBMLConvertStrict(unittest.TestCase):
     self.assert_( success == 0 )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 4 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvertStrict_convertSBO(self):
@@ -133,7 +134,7 @@ class TestSBMLConvertStrict(unittest.TestCase):
     self.assert_( d.getVersion() == 2 )
     c1 = d.getModel().getCompartment(0)
     self.assert_( (c1).getSBOTerm() == -1 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvertStrict_convertToL1(self):
@@ -157,7 +158,7 @@ class TestSBMLConvertStrict(unittest.TestCase):
     self.assert_( (c1).getSBOTerm() == -1 )
     s1 = m1.getSpecies(0)
     self.assert_( s1.getHasOnlySubstanceUnits() == False )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

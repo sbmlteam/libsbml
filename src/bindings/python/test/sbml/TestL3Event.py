@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestL3Event(unittest.TestCase):
 
+  global E
   E = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestL3Event(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.E = None
+    _dummyList = [ self.E ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Event_NS(self):
@@ -82,10 +84,11 @@ class TestL3Event(unittest.TestCase):
     self.assertEqual( False, e.isSetId() )
     self.assertEqual( False, e.isSetName() )
     self.assertEqual( False, e.isSetUseValuesFromTriggerTime() )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Event_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Event_hasRequiredAttributes(self):
@@ -93,7 +96,7 @@ class TestL3Event(unittest.TestCase):
     self.assertEqual( False, e.hasRequiredAttributes() )
     e.setUseValuesFromTriggerTime(True)
     self.assertEqual( True, e.hasRequiredAttributes() )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Event_hasRequiredElements(self):
@@ -102,7 +105,7 @@ class TestL3Event(unittest.TestCase):
     t = libsbml.Trigger(3,1)
     e.setTrigger(t)
     self.assertEqual( True, e.hasRequiredElements() )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Event_id(self):

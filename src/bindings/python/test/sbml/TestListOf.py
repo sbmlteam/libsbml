@@ -29,7 +29,9 @@ import sys
 import unittest
 import libsbml
 
+
 class TestListOf(unittest.TestCase):
+
 
   def test_ListOf_clear(self):
     lo = libsbml.ListOf()
@@ -48,14 +50,14 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.appendAndOwn(sp)
     self.assert_( lo.size() == 5 )
-    lo.get(0)
-    lo.get(1)
-    lo.get(2)
-    lo.get(3)
-    lo.get(4)
+    _dummyList = [ lo.get(0) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.get(1) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.get(2) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.get(3) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.get(4) ]; _dummyList[:] = []; del _dummyList
     lo.clear(0)
     self.assert_( lo.size() == 0 )
-    lo = None
+    _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ListOf_create(self):
@@ -65,10 +67,11 @@ class TestListOf(unittest.TestCase):
     self.assert_( lo.getAnnotation() == None )
     self.assert_( lo.getMetaId() == "" )
     self.assert_( lo.size() == 0 )
-    lo = None
+    _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ListOf_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ListOf_remove(self):
@@ -81,11 +84,11 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.append(sp)
     self.assert_( lo.size() == 5 )
-    lo.remove(0)
-    lo.remove(0)
-    lo.remove(0)
-    lo.remove(0)
-    lo.remove(0)
+    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
     self.assert_( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
@@ -93,7 +96,7 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.appendAndOwn(sp)
     self.assert_( lo.size() == 5 )
-    lo = None
+    _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

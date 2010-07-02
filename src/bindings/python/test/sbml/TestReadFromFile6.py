@@ -3,7 +3,7 @@
 # @brief   Reads test-data/l2v2-newComponents.xml into memory and tests it.
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -28,6 +28,7 @@
 import sys
 import unittest
 import libsbml
+
 
 class TestReadFromFile6(unittest.TestCase):
 

@@ -3,7 +3,7 @@
 # @brief   Species unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestSpecies_newSetters(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setBoundaryCondition1(self):
@@ -67,7 +69,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setCharge(4)
     self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     self.assertEqual( False, c.isSetCharge() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setCharge3(self):
@@ -75,7 +77,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.unsetCharge()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCharge() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setCompartment1(self):
@@ -107,7 +109,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setConstant(True)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getConstant() == True )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setHasOnlySubstanceUnits1(self):
@@ -124,7 +126,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setHasOnlySubstanceUnits(True)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getHasOnlySubstanceUnits() == True )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setId2(self):
@@ -132,7 +134,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setId( "1cell")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetId() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setId3(self):
@@ -141,7 +143,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, c.isSetId() )
     self.assert_((  "cell"  == c.getId() ))
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setId4(self):
@@ -153,7 +155,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setId("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetId() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setInitialAmount1(self):
@@ -175,7 +177,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.unsetInitialAmount()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetInitialAmount() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setInitialConcentration1(self):
@@ -193,7 +195,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.unsetInitialConcentration()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetInitialConcentration() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setName1(self):
@@ -213,7 +215,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.unsetName()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetName() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setName3(self):
@@ -236,7 +238,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setSpatialSizeUnits( "1cell")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetSpatialSizeUnits() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSpatialSizeUnits3(self):
@@ -245,7 +247,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_((  "mole" == c.getSpatialSizeUnits() ))
     self.assertEqual( True, c.isSetSpatialSizeUnits() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSpatialSizeUnits4(self):
@@ -253,7 +255,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setSpatialSizeUnits("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSpatialSizeUnits() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSpeciesType1(self):
@@ -273,7 +275,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.unsetSpeciesType()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSpeciesType() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSpeciesType3(self):
@@ -285,7 +287,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.unsetSpeciesType()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSpeciesType() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSpeciesType4(self):
@@ -297,7 +299,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setSpeciesType("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSpeciesType() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSubstanceUnits1(self):
@@ -311,7 +313,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setSubstanceUnits( "1cell")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetSubstanceUnits() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSubstanceUnits3(self):
@@ -320,7 +322,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_((  "mole" == c.getSubstanceUnits() ))
     self.assertEqual( True, c.isSetSubstanceUnits() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setSubstanceUnits4(self):
@@ -332,7 +334,7 @@ class TestSpecies_newSetters(unittest.TestCase):
     i = c.setSubstanceUnits("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSubstanceUnits() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Species_setUnits1(self):

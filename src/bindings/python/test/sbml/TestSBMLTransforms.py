@@ -28,38 +28,10 @@
 import sys
 import unittest
 import libsbml
-import math
 
-DBL_EPSILON =  2.2204460492503131e-16
-
-def equalDouble (a, b):
-  return (abs(a-b) < math.sqrt(DBL_EPSILON))
-
-def isnan(x):
-  return (x != x)
-  pass
 
 class TestSBMLTransforms(unittest.TestCase):
 
-
-  def test_SBMLTransforms_replaceFD(self):
-    reader = libsbml.SBMLReader()
-    filename = "../../sbml/test/test-data/"
-    filename += "multiple-functions.xml"
-    d = reader.readSBML(filename)
-    if (d == None):
-      pass    
-    m = d.getModel()
-    self.assert_( m.getNumFunctionDefinitions() == 2 )
-    d.expandFunctionDefinitions()
-    self.assert_( d.getModel().getNumFunctionDefinitions() == 0 )
-    ast = d.getModel().getReaction(0).getKineticLaw().getMath()
-    self.assert_((  "S1 * p * compartmentOne / t" == libsbml.formulaToString(ast) ))
-    ast = d.getModel().getReaction(1).getKineticLaw().getMath()
-    self.assert_((  "S1 * p * compartmentOne / t" == libsbml.formulaToString(ast) ))
-    ast = d.getModel().getReaction(2).getKineticLaw().getMath()
-    self.assert_((  "S1 * p * compartmentOne / t" == libsbml.formulaToString(ast) ))
-    pass  
 
   def test_SBMLTransforms_replaceIA(self):
     reader = libsbml.SBMLReader()
@@ -73,9 +45,10 @@ class TestSBMLTransforms(unittest.TestCase):
     self.assertEqual( False, (m.getCompartment(0).isSetSize()) )
     self.assert_( m.getParameter(1).getValue() == 2 )
     d.expandInitialAssignments()
-    self.assert_( d.getModel().getNumInitialAssignments() == 0 )
-    self.assertEqual( True, d.getModel().getCompartment(0).isSetSize() )
-    self.assert_( d.getModel().getCompartment(0).getSize() == 25.0 )
+    m = d.getModel()
+    self.assert_( m.getNumInitialAssignments() == 0 )
+    self.assertEqual( True, m.getCompartment(0).isSetSize() )
+    self.assert_( m.getCompartment(0).getSize() == 25.0 )
     self.assert_( m.getParameter(1).getValue() == 50 )
     pass  
 
@@ -93,7 +66,8 @@ class TestSBMLTransforms(unittest.TestCase):
     self.assertEqual( True, m.getSpecies(2).isSetInitialAmount() )
     self.assert_( m.getSpecies(2).getInitialAmount() == 2 )
     d.expandInitialAssignments()
-    self.assert_( d.getModel().getNumInitialAssignments() == 0 )
+    m = d.getModel()
+    self.assert_( m.getNumInitialAssignments() == 0 )
     self.assert_( m.getParameter(1).getValue() == 3 )
     self.assertEqual( True, m.getParameter(2).isSetValue() )
     self.assert_( m.getParameter(2).getValue() == 0.75 )

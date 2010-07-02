@@ -87,9 +87,12 @@ def wrapXML(s):
   return r
   pass
 
+
 class TestWriteL3SBML(unittest.TestCase):
 
+  global S
   S = None
+  global D
   D = None
 
   def equals(self, *x):
@@ -112,7 +115,7 @@ class TestWriteL3SBML(unittest.TestCase):
   def test_SBMLWriter_L3_create(self):
     w = libsbml.SBMLWriter()
     self.assert_( w != None )
-    w = None
+    _dummyList = [ w ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLWriter_L3_setProgramName(self):
@@ -122,7 +125,7 @@ class TestWriteL3SBML(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     i = w.setProgramName("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    w = None
+    _dummyList = [ w ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLWriter_L3_setProgramVersion(self):
@@ -132,7 +135,7 @@ class TestWriteL3SBML(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     i = w.setProgramVersion("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    w = None
+    _dummyList = [ w ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_WriteL3SBML_Compartment(self):

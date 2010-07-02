@@ -3,7 +3,7 @@
 # @brief   CompartmentType unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCompartmentType_newSetters(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestCompartmentType_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CompartmentType_setId2(self):

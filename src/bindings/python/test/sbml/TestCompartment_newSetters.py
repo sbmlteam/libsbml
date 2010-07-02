@@ -3,8 +3,7 @@
 # @brief   Compartment unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating
- 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -30,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCompartment_newSetters(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -41,7 +42,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setCompartmentType1(self):
@@ -61,7 +62,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.unsetCompartmentType()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCompartmentType() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setCompartmentType3(self):
@@ -73,7 +74,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.unsetCompartmentType()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCompartmentType() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setCompartmentType4(self):
@@ -81,7 +82,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setCompartmentType("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetCompartmentType() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setConstant1(self):
@@ -95,7 +96,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setConstant(False)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getConstant() == False )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setId2(self):
@@ -103,7 +104,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setId( "1cell")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assertEqual( False, c.isSetId() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setId3(self):
@@ -112,7 +113,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( True, c.isSetId() )
     self.assert_((  "cell"  == c.getId() ))
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setId4(self):
@@ -120,7 +121,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setId("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetId() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setName1(self):
@@ -140,7 +141,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.unsetName()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetName() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setName3(self):
@@ -190,7 +191,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.unsetSize()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetSize() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions1(self):
@@ -204,7 +205,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setSpatialDimensions(4)
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assert_( c.getSpatialDimensions() == 3 )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions3(self):
@@ -212,7 +213,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setSpatialDimensions(2)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getSpatialDimensions() == 2 )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions4(self):
@@ -220,7 +221,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setSpatialDimensions(2.0)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getSpatialDimensions() == 2 )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setSpatialDimensions5(self):
@@ -228,7 +229,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.setSpatialDimensions(2.2)
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
     self.assert_( c.getSpatialDimensions() == 3 )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Compartment_setUnits1(self):
@@ -275,7 +276,7 @@ class TestCompartment_newSetters(unittest.TestCase):
     i = c.unsetVolume()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, c.isSetVolume() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

@@ -33,8 +33,10 @@ def isnan(x):
   return (x != x)
   pass
 SBML_INT_MAX = 2147483647
+
 class TestL3Unit(unittest.TestCase):
 
+  global U
   U = None
 
   def setUp(self):
@@ -44,7 +46,7 @@ class TestL3Unit(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.U = None
+    _dummyList = [ self.U ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Unit_NS(self):
@@ -89,7 +91,7 @@ class TestL3Unit(unittest.TestCase):
     self.assertEqual( False, u.isSetExponent() )
     self.assertEqual( False, u.isSetMultiplier() )
     self.assertEqual( False, u.isSetScale() )
-    u = None
+    _dummyList = [ u ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Unit_exponent(self):
@@ -102,6 +104,7 @@ class TestL3Unit(unittest.TestCase):
     pass  
 
   def test_L3_Unit_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Unit_hasRequiredAttributes(self):
@@ -115,7 +118,7 @@ class TestL3Unit(unittest.TestCase):
     self.assertEqual( False, u.hasRequiredAttributes() )
     u.setScale(2)
     self.assertEqual( True, u.hasRequiredAttributes() )
-    u = None
+    _dummyList = [ u ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Unit_kind(self):

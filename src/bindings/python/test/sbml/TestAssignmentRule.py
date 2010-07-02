@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestAssignmentRule(unittest.TestCase):
 
+  global AR
   AR = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestAssignmentRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.AR = None
+    _dummyList = [ self.AR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AssignmentRule_L2_create(self):
@@ -67,7 +69,7 @@ class TestAssignmentRule(unittest.TestCase):
     self.assert_( formula != None )
     self.assert_((  "1 + 1" == formula ))
     self.assert_(( formula == ar.getFormula() ))
-    ar = None
+    _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AssignmentRule_createWithMath(self):
@@ -80,7 +82,7 @@ class TestAssignmentRule(unittest.TestCase):
     self.assert_((  "s" == ar.getVariable() ))
     self.assert_((  "1 + 1" == ar.getFormula() ))
     self.assert_( ar.getMath() != math )
-    ar = None
+    _dummyList = [ ar ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AssignmentRule_createWithNS(self):
@@ -97,10 +99,11 @@ class TestAssignmentRule(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AssignmentRule_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_AssignmentRule_setVariable(self):

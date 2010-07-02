@@ -3,7 +3,7 @@
 # @brief   Test hasRequiredAttributes unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein 
 #
 # $Id$
 # $HeadURL$
@@ -28,6 +28,7 @@
 import sys
 import unittest
 import libsbml
+
 
 class TestRequiredAttributes(unittest.TestCase):
 

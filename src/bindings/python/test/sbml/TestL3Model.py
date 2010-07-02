@@ -4,7 +4,6 @@
 #
 # @author  Akiya Jouraku (Python conversion)
 # @author  Sarah Keating 
- 
 #
 # $Id$
 # $HeadURL$
@@ -30,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestL3Model(unittest.TestCase):
 
+  global M
   M = None
 
   def setUp(self):
@@ -41,14 +42,13 @@ class TestL3Model(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.M = None
+    _dummyList = [ self.M ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Model_NS(self):
     self.assert_( self.M.getNamespaces() != None )
     self.assert_( self.M.getNamespaces().getLength() == 1 )
-    self.assert_(( 
-    "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
+    self.assert_((     "http://www.sbml.org/sbml/level3/version1/core" == self.M.getNamespaces().getURI(0) ))
     pass  
 
   def test_L3_Model_areaUnits(self):
@@ -132,7 +132,7 @@ class TestL3Model(unittest.TestCase):
     self.assertEqual( False, m.isSetAreaUnits() )
     self.assertEqual( False, m.isSetLengthUnits() )
     self.assertEqual( False, m.isSetConversionFactor() )
-    m = None
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Model_extentUnits(self):
@@ -150,6 +150,7 @@ class TestL3Model(unittest.TestCase):
     pass  
 
   def test_L3_Model_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Model_id(self):

@@ -3,7 +3,7 @@
 # @brief   SpeciesType unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestSpeciesType_newSetters(unittest.TestCase):
 
+  global ST
   ST = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestSpeciesType_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.ST = None
+    _dummyList = [ self.ST ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SpeciesType_setId2(self):

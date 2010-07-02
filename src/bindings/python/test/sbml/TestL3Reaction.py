@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestL3Reaction(unittest.TestCase):
 
+  global R
   R = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestL3Reaction(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.R = None
+    _dummyList = [ self.R ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Reaction_NS(self):
@@ -104,7 +106,7 @@ class TestL3Reaction(unittest.TestCase):
     self.assertEqual( False, r.isSetCompartment() )
     self.assertEqual( False, r.isSetFast() )
     self.assertEqual( False, r.isSetReversible() )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Reaction_fast(self):
@@ -118,6 +120,7 @@ class TestL3Reaction(unittest.TestCase):
     pass  
 
   def test_L3_Reaction_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Reaction_hasRequiredAttributes(self):
@@ -129,7 +132,7 @@ class TestL3Reaction(unittest.TestCase):
     self.assertEqual( False, r.hasRequiredAttributes() )
     r.setReversible(False)
     self.assertEqual( True, r.hasRequiredAttributes() )
-    r = None
+    _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Reaction_id(self):

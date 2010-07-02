@@ -3,7 +3,7 @@
 # @brief   Tests the internal consistency validation.
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestInternalConsistencyChecks(unittest.TestCase):
 
 
@@ -37,7 +38,8 @@ class TestInternalConsistencyChecks(unittest.TestCase):
     c = libsbml.Compartment(2,4)
     d.setLevelAndVersion(1,2,False)
     m = d.createModel()
-    c.setSpatialDimensions(2)
+    dim = 2
+    c.setSpatialDimensions(dim)
     c.setId("c")
     m.addCompartment(c)
     errors = d.checkInternalConsistency()

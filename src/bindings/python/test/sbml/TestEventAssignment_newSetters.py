@@ -3,7 +3,7 @@
 # @brief   EventAssignment unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestEventAssignment_newSetters(unittest.TestCase):
 
+  global E
   E = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestEventAssignment_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.E = None
+    _dummyList = [ self.E ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_setMath1(self):
@@ -53,7 +55,7 @@ class TestEventAssignment_newSetters(unittest.TestCase):
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.E.getMath() == None )
     self.assertEqual( False, self.E.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_setMath2(self):
@@ -61,7 +63,7 @@ class TestEventAssignment_newSetters(unittest.TestCase):
     i = self.E.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.E.isSetMath() )
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_setVariable1(self):

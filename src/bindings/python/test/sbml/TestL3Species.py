@@ -32,8 +32,10 @@ import libsbml
 def isnan(x):
   return (x != x)
   pass
+
 class TestL3Species(unittest.TestCase):
 
+  global S
   S = None
 
   def setUp(self):
@@ -43,14 +45,14 @@ class TestL3Species(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.S = None
+    _dummyList = [ self.S ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Species_ModelHistory(self):
     history = libsbml.ModelHistory()
-    i = self.S.setModelHistory(history)
+    i = (self.S).setModelHistory(history)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assertEqual( False, self.S.isSetModelHistory() )
+    self.assertEqual( False, (self.S).isSetModelHistory() )
     mc = libsbml.ModelCreator()
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     mc.setFamilyName( "Keating")
@@ -60,14 +62,14 @@ class TestL3Species(unittest.TestCase):
     history.addCreator(mc)
     history.setCreatedDate(date)
     history.setModifiedDate(date)
-    i = self.S.setModelHistory(history)
+    i = (self.S).setModelHistory(history)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assertEqual( True, self.S.isSetModelHistory() )
-    i = self.S.unsetModelHistory()
+    self.assertEqual( True, (self.S).isSetModelHistory() )
+    i = (self.S).unsetModelHistory()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assertEqual( False, self.S.isSetModelHistory() )
-    self.assert_( self.S.getModelHistory() == None )
-    history = None
+    self.assertEqual( False, (self.S).isSetModelHistory() )
+    self.assert_( (self.S).getModelHistory() == None )
+    _dummyList = [ history ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Species_NS(self):
@@ -181,10 +183,11 @@ class TestL3Species(unittest.TestCase):
     self.assertEqual( False, s.isSetBoundaryCondition() )
     self.assertEqual( False, s.isSetConstant() )
     self.assertEqual( False, s.isSetConversionFactor() )
-    s = None
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Species_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Species_hasOnlySubstanceUnits(self):
@@ -210,7 +213,7 @@ class TestL3Species(unittest.TestCase):
     self.assertEqual( False, s.hasRequiredAttributes() )
     s.setConstant(False)
     self.assertEqual( True, s.hasRequiredAttributes() )
-    s = None
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Species_id(self):

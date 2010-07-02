@@ -29,6 +29,7 @@ import sys
 import unittest
 import libsbml
 
+
 class TestSBMLConvert(unittest.TestCase):
 
 
@@ -55,7 +56,7 @@ class TestSBMLConvert(unittest.TestCase):
     sr2.setSpecies( "S2")
     sr3.setSpecies( "S5")
     self.assert_( r.getNumModifiers() == 0 )
-    d.setLevelAndVersion(2,1,False)
+    self.assert_( d.setLevelAndVersion(2,1,False) == True )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 1 )
     self.assert_( m.getReaction(0).getNumModifiers() == 2 )
@@ -63,7 +64,7 @@ class TestSBMLConvert(unittest.TestCase):
     ssr2 = m.getReaction(0).getModifier(1)
     self.assert_((  "S3" == ssr1.getSpecies() ))
     self.assert_((  "S4" == ssr2.getSpecies() ))
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertFromL3(self):
@@ -85,10 +86,10 @@ class TestSBMLConvert(unittest.TestCase):
 
   def test_SBMLConvert_convertToL1_SBMLDocument(self):
     d = libsbml.SBMLDocument(2,1)
-    d.setLevelAndVersion(1,2,False)
+    self.assert_( d.setLevelAndVersion(1,2,False) == True )
     self.assert_( d.getLevel() == 1 )
     self.assert_( d.getVersion() == 2 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL1_Species_Amount(self):
@@ -102,9 +103,9 @@ class TestSBMLConvert(unittest.TestCase):
     s.setCompartment(sid)
     s.setInitialAmount(2.34)
     m.addSpecies(s)
-    d.setLevelAndVersion(1,2,False)
+    self.assert_( d.setLevelAndVersion(1,2,False) == True )
     self.assert_( s.getInitialAmount() == 2.34 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL1_Species_Concentration(self):
@@ -120,28 +121,28 @@ class TestSBMLConvert(unittest.TestCase):
     s.setCompartment(sid)
     s.setInitialConcentration(2.34)
     m.addSpecies(s)
-    d.setLevelAndVersion(1,2,False)
+    self.assert_( d.setLevelAndVersion(1,2,False) == True )
     s1 = m.getSpecies(0)
     self.assert_( s1 != None )
     self.assert_((  "C" == s1.getCompartment() ))
     self.assert_( m.getCompartment( "C").getSize() == 1.2 )
     self.assert_( s1.getInitialConcentration() == 2.34 )
     self.assert_( s1.isSetInitialConcentration() == True )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL2_SBMLDocument(self):
     d = libsbml.SBMLDocument(1,2)
-    d.setLevelAndVersion(2,1,False)
+    self.assert_( d.setLevelAndVersion(2,1,False) == True )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 1 )
-    d.setLevelAndVersion(2,2,False)
+    self.assert_( d.setLevelAndVersion(2,2,False) == True )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 2 )
-    d.setLevelAndVersion(2,3,False)
+    self.assert_( d.setLevelAndVersion(2,3,False) == True )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 3 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc(self):
@@ -152,11 +153,11 @@ class TestSBMLConvert(unittest.TestCase):
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 1 )
     self.assert_( (d).getAnnotation().getNumChildren() == 2 )
-    d.setLevelAndVersion(2,4,False)
+    self.assert_( d.setLevelAndVersion(2,4,False) == True )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 4 )
     self.assert_( (d).getAnnotation().getNumChildren() == 1 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model(self):
@@ -167,12 +168,12 @@ class TestSBMLConvert(unittest.TestCase):
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 1 )
     self.assert_( (m).getAnnotation().getNumChildren() == 2 )
-    d.setLevelAndVersion(2,4,False)
+    self.assert_( d.setLevelAndVersion(2,4,False) == True )
     self.assert_( d.getLevel() == 2 )
     self.assert_( d.getVersion() == 4 )
     m = d.getModel()
     self.assert_( (m).getAnnotation().getNumChildren() == 1 )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL3_defaultUnits(self):
@@ -184,7 +185,7 @@ class TestSBMLConvert(unittest.TestCase):
     c.setSize(1.2)
     c.setUnits( "volume")
     self.assert_( m.getNumUnitDefinitions() == 0 )
-    d.setLevelAndVersion(3,1,False)
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
     self.assert_( m.getNumUnitDefinitions() == 2 )
     ud = m.getUnitDefinition(0)
     self.assert_( ud != None )
@@ -205,7 +206,7 @@ class TestSBMLConvert(unittest.TestCase):
     self.assert_( u.getMultiplier() == 1 )
     self.assert_( u.getScale() == 0 )
     self.assert_((  "time" == m.getTimeUnits() ))
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL3_localParameters(self):
@@ -224,13 +225,13 @@ class TestSBMLConvert(unittest.TestCase):
     p = kl.createParameter()
     p.setId( "k")
     self.assert_( kl.getNumLocalParameters() == 0 )
-    d.setLevelAndVersion(3,1,False)
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
     m = d.getModel()
     r = m.getReaction(0)
     kl = r.getKineticLaw()
     self.assert_( kl.getNumLocalParameters() == 1 )
     lp = kl.getLocalParameter(0)
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_convertToL3_stoichiometryMath(self):
@@ -249,7 +250,7 @@ class TestSBMLConvert(unittest.TestCase):
     sm.setMath(ast)
     self.assert_( m.getNumRules() == 0 )
     self.assert_( sr.isSetId() == 0 )
-    d.setLevelAndVersion(3,1,False)
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
     m = d.getModel()
     r = m.getReaction(0)
     sr = r.getReactant(0)
@@ -257,7 +258,7 @@ class TestSBMLConvert(unittest.TestCase):
     self.assert_( sr.isSetId() == 1 )
     rule = m.getRule(0)
     self.assert_( sr.getId() == rule.getVariable() )
-    d = None
+    _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBMLConvert_invalidLevelVersion(self):

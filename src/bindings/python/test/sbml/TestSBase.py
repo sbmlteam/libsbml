@@ -33,8 +33,10 @@ def wrapString(s):
   return s
   pass
 
+
 class TestSBase(unittest.TestCase):
 
+  global S
   S = None
 
   def setUp(self):
@@ -58,7 +60,7 @@ class TestSBase(unittest.TestCase):
     self.assert_( self.S.getNumCVTerms() == 1 )
     self.assert_( self.S.getCVTerms() != None )
     self.assert_( self.S.getCVTerm(0) != cv )
-    cv = None
+    _dummyList = [ cv ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_addCVTerms(self):
@@ -103,10 +105,10 @@ class TestSBase(unittest.TestCase):
     self.assert_( res.getLength() == 2 )
     self.assert_((  "bar" == res.getValue(0) ))
     self.assert_((  "bar1" == res.getValue(1) ))
-    cv = None
-    cv2 = None
-    cv1 = None
-    cv4 = None
+    _dummyList = [ cv ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv4 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes(self):
@@ -138,8 +140,8 @@ class TestSBase(unittest.TestCase):
     chars2 = node2.getChild(1).getChild(0).getCharacters()
     self.assert_((  "This is my text" == chars1 ))
     self.assert_((  "This is additional text" == chars2 ))
-    node = None
-    node1 = None
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes1(self):
@@ -203,28 +205,28 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    html_triple = None
-    head_triple = None
-    body_triple = None
-    p_triple = None
-    html_token = None
-    head_token = None
-    body_token = None
-    p_token = None
-    text_token = None
-    text_token1 = None
-    html_node = None
-    head_node = None
-    body_node = None
-    p_node = None
-    text_node = None
-    html_node1 = None
-    head_node1 = None
-    body_node1 = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes2(self):
@@ -283,27 +285,27 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    html_triple = None
-    head_triple = None
-    body_triple = None
-    p_triple = None
-    html_token = None
-    head_token = None
-    body_token = None
-    p_token = None
-    text_token = None
-    text_token1 = None
-    body_token1 = None
-    html_node = None
-    head_node = None
-    body_node = None
-    p_node = None
-    text_node = None
-    body_node1 = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes3(self):
@@ -360,26 +362,26 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    html_triple = None
-    head_triple = None
-    body_triple = None
-    p_triple = None
-    html_token = None
-    head_token = None
-    body_token = None
-    p_token = None
-    text_token = None
-    text_token1 = None
-    p_token1 = None
-    html_node = None
-    head_node = None
-    body_node = None
-    p_node = None
-    text_node = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes4(self):
@@ -438,25 +440,25 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    html_triple = None
-    head_triple = None
-    body_triple = None
-    p_triple = None
-    body_token = None
-    p_token = None
-    text_token = None
-    text_token1 = None
-    body_token1 = None
-    body_node = None
-    p_node = None
-    text_node = None
-    html_node1 = None
-    head_node1 = None
-    body_node1 = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes5(self):
@@ -513,24 +515,24 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    html_triple = None
-    head_triple = None
-    body_triple = None
-    p_triple = None
-    body_token = None
-    p_token = None
-    p_token1 = None
-    text_token = None
-    text_token1 = None
-    p_node = None
-    text_node = None
-    html_node1 = None
-    head_node1 = None
-    body_node1 = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ html_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ head_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes6(self):
@@ -573,20 +575,20 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    body_triple = None
-    p_triple = None
-    body_token = None
-    p_token = None
-    text_token = None
-    text_token1 = None
-    body_node = None
-    p_node = None
-    text_node = None
-    body_node1 = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes7(self):
@@ -628,20 +630,20 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    body_triple = None
-    p_triple = None
-    body_token = None
-    p_token = None
-    p_token1 = None
-    text_token = None
-    text_token1 = None
-    p_node = None
-    text_node = None
-    body_node1 = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotes8(self):
@@ -683,20 +685,20 @@ class TestSBase(unittest.TestCase):
     child1 = child1.getChild(0)
     self.assert_((  "This is more text" == child1.getCharacters() ))
     self.assert_( child1.getNumChildren() == 0 )
-    att = None
-    ns = None
-    body_triple = None
-    p_triple = None
-    body_token = None
-    p_token = None
-    text_token = None
-    text_token1 = None
-    p_token1 = None
-    body_node = None
-    p_node = None
-    text_node = None
-    p_node1 = None
-    text_node1 = None
+    _dummyList = [ att ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ns ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_triple ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_token1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ body_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ p_node1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ text_node1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_appendNotesString(self):
@@ -1075,8 +1077,8 @@ class TestSBase(unittest.TestCase):
     cv1.addResource( "bar")
     self.S.addCVTerm(cv1)
     self.assert_( self.S.getResourceModelQualifier( "bar") == libsbml.BQM_IS )
-    cv = None
-    cv1 = None
+    _dummyList = [ cv ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_setAnnotation(self):
@@ -1115,8 +1117,8 @@ class TestSBase(unittest.TestCase):
     s2 = t1.getChild(0).toXMLString()
     expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
     self.assert_(( expected2 == s2 ))
-    token = None
-    node = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_setAnnotationString(self):
@@ -1201,8 +1203,8 @@ class TestSBase(unittest.TestCase):
     s2 = t1.getChild(0).toXMLString()
     expected2 =  "&amp; &apos; &gt; &lt; &quot; &amp; &apos; &gt; &lt; &quot;";
     self.assert_(( expected2 == s2 ))
-    token = None
-    node = None
+    _dummyList = [ token ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_setNotesString(self):
@@ -1274,7 +1276,7 @@ class TestSBase(unittest.TestCase):
     self.S.unsetAnnotation()
     self.assert_( self.S.isSetAnnotation() == False )
     self.assert_( self.S.getAnnotation() == None )
-    cv = None
+    _dummyList = [ cv ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_unsetAnnotationWithModelHistory(self):
@@ -1334,8 +1336,8 @@ class TestSBase(unittest.TestCase):
     self.S.unsetAnnotation()
     self.assert_( self.S.isSetAnnotation() == False )
     self.assert_( self.S.getAnnotation() == None )
-    c = None
-    h = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ h ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_SBase_unsetCVTerms(self):
@@ -1360,10 +1362,10 @@ class TestSBase(unittest.TestCase):
     self.S.unsetCVTerms()
     self.assert_( self.S.getNumCVTerms() == 0 )
     self.assert_( self.S.getCVTerms() == None )
-    cv = None
-    cv2 = None
-    cv1 = None
-    cv4 = None
+    _dummyList = [ cv ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ cv4 ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

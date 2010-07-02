@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCompartmentType(unittest.TestCase):
 
+  global CT
   CT = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestCompartmentType(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.CT = None
+    _dummyList = [ self.CT ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CompartmentType_create(self):
@@ -68,10 +70,11 @@ class TestCompartmentType(unittest.TestCase):
     self.assert_( object.getVersion() == 2 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CompartmentType_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CompartmentType_setId(self):

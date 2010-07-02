@@ -32,8 +32,10 @@ import libsbml
 def isnan(x):
   return (x != x)
   pass
+
 class TestL3Parameter(unittest.TestCase):
 
+  global P
   P = None
 
   def setUp(self):
@@ -43,7 +45,7 @@ class TestL3Parameter(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.P = None
+    _dummyList = [ self.P ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Parameter_NS(self):
@@ -103,10 +105,11 @@ class TestL3Parameter(unittest.TestCase):
     self.assertEqual( False, p.isSetValue() )
     self.assertEqual( False, p.isSetUnits() )
     self.assertEqual( False, p.isSetConstant() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Parameter_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Parameter_hasRequiredAttributes(self):
@@ -116,7 +119,7 @@ class TestL3Parameter(unittest.TestCase):
     self.assertEqual( False, p.hasRequiredAttributes() )
     p.setConstant(False)
     self.assertEqual( True, p.hasRequiredAttributes() )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Parameter_id(self):

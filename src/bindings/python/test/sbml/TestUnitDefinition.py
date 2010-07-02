@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestUnitDefinition(unittest.TestCase):
 
+  global UD
   UD = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestUnitDefinition(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.UD = None
+    _dummyList = [ self.UD ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_addUnit(self):
@@ -48,7 +50,7 @@ class TestUnitDefinition(unittest.TestCase):
     u.setKind(libsbml.UNIT_KIND_MOLE)
     self.UD.addUnit(u)
     self.assert_( self.UD.getNumUnits() == 1 )
-    u = None
+    _dummyList = [ u ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_create(self):
@@ -77,7 +79,7 @@ class TestUnitDefinition(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_createWithName(self):
@@ -91,10 +93,11 @@ class TestUnitDefinition(unittest.TestCase):
     self.assert_((  "mmol_per_liter_per_sec" == ud.getName() ))
     self.assertEqual( True, ud.isSetName() )
     self.assert_( ud.getNumUnits() == 0 )
-    ud = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_getUnit(self):
@@ -110,9 +113,9 @@ class TestUnitDefinition(unittest.TestCase):
     self.UD.addUnit(mole)
     self.UD.addUnit(litre)
     self.UD.addUnit(second)
-    mole = None
-    litre = None
-    second = None
+    _dummyList = [ mole ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ litre ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ second ]; _dummyList[:] = []; del _dummyList
     self.assert_( self.UD.getNumUnits() == 3 )
     mole = self.UD.getUnit(0)
     litre = self.UD.getUnit(1)
@@ -193,7 +196,7 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     self.UD.addUnit(dim)
     self.assertEqual( True, self.UD.isVariantOfSubstancePerTime() )
-    dim = None
+    _dummyList = [ dim ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_2(self):
@@ -222,7 +225,7 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     self.UD.addUnit(dim)
     self.assertEqual( True, self.UD.isVariantOfSubstancePerTime() )
-    dim = None
+    _dummyList = [ dim ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_3(self):
@@ -252,8 +255,8 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     ud.addUnit(dim)
     self.assertEqual( True, ud.isVariantOfSubstancePerTime() )
-    ud = None
-    dim = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ dim ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_isVariantOfSubstancePerTime_4(self):
@@ -283,7 +286,7 @@ class TestUnitDefinition(unittest.TestCase):
     perTime.setExponent(-1)
     ud.addUnit(dim)
     self.assertEqual( True, ud.isVariantOfSubstancePerTime() )
-    ud = None
+    _dummyList = [ ud ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_isVariantOfSubstance_1(self):
@@ -424,9 +427,9 @@ class TestUnitDefinition(unittest.TestCase):
     self.assert_( self.UD.getNumUnits() == 1 )
     self.assert_( self.UD.removeUnit(0) == o3 )
     self.assert_( self.UD.getNumUnits() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_UnitDefinition_setId(self):

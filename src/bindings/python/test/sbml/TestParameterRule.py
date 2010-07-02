@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestParameterRule(unittest.TestCase):
 
+  global PR
   PR = None
 
   def setUp(self):
@@ -41,7 +43,7 @@ class TestParameterRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.PR = None
+    _dummyList = [ self.PR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ParameterRule_create(self):
@@ -58,6 +60,7 @@ class TestParameterRule(unittest.TestCase):
     pass  
 
   def test_ParameterRule_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_ParameterRule_setName(self):

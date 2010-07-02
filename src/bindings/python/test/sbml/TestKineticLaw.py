@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestKineticLaw(unittest.TestCase):
 
+  global kl
   kl = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestKineticLaw(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.kl = None
+    _dummyList = [ self.kl ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_addParameter(self):
@@ -48,7 +50,7 @@ class TestKineticLaw(unittest.TestCase):
     p.setId( "p")
     self.kl.addParameter(p)
     self.assert_( self.kl.getNumParameters() == 1 )
-    p = None
+    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_create(self):
@@ -81,10 +83,11 @@ class TestKineticLaw(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_getParameter(self):
@@ -96,8 +99,8 @@ class TestKineticLaw(unittest.TestCase):
     k2.setValue(2.72)
     self.kl.addParameter(k1)
     self.kl.addParameter(k2)
-    k1 = None
-    k2 = None
+    _dummyList = [ k1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ k2 ]; _dummyList[:] = []; del _dummyList
     self.assert_( self.kl.getNumParameters() == 2 )
     k1 = self.kl.getParameter(0)
     k2 = self.kl.getParameter(1)
@@ -116,8 +119,8 @@ class TestKineticLaw(unittest.TestCase):
     k2.setValue(2.72)
     self.kl.addParameter(k1)
     self.kl.addParameter(k2)
-    k1 = None
-    k2 = None
+    _dummyList = [ k1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ k2 ]; _dummyList[:] = []; del _dummyList
     self.assert_( self.kl.getNumParameters() == 2 )
     k1 = self.kl.getParameter( "k1")
     k2 = self.kl.getParameter( "k2")
@@ -138,9 +141,9 @@ class TestKineticLaw(unittest.TestCase):
     self.assert_( self.kl.getNumParameters() == 1 )
     self.assert_( self.kl.removeParameter("test") == o3 )
     self.assert_( self.kl.getNumParameters() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setBadFormula(self):
@@ -173,7 +176,7 @@ class TestKineticLaw(unittest.TestCase):
     self.assertEqual( True, self.kl.isSetMath() )
     self.assertEqual( True, self.kl.isSetFormula() )
     self.assert_((  "k1 * X0" == self.kl.getFormula() ))
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setMath(self):
@@ -197,7 +200,7 @@ class TestKineticLaw(unittest.TestCase):
     self.assertEqual( False, self.kl.isSetMath() )
     if (self.kl.getMath() != None):
       pass    
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_KineticLaw_setMathFromFormula(self):

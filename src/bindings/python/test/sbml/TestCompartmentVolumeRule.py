@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestCompartmentVolumeRule(unittest.TestCase):
 
+  global CVR
   CVR = None
 
   def setUp(self):
@@ -41,7 +43,7 @@ class TestCompartmentVolumeRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.CVR = None
+    _dummyList = [ self.CVR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CompartmentVolumeRule_create(self):
@@ -56,6 +58,7 @@ class TestCompartmentVolumeRule(unittest.TestCase):
     pass  
 
   def test_CompartmentVolumeRule_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_CompartmentVolumeRule_setCompartment(self):

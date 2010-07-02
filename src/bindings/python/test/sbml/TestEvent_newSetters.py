@@ -3,7 +3,7 @@
 # @brief   Event unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestEvent_newSetters(unittest.TestCase):
 
+  global E
   E = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestEvent_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.E = None
+    _dummyList = [ self.E ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_addEventAssignment1(self):
@@ -55,8 +57,8 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.addEventAssignment(ea)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( e.getNumEventAssignments() == 1 )
-    ea = None
-    e = None
+    _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_addEventAssignment2(self):
@@ -67,8 +69,8 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.addEventAssignment(ea)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
     self.assert_( e.getNumEventAssignments() == 0 )
-    ea = None
-    e = None
+    _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_addEventAssignment3(self):
@@ -76,7 +78,7 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.addEventAssignment(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
     self.assert_( e.getNumEventAssignments() == 0 )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_addEventAssignment4(self):
@@ -93,9 +95,9 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.addEventAssignment(ea1)
     self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
     self.assert_( e.getNumEventAssignments() == 1 )
-    ea = None
-    ea1 = None
-    e = None
+    _dummyList = [ ea ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ ea1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_createEventAssignment(self):
@@ -104,7 +106,7 @@ class TestEvent_newSetters(unittest.TestCase):
     self.assert_( e.getNumEventAssignments() == 1 )
     self.assert_( (ea).getLevel() == 2 )
     self.assert_( (ea).getVersion() == 2 )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setDelay1(self):
@@ -194,7 +196,7 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.unsetTimeUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, e.isSetTimeUnits() )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setTimeUnits3(self):
@@ -206,7 +208,7 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.unsetTimeUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, e.isSetTimeUnits() )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setTimeUnits4(self):
@@ -214,7 +216,7 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.setTimeUnits("")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assertEqual( False, e.isSetTimeUnits() )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setTrigger1(self):
@@ -242,14 +244,14 @@ class TestEvent_newSetters(unittest.TestCase):
     i = e.setUseValuesFromTriggerTime(True)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( e.getUseValuesFromTriggerTime() == True )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Event_setUseValuesFromTriggerTime2(self):
     e = libsbml.Event(2,2)
     i = e.setUseValuesFromTriggerTime(False)
     self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    e = None
+    _dummyList = [ e ]; _dummyList[:] = []; del _dummyList
     pass  
 
 def suite():

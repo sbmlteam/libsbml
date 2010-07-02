@@ -32,8 +32,10 @@ import libsbml
 def isnan(x):
   return (x != x)
   pass
+
 class TestL3Compartment(unittest.TestCase):
 
+  global C
   C = None
 
   def setUp(self):
@@ -43,7 +45,7 @@ class TestL3Compartment(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.C = None
+    _dummyList = [ self.C ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Compartment_NS(self):
@@ -113,10 +115,11 @@ class TestL3Compartment(unittest.TestCase):
     self.assertEqual( False, c.isSetUnits() )
     self.assertEqual( False, c.isSetOutside() )
     self.assertEqual( False, c.isSetConstant() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Compartment_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Compartment_hasRequiredAttributes(self):
@@ -126,7 +129,7 @@ class TestL3Compartment(unittest.TestCase):
     self.assertEqual( False, c.hasRequiredAttributes() )
     c.setConstant(False)
     self.assertEqual( True, c.hasRequiredAttributes() )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_Compartment_id(self):

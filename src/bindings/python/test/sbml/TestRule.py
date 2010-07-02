@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestRule(unittest.TestCase):
 
+  global R
   R = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestRule(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.R = None
+    _dummyList = [ self.R ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Rule_init(self):

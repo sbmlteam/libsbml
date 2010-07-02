@@ -3,7 +3,7 @@
 # @brief   Unit unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestUnit_newSetters(unittest.TestCase):
 
+  global U
   U = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestUnit_newSetters(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.U = None
+    _dummyList = [ self.U ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Unit_removeScale(self):
@@ -94,7 +96,7 @@ class TestUnit_newSetters(unittest.TestCase):
     i = c.setMultiplier(4)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( c.getMultiplier() == 4 )
-    c = None
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Unit_setOffset1(self):

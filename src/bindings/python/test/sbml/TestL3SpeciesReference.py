@@ -32,8 +32,10 @@ import libsbml
 def isnan(x):
   return (x != x)
   pass
+
 class TestL3SpeciesReference(unittest.TestCase):
 
+  global SR
   SR = None
 
   def setUp(self):
@@ -43,7 +45,7 @@ class TestL3SpeciesReference(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.SR = None
+    _dummyList = [ self.SR ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_SpeciesReference_NS(self):
@@ -103,10 +105,11 @@ class TestL3SpeciesReference(unittest.TestCase):
     self.assertEqual( False, sr.isSetSpecies() )
     self.assertEqual( False, sr.isSetStoichiometry() )
     self.assertEqual( False, sr.isSetConstant() )
-    sr = None
+    _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_SpeciesReference_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_SpeciesReference_hasRequiredAttributes(self):
@@ -116,7 +119,7 @@ class TestL3SpeciesReference(unittest.TestCase):
     self.assertEqual( False, sr.hasRequiredAttributes() )
     sr.setConstant(False)
     self.assertEqual( True, sr.hasRequiredAttributes() )
-    sr = None
+    _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_L3_SpeciesReference_id(self):

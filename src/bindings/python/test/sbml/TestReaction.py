@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestReaction(unittest.TestCase):
 
+  global R
   R = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestReaction(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.R = None
+    _dummyList = [ self.R ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addModifier(self):
@@ -59,7 +61,7 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getNumReactants() == 0 )
     self.assert_( self.R.getNumProducts() == 1 )
     self.assert_( self.R.getNumModifiers() == 0 )
-    sr = None
+    _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_addReactant(self):
@@ -69,7 +71,7 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getNumReactants() == 1 )
     self.assert_( self.R.getNumProducts() == 0 )
     self.assert_( self.R.getNumModifiers() == 0 )
-    sr = None
+    _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_create(self):
@@ -104,10 +106,11 @@ class TestReaction(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_getModifier(self):
@@ -117,8 +120,8 @@ class TestReaction(unittest.TestCase):
     msr2.setSpecies( "M2")
     self.R.addModifier(msr1)
     self.R.addModifier(msr2)
-    msr1 = None
-    msr2 = None
+    _dummyList = [ msr1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ msr2 ]; _dummyList[:] = []; del _dummyList
     self.assert_( self.R.getNumReactants() == 0 )
     self.assert_( self.R.getNumProducts() == 0 )
     self.assert_( self.R.getNumModifiers() == 2 )
@@ -141,8 +144,8 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getModifier( "M1") != msr1 )
     self.assert_( self.R.getModifier( "M2") != msr2 )
     self.assert_( self.R.getModifier( "M3") == None )
-    msr1 = None
-    msr2 = None
+    _dummyList = [ msr1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ msr2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_getProduct(self):
@@ -152,8 +155,8 @@ class TestReaction(unittest.TestCase):
     sr2.setSpecies( "P2")
     self.R.addProduct(sr1)
     self.R.addProduct(sr2)
-    sr1 = None
-    sr2 = None
+    _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
     self.assert_( self.R.getNumReactants() == 0 )
     self.assert_( self.R.getNumProducts() == 2 )
     self.assert_( self.R.getNumModifiers() == 0 )
@@ -176,8 +179,8 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getProduct( "P1") != sr1 )
     self.assert_( self.R.getProduct( "P2") != sr2 )
     self.assert_( self.R.getProduct( "P3") == None )
-    sr1 = None
-    sr2 = None
+    _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_getReactant(self):
@@ -187,8 +190,8 @@ class TestReaction(unittest.TestCase):
     sr2.setSpecies( "R2")
     self.R.addReactant(sr1)
     self.R.addReactant(sr2)
-    sr1 = None
-    sr2 = None
+    _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
     self.assert_( self.R.getNumReactants() == 2 )
     self.assert_( self.R.getNumProducts() == 0 )
     self.assert_( self.R.getNumModifiers() == 0 )
@@ -211,8 +214,8 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getReactant( "R1") != sr1 )
     self.assert_( self.R.getReactant( "R2") != sr2 )
     self.assert_( self.R.getReactant( "R3") == None )
-    sr1 = None
-    sr2 = None
+    _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ sr2 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_removeModifier(self):
@@ -226,9 +229,9 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getNumModifiers() == 1 )
     self.assert_( self.R.removeModifier("test") == o3 )
     self.assert_( self.R.getNumModifiers() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_removeProduct(self):
@@ -242,9 +245,9 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getNumProducts() == 1 )
     self.assert_( self.R.removeProduct("test") == o3 )
     self.assert_( self.R.getNumProducts() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_removeReactant(self):
@@ -258,9 +261,9 @@ class TestReaction(unittest.TestCase):
     self.assert_( self.R.getNumReactants() == 1 )
     self.assert_( self.R.removeReactant("test") == o3 )
     self.assert_( self.R.getNumReactants() == 0 )
-    o1 = None
-    o2 = None
-    o3 = None
+    _dummyList = [ o1 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o2 ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ o3 ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_setId(self):

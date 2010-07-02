@@ -29,8 +29,10 @@ import sys
 import unittest
 import libsbml
 
+
 class TestEventAssignment(unittest.TestCase):
 
+  global EA
   EA = None
 
   def setUp(self):
@@ -40,7 +42,7 @@ class TestEventAssignment(unittest.TestCase):
     pass  
 
   def tearDown(self):
-    self.EA = None
+    _dummyList = [ self.EA ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_create(self):
@@ -66,10 +68,11 @@ class TestEventAssignment(unittest.TestCase):
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
     self.assert_( object.getNamespaces().getLength() == 2 )
-    object = None
+    _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_free_NULL(self):
+    _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_setMath(self):
@@ -93,7 +96,7 @@ class TestEventAssignment(unittest.TestCase):
     self.assertEqual( False, self.EA.isSetMath() )
     if (self.EA.getMath() != None):
       pass    
-    math = None
+    _dummyList = [ math ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_EventAssignment_setVariable(self):
