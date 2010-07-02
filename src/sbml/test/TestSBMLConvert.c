@@ -62,16 +62,18 @@ START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
 
 
-  SBMLDocument_setLevelAndVersion(d, 2, 1);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 1) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
-  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 2) == 1, NULL );
+
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
 
-  SBMLDocument_setLevelAndVersion(d, 2, 3);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 3) == 1, NULL );
+
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 3, NULL );
 
@@ -113,7 +115,7 @@ START_TEST (test_SBMLConvert_addModifiersToReaction)
 
   fail_unless( Reaction_getNumModifiers(r) == 0, NULL );
 
-  SBMLDocument_setLevelAndVersion(d, 2, 1);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 1) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
@@ -136,7 +138,7 @@ START_TEST (test_SBMLConvert_convertToL1_SBMLDocument)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
 
-  SBMLDocument_setLevelAndVersion(d, 1, 2);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 1, 2) == 1, NULL);
 
   fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
@@ -162,7 +164,7 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Amount)
   Species_setInitialAmount( s, 2.34 );
   Model_addSpecies        ( m, s    );
   
-  SBMLDocument_setLevelAndVersion(d, 1, 2);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 1, 2) == 1, NULL );
 
   fail_unless( Species_getInitialAmount(s) == 2.34, NULL );
 
@@ -191,7 +193,7 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
   Species_setInitialConcentration( s, 2.34 );
   Model_addSpecies               ( m, s    );
   
-  SBMLDocument_setLevelAndVersion(d, 1, 2);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 1, 2) == 1, NULL);
 
   /**
    * These tests will fail under Cygwin because of a minimal
@@ -225,7 +227,7 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc)
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
   fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (d))) == 2);
 
-  SBMLDocument_setLevelAndVersion(d, 2, 4);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 4) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
@@ -250,7 +252,7 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
   fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (m))) == 2);
 
-  SBMLDocument_setLevelAndVersion(d, 2, 4);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 4) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
@@ -278,7 +280,7 @@ START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
 
   fail_unless(Model_getNumUnitDefinitions(m) == 0);
   
-  SBMLDocument_setLevelAndVersion(d, 3, 1);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 3, 1) == 1, NULL);
 
 
   fail_unless(Model_getNumUnitDefinitions(m) == 2);
@@ -384,7 +386,7 @@ START_TEST (test_SBMLConvert_convertToL3_localParameters)
 
   fail_unless(KineticLaw_getNumLocalParameters(kl) == 0);
   
-  SBMLDocument_setLevelAndVersion(d, 3, 1);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 3, 1) == 1 );
 
   m = SBMLDocument_getModel(d);
   r = Model_getReaction(m,0);
@@ -423,7 +425,7 @@ START_TEST (test_SBMLConvert_convertToL3_stoichiometryMath)
   fail_unless(Model_getNumRules(m) == 0);
   fail_unless(SpeciesReference_isSetId(sr) == 0);
   
-  SBMLDocument_setLevelAndVersion(d, 3, 1);
+  fail_unless( SBMLDocument_setLevelAndVersion(d, 3, 1) == 1);
 
   m = SBMLDocument_getModel(d);
   r = Model_getReaction(m, 0);
