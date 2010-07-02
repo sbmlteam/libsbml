@@ -12,7 +12,7 @@
 # This file is part of libSBML.  Please visit http://sbml.org for more
 # information about SBML, and the latest version of libSBML.
 #
-# Copyright 2009 California Institute of Technology.
+# Copyright 2009-2010 California Institute of Technology.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
@@ -26,18 +26,20 @@ use Getopt::Std;
 
 (my $myname = $0) =~ s,.*[\/\\],,;
 my $usage = <<EOF;
-usage: $myname [-d output_dir] [-h] [-r|-p|-j|-c] ctest_file [ ctest_file2 ... ]
+Usage: $myname [-d output_dir] [-h] [-r|-p|-j|-c] ctest_file [ ctest_file2 ... ]
   -r : Converts given C/C++ test files into Ruby scripts (*Default*)
   -p : Converts given C/C++ test files into Python scripts 
   -j : Converts given C/C++ test files into Java files
   -c : Converts given C/C++ test files into C# files
 
-  -d output_dir : converted files will be generated in output_dir  
+  -o output_dir : converted files will be generated in output_dir  
+
+  -d level : turn on debugging with given integer level (1 or 2)
   -h : print this message
 EOF
 
 my %opts;
-getopts('d:hrpjc',\%opts) or die $usage;
+getopts('o:hrpjcd:',\%opts) or die $usage;
 
 my $version = "2009-08-22";
 
@@ -155,7 +157,34 @@ my %IgnoreTestFunc = (
   test_MathMLFormatter_semantics_ann => 0,
   test_MathMLFormatter_semantics_annxml => 0,
   test_MathMLFormatter_semantics_url => 0,
+  test_MathMLFormatter_ci_definitionURL => 0,
   test_ASTNode_replaceArgument => 0,
+  test_SBMLTransforms_replaceFD => 0,
+  test_SBMLTransforms_evaluateAST => 0,
+  test_SBase_addCVTerms_newBag => 0,
+  test_SBMLConstructorException_Compartment => 0,
+  test_SBMLConstructorException_CompartmentType => 0,
+  test_SBMLConstructorException_Constraint => 0,
+  test_SBMLConstructorException_InitialAssignment => 0,
+  test_SBMLConstructorException_Species => 0,
+  test_SBMLConstructorException_SpeciesType => 0,
+  test_SBMLConstructorException_Delay => 0,
+  test_SBMLConstructorException_Trigger => 0,
+  test_SBMLConstructorException_Event => 0,
+  test_SBMLConstructorException_EventAssignment => 0,
+  test_SBMLConstructorException_ModifierSpeciesReference => 0,
+  test_SBMLConstructorException_StoichiometryMath => 0,
+  test_SBMLConstructorException_SpeciesReference => 0,
+  test_SBMLConstructorException_FunctionDefinition => 0,
+  test_SBMLConstructorException_KineticLaw => 0,
+  test_SBMLConstructorException_Model => 0,
+  test_SBMLConstructorException_Parameter => 0,
+  test_SBMLConstructorException_Reaction => 0,
+  test_SBMLConstructorException_Unit => 0,
+  test_SBMLConstructorException_UnitDefinition => 0,
+  test_SBMLConstructorException_AssignmentRule => 0,
+  test_SBMLConstructorException_AlgebraicRule => 0,
+  test_SBMLConstructorException_RateRule => 0,
 );
 
 ######################################################################
@@ -302,7 +331,17 @@ $opts{'p'} and $Target    = 'python';
 $opts{'r'} and $Target    = 'ruby';
 $opts{'j'} and $Target    = 'java';
 $opts{'c'} and $Target    = 'csharp';
-$opts{'d'} and $OutputDir = $opts{'d'};
+$opts{'o'} and $OutputDir = $opts{'o'};
+
+if ( $opts{'d'} =~ /\d/ )
+{
+  $Debug = $opts{'d'};
+}
+elsif ( $opts{'d'} )
+{
+  print "Error: the -d option requires a numerical argument.\n";
+  die $usage;
+}
 
 &reset();
 &initPatch();
@@ -320,6 +359,7 @@ for my $file (@ARGV)
     $TestDataDirectory = "../../$1/test/test-data/";
     $CurTestDir = $1;
   }
+  print "\nparsing $file\n\n" if $Debug;
   &parse($file);
   &writeCode($file);
   &reset();
@@ -477,7 +517,7 @@ sub parse
     $CurLine = $line;
     $IsMultiLine = 0;
 
-#print "$CurLine\n";
+    print "$CurLine\n" if $Debug > 1;
 
     $line =~ s| /\* .*? \*/ ||xg;
 
@@ -801,7 +841,9 @@ sub parse
         my $type = $1;
         my $var  = $2;
         next if $1 =~ /return/;
-#print "[global variable] $1\n";
+
+	print "[global variable] $2\n" if $Debug;
+	
         ################################################## 
         # Ruby/Python
         ################################################## 
@@ -839,11 +881,10 @@ sub parseAssertion
   my ($line) = @_;
 
   print "[parseAssertion(top)] -> $line\n" if $Debug;
-#print "[parseAssertion(top)] -> $line\n";
 
   $line =~ s/ numeric_limits \s* < \s* double \s* > \s* ::infinity \s* $re_np /util_PosInf\(\)/x ;
 
- if ( $line =~ /^ \s* 
+  if ( $line =~ /^ \s* 
                      ( (?: (?: (?<!\\) " (?:[^"]|\\")*? (?<!\\) " |  (?<!\\) ' (?:[^']|\\')*? (?<!\\) ') | [^"'] )* )  
                      (?<=\w|["')]|\s) ( == | < | > | != | >= | <= ) (?=\w|[("'*]|\s) 
                      ( (?: (?: (?<!\\) " (?:[^"]|\\")*? (?<!\\) " |  (?<!\\) ' (?:[^']|\\')*? (?<!\\) ') | [^"'] )* )  
@@ -857,6 +898,10 @@ sub parseAssertion
     my $b2 = $2;
     my $b3 = $3; 
 
+    print "b1 = $b1\n" if $Debug > 2;
+    print "b2 = $b2\n" if $Debug > 2;
+    print "b3 = $b3\n" if $Debug > 2;
+
     my @block  = &parseBlock($b1); 
     my $left = join('',@block);
 
@@ -865,13 +910,15 @@ sub parseAssertion
     @block = &parseBlock($b3); 
     my $right = join('',@block);
 
+    print "b3 after parseBlock = $right\n" if $Debug > 2;
+
     #
     # Ignored functions
     #
     if ( ($left eq "") or ($right eq "") )
     {
       {
-        print "(IGNORED) [parseAssertion] $left $op $right \n";
+        print "(IGNORED) [parseAssertion] $left $op $right \n" if $Debug > 2;
         return;
       }
     }
@@ -879,7 +926,7 @@ sub parseAssertion
     if ( ($left =~ /copy\.getName\(\)/ ) or ($right =~ /copy\.getName\(\)/) )
     {
       {
-        print "(IGNORED) [parseAssertion] $left $op $right \n";
+        print "(IGNORED) [parseAssertion] $left $op $right \n" if $Debug > 2;
         return;
       }
     }
@@ -1186,7 +1233,7 @@ sub parseMisc
 {
   my ($line) = @_;
 
-#print "[parseMisc (before)] $line\n";
+  print "[parseMisc (before)] $line\n" if $Debug > 1;
 
 # SHOULD BE FIXED
 #  return if ($line =~ /_free\(.+\)/);
@@ -1194,7 +1241,7 @@ sub parseMisc
   my @block = &parseBlock($line);
   my $block = join('',@block);
 
-#print "[parseMisc (after) ] $line -> $block\n";
+  print "[parseMisc (after) ] $line -> $block\n" if $Debug > 1;
 
   next if $block =~ /^\s*$/;
 
@@ -1264,7 +1311,8 @@ sub parseBlock
   my ($line) = @_;
 
   return "" if ( $line =~ /^ \s* for \s* \(/x );
-#print "parseBlock(top) $line\n";
+
+  print "[parseBlock(top)] $line\n" if $Debug > 1;
 
   ###################################################################### 
 
@@ -1328,9 +1376,6 @@ sub parseBlock
   # "(...);" -> "..."
   $line =~ s/^ \s* \( (.*) \) \s* \; \s* $/$1/x;
 
-  ###################################################################### 
-
-
   ###############################################################################
   #
   # macro definition
@@ -1340,7 +1385,8 @@ sub parseBlock
   ###############################################################################
   if ( $line =~ /^ \s* \#define \s* (.*) /x )
   {
-#print "parseBlock(macro) $line -> $1\n";
+    print "parseBlock(macro) $line -> $1\n" if $Debug > 2;
+
     my $macro_def = &convertMacroDefine($1);
 
     return $macro_def;
@@ -1354,6 +1400,8 @@ sub parseBlock
   ###############################################################################
   elsif( $line =~ /^ \s* (if|else if) \s* ($re_np) \s* ( {? ) \s* $/x )
   {
+    print "parseBlock(if/else) $line -> $1 $2 $3\n" if $Debug > 2;
+
     my $b1 = $1;  
     my $b2 = $2;
     my $b3 = $3;
@@ -1386,21 +1434,24 @@ sub parseBlock
    my $c1 = $2;
    my $b2 = $3;
 
-#print "[parseBlock (operator)] $b1 || $c1 || $b2\n";
+   print "[parseBlock (operator)] $b1 || $c1 || $b2\n" if $Debug > 2;
 
-   my $left  = &parseBlock($b1);
-   my $right = &parseBlock($b2);
+   print "[parseBlock left ...]\n" if $Debug > 2;
+   my $left  = &parseBlock($b1, 1);
 
-#print "[parseBlock (operator)] $left || $right\n";
+   print "[parseBlock right ...]\n" if $Debug > 2;
+   my $right = &parseBlock($b2, 1);
+
+   print "[parseBlock (operator)] $left || $right\n" if $Debug > 2;
 
    if ( ($left eq "") or ($right eq "") )
    {
-     print "(IGNORED) [parseBlock (operator)] $b1 $c1 $b2 (left) $left (right) $right \n";
+     print "(IGNORED) [parseBlock (operator)] $b1 $c1 $b2 (left) $left (right) $right \n" if $Debug > 2;
      return "";
    }
 
-#print "$b2 -> $right\n" if $b2 =~ /X0/;
-#print "$b2 -> $right\n" if $b2 =~ /wrap/;
+   print "$b2 -> $right\n" if $b2 =~ /X0/ and $Debug > 2;
+   print "$b2 -> $right\n" if $b2 =~ /wrap/ and $Debug > 2;
 
     if ( ( $Target eq 'java' ) || ($Target eq 'csharp'))
      {
@@ -1412,7 +1463,7 @@ sub parseBlock
     {
       if ($right =~ /^ \s* [\"\'] .+ [\"\'] \s* \;* \s* $/xs )  
       {
-#          print "[RIGHT] $right\n";
+	print "[RIGHT] $right\n" if $Debug > 2;
         $right =~ s| \\n \" \" |\\n" + "|xs;
         if ( $Target eq 'python' ) 
         {
@@ -1434,9 +1485,9 @@ sub parseBlock
   ###############################################################################
   elsif( $line =~ /^ \s* ( !? \s* [A-Z]\w+? )_( \w+? ) \s* ($re_np) \s* ;* \s* $/x)
   {
-    print "[In parseItem] -> $1 $2 $3\n" if $Debug;
-#print "[SBaseFunc] $1 $2 $3\n";
-#print "[SBaseFunc] $line -> $1 $2 $3\n";
+    print "[In parseItem] -> $1 $2 $3\n"    if $Debug > 1;
+    print "[SBaseFunc] $1 $2 $3\n"          if $Debug > 2;
+    print "[SBaseFunc] $line -> $1 $2 $3\n" if $Debug > 2;
 
     my $cname = $1;
     my $fname = $2;
@@ -1445,6 +1496,8 @@ sub parseBlock
     $args =~ s/^\(//;
     $args =~ s/\)$//;
 
+    print "args reinterpreted as: $args\n"  if $Debug > 2;
+
     my @args   = &parseBlock($args);
 
     if ($cname eq 'SBMLTypeCode' )
@@ -1452,7 +1505,7 @@ sub parseBlock
       return "$Prefix{$Target}${cname}_${fname}(@args)";
     }
 
-#print "[SBaseFunc (parse) ] $cname $fname @args \n";
+    print "[SBaseFunc (parse) ] $cname $fname @args \n" if $Debug > 2;
 
     return &convertSBaseCFuncCall($cname,$fname,@args);
   }
@@ -1465,7 +1518,8 @@ sub parseBlock
   ###############################################################################
   elsif( $line =~ /^ \s* ( !? \s* \w+ ) \s* ($re_np) \s* ;* \s* $/x)
   {
-#print "[MiscCFunc] line $line\n";
+    print "[MiscCFunc] line $line\n" if $Debug > 1;
+
     # general methods
     my $fname = $1;
     my $args  = $2;
@@ -1473,18 +1527,18 @@ sub parseBlock
     $args =~ s/\)$//;
     my @args  = &parseBlock($args);
 
-#print "[MiscFunc (parse) ] $fname || @args \n";
+    print "[MiscFunc (parse) ] $fname || @args \n" if $Debug > 1;
 
     my $fcall;
 
     if ( defined( $SBaseClass{$fname} ) || defined( $MiscClass{$fname} ) )
     {
-#print "[MiscFunc C++ constructor (parse) ] $fname || @args \n";
+      print "[MiscFunc C++ constructor (parse) ] $fname || @args \n"if $Debug > 2;
       $fcall = &convertCPPNew($fname, @args); 
     }
     else
     {
-#print "[MiscFunc C function (parse) ] $fname || @args \n";
+      print "[MiscFunc C function (parse) ] $fname || @args \n"if $Debug > 2;
       $fcall = &convertCFuncCall($fname,@args);
     }
 
@@ -1501,7 +1555,8 @@ sub parseBlock
                      \s*;*\s* $/x
        )
   {
-#print "[CPPFunc] line $line\n";
+    print "[CPPFunc] line $line\n" if $Debug > 1;
+
     # general methods
     my $obj     = $1;
     my $asymbol = $2;
@@ -1510,7 +1565,7 @@ sub parseBlock
     my $args  = $4;
     my $rest  = $5;
 
-#print "[CPPFunc] obj $obj asymbol $asymbol fname $fname args $args rest $rest\n";
+    print "[CPPFunc] obj $obj asymbol $asymbol fname $fname args $args rest $rest\n" if $Debug > 2;
 
     #
     # ignored functions
@@ -1520,7 +1575,7 @@ sub parseBlock
     {
       if ( $fname =~ /$_/ )
       {
-        print "(IGNORED) [CPPFunc] $line \n";
+        print "(IGNORED) [CPPFunc] $line \n" if $Debug > 2;
         return;
       }
     }
@@ -1574,13 +1629,13 @@ sub parseBlock
     $args =~ s/^\s*\(//;
     $args =~ s/\)\s*$//;
 
-#print "[CPPNew] cname $cname args $args : (CurLine) $CurLine\n";
+    print "[CPPNew] cname $cname args $args : (CurLine) $CurLine\n" if $Debug > 1;
 
     my @args = &parseBlock($args);
 
     my $fcall = "";
 
-#print "[CPPNew (args) ] cname $cname args @args\n";
+    print "[CPPNew (args) ] cname $cname args @args\n" if $Debug > 2;
 
     $fcall = &convertCPPNew($cname, @args); 
 
@@ -1599,7 +1654,8 @@ sub parseBlock
     my $val   = $2;
     my $args  = $3;
     my $fcall = "";
-#print "[CPP Constructer (args) ] cname $cname val $val args \n";
+
+    print "[CPP Constructer (args) ] cname $cname val $val args \n" if $Debug > 2;
 
     $args =~ s/^\s*\(//;
     $args =~ s/\)\s*$//;
@@ -1609,7 +1665,7 @@ sub parseBlock
 
     if ( defined( $IgnoredClass{$cname} ) )
     {
-      print "(IGNORED) [CPP Constructer (args) ] cname $cname val $val\n";
+      print "(IGNORED) [CPP Constructer (args) ] cname $cname val $val\n" if $Debug > 2;
       $LocalVariable{$CurFunc}{$val} = 0;
       # ignored
     }
@@ -1682,7 +1738,7 @@ sub parseBlock
   ###############################################################################
   elsif ( $line =~ /^ \s* 
                          ( (?: (?: (?<!\\) " (?:[^"]|\\")+? (?<!\\) " |  (?<!\\) ' (?:[^']|\\')+? (?<!\\) ') | [^"' ] )+ )  
-                         \s*  (?<=\w|["')]|\s) (?<!\,\s) ( \- | \+ | \/ | \% ) (?=\w|[("'*]|\s)  \s*
+                         \s*  (?<=\w|["')]|\s) (?<!\,\s|\de|\dE) ( \- | \+ | \/ | \% ) (?=\w|[("'*]|\s)  \s* 
                          ( (?: (?: (?<!\\) " (?:[^"]|\\")+? (?<!\\) " |  (?<!\\) ' (?:[^']|\\')+? (?<!\\) ') | [^"' ] )+ )  
                        \s* $
                    /x 
@@ -1692,22 +1748,22 @@ sub parseBlock
    my $c1 = $2;
    my $b2 = $3;
 
-#print "[parseBlock (operator)] $b1 || $c1 || $b2\n";
+   print "[parseBlock (operator)] $b1 || $c1 || $b2\n" if $Debug > 2;
 
    my $left  = &parseBlock($b1);
    my $right = &parseBlock($b2);
 
-#print "[parseBlock (operator)] $left || $right\n";
+   print "[parseBlock (operator)] $left || $right\n" if $Debug > 2;
 
-#print "$b2 -> $right\n" if $b2 =~ /X0/;
-#print "$b2 -> $right\n" if $b2 =~ /wrap/;
+   print "$b2 -> $right\n" if $b2 =~ /X0/ and $Debug > 2;
+   print "$b2 -> $right\n" if $b2 =~ /wrap/ and $Debug > 2;
 
     return $left . " $c1 " . $right;
   }
 
   ###############################################################################
   #
-  # comma seperated variables
+  # comma-separated variables
   #
   # (Pattern 9)  , 
   #
@@ -1715,7 +1771,8 @@ sub parseBlock
   elsif( $line =~ /,/)
   {
     my $org = $line;
-#print "[parseBlock(Pattern9)]  $line\n";
+
+    print "[parseBlock(Pattern 9)]  $line\n" if $Debug > 1;
 
     # escapes "," in  (.. , ..)
     $line =~ s{ ($re_np) }{ (my $r = $1) =~ s|,|_COMMA_|g; $r }xeg; 
@@ -1724,21 +1781,32 @@ sub parseBlock
     $line =~ s{ ( " .*? (?<!\\) " ) }{ (my $r = $1) =~ s|,|_COMMA_|g; $r  }xeg;
     $line =~ s{ ( ' .*? (?<!\\) ' ) }{ (my $r = $1) =~ s|,|_COMMA_|g; $r  }xeg;
 
-    my @args = split(',',$line);
+    my @args = split(',', $line);
 
-#print "[split] $org -> @args\n";
+    print "[split] $org -> @args\n" if $Debug > 2;
+
     for (@args)
     {
       s/_COMMA_/,/g;
     }
 
-    for  (@args)
+    # If we end up with only one item, we probably got caught in a comma
+    # within arguments to a function call.  
+
+    if (scalar(@args) == 1)
     {
-     next if /^\s* ([\"\']).*(??{$1}) \s* $/x;
-#print "args -> $_\n";
+      print "[parseBlock(line) ] $line\n" if $Debug > 1;
+      return &convertVal($line);
+    }
+
+    for (@args)
+    {
+      next if /^\s* ([\"\']).*(??{$1}) \s* $/x;
+      print "args -> $_\n" if $Debug > 2;
       $_ = &parseBlock($_);
     }
-#print "[parseBlock(args) ] @args\n";
+
+    print "[parseBlock(args) ] @args\n" if $Debug > 2;
 
     ##################################################
     # Java  / C#
@@ -1770,7 +1838,7 @@ sub parseBlock
   ###############################################################################
   else
   {
-#print "[parseBlock(val) ] $line\n";
+    print "[parseBlock(Pattern 10) ] $line\n" if $Debug > 1;
     return &convertVal($line);
   }
 }
@@ -1964,7 +2032,7 @@ sub convertMacroDefine
 
   $mname = $1 if ( $mname =~ /test_(.+)/ );
 
-print "[convertMacro] $mname || $marg || $mdef \n";
+#print "[convertMacro] $mname || $marg || $mdef \n";
 
   ##################################################
   # Ruby / Python
@@ -2162,13 +2230,13 @@ sub convertCPPNew
   #
   if ( defined( $IgnoredClass{$cname} ) ) 
   {
-    print "(IGNORED) [convertCPPNew] cname $cname arg @arg \n";
+    print "(IGNORED) [convertCPPNew] cname $cname arg @arg \n" if $Debug > 2;
     return $fcall;
   }
 
   if ( ($cname eq "Rule") and ($CurLine !~ / (.*) = (.*) /x ) ) 
   {
-    print "(IGNORED) [convertCPPNew] cname $cname arg @arg \n";
+    print "(IGNORED) [convertCPPNew] cname $cname arg @arg \n" if $Debug > 2;
     return $fcall;
   }
 
@@ -2243,7 +2311,7 @@ sub convertSBaseCFuncCall
   {
     if ( $fname =~ /$_/ )
     {
-      print "(IGNORED) [convertSBaseCFuncCall] ${cname}_${fname} (@arg) \n";
+      print "(IGNORED) [convertSBaseCFuncCall] ${cname}_${fname} (@arg) \n" if $Debug > 2;
       return;
     }
   }
@@ -2260,6 +2328,11 @@ sub convertSBaseCFuncCall
   $fname =~ s/( setExponent ) AsDouble /$1/x;
   $fname =~ s/( setSpatialDimensions ) AsDouble /$1/x;
 
+  # FIXME setLevelAndVersion() in C sets the strictness variable the opposite
+  # of what the C++ default argument actually is, which leads to the following
+  # backwardness.
+
+  push (@arg, $IdFALSE{$Target} ) if ($fname =~ s/ (setLevelAndVersion) (?! Strict)/$1/x );
   push (@arg, $IdTRUE{$Target} ) if ($fname =~ s/ (setLevelAndVersion) Strict/$1/x );
 
   #
@@ -2364,9 +2437,21 @@ sub convertSBaseCFuncCall
   $fcall = $fname;
   if ($fname =~ /free$/)
   { 
-    my $args = join(",",@arg);
-    return ""  if $args =~ /$IdNULL{$Target}/;
-    return "$args = $IdNULL{$Target}";
+    my $args = join(",", @arg);
+
+    if ($Target eq 'python')
+    {   
+      # Crude way of simulating deletion in Python.
+      #
+      return "_dummyList = [ $args ]; _dummyList[:] = []; del _dummyList";
+    }
+    else
+    {
+      # FIXME need to find appropriate solutions for other languages.
+
+      return ""  if $args =~ /$IdNULL{$Target}/;
+      return "$args = $IdNULL{$Target}";
+    }
   }
   elsif ( $cname eq 'XMLInputStream' )
   {
@@ -2375,12 +2460,12 @@ sub convertSBaseCFuncCall
       $arg[1] = $IdFALSE{$Target} if ( $arg[1] eq '0' );
       $arg[1] = $IdTRUE{$Target}  if ( $arg[1] eq '1' );
 
-      return &getCreateObjString($cname, join(",",@arg));
+      return &getCreateObjString($cname, join(",", @arg));
     }
   }
   elsif($fname =~ /^create$/)
   {
-    return &getCreateObjString($cname,join(",",@arg));
+    return &getCreateObjString($cname, join(",", @arg));
 #    return &getCreateObjString($cname,"");
   }
   elsif($fname =~ /^create(With|From)/)
@@ -2510,16 +2595,15 @@ sub convertSBaseCFuncCall
       return $fcall;
     }
   }
-  elsif ( $cname eq 'SBMLDocument') 
-  {
-    if ($fname =~ /^setLevelAndVersion$/)
-    {
-      push(@arg, $IdFALSE{$Target});
-    }
-  }
 
   if(defined($arg[0]))
   {
+    if ($arg[0] =~ /^\((.*)\)/x)
+    {
+      my $actual = $1;
+      $arg[0] = "(self." . $actual . ")" if ( defined( $GlobalVariable{$actual} ) );
+    }
+
     $fcall = $arg[0] . "." . $fname;
 
     if(defined($arg[1])) 
@@ -2727,7 +2811,7 @@ sub convertCFuncCall
   }
   elsif ($fname =~ /^ \s* free \s* $/x)
   { 
-    my $args = join(",",@arg);
+    my $args = join(",", @arg);
     if ( $args =~ /$IdNULL{$Target}/ )
     {
 	  $fcall = "";
@@ -2751,7 +2835,8 @@ sub convertVal
 {
   my ($val) = @_;
 
-#print "[convertVal] $val\n";
+  print "[convertVal] $val\n" if $Debug > 1;
+
   my $is_tail = 0;
   my $cast = "";
 
@@ -2791,25 +2876,26 @@ sub convertVal
   # type 
   if ($val =~ /^ (?: (?: const | unsigned) \s*)? (\w+? \s* \*?) \s* (\b \w+) $/x)
   {
-#print "[convertVal (val)] val $val (1) $1 (2) $2\n";
+
+    print "[convertVal (val)] val $val (1) $1 (2) $2\n" if $Debug > 2;
 
     my $type = $1;
     my $ivar = &parseBlock($2);    
-    $type  =~ s/\s*//g;
-    $type  =~ s/\*//g;
-    $ivar  =~ s/\*//g;
 
-#print "[convertVal (type)/(val)] type $type val $ivar \n";
+    $type =~ s/\s*//g;
+    $ivar =~ s/\s*//g;
+
+    print "[convertVal (type)/(val)] type $type val $ivar \n" if $Debug > 2;
 
     if ( defined ( $IgnoredClass{$type} ) )
     {
-      print "(IGNORED) [convertVal (class ivar) ] $type $ivar \n";
+      print "(IGNORED) [convertVal (class ivar) ] $type $ivar \n" if $Debug > 2;
       $LocalVariable{$CurFunc}{$ivar} = 0;
       return;
     }
     elsif ( defined ( $SBaseClass{$type} ) || defined ( $MiscClass{$type} ) )
     {
-#print "[convertVal (class ivar) ] $type $ivar \n";
+      print "[convertVal (class $type) ] $type $ivar \n" if $Debug > 2;
 
       $LocalVariable{$CurFunc}{$ivar} = 1;
 
@@ -2837,7 +2923,8 @@ sub convertVal
       {
         $r =  $ivar . " = ". &convertCPPNew($type);
       }
-#print "[convertVal (r)] $r \n";
+      print "[convertVal (r)] $r \n" if $Debug > 2;
+
       return $r;
     }
     elsif ( $type =~ /delete/ )
@@ -2846,7 +2933,7 @@ sub convertVal
       {
         unless ( $LocalVariable{$CurFunc}{$ivar} or $GlobalVariable{$ivar} )
         {
-           print "(IGNORED) delete $ivar \n";
+           print "(IGNORED) delete $ivar \n" if $Debug > 2;
   	   return;
         }
       }
@@ -2875,7 +2962,7 @@ sub convertVal
     }
     else
     {
-#print "[convertVal (return)] $val \n";
+
      ##################################################
      # Java / C#
      ##################################################
@@ -2899,19 +2986,24 @@ sub convertVal
       $type =~ s/^string$/$IdSTRING{$Target}/x;
 
       $type =~ s/^int$/long/x;
-#print "[convertVal (type var) decl ] $type $ivar \n";
+
+      print "[convertVal (type var) decl ] $type $ivar \n" if $Debug > 2;
 
       $LocalVariable{$CurFunc}{$ivar} = 1;
+
+      print "[convertVal (return)] $type $ivar \n" if $Debug > 2;
 
       return "$type $ivar" 
      }
      ##################################################
 
+      print "[convertVal (return)] $ivar \n" if $Debug > 2;
+
       return $ivar;
     }
   }
 
-#print "[convertVal (var) ] $val \n";
+  print "[convertVal (var) ] $val \n" if $Debug > 2;
 
      $val = $IdNULL{$Target} if ( $val =~ /^ \s* NULL \s* $/x );
      # libSBML constants 
@@ -3416,10 +3508,11 @@ EOF
     # print macro definitions
     map { &printFuncDef($_, $MacroDef{$_}, *FH, 0, 1) } sort keys %MacroDef;
 
-    print $fh "class $cname(unittest.TestCase):\n\n" ;
+    print $fh "\nclass $cname(unittest.TestCase):\n\n" ;
     for ( keys %GlobalVariable )
     {
 	next unless $_;
+	print $fh "  global $_\n";
 	print $fh "  $_ = None\n";
     }
     print $fh "\n";
@@ -3884,6 +3977,10 @@ $patchClassTop{'ruby'}{'TestL3Unit'} .= <<'EOF';
   @@SBML_INT_MAX = 2147483647
 EOF
 
+$patchClassTop{'ruby'}{'TestSBase_newSetters'} .= <<'EOF';
+  @@SBML_INT_MAX = 2147483647
+EOF
+
 $patchClassTop{'ruby'}{'TestReadFromFile9'} .= <<'EOF';
   @@SBML_INT_MAX = 2147483647
 EOF
@@ -3954,7 +4051,6 @@ elsif ( $Target eq 'python' )
 
 $patchFuncHead{'python'}{'TestReadSBML'}{'test_ReadSBML_line_col_numbers'} = <<'EOF';
   setXMLParser()
-
 EOF
 
 #--------------------------------------------------
@@ -4046,6 +4142,12 @@ $patchClassTop{'python'}{'TestRDFAnnotation'}  = $patchClassTop{'python'}{'TestW
 $patchClassTop{'python'}{'TestRDFAnnotation2'} = $patchClassTop{'python'}{'TestWriteSBML'}; 
 $patchClassTop{'python'}{'TestWriteL3SBML'}    = $patchClassTop{'python'}{'TestWriteSBML'}; 
 
+$patchClassTop{'python'}{'TestSBMLConstructorException'} = <<'EOF';
+  current_not_converted_by_ctest_converter = 0
+
+
+EOF
+
 #--------------------------------------------------
 
 $patchGlobal{'python'}{'TestReadMathML'} = <<'EOF';
@@ -4079,6 +4181,10 @@ DBL_EPSILON =  2.2204460492503131e-16
 EOF
 
 $patchGlobal{'python'}{'TestL3Unit'} .= <<'EOF';
+SBML_INT_MAX = 2147483647
+EOF
+
+$patchGlobal{'python'}{'TestSBase_newSetters'} .= <<'EOF';
 SBML_INT_MAX = 2147483647
 EOF
 
@@ -4309,6 +4415,10 @@ $patchClassTop{'java'}{'TestL3Unit'} .= <<'EOF';
   public static final int SBML_INT_MAX = 2147483647;
 EOF
 
+$patchClassTop{'java'}{'TestSBase_newSetters'} .= <<'EOF';
+  public static final int SBML_INT_MAX = 2147483647;
+EOF
+
 $patchClassTop{'java'}{'TestReadFromFile9'} .= <<'EOF';
   public static final int SBML_INT_MAX = 2147483647;
 EOF
@@ -4499,6 +4609,10 @@ $patchClassTop{'csharp'}{'TestASTNode'} = <<'EOF';
 EOF
 
 $patchClassTop{'csharp'}{'TestL3Unit'} .= <<'EOF';
+  private const int SBML_INT_MAX = 2147483647;
+EOF
+
+$patchClassTop{'csharp'}{'TestSBase_newSetters'} .= <<'EOF';
   private const int SBML_INT_MAX = 2147483647;
 EOF
 
