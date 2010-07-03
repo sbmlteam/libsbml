@@ -1195,7 +1195,8 @@ START_TEST (test_ASTNode_getReal)
   ASTNode_setType(n, AST_REAL_E);
   ASTNode_setRealWithExponent(n, 12.3, 3);
 
-  fail_unless(abs(ASTNode_getReal(n) - 12300.0) < DBL_EPSILON);
+  double val = abs(ASTNode_getReal(n) - 12300.0);
+  fail_unless(val < DBL_EPSILON);
 
   /** 1/2 **/
   ASTNode_setType(n, AST_RATIONAL);
@@ -2129,7 +2130,8 @@ START_TEST (test_ASTNode_avogadro)
   ASTNode_setName(n, "NA");
 
   fail_unless(!strcmp(ASTNode_getName(n), "NA"));
-  fail_unless(ASTNode_getReal(n) == 6.02214179e23);
+  double val = ASTNode_getReal(n);
+  fail_unless(val == 6.02214179e23);
 
   ASTNode_free(n);
 }
