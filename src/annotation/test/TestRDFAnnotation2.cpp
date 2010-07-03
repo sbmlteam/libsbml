@@ -194,7 +194,7 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
 		"  </rdf:RDF>\n"
     "</annotation>";
 
-  if (ann) 
+  if (ann != NULL) 
   {
     fail_unless( equals(expected, ann->toXMLString().c_str()) );
   }
