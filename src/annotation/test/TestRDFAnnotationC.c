@@ -66,7 +66,7 @@ RDFAnnotation_C_teardown (void)
 
 START_TEST (test_RDFAnnotation_C_getModelHistory)
 {
-  fail_if(m == 0);
+  fail_if(m == NULL);
 
   ModelHistory_t * history = Model_getModelHistory(m);
 
