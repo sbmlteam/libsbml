@@ -63,8 +63,8 @@ static char*    S;
 void
 WriteMathML_setup ()
 {
-  N = 0;
-  S = 0;
+  N = NULL;
+  S = NULL;
 }
 
 
