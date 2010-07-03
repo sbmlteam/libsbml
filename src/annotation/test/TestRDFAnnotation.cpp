@@ -83,7 +83,7 @@ equals (const char* expected, const char* actual)
 
 START_TEST (test_RDFAnnotation_getModelHistory)
 {
-  fail_if(m == 0);
+  fail_if(m == NULL);
 
   ModelHistory * history = m->getModelHistory();
 
