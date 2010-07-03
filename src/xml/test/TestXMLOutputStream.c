@@ -164,10 +164,7 @@ START_TEST (test_XMLOutputStream_CharacterReference)
   XMLOutputStream_writeAttributeChars(stream, "nohexcr2", "&#xABCD" );
   XMLOutputStream_endElement(stream, "testcr");
 
-  const char * expected = "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" "
-                          "lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" "
-                          "nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" "
-                          "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
+  const char * expected = "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
   const char * s = XMLOutputStream_getString(stream);
 
   fail_unless(!strcmp(s,expected));
@@ -194,9 +191,7 @@ START_TEST (test_XMLOutputStream_PredefinedEntity)
 
   XMLOutputStream_endElement(stream, "testpde");
 
-  const char * expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" "
-                          "quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" "
-                          "pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
+  const char * expected = "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
   const char * s = XMLOutputStream_getString(stream);
 
   fail_unless(!strcmp(s,expected));
