@@ -57,8 +57,8 @@ static char*    F;
 static void
 ReadMathML_setup ()
 {
-  N = 0;
-  F = 0;
+  N = NULL;
+  F = NULL;
 }
 
 
@@ -79,11 +79,10 @@ START_TEST (test_element_math)
   (
     "<math xmlns='http://www.w3.org/1998/Math/MathML'/>"
   );
-  
 
   N = readMathMLFromString(s);
 
-  fail_unless(N != 0);
+  fail_unless(N != NULL);
   fail_unless(N->getType() == AST_UNKNOWN);
 }
 END_TEST
@@ -96,7 +95,7 @@ START_TEST (test_element_cn_default)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
   fail_unless( N->getReal()        == 12345.7  );
@@ -112,7 +111,7 @@ START_TEST (test_element_cn_real)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
   fail_unless( N->getReal()        == 12345.7  );
@@ -128,7 +127,7 @@ START_TEST (test_element_cn_integer)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_INTEGER );
   fail_unless( N->getInteger()     == 12345 );
@@ -147,7 +146,7 @@ START_TEST (test_element_cn_rational)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
 
   fail_unless( N->getType()        == AST_RATIONAL );
@@ -165,7 +164,7 @@ START_TEST (test_element_cn_e_notation)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
   fail_unless( N->getMantissa()    == 12.3 );
@@ -182,7 +181,7 @@ START_TEST (test_element_ci)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_NAME   );
   fail_unless( !strcmp(N->getName(), "x") );
@@ -198,7 +197,7 @@ START_TEST (test_element_ci_surrounding_spaces_bug)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_NAME   );
   fail_unless( !strcmp(N->getName(), "s") );
@@ -218,7 +217,7 @@ START_TEST (test_element_csymbol_time)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_NAME_TIME );
   fail_unless( !strcmp(N->getName(), "t")    );
@@ -238,7 +237,7 @@ START_TEST (test_element_csymbol_delay_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_FUNCTION_DELAY );
   fail_unless( !strcmp(N->getName(), "delay") );
@@ -263,7 +262,7 @@ START_TEST (test_element_csymbol_delay_2)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "my_delay(x, 0.1)") );
@@ -291,7 +290,7 @@ START_TEST (test_element_csymbol_delay_3)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "pow(delay(P, delta_t), q)") );
@@ -306,7 +305,7 @@ START_TEST (test_element_constants_true)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_CONSTANT_TRUE );
   fail_unless( N->getNumChildren() == 0 );
@@ -321,7 +320,7 @@ START_TEST (test_element_constants_false)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_CONSTANT_FALSE );
   fail_unless( N->getNumChildren() == 0 );
@@ -338,7 +337,7 @@ START_TEST (test_element_constants_notanumber)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_REAL );
   fail_unless( test_isnan(N->getReal()) );
@@ -354,7 +353,7 @@ START_TEST (test_element_constants_pi)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_CONSTANT_PI );
   fail_unless( N->getNumChildren() == 0 );
@@ -369,7 +368,7 @@ START_TEST (test_element_constants_infinity)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_REAL      );
   fail_unless( util_isInf(N->getReal()) == 1 );
@@ -385,7 +384,7 @@ START_TEST (test_element_constants_exponentiale)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_CONSTANT_E );
   fail_unless( N->getNumChildren() == 0 );
@@ -405,7 +404,7 @@ START_TEST (test_element_operator_plus)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "1 + 2 + 3") );
@@ -424,7 +423,7 @@ START_TEST (test_element_operator_times)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "x * y * z") );
@@ -439,7 +438,7 @@ START_TEST (test_element_abs)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "abs(x)") );
@@ -457,7 +456,7 @@ START_TEST (test_element_and)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "and(a, b, c)") );
@@ -472,7 +471,7 @@ START_TEST (test_element_arccos)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "acos(x)") );
@@ -487,7 +486,7 @@ START_TEST (test_element_arccosh)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arccosh(x)") );
@@ -502,7 +501,7 @@ START_TEST (test_element_arccot)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arccot(x)") );
@@ -517,7 +516,7 @@ START_TEST (test_element_arccoth)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arccoth(x)") );
@@ -532,7 +531,7 @@ START_TEST (test_element_arccsc)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arccsc(x)") );
@@ -547,7 +546,7 @@ START_TEST (test_element_arccsch)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arccsch(x)") );
@@ -562,7 +561,7 @@ START_TEST (test_element_arcsec)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arcsec(x)") );
@@ -577,7 +576,7 @@ START_TEST (test_element_arcsech)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arcsech(x)") );
@@ -592,7 +591,7 @@ START_TEST (test_element_arcsin)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "asin(x)") );
@@ -607,7 +606,7 @@ START_TEST (test_element_arcsinh)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arcsinh(x)") );
@@ -622,7 +621,7 @@ START_TEST (test_element_arctan)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "atan(x)") );
@@ -637,7 +636,7 @@ START_TEST (test_element_arctanh)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "arctanh(x)") );
@@ -652,7 +651,7 @@ START_TEST (test_element_ceiling)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "ceil(1.6)") );
@@ -667,7 +666,7 @@ START_TEST (test_element_cos)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cos(x)") );
@@ -682,7 +681,7 @@ START_TEST (test_element_cosh)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cosh(x)") );
@@ -697,7 +696,7 @@ START_TEST (test_element_cot)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "cot(x)") );
@@ -712,7 +711,7 @@ START_TEST (test_element_coth)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "coth(x)") );
@@ -727,7 +726,7 @@ START_TEST (test_element_csc)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "csc(x)") );
@@ -742,7 +741,7 @@ START_TEST (test_element_csch)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "csch(x)") );
@@ -760,7 +759,7 @@ START_TEST (test_element_eq)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "eq(a, b, c)") );
@@ -775,7 +774,7 @@ START_TEST (test_element_exp)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "exp(x)") );
@@ -790,7 +789,7 @@ START_TEST (test_element_factorial)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "factorial(5)") );
@@ -805,7 +804,7 @@ START_TEST (test_element_floor)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "floor(1.2)") );
@@ -820,7 +819,7 @@ START_TEST (test_element_function_call_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "foo(x)") );
@@ -840,7 +839,7 @@ START_TEST (test_element_function_call_2)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "1 + f(x)") );
@@ -858,7 +857,7 @@ START_TEST (test_element_geq)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "geq(1, x, 0)") );
@@ -878,7 +877,7 @@ START_TEST (test_element_gt)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "gt(INF, INF - 1)") );
@@ -901,7 +900,7 @@ START_TEST (test_element_lambda)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "lambda(x, sin(x + 1))") );
@@ -919,7 +918,7 @@ START_TEST (test_element_leq)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "leq(0, x, 1)") );
@@ -934,7 +933,7 @@ START_TEST (test_element_ln)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "log(a)") );
@@ -954,7 +953,7 @@ START_TEST (test_element_log_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "log(3, x)") );
@@ -969,7 +968,7 @@ START_TEST (test_element_log_2)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "log10(x)") );
@@ -989,7 +988,7 @@ START_TEST (test_element_lt)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "lt(INF - INF, 1)") );
@@ -1007,7 +1006,7 @@ START_TEST (test_element_neq)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "neq(NaN, NaN)") );
@@ -1022,7 +1021,7 @@ START_TEST (test_element_not)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
 
@@ -1041,7 +1040,7 @@ START_TEST (test_element_or)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
 
@@ -1072,7 +1071,7 @@ START_TEST (test_element_piecewise)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "piecewise(-x, lt(x, 0), 0, eq(x, 0), x, gt(x, 0))"),
@@ -1098,7 +1097,7 @@ START_TEST (test_element_piecewise_otherwise)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
 
@@ -1114,7 +1113,7 @@ START_TEST (test_element_power)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
 
@@ -1135,7 +1134,7 @@ START_TEST (test_element_root_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "root(3, a)") );
@@ -1150,7 +1149,7 @@ START_TEST (test_element_root_2)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "sqrt(a)") );
@@ -1165,7 +1164,7 @@ START_TEST (test_element_sec)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "sec(x)") );
@@ -1180,7 +1179,7 @@ START_TEST (test_element_sech)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "sech(x)") );
@@ -1195,7 +1194,7 @@ START_TEST (test_element_sin)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "sin(x)") );
@@ -1210,7 +1209,7 @@ START_TEST (test_element_sinh)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "sinh(x)") );
@@ -1225,7 +1224,7 @@ START_TEST (test_element_tan)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "tan(x)") );
@@ -1240,7 +1239,7 @@ START_TEST (test_element_tanh)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
   fail_unless( !strcmp(F, "tanh(x)") );
@@ -1258,7 +1257,7 @@ START_TEST (test_element_xor)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
 
@@ -1278,7 +1277,7 @@ START_TEST (test_element_semantics)
   N = readMathMLFromString(s);
 
   fail_unless( N->getSemanticsFlag() == true );
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
 
   F = SBML_formulaToString(N);
@@ -1301,7 +1300,7 @@ START_TEST (test_element_semantics_URL)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getSemanticsFlag() == true );
   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
@@ -1326,7 +1325,7 @@ START_TEST (test_element_semantics_annotation)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getSemanticsFlag() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
@@ -1358,7 +1357,7 @@ START_TEST (test_element_semantics_annxml)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getSemanticsFlag() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
@@ -1391,7 +1390,7 @@ START_TEST (test_element_semantics_lambda)
   N = readMathMLFromString(s);
 
   fail_unless( N->getSemanticsFlag() == true );
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
 
   F = SBML_formulaToString(N);
@@ -1415,7 +1414,7 @@ START_TEST (test_element_semantics_URL_lambda)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getSemanticsFlag() == true );
   fail_unless( N->getDefinitionURL()->getValue(0) == "foobar");
@@ -1441,7 +1440,7 @@ START_TEST (test_element_semantics_ann_lambda)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getSemanticsFlag() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
@@ -1474,7 +1473,7 @@ START_TEST (test_element_semantics_annxml_lambda)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getSemanticsFlag() == true );
   fail_unless( N->getNumSemanticsAnnotations() == 1);
@@ -1532,7 +1531,7 @@ START_TEST (test_element_bug_math_xmlns)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   F = SBML_formulaToString(N);
 
@@ -1554,7 +1553,7 @@ START_TEST (test_element_bug_apply_ci_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_FUNCTION );
   fail_unless( !strcmp(N->getName(), "Y")   );
@@ -1562,7 +1561,7 @@ START_TEST (test_element_bug_apply_ci_1)
 
   ASTNode* c = N->getLeftChild();
 
-  fail_unless( c != 0 );
+  fail_unless( c != NULL );
 
   fail_unless( c->getType() == AST_REAL );
   fail_unless( c->getReal() == 1        );
@@ -1585,7 +1584,7 @@ START_TEST (test_element_bug_apply_ci_2)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_FUNCTION );
   fail_unless( !strcmp(N->getName(), "Y")   );
@@ -1623,14 +1622,14 @@ START_TEST (test_element_bug_csymbol_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_RELATIONAL_GT );
   fail_unless( N->getNumChildren() == 2 );
 
   ASTNode* c = N->getLeftChild();
 
-  fail_unless( c != 0 );
+  fail_unless( c != NULL );
 
   fail_unless( c->getType() == AST_NAME_TIME );
   fail_unless( !strcmp(c->getName(), "time") );
@@ -1638,7 +1637,7 @@ START_TEST (test_element_bug_csymbol_1)
 
   c = N->getRightChild();
 
-  fail_unless( c != 0 );
+  fail_unless( c != NULL );
 
   fail_unless( c->getType()        == AST_REAL );
   fail_unless( c->getReal()        == 5000     );
@@ -1654,7 +1653,7 @@ START_TEST (test_element_bug_cn_integer_negative)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_INTEGER );
   fail_unless( N->getInteger()     == -7 );
@@ -1670,7 +1669,7 @@ START_TEST (test_element_bug_cn_e_notation_1)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
   fail_unless( N->getMantissa()    ==  2.0 );
@@ -1687,7 +1686,7 @@ START_TEST (test_element_bug_cn_e_notation_2)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
   fail_unless( N->getMantissa()    == -3.0 );
@@ -1704,7 +1703,7 @@ START_TEST (test_element_bug_cn_e_notation_3)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL_E );
   fail_unless( N->getMantissa()    == -6.0 );
@@ -1741,7 +1740,7 @@ START_TEST (test_element_bug_csymbol_delay_1)
   N = readMathMLFromString(s);
 
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_FUNCTION_DELAY );
   fail_unless( !strcmp(N->getName(), "my_delay")  );
@@ -1750,7 +1749,7 @@ START_TEST (test_element_bug_csymbol_delay_1)
 
   ASTNode* c = N->getLeftChild();
 
-  fail_unless( c != 0 );
+  fail_unless( c != NULL );
 
   fail_unless( c->getType() == AST_NAME   );
   fail_unless( !strcmp(c->getName(), "x") );
@@ -1759,7 +1758,7 @@ START_TEST (test_element_bug_csymbol_delay_1)
 
   c = N->getRightChild();
 
-  fail_unless( c != 0 );
+  fail_unless( c != NULL );
 
   fail_unless( c->getType()        == AST_REAL );
   fail_unless( c->getReal()        == 0.1      );
@@ -1797,7 +1796,7 @@ START_TEST (test_element_cn_units)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType()        == AST_REAL );
   fail_unless( N->getReal()        == 12345.7  );
@@ -1814,7 +1813,7 @@ START_TEST (test_element_ci_definitionURL)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_NAME   );
   fail_unless( !strcmp(N->getName(), "x") );
@@ -1835,7 +1834,7 @@ START_TEST (test_element_csymbol_avogadro)
 
   N = readMathMLFromString(s);
 
-  fail_unless( N != 0 );
+  fail_unless( N != NULL );
 
   fail_unless( N->getType() == AST_NAME_AVOGADRO );
   fail_unless( !strcmp(N->getName(), "NA")    );
