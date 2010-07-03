@@ -276,7 +276,7 @@ javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py
 
 compile_command = "$(JAVAC)" $(JAVAC_OPTION) -d $(outdir) $(outpath)/*.java
 
-$(outpath)/libsbml.class: libsbml_wrap.cpp
+$(outpath)/libsbml.class: libsbml_wrap.cpp $(outpath)
 	@echo $(compile_command)
 	$(shell $(compile_command) 2>&1 | grep -v deprecat)
 
