@@ -152,9 +152,7 @@ START_TEST (test_ModifierSpeciesReference_createWithNS )
   SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
   SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
-  SpeciesReference_t *object = 
-    SpeciesReference_createModifierWithNS(sbmlns);
-
+  SBase_t *object = (SBase_t *) SpeciesReference_createModifierWithNS(sbmlns);
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) object) == SBML_MODIFIER_SPECIES_REFERENCE );
   fail_unless( SBase_getMetaId    ((SBase_t *) object) == NULL );
@@ -164,11 +162,11 @@ START_TEST (test_ModifierSpeciesReference_createWithNS )
   fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
-  fail_unless( SpeciesReference_getNamespaces     (object) != NULL );
-  fail_unless( XMLNamespaces_getLength(
-    SpeciesReference_getNamespaces(object)) == 2 );
+  fail_unless( SpeciesReference_getNamespaces ((SpeciesReference_t *) object) != NULL );
+  const XMLNamespaces_t *n = SpeciesReference_getNamespaces((SpeciesReference_t *) object);
+  fail_unless( XMLNamespaces_getLength( n ) == 2 );
 
-  SpeciesReference_free(object);
+  SpeciesReference_free((SpeciesReference_t *) object);
 }
 END_TEST
 
