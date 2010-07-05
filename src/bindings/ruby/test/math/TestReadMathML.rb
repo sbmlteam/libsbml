@@ -637,9 +637,9 @@ class TestReadMathML < Test::Unit::TestCase
   end
 
   def test_element_invalid_mathml
-    invalid = wrapMathML("<lambda>" + 
+    invalid = wrapMathML("<lambda definitionURL=\"something\">" + 
     "<bvar>" + 
-    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "<ci>c</ci>" + 
     "</bvar>" + 
     "<apply>" + 
     "  <ci>c</ci>" + 
