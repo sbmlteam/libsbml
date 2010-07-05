@@ -789,9 +789,9 @@ namespace LibSBMLCSTest {
 
     public void test_element_invalid_mathml()
     {
-      string invalid = wrapMathML("<lambda>" + 
+        string invalid = wrapMathML("<lambda definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">" + 
     "<bvar>" + 
-    "<ci definitionURL=\"http://biomodels.net/SBO/#SBO:0000065\">c</ci>" + 
+    "<ci>c</ci>" + 
     "</bvar>" + 
     "<apply>" + 
     "  <ci>c</ci>" + 
