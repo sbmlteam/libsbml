@@ -352,13 +352,13 @@ namespace LibSBMLCSTest {
       ASTNode ast = libsbml.parseFormula("c*2");
       sm.setMath(ast);
       assertTrue( m.getNumRules() == 0 );
-      assertTrue( sr.isSetId() == 0 );
+      assertTrue( sr.isSetId() == false );
       d.setLevelAndVersion(3,1,false);
       m = d.getModel();
       r = m.getReaction(0);
       sr = r.getReactant(0);
       assertTrue( m.getNumRules() == 1 );
-      assertTrue( sr.isSetId() == 1 );
+      assertTrue( sr.isSetId() == true );
       Rule rule = m.getRule(0);
       assertTrue( sr.getId() == rule.getVariable() );
       d = null;

@@ -796,7 +796,7 @@ namespace LibSBMLCSTest {
     public void test_Model_getSpeciesReferenceById()
     {
       Reaction r1 = new  Reaction(2,4);
-      r1.setId();
+      r1.setId("r1");
       SpeciesReference sr = r1.createReactant();
       sr.setId( "s1");
       M.addReaction(r1);
