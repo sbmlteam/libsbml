@@ -310,12 +310,26 @@ $(check_classes): Makefile $(libraries) $(check_sources)
 	@echo $(check_compile_command)
 	$(shell $(check_compile_command) 2>&1 | grep -v deprecat)
 
+ifeq "$(HOST_TYPE)" "darwin"
+  define runjavatest
+	env DYLD_LIBRARY_PATH="$(RUN_LDPATH):$(DYLD_LIBRARY_PATH):." "$(JAVA)" -classpath "$(classpath)" AutoTestRunner
+  endef
+else
+  define runjavatest
+	env LD_LIBRARY_PATH="$(RUN_LDPATH):$(LD_LIBRARY_PATH):." "$(JAVA)" -classpath "$(classpath)" AutoTestRunner
+  endef
+endif
+
+# 2010-07-05 <mhucka@caltech.edu> For some reason, I can't get runjavatest
+# or the previous version of it to work in my environment anymore.  I'm
+# switching to a straight invocation of java.
+
 check: $(check_classes) $(shell $(call check_layout))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,"$(JAVA)" -classpath "$(classpath)" AutoTestRunner)
+	"$(JAVA)" -classpath "$(classpath)" AutoTestRunner
 	@echo -----------------------------------------------------------------
 	@echo
 
