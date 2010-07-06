@@ -41,7 +41,7 @@ CK_CPPSTART
 START_TEST (test_SBMLError_create)
 {
   SBMLError* error = new SBMLError;
-  fail_unless( error != 0 );
+  fail_unless( error != NULL );
   delete error;
 
   error = new SBMLError(EmptyListInReaction);
