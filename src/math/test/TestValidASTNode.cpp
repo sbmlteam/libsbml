@@ -209,8 +209,7 @@ START_TEST (test_ValidASTNode_setType)
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( n->getType() == AST_PLUS);
-  char c = n->getCharacter();
-  fail_unless( c == '+' );
+  fail_unless( n->getCharacter() == '+' );
   
   i = n->setType(AST_FUNCTION_ARCCOSH);
 
