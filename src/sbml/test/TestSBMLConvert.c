@@ -62,17 +62,17 @@ START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
 
 
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 1) == 1, NULL );
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 2) == 1, NULL );
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
 
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 3) == 1, NULL );
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 3, NULL );
@@ -115,7 +115,7 @@ START_TEST (test_SBMLConvert_addModifiersToReaction)
 
   fail_unless( Reaction_getNumModifiers(r) == 0, NULL );
 
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 2, 1) == 1, NULL );
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1, NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
@@ -138,7 +138,7 @@ START_TEST (test_SBMLConvert_convertToL1_SBMLDocument)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
 
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 1, 2) == 1, NULL);
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1, NULL);
 
   fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
@@ -386,7 +386,7 @@ START_TEST (test_SBMLConvert_convertToL3_localParameters)
 
   fail_unless(KineticLaw_getNumLocalParameters(kl) == 0);
   
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 3, 1) == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1 );
 
   m = SBMLDocument_getModel(d);
   r = Model_getReaction(m,0);
@@ -425,7 +425,7 @@ START_TEST (test_SBMLConvert_convertToL3_stoichiometryMath)
   fail_unless(Model_getNumRules(m) == 0);
   fail_unless(SpeciesReference_isSetId(sr) == 0);
   
-  fail_unless( SBMLDocument_setLevelAndVersion(d, 3, 1) == 1);
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
 
   m = SBMLDocument_getModel(d);
   r = Model_getReaction(m, 0);

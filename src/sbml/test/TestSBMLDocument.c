@@ -145,17 +145,16 @@ END_TEST
 
 START_TEST (test_SBMLDocument_setLevelAndVersion)
 {
-  SBMLDocument_t *d  = SBMLDocument_create();
-  SBMLDocument_setLevelAndVersion(d, 2, 2);
-  
+  SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 2);
+   
   Model_t        *m1 = Model_create(2, 2);
 
   SBMLDocument_setModel(d, m1);
 
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,1) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,2,3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,2,1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
 }
@@ -164,18 +163,17 @@ END_TEST
 
 START_TEST (test_SBMLDocument_setLevelAndVersion_Warning)
 {
-  SBMLDocument_t *d  = SBMLDocument_create();
-  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 2);
   
   Model_t        *m1 = Model_create(2, 2);
   SBase_setSBOTerm((SBase_t*)(m1), 2);
 
   SBMLDocument_setModel(d, m1);
 
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,1) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,2,3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,2,1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
 }
@@ -202,10 +200,10 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_Error)
   Model_addUnitDefinition(m1, ud);
   SBMLDocument_setModel(d, m1);
 
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 0);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d,2,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d,2,3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d,1,2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
 }
@@ -214,9 +212,8 @@ END_TEST
 
 START_TEST (test_SBMLDocument_setModel1)
 {
-  SBMLDocument_t *d  = SBMLDocument_create();
-  SBMLDocument_setLevelAndVersion(d, 2, 2);
-  
+  SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 2);
+
   Model_t        *m1 = Model_create(2, 1);
 
   int i = SBMLDocument_setModel(d, m1);
@@ -231,8 +228,7 @@ END_TEST
 
 START_TEST (test_SBMLDocument_setModel2)
 {
-  SBMLDocument_t *d  = SBMLDocument_create();
-  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 2);
   
   Model_t        *m1 = Model_create(1, 2);
 
@@ -248,8 +244,7 @@ END_TEST
 
 START_TEST (test_SBMLDocument_setModel3)
 {
-  SBMLDocument_t *d  = SBMLDocument_create();
-  SBMLDocument_setLevelAndVersion(d, 2, 2);
+  SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 2);
   
   Model_t        *m1 = Model_create(2, 2);
 
@@ -266,7 +261,7 @@ END_TEST
 START_TEST (test_SBMLDocument_setLevelAndVersion_UnitsError)
 {
   SBMLDocument_t *d  = SBMLDocument_create();
-  SBMLDocument_setLevelAndVersion(d, 2, 4);
+  SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4);
   
   Model_t        *m1 = SBMLDocument_createModel(d);
   
@@ -281,10 +276,10 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_UnitsError)
   Rule_setVariable(r, "c");
   Rule_setFormula(r, "p*p");
 
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,2,3) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,2) == 1);
-  fail_unless(SBMLDocument_setLevelAndVersion(d,1,1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,2,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,2,3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d,1,1) == 0);
 
   SBMLDocument_free(d);
 }
