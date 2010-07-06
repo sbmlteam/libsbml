@@ -74,7 +74,7 @@ static void
 WriteSBML_setup ()
 {
   D = new SBMLDocument;
-  S = 0;
+  S = NULL;
 }
 
 
