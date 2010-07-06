@@ -2828,7 +2828,7 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version )
 {
-  return static_cast <int> (d->setLevelAndVersion(level, version, false));
+  return static_cast <int> (d->setLevelAndVersion(level, version, true));
 }
 
 
@@ -2890,6 +2890,56 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
                                        , unsigned int    version )
 {
   return static_cast <int> (d->setLevelAndVersion(level, version, true));
+}
+
+
+/**
+ * Sets the SBML Level and Version of this SBMLDocument, attempting to
+ * convert the model as needed.
+ *
+ * This method is used to convert models between Levels and Versions of
+ * SBML.  Generally, models can be converted upward without difficulty
+ * (e.g., from SBML Level 1 to Level 2, or from an earlier version of
+ * Level 2 to the latest version of Level 2).  Sometimes models can be
+ * translated downward as well, if they do not use constructs specific to
+ * more advanced Levels of SBML.
+ *
+ * Callers can also check compatibility directly using the methods
+ * checkL1Compatibility(), checkL2v1Compatibility(), and 
+ * checkL2v2Compatibility().
+ * 
+ * The valid combinations as of this release of libSBML are the
+ * following: 
+ *
+ * @li Level 1 Version 1
+ * @li Level 1 Version 2
+ * @li Level 2 Version 1
+ * @li Level 2 Version 2
+ * @li Level 2 Version 3
+ * @li Level 2 Version 4
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @param level the desired SBML Level
+ *
+ * @param version the desired Version within the SBML Level
+ *
+ * @note Calling this method will not @em necessarily lead to successful
+ * conversion.  If the conversion fails, it will be logged in the error
+ * list associated with this SBMLDocument_t structure.  Callers should
+ * consult getNumErrors() to find out if the conversion succeeded without
+ * problems.  For conversions from Level 2 to Level 1, callers can also
+ * check the Level of the model after calling this method to find out
+ * whether it is Level 1.  (If the conversion to Level 1 failed, the Level
+ * of this model will be left unchanged.)
+ */
+LIBSBML_EXTERN
+int
+SBMLDocument_setLevelAndVersionNonStrict (  SBMLDocument_t *d
+                                 , unsigned int    level
+                                 , unsigned int    version )
+{
+  return static_cast <int> (d->setLevelAndVersion(level, version, false));
 }
 
 

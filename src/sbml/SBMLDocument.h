@@ -1110,6 +1110,13 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
 
 LIBSBML_EXTERN
 int
+SBMLDocument_setLevelAndVersionNonStrict (  SBMLDocument_t *d
+                                 , unsigned int    level
+                                 , unsigned int    version );
+
+
+LIBSBML_EXTERN
+int
 SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m);
 
 
