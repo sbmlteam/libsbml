@@ -81,27 +81,19 @@ START_TEST (test_SBMLConvertStrict_convertNonStrictUnits)
 
   /* these should all fail since the model has bad units */
 
-  unsigned int success = SBMLDocument_setLevelAndVersionStrict(d, 2, 1);
-
-  fail_unless( success == 0 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 0 );
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
+  
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 2) == 0 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
-  success = SBMLDocument_setLevelAndVersionStrict(d, 2, 2);
-  
-  fail_unless( success == 0 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 3) == 0 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
-
-  success = SBMLDocument_setLevelAndVersionStrict(d, 2, 3);
   
-  fail_unless( success == 0 );
-  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
-  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
-
-  success = SBMLDocument_setLevelAndVersionStrict(d, 1, 2);
-  
-  fail_unless( success == 0 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
@@ -124,21 +116,16 @@ START_TEST (test_SBMLConvertStrict_convertNonStrictSBO)
   /* conversion to L2V3 and L2V2 should fail due to bad SBO
    * but to L2V1 and L1 should pass as sbo terms not applicable
    */
-  unsigned int success = SBMLDocument_setLevelAndVersionStrict(d, 2, 3);
 
-  fail_unless( success == 0 );
-  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
-  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
-  
-  success = SBMLDocument_setLevelAndVersionStrict(d, 2, 2);
-  
-  fail_unless( success == 0 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 3) == 0 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
 
-  success = SBMLDocument_setLevelAndVersionStrict(d, 2, 1);
-  
-  fail_unless( success == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 2) == 0 );
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
@@ -147,9 +134,7 @@ START_TEST (test_SBMLConvertStrict_convertNonStrictSBO)
 
   fail_unless (SBase_getSBOTerm((SBase_t *) (c1)) == -1, NULL );
 
-  success = SBMLDocument_setLevelAndVersionStrict(d, 1, 2);
-  
-  fail_unless( success == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
   
@@ -182,9 +167,7 @@ START_TEST (test_SBMLConvertStrict_convertToL1)
   Species_setCompartment(s, "c");
   Species_setHasOnlySubstanceUnits(s, 1);
 
-  unsigned int success = SBMLDocument_setLevelAndVersionStrict(d, 1, 2);
-
-  fail_unless( success == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
 
@@ -216,15 +199,11 @@ START_TEST (test_SBMLConvertStrict_convertSBO)
   Compartment_setId(c, "c");
   SBase_setSBOTerm((SBase_t *) (c), 240);
 
-  unsigned int success = SBMLDocument_setLevelAndVersionStrict(d, 2, 3);
-
-  fail_unless( success == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 3) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 3, NULL );
   
-  success = SBMLDocument_setLevelAndVersionStrict(d, 2, 2);
-  
-  fail_unless( success == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 2) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
 
@@ -262,9 +241,7 @@ START_TEST (test_SBMLConvertStrict_convertL1ParamRule)
   Rule_setMath(ar, math);
   Rule_setUnits(ar, "mole");
 
-  unsigned int success = SBMLDocument_setLevelAndVersionStrict(d, 2, 1);
-
-  fail_unless( success == 1 );
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
