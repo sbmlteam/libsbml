@@ -111,22 +111,31 @@ END_TEST
 
 START_TEST (test_SBMLDocument_setModel)
 {
-  SBMLDocument_t *d  = SBMLDocument_create();
+  SBMLDocument_t *d  = SBMLDocument_createWithLevelAndVersion(2, 4);
   Model_t        *m1 = Model_create(2, 4);
   Model_t        *m2 = Model_create(2, 4);
-
+  Model_t        *mout;
 
   fail_unless(SBMLDocument_getModel(d) == NULL);
 
-  SBMLDocument_setModel(d, m1);
-  fail_unless(SBMLDocument_getModel(d) != m1);
+  int i = SBMLDocument_setModel(d, m1);
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
+  mout = SBMLDocument_getModel(d);
+  fail_unless(mout != NULL);
+  fail_unless(mout != m1);
 
   /* Reflexive case (pathological) */
-  SBMLDocument_setModel(d, SBMLDocument_getModel(d));
-  fail_unless(SBMLDocument_getModel(d) != m1);
+  i = SBMLDocument_setModel(d, SBMLDocument_getModel(d));
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
+  mout = SBMLDocument_getModel(d);
+  fail_unless(mout != NULL);
+  fail_unless(mout != m1);
 
-  SBMLDocument_setModel(d, m2);
-  fail_unless(SBMLDocument_getModel(d) != m2);
+  i = SBMLDocument_setModel(d, m2);
+  fail_unless ( i == LIBSBML_OPERATION_SUCCESS );
+  mout = SBMLDocument_getModel(d);
+  fail_unless(mout != NULL);
+  fail_unless(mout != m2);
 
   SBMLDocument_free(d);
   /* m1 is freed by SBMLDocument_setModel(d, m2); */
