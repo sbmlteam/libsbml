@@ -486,19 +486,19 @@ END_TEST
 
 START_TEST (test_Reaction_removeModifier)
 {
-  SpeciesReference_t *o1, *o2, *o3;
+  SBase_t *o1, *o2, *o3;
 
   o1 = Reaction_createModifier(R);
   o2 = Reaction_createModifier(R);
   o3 = Reaction_createModifier(R);
-  SpeciesReference_setSpecies(o3,"test");
+  SpeciesReference_setSpecies((Species_t *) o3, "test");
 
-  fail_unless( Reaction_removeModifier(R,0) == o1 );
-  fail_unless( Reaction_getNumModifiers(R)  == 2  );
-  fail_unless( Reaction_removeModifier(R,0) == o2 );
-  fail_unless( Reaction_getNumModifiers(R)  == 1  );
+  fail_unless( Reaction_removeModifier(R, 0) == o1 );
+  fail_unless( Reaction_getNumModifiers(R)   == 2  );
+  fail_unless( Reaction_removeModifier(R, 0) == o2 );
+  fail_unless( Reaction_getNumModifiers(R)   == 1  );
   fail_unless( Reaction_removeModifierBySpecies(R,"test") == o3 );
-  fail_unless( Reaction_getNumModifiers(R)  == 0  );
+  fail_unless( Reaction_getNumModifiers(R)   == 0  );
 
   SpeciesReference_free(o1);
   SpeciesReference_free(o2);
