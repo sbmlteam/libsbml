@@ -80,6 +80,7 @@ my %SBaseClass = (
     RateRule                  => 0,
     Rule                      => 0,
     Reaction                  => 0,
+    SBase                     => 0,
     SBMLDocument              => 0,
     Species                   => 0,
     SpeciesReference          => 0,
@@ -177,6 +178,18 @@ my %IgnoreTestFunc = (
   test_SBase_addCVTerms_newBag                   => 0,
   test_Date_setHoursOffset                       => 0,
   test_Date_setOffsetSign                        => 0,
+  test_Model_copyConstructor                     => 0,
+  test_Model_assignmentOperator                  => 0,
+  test_Model_clone                               => 0,
+  test_Reaction_removeModifier                   => 0,
+  test_Reaction_getModifier                      => 0,
+  test_Reaction_addModifier                      => 0,
+  test_Reaction_getModifierById                  => 0,
+  test_SpeciesReference_createModifier           => 0,
+test_Reaction_addModifier1                       => 0,
+test_Reaction_addModifier2                       => 0,
+test_Reaction_addModifier3                       => 0,
+test_Reaction_createModifier                     => 0,
 );
 
 ######################################################################
@@ -948,6 +961,7 @@ sub parseAssertion
                    (?:
                       isSet(
                             ModelHistory
+                           |Id
                            |Formula
                            |InitialAmount
                            |InitialConcentration
@@ -964,6 +978,7 @@ sub parseAssertion
                            |UseValuesFromTriggerTime
                            |BoundaryCondition
                            |HasOnlySubstanceUnits
+                           |Units
                         )
                      )
 
@@ -1307,7 +1322,7 @@ sub parseBlock
 
   return "" if ( $line =~ /^ \s* for \s* \(/x );
 
-  print "[parseBlock(top)] $line\n" if $Debug > 1;
+  print "[parseBlock (top)] $line\n" if $Debug > 1;
 
   ###################################################################### 
 
@@ -1329,12 +1344,14 @@ sub parseBlock
   {
    # SHOULD BE FIXED
 
+    my $innertype;
     $line =~ s{ 
                 (?:static|const)_cast\s*< \s* ( \w+? ) \s* \*? \s*> \s* ($re_np) 
               }
               { 
-                my $l = $1; (my $r = $2)  =~ s,(?:^\(|\)$),,g;  
-                "(($l) $r)";
+		$innertype = $1;
+		(my $r = $2) =~ s,(?:^\(|\)$),,g;
+                "(($innertype) $r)";
               }xe; 
     if ( $Target eq 'java')
     {
@@ -1343,6 +1360,16 @@ sub parseBlock
     $line =~ s/-> \s* (\w)/.$1/x;
     # remove cast 
     $line =~ s/^\s* \(\s* [a-zA-Z_]+ \s* \* \s* \) \s*//x; 
+
+    if ( $line =~ /setValue/ and $innertype =~ /long/ )
+    {
+      # This should be handled in a better way, but I can't come up with
+      # one now.  Calls to ASTNode setValue, if the first argument is
+      # cast to long (instead of int), will be mapped to the wrong
+      # setValue() variant by Java.
+
+      $line =~ s/long/int/;
+    }
   }
 
   if ( $Target eq 'csharp' ) 
@@ -1380,7 +1407,7 @@ sub parseBlock
   ###############################################################################
   if ( $line =~ /^ \s* \#define \s* (.*) /x )
   {
-    print "parseBlock(macro) $line -> $1\n" if $Debug > 2;
+    print "parseBlock(pattern 1) $line -> $1\n" if $Debug > 2;
 
     my $macro_def = &convertMacroDefine($1);
 
@@ -1395,7 +1422,7 @@ sub parseBlock
   ###############################################################################
   elsif( $line =~ /^ \s* (if|else if) \s* ($re_np) \s* ( {? ) \s* $/x )
   {
-    print "parseBlock(if/else) $line -> $1 $2 $3\n" if $Debug > 2;
+    print "parseBlock(pattern 2) $line -> $1 $2 $3\n" if $Debug > 2;
 
     my $b1 = $1;  
     my $b2 = $2;
@@ -1429,7 +1456,7 @@ sub parseBlock
    my $c1 = $2;
    my $b2 = $3;
 
-   print "[parseBlock (operator)] $b1 || $c1 || $b2\n" if $Debug > 2;
+   print "[parseBlock (pattern 3)] $b1 || $c1 || $b2\n" if $Debug > 2;
 
    print "[parseBlock left ...]\n" if $Debug > 2;
    my $left  = &parseBlock($b1, 1);
@@ -1450,7 +1477,7 @@ sub parseBlock
 
     if ( ( $Target eq 'java' ) || ($Target eq 'csharp'))
      {
-       $right .= ";" if $line =~ / \s* \;+ \s* $/x; 
+       $right .= ";" if $line =~ /^ \s* \;+ \s* $/x; 
      }
 
 
@@ -1480,7 +1507,7 @@ sub parseBlock
   ###############################################################################
   elsif( $line =~ /^ \s* ( !? \s* [A-Z]\w+? )_( \w+? ) \s* ($re_np) \s* ;* \s* $/x)
   {
-    print "[In parseItem] -> $1 $2 $3\n"    if $Debug > 1;
+    print "[parseBlock (pattern 4)] -> $1 $2 $3\n"    if $Debug > 1;
     print "[SBaseFunc] $1 $2 $3\n"          if $Debug > 2;
     print "[SBaseFunc] $line -> $1 $2 $3\n" if $Debug > 2;
 
@@ -1513,7 +1540,7 @@ sub parseBlock
   ###############################################################################
   elsif( $line =~ /^ \s* ( !? \s* \w+ ) \s* ($re_np) \s* ;* \s* $/x)
   {
-    print "[MiscCFunc] line $line\n" if $Debug > 1;
+    print "[parseblock (pattern 5)] line $line\n" if $Debug > 1;
 
     # general methods
     my $fname = $1;
@@ -1550,7 +1577,7 @@ sub parseBlock
                      \s*;*\s* $/x
        )
   {
-    print "[CPPFunc] line $line\n" if $Debug > 1;
+    print "[parseblock (Pattern 6)] line $line\n" if $Debug > 1;
 
     # general methods
     my $obj     = $1;
@@ -1621,10 +1648,12 @@ sub parseBlock
     my $cname = $1;
     my $args  = $2;
 
+    print "[parseBlock (pattern 7)] $cname $args\n" if $Debug > 1;
+
     $args =~ s/^\s*\(//;
     $args =~ s/\)\s*$//;
 
-    print "[CPPNew] cname $cname args $args : (CurLine) $CurLine\n" if $Debug > 1;
+    print "[parseBlock (pattern 7)] cname $cname args $args : (CurLine) $CurLine\n" if $Debug > 2;
 
     my @args = &parseBlock($args);
 
@@ -1650,7 +1679,7 @@ sub parseBlock
     my $args  = $3;
     my $fcall = "";
 
-    print "[CPP Constructer (args) ] cname $cname val $val args \n" if $Debug > 2;
+    print "[parseBlock (pattern 8)] cname $cname val $val args \n" if $Debug > 2;
 
     $args =~ s/^\s*\(//;
     $args =~ s/\)\s*$//;
@@ -1743,7 +1772,7 @@ sub parseBlock
    my $c1 = $2;
    my $b2 = $3;
 
-   print "[parseBlock (operator)] $b1 || $c1 || $b2\n" if $Debug > 2;
+   print "[parseBlock (pattern 8.5)] $b1 || $c1 || $b2\n" if $Debug > 2;
 
    my $left  = &parseBlock($b1);
    my $right = &parseBlock($b2);
@@ -1790,7 +1819,7 @@ sub parseBlock
 
     if (scalar(@args) == 1)
     {
-      print "[parseBlock(line) ] $line\n" if $Debug > 1;
+      print "[parseBlock (line) ] $line\n" if $Debug > 1;
       return &convertVal($line);
     }
 
@@ -1817,7 +1846,7 @@ sub parseBlock
 
         if ( defined( $SBaseClass{$cname} ) || defined( $MiscClass{$cname} )  )
         {
-          return join(',', @args);
+          return join(', ', @args);
         }
       }
     }
@@ -1833,7 +1862,7 @@ sub parseBlock
   ###############################################################################
   else
   {
-    print "[parseBlock(Pattern 10) ] $line\n" if $Debug > 1;
+    print "[parseBlock (pattern 10)] $line\n" if $Debug > 1;
     return &convertVal($line);
   }
 }
@@ -1949,7 +1978,7 @@ sub addAssertion2
     if ( $Target eq 'java' )
     {
       unless (  $right =~ /^ (?: 
-                                \-?(\d*\.)?\d+  
+                                [-+]?(\d+|\d*\.\d*)([eE][+-]?\d+)?
                               | 
                                 libsbml\..+ 
                               |
@@ -1962,6 +1991,8 @@ sub addAssertion2
                                 '.*'
                               |
                                 ".*"
+                              |
+                                [A-Z_]+
                              ) $/x 
              )
       {
@@ -1978,9 +2009,10 @@ sub addAssertion2
                                 )
                           /x)
                   ||
-                  ($CurLine =~ /ASTNode_getCharacter/ )
+                  ($CurLine =~ / getCharacter /x )
                )
         {
+	  print "[turning into .equals] $left, $right\n" if $Debug > 2;
           $equation = $left . ".equals($right)";
           $equation = "!" . $equation if ( $op =~ "!=" );
         }
@@ -2409,6 +2441,15 @@ sub convertSBaseCFuncCall
     }
   }
 
+  if ( $cname eq 'ListOf' )
+  {
+    if ($fname =~ /^clear/)
+    {
+      $arg[1] = $IdFALSE{$Target} if ( $arg[1] eq '0' );
+      $arg[1] = $IdTRUE{$Target}  if ( $arg[1] eq '1' );
+    }
+  }
+
   if ( $cname eq 'RDFAnnotationParser' ||
        $cname eq 'SyntaxChecker' )
   {
@@ -2658,7 +2699,7 @@ sub convertSBaseCFuncCall
         ##################################################
         # Ruby & Python
         ##################################################
-        if ($Target eq 'ruby'|| $Target eq 'python')
+        if ($Target eq 'ruby' || $Target eq 'python')
         {
           if ( $arg[1] =~ /bool/)
           {
@@ -2667,6 +2708,14 @@ sub convertSBaseCFuncCall
             $lfname .= "Bool"
           }
         }
+	elsif ( $Target eq 'java' )
+        {
+          if ( $arg[1] =~ /bool/)
+          {
+            $arg[2] = $IdFALSE{$Target} if $arg[2] == '0';
+            $arg[2] = $IdTRUE{$Target}  if $arg[2] != '0';
+	  }	  
+	}
 
         $fcall = $arg[0] . "." . $lfname;
       }
@@ -2802,7 +2851,12 @@ sub convertCFuncCall
     ##################################################
     $fcall = "self." . $fcall if($Target eq 'python');
   }
-  elsif( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf | isnan ) /x )
+  elsif ( $fname =~ /^ \s*  (?: abs ) /x and $Target eq 'java' )
+  {
+    my $args = join(',', @arg);
+    $fcall = "java.lang.Math.abs(" . $args . ")";
+  }
+  elsif ( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf | isnan ) /x )
   {
     $fname = "isnan" if $fname =~ /isnan/;
     my $args = join(',', @arg);
@@ -2854,6 +2908,8 @@ sub convertVal
     $cast = $1; 
     $val = $2; 
  
+    print "[convertVal (typecast)] $cast || $val\n" if $Debug > 1;
+
     ################################################## 
     # Java
     ################################################## 
@@ -2873,13 +2929,29 @@ sub convertVal
   $val = $1 if ($val =~ /^ \s* [\*&] \s* (\w+) /x);
 
   # type 
-  if ($val =~ /^ (?: (?: const | unsigned) \s*)? (\w+? \s* \*?) \s* (\b \w+) $/x)
+  if ($val =~ /^ (?: ( const | unsigned ) \s* )? (\w+? \s* \*?) \s* (\b \w+) $/x)
   {
+    print "[convertVal (val)] $val (1) $1 (2) $2 (3) $3\n" if $Debug > 2;
 
-    print "[convertVal (val)] val $val (1) $1 (2) $2\n" if $Debug > 2;
+    my $type;
+    my $modifier = $1;
+    my $maintype = $2;
+    my $ivartmp  = $3;
 
-    my $type = $1;
-    my $ivar = &parseBlock($2);    
+    if ( $Target eq 'java' and $modifier =~ /unsigned/x and $maintype =~ /int/x )
+    {
+      $type = "long";
+    }
+    elsif ( $modifier =~ /const/x )
+    {
+      $type = "$maintype";
+    }
+    else
+    {
+      $type = "$modifier $maintype";
+    }
+
+    my $ivar = &parseBlock($ivartmp);
 
     $type =~ s/\s*//g;
     $ivar =~ s/\s*//g;
@@ -2961,6 +3033,7 @@ sub convertVal
     }
     else
     {
+      print "[convertVal (type mangling) ]\n" if $Debug > 2;      
 
      ##################################################
      # Java / C#
@@ -2980,11 +3053,19 @@ sub convertVal
       {
         $type =~ s/^ \s* (\w*?) \s* SpeciesReference_t \s* $/$1 ModifierSpeciesReference/x;
       }
-      $type =~ s/ _t \s* $//x;
-      $type =~ s/^char$/$IdSTRING{$Target}/x;
-      $type =~ s/^string$/$IdSTRING{$Target}/x;
+      elsif ( $type =~ /^char$/ && $CurLine !~ /getCharacter(:!s)/x )
+      {
+	$type =~ s/^char$/$IdSTRING{$Target}/x;
+      }
 
-      $type =~ s/^int$/long/x;
+      $type =~ s/ _t \s* $//x;
+      $type =~ s/^string$/$IdSTRING{$Target}/x;
+      $type =~ s/^unsigned int$/long/x;
+
+      if ( $Target ne 'java' )
+      {
+	$type =~ s/^int$/long/x;
+      }
 
       print "[convertVal (type var) decl ] $type $ivar \n" if $Debug > 2;
 
@@ -3440,9 +3521,9 @@ sub writeHeader
   my $head;
 
   $head = "/\*\n" if ($Target eq 'java');
+  $head = "$c\n" if ($Target eq 'python');
 
   $head .= <<"EOF";
-$c
 $c \@file    $file
 $c \@brief   $brief
 $author
@@ -3475,7 +3556,6 @@ $c the Free Software Foundation.  A copy of the license agreement is provided
 $c in the file named "LICENSE.txt" included with this software distribution
 $c and also available online as http://sbml.org/software/libsbml/license.html
 $c -----------------------------------------------------------------------------
-
 EOF
 
   ##################################################
@@ -3502,7 +3582,7 @@ EOF
   {
     $cname =~ s/\.py$//;
     ################################################## 
-    print $fh $head;
+    print $fh $head . "\n";
     print $fh "import sys\n";
     print $fh "import unittest\n";
     print $fh "import $ModuleName{'python'}\n\n";
@@ -3530,7 +3610,7 @@ EOF
   {
     $cname =~ s/\.java$//;
     ################################################## 
-    print $fh $head . "\n";
+    print $fh $head . " \*/\n";
     print $fh "\n";
     print $fh "package " . $JavaPackage . ".$CurTestDir" . ";\n";
     print $fh "\n";
