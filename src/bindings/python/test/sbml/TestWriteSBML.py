@@ -178,7 +178,7 @@ class TestWriteSBML(unittest.TestCase):
 
   def setUp(self):
     self.D = libsbml.SBMLDocument()
-    self.S = 0
+    self.S = None
     pass  
 
   def tearDown(self):

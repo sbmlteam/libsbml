@@ -60,9 +60,7 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.writeAttribute( "nohexcr1", "&#x;"    )
     stream.writeAttribute( "nohexcr2", "&#xABCD" )
     stream.endElement( "testcr")
-    expected = wrapString("<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" ""lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" " + 
-    "nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" " + 
-    "nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>")
+    expected =  "<testcr chars=\"one\" amp=\"&amp;\" deccr=\"&#0168;\" hexcr=\"&#x00a8;\" lhexcr=\"&#x00A8;\" nodeccr1=\"&amp;#01688\" nodeccr2=\"&amp;#;\" nodeccr3=\"&amp;#00a8;\" nodeccr4=\"&amp;#00A8;\" nohexcr1=\"&amp;#x;\" nohexcr2=\"&amp;#xABCD\"/>";
     s = oss.str()
     self.assert_(( expected == s ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList
@@ -104,7 +102,7 @@ class TestXMLOutputStream(unittest.TestCase):
     stream.writeAttribute( "pdelt",   "&lt;"  )
     stream.writeAttribute( "pdequot", "&quot;")
     stream.endElement( "testpde")
-    expected = wrapString("<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" ""quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" " + "pdelt=\"&lt;\" pdequot=\"&quot;\"/>")
+    expected =  "<testpde amp=\"&amp;\" apos=\"&apos;\" gt=\"&gt;\" lt=\"&lt;\" quot=\"&quot;\" pdeamp=\"&amp;\" pdeapos=\"&apos;\" pdegt=\"&gt;\" pdelt=\"&lt;\" pdequot=\"&quot;\"/>";
     s = oss.str()
     self.assert_(( expected == s ))
     _dummyList = [ stream ]; _dummyList[:] = []; del _dummyList

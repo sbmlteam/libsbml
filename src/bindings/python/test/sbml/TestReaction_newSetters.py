@@ -52,47 +52,6 @@ class TestReaction_newSetters(unittest.TestCase):
     _dummyList = [ self.R ]; _dummyList[:] = []; del _dummyList
     pass  
 
-  def test_Reaction_addModifier1(self):
-    m = libsbml.Reaction(2,2)
-    p = libsbml.ModifierSpeciesReference(2,2)
-    p1 = libsbml.ModifierSpeciesReference(2,2)
-    p1.setSpecies( "k")
-    p1.setId( "k1")
-    i = m.addModifier(p)
-    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    p.setSpecies( "k")
-    p.setId( "k1")
-    i = m.addModifier(p)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( m.getNumModifiers() == 1 )
-    i = m.addModifier(p1)
-    self.assert_( i == libsbml.LIBSBML_DUPLICATE_OBJECT_ID )
-    self.assert_( m.getNumModifiers() == 1 )
-    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ p1 ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
-    pass  
-
-  def test_Reaction_addModifier2(self):
-    m = libsbml.Reaction(2,2)
-    p = libsbml.ModifierSpeciesReference(2,1)
-    p.setSpecies( "k")
-    i = m.addModifier(p)
-    self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
-    self.assert_( m.getNumModifiers() == 0 )
-    _dummyList = [ p ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
-    pass  
-
-  def test_Reaction_addModifier3(self):
-    m = libsbml.Reaction(2,2)
-    p = None
-    i = m.addModifier(p)
-    self.assert_( i == libsbml.LIBSBML_OPERATION_FAILED )
-    self.assert_( m.getNumModifiers() == 0 )
-    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
-    pass  
-
   def test_Reaction_addProduct1(self):
     m = libsbml.Reaction(2,2)
     p = libsbml.SpeciesReference(2,2)
@@ -204,15 +163,6 @@ class TestReaction_newSetters(unittest.TestCase):
     self.assert_( (kl).getLevel() == 2 )
     self.assert_( (kl).getVersion() == 2 )
     _dummyList = [ r ]; _dummyList[:] = []; del _dummyList
-    pass  
-
-  def test_Reaction_createModifier(self):
-    m = libsbml.Reaction(2,2)
-    p = m.createModifier()
-    self.assert_( m.getNumModifiers() == 1 )
-    self.assert_( (p).getLevel() == 2 )
-    self.assert_( (p).getVersion() == 2 )
-    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
     pass  
 
   def test_Reaction_createProduct(self):

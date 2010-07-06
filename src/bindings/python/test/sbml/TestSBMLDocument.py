@@ -130,16 +130,25 @@ class TestSBMLDocument(unittest.TestCase):
     pass  
 
   def test_SBMLDocument_setModel(self):
-    d = libsbml.SBMLDocument()
+    d = libsbml.SBMLDocument(2,4)
     m1 = libsbml.Model(2,4)
     m2 = libsbml.Model(2,4)
     self.assert_( d.getModel() == None )
-    d.setModel(m1)
-    self.assert_( d.getModel() != m1 )
-    d.setModel(d.getModel())
-    self.assert_( d.getModel() != m1 )
-    d.setModel(m2)
-    self.assert_( d.getModel() != m2 )
+    i = d.setModel(m1)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    mout = d.getModel()
+    self.assert_( mout != None )
+    self.assert_( mout != m1 )
+    i = d.setModel(d.getModel())
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    mout = d.getModel()
+    self.assert_( mout != None )
+    self.assert_( mout != m1 )
+    i = d.setModel(m2)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    mout = d.getModel()
+    self.assert_( mout != None )
+    self.assert_( mout != m2 )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 

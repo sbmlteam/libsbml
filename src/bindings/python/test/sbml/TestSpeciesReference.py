@@ -65,16 +65,6 @@ class TestSpeciesReference(unittest.TestCase):
     self.assertEqual( False, self.SR.isSetStoichiometryMath() )
     pass  
 
-  def test_SpeciesReference_createModifier(self):
-    sr = libsbml.ModifierSpeciesReference(2,4)
-    self.assert_( sr.getTypeCode() == libsbml.SBML_MODIFIER_SPECIES_REFERENCE )
-    self.assert_( sr.getMetaId() == "" )
-    self.assert_( sr.getNotes() == None )
-    self.assert_( sr.getAnnotation() == None )
-    self.assertEqual( True, sr.isModifier() )
-    _dummyList = [ sr ]; _dummyList[:] = []; del _dummyList
-    pass  
-
   def test_SpeciesReference_createWithNS(self):
     xmlns = libsbml.XMLNamespaces()
     xmlns.add( "http://www.sbml.org", "testsbml")

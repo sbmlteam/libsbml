@@ -110,8 +110,8 @@ class TestWriteMathML(unittest.TestCase):
       return x[0] == self.OSS.str()
 
   def setUp(self):
-    self.N = 0
-    self.S = 0
+    self.N = None
+    self.S = None
     pass  
 
   def tearDown(self):

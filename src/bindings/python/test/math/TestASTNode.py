@@ -84,7 +84,8 @@ class TestASTNode(unittest.TestCase):
     n.setType(libsbml.AST_NAME_AVOGADRO)
     n.setName( "NA")
     self.assert_((  "NA" == n.getName() ))
-    self.assert_( n.getReal() == 6.02214179e23 )
+    val = n.getReal()
+    self.assert_( val == 6.02214179e23 )
     _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -697,7 +698,8 @@ class TestASTNode(unittest.TestCase):
     self.assert_( n.getReal() == 1.6 )
     n.setType(libsbml.AST_REAL_E)
     n.setValue(12.3,3)
-    self.assert_( abs(n.getReal() - 12300.0) < DBL_EPSILON )
+    val = abs(n.getReal() - 12300.0)
+    self.assert_( val < DBL_EPSILON )
     n.setType(libsbml.AST_RATIONAL)
     n.setValue(1,2)
     self.assert_( n.getReal() == 0.5 )
@@ -1128,19 +1130,19 @@ class TestASTNode(unittest.TestCase):
     n.setValue(1.6)
     i = n.setUnits( "mole")
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( n.isSetUnits() == 1 )
+    self.assert_( n.isSetUnits() == True )
     self.assert_((  "mole" == n.getUnits() ))
     i = n.unsetUnits()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( n.isSetUnits() == 0 )
+    self.assert_( n.isSetUnits() == False )
     self.assert_((  "" == n.getUnits() ))
     i = n.setUnits( "1mole")
     self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
-    self.assert_( n.isSetUnits() == 0 )
+    self.assert_( n.isSetUnits() == False )
     n.setType(libsbml.AST_FUNCTION)
     i = n.setUnits( "mole")
     self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
-    self.assert_( n.isSetUnits() == 0 )
+    self.assert_( n.isSetUnits() == False )
     self.assert_((  "" == n.getUnits() ))
     _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  

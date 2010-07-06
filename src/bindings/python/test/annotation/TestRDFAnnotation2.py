@@ -156,7 +156,7 @@ class TestRDFAnnotation2(unittest.TestCase):
     "    </rdf:Description>\n" + 
     "  </rdf:RDF>\n" + 
     "</annotation>")
-    if (ann):
+    if (ann != None):
       self.assertEqual( True, self.equals(expected,ann.toXMLString()) )
       pass    
       pass    

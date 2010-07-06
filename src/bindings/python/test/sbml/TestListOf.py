@@ -49,7 +49,7 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.append(sp)
     self.assert_( lo.size() == 5 )
-    lo.clear(1)
+    lo.clear(True)
     self.assert_( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
@@ -57,12 +57,17 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.appendAndOwn(sp)
     self.assert_( lo.size() == 5 )
-    _dummyList = [ lo.get(0) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.get(1) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.get(2) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.get(3) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.get(4) ]; _dummyList[:] = []; del _dummyList
-    lo.clear(0)
+    out = lo.get(0)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.get(1)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.get(2)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.get(3)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.get(4)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    lo.clear(False)
     self.assert_( lo.size() == 0 )
     _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
     pass  
@@ -81,6 +86,18 @@ class TestListOf(unittest.TestCase):
     _dummyList = [ None ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_ListOf_get(self):
+    lo = libsbml.ListOf()
+    self.assert_( lo.size() == 0 )
+    sp = libsbml.Species(2,4)
+    lo.append(sp)
+    self.assert_( lo.size() == 1 )
+    out = lo.get(1)
+    self.assert_( sp != out )
+    _dummyList = [ sp ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ lo ]; _dummyList[:] = []; del _dummyList
+    pass  
+
   def test_ListOf_remove(self):
     lo = libsbml.ListOf()
     sp = libsbml.Species(2,4)
@@ -91,11 +108,16 @@ class TestListOf(unittest.TestCase):
     lo.append(sp)
     lo.append(sp)
     self.assert_( lo.size() == 5 )
-    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
-    _dummyList = [ lo.remove(0) ]; _dummyList[:] = []; del _dummyList
+    out = lo.remove(0)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.remove(0)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.remove(0)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.remove(0)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
+    out = lo.remove(0)
+    _dummyList = [ out ]; _dummyList[:] = []; del _dummyList
     self.assert_( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)

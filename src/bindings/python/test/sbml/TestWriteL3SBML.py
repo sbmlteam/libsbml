@@ -111,7 +111,7 @@ class TestWriteL3SBML(unittest.TestCase):
   def setUp(self):
     self.D = libsbml.SBMLDocument()
     self.D.setLevelAndVersion(3,1,False)
-    self.S = 0
+    self.S = None
     pass  
 
   def tearDown(self):

@@ -42,7 +42,7 @@ class TestXMLError(unittest.TestCase):
 
   def test_XMLError_create(self):
     error = libsbml.XMLError()
-    self.assert_( error != 0 )
+    self.assert_( error != None )
     error = None
     error = libsbml.XMLError(libsbml.DuplicateXMLAttribute)
     self.assert_( error.getErrorId() == libsbml.DuplicateXMLAttribute )
@@ -85,7 +85,7 @@ class TestXMLError(unittest.TestCase):
 
   def test_XMLError_setters(self):
     error = libsbml.XMLError()
-    self.assert_( error != 0 )
+    self.assert_( error != None )
     i = error.setLine(23)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( error.getLine() == 23 )

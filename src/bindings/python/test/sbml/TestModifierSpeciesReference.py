@@ -75,7 +75,8 @@ class TestModifierSpeciesReference(unittest.TestCase):
     self.assert_( object.getLevel() == 2 )
     self.assert_( object.getVersion() == 1 )
     self.assert_( object.getNamespaces() != None )
-    self.assert_( object.getNamespaces().getLength() == 2 )
+    n = object.getNamespaces()
+    self.assert_( n.getLength() == 2 )
     _dummyList = [ object ]; _dummyList[:] = []; del _dummyList
     pass  
 
