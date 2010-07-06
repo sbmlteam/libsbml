@@ -41,7 +41,7 @@ CK_CPPSTART
 START_TEST (test_XMLError_create)
 {
   XMLError* error = new XMLError;
-  fail_unless( error != 0 );
+  fail_unless( error != NULL );
   delete error;
 
   error = new XMLError(DuplicateXMLAttribute);
@@ -93,7 +93,7 @@ END_TEST
 START_TEST (test_XMLError_setters)
 {
   XMLError* error = new XMLError;
-  fail_unless( error != 0 );
+  fail_unless( error != NULL );
 
   int i = error->setLine(23);
 
