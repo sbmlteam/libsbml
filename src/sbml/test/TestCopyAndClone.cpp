@@ -212,14 +212,18 @@ START_TEST ( test_Constraint_copyConstructor )
     delete math;
     delete message;
 
-    fail_unless(o1->getMath() != NULL);
-    fail_unless(o1->getMessage() != NULL);
+    const XMLNode *msg;
 
-    Constraint* o2=new Constraint(*o1);
+    fail_unless(o1->getMath() != NULL);
+    msg = o1->getMessage();
+    fail_unless( msg != NULL);
+
+    Constraint* o2 = new Constraint(*o1);
 
     fail_unless(o2->getMetaId() == "c");
-    fail_unless(o1->getMath() != NULL);
-    fail_unless(o1->getMessage() != NULL);
+    fail_unless(o2->getMath() != NULL);
+    msg = o2->getMessage();
+    fail_unless(msg != NULL);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -258,15 +262,19 @@ START_TEST ( test_Constraint_assignmentOperator )
     delete math;
     delete message;
 
+    const XMLNode *msg;
+
     fail_unless(o1->getMath() != NULL);
-    fail_unless(o1->getMessage() != NULL);
+    msg = o1->getMessage();
+    fail_unless(msg != NULL);
 
     Constraint* o2 = new Constraint(2, 4);;
     (*o2)=*o1;
 
     fail_unless(o2->getMetaId() == "c");
-    fail_unless(o1->getMath() != NULL);
-    fail_unless(o1->getMessage() != NULL);
+    fail_unless(o2->getMath() != NULL);
+    msg = o2->getMessage();
+    fail_unless(msg != NULL);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -306,14 +314,18 @@ START_TEST ( test_Constraint_clone )
     delete math;
     delete message;
 
+    const XMLNode *msg;
+
     fail_unless(o1->getMath() != NULL);
-    fail_unless(o1->getMessage() != NULL);
+    msg = o1->getMessage();
+    fail_unless(msg != NULL);
 
     Constraint* o2=o1->clone();
    
     fail_unless(o2->getMetaId() == "c");
-    fail_unless(o1->getMath() != NULL);
-    fail_unless(o1->getMessage() != NULL);
+    fail_unless(o2->getMath() != NULL);
+    msg = o2->getMessage();
+    fail_unless(msg != NULL);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
