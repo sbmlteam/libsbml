@@ -185,6 +185,7 @@ distfiles =                                    \
         libsbml-uninstallation.html            \
         libsbml-uninstallation.txt             \
 	libsbml-unitkind-table.html            \
+	libsbml-warn-default-args-in-docs.html \
         pythondocfilter.py                     \
 	search.css                             \
 	search.png                             \
