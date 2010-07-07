@@ -3,8 +3,8 @@
  * @brief   Enumeration of values returned by operations within libSBML.
  * @author  Sarah Keating
  *
- * $Id: operationReturnValues.h 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/common/operationReturnValues.h $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
