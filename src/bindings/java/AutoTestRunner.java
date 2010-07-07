@@ -54,13 +54,13 @@ public class AutoTestRunner
 
     while ( --filenum >= 0 )
     {
-      String pkgName = pkgNameBase + "." + dirname;
-      String clsName = pkgName + "." + testFiles[filenum].getName().replaceFirst(".java$","");
-      Class  cls = null;
-      Object obj = null;
+      String pkgName       = pkgNameBase + "." + dirname;
+      String clsName       = pkgName + "." + testFiles[filenum].getName().replaceFirst(".java$","");
+      Class<?>  cls        = null;
+      Object obj           = null;
       Method[] listMethods = null;
-      Method setup    = null;
-      Method teardown = null;
+      Method setup         = null;
+      Method teardown      = null;
 
       try {
        cls = Class.forName(clsName);
