@@ -5,8 +5,8 @@
  * @brief   Ensures units consistent with math
  * @author  Sarah Keating
  *
- * $Id: KineticLawUnitsCheck.h 10131 2009-08-28 12:27:16Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/validator/constraints/KineticLawUnitsCheck.h $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

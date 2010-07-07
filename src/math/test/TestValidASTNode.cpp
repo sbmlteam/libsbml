@@ -3,8 +3,8 @@
  * \brief   Test the isWellFormedASTNode function
  * \author  Sarah Keating
  *
- * $Id: TestValidASTNode.cpp 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/math/test/TestValidASTNode.cpp $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

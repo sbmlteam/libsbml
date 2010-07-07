@@ -3,8 +3,8 @@
  * \brief   CVTerms unit tests
  * \author  Sarah Keating
  *
- * $Id: TestCVTerms_newSetters.c 7249 2008-06-26 22:48:40Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/annotation/test/TestCVTerms_newSetters.c $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2007 California Institute of Technology.
  *

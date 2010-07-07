@@ -3,8 +3,8 @@
  * \brief   RDFAnnotation parser unit tests
  * \author  Sarah Keating
  *
- * $Id: TestRDFAnnotation.cpp 8704 2009-01-04 02:26:05Z mhucka $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/annotation/test/TestRDFAnnotation.cpp $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2002 California Institute of Technology and Japan Science and
  * Technology Corporation.

@@ -3,8 +3,8 @@
  * \brief   SBase unit tests for new set API
  * \author  Sarah Keating
  *
- * $Id: TestSBase_newSetters.cpp 8474 2008-12-01 18:50:26Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-new-api-3.3/src/sbml/test/TestSBase_newSetters.cpp $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

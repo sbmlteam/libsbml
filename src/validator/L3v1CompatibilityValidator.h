@@ -5,8 +5,8 @@
  * @brief   Checks whether an SBML model can be converted from L2v2/3 to L3v1
  * @author  Sarah Keating
  *
- * $Id: L3v1CompatibilityValidator.h 10132 2009-08-28 12:34:56Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/validator/L3v1CompatibilityValidator.h $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

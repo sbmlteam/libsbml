@@ -3,8 +3,8 @@
  * \brief   SBMLConvert unit tests for strict conversion
  * \author  Sarah Keating
  *
- * $Id: TestSBMLConvert.c 9087 2009-02-17 01:41:43Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-4/src/sbml/test/TestSBMLConvert.c $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.

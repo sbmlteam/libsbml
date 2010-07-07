@@ -3,8 +3,8 @@
  * \brief   Constraint unit tests for new set function API
  * \author  Sarah Keating
  *
- * $Id: TestConstraint_newSetters.c 8311 2008-10-31 01:54:18Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/sbml/test/TestConstraint_newSetters.c $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

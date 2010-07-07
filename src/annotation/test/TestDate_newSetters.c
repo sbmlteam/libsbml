@@ -3,8 +3,8 @@
  * \brief   Date unit tests
  * \author  Sarah Keating
  *
- * $Id: TestDate_newSetters.c 7758 2008-07-26 12:41:26Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/annotation/test/TestDate_newSetters.c $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2007 California Institute of Technology.
  *

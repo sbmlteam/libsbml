@@ -3,8 +3,8 @@
  * \brief   Test hasRequiredAttributes unit tests
  * \author  Ben Bornstein
  *
- * $Id: TestCopyAndClone.cpp 9093 2009-02-18 20:07:32Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-4/src/sbml/test/TestCopyAndClone.cpp $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2002 California Institute of Technology and Japan Science and
  * Technology Corporation.

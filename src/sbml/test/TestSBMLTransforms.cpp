@@ -3,8 +3,8 @@
  * @brief   SBMLTransforms unit tests
  * @author  Sarah Keating
  *
- * $Id: TestSBMLTransforms.cpp 10144 2009-08-29 11:26:19Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/sbml/test/TestSBMLTransforms.cpp $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

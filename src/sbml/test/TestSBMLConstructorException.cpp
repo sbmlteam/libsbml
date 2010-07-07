@@ -3,8 +3,8 @@
  * \brief   SBMLConstructorException unit tests
  * \author  Akiya Jouraku
  *
- * $Id:$
- * $HeadURL:$
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2009 California Institute of Technology.
  *

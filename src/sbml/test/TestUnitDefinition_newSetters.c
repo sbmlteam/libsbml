@@ -3,8 +3,8 @@
  * \brief   SBML UnitDefinition unit tests for new API
  * \author  sarah Keating
  *
- * $Id: TestUnitDefinition.c 8428 2008-11-20 20:18:15Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-new-api-3.3/src/sbml/test/TestUnitDefinition.c $
+ * $Id$
+ * $HeadURL$
  *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more

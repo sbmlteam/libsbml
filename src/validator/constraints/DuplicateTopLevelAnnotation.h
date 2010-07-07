@@ -5,8 +5,8 @@
  * @brief   Checks for duplicate top level annotations
  * @author  Sarah Keating
  *
- * $Id: DuplicateTopLevelAnnotation.h 9698 2009-07-03 00:01:41Z sarahkeating $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-4/src/validator/constraints/DuplicateTopLevelAnnotation.h $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2005 California Institute of Technology and Japan Science and
  * Technology Corporation.

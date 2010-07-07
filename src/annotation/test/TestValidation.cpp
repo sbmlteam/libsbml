@@ -3,8 +3,8 @@
  * \brief   Validation of Date ModelCreator and ModelHistory unit tests
  * \author  Sarah Keating
  *
- * $Id: TestValidation.c 7758 2008-07-26 12:41:26Z ajouraku $
- * $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/annotation/test/TestValidation.c $
+ * $Id$
+ * $HeadURL$
  */
 /* Copyright 2007 California Institute of Technology.
  *
