@@ -56,7 +56,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     dnl Did we actually find a copy of swig where indicated?
 
-    if test "$with_swig" != "no"; then
+    if test "$SWIG" = "no"; then
       AC_MSG_ERROR([Given --with-swig argument, but cannot find swig.  Stopping.])
     fi
 
