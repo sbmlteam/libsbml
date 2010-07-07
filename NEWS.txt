@@ -9,6 +9,12 @@ Current development
    They are now; kept at L2V4 until all L3 support is finished.
    Thanks to Lucian Smith for reporting this.
   
+ - On some platforms (e.g., Linux), building from the src dist archive
+   sometimes required running swig erroneously.  This turned out to be
+   due to how the file timestamps were stored in the zip archive.
+   This should be fixed; the archive is created with the -X flag now.
+
+
 ======================================================================
 Version 4.1.0-b2 (Released 2010-02-02)
 ======================================================================
