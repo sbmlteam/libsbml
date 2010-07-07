@@ -54,6 +54,12 @@ AC_DEFUN([CONFIG_PROG_SWIG],
       AC_PATH_PROG([SWIG], [swig])
     fi
 
+    dnl Did we actually find a copy of swig where indicated?
+
+    if test "$with_swig" != "no"; then
+      AC_MSG_ERROR([Given --with-swig argument, but cannot find swig.  Stopping.])
+    fi
+
     dnl Check the version if required.
 
     m4_ifvaln([$1], [
