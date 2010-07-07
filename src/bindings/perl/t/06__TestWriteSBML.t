@@ -3,7 +3,7 @@
 # followed by little human processing to fix syntactic specialties
 # perify.pl is unable to handle right now =;) xtof
 use Test::More;
-BEGIN { plan tests => 71 };
+BEGIN { plan tests => 72 };
 
 use LibSBML;
 use strict;
@@ -863,7 +863,7 @@ sub test_WriteSBML_Reaction_L2v1 {
 #---
 sub test_WriteSBML_Reaction_L2v1_full {
  setUp();
- $D->setLevelAndVersion(2, 1);
+ $D->setLevelAndVersion(2, 1, 0);
  my $expected = "<reaction id=\"v1\">\n" . 
                         "  <listOfReactants>\n" . 
                         "    <speciesReference species=\"x0\"/>\n" . 
@@ -900,7 +900,7 @@ sub test_WriteSBML_Reaction_L2v1_full {
  $r->createProduct()->setSpecies("s1");;
  $r->createModifier()->setSpecies("m1");
  $r->createKineticLaw()->setFormula("(vm * s1)/(km + s1)");
- #ok( $expected eq $r->toSBML());
+ ok( $expected eq $r->toSBML());
 }
 
 #---
