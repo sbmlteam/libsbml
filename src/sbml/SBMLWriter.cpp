@@ -241,6 +241,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Writes the given SBML document to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
@@ -266,6 +267,7 @@ SBMLWriter::writeSBMLToString (const SBMLDocument* d)
 {
   return writeToString(d);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 LIBSBML_EXTERN
