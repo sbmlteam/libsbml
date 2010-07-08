@@ -26,7 +26,7 @@
 
 #include <sbml/common/libsbml-namespace.h>
 
-/**
+/*
  * The following ifdef block is the standard way of creating macros which
  * make exporting from a DLL simpler. All files within this DLL are
  * compiled with the LIBLAX_EXPORTS symbol defined on the command line.
@@ -55,7 +55,7 @@
 #endif
 
 
-/**
+/*
  * Disable MSVC++ warning C4251: class 'type' needs to have dll-interface
  * to be used by clients of class 'type2'.
  *
