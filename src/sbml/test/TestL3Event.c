@@ -196,6 +196,10 @@ START_TEST (test_L3_Event_hasRequiredAttributes )
 {
   Event_t *e = Event_create (3, 1);
 
+  fail_unless ( Event_hasRequiredAttributes(e));
+
+  Delay_t *d = Event_createDelay(e);
+
   fail_unless ( !Event_hasRequiredAttributes(e));
 
   Event_setUseValuesFromTriggerTime(e, 1);
