@@ -486,12 +486,12 @@ END_TEST
 
 START_TEST (test_Reaction_removeModifier)
 {
-  SBase_t *o1, *o2, *o3;
+  SpeciesReference_t *o1, *o2, *o3;
 
-  o1 = Reaction_createModifier(R);
-  o2 = Reaction_createModifier(R);
-  o3 = Reaction_createModifier(R);
-  SpeciesReference_setSpecies((Species_t *) o3, "test");
+   o1 = Reaction_createModifier(R);
+   o2 = Reaction_createModifier(R);
+   o3 = Reaction_createModifier(R);
+-  SpeciesReference_setSpecies(o3, "test");
 
   fail_unless( Reaction_removeModifier(R, 0) == o1 );
   fail_unless( Reaction_getNumModifiers(R)   == 2  );
