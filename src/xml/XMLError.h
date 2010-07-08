@@ -486,7 +486,7 @@ typedef enum
 } XMLErrorSeverity_t;
 
 
-/**
+/*
  * Sometimes the line/column numbers reported by the underlying parsers are
  * simply invalid.  This especially occurs in error situations when the
  * error is severe.  Typically you're not supposed to call the parsers'
@@ -517,7 +517,6 @@ typedef enum
 
 #define LIBSBML_UNKNOWN_LINE	ULONG_MAX
 #define LIBSBML_UNKNOWN_COLUMN	ULONG_MAX
-
 
 
 END_C_DECLS
