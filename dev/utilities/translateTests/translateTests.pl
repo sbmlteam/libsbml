@@ -186,10 +186,11 @@ my %IgnoreTestFunc = (
   test_Reaction_addModifier                      => 0,
   test_Reaction_getModifierById                  => 0,
   test_SpeciesReference_createModifier           => 0,
-test_Reaction_addModifier1                       => 0,
-test_Reaction_addModifier2                       => 0,
-test_Reaction_addModifier3                       => 0,
-test_Reaction_createModifier                     => 0,
+  test_Reaction_addModifier1                     => 0,
+  test_Reaction_addModifier2                     => 0,
+  test_Reaction_addModifier3                     => 0,
+  test_Reaction_createModifier                   => 0,
+  test_Reaction_removeModifier                   => 0,
 );
 
 ######################################################################
