@@ -5,3 +5,5 @@ csharp-files-win
 libsbml_wrap-win.cpp
 libsbml_wrap.cpp
 .libs
+libsbmlcs.snk
+libsbmlcsP.dll
