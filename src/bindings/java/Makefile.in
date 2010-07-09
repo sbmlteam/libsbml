@@ -333,6 +333,14 @@ check: $(check_classes) $(shell $(call check_layout))
 	@echo -----------------------------------------------------------------
 	@echo
 
+#
+# 'make test-files' will reconstruct the test files.  This is not made part
+# of 'make check' (yet).
+#
+
+test-files:
+	$(call test_translator,j,xml math annotation sbml,test/org/sbml/libsbml/test)
+
 
 # -----------------------------------------------------------------------------
 # Tags.
