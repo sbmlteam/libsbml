@@ -289,6 +289,14 @@ check: $(libraries) $(shell $(call check_layout))
 	@echo All tests passed
 	@echo
 
+#
+# 'make test-files' will reconstruct the test files.  This is not made part
+# of 'make check' (yet).
+#
+
+test-files:
+	$(call test_translator,p,xml math annotation sbml,test)
+
 
 # -----------------------------------------------------------------------------
 # Tags.
