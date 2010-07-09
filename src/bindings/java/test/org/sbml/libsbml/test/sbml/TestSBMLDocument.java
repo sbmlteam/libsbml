@@ -151,8 +151,7 @@ public class TestSBMLDocument {
 
   public void test_SBMLDocument_setLevelAndVersion()
   {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2,false);
+    SBMLDocument d = new  SBMLDocument(2,2);
     Model m1 = new  Model(2,2);
     d.setModel(m1);
     assertTrue( d.setLevelAndVersion(2,3,false) == true );
@@ -165,7 +164,7 @@ public class TestSBMLDocument {
   public void test_SBMLDocument_setLevelAndVersion_Error()
   {
     SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,1,false);
+    d.setLevelAndVersion(2,1,true);
     Model m1 = new  Model(2,1);
     Unit u = new  Unit(2,1);
     u.setKind(libsbml.UnitKind_forName("mole"));
@@ -175,10 +174,10 @@ public class TestSBMLDocument {
     ud.addUnit(u);
     m1.addUnitDefinition(ud);
     d.setModel(m1);
-    assertTrue( d.setLevelAndVersion(2,2,false) == false );
-    assertTrue( d.setLevelAndVersion(2,3,false) == false );
-    assertTrue( d.setLevelAndVersion(1,2,false) == false );
-    assertTrue( d.setLevelAndVersion(1,1,false) == false );
+    assertTrue( d.setLevelAndVersion(2,2,true) == false );
+    assertTrue( d.setLevelAndVersion(2,3,true) == false );
+    assertTrue( d.setLevelAndVersion(1,2,true) == false );
+    assertTrue( d.setLevelAndVersion(1,1,true) == false );
     d = null;
   }
 
@@ -204,8 +203,7 @@ public class TestSBMLDocument {
 
   public void test_SBMLDocument_setLevelAndVersion_Warning()
   {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2,false);
+    SBMLDocument d = new  SBMLDocument(2,2);
     Model m1 = new  Model(2,2);
     (m1).setSBOTerm(2);
     d.setModel(m1);
@@ -243,8 +241,7 @@ public class TestSBMLDocument {
 
   public void test_SBMLDocument_setModel1()
   {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2,false);
+    SBMLDocument d = new  SBMLDocument(2,2);
     Model m1 = new  Model(2,1);
     int i = d.setModel(m1);
     assertTrue( i == libsbml.LIBSBML_VERSION_MISMATCH );
@@ -254,8 +251,7 @@ public class TestSBMLDocument {
 
   public void test_SBMLDocument_setModel2()
   {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2,false);
+    SBMLDocument d = new  SBMLDocument(2,2);
     Model m1 = new  Model(1,2);
     int i = d.setModel(m1);
     assertTrue( i == libsbml.LIBSBML_LEVEL_MISMATCH );
@@ -265,8 +261,7 @@ public class TestSBMLDocument {
 
   public void test_SBMLDocument_setModel3()
   {
-    SBMLDocument d = new  SBMLDocument();
-    d.setLevelAndVersion(2,2,false);
+    SBMLDocument d = new  SBMLDocument(2,2);
     Model m1 = new  Model(2,2);
     int i = d.setModel(m1);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );

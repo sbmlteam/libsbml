@@ -167,13 +167,13 @@ public class TestSBMLConvert {
     c.setId(sid);
     c.setSize(1.2);
     c.setUnits( "volume");
-    assertTrue( d.setLevelAndVersion(1,1,false) == false );
-    assertTrue( d.setLevelAndVersion(1,2,false) == false );
-    assertTrue( d.setLevelAndVersion(2,1,false) == false );
-    assertTrue( d.setLevelAndVersion(2,2,false) == false );
-    assertTrue( d.setLevelAndVersion(2,3,false) == false );
-    assertTrue( d.setLevelAndVersion(2,4,false) == false );
-    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    assertTrue( d.setLevelAndVersion(1,1,true) == false );
+    assertTrue( d.setLevelAndVersion(1,2,true) == false );
+    assertTrue( d.setLevelAndVersion(2,1,true) == false );
+    assertTrue( d.setLevelAndVersion(2,2,true) == false );
+    assertTrue( d.setLevelAndVersion(2,3,true) == false );
+    assertTrue( d.setLevelAndVersion(2,4,true) == false );
+    assertTrue( d.setLevelAndVersion(3,1,true) == true );
   }
 
   public void test_SBMLConvert_convertToL1_SBMLDocument()
@@ -197,7 +197,7 @@ public class TestSBMLConvert {
     s.setCompartment(sid);
     s.setInitialAmount(2.34);
     m.addSpecies(s);
-    assertTrue( d.setLevelAndVersion(1,2,false) == true );
+    assertTrue( d.setLevelAndVersion(1,2,true) == true );
     assertTrue( s.getInitialAmount() == 2.34 );
     d = null;
   }
@@ -216,7 +216,7 @@ public class TestSBMLConvert {
     s.setCompartment(sid);
     s.setInitialConcentration(2.34);
     m.addSpecies(s);
-    assertTrue( d.setLevelAndVersion(1,2,false) == true );
+    assertTrue( d.setLevelAndVersion(1,2,true) == true );
     Species s1 = m.getSpecies(0);
     assertTrue( s1 != null );
     assertTrue(s1.getCompartment().equals( "C"));
@@ -250,7 +250,7 @@ public class TestSBMLConvert {
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 1 );
     assertTrue( (d).getAnnotation().getNumChildren() == 2 );
-    assertTrue( d.setLevelAndVersion(2,4,false) == true );
+    assertTrue( d.setLevelAndVersion(2,4,true) == true );
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 4 );
     assertTrue( (d).getAnnotation().getNumChildren() == 1 );
@@ -266,7 +266,7 @@ public class TestSBMLConvert {
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 1 );
     assertTrue( (m).getAnnotation().getNumChildren() == 2 );
-    assertTrue( d.setLevelAndVersion(2,4,false) == true );
+    assertTrue( d.setLevelAndVersion(2,4,true) == true );
     assertTrue( d.getLevel() == 2 );
     assertTrue( d.getVersion() == 4 );
     m = d.getModel();
@@ -284,7 +284,7 @@ public class TestSBMLConvert {
     c.setSize(1.2);
     c.setUnits( "volume");
     assertTrue( m.getNumUnitDefinitions() == 0 );
-    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    assertTrue( d.setLevelAndVersion(3,1,true) == true );
     assertTrue( m.getNumUnitDefinitions() == 2 );
     UnitDefinition ud = m.getUnitDefinition(0);
     assertTrue( ud != null );
@@ -371,10 +371,10 @@ public class TestSBMLConvert {
     c.setId(sid);
     c.setSize(1.2);
     c.setUnits( "volume");
-    assertTrue( d.setLevelAndVersion(1,3,false) == false );
-    assertTrue( d.setLevelAndVersion(2,5,false) == false );
-    assertTrue( d.setLevelAndVersion(3,2,false) == false );
-    assertTrue( d.setLevelAndVersion(4,1,false) == false );
+    assertTrue( d.setLevelAndVersion(1,3,true) == false );
+    assertTrue( d.setLevelAndVersion(2,5,true) == false );
+    assertTrue( d.setLevelAndVersion(3,2,true) == false );
+    assertTrue( d.setLevelAndVersion(4,1,true) == false );
   }
 
   /**
