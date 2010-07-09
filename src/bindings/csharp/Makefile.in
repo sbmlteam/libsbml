@@ -391,6 +391,14 @@ check: $(check_runner_exe_man) $(check_runner_exe_cvt) $(shell $(call check_layo
 	@echo -----------------------------------------------------------------
 	@echo
 
+#
+# 'make test-files' will reconstruct the test files.  This is not made part
+# of 'make check' (yet).
+#
+
+test-files:
+	$(call test_translator,c,xml math annotation sbml,test)
+
 
 # -----------------------------------------------------------------------------
 # Tags.
