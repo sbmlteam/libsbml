@@ -72,7 +72,7 @@ distfiles = \
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = TranslateSBML.$(MEXTEXT)
+extra_clean = TranslateSBML.$(MEXTEXT) runTests.log
 
 
 # -----------------------------------------------------------------------------
