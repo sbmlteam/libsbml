@@ -91,13 +91,25 @@ all: Makefile
 
 matlab_test_args = -nosplash -nodesktop -memmgr debug -logfile runTests.log
 
+# The default libsbmlrun sets DYLD/LD_LIBRARY_PATH, which seems to screw up
+# MATLAB on MacOS 10.5 if one has MacPorts installed and DYLD_LIBRARY_PATH
+# contains /opt/local/lib with libraries that conflict with MATLAB's own.
+# The following defines a run command that omits the library paths, at
+# the risk of causing some other problems for other people.  I'm not sure
+# how else to handle the problem at this time.
+
+define matlabrun
+  env MATLABROOT="$(MATLABROOT)" ARCH="$(MEX_ARCH)" srcdir=. \
+    $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
+endef
+
 ifdef USE_LIBCHECK
   check: $(libraries)
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,$(MATLAB) $(matlab_test_args) -r runTests)
+	$(call matlabrun,$(MATLAB) $(matlab_test_args) -r runTests)
 	@echo -----------------------------------------------------------------
 	@echo
 else
