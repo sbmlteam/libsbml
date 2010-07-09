@@ -84,7 +84,9 @@ all: Makefile $(libraries)
 flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -I../../../include -L../..
 
 %.$(MEXEXT): %.c
-	$(LIBTOOL) --tag=CC --mode=link $(MEX) -o $@ $^ $(flags) ../../libsbml.la $(MATLAB_LIBS)
+	env MATLABROOT=$(MATLABROOT) ARCH=$(MEX_ARCH) \
+          $(LIBTOOL) --tag=CC --mode=link $(MEX) \
+          -o $@ $^ $(flags) ../../libsbml.la $(MATLAB_LIBS)
 	cp -f .libs/$@ .
 
 
