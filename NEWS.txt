@@ -9,6 +9,15 @@ Current development
    They are now; kept at L2V4 until all L3 support is finished.
    Thanks to Lucian Smith for reporting this.
   
+ - SBMLDocument::setLevelAndVersion's default "strictness" was not
+   followed by the C function SBMLDocument_setLevelAndVersion().  They
+   now match, but the consequence is that the default behavior of
+   SBMLDocument_setLevelAndVersion() is opposite to what it was
+   before.  (It is now identical to the behavior of
+   SBMLDocument_setLevelAndVersionStrict(), just as in the C++ call.)
+   Also, there is now a SBMLDocument_setLevelandVersionNonStrict() to
+   complement the existing SBMLDocument_setLevelandVersionStrict().
+
  - On some platforms (e.g., Linux), building from the src dist archive
    sometimes required running swig erroneously.  This turned out to be
    due to how the file timestamps were stored in the zip archive.
