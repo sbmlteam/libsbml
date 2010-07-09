@@ -2360,12 +2360,18 @@ sub convertSBaseCFuncCall
   $fname =~ s/( setExponent ) AsDouble /$1/x;
   $fname =~ s/( setSpatialDimensions ) AsDouble /$1/x;
 
-  # FIXME setLevelAndVersion() in C sets the strictness variable the opposite
-  # of what the C++ default argument actually is, which leads to the following
-  # backwardness.
-
-  push (@arg, $IdFALSE{$Target} ) if ($fname =~ s/ (setLevelAndVersion) (?! Strict)/$1/x );
-  push (@arg, $IdTRUE{$Target} ) if ($fname =~ s/ (setLevelAndVersion) Strict/$1/x );
+  if ( $fname =~ /setLevelAndVersion/ )
+  {
+    if ( $fname =~ /NonStrict/ )
+    {
+      push (@arg, $IdFALSE{$Target} );      
+    }
+    else
+    {
+      push (@arg, $IdTRUE{$Target} );
+    }
+    $fname =~ s/(?:Non)?Strict//;
+  }
 
   #
   # Removes the last argument because the constructer of Reaction 
