@@ -49,16 +49,23 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       AC_MSG_ERROR([Could not find 'mex' executable for MATLAB.])
     fi
 
-    dnl
-    dnl Obtain the matlab's install path 
-    dnl
-    MATLAB_PREFIX=`$MATLAB -e | grep '^MATLAB' | awk -F'=' '{print $2}'`
+    dnl Obtain MATLAB's install path:
+    MATLABROOT="`$MATLAB -e | grep MATLAB= | cut -f2 -d'='`"
 
-    dnl
-    dnl Obtain the mex extension by mexext command.
-    dnl
-    MATLAB_MEXEXT="${MATLAB_PREFIX}/bin/mexext"
-    MEXEXT=`${MATLAB_MEXEXT}`
+    dnl Determine MATLAB's machine architecture designation, so that
+    dnl we can explicitly pass it to 'mex' later on.
+
+    AC_MSG_CHECKING([what MATLAB calls this architecture])
+    MEX_ARCH="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/matlab -e | egrep '^ARCH=' | cut -f2 -d'='`"
+    AC_MSG_RESULT([$MEX_ARCH])
+
+    dnl Obtain the file extension.  Be careful to tell 'mexext' the root of
+    dnl the MATLAB installation tree, or it will not report the correct
+    dnl architecture on some systems (e.g., MacOS 10.5 with R2010a).
+
+    AC_MSG_CHECKING([for the MATLAB binary file extension])
+    MEXEXT="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/mexext`"
+    AC_MSG_RESULT([$MEXEXT])
 
     dnl Checks if the matlab (32bit) is used on Snow Leopard.
     dnl Since, by default, gcc generates a 64bit (x86_64) only binary on 
@@ -67,46 +74,42 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
     dnl Thus, an error message is printed if "-arch i386" option is not 
     dnl enabled with the combination of the matlab (32bit) and Snow Leopard.
 
-    OSX_SNOW_LEOPARD="no"
-    OSX_MAJOR_VER=`uname -r | awk -F. '{print $1}'`
-    if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
-      OSX_SNOW_LEOPARD="yes"
-    fi
-
-    if test ${OSX_SNOW_LEOPARD} = "yes" -a ${MEXEXT} = "mexmaci"; then
-      AC_MSG_CHECKING(whether -arch i386 option is enabled for Matlab 32bit on Snow Leopard.)
-      OSX_ARCH_I386="no"
-      if echo $CXXFLAGS | grep -q "-arch i386"; then
-        OSX_ARCH_I386="yes"
-      elif echo $CPPFLAGS | grep -q "-arch i386"; then
-        OSX_ARCH_I386="yes"
+    case $host in
+    *darwin*) 
+      OSX_MAJOR_VER=`uname -r | cut -f1 -d'.'`
+      if test ${OSX_MAJOR_VER} -ge 10 -a ${MEXEXT} = "mexmaci"; then
+        AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
+        AC_MSG_CHECKING([whether -arch i386 option is enabled to use MATLAB 32-bit version])
+        if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
+          AC_MSG_RESULT([yes, whew!])
+        else
+          AC_MSG_RESULT([no])
+          AC_MSG_ERROR([libSBML needs to be built explicitly to include a 32-bit (i386) version, 
+                        because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
+  	 	        (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
+                              --enable-universal-binary="-arch i386 -arch x86_64" 
+                        to your configure options, re-run the configure step, and recompile.  If
+                        you get a compilation error, please check whether you have a private 
+                        version of a dependent library (e.g., expat, libxml, or xerces) that was 
+                        built only as a 32-bit version, and either remove or recompile it before
+  	                proceeding future.])
+        fi
       fi
+      ;;
+    esac
 
-      if test ${OSX_ARCH_I386} = "no"; then
-        AC_MSG_RESULT(no)
-        AC_MSG_ERROR([libSBML needs to be built explicitly to include a 32-bit (i386) version, 
-                      because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
-	 	      (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
-                            --enable-universal-binary="-arch i386 -arch x86_64" 
-                      to your configure options, re-run the configure step, and recompile.  If
-                      you get a compilation error, please check whether you have a private 
-                      version of a dependent library (e.g., expat, libxml, or xerces) that was 
-                      built only as a 32-bit version, and either remove or recompile it before
-	              proceeding future.])
-      else
-        AC_MSG_RESULT(yes)
-      fi
-      
-    fi
+    dnl Conclude.
 
-    AC_DEFINE([USE_MATLAB], 1, [Define to 1 to use Matlab])
+    AC_DEFINE([USE_MATLAB], 1, [Define to 1 to use MATLAB])
     AC_SUBST(USE_MATLAB, 1)
 
     AC_SUBST(MATLAB_CPPFLAGS)
     AC_SUBST(MATLAB_LDFLAGS)
     AC_SUBST(MATLAB_LIBS)
     AC_SUBST(MEX_FLAGS)
+    AC_SUBST(MEX_ARCH)
     AC_SUBST(MEXEXT)
+    AC_SUBST(MATLABROOT)
 
   fi
 
