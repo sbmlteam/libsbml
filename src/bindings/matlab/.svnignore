@@ -10,3 +10,4 @@ libsbml.pc
 *.o
 *.mex*
 .libs
+runTests.log
