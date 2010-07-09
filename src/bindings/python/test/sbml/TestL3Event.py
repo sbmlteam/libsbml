@@ -100,6 +100,8 @@ class TestL3Event(unittest.TestCase):
 
   def test_L3_Event_hasRequiredAttributes(self):
     e = libsbml.Event(3,1)
+    self.assertEqual( True, e.hasRequiredAttributes() )
+    d = e.createDelay()
     self.assertEqual( False, e.hasRequiredAttributes() )
     e.setUseValuesFromTriggerTime(True)
     self.assertEqual( True, e.hasRequiredAttributes() )

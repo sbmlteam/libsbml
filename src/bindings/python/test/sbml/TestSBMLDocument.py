@@ -67,8 +67,7 @@ class TestSBMLDocument(unittest.TestCase):
     pass  
 
   def test_SBMLDocument_setLevelAndVersion(self):
-    d = libsbml.SBMLDocument()
-    d.setLevelAndVersion(2,2,False)
+    d = libsbml.SBMLDocument(2,2)
     m1 = libsbml.Model(2,2)
     d.setModel(m1)
     self.assert_( d.setLevelAndVersion(2,3,False) == True )
@@ -80,7 +79,7 @@ class TestSBMLDocument(unittest.TestCase):
 
   def test_SBMLDocument_setLevelAndVersion_Error(self):
     d = libsbml.SBMLDocument()
-    d.setLevelAndVersion(2,1,False)
+    d.setLevelAndVersion(2,1,True)
     m1 = libsbml.Model(2,1)
     u = libsbml.Unit(2,1)
     u.setKind(libsbml.UnitKind_forName("mole"))
@@ -90,10 +89,10 @@ class TestSBMLDocument(unittest.TestCase):
     ud.addUnit(u)
     m1.addUnitDefinition(ud)
     d.setModel(m1)
-    self.assert_( d.setLevelAndVersion(2,2,False) == False )
-    self.assert_( d.setLevelAndVersion(2,3,False) == False )
-    self.assert_( d.setLevelAndVersion(1,2,False) == False )
-    self.assert_( d.setLevelAndVersion(1,1,False) == False )
+    self.assert_( d.setLevelAndVersion(2,2,True) == False )
+    self.assert_( d.setLevelAndVersion(2,3,True) == False )
+    self.assert_( d.setLevelAndVersion(1,2,True) == False )
+    self.assert_( d.setLevelAndVersion(1,1,True) == False )
     _dummyList = [ d ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -117,8 +116,7 @@ class TestSBMLDocument(unittest.TestCase):
     pass  
 
   def test_SBMLDocument_setLevelAndVersion_Warning(self):
-    d = libsbml.SBMLDocument()
-    d.setLevelAndVersion(2,2,False)
+    d = libsbml.SBMLDocument(2,2)
     m1 = libsbml.Model(2,2)
     (m1).setSBOTerm(2)
     d.setModel(m1)
@@ -153,8 +151,7 @@ class TestSBMLDocument(unittest.TestCase):
     pass  
 
   def test_SBMLDocument_setModel1(self):
-    d = libsbml.SBMLDocument()
-    d.setLevelAndVersion(2,2,False)
+    d = libsbml.SBMLDocument(2,2)
     m1 = libsbml.Model(2,1)
     i = d.setModel(m1)
     self.assert_( i == libsbml.LIBSBML_VERSION_MISMATCH )
@@ -163,8 +160,7 @@ class TestSBMLDocument(unittest.TestCase):
     pass  
 
   def test_SBMLDocument_setModel2(self):
-    d = libsbml.SBMLDocument()
-    d.setLevelAndVersion(2,2,False)
+    d = libsbml.SBMLDocument(2,2)
     m1 = libsbml.Model(1,2)
     i = d.setModel(m1)
     self.assert_( i == libsbml.LIBSBML_LEVEL_MISMATCH )
@@ -173,8 +169,7 @@ class TestSBMLDocument(unittest.TestCase):
     pass  
 
   def test_SBMLDocument_setModel3(self):
-    d = libsbml.SBMLDocument()
-    d.setLevelAndVersion(2,2,False)
+    d = libsbml.SBMLDocument(2,2)
     m1 = libsbml.Model(2,2)
     i = d.setModel(m1)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
