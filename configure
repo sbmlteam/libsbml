@@ -813,7 +813,9 @@ USE_OCTAVE
 OCTAVE_CONFIG
 MKOCTFILE
 OCTAVE
+MATLABROOT
 MEXEXT
+MEX_ARCH
 MEX_FLAGS
 MATLAB_LIBS
 MATLAB_LDFLAGS
@@ -4932,7 +4934,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 4935 "configure"' > conftest.$ac_ext
+  echo '#line 4937 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7110,11 +7112,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7113: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7115: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7117: \$? = $ac_status" >&5
+   echo "$as_me:7119: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7400,11 +7402,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7403: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7405: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7407: \$? = $ac_status" >&5
+   echo "$as_me:7409: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7504,11 +7506,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7507: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7509: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7511: \$? = $ac_status" >&5
+   echo "$as_me:7513: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -9529,7 +9531,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9532 "configure"
+#line 9534 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -9629,7 +9631,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9632 "configure"
+#line 9634 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11974,11 +11976,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11977: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11979: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:11981: \$? = $ac_status" >&5
+   echo "$as_me:11983: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -12078,11 +12080,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:12081: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12083: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:12085: \$? = $ac_status" >&5
+   echo "$as_me:12087: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -13661,11 +13663,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13664: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13666: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:13668: \$? = $ac_status" >&5
+   echo "$as_me:13670: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -13765,11 +13767,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13768: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13770: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:13772: \$? = $ac_status" >&5
+   echo "$as_me:13774: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -15930,11 +15932,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15933: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:15935: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:15937: \$? = $ac_status" >&5
+   echo "$as_me:15939: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16220,11 +16222,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16223: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16225: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16227: \$? = $ac_status" >&5
+   echo "$as_me:16229: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16324,11 +16326,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16327: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16329: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16331: \$? = $ac_status" >&5
+   echo "$as_me:16333: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -20507,51 +20509,58 @@ fi
       as_fn_error $? "Could not find 'mex' executable for MATLAB." "$LINENO" 5
     fi
 
-                MATLAB_PREFIX=`$MATLAB -e | grep '^MATLAB' | awk -F'=' '{print }'`
-
-                MATLAB_MEXEXT="${MATLAB_PREFIX}/bin/mexext"
-    MEXEXT=`${MATLAB_MEXEXT}`
+        MATLABROOT="`$MATLAB -e | grep MATLAB= | cut -f2 -d'='`"
 
 
-    OSX_SNOW_LEOPARD="no"
-    OSX_MAJOR_VER=`uname -r | awk -F. '{print }'`
-    if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
-      OSX_SNOW_LEOPARD="yes"
-    fi
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking what MATLAB calls this architecture" >&5
+$as_echo_n "checking what MATLAB calls this architecture... " >&6; }
+    MEX_ARCH="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/matlab -e | egrep '^ARCH=' | cut -f2 -d'='`"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MEX_ARCH" >&5
+$as_echo "$MEX_ARCH" >&6; }
 
-    if test ${OSX_SNOW_LEOPARD} = "yes" -a ${MEXEXT} = "mexmaci"; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether -arch i386 option is enabled for Matlab 32bit on Snow Leopard." >&5
-$as_echo_n "checking whether -arch i386 option is enabled for Matlab 32bit on Snow Leopard.... " >&6; }
-      OSX_ARCH_I386="no"
-      if echo $CXXFLAGS | grep -q "-arch i386"; then
-        OSX_ARCH_I386="yes"
-      elif echo $CPPFLAGS | grep -q "-arch i386"; then
-        OSX_ARCH_I386="yes"
-      fi
 
-      if test ${OSX_ARCH_I386} = "no"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for the MATLAB binary file extension" >&5
+$as_echo_n "checking for the MATLAB binary file extension... " >&6; }
+    MEXEXT="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/mexext`"
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MEXEXT" >&5
+$as_echo "$MEXEXT" >&6; }
+
+
+    case $host in
+    *darwin*)
+      OSX_MAJOR_VER=`uname -r | cut -f1 -d'.'`
+      if test ${OSX_MAJOR_VER} -ge 10 -a ${MEXEXT} = "mexmaci"; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Note: the MATLAB version we're finding is a 32-bit version" >&5
+$as_echo "Note: the MATLAB version we're finding is a 32-bit version" >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether -arch i386 option is enabled to use MATLAB 32-bit version" >&5
+$as_echo_n "checking whether -arch i386 option is enabled to use MATLAB 32-bit version... " >&6; }
+        if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, whew!" >&5
+$as_echo "yes, whew!" >&6; }
+        else
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-        as_fn_error $? "libSBML needs to be built explicitly to include a 32-bit (i386) version,
-                      because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
-	 	      (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
-                            --enable-universal-binary=\"-arch i386 -arch x86_64\"
-                      to your configure options, re-run the configure step, and recompile.  If
-                      you get a compilation error, please check whether you have a private
-                      version of a dependent library (e.g., expat, libxml, or xerces) that was
-                      built only as a 32-bit version, and either remove or recompile it before
-	              proceeding future." "$LINENO" 5
-      else
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
+          as_fn_error $? "libSBML needs to be built explicitly to include a 32-bit (i386) version,
+                        because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
+  	 	        (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
+                              --enable-universal-binary=\"-arch i386 -arch x86_64\"
+                        to your configure options, re-run the configure step, and recompile.  If
+                        you get a compilation error, please check whether you have a private
+                        version of a dependent library (e.g., expat, libxml, or xerces) that was
+                        built only as a 32-bit version, and either remove or recompile it before
+  	                proceeding future." "$LINENO" 5
+        fi
       fi
+      ;;
+    esac
 
-    fi
 
 
 $as_echo "#define USE_MATLAB 1" >>confdefs.h
 
     USE_MATLAB=1
+
+
 
 
 
