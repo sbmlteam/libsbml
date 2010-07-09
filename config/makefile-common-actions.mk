@@ -47,6 +47,7 @@
 # definitions will override what's given here.
 
 top_include := $(TOP_SRCDIR)/include
+top_src     := $(TOP_SRCDIR)/src
 
 default_includes ?= -I. -I$(top_include)
 
@@ -425,6 +426,23 @@ run-checks: $(check_driver) $(libraries)
 	@echo -----------------------------------------------------------------
 	@echo
 
+# Utility function for reconstructing test files using translateTests.pl
+# This is called by some sub-makefiles in src/bindings.  The arguments are:
+#   (1) a letter, 'p' for Python, 'j' for Java, 'r' for Ruby, 'c' for C#
+#   (2) a list of directories in src/* (e.g., "xml sbml math annotation")
+#   (3) the root of the output directory where to write the translated tests
+
+translateTests = $(TOP_SRCDIR)/dev/utilities/translateTests/translateTests.pl
+
+define test_translator
+  for d in $(2); do \
+    list="$(top_src)/$$d/test/*.c $(top_src)/$$d/test/*.cpp"; \
+    for file in $$list; do \
+      $(translateTests) -$(1) -o $(3)/$$d $$file; \
+    done; \
+  done; 
+endef
+
 
 # -----------------------------------------------------------------------------
 # Installation
@@ -606,7 +624,7 @@ uninstall-headers: $(headers) $(to_uninstall_headers)
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-# The `dist-nor(mal' case uses the list of files and diretories in
+# The `dist-normal' case uses the list of files and diretories in
 # $(distfiles) and mirrors their structure in $(DISTDIR)/$(thisdir)/,
 # except that files and directories that are also listed in
 # $(distfile_exclude) are not copied.
