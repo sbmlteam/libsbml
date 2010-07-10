@@ -19,7 +19,7 @@ but if present, must follow math. (References: L2V2 Section 4.13.9.).
         <listOfReactants>
           <speciesReference species="s"/>
         </listOfReactants>
-        <kineticLaw sboTerm="SBO:0000502">
+        <kineticLaw sboTerm="SBO:0001502">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <divide/>

@@ -9,7 +9,7 @@
 			<species id="s" compartment="c"/>
         </listOfSpecies>
         <listOfParameters>
-			<parameter id="p" sboTerm="SBO:0000510"/>
+			<parameter id="p" sboTerm="SBO:0001510"/>
         </listOfParameters>
     </model>
 </sbml>
