@@ -552,14 +552,14 @@ if test "$enable_univbinary" != "no"; then
 fi
 
 if test "$with_zlib" != no; then
-  /bin/echo -n "  Compression support enabled for .zip"
+  /bin/echo -n "  Compression support is enabled for .zip"
   if test "$with_bzip2" != no; then
     echo ", .gz and .bz2 files"
   else
     echo " and .gz files"
   fi
 elif test "$with_bzip2" != no; then
-  echo "  Compression support enabled for .bz2 files"
+  echo "  Compression support is enabled for .bz2 files"
 fi
 
 if test "$HOST_TYPE" = "darwin"; then
@@ -574,6 +574,11 @@ fi
 
 if test -n "$with_csharp" -a "$with_csharp" != "no"; then
   echo "  Using CSharp compiler = $CSHARP_COMPILER"
+fi
+
+if test -n "$with_matlab" -a "$with_matlab" != "no"; then
+  echo "  MATLAB architecture assumed   = $MEX_ARCH"
+  echo "  MATLAB binary file extension  = $MEXEXT"
 fi
 
 dnl Print these warnings at the end so they're less likely to be overlooked.
