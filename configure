@@ -20528,29 +20528,61 @@ $as_echo "$MEXEXT" >&6; }
 
     case $host in
     *darwin*)
+
+
+
       OSX_MAJOR_VER=`uname -r | cut -f1 -d'.'`
-      if test ${OSX_MAJOR_VER} -ge 10 -a ${MEXEXT} = "mexmaci"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: Note: the MATLAB version we're finding is a 32-bit version" >&5
-$as_echo "Note: the MATLAB version we're finding is a 32-bit version" >&6; }
-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether -arch i386 option is enabled to use MATLAB 32-bit version" >&5
-$as_echo_n "checking whether -arch i386 option is enabled to use MATLAB 32-bit version... " >&6; }
-        if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
-          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, whew!" >&5
-$as_echo "yes, whew!" >&6; }
-        else
-          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-          as_fn_error $? "libSBML needs to be built explicitly to include a 32-bit (i386) version,
-                        because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
-  	 	        (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
-                              --enable-universal-binary=\"-arch i386 -arch x86_64\"
-                        to your configure options, re-run the configure step, and recompile.  If
-                        you get a compilation error, please check whether you have a private
-                        version of a dependent library (e.g., expat, libxml, or xerces) that was
-                        built only as a 32-bit version, and either remove or recompile it before
-  	                proceeding future." "$LINENO" 5
+      case ${MEX_ARCH} in
+      maci64)
+        if test ${OSX_MAJOR_VER} -lt 10; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: Note: the MATLAB version we're finding is a 64-bit version" >&5
+$as_echo "Note: the MATLAB version we're finding is a 64-bit version" >&6; }
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether libSBML's -arch x86_64 option is enabled" >&5
+$as_echo_n "checking whether libSBML's -arch x86_64 option is enabled... " >&6; }
+          if echo $CXXFLAGS $CPPFLAGS | grep -q "arch x86_64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, we are 'go' for 64-bit" >&5
+$as_echo "yes, we are 'go' for 64-bit" >&6; }
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, we have to tell mex to generate 32-bit binaries" >&5
+$as_echo "no, we have to tell mex to generate 32-bit binaries" >&6; }
+            MEX_ARCH=maci
+            MEXEXT=mexmaci
+          fi
         fi
-      fi
+      ;;
+
+      maci)
+        if test ${OSX_MAJOR_VER} -ge 10; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: Note: the MATLAB version we're finding is a 32-bit version" >&5
+$as_echo "Note: the MATLAB version we're finding is a 32-bit version" >&6; }
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether libSBML's -arch i386 option is enabled" >&5
+$as_echo_n "checking whether libSBML's -arch i386 option is enabled... " >&6; }
+          if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, fabulous!" >&5
+$as_echo "yes, fabulous!" >&6; }
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            as_fn_error $? "
+***************************************************************************
+libSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
+(Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private
+version of a dependent library (e.g., expat, libxml, or xerces) that was
+built only as a 32-bit version, and either remove, recompile or replace it
+it before proceeding future.
+***************************************************************************
+" "$LINENO" 5
+          fi
+        fi
+        ;;
+      esac
+
       ;;
     esac
 
