@@ -83,9 +83,39 @@ all: Makefile $(libraries)
 
 flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -I../../../include -L../..
 
+# Figure out which mex options file to use.  I couldn't figure out a way to
+# get the version number without relying on the installation directory name
+# (which the user might change) -- there doesn't seem to be a command-line
+# command that will return the matlab version.  Lucky for us, "mex" is a
+# shell script, and it has a variable inside of it storing the version.
+
+version = `grep full_ver= $(MEX) | cut -f2 -d'=' | tr -d "'"`
+
+ifeq "$(version)" "R2007a"
+  mexopts_file = mexopts-R2007.sh
+else ifeq "$(version)" "R2007b"
+  mexopts_file = mexopts-R2007.sh
+else ifeq "$(version)" "R2008a"
+  mexopts_file = mexopts-R2008.sh
+else ifeq "$(version)" "R2008b"
+  mexopts_file = mexopts-R2008.sh
+else ifeq "$(version)" "R2009a"
+  mexopts_file = mexopts-R2009-R2010.sh
+else ifeq "$(version)" "R2009b"
+  mexopts_file = mexopts-R2009-R2010.sh
+else ifeq "$(version)" "R2010a"
+  mexopts_file = mexopts-R2009-R2010.sh
+else ifeq "$(version)" "R2010b"
+  mexopts_file = mexopts-R2009-R2010.sh
+else
+  # We didn't recognize the ersion.  Punt and hope for the best.
+  mexopts_file = mexopts-R2009-R2010.sh
+endif
+
 %.$(MEXEXT): %.c
-	env MATLABROOT=$(MATLABROOT) ARCH=$(MEX_ARCH) \
+	env MATLABROOT=$(MATLABROOT) ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) \
           $(LIBTOOL) --tag=CC --mode=link $(MEX) \
+          ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) -f $(mexopts_file) \
           -o $@ $^ $(flags) ../../libsbml.la $(MATLAB_LIBS)
 	cp -f .libs/$@ .
 
