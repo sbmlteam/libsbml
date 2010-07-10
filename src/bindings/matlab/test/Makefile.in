@@ -103,8 +103,7 @@ define matlabrun
     $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
 endef
 
-ifdef USE_LIBCHECK
-  check: $(libraries)
+check: $(libraries)
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
@@ -112,9 +111,6 @@ ifdef USE_LIBCHECK
 	$(call matlabrun,$(MATLAB) $(matlab_test_args) -r runTests)
 	@echo -----------------------------------------------------------------
 	@echo
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
 
 
 # -----------------------------------------------------------------------------
