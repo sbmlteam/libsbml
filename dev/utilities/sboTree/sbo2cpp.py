@@ -11,10 +11,10 @@ for line in stream.readlines():
       term = int( line[8:15] )
     elif line.startswith("is_a:"):
       parent = int( line[10:17] )
-      output.write( "  mParent.insert( make_pair(%3d, %3d) );\n" % (term, parent))
+      output.write( "  mParent.insert( pair<const int, int>(%3d, %3d) );\n" % (term, parent))
     elif line.startswith("is_obsolete:"):
       parent = 1000
-      output.write( "  mParent.insert( make_pair(%3d, %4d) );\n" % (term, parent))
+      output.write( "  mParent.insert( pair<const int, int>(%3d, %4d) );\n" % (term, parent))
   except ValueError:
     pass
 
