@@ -32,7 +32,7 @@
  *
  * A version string of the form "1.2.3".
  */
-#define LIBSBML_DOTTED_VERSION	"4.1.0-b3"
+#define LIBSBML_DOTTED_VERSION	"4.1.0"
 
 /**
  * LIBSBML_VERSION:
