@@ -76,25 +76,64 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
     case $host in
     *darwin*) 
+
+      dnl MacOSX 10.6 (Snow Leopard) makes 64-bit binaries by default.
+      dnl MacOSX 10.5 (Leopard) makes 32-bit binaries by default.
+      dnl MATLAB (2009b and possibly others) comes in both variants, and tries
+      dnl to guess what kind of binary it should compile; however, it does this
+      dnl evidently *not* based on the MacOSX version, but rather the machine
+      dnl architecture.  So some combinations result in linkage problems unless
+      dnl we explicitly tell MATLAB to compile in the right mode.
+
+      dnl Known MATLAB architecture and binary designations, for reference:
+      dnl   ARCH       MEXEXT       SYSTEM
+      dnl   -------    --------     --------------------
+      dnl   mac        .mexmac      PPC? (unconfirmed)
+      dnl   maci       .mexmaci     Intel, 32-bit binary
+      dnl   maci64     .mexmaci64   Intel, 64-bit binary
+
       OSX_MAJOR_VER=`uname -r | cut -f1 -d'.'`
-      if test ${OSX_MAJOR_VER} -ge 10 -a ${MEXEXT} = "mexmaci"; then
-        AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
-        AC_MSG_CHECKING([whether -arch i386 option is enabled to use MATLAB 32-bit version])
-        if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
-          AC_MSG_RESULT([yes, whew!])
-        else
-          AC_MSG_RESULT([no])
-          AC_MSG_ERROR([libSBML needs to be built explicitly to include a 32-bit (i386) version, 
-                        because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
-  	 	        (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
-                              --enable-universal-binary="-arch i386 -arch x86_64" 
-                        to your configure options, re-run the configure step, and recompile.  If
-                        you get a compilation error, please check whether you have a private 
-                        version of a dependent library (e.g., expat, libxml, or xerces) that was 
-                        built only as a 32-bit version, and either remove or recompile it before
-  	                proceeding future.])
+      case ${MEX_ARCH} in
+      maci64)
+        if test ${OSX_MAJOR_VER} -lt 10; then
+          dnl We're pre-MacOSX 10.6, which implies 32-bit binaries by default.
+
+          AC_MSG_RESULT([Note: the MATLAB version we're finding is a 64-bit version])
+          AC_MSG_CHECKING([whether libSBML's -arch x86_64 option is enabled])
+          if echo $CXXFLAGS $CPPFLAGS | grep -q "arch x86_64"; then
+            AC_MSG_RESULT([yes, we are 'go' for 64-bit])
+          else
+            AC_MSG_RESULT([no, we have to tell mex to generate 32-bit binaries])
+            MEX_ARCH=maci
+            MEXEXT=mexmaci
+          fi
         fi
-      fi
+      ;;
+
+      maci)
+        if test ${OSX_MAJOR_VER} -ge 10; then
+          dnl We're on MacOSX 10.6, which makes 64-bit bins unless told not to.
+
+          AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
+          AC_MSG_CHECKING([whether libSBML's -arch i386 option is enabled])
+          if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
+            AC_MSG_RESULT([yes, fabulous!])
+          else
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([libSBML needs to be built explicitly to include a 32-bit (i386) version, 
+                          because your copy of MATLAB is a 32-bit version.  By default, MacOS 10.6+
+                          (Snow Leopard) builds everything as 64-bit (x86_64) binaries.  Please add
+                                --enable-universal-binary="-arch i386 -arch x86_64" 
+                          to your configure options, re-run the configure step, and recompile.  If
+                          you get a compilation error, please check whether you have a private 
+                          version of a dependent library (e.g., expat, libxml, or xerces) that was 
+                          built only as a 32-bit version, and either remove or recompile it before
+                          proceeding future.])
+          fi
+        fi
+        ;;
+      esac
+
       ;;
     esac
 
