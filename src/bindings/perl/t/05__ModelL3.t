@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 234 };
+BEGIN { plan tests => 291 };
 
 use LibSBML;
 use strict;
