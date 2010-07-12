@@ -141,6 +141,10 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb, bool inKL, int reactNo)
 {
+#ifdef _MSC_VER
+#  define isnan(d)  _isnan(d)
+#endif
+
   /* check that node has 2 children */
   if (node.getNumChildren() != 2)
   {
