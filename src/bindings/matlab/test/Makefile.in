@@ -89,7 +89,7 @@ all: Makefile
 # Checking.
 # -----------------------------------------------------------------------------
 
-matlab_test_args = -nosplash -nodesktop -memmgr debug -logfile runTests.log
+matlab_test_args = -$(MEX_ARCH) -nosplash -nodesktop -memmgr debug -logfile runTests.log
 
 # The default libsbmlrun sets DYLD/LD_LIBRARY_PATH, which seems to screw up
 # MATLAB on MacOS 10.5 if one has MacPorts installed and DYLD_LIBRARY_PATH
