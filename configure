@@ -20509,14 +20509,46 @@ fi
       as_fn_error $? "Could not find 'mex' executable for MATLAB." "$LINENO" 5
     fi
 
-        MATLABROOT="`$MATLAB -e | grep MATLAB= | cut -f2 -d'='`"
 
 
-    { $as_echo "$as_me:${as_lineno-$LINENO}: checking what MATLAB calls this architecture" >&5
+    TMP_ROOT_MEX="`dirname $MEX`"
+    TMP_ROOT_MATLAB="`dirname $MATLAB`"
+    ACTIVATE=""
+    if test -e "$TMP_ROOT_MEX/activate_matlab.sh"; then
+      ACTIVATE="$TMP_ROOT_MEX/activate_matlab.sh"
+    elif test -e "$TMP_ROOT_MATLAB/activate_matlab.sh"; then
+      ACTIVATE="$TMP_ROOT_MATLAB/activate_matlab.sh"
+    fi
+
+    if test -n "$ACTIVATE"; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for the value of MATLABROOT" >&5
+$as_echo_n "checking for the value of MATLABROOT... " >&6; }
+      MATLABROOT="`$ACTIVATE -v -test | grep MATLABROOT | cut -f2 -d'=' | tr -d ' '`"
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MATLABROOT" >&5
+$as_echo "$MATLABROOT" >&6; }
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking what MATLAB calls this architecture" >&5
 $as_echo_n "checking what MATLAB calls this architecture... " >&6; }
-    MEX_ARCH="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/matlab -e | egrep '^ARCH=' | cut -f2 -d'='`"
-    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MEX_ARCH" >&5
+      MEX_ARCH="`$ACTIVATE -v -test | grep ARCH | cut -f2 -d'=' | tr -d ' '`"
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MEX_ARCH" >&5
 $as_echo "$MEX_ARCH" >&6; }
+    else
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: WARNING: if configure hangs at the next step, consult the libSBML documentation" >&5
+$as_echo "WARNING: if configure hangs at the next step, consult the libSBML documentation" >&6; }
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking for the value of MATLABROOT" >&5
+$as_echo_n "checking for the value of MATLABROOT... " >&6; }
+      MATLABROOT="`$MATLAB -e | grep MATLAB= | cut -f2 -d'='`"
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MATLABROOT" >&5
+$as_echo "$MATLABROOT" >&6; }
+
+
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking what MATLAB calls this architecture" >&5
+$as_echo_n "checking what MATLAB calls this architecture... " >&6; }
+      MEX_ARCH="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/matlab -e | egrep '^ARCH=' | cut -f2 -d'='`"
+      { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MEX_ARCH" >&5
+$as_echo "$MEX_ARCH" >&6; }
+    fi
 
 
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking for the MATLAB binary file extension" >&5
