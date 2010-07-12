@@ -49,15 +49,66 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       AC_MSG_ERROR([Could not find 'mex' executable for MATLAB.])
     fi
 
-    dnl Obtain MATLAB's install path:
-    MATLABROOT="`$MATLAB -e | grep MATLAB= | cut -f2 -d'='`"
+    dnl So we think we have a path to "matlab".  You would think that we
+    dnl could now invoke the script as advertised, with the -e flag, to
+    dnl print the environment variables MATLAB will use.  Except there's a
+    dnl problem.  All versions of that script since at least R2007b have
+    dnl unconditional code in there that invokes "fvwmfix" (a utility the
+    dnl MathWorks ships) if the architecture is gnlx86, regardless of the
+    dnl command-line arguments given (including -e, which doesn't even need
+    dnl to start MATLAB).  Unfortunately, if you don't have an X system
+    dnl running at the time, fvwmfix WILL HANG.  We can't by-pass the
+    dnl "matlab" script and invoke some of the others like util/arch.sh,
+    dnl because *those* sub-scripts rely on the parent scripts like
+    dnl "matlab" to define certain shell routines that they use.
+    dnl Basically, we're screwed: if the user is trying to configure libSBML
+    dnl while in an environment where X isn't accessible (e.g., on a Mac,
+    dnl running ssh to a Linux box -- not an uncommon scenario), they are
+    dnl almost certainly going to see our "configure" script hang.
 
-    dnl Determine MATLAB's machine architecture designation, so that
-    dnl we can explicitly pass it to 'mex' later on.
+    dnl The following tries to work around this problem for most scenarios.
+    dnl First, look for "activate_matlab.sh" in the same place where "mex"
+    dnl is found, and use it, because it's not prone to hanging.  If
+    dnl "activate_matlab.sh" is not found there, try looking in the place
+    dnl where "matlab" was found.  We know "activate_matlab.sh" doesn't
+    dnl exist prior to R2008, so if we can't find it, either the user has
+    dnl copies of mex and matlab living outside of the MATLAB installation
+    dnl directory (unlikely, but not impossible), or else they have MATLAB
+    dnl version R2007 or earlier.  At this point, we have to give up and
+    dnl risk using the buggy "matlab" script, because there's no reliable
+    dnl way of discerning what MATLAB thinks is its ARCH value.
 
-    AC_MSG_CHECKING([what MATLAB calls this architecture])
-    MEX_ARCH="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/matlab -e | egrep '^ARCH=' | cut -f2 -d'='`"
-    AC_MSG_RESULT([$MEX_ARCH])
+    TMP_ROOT_MEX="`dirname $MEX`"
+    TMP_ROOT_MATLAB="`dirname $MATLAB`"
+    ACTIVATE=""
+    if test -e "$TMP_ROOT_MEX/activate_matlab.sh"; then
+      ACTIVATE="$TMP_ROOT_MEX/activate_matlab.sh"
+    elif test -e "$TMP_ROOT_MATLAB/activate_matlab.sh"; then
+      ACTIVATE="$TMP_ROOT_MATLAB/activate_matlab.sh"
+    fi
+
+    if test -n "$ACTIVATE"; then
+      AC_MSG_CHECKING([for the value of MATLABROOT])
+      MATLABROOT="`$ACTIVATE -v -test | grep MATLABROOT | cut -f2 -d'=' | tr -d ' '`"
+      AC_MSG_RESULT([$MATLABROOT])
+
+      AC_MSG_CHECKING([what MATLAB calls this architecture])
+      MEX_ARCH="`$ACTIVATE -v -test | grep ARCH | cut -f2 -d'=' | tr -d ' '`"
+      AC_MSG_RESULT([$MEX_ARCH])
+    else
+      AC_MSG_RESULT([WARNING: if configure hangs at the next step, consult the libSBML documentation])
+
+      AC_MSG_CHECKING([for the value of MATLABROOT])
+      MATLABROOT="`$MATLAB -e | grep MATLAB= | cut -f2 -d'='`"
+      AC_MSG_RESULT([$MATLABROOT])
+
+      dnl Determine MATLAB's machine architecture designation, so that
+      dnl we can explicitly pass it to 'mex' later on.
+
+      AC_MSG_CHECKING([what MATLAB calls this architecture])
+      MEX_ARCH="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/matlab -e | egrep '^ARCH=' | cut -f2 -d'='`"
+      AC_MSG_RESULT([$MEX_ARCH])
+    fi
 
     dnl Obtain the file extension.  Be careful to tell 'mexext' the root of
     dnl the MATLAB installation tree, or it will not report the correct
