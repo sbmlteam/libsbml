@@ -64,6 +64,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "ListOfSpeciesTypes",
                   "ListOfUnitDefinitions",
                   "ListOfUnits",
+                  "LocalParameter",
                   "Model",
                   "ModelCreator",
                   "ModelHistory",
@@ -73,6 +74,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "OStringStream",
                   "Parameter",
                   "RateRule",
+                  "RDFAnnotationParser",
                   "Reaction",
                   "Rule",
                   "SBMLDocument",
@@ -650,6 +652,7 @@ def sanitizeForJava (docstring):
   docstring = docstring.replace(r'unsigned int', 'long')
   docstring = docstring.replace(r'const std::string&', 'String')
   docstring = docstring.replace(r'const std::string', 'String')
+  docstring = docstring.replace(r'std::string', 'String')
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
