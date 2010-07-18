@@ -164,14 +164,14 @@
  *
  * LibSBML provides facilities for limited translation of SBML between
  * Levels and Versions of the SBML specifications.  The method for doing is
- * is @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver) @endif.  In 
+ * is @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif.  In 
  * general, models can be converted upward without difficulty (e.g., from
  * SBML Level&nbsp;1 to Level&nbsp;2, or from an earlier Version of
  * Level&nbsp;2 to the latest Version of Level&nbsp;2).  Sometimes models
  * can be translated downward as well, if they do not use constructs
  * specific to more advanced Levels of SBML.
  *
- * Calling @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver) @endif will not @em necessarily lead
+ * Calling @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif will not @em necessarily lead
  * to a successful conversion.  The method will return a boolean value
  * to indicate success or failure.  Callers must check the error log (see 
  * next section) attached to the SBMLDocument object after calling
@@ -326,18 +326,18 @@ public:
    * object has no associated XML attributes, including (but not limited
    * to) an XML namespace declaration.  The XML namespace declaration is
    * not added until the model is written out, <em>or</em> the method
-   * @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver) @endif is called.  This may be important to keep in mind
+   * @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif is called.  This may be important to keep in mind
    * if an application needs to add additional XML namespace declarations
    * on the <code>&lt;sbml&gt;</code> element.  Application writers should
    * either provide values for @p level and @p version on the call to this
-   * constructor, or else call @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver) @endif shortly after creating
+   * constructor, or else call @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif shortly after creating
    * the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
    *
    * @param version an integer for the Version within the SBML Level
    *
-   * @if clike @see SBMLDocument::setLevelAndVersion() @endif@if java @see SBMLDocument::setLevelAndVersion(long lev, long ver) @endif
+   * @if clike @see SBMLDocument::setLevelAndVersion() @endif@if java @see SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif
    * @see getDefaultLevel()
    * @see getDefaultVersion()
    *
@@ -442,7 +442,7 @@ public:
    * of the InitialAssignment and the corresponding InitialAssignment
    * has been removed from the Model.
    * 
-   * @ return bool @c true if the transformation was successful, 
+   * @return bool @c true if the transformation was successful, 
    * @c false, otherwise.
    *
    * @note This function will check the consistency of a model
@@ -646,7 +646,7 @@ public:
 
   /**
    * Controls the consistency checks that are performed when
-   * SBMLDocument::setLevelAndVersion(level, version) is called.
+   * SBMLDocument::setLevelAndVersion() is called.
    *
    * This method works by adding or subtracting consistency checks from the
    * set of all possible checks that may be performed to avoid conversion
@@ -721,7 +721,7 @@ public:
    * @param apply a boolean indicating whether the checks indicated by
    * @p category should be applied or not.
    *
-   * @see SBMLDocument::setLevelAndVersion()
+   * @see @if clike SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif
    */
   void setConsistencyChecksForConversion(SBMLErrorCategory_t category, 
                                          bool apply);
