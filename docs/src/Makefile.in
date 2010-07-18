@@ -385,7 +385,7 @@ ExcludeDoclet.class: ExcludeDoclet.java
 # between doxygen and javadoc.  Let's ignore the warnings to avoid
 # confusing users.
 
-ignorable-warnings = "warning - @param argument"
+ignorable-warnings = "warning - @param argument|Custom tags that could"
 
 java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	$(JAVA) -cp $(JAVADOC_JAR):. ExcludeDoclet -excludefile java-skip.txt \
@@ -403,7 +403,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	    -tag warning:a:"Warning:" \
 	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-dir) org.sbml.libsbml \
-        2>&1 | grep -v $(ignorable-warnings) 
+        2>&1 | egrep -v $(ignorable-warnings) 
 	cp -f doxygen-base.css $(java-manual)
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
