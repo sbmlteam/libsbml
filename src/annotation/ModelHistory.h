@@ -601,7 +601,7 @@ public:
    * returned by this function are:
    * @li LIBSBML_OPERATION_SUCCESS
    *
-   * @see setOrganization(std::string organization);
+   * @see setOrganization(std::string organization)
    */
   int setOrganisation(std::string organization);
 

@@ -36,8 +36,8 @@
  * scheme is as follows.  A set of RDF-based annotations attached to a
  * given SBML <code>&lt;annotation&gt;</code> element are read by
  * RDFAnnotationParser and converted into a list of CVTerm objects.  There
- * are different versions of the main method,
- * RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms)
+ * are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif
+ * @if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, CVTermList *CVTerms) @endif
  * and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), 
  * used depending on whether the annotation in question concerns the MIRIAM
  * model history or other MIRIAM resource annotations.  A special object
