@@ -83,7 +83,6 @@
 
 #endif
 
-
 #include <sbml/validator/ConstraintMacros.h>
 
 /** @cond doxygen-ignored */
