@@ -114,11 +114,14 @@ for i = 1:length(Index)
     j = j+1;
     x = SubFormula(j:length(SubFormula)-1);
 
-    
-    ReplaceFormula = regexprep(SubFormula, n, x, 'once');
-    ReplaceFormula = regexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
-    ReplaceFormula = regexprep(ReplaceFormula, 'root', 'nthroot', 'once');
-    
+   
+    if (~strcmp(isoctave(), '1'))    
+      ReplaceFormula = regexprep(SubFormula, n, x, 'once');
+      ReplaceFormula = regexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
+      ReplaceFormula = regexprep(ReplaceFormula, 'root', 'nthroot', 'once');
+    else
+      ReplaceFormula = 'NaN';
+    end;
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
     Index = strfind(Formula, 'root(');
 
