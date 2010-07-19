@@ -109,7 +109,7 @@ AC_ARG_ENABLE([compression],
   [enable_compression=yes])
 
 if test "$enable_compression" != no; then
-  AC_DEFINE([USE_COMPRESSION], 1, [Define to 1 to enable zlib/bzip2 compression.])
+  AC_DEFINE([USE_COMPRESSION], 1, [Define to 1 to enable zlib/bzip2 file compression.])
   AC_SUBST(USE_COMPRESSION, 1)
 fi
 
@@ -117,7 +117,7 @@ dnl Other cmd-line options are defined in the individual .m4 files in the
 dnl config/ subdirectory.
 
 dnl ---------------------------------------------------------------------------
-dnl Check host operating system.
+dnl Check host operating system and set some important flags accordingly.
 dnl ---------------------------------------------------------------------------
 
 AC_CANONICAL_HOST
@@ -188,12 +188,11 @@ AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
 AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
 
 
-#
-# Checks whether -Wno-long-double option is supported.
-#
-# (On MacOS X, compilation generates a warning about `long double'
-#  with Python and Ruby bindings).
-#
+dnl Check whether -Wno-long-double option is supported.
+dnl
+dnl (On MacOS X, compilation generates a warning about `long double'
+dnl  with Python and Ruby bindings).
+
 saved_CPPFLAGS=$CPPFLAGS
 CPPFLAGS="-Wno-long-double"
 AC_MSG_CHECKING([whether -Wno-long-double is supported])
@@ -206,14 +205,13 @@ AC_COMPILE_IFELSE(
 CPPFLAGS=$saved_CPPFLAGS
 
 
-#
-# Checks --enable-universal-binary option 
-# (CONFIG_LIB_UNIVBINARY must be located before CONFIG_PROG_MATLAB)
-#
+dnl Checks --enable-universal-binary option 
+dnl (CONFIG_LIB_UNIVBINARY must be located before CONFIG_PROG_MATLAB)
+
 CONFIG_LIB_UNIVBINARY
 
-# The Lisp language binding has been removed for the time being, because it
-# no longer works in recent versions of libSBML.
+dnl The Lisp language binding has been removed for the time being, because
+dnl it no longer works in recent versions of libSBML.
 
 CONFIG_PROG_PYTHON
 CONFIG_PROG_PERL
@@ -224,13 +222,10 @@ CONFIG_PROG_RUBY
 CONFIG_PROG_CSHARP
 CONFIG_PROG_SWIG(1.3.40)
 
-# Make sure to test doxygen *after* java, because there's a dependency on
-# in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
+dnl Make sure to test doxygen *after* java, because there's a dependency on
+dnl in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
 
 CONFIG_PROG_DOXYGEN(1.5.8)
-
-dnl AC_LIBTOOL_WIN32_DLL
-dnl AC_PROG_LIBTOOL
 
 
 dnl ---------------------------------------------------------------------------
@@ -288,8 +283,8 @@ dnl ---------------------------------------------------------------------------
 dnl Miscellaneous
 dnl ---------------------------------------------------------------------------
 
-# Root directory
-# Translate path for native Windows compilers for use with 'make check'
+dnl Root directory
+dnl Translate path for native Windows compilers for use with 'make check'
 
 ROOT_DIR=`pwd`
 case $host in
@@ -343,9 +338,9 @@ AC_CONFIG_FILES([src/bindings/octave/test/Makefile])
 
 AC_CONFIG_FILES([src/bindings/java/Makefile])
 
-# The Lisp language binding has been removed for the time being, because it
-# no longer works in recent versions of libSBML.
-# AC_CONFIG_FILES([src/bindings/java/Makefile])
+dnl The Lisp language binding has been removed for the time being, because it
+dnl no longer works in recent versions of libSBML.
+dnl AC_CONFIG_FILES([src/bindings/java/Makefile])
 
 AC_CONFIG_FILES([src/bindings/ruby/Makefile])
 
