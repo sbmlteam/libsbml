@@ -97,6 +97,46 @@ LIBSBML_CPP_NAMESPACE_USE
 
 
 /**
+ * SWIG is producing Warning(401): Nothing known about base class 
+ * 'std::invalid_argument'. Ignored.
+ * 
+ * The SWIG documentation states:
+ *   Note: For the best results, SWIG requires all base classes to be defined 
+ *   in an interface. Otherwise, you may get a warning message like this.
+ *
+ * Suggested solutions are:
+ *   1. Using %import to include the file that defines the unknown class
+ *   2. Defining the unknown class as an empty class
+ *   3. Ignoring the warning
+ *
+ * I (SK) tried the following:
+ * 
+ * 1) an import directive:   %import <exception.i>
+ * 
+ * this does not avoid the warning. It also breaks the exception handling - 
+ * certainly in the csharp bindings. libSBML crashes with unhandled exceptions.
+ * 
+ * 2) Putting an empty class
+ * 
+ *    %inline
+ *    %{
+ *    class std::invalid_argument()
+ *    {
+ *    };
+ *    %}
+ * 
+ * this does not avoid the warning either and produces a wrap file that 
+ * will not build.
+ *
+ * Since this is the only class that produces the warning and the SWIG documentation
+ * says "If any base class is undefined, SWIG still generates correct type 
+ * relationships." we decided it was safe to ignore the warning for now and 
+ * revisit the issue for future releases.
+ */
+#pragma SWIG nowarn=401
+
+
+/**
  * Ignore the Visitor pattern accept() method (for now) on all SBML
  * objects.
  */
