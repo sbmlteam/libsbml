@@ -104,7 +104,7 @@ fi
 
 AC_ARG_ENABLE([compression],
   AC_HELP_STRING([--enable-compression@<:@=ARG@:>@],
-                 [Enable zlib/bzip2 compression if required libs detected, otherwise disabled (default=yes)]),
+                 [Enable file compression if possible (default=yes)]),
   [enable_compression=$enableval],
   [enable_compression=yes])
 
