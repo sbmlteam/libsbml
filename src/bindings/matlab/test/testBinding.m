@@ -1,9 +1,9 @@
 function testBinding
 
 if (strcmp(isoctave(), '0'))
-  test = 14;
+  test = 15;
 else
-  test = 13;
+  test = 14;
 end;
 Totalfail = 0;
 
@@ -20,6 +20,7 @@ Totalfail = Totalfail + testReadFromFile10;
 Totalfail = Totalfail + testReadFromFile11;
 Totalfail = Totalfail + testReadFromFile12;
 Totalfail = Totalfail + testReadFromFile13;
+Totalfail = Totalfail + testReadFromFile14;
 if (strcmp(isoctave(), '0'))
   Totalfail = Totalfail + testReadFlags;
 end;

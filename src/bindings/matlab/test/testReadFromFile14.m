@@ -109,11 +109,7 @@ test = test + 2;
 %       </assignmentRule>
 
   Totalfail = Totalfail + fail_unless( strcmp(m.rule(3).variable, 'p'));
-  if (strcmp(isoctave(), '0'))
-    Totalfail = Totalfail + fail_unless( strcmp(m.rule(3).formula, 'nthroot(x,3)'));
-  else
-    Totalfail = Totalfail + fail_unless( strcmp(m.rule(3).formula, 'NaN'));
-  end;    
+  Totalfail = Totalfail + fail_unless( strcmp(m.rule(3).formula, 'nthroot(x,3)'));
 
   Totalfail = Totalfail + fail_unless( strcmp(m.rule(3).typecode, 'SBML_ASSIGNMENT_RULE'));
 

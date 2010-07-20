@@ -89,7 +89,7 @@ Index = strfind(Formula, 'root(');
 for i = 1:length(Index)
 
     % create a subformula root(n,x)
-    SubFunction = '';
+    SubFormula = '';
     j = 1;
     nFunctions=0;   %number of functions in expression
     closedFunctions=0; %number of closed functions
@@ -114,14 +114,8 @@ for i = 1:length(Index)
     j = j+1;
     x = SubFormula(j:length(SubFormula)-1);
 
-   
-    if (~strcmp(isoctave(), '1'))    
-      ReplaceFormula = regexprep(SubFormula, n, x, 'once');
-      ReplaceFormula = regexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
-      ReplaceFormula = regexprep(ReplaceFormula, 'root', 'nthroot', 'once');
-    else
-      ReplaceFormula = 'NaN';
-    end;
+    ReplaceFormula = strcat('nthroot(', x, ',', n, ')');
+
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
     Index = strfind(Formula, 'root(');
 
