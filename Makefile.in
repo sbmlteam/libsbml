@@ -216,6 +216,7 @@ distfiles =                         \
   config/mkoctfile_wrapper.sh.in    \
   config/octave.m4                  \
   config/perl.m4                    \
+  config/platform.m4                \
   config/python.m4                  \
   config/ruby.m4                    \
   config/csharp.m4                  \
