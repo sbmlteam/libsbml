@@ -108,7 +108,7 @@ else ifeq "$(version)" "R2010a"
 else ifeq "$(version)" "R2010b"
   mexopts_file = mexopts-R2009-R2010.sh
 else
-  # We didn't recognize the ersion.  Punt and hope for the best.
+  # We didn't recognize the version.  Punt and hope for the best.
   mexopts_file = mexopts-R2009-R2010.sh
 endif
 
