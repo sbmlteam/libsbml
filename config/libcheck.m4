@@ -1,6 +1,6 @@
 dnl @file    libcheck.m4
 dnl @brief   Autoconf macro to check for existence of Check library
-dnl @author  Mike hucka (but portions taken from Check 0.9.5)
+dnl @author  Mike Hucka (but portions taken from Check 0.9.5)
 dnl $Id$
 dnl $HeadURL$
 dnl
