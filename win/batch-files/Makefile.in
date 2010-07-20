@@ -75,6 +75,8 @@ distfiles =								\
         runSWIG_csharpFromMSVC.bat      \
         runSWIG_java.bat                \
         runSWIG_javaFromMSVC.bat        \
+        runSWIG_perl.bat                \
+        runSWIG_perlFromMSVC.bat        \
         runSWIG_python.bat              \
         runSWIG_pythonFromMSVC.bat      \
 		Makefile.in  
