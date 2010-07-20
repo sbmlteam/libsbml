@@ -1,5 +1,6 @@
 m4_include([config/dolt.m4])
 m4_include([config/libtool.m4])
+m4_include([config/platform.m4])
 
 m4_include([config/bzip2.m4])
 m4_include([config/csharp.m4])
