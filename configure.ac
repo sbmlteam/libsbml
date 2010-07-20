@@ -121,53 +121,8 @@ dnl Check host operating system and set some important flags accordingly.
 dnl ---------------------------------------------------------------------------
 
 AC_CANONICAL_HOST
-
-case $host_os in
-  *linux*)
-    CPPFLAGS="-DLINUX $CPPFLAGS"
-    HOST_TYPE="linux"
-    SHAREDLIBEXT="so"
-    ;;
-
-  *solaris*)
-    CPPFLAGS="-DSOLARIS $CPPFLAGS"
-    HOST_TYPE="solaris"
-    SHAREDLIBEXT="so"
-    ;;
-
-  *cygwin*)
-    CPPFLAGS="-DWIN32 -DCYGWIN -DLIBSBML_EXPORTS $CPPFLAGS"
-    HOST_TYPE="cygwin"
-    SHAREDLIBEXT="dll"
-    ;;
-
-  *darwin*)
-    CPPFLAGS="-DMACOSX $CPPFLAGS"
-    HOST_TYPE="darwin"
-    SHAREDLIBEXT="dylib"
-    ;;
-
-  *aix*)
-    CPPFLAGS="-DAIX $CPPFLAGS"
-    HOST_TYPE="aix"
-    SHAREDLIBEXT="a"
-    ;;
-
-  *freebsd*)
-    CPPFLAGS="-DFREEBSD $CPPFLAGS"
-    HOST_TYPE="freebsd"
-    SHAREDLIBEXT="so"
-    ;;
-
-esac
-
-AC_SUBST(HOST_TYPE)
-AC_SUBST(SHAREDLIBEXT)
-
-dnl Provide dynamic library path settings.
-
+CONFIG_PLATFORM
 CONFIG_LDPATH
-
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for various programs and packages.
