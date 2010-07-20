@@ -910,9 +910,58 @@ COVARIANT_RTYPE_CLONE(ListOfCompartmentGlyphs)
 
 /**
  *
- * Wraps covariant return types of certain functions.
+ * Wraps covariant return types of ListOfXXX::get functions.
  *
+ * Currently, C# doesn't support covariant return types.
+ * However, in wrapped C# functions, covariant return types can be emulated 
+ * just by changing the method modifier ("override" -> "new").
  */
+
+%define COVARIANT_RTYPE_LISTOF_GET_REMOVE(_CNAME_)
+%typemap(cstype) _CNAME_* ListOf ## _CNAME_ ## s::get  "_CNAME_"
+%csmethodmodifiers ListOf ## _CNAME_ ## s::get  "public new"
+%typemap(cstype) _CNAME_* ListOf ## _CNAME_ ## s::remove  "_CNAME_"
+%csmethodmodifiers ListOf ## _CNAME_ ## s::remove  "public new"
+%enddef
+
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentType)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Compartment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(EventAssignment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Event)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(FunctionDefinition)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(InitialAssignment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Parameter)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(LocalParameter)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Reaction)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Rule)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesType)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(UnitDefinition)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Constraint)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Unit)
+
+// Only ListOfSpecies and ListOfSpeciesReference classes do not 
+// match the above macro...
+%typemap(cstype) Species* ListOfSpecies::get  "Species"
+%csmethodmodifiers ListOfSpecies::get "public new"
+%typemap(cstype) Species* ListOfSpecies::remove  "Species"
+%csmethodmodifiers ListOfSpecies::remove "public new"
+
+%typemap(cstype) SimpleSpeciesReference* ListOfSpeciesReferences::get  "SimpleSpeciesReference"
+%csmethodmodifiers ListOfSpeciesReferences::get  "public new"
+%typemap(cstype) SimpleSpeciesReference* ListOfSpeciesReferences::remove  "SimpleSpeciesReference"
+%csmethodmodifiers ListOfSpeciesReferences::remove  "public new"
+
+
+#ifdef USE_LAYOUT
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(GraphicalObject)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(Layout)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(LineSegment)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(ReactionGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesReferenceGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(TextGlyph)
+COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
+#endif
 
 %define COVARIANT_GETID(_CNAME_)
 %typemap(cstype) string   _CNAME_ ## ::getId  "_CNAME_"
