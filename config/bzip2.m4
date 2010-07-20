@@ -62,7 +62,9 @@ AC_DEFUN([CONFIG_LIB_BZ2],
     AC_MSG_RESULT(yes)
 
     if test "x$with_bzip2" != "xyes" -a "x$with_bzip2" != "xautodetect"; then
-      if test -d "$with_bzip2/lib"; then
+      if test -d "$with_bzip2/lib${LIBSUFFIX}"; then
+        BZ2_LDFLAGS="-L${with_bzip2}/lib${LIBSUFFIX}"
+      elif -d "$with_bzip2/lib$"; then
         BZ2_LDFLAGS="-L${with_bzip2}/lib"
       else
         BZ2_LDFLAGS="-L${with_bzip2}"
@@ -82,7 +84,7 @@ AC_DEFUN([CONFIG_LIB_BZ2],
     AC_CHECK_LIB(bz2, BZ2_bzopen, ,
   	       [
   		dnl Check default bzip2 install dir
-  		LDFLAGS="-L/usr/lib -L/usr/local/lib ${LDFLAGS} ${BZ2_LDFLAGS}"
+  		LDFLAGS="-L/usr/lib${LIBSUFFIX} -L/usr/local/lib${LIBSUFFIX} ${LDFLAGS} ${BZ2_LDFLAGS}"
   		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${BZ2_CPPFLAGS}"
                   LIBS="${LIBS} ${BZ2_LIBS}"
   		AC_TRY_LINK_FUNC(BZ2_bzopen, 

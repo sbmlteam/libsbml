@@ -43,7 +43,7 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     if test $with_expat != yes; then
       expat_root="$with_expat"
-      expat_lib_path=$expat_root/lib
+      expat_lib_path="$expat_root/lib${LIBSUFFIX}"
       CONFIG_ADD_LDPATH($expat_lib_path)
 
       EXPAT_CPPFLAGS="-I$expat_root/include"

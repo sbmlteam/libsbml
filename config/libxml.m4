@@ -94,7 +94,7 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
       fi
     fi
 
-    libxml_lib_path=$with_libxml/lib
+    libxml_lib_path="$with_libxml/lib${LIBSUFFIX}"
 
     ac_save_CPPFLAGS="$CPPFLAGS"
     ac_save_LIBS="$LIBS"

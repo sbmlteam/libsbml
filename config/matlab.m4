@@ -92,7 +92,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       MATLABROOT="`$ACTIVATE -v -test | grep MATLABROOT | cut -f2 -d'=' | tr -d ' '`"
       AC_MSG_RESULT([$MATLABROOT])
 
-      AC_MSG_CHECKING([what MATLAB calls this architecture])
+      AC_MSG_CHECKING([the architecture of the MATLAB installation])
       MEX_ARCH="`$ACTIVATE -v -test | grep ARCH | cut -f2 -d'=' | tr -d ' '`"
       AC_MSG_RESULT([$MEX_ARCH])
     else
@@ -112,18 +112,24 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
     dnl Obtain the file extension.  Be careful to tell 'mexext' the root of
     dnl the MATLAB installation tree, or it will not report the correct
-    dnl architecture on some systems (e.g., MacOS 10.5 with R2010a).
+    dnl architecture on some systems (e.g., MacOS 10.5 with R2010a).  Also,
+    dnl mexext will sometimes still report the wrong thing, and must be
+    dnl corrected.  For example, the R2010a Linux versions we have are
+    dnl 32-bit installations, but mexext will happily report a 64-bit
+    dnl extension because it doesn't bother to check whether the MATLAB
+    dnl installation actually *has* the 64-bit components.
 
     AC_MSG_CHECKING([for the MATLAB binary file extension])
     MEXEXT="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/mexext`"
-    AC_MSG_RESULT([$MEXEXT])
+    if test "$MEX_ARCH" = "glnx86" -a "$MEXEXT" = "mexa64"; then
+      AC_MSG_RESULT(["mexext" thinks it's $MEXEXT, but I say it's mexglx])
+      MEXEXT="mexglx"
+    else
+      AC_MSG_RESULT([$MEXEXT])
+    fi
 
-    dnl Checks if the matlab (32bit) is used on Snow Leopard.
-    dnl Since, by default, gcc generates a 64bit (x86_64) only binary on 
-    dnl Snow Leopard, a 32bit (i386) binary needs to be explicitly built by
-    dnl gcc with "-arch i386" option if matlab (32bit) is used.
-    dnl Thus, an error message is printed if "-arch i386" option is not 
-    dnl enabled with the combination of the matlab (32bit) and Snow Leopard.
+    dnl Checks that the MATLAB architecture agrees with the type of
+    dnl binaries we're set up to create.
 
     case $host in
     *darwin*) 
@@ -150,7 +156,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
           dnl We're pre-MacOSX 10.6, which implies 32-bit binaries by default.
 
           AC_MSG_RESULT([Note: the MATLAB version we're finding is a 64-bit version])
-          AC_MSG_CHECKING([whether libSBML's -arch x86_64 option is enabled])
+          AC_MSG_CHECKING([whether 64-bit libSBML binaries are being built])
           if echo $CXXFLAGS $CPPFLAGS | grep -q "arch x86_64"; then
             AC_MSG_RESULT([yes, we are 'go' for 64-bit])
           else
@@ -166,7 +172,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
           dnl We're on MacOSX 10.6, which makes 64-bit bins unless told not to.
 
           AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
-          AC_MSG_CHECKING([whether libSBML's -arch i386 option is enabled])
+          AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
           if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
             AC_MSG_RESULT([yes, fabulous!])
           else
@@ -181,15 +187,67 @@ to your configure options, re-run the configure step, and recompile.  If
 you get a compilation error, please check whether you have a private 
 version of a dependent library (e.g., expat, libxml, or xerces) that was 
 built only as a 32-bit version, and either remove, recompile or replace it
-it before proceeding future.
+it before proceeding further.
 ***************************************************************************
 ])
           fi
         fi
         ;;
       esac
-
       ;;
+
+    *linux*)
+      dnl If MATLAB is installed in 32-bit form on an x86_64 system, we have
+      dnl to make sure we don't try to compile only 64-bit libSBML binaries,
+      dnl or else MATLAB won't be able to use them.
+
+      dnl Known MATLAB architecture and binary designations, for reference:
+      dnl   ARCH       MEXEXT       SYSTEM
+      dnl   -------    --------     --------------------
+
+      if test "${MEX_ARCH}" = "glnx86" -a "${host_cpu}" = "x86_64"; then
+        AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
+        AC_MSG_CHECKING([whether 32-bit libSBML binaries are being built])
+        if echo $CXXFLAGS $CPPFLAGS | grep -q "m32"; then
+          AC_MSG_RESULT([yes, sweet!])
+        else
+          AC_MSG_RESULT([no])
+          AC_MSG_ERROR([
+***************************************************************************
+The compilation environment, as it is currently configured, will create a
+64-bit libSBML, but your copy of MATLAB is a 32-bit version.  Please re-run
+the libSBML 'configure' command with the option -m32 to configure libSBML
+to build in 32-bit mode, then recompile libSBML and install the result.
+If you get a compilation error, please check whether you have a private 
+version of a dependent library (e.g., expat, libxml, or xerces) that is
+only available as a 64-bit version on your system, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+])
+        fi
+      elif test "${MEX_ARCH}" = "glnxa64" -a "${host_cpu}" != "x86_64"; then
+        AC_MSG_RESULT([Note: the MATLAB version we're finding is a 64-bit version])
+        AC_MSG_CHECKING([whether 64-bit libSBML binaries are being built])
+        if echo $CXXFLAGS $CPPFLAGS | grep -q "m64"; then
+          AC_MSG_RESULT([yes, we are 'go' for 64-bit])
+        else
+          AC_MSG_RESULT([no])
+          AC_MSG_ERROR([
+***************************************************************************
+The compilation environment, as it is currently configured, will create a
+32-bit libSBML, but your copy of MATLAB is a 64-bit version.  Please re-run
+the libSBML 'configure' command with the option -m64 to configure libSBML
+to build in 64-bit mode, then recompile libSBML and install the result.
+If you get a compilation error, please check whether you have a private 
+version of a dependent library (e.g., expat, libxml, or xerces) that is
+only available as a 32-bit version on your system, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+])
+        fi
+      fi
+      ;;
+
     esac
 
     dnl Conclude.

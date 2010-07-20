@@ -61,7 +61,9 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
   if test "x$with_zlib" != "xno"; then
     AC_MSG_RESULT(yes)
     if test "x$with_zlib" != "xyes" -a "x$with_zlib" != "xautodetect"; then
-      if test -d "$with_zlib/lib"; then
+      if test -d "$with_zlib/lib${LIBSUFFIX}"; then
+        ZLIB_LDFLAGS="-L${with_zlib}/lib${LIBSUFFIX}"
+      elif test -d "$with_zlib/lib$"; then
         ZLIB_LDFLAGS="-L${with_zlib}/lib"
       else
         ZLIB_LDFLAGS="-L${with_zlib}"
@@ -81,7 +83,7 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
     AC_CHECK_LIB(z, deflate, ,
   	       [
   		dnl Check default zlib install dir
-  		LDFLAGS="-L/usr/lib -L/usr/local/lib ${LDFLAGS} ${ZLIB_LDFLAGS}"
+  		LDFLAGS="-L/usr/lib${LIBSUFFIX} -L/usr/local/lib${LIBSUFFIX} ${LDFLAGS} ${ZLIB_LDFLAGS}"
   		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${ZLIB_CPPFLAGS}"
                   LIBS="${LIBS} ${ZLIB_LIBS}"
   		AC_TRY_LINK_FUNC(deflate, 

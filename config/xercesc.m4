@@ -42,7 +42,7 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
     if test $with_xerces != yes; then
       xerces_root="$with_xerces"
-      xerces_lib_path=$xerces_root/lib
+      xerces_lib_path="$xerces_root/lib${LIBSUFFIX}"
       CONFIG_ADD_LDPATH($xerces_lib_path)
 
       XERCES_CPPFLAGS="-I$xerces_root/include"

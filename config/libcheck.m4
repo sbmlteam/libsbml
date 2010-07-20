@@ -52,7 +52,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
-      libcheck_lib_path=$libcheck_root/lib
+      libcheck_lib_path="$libcheck_root/lib${LIBSUFFIX}"
       CONFIG_ADD_LDPATH($libcheck_lib_path)
       LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
       LIBCHECK_LDFLAGS="-L$libcheck_lib_path"
