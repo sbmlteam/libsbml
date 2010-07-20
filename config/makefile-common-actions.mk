@@ -77,6 +77,7 @@ cxxcompile ?= $(LIBTOOL) --mode=compile --tag=CXX $(CXX) $(sort $(default_includ
 
 # The following two commands are used for dependency tracking only when 
 # building universal binaries on MacOSX.
+
 compile_nocflags ?= $(CC) $(sort $(default_includes) $(INCLUDES)) \
         $(CPPFLAGS) $(extra_CPPFLAGS) 
 
@@ -88,8 +89,6 @@ cxxcompile_nocxxflags ?= $(CXX) $(sort $(default_includes) $(INCLUDES)) \
 # libtool input format is peculiar to us.)  Curious, this makes the
 # numbering very easy: it's a direct mapping of the libsbml version number.
 
-#library_version = $(subst $(empty) $(empty),.,$(wordlist 1, 2, $(subst ., ,$(PACKAGE_VERSION)))).0
-#library_version = $(PACKAGE_VERSION)
 library_version = $(shell echo $(PACKAGE_VERSION) | sed -e 's/\-.*//g' -e 's/[a-zA-Z]//g' )
 library_major_version = $(word 1, $(subst ., ,$(library_version)))
 library_minor_version = $(word 2, $(subst ., ,$(library_version)))
