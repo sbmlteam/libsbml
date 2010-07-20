@@ -40,7 +40,7 @@
 # -----------------------------------------------------------------------------
 
 .SUFFIXES:
-.SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .lo .la .obj .Po .py .pyc .pyo .i .bundle
+.SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .cs .o .lo .la .obj .Po .py .pyc .pyo .i .bundle .rb .t
 
 # The following define default values of variables like `cxxcompile'.  An
 # enclosing makefile can define other values, in which case those
