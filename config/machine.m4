@@ -83,7 +83,10 @@ AC_DEFUN([CONFIG_BINARIES],
         AC_MSG_ERROR([
 ***************************************************************************
 Very sorry, but the option --enable-universal-binary can be used only on
-MacOSX systems.
+MacOSX systems.  The purpose of the flag is to configure the creation of
+multiarchitecture binaries (also known as "fat" binaries, not to be 
+confused with the FAT filesystem).  Out of the set of platforms supported 
+by libSBML, only MacOSX systems commonly support fat binaries.
 ***************************************************************************
 ])
     fi
