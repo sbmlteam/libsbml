@@ -312,7 +312,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     dnl
 
     if test -z "$bin_check_nonfatal"; then
-      if test ${host_cpu} = "x86_64" -o -z "`echo $CFLAGS $CXXFLAGS | grep 'm64'`"; then
+      if test ${host_cpu} = "x86_64" -o -n "`echo $CFLAGS $CXXFLAGS | grep 'm64'`"; then
         AC_MSG_CHECKING(whether JRE is a 64-bit version)
         rm -f config/printJavaDataModel.class
         $JAVAC config/printJavaDataModel.java
