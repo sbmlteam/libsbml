@@ -217,6 +217,7 @@ distfiles =                         \
   config/octave.m4                  \
   config/perl.m4                    \
   config/platform.m4                \
+  config/printJavaDataModel.java    \
   config/python.m4                  \
   config/ruby.m4                    \
   config/csharp.m4                  \
@@ -640,6 +641,14 @@ dist-all: $(distfiles)
 #	  || { echo "ERROR: files left in build directory after distclean:" ; \
 #	       find -type f -print ; \
 #	       exit 1; } >&2
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous.
+# -----------------------------------------------------------------------------
+
+printJavaDataModel: config/printJavaDataModel.java
+	$(JAVAC) config/printJavaDataModel.java
 
 
 # -----------------------------------------------------------------------------
