@@ -116,13 +116,28 @@ fi
 dnl Other cmd-line options are defined in the individual .m4 files in the
 dnl config/ subdirectory.
 
+
 dnl ---------------------------------------------------------------------------
-dnl Check host operating system and set some important flags accordingly.
+dnl Check host operating system, set some important flags accordingly, check
+dnl for important configuration flags.
 dnl ---------------------------------------------------------------------------
 
 AC_CANONICAL_HOST
+
+dnl CONFIG_BINARIES checks --enable-universal-binary, --enable-m32 and
+dnl --enable-m64.  This must be done before DOLT, CONFIG_PLATFORM,
+dnl AC_PROG_LIBTOOL, CONFIG_PROG_MATLAB, and possibly others below, because it
+dnl sets CFLAGS.  A particularly important scenario is using --enable-m32 on
+dnl a 64-bit platform, because without setting CFLAGS *before* attempting to 
+dnl configure libtool, the libtool script that's created ends up using 64-bit
+dnl link paths and options.  This leads to difficult-to-understand errors at
+dnl compile/link-time.
+
+CONFIG_BINARIES
 CONFIG_PLATFORM
+
 CONFIG_LDPATH
+
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for various programs and packages.
@@ -132,12 +147,8 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 AC_LIBTOOL_WIN32_DLL
-AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
-
-AC_SUBST(LIBTOOL)
-DOLT
 
 AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
 AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
@@ -160,11 +171,6 @@ AC_COMPILE_IFELSE(
 CPPFLAGS=$saved_CPPFLAGS
 
 
-dnl Checks --enable-universal-binary option 
-dnl (CONFIG_LIB_UNIVBINARY must be located before CONFIG_PROG_MATLAB)
-
-CONFIG_LIB_UNIVBINARY
-
 dnl The Lisp language binding has been removed for the time being, because
 dnl it no longer works in recent versions of libSBML.
 
@@ -181,6 +187,14 @@ dnl Make sure to test doxygen *after* java, because there's a dependency on
 dnl in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
 
 CONFIG_PROG_DOXYGEN(1.5.8)
+
+dnl Do this one last, because some earlier config options may end up changing
+dnl things like CFLAGS, which in turn affects the libtool script that the
+dnl following stesp create.
+
+AC_PROG_LIBTOOL
+AC_SUBST(LIBTOOL)
+DOLT
 
 
 dnl ---------------------------------------------------------------------------
@@ -202,7 +216,6 @@ CONFIG_LIB_LIBXML(2.6.16)
 CONFIG_LIB_LIBCHECK(0.9.2)
 CONFIG_LIB_ZLIB
 CONFIG_LIB_BZ2
-CONFIG_LIB_UNIVBINARY
 
 
 dnl ---------------------------------------------------------------------------
@@ -457,10 +470,13 @@ echo ""
 echo "General build flags:"
 echo "  CC                            = $CC"
 echo "  CXX                           = $CXX"
-echo "  CFLAGS                        = $CFLAGS"
-echo "  CXXFLAGS                      = $CXXFLAGS"
 echo "  CPPFLAGS                      = $CPPFLAGS $ZLIB_CPPFLAGS $BZ2_CPPFLAGS"
+echo "  CFLAGS                        = $CFLAGS"
+echo "  CFLAGS_ARCH                   = $CFLAGS_ARCH"
+echo "  CXXFLAGS                      = $CXXFLAGS"
+echo "  CXXFLAGS_ARCH                 = $CXXFLAGS_ARCH"
 echo "  LDFLAGS                       = $LDFLAGS $ZLIB_LDFLAGS $BZ2_LDFLAGS"
+echo "  LDFLAGS_ARCH                  = $LDFLAGS_ARCH"
 echo "  LIBS                          = $LIBS $ZLIB_LIBS $BZ2_LIBS"
 echo ""
 echo "XML parser library configuration:"
@@ -501,14 +517,14 @@ if test "$enable_univbinary" != "no"; then
   echo "  Building libSBML as MacOS universal binary."
 fi
 
-if test "$with_zlib" != no; then
+if test "$with_zlib" != "no"; then
   /bin/echo -n "  Compression support is enabled for .zip"
-  if test "$with_bzip2" != no; then
+  if test "$with_bzip2" != "no"; then
     echo ", .gz and .bz2 files"
   else
     echo " and .gz files"
   fi
-elif test "$with_bzip2" != no; then
+elif test "$with_bzip2" != "no"; then
   echo "  Compression support is enabled for .bz2 files"
 fi
 
