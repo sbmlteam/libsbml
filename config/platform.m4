@@ -19,6 +19,9 @@ dnl in the file named "LICENSE.txt" included with this software distribution
 dnl and also available online as http://sbml.org/software/libsbml/license.html
 dnl ---------------------------------------------------------------------------
 
+dnl
+dnl In configure.ac, make sure to invoke this after CONFIG_BINARIES.
+
 AC_DEFUN([CONFIG_PLATFORM],
 [
   AC_DEFINE([SHAREDLIBEXT])
@@ -69,11 +72,11 @@ AC_DEFUN([CONFIG_PLATFORM],
   dnl .../lib64 instead of .../lib.  On MacOS, the libraries are either
   dnl fat binaries or placed in the same directories, so no change is
   dnl needed there.  FIXME: The following code has only been tested
-  dnl under Linux, MacOS, and Cygwin.
+  dnl under Linux and MacOS.
 
   LIBSUFFIX=""
   if test ${host_cpu} = "x86_64"; then
-    if echo $CXXFLAGS $CPPFLAGS | grep -v "m32"; then
+    if echo $CFLAGS $CXXFLAGS | grep -v "m32"; then
       LIBSUFFIX="64"
     fi
   fi

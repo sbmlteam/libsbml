@@ -30,9 +30,17 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 [
   AC_ARG_WITH([java],
     AC_HELP_STRING([--with-java=PREFIX],
-                   [Generate Java interface library [[default=no]]]),
+                   [generate Java interface library [[default=no]]]),
     [with_java=$withval],
     [with_java=no])
+
+  AC_ARG_WITH(java-bin-check,
+    AC_HELP_STRING([--without-java-bin-check], [disable checking for 32 vs. 64-bit JRE]),
+      	  [  if test "x$withval" = "xno"; then
+  		bin_check_nonfatal=1
+  	     fi
+  	  ]
+    )
 
   if test "$with_java" != "no"; then
 
@@ -296,6 +304,41 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         fi
       fi
     fi
+
+    dnl
+    dnl Check whether the JRE we get matches possible 32/64-bit options
+    dnl given during configuration (such as telling configure --enable-m64
+    dnl but using a copy of Java that's only 32-bit).
+    dnl
+
+    if test -z "$bin_check_nonfatal"; then
+      if test ${host_cpu} = "x86_64" -o -z "`echo $CFLAGS $CXXFLAGS | grep 'm64'`"; then
+        AC_MSG_CHECKING(whether JRE is a 64-bit version)
+        rm -f config/printJavaDataModel.class
+        $JAVAC config/printJavaDataModel.java
+        if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+           AC_MSG_RESULT(yes, good news!)
+        else
+           AC_MSG_RESULT(no)
+           AC_MSG_ERROR([
+***************************************************************************
+Either this platform is a 64-bit system, or configure has been invoked with
+the option --enable-m64, yet the Java run-time interpreter found at 
+  $JAVA
+reports being a 32-bit interpreter.  This will result in JNI binaries 
+that cannot be executed with that given interpreter.  Please reconfigure
+libSBML using an argument to --with-java that refers to the location of a
+64-bit Java environment.  If you are certain that you want to proceed
+anyway, add --without-java-bin-check to the options for configure.
+***************************************************************************
+])
+        fi
+      fi
+    fi
+
+    dnl 
+    dnl Finally, set up our variables.
+    dnl 
 
     AC_DEFINE([USE_JAVA], 1, [Define to 1 to use Java])
     AC_SUBST(USE_JAVA, 1)
