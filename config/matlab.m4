@@ -119,7 +119,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
     dnl extension because it doesn't bother to check whether the MATLAB
     dnl installation actually *has* the 64-bit components.
 
-    AC_MSG_CHECKING([for the MATLAB binary file extension])
+    AC_MSG_CHECKING([the MATLAB binary file extension])
     MEXEXT="`env MATLABROOT=$MATLABROOT $MATLABROOT/bin/mexext`"
     if test "$MEX_ARCH" = "glnx86" -a "$MEXEXT" = "mexa64"; then
       AC_MSG_RESULT(["mexext" thinks it's $MEXEXT, but I say it's mexglx])
@@ -157,7 +157,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
           AC_MSG_RESULT([Note: the MATLAB version we're finding is a 64-bit version])
           AC_MSG_CHECKING([whether 64-bit libSBML binaries are being built])
-          if echo $CXXFLAGS $CPPFLAGS | grep -q "arch x86_64"; then
+          if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
             AC_MSG_RESULT([yes, we are 'go' for 64-bit])
           else
             AC_MSG_RESULT([no, we have to tell mex to generate 32-bit binaries])
@@ -173,7 +173,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
           AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
           AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
-          if echo $CXXFLAGS $CPPFLAGS | grep -q "arch i386"; then
+          if echo $CXXFLAGS $CFLAGS | grep -q "arch i386"; then
             AC_MSG_RESULT([yes, fabulous!])
           else
             AC_MSG_RESULT([no])
@@ -208,16 +208,16 @@ it before proceeding further.
       if test "${MEX_ARCH}" = "glnx86" -a "${host_cpu}" = "x86_64"; then
         AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
         AC_MSG_CHECKING([whether 32-bit libSBML binaries are being built])
-        if echo $CXXFLAGS $CPPFLAGS | grep -q "m32"; then
-          AC_MSG_RESULT([yes, sweet!])
+        if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+          AC_MSG_RESULT([yes, happy day!])
         else
           AC_MSG_RESULT([no])
           AC_MSG_ERROR([
 ***************************************************************************
 The compilation environment, as it is currently configured, will create a
 64-bit libSBML, but your copy of MATLAB is a 32-bit version.  Please re-run
-the libSBML 'configure' command with the option -m32 to configure libSBML
-to build in 32-bit mode, then recompile libSBML and install the result.
+the libSBML 'configure' command with option --enable-m32 to force libSBML
+to be built in 32-bit mode, then recompile libSBML and install the result.
 If you get a compilation error, please check whether you have a private 
 version of a dependent library (e.g., expat, libxml, or xerces) that is
 only available as a 64-bit version on your system, and either remove,
@@ -228,7 +228,7 @@ recompile or replace it it before proceeding further.
       elif test "${MEX_ARCH}" = "glnxa64" -a "${host_cpu}" != "x86_64"; then
         AC_MSG_RESULT([Note: the MATLAB version we're finding is a 64-bit version])
         AC_MSG_CHECKING([whether 64-bit libSBML binaries are being built])
-        if echo $CXXFLAGS $CPPFLAGS | grep -q "m64"; then
+        if echo $CXXFLAGS $CFLAGS | grep -q "m64"; then
           AC_MSG_RESULT([yes, we are 'go' for 64-bit])
         else
           AC_MSG_RESULT([no])
@@ -236,8 +236,8 @@ recompile or replace it it before proceeding further.
 ***************************************************************************
 The compilation environment, as it is currently configured, will create a
 32-bit libSBML, but your copy of MATLAB is a 64-bit version.  Please re-run
-the libSBML 'configure' command with the option -m64 to configure libSBML
-to build in 64-bit mode, then recompile libSBML and install the result.
+the libSBML 'configure' command with option --enable-m64 to force libSBML
+to be built in 64-bit mode, then recompile libSBML and install the result.
 If you get a compilation error, please check whether you have a private 
 version of a dependent library (e.g., expat, libxml, or xerces) that is
 only available as a 32-bit version on your system, and either remove,
