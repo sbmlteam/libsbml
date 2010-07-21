@@ -152,6 +152,7 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       OSX_MAJOR_VER=`uname -r | cut -f1 -d'.'`
       case ${MEX_ARCH} in
       maci64)
+        AC_MSG_RESULT([Note: the MATLAB we're finding includes a 64-bit version])
         if test ${OSX_MAJOR_VER} -lt 10; then
           dnl We're pre-MacOSX 10.6, which implies 32-bit binaries by default.
 
@@ -164,14 +165,36 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
             MEX_ARCH=maci
             MEXEXT=mexmaci
           fi
+
+        else
+          dnl We're MacOSX 10.6+, which implies 64-bit binaries by default.
+
+          if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+            AC_MSG_CHECKING([whether only 32-bit libSBML binaries are being made])    
+
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              AC_MSG_RESULT([no, we're good])
+            else
+              AC_MSG_RESULT([yup])
+              AC_MSG_ERROR([
+***************************************************************************
+libSBML cannot be compiled solely as a 32-bit library in this environment
+because your copy of MATLAB is a 64-bit version, and MATLAB's mex compiler
+will be unable to link with the libSBML object files.  Please add
+    --enable-universal-binary="-arch i386 -arch x86_64"
+to your configure options, re-run the configure step, and recompile.
+***************************************************************************
+])
+            fi
+          fi
         fi
       ;;
 
       maci)
+        AC_MSG_RESULT([Note: the MATLAB we're finding is a 32-bit version])
         if test ${OSX_MAJOR_VER} -ge 10; then
           dnl We're on MacOSX 10.6, which makes 64-bit bins unless told not to.
 
-          AC_MSG_RESULT([Note: the MATLAB version we're finding is a 32-bit version])
           AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
           if echo $CXXFLAGS $CFLAGS | grep -q "arch i386"; then
             AC_MSG_RESULT([yes, fabulous!])
@@ -190,6 +213,28 @@ built only as a 32-bit version, and either remove, recompile or replace it
 it before proceeding further.
 ***************************************************************************
 ])
+          fi
+        else
+          dnl We're on pre-MacOSX 10.6, which implies 32-bit binaries by
+          dnl default.  However, we need to make sure the user didn't
+          dnl request a 64-bit libSBML build.
+
+          AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being built])
+          if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+              AC_MSG_RESULT([no, dodged a bullet there])        
+            else
+              AC_MSG_RESULT([yup])
+              AC_MSG_ERROR([
+***************************************************************************
+libSBML cannot be compiled solely as a 64-bit library in this environment
+because your copy of MATLAB is a 32-bit version, and MATLAB's mex compiler
+will be unable to link with the libSBML object files.  Please add
+    --enable-universal-binary="-arch i386 -arch x86_64"
+to your configure options, re-run the configure step, and recompile.
+***************************************************************************
+])
+            fi
           fi
         fi
         ;;
