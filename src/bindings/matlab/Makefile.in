@@ -114,7 +114,7 @@ endif
 
 %.$(MEXEXT): %.c
 	env MATLABROOT=$(MATLABROOT) ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) \
-          $(LIBTOOL) --tag=CC --mode=link $(MEX) \
+          CFLAGS="${CFLAGS}" $(LIBTOOL) --tag=CC --mode=link $(MEX) \
           ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) -f $(mexopts_file) \
           -o $@ $^ $(flags) ../../libsbml.la $(MATLAB_LIBS)
 	cp -f .libs/$@ .

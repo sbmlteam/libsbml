@@ -101,7 +101,7 @@ matlab_test_args = -$(MEX_ARCH) -nosplash -nodesktop -memmgr debug -logfile runT
 # how else to handle the problem at this time.
 
 define matlabrun
-  env MATLABROOT="$(MATLABROOT)" ARCH="$(MEX_ARCH)" srcdir=. \
+  env MATLABROOT="$(MATLABROOT)" ARCH="$(MEX_ARCH)" CFLAGS="$(CFLAGS)" srcdir=. \
     $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
 endef
 
