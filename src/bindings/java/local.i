@@ -799,6 +799,39 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 %}
 
 
+#if SWIG_VERSION >= 0x020000
+
+%typemap(javabody_derived) TYPENAME
+%{
+   private long swigCPtr;
+
+   CTOR_ATTRIB $javaclassname(long cPtr, boolean cMemoryOwn)
+   {
+     super($moduleJNI.$javaclassname_SWIGUpcast(cPtr), cMemoryOwn);
+     swigCPtr = cPtr;
+   }
+
+   GETCPTR_ATTRIB static long getCPtr($javaclassname obj)
+   {
+     return (obj == null) ? 0 : obj.swigCPtr;
+   }
+
+   GETCPTR_ATTRIB static long getCPtrAndDisown ($javaclassname obj)
+   {
+     long ptr = 0;
+
+     if (obj != null)
+     {
+       ptr             = obj.swigCPtr;
+       obj.swigCMemOwn = false;
+     }
+
+     return ptr;
+   }
+%}
+
+#else
+
 %typemap(javabody_derived) TYPENAME
 %{
    private long swigCPtr;
@@ -827,6 +860,8 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
      return ptr;
    }
 %}
+
+#endif
 
 %enddef
 
