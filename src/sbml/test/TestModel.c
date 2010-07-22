@@ -680,6 +680,29 @@ START_TEST (test_Model_add_get_FunctionDefinitions)
   fail_unless( Model_getFunctionDefinition(M, 0)  != fd1  );
   fail_unless( Model_getFunctionDefinition(M, 1)  != fd2  );
   fail_unless( Model_getFunctionDefinition(M, 2)  == NULL );
+}
+END_TEST
+
+
+/**
+ * If I had time to do it over again, this is how I would write and
+ * combine the get / add tests for collection (see below).
+ */
+START_TEST (test_Model_add_get_FunctionDefinitions_neg_arg)
+{
+  FunctionDefinition_t *fd1 = FunctionDefinition_create(2, 4);
+  FunctionDefinition_t *fd2 = FunctionDefinition_create(2, 4);
+
+  FunctionDefinition_setId(fd1, "fd1");
+  FunctionDefinition_setId(fd2, "fd2");
+
+  FunctionDefinition_setMath(fd1, SBML_parseFormula("2"));
+  FunctionDefinition_setMath(fd2, SBML_parseFormula("2"));
+
+  Model_addFunctionDefinition(M, fd1);
+  Model_addFunctionDefinition(M, fd2);
+
+  fail_unless( Model_getNumFunctionDefinitions(M) == 2    );
   fail_unless( Model_getFunctionDefinition(M, -2) == NULL );
 }
 END_TEST
@@ -703,6 +726,25 @@ START_TEST (test_Model_add_get_UnitDefinitions)
   fail_unless( Model_getUnitDefinition(M, 0)  != ud1  );
   fail_unless( Model_getUnitDefinition(M, 1)  != ud2  );
   fail_unless( Model_getUnitDefinition(M, 2)  == NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_add_get_UnitDefinitions_neg_arg)
+{
+  UnitDefinition_t *ud1 = UnitDefinition_create(2, 4);
+  UnitDefinition_t *ud2 = UnitDefinition_create(2, 4);
+
+  UnitDefinition_setId(ud1, "ud1");
+  UnitDefinition_setId(ud2, "ud2");
+
+  UnitDefinition_createUnit(ud1);
+  UnitDefinition_createUnit(ud2);
+
+  Model_addUnitDefinition(M, ud1);
+  Model_addUnitDefinition(M, ud2);
+
+  fail_unless( Model_getNumUnitDefinitions(M) == 2    );
   fail_unless( Model_getUnitDefinition(M, -2) == NULL );
 }
 END_TEST
@@ -792,6 +834,24 @@ START_TEST (test_Model_add_get_Event)
   fail_unless( Model_getEvent(M, 0)  != e1   );
   fail_unless( Model_getEvent(M, 1)  != e2   );
   fail_unless( Model_getEvent(M, 2)  == NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_add_get_Event_neg_arg)
+{
+  Event_t *e1 = Event_create(2, 4);
+  Event_t *e2 = Event_create(2, 4);
+  Trigger_t *t = Trigger_create(2, 4);
+  Event_setTrigger(e1, t);
+  Event_setTrigger(e2, t);
+  Event_createEventAssignment(e1);
+  Event_createEventAssignment(e2);
+
+  Model_addEvent(M, e1);
+  Model_addEvent(M, e2);
+
+  fail_unless( Model_getNumEvents(M) == 2    );
   fail_unless( Model_getEvent(M, -2) == NULL );
 }
 END_TEST
@@ -1562,14 +1622,17 @@ create_suite_Model (void)
   /**
    * Model_addXXX() methods
    */
-  tcase_add_test( t, test_Model_add_get_FunctionDefinitions );
-  tcase_add_test( t, test_Model_add_get_UnitDefinitions     );
-  tcase_add_test( t, test_Model_addCompartment              );
-  tcase_add_test( t, test_Model_addSpecies                  );
-  tcase_add_test( t, test_Model_addParameter                );
-  tcase_add_test( t, test_Model_addRules                    );
-  tcase_add_test( t, test_Model_addReaction                 );
-  tcase_add_test( t, test_Model_add_get_Event               );
+  tcase_add_test( t, test_Model_add_get_FunctionDefinitions         );
+  tcase_add_test( t, test_Model_add_get_FunctionDefinitions_neg_arg );
+  tcase_add_test( t, test_Model_add_get_UnitDefinitions             );
+  tcase_add_test( t, test_Model_add_get_UnitDefinitions_neg_arg     );
+  tcase_add_test( t, test_Model_addCompartment                      );
+  tcase_add_test( t, test_Model_addSpecies                          );
+  tcase_add_test( t, test_Model_addParameter                        );
+  tcase_add_test( t, test_Model_addRules                            );
+  tcase_add_test( t, test_Model_addReaction                         );
+  tcase_add_test( t, test_Model_add_get_Event                       );
+  tcase_add_test( t, test_Model_add_get_Event_neg_arg               );
 
   /**
    * Model_getXXX() methods
