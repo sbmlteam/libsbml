@@ -98,6 +98,19 @@ class TestDate_newSetters(unittest.TestCase):
     _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_Date_setHoursOffset(self):
+    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
+    self.assert_( date != None )
+    i = date.setHoursOffset(434)
+    self.assert_( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    self.assert_( date.getHoursOffset() == 0 )
+    i = date.setHoursOffset(11)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( date.getHoursOffset() == 11 )
+    self.assert_((                             "2005-12-30T12:15:45+11:00" == date.getDateAsString() ))
+    _dummyList = [ date ]; _dummyList[:] = []; del _dummyList
+    pass  
+
   def test_Date_setMinute(self):
     date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
     self.assert_( date != None )

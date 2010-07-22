@@ -140,7 +140,6 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getEvent(0) != e1 )
     self.assert_( self.M.getEvent(1) != e2 )
     self.assert_( self.M.getEvent(2) == None )
-    self.assert_( self.M.getEvent(99999) == None )
     pass  
 
   def test_Model_add_get_FunctionDefinitions(self):
@@ -156,7 +155,6 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getFunctionDefinition(0) != fd1 )
     self.assert_( self.M.getFunctionDefinition(1) != fd2 )
     self.assert_( self.M.getFunctionDefinition(2) == None )
-    self.assert_( self.M.getFunctionDefinition(99999) == None )
     pass  
 
   def test_Model_add_get_UnitDefinitions(self):
@@ -172,7 +170,6 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getUnitDefinition(0) != ud1 )
     self.assert_( self.M.getUnitDefinition(1) != ud2 )
     self.assert_( self.M.getUnitDefinition(2) == None )
-    self.assert_( self.M.getUnitDefinition(99999) == None )
     pass  
 
   def test_Model_create(self):
