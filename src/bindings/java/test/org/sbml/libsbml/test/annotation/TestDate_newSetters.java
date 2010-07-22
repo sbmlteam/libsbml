@@ -182,6 +182,20 @@ public class TestDate_newSetters {
     date = null;
   }
 
+  public void test_Date_setHoursOffset()
+  {
+    Date date = new  Date(2005,12,30,12,15,45,1,2,0);
+    assertTrue( date != null );
+    int i = date.setHoursOffset(434);
+    assertTrue( i == libsbml.LIBSBML_INVALID_ATTRIBUTE_VALUE );
+    assertTrue( date.getHoursOffset() == 0 );
+    i = date.setHoursOffset(11);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( date.getHoursOffset() == 11 );
+    assertTrue(date.getDateAsString().equals(                            "2005-12-30T12:15:45+11:00"));
+    date = null;
+  }
+
   public void test_Date_setMinute()
   {
     Date date = new  Date(2005,12,30,12,15,45,1,2,0);

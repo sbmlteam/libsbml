@@ -133,7 +133,6 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getEvent(0) != e1 )
     assert( @@m.getEvent(1) != e2 )
     assert( @@m.getEvent(2) == nil )
-    assert( @@m.getEvent(-2) == nil )
   end
 
   def test_Model_add_get_FunctionDefinitions
@@ -149,7 +148,6 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getFunctionDefinition(0) != fd1 )
     assert( @@m.getFunctionDefinition(1) != fd2 )
     assert( @@m.getFunctionDefinition(2) == nil )
-    assert( @@m.getFunctionDefinition(-2) == nil )
   end
 
   def test_Model_add_get_UnitDefinitions
@@ -165,7 +163,6 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getUnitDefinition(0) != ud1 )
     assert( @@m.getUnitDefinition(1) != ud2 )
     assert( @@m.getUnitDefinition(2) == nil )
-    assert( @@m.getUnitDefinition(-2) == nil )
   end
 
   def test_Model_create

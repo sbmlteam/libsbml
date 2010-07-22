@@ -230,7 +230,6 @@ public class TestModel {
     assertNotEquals(M.getEvent(0),e1);
     assertNotEquals(M.getEvent(1),e2);
     assertEquals(M.getEvent(2),null);
-    assertEquals(M.getEvent(-2),null);
   }
 
   public void test_Model_add_get_FunctionDefinitions()
@@ -247,7 +246,6 @@ public class TestModel {
     assertNotEquals(M.getFunctionDefinition(0),fd1);
     assertNotEquals(M.getFunctionDefinition(1),fd2);
     assertEquals(M.getFunctionDefinition(2),null);
-    assertEquals(M.getFunctionDefinition(-2),null);
   }
 
   public void test_Model_add_get_UnitDefinitions()
@@ -264,7 +262,6 @@ public class TestModel {
     assertNotEquals(M.getUnitDefinition(0),ud1);
     assertNotEquals(M.getUnitDefinition(1),ud2);
     assertEquals(M.getUnitDefinition(2),null);
-    assertEquals(M.getUnitDefinition(-2),null);
   }
 
   public void test_Model_create()

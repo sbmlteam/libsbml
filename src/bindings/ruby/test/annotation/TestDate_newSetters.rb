@@ -93,6 +93,19 @@ class TestDate_newSetters < Test::Unit::TestCase
     date = nil
   end
 
+  def test_Date_setHoursOffset
+    date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
+    assert( date != nil )
+    i = date.setHoursOffset(434)
+    assert( i == LibSBML::LIBSBML_INVALID_ATTRIBUTE_VALUE )
+    assert( date.getHoursOffset() == 0 )
+    i = date.setHoursOffset(11)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( date.getHoursOffset() == 11 )
+    assert ((                             "2005-12-30T12:15:45+11:00" == date.getDateAsString() ))
+    date = nil
+  end
+
   def test_Date_setMinute
     date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
     assert( date != nil )
