@@ -94,9 +94,9 @@ START_TEST (test_ListOf_get)
 
   fail_unless( ListOf_size(lo) == 1 );
 
-  SBase_t *out = ListOf_get(lo, 1);
+  SBase_t *elem = ListOf_get(lo, 1);
 
-  fail_unless( sp != out );             /* ListOf_append makes a clone */
+  fail_unless( sp != elem );             /* ListOf_append makes a clone */
 
   Species_free((Species_t *) sp);
 
@@ -121,17 +121,17 @@ START_TEST (test_ListOf_remove)
 
   fail_unless( ListOf_size(lo) == 5 );
 
-  SBase_t *out;
-  out = ListOf_remove(lo, 0);
-  Species_free((Species_t*) out);
-  out = ListOf_remove(lo, 0);
-  Species_free((Species_t*) out);
-  out = ListOf_remove(lo, 0);
-  Species_free((Species_t*) out);
-  out = ListOf_remove(lo, 0);
-  Species_free((Species_t*) out);
-  out = ListOf_remove(lo, 0);
-  Species_free((Species_t*) out);
+  SBase_t *elem;
+  elem = ListOf_remove(lo, 0);
+  Species_free((Species_t*) elem);
+  elem = ListOf_remove(lo, 0);
+  Species_free((Species_t*) elem);
+  elem = ListOf_remove(lo, 0);
+  Species_free((Species_t*) elem);
+  elem = ListOf_remove(lo, 0);
+  Species_free((Species_t*) elem);
+  elem = ListOf_remove(lo, 0);
+  Species_free((Species_t*) elem);
 
   fail_unless( ListOf_size(lo) == 0 );
 
@@ -178,17 +178,17 @@ START_TEST (test_ListOf_clear)
 
   /* delete each item */
 
-  SBase_t *out;
-  out = ListOf_get(lo, 0);
-  Species_free((Species_t*) out);
-  out = ListOf_get(lo, 1);
-  Species_free((Species_t*) out);
-  out = ListOf_get(lo, 2);
-  Species_free((Species_t*) out);
-  out = ListOf_get(lo, 3);
-  Species_free((Species_t*) out);
-  out = ListOf_get(lo, 4);
-  Species_free((Species_t*) out);
+  SBase_t *elem;
+  elem = ListOf_get(lo, 0);
+  Species_free((Species_t*) elem);
+  elem = ListOf_get(lo, 1);
+  Species_free((Species_t*) elem);
+  elem = ListOf_get(lo, 2);
+  Species_free((Species_t*) elem);
+  elem = ListOf_get(lo, 3);
+  Species_free((Species_t*) elem);
+  elem = ListOf_get(lo, 4);
+  Species_free((Species_t*) elem);
 
   /* clear only */
 
