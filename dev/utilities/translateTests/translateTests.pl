@@ -176,11 +176,14 @@ my %IgnoreTestFunc = (
   test_MathMLFormatter_ci_definitionURL          => 0,
   test_ASTNode_replaceArgument                   => 0,
   test_SBase_addCVTerms_newBag                   => 0,
-  test_Date_setHoursOffset                       => 0,
+  test_Date_setHoursOffset_neg_arg               => 0,
   test_Date_setOffsetSign                        => 0,
   test_Model_copyConstructor                     => 0,
   test_Model_assignmentOperator                  => 0,
   test_Model_clone                               => 0,
+  test_Model_add_get_FunctionDefinitions_neg_arg => 0,
+  test_Model_add_get_UnitDefinitions_neg_arg     => 0,
+  test_Model_add_get_Event_neg_arg               => 0,
   test_Reaction_removeModifier                   => 0,
   test_Reaction_getModifier                      => 0,
   test_Reaction_addModifier                      => 0,
@@ -1631,7 +1634,7 @@ sub parseBlock
     if ( $Target eq 'ruby' )
     {
       my $val = $1 if $obj =~ /(\w+)/ ;
-      $obj = "@@${obj}" if ( defined( $GlobalVariable{$val} ) );
+      $obj = "@@" . lc${obj} if ( defined( $GlobalVariable{$val} ) );
     }
     if ( ( $Target eq 'python' ) || ( $Target eq 'ruby') )
     {
