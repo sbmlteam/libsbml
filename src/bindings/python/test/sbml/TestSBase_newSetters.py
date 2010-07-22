@@ -1050,12 +1050,12 @@ class TestSBase_newSetters(unittest.TestCase):
     self.assert_( self.S.isSetNotes() == True )
     i = self.S.unsetNotes()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( (self.S.isSetNotes() == True) == False )
+    self.assert_( self.S.isSetNotes() != True )
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
     i = self.S.setNotes(node)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( (self.S.isSetNotes() == True) == False )
+    self.assert_( self.S.isSetNotes() != True )
     token = libsbml.XMLToken(triple,att,ns)
     node = libsbml.XMLNode(token)
     node.addChild(n1)
@@ -1064,7 +1064,7 @@ class TestSBase_newSetters(unittest.TestCase):
     self.assert_( self.S.isSetNotes() == True )
     i = self.S.setNotes(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( (self.S.isSetNotes() == True) == False )
+    self.assert_( self.S.isSetNotes() != True )
     _dummyList = [ node ]; _dummyList[:] = []; del _dummyList
     pass  
 
@@ -1208,16 +1208,16 @@ class TestSBase_newSetters(unittest.TestCase):
     self.assert_( self.S.isSetNotes() == True )
     i = self.S.unsetNotes()
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( (self.S.isSetNotes() == True) == False )
+    self.assert_( self.S.isSetNotes() != True )
     i = self.S.setNotes(taggednotes)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.S.isSetNotes() == True )
     i = self.S.setNotes(None)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    self.assert_( (self.S.isSetNotes() == True) == False )
+    self.assert_( self.S.isSetNotes() != True )
     i = self.S.setNotes(badnotes)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    self.assert_( (self.S.isSetNotes() == True) == False )
+    self.assert_( self.S.isSetNotes() != True )
     pass  
 
   def test_SBase_setSBOTerm1(self):
