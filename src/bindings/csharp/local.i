@@ -689,6 +689,38 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 	}
 %}
 
+#if SWIG_VERSION >= 0x020000
+
+%typemap(csbody_derived) TYPENAME
+%{
+	private HandleRef swigCPtr;
+	
+	CTOR_ATTRIB $csclassname(IntPtr cPtr, bool cMemoryOwn) : base($modulePINVOKE.$csclassname_SWIGUpcast(cPtr), cMemoryOwn)
+	{
+		//super($modulePINVOKE.$csclassnameUpcast(cPtr), cMemoryOwn);
+		swigCPtr = new HandleRef(this, cPtr);
+	}
+	
+	GETCPTR_ATTRIB static HandleRef getCPtr($csclassname obj)
+	{
+		return (obj == null) ? new HandleRef(null, IntPtr.Zero) : obj.swigCPtr;
+	}
+	
+	GETCPTR_ATTRIB static HandleRef getCPtrAndDisown ($csclassname obj)
+	{
+		HandleRef ptr = new HandleRef(null, IntPtr.Zero);
+		
+		if (obj != null)
+		{
+			ptr             = obj.swigCPtr;
+			obj.swigCMemOwn = false;
+		}
+		
+		return ptr;
+	}
+%}
+
+#else
 
 %typemap(csbody_derived) TYPENAME
 %{
@@ -718,6 +750,8 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 		return ptr;
 	}
 %}
+
+#endif
 
 %enddef
 
