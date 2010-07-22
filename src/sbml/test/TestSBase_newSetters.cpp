@@ -84,7 +84,7 @@ START_TEST (test_SBase_setNotes)
   i = SBase_unsetNotes(S);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(!SBase_isSetNotes(S) == 1);
+  fail_unless( SBase_isSetNotes(S) != 1);
 
   token = XMLToken_createWithText("This is a test note");
   node = XMLNode_createFromToken(token);
@@ -92,7 +92,7 @@ START_TEST (test_SBase_setNotes)
   i = SBase_setNotes(S, node);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
-  fail_unless(!SBase_isSetNotes(S) == 1);
+  fail_unless( SBase_isSetNotes(S) != 1);
 
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
@@ -106,7 +106,7 @@ START_TEST (test_SBase_setNotes)
   i = SBase_setNotes(S, NULL);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(!SBase_isSetNotes(S) == 1);
+  fail_unless( SBase_isSetNotes(S) != 1);
   XMLNode_free(node);
 }
 END_TEST
@@ -340,7 +340,7 @@ START_TEST (test_SBase_setNotesString)
   i = SBase_unsetNotes(S);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(!SBase_isSetNotes(S) == 1);
+  fail_unless( SBase_isSetNotes(S) != 1);
 
 
   i = SBase_setNotesString(S, taggednotes);
@@ -351,12 +351,12 @@ START_TEST (test_SBase_setNotesString)
   i = SBase_setNotesString(S, NULL);
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
-  fail_unless(!SBase_isSetNotes(S) == 1);
+  fail_unless( SBase_isSetNotes(S) != 1);
 
   i = SBase_setNotesString(S, badnotes);
 
   fail_unless ( i == LIBSBML_INVALID_OBJECT);
-  fail_unless(!SBase_isSetNotes(S) == 1);
+  fail_unless( SBase_isSetNotes(S) != 1);
 }
 END_TEST
 
