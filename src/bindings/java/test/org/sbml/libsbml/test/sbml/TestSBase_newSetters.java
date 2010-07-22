@@ -1190,12 +1190,12 @@ public class TestSBase_newSetters {
     assertTrue( S.isSetNotes() == true );
     i = S.unsetNotes();
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    assertTrue( ! (S.isSetNotes() == true) );
+    assertTrue( S.isSetNotes() != true );
     token = new  XMLToken("This is a test note");
     node = new XMLNode(token);
     i = S.setNotes(node);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
-    assertTrue( ! (S.isSetNotes() == true) );
+    assertTrue( S.isSetNotes() != true );
     token = new  XMLToken(triple,att,ns);
     node = new XMLNode(token);
     node.addChild(n1);
@@ -1204,7 +1204,7 @@ public class TestSBase_newSetters {
     assertTrue( S.isSetNotes() == true );
     i = S.setNotes((XMLNode)null);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    assertTrue( ! (S.isSetNotes() == true) );
+    assertTrue( S.isSetNotes() != true );
     node = null;
   }
 
@@ -1358,16 +1358,16 @@ public class TestSBase_newSetters {
     assertTrue( S.isSetNotes() == true );
     i = S.unsetNotes();
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    assertTrue( ! (S.isSetNotes() == true) );
+    assertTrue( S.isSetNotes() != true );
     i = S.setNotes(taggednotes);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
     assertTrue( S.isSetNotes() == true );
     i = S.setNotes((XMLNode)null);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    assertTrue( ! (S.isSetNotes() == true) );
+    assertTrue( S.isSetNotes() != true );
     i = S.setNotes(badnotes);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
-    assertTrue( ! (S.isSetNotes() == true) );
+    assertTrue( S.isSetNotes() != true );
   }
 
   public void test_SBase_setSBOTerm1()

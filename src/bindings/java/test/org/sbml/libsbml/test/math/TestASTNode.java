@@ -590,7 +590,7 @@ public class TestASTNode {
     ASTNode n = new  ASTNode();
     EventAssignment ea = new  EventAssignment(2,4);
     assertTrue( n.getType() == libsbml.AST_UNKNOWN );
-    assertTrue( n.getCharacter() ==  '\0'  );
+    assertTrue( n.getCharacter() == '\0' );
     assertTrue( n.getName() == null );
     assertTrue( n.getInteger() == 0 );
     assertTrue( n.getExponent() == 0 );
@@ -610,7 +610,7 @@ public class TestASTNode {
     node.getLeftChild().setValue(1);
     node.getRightChild().setValue(2);
     assertTrue( node.getType() == libsbml.AST_PLUS );
-    assertTrue( node.getCharacter() ==  '+'       );
+    assertTrue( node.getCharacter() == '+' );
     assertTrue( node.getNumChildren() == 2 );
     child = node.getLeftChild();
     assertTrue( child.getType() == libsbml.AST_INTEGER );
@@ -623,7 +623,7 @@ public class TestASTNode {
     copy = node.deepCopy();
     assertTrue( !copy.equals(node) );
     assertTrue( copy.getType() == libsbml.AST_PLUS );
-    assertTrue( copy.getCharacter() ==  '+'       );
+    assertTrue( copy.getCharacter() == '+' );
     assertTrue( copy.getNumChildren() == 2 );
     child = copy.getLeftChild();
     assertTrue( !child.equals(node.getLeftChild()) );
@@ -1011,7 +1011,7 @@ public class TestASTNode {
     assertTrue( node.getDenominator() == 1 );
     node.setCharacter( '+');
     assertTrue( node.getType() == libsbml.AST_PLUS );
-    assertTrue( node.getCharacter() ==  '+'       );
+    assertTrue( node.getCharacter() == '+' );
     assertTrue( node.getName() == null );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
@@ -1019,7 +1019,7 @@ public class TestASTNode {
     assertTrue( node.getDenominator() == 1 );
     node.setCharacter( '-');
     assertTrue( node.getType() == libsbml.AST_MINUS );
-    assertTrue( node.getCharacter() ==  '-'        );
+    assertTrue( node.getCharacter() == '-' );
     assertTrue( node.getName() == null );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
@@ -1027,7 +1027,7 @@ public class TestASTNode {
     assertTrue( node.getDenominator() == 1 );
     node.setCharacter( '*');
     assertTrue( node.getType() == libsbml.AST_TIMES );
-    assertTrue( node.getCharacter() ==  '*'        );
+    assertTrue( node.getCharacter() == '*' );
     assertTrue( node.getName() == null );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
@@ -1035,7 +1035,7 @@ public class TestASTNode {
     assertTrue( node.getDenominator() == 1 );
     node.setCharacter( '/');
     assertTrue( node.getType() == libsbml.AST_DIVIDE );
-    assertTrue( node.getCharacter() ==  '/'         );
+    assertTrue( node.getCharacter() == '/' );
     assertTrue( node.getName() == null );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
@@ -1043,7 +1043,7 @@ public class TestASTNode {
     assertTrue( node.getDenominator() == 1 );
     node.setCharacter( '^');
     assertTrue( node.getType() == libsbml.AST_POWER );
-    assertTrue( node.getCharacter() ==  '^'        );
+    assertTrue( node.getCharacter() == '^' );
     assertTrue( node.getName() == null );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
@@ -1051,7 +1051,7 @@ public class TestASTNode {
     assertTrue( node.getDenominator() == 1 );
     node.setCharacter( '$');
     assertTrue( node.getType() == libsbml.AST_UNKNOWN );
-    assertTrue( node.getCharacter() ==  '$'          );
+    assertTrue( node.getCharacter() == '$' );
     assertTrue( node.getName() == null );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
@@ -1123,7 +1123,7 @@ public class TestASTNode {
     node.setName(name);
     assertTrue( node.getType() == libsbml.AST_NAME );
     assertTrue(node.getName().equals(name));
-    assertTrue( node.getCharacter() ==  '+'         );
+    assertTrue( node.getCharacter() == '+' );
     assertTrue( node.getInteger() == 0 );
     assertTrue( node.getReal() == 0 );
     assertTrue( node.getExponent() == 0 );
@@ -1199,19 +1199,19 @@ public class TestASTNode {
     assertTrue( node.getType() == libsbml.AST_UNKNOWN );
     node.setType(libsbml.AST_PLUS);
     assertTrue( node.getType() == libsbml.AST_PLUS );
-    assertTrue( node.getCharacter() ==  '+'       );
+    assertTrue( node.getCharacter() == '+' );
     node.setType(libsbml.AST_MINUS);
     assertTrue( node.getType() == libsbml.AST_MINUS );
-    assertTrue( node.getCharacter() ==  '-'        );
+    assertTrue( node.getCharacter() == '-' );
     node.setType(libsbml.AST_TIMES);
     assertTrue( node.getType() == libsbml.AST_TIMES );
-    assertTrue( node.getCharacter() ==  '*'        );
+    assertTrue( node.getCharacter() == '*' );
     node.setType(libsbml.AST_DIVIDE);
     assertTrue( node.getType() == libsbml.AST_DIVIDE );
-    assertTrue( node.getCharacter() ==  '/'         );
+    assertTrue( node.getCharacter() == '/' );
     node.setType(libsbml.AST_POWER);
     assertTrue( node.getType() == libsbml.AST_POWER );
-    assertTrue( node.getCharacter() ==  '^'        );
+    assertTrue( node.getCharacter() == '^' );
     node = null;
   }
 
