@@ -170,7 +170,8 @@ namespace LibSBMLCSTestRunner
 
         private static void RunTestsInAssembly(Assembly oTestClass, string sData)
         {
-            // get all classes, we know that all test-classes begin with Test
+            // Get all classes.  We know that all test-classes begin with Test.
+
             Type[] types = oTestClass.GetExportedTypes();
             foreach (Type type in types)
             {
@@ -237,7 +238,10 @@ namespace LibSBMLCSTestRunner
             }
 
             Console.WriteLine();
-            Console.WriteLine(String.Format("Testing completed: Pass:{0}, Fail:{1}, (Total:{2})", nSuccess, nFailure, nSuccess+nFailure));
+            Console.WriteLine(
+                String.Format("Testing completed: Pass:{0}, Fail:{1}, (Total:{2})",
+                              nSuccess, nFailure, nSuccess+nFailure));
+
             nSuccessSum += nSuccess;
             nFailureSum += nFailure;
 
@@ -245,15 +249,20 @@ namespace LibSBMLCSTestRunner
 
         private static object SetupTestClass(Assembly oTestClass, Type type)
         {
-
             object oClass = Activator.CreateInstance(type);
+
             try
             {
-                type.InvokeMember("setUp", BindingFlags.InvokeMethod | BindingFlags.Default, null, oClass, null);
+                type.InvokeMember("setUp",
+                                  BindingFlags.InvokeMethod | BindingFlags.Default,
+                                  null, oClass, null);
             }
             catch (Exception)
             {
-                Console.WriteLine("Could not setUp class ... ");
+              // 2010-07-22 <mhucka@caltech.edu> Some just don't have a
+              // setup class.  It's confusing to see these errors.  
+
+              // Console.WriteLine("Could not run setUp class ... ");
             }
             return oClass;
         }
