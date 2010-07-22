@@ -236,11 +236,6 @@ START_TEST (test_Date_setHoursOffset)
   fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
   fail_unless( Date_getHoursOffset(date) == 0);
 
-  i = Date_setHoursOffset(date, -3);
-
-  fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
-  fail_unless( Date_getHoursOffset(date) == 0);
-
   i = Date_setHoursOffset(date, 11);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
@@ -248,6 +243,21 @@ START_TEST (test_Date_setHoursOffset)
 
   fail_unless(!strcmp(Date_getDateAsString(date), 
                            "2005-12-30T12:15:45+11:00"));
+
+  Date_free(date);
+}
+END_TEST
+
+
+START_TEST (test_Date_setHoursOffset_neg_arg)
+{
+  Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  fail_unless(date != NULL);
+
+  int i = Date_setHoursOffset(date, -3);
+
+  fail_unless( i == LIBSBML_INVALID_ATTRIBUTE_VALUE );
+  fail_unless( Date_getHoursOffset(date) == 0);
 
   Date_free(date);
 }
@@ -331,16 +341,17 @@ create_suite_Date_newSetters (void)
   TCase *tcase = tcase_create("Date_newSetters");
 
 
-  tcase_add_test( tcase, test_Date_setYear  );
-  tcase_add_test( tcase, test_Date_setMonth  );
-  tcase_add_test( tcase, test_Date_setDay  );
-  tcase_add_test( tcase, test_Date_setHour  );
-  tcase_add_test( tcase, test_Date_setMinute  );
-  tcase_add_test( tcase, test_Date_setSecond  );
-  tcase_add_test( tcase, test_Date_setOffsetSign  );
-  tcase_add_test( tcase, test_Date_setHoursOffset  );
-  tcase_add_test( tcase, test_Date_setMinutesOffset  );
-  tcase_add_test( tcase, test_Date_setDateAsString  );
+  tcase_add_test( tcase, test_Date_setYear                );
+  tcase_add_test( tcase, test_Date_setMonth               );
+  tcase_add_test( tcase, test_Date_setDay                 );
+  tcase_add_test( tcase, test_Date_setHour                );
+  tcase_add_test( tcase, test_Date_setMinute              );
+  tcase_add_test( tcase, test_Date_setSecond              );
+  tcase_add_test( tcase, test_Date_setOffsetSign          );
+  tcase_add_test( tcase, test_Date_setHoursOffset         );
+  tcase_add_test( tcase, test_Date_setHoursOffset_neg_arg );
+  tcase_add_test( tcase, test_Date_setMinutesOffset       );
+  tcase_add_test( tcase, test_Date_setDateAsString        );
 
   suite_add_tcase(suite, tcase);
 
