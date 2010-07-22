@@ -950,7 +950,6 @@ sub parseAssertion
       $prexp = qr{ \s* $re_np \s* $ }x; 
     }   
 
-
     if ( $b1 =~ /strcmp/ )
     {
       $right = $IdFALSE{$Target} if $right eq '0';
@@ -1059,10 +1058,12 @@ sub parseAssertion
       $right = $IdFALSE{$Target} if $right eq '0';
       $right = $IdTRUE{$Target}  if $right eq '1';
     }
-    elsif (  $CurLine =~ /ASTNode_getCharacter \s* $re_np /x 
+    elsif (  $CurLine =~ /ASTNode_getCharacter \s* $re_np /x
           && $left =~ /getCharacter /x )
     {
-      $right = $IdNULLChar{$Target} if $right eq '0';
+      $right =~ s/^\s+//;
+      $right =~ s/\s+$//;
+      $right = $IdNULLChar{$Target} if ( $right eq '0' || $right eq "'\\0'" );
     }
     elsif ( $left =~ / (?: getModel | getNamespaces ) \s* $re_np /x )
     {
@@ -1627,6 +1628,11 @@ sub parseBlock
     ################################################## 
     # Python/Ruby
     ################################################## 
+    if ( $Target eq 'ruby' )
+    {
+      my $val = $1 if $obj =~ /(\w+)/ ;
+      $obj = "@@${obj}" if ( defined( $GlobalVariable{$val} ) );
+    }
     if ( ( $Target eq 'python' ) || ( $Target eq 'ruby') )
     {
       $obj = "$Prefix{$Target}${obj}" if ( defined( $SBaseClass{$obj} ) || defined( $MiscClass{$obj}) );
@@ -2219,7 +2225,7 @@ sub convertCPPFuncCall
   if ( $Target eq 'ruby' )
   {
     $fcall =~ s/ -> /./gx;
-    $fcall =~ s/^(\w+)\. / if ( defined( $GlobalVariable{$1} ) ) { "@@" . lc($1) . "." } else {$1. "."} /xe;
+    $fcall =~ s/^(\w+)\. / if ( defined( $GlobalVariable{$1} ) ) { "@@" . lc($1) . "." } else {lc($1). "."} /xe;
 #    $fcall =~ s/^([A-Z]{1,3})\. / "@@" . lc($1) . "."/xe;
   }
   ##################################################
@@ -2645,10 +2651,17 @@ sub convertSBaseCFuncCall
 
   if (defined($arg[0]))
   {
-    if ($arg[0] =~ /^\((.*)\)/x)
+    if ( $arg[0] =~ /^\((.*)\)/x )
     {
       my $actual = $1;
-      $arg[0] = "(self." . $actual . ")" if ( defined( $GlobalVariable{$actual} ) );
+      if ( $Target eq 'python' )
+      {
+        $arg[0] = "(self." . $actual . ")" if ( defined( $GlobalVariable{$actual} ) );
+      }
+      elsif ( $Target eq 'ruby' )
+      {
+        $arg[0] = "@@" . lc($actual) . "" if ( defined( $GlobalVariable{$actual} ) );
+      }
     }
 
     $fcall = $arg[0] . "." . $fname;
@@ -2862,6 +2875,11 @@ sub convertCFuncCall
   {
     my $args = join(',', @arg);
     $fcall = "java.lang.Math.abs(" . $args . ")";
+  }
+  elsif ( $fname =~ /^ \s*  (?: abs ) /x and $Target eq 'ruby' )
+  {
+    my $args = join(',', @arg);
+    $fcall =  "(" . $args . ").abs";
   }
   elsif ( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf | isnan ) /x )
   {
