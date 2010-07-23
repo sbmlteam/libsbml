@@ -52,16 +52,16 @@ class TestListOf < Test::Unit::TestCase
     lo.append(sp)
     lo.appendAndOwn(sp)
     assert( lo.size() == 5 )
-    out = lo.get(0)
-    out = nil
-    out = lo.get(1)
-    out = nil
-    out = lo.get(2)
-    out = nil
-    out = lo.get(3)
-    out = nil
-    out = lo.get(4)
-    out = nil
+    elem = lo.get(0)
+    elem = nil
+    elem = lo.get(1)
+    elem = nil
+    elem = lo.get(2)
+    elem = nil
+    elem = lo.get(3)
+    elem = nil
+    elem = lo.get(4)
+    elem = nil
     lo.clear(false)
     assert( lo.size() == 0 )
     lo = nil
@@ -86,8 +86,8 @@ class TestListOf < Test::Unit::TestCase
     sp = LibSBML::Species.new(2,4)
     lo.append(sp)
     assert( lo.size() == 1 )
-    out = lo.get(1)
-    assert( sp != out )
+    elem = lo.get(1)
+    assert( sp != elem )
     sp = nil
     lo = nil
   end
@@ -102,16 +102,16 @@ class TestListOf < Test::Unit::TestCase
     lo.append(sp)
     lo.append(sp)
     assert( lo.size() == 5 )
-    out = lo.remove(0)
-    out = nil
-    out = lo.remove(0)
-    out = nil
-    out = lo.remove(0)
-    out = nil
-    out = lo.remove(0)
-    out = nil
-    out = lo.remove(0)
-    out = nil
+    elem = lo.remove(0)
+    elem = nil
+    elem = lo.remove(0)
+    elem = nil
+    elem = lo.remove(0)
+    elem = nil
+    elem = lo.remove(0)
+    elem = nil
+    elem = lo.remove(0)
+    elem = nil
     assert( lo.size() == 0 )
     lo.append(sp)
     lo.append(sp)
