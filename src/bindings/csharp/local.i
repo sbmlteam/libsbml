@@ -1083,7 +1083,14 @@ COVARIANT_GETID(InitialAssignment)
       CustomExceptionRegisterCallback(customDelegate);
     }
   }
+
+  // The following pragma's disable the compiler warning that the variable is
+  // never used.  Don't remove the actual code, though, or you will get 
+  // compile-time errors.
+
+  #pragma warning disable 0414
   static CustomExceptionHelper exceptionHelper = new CustomExceptionHelper();
+  #pragma warning restore 0414
 %}
 
 
