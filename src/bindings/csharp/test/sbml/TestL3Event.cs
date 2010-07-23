@@ -36,7 +36,9 @@ namespace LibSBMLCSTest {
 
   using libsbml;
 
-  using  System.IO;
+  using System;
+
+  using System.IO;
 
   public class TestL3Event {
     public class AssertionError : System.Exception 
