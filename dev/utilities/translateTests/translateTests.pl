@@ -2891,8 +2891,13 @@ sub convertCFuncCall
       my $args = join(',', @arg);
       $fcall =  "Math.Abs(" . $args . ")";
     }
+    elsif ( $Target eq 'python' )
+    {
+      my $args = join(',', @arg);
+      $fcall =  "abs(" . $args . ")";
+    }
   }
-  elsif ( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf | isnan ) /x )
+  elsif ( $fname =~ /^ \s*  (?: test_isnan | util_isInf | isnan ) /x )
   {
     $fname = "isnan" if $fname =~ /isnan/;
     my $args = join(',', @arg);
