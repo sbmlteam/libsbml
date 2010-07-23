@@ -212,20 +212,22 @@ namespace LibSBMLCSTestRunner
                         }
                         catch (TargetInvocationException ex)
                         {
-                            Console.WriteLine("Calling '" + member.Name + "' failed: " + ex.InnerException.Message
-                                + Environment.NewLine + ex.InnerException.StackTrace);
+                            Console.WriteLine("Error in '" + member.Name
+                                              + "': " + Environment.NewLine
+                                              + ex.InnerException);
                             nFailure++;
                             continue;
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("Calling '" + member.Name + "' failed: " + ex.Message);
+                            Console.WriteLine("Calling '" + member.Name
+                                              + "' failed: " + ex.Message);
                             nFailure++;
                             continue;
                         }
 
                         // if we are still here the test was successful
-                        Console.WriteLine("Calling '" + member.Name + "' succeeded");
+                        Console.WriteLine("Calling '" + member.Name);
                         nSuccess++;
 
                     }
@@ -239,7 +241,7 @@ namespace LibSBMLCSTestRunner
 
             Console.WriteLine();
             Console.WriteLine(
-                String.Format("Testing completed: Pass:{0}, Fail:{1}, (Total:{2})",
+                String.Format("Testing completed: Pass:{0}, Fail:{1} (Total:{2})",
                               nSuccess, nFailure, nSuccess+nFailure));
 
             nSuccessSum += nSuccess;
