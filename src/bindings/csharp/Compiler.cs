@@ -122,7 +122,6 @@ namespace LibSBMLCSTestRunner
                 param.ReferencedAssemblies.Add(s);
 
             CompilerResults cr = provider.CompileAssemblyFromSource(param, source);
-            StringCollection output = cr.Output;
 
             if (cr.Errors.Count != 0)
             {
