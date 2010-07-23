@@ -2722,13 +2722,13 @@ sub convertSBaseCFuncCall
         ##################################################
         # Ruby & Python
         ##################################################
-        if ($Target eq 'ruby' || $Target eq 'python')
+        if ($Target eq 'ruby' || $Target eq 'python' || $Target eq 'csharp' )
         {
           if ( $arg[1] =~ /bool/)
           {
             $arg[2] = $IdFALSE{$Target} if $arg[2] == '0';
             $arg[2] = $IdTRUE{$Target}  if $arg[2] != '0';
-            $lfname .= "Bool"
+            $lfname .= "Bool" if ( $Target ne 'csharp' );
           }
         }
 	elsif ( $Target eq 'java' )
@@ -2874,15 +2874,23 @@ sub convertCFuncCall
     ##################################################
     $fcall = "self." . $fcall if($Target eq 'python');
   }
-  elsif ( $fname =~ /^ \s*  (?: abs ) /x and $Target eq 'java' )
+  elsif ( $fname =~ /^ \s*  (?: abs ) /x )
   {
-    my $args = join(',', @arg);
-    $fcall = "java.lang.Math.abs(" . $args . ")";
-  }
-  elsif ( $fname =~ /^ \s*  (?: abs ) /x and $Target eq 'ruby' )
-  {
-    my $args = join(',', @arg);
-    $fcall =  "(" . $args . ").abs";
+    if ( $Target eq 'java' )
+    {
+      my $args = join(',', @arg);
+      $fcall = "java.lang.Math.abs(" . $args . ")";
+    }
+    elsif ( $Target eq 'ruby' )
+    {
+      my $args = join(',', @arg);
+      $fcall =  "(" . $args . ").abs";
+    }
+    elsif ( $Target eq 'csharp' )
+    {
+      my $args = join(',', @arg);
+      $fcall =  "Math.Abs(" . $args . ")";
+    }
   }
   elsif ( $fname =~ /^ \s*  (?: abs | test_isnan | util_isInf | isnan ) /x )
   {
@@ -3090,7 +3098,7 @@ sub convertVal
       $type =~ s/^string$/$IdSTRING{$Target}/x;
       $type =~ s/^unsigned int$/long/x;
 
-      if ( $Target ne 'java' )
+      if ( $Target ne 'java' && $Target ne 'csharp' )
       {
 	$type =~ s/^int$/long/x;
       }
@@ -3758,7 +3766,8 @@ EOF
     print $fh "\n";
     print $fh "namespace $CSNamespace {\n\n";
     print $fh "  using $ModuleName{'csharp'};\n\n";
-    print $fh "  using  System.IO;\n\n";    
+    print $fh "  using System;\n\n";    
+    print $fh "  using System.IO;\n\n";    
 #    print $fh "import junit.framework.TestCase;\n\n";
     ################################################## 
 
