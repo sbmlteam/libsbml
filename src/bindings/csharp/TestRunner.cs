@@ -227,7 +227,7 @@ namespace LibSBMLCSTestRunner
                         }
 
                         // if we are still here the test was successful
-                        Console.WriteLine("Calling '" + member.Name);
+                        Console.WriteLine("Calling '" + member.Name + "'");
                         nSuccess++;
 
                     }
