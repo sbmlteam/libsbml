@@ -145,6 +145,17 @@ all: Makefile-perl
 
 # The Perl-created Makefile is named 'Makefile-perl'.
 
+# -fno-strict-aliasing option is added to CXXFLAGS when using GCC.  As
+# written in the SWIG Manual (section 20.2.4), SWIG generated code could
+# cause crash problems when compiled by GCC with -fstrict-aliasing option
+# (automatically enabled when using -O2 or higher optimization in GCC 3 or
+# later) and the option should be disabled by adding -fno-strict-aliasing
+# option.
+
+ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
+      CXXFLAGS += -fno-strict-aliasing
+endif
+
 #
 # Currently, libtool doesn't work for building Perl bindings on Cygwin.
 # So, for the time being, libtool is not used on Cygwin.
@@ -156,10 +167,10 @@ ifndef USE_PERL
 else
 ifeq "$(HOST_TYPE)" "cygwin"
 	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),) \
-	CC="$(CXX)" LD="$(CXX)" MYEXTLIB="../../.libs/libsbml.a"
+	CC="$(CXX)" LD="$(CXX)" CCFLAGS="$(CXXFLAGS)" MYEXTLIB="../../.libs/libsbml.a"
 else
 	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),) \
-	CC="$(LIBTOOL) --mode=compile $(CXX)" \
+	CC="$(LIBTOOL) --mode=compile $(CXX)" CCFLAGS="$(CXXFLAGS)" \
 	LD="$(TOP_SRCDIR)/config/lt_link_helper.sh $(CXX) --libdir $(LIBDIR)" \
 	MYEXTLIB="../../libsbml.la"
 endif
