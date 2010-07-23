@@ -613,17 +613,20 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 /**
  * Convert Rule objects into the most specific object possible.
  */
-%typemap("csout") Rule*
+%typemap("csout", excode=SWIGEXCODE) Rule*
 {
-	return (Rule) libsbml.DowncastSBase($imcall, $owner);
+        Rule ret = (Rule) libsbml.DowncastSBase($imcall, $owner);$excode
+	return ret;
 }
 
 /**
  * Convert SimpleSpeciesReference objects into the most specific object possible.
  */
-%typemap("csout") SimpleSpeciesReference*
+%typemap("csout", excode=SWIGEXCODE) SimpleSpeciesReference*
 {
-       return (SimpleSpeciesReference) libsbml.DowncastSBase($imcall, $owner);
+	SimpleSpeciesReference ret
+	    = (SimpleSpeciesReference) libsbml.DowncastSBase($imcall, $owner);$excode
+	return ret;
 }
 
 
