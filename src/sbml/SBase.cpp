@@ -1875,9 +1875,16 @@ SBase::setModelHistory(ModelHistory * history)
   /* ModelHistory is only allowed on Model in L2
    * but on any element in L3
    */
-  if (getLevel() < 3 && getTypeCode() != SBML_MODEL)
+  if (getLevel() < 3)
   {
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    if (getTypeCode() != SBML_MODEL)
+    {
+      return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    }
+    else
+    {
+      return static_cast<Model *>(this)->setModelHistory(history);
+    }
   }
 
   if (mHistory == history) 
