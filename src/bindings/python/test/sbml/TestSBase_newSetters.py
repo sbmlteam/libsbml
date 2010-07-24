@@ -1008,6 +1008,30 @@ class TestSBase_newSetters(unittest.TestCase):
     _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_SBase_setModelHistoryL3(self):
+    sb = libsbml.Species(3,1)
+    mh = libsbml.ModelHistory()
+    mc = libsbml.ModelCreator()
+    date = libsbml.Date(2005,12,30,12,15,45,1,2,0)
+    mc.setFamilyName( "Keating")
+    mc.setGivenName( "Sarah")
+    mc.setEmail( "sbml-team@caltech.edu")
+    mc.setOrganisation( "UH")
+    mh.addCreator(mc)
+    mh.setCreatedDate(date)
+    mh.setModifiedDate(date)
+    i = sb.setModelHistory(mh)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( sb.isSetModelHistory() == True )
+    mh = sb.getModelHistory()
+    self.assert_( mh != None )
+    sb.unsetModelHistory()
+    mh = sb.getModelHistory()
+    self.assert_( sb.isSetModelHistory() == False )
+    self.assert_( mh == None )
+    _dummyList = [ mh ]; _dummyList[:] = []; del _dummyList
+    pass  
+
   def test_SBase_setModelHistory_Model(self):
     history = libsbml.ModelHistory()
     mc = libsbml.ModelCreator()

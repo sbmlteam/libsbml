@@ -997,6 +997,30 @@ class TestSBase_newSetters < Test::Unit::TestCase
     mh = nil
   end
 
+  def test_SBase_setModelHistoryL3
+    sb = LibSBML::Species.new(3,1)
+    mh = LibSBML::ModelHistory.new()
+    mc = LibSBML::ModelCreator.new()
+    date = LibSBML::Date.new(2005,12,30,12,15,45,1,2,0)
+    mc.setFamilyName( "Keating")
+    mc.setGivenName( "Sarah")
+    mc.setEmail( "sbml-team@caltech.edu")
+    mc.setOrganisation( "UH")
+    mh.addCreator(mc)
+    mh.setCreatedDate(date)
+    mh.setModifiedDate(date)
+    i = sb.setModelHistory(mh)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( sb.isSetModelHistory() == true )
+    mh = sb.getModelHistory()
+    assert( mh != nil )
+    sb.unsetModelHistory()
+    mh = sb.getModelHistory()
+    assert( sb.isSetModelHistory() == false )
+    assert( mh == nil )
+    mh = nil
+  end
+
   def test_SBase_setModelHistory_Model
     history = LibSBML::ModelHistory.new()
     mc = LibSBML::ModelCreator.new()

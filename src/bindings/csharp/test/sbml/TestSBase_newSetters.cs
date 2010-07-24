@@ -1152,6 +1152,31 @@ namespace LibSBMLCSTest {
       mh = null;
     }
 
+    public void test_SBase_setModelHistoryL3()
+    {
+      SBase sb = new Species(3,1);
+      ModelHistory mh = new  ModelHistory();
+      ModelCreator mc = new  ModelCreator();
+      Date date = new  Date(2005,12,30,12,15,45,1,2,0);
+      mc.setFamilyName( "Keating");
+      mc.setGivenName( "Sarah");
+      mc.setEmail( "sbml-team@caltech.edu");
+      mc.setOrganisation( "UH");
+      mh.addCreator(mc);
+      mh.setCreatedDate(date);
+      mh.setModifiedDate(date);
+      int i = sb.setModelHistory(mh);
+      assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( sb.isSetModelHistory() == true );
+      mh = sb.getModelHistory();
+      assertTrue( mh != null );
+      sb.unsetModelHistory();
+      mh = sb.getModelHistory();
+      assertTrue( sb.isSetModelHistory() == false );
+      assertTrue( mh == null );
+      mh = null;
+    }
+
     public void test_SBase_setModelHistory_Model()
     {
       ModelHistory history = new  ModelHistory();
