@@ -390,22 +390,6 @@ public:
 
 
   /**
-   * Returns the ModelHistory of this Model.
-   * 
-   * @return ModelHistory of this Model.
-   */
-  ModelHistory* getModelHistory() const;
-
-
-  /**
-   * Returns the ModelHistory of this Model.
-   * 
-   * @return ModelHistory of this Model.
-   */
-  ModelHistory* getModelHistory();
-
-
-  /**
    * Predicate returning @c true or @c false depending on whether this
    * Model's "id" attribute has been set.
    *
@@ -427,18 +411,6 @@ public:
    * set, @c false otherwise.
    */
   bool isSetName () const;
-
-
-  /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Model's ModelHistory has been set.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
-   * @return @c true if the ModelHistory of this Model
-   * has been set, @c false otherwise.
-   */
-  bool isSetModelHistory();
 
 
   /**
@@ -596,23 +568,6 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   int setName (const std::string& name);
-
-
-  /**
-   * Sets the ModelHistory of this Model.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
-   * @param history ModelHistory of this Model.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_OBJECT
-   */
-  int setModelHistory(ModelHistory * history);
 
 
   /**
@@ -783,21 +738,6 @@ public:
    * @li LIBSBML_OPERATION_FAILED
    */
   int unsetName ();
-
-
-  /**
-   * Unsets the ModelHistory of this Model.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
-   */
-  int unsetModelHistory();
 
 
   /**

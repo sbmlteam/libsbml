@@ -1202,6 +1202,14 @@ SBase::setAnnotation (const XMLNode* annotation)
   // unsetAnnotation() ( setAnnotation(NULL) ) doesn't work as expected.
   // (These functions must clear all elements in an annotation.)
   //
+  
+  /* in L3 might be a model history */
+  if (mHistory)
+  {
+    delete mHistory;
+    mHistory = NULL;
+  }
+
   if (mCVTerms)
   {
     // delete existing mCVTerms (if any)
@@ -1218,6 +1226,13 @@ SBase::setAnnotation (const XMLNode* annotation)
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
   }
+
+  if(getLevel() > 2 && mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+  {
+    // parse mAnnotation (if any) and set mHistory
+    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+  }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -1880,10 +1895,6 @@ SBase::setModelHistory(ModelHistory * history)
     if (getTypeCode() != SBML_MODEL)
     {
       return LIBSBML_UNEXPECTED_ATTRIBUTE;
-    }
-    else
-    {
-      return static_cast<Model *>(this)->setModelHistory(history);
     }
   }
 
@@ -2965,7 +2976,22 @@ SBase::readAnnotation (XMLInputStream& stream)
       delete mCVTerms; 
     }
     mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    /* might have model history on sbase objects */
+    if (getLevel() > 2 && getTypeCode()!= SBML_MODEL)
+    {
+      delete mHistory;
+      if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+      {
+        mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+        setModelHistory(mHistory);
+      }
+      else
+      {
+        mHistory = NULL;
+      }
+    }
+    if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
+      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;
@@ -3537,26 +3563,65 @@ SBase::syncAnnotation ()
       RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
   }
 
- // if (this->getTypeCode() != SBML_MODEL)
- // {
   if(mAnnotation && hasRDF)
+  {
+    XMLNode* new_annotation = 
+      RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    
+    if(!new_annotation)
     {
-      XMLNode* new_annotation = 
-        RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-      if(!new_annotation)
-      {
-         XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-         new_annotation = new XMLNode(ann_token);
-         new_annotation->addChild(*mAnnotation);
-      }
-      *mAnnotation = *new_annotation;
-      delete new_annotation;
+        XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
+                                      XMLAttributes());
+        new_annotation = new XMLNode(ann_token);
+        new_annotation->addChild(*mAnnotation);
     }
- // }
+    *mAnnotation = *new_annotation;
+    delete new_annotation;
+  }
+
+  XMLNode * history = NULL;
+  if (getTypeCode() != SBML_MODEL)
+  {
+    history = RDFAnnotationParser::parseModelHistory(this);
+  }
 
   XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
 
-  if (cvTerms)
+  if (history)
+  {
+    if (!mAnnotation)
+    {
+      mAnnotation = history;
+    }
+    else
+    {
+      if (mAnnotation->isEnd())
+      {
+        mAnnotation->unsetEnd();
+      }
+      if (hasAdditionalRDF)
+      {
+        //need to insert the history into existing RDF
+        unsigned int n = 0;
+        while (n < mAnnotation->getNumChildren())
+        {
+          if (mAnnotation->getChild(n).getName() == "RDF")
+          {
+            mAnnotation->getChild(n).insertChild(0, 
+              history->getChild(0).getChild(0));
+            break;
+          }
+          n++;
+        }
+      }
+      else
+      {
+        mAnnotation->addChild(history->getChild(0));
+      }
+      delete history;
+    }
+  }
+  else if (cvTerms)
   {
     if (!mAnnotation)
     {

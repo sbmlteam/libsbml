@@ -77,6 +77,7 @@ Suite *create_suite_ModelHistory_newSetters (void);
 Suite *create_suite_CopyAndClone (void);
 Suite *create_suite_Validation (void);
 Suite *create_suite_RDFAnnotation_C (void);
+Suite *create_suite_L3ModelHistory (void);
 
 END_C_DECLS
 /**
@@ -133,6 +134,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_RDFAnnotation2() );
   srunner_add_suite( runner, create_suite_Validation () );
   srunner_add_suite( runner, create_suite_RDFAnnotation_C () );
+  srunner_add_suite( runner, create_suite_L3ModelHistory  () );
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {

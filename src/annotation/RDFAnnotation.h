@@ -207,16 +207,16 @@ public:
 
 
   /**
-   * Takes an SBML Model object, reads off the model history information
+   * Takes an SBML object, reads off the model history information
    * stored in it, and creates a complete SBML annotation to store that
    * history.
    *
-   * @param object a Model
+   * @param object any SBase object
    *
    * @return the XMLNode corresponding to an annotation containing 
    * MIRIAM-compliant model history information in RDF format
    */
-  static XMLNode * parseModelHistory(const Model * object);
+  static XMLNode * parseModelHistory(const SBase * object);
 
 
   /** @cond doxygen-libsbml-internal */

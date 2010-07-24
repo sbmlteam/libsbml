@@ -467,17 +467,6 @@ Model::getConversionFactor () const
 }
 
 
-ModelHistory* 
-Model::getModelHistory() const
-{
-  return mHistory;
-}
-
-ModelHistory* 
-Model::getModelHistory()
-{
-  return mHistory;
-}
 
 /*
  * @return true if the id of this SBML object has been set, false
@@ -501,12 +490,6 @@ Model::isSetName () const
                             (mName.empty() == false);
 }
 
-
-bool
-Model::isSetModelHistory()
-{
-  return (mHistory != 0);
-}
 
 /*
  * Predicate returning @c true or @c false depending on whether this
@@ -795,32 +778,6 @@ Model::setConversionFactor (const std::string& id)
 }
 
 
-int
-Model::setModelHistory(ModelHistory * history)
-{
-  if (mHistory == history) 
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (history == NULL)
-  {
-    delete mHistory;
-    mHistory = 0;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (!(history->hasRequiredAttributes()))
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    delete mHistory;
-    mHistory = static_cast<ModelHistory*>( history->clone() );
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
 /*
  * Unsets the id of this SBML object.
  */
@@ -869,22 +826,6 @@ Model::unsetName ()
   }
 }
 
-
-int 
-Model::unsetModelHistory()
-{
-  delete mHistory;
-  mHistory = 0;
-
-  if (mHistory)
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
 
 
 /*
@@ -3858,7 +3799,10 @@ Model::readOtherXML (XMLInputStream& stream)
     mCVTerms = new List();
     delete mHistory;
     if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+    {
       mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+      setModelHistory(mHistory);
+    }
     else
       mHistory = NULL;
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
