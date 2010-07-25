@@ -4168,6 +4168,20 @@ $patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFun
 $patchFuncReplace{'ruby'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
 
 #--------------------------------------------------
+$patchClassTop{'ruby'}{'TestL3ModelHistory'} = <<'EOF';
+  def equals(*x)
+    case x.size
+    when 2
+      e, s = x
+      return e == s
+    when 1
+      e, = x
+      return e == @@oss.str()
+    end
+  end
+
+EOF
+
 }
 ######################################################################
 # Python
@@ -4633,6 +4647,18 @@ $patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFun
 $patchFuncReplace{'java'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
 
 #--------------------------------------------------
+
+$patchClassTop{'java'}{'TestL3ModelHistory'} = <<'EOF';
+
+  public boolean equals(String s1, String s2)
+  {
+    return s1.equals(s2);
+  }
+
+EOF
+
+
+#--------------------------------------------------
 }
 ######################################################################
 # C#
@@ -4828,7 +4854,16 @@ $patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} =~ s/le
 
 $patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFuncReplace{'csharp'}{'TestWriteSBML'}{'test_WriteSBML_zip'}; 
 $patchFuncReplace{'csharp'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
+
 #--------------------------------------------------
+$patchClassTop{'csharp'}{'TestL3ModelHistory'} = <<'EOF';
+
+  public bool equals(string s1, string s2)
+  {
+    return (s1 ==s2);
+  }
+
+EOF
 
 }
 
