@@ -1074,7 +1074,7 @@ RDFAnnotationParser_parseCVTerms(const SBase_t * object)
   * MIRIAM-compliant model history information in RDF format
   */
 XMLNode_t *
-RDFAnnotationParser_parseModelHistory(const Model_t * object)
+RDFAnnotationParser_parseModelHistory(const SBase_t * object)
 {
   return RDFAnnotationParser::parseModelHistory(object);
 }
