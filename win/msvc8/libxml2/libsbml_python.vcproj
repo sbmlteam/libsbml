@@ -180,7 +180,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:init_libsbml"
 				AdditionalDependencies="zdll.lib bzip2.lib iconv.lib libxml2.lib &quot;$(PYTHON25_LIB)&quot;"
-				OutputFile="../../bin/python/python25_libsbml.pyd"
+				OutputFile="../../bin/python/python25/_libsbml.pyd"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\bin/python25.pdb"
