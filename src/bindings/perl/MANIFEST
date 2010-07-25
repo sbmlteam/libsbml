@@ -13,7 +13,9 @@ README.txt
 t/01__LoadModule.t
 t/02__CreateDocument.t
 t/02__ReadFromFile.t
+t/02__ReadFromFileL3.t
 t/02__WriteToFile.t
+t/02__WriteToFileL3.t
 t/03__ChangeValues.t
 t/03__DowncastRule.t
 t/03__DowncastSBase.t
@@ -43,7 +45,9 @@ t/05__RateRule.t
 t/05__SBMLDocument.t
 t/05__SBMLDocumentVerbose.t
 t/06__TestReadSBML.t
+t/06__TestReadSBMLL3.t
 t/06__TestWriteSBML.t
+t/06__TestWriteSBMLL3.t
 t/07__TestCVTerms.t
 t/07__TestModelHistory.t
 t/07__TestRDFAnnotation2.t
