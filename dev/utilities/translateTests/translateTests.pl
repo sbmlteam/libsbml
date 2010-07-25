@@ -4265,6 +4265,15 @@ $patchClassTop{'python'}{'TestWriteSBML'} = <<'EOF';
 
 EOF
 
+$patchClassTop{'python'}{'TestL3ModelHistory'} = <<'EOF';
+  def equals(self, *x):
+    if len(x) == 2:
+      return x[0] == x[1]
+    elif len(x) == 1:
+      return x[0] == self.OSS.str()
+
+EOF
+
 $patchClassTop{'python'}{'TestWriteMathML'}    = $patchClassTop{'python'}{'TestWriteSBML'}; 
 $patchClassTop{'python'}{'TestRDFAnnotation'}  = $patchClassTop{'python'}{'TestWriteSBML'}; 
 $patchClassTop{'python'}{'TestRDFAnnotation2'} = $patchClassTop{'python'}{'TestWriteSBML'}; 
@@ -4377,6 +4386,14 @@ $patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_bzip2'} =~ s/le
 
 $patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} = $patchFuncReplace{'python'}{'TestWriteSBML'}{'test_WriteSBML_zip'}; 
 $patchFuncReplace{'python'}{'TestWriteL3SBML'}{'test_WriteL3SBML_zip'} =~ s/level-2/level-3/g;
+
+$patchGlobal{'python'}{'TestL3ModelHistory'} = <<'EOF';
+def wrapString(s):
+  return s
+  pass
+
+EOF
+
 
 #--------------------------------------------------
 }
