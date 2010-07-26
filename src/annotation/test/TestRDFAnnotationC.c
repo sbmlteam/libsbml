@@ -109,7 +109,7 @@ END_TEST
 
 START_TEST (test_RDFAnnotation_C_parseModelHistory)
 {
-  XMLNode_t* node = RDFAnnotationParser_parseModelHistory(m);
+  XMLNode_t* node = RDFAnnotationParser_parseModelHistory((SBase_t *) m);
 
   fail_unless(XMLNode_getNumChildren(node) == 1);
 
