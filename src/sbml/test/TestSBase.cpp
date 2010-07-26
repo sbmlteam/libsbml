@@ -88,7 +88,7 @@ SBaseTest_teardown (void)
 
 START_TEST (test_SBase_setMetaId)
 {
-  char *metaid = "x12345";
+  const char *metaid = "x12345";
 
 
   SBase_setMetaId(S, metaid);
@@ -382,9 +382,9 @@ START_TEST (test_SBase_unsetAnnotationWithModelHistory)
   SBase_setAnnotationString(S, (char*)annt);
   SBase_setMetaId(S, "_000001");
 
-  ModelCreator_setFamilyName(c,"Keating");
-  ModelCreator_setGivenName(c,"Sarah");
-  ModelCreator_setEmail(c,"sbml-team@caltech.edu");
+  ModelCreator_setFamilyName(c, (char *) "Keating");
+  ModelCreator_setGivenName(c, (char *) "Sarah");
+  ModelCreator_setEmail(c, (char *) "sbml-team@caltech.edu");
 
   ModelHistory_addCreator(h, c);
   dc =  Date_createFromValues(2005, 12, 29, 12, 15, 45, 1, 2, 0);
@@ -434,7 +434,7 @@ START_TEST (test_SBase_setNotesString)
   const char * chars = SBase_getNotesString(c);
   fail_unless(!strcmp(chars, taggednotes));
 
-  SBase_setNotesString(c, "");
+  SBase_setNotesString(c, (char *)"");
   fail_unless(SBase_isSetNotes(c) == 0 );
 
   if (SBase_getNotesString(c) != NULL)
