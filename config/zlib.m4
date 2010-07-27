@@ -46,7 +46,7 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
 
   AC_ARG_WITH([zlib],
 	      AC_HELP_STRING([--with-zlib=PREFIX], 
-                             [Enable reading/writing files compressed with zlib [[default=autodetect]] ]
+                             [enable reading/writing files compressed with zlib [[default=autodetect]] ]
               ),
 	      [with_zlib="$withval"], [with_zlib=autodetect]
   )
@@ -119,7 +119,7 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
     )
   
     AC_ARG_WITH(zlib-version-check,
-            AC_HELP_STRING([--without-zlib-version-check], [Disable zlib version check]),
+            AC_HELP_STRING([--without-zlib-version-check], [disable zlib version check]),
       	  [  if test "x$withval" = "xno"; then
   		zlib_check_nonfatal=1
   	     fi

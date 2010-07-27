@@ -32,7 +32,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 
   AC_ARG_WITH(python,
               AC_HELP_STRING([--with-python=PREFIX],
-                             [Generate Python interface library [[default=no]]]),
+                             [generate Python interface library [[default=no]]]),
 	      [with_python=$withval],
 	      [with_python=no])
 

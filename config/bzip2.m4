@@ -45,7 +45,7 @@ AC_DEFUN([CONFIG_LIB_BZ2],
 [
   AC_ARG_WITH([bzip2],
     AC_HELP_STRING([--with-bzip2=PREFIX], 
-	           [Enable reading/writing files compressed with bzip2 [[default=autodetect]] ]
+	           [enable reading/writing files compressed with bzip2 [[default=autodetect]] ]
               ),
     [with_bzip2="$withval"], 
     [with_bzip2=autodetect]

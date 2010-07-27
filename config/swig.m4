@@ -31,7 +31,7 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
   AC_ARG_WITH([swig],
     AC_HELP_STRING([--with-swig=PREFIX],
-	           [Set location of swig [[default=autodetect]]]),
+	           [set location of swig [[default=autodetect]]]),
     [with_swig=$withval],
     [with_swig=no])
 

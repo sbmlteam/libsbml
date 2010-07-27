@@ -31,7 +31,7 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 [
   AC_ARG_WITH([expat],
     AC_HELP_STRING([--with-expat=PREFIX],
-                   [Use Expat XML Library [[default=no]]]),
+                   [use the Expat XML Library [[default=no]]]),
     [with_expat=$withval],
     [with_expat=no])
 

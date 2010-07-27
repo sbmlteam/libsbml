@@ -32,7 +32,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
 
   AC_ARG_WITH(ruby,
               AC_HELP_STRING([--with-ruby=PREFIX],
-                             [Generate Ruby interface library [[default=no]]]),
+                             [generate Ruby interface library [[default=no]]]),
 	      [with_ruby=$withval],
 	      [with_ruby=no])
 

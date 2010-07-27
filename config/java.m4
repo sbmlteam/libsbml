@@ -35,7 +35,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     [with_java=no])
 
   AC_ARG_WITH(java-bin-check,
-    AC_HELP_STRING([--without-java-bin-check], [disable checking for 32 vs. 64-bit JRE]),
+    AC_HELP_STRING([--without-jre-check], [disable checking for 32 vs. 64-bit JRE]),
       	  [  if test "x$withval" = "xno"; then
   		bin_check_nonfatal=1
   	     fi
@@ -306,9 +306,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     fi
 
     dnl
-    dnl Check whether the JRE we get matches possible 32/64-bit options
-    dnl given during configuration (such as telling configure --enable-m64
-    dnl but using a copy of Java that's only 32-bit).
+    dnl Check whether the JRE matches possible 32/64-bit options given
+    dnl during configuration (such as telling configure --enable-m64 but
+    dnl using a copy of Java that's only 32-bit).
     dnl
 
     if test -z "$bin_check_nonfatal"; then

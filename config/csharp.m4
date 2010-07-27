@@ -125,19 +125,19 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
 [
   AC_ARG_WITH(csharp, 
               AC_HELP_STRING([--with-csharp=PREFIX], 
-                             [Generate CSharp interface library [[default=no]]]),
+                             [generate C# interface library [[default=no]]]),
               [with_csharp="$withval"], 
               [with_csharp=no])
 
   AC_ARG_WITH(cil-interpreter, 
-              AC_HELP_STRING([--with-cil-interpreter=path], 
-                             [Set location of CIL interpreter for CSharp [[default=autodetect]]]),
+              AC_HELP_STRING([--with-cil-interpreter=PATH], 
+                             [set path to C# CIL interp. [[default=autodetect]]]),
               [CSHARP_BIN="$withval"], 
               [CSHARP_BIN=])
 
   AC_ARG_WITH(csharp-compiler, 
-              AC_HELP_STRING([--with-csharp-compiler=path],
-                             [Set location of CSharp compiler [[default=autodetect]]]),
+              AC_HELP_STRING([--with-csharp-compiler=PATH],
+                             [set path to C# compiler [[default=autodetect]]]),
               [CSHARP_COMPILERBIN="$withval"], 
               [CSHARP_COMPILERBIN=])
 

@@ -301,7 +301,7 @@ AC_DEFUN([CONFIG_CPARSE_CHECK],
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(cparse,
       AC_HELP_STRING([--with-cparse=<pathname>],
-        [Use cparse at <pathname> (default:src/bindings/lisp/tps/cparse, don't change)]), 
+        [use cparse at <pathname> (default:src/bindings/lisp/tps/cparse, don't change)]), 
         CPARSEPATH="$with_cparse"
 	,
         CPARSEPATH="${srcdir}/src/bindings/lisp/tps/cparse"
