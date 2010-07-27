@@ -297,7 +297,7 @@ check_classes = $(check_sources:.java=.class)
 
 ifeq "$(HOST_TYPE)" "cygwin"
   classpath = $(shell cygpath -wp $(jarfile):$(TOP_BUILDDIR)/src:$(test_dir):.)
-  CFLAGS =+ -DNOMINMAX
+  CPPFLAGS += -DNOMINMAX
 else
   classpath = $(jarfile):$(TOP_BUILDDIR)/src:$(test_dir):.
 endif
