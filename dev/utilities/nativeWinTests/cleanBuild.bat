@@ -59,7 +59,7 @@ del C:\Python\Python25\Lib\site-packages\_libsbml.*
 del C:\Python\Python25\Lib\site-packages\libsbml.*
 del C:\Python\Python26\Lib\site-packages\_libsbml.*
 del C:\Python\Python26\Lib\site-packages\libsbml.*
-del libsbml_python_warp.cpp
+del libsbml_python_wrap.cpp
 del libsbml.py
 del libsbml.pyc
 del *.zip
