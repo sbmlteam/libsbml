@@ -1,14 +1,26 @@
 echo off
-testLibsbml
+echo '========================'
+echo 'libsbml test'
+echo '========================'
+call testLibsbml.bat
 cd csharp
-testCSharp
+call testCSharp.bat
 cd ..
 cd java
-testJava
+echo '========================'
+echo 'Java test'
+echo '========================'
+call testJava.bat
 cd ..
 cd perl
-testPerl
+echo '========================'
+echo 'Perl test'
+echo '========================'
+call testPerl.bat
 cd ..
 cd python
-testPython
+echo '========================'
+echo 'Python test'
+echo '========================'
+call testPython.bat
 cd ..
