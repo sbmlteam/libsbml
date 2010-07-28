@@ -7,3 +7,10 @@ libsbml_wrap.cpp
 .libs
 libsbmlcs.snk
 libsbmlcsP.dll
+TestRunner.exe
+test.xml.gz
+TestRW.exe
+test.xml.zip
+test2.xml
+test.xml.bz2
+test.xml
