@@ -956,9 +956,9 @@ COVARIANT_RTYPE_CLONE(ListOfCompartmentGlyphs)
 
 %define COVARIANT_RTYPE_LISTOF_GET_REMOVE(_CNAME_)
 %typemap(cstype) _CNAME_* ListOf ## _CNAME_ ## s::get  "_CNAME_"
-%csmethodmodifiers ListOf ## _CNAME_ ## s::get  "public new"
+%csmethodmodifiers ListOf ## _CNAME_ ## s::get(unsigned int n)  "public new"
 %typemap(cstype) _CNAME_* ListOf ## _CNAME_ ## s::remove  "_CNAME_"
-%csmethodmodifiers ListOf ## _CNAME_ ## s::remove  "public new"
+%csmethodmodifiers ListOf ## _CNAME_ ## s::remove(unsigned int n)  "public new"
 %enddef
 
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentType)
@@ -968,7 +968,6 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(Event)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(FunctionDefinition)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(InitialAssignment)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Parameter)
-COVARIANT_RTYPE_LISTOF_GET_REMOVE(LocalParameter)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Reaction)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Rule)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(SpeciesType)
@@ -976,17 +975,22 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(UnitDefinition)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Constraint)
 COVARIANT_RTYPE_LISTOF_GET_REMOVE(Unit)
 
-// Only ListOfSpecies and ListOfSpeciesReference classes do not 
-// match the above macro...
+// Some classes don't match the macro above and have to handled separately:
+
 %typemap(cstype) Species* ListOfSpecies::get  "Species"
-%csmethodmodifiers ListOfSpecies::get "public new"
+%csmethodmodifiers ListOfSpecies::get(unsigned int n) "public new"
 %typemap(cstype) Species* ListOfSpecies::remove  "Species"
-%csmethodmodifiers ListOfSpecies::remove "public new"
+%csmethodmodifiers ListOfSpecies::remove(unsigned int n) "public new"
 
 %typemap(cstype) SimpleSpeciesReference* ListOfSpeciesReferences::get  "SimpleSpeciesReference"
-%csmethodmodifiers ListOfSpeciesReferences::get  "public new"
+%csmethodmodifiers ListOfSpeciesReferences::get(unsigned int n)  "public new"
 %typemap(cstype) SimpleSpeciesReference* ListOfSpeciesReferences::remove  "SimpleSpeciesReference"
-%csmethodmodifiers ListOfSpeciesReferences::remove  "public new"
+%csmethodmodifiers ListOfSpeciesReferences::remove(unsigned int n)  "public new"
+
+%typemap(cstype) LocalParameter* ListOfSpeciesReferences::get  "LocalParameter"
+%csmethodmodifiers ListOfSpeciesReferences::get(unsigned int n)  "public new"
+%typemap(cstype) LocalParameter* ListOfSpeciesReferences::remove  "LocalParameter"
+%csmethodmodifiers ListOfSpeciesReferences::remove(unsigned int n)  "public new"
 
 
 #ifdef USE_LAYOUT
