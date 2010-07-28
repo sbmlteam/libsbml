@@ -381,7 +381,7 @@ testsbml_dir     = ../../../examples/sample-models/from-spec/level-2
 testdata_dir = ../../sbml/test/test-data
 testsbml_files = $(wildcard $(testsbml_dir)/*.xml)
 
-check: $(check_runner_exe_man) $(check_runner_exe_cvt) $(shell $(call check_layout))
+check: $(check_runner_exe) $(shell $(call check_layout))
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
