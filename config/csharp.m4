@@ -210,7 +210,7 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
         if test "mcs" = "$CSHARP_COMPILER_NAME"; then
           # Check that mcs is the C# compiler and not the Unix mcs utility by examining the output of 'mcs --version'
           # The Mono compiler should emit: Mono C# compiler version a.b.c.d
-          csharp_version_raw=`($CSHARP_COMPILER --version) 2>/dev/null`
+	  csharp_version_raw=`($CSHARP_COMPILER --version) 2>/dev/null`
           csharp_version_searched=`($CSHARP_COMPILER --version | sed -e "/C#/b" -e "/Mono/b" -e d) 2>/dev/null` # return string if contains 'Mono' or 'C#'
           CSHARP_COMPILER_NAME="";
           if test -n "$csharp_version_raw" ; then
@@ -257,9 +257,99 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
       AC_PATH_PROGS([GACUTIL], [gacutil], "", $CSHARP_PATH)
     fi
 
-    # Cygwin requires the Windows standard (Pascal) calling convention as it is a Windows executable and not a Cygwin built executable
+    dnl
+    dnl Check for possible binary 32/64-bit incompatbilities.
+    dnl
+
+    case $host in
+    *darwin*) 
+      dnl MacOS 10.6 (Snow Leopard) makes 64-bit binaries by default.
+      dnl MacOS 10.5 (Leopard) makes 32-bit binaries by default.
+      dnl As of this time (2010-07-27), the off-the-shelf copies of 
+      dnl Mono are 32-bit versions.  
+
+      osx_major_ver=`uname -r | cut -f1 -d'.'`
+      mono_version_raw=`($CSHARP_CILINTERPRETER --version) 2>/dev/null`
+
+      if test ${osx_major_ver} -ge 10; then
+        dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
+
+        AC_MSG_CHECKING([whether this is a 64-bit version of mono])
+        if echo $mono_version_raw | grep -q "x86_64"; then
+          dnl Wow, this is a 64-bit version.  OK, good job, user.
+          AC_MSG_RESULT([yes, impressive!])
+        else
+          AC_MSG_RESULT([no])
+          AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
+          if echo $CXXFLAGS $CFLAGS | grep -q "arch i386"; then
+            AC_MSG_RESULT([yes, fabulous!])
+          else
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([
+***************************************************************************
+libSBML needs to be built explicitly to include a 32-bit (i386) version, 
+because your copy of the Mono C# compiler environment is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please add ONE of the following options,
+    --enable-m32
+or
+    --enable-universal-binary="-arch i386 -arch x86_64" 
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private 
+version of a dependent library (e.g., expat, libxml, or xerces) that was 
+built only as a 64-bit version, and either remove, recompile or replace it
+it before proceeding further.
+***************************************************************************
+])
+          fi
+        fi
+      else
+        dnl We're on pre-MacOS 10.6, which makes 32-bit bins by default.
+
+        AC_MSG_CHECKING([whether this is a 32-bit version of mono])
+        if echo $mono_version_raw | grep -q "x86_64"; then
+          dnl Oops, this is a 64-bit version.
+          AC_MSG_RESULT([no])
+          AC_MSG_CHECKING([whether 64-bit libSBML binaries are being built])
+          if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+            AC_MSG_RESULT([yes, we are 'go' for 64-bit])
+          else
+            AC_MSG_RESULT([no])
+            AC_MSG_ERROR([
+***************************************************************************
+libSBML needs to be built explicitly to include a 64-bit (x86_64) version, 
+because your copy of the Mono C# compiler environment produces 64-bit
+binaries.  By default, MacOS versions before 10.6 (Snow Leopard) build
+everything as 32-bit (i386) binaries.  Please add ONE of the following
+options,
+    --enable-m64
+or
+    --enable-universal-binary="-arch i386 -arch x86_64" 
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private 
+version of a dependent library (e.g., expat, libxml, or xerces) that was 
+built only as a 32-bit version, and either remove, recompile or replace it
+it before proceeding further.
+***************************************************************************
+])
+          fi
+        else
+          AC_MSG_RESULT([yes])
+        fi
+      fi
+      ;;
+    esac
+
+
+    dnl
+    dnl Determine file extensions, compilation flags, and other things.
+    dnl
+
     case $host in
     *-*-cygwin* | *-*-mingw*)
+	# Cygwin requires the Windows standard (Pascal) calling convention
+        # as it is a Windows executable and not a Cygwin built executable
+
         if test "$GCC" = yes; then
             CSHARP_LDFLAGS=" -mno-cygwin -mthreads -Wl,--add-stdcall-alias"
             CSHARP_CPPFLAGS="-mno-cygwin -mthreads"
@@ -274,7 +364,7 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
         CSHARP_LDFLAGS="-bundle_loader \"${CSHARP_CILINTERPRETER}\""
         CSHARP_CPPFLAGS=""
         CSHARP_SWIGFLAGS=""
-        CSHARP_EXT="so"   
+        CSHARP_EXT="dylib"   
         ;;
     *)
         CSHARP_LDFLAGS=""
