@@ -55,15 +55,7 @@ thisdir = src
 # that one links all the objects together into libsbml.  (This is confusing
 # and fragile, and should be improved some day.)
 
-subdirs = common util xml math validator units annotation sbml bindings
-
-ifdef USE_ZLIB
-  subdirs += compress
-else
-  ifdef USE_BZ2
-    subdirs += compress
-  endif
-endif
+subdirs = common util xml compress math validator units annotation sbml bindings
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
