@@ -3,10 +3,12 @@
 <tr><td>
 <a href="#quick">1. Quick start instructions</a>
 <ul>
-<li><a href="#quick-unix">Linux, MacOS X, and
+<li><a href="#quick-download">Avoiding work: ready-to-install binaries</li> 
+
+<li><a href="#quick-unix">Building libSBML on Linux, MacOS X, FreeBSD, and
 Solaris</a></li> 
 
-<li><a href="#quick-windows">Windows</a></li>
+<li><a href="#quick-windows">Building libSBML on Windows</a></li>
 </ul>
 </td></tr>
 
@@ -17,7 +19,7 @@ LibSBML</a>
 <ul>
 
 <li><a href="#basic-config">Configuring libSBML
-for Linux, MacOS X, and Solaris</a></li> 
+for Linux, MacOS&nbsp;X, and Solaris</a></li> 
 
 <li><a href="#other-lang">Configuring libSBML
 interfaces to C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></li> 
@@ -26,7 +28,9 @@ interfaces to C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></li>
 
 <ul>
 
-<li><a href="#univbinary">Creating universal binaries on MacOS</a></li>
+<li><a href="#univbinary">Creating 32- and/or 64-bit binaries</a></li>
+
+<li><a href="#univbinary">Creating universal binaries on MacOS&nbsp;X</a></li>
 
 <li><a href="#swig">Configuring for SWIG</a></li>
 
@@ -67,65 +71,87 @@ for Windows</li>
 <h2><a class="anchor" name="quick">1. Quick start instructions</a></h2>
 
 <p> The default XML parser library used by libSBML is <a
-href="http://xmlsoft.org">libxml2</a>.  If you chose to use the Xerces XML
-library instead, beware there is a known bug in Xerces 2.6.0 that cannot be
-worked around at this time and causes errors in software using it.  Xerces
-versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to work properly.
+href="http://xmlsoft.org">libxml2</a>.  If you chose to use another XML
+parser library instead, beware there is a known bug in Xerces 2.6.0 that
+cannot be worked around at this time and causes errors in software using
+it.  Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to work
+properly, and all Expat versions above 1.95.8 are also known to work.
 
 
-<h3><a class="anchor" name="quick-unix">Linux, MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
+<h3><a class="anchor" name="quick-download">Avoiding work: ready-to-install
+binaries</a></h3>
 
-<p>First, for MacOS&nbsp;X and Linux, check the <a
+<p> Check the <a target="_blank"
 href="https://sourceforge.net/project/showfiles.php?group_id=71971&package_id=71670">download
 site for libSBML on SourceForge.net</a> for possible installation packages
-for these operating systems.  You may be able to download and install a
-precompiled copy of libSBML for your system.
+for your operating system.  We supply ready-to-install precompiled binaries
+for many systems, so that you may be able to save yourself the time and
+trouble of following the remaining instructions on this page!
+
+<p> <em>Note to Windows users</em>: There are debug (<code>libsbmld</code>)
+and release (<code>libsbml</code>) versions of libSBML, with
+<code>.dll</code> and <code>.lib</code> files for both versions in the
+<code>win32/bin</code> subdirectory of the libSBML distribution.  Users of
+Visual C++ should make their Visual C++ projects link with the files
+<code>libsbml.lib</code> or <code>libsbmld.lib</code> and generate code for
+the Multithreaded DLL or Debug Multithreaded DLL version of the VC++
+runtime, respectively.
+
+
+
+<h3><a class="anchor" name="quick-unix">Building libSBML on Linux, MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
 
 <p> If there is no installer for your system, or you prefer to build
-libSBML from the source distribution, proceed as follows.  At a shell
-(terminal) command prompt, unzip the distribution, and cd into the
-directory thereby created (e.g., <code>libsbml-4.0.0</code>).  If you only
-want to build the C and C++ interfaces, then configuring libSBML is simply
-a matter of executing the following command:
+libSBML from the source distribution, proceed as follows.  Download and
+unzip the source code archive somewhere on your file system, and in a
+shell (terminal), <code>cd</code> into the directory thereby created (e.g.,
+<code>libsbml-4.1.0</code>).  If you <em>only</em> want to build the C and
+C++ interfaces and install libSBML into <code>/usr/local</code> (the
+default), then configuring libSBML is simply a matter of executing the
+following command:
 
 <div class="fragment"><pre class="fragment">
   ./configure
 </pre></div>
 
-<p> It will by default attempt to use the libxml2 XML library; if you do
-not have libxml2 version 2.6.16 or later on your system, the
-<code>configure</code> program will terminate with an error explaining it
-cannot find libxml2.  In that case, you can try using the <a target="_blank"
-href="http://expat.sourceforge.net/">Expat</a> or <a target="_blank"
-href="http://http://xerces.apache.org/xerces-c/">Xerces</a> libraries
-instead.  For Expat, use
+<p> It will by default attempt to use the <a target="_blank"
+href="http://xmlsoft.org">libxml2</a> XML library; if you do not have
+libxml2 version 2.6.16 or later on your system, the <code>configure</code>
+program will terminate with an error explaining it cannot find libxml2.  In
+that case, you can inform the <code>configure</code> program to use the <a
+target="_blank" href="http://expat.sourceforge.net/">Expat</a> or <a
+target="_blank" href="http://http://xerces.apache.org/xerces-c/">Xerces</a>
+libraries instead.  For Expat, use the following command:
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat
 </pre></div>
 
 <p>
-and for Xerces, use
+And for Xerces, use
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-xerces
 </pre></div>
 
-<p> By default, libSBML only builds the C and C++ APIs.  If you want to
-configure libSBML to build the C#, Java, Python, Perl, MATLAB,
-Octave, and/or Ruby APIs as well, add the flags <nobr><code>--with-csharp</code></nobr>,
+<p> If, in addition to the C and C++ interfaces, you want to configure
+libSBML to build the C#, Java, Python, Perl, MATLAB, Octave, and/or Ruby
+APIs as well, then add the flags <nobr><code>--with-csharp</code></nobr>,
 <nobr><code>--with-java</code></nobr>,
-<nobr><code>--with-python</code></nobr>, <nobr><code>--with-perl</code></nobr>,
-<nobr><code>--with-matlab</code></nobr>, <nobr><code>--with-octave</code></nobr>, and/or
+<nobr><code>--with-python</code></nobr>,
+<nobr><code>--with-perl</code></nobr>,
+<nobr><code>--with-matlab</code></nobr>,
+<nobr><code>--with-octave</code></nobr>, and/or
 <nobr><code>--with-ruby</code></nobr> (respectively) to the
 <code>configure</code> program.  You can supply more than one of these
 flags at the same time.
 
 <p> Depending on your system, you may need to tell the
 <code>configure</code> program where to find some of these extra components
-by adding a directory path after the option.  For example, if you wish to
-use a copy of Java whose components are in <code>/usr/local</code> (with
-files in <code>/usr/local/lib</code>), use
+by adding a directory path after the option.  For example, to use a copy of
+Java whose components are in <code>/usr/local</code> (with the executable
+programs in <code>/usr/local/bin</code> and library files in
+<code>/usr/local/lib</code>), use
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat --with-python --with-java=/usr/local
@@ -155,60 +181,100 @@ instructions in section <a href="#docs">Configuring for generating
 documentation</a> below.
 
 
-<h3><a class="anchor" name="quick-windows">Windows</a></h3>
+<h3><a class="anchor" name="quick-windows">Building libSBML on Windows</a></h3>
 
-<p> We should point out at the outset that the main developers have been
-using only Windows XP, and do not have direct experience building libSBML
-under other versions of Windows.  Users do report some success on other
-versions of Windows, but your results may vary.
+<p> As mentioned above, libSBML requires that the libxml2, Xerces-C, or
+Expat XML parsing libraries be available on your computer prior to
+attempting to compile libSBML.  The DLL file for libxml2, Xerces, or Expat
+must be placed in the <code>win32/bin</code> subdirectory of the libSBML
+directory.
 
-<p> Download and run the self-extracting windows installer for
-libSBML.  There are debug (<code>libsbmld</code>) and release
-(<code>libsbml</code>) versions of libSBML, with <code>.dll</code> and
-<code>.lib</code> files for both versions in the
-<code>win32/bin</code> subdirectory of the libSBML distribution.
-Header files are located in the subdirectory
-<code>win32/include/sbml</code>.
+<p> To build libSBML on Windows, proceed as follows (and in the text below,
+<span style="background-color:
+#dfd"><em>LIBSBML</em></span> refers to the location of the folder containing the
+unzip'ed libSBML source code distribution on your computer):
+<ol>
 
-<p> Users of Visual C++ should make their Visual C++ projects link
-with the files <code>libsbml.lib</code> or <code>libsbmld.lib</code>
-and generate code for the Multithreaded DLL or Debug Multithreaded DLL
-version of the VC++ runtime, respectively.
+<li style="margin-bottom: 1em"> Download and unzip the source code archive
+somewhere on your file system.</li>
+
+<li style="margin-bottom: 1em">
+ In Visual Studio 7, open the file <span style="background-color:
+#dfd"><em>LIBSBML</em></span><code>/win32/MSVC7/libsbml.sln</code>.  (This file provides
+ the configuration for building with the Xerces XML parser; alternatively,
+ you can use <span style="background-color:
+#dfd"><em>LIBSBML</em></span><code>/win32/MSVC7/libsbml_expat.sln</code> to
+ build against the Expat parser or
+<span style="background-color:
+#dfd"><em>LIBSBML</em></span><code>/win32/MSVC7/libsbml_xml.sln</code> to
+#build against
+ the libxml2 XML parser.)
+</li>
+
+<li style="margin-bottom: 1em">
+ Select Tools->Options, and select Projects/Directories.
+   The screen for indicating which directories contain project-relevant
+   files appears.
+</li>
+
+<li style="margin-bottom: 1em">
+ At "Show Directories For:", select "Include Files".  Add the
+   following if it's not already shown: <span style="background-color:
+#dfd"><em>LIBSBML</em></span><code>/include</code>
+ <p>Note: you will also need to add the path to the include files 
+ relevant to the XML Parser library.</p>
+</li>
+
+<li style="margin-bottom: 1em">
+ At "Show Directories For:", select "Library Files".  Add the
+   following if it's not already shown: <span style="background-color:
+#dfd"><em>LIBSBML</em></span><code>/win32/bin</code>
+</li>
+
+<li style="margin-bottom: 1em">
+ Select Build->Rebuild All from the Visual Studio main menu.
+</li>
+</ol>
+
+LibSBML also includes project files for MSVC8; the build process is
+identical to that listed above, but uses files from the
+<span style="background-color:
+#dfd"><em>LIBSBML</em></span><code>/win32/MSVC8/</code> directory.
+
 
 
 <h2><a class="anchor" name="detailed">2. Detailed instructions for configuring and installing LibSBML</a></h2>
 
 <p> LibSBML requires a separate XML library for low-level XML tokenizing
-and Unicode support.  As of libSBML 3.0, it supports the Xerces-C++, Expat,
-and libXML XML libraries on Linux, Windows, MacOS&nbsp;X, FreeBSD and
-Solaris.  Many Linux and other UNIX-like systems provide one or more of
-these libraries either as part of their standard distribution or as an
-optional RPM, Debian, Mandrake or other package.  (Libxml2 appears to be
-the most commonly available library on Linux and MacOSX systems.)  For more
-information, see <a target="_blank"
+and Unicode support.  For this, it supports the Xerces-C++, Expat, and
+libXML XML libraries on Linux, Windows, MacOS&nbsp;X, FreeBSD and Solaris.
+Many Linux and other UNIX-like systems provide one or more of these
+libraries either as part of their standard distribution or as an optional
+RPM, Debian, Mandrake or other package distributions.  (Libxml2 appears to
+be the most commonly available library on Linux and MacOS&nbsp;X systems.)  For
+more information, see <a target="_blank"
 href="http://xerces.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
 for Xerces, <a target="_blank"
 href="http://expat.sf.net">http://expat.sf.net</a> for Expat, and <a
 target="_blank" href="http://xmlsoft.org">http://xmlsoft.org</a> for
 libxml2.
 
+<p> As already noted, there is a bug in Xerces 2.6.0 that cannot be worked
+around.  Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to
+work properly.  Expat version 1.95.8 and above, and libxml2 version 2.6.16
+and above, are all known to work.
+
 
 <h3><a class="anchor" name="basic-config">Configuring for Linux,
 MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
 
-<p>As mentioned above, for MacOS&nbsp;X and Linux, check the <a
-href="https://sourceforge.net/project/showfiles.php?group_id=71971&package_id=71670">download
-site for libSBML on SourceForge.net</a> for possible installation packages
-for these operating systems.  You may be able to download and install a
-precompiled copy of libSBML for your system, and void the process of
-building libSBML from source files.
-
 <p> If you have obtained the libSBML source code distribution, then at your
 Linux, MacOS&nbsp;X, FreeBSD or Solaris terminal command prompt, unpack the
-distribution, and cd into the directory created (e.g.,
-<code>libsbml-4.0.1</code>).    If you only
-want to build the C and C++ interfaces, then configuring libSBML is simply
-a matter of executing the following command:
+distribution, and <code>cd</code> into the directory created (e.g.,
+<code>libsbml-4.1.0</code>).  If you only want to build the C and C++
+interfaces and install the results in <code>/usr/local</code> (the
+default), then configuring libSBML is simply a matter of executing the
+following command:
 
 <div class="fragment"><pre class="fragment">
   ./configure
@@ -235,24 +301,24 @@ In this case, <code>configure</code> needs to be told explicitly where to
 find the libraries.  Use the following forms:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-libxml="DIR"
+  ./configure --with-libxml="<span style="background-color: #dfd"><em>DIR</em></span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-xerces="DIR"
+  ./configure --with-xerces="<span style="background-color: #dfd"><em>DIR</em></span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-expat="DIR"
+  ./configure --with-expat="<span style="background-color: #dfd"><em>DIR</em></span>"
 </pre></div>
 
-<p> where DIR is the parent directory of where the
-<code>include</code> and <code>lib</code> directories of Xerces, Expat
-or libxml2 (whichever one you are trying to use) is located.  For
-example, on MacOS&nbsp;X, if you used <a target="_blank"
-href="http://finkproject.org">Fink</a> to install Expat in Fink's
-default software tree, you would configure libSBML using the following
-command:
+<p> where <span style="background-color: #dfd"><em>DIR</em></span> is the
+parent directory of where the <code>include</code> and <code>lib</code>
+directories of Xerces, Expat or libxml2 (whichever one you are trying to
+use) is located.  For example, on MacOS&nbsp;X, if you used <a
+target="_blank" href="http://finkproject.org">Fink</a> to install Expat in
+Fink's default software tree, you would configure libSBML using the
+following command:
 
 <div class="fragment"><pre class="fragment">
   ./configure --with-expat="/sw"
@@ -293,12 +359,12 @@ options to <code>configure</code>.  These options are
 <nobr><code>--with-python</code></nobr>, <nobr><code>--with-matlab</code></nobr>,
 <nobr><code>--with-octave</code></nobr>, and <nobr><code>--with-ruby</code></nobr>, respectively.  As
 with other configure options discussed above, all of these accept an
-optional prefix argument; for example, on a MacOS 10.4 Intel-based system
-with MATLAB version R2007b installed in its default location of
-<code>/Applications/MATLAB_R2007b</code>, the proper argument would be
+optional prefix argument; for example, on a MacOS 10.5 Intel-based system
+with MATLAB version R2010a installed in its default location of
+<code>/Applications/MATLAB_R2010a.app</code>, the proper argument would be
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-matlab=/Applications/MATLAB_R2007b
+  ./configure --with-matlab=/Applications/MATLAB_R2010a.app
 </pre></div>
 
 <p>
@@ -323,7 +389,7 @@ the core C/C++ libSBML library still must be compiled and installed.  The
 language binding files are <em>not</em> standalone implementations.  For
 instance, the Java language API files consist of a file named
 <code>libsbmlj.jar</code> and a native object library file named (depending
-on the operating system) <code>libsbmlj.jnilib</code> (MacOS),
+on the operating system) <code>libsbmlj.jnilib</code> (MacOS&nbsp;X),
 <code>libsbml.so</code> (Linux), or <code>sbmlj.dll</code> (Windows);
 <em>both</em> of these must be installed and shipped with applications
 <em>along with</em> the core libSBML library file.  Please refer to section
@@ -339,13 +405,47 @@ described, the libSBML configuration command supports the options
 described below.
 
 
-<h4><a class="anchor" name="univbinary">Creating universal binaries on MacOS</a></h4>
+<h4><a class="anchor" name="univbinary">Creating 32- and/or 64-bit binaries</a></h4>
+
+<p> On some hardware and operating system combinations, it is possible to
+compile 64-bit as well as 32-bit versions of programs.  Normally, the most
+sensible default will be chosen by the systems' compilers automatically,
+but when you download third-party software or compile your own, sometimes
+it becomes necessary to select specific versions.  LibSBML is no exception.
+To make it easier to build libSBML explicitly in a 32-bit or 64-bit
+version, <code>configure</code> offers the two optional arguments
+<nobr><code>--enable-m32</code></nobr> and
+<nobr><code>--enable-m64</code></nobr>, respectively.   
+
+<p> Whether you need to do this depends very much on your hardware,
+operating system, and the format of other libraries and programs on your
+system.  Currently, the most common situation where this issue arises is on
+64-bit systems where not all libraries (e.g., the XML parser libraries) are
+available in 64-bit format.  Then, libSBML needs to be configured to be
+built as a 32-bit binary:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --enable-m32
+</pre></div>
+
+<p> The two options <nobr><code>--enable-m32</code></nobr> and
+<nobr><code>--enable-m64</code></nobr> cannot be used together; if they are
+both given, then the 32-bit option is silently ignored.  On MacOS&nbsp;X
+systems, where it is in fact possible to build so-called <em>universal</em>
+(or "fat") binaries containing both 32-bit and 64-bit executable code, a
+separate option is available for <code>configure</code> and is discussed in
+the next section.
+
+
+<h4><a class="anchor" name="univbinary">Creating universal binaries on MacOS&nbsp;X</a></h4>
 
 <p> Apple Macintosh operating systems after 2005 have provided the option
 of building binaries that can run natively on either PowerPC or x86 (Intel)
-architectures.  Compiling a library to be a so-called universal binary
-requires the use of special options at compilation time.  To build libSBML
-as a universal binary, specify the optional argument
+architectures, as well as in either 32-bit or 64-bit versions.  Compiling a
+library to be a so-called <em>universal binary</em> containing multiple
+versions of the object code requires the use of special options at
+compilation time.  To configure libSBML to be built as a universal binary,
+specify the optional argument
 <nobr><code>--enable-universal-binary</code></nobr> to
 <code>configure</code>.  The following example illustrates how to do this:
 
@@ -353,29 +453,38 @@ as a universal binary, specify the optional argument
   ./configure --enable-universal-binary
 </pre></div>
 
-<p> Beware that building with this option turn on results in the creation
-of larger libSBML binary files, because the files contain essentially two
-copies of the same code (one for each architecture).
-
-By default, universal binaries are built by C/C++ compiler with
-<nobr><code>-arch i386 -arch ppc</nobr></code> options (i.e., 32-bit x86
-and PowerPC architectures).  If you want to build universal binaries with a
-different combination of CPU architectures, then you can specify it as an
-optional argument to the
-<nobr><code>--enable-universal-binary</nobr></code> option.  For example,
-universal binaries will be built with i386, ppc, x86_64 and ppc64
-architectures in the following example :
+<p>
+By default, on MacOS 10.5, the libSBML option above will construct a
+universal binary containing 32-bit PowerPC and 32-bit Intel x86 binaries;
+on MacOS&nbsp;10.6, this becomes 32-bit PowerPC, 32-bit x86, and 64-bit x86
+binaries.  If you want to build universal binaries with a different
+combination of CPU architectures, then you can specify it as an optional
+argument to the <nobr><code>--enable-universal-binary</nobr></code> option.
+For example, universal binaries will be built with i386, ppc, x86_64 and
+ppc64 architectures in the following example :
 
 <div class="fragment"><pre class="fragment">
   ./configure --enable-universal-binary="-arch i386 -arch ppc -arch x86_64 -arch ppc64"
 </pre></div>
 
+<p> Beware that building with this option turn on results in the creation
+of larger libSBML binary files, because the files contain essentially two
+copies of the same code (one for each architecture).
+
+<p> Finally, if both <nobr><code>--enable-universal-binary</nobr></code>
+and either <nobr><code>--enable-m32</nobr></code> or
+<nobr><code>--enable-m64</nobr></code> are given, the latter two options
+are ignored and the option for universal binaries takes precedence.  This
+is justified because, on MacOS&nbsp;X, the optional argument to
+<nobr><code>--enable-universal-binary</nobr></code> can be used to
+accomplish the same goals as the two other individual options.
+
 
 <h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
 
-<p> <strong>Important</strong>: libSBML is known to work with SWIG version 1.3.39 
+<p> <strong>Important</strong>: libSBML is known to work with SWIG version 1.3.40
 or later; earlier versions are known <em>not</em> to work.  You <em>must</em> use 
-version 1.3.39 or later (The latest stable version is recommended).
+version 1.3.40 or later (The latest stable version is recommended).
 
 <p> <a target="_blank" href="http://www.swig.org">SWIG</a> is the
 <em>Simplified Wrapper and Interface Generator</em> and in libSBML it is
@@ -455,16 +564,19 @@ written in uncompressed form.)
 <p> These features are enabled by default if the required libraries can be
 found on your system.  The libraries are the <a target="_blank"
 href="http://www.zlib.net/">zlib</a> library (for the <em>gzip</em> and
-<em>zip</em> formats) and the <a href="">bzip2</a> library (for the
-<em>bzip2</em> format).  If the libSBML configure program cannot find the
-libraries in the locations where it searches by default, you can inform the
-configure program where to look by adding the flag
-<nobr><code>--with-zlib=</code><em>DIR</em></nobr> where <em>DIR</em> is
-the parent directory of the <code>lib</code> directory where the zlib
-library is located, and/or the flag
-<nobr><code>--with-bzip2=</code><em>DIR</em></nobr> where <em>DIR</em> is
-the parent directory of the <code>lib</code> directory where the bzip2
-library is located.
+<em>zip</em> formats) and the <a target="_blank"
+href="http://www.bzip.org/">bzip2</a> library (for the <em>bzip2</em>
+format).  If the libSBML configure program cannot find the libraries in the
+locations where it searches by default, you can inform the configure
+program where to look by adding the flag
+<nobr><code>--with-zlib=</code><span style="background-color:
+#dfd"><em>DIR</em></span></nobr> where 
+<span style="background-color: #dfd"><em>DIR</em></span> is the parent
+directory of the <code>lib</code> directory where the zlib library is
+located, and/or the flag <nobr><code>--with-bzip2=</code><span
+style="background-color: #dfd"><em>DIR</em></span></nobr> where <span
+style="background-color: #dfd"><em>DIR</em></span> is the parent directory
+of the <code>lib</code> directory where the bzip2 library is located.
 
 <p> To selectively disable specific library checks and format support, add
 the option <nobr><code>--with-zlib=no</code></nobr> and/or
@@ -602,45 +714,8 @@ attempting to compile libSBML.  The DLL file for libxml2, Xerces, or Expat
 must be placed in the <code>win32/bin</code> subdirectory of the libSBML
 directory.
 
-To build libsbml on Windows:
-<ol>
-
-<li style="margin-bottom: 1em">
- In Visual Studio 7, open
- <code>&lt;libsbml&gt;/win32/MSVC7/libsbml.sln</code>.  (This file provides
- the configuration for building with the Xerces XML parser; alternatively,
- you can use <code>&lt;libsbml&gt;/win32/MSVC7/libsbml_expat.sln</code> to
- build against the Expat parser or
- <code>&lt;libsbml&gt;/win32/MSVC7/libsbml_xml.sln</code> to build against
- the libxml2 XML parser.)
-</li>
-
-<li style="margin-bottom: 1em">
- Select Tools->Options, and select Projects/Directories.
-   The screen for indicating which directories contain project-relevant
-   files appears.
-</li>
-
-<li style="margin-bottom: 1em">
- At "Show Directories For:", select "Include Files".  Add the
-   following if it's not already shown: <code><em>libsbml</em>/include</code>
- <p>Note: you will also need to add the path to the include files 
- relevant to the XML Parser library.</p>
-</li>
-
-<li style="margin-bottom: 1em">
- At "Show Directories For:", select "Library Files".  Add the
-   following if it's not already shown: <code><em>libsbml</em>/win32/bin</code>
-</li>
-
-<li style="margin-bottom: 1em">
- Select Build->Rebuild All from the Visual Studio main menu.
-</li>
-</ol>
-
-LibSBML also includes project files for MSVC8; the build process is
-identical to that listed above, but uses files from the
-<code>/win32/MSVC8/</code> directory.
+<p> To build libSBML on Windows, follow the <a
+href="#quick-windows">instructions given above</a>.
 
 
 <h2><a class="anchor" name="locations">3. Files installed by libSBML
@@ -664,7 +739,7 @@ the version number:
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">Type of file</th>
      <th align="left">Linux/Unix-based OS</th>
-     <th align="left">MacOS</th>
+     <th align="left">MacOS&nbsp;X</th>
      <th align="left">Windows</th>
  </tr>
 <tr>
@@ -702,7 +777,7 @@ table below lists the pathnames where those files will be installed.
  <tr style="background: lightgray; font-size: 14px;">
      <th colspan="2" align="left">Language</th>
      <th align="left">Linux/Unix-based OS</th>
-     <th align="left">MacOS</th>
+     <th align="left">MacOS&nbsp;X</th>
      <th align="left">Windows</th>
  </tr>
 <tr>
@@ -726,17 +801,21 @@ table below lists the pathnames where those files will be installed.
 </tr><tr>
   <td>MATLAB</td>
   <td valign="top">
-    <font size="-1"><nobr><em>(Intel)</em></nobr><br>
+    <font size="-1"><nobr><em>(Intel 32-bit)</em></nobr><br>
+    <font size="-1"><nobr><em>(Intel 64-bit)</em></nobr><br>
     <nobr><em>(PPC)</em><br>
     <nobr><em>(Additional files)</em></nobr></font>
   </td>
   <td valign="top"><code>TranslateSBML.mexglx</code><br>
+                   <code>TranslateSBML.mexa64</code><br>
                    <em>N/A</em><br>
                    <code>CheckAndConvert.m</code></td>
   <td valign="top"><code>TranslateSBML.mexmaci</code></br>
+                   <code>TranslateSBML.mexmaci64</code></br>
                    <code>TranslateSBML.mexmac</code><br>
                    <code>CheckAndConvert.m</code></td>
   <td valign="top"><code>TranslateSBML.mexw32</code><br>
+                   <code>TranslateSBML.mexw64</code><br>
                    <em>N/A</em><br>
                    <code>CheckAndConvert.m</code></td>
 </tr><tr>
@@ -787,7 +866,7 @@ table below lists the pathnames where those files will be installed.
       <code>libsbml.pyc</code><br>
       <code>libsbml.pth</code></td>
 </tr><tr>
-  <td>Python&nbsp;2.5</td>
+  <td>Python <nobr>2.5&ndash;2.6</nobr></td>
   <td>
     <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
@@ -866,9 +945,9 @@ discussed above).
     <nobr><em>(Perl module file)</em></nobr><br>
     <nobr><em>(Other files)</em></nobr></font>
   </td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">v-perl</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/auto/libSBML/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">v-perl</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">v-perl</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/auto/libSBML/</code></nobr><br>
+      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr><br>
+      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td>Python</td>
@@ -878,10 +957,10 @@ discussed above).
     <nobr><em>(Compiled module file)</em></nobr><br>
     <nobr><em>(Path configuration file)</em></nobr></font>
   </td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">v-python</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">v-python</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">v-python</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">v-python</span></em><code>/site-packages/</code></nobr></td>
+  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td colspan="2">Ruby</td>
@@ -894,9 +973,9 @@ platform-specific directory name; the exact string depends on the
 combination of your operating system, machine architecture, programming
 language, and the versions of all of these.  The placeholder <em><span
 style="background-color:
-#dfd">v-perl</span></em> refers to the version number of the Perl
+#dfd">perl-version</span></em> refers to the version number of the Perl
 executable against which libSBML was configured.  The placeholder <em><span
-style="background-color: #dfd">v-python</span></em> refers to the
+style="background-color: #dfd">python-version</span></em> refers to the
 version number of the Python executable against which libSBML was
 configured.  The placeholder <em><span style="background-color:
 #dfd">ruby-version</span></em> refers to the version number of the Ruby
