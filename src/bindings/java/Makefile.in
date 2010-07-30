@@ -330,7 +330,7 @@ check: $(check_classes) $(shell $(call check_layout))
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	"$(JAVA)" -classpath "$(classpath)" AutoTestRunner
+	$(runjavatest)
 	@echo -----------------------------------------------------------------
 	@echo
 
