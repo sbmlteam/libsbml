@@ -4776,6 +4776,271 @@ $as_echo "yes" >&6; }
     esac
 
 
+
+    python_platform=`("$PYTHON" -c "import platform; print(platform.platform())") 2>/dev/null`
+
+    case $host in
+    *darwin*)
+
+      osx_major_ver=`uname -r | cut -f1 -d'.'`
+
+      if test ${osx_major_ver} -ge 10; then
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of Python" >&5
+$as_echo_n "checking whether this is a 64-bit version of Python... " >&6; }
+        if echo $python_platform | grep -q "64bit"; then
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch i386"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+The Python environment ($PYTHON) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The Python environment will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 option or else add \"-arch x86_64\" to the arguments given to
+the --enable-universal-binary option.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+The Python environment ($PYTHON) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The Python environment will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 or else add the option --enable-universal-binary.
+***************************************************************************
+" "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, all good" >&5
+$as_echo "no, all good" >&6; }
+          fi
+
+        else
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of Python ($PYTHON) is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please either add \"-arch i386\" to the arguments to
+--enable-universal-binary, or remove --enable-universal-binary and
+add --enable-m32 to your configure options, the re-run the configure step,
+and recompile.  If you get a compilation error, please check whether you
+have a private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of Python ($PYTHON) is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please add ONE of the following options,
+    --enable-m32
+or
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private
+version of a dependent library (e.g., expat, libxml, or xerces) that was
+built only as a 64-bit version, and either remove, recompile or replace it
+it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, all good" >&5
+$as_echo "no, all good" >&6; }
+          fi
+        fi
+
+      else
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of Python" >&5
+$as_echo_n "checking whether this is a 64-bit version of Python... " >&6; }
+        if echo $python_platform | grep -q "64bit"; then
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, you are clever!" >&5
+$as_echo "yes, you are clever!" >&6; }
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+            if test "x$enable_univbinary" != xno; then
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version,
+because your copy of Python ($PYTHON) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add the string
+\"-arch x86_64\" to the arguments to your --enable-universal-binary option,
+re-run the configure step, and recompile.  If you get a compilation error,
+please check whether you have a private version of a dependent library
+(e.g., expat, libxml, or xerces) that was built only as a 32-bit version,
+and either remove, recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+            else
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version,
+because your copy of Python ($PYTHON) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add ONE of the
+following options,
+    --enable-m64
+or
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        else
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
+$as_echo "no, which is good" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of Python ($PYTHON) is a 32-bit
+version; however, you have explicitly requested only the creation
+of a 64-bit libSBML.  The Python environment will be unable to load the
+resulting libSBML libraries at run-time.  Please add \"-arch i386\" to
+the arguments to the --enable-universal-binary configure option (or
+remove the --enable-universal-binary option), re-run the configure step,
+and then recompile libSBML.
+***************************************************************************
+" "$LINENO" 5
+                else
+                  as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of Python ($PYTHON) is a 32-bit
+version; however, you have explicitly requested only the creation
+of a 64-bit libSBML.  The Python environment will be unable to load the
+resulting libSBML libraries at run-time.  Please add ONE of the following
+options,
+    --enable-m32
+or
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private
+version of a dependent library (e.g., expat, libxml, or xerces) that was
+built only as a 32-bit version, and either remove, recompile or replace it
+it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+                fi
+              fi
+            fi
+          fi
+        fi
+      ;;
+
+
+      *)
+
+        if test ${host_cpu} = "x86_64"; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of Python" >&5
+$as_echo_n "checking whether this is a 64-bit version of Python... " >&6; }
+          if echo $python_platform | grep -q "x86_64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+You have requested building a 32-bit version of libSBML, but the version of
+Python ($PYTHON) found on this sytem is a 64-bit version.
+The Python environment will be unable to load libSBML at run-time.
+Please reconfigure libSBML WITHOUT the --enable-m32 option (or whatever
+means you used to indicate 32-bit compilation in this instance).
+***************************************************************************
+" "$LINENO" 5
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            fi
+          else
+
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, excellent" >&5
+$as_echo "yes, excellent" >&6; }
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly as a 32-bit (i386) binary because
+your copy of Python ($PYTHON) is a 32-bit version.  Please
+add the option --enable-m32 to your configure options, re-run the configure
+step, and recompile.  If you get a compilation error, please check whether
+you have private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        fi
+      ;;
+
+    esac
+
+
+
     python_dir="src/bindings/python"
 
     if test "$with_swig" = "no" -o -z "$with_swig" ; then
@@ -5422,6 +5687,274 @@ $as_echo "no" >&6; }
     fi
 
 
+    if test -z "$bin_check_nonfatal"; then
+      case $host in
+      *darwin*)
+
+        osx_major_ver=`uname -r | cut -f1 -d'.'`
+
+        if test ${osx_major_ver} -ge 10; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of Java" >&5
+$as_echo_n "checking whether this is a 64-bit version of Java... " >&6; }
+          rm -f config/printJavaDataModel.class
+          $JAVAC config/printJavaDataModel.java
+          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CFLAGS $CXXFLAGS | egrep -q "arch i386"; then
+                            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+              else
+                                { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+                if test "x$enable_univbinary" != xno; then
+                  as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but you have requested that libSBML be built as a
+32-bit version.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 option or else add \"-arch x86_64\" to the arguments given to
+the --enable-universal-binary option.  If you are certain you want to
+ignore this condition and proceed with the existing configuration anyway,
+add --without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+" "$LINENO" 5
+                else
+                  as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but you have requested that libSBML be built as a
+32-bit version.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 or else add the option --enable-universal-binary.  If you are
+certain that you want to proceed with the existing configuration anyway,
+add --without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+" "$LINENO" 5
+                fi
+              fi
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            fi
+
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+            if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                            if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
+$as_echo "no, which is good" >&6; }
+              else
+                                { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+                if test "x$enable_univbinary" != xno; then
+                  as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but this version of MacOS X builds 64-bit binaries by
+default.  The Java interpreter will be unable to load the resulting libSBML
+JNI libraries at run-time.  Please reconfigure libSBML with the option
+--enable-m32 or add \"-arch i386\" to the arguments to the
+--enable-universal-binary option, and then recompile libSBML.  If you are
+certain you want to ignore this condition and proceed with the existing
+configuration anyway, add --without-java-bin-check to the options for
+configure to bypass this architecture check.
+***************************************************************************
+" "$LINENO" 5
+                else
+                  as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but this version of MacOS X builds 64-bit binaries by
+default.  The Java interpreter will be unable to load the resulting libSBML
+JNI libraries at run-time.  Please reconfigure libSBML with the option
+--enable-m32 or else use the --enable-universal-binary option, and then
+recompile libSBML.  If you are certain that you want to proceed with the
+existing configuration, add --without-java-bin-check to the options for
+configure to bypass this architecture check.
+***************************************************************************
+" "$LINENO" 5
+                fi
+              fi
+            fi
+          fi
+        else
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of Java" >&5
+$as_echo_n "checking whether this is a 64-bit version of Java... " >&6; }
+          rm -f config/printJavaDataModel.class
+          $JAVAC config/printJavaDataModel.java
+          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether 64-bit libSBML binaries are being made... " >&6; }
+            if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but this operating system builds 32-bit binaries by
+default.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please add the string \"-arch x86_64\"
+to the arguments to your --enable-universal-binary option, re-run the
+configure step, and recompile.  If you are certain you want to ignore this
+condition and proceed with the existing configuration anyway, add
+--without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but this operating system builds 32-bit binaries by
+default.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please add ONE of the following
+options,
+    --enable-m64
+or
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.  If
+you are certain that you want to proceed with the existing configuration
+anyway, add --without-java-bin-check to the options for configure to bypass
+this architecture check.
+***************************************************************************
+" "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+                            if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
+$as_echo "no, which is good" >&6; }
+              else
+                                { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+                if test "x$enable_univbinary" != xno; then
+                  as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but you have explicitly requested only the creation
+of a 64-bit libSBML.  The Java interpreter will be unable to load the
+resulting libSBML JNI libraries at run-time.  Please add \"-arch i386\" to
+the arguments to the --enable-universal-binary configure option (or
+remove the --enable-universal-binary option), re-run the configure step,
+and then recompile libSBML.  If you are certain you want to ignore this
+condition and proceed with the existing configuration anyway, add
+--without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+" "$LINENO" 5
+                else
+                  as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but you have explicitly requested only the creation
+of a 64-bit libSBML.  The Java interpreter will be unable to load the
+resulting libSBML JNI libraries at run-time.  Please reconfigure WITHOUT
+the --enable-m64 option (or whatever means you used to indicate 32-bit
+compilation in this instance) and then recompile libSBML.  If you are
+certain you want to ignore this condition and proceed with the existing
+configuration anyway, add --without-java-bin-check to the options for
+configure to bypass this architecture check.
+***************************************************************************
+" "$LINENO" 5
+                fi
+              fi
+            fi
+          fi
+        fi
+      ;;
+
+      *)
+
+        if test ${host_cpu} = "x86_64"; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether JRE is a 64-bit version" >&5
+$as_echo_n "checking whether JRE is a 64-bit version... " >&6; }
+          rm -f config/printJavaDataModel.class
+          $JAVAC config/printJavaDataModel.java
+          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but you have requested that libSBML be built as a
+32-bit version.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32.  If you are certain that you want to proceed with the
+existing configuration anyway, add --without-java-bin-check to the options
+for configure to bypass this architecture check.
+***************************************************************************
+" "$LINENO" 5
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            fi
+
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, excellent" >&5
+$as_echo "yes, excellent" >&6; }
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but this operating system builds 64-bit binaries by
+default.  The Java interpreter will be unable to load the resulting libSBML
+JNI libraries at run-time.  Please reconfigure libSBML with the option
+--enable-m32.  If you are certain that you want to
+proceed with the existing configuration, add --without-java-bin-check to
+the options for configure to bypass this architecture check.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        fi
+      ;;
+
+      esac
+    fi
+
+
     java_dir="src/bindings/java"
 
     if test "$with_swig" = "no" -o -z "$with_swig" ; then
@@ -5450,35 +5983,6 @@ $as_echo "no" >&6; }
             { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
           fi
-        fi
-      fi
-    fi
-
-
-    if test -z "$bin_check_nonfatal"; then
-      if test ${host_cpu} = "x86_64" -o -n "`echo $CFLAGS $CXXFLAGS | grep 'm64'`"; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether JRE is a 64-bit version" >&5
-$as_echo_n "checking whether JRE is a 64-bit version... " >&6; }
-        rm -f config/printJavaDataModel.class
-        $JAVAC config/printJavaDataModel.java
-        if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
-           { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-        else
-           { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-           as_fn_error "
-***************************************************************************
-Either this platform is a 64-bit system, or configure has been invoked with
-the option --enable-m64, yet the Java run-time interpreter found at
-  $JAVA
-reports being a 32-bit interpreter.  This will result in JNI binaries
-that cannot be executed with that given interpreter.  Please reconfigure
-libSBML using an argument to --with-java that refers to the location of a
-64-bit Java environment.  If you are certain that you want to proceed
-anyway, add --without-java-bin-check to the options for configure.
-***************************************************************************
-" "$LINENO" 5
         fi
       fi
     fi
@@ -5756,8 +6260,6 @@ $as_echo "$MEXEXT" >&6; }
 $as_echo "Note: the MATLAB we're finding includes a 64-bit version" >&6; }
         if test ${OSX_MAJOR_VER} -lt 10; then
 
-          { $as_echo "$as_me:${as_lineno-$LINENO}: result: Note: the MATLAB version we're finding is a 64-bit version" >&5
-$as_echo "Note: the MATLAB version we're finding is a 64-bit version" >&6; }
           { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 64-bit libSBML binaries are being built" >&5
 $as_echo_n "checking whether 64-bit libSBML binaries are being built... " >&6; }
           if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
@@ -5777,22 +6279,25 @@ $as_echo "no, we have to tell mex to generate 32-bit binaries" >&6; }
 $as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
 
             if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
-              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, we're good" >&5
-$as_echo "no, we're good" >&6; }
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, we're making 64-bit too" >&5
+$as_echo "no, we're making 64-bit too" >&6; }
             else
-              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yup" >&5
-$as_echo "yup" >&6; }
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
               as_fn_error "
 ***************************************************************************
-libSBML cannot be compiled solely as a 32-bit library in this environment
-because your copy of MATLAB is a 64-bit version, and MATLAB's mex compiler
-will be unable to link with the libSBML object files.  Please add
+LibSBML cannot be compiled solely as a 32-bit library in this environment
+because your copy of MATLAB is a 64-bit version.  In this case, MATLAB's
+mex compiler will be unable to link with the libSBML object files.
+Please add
     --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.
 ***************************************************************************
 " "$LINENO" 5
             fi
           fi
+
+
         fi
       ;;
 
@@ -6443,9 +6948,276 @@ $as_echo "no" >&6; }
     { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
-
     RUBY_LIBDIR=`$RUBY -rrbconfig -e "include Config; puts CONFIG['libdir']"`
     RUBY_NAME=`$RUBY -rrbconfig -e "include Config; puts CONFIG['RUBY_SO_NAME']"`
+
+
+
+
+    if test `ruby -e "print ['f'].pack('p').size"` = "8"; then
+      RUBY_64BIT=1
+    else
+      RUBY_64BIT=0
+    fi
+
+
+    case $host in
+    *darwin*)
+
+      osx_major_ver=`uname -r | cut -f1 -d'.'`
+
+      if test ${osx_major_ver} -ge 10; then
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of ruby" >&5
+$as_echo_n "checking whether this is a 64-bit version of ruby... " >&6; }
+        if test $RUBY_64BIT; then
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch i386"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+The copy of ruby ($RUBY) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The ruby interpreter will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 option or else add \"-arch x86_64\" to the arguments given to
+the --enable-universal-binary option.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+The copy of ruby ($RUBY) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The ruby interpreter will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 or else add the option --enable-universal-binary.
+***************************************************************************
+" "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, all good" >&5
+$as_echo "no, all good" >&6; }
+          fi
+
+        else
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of ruby ($RUBY) is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please either add \"-arch i386\" to the arguments to
+--enable-universal-binary, or remove --enable-universal-binary and
+add --enable-m32 to your configure options, the re-run the configure step,
+and recompile.  If you get a compilation error, please check whether you
+have a private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of ruby ($RUBY) is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please add ONE of the following options,
+    --enable-m32
+or
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private
+version of a dependent library (e.g., expat, libxml, or xerces) that was
+built only as a 64-bit version, and either remove, recompile or replace it
+it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, all good" >&5
+$as_echo "no, all good" >&6; }
+          fi
+        fi
+
+      else
+
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of ruby" >&5
+$as_echo_n "checking whether this is a 64-bit version of ruby... " >&6; }
+        if test $RUBY_64BIT; then
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 64-bit libSBML binaries are being built" >&5
+$as_echo_n "checking whether 64-bit libSBML binaries are being built... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, we are 'go' for 64-bit" >&5
+$as_echo "yes, we are 'go' for 64-bit" >&6; }
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+            if test "x$enable_univbinary" != xno; then
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version,
+because your copy of ruby ($RUBY) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add the string
+\"-arch x86_64\" to the arguments to your --enable-universal-binary option,
+re-run the configure step, and recompile.  If you get a compilation error,
+please check whether you have a private version of a dependent library
+(e.g., expat, libxml, or xerces) that was built only as a 32-bit version,
+and either remove, recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+            else
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version,
+because your copy of ruby ($RUBY) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add ONE of the
+following options,
+    --enable-m64
+or
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        else
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
+$as_echo "no, which is good" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of ruby ($RUBY) is a 32-bit
+version; however, you have explicitly requested only the creation
+of a 64-bit libSBML.  The ruby interpreter will be unable to load the
+resulting libSBML libraries at run-time.  Please add \"-arch i386\" to
+the arguments to the --enable-universal-binary configure option (or
+remove the --enable-universal-binary option), re-run the configure step,
+and then recompile libSBML.
+***************************************************************************
+" "$LINENO" 5
+                else
+                  as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your copy of ruby ($RUBY) is a 32-bit
+version; however, you have explicitly requested only the creation
+of a 64-bit libSBML.  The ruby interpreter will be unable to load the
+resulting libSBML libraries at run-time.  Please add ONE of the following
+options,
+    --enable-m32
+or
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.  If
+you get a compilation error, please check whether you have a private
+version of a dependent library (e.g., expat, libxml, or xerces) that was
+built only as a 32-bit version, and either remove, recompile or replace it
+it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+                fi
+              fi
+            fi
+          fi
+        fi
+      ;;
+
+      *)
+
+        if test ${host_cpu} = "x86_64"; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of ruby" >&5
+$as_echo_n "checking whether this is a 64-bit version of ruby... " >&6; }
+          if test $RUBY_64BIT; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+You have requested building a 32-bit version of libSBML, but the ruby
+environment ($RUBY) on this sytem is a 64-bit version.
+The ruby interpreter will be unable to load the resulting libSBML library
+at run-time. Please reconfigure libSBML WITHOUT the --enable-m32 option (or
+whatever means you used to indicate 32-bit compilation in this instance).
+***************************************************************************
+" "$LINENO" 5
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            fi
+          else
+
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, excellent" >&5
+$as_echo "yes, excellent" >&6; }
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly as a 32-bit (i386) binary because
+your copy of ruby ($RUBY) is a 32-bit version.  Please
+add the option --enable-m32 to your configure options, re-run the configure
+step, and recompile.  If you get a compilation error, please check whether
+you have private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        fi
+      ;;
+    esac
 
 
     case $host in
@@ -7294,11 +8066,11 @@ test -n "$GACUTIL" || GACUTIL=""""
     fi
 
 
+    mono_version_raw=`($CSHARP_CILINTERPRETER --version) 2>/dev/null`
     case $host in
     *darwin*)
 
       osx_major_ver=`uname -r | cut -f1 -d'.'`
-      mono_version_raw=`($CSHARP_CILINTERPRETER --version) 2>/dev/null`
 
       if test ${osx_major_ver} -ge 10; then
 
@@ -7307,21 +8079,77 @@ $as_echo_n "checking whether this is a 64-bit version of mono... " >&6; }
         if echo $mono_version_raw | grep -q "x86_64"; then
                     { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, impressive!" >&5
 $as_echo "yes, impressive!" >&6; }
+
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch i386"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+The C# environment ($CSHARP_CILINTERPRETER) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The C# environment will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 option or else add \"-arch x86_64\" to the arguments given to
+the --enable-universal-binary option.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+The C# environment ($CSHARP_CILINTERPRETER) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The C# environment will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 or else add the option --enable-universal-binary.
+***************************************************************************
+" "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, all good" >&5
+$as_echo "no, all good" >&6; }
+          fi
+
         else
           { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 32-bit libSBML binaries are being made" >&5
-$as_echo_n "checking whether 32-bit libSBML binaries are being made... " >&6; }
-          if echo $CXXFLAGS $CFLAGS | grep -q "arch i386"; then
-            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, fabulous!" >&5
-$as_echo "yes, fabulous!" >&6; }
-          else
-            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
-            as_fn_error "
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
 ***************************************************************************
-libSBML needs to be built explicitly to include a 32-bit (i386) version,
-because your copy of the Mono C# compiler environment is a 32-bit version.
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please either add \"-arch i386\" to the arguments to
+--enable-universal-binary, or remove --enable-universal-binary and
+add --enable-m32 to your configure options, the re-run the configure step,
+and recompile.  If you get a compilation error, please check whether you
+have a private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+              else
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit version.
 By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
 (x86_64) binaries.  Please add ONE of the following options,
     --enable-m32
@@ -7334,33 +8162,98 @@ built only as a 64-bit version, and either remove, recompile or replace it
 it before proceeding further.
 ***************************************************************************
 " "$LINENO" 5
+              fi
+            fi
+          else
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, all good" >&5
+$as_echo "no, all good" >&6; }
           fi
         fi
+
       else
 
-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 32-bit version of mono" >&5
-$as_echo_n "checking whether this is a 32-bit version of mono... " >&6; }
+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of mono" >&5
+$as_echo_n "checking whether this is a 64-bit version of mono... " >&6; }
         if echo $mono_version_raw | grep -q "x86_64"; then
-                    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 64-bit libSBML binaries are being built" >&5
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                    { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 64-bit libSBML binaries are being built" >&5
 $as_echo_n "checking whether 64-bit libSBML binaries are being built... " >&6; }
           if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
             { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, we are 'go' for 64-bit" >&5
 $as_echo "yes, we are 'go' for 64-bit" >&6; }
           else
-            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-            as_fn_error "
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+            if test "x$enable_univbinary" != xno; then
+              as_fn_error "
 ***************************************************************************
-libSBML needs to be built explicitly to include a 64-bit (x86_64) version,
-because your copy of the Mono C# compiler environment produces 64-bit
-binaries.  By default, MacOS versions before 10.6 (Snow Leopard) build
-everything as 32-bit (i386) binaries.  Please add ONE of the following
-options,
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version,
+because your C# environment ($CSHARP_CILINTERPRETER) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add the string
+\"-arch x86_64\" to the arguments to your --enable-universal-binary option,
+re-run the configure step, and recompile.  If you get a compilation error,
+please check whether you have a private version of a dependent library
+(e.g., expat, libxml, or xerces) that was built only as a 32-bit version,
+and either remove, recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+            else
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version,
+because your C# environment ($CSHARP_CILINTERPRETER) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add ONE of the
+following options,
     --enable-m64
 or
-    --enable-universal-binary=\"-arch i386 -arch x86_64\"
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        else
+          { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
+$as_echo "no, which is good" >&6; }
+            else
+                            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              if test "x$enable_univbinary" != xno; then
+                as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit
+version; however, you have explicitly requested only the creation
+of a 64-bit libSBML.  The C# environment will be unable to load the
+resulting libSBML libraries at run-time.  Please add \"-arch i386\" to
+the arguments to the --enable-universal-binary configure option (or
+remove the --enable-universal-binary option), re-run the configure step,
+and then recompile libSBML.
+***************************************************************************
+" "$LINENO" 5
+                else
+                  as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version,
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit
+version; however, you have explicitly requested only the creation
+of a 64-bit libSBML.  The C# environment environment will be unable to
+load the resulting libSBML libraries at run-time.  Please add ONE of the
+following options,
+    --enable-m32
+or
+    --enable-universal-binary
 to your configure options, re-run the configure step, and recompile.  If
 you get a compilation error, please check whether you have a private
 version of a dependent library (e.g., expat, libxml, or xerces) that was
@@ -7368,12 +8261,67 @@ built only as a 32-bit version, and either remove, recompile or replace it
 it before proceeding further.
 ***************************************************************************
 " "$LINENO" 5
+                fi
+              fi
+            fi
           fi
-        else
-          { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
         fi
-      fi
+      ;;
+
+      *)
+
+        if test ${host_cpu} = "x86_64"; then
+
+          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether this is a 64-bit version of mono" >&5
+$as_echo_n "checking whether this is a 64-bit version of mono... " >&6; }
+          if echo $mono_version_raw | egrep -q "x86_64|amd64"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+                        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether only 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, and that's a problem" >&5
+$as_echo "yes, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+You have requested building a 32-bit version of libSBML, but the C#
+environment ($CSHARP_CILINTERPRETER) on this sytem is a 64-bit version.
+The C# environment will be unable to load libSBML at run-time.
+Please reconfigure libSBML WITHOUT the --enable-m32 option (or whatever
+means you used to indicate 32-bit compilation in this instance).
+***************************************************************************
+" "$LINENO" 5
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            fi
+          else
+
+            { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether 32-bit libSBML binaries are being made" >&5
+$as_echo_n "checking whether 32-bit libSBML binaries are being made... " >&6; }
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes, excellent" >&5
+$as_echo "yes, excellent" >&6; }
+            else
+              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, and that's a problem" >&5
+$as_echo "no, and that's a problem" >&6; }
+              as_fn_error "
+***************************************************************************
+LibSBML needs to be built explicitly as a 32-bit (i386) binary because
+your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit version.  Please
+add the option --enable-m32 to your configure options, re-run the configure
+step, and recompile.  If you get a compilation error, please check whether
+you have private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+" "$LINENO" 5
+            fi
+          fi
+        fi
       ;;
     esac
 
@@ -8496,7 +9444,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 8499 "configure"' > conftest.$ac_ext
+  echo '#line 9447 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -10675,11 +11623,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:10678: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11626: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:10682: \$? = $ac_status" >&5
+   echo "$as_me:11630: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -10965,11 +11913,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:10968: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11916: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:10972: \$? = $ac_status" >&5
+   echo "$as_me:11920: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -11069,11 +12017,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11072: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:12020: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:11076: \$? = $ac_status" >&5
+   echo "$as_me:12024: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -13094,7 +14042,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 13097 "configure"
+#line 14045 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -13194,7 +14142,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 13197 "configure"
+#line 14145 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -15539,11 +16487,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15542: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16490: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:15546: \$? = $ac_status" >&5
+   echo "$as_me:16494: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -15643,11 +16591,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15646: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16594: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:15650: \$? = $ac_status" >&5
+   echo "$as_me:16598: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -17226,11 +18174,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:17229: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18177: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:17233: \$? = $ac_status" >&5
+   echo "$as_me:18181: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -17330,11 +18278,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:17333: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:18281: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:17337: \$? = $ac_status" >&5
+   echo "$as_me:18285: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -19495,11 +20443,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:19498: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20446: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:19502: \$? = $ac_status" >&5
+   echo "$as_me:20450: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -19785,11 +20733,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:19788: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20736: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:19792: \$? = $ac_status" >&5
+   echo "$as_me:20740: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -19889,11 +20837,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:19892: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:20840: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:19896: \$? = $ac_status" >&5
+   echo "$as_me:20844: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
