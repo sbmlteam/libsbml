@@ -4922,7 +4922,7 @@ build everything as 32-bit (i386) binaries.  Please add ONE of the
 following options,
     --enable-m64
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.
 ***************************************************************************
 " "$LINENO" 5
@@ -4935,7 +4935,7 @@ $as_echo "no" >&6; }
           { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
 $as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
           if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
-                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
               { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
 $as_echo "no, which is good" >&6; }
             else
@@ -4965,7 +4965,7 @@ resulting libSBML libraries at run-time.  Please add ONE of the following
 options,
     --enable-m32
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.  If
 you get a compilation error, please check whether you have a private
 version of a dependent library (e.g., expat, libxml, or xerces) that was
@@ -5832,7 +5832,7 @@ libSBML JNI libraries at run-time.  Please add ONE of the following
 options,
     --enable-m64
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.  If
 you are certain that you want to proceed with the existing configuration
 anyway, add --without-java-bin-check to the options for configure to bypass
@@ -7104,7 +7104,7 @@ build everything as 32-bit (i386) binaries.  Please add ONE of the
 following options,
     --enable-m64
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.
 ***************************************************************************
 " "$LINENO" 5
@@ -7117,7 +7117,7 @@ $as_echo "no" >&6; }
           { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
 $as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
           if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
-                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
               { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
 $as_echo "no, which is good" >&6; }
             else
@@ -7147,7 +7147,7 @@ resulting libSBML libraries at run-time.  Please add ONE of the following
 options,
     --enable-m32
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.  If
 you get a compilation error, please check whether you have a private
 version of a dependent library (e.g., expat, libxml, or xerces) that was
@@ -8210,7 +8210,7 @@ build everything as 32-bit (i386) binaries.  Please add ONE of the
 following options,
     --enable-m64
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.
 ***************************************************************************
 " "$LINENO" 5
@@ -8223,7 +8223,7 @@ $as_echo "no" >&6; }
           { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether only 64-bit libSBML binaries are being made" >&5
 $as_echo_n "checking whether only 64-bit libSBML binaries are being made... " >&6; }
           if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
-                        if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+                        if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
               { $as_echo "$as_me:${as_lineno-$LINENO}: result: no, which is good" >&5
 $as_echo "no, which is good" >&6; }
             else
@@ -8253,7 +8253,7 @@ load the resulting libSBML libraries at run-time.  Please add ONE of the
 following options,
     --enable-m32
 or
-    --enable-universal-binary
+    --enable-universal-binary=\"-arch i386 -arch x86_64\"
 to your configure options, re-run the configure step, and recompile.  If
 you get a compilation error, please check whether you have a private
 version of a dependent library (e.g., expat, libxml, or xerces) that was
