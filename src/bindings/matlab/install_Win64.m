@@ -1,13 +1,13 @@
-%  Filename: install_Win32.m
-% installs the libsbml binding in a Win32 environment
+%  Filename: install_Win64.m
+% installs the libsbml binding in a Win64 environment
 
 %
 %  Description : File to install SBMLToolbox
 %  Author(s)   : SBML Team <sbml-team@caltech.edu>
 %  Organization: University of Hertfordshire STRC
 %  Created     : 2003-10-01
-%  Revision    : $Id$
-%  $HeadURL$
+%  Revision    : $Id: install_Win32.m 10659 2010-01-15 09:04:44Z sarahkeating $
+%  $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/bindings/matlab/install_Win32.m $
 %
 %  Copyright 2003 California Institute of Technology, the Japan Science
 %  and Technology Corporation, and the University of Hertfordshire
@@ -82,7 +82,7 @@ catch
     % determine the matlabroot for windows executable
     % this directory is saved to the environmental variable PATH
     Path_to_libs = matlabroot;
-    Path_to_libs = strcat(Path_to_libs, '\bin\win32');
+    Path_to_libs = strcat(Path_to_libs, '\bin\win64');
 
     % determine the location of the library files
     lib{1} = '..\..\..\win\bin\libsbml.lib';

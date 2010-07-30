@@ -3,11 +3,12 @@
 %
 % FUNCTIONS include:
 %
-% BuildTranslate_Win32 
+% buildWin 
 %
 % - builds the TranslateSBML executable in the Windows environment
 %
 % install_Win32
+% install_Win64
 %
 % - installs the appropriate libraries in the Windows environment
 %
@@ -21,6 +22,10 @@
 %
 % - a script used by TranslateSBML to change some mathematical function names
 %   to those used by MATLAB
+%
+%  isoctave.m
+%
+% - a script to determine if octave or matlab is being used
 
 %  Description : This is the binding to translate 
 %				 sbml models into a MATLAB structure 
@@ -72,13 +77,4 @@
 %  Contributor(s):
 %
 %
-%
-% These are the functions to translate sbml models into a MATLAB structure.
-%
-%
-% FUNCTIONS include:
-%  BuildTranslate_Win32 
-%		which builds the TranslateSBML executable in the Windows environment
-%  TranslateSBML(varargin) 
-%		which translates a sbml file into a matlab structure
 %

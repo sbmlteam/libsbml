@@ -2,11 +2,6 @@
 
 			    Sarah Keating
 
-		Science and Technology Research Centre
-		     University of Hertfordshire
-			  Hatfield, AL10 9AB
-			    United Kingdom
-
 			    The SBML Team
 			 http://www.sbml.org/
 		     mailto:sbml-team@caltech.edu
@@ -30,35 +25,28 @@ executables and you will need to build TranslateSBML as described
 below.
 
 
-----------------------------------
-2.  Configuration and Installation
-----------------------------------
+-------------------------------------------
+2.  Configuration and Installation from src
+-------------------------------------------
 
 Windows
 -------
 
-A precompiled version of the Windows .mexw32 file is available; you
-should not need to follow these instructions in most circumstances.
+Build libSBML as described in the libsbml instructions.
 
-Start a Windows command shell.
+Start MATLAB.
 
-At the command prompt, change to the directory holding the file you
+Change to the directory holding the file you
 are reading right now, i.e., 'libsbml-VERSION\src\binding\matlab'
 where "VERSION" is the version of libSBML you have obtained.
 
-Execute "make.bat".  This will start MATLAB and run a script that 
+Run the buildWin script follwed by the install_Win32 or 
+install_Win64 script as appropriate for your MATLAB installation.
 
-  1) adds the directory to the MATLAB search path,
+NOTE: You may need to edit the install_Win32/64 script to include copying
+other dependent libraries to the matlab path.
 
-  2) checks whether the necessary libraries are on the PATH and if not
-  copies the files to the matlabroot\bin\win32 directory as this must
-  be on the PATH if MATLAB is installed,
 
-The TranslateSBML executable is provided with the download and it is
-not necessary to build it in order to use it.  However the script
-BuildTranslate_Win32 can be used within MATLAB to build
-TranslateSBML.dll provided the C compiler that MATLAB uses is
-compatible.
 
 
 Linux and MacOS X

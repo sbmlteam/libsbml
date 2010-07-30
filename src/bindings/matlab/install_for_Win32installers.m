@@ -88,10 +88,12 @@ catch
     % determine the location of the library files
     lib{1} = '..\..\win32\lib\libsbml.lib';
     lib{2} = '..\..\win32\bin\libsbml.dll';
-    lib{3} = '..\..\win32\lib\libexpat.lib';
-    lib{4} = '..\..\win32\bin\libexpat.dll';
+    lib{3} = '..\..\win32\lib\libxml2.lib';
+    lib{4} = '..\..\win32\bin\libxml2.dll';
+    lib{5} = '..\..\win32\lib\iconv.lib';
+    lib{6} = '..\..\win32\bin\iconv.dll';
 
-    for i = 1:4
+    for i = 1:6
         copyfile(lib{i}, Path_to_libs);
     end;
 end;
@@ -101,11 +103,4 @@ try
   disp('Installation successful');
 catch
   disp('Installation failed.');
-end;
-
-
-%prompt user for close
-cAnswer = input('Do you want to close MATLAB (y/n)?', 's');
-if (cAnswer == 'y')
-    exit;
 end;

@@ -56,7 +56,7 @@ subdirs = test
 
 distfiles = \
 	AUTHORS.txt            \
-	BuildTranslate_Win32.m \
+	buildWin.m \
 	CheckAndConvert.m      \
 	Contents.m             \
 	isoctave.m             \
@@ -65,7 +65,7 @@ distfiles = \
 	TranslateSBML.c        \
 	TranslateSBML.m        \
 	install_Win32.m        \
-	make.bat               \
+	install_Win64.m        \
 	matlab-tags-regexp.txt \
 	test.xml
 

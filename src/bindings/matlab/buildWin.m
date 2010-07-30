@@ -1,14 +1,14 @@
-% BuildTranslate_Win32 builds the TranslateSBML executable in windows
+% buildWin builds the TranslateSBML executable in windows
 % environment
+
 %
-%
-%  Filename    : BuildTranslate_Win32.m
+%  Filename    : buildWin.m
 %  Description : MATLAB help file for BuildTranslate_Win32
 %  Author(s)   : SBML Team <sbml-team@caltech.edu>
 %  Organization: University of Hertfordshire STRC
 %  Created     : 2003-09-15
-%  Revision    : $Id$
-%  $HeadURL$
+%  Revision    : $Id: BuildTranslate_Win32.m 10124 2009-08-28 12:04:51Z sarahkeating $
+%  $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/bindings/matlab/BuildTranslate_Win32.m $
 %
 %  Copyright 2003 California Institute of Technology, the Japan Science
 %  and Technology Corporation, and the University of Hertfordshire
@@ -51,7 +51,7 @@
 %
 %  Contributor(s):
 %
-% BuildTranslate_Win32 builds the TranslateSBML executable in windows
+% buildWin builds the TranslateSBML executable in windows
 % environment
 
 mex  TranslateSBML.c  -I'..\..\..\include' ..\..\..\win\bin\libsbml.lib
