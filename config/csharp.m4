@@ -21,7 +21,7 @@ dnl and also available online as http://sbml.org/software/libsbml/license.html
 dnl --------------------------------------------------------------------- -->*/
 
 #
-# The CSharp check code used in this file was borrowed heavily from configure.in 
+# Some of the code used in this file was borrowed heavily from configure.in 
 # file of SWIG-1.3.35 (http://www.swig.org).
 #
 # SWIG is distributed under the following terms:
@@ -261,15 +261,16 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
     dnl Check for possible binary 32/64-bit incompatbilities.
     dnl
 
+    mono_version_raw=`($CSHARP_CILINTERPRETER --version) 2>/dev/null`
     case $host in
     *darwin*) 
       dnl MacOS 10.6 (Snow Leopard) makes 64-bit binaries by default.
       dnl MacOS 10.5 (Leopard) makes 32-bit binaries by default.
       dnl As of this time (2010-07-27), the off-the-shelf copies of 
-      dnl Mono are 32-bit versions.  
+      dnl Mono are 32-bit versions, but one could build a 64-bit version
+      dnl from source.
 
       osx_major_ver=`uname -r | cut -f1 -d'.'`
-      mono_version_raw=`($CSHARP_CILINTERPRETER --version) 2>/dev/null`
 
       if test ${osx_major_ver} -ge 10; then
         dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
@@ -278,17 +279,75 @@ AC_DEFUN([CONFIG_PROG_CSHARP],
         if echo $mono_version_raw | grep -q "x86_64"; then
           dnl Wow, this is a 64-bit version.  OK, good job, user.
           AC_MSG_RESULT([yes, impressive!])
+
+          dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
+          AC_MSG_CHECKING([whether only 32-bit libSBML binaries are being made])
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch i386"; then
+            dnl On MacOSX, we might be making fat binaries.  Check that.
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              AC_MSG_RESULT([no])
+            else
+              dnl Not making fat binaries, and we have a conflict.
+              AC_MSG_RESULT([yes, and that's a problem])
+              if test "x$enable_univbinary" != xno; then
+                AC_MSG_ERROR([
+***************************************************************************
+The C# environment ($CSHARP_CILINTERPRETER) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The C# environment will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 option or else add "-arch x86_64" to the arguments given to
+the --enable-universal-binary option.
+***************************************************************************
+])
+              else
+                AC_MSG_ERROR([
+***************************************************************************
+The C# environment ($CSHARP_CILINTERPRETER) on this system is
+a 64-bit version, but you have requested that libSBML be built as a 32-bit
+version.  The C# environment will be unable to load the resulting
+libSBML libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 or else add the option --enable-universal-binary.
+***************************************************************************
+])
+              fi
+            fi
+          else
+            AC_MSG_RESULT([no, all good])
+          fi
+
         else
           AC_MSG_RESULT([no])
-          AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
-          if echo $CXXFLAGS $CFLAGS | grep -q "arch i386"; then
-            AC_MSG_RESULT([yes, fabulous!])
-          else
-            AC_MSG_RESULT([no])
-            AC_MSG_ERROR([
+  	  dnl mono reports being 32-bit, but we're on a 64-bit system.
+
+          AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+            dnl On MacOSX, we might be making fat binaries.  Check that.
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+              AC_MSG_RESULT([no])
+            else
+              dnl Not making fat binaries, and we have a conflict.
+              AC_MSG_RESULT([yes, and that's a problem])
+              if test "x$enable_univbinary" != xno; then
+                AC_MSG_ERROR([
 ***************************************************************************
-libSBML needs to be built explicitly to include a 32-bit (i386) version, 
-because your copy of the Mono C# compiler environment is a 32-bit version.
+LibSBML needs to be built explicitly to include a 32-bit (i386) version, 
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit version.
+By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
+(x86_64) binaries.  Please either add "-arch i386" to the arguments to
+--enable-universal-binary, or remove --enable-universal-binary and 
+add --enable-m32 to your configure options, the re-run the configure step,
+and recompile.  If you get a compilation error, please check whether you
+have a private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+])
+              else
+                AC_MSG_ERROR([
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version, 
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit version.
 By default, MacOS 10.6+ (Snow Leopard) builds everything as 64-bit
 (x86_64) binaries.  Please add ONE of the following options,
     --enable-m32
@@ -301,42 +360,162 @@ built only as a 64-bit version, and either remove, recompile or replace it
 it before proceeding further.
 ***************************************************************************
 ])
+              fi
+            fi
+          else
+            AC_MSG_RESULT([no, all good])
           fi
         fi
-      else
-        dnl We're on pre-MacOS 10.6, which makes 32-bit bins by default.
 
-        AC_MSG_CHECKING([whether this is a 32-bit version of mono])
+      else
+        dnl We're on pre-MacOS 10.6, which makes 32-bit bins by default,
+        dnl but the underlying hardware is still 64-bit and 64-bit programs
+        dnl can still be executed.
+
+        AC_MSG_CHECKING([whether this is a 64-bit version of mono])
         if echo $mono_version_raw | grep -q "x86_64"; then
-          dnl Oops, this is a 64-bit version.
-          AC_MSG_RESULT([no])
+          AC_MSG_RESULT([yes])
+
+          dnl Did the user request a 64-bit libSBML?  If not, it's a problem.
           AC_MSG_CHECKING([whether 64-bit libSBML binaries are being built])
           if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
             AC_MSG_RESULT([yes, we are 'go' for 64-bit])
           else
-            AC_MSG_RESULT([no])
-            AC_MSG_ERROR([
+            AC_MSG_RESULT([no, and that's a problem])
+            if test "x$enable_univbinary" != xno; then
+              AC_MSG_ERROR([
 ***************************************************************************
-libSBML needs to be built explicitly to include a 64-bit (x86_64) version, 
-because your copy of the Mono C# compiler environment produces 64-bit
-binaries.  By default, MacOS versions before 10.6 (Snow Leopard) build
-everything as 32-bit (i386) binaries.  Please add ONE of the following
-options,
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version, 
+because your C# environment ($CSHARP_CILINTERPRETER) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add the string
+"-arch x86_64" to the arguments to your --enable-universal-binary option,
+re-run the configure step, and recompile.  If you get a compilation error,
+please check whether you have a private version of a dependent library
+(e.g., expat, libxml, or xerces) that was built only as a 32-bit version,
+and either remove, recompile or replace it it before proceeding further.
+***************************************************************************
+])
+            else
+              AC_MSG_ERROR([
+***************************************************************************
+LibSBML needs to be built explicitly to include a 64-bit (x86_64) version, 
+because your C# environment ($CSHARP_CILINTERPRETER) is a 64-bit
+version.  By default, MacOS versions before version 10.6 (Snow Leopard)
+build everything as 32-bit (i386) binaries.  Please add ONE of the
+following options,
     --enable-m64
 or
-    --enable-universal-binary="-arch i386 -arch x86_64" 
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.
+***************************************************************************
+])
+            fi
+          fi
+        else
+          AC_MSG_RESULT([no])
+          dnl Not a 64-bit mono, and we're on pre-MacOS 10.6.
+          dnl Did the user request a 64-bit libSBML?  If so, it's a problem.
+
+          AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
+          if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+            dnl On MacOSX, we might be making fat binaries.  Check that.
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              AC_MSG_RESULT([no, which is good])
+            else
+              dnl Not making fat binaries, and we have a conflict.
+              AC_MSG_RESULT([yes, and that's a problem])
+              if test "x$enable_univbinary" != xno; then
+                AC_MSG_ERROR([
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version, 
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit
+version; however, you have explicitly requested only the creation 
+of a 64-bit libSBML.  The C# environment will be unable to load the
+resulting libSBML libraries at run-time.  Please add "-arch i386" to
+the arguments to the --enable-universal-binary configure option (or
+remove the --enable-universal-binary option), re-run the configure step,
+and then recompile libSBML.
+***************************************************************************
+])
+                else
+                  AC_MSG_ERROR([
+***************************************************************************
+LibSBML needs to be built explicitly to include a 32-bit (i386) version, 
+because your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit
+version; however, you have explicitly requested only the creation 
+of a 64-bit libSBML.  The C# environment environment will be unable to 
+load the resulting libSBML libraries at run-time.  Please add ONE of the 
+following options,
+    --enable-m32
+or
+    --enable-universal-binary
 to your configure options, re-run the configure step, and recompile.  If
-you get a compilation error, please check whether you have a private 
-version of a dependent library (e.g., expat, libxml, or xerces) that was 
+you get a compilation error, please check whether you have a private
+version of a dependent library (e.g., expat, libxml, or xerces) that was
 built only as a 32-bit version, and either remove, recompile or replace it
 it before proceeding further.
 ***************************************************************************
 ])
+                fi
+              fi
+            fi
           fi
-        else
-          AC_MSG_RESULT([yes])
         fi
-      fi
+      ;;
+
+      *)
+        dnl
+        dnl Non-MacOSX systems.  We only have to worry if the operating
+        dnl system is a 64-bit one.
+        dnl
+
+        if test ${host_cpu} = "x86_64"; then
+          dnl We're on a system that makes 64-bit binaries by default.
+
+          AC_MSG_CHECKING([whether this is a 64-bit version of mono])
+          if echo $mono_version_raw | egrep -q "x86_64|amd64"; then
+            AC_MSG_RESULT([yes])
+
+            dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
+            AC_MSG_CHECKING([whether only 32-bit libSBML binaries are being made])
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              AC_MSG_RESULT([yes, and that's a problem])
+              AC_MSG_ERROR([
+***************************************************************************
+You have requested building a 32-bit version of libSBML, but the C#
+environment ($CSHARP_CILINTERPRETER) on this sytem is a 64-bit version.
+The C# environment will be unable to load libSBML at run-time.
+Please reconfigure libSBML WITHOUT the --enable-m32 option (or whatever
+means you used to indicate 32-bit compilation in this instance).
+***************************************************************************
+])
+            else
+              AC_MSG_RESULT([no])
+            fi
+          else
+            dnl Not a 64-bit version of mono, but this is still an x86_64.
+
+            AC_MSG_RESULT([no])
+            AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
+            if echo $CXXFLAGS $CFLAGS | grep -q "m32"; then
+              AC_MSG_RESULT([yes, excellent])
+            else
+              AC_MSG_RESULT([no, and that's a problem])
+              AC_MSG_ERROR([
+***************************************************************************
+LibSBML needs to be built explicitly as a 32-bit (i386) binary because 
+your C# environment ($CSHARP_CILINTERPRETER) is a 32-bit version.  Please 
+add the option --enable-m32 to your configure options, re-run the configure
+step, and recompile.  If you get a compilation error, please check whether
+you have private version of a dependent library (e.g., expat, libxml, or
+xerces) that was built only as a 64-bit version, and either remove,
+recompile or replace it it before proceeding further.
+***************************************************************************
+])
+            fi
+          fi
+        fi
       ;;
     esac
 

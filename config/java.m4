@@ -275,6 +275,274 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     fi
 
     dnl
+    dnl Check whether the JRE matches possible 32/64-bit options given
+    dnl during configuration (such as telling configure --enable-m64 but
+    dnl using a copy of Java that's only 32-bit).
+    dnl
+
+    if test -z "$bin_check_nonfatal"; then
+      case $host in
+      *darwin*) 
+        dnl MacOS 10.6 (Snow Leopard) makes 64-bit binaries by default.
+        dnl MacOS 10.5 (Leopard) makes 32-bit binaries by default.
+  
+        osx_major_ver=`uname -r | cut -f1 -d'.'`
+  
+        if test ${osx_major_ver} -ge 10; then
+          dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
+  
+          AC_MSG_CHECKING([whether this is a 64-bit version of Java])
+          rm -f config/printJavaDataModel.class
+          $JAVAC config/printJavaDataModel.java
+          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+            AC_MSG_RESULT([yes])
+
+            dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
+            AC_MSG_CHECKING([whether only 32-bit libSBML binaries are being made])
+            if echo $CFLAGS $CXXFLAGS | egrep -q "arch i386"; then
+              dnl On MacOSX, we might be making fat binaries.  Check that.
+              if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+                AC_MSG_RESULT([no])
+              else
+                dnl Not making fat binaries, and we have a conflict.
+                AC_MSG_RESULT([yes, and that's a problem])
+                if test "x$enable_univbinary" != xno; then
+                  AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but you have requested that libSBML be built as a
+32-bit version.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 option or else add "-arch x86_64" to the arguments given to
+the --enable-universal-binary option.  If you are certain you want to
+ignore this condition and proceed with the existing configuration anyway,
+add --without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+])
+                else
+                  AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but you have requested that libSBML be built as a
+32-bit version.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32 or else add the option --enable-universal-binary.  If you are
+certain that you want to proceed with the existing configuration anyway,
+add --without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+])
+                fi
+              fi
+            else
+              AC_MSG_RESULT([no])
+            fi
+  
+          else
+            AC_MSG_RESULT([no])
+    	    dnl Java reports being 32-bit, but we're on a 64-bit system.
+  
+            AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
+            if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+              dnl On MacOSX, we might be making fat binaries.  Check that.
+              if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+                AC_MSG_RESULT([no, which is good])
+              else
+                dnl Not making fat binaries, and we have a conflict.
+                AC_MSG_RESULT([yes, and that's a problem])
+                if test "x$enable_univbinary" != xno; then
+                  AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but this version of MacOS X builds 64-bit binaries by
+default.  The Java interpreter will be unable to load the resulting libSBML
+JNI libraries at run-time.  Please reconfigure libSBML with the option
+--enable-m32 or add "-arch i386" to the arguments to the
+--enable-universal-binary option, and then recompile libSBML.  If you are
+certain you want to ignore this condition and proceed with the existing
+configuration anyway, add --without-java-bin-check to the options for
+configure to bypass this architecture check.
+***************************************************************************
+])
+                else
+                  AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but this version of MacOS X builds 64-bit binaries by
+default.  The Java interpreter will be unable to load the resulting libSBML
+JNI libraries at run-time.  Please reconfigure libSBML with the option
+--enable-m32 or else use the --enable-universal-binary option, and then
+recompile libSBML.  If you are certain that you want to proceed with the
+existing configuration, add --without-java-bin-check to the options for
+configure to bypass this architecture check.
+***************************************************************************
+])
+                fi
+              fi
+            fi
+          fi
+        else
+          dnl We're on pre-MacOS 10.6, which makes 32-bit bins by default,
+          dnl but the underlying hardware is still 64-bit and 64-bit programs
+          dnl can still be executed.
+
+          AC_MSG_CHECKING([whether this is a 64-bit version of Java])
+          rm -f config/printJavaDataModel.class
+          $JAVAC config/printJavaDataModel.java
+          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+            AC_MSG_RESULT([yes])
+
+            dnl Did the user request a 64-bit libSBML?  If not, it's a problem.
+            AC_MSG_CHECKING([whether 64-bit libSBML binaries are being made])
+            if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
+              AC_MSG_RESULT([yes])
+            else
+              AC_MSG_RESULT([no, and that's a problem])
+              if test "x$enable_univbinary" != xno; then
+                AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but this operating system builds 32-bit binaries by
+default.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please add the string "-arch x86_64"
+to the arguments to your --enable-universal-binary option, re-run the
+configure step, and recompile.  If you are certain you want to ignore this
+condition and proceed with the existing configuration anyway, add
+--without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+])
+              else
+                AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but this operating system builds 32-bit binaries by
+default.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please add ONE of the following
+options,
+    --enable-m64
+or
+    --enable-universal-binary
+to your configure options, re-run the configure step, and recompile.  If
+you are certain that you want to proceed with the existing configuration
+anyway, add --without-java-bin-check to the options for configure to bypass
+this architecture check.
+***************************************************************************
+])
+              fi
+            fi
+          else
+            AC_MSG_RESULT([no])
+            dnl Did the user request a 64-bit libSBML?  If so, it's a problem.
+
+            AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+              dnl On MacOSX, we might be making fat binaries.  Check that.
+              if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
+                AC_MSG_RESULT([no, which is good])
+              else
+                dnl Not making fat binaries, and we have a conflict.
+                AC_MSG_RESULT([yes, and that's a problem])
+                if test "x$enable_univbinary" != xno; then
+                  AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but you have explicitly requested only the creation 
+of a 64-bit libSBML.  The Java interpreter will be unable to load the
+resulting libSBML JNI libraries at run-time.  Please add "-arch i386" to
+the arguments to the --enable-universal-binary configure option (or
+remove the --enable-universal-binary option), re-run the configure step,
+and then recompile libSBML.  If you are certain you want to ignore this
+condition and proceed with the existing configuration anyway, add
+--without-java-bin-check to the options for configure to bypass this
+architecture check.
+***************************************************************************
+])
+                else
+                  AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but you have explicitly requested only the creation 
+of a 64-bit libSBML.  The Java interpreter will be unable to load the
+resulting libSBML JNI libraries at run-time.  Please reconfigure WITHOUT
+the --enable-m64 option (or whatever means you used to indicate 32-bit
+compilation in this instance) and then recompile libSBML.  If you are
+certain you want to ignore this condition and proceed with the existing
+configuration anyway, add --without-java-bin-check to the options for
+configure to bypass this architecture check.
+***************************************************************************
+])
+                fi
+              fi
+            fi
+          fi  
+        fi
+      ;;
+
+      *)
+        dnl
+        dnl Non-MacOSX systems.  We only have to worry if the operating
+        dnl system is a 64-bit one.
+        dnl
+
+        if test ${host_cpu} = "x86_64"; then
+          dnl We're on a system that makes 64-bit binaries by default.
+  
+          AC_MSG_CHECKING([whether JRE is a 64-bit version])
+          rm -f config/printJavaDataModel.class
+          $JAVAC config/printJavaDataModel.java
+          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+            AC_MSG_RESULT([yes])
+  
+            dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
+            AC_MSG_CHECKING([whether only 32-bit libSBML binaries are being made])
+            if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
+              AC_MSG_RESULT([yes, and that's a problem])
+              AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 64-bit version, but you have requested that libSBML be built as a
+32-bit version.  The Java interpreter will be unable to load the resulting
+libSBML JNI libraries at run-time.  Please reconfigure libSBML WITHOUT the
+--enable-m32.  If you are certain that you want to proceed with the
+existing configuration anyway, add --without-java-bin-check to the options
+for configure to bypass this architecture check.
+***************************************************************************
+])
+            else
+              AC_MSG_RESULT([no])
+            fi
+
+          else
+            AC_MSG_RESULT([no])
+  	    dnl Java reports being 32-bit, but we're on a 64-bit system.
+  
+            AC_MSG_CHECKING([whether 32-bit libSBML binaries are being made])
+            if echo $CFLAGS $CXXFLAGS | egrep -q "m32"; then
+              AC_MSG_RESULT([yes, excellent])
+            else
+              AC_MSG_RESULT([no, and that's a problem])
+              AC_MSG_ERROR([
+***************************************************************************
+The Java run-time interpreter found at $JAVA
+is a 32-bit version, but this operating system builds 64-bit binaries by
+default.  The Java interpreter will be unable to load the resulting libSBML
+JNI libraries at run-time.  Please reconfigure libSBML with the option
+--enable-m32.  If you are certain that you want to
+proceed with the existing configuration, add --without-java-bin-check to
+the options for configure to bypass this architecture check.
+***************************************************************************
+])
+            fi
+          fi
+        fi
+      ;;
+
+      esac
+    fi
+
+    dnl
     dnl enable --with-swig option if SWIG-generated files of Java bindings 
     dnl (libsbml_wrap.cpp and java-files/**/*.java) need to be regenerated.
     dnl 
@@ -301,37 +569,6 @@ AC_DEFUN([CONFIG_PROG_JAVA],
             with_swig="yes"
             AC_MSG_RESULT(yes)
           fi
-        fi
-      fi
-    fi
-
-    dnl
-    dnl Check whether the JRE matches possible 32/64-bit options given
-    dnl during configuration (such as telling configure --enable-m64 but
-    dnl using a copy of Java that's only 32-bit).
-    dnl
-
-    if test -z "$bin_check_nonfatal"; then
-      if test ${host_cpu} = "x86_64" -o -n "`echo $CFLAGS $CXXFLAGS | grep 'm64'`"; then
-        AC_MSG_CHECKING(whether JRE is a 64-bit version)
-        rm -f config/printJavaDataModel.class
-        $JAVAC config/printJavaDataModel.java
-        if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
-           AC_MSG_RESULT(yes, good news!)
-        else
-           AC_MSG_RESULT(no)
-           AC_MSG_ERROR([
-***************************************************************************
-Either this platform is a 64-bit system, or configure has been invoked with
-the option --enable-m64, yet the Java run-time interpreter found at 
-  $JAVA
-reports being a 32-bit interpreter.  This will result in JNI binaries 
-that cannot be executed with that given interpreter.  Please reconfigure
-libSBML using an argument to --with-java that refers to the location of a
-64-bit Java environment.  If you are certain that you want to proceed
-anyway, add --without-java-bin-check to the options for configure.
-***************************************************************************
-])
         fi
       fi
     fi
