@@ -245,7 +245,7 @@ build everything as 32-bit (i386) binaries.  Please add ONE of the
 following options,
     --enable-m64
 or
-    --enable-universal-binary
+    --enable-universal-binary="-arch i386 -arch x86_64"
 to your configure options, re-run the configure step, and recompile.
 ***************************************************************************
 ])
@@ -259,7 +259,7 @@ to your configure options, re-run the configure step, and recompile.
           AC_MSG_CHECKING([whether only 64-bit libSBML binaries are being made])
           if echo $CFLAGS $CXXFLAGS | egrep -q "arch x86_64"; then
             dnl On MacOSX, we might be making fat binaries.  Check that.
-            if echo $CFLAGS $CXXFLAGS | grep -q "arch x86_64"; then
+            if echo $CFLAGS $CXXFLAGS | grep -q "arch i386"; then
               AC_MSG_RESULT([no, which is good])
             else
               dnl Not making fat binaries, and we have a conflict.
@@ -288,7 +288,7 @@ resulting libSBML libraries at run-time.  Please add ONE of the following
 options,
     --enable-m32
 or
-    --enable-universal-binary
+    --enable-universal-binary="-arch i386 -arch x86_64"
 to your configure options, re-run the configure step, and recompile.  If
 you get a compilation error, please check whether you have a private
 version of a dependent library (e.g., expat, libxml, or xerces) that was

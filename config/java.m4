@@ -423,7 +423,7 @@ libSBML JNI libraries at run-time.  Please add ONE of the following
 options,
     --enable-m64
 or
-    --enable-universal-binary
+    --enable-universal-binary="-arch i386 -arch x86_64"
 to your configure options, re-run the configure step, and recompile.  If
 you are certain that you want to proceed with the existing configuration
 anyway, add --without-java-bin-check to the options for configure to bypass
