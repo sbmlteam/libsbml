@@ -184,12 +184,12 @@ documentation</a> below.
 
 <h3><a class="anchor" name="quick-windows">Building libSBML on Windows</a></h3>
 
-<p>
-For building libSBML on Windows, we provide project files for Microsoft
-Visual Studio.  Please see the instructions in the <a
-href="#windows">section below</a> for information about how to use these to
-build libSBML on Windows.
-
+<p> For building libSBML on Windows, the libSBML source distribution
+includes project files for several versions of Microsoft Visual Studio
+running on Windows XP (32-bit), Windows Vista (64-bit) or Windows&nbsp;7
+(64-bit).  Please see the instructions in the <a href="#windows">section
+below</a> for information about how to use these to build libSBML on
+Windows.
 
 
 <h2><a class="anchor" name="detailed">2. Detailed instructions for configuring and installing LibSBML</a></h2>
@@ -734,8 +734,9 @@ win<br>
 
 <p> The <code>batch-files</code> subdirectory contains Windows batch files
 to perform various actions, such as to create the <code>include</code>
-directory used by libSBML, invoke SWIG, and other tasks.  These batch files
-may need to be edited to use pathnames relevant to a particular system.
+directory of header files used by libSBML, as well as to invoke SWIG, and
+perform other tasks.  These batch files may need to be edited to use
+pathnames relevant to a particular system.
 
 <p> A few additional points are worth noting here.  First, the project
 files include support for the proposed SBML Level&nbsp;2 Layout extension
@@ -754,14 +755,14 @@ To build libSBML on Windows, follow these steps:
 within the MSVC IDE.
 
 <li style="margin-bottom: 1em">Given the variation in Windows systems, the
-paths to the include files and libraries are not hard-coded into these
+paths to the heade files and libraries are not hard-coded into these
 project files.  To inform MSVC where to find the files, use the
 <code>Tools->Options</code> menu item in the IDE, and select
-<code>Projects/Directories</code>. Paths to include files and library files
+<code>Projects/Directories</code>. Paths to header files and library files
 can then be added.  Once added, these are remembered by the IDE.
 
 <li style="margin-bottom: 1em"> You will also need to add paths to the
-include/library files for any of the third-party libraries used.
+header files and library files for any of the third-party libraries used.
 
 <li style="margin-bottom: 1em"> Compile.
 
