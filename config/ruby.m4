@@ -116,7 +116,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
         dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
 
         AC_MSG_CHECKING([whether this is a 64-bit version of ruby])
-        if test $RUBY_64BIT; then
+        if test $RUBY_64BIT -eq 1; then
           AC_MSG_RESULT([yes])
 
           dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
@@ -212,7 +212,7 @@ it before proceeding further.
         dnl can still be executed.
 
         AC_MSG_CHECKING([whether this is a 64-bit version of ruby])
-        if test $RUBY_64BIT; then
+        if test $RUBY_64BIT -eq 1; then
           AC_MSG_RESULT([yes])
 
           dnl Did the user request a 64-bit libSBML?  If not, it's a problem.
@@ -298,6 +298,8 @@ it before proceeding further.
 ])
                 fi
               fi
+            else
+              AC_MSG_RESULT([no])
             fi
           fi
         fi
@@ -313,7 +315,7 @@ it before proceeding further.
           dnl We're on a system that makes 64-bit binaries by default.
 
           AC_MSG_CHECKING([whether this is a 64-bit version of ruby])
-          if test $RUBY_64BIT; then
+          if test $RUBY_64BIT -eq 1; then
             AC_MSG_RESULT([yes])
 
             dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
