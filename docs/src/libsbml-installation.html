@@ -70,12 +70,13 @@ for Windows</li>
 
 <h2><a class="anchor" name="quick">1. Quick start instructions</a></h2>
 
-<p> The default XML parser library used by libSBML is <a
-href="http://xmlsoft.org">libxml2</a>.  If you chose to use another XML
-parser library instead, beware there is a known bug in Xerces 2.6.0 that
-cannot be worked around at this time and causes errors in software using
-it.  Xerces versions 2.2 &#150; 2.5, and 2.7.0 and above, are known to work
-properly, and all Expat versions above 1.95.8 are also known to work.
+<p> <em>Compatibility warning</em>: The default XML parser library used by
+libSBML is <a target="_blank" href="http://xmlsoft.org">libxml2</a>.  If
+you chose to use another XML parser library instead, beware there is a
+known bug in Xerces 2.6.0 that cannot be worked around at this time and
+causes errors in software using it.  Xerces versions 2.2 &#150; 2.5, and
+2.7.0 and above, are known to work properly, and all Expat versions above
+1.95.8 are also known to work.
 
 
 <h3><a class="anchor" name="quick-download">Avoiding work: ready-to-install
@@ -86,16 +87,16 @@ href="https://sourceforge.net/project/showfiles.php?group_id=71971&package_id=71
 site for libSBML on SourceForge.net</a> for possible installation packages
 for your operating system.  We supply ready-to-install precompiled binaries
 for many systems, so that you may be able to save yourself the time and
-trouble of following the remaining instructions on this page!
+trouble of following the remaining instructions on this page.
 
-<p> <em>Note to Windows users</em>: There are debug (<code>libsbmld</code>)
-and release (<code>libsbml</code>) versions of libSBML, with
-<code>.dll</code> and <code>.lib</code> files for both versions in the
-<code>win32/bin</code> subdirectory of the libSBML distribution.  Users of
-Visual C++ should make their Visual C++ projects link with the files
-<code>libsbml.lib</code> or <code>libsbmld.lib</code> and generate code for
-the Multithreaded DLL or Debug Multithreaded DLL version of the VC++
-runtime, respectively.
+<p> <em>Note to Windows users</em>: There are both debug
+(<code>libsbmld</code>) and release (<code>libsbml</code>) versions of
+libSBML, with <code>.dll</code> and <code>.lib</code> files for both
+versions in the <code>win32/bin</code> subdirectory of the libSBML
+distribution.  Users of Visual C++ should make their Visual C++ projects
+link with the files <code>libsbml.lib</code> or <code>libsbmld.lib</code>
+and generate code for the Multithreaded DLL or Debug Multithreaded DLL
+version of the VC++ runtime, respectively.
 
 
 
@@ -183,63 +184,11 @@ documentation</a> below.
 
 <h3><a class="anchor" name="quick-windows">Building libSBML on Windows</a></h3>
 
-<p> As mentioned above, libSBML requires that the libxml2, Xerces-C, or
-Expat XML parsing libraries be available on your computer prior to
-attempting to compile libSBML.  The DLL file for libxml2, Xerces, or Expat
-must be placed in the <code>win32/bin</code> subdirectory of the libSBML
-directory.
-
-<p> To build libSBML on Windows, proceed as follows (and in the text below,
-<span style="background-color:
-#dfd"><em>LIBSBML</em></span> refers to the location of the folder containing the
-unzip'ed libSBML source code distribution on your computer):
-<ol>
-
-<li style="margin-bottom: 1em"> Download and unzip the source code archive
-somewhere on your file system.</li>
-
-<li style="margin-bottom: 1em">
- In Visual Studio 7, open the file <span style="background-color:
-#dfd"><em>LIBSBML</em></span><code>/win32/MSVC7/libsbml.sln</code>.  (This file provides
- the configuration for building with the Xerces XML parser; alternatively,
- you can use <span style="background-color:
-#dfd"><em>LIBSBML</em></span><code>/win32/MSVC7/libsbml_expat.sln</code> to
- build against the Expat parser or
-<span style="background-color:
-#dfd"><em>LIBSBML</em></span><code>/win32/MSVC7/libsbml_xml.sln</code> to
-#build against
- the libxml2 XML parser.)
-</li>
-
-<li style="margin-bottom: 1em">
- Select Tools->Options, and select Projects/Directories.
-   The screen for indicating which directories contain project-relevant
-   files appears.
-</li>
-
-<li style="margin-bottom: 1em">
- At "Show Directories For:", select "Include Files".  Add the
-   following if it's not already shown: <span style="background-color:
-#dfd"><em>LIBSBML</em></span><code>/include</code>
- <p>Note: you will also need to add the path to the include files 
- relevant to the XML Parser library.</p>
-</li>
-
-<li style="margin-bottom: 1em">
- At "Show Directories For:", select "Library Files".  Add the
-   following if it's not already shown: <span style="background-color:
-#dfd"><em>LIBSBML</em></span><code>/win32/bin</code>
-</li>
-
-<li style="margin-bottom: 1em">
- Select Build->Rebuild All from the Visual Studio main menu.
-</li>
-</ol>
-
-LibSBML also includes project files for MSVC8; the build process is
-identical to that listed above, but uses files from the
-<span style="background-color:
-#dfd"><em>LIBSBML</em></span><code>/win32/MSVC8/</code> directory.
+<p>
+For building libSBML on Windows, we provide project files for Microsoft
+Visual Studio.  Please see the instructions in the <a
+href="#windows">section below</a> for information about how to use these to
+build libSBML on Windows.
 
 
 
@@ -617,7 +566,7 @@ libSBML in the SVN repository on SourceForge.
 
 <p> If you would like to generate the documentation yourself, you will need
 the following software tools in addition to a Unix-like environment (or
-Cygwin under Windows):
+<a target="_blank" href="http://cygwin.org">Cygwin</a> under Windows):
 <ul>
 
 <li style="margin-bottom: 1em"><em>For the C, C++ and Python API
@@ -701,21 +650,146 @@ locations where the installation step copies the various libSBML files.
 
 <h3><a class="anchor" name="windows">Configuring and building for Windows</a></h3>
 
-<p> The Windows distributions of libSBML come in the form of both
-precompiled binaries (with a self-extracting installer), and source
-code.  The precompiled binaries come ready-to-use and only need to be
-installed.  The source distribution is a <code>.zip</code> file
-containing the libSBML code that must be extracted in a directory on
-your system, compiled and installed.
+<p> The source libSBML distribution, obtainable from the <a target="_blank"
+href="https://sourceforge.net/project/showfiles.php?group_id=71971&package_id=71670">
+project download site on SourceForge.net</a>, is a <code>.zip</code> file
+that must be extracted in a directory on your system, compiled and
+installed.  There are two ways to compile libSBML under Windows: using the
+native Windows compilation tools from Microsoft, and using the <a
+target="_blank" href="http://cygwin.org/">Cygwin</a> environment.  In this
+section, we focus on using the native Windows environment because this
+appears to be the more popular approach used by Windows-based users of
+libSBML.  Cygwin users can follow essentially the same <a
+href="#basic-config">instructions as for other Unix environments</a> given
+above.
 
-<p> As mentioned above, libSBML requires that the libxml2, Xerces-C, or
-Expat XML parsing libraries be available on your computer prior to
-attempting to compile libSBML.  The DLL file for libxml2, Xerces, or Expat
-must be placed in the <code>win32/bin</code> subdirectory of the libSBML
-directory.
+<h4>Prerequisites</h4>
 
-<p> To build libSBML on Windows, follow the <a
-href="#quick-windows">instructions given above</a>.
+<p> The source distribution includes project files for Microsoft Visual
+Studio; version 7.1 (2003) is the minimum version of MSVC needed.  In
+addition, to compile LibSBML, you <b>must have certain other libraries
+installed</b> that are not included in the source code
+distribution.  They must be obtained separately if you do not already have
+them on your system:
+
+<ol>
+<li style="margin-bottom: 1em"><em>XML parser library</em>: LibSBML
+requires an underlying XML parser library.  It can use <a target="_blank"
+href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
+href="http://http://xerces.apache.org/xerces-c/">Xerces-C</a>, or <a
+target="_blank" href="http://expat.sourceforge.net/">Expat</a>.  Whichever
+one you choose, the DLL file for the parser library must be placed in the
+<code>win32/bin</code> subdirectory of the libSBML directory prior to
+attempting to compile libSBML.
+
+<li style="margin-bottom: 1em"><em>Compression libraries</em>: In
+addition to an XML parser library, LibSBML also needs the compression
+libraries <a target="_blank" href="http://www.zlib.net/">zlib</a> and <a
+target="_blank" href="http://www.bzip.org/">bzip2</a> if you wish to include
+support for reading and writing compressed SBML files.  This is not a
+requirement, and the support for compression can optionally be turned off.
+
+</ol>
+
+
+<h4>Compilation</h4>
+
+<p>
+The libSBML <code>win</code> subdirectory contains several subdirectories
+with names of the form <code>msvc</code><span style="background-color:
+#dfd"><em>X</em></span>; these subdirectories organize the project files
+for different Microsoft Visual Studio versions.  For example,
+<code>win/msvc7</code> contains the project files for MSVC version 7.
+Within the individual project directories <code>msvc</code><span
+style="background-color: #dfd"><em>X</em></span>, there are several
+subdirectories with names of the form <code>msvc</code><span
+style="background-color:
+#dfd"><em>X</em></span><code>/</code><span style="background-color:
+#dfd"><em>LANG</em></span>, each containing the project files for a
+specific version XML parser library, as well as a common subdirectory
+containing files that are not parser-library-dependent.  All told, this
+directory organization has the following structure:
+
+<p style="padding-left: 2em"><code>
+win<br>
+<span style="padding-left: 3.5ex">/batch-files<br>
+<span style="padding-left: 3.5ex">/msvc7</span><br>
+<span style="padding-left: 9.5ex">/common</span><br>
+<span style="padding-left: 16ex">/...</span><br>
+<span style="padding-left: 9.5ex">/expat</span><br>
+<span style="padding-left: 16ex">/libsbml.vcproj</span><br>
+<span style="padding-left: 16ex">/libsbml_csharp.vcproj</span><br>
+<span style="padding-left: 16ex">/libsbml_java.vcproj</span><br>
+<span style="padding-left: 16ex">/libsbml_perl.vcproj</span><br>
+<span style="padding-left: 16ex">/libsbml_python.vcproj</span><br>
+<span style="padding-left: 9.5ex">/libxml</span><br>
+<span style="padding-left: 16ex">/...</span><br>
+<span style="padding-left: 9.5ex">/xerces</span><br>
+<span style="padding-left: 16ex">/...</span><br>
+<span style="padding-left: 3.5ex">/msvc8</span><br>
+<span style="padding-left: 9.5ex">/...</span><br>
+<span style="padding-left: 3.5ex">/msvc9</span><br>
+<span style="padding-left: 9.5ex">/...</span><br>
+</code>
+
+<p> The <code>batch-files</code> subdirectory contains Windows batch files
+to perform various actions, such as to create the <code>include</code>
+directory used by libSBML, invoke SWIG, and other tasks.  These batch files
+may need to be edited to use pathnames relevant to a particular system.
+
+<p> A few additional points are worth noting here.  First, the project
+files include support for the proposed SBML Level&nbsp;2 Layout extension
+by Gauges et al.  Second, the project files in <code>msvc8</code> support a
+64-bit Windows configuration.  And finally, the libSBML developers have not
+tested any native Windows-compatible compilers besides the Microsoft Visual
+Studio series.  If you succeed in using compilation environment, please let
+the libSBML developers know so that we can include support in future
+versions of libSBML.
+
+<p>
+To build libSBML on Windows, follow these steps:
+
+<ol>
+<li style="margin-bottom: 1em">Choose and open the required project(s) from
+within the MSVC IDE.
+
+<li style="margin-bottom: 1em">Given the variation in Windows systems, the
+paths to the include files and libraries are not hard-coded into these
+project files.  To inform MSVC where to find the files, use the
+<code>Tools->Options</code> menu item in the IDE, and select
+<code>Projects/Directories</code>. Paths to include files and library files
+can then be added.  Once added, these are remembered by the IDE.
+
+<li style="margin-bottom: 1em"> You will also need to add paths to the
+include/library files for any of the third-party libraries used.
+
+<li style="margin-bottom: 1em"> Compile.
+
+</ol>
+
+<p>
+After a successful build, MSVC will put the libSBML library files and DLL
+into the <code>win/bin</code> subdirectory.
+
+
+<h4>Language bindings when building under Windows</h4>
+
+<p> The MSVC projects call a prebuilt event to generate the necessary files
+using SWIG.  Although the source distribution for libSBML contains these
+files, they are actually prebuilt on a Unix system, and in some cases there
+are differences between these and the SWIG files intended for a native
+Windows environment.  We recommend that you rebuild these files using
+<code>swigwin</code> (the native Windows version of SWIG).  This will
+happen automatically when building the relevant project.  You will need to
+edit the relevant <code>runSWIG_</code> batch file to establish the correct
+path to your <code>swigwin</code> installation.
+
+<p> Any language binding library/DLL files will be placed in a subdirectory
+of the <code>win/bin</code> directory.  For example, C# files will appear
+in <code>win/bin/csharp</code>.  Where the language binding also involves a
+language specific file (e.g., a JAR file for Java), these will be found in
+the relevant <code>src/bindings/</code> directory (e.g.,
+<code>src/bindings/java/java-files</code>).
 
 
 <h2><a class="anchor" name="locations">3. Files installed by libSBML
