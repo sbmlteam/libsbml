@@ -459,6 +459,8 @@ it before proceeding further.
 ])
                 fi
               fi
+            else
+              AC_MSG_RESULT([no])
             fi
           fi
         fi

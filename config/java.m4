@@ -475,6 +475,8 @@ configure to bypass this architecture check.
 ])
                 fi
               fi
+            else
+              AC_MSG_RESULT([no])
             fi
           fi  
         fi

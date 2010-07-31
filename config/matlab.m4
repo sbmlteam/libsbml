@@ -242,6 +242,8 @@ to your configure options, re-run the configure step, and recompile.
 ***************************************************************************
 ])
             fi
+          else
+            AC_MSG_RESULT([no])
           fi
         fi
         ;;
