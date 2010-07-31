@@ -755,7 +755,7 @@ To build libSBML on Windows, follow these steps:
 within the MSVC IDE.
 
 <li style="margin-bottom: 1em">Given the variation in Windows systems, the
-paths to the heade files and libraries are not hard-coded into these
+paths to the header files and libraries are not hard-coded into these
 project files.  To inform MSVC where to find the files, use the
 <code>Tools->Options</code> menu item in the IDE, and select
 <code>Projects/Directories</code>. Paths to header files and library files
@@ -775,7 +775,7 @@ into the <code>win/bin</code> subdirectory.
 
 <h4>Language bindings when building under Windows</h4>
 
-<p> The MSVC projects call a prebuilt event to generate the necessary files
+<p> The MSVC projects call a prebuild event to generate the necessary files
 using SWIG.  Although the source distribution for libSBML contains these
 files, they are actually prebuilt on a Unix system, and in some cases there
 are differences between these and the SWIG files intended for a native
@@ -872,7 +872,7 @@ table below lists the pathnames where those files will be installed.
   </td>
   <td><code>libsbmlj.so</code><br><code> libsbmlj.jar</code></td>
   <td><code>libsbmlj.jnilib</code><br><code> libsbmlj.jar</code></td>
-  <td><code>sbmlj.dll</code><br><code> libsbmlj.jar</code></td>
+  <td><code>sbmlj.dll</code><br><code> sbmlj.jar</code></td>
 </tr><tr>
   <td>MATLAB</td>
   <td valign="top">
