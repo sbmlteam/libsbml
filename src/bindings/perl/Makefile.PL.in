@@ -46,13 +46,15 @@
 use ExtUtils::MakeMaker;
 use Config;
 
+m4_errprintln(@host_os@)
+
 WriteMakefile(
               NAME        => "LibSBML",
 	      PREFIX      => "@prefix@",
               MAKEFILE    => 'Makefile-perl',
               INSTALLDIRS => "site",
               LIBS        => "@XERCES_LDFLAGS@ @EXPAT_LDFLAGS@ @LIBXML_LDFLAGS@ @XERCES_LIBS@ @EXPAT_LIBS@ @LIBXML_LIBS@ @ZLIB_LIBS@ @BZ2_LIBS@ @LIBS@ -lm",
-              LDDLFLAGS   => "@LDFLAGS@ $Config{lddlflags}",
+              LDDLFLAGS   => "@LDFLAGS@ m4_if(@host_os@,cygwin,"-shared",$Config{lddlflags})",
               CC          => "@CXX@",
 	      CCFLAGS     => "@PERL_CPPFLAGS@ @CXXFLAGS@",
               INC         => "-I../swig -I../.. -I../../../include",
