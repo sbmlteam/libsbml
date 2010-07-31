@@ -46,7 +46,15 @@
 use ExtUtils::MakeMaker;
 use Config;
 
-m4_errprintln(@host_os@)
+$lddlfags = "@LDFLAGS@ ";
+if ("@host_os@" eq "cygwin")
+{
+  $lddlflags .= "-shared";
+}
+else
+{
+  $lddlflags .= "$Config{lddlflags}";
+}
 
 WriteMakefile(
               NAME        => "LibSBML",
@@ -54,7 +62,7 @@ WriteMakefile(
               MAKEFILE    => 'Makefile-perl',
               INSTALLDIRS => "site",
               LIBS        => "@XERCES_LDFLAGS@ @EXPAT_LDFLAGS@ @LIBXML_LDFLAGS@ @XERCES_LIBS@ @EXPAT_LIBS@ @LIBXML_LIBS@ @ZLIB_LIBS@ @BZ2_LIBS@ @LIBS@ -lm",
-              LDDLFLAGS   => "@LDFLAGS@ m4_if(@host_os@,cygwin,"-shared",$Config{lddlflags})",
+              LDDLFLAGS   => $lddlflags,
               CC          => "@CXX@",
 	      CCFLAGS     => "@PERL_CPPFLAGS@ @CXXFLAGS@",
               INC         => "-I../swig -I../.. -I../../../include",
