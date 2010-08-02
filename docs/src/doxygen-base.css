@@ -625,3 +625,7 @@ caption {
 #main-page-sections ul a.el { 
   font-family: Palatino, serif;
 }
+
+.placeholder { 
+  background-color: #dfd;
+}
