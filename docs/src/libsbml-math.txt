@@ -151,14 +151,14 @@ implies the operation is applied to the following arguments, @em unary
 implies there is one argument, and @em binary implies there are two
 arguments.  The values in the Precedence column show how the order of
 different types of operation are determined.  For example, the expression
-<em>a * b + c</em> is evaluated as <em>(a * b) + c</em> because the @c *
-operator has higher precedence.  The Associates column shows how the order
-of similar precedence operations is determined; for example, <em>a - b +
-c</em> is evaluated as <em>(a - b) + c</em> because the @c + and @c -
-operators are left-associative.  The precedence and associativity rules are
-taken from the C programming language, except for the symbol @c ^, which is
-used in C for a different purpose.  (Exponentiation can be invoked using
-either @c ^ or the function @c power.)
+<code>a * b + c</code> is evaluated as <code>(a * b) + c</code> because the
+@c * operator has higher precedence.  The Associates column shows how the
+order of similar precedence operations is determined; for example, 
+<code>a - b + c</code> is evaluated as <code>(a - b) + c</code> because the
+@c + and @c - operators are left-associative.  The precedence and associativity
+rules are taken from the C programming language, except for the symbol @c
+^, which is used in C for a different purpose.  (Exponentiation can be
+invoked using either @c ^ or the function @c power.)
 
 @htmlinclude libsbml-math-precedence-table.html
 
