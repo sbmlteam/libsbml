@@ -45,6 +45,18 @@
  *
  * @htmlinclude libsbml-math-precedence-table.html
  * 
+ * In the table above, @em operand implies the construct is an operand, @em
+ * prefix implies the operation is applied to the following arguments, @em
+ * unary implies there is one argument, and @em binary implies there are
+ * two arguments.  The values in the <b>Precedence</b> column show how the
+ * order of different types of operation are determined.  For example, the
+ * expression <code>a * b + c</code> is evaluated as <code>(a * b) +
+ * c</code> because the @c * operator has higher precedence.  The
+ * <b>Associates</b> column shows how the order of similar precedence
+ * operations is determined; for example, <code>a - b + c</code> is
+ * evaluated as <code>(a - b) + c</code> because the @c + and @c -
+ * operators are left-associative.
+ *
  * The function call syntax consists of a function name, followed by optional
  * white space, followed by an opening parenthesis token, followed by a
  * sequence of zero or more arguments separated by commas (with each comma
@@ -53,7 +65,7 @@
  * must be chosen from one of the pre-defined functions in SBML or a
  * user-defined function in the model.  The following table lists the names
  * of certain common mathematical functions; this table corresponds to
- * Table&nbsp;6 in the SBML Level&nbsp;1 Version&nbsp;2 specification:
+ * Table&nbsp;6 in the <a target="_blank" href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2">SBML Level&nbsp;1 Version&nbsp;2 specification</a>:
  *
  * @htmlinclude libsbml-string-functions-table.html
  *
