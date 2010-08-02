@@ -222,6 +222,7 @@ copy ..\..\..\..\..\..\src\bindings\octave\TranslateSBML.mex TranslateSBML.mex
 copy ..\..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\..\src\bindings\matlab\isoctave.m  isoctave.m
 copy ..\..\..\..\..\..\src\bindings\matlab\test.xml test.xml
+copy ..\..\..\..\..\..\src\bindings\matlab\install_for_Win32installers.m install_Win32.m
 cd ..
 
 rem bindings/csharp directory
