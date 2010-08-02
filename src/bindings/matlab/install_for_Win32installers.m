@@ -53,6 +53,11 @@
 %
 %
 
+if (strcmp(isoctave(), '0'))
+  matlab = 1;
+else
+  matlab = 0;
+end;
 % add the current directory to the Matlab search
 % path and save
 addpath(pwd);
@@ -61,13 +66,17 @@ addpath(pwd);
 % replaced by savepath
 % but savepath doesnt exist in version 6.5.1 or lower
 
-v = version;
-v_num = str2num(v(1));
+if (matlab)
+  v = version;
+  v_num = str2num(v(1));
 
-if (v_num < 7)
+  if (v_num < 7)
     saved = path2rc;
-else
+  else
     saved = savepath;
+  end;
+else
+  saved = savepath;
 end;
 
 if (saved ~= 0)
@@ -83,18 +92,30 @@ catch
     % determine the matlabroot for windows executable
     % this directory is saved to the environmental variable PATH
     Path_to_libs = matlabroot;
-    Path_to_libs = strcat(Path_to_libs, '\bin\win32');
 
-    % determine the location of the library files
-    lib{1} = '..\..\win32\lib\libsbml.lib';
-    lib{2} = '..\..\win32\bin\libsbml.dll';
-    lib{3} = '..\..\win32\lib\libxml2.lib';
-    lib{4} = '..\..\win32\bin\libxml2.dll';
-    lib{5} = '..\..\win32\lib\iconv.lib';
-    lib{6} = '..\..\win32\bin\iconv.dll';
+    if (matlab)
+      Path_to_libs = strcat(Path_to_libs, '\bin\win32');
+      % determine the location of the library files
+      lib{1} = '..\..\win32\lib\libsbml.lib';
+      lib{2} = '..\..\win32\bin\libsbml.dll';
+      lib{3} = '..\..\win32\lib\libxml2.lib';
+      lib{4} = '..\..\win32\bin\libxml2.dll';
+      lib{5} = '..\..\win32\lib\iconv.lib';
+      lib{6} = '..\..\win32\bin\iconv.dll';
 
-    for i = 1:6
+      for i = 1:6
         copyfile(lib{i}, Path_to_libs);
+      end;
+    else
+      Path_to_libs = strcat(Path_to_libs, '\bin');
+
+      % determine the location of the library files
+      lib{1} = '..\..\win32\lib\libsbml.lib';
+      lib{2} = '..\..\win32\bin\libsbml.dll';
+
+      for i = 1:2
+        copyfile(lib{i}, Path_to_libs);
+      end;
     end;
 end;
 

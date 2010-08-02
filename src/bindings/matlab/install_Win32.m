@@ -86,7 +86,7 @@ end;
 % if it doesnt work the library files are not on the system path and need
 % to be placed there
 try
-    M = TranslateSBML('test1.xml');
+    M = TranslateSBML('test.xml');
 catch
     % determine the matlabroot for windows executable
     % this directory is saved to the environmental variable PATH
