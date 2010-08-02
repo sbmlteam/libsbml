@@ -54,5 +54,8 @@
 % buildWin builds the TranslateSBML executable in windows
 % environment
 
-mex  TranslateSBML.c  -I'..\..\..\include' ..\..\..\win\bin\libsbml.lib
-
+if (strcmp(isoctave(), '0'))
+  mex  TranslateSBML.c  -I'..\..\..\include' ..\..\..\win\bin\libsbml.lib
+else
+  mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE -I"..\..\..\include" -lbz2 -lz ..\..\..\win\bin\libsbml.lib
+end;

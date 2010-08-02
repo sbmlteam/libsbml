@@ -52,6 +52,11 @@
 %
 %
 
+if (strcmp(isoctave(), '0'))
+  matlab = 1;
+else
+  matlab = 0;
+end;
 % add the current directory to the Matlab search
 % path and save
 addpath(pwd);
@@ -60,13 +65,17 @@ addpath(pwd);
 % replaced by savepath
 % but savepath doesnt exist in version 6.5.1 or lower
 
-v = version;
-v_num = str2num(v(1));
+if (matlab)
+  v = version;
+  v_num = str2num(v(1));
 
-if (v_num < 7)
+  if (v_num < 7)
     saved = path2rc;
-else
+  else
     saved = savepath;
+  end;
+else
+  saved = savepath;
 end;
 
 if (saved ~= 0)
@@ -77,13 +86,16 @@ end;
 % if it doesnt work the library files are not on the system path and need
 % to be placed there
 try
-    M = TranslateSBML('test.xml');
+    M = TranslateSBML('test1.xml');
 catch
     % determine the matlabroot for windows executable
     % this directory is saved to the environmental variable PATH
     Path_to_libs = matlabroot;
-    Path_to_libs = strcat(Path_to_libs, '\bin\win32');
-
+    if (matlab)
+      Path_to_libs = strcat(Path_to_libs, '\bin\win32');
+    else
+      Path_to_libs = strcat(Path_to_libs, '\bin');
+    end;      
     % determine the location of the library files
     lib{1} = '..\..\..\win\bin\libsbml.lib';
     lib{2} = '..\..\..\win\bin\libsbml.dll';
@@ -95,6 +107,7 @@ end;
 
 try
   M = TranslateSBML('test.xml');
+  disp('Installation successful');
 catch
   disp('Installation failed.');
 end;
