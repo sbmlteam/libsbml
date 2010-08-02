@@ -638,7 +638,7 @@ START_TEST (test_WriteL3SBML_locale)
 }
 END_TEST
 
-
+#ifdef USE_ZLIB
 START_TEST (test_WriteL3SBML_gzip)
 {
   const unsigned int filenum = 12;
@@ -684,7 +684,9 @@ START_TEST (test_WriteL3SBML_gzip)
 
 }
 END_TEST
+#endif
 
+#ifdef USE_BZ2
 START_TEST (test_WriteL3SBML_bzip2)
 {
   const unsigned int filenum = 12;
@@ -730,7 +732,9 @@ START_TEST (test_WriteL3SBML_bzip2)
   }
 }
 END_TEST
+#endif
 
+#ifdef USE_ZLIB
 START_TEST (test_WriteL3SBML_zip)
 {
   const unsigned int filenum = 12;
@@ -776,7 +780,7 @@ START_TEST (test_WriteL3SBML_zip)
   }
 }
 END_TEST
-
+#endif
 
 START_TEST (test_WriteL3SBML_elements)
 {
@@ -907,9 +911,13 @@ create_suite_WriteL3SBML ()
   tcase_add_test( tcase, test_WriteL3SBML_locale  );
 
   // Compressed SBML
+#ifdef USE_ZLIB
   tcase_add_test( tcase, test_WriteL3SBML_gzip  );
-  tcase_add_test( tcase, test_WriteL3SBML_bzip2  );
   tcase_add_test( tcase, test_WriteL3SBML_zip  );
+#endif
+#ifdef USE_BZ2
+  tcase_add_test( tcase, test_WriteL3SBML_bzip2  );
+#endif
 
   tcase_add_test( tcase, test_WriteL3SBML_elements);
 
