@@ -100,7 +100,8 @@ version of the VC++ runtime, respectively.
 
 
 
-<h3><a class="anchor" name="quick-unix">Building libSBML on Linux, MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
+<h3><a class="anchor" name="quick-unix">Building libSBML on Linux,
+MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
 
 <p> If there is no installer for your system, or you prefer to build
 libSBML from the source distribution, proceed as follows.  Download and
@@ -250,18 +251,18 @@ In this case, <code>configure</code> needs to be told explicitly where to
 find the libraries.  Use the following forms:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-libxml="<span style="background-color: #dfd"><em>DIR</em></span>"
+  ./configure --with-libxml="<span class="placeholder"><em>DIR</em></span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-xerces="<span style="background-color: #dfd"><em>DIR</em></span>"
+  ./configure --with-xerces="<span class="placeholder"><em>DIR</em></span>"
 </pre></div>
 or
 <div class="fragment"><pre class="fragment">
-  ./configure --with-expat="<span style="background-color: #dfd"><em>DIR</em></span>"
+  ./configure --with-expat="<span class="placeholder"><em>DIR</em></span>"
 </pre></div>
 
-<p> where <span style="background-color: #dfd"><em>DIR</em></span> is the
+<p> where <span class="placeholder"><em>DIR</em></span> is the
 parent directory of where the <code>include</code> and <code>lib</code>
 directories of Xerces, Expat or libxml2 (whichever one you are trying to
 use) is located.  For example, on MacOS&nbsp;X, if you used <a
@@ -279,12 +280,11 @@ commands will copy header files to <code> /usr/local/include/sbml</code>,
 the shared and static library files to <code>/usr/local/lib</code>, and
 documentation files to
 <nobr><code>/usr/local/share/doc/libsbml-</code><span
-style="background-color:
-#dfd"><em>VERSION</em></span></nobr> (where <span style="background-color:
-#dfd"><em>VERSION</em></span> is the version number of libSBML).  To specify
-a different installation location instead of the default, use the
-<nobr><code>--prefix</code></nobr> argument to the <code>configure</code>
-program.  For example,
+class="placeholder"><em>VERSION</em></span></nobr> (where <span
+class="placeholder"><em>VERSION</em></span> is the version number of
+libSBML).  To specify a different installation location instead of the
+default, use the <nobr><code>--prefix</code></nobr> argument to the
+<code>configure</code> program.  For example,
 
 <div class="fragment"><pre class="fragment">
   ./configure --prefix="/my/favorite/path"
@@ -446,7 +446,7 @@ the <nobr><code>--with-swig</code></nobr> option as in the following
 example:
 
 <div class="fragment"><pre class="fragment">
-  ./configure --with-swig="<em><span style="background-color: #dfd">DIR</span></em>"
+  ./configure --with-swig="<em><span class="placeholder">DIR</span></em>"
 </pre></div>
 
 
@@ -518,14 +518,14 @@ href="http://www.bzip.org/">bzip2</a> library (for the <em>bzip2</em>
 format).  If the libSBML configure program cannot find the libraries in the
 locations where it searches by default, you can inform the configure
 program where to look by adding the flag
-<nobr><code>--with-zlib=</code><span style="background-color:
-#dfd"><em>DIR</em></span></nobr> where 
-<span style="background-color: #dfd"><em>DIR</em></span> is the parent
-directory of the <code>lib</code> directory where the zlib library is
-located, and/or the flag <nobr><code>--with-bzip2=</code><span
-style="background-color: #dfd"><em>DIR</em></span></nobr> where <span
-style="background-color: #dfd"><em>DIR</em></span> is the parent directory
-of the <code>lib</code> directory where the bzip2 library is located.
+<nobr><code>--with-zlib=</code><span
+class="placeholder"><em>DIR</em></span></nobr> where <span
+class="placeholder"><em>DIR</em></span> is the parent directory of the
+<code>lib</code> directory where the zlib library is located, and/or the
+flag <nobr><code>--with-bzip2=</code><span
+class="placeholder"><em>DIR</em></span></nobr> where <span
+class="placeholder"><em>DIR</em></span> is the parent directory of the
+<code>lib</code> directory where the bzip2 library is located.
 
 <p> To selectively disable specific library checks and format support, add
 the option <nobr><code>--with-zlib=no</code></nobr> and/or
@@ -541,21 +541,18 @@ option to configure:
 
 <h4><a class="anchor" name="docs">Configuring for generating documentation</a></h4>
 
-<p> LibSBML comes with extensive documentation, and the document you
-are currently reading is part of it.  Because the documentation is
-large and regenerating it requires the use of software tools that not
-all users may have, the authors of libSBML supply a separate
-downloadable archive containing only the documentation.  The
-documentation archive file has a name of the form
-<code>libsbml-</code><em><span style="background-color:
-#dfd">VERSION</span></em><code>-docs.zip</code>, where
-<em><span style="background-color:
-#dfd">VERSION</span></em> is the version of libSBML.  After you
-download it, you can simply unzip the file in the same location as
-your libSBML source directory (or alternatively, in any other location
-that suits you).  We recommend downloading the ready-made
-documentation archive as the easiest way to get the libSBML
-documentation.
+<p> LibSBML comes with extensive documentation, and the document you are
+currently reading is part of it.  Because the documentation is large and
+regenerating it requires the use of software tools that not all users may
+have, the authors of libSBML supply a separate downloadable archive
+containing only the documentation.  The documentation archive file has a
+name of the form <code>libsbml-</code><em><span
+class="placeholder">VERSION</span></em><code>-docs.zip</code>, where
+<em><span class="placeholder">VERSION</span></em> is the version of
+libSBML.  After you download it, you can simply unzip the file in the same
+location as your libSBML source directory (or alternatively, in any other
+location that suits you).  We recommend downloading the ready-made
+documentation archive as the easiest way to get the libSBML documentation.
 
 <p> The same documentation files should also be available online at <a
 target="_blank"
@@ -694,19 +691,17 @@ requirement, and the support for compression can optionally be turned off.
 
 <h4>Compilation</h4>
 
-<p>
-The libSBML <code>win</code> subdirectory contains several subdirectories
-with names of the form <code>msvc</code><span style="background-color:
-#dfd"><em>X</em></span>; these subdirectories organize the project files
-for different Microsoft Visual Studio versions.  For example,
+<p> The libSBML <code>win</code> subdirectory contains several
+subdirectories with names of the form <code>msvc</code><span
+class="placeholder"><em>X</em></span>; these subdirectories organize the
+project files for different Microsoft Visual Studio versions.  For example,
 <code>win/msvc7</code> contains the project files for MSVC version 7.
 Within the individual project directories <code>msvc</code><span
-style="background-color: #dfd"><em>X</em></span>, there are several
-subdirectories with names of the form <code>msvc</code><span
-style="background-color:
-#dfd"><em>X</em></span><code>/</code><span style="background-color:
-#dfd"><em>LANG</em></span>, each containing the project files for a
-specific version XML parser library, as well as a common subdirectory
+class="placeholder"><em>X</em></span>, there are several subdirectories
+with names of the form <code>msvc</code><span
+class="placeholder"><em>X</em></span><code>/</code><span
+class="placeholder"><em>LANG</em></span>, each containing the project files
+for a specific version XML parser library, as well as a common subdirectory
 containing files that are not parser-library-dependent.  All told, this
 directory organization has the following structure:
 
@@ -971,14 +966,13 @@ table below lists the pathnames where those files will be installed.
 </table>
 </center>
 
-<p>
-The next table gives the locations of the files listed in the table above
-for Linux/Unix-based operating systems.  The pathnames shown here are
+<p> The next table gives the locations of the files listed in the table
+above for Linux/Unix-based operating systems.  The pathnames shown here are
 relative to the prefix directory used in configuring libSBML (meaning the
-value <em><span style="background-color: #dfd">DIR</span></em> given to the
-<nobr><code>--prefix=</code><em><span style="background-color:
-#dfd">DIR</span></em></nobr> option to the <code>configure</code> program
-discussed above).
+value <em><span class="placeholder">DIR</span></em> given to the
+<nobr><code>--prefix=</code><em><span
+class="placeholder">DIR</span></em></nobr> option to the
+<code>configure</code> program discussed above).
 
 <center>
 <table border="0" class="text-table  bigger-row-spacing  width80  normal-font  alt-row-colors">
@@ -993,8 +987,8 @@ discussed above).
     <font size="-1"><em>(unmanaged C++ DLL)</em><br>
     <em>(managed C# DLL)</em></font>
   </td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td>Java</td>
@@ -1002,16 +996,16 @@ discussed above).
     <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Java JAR file)</em></nobr></font>
   </td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/share/java/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/share/java/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td colspan="2">MATLAB</td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code></nobr></td>
   <td></td>
 </tr><tr>
   <td colspan="2">Octave</td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/octave/site/oct/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/octave/site/oct/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
   <td>(1)</td>
 </tr><tr>
   <td>Perl</td>
@@ -1020,9 +1014,9 @@ discussed above).
     <nobr><em>(Perl module file)</em></nobr><br>
     <nobr><em>(Other files)</em></nobr></font>
   </td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/auto/libSBML/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span style="background-color: #dfd">perl-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/auto/libSBML/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td>Python</td>
@@ -1032,33 +1026,31 @@ discussed above).
     <nobr><em>(Compiled module file)</em></nobr><br>
     <nobr><em>(Path configuration file)</em></nobr></font>
   </td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
-      <nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/</code><em><span style="background-color: #dfd">python-version</span></em><code>/site-packages/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
+      <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/</code></nobr></td>
   <td>(2)</td>
 </tr><tr>
   <td colspan="2">Ruby</td>
-  <td><nobr><em><span style="background-color: #dfd">DIR</span></em><code>/lib/ruby/site_ruby/</code><em><span style="background-color: #dfd">ruby-version</span></em><code>/</code><em><span style="background-color: #dfd">platform</span></em><code>/</code></nobr></td>
+  <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/ruby/site_ruby/</code><em><span class="placeholder">ruby-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr></td>
   <td></td>
 </tr>
-<caption class="bottom-caption" style="text-align: left">Legend: The placeholder
-<em><span style="background-color: #dfd">platform</span></em> stands for a
+<caption class="bottom-caption" style="text-align: left">Legend: The
+placeholder <em><span class="placeholder">platform</span></em> stands for a
 platform-specific directory name; the exact string depends on the
 combination of your operating system, machine architecture, programming
 language, and the versions of all of these.  The placeholder <em><span
-style="background-color:
-#dfd">perl-version</span></em> refers to the version number of the Perl
-executable against which libSBML was configured.  The placeholder <em><span
-style="background-color: #dfd">python-version</span></em> refers to the
-version number of the Python executable against which libSBML was
-configured.  The placeholder <em><span style="background-color:
-#dfd">ruby-version</span></em> refers to the version number of the Ruby
-executable against which libSBML was configured.  Note that none of these
-values are actually under the control of libSBML; they are set by the
-operating system and programming language package conventions.  
-<br><br>
-Additional notes: <br>
+class="placeholder">perl-version</span></em> refers to the version number
+of the Perl executable against which libSBML was configured.  The
+placeholder <em><span class="placeholder">python-version</span></em> refers
+to the version number of the Python executable against which libSBML was
+configured.  The placeholder <em><span
+class="placeholder">ruby-version</span></em> refers to the version number
+of the Ruby executable against which libSBML was configured.  Note that
+none of these values are actually under the control of libSBML; they are
+set by the operating system and programming language package conventions.
+<br><br> Additional notes: <br>
 (1) The Octave installation directory actually depends on
 how Octave was configured at build time.  If your installation of Octave
 came as a precompiled binary, the package directory may in fact be
