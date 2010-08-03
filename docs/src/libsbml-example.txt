@@ -38,10 +38,10 @@ is shown below:
      <th align="left">Initial value</th>
      <th align="left">Units</th>
  </tr>
-<tr><td><em>cytosol</em></td><td>\f$1 \times 10^{-14}\f$</td><td>litres</td></tr>
-<tr><td><em>S</em></td><td>\f$1 \times 10^{-20}\f$</td><td>moles</td></tr>
+<tr><td><em>cytosol</em></td><td>1 \f$\times\f$ 10<sup>-14</sup></td><td>litres</td></tr>
+<tr><td><em>S</em></td><td>1 \f$\times\f$ 10<sup>-20</sup></td><td>moles</td></tr>
 <tr><td><em>P</em></td><td>0</td><td>moles</td></tr>
-<tr><td><em>E</em></td><td>\f$5 \times 10^{-21}\f$</td><td>moles</td></tr>
+<tr><td><em>E</em></td><td>1 \f$\times\f$ 10<sup>-21</sup></td><td>moles</td></tr>
 <tr><td><em>ES</em></td><td>0</td><td></td>moles</tr>
 <tr><td><em>k<sub>on</sub></em></td><td>1 000 000</td><td>litre/mole/second</td></tr>
 <tr><td><em>k<sub>off</sub></em></td><td>0.2</td><td>1/second</td></tr>
@@ -159,8 +159,9 @@ subsections.
 
 @subsection creator Function for creating the model
 
-We begin this function by creating an SBMLDocument object, creating a
-Model object within the document object, and setting the Model
+We begin this function by creating an @link SBMLDocument SBMLDocument
+@endlink object, creating a @link Model Model @endlink object within
+the document object, and setting the @link Model Model @endlink
 object's identifier.
 
 @verbatim
@@ -185,10 +186,11 @@ Next, we need to define some units in order to properly characterize
 the quantities used in the model.  The libSBML API for unit
 definitions mirrors the SBML object model, which means there is an
 object class for UnitDefinition and an object class for the Unit
-objects that can be placed inside a UnitDefinition object to compose
-whatever unit is desired.  The resulting code for creating units is a
-little bit tedious because there is a lot to set up, but on the other
-hand, it is quite straightforward and hopefully easy to follow:
+objects that can be placed inside a @link UnitDefinition
+UnitDefinition @endlink object to compose whatever unit is desired.
+The resulting code for creating units is a little bit tedious because
+there is a lot to set up, but on the other hand, it is quite
+straightforward and hopefully easy to follow:
 
 @verbatim
   // Temporary pointers (reused more than once below).
@@ -236,29 +238,35 @@ Before going on, we digress to explain one libSBML API idiom
 illustrated in the code above and in the rest of the program below.
 LibSBML provides two main mechanisms for creating objects: class
 constructors (e.g., @link Unit::Unit() Unit() @endlink), and
-<code>create<i>Object</i>()</code> methods provided by certain object
-classes such as UnitDefinition.  The multiple mechanisms are provided
-by libSBML for flexibility and to support different use-cases, but
-they also have different implications for the overall model structure.
+<code>create<span class="placeholder"><i>Object</i></span>()</code>
+methods provided by certain object classes such as @link Model Model
+@endlink, where <span class="placeholder"><i>Object</i></span> is
+another object class such as @link UnitDefinition UnitDefinition
+@endlink.  The multiple mechanisms are provided by libSBML for
+flexibility and to support different use-cases, but they also have
+different implications for the overall model structure.
 
-In general, the recommended approach is to use the
-<code>create<i>Object</i>()</code> methods, as in the calls to
-UnitDefinition::createUnit() above.  These methods create an instance
-and immediately link it into the parent, as well as return a pointer
-to the object created.  By contrast, the other main way of creating an
-object involves first using the class constructor (e.g., @link
-Unit::Unit() Unit() @endlink) to create an object instance, and then
-calling an <code>add<i>Object</i>(...)</code> method to add the
-instance to another object.  However, the
-<code>add<i>Object</i>(...)</code> methods in libSBML @em copy the
-object instance given to them.  The result is that the caller has to
-be careful about making changes to the object: changes to the original
-will not affect the copy added to the model by the
-<code>add<i>Object</i>(...)</code> method, and moreover, the original
-must be explicitly deleted at some point or else the program will leak
-memory.  In summary, unless special circumstances apply, most
-applications are best served using the various
-<code>create<i>Object</i>()</code> methods.
+In general, the recommended approach is to use the <code>create<span
+class="placeholder"><i>Object</i></span>()</code> methods, as in the
+calls to UnitDefinition::createUnit() above.  These methods create an
+instance and immediately link it into the parent, as well as return a
+pointer to the object created.  By contrast, the other main way of
+creating an object involves first using the class constructor (e.g.,
+@link Unit::Unit() Unit() @endlink) to create an object instance, and
+then calling an <code>add<span
+class="placeholder"><i>Object</i></span>(...)</code> method to add the
+instance to another object.  However, the <code>add<span
+class="placeholder"><i>Object</i></span>(...)</code> methods in
+libSBML @em copy the object instance given to them.  The result is
+that the caller has to be careful about making changes to the object:
+changes to the original will not affect the copy added to the model by
+the <code>add<span
+class="placeholder"><i>Object</i></span>(...)</code> method, and
+moreover, the original must be explicitly deleted at some point or
+else the program will leak memory.  In summary, unless special
+circumstances apply, most applications are best served using the
+various <code>create<span
+class="placeholder"><i>Object</i></span>()</code> methods.
 
 Back to the example now, we create a compartment object:
 
@@ -349,7 +357,8 @@ only for the purposes of this example.  Of course, in a more practical
 real-life situation, the formulas would not be fixed in this
 way&mdash;one would have methods to read/write/translate expressions
 originating from different sources (users, files, other programs etc.)
-to/from the Abstract Syntax Trees (ASTs) used by libSBML.
+to/from the <a href="libsbml-math.html">Abstract Syntax Trees</a>
+(ASTs) used by libSBML.
 
 @verbatim
   // Temporary pointers reused below.
@@ -658,12 +667,15 @@ SBML specifications, as well as additional rules offered by libSBML).
 When an application builds up a model programmatically and is finally
 ready to say "yes, this model is finished", it should call both of
 these methods to help ensure the correctness and consistency of the
-finished result.  Conversely, if it is reading a model from a file or
-data stream, libSBML will automatically verify the syntax and schema
-consistency of the document.  The application only needs to check the
-results by interrogating the error log on the SBMLDocument object,
-then call SBMLDocument::checkConsistency() for checking the model
-against the SBML validation rules.
+finished result.
+
+The situation is different when an application is reading a model from
+a file or data stream.  Upon reading a model, libSBML automatically
+verifies the syntax and schema consistency of the document.  The
+application then only needs to check the results by interrogating the
+error log on the SBMLDocument object and calling
+SBMLDocument::checkConsistency() to check the model against the SBML
+validation rules.
 
 The following code illustrates a complete sequence of checking a
 newly-created model using both
@@ -674,7 +686,7 @@ problems to the user.
 @verbatim
 bool validateExampleSBML (SBMLDocument* sbmlDoc)
 {
-  if (!sbmlDoc)
+  if ( ! sbmlDoc )
   {
     cerr << "validateExampleSBML: given a null SBML Document" << endl;
     return false;
@@ -698,7 +710,7 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
   if ( numCheckFailures > 0 )
   {
     noProblems = false;
-    for (unsigned int i = 0; i < numCheckFailures; i++)
+    for ( unsigned int i = 0; i < numCheckFailures; i++ )
     {
       const SBMLError* sbmlErr = sbmlDoc->getError(i);
       if ( sbmlErr->isFatal() || sbmlErr->isError() )
@@ -719,7 +731,7 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
   // further validation, because the model may be too compromised to
   // be properly interpreted.
 
-  if (numConsistencyErrors > 0)
+  if ( numConsistencyErrors > 0 )
   {
     consistencyMessages += "Further validation aborted."; 
   }
@@ -729,7 +741,7 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
     if ( numCheckFailures > 0 )
     {
       noProblems = false;
-      for (unsigned int i = 0; i < numCheckFailures; i++)
+      for ( unsigned int i = 0; i < numCheckFailures; i++ )
       {
         const SBMLError* sbmlErr = sbmlDoc->getError(i);
         if ( sbmlErr->isFatal() || sbmlErr->isError() )
@@ -747,17 +759,17 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
     }
   }
 
-  if (noProblems)
+  if ( noProblems )
     return true;
   else
   {
-    if (numConsistencyErrors > 0)
+    if ( numConsistencyErrors > 0 )
     {
       cout << "ERROR: encountered " << numConsistencyErrors 
            << " consistency error" << (numConsistencyErrors == 1 ? "" : "s")
 	   << " in model '" << sbmlDoc->getModel()->getId() << "'." << endl;
     }
-    if (numConsistencyWarnings > 0)
+    if ( numConsistencyWarnings > 0 )
     {
       cout << "Notice: encountered " << numConsistencyWarnings
            << " consistency warning" << (numConsistencyWarnings == 1 ? "" : "s")
@@ -765,13 +777,13 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
     }
     cout << endl << consistencyMessages;
 
-    if (numValidationErrors > 0)
+    if ( numValidationErrors > 0 )
     {
       cout << "ERROR: encountered " << numValidationErrors
            << " validation error" << (numValidationErrors == 1 ? "" : "s")
 	   << " in model '" << sbmlDoc->getModel()->getId() << "'." << endl;
     }
-    if (numValidationWarnings > 0)
+    if ( numValidationWarnings > 0 )
     {
       cout << "Notice: encountered " << numValidationWarnings
            << " validation warning" << (numValidationWarnings == 1 ? "" : "s")
@@ -779,12 +791,10 @@ bool validateExampleSBML (SBMLDocument* sbmlDoc)
     }
     cout << endl << validationMessages;
 
-    return (numConsistencyErrors == 0 && numValidationErrors == 0);
+    return ( numConsistencyErrors == 0 && numValidationErrors == 0 );
   }
 }
 @endverbatim
-
-
 
 
 
@@ -807,7 +817,7 @@ bool writeExampleSBML(const SBMLDocument* sbmlDoc, const string& filename)
 
   bool result = sbmlWriter.writeSBML(sbmlDoc, filename);
 
-  if (result)
+  if ( result )
   {
     cout << "Wrote file \"" << filename << "\"" << endl;
     return true;
