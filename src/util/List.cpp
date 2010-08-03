@@ -494,4 +494,4 @@ List_size (const List_t *lst)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-c-only */
+/** @endcond */

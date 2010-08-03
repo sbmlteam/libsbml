@@ -1305,7 +1305,7 @@ public:
   LIBSBML_EXTERN
   int setDefinitionURL(XMLAttributes url);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -1338,7 +1338,7 @@ public:
   LIBSBML_EXTERN
   void setParentSBMLObject(SBase * sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -1458,7 +1458,7 @@ protected:
   friend class MathMLFormatter;
   friend class MathMLHandler;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

@@ -89,7 +89,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 // General Notes validation
@@ -2449,6 +2449,6 @@ START_CONSTRAINT (21213, EventAssignment, ea)
 END_CONSTRAINT
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

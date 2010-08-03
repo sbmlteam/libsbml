@@ -38,7 +38,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 START_CONSTRAINT (91001, Model, x)
@@ -306,4 +306,4 @@ END_CONSTRAINT
 
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

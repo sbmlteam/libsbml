@@ -46,7 +46,7 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-/** @endcond doxgen-ignored */
+/** @endcond */
 
 
 /**

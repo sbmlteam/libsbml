@@ -53,7 +53,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 // General XML validation
 
@@ -89,4 +89,4 @@ EXTERN_CONSTRAINT( 10219, FunctionNoArgsMathCheck )
 EXTERN_CONSTRAINT( 10221, ValidCnUnitsValue)
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

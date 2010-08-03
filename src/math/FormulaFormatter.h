@@ -206,6 +206,6 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 #endif  /* FormulaFormatter_h */

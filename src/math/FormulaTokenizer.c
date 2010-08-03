@@ -429,4 +429,4 @@ Token_negateValue (Token_t *t)
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

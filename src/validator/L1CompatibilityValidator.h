@@ -55,4 +55,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* L1CompatibilityValidator_h */
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

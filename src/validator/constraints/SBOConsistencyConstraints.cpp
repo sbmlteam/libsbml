@@ -86,7 +86,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 // General SBO validation
 
@@ -1186,4 +1186,4 @@ START_CONSTRAINT(99702, Delay, d)
 END_CONSTRAINT
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

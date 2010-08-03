@@ -37,7 +37,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -140,4 +140,4 @@ UniqueSpeciesTypesInCompartment::logConflict (const Species& s, const Compartmen
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

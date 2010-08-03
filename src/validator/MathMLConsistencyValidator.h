@@ -55,4 +55,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* MathMLConsistencyValidator_h */
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

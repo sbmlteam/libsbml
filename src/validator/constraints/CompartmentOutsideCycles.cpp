@@ -33,7 +33,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -163,4 +163,4 @@ CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

@@ -221,4 +221,4 @@ Stack_capacity (Stack_t *s)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

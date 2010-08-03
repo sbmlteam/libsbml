@@ -27,7 +27,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -74,7 +74,7 @@ VConstraint::logFailure (const SBase& object)
 {
   logFailure(object, msg);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -97,6 +97,6 @@ VConstraint::logFailure (const SBase& object, const std::string& message)
                  LIBSBML_SEV_ERROR, LIBSBML_CAT_SBML ));*/
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

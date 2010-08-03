@@ -296,7 +296,7 @@ public:
    */
   UnitDefinition * getUnitDefinitionFromOther(const ASTNode * node,
     bool inKL, int reactNo);
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 private:
   const Model * model;
@@ -377,5 +377,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* UnitFormulaFormatter_h */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 

@@ -65,7 +65,7 @@ void
 writeMathML (const ASTNode* node, XMLOutputStream& stream);
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

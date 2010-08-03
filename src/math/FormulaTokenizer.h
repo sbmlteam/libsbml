@@ -175,4 +175,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** FormulaTokenizer_h **/
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

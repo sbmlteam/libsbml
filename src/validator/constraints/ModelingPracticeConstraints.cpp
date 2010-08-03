@@ -37,7 +37,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 // Compartment validation
 
@@ -65,4 +65,4 @@ END_CONSTRAINT
 
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

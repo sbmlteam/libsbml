@@ -120,6 +120,6 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule);
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 #endif  /* FormulaParser_h */

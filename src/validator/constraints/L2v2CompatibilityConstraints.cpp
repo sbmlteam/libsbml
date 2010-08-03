@@ -39,7 +39,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 START_CONSTRAINT (93001, UnitDefinition, ud)
@@ -207,4 +207,4 @@ END_CONSTRAINT
 EXTERN_CONSTRAINT(93009, DuplicateTopLevelAnnotation)
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

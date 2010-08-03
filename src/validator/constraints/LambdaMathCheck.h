@@ -94,4 +94,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* LambdaMathCheck_h */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

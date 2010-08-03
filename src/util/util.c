@@ -400,7 +400,7 @@ util_trim_in_place (char *s)
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

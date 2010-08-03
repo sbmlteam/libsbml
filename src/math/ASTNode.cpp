@@ -36,7 +36,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -452,7 +452,7 @@ ASTNode::canonicalizeConstant ()
 
   return found;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -502,7 +502,7 @@ ASTNode::canonicalizeFunction ()
 
   return found;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -598,7 +598,7 @@ ASTNode::canonicalizeFunctionL1 ()
    */
   return (mType != AST_FUNCTION);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -626,7 +626,7 @@ ASTNode::canonicalizeLogical ()
 
   return found;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -654,7 +654,7 @@ ASTNode::canonicalizeRelational ()
 
   return found;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1734,7 +1734,7 @@ ASTNode::setSemanticsFlag()
   hasSemantics = true; 
   return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1755,7 +1755,7 @@ ASTNode::unsetSemanticsFlag()
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1767,7 +1767,7 @@ ASTNode::getSemanticsFlag() const
 {
   return hasSemantics;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1910,7 +1910,7 @@ ASTNode::isWellFormedASTNode() const
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 LIBSBML_EXTERN
@@ -2023,7 +2023,7 @@ ASTNode::setParentSBMLObject(SBase * sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 LIBSBML_EXTERN

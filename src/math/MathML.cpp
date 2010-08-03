@@ -39,7 +39,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -1445,7 +1445,7 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /* ---------------------------------------------------------------------- */
 /*                           Public Functions                             */

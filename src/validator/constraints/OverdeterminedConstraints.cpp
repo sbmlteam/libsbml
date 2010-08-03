@@ -38,11 +38,11 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 // General model validation
 
 EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

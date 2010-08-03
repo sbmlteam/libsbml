@@ -102,4 +102,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* CiElementMathCheck_h */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

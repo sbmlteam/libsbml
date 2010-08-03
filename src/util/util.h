@@ -156,7 +156,7 @@ char *
 util_trim_in_place (char *s);
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**
@@ -232,7 +232,7 @@ util_isNegZero (double d);
 #endif
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

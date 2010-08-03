@@ -286,7 +286,7 @@ static const StateActionPair_t Action[] =
 };
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**
@@ -772,4 +772,4 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule)
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

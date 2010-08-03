@@ -581,4 +581,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** TRACE_MEMORY **/
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

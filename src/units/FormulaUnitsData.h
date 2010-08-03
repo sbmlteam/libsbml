@@ -116,7 +116,7 @@ public:
    * list of FormulaUnitsData within which this FormulaUnitsData is embedded 
    */
   virtual bool accept (SBMLVisitor& v) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Creates and returns a deep copy of this FormulaUnitsData.
@@ -372,7 +372,7 @@ public:
    
    */
   virtual const std::string& getElementName () const;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -390,7 +390,7 @@ protected:
     UnitDefinition * mSpeciesExtentUnitDefinition;
     UnitDefinition * mSpeciesSubstanceUnitDefinition;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
@@ -481,5 +481,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif //FormulaUnitsData_h
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 

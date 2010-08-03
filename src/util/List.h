@@ -235,7 +235,7 @@ protected:
   ListNode*    head;
   ListNode*    tail;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 #else

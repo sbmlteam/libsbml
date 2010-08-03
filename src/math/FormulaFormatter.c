@@ -489,4 +489,4 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

@@ -110,4 +110,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* ArgumentsUnitsCheckWarnings_h */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

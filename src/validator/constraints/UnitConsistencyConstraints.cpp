@@ -89,7 +89,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 /* check to report the use of parameters/numbers with undeclared units */
 START_CONSTRAINT (99505, AssignmentRule, ar)
@@ -1332,4 +1332,4 @@ END_CONSTRAINT
 
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

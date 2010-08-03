@@ -106,7 +106,7 @@ protected:
 
   std::string  msg;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -144,10 +144,10 @@ protected:
    */
   virtual void check_ (const Model& m, const T& object) { };
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

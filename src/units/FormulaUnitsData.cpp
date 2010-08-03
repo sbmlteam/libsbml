@@ -32,7 +32,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -539,7 +539,7 @@ FormulaUnitsData::accept (SBMLVisitor& v) const
 {
   return true;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /* NOT YET NECESSARY
 
@@ -659,6 +659,6 @@ FormulaUnitsData_setEventTimeUnitDefinition(FormulaUnitsData_t* fud,
 
 */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

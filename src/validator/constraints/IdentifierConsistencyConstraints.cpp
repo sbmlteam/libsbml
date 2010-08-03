@@ -45,7 +45,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 // General Identifier validation 
@@ -62,4 +62,4 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 // 10310: syntax of id - caught at read
 // 10311: syntax of UnitSId - caught at read
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

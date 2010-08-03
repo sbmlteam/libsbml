@@ -74,4 +74,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* FunctionDefinitionVars_h */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

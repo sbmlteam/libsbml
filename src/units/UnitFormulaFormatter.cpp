@@ -345,7 +345,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node,
   
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -387,7 +387,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   mCanIgnoreUndeclaredUnits = currentIgnore;
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -420,7 +420,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -562,7 +562,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -597,7 +597,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPiecewise(const ASTNode * node,
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -697,7 +697,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -715,7 +715,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node,
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -741,7 +741,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -819,7 +819,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
 
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /* @cond doxygen-libsbml-internal */
@@ -1042,7 +1042,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
   }
   return ud;
 }
-/* @endcond doxygen-libsbml-internal */
+/* @endcond */
 
 
 /** 
@@ -2249,6 +2249,6 @@ UnitFormulaFormatter_resetFlags(UnitFormulaFormatter_t * uff)
 
 */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

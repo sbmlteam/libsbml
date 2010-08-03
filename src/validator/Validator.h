@@ -40,7 +40,7 @@
 #include <list>
 #include <string>
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 #include <sbml/SBMLError.h>
@@ -140,7 +140,7 @@ protected:
 
   friend class ValidatingVisitor;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

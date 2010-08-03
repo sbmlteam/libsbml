@@ -194,4 +194,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /** StringBuffer_h **/
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
