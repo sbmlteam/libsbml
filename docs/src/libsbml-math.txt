@@ -9,15 +9,17 @@ LibSBML uses <a target="_blank"
 href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
 Trees</a> (ASTs) to provide a canonical, in-memory representation for all
 mathematical formulas regardless of their original format (i.e., C-like
-infix strings or MathML).  In libSBML, an AST is a collection of one or
-more objects of class ASTNode.  An AST @em node in libSBML is a recursive
-structure containing a pointer to the node's value (which might be, for
-example, a number or a symbol) and a list of children nodes.  Each ASTNode
-node may have none, one, two, or more child depending on its type.  The
-following diagram illustrates an example of how the mathematical expression
-"1 + 2" is represented as an AST with one @em plus node having two @em
-integer children nodes for the numbers 1 and 2.  The figure also shows the
-corresponding MathML representation:
+infix strings or <a target="_blank"
+href="http://www.w3.org/TR/MathML2/">MathML&nbsp;2.0</a>).  In libSBML, an
+AST is a collection of one or more objects of class ASTNode.  An AST @em
+node in libSBML is a recursive structure containing a pointer to the node's
+value (which might be, for example, a number or a symbol) and a list of
+children nodes.  Each ASTNode node may have none, one, two, or more child
+depending on its type.  The following diagram illustrates an example of how
+the mathematical expression "1 + 2" is represented as an AST with one @em
+plus node having two @em integer children nodes for the numbers 1 and 2.
+The figure also shows the corresponding MathML&nbsp;2.0 "content"
+representation:
 
 @image html astnode-illustration.jpg "Example AST representation of a mathematical expression."
 @image latex astnode-illustration.jpg "Example AST representation of a mathematical expression."
@@ -183,11 +185,11 @@ equivalents in SBML Levels&nbsp;2 and&nbsp;3:
 @section math-ast Methods for working with libSBML's Abstract Syntax Trees
 
 Every ASTNode in a libSBML abstract syntax tree has an associated type,
-which is a value taken from the enumeration ASTNodeType_t.  The list of
-possible types is quite long, because it covers all the mathematical
-functions that are permitted in SBML.  The values are shown in the
-following table; their names hopefully evoke the construct that they
-represent:
+which is a value taken from the enumeration <a
+href="_a_s_t_node_8h.html">ASTNodeType_t</a>. The list of possible types is
+quite long, because it covers all the mathematical functions that are
+permitted in SBML.  The values are shown in the following table; their
+names hopefully evoke the construct that they represent:
 
 @htmlinclude libsbml-astnode-types.html
 
@@ -364,7 +366,7 @@ is a pointer to a node].
 
 @li <code>ASTNode* @link ASTNode::getLeftChild() getLeftChild()
 @endlink</code> returns the left child of this AST node.  This is
-equivalent to <code>getChild(0)</code>;
+equivalent to <code>getChild(0)</code>.
 
 @li <code>ASTNode* @link ASTNode::getRightChild() getRightChild()
 @endlink</code> returns the right child of this AST node or NULL if this
@@ -376,7 +378,8 @@ ASTNode with the children of @c that ASTNode.
 
 @li <code>void @link ASTNode::setType(ASTNodeType_t type)
 setType(ASTNodeType_t type) @endlink</code> sets the type of this ASTNode
-to the given ASTNodeType_t enumeration value.
+to the given <a href="_a_s_t_node_8h.html">ASTNodeType_t</a>
+ enumeration value.
 
 
 
