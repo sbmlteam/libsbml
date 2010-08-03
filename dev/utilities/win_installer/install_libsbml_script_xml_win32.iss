@@ -33,7 +33,7 @@ Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\pyt
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python26\libsbml.py; DestDir: {code:GetPython26Dir}; Check: GetPython26
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\perl\*; DestDir: {code:GetPerlDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
-;Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python26\_libsbml.pyd; DestDir: {code:GetPython26Dir}; Check: GetPython26
+Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python26\_libsbml.pyd; DestDir: {code:GetPython26Dir}; Check: GetPython26
 
 [Registry]
 Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
@@ -56,6 +56,9 @@ var
   AboutButton, CancelButton: TButton;
 
   MatlabPresent: Boolean;
+  Python25Present: Boolean;
+  Python26Present: Boolean;
+  PythonPresent: Boolean;
   MatlabVersion: String;
   MatlabRoot: String;
   CSharpRoot: String;
@@ -119,10 +122,15 @@ var
 
 begin
   Key := '';
+  Root := '';
   Key := Key + 'Software\Python\PythonCore\2.5\InstallPath\';
-  RegQueryStringValue(HKLM, Key, '', Root);
 
-  Root:= Root + 'Lib\site-packages\';
+  if RegQueryStringValue(HKLM, Key, '', Root) then begin
+    Root:= Root + 'Lib\site-packages\';
+    Python25Present := True;
+  end else begin
+    Python25Present := False;
+  end;
   Result := Root;
 end;
 
@@ -134,10 +142,14 @@ var
 
 begin
   Key := '';
+  Root := '';
   Key := Key + 'Software\Python\PythonCore\2.6\InstallPath\';
-  RegQueryStringValue(HKLM, Key, '', Root);
-
-  Root:= Root + 'Lib\site-packages\';
+  if RegQueryStringValue(HKLM, Key, '', Root) then begin
+    Root:= Root + 'Lib\site-packages\';
+    Python26Present := True;
+  end else begin
+    Python26Present := False;
+  end;
   Result := Root;
 end;
 
@@ -227,6 +239,13 @@ begin
   PreviousInstalledVersion := GetVersion();
   ThisVersion := '4.1.0';
   MatlabRoot := GetMatlabRoot('');
+  GetPython25Dir('');
+  GetPython26Dir('');
+  if (not Python25Present) and (not Python26Present) then begin
+    PythonPresent := False;
+  end else begin
+    PythonPresent := True;
+  end;
 
   if (PreviousInstalledVersion = '') then begin
     libSBMLPresent := False;
@@ -507,6 +526,17 @@ begin
       end;
       Result := True;
     end;
+  end else if CurPageId = PythonPage.ID  then begin
+    if not PythonPresent then begin
+      MsgBox('Python cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
+      InstallOptionsPage.Values[5] := False;
+    end else if (not Python25Present) and  (PythonPage.SelectedValueIndex = 0) then begin
+      MsgBox('Python 2.5 cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
+    end else if (not Python26Present) and  (PythonPage.SelectedValueIndex = 1) then begin
+      MsgBox('Python 2.6 cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
+
+    end;
+    Result := True;
   end else begin
     Result := True;
   end;
