@@ -76,9 +76,9 @@ Level&nbsp;2, and Level&nbsp;3!)
 
 As might be deduced from the examples so far, an SBMLDocument object in
 libSBML represents a whole SBML model and its associated data.
-SBMLDocument corresponds roughly to the class <i>Sbml</i> (respectively,
-<i>SBML</i>) defined in the specification for SBML Level&nbsp;2
-(respectively, Level&nbsp;3), but it does not have a direct correspondence
+SBMLDocument corresponds roughly to the class <i>SBML</i> (respectively,
+<i>Sbml</i>) defined in the specification for SBML Level&nbsp;3
+(respectively, Level&nbsp;2), but it does not have a direct correspondence
 in SBML Level&nbsp;1.  (Nevertheless, it is created by libSBML no matter
 whether the model is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
 
@@ -115,7 +115,8 @@ slightly more complete list:
 @li <code>unsigned int @link SBMLDocument::getNumErrors()
 getNumErrors()@endlink</code> on an SBMLDocument object returns a count of
 the diagnostic messages logged while attempting to read an SBML model using
-either readSBMLFromFile(const char *filename) or readFromString(const char *xml).
+either <code>SBMLReader::readSBMLFromFile(const std::string& filename)</code> or
+<code>SBMLReader::readSBMLFromString(const std::string& xml)</code>.
 
 @li <code>const SBMLError* @link SBMLDocument::getError()
 getError(unsigned int n)@endlink</code> returns a specific error
@@ -193,21 +194,23 @@ Level&nbsp;3 Version&nbsp;1 Core.
 @section rf-writing Writing SBML
 
 Writing SBML is, in the end, a very simple matter in libSBML.  The library
-provides the following two global functions for this purposes:
+provides the class SBMLWriter for this purpose, and SBMLWriter offers the
+following methods:
 
-@li @link writeSBML(const SBMLDocument_t *d, const char *filename) 
-<code>int writeSBML(const SBMLDocument* d, const char* filename)</code>@endlink
-writes the given SBML document to the named file and returns either @c 1 on
-success or @c 0 on failure.  Reasons for failure can be, for example, that
-the named file could not be opened for writing.
+@li bool <code>SBMLWriter::writeSBMLToFile(const SBMLDocument* d, const std::string& filename)</code> 
+writes the given SBML document to the named file and returns either @c true
+on success or @c false on failure.  Reasons for failure can be, for
+example, that the named file could not be opened for writing.
 
-@li @link writeSBMLToString(const SBMLDocument_t *d)
-<code>char * writeSBMLToString(const SBMLDocument *d)</code>@endlink writes
-the given SBML document to a character string and returns a pointer to it, or
-returns @c 0 if a failure occurred.  The string is owned by the caller and
-should be freed (using the standard C function <code>free()</code>)
-after it is no longer needed.
+@li char* <code>SBMLWriter::writeSBMLToString(const SBMLDocument* d)
+</code> writes the given SBML document to a character string and returns a
+pointer to it, or returns @c NULL if a failure occurred.  The string is
+owned by the caller and should be freed (using the standard C function
+<code>free()</code>) after it is no longer needed.
 
+@li bool <code>SBMLWriter::writeSBML(const SBMLDocument* d, std::ostream& stream)</code> 
+writes the given SBML document to the given output stream and returns
+either @c true on success or @c false on failure.
 
 
 */
