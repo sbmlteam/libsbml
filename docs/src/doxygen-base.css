@@ -390,19 +390,21 @@ SPAN.charliteral   { color: #008080 }
   border-right: 1px none #E0E0E0;
   border-bottom: 1px none #E0E0E0;
   border-left: 1px none #E0E0E0;
-  margin: 0px;
+  margin: 4px;
 }
 
 .mdescRight {
   font-size: 12px;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-style: italic;
+  color: #666;
   background-color: #FAFAFA;
   padding-left: 4px;
   border-top: 1px none #E0E0E0;
   border-right: 1px none #E0E0E0;
   border-bottom: 1px none #E0E0E0;
   border-left: 1px none #E0E0E0;
-  margin: 0px;
+  margin: 4px;
   padding-bottom: 4px;
   padding-right: 8px;
   padding-top: 0px;
@@ -411,6 +413,7 @@ SPAN.charliteral   { color: #008080 }
 .mdescRight code {
   font-size: 10pt;
   font-weight: bold;
+  color: #555;
 }
 
 .memItemLeft {
@@ -437,7 +440,7 @@ SPAN.charliteral   { color: #008080 }
 }
 
 .memItemRight {
-  padding: 4px 0px 2px 8px;
+  padding: 4px 0px 2px 4px;
   margin: 4px;
   border-top-width: 1px;
   border-right-width: 1px;
