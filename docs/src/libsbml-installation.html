@@ -5,8 +5,8 @@
 <ul>
 <li><a href="#quick-download">Avoiding work: ready-to-install binaries</li> 
 
-<li><a href="#quick-unix">Building libSBML on Linux, MacOS X, FreeBSD, and
-Solaris</a></li> 
+<li><a href="#quick-unix">Building libSBML on Linux, MacOS X, FreeBSD, 
+Solaris, and Cygwin</a></li> 
 
 <li><a href="#quick-windows">Building libSBML on Windows</a></li>
 </ul>
@@ -19,7 +19,7 @@ LibSBML</a>
 <ul>
 
 <li><a href="#basic-config">Configuring libSBML
-for Linux, MacOS&nbsp;X, and Solaris</a></li> 
+for Linux, MacOS&nbsp;X, Solaris, and Cygwin</a></li> 
 
 <li><a href="#other-lang">Configuring libSBML
 interfaces to C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></li> 
@@ -101,7 +101,7 @@ version of the VC++ runtime, respectively.
 
 
 <h3><a class="anchor" name="quick-unix">Building libSBML on Linux,
-MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
+MacOS&nbsp;X, FreeBSD, Solaris, and Cygwin</a></h3>
 
 <p> If there is no installer for your system, or you prefer to build
 libSBML from the source distribution, proceed as follows.  Download and
@@ -197,12 +197,12 @@ Windows.
 
 <p> LibSBML requires a separate XML library for low-level XML tokenizing
 and Unicode support.  For this, it supports the Xerces-C++, Expat, and
-libXML XML libraries on Linux, Windows, MacOS&nbsp;X, FreeBSD and Solaris.
-Many Linux and other UNIX-like systems provide one or more of these
-libraries either as part of their standard distribution or as an optional
-RPM, Debian, Mandrake or other package distributions.  (Libxml2 appears to
-be the most commonly available library on Linux and MacOS&nbsp;X systems.)  For
-more information, see <a target="_blank"
+libXML XML libraries on Linux, Windows, MacOS&nbsp;X, FreeBSD, Solaris and
+Cygwin.  Many Linux and other UNIX-like systems provide one or more of
+these libraries either as part of their standard distribution or as an
+optional RPM, Debian, Mandrake or other package distributions.  (Libxml2
+appears to be the most commonly available library on Linux and MacOS&nbsp;X
+systems.)  For more information, see <a target="_blank"
 href="http://xerces.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
 for Xerces, <a target="_blank"
 href="http://expat.sf.net">http://expat.sf.net</a> for Expat, and <a
@@ -216,13 +216,13 @@ and above, are all known to work.
 
 
 <h3><a class="anchor" name="basic-config">Configuring for Linux,
-MacOS&nbsp;X, FreeBSD, and Solaris</a></h3>
+MacOS&nbsp;X, FreeBSD, Solaris, and Cygwin</a></h3>
 
 <p> If you have obtained the libSBML source code distribution, then at your
-Linux, MacOS&nbsp;X, FreeBSD or Solaris terminal command prompt, unpack the
-distribution, and <code>cd</code> into the directory created (e.g.,
-<code>libsbml-4.1.0</code>).  If you only want to build the C and C++
-interfaces and install the results in <code>/usr/local</code> (the
+Linux, MacOS&nbsp;X, FreeBSD, Solaris or Cygwin terminal command prompt,
+unpack the distribution, and <code>cd</code> into the directory created
+(e.g., <code>libsbml-4.1.0</code>).  If you only want to build the C and
+C++ interfaces and install the results in <code>/usr/local</code> (the
 default), then configuring libSBML is simply a matter of executing the
 following command:
 
@@ -410,7 +410,7 @@ binaries.  If you want to build universal binaries with a different
 combination of CPU architectures, then you can specify it as an optional
 argument to the <nobr><code>--enable-universal-binary</nobr></code> option.
 For example, universal binaries will be built with i386, ppc, x86_64 and
-ppc64 architectures in the following example :
+ppc64 architectures in the following example:
 
 <div class="fragment"><pre class="fragment">
   ./configure --enable-universal-binary="-arch i386 -arch ppc -arch x86_64 -arch ppc64"
@@ -853,8 +853,8 @@ table below lists the pathnames where those files will be installed.
 <tr>
   <td>C#</td>
   <td>
-    <font size="-1"><nobr><em>(unmanaged C++ DLL)</em></nobr><br>
-    <nobr><em>(managed C# DLL)</em></nobr></font>
+    <nobr><em>(unmanaged C++ DLL)</em></nobr><br>
+    <nobr><em>(managed C# DLL)</em></nobr>
   </td>
   <td><code>libsbmlcs.so</code><br><code> libsbmlcsP.dll</code></td>
   <td><code>libsbmlcs.so</code><br><code> libsbmlcsP.dll</code></td>
@@ -862,8 +862,8 @@ table below lists the pathnames where those files will be installed.
 </tr><tr>
   <td>Java</td>
   <td>
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
-    <nobr><em>(Java JAR file)</em></nobr></font>
+    <nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(Java JAR file)</em></nobr>
   </td>
   <td><code>libsbmlj.so</code><br><code> libsbmlj.jar</code></td>
   <td><code>libsbmlj.jnilib</code><br><code> libsbmlj.jar</code></td>
@@ -871,10 +871,10 @@ table below lists the pathnames where those files will be installed.
 </tr><tr>
   <td>MATLAB</td>
   <td valign="top">
-    <font size="-1"><nobr><em>(Intel 32-bit)</em></nobr><br>
-    <font size="-1"><nobr><em>(Intel 64-bit)</em></nobr><br>
+    <nobr><em>(Intel 32-bit)</em></nobr><br>
+    <nobr><em>(Intel 64-bit)</em></nobr><br>
     <nobr><em>(PPC)</em><br>
-    <nobr><em>(Additional files)</em></nobr></font>
+    <nobr><em>(Additional files)</em></nobr>
   </td>
   <td valign="top"><code>TranslateSBML.mexglx</code><br>
                    <code>TranslateSBML.mexa64</code><br>
@@ -899,9 +899,9 @@ table below lists the pathnames where those files will be installed.
 </tr><tr>
   <td>Perl</td>
   <td valign="top">
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Perl module file)</em></nobr><br>
-    <nobr><em>(Other files)</em></nobr></font>
+    <nobr><em>(Other files)</em></nobr>
   </td>
   <td><code>LibSBML.so</code><br>
       <code>LibSBML.pm</code><br>
@@ -918,10 +918,10 @@ table below lists the pathnames where those files will be installed.
 </tr><tr>
   <td>Python <nobr>2.3&ndash;2.4</nobr></td>
   <td>
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
     <nobr><em>(Compiled module file)</em></nobr><br>
-    <nobr><em>(Path configuration file)</em></nobr></font>
+    <nobr><em>(Path configuration file)</em></nobr>
   </td>
   <td><code>_libsbml.so</code><br>
       <code>libsbml.py</code><br>
@@ -938,10 +938,10 @@ table below lists the pathnames where those files will be installed.
 </tr><tr>
   <td>Python <nobr>2.5&ndash;2.7</nobr></td>
   <td>
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
     <nobr><em>(Compiled module file)</em></nobr><br>
-    <nobr><em>(Path configuration file)</em></nobr></font>
+    <nobr><em>(Path configuration file)</em></nobr>
   </td>
   <td><code>_libsbml.so</code><br>
       <code>libsbml.py</code><br>
@@ -984,8 +984,8 @@ class="placeholder">DIR</span></em></nobr> option to the
 <tr>
   <td>C#</td>
   <td>
-    <font size="-1"><em>(unmanaged C++ DLL)</em><br>
-    <em>(managed C# DLL)</em></font>
+    <em>(unmanaged C++ DLL)</em><br>
+    <em>(managed C# DLL)</em>
   </td>
   <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr><br>
       <nobr><em><span class="placeholder">DIR</span></em><code>/lib/mono/libsbmlcsP/</code></nobr></td>
@@ -993,8 +993,8 @@ class="placeholder">DIR</span></em></nobr> option to the
 </tr><tr>
   <td>Java</td>
   <td>
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
-    <nobr><em>(Java JAR file)</em></nobr></font>
+    <nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(Java JAR file)</em></nobr>
   </td>
   <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code></nobr><br>
       <nobr><em><span class="placeholder">DIR</span></em><code>/share/java/</code></nobr></td>
@@ -1010,9 +1010,9 @@ class="placeholder">DIR</span></em></nobr> option to the
 </tr><tr>
   <td>Perl</td>
   <td>
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Perl module file)</em></nobr><br>
-    <nobr><em>(Other files)</em></nobr></font>
+    <nobr><em>(Other files)</em></nobr>
   </td>
   <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/auto/libSBML/</code></nobr><br>
       <nobr><em><span class="placeholder">DIR</span></em><code>/lib/perl5/site_perl/</code><em><span class="placeholder">perl-version</span></em><code>/</code><em><span class="placeholder">platform</span></em><code>/</code></nobr><br>
@@ -1021,10 +1021,10 @@ class="placeholder">DIR</span></em></nobr> option to the
 </tr><tr>
   <td>Python</td>
   <td>
-    <font size="-1"><nobr><em>(native C++ library)</em></nobr><br>
+    <nobr><em>(native C++ library)</em></nobr><br>
     <nobr><em>(Python module file)</em></nobr><br>
     <nobr><em>(Compiled module file)</em></nobr><br>
-    <nobr><em>(Path configuration file)</em></nobr></font>
+    <nobr><em>(Path configuration file)</em></nobr>
   </td>
   <td><nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
       <nobr><em><span class="placeholder">DIR</span></em><code>/lib/</code><em><span class="placeholder">python-version</span></em><code>/site-packages/libsbml/</code></nobr><br>
