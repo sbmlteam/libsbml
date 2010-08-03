@@ -28,7 +28,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -1129,7 +1129,7 @@ case 3:
       
   return letter; 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1271,7 +1271,7 @@ SyntaxChecker::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
       
   return digit; 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1759,7 +1759,7 @@ SyntaxChecker::isCombiningChar(std::string::iterator it, unsigned int numBytes)
       
   return combiningChar; 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1863,7 +1863,7 @@ SyntaxChecker::isExtender(std::string::iterator it, unsigned int numBytes)
       
   return extender; 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-c-only */
 
@@ -1969,5 +1969,5 @@ SyntaxChecker_hasExpectedXHTMLSyntax(XMLNode_t * node,
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 

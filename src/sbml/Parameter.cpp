@@ -40,7 +40,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -94,7 +94,7 @@ Parameter::Parameter() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 /*
  * Destroys this Parameter.
@@ -740,7 +740,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   //    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
   //}
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -821,7 +821,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
     logError(InvalidUnitIdSyntax);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -922,7 +922,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1035,7 +1035,7 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1109,7 +1109,7 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
       SBO::writeTerm(stream, mSBOTerm);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1230,7 +1230,7 @@ ListOfParameters::getElementPosition () const
 {
   return 7;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1269,7 +1269,7 @@ ListOfParameters::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -1826,5 +1826,5 @@ ListOfParameters_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfParameters *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

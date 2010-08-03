@@ -43,7 +43,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -75,7 +75,7 @@ Delay::Delay() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -322,7 +322,7 @@ Delay::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -359,7 +359,7 @@ Delay::getElementPosition () const
 {
   return 1;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 bool 
@@ -459,7 +459,7 @@ Delay::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -491,7 +491,7 @@ Delay::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -538,7 +538,7 @@ Delay::readL2Attributes (const XMLAttributes& attributes)
   if (version > 2)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -581,7 +581,7 @@ Delay::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -610,7 +610,7 @@ Delay::writeAttributes (XMLOutputStream& stream) const
   if (!(level == 2 && version < 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -626,7 +626,7 @@ Delay::writeElements (XMLOutputStream& stream) const
 
   if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -849,6 +849,6 @@ Delay_containsUndeclaredUnits(Delay_t *d)
   return static_cast<int>(d->containsUndeclaredUnits());
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

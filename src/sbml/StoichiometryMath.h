@@ -408,7 +408,7 @@ public:
    */
   virtual void setParentSBMLObject (SBase* sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Returns the libSBML type code of this object instance.
@@ -449,7 +449,7 @@ public:
    * siblings or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -459,7 +459,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -482,7 +482,7 @@ public:
    */
   std::string getInternalId() const { return mInternalId; };
   void setInternalId(std::string id) { mInternalId = id; };
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -547,7 +547,7 @@ protected:
   friend class UnitConsistencyValidator;
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

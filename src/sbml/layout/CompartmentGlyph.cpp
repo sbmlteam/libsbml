@@ -356,7 +356,7 @@ CompartmentGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) CompartmentGlyph(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

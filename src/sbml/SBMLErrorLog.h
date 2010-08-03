@@ -195,7 +195,7 @@ public:
   void remove (const unsigned int errorId);
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

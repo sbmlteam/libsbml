@@ -511,7 +511,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -547,7 +547,7 @@ public:
    * Overload use of getId to retrieve variable
    */
   std::string getId() const { return mVariable; };
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -609,7 +609,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -779,7 +779,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -791,7 +791,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

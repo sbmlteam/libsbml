@@ -38,7 +38,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -110,7 +110,7 @@ Species::Species() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -1142,7 +1142,7 @@ Species::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1231,7 +1231,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   //
   mIsSetCharge = attributes.readInto("charge", mCharge);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1392,7 +1392,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   if (version > 2) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1540,7 +1540,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
     logError(InvalidIdSyntax);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1722,7 +1722,7 @@ Species::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("conversionFactor", mConversionFactor);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -1844,7 +1844,7 @@ ListOfSpecies::getElementPosition () const
 {
   return 6;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1881,7 +1881,7 @@ ListOfSpecies::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -3203,6 +3203,6 @@ ListOfSpecies_removeById (ListOf_t *lo, const char *sid)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

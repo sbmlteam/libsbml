@@ -231,7 +231,7 @@ public:
 
 
   void setNamespaces(XMLNamespaces * xmlns);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 protected:  
   /** @cond doxygen-libsbml-internal */
@@ -240,7 +240,7 @@ protected:
   unsigned int    mVersion;
   XMLNamespaces * mNamespaces;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

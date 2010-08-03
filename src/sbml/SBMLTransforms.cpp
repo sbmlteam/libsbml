@@ -30,7 +30,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -953,12 +953,12 @@ SBMLTransforms::expandInitialAssignment(Species * s,
   return success;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-c-only */
 
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 

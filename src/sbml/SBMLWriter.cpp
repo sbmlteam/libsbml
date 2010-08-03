@@ -40,7 +40,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -267,7 +267,7 @@ SBMLWriter::writeSBMLToString (const SBMLDocument* d)
 {
   return writeToString(d);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 LIBSBML_EXTERN

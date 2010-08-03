@@ -1092,7 +1092,7 @@ typedef enum
  , InconsistentArgUnitsWarnings          = 99502 /*!< SBML L2v3 validation rule #10501 */
  , InconsistentPowerUnitsWarnings        = 99503 /*!< SBML L2v3 validation rule #10501 */
  , InconsistentExponUnitsWarnings        = 99504 /*!< SBML L2v3 validation rule #10501 */
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
  , UndeclaredUnits                       = 99505 /*!< Undeclared units */
  , UnrecognisedSBOTerm                   = 99701 /*!< Unrecognized <code>sboTerm</code> value */
@@ -1273,7 +1273,7 @@ typedef enum
      * for errors that have relevance to some
      * versions of SBML but not others. */
 
-  /** @endcond doxygen-libsbml-internal **/
+  /** @endcond **/
 } SBMLErrorSeverity_t;
 
 END_C_DECLS
@@ -1425,7 +1425,7 @@ public:
    */
   virtual void print(std::ostream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal **/
+  /** @endcond **/
 
 #endif  /* !SWIG */
 
@@ -1435,7 +1435,7 @@ protected:
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;
 
-  /** @endcond doxygen-libsbml-internal **/
+  /** @endcond **/
 };
 
 LIBSBML_CPP_NAMESPACE_END

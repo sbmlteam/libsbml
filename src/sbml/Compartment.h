@@ -420,7 +420,7 @@ public:
 
 
   /**
-   * Get the size of this Compartment
+   * Get the size of this Compartment.
    *
    * This method is identical to getVolume().  In SBML Level 1,
    * compartments are always three-dimensional constructs and only have
@@ -438,7 +438,7 @@ public:
 
 
   /**
-   * (For SBML Level 1) Get the volume of this Compartment
+   * (For SBML Level 1) Get the volume of this Compartment.
    * 
    * This method is identical to getSize().  In SBML Level 1, compartments
    * are always three-dimensional constructs and only have volumes, whereas
@@ -1055,13 +1055,14 @@ public:
 
 
 protected:
+
   /** @cond doxygen-libsbml-internal */
 
-  /* this is a constructor that takes no arguments and 
-   * only exists because the validator code needs it
+  /**
+   * This is a constructor that takes no arguments and 
+   * only exists because the validator code needs it.
    */
   Compartment ();
-
 
   /**
    * Subclasses should override this method to read values from the given
@@ -1070,12 +1071,12 @@ protected:
    */
   virtual void readAttributes (const XMLAttributes& attributes);
 
-
   void readL1Attributes (const XMLAttributes& attributes);
 
   void readL2Attributes (const XMLAttributes& attributes);
   
   void readL3Attributes (const XMLAttributes& attributes);
+
   /**
    * Subclasses should override this method to write their XML attributes
    * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1117,7 +1118,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1290,7 +1291,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1302,7 +1303,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

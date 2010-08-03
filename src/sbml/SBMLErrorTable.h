@@ -8280,4 +8280,4 @@ static const sbmlErrorTableEntry errorTable[] =
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

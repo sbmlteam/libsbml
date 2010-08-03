@@ -41,7 +41,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -73,7 +73,7 @@ EventAssignment::EventAssignment() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -403,7 +403,7 @@ EventAssignment::writeElements (XMLOutputStream& stream) const
 
   if (mMath) writeMathML(mMath, stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -490,7 +490,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -522,7 +522,7 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -581,7 +581,7 @@ EventAssignment::readL2Attributes (const XMLAttributes& attributes)
   if (version > 1)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -639,7 +639,7 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -674,7 +674,7 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
   if (!(level == 2 && version == 1)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -796,7 +796,7 @@ ListOfEventAssignments::getElementPosition () const
 {
   return 3;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -833,7 +833,7 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -1146,7 +1146,7 @@ ListOfEventAssignments_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfEventAssignments *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

@@ -54,7 +54,7 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 static const string errMsg = "Level/version/namespaces combination is invalid";
 

@@ -2909,7 +2909,7 @@ Layout_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) Layout(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

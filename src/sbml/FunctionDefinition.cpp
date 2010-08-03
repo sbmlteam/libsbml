@@ -43,7 +43,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -77,7 +77,7 @@ FunctionDefinition::FunctionDefinition() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -579,7 +579,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -664,7 +664,7 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -704,7 +704,7 @@ FunctionDefinition::writeAttributes (XMLOutputStream& stream) const
     SBO::writeTerm(stream, mSBOTerm);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -720,7 +720,7 @@ FunctionDefinition::writeElements (XMLOutputStream& stream) const
 
   if (mMath) writeMathML(mMath, stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -841,7 +841,7 @@ ListOfFunctionDefinitions::getElementPosition () const
 {
   return 1;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -878,7 +878,7 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -1288,7 +1288,7 @@ ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfFunctionDefinitions *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

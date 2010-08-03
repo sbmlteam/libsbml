@@ -39,7 +39,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -186,7 +186,7 @@ isCriticalError(const unsigned int errorId)
     return false;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -295,7 +295,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
   }
   return d;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -560,4 +560,4 @@ readSBMLFromString (const char *xml)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-c-only */
+/** @endcond */

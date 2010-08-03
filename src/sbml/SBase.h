@@ -382,7 +382,7 @@ public:
   SBMLConstructorException ();
 
 };
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 class LIBSBML_EXTERN SBase
@@ -515,7 +515,7 @@ public:
    * @see unsetId()
    */
   const std::string& getId () const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -575,7 +575,7 @@ public:
    * @see unsetName()
    */
   const std::string& getName () const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -950,7 +950,7 @@ public:
    * @see unsetId()
    */
   bool isSetId () const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1013,7 +1013,7 @@ public:
    * @see unsetName()
    */
   bool isSetName () const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -1173,7 +1173,7 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
    int setId (const std::string& sid);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1242,7 +1242,7 @@ public:
    * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
    */
   int setName (const std::string& name);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 
@@ -1623,7 +1623,7 @@ public:
    * @param d the SBMLDocument object to use
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1633,7 +1633,7 @@ public:
    * @param sb the SBML object to use
    */
   virtual void setParentSBMLObject (SBase* sb);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -2120,7 +2120,7 @@ public:
    * Reads (initializes) this SBML object by reading from XMLInputStream.
    */
   void read (XMLInputStream& stream);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2128,7 +2128,7 @@ public:
    * Writes (serializes) this SBML object by writing it to XMLOutputStream.
    */
   void write (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2143,7 +2143,7 @@ public:
    *   ...
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2152,7 +2152,7 @@ public:
    * needs to be overloaded for each component
    */
   virtual bool hasRequiredAttributes() const ;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2161,25 +2161,25 @@ public:
    * needs to be overloaded for each component
    */
   virtual bool hasRequiredElements() const ;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
   /* sets the SBMLnamespaces - internal use only*/
   void setSBMLNamespaces(SBMLNamespaces * sbmlns);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
   /* gets the SBMLnamespaces - internal use only*/
   SBMLNamespaces * getSBMLNamespaces() const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
   /* removes duplicate top level annotations*/
   void removeDuplicateAnnotations();
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -2414,7 +2414,7 @@ protected:
 
   std::string mEmptyString;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 private:
@@ -2440,7 +2440,7 @@ private:
 
   bool getHasBeenDeleted();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

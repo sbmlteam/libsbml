@@ -35,7 +35,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -171,7 +171,7 @@ std::string SBMLError::stringForCategory(unsigned int code) const
   return XMLError::stringForCategory(code);
 }
 
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 SBMLError::SBMLError (  const unsigned int errorId
@@ -363,7 +363,7 @@ SBMLError::clone() const
 {
   return new SBMLError(*this);
 }
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 /** @cond doxygen-libsbml-internal **/
@@ -382,5 +382,5 @@ SBMLError::print(ostream& s) const
     << getMessage() << endl;
 }
 
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 LIBSBML_CPP_NAMESPACE_END

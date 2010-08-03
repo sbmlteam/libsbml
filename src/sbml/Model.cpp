@@ -43,7 +43,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -95,7 +95,7 @@ Model::Model() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 /*
  * Destroys this Model.
@@ -2442,7 +2442,7 @@ Model::syncAnnotation ()
 #endif // USE_LAYOUT
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -3393,7 +3393,7 @@ Model::isBoolean (const ASTNode* node) const
 
   return false;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3418,7 +3418,7 @@ Model::setSBMLDocument (SBMLDocument* d)
   mReactions          .setSBMLDocument(d);
   mEvents             .setSBMLDocument(d);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3445,7 +3445,7 @@ Model::setParentSBMLObject (SBase* sb)
   mReactions          .setParentSBMLObject(this);
   mEvents             .setParentSBMLObject(this);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -3822,7 +3822,7 @@ Model::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -4063,7 +4063,7 @@ Model::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -4233,7 +4233,7 @@ Model::readAttributes (const XMLAttributes& attributes)
 
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -4310,7 +4310,7 @@ Model::writeAttributes (XMLOutputStream& stream) const
 
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -4366,7 +4366,7 @@ Model::writeElements (XMLOutputStream& stream) const
     mEvents.write(stream);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -4379,7 +4379,7 @@ Model::getElementPosition () const
 {
   return 2;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -5322,7 +5322,7 @@ Model::populateListFormulaUnitsData()
   }
   delete unitFormatter;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5342,7 +5342,7 @@ Model::addFormulaUnitsData (const FormulaUnitsData* fud)
     mFormulaUnitsData->add((void *)fud->clone());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5361,7 +5361,7 @@ Model::createFormulaUnitsData ()
 
   return fud;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5373,7 +5373,7 @@ Model::getFormulaUnitsData (unsigned int n) const
 {
   return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5385,7 +5385,7 @@ Model::getFormulaUnitsData (unsigned int n)
 {
   return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5413,7 +5413,7 @@ Model::getFormulaUnitsData (const std::string& sid,
   }
   return NULL;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5439,7 +5439,7 @@ Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
   }
   return NULL;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5451,7 +5451,7 @@ Model::getNumFormulaUnitsData () const
 {
   return mFormulaUnitsData->getSize();
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5465,7 +5465,7 @@ Model::getListFormulaUnitsData ()
 {
   return mFormulaUnitsData;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5479,7 +5479,7 @@ Model::getListFormulaUnitsData () const
 {
   return mFormulaUnitsData;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -5494,7 +5494,7 @@ Model::isPopulatedListFormulaUnitsData()
   else
     return false;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -8716,5 +8716,5 @@ Model_getListFormulaUnitsData (Model_t *m)
 
 */
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

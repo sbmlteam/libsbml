@@ -834,7 +834,7 @@ public:
    * @param d the SBMLDocument to use
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -844,7 +844,7 @@ public:
    * @param sb the SBML object to use
    */
   virtual void setParentSBMLObject (SBase* sb);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -885,7 +885,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -893,7 +893,7 @@ public:
    * sets the mInternalIdOnly flag
    */
   void setInternalIdOnly();
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -985,7 +985,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1161,7 +1161,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1173,7 +1173,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

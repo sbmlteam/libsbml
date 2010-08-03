@@ -888,7 +888,7 @@ public:
    * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -898,7 +898,7 @@ public:
    * @param sb the SBML object to use
    */
   virtual void setParentSBMLObject (SBase* sb);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -938,7 +938,7 @@ public:
    * siblings or -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -948,7 +948,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -985,7 +985,7 @@ public:
    * */
   std::string getInternalId() const { return mInternalId; };
   void setInternalId(std::string id) { mInternalId = id; };
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1065,7 +1065,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

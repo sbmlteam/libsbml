@@ -81,7 +81,7 @@ public:
    */
   static void writeTerm (XMLOutputStream& stream, int sboTerm);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Function for checking the SBO term is from correct part of SBO.
@@ -294,7 +294,7 @@ protected:
    */
   static void populateSBOTree();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

@@ -38,7 +38,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -66,7 +66,7 @@ SBO::checkTerm (const std::string& sboTerm)
 
   return okay;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -79,7 +79,7 @@ SBO::checkTerm (int sboTerm)
 {
   return (sboTerm >= 0 && sboTerm <= 9999999);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 
@@ -118,7 +118,7 @@ SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
 {
   stream.writeAttribute( "sboTerm", intToString(sboTerm) );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -145,7 +145,7 @@ SBO::stringToInt (const std::string& sboTerm)
 
   return result;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -220,7 +220,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
 
   return result;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**
@@ -1180,6 +1180,6 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(537, 207) );
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

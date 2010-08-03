@@ -39,7 +39,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -126,7 +126,7 @@ Reaction::Reaction() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 /*
  * Destroys this Reaction.
@@ -1288,7 +1288,7 @@ Reaction::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1420,7 +1420,7 @@ Reaction::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1449,7 +1449,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1509,7 +1509,7 @@ Reaction::readL1Attributes (const XMLAttributes& attributes)
   //
   mIsSetFast = attributes.readInto("fast", mFast);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1588,7 +1588,7 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1682,7 +1682,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   }
   if (!SyntaxChecker::isValidSBMLSId(mCompartment)) logError(InvalidIdSyntax);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1756,7 +1756,7 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
       SBO::writeTerm(stream, mSBOTerm);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1779,7 +1779,7 @@ Reaction::writeElements (XMLOutputStream& stream) const
 
   if (mKineticLaw) mKineticLaw->write(stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1900,7 +1900,7 @@ ListOfReactions::getElementPosition () const
 {
   return 11;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1936,7 +1936,7 @@ ListOfReactions::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

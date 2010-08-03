@@ -526,7 +526,7 @@ LineSegment_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) LineSegment(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

@@ -40,7 +40,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -80,7 +80,7 @@ LocalParameter::LocalParameter() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 /*
  * Destroys this LocalParameter.
@@ -267,7 +267,7 @@ LocalParameter::readAttributes (const XMLAttributes& attributes)
 {
   Parameter::readAttributes(attributes);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -283,7 +283,7 @@ LocalParameter::writeAttributes (XMLOutputStream& stream) const
 {
   Parameter::writeAttributes(stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -404,7 +404,7 @@ ListOfLocalParameters::getElementPosition () const
 {
   return 7;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -443,7 +443,7 @@ ListOfLocalParameters::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -904,5 +904,5 @@ ListOfLocalParameters_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfLocalParameters *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

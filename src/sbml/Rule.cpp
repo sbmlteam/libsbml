@@ -45,7 +45,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -73,7 +73,7 @@ Rule::Rule (SBMLTypeCode_t type, SBMLNamespaces * sbmlns) :
  , mInternalId ( "" )
 {
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -94,7 +94,7 @@ Rule::Rule (SBMLTypeCode_t type, SBMLNamespaces * sbmlns) :
 //    mMath->setParentSBMLObject(this);
 //  }
 //}
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -790,7 +790,7 @@ Rule::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -878,7 +878,7 @@ Rule::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -908,7 +908,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
   }
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1010,7 +1010,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
 
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1071,7 +1071,7 @@ Rule::readL2Attributes (const XMLAttributes& attributes)
   if (version > 1) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1145,7 +1145,7 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1225,7 +1225,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
       SBO::writeTerm(stream, mSBOTerm);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1279,7 +1279,7 @@ AlgebraicRule::AlgebraicRule() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
                           
 
@@ -1343,7 +1343,7 @@ AlgebraicRule::getInternalIdOnly() const
   return mInternalIdOnly;
 }
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 
@@ -1368,7 +1368,7 @@ AssignmentRule::AssignmentRule() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */                    
+/** @endcond */                    
 
 /*
  * Destroys this AssignmentRule.
@@ -1437,7 +1437,7 @@ RateRule::RateRule() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */                          
+/** @endcond */                          
 
 /*
  * Destroys this RateRule.
@@ -1603,7 +1603,7 @@ ListOfRules::getElementPosition () const
 {
   return 9;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1736,7 +1736,7 @@ ListOfRules::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -2436,5 +2436,5 @@ ListOfRules_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfRules *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

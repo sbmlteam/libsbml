@@ -43,7 +43,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -73,7 +73,7 @@ Trigger::Trigger() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -218,7 +218,7 @@ Trigger::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -255,7 +255,7 @@ Trigger::getElementPosition () const
 {
   return 0;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 bool 
@@ -355,7 +355,7 @@ Trigger::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -388,7 +388,7 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   }
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -434,7 +434,7 @@ Trigger::readL2Attributes (const XMLAttributes& attributes)
   if (version > 2)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -476,7 +476,7 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -505,7 +505,7 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
   if (!(level == 2 && version < 3))
     SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -521,7 +521,7 @@ Trigger::writeElements (XMLOutputStream& stream) const
 
   if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -675,6 +675,6 @@ Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -38,7 +38,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -96,7 +96,7 @@ Compartment::Compartment() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 /*
  * Destroys this Compartment.
@@ -1096,7 +1096,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //  }
   //}
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1168,7 +1168,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   //
   attributes.readInto("outside", mOutside, getErrorLog(), false);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1301,7 +1301,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1401,7 +1401,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
 
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1511,7 +1511,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1631,7 +1631,7 @@ ListOfCompartments::getElementPosition () const
 {
   return 5;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1668,7 +1668,7 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -2655,6 +2655,6 @@ ListOfCompartments_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfCompartments *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

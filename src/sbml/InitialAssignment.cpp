@@ -40,7 +40,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -72,7 +72,7 @@ InitialAssignment::InitialAssignment() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -401,7 +401,7 @@ InitialAssignment::writeElements (XMLOutputStream& stream) const
 
   if (mMath) writeMathML(mMath, stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -488,7 +488,7 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -518,7 +518,7 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -579,7 +579,7 @@ InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -638,7 +638,7 @@ InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -667,7 +667,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
     || level > 2)  
     SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -788,7 +788,7 @@ ListOfInitialAssignments::getElementPosition () const
 {
   return 8;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -825,7 +825,7 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -1139,6 +1139,6 @@ ListOfInitialAssignments_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfInitialAssignments *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

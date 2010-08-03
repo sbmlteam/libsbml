@@ -43,7 +43,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -75,7 +75,7 @@ StoichiometryMath::StoichiometryMath() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -222,7 +222,7 @@ StoichiometryMath::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -259,7 +259,7 @@ StoichiometryMath::getElementPosition () const
 {
   return 0;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 bool 
@@ -346,7 +346,7 @@ StoichiometryMath::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -400,7 +400,7 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes)
   if (!(level == 2 && version < 3))
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -427,7 +427,7 @@ StoichiometryMath::writeAttributes (XMLOutputStream& stream) const
   if (!(level == 2 && version < 3))
     SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -538,7 +538,7 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 

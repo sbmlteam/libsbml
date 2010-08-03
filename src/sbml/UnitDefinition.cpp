@@ -40,7 +40,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -72,7 +72,7 @@ UnitDefinition::UnitDefinition() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -647,7 +647,7 @@ UnitDefinition::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -793,7 +793,7 @@ int compareKinds(const void * u1, const void * u2)
 {
   return (*(int*)u1 - *(int*)u2);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /* 
  * Orders the listOfUnits within the UnitDefinition alphabetically.
@@ -1114,7 +1114,7 @@ UnitDefinition::areIdenticalSIUnits(const UnitDefinition * ud1,
   return identical;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /* 
  * Combines two UnitDefinition objects into a single UnitDefinition object
@@ -1263,7 +1263,7 @@ UnitDefinition::createObject (XMLInputStream& stream)
   
   return 0;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1345,7 +1345,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   if (!(level == 2 && version < 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
  
 /** @cond doxygen-libsbml-internal */
@@ -1380,7 +1380,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
   if (!(level == 2 && version < 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1395,7 +1395,7 @@ UnitDefinition::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   if ( getNumUnits() > 0 ) mUnits.write(stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1516,7 +1516,7 @@ ListOfUnitDefinitions::getElementPosition () const
 {
   return 2;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1553,7 +1553,7 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -2150,6 +2150,6 @@ ListOfUnitDefinitions_removeById (ListOf_t *lo, const char *sid)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -252,7 +252,7 @@ public:
    */
   virtual void setParentSBMLObject (SBase* sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Returns the libSBML type code for this object, namely, @c
@@ -314,7 +314,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -342,7 +342,7 @@ protected:
 
   std::vector<SBase*> mItems;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

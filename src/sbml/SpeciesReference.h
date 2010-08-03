@@ -523,7 +523,7 @@ protected:
   std::string  mName;
   std::string  mSpecies;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1106,7 +1106,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -1124,7 +1124,7 @@ public:
    * (This function is internally invoked in SBase::read().)
    */
   void initL2Stoichiometry();
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -1223,7 +1223,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1336,7 +1336,7 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif // USE_LAYOUT
 
@@ -1363,7 +1363,7 @@ protected:
    */
   bool readOtherXML (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif // USE_LAYOUT
 
@@ -1568,7 +1568,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1595,7 +1595,7 @@ protected:
 
   friend class Reaction;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

@@ -55,7 +55,7 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 CK_CPPSTART

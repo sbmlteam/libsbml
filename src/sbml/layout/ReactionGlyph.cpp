@@ -930,7 +930,7 @@ ReactionGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) ReactionGlyph(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /**
  * Creates a new ReactionGlyph with the given id

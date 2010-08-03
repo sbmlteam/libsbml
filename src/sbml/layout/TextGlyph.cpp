@@ -435,7 +435,7 @@ TextGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) TextGlyph(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

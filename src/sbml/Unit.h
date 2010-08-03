@@ -1073,7 +1073,7 @@ protected:
   friend class UnitConsistencyValidator;
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1193,7 +1193,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1208,7 +1208,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

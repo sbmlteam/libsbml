@@ -2324,7 +2324,7 @@ public:
    */
   bool isBoolean (const ASTNode* node) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2347,7 +2347,7 @@ public:
    */
   void convertL1ToL2 ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2361,7 +2361,7 @@ public:
    */
   void convertL1ToL3 ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2375,7 +2375,7 @@ public:
    */
   void convertL2ToL3 ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2389,7 +2389,7 @@ public:
    */
   void convertL2ToL1 (bool strict = false);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
@@ -2402,7 +2402,7 @@ public:
    */
   void addModifiers ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
   
   /** @cond doxygen-libsbml-internal */
 
@@ -2411,7 +2411,7 @@ public:
    */
   void addConstantAttribute ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
@@ -2422,7 +2422,7 @@ public:
    */
   void setSpatialDimensions (double dims = 3.0);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
@@ -2433,53 +2433,53 @@ public:
    */
   void addDefinitionsForDefaultUnits ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
   void convertParametersToLocals();
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
   void setSpeciesReferenceConstantValue();
  
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
   /* new functions for strict conversion */
   void removeMetaId();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
 
   void removeSBOTerms();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
 
   void removeHasOnlySubstanceUnits();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
 
   void removeSBOTermsNotInL2V2();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
 
   void removeDuplicateTopLevelAnnotations();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   
   /** @cond doxygen-libsbml-internal */
@@ -2488,7 +2488,7 @@ public:
    */
   void removeParameterRuleUnits ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2499,7 +2499,7 @@ public:
    */
   void convertStoichiometryMath ();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
   /** @cond doxygen-libsbml-internal */
   
   /*
@@ -2509,7 +2509,7 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -2521,7 +2521,7 @@ public:
    */
   virtual void setParentSBMLObject (SBase* sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -2570,7 +2570,7 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 #ifdef USE_LAYOUT
@@ -2769,7 +2769,7 @@ public:
    */
   const List* getListFormulaUnitsData () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -3272,7 +3272,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

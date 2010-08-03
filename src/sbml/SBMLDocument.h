@@ -273,7 +273,7 @@ class XMLError;
 
 typedef std::pair<std::string, bool> PackageReqd;
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 class LIBSBML_EXTERN SBMLDocument: public SBase
@@ -898,7 +898,7 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -967,7 +967,7 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -1029,7 +1029,7 @@ protected:
   friend class SBase;
   friend class SBMLReader;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

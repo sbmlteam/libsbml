@@ -477,7 +477,7 @@ GraphicalObject_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) GraphicalObject(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

@@ -777,7 +777,7 @@ Curve_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) Curve(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

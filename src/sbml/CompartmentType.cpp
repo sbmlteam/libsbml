@@ -37,7 +37,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -69,7 +69,7 @@ CompartmentType::CompartmentType() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 /*
  * Destroys this CompartmentType.
@@ -369,7 +369,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -409,7 +409,7 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
     SBO::writeTerm(stream, mSBOTerm);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -532,7 +532,7 @@ ListOfCompartmentTypes::getElementPosition () const
 {
   return 3;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -569,7 +569,7 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -851,6 +851,6 @@ ListOfCompartmentTypes_removeById (ListOf_t *lo, const char *sid)
     static_cast <ListOfCompartmentTypes *> (lo)->remove(sid) : NULL;
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

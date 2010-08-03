@@ -772,7 +772,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -823,12 +823,12 @@ public:
   /* function to set/get an identifier for unit checking */
   std::string getInternalId() const { return mInternalId; };
   void setInternalId(std::string id) { mInternalId = id; };
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
   /** @cond doxygen-libsbml-internal */
   
   /* overload use of getId to retrieve variable */
   std::string getId() const { return mVariable; };
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -898,7 +898,7 @@ protected:
 
   friend class ListOfRules;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -984,7 +984,7 @@ public:
   void setInternalIdOnly();
   bool getInternalIdOnly() const;
   
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Predicate returning @c true or @c false depending on whether
@@ -1025,7 +1025,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 };
 
@@ -1142,7 +1142,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1258,7 +1258,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1431,7 +1431,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1443,7 +1443,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

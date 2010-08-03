@@ -42,7 +42,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -74,7 +74,7 @@ Constraint::Constraint() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -453,7 +453,7 @@ Constraint::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -482,7 +482,7 @@ Constraint::readAttributes (const XMLAttributes& attributes)
     readL3Attributes(attributes);
     break;
   }
-}/** @endcond doxygen-libsbml-internal */
+}/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -531,7 +531,7 @@ Constraint::readL2Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -573,7 +573,7 @@ Constraint::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -601,7 +601,7 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
   //
   SBO::writeTerm(stream, mSBOTerm);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -619,7 +619,7 @@ Constraint::writeElements (XMLOutputStream& stream) const
 
   if (mMessage) stream << *mMessage;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -688,7 +688,7 @@ ListOfConstraints::getElementPosition () const
 {
   return 10;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -725,7 +725,7 @@ ListOfConstraints::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -990,6 +990,6 @@ Constraint_unsetMessage (Constraint_t *c)
   return c->unsetMessage();
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

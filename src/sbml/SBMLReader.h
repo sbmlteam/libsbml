@@ -306,7 +306,7 @@ protected:
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

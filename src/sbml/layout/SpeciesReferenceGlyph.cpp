@@ -632,7 +632,7 @@ SpeciesReferenceGlyph_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) SpeciesReferenceGlyph(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

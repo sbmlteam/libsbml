@@ -47,7 +47,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -78,7 +78,7 @@ SimpleSpeciesReference::SimpleSpeciesReference() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -549,7 +549,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -595,7 +595,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
   const string s = (level == 1 && version == 1) ? "specie" : "species";
   stream.writeAttribute(s , mSpecies);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -659,7 +659,7 @@ SpeciesReference::SpeciesReference() :
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
  
                           
 
@@ -1269,7 +1269,7 @@ SpeciesReference::initL2Stoichiometry()
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1323,7 +1323,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
     return 0;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1460,7 +1460,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1489,7 +1489,7 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1524,7 +1524,7 @@ SpeciesReference::readL1Attributes (const XMLAttributes& attributes)
   attributes.readInto("denominator", mDenominator);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1540,7 +1540,7 @@ SpeciesReference::readL2Attributes (const XMLAttributes& attributes)
   //
   mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1569,7 +1569,7 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   }
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1619,7 +1619,7 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("constant", mConstant);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1657,7 +1657,7 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
   }
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1706,7 +1706,7 @@ SpeciesReference::syncAnnotation ()
   }
 #endif // USE_LAYOUT
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 ModifierSpeciesReference::ModifierSpeciesReference (unsigned int level, 
@@ -1733,7 +1733,7 @@ ModifierSpeciesReference::ModifierSpeciesReference() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
  
                           
 
@@ -2052,7 +2052,7 @@ ListOfSpeciesReferences::getElementPosition () const
 
   return position;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2064,7 +2064,7 @@ ListOfSpeciesReferences::setType (SpeciesType type)
 {
   mType = type;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2171,7 +2171,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -3008,6 +3008,6 @@ ListOfSpeciesReferences_removeById (ListOf_t *lo, const char *sid)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

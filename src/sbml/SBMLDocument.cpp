@@ -57,7 +57,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -222,7 +222,7 @@ SBMLDocument::expandFD_errors(unsigned int errors)
     return false;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -2214,7 +2214,7 @@ SBMLDocument::setSBMLDocument (SBMLDocument* d)
 {
   // No-op
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -2251,7 +2251,7 @@ SBMLDocument::getElementPosition () const
 {
   return 1;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2289,7 +2289,7 @@ SBMLDocument::createObject (XMLInputStream& stream)
 
   return object;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**
@@ -2522,7 +2522,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   }
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2583,7 +2583,7 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
   stream.writeAttribute("version", mVersion);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2598,7 +2598,7 @@ SBMLDocument::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   if (mModel) mModel->write(stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -3366,5 +3366,5 @@ SBMLDocument_getNamespaces(SBMLDocument_t *d)
   return d->getNamespaces();
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END

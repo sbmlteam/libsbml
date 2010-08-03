@@ -28,7 +28,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -256,7 +256,7 @@ SBMLNamespaces::setNamespaces(XMLNamespaces * xmlns)
   else
     mNamespaces = NULL;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 /** @cond doxygen-c-only */
 
 /**
@@ -382,6 +382,6 @@ SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
   sbmlns->addNamespaces(xmlns);
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 LIBSBML_CPP_NAMESPACE_END
 

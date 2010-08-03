@@ -126,7 +126,7 @@ public:
    */
   static bool isAllowedElement(const XMLNode &node);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
@@ -135,7 +135,7 @@ public:
    */
   static bool hasDeclaredNS(const XMLNode &node, const XMLNamespaces* toplevelNS);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
 
@@ -145,7 +145,7 @@ public:
    */
   static bool isCorrectHTMLNode(const XMLNode &node);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 protected:  
   /** @cond doxygen-libsbml-internal */
@@ -176,7 +176,7 @@ protected:
    */
   static bool isExtender(std::string::iterator, unsigned int);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

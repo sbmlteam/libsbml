@@ -189,7 +189,7 @@ public:
    */
   char* writeToString (const SBMLDocument* d);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Writes the given SBML document to filename.
@@ -282,7 +282,7 @@ public:
   std::string mProgramName;
   std::string mProgramVersion;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

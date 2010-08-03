@@ -32,7 +32,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -374,7 +374,7 @@ ListOf::setParentSBMLObject (SBase* sb)
   mParentSBMLObject = sb;
   for_each( mItems.begin(), mItems.end(), SetParentSBMLObject(this) );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -435,7 +435,7 @@ ListOf::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   for_each( mItems.begin(), mItems.end(), Write(stream) );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*
@@ -513,7 +513,7 @@ ListOf::writeAttributes (XMLOutputStream& stream) const
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -667,6 +667,6 @@ ListOf_getItemTypeCode (const ListOf_t *lo)
   return lo->getItemTypeCode();
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

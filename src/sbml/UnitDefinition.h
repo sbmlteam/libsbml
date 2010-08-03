@@ -672,7 +672,7 @@ public:
    */
   virtual void setParentSBMLObject (SBase* sb);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Returns the libSBML type code for this object instance.
@@ -802,7 +802,7 @@ public:
 
   static bool areIdenticalSIUnits(const UnitDefinition * ud1, 
     const UnitDefinition * ud2);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /** 
    * Combines two UnitDefinition objects into a single UnitDefinition
@@ -854,7 +854,7 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -940,7 +940,7 @@ protected:
   friend class UnitConsistencyValidator;
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1117,7 +1117,7 @@ public:
    */
   virtual int getElementPosition () const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -1129,7 +1129,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

@@ -662,7 +662,7 @@ BoundingBox_createWithLevelVersionAndNamespaces (unsigned int level,
 {
   return new(std::nothrow) BoundingBox(level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /**

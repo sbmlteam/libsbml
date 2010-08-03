@@ -52,7 +52,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 /**
  * elements permitted on the body element of xhtml
@@ -66,7 +66,7 @@ SBMLConstructorException::SBMLConstructorException() :
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*
@@ -88,7 +88,7 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
 {
   mSBMLNamespaces = new SBMLNamespaces();
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -133,7 +133,7 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
   if (!sbmlns) throw SBMLConstructorException();
   mSBMLNamespaces = sbmlns->clone();
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -200,7 +200,7 @@ SBase::SBase(const SBase& orig)
   this->mHasBeenDeleted = false;
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -570,7 +570,7 @@ SBase::getName () const
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /*
  * @return the notes of this SBML object.
@@ -804,7 +804,7 @@ SBase::isSetName () const
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1137,7 +1137,7 @@ SBase::setName (const std::string& name)
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1945,7 +1945,7 @@ SBase::setParentSBMLObject (SBase* sb)
 {
   mParentSBMLObject = sb;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 SBase* 
 SBase::getAncestorOfType(SBMLTypeCode_t type)
@@ -2746,7 +2746,7 @@ SBase::getSBMLNamespaces() const
     return new SBMLNamespaces();
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -2855,7 +2855,7 @@ SBase::read (XMLInputStream& stream)
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2872,7 +2872,7 @@ SBase::write (XMLOutputStream& stream) const
 
   stream.endElement( getElementName() );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2893,7 +2893,7 @@ SBase::writeElements (XMLOutputStream& stream) const
   const_cast <SBase *> (this)->syncAnnotation();
   if (mAnnotation) stream << *mAnnotation;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2910,7 +2910,7 @@ SBase::createObject (XMLInputStream&)
 {
   return 0;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -2925,7 +2925,7 @@ SBase::readOtherXML (XMLInputStream&)
 {
   return false;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3000,7 +3000,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
   return false;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3075,7 +3075,7 @@ SBase::getHasBeenDeleted()
   return mHasBeenDeleted;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3088,7 +3088,7 @@ SBase::getElementPosition () const
 {
   return -1;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3101,7 +3101,7 @@ SBase::getErrorLog ()
 {
   return (mSBML != 0) ? mSBML->getErrorLog() : 0;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3319,7 +3319,7 @@ SBase::logUnknownAttribute( string attribute,
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3432,7 +3432,7 @@ SBase::logUnknownElement( string element,
 			    level, version, msg.str());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3454,7 +3454,7 @@ SBase::logEmptyString( string attribute,
   getErrorLog()->logError(NotSchemaConformant,
 			  level, version, msg.str());
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3473,7 +3473,7 @@ SBase::logError (  unsigned int       id
   if ( SBase::getErrorLog() ) 
     getErrorLog()->logError(id, getLevel(), getVersion(), details);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3501,7 +3501,7 @@ SBase::readAttributes (const XMLAttributes& attributes)
       logError(InvalidMetaidSyntax, getLevel(), getVersion());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3522,7 +3522,7 @@ SBase::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("metaid", mMetaId);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3656,7 +3656,7 @@ SBase::syncAnnotation ()
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3690,7 +3690,7 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
     logError(error, getLevel(), getVersion());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3757,7 +3757,7 @@ SBase::checkListOfPopulated(SBase* object)
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3881,7 +3881,7 @@ SBase::checkAnnotation()
     nNodes++;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -3993,7 +3993,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 /** @cond doxygen-libsbml-internal */
 /* default for components that have no required attributes */
 bool
@@ -4065,7 +4065,7 @@ SBase::removeDuplicateAnnotations()
 }
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*
@@ -4088,7 +4088,7 @@ SBase::setSBaseFields (const XMLToken& element)
     setNamespaces(NULL);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -5308,6 +5308,6 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
 
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -43,7 +43,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -81,7 +81,7 @@ KineticLaw::KineticLaw() :
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
                           
 
 /*
@@ -1010,7 +1010,7 @@ KineticLaw::setParentSBMLObject (SBase* sb)
   mParentSBMLObject = sb;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /*
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -1074,7 +1074,7 @@ KineticLaw::getElementPosition () const
 {
   return 4;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1093,7 +1093,7 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
   if ( getLevel() > 2 && getNumLocalParameters() > 0 ) 
     mLocalParameters.write(stream);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1127,7 +1127,7 @@ KineticLaw::createObject (XMLInputStream& stream)
   }
   return 0;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1216,7 +1216,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1245,7 +1245,7 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
     break;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1299,7 +1299,7 @@ KineticLaw::readL1Attributes (const XMLAttributes& attributes)
   attributes.readInto("substanceUnits", mSubstanceUnits);
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1365,7 +1365,7 @@ KineticLaw::readL2Attributes (const XMLAttributes& attributes)
   if (version > 1) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1407,7 +1407,7 @@ KineticLaw::readL3Attributes (const XMLAttributes& attributes)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1470,7 +1470,7 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
       SBO::writeTerm(stream, mSBOTerm);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -2332,7 +2332,7 @@ KineticLaw_removeLocalParameterById (KineticLaw_t *kl, const char *sid)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
