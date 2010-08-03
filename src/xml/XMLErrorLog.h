@@ -153,7 +153,7 @@ public:
    */
   int setParser (const XMLParser* p);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -162,7 +162,7 @@ protected:
   std::vector<XMLError*> mErrors;
   const XMLParser*       mParser;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

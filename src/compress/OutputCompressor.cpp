@@ -103,4 +103,4 @@ OutputCompressor::openZipOStream(const std::string& filename, const std::string&
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

@@ -153,4 +153,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 #endif  /* LibXMLParser_h */
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */

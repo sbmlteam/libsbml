@@ -1034,7 +1034,7 @@ public:
    */
   virtual void print(std::ostream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif
 
@@ -1058,7 +1058,7 @@ protected:
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -1090,7 +1090,7 @@ typedef struct {
   const char*  message;
 } xmlErrorTableEntry;
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 #endif  /* !SWIG */
 

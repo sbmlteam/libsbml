@@ -40,11 +40,11 @@
 #include <sbml/annotation/LayoutAnnotation.h>
 
 
-/** @cond doxygen-ignore */
+/** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignore */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 

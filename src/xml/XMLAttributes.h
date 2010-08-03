@@ -50,7 +50,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class XMLErrorLog;
 /** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 class LIBLAX_EXTERN XMLAttributes
@@ -156,7 +156,7 @@ public:
    */
   int addResource (const std::string& name, const std::string& value);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -818,7 +818,7 @@ public:
    * set is to be written.
    */
   void write (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /** @cond doxygen-libsbml-internal */
@@ -835,7 +835,7 @@ public:
    * @li LIBSBML_OPERATION_SUCCESS
    */
   int setErrorLog (XMLErrorLog* log);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 #ifndef SWIG
@@ -853,7 +853,7 @@ public:
   LIBLAX_EXTERN
   friend XMLOutputStream&
   operator<< (XMLOutputStream& stream, const XMLAttributes& attributes);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif  /* !SWIG */
 
@@ -1064,7 +1064,7 @@ protected:
   std::string               mElementName;
   XMLErrorLog*              mLog;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

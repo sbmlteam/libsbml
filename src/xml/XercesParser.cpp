@@ -49,7 +49,7 @@ using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -682,7 +682,7 @@ XercesParser::parseReset ()
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 //     /* error numbers are from the expat error enumeration

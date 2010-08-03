@@ -188,7 +188,7 @@ protected:
 
 };
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 
@@ -271,7 +271,7 @@ XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log);
 
 END_C_DECLS
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

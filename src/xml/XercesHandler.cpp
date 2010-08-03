@@ -37,7 +37,7 @@
 using namespace std;
 using namespace xercesc;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -211,6 +211,6 @@ XercesHandler::setDocumentLocator (const xercesc::Locator* const locator)
   mLocator = locator;
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

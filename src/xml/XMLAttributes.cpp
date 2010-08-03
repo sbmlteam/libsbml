@@ -1,6 +1,6 @@
 /**
  * @file    XMLAttributes.cpp
- * @brief   XMLAttributes are a list of name/value pairs for XMLElements
+ * @brief   XMLAttributes are a list of name/value pairs for XML elements
  * @author  Ben Bornstein
  *
  * $Id$
@@ -32,13 +32,13 @@
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -171,7 +171,7 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
   mValues.push_back( value );
   return LIBSBML_OPERATION_SUCCESS;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -518,7 +518,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -650,7 +650,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -762,7 +762,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -844,7 +844,7 @@ XMLAttributes::readInto (  int          index
   if (assigned) value = temp;
   return assigned;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -929,7 +929,7 @@ XMLAttributes::readInto (  int           index
 
   return assigned;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1018,7 +1018,7 @@ XMLAttributes::readInto (  int          index
 
   return assigned;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1079,7 +1079,7 @@ XMLAttributes::write (XMLOutputStream& stream) const
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1154,7 +1154,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
   log->add( XMLError(MissingXMLRequiredAttribute, message.str()) );
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1180,7 +1180,7 @@ XMLAttributes::setErrorLog (XMLErrorLog* log)
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -1194,7 +1194,7 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
   attributes.write(stream);
   return stream;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -2310,4 +2310,4 @@ XMLAttributes_readIntoStringByTriple (XMLAttributes_t *xa,
 LIBSBML_CPP_NAMESPACE_END
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */

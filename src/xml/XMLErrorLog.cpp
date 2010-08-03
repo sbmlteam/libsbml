@@ -34,7 +34,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -45,7 +45,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 XMLErrorLog::XMLErrorLog ():mParser(NULL)
 {
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -66,7 +66,7 @@ XMLErrorLog::~XMLErrorLog ()
 {
   for_each( mErrors.begin(), mErrors.end(), Delete() );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -117,7 +117,7 @@ XMLErrorLog::add (const XMLError& error)
     cerror->setColumn(column);
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -133,7 +133,7 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 
   for (iter = errors.begin(); iter != end; ++iter) add( *iter );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -184,7 +184,7 @@ XMLErrorLog::setParser (const XMLParser* p)
   else
     return LIBSBML_OPERATION_FAILED;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -274,4 +274,4 @@ XMLErrorLog_clearLog (XMLErrorLog_t *log)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-c-only */
+/** @endcond */

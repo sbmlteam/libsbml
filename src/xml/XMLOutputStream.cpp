@@ -36,7 +36,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -578,7 +578,7 @@ XMLOutputStream::writeIndent (bool isEnd)
     for (unsigned int n = 0; n < mIndent; ++n) mStream << ' ' << ' ';
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -599,7 +599,7 @@ XMLOutputStream::writeChars (const std::string& chars)
     *this << c;
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -611,7 +611,7 @@ XMLOutputStream::writeName (const std::string& name)
 {
   writeChars(name);
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -629,7 +629,7 @@ XMLOutputStream::writeName (const XMLTriple& triple)
 
   writeChars( triple.getName() );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -643,7 +643,7 @@ XMLOutputStream::writeValue (const std::string& value)
   writeChars(value);
   mStream << '"';
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -655,7 +655,7 @@ XMLOutputStream::writeValue (const bool& value)
 {
   mStream << '=' << '"' << (value ? "true" : "false") << '"';
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -687,7 +687,7 @@ XMLOutputStream::writeValue (const double& value)
 
   mStream << '"';
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -699,7 +699,7 @@ XMLOutputStream::writeValue (const long& value)
 {
   mStream << '=' << '"' << value << '"';
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -711,7 +711,7 @@ XMLOutputStream::writeValue (const int& value)
 {
   mStream << '=' << '"' << value << '"';
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -723,7 +723,7 @@ XMLOutputStream::writeValue (const unsigned int& value)
 {
   mStream << '=' << '"' << value << '"';
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -884,7 +884,7 @@ XMLOutputFileStream::XMLOutputFileStream (  std::ofstream& stream
 {
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-c-only */
 /**
@@ -1305,7 +1305,7 @@ XMLOutputStream_getString(XMLOutputStream_t* stream)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

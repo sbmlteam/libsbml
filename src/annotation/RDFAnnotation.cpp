@@ -36,11 +36,11 @@
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/RDFAnnotation.h>
 
-/** @cond doxygen-ignore */
+/** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignore */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -898,7 +898,7 @@ RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
 }
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 /** @cond doxygen-c-only */
 
@@ -1079,6 +1079,6 @@ RDFAnnotationParser_parseModelHistory(const SBase_t * object)
   return RDFAnnotationParser::parseModelHistory(object);
 }
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

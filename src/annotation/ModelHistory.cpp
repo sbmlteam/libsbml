@@ -25,11 +25,11 @@
 #include <sbml/annotation/ModelHistory.h>
 #include <cstdio>
 
-/** @cond doxygen-ignore */
+/** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignore */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -443,7 +443,7 @@ Date::parseDateNumbersToString()
   }
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -607,7 +607,7 @@ Date::representsValidDate()
   
   return valid;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -883,7 +883,7 @@ ModelCreator::getAdditionalRDF()
 {
   return mAdditionalRDF;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 bool
 ModelCreator::hasRequiredAttributes()

@@ -146,7 +146,7 @@ private:
 };
 
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

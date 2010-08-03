@@ -175,7 +175,7 @@ private:
   std::string  mURI;
   std::string  mPrefix;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 

@@ -336,7 +336,7 @@ protected:
   ModelQualifierType_t  mModelQualifier;
   BiolQualifierType_t   mBiolQualifier;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

@@ -238,7 +238,7 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   bool getStringStream()   { return mStringStream;  }
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -329,7 +329,7 @@ protected:
   void setStringStream()   { mStringStream = true;  }
   void unsetStringStream() { mStringStream = false; }
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -375,7 +375,7 @@ public:
 
 };
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END

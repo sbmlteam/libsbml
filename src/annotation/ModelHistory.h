@@ -407,7 +407,7 @@ protected:
 
   std::string mDate;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -673,7 +673,7 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   XMLNode * getAdditionalRDF();
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /* The required attributes for a ModelCreator are:
    * familyName and givenName.
@@ -692,7 +692,7 @@ protected:
 
   XMLNode * mAdditionalRDF;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 
@@ -889,7 +889,7 @@ protected:
   
   List * mModifiedDates;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

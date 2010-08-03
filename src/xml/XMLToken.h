@@ -37,7 +37,7 @@
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLOutputStream.h>
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 #include <sbml/xml/XMLToken.h>
 #include <sbml/common/sbmlfwd.h>
 
@@ -50,7 +50,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 class LIBLAX_EXTERN XMLToken
@@ -921,7 +921,7 @@ public:
    * is to be written.
    */
   void write (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   /**
    * Prints a string representation of the underlying token stream, for
@@ -947,7 +947,7 @@ public:
   friend
   XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLToken& token);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif  /* !SWIG */
 
@@ -968,7 +968,7 @@ protected:
   unsigned int mLine;
   unsigned int mColumn;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

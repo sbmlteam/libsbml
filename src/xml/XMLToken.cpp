@@ -26,14 +26,14 @@
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 #include <sbml/xml/XMLToken.h>
 
 /** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -1211,7 +1211,7 @@ XMLToken::write (XMLOutputStream& stream) const
   if ( isStart() ) stream << mNamespaces << mAttributes;
   if ( isEnd()   ) stream.endElement( mTriple );
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -1253,7 +1253,7 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
   token.write(stream);
   return stream;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-c-only */
@@ -2635,6 +2635,6 @@ XMLToken_unsetEnd (XMLToken_t *token)
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

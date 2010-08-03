@@ -30,7 +30,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -239,6 +239,6 @@ XMLTokenizer::characters (const XMLToken& data)
   }
 }
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

@@ -233,7 +233,7 @@ public:
 
   static bool hasHistoryRDFAnnotation(const XMLNode *annotation);
 
-   /** @endcond doxygen-libsbml-internal */
+   /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

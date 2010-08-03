@@ -31,7 +31,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -297,7 +297,7 @@ const char * xmlCategoryStringTable[] =
 , "XML content"                         // LIBSBML_CAT_XML
 };
 
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 /*
@@ -410,7 +410,7 @@ XMLError::clone() const
 {
   return new XMLError(*this);
 }
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 /*
@@ -648,7 +648,7 @@ std::string XMLError::stringForSeverity(unsigned int code) const
   else 
     return "";
 }
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 /** @cond doxygen-libsbml-internal **/
@@ -662,7 +662,7 @@ std::string XMLError::stringForCategory(unsigned int code) const
   else 
     return "";
 }
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 /** @cond doxygen-libsbml-internal **/
@@ -689,7 +689,7 @@ XMLError::print(std::ostream& s) const
     << " [" << getSeverityAsString() << "]) "
     << getMessage() << endl;
 }
-/** @endcond doxygen-libsbml-internal **/
+/** @endcond **/
 
 
 /*
@@ -1017,4 +1017,4 @@ XMLError_print (const XMLError_t *error, FILE *stream)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-c-only */
+/** @endcond */

@@ -63,7 +63,7 @@ protected:
   XMLBuffer& operator= (const XMLBuffer&);
 };
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

@@ -65,7 +65,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 class XMLOutputStream;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 class LIBLAX_EXTERN XMLNamespaces
@@ -369,7 +369,7 @@ public:
   friend XMLOutputStream&
   operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif  /* !SWIG */
 
@@ -386,7 +386,7 @@ protected:
   typedef std::pair<std::string, std::string> PrefixURIPair;
   std::vector<PrefixURIPair> mNamespaces;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 

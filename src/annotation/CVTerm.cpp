@@ -37,11 +37,11 @@
 #include <sbml/annotation/CVTerm.h>
 
 
-/** @cond doxygen-ignore */
+/** @cond doxygen-ignored */
 
 using namespace std;
 
-/** @endcond doxygen-ignore */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -400,7 +400,7 @@ CVTerm::hasRequiredAttributes()
 
   return valid;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 
@@ -698,6 +698,6 @@ CVTerm_hasRequiredAttributes(CVTerm_t *cvt)
 
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

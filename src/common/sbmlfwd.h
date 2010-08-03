@@ -268,7 +268,7 @@ typedef CLASS_OR_STRUCT XMLToken                  XMLToken_t;
  * @copydoc XMLInputStream
  */
 typedef CLASS_OR_STRUCT XMLInputStream            XMLInputStream_t;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /**
@@ -276,7 +276,7 @@ typedef CLASS_OR_STRUCT XMLInputStream            XMLInputStream_t;
  * @copydoc XMLOutputStream
  */
 typedef CLASS_OR_STRUCT XMLOutputStream           XMLOutputStream_t;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /**
  * @var typedef class XMLTriple XMLTriple_t

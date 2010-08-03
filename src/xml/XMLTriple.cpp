@@ -28,7 +28,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -386,6 +386,6 @@ XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
 
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END

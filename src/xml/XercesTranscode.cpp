@@ -33,7 +33,7 @@ using namespace xercesc;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -117,5 +117,5 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
 
 LIBSBML_CPP_NAMESPACE_END
 
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 

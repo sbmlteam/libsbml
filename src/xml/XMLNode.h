@@ -134,7 +134,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** @cond doxygen-libsbml-internal */
 class XMLInputStream;
 class XMLOutputStream;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 class LIBLAX_EXTERN XMLNode : public XMLToken
@@ -228,7 +228,7 @@ public:
    * @param stream XMLInputStream from which XMLNode is to be created.
    */
   XMLNode (XMLInputStream& stream);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -367,7 +367,7 @@ public:
    * is to be written.
    */
   void write (XMLOutputStream& stream) const;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -431,7 +431,7 @@ public:
   LIBLAX_EXTERN
   friend
   XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif  /* !SWIG */
 
@@ -441,7 +441,7 @@ protected:
 
   std::vector<XMLNode> mChildren;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

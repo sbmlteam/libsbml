@@ -24,7 +24,7 @@
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLNamespaces.h>
@@ -34,7 +34,7 @@
 
 using namespace std;
 
-/** @endcond doxygen-ignored */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -323,7 +323,7 @@ XMLNamespaces::removeDefault ()
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 #ifndef SWIG
 
@@ -347,7 +347,7 @@ XMLNamespaces::write (XMLOutputStream& stream) const
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -361,7 +361,7 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
   namespaces.write(stream);
   return stream;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 #endif  /* !SWIG */
 
@@ -662,6 +662,6 @@ XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* pref
 }
 
 
-/** @endcond doxygen-c-only */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
