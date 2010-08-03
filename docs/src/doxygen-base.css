@@ -155,8 +155,9 @@ A.codeRef {
 
 A:hover {
   color: black;
-  background-color: #eee;
-  text-decoration: underline;
+  background-color: #dfdfdf;
+  text-decoration: none;
+  border-bottom: 1px dotted #444;
 }
 
 DL {
@@ -349,7 +350,7 @@ TD.indexvalue {
   background-color: #eee; 
   vertical-align: middle;
   font-style: italic; 
-  font-size: 13px;
+  font-size: 12px;
   padding-right  : 10px; 
   padding-top    : 3px; 
   padding-left   : 10px; 
@@ -580,7 +581,8 @@ dd table tr {
   height: 20px;
 }
 
-.directory { font-size: 10px; font-weight: bold; }
+.directory { font-size: 9px; font-weight: bold; }
+.directory a.el { font-size: 11px; }
 .directory h3 { margin: 0px; margin-top: 0.8em; font-size: 12px; }
 .directory p { margin: 0px; white-space: nowrap; ; font-size: 12px; }
 .directory div { display: none; margin: 0px; }
