@@ -122,7 +122,7 @@ public:
    *
    * @param type a #QualifierType_t value
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 

@@ -152,7 +152,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   void logError
   (

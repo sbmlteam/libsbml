@@ -110,7 +110,7 @@ public:
    * @param hoursOffset an unsigned int representing the hoursOffset.
    * @param minutesOffset an unsigned int representing the minutesOffset.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   Date(unsigned int year = 2007, unsigned int month = 1, 
     unsigned int day = 1, unsigned int hour = 0, 

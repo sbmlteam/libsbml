@@ -98,7 +98,7 @@ public:
    * @param level the SBML level
    * @param version the SBML version
    * 
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   SBMLNamespaces(unsigned int level = SBML_DEFAULT_LEVEL, 
                  unsigned int version = SBML_DEFAULT_VERSION);

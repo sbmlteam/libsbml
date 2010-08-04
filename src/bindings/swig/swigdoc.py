@@ -159,7 +159,7 @@ class CHeader:
       # remove them from the documentation.
 
       if (stripped.find('@cond doxygen-libsbml-internal') >= 0):    isInternal = True
-      if (stripped.find('@endcond doxygen-libsbml-internal') >= 0): isInternal = False
+      if (stripped.find('@endcond') >= 0): isInternal = False
 
       # Watch for class description, usually at top of file.
 
@@ -436,6 +436,19 @@ def processHeader (filename, ostream, language):
 
 
 
+def rewriteCommonReferences (docstring, language):
+  """rewriteCommonReferences (docstring, language) -> docstring
+
+  Rewrites common C++ doxygen references to match language-specific needs.
+  """
+
+  if language == 'java':  
+    docstring = re.sub(r'OperationReturnValues_t#', 'libsbmlConstants#', docstring)
+
+  return docstring
+
+
+
 def translateVerbatim (match):
   text = match.group()
   if re.search('@verbatim', text) != None:
@@ -456,6 +469,7 @@ def translateVerbatim (match):
   return text
 
 
+
 def translateInclude (match):
   global docincpath
 
@@ -470,7 +484,7 @@ def translateInclude (match):
 
 def translateIfJava (match):
   text = match.group()
-  if match.group(1) == 'java':
+  if match.group(1) == 'java' or match.group(1) == 'notcpp':
     text =  match.group(2)
   else:
     text = ''
@@ -479,7 +493,7 @@ def translateIfJava (match):
 
 def translateIfPerl (match):
   text = match.group()
-  if match.group(1) == 'perl':
+  if match.group(1) == 'perl' or match.group(1) == 'notcpp':
     text =  match.group(2)
   else:
     text = ''
@@ -489,11 +503,12 @@ def translateIfPerl (match):
 
 def translateIfPython (match):
   text = match.group()
-  if match.group(1) == 'python':
+  if match.group(1) == 'python' or match.group(1) == 'notcpp':
     text =  match.group(2)
   else:
     text = ''
   return text
+
 
 
 def translateJavaCrossRef (match):
@@ -503,8 +518,10 @@ def translateJavaCrossRef (match):
   return prior + '{@link ' + classname + '#' + method + '}'
 
 
+
 def javafyClassRef (match):
   return match.group(1) + match.group(2) + ' '
+
 
 
 def translateJavaClassRef (match):
@@ -518,6 +535,7 @@ def translateJavaClassRef (match):
     return leading + classname + trailing
 
 
+
 def sanitizeForHTML (docstring, language):
   """sanitizeForHTML (docstring, language) -> docstring
 
@@ -527,7 +545,7 @@ def sanitizeForHTML (docstring, language):
   # First do conditional section inclusion based on the current language.
   # This ONLY handles @if foo @endif, not @if foo @else bar @endif. 
 
-  p = re.compile('@if\s+(java|python|perl|clike)\s+(.+?)@endif', re.DOTALL)
+  p = re.compile('@if\s+(java|python|perl|clike|notcpp)\s+(.+?)@endif', re.DOTALL)
   if language == 'java':
     docstring = p.sub(translateIfJava, docstring)
   elif language == 'perl':
@@ -629,10 +647,12 @@ def sanitizeForHTML (docstring, language):
   return docstring
 
 
+
 def removeStar (match):
   text = match.group()
   text = text.replace('*', '')
   return text
+
 
 
 def sanitizeForJava (docstring):
@@ -814,6 +834,8 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
   the given language.
   """
 
+  docstring = rewriteCommonReferences(docstring, language)
+
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
@@ -849,6 +871,9 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
 
 
 def writeClassDocstring (ostream, language, docstring, classname):
+
+  docstring = rewriteCommonReferences(docstring, language)
+
   if language == 'java':
     pre = '%typemap(javaimports) '
     docstring = sanitizeForJava(docstring)    

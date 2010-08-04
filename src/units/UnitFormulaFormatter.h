@@ -100,7 +100,7 @@ public:
    * @param reactNo integer indicating which Reaction within the Model
    * contains the KineticLaw under consideration (default = -1).
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
     bool inKL = false, int reactNo = -1);
