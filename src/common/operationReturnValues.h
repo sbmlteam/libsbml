@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #ifndef LIBSBML_OPERATION_RETURN_VALUES_H
-#define LIBSBML_OPERATION_RETURN_VALUES_H 1
+#define LIBSBML_OPERATION_RETURN_VALUES_H
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
