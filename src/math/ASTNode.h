@@ -79,8 +79,8 @@
  *
  * @if clike Every ASTNode has an associated type code to indicate,
  * for example, whether it holds a number or stands for an arithmetic
- * operator.  The type is recorded as a value drawn from the enumeration <a
- * class="el" href="#ASTNodeType_t">ASTNodeType_t</a>.  The list of
+ * operator.  The type is recorded as a value drawn from the enumeration 
+ * @link ASTNode.h::ASTNodeType_t ASTNodeType_t@endlink.  The list of
  * possible types is quite long, because it covers all the mathematical
  * functions that are permitted in SBML.  The values are shown in the
  * following table: @endif@if java Every ASTNode has an associated
@@ -365,11 +365,15 @@ public:
   /**
    * Creates and returns a new ASTNode.
    *
-   * By default, the returned node will have a type of @c AST_UNKNOWN.  The
-   * calling code should set the node type to something else as soon as
-   * possible using @if clike ASTNode::setType() @endif@if java ASTNode::setType(int) @endif
+   * By default, the returned node will have a type of @c AST_UNKNOWN.  If
+   * a type isn't supplied when caling this constructor, the calling code
+   * should set the node type to something else as soon as possible using
+   * @if clike ASTNode::setType()@endif@if java ASTNode::setType(int)@endif.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @param type an optional ASTNodeType_t code indicating the type of node
+   * to create.
+   *
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);
@@ -412,8 +416,8 @@ public:
    * Frees the name of this ASTNode and sets it to NULL.
    * 
    * This operation is only applicable to ASTNodes corresponding to
-   * operators, numbers, or @c AST_UNKNOWN.  This method will have no
-   * effect on other types of nodes.
+   * operators, numbers, or @c AST_UNKNOWN.  This method has no effect on
+   * other types of nodes.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -427,8 +431,8 @@ public:
 
 
   /**
-   * Converts this ASTNode to a canonical form and returns true (non-zero)
-   * if successful, false (zero) otherwise.
+   * Converts this ASTNode to a canonical form and returns @c true if
+   * successful, @c false otherwise.
    *
    * The rules determining the canonical form conversion are as follows:
    * <ul>
@@ -447,20 +451,17 @@ public:
    *
    * SBML Level&nbsp;1 function names are searched first; thus, for
    * example, canonicalizing @c log will result in a node type of @c
-   * AST_FUNCTION_LN.  (See the SBML Level&nbsp;1 Specification, Appendix
-   * C.)
+   * AST_FUNCTION_LN.  (See the SBML Level&nbsp;1 Version&nbsp;2
+   * Specification, Appendix C.)
    *
-   * Sometimes canonicalization of a node results in a structural converion
-   * of the node as a result of adding a child.  For example, a node with
-   * the SBML Level&nbsp;1 function name @c sqr and a single child node
-   * (the argument) will be transformed to a node of type
-   * @c AST_FUNCTION_POWER with two children.  The first child will remain
-   * unchanged, but the second child will be an ASTNode of type
-   * @c AST_INTEGER and a value of 2.  The function names that result in
+   * Sometimes, canonicalization of a node results in a structural
+   * conversion of the node as a result of adding a child.  For example, a
+   * node with the SBML Level&nbsp;1 function name @c sqr and a single
+   * child node (the argument) will be transformed to a node of type @c
+   * AST_FUNCTION_POWER with two children.  The first child will remain
+   * unchanged, but the second child will be an ASTNode of type @c
+   * AST_INTEGER and a value of 2.  The function names that result in
    * structural changes are: @c log10, @c sqr, and @c sqrt.
-   *
-   * See the SBML Level&nbsp;1 and Level&nbsp;2 (all versions)
-   * specification documents for more information.
    */
   LIBSBML_EXTERN
   bool canonicalize ();
@@ -468,7 +469,7 @@ public:
 
   /**
    * Adds the given node as a child of this ASTNode.  Child nodes are added
-   * in-order from left to right.
+   * in-order, from left to right.
    *
    * @param child the ASTNode instance to add
    *
@@ -478,6 +479,11 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @see prependChild(ASTNode* child)
+   * @see replaceChild(unsigned int n, ASTNode* child)
+   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see removeChild(unsigned int n)
    */
   LIBSBML_EXTERN
   int addChild (ASTNode* child);
@@ -495,13 +501,18 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @see addChild(ASTNode* child)
+   * @see replaceChild(unsigned int n, ASTNode* child)
+   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see removeChild(unsigned int n)
    */
   LIBSBML_EXTERN
   int prependChild (ASTNode* child);
 
 
   /**
-   * Removes child n of this ASTNode. 
+   * Removes the nth child of this ASTNode object.
    *
    * @param n unsigned int the index of the child to remove
    *
@@ -512,8 +523,14 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE @endlink
    *
-   * @note removing a child from an ASTNode may result in an
-   * inaccurate representation.
+   * @note Removing a child from an ASTNode may result in an inaccurate
+   * representation of the mathematical formula expressed by the tree of
+   * nodes.
+   *
+   * @see addChild(ASTNode* child)
+   * @see prependChild(ASTNode* child)
+   * @see replaceChild(unsigned int n, ASTNode* child)
+   * @see insertChild(unsigned int n, ASTNode* child)
    */
   LIBSBML_EXTERN
   int removeChild(unsigned int n);
@@ -534,6 +551,11 @@ public:
    *
    * @note replacing a child within an ASTNode may result in an
    * inaccurate representation.
+   * 
+   * @see addChild(ASTNode* child)
+   * @see prependChild(ASTNode* child)
+   * @see insertChild(unsigned int n, ASTNode* child)
+   * @see removeChild(unsigned int n)
    */
   LIBSBML_EXTERN
   int replaceChild(unsigned int n, ASTNode *newChild);
@@ -555,6 +577,11 @@ public:
    *
    * @note inserting a child within an ASTNode may result in an
    * inaccurate representation.
+   * 
+   * @see addChild(ASTNode* child)
+   * @see prependChild(ASTNode* child)
+   * @see replaceChild(unsigned int n, ASTNode* child)
+   * @see removeChild(unsigned int n)
    */
   LIBSBML_EXTERN
   int insertChild(unsigned int n, ASTNode *newChild);
@@ -644,40 +671,64 @@ public:
   /**
    * Get the nth semantic annotation of this node.
    * 
-   * @return the nth annotation of this ASTNode, or NULL if this node has no nth
-   * annotation (<code>n &gt; getNumChildren() - 1</code>).
+   * @return the nth annotation of this ASTNode, or NULL if this node has
+   * no nth annotation (<code>n &gt; getNumChildren() - 1</code>).
    */
   LIBSBML_EXTERN
   XMLNode* getSemanticsAnnotation (unsigned int n) const;
 
 
   /**
-   * Performs a depth-first search of the tree rooted at node and returns
-   * the List of nodes where <code>predicate(node)</code> returns true
-   * (non-zero).
+   * Performs a depth-first search of the tree rooted at this ASTNode
+   * object, and returns a List of nodes where the given function
+   * <code>predicate(node)</code> returns @c true (non-zero).
    *
-   * The typedef for ASTNodePredicate is:
+   * For portability between different programming languages, the predicate
+   * is passed in as a pointer to a function.  The function definition must
+   * have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
+   * @endlink, which is defined as
    * @code
    * int (*ASTNodePredicate) (const ASTNode_t *node);
    * @endcode
-   * where a return value of non-zero represents true and zero represents
-   * false.
+   * where a return value of non-zero represents @c true and zero
+   * represents @c false.
    *
    * @param predicate the predicate to use
    *
-   * @return the list of nodes for which the predicate returned true
+   * @return the list of nodes for which the predicate returned @c true
    * (non-zero).  The List returned is owned by the caller and should be
-   * deleted after the caller is done using it.  The ASTNodes in the list;
-   * however, are not owned by the caller (as they still belong to the tree
-   * itself) and therefore should not be deleted.
+   * deleted after the caller is done using it.  The ASTNode objects in the
+   * list; however, are not owned by the caller (as they still belong to
+   * the tree itself), and therefore should not be deleted.
    */
   LIBSBML_EXTERN
   List* getListOfNodes (ASTNodePredicate predicate) const;
 
 
   /**
-   * This method is identical in functionality to
-   * ASTNode::getListOfNodes(), except the List is passed-in by the caller.
+   * Performs a depth-first search of the tree rooted at this ASTNode
+   * object, and adds to the list @p lst the nodes where the given function
+   * <code>predicate(node)</code> returns @c true (non-zero).
+   *
+   * This method is identical to getListOfNodes(ASTNodePredicate predicate),
+   * except that instead of creating a new List object, it uses the one
+   * passed in as argument @p lst.
+   *
+   * For portability between different programming languages, the predicate
+   * is passed in as a pointer to a function.  The function definition must
+   * have the type @link ASTNode.h::ASTNodePredicate ASTNodePredicate
+   * @endlink, which is defined as
+   * @code
+   * int (*ASTNodePredicate) (const ASTNode_t *node);
+   * @endcode
+   * where a return value of non-zero represents @c true and zero
+   * represents @c false.
+   *
+   * @param predicate the predicate to use.
+   *
+   * @param lst the List to which ASTNodes nodes should be added.
+   *
+   * @see getListOfNodes(ASTNodePredicate predicate)
    */
   LIBSBML_EXTERN
   void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
@@ -804,9 +855,9 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node has a boolean type (a
-   * logical operator, a relational operator, or the constants @c true or
-   * @c false).
+   * Predicate returning @c true (non-zero) if this node has a boolean type
+   * (a logical operator, a relational operator, or the constants @c true
+   * or @c false).
    *
    * @return true if this ASTNode is a boolean, false otherwise.
    */
@@ -815,7 +866,7 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents a MathML
+   * Predicate returning @c true (non-zero) if this node represents a MathML
    * constant (e.g., @c true, @c Pi).
    * 
    * @return true if this ASTNode is a MathML constant, false otherwise.
@@ -825,8 +876,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents a MathML
-   * function (e.g., <code>abs()</code>), or an SBML Level&nbsp;1
+   * Predicate returning @c true (non-zero) if this node represents a
+   * MathML function (e.g., <code>abs()</code>), or an SBML Level&nbsp;1
    * function, or a user-defined function.
    * 
    * @return true if this ASTNode is a function, false otherwise.
@@ -836,8 +887,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents
-   * the special IEEE 754 value infinity, false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node represents
+   * the special IEEE 754 value infinity, @c false (zero) otherwise.
    *
    * @return true if this ASTNode is the special IEEE 754 value infinity,
    * false otherwise.
@@ -847,8 +898,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node contains an integer
-   * value, false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node contains an
+   * integer value, @c false (zero) otherwise.
    *
    * @return true if this ASTNode is of type AST_INTEGER, false otherwise.
    */
@@ -857,8 +908,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node is a MathML
-   * <code>&lt;lambda&gt;</code>, false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node is a MathML
+   * <code>&lt;lambda&gt;</code>, @c false (zero) otherwise.
    * 
    * @return true if this ASTNode is of type AST_LAMBDA, false otherwise.
    */
@@ -867,9 +918,9 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents a @c
-   * log10() function, false (zero) otherwise.  More precisely, this
-   * predicate returns true if the node type is @c AST_FUNCTION_LOG with
+   * Predicate returning @c true (non-zero) if this node represents a @c
+   * log10() function, @c false (zero) otherwise.  More precisely, this
+   * predicate returns @c true if the node type is @c AST_FUNCTION_LOG with
    * two children, the first of which is an @c AST_INTEGER equal to 10.
    * 
    * @return true if the given ASTNode represents a log10() function, false
@@ -880,8 +931,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node is a MathML logical
-   * operator (i.e., @c and, @c or, @c not, @c xor).
+   * Predicate returning @c true (non-zero) if this node is a MathML
+   * logical operator (i.e., @c and, @c or, @c not, @c xor).
    * 
    * @return true if this ASTNode is a MathML logical operator
    */
@@ -890,7 +941,7 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node is a user-defined
+   * Predicate returning @c true (non-zero) if this node is a user-defined
    * variable name in SBML L1, L2 (MathML), or the special symbols @c delay
    * or @c time.  The predicate returns false (zero) otherwise.
    * 
@@ -902,8 +953,9 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents the
-   * special IEEE 754 value "not a number" (NaN), false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node represents the
+   * special IEEE 754 value "not a number" (NaN), @c false (zero)
+   * otherwise.
    * 
    * @return true if this ASTNode is the special IEEE 754 NaN
    */
@@ -912,8 +964,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents the
-   * special IEEE 754 value "negative infinity", false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node represents the
+   * special IEEE 754 value "negative infinity", @c false (zero) otherwise.
    * 
    * @return true if this ASTNode is the special IEEE 754 value negative
    * infinity, false otherwise.
@@ -923,8 +975,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node contains a number,
-   * false (zero) otherwise.  This is functionally equivalent to the
+   * Predicate returning @c true (non-zero) if this node contains a number,
+   * @c false (zero) otherwise.  This is functionally equivalent to the
    * following code:
    * @code
    *   isInteger() || isReal()
@@ -937,7 +989,7 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node is a mathematical
+   * Predicate returning @c true (non-zero) if this node is a mathematical
  * operator, meaning, <code>+</code>, <code>-</code>, <code>*</code>,
  * <code>/</code> or <code>^</code> (power).
    * 
@@ -948,8 +1000,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node is the MathML
-   * <code>&lt;piecewise&gt;</code> construct, false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node is the MathML
+   * <code>&lt;piecewise&gt;</code> construct, @c false (zero) otherwise.
    * 
    * @return true if this ASTNode is a MathML @c piecewise function
    */
@@ -958,8 +1010,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents a rational
-   * number, false (zero) otherwise.
+   * Predicate returning @c true (non-zero) if this node represents a rational
+   * number, @c false (zero) otherwise.
    * 
    * @return true if this ASTNode is of type @c AST_RATIONAL.
    */
@@ -968,20 +1020,20 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node can represent a real
-   * number, false (zero) otherwise.  More precisely, this node must be of
+   * Predicate returning @c true (non-zero) if this node can represent a real
+   * number, @c false (zero) otherwise.  More precisely, this node must be of
    * one of the following types: @c AST_REAL, @c AST_REAL_E or @c
    * AST_RATIONAL.
    * 
    * @return true if the value of this ASTNode can represented as a real
-   * number, false otherwise.
+   * number, @c false otherwise.
    */
   LIBSBML_EXTERN
   bool isReal () const;
 
 
   /**
-   * Predicate returning true (non-zero) if this node is a MathML
+   * Predicate returning @c true (non-zero) if this node is a MathML
    * relational operator, meaning <code>==</code>, <code>&gt;=</code>, 
    * <code>&gt;</code>, <code>&lt;</code>, and <code>!=</code>.
    * 
@@ -993,8 +1045,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node represents a square
-   * root function, false (zero) otherwise.  More precisely, the node type
+   * Predicate returning @c true (non-zero) if this node represents a square
+   * root function, @c false (zero) otherwise.  More precisely, the node type
    * must be @c AST_FUNCTION_ROOT with two children, the first of which is
    * an @c AST_INTEGER node having value equal to 2.
    * 
@@ -1006,8 +1058,8 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node is a unary minus
-   * operator, false (zero) otherwise.  A node is defined as a unary minus
+   * Predicate returning @c true (non-zero) if this node is a unary minus
+   * operator, @c false (zero) otherwise.  A node is defined as a unary minus
    * node if it is of type @c AST_MINUS and has exactly one child.
    * 
    * For numbers, unary minus nodes can be "collapsed" by negating the
@@ -1022,7 +1074,7 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node has an unknown type.
+   * Predicate returning @c true (non-zero) if this node has an unknown type.
    * 
    * "Unknown" nodes have the type @c AST_UNKNOWN.  Nodes with unknown
    * types will not appear in an ASTNode tree returned by libSBML based
@@ -1039,7 +1091,7 @@ public:
 
 
   /**
-   * Predicate returning true (non-zero) if this node has sbml:units.
+   * Predicate returning @c true (non-zero) if this node has sbml:units.
    * 
    * Only applies to cn elements.
    * 
@@ -1050,7 +1102,7 @@ public:
   
   
   /**
-   * Predicate returning true (non-zero) if this node 
+   * Predicate returning @c true (non-zero) if this node 
    * or any of its children nodes have sbml:units.
    * 
    * @return true if this ASTNode or its children has units, 
@@ -1517,8 +1569,8 @@ ASTNode_freeName (ASTNode_t *node);
 
 
 /**
- * Attempts to convert this ASTNode to a canonical form and returns true
- * (non-zero) if the conversion succeeded, false (0) otherwise.
+ * Attempts to convert this ASTNode to a canonical form and returns @c true
+ * (non-zero) if the conversion succeeded, @c false (0) otherwise.
  *
  * The rules determining the canonical form conversion are as follows:
  *
@@ -1611,14 +1663,14 @@ ASTNode_getNumChildren (const ASTNode_t *node);
 
 /**
  * Performs a depth-first search (DFS) of the tree rooted at node and
- * returns the List of nodes where predicate(node) returns true.
+ * returns the List of nodes where predicate(node) returns @c true.
  *
  * The typedef for ASTNodePredicate is:
  *
  *   int (*ASTNodePredicate) (const ASTNode_t *node);
  *
- * where a return value of non-zero represents true and zero represents
- * false.
+ * where a return value of non-zero represents @c true and zero represents
+ * @c false.
  *
  * The List returned is owned by the caller and should be freed with
  * List_free().  The ASTNodes in the list, however, are not owned by the
