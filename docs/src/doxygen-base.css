@@ -96,6 +96,12 @@ A {
   text-decoration: none;
 }
 
+/* This shows up in javadoc output. */
+A code {
+  color: #1133ca;
+  text-decoration: none;
+}
+
 A:visited {
   color: #5580cf;
   text-decoration: none;
@@ -255,6 +261,10 @@ hr {
   font-size: 10pt;
 }
 
+.memdoc dl dd table td p {
+  margin: auto auto 5px auto;
+}
+
 .memproto {  
   padding: 5pt;
   border: 1px solid #b5b5b5;
@@ -326,7 +336,6 @@ DIV.groupText {
 
 TD.indexkey { 
   width: 30%;
-  background-color: #eee; 
   vertical-align: middle;
   font-weight: bold; 
   font-size: 12px;
@@ -337,11 +346,11 @@ TD.indexkey {
   margin-left    : 0px; 
   margin-right   : 0px; 
   margin-top     : 2px; 
-  margin-bottom  : 2px  
+  margin-bottom  : 2px;
+  border-bottom: 1px dotted #ccc;
 }
 
 TD.indexvalue { 
-  background-color: #eee; 
   vertical-align: middle;
   font-style: italic; 
   font-size: 12px;
@@ -352,7 +361,8 @@ TD.indexvalue {
   margin-left    : 0px; 
   margin-right   : 0px; 
   margin-top     : 2px; 
-  margin-bottom  : 2px  
+  margin-bottom  : 2px;
+  border-bottom: 1px dotted #ccc;
 }
 
 TR.memlist {
