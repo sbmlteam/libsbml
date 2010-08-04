@@ -476,8 +476,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setId (const std::string& sid);
 
@@ -495,8 +495,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setName (const std::string& name);
 
@@ -513,9 +513,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
   */
   int setKineticLaw (const KineticLaw* kl);
 
@@ -531,7 +531,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setReversible (bool value);
 
@@ -547,7 +547,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * 
    * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
    * indicated that software tools could ignore this attribute if they did
@@ -577,9 +577,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setCompartment (const std::string& sid);
 
@@ -593,8 +593,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetName ();
 
@@ -608,8 +608,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetKineticLaw ();
 
@@ -623,8 +623,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @warning In SBML Level 1, "fast" is optional with a default of @c
    * false, which means it is effectively always set (and reset to @c false
@@ -653,9 +653,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetCompartment ();
 
@@ -672,10 +672,10 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -704,10 +704,10 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
@@ -737,11 +737,11 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller

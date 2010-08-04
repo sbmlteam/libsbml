@@ -645,8 +645,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setId (const std::string& sid);
 
@@ -664,8 +664,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setName (const std::string& name);
 
@@ -682,9 +682,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
   int setCompartmentType (const std::string& sid);
 
@@ -705,9 +705,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
   int setSpatialDimensions (unsigned int value);
 
@@ -724,9 +724,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
   int setSpatialDimensions (double value);
 
@@ -747,7 +747,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setSize (double value);
 
@@ -768,7 +768,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setVolume (double value);
 
@@ -784,8 +784,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setUnits (const std::string& sid);
 
@@ -801,8 +801,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setOutside (const std::string& sid);
 
@@ -818,8 +818,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
   int setConstant (bool value);
 
@@ -833,8 +833,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetName ();
 
@@ -852,8 +852,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetCompartmentType ();
 
@@ -867,7 +867,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int unsetSize ();
 
@@ -886,7 +886,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int unsetVolume ();
 
@@ -900,8 +900,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetUnits ();
 
@@ -915,8 +915,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetOutside ();
 
@@ -930,8 +930,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @note This function is only valid for SBML L3
    */

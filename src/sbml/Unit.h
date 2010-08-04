@@ -689,8 +689,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setKind (UnitKind_t kind);
 
@@ -704,7 +704,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setExponent (int value);
 
@@ -718,7 +718,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setExponent (double value);
 
@@ -732,7 +732,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setScale (int value);
 
@@ -747,8 +747,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
   int setMultiplier (double value);
 
@@ -763,8 +763,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
    * @warning The "offset" attribute is only available in SBML Level&nbsp;2
    * Version&nbsp;1.  This attribute is not present in SBML Level&nbsp;2
@@ -918,7 +918,7 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
   */
   static int removeScale(Unit * unit);
 

@@ -458,8 +458,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setId (const std::string& sid);
 
@@ -477,8 +477,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   int setName (const std::string& name);
 
@@ -495,9 +495,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
    */
   int setTrigger (const Trigger* trigger);
 
@@ -514,9 +514,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
    */
   int setDelay (const Delay* delay);
 
@@ -541,9 +541,9 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
   int setTimeUnits (const std::string& sid);
 
@@ -583,8 +583,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
    * @warning The attribute "useValuesFromTriggerTime" was introduced in
    * SBML Level&nbsp;2 Version&nbsp;4.  It is not valid in models defined
@@ -605,8 +605,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetId ();
 
@@ -620,8 +620,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetName ();
 
@@ -635,8 +635,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   int unsetDelay ();
 
@@ -650,8 +650,8 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2
    * included the attribute called "timeUnits", but it was removed in SBML
@@ -674,11 +674,11 @@ public:
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
-   * @li LIBSBML_OPERATION_SUCCESS
-   * @li LIBSBML_LEVEL_MISMATCH
-   * @li LIBSBML_VERSION_MISMATCH
-   * @li LIBSBML_DUPLICATE_OBJECT_ID
-   * @li LIBSBML_OPERATION_FAILED
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_DUPLICATE_OBJECT_ID LIBSBML_DUPLICATE_OBJECT_ID @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @note This method should be used with some caution.  The fact that
    * this method @em copies the object passed to it means that the caller
