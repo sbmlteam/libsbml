@@ -129,7 +129,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   int add (const std::string& uri, const std::string& prefix = "");
 
@@ -288,7 +288,7 @@ public:
    * prefix, or an empty string if no such prefix-and-URI pair exists
    * in this XMLNamespaces object
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    * 
    * @see getURI()
    */

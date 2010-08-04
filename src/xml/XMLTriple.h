@@ -103,7 +103,7 @@ public:
    * @param triplet a string representing the triplet as above
    * @param sepchar a character, the sepchar used in the triplet
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
 

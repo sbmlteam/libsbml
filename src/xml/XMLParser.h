@@ -60,7 +60,7 @@ public:
    * If the XML compatibility layer has been linked against only a single
    * XML library, the library parameter is ignored.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   static XMLParser* create (  XMLHandler&       handler
                             , const std::string library = "" );
@@ -81,7 +81,7 @@ public:
    *
    * @return true if the parse was successful, false otherwise.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   virtual bool parse (const char* content, bool isFile = true) = 0;
 
@@ -102,7 +102,7 @@ public:
    * @return true if the first step of the progressive parse was
    * successful, false otherwise.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   virtual bool parseFirst (const char* content, bool isFile = true) = 0;
 

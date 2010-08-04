@@ -164,7 +164,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   XMLNode (  const XMLTriple&     triple
            , const XMLAttributes& attributes
@@ -181,7 +181,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
   */
   XMLNode (  const XMLTriple&      triple
            , const XMLAttributes&  attributes
@@ -196,7 +196,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   XMLNode (  const XMLTriple&    triple
            , const unsigned int  line   = 0
@@ -210,7 +210,7 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   XMLNode (  const std::string&  chars
            , const unsigned int  line   = 0
@@ -410,7 +410,7 @@ public:
    * if the conversion failed. 
    * 
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   static XMLNode* convertStringToXMLNode(const std::string& xmlstr,
                                          const XMLNamespaces* xmlns = NULL);

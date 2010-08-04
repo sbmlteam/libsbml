@@ -148,7 +148,7 @@ private:
   /**
    * Log or otherwise report the given error.
    *
-   * @docnote @htmlinclude libsbml-warn-default-args-in-docs.html
+   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
    */
   void reportError (  const XMLErrorCode_t code
 		    , const std::string&   extraMsg     = ""
