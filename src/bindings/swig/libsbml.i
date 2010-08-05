@@ -146,14 +146,10 @@ LIBSBML_CPP_NAMESPACE_USE
  * Ignore internal implementation methods in ASTNode.h
  */
 %ignore ASTNode(Token_t*);
-%ignore ASTNode::getListOfNodes(ASTNodePredicate predicate) const;
-%ignore ASTNode::fillListOfNodes;
 %ignore ASTNode::setSemanticsFlag;
 %ignore ASTNode::unsetSemanticsFlag;
 %ignore ASTNode::getSemanticsFlag;
 %ignore ASTNode::setDefinitionURL;
-%ignore ASTNode::setUserData;
-%ignore ASTNode::getUserData;
 %ignore ASTNode::setParentSBMLObject;
 
 /**
@@ -192,9 +188,17 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore XMLAttributes::readInto;
 
 /**
- * Ignore methods which receive List*.
+ * Ignore methods which receive List* or return List*.
  */
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
+%ignore ASTNode::fillListOfNodes;
+%ignore ASTNode::getListOfNodes(ASTNodePredicate predicate) const;
+
+/**
+ * Ignore methods which receive or return void*.
+ */
+%ignore ASTNode::setUserData;
+%ignore ASTNode::getUserData;
 
 /**
  * Ignore methods which receive std::list.
@@ -443,7 +447,6 @@ LIBSBML_CPP_NAMESPACE_USE
  * which returns a list of all ASTNodes. 
  *
  */
-
 
 %inline
 %{
