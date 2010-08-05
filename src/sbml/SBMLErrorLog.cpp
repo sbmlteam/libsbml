@@ -52,7 +52,7 @@ SBMLErrorLog::SBMLErrorLog ()
 }
 
 
-/**
+/*
  * Used by the Destructor to delete each item in mErrors.
  */
 struct Delete : public unary_function<XMLError*, void>
@@ -215,9 +215,9 @@ private:
 /** @endcond */
 
 
-/**
-  * Returns number of errors that are logged with severity Error
-  */
+/*
+ * Returns number of errors that are logged with severity Error
+ */
 unsigned int
 SBMLErrorLog::getNumFailsWithSeverity(unsigned int severity)
 {
