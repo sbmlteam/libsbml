@@ -27,13 +27,13 @@
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *
- * The error log is simply a list.  The XML layer of libSBML maintains an
- * error log associated with a given XML document or data stream.  When an
+ * The error log is a list.  The XML layer of libSBML maintains an error
+ * log associated with a given XML document or data stream.  When an
  * operation results in an error, or when there is something wrong with the
  * XML content, the problem is reported as an XMLError object stored in the
- * XMLErrorLog list.  Problems range from low-level issues (such as the
- * inability to open a file) to XML syntax errors (such as mismatched tags
- * or other problems).
+ * XMLErrorLog list.  Potential problems range from low-level issues (such
+ * as the inability to open a file) to XML syntax errors (such as
+ * mismatched tags or other problems).
  *
  * A typical approach for using this error log is to first use
  * XMLErrorLog::getNumErrors() to inquire how many XMLError object instances
@@ -73,8 +73,9 @@ public:
   /**
    * Returns the number of errors that have been logged.
    *
-   * To retrieve individual errors from the log, callers may use
-   * XMLErrorLog::getError(unsigned int n).
+   * To retrieve individual errors from the log, callers may use @link
+   * XMLErrorLog::getError(unsigned int n) XMLErrorLog::getError(unsigned
+   * int n)@endlink.
    *
    * @return the number of errors that have been logged.
    */
@@ -90,8 +91,8 @@ public:
    * @param n the index number of the error to retrieve (with 0 being the
    * first error)
    *
-   * @return the nth XMLError in this log, or NULL if @p n is greater than
-   * or equal to XMLErrorLog::getNumErrors().
+   * @return the nth XMLError in this log, or @c NULL if @p n is greater
+   * than or equal to XMLErrorLog::getNumErrors().
    */
   const XMLError* getError (unsigned int n) const;
 
