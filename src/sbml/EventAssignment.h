@@ -211,7 +211,7 @@ public:
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
    * A common approach to using this class constructor is to create an
    * SBMLNamespaces object somewhere in a program, once, then pass it to
    * object constructors such as this one when needed.
@@ -488,7 +488,7 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -641,7 +641,7 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -665,7 +665,7 @@ public:
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @c SBML_UNKNOWN (default).
+   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */

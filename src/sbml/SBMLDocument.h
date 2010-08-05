@@ -915,7 +915,7 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see SBMLDocument::getElementName()
    */

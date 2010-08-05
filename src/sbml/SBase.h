@@ -773,20 +773,19 @@ public:
 
 
   /**
-   * Returns the ancestor SBML object that corresponds to the 
-   * given SBMLTypeCode_t.
+   * Returns the ancestor SBML object that corresponds to the given
+   * #SBMLTypeCode_t value.
    *
    * This function allows any object to determine its exact
-   * location/function within a model. For example a StoichiometryMath
-   * object has ancestors of type SpeciesReference,
-   * ListOfProducts/ListOfReactants/ListOfModifiers, Reaction,
-   * ListOfReactions and Model; any of which can be accessed via this
-   * function.
+   * location/function within a model.  For example, in SBML Level&nbsp;2 a
+   * StoichiometryMath object has ancestors (in order) of type
+   * SpeciesReference, ListOfSpeciesReferences, Reaction, ListOfReactions
+   * and Model; any of which can be accessed via this function.
    *
-   * @param type the SBMLTypeCode_t of the ancestor to be returned.
+   * @param type the #SBMLTypeCode_t of the ancestor to be returned.
    * 
    * @return the ancestor SBML object of this SBML object, that 
-   * corresponds to the given SBMLTypeCode_t, NULL if none exists.
+   * corresponds to the given #SBMLTypeCode_t, NULL if none exists.
    */
   SBase* getAncestorOfType(SBMLTypeCode_t type);
 
@@ -1113,8 +1112,7 @@ public:
    * "metaid" attribute
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1146,28 +1144,14 @@ public:
    * of @p id.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  The following is summary of the
-   * definition of the SBML identifier type @c SId (here expressed in an
-   * extended form of BNF notation):
-   * @code
-   *   letter ::= 'a'..'z','A'..'Z'
-   *   digit  ::= '0'..'9'
-   *   idChar ::= letter | digit | '_'
-   *   SId    ::= ( letter | '_' ) idChar*
-   * @endcode
-   * The equality of SBML identifiers is determined by an exact character
-   * sequence match; i.e., comparisons must be performed in a
-   * case-sensitive manner.  In addition, there are a few conditions for
-   * the uniqueness of identifiers in an SBML model.  Please consult the
-   * SBML specifications for the exact formulations.
+   * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1235,8 +1219,7 @@ public:
    * @see unsetName()
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1277,16 +1260,8 @@ public:
    * @param annotation an XML structure that is to be used as the new content
    * of the "annotation" subelement of this object
    *
-   * @see getAnnotationString()
-   * @see isSetAnnotation()
-   * @see setAnnotation(const std::string& annotation)
-   * @see appendAnnotation(const XMLNode* annotation)
-   * @see appendAnnotation(const std::string& annotation)
-   * @see unsetAnnotation()
-   *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -1332,8 +1307,7 @@ public:
    * of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1376,8 +1350,7 @@ public:
    * to the content of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1420,8 +1393,7 @@ public:
    * to the content of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1461,8 +1433,7 @@ public:
    * "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1502,8 +1473,7 @@ public:
    * "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1523,7 +1493,7 @@ public:
    * Appends notes content to the "notes" element attached to this
    * object.
    *
-   * The content in @p notes is copied.
+   * The content of the parameter @p notes is copied.
    *
    * The optional element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
@@ -1542,8 +1512,7 @@ public:
    * of the "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1563,7 +1532,7 @@ public:
    * Appends notes content to the "notes" element attached to this
    * object.
    *
-   * The content in @p notes is copied.
+   * The content of the parameter in @p notes is copied.
    *
    * The optional element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
@@ -1582,8 +1551,7 @@ public:
    * the "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1607,8 +1575,7 @@ public:
    * @param history ModelHistory of this SBase object.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1655,8 +1622,7 @@ public:
    * @param value the NNNNNNN integer portion of the SBO identifier
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1683,8 +1649,7 @@ public:
    * @param value the SBO identifier string of the form SBO:NNNNNNN
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1698,8 +1663,7 @@ public:
    * @param xmlns the namespaces to set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -1727,8 +1691,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1763,8 +1726,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    *
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
@@ -1812,8 +1774,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    *
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
@@ -1842,8 +1803,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * 
@@ -1876,8 +1836,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -1898,8 +1857,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -1915,17 +1873,16 @@ public:
    * with the same identifier as a previous bag
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
-   * @note Since the CV Term uses the metaid of the object as a 
-   * reference, if the object has no metaid set the CVTerm will
-   * not be added.
+   * @note Since the CV Term uses the "metaid" attribute of the object as a
+   * reference, if the object has no "metaid" attribute value set, then the
+   * CVTerm will not be added.
    *
    * @warning The fact that this method @em copies the object passed to it
    * means that the caller will be left holding a physically different
@@ -1981,8 +1938,7 @@ public:
    * object.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1996,8 +1952,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -2061,13 +2016,14 @@ public:
    * Returns the libSBML type code for this object.
    * 
    * This method MAY return the typecode of this SBML object or it MAY
-   * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
-   * implement this method to return a typecode.  This method is meant
-   * primarily for the LibSBML C interface where class and subclass
-   * information is not readily available.
+   * return @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.  That
+   * is, subclasses of SBase are not required to implement this method to
+   * return a typecode.  This method is meant primarily for the LibSBML C
+   * interface where class and subclass information is not readily
+   * available.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or SBML_UNKNOWN
-   * (default).
+   * @return the #SBMLTypeCode_t value of this SBML object or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */

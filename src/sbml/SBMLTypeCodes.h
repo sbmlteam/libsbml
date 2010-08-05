@@ -128,7 +128,7 @@ typedef enum
  * <code>SBML_COMPARTMENT</code> will return the string
  * "<code>Compartment</code>". 
  *
- * @return a human readable name for the given SBMLTypeCode_t.
+ * @return a human readable name for the given #SBMLTypeCode_t.
  *
  * @note The caller does not own the returned string and is therefore not
  * allowed to modify it.

@@ -289,7 +289,7 @@ public:
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
    * A common approach to using this class constructor is to create an
    * SBMLNamespaces object somewhere in a program, once, then pass it to
    * object constructors such as this one when needed.
@@ -390,20 +390,7 @@ public:
    * Sets the value of the "id" attribute of this UnitDefinition.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  The following is summary of the
-   * definition of the SBML identifier type @c SId (here expressed in an
-   * extended form of BNF notation):
-   * @code
-   *   letter ::= 'a'..'z','A'..'Z'
-   *   digit  ::= '0'..'9'
-   *   idChar ::= letter | digit | '_'
-   *   SId    ::= ( letter | '_' ) idChar*
-   * @endcode
-   * The equality of SBML identifiers is determined by an exact character
-   * sequence match; i.e., comparisons must be performed in a
-   * case-sensitive manner.  In addition, there are a few conditions for
-   * the uniqueness of identifiers in an SBML model.  Please consult the
-   * SBML specifications for the exact formulations.
+   * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -689,7 +676,7 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -972,7 +959,7 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -996,7 +983,7 @@ public:
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @c SBML_UNKNOWN (default).
+   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
