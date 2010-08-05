@@ -22,47 +22,65 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class Parameter.
- * @brief LibSBML implementation of %SBML's %Parameter construct.
+ * @brief LibSBML implementation of SBML's %Parameter construct.
  *
- * A Parameter is used in %SBML to define a symbol associated with a value;
+ * A Parameter is used in SBML to define a symbol associated with a value;
  * this symbol can then be used in mathematical formulas in a model.  By
  * default, parameters have constant value for the duration of a
  * simulation, and for this reason are called @em parameters instead of @em
- * variables in %SBML, although it is crucial to understand that <em>%SBML
- * parameters represent both concepts</em>.  Whether a given %SBML
+ * variables in SBML, although it is crucial to understand that <em>SBML
+ * parameters represent both concepts</em>.  Whether a given SBML
  * parameter is intended to be constant or variable is indicated by the
  * value of its "constant" attribute.
  * 
- * %SBML's Parameter has one required attribute, "id", to give the
- * parameter a unique identifier by which other parts of an %SBML model
+ * SBML's Parameter has a required attribute, "id", that gives the
+ * parameter a unique identifier by which other parts of an SBML model
  * definition can refer to it.  A parameter can also have an optional
  * "name" attribute of type @c string.  Identifiers and names must be used
- * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level&nbsp;2 Version&nbsp;4 specification).
+ * according to the guidelines described in the SBML specifications.
  * 
  * The optional attribute "value" determines the value (of type @c double)
- * assigned to the identifier.  A missing value for "value" implies that
+ * assigned to the parameter.  A missing value for "value" implies that
  * the value either is unknown, or to be obtained from an external source,
- * or determined by an initial assignment.  The units associated with the
- * value of the parameter are specified by the attribute named "units".
- * The value assigned to the parameter's "units" attribute must be chosen
- * from one of the following possibilities: one of the base unit
- * identifiers defined in %SBML; one of the built-in unit identifiers @c
- * "substance", @c "time", @c "volume", @c "area" or @c "length"; or the
- * identifier of a new unit defined in the list of unit definitions in the
- * enclosing Model structure.  There are no constraints on the units that
- * can be chosen from these sets.  There are no default units for
- * parameters.  Please consult the %SBML specification documents for more
- * details about the meanings and implications of the various unit choices.
- * 
- * The Parameter structure has an optional boolean attribute named
- * "constant" that indicates whether the parameter's value can vary during
- * a simulation.  The attribute's default value is @c true.  A value of @c
- * false indicates the parameter's value can be changed by Rule constructs
- * and that the "value" attribute is actually intended to be the initial
- * value of the parameter. Parameters local to a reaction (that is, those
- * defined within the KineticLaw structure of a Reaction) cannot be changed
- * by rules and therefore are implicitly always constant; thus, parameter
+ * or determined by an initial assignment.  The unit of measurement
+ * associated with the value of the parameter can be specified using the
+ * optional attribute "units".  Here we only mention briefly some notable
+ * points about the possible unit choices, but readers are urged to consult
+ * the SBML specification documents for more information:
+ * <ul>
+ *
+ * <li> In SBML Level&nbsp;3, there are no constraints on the units that
+ * can be assigned to parameters in a model; there are also no units to
+ * inherit from the enclosing Model object (unlike the case for, e.g.,
+ * Species and Compartment).
+ *
+ * <li> In SBML Level&nbsp;2, the value assigned to the parameter's "units"
+ * attribute must be chosen from one of the following possibilities: one of
+ * the base unit identifiers defined in SBML; one of the built-in unit
+ * identifiers @c "substance", @c "time", @c "volume", @c "area" or @c
+ * "length"; or the identifier of a new unit defined in the list of unit
+ * definitions in the enclosing Model structure.  There are no constraints
+ * on the units that can be chosen from these sets.  There are no default
+ * units for parameters.
+ * </ul>
+ *
+ * The Parameter structure has another boolean attribute named "constant"
+ * that is used to indicate whether the parameter's value can vary during a
+ * simulation.  (In SBML Level&nbsp;3, the attribute is mandatory and must
+ * be given a value; in SBML Levels below Level&nbsp;3, the attribute is
+ * optional.)  A value of @c true indicates the parameter's value cannot be
+ * changed by any construct except InitialAssignment.  Conversely, if the
+ * value of "constant" is @c false, other constructs in SBML, such as rules
+ * and events, can change the value of the parameter.
+ *
+ * SBML Level&nbsp;3 uses a separate object class, LocalParameter, for
+ * parameters that are local to a Reaction's KineticLaw.  In Levels prior
+ * to SBML Level&nbsp;3, the Parameter class is used both for definitions
+ * of global parameters, as well as reaction-local parameters stored in a
+ * list within KineticLaw objects.  Parameter objects that are local to a
+ * reaction (that is, those defined within the KineticLaw structure of a
+ * Reaction) cannot be changed by rules and therefore are <em>implicitly
+ * always constant</em>; consequently, in SBML Level&nbsp;2, parameter
  * definitions within Reaction structures should @em not have their
  * "constant" attribute set to @c false.
  * 
@@ -73,28 +91,27 @@
  * for "constant" only indicates that a parameter @em can change value, not
  * that it @em must.
  *
- * As with all other major %SBML components, Parameter is derived from
+ * As with all other major SBML components, Parameter is derived from
  * SBase, and the methods defined on SBase are available on Parameter.
  *
  * @see ListOfParameters
- * @see KineticLaw
  * 
- * @note The use of the term @em parameter in %SBML sometimes leads to
+ * @note The use of the term @em parameter in SBML sometimes leads to
  * confusion among readers who have a particular notion of what something
  * called "parameter" should be.  It has been the source of heated debate,
  * but despite this, no one has yet found an adequate replacement term that
  * does not have different connotations to different people and hence leads
  * to confusion among @em some subset of users.  Perhaps it would have been
  * better to have two constructs, one called @em constants and the other
- * called @em variables.  The current approach in %SBML is simply more
+ * called @em variables.  The current approach in SBML is simply more
  * parsimonious, using a single Parameter construct with the boolean flag
  * "constant" indicating which flavor it is.  In any case, readers are
  * implored to look past their particular definition of a @em parameter and
- * simply view %SBML's Parameter as a single mechanism for defining both
+ * simply view SBML's Parameter as a single mechanism for defining both
  * constants and (additional) variables in a model.  (We write @em
  * additional because the species in a model are usually considered to be
  * the central variables.)  After all, software tools are not required to
- * expose to users the actual names of particular %SBML constructs, and
+ * expose to users the actual names of particular SBML constructs, and
  * thus tools can present to their users whatever terms their designers
  * feel best matches their target audience.
  *
@@ -104,14 +121,14 @@
  * @class ListOfParameters.
  * @brief LibSBML implementation of SBML's %ListOfParameters construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -174,13 +191,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Parameter
    * 
-   * @note Once a Parameter has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Parameter.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Parameter object to an SBMLDocument
+   * (e.g., using Model::addParameter()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the Parameter object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Parameter is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   Parameter (unsigned int level, unsigned int version);
 
@@ -191,7 +211,7 @@ public:
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
    * A common approach to using this class constructor is to create an
    * SBMLNamespaces object somewhere in a program, once, then pass it to
    * object constructors such as this one when needed.
@@ -201,19 +221,21 @@ public:
    * (identifier) attribute of a Parameter is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.  Setting the
-   * identifier can be accomplished using the method @if clike
-   * SBase::setId(). @endif@if java SBase::setId(String id).
-   * @endif
+   * identifier can be accomplished using the method
+   * @if clike setId()@endif@if java setId(String id)@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Parameter has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Parameter.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Parameter object to an SBMLDocument
+   * (e.g., using Model::addParameter()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the Parameter object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Parameter is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   Parameter (SBMLNamespaces* sbmlns);
 
@@ -245,9 +267,7 @@ public:
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether the Visitor would like to visit the next Parameter in the list
-   * of parameters within which this Parameter is embedded (i.e., either
-   * the list of parameters in the parent Model or the list of parameters
-   * in the enclosing KineticLaw).
+   * of parameters within which this Parameter is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
@@ -261,13 +281,12 @@ public:
 
 
   /**
-   * Initializes the fields of this Parameter to the defaults defined in
-   * the specification of the relevant Level/Version of %SBML.
+   * Initializes the attributes of this Parameter to the defaults defined
+   * in the specification of the relevant Level/Version of SBML.
    *
-   * The exact actions of this are as follows:
-   * <ul>
-   * <li> (%SBML Level&nbsp;2 only) set the "constant" attribute to @c true.
-   * </ul>
+   * Many SBML object classes defined by libSBML have an initDefaults()
+   * method.  In the case of Parameter, this method only sets the value of
+   * the "constant" attribute to @c true.
    */
   void initDefaults ();
 
@@ -294,37 +313,48 @@ public:
    * @return the value of the "value" attribute of this Parameter, as a
    * number of type @c double.
    *
-   * @see isSetValue()
-   *
    * @note <b>It is crucial</b> that callers not blindly call
-   * Parameter::getValue() without first checking with
-   * Parameter::isSetValue() to determine whether a value has been set.
-   * Otherwise, the value return by Parameter::getValue() may not actually
-   * represent a value assigned to the parameter.
+   * Parameter::getValue() without first using Parameter::isSetValue() to
+   * determine whether a value has ever been set.  Otherwise, the value
+   * return by Parameter::getValue() may not actually represent a value
+   * assigned to the parameter.  The reason is simply that the data type
+   * @c double in a program always has @em some value.  A separate test is
+   * needed to determine whether the value is a true model value, or
+   * uninitialized data in a computer's memory location.
+   * 
+   * @see isSetValue()
+   * @see setValue(double value)
+   * @see getUnits()
    */
   double getValue () const;
 
 
   /**
-   * Gets the units defined for this Parameter
-   * 
+   * Gets the units defined for this Parameter.
+   *
+   * The value of an SBML parameter's "units" attribute establishes the
+   * unit of measurement associated with the parameter's value.
+   *
    * @return the value of the "units" attribute of this Parameter, as a
-   * string.
+   * string.  An empty string indicates that no units have been assigned.
+   *
+   * @note @htmlinclude unassigned-units-are-not-a-default.html
+   * 
+   * @see isSetUnits()
+   * @see setUnits()
+   * @see getValue()
    */
   const std::string& getUnits () const;
 
 
   /**
    * Gets the value of the "constant" attribute of this Parameter instance.
-   *
-   * Note that in SBML Level&nbsp;2 and beyond, the default value of
-   * Parameter's "constant" attribute is @c true.  Since a boolean value
-   * can only be @c true or @c false, there is no "isSetConstant()"
-   * method as is available for the other attributes on Parameter, because
-   * "unset" is not an option.
    * 
    * @return @c true if this Parameter has been declared as being constant,
    * @c false otherwise.
+   *
+   * @see isSetConstant()
+   * @see setConstant(bool flag)
    */
   bool getConstant () const;
 
@@ -359,7 +389,7 @@ public:
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
-   * In %SBML definitions after %SBML Level&nbsp;1 Version&nbsp;1,
+   * In SBML definitions after SBML Level&nbsp;1 Version&nbsp;1,
    * parameter values are optional and have no defaults.  If a model read
    * from a file does not contain a setting for the "value" attribute of a
    * parameter, its value is considered unset; it does not default to any
@@ -377,12 +407,7 @@ public:
    * @c false otherwise.
    *
    * @see getValue()
-   *
-   * @note <b>It is crucial</b> that callers not blindly call
-   * Parameter::getValue() without first checking with
-   * Parameter::isSetValue() to determine whether a value has been set.
-   * Otherwise, the value return by Parameter::getValue() may not actually
-   * represent a value assigned to the parameter.
+   * @see setValue(double value)
    */
   bool isSetValue () const;
 
@@ -395,6 +420,8 @@ public:
    * 
    * @return @c true if the "units" attribute of this Parameter has been
    * set, @c false otherwise.
+   *
+   * @note @htmlinclude unassigned-units-are-not-a-default.html
    */
   bool isSetUnits () const;
 
@@ -415,29 +442,14 @@ public:
    * Sets the value of the "id" attribute of this Parameter.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  The following is summary of the
-   * definition of the SBML identifier type @c SId (here expressed in an
-   * extended form of BNF notation):
-   * @code
-   *   letter ::= 'a'..'z','A'..'Z'
-   *   digit  ::= '0'..'9'
-   *   idChar ::= letter | digit | '_'
-   *   SId    ::= ( letter | '_' ) idChar*
-   * @endcode
-   * The equality of SBML identifiers is determined by an exact character
-   * sequence match; i.e., comparisons must be performed in a
-   * case-sensitive manner.  In addition, there are a few conditions for
-   * the uniqueness of identifiers in an SBML model.  Please consult the
-   * SBML specifications for the exact formulations.
+   * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Parameter
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
@@ -454,8 +466,7 @@ public:
    * @param name the new name for the Parameter
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -472,8 +483,7 @@ public:
    * @param value a @c double, the value to assign
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -490,8 +500,7 @@ public:
    * Parameter instance
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -507,8 +516,7 @@ public:
    * Parameter instance
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -522,8 +530,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -537,14 +544,13 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * In %SBML Level&nbsp;1 Version&nbsp;1, parameters are required to have
+   * In SBML Level&nbsp;1 Version&nbsp;1, parameters are required to have
    * values and therefore, the value of a Parameter <b>should always be
-   * set</b>.  In %SBML Level&nbsp;1 Version&nbsp;2 and beyond, the value
+   * set</b>.  In SBML Level&nbsp;1 Version&nbsp;2 and beyond, the value
    * is optional and as such, the "value" attribute may or may not be set.
    */
   int unsetValue ();
@@ -556,8 +562,7 @@ public:
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -571,27 +576,31 @@ public:
    *
    * Parameters in SBML have an attribute ("units") for declaring the units
    * of measurement intended for the parameter's value.  <b>No defaults are
-   * defined</b> by SBML in the absence of a definition for "units".  The
-   * Parameter::getDerivedUnitDefinition() method returns a UnitDefinition
-   * object based on the units declared for this Parameter using its
-   * "units" attribute, or it returns NULL if no units have been declared.
+   * defined</b> by SBML in the absence of a definition for "units".  This
+   * method returns a UnitDefinition object based on the units declared for
+   * this Parameter using its "units" attribute, or it returns @c NULL if
+   * no units have been declared.
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
-   *
-   * Note that unit declarations for Parameter are in terms of the @em
-   * identifier of a unit, but this method returns a UnitDefinition object,
-   * not a unit identifier.  It does this by constructing an appropriate
-   * UnitDefinition even when the value of the "units" attribute is one of
-   * the predefined SBML units @c "substance", @c "volume", @c "area", @c
-   * "length" or @c "time".  Callers may find this particularly useful
-   * when used in conjunction with the helper methods on UnitDefinition
-   * for comparing different UnitDefinition objects.
+   * Note that unit declarations for Parameter objects are specified in
+   * terms of the @em identifier of a unit (e.g., using setUnits()), but
+   * @em this method returns a UnitDefinition object, not a unit
+   * identifier.  It does this by constructing an appropriate
+   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
+   * when the value of the "units" attribute is one of the predefined SBML
+   * units @c "substance", @c "volume", @c "area", @c "length" or @c
+   * "time".  Callers may find this useful in conjunction with the helper
+   * methods provided by the UnitDefinition class for comparing different
+   * UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
    * Parameter.
+   *
+   * @note The libSBML system for unit analysis depends on the model as a
+   * whole.  In cases where the Parameter object has not yet been added to
+   * a model, or the model itself is incomplete, unit analysis is not
+   * possible, and consequently this method will return @c NULL.
+   *
+   * @see isSetUnits()
    */
   UnitDefinition * getDerivedUnitDefinition();
 
@@ -602,33 +611,37 @@ public:
    *
    * Parameters in SBML have an attribute ("units") for declaring the units
    * of measurement intended for the parameter's value.  <b>No defaults are
-   * defined</b> by SBML in the absence of a definition for "units".  The
-   * Parameter::getDerivedUnitDefinition() method returns a UnitDefinition
-   * object based on the units declared for this Parameter using its
-   * "units" attribute, or it returns NULL if no units have been declared.
+   * defined</b> by SBML in the absence of a definition for "units".  This
+   * method returns a UnitDefinition object based on the units declared for
+   * this Parameter using its "units" attribute, or it returns @c NULL if
+   * no units have been declared.
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
-   *
-   * Note that unit declarations for Parameter are in terms of the @em
-   * identifier of a unit, but this method returns a UnitDefinition object,
-   * not a unit identifier.  It does this by constructing an appropriate
-   * UnitDefinition even when the value of the "units" attribute is one of
-   * the predefined SBML units @c "substance", @c "volume", @c "area", @c
-   * "length" or @c "time".  Callers may find this particularly useful
-   * when used in conjunction with the helper methods on UnitDefinition
-   * for comparing different UnitDefinition objects.
+   * Note that unit declarations for Parameter objects are specified in
+   * terms of the @em identifier of a unit (e.g., using setUnits()), but
+   * @em this method returns a UnitDefinition object, not a unit
+   * identifier.  It does this by constructing an appropriate
+   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
+   * when the value of the "units" attribute is one of the predefined SBML
+   * units @c "substance", @c "volume", @c "area", @c "length" or @c
+   * "time".  Callers may find this useful in conjunction with the helper
+   * methods provided by the UnitDefinition class for comparing different
+   * UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
    * Parameter.
+   *
+   * @note The libSBML system for unit analysis depends on the model as a
+   * whole.  In cases where the Parameter object has not yet been added to
+   * a model, or the model itself is incomplete, unit analysis is not
+   * possible, and consequently this method will return @c NULL.
+   * 
+   * @see isSetUnits()
    */
   const UnitDefinition * getDerivedUnitDefinition() const;
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -642,7 +655,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -746,7 +760,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -760,7 +774,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -784,7 +799,8 @@ public:
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @c SBML_UNKNOWN (default).
+   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink
+   * (default).
    *
    * @see getElementName()
    */
@@ -802,39 +818,43 @@ public:
 
 
   /**
-   * Get a Parameter from the ListOfParameters.
+   * Returns the Parameter object located at position @p n within this
+   * ListOfParameters instance.
    *
    * @param n the index number of the Parameter to get.
    * 
-   * @return the nth Parameter in this ListOfParameters.
+   * @return the nth Parameter in this ListOfParameters.  If the index @p n
+   * is out of bounds for the length of the list, then @c NULL is returned.
    *
    * @see size()
+   * @see get(const std::string& sid)
    */
   virtual Parameter * get(unsigned int n); 
 
 
   /**
-   * Get a Parameter from the ListOfParameters.
+   * Returns the Parameter object located at position @p n within this
+   * ListOfParameters instance.
    *
    * @param n the index number of the Parameter to get.
    * 
-   * @return the nth Parameter in this ListOfParameters.
+   * @return the nth Parameter in this ListOfParameters.  If the index @p n
+   * is out of bounds for the length of the list, then @c NULL is returned.
    *
    * @see size()
+   * @see get(const std::string& sid)
    */
   virtual const Parameter * get(unsigned int n) const; 
 
 
   /**
-   * Get a Parameter from the ListOfParameters
-   * based on its identifier.
+   * Returns the first Parameter object matching the given identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the Parameter to get.
+   * @param sid a string, the identifier of the Parameter to get.
    * 
-   * @return Parameter in this ListOfParameters
-   * with the given id or NULL if no such
-   * Parameter exists.
+   * @return the Parameter object found.  The caller owns the returned
+   * object and is responsible for deleting it.  If none of the items have
+   * an identifier matching @p sid, then @c NULL is returned.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -843,15 +863,14 @@ public:
 
 
   /**
-   * Get a Parameter from the ListOfParameters
-   * based on its identifier.
+   * Returns the first Parameter object matching the given identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the Parameter to get.
+   * @param sid a string representing the identifier of the Parameter to
+   * get.
    * 
-   * @return Parameter in this ListOfParameters
-   * with the given id or NULL if no such
-   * Parameter exists.
+   * @return the Parameter object found.  The caller owns the returned
+   * object and is responsible for deleting it.  If none of the items have
+   * an identifier matching @p sid, then @c NULL is returned.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -860,12 +879,14 @@ public:
 
 
   /**
-   * Removes the nth item from this ListOfParameters items and returns a pointer to
-   * it.
-   *
-   * The caller owns the returned item and is responsible for deleting it.
+   * Removes the nth item from this ListOfParameters, and returns a pointer
+   * to it.
    *
    * @param n the index of the item to remove
+   *
+   * @return the item removed.  The caller owns the returned object and is
+   * responsible for deleting it.  If the index number @p n is out of
+   * bounds for the length of the list, then @c NULL is returned.
    *
    * @see size()
    */
@@ -873,16 +894,14 @@ public:
 
 
   /**
-   * Removes item in this ListOfParameters items with the given identifier.
+   * Removes the first Parameter object in this ListOfParameters
+   * matching the given identifier, and returns a pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * @param sid the identifier of the item to remove.
    *
-   * @param sid the identifier of the item to remove
-   *
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
+   * @return the item removed.  The caller owns the returned object and is
+   * responsible for deleting it.  If none of the items have an identifier
+   * matching @p sid, then @c NULL is returned.
    */
   virtual Parameter* remove (const std::string& sid);
 
@@ -890,12 +909,12 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Get the ordinal position of this element in the containing object
+   * Gets the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfParameters
-   * in a model is (in %SBML Level&nbsp;2 Version&nbsp;4) the seventh
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  So, for example, the ListOfParameters
+   * in a model is (in SBML Level&nbsp;2 Version&nbsp;4) the seventh
    * ListOf___.  (However, it differs for different Levels and Versions of
    * SBML.)
    *
@@ -914,7 +933,7 @@ protected:
    * Create a ListOfParameters object corresponding to the next token in
    * the XML input stream.
    * 
-   * @return the %SBML object corresponding to next XMLToken in the
+   * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
