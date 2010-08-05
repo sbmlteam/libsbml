@@ -22,99 +22,85 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class LocalParameter.
- * @brief LibSBML implementation of %SBML's %LocalParameter construct.
+ * @brief LibSBML implementation of SBML Level&nbsp;3's %LocalParameter construct.
  *
- * A LocalParameter is used in %SBML to define a symbol associated with a value;
- * this symbol can then be used in mathematical formulas in a model.  By
- * default, parameters have constant value for the duration of a
- * simulation, and for this reason are called @em parameters instead of @em
- * variables in %SBML, although it is crucial to understand that <em>%SBML
- * parameters represent both concepts</em>.  Whether a given %SBML
- * parameter is intended to be constant or variable is indicated by the
- * value of its "constant" attribute.
+ * LocalParameter has been introduced in SBML Level&nbsp;3 to serve as the
+ * object class for parameter definitions that are intended to be local to
+ * a Reaction.  Objects of class LocalParameter never appear at the Model
+ * level; they are always contained within ListOfLocalParameters lists
+ * which are in turn contained within KineticLaw objects.
+ *
+ * Like its global Parameter counterpart, the LocalParameter object class
+ * is used to define a symbol associated with a value; this symbol can then
+ * be used in a model's mathematical formulas (and specifically, for
+ * LocalParameter, reaction rate formulas).  Unlike Parameter, the
+ * LocalParameter class does not have a "constant" attribute: local
+ * parameters within reactions are @em always constant.
  * 
- * %SBML's Parameter has one required attribute, "id", to give the
- * parameter a unique identifier by which other parts of an %SBML model
+ * LocalParameter has one required attribute, "id", to give the
+ * parameter a unique identifier by which other parts of an SBML model
  * definition can refer to it.  A parameter can also have an optional
  * "name" attribute of type @c string.  Identifiers and names must be used
- * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level&nbsp;2 Version&nbsp;4 specification).
+ * according to the guidelines described in the SBML specifications.
  * 
  * The optional attribute "value" determines the value (of type @c double)
- * assigned to the identifier.  A missing value for "value" implies that
+ * assigned to the parameter.  A missing value for "value" implies that
  * the value either is unknown, or to be obtained from an external source,
- * or determined by an initial assignment.  The units associated with the
- * value of the parameter are specified by the attribute named "units".
- * The value assigned to the parameter's "units" attribute must be chosen
- * from one of the following possibilities: one of the base unit
- * identifiers defined in %SBML; one of the built-in unit identifiers @c
- * "substance", @c "time", @c "volume", @c "area" or @c "length"; or the
- * identifier of a new unit defined in the list of unit definitions in the
- * enclosing Model structure.  There are no constraints on the units that
- * can be chosen from these sets.  There are no default units for
- * parameters.  Please consult the %SBML specification documents for more
- * details about the meanings and implications of the various unit choices.
- * 
- * The Parameter structure has an optional boolean attribute named
- * "constant" that indicates whether the parameter's value can vary during
- * a simulation.  The attribute's default value is @c true.  A value of @c
- * false indicates the parameter's value can be changed by Rule constructs
- * and that the "value" attribute is actually intended to be the initial
- * value of the parameter. Parameters local to a reaction (that is, those
- * defined within the KineticLaw structure of a Reaction) cannot be changed
- * by rules and therefore are implicitly always constant; thus, parameter
- * definitions within Reaction structures should @em not have their
- * "constant" attribute set to @c false.
- * 
- * What if a global parameter has its "constant" attribute set to @c false,
- * but the model does not contain any rules, events or other constructs
- * that ever change its value over time?  Although the model may be
- * suspect, this situation is not strictly an error.  A value of @c false
- * for "constant" only indicates that a parameter @em can change value, not
- * that it @em must.
+ * or determined by an initial assignment.  The unit of measurement
+ * associated with the value of the parameter can be specified using the
+ * optional attribute "units".  Here we only mention briefly some notable
+ * points about the possible unit choices, but readers are urged to consult
+ * the SBML specification documents for more information:
+ * <ul>
  *
- * As with all other major %SBML components, Parameter is derived from
- * SBase, and the methods defined on SBase are available on Parameter.
+ * <li> In SBML Level&nbsp;3, there are no constraints on the units that
+ * can be assigned to parameters in a model; there are also no units to
+ * inherit from the enclosing Model object.
  *
- * @see ListOfParameters
+ * <li> In SBML Level&nbsp;2, the value assigned to the parameter's "units"
+ * attribute must be chosen from one of the following possibilities: one of
+ * the base unit identifiers defined in SBML; one of the built-in unit
+ * identifiers @c "substance", @c "time", @c "volume", @c "area" or @c
+ * "length"; or the identifier of a new unit defined in the list of unit
+ * definitions in the enclosing Model structure.  There are no constraints
+ * on the units that can be chosen from these sets.  There are no default
+ * units for local parameters.
+ * </ul>
+ *
+ * As with all other major SBML components, LocalParameter is derived from
+ * SBase, and the methods defined on SBase are available on LocalParameter.
+ * 
+ * @warning LibSBML derives LocalParameter from Parameter; however, this
+ * does not precisely match the object hierarchy defined by SBML
+ * Level&nbsp;3, where LocalParamter is derived directly from SBase and not
+ * Parameter.  We believe this arrangement makes it easier for libSBML
+ * users to program applications that work with both SBML Level&nbsp;2 and
+ * SBML Level&nbsp;3, but programmers should also keep in mind this
+ * difference exists.  A side-effect of libSBML's scheme is that certain
+ * methods on LocalParameter that are inherited from Parameter do not
+ * actually have relevance to LocalParameter objects.  An example of this
+ * is the methods pertaining to Parameter's attribute "constant"
+ * (i.e., isSetConstant(), setConstant(), and getConstant()).
+ *
+ * @see ListOfLocalParameters
  * @see KineticLaw
  * 
- * @note The use of the term @em parameter in %SBML sometimes leads to
- * confusion among readers who have a particular notion of what something
- * called "parameter" should be.  It has been the source of heated debate,
- * but despite this, no one has yet found an adequate replacement term that
- * does not have different connotations to different people and hence leads
- * to confusion among @em some subset of users.  Perhaps it would have been
- * better to have two constructs, one called @em constants and the other
- * called @em variables.  The current approach in %SBML is simply more
- * parsimonious, using a single Parameter construct with the boolean flag
- * "constant" indicating which flavor it is.  In any case, readers are
- * implored to look past their particular definition of a @em parameter and
- * simply view %SBML's Parameter as a single mechanism for defining both
- * constants and (additional) variables in a model.  (We write @em
- * additional because the species in a model are usually considered to be
- * the central variables.)  After all, software tools are not required to
- * expose to users the actual names of particular %SBML constructs, and
- * thus tools can present to their users whatever terms their designers
- * feel best matches their target audience.
- *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 /**
- * @class ListOfParameters.
- * @brief LibSBML implementation of SBML's %ListOfParameters construct.
+ * @class ListOfLocalParameters.
+ * @brief LibSBML implementation of SBML's %ListOfLocalParameters construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
- *
- * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
- * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
+ * ListOfLocalParameters is a subsidiary object class used only within
+ * KineticLaw.  A KineticLaw object can have a single object of class
+ * ListOfLocalParameters containing a set of local parameters used in that
+ * kinetic law definition.
  *
  * Readers may wonder about the motivations for using the ListOf___
  * containers.  A simpler approach in XML might be to place the components
@@ -167,32 +153,37 @@ class LIBSBML_EXTERN LocalParameter : public Parameter
 public:
 
   /**
-   * Creates a new LocalParameter using the given SBML @p level and @p version
-   * values.
+   * Creates a new LocalParameter object with the given SBML @p level and
+   * @p version values.
    *
-   * @param level an unsigned int, the SBML Level to assign to this LocalParameter
+   * @param level an unsigned int, the SBML Level to assign to this
+   * LocalParameter.
    *
    * @param version an unsigned int, the SBML Version to assign to this
-   * LocalParameter
+   * LocalParameter.
    * 
-   * @note Once a LocalParameter has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the LocalParameter.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a LocalParameter object to an SBMLDocument
+   * (e.g., using KineticLaw::addLocalParameter()), the SBML Level, SBML
+   * Version version and XML namespace of the document @em override the
+   * values used when creating the LocalParameter object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a LocalParameter is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   LocalParameter (unsigned int level, unsigned int version);
 
 
   /**
-   * Creates a new LocalParameter using the given SBMLNamespaces object
-   * @p sbmlns.
+   * Creates a new LocalParameter object with the given SBMLNamespaces
+   * object @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
    * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp; Core.
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
    * A common approach to using this class constructor is to create an
    * SBMLNamespaces object somewhere in a program, once, then pass it to
    * object constructors such as this one when needed.
@@ -202,19 +193,22 @@ public:
    * (identifier) attribute of a LocalParameter is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.  Setting the
-   * identifier can be accomplished using the method @if clike
-   * SBase::setId(). @endif@if java SBase::setId(String id).
-   * @endif
+   * identifier can be accomplished using the method
+   * @if clike setId()@endif@if java setId(String id)@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a LocalParameter has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the LocalParameter.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a LocalParameter object to an SBMLDocument
+   * (e.g., using KineticLaw::addLocalParameter()), the SBML Level, SBML
+   * Version version and XML namespace of the document @em override the
+   * values used when creating the LocalParameter object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a LocalParameter is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   LocalParameter (SBMLNamespaces* sbmlns);
 
@@ -226,7 +220,7 @@ public:
 
 
   /**
-   * Copy constructor; creates a copy of a LocalParameter.
+   * Copy constructor; creates a copy of a given LocalParameter object.
    * 
    * @param orig the LocalParameter instance to copy.
    */
@@ -234,8 +228,8 @@ public:
 
 
   /**
-   * Copy constructor; creates a LocalParameter that copies
-   * attributes from the Parameter.
+   * Copy constructor; creates a LocalParameter object by copying
+   * the attributes of a given Parameter object.
    * 
    * @param orig the Parameter instance to copy.
    */
@@ -274,29 +268,33 @@ public:
    * Constructs and returns a UnitDefinition that corresponds to the units
    * of this LocalParameter's value.
    *
-   * LocalParameters in SBML have an attribute ("units") for declaring the units
-   * of measurement intended for the parameter's value.  <b>No defaults are
-   * defined</b> by SBML in the absence of a definition for "units".  The
-   * LocalParameter::getDerivedUnitDefinition() method returns a UnitDefinition
-   * object based on the units declared for this LocalParameter using its
-   * "units" attribute, or it returns NULL if no units have been declared.
+   * LocalParameters in SBML have an attribute ("units") for declaring the
+   * units of measurement intended for the parameter's value.  <b>No
+   * defaults are defined</b> by SBML in the absence of a definition for
+   * "units".  This method returns a UnitDefinition object based on the
+   * units declared for this LocalParameter using its "units" attribute, or
+   * it returns @c NULL if no units have been declared.
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
-   *
-   * Note that unit declarations for LocalParameter are in terms of the @em
-   * identifier of a unit, but this method returns a UnitDefinition object,
-   * not a unit identifier.  It does this by constructing an appropriate
-   * UnitDefinition even when the value of the "units" attribute is one of
-   * the predefined SBML units @c "substance", @c "volume", @c "area", @c
-   * "length" or @c "time".  Callers may find this particularly useful
-   * when used in conjunction with the helper methods on UnitDefinition
-   * for comparing different UnitDefinition objects.
+   * Note that unit declarations for LocalParameter objects are specified
+   * in terms of the @em identifier of a unit (e.g., using setUnits()), but
+   * @em this method returns a UnitDefinition object, not a unit
+   * identifier.  It does this by constructing an appropriate
+   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
+   * when the value of the "units" attribute is one of the predefined SBML
+   * units @c "substance", @c "volume", @c "area", @c "length" or @c
+   * "time".  Callers may find this useful in conjunction with the helper
+   * methods provided by the UnitDefinition class for comparing different
+   * UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
    * LocalParameter.
+   *
+   * @note The libSBML system for unit analysis depends on the model as a
+   * whole.  In cases where the LocalParameter object has not yet been
+   * added to a model, or the model itself is incomplete, unit analysis is
+   * not possible, and consequently this method will return @c NULL.
+   *
+   * @see isSetUnits()
    */
   UnitDefinition * getDerivedUnitDefinition();
 
@@ -305,35 +303,39 @@ public:
    * Constructs and returns a UnitDefinition that corresponds to the units
    * of this LocalParameter's value.
    *
-   * LocalParameters in SBML have an attribute ("units") for declaring the units
-   * of measurement intended for the parameter's value.  <b>No defaults are
-   * defined</b> by SBML in the absence of a definition for "units".  The
-   * LocalParameter::getDerivedUnitDefinition() method returns a UnitDefinition
-   * object based on the units declared for this LocalParameter using its
-   * "units" attribute, or it returns NULL if no units have been declared.
+   * LocalParameters in SBML have an attribute ("units") for declaring the
+   * units of measurement intended for the parameter's value.  <b>No
+   * defaults are defined</b> by SBML in the absence of a definition for
+   * "units".  This method returns a UnitDefinition object based on the
+   * units declared for this LocalParameter using its "units" attribute, or
+   * it returns @c NULL if no units have been declared.
    *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
-   *
-   * Note that unit declarations for LocalParameter are in terms of the @em
-   * identifier of a unit, but this method returns a UnitDefinition object,
-   * not a unit identifier.  It does this by constructing an appropriate
-   * UnitDefinition even when the value of the "units" attribute is one of
-   * the predefined SBML units @c "substance", @c "volume", @c "area", @c
-   * "length" or @c "time".  Callers may find this particularly useful
-   * when used in conjunction with the helper methods on UnitDefinition
-   * for comparing different UnitDefinition objects.
+   * Note that unit declarations for LocalParameter objects are specified
+   * in terms of the @em identifier of a unit (e.g., using setUnits()), but
+   * @em this method returns a UnitDefinition object, not a unit
+   * identifier.  It does this by constructing an appropriate
+   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
+   * when the value of the "units" attribute is one of the predefined SBML
+   * units @c "substance", @c "volume", @c "area", @c "length" or @c
+   * "time".  Callers may find this useful in conjunction with the helper
+   * methods provided by the UnitDefinition class for comparing different
+   * UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
    * LocalParameter.
+   *
+   * @note The libSBML system for unit analysis depends on the model as a
+   * whole.  In cases where the LocalParameter object has not yet been
+   * added to a model, or the model itself is incomplete, unit analysis is
+   * not possible, and consequently this method will return @c NULL.
+   *
+   * @see isSetUnits()
    */
   const UnitDefinition * getDerivedUnitDefinition() const;
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -347,7 +349,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -355,8 +358,8 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for LocalParameter, is
-   * always @c "localParameter".
+   * Returns the XML element name of this object, which for LocalParameter,
+   * is always @c "localParameter".
    * 
    * @return the name of this element, i.e., @c "localParameter".
    */
@@ -428,7 +431,7 @@ class LIBSBML_EXTERN ListOfLocalParameters : public ListOfParameters
 public:
 
   /**
-   * Creates and returns a deep copy of this ListOfLocalParameters instance.
+   * Creates and returns a deep copy of this ListOfLocalParameters object.
    *
    * @return a (deep) copy of this ListOfLocalParameters.
    */
@@ -436,7 +439,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -450,7 +453,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @c SBML_UNKNOWN (default).
+   * @return the SBML type code for this object, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -474,7 +478,8 @@ public:
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf
-   * instance, or @c SBML_UNKNOWN (default).
+   * instance, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink
+   * (default).
    *
    * @see getElementName()
    */
@@ -492,39 +497,45 @@ public:
 
 
   /**
-   * Get a LocalParameter from the ListOfLocalParameters.
+   * Returns the LocalParameter object located at position @p n within this
+   * ListOfLocalParameters instance.
    *
    * @param n the index number of the LocalParameter to get.
    * 
-   * @return the nth LocalParameter in this ListOfLocalParameters.
+   * @return the nth LocalParameter in this ListOfLocalParameters.  If the
+   * index @p n is out of bounds for the length of the list, then @c NULL
+   * is returned.
    *
    * @see size()
+   * @see get(const std::string& sid)
    */
-  virtual LocalParameter * get(unsigned int n); 
+  virtual LocalParameter * get (unsigned int n); 
 
 
   /**
-   * Get a LocalParameter from the ListOfLocalParameters.
+   * Returns the LocalParameter object located at position @p n within this
+   * ListOfLocalParameters instance.
    *
    * @param n the index number of the LocalParameter to get.
    * 
-   * @return the nth LocalParameter in this ListOfLocalParameters.
+   * @return the item at position @p n.  The caller owns the returned
+   * object and is responsible for deleting it.  If the index number @p n
+   * is out of bounds for the length of the list, then @c NULL is returned.
    *
    * @see size()
+   * @see get(const std::string& sid)
    */
-  virtual const LocalParameter * get(unsigned int n) const; 
+  virtual const LocalParameter * get (unsigned int n) const; 
 
 
   /**
-   * Get a LocalParameter from the ListOfLocalParameters
-   * based on its identifier.
+   * Returns the first LocalParameter object matching the given identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the LocalParameter to get.
+   * @param sid a string, the identifier of the LocalParameter to get.
    * 
-   * @return LocalParameter in this ListOfLocalParameters
-   * with the given id or NULL if no such
-   * LocalParameter exists.
+   * @return the LocalParameter object found.  The caller owns the returned
+   * object and is responsible for deleting it.  If none of the items have
+   * an identifier matching @p sid, then @c NULL is returned.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -533,15 +544,14 @@ public:
 
 
   /**
-   * Get a LocalParameter from the ListOfLocalParameters
-   * based on its identifier.
+   * Returns the first LocalParameter object matching the given identifier.
    *
-   * @param sid a string representing the identifier 
-   * of the LocalParameter to get.
+   * @param sid a string representing the identifier of the LocalParameter
+   * to get.
    * 
-   * @return LocalParameter in this ListOfLocalParameters
-   * with the given id or NULL if no such
-   * LocalParameter exists.
+   * @return the LocalParameter object found.  The caller owns the returned
+   * object and is responsible for deleting it.  If none of the items have
+   * an identifier matching @p sid, then @c NULL is returned.
    *
    * @see get(unsigned int n)
    * @see size()
@@ -550,29 +560,30 @@ public:
 
 
   /**
-   * Removes the nth item from this ListOfLocalParameters items and returns a pointer to
-   * it.
+   * Removes the nth item from this ListOfLocalParameters, and returns a
+   * pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
+   * @param n the index of the item to remove.  
    *
-   * @param n the index of the item to remove
+   * @return the item removed.  The caller owns the returned object and is
+   * responsible for deleting it.  If the index number @p n is out of
+   * bounds for the length of the list, then @c NULL is returned.
    *
    * @see size()
+   * @see remove(const std::string& sid)
    */
   virtual LocalParameter* remove (unsigned int n);
 
 
   /**
-   * Removes item in this ListOfLocalParameters items with the given identifier.
+   * Removes the first LocalParameter object in this ListOfLocalParameters
+   * matching the given identifier, and returns a pointer to it.
    *
-   * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * @param sid the identifier of the item to remove.
    *
-   * @param sid the identifier of the item to remove
-   *
-   * @return the item removed.  As mentioned above, the caller owns the
-   * returned item.
+   * @return the item removed.  The caller owns the returned object and is
+   * responsible for deleting it.  If none of the items have an identifier
+   * matching @p sid, then @c NULL is returned.
    */
   virtual LocalParameter* remove (const std::string& sid);
 
@@ -583,9 +594,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfLocalParameters
-   * in a model is (in %SBML Level&nbsp;2 Version&nbsp;4) the seventh
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  So, for example, the ListOfLocalParameters
+   * in a model is (in SBML Level&nbsp;2 Version&nbsp;4) the seventh
    * ListOf___.  (However, it differs for different Levels and Versions of
    * SBML.)
    *
@@ -604,7 +615,7 @@ protected:
    * Create a ListOfLocalParameters object corresponding to the next token in
    * the XML input stream.
    * 
-   * @return the %SBML object corresponding to next XMLToken in the
+   * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
