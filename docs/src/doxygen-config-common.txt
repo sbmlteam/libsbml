@@ -366,14 +366,16 @@ INPUT =                            \
 EXCLUDE =                            \
   force-serif-font-on.html           \
   force-serif-font-off.html          \
+  ../../src/sbml/SBMLTransforms.h    \
+  ../../src/sbml/SBMLTransforms.cpp  \
+  ../../src/math/FormulaTokenizer.c  \
+  ../../src/math/FormulaTokenizer.h  \
   ../../src/util/memory.c            \
   ../../src/util/memory.h            \
   ../../src/util/Stack.c             \
   ../../src/util/Stack.h             \
   ../../src/util/StringBuffer.c      \
   ../../src/util/StringBuffer.h      \
-  ../../src/math/FormulaTokenizer.c  \
-  ../../src/math/FormulaTokenizer.h  \
   ../../src/xml/XercesHandler.h      \
   ../../src/xml/XercesHandler.cpp    \
   ../../src/xml/ExpatHandler.h       \
