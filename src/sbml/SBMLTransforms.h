@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    SBMLTransforms.h
  * @brief   Transform functions
  * @author  Sarah Keating
@@ -180,3 +182,6 @@ LIBSBML_CPP_NAMESPACE_END
 #endif  /* __cplusplus */
 
 #endif  /* SBMLTransforms_h */
+
+
+/** @endcond */

@@ -22,8 +22,12 @@
  *----------------------------------------------------------------------- -->
  *
  * @class SyntaxChecker
- * @brief Methods for checking syntax of ids, metaids and units
- *
+ * @brief Methods for checking syntax of SBML identifiers, unit identifiers,
+ * and "metaid" identifiers.
+ * 
+ * @htmlinclude libsbml-not-sbml-warning.html
+ * 
+ * This is a utility class provided for the convenience of libSBML users.
  */
 
 #ifndef SyntaxChecker_h

@@ -19,7 +19,27 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *----------------------------------------------------------------------- -->
+ *
+ * @class SBMLVisitor
+ * @brief Support class for performing operations on SBML objects.
+ * 
+ * <em style='color: #555'>This class of objects is defined by libSBML only
+ * and has no direct equivalent in terms of SBML components.</em>
+ * 
+ * This is a class that supports the use of the <a target="_blank"
+ * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+ * Pattern</i></a> to perform operations on SBML objects.  The LibSBML
+ * implementation of the Visitor Pattern couples the notion of visitation
+ * with the traversal of an SBML model oject hierarchy.
+ *
+ * This class (SBMLVisitor) does not provide stand-alone functionality;
+ * rather, it defines the interface that user visitor classes must
+ * implement.  All of the individual SBML object classes have methods named
+ * <code>accept</code> that are used for invoking an object of class
+ * SBMLVisitor.  An example of its use is in the SBML validation system,
+ * which is internally implemented using this Visitor Pattern facility.
+ */
 
 #ifndef SBMLVisitor_h
 #define SBMLVisitor_h
@@ -72,17 +92,6 @@ class Delay;
 class ListOf;
 
 
-/**
- * Implementation of the Visitor design pattern, for operations on SBML objects
- *
- * The Visitor Pattern (Design Patterns, Gamma et al.\ ) allows you to add
- * operations to an established class hierarchy without actually modifying
- * the classes in heirarchy.  For computer science types, C++
- * implementations of Visitor are a form of double-dispatch.
- *
- * For convenience, an SBMLVisitor couples the notion of visitation with
- * SBML object tree traversal.
- */
 class SBMLVisitor
 {
 public:

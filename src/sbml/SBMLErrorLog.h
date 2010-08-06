@@ -27,35 +27,34 @@
  *
  * @htmlinclude libsbml-not-sbml-warning.html
  *
- * The error log is simply a list.  Each SBMLDocument maintains its own
+ * The error log is a list.  Each SBMLDocument maintains its own
  * SBMLErrorLog.  When a libSBML operation on SBML content results in an
- * error, or when there is something worth noting about the SBML content, 
+ * error, or when there is something worth noting about the SBML content,
  * the issue is reported as an SBMLError object stored in the SBMLErrorLog
  * list.
  *
  * SBMLErrorLog is derived from XMLErrorLog, an object class that serves
  * exactly the same purpose but for the XML parsing layer.  XMLErrorLog
- * provides crucial methods such as SBMLErrorLog::getNumErrors() for
- * determining how many SBMLError or XMLError objects are in the log.
- * SBMLErrorLog inherits these methods.
+ * provides crucial methods such as getNumErrors() for determining how many
+ * SBMLError or XMLError objects are in the log.  SBMLErrorLog inherits
+ * these methods.
  *
  * The general approach to working with SBMLErrorLog in user programs
  * involves first obtaining a pointer to a log from a libSBML object such
- * as SBMLDocument.  Callers should then use SBMLErrorLog::getNumErrors()
- * to inquire how many objects there are in the list.  (The answer may be
- * 0.)  If there is at least one SBMLError object in the SBMLErrorLog
- * instance, callers can then iterate over the list using 
- * @if clike SBMLErrorLog::getError(), using methods on SBMLError
- * to find out the error code and associated information such as the error
- * severity, the message, and the line number in the
- * input. @endif@if java SBMLErrorLog::getError(long n), using
- * methods on SBMLError  to find out the error code and associated
- * information such as the error severity, the message, and the line number
- * in the input. 
- * @endif
+ * as SBMLDocument.  Callers should then use getNumErrors() to inquire how
+ * many objects there are in the list.  (The answer may be 0.)  If there is
+ * at least one SBMLError object in the SBMLErrorLog instance, callers can
+ * then iterate over the list using getError(unsigned int n) const, using
+ * methods provided by the SBMLError class to find out the error code and
+ * associated information such as the error severity, the message, and the
+ * line number in the input.
  *
  * If you wish to simply print the error strings for a human to read, an
  * easier and more direct way might be to use SBMLDocument::printErrors().
+ *
+ * @see SBMLError
+ * @see XMLErrorLog
+ * @see XMLError
  */
 
 #ifndef SBMLErrorLog_h
@@ -77,17 +76,21 @@ class LIBSBML_EXTERN SBMLErrorLog : public XMLErrorLog
 public:
 
   /**
-   * Returns the nth SBMLError in this log.
+   * Returns the <i>n</i>th SBMLError object in this log.
    *
-   * Callers should first inquire about the number of items in the log by
-   * using the SBMLErrorLog::getNumErrors() method.  (This method is
-   * inherited from the parent class, XMLErrorLog).  Attempting to using an
-   * error index number that exceed the number of errors in the log will
-   * result in a NULL being returned.
+   * Index @p n is counted from 0.  Callers should first inquire about the
+   * number of items in the log by using the getNumErrors() method.  (This
+   * method is inherited from the parent class, XMLErrorLog).  Attempts to
+   * use an error index number that exceeds the actual number of errors in
+   * the log will result in a @c NULL being returned.
    *
-   * @param n unsigned int number of the error to retrieve.
+   * @param n the index number of the error to retrieve (with 0 being the
+   * first error).
    *
-   * @return the <code>n</code>th SBMLError in this log.
+   * @return the <i>n</i>th SBMLError in this log, or @c NULL if @p n is
+   * greater than or equal to getNumErrors().
+   *
+   * @see getNumErrors()
    */
   const SBMLError* getError (unsigned int n) const;
 
@@ -112,7 +115,9 @@ public:
    * the interface class <code><a
    * href="libsbmlConstants.html">libsbmlConstants</a></code> @endif
    *
-   * @return a count of the number of errors with the given severity code
+   * @return a count of the number of errors with the given severity code.
+   *
+   * @see getNumErrors()
    */
   unsigned int getNumFailsWithSeverity(unsigned int severity);
 

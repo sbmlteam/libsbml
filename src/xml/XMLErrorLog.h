@@ -36,15 +36,15 @@
  * mismatched tags or other problems).
  *
  * A typical approach for using this error log is to first use
- * XMLErrorLog::getNumErrors() to inquire how many XMLError object instances
- * it contains, and then to iterate over the list of objects one at a time
- * using XMLErrorLog::getError(unsigned int n).
+ * getNumErrors() to inquire how many XMLError object instances it
+ * contains, and then to iterate over the list of objects one at a time
+ * using getError(unsigned int n) const.  Indexing in the list begins at 0.
  *
  * In normal circumstances, programs using libSBML will actually obtain an
- * SBMLErrorLog rather than an actual XMLErrorLog.  The former is
- * subclassed from XMLErrorLog and simply wraps commands for working with
- * SBMLError objects rather than the low-level XMLError objects.  Classes
- * such as SBMLDocument use the higher-level SBMLErrorLog.
+ * SBMLErrorLog rather than an XMLErrorLog.  The former is subclassed from
+ * XMLErrorLog and simply wraps commands for working with SBMLError objects
+ * rather than the low-level XMLError objects.  Classes such as
+ * SBMLDocument use the higher-level SBMLErrorLog.
  */
 
 #ifndef XMLErrorLog_h
@@ -73,9 +73,8 @@ public:
   /**
    * Returns the number of errors that have been logged.
    *
-   * To retrieve individual errors from the log, callers may use @link
-   * XMLErrorLog::getError(unsigned int n) XMLErrorLog::getError(unsigned
-   * int n)@endlink.
+   * To retrieve individual errors from the log, callers may use
+   * getError(unsigned int n) const.
    *
    * @return the number of errors that have been logged.
    */
@@ -83,22 +82,26 @@ public:
 
 
   /**
-   * Returns the nth XMLError in this log.
+   * Returns the <i>n</i>th XMLError object in this log.
    *
-   * Callers should first use XMLErrorLog::getNumErrors() to find out how
-   * many errors are in the log.
+   * Index @p n is counted from 0.  Callers should first inquire about the
+   * number of items in the log by using the method getNumErrors().
+   * Attempts to use an error index number that exceeds the actual number
+   * of errors in the log will result in a @c NULL being returned.
    *
    * @param n the index number of the error to retrieve (with 0 being the
-   * first error)
+   * first error).
    *
-   * @return the nth XMLError in this log, or @c NULL if @p n is greater
-   * than or equal to XMLErrorLog::getNumErrors().
+   * @return the <i>n</i>th XMLError in this log, or @c NULL if @p n is
+   * greater than or equal to getNumErrors().
+   *
+   * @see getNumErrors()
    */
   const XMLError* getError (unsigned int n) const;
 
 
   /**
-   * Removes all errors from this log.
+   * Deletes all errors from this log.
    */
   void clearLog();
 

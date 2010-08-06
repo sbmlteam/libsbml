@@ -130,7 +130,7 @@ SBMLReader::readSBMLFromString (const std::string& xml)
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * libSBML is linked with zlib.
  *
@@ -143,7 +143,7 @@ SBMLReader::hasZlib()
 }
 
 
-/**
+/*
  * Predicate returning @c true or @c false depending on whether
  * libSBML is linked with bzip2.
  *
