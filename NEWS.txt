@@ -4,124 +4,150 @@
 Version 4.1.0 (Released 2010-08-06)
 ======================================================================
 
-This is a stable version which adds further support for SBML
-Level 3 as defined in the Level 3 specification Release 1 (Candidate)
-published 2009-12-31.
+This is a stable version.  The primary changes relative to 4.1.0-b2
+are (1) further support for SBML Level 3 Core as defined in the Level
+3 specification Release 1 (Candidate) published 2009-12-31; (2)
+additions of features requested by users; (3) enhanced support for
+64-bit environments; and (4) a number of bug fixes.
 
-* L3 Features introduced in this version:
+* SBML Level 3 support enhancements:
 
- - Validation of SBML Level 3 models
+  - Validation of SBML Level 3 Core models.
  
- - Conversion of stoichiometryMath element to an L3 model;
-   where it is represented using an assignmentRule with
-   the variable set to the 'id' of the speciesReference
-   that previously had the stoichiometryMath element.
+  - The ability to convert Level 2's stoichiometryMath element to a
+    form compatible with Level 3.  Specifically, a stoichiometryMath
+    object is converted to an assignmentRule with the variable set to
+    the 'id' of the speciesReference that had the stoichiometryMath
+    element.
 
-* The following Level 3 Features are not yet implemented:
+* SBML Level 3 support limitations:
 
- - Conversion from Level 3 to other Levels/Versions of SBML
+  - Although up-convertion to L3 is supported, conversion from Level 3
+    to lower Levels/Versions of SBML.
 
-* Dependency changes:
+* Configuration/build system changes:
 
- - The language bindings now require SWIG 1.3.40 or later. 
- 
-* Configuration and build
-
- - It has been necessary to overhaul much of the build system to
-   facilitate the use of both 32-bit and 64-bit architectures.
-   NEED MORE FROM MH
+  - On MacOSX/Linux/Unix-like systems, we have vastly improved the
+    ability to build libSBML against 64-bit libraries and language
+    bindings.  The configuration system will attempt to build in
+    64-bit mode or 32-bit mode as appropriate for the current
+    environment, or warn the user if an inconsistency (e.g., a missing
+    library of the right format) prevents doing so.  The new configure
+    options --enable-m32 and --enable-m64 allow the user to request
+    explicitly building in 32-bit or 64-bit mode, respectively.  (A
+    common situation where this becomes important is in 64-bit
+    environments where not all the necessary libraries, such as the
+    XML parser library or the language interpreters such as Java, are
+    available in 64-bit form.)  These two configuration options remain
+    separate from the previously-introduced option
+    --enable-universal-binary; the latter is only relevant on MacOSX
+    systems.  Because their functionality overlaps, on MacOSX, using
+    --enable-universal-binary overrides --enable-m32 and --enable-m64.
    
- - MSVC project files for building libSBML perl binding on a native
-   windows platform have been added.
+  - We now include MSVC project files for building the libSBML Perl
+    bindings in a native (i.e,. not using Cygwin) Windows platform.
    
-* Note on layout
-
-  The layout extension is intended to become an SBML L3 package; 
-  thus libSBML-4.1.0 imposes the following restriction on the
-  existing layout code: libSBML-4.1.0 will not write out the 
-  ListOfLayouts as part of an annotation within an L3 model but
-  it will also not write it out an an L3 package extension.
-  
-  The functionality has not been changed and L2/L1 models will
-  work with layout as before.  It will be possible to use the 
-  layout extension classes with an L3 model but if you wish to
-  write it out as part of a model you will have to create a
-  proprietary annotation to do so.    
-
 * Other new features/changes
 
- - It had previously been requested that libSBML provide
-   'readSBMLFromFile' and 'readSBMLFromString' functions. We
-   have mirrored that with 'writeSBMLToFile' and
-   'writeSBMLToString'.
+  - New 'writeSBMLToFile' and 'writeSBMLToString' functions to mirror
+    the existing 'readSBMLFromFile' and 'readSBMLFromString' functions.
 
- - It is possible when adding annotations to have several 'Bag'
-   elements with the same qualifier. LibSBML was incorrectly 
-   adding all terms with the same qualifier to the same Bag.
-   The addCVTerm function now takes an additional boolean 
-   argument indicating whether the term should be added to 
-   a new bag, if one with the same qualifier already exists. 
-   This argument defaults to 'false' which is the original
-   behaviour of libSBML i.e. no new bag.  In a situation where
-   there are several bags with the same qualifier but the function
-   indicates that the term should be added to an existing bag; it
-   will be added to the most recently created bag. 
+* Notes about support for the SBML L2 Layout draft standard:
+
+   The SBML Layout extension is expected to be turned into an SBML L3
+   package soon.  When that happens, Layout will be written in an L3
+   model in a slightly different way than it is in L2, where the
+   Layout data is written within <annotation> elements.  Consequently,
+   when dealing with L3 models, libSBML-4.1.0 imposes the following
+   restriction on the use of the existing Layout support facility
+   included in libSBML: libSBML-4.1.0 will *neither* write out the
+   ListOfLayouts as part of an annotation within an L3 model, nor
+   write it out as an L3 package extension.  For L2 and L1 models, the
+   functionality remains unchanged -- programs can work with the
+   Layout extension in the same way as before.
+
+   For SBML L3, proper Layout support awaits the specification of the
+   L3 Layout Package and then updating the implementation of Layout
+   support as a plug-in in libSBML 5.  (A preliminary version of this
+   plug-in is already in the libSBML 5 codebase, so once the L3 Layout
+   Package specification is defined, it will not be long before
+   libSBML 5 supports it.)
+ 
+* Changes to dependencies on 3rd-party libraries:
+
+  - The language bindings now require SWIG 1.3.40 or later. 
 
 * Bug fixes:
 
- - [Tracker issue #2965533]
-   The MathML reader was failing to correctly read a user function
-   applied to zero arguments.  This is fixed.  Thanks to Ralph
-   Gauges for reporting it.
+  - It is possible when adding annotations to have several 'Bag'
+    elements with the same qualifier.  LibSBML was incorrectly adding
+    all terms with the same qualifier to the same Bag.  The addCVTerm
+    function now takes an additional boolean argument indicating
+    whether the term should be added to a new bag, if one with the
+    same qualifier already exists. This argument defaults to 'false'
+    which is the original behaviour of libSBML i.e. no new bag.  In a
+    situation where there are several bags with the same qualifier but
+    the function indicates that the term should be added to an
+    existing bag; it will be added to the most recently created bag.
 
- - [Tracker issue #2946870]
-   The default level, version and namespaces were not consistent.
-   They are now; kept at L2V4 until all L3 support is finished.
-   Thanks to Lucian Smith for reporting this.
-   
- - [Tracker issue #2897563]
-   Since the unit checking code sets an internal id on an event
-   that does not have an 'id' this was causing problems if a user
-   checked units and then tried to set the id of the event.  This
-   is fixed.  Thanks to Chris Myers for reporting it.
-   
- - Validation of HTML notes was failing if the title tag was not
-   the first child of the head tag.  This is incorrect and has been
-   fixed.  Thanks to Ralph Gauges for reporting it.  
- 
- - When cloning an object from a document that had been converted
-   using the setLevelAndVersion function the level/version of the
-   new object relected the original level/version of the document.
-   This has been sorted out.  Thanks to Falko Krause for reporting
-   this one.
-   
- - The setNotes function failed to correctly convert all child
-   nodes of an XMLNode argument if the parent had been created
-   as an empty node.  This has been fixed.  Thanks to Giuseppe 
-   Aprea for reporting this problem.
+  - Previously, libSBML used error code 20104 to report that
+    <annotation> and <notes> were not allowed on the <sbml> element in
+    a L1 model.  However, this was actually not a published SBML
+    validation rule.  It should instead have been numbered 99104, to
+    indicate that it is a validation rule added by libSBML.  Since the
+    L3 specification defines a rule numbered 20104, it has become
+    necessary to change this rule to 99104.  We hope that since the
+    rule only applies to L1 models, this will not have far-reaching
+    impact on users's software.
+
+  - [Tracker issue #2965533]
+    The MathML reader failed to correctly read a user function
+    applied to zero arguments.  This is fixed.  Thanks to Ralph
+    Gauges for reporting it.
+
+  - [Tracker issue #2946870]
+    The default level, version and namespaces were not consistent.
+    They are now, kept at L2V4 until all L3 support is finished.
+    Thanks to Lucian Smith for reporting this.
+    
+  - [Tracker issue #2897563]
+    The unit-checking code was adding internal id's on events
+    that did not have their own id.   This resulted in problems
+    if a user called on the unit-checking facility and then tried
+    to set the id of the event.  This is fixed.  Thanks to Chris Myers
+    for reporting it. 
+    
+  - Validation of HTML notes failed if the <title> tag was not the
+    first child of the <head> tag.  This was incorrect, and has been
+    fixed.  Thanks to Ralph Gauges for reporting it.
   
- - SBMLDocument::setLevelAndVersion's default "strictness" was not
-   followed by the C function SBMLDocument_setLevelAndVersion().  They
-   now match, but the consequence is that the default behavior of
-   SBMLDocument_setLevelAndVersion() is opposite to what it was
-   before.  (It is now identical to the behavior of
-   SBMLDocument_setLevelAndVersionStrict(), just as in the C++ call.)
-   Also, there is now a SBMLDocument_setLevelandVersionNonStrict() to
-   complement the existing SBMLDocument_setLevelandVersionStrict().
-
- - On some platforms (e.g., Linux), building from the src dist archive
-   sometimes required running swig erroneously.  This turned out to be
-   due to how the file timestamps were stored in the zip archive.
-   This should be fixed; the archive is created with the -X flag now.
-
-* Other
-
- - The error code for reporting that <annotation> and <notes> were
-   not allowed on the <sbml> element in a L1 model used number 20104.
-   Since this was not a published rule it should have been number 99104.
-   The L3 specification publishes a rule 20104 and thus the change
-   became necessary.  It is hoped that since the rule only applies to
-   L1 models this will not have far reaching impact.
+  - When cloning an object from a document that had been converted
+    using the setLevelAndVersion function, the level/version of the
+    new object reflected the original level/version of the document.
+    This has been sorted out.  Thanks to Falko Krause for reporting
+    this.
+    
+  - The setNotes function failed to correctly convert all child
+    nodes of an XMLNode argument if the parent had been created
+    as an empty node.  This has been fixed.  Thanks to Giuseppe 
+    Aprea for reporting this problem.
+   
+  - SBMLDocument::setLevelAndVersion's default "strictness" was
+    inconsistent with the setting used by the C function
+    SBMLDocument_setLevelAndVersion().  They now match, but a
+    consequence of this bug fix is that the default behavior of
+    SBMLDocument_setLevelAndVersion() is now opposite to what it was
+    before.  (It is now identical to the behavior of
+    SBMLDocument_setLevelAndVersionStrict(), just as in the C++ call.)
+    Also, there is now a SBMLDocument_setLevelandVersionNonStrict() to
+    complement the existing SBMLDocument_setLevelandVersionStrict().
+ 
+  - On some platforms (e.g., Linux), building from the src dist
+    archive sometimes incorrectly required running swig when it should
+    not have been necessary.  This turned out to be due to how the
+    file timestamps were stored in the zip archive.  This should be
+    fixed; the archive is created with the -X flag now.
+ 
 
 ======================================================================
 Version 4.1.0-b2 (Released 2010-02-02)
