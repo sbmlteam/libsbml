@@ -589,12 +589,12 @@ public:
    * terms of the @em identifier of a unit (e.g., using setUnits()), but
    * @em this method returns a UnitDefinition object, not a unit
    * identifier.  It does this by constructing an appropriate
-   * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
-   * when the value of the "units" attribute is one of the predefined SBML
-   * units @c "substance", @c "volume", @c "area", @c "length" or @c
-   * "time".  Callers may find this useful in conjunction with the helper
-   * methods provided by the UnitDefinition class for comparing different
-   * UnitDefinition objects.
+   * UnitDefinition.For SBML Level&nbsp;2 models, it will do this even when
+   * the value of the "units" attribute is one of the special SBML
+   * Level&nbsp;2 unit identifiers @c "substance", @c "volume", @c "area",
+   * @c "length" or @c "time".  Callers may find this useful in conjunction
+   * with the helper methods provided by the UnitDefinition class for
+   * comparing different UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
    * Parameter.
