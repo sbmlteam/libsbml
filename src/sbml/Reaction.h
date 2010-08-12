@@ -200,13 +200,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Reaction
    * 
-   * @note Once a Reaction has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Reaction.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
+   * using Model::addReaction()), the SBML Level, SBML Version version and
+   * XML namespace of the document @em override the values used when
+   * creating the Reaction object via this constructor.  This is necessary
+   * to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Reaction is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   Reaction (unsigned int level, unsigned int version);
 
@@ -224,13 +227,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Reaction has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Reaction.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
+   * using Model::addReaction()), the SBML XML namespace of the document
+   * @em overrides the value used when creating the Reaction object via
+   * this constructor.  This is necessary to ensure that an SBML document
+   * is a consistent structure.  Nevertheless, the ability to supply the
+   * values at the time of creation of a Reaction is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   Reaction (SBMLNamespaces* sbmlns);
 
@@ -272,25 +278,32 @@ public:
 
 
   /**
-   * Initializes certain attributes of this Reaction object to default
+   * Initializes the fields of this Reaction object to "typical" default
    * values.
+   *
+   * The SBML Reaction component has slightly different aspects and
+   * default attribute values in different SBML Levels and Versions.
+   * This method sets the values to certain common defaults, based
+   * mostly on what they are in SBML Level&nbsp;2.  Specifically:
    * <ul>
    * <li> Sets the "reversible" attribute to @c true
-   * <li> (SBML Level 1 only) Sets the "fast" attribute to @c false
+   * <li> Sets the "fast" attribute to @c false
+   * <li> Marks the "fast" attribute as @em not having been set
    * </ul>
    * 
    * @warning The "fast" attribute must be used with care.  SBML
-   * definitions before SBML Level 2 Version 2 incorrectly indicated that
-   * software tools could ignore this attribute if they did not implement
-   * support for the corresponding concept; however, further research in
-   * %SBML has revealed that this is not true, and "fast" <em>cannot be
-   * ignored</em> if it is set to @c true.  %SBML Level 2 Versions 2, 3 and 4
-   * therefore stipulate that if a model has any reactions with "fast" set
-   * to @c true, a software tool must be able to respect the attribute or
-   * else indicate to the user that it does not have the capacity to do so.
-   * Readers are directed to the %SBML Level 2 Version 4 specification,
-   * which provides more detail about the conditions under which a reaction
-   * can be considered to be fast in this sense.
+   * definitions before SBML Level&nbsp;2 Version&nbsp;2 incorrectly
+   * indicated that software tools could ignore this attribute if they did
+   * not implement support for the corresponding concept; however, further
+   * research in %SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  Beginning with
+   * SBML Level&nbsp;2 Versions&nbsp;2, the SBML specifications therefore
+   * stipulate that if a model has any reactions with "fast" set to @c
+   * true, a software tool must be able to respect the attribute or else
+   * indicate to the user that it does not have the capacity to do so.
+   * Readers are directed to the %SBML specifications, which provides more
+   * detail about the conditions under which a reaction can be considered
+   * to be fast in this sense.
    */
   void initDefaults ();
 
@@ -365,7 +378,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Reaction's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -377,7 +390,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Reaction's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -389,7 +402,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Reaction contains a kinetic law object.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -401,7 +414,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on the value of
+   * Predicate returning @c true if the value of
    * the "fast" attribute on this Reaction.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -426,7 +439,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Reaction's "compartment" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -438,7 +451,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Reaction's "reversible" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -1187,7 +1200,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this Reaction object
    * have been set.
    *

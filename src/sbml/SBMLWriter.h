@@ -247,7 +247,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * underlying libSBML is linked with zlib.
    *
    * LibSBML supports reading and writing files compressed with either
@@ -262,7 +262,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * underlying libSBML is linked with bzip2.
    *
    * LibSBML supports reading and writing files compressed with either

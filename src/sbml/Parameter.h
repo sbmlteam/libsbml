@@ -118,7 +118,7 @@
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
 /**
- * @class ListOfParameters.
+ * @class ListOfParameters
  * @brief LibSBML implementation of SBML's %ListOfParameters construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
@@ -227,15 +227,15 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a Parameter object to an SBMLDocument
-   * (e.g., using Model::addParameter()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
-   * when creating the Parameter object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a Parameter is an important aid to producing valid SBML.  Knowledge
-   * of the intented SBML Level and Version determine whether it is valid
-   * to assign a particular value to an attribute, or whether it is valid
-   * to add an object to an existing SBMLDocument.
+   * (e.g., using Model::addParameter()), the SBML XML namespace of the
+   * document @em overrides the value used when creating the Parameter
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a Parameter is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   Parameter (SBMLNamespaces* sbmlns);
 
@@ -265,9 +265,10 @@ public:
    *
    * @param v the SBMLVisitor instance to be used.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether the Visitor would like to visit the next Parameter in the list
-   * of parameters within which this Parameter is embedded.
+   * @return the result of calling <code>v.visit()</code>, indicating
+   * whether the Visitor would like to visit the next Parameter object in
+   * the list of parameters within which @em the present object is
+   * embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
@@ -281,12 +282,15 @@ public:
 
 
   /**
-   * Initializes the attributes of this Parameter to the defaults defined
-   * in the specification of the relevant Level/Version of SBML.
+   * Initializes the fields of this Parameter object to "typical" defaults
+   * values.
    *
-   * Many SBML object classes defined by libSBML have an initDefaults()
-   * method.  In the case of Parameter, this method only sets the value of
-   * the "constant" attribute to @c true.
+   * The SBML Parameter component has slightly different aspects and
+   * default attribute values in different SBML Levels and Versions.  Many
+   * SBML object classes defined by libSBML have an initDefaults() method
+   * to set the values to certain common defaults, based mostly on what
+   * they are in SBML Level&nbsp;2.  In the case of Parameter, this method
+   * only sets the value of the "constant" attribute to @c true.
    */
   void initDefaults ();
 
@@ -360,7 +364,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Parameter's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -372,7 +376,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Parameter's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -384,7 +388,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether the
+   * Predicate returning @c true if the
    * "value" attribute of this Parameter has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -413,7 +417,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether the
+   * Predicate returning @c true if the
    * "units" attribute of this Parameter has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -427,7 +431,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether the
+   * Predicate returning @c true if the
    * "constant" attribute of this Parameter has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -673,7 +677,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this Parameter object
    * have been set.
    *

@@ -51,30 +51,29 @@
  * <em>executed</em>, but it could also be defined to be evaluated at the
  * time the event <em>fired</em>.
  * 
- * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
+ * In SBML Level&nbsp;2 versions before Version&nbsp;4, the semantics of
  * Event time delays were defined such that the expressions in the event's
  * assignments were always evaluated at the time the event was
  * <em>fired</em>.  This definition made it difficult to define an event
  * whose assignment formulas were meant to be evaluated at the time the
  * event was <em>executed</em> (i.e., after the time period defined by the
- * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
- * attribute "useValuesFromTriggerTime" on Event allows a model to indicate
- * the time at which the event's assignments are intended to be evaluated.
- * The default value is @c true, which corresponds to the interpretation of
- * event assignments prior to Version&nbsp;4: the values of the assignment
- * formulas are computed at the moment the event fired, not after the
- * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
- * formulas in the event's assignments are to be computed after the delay,
- * at the time the event is executed.
+ * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4 and in
+ * Level&nbsp;3, the attribute "useValuesFromTriggerTime" on Event allows a
+ * model to indicate the time at which the event's assignments are intended
+ * the values of the assignment formulas are computed at the moment the
+ * event fired, not after the delay.  If "useValuesFromTriggerTime"=@c
+ * false, it means that the formulas in the event's assignments are to be
+ * computed @em after the delay, at the time the event is executed.
  *
  * @section version-diffs SBML version differences
  *
- * Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2 included an
- * additional attribute called "timeUnits", which allowed the time units of
- * the Delay to be set explicitly.  Versions&nbsp;3 and&nbsp;4 do not
- * define this attribute.  The LibSBML supports this attribute for
- * compatibility with previous versions of SBML Level&nbsp;2; however, if a
- * Version&nbsp;3 or&nbsp;4 model sets the attribute, the
+ * The definition of Event in SBML Level&nbsp;2 Versions 1 and 2 includes
+ * an additional attribute called "timeUnits", which allowed the time units
+ * of the Delay to be set explicitly.  Later Versions of SBML Level&nbsp;2
+ * as well as SBML Level&nbsp;3 do not define this attribute.  LibSBML
+ * supports this attribute for compatibility with previous versions of SBML
+ * Level&nbsp;2; however, if a model in SBML Level&nbsp;3 or Level&nbsp;2
+ * Versions&nbsp;3&ndash;4 format sets the attribute, the
  * consistency-checking method SBMLDocument::checkConsistency() will report
  * an error.
  *
@@ -83,18 +82,20 @@
  * Level&nbsp;2 cannot use this attribute, and
  * SBMLDocument::checkConsistency() will report an error if they do.
  *
- * 
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
  * @class ListOfEvents
  * @brief LibSBML implementation of SBML's %ListOfEvents construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -161,13 +162,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Event
    * 
-   * @note Once a Event has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Event.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
+   * using Model::addEvent()), the SBML Level, SBML Version version and XML
+   * namespace of the document @em override the values used when creating
+   * the Event object via this constructor.  This is necessary to ensure
+   * that an SBML document is a consistent structure.  Nevertheless, the
+   * ability to supply the values at the time of creation of an Event is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   Event (unsigned int level, unsigned int version);
 
@@ -186,13 +190,16 @@ public:
    * 
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Event has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Event.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
+   * using Model::addEvent()), the SBML XML namespace of the document @em
+   * overrides the value used when creating the Event object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a Event is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   Event (SBMLNamespaces* sbmlns);
 
@@ -344,7 +351,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Event's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -356,7 +363,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Event's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -884,7 +891,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this Event object
    * have been set.
    *
@@ -895,7 +902,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required elements for this Event object
    * have been set.
    *
@@ -990,7 +997,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -1137,9 +1144,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfEvents in a
-   * model is (in %SBML Level&nbsp;2 Version&nbsp;4) the twelfth ListOf___.
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  So, for example, the ListOfEvents in a
+   * model is (in SBML Level&nbsp;2 Version&nbsp;4) the twelfth ListOf___.
    * (However, it differs for different Levels and Versions of SBML, so
    * calling code should not hardwire this number.)
    *

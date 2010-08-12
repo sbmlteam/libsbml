@@ -30,14 +30,159 @@
  * of those variables.  They enable encoding relationships that cannot be
  * expressed using Reaction nor InitialAssignment objects alone.
  *
- * The libSBML implementation of rules mirrors the SBML Level&nbsp;2
- * Version&nbsp;4 definition, with Rule being the parent class of three
- * subclasses as explained below.  The Rule class itself cannot be
- * instantiated by user programs and has no constructor; only the
+ * The libSBML implementation of rules mirrors the SBML Level&nbsp;3
+ * Version&nbsp;1 Core definition (which is in turn is very similar to the
+ * Level&nbsp;2 Version&nbsp;4 definition), with Rule being the parent
+ * class of three subclasses as explained below.  The Rule class itself
+ * cannot be instantiated by user programs and has no constructor; only the
  * subclasses AssignmentRule, AlgebraicRule and RateRule can be
  * instantiated directly.
  *
- * @htmlinclude libsbml-rule-general-summary.html
+ * @section general General summary of SBML rules
+ *
+ * In SBML Level&nbsp;3 as well as Level&nbsp;2, rules are separated into
+ * three subclasses for the benefit of model analysis software.  The three
+ * subclasses are based on the following three different possible
+ * functional forms (where <em>x</em> is a variable, <em>f</em> is some
+ * arbitrary function returning a numerical result, <b><em>V</em></b> is a
+ * vector of variables that does not include <em>x</em>, and
+ * <b><em>W</em></b> is a vector of variables that may include <em>x</em>):
+ * 
+ * <center>
+ * <table border="0" cellpadding="0" style="font-size: small">
+ * <tr><td width="120px"><em>Algebraic:</em></td><td width="250px">left-hand side is zero</td><td><em>0 = f(<b>W</b>)</em></td></tr>
+ * <tr><td><em>Assignment:</em></td><td>left-hand side is a scalar:</td><td><em>x = f(<b>V</b>)</em></td></tr>
+ * <tr><td><em>Rate:</em></td><td>left-hand side is a rate-of-change:</td><td><em>dx/dt = f(<b>W</b>)</em></td></tr>
+ * </table>
+ * </center>
+ * 
+ * In their general form given above, there is little to distinguish
+ * between <em>assignment</em> and <em>algebraic</em> rules.  They are treated as
+ * separate cases for the following reasons:
+ *
+ * <ul>
+ * <li> <em>Assignment</em> rules can simply be evaluated to calculate
+ * intermediate values for use in numerical methods.  They are statements
+ * of equality that hold at all times.  (For assignments that are only
+ * performed once, see InitialAssignment.)<p>
+ * 
+ * <li> SBML needs to place restrictions on assignment rules, for example
+ * the restriction that assignment rules cannot contain algebraic loops.<p>
+ * 
+ * <li> Some simulators do not contain numerical solvers capable of solving
+ * unconstrained algebraic equations, and providing more direct forms such
+ * as assignment rules may enable those simulators to process models they
+ * could not process if the same assignments were put in the form of
+ * general algebraic equations;<p>
+ * 
+ * <li> Those simulators that <em>can</em> solve these algebraic equations make a
+ * distinction between the different categories listed above; and<p>
+ * 
+ * <li> Some specialized numerical analyses of models may only be applicable
+ * to models that do not contain <em>algebraic</em> rules.
+ * </ul>
+ * 
+ * The approach taken to covering these cases in SBML is to define an
+ * abstract Rule structure containing a subelement, "math", to hold the
+ * right-hand side expression, then to derive subtypes of Rule that add
+ * attributes to distinguish the cases of algebraic, assignment and rate
+ * rules.  The "math" subelement must contain a MathML expression defining the
+ * mathematical formula of the rule.  This MathML formula must return a
+ * numerical value.  The formula can be an arbitrary expression referencing
+ * the variables and other entities in an SBML model.
+ * 
+ * Each of the three subclasses of Rule (AssignmentRule, AlgebraicRule,
+ * RateRule) inherit the the "math" subelement and other fields from SBase.
+ * The AssignmentRule and RateRule classes add an additional attribute,
+ * "variable".  See the definitions of AssignmentRule, AlgebraicRule and
+ * RateRule for details about the structure and interpretation of each one.
+ * 
+ * @section additional-restrictions Additional restrictions on SBML rules
+ * 
+ * An important design goal of SBML rule semantics is to ensure that a
+ * model's simulation and analysis results will not be dependent on when or
+ * how often rules are evaluated.  To achieve this, SBML needs to place two
+ * restrictions on rule use.  The first concerns algebraic loops in the system
+ * of assignments in a model, and the second concerns overdetermined systems.
+ * 
+ * @subsection no-algebraic-loops A model must not contain algebraic loops
+ * 
+ * The combined set of InitialAssignment, AssignmentRule and KineticLaw
+ * objects in a model constitute a set of assignment statements that should be
+ * considered as a whole.  (A KineticLaw object is counted as an assignment
+ * because it assigns a value to the symbol contained in the "id" attribute of
+ * the Reaction object in which it is defined.)  This combined set of
+ * assignment statements must not contain algebraic loops&mdash;dependency
+ * chains between these statements must terminate.  To put this more formally,
+ * consider a directed graph in which nodes are assignment statements and
+ * directed arcs exist for each occurrence of an SBML species, compartment or
+ * parameter symbol in an assignment statement's "math" subelement.  Let the
+ * directed arcs point from the statement assigning the symbol to the
+ * statements that contain the symbol in their "math" subelement expressions.
+ * This graph must be acyclic.
+ * 
+ * SBML does not specify when or how often rules should be evaluated.
+ * Eliminating algebraic loops ensures that assignment statements can be
+ * evaluated any number of times without the result of those evaluations
+ * changing.  As an example, consider the set of equations <em>x = x + 1</em>,
+ * <em>y = z + 200</em> and <em>z = y + 100</em>.  If this set of equations
+ * were interpreted as a set of assignment statements, it would be invalid
+ * because the rule for <em>x</em> refers to <em>x</em> (exhibiting one type
+ * of loop), and the rule for <em>y</em> refers to <em>z</em> while the rule
+ * for <em>z</em> refers back to <em>y</em> (exhibiting another type of loop).
+ * Conversely, the following set of equations would constitute a valid set of
+ * assignment statements: <em>x = 10</em>, <em>y = z + 200</em>, and <em>z = x
+ * + 100</em>.
+ * 
+ * @subsection no-overdetermined A model must not be overdetermined
+ * 
+ * An SBML model must not be overdetermined; that is, a model must not
+ * define more equations than there are unknowns in a model.  An SBML model
+ * that does not contain AlgebraicRule structures cannot be overdetermined.
+ * 
+ * LibSBML implements the static analysis procedure described in Appendix
+ * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
+ * whether a model is overdetermined.
+ * 
+ * (In summary, assessing whether a given continuous, deterministic,
+ * mathematical model is overdetermined does not require dynamic analysis; it
+ * can be done by analyzing the system of equations created from the model.
+ * One approach is to construct a bipartite graph in which one set of vertices
+ * represents the variables and the other the set of vertices represents the
+ * equations.  Place edges between vertices such that variables in the system
+ * are linked to the equations that determine them.  For algebraic equations,
+ * there will be edges between the equation and each variable occurring in the
+ * equation.  For ordinary differential equations (such as those defined by
+ * rate rules or implied by the reaction rate definitions), there will be a
+ * single edge between the equation and the variable determined by that
+ * differential equation.  A mathematical model is overdetermined if the
+ * maximal matchings of the bipartite graph contain disconnected vertexes
+ * representing equations.  If one maximal matching has this property, then
+ * all the maximal matchings will have this property; i.e., it is only
+ * necessary to find one maximal matching.)
+ *
+ *
+ * @section RuleType_t RuleType_t for SBML Level 1
+ *
+ * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an
+ * attribute whose value is drawn from an enumeration.  LibSBML supports
+ * this using methods that work with the #RuleType_t enumeration.
+ * 
+ * <p>
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * yet set.</td>
+ * </table>
+ * </center>
+ *
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -55,18 +200,16 @@
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
  * expressions that involve the delay "csymbol" (see the SBML
  * specification), algebraic rules are considered to apply also at
- * <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;4
- * specification provides additional information about the semantics of
+ * <em>t</em> \f$\leq\f$ <em>0</em>.  Please consult the relevant SBML
+ * specification for additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
  *
  * The ability to define arbitrary algebraic expressions in an SBML model
  * introduces the possibility that a model is mathematically overdetermined
  * by the overall system of equations constructed from its rules and
- * reactions.  An SBML model must not be overdetermined; see the
- * description of Rule and also the SBML Level&nbsp;2 Version&nbsp;4
- * specification.  An SBML model that does not contain AlgebraicRule
- * structures cannot be overdetermined.
+ * reactions.  An SBML model must not be overdetermined.  An SBML model
+ * that does not contain AlgebraicRule structures cannot be overdetermined.
  *
  * Assessing whether a given continuous, deterministic, mathematical model
  * is overdetermined does not require dynamic analysis; it can be done by
@@ -84,11 +227,155 @@
  * contain disconnected vertexes representing equations.  (If one maximal
  * matching has this property, then all the maximal matchings will have
  * this property; i.e., it is only necessary to find one maximal matching.)
- * Appendix D of the SBML Level&nbsp;2 Version&nbsp;4 specification
- * describes a method of applying this procedure to specific SBML data
- * objects.
+ * Appendix&nbsp;B of the SBML Level&nbsp;3 Version&nbsp;1 Core
+ * specification document describes a method of applying this procedure to
+ * specific SBML data objects.
+ * 
  *
- * @htmlinclude libsbml-rule-general-summary.html
+ * @section general General summary of SBML rules
+ *
+ * In SBML Level&nbsp;3 as well as Level&nbsp;2, rules are separated into
+ * three subclasses for the benefit of model analysis software.  The three
+ * subclasses are based on the following three different possible
+ * functional forms (where <em>x</em> is a variable, <em>f</em> is some
+ * arbitrary function returning a numerical result, <b><em>V</em></b> is a
+ * vector of variables that does not include <em>x</em>, and
+ * <b><em>W</em></b> is a vector of variables that may include <em>x</em>):
+ * 
+ * <center>
+ * <table border="0" cellpadding="0" style="font-size: small">
+ * <tr><td width="120px"><em>Algebraic:</em></td><td width="250px">left-hand side is zero</td><td><em>0 = f(<b>W</b>)</em></td></tr>
+ * <tr><td><em>Assignment:</em></td><td>left-hand side is a scalar:</td><td><em>x = f(<b>V</b>)</em></td></tr>
+ * <tr><td><em>Rate:</em></td><td>left-hand side is a rate-of-change:</td><td><em>dx/dt = f(<b>W</b>)</em></td></tr>
+ * </table>
+ * </center>
+ * 
+ * In their general form given above, there is little to distinguish
+ * between <em>assignment</em> and <em>algebraic</em> rules.  They are treated as
+ * separate cases for the following reasons:
+ *
+ * <ul>
+ * <li> <em>Assignment</em> rules can simply be evaluated to calculate
+ * intermediate values for use in numerical methods.  They are statements
+ * of equality that hold at all times.  (For assignments that are only
+ * performed once, see InitialAssignment.)<p>
+ * 
+ * <li> SBML needs to place restrictions on assignment rules, for example
+ * the restriction that assignment rules cannot contain algebraic loops.<p>
+ * 
+ * <li> Some simulators do not contain numerical solvers capable of solving
+ * unconstrained algebraic equations, and providing more direct forms such
+ * as assignment rules may enable those simulators to process models they
+ * could not process if the same assignments were put in the form of
+ * general algebraic equations;<p>
+ * 
+ * <li> Those simulators that <em>can</em> solve these algebraic equations make a
+ * distinction between the different categories listed above; and<p>
+ * 
+ * <li> Some specialized numerical analyses of models may only be applicable
+ * to models that do not contain <em>algebraic</em> rules.
+ * </ul>
+ * 
+ * The approach taken to covering these cases in SBML is to define an
+ * abstract Rule structure containing a subelement, "math", to hold the
+ * right-hand side expression, then to derive subtypes of Rule that add
+ * attributes to distinguish the cases of algebraic, assignment and rate
+ * rules.  The "math" subelement must contain a MathML expression defining the
+ * mathematical formula of the rule.  This MathML formula must return a
+ * numerical value.  The formula can be an arbitrary expression referencing
+ * the variables and other entities in an SBML model.
+ * 
+ * Each of the three subclasses of Rule (AssignmentRule, AlgebraicRule,
+ * RateRule) inherit the the "math" subelement and other fields from SBase.
+ * The AssignmentRule and RateRule classes add an additional attribute,
+ * "variable".  See the definitions of AssignmentRule, AlgebraicRule and
+ * RateRule for details about the structure and interpretation of each one.
+ * 
+ * @section additional-restrictions Additional restrictions on SBML rules
+ * 
+ * An important design goal of SBML rule semantics is to ensure that a
+ * model's simulation and analysis results will not be dependent on when or
+ * how often rules are evaluated.  To achieve this, SBML needs to place two
+ * restrictions on rule use.  The first concerns algebraic loops in the system
+ * of assignments in a model, and the second concerns overdetermined systems.
+ * 
+ * @subsection no-algebraic-loops A model must not contain algebraic loops
+ * 
+ * The combined set of InitialAssignment, AssignmentRule and KineticLaw
+ * objects in a model constitute a set of assignment statements that should be
+ * considered as a whole.  (A KineticLaw object is counted as an assignment
+ * because it assigns a value to the symbol contained in the "id" attribute of
+ * the Reaction object in which it is defined.)  This combined set of
+ * assignment statements must not contain algebraic loops&mdash;dependency
+ * chains between these statements must terminate.  To put this more formally,
+ * consider a directed graph in which nodes are assignment statements and
+ * directed arcs exist for each occurrence of an SBML species, compartment or
+ * parameter symbol in an assignment statement's "math" subelement.  Let the
+ * directed arcs point from the statement assigning the symbol to the
+ * statements that contain the symbol in their "math" subelement expressions.
+ * This graph must be acyclic.
+ * 
+ * SBML does not specify when or how often rules should be evaluated.
+ * Eliminating algebraic loops ensures that assignment statements can be
+ * evaluated any number of times without the result of those evaluations
+ * changing.  As an example, consider the set of equations <em>x = x + 1</em>,
+ * <em>y = z + 200</em> and <em>z = y + 100</em>.  If this set of equations
+ * were interpreted as a set of assignment statements, it would be invalid
+ * because the rule for <em>x</em> refers to <em>x</em> (exhibiting one type
+ * of loop), and the rule for <em>y</em> refers to <em>z</em> while the rule
+ * for <em>z</em> refers back to <em>y</em> (exhibiting another type of loop).
+ * Conversely, the following set of equations would constitute a valid set of
+ * assignment statements: <em>x = 10</em>, <em>y = z + 200</em>, and <em>z = x
+ * + 100</em>.
+ * 
+ * @subsection no-overdetermined A model must not be overdetermined
+ * 
+ * An SBML model must not be overdetermined; that is, a model must not
+ * define more equations than there are unknowns in a model.  An SBML model
+ * that does not contain AlgebraicRule structures cannot be overdetermined.
+ * 
+ * LibSBML implements the static analysis procedure described in Appendix
+ * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
+ * whether a model is overdetermined.
+ * 
+ * (In summary, assessing whether a given continuous, deterministic,
+ * mathematical model is overdetermined does not require dynamic analysis; it
+ * can be done by analyzing the system of equations created from the model.
+ * One approach is to construct a bipartite graph in which one set of vertices
+ * represents the variables and the other the set of vertices represents the
+ * equations.  Place edges between vertices such that variables in the system
+ * are linked to the equations that determine them.  For algebraic equations,
+ * there will be edges between the equation and each variable occurring in the
+ * equation.  For ordinary differential equations (such as those defined by
+ * rate rules or implied by the reaction rate definitions), there will be a
+ * single edge between the equation and the variable determined by that
+ * differential equation.  A mathematical model is overdetermined if the
+ * maximal matchings of the bipartite graph contain disconnected vertexes
+ * representing equations.  If one maximal matching has this property, then
+ * all the maximal matchings will have this property; i.e., it is only
+ * necessary to find one maximal matching.)
+ *
+ *
+ * @section RuleType_t RuleType_t for SBML Level 1
+ *
+ * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an attribute
+ * whose value is drawn from an enumeration.  LibSBML supports this using
+ * methods that work with the #RuleType_t enumeration.
+ * 
+ * <p>
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * yet set.</td>
+ * </table>
+ * </center>
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -99,48 +386,58 @@
  * The rule type AssignmentRule is derived from the parent class Rule.  It
  * is used to express equations that set the values of variables.  The
  * left-hand side (the attribute named "variable") of an assignment rule
- * can refer to the identifier of a Species, Compartment, or Parameter
- * object in the model (but not a Reaction).  The entity identified must
- * not have its "constant" attribute set to @c true.  The effects of an
- * AssignmentRule are in general terms the same, but differ in the precise
- * details depending on the type of variable being set:
- * <ul>
+ * can refer to the identifier of a Species, SpeciesReference (in SBML
+ * Level&nbsp;3), Compartment, or Parameter object in the model (but not a
+ * Reaction).  The entity identified must have its "constant" attribute set
+ * to @c false.  The effects of an AssignmentRule are in general terms the
+ * same, but differ in the precise details depending on the type of
+ * variable being set: <ul>
+
  * <li> <em>In the case of a species</em>, an AssignmentRule sets the
- * referenced species' quantity (@em concentration or <em>amount of
- * substance</em>) to the value determined by the formula in the subelement
- * "math" of the AssignmentRule object.  The units of the formula in "math"
- * should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
- * Versions) be the same as the <em>units of the species</em> for the
- * species identified by the "variable" attribute of the AssignmentRule.
- * <em>Restrictions</em>: There must not be both an AssignmentRule
- * "variable" attribute and a SpeciesReference "species" attribute having
- * the same value, unless that species has its "boundaryCondition"
- * attribute set to @c true.  In other words, an assignment rule cannot be
- * defined for a species that is created or destroyed in a reaction unless
- * that species is defined as a boundary condition in the model.
+ * referenced species' quantity (whether a "concentration" or "amount") to
+ * the value determined by the formula in the MathML subelement "math".
+ * The unit associated with the value produced by the "math" formula @em
+ * should (in SBML Level&nbsp;2 Version&nbsp;4 and later) or @em must (in
+ * SBML releases prior to Level&nbsp;2 version&nbsp;4) be equal to the unit
+ * associated with the species' quantity.  <em>Restrictions</em>: There
+ * must not be both an AssignmentRule "variable" attribute and a
+ * SpeciesReference "species" attribute having the same value, unless the
+ * referenced Species object has its "boundaryCondition" attribute set to
+ * @c true.  In other words, an assignment rule cannot be defined for a
+ * species that is created or destroyed in a reaction unless that species
+ * is defined as a boundary condition in the model.
  *
+ * <li> (For SBML Level&nbsp;3 only) <em>In the case of a species
+ * reference</em>, an AssignmentRule sets the stoichiometry of the
+ * referenced reactant or product to the value determined by the formula in
+ * "math".  The unit associated with the value produced by the "math"
+ * formula should be consistent with the unit "dimensionless", because
+ * reactant and product stoichiometries in reactions are dimensionless
+ * quantities.
+  *
  * <li> <em>In the case of a compartment</em>, an AssignmentRule sets the
  * referenced compartment's size to the value determined by the formula in
  * the "math" subelement of the AssignmentRule object.  The overall units
- * of the formula in "math" should (in SBML Level&nbsp;2 Version&nbsp;4) or
- * must (in previous Versions) be the same as the units of the size of the
- * compartment.
+ * of the formula in "math" @em should (in SBML Level&nbsp;2 Version&nbsp;4
+ * and later) or @em must (in SBML releases prior to Level&nbsp;2
+ * version&nbsp;4) be the same as the units of the size of the compartment.
  *
  * <li> <em>In the case of a parameter</em>, an AssignmentRule sets the
  * referenced parameter's value to that determined by the formula in the
  * "math" subelement of the AssignmentRule object.  The overall units of
- * the formula in the "math" subelement should (in SBML Level&nbsp;2
- * Version&nbsp;4) or must (in previous Versions) be the same as the units
- * defined for the parameter.  </ul>
+ * the formula in the "math" subelement @em should (in SBML Level&nbsp;2
+ * Version&nbsp;4 and later) or @em must (in SBML releases prior to
+ * Level&nbsp;2 version&nbsp;4) be the same as the units defined for the
+ * parameter.  </ul>
  * 
  * In the context of a simulation, assignment rules are in effect at all
  * times, <em>t</em> \f$\geq\f$ <em>0</em>.  For purposes of evaluating
  * expressions that involve the <em>delay</em> "csymbol" (see the SBML
  * Level&nbsp;2 specification), assignment rules are considered to apply
- * also at <em>t</em> \f$\leq\f$ <em>0</em>.  The SBML Level&nbsp;2
- * Version&nbsp;4 specification provides additional information about the
- * semantics of assignments, rules, and entity values for simulation time
- * <em>t</em> \f$\leq\f$ <em>0</em>.
+ * also at <em>t</em> \f$\leq\f$ <em>0</em>.  Please consult the relevant
+ * SBML specification for additional information about the semantics of
+ * assignments, rules, and entity values for simulation time <em>t</em>
+ * \f$\leq\f$ <em>0</em>.
  *
  * A model must not contain more than one AssignmentRule or RateRule
  * object having the same value of "variable"; in other words, in the set
@@ -159,18 +456,161 @@
  *
  * The value calculated by an AssignmentRule object overrides the value
  * assigned to the given symbol by the object defining that symbol.  For
- * example, if a Compartment's "size" attribute value is set in its
- * definition, and the model also contains an AssignmentRule having that
- * compartment's "id" as its "variable" value, then the "size" assigned in
- * the Compartment definition is ignored and the value assigned based on
- * the computation defined in the AssignmentRule.  This does <em>not</em>
- * mean that a definition for a given symbol can be omitted if there is an
- * AssignmentRule object for it.  For example, there must be a Parameter
- * definition for a given parameter if there is an AssignmentRule for that
- * parameter.  It is only a question of which value definition takes
- * precedence.
+ * example, if a Compartment object's "size" attribute value is set in its
+ * definition, and the model also contains an AssignmentRule object having
+ * that compartment's "id" as its "variable" value, then the "size"
+ * assigned in the Compartment object definition is ignored and the value
+ * assigned based on the computation defined in the AssignmentRule.  This
+ * does <em>not</em> mean that a definition for a given symbol can be
+ * omitted if there is an AssignmentRule object for it.  For example, there
+ * must be a Parameter definition for a given parameter if there is an
+ * AssignmentRule for that parameter.  It is only a question of which value
+ * definition takes precedence.
  * 
- * @htmlinclude libsbml-rule-general-summary.html
+ * @section general General summary of SBML rules
+ *
+ * In SBML Level&nbsp;3 as well as Level&nbsp;2, rules are separated into three
+ * subclasses for the benefit of model analysis software.  The three
+ * subclasses are based on the following three different possible functional
+ * forms (where <em>x</em> is a variable, <em>f</em> is some arbitrary
+ * function returning a numerical result, <b><em>V</em></b> is a vector of
+ * variables that does not include <em>x</em>, and <b><em>W</em></b> is a
+ * vector of variables that may include <em>x</em>):
+ * 
+ * <center>
+ * <table border="0" cellpadding="0" style="font-size: small">
+ * <tr><td width="120px"><em>Algebraic:</em></td><td width="250px">left-hand side is zero</td><td><em>0 = f(<b>W</b>)</em></td></tr>
+ * <tr><td><em>Assignment:</em></td><td>left-hand side is a scalar:</td><td><em>x = f(<b>V</b>)</em></td></tr>
+ * <tr><td><em>Rate:</em></td><td>left-hand side is a rate-of-change:</td><td><em>dx/dt = f(<b>W</b>)</em></td></tr>
+ * </table>
+ * </center>
+ * 
+ * In their general form given above, there is little to distinguish
+ * between <em>assignment</em> and <em>algebraic</em> rules.  They are treated as
+ * separate cases for the following reasons:
+ *
+ * <ul>
+ * <li> <em>Assignment</em> rules can simply be evaluated to calculate
+ * intermediate values for use in numerical methods.  They are statements
+ * of equality that hold at all times.  (For assignments that are only
+ * performed once, see InitialAssignment.)<p>
+ * 
+ * <li> SBML needs to place restrictions on assignment rules, for example
+ * the restriction that assignment rules cannot contain algebraic loops.<p>
+ * 
+ * <li> Some simulators do not contain numerical solvers capable of solving
+ * unconstrained algebraic equations, and providing more direct forms such
+ * as assignment rules may enable those simulators to process models they
+ * could not process if the same assignments were put in the form of
+ * general algebraic equations;<p>
+ * 
+ * <li> Those simulators that <em>can</em> solve these algebraic equations make a
+ * distinction between the different categories listed above; and<p>
+ * 
+ * <li> Some specialized numerical analyses of models may only be applicable
+ * to models that do not contain <em>algebraic</em> rules.
+ * </ul>
+ * 
+ * The approach taken to covering these cases in SBML is to define an
+ * abstract Rule structure containing a subelement, "math", to hold the
+ * right-hand side expression, then to derive subtypes of Rule that add
+ * attributes to distinguish the cases of algebraic, assignment and rate
+ * rules.  The "math" subelement must contain a MathML expression defining the
+ * mathematical formula of the rule.  This MathML formula must return a
+ * numerical value.  The formula can be an arbitrary expression referencing
+ * the variables and other entities in an SBML model.
+ * 
+ * Each of the three subclasses of Rule (AssignmentRule, AlgebraicRule,
+ * RateRule) inherit the the "math" subelement and other fields from SBase.
+ * The AssignmentRule and RateRule classes add an additional attribute,
+ * "variable".  See the definitions of AssignmentRule, AlgebraicRule and
+ * RateRule for details about the structure and interpretation of each one.
+ * 
+ * @section additional-restrictions Additional restrictions on SBML rules
+ * 
+ * An important design goal of SBML rule semantics is to ensure that a
+ * model's simulation and analysis results will not be dependent on when or
+ * how often rules are evaluated.  To achieve this, SBML needs to place two
+ * restrictions on rule use.  The first concerns algebraic loops in the system
+ * of assignments in a model, and the second concerns overdetermined systems.
+ * 
+ * @subsection no-algebraic-loops A model must not contain algebraic loops
+ * 
+ * The combined set of InitialAssignment, AssignmentRule and KineticLaw
+ * objects in a model constitute a set of assignment statements that should be
+ * considered as a whole.  (A KineticLaw object is counted as an assignment
+ * because it assigns a value to the symbol contained in the "id" attribute of
+ * the Reaction object in which it is defined.)  This combined set of
+ * assignment statements must not contain algebraic loops&mdash;dependency
+ * chains between these statements must terminate.  To put this more formally,
+ * consider a directed graph in which nodes are assignment statements and
+ * directed arcs exist for each occurrence of an SBML species, compartment or
+ * parameter symbol in an assignment statement's "math" subelement.  Let the
+ * directed arcs point from the statement assigning the symbol to the
+ * statements that contain the symbol in their "math" subelement expressions.
+ * This graph must be acyclic.
+ * 
+ * SBML does not specify when or how often rules should be evaluated.
+ * Eliminating algebraic loops ensures that assignment statements can be
+ * evaluated any number of times without the result of those evaluations
+ * changing.  As an example, consider the set of equations <em>x = x + 1</em>,
+ * <em>y = z + 200</em> and <em>z = y + 100</em>.  If this set of equations
+ * were interpreted as a set of assignment statements, it would be invalid
+ * because the rule for <em>x</em> refers to <em>x</em> (exhibiting one type
+ * of loop), and the rule for <em>y</em> refers to <em>z</em> while the rule
+ * for <em>z</em> refers back to <em>y</em> (exhibiting another type of loop).
+ * Conversely, the following set of equations would constitute a valid set of
+ * assignment statements: <em>x = 10</em>, <em>y = z + 200</em>, and <em>z = x
+ * + 100</em>.
+ * 
+ * @subsection no-overdetermined A model must not be overdetermined
+ * 
+ * An SBML model must not be overdetermined; that is, a model must not
+ * define more equations than there are unknowns in a model.  An SBML model
+ * that does not contain AlgebraicRule structures cannot be overdetermined.
+ * 
+ * LibSBML implements the static analysis procedure described in Appendix
+ * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
+ * whether a model is overdetermined.
+ * 
+ * (In summary, assessing whether a given continuous, deterministic,
+ * mathematical model is overdetermined does not require dynamic analysis; it
+ * can be done by analyzing the system of equations created from the model.
+ * One approach is to construct a bipartite graph in which one set of vertices
+ * represents the variables and the other the set of vertices represents the
+ * equations.  Place edges between vertices such that variables in the system
+ * are linked to the equations that determine them.  For algebraic equations,
+ * there will be edges between the equation and each variable occurring in the
+ * equation.  For ordinary differential equations (such as those defined by
+ * rate rules or implied by the reaction rate definitions), there will be a
+ * single edge between the equation and the variable determined by that
+ * differential equation.  A mathematical model is overdetermined if the
+ * maximal matchings of the bipartite graph contain disconnected vertexes
+ * representing equations.  If one maximal matching has this property, then
+ * all the maximal matchings will have this property; i.e., it is only
+ * necessary to find one maximal matching.)
+ *
+ *
+ * @section RuleType_t RuleType_t for SBML Level 1
+ *
+ * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an attribute
+ * whose value is drawn from an enumeration.  LibSBML supports this using
+ * methods that work with the #RuleType_t enumeration.
+ * 
+ * <p>
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * yet set.</td>
+ * </table>
+ * </center>
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -186,41 +626,48 @@
  * to @c false.  The effects of a RateRule are in general terms the same,
  * but differ in the precise details depending on which variable is being
  * set:
- * <ul>
- * <li> <em>In the case of a species</em>, a RateRule sets the rate of
+ * 
+ * <ul> <li> <em>In the case of a species</em>, a RateRule sets the rate of
  * change of the species' quantity (<em>concentration</em> or <em>amount of
  * substance</em>) to the value determined by the formula in the "math"
  * subelement of the RateRule object.  The overall units of the formula in
- * "math" should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
- * Versions) be <em>species quantity</em>/<em>time</em>, where the
- * <em>time</em> units are the SBML predefined units of time and the
- * <em>species quantity</em> units are the <em>units of the species</em>.
- * <em>Restrictions</em>: There must not be both a RateRule "variable"
- * attribute and a SpeciesReference "species" attribute having the same
- * value, unless that species has its "boundaryCondition" attribute is set
- * to @c true.  This means a rate rule cannot be defined for a species that
- * is created or destroyed in a reaction, unless that species is defined as
- * a boundary condition in the model.
+ * "math" @em should (in SBML Level&nbsp;2 Version&nbsp;4 and later) or @em
+ * must (in SBML releases prior to Level&nbsp;2 version&nbsp;4) be equal to
+ * the unit of <em>species quantity</em> divided by the model-wide unit of
+ * <em>time</em>.  <em>Restrictions</em>: There must not be both a RateRule
+ * "variable" attribute and a SpeciesReference "species" attribute having
+ * the same value, unless that species has its "boundaryCondition"
+ * attribute is set to @c true.  This means a rate rule cannot be defined
+ * for a species that is created or destroyed in a reaction, unless that
+ * species is defined as a boundary condition in the model.
+ *
+ * <li> (For SBML Level&nbsp;3 only) <em>In the case of a species
+ * reference</em>, a RateRule sets the rate of change of the stoichiometry
+ * of the referenced reactant or product to the value determined by the
+ * formula in "math".  The unit associated with the value produced by the
+ * "math" formula should be consistent with the unit "dimensionless"
+ * divided by the model-wide unit of <em>time</em>.
  *
  * <li> <em>In the case of a compartment</em>, a RateRule sets the rate of
  * change of the compartment's size to the value determined by the formula
  * in the "math" subelement of the RateRule object.  The overall units of
- * the formula should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
- * Versions) be <em>size</em>/<em>time</em>, where the <em>time</em>
- * units are the SBML predefined units of time and the <em>size</em> units
- * are the units of size on the compartment.
+ * the formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and
+ * later) or @em must (in SBML releases prior to Level&nbsp;2
+ * version&nbsp;4) be the units of the compartment's <em>size</em> divided
+ * by the model-wide unit of <em>time</em>.
  *
  * <li> <em>In the case of a parameter</em>, a RateRule sets the rate of
  * change of the parameter's value to that determined by the formula in the
  * "math" subelement of the RateRule object.  The overall units of the
- * formula should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in previous
- * Versions) be <em>x</em>/<em>time</em>, where <em>x</em> are the units
- * of the parameter.
+ * formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and
+ * later) or @em must (in SBML releases prior to Level&nbsp;2
+ * version&nbsp;4) be the Parameter object's "unit" attribute value divided
+ * by the model-wide unit of <em>time</em>.
  * </ul>
  * 
  * In the context of a simulation, rate rules are in effect for simulation
- * time <em>t</em> &lt; <em>0</em>.  The SBML Level&nbsp;2 Version&nbsp;4
- * specification provides additional information about the semantics of
+ * time <em>t</em> &lt; <em>0</em>.  Please consult the relevant SBML
+ * specification for additional information about the semantics of
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
  *
@@ -233,7 +680,150 @@
  * one assignment rule for the same variable or both an assignment rule and
  * a rate rule for the same variable.
  * 
- * @htmlinclude libsbml-rule-general-summary.html
+ * @section general General summary of SBML rules
+ *
+ * In SBML Level&nbsp;3 as well as Level&nbsp;2, rules are separated into
+ * three subclasses for the benefit of model analysis software.  The three
+ * subclasses are based on the following three different possible
+ * functional forms (where <em>x</em> is a variable, <em>f</em> is some
+ * arbitrary function returning a numerical result, <b><em>V</em></b> is a
+ * vector of variables that does not include <em>x</em>, and
+ * <b><em>W</em></b> is a vector of variables that may include <em>x</em>):
+ * 
+ * <center>
+ * <table border="0" cellpadding="0" style="font-size: small">
+ * <tr><td width="120px"><em>Algebraic:</em></td><td width="250px">left-hand side is zero</td><td><em>0 = f(<b>W</b>)</em></td></tr>
+ * <tr><td><em>Assignment:</em></td><td>left-hand side is a scalar:</td><td><em>x = f(<b>V</b>)</em></td></tr>
+ * <tr><td><em>Rate:</em></td><td>left-hand side is a rate-of-change:</td><td><em>dx/dt = f(<b>W</b>)</em></td></tr>
+ * </table>
+ * </center>
+ * 
+ * In their general form given above, there is little to distinguish
+ * between <em>assignment</em> and <em>algebraic</em> rules.  They are treated as
+ * separate cases for the following reasons:
+ *
+ * <ul>
+ * <li> <em>Assignment</em> rules can simply be evaluated to calculate
+ * intermediate values for use in numerical methods.  They are statements
+ * of equality that hold at all times.  (For assignments that are only
+ * performed once, see InitialAssignment.)<p>
+ * 
+ * <li> SBML needs to place restrictions on assignment rules, for example
+ * the restriction that assignment rules cannot contain algebraic loops.<p>
+ * 
+ * <li> Some simulators do not contain numerical solvers capable of solving
+ * unconstrained algebraic equations, and providing more direct forms such
+ * as assignment rules may enable those simulators to process models they
+ * could not process if the same assignments were put in the form of
+ * general algebraic equations;<p>
+ * 
+ * <li> Those simulators that <em>can</em> solve these algebraic equations make a
+ * distinction between the different categories listed above; and<p>
+ * 
+ * <li> Some specialized numerical analyses of models may only be applicable
+ * to models that do not contain <em>algebraic</em> rules.
+ * </ul>
+ * 
+ * The approach taken to covering these cases in SBML is to define an
+ * abstract Rule structure containing a subelement, "math", to hold the
+ * right-hand side expression, then to derive subtypes of Rule that add
+ * attributes to distinguish the cases of algebraic, assignment and rate
+ * rules.  The "math" subelement must contain a MathML expression defining the
+ * mathematical formula of the rule.  This MathML formula must return a
+ * numerical value.  The formula can be an arbitrary expression referencing
+ * the variables and other entities in an SBML model.
+ * 
+ * Each of the three subclasses of Rule (AssignmentRule, AlgebraicRule,
+ * RateRule) inherit the the "math" subelement and other fields from SBase.
+ * The AssignmentRule and RateRule classes add an additional attribute,
+ * "variable".  See the definitions of AssignmentRule, AlgebraicRule and
+ * RateRule for details about the structure and interpretation of each one.
+ * 
+ * @section additional-restrictions Additional restrictions on SBML rules
+ * 
+ * An important design goal of SBML rule semantics is to ensure that a
+ * model's simulation and analysis results will not be dependent on when or
+ * how often rules are evaluated.  To achieve this, SBML needs to place two
+ * restrictions on rule use.  The first concerns algebraic loops in the system
+ * of assignments in a model, and the second concerns overdetermined systems.
+ * 
+ * @subsection no-algebraic-loops A model must not contain algebraic loops
+ * 
+ * The combined set of InitialAssignment, AssignmentRule and KineticLaw
+ * objects in a model constitute a set of assignment statements that should be
+ * considered as a whole.  (A KineticLaw object is counted as an assignment
+ * because it assigns a value to the symbol contained in the "id" attribute of
+ * the Reaction object in which it is defined.)  This combined set of
+ * assignment statements must not contain algebraic loops&mdash;dependency
+ * chains between these statements must terminate.  To put this more formally,
+ * consider a directed graph in which nodes are assignment statements and
+ * directed arcs exist for each occurrence of an SBML species, compartment or
+ * parameter symbol in an assignment statement's "math" subelement.  Let the
+ * directed arcs point from the statement assigning the symbol to the
+ * statements that contain the symbol in their "math" subelement expressions.
+ * This graph must be acyclic.
+ * 
+ * SBML does not specify when or how often rules should be evaluated.
+ * Eliminating algebraic loops ensures that assignment statements can be
+ * evaluated any number of times without the result of those evaluations
+ * changing.  As an example, consider the set of equations <em>x = x + 1</em>,
+ * <em>y = z + 200</em> and <em>z = y + 100</em>.  If this set of equations
+ * were interpreted as a set of assignment statements, it would be invalid
+ * because the rule for <em>x</em> refers to <em>x</em> (exhibiting one type
+ * of loop), and the rule for <em>y</em> refers to <em>z</em> while the rule
+ * for <em>z</em> refers back to <em>y</em> (exhibiting another type of loop).
+ * Conversely, the following set of equations would constitute a valid set of
+ * assignment statements: <em>x = 10</em>, <em>y = z + 200</em>, and <em>z = x
+ * + 100</em>.
+ * 
+ * @subsection no-overdetermined A model must not be overdetermined
+ * 
+ * An SBML model must not be overdetermined; that is, a model must not
+ * define more equations than there are unknowns in a model.  An SBML model
+ * that does not contain AlgebraicRule structures cannot be overdetermined.
+ * 
+ * LibSBML implements the static analysis procedure described in Appendix
+ * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
+ * whether a model is overdetermined.
+ * 
+ * (In summary, assessing whether a given continuous, deterministic,
+ * mathematical model is overdetermined does not require dynamic analysis; it
+ * can be done by analyzing the system of equations created from the model.
+ * One approach is to construct a bipartite graph in which one set of vertices
+ * represents the variables and the other the set of vertices represents the
+ * equations.  Place edges between vertices such that variables in the system
+ * are linked to the equations that determine them.  For algebraic equations,
+ * there will be edges between the equation and each variable occurring in the
+ * equation.  For ordinary differential equations (such as those defined by
+ * rate rules or implied by the reaction rate definitions), there will be a
+ * single edge between the equation and the variable determined by that
+ * differential equation.  A mathematical model is overdetermined if the
+ * maximal matchings of the bipartite graph contain disconnected vertexes
+ * representing equations.  If one maximal matching has this property, then
+ * all the maximal matchings will have this property; i.e., it is only
+ * necessary to find one maximal matching.)
+ *
+ *
+ * @section RuleType_t RuleType_t for SBML Level 1
+ *
+ * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an attribute
+ * whose value is drawn from an enumeration.  LibSBML supports this using
+ * methods that work with the #RuleType_t enumeration.
+ * 
+ * <p>
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * yet set.</td>
+ * </table>
+ * </center>
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -248,7 +838,8 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * illustrated by the following (for SBML Level&nbsp;3 and later versions
+ * of SBML Level&nbsp;2 as well):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -288,6 +879,9 @@
 
 BEGIN_C_DECLS
 
+/**
+ * @enum RuleType_t
+ */
 typedef enum
 {
     RULE_TYPE_RATE
@@ -340,7 +934,9 @@ public:
    *
    * @param v the SBMLVisitor instance to be used.
    *
-   * @return the result of calling <code>v.visit()</code>.
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether the Visitor would like to visit the next Rule object in the
+   * list of rules within which @em the present object is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
@@ -355,29 +951,46 @@ public:
 
   /**
    * Returns the mathematical expression of this Rule in text-string form.
+   *
+   * The text string is produced by SBML_formulaToString(); please consult
+   * the documentation for that function to find out more about the format
+   * of the text-string formula.
    * 
-   * @return the formula for this Rule.
+   * @return the formula text string for this Rule.
+   *
+   * @see getMath()
    */
   const std::string& getFormula () const;
 
 
   /**
-   * Get the mathematical formula of this Rule.
+   * Get the mathematical formula of this Rule as an ASTNode tree.
    *
-   * @return an ASTNode, the value of the "math" subelement of this Rule
+   * @return an ASTNode, the value of the "math" subelement of this Rule.
+   *
+   * @see getFormula()
    */
   const ASTNode* getMath () const;
 
 
   /**
-   * Get the value of the "variable" attribute of this Rule.
+   * Get the value of the "variable" attribute of this Rule object.
    *
-   * This applies to AssignmentRule and RateRule, which have explicit
-   * left-hand sides in their equations.  AlgebraicRule does not have a
-   * variable field.
+   * In SBML Level&nbsp;1, the different rule types each have a different
+   * name for the attribute holding the reference to the object
+   * constituting the left-hand side of the rule.  (E.g., for
+   * SpeciesConcentrationRule the attribute is "species", for
+   * CompartmentVolumeRule it is "compartment", etc.)  In SBML
+   * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
+   * left-hand side object reference are AssignmentRule and RateRule, and
+   * both of them use the same name for attribute: "variable".  In order to
+   * make it easier for application developers to work with all Levels of
+   * SBML, libSBML uses a uniform name for all of such attributes, and it
+   * is "variable", regardless of whether Level&nbsp;1 rules or
+   * Level&nbsp;2&ndash;3 rules are being used.
    * 
    * @return the identifier string stored as the "variable" attribute value
-   * in this Rule.
+   * in this Rule, or @c NULL if this object is an AlgebraicRule object.
    */
   const std::string& getVariable () const;
 
@@ -386,13 +999,13 @@ public:
    * (SBML Level&nbsp;1 ParameterRule only) Returns the units for the
    * mathematical formula of this Rule.
    * 
-   * @return the identifier of the units for the expression of this Rule
+   * @return the identifier of the units for the expression of this Rule.
    */
   const std::string& getUnits () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Rule's mathematical expression has been set.
    * 
    * This method is equivalent to isSetMath().  This version is present for
@@ -401,12 +1014,14 @@ public:
    * 
    * @return @c true if the mathematical formula for this Rule has been
    * set, @c false otherwise.
+   *
+   * @see isSetMath()
    */
   bool isSetFormula () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Rule's mathematical expression has been set.
    *
    * This method is equivalent to isSetFormula().
@@ -418,18 +1033,31 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Rule's "variable" attribute has been set.
    *
-   * @return @c true if the variable of this Rule has been set, @c false
-   * otherwise.
+   * In SBML Level&nbsp;1, the different rule types each have a different
+   * name for the attribute holding the reference to the object
+   * constituting the left-hand side of the rule.  (E.g., for
+   * SpeciesConcentrationRule the attribute is "species", for
+   * CompartmentVolumeRule it is "compartment", etc.)  In SBML
+   * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
+   * left-hand side object reference are AssignmentRule and RateRule, and
+   * both of them use the same name for attribute: "variable".  In order to
+   * make it easier for application developers to work with all Levels of
+   * SBML, libSBML uses a uniform name for all such attributes, and it is
+   * "variable", regardless of whether Level&nbsp;1 rules or
+   * Level&nbsp;2&ndash;3 rules are being used.
+   *
+   * @return @c true if the "variable" attribute value of this Rule has
+   * been set, @c false otherwise.
    */
   bool isSetVariable () const;
 
 
   /**
-   * (SBML Level&nbsp;1 ParameterRule only) Predicate returning @c true or @c
-   * false depending on whether this Rule's "units" attribute has been set.
+   * (SBML Level&nbsp;1 ParameterRule only) Predicate returning @c true
+   * if this Rule's "units" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -476,8 +1104,21 @@ public:
 
 
   /**
-   * Sets the "variable" attribute of this Rule.
+   * Sets the "variable" attribute value of this Rule object.
    *
+   * In SBML Level&nbsp;1, the different rule types each have a different
+   * name for the attribute holding the reference to the object
+   * constituting the left-hand side of the rule.  (E.g., for
+   * SpeciesConcentrationRule the attribute is "species", for
+   * CompartmentVolumeRule it is "compartment", etc.)  In SBML
+   * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
+   * left-hand side object reference are AssignmentRule and RateRule, and
+   * both of them use the same name for attribute: "variable".  In order to
+   * make it easier for application developers to work with all Levels of
+   * SBML, libSBML uses a uniform name for all such attributes, and it is
+   * "variable", regardless of whether Level&nbsp;1 rules or
+   * Level&nbsp;2&ndash;3 rules are being used.
+   * 
    * @param sid the identifier of a Compartment, Species or Parameter
    * elsewhere in the enclosing Model object.
    *
@@ -537,7 +1178,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * @warning Note that it is possible the "math" expression in the Rule
    * contains pure numbers or parameters with undeclared units.  In those
@@ -572,7 +1213,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * @warning Note that it is possible the "math" expression in the Rule
    * contains pure numbers or parameters with undeclared units.  In those
@@ -596,7 +1237,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
+   * Predicate returning @c true if 
    * the math expression of this Rule contains
    * parameters/numbers with undeclared units.
    * 
@@ -614,7 +1255,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
+   * Predicate returning @c true if 
    * the math expression of this Rule contains
    * parameters/numbers with undeclared units.
    * 
@@ -636,13 +1277,14 @@ public:
    * 
    * @return the rule type (a value drawn from the enumeration <a
    * class="el" href="#RuleType_t">RuleType_t</a>) of this Rule.  The value
-   * will be either @c RULE_TYPE_RATE or @c RULE_TYPE_SCALAR.
+   * will be either @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
+   * or @link RateRule_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink.
    */
   RuleType_t getType () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Rule is an AlgebraicRule.
    * 
    * @return @c true if this Rule is an AlgebraicRule, @c false otherwise.
@@ -651,7 +1293,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Rule is an AssignmentRule.
    * 
    * @return @c true if this Rule is an AssignmentRule, @c false otherwise.
@@ -660,8 +1302,8 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
-   * on whether this Rule is an CompartmentVolumeRule.
+   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * this Rule is an CompartmentVolumeRule.
    *
    * @return @c true if this Rule is a CompartmentVolumeRule, @c false
    * otherwise.
@@ -670,8 +1312,8 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
-   * on whether this Rule is an ParameterRule.
+   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * this Rule is an ParameterRule.
    *
    * @return @c true if this Rule is a ParameterRule, @c false
    * otherwise.
@@ -680,9 +1322,9 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this Rule
-   * is a RateRule (SBML Level&nbsp;2) or has a "type" attribute value of @c
-   * "rate" (SBML Level&nbsp;1).
+   * Predicate returning @c true if this Rule
+   * is a RateRule (SBML Levels&nbsp;2&ndash;3) or has a "type" attribute
+   * value of @c "rate" (SBML Level&nbsp;1).
    *
    * @return @c true if this Rule is a RateRule (Level&nbsp;2) or has
    * type "rate" (Level&nbsp;1), @c false otherwise.
@@ -691,9 +1333,9 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this Rule
-   * is an AssignmentRule (SBML Level&nbsp;2) or has a "type" attribute value of
-   * @c "scalar" (SBML Level&nbsp;1).
+   * Predicate returning @c true if this Rule
+   * is an AssignmentRule (SBML Levels&nbsp;2&ndash;3) or has a "type"
+   * attribute value of @c "scalar" (SBML Level&nbsp;1).
    *
    * @return @c true if this Rule is an AssignmentRule (Level&nbsp;2) or has
    * type "scalar" (Level&nbsp;1), @c false otherwise.
@@ -702,8 +1344,8 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
-   * on whether this Rule is an SpeciesConcentrationRule.
+   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * this Rule is an SpeciesConcentrationRule.
    *
    * @return @c true if this Rule is a SpeciesConcentrationRule, @c false
    * otherwise.
@@ -726,7 +1368,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -734,31 +1377,42 @@ public:
 
 
   /**
-   * Returns  the SBML Level&nbsp;1 type code for this Rule, or @c SBML_UNNOWN.
+   * Returns the SBML Level&nbsp;1 type code for this Rule object.
+   *
+   * This only applies to SBML Level&nbsp;1 model objects.  If this is not
+   * an SBML Level&nbsp;1 rule object, this method will return @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
    * 
-   * @return the SBML Level&nbsp;1 typecode for this Rule (@c SBML_COMPARTMENT_VOLUME_RULE,
-   * @c SBML_PARAMETER_RULE, or @c SBML_SPECIES_CONCENTRATION_RULE) or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink
-   * (default).
+   * @return the SBML Level&nbsp;1 type code for this Rule (namely, @link
+   * SBMLTypeCode_t#SBML_COMPARTMENT_VOLUME_RULE
+   * SBML_COMPARTMENT_VOLUME_RULE@endlink, @link
+   * SBMLTypeCode_t#SBML_PARAMETER_RULE SBML_PARAMETER_RULE@endlink, @link
+   * SBMLTypeCode_t#SBML_SPECIES_CONCENTRATION_RULE
+   * SBML_SPECIES_CONCENTRATION_RULE@endlink, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink).
    */
   SBMLTypeCode_t getL1TypeCode () const;
 
 
   /**
-   * Returns the XML element name of this object, which can be any
-   * of a number of different strings depending on the SBML Level and the
-   * kind of rule this is.
+   * Returns the XML element name of this object
    *
-   * The rules as of libSBML 3.0.0 are the following:
+   * The returned value can be any of a number of different strings,
+   * depending on the SBML Level in use and the kind of Rule object this
+   * is.  The rules as of libSBML 4.1.0 are the following:
    * <ul>
-   * <li> (Level&nbsp;2) RateRule: returns @c "rateRule"
-   * <li> (Level&nbsp;2) AssignmentRule: returns @c "assignmentRule" 
-   * <li> (Level&nbsp;2) AlgebraicRule: returns @c "algebraicRule"
+   * <li> (Level&nbsp;2 and&nbsp;3) RateRule: returns @c "rateRule"
+   * <li> (Level&nbsp;2 and&nbsp;3) AssignmentRule: returns @c "assignmentRule" 
+   * <li> (Level&nbsp;2 and&nbsp;3) AlgebraicRule: returns @c "algebraicRule"
    * <li> (Level&nbsp;1 Version&nbsp;1) SpecieConcentrationRule: returns @c "specieConcentrationRule"
    * <li> (Level&nbsp;1 Version&nbsp;2) SpeciesConcentrationRule: returns @c "speciesConcentrationRule"
    * <li> (Level&nbsp;1) CompartmentVolumeRule: returns @c "compartmentVolumeRule"
    * <li> (Level&nbsp;1) ParameterRule: returns @c "parameterRule"
    * <li> Unknown rule type: returns @c "unknownRule"
    * </ul>
+   *
+   * Beware that the last (@c "unknownRule") is not a valid SBML element
+   * name.
    * 
    * @return the name of this element
    */
@@ -776,28 +1430,31 @@ public:
 
 
   /**
-   * Sets the SBML Level&nbsp;1 typecode for this Rule.
+   * Sets the SBML Level&nbsp;1 type code for this Rule.
    *
-   * @param type the SBML Level&nbsp;1 typecode for this Rule 
-   * (@c SBML_COMPARTMENT_VOLUME_RULE, @c SBML_PARAMETER_RULE, 
-   * or @c SBML_SPECIES_CONCENTRATION_RULE).
+   * @param type the SBML Level&nbsp;1 type code for this Rule, drawn from
+   * the enumeration #SBMLTypeCode_t.  The allowable values are @link
+   * SBMLTypeCode_t#SBML_COMPARTMENT_VOLUME_RULE
+   * SBML_COMPARTMENT_VOLUME_RULE@endlink, @link
+   * SBMLTypeCode_t#SBML_PARAMETER_RULE SBML_PARAMETER_RULE@endlink, and
+   * @link SBMLTypeCode_t#SBML_SPECIES_CONCENTRATION_RULE
+   * SBML_SPECIES_CONCENTRATION_RULE@endlink.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * if given @p type value is not one of the above.
    *
    */
   int setL1TypeCode (SBMLTypeCode_t type);
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether all the
+   * Predicate returning @c true if all the
    * required elements for this Rule object have been set.
    *
-   * @note The required elements for a Rule object are: math
+   * The only required element for a Rule object is the "math" subelement.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -806,10 +1463,14 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether all the
+   * Predicate returning @c true if all the
    * required attributes for this Rule object have been set.
    *
-   * @note The required elements for a Rule object are: math
+   * The required attributes for a Rule object depend on the type of Rule
+   * it is.  For AssignmentRule and RateRule objects (and SBML
+   * Level&nbsp1's SpeciesConcentrationRule, CompartmentVolumeRule, and
+   * ParameterRule objects), the required attribute is "variable"; for
+   * AlgebraicRule objects, there is no required attribute.
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -916,13 +1577,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * AlgebraicRule
    * 
-   * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the AlgebraicRule.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
+   * (e.g., using Model::addAlgebraicRule()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the AlgebraicRule object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a AlgebraicRule is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   AlgebraicRule (unsigned int level, unsigned int version);
 
@@ -940,13 +1604,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a AlgebraicRule has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the AlgebraicRule.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
+   * (e.g., using Model::addAlgebraicRule()), the SBML XML namespace of the
+   * document @em overrides the value used when creating the AlgebraicRule
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a AlgebraicRule is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   AlgebraicRule (SBMLNamespaces* sbmlns);
 
@@ -970,7 +1637,9 @@ public:
    *
    * @param v the SBMLVisitor instance to be used.
    *
-   * @return the result of calling <code>v.visit()</code>.
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether the Visitor would like to visit the next AlgebraicRule object
+   * in the list of rules within which @em the present object is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
@@ -986,15 +1655,21 @@ public:
   
   /** @endcond */
 
+
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this AlgebraicRule object
    * have been set.
    *
-   * @note The required attributes for a AlgebraicRule object are:
-   * formula (L1 only)
+   * @note In SBML Levels&nbsp;2&ndash;3, there is no required attribute
+   * for an AlgebraicRule object.  For Level&nbsp;1, the only required
+   * attribute is "formula".
+   * 
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -1044,13 +1719,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * AssignmentRule
    * 
-   * @note Once a AssignmentRule has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the AssignmentRule.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of an AssignmentRule object to an SBMLDocument
+   * (e.g., using Model::addAssignmentRule()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the AssignmentRule object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a AssignmentRule is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   AssignmentRule (unsigned int level, unsigned int version);
 
@@ -1068,13 +1746,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a AssignmentRule has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the AssignmentRule.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a AssignmentRule object to an SBMLDocument
+   * (e.g., using Model::addAssignmentRule()), the SBML XML namespace of
+   * the document @em overrides the value used when creating the
+   * AssignmentRule object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a
+   * AssignmentRule is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   AssignmentRule (SBMLNamespaces* sbmlns);
 
@@ -1098,19 +1779,29 @@ public:
    *
    * @param v the SBMLVisitor instance to be used.
    *
-   * @return the result of calling <code>v.visit()</code>.
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether the Visitor would like to visit the next AssignmentRule object
+   * in the list of rules within which @em the present object is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this AssignmentRule object
    * have been set.
    *
-   * @note The required attributes for a AssignmentRule object are:
-   * variable (compartment/species/name in L1); formula (L1 only)
+   * @note In SBML Levels&nbsp;2&ndash;3, the only required attribute for
+   * an AssignmentRule object is "variable".  For Level&nbsp;1, where the
+   * equivalent attribute is known by different names ("compartment",
+   * "species", or "name", depending on the type of object), there is an
+   * additional required attribute called "formula".
+   * 
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -1160,14 +1851,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * RateRule
    * 
-   * @note Once a RateRule has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the RateRule.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
-   */
+   * @note Upon the addition of a RateRule object to an SBMLDocument
+   * (e.g., using Model::addRateRule()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the RateRule object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a RateRule is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
+  */
   RateRule (unsigned int level, unsigned int version);
 
 
@@ -1184,16 +1878,18 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a RateRule has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the RateRule.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
+   * using Model::addRateRule()), the SBML XML namespace of the document
+   * @em overrides the value used when creating the RateRule object via
+   * this constructor.  This is necessary to ensure that an SBML document
+   * is a consistent structure.  Nevertheless, the ability to supply the
+   * values at the time of creation of a RateRule is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   RateRule (SBMLNamespaces* sbmlns);
-
 
 
   /**
@@ -1212,21 +1908,31 @@ public:
   /**
    * Accepts the given SBMLVisitor.
    *
+   * @param v the SBMLVisitor instance to be used.
+   *
    * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the Model's next Rule
-   * (if available).
+   * whether the Visitor would like to visit the next RateRule object
+   * in the list of rules within which @em the present object is embedded.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this RateRule object
    * have been set.
    *
-   * @note The required attributes for a RateRule object are:
-   * variable (compartment/species/name in L1); formula (L1 only)
+   * @note In SBML Levels&nbsp;2&ndash;3, the only required attribute for a
+   * RateRule object is "variable".  For Level&nbsp;1, where the equivalent
+   * attribute is known by different names ("compartment", "species", or
+   * "name", depending on the type of object), there is an additional
+   * required attribute called "formula".
+   *
+   * @return @c true if the required attributes have been set, @c false
+   * otherwise.
    */
   virtual bool hasRequiredAttributes() const ;
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -1363,7 +2069,7 @@ public:
    * of the Rule to get.
    * 
    * @return Rule in this ListOfRules
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Rule exists.
    *
    * @see get(unsigned int n)
@@ -1380,7 +2086,7 @@ public:
    * of the Rule to get.
    * 
    * @return Rule in this ListOfRules
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Rule exists.
    *
    * @see get(unsigned int n)
@@ -1439,7 +2145,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 

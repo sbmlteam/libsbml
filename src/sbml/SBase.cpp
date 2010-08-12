@@ -54,7 +54,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @endcond */
 
-/**
+/*
  * elements permitted on the body element of xhtml
  */
 
@@ -2100,8 +2100,8 @@ SBase::unsetMetaId ()
 //    return LIBSBML_OPERATION_FAILED;
 //  }
 //}
-//
-//
+
+
 /*
  * Unsets the notes of this SBML object.
  */
@@ -2112,6 +2112,7 @@ SBase::unsetNotes ()
   mNotes = 0;
   return LIBSBML_OPERATION_SUCCESS;
 }
+
 
 /*
  * Unsets the annotation of this SBML object.

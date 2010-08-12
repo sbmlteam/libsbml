@@ -225,13 +225,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Model
    * 
-   * @note Once a Model has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Model.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Model object to an SBMLDocument
+   * (e.g., using Model::addModel()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the Model object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Model is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   Model (unsigned int level, unsigned int version);
 
@@ -249,13 +252,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Model has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Model.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Model object to an SBMLDocument (e.g.,
+   * using Model::addModel()), the SBML XML namespace of the document @em
+   * overrides the value used when creating the Model object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a Model is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   Model (SBMLNamespaces* sbmlns);
 
@@ -390,7 +396,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -402,7 +408,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -414,7 +420,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "substanceUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -429,7 +435,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "timeUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -444,7 +450,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "volumeUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -459,7 +465,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "areaUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -474,7 +480,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "lengthUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -489,7 +495,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "extentUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -504,7 +510,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Model's "conversionFactor" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -2299,7 +2305,7 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Predicate returning @c true or @c false depending on whether the
+   * Predicate returning @c true if the
    * given ASTNode is a boolean.
    *
    * Often times, this question can be answered with the ASTNode's own
@@ -2651,7 +2657,7 @@ public:
   void populateListFormulaUnitsData();
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
+   * Predicate returning @c true if 
    * the list of FormulaUnitsData has been populated.
    * 
    * @return @c true if the list of FormulaUnitsData has been populated, 
@@ -2760,7 +2766,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required elements for this Model object
    * have been set.
    *

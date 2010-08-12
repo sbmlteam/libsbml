@@ -22,27 +22,11 @@
  *------------------------------------------------------------------------- -->
  *
  * @class UnitDefinition
- * @brief LibSBML implementation of %SBML's %UnitDefinition construct.
+ * @brief LibSBML implementation of SBML's %UnitDefinition construct.
  *
- * Units of measurement may be supplied in a number of contexts in an %SBML
- * model.  The units of the following mathematical entities can be
- * specified explicitly: the size of a compartment, the initial amount of a
- * species, and the units of constant and variable parameter values.  The
- * overall units of any mathematical formula appearing in %SBML are those
- * that arise naturally from the components and mathematical expressions
- * comprising the formula, or in other words, the units obtained by doing
- * dimensional analysis on the formula.
- *
- * Rather than requiring a complete unit definition on every construct,
- * %SBML provides a facility for defining units that can be referenced
- * throughout a model.  In addition, every kind of %SBML mathematical
- * entity has units assigned to it from a set of predefined defaults (listed
- * below); by redefining these predefined default units, it is possible to
- * change the units used throughout a model in a simple and consistent
- * manner.
- * 
- * The %SBML unit definition facility uses two classes of objects,
- * UnitDefinition and Unit.  The approach to defining units in %SBML is
+ * Units of measurement may be supplied in a number of contexts in an SBML
+ * model.  The SBML unit definition facility uses two classes of objects,
+ * UnitDefinition and Unit.  The approach to defining units in SBML is
  * compositional; for example, <em>meter second<sup> &ndash;2</sup></em> is
  * constructed by combining a Unit object representing <em>meter</em> with
  * another Unit object representing <em>second<sup> &ndash;2</sup></em>.
@@ -52,44 +36,43 @@
  * UnitDefinition class is the container, and Unit instances are placed
  * inside UnitDefinition instances.
  *
+ * Two points are worth discussing in the context of SBML units.  First,
+ * unit declarations in SBML models are \@em optional.  The consequence of
+ * this is that a model must be numerically self-consistent independently
+ * of unit declarations, for the benefit of software tools that cannot
+ * interpret or manipulate units.  Unit declarations in SBML are thus more
+ * akin to a type of annotation; they can indicate intentions, and can be
+ * used by model readers for checking the consistency of the model,
+ * labeling simulation output, etc., but any transformations of values
+ * implied by different units must be incorporated \@em explicitly into a
+ * model.
+ * 
+ * Second, the vast majority of situations that require new SBML unit
+ * definitions involve simple multiplicative combinations of base units and
+ * factors.  An example is <em>moles per litre per second</em>.  What
+ * distinguishes these sorts of unit definitions from more complex ones is
+ * that they may be expressed without the use of an additive offset from a
+ * zero point.  The use of offsets complicates all unit definition systems,
+ * yet in the domain of SBML, the real-life cases requiring offsets are few
+ * (and in fact, to the best of our knowledge, only involve temperature).
+ * Consequently, the SBML unit system has been consciously designed to
+ * simplify implementation of unit support for the most common cases in
+ * systems biology.  The cost of this simplification is to require units
+ * with offsets to be handled explicitly by the modeler.
+ *
  * @section unitdef-summary Summary of the UnitDefinition construct
  *
- * UnitDefinition in SBML Level&nbsp;2 has two attributes and one
- * subelement.  The two attributes are "id" and "name", and the subelement
- * is ListOfUnits.
+ * UnitDefinition has two attributes and one subelement.  The two
+ * attributes are "id" and "name", and the subelement is ListOfUnits.
  *
  * The required attribute "id" and optional attribute "name" are both
  * strings.  The "id" attribute is used to give the defined unit a unique
  * identifier by which other parts of an SBML model definition can refer to
  * it.  The "name" attribute is intended to be used for giving the unit
- * definition an optional human-readable name.
+ * definition an optional human-readable name.  Please see the <a
+ * href="#unitdef-id">next section</a> for information about the values
+ * permitted for "id".
  *
- * There are two important restrictions about the use of unit definition
- * "id" values in SBML Level&nbsp;2 Versions&nbsp;3&ndash;4:
- * <ul>
- * <li> The "id" of a UnitDefinition must @em not contain a value from the
- *   list of reserved base unit names (i.e., the strings @c gram, @c liter,
- *   etc.; see the definition of Unit for the complete list).  This
- *   constraint simply prevents the redefinition of the base units.
- *
- * <li> There is a set of reserved identifiers for the predefined
- *   units in SBML; these identifiers are @c substance, @c volume, @c area,
- *   @c length, and @c time.  Using one of these values for the attribute
- *   "id" of a UnitDefinition has the effect of redefining the model-wide
- *   default units for the corresponding quantities.  The list of
- *   predefined units is given in the table below:
- *
- *   @htmlinclude libsbml-predefined-units.html
- *
- *   Also, two limitations are imposed on redefining the predefined
- *   unit @c substance, @c volume, @c area, @c length, and @c time:
- *   (1) The UnitDefinition of a predefined SBML unit can only
- *      contain a single Unit object within it.
- *   (2) The value of the "kind" attribute in 
- *      a Unit instance must be drawn from one of the values
- *      in the second column of the table above.
- * </ul>
- * 
  * A UnitDefinition must contain exactly one ListOfUnits, and this list
  * must contain one or more Unit definitions; see the definitions of these
  * other object classes for more information about them.  The following
@@ -108,28 +91,71 @@
  * </listOfUnitDefinitions>
  * @endcode
  *
+ * @section unitdef-id Special considerations for Unit object identifiers
+ *
+ * The attribute "id" in UnitDefinition cannot be given simply any value,
+ * and the precise details of the values permitted differ slightly between
+ * Levels of SBML:
+ * <ul>
+ *
+ * <li> The "id" of a UnitDefinition must @em not contain a value from the
+ * list of SBML's predefined base unit names (i.e., the strings @c gram, @c
+ * litre, etc.).  In SBML Level&nbsp;3, this list consists of the
+ * following:
+ * 
+ * @htmlinclude base-units2.html
+ *
+ * This list of predefined base units is nearly identical in SBML
+ * Level&nbsp;2 Version&nbsp;4, the exception being that Level&nbsp;2 does
+ * not define @c avogadro.  SBML Level&nbsp;2 Version&nbsp;1 (and only this
+ * Level+Version combination) provides an additional predefined unit name,
+ * @c Celsius.  SBML Level&nbsp;1 Versions&nbsp;2&ndash;3 provide two more
+ * additional predefined unit names, @c meter and @c liter.
+ *
+ * <li> In SBML Level&nbsp;2 (all Versions), there is an additional set of
+ * reserved identifiers: @c substance, @c volume, @c area, @c length, and
+ * @c time.  Using one of these values for the attribute "id" of a
+ * UnitDefinition has the effect of redefining the model-wide default units
+ * for the corresponding quantities.  The list of special unit names in
+ * SBML Level&nbsp;2 is given in the table below:
+ *
+ *   @htmlinclude libsbml-predefined-units.html
+ *
+ * Also, SBML Level&nbsp;2 imposes two limitations on redefining the
+ * predefined unit @c substance, @c volume, @c area, @c length, and @c
+ * time: (1) The UnitDefinition of a predefined SBML unit can only contain
+ * a single Unit object within it.  (2) The value of the "kind" attribute
+ * in a Unit instance must be drawn from one of the values in the second
+ * column of the table above.
+ *
+ * The special unit names @c substance, @c volume, @c area, @c length, and
+ * @c time are not defined by SBML Level&nbsp;3, which uses a different
+ * approach to setting model-wide inherited units.
+ *
+ * </ul>
+ * 
  *
  * @section sbml-units-limits Further comments about SBML's unit definition system
  * 
- * The vast majority of modeling situations requiring new %SBML unit
+ * The vast majority of modeling situations requiring new SBML unit
  * definitions involve simple multiplicative combinations of base units and
  * factors.  An example of this might be <em>moles per litre per
  * second</em>.  What distinguishes these sorts of simpler unit definitions
  * from more complex ones is that they may be expressed without the use of
  * an additive offset from a zero point.  The use of offsets complicates
- * all unit definition systems, yet in the domain of %SBML the real-life
+ * all unit definition systems, yet in the domain of SBML the real-life
  * cases requiring offsets are few (and in fact, to the best of our
- * knowledge, only involve temperature).  Consequently, the %SBML unit
+ * knowledge, only involve temperature).  Consequently, the SBML unit
  * system has been consciously designed in a way that attempts to simplify
  * implementation of unit support for the most common cases in systems
  * biology.
  *
- * As of %SBML Level&nbsp;2 Version&nbsp;2, Unit no longer has the
+ * As of SBML Level&nbsp;2 Version&nbsp;2, Unit no longer has the
  * attribute called "offset" introduced in SBML Level&nbsp;2
  * Version&nbsp;1.  It turned out that the general case involving units
  * with offsets was incorrectly defined, and few (if any) developers even
  * attempted to support offset-based units in their software.  In the
- * development of Level&nbsp;2 Version&nbsp;2, a consensus among %SBML
+ * development of Level&nbsp;2 Version&nbsp;2, a consensus among SBML
  * developers emerged that a fully generalized unit scheme is @em so
  * confusing and complicated that it actually @em impedes interoperability.
  * SBML Level&nbsp;2 Version&nbsp;2, Version&nbsp;3 and Version&nbsp;4 acknowledge this
@@ -201,14 +227,14 @@
  * @class ListOfUnitDefinitions
  * @brief LibSBML implementation of SBML's %ListOfUnitDefinitions construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -272,13 +298,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * UnitDefinition
    * 
-   * @note Once a UnitDefinition has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the UnitDefinition.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a UnitDefinition object to an SBMLDocument
+   * (e.g., using Model::addUnitDefinition()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the UnitDefinition object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a UnitDefinition is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   UnitDefinition (unsigned int level, unsigned int version);
 
@@ -296,13 +325,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a UnitDefinition has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the UnitDefinition.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a UnitDefinition object to an SBMLDocument
+   * (e.g., using Model::addUnitDefinition()), the SBML XML namespace of
+   * the document @em overrides the value used when creating the
+   * UnitDefinition object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a
+   * UnitDefinition is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   UnitDefinition (SBMLNamespaces* sbmlns);
 
@@ -363,7 +395,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * UnitDefinition's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -375,7 +407,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * UnitDefinition's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -599,7 +631,7 @@ public:
    *
    * @param n an integer, the index of the Unit to be returned.
    * 
-   * @return the nth Unit of this UnitDefinition
+   * @return the nth Unit of this UnitDefinition.
    *
    * @see getNumUnits()
    */
@@ -611,7 +643,7 @@ public:
    *
    * @param n an integer, the index of the Unit to be returned.
    * 
-   * @return the nth Unit of this UnitDefinition
+   * @return the nth Unit of this UnitDefinition.
    */
   const Unit* getUnit (unsigned int n) const;
 
@@ -634,8 +666,7 @@ public:
    *
    * @param n the index of the Unit object to remove
    *
-   * @return the Unit object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * @return the Unit object removed, or @c NULL if the given index 
    * is out of range.
    *
    */
@@ -693,34 +724,34 @@ public:
 
 
   /** 
-  * Simplifies the UnitDefinition so that any Unit objects occurring within
-  * the ListOfUnits occurs only once.
-  *
-  * For example, the following definition,
-  * @code
-  * <unitDefinition>
-  *  <listOfUnits>
-  *    <unit kind="metre" exponent="1"/>
-  *    <unit kind="metre" exponent="2"/>
-  *  </listOfUnits>
-  * <unitDefinition>
-  * @endcode
-  * will be simplified to 
-  * @code
-  * <unitDefinition>
-  *   <listOfUnits>
-  *     <unit kind="metre" exponent="3"/>
-  *   </listOfUnits>
-  * <unitDefinition>
-  * @endcode
-  *
-  * @param ud the UnitDefinition object to be simplified.
-  */
+   * Simplifies the UnitDefinition such that any given kind of Unit object
+   * occurs only once in the ListOfUnits.
+   *
+   * For example, the following definition,
+   * @code
+   * <unitDefinition>
+   *  <listOfUnits>
+   *    <unit kind="metre" exponent="1"/>
+   *    <unit kind="metre" exponent="2"/>
+   *  </listOfUnits>
+   * <unitDefinition>
+   * @endcode
+   * will be simplified to 
+   * @code
+   * <unitDefinition>
+   *   <listOfUnits>
+   *     <unit kind="metre" exponent="3"/>
+   *   </listOfUnits>
+   * <unitDefinition>
+   * @endcode
+   *
+   * @param ud the UnitDefinition object to be simplified.
+   */
   static void simplify(UnitDefinition * ud);
 
 
   /** 
-   * Orders alphabetically the Unit objects within the ListOfUnits of a
+   * Alphabetically orders the Unit objects within the ListOfUnits of a
    * UnitDefinition.
    *
    * @param ud the UnitDefinition object whose units are to be reordered.
@@ -741,7 +772,7 @@ public:
 
 
   /** 
-   * Predicate returning @c true or @c false depending on whether two
+   * Predicate returning @c true if two
    * UnitDefinition objects are identical.
    *
    * For the purposes of performing this comparison, two UnitDefinition
@@ -764,7 +795,7 @@ public:
 
 
   /** 
-   * Predicate returning @c true or @c false depending on whether two
+   * Predicate returning @c true if two
    * UnitDefinition objects are equivalent.
    *
    * For the purposes of performing this comparison, two UnitDefinition
@@ -785,16 +816,20 @@ public:
    */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
 
+
   /** @cond doxygen-libsbml-internal */
 
   static bool areIdenticalSIUnits(const UnitDefinition * ud1, 
     const UnitDefinition * ud2);
   /** @endcond */
 
+
   /** 
-   * Combines two UnitDefinition objects into a single UnitDefinition
-   * object which expresses the product of the units of the two
-   * UnitDefinition's.
+   * Combines two UnitDefinition objects into a single UnitDefinition.
+   *
+   * This takes UnitDefinition objects @p ud1 and @p ud2, and creates a
+   * UnitDefinition object that expresses the product of the units of @p
+   * ud1 and @p ud2.
    *
    * @param ud1 the first UnitDefinition object 
    * @param ud2 the second UnitDefinition object
@@ -806,10 +841,9 @@ public:
 
 
   /** 
-   * Returns a string that expresses the unit definition
-   * represented by this UnitDefinition object.
+   * Expresses the given definition in a plain-text form.
    *
-   * For example printUnits applied to
+   * For example, printUnits() applied to
    * @code
    * <unitDefinition>
    *  <listOfUnits>
@@ -818,17 +852,19 @@ public:
    *  </listOfUnits>
    * <unitDefinition>
    * @endcode
-   * will return the string <code>"metre (exponent = 1, multiplier = 1, scale = 0) 
-   * second (exponent = -2, multiplier = 1, scale = 0)"</code> or, if 
-   * compact = true, the string <code>"(1 metre)^1 (1 second)^-2"</code>
-   * This may be useful for printing unit information to
-   * human users, or in debugging, or other situations.
+   * will return the string <code>"metre (exponent = 1, multiplier = 1,
+   * scale = 0) second (exponent = -2, multiplier = 1, scale = 0)"</code>
+   * or, if the optional parameter @p compact is given the value @c true,
+   * the string <code>"(1 metre)^1 (1 second)^-2"</code>.  This method may
+   * be useful for printing unit information to human users, or in
+   * debugging software, or other situations.
    *
    * @param ud the UnitDefinition object
    * @param compact boolean indicating whether the compact form
    * should be used (defaults to false)
    *
-   * @return a string expressing the unit definition
+   * @return a string expressing the unit definition defined by the given
+   * UnitDefinition object @p ud.
    */
   static std::string printUnits(const UnitDefinition * ud, 
                                 bool compact = false);
@@ -845,7 +881,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this UnitDefinition object
    * have been set.
    *
@@ -859,7 +895,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required elements for this UnitDefinition object
    * have been set.
    *
@@ -883,7 +919,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
@@ -945,7 +981,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -1033,7 +1069,7 @@ public:
    * of the UnitDefinition to get.
    * 
    * @return UnitDefinition in this ListOfUnitDefinitions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * UnitDefinition exists.
    *
    * @see get(unsigned int n)
@@ -1050,7 +1086,7 @@ public:
    * of the UnitDefinition to get.
    * 
    * @return UnitDefinition in this ListOfUnitDefinitions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * UnitDefinition exists.
    *
    * @see get(unsigned int n)
@@ -1093,9 +1129,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the
-   * ListOfUnitDefinitions in a model is (in %SBML Level&nbsp;2
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  So, for example, the
+   * ListOfUnitDefinitions in a model is (in SBML Level&nbsp;2
    * Version&nbsp;4) the second ListOf___.  (However, it differs for
    * different Levels and Versions of SBML.)
    *

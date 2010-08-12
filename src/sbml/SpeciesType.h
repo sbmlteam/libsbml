@@ -1,4 +1,4 @@
-/**
+!/**
  * @file    SpeciesType.h
  * @brief   Definitions of SpeciesType and ListOfSpeciesType.
  * @author  Ben Bornstein
@@ -22,50 +22,56 @@
  *------------------------------------------------------------------------- -->
  *
  * @class SpeciesType
- * @brief LibSBML implementation of %SBML's %SpeciesType construct.
+ * @brief LibSBML implementation of SBML Level&nbsp;2's %SpeciesType construct.
  *
  * The term @em species @em type refers to reacting entities independent of
  * location.  These include simple ions (e.g., protons, calcium), simple
  * molecules (e.g., glucose, ATP), large molecules (e.g., RNA,
  * polysaccharides, and proteins), and others.
  * 
- * SpeciesType structures are included in %SBML to enable Species of the
- * same type to be related together.  It is a conceptual construct; the
- * existence of SpeciesType objects in a model has no effect on the
- * model's numerical interpretation.  Except for the requirement for
- * uniqueness of species/species type combinations located in compartments,
- * simulators and other numerical analysis software may ignore SpeciesType
- * definitions and references to them in a model.
+ * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 provide an explicit
+ * SpeciesType class of object to enable Species objects of the same type
+ * to be related together.  SpeciesType is a conceptual construct; the
+ * existence of SpeciesType objects in a model has no effect on the model's
+ * numerical interpretation.  Except for the requirement for uniqueness of
+ * species/species type combinations located in compartments, simulators
+ * and other numerical analysis software may ignore SpeciesType definitions
+ * and references to them in a model.
  * 
- * There is no mechanism in %SBML for representing hierarchies of species
- * types.  One SpeciesType object cannot be the subtype of another
- * SpeciesType object; %SBML provides no means of defining such
+ * There is no mechanism in SBML Level 2 for representing hierarchies of
+ * species types.  One SpeciesType object cannot be the subtype of another
+ * SpeciesType object; SBML provides no means of defining such
  * relationships.
  * 
- * As with other major structures in %SBML, SpeciesType has a mandatory
+ * As with other major structures in SBML, SpeciesType has a mandatory
  * attribute, "id", used to give the species type an identifier.  The
  * identifier must be a text string conforming to the identifer syntax
- * permitted in %SBML.  SpeciesType also has an optional "name" attribute,
+ * permitted in SBML.  SpeciesType also has an optional "name" attribute,
  * of type @c string.  The "id" and "name" must be used according to the
- * guidelines described in the %SBML specification (e.g., Section 3.3 in
- * the Level 2 Version 4 specification).
+ * guidelines described in the SBML specification (e.g., Section 3.3 in
+ * the Level&nbsp;2 Version&nbsp;4 specification).
  *
  * SpeciesType was introduced in SBML Level 2 Version 2.  It is not
- * available in earlier versions of Level 2 nor in any version of Level 1.
+ * available in SBML Level&nbsp;1 nor in Level&nbsp;3.
  *
+ * @see Species
+ * @see ListOfSpeciesTypes
+ * @see CompartmentType
+ * @see ListOfCompartmentTypes
+ * 
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesTypes.
  * @brief LibSBML implementation of SBML's %ListOfSpeciesTypes construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -128,13 +134,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * SpeciesType
    * 
-   * @note Once a SpeciesType has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the SpeciesType.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a SpeciesType object to an SBMLDocument
+   * (e.g., using Model::addSpeciesType()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the SpeciesType object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a SpeciesType is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   SpeciesType (unsigned int level, unsigned int version);
 
@@ -159,13 +168,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a SpeciesType has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the SpeciesType.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a SpeciesType object to an SBMLDocument
+   * (e.g., using Model::addSpeciesType()), the SBML XML namespace of the
+   * document @em overrides the value used when creating the SpeciesType
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a SpeciesType is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   SpeciesType (SBMLNamespaces* sbmlns);
 
@@ -226,7 +238,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SpeciesType's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -238,7 +250,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SpeciesType's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -304,7 +316,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -335,7 +347,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this SpeciesType object
    * have been set.
    *
@@ -416,7 +428,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -563,9 +575,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  For example, the
-   * ListOfSpeciesTypes in a model (in %SBML Level 2 Version 4) is the
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  For example, the
+   * ListOfSpeciesTypes in a model (in SBML Level 2 Version 4) is the
    * third ListOf___.  (However, it differs for different Levels and
    * Versions of SBML, so calling code should not hardwire this number.)
    *
@@ -584,7 +596,7 @@ protected:
    * Create a ListOfSpeciesTypes object corresponding to the next token
    * in the XML input stream.
    * 
-   * @return the %SBML object corresponding to next XMLToken in the
+   * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);

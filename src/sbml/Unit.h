@@ -38,46 +38,50 @@
  * A Unit structure has four attributes named "kind", "exponent", "scale"
  * and "multiplier".  It represents a (possibly transformed) reference to a
  * base unit.  The attribute "kind" on Unit indicates the chosen base unit.
- * Its value in SBML Level&nbsp;2 Version&nbsp;4 must be one of the following
- * predefined strings:
+ * Its value must be one of the text strings listed below; this list
+ * corresponds to SBML Level&nbsp;3 Version&nbsp;1 Core:
  *
- * @htmlinclude libsbml-base-units.html
+ * @htmlinclude base-units.html
  *
- * (See also the definition of the <code>UNIT_KIND_</code> constants in <a
- * class="el" href="#UnitKind_t">the section below</a>.)  For SBML
- * Level&nbsp;2 Version&nbsp;1 models, the string @c Celsius is also
- * permitted.  Note also that the table above contains two names not
- * strictly defined in SBML Level&nbsp;2: @c liter and @c meter.  For
- * convenience, libSBML defines the American English spellings of these
- * units, although the SBML specification limits the valid unit names to
- * those defined by SI.
+ * This list of predefined base units is nearly identical in SBML
+ * Level&nbsp;2 Version&nbsp;4, the exception being that Level&nbsp;2 does
+ * not define @c avogadro.  In SBML Level&nbsp;2 Version&nbsp;1 models, the
+ * string @c Celsius is also permitted.  In SBML Level&nbsp;1 models, the
+ * strings @c meter and @c liter are also permitted.  In libSBML, each of
+ * the predefined base unit names is represented by an enumeration value in
+ * #UnitKind_t, discussed in a separate section below.
  *
- * The optional attribute named "exponent" on Unit represents an exponent
- * on the unit.  Its default value is @c 1 (one).  A Unit structure also
- * has an optional attribute called "scale"; its value must be an integer
- * exponent for a power-of-ten multiplier used to set the scale of the
- * unit.  For example, a unit having a "kind" value of @c gram and a
- * "scale" value of @c -3 signifies 10<sup>&nbsp;&ndash;3</sup>
- * \f$\times\f$ gram, or milligrams.  The default value of "scale" is @c 0
- * (zero), because 10<sup> 0</sup> = 1.  Lastly, the optional attribute
- * named "multiplier" can be used to multiply the kind unit by a
- * real-numbered factor; this enables the definition of units that are not
- * power-of-ten multiples of SI units.  For instance, a multiplier of
- * 0.3048 could be used to define @c foot as a measure of length in terms
- * of a @c metre.  The "multiplier" attribute has a default value of @c 1
- * (one).
+ * The attribute named "exponent" on Unit represents an exponent on the
+ * unit.  In SBML Level&nbsp;2, the attribute is optional and has a default
+ * value of @c 1 (one); in SBML Level&nbsp;3, the attribute is mandatory
+ * and there is no default value.  A Unit structure also has an attribute
+ * called "scale"; its value must be an integer exponent for a power-of-ten
+ * multiplier used to set the scale of the unit.  For example, a unit
+ * having a "kind" value of @c gram and a "scale" value of @c -3 signifies
+ * 10<sup>&nbsp;&ndash;3</sup> \f$\times\f$ gram, or milligrams.  In SBML
+ * Level&nbsp;2, the attribute is optional and has a default value of @c 0
+ * (zero), because 10<sup> 0</sup> = 1; in SBML Level&nbsp;3, the attribute
+ * is mandatory and has no default value.  Lastly, the attribute named
+ * "multiplier" can be used to multiply the unit by a real-numbered factor;
+ * this enables the definition of units that are not power-of-ten multiples
+ * of SI units.  For instance, a multiplier of 0.3048 could be used to
+ * define @c foot as a measure of length in terms of a @c metre.  The
+ * "multiplier" attribute is optional in SBML Level&nbsp;2, where it has a
+ * default value of @c 1 (one); in SBML Level&nbsp;3, the attribute is
+ * mandatory and has not default value.
  *
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
  *
- * SBML defines a set of base units which serves as the starting point for
- * new unit definitions.  This set of base units consists of the SI units
- * and a small number of additional convenience units.
+ * As discussed above, SBML defines a set of base units which serves as the
+ * starting point for new unit definitions.  This set of base units
+ * consists of the SI units and a small number of additional convenience
+ * units.
  * 
  * @if clike Until SBML Level&nbsp;2 Version&nbsp;3, there
  * existed a data type in the SBML specifications called @c UnitKind,
  * enumerating the possible SBML base units.  Although SBML Level&nbsp;2
  * Version&nbsp;3 removed this type from the language specification,
- * libSBML maintains the corresponding enumeration type @c UnitKind_t as a
+ * libSBML maintains the corresponding enumeration type #UnitKind_t as a
  * convenience and as a way to provide backward compatibility to previous
  * SBML Level/Version specifications.  (The removal in SBML Level&nbsp;2
  * Version&nbsp;3 of the enumeration @c UnitKind was also accompanied by
@@ -86,8 +90,7 @@
  * change has no net effect on permissible models, their representation or
  * their syntax.  The purpose of the change in the SBML specification was
  * simply to clean up an inconsistency about the contexts in which these
- * values were usable.)  The @c UnitKind_t enumeration in libSBML has a 
- * small number of differences compared to the SBML specifications:
+ * values were usable.)
  * @endif@if java In SBML Level&nbsp;2 Versions before
  * Version&nbsp;3, there existed an enumeration of units called @c
  * UnitKind.  In Version&nbsp;3, this enumeration was removed and the
@@ -99,19 +102,29 @@
  * However, LibSBML maintains UnitKind in the form of of a set of static
  * integer constants whose names begin with the characters
  * <code>UNIT_KIND_</code>.  These constants are defined in the class
- * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code> This
- * enumeration in libSBML has a small number of differences compared to the
- * SBML specifications: @endif
+ * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>.
+ * @endif
  *
+ * As a consequence of the fact that libSBML supports models in all Levels
+ * and Versions of SBML, libSBML's set of @c UNIT_KIND_ values is a union
+ * of all the possible base unit names defined in the different SBML
+ * specifications.  However, not every base unit is allowed in every
+ * Level+Version combination of SBML.  Note in particular the following
+ * exceptions:
  * <ul>
- * <li> The alternate spelling @c "meter" is included in addition to the
- * official SI spelling @c "metre".
+ * <li> The alternate spelling @c "meter" is included in
+ * addition to the official SI spelling @c "metre".  This spelling is only
+ * permitted in SBML Level&nbsp;1 models.
  *
  * <li> The alternate spelling @c "liter" is included in addition to the
- * official SI spelling @c "litre".
+ * official SI spelling @c "litre".  This spelling is only permitted in
+ * SBML Level&nbsp;1 models.
  *
  * <li> The unit @c "Celsius" is included because of its presence in
  * specifications of SBML prior to SBML Level&nbsp;2 Version&nbsp;3.
+ *
+ * <li> The unit @c avogadro was introduced in SBML Level&nbsp;3, and
+ * is only permitted for use in SBML Level&nbsp;3 models.
  * </ul>
  *
  * @if clike The table below lists the symbols defined in the
@@ -175,13 +188,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Unit
    * 
-   * @note Once a Unit has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Unit.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Unit object to an SBMLDocument, the SBML
+   * Level, SBML Version version and XML namespace of the document @em
+   * override the values used when creating the Unit object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a Unit is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   Unit (unsigned int level, unsigned int version);
 
@@ -199,13 +215,15 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Unit has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Unit.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Unit object to an SBMLDocument, the SBML
+   * XML namespace of the document @em overrides the value used when
+   * creating the Unit object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a Unit is
+   * an important aid to producing valid SBML.  Knowledge of the intented
+   * SBML Level and Version determine whether it is valid to assign a
+   * particular value to an attribute, or whether it is valid to add an
+   * object to an existing SBMLDocument.
    */
   Unit (SBMLNamespaces* sbmlns);
 
@@ -250,14 +268,18 @@ public:
 
 
   /**
-   * Initializes the attributes of this Unit (except for "kind") to their
-   * defaults values.
+   * Initializes the fields of this Unit object to "typical" default
+   * values.
    *
-   * The default values are as follows:
-   * 
-   * @li exponent   = 1
-   * @li scale      = 0
-   * @li multiplier = 1.0
+   * The SBML Unit component has slightly different aspects and default
+   * attribute values in different SBML Levels and Versions.  This method
+   * sets the values to certain common defaults, based mostly on what they
+   * are in SBML Level&nbsp;2.  Specifically:
+   * <ul>
+   * <li> Sets attribute "exponent" to @c 1
+   * <li> Sets attribute "scale" to @c 0
+   * <li> Sets attribute "multiplier" to @c 1.0
+   * </ul>
    *
    * The "kind" attribute is left unchanged.
    */
@@ -268,7 +290,7 @@ public:
    * Returns the "kind" of Unit this is.
    * 
    * @return the value of the "kind" attribute of this Unit as a value from
-   * the <a class="el" href="#UnitKind_t">UnitKind_t</a> enumeration
+   * the <a class="el" href="#UnitKind_t">UnitKind_t</a> enumeration.
    */
   UnitKind_t getKind () const;
 
@@ -276,7 +298,7 @@ public:
   /**
    * Returns the value of the "exponent" attribute of this unit.
    * 
-   * @return the "exponent" value of this Unit, as an integer
+   * @return the "exponent" value of this Unit, as an integer.
    */
   int getExponent () const;
 
@@ -284,7 +306,7 @@ public:
   /**
    * Returns the value of the "exponent" attribute of this unit.
    * 
-   * @return the "exponent" value of this Unit, as a double
+   * @return the "exponent" value of this Unit, as a double.
    */
   double getExponentAsDouble () const;
 
@@ -300,7 +322,7 @@ public:
   /**
    * Returns the value of the "multiplier" attribute of this Unit.
    * 
-   * @return the "multiplier" value of this Unit, as a double
+   * @return the "multiplier" value of this Unit, as a double.
    */
   double getMultiplier () const;
 
@@ -318,7 +340,7 @@ public:
    * earlier versions of SBML Level&nbsp;2, but their use is strongly
    * discouraged.
    * 
-   * @return the "offset" value of this Unit, as a double
+   * @return the "offset" value of this Unit, as a double.
    */
   double getOffset () const;
 
@@ -386,7 +408,7 @@ public:
 
   /**
    * Predicate for testing whether this Unit is of the kind @c
-   * dimensionless
+   * dimensionless.
    *
    * @return @c true if the kind of this Unit is @c dimensionless, @c false
    * 
@@ -862,13 +884,12 @@ public:
 
 
   /** 
-  * Predicate returning @c true or @c false depending on whether two
+  * Predicate returning @c true if two
   * Unit objects are identical.
   *
   * Two Unit objects are considered to be @em identical if they match in
-  * all attributes.  (Contrast this to the method
-  * Unit::areEquivalent(Unit * unit1, %Unit * unit2), which compares
-  * Unit objects only with respect to certain attributes.)
+  * all attributes.  (Contrast this to the method areEquivalent(), which
+  * compares Unit objects only with respect to certain attributes.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -876,20 +897,21 @@ public:
   * @return @c true if all the attributes of unit1 are identical
   * to the attributes of unit2, @c false otherwise.
   *
-  * @see areEquivalent(Unit * unit1, %Unit * unit2)
+  * @see areEquivalent()
   */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
 
   /** 
-  * Predicate returning @c true or @c false depending on whether 
+  * Predicate returning @c true if 
   * Unit objects are equivalent.
   *
-  * Two Unit objects are considered to be @em equivalent if their "kind"
-  * and "exponent" attributes are equal.  (Contrast this to the method
-  * Unit::areIdentical(Unit * unit1, %Unit * unit2), which compares Unit
-  * objects with respect to all attributes, not just the kind and
-  * exponent.)
+  * Two Unit objects are considered to be @em equivalent either if (1) both
+  * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
+  * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
+  * attribute values are equal. (Contrast this to the method
+  * areIdentical(), which compares Unit objects with respect to all
+  * attributes, not just the "kind" and "exponent".)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare
@@ -898,7 +920,7 @@ public:
   * identical to the kind and exponent attributes of unit2, @c false
   * otherwise.
   * 
-  * @see areIdentical(Unit * unit1, %Unit * unit2)
+  * @see areIdentical()
   */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
@@ -913,12 +935,16 @@ public:
   * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
   *
   * @param unit the Unit object to manipulate.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+  *
+  * @return integer value indicating success/failure of the function.  @if
+  * clike The value is drawn from the enumeration
+  * #OperationReturnValues_t. @endif The possible values returned by this
+  * function are: @li @link
+  * OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS
+  * LIBSBML_OPERATION_SUCCESS @endlink
+  *
+  * @see convertToSI()
+  * @see merge()
   */
   static int removeScale(Unit * unit);
 
@@ -941,31 +967,41 @@ public:
   * left as a new version of this unit, modified in-place.
   * 
   * @param unit2 the second Unit object to merge with the first
+  * 
+  * @see convertToSI()
+  * @see removeScale()
   */
   static void merge(Unit * unit1, Unit * unit2);
 
 
   /**
-  * Returns a UnitDefinition object which contains the argument Unit
-  * converted to the appropriate SI unit.
+  * Returns a UnitDefinition object containing the given @p unit converted
+  * to the appropriate SI unit.
+  *
+  * This method exists because some units can be expressed in terms of
+  * others when the same physical dimension is involved.  For example, one
+  * hertz is identical to 1&nbsp;sec<sup>-1</sup>, one litre is equivalent
+  * to 1 cubic decametre, and so on.
   *
   * @param unit the Unit object to convert to SI
   *
   * @return a UnitDefinition object containing the SI unit.
+  *
+  * @see merge()
   */
   static UnitDefinition * convertToSI(const Unit * unit);
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this Unit object
    * have been set.
    *
    * @note The required attributes for a Unit object are:
    * @li kind
-   * @li exponent (L3 on)
-   * @li multiplier (L3 on)
-   * @li scale (L3 on)
+   * @li exponent (in SBML Level&nbsp;3)
+   * @li multiplier (in SBML Level&nbsp;3)
+   * @li scale (in SBML Level&nbsp;3)
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

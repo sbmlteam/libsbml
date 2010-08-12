@@ -199,16 +199,15 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a LocalParameter object to an SBMLDocument
-   * (e.g., using KineticLaw::addLocalParameter()), the SBML Level, SBML
-   * Version version and XML namespace of the document @em override the
-   * values used when creating the LocalParameter object via this
-   * constructor.  This is necessary to ensure that an SBML document is a
-   * consistent structure.  Nevertheless, the ability to supply the values
-   * at the time of creation of a LocalParameter is an important aid to
-   * producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   * (e.g., using Model::addLocalParameter()), the SBML XML namespace of
+   * the document @em overrides the value used when creating the
+   * LocalParameter object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a
+   * LocalParameter is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   LocalParameter (SBMLNamespaces* sbmlns);
 
@@ -367,7 +366,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this LocalParameter object
    * have been set.
    *

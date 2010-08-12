@@ -288,13 +288,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Species
    * 
-   * @note Once a Species has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Species.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
+   * using Model::addSpecies()), the SBML Level, SBML Version version and
+   * XML namespace of the document @em override the values used when
+   * creating the Species object via this constructor.  This is necessary
+   * to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Species is an important aid to producing valid SBML.  Knowledge
+   * of the intented SBML Level and Version determine whether it is valid
+   * to assign a particular value to an attribute, or whether it is valid
+   * to add an object to an existing SBMLDocument.
    */
   Species (unsigned int level, unsigned int version);
 
@@ -319,13 +322,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Species has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Species.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
+   * using Model::addSpecies()), the SBML XML namespace of the document @em
+   * overrides the value used when creating the Species object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a Species is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   Species (SBMLNamespaces* sbmlns);
 
@@ -367,12 +373,17 @@ public:
 
 
   /**
-   * Initializes the fields of this Species to the defaults defined
-   * in the specification of the relevant Level/Version of SBML.
+   * Initializes the fields of this Species object to "typical" defaults
+   * values.
+   *
+   * The SBML Species component has slightly different aspects and
+   * default attribute values in different SBML Levels and Versions.
+   * This method sets the values to certain common defaults, based
+   * mostly on what they are in SBML Level&nbsp;2.  Specifically:
    * <ul>
-   * <li> sets "boundaryCondition" to @c 1 (true)
-   * <li> (Level&nbsp;2 only) sets "constant" to @c 0 (false)
-   * <li> (Level&nbsp;2 only) sets "hasOnlySubstanceUnits" to @c 0 (false)
+   * <li> Sets "boundaryCondition" to @c false
+   * <li> Sets "constant" to @c false
+   * <li> sets "hasOnlySubstanceUnits" to @c false
    * </ul>
    */
   void initDefaults ();
@@ -527,7 +538,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -539,7 +550,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -551,7 +562,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "speciesType" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -563,7 +574,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "compartment" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -575,7 +586,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "initialAmount" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -593,7 +604,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "initialConcentration" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -605,7 +616,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "substanceUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -617,7 +628,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "spatialSizeUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -637,8 +648,8 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true or @c false depending
-   * on whether this Species's "units" attribute has been set.
+   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * this Species's "units" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    * 
@@ -649,7 +660,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "charge" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -673,7 +684,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "conversionFactor" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -685,7 +696,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "boundaryCondition" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -697,7 +708,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "hasOnlySubstanceUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -709,7 +720,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Species's "constant" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -1264,7 +1275,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this Species object
    * have been set.
    *

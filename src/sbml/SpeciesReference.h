@@ -68,6 +68,45 @@
  * products are made using instances of SpeciesReference structures in a
  * Reaction object's lists of reactants and products.
  *
+ * A species can occur more than once in the lists of reactants and
+ * products of a given Reaction instance.  The effective stoichiometry for
+ * a species in a reaction is the sum of the stoichiometry values given on
+ * the SpeciesReference object in the list of products minus the sum of
+ * stoichiometry values given on the SpeciesReference objects in the list
+ * of reactants.  A positive value indicates the species is effectively a
+ * product and a negative value indicates the species is effectively a
+ * reactant.  SBML places no restrictions on the effective stoichiometry of
+ * a species in a reaction; for example, it can be zero.  In the following
+ * SBML fragment, the two reactions have the same effective stoichiometry
+ * for all their species:
+ * @code
+ * <reaction id="x">
+ *     <listOfReactants>
+ *         <speciesReference species="a"/>
+ *         <speciesReference species="a"/>
+ *         <speciesReference species="b"/>
+ *     </listOfReactants>
+ *     <listOfProducts>
+ *         <speciesReference species="c"/>
+ *         <speciesReference species="b"/>
+ *     </listProducts>
+ * </reaction>
+ * <reaction id="y">
+ *     <listOfReactants>
+ *         <speciesReference species="a" stoichiometry="2"/>
+ *     </listOfReactants>
+ *     <listOfProducts>
+ *         <speciesReference species="c"/>
+ *     </listProducts>
+ * </reaction>
+ * @endcode
+ *
+ * The precise structure of SpeciesReference differs between SBML
+ * Level&nbsp;2 and Level&nbsp;3.  We discuss the two variants in separate
+ * sections below.
+ * 
+ * @section spr-l2 SpeciesReference in SBML Level 2
+ *
  * The mandatory "species" attribute of SpeciesReference must have as its
  * value the identifier of an existing species defined in the enclosing
  * Model.  The species is thereby designated as a reactant or product in
@@ -140,39 +179,86 @@
  * </model>
  * @endcode
  *
- * A species can occur more than once in the lists of reactants and
- * products of a given Reaction instance.  The effective stoichiometry for
- * a species in a reaction is the sum of the stoichiometry values given on
- * the SpeciesReference object in the list of products minus the sum of
- * stoichiometry values given on the SpeciesReference objects in the list
- * of reactants.  A positive value indicates the species is effectively a
- * product and a negative value indicates the species is effectively a
- * reactant.  SBML places no restrictions on the effective stoichiometry of
- * a species in a reaction; for example, it can be zero.  In the following
- * SBML fragment, the two reactions have the same effective stoichiometry
- * for all their species:
- * @code
- * <reaction id="x">
- *     <listOfReactants>
- *         <speciesReference species="a"/>
- *         <speciesReference species="a"/>
- *         <speciesReference species="b"/>
- *     </listOfReactants>
- *     <listOfProducts>
- *         <speciesReference species="c"/>
- *         <speciesReference species="b"/>
- *     </listProducts>
- * </reaction>
- * <reaction id="y">
- *     <listOfReactants>
- *         <speciesReference species="a" stoichiometry="2"/>
- *     </listOfReactants>
- *     <listOfProducts>
- *         <speciesReference species="c"/>
- *     </listProducts>
- * </reaction>
- * @endcode
  *
+ * @section spr-l3 SpeciesReference in SBML Level 3
+ *
+ * In Level 2's definition of a reaction, the stoichiometry attribute of a
+ * SpeciesReference is actually a combination of two factors, the standard
+ * biochemical stoichiometry and a conversion factor that may be needed to
+ * translate the units of the species quantity to the units of the reaction
+ * rate. Unfortunately, Level&nbsp;2 offers no direct way of decoupling
+ * these two factors, or for explicitly indicating the units. The only way
+ * to do it in Level&nbsp;2 is to use the StoichiometryMath object
+ * associated with SpeciesReferences, and to reference SBML Parameter
+ * objects from within the StoichiometryMath formula. This works because
+ * Parameter offers a way to attach units to a numerical value, but the
+ * solution is indirect and awkward for something that should be a simple
+ * matter.  Moreover, the question of how to properly encode
+ * stoichiometries in SBML reactions has caused much confusion among
+ * implementors of SBML software.
+ *
+ * SBML Level&nbsp;3 approaches this problem differently.  It (1) extends
+ * the the use of the SpeciesReference identifier to represent the value of
+ * the "stoichiometry" attribute, (2) makes the "stoichiometry" attribute
+ * optional, (3) removes StoichiometryMath, and (4) adds a new "constant"
+ * boolean attribute on SpeciesReference.
+ *
+ * As in Level&nbsp;2, the "stoichiometry" attribute is of type
+ * @c double and should contain values greater than zero (@c 0).  A
+ * missing "stoichiometry" implies that the stoichiometry is either
+ * unknown, or to be obtained from an external source, or determined by an
+ * InitialAssignment object or other SBML construct elsewhere in the model.
+ *
+ * A species reference's stoichiometry is set by its "stoichiometry"
+ * attribute exactly once.  If the SpeciesReference object's "constant"
+ * attribute has the value @c true, then the stoichiometry is fixed and
+ * cannot be changed except by an InitialAssignment object.  These two
+ * methods of setting the stoichiometry (i.e., using "stoichiometry"
+ * directly, or using InitialAssignment) differ in that the "stoichiometry"
+ * attribute can only be set to a literal floating-point number, whereas
+ * InitialAssignment allows the value to be set using an arbitrary
+ * mathematical expression.  (As an example, the approach could be used to
+ * set the stoichiometry to a rational number of the form @em p/@em q,
+ * where @em p and @em q are integers, something that is occasionally
+ * useful in the context of biochemical reaction networks.)  If the species
+ * reference's "constant" attribute has the value @c false, the species
+ * reference's value may be overridden by an InitialAssignment or changed
+ * by AssignmentRule or AlgebraicRule, and in addition, for simulation time
+ * <em>t &gt; 0</em>, it may also be changed by a RateRule or Event
+ * objects.  (However, some of these constructs are mutually exclusive; see
+ * the SBML Level&nbsp;3 Version&nbsp;1 Core specifiation for more
+ * details.)  It is not an error to define "stoichiometry" on a species
+ * reference and also redefine the stoichiometry using an
+ * InitialAssignment, but the "stoichiometry" attribute in that case is
+ * ignored.
+ *
+ * The value of the "id" attribute of a SpeciesReference can be used as the
+ * content of a <code>&lt;ci&gt;</code> element in MathML formulas
+ * elsewhere in the model.  When the identifier appears in a MathML
+ * <code>&lt;ci&gt;</code> element, it represents the stoichiometry of the
+ * corresponding species in the reaction where the SpeciesReference object
+ * instance appears.  More specifically, it represents the value of the
+ * "stoichiometry" attribute on the SpeciesReference object.
+ *
+ * In SBML Level 3, the unit of measurement associated with the value of a
+ * species' stoichiometry is always considered to be @c dimensionless.
+ * This has the following implications:
+ * <ul>
+ *
+ * <li> When a species reference's identifier appears in mathematical
+ * formulas elsewhere in the model, the unit associated with that value is
+ * @c dimensionless.
+ *
+ * <li> The units of the "math" elements of AssignmentRule,
+ * InitialAssignment and EventAssignment objects setting the stoichiometry
+ * of the species reference should be @c dimensionless.
+ *
+ * <li> If a species reference's identifier is the subject of a RateRule,
+ * the unit associated with the RateRule object's value should be
+ * <code>dimensionless</code>/<em>time</em>, where <em>time</em> is the
+ * model-wide unit of time set on the Model object.
+ *
+ * </ul>
  *
  * <!---------------------------------------------------------------------- -->
  *
@@ -257,13 +343,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * SimpleSpeciesReference
    * 
-   * @note Once a SimpleSpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the SimpleSpeciesReference.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a SimpleSpeciesReference object to an
+   * SBMLDocument (e.g., using Model::addSimpleSpeciesReference()), the SBML
+   * Level, SBML Version version and XML namespace of the document @em
+   * override the values used when creating the SimpleSpeciesReference object via
+   * this constructor.  This is necessary to ensure that an SBML document
+   * is a consistent structure.  Nevertheless, the ability to supply the
+   * values at the time of creation of a SimpleSpeciesReference is an important
+   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   SimpleSpeciesReference (unsigned int level, unsigned int version);
 
@@ -281,13 +371,17 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a SimpleSpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the SimpleSpeciesReference.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a SimpleSpeciesReference object to an
+   * SBMLDocument (e.g., using Model::addSimpleSpeciesReference()), the
+   * SBML XML namespace of the document @em overrides the value used when
+   * creating the SimpleSpeciesReference object via this constructor.  This
+   * is necessary to ensure that an SBML document is a consistent
+   * structure.  Nevertheless, the ability to supply the values at the time
+   * of creation of a SimpleSpeciesReference is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   SimpleSpeciesReference (SBMLNamespaces* sbmlns);
 
@@ -346,7 +440,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SimpleSpeciesReference's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -358,7 +452,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SimpleSpeciesReference's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -370,7 +464,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SimpleSpeciesReference's "species" attribute has been set.
    * 
    * @return @c true if the "species" attribute of this
@@ -465,7 +559,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * is a ModifierSpeciesReference.
    * 
    * @return @c true if this SimpleSpeciesReference's subclass is
@@ -528,13 +622,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * SpeciesReference
    * 
-   * @note Once a SpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the SpeciesReference.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a SpeciesReference object to an
+   * SBMLDocument (e.g., using Model::addSpeciesReference()), the SBML
+   * Level, SBML Version version and XML namespace of the document @em
+   * override the values used when creating the SpeciesReference object via
+   * this constructor.  This is necessary to ensure that an SBML document
+   * is a consistent structure.  Nevertheless, the ability to supply the
+   * values at the time of creation of a SpeciesReference is an important
+   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   SpeciesReference (unsigned int level, unsigned int version);
 
@@ -545,13 +643,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a SpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the SpeciesReference.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a SpeciesReference object to an
+   * SBMLDocument (e.g., using Model::addSpeciesReference()), the SBML XML
+   * namespace of the document @em overrides the value used when creating
+   * the SpeciesReference object via this constructor.  This is necessary
+   * to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a SpeciesReference is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   SpeciesReference (SBMLNamespaces* sbmlns);
 
@@ -593,10 +694,16 @@ public:
 
 
   /**
-   * Initializes the attributes of this SpeciesReference to their defaults.
+   * Initializes the fields of this SpeciesReference object to "typical"
+   * default values.
+   *
+   * The SBML SpeciesReference component has slightly different aspects and
+   * default attribute values in different SBML Levels and Versions.
+   * This method sets the values to certain common defaults, based
+   * mostly on what they are in SBML Level&nbsp;2.  Specifically:
    * <ul>
-   * <li> stoichiometry is set to @c 1
-   * <li> denominator is set to @c 1
+   * <li> Sets attribute "stoichiometry" to @c 1.0
+   * <li> (Applies to Level&nbsp;1 models only) Sets attribute "denominator" to @c 1
    * </ul>
    *
    * @see getDenominator()
@@ -612,23 +719,26 @@ public:
   /**
    * Get the value of the "stoichiometry" attribute.
    *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * In SBML Level 2, product and reactant stoichiometries can be specified
    * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
    * SpeciesReference object.  The former is to be used when a
    * stoichiometry is simply a scalar number, while the latter is for
    * occasions when it needs to be a rational number or it needs to
    * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * attribute is of type @c double and should contain values greater than
+   * zero (@c 0).  The "stoichiometryMath" element is implemented as an
    * element containing a MathML expression.  These two are mutually
    * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
    * be defined in a given SpeciesReference instance.  When neither the
    * attribute nor the element is present, the value of "stoichiometry" in
    * the SpeciesReference instance defaults to @c 1.  For maximum
    * interoperability between different software tools, the "stoichiometry"
-   * attribute should be * used in preference to "stoichiometryMath" when a
-   * species' stoichiometry * is a simple scalar number (integer or
+   * attribute should be used in preference to "stoichiometryMath" when a
+   * species' stoichiometry is a simple scalar number (integer or
    * decimal).
+   *
+   * In SBML Level 3, there is no StoichiometryMath, and SpeciesReference
+   * objects have only the "stoichiometry" attribute.
    * 
    * @return the value of the (scalar) "stoichiometry" attribute of this
    * SpeciesReference.
@@ -642,14 +752,15 @@ public:
    * Get the content of the "stoichiometryMath" subelement as an ASTNode
    * tree.
    *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
-   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * The "stoichiometryMath" element exists only in SBML Level 2.  There,
+   * product and reactant stoichiometries can be specified using
+   * <em>either</em> "stoichiometry" or "stoichiometryMath" in a
    * SpeciesReference object.  The former is to be used when a
    * stoichiometry is simply a scalar number, while the latter is for
    * occasions when it needs to be a rational number or it needs to
    * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * attribute is of type @c double and should contain values greater than
+   * zero (@c 0).  The "stoichiometryMath" element is implemented as an
    * element containing a MathML expression.  These two are mutually
    * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
    * be defined in a given SpeciesReference instance.  When neither the
@@ -657,8 +768,7 @@ public:
    * the SpeciesReference instance defaults to @c 1.  For maximum
    * interoperability between different software tools, the "stoichiometry"
    * attribute should be used in preference to "stoichiometryMath" when a
-   * species' stoichiometry is a simple scalar number (integer or
-   * decimal).
+   * species' stoichiometry is a simple scalar number (integer or decimal).
    * 
    * @return the content of the "stoichiometryMath" subelement of this
    * SpeciesReference.
@@ -670,14 +780,15 @@ public:
    * Get the content of the "stoichiometryMath" subelement as an ASTNode
    * tree.
    *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
-   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * The "stoichiometryMath" element exists only in SBML Level 2.  There,
+   * product and reactant stoichiometries can be specified using
+   * <em>either</em> "stoichiometry" or "stoichiometryMath" in a
    * SpeciesReference object.  The former is to be used when a
    * stoichiometry is simply a scalar number, while the latter is for
    * occasions when it needs to be a rational number or it needs to
    * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * attribute is of type @c double and should contain values greater than
+   * zero (@c 0).  The "stoichiometryMath" element is implemented as an
    * element containing a MathML expression.  These two are mutually
    * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
    * be defined in a given SpeciesReference instance.  When neither the
@@ -685,29 +796,30 @@ public:
    * the SpeciesReference instance defaults to @c 1.  For maximum
    * interoperability between different software tools, the "stoichiometry"
    * attribute should be used in preference to "stoichiometryMath" when a
-   * species' stoichiometry is a simple scalar number (integer or
-   * decimal).
+   * species' stoichiometry is a simple scalar number (integer or decimal).
    * 
    * @return the content of the "stoichiometryMath" subelement of this
    * SpeciesReference.
+   *
+   * @see getStoichiometry()
    */
   StoichiometryMath* getStoichiometryMath ();
 
 
   /**
    * Get the value of the "denominator" attribute, for the case of a
-   * rational-numbered stoichiometry or a model in SBML Level 1.
+   * rational-numbered stoichiometry or a model in SBML Level&nbsp;1.
    *
    * The "denominator" attribute is only actually written out in the case
-   * of an SBML Level 1 model.  In SBML Level 2, rational-number
+   * of an SBML Level&nbsp;1 model.  In SBML Level&nbsp;2, rational-number
    * stoichiometries are written as MathML elements in the
    * "stoichiometryMath" subelement.  However, as a convenience to users,
    * libSBML allows the creation and manipulation of rational-number
    * stoichiometries by supplying the numerator and denominator directly
    * rather than having to manually create an ASTNode structure.  LibSBML
    * will write out the appropriate constructs (either a combination of
-   * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
-   * "stoichiometryMath" subelement in the case of SBML Level 2).
+   * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or a
+   * "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
    * 
    * @return the value of the "denominator" attribute of this
    * SpeciesReference.
@@ -725,7 +837,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SpeciesReference's "stoichiometryMath" subelement has been set
    * 
    * @return @c true if the "stoichiometryMath" subelement of this
@@ -735,7 +847,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SpeciesReference's "constant" attribute has been set
    * 
    * @return @c true if the "constant" attribute of this
@@ -745,7 +857,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * SpeciesReference's "stoichiometry" attribute has been set.
    * 
    * @return @c true if the "stoichiometry" attribute of this
@@ -758,14 +870,14 @@ public:
    * Sets the value of the "stoichiometry" attribute of this
    * SpeciesReference.
    *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * In SBML Level 2, product and reactant stoichiometries can be specified
    * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
    * SpeciesReference object.  The former is to be used when a
    * stoichiometry is simply a scalar number, while the latter is for
    * occasions when it needs to be a rational number or it needs to
    * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * attribute is of type @c double and should contain values greater than
+   * zero (@c 0).  The "stoichiometryMath" element is implemented as an
    * element containing a MathML expression.  These two are mutually
    * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
    * be defined in a given SpeciesReference instance.  When neither the
@@ -775,13 +887,16 @@ public:
    * attribute should be used in preference to "stoichiometryMath" when a
    * species' stoichiometry is a simple scalar number (integer or
    * decimal).
+   *
+   * In SBML Level 3, there is no StoichiometryMath, and SpeciesReference
+   * objects have only the "stoichiometry" attribute.
    * 
    * @param value the new value of the "stoichiometry" attribute
    *
-   * @note In SBML Level 2, the "stoichiometryMath" subelement of this 
-   *       SpeciesReference object will be unset because the "stoichiometry" 
-   *       attribute and the stoichiometryMath" subelement are mutually 
-   *       exclusive.
+   * @note In SBML Level&nbsp;2, the "stoichiometryMath" subelement of this
+   * SpeciesReference object will be unset because the "stoichiometry"
+   * attribute and the stoichiometryMath" subelement are mutually
+   * exclusive.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -797,14 +912,14 @@ public:
    *
    * The Abstract Syntax Tree in @p math is copied.
    *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * In SBML Level 2, product and reactant stoichiometries can be specified
    * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
    * SpeciesReference object.  The former is to be used when a
    * stoichiometry is simply a scalar number, while the latter is for
    * occasions when it needs to be a rational number or it needs to
    * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * attribute is of type @c double and should contain values greater than
+   * zero (@c 0).  The "stoichiometryMath" element is implemented as an
    * element containing a MathML expression.  These two are mutually
    * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
    * be defined in a given SpeciesReference instance.  When neither the
@@ -814,15 +929,18 @@ public:
    * attribute should be used in preference to "stoichiometryMath" when a
    * species' stoichiometry is a simple scalar number (integer or
    * decimal).
+   *
+   * In SBML Level 3, there is no StoichiometryMath, and SpeciesReference
+   * objects have only the "stoichiometry" attribute.
    * 
    * @param math the StoichiometryMath expression that is to be copied as the
    * content of the "stoichiometryMath" subelement.
    *
-   * @note In SBML Level 2, the "stoichiometry" attribute of this 
-   *       SpeciesReference object will be unset (isSetStoichiometry() will 
-   *       return @c false although getStoichiometry() will return 1.0) if the 
-   *       given math is not null because the "stoichiometry" attribute and the 
-   *       stoichiometryMath" subelement are mutually exclusive.
+   * @note In SBML Level&nbsp;2, the "stoichiometry" attribute of this
+   * SpeciesReference object will be unset (isSetStoichiometry() will
+   * return @c false although getStoichiometry() will return @c 1.0) if the
+   * given math is not null because the "stoichiometry" attribute and the
+   * stoichiometryMath" subelement are mutually exclusive.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -839,18 +957,18 @@ public:
 
   /**
    * Set the value of the "denominator" attribute, for the case of a
-   * rational-numbered stoichiometry or a model in SBML Level 1.
+   * rational-numbered stoichiometry or a model in SBML Level&nbsp;1.
    *
    * The "denominator" attribute is only actually written out in the case
-   * of an SBML Level 1 model.  In SBML Level 2, rational-number
+   * of an SBML Level&nbsp;1 model.  In SBML Level&nbsp;2, rational-number
    * stoichiometries are written as MathML elements in the
    * "stoichiometryMath" subelement.  However, as a convenience to users,
    * libSBML allows the creation and manipulation of rational-number
    * stoichiometries by supplying the numerator and denominator directly
    * rather than having to manually create an ASTNode structure.  LibSBML
    * will write out the appropriate constructs (either a combination of
-   * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
-   * "stoichiometryMath" subelement in the case of SBML Level 2).
+   * "stoichiometry" and "denominator" in the case of SBML Level&nbsp;1, or
+   * a "stoichiometryMath" subelement in the case of SBML Level&nbsp;2).
    *
    * @param value the scalar value 
    *
@@ -890,14 +1008,14 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * In SBML Level 2, product and reactant stoichiometries can be specified
    * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
    * SpeciesReference object.  The former is to be used when a
    * stoichiometry is simply a scalar number, while the latter is for
    * occasions when it needs to be a rational number or it needs to
    * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * attribute is of type @c double and should contain values greater than
+   * zero (@c 0).  The "stoichiometryMath" element is implemented as an
    * element containing a MathML expression.  These two are mutually
    * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
    * be defined in a given SpeciesReference instance.  When neither the
@@ -908,10 +1026,12 @@ public:
    * species' stoichiometry is a simple scalar number (integer or
    * decimal).
    *
-   * @note In SBML Level 2, the "stoichiometry" attribute of this 
-   *       SpeciesReference object will be reset to default (1.0) if the
-   *       "stoichiometry" attribute has not been set.
-   * 
+   * In SBML Level 3, there is no StoichiometryMath, and SpeciesReference
+   * objects have only the "stoichiometry" attribute.
+   *
+   * @note In SBML Level&nbsp;2, the "stoichiometry" attribute of this
+   * SpeciesReference object will be reset to a default value (@c 1.0) if
+   * the "stoichiometry" attribute has not been set.
    */
   int unsetStoichiometryMath ();
 
@@ -926,25 +1046,24 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note In SBML Level 1, the "stoichiometry" attribute of this 
-   *       SpeciesReference object will be just reset to default (1.0) and
-   *       isSetStoichiometry() will still return @c true.
-   *       In SBML Level 2, the "stoichiometry" attribute of this object will 
-   *       be unset (isSetStoichiometry() will return @c false although
-   *       getStoichiometry() will return 1.0) if the "stoichiometryMath" 
-   *       subelement has been set, otherwise the attribute will be just reset 
-   *       to default (1.0) (isSetStoichiometry() will still return @c true).
-   *       In SBML Level 3, the "stoichiometry" attribute of this object will
-   *       be set to NaN and isSetStoichiometry() will return @c false.
-   * 
-   *
+   * @note In SBML Level&nbsp;1, the "stoichiometry" attribute of this
+   * SpeciesReference object will be just reset to a default value (@c 1.0)
+   * and isSetStoichiometry() will still return @c true.  In SBML
+   * Level&nbsp;2, the "stoichiometry" attribute of this object will be
+   * unset (which will result in isSetStoichiometry() returning @c false,
+   * although getStoichiometry() will return @c 1.0) if the
+   * "stoichiometryMath" subelement has been set, otherwise the attribute
+   * will be just reset to the default value (@c 1.0) (and
+   * isSetStoichiometry() will still return @c true).  In SBML
+   * Level&nbsp;3, the "stoichiometry" attribute of this object will be set
+   * to @c NaN and isSetStoichiometry() will return @c false.
    */
   int unsetStoichiometry ();
 
 
   /**
-   * Creates a new, empty StoichiometryMath, adds it to this SpeciesReference
-   * and returns the StoichiometryMath.
+   * Creates a new, empty StoichiometryMath object, adds it to this
+   * SpeciesReference, and returns it.
    *
    * @return the newly created StoichiometryMath object instance
    *
@@ -1105,7 +1224,7 @@ public:
 
 
   /*
-   * Sets the "stoichiometry" attribute of SBML Level 2 to 1.0 (default) 
+   * Sets the "stoichiometry" attribute of SBML Level&nbsp;2 to 1.0 (default) 
    * if neither the "stoichiometry" attribute nor the "stoichiometrymath" 
    * subelement are present. 
    * (This function is internally invoked in SBase::read().)
@@ -1115,7 +1234,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this SpeciesReference object
    * have been set.
    *
@@ -1228,13 +1347,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * ModifierSpeciesReference
    * 
-   * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the ModifierSpeciesReference.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a ModifierSpeciesReference object to an
+   * SBMLDocument (e.g., using Model::addModifierSpeciesReference()), the
+   * SBML Level, SBML Version version and XML namespace of the document @em
+   * override the values used when creating the ModifierSpeciesReference
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a
+   * ModifierSpeciesReference is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   ModifierSpeciesReference (unsigned int level, unsigned int version);
 
@@ -1245,13 +1368,17 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a ModifierSpeciesReference has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the ModifierSpeciesReference.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a ModifierSpeciesReference object to an
+   * SBMLDocument (e.g., using Model::addModifierSpeciesReference()), the
+   * SBML XML namespace of the document @em overrides the value used when
+   * creating the ModifierSpeciesReference object via this constructor.
+   * This is necessary to ensure that an SBML document is a consistent
+   * structure.  Nevertheless, the ability to supply the values at the time
+   * of creation of a ModifierSpeciesReference is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   ModifierSpeciesReference (SBMLNamespaces* sbmlns);
 
@@ -1328,7 +1455,7 @@ public:
 #endif // USE_LAYOUT
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this ModifierSpeciesReference object
    * have been set.
    *

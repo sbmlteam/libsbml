@@ -300,7 +300,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this copy
+   * Predicate returning @c true if this copy
    * of libSBML supports <i>gzip</I> and <i>zip</i> format compression.
    *
    * @return @c true if libSBML has been linked with the <i>zlib</i>
@@ -312,7 +312,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * this copy of libSBML supports <i>bzip2</i> format compression.
    *
    * @return @c true if libSBML has been linked with the <i>bzip2</i>

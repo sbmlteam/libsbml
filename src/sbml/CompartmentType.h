@@ -22,39 +22,39 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class CompartmentType.
- * @brief LibSBML implementation of %SBML's %CompartmentType construct.
+ * @brief LibSBML implementation of SBML's Level&nbsp;2's %CompartmentType construct.
  *
- * A <em>compartment type</em> in %SBML is a grouping construct used to
- * establish a relationship between multiple Compartment objects.
- * In %SBML Level 2 Versions 2, 3 and 4, a compartment type only has an
- * identity, and this identity can only be used to indicate that particular
- * compartments belong to this type.  This may be useful for conveying a
- * modeling intention, such as when a model contains many similar
- * compartments, either by their biological function or the reactions they
- * carry.  Without a compartment type construct, it would be impossible in
- * the language of %SBML to indicate that all of the compartments share an
- * underlying conceptual relationship because each %SBML compartment must be
- * given a unique and separate identity.  Compartment types have no
- * mathematical meaning in %SBML Level 2&mdash;they have no effect on a
- * model's mathematical interpretation.  Simulators and other numerical
- * analysis software may ignore CompartmentType definitions and references
- * to them in a model.
+ * SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 provide the <em>compartment
+ * type</em> as a grouping construct that can be used to establish a
+ * relationship between multiple Compartment objects.  A CompartmentType
+ * object only has an identity, and this identity can only be used to
+ * indicate that particular Compartment objects in the model belong to this
+ * type.  This may be useful for conveying a modeling intention, such as
+ * when a model contains many similar compartments, either by their
+ * biological function or the reactions they carry.  Without a compartment
+ * type construct, it would be impossible within SBML itself to indicate
+ * that all of the compartments share an underlying conceptual relationship
+ * because each SBML compartment must be given a unique and separate
+ * identity.  Compartment types have no mathematical meaning in
+ * SBML&mdash;they have no effect on a model's mathematical interpretation.
+ * Simulators and other numerical analysis software may ignore
+ * CompartmentType definitions and references to them in a model.
  * 
- * There is no mechanism in %SBML for representing hierarchies of
+ * There is no mechanism in SBML Level 2 for representing hierarchies of
  * compartment types.  One CompartmentType instance cannot be the subtype
- * of another CompartmentType instance; %SBML provides no means of defining
+ * of another CompartmentType instance; SBML provides no means of defining
  * such relationships.
  * 
- * As with other major structures in %SBML, CompartmentType has a mandatory
+ * As with other major structures in SBML, CompartmentType has a mandatory
  * attribute, "id", used to give the compartment type an identifier.  The
  * identifier must be a text %string conforming to the identifer syntax
- * permitted in %SBML.  CompartmentType also has an optional "name"
+ * permitted in SBML.  CompartmentType also has an optional "name"
  * attribute, of type @c string.  The "id" and "name" must be used
- * according to the guidelines described in the %SBML specification (e.g.,
+ * according to the guidelines described in the SBML specification (e.g.,
  * Section 3.3 in the Level 2 Version 4 specification).
  *
  * CompartmentType was introduced in SBML Level 2 Version 2.  It is not
- * available in earlier versions of Level 2 nor in any version of Level 1.
+ * available in SBML Level&nbsp;1 nor in Level&nbsp;3.
  *
  * @see Compartment
  * @see ListOfCompartmentTypes
@@ -65,14 +65,14 @@
  * @class ListOfCompartmentTypes.
  * @brief LibSBML implementation of SBML's %ListOfCompartmentTypes construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -135,13 +135,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * CompartmentType
    * 
-   * @note Once a CompartmentType has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the CompartmentType.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a CompartmentType object to an SBMLDocument
+   * (e.g., using Model::addCompartmentType()), the SBML Level, SBML
+   * Version version and XML namespace of the document @em override the
+   * values used when creating the CompartmentType object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a CompartmentType is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   CompartmentType (unsigned int level, unsigned int version);
 
@@ -166,13 +170,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a CompartmentType has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the CompartmentType.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a CompartmentType object to an SBMLDocument
+   * (e.g., using Model::addCompartmentType()), the SBML XML namespace of
+   * the document @em overrides the value used when creating the
+   * CompartmentType object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a
+   * CompartmentType is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   CompartmentType (SBMLNamespaces* sbmlns);
 
@@ -232,7 +239,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * CompartmentType's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -244,7 +251,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * CompartmentType's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -310,7 +317,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -340,7 +347,7 @@ public:
   virtual const std::string& getElementName () const;
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this CompartmentType object
    * have been set.
    *
@@ -419,7 +426,7 @@ public:
   virtual ListOfCompartmentTypes* clone () const;
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -566,9 +573,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  For example, the
-   * ListOfCompartmentTypes in a model (in %SBML Level 2 Version 4) is the
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  For example, the
+   * ListOfCompartmentTypes in a model (in SBML Level 2 Version 4) is the
    * third ListOf___.  (However, it differs for different Levels and
    * Versions of SBML, so calling code should not hardwire this number.)
    *
@@ -587,7 +594,7 @@ protected:
    * Create a ListOfCompartmentTypes object corresponding to the next token
    * in the XML input stream.
    * 
-   * @return the %SBML object corresponding to next XMLToken in the
+   * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);

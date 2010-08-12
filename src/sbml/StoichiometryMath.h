@@ -22,7 +22,9 @@
  *------------------------------------------------------------------------- -->
  *
  * @class StoichiometryMath
- * @brief LibSBML implementation of %SBML's %StoichiometryMath construct.
+ * @brief LibSBML implementation of SBML Level&nbsp;2's %StoichiometryMath construct.
+ *
+ * @section l2-stoichiometries Stoichiometries in SBML Level 2
  *
  * In SBML Level 2, product and reactant stoichiometries can be specified
  * using @em either the "stoichiometry" attribute or a "stoichiometryMath"
@@ -118,6 +120,32 @@
  * and reactions are included in the documentation of SpeciesReference
  * class.
  *
+ * @section l3-stoichiometries Stoichiometries in SBML Level 3
+ *
+ * The StoichiometryMath construct is not defined in SBML Level&nbsp;3
+ * Version&nbsp;1 Core.  Instead, Level&nbsp;3 defines the identifier of
+ * SpeciesReference objects as a stand-in for the stoichiometry of the
+ * reactant or product being referenced, and allows that identifier to be
+ * used elsewhere in SBML models, including (for example) InitialAssignment
+ * objects.  This makes it possible to achieve the same effect as
+ * StoichiometryMath, but with other SBML objects.  For instance, to
+ * produce a stoichiometry value that is a rational number, a model can use
+ * InitialAssignment to assign the identifier of a SpeciesReference object
+ * to a MathML expression evaluating to a rational number.  This is
+ * analogous to the same way that, in Level&nbsp;2, the model would use
+ * StoichiometryMath with a MathML expression evaluating to a rational
+ * number.
+ *
+ * In SBML Level 2, the stoichiometry of a reactant or product is a
+ * combination of both a <em>biochemical stoichiometry</em> (meaning, the
+ * standard stoichiometry of a species in a reaction) and any necessary
+ * unit conversion factors. The introduction of an explicit attribute on
+ * the Species object for a conversion factor allows Level&nbsp;3 to avoid
+ * having to overload the meaning of stoichiometry.  In Level&nbsp;3, the
+ * stoichiometry given by a SpeciesReference object in a reaction is a
+ * "proper" biochemical stoichiometry, meaning a dimensionless number free
+ * of unit conversions.
+ *
  * @see SpeciesReference
  * @see Reaction
  */
@@ -157,13 +185,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * StoichiometryMath
    * 
-   * @note Once a StoichiometryMath has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the StoichiometryMath.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a StoichiometryMath object to an
+   * SBMLDocument (e.g., using Model::addStoichiometryMath()), the SBML
+   * Level, SBML Version version and XML namespace of the document @em
+   * override the values used when creating the StoichiometryMath object
+   * via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a StoichiometryMath is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   StoichiometryMath (unsigned int level, unsigned int version);
 
@@ -181,13 +213,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a StoichiometryMath has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the StoichiometryMath.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a StoichiometryMath object to an
+   * SBMLDocument (e.g., using Model::addStoichiometryMath()), the SBML XML
+   * namespace of the document @em overrides the value used when creating
+   * the StoichiometryMath object via this constructor.  This is necessary
+   * to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a StoichiometryMath is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   StoichiometryMath (SBMLNamespaces* sbmlns);
 
@@ -338,7 +373,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether the math
+   * Predicate returning @c true if the math
    * expression of this StoichiometryMath object contains literal numbers
    * or parameters with undeclared units.
    * 
@@ -365,7 +400,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether the math
+   * Predicate returning @c true if the math
    * expression of this StoichiometryMath object contains literal numbers
    * or parameters with undeclared units.
    * 
@@ -463,7 +498,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required elements for this StoichiometryMath object
    * have been set.
    *

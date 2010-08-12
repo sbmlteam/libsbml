@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Compartment
- * @brief  LibSBML implementation of %SBML's %Compartment construct.
+ * @brief  LibSBML implementation of SBML's %Compartment construct.
  *
  * A compartment in SBML represents a bounded space in which species are
  * located.  Compartments do not necessarily have to correspond to actual
@@ -39,21 +39,22 @@
  * unique identifier by which other parts of an SBML model definition can
  * refer to it.  A compartment can also have an optional "name" attribute
  * of type @c string.  Identifiers and names must be used according to the
- * guidelines described in the %SBML specification (e.g., Section 3.3 in
- * the Level 2 Version 4 specification).
+ * guidelines described in the SBML specifications.
  *
- * Each compartment in a model may optionally be designated as belonging to
- * a particular compartment type.  The optional attribute "compartmentType"
- * is used identify the compartment type represented by the Compartment
- * structure.  The "compartmentType" attribute's value must be the
- * identifier of a CompartmentType instance defined in the model.  If the
- * "compartmentType" attribute is not present on a particular compartment
- * definition, a unique virtual compartment type is assumed for that
- * compartment, and no other compartment can belong to that compartment
- * type.  The values of "compartmentType" attributes on compartments have
- * no effect on the numerical interpretation of a model.  Simulators and
- * other numerical analysis software may ignore "compartmentType"
- * attributes.
+ * In SBML Level 2, each compartment in a model may optionally be
+ * designated as belonging to a particular compartment type.  The optional
+ * attribute "compartmentType" is used identify the compartment type
+ * represented by the Compartment structure.  The "compartmentType"
+ * attribute's value must be the identifier of a CompartmentType instance
+ * defined in the model.  If the "compartmentType" attribute is not present
+ * on a particular compartment definition, a unique virtual compartment
+ * type is assumed for that compartment, and no other compartment can
+ * belong to that compartment type.  The values of "compartmentType"
+ * attributes on compartments have no effect on the numerical
+ * interpretation of a model.  Simulators and other numerical analysis
+ * software may ignore "compartmentType" attributes.  The "compartmentType"
+ * attribute and the CompartmentType class of objects are not present
+ * in SBML Level&nbsp;3 Core nor in SBML Level&nbsp;1.
  * 
  * Compartment also has an optional attribute "spatialDimensions", whose
  * value must be a positive integer indicating the number of spatial
@@ -204,14 +205,14 @@
  * @class ListOfCompartments
  * @brief LibSBML implementation of SBML's %ListOfCompartments construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -275,13 +276,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Compartment
    * 
-   * @note Once a Compartment has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the Compartment.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Compartment object to an SBMLDocument
+   * (e.g., using Model::addCompartment()), the SBML Level, SBML Version
+   * version and XML namespace of the document @em override the values used
+   * when creating the Compartment object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Compartment is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   Compartment (unsigned int level, unsigned int version);
   
@@ -306,13 +310,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a Compartment has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the Compartment.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a Compartment object to an SBMLDocument
+   * (e.g., using Model::addCompartment()), the SBML XML namespace of the
+   * document @em overrides the value used when creating the Compartment
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a Compartment is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   Compartment (SBMLNamespaces* sbmlns);
 
@@ -359,12 +366,17 @@ public:
 
 
   /**
-   * Initializes the fields of this Compartment to the defaults defined in
-   * the specification of the relevant Level/Version of %SBML.
+   * Initializes the fields of this Compartment object to "typical" default
+   * values.
+   *
+   * The SBML Compartment component has slightly different aspects and
+   * default attribute values in different SBML Levels and Versions.
+   * This method sets the values to certain common defaults, based
+   * mostly on what they are in SBML Level&nbsp;2.  Specifically:
    * <ul>
-   * <li> (SBML Level 1 only) sets attribute "volume" to @c 1.0
-   * <li> (SBML Level 2 only) sets attribute "spatialDimensions" to @c 3
-   * <li> (SBML Level 2 only) sets attribute "constant" to @c 1 (true)
+   * <li> Sets attribute "spatialDimensions" to @c 3
+   * <li> Sets attribute "constant" to @c true
+   * <li> (Applies to Level&nbsp;1 models only) Sets attribute "volume" to @c 1.0
    * </ul>
    */
   void initDefaults ();
@@ -493,7 +505,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "id" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -505,7 +517,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "name" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -517,7 +529,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "compartmentType" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -529,7 +541,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "size" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -550,8 +562,8 @@ public:
 
 
   /**
-   * (For SBML Level 1) Predicate returning @c true or @c false depending
-   * on whether this Compartment's "volume" attribute has been set.
+   * (For SBML Level 1) Predicate returning @c true if this Compartment's
+   * "volume" attribute has been set.
    * 
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -576,7 +588,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "units" attribute has been set.
    * 
    * @htmlinclude libsbml-comment-set-methods.html
@@ -590,7 +602,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "outside" attribute has been set.
    * 
    * @htmlinclude libsbml-comment-set-methods.html
@@ -602,7 +614,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "spatialDimensions" attribute has been set.
    * 
    * @htmlinclude libsbml-comment-set-methods.html
@@ -617,7 +629,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * Compartment's "constant" attribute has been set.
    * 
    * @htmlinclude libsbml-comment-set-methods.html
@@ -1009,7 +1021,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -1040,7 +1052,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this Compartment object
    * have been set.
    *
@@ -1135,7 +1147,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -1281,9 +1293,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfCompartments
-   * in a model is (in %SBML Level 2 Version 4) the fifth ListOf___.
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  So, for example, the ListOfCompartments
+   * in a model is (in SBML Level 2 Version 4) the fifth ListOf___.
    * (However, it differs for different Levels and Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

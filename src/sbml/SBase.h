@@ -1,4 +1,4 @@
-/**
+!/**
  * @file    SBase.h
  * @brief   Definition of SBase, the base object of all SBML objects
  * @author  Ben Bornstein
@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class SBase
- * @brief LibSBML implementation of %SBase, the base class of all SBML objects.
+ * @brief LibSBML implementation of %SBase, the base class of most SBML objects.
  *
  * Most components in SBML are derived from a single abstract base type,
  * SBase.  In addition to serving as the parent class for most other
@@ -35,19 +35,27 @@
  * humans.  An example use of the "notes" element would be to contain
  * formatted user comments about the model element in which the "notes"
  * element is enclosed.  There are certain conditions on the XHTML content
- * permitted inside the "notes" element; these are described separately
- * below.
+ * permitted inside the "notes" element; please consult the <a
+ * target="_blank" href="http://sbml.org/Documents/Specifications">SBML
+ * specification document</a> corresponding to the SBML Level and Version
+ * of your model for more information about the requirements for "notes"
+ * content.
  *
  * SBase has another optional subelement called "annotation".  Whereas the
  * "notes" element described above is a container for content to be shown
  * directly to humans, the "annotation" element is a container for optional
  * software-generated content @em not meant to be shown to humans.  The
- * element's content type is XML type @c any, allowing essentially
- * arbitrary data content.  SBML places only a few restrictions on the
- * organization of the content; these are intended to help software tools
- * read and write the data as well as help reduce conflicts between
- * annotations added by different tools.  They are described separately
- * below.
+ * element's content type is <a target="_blank"
+ * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+ * "any"</a>, allowing essentially arbitrary data content.  SBML places
+ * only a few restrictions on the organization of the content; these are
+ * intended to help software tools read and write the data as well as help
+ * reduce conflicts between annotations added by different tools.  As is
+ * the case with "notes", it is important to refer to the <a
+ * target="_blank" href="http://sbml.org/Documents/Specifications">SBML
+ * specification document</a> corresponding to the SBML Level and Version
+ * of your model for more information about the requirements for
+ * "annotation" content.
  * 
  * It is worth pointing out that the "annotation" element in the definition
  * of SBase exists in order that software developers may attach optional
@@ -62,268 +70,39 @@
  * interpretation of a model, then software interoperability is greatly
  * impeded.
  *
- * Beginning with SBML Level 2, SBase also has an optional attribute named
- * "metaid" for supporting metadata annotations using RDF (Resource
- * Description Format). The attribute value has the data type 
- * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the
- * XML identifier type, which means each "metaid" value must be globally
- * unique within an SBML file.  (Importantly, this uniqueness criterion
- * applies across any attribute with type 
- * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, not just the "metaid"
- * attribute used by SBML&mdash;something to be aware of if your
- * application-specific XML content inside the "annotation" subelement
- * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
- * The "metaid" value serves to identify a model
- * component for purposes such as referencing that component from metadata
- * placed within "annotation" subelements.
+ * SBML Level 2 introduced an optional SBase attribute named "metaid" for
+ * supporting metadata annotations using RDF (<a target="_blank"
+ * href="http://www.w3.org/RDF/">Resource Description Format</a>). The
+ * attribute value has the data type <a
+ * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML identifier
+ * type, which means each "metaid" value must be globally unique within an
+ * SBML file.  (Importantly, this uniqueness criterion applies across any
+ * attribute with type <a href="http://www.w3.org/TR/REC-xml/#id">XML
+ * ID</a>, not just the "metaid" attribute used by SBML&mdash;something to
+ * be aware of if your application-specific XML content inside the
+ * "annotation" subelement happens to use <a
+ * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)  The "metaid" value
+ * serves to identify a model component for purposes such as referencing
+ * that component from metadata placed within "annotation" subelements.
  *
  * Beginning with SBML Level 2 Version 3, SBase also has an optional
  * attribute named "sboTerm" for supporting the use of the Systems Biology
  * Ontology.  In SBML proper, the data type of the attribute is a string of
- * the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer number;
+ * the form "SBO:NNNNNNN", where "NNNNNNN" is a seven digit integer number;
  * libSBML simplifies the representation by only storing the NNNNNNN
  * integer portion.  Thus, in libSBML, the "sboTerm" attribute on SBase has
  * data type @c int, and SBO identifiers are stored simply as integers.
- * SBO terms are a type of optional annotation, and each different class of
- * SBML object derived from SBase imposes its own requirements about the
- * values permitted for "sboTerm".  Please consult the SBML Level 2 Version
- * 4 specification for more information about the use of SBO and the
- * "sboTerm" attribute.
+ * (For convenience, SBase offers methods for returning both the integer
+ * form and a text-string form of the SBO identifier.)  SBO terms are a
+ * type of optional annotation, and each different class of SBML object
+ * derived from SBase imposes its own requirements about the values
+ * permitted for "sboTerm".  Please consult the SBML Level&nbsp;2
+ * Version&nbsp;4 specification for more information about the use of SBO
+ * and the "sboTerm" attribute.
  *
  * Finally, note that, in the list of methods on SBase, there is no public
  * constructor because SBase is an abstract class.  The constructors reside
  * in the subclasses derived from SBase.
- *
- * 
- * @section sbase-notes Requirements for the content of the "notes" subelement
- *
- * The content of "notes" elements must be in XHTML 1.0 format.  (Plain
- * HTML would not be usable because whatever appears inside the "notes"
- * element must be compatible with XML, which HTML is not, and in any case,
- * the requirement for using XHTML does not prevent users from entering
- * plain-text content ,which they can do using the standard <code>&lt;pre&gt;
- * ... &lt;/pre&gt;</code> elements of [X]HTML.)
- *
- * The XML content of a "notes" subelement must declare the use of the
- * XHTML XML namespace.  This can be done in multiple ways.  One way is to
- * place a namespace declaration for the appropriate namespace URI (which
- * for XHTML is <tt>"http://www.w3.org/1999/xhtml"</tt>) on the top-level
- * <code>sbml</code> element and then reference the namespace in the
- * "notes" element content using a prefix.  The following example
- * illustrates this approach:
- * @verbatim
-<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"
-      xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  ...
-  <notes>
-    <xhtml:body>
-      <xhtml:center><xhtml:h2>A Simple Mitotic Oscillator</xhtml:h2></xhtml:center>
-      <xhtml:p>A minimal cascade model for the mitotic oscillator
-      involving cyclin and cdc2 kinase</xhtml:p>
-    </xhtml:body>
-  </notes>
-  ...
-@endverbatim
- *
- * Another approach is to declare the XHTML namespace within the "notes"
- * element content itself, as in the following example:
- * @verbatim
-...
-<notes>
-  <body xmlns="http://www.w3.org/1999/xhtml">
-
-    <center><h2>A Simple Mitotic Oscillator</h2></center>
-
-    <p>A minimal cascade model for the mitotic oscillator
-    involving cyclin and cdc2 kinase</p>
-
-  </body>
-</notes>
-...
-@endverbatim
- *
- * The <code>xmlns="http://www.w3.org/1999/xhtml"</code> declaration on @c
- * body as shown above changes the default XML namespace within it, such
- * that all of its content is by default in the XHTML namespace.  This is a
- * particularly convenient approach because it obviates the need to prefix
- * every element with a namespace prefix (i.e., <code>xhtml:</code>
- * in the previous case).  Other approaches are also possible.
- * 
- * SBML does not require the content of the "notes" subelement to be any
- * particular XHTML element; the content can be almost any well-formed
- * XHTML content.  SBML Level 2 Versions 2, 3 and 4 added some small
- * restrictions and clarifications for the allowable content in order to
- * promote greater interoperability between software tools.  The first
- * restriction comes from the requirements of XML: the "notes"
- * element must not contain an XML declaration nor a DOCTYPE declaration.
- * That is, "notes" must @em not contain
- * @verbatim
-<?xml version="1.0" encoding="UTF-8"?>  
-@endverbatim
- * nor (where the following is only one specific example of a DOCTYPE
- * declaration)
- * @verbatim
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-@endverbatim
- *
- * The second restriction is intended to balance freedom of content with
- * the complexity of implementing software that can interpret the content.
- * The content of the "notes" subelement in SBML can consist only of the
- * following possibilities:
- * <ul>
- * <li> A complete XHTML document (minus the XML and DOCTYPE declarations,
- * of course), that is, XHTML content beginning with the @c html tag.
- * @verbatim
-<notes>
-  <html xmlns="http://www.w3.org/1999/xhtml">
-     ...
-  </html>
-</notes>
-@endverbatim
- *
- * <li> The @c body element from an XHTML document.  The following is an
- * example skeleton:
- * @verbatim
-<notes>
-    <body xmlns="http://www.w3.org/1999/xhtml">
-      ...
-    </body>
-</notes>
-@endverbatim
- *
- * <li> Any XHTML content that would be permitted within a @c body element.
- * If this consists of multiple elements, each one must declare the XML
- * namespace separately.  The following is an example fragment:
- * @verbatim
-<notes>
-    <p xmlns="http://www.w3.org/1999/xhtml">
-      ...
-    </p>
-    <p xmlns="http://www.w3.org/1999/xhtml">
-      ...
-    </p>
-</notes>
-@endverbatim
- * </ul>
- *
- * Another way to summarize the restrictions above is simply to say that
- * the content of an SBML "notes" element can be only be a complete @c html
- * element, a @c body element, or whatever is permitted inside a @c body
- * element.  In practice, this does not limit in any meaningful way what
- * can be placed inside a "notes" element; for example, if an application
- * or modeler wants to put a complete XHTML page, including a @c head
- * element, it can be done by putting in everything starting with the @c
- * html container.  However, the restrictions above do make it somewhat
- * simpler to write software that can read and write the "notes" content.
- *
- * 
- * @section sbase-annotation Requirements for the content of the "annotation" subelement
- *
- * At the outset, software developers should keep in mind that multiple
- * software tools may attempt to read and write annotation content.  To
- * reduce the potential for collisions between annotations written by
- * different applications, SBML Level 2 stipulates that tools must use XML
- * namespaces to specify the intended vocabulary of every annotation.  The
- * application's developers must choose a URI (Universal Resource
- * Identifier) reference that uniquely identifies the vocabulary the
- * application will use, and a prefix string for the annotations.
- *
- * A important requirement is that application-specific annotation data is
- * entirely contained inside a single <em>top-level element</em> within the
- * SBML "annotation" subelement.  SBML Level 2 Versions 2, 3 and 4 place the
- * following restrictions on annotations:
- * <ul>
- * <li> Within a given SBML "annotation" element, there can only be one
- * top-level element using a given namespace.  An annotation element can
- * contain multiple top-level elements but each must be in a different
- * namespace.
- *
- * <li> No top-level element in an "annotation" may use an SBML XML
- * namespace, either explicitly by referencing one of the SBML XML
- * namespace URIs or implicitly by failing to specify any namespace on the
- * annotation.
- *
- * <li> The ordering of top-level elements within a given "annotation"
- * element is <em>not</em> significant.  An application should not expect
- * that its annotation content appears first in the "annotation" element,
- * nor in any other particular location.  Moreover, the ordering of
- * top-level annotation elements may be changed by different applications
- * as they read and write the same SBML file.
- * </ul>
- * 
- * The use of XML namespaces in this manner is intended to improve the
- * ability of multiple applications to place annotations on SBML model
- * elements with reduced risks of interference or name collisions.
- * Annotations stored by different simulation packages can therefore
- * coexist in the same model definition.  The rules governing the content
- * of "annotation" elements are designed to enable applications to easily
- * add, change, and remove their annotations from SBML elements while
- * simultaneously preserving annotations inserted by other applications
- * when mapping SBML from input to output.
- *
- * As a further simplification for developers of software and to improve
- * software interoperability, applications are only required to preserve
- * other annotations (i.e., annotations they do not recognize) when those
- * annotations are self-contained entirely within "annotation", complete
- * with namespace declarations.  The following is an example:
- * @verbatim
-<annotation>
-    <topLevelElement xmlns:"URI">
-       ... content in the namespace identified by "URI" ...
-    </topLevelElement>
-</annotation>
-@endverbatim
- *
- * Some more examples hopefully will make these points more clear.  The
- * next example is invalid because it contains a top-level element in the
- * SBML XML namespace&mdash;this happens because no namespace is declared
- * for the <code>&lt;cytoplasm&gt;</code> element, which means by default it
- * falls into the enclosing SBML namespace:
- * @verbatim
-<annotation>
-    <cytoplasm/>
-</annotation>
-@endverbatim
- *
- * The following example is also invalid, this time because it contains two
- * top-level elements using the same XML namespace.  Note that it does not
- * matter that these are two different top-level elements
- * (<code>&lt;nodecolors&gt;</code> and <code>&lt;textcolors&gt;</code>); 
- * what matters is that these separate elements are both in the same 
- * namespace rather than having been collected and placed inside one 
- * overall container element for that namespace.
- * @verbatim
-<annotation>
-    <mysim:nodecolors xmlns:mysim="http://www.mysim.org/ns"
-        mysim:bgcolor="green" mysim:fgcolor="white"/>
-    <mysim:textcolors xmlns:mysim="http://www.mysim.org/ns"
-        mysim:bgcolor="green" mysim:fgcolor="white"/>
-</annotation>
-@endverbatim
- *
- * On the other hand, the following example is valid:
- * @verbatim
-<annotation>
-    <mysim:geometry xmlns:mysim="http://www.mysim.org/ns"
-             mysim:bgcolor="green" mysim:fgcolor="white">
-        <graph:node xmlns:graph="http://www.graph.org/ns" 
-             graph:x="4" graph:y="5" />
-    </mysim:geometry>
-    <othersim:icon xmlns:othersim="http://www.othersim.com/">
-        WS2002
-    </othersim:icon>
-</annotation>
-@endverbatim
- *
- * It is worth keeping in mind that although XML namespace names must be
- * URIs, they are (like all XML namespace names) <em>not required</em> to
- * be directly usable in the sense of identifying an actual, retrieval
- * document or resource on the Internet.  URIs such as
- * <code>"http://www.mysim.org/"</code> may appear as though they are
- * (e.g.) Internet addresses, but there are not the same thing.  This
- * style of URI strings, using a domain name and other parts, is only a
- * simple and commonly-used way of creating a unique name string.
  *
  *
  * @section sbase-miriam Standard format for annotations linking data resources
@@ -390,7 +169,7 @@ class LIBSBML_EXTERN SBase
 public:
 
   /**
-   * Destroy this object.
+   * Destroys this object.
    */
   virtual ~SBase ();
 
@@ -402,9 +181,9 @@ public:
 
 
   /**
-   * Accepts the given SBMLVisitor for this instance of SBase.
+   * Accepts the given SBMLVisitor for this SBase object.
    *
-   * @param v the SBMLVisitor instance to be used.
+   * @param v the SBMLVisitor instance to be used
    *
    * @return the result of calling <code>v.visit()</code>.
    */
@@ -414,7 +193,7 @@ public:
   /**
    * Creates and returns a deep copy of this SBase object.
    * 
-   * @return a (deep) copy of this SBase object
+   * @return a (deep) copy of this SBase object.
    */
   virtual SBase* clone () const = 0;
 
@@ -450,7 +229,7 @@ public:
    * 
    * The optional attribute named "metaid", present on every major SBML
    * component type, is for supporting metadata annotations using RDF
-   * (Resource Description Format). The attribute value has the data type
+   * (Resource Description Format).  The attribute value has the data type
    * <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>, the XML
    * identifier type, which means each "metaid" value must be globally
    * unique within an SBML file.  (Importantly, this uniqueness criterion
@@ -463,7 +242,7 @@ public:
    * component for purposes such as referencing that component from
    * metadata placed within "annotation" subelements.
    *  
-   * @return the metaid of this SBML object.
+   * @return the metaid of this SBML object, as a string.
    *
    * @see isSetMetaId()
    * @see setMetaId(const std::string& metaid)
@@ -580,28 +359,37 @@ public:
 
   /**
    * Returns the content of the "notes" subelement of this object as
-   * a tree of XML nodes.
+   * a tree of XMLNode objects.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
+   *
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
    *
    * The "notes" element content returned by this method will be in XML
    * form, but libSBML does not provide an object model specifically for
    * the content of notes.  Callers will need to traverse the XML tree
    * structure using the facilities available on XMLNode and related
-   * objects.
+   * objects.  For an alternative method of accessing the notes, see
+   * getNotesString().
    *
-   * @return the content of the "notes" subelement of this SBML object.
+   * @return the content of the "notes" subelement of this SBML object as a
+   * tree structure composed of XMLNode objects.
    *
    * @see getNotesString()
    * @see isSetNotes()
@@ -610,6 +398,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   XMLNode* getNotes();
 
@@ -618,20 +407,33 @@ public:
    * Returns the content of the "notes" subelement of this object as a
    * string.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
    *
-   * @return the content of the "notes" subelement of this SBML object.
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
+   *
+   * For an alternative method of accessing the notes, see getNotes(),
+   * which returns the content as an XMLNode tree structure.  Depending on
+   * an application's needs, one or the other method may be more
+   * convenient.
+   *
+   * @return the content of the "notes" subelement of this SBML object as a
+   * string.
    *
    * @see getNotes()
    * @see isSetNotes()
@@ -640,20 +442,22 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   std::string getNotesString ();
 
 
   /**
    * Returns the content of the "annotation" subelement of this object as
-   * an XML node tree.
+   * a tree of XMLNode objects.
    *
-   * Whereas the SBase "notes" subelement is a container for content to be
+   * Whereas the SBML "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
    * SBML places a few restrictions on the organization of the content of
@@ -667,7 +471,7 @@ public:
    * content.  See the ModelHistory, CVTerm and RDFAnnotationParser classes
    * for more information about the facilities available.
    *
-   * @return the annotation of this SBML object as an XMLNode
+   * @return the annotation of this SBML object as a tree of XMLNode objects.
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -684,12 +488,13 @@ public:
    * Returns the content of the "annotation" subelement of this object as a
    * character string.
    *
-   * Whereas the SBase "notes" subelement is a container for content to be
+   * Whereas the SBML "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
    * SBML places a few restrictions on the organization of the content of
@@ -699,7 +504,7 @@ public:
    *
    * The annotations returned by this method will be in string form.
    *
-   * @return the annotation string of this SBML object.
+   * @return the annotation of this SBML object as a character string.
    *
    * @see getAnnotation()
    * @see isSetAnnotation()
@@ -715,59 +520,76 @@ public:
   /**
    * Returns a list of the XML Namespaces declared on this SBML document.
    * 
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in SBML Level&nbsp;3) packages used in addition to SBML Level&nbsp;3
+   * Core.
+   * 
    * @return the XML Namespaces associated with this SBML object
+   *
+   * @see getLevel()
+   * @see getVersion()
    */
   virtual XMLNamespaces* getNamespaces() const ;
 
 
   /**
-   * Returns the parent SBMLDocument object.
+   * Returns the SBMLDocument object containing @em this object instance.
    *
    * LibSBML uses the class SBMLDocument as a top-level container for
    * storing SBML content and data associated with it (such as warnings and
    * error messages).  An SBML model in libSBML is contained inside an
    * SBMLDocument object.  SBMLDocument corresponds roughly to the class
-   * <i>Sbml</i> defined in the SBML Level&nbsp;2 specification, but it
-   * does not have a direct correspondence in SBML Level&nbsp;1.  (But, it
-   * is created by libSBML no matter whether the model is Level&nbsp;1 or
-   * Level&nbsp;2.)
+   * <i>SBML</i> defined in the SBML Level&nbsp;3 and Level&nbsp;2
+   * specifications, but it does not have a direct correspondence in SBML
+   * Level&nbsp;1.  (But, it is created by libSBML no matter whether the
+   * model is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
    *
-   * This method allows the SBMLDocument for the current object to be
-   * retrieved.
+   * This method allows the caller to obtain the SBMLDocument for the
+   * current object.
    * 
    * @return the parent SBMLDocument object of this SBML object.
+   *
+   * @see getParentSBMLObject()
+   * @see getModel()
    */
   const SBMLDocument* getSBMLDocument () const;
 
 
   /**
-   * Returns the parent SBMLDocument object.
+   * Returns the SBMLDocument object containing @em this object instance.
    *
    * LibSBML uses the class SBMLDocument as a top-level container for
    * storing SBML content and data associated with it (such as warnings and
    * error messages).  An SBML model in libSBML is contained inside an
    * SBMLDocument object.  SBMLDocument corresponds roughly to the class
-   * <i>Sbml</i> defined in the SBML Level&nbsp;2 specification, but it
-   * does not have a direct correspondence in SBML Level&nbsp;1.  (But, it
-   * is created by libSBML no matter whether the model is Level&nbsp;1 or
-   * Level&nbsp;2.)
+   * <i>SBML</i> defined in the SBML Level&nbsp;3 and Level&nbsp;2
+   * specifications, but it does not have a direct correspondence in SBML
+   * Level&nbsp;1.  (But, it is created by libSBML no matter whether the
+   * model is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
    *
-   * This method allows the SBMLDocument for the current object to be
-   * retrieved.
+   * This method allows the caller to obtain the SBMLDocument for the
+   * current object.
    * 
    * @return the parent SBMLDocument object of this SBML object.
+   *
+   * @see getParentSBMLObject()
+   * @see getModel()
    */
   SBMLDocument* getSBMLDocument ();
 
 
   /**
-   * Returns the parent SBML object.
+   * Returns the parent SBML object containing this object.
    *
-   * This method is convenient when holding an object nested inside
-   * other objects in an SBML model.  It allows direct access to the
-   * <code>&lt;model&gt;</code> element containing it.
+   * This returns the immediately-containing object.  This method is
+   * convenient when holding an object nested inside other objects in an
+   * SBML model.  
    * 
    * @return the parent SBML object of this SBML object.
+   *
+   * @see getSBMLDocument()
+   * @see getModel()
    */
   SBase* getParentSBMLObject();
 
@@ -780,9 +602,9 @@ public:
    * location/function within a model.  For example, in SBML Level&nbsp;2 a
    * StoichiometryMath object has ancestors (in order) of type
    * SpeciesReference, ListOfSpeciesReferences, Reaction, ListOfReactions
-   * and Model; any of which can be accessed via this function.
+   * and Model, any of which can be accessed via this function.
    *
-   * @param type the #SBMLTypeCode_t of the ancestor to be returned.
+   * @param type the #SBMLTypeCode_t of the ancestor being sought.
    * 
    * @return the ancestor SBML object of this SBML object that corresponds
    * to the given #SBMLTypeCode_t, or @c NULL if none exists.
@@ -794,15 +616,21 @@ public:
    * Returns the integer portion of the value of the "sboTerm" attribute of
    * this object.
    *
-   * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
-   * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
-   * number; libSBML simplifies the representation by only storing the
-   * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
-   * SBase has data type @c int, and SBO identifiers are stored simply as
-   * integers.  SBO terms are a type of optional annotation, and each
-   * different class of SBML object derived from SBase imposes its own
-   * requirements about the values permitted for "sboTerm".  Please consult
-   * the SBML Level 2 Version 4 specification for more information about
+   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
+   * an optional attribute named "sboTerm" for supporting the use of the
+   * Systems Biology Ontology.  In SBML proper, the data type of the
+   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
+   * seven digit integer number; libSBML simplifies the representation by
+   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
+   * are stored simply as integers.  (For convenience, libSBML offers
+   * methods for returning both the integer form and a text-string form of
+   * the SBO identifier.)
+   *
+   * SBO terms are a type of optional annotation, and each different class
+   * of SBML object derived from SBase imposes its own requirements about
+   * the values permitted for "sboTerm".  Please consult the SBML
+   * Level&nbsp;2 Version&nbsp;4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
    * @return the value of the "sboTerm" attribute as an integer, or @c -1
@@ -815,21 +643,25 @@ public:
    * Returns the string representation of the "sboTerm" attribute of
    * this object.
    *
-   * In SBML Level 2 Versions 2, 3 and 4, the data type of the attribute is a
-   * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
-   * number; libSBML simplifies the representation by only storing the
-   * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
-   * SBase has data type @c int, and SBO identifiers are stored simply as
-   * integers.  This function recreates the string representation from the
-   * stored value.  SBO terms are a type of optional annotation, and each
-   * different class of SBML object derived from SBase imposes its own
-   * requirements about the values permitted for "sboTerm".  Please consult
-   * the SBML Level 2 Version 4 specification for more information about
+   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
+   * an optional attribute named "sboTerm" for supporting the use of the
+   * Systems Biology Ontology.  In SBML proper, the data type of the
+   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
+   * seven digit integer number; libSBML simplifies the representation by
+   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
+   * are stored simply as integers.  This method returns the entire SBO
+   * identifier as a text string in the form "SBO:NNNNNNN".
+   *
+   * SBO terms are a type of optional annotation, and each different class
+   * of SBML object derived from SBase imposes its own requirements about
+   * the values permitted for "sboTerm".  Please consult the SBML
+   * Level&nbsp;2 Version&nbsp;4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
-   * @return the value of the "sboTerm" attribute as a string of the form
-   * SBO:NNNNNNN, or  an empty string
-   * if the value is not set.
+   * @return the value of the "sboTerm" attribute as a string (its value
+   * will be of the form <code>SBO:NNNNNNN</code>), or an empty string if
+   * the value is not set.
    */
   std::string getSBOTermID () const;
 
@@ -841,6 +673,21 @@ public:
    * @return the line number of this SBML object.
    *
    * @see getColumn()
+   *
+   * @note The line number for each construct in an SBML model is set upon
+   * reading the model.  The accuracy of the line number depends on the
+   * correctness of the XML representation of the model, and on the
+   * particular XML parser library being used.  The former limitation
+   * relates to the following problem: if the model is actually invalid
+   * XML, then the parser may not be able to interpret the data correctly
+   * and consequently may not be able to establish the real line number.
+   * The latter limitation is simply that different parsers seem to have
+   * their own accuracy limitations, and out of all the parsers supported
+   * by libSBML, none have been 100% accurate in all situations. (At this
+   * time, libSBML supports the use of <a target="_blank"
+   * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
+   * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
+   * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
    */
   unsigned int getLine () const;
 
@@ -852,28 +699,53 @@ public:
    * @return the column number of this SBML object.
    * 
    * @see getLine()
+   * 
+   * @note The column number for each construct in an SBML model is set
+   * upon reading the model.  The accuracy of the column number depends on
+   * the correctness of the XML representation of the model, and on the
+   * particular XML parser library being used.  The former limitation
+   * relates to the following problem: if the model is actually invalid
+   * XML, then the parser may not be able to interpret the data correctly
+   * and consequently may not be able to establish the real column number.
+   * The latter limitation is simply that different parsers seem to have
+   * their own accuracy limitations, and out of all the parsers supported
+   * by libSBML, none have been 100% accurate in all situations. (At this
+   * time, libSBML supports the use of <a target="_blank"
+   * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
+   * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
+   * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
    */
   unsigned int getColumn () const;
 
 
   /**
-   * Returns the ModelHistory of this SBase object.
+   * Returns the ModelHistory object, if any, attached to this object.
+   *
+   * @return the ModelHistory object attached to this object, or @c NULL if
+   * none exist.
    * 
-   * @return ModelHistory of this SBase object.
+   * @note In SBML Level&nbsp;2, model history annotations were only
+   * permitted on the Model element.  In SBML Level&nbsp;3, they are
+   * permitted on all SBML components derived from SBase.
    */
   ModelHistory* getModelHistory() const;
 
 
   /**
-   * Returns the ModelHistory of this SBase object.
+   * Returns the ModelHistory object, if any, attached to this object.
    * 
-   * @return ModelHistory of this SBase object.
+   * @return the ModelHistory object attached to this object, or @c NULL if
+   * none exist.
+   * 
+   * @note In SBML Level&nbsp;2, model history annotations were only
+   * permitted on the Model element.  In SBML Level&nbsp;3, they are
+   * permitted on all SBML components derived from SBase.
    */
   ModelHistory* getModelHistory();
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's "metaid" attribute has been set.
    *
    * The optional attribute named "metaid", present on every major SBML
@@ -887,11 +759,9 @@ public:
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
    * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model
-   * component for purposes such as referencing that component from
-   * metadata placed within "annotation" subelements.
-   *  
-   * @htmlinclude libsbml-comment-set-methods.html
+   * The "metaid" value serves to identify a model component for purposes
+   * such as referencing that component from metadata placed within
+   * "annotation" subelements.
    *
    * @return @c true if the "metaid" attribute of this SBML object has been
    * set, @c false otherwise.
@@ -905,7 +775,7 @@ public:
   /** @cond doxygen-libsbml-internal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's "id" attribute has been set.
    *
    * Most (but not all) objects in SBML include two common attributes: "id"
@@ -927,8 +797,6 @@ public:
    * comparisons of these identifiers must be performed in a case-sensitive
    * manner.  This applies to all uses of <code>SId</code> and
    * <code>UnitSId</code>.
-   * 
-   * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this SBML object has been
    * set, @c false otherwise.
@@ -955,7 +823,7 @@ public:
   /** @cond doxygen-libsbml-internal */
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's "name" attribute has been set.
    * 
    * Most (but not all) objects in SBML include two common attributes: "id"
@@ -991,8 +859,6 @@ public:
    * restrictions on the uniqueness of "name" values in a model.  This
    * allows software packages leeway in assigning component identifiers.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
    * @return @c true if the "name" attribute of this SBML object has been
    * set, @c false otherwise.
    *
@@ -1016,24 +882,29 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's "notes" subelement exists and has content.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
+   *
    * @return @c true if a "notes" subelement exists, @c false otherwise.
    * 
    * @see getNotes()
@@ -1043,20 +914,22 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   bool isSetNotes () const;
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's "annotation" subelement exists and has content.
    *
    * Whereas the SBase "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
    * SBML places a few restrictions on the organization of the content of
@@ -1064,8 +937,6 @@ public:
    * the data as well as help reduce conflicts between annotations added by
    * different tools.  Please see the SBML specifications for more details.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
    * @return @c true if a "annotation" subelement exists, @c false
    * otherwise.
    * 
@@ -1081,11 +952,9 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's "sboTerm" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
    * @return @c true if the "sboTerm" attribute of this SBML object has been
    * set, @c false otherwise.
    */
@@ -1106,8 +975,6 @@ public:
    * portions of a model that are not defined by SBML, such as in the
    * application-specific content of the "annotation" subelement.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   *
    * @param metaid the identifier string to use as the value of the
    * "metaid" attribute
    *
@@ -1125,13 +992,15 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * Model's ModelHistory has been set.
+   * Predicate returning @c true if this
+   * object has a ModelHistory object attached to it.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @return @c true if the ModelHistory of this object has been set, @c
+   * false otherwise.
    * 
-   * @return @c true if the ModelHistory of this SBase object
-   * has been set, @c false otherwise.
+   * @note In SBML Level&nbsp;2, model history annotations were only
+   * permitted on the Model element.  In SBML Level&nbsp;3, they are
+   * permitted on all SBML components derived from SBase.
    */
   bool isSetModelHistory();
 
@@ -1145,8 +1014,6 @@ public:
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this object
    *
@@ -1199,8 +1066,6 @@ public:
    * restrictions on the uniqueness of "name" values in a model.  This
    * allows software packages leeway in assigning component identifiers.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
-   *
    * @param name the new name for the object; the string will be copied
    *
    * @note The fact that the "name" attribute is defined on the SBase parent
@@ -1228,17 +1093,19 @@ public:
   /** @endcond */
 
 
-
   /**
-   * Resets the value of the "annotation" subelement of this SBML object to a
-   * copy of @p annotation.
+   * Sets the value of the "annotation" subelement of this SBML object.
+   *
+   * The content of @p annotation is copied, and any previous content of
+   * this object's "annotation" subelement is deleted.
    * 
    * Whereas the SBase "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
    * SBML places a few restrictions on the organization of the content of
@@ -1254,8 +1121,6 @@ public:
    * applications whose annotations are discarded.  An alternative may be
    * to use SBase::appendAnnotation(const XMLNode* annotation) or
    * SBase::appendAnnotation(const std::string& annotation).
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param annotation an XML structure that is to be used as the new content
    * of the "annotation" subelement of this object
@@ -1276,15 +1141,18 @@ public:
 
 
   /**
-   * Sets the value of the "annotation" subelement of this SBML object to a
-   * copy of @p annotation given as a character string.
+   * Sets the value of the "annotation" subelement of this SBML object.
+   *
+   * The content of @p annotation is copied, and any previous content of
+   * this object's "annotation" subelement is deleted.
    * 
    * Whereas the SBase "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
    * SBML places a few restrictions on the organization of the content of
@@ -1300,8 +1168,6 @@ public:
    * applications whose annotations are discarded.  An alternative may be
    * to use SBase::appendAnnotation(const XMLNode* annotation) or
    * SBase::appendAnnotation(const std::string& annotation).
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param annotation an XML string that is to be used as the content
    * of the "annotation" subelement of this object
@@ -1323,16 +1189,17 @@ public:
 
 
   /**
-   * Appends the annotation content given by @p annotation to any existing
-   * content in the "annotation" subelement of this object.
+   * Appends the given @p annotation to the "annotation" subelement of this
+   * object.
    * 
    * Whereas the SBase "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
-   * content.
+   * "annotation".  The element's content type is <a
+   * target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type "any"</a>,
+   * allowing essentially arbitrary well-formed XML data content.
    *
    * SBML places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
@@ -1344,8 +1211,6 @@ public:
    * allows other annotations to be preserved when an application adds its
    * own data.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
    * @param annotation an XML structure that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
@@ -1366,16 +1231,17 @@ public:
 
 
   /**
-   * Appends the annotation content given by @p annotation to any existing
-   * content in the "annotation" subelement of this object.
+   * Appends the given @p annotation to the "annotation" subelement of this
+   * object.
    *
    * Whereas the SBase "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
-   * content.
+   * "annotation".  The element's content type is <a
+   * target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type "any"</a>,
+   * allowing essentially arbitrary well-formed XML data content.
    *
    * SBML places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
@@ -1387,8 +1253,6 @@ public:
    * allows other annotations to be preserved when an application adds its
    * own data.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
    * @param annotation an XML string that is to be copied and appended
    * to the content of the "annotation" subelement of this object
    *
@@ -1409,25 +1273,30 @@ public:
 
 
   /**
-   * Sets the value of the "notes" subelement of this SBML object to a copy
-   * of the XML structure given by @p notes.
+   * Sets the value of the "notes" subelement of this SBML object.
    *
-   * Any existing content of the "notes" subelement is discarded.
+   * The content of @p notes is copied, and any existing content of this
+   * object's "notes" subelement is deleted.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
    *
    * @param notes an XML structure that is to be used as the content of the
    * "notes" subelement of this object
@@ -1444,6 +1313,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   int setNotes(const XMLNode* notes);
 
@@ -1452,22 +1322,28 @@ public:
    * Sets the value of the "notes" subelement of this SBML object to a copy
    * of the string @p notes.
    *
-   * Any existing content of the "notes" subelement is discarded.
+   * The content of @p notes is copied, and any existing content of this
+   * object's "notes" subelement is deleted.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
    *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
@@ -1485,28 +1361,35 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   int setNotes(const std::string& notes);
 
 
   /**
-   * Appends notes content to the "notes" element attached to this
-   * object.
+   * Appends the given @p notes to the "notes" subelement of this object.
    *
-   * The content of the parameter @p notes is copied.
+   * The content of @p notes is copied.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
+   *
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
    * 
    * @param notes an XML node structure that is to appended to the content
    * of the "notes" subelement of this object
@@ -1524,28 +1407,35 @@ public:
    * @see setNotes(const std::string& notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   int appendNotes(const XMLNode* notes);
 
 
   /**
-   * Appends notes content to the "notes" element attached to this
-   * object.
+   * Appends the given @p notes to the "notes" subelement of this object.
    *
-   * The content of the parameter in @p notes is copied.
+   * The content of the parameter @p notes is copied.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
+   *
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
    *
    * @param notes an XML string that is to appended to the content of
    * the "notes" subelement of this object
@@ -1563,22 +1453,28 @@ public:
    * @see setNotes(const std::string& notes)
    * @see appendNotes(const XMLNode* notes)
    * @see unsetNotes()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   int appendNotes(const std::string& notes);
 
 
   /**
-   * Sets the ModelHistory of this SBase object.
+   * Sets the ModelHistory of this object.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   * 
-   * @param history ModelHistory of this SBase object.
+   * The content of @p history is copied, and this object's existing model
+   * history content is deleted.
+   *
+   * @param history ModelHistory of this object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   * 
+   * @note In SBML Level&nbsp;2, model history annotations were only
+   * permitted on the Model element.  In SBML Level&nbsp;3, they are
+   * permitted on all SBML components derived from SBase.
    */
   int setModelHistory(ModelHistory * history);
 
@@ -1606,18 +1502,20 @@ public:
   /**
    * Sets the value of the "sboTerm" attribute.
    *
-   * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
-   * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
+   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
+   * an optional attribute named "sboTerm" for supporting the use of the
+   * Systems Biology Ontology.  In SBML proper, the data type of the
+   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
    * seven digit integer number; libSBML simplifies the representation by
    * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
    * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
-   * are stored simply as integers.  SBO terms are a type of optional
-   * annotation, and each different class of SBML object derived from SBase
-   * imposes its own requirements about the values permitted for "sboTerm".
-   * Please consult the SBML Level 2 Version 4 specification for more
-   * information about the use of SBO and the "sboTerm" attribute.
+   * are stored simply as integers. 
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * SBO terms are a type of optional annotation, and each different class
+   * of SBML object derived from SBase imposes its own requirements about
+   * the values permitted for "sboTerm".  Please consult the SBML
+   * Level&nbsp;2 Version&nbsp;4 specification for more information about
+   * the use of SBO and the "sboTerm" attribute.
    *
    * @param value the NNNNNNN integer portion of the SBO identifier
    *
@@ -1627,24 +1525,31 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @see setSBOTerm(const std::string &sboid)
    */
   virtual int setSBOTerm (int value);
 
-  /*
+
+  /**
    * Sets the value of the "sboTerm" attribute by string.
    *
-   * In SBML Level 2 Versions 2, 3 and 4, the data type of the SBML "sboTerm"
-   * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a
+   * Beginning with SBML Level 2 Version 3, objects derived from SBase have
+   * an optional attribute named "sboTerm" for supporting the use of the
+   * Systems Biology Ontology.  In SBML proper, the data type of the
+   * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
    * seven digit integer number; libSBML simplifies the representation by
-   * only storing the NNNNNNN integer portion converted from the given string.  
-   * Thus, in libSBML, the "sboTerm" attribute on SBase has data type @c int, 
-   * and SBO identifiers are stored simply as integers.  SBO terms are a type
-   * of optional annotation, and each different class of SBML object derived 
-   * from SBase imposes its own requirements about the values permitted for 
-   * "sboTerm".  Please consult the SBML Level 2 Version 4 specification for 
-   * more information about the use of SBO and the "sboTerm" attribute.
+   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
+   * are stored simply as integers.  This method lets you set the value of
+   * "sboTerm" as a complete string of the form "SBO:NNNNNNN", whereas
+   * setSBOTerm(int value) allows you to set it using the integer form.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * SBO terms are a type of optional annotation, and each different class
+   * of SBML object derived from SBase imposes its own requirements about
+   * the values permitted for "sboTerm".  Please consult the SBML
+   * Level&nbsp;2 Version&nbsp;4 specification for more information about
+   * the use of SBO and the "sboTerm" attribute.
    *
    * @param value the SBO identifier string of the form SBO:NNNNNNN
    *
@@ -1654,12 +1559,22 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @see setSBOTerm(int value)
    */
   virtual int setSBOTerm (const std::string &sboid);
+
 
   /**
    * Sets the namespaces relevant of this SBML object.
    *
+   * The content of @p xmlns is copied, and this object's existing
+   * namespace content is deleted.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
+   * 
    * @param xmlns the namespaces to set
    *
    * @return integer value indicating success/failure of the
@@ -1684,12 +1599,10 @@ public:
    * "metaid" attribute used by SBML&mdash;something to be aware of if your
    * application-specific XML content inside the "annotation" subelement
    * happens to use <a href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.)
-   * The "metaid" value serves to identify a model
-   * component for purposes such as referencing that component from
-   * metadata placed within "annotation" subelements.
+   * The "metaid" value serves to identify a model component for purposes
+   * such as referencing that component from metadata placed within
+   * "annotation" subelements.
    *  
-   * @htmlinclude libsbml-comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
@@ -1722,8 +1635,6 @@ public:
    * comparisons of these identifiers must be performed in a case-sensitive
    * manner.  This applies to all uses of <code>SId</code> and
    * <code>UnitSId</code>.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1771,8 +1682,6 @@ public:
    * restrictions on the uniqueness of "name" values in a model.  This
    * allows software packages leeway in assigning component identifiers.
    * 
-   * @htmlinclude libsbml-comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
@@ -1787,32 +1696,38 @@ public:
   /**
    * Unsets the value of the "notes" subelement of this SBML object.
    *
-   * The optional element named "notes", present on every major SBML
+   * The optional SBML element named "notes", present on every major SBML
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
-   * "notes" element would be to contain formatted user comments
-   * about the model element in which the "notes" element is
-   * enclosed.  Every object derived directly or indirectly from type
-   * SBase can have a separate value for "notes", allowing users
-   * considerable freedom when adding comments to their models.
-   * The format of "notes" elements must be XHTML 1.0.  The SBML
-   * Level&nbsp;2 specification has considerable detail about how
-   * "notes" element content must be handled; please refer to the
-   * specifications.
+   * "notes" element would be to contain formatted user comments about the
+   * model element in which the "notes" element is enclosed.  Every object
+   * derived directly or indirectly from type SBase can have a separate
+   * value for "notes", allowing users considerable freedom when adding
+   * comments to their models.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * The format of "notes" elements must be <a target="_blank"
+   * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
+   * verify the formatting of "notes" content, libSBML provides the static
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * readers are urged to consult the appropriate <a target="_blank"
+   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * document</a> for the Level and Version of their model for more
+   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * specifications have considerable detail about how "notes" element
+   * content must be structured.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * 
+   *
    * @see getNotesString()
    * @see isSetNotes()
    * @see setNotes(const XMLNode* notes)
    * @see setNotes(const std::string& notes)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
    */
   int unsetNotes ();
 
@@ -1824,16 +1739,15 @@ public:
    * shown directly to humans, the "annotation" element is a container for
    * optional software-generated content @em not meant to be shown to
    * humans.  Every object derived from SBase can have its own value for
-   * "annotation".  The element's content type is XML type
-   * <code>any</code>, allowing essentially arbitrary well-formed XML data
+   * "annotation".  The element's content type is <a target="_blank"
+   * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type
+   * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
    * SBML places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
    * different tools.  Please see the SBML specifications for more details.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1854,8 +1768,6 @@ public:
   /**
    * Unsets the value of the "sboTerm" attribute of this SBML object.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
@@ -1866,18 +1778,20 @@ public:
 
 
   /**
-   * Adds a copy of the given CVTerm to this SBML object.
+   * Adds a copy of the given CVTerm object to this SBML object.
    *
    * @param term the CVTerm to assign
-   * @param newBag boolean indicating whether to create a new bag
-   * with the same identifier as a previous bag
+   * 
+   * @param newBag if @c true, creates a new RDF bag with the same identifier
+   * as a previous bag, and if @c false, adds the term to an existing
+   * RDF bag with the same type of qualifier as the term being added.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink, if
+   * this object lacks a "metaid" attribute
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
    * @note Since the CV Term uses the "metaid" attribute of the object as a
@@ -1934,8 +1848,7 @@ public:
 
 
   /**
-   * Clears the list of CVTerms of this SBML
-   * object.
+   * Clears the list of CVTerm objects attached to this SBML object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1947,39 +1860,104 @@ public:
 
 
   /**
-   * Unsets the ModelHistory of this SBase object.
-   *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * Unsets the ModelHistory object attached to this object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note In SBML Level&nbsp;2, model history annotations were only
+   * permitted on the Model element.  In SBML Level&nbsp;3, they are
+   * permitted on all SBML components derived from SBase.
    */
   int unsetModelHistory();
 
 
   /**
-   * Returns the BiologicalQualifier associated with this resource,
-   * or BQB_UNKNOWN if the resource does not exist.
+   * Returns the MIRIAM <em>biological qualifier</em> associated with the
+   * given resource.
+   *
+   * In <a target="_blank" href="http://biomodels.net/miriam">MIRIAM</a>,
+   * qualifiers are an optional means of indicating the relationship
+   * between a model component and its annotations.  There are two broad
+   * kinds of annotations: <em>model</em> and <em>biological</em>.  The
+   * latter kind is used to qualify the relationship between a model
+   * component and a biological entity which it represents.  Examples of
+   * relationships include "is" and "has part", but many others are
+   * possible.  MIRIAM defines <a target="_blank"
+   * href="http://www.ebi.ac.uk/miriam/main/qualifiers/">numerous
+   * relationship qualifiers</a> to enable different software tools to
+   * qualify biological annotations in the same standardized way.  In
+   * libSBML, the MIRIAM controlled-vocabulary annotations on an SBML model
+   * element are represented using lists of CVTerm objects, and the
+   * enumeration #BiolQualifierType_t corresponds to the list of MIRIAM
+   * biological qualifiers.
+   *
+   * This method method searches the controlled-vocabulary annotations
+   * (i.e., the list of CVTerm objects) on the present object, then out of
+   * those that have biological qualifiers, looks for an annotation to the
+   * given @p resource.  If such an annotation is found, it returns the
+   * type of biological qualifier associated with that resource as a 
+   * value from  #BiolQualifierType_t.
    *
    * @param resource string representing the resource; e.g.,
-   * "http://www.geneontology.org/#GO:0005892"
+   * @c "http://www.geneontology.org/#GO:0005892"
    *
-   * @return the #BiolQualifierType_t value associated with the resource
+   * @return the #BiolQualifierType_t value associated with the resource,
+   * or @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink if the
+   * resource does not exist.
+   *
+   * @note The set of MIRIAM biological qualifiers grows over time,
+   * although relatively slowly.  The values in the enumeration
+   * #BiolQualifierType_t are up to date with MIRIAM at the time of a given
+   * libSBML release.  The set of values may be expanded in later libSBML
+   * releases, to match the values defined by MIRIAM at that later time.
    */
   BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
 
 
   /**
-   * Returns the ModelQualifier associated with this resource,
-   * or BQM_UNKNOWN if the resource does not exist.
+   * Returns the MIRIAM <em>model qualifier</em> associated with the
+   * given resource.
    *
-   * @param resource string representing the resource; e.g.,
+   * In <a target="_blank" href="http://biomodels.net/miriam">MIRIAM</a>,
+   * qualifiers are an optional means of indicating the relationship
+   * between a model component and its annotations.  There are two broad
+   * kinds of annotations: <em>model</em> and <em>biological</em>.  The
+   * former kind is used to qualify the relationship between a model
+   * component and another modeling object.  An example qualifier is
+   * "isDerivedFrom", to indicate that a given component of the model is
+   * derived from the modeling object represented by the referenced
+   * resource.  MIRIAM defines <a target="_blank"
+   * href="http://www.ebi.ac.uk/miriam/main/qualifiers/">numerous
+   * relationship qualifiers</a> to enable different software tools to
+   * qualify model annotations in the same standardized way.  In libSBML,
+   * the MIRIAM controlled-vocabulary annotations on an SBML model element
+   * are represented using lists of CVTerm objects, and the enumeration
+   * #ModelQualifierType_t corresponds to the list of MIRIAM model
+   * qualifiers.
+   *
+   * This method method searches the controlled-vocabulary annotations
+   * (i.e., the list of CVTerm objects) on the present object, then out of
+   * those that have model qualifiers, looks for an annotation to the given
+   * @p resource.  If such an annotation is found, it returns the type of
+   * model qualifier associated with that resource as a value from
+   * #ModelQualifierType_t.
+   *
+   * @param resource string representing the resource; e.g., @c
    * "http://www.geneontology.org/#GO:0005892"
    *
-   * @return the #ModelQualifierType_t value associated with the resource
+   * @return the #ModelQualifierType_t value associated with the resource,
+   * or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink if the
+   * resource does not exist.
+   *
+   * @note The set of MIRIAM model qualifiers grows over time,
+   * although relatively slowly.  The values in the enumeration
+   * #ModelQualifierType_t are up to date with MIRIAM at the time of a given
+   * libSBML release.  The set of values may be expanded in later libSBML
+   * releases, to match the values defined by MIRIAM at that later time.
    */
   ModelQualifierType_t getResourceModelQualifier(std::string resource);
 
@@ -1988,26 +1966,33 @@ public:
    * Returns the Model object in which the current object is located.
    * 
    * @return the parent Model of this SBML object.
+   *
+   * @see getParentSBMLObject()
+   * @see getSBMLDocument()
    */
   const Model* getModel () const;
 
 
   /**
-   * Returns the SBML Level of the overall SBML document.
+   * Returns the SBML Level of the SBMLDocument object containing this
+   * object.
    * 
    * @return the SBML level of this SBML object.
    * 
    * @see getVersion()
+   * @see getNamespaces()
    */
   unsigned int getLevel () const;
 
 
   /**
-   * Returns the Version within the SBML Level of the overall SBML document.
+   * Returns the Version within the SBML Level of the SBMLDocument object
+   * containing this object.
    * 
    * @return the SBML version of this SBML object.
    *
    * @see getLevel()
+   * @see getNamespaces()
    */
   unsigned int getVersion () const;
 
@@ -2015,12 +2000,12 @@ public:
   /**
    * Returns the libSBML type code for this object.
    * 
-   * This method MAY return the typecode of this SBML object or it MAY
-   * return @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.  That
-   * is, subclasses of SBase are not required to implement this method to
-   * return a typecode.  This method is meant primarily for the LibSBML C
-   * interface where class and subclass information is not readily
-   * available.
+   * This method may return the type code of this SBML object, or it may
+   * return @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.  This
+   * is because subclasses of SBase are not required to implement this
+   * method to return a type code.  This method is meant primarily for the
+   * LibSBML C interface, in which class and subclass information is not
+   * readily available.
    *
    * @return the #SBMLTypeCode_t value of this SBML object or @link
    * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -2031,18 +2016,19 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * object's level/version and namespace values correspond to a valid
    * SBML specification.
    *
-   * The valid combinations of SBML Level, Version and Namespace as of this release
-   * of libSBML are the following: 
+   * The valid combinations of SBML Level, Version and Namespace as of this
+   * release of libSBML are the following:
    * <ul>
-   * <li> Level&nbsp;1 Version&nbsp;2 "http://www.sbml.org/sbml/level1"
-   * <li> Level&nbsp;2 Version&nbsp;1 "http://www.sbml.org/sbml/level2"
-   * <li> Level&nbsp;2 Version&nbsp;2 "http://www.sbml.org/sbml/level2/version2"
-   * <li> Level&nbsp;2 Version&nbsp;3 "http://www.sbml.org/sbml/level2/version3"
-   * <li> Level&nbsp;2 Version&nbsp;4 "http://www.sbml.org/sbml/level2/version4"
+   * <li> Level&nbsp;1 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level1"</code>
+   * <li> Level&nbsp;2 Version&nbsp;1: <code>"http://www.sbml.org/sbml/level2"</code>
+   * <li> Level&nbsp;2 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level2/version2"</code>
+   * <li> Level&nbsp;2 Version&nbsp;3: <code>"http://www.sbml.org/sbml/level2/version3"</code>
+   * <li> Level&nbsp;2 Version&nbsp;4: <code>"http://www.sbml.org/sbml/level2/version4"</code>
+   * <li> Level&nbsp;3 Version&nbsp;1 Core: <code>"http://www.sbml.org/sbml/level3/version1/core"</code>
    * </ul>
    *
    * @return @c true if the level, version and namespace values of this 
@@ -2055,18 +2041,21 @@ public:
    * Returns the XML element name of this object.
    *
    * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning "model",
-   * CompartmentType defines it as returning "compartmentType", etc.
+   * SBML component.  For example, Model defines it as returning @c
+   * "model", CompartmentType defines it as returning @c "compartmentType",
+   * and so on.
    */
   virtual const std::string& getElementName () const = 0;
 
 
   /**
-   * Returns a string that consists of the partial SBML describing this
-   * object.  This is primarily provided for testing and debugging
-   * purposes.  It may be removed in a future version of libSBML.
+   * Returns a string consisting of a partial SBML corresponding to just
+   * this object.
    * 
    * @return the partial SBML that describes this SBML object.
+   *
+   * @warning This is primarily provided for testing and debugging
+   * purposes.  It may be removed in a future version of libSBML.
    */
   char* toSBML ();
 

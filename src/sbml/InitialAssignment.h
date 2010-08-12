@@ -236,13 +236,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * InitialAssignment
    * 
-   * @note Once a InitialAssignment has been added to an SBMLDocument, the @p level,
-   * @p version for the document @em override those used
-   * to create the InitialAssignment.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a InitialAssignment object to an
+   * SBMLDocument (e.g., using Model::addInitialAssignment()), the SBML
+   * Level, SBML Version version and XML namespace of the document @em
+   * override the values used when creating the InitialAssignment object
+   * via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a InitialAssignment is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
    */
   InitialAssignment (unsigned int level, unsigned int version);
 
@@ -260,13 +264,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Once a InitialAssignment has been added to an SBMLDocument, the @p level,
-   * @p version and @p xmlns namespaces for the document @em override those used
-   * to create the InitialAssignment.  Despite this, the ability to supply the values
-   * at creation time is an important aid to creating valid SBML.  Knowledge of
-   * the intented SBML Level and Version determine whether it is valid to
-   * assign a particular value to an attribute, or whether it is valid to add
-   * an object to an existing SBMLDocument.
+   * @note Upon the addition of a InitialAssignment object to an
+   * SBMLDocument (e.g., using Model::addInitialAssignment()), the SBML XML
+   * namespace of the document @em overrides the value used when creating
+   * the InitialAssignment object via this constructor.  This is necessary
+   * to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a InitialAssignment is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   InitialAssignment (SBMLNamespaces* sbmlns);
 
@@ -328,7 +335,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * InitialAssignment's "symbol" attribute has been set.
    * 
    * @return @c true if the "symbol" attribute of this InitialAssignment
@@ -338,7 +345,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
+   * Predicate returning @c true if this
    * InitialAssignment's "math" subelement contains a value.
    * 
    * @return @c true if the "math" for this InitialAssignment has been set,
@@ -454,7 +461,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
+   * Predicate returning @c true if 
    * the math expression of this InitialAssignment contains
    * parameters/numbers with undeclared units.
    * 
@@ -472,7 +479,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether 
+   * Predicate returning @c true if 
    * the math expression of this InitialAssignment contains
    * parameters/numbers with undeclared units.
    * 
@@ -531,7 +538,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required attributes for this InitialAssignment object
    * have been set.
    *
@@ -545,7 +552,7 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether
+   * Predicate returning @c true if
    * all the required elements for this InitialAssignment object
    * have been set.
    *
