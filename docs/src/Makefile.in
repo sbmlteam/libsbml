@@ -89,8 +89,12 @@ distfiles =                                                 \
         DoxygenLayout.xml                                   \
         ExcludeDoclet.java                                  \
         Makefile.in                                         \
+	common-text/base-units.html                         \
+	common-text/base-units2.html                        \
         common-text/unassigned-units-are-not-a-default.html \
 	common-text/id-syntax.html                          \
+	common-text/unitid-syntax.html                      \
+	common-text/xmlid-syntax.html                       \
         doxygen-base.css                                    \
         doxygen-config-c.txt.in                             \
         doxygen-config-common.txt                           \
@@ -139,7 +143,6 @@ distfiles =                                                 \
         libsbml-accessing.txt                               \
         libsbml-astnode-types.html                          \
         libsbml-authors.html                                \
-        libsbml-base-units.html                             \
         libsbml-blurb.html                                  \
         libsbml-blurb.txt                                   \
         libsbml-coding.txt                                  \
@@ -179,7 +182,6 @@ distfiles =                                                 \
         libsbml-python-math.txt                             \
         libsbml-python-reading-files.txt                    \
         libsbml-reading-files.txt                           \
-        libsbml-rule-general-summary.html                   \
         libsbml-string-functions-table.html                 \
         libsbml-species-boundarycondition.html              \
         libsbml-species-hasonlysubstance.html               \

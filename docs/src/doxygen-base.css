@@ -58,12 +58,15 @@ H1 {
 }
 
 H2 {
+  color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 16px;
   padding-top: 1em;
+  padding-bottom: 0.2em;
 }
 
 H3 {
+  color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-style: italic;
   font-size: 14px;
@@ -71,6 +74,7 @@ H3 {
 }
 
 H4 {
+  color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-style: italic;
   font-size: 12px;
@@ -87,7 +91,7 @@ DIV.qindex {
 }
 
 A.anchor {
-  color: #black;
+  color: #443;
   text-decoration: none;
 }
 
