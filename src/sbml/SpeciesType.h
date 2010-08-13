@@ -1,4 +1,4 @@
-!/**
+/**
  * @file    SpeciesType.h
  * @brief   Definitions of SpeciesType and ListOfSpeciesType.
  * @author  Ben Bornstein

@@ -1,4 +1,4 @@
-!/**
+/**
  * @file    SBase.h
  * @brief   Definition of SBase, the base object of all SBML objects
  * @author  Ben Bornstein

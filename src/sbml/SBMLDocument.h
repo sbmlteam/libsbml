@@ -1,4 +1,4 @@
-!/**
+/**
  * @file    SBMLDocument.h
  * @brief   Top-level container for an SBML Model and associated data.
  * @author  Ben Bornstein
