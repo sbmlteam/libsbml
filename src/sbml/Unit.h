@@ -189,7 +189,7 @@ public:
    * Unit
    * 
    * @note Upon the addition of a Unit object to an SBMLDocument, the SBML
-   * Level, SBML Version version and XML namespace of the document @em
+   * Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the Unit object via this
    * constructor.  This is necessary to ensure that an SBML document is a
    * consistent structure.  Nevertheless, the ability to supply the values

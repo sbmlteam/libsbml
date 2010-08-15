@@ -137,7 +137,7 @@ public:
    * 
    * @note Upon the addition of a CompartmentType object to an SBMLDocument
    * (e.g., using Model::addCompartmentType()), the SBML Level, SBML
-   * Version version and XML namespace of the document @em override the
+   * Version and XML namespace of the document @em override the
    * values used when creating the CompartmentType object via this
    * constructor.  This is necessary to ensure that an SBML document is a
    * consistent structure.  Nevertheless, the ability to supply the values

@@ -345,7 +345,7 @@ public:
    * 
    * @note Upon the addition of a SimpleSpeciesReference object to an
    * SBMLDocument (e.g., using Model::addSimpleSpeciesReference()), the SBML
-   * Level, SBML Version version and XML namespace of the document @em
+   * Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the SimpleSpeciesReference object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the
@@ -624,7 +624,7 @@ public:
    * 
    * @note Upon the addition of a SpeciesReference object to an
    * SBMLDocument (e.g., using Model::addSpeciesReference()), the SBML
-   * Level, SBML Version version and XML namespace of the document @em
+   * Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the SpeciesReference object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the
@@ -1349,7 +1349,7 @@ public:
    * 
    * @note Upon the addition of a ModifierSpeciesReference object to an
    * SBMLDocument (e.g., using Model::addModifierSpeciesReference()), the
-   * SBML Level, SBML Version version and XML namespace of the document @em
+   * SBML Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the ModifierSpeciesReference
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to

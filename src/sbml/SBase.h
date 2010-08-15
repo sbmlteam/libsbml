@@ -1551,7 +1551,7 @@ public:
    * Level&nbsp;2 Version&nbsp;4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
-   * @param value the SBO identifier string of the form SBO:NNNNNNN
+   * @param sboid the SBO identifier string of the form SBO:NNNNNNN
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values

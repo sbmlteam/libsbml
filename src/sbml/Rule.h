@@ -178,7 +178,7 @@
  *  </tr>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -372,7 +372,7 @@
  *  </tr>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -607,7 +607,7 @@
  *  </tr>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -820,7 +820,7 @@
  *  </tr>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
  * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_UNKNOWN RULE_TYPE_UNKNOWN@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -1579,7 +1579,7 @@ public:
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
    * (e.g., using Model::addAlgebraicRule()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
+   * and XML namespace of the document @em override the values used
    * when creating the AlgebraicRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
    * Nevertheless, the ability to supply the values at the time of creation
@@ -1721,7 +1721,7 @@ public:
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
    * (e.g., using Model::addAssignmentRule()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
+   * and XML namespace of the document @em override the values used
    * when creating the AssignmentRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
    * Nevertheless, the ability to supply the values at the time of creation
@@ -1853,7 +1853,7 @@ public:
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
    * (e.g., using Model::addRateRule()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
+   * and XML namespace of the document @em override the values used
    * when creating the RateRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
    * Nevertheless, the ability to supply the values at the time of creation

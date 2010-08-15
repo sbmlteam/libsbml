@@ -147,7 +147,7 @@ public:
    * Delay
    * 
    * @note Upon the addition of a Delay object to an SBMLDocument (e.g.,
-   * using Model::addDelay()), the SBML Level, SBML Version version and XML
+   * using Model::addDelay()), the SBML Level, SBML Version and XML
    * namespace of the document @em override the values used when creating
    * the Delay object via this constructor.  This is necessary to ensure
    * that an SBML document is a consistent structure.  Nevertheless, the

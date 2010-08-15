@@ -145,7 +145,7 @@ public:
    * 
    * @note Upon the addition of a KineticLaw object to an SBMLDocument
    * (e.g., using Model::addKineticLaw()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
+   * and XML namespace of the document @em override the values used
    * when creating the KineticLaw object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
    * Nevertheless, the ability to supply the values at the time of creation

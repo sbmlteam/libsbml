@@ -163,7 +163,7 @@ public:
    * Event
    * 
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
-   * using Model::addEvent()), the SBML Level, SBML Version version and XML
+   * using Model::addEvent()), the SBML Level, SBML Version and XML
    * namespace of the document @em override the values used when creating
    * the Event object via this constructor.  This is necessary to ensure
    * that an SBML document is a consistent structure.  Nevertheless, the

@@ -119,7 +119,7 @@ public:
    * test that the unit identifiers they generate also conform to the SBML
    * identifier syntax, libSBML provides this method.
    *
-   * @param sid string to be checked for conformance to SBML unit
+   * @param units string to be checked for conformance to SBML unit
    * identifier syntax.
    *
    * @return @c true if the string conforms to type SBML data type

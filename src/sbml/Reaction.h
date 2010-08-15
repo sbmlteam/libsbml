@@ -201,7 +201,7 @@ public:
    * Reaction
    * 
    * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
-   * using Model::addReaction()), the SBML Level, SBML Version version and
+   * using Model::addReaction()), the SBML Level, SBML Version and
    * XML namespace of the document @em override the values used when
    * creating the Reaction object via this constructor.  This is necessary
    * to ensure that an SBML document is a consistent structure.

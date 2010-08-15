@@ -342,7 +342,7 @@ public:
    * 
    * @note Upon the addition of a Compartment object to an SBMLDocument
    * (e.g., using Model::addCompartment()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
+   * and XML namespace of the document @em override the values used
    * when creating the Compartment object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
    * Nevertheless, the ability to supply the values at the time of creation
@@ -422,7 +422,7 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Compartment.
+   * Creates and returns a deep copy of this Compartment object.
    * 
    * @return a (deep) copy of this Compartment.
    */
@@ -447,7 +447,7 @@ public:
 
 
   /**
-   * Returns the value of the "id" attribute of this Compartment.
+   * Returns the value of the "id" attribute of this Compartment object.
    * 
    * @return the id of this Compartment.
    */
@@ -455,7 +455,7 @@ public:
 
 
   /**
-   * Returns the value of the "name" attribute of this Compartment.
+   * Returns the value of the "name" attribute of this Compartment object.
    * 
    * @return the name of this Compartment.
    */
@@ -463,7 +463,7 @@ public:
 
 
   /**
-   * (SBML Level&nbps;2 only) Get the type of this Compartment.
+   * (SBML Level&nbsp;2 only) Get the type of this Compartment object.
    * 
    * @return the value of the "compartmentType" attribute of this
    * Compartment as a string.
