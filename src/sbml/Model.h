@@ -221,7 +221,7 @@ delete newsp;
  * the documentation for the Species class.
  * 
  * 
- * @subsection model-l3-timeunits The "timeunits" attribute
+ * @subsection model-l3-timeunits The "timeUnits" attribute
  *
  * The "timeUnits" attribute on SBML Level&nbsp;3's Model object is used to
  * specify the unit in which time is measured in the model.  This attribute
@@ -269,7 +269,7 @@ delete newsp;
  * compartments with different numbers of dimensions.
  *
  * 
- * @subsection model-l3-timeunits The "extentUnits" attribute
+ * @subsection model-l3-extentunits The "extentUnits" attribute
  *
  * Reactions are processes that occur over time.  These processes involve
  * events of some sort, where a single ``reaction event'' is one in which
@@ -293,7 +293,7 @@ delete newsp;
  * one global value for "extentUnits" and one global value for "timeUnits".
  *
  * 
- * @subsection model-l3-timeunits The "conversionFactor" attribute
+ * @subsection model-l3-convfactor The "conversionFactor" attribute
  *
  * The attribute "conversionFactor" in SBML Level&nbsp;3's Model object
  * defines a global value inherited by all Species object instances that do
