@@ -30,7 +30,7 @@
  * within the model, the list must not be empty; that is, it must have
  * length one or more.  The following are the components and lists
  * permitted in different Levels and Versions of SBML as of this version
- * of libSBML (3.3):
+ * of libSBML (4.1):
  * <ul>
  * <li> In SBML Level 1, the components are: UnitDefinition, Compartment,
  * Species, Parameter, Rule, and Reaction.  Instances of the classes are
@@ -53,6 +53,14 @@
  * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
  * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
  * ListOfConstraints, ListOfReactions, and ListOfEvents.
+ *
+ * <li> In SBML Level 3 Version 1, the components are: FunctionDefinition,
+ * UnitDefinition, Compartment, Species, Parameter, InitialAssignment,
+ * Rule, Constraint, Reaction and Event.  Instances of the classes are
+ * placed inside instances of classes ListOfFunctionDefinitions,
+ * ListOfUnitDefinitions, ListOfCompartments, ListOfSpecies,
+ * ListOfParameters, ListOfInitialAssignments, ListOfRules,
+ * ListOfConstraints, ListOfReactions, and ListOfEvents.  
  * </ul>
  *
  * Although all the lists are optional, there are dependencies between SBML
@@ -61,25 +69,41 @@
  * and defining a reaction requires defining a species.  The dependencies
  * are explained in more detail in the SBML specifications.
  *
+ * In addition to the above lists and attributes, the Model class in both
+ * SBML Level&nbsp;2 and Level&nbsp;3 has the usual two attributes of "id"
+ * and "name", and both are optional.  As is the case for other SBML
+ * components with "id" and "name" attributes, they must be used according
+ * to the guidelines described in the SBML specifications.  (Within the
+ * frameworks of SBML Level&nbsp;2 and Level&nbsp;3 Version&nbsp;1 Core, a
+ * Model object identifier has no assigned meaning, but extension packages
+ * planned for SBML Level&nbsp;3 are likely to make use of this
+ * identifier.)
+ *
+ * Finally, SBML Level&nbsp;3 has introduced a number of additional Model
+ * attributes.  They are discussed in a separate section below.
+ *
+ *
  * @section approaches Approaches to creating objects using the libSBML API
  *
  * LibSBML provides two main mechanisms for creating objects: class
  * constructors (e.g., @if clike @link Species::Species() Species()
- * @endlink @endif@if java <a href="org/sbml/libsbml/Species.html">Species()</a> @endif),
- * and <code>create<i>Object</i>()</code> methods (such as
- * Model::createSpecies()) provided by certain object classes such as
- * Model.  These multiple mechanisms are provided by libSBML for
- * flexibility and to support different use-cases, but they also have
- * different implications for the overall model structure.
+ * @endlink @endif@if java <a
+ * href="org/sbml/libsbml/Species.html">Species()</a> @endif), and
+ * <code>create<span class="placeholder"><em>Object</em></span>()</code>
+ * methods (such as Model::createSpecies()) provided by certain <span
+ * class="placeholder"><em>Object</em></span> classes such as Model.  These
+ * multiple mechanisms are provided by libSBML for flexibility and to
+ * support different use-cases, but they also have different implications
+ * for the overall model structure.
  * 
- * In general, the recommended approach is to use the
- * <code>create<i>Object</i>()</code> methods.  These methods both create
- * an object @em and link it to the parent in one step.  Here is an
- * example:
+ * In general, the recommended approach is to use the <code>create<span
+ * class="placeholder"><em>Object</em></span>()</code> methods.  These
+ * methods both create an object @em and link it to the parent in one step.
+ * Here is an example:
  * @verbatim
-// Create an SBMLDocument object in Level 2 Version 4 format:
+// Create an SBMLDocument object in Level 3 Version 1 format:
 
-SBMLDocument* sbmlDoc = new SBMLDocument(2, 4);
+SBMLDocument* sbmlDoc = new SBMLDocument(3, 1);
 
 // Create a Model object inside the SBMLDocument object and set
 // its identifier.  The call returns a pointer to the Model object
@@ -98,14 +122,16 @@ Species *sp = model->createSpecies();
 sp->setId("MySpecies");
 @endverbatim
  * 
- * The <code>create<i>Object</i>()</code> methods return a pointer to the
- * object created, but they also add the object to the relevant list of
- * object instances contained in the parent.  (These lists become the
- * <code>&lt;listOf<i>Object</i>s&gt;</code> elements in the finished XML
- * rendition of SBML.)  In the example above, Model::createSpecies() adds
- * the created species directly to the <code>&lt;listOfSpecies&gt;</code>
- * list in the model.  Subsequently, methods called on the species change
- * the species in the model (which is what is expected in most situations).
+ * The <code>create<span
+ * class="placeholder"><em>Object</em></span>()</code> methods return a
+ * pointer to the object created, but they also add the object to the
+ * relevant list of object instances contained in the parent.  (These lists
+ * become the <code>&lt;listOf<i>Object</i>s&gt;</code> elements in the
+ * finished XML rendition of SBML.)  In the example above,
+ * Model::createSpecies() adds the created species directly to the
+ * <code>&lt;listOfSpecies&gt;</code> list in the model.  Subsequently,
+ * methods called on the species change the species in the model (which is
+ * what is expected in most situations).
  * 
  * By contrast, the other main way of creating an object and adding it to a
  * parent makes a @em copy of the object, and requires more care on the
@@ -138,8 +164,8 @@ delete newsp;
  * @section checking Consistency and adherence to SBML specifications
  *
  * To make it easier for applications to do whatever they need,
- * libSBML&nbsp;3.x is relatively lax when it comes to enforcing
- * correctness and completeness of models during model construction and
+ * libSBML&nbsp;4.x is relatively lax when it comes to enforcing
+ * correctness and completeness of models @em during model construction and
  * editing.  Essentially, libSBML @em will @em not in most cases check
  * automatically that a model's components have valid attribute values, or
  * that the overall model is consistent and free of errors&mdash;even
@@ -164,6 +190,126 @@ delete newsp;
  * make sure to call SBMLDocument::checkInternalConsistency() and/or
  * SBMLDocument::checkConsistency() before writing out the final version of
  * an SBML model.
+ *
+ * 
+ * @section model-l3-attrib Model attributes introduced in SBML Level&nbsp;3
+ *
+ * As mentioned above, the Model class has a number of optional attributes
+ * in SBML Level&nbsp;3 Version&nbsp;1 Core.  These are "substanceUnits",
+ * "timeUnits", "volumeUnits", "areaUnits", "lengthUnits", "extentUnits",
+ * and "conversionFactor.  The following provide more information about
+ * them.
+ *
+ * @subsection model-l3-substanceunits The "substanceUnits" attribute
+ *
+ * The "substanceUnits" attribute is used to specify the unit of
+ * measurement associated with substance quantities of Species objects that
+ * do not specify units explicitly.  If a given Species object definition
+ * does not specify its unit of substance quantity via the "substanceUnits"
+ * attribute on the Species object instance, then that species inherits the
+ * value of the Model "substanceUnits" attribute.  If the Model does not
+ * define a value for this attribute, then there is no unit to inherit, and
+ * all species that do not specify individual "substanceUnits" attribute
+ * values then have <em>no</em> declared units for their quantities.  The
+ * SBML Level&nbsp;3 Version&nbsp;1 Core specification provides more
+ * details.
+ * 
+ * Note that when the identifier of a species appears in a model's
+ * mathematical expressions, the unit of measurement associated with that
+ * identifier is <em>not solely determined</em> by setting "substanceUnits"
+ * on Model or Species.  Please see the discussion about units given in
+ * the documentation for the Species class.
+ * 
+ * 
+ * @subsection model-l3-timeunits The "timeunits" attribute
+ *
+ * The "timeUnits" attribute on SBML Level&nbsp;3's Model object is used to
+ * specify the unit in which time is measured in the model.  This attribute
+ * on Model is the <em>only</em> way to specify a unit for time in a model.
+ * It is a global attribute; time is measured in the model everywhere in
+ * the same way.  This is particularly relevant to Reaction and RateRule
+ * objects in a model: all Reaction and RateRule objects in SBML define
+ * per-time values, and the unit of time is given by the "timeUnits"
+ * attribute on the Model object instance.  If the Model "timeUnits"
+ * attribute has no value, it means that the unit of time is not defined
+ * for the model's reactions and rate rules.  Leaving it unspecified in an
+ * SBML model does not result in an invalid model in SBML Level&nbsp;3;
+ * however, as a matter of best practice, we strongly recommend that all
+ * models specify units of measurement for time.
+ *
+ * 
+ * @subsection model-l3-voletc The "volumeUnits", "areaUnits", and "lengthUnits" attributes
+ *
+ * The attributes "volumeUnits", "areaUnits" and "lengthUnits" together are
+ * used to set the units of measurements for the sizes of Compartment
+ * objects in an SBML Level&nbsp;3 model when those objects do not
+ * otherwise specify units.  The three attributes correspond to the most
+ * common cases of compartment dimensions: "volumeUnits" for compartments
+ * having a "spatialDimensions" attribute value of @c "3", "areaUnits" for
+ * compartments having a "spatialDimensions" attribute value of @c "2", and
+ * "lengthUnits" for compartments having a "spatialDimensions" attribute
+ * value of @c "1".  The attributes are not applicable to compartments
+ * whose "spatialDimensions" attribute values are @em not one of @c "1", @c
+ * "2" or @c "3".
+ * 
+ * If a given Compartment object instance does not provide a value for its
+ * "units" attribute, then the unit of measurement of that compartment's
+ * size is inherited from the value specified by the Model "volumeUnits",
+ * "areaUnits" or "lengthUnits" attribute, as appropriate based on the
+ * Compartment object's "spatialDimensions" attribute value.  If the Model
+ * object does not define the relevant attribute, then there are no units
+ * to inherit, and all Compartment objects that do not set a value for
+ * their "units" attribute then have <em>no</em> units associated with
+ * their compartment sizes.
+ * 
+ * The use of three separate attributes is a carry-over from SBML
+ * Level&nbsp;2.  Note that it is entirely possible for a model to define a
+ * value for two or more of the attributes "volumeUnits", "areaUnits" and
+ * "lengthUnits" simultaneously, because SBML models may contain
+ * compartments with different numbers of dimensions.
+ *
+ * 
+ * @subsection model-l3-timeunits The "extentUnits" attribute
+ *
+ * Reactions are processes that occur over time.  These processes involve
+ * events of some sort, where a single ``reaction event'' is one in which
+ * some set of entities (known as reactants, products and modifiers in
+ * SBML) interact, once.  The <em>extent</em> of a reaction is a measure of
+ * how many times the reaction has occurred, while the time derivative of
+ * the extent gives the instantaneous rate at which the reaction is
+ * occurring.  Thus, what is colloquially referred to as the "rate of the
+ * reaction" is in fact equal to the rate of change of reaction extent.
+ * 
+ * In SBML Level&nbsp;3, the combination of "extentUnits" and "timeUnits"
+ * defines the units of kinetic laws in SBML and establishes how the
+ * numerical value of each KineticLaw object's mathematical formula is
+ * meant to be interpreted in a model.  The units of the kinetic laws are
+ * taken to be "extentUnits" divided by "timeUnits".
+ * 
+ * Note that this embodies an important principle in SBML Level&nbsp;3
+ * models: <em>all reactions in an SBML model must have the same units</em>
+ * for the rate of change of extent.  In other words, the units of all
+ * reaction rates in the model <em>must be the same</em>.  There is only
+ * one global value for "extentUnits" and one global value for "timeUnits".
+ *
+ * 
+ * @subsection model-l3-timeunits The "conversionFactor" attribute
+ *
+ * The attribute "conversionFactor" in SBML Level&nbsp;3's Model object
+ * defines a global value inherited by all Species object instances that do
+ * not define separate values for their "conversionFactor" attributes.  The
+ * value of this attribute must refer to a Parameter object instance
+ * defined in the model.  The Parameter object in question must be a
+ * constant; ie it must have its "constant" attribute value set to @c
+ * "true".
+ * 
+ * If a given Species object definition does not specify a conversion
+ * factor via the "conversionFactor" attribute on Species, then the species
+ * inherits the conversion factor specified by the Model "conversionFactor"
+ * attribute.  If the Model does not define a value for this attribute,
+ * then there is no conversion factor to inherit.  More information about
+ * conversion factors is provided in the SBML Level&nbsp;3 Version&nbsp;1
+ * specification.
  */
 
 #ifndef Model_h
@@ -227,7 +373,7 @@ public:
    * 
    * @note Upon the addition of a Model object to an SBMLDocument
    * (e.g., using Model::addModel()), the SBML Level, SBML Version
-   * version and XML namespace of the document @em override the values used
+   * and XML namespace of the document @em override the values used
    * when creating the Model object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
    * Nevertheless, the ability to supply the values at the time of creation
@@ -319,78 +465,78 @@ public:
 
 
   /**
-   * Returns the value of the "substanceUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "substanceUnits" attribute of this Model.
    * 
    * @return the substanceUnits of this Model.
    *
-   * @warning The "substanceUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "substanceUnits" attribute is available in
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getSubstanceUnits () const;
 
 
   /**
-   * Returns the value of the "timeUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "timeUnits" attribute of this Model.
    * 
    * @return the timeUnits of this Model.
    *
-   * @warning The "timeUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "timeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getTimeUnits () const;
 
 
   /**
-   * Returns the value of the "volumeUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "volumeUnits" attribute of this Model.
    * 
    * @return the volumeUnits of this Model.
    *
-   * @warning The "volumeUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "volumeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getVolumeUnits () const;
 
 
   /**
-   * Returns the value of the "areaUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "areaUnits" attribute of this Model.
    * 
    * @return the areaUnits of this Model.
    *
-   * @warning The "areaUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "areaUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getAreaUnits () const;
 
 
   /**
-   * Returns the value of the "lengthUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "lengthUnits" attribute of this Model.
    * 
    * @return the lengthUnits of this Model.
    *
-   * @warning The "lengthUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "lengthUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getLengthUnits () const;
 
 
   /**
-   * Returns the value of the "extentUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "extentUnits" attribute of this Model.
    * 
    * @return the extentUnits of this Model.
    *
-   * @warning The "extentUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "extentUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getExtentUnits () const;
 
 
   /**
-   * Returns the value of the "conversionFactor" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Returns the value of the "conversionFactor" attribute of this Model.
    * 
    * @return the conversionFactor of this Model.
    *
-   * @warning The "conversionFactor" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "conversionFactor" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   const std::string& getConversionFactor () const;
 
@@ -420,7 +566,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "substanceUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -428,14 +574,14 @@ public:
    * @return @c true if the "substanceUnits" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "substanceUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "substanceUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetSubstanceUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "timeUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -443,14 +589,14 @@ public:
    * @return @c true if the "timeUnits" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "substanceUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "substanceUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetTimeUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "volumeUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -458,14 +604,14 @@ public:
    * @return @c true if the "volumeUnits" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "volumeUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "volumeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetVolumeUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "areaUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -473,14 +619,14 @@ public:
    * @return @c true if the "areaUnits" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "areaUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "areaUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetAreaUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "lengthUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -488,14 +634,14 @@ public:
    * @return @c true if the "lengthUnits" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "lengthUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "lengthUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetLengthUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "extentUnits" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -503,14 +649,14 @@ public:
    * @return @c true if the "extentUnits" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "extentUnits" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "extentUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetExtentUnits () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "conversionFactor" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
@@ -518,8 +664,8 @@ public:
    * @return @c true if the "conversionFactor" attribute of this Model has been
    * set, @c false otherwise.
    *
-   * @warning The "conversionFactor" attribute was introduced in 
-   * SBML Level&nbsp;3 and is not applicable in earlier levels.
+   * @note The "conversionFactor" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   bool isSetConversionFactor () const;
 
@@ -564,7 +710,7 @@ public:
 
 
   /**
-   * Sets the value of the "substanceUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "substanceUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -579,12 +725,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "substanceUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setSubstanceUnits (const std::string& units);
 
 
   /**
-   * Sets the value of the "timeUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "timeUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -599,12 +748,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "timeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setTimeUnits (const std::string& units);
 
 
   /**
-   * Sets the value of the "volumeUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "volumeUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -619,12 +771,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "volumeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setVolumeUnits (const std::string& units);
 
 
   /**
-   * Sets the value of the "areaUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "areaUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -639,12 +794,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "areaUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setAreaUnits (const std::string& units);
 
 
   /**
-   * Sets the value of the "lengthUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "lengthUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -659,12 +817,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "lengthUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setLengthUnits (const std::string& units);
 
 
   /**
-   * Sets the value of the "extentUnits" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "extentUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -679,12 +840,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "extentUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setExtentUnits (const std::string& units);
 
 
   /**
-   * Sets the value of the "conversionFactor" attribute of this Model.
+   * (SBML Level&nbsp;3 only) Sets the value of the "conversionFactor" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -699,6 +863,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * 
+   * @note The "conversionFactor" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int setConversionFactor (const std::string& units);
 
@@ -744,6 +911,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "substanceUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetSubstanceUnits ();
 
@@ -759,6 +929,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "timeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetTimeUnits ();
 
@@ -774,6 +947,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "volumeUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetVolumeUnits ();
 
@@ -789,6 +965,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "areaUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetAreaUnits ();
 
@@ -804,6 +983,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "lengthUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetLengthUnits ();
 
@@ -819,6 +1001,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "extentUnits" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetExtentUnits ();
 
@@ -834,6 +1019,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The "conversionFactor" attribute is available in 
+   * SBML Level&nbsp;3 but is not present on Model in lower Levels of SBML.
    */
   int unsetConversionFactor ();
 
@@ -899,7 +1087,7 @@ public:
 
 
   /**
-   * Adds a copy of the given CompartmentType object to this Model.
+   * (SBML Level&nbsp;2 only) Adds a copy of the given CompartmentType object to this Model.
    *
    * @param ct the CompartmentType object to add
    *
@@ -924,12 +1112,16 @@ public:
    * for a method that does not lead to these issues.
    *
    * @see createCompartmentType()
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   int addCompartmentType (const CompartmentType* ct);
 
 
   /**
-   * Adds a copy of the given SpeciesType object to this Model.
+   * (SBML Level&nbsp;2 only) Adds a copy of the given SpeciesType object to this Model.
    *
    * @param st the SpeciesType object to add
    *
@@ -954,6 +1146,10 @@ public:
    * method that does not lead to these issues.
    *
    * @see createSpeciesType()
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   int addSpeciesType (const SpeciesType* st);
 
@@ -1236,21 +1432,29 @@ public:
 
 
   /**
-   * Creates a new CompartmentType inside this Model and returns it.
+   * (SBML Level&nbsp;2 only) Creates a new CompartmentType inside this Model and returns it.
    *
    * @return the CompartmentType object created
    *
    * @see addCompartmentType(const CompartmentType* ct)
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   CompartmentType* createCompartmentType ();
 
 
   /**
-   * Creates a new SpeciesType inside this Model and returns it.
+   * (SBML Level&nbsp;2 only) Creates a new SpeciesType inside this Model and returns it.
    *
    * @return the SpeciesType object created
    *
    * @see addSpeciesType(const SpeciesType* st)
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   SpeciesType* createSpeciesType ();
 
@@ -1624,33 +1828,49 @@ public:
 
 
   /**
-   * Get the ListOfCompartmentTypes object in this Model.
+   * (SBML Level&nbsp;2 only) Get the ListOfCompartmentTypes object in this Model.
    * 
    * @return the list of CompartmentTypes for this Model.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   const ListOfCompartmentTypes* getListOfCompartmentTypes () const;
 
 
   /**
-   * Get the ListOfCompartmentTypes object in this Model.
+   * (SBML Level&nbsp;2 only) Get the ListOfCompartmentTypes object in this Model.
    * 
    * @return the list of CompartmentTypes for this Model.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   ListOfCompartmentTypes* getListOfCompartmentTypes ();
 
 
   /**
-   * Get the ListOfSpeciesTypes object in this Model.
+   * (SBML Level&nbsp;2 only) Get the ListOfSpeciesTypes object in this Model.
    * 
    * @return the list of SpeciesTypes for this Model.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   const ListOfSpeciesTypes* getListOfSpeciesTypes () const;
 
 
   /**
-   * Get the ListOfSpeciesTypes object in this Model.
+   * (SBML Level&nbsp;2 only) Get the ListOfSpeciesTypes object in this Model.
    * 
    * @return the list of SpeciesTypes for this Model.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   ListOfSpeciesTypes* getListOfSpeciesTypes ();
 
@@ -1853,69 +2073,101 @@ public:
 
 
   /**
-   * Get the nth CompartmentType object in this Model.
+   * (SBML Level&nbsp;2 only) Get the nth CompartmentType object in this Model.
    * 
    * @return the nth CompartmentType of this Model.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   const CompartmentType* getCompartmentType (unsigned int n) const;
 
 
   /**
-   * Get the nth CompartmentType object in this Model.
+   * (SBML Level&nbsp;2 only) Get the nth CompartmentType object in this Model.
    * 
    * @return the nth CompartmentType of this Model.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   CompartmentType* getCompartmentType (unsigned int n);
 
 
   /**
-   * Get a CompartmentType object based on its identifier.
+   * (SBML Level&nbsp;2 only) Get a CompartmentType object based on its identifier.
    * 
    * @return the CompartmentType in this Model with the identifier @p sid
    * or NULL if no such CompartmentType exists.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   const CompartmentType* getCompartmentType (const std::string& sid) const;
 
 
   /**
-   * Get a CompartmentType object based on its identifier.
+   * (SBML Level&nbsp;2 only) Get a CompartmentType object based on its identifier.
    * 
    * @return the CompartmentType in this Model with the identifier @p sid
    * or NULL if no such CompartmentType exists.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   CompartmentType* getCompartmentType (const std::string& sid);
 
 
   /**
-   * Get the nth SpeciesType object in this Model.
+   * (SBML Level&nbsp;2 only) Get the nth SpeciesType object in this Model.
    * 
    * @return the nth SpeciesType of this Model.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   const SpeciesType* getSpeciesType (unsigned int n) const;
 
 
   /**
-   * Get the nth SpeciesType object in this Model.
+   * (SBML Level&nbsp;2 only) Get the nth SpeciesType object in this Model.
    * 
    * @return the nth SpeciesType of this Model.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   SpeciesType* getSpeciesType (unsigned int n);
 
 
   /**
-   * Get a SpeciesType object based on its identifier.
+   * (SBML Level&nbsp;2 only) Get a SpeciesType object based on its identifier.
    * 
    * @return the SpeciesType in this Model with the identifier @p sid or
    * NULL if no such SpeciesType exists.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   const SpeciesType* getSpeciesType (const std::string& sid) const;
 
 
   /**
-   * Get a SpeciesType object based on its identifier.
+   * (SBML Level&nbsp;2 only) Get a SpeciesType object based on its identifier.
    * 
    * @return the SpeciesType in this Model with the identifier @p sid or
    * NULL if no such SpeciesType exists.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   SpeciesType* getSpeciesType (const std::string& sid);
 
@@ -2212,17 +2464,25 @@ public:
 
 
   /**
-   * Get the number of CompartmentType objects in this Model.
+   * (SBML Level&nbsp;2 only) Get the number of CompartmentType objects in this Model.
    * 
    * @return the number of CompartmentTypes in this Model.
+   *
+   * @note The CompartmentType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   unsigned int getNumCompartmentTypes () const;
 
 
   /**
-   * Get the number of SpeciesType objects in this Model.
+   * (SBML Level&nbsp;2 only) Get the number of SpeciesType objects in this Model.
    * 
    * @return the number of SpeciesTypes in this Model.
+   *
+   * @note The SpeciesType object class is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
+   * Level&nbsp;1 nor Level&nbsp;3.
    */
   unsigned int getNumSpeciesTypes () const;
 
