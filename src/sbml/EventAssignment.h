@@ -362,7 +362,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * @warning Note that it is possible the "math" expression in the
    * EventAssignment contains literal numbers or parameters with undeclared
@@ -400,7 +400,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * @warning Note that it is possible the "math" expression in the
    * EventAssignment contains literal numbers or parameters with undeclared
@@ -721,7 +721,7 @@ public:
    * of the EventAssignment to get.
    * 
    * @return EventAssignment in this ListOfEventAssignments
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * EventAssignment exists.
    *
    * @see get(unsigned int n)
@@ -738,7 +738,7 @@ public:
    * of the EventAssignment to get.
    * 
    * @return EventAssignment in this ListOfEventAssignments
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * EventAssignment exists.
    *
    * @see get(unsigned int n)

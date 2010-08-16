@@ -1422,7 +1422,7 @@ public:
    *
    * The mechanism by which the UnitDefinition was created is not
    * significant.  If a UnitDefinition object does not exist in this model,
-   * a new Unit is @em not created and NULL is returned instead.
+   * a new Unit is @em not created and @c NULL is returned instead.
    *
    * @return the Unit object created
    *
@@ -1557,7 +1557,7 @@ public:
    * to this Model is not significant.  It could have been created in a
    * variety of ways, for example using createReaction().  If a Reaction
    * does not exist for this model, a new SpeciesReference is @em not
-   * created and NULL is returned instead.
+   * created and @c NULL is returned instead.
    *
    * @return the SpeciesReference object created
    */
@@ -1572,7 +1572,7 @@ public:
    * to this Model is not significant.  It could have been created in a
    * variety of ways, for example using createReaction().  If a Reaction
    * does not exist for this model, a new SpeciesReference is @em not
-   * created and NULL is returned instead.
+   * created and @c NULL is returned instead.
    *
    * @return the SpeciesReference object created
    */
@@ -1588,7 +1588,7 @@ public:
    * to this Model is not significant.  It could have been created in a
    * variety of ways, for example using createReaction().  If a Reaction
    * does not exist for this model, a new ModifierSpeciesReference is @em
-   * not created and NULL is returned instead.
+   * not created and @c NULL is returned instead.
    *
    * @return the SpeciesReference object created
    */
@@ -1603,7 +1603,7 @@ public:
    * to this Model is not significant.  It could have been created in a
    * variety of ways, for example using createReaction().  If a Reaction
    * does not exist for this model, or a Reaction exists but already has a
-   * KineticLaw, a new KineticLaw is @em not created and NULL is returned
+   * KineticLaw, a new KineticLaw is @em not created and @c NULL is returned
    * instead.
    *
    * @return the KineticLaw object created
@@ -1621,7 +1621,7 @@ public:
    * Reaction::createKineticLaw() on the Reaction object created by a
    * createReaction().  If a Reaction does not exist for this model, or the
    * last Reaction does not contain a KineticLaw object, a new Parameter is
-   * @em not created and NULL is returned instead.
+   * @em not created and @c NULL is returned instead.
    *
    * @return the Parameter object created
    */
@@ -1638,7 +1638,7 @@ public:
    * Reaction::createKineticLaw() on the Reaction object created by a
    * createReaction().  If a Reaction does not exist for this model, or the
    * last Reaction does not contain a KineticLaw object, a new Parameter is
-   * @em not created and NULL is returned instead.
+   * @em not created and @c NULL is returned instead.
    *
    * @return the Parameter object created
    */
@@ -1660,7 +1660,7 @@ public:
    * The mechanism by which the last Event object in this model was created
    * is not significant.  It could have been created in a variety of ways,
    * for example by using createEvent().  If no Event object exists in this
-   * Model object, a new EventAssignment is @em not created and NULL is
+   * Model object, a new EventAssignment is @em not created and @c NULL is
    * returned instead.
    *
    * @return the EventAssignment object created
@@ -1675,7 +1675,7 @@ public:
    * The mechanism by which the last Event object in this model was created
    * is not significant.  It could have been created in a variety of ways,
    * for example by using createEvent().  If no Event object exists in this
-   * Model object, a new Trigger is @em not created and NULL is
+   * Model object, a new Trigger is @em not created and @c NULL is
    * returned instead.
    *
    * @return the Trigger object created
@@ -1690,7 +1690,7 @@ public:
    * The mechanism by which the last Event object in this model was created
    * is not significant.  It could have been created in a variety of ways,
    * for example by using createEvent().  If no Event object exists in this
-   * Model object, a new Delay is @em not created and NULL is
+   * Model object, a new Delay is @em not created and @c NULL is
    * returned instead.
    *
    * @return the Delay object created
@@ -2023,7 +2023,7 @@ public:
    * Get a FunctionDefinition object based on its identifier.
    * 
    * @return the FunctionDefinition in this Model with the identifier
-   * @p sid or NULL if no such FunctionDefinition exists.
+   * @p sid or @c NULL if no such FunctionDefinition exists.
    */
   const FunctionDefinition*
   getFunctionDefinition (const std::string& sid) const;
@@ -2033,7 +2033,7 @@ public:
    * Get a FunctionDefinition object based on its identifier.
    * 
    * @return the FunctionDefinition in this Model with the identifier
-   * @p sid or NULL if no such FunctionDefinition exists.
+   * @p sid or @c NULL if no such FunctionDefinition exists.
    */
   FunctionDefinition* getFunctionDefinition (const std::string& sid);
 
@@ -2058,7 +2058,7 @@ public:
    * Get a UnitDefinition based on its identifier.
    * 
    * @return the UnitDefinition in this Model with the identifier @p sid or
-   * NULL if no such UnitDefinition exists.
+   * @c NULL if no such UnitDefinition exists.
    */
   const UnitDefinition* getUnitDefinition (const std::string& sid) const;
 
@@ -2067,7 +2067,7 @@ public:
    * Get a UnitDefinition based on its identifier.
    * 
    * @return the UnitDefinition in this Model with the identifier @p sid or
-   * NULL if no such UnitDefinition exists.
+   * @c NULL if no such UnitDefinition exists.
    */
   UnitDefinition* getUnitDefinition (const std::string& sid);
 
@@ -2100,7 +2100,7 @@ public:
    * (SBML Level&nbsp;2 only) Get a CompartmentType object based on its identifier.
    * 
    * @return the CompartmentType in this Model with the identifier @p sid
-   * or NULL if no such CompartmentType exists.
+   * or @c NULL if no such CompartmentType exists.
    *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2113,7 +2113,7 @@ public:
    * (SBML Level&nbsp;2 only) Get a CompartmentType object based on its identifier.
    * 
    * @return the CompartmentType in this Model with the identifier @p sid
-   * or NULL if no such CompartmentType exists.
+   * or @c NULL if no such CompartmentType exists.
    *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2150,7 +2150,7 @@ public:
    * (SBML Level&nbsp;2 only) Get a SpeciesType object based on its identifier.
    * 
    * @return the SpeciesType in this Model with the identifier @p sid or
-   * NULL if no such SpeciesType exists.
+   * @c NULL if no such SpeciesType exists.
    *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2163,7 +2163,7 @@ public:
    * (SBML Level&nbsp;2 only) Get a SpeciesType object based on its identifier.
    * 
    * @return the SpeciesType in this Model with the identifier @p sid or
-   * NULL if no such SpeciesType exists.
+   * @c NULL if no such SpeciesType exists.
    *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
@@ -2192,7 +2192,7 @@ public:
    * Get a Compartment object based on its identifier.
    * 
    * @return the Compartment in this Model with the identifier @p sid or
-   * NULL if no such Compartment exists.
+   * @c NULL if no such Compartment exists.
    */
   const Compartment* getCompartment (const std::string& sid) const;
 
@@ -2201,7 +2201,7 @@ public:
    * Get a Compartment object based on its identifier.
    * 
    * @return the Compartment in this Model with the identifier @p sid or
-   * NULL if no such Compartment exists.
+   * @c NULL if no such Compartment exists.
    */
   Compartment* getCompartment (const std::string& sid);
 
@@ -2225,7 +2225,7 @@ public:
   /**
    * Get a Species object based on its identifier.
    * 
-   * @return the Species in this Model with the identifier @p sid or NULL
+   * @return the Species in this Model with the identifier @p sid or @c NULL
    * if no such Species exists.
    */
   const Species* getSpecies (const std::string& sid) const;
@@ -2234,7 +2234,7 @@ public:
   /**
    * Get a Species object based on its identifier.
    * 
-   * @return the Species in this Model with the identifier @p sid or NULL
+   * @return the Species in this Model with the identifier @p sid or @c NULL
    * if no such Species exists.
    */
   Species* getSpecies (const std::string& sid);
@@ -2259,7 +2259,7 @@ public:
   /**
    * Get a Parameter object based on its identifier.
    * 
-   * @return the Parameter in this Model with the identifier @p sid or NULL
+   * @return the Parameter in this Model with the identifier @p sid or @c NULL
    * if no such Parameter exists.
    */
   const Parameter* getParameter (const std::string& sid) const;
@@ -2268,7 +2268,7 @@ public:
   /**
    * Get a Parameter object based on its identifier.
    * 
-   * @return the Parameter in this Model with the identifier @p sid or NULL
+   * @return the Parameter in this Model with the identifier @p sid or @c NULL
    * if no such Parameter exists.
    */
   Parameter* getParameter (const std::string& sid);
@@ -2295,7 +2295,7 @@ public:
    * assigns a value.
    * 
    * @return the InitialAssignment in this Model with the given "symbol"
-   * attribute value or NULL if no such InitialAssignment exists.
+   * attribute value or @c NULL if no such InitialAssignment exists.
    */
   const InitialAssignment*
   getInitialAssignment (const std::string& symbol) const;
@@ -2306,7 +2306,7 @@ public:
    * assigns a value.
    * 
    * @return the InitialAssignment in this Model with the given "symbol"
-   * attribute value or NULL if no such InitialAssignment exists.
+   * attribute value or @c NULL if no such InitialAssignment exists.
    */
   InitialAssignment* getInitialAssignment (const std::string& symbol);
 
@@ -2331,7 +2331,7 @@ public:
    * Get a Rule object based on the variable to which it assigns a value.
    * 
    * @return the Rule in this Model with the given "variable" attribute
-   * value or NULL if no such Rule exists.
+   * value or @c NULL if no such Rule exists.
    */
   const Rule* getRule (const std::string& variable) const;
 
@@ -2340,7 +2340,7 @@ public:
    * Get a Rule object based on the variable to which it assigns a value.
    * 
    * @return the Rule in this Model with the given "variable" attribute
-   * value or NULL if no such Rule exists.
+   * value or @c NULL if no such Rule exists.
    */
   Rule* getRule (const std::string& variable);
 
@@ -2380,7 +2380,7 @@ public:
   /**
    * Get a Reaction object based on its identifier.
    * 
-   * @return the Reaction in this Model with the identifier @p sid or NULL
+   * @return the Reaction in this Model with the identifier @p sid or @c NULL
    * if no such Reaction exists.
    */
   const Reaction* getReaction (const std::string& sid) const;
@@ -2389,7 +2389,7 @@ public:
   /**
    * Get a Reaction object based on its identifier.
    * 
-   * @return the Reaction in this Model with the identifier @p sid or NULL
+   * @return the Reaction in this Model with the identifier @p sid or @c NULL
    * if no such Reaction exists.
    */
   Reaction* getReaction (const std::string& sid);
@@ -2398,7 +2398,7 @@ public:
   /**
    * Get a SpeciesReference object based on its identifier.
    * 
-   * @return the SpeciesReference in this Model with the identifier @p sid or NULL
+   * @return the SpeciesReference in this Model with the identifier @p sid or @c NULL
    * if no such SpeciesReference exists.
    */
   SpeciesReference* getSpeciesReference (const std::string& sid);
@@ -2407,7 +2407,7 @@ public:
   /**
    * Get a SpeciesReference object based on its identifier.
    * 
-   * @return the SpeciesReference in this Model with the identifier @p sid or NULL
+   * @return the SpeciesReference in this Model with the identifier @p sid or @c NULL
    * if no such SpeciesReference exists.
    */
   const SpeciesReference* getSpeciesReference (const std::string& sid) const;
@@ -2432,7 +2432,7 @@ public:
   /**
    * Get an Event object based on its identifier.
    * 
-   * @return the Event in this Model with the identifier @p sid or NULL if
+   * @return the Event in this Model with the identifier @p sid or @c NULL if
    * no such Event exists.
    */
   const Event* getEvent (const std::string& sid) const;
@@ -2441,7 +2441,7 @@ public:
   /**
    * Get an Event object based on its identifier.
    * 
-   * @return the Event in this Model with the identifier @p sid or NULL if
+   * @return the Event in this Model with the identifier @p sid or @c NULL if
    * no such Event exists.
    */
   Event* getEvent (const std::string& sid);
@@ -2842,14 +2842,14 @@ public:
 
   /**
    * Returns the layout object that belongs to the given index. If the
-   * index is invalid, NULL is returned.
+   * index is invalid, @c NULL is returned.
    */
   const Layout* getLayout (unsigned int index) const;
 
 
   /**
    * Returns the layout object that belongs to the given index. If the
-   * index is invalid, NULL is returned.
+   * index is invalid, @c NULL is returned.
    */
   Layout* getLayout (unsigned int index);
 
@@ -2882,7 +2882,7 @@ public:
    * @param n the index of the Layout object to remove
    *
    * @return the Layout object removed.  As mentioned above, the caller owns the
-   * returned object. NULL is returned if the given index is out of range.
+   * returned object. @c NULL is returned if the given index is out of range.
    */
   Layout* removeLayout (unsigned int n);
 
@@ -2963,7 +2963,7 @@ public:
    * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
    * 
    * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
-   * and the #SBMLTypeCode_t @p typecode or NULL
+   * and the #SBMLTypeCode_t @p typecode or @c NULL
    * if no such FormulaUnitsData exists.
    *
    * @note The #SBMLTypecode_t parameter is necessary as the unitReferenceId
@@ -2983,7 +2983,7 @@ public:
    * Get a FormulaUnitsData object based on its unitReferenceId and typecode.
    * 
    * @return the FormulaUnitsData in this Model with the unitReferenceId @p sid 
-   * and the #SBMLTypeCode_t @p typecode or NULL
+   * and the #SBMLTypeCode_t @p typecode or @c NULL
    * if no such FormulaUnitsData exists.
    *
    * @note The #SBMLTypecode_t parameter is necessary as the unitReferenceId
@@ -3049,7 +3049,7 @@ public:
    * @param n the index of the FunctionDefinition object to remove
    *
    * @return the FunctionDefinition object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3067,7 +3067,7 @@ public:
    * @param sid the identifier of the FunctionDefinition object to remove
    *
    * @return the FunctionDefinition object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no FunctionDefinition
+   * caller owns the returned object. @c NULL is returned if no FunctionDefinition
    * object with the identifier exists in this Model object.
    */
   FunctionDefinition* removeFunctionDefinition (const std::string& sid);
@@ -3082,7 +3082,7 @@ public:
    * @param n the index of the UnitDefinition object to remove
    *
    * @return the UnitDefinition object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3100,7 +3100,7 @@ public:
    * @param sid the identifier of the UnitDefinition object to remove
    *
    * @return the UnitDefinition object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no UnitDefinition
+   * caller owns the returned object. @c NULL is returned if no UnitDefinition
    * object with the identifier exists in this Model object.
    */
   UnitDefinition* removeUnitDefinition (const std::string& sid);
@@ -3115,7 +3115,7 @@ public:
    * @param n the index of the CompartmentType object to remove
    *
    * @return the ComapartmentType object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3133,7 +3133,7 @@ public:
    * @param sid the identifier of the object to remove
    *
    * @return the CompartmentType object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no CompartmentType
+   * caller owns the returned object. @c NULL is returned if no CompartmentType
    * object with the identifier exists in this Model object.
    */
   CompartmentType* removeCompartmentType (const std::string& sid);
@@ -3148,7 +3148,7 @@ public:
    * @param n the index of the SpeciesType object to remove
    *
    * @return the SpeciesType object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3166,7 +3166,7 @@ public:
    * @param sid the identifier of the SpeciesType object to remove
    *
    * @return the SpeciesType object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no SpeciesType
+   * caller owns the returned object. @c NULL is returned if no SpeciesType
    * object with the identifier exists in this Model object.
    *
    */
@@ -3182,7 +3182,7 @@ public:
    * @param n the index of the Compartment object to remove
    *
    * @return the Compartment object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3200,7 +3200,7 @@ public:
    * @param sid the identifier of the Compartment object to remove
    *
    * @return the Compartment object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Compartment
+   * caller owns the returned object. @c NULL is returned if no Compartment
    * object with the identifier exists in this Model object.
    */
   Compartment* removeCompartment (const std::string& sid);
@@ -3215,7 +3215,7 @@ public:
    * @param n the index of the Species object to remove
    *
    * @return the Species object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3233,7 +3233,7 @@ public:
    * @param sid the identifier of the Species object to remove
    *
    * @return the Species object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Species
+   * caller owns the returned object. @c NULL is returned if no Species
    * object with the identifier exists in this Model object.
    *
    */
@@ -3249,7 +3249,7 @@ public:
    * @param n the index of the Parameter object to remove
    *
    * @return the Parameter object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3267,7 +3267,7 @@ public:
    * @param sid the identifier of the Parameter object to remove
    *
    * @return the Parameter object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Parameter
+   * caller owns the returned object. @c NULL is returned if no Parameter
    * object with the identifier exists in this Model object.
    */
   Parameter* removeParameter (const std::string& sid);
@@ -3282,7 +3282,7 @@ public:
    * @param n the index of the InitialAssignment object to remove
    *
    * @return the InitialAssignment object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3300,7 +3300,7 @@ public:
    * @param symbol the "symbol" attribute of the InitialAssignment object to remove
    *
    * @return the InitialAssignment object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no InitialAssignment
+   * caller owns the returned object. @c NULL is returned if no InitialAssignment
    * object with the "symbol" attribute exists in this Model object.
    */
   InitialAssignment* removeInitialAssignment (const std::string& symbol);
@@ -3315,7 +3315,7 @@ public:
    * @param n the index of the Rule object to remove
    *
    * @return the Rule object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3333,7 +3333,7 @@ public:
    * @param variable the "variable" attribute of the Rule object to remove
    *
    * @return the Rule object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Rule
+   * caller owns the returned object. @c NULL is returned if no Rule
    * object with the "variable" attribute exists in this Model object.
    */
   Rule* removeRule (const std::string& variable);
@@ -3348,7 +3348,7 @@ public:
    * @param n the index of the Constraint object to remove
    *
    * @return the Constraint object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3364,7 +3364,7 @@ public:
    * @param n the index of the Reaction object to remove
    *
    * @return the Reaction object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3382,7 +3382,7 @@ public:
    * @param sid the identifier of the Reaction object to remove
    *
    * @return the Reaction object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Reaction
+   * caller owns the returned object. @c NULL is returned if no Reaction
    * object with the identifier exists in this Model object.
    *
    */
@@ -3398,7 +3398,7 @@ public:
    * @param n the index of the Event object to remove
    *
    * @return the Event object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -3416,7 +3416,7 @@ public:
    * @param sid the identifier of the Event object to remove
    *
    * @return the Event object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no Event
+   * caller owns the returned object. @c NULL is returned if no Event
    * object with the identifier exists in this Model object.
    *
    */
@@ -3443,7 +3443,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 

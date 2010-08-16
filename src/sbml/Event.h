@@ -796,7 +796,7 @@ public:
    * @param n the index of the EventAssignment object to remove
    *
    * @return the EventAssignment object removed.  As mentioned above, 
-   * the caller owns the returned item. NULL is returned if the given index 
+   * the caller owns the returned item. @c NULL is returned if the given index 
    * is out of range.
    *
    */
@@ -815,7 +815,7 @@ public:
    * to remove
    *
    * @return the EventAssignment object removed.  As mentioned above, the 
-   * caller owns the returned object. NULL is returned if no EventAssignment
+   * caller owns the returned object. @c NULL is returned if no EventAssignment
    * object with the "variable" attribute exists in this Event object.
    */
   EventAssignment* removeEventAssignment (const std::string& variable);
@@ -1084,7 +1084,7 @@ public:
    * of the Event to get.
    * 
    * @return Event in this ListOfEvents
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Event exists.
    *
    * @see get(unsigned int n)
@@ -1101,7 +1101,7 @@ public:
    * of the Event to get.
    * 
    * @return Event in this ListOfEvents
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Event exists.
    *
    * @see get(unsigned int n)

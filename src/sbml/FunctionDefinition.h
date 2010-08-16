@@ -394,7 +394,7 @@ public:
    * @param name the exact name (case-sensitive) of the sought-after
    * argument
    * 
-   * @return the argument (bound variable) having the given name, or NULL if
+   * @return the argument (bound variable) having the given name, or @c NULL if
    * no such argument exists.
    */
   const ASTNode* getArgument (const std::string& name) const;
@@ -405,7 +405,7 @@ public:
    * FunctionDefinition object.
    * 
    * @return the body of this FunctionDefinition as an Abstract Syntax
-   * Tree, or NULL if no body is defined.
+   * Tree, or @c NULL if no body is defined.
    */
   const ASTNode* getBody () const;
 
@@ -415,7 +415,7 @@ public:
    * FunctionDefinition object.
    * 
    * @return the body of this FunctionDefinition as an Abstract Syntax
-   * Tree, or NULL if no body is defined.
+   * Tree, or @c NULL if no body is defined.
    */
   ASTNode* getBody ();
 
@@ -658,7 +658,7 @@ public:
    * of the FunctionDefinition to get.
    * 
    * @return FunctionDefinition in this ListOfFunctionDefinitions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FunctionDefinition exists.
    *
    * @see get(unsigned int n)
@@ -675,7 +675,7 @@ public:
    * of the FunctionDefinition to get.
    * 
    * @return FunctionDefinition in this ListOfFunctionDefinitions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * FunctionDefinition exists.
    *
    * @see get(unsigned int n)

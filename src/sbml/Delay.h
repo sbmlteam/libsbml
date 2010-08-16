@@ -282,7 +282,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * @warning Note that it is possible the "math" expression in the Delay
    * contains literal numbers or parameters with undeclared units.  In
@@ -327,7 +327,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * @warning Note that it is possible the "math" expression in the Delay
    * contains literal numbers or parameters with undeclared units.  In

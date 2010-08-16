@@ -1328,7 +1328,7 @@ public:
    * of the Compartment to get.
    * 
    * @return Compartment in this ListOfCompartments
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Compartment exists.
    *
    * @see get(unsigned int n)
@@ -1345,7 +1345,7 @@ public:
    * of the Compartment to get.
    * 
    * @return Compartment in this ListOfCompartments
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Compartment exists.
    *
    * @see get(unsigned int n)
@@ -1372,7 +1372,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove
    *
@@ -1407,7 +1407,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 

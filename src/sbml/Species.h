@@ -1318,7 +1318,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * Note also that unit declarations for Species are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,
@@ -1359,7 +1359,7 @@ public:
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
    * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return NULL.
+   * unit analysis is not possible and this method will return @c NULL.
    *
    * Note also that unit declarations for Species are in terms of the @em
    * identifier of a unit, but this method returns a UnitDefinition object,
@@ -1612,7 +1612,7 @@ public:
    * of the Species to get.
    * 
    * @return Species in this ListOfSpecies
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Species exists.
    *
    * @see get(unsigned int n)
@@ -1629,7 +1629,7 @@ public:
    * of the Species to get.
    * 
    * @return Species in this ListOfSpecies
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Species exists.
    *
    * @see get(unsigned int n)

@@ -513,7 +513,7 @@ public:
    * of the CompartmentType to get.
    * 
    * @return CompartmentType in this ListOfCompartmentTypes
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * CompartmentType exists.
    *
    * @see get(unsigned int n)
@@ -530,7 +530,7 @@ public:
    * of the CompartmentType to get.
    * 
    * @return CompartmentType in this ListOfCompartmentTypes
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * CompartmentType exists.
    *
    * @see get(unsigned int n)

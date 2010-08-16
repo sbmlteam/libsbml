@@ -383,7 +383,7 @@ public:
    * Model instance.  The model in the SBMLDocument must have been created
    * at some prior time, for example using SBMLDocument::createModel() 
    * or @if clike SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif.
-   * This method returns NULL if a model does not yet exist.
+   * This method returns @c NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
    *
@@ -399,7 +399,7 @@ public:
    * Model instance.  The model in the SBMLDocument must have been created
    * at some prior time, for example using SBMLDocument::createModel() 
    * or @if clike SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif.
-   * This method returns NULL if a model does not yet exist.
+   * This method returns @c NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
    *

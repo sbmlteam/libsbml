@@ -385,7 +385,7 @@ SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @return the string on success and NULL if one of the underlying parser
+ * @return the string on success and @c NULL if one of the underlying parser
  * components fail (rare).
  */
 LIBSBML_EXTERN
@@ -439,7 +439,7 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
  *
  *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
  *
- * @return the string on success and NULL if one of the underlying parser
+ * @return the string on success and @c NULL if one of the underlying parser
  * components fail (rare).
  */
 LIBSBML_EXTERN
