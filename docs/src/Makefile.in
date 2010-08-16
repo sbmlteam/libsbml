@@ -91,6 +91,7 @@ distfiles =                                                 \
         Makefile.in                                         \
 	common-text/base-units.html                         \
 	common-text/base-units2.html                        \
+	common-text/compartment-size-recommendations.html   \
         common-text/unassigned-units-are-not-a-default.html \
 	common-text/id-syntax.html                          \
 	common-text/unitid-syntax.html                      \
