@@ -22,29 +22,24 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class Reaction
- * @brief LibSBML implementation of %SBML's %Reaction construct.
+ * @brief LibSBML implementation of SBML's %Reaction construct.
  *
  * A @em reaction represents any transformation, transport or binding
  * process, typically a chemical reaction, that can change the quantity of
- * one or more species.  In %SBML, a reaction is defined primarily in terms
+ * one or more species.  In SBML, a reaction is defined primarily in terms
  * of the participating reactants and products (and their corresponding
  * stoichiometries), along with optional modifier species, an optional rate
- * at which the reaction takes place, and optional parameters.  These
- * various parts of a reaction are recorded in the Reaction object and its
- * supporting object classes: KineticLaw, SpeciesReference,
- * ModifierSpeciesReference, ListOfSpeciesReferences,
- * ListOfModifierSpeciesReferences, and StoichiometryMath.  It also uses
- * Parameter and ListOfParameters.
+ * at which the reaction takes place, and optional parameters.  
  * 
- * As with other major object in %SBML, Reaction has a mandatory attribute,
+ * As with other major object in SBML, Reaction has a mandatory attribute,
  * "id", used to give the compartment type an identifier.  The identifier
  * must be a text string conforming to the identifer syntax permitted in
- * %SBML.  The reaction "id" identifier can be used in mathematical
- * formulas elsewhere in an %SBML model to represent the rate of that
- * reaction; this usage is explained below.  Reaction also has an optional
- * "name" attribute, of type @c string.  The "id" and "name" must be used
- * according to the guidelines described in the %SBML specification (e.g.,
- * Section 3.3 in the Level 2 Version 4 specification).
+ * SBML.  In SBML Level&nbsp;2 and Level&nbsp;3, the reaction "id"
+ * identifier can be used in mathematical formulas elsewhere in an SBML
+ * model to represent the rate of that reaction; this usage is explained
+ * below.  Reaction also has an optional "name" attribute, of type @c
+ * string.  The "id" and "name" must be used according to the guidelines
+ * described in the SBML specification.
  *
  * The species participating as reactants, products, and/or modifiers in a
  * reaction are declared using lists of SpeciesReference and/or
@@ -78,48 +73,68 @@
  * object in an instance of a Reaction component is optional, there is no
  * useful default that can be substituted in place of a missing rate
  * expression in a reaction.  Moreover, a reaction's rate cannot be defined
- * in any other way in %SBML&mdash;InitialAssignment, AssignmentRule,
- * RateRule, AlgebraicRule, Event, and other constructs in %SBML cannot be
+ * in any other way in SBML&mdash;InitialAssignment, AssignmentRule,
+ * RateRule, AlgebraicRule, Event, and other constructs in SBML cannot be
  * used to set the reaction rate separately.  Nevertheless, for some
  * modeling applications, reactions without any defined rate can be
  * perfectly acceptable.
  *
- * Reaction also has an optional boolean attribute named "reversible" for
- * indicating whether the reaction is reversible.  The default is @c true.
- * To say that a reaction is @em reversible is to say it can proceed in
- * either the forward or the reverse direction.  Although the reversibility
- * of a reaction can sometimes be deduced by inspecting its rate
- * expression, this is not always the case, especially for complicated
- * expressions.  Moreover, the need in %SBML to allow rate expressions
- * (i.e., KineticLaw) to be optional leads to the need for a separate flag
- * indicating reversibility.  Note that labeling a reaction as irreversible
- * is an assertion that the reaction always proceeds in the given forward
- * direction.  (Why else would it be flagged as irreversible?)  This
- * implies the rate expression in the KineticLaw always has a non-negative
- * value during simulations.  Software tools could provide a means of
- * optionally testing that this condition holds.  The presence of
- * reversibility information in two places (i.e., the rate expression and
- * the "reversible" attribute on Reaction) leaves open the possibility that
- * a model could contain contradictory information, but the creation of
- * such a model would be an error on the part of the software generating
- * it.
+ * Reaction also has a boolean attribute named "reversible" for indicating
+ * whether the reaction is reversible.  This attribute is optional in SBML
+ * Level&nbsp;2, with a default of @c true; it is mandatory in SBML
+ * Level&nbsp;3 (with no default value).  To say that a reaction is @em
+ * reversible is to say it can proceed in either the forward or the reverse
+ * direction.  Although the reversibility of a reaction can sometimes be
+ * deduced by inspecting its rate expression, this is not always the case,
+ * especially for complicated expressions.  Moreover, the need in SBML to
+ * allow rate expressions (i.e., KineticLaw) to be optional leads to the
+ * need for a separate flag indicating reversibility.  Note that labeling a
+ * reaction as irreversible is an assertion that the reaction always
+ * proceeds in the given forward direction.  (Why else would it be flagged
+ * as irreversible?)  This implies the rate expression in the KineticLaw
+ * always has a non-negative value during simulations.  Software tools
+ * could provide a means of optionally testing that this condition holds.
+ * The presence of reversibility information in two places (i.e., the rate
+ * expression and the "reversible" attribute on Reaction) leaves open the
+ * possibility that a model could contain contradictory information, but
+ * the creation of such a model would be an error on the part of the
+ * software generating it.
  *
- * Finally, Reaction has another optional boolean attribute called "fast".
- * It is used to indicate that a reaction occurs on a vastly faster time
- * scale than others in a system.  Readers are directed to the %SBML Level
- * 2 Version 4 specification, which provides more detail about the
+ * The Reaction object class has another boolean attribute called "fast".
+ * This attribute is optional in SBML Level&nbsp;2, with a default of @c
+ * false; it is mandatory in SBML Level&nbsp;3 (with no default value).  It
+ * is used to indicate that a reaction occurs on a vastly faster time scale
+ * than others in a system.  Readers are directed to the SBML Level&nbsp;2
+ * Version&nbsp;4 specification, which provides more detail about the
  * conditions under which a reaction can be considered to be fast in this
- * sense.  The attribute's default value is @c false.  SBML Level 1 and
- * Level 2 Version 1 incorrectly claimed that software tools could ignore
- * this attribute if they did not implement support for the corresponding
- * concept; however, further research in %SBML has revealed that this is
- * not true, and "fast" <em>cannot be ignored</em> if it is set to @c true.
- * %SBML Level 2 Versions 2, 3 and 4 therefore stipulate that if a model has
- * any reactions with "fast" set to @c true, a software tool must be able
- * to respect the attribute or else indicate to the user that it does not
- * have the capacity to do so.  Analysis software cannot ignore the value
- * of the "fast" attribute because doing so may lead to different results
- * as compared to a software system that <em>does</em> make use of "fast".
+ * sense.  The attribute's default value is @c false.  SBML Level&nbsp;1
+ * and Level&nbsp;2 Version&nbsp;1 incorrectly claimed that software tools
+ * could ignore this attribute if they did not implement support for the
+ * corresponding concept; however, further research in SBML has revealed
+ * that this is not true, and "fast" <em>cannot be ignored</em> if it is
+ * set to @c true.  SBML Level&nbsp;2 Versions&nbsp;2&ndash;4 therefore
+ * stipulate that if a model has any reactions with "fast" set to @c true,
+ * a software tool must be able to respect the attribute or else indicate
+ * to the user that it does not have the capacity to do so.  Analysis
+ * software cannot ignore the value of the "fast" attribute because doing
+ * so may lead to different results as compared to a software system that
+ * <em>does</em> make use of "fast".
+ *
+ * In SBML Level&nbsp;3 Version&nbsp;1, the Reaction object has an
+ * additional optional attribute named "compartment", whose value must be
+ * the identifier of a compartment defined in the enclosing Model object.
+ * The "compartment" attribute can be used to indicate the compartment in
+ * which the reaction is assumed to take place.  If the attribute is
+ * present, its value must be the identifier of a Compartment object
+ * defined in the enclosing Model object.  Similar to the "reversible"
+ * attribute, the value of the "compartment" attribute has no direct impact
+ * on the construction of mathematical equations for the SBML model.  When
+ * a kinetic law is given for a reaction, the compartment location may
+ * already be implicit in the kinetic law (although this cannot always be
+ * guaranteed).  Nevertheless, software tools may find the "compartment"
+ * attribute value useful for such purposes as analyzing the structure of
+ * the model, guiding the modeler in constructing correct rate formulas,
+ * and visualization purposes.
  *
  * Readers are urged to read the SBML specification for more details about
  * the proper use of Reaction.
@@ -128,14 +143,14 @@
  * @class ListOfReactions.
  * @brief LibSBML implementation of SBML's %ListOfReactions construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -295,13 +310,13 @@ public:
    * definitions before SBML Level&nbsp;2 Version&nbsp;2 incorrectly
    * indicated that software tools could ignore this attribute if they did
    * not implement support for the corresponding concept; however, further
-   * research in %SBML has revealed that this is not true, and "fast"
+   * research in SBML has revealed that this is not true, and "fast"
    * <em>cannot be ignored</em> if it is set to @c true.  Beginning with
    * SBML Level&nbsp;2 Versions&nbsp;2, the SBML specifications therefore
    * stipulate that if a model has any reactions with "fast" set to @c
    * true, a software tool must be able to respect the attribute or else
    * indicate to the user that it does not have the capacity to do so.
-   * Readers are directed to the %SBML specifications, which provides more
+   * Readers are directed to the SBML specifications, which provides more
    * detail about the conditions under which a reaction can be considered
    * to be fast in this sense.
    */
@@ -354,15 +369,15 @@ public:
    * 
    * @return the "fast" status of this Reaction.
    *
-   * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
+   * @warning SBML definitions before SBML Level&nbsp;2 Version&nbsp;2 incorrectly
    * indicated that software tools could ignore this attribute if they did
    * not implement support for the corresponding concept; however, further
-   * research in %SBML has revealed that this is not true, and "fast"
-   * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
+   * research in SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  SBML Level&nbsp;2
    * Versions 2, 3 and 4 therefore stipulate that if a model has any reactions
    * with "fast" set to @c true, a software tool must be able to respect
    * the attribute or else indicate to the user that it does not have the
-   * capacity to do so.  Readers are directed to the %SBML Level 2 Version
+   * capacity to do so.  Readers are directed to the SBML Level&nbsp;2 Version
    * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.
    */
@@ -370,9 +385,13 @@ public:
 
 
   /**
-   * Returns the value of the "compartment" attribute on the Reaction.
+   * (SBML Level&nbsp;3 only) Returns the value of the "compartment"
+   * attribute on the Reaction.
    * 
    * @return the compartment of this Reaction.
+   *
+   * @note The "compartment" attribute is available in SBML Level&nbsp;3
+   * but is not present on Reaction in lower Levels of SBML.
    */
   const std::string& getCompartment () const;
 
@@ -421,31 +440,34 @@ public:
    * 
    * @return @c true if the "fast" attribute is true, @c false otherwise.
    *
-   * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
+   * @warning SBML definitions before SBML Level&nbsp;2 Version&nbsp;2 incorrectly
    * indicated that software tools could ignore this attribute if they did
    * not implement support for the corresponding concept; however, further
-   * research in %SBML has revealed that this is not true, and "fast"
-   * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
+   * research in SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  SBML Level&nbsp;2
    * Versions 2, 3 and 4 therefore stipulate that if a model has any reactions
    * with "fast" set to @c true, a software tool must be able to respect
    * the attribute or else indicate to the user that it does not have the
-   * capacity to do so.  Readers are directed to the %SBML Level 2 Version
+   * capacity to do so.  Readers are directed to the SBML Level&nbsp;2 Version
    * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.  Note
-   * also that in SBML Level 1, "fast" is defined as optional with a
+   * also that in SBML Level&nbsp;1, "fast" is defined as optional with a
    * default of @c false, which means it is effectively always set.
    */
   bool isSetFast () const;
 
 
   /**
-   * Predicate returning @c true if this
+   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Reaction's "compartment" attribute has been set.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    * 
    * @return @c true if the "compartment" attribute of this Reaction has been
    * set, @c false otherwise.
+   *
+   * @note The "compartment" attribute is available in SBML Level&nbsp;3
+   * but is not present on Reaction in lower Levels of SBML.
    */
   bool isSetCompartment () const;
 
@@ -549,15 +571,15 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * 
-   * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
+   * @warning SBML definitions before SBML Level&nbsp;2 Version&nbsp;2 incorrectly
    * indicated that software tools could ignore this attribute if they did
    * not implement support for the corresponding concept; however, further
-   * research in %SBML has revealed that this is not true, and "fast"
-   * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
+   * research in SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  SBML Level&nbsp;2
    * Versions 2, 3 and 4 therefore stipulate that if a model has any reactions
    * with "fast" set to @c true, a software tool must be able to respect
    * the attribute or else indicate to the user that it does not have the
-   * capacity to do so.  Readers are directed to the %SBML Level 2 Version
+   * capacity to do so.  Readers are directed to the SBML Level&nbsp;2 Version
    * 4 specification, which provides more detail about the conditions under
    * which a reaction can be considered to be fast in this sense.
    */
@@ -565,7 +587,7 @@ public:
 
 
   /**
-   * Sets the value of the "compartment" attribute of this Reaction.
+   * (SBML Level&nbsp;3 only) Sets the value of the "compartment" attribute of this Reaction.
    *
    * The string @p sid is copied.  
    *
@@ -580,6 +602,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @note The "compartment" attribute is available in SBML Level&nbsp;3
+   * but is not present on Reaction in lower Levels of SBML.
    */
   int setCompartment (const std::string& sid);
 
@@ -626,18 +651,18 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @warning In SBML Level 1, "fast" is optional with a default of @c
+   * @warning In SBML Level&nbsp;1, "fast" is optional with a default of @c
    * false, which means it is effectively always set (and reset to @c false
    * if this method is called).  Further, SBML definitions before SBML
-   * Level 2 Version 2 incorrectly indicated that software tools could
+   * Level&nbsp;2 Version&nbsp;2 incorrectly indicated that software tools could
    * ignore this attribute if they did not implement support for the
-   * corresponding concept; however, further research in %SBML has revealed
+   * corresponding concept; however, further research in SBML has revealed
    * that this is not true, and "fast" <em>cannot be ignored</em> if it is
-   * set to @c true.  %SBML Level 2 Versions 2, 3 and 4 therefore stipulate
+   * set to @c true.  SBML Level&nbsp;2 Versions 2, 3 and 4 therefore stipulate
    * that if a model has any reactions with "fast" set to @c true, a
    * software tool must be able to respect the attribute or else indicate
    * to the user that it does not have the capacity to do so.  Readers are
-   * directed to the %SBML Level 2 Version 4 specification, which provides
+   * directed to the SBML Level&nbsp;2 Version&nbsp;4 specification, which provides
    * more detail about the conditions under which a reaction can be
    * considered to be fast in this sense.
    */
@@ -645,7 +670,7 @@ public:
 
 
   /**
-   * Unsets the value of the "compartment" attribute of this Reaction.
+   * (SBML Level&nbsp;3 only) Unsets the value of the "compartment" attribute of this Reaction.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -656,6 +681,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @note The "compartment" attribute is available in SBML Level&nbsp;3
+   * but is not present on Reaction in lower Levels of SBML.
    */
   int unsetCompartment ();
 
@@ -887,7 +915,7 @@ public:
    * @param species the identifier of the reactant Species ("species" 
    * attribute of the reactant SpeciesReference object)
    *
-   * @return a SpeciesReference object, or NULL if no species with the
+   * @return a SpeciesReference object, or @c NULL if no species with the
    * given identifier @p species appears as a reactant in this Reaction.
    */
   const SpeciesReference* getReactant (const std::string& species) const;
@@ -900,7 +928,7 @@ public:
    * @param species the identifier of the reactant Species ("species" 
    * attribute of the reactant SpeciesReference object)
    *
-   * @return a SpeciesReference object, or NULL if no species with the
+   * @return a SpeciesReference object, or @c NULL if no species with the
    * given identifier @p species appears as a reactant in this Reaction.
    */
   SpeciesReference* getReactant (const std::string& species);
@@ -943,7 +971,7 @@ public:
    * @param species the identifier of the product Species ("species"
    * attribute of the product SpeciesReference object)
    *
-   * @return a SpeciesReference object, or NULL if no species with the
+   * @return a SpeciesReference object, or @c NULL if no species with the
    * given identifier @p species appears as a product in this Reaction.
    */
   const SpeciesReference* getProduct (const std::string& species) const;
@@ -956,7 +984,7 @@ public:
    * @param species the identifier of the product Species ("species"
    * attribute of the product SpeciesReference object)
    *
-   * @return a SpeciesReference object, or NULL if no species with the
+   * @return a SpeciesReference object, or @c NULL if no species with the
    * given identifier @p species appears as a product in this Reaction.
    */
   SpeciesReference* getProduct (const std::string& species);
@@ -999,7 +1027,7 @@ public:
    * @param species the identifier of the modifier Species ("species" 
    * attribute of the ModifierSpeciesReference object)
    *
-   * @return a ModifierSpeciesReference object, or NULL if no species with
+   * @return a ModifierSpeciesReference object, or @c NULL if no species with
    * the given identifier @p species appears as a modifier in this
    * Reaction.
    */
@@ -1014,7 +1042,7 @@ public:
    * @param species the identifier of the modifier Species ("species" 
    * attribute of the ModifierSpeciesReference object)
    *
-   * @return a ModifierSpeciesReference object, or NULL if no species with
+   * @return a ModifierSpeciesReference object, or @c NULL if no species with
    * the given identifier @p species appears as a modifier in this
    * Reaction.
    */
@@ -1055,7 +1083,7 @@ public:
    *
    * @param n the index of the reactant SpeciesReference object to remove
    *
-   * @return the removed reactant SpeciesReference object, or NULL if the 
+   * @return the removed reactant SpeciesReference object, or @c NULL if the 
    * given index is out of range.
    */
   SpeciesReference* removeReactant (unsigned int n);
@@ -1070,7 +1098,7 @@ public:
    * @param species the "species" attribute of the reactant SpeciesReference 
    * object
    *
-   * @return the removed reactant SpeciesReference object, or NULL if no 
+   * @return the removed reactant SpeciesReference object, or @c NULL if no 
    * reactant SpeciesReference object with the given "species" attribute 
    * @p species exists in this Reaction.
    */
@@ -1087,7 +1115,7 @@ public:
    *
    * @param n the index of the product SpeciesReference object to remove
    *
-   * @return the removed product SpeciesReference object, or NULL if the 
+   * @return the removed product SpeciesReference object, or @c NULL if the 
    * given index is out of range.
    */
   SpeciesReference* removeProduct (unsigned int n);
@@ -1102,7 +1130,7 @@ public:
    * @param species the "species" attribute of the product SpeciesReference 
    * object
    *
-   * @return the removed product SpeciesReference object, or NULL if no 
+   * @return the removed product SpeciesReference object, or @c NULL if no 
    * product SpeciesReference object with the given "species" attribute 
    * @p species exists in this Reaction.
    */
@@ -1119,7 +1147,7 @@ public:
    *
    * @param n the index of the ModifierSpeciesReference object to remove
    *
-   * @return the removed ModifierSpeciesReference object, or NULL if the 
+   * @return the removed ModifierSpeciesReference object, or @c NULL if the 
    * given index is out of range.
    */
   ModifierSpeciesReference* removeModifier (unsigned int n);
@@ -1134,7 +1162,7 @@ public:
    * @param species the "species" attribute of the ModifierSpeciesReference 
    * object
    *
-   * @return the removed ModifierSpeciesReference object, or NULL if no 
+   * @return the removed ModifierSpeciesReference object, or @c NULL if no 
    * ModifierSpeciesReference object with the given "species" attribute @p 
    * species exists in this Reaction.
    */
@@ -1159,7 +1187,7 @@ public:
   /** @endcond */
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -1200,14 +1228,13 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this Reaction object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * Reaction object have been set.
    *
    * @note The required attributes for a Reaction object are:
-   * @li id (name in L1)
-   * @li fast (in L3 only)
-   * @li reversible (in L3 only)
+   * @li "id" (or "name" in SBML Level&nbsp;1)
+   * @li "fast" (in Level&nbsp;3 only, where it is defined as a required attribute)
+   * @li "reversible" (in Level&nbsp;3 only, where it is defined as a required attribute)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -1226,7 +1253,7 @@ protected:
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
@@ -1304,7 +1331,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -1389,7 +1416,7 @@ public:
    * of the Reaction to get.
    * 
    * @return Reaction in this ListOfReactions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Reaction exists.
    *
    * @see get(unsigned int n)
@@ -1406,7 +1433,7 @@ public:
    * of the Reaction to get.
    * 
    * @return Reaction in this ListOfReactions
-   * with the given id or NULL if no such
+   * with the given id or @c NULL if no such
    * Reaction exists.
    *
    * @see get(unsigned int n)
@@ -1433,7 +1460,7 @@ public:
    *
    * The caller owns the returned item and is responsible for deleting it.
    * If none of the items in this list have the identifier @p sid, then @c
-   * NULL is returned.
+   * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove
    *
