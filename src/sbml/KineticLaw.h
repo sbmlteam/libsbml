@@ -39,56 +39,31 @@
  * KineticLaw's list of local parameters (discussed below) or the
  * parameters defined globally on the Model instance.
  *
- * KineticLaw's "listOfParameters" subelement can contain a list of one or
- * more Parameter objects defining new parameters whose identifiers can be
- * used in the "math" formula of that KineticLaw instance.  The Parameter
- * objects so defined are only visible within the KineticLaw; they cannot
- * be accessed outside.  Moreover, if a Parameter has the same identifier
- * as a global Parameter object defined in the enclosing Model, the
- * definition inside the KineticLaw takes precedence (i.e., it shadows the
- * global definition).
+ * KineticLaw also provides a way to define @em local parameters whose
+ * identifiers can be used in the "math" formula of that KineticLaw
+ * instance.  Prior to SBML Level&nbsp;3, these parameter definitions are
+ * stored inside a "listOfParameters" subelement containing Parameter
+ * objects; in SBML Level&nbsp;3, this is achieved using a specialized
+ * object class called LocalParameter and the containing subelement is
+ * called "listOfLocalParameters".  In both cases, the parameters so
+ * defined are only visible within the KineticLaw; they cannot be accessed
+ * outside.  A local parameter within one reaction is not visible from
+ * within another, nor is it visible to any other construct outside of the
+ * KineticLaw in which it is defined.  In addition, another important
+ * feature is that if such a Parameter (or in Level&nbsp3, LocalParameter)
+ * object has the same identifier as another object in the scope of the
+ * enclosing Model, the definition inside the KineticLaw takes precedence.
+ * In other words, within the KineticLaw's "math" formula, references to
+ * local parameter identifiers <strong>shadow any identical global
+ * identifiers</strong>.
  *
- * The type of structure used to define a parameter inside KineticLaw is
- * the same Parameter structure used to define global parameters.  This
- * simplifies the SBML language and reduces the number of unique types of
- * data objects.  However, there is a difference between local and global
- * parameters: in the case of parameters defined locally to a KineticLaw,
- * there is no means by which the parameter values can be changed.
- * Consequently, such parameters' values are always constant, and the
- * "constant" attribute in their definitions must always have a value of @c
- * true (either explicitly or left to its default value).  See the
- * definition of Parameter for more information about the "constant"
- * attribute.
+ * The values of local parameters defined within KineticLaw objects cannot
+ * change.  In SBML Level&nbsp;3, this quality is built into the
+ * LocalParameter construct.  In Level&nbsp;2, where the same kind of
+ * Parameter object class is used as for global parameters, the Parameter
+ * objects' "constant" attribute must always have a value of @c true
+ * (either explicitly or left to its default value).
  *
- * @section kineticlaw-units Units of rate expressions in KineticLaw
- *
- * It is important to make clear that a so-called kinetic law in SBML is
- * @em not identical to a traditional rate law.  The reason is that SBML
- * must support multicompartment models, and the units normally used in
- * traditional rate laws as well as some conventional single-compartment
- * modeling packages are problematic when used for defining reactions
- * between multiple compartments.  When modeling species as continuous
- * amounts (e.g., concentrations), the rate laws used are traditionally
- * expressed in terms of <em>amount of substance concentration per
- * time</em>, embodying a tacit assumption that reactants and products are
- * all located in a single, constant volume.  Attempting to describe
- * reactions between multiple volumes using
- * <em>concentration</em>/<em>time</em> (which is to say,
- * <em>substance</em>/<em>volume</em>/<em>time</em>) quickly leads to
- * difficulties, as explained in the SBML Level&nbsp;2 Version&nbsp;2, 3
- * and&nbsp;4 specifications.
- *
- * The need to support multicompartment models requires that the reaction
- * rates in SBML to be expressed in terms of
- * <em>substance</em>/<em>time</em>, rather than the more typical
- * <em>substance</em>/<em>size</em>/<em>time</em>.  As a result, modelers
- * and software tools in general cannot insert textbook rate laws
- * unmodified as the rate expression in the "math" subelement of a
- * KineticLaw.  The unusual term "kinetic law" was chosen to alert users to
- * this difference.
- *
- * Please consult the SBML specification document for more information
- * about the definition reaction rates in SBML.
  *
  * @note Before SBML Level&nbsp;2 Version&nbsp;2, the SBML specification
  * included two additional attributes on KineticLaw called "substanceUnits"
@@ -261,12 +236,12 @@ public:
 
 
   /**
-   * Returns the value of the "timeUnits" attribute of this KineticLaw
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Returns the value of the "timeUnits" attribute of this KineticLaw
    * object.
    *
    * @return the "timeUnits" attribute value
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
@@ -274,12 +249,12 @@ public:
 
 
   /**
-   * Returns the value of the "substanceUnits" attribute of this KineticLaw
-   * object.
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Returns the value of the
+   * "substanceUnits" attribute of this KineticLaw object.
    *
    * @return the "substanceUnits" attribute value
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
@@ -328,15 +303,15 @@ public:
 
 
  /**
-   * Predicate returning @c true if this
-   * SpeciesReference's "timeUnits" attribute has been set
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
+   * this SpeciesReference's "timeUnits" attribute has been set
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
    * has been set, @c false otherwise.
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
@@ -344,15 +319,15 @@ public:
 
 
  /**
-   * Predicate returning @c true if this
-   * SpeciesReference's "substanceUnits" attribute has been set
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
+   * this SpeciesReference's "substanceUnits" attribute has been set
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @return @c true if the "substanceUnits" attribute of this KineticLaw
    * object has been set, @c false otherwise.
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
@@ -414,14 +389,14 @@ public:
 
 
   /**
-   * Sets the "timeUnits" attribute of this KineticLaw object to a copy of
-   * the identifier in @p sid.
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Sets the "timeUnits" attribute
+   * of this KineticLaw object to a copy of the identifier in @p sid.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the units to use.
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    *
@@ -437,14 +412,15 @@ public:
 
 
   /**
-   * Sets the "substanceUnits" attribute of this KineticLaw object to a copy
-   * of the identifier given in @p sid.
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Sets the "substanceUnits"
+   * attribute of this KineticLaw object to a copy of the identifier given
+   * in @p sid.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
    * @param sid the identifier of the units to use.
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    *
@@ -460,7 +436,8 @@ public:
 
 
   /**
-   * Unsets the "timeUnits" attribugte of this KineticLaw object.
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Unsets the "timeUnits"
+   * attribugte of this KineticLaw object.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -471,7 +448,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
@@ -479,7 +456,8 @@ public:
 
 
   /**
-   * Unsets the "substanceUnits" attribute of this KineticLaw object.
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Unsets the "substanceUnits"
+   * attribute of this KineticLaw object.
    *
    * @htmlinclude libsbml-comment-set-methods.html
    *
@@ -490,7 +468,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @warning In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
+   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
    * "substanceUnits" attributes were removed.  For compatibility with new
    * versions of SBML, users are cautioned to avoid these attributes.
    */
@@ -922,7 +900,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
