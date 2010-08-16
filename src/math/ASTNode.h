@@ -1056,7 +1056,7 @@ public:
    * real number, @c false (zero) otherwise.  More precisely, this node
    * must be of one of the following types: @link ASTNodeType_t#AST_REAL
    * AST_REAL@endlink, @link ASTNodeType_t#AST_REAL_E AST_REAL_E@endlink or
-   * @c @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
+   * @link ASTNodeType_t#AST_RATIONAL AST_RATIONAL@endlink.
    * 
    * @return true if the value of this ASTNode can represented as a real
    * number, @c false otherwise.
@@ -1100,8 +1100,8 @@ public:
    * 
    * For numbers, unary minus nodes can be "collapsed" by negating the
    * number.  In fact, SBML_parseFormula() does this during its parse.
-   * However, unary minus nodes for symbols (@link ASTNodeType_t#AST_NAMES
-   * AST_NAMES@endlink) cannot be "collapsed", so this predicate function
+   * However, unary minus nodes for symbols (@link ASTNodeType_t#AST_NAME
+   * AST_NAME@endlink) cannot be "collapsed", so this predicate function
    * is necessary.
    * 
    * @return true if this ASTNode is a unary minus, false otherwise.
