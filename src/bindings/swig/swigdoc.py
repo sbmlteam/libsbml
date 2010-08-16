@@ -475,7 +475,7 @@ def translateInclude (match):
 
   text    = match.group()
   file    = match.group(1)
-  stream  = open(docincpath + '/' + file, 'r')
+  stream  = open(docincpath + '/common-text/' + file, 'r')
   content = stream.read()
   stream.close()
 
