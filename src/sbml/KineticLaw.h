@@ -50,7 +50,7 @@
  * outside.  A local parameter within one reaction is not visible from
  * within another, nor is it visible to any other construct outside of the
  * KineticLaw in which it is defined.  In addition, another important
- * feature is that if such a Parameter (or in Level&nbsp3, LocalParameter)
+ * feature is that if such a Parameter (or in Level&nbsp;3, LocalParameter)
  * object has the same identifier as another object in the scope of the
  * enclosing Model, the definition inside the KineticLaw takes precedence.
  * In other words, within the KineticLaw's "math" formula, references to
