@@ -1345,7 +1345,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or @link
+   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1377,8 +1378,9 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for
-   * ListOfReactions, is always @c "listOfReactions".
+   * Returns the XML element name of this object
+   *
+   * For ListOfReactions, the XML element name is @c "listOfReactions".
    * 
    * @return the name of this element, i.e., @c "listOfReactions".
    */
