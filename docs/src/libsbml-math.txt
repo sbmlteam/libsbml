@@ -162,7 +162,7 @@ rules are taken from the C programming language, except for the symbol @c
 ^, which is used in C for a different purpose.  (Exponentiation can be
 invoked using either @c ^ or the function @c power.)
 
-@htmlinclude libsbml-math-precedence-table.html
+@htmlinclude math-precedence-table.html
 
 A program parsing a formula in an SBML model should assume that names
 appearing in the formula are the identifiers of Species, Parameter,
@@ -180,7 +180,7 @@ there exist a few differences.  The following table summarizes the
 differences between the predefined functions in SBML Level 1 and the MathML
 equivalents in SBML Levels&nbsp;2 and&nbsp;3:
 
-@htmlinclude libsbml-math-functions.html
+@htmlinclude math-functions.html
 
 @section math-ast Methods for working with libSBML's Abstract Syntax Trees
 
@@ -191,7 +191,7 @@ quite long, because it covers all the mathematical functions that are
 permitted in SBML.  The values are shown in the following table; their
 names hopefully evoke the construct that they represent:
 
-@htmlinclude libsbml-astnode-types.html
+@htmlinclude astnode-types.html
 
 There are a number of methods for interrogating the type of an ASTNode and
 for testing whether a node belongs to a general category of constructs.

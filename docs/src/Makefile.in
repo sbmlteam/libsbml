@@ -89,13 +89,25 @@ distfiles =                                                 \
         DoxygenLayout.xml                                   \
         ExcludeDoclet.java                                  \
         Makefile.in                                         \
-	common-text/base-units.html                         \
-	common-text/base-units2.html                        \
-	common-text/compartment-size-recommendations.html   \
+        common-text/astnode-types.html                      \
+        common-text/base-units.html                         \
+        common-text/base-units2.html                        \
+        common-text/comment-set-methods.html                \
+        common-text/compartment-size-recommendations.html   \
+        common-text/compartment-size-restrictions.html      \
+        common-text/id-syntax.html                          \
+        common-text/math-functions.html                     \
+        common-text/math-precedence-table.html              \
+        common-text/not-sbml-warning.html                   \
+        common-text/predefined-units.html                   \
+        common-text/species-boundarycondition.html          \
+        common-text/species-hasonlysubstance.html           \
+        common-text/string-functions-table.html             \
         common-text/unassigned-units-are-not-a-default.html \
-	common-text/id-syntax.html                          \
-	common-text/unitid-syntax.html                      \
-	common-text/xmlid-syntax.html                       \
+        common-text/unitid-syntax.html                      \
+        common-text/unitkind-table.html                     \
+        common-text/warn-default-args-in-docs.html          \
+        common-text/xmlid-syntax.html                       \
         doxygen-base.css                                    \
         doxygen-config-c.txt.in                             \
         doxygen-config-common.txt                           \
@@ -142,15 +154,12 @@ distfiles =                                                 \
         java-skip.txt                                       \
         libsbml-accessing.html                              \
         libsbml-accessing.txt                               \
-        libsbml-astnode-types.html                          \
         libsbml-authors.html                                \
         libsbml-blurb.html                                  \
         libsbml-blurb.txt                                   \
         libsbml-coding.txt                                  \
-        libsbml-comment-set-methods.html                    \
         libsbml-communications.html                         \
         libsbml-communications.txt                          \
-        libsbml-compartment-size-restrictions.html          \
         libsbml-conversion-warnings.txt                     \
         libsbml-conversion-warnings.html                    \
         libsbml-example.txt                                 \
@@ -171,26 +180,16 @@ distfiles =                                                 \
         libsbml-java-verb-bottom.html                       \
         libsbml-license.txt                                 \
         libsbml-mainpage.txt                                \
-        libsbml-math-functions.html                         \
-        libsbml-math-precedence-table.html                  \
         libsbml-math.txt                                    \
         libsbml-news.txt                                    \
-        libsbml-not-sbml-warning.html                       \
         libsbml-papers.html                                 \
         libsbml-papers.txt                                  \
-        libsbml-predefined-units.html                       \
         libsbml-python-mainpage.txt                         \
         libsbml-python-math.txt                             \
         libsbml-python-reading-files.txt                    \
         libsbml-reading-files.txt                           \
-        libsbml-string-functions-table.html                 \
-        libsbml-species-boundarycondition.html              \
-        libsbml-species-hasonlysubstance.html               \
-        libsbml-string-functions-table.html                 \
         libsbml-uninstallation.html                         \
         libsbml-uninstallation.txt                          \
-        libsbml-unitkind-table.html                         \
-        libsbml-warn-default-args-in-docs.html              \
         pythondocfilter.py                                  \
         search.css                                          \
         search.png                                          \
