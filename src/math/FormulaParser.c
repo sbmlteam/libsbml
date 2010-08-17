@@ -306,7 +306,7 @@ static const StateActionPair_t Action[] =
  * and white space characters.  The following table provides the precedence
  * rules for the different entities that may appear in formula strings.
  *
- * @htmlinclude libsbml-math-precedence-table.html
+ * @htmlinclude math-precedence-table.html
  * 
  * In the table above, @em operand implies the construct is an operand, @em
  * prefix implies the operation is applied to the following arguments, @em

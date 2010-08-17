@@ -25,7 +25,7 @@
  * @brief Abstract Syntax Tree (AST) representation of a
  * mathematical expression.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * Abstract Syntax Trees (ASTs) are a simple kind of data structure used in
  * libSBML for storing mathematical expressions.  The ASTNode is the
@@ -92,7 +92,7 @@
  * mathematical functions that are permitted in SBML.  The values are shown
  * in the following table: @endif
  *
- * @htmlinclude libsbml-astnode-types.html
+ * @htmlinclude astnode-types.html
  *
  * The types have the following meanings:
  * <ul>
@@ -184,7 +184,7 @@
  * is used in C for a different purpose.  (Exponentiation can be invoked
  * using either <code>^</code> or the function @c power.)
  * 
- * @htmlinclude libsbml-math-precedence-table.html 
+ * @htmlinclude math-precedence-table.html 
  *
  * A program parsing a formula in an SBML model should assume that names
  * appearing in the formula are the identifiers of Species, Parameter,
@@ -203,7 +203,7 @@
  * functions in SBML Level&nbsp;1 and the MathML equivalents in SBML
  * Level&nbsp;2:
  * 
- * @htmlinclude libsbml-math-functions.html
+ * @htmlinclude math-functions.html
  */
 
 #ifndef ASTNode_h
@@ -388,7 +388,7 @@ public:
    * @param type an optional @link #ASTNodeType_t ASTNodeType_t@endlink
    * code indicating the type of node to create.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);
