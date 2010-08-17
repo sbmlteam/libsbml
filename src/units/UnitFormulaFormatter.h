@@ -26,7 +26,7 @@
  * @brief Object for deriving the units associated with objects
  * and math expressions.
  * 
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * A UnitFormulaFormatter object is created using a Model object
  * and uses the information from that Model to derive the units
@@ -100,7 +100,7 @@ public:
    * @param reactNo integer indicating which Reaction within the Model
    * contains the KineticLaw under consideration (default = -1).
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   UnitDefinition * getUnitDefinition(const ASTNode * node, 
     bool inKL = false, int reactNo = -1);
