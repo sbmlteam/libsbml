@@ -285,7 +285,7 @@ public:
    * Predicate returning @c true if a
    * message has been defined for this Constraint.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the message of this Constraint has been set,
    * @c false otherwise.
@@ -297,7 +297,7 @@ public:
    * Predicate returning @c true if a
    * mathematical formula has been defined for this Constraint.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "math" subelement for this Constraint has been
    * set, @c false otherwise.
@@ -308,7 +308,7 @@ public:
   /**
    * Sets the message of this Constraint.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * The XMLNode tree passed in @p xhtml is copied.
    *
@@ -328,7 +328,7 @@ public:
    * Sets the mathematical expression of this Constraint to a copy of the
    * AST given as @p math.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param math an ASTNode expression to be assigned as the "math"
    * subelement of this Constraint
@@ -346,7 +346,7 @@ public:
   /**
    * Unsets the "message" subelement of this Constraint.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

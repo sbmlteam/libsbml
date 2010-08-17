@@ -132,7 +132,7 @@
  * meanings. @endif@if java The table below lists the unit
  * constants defined in libSBML, and their meanings. @endif
  *
- * @htmlinclude libsbml-unitkind-table.html
+ * @htmlinclude unitkind-table.html
  * 
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -936,12 +936,9 @@ public:
   *
   * @param unit the Unit object to manipulate.
   *
-  * @return integer value indicating success/failure of the function.  @if
-  * clike The value is drawn from the enumeration
-  * #OperationReturnValues_t. @endif The possible values returned by this
-  * function are: @li @link
-  * OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS
-  * LIBSBML_OPERATION_SUCCESS @endlink
+  * @return integer value indicating success/failure of the function.  The
+  * possible values returned by this function are:
+  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
   *
   * @see convertToSI()
   * @see merge()

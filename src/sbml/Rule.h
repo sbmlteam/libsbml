@@ -1059,7 +1059,7 @@ public:
    * (SBML Level&nbsp;1 ParameterRule only) Predicate returning @c true
    * if this Rule's "units" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the units for this Rule has been set, @c false
    * otherwise
@@ -1136,7 +1136,7 @@ public:
   /**
    * (SBML Level&nbsp;1 ParameterRule only) Sets the units for this Rule.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sname the identifier of the units
    *
@@ -1154,7 +1154,7 @@ public:
   /**
    * (SBML Level&nbsp;1 ParameterRule only) Unsets the "units" for this Rule.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

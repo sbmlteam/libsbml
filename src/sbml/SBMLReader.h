@@ -24,7 +24,7 @@
  * @class SBMLReader
  * @brief Methods for reading SBML from files and text strings.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * The SBMLReader class provides the main interface for reading SBML
  * content from files and strings.  The methods for reading SBML all return
@@ -329,7 +329,7 @@ protected:
   /**
    * Used by readSBML() and readSBMLFromString().
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 

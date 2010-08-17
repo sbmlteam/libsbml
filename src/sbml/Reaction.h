@@ -400,7 +400,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "id" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -412,7 +412,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "name" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -424,7 +424,7 @@ public:
    * Predicate returning @c true if this
    * Reaction contains a kinetic law object.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if a KineticLaw is present in this Reaction,, @c false
    * otherwise.
@@ -436,7 +436,7 @@ public:
    * Predicate returning @c true if the value of
    * the "fast" attribute on this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "fast" attribute is true, @c false otherwise.
    *
@@ -461,7 +461,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Reaction's "compartment" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "compartment" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -476,7 +476,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "reversible" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "reversible" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -490,7 +490,7 @@ public:
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Reaction
    *
@@ -509,7 +509,7 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param name the new name for the Reaction
    *
@@ -527,7 +527,7 @@ public:
    * Sets the "kineticLaw" subelement of this Reaction to a copy of the
    * given KineticLaw object.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param kl the KineticLaw object to use.
    *
@@ -545,7 +545,7 @@ public:
   /**
    * Sets the value of the "reversible" attribute of this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value of the "reversible" attribute.
    *
@@ -561,7 +561,7 @@ public:
   /**
    * Sets the value of the "fast" attribute of this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value of the "fast" attribute.
    *
@@ -591,7 +591,7 @@ public:
    *
    * The string @p sid is copied.  
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the compartment of this Reaction
    *
@@ -612,7 +612,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -627,7 +627,7 @@ public:
   /**
    * Unsets the "kineticLaw" subelement of this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -642,7 +642,7 @@ public:
   /**
    * Unsets the value of the "fast" attribute of this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -672,7 +672,7 @@ public:
   /**
    * (SBML Level&nbsp;3 only) Unsets the value of the "compartment" attribute of this Reaction.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

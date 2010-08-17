@@ -545,7 +545,7 @@ public:
    * Predicate returning @c true if this
    * Model's "id" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this Model has been
    * set, @c false otherwise.
@@ -557,7 +557,7 @@ public:
    * Predicate returning @c true if this
    * Model's "name" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this Model has been
    * set, @c false otherwise.
@@ -569,7 +569,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "substanceUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "substanceUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -584,7 +584,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "timeUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "timeUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -599,7 +599,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "volumeUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "volumeUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -614,7 +614,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "areaUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "areaUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -629,7 +629,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "lengthUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "lengthUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -644,7 +644,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "extentUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "extentUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -659,7 +659,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Model's "conversionFactor" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "conversionFactor" attribute of this Model has been
    * set, @c false otherwise.
@@ -676,7 +676,7 @@ public:
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Model
    *
@@ -695,7 +695,7 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param name the new name for the Model
    *
@@ -714,7 +714,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new substanceUnits for the Model
    *
@@ -737,7 +737,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new timeUnits for the Model
    *
@@ -760,7 +760,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new volumeUnits for the Model
    *
@@ -783,7 +783,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new areaUnits for the Model
    *
@@ -806,7 +806,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new lengthUnits for the Model
    *
@@ -829,7 +829,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new extentUnits for the Model
    *
@@ -852,7 +852,7 @@ public:
    *
    * The string in @p units is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units the new conversionFactor for the Model
    *
@@ -873,7 +873,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -888,7 +888,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -903,7 +903,7 @@ public:
   /**
    * Unsets the value of the "substanceUnits" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -921,7 +921,7 @@ public:
   /**
    * Unsets the value of the "timeUnits" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -939,7 +939,7 @@ public:
   /**
    * Unsets the value of the "volumeUnits" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -957,7 +957,7 @@ public:
   /**
    * Unsets the value of the "areaUnits" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -975,7 +975,7 @@ public:
   /**
    * Unsets the value of the "lengthUnits" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -993,7 +993,7 @@ public:
   /**
    * Unsets the value of the "extentUnits" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1011,7 +1011,7 @@ public:
   /**
    * Unsets the value of the "conversionFactor" attribute of this Model.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

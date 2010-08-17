@@ -25,7 +25,7 @@
  * @class SBMLErrorLog
  * @brief Log of errors and other events encountered during SBML processing.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * The error log is a list.  Each SBMLDocument maintains its own
  * SBMLErrorLog.  When a libSBML operation on SBML content results in an
@@ -157,7 +157,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   void logError
   (

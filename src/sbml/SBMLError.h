@@ -25,7 +25,7 @@
  * @class SBMLError
  * @brief Representation of errors, warnings and other diagnostics
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * When a libSBML operation on SBML content results in an error, or when
  * there is something wrong with the SBML content, the problems are
@@ -1385,7 +1385,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   SBMLError
   (

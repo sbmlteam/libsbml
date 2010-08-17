@@ -2133,7 +2133,7 @@ protected:
   /**
    * Only subclasses may create SBase objects.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   SBase (const std::string& id = "", const std::string& name = "", int sboTerm = -1);
 
@@ -2204,7 +2204,7 @@ protected:
    *
    * This is essentially a short form of getErrorLog()->logError(...)
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   void logError (  unsigned int       id
                  , const unsigned int level   = 2
@@ -2298,7 +2298,7 @@ protected:
    * If the syntax of the unit attribute of this object is incorrect, 
    * an error is logged
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   void checkUnitSyntax(unsigned int flag = 0);
 #endif

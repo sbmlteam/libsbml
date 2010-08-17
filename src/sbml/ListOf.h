@@ -24,7 +24,7 @@
  * @class ListOf
  * @brief Parent class for the various SBML "ListOfXYZ" classes.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  */
 

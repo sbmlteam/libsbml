@@ -24,7 +24,7 @@
  * @class SBMLNamespaces
  * @brief Class to store SBML level, version and namespace information.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * There are differences in the definitions of components between different
  * SBML Levels, as well as Versions within Levels.  For example, the
@@ -98,7 +98,7 @@ public:
    * @param level the SBML level
    * @param version the SBML version
    * 
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   SBMLNamespaces(unsigned int level = SBML_DEFAULT_LEVEL, 
                  unsigned int version = SBML_DEFAULT_VERSION);

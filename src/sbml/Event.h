@@ -354,7 +354,7 @@ public:
    * Predicate returning @c true if this
    * Event's "id" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this Event has been
    * set, @c false otherwise.
@@ -366,7 +366,7 @@ public:
    * Predicate returning @c true if this
    * Event's "name" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this Event has been
    * set, @c false otherwise.
@@ -377,7 +377,7 @@ public:
   /**
    * Predicate for testing whether the trigger for this Event has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the trigger of this Event has been set, @c false
    * otherwise.
@@ -388,7 +388,7 @@ public:
   /**
    * Predicate for testing whether the delay for this Event has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the delay of this Event has been set, @c false
    * otherwise.
@@ -400,7 +400,7 @@ public:
    * Predicate for testing whether the "timeUnits" attribute of this Event
    * has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the "timeUnits" attribute of this Event has been
    * set, @c false otherwise.
@@ -421,7 +421,7 @@ public:
    * Predicate for testing whether the "useValuesFromTriggerTime" attribute of this Event
    * has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the "useValuesFromTriggerTime" attribute of this Event has been
    * set, @c false otherwise.
@@ -444,7 +444,7 @@ public:
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Event
    *
@@ -463,7 +463,7 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param name the new name for the Event
    *
@@ -481,7 +481,7 @@ public:
    * Sets the trigger definition of this Event to a copy of the given
    * Trigger object instance.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param trigger the Trigger object instance to use.
    *
@@ -500,7 +500,7 @@ public:
    * Sets the delay definition of this Event to a copy of the given Delay
    * object instance.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param delay the Delay object instance to use
    *
@@ -518,7 +518,7 @@ public:
   /**
    * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of the time units to use.
    *
@@ -593,7 +593,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this Event.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -608,7 +608,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Event.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -623,7 +623,7 @@ public:
   /**
    * Unsets the Delay of this Event.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -638,7 +638,7 @@ public:
   /**
    * Unsets the "timeUnits" attribute of this Event.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

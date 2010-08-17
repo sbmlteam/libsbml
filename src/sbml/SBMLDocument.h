@@ -341,7 +341,7 @@ public:
    * @see getDefaultLevel()
    * @see getDefaultVersion()
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
 
@@ -555,7 +555,7 @@ public:
    *
    * @param sid the identifier of the new Model to create.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    *
    * @see getModel()
    * @see @if clike SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif
@@ -886,7 +886,7 @@ public:
      line NNN: (id) message
 @endverbatim
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 

@@ -24,7 +24,7 @@
  * @class SyntaxChecker
  * @brief Methods for checking syntax of SBML identifiers and other strings.
  * 
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  * 
  * This utility class provides static methods for checking the syntax of
  * identifiers and other text used in an SBML model.  The methods allow
@@ -204,7 +204,7 @@ public:
    *
    * @return @c true if the XMLNode content conforms, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   static bool hasExpectedXHTMLSyntax(const XMLNode * xhtml, 
                                      SBMLNamespaces * sbmlns = NULL); 

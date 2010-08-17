@@ -161,7 +161,7 @@
  * are optional; in SBML Level&nbsp;3 they are mandatory.  The following
  * table shows how to interpret the combined values of these attributes.
  *
- * @htmlinclude libsbml-species-boundarycondition.html
+ * @htmlinclude species-boundarycondition.html
  * 
  * By default, when a species is a product or reactant of one or more
  * reactions, its quantity is determined by those reactions.  In SBML, it
@@ -662,7 +662,7 @@ public:
    * Predicate returning @c true if this
    * Species's "id" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this Species has been
    * set, @c false otherwise.
@@ -674,7 +674,7 @@ public:
    * Predicate returning @c true if this
    * Species's "name" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this Species has been
    * set, @c false otherwise.
@@ -686,7 +686,7 @@ public:
    * (SBML Level&nbsp;2 only) Predicate returning @c true if this Species's
    * "speciesType" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "speciesType" attribute of this Species has
    * been set, @c false otherwise.
@@ -701,7 +701,7 @@ public:
    * Predicate returning @c true if this
    * Species's "compartment" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "compartment" attribute of this Species has
    * been set, @c false otherwise.
@@ -713,7 +713,7 @@ public:
    * Predicate returning @c true if this
    * Species's "initialAmount" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "initialAmount" attribute of this Species has
    * been set, @c false otherwise.
@@ -731,7 +731,7 @@ public:
    * Predicate returning @c true if this
    * Species's "initialConcentration" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "initialConcentration" attribute of this Species has
    * been set, @c false otherwise.
@@ -743,7 +743,7 @@ public:
    * Predicate returning @c true if this
    * Species's "substanceUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "substanceUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -755,7 +755,7 @@ public:
    * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Predicate returning @c true if this
    * Species's "spatialSizeUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "spatialSizeUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -775,7 +775,7 @@ public:
    * (SBML Level&nbsp;1 only) Predicate returning @c true if
    * this Species's "units" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "units" attribute of this Species has
    * been set, @c false otherwise.
@@ -787,7 +787,7 @@ public:
    * (SBML Level&nbsp;1 and&nbsp;2 only) Predicate returning @c true if this
    * Species's "charge" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "charge" attribute of this Species has
    * been set, @c false otherwise.
@@ -811,7 +811,7 @@ public:
    * (SBML Level&nbsp;3 only) Predicate returning @c true if this
    * Species's "conversionFactor" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "conversionFactor" attribute of this Species has
    * been set, @c false otherwise.
@@ -826,7 +826,7 @@ public:
    * Predicate returning @c true if this
    * Species's "boundaryCondition" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "boundaryCondition" attribute of this Species has
    * been set, @c false otherwise.
@@ -838,7 +838,7 @@ public:
    * Predicate returning @c true if this
    * Species's "hasOnlySubstanceUnits" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "hasOnlySubstanceUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -850,7 +850,7 @@ public:
    * Predicate returning @c true if this
    * Species's "constant" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "constant" attribute of this Species has
    * been set, @c false otherwise.
@@ -864,7 +864,7 @@ public:
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Species
    *
@@ -883,7 +883,7 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param name the new name for the Species
    *
@@ -900,7 +900,7 @@ public:
   /**
    * (SBML Level&nbsp;2 only) Sets the "speciesType" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of a SpeciesType object defined elsewhere
    * in this Model.
@@ -922,7 +922,7 @@ public:
   /**
    * Sets the "compartment" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of a Compartment object defined elsewhere
    * in this Model.
@@ -943,7 +943,7 @@ public:
    *
    * This method also unsets the "initialConcentration" attribute.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "initialAmount" attribute should
    * be set.
@@ -963,7 +963,7 @@ public:
    *
    * This method also unsets the "initialAmount" attribute.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value the value to which the "initialConcentration" attribute
    * should be set.
@@ -981,7 +981,7 @@ public:
   /**
    * Sets the "substanceUnits" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of the unit to use.
    *
@@ -998,7 +998,7 @@ public:
   /**
    * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Sets the "spatialSizeUnits" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of the unit to use.
    * 
@@ -1024,7 +1024,7 @@ public:
   /**
    * (SBML Level&nbsp;1 only) Sets the units of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sname the identifier of the unit to use.
    *
@@ -1041,7 +1041,7 @@ public:
   /**
    * Sets the "hasOnlySubstanceUnits" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value boolean value for the "hasOnlySubstanceUnits" attribute.
    *
@@ -1058,7 +1058,7 @@ public:
   /**
    * Sets the "boundaryCondition" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value boolean value for the "boundaryCondition" attribute.
    *
@@ -1074,7 +1074,7 @@ public:
   /**
    * (SBML Level&nbsp;1 and&nbsp;2 only) Sets the "charge" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value an integer to which to set the "charge" to.
    *
@@ -1104,7 +1104,7 @@ public:
   /**
    * Sets the "constant" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value a boolean value for the "constant" attribute
    *
@@ -1123,7 +1123,7 @@ public:
    *
    * The string in @p sid is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the new conversionFactor for the Species
    *
@@ -1144,7 +1144,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1159,7 +1159,7 @@ public:
   /**
    * (SBML Level&nbsp;2 only) Unsets the "speciesType" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1174,7 +1174,7 @@ public:
   /**
    * Unsets the "initialAmount" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1188,7 +1188,7 @@ public:
   /**
    * Unsets the "initialConcentration" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1202,7 +1202,7 @@ public:
   /**
    * Unsets the "substanceUnits" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1217,7 +1217,7 @@ public:
   /**
    * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Unsets the "spatialSizeUnits" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1240,7 +1240,7 @@ public:
   /**
    * (SBML Level&nbsp;1 only) Unsets the "units" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1256,7 +1256,7 @@ public:
    * (SBML Level&nbsp;1 and&nbsp;2 only) Unsets the "charge" attribute
    * value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1284,7 +1284,7 @@ public:
   /**
    * (SBML Level&nbsp;3 only) Unsets the "conversionFactor" attribute value of this Species.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

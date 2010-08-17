@@ -443,7 +443,7 @@ public:
    * Predicate returning @c true if this
    * SimpleSpeciesReference's "id" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this SimpleSpeciesReference has been
    * set, @c false otherwise.
@@ -455,7 +455,7 @@ public:
    * Predicate returning @c true if this
    * SimpleSpeciesReference's "name" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this SimpleSpeciesReference has been
    * set, @c false otherwise.
@@ -531,7 +531,7 @@ public:
   /**
    * Unsets the value of the "id" attribute of this SimpleSpeciesReference.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -546,7 +546,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this SimpleSpeciesReference.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

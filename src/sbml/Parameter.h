@@ -367,7 +367,7 @@ public:
    * Predicate returning @c true if this
    * Parameter's "id" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "id" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -379,7 +379,7 @@ public:
    * Predicate returning @c true if this
    * Parameter's "name" attribute has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "name" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -391,7 +391,7 @@ public:
    * Predicate returning @c true if the
    * "value" attribute of this Parameter has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * In SBML definitions after SBML Level&nbsp;1 Version&nbsp;1,
    * parameter values are optional and have no defaults.  If a model read
@@ -420,7 +420,7 @@ public:
    * Predicate returning @c true if the
    * "units" attribute of this Parameter has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "units" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -434,7 +434,7 @@ public:
    * Predicate returning @c true if the
    * "constant" attribute of this Parameter has been set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    * 
    * @return @c true if the "constant" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -448,7 +448,7 @@ public:
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Parameter
    *
@@ -465,7 +465,7 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param name the new name for the Parameter
    *
@@ -482,7 +482,7 @@ public:
    * Sets the "value" attribute of this Parameter to the given @c double
    * value and marks the attribute as set.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param value a @c double, the value to assign
    *
@@ -498,7 +498,7 @@ public:
    * Sets the "units" attribute of this Parameter to a copy of the given
    * units identifier @p units.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @param units a string, the identifier of the units to assign to this
    * Parameter instance
@@ -531,7 +531,7 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Parameter.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -545,7 +545,7 @@ public:
   /**
    * Unsets the "value" attribute of this Parameter instance.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -563,7 +563,7 @@ public:
   /**
    * Unsets the "units" attribute of this Parameter instance.
    *
-   * @htmlinclude libsbml-comment-set-methods.html
+   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
