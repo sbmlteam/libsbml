@@ -25,7 +25,7 @@
  * @brief Read/write/manipulate RDF annotations stored in SBML
  * annotation elements.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * RDFAnnotationParser is a libSBML construct used as part of the libSBML
  * support for annotations conforming to the guidelines specified by MIRIAM

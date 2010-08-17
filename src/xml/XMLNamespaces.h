@@ -24,7 +24,7 @@
  * @class XMLNamespaces.
  * @brief Representation of XML Namespaces.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * This class serves to organize functionality for tracking XML namespaces
  * in a document or data stream.  The namespace declarations are stored as
@@ -128,7 +128,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   int add (const std::string& uri, const std::string& prefix = "");
 
@@ -284,7 +284,7 @@ public:
    * prefix, or an empty string if no such prefix-and-URI pair exists
    * in this XMLNamespaces object
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    * 
    * @see getURI()
    */

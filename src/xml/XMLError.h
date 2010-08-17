@@ -25,7 +25,7 @@
  * @class XMLError
  * @brief Representation of errors, warnings and other diagnostics
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * LibSBML can be configured to use any of a number of XML parsers; at the
  * time of this writing, libSBML supports Xerces versions 2.4 through 3.0,
@@ -625,7 +625,7 @@ public:
    * @param category an integer indicating the category to which the error
    * belongs.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   XMLError
   (

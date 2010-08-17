@@ -57,7 +57,7 @@ public:
   /**
    * Creates a new XMLInputStream.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   XMLInputStream (  const char*        content
                   , bool               isFile   = true

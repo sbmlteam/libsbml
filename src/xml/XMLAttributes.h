@@ -24,7 +24,7 @@
  * @class XMLAttributes
  * @brief Representation of attributes on an XML node.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  */
 
@@ -106,7 +106,7 @@ public:
    * @note if local name with the same namespace URI already exists in this 
    * attribute set, its value and prefix will be replaced.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   int add (  const std::string& name
 	    , const std::string& value
@@ -471,7 +471,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const std::string&  name
                  , bool&               value
@@ -499,7 +499,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const XMLTriple& triple
                  , bool&        value
@@ -533,7 +533,7 @@ public:
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const std::string&  name
                  , double&             value
@@ -561,7 +561,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const XMLTriple&  triple
                  , double&           value
@@ -594,7 +594,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const std::string&  name
                  , long&               value
@@ -622,7 +622,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const XMLTriple& triple
                  , long&            value
@@ -655,7 +655,7 @@ public:
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const std::string&  name
                  , int&                value
@@ -683,7 +683,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const XMLTriple& triple
                  , int&             value
@@ -716,7 +716,7 @@ public:
    * ...) should be used to read a value for an attribute name with a
    * prefix and namespace.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const std::string&  name
                  , unsigned int&       value
@@ -744,7 +744,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const XMLTriple& triple
                  , unsigned int&    value
@@ -771,7 +771,7 @@ public:
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const std::string&  name
                  , std::string&        value
@@ -793,7 +793,7 @@ public:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool readInto (  const XMLTriple& triple
                  , std::string&     value

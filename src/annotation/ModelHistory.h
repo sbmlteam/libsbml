@@ -24,7 +24,7 @@
  * @class ModelHistory
  * @brief Representation of MIRIAM-compliant model history data.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * The SBML specification beginning with Level 2 Version 2 defines a
  * standard approach to recording model history and model creator
@@ -41,7 +41,7 @@
  * @brief Representation of MIRIAM-compliant model creator data used
  * in ModelHistory. 
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * The SBML specification beginning with Level 2 Version 2 defines a
  * standard approach to recording model history and model creator
@@ -57,7 +57,7 @@
  * @class Date
  * @brief Representation of MIRIAM-compliant dates used in ModelHistory.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * A Date object stores a reasonably complete date representation,
  * consisting of the following fields:
@@ -110,7 +110,7 @@ public:
    * @param hoursOffset an unsigned int representing the hoursOffset.
    * @param minutesOffset an unsigned int representing the minutesOffset.
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   Date(unsigned int year = 2007, unsigned int month = 1, 
     unsigned int day = 1, unsigned int hour = 0, 

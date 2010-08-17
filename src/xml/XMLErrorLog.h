@@ -25,7 +25,7 @@
  * @brief Log of errors and other events encountered while processing an XML
  * file or data stream.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * The error log is a list.  The XML layer of libSBML maintains an error
  * log associated with a given XML document or data stream.  When an

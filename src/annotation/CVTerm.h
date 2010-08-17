@@ -24,7 +24,7 @@
  * @class CVTerm.
  * @brief Representation of MIRIAM-compliant controlled vocabulary annotation.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * CVTerm is a libSBML construct used as part of the libSBML support for
  * annotations conforming to the guidelines specified by MIRIAM ("Minimum
@@ -122,7 +122,7 @@ public:
    *
    * @param type a #QualifierType_t value
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 

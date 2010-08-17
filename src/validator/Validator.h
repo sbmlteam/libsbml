@@ -24,7 +24,7 @@
  * @class Validator
  * @brief Entry point for libSBML's implementation of SBML validation
  * 
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  */
 

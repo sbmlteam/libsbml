@@ -23,7 +23,7 @@
  * @class XMLTriple.
  * @brief Representation of a qualified XML name.
  *
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  * A "triple" in the libSBML XML layer encapsulates the notion of qualified
  * name, meaning an element name or an attribute name with an optional
@@ -103,7 +103,7 @@ public:
    * @param triplet a string representing the triplet as above
    * @param sepchar a character, the sepchar used in the triplet
    *
-   * @if notcpp @docnote @htmlinclude libsbml-warn-default-args-in-docs.html @endif
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
 

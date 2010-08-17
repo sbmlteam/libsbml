@@ -24,7 +24,7 @@
  * @class VConstraint
  * @brief Helper class for implementing SBML validation and consistency-checking
  * 
- * @htmlinclude libsbml-not-sbml-warning.html
+ * @htmlinclude not-sbml-warning.html
  *
  */
 
