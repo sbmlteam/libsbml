@@ -208,6 +208,7 @@ distfiles =                         \
   config/ltmain.sh                  \
   config/libtool.m4                 \
   config/lt_link_helper.sh.in       \
+  config/machine.m4                 \
   config/makefile-common-actions.mk \
   config/makefile-common-vars.mk.in \
   config/matlab.m4                  \
