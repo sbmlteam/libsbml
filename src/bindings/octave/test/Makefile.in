@@ -90,7 +90,7 @@ link-sources:
 check: all
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	@$(call libsbmlrun,$(OCTAVE) --path ..:. --eval testBinding)
+	$(call libsbmlrun,$(OCTAVE) --path ..:. --eval testBinding)
 	@echo -----------------------------------------------------------------
 	@echo
 
