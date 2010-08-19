@@ -379,7 +379,7 @@ public:
    * suitable action in those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this EventAssignment.
+   * expression of this EventAssignment, or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */
@@ -417,7 +417,7 @@ public:
    * suitable action in those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this EventAssignment.
+   * expression of this EventAssignment, or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */

@@ -597,7 +597,7 @@ public:
    * comparing different UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
-   * Parameter.
+   * Parameter, or @c NULL if one cannot be constructed.
    *
    * @note The libSBML system for unit analysis depends on the model as a
    * whole.  In cases where the Parameter object has not yet been added to
@@ -632,7 +632,7 @@ public:
    * UnitDefinition objects.
    *
    * @return a UnitDefinition that expresses the units of this 
-   * Parameter.
+   * Parameter, or @c NULL if one cannot be constructed.
    *
    * @note The libSBML system for unit analysis depends on the model as a
    * whole.  In cases where the Parameter object has not yet been added to

@@ -1062,7 +1062,7 @@ public:
    * comparing different UnitDefinition objects.
    * 
    * @return a UnitDefinition that expresses the units of this 
-   * Compartment.
+   * Compartment, or @c NULL if one cannot be constructed.
    *
    * @note The libSBML system for unit analysis depends on the model as a
    * whole.  In cases where the Compartment object has not yet been added
@@ -1101,7 +1101,7 @@ public:
    * comparing different UnitDefinition objects.
    * 
    * @return a UnitDefinition that expresses the units of this 
-   * Compartment.
+   * Compartment, or @c NULL if one cannot be constructed.
    *
    * @note The libSBML system for unit analysis depends on the model as a
    * whole.  In cases where the Compartment object has not yet been added

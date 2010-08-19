@@ -328,7 +328,8 @@ public:
    * <strong>to determine whether this situation holds</strong>.  Callers
    * should take suitable action in those situations.
    * 
-   * @return a UnitDefinition that expresses the units of the math 
+   * @return a UnitDefinition that expresses the units of the math, 
+   * or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */
@@ -365,7 +366,8 @@ public:
    * <strong>to determine whether this situation holds</strong>.  Callers
    * should take suitable action in those situations.
    * 
-   * @return a UnitDefinition that expresses the units of the math 
+   * @return a UnitDefinition that expresses the units of the math,
+   * or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */

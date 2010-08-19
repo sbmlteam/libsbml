@@ -1334,7 +1334,7 @@ public:
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
    * @return a UnitDefinition that expresses the units of this 
-   * Species.
+   * Species, or @c NULL if one cannot be constructed.
    *
    * @see getSubstanceUnits()
    */
@@ -1375,7 +1375,7 @@ public:
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
    * @return a UnitDefinition that expresses the units of this 
-   * Species.
+   * Species, or @c NULL if one cannot be constructed.
    *
    * @see getSubstanceUnits()
    */

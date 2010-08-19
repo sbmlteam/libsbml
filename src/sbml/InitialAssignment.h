@@ -417,7 +417,7 @@ public:
    * take suitable actions in those scenarios.
    * 
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this InitialAssignment.
+   * expression of this InitialAssignment, or @c NULL if one cannot be constructed.
    * 
    * @see containsUndeclaredUnits()
    */
@@ -453,7 +453,7 @@ public:
    * take suitable actions in those scenarios.
    * 
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this InitialAssignment.
+   * expression of this InitialAssignment, or @c NULL if one cannot be constructed.
    * 
    * @see containsUndeclaredUnits()
    */

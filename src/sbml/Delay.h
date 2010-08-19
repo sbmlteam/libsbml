@@ -299,7 +299,7 @@ public:
    * those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this Delay.
+   * expression of this Delay, or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */
@@ -344,7 +344,7 @@ public:
    * those situations.
    * 
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this Delay.
+   * expression of this Delay, or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */

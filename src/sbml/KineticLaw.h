@@ -726,7 +726,7 @@ public:
    * take suitable actions in those scenarios.
    *
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this KineticLaw.
+   * expression of this KineticLaw, or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */
@@ -762,7 +762,7 @@ public:
    * take suitable actions in those scenarios.
    *
    * @return a UnitDefinition that expresses the units of the math 
-   * expression of this KineticLaw.
+   * expression of this KineticLaw, or @c NULL if one cannot be constructed.
    *
    * @see containsUndeclaredUnits()
    */
