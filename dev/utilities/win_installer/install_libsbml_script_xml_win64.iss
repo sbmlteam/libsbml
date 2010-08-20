@@ -220,7 +220,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 4.1.0 built using the libxml2 2.7.3 XML Parser libraries. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 4.1.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 3.0.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
