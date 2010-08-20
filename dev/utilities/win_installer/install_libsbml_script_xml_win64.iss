@@ -552,7 +552,7 @@ begin
   S := S + NewLine;
 
 
-  S := S + 'The following binding installation options have been selected' + NewLine;
+  S := S + 'The following language interface installation options have been selected' + NewLine;
 
   if (InstallOptionsPage.Values[0] = True) then begin
       S := S + NewLine;
