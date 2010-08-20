@@ -154,12 +154,12 @@ runtime, respectively.
 
 This README file describes libSBML, a library for reading, writing and
 manipulating files and data streams containing the Systems Biology
-Markup Language (SBML).  The library supports both SBML Level 1 and
-SBML Level 2.
+Markup Language (SBML).  The library supports all levels and versions
+of SBML, up to Level 3 Version 1 Core.
 
 The library is written in ISO standard C and C++ and currently
-provides an API for the languages C, C++, C#, Java, Perl, Python,
-Ruby, MATLAB and Octave.  LibSBML is known to run on Linux, Windows,
+provides an API for the languages C, C++, C#, Java, MATLAB, Octave,
+Perl, Python, and Ruby.  LibSBML is known to run on Linux, Windows,
 MacOS X, FreeBSD and Solaris, but is portable and support for other
 platforms should be straightforward to implement.
 
@@ -170,17 +170,15 @@ please visit the website http://sbml.org/.
 Feature Highlights:
 -------------------
 
-* Full SBML Support.  All constructs in SBML Level 1 (Versions 1 and
-  2) and SBML Level 2 are supported.  For compatibility with some
-  technically incorrect but popular Level 1 applications and models,
-  the parser recognizes and stores notes and annotations defined for
-  the top-level <sbml> element (logging a warning).
+* Full SBML Support.  All constructs in SBML Levels 1, 2 and 3 are
+  supported.  For compatibility with some technically incorrect but
+  popular Level 1 applications and models, the parser recognizes and
+  stores notes and annotations defined for the top-level <sbml>
+  element (logging a warning).
 
-* Unified SBML Level 2 and Level 1 object models.  All objects have
-  getSBMLDocument(), getModel(), getLevel(), and getVersion(),
-  methods among other things.  Also, the interface to SBML's Rules
-  abstracts away some of the individual rule type (assignment, rate,
-  algebraic) differences.
+* Unified SBML Level 1, Level 2, and Level 3 object models.  All
+  objects have getSBMLDocument(), getModel(), getLevel(), and
+  getVersion(), methods among other things.
 
 * Full XML and SBML Validation.  All XML and Schema warning, error and
   fatal error messages are logged with line and column number
@@ -189,11 +187,11 @@ Feature Highlights:
 * Dimensional analysis and unit checking.  LibSBML implements a
   thorough system for dimensional analysis and checking units of
   quantities in a model.  The validation rules for units that are
-  specified in SBML Level 2 Version 2 and Version 3 are fully
-  implemented, including checking units in mathematical formulas.
+  specified in SBML Level 2 and Level 3 are fully implemented,
+  including checking units in mathematical formulas.
 
 * Access to SBML annotations and notes as XML objects.  Annotations
-  and notes in libSBML 3.x are read and manipulated as XML structures;
+  and notes in libSBML 4.x are read and manipulated as XML structures;
   a text-string interface is available for backward compatibility with
   the libSBML 2.x series.  Further, in order to facilitate the support
   of MIRIAM compatible annotations, there are new object classes
@@ -227,18 +225,18 @@ Feature Highlights:
   (SAX2) and loads SBML data into C++ structures that mirror the SBML
   specification.
       
-* Interfaces for C, C++, C#, Java, Python, Perl, MATLAB, Ruby
-  and Octave.  The C and C++ interfaces are implemented natively; the
-  C#, Java, Perl, Python, and Ruby interfaces are implemented using 
-  SWIG, the Simplified Wrapper Interface Generator; and the rest are
+* Interfaces for C, C++, C#, Java, MATLAB, Octave, Python, Perl, and
+  Ruby.  The C and C++ interfaces are implemented natively; the C#,
+  Java, Perl, Python, and Ruby interfaces are implemented using SWIG,
+  the Simplified Wrapper Interface Generator; and the rest are
   implemented using custom hand-written interface code.
 
-* Well tested: version 3.0.0 has over 1280 unit tests and 5800
+* Well tested: libSBML has over 4300 unit tests and over 11,000
   individual assertions.  The entire library was written using the
   test-first approach popularized by Kent Beck and eXtreme
   Programming, where it's one of the 12 principles.
     
-* Written in portable, pure ISO C and C++. The build system uses GNU
+* Written in portable, pure ISO C and C++.  The build system uses GNU
   tools (Autoconf, GNU Make) to build shared and static libraries.
 
 * Complete user manual.  The manual is generated from the source code
