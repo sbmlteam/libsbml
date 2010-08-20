@@ -507,8 +507,8 @@ remove_distdir = \
 # differently in a critical way (specifically, in its handling of dots).
 
 archive_basename = $(shell basename $(DISTDIR))
-tar_archive      = $(archive_basename).tar.gz
-zip_archive      = $(archive_basename).zip
+tar_archive      = $(archive_basename)-src.tar.gz
+zip_archive      = $(archive_basename)-src.zip
 
 dist-gzip: config-check dist-all
 	if test -d $(DISTDIR); then \
