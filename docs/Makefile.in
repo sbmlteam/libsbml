@@ -50,7 +50,7 @@ thisdir = docs
 
 subdirs = src
 
-distfiles = Makefile.in README-for-Windows.txt
+distfiles = Makefile.in README.txt
 
 
 # -----------------------------------------------------------------------------
