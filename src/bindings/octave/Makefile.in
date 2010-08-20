@@ -45,17 +45,24 @@ thisdir = src/bindings/octave
 # binaries separate.  The approach taken here is to make symbolic links
 # to the Matlab files and then compile in the current directory.
 
-matlab_sources = \
-  buildWin.m               \
-  CheckAndConvert.m                    \
-  Contents.m                           \
-  isoctave.m                           \
-  README.txt                           \
-  TranslateSBML.c                      \
-  TranslateSBML.m                      \
-  install_Win32.m                      \
-  matlab-tags-regexp.txt               \
-  test.xml
+matlab_sources =                      \
+        AUTHORS.txt                   \
+        CheckAndConvert.m             \
+        Contents.m                    \
+        README.txt                    \
+        TranslateSBML.c               \
+        TranslateSBML.m               \
+        buildWin.m                    \
+        install_Win32.m               \
+        install_Win64.m               \
+        install_for_Win32installers.m \
+        isoctave.m                    \
+        matlab-tags-regexp.txt        \
+        mexopts-R2007.sh              \
+        mexopts-R2008.sh              \
+        mexopts-R2009-R2010.sh        \
+	test.xml                      \
+	uninstall_Win32.m
 
 compiled_sources = TranslateSBML.c
 
@@ -178,6 +185,19 @@ uninstall: uninstall-libraries
 dist: dist-normal dist-recursive
 
 distcheck: distcheck-normal distcheck-recursive
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-recursive
+
+distclean: distclean-recursive
+
+mostlyclean: mostlyclean-recursive
+
+maintainer-clean: maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------
