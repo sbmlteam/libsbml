@@ -13,3 +13,11 @@ Makefile
 TranslateSBML.mex
 .libs
 isoctave.m
+mexopts-R2007.sh
+mexopts-R2008.sh
+mexopts-R2009-R2010.sh
+uninstall_Win32.m
+install_Win64.m
+install_for_Win32installers.m
+AUTHORS.txt
+buildWin.m
