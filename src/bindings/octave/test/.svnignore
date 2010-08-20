@@ -8,6 +8,7 @@ TAGS
 CTAGS
 libsbml.pc
 *.o
+testReadFlags.m
 testReadFromFile.m
 testReadFromFile1.m
 testReadFromFile2.m
@@ -20,6 +21,7 @@ testReadFromFile8.m
 testReadFromFile9.m
 testReadFromFile10.m
 testReadFromFile11.m
-testReadFromFile12.m
+testReadFromFile13.m
+testReadFromFile14.m
 test-data
 testBinding.m
