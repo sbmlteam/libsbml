@@ -1231,7 +1231,7 @@ class TestSBase(unittest.TestCase):
     self.assert_( t1.getNumChildren() == 1 )
     chars = c.getNotesString()
     self.assert_(( taggednotes == chars ))
-    c.setNotes( "")
+    c.setNotes("")
     self.assert_( c.isSetNotes() == False )
     if (c.getNotesString() != None):
       pass    
