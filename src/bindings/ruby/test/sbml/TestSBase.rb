@@ -1220,7 +1220,7 @@ class TestSBase < Test::Unit::TestCase
     assert( t1.getNumChildren() == 1 )
     chars = c.getNotesString()
     assert (( taggednotes == chars ))
-    c.setNotes( "")
+    c.setNotes("")
     assert( c.isSetNotes() == false )
     if (c.getNotesString() != nil)
     end
