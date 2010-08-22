@@ -498,6 +498,9 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 # The `make dist' command is only available from this top-level makefile.
 
+touch_distdir = \
+  { find "$(archive_basename)" -print0 | xargs -0 gtouch -d '1 day ago'; }
+
 remove_distdir = \
   { test ! -d $(DISTDIR) \
     || { find $(DISTDIR) -type d ! -perm -200 -exec chmod u+w {} ';' \
@@ -510,20 +513,26 @@ archive_basename = $(shell basename $(DISTDIR))
 tar_archive      = $(archive_basename)-src.tar.gz
 zip_archive      = $(archive_basename)-src.zip
 
-dist-gzip: config-check dist-all
+dist: dist-all dist-gzip dist-zip
 	if test -d $(DISTDIR); then \
-	  GZIP="--best" tar -C $(DISTDIR)/.. \
-		-chozf $(tar_archive) $(notdir $(DISTDIR)); \
 	  $(remove_distdir); \
 	fi
 
-dist dist-zip: config-check dist-all
+dist-gzip: config-check dist-all
+	if test -d $(DISTDIR); then \
+	  gnutar -C $(DISTDIR)/.. -czf $(tar_archive) $(notdir $(DISTDIR)); \
+	fi
+
+# The dependency on dist-gzip is to make sure that one is done first, because
+# this one resets the file time stamps before creating the archive:
+
+dist-zip: dist-gzip
 	if test -d $(DISTDIR); then				\
-	  cd $(DISTDIR)/..					\
-	  && zip -Xvr9  $(zip_archive) "$(archive_basename)"	\
-	  && zip -Xvlr9 $(zip_archive)				\
-	   `find "$(archive_basename)" -name '*.dsp' -o -name '*.dsw' -o -name '*.vcproj'`\
-	  && $(remove_distdir); \
+	  cd $(DISTDIR)/..;					\
+	  $(touch_distdir);                                     \
+	  zip -Xyvr9  $(zip_archive) "$(archive_basename)"	\
+	  && zip -Xyvlr9 $(zip_archive)				\
+	   `find "$(archive_basename)" -name '*.dsp' -o -name '*.dsw' -o -name '*.vcproj'`; \
 	fi
 
 # For `make dist' to work properly, we need the developer to configure
