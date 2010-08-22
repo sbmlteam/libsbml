@@ -61,7 +61,7 @@ BEGIN_C_DECLS
  * @return the formula from the given AST as an SBML Level 1 text-string
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
- * NULL is returned if the given argument is NULL. 
+ * @c NULL is returned if the given argument is @c NULL. 
  * 
  */
 LIBSBML_EXTERN
