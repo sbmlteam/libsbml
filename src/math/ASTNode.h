@@ -1201,8 +1201,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   LIBSBML_EXTERN
-  int
-  setValue (int value);
+  int setValue (int value);
 
 
   /**
@@ -1340,7 +1339,7 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Sets the flag indicating that this ASTNode has semantics attached
+   * Sets the flag indicating that this ASTNode has semantics attached.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1351,7 +1350,7 @@ public:
 
 
   /**
-   * Unsets the flag indicating that this ASTNode has semantics attached
+   * Unsets the flag indicating that this ASTNode has semantics attached.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1362,14 +1361,14 @@ public:
 
 
   /**
-   * gets the flag indicating that this ASTNode has semantics attached
+   * Gets the flag indicating that this ASTNode has semantics attached.
    */
   LIBSBML_EXTERN
   bool getSemanticsFlag() const;
 
 
   /**
-   * sets the definitionURL attributes
+   * Sets the attribute "definitionURL".
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
