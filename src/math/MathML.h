@@ -82,7 +82,7 @@ BEGIN_C_DECLS
  * @param xml a string containing a full MathML expression
  *
  * @return the root of an AST corresponding to the given mathematical
- * expression, otherwise NULL is returned if the given string is NULL
+ * expression, otherwise @c NULL is returned if the given string is @c NULL
  * or invalid.
  */
 LIBSBML_EXTERN
@@ -97,11 +97,11 @@ readMathMLFromString (const char *xml);
  * @param node the root of an AST to write out to the stream.
  *
  * @return a string containing the written-out MathML representation
- * of the given AST
+ * of the given AST.
  *
  * @note The string is owned by the caller and should be freed (with
- * free()) when no longer needed. NULL is returned if the given argument
- * is NULL.
+ * free()) when no longer needed.  @c NULL is returned if the given
+ * argument is @c NULL.
  */
 LIBSBML_EXTERN
 char *
