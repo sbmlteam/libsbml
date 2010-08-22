@@ -301,11 +301,11 @@ public:
    * than one child.  Calling this method erases all existing references to
    * child nodes @em after the given position @p n.  If the index @p n is
    * greater than the number of child nodes in this XMLNode, this method
-   * takes no action (and returns NULL).
+   * takes no action (and returns @c NULL).
    *
    * @param n an integer, the index of the node to be removed
    *
-   * @return the removed child, or NULL if @p n is greater than the number
+   * @return the removed child, or @c NULL if @p n is greater than the number
    * of children in this node
    *
    * @note The caller owns the returned node and is responsible for deleting it.
@@ -395,7 +395,7 @@ public:
    * first argument.
    *
    * @param xmlstr string to be converted to a XML node.
-   * @param xmlns XMLNamespaces the namespaces to set (default value is NULL).
+   * @param xmlns XMLNamespaces the namespaces to set (default value is @c NULL).
    *
    * @note The caller owns the returned XMLNode and is reponsible for deleting it.
    * The returned XMLNode object is a dummy root (container) XMLNode if the top-level 
@@ -404,7 +404,7 @@ public:
    * as a child XMLNode. XMLToken::isEOF() can be used to identify if the returned XMLNode 
    * object is a dummy node.
    *
-   * @return a XMLNode which is converted from string @p xmlstr. NULL is returned
+   * @return a XMLNode which is converted from string @p xmlstr. @c NULL is returned
    * if the conversion failed. 
    * 
    *
