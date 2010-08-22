@@ -1441,12 +1441,12 @@ public:
    * have been set.
    *
    * @note The required attributes for a Species object are:
-   * @li id (name L1)
-   * @li compartment
-   * @li initialAmount (L1 only)
-   * @li hasOnlySubstanceUnits (L3 on)
-   * @li boundaryCondition (L3 on)
-   * @li constant (L3 on)
+   * @li "id" (or "name" in SBML Level&nbsp;1)
+   * @li "compartment"
+   * @li "initialAmount" (required in SBML Level&nbsp;1 only; optional otherwise)
+   * @li "hasOnlySubstanceUnits" (required in SBML Level&nbsp;3; optional in SBML Level&nbsp;2)
+   * @li "boundaryCondition" (required in SBML Level&nbsp;3; optional in Levels&nbsp;1 and&nbsp;2)
+   * @li "constant" (required in SBML Level&nbsp;3; optional in SBML Level&nbsp;2)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.

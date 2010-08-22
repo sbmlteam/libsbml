@@ -886,7 +886,7 @@ public:
    * have been set.
    *
    * @note The required attributes for a UnitDefinition object are:
-   * id (name in L1)
+   * @li "id"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -900,7 +900,7 @@ public:
    * have been set.
    *
    * @note The required elements for a Constraint object are:
-   * listOfUnits (L2 only)
+   * @li "listOfUnits" (required in SBML Level&nbsp;2 only, optional in Level&nbsp;3)
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

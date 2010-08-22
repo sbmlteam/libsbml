@@ -682,7 +682,8 @@ public:
    * have been set.
    *
    * @note The required attributes for a Parameter object are:
-   * id (name in L1); value (L1V1 only)
+   * @li "id" (or "name" in SBML Level&nbsp;1)
+   * @li "value" (required in Level&nbsp;1, optional otherwise)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.

@@ -995,10 +995,10 @@ public:
    * have been set.
    *
    * @note The required attributes for a Unit object are:
-   * @li kind
-   * @li exponent (in SBML Level&nbsp;3)
-   * @li multiplier (in SBML Level&nbsp;3)
-   * @li scale (in SBML Level&nbsp;3)
+   * @li "kind"
+   * @li "exponent" (required in SBML Level&nbsp;3; optional in Level&nbsp;2)
+   * @li "multiplier" (required in SBML Level&nbsp;3; optional in Level&nbsp;2)
+   * @li "scale" (required in SBML Level&nbsp;3; optional in Level&nbsp;2)
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

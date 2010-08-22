@@ -371,7 +371,8 @@ public:
    * have been set.
    *
    * @note The required attributes for a LocalParameter object are:
-   * id (name in L1); value (L1V1 only)
+   * @li "id"
+   * @li "value"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.

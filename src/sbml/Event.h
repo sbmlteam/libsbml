@@ -896,7 +896,7 @@ public:
    * have been set.
    *
    * @note The required attributes for a Event object are:
-   * @li useValuesfromTriggerTime ( L3 onwards )
+   * @li "useValuesfromTriggerTime" (required in SBML Level&nbsp;3)
    */
   virtual bool hasRequiredAttributes() const;
 
@@ -907,8 +907,8 @@ public:
    * have been set.
    *
    * @note The required elements for a Event object are:
-   * @li trigger
-   * @li listOfEventAssignments (requirement removed in L3)
+   * @li "trigger"
+   * @li "listOfEventAssignments" (required in SBML Level&nbsp;2, optional in Level&nbsp;3)
    */
   virtual bool hasRequiredElements() const;
 

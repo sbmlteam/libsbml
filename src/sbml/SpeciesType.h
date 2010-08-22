@@ -352,7 +352,7 @@ public:
    * have been set.
    *
    * @note The required attributes for a SpeciesType object are:
-   * id
+   * @li "id"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.

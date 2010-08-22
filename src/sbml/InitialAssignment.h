@@ -543,7 +543,7 @@ public:
    * have been set.
    *
    * @note The required attributes for an InitialAssignment object are:
-   * symbol
+   * @li "symbol"
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
@@ -557,7 +557,7 @@ public:
    * have been set.
    *
    * @note The required elements for a InitialAssignment object are:
-   * math
+   * @li "math"
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

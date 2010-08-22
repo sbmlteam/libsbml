@@ -22,21 +22,21 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Constraint
- * @brief LibSBML implementation of %SBML's %Constraint construct.
+ * @brief LibSBML implementation of SBML's %Constraint construct.
  *
- * The Constraint object class was introduced in SBML Level 2 Version 2 as
+ * The Constraint object class was introduced in SBML Level&nbsp;2 Version&nbsp;2 as
  * a mechanism for stating the assumptions under which a model is designed
  * to operate.  The <em>constraints</em> are statements about permissible
  * values of different quantities in a model.  Constraints are not used to
  * compute dynamical values for simulation or analysis, but rather, they
  * serve an advisory role for simulation/analysis tools.
  *
- * %SBML's Constraint object class has one required attribute, "id", to
- * give the parameter a unique identifier by which other parts of an %SBML
+ * SBML's Constraint object class has one required attribute, "id", to
+ * give the parameter a unique identifier by which other parts of an SBML
  * model definition can refer to it.  A Constraint object can also have an
  * optional "name" attribute of type @c string.  Identifiers and names must
- * be used according to the guidelines described in the %SBML specification
- * (e.g., Section 3.3 in the Level 2 Version 4 specification).  
+ * be used according to the guidelines described in the SBML specification
+ * (e.g., Section 3.3 in the Level&nbsp;2 Version 4 specification).  
  *
  * Constraint has one required subelement, "math", containing a MathML
  * formula defining the condition of the constraint.  This formula must
@@ -52,7 +52,7 @@
  * display the message, but it is recommended that they do so as a matter
  * of best practice.  The XHTML content within a "message" subelement must
  * follow the same restrictions as for the "notes" element on SBase
- * described in in the SBML Level 2 specification.  For example, "message"
+ * described in in the SBML Level&nbsp;2 specification.  For example, "message"
  * must not contain an XML declaration or a DOCTYPE declaration, and the
  * permitted content can only take one of the following general forms: (1)
  * a complete XHTML document beginning with the element
@@ -60,12 +60,12 @@
  * (2) the body portion of a document beginning with the element
  * <code>&lt;body&gt;</code> and ending with <code>&lt;/body&gt;</code>; or
  * (3) XHTML content that is permitted within a <code>&lt;body&gt;</code> ...
- * <code>&lt;/body&gt;</code> elements.  The appendix of the SBML Level 2
+ * <code>&lt;/body&gt;</code> elements.  The appendix of the SBML Level&nbsp;2
  * Version 4 specification document describes one approach to reading the
  * "message" subelement content.
  *
- * Constraint was introduced in SBML Level 2 Version 2.  It is not
- * available in earlier versions of Level 2 nor in any version of Level 1.
+ * Constraint was introduced in SBML Level&nbsp;2 Version&nbsp;2.  It is not
+ * available in earlier versions of Level&nbsp;2 nor in any version of Level&nbsp;1.
  *
  * @section constraint-semantics Semantics of Constraints
  * 
@@ -105,14 +105,14 @@
  * @class ListOfConstraints
  * @brief LibSBML implementation of SBML's %ListOfConstraints construct.
  * 
- * The various ListOf___ classes in %SBML are merely containers used for
- * organizing the main components of an %SBML model.  All are derived from
+ * The various ListOf___ classes in SBML are merely containers used for
+ * organizing the main components of an SBML model.  All are derived from
  * the abstract class SBase, and inherit the various attributes and
  * subelements of SBase, such as "metaid" as and "annotation".  The
  * ListOf___ classes do not add any attributes of their own.
  *
- * The relationship between the lists and the rest of an %SBML model is
- * illustrated by the following (for %SBML Level&nbsp;2 Version&nbsp;4):
+ * The relationship between the lists and the rest of an SBML model is
+ * illustrated by the following (for SBML Level&nbsp;2 Version&nbsp;4):
  *
  * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
  * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
@@ -359,7 +359,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    * 
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -405,7 +405,7 @@ public:
    * have been set.
    *
    * @note The required elements for a Constraint object are:
-   * math
+   * @li "math"
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -488,7 +488,7 @@ public:
 
 
   /**
-   * Returns the libSBML type code for this %SBML object.
+   * Returns the libSBML type code for this SBML object.
    *
    * @if clike LibSBML attaches an identifying code to every
    * kind of SBML object.  These are known as <em>SBML type codes</em>.
@@ -586,9 +586,9 @@ public:
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
    *
-   * The ordering of elements in the XML form of %SBML is generally fixed
-   * for most components in %SBML.  So, for example, the ListOfConstraints
-   * in a model is (in %SBML Level 2 Version 4) the tenth ListOf___.
+   * The ordering of elements in the XML form of SBML is generally fixed
+   * for most components in SBML.  So, for example, the ListOfConstraints
+   * in a model is (in SBML Level&nbsp;2 Version 4) the tenth ListOf___.
    * (However, it differs for different Levels and Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

@@ -1239,8 +1239,8 @@ public:
    * have been set.
    *
    * @note The required attributes for a SpeciesReference object are:
-   * @li species
-   * @li constant (in L3 only)
+   * @li "species"
+   * @li "constant" (only available SBML Level&nbsp;3)
    *
    * @return a boolean value indicating whether all the required
    * attributes for this object have been defined.
