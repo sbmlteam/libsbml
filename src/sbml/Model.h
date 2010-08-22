@@ -465,7 +465,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "substanceUnits" attribute of this Model.
+   * Returns the value of the "substanceUnits" attribute of this Model.
    * 
    * @return the substanceUnits of this Model.
    *
@@ -476,7 +476,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "timeUnits" attribute of this Model.
+   * Returns the value of the "timeUnits" attribute of this Model.
    * 
    * @return the timeUnits of this Model.
    *
@@ -487,7 +487,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "volumeUnits" attribute of this Model.
+   * Returns the value of the "volumeUnits" attribute of this Model.
    * 
    * @return the volumeUnits of this Model.
    *
@@ -498,7 +498,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "areaUnits" attribute of this Model.
+   * Returns the value of the "areaUnits" attribute of this Model.
    * 
    * @return the areaUnits of this Model.
    *
@@ -509,7 +509,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "lengthUnits" attribute of this Model.
+   * Returns the value of the "lengthUnits" attribute of this Model.
    * 
    * @return the lengthUnits of this Model.
    *
@@ -520,7 +520,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "extentUnits" attribute of this Model.
+   * Returns the value of the "extentUnits" attribute of this Model.
    * 
    * @return the extentUnits of this Model.
    *
@@ -531,7 +531,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Returns the value of the "conversionFactor" attribute of this Model.
+   * Returns the value of the "conversionFactor" attribute of this Model.
    * 
    * @return the conversionFactor of this Model.
    *
@@ -566,7 +566,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "substanceUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -581,7 +581,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "timeUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -596,7 +596,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "volumeUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -611,7 +611,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "areaUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -626,7 +626,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "lengthUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -641,7 +641,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "extentUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -656,7 +656,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Model's "conversionFactor" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -710,7 +710,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "substanceUnits" attribute of this Model.
+   * Sets the value of the "substanceUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -733,7 +733,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "timeUnits" attribute of this Model.
+   * Sets the value of the "timeUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -756,7 +756,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "volumeUnits" attribute of this Model.
+   * Sets the value of the "volumeUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -779,7 +779,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "areaUnits" attribute of this Model.
+   * Sets the value of the "areaUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -802,7 +802,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "lengthUnits" attribute of this Model.
+   * Sets the value of the "lengthUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -825,7 +825,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "extentUnits" attribute of this Model.
+   * Sets the value of the "extentUnits" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -848,7 +848,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "conversionFactor" attribute of this Model.
+   * Sets the value of the "conversionFactor" attribute of this Model.
    *
    * The string in @p units is copied.
    *
@@ -1087,7 +1087,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Adds a copy of the given CompartmentType object to this Model.
+   * Adds a copy of the given CompartmentType object to this Model.
    *
    * @param ct the CompartmentType object to add
    *
@@ -1121,7 +1121,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Adds a copy of the given SpeciesType object to this Model.
+   * Adds a copy of the given SpeciesType object to this Model.
    *
    * @param st the SpeciesType object to add
    *
@@ -1432,7 +1432,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Creates a new CompartmentType inside this Model and returns it.
+   * Creates a new CompartmentType inside this Model and returns it.
    *
    * @return the CompartmentType object created
    *
@@ -1446,7 +1446,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Creates a new SpeciesType inside this Model and returns it.
+   * Creates a new SpeciesType inside this Model and returns it.
    *
    * @return the SpeciesType object created
    *
@@ -1828,7 +1828,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the ListOfCompartmentTypes object in this Model.
+   * Get the ListOfCompartmentTypes object in this Model.
    * 
    * @return the list of CompartmentTypes for this Model.
    *
@@ -1840,7 +1840,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the ListOfCompartmentTypes object in this Model.
+   * Get the ListOfCompartmentTypes object in this Model.
    * 
    * @return the list of CompartmentTypes for this Model.
    *
@@ -1852,7 +1852,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the ListOfSpeciesTypes object in this Model.
+   * Get the ListOfSpeciesTypes object in this Model.
    * 
    * @return the list of SpeciesTypes for this Model.
    *
@@ -1864,7 +1864,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the ListOfSpeciesTypes object in this Model.
+   * Get the ListOfSpeciesTypes object in this Model.
    * 
    * @return the list of SpeciesTypes for this Model.
    *
@@ -2073,7 +2073,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the nth CompartmentType object in this Model.
+   * Get the nth CompartmentType object in this Model.
    * 
    * @return the nth CompartmentType of this Model.
    *
@@ -2085,7 +2085,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the nth CompartmentType object in this Model.
+   * Get the nth CompartmentType object in this Model.
    * 
    * @return the nth CompartmentType of this Model.
    *
@@ -2097,7 +2097,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get a CompartmentType object based on its identifier.
+   * Get a CompartmentType object based on its identifier.
    * 
    * @return the CompartmentType in this Model with the identifier @p sid
    * or @c NULL if no such CompartmentType exists.
@@ -2110,7 +2110,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get a CompartmentType object based on its identifier.
+   * Get a CompartmentType object based on its identifier.
    * 
    * @return the CompartmentType in this Model with the identifier @p sid
    * or @c NULL if no such CompartmentType exists.
@@ -2123,7 +2123,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the nth SpeciesType object in this Model.
+   * Get the nth SpeciesType object in this Model.
    * 
    * @return the nth SpeciesType of this Model.
    *
@@ -2135,7 +2135,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the nth SpeciesType object in this Model.
+   * Get the nth SpeciesType object in this Model.
    * 
    * @return the nth SpeciesType of this Model.
    *
@@ -2147,7 +2147,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get a SpeciesType object based on its identifier.
+   * Get a SpeciesType object based on its identifier.
    * 
    * @return the SpeciesType in this Model with the identifier @p sid or
    * @c NULL if no such SpeciesType exists.
@@ -2160,7 +2160,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get a SpeciesType object based on its identifier.
+   * Get a SpeciesType object based on its identifier.
    * 
    * @return the SpeciesType in this Model with the identifier @p sid or
    * @c NULL if no such SpeciesType exists.
@@ -2464,7 +2464,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the number of CompartmentType objects in this Model.
+   * Get the number of CompartmentType objects in this Model.
    * 
    * @return the number of CompartmentTypes in this Model.
    *
@@ -2476,7 +2476,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the number of SpeciesType objects in this Model.
+   * Get the number of SpeciesType objects in this Model.
    * 
    * @return the number of SpeciesTypes in this Model.
    *

@@ -236,27 +236,31 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Returns the value of the "timeUnits" attribute of this KineticLaw
+   * Returns the value of the "timeUnits" attribute of this KineticLaw
    * object.
    *
    * @return the "timeUnits" attribute value
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   const std::string& getTimeUnits () const;
 
 
   /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Returns the value of the
+   * Returns the value of the
    * "substanceUnits" attribute of this KineticLaw object.
    *
    * @return the "substanceUnits" attribute value
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   const std::string& getSubstanceUnits () const;
 
@@ -303,7 +307,7 @@ public:
 
 
  /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
+  * Predicate returning @c true if
    * this SpeciesReference's "timeUnits" attribute has been set
    *
    * @htmlinclude comment-set-methods.html
@@ -311,15 +315,17 @@ public:
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
    * has been set, @c false otherwise.
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   bool isSetTimeUnits () const;
 
 
  /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
+  * Predicate returning @c true if
    * this SpeciesReference's "substanceUnits" attribute has been set
    *
    * @htmlinclude comment-set-methods.html
@@ -327,9 +333,11 @@ public:
    * @return @c true if the "substanceUnits" attribute of this KineticLaw
    * object has been set, @c false otherwise.
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   bool isSetSubstanceUnits () const;
 
@@ -389,16 +397,12 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Sets the "timeUnits" attribute
+   * Sets the "timeUnits" attribute
    * of this KineticLaw object to a copy of the identifier in @p sid.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of the units to use.
-   *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -407,12 +411,18 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   int setTimeUnits (const std::string& sid);
 
 
   /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Sets the "substanceUnits"
+   * Sets the "substanceUnits"
    * attribute of this KineticLaw object to a copy of the identifier given
    * in @p sid.
    *
@@ -420,10 +430,6 @@ public:
    *
    * @param sid the identifier of the units to use.
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -431,12 +437,18 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   int setSubstanceUnits (const std::string& sid);
 
 
   /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Unsets the "timeUnits"
+   * Unsets the "timeUnits"
    * attribugte of this KineticLaw object.
    *
    * @htmlinclude comment-set-methods.html
@@ -448,15 +460,17 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   int unsetTimeUnits ();
 
 
   /**
-   * (SBML Level&nbsp;2 Version&nbsp;1 only) Unsets the "substanceUnits"
+   * Unsets the "substanceUnits"
    * attribute of this KineticLaw object.
    *
    * @htmlinclude comment-set-methods.html
@@ -468,9 +482,11 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note In SBML Level&nbsp;2 Version&nbsp;2, the "timeUnits" and
-   * "substanceUnits" attributes were removed.  For compatibility with new
-   * versions of SBML, users are cautioned to avoid these attributes.
+   * @note The attributes "timeUnits" and "substanceUnits" are present only
+   * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
+   * Version&nbsp;2, the "timeUnits" and "substanceUnits" attributes were
+   * removed.  For compatibility with new versions of SBML, users are
+   * cautioned to avoid these attributes.
    */
   int unsetSubstanceUnits ();
 

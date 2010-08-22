@@ -959,6 +959,12 @@ public:
    * @return the formula text string for this Rule.
    *
    * @see getMath()
+   *
+   * @note The attribute "formula" is specific to SBML Level&nbsp;1; in
+   * higher Levels of SBML, it has been replaced with a subelement named
+   * "math".  However, libSBML provides a unified interface to the
+   * underlying math expression and this method can be used for models
+   * of all Levels of SBML.
    */
   const std::string& getFormula () const;
 
@@ -969,6 +975,12 @@ public:
    * @return an ASTNode, the value of the "math" subelement of this Rule.
    *
    * @see getFormula()
+   *
+   * @note The subelement "math" is present in SBML Levels&nbsp;2
+   * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
+   * attribute named "formula".  LibSBML provides a unified interface to
+   * the underlying math expression and this method can be used for models
+   * of all Levels of SBML.
    */
   const ASTNode* getMath () const;
 
@@ -996,10 +1008,13 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 ParameterRule only) Returns the units for the
+   * Returns the units for the
    * mathematical formula of this Rule.
    * 
    * @return the identifier of the units for the expression of this Rule.
+   *
+   * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
+   * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
    */
   const std::string& getUnits () const;
 
@@ -1016,6 +1031,12 @@ public:
    * set, @c false otherwise.
    *
    * @see isSetMath()
+   *
+   * @note The attribute "formula" is specific to SBML Level&nbsp;1; in
+   * higher Levels of SBML, it has been replaced with a subelement named
+   * "math".  However, libSBML provides a unified interface to the
+   * underlying math expression and this method can be used for models
+   * of all Levels of SBML.
    */
   bool isSetFormula () const;
 
@@ -1028,6 +1049,12 @@ public:
    * 
    * @return @c true if the formula (or equivalently the math) for this
    * Rule has been set, @c false otherwise.
+   *
+   * @note The subelement "math" is present in SBML Levels&nbsp;2
+   * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
+   * attribute named "formula".  LibSBML provides a unified interface to
+   * the underlying math expression and this method can be used for models
+   * of all Levels of SBML.
    */
   bool isSetMath () const;
 
@@ -1056,13 +1083,16 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 ParameterRule only) Predicate returning @c true
+   * Predicate returning @c true
    * if this Rule's "units" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the units for this Rule has been set, @c false
    * otherwise
+   *
+   * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
+   * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
    */
   bool isSetUnits () const;
 
@@ -1083,6 +1113,12 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * @note The attribute "formula" is specific to SBML Level&nbsp;1; in
+   * higher Levels of SBML, it has been replaced with a subelement named
+   * "math".  However, libSBML provides a unified interface to the
+   * underlying math expression and this method can be used for models
+   * of all Levels of SBML.
    */
   int setFormula (const std::string& formula);
 
@@ -1099,6 +1135,12 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * @note The subelement "math" is present in SBML Levels&nbsp;2
+   * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
+   * attribute named "formula".  LibSBML provides a unified interface to
+   * the underlying math expression and this method can be used for models
+   * of all Levels of SBML.
    */
   int setMath (const ASTNode* math);
 
@@ -1134,7 +1176,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 ParameterRule only) Sets the units for this Rule.
+   * Sets the units for this Rule.
    *
    * @htmlinclude comment-set-methods.html
    *
@@ -1147,12 +1189,15 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
+   * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
    */
   int setUnits (const std::string& sname);
 
 
   /**
-   * (SBML Level&nbsp;1 ParameterRule only) Unsets the "units" for this Rule.
+   * Unsets the "units" for this Rule.
    *
    * @htmlinclude comment-set-methods.html
    *
@@ -1162,6 +1207,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule
+   * objects only.  It is not present in SBML Levels&nbsp;2 and&nbsp;3.
    */
   int unsetUnits ();
 
@@ -1273,12 +1321,16 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1) Get the type of rule this is.
+   * Get the type of rule this is.
    * 
    * @return the rule type (a value drawn from the enumeration <a
    * class="el" href="#RuleType_t">RuleType_t</a>) of this Rule.  The value
    * will be either @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
    * or @link RateRule_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink.
+   *
+   * @note The attribute "type" on Rule objects was present only in SBML
+   * Level&nbsp;1.  In SBML Level&nbsp;2 and later, the type has been
+   * replaced by subclassing the Rule object.
    */
   RuleType_t getType () const;
 
@@ -1302,7 +1354,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * Predicate returning @c true if
    * this Rule is an CompartmentVolumeRule.
    *
    * @return @c true if this Rule is a CompartmentVolumeRule, @c false
@@ -1312,7 +1364,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * Predicate returning @c true if
    * this Rule is an ParameterRule.
    *
    * @return @c true if this Rule is a ParameterRule, @c false
@@ -1344,7 +1396,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * Predicate returning @c true if
    * this Rule is an SpeciesConcentrationRule.
    *
    * @return @c true if this Rule is a SpeciesConcentrationRule, @c false

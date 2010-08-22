@@ -71,21 +71,21 @@
  * additional special requirements on the values of "size"; we discuss them
  * in a <a href="#comp-l2">separate section below</a>.
  *
- * The optional Compartment attribute named "constant" is used to indicate
- * whether the compartment's size stays constant after simulation begins.
- * A value of @c true indicates the compartment's "size" cannot be changed
- * by any other construct except InitialAssignment; a value of @c false
- * indicates the compartment's "size" can be changed by other constructs in
- * SBML.  In SBML Level&nbsp;2, there is an additional explicit restriction
- * that if "spatialDimensions"=@c "0", the value cannot be changed by
- * InitialAssignment either.  Further, in Level&nbsp;2, "constant" has a
- * default value of @c true.  In SBML Level&nbsp;3, there is no default
- * value for the "constant" attribute.
-
- * Finally, the units associated with a compartment's "size" attribute
- * value may be set using the optional Compartment attribute "units".  The
- * rules for setting and using compartment size units differ between SBML
- * Level&nbsp;2 and Level&nbsp;3, and are discussed separately below.
+ * The units associated with a compartment's "size" attribute value may be
+ * set using the optional attribute "units".  The rules for setting and
+ * using compartment size units differ between SBML Level&nbsp;2 and
+ * Level&nbsp;3, and are discussed separately below.
+ * 
+ * Finally, the optional Compartment attribute named "constant" is used to
+ * indicate whether the compartment's size stays constant after simulation
+ * begins.  A value of @c true indicates the compartment's "size" cannot be
+ * changed by any other construct except InitialAssignment; a value of @c
+ * false indicates the compartment's "size" can be changed by other
+ * constructs in SBML.  In SBML Level&nbsp;2, there is an additional
+ * explicit restriction that if "spatialDimensions"=@c "0", the value
+ * cannot be changed by InitialAssignment either.  Further, in
+ * Level&nbsp;2, "constant" has a default value of @c true.  In SBML
+ * Level&nbsp;3, there is no default value for the "constant" attribute.
  *
  * 
  * @section comp-l2 Additional considerations in SBML Level&nbsp;2
@@ -146,20 +146,20 @@
  * or other factors in principle are not needed for species located in
  * zero-dimensional compartments.
  *
- * Finally, in SBML Level&nbsp;2, each compartment in a model may optionally be
- * designated as belonging to a particular compartment @em type.  The
- * optional attribute "compartmentType" is used identify the compartment
- * type represented by the Compartment structure.  The "compartmentType"
- * attribute's value must be the identifier of a CompartmentType instance
- * defined in the model.  If the "compartmentType" attribute is not present
- * on a particular compartment definition, a unique virtual compartment
- * type is assumed for that compartment, and no other compartment can
- * belong to that compartment type.  The values of "compartmentType"
- * attributes on compartments have no effect on the numerical
- * interpretation of a model.  Simulators and other numerical analysis
- * software may ignore "compartmentType" attributes.  The "compartmentType"
- * attribute and the CompartmentType class of objects are not present in
- * SBML Level&nbsp;3 Core nor in SBML Level&nbsp;1.
+ * Finally, in SBML Level&nbsp;2 Versions 2&ndash;4, each compartment in a
+ * model may optionally be designated as belonging to a particular
+ * compartment @em type.  The optional attribute "compartmentType" is used
+ * identify the compartment type represented by the Compartment structure.
+ * The "compartmentType" attribute's value must be the identifier of a
+ * CompartmentType instance defined in the model.  If the "compartmentType"
+ * attribute is not present on a particular compartment definition, a
+ * unique virtual compartment type is assumed for that compartment, and no
+ * other compartment can belong to that compartment type.  The values of
+ * "compartmentType" attributes on compartments have no effect on the
+ * numerical interpretation of a model.  Simulators and other numerical
+ * analysis software may ignore "compartmentType" attributes.  The
+ * "compartmentType" attribute and the CompartmentType class of objects are
+ * not present in SBML Level&nbsp;3 Core nor in SBML Level&nbsp;1.
  * 
  * 
  * @section comp-l3 Additional considerations in SBML Level&nbsp;3
@@ -267,7 +267,7 @@
  */ 
 /**
  * @class ListOfCompartments
- * @brief LibSBML implementation of SBML's %ListOfCompartments construct.
+ * @brief LibSBML implementation of SBML Level&nbsp;2's %ListOfCompartments construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from
@@ -463,13 +463,14 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the type of this Compartment object.
+   * Get the value of the "compartmentType" attribute of this Compartment
+   * object.
    * 
    * @return the value of the "compartmentType" attribute of this
    * Compartment as a string.
    *
    * @note The "compartmentType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   const std::string& getCompartmentType () const;
 
@@ -529,7 +530,7 @@ public:
 
 
   /**
-   * (For SBML Level&nbsp;1) Get the volume of this Compartment.
+   * Get the volume of this Compartment.
    * 
    * This method is identical to getSize().  In SBML Level&nbsp;1, compartments
    * are always three-dimensional constructs and only have volumes, whereas
@@ -541,6 +542,10 @@ public:
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
    * this Compartment, as a floating-point number.
    *
+   * @note The attribute "volume" only exists by that name in SBML
+   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+   * named "size".
+   * 
    * @see isSetVolume()
    * @see getSize()
    */
@@ -572,8 +577,9 @@ public:
    * 
    * @return the value of the "outside" attribute of this Compartment.
    *
-   * @note The "outside" attribute does not exist in SBML Level&nbsp;3
-   * Version&nbsp;1 Core.
+   * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
+   * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
+   * Core.
    */
   const std::string& getOutside () const;
 
@@ -612,7 +618,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Compartment's "compartmentType" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -621,7 +627,7 @@ public:
    * has been set, @c false otherwise.
    *
    * @note The "compartmentType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   bool isSetCompartmentType () const;
 
@@ -638,8 +644,8 @@ public:
    * into account the difference in default values between SBML Levels 1
    * and 2.
    * 
-   * @return @c true if the "size" attribute ("volume" in Level) of this
-   * Compartment has been set, @c false otherwise.
+   * @return @c true if the "size" attribute ("volume" in Level&nbsp;2) of
+   * this Compartment has been set, @c false otherwise.
    *
    * @see isSetVolume()
    * @see setSize(double value)
@@ -648,7 +654,7 @@ public:
 
 
   /**
-   * (For SBML Level&nbsp;1) Predicate returning @c true if this Compartment's
+   * Predicate returning @c true if this Compartment's
    * "volume" attribute has been set.
    * 
    * @htmlinclude comment-set-methods.html
@@ -658,17 +664,19 @@ public:
    * method (isSetVolume()) performs extra processing to take into account
    * the difference in default values between SBML Levels 1 and 2.
    * 
-   * @return @c true if the "volume" attribute ("size" in L2) of this
-   * Compartment has been set, @c false otherwise.
+   * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
+   * above) of this Compartment has been set, @c false otherwise.
    *
    * @see isSetSize()
    * @see setVolume(double value)
    *
-   * @note In SBML Level&nbsp;1, a compartment's volume has a default value (@c
-   * 1.0) and therefore this method will always return @c true.  In Level
-   * 2, a compartment's size (the equivalent of SBML Level&nbsp;1's "volume") is
-   * optional and has no default value, and therefore may or may not be
-   * set.
+   * @note The attribute "volume" only exists by that name in SBML
+   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+   * named "size".  In SBML Level&nbsp;1, a compartment's volume has a
+   * default value (@c 1.0) and therefore this method will always return @c
+   * true.  In Level 2, a compartment's size (the equivalent of SBML
+   * Level&nbsp;1's "volume") is optional and has no default value, and
+   * therefore may or may not be set.
    */
   bool isSetVolume () const;
 
@@ -695,6 +703,10 @@ public:
    *
    * @return @c true if the "outside" attribute of this Compartment has
    * been set, @c false otherwise.
+   * 
+   * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
+   * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
+   * Core.
    */
   bool isSetOutside () const;
 
@@ -763,7 +775,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Sets the "compartmentType" attribute of this Compartment.
+   * Sets the "compartmentType" attribute of this Compartment.
    *
    * @htmlinclude comment-set-methods.html
    *
@@ -779,7 +791,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * 
    * @note The "compartmentType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   int setCompartmentType (const std::string& sid);
 
@@ -843,6 +855,10 @@ public:
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @note The attribute "volume" only exists by that name in SBML
+   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+   * named "size".
    */
   int setSize (double value);
 
@@ -864,6 +880,10 @@ public:
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @note The attribute "volume" only exists by that name in SBML
+   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+   * named "size".
    */
   int setVolume (double value);
 
@@ -898,6 +918,10 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
+   * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
+   * Core.
    */
   int setOutside (const std::string& sid);
 
@@ -935,7 +959,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Unsets the value of the "compartmentType"
+   * Unsets the value of the "compartmentType"
    * attribute of this Compartment.
    *
    * @htmlinclude comment-set-methods.html
@@ -951,7 +975,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
    * @note The "compartmentType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   int unsetCompartmentType ();
 
@@ -966,12 +990,16 @@ public:
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @note The attribute "volume" only exists by that name in SBML
+   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+   * named "size".
    */
   int unsetSize ();
 
 
   /**
-   * (For SBML Level&nbsp;1) Unsets the value of the "volume" attribute of this
+   * Unsets the value of the "volume" attribute of this
    * Compartment.
    * 
    * @htmlinclude comment-set-methods.html
@@ -985,6 +1013,10 @@ public:
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @note The attribute "volume" only exists by that name in SBML
+   * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
+   * named "size".
    */
   int unsetVolume ();
 
@@ -1015,6 +1047,10 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
+   * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
+   * Core.
    */
   int unsetOutside ();
 
@@ -1031,7 +1067,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note This function is only valid for SBML L3
+   * @note This function is only valid for SBML Level&nbsp;3.
    */
   int unsetSpatialDimensions ();
 

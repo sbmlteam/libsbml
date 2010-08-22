@@ -329,7 +329,7 @@
  */ 
 /**
  * @class ListOfSpecies.
- * @brief LibSBML implementation of SBML's %ListOfSpecies construct.
+ * @brief LibSBML implementation of SBML Level&nbsp;2's %ListOfSpecies construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from
@@ -520,13 +520,13 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Get the type of this Species object object.
+   * Get the type of this Species object object.
    * 
    * @return the value of the "speciesType" attribute of this
    * Species as a string.
    * 
    * @note The "speciesType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   const std::string& getSpeciesType () const;
 
@@ -555,12 +555,15 @@ public:
    * 
    * @return the initialConcentration of this Species,, as a float-point
    * number.
+   *
+   * @note The attribute "initialConcentration" is only available in SBML
+   * Level&nbsp;2 and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   double getInitialConcentration () const;
 
 
   /**
-   * Get the value of the "substanceUnit" attribute.
+   * Get the value of the "substanceUnits" attribute.
    * 
    * @return the value of the "substanceUnits" attribute of this Species,
    * as a string.  An empty string indicates that no units have been
@@ -575,7 +578,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Get the value of the "spatialSizeUnits" attribute.
+   * Get the value of the "spatialSizeUnits" attribute.
    * 
    * @return the value of the "spatialSizeUnits" attribute of this Species
    * object, as a string.
@@ -593,9 +596,17 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Get the value of the "units" attribute.
+   * Get the value of the "units" attribute.
    * 
    * @return the units of this Species (L1 only).
+   *
+   * @note The "units" attribute is defined only in SBML Level&nbsp;1.  In
+   * SBML Level&nbsp;2 and Level&nbsp;3, it has been replaced by a
+   * combination of "substanceUnits" and the units of the Compartment
+   * object in which a species is located.  In SBML Level&nbsp;2
+   * Versions&nbsp;1&ndash;2, an additional attribute "spatialSizeUnits"
+   * helps determine the units of the species quantity, but this attribute
+   * was removed in later versions of SBML Level&nbsp;2.
    */
   const std::string& getUnits () const;
 
@@ -605,6 +616,9 @@ public:
    * 
    * @return @c true if this Species' "hasOnlySubstanceUnits" attribute
    * value is nonzero, @c false otherwise.
+   *
+   * @note The "hasOnlySubstanceUnits" attribute does not exist in SBML
+   * Level&nbsp;1.
    */
   bool getHasOnlySubstanceUnits () const;
 
@@ -619,7 +633,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 and&nbsp;2 only) Get the value of the "charge" attribute.
+   * Get the value of the "charge" attribute.
    * 
    * @return the charge of this Species.
    *
@@ -643,17 +657,21 @@ public:
    * 
    * @return @c true if this Species's "constant" attribute value is
    * nonzero, @c false otherwise.
+   *
+   * @note The attribute "constant" is only available in SBML Levels&nbsp;2
+   * and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   bool getConstant () const;
 
 
   /**
-   * (SBML Level&nbsp;3 only) Get the value of the "conversionFactor" attribute.
+   * Get the value of the "conversionFactor" attribute.
    * 
    * @return the conversionFactor of this Species, as a string.
    * 
    * @note The "conversionFactor" attribute was introduced in SBML
-   * Level&nbsp;3.
+   * Level&nbsp;3.  It does not exist on Species in SBML Levels&nbsp;1
+   * and&nbsp;2.
    */
   const std::string& getConversionFactor () const;
 
@@ -683,7 +701,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Predicate returning @c true if this Species's
+   * Predicate returning @c true if this Species's
    * "speciesType" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -692,7 +710,7 @@ public:
    * been set, @c false otherwise.
    * 
    * @note The "speciesType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   bool isSetSpeciesType () const;
 
@@ -735,6 +753,9 @@ public:
    * 
    * @return @c true if the "initialConcentration" attribute of this Species has
    * been set, @c false otherwise.
+   *
+   * @note The attribute "initialConcentration" is only available in SBML
+   * Level&nbsp;2 and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   bool isSetInitialConcentration () const;
 
@@ -752,7 +773,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Species's "spatialSizeUnits" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -772,7 +793,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Predicate returning @c true if
+   * Predicate returning @c true if
    * this Species's "units" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -784,7 +805,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 and&nbsp;2 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Species's "charge" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -808,7 +829,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Predicate returning @c true if this
+   * Predicate returning @c true if this
    * Species's "conversionFactor" attribute has been set.
    *
    * @htmlinclude comment-set-methods.html
@@ -817,7 +838,8 @@ public:
    * been set, @c false otherwise.
    * 
    * @note The "conversionFactor" attribute was introduced in SBML
-   * Level&nbsp;3.
+   * Level&nbsp;3.  It does not exist on Species in SBML Levels&nbsp;1
+   * and&nbsp;2.
    */
   bool isSetConversionFactor () const;
 
@@ -842,6 +864,9 @@ public:
    * 
    * @return @c true if the "hasOnlySubstanceUnits" attribute of this Species has
    * been set, @c false otherwise.
+   *
+   * @note The "hasOnlySubstanceUnits" attribute does not exist in SBML
+   * Level&nbsp;1.
    */
   bool isSetHasOnlySubstanceUnits () const;
 
@@ -854,6 +879,9 @@ public:
    * 
    * @return @c true if the "constant" attribute of this Species has
    * been set, @c false otherwise.
+   *
+   * @note The attribute "constant" is only available in SBML Levels&nbsp;2
+   * and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   bool isSetConstant () const;
 
@@ -869,8 +897,7 @@ public:
    * @param sid the string to use as the identifier of this Species
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -888,8 +915,7 @@ public:
    * @param name the new name for the Species
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -898,7 +924,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Sets the "speciesType" attribute of this Species.
+   * Sets the "speciesType" attribute of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
@@ -906,15 +932,14 @@ public:
    * in this Model.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * 
    * @note The "speciesType" attribute is only available in SBML
-   * Level&nbsp;2.
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   int setSpeciesType (const std::string& sid);
 
@@ -928,8 +953,7 @@ public:
    * in this Model.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -949,8 +973,7 @@ public:
    * be set.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -969,11 +992,13 @@ public:
    * should be set.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note The attribute "initialConcentration" is only available in SBML
+   * Level&nbsp;2 and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   int setInitialConcentration (double value);
 
@@ -986,8 +1011,7 @@ public:
    * @param sid the identifier of the unit to use.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1011,8 +1035,7 @@ public:
    * incompatible with Level&nbsp;2 Version&nbsp;3 and Level&nbsp;2 Version&nbsp;4.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1029,8 +1052,7 @@ public:
    * @param sname the identifier of the unit to use.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1046,11 +1068,13 @@ public:
    * @param value boolean value for the "hasOnlySubstanceUnits" attribute.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note The "hasOnlySubstanceUnits" attribute does not exist in SBML
+   * Level&nbsp;1.
    */
   int setHasOnlySubstanceUnits (bool value);
 
@@ -1063,8 +1087,7 @@ public:
    * @param value boolean value for the "boundaryCondition" attribute.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -1072,7 +1095,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 and&nbsp;2 only) Sets the "charge" attribute of this Species.
+   * Sets the "charge" attribute of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
@@ -1092,8 +1115,7 @@ public:
    * Level&nbsp;1.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -1109,17 +1131,19 @@ public:
    * @param value a boolean value for the "constant" attribute
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note The attribute "constant" is only available in SBML Levels&nbsp;2
+   * and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   int setConstant (bool value);
 
 
   /**
-   * (SBML Level&nbsp;3 only) Sets the value of the "conversionFactor" attribute of this Species.
+   * Sets the value of the "conversionFactor" attribute of this Species.
    *
    * The string in @p sid is copied.
    *
@@ -1128,15 +1152,15 @@ public:
    * @param sid the new conversionFactor for the Species
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   *
+   * 
    * @note The "conversionFactor" attribute was introduced in SBML
-   * Level&nbsp;3.
+   * Level&nbsp;3.  It does not exist on Species in SBML Levels&nbsp;1
+   * and&nbsp;2.
    */
   int setConversionFactor (const std::string& sid);
 
@@ -1147,8 +1171,7 @@ public:
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1157,16 +1180,18 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 only) Unsets the "speciesType" attribute value of this Species.
+   * Unsets the "speciesType" attribute value of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   *
+   * @note The attribute "speciesType" is only available in SBML
+   * Level&nbsp;2 Versions&nbsp;2&ndash;4.
    */
   int unsetSpeciesType ();
 
@@ -1177,8 +1202,7 @@ public:
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -1191,10 +1215,12 @@ public:
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @note The attribute "initialConcentration" is only available in SBML
+   * Level&nbsp;2 and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
    */
   int unsetInitialConcentration ();
 
@@ -1205,8 +1231,7 @@ public:
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1215,13 +1240,12 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Unsets the "spatialSizeUnits" attribute value of this Species.
+   * Unsets the "spatialSizeUnits" attribute value of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1238,13 +1262,12 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Unsets the "units" attribute value of this Species.
+   * Unsets the "units" attribute value of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1253,14 +1276,13 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 and&nbsp;2 only) Unsets the "charge" attribute
+   * Unsets the "charge" attribute
    * value of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1282,20 +1304,20 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only) Unsets the "conversionFactor" attribute value of this Species.
+   * Unsets the "conversionFactor" attribute value of this Species.
    *
    * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   *
+   * 
    * @note The "conversionFactor" attribute was introduced in SBML
-   * Level&nbsp;3.
+   * Level&nbsp;3.  It does not exist on Species in SBML Levels&nbsp;1
+   * and&nbsp;2.
    */
   int unsetConversionFactor ();
 
