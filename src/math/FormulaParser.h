@@ -58,7 +58,7 @@ BEGIN_C_DECLS
  * @param formula the string containing the mathematical formula.
  *
  * @return an ASTNode (the root of the expression tree).  If the formula
- * contains a grammatical error, NULL is returned.
+ * contains a grammatical error, @c NULL is returned.
  */
 LIBSBML_EXTERN
 ASTNode_t *
