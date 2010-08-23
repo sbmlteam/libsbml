@@ -401,8 +401,6 @@ public:
    * Predicate returning @c true if this
    * Reaction's "id" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "id" attribute of this Reaction has been
    * set, @c false otherwise.
    */
@@ -413,8 +411,6 @@ public:
    * Predicate returning @c true if this
    * Reaction's "name" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "name" attribute of this Reaction has been
    * set, @c false otherwise.
    */
@@ -424,8 +420,6 @@ public:
   /**
    * Predicate returning @c true if this
    * Reaction contains a kinetic law object.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if a KineticLaw is present in this Reaction,, @c false
    * otherwise.
@@ -437,8 +431,6 @@ public:
    * Predicate returning @c true if the value of
    * the "fast" attribute on this Reaction.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "fast" attribute is true, @c false otherwise.
    *
    * @warning SBML definitions before SBML Level&nbsp;2 Version&nbsp;2 incorrectly
@@ -462,8 +454,6 @@ public:
    * Predicate returning @c true if this
    * Reaction's "compartment" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "compartment" attribute of this Reaction has been
    * set, @c false otherwise.
    *
@@ -478,8 +468,6 @@ public:
    * Predicate returning @c true if this
    * Reaction's "reversible" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "reversible" attribute of this Reaction has been
    * set, @c false otherwise.
    */
@@ -491,8 +479,6 @@ public:
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Reaction
    *
@@ -511,8 +497,6 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param name the new name for the Reaction
    *
    * @return integer value indicating success/failure of the
@@ -528,8 +512,6 @@ public:
   /**
    * Sets the "kineticLaw" subelement of this Reaction to a copy of the
    * given KineticLaw object.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param kl the KineticLaw object to use.
    *
@@ -547,8 +529,6 @@ public:
   /**
    * Sets the value of the "reversible" attribute of this Reaction.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param value the value of the "reversible" attribute.
    *
    * @return integer value indicating success/failure of the
@@ -562,8 +542,6 @@ public:
 
   /**
    * Sets the value of the "fast" attribute of this Reaction.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param value the value of the "fast" attribute.
    *
@@ -593,8 +571,6 @@ public:
    *
    * The string @p sid is copied.  
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param sid the string to use as the compartment of this Reaction
    *
    * @return integer value indicating success/failure of the
@@ -615,8 +591,6 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Reaction.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -630,8 +604,6 @@ public:
   /**
    * Unsets the "kineticLaw" subelement of this Reaction.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -644,8 +616,6 @@ public:
 
   /**
    * Unsets the value of the "fast" attribute of this Reaction.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -674,8 +644,6 @@ public:
 
   /**
    * Unsets the value of the "compartment" attribute of this Reaction.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

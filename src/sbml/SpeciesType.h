@@ -241,8 +241,6 @@ public:
    * Predicate returning @c true if this
    * SpeciesType's "id" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "id" attribute of this SpeciesType has been
    * set, @c false otherwise.
    */
@@ -253,8 +251,6 @@ public:
    * Predicate returning @c true if this
    * SpeciesType's "name" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "name" attribute of this SpeciesType has been
    * set, @c false otherwise.
    */
@@ -266,8 +262,6 @@ public:
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this SpeciesType
    *
@@ -286,8 +280,6 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param name the new name for the SpeciesType
    *
    * @return integer value indicating success/failure of the
@@ -302,8 +294,6 @@ public:
 
   /**
    * Unsets the value of the "name" attribute of this SpeciesType.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

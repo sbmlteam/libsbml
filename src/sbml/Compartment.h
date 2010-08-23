@@ -597,8 +597,6 @@ public:
    * Predicate returning @c true if this
    * Compartment's "id" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "id" attribute of this Compartment has been
    * set, @c false otherwise.
    */
@@ -609,8 +607,6 @@ public:
    * Predicate returning @c true if this
    * Compartment's "name" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   * 
    * @return @c true if the "name" attribute of this Compartment has been
    * set, @c false otherwise.
    */
@@ -620,8 +616,6 @@ public:
   /**
    * Predicate returning @c true if this
    * Compartment's "compartmentType" attribute has been set.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return @c true if the "compartmentType" attribute of this Compartment
    * has been set, @c false otherwise.
@@ -635,8 +629,6 @@ public:
   /**
    * Predicate returning @c true if this
    * Compartment's "size" attribute has been set.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * This method is similar but not identical to isSetVolume().  The latter
    * should be used in the context of SBML Level&nbsp;1 models instead of
@@ -657,8 +649,6 @@ public:
    * Predicate returning @c true if this Compartment's
    * "volume" attribute has been set.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * This method is similar but not identical to isSetSize().  The latter
    * should not be used in the context of SBML Level&nbsp;1 models because this
    * method (isSetVolume()) performs extra processing to take into account
@@ -685,8 +675,6 @@ public:
    * Predicate returning @c true if this
    * Compartment's "units" attribute has been set.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return @c true if the "units" attribute of this Compartment has been
    * set, @c false otherwise.
    *
@@ -699,8 +687,6 @@ public:
    * Predicate returning @c true if this
    * Compartment's "outside" attribute has been set.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return @c true if the "outside" attribute of this Compartment has
    * been set, @c false otherwise.
    * 
@@ -715,8 +701,6 @@ public:
    * Predicate returning @c true if this
    * Compartment's "spatialDimensions" attribute has been set.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return @c true if the "spatialDimensions" attribute of this
    * Compartment has been set, @c false otherwise.
    */
@@ -727,8 +711,6 @@ public:
    * Predicate returning @c true if this
    * Compartment's "constant" attribute has been set.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return @c true if the "constant" attribute of this Compartment has
    * been set, @c false otherwise.
    */
@@ -740,8 +722,6 @@ public:
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param sid the string to use as the identifier of this Compartment
    *
@@ -760,8 +740,6 @@ public:
    *
    * The string in @p name is copied.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param name the new name for the Compartment
    *
    * @return integer value indicating success/failure of the
@@ -776,8 +754,6 @@ public:
 
   /**
    * Sets the "compartmentType" attribute of this Compartment.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of a CompartmentType object defined
    * elsewhere in this Model.
@@ -798,8 +774,6 @@ public:
 
   /**
    * Sets the "spatialDimensions" attribute of this Compartment.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * If @p value is not one of @c 0, @c 1, @c 2, or @c 3, this method will
    * have no effect (i.e., the "spatialDimensions" attribute will not be
@@ -822,8 +796,6 @@ public:
   /**
    * Sets the "spatialDimensions" attribute of this Compartment as a double.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param value a double indicating the number of dimensions
    * of this compartment.
    *
@@ -841,8 +813,6 @@ public:
   /**
    * Sets the "size" attribute (or "volume" in SBML Level&nbsp;1) of this
    * Compartment.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * This method is identical to setVolume() and is provided for
    * compatibility between SBML Level&nbsp;1 and Level&nbsp;2.
@@ -867,8 +837,6 @@ public:
    * Sets the "volume" attribute (or "size" in SBML Level&nbsp;2) of this
    * Compartment.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * This method is identical to setVolume() and is provided for
    * compatibility between SBML Level&nbsp;1 and Level&nbsp;2.
    * 
@@ -891,8 +859,6 @@ public:
   /**
    * Sets the "units" attribute of this Compartment.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param sid the identifier of the defined units to use.
    *
    * @return integer value indicating success/failure of the
@@ -907,8 +873,6 @@ public:
 
   /**
    * Sets the "outside" attribute of this Compartment.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @param sid the identifier of a compartment that encloses this one.
    *
@@ -946,8 +910,6 @@ public:
   /**
    * Unsets the value of the "name" attribute of this Compartment.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -961,8 +923,6 @@ public:
   /**
    * Unsets the value of the "compartmentType"
    * attribute of this Compartment.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @see setCompartmentType(const std::string& sid)
    * @see isSetCompartmentType()
@@ -983,8 +943,6 @@ public:
   /**
    * Unsets the value of the "size" attribute of this Compartment.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -1002,8 +960,6 @@ public:
    * Unsets the value of the "volume" attribute of this
    * Compartment.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * In SBML Level&nbsp;1, a Compartment volume has a default value (1.0) and
    * therefore <em>should always be set</em>.  In Level&nbsp;2, "size" is
    * optional with no default value and as such may or may not be set.
@@ -1024,8 +980,6 @@ public:
   /**
    * Unsets the value of the "units" attribute of this Compartment.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -1039,8 +993,6 @@ public:
   /**
    * Unsets the value of the "outside" attribute of this Compartment.
    * 
-   * @htmlinclude comment-set-methods.html
-   *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
@@ -1057,8 +1009,6 @@ public:
 
   /**
    * Unsets the value of the "spatialDimensions" attribute of this Compartment.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the

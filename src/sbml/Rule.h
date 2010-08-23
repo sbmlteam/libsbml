@@ -1086,8 +1086,6 @@ public:
    * Predicate returning @c true
    * if this Rule's "units" attribute has been set.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @return @c true if the units for this Rule has been set, @c false
    * otherwise
    *
@@ -1178,8 +1176,6 @@ public:
   /**
    * Sets the units for this Rule.
    *
-   * @htmlinclude comment-set-methods.html
-   *
    * @param sname the identifier of the units
    *
    * @return integer value indicating success/failure of the
@@ -1198,8 +1194,6 @@ public:
 
   /**
    * Unsets the "units" for this Rule.
-   *
-   * @htmlinclude comment-set-methods.html
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
