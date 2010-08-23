@@ -330,7 +330,7 @@ static const StateActionPair_t Action[] =
  * of certain common mathematical functions; this table corresponds to
  * Table&nbsp;6 in the <a target="_blank" href="http://sbml.org/Documents/Specifications#SBML_Level_1_Version_2">SBML Level&nbsp;1 Version&nbsp;2 specification</a>:
  *
- * @htmlinclude libsbml-string-functions-table.html
+ * @htmlinclude string-functions-table.html
  *
  * @warning There are differences between the symbols used to represent the
  * common mathematical functions and the corresponding MathML token names.
