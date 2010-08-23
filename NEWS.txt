@@ -20,6 +20,10 @@ additions of features requested by users; (3) enhanced support for
     the 'id' of the speciesReference that had the stoichiometryMath
     element.
 
+  - Documentation updates to indicate Level 3 features and differences
+    from lower Levels of SBML.  (However, at this time, only the C++
+    docs have been updated.)
+
 * SBML Level 3 support limitations:
 
   - Although up-convertion to L3 is supported, conversion from Level 3
