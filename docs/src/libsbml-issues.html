@@ -4,6 +4,8 @@ possible pitfalls in using libSBML:
 <li><a href="#name-collisions">Name collisions in mathematical expressions</a></li>
 <li><a href="#math-syntax-diffs">Differences in mathematical formula syntax</a></li>
 <li><a href="#xml-parser-diffs">Differences in XML parser behavior</a></li>
+<li><a href="#cannot-report-10312">Cannot report a failure of validation rule #10312</a></li>
+<li><a href="#diff-20413">Different error number (either 20413 or 20409) may be reported depending on Level of SBML in use</a></li>
 <li><a href="#link-accidents">Potential for language bindings to link old versions of libSBML by accident</a></li>
 <li><a href="#make-uninstall">Possible unexpected <code>make uninstall</code> behavior</a></li>
 <li><a href="#ubuntu-tomcat">Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></li>
@@ -12,7 +14,7 @@ possible pitfalls in using libSBML:
 </ul>
 
 
-<h2><a class="anchor" name="name-collisions"/>Name collisions in mathematical expressions</h2>
+<h2><a class="anchor" name="name-collisions"/>Name collisions in mathematical expressions</a></h2>
 
 <p>
 In the C-like, text-based, formula expression syntax supported by libSBML
@@ -44,7 +46,7 @@ and instead use ASTs.  All libSBML methods that accept text-string
 mathematical formulas have variants that accept ASTs instead.
 
 
-<h2><a class="anchor" name="math-syntax-diffs"/>Differences in mathematical formula syntax</h2>
+<h2><a class="anchor" name="math-syntax-diffs"/>Differences in mathematical formula syntax</a></h2>
 
 The functions <code>char* SBML_formulaToString(const ASTNode* tree)</code>
 and <code>ASTNode* SBML_parseFormula(const char* formula)</code> can be
@@ -65,7 +67,7 @@ and to be careful when translating between text forms and MathML forms
 facility to users).
 
 
-<h2><a class="anchor" name="xml-parser-diffs"/>Differences in XML parser behavior</h2>
+<h2><a class="anchor" name="xml-parser-diffs"/>Differences in XML parser behavior</a></h2>
 
 <p> The different parsers supported by libSBML (Xerces, Expat, libxml2)
 behave slightly differently when reading files, and the differences are
@@ -106,7 +108,33 @@ XML constructs inside <code>&lt;notes&gt;</code> and
 </ol>
 
 
-<h2><a class="anchor" name="link-accidents"/>Potential for language bindings to link old versions of libSBML by accident</h2>
+<h2><a class="anchor" name="cannot-report-10312"/>Cannot report a failure of validation rule #10312</a></h2>
+
+The SBML Level&nbsp;3 Version&nbsp;1 Core specification defines validation
+rule #10312 as being <em>The value of a "name" attribute must always
+conform to the syntax of type <code>string</code></em>.  Unfortunately,
+given the way that all three XML parser libraries (libxml2, Expat, and
+Xerces) work, it is impossible for libSBML to ever report this error
+directly.  The kinds of SBML input that would lead to a failure of this
+validation rule cause the XML parsers to report overly general errors of
+the "XML content not well formed" variety, and libSBML cannot determine the
+true root cause.  As a result, libSBML cannot detect when rule #10312 is
+breached.
+
+
+<h2><a class="anchor" name="diff-20413"/>Different error number (either 20413 or 20409) may be reported depending on Level of SBML in use</a></h2>
+
+In SBML Level&nbsp;3 Version&nbsp;1 Core, validation rule #20413
+(concerning whether the ListOfUnits container element can be empty)
+subsumes what was validation rule #20409 in the specifications for SBML
+Level&nbsp;2 Versions&nbsp;2&ndash;4.  Rule #20409 does not exist in
+Level&nbsp;3.  The consequence of this difference in the specifications is
+that an application may receive different validation error numbers for the
+same situation depending on whether it is dealing with a Level&nbsp;2 or a
+Level&nbsp;3 model.
+
+
+<h2><a class="anchor" name="link-accidents"/>Potential for language bindings to link old versions of libSBML by accident</a></h2>
 
 At application run-time, the language bindings for C#, Java, Python, Perl
 and others must be able to dynamically link the core libSBML library file
@@ -120,7 +148,7 @@ libSBML components and are free of older versions that may be picked up
 inadvertently.
 
 
-<h2><a class="anchor" name="make-uninstall"/>Possible unexpected <code>make uninstall</code> behavior</h2>
+<h2><a class="anchor" name="make-uninstall"/>Possible unexpected <code>make uninstall</code> behavior</a></h2>
 
 <p> The libSBML <code>make uninstall</code> command on Linux, MacOS, Cygwin,
 and Solaris only knows about the features <em>most recently</em> configured
@@ -133,7 +161,7 @@ attempt removing the files implied by the most recent run of
 
 
 
-<h2><a class="anchor" name="ubuntu-tomcat"/>Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</h2>
+<h2><a class="anchor" name="ubuntu-tomcat"/>Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></h2>
 
 <p> (Thanks to Allyson Lister for reporting and solving the following.) For
 reasons that remain a mystery, attempting to use the libSBML Java interface
@@ -175,7 +203,7 @@ application should now be able to access all the native libraries from
 libSBML.  </ol>
 
 
-<h2><a class="anchor" name="conv-l1v1"/>Conversion to/from SBML Level 1 Version 1 is not supported</h2>
+<h2><a class="anchor" name="conv-l1v1"/>Conversion to/from SBML Level 1 Version 1 is not supported</a></h2>
 
 The method <code>SBMLDocument::setLevelAndVersion()</code> performs
 conversion between versions and levels of SBML (to the extent possible
@@ -183,7 +211,7 @@ within technical and practical limits).  However, conversion to/from SBML
 Level&nbsp;1 Version&nbsp;1 is not supported.
 
 
-<h2><a class="anchor" name="doc-warnings"/>Warnings during creation of documentation</h2>
+<h2><a class="anchor" name="doc-warnings"/>Warnings during creation of documentation</a></h2>
 
 <p> If you run the commands to generate the libSBML documentation, there
 will be warnings printed for all except the C++ documentation.  These
