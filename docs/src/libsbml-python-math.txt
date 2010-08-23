@@ -376,14 +376,14 @@ node as a child of this AST node.  This method adds child nodes in
 right-to-left order.
 
 @li <code>ASTNode ASTNode.getChild (unsigned int)</code> returns the nth
-child of this AST node or NULL if this node has no nth child (<code>n &gt;
+child of this AST node or @c NULL if this node has no nth child (<code>n &gt;
 (ASTNode.getNumChildren() - 1)</code>).
 
 @li <code>ASTNode ASTNode.getLeftChild()</code> returns the left child of
 this AST node.  This is equivalent to <code>ASTNode.getChild(0)</code>;
 
 @li <code>ASTNode  ASTNode.getRightChild()</code>
-returns the right child of this AST node or NULL if this node has no right
+returns the right child of this AST node or @c NULL if this node has no right
 child.
 
 @li <code>ASTNode.swapChildren(ASTNode)</code> swaps the

@@ -360,7 +360,7 @@ of this AST node.  This method adds child nodes in right-to-left order.
 
 @li <code>ASTNode* @link ASTNode::getChild (unsigned int n) getChild
 (unsigned int n) @endlink</code> returns the <code>n</code>th child of this
-AST node or NULL if this node has no <code>n</code>th child [i.e., if
+AST node or @c NULL if this node has no <code>n</code>th child [i.e., if
 <code>n &gt; (node->getNumChildren() - 1)</code>, where <code>node</code>
 is a pointer to a node].
 
@@ -369,7 +369,7 @@ is a pointer to a node].
 equivalent to <code>getChild(0)</code>.
 
 @li <code>ASTNode* @link ASTNode::getRightChild() getRightChild()
-@endlink</code> returns the right child of this AST node or NULL if this
+@endlink</code> returns the right child of this AST node or @c NULL if this
 node has no right child.
 
 @li <code>void @link ASTNode::swapChildren(ASTNode *that)
