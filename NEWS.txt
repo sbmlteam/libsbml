@@ -27,7 +27,7 @@ additions of features requested by users; (3) enhanced support for
 * SBML Level 3 support limitations:
 
   - Although up-convertion to L3 is supported, conversion from Level 3
-    to lower Levels/Versions of SBML.
+    to lower Levels/Versions of SBML is not yet implemented.
 
 * Configuration/build system changes:
 
