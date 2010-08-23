@@ -338,7 +338,6 @@ INPUT =                            \
   libsbml-coding.txt               \
   libsbml-blurb.txt                \
   libsbml-communications.txt       \
-  libsbml-comment-set-methods.html \
   libsbml-example.txt              \
   libsbml-features.txt             \
   libsbml-installation.txt         \
