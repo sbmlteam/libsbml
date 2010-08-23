@@ -6,6 +6,7 @@ libsbml_wrap-win.cpp
 libsbml_wrap.cpp
 .libs
 libsbmlcs.snk
+libsbmlcs.dylib
 libsbmlcsP.dll
 TestRunner.exe
 test.xml.gz
