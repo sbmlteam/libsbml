@@ -112,7 +112,7 @@ create-dist:
 create-pkg: create-dist
 	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc
 
-create-dmg: create-dist clean-pkg build.sh
+create-dmg: create-dist build.sh
 	./build.sh 
 
 build.sh: build.sh.in $(TOP_SRCDIR)/configure \
