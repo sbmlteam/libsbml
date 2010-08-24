@@ -36,7 +36,7 @@ if [ ${EUID} != 0 ] ; then
   exit 1
 fi	
 
-OSX_MAJOR_VER=`uname -r | awk -F. '{print $1}'`
+OSX_MAJOR_VER=`uname -r | cut -f1 -d'.'`
 
 if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
   #
