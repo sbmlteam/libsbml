@@ -153,7 +153,7 @@ installcheck: installcheck-recursive
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-pkg clean-recursive
+clean: clean-recursive
 
 distclean: distclean-recursive
 
