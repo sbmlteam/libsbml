@@ -1,27 +1,71 @@
-#!/bin/sh
+#!/bin/sh -e
+# @configure_input@
 #
-# This shell script creates a package file (.dmg file) for MacOSX.
-# This file was originally implemented by Akira Funahashi.
+# Filename    : build.sh.in
+# Description : This script creates a package file (.dmg file) for MacOSX.
+# Author(s)   : Akira Funahashi, Michael Hucka
 #
+#<!---------------------------------------------------------------------------
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright 2005-2010 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#----------------------------------------------------------------------- -->*/
 
-set -e 
-set -x
+OSX_MAJOR_VER=`uname -r | cut -d'.' -f1`
+if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
+  MACOS="snowleopard"
+else
+  MACOS="leopard"
+fi
 
-SKELDIR=macosx
-PKGBASE=libSBML.pkg
+DISKDIR=disk-image
+PKGNAME=libSBML-@PACKAGE_VERSION@-@XML_PARSER@-${MACOS}.pkg
 DMGBASE=@PACKAGE_TARNAME@-@PACKAGE_VERSION@-@XML_PARSER@
-DMGNAME=${DMGBASE}_macosx-installer.dmg
+DMGNAME=${DMGBASE}-macosx-${MACOS}.dmg
+DMGFINAL=../${DMGNAME}
 
-# create a pkg bundle
+if ! test -e ${PKGNAME}; then
+  echo "**** ERROR: ${PKGNAME} does not exist -- nothing to do."
+  exit 1
+fi
 
-cd @abs_top_srcdir@/${SKELDIR}/root
+if test -d ${DISKDIR}; then
+  if test -d ${DISKDIR}-previous; then
+    echo "Directory '${DISKDIR}-previous' exists; deleting it.  Hope that's okay."
+    /bin/rm -rf ${DISKDIR}-previous
+  fi
+  echo "Moving previous copy of '${DISKDIR}' to '${DISKDIR}-previous'."
+  mv -f ${DISKDIR} ${DISKDIR}-previous
+fi
 
-/bin/pax -w -z -x cpio -f ../libSBML.pkg/Contents/Archive.pax.gz .
-/usr/bin/mkbom . ../${PKGBASE}/Contents/Archive.bom
+mkdir ${DISKDIR}
+cp ${PKGNAME}           ${DISKDIR}
+cp resources/README.txt ${DISKDIR}
 
-# create a dmg file
+mkdir ${DISKDIR}/docs
+cp ../AUTHORS.txt  ${DISKDIR}/docs
+cp ../COPYING.html ${DISKDIR}/docs
+cp ../COPYING.txt  ${DISKDIR}/docs
+cp ../FUNDING.txt  ${DISKDIR}/docs
+cp ../LICENSE.html ${DISKDIR}/docs
+cp ../LICENSE.txt  ${DISKDIR}/docs
+cp ../NEWS.txt     ${DISKDIR}/docs
+cp ../README.txt   ${DISKDIR}/docs
+cp ../VERSION.txt  ${DISKDIR}/docs
 
-cd @abs_top_srcdir@/${SKELDIR}
+/usr/bin/hdiutil create -ov -fs HFSX -layout SPUD -format UDZO \
+		 -volname ${DMGBASE} -srcfolder ${DISKDIR} \
+		 -imagekey zlib-level=9 -scrub ${DMGFINAL}
 
-/usr/bin/hdiutil create -ov -fs HFSX -layout SPUD -format UDZO -volname ${DMGBASE} \
-                 -srcfolder ${PKGBASE} -imagekey zlib-level=9 -scrub ../${DMGNAME}
+echo ""
+echo "Done creating ${DMGFINAL}."
+echo ""
