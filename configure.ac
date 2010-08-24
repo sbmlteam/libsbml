@@ -383,8 +383,8 @@ fi
 
 AC_CONFIG_FILES([macosx/Makefile])
 AC_CONFIG_FILES([macosx/build.sh], [chmod a+x macosx/build.sh])
-AC_CONFIG_FILES([macosx/libSBML.pkg/Contents/Info.plist])
-AC_CONFIG_FILES([macosx/libSBML.pkg/Contents/Resources/package_version])
+AC_CONFIG_FILES([macosx/resources/package-intro.txt])
+AC_CONFIG_FILES([macosx/resources/package-readme.txt])
 
 AC_OUTPUT
 
