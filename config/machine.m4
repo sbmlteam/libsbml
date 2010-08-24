@@ -101,7 +101,7 @@ by libSBML, only MacOSX systems commonly support fat binaries.
       dnl addition to PPC versions, because Snow Leopard builds everything
       dnl else in 64-bit by default.  This makes libSBML more compatible.
 
-      OSX_MAJOR_VER=`uname -r | awk -F. '{print $1}'`
+      OSX_MAJOR_VER=`uname -r | cut -d'.' -f1`
       if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
 	default_OPTS="-arch i386 -arch x86_64 -arch ppc"
       elif expr ${OSX_MAJOR_VER} \>= 9 | grep -q 1; then
