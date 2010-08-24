@@ -2,7 +2,7 @@
 ##
 ## Filename    : Makefile.in
 ## Description : Makefile for libSBML macosx subdiretory
-## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Author(s)   : Akira Funahashi, Akiya Jouraku, Michael Hucka
 ## Organization: California Institute of Technology
 ## Created     : 2009-05-01
 ## Revision    : $Id$
@@ -48,16 +48,16 @@ thisdir = macosx
 subdirs = 
 
 distfiles = \
-  Makefile.in                                        \
-  build.sh.in                                        \
-  uninstall-libsbml-pkg.sh                           \
-  libSBML.pkg/Contents/Info.plist.in                 \
-  libSBML.pkg/Contents/PkgInfo                       \
-  libSBML.pkg/Contents/Resources/en.lproj            \
-  libSBML.pkg/Contents/Resources/en.lproj/background \
-  libSBML.pkg/Contents/Resources/en.lproj/License    \
-  libSBML.pkg/Contents/Resources/en.lproj/Welcome    \
-  libSBML.pkg/Contents/Resources/package_version.in  
+        Makefile.in                      \
+        build.sh.in                      \
+        uninstall-libsbml-pkg.sh         \
+        resources/README.txt             \
+        resources/background.png         \
+        resources/package-conclusion.rtf \
+        resources/package-intro.txt.in   \
+        resources/package-license.rtf    \
+	resources/package-readme.txt.in
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
@@ -89,25 +89,35 @@ all:
 #
 # -----------------------------------------------------------------------------
 
-apath_thisdir = $(top_srcdir)/$(thisdir)
-archive_basename = $(shell basename $(DISTDIR))
-PKGDIST = root
-PKGBASE = libSBML.pkg
+.PHONY: create-dist create-dmg create-pkg
 
-create-dmg: clean-pkg
-	-mkdir $(apath_thisdir)/root/ 
-	-mkdir -p $(apath_thisdir)/root$(prefix)/bin
+apath_thisdir   = $(top_srcdir)/$(thisdir)
+staging         = libsbml-dist
+
+extra_distclean = $(staging) *.pkg disk-image disk-image-previous
+
+remove_staging_dir = \
+  { test ! -d $(staging) \
+    || { find $(staging) -type d ! -perm -200 -exec chmod u+w {} ';' \
+         && rm -fr $(staging); }; }
+
+create-dist: 
+	$(remove_staging_dir)
+	-mkdir $(staging)
+	-mkdir -p $(staging)$(prefix)/bin
+	cp uninstall-libsbml-pkg.sh $(staging)$(prefix)/bin/
 	cd $(top_srcdir) \
-	$(MAKE) \
-	&& $(MAKE) install DESTDIR=$(apath_thisdir)/root \
-	&& cp $(apath_thisdir)/uninstall-libsbml-pkg.sh $(apath_thisdir)/root$(prefix)/bin/ \
-	&& $(apath_thisdir)/build.sh 
+	&& $(MAKE) install DESTDIR=$(apath_thisdir)/$(staging)
 
-clean-pkg:
-	-rm -rf $(top_srcdir)/${thisdir}/${PKGDIST}/
-	-rm -rf $(top_srcdir)/${thisdir}/${PKGBASE}/Contents/Archive.bom
-	-rm -rf $(top_srcdir)/${thisdir}/${PKGBASE}/Contents/Archive.pax.gz
+create-pkg: create-dist
+	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc
 
+create-dmg: create-dist clean-pkg build.sh
+	./build.sh 
+
+build.sh: build.sh.in $(TOP_SRCDIR)/configure \
+	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
 
 
 # -----------------------------------------------------------------------------
@@ -121,8 +131,7 @@ check:
 # Tags.
 # -----------------------------------------------------------------------------
 
-# Nothing to be done for tags right now.  We could actually use tags for
-# the LaTeX files -- should we?  Nobody seems to care for it right now.
+# Nothing to be done for tags right now.
 
 tags:
 
