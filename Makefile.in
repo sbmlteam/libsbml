@@ -321,12 +321,13 @@ endif
 #
 
 create-rpm: libsbml.spec
-	rpmbuild -ba libsbml.spec --with-java --with-csharp --with-python \
-             --with-ruby --with-perl --with-octave
+	rpmbuild -ba libsbml.spec --with java --with csharp --with python \
+             --with ruby --with perl --with octave
 
 libsbml.spec: libsbml.spec.in $(TOP_SRCDIR)/configure \
 	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $@
+
 
 # -----------------------------------------------------------------------------
 # Checking.
