@@ -45,18 +45,18 @@
 # To create RPM packages of each language bindings, add the following options
 # when running the rpmbuild command:
 # 
-#   --with-csharp #  (C#)     
-#   --with-java   #  (Java)   
-#   --with-octave #  (Octave) 
-#   --with-perl   #  (Perl)   
-#   --with-python #  (Python) 
-#   --with-ruby   #  (Ruby)   
+#   --with csharp #  (C#)     
+#   --with java   #  (Java)   
+#   --with octave #  (Octave) 
+#   --with perl   #  (Perl)   
+#   --with python #  (Python) 
+#   --with ruby   #  (Ruby)   
 #
 # For example, the following command will create a package with all the
 # libSBML language interfaces enabled:
 #
-#  % rpmbuild -ba libsbml.spec --with-java --with-csharp --with-python \
-#             --with-ruby --with-perl --with-octave 
+#  % rpmbuild -ba libsbml.spec --with java --with csharp --with python \
+#             --with ruby --with perl --with octave 
 #
 # Note: libSBML also has a MATLAB interface, but this RPM package system
 # doesn't build it yet because of how complicated it is to try to match
