@@ -274,7 +274,9 @@ endef
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: configure Makefile include all-recursive libsbml.pc 
+all: configure Makefile include all-recursive libsbml.pc
+
+include: include-recursive
 
 docs:;
 # Only in the case of Java can we make the docs without doxygen.
@@ -290,10 +292,8 @@ else
 	$(MAKE) -w -C docs $(MAKECMDGOALS)
 endif
 
-# -----------------------------------------------------------------------------
-# Create a package (.dmg file) for MacOSX
 #
-# (NOTES)
+# Create a package (.dmg file) for MacOSX
 #
 # Executing "make create-dmg" will create a
 # libsbml-${VERSION}-${XML_PARSER}_macosx-installer.dmg
@@ -308,7 +308,7 @@ endif
 #
 #  ./configure --with-expat --enable-universal-binary --with-java --with-python
 #
-# -----------------------------------------------------------------------------
+
 create-dmg:
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -w -C macosx -$(MAKEFLAGS) $(MAKECMDGOALS)
@@ -316,8 +316,17 @@ else
 	$(MAKE) -w -C macosx $(MAKECMDGOALS)
 endif	
 
-include: include-recursive
+#
+# Create an RPM distribution.
+#
 
+create-rpm: libsbml.spec
+	rpmbuild -ba libsbml.spec --with-java --with-csharp --with-python \
+             --with-ruby --with-perl --with-octave
+
+libsbml.spec: libsbml.spec.in $(TOP_SRCDIR)/configure \
+	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $@
 
 # -----------------------------------------------------------------------------
 # Checking.
