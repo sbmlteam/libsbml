@@ -51,13 +51,21 @@ AC_DEFUN([CONFIG_PROG_SWIG],
       dnl Given --with-swig without an argument.
       dnl No prefix directory path supplied for --with-swig.  Use defaults.
 
-      AC_PATH_PROG([SWIG], [swig])
+      AC_PATH_PROG([SWIG], [swig], [no])
     fi
 
     dnl Did we actually find a copy of swig where indicated?
 
     if test "$SWIG" = "no"; then
-      AC_MSG_ERROR([Given --with-swig argument, but cannot find swig.  Stopping.])
+      AC_MSG_ERROR([
+***************************************************************************
+SWIG has been requested via --with-swig, or else is required to update a
+language binding dependency, but the program 'swig' cannot be found on this
+system.  Please install SWIG, or (if it is installed) check whether an
+argument needs to be provided to libSBML's configure --with-swig option so
+that the configure program can find 'swig'.
+***************************************************************************
+])
     fi
 
     dnl Check the version if required.
