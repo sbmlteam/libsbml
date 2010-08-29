@@ -591,7 +591,8 @@ public:
    * set of values from
    * @if clike the enumeration #SBMLErrorCategory_t@endif@if java the
    * constants whose names begin with the characters <code>LIBSBML_CAT_</code>
-   * in the interface class {@link libsbmlConstants}@endif.
+   * in the interface class <code><a href="libsbmlConstants.html">
+   * libsbmlConstants</a></code>@endif.
    * The following are the possible choices:
    *
    * @li @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink:
@@ -678,7 +679,8 @@ public:
    * set of values from
    * @if clike the enumeration #SBMLErrorCategory_t@endif@if java the
    * constants whose names begin with the characters <code>LIBSBML_CAT_</code>
-   * in the interface class {@link libsbmlConstants}@endif.
+   * in the interface class <code><a href="libsbmlConstants.html">
+   * libsbmlConstants</a></code>@endif.
    * The following are the possible choices:
    *
    * @li @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency of
