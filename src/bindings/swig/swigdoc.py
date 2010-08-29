@@ -626,8 +626,8 @@ def sanitizeForHTML (docstring, language):
   # of a line and the thing to be formatted starts on the next one after
   # the comment '*' character on the beginning of the line.
 
-  docstring = re.sub('@c *([^ ,:;()/*\n\t]+)', r'<code>\1</code>', docstring)
-  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
+  docstring = re.sub('@c *([^ ,;()/*\n\t]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
   docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
   docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
   docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'<em>\1</em>', docstring)
