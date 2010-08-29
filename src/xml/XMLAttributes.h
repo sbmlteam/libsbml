@@ -171,7 +171,7 @@ public:
 
   /**
    * Removes an attribute with the given index from this XMLAttributes set.  
-   * (This function is an alias of XMLAttributes::removeResource() ).
+   * (This function is an alias of XMLAttributes::removeResource(@if java int n@endif) ).
    *
    * @param n an integer the index of the resource to be deleted
    *

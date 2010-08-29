@@ -36,9 +36,10 @@
  * mismatched tags or other problems).
  *
  * A typical approach for using this error log is to first use
- * getNumErrors() to inquire how many XMLError object instances it
- * contains, and then to iterate over the list of objects one at a time
- * using getError(unsigned int n) const.  Indexing in the list begins at 0.
+ * @if java XMLErrorLog::@endifgetNumErrors() to inquire how many XMLError
+ * object instances it contains, and then to iterate over the list of
+ * objects one at a time using getError(unsigned int n) const.  Indexing in
+ * the list begins at 0.
  *
  * In normal circumstances, programs using libSBML will actually obtain an
  * SBMLErrorLog rather than an XMLErrorLog.  The former is subclassed from
@@ -74,7 +75,7 @@ public:
    * Returns the number of errors that have been logged.
    *
    * To retrieve individual errors from the log, callers may use
-   * getError(unsigned int n) const.
+   * @if java XMLErrorLog::@endifgetError(@if java long n@endif) const.
    *
    * @return the number of errors that have been logged.
    */
@@ -85,7 +86,8 @@ public:
    * Returns the <i>n</i>th XMLError object in this log.
    *
    * Index @p n is counted from 0.  Callers should first inquire about the
-   * number of items in the log by using the method getNumErrors().
+   * number of items in the log by using the method
+   * @if java XMLErrorLog::@endifgetNumErrors().
    * Attempts to use an error index number that exceeds the actual number
    * of errors in the log will result in a @c NULL being returned.
    *
@@ -93,7 +95,7 @@ public:
    * first error).
    *
    * @return the <i>n</i>th XMLError in this log, or @c NULL if @p n is
-   * greater than or equal to getNumErrors().
+   * greater than or equal to @if java XMLErrorLog::@endifgetNumErrors().
    *
    * @see getNumErrors()
    */

@@ -295,7 +295,7 @@ public:
    * @param uri  a string, the namespace URI of the attribute.
    *
    * @return the index of an attribute with the given local name and namespace URI, 
-   * or -1 if not present.
+   * or <code>-1</code> if not present.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
@@ -308,7 +308,7 @@ public:
    * @param triple an XMLTriple, the XML triple of the attribute for which 
    *        the index is required.
    *
-   * @return the index of an attribute with the given XMLTriple, or -1 if not present.
+   * @return the index of an attribute with the given XMLTriple, or <code>-1</code> if not present.
    */
   int getAttrIndex (const XMLTriple& triple) const;
 
@@ -331,7 +331,8 @@ public:
    * @return the local name of an attribute in this list (by position).  
    *
    * @note If index
-   * is out of range, an empty string will be returned.  Use hasAttr(index) 
+   * is out of range, an empty string will be returned.  Use
+   * @if java XMLToken::@endifhasAttr(@if java int index@endif)
    * to test for the attribute existence.
    */
   std::string getAttrName (int index) const;
@@ -347,8 +348,9 @@ public:
    * @return the namespace prefix of an attribute in the attribute set
    * (by position).  
    *
-   * @note If index is out of range, an empty string will be
-   * returned. Use hasAttr(index) to test for the attribute existence.
+   * @note If index is out of range, an empty string will be returned. Use
+   * @if java XMLToken::@endifhasAttr(@if java int index@endif) to test
+   * for the attribute existence.
    */
   std::string getAttrPrefix (int index) const;
 
@@ -363,8 +365,9 @@ public:
    * @return the prefixed name of an attribute in the attribute set 
    * (by position).  
    *
-   * @note If index is out of range, an empty string will be
-   * returned.  Use hasAttr(index) to test for attribute existence.
+   * @note If index is out of range, an empty string will be returned.  Use
+   * @if java XMLToken::@endifhasAttr(@if java int index@endif) to test
+   * for attribute existence.
    */
   std::string getAttrPrefixedName (int index) const;
 
@@ -379,7 +382,8 @@ public:
    * @return the namespace URI of an attribute in the attribute set (by position).
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * hasAttr(index) to test for attribute existence.
+   * @if java XMLToken::@endifhasAttr(@if java int index@endif) to test
+   * for attribute existence.
    */
   std::string getAttrURI (int index) const;
 
@@ -393,9 +397,9 @@ public:
    *
    * @return the value of an attribute in the attribute set (by position).  
    *
-   * @note If index
-   * is out of range, an empty string will be returned. Use hasAttr(index)
-   * to test for attribute existence.
+   * @note If index is out of range, an empty string will be returned. Use
+   * @if java XMLToken::@endifhasAttr(@if java int index@endif) to test
+   * for attribute existence.
    */
   std::string getAttrValue (int index) const;
 
@@ -411,7 +415,7 @@ public:
    * @note If an attribute with the 
    * given local name and namespace URI does not exist, an empty string will be 
    * returned.  
-   * Use hasAttr(name, uri) to test for attribute existence.
+   * Use @if java XMLToken::@endifhasAttr(@if java String name, String uri@endif) to test for attribute existence.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
@@ -428,7 +432,8 @@ public:
    *
    * @note If an attribute with the
    * given XMLTriple does not exist, an empty string will be returned.  
-   * Use hasAttr(triple) to test for attribute existence.
+   * Use @if java XMLToken::@endifhasAttr(@if java XMLTriple triple@endif)
+   * to test for attribute existence.
    */
   std::string getAttrValue (const XMLTriple& triple) const;
 
@@ -585,7 +590,7 @@ public:
    *
    * @param uri a string, uri of the required namespace.
    *
-   * @return the index of the given declaration, or -1 if not present.
+   * @return the index of the given declaration, or <code>-1</code> if not present.
    */
   int getNamespaceIndex (const std::string& uri) const;
 
@@ -595,7 +600,7 @@ public:
    *
    * @param prefix a string, prefix of the required namespace.
    *
-   * @return the index of the given declaration, or -1 if not present.
+   * @return the index of the given declaration, or <code>-1</code> if not present.
    */
   int getNamespaceIndexByPrefix (const std::string& prefix) const;
 
