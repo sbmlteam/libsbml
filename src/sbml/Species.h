@@ -403,7 +403,7 @@ public:
    * Species
    * 
    * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
-   * using Model::addSpecies()), the SBML Level, SBML Version and XML
+   * using Model::addSpecies(@if java Species s@endif)), the SBML Level, SBML Version and XML
    * namespace of the document @em override the values used when creating
    * the Species object via this constructor.  This is necessary to ensure
    * that an SBML document is a consistent structure.  Nevertheless, the
@@ -432,12 +432,12 @@ public:
    * (identifier) attribute of a Species is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if clike setId() @endif@if java setId(String id) @endif.
+   * method @if clike setId() @endif@if java Species::setId(String id)@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a Species object to an SBMLDocument (e.g.,
-   * using Model::addSpecies()), the SBML XML namespace of the document @em
+   * using Model::addSpecies(@if java Species s@endif)), the SBML XML namespace of the document @em
    * overrides the value used when creating the Species object via this
    * constructor.  This is necessary to ensure that an SBML document is a
    * consistent structure.  Nevertheless, the ability to supply the values
@@ -457,7 +457,7 @@ public:
 
 
   /**
-  * Copy constructor; creates a copy of this Species.
+  * Copy constructor; creates a copy of this Species object.
   */
   Species(const Species& orig);
 
@@ -481,7 +481,7 @@ public:
   /**
    * Creates and returns a deep copy of this Species object.
    * 
-   * @return a (deep) copy of this Species.
+   * @return a (deep) copy of this Species object.
    */
   virtual Species* clone () const;
 
@@ -506,7 +506,7 @@ public:
   /**
    * Returns the value of the "id" attribute of this Species object.
    * 
-   * @return the id of this Species.
+   * @return the id of this Species object.
    */
   const std::string& getId () const;
 
@@ -514,7 +514,7 @@ public:
   /**
    * Returns the value of the "name" attribute of this Species object.
    * 
-   * @return the name of this Species.
+   * @return the name of this Species object.
    */
   const std::string& getName () const;
 
@@ -635,7 +635,7 @@ public:
   /**
    * Get the value of the "charge" attribute.
    * 
-   * @return the charge of this Species.
+   * @return the charge of this Species object.
    *
    * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
    * attribute on Species is deprecated and in SBML Level&nbsp;3 it does
@@ -678,7 +678,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "id" attribute has been set.
+   * Species object's "id" attribute has been set.
    *
    * @return @c true if the "id" attribute of this Species has been
    * set, @c false otherwise.
@@ -688,7 +688,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "name" attribute has been set.
+   * Species object's "name" attribute has been set.
    *
    * @return @c true if the "name" attribute of this Species has been
    * set, @c false otherwise.
@@ -697,7 +697,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if this Species's
+   * Predicate returning @c true if this Species object's
    * "speciesType" attribute has been set.
    *
    * @return @c true if the "speciesType" attribute of this Species has
@@ -711,7 +711,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "compartment" attribute has been set.
+   * Species object's "compartment" attribute has been set.
    *
    * @return @c true if the "compartment" attribute of this Species has
    * been set, @c false otherwise.
@@ -721,7 +721,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "initialAmount" attribute has been set.
+   * Species object's "initialAmount" attribute has been set.
    *
    * @return @c true if the "initialAmount" attribute of this Species has
    * been set, @c false otherwise.
@@ -737,7 +737,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "initialConcentration" attribute has been set.
+   * Species object's "initialConcentration" attribute has been set.
    *
    * @return @c true if the "initialConcentration" attribute of this Species has
    * been set, @c false otherwise.
@@ -750,7 +750,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "substanceUnits" attribute has been set.
+   * Species object's "substanceUnits" attribute has been set.
    *
    * @return @c true if the "substanceUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -760,7 +760,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "spatialSizeUnits" attribute has been set.
+   * Species object's "spatialSizeUnits" attribute has been set.
    *
    * @return @c true if the "spatialSizeUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -778,7 +778,7 @@ public:
 
   /**
    * Predicate returning @c true if
-   * this Species's "units" attribute has been set.
+   * this Species object's "units" attribute has been set.
    *
    * @return @c true if the "units" attribute of this Species has
    * been set, @c false otherwise.
@@ -788,7 +788,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "charge" attribute has been set.
+   * Species object's "charge" attribute has been set.
    *
    * @return @c true if the "charge" attribute of this Species has
    * been set, @c false otherwise.
@@ -810,7 +810,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "conversionFactor" attribute has been set.
+   * Species object's "conversionFactor" attribute has been set.
    *
    * @return @c true if the "conversionFactor" attribute of this Species has
    * been set, @c false otherwise.
@@ -824,7 +824,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "boundaryCondition" attribute has been set.
+   * Species object's "boundaryCondition" attribute has been set.
    *
    * @return @c true if the "boundaryCondition" attribute of this Species has
    * been set, @c false otherwise.
@@ -834,7 +834,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "hasOnlySubstanceUnits" attribute has been set.
+   * Species object's "hasOnlySubstanceUnits" attribute has been set.
    *
    * @return @c true if the "hasOnlySubstanceUnits" attribute of this Species has
    * been set, @c false otherwise.
@@ -847,7 +847,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species's "constant" attribute has been set.
+   * Species object's "constant" attribute has been set.
    *
    * @return @c true if the "constant" attribute of this Species has
    * been set, @c false otherwise.
@@ -859,7 +859,7 @@ public:
 
 
   /**
-   * Sets the value of the "id" attribute of this Species.
+   * Sets the value of the "id" attribute of this Species object.
    *
    * The string @p sid is copied.  Note that SBML has strict requirements
    * for the syntax of identifiers.  @htmlinclude id-syntax.html
@@ -876,7 +876,7 @@ public:
 
 
   /**
-   * Sets the value of the "name" attribute of this Species.
+   * Sets the value of the "name" attribute of this Species object.
    *
    * The string in @p name is copied.
    *
@@ -892,7 +892,7 @@ public:
 
 
   /**
-   * Sets the "speciesType" attribute of this Species.
+   * Sets the "speciesType" attribute of this Species object.
    *
    * @param sid the identifier of a SpeciesType object defined elsewhere
    * in this Model.
@@ -911,7 +911,7 @@ public:
 
 
   /**
-   * Sets the "compartment" attribute of this Species.
+   * Sets the "compartment" attribute of this Species object.
    *
    * @param sid the identifier of a Compartment object defined elsewhere
    * in this Model.
@@ -964,7 +964,7 @@ public:
 
 
   /**
-   * Sets the "substanceUnits" attribute of this Species.
+   * Sets the "substanceUnits" attribute of this Species object.
    *
    * @param sid the identifier of the unit to use.
    *
@@ -978,7 +978,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Sets the "spatialSizeUnits" attribute of this Species.
+   * (SBML Level&nbsp;2 Versions&nbsp;1&ndash;2) Sets the "spatialSizeUnits" attribute of this Species object.
    *
    * @param sid the identifier of the unit to use.
    * 
@@ -1001,7 +1001,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;1 only) Sets the units of this Species.
+   * (SBML Level&nbsp;1 only) Sets the units of this Species object.
    *
    * @param sname the identifier of the unit to use.
    *
@@ -1015,7 +1015,7 @@ public:
 
 
   /**
-   * Sets the "hasOnlySubstanceUnits" attribute of this Species.
+   * Sets the "hasOnlySubstanceUnits" attribute of this Species object.
    *
    * @param value boolean value for the "hasOnlySubstanceUnits" attribute.
    *
@@ -1032,7 +1032,7 @@ public:
 
 
   /**
-   * Sets the "boundaryCondition" attribute of this Species.
+   * Sets the "boundaryCondition" attribute of this Species object.
    *
    * @param value boolean value for the "boundaryCondition" attribute.
    *
@@ -1045,7 +1045,7 @@ public:
 
 
   /**
-   * Sets the "charge" attribute of this Species.
+   * Sets the "charge" attribute of this Species object.
    *
    * @param value an integer to which to set the "charge" to.
    *
@@ -1072,7 +1072,7 @@ public:
 
 
   /**
-   * Sets the "constant" attribute of this Species.
+   * Sets the "constant" attribute of this Species object.
    *
    * @param value a boolean value for the "constant" attribute
    *
@@ -1089,7 +1089,7 @@ public:
 
 
   /**
-   * Sets the value of the "conversionFactor" attribute of this Species.
+   * Sets the value of the "conversionFactor" attribute of this Species object.
    *
    * The string in @p sid is copied.
    *
@@ -1110,7 +1110,7 @@ public:
 
 
   /**
-   * Unsets the value of the "name" attribute of this Species.
+   * Unsets the value of the "name" attribute of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1122,7 +1122,7 @@ public:
 
 
   /**
-   * Unsets the "speciesType" attribute value of this Species.
+   * Unsets the "speciesType" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1137,7 +1137,7 @@ public:
 
 
   /**
-   * Unsets the "initialAmount" attribute value of this Species.
+   * Unsets the "initialAmount" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1148,7 +1148,7 @@ public:
 
 
   /**
-   * Unsets the "initialConcentration" attribute value of this Species.
+   * Unsets the "initialConcentration" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1162,7 +1162,7 @@ public:
 
 
   /**
-   * Unsets the "substanceUnits" attribute value of this Species.
+   * Unsets the "substanceUnits" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1174,7 +1174,7 @@ public:
 
 
   /**
-   * Unsets the "spatialSizeUnits" attribute value of this Species.
+   * Unsets the "spatialSizeUnits" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1194,7 +1194,7 @@ public:
 
 
   /**
-   * Unsets the "units" attribute value of this Species.
+   * Unsets the "units" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1207,7 +1207,7 @@ public:
 
   /**
    * Unsets the "charge" attribute
-   * value of this Species.
+   * value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values
@@ -1232,7 +1232,7 @@ public:
 
 
   /**
-   * Unsets the "conversionFactor" attribute value of this Species.
+   * Unsets the "conversionFactor" attribute value of this Species object.
    *
    * @return integer value indicating success/failure of the
    * function. The possible values
@@ -1260,7 +1260,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * getDerivedUnitDefinition() returns a UnitDefinition based on the
+   * @if java Species::@endifgetDerivedUnitDefinition() returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -1278,7 +1278,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The getDerivedUnitDefinition() takes this into account for models
+   * The @if java Species::@endifgetDerivedUnitDefinition() takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
    * @return a UnitDefinition that expresses the units of this 
@@ -1301,7 +1301,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * getDerivedUnitDefinition() returns a UnitDefinition based on the
+   * @if java Species::@endifgetDerivedUnitDefinition() returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -1319,7 +1319,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The getDerivedUnitDefinition() takes this into account for models
+   * The @if java Species::@endifgetDerivedUnitDefinition() takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
    * @return a UnitDefinition that expresses the units of this 

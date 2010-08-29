@@ -119,7 +119,7 @@ public:
    * KineticLaw
    * 
    * @note Upon the addition of a KineticLaw object to an SBMLDocument
-   * (e.g., using Model::addKineticLaw()), the SBML Level, SBML Version
+   * (e.g., using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the KineticLaw object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -146,7 +146,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a KineticLaw object to an SBMLDocument
-   * (e.g., using Model::addKineticLaw()), the SBML XML namespace of the
+   * (e.g., using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML XML namespace of the
    * document @em overrides the value used when creating the KineticLaw
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -199,9 +199,9 @@ public:
    * Returns the mathematical formula for this KineticLaw object and return
    * it as as a text string.
    *
-   * This is fundamentally equivalent to getMath().  This variant is
-   * provided principally for compatibility compatibility with SBML Level
-   * 1.
+   * This is fundamentally equivalent to @if java KineticLaw::@endifgetMath().
+   * This variant is provided principally for compatibility compatibility
+   * with SBML Level&nbsp;1.
    * 
    * @return a string representing the formula of this KineticLaw.
    *
@@ -224,9 +224,10 @@ public:
    * Returns the mathematical formula for this KineticLaw object and return
    * it as as an AST.
    *
-   * This is fundamentally equivalent to getFormula().  The latter is
-   * provided principally for compatibility compatibility with SBML Level
-   * 1, which represented mathematical formulas in text-string form.
+   * This is fundamentally equivalent to @if java KineticLaw::@endifgetFormula().
+   * The latter is provided principally for compatibility compatibility
+   * with SBML Level&nbsp;1, which represented mathematical formulas in
+   * text-string form.
    * 
    * @return the ASTNode representation of the mathematical formula.
    *
@@ -239,7 +240,7 @@ public:
    * Returns the value of the "timeUnits" attribute of this KineticLaw
    * object.
    *
-   * @return the "timeUnits" attribute value
+   * @return the "timeUnits" attribute value.
    *
    * @note The attributes "timeUnits" and "substanceUnits" are present only
    * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
@@ -254,7 +255,7 @@ public:
    * Returns the value of the
    * "substanceUnits" attribute of this KineticLaw object.
    *
-   * @return the "substanceUnits" attribute value
+   * @return the "substanceUnits" attribute value.
    *
    * @note The attributes "timeUnits" and "substanceUnits" are present only
    * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
@@ -269,9 +270,9 @@ public:
    * Predicate returning @c true if this
    * KineticLaw's "formula" attribute has been set
    *
-   * This is functionally identical to the method isSetMath().  It is
-   * provided in order to mirror the parallel between getFormula() and
-   * getMath().
+   * This is functionally identical to the method @if java KineticLaw::@endifisSetMath().  It is
+   * provided in order to mirror the parallel between @if java KineticLaw::@endifgetFormula() and
+   * @if java KineticLaw::@endifgetMath().
    *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
@@ -293,8 +294,10 @@ public:
    * Predicate returning @c true if this
    * Kinetic's "math" subelement has been set
    *
-   * This is identical to the method isSetFormula().  It is provided
-   * in order to mirror the parallel between getFormula() and getMath().
+   * This is identical to the method @if java KineticLaw::@endifisSetFormula().
+   * It is provided in order to mirror the parallel between
+   * @if java KineticLaw::@endifgetFormula() and
+   * @if java KineticLaw::@endifgetMath().
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
@@ -345,8 +348,7 @@ public:
    * text-string form.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -368,15 +370,14 @@ public:
    * Sets the mathematical expression of this KineticLaw instance to a copy
    * of the given ASTNode.
    *
-   * This is fundamentally identical to setFormula().  The latter is
+   * This is fundamentally identical to @if java KineticLaw::@endifsetFormula(@if java String formula@endif).  The latter is
    * provided principally for compatibility compatibility with SBML Level
    * 1, which represented mathematical formulas in text-string form.
    *
    * @param math an ASTNode representing a formula tree.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -391,8 +392,7 @@ public:
    * @param sid the identifier of the units to use.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -415,8 +415,7 @@ public:
    * @param sid the identifier of the units to use.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -436,8 +435,7 @@ public:
    * attribugte of this KineticLaw object.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -456,8 +454,7 @@ public:
    * attribute of this KineticLaw object.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -478,8 +475,7 @@ public:
    * @param p the Parameter to add
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
@@ -495,7 +491,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * KineticLaw::createParameter() for ab method that does not lead to
+   * @if java KineticLaw::@endifcreateParameter() for ab method that does not lead to
    * these issues.
    *
    * @see createParameter()
@@ -510,8 +506,7 @@ public:
    * @param p the LocalParameter to add
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
@@ -527,7 +522,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * KineticLaw::createParameter() for ab method that does not lead to
+   * @if java KineticLaw::@endifcreateParameter() for ab method that does not lead to
    * these issues.
    *
    * @see createLocalParameter()
@@ -701,7 +696,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
+   * @if java KineticLaw::@endifgetDerivedUnitDefinition() method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
@@ -712,12 +707,12 @@ public:
    * KineticLaw contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
+   * make assumptions about the units, and @if java KineticLaw::@endifgetDerivedUnitDefinition() only
    * returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * invoke the method</strong> @if java KineticLaw::@endifcontainsUndeclaredUnits() <strong>to
    * determine whether this situation holds</strong>.  Callers may wish to
    * take suitable actions in those scenarios.
    *
@@ -737,7 +732,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
+   * @if java KineticLaw::@endifgetDerivedUnitDefinition() method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
@@ -748,12 +743,12 @@ public:
    * KineticLaw contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
+   * make assumptions about the units, and @if java KineticLaw::@endifgetDerivedUnitDefinition() only
    * returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * invoke the method</strong> @if java KineticLaw::@endifcontainsUndeclaredUnits() <strong>to
    * determine whether this situation holds</strong>.  Callers may wish to
    * take suitable actions in those scenarios.
    *
@@ -775,7 +770,7 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
+   * returned by @if java KineticLaw::@endifgetDerivedUnitDefinition() may not accurately represent
    * the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -793,7 +788,7 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
+   * returned by @if java KineticLaw::@endifgetDerivedUnitDefinition() may not accurately represent
    * the units of the expression.
    *
    * @see getDerivedUnitDefinition()

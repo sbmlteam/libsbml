@@ -373,7 +373,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -398,7 +398,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   XMLNode* getNotes();
 
@@ -419,7 +419,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -442,7 +442,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   std::string getNotesString ();
 
@@ -604,10 +604,11 @@ public:
    * SpeciesReference, ListOfSpeciesReferences, Reaction, ListOfReactions
    * and Model, any of which can be accessed via this function.
    *
-   * @param type the #SBMLTypeCode_t of the ancestor being sought.
+   * @param type the @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif
+   * of the ancestor being sought.
    * 
    * @return the ancestor SBML object of this SBML object that corresponds
-   * to the given #SBMLTypeCode_t, or @c NULL if none exists.
+   * to the given @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif, or @c NULL if none exists.
    */
   SBase* getAncestorOfType(SBMLTypeCode_t type);
 
@@ -897,7 +898,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -914,7 +915,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   bool isSetNotes () const;
 
@@ -1290,7 +1291,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1313,7 +1314,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   int setNotes(const XMLNode* notes);
 
@@ -1337,7 +1338,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1361,7 +1362,7 @@ public:
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   int setNotes(const std::string& notes);
 
@@ -1383,7 +1384,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1407,7 +1408,7 @@ public:
    * @see setNotes(const std::string& notes)
    * @see appendNotes(const std::string& notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   int appendNotes(const XMLNode* notes);
 
@@ -1429,7 +1430,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1453,7 +1454,7 @@ public:
    * @see setNotes(const std::string& notes)
    * @see appendNotes(const XMLNode* notes)
    * @see unsetNotes()
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   int appendNotes(const std::string& notes);
 
@@ -1526,7 +1527,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
-   * @see setSBOTerm(const std::string &sboid)
+   * @see setSBOTerm(@if clike const std::string &sboid@endif@if java String sbo_id@endif)
    */
   virtual int setSBOTerm (int value);
 
@@ -1708,7 +1709,7 @@ public:
    * The format of "notes" elements must be <a target="_blank"
    * href="http://www.w3.org/TR/xhtml1/">XHTML&nbsp;1.0</a>.  To help
    * verify the formatting of "notes" content, libSBML provides the static
-   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(); however,
+   * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
    * href="http://sbml.org/Documents/Specifications">SBML specification
    * document</a> for the Level and Version of their model for more
@@ -1727,7 +1728,7 @@ public:
    * @see setNotes(const std::string& notes)
    * @see appendNotes(const XMLNode* notes)
    * @see appendNotes(const std::string& notes)
-   * @see SyntaxChecker::hasExpectedXHTMLSyntax()
+   * @see SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif)
    */
   int unsetNotes ();
 
@@ -1903,7 +1904,7 @@ public:
    * value from  #BiolQualifierType_t.
    *
    * @param resource string representing the resource; e.g.,
-   * @c "http://www.geneontology.org/#GO:0005892"
+   * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
    * @return the #BiolQualifierType_t value associated with the resource,
    * or @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink if the
@@ -1946,8 +1947,8 @@ public:
    * model qualifier associated with that resource as a value from
    * #ModelQualifierType_t.
    *
-   * @param resource string representing the resource; e.g., @c
-   * "http://www.geneontology.org/#GO:0005892"
+   * @param resource string representing the resource; e.g.,
+   * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
    * @return the #ModelQualifierType_t value associated with the resource,
    * or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink if the
@@ -2007,8 +2008,9 @@ public:
    * LibSBML C interface, in which class and subclass information is not
    * readily available.
    *
-   * @return the #SBMLTypeCode_t value of this SBML object or @link
-   * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif
+   * of this SBML object or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (the default).
    *
    * @see getElementName()
    */
@@ -2186,7 +2188,8 @@ protected:
    * read out of order.
    *
    * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
+   * siblings or @c -1 (the default) to indicate the position is not
+   * significant.
    */
   virtual int getElementPosition () const;
 

@@ -87,8 +87,8 @@ typedef enum
 /**
  * Tests for logical equality between two given UnitKind_t values.
  *
- * This function behaves exactly like C's <tt>==</tt> operator, except for
- * the following two cases:
+ * This function behaves exactly like C's <code>==</code> operator, except
+ * for the following two cases:
  * 
  * @li UNIT_KIND_LITER <code>==</code> UNIT_KIND_LITRE
  * @li UNIT_KIND_METER <code>==</code> UNIT_KIND_METRE
@@ -99,8 +99,8 @@ typedef enum
  * @param uk1 a UnitKind_t enumeration value 
  * @param uk2 the UnitKind_t enumeration value to compare to @p uk1
  *
- * @return nonzero (for true) if uk1 is logically equivalent to uk2,
- * zero (0) otherwise.
+ * @return nonzero (for @c true) if @p uk1 is logically equivalent to @p
+ * uk2, zero (for @c false) otherwise.
  *
  * @note For more information about the UnitKind_t enumeration, please
  * refer to the class documentation for Unit.
@@ -115,7 +115,7 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
  *
  * @param name a string, the name of a predefined base unit in SBML
  * 
- * @return a value from UnitKind_t corresponding to the given name
+ * @return a value from UnitKind_t corresponding to the given @p name
  * (determined in a case-insensitive manner).
  *
  * @note For more information about the UnitKind_t enumeration, please

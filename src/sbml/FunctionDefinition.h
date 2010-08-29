@@ -163,7 +163,7 @@ public:
    * FunctionDefinition
    * 
    * @note Upon the addition of a FunctionDefinition object to an
-   * SBMLDocument (e.g., using Model::addFunctionDefinition()), the SBML
+   * SBMLDocument (e.g., using Model::addFunctionDefinition(@if java FunctionDefinition f@endif)), the SBML
    * Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the FunctionDefinition object
    * via this constructor.  This is necessary to ensure that an SBML
@@ -191,7 +191,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a FunctionDefinition object to an
-   * SBMLDocument (e.g., using Model::addFunctionDefinition()), the SBML
+   * SBMLDocument (e.g., using Model::addFunctionDefinition(@if java FunctionDefinition f@endif)), the SBML
    * XML namespace of the document @em overrides the value used when
    * creating the FunctionDefinition object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.

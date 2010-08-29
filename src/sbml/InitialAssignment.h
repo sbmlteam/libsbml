@@ -237,7 +237,7 @@ public:
    * InitialAssignment
    * 
    * @note Upon the addition of a InitialAssignment object to an
-   * SBMLDocument (e.g., using Model::addInitialAssignment()), the SBML
+   * SBMLDocument (e.g., using Model::addInitialAssignment(@if java InitialAssignment ia@endif)), the SBML
    * Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the InitialAssignment object
    * via this constructor.  This is necessary to ensure that an SBML
@@ -265,7 +265,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a InitialAssignment object to an
-   * SBMLDocument (e.g., using Model::addInitialAssignment()), the SBML XML
+   * SBMLDocument (e.g., using Model::addInitialAssignment(@if java InitialAssignment ia@endif)), the SBML XML
    * namespace of the document @em overrides the value used when creating
    * the InitialAssignment object via this constructor.  This is necessary
    * to ensure that an SBML document is a consistent structure.
@@ -361,8 +361,7 @@ public:
    * object defined elsewhere in this Model.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -379,8 +378,7 @@ public:
    * be used as the formula for this InitialAssignment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -396,7 +394,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
+   * @if java InitialAssignment::@endifgetDerivedUnitDefinition() method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
@@ -407,12 +405,12 @@ public:
    * InitialAssignment contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
+   * make assumptions about the units, and @if java InitialAssignment::@endifgetDerivedUnitDefinition() only
    * returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * invoke the method</strong> @if java InitialAssignment::@endifcontainsUndeclaredUnits() <strong>to
    * determine whether this situation holds</strong>.  Callers may wish to
    * take suitable actions in those scenarios.
    * 
@@ -432,7 +430,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * getDerivedUnitDefinition() method returns the calculated units.
+   * @if java InitialAssignment::@endifgetDerivedUnitDefinition() method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
@@ -443,12 +441,12 @@ public:
    * InitialAssignment contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and getDerivedUnitDefinition() only
+   * make assumptions about the units, and @if java InitialAssignment::@endifgetDerivedUnitDefinition() only
    * returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * invoke the method</strong> @if java InitialAssignment::@endifcontainsUndeclaredUnits() <strong>to
    * determine whether this situation holds</strong>.  Callers may wish to
    * take suitable actions in those scenarios.
    * 
@@ -470,7 +468,7 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
+   * returned by @if java InitialAssignment::@endifgetDerivedUnitDefinition() may not accurately represent
    * the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -488,7 +486,7 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by getDerivedUnitDefinition() may not accurately represent
+   * returned by @if java InitialAssignment::@endifgetDerivedUnitDefinition() may not accurately represent
    * the units of the expression.
    *
    * @see getDerivedUnitDefinition()

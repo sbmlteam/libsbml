@@ -186,16 +186,17 @@ public:
    * StoichiometryMath
    * 
    * @note Upon the addition of a StoichiometryMath object to an
-   * SBMLDocument (e.g., using Model::addStoichiometryMath()), the SBML
-   * Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the StoichiometryMath object
-   * via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a StoichiometryMath is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * SBMLDocument (e.g., using
+   * SpeciesReference::createStoichiometryMath()), the SBML Level, SBML
+   * Version and XML namespace of the document @em override the values used
+   * when creating the StoichiometryMath object via this constructor.  This
+   * is necessary to ensure that an SBML document is a consistent
+   * structure.  Nevertheless, the ability to supply the values at the time
+   * of creation of a StoichiometryMath is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   StoichiometryMath (unsigned int level, unsigned int version);
 
@@ -214,12 +215,13 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a StoichiometryMath object to an
-   * SBMLDocument (e.g., using Model::addStoichiometryMath()), the SBML XML
-   * namespace of the document @em overrides the value used when creating
-   * the StoichiometryMath object via this constructor.  This is necessary
-   * to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a StoichiometryMath is an important aid to producing valid SBML.
+   * SBMLDocument (e.g., using
+   * SpeciesReference::createStoichiometryMath()), the SBML XML namespace
+   * of the document @em overrides the value used when creating the
+   * StoichiometryMath object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a
+   * StoichiometryMath is an important aid to producing valid SBML.
    * Knowledge of the intented SBML Level and Version determine whether it
    * is valid to assign a particular value to an attribute, or whether it
    * is valid to add an object to an existing SBMLDocument.
@@ -289,8 +291,7 @@ public:
    * @param math an ASTNode representing a formula tree.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink

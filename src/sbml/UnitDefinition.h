@@ -299,7 +299,7 @@ public:
    * UnitDefinition
    * 
    * @note Upon the addition of a UnitDefinition object to an SBMLDocument
-   * (e.g., using Model::addUnitDefinition()), the SBML Level, SBML Version
+   * (e.g., using Model::addUnitDefinition(@if java UnitDefinition ud@endif)), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the UnitDefinition object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -326,7 +326,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a UnitDefinition object to an SBMLDocument
-   * (e.g., using Model::addUnitDefinition()), the SBML XML namespace of
+   * (e.g., using Model::addUnitDefinition(@if java UnitDefinition ud@endif)), the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * UnitDefinition object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,
@@ -593,9 +593,9 @@ public:
    * @note It is worth emphasizing that the attribute "kind" value of a
    * Unit is a required attribute for a valid Unit definition.  The
    * createUnit() method does not assign a valid kind to the constructed
-   * unit (instead, it sets the "kind" to @c UNIT_KIND_INVALID).  Callers
-   * are cautioned to set the newly-constructed Unit's kind using
-   * Unit::setKind() soon after calling this method.
+   * unit (instead, it sets the "kind" to @link UnitKind_t#UNIT_KIND_INVALID UNIT_KIND_INVALID@endlink).
+   * Callers are cautioned to set the newly-constructed Unit's kind using
+   * Unit::setKind(@if java int kind@endif) soon after calling this method.
    *
    * @see addUnit(const Unit* u)
    */
@@ -769,7 +769,8 @@ public:
    * objects are considered identical when they contain identical lists of
    * Unit objects.  Pairs of Unit objects in the lists are in turn
    * considered identical if they satisfy the predicate
-   * Unit::areIdentical().  The predicate compares every attribute of the
+   * Unit::areIdentical(@if java Unit u1, %Unit u2@endif).
+   * The predicate compares every attribute of the
    * Unit objects.
    *
    * @param ud1 the first UnitDefinition object to compare
@@ -791,8 +792,9 @@ public:
    * For the purposes of performing this comparison, two UnitDefinition
    * objects are considered equivalent when they contain @em equivalent
    * list of Unit objects.  Unit objects are in turn considered equivalent
-   * if they satisfy the predicate Unit::areEquivalent().  The predicate
-   * tests a subset of the objects's attributes.
+   * if they satisfy the predicate
+   * Unit::areEquivalent(@if java Unit u1, %Unit u2@endif).
+   * The predicate tests a subset of the objects's attributes.
    *
    * @param ud1 the first UnitDefinition object to compare
    * 
@@ -833,7 +835,8 @@ public:
   /** 
    * Expresses the given definition in a plain-text form.
    *
-   * For example, printUnits() applied to
+   * For example, @if java UnitDefinition::@endifprintUnits(@if java UnitDefinition u@endif)
+   * applied to
    * @code
    * <unitDefinition>
    *  <listOfUnits>

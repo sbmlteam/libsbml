@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class EventAssignment
- * @brief LibSBML implementation of %SBML's %EventAssignment construct for %Event
+ * @brief LibSBML implementation of %SBML's %EventAssignment construct for %Event.
  *
  * An Event object defines when the event can occur, the variables that are
  * affected by the event, and how the variables are affected.  The purpose
@@ -195,13 +195,13 @@ public:
    * EventAssignment
    * 
    * @note Upon the addition of a EventAssignment object to an SBMLDocument
-   * (e.g., using Model::addEventAssignment()), the SBML Level, SBML
-   * Version and XML namespace of the document @em override the
-   * values used when creating the EventAssignment object via this
-   * constructor.  This is necessary to ensure that an SBML document is a
-   * consistent structure.  Nevertheless, the ability to supply the values
-   * at the time of creation of a EventAssignment is an important aid to
-   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * (e.g., using Event::addEventAssignment(@if java EventAssignment ea@endif)), 
+   * the SBML Level, SBML Version and XML namespace of the document @em
+   * override the values used when creating the EventAssignment object via
+   * this constructor.  This is necessary to ensure that an SBML document
+   * is a consistent structure.  Nevertheless, the ability to supply the
+   * values at the time of creation of a EventAssignment is an important
+   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
    * Version determine whether it is valid to assign a particular value to
    * an attribute, or whether it is valid to add an object to an existing
    * SBMLDocument.
@@ -223,15 +223,16 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a EventAssignment object to an SBMLDocument
-   * (e.g., using Model::addEventAssignment()), the SBML XML namespace of
-   * the document @em overrides the value used when creating the
-   * EventAssignment object via this constructor.  This is necessary to
-   * ensure that an SBML document is a consistent structure.  Nevertheless,
-   * the ability to supply the values at the time of creation of a
-   * EventAssignment is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * (e.g., using Event::addEventAssignment(@if java EventAssignment ea@endif)),
+   * the SBML XML namespace of the document @em overrides the value used
+   * when creating the EventAssignment object via this constructor.  This
+   * is necessary to ensure that an SBML document is a consistent
+   * structure.  Nevertheless, the ability to supply the values at the time
+   * of creation of a EventAssignment is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   EventAssignment (SBMLNamespaces* sbmlns);
 

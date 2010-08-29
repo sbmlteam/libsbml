@@ -38,27 +38,45 @@
  * provided by SBMLDocument.
  *
  * For convenience as well as easy access from other languages besides C++,
- * this file also defines two global functions, readSBMLFromFile() and
- * readSBMLFromString().  They are equivalent to creating an SBMLReader
- * object and then calling
- * the @if clike SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif or
- * @if clike SBMLReader::readSBMLFromString() @endif@if java SBMLReader::readSBMLFromString(String xml)  @endif methods, respectively.
+ * this file also defines two global functions,
+ * @if clike readSBMLFromFile()@endif@if java libsbml::readSBML(String filename)@endif
+ * and @if clike readSBMLFromString()@endif@if java libsbml::readSBMLFromString(String xml)@endif.
+ * They are equivalent to creating an SBMLReader
+ * object and then calling the
+ * @if clike SBMLReader::readSBML()@endif@if java SBMLReader::readSBML(String filename)@endif or
+ * @if clike SBMLReader::readSBMLFromString()@endif@if java SBMLReader::readSBMLFromString(String xml)@endif
+ * methods, respectively.
  *
- * LibSBML also provides support for reading and writing compressed files
- * and data streams.  It does this automatically and transparently if
- * libSBML was configured and compiled with the compression support
- * enabled.  If the given filename ends with the suffix @c ".gz" (for
- * example, @c "myfile.xml.gz"), then the file is assumed to be compressed
- * in @em gzip format and will be automatically decompressed upon reading.
- * Similarly, if the given filename ends with @c ".zip" or @c ".bz2", the
- * file is assumed to be compressed in @em zip or @em bzip2 format
- * (respectively).  Files whose names lack these suffixes will be read
- * uncompressed.
+ * @section compression Support for reading compressed files
  *
- * Applications may sometimes need to query whether the copy of the libSBML
- * library that they're linked against does support reading and writing
- * compressed files.  SBMLReader provides the methods hasZlib() and
- * hasBzip2() and for this purpose.
+ * LibSBML provides support for reading (as well as writing) compressed
+ * SBML files.  The process is transparent to the calling
+ * application&mdash;the application does not need to do anything
+ * deliberate to invoke the functionality.  If a given SBML filename ends
+ * with an extension for the @em gzip, @em zip or @em bzip2 compression
+ * formats (respectively, @c .gz, @c .zip, or @c .bz2), then the methods
+ * SBMLReader::readSBML(@if java String filename@endif) and
+ * SBMLWriter::writeSBML(@if java SBMLDocument d, String filename@endif)
+ * will automatically decompress and compress the file while writing and
+ * reading it.  If the filename has no such extension, it
+ * will be read and written uncompressed as normal.
+ *
+ * The compression feature requires that the @em zlib (for @em gzip and @em
+ * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
+ * system running libSBML, and that libSBML was configured with their
+ * support compiled-in.  Please see the @if clike <a
+ * href="libsbml-installation.html">installation instructions</a> @endif
+ * @if java  <a
+ * href="../../../libsbml-installation.html">installation instructions</a> 
+ * @endif for libSBML for more information about this.  The methods
+ * @if java SBMLReader::@endifhasZlib() and @if java SBMLReader::@endifhasBzip2()
+ * can be used by an application to query at run-time whether support
+ * for the compression libraries is available in the present copy of
+ * libSBML.
+ *
+ * Support for compression is not mandated by the SBML standard, but
+ * applications may find it helpful, particularly when large SBML models
+ * are being communicated across data links of limited bandwidth.
  */
 
 #ifndef SBMLReader_h
@@ -111,34 +129,34 @@ public:
    * documentation for SBMLError for more information.
    *
    * If the file @p filename could not be read, the file-reading error will
-   * appear first.  The error code (a value drawn from the enumeration
-   * #XMLErrorCode_t) can provide a clue about what happened.  For example,
+   * appear first.  The error code @if clike (a value drawn from the enumeration
+   * #XMLErrorCode_t) @endif can provide a clue about what happened.  For example,
    * a file might be unreadable (either because it does not actually exist
    * or because the user does not have the necessary access priviledges to
    * read it) or some sort of file operation error may have been reported
    * by the underlying operating system.  Callers can check for these
    * situations using a program fragment such as the following:
-   * @code
-   * SBMLReader* reader = new SBMLReader();
-   * SBMLDocument* doc  = reader.readSBML(filename);
-   *
-   * if (doc->getNumErrors() > 0)
-   * {
-   *   if (doc->getError(0)->getId() == XMLError::FileUnreadable)
-   *   {
-   *     // Handle case of unreadable file here.
-   *   } 
-   *   else if (doc->getError(0)->getId() == XMLError::FileOperationError)
-   *   {
-   *     // Handle case of other file error here.
-   *   }
-   *   else
-   *   {
-   *     // Handle other cases -- see error codes defined in XMLErrorCode_t
-   *     // for other possible cases to check.
-   *   }
-   * }
-   * @endcode
+   * @verbatim
+SBMLReader* reader = new SBMLReader();
+SBMLDocument* doc  = reader.readSBML(filename);
+
+if (doc->getNumErrors() > 0)
+{
+  if (doc->getError(0)->getId() == XMLError::FileUnreadable)
+  {
+    // Handle case of unreadable file here.
+  } 
+  else if (doc->getError(0)->getId() == XMLError::FileOperationError)
+  {
+    // Handle case of other file error here.
+  }
+  else
+  {
+    // Handle other cases -- see error codes defined in XMLErrorCode_t
+    // for other possible cases to check.
+  }
+}
+@endverbatim
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -149,6 +167,8 @@ public:
    * uncompressed.  Note that if the file is in @em zip format but the
    * archive contains more than one file, only the first file in the
    * archive will be read and the rest ignored.
+   *
+   * @htmlinclude note-reading-zipped-files.html
    *
    * @param filename the name or full pathname of the file to be read.
    *
@@ -171,17 +191,6 @@ public:
    * libSBML.  The XML parsers themselves behave differently in their error
    * reporting, and sometimes libSBML has to resort to the lowest common
    * denominator.
-   * <br><br>
-   * @note To read a gzip/zip file, libSBML needs to be configured and
-   * linked with the <a href="http://www.zlib.net/">zlib</a> library at
-   * compile time.  It also needs to be linked with the <a
-   * href="">bzip2</a> library to read files in @em bzip2 format.  (Both of
-   * these are the default configurations for libSBML.)  Errors about
-   * unreadable files will be logged if a compressed filename is given and
-   * libSBML was @em not linked with the corresponding required library.
-   * <br><br>
-   * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
-   * check whether libSBML has been linked with each library.
    */
   SBMLDocument* readSBML (const std::string& filename);
 
@@ -208,27 +217,27 @@ public:
    * read it) or some sort of file operation error may have been reported
    * by the underlying operating system.  Callers can check for these
    * situations using a program fragment such as the following:
-   * @code
-   * SBMLReader* reader = new SBMLReader();
-   * SBMLDocument* doc  = reader.readSBML(filename);
-   *
-   * if (doc->getNumErrors() > 0)
-   * {
-   *   if (doc->getError(0)->getId() == XMLError::FileUnreadable)
-   *   {
-   *     // Handle case of unreadable file here.
-   *   } 
-   *   else if (doc->getError(0)->getId() == XMLError::FileOperationError)
-   *   {
-   *     // Handle case of other file error here.
-   *   }
-   *   else
-   *   {
-   *     // Handle other cases -- see error codes defined in XMLErrorCode_t
-   *     // for other possible cases to check.
-   *   }
-   * }
-   * @endcode
+   * @verbatim
+SBMLReader* reader = new SBMLReader();
+SBMLDocument* doc  = reader.readSBML(filename);
+
+if (doc->getNumErrors() > 0)
+{
+  if (doc->getError(0)->getId() == XMLError::FileUnreadable)
+  {
+    // Handle case of unreadable file here.
+  } 
+  else if (doc->getError(0)->getId() == XMLError::FileOperationError)
+  {
+    // Handle case of other file error here.
+  }
+  else
+  {
+    // Handle other cases -- see error codes defined in XMLErrorCode_t
+    // for other possible cases to check.
+  }
+}
+@endverbatim
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -239,6 +248,8 @@ public:
    * uncompressed.  Note that if the file is in @em zip format but the
    * archive contains more than one file, only the first file in the
    * archive will be read and the rest ignored.
+   *
+   * @htmlinclude note-reading-zipped-files.html
    *
    * @param filename the name or full pathname of the file to be read.
    *
@@ -261,17 +272,6 @@ public:
    * libSBML.  The XML parsers themselves behave differently in their error
    * reporting, and sometimes libSBML has to resort to the lowest common
    * denominator.
-   * <br><br>
-   * @note To read a gzip/zip file, libSBML needs to be configured and
-   * linked with the <a href="http://www.zlib.net/">zlib</a> library at
-   * compile time.  It also needs to be linked with the <a
-   * href="">bzip2</a> library to read files in @em bzip2 format.  (Both of
-   * these are the default configurations for libSBML.)  Errors about
-   * unreadable files will be logged if a compressed filename is given and
-   * libSBML was @em not linked with the corresponding required library.
-   * <br><br>
-   * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
-   * check whether libSBML has been linked with each library.
    */
   SBMLDocument* readSBMLFromFile (const std::string& filename);
 
@@ -410,16 +410,7 @@ SBMLReader_free (SBMLReader_t *sr);
  * differently in their error reporting, and sometimes libSBML has to
  * resort to the lowest common denominator.
  *
- * @note To read a gzip/zip file, libSBML needs to be configured and
- * linked with the <a href="http://www.zlib.net/">zlib</a> library at
- * compile time.  It also needs to be linked with the <a
- * href="">bzip2</a> library to read files in @em bzip2 format.  (Both of
- * these are the default configurations for libSBML.)  Errors about
- * unreadable files will be logged if a compressed filename is given and
- * libSBML was @em not linked with the corresponding required library.
- *
- * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
- * check whether libSBML has been linked with each library.
+ * @htmlinclude note-reading-zipped-files.html
  *
  * @return a pointer to the SBMLDocument read.
  */

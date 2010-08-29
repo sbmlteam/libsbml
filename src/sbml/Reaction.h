@@ -216,7 +216,7 @@ public:
    * Reaction
    * 
    * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
-   * using Model::addReaction()), the SBML Level, SBML Version and
+   * using Model::addReaction(@if java Reaction r@endif)), the SBML Level, SBML Version and
    * XML namespace of the document @em override the values used when
    * creating the Reaction object via this constructor.  This is necessary
    * to ensure that an SBML document is a consistent structure.
@@ -243,7 +243,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
-   * using Model::addReaction()), the SBML XML namespace of the document
+   * using Model::addReaction(@if java Reaction r@endif)), the SBML XML namespace of the document
    * @em overrides the value used when creating the Reaction object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the
@@ -1433,7 +1433,7 @@ public:
    * Removes item in this ListOfReactions items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
+   * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove

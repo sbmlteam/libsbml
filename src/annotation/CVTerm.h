@@ -40,11 +40,14 @@
  * is concerned).  Qualifiers are used in MIRIAM to indicate the nature of
  * the relationship between the object being annotated and the resource.
  * In CVTerm, the qualifiers can be manipulated using the methods
- * getQualifierType(), setQualifierType(), and related methods.
+ * CVTerm::getQualifierType(),
+ * CVTerm::setQualifierType(@if java int type@endif),
+ * and related methods.
  * 
  * <li>The resource, represent by a URI (note: not a URL).  In CVTerm, the
- * resource component can be manipulated using the methods addResource()
- * and removeResource().
+ * resource component can be manipulated using the methods
+ * CVTerm::addResource(@if java String resource@endif)
+ * and CVTerm::removeResource(@if java String resource@endif).
  * </ul>
  */
 
@@ -111,16 +114,18 @@ class LIBSBML_EXTERN CVTerm
 public:
 
   /**
-   * Creates a new CVTerm, optionally with the given #QualifierType_t value
+   * Creates a new CVTerm, optionally with the given @if clike #QualifierType_t@endif@if java qualifier type code@endif value
    * @p type.
    *
-   * The possible qualifier types are MODEL_QUALIFIER and
-   * BIOLOGICAL_QUALIFIER.  If the given #QualifierType_t value is not
-   * given, this method defaults to using UNKNOWN_QUALIFIER.  The
-   * #QualifierType_t type value can be set using the setQualifierType()
+   * The possible qualifier types are @link QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink 
+   * and @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink.  If an explicit
+   * value for @p type is not given, this method defaults to using
+   * @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink.  The
+   * @if clike #QualifierType_t@endif@if java qualifier type code@endif type
+   * value can be set later using the CVTerm::setQualifierType(@if java int type@endif)
    * method.
    *
-   * @param type a #QualifierType_t value
+   * @param type a @if clike #QualifierType_t@endif@if java qualifier type code@endif value
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
@@ -130,15 +135,19 @@ public:
   /**
    * Create a new CVTerm from the given XMLNode.
    *
-   * RDFAnnotations within a model are stored as a list of CVTerms.  This allows
-   * the user to interact with the %CVTerms directly.  When LibSBML reads in a 
-   * model containing RDFAnnotations it parses them into a list of CVTerms and
-   * when writing a model it parses the CVTerms into the appropriate annotation
-   * structure.  This function creates a %CVTerm from the %XMLNode supplied.
+   * In libSBML, RDF annotations on a model component are stored as a list
+   * of CVTerm ("controlled vocabulary term") objects.  This allows the
+   * user to interact with the CVTerm objects directly.  When LibSBML reads
+   * in a model containing RDFAnnotation, it parses them into a list of
+   * CVTerm objects, and when writing a model, it parses the CVTerm objects
+   * into the appropriate SBML <code>&lt;annotation&gt;</code> structure.
+   * 
+   * This method creates a CVTerm from the XMLNode object supplied.
    *
-   * @param node an %XMLNode representing a %CVTerm.
+   * @param node an %XMLNode representing a CVTerm.
    *
-   * @note this method assumes that the %XMLNode is of the correct form
+   * @note This method assumes that the given XMLNode object @p node is of
+   * the correct structural form.
    */
   CVTerm(const XMLNode node);
 
@@ -164,7 +173,7 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this CVTerm.
+   * Creates and returns a deep copy of this CVTerm object.
    * 
    * @return a (deep) copy of this CVTerm.
    */  
@@ -172,117 +181,120 @@ public:
 
 
   /**
-   * Returns the Qualifier Type code for this %CVTerm.
+   * Returns the qualifier type code for this CVTerm object.
    * 
-   * @return the #QualifierType_t value of this object or UNKNOWN_QUALIFIER
-   * (default).
+   * @return the @if clike #QualifierType_t@endif@if java qualifier type code@endif value of this object or
+   * @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink
+   * (the default).
    */
   QualifierType_t getQualifierType();
 
 
   /**
-   * Returns the Model QualifierType code for this %CVTerm.
+   * Returns the model qualifier type code for this CVTerm object.
    * 
-   * @return the #ModelQualifierType_t value of this object or BQM_UNKNOWN
-   * (default).
+   * @return the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value of this object or
+   * @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink
+   * (the default).
    */
   ModelQualifierType_t getModelQualifierType();
 
 
   /**
-   * Returns the Biological QualifierType code for this %CVTerm.
+   * Returns the biological qualifier type code for this CVTerm object.
    * 
-   * @return the #BiolQualifierType_t value of this object or BQB_UNKNOWN
-   * (default).
+   * @return the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value of this object or
+   * @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink
+   * (the default).
    */
   BiolQualifierType_t getBiologicalQualifierType();
 
 
   /**
-   * Returns the resources for this %CVTerm.
+   * Returns the resources for this CVTerm object.
    * 
-   * @return the XMLAttributes that store the resources of this %CVTerm.
+   * @return the XMLAttributes that store the resources of this CVTerm.
    */
   XMLAttributes * getResources(); 
 
   
   /**
-   * Returns the resources for this %CVTerm.
+   * Returns the resources for this CVTerm object.
    * 
-   * @return the XMLAttributes that store the resources of this %CVTerm.
+   * @return the XMLAttributes that store the resources of this CVTerm.
    */
   const XMLAttributes * getResources() const; 
 
   
   /**
-   * Returns the number of resources for this %CVTerm.
+   * Returns the number of resources for this CVTerm object.
    * 
    * @return the number of resources in the set of XMLAttributes
-   * of this %CVTerm.
+   * of this CVTerm.
    */
   unsigned int getNumResources(); 
 
   
   /**
-   * Returns the value of the nth resource for this %CVTerm.
+   * Returns the value of the nth resource for this CVTerm object.
    *
    * @param n the index of the resource to query
    *
    * @return string representing the value of the nth resource
-   * in the set of XMLAttributes of this %CVTerm.
+   * in the set of XMLAttributes of this CVTerm.
    *
-   * @note Since the values of the resource attributes in a CVTerm
-   * are URIs this is a convenience function to facilitate
-   * interaction with the CVTerm class.
+   * @note Since the values of the resource attributes in a CVTerm are
+   * URIs, this is a convenience method to facilitate interaction with the
+   * CVTerm class.
    */
   std::string getResourceURI(unsigned int n); 
 
   
   /**
-   * Sets the #QualifierType_t value of this %CVTerm.
+   * Sets the @if clike #QualifierType_t@endif@if java qualifier type code@endif value of this CVTerm object.
    *
-   * @param type the #QualifierType_t type value 
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * @param type the @if clike #QualifierType_t@endif@if java qualifier type code@endif type value 
+   * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    */
   int setQualifierType(QualifierType_t type);
 
 
   /**
-   * Sets the #ModelQualifierType_t value of this %CVTerm.
+   * Sets the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value of this CVTerm object.
    *
-   * @param type the #ModelQualifierType_t value
+   * @param type the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    *
-   * @note If the Qualifier Type of this object is not MODEL_QUALIFIER,
-   * then the ModelQualifierType_t will default to BQM_UNKNOWN.
+   * @note If the Qualifier Type of this object is not
+   * @link QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink, 
+   * then the ModelQualifierType_t value will default to
+   * @link QualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
    */
   int setModelQualifierType(ModelQualifierType_t type);
 
 
   /**
-   * Sets the #BiolQualifierType_t of this %CVTerm.
+   * Sets the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif of this CVTerm object.
    *
-   * @param type the #BiolQualifierType_t value
+   * @param type the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    *
-   * @note if the Qualifier Type of this object is not
-   * BIOLOGICAL_QUALIFIER, then the #BiolQualifierType_t value will default
-   * to BQB_UNKNOWN.
+   * @note If the Qualifier Type of this object is not
+   * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
+   * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value will default
+   * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    */
   int setBiologicalQualifierType(BiolQualifierType_t type);
 
@@ -291,17 +303,16 @@ public:
    * Adds a resource to the CVTerm.
    *
    * @param resource string representing the resource; e.g.,
-   * "http://www.geneontology.org/#GO:0005892"
+   * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
-   * @note this method adds the name "rdf:resource" to the attribute prior
-   * to adding it to the resources in this CVTerm.
+   * @note This method adds the name <code>"rdf:resource"</code> to the
+   * attribute prior to adding it to the resources in this CVTerm object.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    */
   int addResource(const std::string& resource);
 
@@ -310,22 +321,27 @@ public:
    * Removes a resource from the CVTerm.
    *
    * @param resource string representing the resource; e.g.,
-   * "http://www.geneontology.org/#GO:0005892"
+   * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    */
   int removeResource(std::string resource);
   
-  /* The required attributes for a CVTerm are:
-   * qualifierType and appropriate biologicalQualifierType or 
-   * modelQualifierType and at least one resource.
+
+  /**
+   * Predicate returning @c true if all the
+   * required elements for this Rule object have been set.
+   *
+   * @note The required attributes for a CVTerm are:
+   * @li qualifierType and appropriate biologicalQualifierType or 
+   * @li modelQualifierType and at least one resource.
    */ 
   bool hasRequiredAttributes();
+
 
 protected:
   /** @cond doxygen-libsbml-internal */

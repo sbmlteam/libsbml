@@ -48,8 +48,10 @@
  * not define @c avogadro.  In SBML Level&nbsp;2 Version&nbsp;1 models, the
  * string @c Celsius is also permitted.  In SBML Level&nbsp;1 models, the
  * strings @c meter and @c liter are also permitted.  In libSBML, each of
- * the predefined base unit names is represented by an enumeration value in
- * #UnitKind_t, discussed in a separate section below.
+ * the predefined base unit names is represented by an enumeration value
+ * @if clike in #UnitKind_t@endif@if java whose name begins with the
+ * characters <code>UNIT_KIND_</code>@endif, discussed in a separate
+ * section below.
  *
  * The attribute named "exponent" on Unit represents an exponent on the
  * unit.  In SBML Level&nbsp;2, the attribute is optional and has a default
@@ -70,7 +72,12 @@
  * default value of @c 1 (one); in SBML Level&nbsp;3, the attribute is
  * mandatory and has not default value.
  *
+ * @if clike
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
+ * @endif
+ * @if java
+ * <h3><a class="anchor" name="UnitKind_t">Unit identification codes</a></h3>
+ * @endif
  *
  * As discussed above, SBML defines a set of base units which serves as the
  * starting point for new unit definitions.  This set of base units
@@ -99,7 +106,7 @@
  * permissible models, their representation or their syntax.  The purpose
  * of the change in the SBML specification was simply to clean up an
  * inconsistency about the contexts in which these values were usable.
- * However, LibSBML maintains UnitKind in the form of of a set of static
+ * However, libSBML maintains UnitKind in the form of of a set of static
  * integer constants whose names begin with the characters
  * <code>UNIT_KIND_</code>.  These constants are defined in the class
  * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>.
@@ -704,12 +711,16 @@ public:
   /**
    * Sets the "kind" attribute value of this Unit.
    *
-   * @param kind a value from the <a class="el"
-   * href="#UnitKind_t">UnitKind_t</a> enumeration
+   * @param kind a @if clike value from the <a class="el"
+   * href="#UnitKind_t">UnitKind_t</a>
+   * enumeration.@endif@if java unit
+   * identifier chosen from the set of constants whose
+   * names begin with <code>UNIT_KIND_</code> in <code><a
+   * href="libsbmlConstants.html">libsbmlConstants</a></code>.
+   * @endif
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -723,8 +734,7 @@ public:
    * @param value the integer to which the attribute "exponent" should be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -737,8 +747,7 @@ public:
    * @param value the double to which the attribute "exponent" should be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -751,8 +760,7 @@ public:
    * @param value the integer to which the attribute "scale" should be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
@@ -766,8 +774,7 @@ public:
    * "multiplier" should be set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -782,8 +789,7 @@ public:
    * should set
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -888,7 +894,7 @@ public:
   * Unit objects are identical.
   *
   * Two Unit objects are considered to be @em identical if they match in
-  * all attributes.  (Contrast this to the method areEquivalent(), which
+  * all attributes.  (Contrast this to the method areEquivalent(@if java Unit u1, %Unit u2@endif), which
   * compares Unit objects only with respect to certain attributes.)
   *
   * @param unit1 the first Unit object to compare
@@ -897,7 +903,7 @@ public:
   * @return @c true if all the attributes of unit1 are identical
   * to the attributes of unit2, @c false otherwise.
   *
-  * @see areEquivalent()
+  * @see areEquivalent(@if java Unit u1, %Unit u2@endif)
   */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
@@ -910,7 +916,7 @@ public:
   * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
   * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
   * attribute values are equal. (Contrast this to the method
-  * areIdentical(), which compares Unit objects with respect to all
+  * areIdentical(@if java Unit u1, %Unit u2@endif), which compares Unit objects with respect to all
   * attributes, not just the "kind" and "exponent".)
   *
   * @param unit1 the first Unit object to compare
@@ -920,7 +926,7 @@ public:
   * identical to the kind and exponent attributes of unit2, @c false
   * otherwise.
   * 
-  * @see areIdentical()
+  * @see areIdentical(@if java Unit u1, %Unit u2@endif)
   */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
@@ -940,8 +946,8 @@ public:
   * possible values returned by this function are:
   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
   *
-  * @see convertToSI()
-  * @see merge()
+  * @see convertToSI(@if java Unit u@endif)
+  * @see merge(@if java Unit u1, Unit u2@endif)
   */
   static int removeScale(Unit * unit);
 
@@ -965,8 +971,8 @@ public:
   * 
   * @param unit2 the second Unit object to merge with the first
   * 
-  * @see convertToSI()
-  * @see removeScale()
+  * @see convertToSI(@if java Unit u@endif)
+  * @see removeScale(@if java Unit u@endif)
   */
   static void merge(Unit * unit1, Unit * unit2);
 
@@ -984,7 +990,7 @@ public:
   *
   * @return a UnitDefinition object containing the SI unit.
   *
-  * @see merge()
+  * @see merge(@if java Unit u1, Unit u2@endif)
   */
   static UnitDefinition * convertToSI(const Unit * unit);
 

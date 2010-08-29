@@ -35,19 +35,22 @@
  *
  * SBMLErrorLog is derived from XMLErrorLog, an object class that serves
  * exactly the same purpose but for the XML parsing layer.  XMLErrorLog
- * provides crucial methods such as getNumErrors() for determining how many
+ * provides crucial methods such as
+ * @if java XMLErrorLog::@endifgetNumErrors() for determining how many
  * SBMLError or XMLError objects are in the log.  SBMLErrorLog inherits
  * these methods.
  *
  * The general approach to working with SBMLErrorLog in user programs
  * involves first obtaining a pointer to a log from a libSBML object such
- * as SBMLDocument.  Callers should then use getNumErrors() to inquire how
+ * as SBMLDocument.  Callers should then use
+ * @if java XMLErrorLog::@endifgetNumErrors() to inquire how
  * many objects there are in the list.  (The answer may be 0.)  If there is
  * at least one SBMLError object in the SBMLErrorLog instance, callers can
- * then iterate over the list using getError(unsigned int n) const, using
- * methods provided by the SBMLError class to find out the error code and
- * associated information such as the error severity, the message, and the
- * line number in the input.
+ * then iterate over the list using
+ * @if java SBMLErrorLog::@endifgetError(@if clike unsigned int n@endif@if java long n@endif)@if clike const@endif,
+ * using methods provided by the SBMLError class to find out the error code
+ * and associated information such as the error severity, the message, and
+ * the line number in the input.
  *
  * If you wish to simply print the error strings for a human to read, an
  * easier and more direct way might be to use SBMLDocument::printErrors().
@@ -79,16 +82,15 @@ public:
    * Returns the <i>n</i>th SBMLError object in this log.
    *
    * Index @p n is counted from 0.  Callers should first inquire about the
-   * number of items in the log by using the getNumErrors() method.  (This
-   * method is inherited from the parent class, XMLErrorLog).  Attempts to
-   * use an error index number that exceeds the actual number of errors in
-   * the log will result in a @c NULL being returned.
+   * number of items in the log by using the @if java XMLErrorLog::@endifgetNumErrors() method.
+   * Attempts to use an error index number that exceeds the actual number
+   * of errors in the log will result in a @c NULL being returned.
    *
    * @param n the index number of the error to retrieve (with 0 being the
    * first error).
    *
    * @return the <i>n</i>th SBMLError in this log, or @c NULL if @p n is
-   * greater than or equal to getNumErrors().
+   * greater than or equal to @if java XMLErrorLog::@endifgetNumErrors().
    *
    * @see getNumErrors()
    */

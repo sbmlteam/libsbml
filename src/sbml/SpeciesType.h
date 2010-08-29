@@ -135,15 +135,16 @@ public:
    * SpeciesType
    * 
    * @note Upon the addition of a SpeciesType object to an SBMLDocument
-   * (e.g., using Model::addSpeciesType()), the SBML Level, SBML Version
-   * and XML namespace of the document @em override the values used
-   * when creating the SpeciesType object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a SpeciesType is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * (e.g., using Model::addSpeciesType(@if java SpeciesType st@endif)),
+   * the SBML Level, SBML Version and XML namespace of the document @em
+   * override the values used when creating the SpeciesType object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a SpeciesType is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   SpeciesType (unsigned int level, unsigned int version);
 
@@ -164,20 +165,20 @@ public:
    * (identifier) attribute of a SpeciesType object is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if clike SBase::setId() @endif@if java SBase::setId(String id) @endif.
+   * method @if clike SBase::setId()@endif@if java SBase::setId(String id)@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a SpeciesType object to an SBMLDocument
-   * (e.g., using Model::addSpeciesType()), the SBML XML namespace of the
-   * document @em overrides the value used when creating the SpeciesType
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a SpeciesType is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * (e.g., using Model::addSpeciesType(@if java SpeciesType st@endif)),
+   * the SBML XML namespace of the document @em overrides the value used
+   * when creating the SpeciesType object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a SpeciesType is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   SpeciesType (SBMLNamespaces* sbmlns);
 

@@ -136,7 +136,7 @@ public:
    * CompartmentType
    * 
    * @note Upon the addition of a CompartmentType object to an SBMLDocument
-   * (e.g., using Model::addCompartmentType()), the SBML Level, SBML
+   * (e.g., using Model::addCompartmentType(@if java CompartmentType ct@endif)), the SBML Level, SBML
    * Version and XML namespace of the document @em override the
    * values used when creating the CompartmentType object via this
    * constructor.  This is necessary to ensure that an SBML document is a
@@ -171,7 +171,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a CompartmentType object to an SBMLDocument
-   * (e.g., using Model::addCompartmentType()), the SBML XML namespace of
+   * (e.g., using Model::addCompartmentType(@if java CompartmentType ct@endif)), the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * CompartmentType object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,

@@ -24,12 +24,13 @@
  * @class Constraint
  * @brief LibSBML implementation of SBML's %Constraint construct.
  *
- * The Constraint object class was introduced in SBML Level&nbsp;2 Version&nbsp;2 as
- * a mechanism for stating the assumptions under which a model is designed
- * to operate.  The <em>constraints</em> are statements about permissible
- * values of different quantities in a model.  Constraints are not used to
- * compute dynamical values for simulation or analysis, but rather, they
- * serve an advisory role for simulation/analysis tools.
+ * The Constraint object class was introduced in SBML Level&nbsp;2
+ * Version&nbsp;2 as a mechanism for stating the assumptions under which a
+ * model is designed to operate.  The <em>constraints</em> are statements
+ * about permissible values of different quantities in a model.
+ * Constraints are not used to compute dynamical values for simulation or
+ * analysis, but rather, they serve an advisory role for
+ * simulation/analysis tools.
  *
  * SBML's Constraint object class has one required attribute, "id", to
  * give the parameter a unique identifier by which other parts of an SBML
@@ -52,20 +53,15 @@
  * display the message, but it is recommended that they do so as a matter
  * of best practice.  The XHTML content within a "message" subelement must
  * follow the same restrictions as for the "notes" element on SBase
- * described in in the SBML Level&nbsp;2 specification.  For example, "message"
- * must not contain an XML declaration or a DOCTYPE declaration, and the
- * permitted content can only take one of the following general forms: (1)
- * a complete XHTML document beginning with the element
- * <code>&lt;html&gt;</code> and ending with <code>&lt;/xhtml&gt;</code>; 
- * (2) the body portion of a document beginning with the element
- * <code>&lt;body&gt;</code> and ending with <code>&lt;/body&gt;</code>; or
- * (3) XHTML content that is permitted within a <code>&lt;body&gt;</code> ...
- * <code>&lt;/body&gt;</code> elements.  The appendix of the SBML Level&nbsp;2
- * Version 4 specification document describes one approach to reading the
- * "message" subelement content.
+ * described in in the SBML Level&nbsp;2 specification; please consult the
+ * <a target="_blank" href="http://sbml.org/Documents/Specifications">SBML
+ * specification document</a> corresponding to the SBML Level and Version
+ * of your model for more information about the requirements for "notes"
+ * content.
  *
- * Constraint was introduced in SBML Level&nbsp;2 Version&nbsp;2.  It is not
- * available in earlier versions of Level&nbsp;2 nor in any version of Level&nbsp;1.
+ * Constraint was introduced in SBML Level&nbsp;2 Version&nbsp;2.  It is
+ * not available in earlier versions of Level&nbsp;2 nor in any version of
+ * Level&nbsp;1.
  *
  * @section constraint-semantics Semantics of Constraints
  * 
@@ -178,15 +174,16 @@ public:
    * Constraint
    * 
    * @note Upon the addition of a Constraint object to an SBMLDocument
-   * (e.g., using Model::addConstraint()), the SBML Level, SBML Version
-   * and XML namespace of the document @em override the values used
-   * when creating the Constraint object via this constructor.  This is
-   * necessary to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a Constraint is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * (e.g., using Model::addConstraint(@if java Constraint c@endif)), the
+   * SBML Level, SBML Version and XML namespace of the document @em
+   * override the values used when creating the Constraint object via this
+   * constructor.  This is necessary to ensure that an SBML document is a
+   * consistent structure.  Nevertheless, the ability to supply the values
+   * at the time of creation of a Constraint is an important aid to
+   * producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   Constraint (unsigned int level, unsigned int version);
 
@@ -205,15 +202,15 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a Constraint object to an SBMLDocument
-   * (e.g., using Model::addConstraint()), the SBML XML namespace of the
-   * document @em overrides the value used when creating the Constraint
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a Constraint is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * (e.g., using Model::addConstraint(@if java Constraint c@endif)), the
+   * SBML XML namespace of the document @em overrides the value used when
+   * creating the Constraint object via this constructor.  This is
+   * necessary to ensure that an SBML document is a consistent structure.
+   * Nevertheless, the ability to supply the values at the time of creation
+   * of a Constraint is an important aid to producing valid SBML.
+   * Knowledge of the intented SBML Level and Version determine whether it
+   * is valid to assign a particular value to an attribute, or whether it
+   * is valid to add an object to an existing SBMLDocument.
    */
   Constraint (SBMLNamespaces* sbmlns);
 

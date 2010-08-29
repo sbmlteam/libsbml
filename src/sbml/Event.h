@@ -163,7 +163,7 @@ public:
    * Event
    * 
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
-   * using Model::addEvent()), the SBML Level, SBML Version and XML
+   * using Model::addEvent(@if java Event e@endif)), the SBML Level, SBML Version and XML
    * namespace of the document @em override the values used when creating
    * the Event object via this constructor.  This is necessary to ensure
    * that an SBML document is a consistent structure.  Nevertheless, the
@@ -191,7 +191,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
-   * using Model::addEvent()), the SBML XML namespace of the document @em
+   * using Model::addEvent(@if java Event e@endif)), the SBML XML namespace of the document @em
    * overrides the value used when creating the Event object via this
    * constructor.  This is necessary to ensure that an SBML document is a
    * consistent structure.  Nevertheless, the ability to supply the values
@@ -343,7 +343,7 @@ public:
    * @warning The attribute "useValuesFromTriggerTime" was introduced in
    * SBML Level&nbsp;2 Version&nbsp;4.  It is not valid in models defined
    * using SBML Level&nbsp;2 versions prior to Version&nbsp;4.  If a
-   * Version&nbsp;1&ndash;&nbsp;3 model sets the attribute, the
+   * Level&nbsp;2 Version&nbsp;1&ndash;3 model sets the attribute, the
    * consistency-checking method SBMLDocument::checkConsistency() will
    * report an error.
    */

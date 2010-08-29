@@ -46,6 +46,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "FunctionDefinition",
                   "InitialAssignment",
                   "KineticLaw",
+                  "libsbml",
                   "List",
                   "ListOf",
                   "ListOfCompartmentTypes",
@@ -82,7 +83,6 @@ libsbmlclasses = ["AlgebraicRule",
                   "SBMLErrorLog",
                   "SBMLNamespaces",
                   "SBMLReader",
-                  "SBMLTransforms",
                   "SBMLVisitor",
                   "SBMLWriter",
                   "SBO",
@@ -444,6 +444,19 @@ def rewriteCommonReferences (docstring, language):
 
   if language == 'java':  
     docstring = re.sub(r'OperationReturnValues_t#', 'libsbmlConstants#', docstring)
+    docstring = re.sub(r'SBMLTypeCode_t#',          'libsbmlConstants#', docstring)
+    docstring = re.sub(r'ASTNodeType_t#',           'libsbmlConstants#', docstring)
+    docstring = re.sub(r'RuleType_t#',              'libsbmlConstants#', docstring)
+    docstring = re.sub(r'UnitKind_t#',              'libsbmlConstants#', docstring)
+    docstring = re.sub(r'ModelQualifierType_t#',    'libsbmlConstants#', docstring)
+    docstring = re.sub(r'BiolQualifierType_t#',     'libsbmlConstants#', docstring)
+    docstring = re.sub(r'QualifierType_t#',         'libsbmlConstants#', docstring)
+    docstring = re.sub(r'SBMLErrorCode_t#',         'libsbmlConstants#', docstring)
+    docstring = re.sub(r'SBMLErrorCategory_t#',     'libsbmlConstants#', docstring)
+    docstring = re.sub(r'SBMLErrorSeverity_t#',     'libsbmlConstants#', docstring)
+    docstring = re.sub(r'XMLErrorCode_t#',          'libsbmlConstants#', docstring)
+    docstring = re.sub(r'XMLErrorCategory_t#',      'libsbmlConstants#', docstring)
+    docstring = re.sub(r'XMLErrorSeverity_t#',      'libsbmlConstants#', docstring)
 
   return docstring
 
@@ -613,8 +626,8 @@ def sanitizeForHTML (docstring, language):
   # of a line and the thing to be formatted starts on the next one after
   # the comment '*' character on the beginning of the line.
 
-  docstring = re.sub('@c *([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
-  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
+  docstring = re.sub('@c *([^ ,:;()/*\n\t]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
   docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
   docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
   docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'<em>\1</em>', docstring)
@@ -628,15 +641,14 @@ def sanitizeForHTML (docstring, language):
   # definition page, but Javadoc does not.  Rather than having to put in a
   # lot conditional @if/@endif's into the documentation to manually create
   # cross-links just for the Java case, let's automate.  This needs to be
-  # done better (e.g., by not hard-wiring the class names).  The use of %
-  # as a quote indicator follows the doxygen convention.
+  # done better (e.g., by not hard-wiring the class names).
 
   p = re.compile(r'(\W)(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
   docstring = p.sub(translateJavaClassRef, docstring)
 
   # Massage Java method cross-references.
 
-  p = re.compile('(\s+)(\S+?)::(\w+\s*\([^)]+?\))', re.MULTILINE)
+  p = re.compile('(\s+)(\S+?)::(\w+\s*\([^)]*?\))', re.MULTILINE)
   docstring = p.sub(translateJavaCrossRef, docstring)
 
   # Take out any left-over quotes, because Javadoc doesn't have the %foo
@@ -673,6 +685,7 @@ def sanitizeForJava (docstring):
   docstring = docstring.replace(r'const std::string&', 'String')
   docstring = docstring.replace(r'const std::string', 'String')
   docstring = docstring.replace(r'std::string', 'String')
+  docstring = docstring.replace(r'NULL', 'null')
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
@@ -688,8 +701,8 @@ def sanitizeForJava (docstring):
   # Fix up for a problem introduced by sanitizeForHTML -- should fix
   # properly some day.
 
-  p = re.compile('@see\s+{@link\s+([^}]+?)}', re.DOTALL)
-  docstring = p.sub(r'@see \1', docstring)
+  p = re.compile('(@see\s+[\w ,(]*){@link\s+([^}]+?)}')
+  docstring = p.sub(r'\1\2', docstring)
 
   # Inside of @see, change double colons to pound signs.
 
@@ -711,7 +724,7 @@ def sanitizeForJava (docstring):
 
   # The syntax for @link is vastly different.
   
-  p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]+[\w():#]+[\s/*]+)@endlink', re.DOTALL)
+  p = re.compile('@link([\s/*]+[\w\s,.:#()*]+[\s/*]+[\w():#]+[\s/*]*)@endlink', re.DOTALL)
   docstring = p.sub(r'{@link \1}', docstring)
 
   # Outside of @see and other constructs, dot is used to reference members

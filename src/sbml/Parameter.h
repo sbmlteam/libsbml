@@ -192,7 +192,7 @@ public:
    * Parameter
    * 
    * @note Upon the addition of a Parameter object to an SBMLDocument
-   * (e.g., using Model::addParameter()), the SBML Level, SBML Version
+   * (e.g., using Model::addParameter(@if java Parameter p@endif)), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the Parameter object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -227,7 +227,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a Parameter object to an SBMLDocument
-   * (e.g., using Model::addParameter()), the SBML XML namespace of the
+   * (e.g., using Model::addParameter(@if java Parameter p@endif)), the SBML XML namespace of the
    * document @em overrides the value used when creating the Parameter
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -345,7 +345,7 @@ public:
    * @note @htmlinclude unassigned-units-are-not-a-default.html
    * 
    * @see isSetUnits()
-   * @see setUnits()
+   * @see setUnits(@if java String units@endif)
    * @see getValue()
    */
   const std::string& getUnits () const;
@@ -358,7 +358,7 @@ public:
    * @c false otherwise.
    *
    * @see isSetConstant()
-   * @see setConstant(bool flag)
+   * @see setConstant(@if java boolean flag@endif)
    */
   bool getConstant () const;
 

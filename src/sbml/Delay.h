@@ -48,13 +48,14 @@
  * In SBML Level&nbsp;2 versions before Version&nbsp;4, the units of the
  * numerical value computed by the Delay's "math" expression were @em
  * required to be in units of time or the model is considered to have a
- * unit consistency error.  In Version&nbsp;4, this requirement is relaxed.
- * The Version&nbsp;4 specification only stipulates that the units of the
- * numerical value computed by a Delay instance's "math" expression @em
- * should match the model's units of time (meaning the definition of the @c
- * time units in the model).  Depending on which Version of SBML
+ * unit consistency error.  In Level&nbsp;2 Version&nbsp;4 as well as SBML
+ * Level&nbsp;3 Version&nbsp;1 Core, this requirement is relaxed; these
+ * later specifications only stipulate that the units of the numerical
+ * value computed by a Delay instance's "math" expression @em should match
+ * the model's units of time (meaning the definition of the @c time units
+ * in the model).  Depending on whether an earlier Version of SBML
  * Level&nbsp;2 is in use, libSBML may or may not flag unit inconsistencies
- * as errors or just warnings. 
+ * as errors or just warnings.
  *
  * Note that <em>units are not predefined or assumed</em> for the contents
  * of "math" in a Delay object; rather, they must be defined explicitly for
@@ -65,23 +66,23 @@
  * verify the consistency of the units of the expression.  The reason is
  * that the formula inside the "math" element does not have any declared
  * units, whereas what is expected in this context is units of time:
- * @code
- * <model>
- *     ...
- *     <listOfEvents>
- *         <event>
- *             ...
- *             <delay>
- *                 <math xmlns="http://www.w3.org/1998/Math/MathML">
- *                     <cn> 1 </cn>
- *                 </math>
- *             </delay>
- *             ...
- *         </event>
- *     </listOfEvents>
- *     ...
- * </model>
- * @endcode
+ * @verbatim
+<model>
+    ...
+    <listOfEvents>
+        <event>
+            ...
+            <delay>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <cn> 1 </cn>
+                </math>
+            </delay>
+            ...
+        </event>
+    </listOfEvents>
+    ...
+</model>
+@endverbatim
  * 
  * The <code>&lt;cn&gt; 1 &lt;/cn&gt;</code> within the mathematical formula
  * of the @c delay above has <em>no units declared</em>.  To make the
@@ -89,27 +90,55 @@
  * avoided in favor of defining Parameter objects for each quantity, and
  * declaring units for the Parameter values.  The following fragment of
  * SBML illustrates this approach:
- * @code
- * <model>
- *     ...
- *     <listOfParameters>
- *         <parameter id="transcriptionDelay" value="10" units="time"/>
- *     </listOfParameters>
- *     ...
- *     <listOfEvents>
- *         <event>
- *             ...
- *             <delay>
- *                 <math xmlns="http://www.w3.org/1998/Math/MathML">
- *                     <ci> transcriptionDelay </ci>
- *                 </math>
- *             </delay>
- *             ...
- *         </event>
- *     </listOfEvents>
- *     ...
- * </model>
- * @endcode
+ * @verbatim
+<model>
+    ...
+    <listOfParameters>
+        <parameter id="transcriptionDelay" value="10" units="time"/>
+    </listOfParameters>
+    ...
+    <listOfEvents>
+        <event>
+            ...
+            <delay>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <ci> transcriptionDelay </ci>
+                </math>
+            </delay>
+            ...
+        </event>
+    </listOfEvents>
+    ...
+</model>
+@endverbatim
+ *
+ * In SBML Level&nbsp;3, an alternative approach is available in the form
+ * of the @c units attribute, which SBML Level&nbsp;3 allows to appear on
+ * MathML @c cn elements.  The value of this attribute can be used to
+ * indicate the unit of measurement to be associated with the number in the
+ * content of a @c cn element.  (The attribute is named @c units but,
+ * because it appears inside MathML element (which is in the XML namespace
+ * for MathML and not the namespace for SBML), it must always be prefixed
+ * with an XML namespace prefix for the SBML Level&nbsp;3 Version&nbsp;1
+ * namespace.)  The following is an example of this approach:
+ * @verbatim
+<model timeUnits="second" ...>
+    ...
+    <listOfEvents>
+        <event useValuesFromTriggerTime="true">
+            ...
+            <delay>
+                <math xmlns="http://www.w3.org/1998/Math/MathML"
+                      xmlns:sbml="http://www.sbml.org/sbml/level3/version1/core">
+                    <cn sbml:units="second"> 10 </cn>
+                </math>
+            </delay>
+            ...
+        </event>
+    </listOfEvents>
+    ...
+</model>
+@endverbatim
  */
 
 #ifndef Delay_h
@@ -146,16 +175,16 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Delay
    * 
-   * @note Upon the addition of a Delay object to an SBMLDocument (e.g.,
-   * using Model::addDelay()), the SBML Level, SBML Version and XML
-   * namespace of the document @em override the values used when creating
-   * the Delay object via this constructor.  This is necessary to ensure
-   * that an SBML document is a consistent structure.  Nevertheless, the
-   * ability to supply the values at the time of creation of a Delay is an
-   * important aid to producing valid SBML.  Knowledge of the intented SBML
-   * Level and Version determine whether it is valid to assign a particular
-   * value to an attribute, or whether it is valid to add an object to an
-   * existing SBMLDocument.
+   * @note Upon the addition of a Delay object to an Event (e.g., using
+   * Event::setDelay(@if java Delay d@endif)), the SBML Level, SBML Version
+   * and XML namespace of the document @em override the values used when
+   * creating the Delay object via this constructor.  This is necessary to
+   * ensure that an SBML document is a consistent structure.  Nevertheless,
+   * the ability to supply the values at the time of creation of a Delay is
+   * an important aid to producing valid SBML.  Knowledge of the intented
+   * SBML Level and Version determine whether it is valid to assign a
+   * particular value to an attribute, or whether it is valid to add a
+   * particular Delay object to an existing Event.
    */
   Delay (unsigned int level, unsigned int version);
 
@@ -173,16 +202,16 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Upon the addition of a Delay object to an SBMLDocument (e.g.,
-   * using Model::addDelay()), the SBML XML namespace of the document @em
-   * overrides the value used when creating the Delay object via this
-   * constructor.  This is necessary to ensure that an SBML document is a
-   * consistent structure.  Nevertheless, the ability to supply the values
-   * at the time of creation of a Delay is an important aid to producing
-   * valid SBML.  Knowledge of the intented SBML Level and Version
-   * determine whether it is valid to assign a particular value to an
-   * attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
+   * @note Upon the addition of a Delay object to an Event (e.g., using
+   * Event::setDelay(@if java Delay d@endif)), the SBML XML namespace of
+   * the document @em overrides the value used when creating the Delay
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a Delay is an important
+   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
+   * Version determine whether it is valid to assign a particular value to
+   * an attribute, or whether it is valid to add a particular Delay object
+   * to an existing Event.
    */
   Delay (SBMLNamespaces* sbmlns);
 

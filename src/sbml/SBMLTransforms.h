@@ -50,6 +50,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class IdList;
 
+/** @cond doxygen-libsbml-internal */
+
 class LIBSBML_EXTERN SBMLTransforms
 {
 public:
@@ -60,8 +62,6 @@ public:
   typedef IdValueMap::iterator                  IdValueIter;
 #endif
 
-  /** @cond doxygen-libsbml-internal */
-  
   /**
    * Expands the math represented by the ASTNode to implement the functionality
    * of the FunctionDefinition, if it occurs within the original
@@ -78,9 +78,6 @@ public:
    */
   static void replaceFD(ASTNode * math, const FunctionDefinition * fd);
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
 
   /**
    * Expands the math represented by the ASTNode to implement the functionality
@@ -98,80 +95,37 @@ public:
    * @param lofd the ListOfFunctionDefinitions to be expanded
    */
   static void replaceFD(ASTNode * math, const ListOfFunctionDefinitions * lofd);
-
-  /** @endcond */
-
-
-  /** @cond doxygen-libsbml-internal */
   
+
   static bool expandInitialAssignments(Model * m);
 
-  /** @endcond */
-
- 
-  /** @cond doxygen-libsbml-internal */
   
   static double evaluateASTNode(const ASTNode * node);
 
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
   
   static IdList mapComponentValues(const Model * m);
 
-  /** @endcond */
 
 protected:  
-  /** @cond doxygen-libsbml-internal */
-
   static void replaceBvars(ASTNode * math, const FunctionDefinition * fd);
-
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
   
   static bool checkFunctionNodeForIds(ASTNode * node, IdList& ids);
-
-  /** @endcond */
- 
-  /** @cond doxygen-libsbml-internal */
   
   static bool nodeContainsId(const ASTNode * node, IdList& ids);
-
-  /** @endcond */
- 
-  /** @cond doxygen-libsbml-internal */
   
   static bool nodeContainsNameNotInList(const ASTNode * node, IdList& ids);
-
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
   
   static bool expandInitialAssignment(Parameter * p, 
                                           const InitialAssignment *ia);
-  /** @endcond */
-
-  /** @cond doxygen-libsbml-internal */
   
   static bool expandInitialAssignment(Compartment * c, 
                                           const InitialAssignment *ia);
-  /** @endcond */
-  
-  /** @cond doxygen-libsbml-internal */
   
   static bool expandInitialAssignment(SpeciesReference * sr, 
                                           const InitialAssignment *ia);
-  /** @endcond */
-
-  
-  /** @cond doxygen-libsbml-internal */
   
   static bool expandInitialAssignment(Species * s, 
                                           const InitialAssignment *ia);
-  /** @endcond */
-
-
 
   static IdValueMap mValues;
 

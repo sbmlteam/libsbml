@@ -133,28 +133,20 @@
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
- * @if clike The text-string form of mathematical formulas
- * produced by SBML_formulaToString() and read by SBML_parseFormula() are
- * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
- * formula in this text-string form can be handed to a program that
- * understands SBML Level&nbsp;1 mathematical expressions, or used as part
- * of a translation system.  The libSBML distribution comes with an example
- * program in the @c "examples" subdirectory called @c translateMath that
- * implements an interactive command-line demonstration of translating
- * infix formulas into MathML and
- * vice-versa. @endif@if java
- * The text-string form of mathematical formulas produced by <code><a
+ * The text-string form of mathematical formulas produced by @if clike
+ * SBML_formulaToString()@endif@if java <code><a
  * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
- * libsbml.formulaToString()</a></code> and read by <code><a
+ * libsbml.formulaToString()</a></code>@endif and read by @if clike
+ * SBML_parseFormula()@endif@if java <code><a
  * href="libsbml.html#parseFormula(java.lang.String)">
- * libsbml.parseFormula()</a></code> are simple C-inspired
- * infix notation taken from SBML Level&nbsp;1.  A formula in this
- * text-string form can be handed to a program that understands SBML
- * Level&nbsp;1 mathematical expressions, or used as part of a translation
- * system.  The libSBML distribution comes with an example program in the
- * @c "examples" subdirectory called @c translateMath that implements an
- * interactive command-line demonstration of translating infix formulas
- * into MathML and vice-versa.@endif
+ * libsbml.parseFormula()</a></code>@endif are simple C-inspired infix
+ * notation taken from SBML Level&nbsp;1.  A formula in this text-string
+ * form can be handed to a program that understands SBML Level&nbsp;1
+ * mathematical expressions, or used as part of a translation system.  The
+ * libSBML distribution comes with an example program in the @c "examples"
+ * subdirectory called @c translateMath that implements an interactive
+ * command-line demonstration of translating infix formulas into MathML and
+ * vice-versa.
  *
  * The formula strings may contain operators, function calls, symbols, and
  * white space characters.  The allowable white space characters are tab
@@ -188,20 +180,21 @@
  *
  * A program parsing a formula in an SBML model should assume that names
  * appearing in the formula are the identifiers of Species, Parameter,
- * Compartment, FunctionDefinition, or Reaction objects defined in a model.
- * When a function call is involved, the syntax consists of a function
- * identifier, followed by optional white space, followed by an opening
- * parenthesis, followed by a sequence of zero or more arguments separated
- * by commas (with each comma optionally preceded and/or followed by zero
- * or more white space characters), followed by a closing parenthesis.
- * There is an almost one-to-one mapping between the list of predefined
- * functions available, and those defined in MathML.  All of the MathML
- * functions are recognized; this set is larger than the functions defined
- * in SBML Level&nbsp;1.  In the subset of functions that overlap between
- * MathML and SBML Level&nbsp;1, there exist a few differences.  The
- * following table summarizes the differences between the predefined
- * functions in SBML Level&nbsp;1 and the MathML equivalents in SBML
- * Level&nbsp;2:
+ * Compartment, FunctionDefinition, Reaction (in SBML Levels&nbsp;2
+ * and&nbsp;3), or SpeciesReference (in SBML Level&nbsp;3 only) objects
+ * defined in a model.  When a function call is involved, the syntax
+ * consists of a function identifier, followed by optional white space,
+ * followed by an opening parenthesis, followed by a sequence of zero or
+ * more arguments separated by commas (with each comma optionally preceded
+ * and/or followed by zero or more white space characters), followed by a
+ * closing parenthesis.  There is an almost one-to-one mapping between the
+ * list of predefined functions available, and those defined in MathML.
+ * All of the MathML functions are recognized; this set is larger than the
+ * functions defined in SBML Level&nbsp;1.  In the subset of functions that
+ * overlap between MathML and SBML Level&nbsp;1, there exist a few
+ * differences.  The following table summarizes the differences between the
+ * predefined functions in SBML Level&nbsp;1 and the MathML equivalents in
+ * SBML Level&nbsp;2:
  * 
  * @htmlinclude math-functions.html
  */
@@ -385,7 +378,8 @@ public:
    * node type to something else as soon as possible using @if clike
    * setType()@endif@if java ASTNode::setType(int)@endif.
    *
-   * @param type an optional @link #ASTNodeType_t ASTNodeType_t@endlink
+   * @param type an optional
+   * @if clike @link #ASTNodeType_t ASTNodeType_t@endlink@endif@if java type@endif
    * code indicating the type of node to create.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
@@ -453,8 +447,8 @@ public:
    *
    * <li> If the node type is @link ASTNodeType_t#AST_NAME AST_NAME@endlink
    * and the node name matches @c "ExponentialE", @c "Pi", @c "True" or @c
-   * "False" the node type is converted to the corresponding @c
-   * AST_CONSTANT_<em><span class="placeholder">X</span></em> type.
+   * "False" the node type is converted to the corresponding 
+   * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
    *
    * <li> If the node type is an @link ASTNodeType_t#AST_FUNCTION
    * AST_FUNCTION@endlink and the node name matches an SBML Level&nbsp;1 or
@@ -947,8 +941,8 @@ public:
 
 
   /**
-   * Predicate returning @c true (non-zero) if this node represents a @c
-   * log10() function, @c false (zero) otherwise.  More precisely, this
+   * Predicate returning @c true (non-zero) if this node represents a 
+   * @c log10 function, @c false (zero) otherwise.  More precisely, this
    * predicate returns @c true if the node type is @link
    * ASTNodeType_t#AST_FUNCTION_LOG AST_FUNCTION_LOG@endlink with two
    * children, the first of which is an @link ASTNodeType_t#AST_INTEGER
@@ -1154,9 +1148,9 @@ public:
   
   /**
    * Sets the value of this ASTNode to the given character.  If character
-   * is one of @c +, @c -, @c *, @c / or @c ^, the node type will be set
-   * accordingly.  For all other characters, the node type will be set to
-   * @link ASTNodeType_t#AST_UNKNOWN AST_UNKNOWN@endlink.
+   * is one of @c +, @c -, <code>*</code>, <code>/</code> or @c ^, the node
+   * type will be set accordingly.  For all other characters, the node type
+   * will be set to @link ASTNodeType_t#AST_UNKNOWN AST_UNKNOWN@endlink.
    *
    * @param value the character value to which the node's value should be
    * set.
@@ -1272,10 +1266,9 @@ public:
 
 
   /**
-   * Sets the type of this ASTNode to the given <a class="el"
-   * href="#ASTNodeType_t">ASTNodeType_t</a>.  A side-effect of doing this
-   * is that any numerical values previously stored in this node are reset
-   * to zero.
+   * Sets the type of this ASTNode to the given type code.  A side-effect
+   * of doing this is that any numerical values previously stored in this
+   * node are reset to zero.
    *
    * @param type the type to which this node should be set
    *

@@ -341,7 +341,7 @@ public:
    * Compartment
    * 
    * @note Upon the addition of a Compartment object to an SBMLDocument
-   * (e.g., using Model::addCompartment()), the SBML Level, SBML Version
+   * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the Compartment object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -370,12 +370,12 @@ public:
    * (identifier) attribute of a Compartment is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if clike setId() @endif@if java setId(String id) @endif.
+   * method @if java Compartment::@endifsetId(@if java String id@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a Compartment object to an SBMLDocument
-   * (e.g., using Model::addCompartment()), the SBML XML namespace of the
+   * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML XML namespace of the
    * document @em overrides the value used when creating the Compartment
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -513,11 +513,14 @@ public:
   /**
    * Get the size of this Compartment.
    *
-   * This method is identical to getVolume().  In SBML Level&nbsp;1,
-   * compartments are always three-dimensional constructs and only have
-   * volumes, whereas in SBML Level&nbsp;2, compartments may be other than
-   * three-dimensional and therefore the "volume" attribute is named "size"
-   * in Level&nbsp;2.  LibSBML provides both getSize() and getVolume() for
+   * This method is identical to @if java Compartment::@endifgetVolume().
+   * In SBML Level&nbsp;1, compartments are always three-dimensional
+   * constructs and only have volumes, whereas in SBML Level&nbsp;2,
+   * compartments may be other than three-dimensional and therefore the
+   * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
+   * both
+   * @if java Compartment::@endifgetSize() and
+   * @if java Compartment::@endifgetVolume() for
    * easier compatibility between SBML Levels.
    *
    * @return the value of the "size" attribute ("volume" in Level&nbsp;1) of
@@ -532,11 +535,14 @@ public:
   /**
    * Get the volume of this Compartment.
    * 
-   * This method is identical to getSize().  In SBML Level&nbsp;1, compartments
-   * are always three-dimensional constructs and only have volumes, whereas
-   * in SBML Level&nbsp;2, compartments may be other than three-dimensional and
-   * therefore the "volume" attribute is named "size" in Level&nbsp;2.  LibSBML
-   * provides both getSize() and getVolume() for easier compatibility
+   * This method is identical to @if java Compartment::@endifgetSize().  In
+   * SBML Level&nbsp;1, compartments are always three-dimensional
+   * constructs and only have volumes, whereas in SBML Level&nbsp;2,
+   * compartments may be other than three-dimensional and therefore the
+   * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
+   * both
+   * @if java Compartment::@endifgetSize() and
+   * @if java Compartment::@endifgetVolume() for easier compatibility
    * between SBML Levels.
    *
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
@@ -565,7 +571,7 @@ public:
    * @note @htmlinclude unassigned-units-are-not-a-default.html
    *
    * @see isSetUnits()
-   * @see setUnits()
+   * @see @if java Compartment::@endifsetUnits(@if java String sid@endif)
    * @see getSize()
    */
   const std::string& getUnits () const;
@@ -630,9 +636,9 @@ public:
    * Predicate returning @c true if this
    * Compartment's "size" attribute has been set.
    *
-   * This method is similar but not identical to isSetVolume().  The latter
+   * This method is similar but not identical to @if java Compartment::@endifisSetVolume().  The latter
    * should be used in the context of SBML Level&nbsp;1 models instead of
-   * isSetSize() because isSetVolume() performs extra processing to take
+   * @if java Compartment::@endifisSetSize() because @if java Compartment::@endifisSetVolume() performs extra processing to take
    * into account the difference in default values between SBML Levels 1
    * and 2.
    * 
@@ -649,16 +655,16 @@ public:
    * Predicate returning @c true if this Compartment's
    * "volume" attribute has been set.
    * 
-   * This method is similar but not identical to isSetSize().  The latter
+   * This method is similar but not identical to @if java Compartment::@endifisSetSize().  The latter
    * should not be used in the context of SBML Level&nbsp;1 models because this
-   * method (isSetVolume()) performs extra processing to take into account
+   * method performs extra processing to take into account
    * the difference in default values between SBML Levels 1 and 2.
    * 
    * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
    * above) of this Compartment has been set, @c false otherwise.
    *
    * @see isSetSize()
-   * @see setVolume(double value)
+   * @see @if java Compartment::@endifsetVolume(@if java double value@endif)
    *
    * @note The attribute "volume" only exists by that name in SBML
    * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
@@ -726,8 +732,7 @@ public:
    * @param sid the string to use as the identifier of this Compartment
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -743,8 +748,7 @@ public:
    * @param name the new name for the Compartment
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -759,8 +763,7 @@ public:
    * elsewhere in this Model.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -783,8 +786,7 @@ public:
    * of this compartment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -800,8 +802,7 @@ public:
    * of this compartment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -814,15 +815,14 @@ public:
    * Sets the "size" attribute (or "volume" in SBML Level&nbsp;1) of this
    * Compartment.
    *
-   * This method is identical to setVolume() and is provided for
+   * This method is identical to @if java Compartment::@endifsetVolume(@if java double value@endif) and is provided for
    * compatibility between SBML Level&nbsp;1 and Level&nbsp;2.
    *
    * @param value a @c double representing the size of this compartment
    * instance in whatever units are in effect for the compartment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -837,15 +837,16 @@ public:
    * Sets the "volume" attribute (or "size" in SBML Level&nbsp;2) of this
    * Compartment.
    *
-   * This method is identical to setVolume() and is provided for
-   * compatibility between SBML Level&nbsp;1 and Level&nbsp;2.
+   * This method is identical to
+   * @if java Compartment::@endifsetVolume(@if java double value@endif)
+   * and is provided for compatibility between SBML Level&nbsp;1 and
+   * Level&nbsp;2.
    * 
    * @param value a @c double representing the volume of this compartment
    * instance in whatever units are in effect for the compartment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -862,8 +863,7 @@ public:
    * @param sid the identifier of the defined units to use.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -877,8 +877,7 @@ public:
    * @param sid the identifier of a compartment that encloses this one.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -894,12 +893,11 @@ public:
    * Sets the value of the "constant" attribute of this Compartment.
    *
    * @param value a boolean indicating whether the size/volume of this
-   * compartment should be considered constant (@c true) or variable (@c
-   * false)
+   * compartment should be considered constant (@c true) or variable
+   * (@c false)
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -911,8 +909,7 @@ public:
    * Unsets the value of the "name" attribute of this Compartment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -928,8 +925,7 @@ public:
    * @see isSetCompartmentType()
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -944,8 +940,7 @@ public:
    * Unsets the value of the "size" attribute of this Compartment.
    * 
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -965,8 +960,7 @@ public:
    * optional with no default value and as such may or may not be set.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
@@ -981,8 +975,7 @@ public:
    * Unsets the value of the "units" attribute of this Compartment.
    * 
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -994,8 +987,7 @@ public:
    * Unsets the value of the "outside" attribute of this Compartment.
    * 
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1011,8 +1003,7 @@ public:
    * Unsets the value of the "spatialDimensions" attribute of this Compartment.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1037,7 +1028,7 @@ public:
    * defined by the relevant SBML specification.
    *
    * Note that unit declarations for Compartment objects are specified in
-   * terms of the @em identifier of a unit (e.g., using setUnits()), but
+   * terms of the @em identifier of a unit (e.g., using @if java Compartment::@endifsetUnits(@if java String sid@endif)), but
    * @em this method returns a UnitDefinition object, not a unit
    * identifier.  It does this by constructing an appropriate
    * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
@@ -1076,7 +1067,7 @@ public:
    * defined by the relevant SBML specification.
    *
    * Note that unit declarations for Compartment objects are specified in
-   * terms of the @em identifier of a unit (e.g., using setUnits()), but
+   * terms of the @em identifier of a unit (e.g., using setUnits(@if java String sid@endif)), but
    * @em this method returns a UnitDefinition object, not a unit
    * identifier.  It does this by constructing an appropriate
    * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even
@@ -1115,7 +1106,8 @@ public:
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
+   * @return the SBML type code for this object, or
+   * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
    *
    * @see getElementName()
    */
@@ -1242,7 +1234,7 @@ public:
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-
+   *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
@@ -1357,7 +1349,7 @@ public:
    * Removes item in this ListOfCompartments items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.
-   * If none of the items in this list have the identifier @p sid, then @c
+   * If none of the items in this list have the identifier @p sid, then
    * @c NULL is returned.
    *
    * @param sid the identifier of the item to remove

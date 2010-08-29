@@ -173,7 +173,7 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
  * Wraps the SBMLConstructorException
  *
  * The SBMLConstructorException (C++ class) is wrapped as the 
- * SBMLConsturctorException (Java class) which is derived from
+ * SBMLConstructorException (Java class) which is derived from
  * the built-in IllegalArgumentException class which is a subclass
  * of RunTimeException.
  *
@@ -201,6 +201,14 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
     swigCPtr    = cPtr;
   }
 
+  /**
+   * Exception thrown by libSBML object constructors if something prevents
+   * the object from being properly created.
+   *
+   * An example of what can cause this exception to be thrown is attempting
+   * to create an SBML component with an invalid SBML Level/Version
+   * combination.
+   */
   public SBMLConstructorException(String v)
   {
     this(libsbmlJNI.new_SBMLConstructorException(), true, v);
@@ -1334,3 +1342,38 @@ SWIGJAVA_EQUALS(XMLOutputStream)
 LIST_WRAPPER(ModelHistory::getListCreators,ModelCreator)
 LIST_WRAPPER(ModelHistory::getListModifiedDates,Date)
 LIST_WRAPPER(SBase::getCVTerms,CVTerm)
+
+
+/*
+ * Documentation additions for things that are defined in ../swig/libsbml.i.
+ * I haven't figured out how to get the docs to stick when defined in
+ * ../swig/libsbml.i, so I'm putting them here.
+ */
+
+%javamethodmodifiers ASTNode::getListOfNodes() "
+  /**
+   * Returns a list of all ASTNodes in the tree rooted at
+   * this ASTNode.
+   * 
+   * @return The list of ASTNodes.  The List returned is owned by the
+   * caller and should be deleted after the caller is done using it.  The
+   * ASTNode objects in the list; however, are not owned by the caller (as
+   * they still belong to the tree itself), and therefore should not be
+   * deleted.
+   */
+ public";
+
+%javamethodmodifiers RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms) "
+  /**
+   * Parses an annotation (given as an XMLNode tree) into a list of
+   * CVTerm objects.
+   *
+   * This is used to take an annotation that has been read into an SBML
+   * model, identify the RDF elements within it, and create a list of
+   * corresponding CVTerm (controlled vocabulary term) objects.
+   *
+   * @param annotation XMLNode containing the annotation.
+   * 
+   * @param CVTerms list of CVTerm objects to be created.
+   */
+ public";

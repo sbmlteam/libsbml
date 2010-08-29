@@ -161,13 +161,15 @@
  * all the maximal matchings will have this property; i.e., it is only
  * necessary to find one maximal matching.)
  *
- *
- * @section RuleType_t RuleType_t for SBML Level 1
+ * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
+ * @if java  @section RuleType_t Rule types for SBML Level 1@endif
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
- * attribute whose value is drawn from an enumeration.  LibSBML supports
- * this using methods that work with the #RuleType_t enumeration.
+ * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
+ * supports this using methods that work @if clike a libSBML enumeration
+ * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * values@endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -356,12 +358,15 @@
  * necessary to find one maximal matching.)
  *
  *
- * @section RuleType_t RuleType_t for SBML Level 1
+ * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
+ * @if java  @section RuleType_t Rule types for SBML Level 1@endif
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
- * Level&nbsp;3 for distinguishing rules; specifically, it uses an attribute
- * whose value is drawn from an enumeration.  LibSBML supports this using
- * methods that work with the #RuleType_t enumeration.
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an
+ * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
+ * supports this using methods that work @if clike a libSBML enumeration
+ * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * values@endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -591,12 +596,15 @@
  * necessary to find one maximal matching.)
  *
  *
- * @section RuleType_t RuleType_t for SBML Level 1
+ * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
+ * @if java  @section RuleType_t Rule types for SBML Level 1@endif
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
- * Level&nbsp;3 for distinguishing rules; specifically, it uses an attribute
- * whose value is drawn from an enumeration.  LibSBML supports this using
- * methods that work with the #RuleType_t enumeration.
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an
+ * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
+ * supports this using methods that work @if clike a libSBML enumeration
+ * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * values@endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -804,12 +812,15 @@
  * necessary to find one maximal matching.)
  *
  *
- * @section RuleType_t RuleType_t for SBML Level 1
+ * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
+ * @if java  @section RuleType_t Rule types for SBML Level 1@endif
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
- * Level&nbsp;3 for distinguishing rules; specifically, it uses an attribute
- * whose value is drawn from an enumeration.  LibSBML supports this using
- * methods that work with the #RuleType_t enumeration.
+ * Level&nbsp;3 for distinguishing rules; specifically, it uses an
+ * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
+ * supports this using methods that work @if clike a libSBML enumeration
+ * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * values@endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -952,7 +963,10 @@ public:
   /**
    * Returns the mathematical expression of this Rule in text-string form.
    *
-   * The text string is produced by SBML_formulaToString(); please consult
+   * The text string is produced by @if clike
+   * SBML_formulaToString()@endif@if java <code><a
+   * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
+   * libsbml.formulaToString()</a></code>@endif; please consult
    * the documentation for that function to find out more about the format
    * of the text-string formula.
    * 
@@ -1231,7 +1245,7 @@ public:
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * invoke the method</strong> @if java Rule::@endifcontainsUndeclaredUnits() <strong>to
    * determine whether this situation holds</strong>.  Callers may wish to
    * take suitable actions in those scenarios.
    * 
@@ -1266,7 +1280,7 @@ public:
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> containsUndeclaredUnits() <strong>to
+   * invoke the method</strong> @if java Rule::@endifcontainsUndeclaredUnits() <strong>to
    * determine whether this situation holds</strong>.  Callers may wish to
    * take suitable actions in those scenarios.
    * 
@@ -1320,7 +1334,7 @@ public:
    * @return the rule type (a value drawn from the enumeration <a
    * class="el" href="#RuleType_t">RuleType_t</a>) of this Rule.  The value
    * will be either @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
-   * or @link RateRule_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink.
+   * or @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink.
    *
    * @note The attribute "type" on Rule objects was present only in SBML
    * Level&nbsp;1.  In SBML Level&nbsp;2 and later, the type has been
@@ -1410,7 +1424,7 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
@@ -1624,7 +1638,7 @@ public:
    * AlgebraicRule
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
-   * (e.g., using Model::addAlgebraicRule()), the SBML Level, SBML Version
+   * (e.g., using Model::addRule(@if java Rule r@endif)), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AlgebraicRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1651,7 +1665,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
-   * (e.g., using Model::addAlgebraicRule()), the SBML XML namespace of the
+   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML XML namespace of the
    * document @em overrides the value used when creating the AlgebraicRule
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -1766,7 +1780,7 @@ public:
    * AssignmentRule
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
-   * (e.g., using Model::addAssignmentRule()), the SBML Level, SBML Version
+   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AssignmentRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1793,7 +1807,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AssignmentRule object to an SBMLDocument
-   * (e.g., using Model::addAssignmentRule()), the SBML XML namespace of
+   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * AssignmentRule object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,
@@ -1898,7 +1912,7 @@ public:
    * RateRule
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
-   * (e.g., using Model::addRateRule()), the SBML Level, SBML Version
+   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the RateRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1925,7 +1939,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
-   * using Model::addRateRule()), the SBML XML namespace of the document
+   * using Model::addRule(@if java Rule r@endif), the SBML XML namespace of the document
    * @em overrides the value used when creating the RateRule object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the

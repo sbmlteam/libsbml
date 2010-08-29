@@ -342,18 +342,6 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * SimpleSpeciesReference
-   * 
-   * @note Upon the addition of a SimpleSpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addSimpleSpeciesReference()), the SBML
-   * Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the SimpleSpeciesReference object via
-   * this constructor.  This is necessary to ensure that an SBML document
-   * is a consistent structure.  Nevertheless, the ability to supply the
-   * values at the time of creation of a SimpleSpeciesReference is an important
-   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
    */
   SimpleSpeciesReference (unsigned int level, unsigned int version);
 
@@ -370,18 +358,6 @@ public:
    * object constructors such as this one when needed.
    *
    * @param sbmlns an SBMLNamespaces object.
-   *
-   * @note Upon the addition of a SimpleSpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addSimpleSpeciesReference()), the
-   * SBML XML namespace of the document @em overrides the value used when
-   * creating the SimpleSpeciesReference object via this constructor.  This
-   * is necessary to ensure that an SBML document is a consistent
-   * structure.  Nevertheless, the ability to supply the values at the time
-   * of creation of a SimpleSpeciesReference is an important aid to
-   * producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
    */
   SimpleSpeciesReference (SBMLNamespaces* sbmlns);
 
@@ -614,16 +590,17 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * SpeciesReference
    * 
-   * @note Upon the addition of a SpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addSpeciesReference()), the SBML
-   * Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the SpeciesReference object via
-   * this constructor.  This is necessary to ensure that an SBML document
-   * is a consistent structure.  Nevertheless, the ability to supply the
-   * values at the time of creation of a SpeciesReference is an important
-   * aid to producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
+   * @note Upon the addition of a SpeciesReference object to a Model (e.g.,
+   * using Reaction::addReactant(const SpeciesReference* sr) or
+   * Reaction::addProduct(const SpeciesReference* sr)), the SBML Level,
+   * SBML Version and XML namespace of the document @em override the values
+   * used when creating the SpeciesReference object via this constructor.
+   * This is necessary to ensure that an SBML document is a consistent
+   * structure.  Nevertheless, the ability to supply the values at the time
+   * of creation of a SpeciesReference is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
    * SBMLDocument.
    */
   SpeciesReference (unsigned int level, unsigned int version);
@@ -635,16 +612,18 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @note Upon the addition of a SpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addSpeciesReference()), the SBML XML
-   * namespace of the document @em overrides the value used when creating
-   * the SpeciesReference object via this constructor.  This is necessary
-   * to ensure that an SBML document is a consistent structure.
-   * Nevertheless, the ability to supply the values at the time of creation
-   * of a SpeciesReference is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
+   * @note Upon the addition of a SpeciesReference object to a Model (e.g.,
+   * using Reaction::addReactant(const SpeciesReference* sr) or
+   * Reaction::addProduct(const SpeciesReference* sr)), the SBML Level,
+   * SBML Version and XML namespace of the document @em override the values
+   * used when creating the SpeciesReference object via this constructor.
+   * This is necessary to ensure that an SBML document is a consistent
+   * structure.  Nevertheless, the ability to supply the values at the time
+   * of creation of a SpeciesReference is an important aid to producing
+   * valid SBML.  Knowledge of the intented SBML Level and Version
+   * determine whether it is valid to assign a particular value to an
+   * attribute, or whether it is valid to add an object to an existing
+   * SBMLDocument.
    */
   SpeciesReference (SBMLNamespaces* sbmlns);
 
@@ -1122,7 +1101,8 @@ public:
    * Appends annotation content to any existing content in the "annotation"
    * subelement of this object.
    *
-   * The content in @p annotation is copied.  Unlike setAnnotation(), this
+   * The content in @p annotation is copied.  Unlike
+   * @if java SpeciesReference::@endifsetAnnotation(@if java String annotation@endif), this
    * method allows other annotations to be preserved when an application
    * adds its own data.
    *
@@ -1146,7 +1126,8 @@ public:
    * Appends annotation content to any existing content in the "annotation"
    * subelement of this object.
    *
-   * The content in @p annotation is copied.  Unlike setAnnotation(), this
+   * The content in @p annotation is copied.  Unlike
+   * @if java SpeciesReference::@endifsetAnnotation(@if java String annotation@endif), this
    * method allows other annotations to be preserved when an application
    * adds its own data.
    *
@@ -1340,7 +1321,7 @@ public:
    * ModifierSpeciesReference
    * 
    * @note Upon the addition of a ModifierSpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addModifierSpeciesReference()), the
+   * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
    * SBML Level, SBML Version and XML namespace of the document @em
    * override the values used when creating the ModifierSpeciesReference
    * object via this constructor.  This is necessary to ensure that an SBML
@@ -1361,7 +1342,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a ModifierSpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addModifierSpeciesReference()), the
+   * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
    * SBML XML namespace of the document @em overrides the value used when
    * creating the ModifierSpeciesReference object via this constructor.
    * This is necessary to ensure that an SBML document is a consistent

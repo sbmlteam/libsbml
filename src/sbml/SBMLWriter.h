@@ -31,6 +31,37 @@
  * result to files and text strings.  The methods for writing SBML all take
  * an SBMLDocument object and a destination.  They return a boolean value
  * to indicate success or failure.
+ *
+ * @section compression Support for writing compressed files
+ *
+ * LibSBML provides support for writing (as well as reading) compressed
+ * SBML files.  The process is transparent to the calling
+ * application&mdash;the application does not need to do anything
+ * deliberate to invoke the functionality.  If a given SBML filename ends
+ * with an extension for the @em gzip, @em zip or @em bzip2 compression
+ * formats (respectively, @c .gz, @c .zip, or @c .bz2), then the methods
+ * SBMLWriter::writeSBML(@if java SBMLDocument d, String filename@endif)
+ * and SBMLReader::readSBML(@if java String filename@endif)
+ * will automatically compress and decompress the file while writing and
+ * reading it.  If the filename has no such extension, it
+ * will be written and read uncompressed as normal.
+ *
+ * The compression feature requires that the @em zlib (for @em gzip and @em
+ * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
+ * system running libSBML, and that libSBML was configured with their
+ * support compiled-in.  Please see the @if clike <a
+ * href="libsbml-installation.html">installation instructions</a> @endif
+ * @if java  <a
+ * href="../../../libsbml-installation.html">installation instructions</a> 
+ * @endif for libSBML for more information about this.  The methods
+ * @if java SBMLWriter::@endifhasZlib() and @if java SBMLWriter::@endifhasBzip2()
+ * can be used by an application to query at run-time whether support
+ * for the compression libraries is available in the present copy of
+ * libSBML.
+ *
+ * Support for compression is not mandated by the SBML standard, but
+ * applications may find it helpful, particularly when large SBML models
+ * are being communicated across data links of limited bandwidth.
  */
 
 #ifndef SBMLWriter_h
@@ -72,7 +103,8 @@ public:
    * Sets the name of this program, i.e., the program that is about to
    * write out the SBMLDocument.
    *
-   * If the program name and version are set (setProgramVersion()), the
+   * If the program name and version are set (see
+   * @if java SBMLWriter::@endifsetProgramVersion(@if java String version@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document:
    * @verbatim
@@ -98,13 +130,12 @@ public:
    * Sets the version of this program, i.e., the program that is about to
    * write out the SBMLDocument.
    *
-   * If the program version and name are set (setProgramName()), the
+   * If the program version and name are set (see
+   * @if java SBMLWriter::@endifsetProgramName(@if java String name@endif)), the
    * following XML comment, intended for human consumption, will be written
-   * at the beginning of the document:
-   * @verbatim
-   <!-- Created by <program name> version <program version>
-   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
-@endverbatim
+   * at the beginning of the document: @verbatim <!-- Created by <program
+   * name> version <program version> on yyyy-MM-dd HH:mm with libsbml
+   * version <libsbml version>. --> @endverbatim
    *
    * @param version the version of this program (where "this program"
    * refers to program in which libSBML is embedded, not libSBML itself!)
@@ -137,17 +168,7 @@ public:
    * archive will be @c "test.sbml" if the given filename is @c
    * "test.sbml.zip".
    *
-   * @note To write a gzip/zip file, libSBML needs to be configured and
-   * linked with the <a href="http://www.zlib.net/">zlib</a> library at
-   * compile time.  It also needs to be linked with the <a
-   * href="">bzip2</a> library to write files in @em bzip2 format.  (Both
-   * of these are the default configurations for libSBML.)  Errors about
-   * unreadable files will be logged and this method will return @c false
-   * if a compressed filename is given and libSBML was @em not linked with
-   * the corresponding required library.
-   *
-   * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
-   * check whether libSBML has been linked with each library.
+   * @note @htmlinclude note-writing-zipped-files.html
    *
    * @param d the SBML document to be written
    *
@@ -194,8 +215,8 @@ public:
   /**
    * Writes the given SBML document to filename.
    *
-   * If the given filename ends with the suffix @c ".gz" (for example, @c
-   * "myfile.xml.gz"), libSBML assumes the caller wants the file to be
+   * If the given filename ends with the suffix @c ".gz" (for example,
+   * @c "myfile.xml.gz"), libSBML assumes the caller wants the file to be
    * written compressed in @em gzip.  Similarly, if the given filename ends
    * with @c ".zip" or @c ".bz2", libSBML assumes the caller wants the file
    * to be compressed in @em zip or @em bzip2 format (respectively).  Files
@@ -208,17 +229,7 @@ public:
    * archive will be @c "test.sbml" if the given filename is @c
    * "test.sbml.zip".
    *
-   * @note To write a gzip/zip file, libSBML needs to be configured and
-   * linked with the <a href="http://www.zlib.net/">zlib</a> library at
-   * compile time.  It also needs to be linked with the <a
-   * href="">bzip2</a> library to write files in @em bzip2 format.  (Both
-   * of these are the default configurations for libSBML.)  Errors about
-   * unreadable files will be logged and this method will return @c false
-   * if a compressed filename is given and libSBML was @em not linked with
-   * the corresponding required library.
-   *
-   * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
-   * check whether libSBML has been linked with each library.
+   * @note @htmlinclude note-writing-zipped-files.html
    *
    * @param d the SBML document to be written
    *
@@ -247,14 +258,14 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * underlying libSBML is linked with zlib.
+   * Predicate returning @c true if this copy of libSBML has been linked
+   * with the <em>zlib</em> library.
    *
    * LibSBML supports reading and writing files compressed with either
    * bzip2 or zip/gzip compression.  The facility depends on libSBML having
    * been compiled with the necessary support libraries.  This method
    * allows a calling program to inquire whether that is the case for the
-   * copy of libSBML it is running.
+   * copy of libSBML it is using.
    *
    * @return @c true if libSBML is linked with zlib, @c false otherwise.
    */
@@ -262,14 +273,14 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * underlying libSBML is linked with bzip2.
+   * Predicate returning @c true if this copy of libSBML has been linked
+   * with the <em>bzip2</em> library.
    *
    * LibSBML supports reading and writing files compressed with either
    * bzip2 or zip/gzip compression.  The facility depends on libSBML having
    * been compiled with the necessary support libraries.  This method
    * allows a calling program to inquire whether that is the case for the
-   * copy of libSBML it is running.
+   * copy of libSBML it is using.
    *
    * @return @c true if libSBML is linked with bzip2, @c false otherwise.
    */
@@ -355,8 +366,8 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  * "test.sbml.zip".
  *
  * @note To write a gzip/zip file, libSBML needs to be configured and
- * linked with the <a href="http://www.zlib.net/">zlib</a> library at
- * compile time.  It also needs to be linked with the <a
+ * linked with the <a target="_blank" href="http://www.zlib.net/">zlib</a> library at
+ * compile time.  It also needs to be linked with the <a target="_blank"
  * href="">bzip2</a> library to write files in @em bzip2 format.  (Both
  * of these are the default configurations for libSBML.)  Errors about
  * unreadable files will be logged and this method will return @c false
