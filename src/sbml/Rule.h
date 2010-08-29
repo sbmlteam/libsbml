@@ -167,7 +167,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * type, #RuleType_t, whose values are@endif@if java  with the enumeration
  * values@endif listed in the following table.  
  * 
  * <p>
@@ -363,7 +363,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * type, #RuleType_t, whose values are@endif@if java  with the enumeration
  * values@endif listed in the following table.  
  * 
  * <p>
@@ -600,7 +600,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * type, #RuleType_t, whose values are@endif@if java  with the enumeration
  * values@endif listed in the following table.  
  * 
  * <p>
@@ -815,7 +815,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values@endif@if java  with the enumeration
+ * type, #RuleType_t, whose values are@endif@if java  with the enumeration
  * values@endif listed in the following table.  
  * 
  * <p>
@@ -959,10 +959,8 @@ public:
   /**
    * Returns the mathematical expression of this Rule in text-string form.
    *
-   * The text string is produced by @if clike
-   * SBML_formulaToString()@endif@if java <code><a
-   * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
-   * libsbml.formulaToString()</a></code>@endif; please consult
+   * The text string is produced by
+   * @if clike SBML_formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif; please consult
    * the documentation for that function to find out more about the format
    * of the text-string formula.
    * 

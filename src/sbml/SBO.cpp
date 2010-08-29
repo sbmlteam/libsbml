@@ -223,7 +223,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
 /** @endcond */
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a QuantitativeParameter, false otherwise
   */
@@ -239,7 +239,7 @@ SBO::isQuantitativeParameter  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a ParticipantRole, false otherwise
   */
@@ -255,7 +255,7 @@ SBO::isParticipantRole  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a ModellingFramework, false otherwise
   */
@@ -271,7 +271,7 @@ SBO::isModellingFramework  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a MathematicalExpression, false otherwise
   */
@@ -287,7 +287,7 @@ SBO::isMathematicalExpression  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a KineticConstant, false otherwise
   */
@@ -303,7 +303,7 @@ SBO::isKineticConstant  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Reactant, false otherwise
   */
@@ -319,7 +319,7 @@ SBO::isReactant  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Product, false otherwise
   */
@@ -335,7 +335,7 @@ SBO::isProduct  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a isModifier, false otherwise
   */
@@ -351,7 +351,7 @@ SBO::isModifier  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a RateLaw, false otherwise
   */
@@ -367,7 +367,7 @@ SBO::isRateLaw  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Event, false otherwise
   */
@@ -383,7 +383,7 @@ SBO::isEvent  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a PhysicalParticipant, false otherwise
   */
@@ -399,7 +399,7 @@ SBO::isPhysicalParticipant  (unsigned int sboTerm)
 }
 
 
-/**
+/*
   * functions for checking the SBO term is from correct part of SBO
   * returns true if the term is-a Participant, false otherwise
   */

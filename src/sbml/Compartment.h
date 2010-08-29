@@ -965,7 +965,7 @@ public:
    * Unsets the value of the "volume" attribute of this
    * Compartment.
    * 
-   * In SBML Level&nbsp;1, a Compartment volume has a default value (1.0) and
+   * In SBML Level&nbsp;1, a Compartment volume has a default value (@c 1.0) and
    * therefore <em>should always be set</em>.  In Level&nbsp;2, "size" is
    * optional with no default value and as such may or may not be set.
    *

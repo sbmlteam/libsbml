@@ -170,12 +170,12 @@
  *   temperatures measured in degrees Celsius can be converted
  *   straightforwardly to a model in which those temperatures are in
  *   kelvin.  A software tool could do this by performing a straightforward
- *   substitution using the following relationship: T<sub> kelvin</sub> =
- *   T<sub> Celsius</sub> + 273.15.  In every mathematical formula of the
+ *   substitution using the following relationship: <em>T<sub> kelvin</sub> =
+ *   T<sub>Celsius</sub> + 273.15</em>.  In every mathematical formula of the
  *   model where a quantity (call it @em x) in degrees Celsius appears,
- *   replace @em x with x<sub> k</sub>+ 273.15, where x<sub> k</sub> is now
- *   in kelvin.  An alternative approach would be to use a
- *   FunctionDefinition to define a function encapsulating this
+ *   replace @em x with <em>x<sub>k</sub>+ 273.15</em>, where
+ *   <em>x<sub>k</sub></em> is now in kelvin.  An alternative approach would 
+ *   be to use a FunctionDefinition object to define a function encapsulating this
  *   relationship above and then using that in the rest of the model as
  *   needed.  Since Celsius is a commonly-used unit, software tools could
  *   help users by providing users with the ability to express temperatures

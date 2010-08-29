@@ -36,9 +36,9 @@
  * additional human intervention, the semantics of models more precisely
  * than the semantics provided by the SBML object classes defined in other
  * sections of this document.  For example, there is nothing inherent in a
- * parameter with identifier "<code>k</code>" that would indicate to a
+ * parameter with identifier <code>k</code> that would indicate to a
  * software tool it is a first-order rate constant (if that's what
- * "<code>k</code>" happened to be in some given model).  However, one may
+ * <code>k</code> happened to be in some given model).  However, one may
  * need to convert a model between different representations (e.g.,
  * Henri-Michaelis-Menten versus elementary steps), or to use it with
  * different modeling approaches (discrete or continuous).  One may also
@@ -56,7 +56,7 @@
  * class SBase.  The "sboTerm" attribute always refers to terms belonging
  * to the Systems Biology Ontology (SBO).
  * 
- * @section use Use of %SBO
+ * @section use Use of SBO
  * 
  * Labeling model components with terms from shared controlled vocabularies
  * allows a software tool to identify each component using identifiers that
@@ -89,7 +89,7 @@
  * additional details using independent, shared vocabularies that can
  * enable <em>other</em> software tools to recognize precisely what the
  * component is meant to be.  Those tools can then act on that information.
- * For example, if the %SBO identifier <code>SBO:0000049</code> is assigned
+ * For example, if the %SBO identifier @c "SBO:0000049" is assigned
  * to the concept of "first-order irreversible mass-action kinetics,
  * continuous framework", and a given KineticLaw object in a model has an
  * "sboTerm" attribute with this value, then regardless of the identifier
@@ -116,7 +116,7 @@
  * of reaction formulas as being ones it knows how to solve with optimized
  * procedures.  The application could then use internal, optimized code
  * implementing the rate formula indexed by identifiers such as
- * <code>SBO:0000049</code> appearing in SBML models.
+ * @c "SBO:0000049" appearing in SBML models.
  * 
  * Finally, %SBO labels may be very valuable when it comes to model
  * integration, by helping identify interfaces, convert mathematical
@@ -141,7 +141,7 @@
  * allow too much leeway to shoehorn inconsistent concepts into SBML
  * objects, ultimately reducing the interoperability of the models.
  *
- * @section relationship Relationships between %SBO and SBML
+ * @section relationship Relationships between SBO and SBML
  *
  * The goal of %SBO labeling for SBML is to clarify to the fullest extent
  * possible the nature of each element in a model.  The approach taken in
@@ -226,186 +226,186 @@ public:
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"quantiative parameter"</em>, @c false
+   * @return @c true if @p term is-a %SBO <em>"quantiative parameter"</em>, @c false
    * otherwise.
    */
   static bool isQuantitativeParameter  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"participant role"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"participant role"</em>, @c false otherwise.
    */
   static bool isParticipantRole  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"modeling framework"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"modeling framework"</em>, @c false otherwise.
    */
   static bool isModellingFramework  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"mathematical expression"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"mathematical expression"</em>, @c false otherwise.
    */
   static bool isMathematicalExpression  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"kinetic constant"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"kinetic constant"</em>, @c false otherwise.
    */
   static bool isKineticConstant  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"reactant"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"reactant"</em>, @c false otherwise.
    */
   static bool isReactant  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"product"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"product"</em>, @c false otherwise.
    */
   static bool isProduct  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"modifier"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"modifier"</em>, @c false otherwise.
    */
   static bool isModifier  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"rate law"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"rate law"</em>, @c false otherwise.
    */
   static bool isRateLaw  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"event"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"event"</em>, @c false otherwise.
    */
   static bool isEvent  (unsigned int term);
 
 
   /**
-    * Function for checking the SBO term is from correct part of %SBO.
+    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
     *
-    * @return @c true if the term is-a %SBO <em>"physical participant</em>, @c false otherwise.
+    * @return @c true if @p term is-a %SBO <em>"physical participant</em>, @c false otherwise.
     */
   static bool isPhysicalParticipant  (unsigned int term);
 
 
   /**
-    * Function for checking the SBO term is from correct part of %SBO.
+    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
     *
-    * @return @c true if the term is-a %SBO <em>"participant"</em>, @c false otherwise.
+    * @return @c true if @p term is-a %SBO <em>"participant"</em>, @c false otherwise.
     */
   static bool isParticipant  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"interaction"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"interaction"</em>, @c false otherwise.
    */
   static bool isInteraction  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"entity"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"entity"</em>, @c false otherwise.
    */
   static bool isEntity  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"functional entity"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"functional entity"</em>, @c false otherwise.
    */
   static bool isFunctionalEntity  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"material entity"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"material entity"</em>, @c false otherwise.
    */
   static bool isMaterialEntity  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"conservation law"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"conservation law"</em>, @c false otherwise.
    */
   static bool isConservationLaw  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"steady state expression"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"steady state expression"</em>, @c false otherwise.
    */
   static bool isSteadyStateExpression  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"functional compartment"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"functional compartment"</em>, @c false otherwise.
    */
   static bool isFunctionalCompartment  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"continuous framework"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"continuous framework"</em>, @c false otherwise.
    */
   static bool isContinuousFramework  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"discrete framework"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"discrete framework"</em>, @c false otherwise.
    */
   static bool isDiscreteFramework  (unsigned int term);
 
 
   /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
-   * @return @c true if the term is-a %SBO <em>"logical framework"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"logical framework"</em>, @c false otherwise.
    */
   static bool isLogicalFramework  (unsigned int term);
 
 
   /**
-   * Function for checking whether the SBO term is obselete.
+   * Predicate for checking whether the given term is obsolete.
    *
-   * @return @c true if the term is-a %SBO <em>"obsolete"</em>, @c false otherwise.
+   * @return @c true if @p term is-a %SBO <em>"obsolete"</em> term, @c false otherwise.
    */
   static bool isObselete  (unsigned int term);
 
@@ -425,7 +425,7 @@ public:
    * Returns the string as a correctly formatted %SBO integer portion.
    *
    * @return the given string sboTerm as an integer.  If the sboTerm is not
-   * in the correct format (a zero-padded, seven digit string), -1 is
+   * in the correct format (a zero-padded, seven digit string), <code>-1</code> is
    * returned.
    */
   static int stringToInt (const std::string& sboTerm);
@@ -454,13 +454,13 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
  /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    * * @return true if the term is-a parent, false otherwise
    */
   static bool isChildOf(unsigned int term, unsigned int parent);
 
  /**
-   * Function for checking the SBO term is from correct part of %SBO.
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    * populates the parent-child map
    */
   static void populateSBOTree();

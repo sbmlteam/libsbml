@@ -229,8 +229,6 @@
  * provided in this manual in the
  * section @ref libsbml-example. @endif
  * 
- * 
- * <hr style="margin: 1em auto">
  */
 
 #ifndef SBMLDocument_h

@@ -89,7 +89,7 @@
  * attribute named "sboTerm" for supporting the use of the Systems Biology
  * Ontology.  In SBML proper, the data type of the attribute is a string of
  * the form "SBO:NNNNNNN", where "NNNNNNN" is a seven digit integer number;
- * libSBML simplifies the representation by only storing the NNNNNNN
+ * libSBML simplifies the representation by only storing the "NNNNNNN"
  * integer portion.  Thus, in libSBML, the "sboTerm" attribute on SBase has
  * data type @c int, and SBO identifiers are stored simply as integers.
  * (For convenience, SBase offers methods for returning both the integer
@@ -622,7 +622,7 @@ public:
    * Systems Biology Ontology.  In SBML proper, the data type of the
    * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
    * seven digit integer number; libSBML simplifies the representation by
-   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
    * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
    * are stored simply as integers.  (For convenience, libSBML offers
    * methods for returning both the integer form and a text-string form of
@@ -649,7 +649,7 @@ public:
    * Systems Biology Ontology.  In SBML proper, the data type of the
    * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
    * seven digit integer number; libSBML simplifies the representation by
-   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
    * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
    * are stored simply as integers.  This method returns the entire SBO
    * identifier as a text string in the form "SBO:NNNNNNN".
@@ -661,7 +661,7 @@ public:
    * the use of SBO and the "sboTerm" attribute.
    *
    * @return the value of the "sboTerm" attribute as a string (its value
-   * will be of the form <code>SBO:NNNNNNN</code>), or an empty string if
+   * will be of the form "SBO:NNNNNNN"), or an empty string if
    * the value is not set.
    */
   std::string getSBOTermID () const;
@@ -1508,7 +1508,7 @@ public:
    * Systems Biology Ontology.  In SBML proper, the data type of the
    * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
    * seven digit integer number; libSBML simplifies the representation by
-   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
    * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
    * are stored simply as integers. 
    *
@@ -1540,7 +1540,7 @@ public:
    * Systems Biology Ontology.  In SBML proper, the data type of the
    * attribute is a string of the form "SBO:NNNNNNN", where "NNNNNNN" is a
    * seven digit integer number; libSBML simplifies the representation by
-   * only storing the NNNNNNN integer portion.  Thus, in libSBML, the
+   * only storing the "NNNNNNN" integer portion.  Thus, in libSBML, the
    * "sboTerm" attribute on SBase has data type @c int, and SBO identifiers
    * are stored simply as integers.  This method lets you set the value of
    * "sboTerm" as a complete string of the form "SBO:NNNNNNN", whereas
@@ -1552,7 +1552,7 @@ public:
    * Level&nbsp;2 Version&nbsp;4 specification for more information about
    * the use of SBO and the "sboTerm" attribute.
    *
-   * @param sboid the SBO identifier string of the form SBO:NNNNNNN
+   * @param sboid the SBO identifier string of the form "SBO:NNNNNNN"
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values

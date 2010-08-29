@@ -231,8 +231,8 @@ public:
    * @note A namespace bound to the name is not checked by this function.
    * Thus, if there are multiple attributes with the given local name and
    * different namespaces, the smallest index among those attributes will
-   * be returned.  XMLAttributes::getIndex(const std::string& name, const std::string& uri) or
-   * XMLAttributes::getIndex(const XMLTriple& triple) should be used to get an index of an
+   * be returned.  XMLAttributes::getIndex(const std::string& name, const std::string& uri) const or
+   * XMLAttributes::getIndex(const XMLTriple& triple) const should be used to get an index of an
    * attribute with the given local name and namespace.
    *
    * @param name a string, the local name of the attribute for which the 
@@ -283,7 +283,7 @@ public:
    * @return the local name of an attribute in this list (by position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(int index) to test for the attribute
+   * XMLAttributes::hasAttribute(int index) const to test for the attribute
    * existence.
    */
   std::string getName (int index) const;
@@ -299,7 +299,7 @@ public:
    * position).  
    *
    * @note If index is out of range, an empty string will be returned. Use
-   * XMLAttributes::hasAttribute(int index) to test for the attribute
+   * XMLAttributes::hasAttribute(int index) const to test for the attribute
    * existence.
    */
   std::string getPrefix (int index) const;
@@ -315,7 +315,7 @@ public:
    * position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(int index) to test for attribute existence.
+   * XMLAttributes::hasAttribute(int index) const to test for attribute existence.
    */
   std::string getPrefixedName (int index) const;
 
@@ -329,7 +329,7 @@ public:
    * @return the namespace URI of an attribute in this list (by position).
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(int index) to test for attribute existence.
+   * XMLAttributes::hasAttribute(int index) const to test for attribute existence.
    */
   std::string getURI (int index) const;
 
@@ -343,7 +343,7 @@ public:
    * @return the value of an attribute in the list (by position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(int index) to test for attribute existence.
+   * XMLAttributes::hasAttribute(int index) const to test for attribute existence.
    */
   std::string getValue (int index) const;
 
@@ -356,13 +356,14 @@ public:
    * @return The attribute value as a string.  
    *
    * @note If an attribute with the given local name does not exist, an
-   * empty string will be returned.  Use XMLAttributes::hasAttribute(const std::string name, const std::string uri)
+   * empty string will be returned.  Use
+   * XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
    * to test for attribute existence.  A namespace bound to the local name
    * is not checked by this function.  Thus, if there are multiple
    * attributes with the given local name and different namespaces, the
    * value of an attribute with the smallest index among those attributes
-   * will be returned.  XMLAttributes::getValue(const std::string name) or
-   * XMLAttributes::getValue(const XMLTriple& triple) should be used to get a value of an
+   * will be returned.  XMLAttributes::getValue(const std::string name) const or
+   * XMLAttributes::getValue(const XMLTriple& triple) const should be used to get a value of an
    * attribute with the given local name and namespace.
    */
   std::string getValue (const std::string name) const;
@@ -378,7 +379,7 @@ public:
    *
    * @note If an attribute with the given local name and namespace URI does
    * not exist, an empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(const std::string name, const std::string uri)
+   * XMLAttributes::hasAttribute(const std::string name, const std::string uri) const
    * to test for attribute existence.
    */
   std::string getValue (const std::string name, const std::string uri) const;
@@ -393,7 +394,7 @@ public:
    *
    * @note If an attribute with the given XMLTriple does not exist, an
    * empty string will be returned.  Use
-   * XMLAttributes::hasAttribute(const XMLTriple& triple) to test for attribute existence.
+   * XMLAttributes::hasAttribute(const XMLTriple& triple) const to test for attribute existence.
    */
   std::string getValue (const XMLTriple& triple) const;
 
@@ -467,7 +468,7 @@ public:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
    * @note A namespace bound to the given local name is not checked by this
-   * function. XMLAttributes::readInto(const XMLTriple, bool&, ...) should
+   * function. XMLAttributes::readInto(const XMLTriple, bool&, ...) const should
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
@@ -529,7 +530,7 @@ public:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
    * @note A namespace bound to the given local name is not checked by this
-   * function.  XMLAttributes::readInto(const XMLTriple, double&, ...)
+   * function.  XMLAttributes::readInto(const XMLTriple, double&, ...) const
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
@@ -590,7 +591,7 @@ public:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
    * @note A namespace bound to the given local name is not checked by this
-   * function.  XMLAttributes::readInto(const XMLTriple, long&, ...) should
+   * function.  XMLAttributes::readInto(const XMLTriple, long&, ...) const should
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
@@ -651,7 +652,7 @@ public:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
    * @note A namespace bound to the given local name is not checked by this
-   * function.  XMLAttributes::readInto(const XMLTriple, int&, ...) should
+   * function.  XMLAttributes::readInto(const XMLTriple, int&, ...) const should
    * be used to read a value for an attribute name with a prefix and
    * namespace.
    *
@@ -713,7 +714,7 @@ public:
    *
    * @note A namespace bound to the given local name is not checked by this
    * function.  XMLAttributes::readInto(const XMLTriple, unsigned int&,
-   * ...) should be used to read a value for an attribute name with a
+   * ...) const should be used to read a value for an attribute name with a
    * prefix and namespace.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
@@ -767,7 +768,7 @@ public:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
    * @note A namespace bound to the given local name is not checked by this
-   * function. XMLAttributes::readInto(const XMLTriple, std::string&, ...)
+   * function. XMLAttributes::readInto(const XMLTriple, std::string&, ...) const
    * should be used to read a value for an attribute name with a prefix and
    * namespace.
    *
