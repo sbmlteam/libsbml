@@ -15,6 +15,13 @@ CODE {
   color: black;
 }
 
+.code {
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+}
+
 LI { 
   font-size: 12px;
 }
@@ -36,8 +43,7 @@ td {
 
 table {
   font-size: 12px;
-  border-color: #fff;
-  border-width: thin;
+  border: none;
 }
 
 /* The next two (TableRowColor) are for javadoc */
@@ -45,11 +51,37 @@ table {
 tr.TableRowColor td {
   font-style: italic;
   color: #666;
+  border: none;
+  border-bottom: 1px solid #bbb;
+  vertical-align: top;
 } 
 
 tr.TableRowColor td code {
   font-style: normal;
+  color: #444;
+  padding-left: 4px;
+  line-height: 18px;
 } 
+
+tr.TableHeadingColor th {
+  border: none;
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  background-color: #d0d0d0;
+  color: #333;
+  padding: 5px;
+}
+
+tr.TableHeadingColor th font b {
+  font-size: 18px;
+}
+
+tr.TableSubHeadingColor th {
+  border: none;
+  border-top: 1px solid #bbb;
+  background-color: #d0d0d0;
+  padding: 5px;
+}
 
 TD.footer {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
