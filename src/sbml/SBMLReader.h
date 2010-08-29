@@ -69,7 +69,8 @@
  * @if java  <a
  * href="../../../libsbml-installation.html">installation instructions</a> 
  * @endif for libSBML for more information about this.  The methods
- * @if java SBMLReader::@endifhasZlib() and @if java SBMLReader::@endifhasBzip2()
+ * @if clike hasZlib()@endif@if java SBMLReader::hasZlib()@endif and
+ * @if clike hasBzip2()@endif@if java SBMLReader::hasBzip2()@endif
  * can be used by an application to query at run-time whether support
  * for the compression libraries is available in the present copy of
  * libSBML.
@@ -287,14 +288,14 @@ if (doc->getNumErrors() > 0)
    *
    * This method will log a fatal error if the content given in the
    * parameter @p xml is not SBML.  See the method documentation for
-   * @if clike SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif for an example of code for testing the returned
-   * error code.
+   * @if clike SBMLReader::readSBML()@endif@if java SBMLReader::readSBML(String filename)@endif
+   * for an example of code for testing the returned error code.
    *
    * @param xml a string containing a full SBML model
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @if clike @see SBMLReader::readSBML() @endif@if java @see SBMLReader::readSBML(String filename) @endif
+   * @if clike @see SBMLReader::readSBML()@endif@if java @see SBMLReader::readSBML(String filename)@endif
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
 

@@ -1245,9 +1245,10 @@ public:
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> @if java Rule::@endifcontainsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * invoke the method</strong>
+   * @if clike containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
+   * <strong>to determine whether this situation holds</strong>.  Callers may
+   * wish to take suitable actions in those scenarios.
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this Rule, or @c NULL if one cannot be constructed.
@@ -1280,9 +1281,10 @@ public:
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> @if java Rule::@endifcontainsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * invoke the method</strong>
+   * @if clike containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
+   * <strong>to determine whether this situation holds</strong>.  Callers
+   * may wish to take suitable actions in those scenarios.
    * 
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this Rule, or @c NULL if one cannot be constructed.

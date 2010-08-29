@@ -199,7 +199,8 @@ public:
    * Returns the mathematical formula for this KineticLaw object and return
    * it as as a text string.
    *
-   * This is fundamentally equivalent to @if java KineticLaw::@endifgetMath().
+   * This is fundamentally equivalent to
+   * @if clike getMath()@endif@if java KineticLaw::getMath()@endif.
    * This variant is provided principally for compatibility compatibility
    * with SBML Level&nbsp;1.
    * 
@@ -224,7 +225,8 @@ public:
    * Returns the mathematical formula for this KineticLaw object and return
    * it as as an AST.
    *
-   * This is fundamentally equivalent to @if java KineticLaw::@endifgetFormula().
+   * This is fundamentally equivalent to
+   * @if clike getFormula()@endif@if java KineticLaw::getFormula()@endif.
    * The latter is provided principally for compatibility compatibility
    * with SBML Level&nbsp;1, which represented mathematical formulas in
    * text-string form.
@@ -270,9 +272,11 @@ public:
    * Predicate returning @c true if this
    * KineticLaw's "formula" attribute has been set
    *
-   * This is functionally identical to the method @if java KineticLaw::@endifisSetMath().  It is
-   * provided in order to mirror the parallel between @if java KineticLaw::@endifgetFormula() and
-   * @if java KineticLaw::@endifgetMath().
+   * This is functionally identical to the method
+   * @if clike isSetMath()@endif@if java KineticLaw::isSetMath()@endif.  It is
+   * provided in order to mirror the parallel between
+   * @if clike getFormula()@endif@if java KineticLaw::getFormula()@endif and
+   * @if clike getMath()@endif@if java KineticLaw::getMath()@endif.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
@@ -294,10 +298,11 @@ public:
    * Predicate returning @c true if this
    * Kinetic's "math" subelement has been set
    *
-   * This is identical to the method @if java KineticLaw::@endifisSetFormula().
+   * This is identical to the method
+   * @if clike isSetFormula()@endif@if java KineticLaw::isSetFormula()@endif.
    * It is provided in order to mirror the parallel between
-   * @if java KineticLaw::@endifgetFormula() and
-   * @if java KineticLaw::@endifgetMath().
+   * @if clike getFormula()@endif@if java KineticLaw::getFormula()@endif and
+   * @if clike getMath()@endif@if java KineticLaw::getMath()@endif.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
@@ -370,9 +375,11 @@ public:
    * Sets the mathematical expression of this KineticLaw instance to a copy
    * of the given ASTNode.
    *
-   * This is fundamentally identical to @if java KineticLaw::@endifsetFormula(@if java String formula@endif).  The latter is
-   * provided principally for compatibility compatibility with SBML Level
-   * 1, which represented mathematical formulas in text-string form.
+   * This is fundamentally identical to
+   * @if clike getFormula()@endif@if java KineticLaw::setFormula(String formula)@endif.
+   * The latter is provided principally for compatibility compatibility with
+   * SBML Level&nbsp;1, which represented mathematical formulas in text-string
+   * form.
    *
    * @param math an ASTNode representing a formula tree.
    *
@@ -491,8 +498,8 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if java KineticLaw::@endifcreateParameter() for ab method that does not lead to
-   * these issues.
+   * @if clike createParameter()@endif@if java KineticLaw::createParameter()@endif
+   * for a method that does not lead to these issues.
    *
    * @see createParameter()
    */
@@ -522,8 +529,8 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if java KineticLaw::@endifcreateParameter() for ab method that does not lead to
-   * these issues.
+   * @if clike createParameter()@endif@if java KineticLaw::createParameter()@endif
+   * for a method that does not lead to these issues.
    *
    * @see createLocalParameter()
    */
@@ -696,7 +703,8 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java KineticLaw::@endifgetDerivedUnitDefinition() method returns the calculated units.
+   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
@@ -707,14 +715,16 @@ public:
    * KineticLaw contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and @if java KineticLaw::@endifgetDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
+   * make assumptions about the units, and
+   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> @if java KineticLaw::@endifcontainsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * invoke the method</strong>
+   * @if clike containsUndeclaredUnits()@endif@if java KineticLaw::containsUndeclaredUnits()@endif
+   * <strong>to determine whether this situation holds</strong>.  Callers may
+   * wish to take suitable actions in those scenarios.
    *
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this KineticLaw, or @c NULL if one cannot be constructed.
@@ -732,7 +742,8 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if java KineticLaw::@endifgetDerivedUnitDefinition() method returns the calculated units.
+   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
    * on the model as a whole.  Thus, in cases where the object has not 
@@ -743,14 +754,16 @@ public:
    * KineticLaw contains pure numbers or parameters with undeclared
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
-   * make assumptions about the units, and @if java KineticLaw::@endifgetDerivedUnitDefinition() only
-   * returns the units as far as it is able to determine them.  For
+   * make assumptions about the units, and
+   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
-   * invoke the method</strong> @if java KineticLaw::@endifcontainsUndeclaredUnits() <strong>to
-   * determine whether this situation holds</strong>.  Callers may wish to
-   * take suitable actions in those scenarios.
+   * invoke the method</strong>
+   * @if clike containsUndeclaredUnits()@endif@if java KineticLaw::containsUndeclaredUnits()@endif
+   * <strong>to determine whether this situation holds</strong>.  Callers
+   * may wish to take suitable actions in those scenarios.
    *
    * @return a UnitDefinition that expresses the units of the math 
    * expression of this KineticLaw, or @c NULL if one cannot be constructed.
@@ -770,8 +783,9 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by @if java KineticLaw::@endifgetDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
+   * returned by
+   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */
@@ -788,8 +802,9 @@ public:
    * with undeclared units, @c false otherwise.
    *
    * @note A return value of @c true indicates that the UnitDefinition
-   * returned by @if java KineticLaw::@endifgetDerivedUnitDefinition() may not accurately represent
-   * the units of the expression.
+   * returned by
+   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
    */

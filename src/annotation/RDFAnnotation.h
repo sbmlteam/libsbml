@@ -112,8 +112,9 @@ public:
    *
    * The annotation created by this method is a completely empty SBML
    * <code>&lt;annotation&gt;</code> element.  One use for this is to
-   * then call @if java RDFAnnotationParser::@endifcreateRDFAnnotation() to construct RDF content for this
-   * empty annotation.
+   * then call
+   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif
+   * to construct RDF content for this empty annotation.
    *
    * @return a pointer to an XMLNode for the annotation
    *
@@ -129,7 +130,8 @@ public:
    * The annotation created by this method has namespace declarations for
    * all the relevant XML namespaces used in RDF annotations and also has
    * an empty RDF element.  Note that this is not the containing
-   * <code>&lt;annotation&gt;</code> element; the method @if java RDFAnnotationParser::@endifcreateAnnotation()
+   * <code>&lt;annotation&gt;</code> element; the method
+   * @if clike createAnnotation()@endif@if java RDFAnnotationParser::createAnnotation()@endif
    * is available for that purpose.
    *
    * @return a pointer to an XMLNode
@@ -161,7 +163,7 @@ public:
    * in a model.  (Note that this method does not create a complete
    * annotation; it only creates a description element.  For creating empty
    * RDF annotations that can serve as containers for RDF descriptions, see
-   * @if java RDFAnnotationParser::@endifcreateRDFAnnotation().
+   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif.
    *
    * @param object the object to be annotated
    *
@@ -178,9 +180,10 @@ public:
    * element.
    *
    * This essentially takes the given SBML object, reads out the CVTerm objects
-   * attached to it, calls @if java RDFAnnotationParser::@endifcreateRDFDescription(@if java SBase object@endif) to create an RDF
-   * "Description" element to hold the terms and adds each term with
-   * appropriate qualifiers.
+   * attached to it, calls
+   * @if clike createRDFDescription()@endif@if java RDFAnnotationParser::createRDFDescription(SBase object)@endif
+   * to create an RDF "Description" element to hold the terms and adds
+   * each term with appropriate qualifiers.
    *
    * @param object the SBML object to start from
    *
@@ -195,11 +198,14 @@ public:
    * around it.
    *
    * This essentially takes the given SBML object, calls
-   * @if java RDFAnnotationParser::@endifcreateCVTerms(@if java SBase object@endif)
+   * @if clike RDFAnnotationParser::createCVTerms()@endif@if java RDFAnnotationParser::createCVTerms(SBase object)@endif
    * to read out the CVTerm objects
-   * attached to it, calls @if java RDFAnnotationParser::@endifcreateRDFAnnotation() to create an RDF
-   * annotation to hold the terms, and finally calls @if java RDFAnnotationParser::@endifcreateAnnotation() to
-   * wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
+   * attached to it, calls
+   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif
+   * to create an RDF
+   * annotation to hold the terms, and finally calls
+   * @if clike createAnnotation()@endif@if java RDFAnnotationParser::createAnnotation()@endif
+   * to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
    *
    * @param object the SBML object to start from
    *

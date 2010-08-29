@@ -54,7 +54,8 @@
  * @if java  <a
  * href="../../../libsbml-installation.html">installation instructions</a> 
  * @endif for libSBML for more information about this.  The methods
- * @if java SBMLWriter::@endifhasZlib() and @if java SBMLWriter::@endifhasBzip2()
+ * @if clike hasZlib()@endif@if java SBMLWriter::hasZlib()@endif and
+ * @if clike hasBzip2()@endif@if java SBMLWriter::hasBzip2()@endif
  * can be used by an application to query at run-time whether support
  * for the compression libraries is available in the present copy of
  * libSBML.
@@ -104,7 +105,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program name and version are set (see
-   * @if java SBMLWriter::@endifsetProgramVersion(@if java String version@endif)), the
+   * @if clike setProgramVersion()@endif@if java SBMLWriter::setProgramVersion(String version)@endif), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document:
    * @verbatim
@@ -116,8 +117,7 @@ public:
    * program in which libSBML is embedded, not libSBML itself!)
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * 
@@ -131,7 +131,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program version and name are set (see
-   * @if java SBMLWriter::@endifsetProgramName(@if java String name@endif)), the
+   * @if clike setProgramName()@endif@if java SBMLWriter::setProgramName(String name)@endif), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document: @verbatim <!-- Created by <program
    * name> version <program version> on yyyy-MM-dd HH:mm with libsbml
@@ -141,8 +141,7 @@ public:
    * refers to program in which libSBML is embedded, not libSBML itself!)
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
