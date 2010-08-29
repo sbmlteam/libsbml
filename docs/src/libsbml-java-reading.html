@@ -1,18 +1,18 @@
-<center style="margin-bottom: 2em">
+<center style="margin-bottom: 2em; margin-top: 2em">
 <table border="0">
 <tr>
 <td style="font-size: small;">
-<a href="#getting-started">Getting started: the 1-minute introduction</a>
+<a href="#getting-started">&bull; Getting started: the 1-minute introduction</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#configuring">Configuring your environment to use the Java version of libSBML</a>
+<a href="#configuring">&bull; Configuring your environment to use the Java version of libSBML</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#reading">Reading SBML</a>
+<a href="#reading">&bull; Reading SBML</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#sbmldocument">The SBMLDocument container</a>
+<a href="#sbmldocument">&bull; The SBMLDocument container</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#writing">Writing SBML</a>
+<a href="#writing">&bull; Writing SBML</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#static">Static methods for common reading and writing operations</a>
+<a href="#static">&bull; Static methods for common reading and writing operations</a>
 </td>
 </tr>
 </table>
@@ -169,14 +169,14 @@ successful.
 </ul>
 
 <p>
-The model may be either in SBML Level&nbsp;1 or SBML Level&nbsp;2
+The model may be in SBML Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3
 format.  LibSBML implements an unified object model for SBML that
-encompasses both Level&nbsp;1 and Level&nbsp;2, so applications
+encompasses all SBML Levels, so applications
 generally do not need to worry about differences in syntax between
 these definitions of SBML when reading and writing models.  (However,
 applications still need to be concerned about the SBML
 <em>constructs</em> used and how they are interpreted, since there are
-substantial differences between SBML Level&nbsp;1 and Level&nbsp;2!)
+substantial differences between SBML Levels!)
 </p>
 
 
@@ -187,16 +187,17 @@ href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> object in
 libSBML represents a whole SBML model and its associated data.  <a
 href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> corresponds
 roughly to the class <i>Sbml</i> defined in the SBML Level&nbsp;2
+specification and the class <i>SBML</i> defined in the SBML Level&nbsp;3
 specification, but it does not have a direct correspondence in SBML
-Level&nbsp;1.  (But, it is created by libSBML no matter whether the
-model is Level&nbsp;1 or Level&nbsp;2.)
+Level&nbsp;1.  (But, it is created by libSBML no matter whether the model
+is Level&nbsp;1, Level&nbsp;2 or Level&nbsp;3.)
 
 <p>
 <a href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> is
 derived from class <a href="org/sbml/libsbml/SBase.html">SBase</a>, so
 that it contains the usual <a
 href="org/sbml/libsbml/SBase.html">SBase</a> attributes (in SBML
-Level&nbsp;2 Versions&nbsp;3 and&nbsp;4) of "metaid" and "sboTerm", as well
+Levels&nbsp;2 and&nbsp;3) of "metaid" and "sboTerm", as well
 as the subelements "notes" and "annotation".  It also contains the
 attributes "level" and "version" indicating the Level and Version of the
 SBML document read.  The class <a
@@ -279,11 +280,10 @@ href="org/sbml/libsbml/SBMLDocument.html">SBMLDocument</a> methods worth
 mentioning in the context of reading SBML are those for running
 consistency-checking and validation rules on the SBML content.  These
 methods assess whether the SBML is legal according to basic rules listed in
-the SBML Level&nbsp;2 Versions&nbsp;2 through&nbsp;4 specification
-documents.  Note that they are mostly structural checks, in the sense that
-they can indicate whether the SBML is properly constructed; they cannot
-tell if a model is nonsense.  (But at least they can assess whether it's
-syntactically correct nonsense!).
+the SBML specifications documents.  Note that they are mostly structural
+checks, in the sense that they can indicate whether the SBML is properly
+constructed; they cannot tell if a model is nonsense.  (But at least they
+can assess whether it's syntactically correct nonsense!).
 
 <ul>
 
@@ -300,41 +300,48 @@ interfaces to examine the individual errors.
 href="org/sbml/libsbml/SBMLDocument.html#checkL1Compatibility()">checkL1Compatibility()</a></code>
 peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;1, and returns the number of
-failures.  If all the checks succeed, it returns 0.
+failures.  If all the checks succeed, it returns <code>0</code>.
 </li>
 
 <li style="margin-bottom: 1em"> <code>public long <a
 href="org/sbml/libsbml/SBMLDocument.html#checkL2v1Compatibility()">checkL2v1Compatibility()</a></code> 
 peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;2 Version 1, and returns the
-number of failures.  If all the checks succeed, it returns 0.
+number of failures.  If all the checks succeed, it returns <code>0</code>.
 </li>
 
 <li style="margin-bottom: 1em"> <code>public long <a
 href="org/sbml/libsbml/SBMLDocument.html#checkL2v2Compatibility()">checkL2v2Compatibility()</a></code>
 peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
-returns the number of failures.  If all the checks succeed, it returns 0.
+returns the number of failures.  If all the checks succeed, it returns <code>0</code>.
 </li>
 
 <li style="margin-bottom: 1em"> <code>public long <a
 href="org/sbml/libsbml/SBMLDocument.html#checkL2v3Compatibility()">checkL2v3Compatibility()</a></code>
 peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;2 Version&nbsp;3, and
-returns the number of failures.  If all the checks succeed, it returns 0.
+returns the number of failures.  If all the checks succeed, it returns <code>0</code>.
 </li>
 
 <li style="margin-bottom: 1em"> <code>public long <a
 href="org/sbml/libsbml/SBMLDocument.html#checkL2v4Compatibility()">checkL2v4Compatibility()</a></code>
 peforms a set of semantic consistency checks on the document to establish
 whether it can be converted to SBML Level&nbsp;2 Version&nbsp;4, and
-returns the number of failures.  If all the checks succeed, it returns 0.
+returns the number of failures.  If all the checks succeed, it returns <code>0</code>.
+</li>
+
+<li style="margin-bottom: 1em"> <code>public long <a
+href="org/sbml/libsbml/SBMLDocument.html#checkL3v1Compatibility()">checkL3v1Compatibility()</a></code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level&nbsp;3 Version&nbsp;1, and
+returns the number of failures.  If all the checks succeed, it returns <code>0</code>.
 </li>
 
 </ul>
 
 At the time of this libSBML release, the most recent release of SBML is
-Level&nbsp;2 Version&nbsp;4.
+Level&nbsp;3 Version&nbsp;1.
 
 
 <h2><a class="anchor" name="writing">Writing SBML</a></h2>

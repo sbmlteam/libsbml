@@ -122,12 +122,12 @@ vice-versa.  In summary, the functions available are the following:
 
 @li <code>char * @link SBML_formulaToString(const ASTNode_t* tree)
 SBML_formulaToString(const ASTNode* tree) @endlink</code> reads an
-AST, converts it to a text string in SBML Level 1 formula syntax, and
+AST, converts it to a text string in SBML Level&nbsp;1 formula syntax, and
 returns it.  The caller owns the character string returned and should free
 it after it is no longer needed.
 
 @li <code>ASTNode * SBML_parseFormula(const char* formula)</code> reads a
-text-string containing a mathematical expression in SBML Level 1 syntax and
+text-string containing a mathematical expression in SBML Level&nbsp;1 syntax and
 returns an AST corresponding to the expression.
 
 
@@ -166,7 +166,8 @@ invoked using either @c ^ or the function @c power.)
 
 A program parsing a formula in an SBML model should assume that names
 appearing in the formula are the identifiers of Species, Parameter,
-Compartment, FunctionDefinition, or Reaction objects defined in a model.
+Compartment, FunctionDefinition, (in Level&nbsp;2) Reaction, or (in
+Level&nbsp;3) SpeciesReference objects defined in a model.
 When a function call is involved, the syntax consists of a function
 identifier, followed by optional white space, followed by an opening
 parenthesis, followed by a sequence of zero or more arguments separated by
@@ -174,10 +175,10 @@ commas (with each comma optionally preceded and/or followed by zero or more
 white space characters), followed by a closing parenthesis.  There is an
 almost one-to-one mapping between the list of predefined functions
 available, and those defined in MathML.  All of the MathML functions are
-recognized; this set is larger than the functions defined in SBML Level 1.
-In the subset of functions that overlap between MathML and SBML Level 1,
+recognized; this set is larger than the functions defined in SBML Level&nbsp;1.
+In the subset of functions that overlap between MathML and SBML Level&nbsp;1,
 there exist a few differences.  The following table summarizes the
-differences between the predefined functions in SBML Level 1 and the MathML
+differences between the predefined functions in SBML Level&nbsp;1 and the MathML
 equivalents in SBML Levels&nbsp;2 and&nbsp;3:
 
 @htmlinclude math-functions.html

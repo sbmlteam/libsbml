@@ -1,16 +1,16 @@
-<center style="margin-bottom: 2em">
+<center style="margin-bottom: 2em; margin-top: 2em">
 <table border="0">
 <tr>
 <td style="font-size: small;">
-<a href="#math-overview">Basic Concepts</a>
+<a href="#math-overview">&bull; Basic Concepts</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#math-convert">Converting between ASTs and Text Strings</a>
+<a href="#math-convert">&bull; Converting between ASTs and Text Strings</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#math-diffs">The String Formula Syntax and Differences with MathML</a>
+<a href="#math-diffs">&bull; The String Formula Syntax and Differences with MathML</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#math-ast">Methods for working with libSBML's Abstract Syntax Trees</a>
+<a href="#math-ast">&bull; Methods for working with libSBML's Abstract Syntax Trees</a>
 </td></tr><tr><td style="font-size: small;">
-<a href="#math-reading">Reading and Writing MathML from/to ASTs</a>
+<a href="#math-reading">&bull; Reading and Writing MathML from/to ASTs</a>
 </td></tr><tr><td style="font-size: small;">
 </tr>
 </table>
@@ -36,11 +36,11 @@ the node's value (which might be, for example, a number or a symbol) and a
 list of children nodes.  Each <code><a
 href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code> node may have none,
 one, two, or more child depending on its type.  The following diagram
-illustrates an example of how the mathematical expression "1 + 2" is
-represented as an AST with one <em>plus</em> node having two <em>
-integer</em> children nodes for the numbers 1 and 2.  The figure also shows
-the corresponding <a href="http://www.w3.org/Math/">MathML&nbsp;2.0</a>
-representation:
+illustrates an example of how the mathematical expression "<code>1 +
+2</code>" is represented as an AST with one <em>plus</em> node having two
+<em> integer</em> children nodes for the numbers <code>1</code> and
+<code>2</code>.  The figure also shows the corresponding <a
+href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> representation:
 </p>
 
 <center>
@@ -109,14 +109,14 @@ C-like than following a C++ style, and that's the reason.
 
 <h2><a class="anchor" name="math-convert">Converting between ASTs and Text Strings</a></h2>
 
-<p> SBML Level&nbsp;2 represents mathematical expressions using <a
-href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> (more specifically, a
-subset of the <em>content</em> portion of MathML&nbsp;2.0), but most
-software applications using libSBML do not use MathML directly.  Instead,
-applications generally either interact with mathematics in text-string
-form, or else they use the API for working with Abstract Syntax Trees
-(described below).  LibSBML provides support for both approaches.  The
-libSBML formula parser has been carefully engineered so that
+<p> SBML Levels&nbsp;2 and&nbsp;3 represent mathematical expressions
+using <a href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> (more
+specifically, a subset of the <em>content</em> portion of MathML&nbsp;2.0),
+but most software applications using libSBML do not use MathML directly.
+Instead, applications generally either interact with mathematics in
+text-string form, or else they use the API for working with Abstract Syntax
+Trees (described below).  LibSBML provides support for both approaches.
+The libSBML formula parser has been carefully engineered so that
 transformations from MathML to infix string notation <em>and back</em> is
 possible with a minimum of disruption to the structure of the mathematical
 expression.
@@ -285,8 +285,9 @@ appearing in the formula are the identifiers of
 <code><a href="org/sbml/libsbml/Compartment.html">Compartment</a></code>,
 <code><a href="org/sbml/libsbml/Parameter.html">Parameter</a></code>,
 <code><a href="org/sbml/libsbml/FunctionDefinition.html">FunctionDefinition</a></code>,
-or <code><a href="org/sbml/libsbml/Reaction.html">Reaction</a></code>
-defined in a model.  When a function call is involved, the syntax consists
+(in Level&nbsp;2) <code><a href="org/sbml/libsbml/Reaction.html">Reaction</a></code>, or 
+(in Level&nbsp;3) <code><a href="org/sbml/libsbml/SpeciesReference.html">SpeciesReference</a></code> 
+objects defined in a model.  When a function call is involved, the syntax consists
 of a function identifier, followed by optional white space, followed by an
 opening parenthesis, followed by a sequence of zero or more arguments
 separated by commas (with each comma optionally preceded and/or followed by
@@ -297,14 +298,14 @@ funcctions are recognized; this set is larger than the functions defined in
 SBML Level&nbsp;1.  In the subset of functions that overlap between MathML
 and SBML Level&nbsp;1, there exist a few differences.  The following table
 summarizes the differences between the predefined functions in SBML
-Level&nbsp;1 and the MathML equivalents in SBML Level&nbsp;2:
+Level&nbsp;1 and the MathML equivalents in SBML Levels&nbsp;2 and&nbsp;3:
 </p>
 
 <center>
 <table border="0" class="text-table width80 normal-font alt-row-colors">
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">Text string formula functions</th>
-     <th align="left">MathML equivalents in SBML Level 2</th>
+     <th align="left">MathML equivalents in SBML Levels&nbsp;2 and&nbsp;3</th>
  </tr>
  <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
  <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
@@ -321,7 +322,7 @@ functions recognized by <code><a
 href="org/sbml/libsbml/libsbml.html#parseFormula(java.lang.String)">
 libsbml.parseFormula</a>(java.lang.String)</code>; the right column shows
 their equivalent function names in MathML&nbsp;2.0, used in SBML
-Level&nbsp;2.</caption>
+Levels&nbsp;2 and&nbsp;3.</caption>
 </table>
 </center>
 
@@ -360,7 +361,7 @@ that they represent:
  <tr><td><code>AST_CONSTANT_TRUE</code></td><td><code>AST_FUNCTION_CSCH</code></td><td><code>AST_RELATIONAL_LEQ</code></td></tr>
  <tr><td><code>AST_LAMBDA</code></td><td><code>AST_FUNCTION_EXP</code></td><td><code>AST_RELATIONAL_LT</code></td></tr>
  <tr><td><code>AST_FUNCTION</code></td><td><code>AST_FUNCTION_FACTORIAL</code></td><td><code>AST_RELATIONAL_NEQ</code></td></tr>
- <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><code></code></td></tr>
+ <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><nobr><code>AST_NAME_AVOGADRO</code> <em><span style="color: #c00">(Level&nbsp;3 only)</span></em></nobr></td></tr>
  <tr><td><code>AST_FUNCTION_ARCCOS</code></td><td><code>AST_FUNCTION_LN</code></td></tr>
  <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
  <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
@@ -397,7 +398,10 @@ being either a logical operator, a relational operator, or the constant
 href="org/sbml/libsbml/ASTNode.html#isFunction()">isFunction()</a></code>
 returns <code>true</code> if this AST node is a function (i.e., a MathML
 defined function such as <code>exp</code> or else a function defined by a
-FunctionDefinition in the Model).
+<code><a
+href="org/sbml/libsbml/FunctionDefinition.html">FunctionDefinition</a></code>
+object in the enclosing <code><a
+href="org/sbml/libsbml/Model.html">Model</a></code> object).
 
 <li style="margin-bottom: 1em"> <code>boolean <a
 href="org/sbml/libsbml/ASTNode.html#isInfinity()">isInfinity()</a></code>
@@ -431,9 +435,9 @@ returns <code>true</code> if this AST node is a logical operator
 
 <li style="margin-bottom: 1em"> <code>boolean <a
 href="org/sbml/libsbml/ASTNode.html#isName()">isName()</a></code> returns
-<code>true</code> if this AST node is a user-defined name or (in SBML Level
-2) one of the two special <code>csymbol</code> constructs "delay" or
-"time".
+<code>true</code> if this AST node is a user-defined name or (in SBML
+Levels&nbsp;2 and&nbsp;3) one of the two special <code>csymbol</code>
+constructs "delay" or "time".
 
 <li style="margin-bottom: 1em"> <code>boolean <a
 href="org/sbml/libsbml/ASTNode.html#isNaN()">isNaN()</a></code> returns
@@ -522,7 +526,7 @@ href="org/sbml/libsbml/ASTNode.html#getExponent()">getExponent()</a></code>
 
 <p>
 Of course, all of this would be of little use if libSBML didn't also
-provide methods for @em setting the values of AST node objects!  And it
+provide methods for <em>setting</em> the values of AST node objects!  And it
 does.  The methods are the following:
 </p>
 
@@ -602,8 +606,8 @@ Its type should be set by the caller as soon as possible using
 
 <li style="margin-bottom: 1em"> <code>long <a
 href="org/sbml/libsbml/ASTNode.html#getNumChildren()">getNumChildren()</a></code>
-returns the number of children of this AST node or 0 is this node has no
-children.
+returns the number of children of this AST node or <code>0</code> is this
+node has no children.
 
 <li style="margin-bottom: 1em"> <code><a
 href="org/sbml/libsbml/ASTNode.html#addChild(org.sbml.libsbml.ASTNode)">addChild</a>(ASTNode)</code>

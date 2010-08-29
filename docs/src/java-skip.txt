@@ -4,3 +4,4 @@ org.sbml.libsbml.SWIGTYPE_p_std__ostringstream
 org.sbml.libsbml.SWIGTYPE_p_XMLParser 
 org.sbml.libsbml.SWIGTYPE_p_void
 org.sbml.libsbml.SWIGTYPE_p_std__mapT_std__string_const_std__pairT_double_bool_t_t
+org.sbml.libsbml.SBMLTransforms

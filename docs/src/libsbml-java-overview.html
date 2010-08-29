@@ -9,27 +9,24 @@
 </TR>
 </TABLE>
 
-<P>
-This is the API reference manual for the Java language bindings of libSBML.
-
+<p>
+<b>Authors:</b> 
 <blockquote>
 
-<b>Authors:</b> Sarah Keating, Akiya Jouraku and Ben Bornstein designed and
-wrote most of the software, <em>with contributions from Frank Bergmann,
-Bill Denney, Christoph Flamm, Akira Funahashi, Michael Hucka, Ralph Gauges,
-Martin Ginkel, Alex Gutteridge, Stefan Hoops, Moriyoshi Koizumi, Ben
-Kovitz, Rainer Machn&eacute;, Nicolas Rodriguez, and many others in the
-SBML community</em>.
-<p>
-Michael Hucka wrote most of this libSBML user and API
-documentation.
+<b>Sarah Keating</b>, <b>Akiya Jouraku</b>, and <b>Ben Bornstein</b>
+designed and wrote most of the software, <em>with contributions from Frank
+Bergmann, Bill Denney, Christoph Flamm, Akira Funahashi, Michael Hucka,
+Ralph Gauges, Martin Ginkel, Alex Gutteridge, Stefan Hoops, Moriyoshi
+Koizumi, Ben Kovitz, Rainer Machn&eacute;, Nicolas Rodriguez, and many
+others in the SBML community</em>.  <b>Michael Hucka</b> wrote most of this
+libSBML user and API documentation.
 </blockquote>
 
 <p>
 This manual describes the Java application programming interface (API) of
 libSBML, an open-source (LGPL) library for writing and manipulating the
 Systems Biology Markup Language (SBML).  This version of libSBML supports
-all releases of SBML up through  <strong>Level&nbsp;3 Version&nbsp;1
+all releases of SBML up through  <strong>Level&nbsp;3 Version&nbsp;1 Core
 <em>Release 1 Candidate</em></strong>.
 For more information about SBML, please visit <a
 href="http://sbml.org">http://sbml.org</a> on the Internet.  Please report
@@ -38,12 +35,15 @@ href="http://sbml.org/Software/libSBML/issue-tracker">
 http://sbml.org/Software/libSBML/issue-tracker</a>.
 </p>
 
-<blockquote style="color: #880000; border: 1px dotted gray; padding: 4px; width:
-85%; text-align: left"><em>Note to readers</em>: Most of this manual is
-generated automatically from the C++ source code of libSBML.  Owing to
-imperfections in the conversion software, it is not as complete as the C++
-API manual.  If you encounter undocumented members (such as constants), you
-may wish to check the corresponding text in the C++ API manual.
+<blockquote style="color: #880000; width: 85%; text-align: left;
+padding: 4px; width: 85%; text-align: left; border: 1px dotted darkred;
+-webkit-border-top-left-radius: 8px; -webkit-border-top-right-radius: 8px;
+-webkit-border-bottom-left-radius: 8px; -webkit-border-bottom-right-radius:
+8px;"><em>Note to readers</em>: Most of this manual is generated
+automatically from the C++ source code of libSBML.  Owing to imperfections
+in the conversion software, it is not as complete as the C++ API manual.
+If you encounter undocumented components, you may wish to check the
+corresponding text in the C++ API manual.
 </blockquote>
 
 <h2 style="margin-bottom: 0px">General information</h2>
@@ -53,13 +53,13 @@ may wish to check the corresponding text in the C++ API manual.
 <li><a href="libsbml-features.html">LibSBML features</a></li>
 <li><a href="libsbml-communications.html">Bug reports, mailing lists, and related topics</a></li>
 </ul>
-<h2 style="margin-bottom: 0px">Programming with libSBML in Java</h2>
+<h2 style="margin-bottom: 0px; padding-top: 0.25em">Programming with libSBML in Java</h2>
 <ul>
 <li><a href="libsbml-java-reading.html">Reading and writing SBML content</a></li>
 <li><a href="libsbml-java-math.html">Mathematical Expressions and their Manipulation</a></li>
 <li><a href="libsbml-issues.html">Known issues and pitfalls</a></li>
 </ul>
-<h2 style="margin-bottom: 0px">Other topics</h2>
+<h2 style="margin-bottom: 0px; padding-top: 0.25em">Other topics</h2>
 <ul>
 <li><a href="libsbml-uninstallation.html">Uninstalling LibSBML</a></li>
 <li><a href="libsbml-license.html">LibSBML license</a></li>
@@ -71,10 +71,12 @@ may wish to check the corresponding text in the C++ API manual.
 careers.  If you use libSBML and you publish papers about your software, we
 ask that you please cite the libSBML paper:
 
-<blockquote style="border: 1px solid #005588; padding: 4px; width: 85%;
-text-align: left">Bornstein, B. J., Keating, S. M., Jouraku, A., and Hucka
-M. (2008) LibSBML: An API Library for SBML. <em>Bioinformatics</em>,
-24(6):880-881.
+<blockquote style="border: 1px solid #ada; padding: 4px; width: 85%;
+text-align: left; background-color: #dfffc1; -webkit-border-top-left-radius: 8px;
+-webkit-border-top-right-radius: 8px; -webkit-border-bottom-left-radius: 8px;
+-webkit-border-bottom-right-radius: 8px;">
+  <b>Bornstein, B. J., Keating, S. M., Jouraku, A., and Hucka M.</b> (2008)
+  LibSBML: An API Library for SBML. <em>Bioinformatics</em>, 24(6):880-881.
 </blockquote>
 
 <p>

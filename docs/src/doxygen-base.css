@@ -36,7 +36,20 @@ td {
 
 table {
   font-size: 12px;
+  border-color: #fff;
+  border-width: thin;
 }
+
+/* The next two (TableRowColor) are for javadoc */
+
+tr.TableRowColor td {
+  font-style: italic;
+  color: #666;
+} 
+
+tr.TableRowColor td code {
+  font-style: normal;
+} 
 
 TD.footer {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
@@ -65,6 +78,10 @@ H2 {
   padding-bottom: 0.2em;
 }
 
+h2 code {
+  font-size: 16px;
+}
+
 H3 {
   color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
@@ -73,11 +90,19 @@ H3 {
   padding-top: 0.5em;
 }
 
+h3 code {
+  font-size: 13px;
+}
+
 H4 {
   color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-style: italic;
   font-size: 12px;
+}
+
+h4 code {
+  font-size: 11px;
 }
 
 DIV.qindex {
@@ -238,7 +263,7 @@ DIV.ah {
  
 */
 
-hr { 
+div.contents hr { 
   margin: 2em 0 2em 0;
 }
 
@@ -267,6 +292,10 @@ hr {
 
 .memdoc dl dd table td p {
   margin: auto auto 5px auto;
+}
+
+.memdoc dl.warning {
+  color: #880000;
 }
 
 .memproto {  

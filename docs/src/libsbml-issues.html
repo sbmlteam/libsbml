@@ -10,7 +10,6 @@ possible pitfalls in using libSBML:
 <li><a href="#make-uninstall">Possible unexpected <code>make uninstall</code> behavior</a></li>
 <li><a href="#ubuntu-tomcat">Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></li>
 <li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
-<li><a href="#doc-warnings">Warnings during creation of documentation</a></li>
 </ul>
 
 
@@ -49,7 +48,8 @@ mathematical formulas have variants that accept ASTs instead.
 <h2><a class="anchor" name="math-syntax-diffs"/>Differences in mathematical formula syntax</a></h2>
 
 The functions <code>char* SBML_formulaToString(const ASTNode* tree)</code>
-and <code>ASTNode* SBML_parseFormula(const char* formula)</code> can be
+and <code>ASTNode* SBML_parseFormula(const char* formula)</code> (and their
+equivalents in the different language bindings supported by libSBML) can be
 used to convert mathematical formulas to/from a text-string format.
 However, MathML (the XML encoding format used in SBML Levels&nbsp;2
 and&nbsp;3 for mathematical formulas) does not have a defined standard
@@ -205,19 +205,8 @@ libSBML.  </ol>
 
 <h2><a class="anchor" name="conv-l1v1"/>Conversion to/from SBML Level 1 Version 1 is not supported</a></h2>
 
-The method <code>SBMLDocument::setLevelAndVersion()</code> performs
-conversion between versions and levels of SBML (to the extent possible
-within technical and practical limits).  However, conversion to/from SBML
-Level&nbsp;1 Version&nbsp;1 is not supported.
-
-
-<h2><a class="anchor" name="doc-warnings"/>Warnings during creation of documentation</a></h2>
-
-<p> If you run the commands to generate the libSBML documentation, there
-will be warnings printed for all except the C++ documentation.  These
-warnings still exist as of version 3.1 of libSBML.  Most of the warnings
-are known incompatibilities that are next to impossible to resolve between
-the different tools used to generate different versions of the API
-documentation.  It is probably safe to ignore them.  Hopefully the warnings
-will be eliminated in a future version of libSBML.
-
+The method <code>setLevelAndVersion()</code> on the class
+<code>SBMLDocument</code> performs conversion between versions and levels
+of SBML (to the extent possible within technical and practical limits).
+However, conversion to/from SBML Level&nbsp;1 Version&nbsp;1 is not
+supported.
