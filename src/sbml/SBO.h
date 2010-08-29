@@ -39,7 +39,7 @@
  * parameter with identifier "<code>k</code>" that would indicate to a
  * software tool it is a first-order rate constant (if that's what
  * "<code>k</code>" happened to be in some given model).  However, one may
- * need to convert a model between different representations (\eg
+ * need to convert a model between different representations (e.g.,
  * Henri-Michaelis-Menten versus elementary steps), or to use it with
  * different modeling approaches (discrete or continuous).  One may also
  * need to relate the model components with other description formats such
