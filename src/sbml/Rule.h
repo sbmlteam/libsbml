@@ -161,8 +161,7 @@
  * all the maximal matchings will have this property; i.e., it is only
  * necessary to find one maximal matching.)
  *
- * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
- * @if java  @section RuleType_t Rule types for SBML Level 1@endif
+ * @section RuleType_t Rule types for SBML Level 1
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
@@ -178,9 +177,9 @@
  *      <td><strong>Enumerator</strong></td>
  *      <td><strong>Meaning</strong></td>
  *  </tr>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</code></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</code></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</code></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -358,8 +357,7 @@
  * necessary to find one maximal matching.)
  *
  *
- * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
- * @if java  @section RuleType_t Rule types for SBML Level 1@endif
+ * @section RuleType_t Rule types for SBML Level 1
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
@@ -375,9 +373,9 @@
  *      <td><strong>Enumerator</strong></td>
  *      <td><strong>Meaning</strong></td>
  *  </tr>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</code></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</code></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</code></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -596,8 +594,7 @@
  * necessary to find one maximal matching.)
  *
  *
- * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
- * @if java  @section RuleType_t Rule types for SBML Level 1@endif
+ * @section RuleType_t Rule types for SBML Level 1
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
@@ -613,9 +610,9 @@
  *      <td><strong>Enumerator</strong></td>
  *      <td><strong>Meaning</strong></td>
  *  </tr>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</code></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</code></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</code></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -812,8 +809,7 @@
  * necessary to find one maximal matching.)
  *
  *
- * @if clike @section RuleType_t RuleType_t for SBML Level 1@endif
- * @if java  @section RuleType_t Rule types for SBML Level 1@endif
+ * @section RuleType_t Rule types for SBML Level 1
  *
  * SBML Level 1 uses a different scheme than SBML Level&nbsp;2 and
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
@@ -829,9 +825,9 @@
  *      <td><strong>Enumerator</strong></td>
  *      <td><strong>Meaning</strong></td>
  *  </tr>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</em></td><td>Indicates the rule is a "rate" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</em></td><td>Indicates the rule is a "scalar" rule.</td>
- * <tr><td><em>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</em></td><td>Indicates the rule type is unknown or not
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink</code></td><td>Indicates the rule is a "rate" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink</code></td><td>Indicates the rule is a "scalar" rule.</td>
+ * <tr><td><code>@link RuleType_t#RULE_TYPE_INVALID RULE_TYPE_INVALID@endlink</code></td><td>Indicates the rule type is unknown or not
  * yet set.</td>
  * </table>
  * </center>
@@ -1120,8 +1116,7 @@ public:
    * @param formula a mathematical formula in text-string form.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1142,8 +1137,7 @@ public:
    * @param math the ASTNode structure of the mathematical formula.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1177,8 +1171,7 @@ public:
    * elsewhere in the enclosing Model object.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1193,8 +1186,7 @@ public:
    * @param sname the identifier of the units
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
@@ -1210,8 +1202,7 @@ public:
    * Unsets the "units" for this Rule.
    *
    * @return integer value indicating success/failure of the
-   * function.  @if clike The value is drawn from the
-   * enumeration #OperationReturnValues_t. @endif The possible values
+   * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1640,7 +1631,7 @@ public:
    * AlgebraicRule
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
-   * (e.g., using Model::addRule(@if java Rule r@endif)), the SBML Level, SBML Version
+   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AlgebraicRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1667,7 +1658,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
-   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML XML namespace of the
+   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the
    * document @em overrides the value used when creating the AlgebraicRule
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -1782,7 +1773,7 @@ public:
    * AssignmentRule
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
-   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML Level, SBML Version
+   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AssignmentRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1809,7 +1800,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AssignmentRule object to an SBMLDocument
-   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML XML namespace of
+   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * AssignmentRule object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,
@@ -1914,7 +1905,7 @@ public:
    * RateRule
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
-   * (e.g., using Model::addRule(@if java Rule r@endif), the SBML Level, SBML Version
+   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the RateRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1941,7 +1932,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
-   * using Model::addRule(@if java Rule r@endif), the SBML XML namespace of the document
+   * using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
    * @em overrides the value used when creating the RateRule object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the
