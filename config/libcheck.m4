@@ -39,8 +39,8 @@ dnl
 AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
   AC_ARG_WITH([check],
-    AC_HELP_STRING([--with-check=PREFIX],
-                   [use the libcheck unit testing library [[default=no]]]),
+    AC_HELP_STRING([--with-check@<:@=PREFIX@:>@],
+                   [use the libcheck unit testing library @<:@default=no@:>@]),
     [with_libcheck=$withval],
     [with_libcheck=no])
 

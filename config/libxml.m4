@@ -66,8 +66,8 @@ dnl Tests for libxml2, and defines LIBXML_CPPFLAGS and LIBXML_LIBS.
 AC_DEFUN([CONFIG_LIB_LIBXML],
 [ 
   AC_ARG_WITH([libxml],
-    AC_HELP_STRING([--with-libxml=PREFIX],
-                   [use the libxml2 XML library [[default=no]]]),
+    AC_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
+                   [use the libxml2 XML library @<:@default=no@:>@]),
             [with_libxml="$withval"], [with_libxml=yes])
 
   if test "$with_expat" != "no" -o "$with_xerces" != "no"; then

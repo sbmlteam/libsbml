@@ -29,8 +29,8 @@ dnl
 AC_DEFUN([CONFIG_PROG_JAVA],
 [
   AC_ARG_WITH([java],
-    AC_HELP_STRING([--with-java=PREFIX],
-                   [generate Java interface library [[default=no]]]),
+    AC_HELP_STRING([--with-java@<:@=PREFIX@:>@],
+                   [generate Java interface library @<:@default=no@:>@]),
     [with_java=$withval],
     [with_java=no])
 

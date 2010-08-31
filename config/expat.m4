@@ -30,8 +30,8 @@ dnl Default minimum version is 1.95.8 because that's the minimum LibSBML needs.
 AC_DEFUN([CONFIG_LIB_EXPAT],
 [
   AC_ARG_WITH([expat],
-    AC_HELP_STRING([--with-expat=PREFIX],
-                   [use the Expat XML Library [[default=no]]]),
+    AC_HELP_STRING([--with-expat@<:@=PREFIX@:>@],
+                   [use the Expat XML Library @<:@default=no@:>@]),
     [with_expat=$withval],
     [with_expat=no])
 

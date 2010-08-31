@@ -83,7 +83,7 @@ dnl fi
 
 AC_ARG_ENABLE([cpp-namespace],
   AC_HELP_STRING([--enable-cpp-namespace@<:@=ARG@:>@],
-                 [enable C++ namespace for libsbml (default=no)]),
+                 [enable C++ namespace for libsbml @<:@default=no@:>@]),
   [enable_cpp_namespace=$enableval],
   [enable_cpp_namespace=no])
 
@@ -93,7 +93,7 @@ fi
 
 AC_ARG_ENABLE([layout],
   AC_HELP_STRING([--enable-layout@<:@=ARG@:>@],
-                 [build the SBML layout extension (default=no)]),
+                 [build the SBML layout extension @<:@default=no@:>@]),
   [enable_layout=$enableval],
   [enable_layout=no])
 
@@ -104,7 +104,7 @@ fi
 
 AC_ARG_ENABLE([compression],
   AC_HELP_STRING([--enable-compression@<:@=ARG@:>@],
-                 [enable file compression if possible (default=yes)]),
+                 [enable file compression if possible @<:@default=yes@:>@]),
   [enable_compression=$enableval],
   [enable_compression=yes])
 

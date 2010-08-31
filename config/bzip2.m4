@@ -44,8 +44,8 @@ dnl --------------------------------------------------------------------- -->*/
 AC_DEFUN([CONFIG_LIB_BZ2],
 [
   AC_ARG_WITH([bzip2],
-    AC_HELP_STRING([--with-bzip2=PREFIX], 
-	           [enable reading/writing files compressed with bzip2 [[default=autodetect]] ]
+    AC_HELP_STRING([--with-bzip2@<:@=PREFIX@:>@], 
+	           [enable reading/writing files compressed with bzip2 @<:@default=autodetect@:>@ ]
               ),
     [with_bzip2="$withval"], 
     [with_bzip2=autodetect]

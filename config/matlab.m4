@@ -24,8 +24,8 @@ dnl --------------------------------------------------------------------- -->*/
 AC_DEFUN([CONFIG_PROG_MATLAB],
 [
   AC_ARG_WITH([matlab],
-    AC_HELP_STRING([--with-matlab=PREFIX],
-                   [generate MATLAB interface library [[default=no]]]),
+    AC_HELP_STRING([--with-matlab@<:@=PREFIX@:>@],
+                   [generate MATLAB interface library @<:@default=no@:>@]),
     [with_matlab=$withval],
     [with_matlab=no])
 

@@ -124,20 +124,20 @@ dnl --------------------------------------------------------------------- -->*/
 AC_DEFUN([CONFIG_PROG_CSHARP],
 [
   AC_ARG_WITH(csharp, 
-              AC_HELP_STRING([--with-csharp=PREFIX], 
-                             [generate C# interface library [[default=no]]]),
+              AC_HELP_STRING([--with-csharp@<:@=PREFIX@:>@], 
+                             [generate C# interface library @<:@default=no@:>@]),
               [with_csharp="$withval"], 
               [with_csharp=no])
 
   AC_ARG_WITH(cil-interpreter, 
-              AC_HELP_STRING([--with-cil-interpreter=PATH], 
-                             [set path to C# CIL interp. [[default=autodetect]]]),
+              AC_HELP_STRING([--with-cil-interpreter@<:@=PATH@:>@], 
+                             [set path to C# CIL interp. @<:@default=autodetect@:>@]),
               [CSHARP_BIN="$withval"], 
               [CSHARP_BIN=])
 
   AC_ARG_WITH(csharp-compiler, 
-              AC_HELP_STRING([--with-csharp-compiler=PATH],
-                             [set path to C# compiler [[default=autodetect]]]),
+              AC_HELP_STRING([--with-csharp-compiler@<:@=PATH@:>@],
+                             [set path to C# compiler @<:@default=autodetect@:>@]),
               [CSHARP_COMPILERBIN="$withval"], 
               [CSHARP_COMPILERBIN=])
 

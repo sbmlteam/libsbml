@@ -45,8 +45,8 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
 [
 
   AC_ARG_WITH([zlib],
-	      AC_HELP_STRING([--with-zlib=PREFIX], 
-                             [enable reading/writing files compressed with zlib [[default=autodetect]] ]
+	      AC_HELP_STRING([--with-zlib@<:@=PREFIX@:>@], 
+                             [enable reading/writing files compressed with zlib @<:@default=autodetect@:>@ ]
               ),
 	      [with_zlib="$withval"], [with_zlib=autodetect]
   )
