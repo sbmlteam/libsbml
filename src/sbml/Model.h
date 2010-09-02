@@ -3387,7 +3387,6 @@ protected:
 
   std::string     mId;
   std::string     mName;
-  ModelHistory*   mHistory;
   std::string     mSubstanceUnits;
   std::string     mTimeUnits;
   std::string     mVolumeUnits;

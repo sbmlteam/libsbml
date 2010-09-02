@@ -51,7 +51,6 @@ Model::Model (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mId               ( "" )
  , mName             ( "" )
- , mHistory          ( 0  )
  , mSubstanceUnits   ( "" )
  , mTimeUnits        ( "" )
  , mVolumeUnits      ( "" )
@@ -70,7 +69,6 @@ Model::Model (SBMLNamespaces * sbmlns) :
    SBase             ( sbmlns )
  , mId               ( "" )
  , mName             ( "" )
- , mHistory          ( 0  )
  , mSubstanceUnits   ( "" )
  , mTimeUnits        ( "" )
  , mVolumeUnits      ( "" )
@@ -102,7 +100,8 @@ Model::Model() :
  */
 Model::~Model ()
 {
-  delete mHistory;
+    // this is now in SBase
+ // delete mHistory;
   if (mFormulaUnitsData)
   {  
     unsigned int size = mFormulaUnitsData->getSize();
@@ -192,15 +191,16 @@ Model::Model(const Model& orig) :
   {
     mEvents.setParentSBMLObject(this);
   }
+    // this is now in SBase
 
-  if (orig.mHistory)
-  {
-    this->mHistory = orig.mHistory->clone();
-  }
-  else
-  {
-    this->mHistory = 0;
-  }
+  //if (orig.mHistory)
+  //{
+  //  this->mHistory = orig.mHistory->clone();
+  //}
+  //else
+  //{
+  //  this->mHistory = 0;
+  //}
 
   if(orig.mFormulaUnitsData)
   {
@@ -303,15 +303,16 @@ Model& Model::operator=(const Model& rhs)
       mEvents.setParentSBMLObject(this);
     }
 
-    delete this->mHistory;
-    if (rhs.mHistory)
-    {
-      this->mHistory = rhs.mHistory->clone();
-    }
-    else
-    {
-      this->mHistory = 0;
-    }
+    // this is now in SBase
+    //delete this->mHistory;
+    //if (rhs.mHistory)
+    //{
+    //  this->mHistory = rhs.mHistory->clone();
+    //}
+    //else
+    //{
+    //  this->mHistory = 0;
+    //}
 
     if (this->mFormulaUnitsData)
     {
