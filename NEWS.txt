@@ -1,6 +1,20 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Current development
+======================================================================
+
+* Bug fixes:
+
+  - The change that allowed ModelHistory to be present on every SBase
+    object left a loophole whereby a ModelHistory element on a Model
+    could get lost in roundtripping a model.  This loophole has been
+    closed.  Thanks to Kieran Smallbone for reporting this.
+    
+  - The MATLAB/Octave binding was not correctly assigning the new 
+    typecode for a localParameter object.  This is fixed.
+
+======================================================================
 Version 4.1.0 (Released 2010-08-24)
 ======================================================================
 
