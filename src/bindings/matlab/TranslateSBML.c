@@ -1054,6 +1054,10 @@ TypecodeToChar (SBMLTypeCode_t typecode)
       pacTypecode = "SBML_PARAMETER";
       break;
 
+    case SBML_LOCAL_PARAMETER:
+      pacTypecode = "SBML_LOCAL_PARAMETER";
+      break;
+
     case SBML_REACTION:
       pacTypecode = "SBML_REACTION";
       break;
