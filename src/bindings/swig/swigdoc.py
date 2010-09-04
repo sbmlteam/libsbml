@@ -306,16 +306,19 @@ class Method:
 
     self.name      = name
 
-    # This is a hack, but Javadoc offers no way of selectively omitting
-    # documentation from the output, so this is the most straightforward
-    # and unobtrusive approach I've found.  The following flags our
-    # internal methods with the Javadoc @deprecated tag.  We then invoke
-    # the javadoc program with the flag -nodeprecated, and presto, the
-    # methods are not put into the documentation generated.
-
-    if forLanguage == 'java' and isInternal:
-      p = re.compile('(.+?)\*/', re.MULTILINE)
-      self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
+    if isInternal:
+      if forLanguage == 'java':
+        # This is a hack, but Javadoc offers no way of selectively omitting
+        # documentation from the output, so this is the most straightforward
+        # and unobtrusive approach I've found.  The following flags our
+        # internal methods with the Javadoc @deprecated tag.  We then invoke
+        # the javadoc program with the flag -nodeprecated, and presto, the
+        # methods are not put into the documentation generated.
+        #
+        p = re.compile('(.+?)\*/', re.MULTILINE)
+        self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
+      else:
+        self.docstring = "  @internal\n" + docstring
     else:
       self.docstring = docstring
 
