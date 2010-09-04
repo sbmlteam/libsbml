@@ -297,11 +297,11 @@ class Method:
   """
 
   def __init__ (self, forLanguage, isInternal, docstring, name, args, isConst):
-    """Method(forLanguage, docstring name, args) -> Method
+    """Method(forLanguage, isInternal, docstring name, args, isConst) -> Method
 
     Creates a new Method description with the given docstring, name and args,
     for the language forLanguage, with special consideration if the method
-    was declared constant.
+    was declared constant and/or internal.
     """
 
     self.name      = name
@@ -313,7 +313,7 @@ class Method:
     # the javadoc program with the flag -nodeprecated, and presto, the
     # methods are not put into the documentation generated.
 
-    if isInternal:
+    if forLanguage == 'java' and isInternal:
       p = re.compile('(.+?)\*/', re.MULTILINE)
       self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
     else:
