@@ -1744,7 +1744,7 @@ GetUnitDefinition ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxUnitDefReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxUnitDefReturn, i, "metaid", mxCreateString(pacMetaid));
     }
@@ -1861,7 +1861,7 @@ GetCompartment ( Model_t      *pModel,
 		"units", 
 		"constant", 
 		"isSetSize", 
-		"isSetVolume"};
+    "isSetSpatialDimensions"};
   /* field values */
   const char * pacTypecode;
   const char * pacNotes = NULL;
@@ -1880,6 +1880,8 @@ GetCompartment ( Model_t      *pModel,
   unsigned int unSpatialDimensions = 3;
   unsigned int unIsSetVolume = 1;
   unsigned int unIsSetSize = 1;
+  unsigned int unIsSetSpatialDimensions = 1;
+
 
   int nConstant = 1;
   int nSBO = -1;
@@ -1984,10 +1986,12 @@ GetCompartment ( Model_t      *pModel,
       if (Compartment_isSetSpatialDimensions(pCompartment))
       {
         dSpatialDimensions = Compartment_getSpatialDimensionsAsDouble(pCompartment);
+        unIsSetSpatialDimensions = 1;
       }
       else
       {
         dSpatialDimensions = 0.0/dZero;
+        unIsSetSpatialDimensions = 0;
       }
       dSize               = Compartment_getSize(pCompartment);
       nConstant           = Compartment_getConstant(pCompartment);
@@ -2011,6 +2015,10 @@ GetCompartment ( Model_t      *pModel,
     if (unIsSetSize == 0) 
     {
         dSize = 0.0/dZero;
+    }
+    if (unIsSetSpatialDimensions == 0) 
+    {
+        dSpatialDimensions = 0.0/dZero;
     }
     /**
      * check for NULL strings - Matlab doesnt like creating 
@@ -2044,13 +2052,13 @@ GetCompartment ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxCompartReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxCompartReturn, i, "metaid", mxCreateString(pacMetaid));
     }
     mxSetField(mxCompartReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxCompartReturn, i, "annotation",mxCreateString(pacAnnotations));
-    if (unSBMLLevel == 2 && unSBMLVersion > 2) 
+    if ((unSBMLLevel == 2 && unSBMLVersion > 2) || unSBMLLevel > 2)
     {
       mxSetField(mxCompartReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
     }
@@ -2083,7 +2091,14 @@ GetCompartment ( Model_t      *pModel,
       mxSetField(mxCompartReturn,i,"constant",CreateIntScalar(nConstant)); 
       mxSetField(mxCompartReturn,i,"isSetSize",CreateIntScalar(unIsSetSize)); 
     }
-    mxSetField(mxCompartReturn,i,"isSetVolume",CreateIntScalar(unIsSetVolume)); 
+    if (unSBMLLevel < 3)
+    {
+      mxSetField(mxCompartReturn,i,"isSetVolume",CreateIntScalar(unIsSetVolume)); 
+    }
+    else
+    {
+      mxSetField(mxCompartReturn,i,"isSetSpatialDimensions",CreateIntScalar(unIsSetSpatialDimensions)); 
+    }
   }
 }
 
@@ -2307,7 +2322,7 @@ GetParameter ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxParameterReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxParameterReturn, i, "metaid", mxCreateString(pacMetaid));
     }
@@ -2817,7 +2832,7 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 
     /* put into structure */
     mxSetField(mxUnitReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxUnitReturn, i, "metaid", mxCreateString(pacMetaid));
     }
@@ -2914,7 +2929,7 @@ GetReactants ( Reaction_t   *pReaction,
     "name",
 		"stoichiometry",
 		"stoichiometryMath"};
-  const int nNoFields_l3v1 = 10;
+  const int nNoFields_l3v1 = 11;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -2925,7 +2940,8 @@ GetReactants ( Reaction_t   *pReaction,
     "id",
     "name",
 		"stoichiometry",
-		"constant"};
+		"constant",
+    "isSetStoichiometry"};
    /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -2939,6 +2955,7 @@ GetReactants ( Reaction_t   *pReaction,
   
   int nStoichiometry = 1;
   int nDenominator = 1;
+  unsigned int unIsSetStoichiometry = 1;
   
   int nConstant = 1;
 
@@ -3055,6 +3072,7 @@ GetReactants ( Reaction_t   *pReaction,
         nSBO = -1;
       }
       nConstant = SpeciesReference_getConstant(pReactant);
+      unIsSetStoichiometry = SpeciesReference_isSetStoichiometry(pReactant);
    }
         
     /**
@@ -3129,6 +3147,7 @@ GetReactants ( Reaction_t   *pReaction,
     else if (unSBMLLevel == 3) {
       mxSetField(mxReactantReturn,i,"stoichiometry",mxCreateDoubleScalar(dStoichiometry)); 
       mxSetField(mxReactantReturn,i,"constant",CreateIntScalar(nConstant)); 
+      mxSetField(mxReactantReturn,i,"isSetStoichiometry",CreateIntScalar(unIsSetStoichiometry)); 
      }
     
     mxStoichiometryMathReturn = NULL;
@@ -3200,7 +3219,7 @@ const int nNoFields_l2v2 = 10;
     "name",
 		"stoichiometry",
 		"stoichiometryMath"};
-  const int nNoFields_l3v1 = 10;
+  const int nNoFields_l3v1 = 11;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -3211,7 +3230,8 @@ const int nNoFields_l2v2 = 10;
     "id",
     "name",
 		"stoichiometry",
-		"constant"};
+		"constant",
+    "isSetStoichiometry"};
    /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -3225,6 +3245,8 @@ const int nNoFields_l2v2 = 10;
   
   int nStoichiometry = 1;
   int nDenominator = 1;
+  
+  unsigned int unIsSetStoichiometry = 1;
   
   int nConstant = 1;
 
@@ -3330,6 +3352,7 @@ const int nNoFields_l2v2 = 10;
     else if (unSBMLLevel == 3) 
     {
       pacMetaid = SBase_getMetaId((SBase_t*)pProduct);
+      unIsSetStoichiometry = SpeciesReference_isSetStoichiometry(pProduct);
       dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
       pacId       = SpeciesReference_getId(pProduct);
       pacName     = SpeciesReference_getName(pProduct);
@@ -3415,6 +3438,7 @@ const int nNoFields_l2v2 = 10;
     else if (unSBMLLevel == 3) {
       mxSetField(mxProductReturn,i,"stoichiometry",mxCreateDoubleScalar(dStoichiometry)); 
       mxSetField(mxProductReturn,i,"constant",CreateIntScalar(nConstant)); 
+      mxSetField(mxProductReturn,i,"isSetStoichiometry",CreateIntScalar(unIsSetStoichiometry)); 
      }
     
     mxStoichiometryMathReturn = NULL;
@@ -4115,7 +4139,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 
     /* put into structure */
     mxSetField(mxKineticLawParameterReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxKineticLawParameterReturn, i, "metaid", mxCreateString(pacMetaid));
     }
@@ -4285,7 +4309,7 @@ GetModifier ( Reaction_t   *pReaction,
 
     /* put into structure */
     mxSetField(mxModifierReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxModifierReturn, i, "metaid", mxCreateString(pacMetaid));
     }
@@ -4725,7 +4749,7 @@ GetRule ( Model_t      *pModel,
 
     /* put into structure */
     mxSetField(mxListRuleReturn,i,"typecode",mxCreateString(pacTypecode)); 
-    if (unSBMLLevel == 2)
+    if (unSBMLLevel > 1)
     {
       mxSetField(mxListRuleReturn, i, "metaid", mxCreateString(pacMetaid));
     }
