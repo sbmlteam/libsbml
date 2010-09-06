@@ -426,8 +426,9 @@ test = test + 10;
   Totalfail = Totalfail + fail_unless( isempty(m.reaction.kineticLaw.localParameter(1).metaid));
   Totalfail = Totalfail + fail_unless( isempty(m.reaction.kineticLaw.localParameter(1).name));
   Totalfail = Totalfail + fail_unless( m.reaction.kineticLaw.localParameter(1).sboTerm == -1 );
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.kineticLaw.localParameter(1).typecode, 'SBML_LOCAL_PARAMETER'));
 
-  test = test + 32;
+  test = test + 33;
 %     <listOfEvents>
 %      <event useValuesFromTriggerTime="false">
 %         <trigger>
