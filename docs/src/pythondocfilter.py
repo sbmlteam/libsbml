@@ -63,6 +63,10 @@ def reformatDocString (match):
   p = re.compile(sigRE + '^\s*$', re.MULTILINE)
   text = p.sub(r'\1' + intro + r'\1' + sStart + r'\2' + sEnd + r'\1<p>', text)
   
+  # This ditches the "self" part of the signature string.
+  text = text.replace(r'(self)', '()')
+  text = text.replace(r'(self, ', '(')
+
   # Prettify the arrow:
   newArrow = '@htmlonly ' + \
              '<img class="signatureArrow" src="right-arrow.gif"> ' + \
@@ -88,6 +92,15 @@ def filterDocStrings (contents):
   # about different contexts in which the word "double" might be used.
   contents = contents.replace(' double', " float")
   contents = contents.replace('(double', " (float")
+
+  # Other type replacements
+
+  contents = contents.replace(r'const char* ', 'string ')
+  contents = contents.replace(r'an unsigned int', 'a long integer')
+  contents = contents.replace(r'unsigned int', 'long')
+  contents = contents.replace(r'const std.string&', 'string')
+  contents = contents.replace(r'const std.string', 'string')
+  contents = contents.replace(r'const ', '')
 
   # We alter the names of some functions.
   contents = contents.replace('SBML_parseFormula', "parseFormula")
