@@ -80,6 +80,7 @@ class TestASTNode < Test::Unit::TestCase
     assert ((  "NA" == n.getName() ))
     val = n.getReal()
     assert( val == 6.02214179e23 )
+    assert( true == n.isConstant() )
     n = nil
   end
 

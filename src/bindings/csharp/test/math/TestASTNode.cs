@@ -179,6 +179,7 @@ namespace LibSBMLCSTest {
       assertTrue((  "NA" == n.getName() ));
       double val = n.getReal();
       assertTrue( val == 6.02214179e23 );
+      assertTrue(true == n.isConstant());
       n = null;
     }
 

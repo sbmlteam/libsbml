@@ -44,7 +44,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType predicates
  */
 #define ASTNodeType_isConstant(t) \
-  ((t >= AST_CONSTANT_E) && (t <= AST_CONSTANT_TRUE))
+  (((t >= AST_CONSTANT_E) && (t <= AST_CONSTANT_TRUE)) || t == AST_NAME_AVOGADRO)
 
 #define ASTNodeType_isFunction(t) \
   ((t >= AST_FUNCTION) && (t <= AST_FUNCTION_TANH))

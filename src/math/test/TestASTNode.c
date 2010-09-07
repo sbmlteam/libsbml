@@ -2132,6 +2132,7 @@ START_TEST (test_ASTNode_avogadro)
   fail_unless(!strcmp(ASTNode_getName(n), "NA"));
   double val = ASTNode_getReal(n);
   fail_unless(val == 6.02214179e23);
+  fail_unless(ASTNode_isConstant(n) == 1);
 
   ASTNode_free(n);
 }

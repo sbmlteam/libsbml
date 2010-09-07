@@ -170,6 +170,7 @@ public class TestASTNode {
     assertTrue(n.getName().equals( "NA"));
     double val = n.getReal();
     assertTrue( val == 6.02214179e23 );
+    assertTrue(true == n.isConstant());
     n = null;
   }
 

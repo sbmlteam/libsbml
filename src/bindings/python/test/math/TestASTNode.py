@@ -86,6 +86,7 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "NA" == n.getName() ))
     val = n.getReal()
     self.assert_( val == 6.02214179e23 )
+    self.assert_( 1 == n.isConstant() )
     _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 
