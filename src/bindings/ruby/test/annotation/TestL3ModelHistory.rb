@@ -95,9 +95,52 @@ class TestL3ModelHistory < Test::Unit::TestCase
     assert_equal true, equals(expected,node.toXMLString())
   end
 
+  def test_L3ModelHistory_delete_Model
+    node = LibSBML::RDFAnnotationParser.parseModelHistory(@@m)
+    n1 = LibSBML::RDFAnnotationParser.deleteRDFAnnotation(node)
+    expected =  "<annotation/>";
+    assert( n1.getNumChildren() == 0 )
+    assert( n1.getName() ==  "annotation" )
+    assert_equal true, equals(expected,n1.toXMLString())
+    node = nil
+  end
+
   def test_L3ModelHistory_getModelHistory
     assert( !( @@c == nil) )
     history = @@c.getModelHistory()
+    assert( history != nil )
+    mc = history.getCreator(0)
+    assert ((  "Le Novere" == mc.getFamilyName() ))
+    assert ((  "Nicolas" == mc.getGivenName() ))
+    assert ((  "lenov@ebi.ac.uk" == mc.getEmail() ))
+    assert ((  "EMBL-EBI" == mc.getOrganisation() ))
+    date = history.getCreatedDate()
+    assert( date.getYear() == 2005 )
+    assert( date.getMonth() == 2 )
+    assert( date.getDay() == 2 )
+    assert( date.getHour() == 14 )
+    assert( date.getMinute() == 56 )
+    assert( date.getSecond() == 11 )
+    assert( date.getSignOffset() == 0 )
+    assert( date.getHoursOffset() == 0 )
+    assert( date.getMinutesOffset() == 0 )
+    assert ((  "2005-02-02T14:56:11Z" == date.getDateAsString() ))
+    date = history.getModifiedDate()
+    assert( date.getYear() == 2006 )
+    assert( date.getMonth() == 5 )
+    assert( date.getDay() == 30 )
+    assert( date.getHour() == 10 )
+    assert( date.getMinute() == 46 )
+    assert( date.getSecond() == 2 )
+    assert( date.getSignOffset() == 0 )
+    assert( date.getHoursOffset() == 0 )
+    assert( date.getMinutesOffset() == 0 )
+    assert ((  "2006-05-30T10:46:02Z" == date.getDateAsString() ))
+  end
+
+  def test_L3ModelHistory_getModelHistory_Model
+    assert( !( @@m == nil) )
+    history = @@m.getModelHistory()
     assert( history != nil )
     mc = history.getCreator(0)
     assert ((  "Le Novere" == mc.getFamilyName() ))
@@ -141,6 +184,87 @@ class TestL3ModelHistory < Test::Unit::TestCase
     assert ((  "rdf" == desc.getPrefix() ))
     assert ((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == desc.getURI() ))
     assert( desc.getNumChildren() == 4 )
+    creator = desc.getChild(0)
+    assert ((  "creator" == creator.getName() ))
+    assert ((  "dc" == creator.getPrefix() ))
+    assert ((  "http://purl.org/dc/elements/1.1/" == creator.getURI() ))
+    assert( creator.getNumChildren() == 1 )
+    bag = creator.getChild(0)
+    assert ((  "Bag" == bag.getName() ))
+    assert ((  "rdf" == bag.getPrefix() ))
+    assert ((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == bag.getURI() ))
+    assert( bag.getNumChildren() == 1 )
+    li = bag.getChild(0)
+    assert ((  "li" == li.getName() ))
+    assert ((  "rdf" == li.getPrefix() ))
+    assert ((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == li.getURI() ))
+    assert( li.getNumChildren() == 3 )
+    n = li.getChild(0)
+    assert ((  "N" == n.getName() ))
+    assert ((  "vCard" == n.getPrefix() ))
+    assert ((  "http://www.w3.org/2001/vcard-rdf/3.0#" == n.getURI() ))
+    assert( n.getNumChildren() == 2 )
+    family = n.getChild(0)
+    assert ((  "Family" == family.getName() ))
+    assert ((  "vCard" == family.getPrefix() ))
+    assert ((  "http://www.w3.org/2001/vcard-rdf/3.0#" == family.getURI() ))
+    assert( family.getNumChildren() == 1 )
+    given = n.getChild(1)
+    assert ((  "Given" == given.getName() ))
+    assert ((  "vCard" == given.getPrefix() ))
+    assert ((  "http://www.w3.org/2001/vcard-rdf/3.0#" == given.getURI() ))
+    assert( given.getNumChildren() == 1 )
+    email = li.getChild(1)
+    assert ((  "EMAIL" == email.getName() ))
+    assert ((  "vCard" == email.getPrefix() ))
+    assert ((  "http://www.w3.org/2001/vcard-rdf/3.0#" == email.getURI() ))
+    assert( email.getNumChildren() == 1 )
+    org = li.getChild(2)
+    assert ((  "ORG" == org.getName() ))
+    assert ((  "vCard" == org.getPrefix() ))
+    assert ((  "http://www.w3.org/2001/vcard-rdf/3.0#" == org.getURI() ))
+    assert( org.getNumChildren() == 1 )
+    orgname = org.getChild(0)
+    assert ((  "Orgname" == orgname.getName() ))
+    assert ((  "vCard" == orgname.getPrefix() ))
+    assert ((  "http://www.w3.org/2001/vcard-rdf/3.0#" == orgname.getURI() ))
+    assert( orgname.getNumChildren() == 1 )
+    created = desc.getChild(1)
+    assert ((  "created" == created.getName() ))
+    assert ((  "dcterms" == created.getPrefix() ))
+    assert ((  "http://purl.org/dc/terms/" == created.getURI() ))
+    assert( created.getNumChildren() == 1 )
+    cr_date = created.getChild(0)
+    assert ((  "W3CDTF" == cr_date.getName() ))
+    assert ((  "dcterms" == cr_date.getPrefix() ))
+    assert ((  "http://purl.org/dc/terms/" == cr_date.getURI() ))
+    assert( cr_date.getNumChildren() == 1 )
+    modified = desc.getChild(2)
+    assert ((  "modified" == modified.getName() ))
+    assert ((  "dcterms" == modified.getPrefix() ))
+    assert ((  "http://purl.org/dc/terms/" == modified.getURI() ))
+    assert( modified.getNumChildren() == 1 )
+    mo_date = created.getChild(0)
+    assert ((  "W3CDTF" == mo_date.getName() ))
+    assert ((  "dcterms" == mo_date.getPrefix() ))
+    assert ((  "http://purl.org/dc/terms/" == mo_date.getURI() ))
+    assert( mo_date.getNumChildren() == 1 )
+    node = nil
+  end
+
+  def test_L3ModelHistory_parseModelHistory_Model
+    node = LibSBML::RDFAnnotationParser.parseModelHistory(@@m)
+    assert( node.getNumChildren() == 1 )
+    rdf = node.getChild(0)
+    assert ((  "RDF" == rdf.getName() ))
+    assert ((  "rdf" == rdf.getPrefix() ))
+    assert ((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == rdf.getURI() ))
+    assert( rdf.getNumChildren() == 1 )
+    desc = rdf.getChild(0)
+    assert ((  "Description" == desc.getName() ))
+    assert ((  "rdf" == desc.getPrefix() ))
+    assert ((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == desc.getURI() ))
+    assert( desc.getNumChildren() == 3 )
     creator = desc.getChild(0)
     assert ((  "creator" == creator.getName() ))
     assert ((  "dc" == creator.getPrefix() ))
@@ -290,6 +414,42 @@ class TestL3ModelHistory < Test::Unit::TestCase
     "  </annotation>\n" + 
     "</compartment>"
     assert_equal true, equals(expected,@@c.toSBML())
+  end
+
+  def test_L3ModelHistory_recreateFromEmpty_Model
+    ann = @@m.getAnnotationString()
+    @@m.setAnnotation(nil)
+    n1 = @@m.getAnnotation()
+    assert( n1 == nil )
+    @@m.setAnnotation(ann)
+    n1 = @@m.getAnnotation()
+    expected = "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Le Novere</vCard:Family>\n" + 
+    "              <vCard:Given>Nicolas</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
+    "            <vCard:ORG rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
+    "            </vCard:ORG>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
+    "</annotation>"
+    assert_equal true, equals(expected,n1.toXMLString())
   end
 
   def test_L3ModelHistory_recreateWithOutOther
