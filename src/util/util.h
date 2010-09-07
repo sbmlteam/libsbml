@@ -204,6 +204,14 @@ int
 util_isNegZero (double d);
 
 
+/**
+ * free this memory
+ */
+LIBSBML_EXTERN
+void
+util_free (void * element);
+
+
 /** @cond doxygen-libsbml-internal */
 
 /**

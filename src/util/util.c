@@ -512,4 +512,17 @@ util_isNegZero (double d)
 #endif
 }
 
+/**
+ * free this memory
+ */
+LIBSBML_EXTERN
+void
+util_free (void * element)
+{
+  if (element != NULL)
+  {
+    safe_free(element);
+  }
+}
+
 LIBSBML_CPP_NAMESPACE_END
