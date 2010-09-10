@@ -412,8 +412,8 @@ def getHeadersFromSWIG (filename):
 
 
 
-def processHeader (filename, ostream, language):
-  """processHeader (filename, ostream, language='java'|'python')
+def processFile (filename, ostream, language):
+  """processFile (filename, ostream, language='java'|'python')
 
   Reads the the given header file and writes to ostream the necessary
   SWIG incantation to annotate each method (or function) with a
@@ -939,7 +939,7 @@ def main (args):
 
   for file in headers:
     filename = os.path.normpath(os.path.join(includepath, file))
-    processHeader(filename, stream, language)
+    processFile(filename, stream, language)
 
   if language == 'perl':
    stream.write('=cut\n')
