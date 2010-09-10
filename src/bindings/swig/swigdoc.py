@@ -432,10 +432,10 @@ def processHeader (filename, ostream, language):
   for c in header.classes:
     for m in c.methods:
       if not m.name.startswith('~'):
-        writeDocstring(ostream, language, m.docstring, m.name, c.name, m.args)
+        writeMethodDocstring(ostream, language, m.docstring, m.name, c.name, m.args)
 
   for f in header.functions:
-    writeDocstring(ostream, language, f.docstring, f.name, None, f.args)
+    writeMethodDocstring(ostream, language, f.docstring, f.name, None, f.args)
 
 
 
@@ -841,8 +841,8 @@ def sanitizeForPerl (docstring):
 
 
 
-def writeDocstring (ostream, language, docstring, methodname, classname, args=None):
-  """writeDocstring (ostream, language='java'|'python'|'perl', docstring,
+def writeMethodDocstring (ostream, language, docstring, methodname, classname, args=None):
+  """writeMethodDocstring (ostream, language='java'|'python'|'perl', docstring,
   methodname, classname='')
 
   Writes to ostream the necessary SWIG incantation to annotate the
@@ -910,12 +910,12 @@ def writeClassDocstring (ostream, language, docstring, classname):
 
 
 def main (args):
-  """usage: swigdoc.py [java | python | perl] -Ipath -Dpath libsbml.i docstrings.i
+  """usage: swigdoc.py [java | python | perl] -Ipath -Dpath libsbml.i output.i
 
   java | python | perl  generate docstrings for this language module.
   path                  is the path to the libsbml src/ directory.
   libsbml.i             is the master libsbml SWIG interface file.
-  docstrings.i          is the file to output the SWIG docstrings.
+  output.i              is the file to output the SWIG docstrings.
   """
 
   if len(args) != 6:
