@@ -477,7 +477,8 @@ KineticLaw::addParameter (const Parameter* p)
   {
     return LIBSBML_OPERATION_FAILED;
   }
-  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()))
+  else if (!(p->hasRequiredAttributes()) || !(p->hasRequiredElements()) 
+    || p->getTypeCode() == SBML_LOCAL_PARAMETER)
   {
     /* 
      * in an attempt to make existing code work with the new localParameter
