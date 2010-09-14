@@ -4,7 +4,26 @@
 Current development
 ======================================================================
 
+* New features
+
+  - There is a new util_free function that can be used to free any
+    memory that is allocated within a libsbml function call. The
+    SBML_formulaToString function, for example.  This new function
+    is aimed at Windows users of the libraries within the windows 
+    installers.  These are linked against the static MSVC runtime
+    libraries and can cause memory leak issues.
+    
+  - An ASTNode of type AST_NAME_AVOGADRO is now also considered to
+    be a constant ASTNode.
+    
+  - The function LocalParameter_hasRequiredAttributes was missing 
+    from the C API. It has now been added.
+
 * Bug fixes:
+
+  - It proved possible to lose LocalParameters on L3 KineticLaw objects.
+    This is now hopefully fixed; thanks to Chris Myers for finding the 
+    necessary set of circumstances and reporting it.
 
   - The change that allowed ModelHistory to be present on every SBase
     object left a loophole whereby a ModelHistory element on a Model
