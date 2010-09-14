@@ -891,6 +891,9 @@ public:
    * constant (e.g., @c true, @c Pi).
    * 
    * @return true if this ASTNode is a MathML constant, false otherwise.
+   * 
+   * @note this function will also return @true for @link
+   * ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink
    */
   LIBSBML_EXTERN
   bool isConstant () const;
