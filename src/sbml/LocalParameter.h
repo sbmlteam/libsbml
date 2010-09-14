@@ -755,6 +755,11 @@ LocalParameter_unsetUnits (LocalParameter_t *p);
 
 
 LIBSBML_EXTERN
+int
+LocalParameter_hasRequiredAttributes (LocalParameter_t *p);
+
+
+LIBSBML_EXTERN
 UnitDefinition_t * 
 LocalParameter_getDerivedUnitDefinition(LocalParameter_t *p);
 

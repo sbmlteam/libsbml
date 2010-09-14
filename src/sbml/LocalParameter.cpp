@@ -858,6 +858,27 @@ LocalParameter_unsetUnits (LocalParameter_t *p)
 
 
 /**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this LocalParameter object
+  * have been set.
+  *
+ * @param p the LocalParameter_t structure to check.
+ *
+  * @note The required attributes for a LocalParameter object are:
+  * @li id (name in L1)
+  *
+  * @return a true if all the required
+  * attributes for this object have been defined, false otherwise.
+  */
+LIBSBML_EXTERN
+int
+LocalParameter_hasRequiredAttributes(LocalParameter_t *p)
+{
+  return static_cast<int>(p->hasRequiredAttributes());
+}
+
+
+/**
  * Constructs and returns a UnitDefinition_t structure that expresses 
  * the units of this LocalParameter_t structure.
  *

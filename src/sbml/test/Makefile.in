@@ -67,10 +67,12 @@ test_sources =                   \
   TestInitialAssignment.c        \
   TestInitialAssignment_newSetters.c        \
   TestKineticLaw.c               \
+  TestL3KineticLaw.c                 \
   TestKineticLaw_newSetters.c    \
   TestListOf.c                   \
   TestParameter.c                \
   TestL3Parameter.c                \
+  TestL3LocalParameter.c                \
   TestParameter_newSetters.c     \
   TestReaction.c                 \
   TestL3Reaction.c                 \
