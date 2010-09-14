@@ -513,7 +513,24 @@ util_isNegZero (double d)
 }
 
 /**
- * free this memory
+ * Function for freeing memory.
+ *
+ * @param element pointer to the object to be freed
+ * 
+ * This function was introduced to deal with a specific memory
+ * issue arising on Windows OS when using libSBML compiled against
+ * a static MSVC runtime library.  In this situation it was not possible
+ * to use the standard 'free' function when freeing memory that was actually
+ * allocated within the libSBML function call.  The following is an
+ * example of where the free function fails and needs to be replaced with
+ * util_free.
+ * @code
+ *    char * formula = SBML_formulaToString(astNode);
+ *    free(formula);
+ * @endcode
+ *
+ * @note This function is only necessary when using a version of libSBML
+ * compiled and linked against a static MSVC runtime library.
  */
 LIBSBML_EXTERN
 void
