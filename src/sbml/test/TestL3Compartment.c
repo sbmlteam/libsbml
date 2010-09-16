@@ -298,6 +298,42 @@ START_TEST (test_L3_Compartment_NS)
 END_TEST
 
 
+START_TEST (test_L3_Compartment_initDefaults)
+{
+  Compartment_t *c = Compartment_create(3, 1);
+    
+  Compartment_setId(c, "A");
+  fail_unless( Compartment_isSetId     (c) );
+  fail_unless( !Compartment_isSetName   (c) );
+  fail_unless( !Compartment_isSetSize   (c) );
+  fail_unless( !Compartment_isSetVolume (c) );
+  fail_unless( !Compartment_isSetUnits  (c) );
+  fail_unless( !Compartment_isSetConstant  (c) );
+  fail_unless( !Compartment_isSetSpatialDimensions  (c) );
+
+  Compartment_initDefaults(c);
+
+  fail_unless( !strcmp(Compartment_getId     (c), "A"));
+  fail_unless( Compartment_getName   (c) == NULL );
+  fail_unless( !strcmp(Compartment_getUnits(c), "litre") );
+
+  fail_unless( Compartment_getSpatialDimensions(c) == 3   );
+  fail_unless( Compartment_getSize(c) == 1 );
+  fail_unless( Compartment_getConstant         (c) == 1   );
+
+  fail_unless( Compartment_isSetId     (c) );
+  fail_unless( !Compartment_isSetName   (c) );
+  fail_unless( !Compartment_isSetSize   (c) );
+  fail_unless( !Compartment_isSetVolume (c) );
+  fail_unless( Compartment_isSetUnits  (c) );
+  fail_unless( Compartment_isSetConstant  (c) );
+  fail_unless( Compartment_isSetSpatialDimensions  (c) );
+  
+  Compartment_free(c);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Compartment (void)
 {
@@ -320,6 +356,7 @@ create_suite_L3_Compartment (void)
   tcase_add_test( tcase, test_L3_Compartment_createWithNS         );
   tcase_add_test( tcase, test_L3_Compartment_hasRequiredAttributes        );
   tcase_add_test( tcase, test_L3_Compartment_NS              );
+  tcase_add_test( tcase, test_L3_Compartment_initDefaults              );
 
   suite_add_tcase(suite, tcase);
 

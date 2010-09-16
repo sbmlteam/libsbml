@@ -225,6 +225,52 @@ class TestL3Species < Test::Unit::TestCase
     end
   end
 
+  def test_L3_Species_initDefaults
+    s = LibSBML::Species.new(3,1)
+    assert( s.getId() == "" )
+    assert( s.getName() == "" )
+    assert( s.getCompartment() == "" )
+    assert_equal true, isnan(s.getInitialAmount())
+    assert_equal true, isnan(s.getInitialConcentration())
+    assert( s.getSubstanceUnits() == "" )
+    assert( s.getHasOnlySubstanceUnits() == false )
+    assert( s.getBoundaryCondition() == false )
+    assert( s.getConstant() == false )
+    assert( s.getConversionFactor() == "" )
+    assert_equal false, s.isSetId()
+    assert_equal false, s.isSetName()
+    assert_equal false, s.isSetCompartment()
+    assert_equal false, s.isSetInitialAmount()
+    assert_equal false, s.isSetInitialConcentration()
+    assert_equal false, s.isSetSubstanceUnits()
+    assert_equal false, s.isSetHasOnlySubstanceUnits()
+    assert_equal false, s.isSetBoundaryCondition()
+    assert_equal false, s.isSetConstant()
+    assert_equal false, s.isSetConversionFactor()
+    s.initDefaults()
+    assert( s.getId() == "" )
+    assert( s.getName() == "" )
+    assert( s.getCompartment() == "" )
+    assert_equal true, isnan(s.getInitialAmount())
+    assert_equal true, isnan(s.getInitialConcentration())
+    assert (( "mole"  == s.getSubstanceUnits() ))
+    assert( s.getHasOnlySubstanceUnits() == false )
+    assert( s.getBoundaryCondition() == false )
+    assert( s.getConstant() == false )
+    assert( s.getConversionFactor() == "" )
+    assert_equal false, s.isSetId()
+    assert_equal false, s.isSetName()
+    assert_equal false, s.isSetCompartment()
+    assert_equal false, s.isSetInitialAmount()
+    assert_equal false, s.isSetInitialConcentration()
+    assert_equal true, s.isSetSubstanceUnits()
+    assert_equal true, s.isSetHasOnlySubstanceUnits()
+    assert_equal true, s.isSetBoundaryCondition()
+    assert_equal true, s.isSetConstant()
+    assert_equal false, s.isSetConversionFactor()
+    s = nil
+  end
+
   def test_L3_Species_initialAmount
     initialAmount = 0.2
     assert_equal false, @@s.isSetInitialAmount()

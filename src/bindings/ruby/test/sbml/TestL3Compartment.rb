@@ -141,6 +141,33 @@ class TestL3Compartment < Test::Unit::TestCase
     end
   end
 
+  def test_L3_Compartment_initDefaults
+    c = LibSBML::Compartment.new(3,1)
+    c.setId( "A")
+    assert_equal true, c.isSetId()
+    assert_equal false, c.isSetName()
+    assert_equal false, c.isSetSize()
+    assert_equal false, c.isSetVolume()
+    assert_equal false, c.isSetUnits()
+    assert_equal false, c.isSetConstant()
+    assert_equal false, c.isSetSpatialDimensions()
+    c.initDefaults()
+    assert ((  "A" == c.getId() ))
+    assert( c.getName() == "" )
+    assert ((  "litre" == c.getUnits() ))
+    assert( c.getSpatialDimensions() == 3 )
+    assert( c.getSize() == 1 )
+    assert( c.getConstant() == true )
+    assert_equal true, c.isSetId()
+    assert_equal false, c.isSetName()
+    assert_equal false, c.isSetSize()
+    assert_equal false, c.isSetVolume()
+    assert_equal true, c.isSetUnits()
+    assert_equal true, c.isSetConstant()
+    assert_equal true, c.isSetSpatialDimensions()
+    c = nil
+  end
+
   def test_L3_Compartment_name
     name =  "My_Favorite_Factory";
     assert_equal false, @@c.isSetName()

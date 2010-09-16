@@ -241,6 +241,34 @@ public class TestL3Compartment {
     }
   }
 
+  public void test_L3_Compartment_initDefaults()
+  {
+    Compartment c = new  Compartment(3,1);
+    c.setId( "A");
+    assertEquals( true, c.isSetId() );
+    assertEquals( false, c.isSetName() );
+    assertEquals( false, c.isSetSize() );
+    assertEquals( false, c.isSetVolume() );
+    assertEquals( false, c.isSetUnits() );
+    assertEquals( false, c.isSetConstant() );
+    assertEquals( false, c.isSetSpatialDimensions() );
+    c.initDefaults();
+    assertTrue(c.getId().equals( "A"));
+    assertTrue( c.getName().equals("") == true );
+    assertTrue(c.getUnits().equals( "litre"));
+    assertTrue( c.getSpatialDimensions() == 3 );
+    assertTrue( c.getSize() == 1 );
+    assertTrue( c.getConstant() == true );
+    assertEquals( true, c.isSetId() );
+    assertEquals( false, c.isSetName() );
+    assertEquals( false, c.isSetSize() );
+    assertEquals( false, c.isSetVolume() );
+    assertEquals( true, c.isSetUnits() );
+    assertEquals( true, c.isSetConstant() );
+    assertEquals( true, c.isSetSpatialDimensions() );
+    c = null;
+  }
+
   public void test_L3_Compartment_name()
   {
     String name =  "My_Favorite_Factory";

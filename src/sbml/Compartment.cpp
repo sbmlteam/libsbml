@@ -189,16 +189,17 @@ LIBSBML_EXTERN
 void
 Compartment::initDefaults ()
 {
-  //// level 3 has no defaults
-  //if (getLevel() < 3)
-//  {
-    mSize      = 1.0;    // Actually, setting L1 volume not
-    mIsSetSize = false;  // L2 size.
+  mSize      = 1.0;    // Actually, setting L1 volume not
+  mIsSetSize = false;  // L2 size.
 
-    unsigned int dims = 3;
-    setSpatialDimensions(dims);
-    setConstant(1);
-  //}
+  unsigned int dims = 3;
+  setSpatialDimensions(dims);
+  setConstant(1);
+
+  if (getLevel() > 2)
+  {
+    setUnits("litre");
+  }
 }
 
 

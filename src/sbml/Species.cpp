@@ -224,13 +224,14 @@ Species::clone () const
 void
 Species::initDefaults ()
 {
-  ////level 3 has no defaults
-  //if (getLevel() < 3) 
-  //{
-    setBoundaryCondition     (false);
-    setConstant              (false);
-    setHasOnlySubstanceUnits (false);
-  //}
+  setBoundaryCondition     (false);
+  setConstant              (false);
+  setHasOnlySubstanceUnits (false);
+
+  if (getLevel() > 2)
+  {
+    setSubstanceUnits("mole");
+  }
 }
 
 

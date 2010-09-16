@@ -149,6 +149,33 @@ class TestL3Compartment(unittest.TestCase):
       pass    
     pass  
 
+  def test_L3_Compartment_initDefaults(self):
+    c = libsbml.Compartment(3,1)
+    c.setId( "A")
+    self.assertEqual( True, c.isSetId() )
+    self.assertEqual( False, c.isSetName() )
+    self.assertEqual( False, c.isSetSize() )
+    self.assertEqual( False, c.isSetVolume() )
+    self.assertEqual( False, c.isSetUnits() )
+    self.assertEqual( False, c.isSetConstant() )
+    self.assertEqual( False, c.isSetSpatialDimensions() )
+    c.initDefaults()
+    self.assert_((  "A" == c.getId() ))
+    self.assert_( c.getName() == "" )
+    self.assert_((  "litre" == c.getUnits() ))
+    self.assert_( c.getSpatialDimensions() == 3 )
+    self.assert_( c.getSize() == 1 )
+    self.assert_( c.getConstant() == True )
+    self.assertEqual( True, c.isSetId() )
+    self.assertEqual( False, c.isSetName() )
+    self.assertEqual( False, c.isSetSize() )
+    self.assertEqual( False, c.isSetVolume() )
+    self.assertEqual( True, c.isSetUnits() )
+    self.assertEqual( True, c.isSetConstant() )
+    self.assertEqual( True, c.isSetSpatialDimensions() )
+    _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
+    pass  
+
   def test_L3_Compartment_name(self):
     name =  "My_Favorite_Factory";
     self.assertEqual( False, self.C.isSetName() )

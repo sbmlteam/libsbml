@@ -447,6 +447,61 @@ START_TEST (test_L3_Species_ModelHistory)
 END_TEST
 
 
+START_TEST (test_L3_Species_initDefaults)
+{
+  Species_t *s = Species_create(3,1);
+
+  fail_unless( Species_getId     (s) == NULL );
+  fail_unless( Species_getName   (s) == NULL );
+  fail_unless( Species_getCompartment  (s) == NULL );
+  fail_unless( isnan(Species_getInitialAmount (s)) );
+  fail_unless( isnan(Species_getInitialConcentration (s)) );
+  fail_unless( Species_getSubstanceUnits  (s) == NULL );
+  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0   );
+  fail_unless( Species_getBoundaryCondition(s) == 0   );
+  fail_unless( Species_getConstant(s) == 0   );
+  fail_unless( Species_getConversionFactor  (s) == NULL );
+
+  fail_unless( !Species_isSetId     (s) );
+  fail_unless( !Species_isSetName   (s) );
+  fail_unless( !Species_isSetCompartment (s) );
+  fail_unless( !Species_isSetInitialAmount (s) );
+  fail_unless( !Species_isSetInitialConcentration (s) );
+  fail_unless( !Species_isSetSubstanceUnits  (s) );
+  fail_unless( !Species_isSetHasOnlySubstanceUnits(s)   );
+  fail_unless( !Species_isSetBoundaryCondition(s)   );
+  fail_unless( !Species_isSetConstant(s)   );
+  fail_unless( !Species_isSetConversionFactor  (s) );
+
+  Species_initDefaults(s);
+
+  fail_unless( Species_getId     (s) == NULL );
+  fail_unless( Species_getName   (s) == NULL );
+  fail_unless( Species_getCompartment  (s) == NULL );
+  fail_unless( isnan(Species_getInitialAmount (s)) );
+  fail_unless( isnan(Species_getInitialConcentration (s)) );
+  fail_unless( !strcmp(Species_getSubstanceUnits  (s),"mole" ));
+  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0   );
+  fail_unless( Species_getBoundaryCondition(s) == 0   );
+  fail_unless( Species_getConstant(s) == 0   );
+  fail_unless( Species_getConversionFactor  (s) == NULL );
+
+  fail_unless( !Species_isSetId     (s) );
+  fail_unless( !Species_isSetName   (s) );
+  fail_unless( !Species_isSetCompartment (s) );
+  fail_unless( !Species_isSetInitialAmount (s) );
+  fail_unless( !Species_isSetInitialConcentration (s) );
+  fail_unless( Species_isSetSubstanceUnits  (s) );
+  fail_unless( Species_isSetHasOnlySubstanceUnits(s)   );
+  fail_unless( Species_isSetBoundaryCondition(s)   );
+  fail_unless( Species_isSetConstant(s)   );
+  fail_unless( !Species_isSetConversionFactor  (s) );
+
+  Species_free(s);
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Species (void)
 {
@@ -474,6 +529,7 @@ create_suite_L3_Species (void)
   tcase_add_test( tcase, test_L3_Species_hasRequiredAttributes        );
   tcase_add_test( tcase, test_L3_Species_NS              );
   tcase_add_test( tcase, test_L3_Species_ModelHistory              );
+  tcase_add_test( tcase, test_L3_Species_initDefaults            );
 
   suite_add_tcase(suite, tcase);
 

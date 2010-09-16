@@ -442,6 +442,7 @@ public:
    * <li> Sets attribute "spatialDimensions" to @c 3
    * <li> Sets attribute "constant" to @c true
    * <li> (Applies to Level&nbsp;1 models only) Sets attribute "volume" to @c 1.0
+   * <li> (Applies to Level&nbsp;3 models only) Sets attribute "units" to @c litre
    * </ul>
    */
   void initDefaults ();

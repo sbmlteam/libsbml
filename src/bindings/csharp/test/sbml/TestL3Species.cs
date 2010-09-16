@@ -342,6 +342,53 @@ namespace LibSBMLCSTest {
       }
     }
 
+    public void test_L3_Species_initDefaults()
+    {
+      Species s = new  Species(3,1);
+      assertTrue( s.getId() == "" );
+      assertTrue( s.getName() == "" );
+      assertTrue( s.getCompartment() == "" );
+      assertEquals( true, isnan(s.getInitialAmount()) );
+      assertEquals( true, isnan(s.getInitialConcentration()) );
+      assertTrue( s.getSubstanceUnits() == "" );
+      assertTrue( s.getHasOnlySubstanceUnits() == false );
+      assertTrue( s.getBoundaryCondition() == false );
+      assertTrue( s.getConstant() == false );
+      assertTrue( s.getConversionFactor() == "" );
+      assertEquals( false, s.isSetId() );
+      assertEquals( false, s.isSetName() );
+      assertEquals( false, s.isSetCompartment() );
+      assertEquals( false, s.isSetInitialAmount() );
+      assertEquals( false, s.isSetInitialConcentration() );
+      assertEquals( false, s.isSetSubstanceUnits() );
+      assertEquals( false, s.isSetHasOnlySubstanceUnits() );
+      assertEquals( false, s.isSetBoundaryCondition() );
+      assertEquals( false, s.isSetConstant() );
+      assertEquals( false, s.isSetConversionFactor() );
+      s.initDefaults();
+      assertTrue( s.getId() == "" );
+      assertTrue( s.getName() == "" );
+      assertTrue( s.getCompartment() == "" );
+      assertEquals( true, isnan(s.getInitialAmount()) );
+      assertEquals( true, isnan(s.getInitialConcentration()) );
+      assertTrue(( "mole"  == s.getSubstanceUnits() ));
+      assertTrue( s.getHasOnlySubstanceUnits() == false );
+      assertTrue( s.getBoundaryCondition() == false );
+      assertTrue( s.getConstant() == false );
+      assertTrue( s.getConversionFactor() == "" );
+      assertEquals( false, s.isSetId() );
+      assertEquals( false, s.isSetName() );
+      assertEquals( false, s.isSetCompartment() );
+      assertEquals( false, s.isSetInitialAmount() );
+      assertEquals( false, s.isSetInitialConcentration() );
+      assertEquals( true, s.isSetSubstanceUnits() );
+      assertEquals( true, s.isSetHasOnlySubstanceUnits() );
+      assertEquals( true, s.isSetBoundaryCondition() );
+      assertEquals( true, s.isSetConstant() );
+      assertEquals( false, s.isSetConversionFactor() );
+      s = null;
+    }
+
     public void test_L3_Species_initialAmount()
     {
       double initialAmount = 0.2;

@@ -498,6 +498,7 @@ public:
    * <li> Sets "boundaryCondition" to @c false
    * <li> Sets "constant" to @c false
    * <li> sets "hasOnlySubstanceUnits" to @c false
+   * <li> (Applies to Level&nbsp;3 models only) Sets attribute "substanceUnits" to @c mole
    * </ul>
    */
   void initDefaults ();

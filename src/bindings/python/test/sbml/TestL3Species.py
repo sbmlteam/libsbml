@@ -233,6 +233,52 @@ class TestL3Species(unittest.TestCase):
       pass    
     pass  
 
+  def test_L3_Species_initDefaults(self):
+    s = libsbml.Species(3,1)
+    self.assert_( s.getId() == "" )
+    self.assert_( s.getName() == "" )
+    self.assert_( s.getCompartment() == "" )
+    self.assertEqual( True, isnan(s.getInitialAmount()) )
+    self.assertEqual( True, isnan(s.getInitialConcentration()) )
+    self.assert_( s.getSubstanceUnits() == "" )
+    self.assert_( s.getHasOnlySubstanceUnits() == False )
+    self.assert_( s.getBoundaryCondition() == False )
+    self.assert_( s.getConstant() == False )
+    self.assert_( s.getConversionFactor() == "" )
+    self.assertEqual( False, s.isSetId() )
+    self.assertEqual( False, s.isSetName() )
+    self.assertEqual( False, s.isSetCompartment() )
+    self.assertEqual( False, s.isSetInitialAmount() )
+    self.assertEqual( False, s.isSetInitialConcentration() )
+    self.assertEqual( False, s.isSetSubstanceUnits() )
+    self.assertEqual( False, s.isSetHasOnlySubstanceUnits() )
+    self.assertEqual( False, s.isSetBoundaryCondition() )
+    self.assertEqual( False, s.isSetConstant() )
+    self.assertEqual( False, s.isSetConversionFactor() )
+    s.initDefaults()
+    self.assert_( s.getId() == "" )
+    self.assert_( s.getName() == "" )
+    self.assert_( s.getCompartment() == "" )
+    self.assertEqual( True, isnan(s.getInitialAmount()) )
+    self.assertEqual( True, isnan(s.getInitialConcentration()) )
+    self.assert_(( "mole"  == s.getSubstanceUnits() ))
+    self.assert_( s.getHasOnlySubstanceUnits() == False )
+    self.assert_( s.getBoundaryCondition() == False )
+    self.assert_( s.getConstant() == False )
+    self.assert_( s.getConversionFactor() == "" )
+    self.assertEqual( False, s.isSetId() )
+    self.assertEqual( False, s.isSetName() )
+    self.assertEqual( False, s.isSetCompartment() )
+    self.assertEqual( False, s.isSetInitialAmount() )
+    self.assertEqual( False, s.isSetInitialConcentration() )
+    self.assertEqual( True, s.isSetSubstanceUnits() )
+    self.assertEqual( True, s.isSetHasOnlySubstanceUnits() )
+    self.assertEqual( True, s.isSetBoundaryCondition() )
+    self.assertEqual( True, s.isSetConstant() )
+    self.assertEqual( False, s.isSetConversionFactor() )
+    _dummyList = [ s ]; _dummyList[:] = []; del _dummyList
+    pass  
+
   def test_L3_Species_initialAmount(self):
     initialAmount = 0.2
     self.assertEqual( False, self.S.isSetInitialAmount() )
