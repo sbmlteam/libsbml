@@ -84,6 +84,17 @@ class TestASTNode < Test::Unit::TestCase
     n = nil
   end
 
+  def test_ASTNode_avogadro_bug
+    n = LibSBML::ASTNode.new()
+    n.setName( "NA")
+    n.setType(LibSBML::AST_NAME_AVOGADRO)
+    assert ((  "NA" == n.getName() ))
+    val = n.getReal()
+    assert( val == 6.02214179e23 )
+    assert( true == n.isConstant() )
+    n = nil
+  end
+
   def test_ASTNode_canonicalizeConstants
     n = LibSBML::ASTNode.new()
     n.setName( "ExponentialE")

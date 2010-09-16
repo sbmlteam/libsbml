@@ -1636,7 +1636,19 @@ ASTNode::setType (ASTNodeType_t type)
   /* if avogadro set value */
   if (type == AST_NAME_AVOGADRO)
   {
-    setValue(6.02214179e23);
+    /* this will free the name - which people may not want */
+    /* this solution does not in fact work for all language bindings */
+
+    //if (mName != NULL)
+    //{
+    //  char * name = mName;
+    //  setValue(6.02214179e23);
+    //  setName(name);
+    //}
+    //else
+    //{
+      mReal = 6.02214179e23;
+    //}
   }
 
   /**

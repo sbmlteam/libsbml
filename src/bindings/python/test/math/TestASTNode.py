@@ -86,7 +86,18 @@ class TestASTNode(unittest.TestCase):
     self.assert_((  "NA" == n.getName() ))
     val = n.getReal()
     self.assert_( val == 6.02214179e23 )
-    self.assert_( 1 == n.isConstant() )
+    self.assert_( n.isConstant() == 1 )
+    _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_ASTNode_avogadro_bug(self):
+    n = libsbml.ASTNode()
+    n.setName( "NA")
+    n.setType(libsbml.AST_NAME_AVOGADRO)
+    self.assert_((  "NA" == n.getName() ))
+    val = n.getReal()
+    self.assert_( val == 6.02214179e23 )
+    self.assert_( n.isConstant() == 1 )
     _dummyList = [ n ]; _dummyList[:] = []; del _dummyList
     pass  
 

@@ -2138,6 +2138,21 @@ START_TEST (test_ASTNode_avogadro)
 }
 END_TEST
 
+START_TEST (test_ASTNode_avogadro_bug)
+{
+  ASTNode_t *n = ASTNode_create();
+  ASTNode_setName(n, "NA");
+  ASTNode_setType(n, AST_NAME_AVOGADRO);
+
+  fail_unless(!strcmp(ASTNode_getName(n), "NA"));
+  double val = ASTNode_getReal(n);
+  fail_unless(val == 6.02214179e23);
+  fail_unless(ASTNode_isConstant(n) == 1);
+
+  ASTNode_free(n);
+}
+END_TEST
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -2184,6 +2199,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_addSemanticsAnnotation  );
   tcase_add_test( tcase, test_ASTNode_units                   );
   tcase_add_test( tcase, test_ASTNode_avogadro                );
+  tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
 
   suite_add_tcase(suite, tcase);
 

@@ -183,6 +183,18 @@ namespace LibSBMLCSTest {
       n = null;
     }
 
+    public void test_ASTNode_avogadro_bug()
+    {
+      ASTNode n = new  ASTNode();
+      n.setName( "NA");
+      n.setType(libsbml.AST_NAME_AVOGADRO);
+      assertTrue((  "NA" == n.getName() ));
+      double val = n.getReal();
+      assertTrue( val == 6.02214179e23 );
+      assertTrue(true == n.isConstant());
+      n = null;
+    }
+
     public void test_ASTNode_canonicalizeConstants()
     {
       ASTNode n = new  ASTNode();
