@@ -251,4 +251,11 @@ class TestSpeciesReference_newSetters < Test::Unit::TestCase
     sm = nil
   end
 
+  def test_SpeciesReference_setStoichiometryMath7
+    sr1 = LibSBML::SpeciesReference.new(1,2)
+    i = sr1.unsetStoichiometryMath()
+    assert( i == LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE )
+    sr1 = nil
+  end
+
 end

@@ -363,6 +363,14 @@ public class TestSpeciesReference_newSetters {
     sm = null;
   }
 
+  public void test_SpeciesReference_setStoichiometryMath7()
+  {
+    SpeciesReference sr1 = new  SpeciesReference(1,2);
+    int i = sr1.unsetStoichiometryMath();
+    assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
+    sr1 = null;
+  }
+
   /**
    * Loads the SWIG-generated libSBML Java module when this class is
    * loaded, or reports a sensible diagnostic message about why it failed.

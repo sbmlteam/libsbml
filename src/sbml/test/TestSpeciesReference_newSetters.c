@@ -411,6 +411,20 @@ START_TEST (test_SpeciesReference_setStoichiometryMath6)
 END_TEST
 
 
+START_TEST (test_SpeciesReference_setStoichiometryMath7)
+{
+  SpeciesReference_t *sr1 =
+    SpeciesReference_create(1, 2);
+
+  int i = SpeciesReference_unsetStoichiometryMath(sr1);
+
+  fail_unless( i == LIBSBML_UNEXPECTED_ATTRIBUTE);
+
+  SpeciesReference_free(sr1);
+}
+END_TEST
+
+
 Suite *
 create_suite_SpeciesReference_newSetters (void)
 {
@@ -444,6 +458,7 @@ create_suite_SpeciesReference_newSetters (void)
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath4 );
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath5 );
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath6 );
+  tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath7 );
 
 
   suite_add_tcase(suite, tcase);

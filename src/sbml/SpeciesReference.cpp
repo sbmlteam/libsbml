@@ -950,7 +950,11 @@ SpeciesReference::unsetStoichiometryMath ()
   delete mStoichiometryMath;
   mStoichiometryMath = 0;
 
-  if ( getLevel() == 2 && !mIsSetStoichiometry)
+  if ( getLevel() != 2 )
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (!mIsSetStoichiometry)
   {
     // 
     // In SBML Level2, "stoichiometry" attribute is set to 1 (default value)

@@ -372,5 +372,13 @@ namespace LibSBMLCSTest {
       sm = null;
     }
 
+    public void test_SpeciesReference_setStoichiometryMath7()
+    {
+      SpeciesReference sr1 = new  SpeciesReference(1,2);
+      int i = sr1.unsetStoichiometryMath();
+      assertTrue( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
+      sr1 = null;
+    }
+
   }
 }

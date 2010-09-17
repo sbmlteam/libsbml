@@ -258,6 +258,13 @@ class TestSpeciesReference_newSetters(unittest.TestCase):
     _dummyList = [ sm ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_SpeciesReference_setStoichiometryMath7(self):
+    sr1 = libsbml.SpeciesReference(1,2)
+    i = sr1.unsetStoichiometryMath()
+    self.assert_( i == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
+    _dummyList = [ sr1 ]; _dummyList[:] = []; del _dummyList
+    pass  
+
 def suite():
   suite = unittest.TestSuite()
   suite.addTest(unittest.makeSuite(TestSpeciesReference_newSetters))
