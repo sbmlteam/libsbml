@@ -6,20 +6,36 @@ Current development
 
 * New features
 
-  - There is a new util_free function that can be used to free any
-    memory that is allocated within a libsbml function call. The
-    SBML_formulaToString function, for example.  This new function
-    is aimed at Windows users of the libraries within the windows 
-    installers.  These are linked against the static MSVC runtime
-    libraries and can cause memory leak issues.
-    
+  - The initDefaults functions initialise common default values for
+    object attributes.  However, it was not assigning values to units.
+    Considering the fact that L2 Compartments and Species have units
+    associated with them by default; the initDefaults functions will
+    now set units to litre for an L3 Compartment and substanceUnits
+    to mole for an L3 Species.
+
   - An ASTNode of type AST_NAME_AVOGADRO is now also considered to
     be a constant ASTNode.
     
   - The function LocalParameter_hasRequiredAttributes was missing 
     from the C API. It has now been added.
 
+  - [Tracker issue #2842277]
+    There is a new util_free function that can be used to free any
+    memory that is allocated within a libsbml function call. The
+    SBML_formulaToString function, for example.  This new function
+    is aimed at Windows users of the libraries within the windows 
+    installers.  These are linked against the static MSVC runtime
+    libraries and can cause memory leak issues.
+    
 * Bug fixes:
+
+  - The unsetStoichiometryMath function should return 
+    LIBSBML_UNEXPECTED_ATTRIBUTE if called on an L1 or L3 model.
+    This is now fixed.
+
+  - The name of an ASTNode was being lost if the type was set to
+    AST_NAME_AVOGADRO. This is fixed. Thanks to Chris Myers for
+    reporting it.
 
   - It proved possible to lose LocalParameters on L3 KineticLaw objects.
     This is now hopefully fixed; thanks to Chris Myers for finding the 
