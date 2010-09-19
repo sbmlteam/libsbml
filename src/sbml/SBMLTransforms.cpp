@@ -52,7 +52,8 @@ SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd)
   }
   
   /* if any of these ids exist in the ASTnode replace */
-  /* TODO Need a get out if replace fails */ 
+  /* Need a get out if replace fails - shouldnt happen but as a fail-safe */ 
+  unsigned int count = 0;
   do 
   {
     for (i = 0; i < lofd->size(); i++)
@@ -61,8 +62,9 @@ SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd)
     }
 
     replaced = !(checkFunctionNodeForIds(node, ids));
+    count++;
   } 
-  while (!replaced);
+  while (!replaced && count < 2*lofd->size());
 }
 
 void
