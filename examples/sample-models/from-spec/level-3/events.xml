@@ -65,7 +65,7 @@
         </listOfRules>
         <listOfEvents>
             <event>
-                <trigger>
+                <trigger persistent="false" initialValue="true">
                     <math:math>
                         <math:apply>
                             <math:gt/>
@@ -83,7 +83,7 @@
                 </listOfEventAssignments>
             </event>
             <event>
-                <trigger>
+                <trigger persistent="false" initialValue="true">
                     <math:math>
                         <math:apply>
                             <math:leq/>
