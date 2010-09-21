@@ -20,7 +20,7 @@
       <parameter id="p" constant="true"/>
     </listOfParameters>
     <listOfEvents>
-      <event id="e" sboTerm="SBO:0000167">
+      <event id="e" sboTerm="SBO:0000167" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

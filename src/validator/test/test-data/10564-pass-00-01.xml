@@ -32,7 +32,7 @@
       <species id="p" compartment="c" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfEvents>
-      <event id="e1">
+      <event id="e1" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

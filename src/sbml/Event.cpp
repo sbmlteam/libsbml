@@ -1219,9 +1219,9 @@ Event::createObject (XMLInputStream& stream)
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
 	       "Priority is not a valid component for this level/version.");
-      else //TODO
+      else 
       {
- //       logError(OnlyOnePriorityPerEvent, getLevel(), getVersion());
+        logError(OnlyOnePriorityPerEvent, getLevel(), getVersion());
       }
       
     }
@@ -1440,11 +1440,17 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
 
   //
-  // useValuesFromTriggerTime: bool {use="optional" } (L3 ->)
+  // useValuesFromTriggerTime: bool {use="required" } (L3 ->)
   //
   mIsSetUseValuesFromTriggerTime = attributes.readInto(
       "useValuesFromTriggerTime", mUseValuesFromTriggerTime, 
-       getErrorLog(), false);
+       getErrorLog());
+ 
+  if (!mIsSetUseValuesFromTriggerTime)
+  {
+    logError(AllowedAttributesOnEvent, level, version);
+  }
+
 }
 
 /** @endcond */

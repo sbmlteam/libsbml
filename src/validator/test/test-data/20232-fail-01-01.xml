@@ -6,7 +6,7 @@
 			<parameter id="p1" constant="false" units="mole"/>
 		</listOfParameters>
     <listOfEvents metaid="ff" sboTerm="SBO:0000001" id="l">
-      <event id="e1">
+      <event id="e1" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

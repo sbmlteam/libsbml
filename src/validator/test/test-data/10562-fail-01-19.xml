@@ -19,7 +19,7 @@
       <parameter id="p1" value="1" units="ampere" constant="false"/>
     </listOfParameters>
     <listOfEvents>
-      <event id="e">
+      <event id="e" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

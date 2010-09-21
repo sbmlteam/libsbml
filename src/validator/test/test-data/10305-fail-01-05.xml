@@ -18,7 +18,7 @@
       <compartment id="d" units="volume" constant="false"/>
     </listOfCompartments>
     <listOfEvents>
-      <event id="e">
+      <event id="e" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

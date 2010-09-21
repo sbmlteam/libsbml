@@ -12,7 +12,7 @@
       <parameter id="p" constant="true" units="dimensionless"/>
     </listOfParameters>
     <listOfEvents>
-      <event id="e">
+      <event id="e" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

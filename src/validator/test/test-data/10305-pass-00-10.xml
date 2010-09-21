@@ -17,7 +17,7 @@
       <compartment id="c" units="volume" constant="false"/>
     </listOfCompartments>
     <listOfEvents>
-      <event id="e1">
+      <event id="e1" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -31,7 +31,7 @@
           <eventAssignment variable="c"/>
         </listOfEventAssignments>
       </event>
-      <event id="e2">
+      <event id="e2" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

@@ -27,7 +27,7 @@
       <species id="ABA80H" compartment="default_compartment" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfEvents>
-      <event>
+      <event useValuesFromTriggerTime="true">
         <trigger metaid="mg" persistent="true" initialValue="true"/>
         <listOfEventAssignments>
           <eventAssignment variable="ABA"/>

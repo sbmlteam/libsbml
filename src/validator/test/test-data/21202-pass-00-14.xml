@@ -186,7 +186,7 @@
       <species id="S1" compartment="compartment" initialAmount="1" substanceUnits="substance" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfEvents>
-      <event id="e1">
+      <event id="e1" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -207,7 +207,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e2">
+      <event id="e2" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -228,7 +228,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e3">
+      <event id="e3" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -249,7 +249,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e4">
+      <event id="e4" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -270,7 +270,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e5">
+      <event id="e5" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -291,7 +291,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e6">
+      <event id="e6" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -312,7 +312,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e7">
+      <event id="e7" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -333,7 +333,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e8">
+      <event id="e8" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -354,7 +354,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e9">
+      <event id="e9" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -375,7 +375,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e10">
+      <event id="e10" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -396,7 +396,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e11">
+      <event id="e11" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -417,7 +417,7 @@
          </eventAssignment>
         </listOfEventAssignments>
       </event>
-      <event id="e12">
+      <event id="e12" useValuesFromTriggerTime="true">
         <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
