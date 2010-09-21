@@ -256,6 +256,9 @@ endif
 
 libsbml.py: libsbml_wrap.cpp
 
+pydoc.i:
+	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc.i
+
 libsbml_wrap.cpp: $(swig_sources) $(main_sources) $(shell $(call check_layout))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc.i
