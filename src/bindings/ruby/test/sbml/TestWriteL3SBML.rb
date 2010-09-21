@@ -162,6 +162,31 @@ class TestWriteL3SBML < Test::Unit::TestCase
     assert_equal true, equals(expected,e.toSBML())
   end
 
+  def test_WriteL3SBML_Event_full
+    expected = "<event>\n" + 
+    "  <trigger initialValue=\"true\" persistent=\"false\">\n" + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
+    "      <true/>\n" + 
+    "    </math>\n" + 
+    "  </trigger>\n" + 
+    "  <priority>\n" + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
+    "      <cn type=\"integer\"> 2 </cn>\n" + 
+    "    </math>\n" + 
+    "  </priority>\n" + 
+    "</event>"
+    e = @@d.createModel().createEvent()
+    t = e.createTrigger()
+    t.setInitialValue(true)
+    t.setPersistent(false)
+    math1 = LibSBML::parseFormula("true")
+    t.setMath(math1)
+    p = e.createPriority()
+    math2 = LibSBML::parseFormula("2")
+    p.setMath(math2)
+    assert_equal true, equals(expected,e.toSBML())
+  end
+
   def test_WriteL3SBML_Event_useValues
     expected = "<event id=\"e\" useValuesFromTriggerTime=\"false\">\n" + 
     "  <delay/>\n" + 
@@ -263,6 +288,12 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p.setValue(2.3)
     p.setUnits("second")
     p.setConstant(true)
+    assert_equal true, equals(expected,p.toSBML())
+  end
+
+  def test_WriteL3SBML_Priority
+    expected =  "<priority/>";
+    p = @@d.createModel().createEvent().createPriority()
     assert_equal true, equals(expected,p.toSBML())
   end
 

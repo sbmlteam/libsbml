@@ -145,6 +145,28 @@ class TestL3Event(unittest.TestCase):
       pass    
     pass  
 
+  def test_L3_Event_setPriority1(self):
+    priority = libsbml.Priority(3,1)
+    math1 = libsbml.parseFormula("0")
+    priority.setMath(math1)
+    self.assertEqual( False, self.E.isSetPriority() )
+    i = self.E.setPriority(priority)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertEqual( True, self.E.isSetPriority() )
+    i = self.E.unsetPriority()
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assertEqual( False, self.E.isSetPriority() )
+    _dummyList = [ priority ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_L3_Event_setPriority2(self):
+    priority = self.E.createPriority()
+    self.assertEqual( True, self.E.isSetPriority() )
+    p = self.E.getPriority()
+    self.assert_( p != None )
+    self.assertEqual( False, p.isSetMath() )
+    pass  
+
   def test_L3_Event_useValuesFromTriggerTime(self):
     self.assert_( self.E.isSetUseValuesFromTriggerTime() == False )
     self.E.setUseValuesFromTriggerTime(True)

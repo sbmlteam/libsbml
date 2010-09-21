@@ -239,6 +239,30 @@ public class TestL3Event {
     }
   }
 
+  public void test_L3_Event_setPriority1()
+  {
+    Priority priority = new  Priority(3,1);
+    ASTNode math1 = libsbml.parseFormula("0");
+    priority.setMath(math1);
+    assertEquals( false, E.isSetPriority() );
+    int i = E.setPriority(priority);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertEquals( true, E.isSetPriority() );
+    i = E.unsetPriority();
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertEquals( false, E.isSetPriority() );
+    priority = null;
+  }
+
+  public void test_L3_Event_setPriority2()
+  {
+    Priority priority = E.createPriority();
+    assertEquals( true, E.isSetPriority() );
+    Priority p = E.getPriority();
+    assertTrue( p != null );
+    assertEquals( false, p.isSetMath() );
+  }
+
   public void test_L3_Event_useValuesFromTriggerTime()
   {
     assertTrue( E.isSetUseValuesFromTriggerTime() == false );

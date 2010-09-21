@@ -56,6 +56,7 @@ START_TEST (test_read_l3v1_new)
   LocalParameter*   lp;
   Event *           e;
   Trigger *         t;
+  Priority*         pr;
 
   std::string filename(TestDataDirectory);
   filename += "l3v1-new.xml";
@@ -374,7 +375,12 @@ START_TEST (test_read_l3v1_new)
      //           <true/>
      //       </math>
      //    </trigger>
-     //  </event>
+         // <priority>
+         //   <math xmlns="http://www.w3.org/1998/Math/MathML">
+         //       <cn> 1 </cn>
+         //   </math>
+         //</priority>
+    //  </event>
      //  <event>
      //    <trigger>
      //       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -392,7 +398,16 @@ START_TEST (test_read_l3v1_new)
   fail_unless (t->isSetInitialValue());
   fail_unless (t->getInitialValue() == false );
 
+  fail_unless (e->isSetPriority());
+
+  pr = e->getPriority();
+
+  fail_unless (pr != NULL);
+  fail_unless (pr->isSetMath());
+
+
   e = m->getEvent(1);
+  fail_unless (!e->isSetPriority());
   t = e->getTrigger();
 
   fail_unless (!(t->isSetPersistent()));

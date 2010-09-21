@@ -237,6 +237,47 @@ START_TEST (test_L3_Event_NS)
 END_TEST
 
 
+START_TEST (test_L3_Event_setPriority1)
+{
+  const Priority_t   *priority 
+    = Priority_create(3, 1);
+  ASTNode_t         *math1   = SBML_parseFormula("0");
+  Priority_setMath(priority, math1);
+ 
+  fail_unless (!Event_isSetPriority(E) );
+
+  int i = Event_setPriority(E, priority);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+  fail_unless( Event_isSetPriority(E) );
+
+  i = Event_unsetPriority(E);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+  fail_unless( !Event_isSetPriority(E) );
+
+  Priority_free(priority);
+
+}
+END_TEST
+
+
+START_TEST (test_L3_Event_setPriority2)
+{
+  const Priority_t   *priority 
+    = Event_createPriority(E);
+ 
+  fail_unless (Event_isSetPriority(E) );
+
+  Priority_t * p = Event_getPriority(E);
+
+  fail_unless (p != NULL);
+  fail_unless (!Priority_isSetMath(p));
+
+}
+END_TEST
+
+
 Suite *
 create_suite_L3_Event (void)
 {
@@ -257,6 +298,8 @@ create_suite_L3_Event (void)
   tcase_add_test( tcase, test_L3_Event_hasRequiredAttributes        );
   tcase_add_test( tcase, test_L3_Event_hasRequiredElements        );
   tcase_add_test( tcase, test_L3_Event_NS              );
+  tcase_add_test( tcase, test_L3_Event_setPriority1              );
+  tcase_add_test( tcase, test_L3_Event_setPriority2              );
 
   suite_add_tcase(suite, tcase);
 

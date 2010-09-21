@@ -152,6 +152,7 @@ namespace LibSBMLCSTest {
       LocalParameter lp;
       Event e;
       Trigger t;
+      Priority pr;
       string filename =  "../../sbml/test/test-data/";
       filename += "l3v1-new.xml";
       d = reader.readSBML(filename);
@@ -347,7 +348,12 @@ namespace LibSBMLCSTest {
       assertTrue( t.getPersistent() == false );
       assertEquals( true, t.isSetInitialValue() );
       assertTrue( t.getInitialValue() == false );
+      assertEquals( true, e.isSetPriority() );
+      pr = e.getPriority();
+      assertTrue( pr != null );
+      assertEquals( true, pr.isSetMath() );
       e = m.getEvent(1);
+      assertEquals( false, e.isSetPriority() );
       t = e.getTrigger();
       assertEquals( false, (t.isSetPersistent()) );
       assertEquals( false, (t.isSetInitialValue()) );

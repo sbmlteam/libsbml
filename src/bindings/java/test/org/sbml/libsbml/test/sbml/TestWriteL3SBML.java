@@ -262,6 +262,32 @@ public class TestWriteL3SBML {
     assertEquals( true, equals(expected,e.toSBML()) );
   }
 
+  public void test_WriteL3SBML_Event_full()
+  {
+    String expected = "<event>\n" + 
+    "  <trigger initialValue=\"true\" persistent=\"false\">\n" + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
+    "      <true/>\n" + 
+    "    </math>\n" + 
+    "  </trigger>\n" + 
+    "  <priority>\n" + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
+    "      <cn type=\"integer\"> 2 </cn>\n" + 
+    "    </math>\n" + 
+    "  </priority>\n" + 
+    "</event>";
+    Event e = D.createModel().createEvent();
+    Trigger t = e.createTrigger();
+    t.setInitialValue(true);
+    t.setPersistent(false);
+    ASTNode math1 = libsbml.parseFormula("true");
+    t.setMath(math1);
+    Priority p = e.createPriority();
+    ASTNode math2 = libsbml.parseFormula("2");
+    p.setMath(math2);
+    assertEquals( true, equals(expected,e.toSBML()) );
+  }
+
   public void test_WriteL3SBML_Event_useValues()
   {
     String expected = "<event id=\"e\" useValuesFromTriggerTime=\"false\">\n" + 
@@ -374,6 +400,13 @@ public class TestWriteL3SBML {
     p.setValue(2.3);
     p.setUnits("second");
     p.setConstant(true);
+    assertEquals( true, equals(expected,p.toSBML()) );
+  }
+
+  public void test_WriteL3SBML_Priority()
+  {
+    String expected =  "<priority/>";
+    Priority p = D.createModel().createEvent().createPriority();
     assertEquals( true, equals(expected,p.toSBML()) );
   }
 

@@ -142,6 +142,7 @@
 #include <sbml/EventAssignment.h>
 #include <sbml/Trigger.h>
 #include <sbml/Delay.h>
+#include <sbml/Priority.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -293,6 +294,22 @@ public:
 
 
   /**
+   * Get the event priority portion of this Event.
+   * 
+   * @return the Priority object of this Event.
+   */
+  const Priority* getPriority () const;
+
+
+  /**
+   * Get the event priority portion of this Event.
+   * 
+   * @return the Priority object of this Event.
+   */
+  Priority* getPriority ();
+
+
+  /**
    * Get the value of the "timeUnits" attribute of this Event, if it has one.
    * 
    * @return the value of the attribute "timeUnits" as a string.
@@ -386,6 +403,15 @@ public:
    * otherwise.
    */
   bool isSetDelay () const;
+
+
+  /**
+   * Predicate for testing whether the priority for this Event has been set.
+   *
+   * @return @c true if the priority of this Event has been set, @c false
+   * otherwise.
+   */
+  bool isSetPriority () const;
 
 
   /**
@@ -493,6 +519,24 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
    */
   int setDelay (const Delay* delay);
+
+
+  /**
+   * Sets the priority definition of this Event to a copy of the given Priority
+   * object instance.
+   *
+   * @param priority the Priority object instance to use
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   */
+  int setPriority (const Priority* priority);
 
 
   /**
@@ -608,6 +652,20 @@ public:
 
 
   /**
+   * Unsets the Priority of this Event.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   */
+  int unsetPriority ();
+
+
+  /**
    * Unsets the "timeUnits" attribute of this Event.
    *
    * @return integer value indicating success/failure of the
@@ -686,6 +744,15 @@ public:
    * @return the newly created Delay object instance
    */
   Delay* createDelay ();
+
+
+  /**
+   * Creates a new, empty Priority, adds it to this Event and 
+   * returns the Priority.
+   *
+   * @return the newly created Priority object instance
+   */
+  Priority* createPriority ();
 
 
   /**
@@ -923,6 +990,7 @@ protected:
   std::string             mName;
   Trigger*                mTrigger;
   Delay*                  mDelay;
+  Priority*               mPriority;
   std::string             mTimeUnits;
   bool                    mUseValuesFromTriggerTime;
   bool                    mIsSetUseValuesFromTriggerTime;
@@ -1207,6 +1275,11 @@ Event_getDelay (Event_t *e);
 
 
 LIBSBML_EXTERN
+Priority_t *
+Event_getPriority (Event_t *e);
+
+
+LIBSBML_EXTERN
 const char *
 Event_getTimeUnits (const Event_t *e);
 
@@ -1234,6 +1307,11 @@ Event_isSetTrigger (const Event_t *e);
 LIBSBML_EXTERN
 int
 Event_isSetDelay (const Event_t *e);
+
+
+LIBSBML_EXTERN
+int
+Event_isSetPriority (const Event_t *e);
 
 
 LIBSBML_EXTERN
@@ -1268,6 +1346,11 @@ Event_setDelay (Event_t *e, const Delay_t *delay);
 
 LIBSBML_EXTERN
 int
+Event_setPriority (Event_t *e, const Priority_t *priority);
+
+
+LIBSBML_EXTERN
+int
 Event_setTimeUnits (Event_t *e, const char *sid);
 
 
@@ -1289,6 +1372,11 @@ Event_unsetName (Event_t *e);
 LIBSBML_EXTERN
 int
 Event_unsetDelay (Event_t *e);
+
+
+LIBSBML_EXTERN
+int
+Event_unsetPriority (Event_t *e);
 
 
 LIBSBML_EXTERN
@@ -1324,6 +1412,11 @@ Event_createTrigger (Event_t *e);
 LIBSBML_EXTERN
 Delay_t *
 Event_createDelay (Event_t *e);
+
+
+LIBSBML_EXTERN
+Priority_t *
+Event_createPriority (Event_t *e);
 
 
 LIBSBML_EXTERN

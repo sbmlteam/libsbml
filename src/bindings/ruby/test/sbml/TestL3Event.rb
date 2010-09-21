@@ -137,6 +137,28 @@ class TestL3Event < Test::Unit::TestCase
     end
   end
 
+  def test_L3_Event_setPriority1
+    priority = LibSBML::Priority.new(3,1)
+    math1 = LibSBML::parseFormula("0")
+    priority.setMath(math1)
+    assert_equal false, @@e.isSetPriority()
+    i = @@e.setPriority(priority)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal true, @@e.isSetPriority()
+    i = @@e.unsetPriority()
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert_equal false, @@e.isSetPriority()
+    priority = nil
+  end
+
+  def test_L3_Event_setPriority2
+    priority = @@e.createPriority()
+    assert_equal true, @@e.isSetPriority()
+    p = @@e.getPriority()
+    assert( p != nil )
+    assert_equal false, p.isSetMath()
+  end
+
   def test_L3_Event_useValuesFromTriggerTime
     assert( @@e.isSetUseValuesFromTriggerTime() == false )
     @@e.setUseValuesFromTriggerTime(true)

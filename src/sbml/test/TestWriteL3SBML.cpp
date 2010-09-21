@@ -610,6 +610,49 @@ START_TEST (test_WriteL3SBML_Trigger_persistent)
 END_TEST
 
 
+START_TEST (test_WriteL3SBML_Priority)
+{
+  const char* expected = "<priority/>";
+
+  Priority *p = D->createModel()->createEvent()->createPriority();
+  
+  fail_unless( equals(expected,p->toSBML()) );
+}
+END_TEST
+
+
+START_TEST (test_WriteL3SBML_Event_full)
+{
+  const char* expected = 
+    "<event>\n"
+    "  <trigger initialValue=\"true\" persistent=\"false\">\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <true/>\n"
+    "    </math>\n"
+    "  </trigger>\n"
+    "  <priority>\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <cn type=\"integer\"> 2 </cn>\n"
+    "    </math>\n"
+    "  </priority>\n"
+    "</event>";
+
+  Event *e = D->createModel()->createEvent();
+  Trigger *t = e->createTrigger();
+  t->setInitialValue(true);
+  t->setPersistent(false);
+  ASTNode         *math1   = SBML_parseFormula("true");
+  t->setMath(math1);
+  Priority *p = e->createPriority();
+  ASTNode         *math2   = SBML_parseFormula("2");
+  p->setMath(math2);
+
+ 
+  fail_unless( equals(expected,e->toSBML()) );
+}
+END_TEST
+
+
 START_TEST (test_WriteL3SBML_NaN)
 {
   const char* expected = "<parameter id=\"p\" value=\"NaN\""
@@ -944,6 +987,8 @@ create_suite_WriteL3SBML ()
   tcase_add_test( tcase, test_WriteL3SBML_Trigger_initialValue );
   tcase_add_test( tcase, test_WriteL3SBML_Trigger_persistent );
  
+  tcase_add_test( tcase, test_WriteL3SBML_Priority         );
+  tcase_add_test( tcase, test_WriteL3SBML_Event_full         );
    // Miscellaneous
   tcase_add_test( tcase, test_WriteL3SBML_NaN     );
   tcase_add_test( tcase, test_WriteL3SBML_INF     );

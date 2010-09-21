@@ -143,6 +143,7 @@ public class TestReadFromFile9 {
     LocalParameter lp;
     Event e;
     Trigger t;
+    Priority pr;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l3v1-new.xml";
     d = reader.readSBML(filename);
@@ -338,7 +339,12 @@ public class TestReadFromFile9 {
     assertTrue( t.getPersistent() == false );
     assertEquals( true, t.isSetInitialValue() );
     assertTrue( t.getInitialValue() == false );
+    assertEquals( true, e.isSetPriority() );
+    pr = e.getPriority();
+    assertTrue( pr != null );
+    assertEquals( true, pr.isSetMath() );
     e = m.getEvent(1);
+    assertEquals( false, e.isSetPriority() );
     t = e.getTrigger();
     assertEquals( false, (t.isSetPersistent()) );
     assertEquals( false, (t.isSetInitialValue()) );

@@ -173,6 +173,31 @@ class TestWriteL3SBML(unittest.TestCase):
     self.assertEqual( True, self.equals(expected,e.toSBML()) )
     pass  
 
+  def test_WriteL3SBML_Event_full(self):
+    expected = wrapString("<event>\n" + 
+    "  <trigger initialValue=\"true\" persistent=\"false\">\n" + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
+    "      <true/>\n" + 
+    "    </math>\n" + 
+    "  </trigger>\n" + 
+    "  <priority>\n" + 
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
+    "      <cn type=\"integer\"> 2 </cn>\n" + 
+    "    </math>\n" + 
+    "  </priority>\n" + 
+    "</event>")
+    e = self.D.createModel().createEvent()
+    t = e.createTrigger()
+    t.setInitialValue(True)
+    t.setPersistent(False)
+    math1 = libsbml.parseFormula("true")
+    t.setMath(math1)
+    p = e.createPriority()
+    math2 = libsbml.parseFormula("2")
+    p.setMath(math2)
+    self.assertEqual( True, self.equals(expected,e.toSBML()) )
+    pass  
+
   def test_WriteL3SBML_Event_useValues(self):
     expected = wrapString("<event id=\"e\" useValuesFromTriggerTime=\"false\">\n" + 
     "  <delay/>\n" + 
@@ -274,6 +299,12 @@ class TestWriteL3SBML(unittest.TestCase):
     p.setValue(2.3)
     p.setUnits("second")
     p.setConstant(True)
+    self.assertEqual( True, self.equals(expected,p.toSBML()) )
+    pass  
+
+  def test_WriteL3SBML_Priority(self):
+    expected =  "<priority/>";
+    p = self.D.createModel().createEvent().createPriority()
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 

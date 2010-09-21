@@ -52,6 +52,7 @@ Event::Event (unsigned int level, unsigned int version) :
  , mName                     ( ""   )
  , mTrigger                  ( 0    )
  , mDelay                    ( 0    )
+ , mPriority                 ( 0    )
  , mUseValuesFromTriggerTime ( true )
  , mIsSetUseValuesFromTriggerTime ( false )
 {
@@ -67,6 +68,7 @@ Event::Event (SBMLNamespaces * sbmlns) :
  , mName                     ( ""   )
  , mTrigger                  ( 0    )
  , mDelay                    ( 0    )
+ , mPriority                 ( 0    )
  , mUseValuesFromTriggerTime ( true )
  , mIsSetUseValuesFromTriggerTime (false )
 {
@@ -94,6 +96,7 @@ Event::~Event ()
 {
   delete mTrigger;
   delete mDelay;
+  delete mPriority;
 }
 
 
@@ -106,6 +109,7 @@ Event::Event (const Event& orig) :
  , mName                     ( orig.mName                     )
  , mTrigger                  ( 0                              )
  , mDelay                    ( 0                              )
+ , mPriority                 ( 0    )
  , mTimeUnits                ( orig.mTimeUnits                )
  , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
  , mIsSetUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
@@ -128,6 +132,11 @@ Event::Event (const Event& orig) :
   {
     mDelay = new Delay(*orig.getDelay());
     mDelay->setParentSBMLObject(this);
+  }
+  if (orig.mPriority) 
+  {
+    mPriority = new Priority(*orig.getPriority());
+    mPriority->setParentSBMLObject(this);
   }
 }
  
@@ -175,6 +184,17 @@ Event& Event::operator=(const Event& rhs)
     {
       mDelay = 0;
     }
+
+    delete mPriority;
+    if (rhs.mPriority) 
+    {
+      mPriority = new Priority(*rhs.getPriority());
+      mPriority->setParentSBMLObject(this);
+    }
+    else
+    {
+      mPriority = 0;
+    }
   }
 
   return *this;
@@ -196,6 +216,8 @@ Event::accept (SBMLVisitor& v) const
   if (mTrigger) mTrigger->accept(v);
   
   if (mDelay) mDelay->accept(v);
+
+  if (mPriority) mPriority->accept(v);
 
   mEventAssignments.accept(v);
 
@@ -274,6 +296,26 @@ Event::getDelay ()
 
 
 /*
+ * @return the delay of this Event.
+ */
+const Priority*
+Event::getPriority () const
+{
+  return mPriority;
+}
+
+
+/*
+ * @return the delay of this Event.
+ */
+Priority*
+Event::getPriority ()
+{
+  return mPriority;
+}
+
+
+/*
  * @return the timeUnits of this Event
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -339,6 +381,16 @@ bool
 Event::isSetDelay () const
 {
   return (mDelay != 0);
+}
+
+
+/*
+ * @return true if the priority of this Event has been set, false otherwise.
+ */
+bool
+Event::isSetPriority () const
+{
+  return (mPriority != 0);
 }
 
 
@@ -501,6 +553,47 @@ Event::setDelay (const Delay* delay)
 
 
 /*
+ * Sets the prioirty of this Event to a copy of the given Priority.
+ */
+int
+Event::setPriority (const Priority* priority)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else if (mPriority == priority) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (priority == NULL)
+  {
+    delete mPriority;
+    mPriority = 0;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (getLevel() != priority->getLevel())
+  {
+    return LIBSBML_LEVEL_MISMATCH;
+  }
+  else if (getVersion() != priority->getVersion())
+  {
+    return LIBSBML_VERSION_MISMATCH;
+  }
+  else
+  {
+    delete mPriority;
+    mPriority = (priority != 0) ? static_cast<Priority*>( priority->clone() ) : 0;
+
+    if (mPriority) mPriority->setSBMLDocument(mSBML);
+    if (mPriority) mPriority->setParentSBMLObject(this);
+    
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
  * Sets the timeUnits of this Event to a copy of sid.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -606,6 +699,26 @@ Event::unsetDelay ()
   mDelay = 0;
 
   if (mDelay == NULL) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
+ * Unsets the priority of this Event.
+ */
+int
+Event::unsetPriority ()
+{
+  delete mPriority;
+  mPriority = 0;
+
+  if (mPriority == NULL) 
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -788,6 +901,39 @@ Event::createDelay ()
   }
 
   return mDelay;
+}
+
+
+/*
+ * Creates a new Priority, adds it to this Event
+ * and returns it.
+ */
+Priority*
+Event::createPriority ()
+{
+  delete mPriority;
+  mPriority = 0;
+  
+  try
+  {
+    mPriority = new Priority(getSBMLNamespaces());
+  }
+  catch (...)
+  {
+    /* here we do not create a default object as the level/version must
+     * match the parent object
+     *
+     * so do nothing
+     */
+  }
+
+  if (mPriority)
+  {
+    mPriority->setSBMLDocument(mSBML);
+    mPriority->setParentSBMLObject(this);
+  }
+
+  return mPriority;
 }
 
 
@@ -1065,6 +1211,37 @@ Event::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     return mDelay;
+  }
+  else if (name == "priority")
+  {
+    if (mPriority)
+    {
+      if (getLevel() < 3)
+        logError(NotSchemaConformant, getLevel(), getVersion(),
+	       "Priority is not a valid component for this level/version.");
+      else //TODO
+      {
+ //       logError(OnlyOnePriorityPerEvent, getLevel(), getVersion());
+      }
+      
+    }
+    delete mPriority;
+
+    try
+    {
+      mPriority = new Priority(getSBMLNamespaces());
+    }
+    catch (SBMLConstructorException*)
+    {
+      mPriority = new Priority(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    catch ( ... )
+    {
+      mPriority = new Priority(SBMLDocument::getDefaultLevel(),
+        SBMLDocument::getDefaultVersion());
+    }
+    return mPriority;
   }
   else
   {
@@ -1361,6 +1538,11 @@ Event::writeElements (XMLOutputStream& stream) const
   if (mDelay)
   {
     mDelay->write(stream);
+  }
+
+  if (mPriority)
+  {
+    mPriority->write(stream);
   }
 
   if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
@@ -1705,6 +1887,21 @@ Event_getDelay (Event_t *e)
 
 
 /**
+ * Takes an Event_t structure and returns its Priority_t structure.
+ *
+ * @param e the Event_t structure whose delay definition is sought.
+ * 
+ * @return the Priority_t of this Event.
+ */
+LIBSBML_EXTERN
+Priority_t *
+Event_getPriority (Event_t *e)
+{
+  return e->getPriority();
+}
+
+
+/**
  * Takes an Event_t structure and returns the value of its "timeUnits"
  * attribute.
  *
@@ -1807,6 +2004,23 @@ int
 Event_isSetDelay (const Event_t *e)
 {
   return static_cast<int>( e->isSetDelay() );
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's priority has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if a Priority_t structure has been assigned to
+ * the given Event_t structure, zero (false) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Event_isSetPriority (const Event_t *e)
+{
+  return static_cast<int>( e->isSetPriority() );
 }
 
 
@@ -1945,6 +2159,29 @@ Event_setDelay (Event_t *e, const Delay_t *delay)
 
 
 /**
+ * Sets the priority of this Event to a copy of the given Priority.
+ * 
+ * @param e the Event_t structure to set
+ * @param priority the Priority_t structure to use.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_LEVEL_MISMATCH
+ * @li LIBSBML_VERSION_MISMATCH
+ * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ */
+LIBSBML_EXTERN
+int
+Event_setPriority (Event_t *e, const Priority_t *priority)
+{
+  return e->setPriority(priority);
+}
+
+
+/**
  * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
  * 
  * @param e the Event_t structure to set
@@ -2054,6 +2291,26 @@ int
 Event_unsetDelay (Event_t *e)
 {
   return e->unsetDelay();
+}
+
+
+/**
+ * Unsets the priority of this Event.
+ *
+ * @param e the Event_t structure to unset
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ */
+LIBSBML_EXTERN
+int
+Event_unsetPriority (Event_t *e)
+{
+  return e->unsetPriority();
 }
 
 
@@ -2187,6 +2444,21 @@ Delay_t *
 Event_createDelay (Event_t *e)
 {
   return e->createDelay();
+}
+
+
+/**
+ * Creates a new, empty Priority_t structure, adds it to this
+ * Event, and returns the Priority_t.
+ *
+ * @param e the Event_t structure to which the priority should be
+ * added
+ */
+LIBSBML_EXTERN
+Priority_t *
+Event_createPriority (Event_t *e)
+{
+  return e->createPriority();
 }
 
 

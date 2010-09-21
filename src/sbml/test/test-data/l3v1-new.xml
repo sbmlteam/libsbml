@@ -111,6 +111,11 @@
                 <true/>
             </math>
          </trigger>
+         <priority>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn> 1 </cn>
+            </math>
+         </priority>
        </event>
        <event>
          <trigger>
