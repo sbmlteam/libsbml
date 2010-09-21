@@ -59,6 +59,7 @@ headers =              \
   LocalParameter.h     \
   Model.h              \
   Parameter.h          \
+  Priority.h           \
   Reaction.h           \
   Rule.h               \
   SBMLDocument.h       \
@@ -98,6 +99,7 @@ sources =                \
   LocalParameter.cpp     \
   Model.cpp              \
   Parameter.cpp          \
+  Priority.cpp           \
   Reaction.cpp           \
   Rule.cpp               \
   SBMLConvert.cpp        \

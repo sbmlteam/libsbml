@@ -65,6 +65,7 @@
 #include <sbml/Delay.h>
 #include <sbml/StoichiometryMath.h>
 #include <sbml/Trigger.h>
+#include <sbml/Priority.h>
 
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>

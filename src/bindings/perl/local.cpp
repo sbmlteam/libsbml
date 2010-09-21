@@ -201,6 +201,9 @@ GetDowncastSwigType (SBase* sb)
 
     case SBML_STOICHIOMETRY_MATH:
      return SWIGTYPE_p_StoichiometryMath;
+
+    case SBML_PRIORITY:
+      return SWIGTYPE_p_Priority;
       
     default:
       return SWIGTYPE_p_SBase;

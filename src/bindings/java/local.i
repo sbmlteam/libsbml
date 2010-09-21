@@ -69,6 +69,7 @@ COVARIANT_RTYPE_CLONE(ListOf)
 COVARIANT_RTYPE_CLONE(Model)
 COVARIANT_RTYPE_CLONE(LocalParameter)
 COVARIANT_RTYPE_CLONE(Parameter)
+COVARIANT_RTYPE_CLONE(Priority)
 COVARIANT_RTYPE_CLONE(Reaction)
 COVARIANT_RTYPE_CLONE(Rule)
 COVARIANT_RTYPE_CLONE(AlgebraicRule)
@@ -244,6 +245,7 @@ SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
 SBMLCONSTRUCTOR_EXCEPTION(Model)
 SBMLCONSTRUCTOR_EXCEPTION(LocalParameter)
 SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Priority)
 SBMLCONSTRUCTOR_EXCEPTION(Reaction)
 SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)
 SBMLCONSTRUCTOR_EXCEPTION(AlgebraicRule)
@@ -444,6 +446,9 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
       case libsbmlConstants.SBML_PARAMETER:
         return new Parameter(cPtr, owner);
 
+      case libsbmlConstants.SBML_PRIORITY:
+        return new Priority(cPtr, owner);
+
       case libsbmlConstants.SBML_LOCAL_PARAMETER:
         return new LocalParameter(cPtr, owner);
 
@@ -634,6 +639,9 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 
       case libsbmlConstants.SBML_PARAMETER:
         return new Parameter(cPtr, owner);
+
+      case libsbmlConstants.SBML_PRIORITY:
+        return new Priority(cPtr, owner);
 
       case libsbmlConstants.SBML_LOCAL_PARAMETER:
         return new LocalParameter(cPtr, owner);

@@ -104,6 +104,7 @@ Suite *create_suite_L3_Parameter                  (void);
 Suite *create_suite_L3_LocalParameter             (void);
 Suite *create_suite_Parameter_newSetters          (void);
 Suite *create_suite_ParameterRule                 (void);
+Suite *create_suite_Priority                      (void);
 Suite *create_suite_RateRule                      (void);
 Suite *create_suite_Reaction                      (void);
 Suite *create_suite_L3_Reaction                   (void);
@@ -248,6 +249,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_L3_LocalParameter             () );
   srunner_add_suite( runner, create_suite_Parameter_newSetters          () );
   srunner_add_suite( runner, create_suite_ParameterRule                 () );
+  srunner_add_suite( runner, create_suite_Priority                      () );
   srunner_add_suite( runner, create_suite_RateRule                      () );
   srunner_add_suite( runner, create_suite_Reaction                      () );
   srunner_add_suite( runner, create_suite_L3_Reaction                   () );

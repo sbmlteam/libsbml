@@ -74,6 +74,7 @@ test_sources =                   \
   TestL3Parameter.c                \
   TestL3LocalParameter.c                \
   TestParameter_newSetters.c     \
+  TestPriority.c                \
   TestReaction.c                 \
   TestL3Reaction.c                 \
   TestReaction_newSetters.c      \

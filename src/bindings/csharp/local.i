@@ -303,6 +303,9 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 			case (int) libsbml.SBML_PARAMETER:
 				return new Parameter(cPtr, owner);
 				
+			case (int) libsbml.SBML_PRIORITY:
+				return new Priority(cPtr, owner);
+				
 			case (int) libsbml.SBML_LOCAL_PARAMETER:
 				return new LocalParameter(cPtr, owner);
 				
@@ -515,6 +518,9 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 				
 			case (int) libsbml.SBML_PARAMETER:
 				return new Parameter(cPtr, owner);
+				
+			case (int) libsbml.SBML_PRIORITY:
+				return new Priority(cPtr, owner);
 				
 			case (int) libsbml.SBML_LOCAL_PARAMETER:
 				return new LocalParameter(cPtr, owner);
@@ -889,6 +895,7 @@ COVARIANT_RTYPE_CLONE(InitialAssignment)
 COVARIANT_RTYPE_CLONE(KineticLaw)
 COVARIANT_RTYPE_CLONE(Model)
 COVARIANT_RTYPE_CLONE(Parameter)
+COVARIANT_RTYPE_CLONE(Priority)
 COVARIANT_RTYPE_CLONE(LocalParameter)
 COVARIANT_RTYPE_CLONE(Reaction)
 COVARIANT_RTYPE_CLONE(Rule)
@@ -1125,6 +1132,7 @@ SBMLCONSTRUCTOR_EXCEPTION(InitialAssignment)
 SBMLCONSTRUCTOR_EXCEPTION(KineticLaw)
 SBMLCONSTRUCTOR_EXCEPTION(Model)
 SBMLCONSTRUCTOR_EXCEPTION(Parameter)
+SBMLCONSTRUCTOR_EXCEPTION(Priority)
 SBMLCONSTRUCTOR_EXCEPTION(LocalParameter)
 SBMLCONSTRUCTOR_EXCEPTION(Reaction)
 SBMLCONSTRUCTOR_EXCEPTION(AssignmentRule)

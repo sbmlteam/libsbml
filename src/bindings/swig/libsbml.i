@@ -523,6 +523,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/EventAssignment.h
 %include sbml/Trigger.h
 %include sbml/Delay.h
+%include sbml/Priority.h
 %include sbml/SBO.h
 %include sbml/SyntaxChecker.h
 %include sbml/StoichiometryMath.h

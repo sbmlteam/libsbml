@@ -191,6 +191,12 @@ typedef CLASS_OR_STRUCT Delay                     Delay_t;
 typedef CLASS_OR_STRUCT StoichiometryMath          StoichiometryMath_t;
 
 /**
+ * @var typedef class Priority Priority_t
+ * @copydoc Priority
+ */
+typedef CLASS_OR_STRUCT Priority                     Priority_t;
+
+/**
  * @var typedef class SBMLReader SBMLReader_t
  * @copydoc SBMLReader
  */
