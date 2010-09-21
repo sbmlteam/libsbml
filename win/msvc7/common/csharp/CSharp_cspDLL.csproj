@@ -399,6 +399,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "csharp-files-win\Priority.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "csharp-files-win\RateRule.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

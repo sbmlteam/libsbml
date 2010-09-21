@@ -458,6 +458,9 @@
 				RelativePath="..\..\..\src\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\sbml\Priority.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\annotation\RDFAnnotation.cpp">
 			</File>
 			<File
@@ -952,6 +955,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\validator\constraints\PowerUnitsCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\sbml\Priority.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\annotation\RDFAnnotation.h">

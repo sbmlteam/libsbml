@@ -275,6 +275,9 @@
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\Point.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\Priority.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\RateRule.cs">
       <SubType>Code</SubType>
     </Compile>
