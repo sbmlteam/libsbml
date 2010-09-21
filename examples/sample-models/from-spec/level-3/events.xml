@@ -64,7 +64,7 @@
             </rateRule>
         </listOfRules>
         <listOfEvents>
-            <event>
+            <event useValuesFromTriggerTime="true">
                 <trigger persistent="false" initialValue="true">
                     <math:math>
                         <math:apply>
@@ -82,7 +82,7 @@
                     </eventAssignment>
                 </listOfEventAssignments>
             </event>
-            <event>
+            <event useValuesFromTriggerTime="true">
                 <trigger persistent="false" initialValue="true">
                     <math:math>
                         <math:apply>
