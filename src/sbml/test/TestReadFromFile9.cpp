@@ -54,6 +54,8 @@ START_TEST (test_read_l3v1_new)
   SpeciesReference* sr;
   KineticLaw*       kl;
   LocalParameter*   lp;
+  Event *           e;
+  Trigger *         t;
 
   std::string filename(TestDataDirectory);
   filename += "l3v1-new.xml";
@@ -365,8 +367,36 @@ START_TEST (test_read_l3v1_new)
   fail_unless(!r->isSetCompartment());
   fail_unless(r->getCompartment() == "");
 
+     //<listOfEvents>
+     //  <event useValuesFromTriggerTime="true">
+     //    <trigger initialValue="false" persistent="false">
+     //       <math xmlns="http://www.w3.org/1998/Math/MathML">
+     //           <true/>
+     //       </math>
+     //    </trigger>
+     //  </event>
+     //  <event>
+     //    <trigger>
+     //       <math xmlns="http://www.w3.org/1998/Math/MathML">
+     //           <true/>
+     //       </math>
+     //    </trigger>
+     //  </event>
+     //</listOfEvents>
 
+  e = m->getEvent(0);
+  t = e->getTrigger();
 
+  fail_unless (t->isSetPersistent());
+  fail_unless (t->getPersistent() == false );
+  fail_unless (t->isSetInitialValue());
+  fail_unless (t->getInitialValue() == false );
+
+  e = m->getEvent(1);
+  t = e->getTrigger();
+
+  fail_unless (!(t->isSetPersistent()));
+  fail_unless (!(t->isSetInitialValue()));
 
   delete d;
 }

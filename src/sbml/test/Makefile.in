@@ -99,6 +99,7 @@ test_sources =                   \
   TestRateRule.c                 \
   TestDelay.c                    \
   TestTrigger.c                  \
+  TestL3Trigger.c                \
   TestModel.c                    \
   TestL3Model.c                    \
   TestModel_newSetters.c         \

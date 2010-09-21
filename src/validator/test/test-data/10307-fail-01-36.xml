@@ -28,7 +28,7 @@
     </listOfSpecies>
     <listOfEvents>
       <event useValuesFromTriggerTime="true">
-        <trigger/>
+        <trigger persistent="true" initialValue="true"/>
         <delay metaid="mg"/>
         <listOfEventAssignments>
           <eventAssignment variable="ABA"/>

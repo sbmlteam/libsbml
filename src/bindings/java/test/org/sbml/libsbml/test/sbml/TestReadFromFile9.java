@@ -141,6 +141,8 @@ public class TestReadFromFile9 {
     SpeciesReference sr;
     KineticLaw kl;
     LocalParameter lp;
+    Event e;
+    Trigger t;
     String filename = new String( "../../sbml/test/test-data/" );
     filename += "l3v1-new.xml";
     d = reader.readSBML(filename);
@@ -330,6 +332,16 @@ public class TestReadFromFile9 {
     assertEquals( false, r.isSetReversible() );
     assertEquals( false, r.isSetCompartment() );
     assertTrue( r.getCompartment().equals( "") );
+    e = m.getEvent(0);
+    t = e.getTrigger();
+    assertEquals( true, t.isSetPersistent() );
+    assertTrue( t.getPersistent() == false );
+    assertEquals( true, t.isSetInitialValue() );
+    assertTrue( t.getInitialValue() == false );
+    e = m.getEvent(1);
+    t = e.getTrigger();
+    assertEquals( false, (t.isSetPersistent()) );
+    assertEquals( false, (t.isSetInitialValue()) );
     d = null;
   }
 

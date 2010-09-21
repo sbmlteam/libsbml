@@ -187,7 +187,7 @@
     </listOfSpecies>
     <listOfEvents>
       <event id="e1">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f1 </ci>
@@ -208,7 +208,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e2">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f2 </ci>
@@ -229,7 +229,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e3">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f3 </ci>
@@ -250,7 +250,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e4">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f4 </ci>
@@ -271,7 +271,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e5">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f5 </ci>
@@ -292,7 +292,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e6">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f6 </ci>
@@ -313,7 +313,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e7">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f7 </ci>
@@ -334,7 +334,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e8">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f8 </ci>
@@ -355,7 +355,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e9">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f9 </ci>
@@ -376,7 +376,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e10">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f10 </ci>
@@ -397,7 +397,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e11">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f11 </ci>
@@ -418,7 +418,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e12">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f12 </ci>

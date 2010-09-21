@@ -18,7 +18,7 @@
     </listOfCompartments>
     <listOfEvents>
       <event id="e1">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <eq/>
@@ -40,7 +40,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e2">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <neq/>
@@ -62,7 +62,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e3">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <gt/>
@@ -84,7 +84,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e4">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <lt/>
@@ -106,7 +106,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e5">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <geq/>
@@ -128,7 +128,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e6">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <leq/>
@@ -150,7 +150,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e7">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <and/>
@@ -172,7 +172,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e8">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <or/>
@@ -194,7 +194,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e9">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <xor/>
@@ -216,7 +216,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e10">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <not/>
@@ -237,7 +237,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e11">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <true/>
           </math>
@@ -255,7 +255,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e12">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <false/>
           </math>

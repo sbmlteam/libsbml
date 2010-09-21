@@ -18,7 +18,7 @@
     </listOfCompartments>
     <listOfEvents>
       <event id="e" useValuesFromTriggerTime="false">
-        <trigger metaid="kkk" sboTerm="SBO:0000001">
+        <trigger  persistent="true" initialValue="true" metaid="kkk" sboTerm="SBO:0000001">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <neq/>

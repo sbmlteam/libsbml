@@ -135,6 +135,7 @@ Suite *create_suite_SpeciesType                   (void);
 Suite *create_suite_SpeciesType_newSetters        (void);
 Suite *create_suite_StoichiometryMath             (void);
 Suite *create_suite_Trigger                       (void);
+Suite *create_suite_L3Trigger                     (void);
 Suite *create_suite_Unit                          (void);
 Suite *create_suite_L3_Unit                       (void);
 Suite *create_suite_Unit_newSetters               (void);
@@ -266,6 +267,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SpeciesType_newSetters        () );
   srunner_add_suite( runner, create_suite_StoichiometryMath             () );
   srunner_add_suite( runner, create_suite_Trigger                       () );
+  srunner_add_suite( runner, create_suite_L3Trigger                       () );
   srunner_add_suite( runner, create_suite_Unit                          () );
   srunner_add_suite( runner, create_suite_L3_Unit                       () );
   srunner_add_suite( runner, create_suite_Unit_newSetters               () );

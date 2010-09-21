@@ -104,5 +104,21 @@
             </kineticLaw>
         </reaction>
      </listOfReactions>
+     <listOfEvents>
+       <event useValuesFromTriggerTime="true">
+         <trigger initialValue="false" persistent="false">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <true/>
+            </math>
+         </trigger>
+       </event>
+       <event>
+         <trigger>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <true/>
+            </math>
+         </trigger>
+       </event>
+     </listOfEvents>
   </model>
 </sbml>

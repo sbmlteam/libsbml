@@ -229,6 +229,16 @@ class TestReadFromFile9 < Test::Unit::TestCase
     assert_equal false, r.isSetReversible()
     assert_equal false, r.isSetCompartment()
     assert( r.getCompartment() ==  "" )
+    e = m.getEvent(0)
+    t = e.getTrigger()
+    assert_equal true, t.isSetPersistent()
+    assert( t.getPersistent() == false )
+    assert_equal true, t.isSetInitialValue()
+    assert( t.getInitialValue() == false )
+    e = m.getEvent(1)
+    t = e.getTrigger()
+    assert_equal false, (t.isSetPersistent())
+    assert_equal false, (t.isSetInitialValue())
     d = nil
   end
 

@@ -389,6 +389,26 @@ class TestWriteL3SBML(unittest.TestCase):
     self.assertEqual( True, self.equals(expected1,s.toSBML()) )
     pass  
 
+  def test_WriteL3SBML_Trigger(self):
+    expected =  "<trigger initialValue=\"true\" persistent=\"true\"/>";
+    t = self.D.createModel().createEvent().createTrigger()
+    self.assertEqual( True, self.equals(expected,t.toSBML()) )
+    pass  
+
+  def test_WriteL3SBML_Trigger_initialValue(self):
+    expected =  "<trigger initialValue=\"false\" persistent=\"true\"/>";
+    t = self.D.createModel().createEvent().createTrigger()
+    t.setInitialValue(False)
+    self.assertEqual( True, self.equals(expected,t.toSBML()) )
+    pass  
+
+  def test_WriteL3SBML_Trigger_persistent(self):
+    expected =  "<trigger initialValue=\"true\" persistent=\"false\"/>";
+    t = self.D.createModel().createEvent().createTrigger()
+    t.setPersistent(False)
+    self.assertEqual( True, self.equals(expected,t.toSBML()) )
+    pass  
+
   def test_WriteL3SBML_Unit(self):
     expected = "<unit kind=\"kilogram\" exponent=\"0.2\"" + " scale=\"-3\" multiplier=\"3.2\"/>";
     u = self.D.createModel().createUnitDefinition().createUnit()
@@ -421,39 +441,6 @@ class TestWriteL3SBML(unittest.TestCase):
     u = self.D.createModel().createUnitDefinition().createUnit()
     self.assertEqual( True, self.equals(expected,u.toSBML()) )
     pass  
-
-  def test_WriteL3SBML_bzip2(self):
-    file = []
-    file.append("../../../examples/sample-models/from-spec/level-3/algebraicrules.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/assignmentrules.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/boundarycondition.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/delay.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/dimerization.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/events.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/functiondef.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/multicomp.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/overdetermined.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/twodimensional.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/units.xml")
-
-    bz2file = "test.xml.bz2"
-    for f in file:
-      d = libsbml.readSBML(f)
-      self.assert_( d != None )
-      if not libsbml.SBMLWriter.hasBzip2():
-        self.assert_( libsbml.writeSBML(d,bz2file) == 0 )
-        d = None
-        continue
-      result = libsbml.writeSBML(d,bz2file)
-      self.assertEqual( 1, result )
-      dg = libsbml.readSBML(bz2file)
-      self.assert_( dg != None )
-      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
-      d = None
-      dg = None
-    pass
-
 
   def test_WriteL3SBML_elements(self):
     expected = wrapSBML_L3v1("  <model>\n" + 
@@ -514,39 +501,6 @@ class TestWriteL3SBML(unittest.TestCase):
     w = None
     pass  
 
-  def test_WriteL3SBML_gzip(self):
-    file = []
-    file.append("../../../examples/sample-models/from-spec/level-3/algebraicrules.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/assignmentrules.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/boundarycondition.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/delay.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/dimerization.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/events.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/functiondef.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/multicomp.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/overdetermined.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/twodimensional.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/units.xml")
-
-    gzfile = "test.xml.gz"
-    for f in file:
-      d = libsbml.readSBML(f)
-      self.assert_( d != None )
-      if not libsbml.SBMLWriter.hasZlib():
-        self.assert_( libsbml.writeSBML(d,gzfile) == 0 )
-        d = None
-        continue
-      result = libsbml.writeSBML(d,gzfile)
-      self.assertEqual( 1, result )
-      dg = libsbml.readSBML(gzfile)
-      self.assert_( dg != None )
-      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
-      d = None
-      dg = None
-    pass
-
-
   def test_WriteL3SBML_locale(self):
     expected = "<parameter id=\"p\" value=\"3.31\"" + " constant=\"true\"/>";
     p = self.D.createModel().createParameter()
@@ -554,39 +508,6 @@ class TestWriteL3SBML(unittest.TestCase):
     p.setValue(3.31)
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
-
-  def test_WriteL3SBML_zip(self):
-    file = []
-    file.append("../../../examples/sample-models/from-spec/level-3/algebraicrules.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/assignmentrules.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/boundarycondition.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/delay.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/dimerization.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/events.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/functiondef.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/multicomp.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/overdetermined.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/twodimensional.xml")
-    file.append("../../../examples/sample-models/from-spec/level-3/units.xml")
-
-    zipfile = "test.xml.zip"
-    for f in file:
-      d = libsbml.readSBML(f)
-      self.assert_( d != None )
-      if not libsbml.SBMLWriter.hasZlib():
-        self.assert_( libsbml.writeSBML(d,zipfile) == 0 )
-        d = None
-        continue
-      result = libsbml.writeSBML(d,zipfile)
-      self.assertEqual( 1, result )
-      dg = libsbml.readSBML(zipfile)
-      self.assert_( dg != None )
-      self.assert_( ( dg.toSBML() != d.toSBML() ) == False )
-      d = None
-      dg = None
-    pass
-
 
 def suite():
   suite = unittest.TestSuite()

@@ -496,6 +496,29 @@ public class TestWriteL3SBML {
     assertEquals( true, equals(expected1,s.toSBML()) );
   }
 
+  public void test_WriteL3SBML_Trigger()
+  {
+    String expected =  "<trigger initialValue=\"true\" persistent=\"true\"/>";
+    Trigger t = D.createModel().createEvent().createTrigger();
+    assertEquals( true, equals(expected,t.toSBML()) );
+  }
+
+  public void test_WriteL3SBML_Trigger_initialValue()
+  {
+    String expected =  "<trigger initialValue=\"false\" persistent=\"true\"/>";
+    Trigger t = D.createModel().createEvent().createTrigger();
+    t.setInitialValue(false);
+    assertEquals( true, equals(expected,t.toSBML()) );
+  }
+
+  public void test_WriteL3SBML_Trigger_persistent()
+  {
+    String expected =  "<trigger initialValue=\"true\" persistent=\"false\"/>";
+    Trigger t = D.createModel().createEvent().createTrigger();
+    t.setPersistent(false);
+    assertEquals( true, equals(expected,t.toSBML()) );
+  }
+
   public void test_WriteL3SBML_Unit()
   {
     String expected = "<unit kind=\"kilogram\" exponent=\"0.2\"" + " scale=\"-3\" multiplier=\"3.2\"/>";
@@ -531,45 +554,6 @@ public class TestWriteL3SBML {
     Unit u = D.createModel().createUnitDefinition().createUnit();
     assertEquals( true, equals(expected,u.toSBML()) );
   }
-
-  public void test_WriteL3SBML_bzip2()
-  {
-    int filenum = 12;
-    String file[] = {
-                        "../../../examples/sample-models/from-spec/level-3/algebraicrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/assignmentrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/boundarycondition.xml",
-                        "../../../examples/sample-models/from-spec/level-3/delay.xml",
-                        "../../../examples/sample-models/from-spec/level-3/dimerization.xml",
-                        "../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml",
-                        "../../../examples/sample-models/from-spec/level-3/events.xml",
-                        "../../../examples/sample-models/from-spec/level-3/functiondef.xml",
-                        "../../../examples/sample-models/from-spec/level-3/multicomp.xml",
-                        "../../../examples/sample-models/from-spec/level-3/overdetermined.xml",
-                        "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
-                        "../../../examples/sample-models/from-spec/level-3/units.xml"
-    };
-    String bz2file = "test.xml.bz2";
-    for(int i = 0; i < filenum; i++)
-    {
-      SBMLDocument d = libsbml.readSBML(file[i]);
-      assertTrue( d != null );
-      if (! SBMLWriter.hasBzip2())
-      {
-        assertTrue( libsbml.writeSBML(d, bz2file) == 0 );
-        d = null;
-          continue;
-      }
-      boolean result = (libsbml.writeSBML(d, bz2file) != 0);
-      assertEquals( true, result );
-      SBMLDocument dg = libsbml.readSBML(bz2file);
-      assertTrue( dg != null );
-      assertTrue( !d.toSBML().equals(dg.toSBML()) == false );
-      d = null;
-      dg = null;
-    }
-  }
-
 
   public void test_WriteL3SBML_elements()
   {
@@ -632,45 +616,6 @@ public class TestWriteL3SBML {
     w = null;
   }
 
-  public void test_WriteL3SBML_gzip()
-  {
-    int filenum = 12;
-    String file[] = {
-                        "../../../examples/sample-models/from-spec/level-3/algebraicrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/assignmentrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/boundarycondition.xml",
-                        "../../../examples/sample-models/from-spec/level-3/delay.xml",
-                        "../../../examples/sample-models/from-spec/level-3/dimerization.xml",
-                        "../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml",
-                        "../../../examples/sample-models/from-spec/level-3/events.xml",
-                        "../../../examples/sample-models/from-spec/level-3/functiondef.xml",
-                        "../../../examples/sample-models/from-spec/level-3/multicomp.xml",
-                        "../../../examples/sample-models/from-spec/level-3/overdetermined.xml",
-                        "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
-                        "../../../examples/sample-models/from-spec/level-3/units.xml"
-    };
-    String gzfile = "test.xml.gz";
-    for(int i = 0; i < filenum; i++)
-    {
-      SBMLDocument d = libsbml.readSBML(file[i]);
-      assertTrue( d != null );
-      if (! SBMLWriter.hasZlib())
-      {
-        assertTrue( libsbml.writeSBML(d, gzfile) == 0 );
-        d = null;
-          continue;
-      }
-      boolean result = (libsbml.writeSBML(d, gzfile) != 0);
-      assertEquals( true, result );
-      SBMLDocument dg = libsbml.readSBML(gzfile);
-      assertTrue( dg != null );
-      assertTrue( !d.toSBML().equals(dg.toSBML()) == false );
-      d = null;
-      dg = null;
-    }
-  }
-
-
   public void test_WriteL3SBML_locale()
   {
     String expected = "<parameter id=\"p\" value=\"3.31\"" + " constant=\"true\"/>";
@@ -679,45 +624,6 @@ public class TestWriteL3SBML {
     p.setValue(3.31);
     assertEquals( true, equals(expected,p.toSBML()) );
   }
-
-  public void test_WriteL3SBML_zip()
-  {
-    int filenum = 12;
-    String file[] = {
-                        "../../../examples/sample-models/from-spec/level-3/algebraicrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/assignmentrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/boundarycondition.xml",
-                        "../../../examples/sample-models/from-spec/level-3/delay.xml",
-                        "../../../examples/sample-models/from-spec/level-3/dimerization.xml",
-                        "../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml",
-                        "../../../examples/sample-models/from-spec/level-3/events.xml",
-                        "../../../examples/sample-models/from-spec/level-3/functiondef.xml",
-                        "../../../examples/sample-models/from-spec/level-3/multicomp.xml",
-                        "../../../examples/sample-models/from-spec/level-3/overdetermined.xml",
-                        "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
-                        "../../../examples/sample-models/from-spec/level-3/units.xml"
-    };
-    String zipfile = "test.xml.zip";
-    for(int i = 0; i < filenum; i++)
-    {
-      SBMLDocument d = libsbml.readSBML(file[i]);
-      assertTrue( d != null );
-      if (! SBMLWriter.hasZlib())
-      {
-        assertTrue( libsbml.writeSBML(d, zipfile) == 0 );
-        d = null;
-          continue;
-      }
-      boolean result = (libsbml.writeSBML(d, zipfile) != 0);
-      assertEquals( true, result );
-      SBMLDocument dg = libsbml.readSBML(zipfile);
-      assertTrue( dg != null );
-      assertTrue( !d.toSBML().equals(dg.toSBML()) == false );
-      d = null;
-      dg = null;
-    }
-  }
-
 
   /**
    * Loads the SWIG-generated libSBML Java module when this class is

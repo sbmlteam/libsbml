@@ -234,6 +234,16 @@ class TestReadFromFile9(unittest.TestCase):
     self.assertEqual( False, r.isSetReversible() )
     self.assertEqual( False, r.isSetCompartment() )
     self.assert_( r.getCompartment() ==  "" )
+    e = m.getEvent(0)
+    t = e.getTrigger()
+    self.assertEqual( True, t.isSetPersistent() )
+    self.assert_( t.getPersistent() == False )
+    self.assertEqual( True, t.isSetInitialValue() )
+    self.assert_( t.getInitialValue() == False )
+    e = m.getEvent(1)
+    t = e.getTrigger()
+    self.assertEqual( False, (t.isSetPersistent()) )
+    self.assertEqual( False, (t.isSetInitialValue()) )
     d = None
     pass  
 

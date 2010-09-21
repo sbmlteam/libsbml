@@ -575,6 +575,41 @@ START_TEST (test_WriteL3SBML_Event_useValues)
 END_TEST
 
 
+START_TEST (test_WriteL3SBML_Trigger)
+{
+  const char* expected = "<trigger initialValue=\"true\" persistent=\"true\"/>";
+
+  Trigger *t = D->createModel()->createEvent()->createTrigger();
+  
+  fail_unless( equals(expected,t->toSBML()) );
+}
+END_TEST
+
+
+START_TEST (test_WriteL3SBML_Trigger_initialValue)
+{
+  const char* expected = "<trigger initialValue=\"false\" persistent=\"true\"/>";
+
+  Trigger *t = D->createModel()->createEvent()->createTrigger();
+  t->setInitialValue(false);
+  
+  fail_unless( equals(expected,t->toSBML()) );
+}
+END_TEST
+
+
+START_TEST (test_WriteL3SBML_Trigger_persistent)
+{
+  const char* expected = "<trigger initialValue=\"true\" persistent=\"false\"/>";
+
+  Trigger *t = D->createModel()->createEvent()->createTrigger();
+  t->setPersistent(false);
+  
+  fail_unless( equals(expected,t->toSBML()) );
+}
+END_TEST
+
+
 START_TEST (test_WriteL3SBML_NaN)
 {
   const char* expected = "<parameter id=\"p\" value=\"NaN\""
@@ -903,6 +938,11 @@ create_suite_WriteL3SBML ()
   //// Event
   tcase_add_test( tcase, test_WriteL3SBML_Event         );
   tcase_add_test( tcase, test_WriteL3SBML_Event_useValues );
+ 
+  //// Trigger
+  tcase_add_test( tcase, test_WriteL3SBML_Trigger         );
+  tcase_add_test( tcase, test_WriteL3SBML_Trigger_initialValue );
+  tcase_add_test( tcase, test_WriteL3SBML_Trigger_persistent );
  
    // Miscellaneous
   tcase_add_test( tcase, test_WriteL3SBML_NaN     );

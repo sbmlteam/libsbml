@@ -28,7 +28,7 @@
     </listOfSpecies>
     <listOfEvents>
       <event>
-        <trigger/>
+        <trigger persistent="true" initialValue="true"/>
         <listOfEventAssignments>
           <eventAssignment metaid="mg" variable="ABA"/>
         </listOfEventAssignments>

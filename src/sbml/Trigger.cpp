@@ -50,6 +50,10 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 Trigger::Trigger (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mMath      ( 0              )
+ , mInitialValue      ( true )
+ , mPersistent        ( true )
+ , mIsSetInitialValue ( false )
+ , mIsSetPersistent   ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -59,6 +63,10 @@ Trigger::Trigger (unsigned int level, unsigned int version) :
 Trigger::Trigger (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
  , mMath      ( 0              )
+ , mInitialValue      ( true )
+ , mPersistent        ( true )
+ , mIsSetInitialValue ( false )
+ , mIsSetPersistent   ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -91,6 +99,10 @@ Trigger::~Trigger ()
 Trigger::Trigger (const Trigger& orig) :
    SBase          ( orig )
  , mMath          ( 0    )
+ , mInitialValue      ( orig.mInitialValue )
+ , mPersistent        ( orig.mPersistent )
+ , mIsSetInitialValue ( orig.mIsSetInitialValue )
+ , mIsSetPersistent   ( orig.mIsSetPersistent )
 {
   if (orig.mMath) 
   {
@@ -108,6 +120,10 @@ Trigger& Trigger::operator=(const Trigger& rhs)
   if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
+    this->mInitialValue      = rhs.mInitialValue;
+    this->mPersistent        = rhs.mPersistent;
+    this->mIsSetInitialValue = rhs.mIsSetInitialValue;
+    this->mIsSetPersistent   = rhs.mIsSetPersistent;
 
     delete mMath;
     if (rhs.mMath) 
@@ -156,6 +172,26 @@ Trigger::getMath () const
 
 
 /*
+ * @return the initialValue of this Trigger.
+ */
+bool
+Trigger::getInitialValue () const
+{
+  return mInitialValue;
+}
+
+
+/*
+ * @return the persistent of this Trigger.
+ */
+bool
+Trigger::getPersistent () const
+{
+  return mPersistent;
+}
+
+
+/*
  * @return true if the math (or equivalently the formula) of this
  * Trigger has been set, false otherwise.
  */
@@ -165,6 +201,26 @@ Trigger::isSetMath () const
   return (mMath != 0);
 }
 
+
+
+/*
+ * @return true if initialValue is set of this Trigger.
+ */
+bool
+Trigger::isSetInitialValue () const
+{
+  return mIsSetInitialValue;
+}
+
+
+/*
+ * @return true if persistent is set of this Trigger.
+ */
+bool
+Trigger::isSetPersistent () const
+{
+  return mIsSetPersistent;
+}
 
 
 /*
@@ -195,6 +251,45 @@ Trigger::setMath (const ASTNode* math)
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
+
+
+/*
+ * Sets the initialvalue of this Trigger.
+ */
+int
+Trigger::setInitialValue (bool initialValue)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mInitialValue = initialValue;
+    mIsSetInitialValue = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
+
+/*
+ * Sets the persistent of this Trigger.
+ */
+int
+Trigger::setPersistent (bool persistent)
+{
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+  else
+  {
+    mPersistent = persistent;
+    mIsSetPersistent = true;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
+
 
 /** @cond doxygen-libsbml-internal */
 
@@ -453,6 +548,8 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
   expectedAttributes.clear();
   expectedAttributes.push_back("metaid");
   expectedAttributes.push_back("sboTerm");
+  expectedAttributes.push_back("initialValue");
+  expectedAttributes.push_back("persistent");
 
   // check that all attributes are expected
   for (int i = 0; i < attributes.getLength(); i++)
@@ -475,6 +572,29 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
   // sboTerm: SBOTerm { use="optional" }  (L2v3->)
   //
   mSBOTerm = SBO::readTerm(attributes, this->getErrorLog(), level, version);
+
+  //
+  // initailValue { use="required"}  (L3v1 ->)
+  //
+  mIsSetInitialValue = attributes.readInto("initialValue", 
+                        mInitialValue, getErrorLog());
+
+  if (!mIsSetInitialValue)
+  {
+    logError(AllowedAttributesOnTrigger, level, version);
+  }
+
+  //
+  // persistent { use="required"}  (L3v1 ->)
+  //
+  mIsSetPersistent = attributes.readInto("persistent", 
+                        mPersistent, getErrorLog());
+
+  if (!mIsSetPersistent)
+  {
+    logError(AllowedAttributesOnTrigger, level, version);
+  }
+
 }
 /** @endcond */
 
@@ -504,6 +624,12 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
   //
   if (!(level == 2 && version < 3))
     SBO::writeTerm(stream, mSBOTerm);
+
+  if (level > 2)
+  {
+    stream.writeAttribute("initialValue", mInitialValue);
+    stream.writeAttribute("persistent", mPersistent);
+  }
 }
 /** @endcond */
 
@@ -646,6 +772,38 @@ Trigger_getMath (const Trigger_t *t)
 
 
 /**
+ * Get the value of the "initialValue" attribute of this Trigger.
+ * 
+ * @param t the Trigger_t structure
+ *
+ * @return the "initialValue" attribute value
+ * in this Trigger.
+ */
+LIBSBML_EXTERN
+int
+Trigger_getInitialValue (const Trigger_t *t)
+{
+  return static_cast<int>(t->getInitialValue());
+}
+
+
+/**
+ * Get the value of the "persistent" attribute of this Trigger.
+ * 
+ * @param t the Trigger_t structure
+ *
+ * @return the "persistent" attribute value
+ * in this Trigger.
+ */
+LIBSBML_EXTERN
+int
+Trigger_getPersistent (const Trigger_t *t)
+{
+  return static_cast<int>(t->getPersistent());
+}
+
+
+/**
  * @return true (non-zero) if the math (or equivalently the formula) of
  * this Trigger has been set, false (0) otherwise.
  */
@@ -654,6 +812,38 @@ int
 Trigger_isSetMath (const Trigger_t *t)
 {
   return static_cast<int>( t->isSetMath() );
+}
+
+
+/**
+ * Return true if the  "initialValue" attribute of this Trigger has been set.
+ * 
+ * @param t the Trigger_t structure
+ *
+ * @return true if the "initialValue" attribute value
+ * in this Trigger has been set, false otherwise.
+ */
+LIBSBML_EXTERN
+int
+Trigger_isSetInitialValue (const Trigger_t *t)
+{
+  return static_cast<int>( t->isSetInitialValue() );
+}
+
+
+/**
+ * Return true if the  "persistent" attribute of this Trigger has been set.
+ * 
+ * @param t the Trigger_t structure
+ *
+ * @return true if the "persisent" attribute value
+ * in this Trigger has been set, false otherwise.
+ */
+LIBSBML_EXTERN
+int
+Trigger_isSetPersistent (const Trigger_t *t)
+{
+  return static_cast<int>( t->isSetPersistent() );
 }
 
 
@@ -672,6 +862,48 @@ int
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 {
   return t->setMath(math);
+}
+
+
+/**
+ * Sets the "initialValue" attribute of this Trigger instance.
+ *
+ * @param t the Trigger_t structure
+ * @param initialValue a boolean representing the initialValue to be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ */
+LIBSBML_EXTERN
+int
+Trigger_setInitialValue (Trigger_t *t, int initialValue)
+{
+  return t->setInitialValue( static_cast<bool>(initialValue) );
+}
+
+
+/**
+ * Sets the "persistent" attribute of this Trigger instance.
+ *
+ * @param t the Trigger_t structure
+ * @param persistent a boolean representing the initialValue to be set.
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+ * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+ */
+LIBSBML_EXTERN
+int
+Trigger_setPersistent (Trigger_t *t, int persistent)
+{
+  return t->setPersistent( static_cast<bool>(persistent) );
 }
 
 

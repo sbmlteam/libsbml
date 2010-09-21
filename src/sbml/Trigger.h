@@ -151,12 +151,48 @@ public:
 
 
   /**
+   * Get the value of the "initialValue" attribute of this Trigger.
+   * 
+   * @return the boolean value stored as the "initialValue" attribute value
+   * in this Trigger.
+   */
+  bool getInitialValue () const;
+
+
+  /**
+   * Get the value of the "persistent" attribute of this Trigger.
+   * 
+   * @return the boolean value stored as the "persistent" attribute value
+   * in this Trigger.
+   */
+  bool getPersistent () const;
+
+
+  /**
    * Predicate to test whether the math for this trigger has been set.
    *
    * @return @c true if the formula (meaning the "math" subelement) of
    * this Trigger has been set, @c false otherwise.
    */
   bool isSetMath () const;
+
+
+  /**
+   * Predicate to test whether the "initialValue" attribute for this trigger has been set.
+   *
+   * @return @c true if the initialValue attribute of
+   * this Trigger has been set, @c false otherwise.
+   */
+  bool isSetInitialValue () const;
+
+
+  /**
+   * Predicate to test whether the "persistent" attribute for this trigger has been set.
+   *
+   * @return @c true if the persistent attribute of
+   * this Trigger has been set, @c false otherwise.
+   */
+  bool isSetPersistent () const;
 
 
   /**
@@ -173,6 +209,37 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
   int setMath (const ASTNode* math);
+
+ 
+  /**
+   * Sets the "initialValue" attribute of this Trigger instance.
+   *
+   * @param initialValue a boolean representing the initialValue to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   */
+  int setInitialValue (bool initialValue);
+
+
+  /**
+   * Sets the "persistent" attribute of this Trigger instance.
+   *
+   * @param persistent a boolean representing the persistent value to be set.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   */
+  int setPersistent (bool persistent);
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -303,6 +370,11 @@ protected:
 
   ASTNode*     mMath;
 
+  bool mInitialValue;
+  bool mPersistent;
+  bool mIsSetInitialValue;
+  bool mIsSetPersistent;
+
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments
    */
@@ -372,12 +444,42 @@ Trigger_getMath (const Trigger_t *t);
 
 LIBSBML_EXTERN
 int
+Trigger_getInitialValue (const Trigger_t *t);
+
+
+LIBSBML_EXTERN
+int
+Trigger_getPersistent (const Trigger_t *t);
+
+
+LIBSBML_EXTERN
+int
 Trigger_isSetMath (const Trigger_t *t);
 
 
 LIBSBML_EXTERN
 int
+Trigger_isSetInitialValue (const Trigger_t *t);
+
+
+LIBSBML_EXTERN
+int
+Trigger_isSetPersistent (const Trigger_t *t);
+
+
+LIBSBML_EXTERN
+int
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math);
+
+
+LIBSBML_EXTERN
+int
+Trigger_setInitialValue (Trigger_t *t, int initialValue);
+
+
+LIBSBML_EXTERN
+int
+Trigger_setPersistent (Trigger_t *t, int persistent);
 
 
 END_C_DECLS

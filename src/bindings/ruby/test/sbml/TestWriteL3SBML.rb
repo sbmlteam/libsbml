@@ -378,6 +378,26 @@ class TestWriteL3SBML < Test::Unit::TestCase
     assert_equal true, equals(expected1,s.toSBML())
   end
 
+  def test_WriteL3SBML_Trigger
+    expected =  "<trigger initialValue=\"true\" persistent=\"true\"/>";
+    t = @@d.createModel().createEvent().createTrigger()
+    assert_equal true, equals(expected,t.toSBML())
+  end
+
+  def test_WriteL3SBML_Trigger_initialValue
+    expected =  "<trigger initialValue=\"false\" persistent=\"true\"/>";
+    t = @@d.createModel().createEvent().createTrigger()
+    t.setInitialValue(false)
+    assert_equal true, equals(expected,t.toSBML())
+  end
+
+  def test_WriteL3SBML_Trigger_persistent
+    expected =  "<trigger initialValue=\"true\" persistent=\"false\"/>";
+    t = @@d.createModel().createEvent().createTrigger()
+    t.setPersistent(false)
+    assert_equal true, equals(expected,t.toSBML())
+  end
+
   def test_WriteL3SBML_Unit
     expected = "<unit kind=\"kilogram\" exponent=\"0.2\"" + " scale=\"-3\" multiplier=\"3.2\"/>";
     u = @@d.createModel().createUnitDefinition().createUnit()
@@ -410,41 +430,6 @@ class TestWriteL3SBML < Test::Unit::TestCase
     u = @@d.createModel().createUnitDefinition().createUnit()
     assert_equal true, equals(expected,u.toSBML())
   end
-
-  def test_WriteL3SBML_bzip2
-    file = [
-                        "../../../examples/sample-models/from-spec/level-3/algebraicrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/assignmentrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/boundarycondition.xml",
-                        "../../../examples/sample-models/from-spec/level-3/delay.xml",
-                        "../../../examples/sample-models/from-spec/level-3/dimerization.xml",
-                        "../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml",
-                        "../../../examples/sample-models/from-spec/level-3/events.xml",
-                        "../../../examples/sample-models/from-spec/level-3/functiondef.xml",
-                        "../../../examples/sample-models/from-spec/level-3/multicomp.xml",
-                        "../../../examples/sample-models/from-spec/level-3/overdetermined.xml",
-                        "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
-                        "../../../examples/sample-models/from-spec/level-3/units.xml"
-    ]
-    bz2file = "test.xml.bz2"
-    file.each do |f|
-      d = LibSBML::readSBML(f)
-      assert( d != nil )
-      if not LibSBML::SBMLWriter::hasBzip2()
-        assert( LibSBML::writeSBML(d,bz2file) == 0 )
-        d = nil
-        next
-      end
-      result = LibSBML::writeSBML(d,bz2file)
-      assert_equal 1, result
-      dg = LibSBML::readSBML(bz2file)
-      assert( dg != nil )
-      assert( ( dg.toSBML() != d.toSBML() ) == false )
-      d = nil
-      dg = nil
-    end 
-  end
-
 
   def test_WriteL3SBML_elements
     expected = wrapSBML_L3v1("  <model>\n" + 
@@ -505,41 +490,6 @@ class TestWriteL3SBML < Test::Unit::TestCase
     w = nil
   end
 
-  def test_WriteL3SBML_gzip
-    file = [
-                        "../../../examples/sample-models/from-spec/level-3/algebraicrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/assignmentrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/boundarycondition.xml",
-                        "../../../examples/sample-models/from-spec/level-3/delay.xml",
-                        "../../../examples/sample-models/from-spec/level-3/dimerization.xml",
-                        "../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml",
-                        "../../../examples/sample-models/from-spec/level-3/events.xml",
-                        "../../../examples/sample-models/from-spec/level-3/functiondef.xml",
-                        "../../../examples/sample-models/from-spec/level-3/multicomp.xml",
-                        "../../../examples/sample-models/from-spec/level-3/overdetermined.xml",
-                        "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
-                        "../../../examples/sample-models/from-spec/level-3/units.xml"
-    ]
-    gzfile = "test.xml.gz"
-    file.each do |f|
-      d = LibSBML::readSBML(f)
-      assert( d != nil )
-      if not LibSBML::SBMLWriter::hasZlib()
-        assert( LibSBML::writeSBML(d,gzfile) == 0 )
-        d = nil
-        next
-      end
-      result = LibSBML::writeSBML(d,gzfile)
-      assert_equal 1, result
-      dg = LibSBML::readSBML(gzfile)
-      assert( dg != nil )
-      assert( ( dg.toSBML() != d.toSBML() ) == false )
-      d = nil
-      dg = nil
-    end 
-  end
-
-
   def test_WriteL3SBML_locale
     expected = "<parameter id=\"p\" value=\"3.31\"" + " constant=\"true\"/>";
     p = @@d.createModel().createParameter()
@@ -547,40 +497,5 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p.setValue(3.31)
     assert_equal true, equals(expected,p.toSBML())
   end
-
-  def test_WriteL3SBML_zip
-    file = [
-                        "../../../examples/sample-models/from-spec/level-3/algebraicrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/assignmentrules.xml",
-                        "../../../examples/sample-models/from-spec/level-3/boundarycondition.xml",
-                        "../../../examples/sample-models/from-spec/level-3/delay.xml",
-                        "../../../examples/sample-models/from-spec/level-3/dimerization.xml",
-                        "../../../examples/sample-models/from-spec/level-3/enzymekinetics.xml",
-                        "../../../examples/sample-models/from-spec/level-3/events.xml",
-                        "../../../examples/sample-models/from-spec/level-3/functiondef.xml",
-                        "../../../examples/sample-models/from-spec/level-3/multicomp.xml",
-                        "../../../examples/sample-models/from-spec/level-3/overdetermined.xml",
-                        "../../../examples/sample-models/from-spec/level-3/twodimensional.xml",
-                        "../../../examples/sample-models/from-spec/level-3/units.xml"
-    ]
-    zipfile = "test.xml.zip"
-    file.each do |f|
-      d = LibSBML::readSBML(f)
-      assert( d != nil )
-      if not LibSBML::SBMLWriter::hasZlib()
-        assert( LibSBML::writeSBML(d,zipfile) == 0 )
-        d = nil
-        next
-      end
-      result = LibSBML::writeSBML(d,zipfile)
-      assert_equal 1, result
-      dg = LibSBML::readSBML(zipfile)
-      assert( dg != nil )
-      assert( ( dg.toSBML() != d.toSBML() ) == false )
-      d = nil
-      dg = nil
-    end 
-  end
-
 
 end

@@ -18,7 +18,7 @@
     </listOfCompartments>
     <listOfEvents>
       <event id="e">
-        <trigger sboTerm="SBO:0000192">
+        <trigger sboTerm="SBO:0000192" persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <neq/>

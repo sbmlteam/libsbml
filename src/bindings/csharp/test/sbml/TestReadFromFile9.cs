@@ -150,6 +150,8 @@ namespace LibSBMLCSTest {
       SpeciesReference sr;
       KineticLaw kl;
       LocalParameter lp;
+      Event e;
+      Trigger t;
       string filename =  "../../sbml/test/test-data/";
       filename += "l3v1-new.xml";
       d = reader.readSBML(filename);
@@ -339,6 +341,16 @@ namespace LibSBMLCSTest {
       assertEquals( false, r.isSetReversible() );
       assertEquals( false, r.isSetCompartment() );
       assertTrue( r.getCompartment() ==  "" );
+      e = m.getEvent(0);
+      t = e.getTrigger();
+      assertEquals( true, t.isSetPersistent() );
+      assertTrue( t.getPersistent() == false );
+      assertEquals( true, t.isSetInitialValue() );
+      assertTrue( t.getInitialValue() == false );
+      e = m.getEvent(1);
+      t = e.getTrigger();
+      assertEquals( false, (t.isSetPersistent()) );
+      assertEquals( false, (t.isSetInitialValue()) );
       d = null;
     }
 

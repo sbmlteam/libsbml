@@ -18,7 +18,7 @@
     </listOfCompartments>
     <listOfEvents>
       <event id="e1">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <neq/>
@@ -32,7 +32,7 @@
         </listOfEventAssignments>
       </event>
       <event id="e2">
-        <trigger>
+        <trigger persistent="true" initialValue="true">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <neq/>
