@@ -785,6 +785,7 @@ typedef enum
  , EventAssignSpeciesMismatch            = 10562 /*!< Mismatched units in event assignment for species */
  , EventAssignParameterMismatch          = 10563 /*!< Mismatched units in event assignment for parameter */
  , EventAssignStoichiometryMismatch      = 10564
+ , PriorityUnitsNotDimensionless         = 10565
  , OverdeterminedSystem                  = 10601 /*!< Model is overdetermined */
  , InvalidModelSBOTerm                   = 10701 /*!< Invalid <code>sboTerm</code> value for model */
  , InvalidFunctionDefSBOTerm             = 10702 /*!< Invalid <code>sboTerm</code> value for function definition */
@@ -980,6 +981,11 @@ typedef enum
  , AllowedAttributesOnEvent              = 21225
  , AllowedAttributesOnTrigger            = 21226
  , AllowedAttributesOnDelay              = 21227
+ , PersistentNotBoolean                  = 21228
+ , InitialValueNotBoolean                = 21229
+ , OnlyOnePriorityPerEvent               = 21230
+ , OneMathPerPriority                    = 21231
+ , AllowedAttributesOnPriority           = 21232
 
 
  , GeneralWarningNotSpecified            = 29999 /*!< Unknown error */

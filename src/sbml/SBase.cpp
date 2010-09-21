@@ -3318,6 +3318,11 @@ SBase::logUnknownAttribute( string attribute,
       getErrorLog()->logError(AllowedAttributesOnEventAssignment, level,
         version, msg.str());
     }
+    else if (element == "<priority>")
+    {
+      getErrorLog()->logError(AllowedAttributesOnPriority, level,
+        version, msg.str());
+    }
   }
 }
 /** @endcond */

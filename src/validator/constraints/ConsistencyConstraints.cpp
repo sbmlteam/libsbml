@@ -2448,6 +2448,18 @@ START_CONSTRAINT (21213, EventAssignment, ea)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (21231, Priority, p)
+{
+  //only applies to level 3
+  pre( p.getLevel() > 2        );
+
+  // priority must have exactly one math
+  inv( p.isSetMath() );
+
+}
+END_CONSTRAINT
+
+
 
 /** @endcond */
 

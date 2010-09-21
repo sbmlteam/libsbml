@@ -183,102 +183,6 @@ public:
   int setMath (const ASTNode* math);
 
 
-  /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * of measurement assumed for the "math" expression of this Priority.
-   *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
-   *
-   * @warning Note that it is possible the "math" expression in the Priority
-   * contains literal numbers or parameters with undeclared units.  In
-   * those cases, it is not possible to calculate the units of the overall
-   * expression without making assumptions.  LibSBML does not make
-   * assumptions about the units, and Priority::getDerivedUnitDefinition()
-   * only returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  When using this method, <strong>it is
-   * critical that callers also invoke the method</strong>
-   * Priority::containsUndeclaredUnits() <strong>to determine whether this
-   * situation holds</strong>.  Callers should take suitable action in
-   * those situations.
-   * 
-   * @return a UnitDefinition that expresses the units of the math 
-   * expression of this Priority, or @c NULL if one cannot be constructed.
-   *
-   * @see containsUndeclaredUnits()
-   */
-  UnitDefinition * getDerivedUnitDefinition();
-
-
-  /**
-   * Calculates and returns a UnitDefinition that expresses the units
-   * of measurement assumed for the "math" expression of this Priority.
-   *
-   * Note that the functionality that facilitates unit analysis depends 
-   * on the model as a whole.  Thus, in cases where the object has not 
-   * been added to a model or the model itself is incomplete,
-   * unit analysis is not possible and this method will return @c NULL.
-   *
-   * @warning Note that it is possible the "math" expression in the Priority
-   * contains literal numbers or parameters with undeclared units.  In
-   * those cases, it is not possible to calculate the units of the overall
-   * expression without making assumptions.  LibSBML does not make
-   * assumptions about the units, and Priority::getDerivedUnitDefinition()
-   * only returns the units as far as it is able to determine them.  For
-   * example, in an expression <em>X + Y</em>, if <em>X</em> has
-   * unambiguously-defined units and <em>Y</em> does not, it will return
-   * the units of <em>X</em>.  When using this method, <strong>it is
-   * critical that callers also invoke the method</strong>
-   * Priority::containsUndeclaredUnits() <strong>to determine whether this
-   * situation holds</strong>.  Callers should take suitable action in
-   * those situations.
-   * 
-   * @return a UnitDefinition that expresses the units of the math 
-   * expression of this Priority, or @c NULL if one cannot be constructed.
-   *
-   * @see containsUndeclaredUnits()
-   */
-  const UnitDefinition * getDerivedUnitDefinition() const;
-
-
-  /**
-   * Predicate returning @c true if 
-   * the "math" expression in this Priority instance contains
-   * parameters with undeclared units or literal numbers.
-   * 
-   * @return @c true if the math expression of this Priority includes
-   * numbers/parameters with undeclared units, @c false otherwise.
-   *
-   * @note A return value of @c true indicates that the UnitDefinition
-   * returned by Priority::getDerivedUnitDefinition() may not accurately
-   * represent the units of the expression.
-   *
-   * @see getDerivedUnitDefinition()
-   */
-  bool containsUndeclaredUnits();
-
-
-  /**
-   * Predicate returning @c true if 
-   * the "math" expression in this Priority instance contains
-   * parameters with undeclared units or literal numbers.
-   * 
-   * @return @c true if the math expression of this Priority includes
-   * numbers/parameters with undeclared units, @c false otherwise.
-   *
-   * @note A return value of @c true indicates that the UnitDefinition
-   * returned by Priority::getDerivedUnitDefinition() may not accurately
-   * represent the units of the expression.
-   *
-   * @see getDerivedUnitDefinition()
-   */
-  bool containsUndeclaredUnits() const;
-
-
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -495,15 +399,6 @@ LIBSBML_EXTERN
 int
 Priority_setMath (Priority_t *p, const ASTNode_t *math);
 
-
-LIBSBML_EXTERN
-UnitDefinition_t * 
-Priority_getDerivedUnitDefinition(Priority_t *p);
-
-
-LIBSBML_EXTERN
-int 
-Priority_containsUndeclaredUnits(Priority_t *p);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

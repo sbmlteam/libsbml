@@ -1539,6 +1539,28 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.12.4"}
 },
 
+  //10565
+  {
+    PriorityUnitsNotDimensionless,
+    "Priority units must be dimensionless",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "In an Event object, the unit of measurement associated with a Priority "
+    "object's math expression object should be 'dimensionless'. ",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12.4"}
+},
+
   //10601
   {
     OverdeterminedSystem,
@@ -5756,7 +5778,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "If an <event>'s 'useValuesFromTriggerTime' attribute has the "
     "value 'false', then the <event> must contain a <delay> "
     "element.  The implication of 'useValuesFromTriggerTime=false' "
@@ -5781,7 +5803,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "If an Event object contains a Delay subobject, then the Event must "
     "have a value for the attribute useValuesFromTriggerTime.", 
     {"",
@@ -6025,9 +6047,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An Event object may have the optional attributes metaid, sboTerm, id, "
-    "name, and in addition, the contingently-optional attribute "
-    "useValuesFromTriggerTime. No other attributes from the SBML Level 3 "
+    "An Event object must have the required attribute useValuesFromTriggerTime "
+    "and in addition may have the optional attributes metaid, sboTerm, id, "
+    " and name. No other attributes from the SBML Level 3 "
     "Core namespace are permitted on an Event object.", 
     {"",
      "",
@@ -6049,7 +6071,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Trigger object may have the optional attributes metaid and sboTerm. "
+    "A Trigger object must have the required attributes persistent and "
+    "initialValue, and in addition, may have the optional attributes metaid "
+    "and sboTerm. "
     "No other attributes from the SBML Level 3 Core namespace are permitted "
     "on a Trigger object.", 
     {"",
@@ -6075,6 +6099,115 @@ static const sbmlErrorTableEntry errorTable[] =
     "A Delay object may have the optional attributes metaid and sboTerm. "
     "No other attributes from the SBML Level 3 Core namespace are permitted "
     "on a Delay object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21228
+  {
+    PersistentNotBoolean,
+    "Persistent attribute on <trigger> must be boolean",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'persistent' on a Trigger object must have a value "
+    "of type boolean.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21229
+  {
+    InitialValueNotBoolean,
+    "InitialValue attribute on <trigger> must be boolean",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The attribute 'initialValue' on a Trigger object must have a value "
+    "of type boolean.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21230
+  {
+    OnlyOnePriorityPerEvent,
+    "Event can only have one <priority>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An Event object may contain at most one Priority object.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21231
+  {
+    OneMathPerPriority,
+    "Priority must have one math element",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "An Priority object must contain exactly one math element.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.12"}
+    },
+
+  //21232
+  {
+    AllowedAttributesOnPriority,
+    "Invalid attribute on <priority>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "A Priority object may have the optional attributes metaid and sboTerm. "
+    "No other attributes from the SBML Level 3 Core namespace are permitted "
+    "on a Priority object.", 
     {"",
      "",
      "",

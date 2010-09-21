@@ -200,113 +200,6 @@ Priority::setMath (const ASTNode* math)
   }
 }
 
-/*
-  * Calculates and returns a UnitDefinition that expresses the units
-  * returned by the math expression of this InitialAssignment.
-  */
-UnitDefinition * 
-Priority::getDerivedUnitDefinition()
-{
-  if (!isSetMath())
-    return NULL;
-  //TODO 
-  return NULL;
-  /* if we have the whole model but it is not in a document
-   * it is still possible to determine the units
-   */
-  //Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
-
-  //if (m)
-  //{
-  //  if (!m->isPopulatedListFormulaUnitsData())
-  //  {
-  //    m->populateListFormulaUnitsData();
-  //  }
-  //  
-  //  if (m->getFormulaUnitsData(getId(), SBML_EVENT))
-  //  {
-  //    return m->getFormulaUnitsData(getId(), SBML_EVENT)
-  //                                           ->getUnitDefinition();
-  //  }
-  //  else
-  //  {
-  //    return NULL;
-  //  } 
-  //}
-  //else
-  //{
-  //  return NULL;
-  //}
-}
-
-
-/*
-  * Constructs and returns a UnitDefinition that expresses the units of this 
-  * Compartment.
-  */
-const UnitDefinition *
-Priority::getDerivedUnitDefinition() const
-{
-  return const_cast <Priority *> (this)->getDerivedUnitDefinition();
-}
-
-
-/*
- * Predicate returning @c true or @c false depending on whether 
- * the math expression of this InitialAssignment contains
- * parameters/numbers with undeclared units that cannot be ignored.
- */
-bool 
-Priority::containsUndeclaredUnits()
-{
-  if (!isSetMath())
-    return false;
-  
-  //TODO
-  return false;
-  
-  //
-  ///* if we have the whole model but it is not in a document
-  // * it is still possible to determine the units
-  // */
-  //Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
-
-  //if (m)
-  //{
-  //  if (!m->isPopulatedListFormulaUnitsData())
-  //  {
-  //    m->populateListFormulaUnitsData();
-  //  }
-  //  
-  //  if (m->getFormulaUnitsData(getId(), SBML_EVENT))
-  //  {
-  //    return m->getFormulaUnitsData(getId(), SBML_EVENT)
-  //    ->getContainsUndeclaredUnits();
-  //  }
-  //  else
-  //  {
-  //    return false;
-  //  }  
-  //}
-  //else
-  //{
-  //  return false;
-  //}
-}
-
-
-/*
- * Predicate returning @c true or @c false depending on whether 
- * the math expression of this InitialAssignment contains
- * parameters/numbers with undeclared units that cannot be ignored.
- */
-bool 
-Priority::containsUndeclaredUnits() const
-{
-  return const_cast<Priority *> (this)->containsUndeclaredUnits();
-}
-
-
 /** @cond doxygen-libsbml-internal */
 
 /*
@@ -417,8 +310,7 @@ Priority::readOtherXML (XMLInputStream& stream)
       }
       else
       {
-        //TODO
-//        logError(OneMathPerPriority, getLevel(), getVersion());
+        logError(OneMathPerPriority, getLevel(), getVersion());
       }
     }
     /* check for MathML namespace 
@@ -535,8 +427,7 @@ Priority::readL3Attributes (const XMLAttributes& attributes)
     {
       if (std::find(begin, end, name) == end)
       {
-        //TODO - fix logUnknownAttribute for priority
-      //  logUnknownAttribute(name, level, version, "<priority>");
+        logUnknownAttribute(name, level, version, "<priority>");
       }
     }
   }
@@ -761,56 +652,6 @@ int
 Priority_setMath (Priority_t *p, const ASTNode_t *math)
 {
   return p->setMath(math);
-}
-
-/**
-  * Calculates and returns a UnitDefinition_t that expresses the units
-  * returned by the math expression of this Priority_t.
-  *
-  * @return a UnitDefinition_t that expresses the units of the math 
-  * expression of this Priority_t.
-  *
-  * Note that the functionality that facilitates unit analysis depends 
-  * on the model as a whole.  Thus, in cases where the object has not 
-  * been added to a model or the model itself is incomplete,
-  * unit analysis is not possible and this method will return NULL.
-  *
-  * @note The units are calculated by applying the mathematics 
-  * from the expression to the units of the <ci> elements used 
-  * within the expression. Where there are parameters/numbers
-  * with undeclared units the UnitDefinition_t returned by this
-  * function may not accurately represent the units of the expression.
-  *
-  * @see Priority_containsUndeclaredUnits()
-  */
-LIBSBML_EXTERN
-UnitDefinition_t * 
-Priority_getDerivedUnitDefinition(Priority_t *p)
-{
-  return p->getDerivedUnitDefinition();
-}
-
-
-/**
-  * Predicate returning @c true or @c false depending on whether 
-  * the math expression of this Priority_t contains
-  * parameters/numbers with undeclared units.
-  * 
-  * @return @c true if the math expression of this Priority_t
-  * includes parameters/numbers 
-  * with undeclared units, @c false otherwise.
-  *
-  * @note a return value of @c true indicates that the UnitDefinition_t
-  * returned by the getDerivedUnitDefinition function may not 
-  * accurately represent the units of the expression.
-  *
-  * @see Priority_getDerivedUnitDefinition()
-  */
-LIBSBML_EXTERN
-int 
-Priority_containsUndeclaredUnits(Priority_t *p)
-{
-  return static_cast<int>(p->containsUndeclaredUnits());
 }
 
 /** @endcond */
