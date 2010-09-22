@@ -1516,7 +1516,7 @@ Event::writeAttributes (XMLOutputStream& stream) const
       stream.writeAttribute("useValuesFromTriggerTime", 
                             mUseValuesFromTriggerTime);
   }
-  else if (level > 2 && isSetDelay())
+  else if (level > 2)
   {
     stream.writeAttribute("useValuesFromTriggerTime", 
                           mUseValuesFromTriggerTime);

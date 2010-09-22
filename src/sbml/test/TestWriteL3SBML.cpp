@@ -547,7 +547,7 @@ END_TEST
 
 START_TEST (test_WriteL3SBML_Event)
 {
-  const char* expected = "<event id=\"e\"/>";
+  const char* expected = "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
 
   Event *e = D->createModel()->createEvent();
   e->setId("e");
@@ -624,7 +624,7 @@ END_TEST
 START_TEST (test_WriteL3SBML_Event_full)
 {
   const char* expected = 
-    "<event>\n"
+    "<event useValuesFromTriggerTime=\"true\">\n"
     "  <trigger initialValue=\"true\" persistent=\"false\">\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <true/>\n"
@@ -893,7 +893,7 @@ START_TEST (test_WriteL3SBML_elements)
     "      <reaction reversible=\"true\" fast=\"false\"/>\n"
     "    </listOfReactions>\n"
     "    <listOfEvents>\n"
-    "      <event/>\n"
+    "      <event useValuesFromTriggerTime=\"true\"/>\n"
     "    </listOfEvents>\n"
     "  </model>\n");
 

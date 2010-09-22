@@ -166,7 +166,7 @@ class TestWriteL3SBML(unittest.TestCase):
     pass  
 
   def test_WriteL3SBML_Event(self):
-    expected =  "<event id=\"e\"/>";
+    expected =  "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
     e = self.D.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(True)
@@ -174,7 +174,7 @@ class TestWriteL3SBML(unittest.TestCase):
     pass  
 
   def test_WriteL3SBML_Event_full(self):
-    expected = wrapString("<event>\n" + 
+    expected = wrapString("<event useValuesFromTriggerTime=\"true\">\n" + 
     "  <trigger initialValue=\"true\" persistent=\"false\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <true/>\n" + 
@@ -504,7 +504,7 @@ class TestWriteL3SBML(unittest.TestCase):
     "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event/>\n" + 
+    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n")
     m = self.D.createModel()

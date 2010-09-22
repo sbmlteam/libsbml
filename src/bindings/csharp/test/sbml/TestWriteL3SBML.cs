@@ -269,7 +269,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteL3SBML_Event()
     {
-      string expected =  "<event id=\"e\"/>";
+      string expected =  "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
       Event e = D.createModel().createEvent();
       e.setId("e");
       e.setUseValuesFromTriggerTime(true);
@@ -278,7 +278,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteL3SBML_Event_full()
     {
-      string expected = "<event>\n" + 
+      string expected = "<event useValuesFromTriggerTime=\"true\">\n" + 
     "  <trigger initialValue=\"true\" persistent=\"false\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <true/>\n" + 
@@ -634,7 +634,7 @@ namespace LibSBMLCSTest {
     "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event/>\n" + 
+    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n");
       Model m = D.createModel();

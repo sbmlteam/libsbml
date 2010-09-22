@@ -155,7 +155,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
   end
 
   def test_WriteL3SBML_Event
-    expected =  "<event id=\"e\"/>";
+    expected =  "<event id=\"e\" useValuesFromTriggerTime=\"true\"/>";
     e = @@d.createModel().createEvent()
     e.setId("e")
     e.setUseValuesFromTriggerTime(true)
@@ -163,7 +163,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
   end
 
   def test_WriteL3SBML_Event_full
-    expected = "<event>\n" + 
+    expected = "<event useValuesFromTriggerTime=\"true\">\n" + 
     "  <trigger initialValue=\"true\" persistent=\"false\">\n" + 
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n" + 
     "      <true/>\n" + 
@@ -493,7 +493,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event/>\n" + 
+    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n")
     m = @@d.createModel()
