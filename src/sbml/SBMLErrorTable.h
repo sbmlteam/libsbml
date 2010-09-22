@@ -3943,6 +3943,29 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 4.5"}
   },
 
+  //20518
+  {
+    NoUnitsOnCompartment,
+    "No units for <compartment>",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "If neither the attribute units nor the attribute spatialDimensions "
+    "on a Compartment object is set, the unit associated with that "
+    "compartment's size is undefined.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.5"}
+  },
+
   //20601
   {
     InvalidSpeciesCompartmentRef,

@@ -1312,6 +1312,15 @@ START_CONSTRAINT (20513, Compartment, c)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (20518, Compartment, c)
+{
+  pre( c.getLevel() > 2);
+
+  inv( !(!(c.isSetUnits()) && !(c.isSetSpatialDimensions())));
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (20616, Species, s)
 {
   pre( s.getLevel() > 2);

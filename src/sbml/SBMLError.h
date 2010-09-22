@@ -887,6 +887,7 @@ typedef enum
  , TwoDimensionalCompartmentUnits        = 20512
  , ThreeDimensionalCompartmentUnits      = 20513
  , AllowedAttributesOnCompartment        = 20517
+ , NoUnitsOnCompartment                  = 20518
  , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid <code>compartment</code> reference */
  , HasOnlySubsNoSpatialUnits             = 20602 /*!< No <code>spatialSizeUnits</code> permitted if <code>hasOnlySubstanceUnits</code>=<code>true</code> */
  , NoSpatialUnitsInZeroD                 = 20603 /*!< No <code>spatialSizeUnits</code> permitted if compartment is zero-dimensional */

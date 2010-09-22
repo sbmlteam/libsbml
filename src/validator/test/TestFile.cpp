@@ -206,7 +206,8 @@ TestFile::getFilesIn ( const string& directory,
 
       // leave out model constraints moved to units
       if (id == 20702 || id == 20616
-        || id == 20511 || id == 20512 || id == 20513)
+        || id == 20511 || id == 20512 || id == 20513
+        || id == 20518)
         continue;
       //}
 
