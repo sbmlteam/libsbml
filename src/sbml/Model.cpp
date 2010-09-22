@@ -5300,6 +5300,27 @@ Model::populateListFormulaUnitsData()
       fud->setEventTimeUnitDefinition(ud);
     }
 
+
+    /* get units returned by priority */
+    if (e->isSetPriority())
+    {
+      Priority * p = e->getPriority();
+      fud = createFormulaUnitsData();
+        
+      fud->setUnitReferenceId(newID);
+      p->setInternalId(newID);
+
+      fud->setComponentTypecode(SBML_PRIORITY);
+      unitFormatter->resetFlags();
+      ud = unitFormatter->getUnitDefinition(p->getMath());
+      fud->setUnitDefinition(ud);
+      fud->setContainsParametersWithUndeclaredUnits
+                                (unitFormatter->getContainsUndeclaredUnits());
+      fud->setCanIgnoreUndeclaredUnits
+                                  (unitFormatter->canIgnoreUndeclaredUnits());
+      
+    }
+
     /* get units returned by any event assignments */
     for (j = 0; j < e->getNumEventAssignments(); j++)
     {

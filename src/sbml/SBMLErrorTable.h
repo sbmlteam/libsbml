@@ -1558,7 +1558,7 @@ static const sbmlErrorTableEntry errorTable[] =
      "",
      "",
      "",
-     "L3V1 Section 4.12.4"}
+     "L3V1 Section 4.12.3"}
 },
 
   //10601

@@ -159,6 +159,7 @@ struct ValidatorConstraints
   ConstraintSet<Delay>                    mDelay;
   ConstraintSet<CompartmentType>          mCompartmentType;
   ConstraintSet<SpeciesType>              mSpeciesType;
+  ConstraintSet<Priority>                 mPriority;
 
   map<VConstraint*,bool> ptrMap;
 
@@ -367,6 +368,12 @@ ValidatorConstraints::add (VConstraint* c)
     return;
   }
 
+  if (dynamic_cast< TConstraint<Priority>* >(c))
+  {
+    mPriority.add( static_cast< TConstraint<Priority>* >(c) );
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -408,6 +415,11 @@ public:
   void visit (const KineticLaw& x)
   {
     v.mConstraints->mKineticLaw.applyTo(m, x);
+  }
+
+  void visit (const Priority& x)
+  {
+    v.mConstraints->mPriority.applyTo(m, x);
   }
 
 
@@ -593,6 +605,7 @@ public:
     v.mConstraints->mSpeciesType.applyTo(m, x);
     return !v.mConstraints->mSpeciesType.empty();
   }
+
 
 
 protected:

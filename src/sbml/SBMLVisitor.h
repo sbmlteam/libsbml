@@ -88,6 +88,7 @@ class EventAssignment;
 
 class Trigger;
 class Delay;
+class Priority;
 
 class ListOf;
 
@@ -126,10 +127,12 @@ public:
   virtual bool visit (const EventAssignment          &x);
   virtual bool visit (const Trigger                  &x);
   virtual bool visit (const Delay                    &x);
+  virtual void visit (const Priority                 &x);
 
   virtual void leave (const SBMLDocument &x);
   virtual void leave (const Model        &x);
   virtual void leave (const KineticLaw   &x);
+  virtual void leave (const Priority     &x);
   virtual void leave (const Reaction     &x);
   virtual void leave (const ListOf &x, SBMLTypeCode_t type);
 };

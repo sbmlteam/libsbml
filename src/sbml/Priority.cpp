@@ -135,7 +135,9 @@ Priority& Priority::operator=(const Priority& rhs)
 bool
 Priority::accept (SBMLVisitor& v) const
 {
-  return v.visit(*this);
+  v.visit(*this);
+  v.leave(*this);
+  return true;
 }
 
 

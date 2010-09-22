@@ -53,6 +53,13 @@ SBMLVisitor::visit (const KineticLaw& x)
 
 
 void
+SBMLVisitor::visit (const Priority& x)
+{
+  visit( static_cast<const SBase&>(x) );
+}
+
+
+void
 SBMLVisitor::visit (const ListOf& x, SBMLTypeCode_t type)
 {
   visit( static_cast<const SBase&>(x) );
@@ -234,6 +241,12 @@ SBMLVisitor::leave (const Model& x)
 
 void
 SBMLVisitor::leave (const KineticLaw& x)
+{
+}
+
+
+void
+SBMLVisitor::leave (const Priority& x)
 {
 }
 

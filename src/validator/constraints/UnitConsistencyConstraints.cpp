@@ -201,6 +201,25 @@ START_CONSTRAINT (99505, Event, e)
 END_CONSTRAINT
 
   
+START_CONSTRAINT (99505, Priority, e)
+{
+  const FormulaUnitsData * formulaUnits = 
+                                  m.getFormulaUnitsData(e.getInternalId(), SBML_PRIORITY);
+
+  pre ( formulaUnits != 0 );
+
+  char * formula = SBML_formulaToString(e.getMath());
+  msg = "The units of the <event> <priority> expression '";
+  msg += formula;
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+  safe_free(formula);
+
+  inv( !formulaUnits->getContainsUndeclaredUnits());
+}
+END_CONSTRAINT
+
+  
 START_CONSTRAINT (99505, EventAssignment, ea)
 {
   EventAssignment *pEa = const_cast<EventAssignment *> (&ea);
@@ -1277,6 +1296,32 @@ START_CONSTRAINT (10564, EventAssignment, ea)
   msg += ".";
   
   inv (formulaUnits->getUnitDefinition()->isVariantOfDimensionless());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (10565, Priority, p)
+{
+  pre (p.isSetMath());
+
+  const FormulaUnitsData * formulaUnits = 
+                                  m.getFormulaUnitsData(p.getInternalId(), SBML_PRIORITY);
+
+  pre ( formulaUnits != 0 );
+
+  /* check that the formula is okay 
+     ie has no parameters with undeclared units */
+  pre (!formulaUnits->getContainsUndeclaredUnits()
+    || (formulaUnits->getContainsUndeclaredUnits() &&
+        formulaUnits->getCanIgnoreUndeclaredUnits()));
+
+  msg =  " Expected units are dimensionless";
+  msg += " but the units returned by the <priority>'s <math> expression are ";
+  msg += UnitDefinition::printUnits(formulaUnits->getUnitDefinition());
+  msg += ".";
+  
+  inv (formulaUnits->getUnitDefinition()->isVariantOfDimensionless());
+
 }
 END_CONSTRAINT
 
