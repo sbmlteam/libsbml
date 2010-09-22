@@ -1075,6 +1075,13 @@ Unit::convertToSI(const Unit * unit)
       ud->addUnit(newUnit);
       break;
 
+    case UNIT_KIND_AVOGADRO:
+      /* 1 Avogadro = 6.02214179e23 dimensionless */
+      newUnit->setKind(UNIT_KIND_DIMENSIONLESS);
+      newUnit->setMultiplier(6.02214179e23);
+      ud->addUnit(newUnit);
+      break;
+
     case UNIT_KIND_BECQUEREL:
     case UNIT_KIND_HERTZ:
       /* 1 becquerel = 1 sec^-1 = (0.1 sec)^-1 */
@@ -1115,7 +1122,6 @@ Unit::convertToSI(const Unit * unit)
       break;
 
     case UNIT_KIND_DIMENSIONLESS:
-    case UNIT_KIND_ITEM:
     case UNIT_KIND_RADIAN:
     case UNIT_KIND_STERADIAN:
       /* all dimensionless */
