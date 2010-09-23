@@ -431,7 +431,7 @@ test = test + 10;
   test = test + 33;
 %     <listOfEvents>
 %      <event useValuesFromTriggerTime="false">
-%         <trigger>
+%         <trigger initialValue="false" persistent="false">
 %           <math xmlns="http://www.w3.org/1998/Math/MathML">
 %             <apply>
 %               <lt/>
@@ -440,6 +440,11 @@ test = test + 10;
 %             </apply>
 %           </math>
 %         </trigger>
+%          <priority>
+%             <math xmlns="http://www.w3.org/1998/Math/MathML">
+%                 <cn> 1 </cn>
+%             </math>
+%          </priority>
 %         <delay>
 %           <math xmlns="http://www.w3.org/1998/Math/MathML">
 %             <apply>
@@ -471,7 +476,13 @@ test = test + 10;
   Totalfail = Totalfail + fail_unless( strcmp(m.event.trigger.math, 'lt(x,3)'));
   Totalfail = Totalfail + fail_unless( isempty(m.event.trigger.metaid ));
   Totalfail = Totalfail + fail_unless( m.event.trigger.sboTerm == -1);
+  Totalfail = Totalfail + fail_unless( m.event.trigger.persistent == 0);
+  Totalfail = Totalfail + fail_unless( m.event.trigger.initialValue == 0);
   
+  Totalfail = Totalfail + fail_unless( strcmp(m.event.priority.math, '1'));
+  Totalfail = Totalfail + fail_unless( isempty(m.event.priority.metaid ));
+  Totalfail = Totalfail + fail_unless( m.event.priority.sboTerm == -1);
+
   Totalfail = Totalfail + fail_unless( strcmp(m.event.delay.math, 'x*3'));
   Totalfail = Totalfail + fail_unless( isempty(m.event.delay.metaid ));
   Totalfail = Totalfail + fail_unless( m.event.delay.sboTerm == 64);
@@ -483,7 +494,7 @@ test = test + 10;
   Totalfail = Totalfail + fail_unless( strcmp(m.event.eventAssignment.metaid, 'kkl'));
   Totalfail = Totalfail + fail_unless( m.event.eventAssignment.sboTerm == -1);
   
-  test = test + 15;
+  test = test + 20;
   
 disp('Testing readFromFile13:');
 disp(sprintf('Number tests: %d', test));

@@ -66,6 +66,7 @@ void GetTrigger         (Event_t *, unsigned int, unsigned int);
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
 void GetNamespaces   (SBMLDocument_t *);
+void GetPriority           (Event_t *, unsigned int, unsigned int);
 
 
 
@@ -100,6 +101,7 @@ static mxArray * mxNSReturn                  = NULL;
 static mxArray * mxTriggerReturn             = NULL;
 static mxArray * mxDelayReturn               = NULL;
 static mxArray * mxStoichiometryMathReturn   = NULL;
+static mxArray * mxPriorityReturn            = NULL;
 
 char *    pacCSymbolTime              = NULL;
 char *    pacCSymbolDelay              = NULL;
@@ -1132,6 +1134,10 @@ TypecodeToChar (SBMLTypeCode_t typecode)
 
     case SBML_STOICHIOMETRY_MATH:
       pacTypecode = "SBML_STOICHIOMETRY_MATH";
+      break;
+
+    case SBML_PRIORITY:
+      pacTypecode = "SBML_PRIORITY";
       break;
 
     default:
@@ -5036,6 +5042,20 @@ GetEvent (Model_t      *pModel,
 		"trigger", 
 		"delay", 
 		"eventAssignment"};
+  const int nNoFields_l3v1 = 12;
+  const char * field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+    "name", 
+		"id",
+    "useValuesFromTriggerTime",
+		"trigger", 
+		"delay", 
+    "priority",
+		"eventAssignment"};
   
   /* determine the values */
   const char * pacTypecode;
@@ -5084,7 +5104,7 @@ GetEvent (Model_t      *pModel,
   {
     if (unSBMLVersion == 1)
     {
-      mxEventReturn = mxCreateStructArray(2, dims, nNoFields_l2v4, field_names_l2v4);
+      mxEventReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
     }
   }
   for (i = 0; i < n; i++) {
@@ -5195,6 +5215,13 @@ GetEvent (Model_t      *pModel,
         GetDelay(pEvent, unSBMLLevel, unSBMLVersion);
       }
     }
+    if (unSBMLLevel == 3)
+    {
+      if (Event_isSetPriority(pEvent))
+      {
+        GetPriority(pEvent, unSBMLLevel, unSBMLVersion);
+      }
+    }
     /**        
      * check for NULL strings - Matlab doesnt like creating 
      * a string that is NULL
@@ -5260,9 +5287,14 @@ GetEvent (Model_t      *pModel,
     }  
     mxSetField(mxEventReturn,i,"eventAssignment",mxEventAssignReturn); 
 
+    if (unSBMLLevel == 3)
+    {
+      mxSetField(mxEventReturn,i,"priority",mxPriorityReturn); 
+    }
     mxEventAssignReturn = NULL;
     mxTriggerReturn = NULL;
     mxDelayReturn = NULL;
+    mxPriorityReturn = NULL;
   }
 }
 
@@ -5479,6 +5511,16 @@ GetTrigger ( Event_t      *pEvent,
 		"annotation",
     "sboTerm",
 		"math"};
+  const int nNoFields_l3v1 = 8;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+    "persistent",
+    "initialValue",
+		"math"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -5486,6 +5528,8 @@ GetTrigger ( Event_t      *pEvent,
   const char * pacAnnotations = NULL;
   const char * pacFormula = NULL;
   int nSBO = -1;
+  int nPersistent = 0;
+  int nInitialValue = 0;
 
   Trigger_t * pTrigger;
   
@@ -5514,7 +5558,7 @@ GetTrigger ( Event_t      *pEvent,
   {
     if (unSBMLVersion == 1)
     {
-      mxTriggerReturn = mxCreateStructArray(2, dims, nNoFields_l2v3, field_names_l2v3);
+      mxTriggerReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
     }
   }
 
@@ -5563,6 +5607,12 @@ GetTrigger ( Event_t      *pEvent,
 
     /* END OF HACK */
   }
+
+  if (unSBMLLevel > 2)
+  {
+    nPersistent = Trigger_getPersistent(pTrigger);
+    nInitialValue = Trigger_getInitialValue(pTrigger);
+  }
   /**
    * check for NULL strings - Matlab doesnt like creating 
    * a string that is NULL
@@ -5587,6 +5637,11 @@ GetTrigger ( Event_t      *pEvent,
   mxSetField(mxTriggerReturn, 0, "notes",      mxCreateString(pacNotes));
   mxSetField(mxTriggerReturn, 0, "annotation", mxCreateString(pacAnnotations));
   mxSetField(mxTriggerReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+  if (unSBMLLevel > 2)
+  {
+    mxSetField(mxTriggerReturn, 0, "persistent", CreateIntScalar(nPersistent));
+    mxSetField(mxTriggerReturn, 0, "initialValue", CreateIntScalar(nInitialValue));
+  }
   mxSetField(mxTriggerReturn, 0, "math",       mxCreateString(pacFormula)); 
 
 }
@@ -5729,6 +5784,136 @@ GetDelay ( Event_t      *pEvent,
   mxSetField(mxDelayReturn, 0, "annotation", mxCreateString(pacAnnotations));
   mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
   mxSetField(mxDelayReturn, 0, "math",       mxCreateString(pacFormula)); 
+
+}
+
+
+/**
+ * NAME:    GetPriority
+ *
+ * PARAMETERS:  Pointer to a event
+ *              unSBMLLevel
+ *              unSBMLVersion - included for possible expansion needs
+ *
+ * RETURNS:    void
+ *
+ * FUNCTION:  creates the trigger mxArray structure
+ *            populates the structure with trigger
+ *            in the event
+ */
+void
+GetPriority ( Event_t      *pEvent,
+                     unsigned int unSBMLLevel,
+                     unsigned int unSBMLVersion )
+{
+  int dims[2] = {1, 1};
+
+  const int nNoFields_l3v1 = 6;
+  const char *field_names_l3v1[] = {	
+    "typecode", 
+    "metaid",
+		"notes", 
+		"annotation",
+    "sboTerm",
+		"math"};
+  /* determine the values */
+  const char * pacTypecode;
+  const char * pacMetaid = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacFormula = NULL;
+  int nSBO = -1;
+
+  Priority_t * pPriority;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
+   
+
+  /* create the structure array */
+  if (unSBMLLevel < 3) 
+  {
+    mxPriorityReturn = NULL;
+  }
+  else if (unSBMLLevel == 3) 
+  {
+    if (unSBMLVersion == 1)
+    {
+      mxPriorityReturn = mxCreateStructArray(2, dims, nNoFields_l3v1, field_names_l3v1);
+    }
+  }
+
+  pPriority = Event_getPriority(pEvent);
+
+  /* determine the values */
+  pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pPriority));
+
+  pacNotes          = SBase_getNotesString((SBase_t *) pPriority);
+  pacAnnotations    = SBase_getAnnotationString((SBase_t *) pPriority);
+  pacMetaid = SBase_getMetaId((SBase_t*)pPriority);
+
+  if (SBase_isSetSBOTerm((SBase_t*) pPriority))
+  {
+    nSBO = SBase_getSBOTerm((SBase_t*) pPriority);
+  }
+  else
+  {
+    nSBO = -1;
+  }
+    
+  if (Priority_isSetMath(pPriority)) {
+    LookForCSymbolTime((ASTNode_t*)Priority_getMath(pPriority));
+    LookForCSymbolDelay((ASTNode_t*)Priority_getMath(pPriority));
+    pacFormula = SBML_formulaToString((ASTNode_t*)Priority_getMath(pPriority));
+
+     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+    mxInput[0] = mxCreateString(pacFormula);
+    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Failed to convert formula");
+    }
+
+    /* get the formula returned */
+    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Cannot copy formula");
+    }
+
+    /* END OF HACK */
+  }
+  /**
+   * check for NULL strings - Matlab doesnt like creating 
+   * a string that is NULL
+   */
+  if (pacNotes == NULL) {
+    pacNotes = "";
+  }
+    if (pacMetaid == NULL)
+    {
+      pacMetaid = "";
+    }
+  if (pacAnnotations == NULL) {
+    pacAnnotations = "";
+  }
+  if (pacFormula == NULL) {
+    pacFormula = "";
+  }
+
+  /* put into structure */
+  mxSetField(mxPriorityReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
+  mxSetField(mxPriorityReturn, 0, "metaid", mxCreateString(pacMetaid));
+  mxSetField(mxPriorityReturn, 0, "notes",      mxCreateString(pacNotes));
+  mxSetField(mxPriorityReturn, 0, "annotation", mxCreateString(pacAnnotations));
+  mxSetField(mxPriorityReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+  mxSetField(mxPriorityReturn, 0, "math",       mxCreateString(pacFormula)); 
 
 }
 

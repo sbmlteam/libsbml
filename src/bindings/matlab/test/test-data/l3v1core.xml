@@ -149,7 +149,7 @@
     </listOfReactions>
     <listOfEvents>
       <event useValuesFromTriggerTime="false">
-        <trigger>
+         <trigger initialValue="false" persistent="false">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <lt/>
@@ -158,6 +158,11 @@
             </apply>
           </math>
         </trigger>
+         <priority>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn> 1 </cn>
+            </math>
+         </priority>
         <delay sboTerm="SBO:0000064">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
