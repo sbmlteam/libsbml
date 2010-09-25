@@ -590,7 +590,7 @@ SBO::isObselete  (unsigned int sboTerm)
 void
 SBO::populateSBOTree()
 {
-  // generated from SBO on July 10th 2010
+  // generated from SBO on September 25th 2010
   mParent.insert( pair<const int, int>(  1,  64) );
   mParent.insert( pair<const int, int>(  2,   0) );
   mParent.insert( pair<const int, int>(  3,   0) );
@@ -777,7 +777,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(155, 153) );
   mParent.insert( pair<const int, int>(156,   9) );
   mParent.insert( pair<const int, int>(157, 188) );
-  mParent.insert( pair<const int, int>(158, 256) );
+  mParent.insert( pair<const int, int>(158, 382) );
   mParent.insert( pair<const int, int>(159,   9) );
   mParent.insert( pair<const int, int>(160, 153) );
   mParent.insert( pair<const int, int>(160, 159) );
@@ -1178,6 +1178,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(535, 461) );
   mParent.insert( pair<const int, int>(536, 207) );
   mParent.insert( pair<const int, int>(537, 207) );
+  mParent.insert( pair<const int, int>(538, 256) );
 
 }
 /** @endcond */
