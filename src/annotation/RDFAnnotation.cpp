@@ -413,6 +413,9 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
         case BQM_IS_DESCRIBED_BY:
           name = "isDescribedBy";
           break;
+        case BQM_IS_DERIVED_FROM:
+          name = "isDerivedFrom";
+          break;
         case BQM_UNKNOWN:
           return NULL;
 	        break;
@@ -432,6 +435,12 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
           break;
         case BQB_HAS_PART:
           name = "hasPart";
+          break;
+        case BQB_HAS_PROPERTY:
+          name = "hasProperty";
+          break;
+        case BQB_IS_PROPERTY_OF:
+          name = "isPropertyOf";
           break;
         case BQB_IS_PART_OF:
           name = "isPartOf";

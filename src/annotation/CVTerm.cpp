@@ -102,6 +102,10 @@ CVTerm::CVTerm(const XMLNode node)
       setBiologicalQualifierType(BQB_ENCODES);
     else if (name == "occursIn") 
       setBiologicalQualifierType(BQB_OCCURS_IN);
+    else if (name == "isPropertyOf") 
+      setBiologicalQualifierType(BQB_IS_PROPERTY_OF);
+    else if (name == "hasProperty") 
+      setBiologicalQualifierType(BQB_HAS_PROPERTY);
 
 
   }
@@ -113,6 +117,8 @@ CVTerm::CVTerm(const XMLNode node)
       setModelQualifierType(BQM_IS);
     else if (name == "isDescribedBy") 
       setModelQualifierType(BQM_IS_DESCRIBED_BY);
+    else if (name == "isDerivedFrom") 
+      setModelQualifierType(BQM_IS_DERIVED_FROM);
   }
 
 
