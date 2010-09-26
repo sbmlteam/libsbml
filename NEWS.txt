@@ -6,6 +6,13 @@ Current development
 
 * New features
 
+  - New validation rule 20518 from the specification has been implemented.
+
+  - In order to facilitate support of the new Event semantics,
+    both the new attributes on a Trigger object and the 
+    new Priority object have been implemented.  The expected 
+    manipulation functions set/set/isSet have been added.
+
   - The initDefaults functions initialise common default values for
     object attributes.  However, it was not assigning values to units.
     Considering the fact that L2 Compartments and Species have units
@@ -29,6 +36,19 @@ Current development
     
 * Bug fixes:
 
+  - [Tracker issue #3073473]
+    Annotations using the newer biomodels qualifiers were losing
+    these annotations.  It turns out the code was recognising them
+    in some places but not all.  This is fixed.  Thanks to Camille 
+    Laibe for reporting this. 
+    
+  - Converting a model to L3 was not setting all the required
+    attributes correctly.  This has been corrected.  Thanks to
+    Chris Myers for reporting this.
+
+  - The new unit 'avogadro' was not being dealt with correctly
+    by the unit checking code.  This is fixed.
+    
   - The unsetStoichiometryMath function should return 
     LIBSBML_UNEXPECTED_ATTRIBUTE if called on an L1 or L3 model.
     This is now fixed.
