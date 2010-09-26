@@ -274,6 +274,20 @@ public class TestSBMLConvert {
     d = null;
   }
 
+  public void test_SBMLConvert_convertToL3_compartment()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    String sid =  "C";
+    Compartment c = m.createCompartment();
+    Compartment c1;
+    c.setId(sid);
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    c1 = m.getCompartment(0);
+    assertTrue( c1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
   public void test_SBMLConvert_convertToL3_defaultUnits()
   {
     SBMLDocument d = new  SBMLDocument(1,2);
@@ -308,6 +322,18 @@ public class TestSBMLConvert {
     d = null;
   }
 
+  public void test_SBMLConvert_convertToL3_event()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    Event e = m.createEvent();
+    Event e1;
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    e1 = m.getEvent(0);
+    assertTrue( e1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
   public void test_SBMLConvert_convertToL3_localParameters()
   {
     SBMLDocument d = new  SBMLDocument(1,2);
@@ -331,6 +357,76 @@ public class TestSBMLConvert {
     kl = r.getKineticLaw();
     assertTrue( kl.getNumLocalParameters() == 1 );
     LocalParameter lp = kl.getLocalParameter(0);
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_parameter()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    String sid =  "C";
+    Parameter p = m.createParameter();
+    Parameter p1;
+    p.setId(sid);
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    p1 = m.getParameter(0);
+    assertTrue( p1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_product()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    SpeciesReference sr = r.createProduct();
+    SpeciesReference sr1;
+    sr.setSpecies( "s" );
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    sr1 = m.getReaction(0).getProduct(0);
+    assertTrue( sr1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_reactant()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    SpeciesReference sr = r.createReactant();
+    SpeciesReference sr1;
+    sr.setSpecies( "s" );
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    sr1 = m.getReaction(0).getReactant(0);
+    assertTrue( sr1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_reaction()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    String sid =  "C";
+    Reaction r = m.createReaction();
+    r.setId(sid);
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    Reaction r1 = m.getReaction(0);
+    assertTrue( r1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_species()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    String sid =  "C";
+    Species s = m.createSpecies();
+    Species s1;
+    s.setId(sid);
+    s.setCompartment( "comp");
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    s1 = m.getSpecies(0);
+    assertTrue( s1.hasRequiredAttributes() == true );
     d = null;
   }
 
@@ -359,6 +455,34 @@ public class TestSBMLConvert {
     assertTrue( sr.isSetId() == true );
     Rule rule = m.getRule(0);
     assertTrue( sr.getId().equals(rule.getVariable()) == true );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_trigger()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    Event e = m.createEvent();
+    Trigger t = e.createTrigger();
+    Trigger t1;
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    t1 = m.getEvent(0).getTrigger();
+    assertTrue( t1.hasRequiredAttributes() == true );
+    d = null;
+  }
+
+  public void test_SBMLConvert_convertToL3_unit()
+  {
+    SBMLDocument d = new  SBMLDocument(2,2);
+    Model m = d.createModel();
+    String sid =  "C";
+    UnitDefinition ud = m.createUnitDefinition();
+    ud.setId(sid);
+    Unit u = ud.createUnit();
+    u.setKind(libsbml.UNIT_KIND_MOLE);
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+    Unit u1 = m.getUnitDefinition(0).getUnit(0);
+    assertTrue( u1.hasRequiredAttributes() == true );
     d = null;
   }
 

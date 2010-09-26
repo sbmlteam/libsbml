@@ -443,6 +443,198 @@ START_TEST (test_SBMLConvert_convertToL3_stoichiometryMath)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_convertToL3_compartment)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_t *c1;
+
+  Compartment_setId   ( c, sid );
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  c1 = Model_getCompartment(m, 0);
+
+  fail_unless(Compartment_hasRequiredAttributes(c1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_unit)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  UnitDefinition_t  *ud = Model_createUnitDefinition(m);
+  UnitDefinition_setId   ( ud, sid );
+  Unit_t *u = UnitDefinition_createUnit(ud);
+  Unit_setKind(u, UNIT_KIND_MOLE);
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  Unit_t *u1 = UnitDefinition_getUnit(Model_getUnitDefinition(m, 0), 0);
+
+  fail_unless(Unit_hasRequiredAttributes(u1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_reaction)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Reaction_t  *r = Model_createReaction(m);
+  Reaction_setId   ( r, sid );
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  Reaction_t *r1 = Model_getReaction(m, 0);
+
+  fail_unless(Reaction_hasRequiredAttributes(r1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_species)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Species_t  *s = Model_createSpecies(m);
+  Species_t *s1;
+
+  Species_setId   ( s, sid );
+  Species_setCompartment( s, "comp");
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  s1 = Model_getSpecies(m, 0);
+
+  fail_unless(Species_hasRequiredAttributes(s1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_parameter)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  const char   *sid = "C";
+  Parameter_t  *p = Model_createParameter(m);
+  Parameter_t *p1;
+
+  Parameter_setId   ( p, sid );
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  p1 = Model_getParameter(m, 0);
+
+  fail_unless(Parameter_hasRequiredAttributes(p1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_reactant)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Reaction_t     *r = Model_createReaction(m);
+
+  SpeciesReference_t  *sr = Reaction_createReactant(r);
+  SpeciesReference_t *sr1;
+
+  SpeciesReference_setSpecies   ( sr, "s" );
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  sr1 = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_hasRequiredAttributes(sr1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_product)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Reaction_t     *r = Model_createReaction(m);
+
+  SpeciesReference_t  *sr = Reaction_createProduct(r);
+  SpeciesReference_t *sr1;
+
+  SpeciesReference_setSpecies   ( sr, "s" );
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  sr1 = Reaction_getProduct(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_hasRequiredAttributes(sr1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+START_TEST (test_SBMLConvert_convertToL3_event)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Event_t  *e = Model_createEvent(m);
+  Event_t *e1;
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  e1 = Model_getEvent(m, 0);
+
+  fail_unless(Event_hasRequiredAttributes(e1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertToL3_trigger)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Event_t  *e = Model_createEvent(m);
+  Trigger_t *t = Event_createTrigger(e);
+
+  Trigger_t *t1;
+
+  fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
+
+  t1 = Event_getTrigger(Model_getEvent(m, 0));
+
+  fail_unless(Event_hasRequiredAttributes(t1) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -462,6 +654,16 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_invalidLevelVersion );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_localParameters );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_stoichiometryMath );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_compartment );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_unit );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_reaction );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_species );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_species );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_parameter );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_reactant );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_product );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_event );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL3_trigger );
 
   suite_add_tcase(suite, tcase);
 

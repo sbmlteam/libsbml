@@ -62,6 +62,8 @@ Model::convertL1ToL3 ()
   setSpatialDimensions();
 
   addDefinitionsForDefaultUnits();
+
+  assignRequiredValues();
 }
 
 
@@ -74,6 +76,8 @@ Model::convertL2ToL3 ()
   setSpeciesReferenceConstantValue();
 
   convertStoichiometryMath();
+
+  assignRequiredValues();
 }
 
 
@@ -873,6 +877,113 @@ Model::removeDuplicateTopLevelAnnotations()
       }
     }
   }
+}
+
+void
+Model::assignRequiredValues()
+{
+  // when converting to L3 some attributes which have default values in L1/L2
+  // but are required in L3 are not present or set
+  unsigned int i, n;
+
+  if (getNumUnitDefinitions() > 0)
+  {
+    for (i = 0; i < getNumUnitDefinitions(); i++)
+    {
+      for (n = 0; n < getUnitDefinition(i)->getNumUnits(); n++)
+      {
+        Unit *u = getUnitDefinition(i)->getUnit(n);
+        if (!u->isSetExponent())
+          u->setExponent(1.0);
+        if (!u->isSetScale())
+          u->setScale(0);
+        if (!u->isSetMultiplier())
+          u->setMultiplier(1.0);
+      }
+    }
+  }
+  
+  if (getNumCompartments() > 0)
+  {
+    for (i = 0; i < getNumCompartments(); i++)
+    {
+      Compartment *c = getCompartment(i);
+      c->setConstant(c->getConstant());
+    }
+  }
+  if (getNumSpecies() > 0)
+  {
+    for (i = 0; i < getNumSpecies(); i++)
+    {
+      Species * s = getSpecies(i);
+      s->setBoundaryCondition(s->getBoundaryCondition());
+      s->setHasOnlySubstanceUnits(s->getHasOnlySubstanceUnits());
+      s->setConstant(s->getConstant());
+    }
+  }
+  if (getNumParameters() > 0)
+  {
+    for (i = 0; i < getNumParameters(); i++)
+    {
+      Parameter * p = getParameter(i);
+      p->setConstant(p->getConstant());
+    }
+  }
+  if (getNumReactions() > 0)
+  {
+    for (i = 0; i < getNumReactions(); i++)
+    {
+      Reaction * r = getReaction(i);
+      r->setFast(r->getFast());
+      r->setReversible(r->getReversible());
+      if (r->getNumReactants() > 0)
+      {
+        for (n = 0; n < r->getNumReactants(); n++)
+        {
+          SpeciesReference *sr = r->getReactant(n);
+          if (sr->isSetStoichiometryMath())
+          {
+            sr->setConstant(false);
+          }
+          else
+          {
+            sr->setConstant(true);
+          }
+        }
+      }
+      if (r->getNumProducts() > 0)
+      {
+        for (n = 0; n < r->getNumProducts(); n++)
+        {
+          SpeciesReference *sr = r->getProduct(n);
+          if (sr->isSetStoichiometryMath())
+          {
+            sr->setConstant(false);
+          }
+          else
+          {
+            sr->setConstant(true);
+          }
+        }
+      }
+    }
+  }
+  if (getNumEvents() > 0)
+  {
+    for (i = 0; i < getNumEvents(); i++)
+    {
+      Event * e = getEvent(i);
+      e->setUseValuesFromTriggerTime(e->getUseValuesFromTriggerTime());
+
+      if (e->isSetTrigger())
+      {
+        Trigger *t = e->getTrigger();
+        t->setPersistent(true);
+        t->setInitialValue(true);
+      }
+    }
+  }
+
 }
 
 /** @endcond **/

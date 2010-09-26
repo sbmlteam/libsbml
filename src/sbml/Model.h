@@ -2666,6 +2666,13 @@ public:
 
   /** @endcond */
   /** @cond doxygen-libsbml-internal */
+
+  /* assigns the required values to L2 defaults
+   */
+  void assignRequiredValues ();
+
+  /** @endcond */
+  /** @cond doxygen-libsbml-internal */
   
   /*
    * Sets the parent SBMLDocument of this SBML object.

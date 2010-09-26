@@ -178,6 +178,18 @@ class TestSBMLConvert < Test::Unit::TestCase
     d = nil
   end
 
+  def test_SBMLConvert_convertToL3_compartment
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    sid =  "C";
+    c = m.createCompartment()
+    c.setId(sid)
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    c1 = m.getCompartment(0)
+    assert( c1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
   def test_SBMLConvert_convertToL3_defaultUnits
     d = LibSBML::SBMLDocument.new(1,2)
     m = d.createModel()
@@ -211,6 +223,16 @@ class TestSBMLConvert < Test::Unit::TestCase
     d = nil
   end
 
+  def test_SBMLConvert_convertToL3_event
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    e = m.createEvent()
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    e1 = m.getEvent(0)
+    assert( e1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
   def test_SBMLConvert_convertToL3_localParameters
     d = LibSBML::SBMLDocument.new(1,2)
     m = d.createModel()
@@ -233,6 +255,67 @@ class TestSBMLConvert < Test::Unit::TestCase
     kl = r.getKineticLaw()
     assert( kl.getNumLocalParameters() == 1 )
     lp = kl.getLocalParameter(0)
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_parameter
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    sid =  "C";
+    p = m.createParameter()
+    p.setId(sid)
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    p1 = m.getParameter(0)
+    assert( p1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_product
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    r = m.createReaction()
+    sr = r.createProduct()
+    sr.setSpecies( "s" )
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    sr1 = m.getReaction(0).getProduct(0)
+    assert( sr1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_reactant
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    r = m.createReaction()
+    sr = r.createReactant()
+    sr.setSpecies( "s" )
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    sr1 = m.getReaction(0).getReactant(0)
+    assert( sr1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_reaction
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    sid =  "C";
+    r = m.createReaction()
+    r.setId(sid)
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    r1 = m.getReaction(0)
+    assert( r1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_species
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    sid =  "C";
+    s = m.createSpecies()
+    s.setId(sid)
+    s.setCompartment( "comp")
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    s1 = m.getSpecies(0)
+    assert( s1.hasRequiredAttributes() == true )
     d = nil
   end
 
@@ -260,6 +343,31 @@ class TestSBMLConvert < Test::Unit::TestCase
     assert( sr.isSetId() == true )
     rule = m.getRule(0)
     assert( sr.getId() == rule.getVariable() )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_trigger
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    e = m.createEvent()
+    t = e.createTrigger()
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    t1 = m.getEvent(0).getTrigger()
+    assert( t1.hasRequiredAttributes() == true )
+    d = nil
+  end
+
+  def test_SBMLConvert_convertToL3_unit
+    d = LibSBML::SBMLDocument.new(2,2)
+    m = d.createModel()
+    sid =  "C";
+    ud = m.createUnitDefinition()
+    ud.setId(sid)
+    u = ud.createUnit()
+    u.setKind(LibSBML::UNIT_KIND_MOLE)
+    assert( d.setLevelAndVersion(3,1,false) == true )
+    u1 = m.getUnitDefinition(0).getUnit(0)
+    assert( u1.hasRequiredAttributes() == true )
     d = nil
   end
 
