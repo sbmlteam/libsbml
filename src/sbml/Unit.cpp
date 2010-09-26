@@ -1215,6 +1215,11 @@ Unit::convertToSI(const Unit * unit)
       ud->addUnit(newUnit);
       break;
 
+    case UNIT_KIND_ITEM:
+      newUnit->setKind(UNIT_KIND_ITEM);
+      ud->addUnit(newUnit);
+      break;
+
     case UNIT_KIND_JOULE:
       /* 1 joule = 1 m^2 kg s^-2 */
       newUnit->setKind(UNIT_KIND_KILOGRAM);

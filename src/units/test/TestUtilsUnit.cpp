@@ -370,21 +370,21 @@ START_TEST(test_unit_convert_SI)
     fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
     /* item */
-    //u->setKind(UNIT_KIND_ITEM);
-    //u->setMultiplier(2);
-    //u->setScale(0);
-    //u->setExponent(1);
-    //u->setOffset(0.0);
-    //
-    //ud = Unit::convertToSI(u);
+    u->setKind(UNIT_KIND_ITEM);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = Unit::convertToSI(u);
 
-    //fail_unless(ud->getNumUnits() == 1);
+    fail_unless(ud->getNumUnits() == 1);
 
-    //fail_unless(ud->getUnit(0)->getMultiplier() == 2);
-    //fail_unless(ud->getUnit(0)->getScale() == 0);
-    //fail_unless(ud->getUnit(0)->getExponent() == 1);
-    //fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-    //fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_ITEM);
     
     /* joule */
     /* 1 joule = 1 m^2 kg s^-2 */
