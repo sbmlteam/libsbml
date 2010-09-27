@@ -48,12 +48,12 @@ test_sources =          \
   TestCopyAndClone.cpp  \
   TestXMLAttributes.cpp \
   TestXMLError.cpp      \
+  TestXMLNode.cpp       \
   TestXMLAttributesC.c  \
   TestXMLErrorC.c       \
   TestXMLErrorLog.c     \
   TestXMLInputStream.c  \
   TestXMLNamespaces.c   \
-  TestXMLNode.c         \
   TestXMLNode_newSetters.c         \
   TestXMLOutputStream.c \
   TestXMLToken.c        \

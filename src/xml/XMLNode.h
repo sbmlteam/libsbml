@@ -353,6 +353,62 @@ public:
    */
   const XMLNode& getChild (unsigned int n) const;
 
+	/**
+	 * Returns the first child of this XMLNode with the corresponding name.
+	 *
+	 * If no child with corrsponding name can be found, 
+	 * this method returns an empty node.
+	 *
+	 * @param name the name of the node to return
+	 * 
+	 * @return the first child of this XMLNode with given name.
+	 */
+	XMLNode& getChild (const std::string&  name);	
+
+	/**
+	 * Returns the first child of this XMLNode with the corresponding name.
+	 *
+	 * If no child with corrsponding name can be found, 
+	 * this method returns an empty node.
+	 *
+	 * @param name the name of the node to return
+	 * 
+	 * @return the first child of this XMLNode with given name.
+	 */
+	const XMLNode& getChild (const std::string&  name) const;
+	
+	/**
+	 * Return the index of the first child of this XMLNode with the given name.
+	 *
+	 *
+	 * @param name a string, the name of the child for which the 
+	 * index is required.
+	 *
+	 * @return the index of the first child of this XMLNode with the given name, or -1 if not present.
+	 */
+	int getIndex (const std::string& name) const;
+
+	/**
+	 * Return a boolean indicating whether this XMLNode has a child with the given name.
+	 *
+	 *
+	 * @param name a string, the name of the child to be checked.
+	 *
+	 * @return boolean indicating whether this XMLNode has a child with the given name.
+	 */
+	bool hasChild (const std::string& name) const;
+	
+	/**
+	 * Compare this XMLNode against another XMLNode returning true if both nodes
+	 * represent the same XML tree, or false otherwise.
+	 *
+	 *
+	 * @param other another XMLNode to compare against
+	 *
+	 * @return boolean indicating whether this XMLNode represents the same XML tree as another.
+	 */
+	bool equals(const XMLNode& other) const;
+	
 
   /**
    * Returns the number of children for this XMLNode.
@@ -825,6 +881,25 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_getChildNC (XMLNode_t *node, const unsigned int n);
 
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name);	
+
+LIBLAX_EXTERN
+const XMLNode_t *
+XMLNode_getChildForName (const XMLNode_t *node, const char*  name);
+
+LIBLAX_EXTERN
+int 
+XMLNode_getIndex (const XMLNode_t *node, const char*  name);
+
+LIBLAX_EXTERN
+int 
+XMLNode_hasChild (const XMLNode_t *node, const char*  name);
+
+LIBLAX_EXTERN
+int 
+XMLNode_equals(const XMLNode_t *node, const XMLNode_t* other);
 
 LIBLAX_EXTERN
 unsigned int

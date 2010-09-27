@@ -334,6 +334,134 @@ XMLNode::getChild (unsigned int n) const
   }
 }
 
+/**
+ * Returns the first child of this XMLNode with the corresponding name.
+ *
+ * If no child with corrsponding name can be found, 
+ * this method returns an empty node.
+ *
+ * @param name the name of the node to return
+ * 
+ * @return the first child of this XMLNode with given name.
+ */
+XMLNode&
+XMLNode::getChild (const std::string&  name)
+{
+	return const_cast<XMLNode&>( 
+								static_cast<const XMLNode&>(*this).getChild(name)
+								);
+}
+/**
+ * Returns the first child of this XMLNode with the corresponding name.
+ *
+ * If no child with corrsponding name can be found, 
+ * this method returns an empty node.
+ *
+ * @param name the name of the node to return
+ * 
+ * @return the first child of this XMLNode with given name.
+ */
+const XMLNode& 
+XMLNode::getChild (const std::string&  name) const
+{
+	static const XMLNode outOfRange;
+	int index = getIndex(name);
+	if (index != -1)
+	{
+		return getChild((unsigned int)index);
+	}
+	else 
+	{
+		// An empty XMLNode object, which is neither start node, 
+		// end node, nor text node, returned if the given index 
+		// is out of range. 
+		// Currently, this object is allocated as a static object
+		// to avoid a memory leak.
+		// This may be fixed in the futrure release.		
+		return outOfRange;
+	}
+
+}
+
+/**
+ * Return the index of the first child of this XMLNode with the given name.
+ *
+ *
+ * @param name a string, the name of the child for which the 
+ * index is required.
+ *
+ * @return the index of the first child of this XMLNode with the given name, or -1 if not present.
+ */
+int
+XMLNode::getIndex (const std::string& name) const
+{
+	for (int index = 0; index < getNumChildren(); ++index)
+	{
+		if (getChild(index).getName() == name) return index;
+	}
+	
+	return -1;
+}
+
+/**
+ * Compare this XMLNode against another XMLNode returning true if both nodes
+ * represent the same XML tree, or false otherwise.
+ *
+ *
+ * @param other another XMLNode to compare against
+ *
+ * @return boolean indicating whether this XMLNode represents the same XML tree as another.
+ */
+bool 
+XMLNode::equals(const XMLNode& other) const
+{
+	bool equal=true;
+	// check if the nodes have the same name,
+	equal=(getName()==other.getName());
+	// the same namespace uri, 
+	equal=(equal && (getURI()==other.getURI()));
+	
+	XMLAttributes attr1=getAttributes(); 
+	XMLAttributes attr2=other.getAttributes();
+	int i=0,iMax=attr1.getLength();
+	//the same attributes and the same number of children
+	equal=(iMax==attr2.getLength());
+	std::string attrName;
+	while(equal && i<iMax)
+	{
+		attrName=attr1.getName(i);
+		equal=(attr2.getIndex(attrName)!=-1);
+		// also check the namspace
+		equal=(equal && (attr1.getURI(i)==attr2.getURI(i)));
+		++i;
+	}
+	
+	// recursively check all children
+	i=0;
+	iMax=getNumChildren();
+	equal=(equal && (iMax==(int)other.getNumChildren()));
+	while(equal && i<iMax)
+	{
+		equal=getChild(i).equals(other.getChild(i));
+		++i;
+	}
+	return equal; 
+}
+
+
+/**
+ * Return a boolean indicating whether this XMLNode has a child with the given name.
+ *
+ *
+ * @param name a string, the name of the child to be checked.
+ *
+ * @return boolean indicating whether this XMLNode has a child with the given name.
+ */
+bool 
+XMLNode::hasChild (const std::string& name) const
+{
+	return getIndex(name) != -1;
+}
 
 /*
  * @return the number of children for this XMLNode.
@@ -821,6 +949,89 @@ XMLNode_getChildNC (XMLNode_t *node, const unsigned int n)
   return &(node->getChild(n));
 }
 
+/**
+ * Returns the (non-const) the first child of the XMLNode_t structure node with the given name.
+ *
+ * If no child with corrsponding name can be found, 
+ * this method returns an empty node.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name the name of the node to return
+ * 
+ * @return the first child of this XMLNode with given name.
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name)
+{
+	return &(node->getChild(name));
+}
+
+/**
+ * Returns the first child of the XMLNode_t structure node with the given name.
+ *
+ * If no child with corrsponding name can be found, 
+ * this method returns an empty node.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name the name of the node to return
+ * 
+ * @return the first child of this XMLNode with given name.
+ */
+LIBLAX_EXTERN
+const XMLNode_t *
+XMLNode_getChildForName (const XMLNode_t *node, const char*  name)
+{
+	return &(node->getChild(name));
+}
+
+/**
+ * Return the index of the first child of the XMLNode_t structure node with the given name.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the name of the child for which the 
+ * index is required.
+ *
+ * @return the index of the first child of node with the given name, or -1 if not present.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_getIndex (const XMLNode_t *node, const char*  name)
+{
+	return (node->getIndex(name));
+}
+
+/**
+ * Return a boolean indicating whether node has a child with the given name.
+ *
+ * @param node XMLNode_t structure to be queried.
+ * @param name a string, the name of the child to be checked.
+ *
+ * @return true (non-zero) if this node has a child with the given name false (zero) otherwise.
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_hasChild (const XMLNode_t *node, const char*  name)
+{
+	return static_cast<int>( node->hasChild(name) );
+}
+
+/**
+ * Compare one XMLNode against another XMLNode returning true (non-zero) if both nodes
+ * represent the same XML tree, or false (zero) otherwise.
+ *
+ *
+ * @param other another XMLNode to compare against
+ *
+ * @return true (non-zero) if both nodes
+ * represent the same XML tree, or false (zero) otherwise
+ */
+LIBLAX_EXTERN
+int 
+XMLNode_equals(const XMLNode_t *node, const XMLNode_t* other)
+{
+	return static_cast<int>( node->equals(*other) );
+}
 
 /**
  * Returns the number of children for this XMLNode_t structure.

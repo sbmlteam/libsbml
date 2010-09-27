@@ -3,8 +3,8 @@
  * \brief   XMLNode unit tests
  * \author  Michael Hucka <mhucka@caltech.edu>
  *
- * $Id$
- * $HeadURL$
+ * $Id: TestXMLNode.cpp 11938 2010-09-20 02:04:23Z mhucka $
+ * $HeadURL: http://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/src/xml/test/TestXMLNode.cpp $
  */
 /* Copyright 2007 California Institute of Technology.
  *
@@ -26,7 +26,79 @@
 #include <sbml/xml/XMLNode.h>
 
 #include <check.h>
+using namespace std;
+LIBSBML_CPP_NAMESPACE_USE
 
+CK_CPPSTART
+
+START_TEST (test_XMLNode_getIndex)
+{
+	const char* xmlstr = "<annotation>\n"
+	"  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+	"</annotation>";
+	
+	XMLNode_t *node = XMLNode_create();
+	fail_unless(XMLNode_getIndex(node, "test") == -1);	
+	XMLNode_free(node);	
+		
+	node   = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+	fail_unless(XMLNode_getIndex(node, "test") == 0);	
+	XMLNode_free(node);			
+}
+END_TEST
+
+START_TEST (test_XMLNode_hasChild)
+{
+	const char* xmlstr = "<annotation>\n"
+	"  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+	"</annotation>";
+	
+	XMLNode_t *node = XMLNode_create();
+	fail_unless(XMLNode_hasChild(node, "test") == false);	
+	XMLNode_free(node);	
+	
+	node   = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+	fail_unless(XMLNode_hasChild(node, "test") == true);	
+	XMLNode_free(node);			
+}
+END_TEST
+
+START_TEST (test_XMLNode_getChildForName)
+{
+	const char* xmlstr = "<annotation>\n"
+	"  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+	"</annotation>";
+	
+	XMLNode_t *node = XMLNode_create();
+	XMLNode annotation = node->getChild("test");
+	std::string name = annotation.getName();
+	fail_unless( name == "");	
+	XMLNode_free(node);	
+	
+	node   = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+	annotation = node->getChild("test");
+	fail_unless( strcmp(XMLNode_getName(&annotation),"test") == 0);	
+	XMLNode_free(node);			
+}
+END_TEST
+
+START_TEST (test_XMLNode_equals)
+{
+	const char* xmlstr = "<annotation>\n"
+	"  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n"
+	"</annotation>";
+	
+	XMLNode_t *node  = XMLNode_create();
+	XMLNode_t *node1 = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+	fail_unless( !XMLNode_equals(node,node1));	
+	XMLNode_free(node);	
+
+	XMLNode_t *node2 = XMLNode_convertStringToXMLNode(xmlstr, NULL);
+	fail_unless( XMLNode_equals(node2,node1));	
+	XMLNode_free(node1);			
+	XMLNode_free(node2);			
+}
+END_TEST
 
 START_TEST (test_XMLNode_create)
 {
@@ -1243,7 +1315,11 @@ create_suite_XMLNode (void)
 {
   Suite *suite = suite_create("XMLNode");
   TCase *tcase = tcase_create("XMLNode");
-
+	
+  tcase_add_test( tcase, test_XMLNode_getIndex  );
+  tcase_add_test( tcase, test_XMLNode_hasChild  );
+  tcase_add_test( tcase, test_XMLNode_getChildForName  );
+  tcase_add_test( tcase, test_XMLNode_equals  );
   tcase_add_test( tcase, test_XMLNode_create  );
   tcase_add_test( tcase, test_XMLNode_createFromToken  );
   tcase_add_test( tcase, test_XMLNode_createElement  );
@@ -1264,3 +1340,4 @@ create_suite_XMLNode (void)
   return suite;
 }
 
+CK_CPPEND
