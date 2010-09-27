@@ -6,6 +6,12 @@ Current development
 
 * New features
 
+  - There is an additional validation rule that will be logged during
+    a 'read' that warns the user that they are reading an L3 model that
+    contains information from a required L3 package.  Since this version
+    of libSBML does not interpret package information this will allow
+    software to catch models it cannot yet deal with.
+
   - New validation rule 20518 from the specification has been implemented.
 
   - In order to facilitate support of the new Event semantics,

@@ -7678,6 +7678,24 @@ static const sbmlErrorTableEntry errorTable[] =
     "4.8.4)."
   },
 
+  //99107
+  {
+    RequiredPackagePresent,
+    "Model requires an L3 package",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Every SBML Level 3 package is identified uniquely by an XML namespace "
+    "URI and defines the attribute named 'required'. A value of required="
+    "true indicates that interpreting the package is necessary for complete "
+    "mathematical interpretation of the model. (L3V1 Section 4.1.2)."
+  },
+
   //99127
   {
     SubsUnitsAllowedInKL,

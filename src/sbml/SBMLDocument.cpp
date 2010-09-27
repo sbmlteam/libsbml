@@ -2519,6 +2519,32 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
       mSBMLNamespaces->setVersion(mVersion);
     }
 
+    if (mLevel > 2)
+    {
+      // look for a required package and report that one exists
+      bool required = false;
+      int ns = 0;
+      do
+      {
+        if (attributes.getName(ns) == "required")
+        {
+          const XMLTriple *triple = new XMLTriple(attributes.getName(ns), 
+            attributes.getURI(ns), attributes.getPrefix(ns));
+          attributes.readInto(*triple, required);
+        }
+        ns++;
+      } while (!required && ns < attributes.getLength());
+
+      if (required)
+      {
+        ostringstream msg;
+
+        msg << "Package '" << attributes.getPrefix(ns-1) << "' is a required package.";
+            
+        logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
+      }
+    }
+
   }
 
 }

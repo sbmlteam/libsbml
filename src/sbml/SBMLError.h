@@ -528,7 +528,8 @@
  * <tr><td><code>NoStoichiometryMathInL3v1</code></td><td>SBML Level 3 Version 1 does not support stoichiometryMath</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td></tr>
  * <tr><td><code>InvalidSBMLLevelVersion</code></td><td>Invalid SBML Level and Version</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td></tr>
  * <tr><td><code>AnnotationNotesNotAllowedLevel1</code></td><td>Annotation on &lt;sbml&gt; not permitted in SBML Level 1</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
- * <tr><td><code>InvalidRuleOrdering</code></td><td>Invalid ordering of rules</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
+ * <tr><td><code>InvalidRuleOrdering</code></td><td>Invalid ordering of rules</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-error">E</td></tr>
+ * <tr><td><code>RequiredPackagePresent</code></td><td>Model requires an L3 package</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>SubsUnitsAllowedInKL</code></td><td>Disallowed value for attribute 'substanceUnits'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>TimeUnitsAllowedInKL</code></td><td>Disallowed value for attribute 'timeUnits'</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
  * <tr><td><code>FormulaInLevel1KL</code></td><td>Only predefined functions are permitted in SBML Level 1 formulas</td><td class="s-error">E</td><td class="s-error">E</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td><td class="s-na">N</td></tr>
@@ -1095,6 +1096,7 @@ typedef enum
  , InvalidSBMLLevelVersion               = 99101 /*!< Invalid SBML Level and Version */
  , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules */
+ , RequiredPackagePresent                = 99107 /*!< Invalid ordering of rules */
 
  , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute <code>substanceUnits</code> */
  , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute <code>timeUnits</code> */
