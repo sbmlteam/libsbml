@@ -1116,9 +1116,8 @@ KineticLaw::createObject (XMLInputStream& stream)
 	       "in a given <kineticLaw> element.");
     }
     return &mParameters;
-  }
-  
-  if (name == "listOfLocalParameters")
+  }  
+  else if (name == "listOfLocalParameters" && getLevel() > 2)
   {
     if (mLocalParameters.size() != 0)
     {
