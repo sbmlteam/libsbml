@@ -42,6 +42,12 @@
 %rename(cloneObject) *::clone;
 
 /**
+ * Rename XMLNode::equals() to XMLNode::xmlEquals(), otherwise it conflicts with the 
+ * equals operation defined below
+ */
+%rename(xmlEquals) XMLNode::equals;
+
+/**
  * Wraps covariant return types of ::clone functions.
  *
  * Currently, SWIG doesn't allow a covariant return type although
