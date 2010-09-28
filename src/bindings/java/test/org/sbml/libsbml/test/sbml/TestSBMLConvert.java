@@ -166,7 +166,8 @@ public class TestSBMLConvert {
     Compartment c = m.createCompartment();
     c.setId(sid);
     c.setSize(1.2);
-    c.setUnits( "volume");
+    c.setConstant(true);
+    c.setSpatialDimensions(3.4);
     assertTrue( d.setLevelAndVersion(1,1,true) == false );
     assertTrue( d.setLevelAndVersion(1,2,true) == false );
     assertTrue( d.setLevelAndVersion(2,1,true) == false );
@@ -174,6 +175,87 @@ public class TestSBMLConvert {
     assertTrue( d.setLevelAndVersion(2,3,true) == false );
     assertTrue( d.setLevelAndVersion(2,4,true) == false );
     assertTrue( d.setLevelAndVersion(3,1,true) == true );
+  }
+
+  public void test_SBMLConvert_convertFromL3_conversionFactor()
+  {
+    SBMLDocument d = new  SBMLDocument(3,1);
+    Model m = d.createModel();
+    String sid =  "P";
+    m.setConversionFactor(sid);
+    Parameter c = m.createParameter();
+    c.setId(sid);
+    c.setConstant(true);
+    assertTrue( d.setLevelAndVersion(1,1,true) == false );
+    assertTrue( d.setLevelAndVersion(1,2,true) == false );
+    assertTrue( d.setLevelAndVersion(2,1,true) == false );
+    assertTrue( d.setLevelAndVersion(2,2,true) == false );
+    assertTrue( d.setLevelAndVersion(2,3,true) == false );
+    assertTrue( d.setLevelAndVersion(2,4,true) == false );
+    assertTrue( d.setLevelAndVersion(3,1,true) == true );
+  }
+
+  public void test_SBMLConvert_convertFromL3_initialValue()
+  {
+    SBMLDocument d = new  SBMLDocument(3,1);
+    Model m = d.createModel();
+    Event e = m.createEvent();
+    Trigger t = e.createTrigger();
+    t.setInitialValue(false);
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
+    assertTrue( d.setLevelAndVersion(1,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,1,false) == false );
+    assertTrue( d.setLevelAndVersion(2,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,3,false) == false );
+    assertTrue( d.setLevelAndVersion(2,4,false) == false );
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+  }
+
+  public void test_SBMLConvert_convertFromL3_modelUnits()
+  {
+    UnitDefinition ud;
+    SBMLDocument d = new  SBMLDocument(3,1);
+    Model m = d.createModel();
+    m.setVolumeUnits( "litre");
+    assertTrue( m.getNumUnitDefinitions() == 0 );
+    assertTrue( d.setLevelAndVersion(1,2,false) == true );
+    m = d.getModel();
+    assertTrue( m.getNumUnitDefinitions() == 1 );
+    ud = m.getUnitDefinition(0);
+    assertTrue(ud.getId().equals( "volume"));
+    assertTrue( ud.getNumUnits() == 1 );
+    assertTrue( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE );
+  }
+
+  public void test_SBMLConvert_convertFromL3_persistent()
+  {
+    SBMLDocument d = new  SBMLDocument(3,1);
+    Model m = d.createModel();
+    Event e = m.createEvent();
+    Trigger t = e.createTrigger();
+    t.setPersistent(false);
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
+    assertTrue( d.setLevelAndVersion(1,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,1,false) == false );
+    assertTrue( d.setLevelAndVersion(2,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,3,false) == false );
+    assertTrue( d.setLevelAndVersion(2,4,false) == false );
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
+  }
+
+  public void test_SBMLConvert_convertFromL3_priority()
+  {
+    SBMLDocument d = new  SBMLDocument(3,1);
+    Model m = d.createModel();
+    Event e = m.createEvent();
+    Priority p = e.createPriority();
+    assertTrue( d.setLevelAndVersion(1,1,false) == false );
+    assertTrue( d.setLevelAndVersion(1,2,false) == false );
+    assertTrue( d.setLevelAndVersion(2,1,false) == true );
+    assertTrue( d.setLevelAndVersion(2,2,false) == true );
+    assertTrue( d.setLevelAndVersion(2,3,false) == true );
+    assertTrue( d.setLevelAndVersion(2,4,false) == true );
+    assertTrue( d.setLevelAndVersion(3,1,false) == true );
   }
 
   public void test_SBMLConvert_convertToL1_SBMLDocument()

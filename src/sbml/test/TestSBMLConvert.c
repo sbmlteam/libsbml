@@ -328,7 +328,8 @@ START_TEST (test_SBMLConvert_convertFromL3)
 
   Compartment_setId   ( c, sid );
   Compartment_setSize ( c, 1.2 ); 
-  Compartment_setUnits( c, "volume");
+  Compartment_setConstant( c, 1);
+  Compartment_setSpatialDimensionsAsDouble(c, 3.4);
 
   fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 2) == 0);
@@ -628,9 +629,119 @@ START_TEST (test_SBMLConvert_convertToL3_trigger)
 
   t1 = Event_getTrigger(Model_getEvent(m, 0));
 
-  fail_unless(Event_hasRequiredAttributes(t1) == 1);
+  fail_unless(Trigger_hasRequiredAttributes(t1) == 1);
 
   SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL3_modelUnits)
+{
+  UnitDefinition_t *ud;
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Model_setVolumeUnits(m, "litre");
+
+  fail_unless(Model_getNumUnitDefinitions(m) == 0);
+  
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  fail_unless(Model_getNumUnitDefinitions(m) == 1);
+
+  ud = Model_getUnitDefinition(m, 0);
+
+  fail_unless(!strcmp(UnitDefinition_getId(ud), "volume"));
+  fail_unless(UnitDefinition_getNumUnits(ud) == 1);
+  fail_unless(Unit_getKind(UnitDefinition_getUnit(ud, 0)) == UNIT_KIND_LITRE );
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL3_conversionFactor)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  const char   *sid = "P";
+
+  Model_setConversionFactor(m, sid);
+  Parameter_t  *c = Model_createParameter(m);
+
+  Parameter_setId   ( c, sid );
+  Parameter_setConstant( c, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 1, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL3_priority)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Event_t * e = Model_createEvent(m);
+  Priority_t * p = Event_createPriority(e);
+
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL3_persistent)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Event_t * e = Model_createEvent(m);
+  Trigger_t * t = Event_createTrigger(e);
+  Trigger_setPersistent(t, 0);
+
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL3_initialValue)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+  Event_t * e = Model_createEvent(m);
+  Trigger_t * t = Event_createTrigger(e);
+  Trigger_setInitialValue(t, 0);
+
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
+
 }
 END_TEST
 
@@ -664,6 +775,11 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_product );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_event );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_trigger );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3_modelUnits );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3_conversionFactor );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3_priority );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3_persistent );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3_initialValue );
 
   suite_add_tcase(suite, tcase);
 

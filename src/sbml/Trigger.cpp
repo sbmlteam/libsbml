@@ -367,6 +367,27 @@ Trigger::hasRequiredElements() const
 }
 
 
+bool 
+Trigger::hasRequiredAttributes() const
+{
+  bool allPresent = true;
+
+  /* required attributes for event: persistent and initialvalue (L3 ->) 
+   */
+
+  if (getLevel() > 2)
+  {
+    if(!isSetPersistent())
+      allPresent = false;
+
+    if(!isSetInitialValue())
+      allPresent = false;
+  }
+
+  return allPresent;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read (and store) XHTML,
@@ -905,6 +926,42 @@ Trigger_setPersistent (Trigger_t *t, int persistent)
 {
   return t->setPersistent( static_cast<bool>(persistent) );
 }
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required attributes for this Trigger object
+  * have been set.
+  *
+  * @note The required attributes for a Trigger object are:
+  * @li persistent ( L3 onwards )
+  * @li initialValue ( L3 onwards )
+  */
+LIBSBML_EXTERN
+int
+Trigger_hasRequiredAttributes (Trigger_t *t)
+{
+  return static_cast <int> (t->hasRequiredAttributes());
+}
+
+
+
+/**
+  * Predicate returning @c true or @c false depending on whether
+  * all the required elements for this Trigger object
+  * have been set.
+  *
+  * @note The required elements for a Trigger object are:
+  * @li math
+  */
+LIBSBML_EXTERN
+int
+Trigger_hasRequiredElements (Trigger_t *t)
+{
+  return static_cast <int> (t->hasRequiredElements() );
+}
+
+
 
 
 /** @endcond */

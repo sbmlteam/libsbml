@@ -124,10 +124,15 @@ START_CONSTRAINT (91008, SpeciesReference, sr)
   /* doesnt apply if the SpeciesReference is a modifier */
   pre(!sr.isModifier());
 
-  pre( sr.isSetStoichiometryMath() );
-
-  inv_or( sr.getStoichiometryMath()->getMath()->isInteger()  );
-  inv_or( sr.getStoichiometryMath()->getMath()->isRational() );
+  if (sr.isSetStoichiometryMath() )
+  {
+    inv_or( sr.getStoichiometryMath()->getMath()->isInteger()  );
+    inv_or( sr.getStoichiometryMath()->getMath()->isRational() );
+  }
+  else if (sr.getLevel() > 2)
+  {
+    inv( sr.getConstant());
+  }
 }
 END_CONSTRAINT
 
@@ -304,6 +309,59 @@ START_CONSTRAINT (91013, KineticLaw, kl)
 }
 END_CONSTRAINT
 
+
+START_CONSTRAINT (91015, Model, x)
+{
+  pre (m.getLevel() > 2);
+  inv( !m.isSetConversionFactor() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91015, Species, s)
+{
+  pre (s.getLevel() > 2);
+  inv( !s.isSetConversionFactor() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91016, Reaction, r)
+{
+  pre (r.getLevel() > 2);
+  inv( !r.isSetCompartment() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91017, Model, x)
+{
+  pre (m.getLevel() > 2);
+  pre (m.isSetExtentUnits());
+
+  std::string extent = m.getExtentUnits();
+  const UnitDefinition * ud = m.getUnitDefinition(extent);
+  if (ud)
+  {
+    UnitDefinition *ud1 = new UnitDefinition(m.getSBMLNamespaces());
+    for (unsigned int i = 0; i < ud->getNumUnits(); i++)
+    {
+      Unit * u = new Unit(m.getSBMLNamespaces());
+      u->setKind(ud->getUnit(i)->getKind());
+      u->setScale(ud->getUnit(i)->getScale());
+      u->setExponent(ud->getUnit(i)->getExponent());
+      ud1->addUnit(u);
+    }
+  
+    inv( ud1->isVariantOfSubstance());
+  }
+  else
+  {
+    inv_or( extent == "mole" );
+    inv_or( extent == "item" );
+  }
+}
+END_CONSTRAINT
 
 
 /** @endcond */

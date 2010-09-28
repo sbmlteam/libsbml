@@ -6809,6 +6809,54 @@ static const sbmlErrorTableEntry errorTable[] =
     "would produce an invalid model."
   },
 
+  //91015
+  {
+    ConversionFactorNotInL1,
+    "Conversion factor not supported in L1/2",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "This model contains conversionFactors "
+    "and thus conversion to earlier levels "
+    "is not supported."
+  },
+
+  //91016
+  {
+    CompartmentNotOnL1Reaction,
+    "Compartment not attribute on L1 Reaction",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "SBML Level 1/2 do not have the 'compartment' attribute on a "
+    "Reaction.  This information will be lost in the conversion."
+  },
+
+  //91017
+  {
+    ExtentUnitsNotSubstance,
+    "Extent units must be substance",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Extent units must equal substance"
+  },
+
   //92001
   {
     NoConstraintsInL2v1,
@@ -6939,6 +6987,84 @@ static const sbmlErrorTableEntry errorTable[] =
     "be consistent.  This model contains units that produce "
     "inconsistencies and thus conversion to Level 2 Version 1 "
     "would produce an invalid model."
+  },
+
+  //92009
+  {
+    IntegerSpatialDimensions,
+    "SBML Level 2 Version 1 requires spatial dimensions of 0 - 3",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Models in SBML Level 2 Version 1 can only represent compartments "
+    "with integer values 0, 1, 2,or 3 as spatial dimensions."
+  },
+
+  //92010
+  {
+    StoichiometryMathNotYetSupported,
+    "Conversion to StoichiometryMath not yet supported",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Conversion of a varying stoichiometry to an SBML L2 StoichiometryMath "
+    "element is not yet supported."
+  },
+
+  //92011
+  {
+    PrioirtyLostFromL3,
+    "Prioirty not in Level 2 events",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "Prioirty is not supported in SBML Level 2.  This information will be "
+    "during conversion."
+  },
+
+  //92012
+  {
+    NonPersistentNotSupported,
+    "Non persistent not in Level 2 events",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Non persistent events are not supported in SBML Level 2."
+  },
+
+  //92013
+  {
+    InitialValueFalseEventNotSupported,
+    "InitialValue assumed true in Level 2 events",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Initialvalue of event Triggers was assumed true in L2."
   },
 
   //93001

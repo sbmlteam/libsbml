@@ -1089,10 +1089,8 @@ Event::hasRequiredAttributes() const
 {
   bool allPresent = true;
 
-  /* required attributes for event: useValuesFromtriggerTime (L3 ->) 
-   * only required if there is a delay present*/
-
-  if (getLevel() > 2 && isSetDelay())
+  /* required attributes for event: useValuesFromtriggerTime (L3 ->) */
+  if (getLevel() > 2)
   {
     if(!isSetUseValuesFromTriggerTime())
       allPresent = false;

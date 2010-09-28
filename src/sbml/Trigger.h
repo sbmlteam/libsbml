@@ -326,6 +326,21 @@ public:
   virtual bool hasRequiredElements() const ;
 
 
+  /**
+   * Predicate returning @c true if
+   * all the required attributes for this Trigger object
+   * have been set.
+   *
+   * @note The required attributes for a Trigger object are:
+   * @li "persistent" (required in SBML Level&nbsp;3)
+   * @li "initialValue" (required in SBML Level&nbsp;3)
+   *
+   * @return a boolean value indicating whether all the required
+   * attributes for this object have been defined.
+   */
+  virtual bool hasRequiredAttributes() const ;
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -480,6 +495,16 @@ Trigger_setInitialValue (Trigger_t *t, int initialValue);
 LIBSBML_EXTERN
 int
 Trigger_setPersistent (Trigger_t *t, int persistent);
+
+
+LIBSBML_EXTERN
+int
+Trigger_hasRequiredAttributes (Trigger_t *t);
+
+
+LIBSBML_EXTERN
+int
+Trigger_hasRequiredElements (Trigger_t *t);
 
 
 END_C_DECLS

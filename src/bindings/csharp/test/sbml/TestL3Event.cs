@@ -196,8 +196,6 @@ namespace LibSBMLCSTest {
     public void test_L3_Event_hasRequiredAttributes()
     {
       Event e = new  Event(3,1);
-      assertEquals( true, e.hasRequiredAttributes() );
-      Delay d = e.createDelay();
       assertEquals( false, e.hasRequiredAttributes() );
       e.setUseValuesFromTriggerTime(true);
       assertEquals( true, e.hasRequiredAttributes() );

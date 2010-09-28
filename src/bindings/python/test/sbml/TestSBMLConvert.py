@@ -81,7 +81,8 @@ class TestSBMLConvert(unittest.TestCase):
     c = m.createCompartment()
     c.setId(sid)
     c.setSize(1.2)
-    c.setUnits( "volume")
+    c.setConstant(True)
+    c.setSpatialDimensions(3.4)
     self.assert_( d.setLevelAndVersion(1,1,True) == False )
     self.assert_( d.setLevelAndVersion(1,2,True) == False )
     self.assert_( d.setLevelAndVersion(2,1,True) == False )
@@ -89,6 +90,81 @@ class TestSBMLConvert(unittest.TestCase):
     self.assert_( d.setLevelAndVersion(2,3,True) == False )
     self.assert_( d.setLevelAndVersion(2,4,True) == False )
     self.assert_( d.setLevelAndVersion(3,1,True) == True )
+    pass  
+
+  def test_SBMLConvert_convertFromL3_conversionFactor(self):
+    d = libsbml.SBMLDocument(3,1)
+    m = d.createModel()
+    sid =  "P";
+    m.setConversionFactor(sid)
+    c = m.createParameter()
+    c.setId(sid)
+    c.setConstant(True)
+    self.assert_( d.setLevelAndVersion(1,1,True) == False )
+    self.assert_( d.setLevelAndVersion(1,2,True) == False )
+    self.assert_( d.setLevelAndVersion(2,1,True) == False )
+    self.assert_( d.setLevelAndVersion(2,2,True) == False )
+    self.assert_( d.setLevelAndVersion(2,3,True) == False )
+    self.assert_( d.setLevelAndVersion(2,4,True) == False )
+    self.assert_( d.setLevelAndVersion(3,1,True) == True )
+    pass  
+
+  def test_SBMLConvert_convertFromL3_initialValue(self):
+    d = libsbml.SBMLDocument(3,1)
+    m = d.createModel()
+    e = m.createEvent()
+    t = e.createTrigger()
+    t.setInitialValue(0)
+    self.assert_( d.setLevelAndVersion(1,1,False) == False )
+    self.assert_( d.setLevelAndVersion(1,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,1,False) == False )
+    self.assert_( d.setLevelAndVersion(2,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,3,False) == False )
+    self.assert_( d.setLevelAndVersion(2,4,False) == False )
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    pass  
+
+  def test_SBMLConvert_convertFromL3_modelUnits(self):
+    d = libsbml.SBMLDocument(3,1)
+    m = d.createModel()
+    m.setVolumeUnits( "litre")
+    self.assert_( m.getNumUnitDefinitions() == 0 )
+    self.assert_( d.setLevelAndVersion(1,2,False) == True )
+    m = d.getModel()
+    self.assert_( m.getNumUnitDefinitions() == 1 )
+    ud = m.getUnitDefinition(0)
+    self.assert_((  "volume" == ud.getId() ))
+    self.assert_( ud.getNumUnits() == 1 )
+    self.assert_( ud.getUnit(0).getKind() == libsbml.UNIT_KIND_LITRE )
+    pass  
+
+  def test_SBMLConvert_convertFromL3_persistent(self):
+    d = libsbml.SBMLDocument(3,1)
+    m = d.createModel()
+    e = m.createEvent()
+    t = e.createTrigger()
+    t.setPersistent(0)
+    self.assert_( d.setLevelAndVersion(1,1,False) == False )
+    self.assert_( d.setLevelAndVersion(1,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,1,False) == False )
+    self.assert_( d.setLevelAndVersion(2,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,3,False) == False )
+    self.assert_( d.setLevelAndVersion(2,4,False) == False )
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
+    pass  
+
+  def test_SBMLConvert_convertFromL3_priority(self):
+    d = libsbml.SBMLDocument(3,1)
+    m = d.createModel()
+    e = m.createEvent()
+    p = e.createPriority()
+    self.assert_( d.setLevelAndVersion(1,1,False) == False )
+    self.assert_( d.setLevelAndVersion(1,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,1,False) == True )
+    self.assert_( d.setLevelAndVersion(2,2,False) == True )
+    self.assert_( d.setLevelAndVersion(2,3,False) == True )
+    self.assert_( d.setLevelAndVersion(2,4,False) == True )
+    self.assert_( d.setLevelAndVersion(3,1,False) == True )
     pass  
 
   def test_SBMLConvert_convertToL1_SBMLDocument(self):

@@ -2558,6 +2558,32 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
+  /*
+   * Converts the model to a from SBML Level 3 to Level 1.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L3 that require the underlying Model to be changed.
+   */
+  void convertL3ToL1 ();
+
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+
+  /*
+   * Converts the model to a from SBML Level 3 to Level 2.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L3 that require the underlying Model to be changed.
+   */
+  void convertL3ToL2 ();
+
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+
   /*****************************************************
    * helper functions used by the main conversion functions 
    *******************************************************/
@@ -2670,6 +2696,13 @@ public:
   /* assigns the required values to L2 defaults
    */
   void assignRequiredValues ();
+
+  /** @endcond */
+  /** @cond doxygen-libsbml-internal */
+
+  /* deal with units values on L3 model
+   */
+  void dealWithModelUnits ();
 
   /** @endcond */
   /** @cond doxygen-libsbml-internal */

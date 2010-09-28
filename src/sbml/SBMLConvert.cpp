@@ -114,6 +114,22 @@ Model::convertL2ToL1 (bool strict)
   }
 }
 
+/* convert from L1 to L3 */
+void 
+Model::convertL3ToL1 ()
+{
+  dealWithModelUnits();
+}
+
+
+/* convert from L1 to L3 */
+void 
+Model::convertL3ToL2 ()
+{
+  dealWithModelUnits();
+}
+
+
 void
 Model::setSpeciesReferenceConstantValue()
 {
@@ -984,6 +1000,106 @@ Model::assignRequiredValues()
     }
   }
 
+}
+
+void
+Model::dealWithModelUnits()
+{
+  if (isSetVolumeUnits())
+  {
+    std::string volume = getVolumeUnits();
+    UnitDefinition * ud = removeUnitDefinition(volume);
+    if (ud)
+    {
+      ud->setId("volume");
+    }
+    else
+    {
+      Unit *u = new Unit(getSBMLNamespaces());
+      u->initDefaults();
+      u->setKind(UnitKind_forName(volume.c_str()));
+      ud = new UnitDefinition(getSBMLNamespaces());
+      ud->setId("volume");
+      ud->addUnit(u);
+    }
+    addUnitDefinition(ud);
+  }
+  if (isSetAreaUnits())
+  {
+    std::string area = getAreaUnits();
+    UnitDefinition * ud = removeUnitDefinition(area);
+    if (ud)
+    {
+      ud->setId("area");
+    }
+    else
+    {
+      Unit *u = new Unit(getSBMLNamespaces());
+      u->initDefaults();
+      u->setKind(UnitKind_forName(area.c_str()));
+      ud = new UnitDefinition(getSBMLNamespaces());
+      ud->setId("area");
+      ud->addUnit(u);
+    }
+    addUnitDefinition(ud);
+  }
+  if (isSetLengthUnits())
+  {
+    std::string length = getLengthUnits();
+    UnitDefinition * ud = removeUnitDefinition(length);
+    if (ud)
+    {
+      ud->setId("length");
+    }
+    else
+    {
+      Unit *u = new Unit(getSBMLNamespaces());
+      u->initDefaults();
+      u->setKind(UnitKind_forName(length.c_str()));
+      ud = new UnitDefinition(getSBMLNamespaces());
+      ud->setId("length");
+      ud->addUnit(u);
+    }
+    addUnitDefinition(ud);
+  }
+  if (isSetSubstanceUnits())
+  {
+    std::string substance = getSubstanceUnits();
+    UnitDefinition * ud = removeUnitDefinition(substance);
+    if (ud)
+    {
+      ud->setId("substance");
+    }
+    else
+    {
+      Unit *u = new Unit(getSBMLNamespaces());
+      u->initDefaults();
+      u->setKind(UnitKind_forName(substance.c_str()));
+      ud = new UnitDefinition(getSBMLNamespaces());
+      ud->setId("substance");
+      ud->addUnit(u);
+    }
+    addUnitDefinition(ud);
+  }
+  if (isSetTimeUnits())
+  {
+    std::string time = getTimeUnits();
+    UnitDefinition * ud = removeUnitDefinition(time);
+    if (ud)
+    {
+      ud->setId("time");
+    }
+    else
+    {
+      Unit *u = new Unit(getSBMLNamespaces());
+      u->initDefaults();
+      u->setKind(UnitKind_forName(time.c_str()));
+      ud = new UnitDefinition(getSBMLNamespaces());
+      ud->setId("time");
+      ud->addUnit(u);
+    }
+    addUnitDefinition(ud);
+  }
 }
 
 /** @endcond **/

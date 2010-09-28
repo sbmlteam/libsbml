@@ -1029,6 +1029,9 @@ typedef enum
  , NoSpeciesSpatialSizeUnitsInL1         = 91012 /*!< SBML Level&nbsp;1 does not support species <code>spatialSizeUnits</code> settings */
  , NoSBOTermsInL1                        = 91013 /*!< SBML Level&nbsp;1 does not support the <code>sboTerm</code> attribute */
  , StrictUnitsRequiredInL1               = 91014 /*!< SBML Level&nbsp;1 requires strict unit consistency */
+ , ConversionFactorNotInL1               = 91015
+ , CompartmentNotOnL1Reaction            = 91016
+ , ExtentUnitsNotSubstance               = 91017
 
   /* L2v1 compatability */
 
@@ -1039,7 +1042,14 @@ typedef enum
  , NoSBOTermsInL2v1                      = 92005 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>sboTerm</code> attribute */
  , NoIdOnSpeciesReferenceInL2v1          = 92006 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>id</code> attribute on species references */
  , NoDelayedEventAssignmentInL2v1        = 92007 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
- , StrictUnitsRequiredInL2v1             = 92008 /*!< SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency */
+ , StrictUnitsRequiredInL2v1             = 92008
+ , IntegerSpatialDimensions              = 92009
+ , StoichiometryMathNotYetSupported      = 92010
+ , PrioirtyLostFromL3                    = 92011
+ , NonPersistentNotSupported             = 92012
+ , InitialValueFalseEventNotSupported    = 92013
+
+ /*!< SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency */
 
   /* L2v2 compatability */
 

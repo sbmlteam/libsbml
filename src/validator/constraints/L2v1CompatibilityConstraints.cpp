@@ -273,4 +273,113 @@ START_CONSTRAINT (92007, Event, e)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (92009, Compartment, c)
+{
+  inv_or( c.getSpatialDimensions() == 3 );
+  inv_or( c.getSpatialDimensions() == 2 );
+  inv_or( c.getSpatialDimensions() == 1 );
+  inv_or( c.getSpatialDimensionsAsDouble() == 0.0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (92010, SpeciesReference, sr) 
+{
+  //msg =
+  //  "A <speciesReference> containing a non-integer or non-rational "
+  //  "<stoichiometryMath> subelement cannot be represented in SBML Level 1.";
+
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
+
+  if (sr.getLevel() > 2)
+  {
+    inv( sr.getConstant());
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91015, Model, x)
+{
+  pre (m.getLevel() > 2);
+  inv( !m.isSetConversionFactor() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91015, Species, s)
+{
+  pre (s.getLevel() > 2);
+  inv( !s.isSetConversionFactor() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91016, Reaction, r)
+{
+  pre (r.getLevel() > 2);
+  inv( !r.isSetCompartment() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91017, Model, x)
+{
+  pre (m.getLevel() > 2);
+  pre (m.isSetExtentUnits());
+
+  std::string extent = m.getExtentUnits();
+  const UnitDefinition * ud = m.getUnitDefinition(extent);
+  if (ud)
+  {
+    UnitDefinition *ud1 = new UnitDefinition(m.getSBMLNamespaces());
+    for (unsigned int i = 0; i < ud->getNumUnits(); i++)
+    {
+      Unit * u = new Unit(m.getSBMLNamespaces());
+      u->setKind(ud->getUnit(i)->getKind());
+      u->setScale(ud->getUnit(i)->getScale());
+      u->setExponent(ud->getUnit(i)->getExponent());
+      ud1->addUnit(u);
+    }
+  
+    inv( ud1->isVariantOfSubstance());
+  }
+  else
+  {
+    inv_or( extent == "mole" );
+    inv_or( extent == "item" );
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (92011, Event, e)
+{
+  pre (e.getLevel() > 2);
+  inv( !e.isSetPriority() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (92012, Event, e)
+{
+  pre (e.getLevel() > 2);
+  pre (e.isSetTrigger());
+
+  inv( e.getTrigger()->getPersistent() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (92013, Event, e)
+{
+  pre (e.getLevel() > 2);
+  pre (e.isSetTrigger());
+
+  inv( e.getTrigger()->getInitialValue() == true );
+}
+END_CONSTRAINT
+
+
 /** @endcond */

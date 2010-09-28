@@ -905,8 +905,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
         case 1:
           // we are L3 and want to go backwards
           // NOT YET
-          logError(L3NotSupported, mLevel, mVersion);
-          return conversionSuccess;
+          //logError(L3NotSupported, mLevel, mVersion);
+          //return conversionSuccess;
           switch (version)
           {
           case 1:
@@ -919,7 +919,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL1();
+              mModel->convertL3ToL1();
               conversionSuccess = true;
             }
             break;
@@ -929,10 +929,10 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           }
           break;
         case 2:
-          // we are L3 and want to go backwards
-          // NOT YET
-          logError(L3NotSupported, mLevel, mVersion);
-          return conversionSuccess;
+          //// we are L3 and want to go backwards
+          //// NOT YET
+          //logError(L3NotSupported, mLevel, mVersion);
+          //return conversionSuccess;
           switch (version)
           {
           case 1:
@@ -942,7 +942,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -953,7 +953,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -964,7 +964,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -975,7 +975,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -1334,8 +1334,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
         case 1:
           // we are L3 and want to go backwards
           // NOT YET
-          logError(L3NotSupported, mLevel, mVersion);
-          return conversionSuccess;
+          //logError(L3NotSupported, mLevel, mVersion);
+          //return conversionSuccess;
          switch (version)
           {
           case 1:
@@ -1348,7 +1348,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL1();
+              mModel->convertL3ToL1();
               conversionSuccess = true;
             }
             break;
@@ -1360,8 +1360,8 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
         case 2:
           // we are L3 and want to go backwards
           // NOT YET
-          logError(L3NotSupported, mLevel, mVersion);
-          return conversionSuccess;
+//          logError(L3NotSupported, mLevel, mVersion);
+//          return conversionSuccess;
           switch (version)
           {
           case 1:
@@ -1371,7 +1371,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -1382,7 +1382,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -1393,7 +1393,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;
@@ -1404,7 +1404,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
               mSBMLNamespaces->setVersion(mVersion);
- //             mModel->convertL3ToL2();
+              mModel->convertL3ToL2();
               conversionSuccess = true;
             }
             break;

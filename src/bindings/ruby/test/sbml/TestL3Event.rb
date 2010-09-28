@@ -92,8 +92,6 @@ class TestL3Event < Test::Unit::TestCase
 
   def test_L3_Event_hasRequiredAttributes
     e = LibSBML::Event.new(3,1)
-    assert_equal true, e.hasRequiredAttributes()
-    d = e.createDelay()
     assert_equal false, e.hasRequiredAttributes()
     e.setUseValuesFromTriggerTime(true)
     assert_equal true, e.hasRequiredAttributes()
