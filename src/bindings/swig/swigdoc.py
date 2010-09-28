@@ -254,19 +254,21 @@ class CHeader:
             args    = lines[stop:lines.rfind(')')+1]
             isConst = lines[lines.rfind(')'):].rfind('const')
   
-            # print 'found ' + name
-
             # Swig doesn't seem to mind C++ argument lists, even though they
             # have "const", "&", etc.  So I'm leaving the arg list unmodified.
+
             func = Method(forLanguage, isInternal, docstring, name, args, (isConst > 0))
-  
+
             if inClass:
               c = self.classes[-1]
               c.methods.append(func)
-              c.methodVariants[name] = c.methodVariants.get(name, 0) + 1
+              if c.methodVariants.get(name) == None:
+                c.methodVariants[name] = {}
+              c.methodVariants[name][name + args] = c.methodVariants[name].get(name + args, 0) + 1
             else:
               self.functions.append(func)
-  
+              # FIXME need do nc variants
+
 
 class CClass:
   """A CClass encapsulates a C++ class.  It has the following public
@@ -308,7 +310,8 @@ class Method:
     was declared constant and/or internal.
     """
 
-    self.name      = name
+    self.name    = name
+    self.isConst = isConst
 
     if isInternal:
       if forLanguage == 'java':
@@ -338,18 +341,21 @@ class Method:
     # combination doesn't seem to arise in libSBML currently, and anyway,
     # this fixes a real problem in the Java documentation for libSBML.
 
-    if forLanguage == 'java' and isConst and (args.find('unsigned int') >= 0):
-      self.args = ''
-    elif not args.strip() == '()':
-      if isConst:
-        self.args = args + ' const'
-      else:
-        self.args = args
-    else:
-      if isConst:
-        self.args = '() const'
-      else:
+    if forLanguage == 'java':
+      if isConst and (args.find('unsigned int') >= 0):
         self.args = ''
+      elif not args.strip() == '()':
+        if isConst:
+          self.args = args + ' const'
+        else:
+          self.args = args
+      else:
+        if isConst:
+          self.args = '() const'
+        else:
+          self.args = ''
+    else:
+      self.args = args
 
 
 
@@ -423,20 +429,24 @@ def rewriteCommonReferences (docstring, language):
   """
 
   if language == 'java':  
-    docstring = re.sub(r'OperationReturnValues_t#', 'libsbmlConstants#', docstring)
-    docstring = re.sub(r'SBMLTypeCode_t#',          'libsbmlConstants#', docstring)
-    docstring = re.sub(r'ASTNodeType_t#',           'libsbmlConstants#', docstring)
-    docstring = re.sub(r'RuleType_t#',              'libsbmlConstants#', docstring)
-    docstring = re.sub(r'UnitKind_t#',              'libsbmlConstants#', docstring)
-    docstring = re.sub(r'ModelQualifierType_t#',    'libsbmlConstants#', docstring)
-    docstring = re.sub(r'BiolQualifierType_t#',     'libsbmlConstants#', docstring)
-    docstring = re.sub(r'QualifierType_t#',         'libsbmlConstants#', docstring)
-    docstring = re.sub(r'SBMLErrorCode_t#',         'libsbmlConstants#', docstring)
-    docstring = re.sub(r'SBMLErrorCategory_t#',     'libsbmlConstants#', docstring)
-    docstring = re.sub(r'SBMLErrorSeverity_t#',     'libsbmlConstants#', docstring)
-    docstring = re.sub(r'XMLErrorCode_t#',          'libsbmlConstants#', docstring)
-    docstring = re.sub(r'XMLErrorCategory_t#',      'libsbmlConstants#', docstring)
-    docstring = re.sub(r'XMLErrorSeverity_t#',      'libsbmlConstants#', docstring)
+    target = 'libsbmlConstants#'
+  elif language == 'python':
+    target = 'libsbml.'
+
+  docstring = re.sub(r'OperationReturnValues_t#', target, docstring)
+  docstring = re.sub(r'SBMLTypeCode_t#',          target, docstring)
+  docstring = re.sub(r'ASTNodeType_t#',           target, docstring)
+  docstring = re.sub(r'RuleType_t#',              target, docstring)
+  docstring = re.sub(r'UnitKind_t#',              target, docstring)
+  docstring = re.sub(r'ModelQualifierType_t#',    target, docstring)
+  docstring = re.sub(r'BiolQualifierType_t#',     target, docstring)
+  docstring = re.sub(r'QualifierType_t#',         target, docstring)
+  docstring = re.sub(r'SBMLErrorCode_t#',         target, docstring)
+  docstring = re.sub(r'SBMLErrorCategory_t#',     target, docstring)
+  docstring = re.sub(r'SBMLErrorSeverity_t#',     target, docstring)
+  docstring = re.sub(r'XMLErrorCode_t#',          target, docstring)
+  docstring = re.sub(r'XMLErrorCategory_t#',      target, docstring)
+  docstring = re.sub(r'XMLErrorSeverity_t#',      target, docstring)
 
   return docstring
 
@@ -512,12 +522,34 @@ def translateJavaCrossRef (match):
 
 
 
+def translatePythonCrossRef (match):
+  prior = match.group(1)
+  classname = match.group(2)
+  method = match.group(3)
+  args = match.group(4)
+  return prior + classname + "." + method + "()"
+
+
+
+def translatePythonSeeRef (match):
+  prior = match.group(1)
+  method = match.group(2)
+  args = match.group(3)
+  return prior + method + "()"
+
+
+
 def javafyClassRef (match):
   return match.group(1) + match.group(2) + ' '
 
 
 
-def translateJavaClassRef (match):
+def pythonifyClassRef (match):
+  return match.group(1) + match.group(2)
+
+
+
+def translateClassRef (match):
   leading      = match.group(1)
   classname    = match.group(2)
   trailing     = match.group(3)
@@ -559,22 +591,23 @@ def sanitizeForHTML (docstring, language):
   p = re.compile('^(?!\Z)$', re.MULTILINE)
   docstring = p.sub(r'<p>', docstring)
 
-  # Javadoc doesn't have an @htmlinclude command.  Slurp the file
-  # directly in at the point.
+  # Javadoc doesn't have an @htmlinclude command, so we process the file
+  # inclusion directly here.
 
   p = re.compile('@htmlinclude\s+([^\s]+).*$', re.MULTILINE)
   docstring = p.sub(translateInclude, docstring)
 
-  # There's no verbatim or @code/@endcode equivalent, so we have to convert
-  # it to raw HTML and transform the content too.  This requires helpers.
-  # The following treats both @verbatim and @code the same way.
+  # There's no Javadoc verbatim or @code/@endcode equivalent, so we have to
+  # convert it to raw HTML and transform the content too.  This requires
+  # helpers.  The following treats both @verbatim and @code the same way.
 
   p = re.compile('@verbatim.+?@endverbatim', re.DOTALL)
   docstring = p.sub(translateVerbatim, docstring)
   p = re.compile('@code.+?@endcode', re.DOTALL)
   docstring = p.sub(translateVerbatim, docstring)
 
-  # Javadoc doesn't have a @section or @subsection commands.
+  # Javadoc doesn't have a @section or @subsection commands, so we translate
+  # those ourselves.
 
   p = re.compile('@section\s+[^\s]+\s+(.*)$', re.MULTILINE)
   docstring = p.sub(r'<h2>\1</h2>', docstring)
@@ -600,7 +633,6 @@ def sanitizeForHTML (docstring, language):
   docstring = re.sub(r'\\f\$\\leq\\f\$', '&#8804;', docstring)
   docstring = re.sub(r'\\f\$\\times\\f\$', '&#215;', docstring)
 
-  # Miscellaneous other javadoc adaption.
   # The following are done in pairs because I couldn't come up with a
   # better way to catch the case where @c and @em end up alone at the end
   # of a line and the thing to be formatted starts on the next one after
@@ -624,7 +656,7 @@ def sanitizeForHTML (docstring, language):
   # done better (e.g., by not hard-wiring the class names).
 
   p = re.compile(r'(\W)(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
-  docstring = p.sub(translateJavaClassRef, docstring)
+  docstring = p.sub(translateClassRef, docstring)
 
   # Massage Java method cross-references.
 
@@ -660,8 +692,8 @@ def rewriteDocstringForJava (docstring):
   # Java types.  (Note: this rewriting affects only the documentation
   # comments inside classes & methods, not the method signatures.)
 
-  docstring = docstring.replace(r'const char *', 'string ')
-  docstring = docstring.replace(r'const char* ', 'string ')
+  docstring = docstring.replace(r'const char *', 'String ')
+  docstring = docstring.replace(r'const char* ', 'String ')
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
   docstring = docstring.replace(r'unsigned int', 'long')
   docstring = docstring.replace(r'const std::string&', 'String')
@@ -750,9 +782,38 @@ def rewriteDocstringForPython (docstring):
   p = re.compile('^(\s*)\*([ \t]*)', re.MULTILINE)
   docstring = p.sub(r'\2', docstring)
 
+  # Rewrite some of the data type references to equivalent Python types.
+  # (Note: this rewriting affects only the documentation comments inside
+  # classes & methods, not the method signatures.)
+
+  docstring = docstring.replace(r'const char *', 'string ')
+  docstring = docstring.replace(r'const char* ', 'string ')
+  docstring = docstring.replace(r'an unsigned int', 'a long integer')
+  docstring = docstring.replace(r'unsigned int', 'long')
+  docstring = docstring.replace(r'const std::string&', 'string')
+  docstring = docstring.replace(r'const std::string', 'string')
+  docstring = docstring.replace(r'std::string', 'string')
+  docstring = docstring.replace(r'NULL', 'None')
+
+  # Also use Python syntax instead of "const XMLNode*" etc.
+
+  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  docstring = p.sub(pythonifyClassRef, docstring)  
+  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  docstring = p.sub(pythonifyClassRef, docstring)  
+
   # Need to escape the quotation marks:
+
   docstring = docstring.replace('"', "'")
   docstring = docstring.replace(r"'", r"\'")
+
+  # Python method cross-references won't be made by doxygen unless
+  # the method reference is written without arguments.
+
+  p = re.compile('(\s+)(\S+?)::(\w+\s*)(\([^)]*?\))', re.MULTILINE)
+  docstring = p.sub(translatePythonCrossRef, docstring)
+  p = re.compile('(@see\s+)(\w+\s*)(\([^)]*?\))')
+  docstring = p.sub(translatePythonSeeRef, docstring)
 
   # Friggin' doxygen escapes HTML character codes, so the hack we have to
   # do for Javadoc turns out doesn't work for the Python documentation.
@@ -833,29 +894,29 @@ def processClassMethods(ostream, language, cclass):
   if language == 'python':
     written = {}
     for m in cclass.methods:
-      if written.has_key(m.name):
+      if written.has_key(m.name + m.args):
         continue
       if m.name.startswith('~'):
         continue
-      if cclass.methodVariants[m.name] > 1:
+
+      if cclass.methodVariants[m.name].__len__() > 1:
         docstring = ' This method has multiple variants that differ in the' + \
                     ' arguments they accept.  Each is described separately' + \
                     ' below.\n'
         for mm in cclass.methods:
-          if mm.name == m.name and re.search('@internal', mm.docstring) == None:
+          # Ignore methods marked @internal.
+          if mm.name == m.name and re.search('@internal', docstring) == None:
             docstring += "\n <hr>\n Method variant with the following"\
                          + " signature:\n <pre class='signature'>" \
                          + mm.name \
                          + rewriteDocstringForPython(mm.args) \
                          + "</pre>\n\n"
             docstring += rewriteDocstringForPython(mm.docstring)
-        written[m.name] = 1
       else:
         docstring = rewriteDocstringForPython(m.docstring)
       ostream.write(formatMethodDocString(language, m.name, cclass.name, docstring, m.args))
-
-  else:
-
+      written[m.name + m.args] = 1
+  else: # Not python
     for m in cclass.methods:
       if m.name.startswith('~'):
         continue
