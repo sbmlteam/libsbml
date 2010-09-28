@@ -432,21 +432,24 @@ def rewriteCommonReferences (docstring, language):
     target = 'libsbmlConstants#'
   elif language == 'python':
     target = 'libsbml.'
+  else:
+    target = ''
 
-  docstring = re.sub(r'OperationReturnValues_t#', target, docstring)
-  docstring = re.sub(r'SBMLTypeCode_t#',          target, docstring)
-  docstring = re.sub(r'ASTNodeType_t#',           target, docstring)
-  docstring = re.sub(r'RuleType_t#',              target, docstring)
-  docstring = re.sub(r'UnitKind_t#',              target, docstring)
-  docstring = re.sub(r'ModelQualifierType_t#',    target, docstring)
-  docstring = re.sub(r'BiolQualifierType_t#',     target, docstring)
-  docstring = re.sub(r'QualifierType_t#',         target, docstring)
-  docstring = re.sub(r'SBMLErrorCode_t#',         target, docstring)
-  docstring = re.sub(r'SBMLErrorCategory_t#',     target, docstring)
-  docstring = re.sub(r'SBMLErrorSeverity_t#',     target, docstring)
-  docstring = re.sub(r'XMLErrorCode_t#',          target, docstring)
-  docstring = re.sub(r'XMLErrorCategory_t#',      target, docstring)
-  docstring = re.sub(r'XMLErrorSeverity_t#',      target, docstring)
+  if target != '':
+    docstring = re.sub(r'OperationReturnValues_t#', target, docstring)
+    docstring = re.sub(r'SBMLTypeCode_t#',          target, docstring)
+    docstring = re.sub(r'ASTNodeType_t#',           target, docstring)
+    docstring = re.sub(r'RuleType_t#',              target, docstring)
+    docstring = re.sub(r'UnitKind_t#',              target, docstring)
+    docstring = re.sub(r'ModelQualifierType_t#',    target, docstring)
+    docstring = re.sub(r'BiolQualifierType_t#',     target, docstring)
+    docstring = re.sub(r'QualifierType_t#',         target, docstring)
+    docstring = re.sub(r'SBMLErrorCode_t#',         target, docstring)
+    docstring = re.sub(r'SBMLErrorCategory_t#',     target, docstring)
+    docstring = re.sub(r'SBMLErrorSeverity_t#',     target, docstring)
+    docstring = re.sub(r'XMLErrorCode_t#',          target, docstring)
+    docstring = re.sub(r'XMLErrorCategory_t#',      target, docstring)
+    docstring = re.sub(r'XMLErrorSeverity_t#',      target, docstring)
 
   return docstring
 
