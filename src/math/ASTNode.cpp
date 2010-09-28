@@ -232,7 +232,7 @@ ASTNode::ASTNode (Token_t* token)
   }
 }
 
-/**
+/*
  * 
  * Copy constructor; Creates a deep copy of the given ASTNode
  *
@@ -270,7 +270,7 @@ ASTNode::ASTNode (const ASTNode& orig) :
   }
 }
 
-/**
+/*
  * 
  * assignment operator
  *
@@ -1706,10 +1706,10 @@ LIBSBML_EXTERN
 int
 ASTNode::swapChildren (ASTNode *that)
 {
-  List* temp;
+  if (that == NULL)
+    return LIBSBML_OPERATION_FAILED;
 
-
-  temp            = this->mChildren;
+  List *temp      = this->mChildren;
   this->mChildren = that->mChildren;
   that->mChildren = temp;
   return LIBSBML_OPERATION_SUCCESS;
@@ -2046,7 +2046,7 @@ ASTNode::getParentSBMLObject() const
 }
 
 
-/**
+/*
   * gets the definitionURL attributes
   */
 LIBSBML_EXTERN
