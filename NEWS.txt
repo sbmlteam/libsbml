@@ -1,10 +1,15 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Current development
+Version 4.2.0 (Released 2010-10-05)
 ======================================================================
 
 * New features
+
+  - A number of new helper functions have been added to the XMLNode
+    class.
+    
+  - Basic conversion of an L3 model to earlier levels is now supported.
 
   - There is an additional validation rule that will be logged during
     a 'read' that warns the user that they are reading an L3 model that
