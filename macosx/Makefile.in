@@ -34,7 +34,8 @@
 
 include @top_srcdir@/config/makefile-common-vars.mk
 
-
+OS=$(shell uname -s)
+ifeq "$OS" "Darwin"
 OSX_MAJOR_VER=$(shell sw_vers -productVersion | cut -d"." -f1)
 OSX_MINOR_VER=$(shell sw_vers -productVersion | cut -d"." -f2)
 ifeq "$(OSX_MAJOR_VER)" "10"
@@ -42,6 +43,7 @@ ifeq "$(OSX_MINOR_VER)" "6"
 MACOS = "snowleopard"
 else
 MACOS = "leopard"
+endif
 endif
 endif
 
