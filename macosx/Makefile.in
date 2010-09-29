@@ -34,6 +34,19 @@
 
 include @top_srcdir@/config/makefile-common-vars.mk
 
+
+OSX_MAJOR_VER=$(shell sw_vers -productVersion | cut -d"." -f1)
+OSX_MINOR_VER=$(shell sw_vers -productVersion | cut -d"." -f2)
+ifeq "$(OSX_MAJOR_VER)" "10"
+ifeq "$(OSX_MINOR_VER)" "6"
+MACOS = "snowleopard"
+else
+MACOS = "leopard"
+endif
+endif
+
+PKGNAME = libSBML-@PACKAGE_VERSION@-@XML_PARSER@-${MACOS}.pkg
+
 # `srcdir' points to the current directory, but should be set by configure.
 # `subdir' must be set manually to the relative dir under srcdir.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
@@ -56,7 +69,11 @@ distfiles = \
         resources/package-conclusion.rtf \
         resources/package-intro.txt.in   \
         resources/package-license.rtf    \
-	resources/package-readme.txt.in
+		resources/package-readme.txt.in  \
+		resources/postflight             \
+		libsbml-package.pmdoc/01local.xml.in \
+		libsbml-package.pmdoc/01local-contents.xml.in \
+		libsbml-package.pmdoc/index.xml.in 
 
 
 # -----------------------------------------------------------------------------
@@ -109,15 +126,29 @@ create-dist:
 	cd $(top_srcdir) \
 	&& $(MAKE) install DESTDIR=$(apath_thisdir)/$(staging)
 
-create-pkg: create-dist
-	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc
+create-pkg: create-dist pmdoc-files
+	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc --out  $(PKGNAME)
 
-create-dmg: create-dist build.sh
+create-dmg: create-pkg build.sh
 	./build.sh 
 
 build.sh: build.sh.in $(TOP_SRCDIR)/configure \
 	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
+
+pmdoc-files: 01local-contents.xml 01local.xml index.xml
+	
+01local-contents.xml:  libsbml-package.pmdoc/01local-contents.xml.in $(TOP_SRCDIR)/configure \
+	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status  $(thisdir)/libsbml-package.pmdoc/$@
+
+01local.xml:  libsbml-package.pmdoc/01local.xml.in $(TOP_SRCDIR)/configure \
+	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status  $(thisdir)/libsbml-package.pmdoc/$@
+
+index.xml:  libsbml-package.pmdoc/index.xml.in $(TOP_SRCDIR)/configure \
+	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status  $(thisdir)/libsbml-package.pmdoc/$@
 
 
 # -----------------------------------------------------------------------------

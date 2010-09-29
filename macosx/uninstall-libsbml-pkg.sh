@@ -28,6 +28,7 @@ LSBOM=/usr/bin/lsbom
 RECEIPT_LIBSBML=/Library/Receipts/libSBML.pkg
 ARCHIVE_LIBSBML=${RECEIPT_LIBSBML}/Contents/Archive.bom
 PKGUTIL=/usr/sbin/pkgutil
+INSTALL_DIR="@@INSTALL_DIR@@"
 MYPATH=uninstall-libsbml-pkg.sh
 DEBUG=
 
@@ -50,16 +51,16 @@ if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
   fi
 
   for f in `${PKGUTIL} --files ${LIBSBML_PKGID}`; do
-    if echo $f | grep -q ${MYPATH} ; then
-          MYPATH="/$f"
-    elif [ -f "/$f" -o -L "/$f" ]; then
-        ${DEBUG} /bin/rm "/$f" && echo "Removed /$f"
+    if echo "$f" | grep -q "${MYPATH}" ; then
+          MYPATH="${INSTALL_DIR}/$f"
+    elif [ -f "${INSTALL_DIR}/$f" -o -L "${INSTALL_DIR}/$f" ]; then
+        ${DEBUG} /bin/rm "${INSTALL_DIR}/$f" && echo "Removed ${INSTALL_DIR}/$f"
     fi
   done
 
   ${DEBUG} /bin/rm $MYPATH && echo "Removed $MYPATH"
 
-  ${PKGUTIL} --forget ${LIBSBML_PKGID}
+  ${DEBUG} ${PKGUTIL} --forget ${LIBSBML_PKGID}
 else
   #
   # Leopard
@@ -71,10 +72,10 @@ else
 
 
   for f in `${LSBOM} -f -l ${ARCHIVE_LIBSBML} | awk '{print $1}' | sed 's/^\.//'`; do
-    if echo $f | grep -q ${MYPATH} ; then
-      MYPATH=$f 
-    elif [ -e $f -o -L $f ]; then
-      ${DEBUG} /bin/rm $f && echo "Removed $f"
+    if echo "$f" | grep -q "${MYPATH}" ; then
+      MYPATH="$f" 
+    elif [ -e "$f" -o -L "$f" ]; then
+      ${DEBUG} /bin/rm "$f" && echo "Removed $f"
     fi
   done
 
