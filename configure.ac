@@ -385,10 +385,15 @@ if test "$enable_layout" != "no" ; then
   AC_CONFIG_FILES([examples/layout/Makefile])
 fi
 
+
+
+dnl ---------------------------------------------------------------------------
+
 AC_CONFIG_FILES([macosx/Makefile])
 AC_CONFIG_FILES([macosx/build.sh], [chmod a+x macosx/build.sh])
 AC_CONFIG_FILES([macosx/resources/package-intro.txt])
 AC_CONFIG_FILES([macosx/resources/package-readme.txt])
+
 AC_CONFIG_FILES([macosx/libsbml-package.pmdoc/01local-contents.xml])
 AC_CONFIG_FILES([macosx/libsbml-package.pmdoc/01local.xml])
 AC_CONFIG_FILES([macosx/libsbml-package.pmdoc/index.xml])
