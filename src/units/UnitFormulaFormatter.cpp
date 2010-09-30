@@ -1020,7 +1020,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
           {
             for (n = 0; n < tempUd->getNumUnits(); n++)
             {
-              unit = const_cast<Unit*>(tempUd->getUnit(n));
+              unit = (const_cast<Unit*>(tempUd->getUnit(n)))->clone();
               exponent = unit->getExponent();
               unit->setExponent(exponent * -1);
               ud->addUnit(unit);
