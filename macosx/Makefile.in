@@ -34,20 +34,24 @@
 
 include @top_srcdir@/config/makefile-common-vars.mk
 
+# -----------------------------------------------------------------------------
+# Determine Package name
+# -----------------------------------------------------------------------------
+PKGNAME=
 OS=$(shell uname -s)
-ifeq "$OS" "Darwin"
-OSX_MAJOR_VER=$(shell sw_vers -productVersion | cut -d"." -f1)
-OSX_MINOR_VER=$(shell sw_vers -productVersion | cut -d"." -f2)
-ifeq "$(OSX_MAJOR_VER)" "10"
-ifeq "$(OSX_MINOR_VER)" "6"
-MACOS = "snowleopard"
-else
-MACOS = "leopard"
-endif
-endif
+ifeq "${OS}" "Darwin"
+	OSX_MAJOR_VER=$(shell sw_vers -productVersion | cut -d"." -f1)
+	OSX_MINOR_VER=$(shell sw_vers -productVersion | cut -d"." -f2)
+	ifeq "$(OSX_MAJOR_VER)" "10"
+		ifeq "$(OSX_MINOR_VER)" "6"
+		MACOS=snowleopard
+		else
+		MACOS=leopard
+		endif
+	endif
+	PKGNAME=libSBML-@PACKAGE_VERSION@-@XML_PARSER@-${MACOS}.pkg
 endif
 
-PKGNAME = libSBML-@PACKAGE_VERSION@-@XML_PARSER@-${MACOS}.pkg
 
 # `srcdir' points to the current directory, but should be set by configure.
 # `subdir' must be set manually to the relative dir under srcdir.  Don't 
@@ -129,7 +133,7 @@ create-dist:
 	&& $(MAKE) install DESTDIR=$(apath_thisdir)/$(staging)
 
 create-pkg: create-dist pmdoc-files
-	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc --out  $(PKGNAME)
+	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc --out $(PKGNAME)
 
 create-dmg: create-pkg build.sh
 	./build.sh 
