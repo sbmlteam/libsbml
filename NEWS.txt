@@ -53,6 +53,10 @@ Version 4.2.0 (Released 2010-10-05)
     in some places but not all.  This is fixed.  Thanks to Camille 
     Laibe for reporting this. 
     
+  - There was a very subtle bug in the unit checking code involving
+    the id of a Reaction.  This is now fixed.  Thanks to Rainer 
+    Machne for finding and reporting it.
+    
   - Converting a model to L3 was not setting all the required
     attributes correctly.  This has been corrected.  Thanks to
     Chris Myers for reporting this.
