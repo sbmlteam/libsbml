@@ -194,7 +194,7 @@ public:
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.  Setting the
    * identifier can be accomplished using the method
-   * @if clike setId()@endif@if java setId(String id)@endif.
+   * @if clike setId()@endif@if python setId()@endif@if java setId(String id)@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -344,8 +344,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link
@@ -449,8 +454,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link
@@ -473,8 +483,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf

@@ -1676,24 +1676,7 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 
 
 /**
- * Creates a new Compartment_t structure using the given SBML @p level
- * and @p version values.
- *
- * @param level an unsigned int, the SBML Level to assign to this
- * Compartment
- *
- * @param version an unsigned int, the SBML Version to assign to this
- * Compartment
- *
- * @return a pointer to the newly created Compartment_t structure.
- *
- * @note Once a Compartment has been added to an SBMLDocument, the @p
- * level and @p version for the document @em override those used to create
- * the Compartment.  Despite this, the ability to supply the values at
- * creation time is an important aid to creating valid SBML.  Knowledge of
- * the intended SBML Level and Version  determine whether it is valid to
- * assign a particular value to an attribute, or whether it is valid to add
- * an object to an existing SBMLDocument.
+ * @copydoc Compartment::Compartment(unsigned int level, unsigned int version);
  */
 LIBSBML_EXTERN
 Compartment_t *

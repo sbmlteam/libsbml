@@ -200,7 +200,7 @@ public:
    * it as as a text string.
    *
    * This is fundamentally equivalent to
-   * @if clike getMath()@endif@if java KineticLaw::getMath()@endif.
+   * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
    * This variant is provided principally for compatibility compatibility
    * with SBML Level&nbsp;1.
    * 
@@ -226,7 +226,7 @@ public:
    * it as as an AST.
    *
    * This is fundamentally equivalent to
-   * @if clike getFormula()@endif@if java KineticLaw::getFormula()@endif.
+   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::getFormula()@endif.
    * The latter is provided principally for compatibility compatibility
    * with SBML Level&nbsp;1, which represented mathematical formulas in
    * text-string form.
@@ -273,10 +273,10 @@ public:
    * KineticLaw's "formula" attribute has been set
    *
    * This is functionally identical to the method
-   * @if clike isSetMath()@endif@if java KineticLaw::isSetMath()@endif.  It is
+   * @if clike isSetMath()@endif@if python isSetMath()@endif@if java KineticLaw::isSetMath()@endif.  It is
    * provided in order to mirror the parallel between
-   * @if clike getFormula()@endif@if java KineticLaw::getFormula()@endif and
-   * @if clike getMath()@endif@if java KineticLaw::getMath()@endif.
+   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::getFormula()@endif and
+   * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
@@ -299,10 +299,10 @@ public:
    * Kinetic's "math" subelement has been set
    *
    * This is identical to the method
-   * @if clike isSetFormula()@endif@if java KineticLaw::isSetFormula()@endif.
+   * @if clike isSetFormula()@endif@if python isSetFormula()@endif@if java KineticLaw::isSetFormula()@endif.
    * It is provided in order to mirror the parallel between
-   * @if clike getFormula()@endif@if java KineticLaw::getFormula()@endif and
-   * @if clike getMath()@endif@if java KineticLaw::getMath()@endif.
+   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::getFormula()@endif and
+   * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
@@ -376,7 +376,7 @@ public:
    * of the given ASTNode.
    *
    * This is fundamentally identical to
-   * @if clike getFormula()@endif@if java KineticLaw::setFormula(String formula)@endif.
+   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::setFormula(String formula)@endif.
    * The latter is provided principally for compatibility compatibility with
    * SBML Level&nbsp;1, which represented mathematical formulas in text-string
    * form.
@@ -498,7 +498,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if clike createParameter()@endif@if java KineticLaw::createParameter()@endif
+   * @if clike createParameter()@endif@if python createParameter()@endif@if java KineticLaw::createParameter()@endif
    * for a method that does not lead to these issues.
    *
    * @see createParameter()
@@ -529,7 +529,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if clike createParameter()@endif@if java KineticLaw::createParameter()@endif
+   * @if clike createParameter()@endif@if python createParameter()@endif@if java KineticLaw::createParameter()@endif
    * for a method that does not lead to these issues.
    *
    * @see createLocalParameter()
@@ -703,7 +703,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -716,7 +716,7 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
@@ -742,7 +742,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -755,7 +755,7 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
@@ -784,7 +784,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -803,7 +803,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -902,8 +902,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link

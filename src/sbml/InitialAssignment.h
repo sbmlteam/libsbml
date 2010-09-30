@@ -394,7 +394,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -407,13 +407,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if java InitialAssignment::containsUndeclaredUnits()@endif
+   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java InitialAssignment::containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -433,7 +433,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -446,13 +446,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if java InitialAssignment::containsUndeclaredUnits()@endif
+   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java InitialAssignment::containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -475,7 +475,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -494,7 +494,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -513,8 +513,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -667,8 +672,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -690,8 +700,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf

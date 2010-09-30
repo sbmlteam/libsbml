@@ -49,7 +49,7 @@
  * string @c Celsius is also permitted.  In SBML Level&nbsp;1 models, the
  * strings @c meter and @c liter are also permitted.  In libSBML, each of
  * the predefined base unit names is represented by an enumeration value
- * @if clike in #UnitKind_t@endif@if java whose name begins with the
+ * @if clike in #UnitKind_t@endif@if notcpp whose name begins with the
  * characters <code>UNIT_KIND_</code>@endif, discussed in a separate
  * section below.
  *
@@ -75,8 +75,8 @@
  * @if clike
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
  * @endif
- * @if java
- * <h3><a class="anchor" name="UnitKind_t">Unit identification codes</a></h3>
+ * @if notcpp
+ * <h3><a class="anchor" name="UnitKind_t">%Unit identification codes</a></h3>
  * @endif
  *
  * As discussed above, SBML defines a set of base units which serves as the
@@ -110,6 +110,18 @@
  * integer constants whose names begin with the characters
  * <code>UNIT_KIND_</code>.  These constants are defined in the class
  * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>.
+ * @endif@if python In SBML Level&nbsp;2 Versions before
+ * Version&nbsp;3, there existed an enumeration of units called @c
+ * UnitKind.  In Version&nbsp;3, this enumeration was removed and the
+ * identifier class @c UnitSId redefined to include the previous @c
+ * UnitKind values as reserved symbols.  This change has no net effect on
+ * permissible models, their representation or their syntax.  The purpose
+ * of the change in the SBML specification was simply to clean up an
+ * inconsistency about the contexts in which these values were usable.
+ * However, libSBML maintains UnitKind in the form of of a set of static
+ * integer constants whose names begin with the characters
+ * <code>UNIT_KIND_</code>.  These constants are defined in the class
+ * @link libsbml libsbml@endlink.
  * @endif
  *
  * As a consequence of the fact that libSBML supports models in all Levels
@@ -136,7 +148,7 @@
  *
  * @if clike The table below lists the symbols defined in the
  * @c UnitKind_t enumeration, and their
- * meanings. @endif@if java The table below lists the unit
+ * meanings. @endif@if notcpp The table below lists the unit
  * constants defined in libSBML, and their meanings. @endif
  *
  * @htmlinclude unitkind-table.html
@@ -717,6 +729,9 @@ public:
    * identifier chosen from the set of constants whose
    * names begin with <code>UNIT_KIND_</code> in <code><a
    * href="libsbmlConstants.html">libsbmlConstants</a></code>.
+   * @endif@if python unit
+   * identifier chosen from the set of constants whose
+   * names begin with <code>UNIT_KIND_</code> in @link libsbml libsbml@endlink.
    * @endif
    *
    * @return integer value indicating success/failure of the
@@ -818,8 +833,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1139,8 +1159,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1162,8 +1187,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf

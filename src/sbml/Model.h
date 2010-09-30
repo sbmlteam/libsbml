@@ -87,6 +87,7 @@
  *
  * LibSBML provides two main mechanisms for creating objects: class
  * constructors (e.g., @if clike @link Species::Species() Species()
+ * @endlink @endif@if python @link Species::Species() Species()
  * @endlink @endif@if java <a
  * href="org/sbml/libsbml/Species.html">Species()</a> @endif), and
  * <code>create<span class="placeholder"><em>Object</em></span>()</code>
@@ -156,6 +157,7 @@ delete newsp;
 @endverbatim
  * 
  * The key point of the example above is that, because the @if clike
+ * Model::addSpecies() @endif@if python
  * Model::addSpecies() @endif@if java Model::addSpecies(Species s) @endif
  * call makes a copy of the object handed to it, care is needed both when
  * attempting to make changes to the object, and when the original object
@@ -2739,8 +2741,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).

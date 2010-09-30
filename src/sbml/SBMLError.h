@@ -42,20 +42,29 @@
  *
  * Each SBMLError object instance has an identification number that
  * identifies the nature of the problem.  This "error id" number will be up
- * to five digits long, @if clike and it will be listed in one
+ * to five digits long, and @if clike it will be listed in one
  * of two enumerations: <a class="el" href="#SBMLErrorCode_t">
  * SBMLErrorCode_t</a> (described <a class="el" href="#SBMLErrorCode_t">
  * below</a>) or @link XMLError::XMLErrorCode_t XMLErrorCode_t @endlink
  * (described in the documentation for the class XMLError).  The former
  * enumeration contains all the SBML validation rule numbers listed in the
  * appendices of the SBML specification documents, as well as some
- * additional libSBML-specific error codes.@endif@if java and
- * it will come from one of two sets of static integer constants defined in
+ * additional libSBML-specific error codes. @endif@if java it will come
+ * from one of two sets of static integer constants defined in
  * the interface class <code><a href="libsbmlConstants.html">
  * libsbmlConstants</a></code>: either the SBML error identifiers <a
  * class="el" href="#SBMLErrorCode_t"> (described below)</a> or the XML
  * error identifiers (described in the documentation for the class <code><a
  * href="XMLError.html"> XMLError</a></code>).  The former set of constants
+ * includes all the SBML validation rule numbers listed in the appendices
+ * of the SBML specification documents, as well as some additional
+ * libSBML-specific error codes. @endif@if python it will come from one
+ * of two sets of static integer constants defined in
+ * the interface class @link libsbml libsbml@endlink: either the SBML
+ * error identifiers <a
+ * class="el" href="#SBMLErrorCode_t"> (described below)</a> or the XML
+ * error identifiers (described in the documentation for the class XMLError).
+ * The former set of constants
  * includes all the SBML validation rule numbers listed in the appendices
  * of the SBML specification documents, as well as some additional
  * libSBML-specific error codes.@endif
@@ -90,6 +99,14 @@
  * validation system to group classes of validation checks.  For example,
  * @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink
  * is the category for tests that check identifier consistency;
+ * @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink@endif@if python drawn from a set of static integer constants
+ * defined in @link libsbml libsbml@endlink and having names beginning with the characters
+ * <code>LIBSBML_CAT_</code>.  The list of possible codes is described in a
+ * separate section below.  Categories are used to partition errors into
+ * distinct conceptual groups.  This is principally used by the libSBML
+ * validation system to group classes of validation checks.  For example,
+ * @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink
+ * is the category for tests that check identifier consistency;
  * @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink@endif
  *
  * In addition, SBMLError also has a severity code.  Its value may be
@@ -104,6 +121,12 @@
  * is. @endif@if java <code><a
  * href="XMLError.html">XMLError</a></code>. Severity levels currently
  * range from informational
+ * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink)
+ * to fatal errors
+ * (@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink).
+ * They can be used by an application to evaluate how
+ * serious a given problem is. @endif@if python XMLError. Severity levels 
+ * currently range from informational
  * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink)
  * to fatal errors
  * (@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink).
@@ -163,6 +186,21 @@
  * programming, but it was necessary to work around the lack of
  * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
  * use a proper Java enumeration type to define the error identifiers.
+ * 
+ * In this table, the right-hand columns titled "L1V1", "L1V2", etc. refer
+ * to Levels and Versions of the SBML specifications, and the entries in
+ * each column refer to whether the severity of the condition in that
+ * particular Level+Version of SBML.  The codes stand for the following:
+ *
+ * @endif@if python <h3><a class="anchor" 
+ * name="SBMLErrorCode_t">Error codes associated with SBMLError objects</a></h3>
+ *
+ * The error and warning codes returned by libSBML are listed in the table
+ * below.  The method SBMLError::getErrorId() returns the error code of a
+ * given SBMLError object instance.  In the libSBML Python language
+ * interface, these error identifiers are currently
+ * implemented as static integer constants defined in the interface class
+ * @link libsbml libsbml@endlink. 
  * 
  * In this table, the right-hand columns titled "L1V1", "L1V2", etc. refer
  * to Levels and Versions of the SBML specifications, and the entries in
@@ -601,7 +639,19 @@
  * As is the case with the error codes, in the libSBML Java language
  * interface, the category identifiers are currently implemented as static
  * integer constants defined in the interface class
- * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>. @endif
+ * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>. @endif@if python <h3><a class="anchor"
+ * name="SBMLErrorCategory_t">Category codes associated with SBMLError objects</a></h3>
+ * 
+ * As discussed above, each SBMLError object contains a value for a
+ * category identifier, describing the type of issue that the SBMLError
+ * object represents.  The category can be retrieved from an SBMLError
+ * object using the method SBMLError::getCategory().  The following table
+ * lists each possible value and a brief description of its meaning.
+ * 
+ * As is the case with the error codes, in the libSBML Python language
+ * interface, the category identifiers are currently implemented as static
+ * integer constants defined in the interface class
+ * @link libsbml libsbml@endlink. @endif
  * 
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="4" border="0"  class="text-table normal-font alt-row-colors">
@@ -704,6 +754,15 @@
  * codes beyond those defined by XMLError.  They are implemented as static
  * integer constants defined in the interface class <code><a
  * href="libsbmlConstants.html">libsbmlConstants</a></code>, and have names
+ * beginning with <code>LIBSBML_SEV_</code>.
+ * @endif@if python <h3><a class="anchor"
+ * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
+ * objects</h3>
+ *
+ * In this verision of libSBML (3.3.x), there are no additional severity
+ * codes beyond those defined by XMLError.  They are implemented as static
+ * integer constants defined in the interface class
+ * @link libsbml libsbml@endlink, and have names
  * beginning with <code>LIBSBML_SEV_</code>.
  * @endif
  */
@@ -1339,6 +1398,10 @@ public:
    * defined as unsigned integer constants in the file
    * "libsbmlConstants.html".  See the <a class="el"
    * href="#SBMLErrorCode_t">top of this documentation page</a> for a table
+   * listing the possible values and their meanings. @endif@if python These
+   * numbers are defined as unsigned integer constants in the interface
+   * class @link libsbml libsbml@endlink.  See the <a class="el"
+   * href="#SBMLErrorCode_t">top of this documentation page</a> for a table
    * listing the possible values and their meanings. @endif The argument 
    * @p errorId to this constructor @em can be (but does not have to be) a
    * value from this @if clike enumeration. If it @em is a value
@@ -1352,7 +1415,7 @@ public:
    * filled-in as well from the enumerations <a class="el"
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>,
-   * respectively. @endif@if java set of constants.  If it @em
+   * respectively. @endif@if notcpp set of constants.  If it @em
    * is one of the predefined error identifiers, the SBMLError class
    * assumes the error is a low-level system or SBML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
@@ -1385,7 +1448,7 @@ public:
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>, but their own
    * special values) for @p severity and 
-   * @p category. @endif@if java As mentioned above, 
+   * @p category. @endif@if notcpp As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#SBMLErrorSeverity_t">standard severity</a> and <a class="el"
    * href="#SBMLErrorCategory_t">standard category</a> codes, and every predefined 

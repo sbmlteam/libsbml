@@ -50,12 +50,12 @@
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
  * support compiled-in.  Please see the @if clike <a
- * href="libsbml-installation.html">installation instructions</a> @endif
- * @if java  <a
- * href="../../../libsbml-installation.html">installation instructions</a> 
- * @endif for libSBML for more information about this.  The methods
- * @if clike hasZlib()@endif@if java SBMLWriter::hasZlib()@endif and
- * @if clike hasBzip2()@endif@if java SBMLWriter::hasBzip2()@endif
+ * href="libsbml-installation.html">installation instructions</a> @endif@if python <a
+ * href="libsbml-installation.html">installation instructions</a> @endif@if java  <a
+ * href="../../../libsbml-installation.html">installation instructions</a> @endif
+ * for libSBML for more information about this.  The methods
+ * @if clike hasZlib()@endif@if python hasZlib()@endif@if java SBMLWriter::hasZlib()@endif and
+ * @if clike hasBzip2()@endif@if python hasBzip2()@endif@if java SBMLWriter::hasBzip2()@endif
  * can be used by an application to query at run-time whether support
  * for the compression libraries is available in the present copy of
  * libSBML.
@@ -105,7 +105,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program name and version are set (see
-   * @if clike setProgramVersion()@endif@if java SBMLWriter::setProgramVersion(String version)@endif), the
+   * @if clike setProgramVersion()@endif@if python setProgramVersion()@endif@if java SBMLWriter::setProgramVersion(String version)@endif), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document:
    * @verbatim
@@ -131,7 +131,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program version and name are set (see
-   * @if clike setProgramName()@endif@if java SBMLWriter::setProgramName(String name)@endif), the
+   * @if clike setProgramName()@endif@if python setProgramName()@endif@if java SBMLWriter::setProgramName(String name)@endif), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document: @verbatim <!-- Created by <program
    * name> version <program version> on yyyy-MM-dd HH:mm with libsbml

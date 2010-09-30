@@ -167,8 +167,8 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are@endif@if java  with the enumeration
- * values@endif listed in the following table.  
+ * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * values @endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -363,8 +363,8 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are@endif@if java  with the enumeration
- * values@endif listed in the following table.  
+ * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * values @endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -600,8 +600,8 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are@endif@if java  with the enumeration
- * values@endif listed in the following table.  
+ * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * values @endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -815,8 +815,8 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are@endif@if java  with the enumeration
- * values@endif listed in the following table.  
+ * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * values @endif listed in the following table.  
  * 
  * <p>
  * <center>
@@ -960,7 +960,7 @@ public:
    * Returns the mathematical expression of this Rule in text-string form.
    *
    * The text string is produced by
-   * @if clike SBML_formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif; please consult
+   * @if clike SBML_formulaToString()@endif@if python SBML_formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif; please consult
    * the documentation for that function to find out more about the format
    * of the text-string formula.
    * 
@@ -1235,7 +1235,7 @@ public:
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
+   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers may
    * wish to take suitable actions in those scenarios.
    * 
@@ -1271,7 +1271,7 @@ public:
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
+   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -1417,6 +1417,11 @@ public:
    * is stored in an enumeration; in the Java language interface for
    * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link
@@ -1629,7 +1634,7 @@ public:
    * AlgebraicRule
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif), the SBML Level, SBML Version
+   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AlgebraicRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1656,7 +1661,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the
+   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the
    * document @em overrides the value used when creating the AlgebraicRule
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -1771,7 +1776,7 @@ public:
    * AssignmentRule
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
+   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AssignmentRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1798,7 +1803,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AssignmentRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of
+   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * AssignmentRule object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,
@@ -1903,7 +1908,7 @@ public:
    * RateRule
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
+   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the RateRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1930,7 +1935,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
-   * using @if clike Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
+   * using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
    * @em overrides the value used when creating the RateRule object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the
@@ -2043,8 +2048,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -2066,8 +2076,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf

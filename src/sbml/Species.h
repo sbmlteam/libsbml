@@ -432,7 +432,7 @@ public:
    * (identifier) attribute of a Species is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if clike setId()@endif@if java Species::setId(String id)@endif.
+   * method @if clike setId()@endif@if python setId()@endif@if java Species::setId(String id)@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -1261,7 +1261,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * @if clike getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
    * returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
@@ -1280,7 +1280,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The @if clike getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * The @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
    * takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
@@ -1304,7 +1304,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * @if clike getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
    * returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
@@ -1323,7 +1323,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The @if clike getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * The @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
    * takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
@@ -1346,8 +1346,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1488,8 +1493,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    *
    * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
@@ -1511,8 +1521,13 @@ public:
    * identifying code to every kind of SBML object.  These are known as
    * <em>SBML type codes</em>.  In other languages, the set of type codes
    * is stored in an enumeration; in the Java language interface for
-   * libSBML, the type codes are defined as static integer constants in
+   * libSBML, the type codes are defined as static integer constants in the
    * interface class {@link libsbmlConstants}.  The names of the type codes
+   * all begin with the characters @c SBML_. @endif@if python LibSBML attaches an
+   * identifying code to every kind of SBML object.  These are known as
+   * <em>SBML type codes</em>.  In the Python language interface for
+   * libSBML, the type codes are defined as static integer constants in the
+   * interface class {@link libsbml}.  The names of the type codes
    * all begin with the characters @c SBML_. @endif
    * 
    * @return the SBML type code for the objects contained in this ListOf

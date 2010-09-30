@@ -596,7 +596,7 @@ public:
 
   /**
    * Returns the ancestor SBML object that corresponds to the given
-   * #SBMLTypeCode_t value.
+   * SBML type code value.
    *
    * This function allows any object to determine its exact
    * location/function within a model.  For example, in SBML Level&nbsp;2 a
@@ -604,11 +604,10 @@ public:
    * SpeciesReference, ListOfSpeciesReferences, Reaction, ListOfReactions
    * and Model, any of which can be accessed via this function.
    *
-   * @param type the @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif
-   * of the ancestor being sought.
+   * @param type the @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif@if python SBML object type code@endif of the ancestor being sought.
    * 
    * @return the ancestor SBML object of this SBML object that corresponds
-   * to the given @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif, or @c NULL if none exists.
+   * to the given @if clike #SBMLTypeCode_t value@endif@if notcpp SBML object type code@endif, or @c NULL if none exists.
    */
   SBase* getAncestorOfType(SBMLTypeCode_t type);
 
@@ -1893,28 +1892,54 @@ public:
    * qualify biological annotations in the same standardized way.  In
    * libSBML, the MIRIAM controlled-vocabulary annotations on an SBML model
    * element are represented using lists of CVTerm objects, and the
-   * enumeration #BiolQualifierType_t corresponds to the list of MIRIAM
-   * biological qualifiers.
+   * the MIRIAM biological qualifiers are represented using
+   * values @if clike from the enumeration
+   * type #BiolQualifierType_t.@endif@if python whose
+   * names begin with <code>BQB_</code> in the interface class
+   * @link libsbml libsbml@endlink.@endif@if java whose
+   * names begin with <code>BQB_</code> in the interface class
+   * {@link libsbmlConstants}.@endif
    *
-   * This method method searches the controlled-vocabulary annotations
+   * This method searches the controlled-vocabulary annotations
    * (i.e., the list of CVTerm objects) on the present object, then out of
    * those that have biological qualifiers, looks for an annotation to the
    * given @p resource.  If such an annotation is found, it returns the
    * type of biological qualifier associated with that resource as a 
-   * value from  #BiolQualifierType_t.
+   * value @if clike from the enumeration type
+   * #BiolQualifierType_t.@endif@if python whose name begins with
+   * <code>BQB_</code> from the interface
+   * class @link libsbml libsbml@endlink.@endif@if java whose name
+   * begins with <code>BQB_</code> from the interface
+   * class {@link libsbmlConstants}.@endif
    *
    * @param resource string representing the resource; e.g.,
    * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
-   * @return the #BiolQualifierType_t value associated with the resource,
+   * @return the qualifier associated with the resource,
    * or @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink if the
    * resource does not exist.
    *
-   * @note The set of MIRIAM biological qualifiers grows over time,
-   * although relatively slowly.  The values in the enumeration
+   * @if clike
+   * @note The set of MIRIAM biological qualifiers grows over
+   * time, although relatively slowly.  The values in the enumeration
    * #BiolQualifierType_t are up to date with MIRIAM at the time of a given
    * libSBML release.  The set of values may be expanded in later libSBML
    * releases, to match the values defined by MIRIAM at that later time.
+   * @endif@if python
+   * @note The set of MIRIAM biological qualifiers grows over
+   * time, although relatively slowly.  The values are up to date with
+   * MIRIAM at the time of a given libSBML release.  The set of values in
+   * list of <code>BQB_</code> constants defined in @link libsbml
+   * libsbml@endlink may be expanded in later libSBML releases, to match
+   * the values defined by MIRIAM at that later time.
+   * @endif@if java
+   * @note The set of MIRIAM biological qualifiers grows over
+   * time, although relatively slowly.  The values are up to date with
+   * MIRIAM at the time of a given libSBML release.  The set of values in
+   * list of <code>BQB_</code> constants defined in {@link libsbmlConstants}
+   * may be expanded in later libSBML releases, to match
+   * the values defined by MIRIAM at that later time.
+   * @endif
    */
   BiolQualifierType_t getResourceBiologicalQualifier(std::string resource);
 
@@ -1936,16 +1961,26 @@ public:
    * relationship qualifiers</a> to enable different software tools to
    * qualify model annotations in the same standardized way.  In libSBML,
    * the MIRIAM controlled-vocabulary annotations on an SBML model element
-   * are represented using lists of CVTerm objects, and the enumeration
-   * #ModelQualifierType_t corresponds to the list of MIRIAM model
-   * qualifiers.
+   * are represented using lists of CVTerm objects, and the 
+   * the MIRIAM model qualifiers are represented using
+   * values @if clike from the enumeration
+   * type #ModelQualifierType_t.@endif@if python whose
+   * names begin with <code>BQM_</code> in the interface class
+   * @link libsbml libsbml@endlink.@endif@if java whose
+   * names begin with <code>BQM_</code> in the interface class
+   * {@link libsbmlConstants}.@endif
    *
    * This method method searches the controlled-vocabulary annotations
    * (i.e., the list of CVTerm objects) on the present object, then out of
    * those that have model qualifiers, looks for an annotation to the given
    * @p resource.  If such an annotation is found, it returns the type of
-   * model qualifier associated with that resource as a value from
-   * #ModelQualifierType_t.
+   * type of model qualifier associated with that resource as a 
+   * value @if clike from the enumeration type
+   * #ModelQualifierType_t.@endif@if python whose name begins with
+   * <code>BQM_</code> from the interface
+   * class @link libsbml libsbml@endlink.@endif@if java whose name
+   * begins with <code>BQM_</code> from the interface
+   * class {@link libsbmlConstants}.@endif
    *
    * @param resource string representing the resource; e.g.,
    * <code>"http://www.geneontology.org/#GO:0005892"</code>.
@@ -1954,11 +1989,27 @@ public:
    * or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink if the
    * resource does not exist.
    *
-   * @note The set of MIRIAM model qualifiers grows over time,
-   * although relatively slowly.  The values in the enumeration
+   * @if clike
+   * @note The set of MIRIAM biological qualifiers grows over
+   * time, although relatively slowly.  The values in the enumeration
    * #ModelQualifierType_t are up to date with MIRIAM at the time of a given
    * libSBML release.  The set of values may be expanded in later libSBML
    * releases, to match the values defined by MIRIAM at that later time.
+   * @endif@if python
+   * @note The set of MIRIAM model qualifiers grows over
+   * time, although relatively slowly.  The values are up to date with
+   * MIRIAM at the time of a given libSBML release.  The set of values in
+   * list of <code>BQM_</code> constants defined in @link libsbml
+   * libsbml@endlink may be expanded in later libSBML releases, to match
+   * the values defined by MIRIAM at that later time.
+   * @endif@if java
+   * @note The set of MIRIAM model qualifiers grows over
+   * time, although relatively slowly.  The values are up to date with
+   * MIRIAM at the time of a given libSBML release.  The set of values in
+   * list of <code>BQM_</code> constants defined in {@link libsbmlConstants}
+   * may be expanded in later libSBML releases, to match
+   * the values defined by MIRIAM at that later time.
+   * @endif
    */
   ModelQualifierType_t getResourceModelQualifier(std::string resource);
 
@@ -2008,7 +2059,7 @@ public:
    * LibSBML C interface, in which class and subclass information is not
    * readily available.
    *
-   * @return the @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif
+   * @return the @if clike #SBMLTypeCode_t value@endif@if notcpp SBML object type code@endif
    * of this SBML object or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (the default).
    *
