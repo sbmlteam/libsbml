@@ -504,7 +504,6 @@ util_isNegZero (double d)
 {
   unsigned char *b = (unsigned char *) &d;
 
-
 #if WORDS_BIGENDIAN
   return b[0] == 0x80;
 #else
@@ -512,18 +511,20 @@ util_isNegZero (double d)
 #endif
 }
 
+
 /**
- * Function for freeing memory.
+ * Function for freeing memory allocated by libSBML functions
  *
- * @param element pointer to the object to be freed
+ * @param element pointer to the object to be freed.  It must
+ * be data that was originally allocated by a libSBML function.
  * 
- * This function was introduced to deal with a specific memory
- * issue arising on Windows OS when using libSBML compiled against
- * a static MSVC runtime library.  In this situation it was not possible
- * to use the standard 'free' function when freeing memory that was actually
- * allocated within the libSBML function call.  The following is an
- * example of where the free function fails and needs to be replaced with
- * util_free.
+ * This function was introduced to deal with a specific memory issue
+ * arising on Windows OS when using libSBML compiled against a static MSVC
+ * runtime library.  In this situation, it was not possible to use the
+ * standard <code>free()</code> function when freeing memory that was
+ * actually allocated within the libSBML function call.  The following is
+ * an example of where the free function fails and needs to be replaced
+ * with util_free().
  * @code
  *    char * formula = SBML_formulaToString(astNode);
  *    free(formula);
