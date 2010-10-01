@@ -137,19 +137,20 @@ public:
    * read it) or some sort of file operation error may have been reported
    * by the underlying operating system.  Callers can check for these
    * situations using a program fragment such as the following:
-   * @verbatim
+   * @if clike
+@verbatim
 SBMLReader* reader = new SBMLReader();
 SBMLDocument* doc  = reader.readSBML(filename);
 
 if (doc->getNumErrors() > 0)
 {
-  if (doc->getError(0)->getId() == XMLError::FileUnreadable)
+  if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
   {
     // Handle case of unreadable file here.
   } 
-  else if (doc->getError(0)->getId() == XMLError::FileOperationError)
+  else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
   {
-    // Handle case of other file error here.
+    // Handle case of other file operation error here.
   }
   else
   {
@@ -158,6 +159,42 @@ if (doc->getNumErrors() > 0)
   }
 }
 @endverbatim
+@endif@if java
+@verbatim
+SBMLReader reader = new SBMLReader();
+SBMLDocument doc  = reader.readSBMLFromFile(filename);
+
+if (doc.getNumErrors() > 0)
+{
+    if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileUnreadable)
+    {
+        // Handle case of unreadable file here.
+    } 
+    else if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileOperationError)
+    {
+        // Handle case of other file operation error here.
+    }
+    else
+    {
+        // Handle other error cases.
+    }
+}
+@endverbatim
+@endif@if python
+@verbatim
+reader = SBMLReader()
+doc    = reader.readSBMLFromFile(filename)
+
+if doc.getNumErrors() > 0:
+  if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+    # Handle case of unreadable file here.
+  elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+    # Handle case of other file error here.
+  else:
+    # Handle other error cases here.
+  
+@endverbatim
+@endif
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -218,19 +255,20 @@ if (doc->getNumErrors() > 0)
    * read it) or some sort of file operation error may have been reported
    * by the underlying operating system.  Callers can check for these
    * situations using a program fragment such as the following:
-   * @verbatim
+   * @if clike
+@verbatim
 SBMLReader* reader = new SBMLReader();
 SBMLDocument* doc  = reader.readSBML(filename);
 
 if (doc->getNumErrors() > 0)
 {
-  if (doc->getError(0)->getId() == XMLError::FileUnreadable)
+  if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
   {
     // Handle case of unreadable file here.
   } 
-  else if (doc->getError(0)->getId() == XMLError::FileOperationError)
+  else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
   {
-    // Handle case of other file error here.
+    // Handle case of other file operation error here.
   }
   else
   {
@@ -239,6 +277,42 @@ if (doc->getNumErrors() > 0)
   }
 }
 @endverbatim
+@endif@if java
+@verbatim
+SBMLReader reader = new SBMLReader();
+SBMLDocument doc  = reader.readSBMLFromFile(filename);
+
+if (doc.getNumErrors() > 0)
+{
+    if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileUnreadable)
+    {
+        // Handle case of unreadable file here.
+    } 
+    else if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileOperationError)
+    {
+        // Handle case of other file operation error here.
+    }
+    else
+    {
+        // Handle other error cases.
+    }
+}
+@endverbatim
+@endif@if python
+@verbatim
+reader = SBMLReader()
+doc    = reader.readSBMLFromFile(filename)
+
+if doc.getNumErrors() > 0:
+  if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+    # Handle case of unreadable file here.
+  elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+    # Handle case of other file error here.
+  else:
+    # Handle other error cases here.
+  
+@endverbatim
+@endif
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
