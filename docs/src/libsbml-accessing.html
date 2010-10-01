@@ -136,16 +136,34 @@ To build the Java API as well, libSBML has to be configured with the
 <nobr><code>--with-java</code></nobr> flag as described in the <a
 href="libsbml-installation.html">installation instructions</a>.
 
-<p> Once that is done, then in addition to the instructions for configuring
-the <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
-variables described in the beginning of this section, Java applications
-separately need to have their class search paths include the libSBML
-<code>.jar</code> and binary object files.  This is often most easily done
-by setting the <code>CLASSPATH</code> environment variable, but other
-methods are possible.  The exact recipe also depends on the operating
-system in use, as described in the following subsections.
+<p> The Java interface for libSBML is implemented partly as pure Java and
+partly as Java Native Interface (JNI) code.  Once libSBML is configured and
+built using the <nobr><code>--with-java</code></nobr> flag described above,
+and libSBML has been installed on a computer, three more steps are required
+to use the Java-libSBML interface in an application.
 
-<h4>Java on Linux, MacOS X and similar Unix-like systems</h4>
+
+<h4>Step 1: set LD_LIBRARY_PATH or DYLD_LIBRARY_PATH</h4>
+
+First, the instructions for configuring the <code>LD_LIBRARY_PATH</code>
+(under Linux, Unix, Cygwin) or <code>DYLD_LIBRARY_PATH</code> (under
+MacOSX) variables described in the beginning of this section must be
+followed.  This is necessary so that before the operating system starts a
+Java application, the system loaders will know where to find the native
+library components of libSBML.
+
+
+<h4>Step 2: adjust the application's class search path</h4>
+
+Java applications separately need to have their class search paths include
+the libSBML <code>.jar</code> and binary object files.  This is often most
+easily done by setting the <code>CLASSPATH</code> environment variable, but
+other methods are possible.  The exact recipe also depends on the operating
+system in use, as follows:
+
+<ul>
+
+<li><em>Java on Linux, MacOS X and similar Unix-like systems:</em>
 
 <p>
 You must either (1) set your <code>CLASSPATH</code> environment
@@ -161,8 +179,10 @@ variable would at minimum need to be set as follows:
   CLASSPATH=.:/usr/local/share/java/libsbmlj.jar
 </pre></div>
 
+</li>
 
-<h4>Java on Windows systems</h4>
+<p>
+<li><em>Java on Windows systems:</em>
 
 <p>
 The instructions are essentially the same as for the case of Linux and
@@ -177,6 +197,87 @@ might set your environment variable as follows:
 
 <p> Note: to set an environmental variable in Windows, use the
 <em>System</em> option in the Control Panel.
+
+</li>
+</ul>
+
+
+<h4>Step 3: load the libSBML JNI library in the application</h4>
+
+Finally, because of how JNI works in Java, an explicit call to
+<code>System.loadLibrary</code> is needed in an application to load the
+native language library portion of libSBML.  This involves putting a Java
+<code>static</code> somewhere in your application, usually in the
+application's main class.  The following example illustrates one way of
+doing this.
+
+<p>
+<div class="fragment"><pre class="fragment"><span style="color: #777">
+import org.sbml.libsbml.*;
+
+public class YourMainApplicationClass
+{
+  public static void main (String[] args)
+  {
+    /* Whatever your application does here ... */
+  }
+</span>
+  /**
+   * The following static block is needed in order to load the
+   * the libSBML Java module when the application starts.
+   */
+  static
+  {
+    String varname;
+    String shlibname;
+
+    if (System.getProperty("mrj.version") != null)
+    {
+      varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
+      shlibname = "libsbmlj.jnilib and/or libsbml.dylib";
+    }
+    else
+    {
+      varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+      shlibname = "libsbmlj.so and/or libsbml.so";
+    }
+
+    try
+    {
+      System.loadLibrary("sbmlj");
+      // For extra safety, check that the jar file is in the classpath.
+      Class.forName("org.sbml.libsbml.libsbml");
+    }
+    catch (SecurityException e)
+    {
+      e.printStackTrace();
+      System.err.println("Could not load the libSBML library files due to a"+
+                         " security exception.\n");
+      System.exit(1);
+    }
+    catch (UnsatisfiedLinkError e)
+    {
+      e.printStackTrace();
+      System.err.println("Error: could not link with the libSBML library files."+
+                         " It is likely\nyour " + varname +
+                         " environment variable does not include the directories\n"+
+                         "containing the " + shlibname + " library files.\n");
+      System.exit(1);
+    }
+    catch (ClassNotFoundException e)
+    {
+      e.printStackTrace();
+      System.err.println("Error: unable to load the file libsbmlj.jar."+
+                         " It is likely\nyour -classpath option and CLASSPATH" +
+                         " environment variable\n"+
+                         "do not include the path to libsbmlj.jar.\n");
+      System.exit(1);
+    }
+  }
+<span style="color: #777">
+}
+</span>
+</pre></div>
 
 
 
