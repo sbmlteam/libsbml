@@ -229,7 +229,7 @@ returns @c true if this AST node is holding an integer value.
 
 @li <code>bool @link ASTNode::isLog10() isLog10() @endlink</code> returns
 @c true if this AST node represents the @c log10 function, specifically,
-that its type is AST_FUNCTION_LOG and it has two children, the first of
+that its type is @c AST_FUNCTION_LOG and it has two children, the first of
 which is an integer equal to 10.
 
 @li <code>bool @link ASTNode::isLogical() isLogical() @endlink</code>
@@ -258,8 +258,8 @@ returns @c true if this AST node is a rational number having a numerator
 and a denominator.
 
 @li <code>bool @link ASTNode::isReal() isReal() @endlink</code> returns @c
-true if this AST node is a real number (specifically, AST_REAL_E or
-AST_RATIONAL).
+true if this AST node is a real number (specifically, @c AST_REAL_E or
+@c AST_RATIONAL).
 
 @li <code>bool @link ASTNode::isRelational() isRelational() @endlink</code>
 returns @c true if this AST node is a relational operator.
@@ -305,14 +305,14 @@ does.  The methods are the following:
 value) @endlink</code> sets the value of this ASTNode to the given
 character <code>value</code>.  If character is one of @c +, @c -, @c *, @c
 / or @c ^, the node type will be to the appropriate operator type.  For all
-other characters, the node type will be set to AST_UNKNOWN.
+other characters, the node type will be set to @c AST_UNKNOWN.
 
 @li <code>void @link ASTNode::setName(const char *name) setName(const char
 *name) @endlink</code> sets the value of this AST node to the given
-<code>name</code>.  The node type will be set (to AST_NAME) <em>only
+<code>name</code>.  The node type will be set (to @c AST_NAME) <em>only
 if</em> the AST node was previously an operator (<code>isOperator(node) !=
 0</code>) or number (<code>isNumber(node) != 0</code>).  This allows names
-to be set for AST_FUNCTIONs and the like.
+to be set for @c AST_FUNCTIONs and the like.
 
 @li <code>void @link ASTNode::setValue(int value) setValue(int value)
 @endlink</code> sets the value of the node to the given integer
@@ -326,16 +326,16 @@ G&ouml;delian self-referential loop.
 @li <code>void @link ASTNode::setValue(long numerator, long denominator)
 setValue(long numerator, long denominator) @endlink</code> sets the value
 of this ASTNode to the given rational <code>value</code> in two parts: the
-numerator and denominator.  The node type is set to AST_RATIONAL.
+numerator and denominator.  The node type is set to @c AST_RATIONAL.
 
 @li <code>void @link ASTNode::setValue(double value) setValue(double value)
 @endlink</code> sets the value of this ASTNode to the given real (double)
-<code>value</code> and sets the node type to AST_REAL.
+<code>value</code> and sets the node type to @c AST_REAL.
 
 @li <code>void @link ASTNode::setValue(double mantissa, long exponent)
 setValue(double mantissa, long exponent) @endlink</code> sets the value of
 this ASTNode to a real (double) using the two parts given: the mantissa and
-the exponent.  The node type is set to AST_REAL_E.
+the exponent.  The node type is set to @c AST_REAL_E.
 
 
 Finally, ASTNode also defines some miscellaneous methods for manipulating
@@ -344,8 +344,8 @@ ASTs:
 @li <code>ASTNode* @link ASTNode::ASTNode(ASTNodeType_t type)
 ASTNode(ASTNodeType_t type) @endlink</code> creates a new ASTNode object
 and returns a pointer to it.  The returned node will have the given
-<code>type</code>, or a type of AST_UNKNOWN if no argument
-<code>type</code> is explicitly given.
+<code>type</code>, or a type of @c AST_UNKNOWN if no argument
+<code>type</code> is explicitly given or the type code is unrecognized.
 
 @li <code>unsigned int @link ASTNode::getNumChildren() getNumChildren()
 @endlink</code> returns the number of children of this AST node or

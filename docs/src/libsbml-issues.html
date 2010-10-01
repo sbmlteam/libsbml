@@ -8,6 +8,7 @@ possible pitfalls in using libSBML:
 <li><a href="#diff-20413">Different error number (either 20413 or 20409) may be reported depending on Level of SBML in use</a></li>
 <li><a href="#link-accidents">Potential for language bindings to link old versions of libSBML by accident</a></li>
 <li><a href="#make-uninstall">Possible unexpected <code>make uninstall</code> behavior</a></li>
+<li><a href="#windows-free">Explicit freeing of memory when using static MSVC runtimes</a></li>
 <li><a href="#ubuntu-tomcat">Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></li>
 <li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
 </ul>
@@ -159,6 +160,25 @@ attempt removing the files implied by the most recent run of
 <code>configure</code>, <em>not</em> the files installed by the
 <em>original</em> <code>make install</code>.
 
+
+<h2><a class="anchor" name="windows-free"/>Explicit freeing of memory when using static MSVC runtimes</a></h2>
+
+On MS Windows, when using libSBML compiled against a static MSVC runtime
+library, it is not possible to use the standard <code>free()</code>
+function call to free memory allocated and returned by libSBML.
+Without the ability to use <code>free()</code> to free the string returned
+by libSBML, the calling application will leak memory.  An example
+of typical code where one would want to free the returned by libSBML
+is the following:
+
+<div class="fragment"><pre class="fragment">
+   char * formula = SBML_formulaToString(astNode);
+   /* ... do some work with formula here ... */
+   free(formula);
+</pre></div>
+
+<p> To cope with this issue, as of version 4.2, libSBML now provides a
+special function for this situation: <code>util_free()</code>.
 
 
 <h2><a class="anchor" name="ubuntu-tomcat"/>Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></h2>
