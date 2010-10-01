@@ -892,7 +892,7 @@ public:
    * 
    * @return true if this ASTNode is a MathML constant, false otherwise.
    * 
-   * @note this function will also return @true for @link
+   * @note this function will also return @c true for @link
    * ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink
    */
   LIBSBML_EXTERN

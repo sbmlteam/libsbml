@@ -308,8 +308,20 @@ public:
   /**
    * Returns the "kind" of Unit this is.
    * 
-   * @return the value of the "kind" attribute of this Unit as a value from
-   * the <a class="el" href="#UnitKind_t">UnitKind_t</a> enumeration.
+   * @if clike
+   * @return the value of the "kind" attribute of this Unit as a
+   * value from the <a class="el" href="#UnitKind_t">UnitKind_t</a> enumeration.
+   * @endif@if java
+   * @return the value of the "kind" attribute of this Unit as a
+   * value from the set of constants whose names begin
+   * with <code>UNIT_KIND_</code> defined in the class
+   * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>.
+   * @endif@if python
+   * @return the value of the "kind" attribute of this Unit as a
+   * value from the set of constants whose names begin
+   * with <code>UNIT_KIND_</code> defined in the class
+   * @link libsbml libsbml@endlink.
+   * @endif
    */
   UnitKind_t getKind () const;
 
@@ -723,14 +735,15 @@ public:
   /**
    * Sets the "kind" attribute value of this Unit.
    *
-   * @param kind a @if clike value from the <a class="el"
-   * href="#UnitKind_t">UnitKind_t</a>
-   * enumeration.@endif@if java unit
-   * identifier chosen from the set of constants whose
+   * @if clike
+   * @param kind a value from the <a class="el"
+   * href="#UnitKind_t">UnitKind_t</a> enumeration.
+   * @endif@if java
+   * @param kind a unit identifier chosen from the set of constants whose
    * names begin with <code>UNIT_KIND_</code> in <code><a
    * href="libsbmlConstants.html">libsbmlConstants</a></code>.
-   * @endif@if python unit
-   * identifier chosen from the set of constants whose
+   * @endif@if python
+   * @param kind a unit identifier chosen from the set of constants whose
    * names begin with <code>UNIT_KIND_</code> in @link libsbml libsbml@endlink.
    * @endif
    *
@@ -899,7 +912,7 @@ public:
    * @param version an unsigned int representing the SBML specification
    * Version
    * 
-   * @return @c true if name is a valid UnitKind, @c false otherwise
+   * @return @c true if name is a valid SBML UnitKind, @c false otherwise
    *
    * @note The allowed unit names differ between SBML Levels&nbsp;1
    * and&nbsp;2 and again slightly between Level&nbsp;2 Versions&nbsp;1
@@ -1062,7 +1075,7 @@ protected:
    *
    * @param name a string to be tested
    * 
-   * @return @c true if name is a valid UnitKind, @c false otherwise
+   * @return @c true if name is a valid SBML UnitKind, @c false otherwise
    */
   static bool isL1UnitKind (const std::string& name);
 
@@ -1074,7 +1087,7 @@ protected:
    *
    * @param name a string to be tested
    * 
-   * @return @c true if name is a valid UnitKind, @c false otherwise
+   * @return @c true if name is a valid SBML UnitKind, @c false otherwise
    */
   static bool isL2V1UnitKind (const std::string& name);
 
@@ -1085,7 +1098,7 @@ protected:
    *
    * @param name a string to be tested
    * 
-   * @return @c true if name is a valid UnitKind, @c false otherwise
+   * @return @c true if name is a valid SBML UnitKind, @c false otherwise
    */
   static bool isL2UnitKind (const std::string& name);
 
@@ -1096,7 +1109,7 @@ protected:
    *
    * @param name a string to be tested
    * 
-   * @return @c true if name is a valid UnitKind, @c false otherwise
+   * @return @c true if name is a valid SBML UnitKind, @c false otherwise
    */
   static bool isL3UnitKind (const std::string& name);
 
