@@ -53,6 +53,7 @@ streq (const char *s, const char *t);
 int
 c_locale_snprintf (char *str, size_t size, const char *format, ...);
 
+
 /**
  * Identical to vsnprintf except printing always occurs according to the
  * "C" locale.  This function does not affect the locale of the calling
@@ -60,6 +61,7 @@ c_locale_snprintf (char *str, size_t size, const char *format, ...);
  */
 int
 c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap);
+
 
 /**
  * Identical to strtod except conversion always occurs according to the
@@ -79,6 +81,7 @@ LIBSBML_EXTERN
 FILE *
 safe_fopen (const char *filename, const char *mode);
 
+
 /**
  * Returns a pointer to a new string which is the concatenation of the
  * strings str1 and str2.  Memory for the new string is obtained with
@@ -90,6 +93,7 @@ LIBSBML_EXTERN
 char *
 safe_strcat (const char *str1, const char *str2);
 
+
 /**
  * @return a pointer to a new string which is a duplicate of the string s.
  * Memory for the string is obtained with safe_malloc() and can be freed
@@ -98,6 +102,7 @@ safe_strcat (const char *str1, const char *str2);
 LIBSBML_EXTERN
 char *
 safe_strdup (const char* s);
+
 
 /**
  * Compares two strings s1 and s2, ignoring the case of the characters.
@@ -108,6 +113,7 @@ safe_strdup (const char* s);
 LIBSBML_EXTERN
 int
 strcmp_insensitive (const char *s1, const char *s2);
+
 
 /**
  * Peforms a binary search on the string table strings to find string s.
@@ -123,12 +129,14 @@ LIBSBML_EXTERN
 int
 util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
 
+
 /**
  * @returns true (non-zero) if filename exists, false (zero) otherwise.
  */
 LIBSBML_EXTERN
 int
 util_file_exists (const char *filename);
+
 
 /**
  * Removes leading and trailing whitespace from the string s.
@@ -141,6 +149,7 @@ util_file_exists (const char *filename);
 LIBSBML_EXTERN
 char *
 util_trim (const char *s);
+
 
 /**
  * Removes leading and trailing whitespace from the string s.
@@ -159,35 +168,39 @@ util_trim_in_place (char *s);
 /** @endcond */
 
 
-/**
+/*
  * @return a (quiet) NaN.
  */
 LIBSBML_EXTERN
 double
 util_NaN (void);
 
-/**
+
+/*
  * @return IEEE-754 Negative Infinity.
  */
 LIBSBML_EXTERN
 double
 util_NegInf (void);
 
-/**
+
+/*
  * @return IEEE-754 Positive Infinity
  */
 LIBSBML_EXTERN
 double
 util_PosInf (void);
 
-/**
+
+/*
  * @return IEEE-754 Negative Zero.
  */
 LIBSBML_EXTERN
 double
 util_NegZero (void);
 
-/**
+
+/*
  * @return -1 if d represents negative infinity, 1 if d represents positive
  * infinity and 0 otherwise.
  */
@@ -195,7 +208,8 @@ LIBSBML_EXTERN
 int
 util_isInf (double d);
 
-/**
+
+/*
  * @return true (non-zero) if d is an IEEE-754 negative zero, false (zero)
  * otherwise.
  */
@@ -204,7 +218,7 @@ int
 util_isNegZero (double d);
 
 
-/**
+/*
  * free this memory
  */
 LIBSBML_EXTERN
@@ -214,7 +228,7 @@ util_free (void * element);
 
 /** @cond doxygen-libsbml-internal */
 
-/**
+/*
  * Function prototypes to supress gcc compiler warnings about implicit
  * declaration of isnan and finite which occur despite the inclusion of
  * math.h where they are defined.  In fact, even a simple example
