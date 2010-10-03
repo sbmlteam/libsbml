@@ -118,6 +118,8 @@ public:
   /**
    * Reads an SBML document from a file.
    *
+   * This method is identical to SBMLReader::readSBMLFromFile(@if java String filename@endif).
+   *
    * If the file named @p filename does not exist or its content is not
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned by this method.  Callers can use the methods on
@@ -140,7 +142,7 @@ public:
    * @if clike
 @verbatim
 SBMLReader* reader = new SBMLReader();
-SBMLDocument* doc  = reader.readSBML(filename);
+SBMLDocument* doc  = reader.readSBMLFromFile(filename);
 
 if (doc->getNumErrors() > 0)
 {
@@ -235,6 +237,8 @@ if doc.getNumErrors() > 0:
 
   /**
    * Reads an SBML document from a file.
+   *
+   * This method is identical to SBMLReader::readSBML(@if java String filename@endif).
    *
    * If the file named @p filename does not exist or its content is not
    * valid SBML, one or more errors will be logged with the SBMLDocument
