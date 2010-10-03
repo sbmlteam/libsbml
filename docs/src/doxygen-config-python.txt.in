@@ -53,8 +53,8 @@ PREDEFINED             = __cplusplus  \
 		         LIBSBML_EXTERN:="" \
 			 BEGIN_C_DECLS:="" \
 			 END_C_DECLS:="" \
-                         LIBSBML_CPP_NAMESPACE_BEGIN:="" \
-                         LIBSBML_CPP_NAMESPACE_END:="" \
+			 LIBSBML_CPP_NAMESPACE_BEGIN:="" \
+			 LIBSBML_CPP_NAMESPACE_END:="" \
 			 SWIG=1 \
 			 doxygen_ignore
 
