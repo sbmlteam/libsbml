@@ -292,9 +292,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
   
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
-          rm -f config/printJavaDataModel.class
-          $JAVAC config/printJavaDataModel.java
-          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+          rm -f ${srcdir}/config/printJavaDataModel.class
+          $JAVAC ${srcdir}/config/printJavaDataModel.java
+          if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
             dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
@@ -388,9 +388,9 @@ configure to bypass this architecture check.
           dnl can still be executed.
 
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
-          rm -f config/printJavaDataModel.class
-          $JAVAC config/printJavaDataModel.java
-          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+          rm -f ${srcdir}/config/printJavaDataModel.class
+          $JAVAC ${srcdir}/config/printJavaDataModel.java
+          if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
             dnl Did the user request a 64-bit libSBML?  If not, it's a problem.
@@ -492,9 +492,9 @@ configure to bypass this architecture check.
           dnl We're on a system that makes 64-bit binaries by default.
   
           AC_MSG_CHECKING([whether JRE is a 64-bit version])
-          rm -f config/printJavaDataModel.class
-          $JAVAC config/printJavaDataModel.java
-          if test "`(cd config; $JAVA printJavaDataModel)`" = "64"; then
+          rm -f ${srcdir}/config/printJavaDataModel.class
+          $JAVAC ${srcdir}/config/printJavaDataModel.java
+          if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
   
             dnl Did the user request a 32-bit libSBML?  Because that'd be bad.
