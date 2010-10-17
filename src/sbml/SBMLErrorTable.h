@@ -1170,7 +1170,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the value of the attribute variable in an AssignmentRule object "
     "refers to a SpeciesReference object, the unit of measurement associated "
-    "with the rule’s right-hand side should be consistent with the unit of "
+    "with the rule's right-hand side should be consistent with the unit of "
     "stoichiometry, that is, dimensionless.", 
     {"",
      "",
@@ -1263,7 +1263,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the value of the attribute variable in an InitialAssignment object "
     "refers to a SpeciesReference object, the unit of measurement associated "
-    "with the InitialAssignment’s math expression should be consistent with "
+    "with the InitialAssignment's math expression should be consistent with "
     "the unit of stoichiometry, that is, dimensionless.", 
     {"",
      "",
@@ -1361,7 +1361,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the value of the attribute variable in a RateRule object refers to "
     "a SpeciesReference object, the unit of measurement associated with the "
-    "RateRule’s math expression should be consistent with {unit derived from "
+    "RateRule's math expression should be consistent with {unit derived from "
     "dimensionless}/{unit of time}.", 
     {"",
      "",
@@ -1407,13 +1407,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "For every Species object produced or consumed in a reaction (that is, "
     "referenced by a SpeciesReference object), the unit of measurement of the "
-    "species’ substance should be consistent with the unit of extent for the "
+    "species' substance should be consistent with the unit of extent for the "
     "model times the unit of the conversion factor for that species. More "
-    "precisely, the product of the units indicated by the Model object’s "
+    "precisely, the product of the units indicated by the Model object's "
     "extentUnits and the conversionFactor attribute for that particular "
     "Species (whether the attribute is set directly on the Species object or "
     "inherited from the enclosing Model object) should be consistent with the "
-    "unit specified by that Species object’s substanceUnits attribute value.", 
+    "unit specified by that Species object's substanceUnits attribute value.", 
     {"",
      "",
      "",
@@ -1529,7 +1529,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "When the value of the attribute variable of an EventAssignment object "
     "is the identifier of a SpeciesReference object, the unit of measurement "
-    "associated with the EventAssignment’s math expression should be "
+    "associated with the EventAssignment's math expression should be "
     "consistent with the unit of stoichiometry, i.e., dimensionless.", 
     {"",
      "",
@@ -2645,7 +2645,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The value of the attribute conversionFactor on a Model object "
     "must be the identifier of an existing Parameter object defined "
-    "in the Model object’s ListOfParameters.",
+    "in the Model object's ListOfParameters.",
     {"",
      "",
      "",
@@ -3855,9 +3855,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "If the attribute units on a Compartment object having a spatialDimensions "
     "attribute value of '1' has not been set, then the unit of measurement "
-    "associated with the compartment’s size is determined by the value of the "
-    "enclosing Model object’s lengthUnits attribute. If neither the Compartment "
-    "object’s units nor the enclosing Model object’s lengthUnits attributes "
+    "associated with the compartment's size is determined by the value of the "
+    "enclosing Model object's lengthUnits attribute. If neither the Compartment "
+    "object's units nor the enclosing Model object's lengthUnits attributes "
     "are set, the unit of compartment size is undefined.",
     {"",
      "",
@@ -3881,9 +3881,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "If the attribute units on a Compartment object having a spatialDimensions "
     "attribute value of '2' has not been set, then the unit of measurement "
-    "associated with the compartment’s size is determined by the value of the "
-    "enclosing Model object’s areaUnits attribute. If neither the Compartment "
-    "object’s units nor the enclosing Model object’s areaUnits attributes "
+    "associated with the compartment's size is determined by the value of the "
+    "enclosing Model object's areaUnits attribute. If neither the Compartment "
+    "object's units nor the enclosing Model object's areaUnits attributes "
     "are set, the unit of compartment size is undefined.",
     {"",
      "",
@@ -3907,9 +3907,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "If the attribute units on a Compartment object having a spatialDimensions "
     "attribute value of '3' has not been set, then the unit of measurement "
-    "associated with the compartment’s size is determined by the value of the "
-    "enclosing Model object’s volumeUnits attribute. If neither the Compartment "
-    "object’s units nor the enclosing Model object’s volumeUnits attributes "
+    "associated with the compartment's size is determined by the value of the "
+    "enclosing Model object's volumeUnits attribute. If neither the Compartment "
+    "object's units nor the enclosing Model object's volumeUnits attributes "
     "are set, the unit of compartment size is undefined.",
     {"",
      "",
@@ -4333,11 +4333,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
     "If the attribute substanceUnits in a Species object has not been set, "
-    "then the unit of measurement associated with the species’ quantity is "
-    "determined by the value of the enclosing Model object’s substanceUnits "
-    "attribute. If neither the Species object’s substanceUnits attribute nor "
-    "the enclosing Model object’s substanceUnits attribute are set, then the "
-    "unit of that species’ quantity is undefined.",
+    "then the unit of measurement associated with the species' quantity is "
+    "determined by the value of the enclosing Model object's substanceUnits "
+    "attribute. If neither the Species object's substanceUnits attribute nor "
+    "the enclosing Model object's substanceUnits attribute are set, then the "
+    "unit of that species' quantity is undefined.",
     {"",
      "",
      "",
