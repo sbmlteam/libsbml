@@ -4432,7 +4432,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
     "If the attribute units on a given Parameter object has not been set, "
-    "then the unit of measurement associated with that parameter’s value is "
+    "then the unit of measurement associated with that parameter's value is "
     "undefined.",
     {"",
      "",
