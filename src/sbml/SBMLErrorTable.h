@@ -3845,7 +3845,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     OneDimensionalCompartmentUnits,
     "No units for 1D Compartment",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3871,7 +3871,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     TwoDimensionalCompartmentUnits,
     "No units for 2D Compartment",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3897,7 +3897,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     ThreeDimensionalCompartmentUnits,
     "No units for 3D Compartment",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3947,7 +3947,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     NoUnitsOnCompartment,
     "No units for <compartment>",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4324,7 +4324,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     SubstanceUnitsOnSpecies,
     "No substance units for Species",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4423,7 +4423,7 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     ParameterUnits,
     "No units for parameter",
-    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
