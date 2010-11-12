@@ -877,15 +877,17 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-  // can have more than one creator
+  /* Can have more than one creator. */
 
   List * mCreators;
 
   Date* mCreatedDate;
 
-  // there can be more than one modified date
-  // this is a bug and so as to not break code 
-  // I'll hack the old code to interact with a list
+  /*
+   * there can be more than one modified date
+   * this is a bug and so as to not break code 
+   * I'll hack the old code to interact with a list.
+   */
   
   List * mModifiedDates;
 
