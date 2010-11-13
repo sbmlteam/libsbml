@@ -366,7 +366,6 @@ public:
    * @if clike @see SBMLDocument::setLevelAndVersion() @endif@if python @see SBMLDocument::setLevelAndVersion() @endif@if java @see SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif
    * @see getDefaultLevel()
    * @see getDefaultVersion()
-   * @see getDefaultVersion()
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
