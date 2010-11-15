@@ -3803,8 +3803,8 @@ SBase::checkAnnotation()
   unsigned int nNodes = 0;
   unsigned int match = 0;
   int n = 0;
-  std::vector<std::string> prefixes;
-  prefixes.clear();
+  std::vector<std::string> uri_list;
+  uri_list.clear();
 
   if (!mAnnotation) return;
 
@@ -3819,17 +3819,18 @@ SBase::checkAnnotation()
   {
     XMLNode topLevel = mAnnotation->getChild(nNodes);
 
+    std::string uri = topLevel.getURI();
     std::string prefix = topLevel.getPrefix();
 
-    // cannot be other toplevel element with this prefix
-    if (!prefix.empty())
+    // cannot be other toplevel element with this uri
+    if (!uri.empty())
     {
-      if (find(prefixes.begin(), prefixes.end(), prefix) 
-                                               != prefixes.end())
+      if (find(uri_list.begin(), uri_list.end(), uri) 
+                                               != uri_list.end())
       {
         logError(DuplicateAnnotationNamespaces);
       }
-      prefixes.push_back(prefix);
+      uri_list.push_back(uri);
     }
 
     match = 0;
@@ -3871,6 +3872,10 @@ SBase::checkAnnotation()
                                 "http://www.sbml.org/sbml/level2/version2");
       match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
                                 "http://www.sbml.org/sbml/level2/version3");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                "http://www.sbml.org/sbml/level2/version4");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                "http://www.sbml.org/sbml/level3/version1/core");
       n++;
     }
     if (match > 0)
@@ -3881,7 +3886,13 @@ SBase::checkAnnotation()
 
     if (implicitNSdecl && prefix.empty())
     {
-      logError(MissingAnnotationNamespace);
+      /* if this is L3 a missing namespace with empty prefix means 
+       * it is using the sbml ns - which is allowed in L3
+       */
+      if (getLevel() < 3)
+      {
+        logError(MissingAnnotationNamespace);
+      }
       logError(SBMLNamespaceInAnnotation);   
     }
     nNodes++;
