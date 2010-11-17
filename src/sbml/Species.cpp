@@ -69,6 +69,13 @@ Species::Species (unsigned int level, unsigned int version) :
     mInitialAmount = numeric_limits<double>::quiet_NaN();
     mInitialConcentration = numeric_limits<double>::quiet_NaN();
   }
+  // before level 3 bc hOSU and constant were set by default
+  if (level < 3)
+  {
+    mIsSetBoundaryCondition = true;
+    mIsSetHasOnlySubstanceUnits = true;
+    mIsSetConstant = true;
+  }
 }
 
 
@@ -98,6 +105,13 @@ Species::Species (SBMLNamespaces *sbmlns) :
   {
     mInitialAmount = numeric_limits<double>::quiet_NaN();
     mInitialConcentration = numeric_limits<double>::quiet_NaN();
+  }
+  // before level 3 bc hOSU and constant were set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    mIsSetBoundaryCondition = true;
+    mIsSetHasOnlySubstanceUnits = true;
+    mIsSetConstant = true;
   }
 }
 

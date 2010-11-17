@@ -62,6 +62,11 @@ Parameter::Parameter (unsigned int level, unsigned int version) :
   {
     mValue = numeric_limits<double>::quiet_NaN();
   }
+  // before level 3 constant was set by default
+  if (level < 3)
+  {
+    mIsSetConstant = true;
+  }
 }
 
 
@@ -82,6 +87,11 @@ Parameter::Parameter (SBMLNamespaces * sbmlns) :
   if (sbmlns->getLevel() == 3)
   {
     mValue = numeric_limits<double>::quiet_NaN();
+  }
+  // before level 3 constant was set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    mIsSetConstant = true;
   }
 }
 

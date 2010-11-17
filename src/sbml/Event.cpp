@@ -59,6 +59,12 @@ Event::Event (unsigned int level, unsigned int version) :
   mInternalIdOnly = false;
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+  // before level 3 useValuesFromTriggerTime was set by default
+  if (level < 3)
+  {
+    mIsSetUseValuesFromTriggerTime = true;
+  }
+
 }
 
 
@@ -76,6 +82,12 @@ Event::Event (SBMLNamespaces * sbmlns) :
 
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
+  // before level 3 useValuesFromTriggerTime was set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    mIsSetUseValuesFromTriggerTime = true;
+  }
+
 }
 
 

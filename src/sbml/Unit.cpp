@@ -65,6 +65,13 @@ Unit::Unit (unsigned int level, unsigned int version) :
     mScale = SBML_INT_MAX;//numeric_limits<int>::max();
     mMultiplier = numeric_limits<double>::quiet_NaN();
   }
+  // before level 3 exponent, scale and multiplier were set by default
+  if (level < 3)
+  {
+    mIsSetExponent = true;
+    mIsSetScale = true;
+    mIsSetMultiplier = true;
+  }
 }
 
 
@@ -89,6 +96,13 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
     mExponentDouble = numeric_limits<double>::quiet_NaN();
     mScale = numeric_limits<int>::max();
     mMultiplier = numeric_limits<double>::quiet_NaN();
+  }
+  // before level 3 exponent, scale and multiplier were set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    mIsSetExponent = true;
+    mIsSetScale = true;
+    mIsSetMultiplier = true;
   }
 }
 

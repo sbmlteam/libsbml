@@ -63,6 +63,12 @@ Compartment::Compartment (unsigned int level, unsigned int version) :
     mSize = numeric_limits<double>::quiet_NaN();
     mSpatialDimensionsDouble = numeric_limits<double>::quiet_NaN();
   }
+  // before level 3 spatialDimensions and constant were set by default
+  if (level < 3)
+  {
+    mIsSetSpatialDimensions = true;
+    mIsSetConstant = true;
+  }
 }
 
 Compartment::Compartment(SBMLNamespaces * sbmlns) :
@@ -85,6 +91,12 @@ Compartment::Compartment(SBMLNamespaces * sbmlns) :
   {
     mSize = numeric_limits<double>::quiet_NaN();
     mSpatialDimensionsDouble = numeric_limits<double>::quiet_NaN();
+  }
+  // before level 3 spatialDimensions and constant were set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    mIsSetSpatialDimensions = true;
+    mIsSetConstant = true;
   }
 }
 

@@ -95,6 +95,13 @@ Reaction::Reaction (unsigned int level, unsigned int version) :
   mReactants.setType( ListOfSpeciesReferences::Reactant );
   mProducts .setType( ListOfSpeciesReferences::Product  );
   mModifiers.setType( ListOfSpeciesReferences::Modifier );
+  // before level 3 reversible and fast was set by default
+  if (level < 3)
+  {
+    /* this changes existing behaviour as isSetFast already existed in L2 */
+//    mIsSetFast = true;
+    mIsSetReversible = true;
+  }
 }
 
 
@@ -115,6 +122,13 @@ Reaction::Reaction (SBMLNamespaces * sbmlns) :
   mReactants.setType( ListOfSpeciesReferences::Reactant );
   mProducts .setType( ListOfSpeciesReferences::Product  );
   mModifiers.setType( ListOfSpeciesReferences::Modifier );
+  // before level 3 reversible and fast was set by default
+  if (sbmlns->getLevel() < 3)
+  {
+    /* this changes existing behaviour as isSetFast already existed in L2 */
+//    mIsSetFast = true;
+    mIsSetReversible = true;
+  }
 }
 
 
@@ -285,8 +299,13 @@ Reaction::initDefaults ()
   //   r.getFast()   == false;          r.getFast()   == false, but
   //   r.isSetFast() == N/A             r.isSetFast() == false
   //
+  // but for L3 acknowledge that fast has been set
     mFast      = false;
     mIsSetFast = false;
+    if (getLevel() == 3)
+    {
+      setFast(false);
+    }
   //}
 }
 
