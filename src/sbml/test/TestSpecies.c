@@ -109,6 +109,9 @@ START_TEST (test_Species_create)
   fail_unless( !Species_isSetSpatialSizeUnits    (S) );
   fail_unless( !Species_isSetUnits               (S) );
   fail_unless( !Species_isSetCharge              (S) );
+  fail_unless( Species_isSetBoundaryCondition    (S) );
+  fail_unless( Species_isSetHasOnlySubstanceUnits(S) );
+  fail_unless( Species_isSetConstant             (S) );
 }
 END_TEST
 

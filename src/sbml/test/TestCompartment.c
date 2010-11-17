@@ -129,6 +129,8 @@ START_TEST (test_Compartment_initDefaults)
   fail_unless( !Compartment_isSetVolume (c) );
   fail_unless( !Compartment_isSetUnits  (c) );
   fail_unless( !Compartment_isSetOutside(c) );
+  fail_unless( Compartment_isSetSpatialDimensions(c) );
+  fail_unless( Compartment_isSetConstant(c) );
   
   Compartment_free(c);
 }

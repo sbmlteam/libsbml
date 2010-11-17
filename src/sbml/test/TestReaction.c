@@ -95,6 +95,8 @@ START_TEST (test_Reaction_create)
   fail_unless( !Reaction_isSetId        (R) );
   fail_unless( !Reaction_isSetName      (R) );
   fail_unless( !Reaction_isSetKineticLaw(R) );
+  fail_unless( !Reaction_isSetFast        (R) );
+  fail_unless( Reaction_isSetReversible        (R) );
 
   fail_unless( Reaction_getNumReactants(R) == 0 );
   fail_unless( Reaction_getNumProducts (R) == 0 );

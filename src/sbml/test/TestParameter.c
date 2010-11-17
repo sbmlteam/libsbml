@@ -96,6 +96,7 @@ START_TEST (test_Parameter_create)
   fail_unless( !Parameter_isSetName (P) );
   fail_unless( !Parameter_isSetValue(P) );
   fail_unless( !Parameter_isSetUnits(P) );
+  fail_unless( Parameter_isSetConstant(P) );
 }
 END_TEST
 

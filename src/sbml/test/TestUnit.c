@@ -94,6 +94,9 @@ START_TEST (test_Unit_create)
   fail_unless( Unit_getMultiplier(U) == 1.0 );
 
   fail_unless( !Unit_isSetKind(U) );
+  fail_unless( Unit_isSetExponent  (U)   );
+  fail_unless( Unit_isSetScale     (U)  );
+  fail_unless( Unit_isSetMultiplier(U) );
 }
 END_TEST
 

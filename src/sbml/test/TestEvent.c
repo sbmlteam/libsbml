@@ -99,6 +99,11 @@ START_TEST (test_Event_create)
   fail_unless( Event_getDelay     (E) == NULL );
   fail_unless( Event_getTimeUnits (E) == NULL );
 
+  fail_unless( !Event_isSetId (E) );
+  fail_unless( !Event_isSetTrigger (E) );
+  fail_unless( !Event_isSetDelay (E) );
+  fail_unless( Event_isSetUseValuesFromTriggerTime (E) );
+
   fail_unless( Event_getNumEventAssignments(E) == 0 );
 }
 END_TEST
