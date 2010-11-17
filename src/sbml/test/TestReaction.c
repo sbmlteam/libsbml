@@ -493,7 +493,7 @@ START_TEST (test_Reaction_removeModifier)
    o1 = Reaction_createModifier(R);
    o2 = Reaction_createModifier(R);
    o3 = Reaction_createModifier(R);
--  SpeciesReference_setSpecies(o3, "test");
+  SpeciesReference_setSpecies(o3, "test");
 
   fail_unless( Reaction_removeModifier(R, 0) == o1 );
   fail_unless( Reaction_getNumModifiers(R)   == 2  );
