@@ -139,6 +139,8 @@ class TestCompartment < Test::Unit::TestCase
     assert_equal false, c.isSetVolume()
     assert_equal false, c.isSetUnits()
     assert_equal false, c.isSetOutside()
+    assert_equal true, c.isSetSpatialDimensions()
+    assert_equal true, c.isSetConstant()
     c = nil
   end
 

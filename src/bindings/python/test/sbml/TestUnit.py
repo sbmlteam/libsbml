@@ -62,6 +62,9 @@ class TestUnit(unittest.TestCase):
     self.assert_( self.U.getScale() == 0 )
     self.assert_( self.U.getMultiplier() == 1.0 )
     self.assertEqual( False, self.U.isSetKind() )
+    self.assertEqual( True, self.U.isSetExponent() )
+    self.assertEqual( True, self.U.isSetScale() )
+    self.assertEqual( True, self.U.isSetMultiplier() )
     pass  
 
   def test_Unit_createWithNS(self):

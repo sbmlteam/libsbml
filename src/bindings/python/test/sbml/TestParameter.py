@@ -65,6 +65,7 @@ class TestParameter(unittest.TestCase):
     self.assertEqual( False, self.P.isSetName() )
     self.assertEqual( False, self.P.isSetValue() )
     self.assertEqual( False, self.P.isSetUnits() )
+    self.assertEqual( True, self.P.isSetConstant() )
     pass  
 
   def test_Parameter_createWithNS(self):

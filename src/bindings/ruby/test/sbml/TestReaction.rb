@@ -78,6 +78,8 @@ class TestReaction < Test::Unit::TestCase
     assert_equal false, @@r.isSetId()
     assert_equal false, @@r.isSetName()
     assert_equal false, @@r.isSetKineticLaw()
+    assert_equal false, @@r.isSetFast()
+    assert_equal true, @@r.isSetReversible()
     assert( @@r.getNumReactants() == 0 )
     assert( @@r.getNumProducts() == 0 )
     assert( @@r.getNumModifiers() == 0 )

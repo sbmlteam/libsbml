@@ -55,6 +55,10 @@ class TestEvent < Test::Unit::TestCase
     assert( @@e.getTrigger() == nil )
     assert( @@e.getDelay() == nil )
     assert( @@e.getTimeUnits() == "" )
+    assert_equal false, @@e.isSetId()
+    assert_equal false, @@e.isSetTrigger()
+    assert_equal false, @@e.isSetDelay()
+    assert_equal true, @@e.isSetUseValuesFromTriggerTime()
     assert( @@e.getNumEventAssignments() == 0 )
   end
 

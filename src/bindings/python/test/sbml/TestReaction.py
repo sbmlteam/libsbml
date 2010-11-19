@@ -85,6 +85,8 @@ class TestReaction(unittest.TestCase):
     self.assertEqual( False, self.R.isSetId() )
     self.assertEqual( False, self.R.isSetName() )
     self.assertEqual( False, self.R.isSetKineticLaw() )
+    self.assertEqual( False, self.R.isSetFast() )
+    self.assertEqual( True, self.R.isSetReversible() )
     self.assert_( self.R.getNumReactants() == 0 )
     self.assert_( self.R.getNumProducts() == 0 )
     self.assert_( self.R.getNumModifiers() == 0 )

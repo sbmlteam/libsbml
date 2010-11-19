@@ -147,6 +147,8 @@ class TestCompartment(unittest.TestCase):
     self.assertEqual( False, c.isSetVolume() )
     self.assertEqual( False, c.isSetUnits() )
     self.assertEqual( False, c.isSetOutside() )
+    self.assertEqual( True, c.isSetSpatialDimensions() )
+    self.assertEqual( True, c.isSetConstant() )
     _dummyList = [ c ]; _dummyList[:] = []; del _dummyList
     pass  
 

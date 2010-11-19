@@ -149,6 +149,7 @@ public class TestParameter {
     assertEquals( false, P.isSetName() );
     assertEquals( false, P.isSetValue() );
     assertEquals( false, P.isSetUnits() );
+    assertEquals( true, P.isSetConstant() );
   }
 
   public void test_Parameter_createWithNS()

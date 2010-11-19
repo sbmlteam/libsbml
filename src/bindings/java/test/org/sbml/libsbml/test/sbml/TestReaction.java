@@ -171,6 +171,8 @@ public class TestReaction {
     assertEquals( false, R.isSetId() );
     assertEquals( false, R.isSetName() );
     assertEquals( false, R.isSetKineticLaw() );
+    assertEquals( false, R.isSetFast() );
+    assertEquals( true, R.isSetReversible() );
     assertTrue( R.getNumReactants() == 0 );
     assertTrue( R.getNumProducts() == 0 );
     assertTrue( R.getNumModifiers() == 0 );

@@ -146,6 +146,10 @@ public class TestEvent {
     assertEquals(E.getTrigger(),null);
     assertEquals(E.getDelay(),null);
     assertTrue( E.getTimeUnits().equals("") == true );
+    assertEquals( false, E.isSetId() );
+    assertEquals( false, E.isSetTrigger() );
+    assertEquals( false, E.isSetDelay() );
+    assertEquals( true, E.isSetUseValuesFromTriggerTime() );
     assertTrue( E.getNumEventAssignments() == 0 );
   }
 

@@ -62,6 +62,10 @@ class TestEvent(unittest.TestCase):
     self.assert_( self.E.getTrigger() == None )
     self.assert_( self.E.getDelay() == None )
     self.assert_( self.E.getTimeUnits() == "" )
+    self.assertEqual( False, self.E.isSetId() )
+    self.assertEqual( False, self.E.isSetTrigger() )
+    self.assertEqual( False, self.E.isSetDelay() )
+    self.assertEqual( True, self.E.isSetUseValuesFromTriggerTime() )
     self.assert_( self.E.getNumEventAssignments() == 0 )
     pass  
 

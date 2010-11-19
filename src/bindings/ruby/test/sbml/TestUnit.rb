@@ -55,6 +55,9 @@ class TestUnit < Test::Unit::TestCase
     assert( @@u.getScale() == 0 )
     assert( @@u.getMultiplier() == 1.0 )
     assert_equal false, @@u.isSetKind()
+    assert_equal true, @@u.isSetExponent()
+    assert_equal true, @@u.isSetScale()
+    assert_equal true, @@u.isSetMultiplier()
   end
 
   def test_Unit_createWithNS

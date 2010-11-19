@@ -77,6 +77,9 @@ class TestSpecies(unittest.TestCase):
     self.assertEqual( False, self.S.isSetSpatialSizeUnits() )
     self.assertEqual( False, self.S.isSetUnits() )
     self.assertEqual( False, self.S.isSetCharge() )
+    self.assertEqual( True, self.S.isSetBoundaryCondition() )
+    self.assertEqual( True, self.S.isSetHasOnlySubstanceUnits() )
+    self.assertEqual( True, self.S.isSetConstant() )
     pass  
 
   def test_Species_createWithNS(self):

@@ -70,6 +70,9 @@ class TestSpecies < Test::Unit::TestCase
     assert_equal false, @@s.isSetSpatialSizeUnits()
     assert_equal false, @@s.isSetUnits()
     assert_equal false, @@s.isSetCharge()
+    assert_equal true, @@s.isSetBoundaryCondition()
+    assert_equal true, @@s.isSetHasOnlySubstanceUnits()
+    assert_equal true, @@s.isSetConstant()
   end
 
   def test_Species_createWithNS

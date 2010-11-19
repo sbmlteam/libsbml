@@ -146,6 +146,9 @@ public class TestUnit {
     assertTrue( U.getScale() == 0 );
     assertTrue( U.getMultiplier() == 1.0 );
     assertEquals( false, U.isSetKind() );
+    assertEquals( true, U.isSetExponent() );
+    assertEquals( true, U.isSetScale() );
+    assertEquals( true, U.isSetMultiplier() );
   }
 
   public void test_Unit_createWithNS()

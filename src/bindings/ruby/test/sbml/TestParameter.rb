@@ -58,6 +58,7 @@ class TestParameter < Test::Unit::TestCase
     assert_equal false, @@p.isSetName()
     assert_equal false, @@p.isSetValue()
     assert_equal false, @@p.isSetUnits()
+    assert_equal true, @@p.isSetConstant()
   end
 
   def test_Parameter_createWithNS

@@ -170,6 +170,9 @@ namespace LibSBMLCSTest {
       assertEquals( false, S.isSetSpatialSizeUnits() );
       assertEquals( false, S.isSetUnits() );
       assertEquals( false, S.isSetCharge() );
+      assertEquals( true, S.isSetBoundaryCondition() );
+      assertEquals( true, S.isSetHasOnlySubstanceUnits() );
+      assertEquals( true, S.isSetConstant() );
     }
 
     public void test_Species_createWithNS()

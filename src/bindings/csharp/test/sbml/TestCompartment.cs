@@ -246,6 +246,8 @@ namespace LibSBMLCSTest {
       assertEquals( false, c.isSetVolume() );
       assertEquals( false, c.isSetUnits() );
       assertEquals( false, c.isSetOutside() );
+      assertEquals( true, c.isSetSpatialDimensions() );
+      assertEquals( true, c.isSetConstant() );
       c = null;
     }
 
