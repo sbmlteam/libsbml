@@ -230,7 +230,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
     else
     {
       /* is set by assignment - need to work it out */
-      ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
+      ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
       mValues.insert(pair<const std::string, ValueSet>(c->getId(), v));
     }
   }
@@ -305,7 +305,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
     else
     {
       /* is set by assignment - need to work it out */
-      ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
+      ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
       mValues.insert(pair<const std::string, ValueSet>(s->getId(), v));
     }
   }
@@ -338,7 +338,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
     else
     {
       /* is set by assignment - need to work it out */
-      ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
+      ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
       mValues.insert(pair<const std::string, ValueSet>(p->getId(), v));
     }
   }
@@ -376,7 +376,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
       else
       {
         /* is set by assignment - need to work it out */
-        ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
+        ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
         mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
@@ -409,7 +409,7 @@ SBMLTransforms::mapComponentValues(const Model * m)
       else
       {
         /* is set by assignment - need to work it out */
-        ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), false);
+        ValueSet v = make_pair(numeric_limits<double>::quiet_NaN(), true);
         mValues.insert(pair<const std::string, ValueSet>(sr->getId(), v));
       }
     }
@@ -422,8 +422,12 @@ SBMLTransforms::mapComponentValues(const Model * m)
 }
 
 double
-SBMLTransforms::evaluateASTNode(const ASTNode *node)
+SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
 {
+#ifdef _MSC_VER
+#  define isnan(d)  _isnan(d)
+#endif
+
   double result;
   int i;
 
@@ -451,6 +455,24 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node)
       if (mValues.find(node->getName()) != mValues.end())
       {
         result = (mValues.find(node->getName())->second).first;
+        bool set = (mValues.find(node->getName())->second).second;
+        if (isnan(result) && set)
+        {
+          if (m)
+          {
+            // means the value is set by a rule/initialAssignment
+            const Rule *r = m->getRule(node->getName());
+            const InitialAssignment *ia = m->getInitialAssignment(node->getName());
+            if (r)
+            {
+              result = evaluateASTNode(r->getMath(), m);
+            }
+            else if (ia)
+            {
+              result = evaluateASTNode(ia->getMath(), m);
+            }
+          }
+        }
       }
       else
       {

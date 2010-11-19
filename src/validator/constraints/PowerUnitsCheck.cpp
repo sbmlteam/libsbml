@@ -243,8 +243,9 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
     }
     else 
     {
-      // power could be a parameter
+      // power could be a parameter or a speciesReference in l3
       const Parameter *param = NULL;
+      const SpeciesReference *sr = NULL;
 
       if (child->isName())
       {
@@ -268,6 +269,12 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 	      {
 	        param = m.getParameter(child->getName());
 	      }
+
+        if (param == NULL && m.getLevel() > 2)
+        {
+          // could be a species reference
+          sr = m.getSpeciesReference(child->getName());
+        }
         
       }
 
@@ -291,6 +298,26 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
         {
 	  /* No parameter definition found for child->getName() */
           logUnitConflict(node, sb);
+        }
+      }
+      else if (sr != NULL)
+      {
+        // technically here there is an issue
+        // stoichiometry is dimensionless
+        SBMLTransforms::mapComponentValues(&m);
+        double value = SBMLTransforms::evaluateASTNode(child, &m);
+        // but it may not be an integer
+        if (isnan(value))
+          // we cant check
+        {
+          isExpression = 1;
+        }
+        else
+        {
+          if (ceil(value) == value)
+          {
+            isInteger = 1;
+          }
         }
       }
     }

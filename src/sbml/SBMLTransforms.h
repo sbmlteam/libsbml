@@ -100,7 +100,7 @@ public:
   static bool expandInitialAssignments(Model * m);
 
   
-  static double evaluateASTNode(const ASTNode * node);
+  static double evaluateASTNode(const ASTNode * node, const Model * m = NULL);
 
   
   static IdList mapComponentValues(const Model * m);

@@ -5105,6 +5105,20 @@ Model::populateListFormulaUnitsData()
         fud = createFormulaUnitsData();
         fud->setUnitReferenceId(sr->getId());
         fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+        /* units will be dimensionless */
+        ud = new UnitDefinition(getSBMLNamespaces());
+        u = new Unit(getSBMLNamespaces());
+        u->setKind(UNIT_KIND_DIMENSIONLESS);
+        u->initDefaults();
+
+        ud->addUnit(u);
+        delete u;
+
+        fud->setUnitDefinition(ud);
+        fud->setContainsParametersWithUndeclaredUnits(false);
+        fud->setCanIgnoreUndeclaredUnits(true);
+
+
         /* in L3 there are only defined time units IF the model
          * has the timeUnits attribute set
          */
@@ -5186,6 +5200,18 @@ Model::populateListFormulaUnitsData()
         fud = createFormulaUnitsData();
         fud->setUnitReferenceId(sr->getId());
         fud->setComponentTypecode(SBML_SPECIES_REFERENCE);
+        /* units will be dimensionless */
+        ud = new UnitDefinition(getSBMLNamespaces());
+        u = new Unit(getSBMLNamespaces());
+        u->setKind(UNIT_KIND_DIMENSIONLESS);
+        u->initDefaults();
+
+        ud->addUnit(u);
+        delete u;
+
+        fud->setUnitDefinition(ud);
+        fud->setContainsParametersWithUndeclaredUnits(false);
+        fud->setCanIgnoreUndeclaredUnits(true);
         /* in L3 there are only defined time units IF the model
          * has the timeUnits attribute set
          */

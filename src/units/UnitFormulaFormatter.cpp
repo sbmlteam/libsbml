@@ -363,7 +363,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   unsigned int i;
   unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
 
-  ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
+   ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
   if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
 
   if (ud)
@@ -476,7 +476,8 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
       /**
        * if the child is a name then it will be a parameter 
        * and may be global or local if we are in a kineticLaw
-       * (possible a species/compartment but unlikely)
+       * in L3 could be a speciesReference
+       * (if it is a species/compartment units must be messy)
        */
       if (inKL == 1)
       {
@@ -493,16 +494,28 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
       {
         if (model->getParameter(child->getName()))
         {
-          value = model->getParameter(child->getName())->getValue();
+          if (!model->getParameter(child->getName())->isSetValue())
+          {
+            SBMLTransforms::mapComponentValues(model);
+            value = SBMLTransforms::evaluateASTNode(child, model);
+          }
+          else
+          {
+            value = model->getParameter(child->getName())->getValue();
+          }
         }
-        else if (model->getCompartment(child->getName()))
+        else if (model->getSpeciesReference(child->getName()))
         {
-          value = model->getCompartment(child->getName())->getSize();
-        }
-        else if (model->getSpecies(child->getName()))
-        {
-          value = model->getSpecies(child->getName())
-                                                 ->getInitialConcentration();
+          if (!model->getSpeciesReference(child->getName())->isSetStoichiometry())
+          {
+            SBMLTransforms::mapComponentValues(model);
+            value = SBMLTransforms::evaluateASTNode(child, model);
+          }
+          else
+          {
+            value = model->getSpeciesReference(child->getName())
+                                                  ->getStoichiometry();
+          }
         }
 
       }
@@ -969,6 +982,23 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
         {
           found = 1;
         }
+      }
+
+      if (found == 0 && model->getLevel() > 2)
+      {
+        // check for sr
+        if (model->getSpeciesReference(node->getName()))
+        {
+          ud = new UnitDefinition(model->getSBMLNamespaces());
+
+          Unit *u = new Unit(model->getSBMLNamespaces());
+          u->setKind(UNIT_KIND_DIMENSIONLESS);
+          u->initDefaults();
+          ud->addUnit(u);
+          delete u;
+          found = 1;
+        }
+
       }
       
       if (found == 0 )//&& n < model->getNumParameters())
