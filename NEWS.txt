@@ -1,6 +1,44 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Latest development version
+======================================================================
+
+* New features
+
+  - Unit checking has been further improved to provide checking to a 
+    deeper level with the overall math of the model.  Thus a math 
+    expression a^b can now validate the units even if the value of b is
+    assigned b = c and the model states elsewhere that c = 2.
+
+  - SBML Level 3 has no default values and thus a number of new isSetXYZ
+    functions were introduced in libSBML-4.1.0. Users pointed out
+    that whilst writing code that dealt with multiple versions of SBML
+    it was inconsistent that these functions returned 'false' for a
+    Level 2 model in which the attribute concerned did have a default
+    value.  Thus any newly introduced isSetXYZ function that deals with
+    an attribute that had a default value in Level 2 will now return
+    'true' regardless of whever the user has explictily set the function
+    or not.
+
+* Bug fixes
+
+  - A number of validation checks had an incorrect ErrorCategory label;
+    thus whilst these were reported by the correct validator code 
+    querying the category would produce an inconsistent value.  These
+    have been updated.
+    
+  - There were some encoding issues in a number of error messages. 
+    These have been corrected.
+
+* Configuration/build system changes
+
+  - MATLAB 2010b introduced some inconsistencies in the build system 
+    on certain platforms.  This has been fixed. 
+
+* Other new features/changes
+
+======================================================================
 Version 4.2.0 (Released 2010-10-05)
 ======================================================================
 
