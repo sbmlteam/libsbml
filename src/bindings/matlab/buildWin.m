@@ -56,6 +56,7 @@
 
 if (strcmp(isoctave(), '0'))
   mex  TranslateSBML.c  -I'..\..\..\include' ..\..\..\win\bin\libsbml.lib
+  mex  OutputSBML.c  -I'..\..\..\include' ..\..\..\win\bin\libsbml.lib
 else
   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE -I"..\..\..\include" -lbz2 -lz ..\..\..\win\bin\libsbml.lib
 end;

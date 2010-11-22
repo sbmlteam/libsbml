@@ -21,7 +21,7 @@
       <compartment id="a" size="1" constant="false"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="s" compartment="a" initialAmount="0" boundaryCondition="false" constant="false" hasOnlySubstanceUnits="false"/>
+      <species id="s" compartment="a" initialAmount="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="p" value="2" units="dimensionless" constant="false"/>
@@ -95,15 +95,18 @@
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <and/>
-            <false/>
-            <true/>
+            <apply>
+              <and/>
+              <false/>
+              <true/>
+            </apply>
             <false/>
           </apply>
         </math>
       </constraint>
     </listOfConstraints>
     <listOfReactions>
-      <reaction id="r" fast="false" reversible="true">
+      <reaction id="r" reversible="true" fast="false">
         <listOfReactants>
           <speciesReference species="s" constant="true"/>
         </listOfReactants>

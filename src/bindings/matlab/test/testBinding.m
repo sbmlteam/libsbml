@@ -1,4 +1,4 @@
-function testBinding
+function Totalfail = testBinding
 
 if (strcmp(isoctave(), '0'))
   test = 15;
@@ -32,3 +32,4 @@ disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
 if (Totalfail == 0)
     disp('MATLAB binding tests successful.');
 end;
+Totalfail = 1;

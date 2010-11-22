@@ -19,10 +19,10 @@
       <parameter name="t" value="1"/>
     </listOfParameters>
     <listOfRules>
-      <parameterRule name="t" formula="s1 + s2"/>
-      <parameterRule name="k" formula="k3/k2"/>
-      <specieConcentrationRule specie="s2" formula="k * t/(1 + k)"/>
-      <specieConcentrationRule specie="s1" formula="t - s2"/>
+      <parameterRule formula="s1+s2" name="t"/>
+      <parameterRule formula="k3/k2" name="k"/>
+      <specieConcentrationRule formula="k*t/(1+k)" specie="s2"/>
+      <specieConcentrationRule formula="t-s2" specie="s1"/>
     </listOfRules>
     <listOfReactions>
       <reaction name="j1">
@@ -32,7 +32,7 @@
         <listOfProducts>
           <specieReference specie="s1"/>
         </listOfProducts>
-        <kineticLaw formula="k1 * x0"/>
+        <kineticLaw formula="k1*x0"/>
       </reaction>
       <reaction name="j3">
         <listOfReactants>
@@ -41,7 +41,7 @@
         <listOfProducts>
           <specieReference specie="x1"/>
         </listOfProducts>
-        <kineticLaw formula="k4 * s2"/>
+        <kineticLaw formula="k4*s2"/>
       </reaction>
     </listOfReactions>
   </model>
