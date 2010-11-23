@@ -204,7 +204,11 @@ AC_DEFUN([CONFIG_PROG_JAVA],
         if test -e "$headers/jni.h"; then
           JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"$headers\""
           parent=`dirname "$headers"`
-          JAVADOC_JAR="$parent/Classes/classes.jar"
+		  if test -e "$parent/Classes/classes.jar"; then  
+			JAVADOC_JAR="$parent/Classes/classes.jar"
+		  else
+			JAVADOC_JAR="${parent}JDK/Classes/classes.jar"
+		  fi
         else
           AC_MSG_ERROR([Cannot find Java include files.])
         fi
