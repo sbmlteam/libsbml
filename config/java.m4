@@ -162,6 +162,8 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           6) 
             if test -e "$framework/Versions/CurrentJDK/Headers"; then
               headers="$framework/Versions/CurrentJDK/Headers"
+            elif test -e "$framework/Versions/Current/Headers"; then
+              headers="$framework/Versions/Current/Headers"			  
             elif test -e "$framework/Versions/1.6.0/Headers"; then
               headers="$framework/Versions/1.6.0/Headers"
             elif test -e "$framework/Versions/1.6/Headers"; then
