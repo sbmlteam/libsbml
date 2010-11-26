@@ -76,9 +76,14 @@ end;
 % try the executable
 % if it doesnt work the library files are not on the system path and need
 % to be placed there
+
+success = 1;
+
+
 try
     M = TranslateSBML('test.xml');
 catch
+    disp('Libraries not found - copying');
     % determine the matlabroot for windows executable
     % this directory is saved to the environmental variable PATH
     Path_to_libs = matlabroot;
@@ -93,9 +98,52 @@ catch
     end;
 end;
 
+% try the different executables
+% but stop at first fail
 try
+  disp('checking for TranslateSBML');
   M = TranslateSBML('test.xml');
 catch
-  disp('Installation failed.');
+  disp('Installation failed - need to build TranslateSBML');
+  success = 0;
 end;
 
+if (success == 1)
+  try
+    disp('checking OutputSBML');
+    OutputSBML(M, 'test-out.xml');
+  catch
+    disp('Installation failed - need to build OutputSBML');
+    success = 0;
+  end;
+end;
+
+if (success == 1)
+  disp ('running tests for TranslateSBML');
+  cd test;
+  pass = testBinding;
+  cd ..;
+  if (pass == 0)
+    disp('TranslateSBML successful');
+  else
+    disp('Binding present but problem detected. Seek help.');
+    success = 0;
+  end;
+end;
+
+if (success == 1)
+  disp('running tests for OutputSBML');
+  cd test;
+  pass = testOutput;
+  cd ..;
+  if (pass == 0)
+    disp('OutputSBML successful');
+  else
+    disp('Output function present but problem detected. Seek help.');
+    success = 0;
+  end;
+end;
+
+if (success == 1)
+  disp ('Installation completed');
+end;

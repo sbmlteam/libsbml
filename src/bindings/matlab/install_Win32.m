@@ -61,10 +61,6 @@ end;
 % path and save
 addpath(pwd);
 
-% add the path for validating the structure
-valid_path = strcat(pwd, '\validate_MATLAB_SBML_Structures');
-addpath(valid_path);
-
 % path2rc is deprecated by version 7.0.4 
 % replaced by savepath
 % but savepath doesnt exist in version 6.5.1 or lower

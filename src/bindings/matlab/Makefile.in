@@ -40,7 +40,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = src/bindings/matlab
 
-sources = TranslateSBML.c
+sources = TranslateSBML.c 
 
 # This use of $(libraries) is slightly inconsistent with the other makefiles,
 # but for Matlab, these object files act a lot like dynamic libraries and
@@ -58,10 +58,14 @@ distfiles =                           \
         AUTHORS.txt                   \
         CheckAndConvert.m             \
         Contents.m                    \
+        ConvertFormulaToMathML.m      \
+        isSBML_Model.m                \
         Makefile.in                   \
         README.txt                    \
         TranslateSBML.c               \
         TranslateSBML.m               \
+        OutputSBML.c                  \
+        OutputSBML.m                  \
         buildWin.m                    \
         install_Win32.m               \
         install_Win64.m               \
@@ -148,11 +152,11 @@ check: all check-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-libraries install-checkandconvert install-isoctave
+install: all install-libraries install-checkandconvert install-isoctave install-issbmlmodel install-convertformula
 
 installdirs: all
 
-uninstall: uninstall-libraries uninstall-checkandconvert uninstall-isoctave
+uninstall: uninstall-libraries uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel uninstall-convertformula
 
 install-checkandconvert:
 	$(INSTALL_SH) -m 644 CheckAndConvert.m "$(DESTDIR)$(LIBDIR)"
@@ -173,6 +177,27 @@ uninstall-isoctave:
 	  echo rm $$target; \
 	  rm $$target; \
 	fi;
+
+install-issbmlmodel:
+	$(INSTALL_SH) -m 644 isSBML_Model.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-issbmlmodel:
+	@target="$(DESTDIR)$(LIBDIR)/isSBML_Model.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
+install-convertformula:
+	$(INSTALL_SH) -m 644 ConvertFormulaToMathML.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-convertformula:
+	@target="$(DESTDIR)$(LIBDIR)/ConvertFormulaToMathML.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
 
 
 # -----------------------------------------------------------------------------
