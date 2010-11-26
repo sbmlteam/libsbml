@@ -32,3 +32,5 @@ disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
 if (Totalfail == 0)
     disp('MATLAB binding tests successful.');
 end;
+
+testOutput;
