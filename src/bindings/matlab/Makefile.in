@@ -40,13 +40,15 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = src/bindings/matlab
 
-sources = TranslateSBML.c 
+translate_sources = TranslateSBML.c 
+output_sources = OutputSBML.c 
 
 # This use of $(libraries) is slightly inconsistent with the other makefiles,
 # but for Matlab, these object files act a lot like dynamic libraries and
 # we're installing them in the same place as the other libraries, so....
 
-libraries = $(sources:.c=.$(MEXEXT))
+translate_libraries = $(translate_sources:.c=.$(MEXEXT))
+output_libraries = $(output_sources:.c=.$(MEXEXT))
 
 subdirs = test
 
@@ -88,7 +90,7 @@ extra_clean = TranslateSBML.$(MEXTEXT) runTests.log
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-all: Makefile $(libraries)
+all: Makefile $(translate_libraries) $(output_libraries)
 
 flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -I../../../include -L../..
 
@@ -127,7 +129,6 @@ endif
           ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) -f ./$(mexopts_file) \
           -o $@ $^ $(flags) ../../libsbml.la $(MATLAB_LIBS)
 	cp -f .libs/$@ .
-
 
 # -----------------------------------------------------------------------------
 # Tags.
