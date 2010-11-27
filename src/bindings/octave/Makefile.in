@@ -52,6 +52,8 @@ matlab_sources =                      \
         README.txt                    \
         TranslateSBML.c               \
         TranslateSBML.m               \
+        OutputSBML.c                  \
+        OutputSBML.m               \
         buildWin.m                    \
         install_Win32.m               \
         install_Win64.m               \
@@ -64,7 +66,8 @@ matlab_sources =                      \
 	test.xml                      \
 	uninstall_Win32.m
 
-compiled_sources = TranslateSBML.c
+compiled_sources = TranslateSBML.c \
+				   OutputSBML.c
 
 # This use of $(libraries) is slightly inconsistent with the other makefiles,
 # but for Octave, these object files act a lot like dynamic libraries and
@@ -129,9 +132,10 @@ link-sources:
 
 flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include 
 
-TranslateSBML.lo: TranslateSBML.c
+%.lo: %.c
 	$(LIBTOOL) --tag=CC --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
 
+	
 %.$(OCTAVEEXT): %.lo
 	$(TOP_SRCDIR)/config/lt_link_helper.sh $(MKOCTFILE_WRAPPER) --libdir $(LIBDIR) $(MKOCTFILE) -o $@ $(flags) $^ ../../libsbml.la $(MKOCTFILE_LIBS)
 
