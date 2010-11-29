@@ -42,12 +42,19 @@ fail = 0;
 
 for i=1:length(files)
   model = [];
-  model = TranslateSBML(sprintf('test-data/%s', files(i).name));
-  if (~isempty(model))
-    OutputSBML(model, sprintf('Out-test/%s', files(i).name));
-    if (compareFiles(sprintf('test-data/%s', files(i).name), sprintf('Out-test/%s', files(i).name)))
-      disp(sprintf('Output of %s failed', files(i).name));
-      fail = fail + 1;
+  %skip models that will cause read errors
+  if (strcmp(files(i).name, 'readerror.xml'))
+    % donothing
+  elseif (strcmp(files(i).name, 'fatal.xml'))
+    %do nothing
+  else
+    model = TranslateSBML(sprintf('test-data/%s', files(i).name));
+    if (~isempty(model))
+      OutputSBML(model, sprintf('Out-test/%s', files(i).name));
+      if (compareFiles(sprintf('test-data/%s', files(i).name), sprintf('Out-test/%s', files(i).name)))
+        disp(sprintf('Output of %s failed', files(i).name));
+        fail = fail + 1;
+      end;
     end;
   end;
 end;

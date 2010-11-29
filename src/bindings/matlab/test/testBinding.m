@@ -1,9 +1,9 @@
 function Totalfail = testBinding
 
 if (strcmp(isoctave(), '0'))
-  test = 15;
+  test = 15 + 36;
 else
-  test = 14;
+  test = 14 + 36;
 end;
 Totalfail = 0;
 
@@ -24,6 +24,8 @@ Totalfail = Totalfail + testReadFromFile14;
 if (strcmp(isoctave(), '0'))
   Totalfail = Totalfail + testReadFlags;
 end;
+Totalfail = Totalfail + testOutput;
+disp ('************************************');
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
@@ -32,5 +34,3 @@ disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
 if (Totalfail == 0)
     disp('MATLAB binding tests successful.');
 end;
-
-testOutput;
