@@ -93,8 +93,6 @@
  *
  * As with all other major SBML components, Parameter is derived from
  * SBase, and the methods defined on SBase are available on Parameter.
- *
- * @see ListOfParameters
  * 
  * @note The use of the term @em parameter in SBML sometimes leads to
  * confusion among readers who have a particular notion of what something
@@ -114,6 +112,8 @@
  * expose to users the actual names of particular SBML constructs, and
  * thus tools can present to their users whatever terms their designers
  * feel best matches their target audience.
+ *
+ * @see ListOfParameters
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 

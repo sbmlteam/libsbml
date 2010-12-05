@@ -672,9 +672,6 @@ public:
    * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
    * above) of this Compartment has been set, @c false otherwise.
    *
-   * @see isSetSize()
-   * @see @if clike setVolume()@endif@if python setVolume()@endif@if java Compartment::setVolume(double value)@endif
-   *
    * @note The attribute "volume" only exists by that name in SBML
    * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
    * named "size".  In SBML Level&nbsp;1, a compartment's volume has a
@@ -682,6 +679,9 @@ public:
    * true.  In Level 2, a compartment's size (the equivalent of SBML
    * Level&nbsp;1's "volume") is optional and has no default value, and
    * therefore may or may not be set.
+   *
+   * @see isSetSize()
+   * @see @if clike setVolume()@endif@if python setVolume()@endif@if java Compartment::setVolume(double value)@endif
    */
   bool isSetVolume () const;
 
@@ -932,9 +932,6 @@ public:
    * Unsets the value of the "compartmentType"
    * attribute of this Compartment.
    *
-   * @see setCompartmentType(const std::string& sid)
-   * @see isSetCompartmentType()
-   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
@@ -943,6 +940,9 @@ public:
    * 
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
+   *
+   * @see setCompartmentType(const std::string& sid)
+   * @see isSetCompartmentType()
    */
   int unsetCompartmentType ();
 

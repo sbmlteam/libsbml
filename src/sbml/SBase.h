@@ -698,8 +698,6 @@ public:
    * 
    * @return the column number of this SBML object.
    * 
-   * @see getLine()
-   * 
    * @note The column number for each construct in an SBML model is set
    * upon reading the model.  The accuracy of the column number depends on
    * the correctness of the XML representation of the model, and on the
@@ -714,6 +712,8 @@ public:
    * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
    * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
    * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
+   * 
+   * @see getLine()
    */
   unsigned int getColumn () const;
 
@@ -1079,15 +1079,15 @@ public:
    * that do not possess them according to the SBML specification for the
    * Level and Version in use.
    *
-   * @see getName()
-   * @see isSetName()
-   * @see unsetName()
-   *
    * @return integer value indicating success/failure of the
    * function.  The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @see getName()
+   * @see isSetName()
+   * @see unsetName()
    */
   int setName (const std::string& name);
   /** @endcond */

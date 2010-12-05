@@ -1038,11 +1038,11 @@ public:
    * memory leak will result.  Please see Model::createCompartmentType()
    * for a method that does not lead to these issues.
    *
-   * @see createCompartmentType()
-   *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
    * Level&nbsp;1 nor Level&nbsp;3.
+   *
+   * @see createCompartmentType()
    */
   int addCompartmentType (const CompartmentType* ct);
 
@@ -1071,11 +1071,11 @@ public:
    * memory leak will result.  Please see Model::createSpeciesType() for a
    * method that does not lead to these issues.
    *
-   * @see createSpeciesType()
-   *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
    * Level&nbsp;1 nor Level&nbsp;3.
+   *
+   * @see createSpeciesType()
    */
   int addSpeciesType (const SpeciesType* st);
 
@@ -1368,11 +1368,11 @@ public:
    *
    * @return the SpeciesType object created
    *
-   * @see addSpeciesType(const SpeciesType* st)
-   *
    * @note The SpeciesType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
    * Level&nbsp;1 nor Level&nbsp;3.
+   *
+   * @see addSpeciesType(const SpeciesType* st)
    */
   SpeciesType* createSpeciesType ();
 

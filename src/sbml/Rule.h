@@ -966,13 +966,13 @@ public:
    * 
    * @return the formula text string for this Rule.
    *
-   * @see getMath()
-   *
    * @note The attribute "formula" is specific to SBML Level&nbsp;1; in
    * higher Levels of SBML, it has been replaced with a subelement named
    * "math".  However, libSBML provides a unified interface to the
    * underlying math expression and this method can be used for models
    * of all Levels of SBML.
+   *
+   * @see getMath()
    */
   const std::string& getFormula () const;
 

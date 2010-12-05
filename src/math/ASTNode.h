@@ -1468,9 +1468,9 @@ public:
   * having the appropriate number of children for the given type, but may
   * still be invalid in the context of its use within an SBML model.
   *
-  * @see hasCorrectNumberArguments()
-  *
   * @return @c true if this ASTNode is well-formed, @c false otherwise.
+  *
+  * @see hasCorrectNumberArguments()
   */
   bool isWellFormedASTNode() const;
 
@@ -1485,10 +1485,10 @@ public:
   * @note This function performs a check on the toplevel node only.
   * Child nodes are not checked.
   *
-  * @see isWellFormedASTNode()
-  *
   * @return @c true if this ASTNode is has appropriate number of children
   * for it's type, @c false otherwise.
+  *
+  * @see isWellFormedASTNode()
   */
   bool hasCorrectNumberArguments() const;
 

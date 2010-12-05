@@ -363,11 +363,11 @@ public:
    *
    * @param version an integer for the Version within the SBML Level
    *
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   *
    * @if clike @see SBMLDocument::setLevelAndVersion() @endif@if python @see SBMLDocument::setLevelAndVersion() @endif@if java @see SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif
    * @see getDefaultLevel()
    * @see getDefaultVersion()
-   *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
 
@@ -541,6 +541,8 @@ public:
    * can also check the Level of the model after calling this method to
    * find out whether it is Level&nbsp;1.  (If the conversion to
    * Level&nbsp;1 failed, the Level of this model will be left unchanged.)
+   *
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    * 
    * @see checkL1Compatibility()
    * @see checkL2v1Compatibility()
@@ -549,8 +551,6 @@ public:
    * @see checkL2v4Compatibility()
    * @see checkL3v1Compatibility()
    * @see checkL3v1Compatibility()
-   *
-   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   bool setLevelAndVersion (unsigned int level, unsigned int version,
                            bool strict = true);

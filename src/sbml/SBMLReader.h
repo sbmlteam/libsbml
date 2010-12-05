@@ -214,8 +214,6 @@ if doc.getNumErrors() > 0:
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @see SBMLError
-   *
    * @note LibSBML versions 2.x and later versions behave differently in
    * error handling in several respects.  One difference is how early some
    * errors are caught and whether libSBML continues processing a file in
@@ -231,6 +229,8 @@ if doc.getNumErrors() > 0:
    * libSBML.  The XML parsers themselves behave differently in their error
    * reporting, and sometimes libSBML has to resort to the lowest common
    * denominator.
+   *
+   * @see SBMLError
    */
   SBMLDocument* readSBML (const std::string& filename);
 
@@ -334,8 +334,6 @@ if doc.getNumErrors() > 0:
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @see SBMLError
-   *
    * @note LibSBML versions 2.x and later versions behave differently in
    * error handling in several respects.  One difference is how early some
    * errors are caught and whether libSBML continues processing a file in
@@ -351,6 +349,9 @@ if doc.getNumErrors() > 0:
    * libSBML.  The XML parsers themselves behave differently in their error
    * reporting, and sometimes libSBML has to resort to the lowest common
    * denominator.
+   *
+   * @see SBMLError
+   * @see SBMLDocument
    */
   SBMLDocument* readSBMLFromFile (const std::string& filename);
 
