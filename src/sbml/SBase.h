@@ -2183,6 +2183,8 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
+  void checkMathMLNamespace(const XMLToken elem);
+
   /**
    * Only subclasses may create SBase objects.
    *
