@@ -90,6 +90,11 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
     if test -n "$ACTIVATE"; then
       AC_MSG_CHECKING([for the value of MATLABROOT])
       MATLABROOT="`$ACTIVATE -v -test | grep MATLABROOT | cut -f2 -d'=' | tr -d ' '`"
+	  
+	  if test -z "$MATLABROOT"; then
+		MATLABROOT="$TMP_ROOT_MEX/../"
+	  fi
+	  
       AC_MSG_RESULT([$MATLABROOT])
 
       AC_MSG_CHECKING([the architecture of the MATLAB installation])
