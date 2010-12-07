@@ -31,6 +31,13 @@ Latest development version
   - There were some encoding issues in a number of error messages. 
     These have been corrected.
 
+  - The documentation for a number of methods had fallen slightly out
+    of date with respect to the possible operation return codes they
+    could return.  We've updated those documentation strings now.  The
+    methods affected are in the classes Compartment, KineticLaw,
+    Model, Reaction, Rule, SBase, Species, Unit, UnitDefinition, and
+    XMLToken.
+
 * Configuration/build system changes
 
   - MATLAB 2010b introduced some inconsistencies in the build system 
