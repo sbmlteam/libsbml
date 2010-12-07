@@ -1568,6 +1568,16 @@ START_TEST (test_Model_removeEvent)
 END_TEST
 
 
+START_TEST (test_Model_conversionFactor)
+{
+  fail_unless( !Model_isSetConversionFactor(M) );
+  int ret = Model_unsetConversionFactor(M);
+  fail_unless( ret == LIBSBML_UNEXPECTED_ATTRIBUTE );
+}
+END_TEST
+
+
+
 Suite *
 create_suite_Model (void)
 {
@@ -1652,18 +1662,20 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_getReactionById           );
   tcase_add_test( t, test_Model_getEventById              );
  
-  tcase_add_test( t, test_KineticLaw_getParameterById              );
+  tcase_add_test( t, test_KineticLaw_getParameterById     );
 
   tcase_add_test( t, test_Model_getNumSpeciesWithBoundaryCondition );
 
-  tcase_add_test( t, test_Model_createWithNS         );
+  tcase_add_test( t, test_Model_createWithNS              );
+
+  tcase_add_test( t, test_Model_conversionFactor          );
 
   /**
    * Model_removeXXX() methods
    */
   tcase_add_test( t, test_Model_removeFunctionDefinition  );
   tcase_add_test( t, test_Model_removeUnitDefinition      );
-  tcase_add_test( t, test_Model_removeCompartmentType      );
+  tcase_add_test( t, test_Model_removeCompartmentType     );
   tcase_add_test( t, test_Model_removeSpeciesType         );
   tcase_add_test( t, test_Model_removeCompartment         );
   tcase_add_test( t, test_Model_removeSpecies             );
