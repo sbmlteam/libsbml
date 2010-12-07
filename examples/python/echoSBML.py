@@ -33,14 +33,22 @@ def main (args):
 
   reader  = libsbml.SBMLReader()
   writer  = libsbml.SBMLWriter()
-  sbmldoc = reader.readSBML(infile)
+  doc = reader.readSBML(infile)
 
-  if sbmldoc.getNumErrors() > 0:
-    sbmldoc.printErrors()
-    print("[Error] Cannot read %s" % (infile))    
+  if doc.getNumErrors() > 0:
+    if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+      # Handle case of unreadable file here.
+      doc.printErrors()
+    elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+      # Handle case of other file error here.
+      doc.printErrors()
+    else:
+      # Handle other error cases here.
+      doc.printErrors()
+
     sys.exit(1)
     
-  writer.writeSBML(sbmldoc, outfile)
+  writer.writeSBML(doc, outfile)
   print("[OK] Echoed %s to %s" % (infile, outfile))
 
 if __name__ == '__main__':
