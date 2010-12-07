@@ -396,6 +396,15 @@ START_TEST (test_Species_createWithNS )
 END_TEST
 
 
+START_TEST (test_Species_conversionFactor)
+{
+  fail_unless( !Species_isSetConversionFactor(S) );
+  int ret = Species_unsetConversionFactor(S);
+  fail_unless( ret == LIBSBML_UNEXPECTED_ATTRIBUTE );
+}
+END_TEST
+
+
 Suite *
 create_suite_Species (void)
 {
@@ -418,7 +427,8 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setSubstanceUnits       );
   tcase_add_test( tcase, test_Species_setSpatialSizeUnits     );
   tcase_add_test( tcase, test_Species_setUnits                );
-  tcase_add_test( tcase, test_Species_createWithNS         );
+  tcase_add_test( tcase, test_Species_createWithNS            );
+  tcase_add_test( tcase, test_Species_conversionFactor        );
 
   suite_add_tcase(suite, tcase);
 
