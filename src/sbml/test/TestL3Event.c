@@ -235,9 +235,8 @@ END_TEST
 
 START_TEST (test_L3_Event_setPriority1)
 {
-  const Priority_t   *priority 
-    = Priority_create(3, 1);
-  ASTNode_t         *math1   = SBML_parseFormula("0");
+  Priority_t   *priority = Priority_create(3, 1);
+  ASTNode_t       *math1 = SBML_parseFormula("0");
   Priority_setMath(priority, math1);
  
   fail_unless (!Event_isSetPriority(E) );
