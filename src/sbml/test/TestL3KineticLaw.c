@@ -126,7 +126,7 @@ START_TEST (test_L3_KineticLaw_addParameter2)
   fail_unless( KineticLaw_getNumLocalParameters(kl) == 1);
 
   lp1 = KineticLaw_getLocalParameter(kl, 0);
-  i = KineticLaw_addLocalParameter(kl, lp1);
+  i = KineticLaw_addParameter(kl, lp1);
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( KineticLaw_getNumParameters(kl) == 2);
   fail_unless( KineticLaw_getNumLocalParameters(kl) == 2);
