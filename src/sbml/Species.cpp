@@ -1009,6 +1009,12 @@ Species::unsetCharge ()
 int
 Species::unsetConversionFactor ()
 {
+  /* only in L3 */
+  if (getLevel() < 3)
+  {
+    return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
+
   mConversionFactor.erase();
 
   if (mConversionFactor.empty()) 
