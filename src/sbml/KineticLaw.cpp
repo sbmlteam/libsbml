@@ -497,6 +497,11 @@ KineticLaw::addParameter (const Parameter* p)
       {
         return LIBSBML_INVALID_OBJECT;
       }
+      else if (getLocalParameter(lp->getId()) != NULL)
+      {
+        // an parameter with this id already exists
+        return LIBSBML_DUPLICATE_OBJECT_ID;
+      }
       else
       {
 

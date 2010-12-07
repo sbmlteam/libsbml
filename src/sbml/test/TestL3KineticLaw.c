@@ -84,7 +84,7 @@ START_TEST (test_L3_KineticLaw_addParameter1)
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   
-  Parameter_setId(p, "p");
+  Parameter_setId(p, "p1");
   i = KineticLaw_addParameter(KL, p);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
@@ -112,20 +112,21 @@ START_TEST (test_L3_KineticLaw_addParameter2)
   KineticLaw_t *kl = KineticLaw_create(3, 1);
   LocalParameter_t *lp 
     = LocalParameter_create(3, 1);
-  LocalParameter_t *lp1;
+  LocalParameter_t *lp1 
+    = LocalParameter_create(3, 1);
 
   int i = KineticLaw_addLocalParameter(kl, lp);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
     
   LocalParameter_setId(lp, "p");
+  LocalParameter_setId(lp1, "p1");
   i = KineticLaw_addLocalParameter(kl, lp);
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( KineticLaw_getNumParameters(kl) == 1);
   fail_unless( KineticLaw_getNumLocalParameters(kl) == 1);
 
-  lp1 = KineticLaw_getLocalParameter(kl, 0);
   i = KineticLaw_addParameter(kl, lp1);
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( KineticLaw_getNumParameters(kl) == 2);
