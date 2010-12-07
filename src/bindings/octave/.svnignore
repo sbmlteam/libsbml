@@ -21,3 +21,6 @@ install_Win64.m
 install_for_Win32installers.m
 AUTHORS.txt
 buildWin.m
+OutputSBML.m
+OutputSBML.c
+OutputSBML.mex
