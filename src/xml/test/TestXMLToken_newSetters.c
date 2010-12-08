@@ -20,12 +20,21 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+#if __cplusplus
+#include <iostream>
+#endif
+
+
+#include <check.h>
+
 #include <sbml/common/common.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLTriple.h>
 
-#include <check.h>
 
+#include <sbml/common/extern.h>
+
+BEGIN_C_DECLS
 
 START_TEST(test_XMLToken_newSetters_setAttributes1)
 {
@@ -60,6 +69,7 @@ END_TEST
 
 START_TEST(test_XMLToken_newSetters_setAttributes2)
 {
+  int i ;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
@@ -70,9 +80,14 @@ START_TEST(test_XMLToken_newSetters_setAttributes2)
 
   XMLAttributes_addWithTriple(nattr, xt1, "val1");
 
+  /*-- test of setting attributes with NULL value -- */
+  i = XMLToken_setAttributes(token, NULL);
+
+  fail_unless ( i == LIBSBML_INVALID_OBJECT);
+
   /*-- test of setting attributes -- */
 
-  int i = XMLToken_setAttributes(token, nattr);
+  i = XMLToken_setAttributes(token, nattr);
 
   fail_unless ( i == LIBSBML_INVALID_XML_OPERATION);
   fail_unless(XMLToken_isAttributesEmpty(token)   == 1 );
@@ -130,7 +145,8 @@ START_TEST(test_XMLToken_newSetters_addAttributes1)
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLToken_t*      token  = XMLToken_createWithTripleAttr(triple, attr);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
+                                             "http://name3.org/", "p3");
   /*-- test of adding attributes --*/
 
   int i = XMLToken_addAttr(token, "name1", "val1");
@@ -142,7 +158,8 @@ START_TEST(test_XMLToken_newSetters_addAttributes1)
   fail_unless( strcmp(XMLToken_getAttrName  (token, 0), "name1") == 0 );
   fail_unless( strcmp(XMLToken_getAttrValue (token, 0), "val1" ) == 0 );
 
-  i = XMLToken_addAttrWithNS(token, "name2", "val2", "http://name1.org/", "p1");
+  i = XMLToken_addAttrWithNS(token, "name2", "val2", 
+                                             "http://name1.org/", "p1");
 
   fail_unless( i == LIBSBML_OPERATION_SUCCESS );
   fail_unless( XMLToken_getAttributesLength(token) == 2 );
@@ -180,7 +197,8 @@ START_TEST(test_XMLToken_newSetters_addAttributes2)
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLToken_t*      token  = XMLToken_createWithTriple(triple);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
+                                             "http://name3.org/", "p3");
   /*-- test of adding attributes --*/
 
   int i = XMLToken_addAttr(token, "name1", "val1");
@@ -189,7 +207,8 @@ START_TEST(test_XMLToken_newSetters_addAttributes2)
   fail_unless( XMLToken_getAttributesLength(token) == 0 );
   fail_unless( XMLToken_isAttributesEmpty(token)   == 1 );
 
-  i = XMLToken_addAttrWithNS(token, "name2", "val2", "http://name1.org/", "p1");
+  i = XMLToken_addAttrWithNS(token, "name2", "val2", 
+                                             "http://name1.org/", "p1");
 
   fail_unless( i == LIBSBML_INVALID_XML_OPERATION );
   fail_unless( XMLToken_getAttributesLength(token) == 0 );
@@ -243,6 +262,7 @@ END_TEST
 
 START_TEST(test_XMLToken_newSetters_setNamespaces2)
 {
+  int i;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
@@ -255,7 +275,15 @@ START_TEST(test_XMLToken_newSetters_setNamespaces2)
   /*-- test of setting namespaces -- */
   XMLNamespaces_add(ns, "http://test1.org/", "test1"); 
 
-  int i =   XMLToken_setNamespaces(token, ns);
+  
+  /*-- test of setting namespaces with NULL value -- */
+  i = XMLToken_setNamespaces(token, NULL);
+
+  fail_unless ( i == LIBSBML_INVALID_OBJECT);
+
+
+  /*-- test of setting namespaces -- */
+  i =   XMLToken_setNamespaces(token, ns);
 
   fail_unless ( i == LIBSBML_INVALID_XML_OPERATION);
   fail_unless( XMLToken_getNamespacesLength(token) == 0 );
@@ -382,13 +410,21 @@ END_TEST
 
 START_TEST(test_XMLToken_newSetters_setTriple2)
 {
+  int i;
   /*-- setup --*/
 
   XMLTriple_t*     triple = XMLTriple_createWith("test","","");
   XMLToken_t *token = XMLToken_createWithText("This is text");
   
+    
+  /*-- test of setting triple with NULL value -- */
+  i = XMLToken_setTriple(token, NULL);
+
+  fail_unless ( i == LIBSBML_INVALID_OBJECT);
+
+  
   /*-- test of setting triple -- */
-  int i =   XMLToken_setTriple(token, triple);
+  i =   XMLToken_setTriple(token, triple);
 
   fail_unless ( i == LIBSBML_INVALID_XML_OPERATION);
 
@@ -454,10 +490,14 @@ START_TEST(test_XMLToken_newSetters_removeAttributes1)
   XMLAttributes_t* attr   = XMLAttributes_create();
   XMLToken_t*      token  = XMLToken_createWithTripleAttr(triple, attr);
 
-  XMLTriple_t* xt2    = XMLTriple_createWith("name3", "http://name3.org/", "p3");
-  XMLTriple_t* xt1    = XMLTriple_createWith("name5", "http://name5.org/", "p5");
+  XMLTriple_t* xt2    = XMLTriple_createWith("name3", 
+
+                                             "http://name3.org/", "p3");
+  XMLTriple_t* xt1    = XMLTriple_createWith("name5", 
+                                             "http://name5.org/", "p5");
   int i = XMLToken_addAttr(token, "name1", "val1");
-  i = XMLToken_addAttrWithNS(token, "name2", "val2", "http://name1.org/", "p1");
+  i = XMLToken_addAttrWithNS(token, "name2", "val2", 
+                                             "http://name1.org/", "p1");
   i = XMLToken_addAttrWithTriple(token, xt2, "val2");
   i = XMLToken_addAttr(token, "name4", "val4");
 
@@ -594,3 +634,4 @@ create_suite_XMLToken_newSetters (void)
   return suite;
 }
 
+END_C_DECLS

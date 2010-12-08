@@ -279,6 +279,11 @@ XMLToken::getAttributes () const
 int 
 XMLToken::setAttributes(const XMLAttributes& attributes)
 {
+	// test whether argument is valid
+	if(&attributes == NULL)
+		return LIBSBML_INVALID_OBJECT;
+
+
   /* the code will crash if the attributes points to NULL
    * put in a try catch statement to check
    */
@@ -755,6 +760,10 @@ XMLToken::getNamespaces () const
 int 
 XMLToken::setNamespaces(const XMLNamespaces& namespaces)
 {
+	// test whether argument is valid
+	if(&namespaces == NULL)
+		return LIBSBML_INVALID_OBJECT;
+
   /* the code will crash if the namespaces points to NULL
    * put in a try catch statement to check
    */
@@ -1024,6 +1033,10 @@ XMLToken::hasNamespaceNS(const std::string& uri, const std::string& prefix) cons
 int 
 XMLToken::setTriple(const XMLTriple& triple)
 {
+	// test whether argument is valid
+	if(&triple == NULL)
+		return LIBSBML_INVALID_OBJECT;
+
   /* the code will crash if the triple points to NULL
    * put in a try catch statement to check
    */
