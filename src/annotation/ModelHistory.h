@@ -454,28 +454,28 @@ public:
    *
    * @return familyName from the ModelCreator.
    */
-  std::string getFamilyName()   {  return  mFamilyName;  }
+  const std::string& getFamilyName()  const  {  return  mFamilyName;  }
 
   /**
    * Returns the givenName from the ModelCreator.
    *
    * @return givenName from the ModelCreator.
    */
-  std::string getGivenName()    {  return  mGivenName;  }
+  const std::string& getGivenName() const    {  return  mGivenName;  }
 
   /**
    * Returns the email from the ModelCreator.
    *
    * @return email from the ModelCreator.
    */
-  std::string getEmail()        {  return  mEmail;  }
+  const std::string& getEmail() const       {  return  mEmail;  }
 
   /**
    * Returns the organization from the ModelCreator.
    *
    * @return organization from the ModelCreator.
    */
-  std::string getOrganization() {  return  mOrganization;  }
+  const std::string& getOrganization() const{  return  mOrganization;  }
 
   /**
    * Returns the organization from the ModelCreator.
@@ -486,7 +486,7 @@ public:
    *
    * @see getOrganization()
    */
-  std::string getOrganisation() {  return  mOrganization;  }
+  const std::string& getOrganisation() const{  return  mOrganization;  }
  
   /**
    * Predicate returning @c true or @c false depending on whether this
