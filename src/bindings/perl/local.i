@@ -240,7 +240,7 @@ extern std::ostream clog;
     $action
   }
   catch (SBMLConstructorException &e){
-    croak(e.what());
+    croak("%s", e.what());
   }
 }
 %enddef
