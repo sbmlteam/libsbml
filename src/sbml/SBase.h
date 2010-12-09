@@ -2180,13 +2180,13 @@ public:
   /** @cond doxygen-libsbml-internal */
   /* removes duplicate top level annotations*/
   void removeDuplicateAnnotations();
+  const std::string checkMathMLNamespace(const XMLToken elem);
   /** @endcond */
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
 
-  void checkMathMLNamespace(const XMLToken elem);
 
   /**
    * Only subclasses may create SBase objects.

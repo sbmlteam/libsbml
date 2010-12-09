@@ -14,13 +14,13 @@ Pass: (3300) Inconsistent math
 		</listOfParameters>
 		<listOfRules>
 			<assignmentRule variable="p">
-				<math>
-					<apply>
-						<times/>
-						<cn> 5 </cn>
-						<cn> 5 </cn>
-					</apply>
-				</math>
+				<math:math>
+					<math:apply>
+						<math:times/>
+						<math:cn> 5 </math:cn>
+						<math:cn> 5 </math:cn>
+					</math:apply>
+				</math:math>
 			</assignmentRule>
 		</listOfRules>
 	</model>

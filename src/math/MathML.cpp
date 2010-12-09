@@ -581,13 +581,34 @@ isMathMLNodeTag(const string& name)
  * Errors will be logged in the stream's SBMLErrorLog object.
  */
 static void
-readMathML (ASTNode& node, XMLInputStream& stream)
+readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 {
+  std::string prefix;
+  bool prefix_reqd = false;
+  if (!reqd_prefix.empty())
+  {
+    prefix_reqd = true;
+  }
+
   stream.skipText();
 
   // catch case where user has an empty math tags ( <math ...></math> )
   if( stream.peek().getName() == "math" && stream.peek().isEnd() )
   {
+    // check any reqd prefix is correct
+    if (prefix_reqd)
+    {
+      prefix = stream.peek().getPrefix();
+      if (prefix != reqd_prefix)
+      {
+        const string message = "Element <" + stream.peek().getName() + "> should have prefix \"" + reqd_prefix + "\".";
+        static_cast <SBMLErrorLog*>
+          (stream.getErrorLog())->logError(InvalidMathElement, 
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion(),
+          message);
+      }
+    }
     stream.skipPastEnd(stream.peek());
     return;
   }
@@ -606,6 +627,21 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       (stream.getErrorLog())->logError(DisallowedMathMLSymbol, 
       stream.getSBMLNamespaces()->getLevel(), 
       stream.getSBMLNamespaces()->getVersion());
+  }
+
+  // check any reqd prefix is correct
+  if (prefix_reqd)
+  {
+    prefix = elem.getPrefix();
+    if (prefix != reqd_prefix)
+    {
+      const string message = "Element <" + name + "> should have prefix \"" + reqd_prefix + "\".";
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(InvalidMathElement, 
+        stream.getSBMLNamespaces()->getLevel(), 
+        stream.getSBMLNamespaces()->getVersion(),
+        message);
+    }
   }
 
   string encoding;
@@ -682,7 +718,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
        */
       if (elem.isEnd()) return;
 
-      readMathML(node, stream);
+      readMathML(node, stream, reqd_prefix);
 
       if (node.isName()) node.setType(AST_FUNCTION);
 
@@ -699,8 +735,6 @@ readMathML (ASTNode& node, XMLInputStream& stream)
         std::string message = "A number is not an operator and cannot be used ";
         message += "directly following an <apply> tag.";
 
-        // the mathML reader doesnt know what level and version it is reading!
-        // FIX ME
         static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathML,
           stream.getSBMLNamespaces()->getLevel(), 
           stream.getSBMLNamespaces()->getVersion(), message);
@@ -718,8 +752,6 @@ readMathML (ASTNode& node, XMLInputStream& stream)
         message += "> is not an operator and cannot be used directly following an";
         message += " <apply> tag.";
 
-        // the mathML reader doesnt know what level and version it is reading!
-        // FIX ME
         static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(BadMathML,
           stream.getSBMLNamespaces()->getLevel(), 
           stream.getSBMLNamespaces()->getVersion(), message);
@@ -758,7 +790,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
       if (type == AST_CONSTANT_TRUE || type == AST_CONSTANT_FALSE) break;
 
       ASTNode* child = new ASTNode();
-      readMathML(*child, stream);
+      readMathML(*child, stream, reqd_prefix);
 
       stream.skipText();
        /* look to see whether a lambda is followed by an
@@ -800,13 +832,13 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   else if (name == "bvar")
   {
-    readMathML(node, stream);
+    readMathML(node, stream, reqd_prefix);
   }
 
   else if (name == "degree" || name == "logbase" ||
            name == "piece" || name == "otherwise" )
   {
-    readMathML(node, stream);
+    readMathML(node, stream, reqd_prefix);
     if (name == "piece") return;
   }
 
@@ -814,7 +846,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   {
     /** read in attributes */
     node.setDefinitionURL(elem.getAttributes());
-    readMathML(node, stream);
+    readMathML(node, stream, reqd_prefix);
     node.setSemanticsFlag();
     /** need to look for any annotation on the semantics element **/
     while ( stream.isGood() && !stream.peek().isEndFor(elem))
@@ -1361,12 +1393,35 @@ writeNode (const ASTNode& node, XMLOutputStream& stream)
  */
 LIBSBML_EXTERN
 ASTNode*
-readMathML (XMLInputStream& stream)
+readMathML (XMLInputStream& stream, std::string reqd_prefix)
 {
+  std::string prefix;
+  bool prefix_reqd = false;
+  if (!reqd_prefix.empty())
+  {
+    prefix_reqd = true;
+  }
+
   stream.skipText();
 
   ASTNode*      node = new ASTNode;
   const string& name = stream.peek().getName();
+
+  // check any reqd prefix is correct
+  if (prefix_reqd)
+  {
+    prefix = stream.peek().getPrefix();
+    if (prefix != reqd_prefix)
+    {
+      const string message = "Element <" + name + "> should have prefix \"" + reqd_prefix + "\".";
+      static_cast <SBMLErrorLog*>
+        (stream.getErrorLog())->logError(InvalidMathElement, 
+        stream.getSBMLNamespaces()->getLevel(), 
+        stream.getSBMLNamespaces()->getVersion(),
+        message);
+    }
+  }
+
 
   /* this code is slightly redundant as you will only
    * get here if the name is "math"
@@ -1383,9 +1438,24 @@ readMathML (XMLInputStream& stream)
      */
     stream.skipText();
     const string& name1 = stream.peek().getName();
+
+    // check any reqd prefix is correct
+    if (prefix_reqd)
+    {
+      prefix = stream.peek().getPrefix();
+      if (prefix != reqd_prefix)
+      {
+        const string message = "Element <" + name1 + "> should have prefix \"" + reqd_prefix + "\".";
+        static_cast <SBMLErrorLog*>
+          (stream.getErrorLog())->logError(InvalidMathElement, 
+          stream.getSBMLNamespaces()->getLevel(), 
+          stream.getSBMLNamespaces()->getVersion(),
+          message);
+      }
+    }
     if ( isMathMLNodeTag(name1) || name1 == "lambda")
     {
-      readMathML(*node, stream);
+      readMathML(*node, stream, reqd_prefix);
     }
     else
     {
@@ -1407,12 +1477,12 @@ readMathML (XMLInputStream& stream)
       
     if (elem.isStart() && elem.isEnd()) return node;
 
-    readMathML(*node, stream);
+    readMathML(*node, stream, reqd_prefix);
     stream.skipPastEnd(elem);
   }
   else
   {
-    readMathML(*node, stream);
+    readMathML(*node, stream, reqd_prefix);
   }
 
   return node;

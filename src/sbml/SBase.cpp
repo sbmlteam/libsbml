@@ -3767,42 +3767,47 @@ SBase::checkListOfPopulated(SBase* object)
 
 
 /** @cond doxygen-libsbml-internal */
-void
+const std::string
 SBase::checkMathMLNamespace(const XMLToken elem)
 {
-    unsigned int match = 0;
-    int n;
-    if (elem.getNamespaces().getLength() != 0)
+  std::string prefix = "";
+  unsigned int match = 0;
+  int n;
+  if (elem.getNamespaces().getLength() != 0)
+  {
+    for (n = 0; n < elem.getNamespaces().getLength(); n++)
     {
-      for (n = 0; n < elem.getNamespaces().getLength(); n++)
+      if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
+                  "http://www.w3.org/1998/Math/MathML"))
       {
-        if (!strcmp(elem.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
+        match = 1;
+        break;
+      }
+    }
+  }
+  if (match == 0)
+  {
+    if( mSBML->getNamespaces() != NULL)
+    /* check for implicit declaration */
+    {
+      for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+      {
+        if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                    "http://www.w3.org/1998/Math/MathML"))
         {
           match = 1;
+          prefix = mSBML->getNamespaces()->getPrefix(n);
           break;
         }
       }
     }
-    if (match == 0)
-    {
-      if( mSBML->getNamespaces() != NULL)
-      /* check for implicit declaration */
-      {
-        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-        {
-          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                                     "http://www.w3.org/1998/Math/MathML"))
-          {
-            match = 1;
-            break;
-          }
-        }
-      }
-    }
-    if (match == 0)
-    {
-      logError(InvalidMathElement);
-    }
+  }
+  if (match == 0)
+  {
+    logError(InvalidMathElement);
+  }
+
+  return prefix;
 }
 /** @endcond */
 
