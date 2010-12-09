@@ -1472,6 +1472,7 @@ public:
   *
   * @see hasCorrectNumberArguments()
   */
+  LIBSBML_EXTERN
   bool isWellFormedASTNode() const;
 
 
@@ -1490,6 +1491,7 @@ public:
   *
   * @see isWellFormedASTNode()
   */
+  LIBSBML_EXTERN
   bool hasCorrectNumberArguments() const;
 
 

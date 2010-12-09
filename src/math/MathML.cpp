@@ -1502,14 +1502,17 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
   stream.startElement("math");
   stream.writeAttribute("xmlns", uri);
 
-  // FIX-ME need to know what level and version
-  if (node->hasUnits())
+  if (node) 
   {
-    stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
-                       SBMLNamespaces::getSBMLNamespaceURI(3,1));
+	// FIX-ME need to know what level and version
+	if (node->hasUnits())
+	{
+		stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
+		                   SBMLNamespaces::getSBMLNamespaceURI(3,1));
+	}
+	
+	writeNode(*node, stream);
   }
-
-  if (node) writeNode(*node, stream);
 
   stream.endElement("math");
 }
