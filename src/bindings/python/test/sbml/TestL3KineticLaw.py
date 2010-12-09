@@ -77,14 +77,15 @@ class TestL3KineticLaw(unittest.TestCase):
   def test_L3_KineticLaw_addParameter2(self):
     kl = libsbml.KineticLaw(3,1)
     lp = libsbml.LocalParameter(3,1)
+    lp1 = libsbml.LocalParameter(3,1)
     i = kl.addLocalParameter(lp)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     lp.setId( "p")
+    lp1.setId("p1");
     i = kl.addLocalParameter(lp)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( kl.getNumParameters() == 1 )
     self.assert_( kl.getNumLocalParameters() == 1 )
-    lp1 = kl.getLocalParameter(0)
     i = kl.addParameter(lp1)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( kl.getNumParameters() == 2 )

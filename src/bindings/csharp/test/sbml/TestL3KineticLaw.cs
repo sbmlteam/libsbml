@@ -171,15 +171,15 @@ namespace LibSBMLCSTest {
     {
       KineticLaw kl = new  KineticLaw(3,1);
       LocalParameter lp = new  LocalParameter(3,1);
-      LocalParameter lp1;
+      LocalParameter lp1 = new  LocalParameter(3,1);
       int i = kl.addLocalParameter(lp);
       assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
       lp.setId( "p");
+      lp1.setId("p1");
       i = kl.addLocalParameter(lp);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( kl.getNumParameters() == 1 );
       assertTrue( kl.getNumLocalParameters() == 1 );
-      lp1 = kl.getLocalParameter(0);
       i = kl.addParameter(lp1);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( kl.getNumParameters() == 2 );
