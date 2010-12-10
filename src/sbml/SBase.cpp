@@ -1875,7 +1875,18 @@ SBase::appendNotes(const std::string& notes)
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-  XMLNode* notes_xmln = XMLNode::convertStringToXMLNode(notes);
+  XMLNode* notes_xmln;
+  // you might not have a document !!
+  if (getSBMLDocument())
+  {
+      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns); 
+  }
+  else
+  {
+      notes_xmln = XMLNode::convertStringToXMLNode(notes);
+  }
+
   if(notes_xmln)
   {
     success = appendNotes(notes_xmln);
