@@ -53,6 +53,8 @@
 #include <sbml/common/extern.h>
 
 #include <sbml/SBase.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLWriter.h>
 #include <sbml/Model.h>
 #include <sbml/annotation/CVTerm.h>
 
@@ -2085,7 +2087,7 @@ START_TEST(test_SBase_appendNotesWithGlobalNamespace)
 		"  </model>\n"
 		"</sbml>\n";
 
-	SBMLDocument sbmlDoc (2, 4);
+    SBMLDocument sbmlDoc (2, 4);
     sbmlDoc.getNamespaces()->add("http://www.w3.org/1999/xhtml", "html");
     Model *sbmlModel  = sbmlDoc.createModel();
     sbmlModel->setId("test");
@@ -2094,9 +2096,9 @@ START_TEST(test_SBase_appendNotesWithGlobalNamespace)
     setOrAppendNotes(sbmlModel, "<html:p>VERSION: 0.99</html:p>");
     setOrAppendNotes(sbmlModel, "<html:p>TAXONOMY: 9606</html:p>");
     
-	SBMLWriter ttt;
-	std::string documentString = ttt.writeToString(&sbmlDoc);	
-	fail_unless(!strcmp(documentString.c_str(), notes));	
+    SBMLWriter ttt;
+    std::string documentString = ttt.writeToString(&sbmlDoc);	
+    fail_unless(!strcmp(documentString.c_str(), notes));	
 }
 END_TEST
 
