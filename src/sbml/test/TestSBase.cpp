@@ -2058,6 +2058,47 @@ START_TEST(test_SBase_getQualifiersFromResources)
 }
 END_TEST
 
+void setOrAppendNotes(SBase* base, std::string note)
+{
+	if ( base->isSetNotes() )
+	{
+			base->appendNotes(note);
+	}
+	else 
+	{
+		base->setNotes(note);
+	}
+}
+
+START_TEST(test_SBase_appendNotesWithGlobalNamespace)
+{
+
+  char * notes = 
+		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+		"<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" xmlns:html=\"http://www.w3.org/1999/xhtml\" level=\"2\" version=\"4\">\n"
+		"  <model id=\"test\" name=\"name\">\n"
+		"    <notes>\n"
+		"      <html:p>DATE: 2010/12/08 13:00:00</html:p>\n"
+		"      <html:p>VERSION: 0.99</html:p>\n"
+		"      <html:p>TAXONOMY: 9606</html:p>\n"
+		"    </notes>\n"
+		"  </model>\n"
+		"</sbml>\n";
+
+	SBMLDocument sbmlDoc (2, 4);
+    sbmlDoc.getNamespaces()->add("http://www.w3.org/1999/xhtml", "html");
+    Model *sbmlModel  = sbmlDoc.createModel();
+    sbmlModel->setId("test");
+    sbmlModel->setName("name");
+    setOrAppendNotes(sbmlModel, "<html:p>DATE: 2010/12/08 13:00:00</html:p>");
+    setOrAppendNotes(sbmlModel, "<html:p>VERSION: 0.99</html:p>");
+    setOrAppendNotes(sbmlModel, "<html:p>TAXONOMY: 9606</html:p>");
+    
+	SBMLWriter ttt;
+	std::string documentString = ttt.writeToString(&sbmlDoc);	
+	fail_unless(!strcmp(documentString.c_str(), notes));	
+}
+END_TEST
 
 Suite *
 create_suite_SBase (void)
@@ -2094,6 +2135,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_appendNotesString6);
   tcase_add_test(tcase, test_SBase_appendNotesString7);
   tcase_add_test(tcase, test_SBase_appendNotesString8);
+  tcase_add_test(tcase, test_SBase_appendNotesWithGlobalNamespace );
 
   tcase_add_test(tcase, test_SBase_CVTerms );
   tcase_add_test(tcase, test_SBase_addCVTerms );
