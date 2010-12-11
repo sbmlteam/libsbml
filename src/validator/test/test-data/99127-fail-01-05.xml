@@ -19,7 +19,9 @@ of 'item' or 'mole'.
         <listOfReactants>
           <speciesReference species="s"/>
         </listOfReactants>
-        <kineticLaw substanceUnits="length"/>
+        <kineticLaw substanceUnits="length">
+          <math xmlns="http://www.w3.org/1998/Math/MathML"/>          
+        </kineticLaw>
       </reaction>
     </listOfReactions>
   </model>

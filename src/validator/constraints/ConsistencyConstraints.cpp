@@ -2117,8 +2117,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21130, KineticLaw, kl)
 {
-  //only applies to level 3
-  pre( kl.getLevel() > 2        );
+  pre( kl.getLevel() > 1        );
 
   // fd must have exactly one math
   inv( kl.isSetMath() );
