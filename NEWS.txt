@@ -37,6 +37,26 @@ Latest development version
     methods affected are in the classes Compartment, KineticLaw,
     Model, Reaction, Rule, SBase, Species, Unit, UnitDefinition, and
     XMLToken.
+    
+  - The code that checked that the top-level elements of an annotation
+    had unique namespaces was incorrectly comparing prefixes not namespaces.
+    This has been fixed.  Thanks to Waclaw Kusnierczyk for reporting this 
+    and supplying the fix.
+    
+  - The namespaces for a math element may be declared on the sbml element.
+    In this case, the namespace must use a prefix.  Code that checked that
+    the MathML elements had a declared namespace failed to check whether
+    any required prefix was correctly used.  Thanks to the JSBML developers
+    for spotting this.
+    
+  - The code that allows users to use LocalParameter and Parameter 
+    interchangeably had a small bug where it failed to spot a duplicate
+    id for a Parameter but not a LocalParameter.  This has been fixed.
+    
+  - If a kineticLaw is present it must contain a 'math' element.  Prior to 
+    SBML Level 3 Version 1 Core this has never been explicitly stated as a 
+    validation rule but should have been reported as a schema error. In some
+    case this was not happening.  This is now fixed.
 
 * Configuration/build system changes
 
