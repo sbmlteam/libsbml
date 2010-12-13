@@ -47,6 +47,10 @@ for i=1:length(files)
     % donothing
   elseif (strcmp(files(i).name, 'fatal.xml'))
     %do nothing
+  elseif (strcmp(files(i).name, 'convertedFormulas.xml') && exist('OCTAVE_VERSION'))
+    %do nothing
+  elseif (strcmp(files(i).name, 'convertedFormulasL2.xml') && exist('OCTAVE_VERSION'))
+    %do nothing
   else
     model = TranslateSBML(sprintf('test-data/%s', files(i).name));
     if (~isempty(model))

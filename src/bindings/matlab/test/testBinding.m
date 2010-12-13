@@ -1,4 +1,10 @@
-function Totalfail = testBinding
+function Totalfail = testBinding(varargin)
+
+if (nargin == 0)
+  install = 0;
+else
+  install = 1;
+end;
 
 if (strcmp(isoctave(), '0'))
   test = 15 + 36;
@@ -24,7 +30,9 @@ Totalfail = Totalfail + testReadFromFile14;
 if (strcmp(isoctave(), '0'))
   Totalfail = Totalfail + testReadFlags;
 end;
-Totalfail = Totalfail + testOutput;
+if (install == 0)
+  Totalfail = Totalfail + testOutput;
+end;
 disp ('************************************');
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));

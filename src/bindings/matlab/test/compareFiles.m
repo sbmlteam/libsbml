@@ -1,4 +1,4 @@
-function y = CompareFiles(file1, file2)
+function y = compareFiles(file1, file2)
 
 %  Filename    :   CompareFiles.m
 %  Description :

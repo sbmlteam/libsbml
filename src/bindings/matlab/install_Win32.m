@@ -133,7 +133,7 @@ end;
 if (success == 1)
   disp ('running tests for TranslateSBML');
   cd test;
-  pass = testBinding;
+  pass = testBinding(1);
   cd ..;
   if (pass == 0)
     disp('TranslateSBML successful');
