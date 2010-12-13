@@ -692,6 +692,10 @@ AC_PROVIDE_IFELSE([AC_LIBTOOL_WIN32_DLL],
   AC_CHECK_TOOL(DLLTOOL, dlltool, false)
   AC_CHECK_TOOL(AS, as, false)
   AC_CHECK_TOOL(OBJDUMP, objdump, false)
+  AC_CHECK_PROG(FILE,file,no)
+  if test "$FILE" = ""; then
+  AC_MSG_ERROR([Need 'file' program to build shared libraries.])
+  fi
   ;;
   ])
 esac
