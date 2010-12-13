@@ -2521,10 +2521,7 @@ void GetReaction ( Model_t      *pModel,
     GetReactants(pReaction, unSBMLLevel, unSBMLVersion);
     GetProducts(pReaction, unSBMLLevel, unSBMLVersion);
     
-    if (Reaction_isSetKineticLaw(pReaction)) 
-    {
-      GetKineticLaw(pReaction, unSBMLLevel, unSBMLVersion);
-    }
+    GetKineticLaw(pReaction, unSBMLLevel, unSBMLVersion);
     
     if (unSBMLLevel == 2) 
     {
@@ -3046,10 +3043,7 @@ GetReactants ( Reaction_t   *pReaction,
       case 3:
       case 4:
         dStoichiometry = SpeciesReference_getStoichiometry(pReactant);
-        if (SpeciesReference_isSetStoichiometryMath(pReactant) == 1) 
-        {
-          GetStoichiometryMath(pReactant, unSBMLLevel, unSBMLVersion);
-        }
+        GetStoichiometryMath(pReactant, unSBMLLevel, unSBMLVersion);
         pacId       = SpeciesReference_getId(pReactant);
         pacName     = SpeciesReference_getName(pReactant);
         if (SBase_isSetSBOTerm((SBase_t*) pReactant)) {
@@ -3337,10 +3331,7 @@ const int nNoFields_l2v2 = 10;
       case 3:
       case 4:
         dStoichiometry = SpeciesReference_getStoichiometry(pProduct);
-        if (SpeciesReference_isSetStoichiometryMath(pProduct) == 1) 
-        {
-          GetStoichiometryMath(pProduct, unSBMLLevel, unSBMLVersion);
-        }
+        GetStoichiometryMath(pProduct, unSBMLLevel, unSBMLVersion);
         pacId       = SpeciesReference_getId(pProduct);
         pacName     = SpeciesReference_getName(pProduct);
         if (SBase_isSetSBOTerm((SBase_t*) pProduct)) {
@@ -3470,7 +3461,8 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
                      unsigned int unSBMLLevel,
                      unsigned int unSBMLVersion )
 {
-  int dims[2] = {1, 1};
+  int n = (SpeciesReference_isSetStoichiometryMath(pSpeciesReference)) ? 1 : 0;
+  int dims[2] = {1, n};
 
   const int nNoFields_l2v3 = 6;
   const char *field_names_l2v3[] = {	
@@ -3512,6 +3504,8 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
     }
   }
 
+  if (SpeciesReference_isSetStoichiometryMath(pSpeciesReference))
+  {
   pStoichiometryMath = SpeciesReference_getStoichiometryMath(pSpeciesReference);
 
   /* determine the values */
@@ -3582,7 +3576,7 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   mxSetField(mxStoichiometryMathReturn, 0, "annotation", mxCreateString(pacAnnotations));
   mxSetField(mxStoichiometryMathReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
   mxSetField(mxStoichiometryMathReturn, 0, "math",       mxCreateString(pacFormula)); 
-
+  }
 }
 /**
  * NAME:    GetKineticLaw
@@ -3602,7 +3596,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
                 unsigned int unSBMLLevel,
                 unsigned int unSBMLVersion)
 {
-  int dims[2] = {1, 1};
+  int n = Reaction_isSetKineticLaw(pReaction) ? 1 : 0;
+  int dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 7;
@@ -3702,7 +3697,9 @@ GetKineticLaw ( Reaction_t   *pReaction,
 
   /* determine the values dealing with the very unusual situation in which
      no kinetic law has been set */
-    
+   
+  if (n == 1)
+  {
   pKineticLaw = Reaction_getKineticLaw(pReaction);
 
 
@@ -3911,7 +3908,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
   if (unSBMLLevel == 2 && unSBMLVersion == 2) {
     mxSetField(mxKineticLawReturn,0,"sboTerm",CreateIntScalar(nSBO)); 
   }
-
+}
 }
 
 
@@ -5206,21 +5203,12 @@ GetEvent (Model_t      *pModel,
     }
     else
     {
-      if (Event_isSetTrigger(pEvent)) 
-      {
-        GetTrigger(pEvent, unSBMLLevel, unSBMLVersion);
-      }
-      if (Event_isSetDelay(pEvent)) 
-      {
-        GetDelay(pEvent, unSBMLLevel, unSBMLVersion);
-      }
+      GetTrigger(pEvent, unSBMLLevel, unSBMLVersion);
+      GetDelay(pEvent, unSBMLLevel, unSBMLVersion);
     }
     if (unSBMLLevel == 3)
     {
-      if (Event_isSetPriority(pEvent))
-      {
-        GetPriority(pEvent, unSBMLLevel, unSBMLVersion);
-      }
+      GetPriority(pEvent, unSBMLLevel, unSBMLVersion);
     }
     /**        
      * check for NULL strings - Matlab doesnt like creating 
@@ -5501,7 +5489,9 @@ GetTrigger ( Event_t      *pEvent,
                      unsigned int unSBMLLevel,
                      unsigned int unSBMLVersion )
 {
-  int dims[2] = {1, 1};
+  int n = (Event_isSetTrigger(pEvent)) ? 1 : 0;
+  int dims[2] = {1, n};
+
 
   const int nNoFields_l2v3 = 6;
   const char *field_names_l2v3[] = {	
@@ -5562,6 +5552,8 @@ GetTrigger ( Event_t      *pEvent,
     }
   }
 
+  if (Event_isSetTrigger(pEvent))
+  {
   pTrigger = Event_getTrigger(pEvent);
 
   /* determine the values */
@@ -5643,7 +5635,7 @@ GetTrigger ( Event_t      *pEvent,
     mxSetField(mxTriggerReturn, 0, "initialValue", CreateIntScalar(nInitialValue));
   }
   mxSetField(mxTriggerReturn, 0, "math",       mxCreateString(pacFormula)); 
-
+  }
 }
 
 
@@ -5665,7 +5657,8 @@ GetDelay ( Event_t      *pEvent,
                      unsigned int unSBMLLevel,
                      unsigned int unSBMLVersion )
 {
-  int dims[2] = {1, 1};
+  int n = (Event_isSetDelay(pEvent)) ? 1 : 0;
+  int dims[2] = {1, n};
 
   const int nNoFields_l2v3 = 6;
   const char *field_names_l2v3[] = {	
@@ -5688,7 +5681,8 @@ GetDelay ( Event_t      *pEvent,
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
-   
+
+
 
   /* create the structure array */
   if (unSBMLLevel == 1) 
@@ -5714,77 +5708,79 @@ GetDelay ( Event_t      *pEvent,
     }
   }
 
-  pDelay = Event_getDelay(pEvent);
-
-  /* determine the values */
-  pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pDelay));
-
-  pacNotes          = SBase_getNotesString((SBase_t *) pDelay);
-  pacAnnotations    = SBase_getAnnotationString((SBase_t *) pDelay);
-    pacMetaid = SBase_getMetaId((SBase_t*)pDelay);
-
-  if (SBase_isSetSBOTerm((SBase_t*) pDelay))
+  if (Event_isSetDelay(pEvent))
   {
-    nSBO = SBase_getSBOTerm((SBase_t*) pDelay);
-  }
-  else
-  {
-    nSBO = -1;
-  }
-    
-  if (Delay_isSetMath(pDelay)) {
-    LookForCSymbolTime((ASTNode_t*)Delay_getMath(pDelay));
-    LookForCSymbolDelay((ASTNode_t*)Delay_getMath(pDelay));
-    pacFormula = SBML_formulaToString((ASTNode_t*)Delay_getMath(pDelay));
+    pDelay = Event_getDelay(pEvent);
 
-     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+    /* determine the values */
+    pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pDelay));
 
-    mxInput[0] = mxCreateString(pacFormula);
-    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+    pacNotes          = SBase_getNotesString((SBase_t *) pDelay);
+    pacAnnotations    = SBase_getAnnotationString((SBase_t *) pDelay);
+      pacMetaid = SBase_getMetaId((SBase_t*)pDelay);
 
-    if (nStatus != 0)
+    if (SBase_isSetSBOTerm((SBase_t*) pDelay))
     {
-        mexErrMsgTxt("Failed to convert formula");
+      nSBO = SBase_getSBOTerm((SBase_t*) pDelay);
+    }
+    else
+    {
+      nSBO = -1;
+    }
+      
+    if (Delay_isSetMath(pDelay)) {
+      LookForCSymbolTime((ASTNode_t*)Delay_getMath(pDelay));
+      LookForCSymbolDelay((ASTNode_t*)Delay_getMath(pDelay));
+      pacFormula = SBML_formulaToString((ASTNode_t*)Delay_getMath(pDelay));
+
+       /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+
+      mxInput[0] = mxCreateString(pacFormula);
+      nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Failed to convert formula");
+      }
+
+      /* get the formula returned */
+      nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+      pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+
+      if (nStatus != 0)
+      {
+          mexErrMsgTxt("Cannot copy formula");
+      }
+
+      /* END OF HACK */
+    }
+    /**
+     * check for NULL strings - Matlab doesnt like creating 
+     * a string that is NULL
+     */
+    if (pacNotes == NULL) {
+      pacNotes = "";
+    }
+      if (pacMetaid == NULL)
+      {
+        pacMetaid = "";
+      }
+    if (pacAnnotations == NULL) {
+      pacAnnotations = "";
+    }
+    if (pacFormula == NULL) {
+      pacFormula = "";
     }
 
-    /* get the formula returned */
-    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
-    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
-
-    if (nStatus != 0)
-    {
-        mexErrMsgTxt("Cannot copy formula");
-    }
-
-    /* END OF HACK */
+    /* put into structure */
+    mxSetField(mxDelayReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
+    mxSetField(mxDelayReturn, 0, "metaid", mxCreateString(pacMetaid));
+    mxSetField(mxDelayReturn, 0, "notes",      mxCreateString(pacNotes));
+    mxSetField(mxDelayReturn, 0, "annotation", mxCreateString(pacAnnotations));
+    mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
+    mxSetField(mxDelayReturn, 0, "math",       mxCreateString(pacFormula)); 
   }
-  /**
-   * check for NULL strings - Matlab doesnt like creating 
-   * a string that is NULL
-   */
-  if (pacNotes == NULL) {
-    pacNotes = "";
-  }
-    if (pacMetaid == NULL)
-    {
-      pacMetaid = "";
-    }
-  if (pacAnnotations == NULL) {
-    pacAnnotations = "";
-  }
-  if (pacFormula == NULL) {
-    pacFormula = "";
-  }
-
-  /* put into structure */
-  mxSetField(mxDelayReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
-  mxSetField(mxDelayReturn, 0, "metaid", mxCreateString(pacMetaid));
-  mxSetField(mxDelayReturn, 0, "notes",      mxCreateString(pacNotes));
-  mxSetField(mxDelayReturn, 0, "annotation", mxCreateString(pacAnnotations));
-  mxSetField(mxDelayReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
-  mxSetField(mxDelayReturn, 0, "math",       mxCreateString(pacFormula)); 
-
 }
 
 
@@ -5806,7 +5802,9 @@ GetPriority ( Event_t      *pEvent,
                      unsigned int unSBMLLevel,
                      unsigned int unSBMLVersion )
 {
-  int dims[2] = {1, 1};
+  int n = (Event_isSetPriority(pEvent)) ? 1 : 0;
+  int dims[2] = {1, n};
+
 
   const int nNoFields_l3v1 = 6;
   const char *field_names_l3v1[] = {	
@@ -5844,6 +5842,8 @@ GetPriority ( Event_t      *pEvent,
     }
   }
 
+  if (Event_isSetPriority(pEvent))
+  {
   pPriority = Event_getPriority(pEvent);
 
   /* determine the values */
@@ -5914,7 +5914,7 @@ GetPriority ( Event_t      *pEvent,
   mxSetField(mxPriorityReturn, 0, "annotation", mxCreateString(pacAnnotations));
   mxSetField(mxPriorityReturn, 0, "sboTerm",    CreateIntScalar(nSBO)); 
   mxSetField(mxPriorityReturn, 0, "math",       mxCreateString(pacFormula)); 
-
+  }
 }
 
 

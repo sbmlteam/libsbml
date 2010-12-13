@@ -2749,7 +2749,7 @@ GetUnit ( mxArray * mxUnits,
 			                 Reaction_t * sbmlReaction, 
 			                 int nFlag)
 {
-	int nNoReactant = mxGetNumberOfElements(mxReactant);
+	int nNoReactant = 0;
 
 	int nStatus;
 	int nBuflen;
@@ -2779,7 +2779,12 @@ GetUnit ( mxArray * mxUnits,
   mxArray * mxDenominator, * mxStoichiometryMath, * mxId, * mxName, * mxSBOTerm;
   mxArray * mxIsSetStoichiometry;
 
-	int i;
+  int i;
+
+  if (mxReactant)
+  {
+    nNoReactant = mxGetNumberOfElements(mxReactant);
+  }
 
 	for (i = 0; i < nNoReactant; i++) 
 	{
@@ -3075,7 +3080,7 @@ GetUnit ( mxArray * mxUnits,
                unsigned int unSBMLVersion, 
 			         Reaction_t * sbmlReaction)
 {
-	int nNoModifier = mxGetNumberOfElements(mxModifier);
+	int nNoModifier = 0;
 
 	int nStatus;
 	int nBuflen;
@@ -3096,7 +3101,12 @@ GetUnit ( mxArray * mxUnits,
 
 	int i;
 
-	for (i = 0; i < nNoModifier; i++) 
+  if (mxModifier)
+  {
+    nNoModifier = mxGetNumberOfElements(mxModifier);
+  }
+
+  for (i = 0; i < nNoModifier; i++) 
 	{
 
 		pSpeciesReference = Reaction_createModifier(sbmlReaction);
@@ -5023,6 +5033,8 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   ASTNode_t *ast;
 
   if (mxStoichiometryMath == NULL) return;
+  else if (mxGetNumberOfElements(mxStoichiometryMath) == 0) return;
+
   pStoichiometryMath = StoichiometryMath_create(unSBMLLevel, unSBMLVersion);
 
   /* get notes */
@@ -5159,6 +5171,7 @@ GetTrigger ( mxArray * mxTrigger,
   ASTNode_t * ast;
 
   if (mxTrigger == NULL) return;
+  else if (mxGetNumberOfElements(mxTrigger) == 0) return;
   pTrigger = Trigger_create(unSBMLLevel, unSBMLVersion);
 
   /* get notes */
@@ -5306,6 +5319,7 @@ GetDelay ( mxArray * mxDelay,
 	Delay_t *pDelay;
   ASTNode_t * ast;
   if (mxDelay == NULL) return;
+  else if (mxGetNumberOfElements(mxDelay) == 0) return;
   pDelay = Delay_create(unSBMLLevel, unSBMLVersion);
 
   /* get notes */
@@ -5441,6 +5455,7 @@ GetPriority ( mxArray * mxPriority,
 	Priority_t *pPriority;
   ASTNode_t * ast;
   if (mxPriority == NULL) return;
+  else if (mxGetNumberOfElements(mxPriority) == 0) return;
   pPriority = Priority_create(unSBMLLevel, unSBMLVersion);
 
   /* get notes */

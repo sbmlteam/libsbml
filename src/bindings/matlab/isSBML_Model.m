@@ -141,7 +141,7 @@ end;
 % end;
 % 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -151,8 +151,9 @@ end;
   
 % check that any nested structures are appropriate
 if (bSBML == 1)
-    if (Level == 2)
+    if (Level > 1)
         index = 1;
+        [bSBML, message] = isSBML_FunctionDefinition(SBMLStructure.functionDefinition, Level, Version);
         [x, nNumber] = size(SBMLStructure.functionDefinition);
         while (bSBML == 1 && index <= nNumber)
             [bSBML, message] = isSBML_FunctionDefinition(SBMLStructure.functionDefinition(index), Level, Version);
@@ -161,6 +162,7 @@ if (bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_UnitDefinition(SBMLStructure.unitDefinition, Level, Version);
     [x, nNumber] = size(SBMLStructure.unitDefinition);
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_UnitDefinition(SBMLStructure.unitDefinition(index), Level, Version);
@@ -168,6 +170,7 @@ if (bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_Compartment(SBMLStructure.compartment, Level, Version);
     [x, nNumber] = size(SBMLStructure.compartment);
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_Compartment(SBMLStructure.compartment(index), Level, Version);
@@ -175,6 +178,7 @@ if (bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_Species(SBMLStructure.species, Level, Version);
     [x, nNumber] = size(SBMLStructure.species);
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_Species(SBMLStructure.species(index), Level, Version);
@@ -182,6 +186,7 @@ if (bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_Parameter(SBMLStructure.parameter, Level, Version);
     [x, nNumber] = size(SBMLStructure.parameter);
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_Parameter(SBMLStructure.parameter(index), Level, Version);
@@ -189,6 +194,7 @@ if (bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_Rule(SBMLStructure.rule, Level, Version);
     [x, nNumber] = size(SBMLStructure.rule);
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_Rule(SBMLStructure.rule(index), Level, Version);
@@ -196,14 +202,16 @@ if (bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_Reaction(SBMLStructure.reaction, Level, Version);
     [x, nNumber] = size(SBMLStructure.reaction);
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_Reaction(SBMLStructure.reaction(index), Level, Version);
         index = index + 1;
     end;
 
-    if (Level == 2)
+    if (Level > 1)
         index = 1;
+        [bSBML, message] = isSBML_Event(SBMLStructure.event, Level, Version);
         [x, nNumber] = size(SBMLStructure.event);
         while (bSBML == 1 && index <= nNumber)
             [bSBML, message] = isSBML_Event(SBMLStructure.event(index), Level, Version);
@@ -213,6 +221,7 @@ if (bSBML == 1)
     
     if (Level == 2 && Version > 1)
         index = 1;
+        [bSBML, message] = isSBML_CompartmentType(SBMLStructure.compartmentType, Level, Version);
         [x, nNumber] = size(SBMLStructure.compartmentType);
         while (bSBML == 1 && index <= nNumber)
             [bSBML, message] = isSBML_CompartmentType(SBMLStructure.compartmentType(index), Level, Version);
@@ -220,6 +229,7 @@ if (bSBML == 1)
         end;
     
         index = 1;
+        [bSBML, message] = isSBML_SpeciesType(SBMLStructure.speciesType, Level, Version);
         [x, nNumber] = size(SBMLStructure.speciesType);
         while (bSBML == 1 && index <= nNumber)
             [bSBML, message] = isSBML_SpeciesType(SBMLStructure.speciesType(index), Level, Version);
@@ -227,6 +237,7 @@ if (bSBML == 1)
         end;
 
         index = 1;
+        [bSBML, message] = isSBML_InitialAssignment(SBMLStructure.initialAssignment, Level, Version);
         [x, nNumber] = size(SBMLStructure.initialAssignment);
         while (bSBML == 1 && index <= nNumber)
             [bSBML, message] = isSBML_InitialAssignment(SBMLStructure.initialAssignment(index), Level, Version);
@@ -234,12 +245,30 @@ if (bSBML == 1)
         end;
  
         index = 1;
+        [bSBML, message] = isSBML_Constraint(SBMLStructure.constraint, Level, Version);
         [x, nNumber] = size(SBMLStructure.constraint);
         while (bSBML == 1 && index <= nNumber)
             [bSBML, message] = isSBML_Constraint(SBMLStructure.constraint(index), Level, Version);
             index = index + 1;
         end;
     
+    elseif (Level > 2)
+
+        index = 1;
+        [bSBML, message] = isSBML_InitialAssignment(SBMLStructure.initialAssignment, Level, Version);
+        [x, nNumber] = size(SBMLStructure.initialAssignment);
+        while (bSBML == 1 && index <= nNumber)
+            [bSBML, message] = isSBML_InitialAssignment(SBMLStructure.initialAssignment(index), Level, Version);
+            index = index + 1;
+        end;
+ 
+        index = 1;
+        [bSBML, message] = isSBML_Constraint(SBMLStructure.constraint, Level, Version);
+        [x, nNumber] = size(SBMLStructure.constraint);
+        while (bSBML == 1 && index <= nNumber)
+            [bSBML, message] = isSBML_Constraint(SBMLStructure.constraint(index), Level, Version);
+            index = index + 1;
+        end;
     end;
     
 end;
@@ -279,7 +308,7 @@ bSBML = isSBML_Rule(SBMLStructure, Level, Version);
 
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -321,7 +350,7 @@ bSBML = isSBML_Rule(SBMLStructure, Level, Version);
 % check that the typecode is correct
 index = 1;
 nMatch = 0;
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     while (index <= nNumberTypecodes)
         k = strcmp(type, typecode(index));
@@ -417,7 +446,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -500,7 +529,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -539,7 +568,7 @@ bSBML = isSBML_Rule(SBMLStructure, Level, Version);
 
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -622,7 +651,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -705,7 +734,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -765,8 +794,8 @@ elseif (Level == 2)
 elseif (Level == 3)
     if (Version == 1)
         SBMLfieldnames = {'typecode', 'metaid', 'notes', 'annotation', 'sboTerm', 'name', 'id', ...
-          'useValuesFromTriggerTime', 'trigger', 'delay', 'eventAssignment'};
-        nNumberFields = 11;
+          'useValuesFromTriggerTime', 'trigger', 'delay', 'priority', 'eventAssignment'};
+        nNumberFields = 12;
     end;
 end;
     
@@ -794,7 +823,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -803,20 +832,25 @@ if (bSBML == 1)
 end;
  
 % check that any nested structures are appropriate
-if(bSBML == 1)
+if(bSBML == 1 && length(SBMLStructure) == 1)
     index = 1;
+    [bSBML, message] = isSBML_EventAssignment(SBMLStructure.eventAssignment, Level, Version);
     [x, nNumber] = size(SBMLStructure.eventAssignment); 
     while (bSBML == 1 && index <= nNumber)
         [bSBML, message] = isSBML_EventAssignment(SBMLStructure.eventAssignment(index), Level, Version);
         index = index + 1;
     end;
 end;
-if (Level == 2 && Version > 2)
+
+if (bSBML == 1 && length(SBMLStructure) == 1)
+% nested structures that are empty should have the structure but with no
+% elements e.g. [1x0 struct]
+if ((Level == 2 && Version > 2))
   if (length(SBMLStructure.trigger) > 1 || length(SBMLStructure.delay) > 1)
     bSBML = 0;
   end;
 
-  if(bSBML == 1 && ~isempty(SBMLStructure.trigger))
+  if(bSBML == 1) % && ~isempty(SBMLStructure.trigger))
     [bSBML, mess1] = isSBML_Trigger(SBMLStructure.trigger, Level, Version);
     if (bSBML == 0)
       if (isempty(message))
@@ -826,7 +860,7 @@ if (Level == 2 && Version > 2)
       end;
     end;
   end;
-  if(bSBML == 1 && ~isempty(SBMLStructure.delay))
+  if(bSBML == 1) % && ~isempty(SBMLStructure.delay))
     [bSBML, mess1] = isSBML_Delay(SBMLStructure.delay, Level, Version);
     if (bSBML == 0)
       if (isempty(message))
@@ -837,7 +871,45 @@ if (Level == 2 && Version > 2)
     end;
   end;
 end;
+if (Level > 2)
+  if (length(SBMLStructure.trigger) > 1  ...
+      || length(SBMLStructure.delay) > 1 ...
+      || length(SBMLStructure.priority) > 1)
+    bSBML = 0;
+  end;
 
+  if(bSBML == 1) % && ~isempty(SBMLStructure.trigger))
+    [bSBML, mess1] = isSBML_Trigger(SBMLStructure.trigger, Level, Version);
+    if (bSBML == 0)
+      if (isempty(message))
+        message = mess1;
+      else
+        message = sprintf('%s\n%s', message, mess1);
+      end;
+    end;
+  end;
+  if(bSBML == 1) % && ~isempty(SBMLStructure.delay))
+    [bSBML, mess1] = isSBML_Delay(SBMLStructure.delay, Level, Version);
+    if (bSBML == 0)
+      if (isempty(message))
+        message = mess1;
+      else
+        message = sprintf('%s\n%s', message, mess1);
+      end;
+    end;
+  end;
+  if(bSBML == 1) % && ~isempty(SBMLStructure.priority))
+    [bSBML, mess1] = isSBML_Priority(SBMLStructure.priority, Level, Version);
+    if (bSBML == 0)
+      if (isempty(message))
+        message = mess1;
+      else
+        message = sprintf('%s\n%s', message, mess1);
+      end;
+    end;
+  end;
+end;
+end;
 if (bSBML == 0)
   if (isempty(message))
     message = 'Invalid Event structure';
@@ -914,7 +986,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -995,7 +1067,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1078,7 +1150,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1159,7 +1231,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1168,16 +1240,18 @@ if (bSBML == 1)
 end;
   
 % check that any nested structures are appropriate
-if(bSBML == 1)
+if(bSBML == 1 && length(SBMLStructure) == 1)
     index = 1;
     if (Level < 3)
       [x, nNumberParameters] = size(SBMLStructure.parameter); 
+      [bSBML, message] = isSBML_Parameter(SBMLStructure.parameter, Level, Version);
       while (bSBML == 1 && index <= nNumberParameters)
           [bSBML, message] = isSBML_Parameter(SBMLStructure.parameter(index), Level, Version);
           index = index + 1;
       end;
     else
       [x, nNumberParameters] = size(SBMLStructure.localParameter); 
+      [bSBML, message] = isSBML_LocalParameter(SBMLStructure.localParameter, Level, Version);
       while (bSBML == 1 && index <= nNumberParameters)
           [bSBML, message] = isSBML_LocalParameter(SBMLStructure.localParameter(index), Level, Version);
           index = index + 1;
@@ -1252,7 +1326,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1334,7 +1408,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1420,7 +1494,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1459,7 +1533,7 @@ bSBML = isSBML_Rule(SBMLStructure, Level, Version);
 
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1469,6 +1543,78 @@ end;
     
 if (bSBML == 0)
   message = 'Invalid ParameterRule structure';
+end;
+
+y = bSBML;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [y, message] = isSBML_Priority(varargin)
+
+
+%input arguments
+if (nargin < 2 || nargin > 3)
+    error('wrong number of input arguments');
+end;
+
+message = '';
+
+SBMLStructure = varargin{1};
+Level = varargin{2};
+
+if (nargin == 3)
+    Version = varargin{3};
+else
+    Version = 1;
+end;
+
+if (Level == 1)
+    y = 0;
+    return;
+elseif (Level == 2)
+    y = 0;
+    return;
+elseif (Level == 3)
+    if (Version == 1)
+        SBMLfieldnames = {'typecode', 'metaid', 'notes', 'annotation', 'sboTerm', 'math'};
+        nNumberFields = 6;
+    end;
+end;
+    
+ typecode = 'SBML_PRIORITY';
+
+bSBML = 0;
+
+% check that argument is a structure
+bSBML = isstruct(SBMLStructure);
+
+% check it contains each of the fields listed
+index = 1;
+while (bSBML == 1 && index <= nNumberFields)
+    bSBML = isfield(SBMLStructure, char(SBMLfieldnames(index)));
+    index = index + 1;
+end;
+
+% check that it contains only the fields listed
+if (bSBML == 1)
+    names = fieldnames(SBMLStructure);
+    [m,n] = size(names);
+    if (m ~= nNumberFields)
+        bSBML = 0;
+    end;
+end;
+
+% check that the typecode is correct
+if (bSBML == 1 && length(SBMLStructure) == 1)
+    type = SBMLStructure.typecode;
+    k = strcmp(type, typecode);
+    if (k ~= 1)
+        bSBML = 0;
+    end;
+end;
+
+if (bSBML == 0)
+  message = 'Invalid Priority structure';
 end;
 
 y = bSBML;
@@ -1502,7 +1648,7 @@ bSBML = isSBML_Rule(SBMLStructure, Level, Version);
 
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1&& length(SBMLStructure) == 1)
   code = SBMLStructure.typecode;
   k = strcmp(code, typecode);
   if (k ~= 1)
@@ -1608,7 +1754,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1617,8 +1763,9 @@ if (bSBML == 1)
 end;
     
 % check that any nested structures are appropriate
-if(bSBML == 1)
+if(bSBML == 1 && length(SBMLStructure) == 1)
     index = 1;
+    [bSBML, message] = isSBML_SpeciesReference(SBMLStructure.reactant, Level, Version);
     [x, nNumberReactants] = size(SBMLStructure.reactant);
     while (bSBML == 1 && index <= nNumberReactants)
         [bSBML, message] = isSBML_SpeciesReference(SBMLStructure.reactant(index), Level, Version);
@@ -1626,6 +1773,7 @@ if(bSBML == 1)
     end;
 
     index = 1;
+    [bSBML, message] = isSBML_SpeciesReference(SBMLStructure.product, Level, Version);
     [x, nNumberProducts] = size(SBMLStructure.product);
     while (bSBML == 1 && index <= nNumberProducts)
         [bSBML, message] = isSBML_SpeciesReference(SBMLStructure.product(index), Level, Version);
@@ -1634,6 +1782,7 @@ if(bSBML == 1)
 
     if (Level > 1)
         index = 1;
+        [bSBML, message] = isSBML_ModifierSpeciesReference(SBMLStructure.modifier, Level, Version);
         [x, nNumberModifiers] = size(SBMLStructure.modifier);
         while (bSBML == 1 && index <= nNumberModifiers)
             [bSBML, message] = isSBML_ModifierSpeciesReference(SBMLStructure.modifier(index), Level, Version);
@@ -1642,7 +1791,7 @@ if(bSBML == 1)
     end;
 
     % if a kinetic law is present check that it is valid
-    if (bSBML == 1 && ~isempty(SBMLStructure.kineticLaw))
+    if (bSBML == 1)% && ~isempty(SBMLStructure.kineticLaw))
         [bSBML, message] = isSBML_KineticLaw(SBMLStructure.kineticLaw, Level, Version);
     end;
 end;
@@ -1736,7 +1885,7 @@ end;
 % check that the typecode is correct
 index = 1;
 nMatch = 0;
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
 type = SBMLStructure.typecode;
   if (Level == 1)
     while (index <= nNumberTypecodesl1)
@@ -1851,7 +2000,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1890,7 +2039,7 @@ bSBML = isSBML_Rule(SBMLStructure, Level, Version);
 
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -1977,18 +2126,19 @@ if (bSBML == 1)
 end;
 
 % check that any nested structures are appropriate
-if (Level == 2 && Version > 2)
-  if (length(SBMLStructure.stoichiometryMath) > 1)
-    bSBML = 0;
-  end;
+if(bSBML == 1 && length(SBMLStructure) == 1)
+  if (Level == 2 && Version > 2)
+    if (length(SBMLStructure.stoichiometryMath) > 1)
+      bSBML = 0;
+    end;
 
-  if(bSBML == 1 && ~isempty(SBMLStructure.stoichiometryMath))
-    [bSBML, message] = isSBML_StoichiometryMath(SBMLStructure.stoichiometryMath, Level, Version);
+    if(bSBML == 1 && ~isempty(SBMLStructure.stoichiometryMath))
+      [bSBML, message] = isSBML_StoichiometryMath(SBMLStructure.stoichiometryMath, Level, Version);
+    end;
   end;
 end;
-
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -2075,7 +2225,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -2158,7 +2308,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -2212,8 +2362,9 @@ elseif (Level == 2)
     end;
 elseif (Level == 3)
     if (Version == 1)
-        SBMLfieldnames = {'typecode', 'metaid', 'notes', 'annotation', 'sboTerm', 'math'};
-        nNumberFields = 6;
+        SBMLfieldnames = {'typecode', 'metaid', 'notes', 'annotation', 'sboTerm', ...
+          'persistent', 'initialValue' 'math'};
+        nNumberFields = 8;
     end;
 end;
     
@@ -2241,7 +2392,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -2330,7 +2481,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
   type = SBMLStructure.typecode;
   k = strcmp(type, typecode);
   if (k ~= 1)
@@ -2412,7 +2563,7 @@ if (bSBML == 1)
 end;
 
 % check that the typecode is correct
-if (bSBML == 1)
+if (bSBML == 1 && length(SBMLStructure) == 1)
     type = SBMLStructure.typecode;
     k = strcmp(type, typecode);
     if (k ~= 1)
@@ -2421,7 +2572,7 @@ if (bSBML == 1)
 end;
     
 % check that any nested structures are appropriate
-if(bSBML == 1)
+if(bSBML == 1 && length(SBMLStructure) == 1)
     index = 1;
     [x, nNumber] = size(SBMLStructure.unit); 
     while (bSBML == 1 && index <= nNumber)
