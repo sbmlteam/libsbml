@@ -49,6 +49,7 @@ matlab_sources =                      \
         AUTHORS.txt                   \
         CheckAndConvert.m             \
         Contents.m                    \
+        isSBML_Model.m                \
         README.txt                    \
         TranslateSBML.c               \
         TranslateSBML.m               \
@@ -56,15 +57,12 @@ matlab_sources =                      \
         OutputSBML.m               \
         buildWin.m                    \
         install_Win32.m               \
-        install_Win64.m               \
-        install_for_Win32installers.m \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
         mexopts-R2007.sh              \
         mexopts-R2008.sh              \
         mexopts-R2009-R2010.sh        \
-	test.xml                      \
-	uninstall_Win32.m
+	test.xml                      
 
 compiled_sources = TranslateSBML.c \
 				   OutputSBML.c

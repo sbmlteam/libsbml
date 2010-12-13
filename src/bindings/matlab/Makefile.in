@@ -70,7 +70,6 @@ distfiles =                           \
         buildWin.m                    \
         install_Win32.m               \
         install_Win64.m               \
-        install_for_Win32installers.m \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
         mexopts-R2007.sh              \
