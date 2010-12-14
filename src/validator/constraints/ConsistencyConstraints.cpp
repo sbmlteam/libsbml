@@ -13,8 +13,6 @@
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * @cond doxygen-libsbml-internal
- *
  * the Free Software Foundation.  A copy of the license agreement is
  * provided in the file named "LICENSE.txt" included with this software
  * distribution.  It is also available online at
@@ -2462,4 +2460,3 @@ END_CONSTRAINT
 
 /** @endcond */
 
-/** @endcond */
