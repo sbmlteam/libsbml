@@ -994,10 +994,10 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(Unit)
 %typemap(cstype) SimpleSpeciesReference* ListOfSpeciesReferences::remove  "SimpleSpeciesReference"
 %csmethodmodifiers ListOfSpeciesReferences::remove(unsigned int n)  "public new"
 
-%typemap(cstype) LocalParameter* ListOfSpeciesReferences::get  "LocalParameter"
-%csmethodmodifiers ListOfSpeciesReferences::get(unsigned int n)  "public new"
-%typemap(cstype) LocalParameter* ListOfSpeciesReferences::remove  "LocalParameter"
-%csmethodmodifiers ListOfSpeciesReferences::remove(unsigned int n)  "public new"
+%typemap(cstype) LocalParameter* ListOfLocalParameters::get  "Parameter"
+%csmethodmodifiers ListOfLocalParameters::get(unsigned int n)  "public new"
+%typemap(cstype) LocalParameter* ListOfLocalParameters::remove  "Parameter"
+%csmethodmodifiers ListOfLocalParameters::remove(unsigned int n)  "public new"
 
 
 #ifdef USE_LAYOUT
