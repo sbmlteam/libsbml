@@ -15,11 +15,14 @@
 #include <iostream>
 
 #include <sbml/SBMLTypes.h>
+#include <sbml/common/extern.h>
 #include "util.h"
 
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
+
+BEGIN_C_DECLS
 
 int
 main (int argc, char* argv[])
@@ -53,3 +56,5 @@ main (int argc, char* argv[])
   delete document;
   return errors;
 }
+
+END_C_DECLS

@@ -20,6 +20,10 @@
 #  include <sys/time.h>
 #endif /* WIN32 && !CYGWIN */
 
+#include <sbml/common/extern.h>
+
+BEGIN_C_DECLS
+
 
 /**
  * @return the number of milliseconds elapsed since the Epoch.
@@ -40,7 +44,7 @@ getCurrentMillis (void)
 
   if (gettimeofday(&tv, 0) == 0)
   {
-    result = static_cast<unsigned long long>
+    result = (unsigned long long)
     (
      (tv.tv_sec * (time_t) 1000) + (tv.tv_usec * .001)
     );
@@ -69,3 +73,6 @@ getFileSize (const char* filename)
 
   return result;
 }
+
+END_C_DECLS
+

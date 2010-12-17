@@ -10,6 +10,10 @@
  * information about SBML, and the latest version of libSBML.
  */
 
+#include <sbml/common/extern.h>
+
+
+BEGIN_C_DECLS
 
 /**
  * @return the number of milliseconds elapsed since the Epoch.
@@ -22,3 +26,5 @@ getCurrentMillis (void);
  */
 unsigned long
 getFileSize (const char* filename);
+
+END_C_DECLS

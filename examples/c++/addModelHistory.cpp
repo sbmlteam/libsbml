@@ -19,6 +19,29 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
+void printStatus(std::string message, int status)
+{
+	std::string statusString; 
+	switch(status)
+	{
+	case LIBSBML_OPERATION_SUCCESS:
+		statusString = "succeeded";
+		break;
+	case LIBSBML_INVALID_OBJECT:
+		statusString = "invalid object";
+		break;
+	case LIBSBML_OPERATION_FAILED:
+		statusString = "operation failed";
+		break;
+	default: 
+		statusString = "unknown";
+		break;
+	}
+
+	cout << message << statusString << endl;
+
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -55,15 +78,21 @@ main (int argc, char *argv[])
     c->setEmail("sbml-team@caltech.edu");
     c->setOrganization("University of Hertfordshire");
 
-    h->addCreator(c);
+    int status = h->addCreator(c);
+	printStatus("Status for addCreator: ", status);
+
 
     Date * date = new Date("1999-11-13T06:54:32");
-    Date * date2 = new Date("2007-11-31T06:54:00-02:00");
+    Date * date2 = new Date("2007-11-30T06:54:00-02:00");
    
-    h->setCreatedDate(date);
-    h->setModifiedDate(date2);
+    status = h->setCreatedDate(date);
+	printStatus("Set created date:      ", status);
 
-    d->getModel()->setModelHistory(h);
+    status = h->setModifiedDate(date2);
+	printStatus("Set modified date:     ", status);
+
+    status = d->getModel()->setModelHistory(h);
+	printStatus("Set model history:     ", status);
 
   
     writeSBML(d, argv[2]);
