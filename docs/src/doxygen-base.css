@@ -556,8 +556,14 @@ INPUT.search {
   background-color: #eeeeff;
 }
 
+/* 2010-12-17 Stupendous hack: "tiny" is used in the display of search results
+   for the list of "Matches" shown under the link.  The matches are confusing,
+   so we set the font color to white to make them invisible.
+ */
+
 TD.tiny {
   font-size: 75%;
+  color: white;
 }
 
 PRE { 
