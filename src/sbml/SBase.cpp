@@ -2580,6 +2580,7 @@ SBase::hasValidLevelVersionNamespaceCombination()
 
     if (xmlns->hasURI(SBML_XMLNS_L2V4))
     {
+	  if (numNS > 0) return false;
       ++numNS;
       declaredURI.assign(SBML_XMLNS_L2V4);
     }
