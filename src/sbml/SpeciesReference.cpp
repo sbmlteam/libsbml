@@ -202,7 +202,11 @@ SimpleSpeciesReference::isSetSpecies () const
 int
 SimpleSpeciesReference::setSpecies (const std::string& sid)
 {
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -220,7 +224,11 @@ SimpleSpeciesReference::setSpecies (const std::string& sid)
 int
 SimpleSpeciesReference::setId (const std::string& sid)
 {
-  if (getLevel() == 1 ||
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1 ||
     (getLevel() == 2 && getVersion() == 1))
   {
 #ifdef USE_LAYOUT
@@ -248,7 +256,11 @@ SimpleSpeciesReference::setId (const std::string& sid)
 int
 SimpleSpeciesReference::setName (const std::string& name)
 {
-  if (getLevel() == 1 ||
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1 ||
     (getLevel() == 2 && getVersion() == 1))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;

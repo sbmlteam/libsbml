@@ -459,7 +459,11 @@ Compartment::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -480,7 +484,11 @@ Compartment::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (getLevel() == 1)
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidSBMLSId(name)))
     {
@@ -506,7 +514,11 @@ Compartment::setName (const std::string& name)
 int
 Compartment::setCompartmentType (const std::string& sid)
 {
-  if ( (getLevel() < 2)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if ( (getLevel() < 2)
     || (getLevel() == 2 && getVersion() == 1))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -623,7 +635,11 @@ Compartment::setVolume (double value)
 int
 Compartment::setUnits (const std::string& sid)
 {
-  if (!(SyntaxChecker::isValidUnitSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidUnitSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -641,7 +657,11 @@ Compartment::setUnits (const std::string& sid)
 int
 Compartment::setOutside (const std::string& sid)
 {
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

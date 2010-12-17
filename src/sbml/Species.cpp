@@ -577,7 +577,11 @@ Species::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -598,7 +602,11 @@ Species::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (getLevel() == 1)
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidSBMLSId(name)))
     {
@@ -624,7 +632,11 @@ Species::setName (const std::string& name)
 int
 Species::setSpeciesType (const std::string& sid)
 {
-  if ( (getLevel() < 2)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if ( (getLevel() < 2)
     || (getLevel() == 2 && getVersion() == 1))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -647,7 +659,11 @@ Species::setSpeciesType (const std::string& sid)
 int
 Species::setCompartment (const std::string& sid)
 {
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -702,7 +718,11 @@ Species::setInitialConcentration (double value)
 int
 Species::setSubstanceUnits (const std::string& sid)
 {
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else  if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -720,7 +740,11 @@ Species::setSubstanceUnits (const std::string& sid)
 int
 Species::setSpatialSizeUnits (const std::string& sid)
 {
-  if ( (getLevel() != 2)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else  if ( (getLevel() != 2)
     || (getLevel() == 2 && getVersion() > 2))
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -824,7 +848,11 @@ Species::setConstant (bool value)
 int
 Species::setConversionFactor (const std::string& sid)
 {
-  if (getLevel() < 3)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }

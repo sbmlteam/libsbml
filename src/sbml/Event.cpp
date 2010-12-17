@@ -448,7 +448,11 @@ Event::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -470,7 +474,11 @@ Event::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (getLevel() == 1)
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidSBMLSId(name)))
     {
@@ -617,7 +625,11 @@ Event::setPriority (const Priority* priority)
 int
 Event::setTimeUnits (const std::string& sid)
 {
-  if (getLevel() == 2 && getVersion() > 2)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 2 && getVersion() > 2)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }

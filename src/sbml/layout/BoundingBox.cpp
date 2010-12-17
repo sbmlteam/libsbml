@@ -248,7 +248,11 @@ bool BoundingBox::isSetId () const
   */
 int BoundingBox::setId (const std::string& id)
 {
-  if (!(SyntaxChecker::isValidSBMLSId(id)))
+  if (&(id) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(id)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

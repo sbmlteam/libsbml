@@ -237,7 +237,11 @@ bool LineSegment::isSetId () const
   */
 int LineSegment::setId (const std::string& id)
 {
-  if (!(SyntaxChecker::isValidSBMLSId(id)))
+  if (&(id) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(id)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

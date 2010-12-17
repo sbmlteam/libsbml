@@ -466,7 +466,11 @@ Reaction::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -487,7 +491,11 @@ Reaction::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (getLevel() == 1)
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidSBMLSId(name)))
     {
@@ -574,7 +582,11 @@ Reaction::setFast (bool value)
 int
 Reaction::setCompartment (const std::string& sid)
 {
-  if (getLevel() < 3)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }

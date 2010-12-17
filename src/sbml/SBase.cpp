@@ -853,7 +853,11 @@ SBase::isSetModelHistory()
 int
 SBase::setMetaId (const std::string& metaid)
 {
-  if (getLevel() == 1)
+  if (&(metaid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -884,100 +888,107 @@ SBase::setMetaId (const std::string& metaid)
 int
 SBase::setId (const std::string& sid)
 {
-  SBMLTypeCode_t type = this->getTypeCode();
-
-  switch(type)
+  if (&(sid) == NULL)
   {
-  case SBML_COMPARTMENT:
-    return static_cast <Compartment *> (this)->setId(sid);
-    break;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else 
+  {
+    SBMLTypeCode_t type = this->getTypeCode();
 
-  case SBML_COMPARTMENT_TYPE:
-    return static_cast <CompartmentType *> (this)->setId(sid);
-    break;
+    switch(type)
+    {
+    case SBML_COMPARTMENT:
+      return static_cast <Compartment *> (this)->setId(sid);
+      break;
 
-  case SBML_EVENT:
-    return static_cast <Event *> (this)->setId(sid);
-    break;
+    case SBML_COMPARTMENT_TYPE:
+      return static_cast <CompartmentType *> (this)->setId(sid);
+      break;
 
-  case SBML_EVENT_ASSIGNMENT:
-    return static_cast <EventAssignment *> (this)->setVariable(sid);
-    break;
+    case SBML_EVENT:
+      return static_cast <Event *> (this)->setId(sid);
+      break;
 
-  case SBML_FUNCTION_DEFINITION:
-    return static_cast <FunctionDefinition *> (this)->setId(sid);
-    break;
+    case SBML_EVENT_ASSIGNMENT:
+      return static_cast <EventAssignment *> (this)->setVariable(sid);
+      break;
 
-  case SBML_INITIAL_ASSIGNMENT:
-    return static_cast <InitialAssignment *> (this)->setSymbol(sid);
-    break;
+    case SBML_FUNCTION_DEFINITION:
+      return static_cast <FunctionDefinition *> (this)->setId(sid);
+      break;
 
-  case SBML_MODEL:
-    return static_cast <Model *> (this)->setId(sid);
-    break;
+    case SBML_INITIAL_ASSIGNMENT:
+      return static_cast <InitialAssignment *> (this)->setSymbol(sid);
+      break;
 
-  case SBML_PARAMETER:
-    return static_cast <Parameter *> (this)->setId(sid);
-    break;
+    case SBML_MODEL:
+      return static_cast <Model *> (this)->setId(sid);
+      break;
 
-  case SBML_LOCAL_PARAMETER:
-    return static_cast <LocalParameter *> (this)->setId(sid);
-    break;
+    case SBML_PARAMETER:
+      return static_cast <Parameter *> (this)->setId(sid);
+      break;
 
-  case SBML_REACTION:
-    return static_cast <Reaction *> (this)->setId(sid);
-    break;
+    case SBML_LOCAL_PARAMETER:
+      return static_cast <LocalParameter *> (this)->setId(sid);
+      break;
 
-  case SBML_SPECIES:
-    return static_cast <Species *> (this)->setId(sid);
-    break;
+    case SBML_REACTION:
+      return static_cast <Reaction *> (this)->setId(sid);
+      break;
 
-  case SBML_SPECIES_REFERENCE:
-    return static_cast <SpeciesReference *> (this)->setId(sid);
-    break;
+    case SBML_SPECIES:
+      return static_cast <Species *> (this)->setId(sid);
+      break;
 
-  case SBML_SPECIES_TYPE:
-    return static_cast <SpeciesType *> (this)->setId(sid);
-    break;
+    case SBML_SPECIES_REFERENCE:
+      return static_cast <SpeciesReference *> (this)->setId(sid);
+      break;
 
-  case SBML_MODIFIER_SPECIES_REFERENCE:
-    return static_cast <ModifierSpeciesReference *> (this)->setId(sid);
-    break;
+    case SBML_SPECIES_TYPE:
+      return static_cast <SpeciesType *> (this)->setId(sid);
+      break;
 
-  case SBML_UNIT_DEFINITION:
-    return static_cast <UnitDefinition *> (this)->setId(sid);
-    break;
+    case SBML_MODIFIER_SPECIES_REFERENCE:
+      return static_cast <ModifierSpeciesReference *> (this)->setId(sid);
+      break;
 
-  case SBML_ASSIGNMENT_RULE:
-    return static_cast <AssignmentRule *> (this)->setVariable(sid);
-    break;
+    case SBML_UNIT_DEFINITION:
+      return static_cast <UnitDefinition *> (this)->setId(sid);
+      break;
 
-  case SBML_RATE_RULE:
-    return static_cast <RateRule *> (this)->setVariable(sid);
-    break;
+    case SBML_ASSIGNMENT_RULE:
+      return static_cast <AssignmentRule *> (this)->setVariable(sid);
+      break;
 
-#ifdef USE_LAYOUT
+    case SBML_RATE_RULE:
+      return static_cast <RateRule *> (this)->setVariable(sid);
+      break;
 
-  case SBML_LAYOUT_BOUNDINGBOX:
-    return static_cast <BoundingBox *> (this)->setId(sid);
-    break;
+  #ifdef USE_LAYOUT
 
-  case SBML_LAYOUT_GRAPHICALOBJECT:
-    return static_cast <GraphicalObject *> (this)->setId(sid);
-    break;
+    case SBML_LAYOUT_BOUNDINGBOX:
+      return static_cast <BoundingBox *> (this)->setId(sid);
+      break;
 
-  case SBML_LAYOUT_LAYOUT:
-    return static_cast <Layout *> (this)->setId(sid);
-    break;
+    case SBML_LAYOUT_GRAPHICALOBJECT:
+      return static_cast <GraphicalObject *> (this)->setId(sid);
+      break;
 
-  case SBML_LAYOUT_LINESEGMENT:
-    return static_cast <LineSegment *> (this)->setId(sid);
-    break;
-#endif  /* USE_LAYOUT */
+    case SBML_LAYOUT_LAYOUT:
+      return static_cast <Layout *> (this)->setId(sid);
+      break;
 
-  default:
-    return LIBSBML_UNEXPECTED_ATTRIBUTE;
-    break;
+    case SBML_LAYOUT_LINESEGMENT:
+      return static_cast <LineSegment *> (this)->setId(sid);
+      break;
+  #endif  /* USE_LAYOUT */
+
+    default:
+      return LIBSBML_UNEXPECTED_ATTRIBUTE;
+      break;
+    }
   }
 }
 
@@ -989,149 +1000,156 @@ SBase::setId (const std::string& sid)
 int
 SBase::setName (const std::string& name)
 {
-  SBMLTypeCode_t type = this->getTypeCode();
-
-  /* if this is setting an L2 name the type is string
-   * whereas if it is setting an L1 name its type is SId
-   */
-  if (getLevel() == 1)
+  if (&(name) == NULL)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else 
+  {
+    SBMLTypeCode_t type = this->getTypeCode();
+
+    /* if this is setting an L2 name the type is string
+    * whereas if it is setting an L1 name its type is SId
+    */
+    if (getLevel() == 1)
     {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      if (!(SyntaxChecker::isValidSBMLSId(name)))
+      {
+        return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      }
+      else
+      {
+        switch(type)
+        {
+        case SBML_COMPARTMENT:
+          return static_cast <Compartment *> (this)->setId(name);
+          break;
+
+        case SBML_MODEL:
+          return static_cast <Model *> (this)->setId(name);
+          break;
+
+        case SBML_PARAMETER:
+          return static_cast <Parameter *> (this)->setId(name);
+          break;
+
+        case SBML_LOCAL_PARAMETER:
+          return static_cast <LocalParameter *> (this)->setId(name);
+          break;
+
+        case SBML_REACTION:
+          return static_cast <Reaction *> (this)->setId(name);
+          break;
+
+        case SBML_SPECIES:
+          return static_cast <Species *> (this)->setId(name);
+          break;
+
+        case SBML_SPECIES_REFERENCE:
+          return static_cast <SpeciesReference *> (this)->setId(name);
+          break;
+
+        case SBML_UNIT_DEFINITION:
+          return static_cast <UnitDefinition *> (this)->setId(name);
+          break;
+
+        case SBML_ASSIGNMENT_RULE:
+          return static_cast <AssignmentRule *> (this)->setVariable(name);
+          break;
+
+        case SBML_RATE_RULE:
+          return static_cast <RateRule *> (this)->setVariable(name);
+          break;
+
+      #ifdef USE_LAYOUT
+
+        case SBML_LAYOUT_BOUNDINGBOX:
+          static_cast <BoundingBox *> (this)->setId(name);
+          return LIBSBML_OPERATION_SUCCESS;
+          break;
+
+        case SBML_LAYOUT_GRAPHICALOBJECT:
+          static_cast <GraphicalObject *> (this)->setId(name);
+          return LIBSBML_OPERATION_SUCCESS;
+          break;
+
+        case SBML_LAYOUT_LAYOUT:
+          static_cast <Layout *> (this)->setId(name);
+          return LIBSBML_OPERATION_SUCCESS;
+          break;
+
+        case SBML_LAYOUT_LINESEGMENT:
+          static_cast <LineSegment *> (this)->setId(name);
+          return LIBSBML_OPERATION_SUCCESS;
+          break;
+      #endif  /* USE_LAYOUT */
+
+        default:
+          return LIBSBML_UNEXPECTED_ATTRIBUTE;
+          break;
+        }
+      }
     }
     else
     {
       switch(type)
       {
       case SBML_COMPARTMENT:
-        return static_cast <Compartment *> (this)->setId(name);
+        return static_cast <Compartment *> (this)->setName(name);
+        break;
+
+      case SBML_COMPARTMENT_TYPE:
+        return static_cast <CompartmentType *> (this)->setName(name);
+        break;
+
+      case SBML_EVENT:
+        return static_cast <Event *> (this)->setName(name);
+        break;
+
+      case SBML_FUNCTION_DEFINITION:
+        return static_cast <FunctionDefinition *> (this)->setName(name);
         break;
 
       case SBML_MODEL:
-        return static_cast <Model *> (this)->setId(name);
+        return static_cast <Model *> (this)->setName(name);
         break;
 
       case SBML_PARAMETER:
-        return static_cast <Parameter *> (this)->setId(name);
+        return static_cast <Parameter *> (this)->setName(name);
         break;
 
       case SBML_LOCAL_PARAMETER:
-        return static_cast <LocalParameter *> (this)->setId(name);
+        return static_cast <LocalParameter *> (this)->setName(name);
         break;
 
       case SBML_REACTION:
-        return static_cast <Reaction *> (this)->setId(name);
+        return static_cast <Reaction *> (this)->setName(name);
         break;
 
       case SBML_SPECIES:
-        return static_cast <Species *> (this)->setId(name);
+        return static_cast <Species *> (this)->setName(name);
         break;
 
       case SBML_SPECIES_REFERENCE:
-        return static_cast <SpeciesReference *> (this)->setId(name);
+        return static_cast <SpeciesReference *> (this)->setName(name);
+        break;
+
+      case SBML_SPECIES_TYPE:
+        return static_cast <SpeciesType *> (this)->setName(name);
+        break;
+
+      case SBML_MODIFIER_SPECIES_REFERENCE:
+        return static_cast <ModifierSpeciesReference *> (this)->setName(name);
         break;
 
       case SBML_UNIT_DEFINITION:
-        return static_cast <UnitDefinition *> (this)->setId(name);
+        return static_cast <UnitDefinition *> (this)->setName(name);
         break;
-
-      case SBML_ASSIGNMENT_RULE:
-        return static_cast <AssignmentRule *> (this)->setVariable(name);
-        break;
-
-      case SBML_RATE_RULE:
-        return static_cast <RateRule *> (this)->setVariable(name);
-        break;
-
-    #ifdef USE_LAYOUT
-
-      case SBML_LAYOUT_BOUNDINGBOX:
-        static_cast <BoundingBox *> (this)->setId(name);
-        return LIBSBML_OPERATION_SUCCESS;
-        break;
-
-      case SBML_LAYOUT_GRAPHICALOBJECT:
-        static_cast <GraphicalObject *> (this)->setId(name);
-        return LIBSBML_OPERATION_SUCCESS;
-        break;
-
-      case SBML_LAYOUT_LAYOUT:
-        static_cast <Layout *> (this)->setId(name);
-        return LIBSBML_OPERATION_SUCCESS;
-        break;
-
-      case SBML_LAYOUT_LINESEGMENT:
-        static_cast <LineSegment *> (this)->setId(name);
-        return LIBSBML_OPERATION_SUCCESS;
-        break;
-    #endif  /* USE_LAYOUT */
 
       default:
         return LIBSBML_UNEXPECTED_ATTRIBUTE;
         break;
       }
-    }
-  }
-  else
-  {
-    switch(type)
-    {
-    case SBML_COMPARTMENT:
-      return static_cast <Compartment *> (this)->setName(name);
-      break;
-
-    case SBML_COMPARTMENT_TYPE:
-      return static_cast <CompartmentType *> (this)->setName(name);
-      break;
-
-    case SBML_EVENT:
-      return static_cast <Event *> (this)->setName(name);
-      break;
-
-    case SBML_FUNCTION_DEFINITION:
-      return static_cast <FunctionDefinition *> (this)->setName(name);
-      break;
-
-    case SBML_MODEL:
-      return static_cast <Model *> (this)->setName(name);
-      break;
-
-    case SBML_PARAMETER:
-      return static_cast <Parameter *> (this)->setName(name);
-      break;
-
-    case SBML_LOCAL_PARAMETER:
-      return static_cast <LocalParameter *> (this)->setName(name);
-      break;
-
-    case SBML_REACTION:
-      return static_cast <Reaction *> (this)->setName(name);
-      break;
-
-    case SBML_SPECIES:
-      return static_cast <Species *> (this)->setName(name);
-      break;
-
-    case SBML_SPECIES_REFERENCE:
-      return static_cast <SpeciesReference *> (this)->setName(name);
-      break;
-
-    case SBML_SPECIES_TYPE:
-      return static_cast <SpeciesType *> (this)->setName(name);
-      break;
-
-    case SBML_MODIFIER_SPECIES_REFERENCE:
-      return static_cast <ModifierSpeciesReference *> (this)->setName(name);
-      break;
-
-    case SBML_UNIT_DEFINITION:
-      return static_cast <UnitDefinition *> (this)->setName(name);
-      break;
-
-    default:
-      return LIBSBML_UNEXPECTED_ATTRIBUTE;
-      break;
     }
   }
 }
@@ -1242,40 +1260,47 @@ SBase::setAnnotation (const XMLNode* annotation)
 int
 SBase::setAnnotation (const std::string& annotation)
 {
-  int success = LIBSBML_OPERATION_FAILED;
-
-  //
-  // (*NOTICE*) 
-  //
-  // syncAnnotation() must not be invoked in this function.
-  // 
-  // 
-
-  if(annotation.empty()) 
+  if (&(annotation) == NULL)
   {
-    unsetAnnotation();
-    return LIBSBML_OPERATION_SUCCESS;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-
-  XMLNode* annt_xmln;
-
-  // you might not have a document !!
-  if (getSBMLDocument())
+  else  
   {
-    XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
-    annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns); 
-  }
-  else
-  {
-    annt_xmln = XMLNode::convertStringToXMLNode(annotation);
-  }
+    int success = LIBSBML_OPERATION_FAILED;
 
-  if(annt_xmln)
-  {
-    success = setAnnotation(annt_xmln);
-    delete annt_xmln;
+    //
+    // (*NOTICE*) 
+    //
+    // syncAnnotation() must not be invoked in this function.
+    // 
+    // 
+
+    if(annotation.empty()) 
+    {
+      unsetAnnotation();
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+
+    XMLNode* annt_xmln;
+
+    // you might not have a document !!
+    if (getSBMLDocument())
+    {
+      XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
+      annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns); 
+    }
+    else
+    {
+      annt_xmln = XMLNode::convertStringToXMLNode(annotation);
+    }
+
+    if(annt_xmln)
+    {
+      success = setAnnotation(annt_xmln);
+      delete annt_xmln;
+    }
+    return success;
   }
-  return success;
 }
 
 
@@ -1489,7 +1514,11 @@ int
 SBase::setNotes(const std::string& notes)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  if (notes.empty())
+  if (&(notes) == NULL)
+  {
+    success = LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (notes.empty())
   {
     success = unsetNotes();
   }
@@ -2013,7 +2042,14 @@ SBase::setSBOTerm (int value)
 int
 SBase::setSBOTerm (const std::string &sboid)
 {
-  return setSBOTerm(SBO::stringToInt(sboid));
+  if (&(sboid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    return setSBOTerm(SBO::stringToInt(sboid));
+  }
 }
 
 

@@ -309,28 +309,35 @@ KineticLaw::isSetSubstanceUnits () const
 int
 KineticLaw::setFormula (const std::string& formula)
 {
-  ASTNode * math = SBML_parseFormula(formula.c_str());
-  if (formula == "")
+  if (&(formula) == NULL)
   {
-    mFormula.erase();
-    delete mMath;
-    mMath = 0;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (math == NULL || !(math->isWellFormedASTNode()))
-  {
-    return LIBSBML_INVALID_OBJECT;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
   else
   {
-    mFormula = formula;
-
-    if (mMath)
+    ASTNode * math = SBML_parseFormula(formula.c_str());
+    if (formula == "")
     {
+      mFormula.erase();
       delete mMath;
       mMath = 0;
+      return LIBSBML_OPERATION_SUCCESS;
     }
-    return LIBSBML_OPERATION_SUCCESS;
+    else if (math == NULL || !(math->isWellFormedASTNode()))
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+    else
+    {
+      mFormula = formula;
+
+      if (mMath)
+      {
+        delete mMath;
+        mMath = 0;
+      }
+      return LIBSBML_OPERATION_SUCCESS;
+    }
   }
 }
 
@@ -374,7 +381,11 @@ int
 KineticLaw::setTimeUnits (const std::string& sid)
 {
   /* only in L1 and L2V1 */
-  if ((getLevel() == 2 && getVersion() > 1)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if ((getLevel() == 2 && getVersion() > 1)
     || getLevel() > 2)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
@@ -398,7 +409,11 @@ int
 KineticLaw::setSubstanceUnits (const std::string& sid)
 {
   /* only in L1 and L2V1 */
-  if ((getLevel() == 2 && getVersion() > 1)
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if ((getLevel() == 2 && getVersion() > 1)
     || getLevel() > 2)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;

@@ -584,7 +584,11 @@ Model::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 */
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -605,7 +609,11 @@ Model::setName (const std::string& name)
   /* if this is setting an L2 name the type is string
    * whereas if it is setting an L1 name its type is SId
    */
-  if (getLevel() == 1)
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() == 1)
   {
     if (!(SyntaxChecker::isValidSBMLSId(name)))
     {
@@ -631,7 +639,11 @@ Model::setName (const std::string& name)
 int
 Model::setSubstanceUnits (const std::string& units)
 {
-  if (getLevel() < 3)
+  if (&(units) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -653,7 +665,11 @@ Model::setSubstanceUnits (const std::string& units)
 int
 Model::setTimeUnits (const std::string& units)
 {
-  if (getLevel() < 3)
+  if (&(units) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -675,7 +691,11 @@ Model::setTimeUnits (const std::string& units)
 int
 Model::setVolumeUnits (const std::string& units)
 {
-  if (getLevel() < 3)
+  if (&(units) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -697,7 +717,11 @@ Model::setVolumeUnits (const std::string& units)
 int
 Model::setAreaUnits (const std::string& units)
 {
-  if (getLevel() < 3)
+  if (&(units) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -719,7 +743,11 @@ Model::setAreaUnits (const std::string& units)
 int
 Model::setLengthUnits (const std::string& units)
 {
-  if (getLevel() < 3)
+  if (&(units) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -741,7 +769,11 @@ Model::setLengthUnits (const std::string& units)
 int
 Model::setExtentUnits (const std::string& units)
 {
-  if (getLevel() < 3)
+  if (&(units) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -763,7 +795,11 @@ Model::setExtentUnits (const std::string& units)
 int
 Model::setConversionFactor (const std::string& id)
 {
-  if (getLevel() < 3)
+  if (&(id) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else  if (getLevel() < 3)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }

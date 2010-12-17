@@ -301,28 +301,35 @@ Rule::isSetUnits () const
 int
 Rule::setFormula (const std::string& formula)
 {
-  ASTNode * math = SBML_parseFormula(formula.c_str());
-  if (formula == "")
+  if (&(formula) == NULL)
   {
-    mFormula.erase();
-    delete mMath;
-    mMath = 0;
-    return LIBSBML_OPERATION_SUCCESS;
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (math == NULL || !(math->isWellFormedASTNode()))
+  else 
   {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else
-  {
-    mFormula = formula;
-
-    if (mMath)
+    ASTNode * math = SBML_parseFormula(formula.c_str());
+    if (formula == "")
     {
+      mFormula.erase();
       delete mMath;
       mMath = 0;
+      return LIBSBML_OPERATION_SUCCESS;
     }
-    return LIBSBML_OPERATION_SUCCESS;
+    else if (math == NULL || !(math->isWellFormedASTNode()))
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+    else
+    {
+      mFormula = formula;
+
+      if (mMath)
+      {
+        delete mMath;
+        mMath = 0;
+      }
+      return LIBSBML_OPERATION_SUCCESS;
+    }
   }
 }
 
@@ -365,7 +372,11 @@ Rule::setMath (const ASTNode* math)
 int
 Rule::setVariable (const std::string& sid)
 {
-  if (isAlgebraic())
+  if (&(sid) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (isAlgebraic())
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
@@ -389,7 +400,11 @@ int
 Rule::setUnits (const std::string& sname)
 {
   /* only in L1 ParameterRule */
-  if (getLevel() > 1)
+  if (&(sname) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (getLevel() > 1)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }

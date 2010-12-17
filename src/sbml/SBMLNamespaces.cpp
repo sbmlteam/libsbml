@@ -135,17 +135,18 @@ std::string
 SBMLNamespaces::getSBMLNamespaceURI(unsigned int level,
                                  unsigned int version)
 {
+  std::string uri = "";
   switch (level)
   {
   case 1:
-    return SBML_XMLNS_L1;
+    uri = SBML_XMLNS_L1;
     break;
   case 3:
     switch(version)
     {
     case 1:
     default:
-      return SBML_XMLNS_L3V1;
+      uri = SBML_XMLNS_L3V1;
       break;
     }
     break;
@@ -154,21 +155,23 @@ SBMLNamespaces::getSBMLNamespaceURI(unsigned int level,
     switch (version)
     {
     case 1:
-      return SBML_XMLNS_L2V1;
+      uri = SBML_XMLNS_L2V1;
       break;
     case 2:
-      return SBML_XMLNS_L2V2;
+      uri = SBML_XMLNS_L2V2;
       break;
     case 3:
-      return SBML_XMLNS_L2V3;
+      uri = SBML_XMLNS_L2V3;
       break;
     case 4:
     default:
-      return SBML_XMLNS_L2V4;
+      uri = SBML_XMLNS_L2V4;
       break;
     }
     break;
   }
+
+  return uri;
 }
 
 
