@@ -57,7 +57,7 @@ public class addModelHistory
       h.addCreator(c);
 
       Date date = new Date("1999-11-13T06:54:32");
-      Date date2 = new Date("2007-11-31T06:54:00-02:00");
+      Date date2 = new Date("2007-11-30T06:54:00-02:00");
 
       h.setCreatedDate(date);
       h.setModifiedDate(date2);
