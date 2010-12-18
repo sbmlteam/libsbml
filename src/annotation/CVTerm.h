@@ -247,7 +247,7 @@ public:
    * URIs, this is a convenience method to facilitate interaction with the
    * CVTerm class.
    */
-  std::string getResourceURI(unsigned int n); 
+  const std::string& getResourceURI(unsigned int n) const; 
 
   
   /**
