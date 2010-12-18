@@ -60,9 +60,12 @@ Date::Date(unsigned int year, unsigned int month,
 /*
  * creates a date from a string
  */
-Date::Date (std::string date) 
+Date::Date (const std::string& date) 
 { 
-  mDate = date; 
+  if (&(date) == NULL)
+    mDate = "";
+  else
+    mDate = date; 
 
   parseDateStringToNumbers();
   parseDateNumbersToString();
@@ -341,12 +344,22 @@ Date::setMinutesOffset  (unsigned int minute)
  * sets the value of the date string checking appropriateness
  */
 int 
-Date::setDateAsString (std::string date)
+Date::setDateAsString (const std::string& date)
 {
   /* if date is NULL consider this as resetting 
    * the date completely
    */
-  if (date.empty())
+ 
+  if (&(date) == NULL)
+  {
+    mDate = "";
+    // revert to default numbers
+    // rewrite date string to reflect the defaults
+    parseDateStringToNumbers();
+    parseDateNumbersToString();
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else if (date.empty())
   {
     mDate = "";
     // revert to default numbers
@@ -763,10 +776,17 @@ ModelCreator::isSetOrganisation()
  * sets the family name
  */
 int 
-ModelCreator::setFamilyName(std::string name)
+ModelCreator::setFamilyName(const std::string& name)
 {
-  mFamilyName = name;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mFamilyName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -774,10 +794,17 @@ ModelCreator::setFamilyName(std::string name)
  * sets the given name
  */
 int 
-ModelCreator::setGivenName(std::string name)
+ModelCreator::setGivenName(const std::string& name)
 {
-  mGivenName = name;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (&(name) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mGivenName = name;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -785,23 +812,37 @@ ModelCreator::setGivenName(std::string name)
  * sets the email
  */
 int 
-ModelCreator::setEmail(std::string email)
+ModelCreator::setEmail(const std::string& email)
 {
-  mEmail = email;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (&(email) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mEmail = email;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 int 
-ModelCreator::setOrganization(std::string organization)
+ModelCreator::setOrganization(const std::string& organization)
 {
-  mOrganization = organization;
-  return LIBSBML_OPERATION_SUCCESS;
+  if (&(organization) == NULL)
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+  else
+  {
+    mOrganization = organization;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
 int 
-ModelCreator::setOrganisation(std::string organization)
+ModelCreator::setOrganisation(const std::string& organization)
 {
   return setOrganization(organization);
 }

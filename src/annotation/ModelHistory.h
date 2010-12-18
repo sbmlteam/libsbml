@@ -127,7 +127,7 @@ public:
    * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
    * where TZD is the time zone designator.
    */
-  Date (std::string date); 
+  Date (const std::string& date); 
 
   /**
    * Destroys this Date.
@@ -367,7 +367,7 @@ public:
    * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
    * where TZD is the time zone designator.
    */
-  int setDateAsString (std::string date);
+  int setDateAsString (const std::string& date);
 
 
   /* a valid date has member variables consistent with 
@@ -545,7 +545,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
-  int setFamilyName(std::string familyName);
+  int setFamilyName(const std::string& familyName);
 
   /**
    * Sets the given name
@@ -558,7 +558,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
-  int setGivenName(std::string givenName);
+  int setGivenName(const std::string& givenName);
 
   /**
    * Sets the email
@@ -571,7 +571,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
-  int setEmail(std::string email);
+  int setEmail(const std::string& email);
 
   /**
    * Sets the organization
@@ -585,7 +585,7 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
-  int setOrganization(std::string organization);
+  int setOrganization(const std::string& organization);
 
   /**
    * Sets the organization
@@ -603,7 +603,7 @@ public:
    *
    * @see setOrganization(std::string organization)
    */
-  int setOrganisation(std::string organization);
+  int setOrganisation(const std::string& organization);
 
 
   /**
