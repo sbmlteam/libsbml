@@ -75,8 +75,9 @@ distfiles =                           \
         mexopts-R2007.sh              \
         mexopts-R2008.sh              \
         mexopts-R2009-R2010.sh        \
-	test.xml                      \
-	uninstall_Win32.m
+	    test.xml                      \
+	    uninstall_Win32.m             \
+        uninstall_Win64.m
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".

@@ -1,5 +1,5 @@
-function uninstall_Win32()
-% uninstalls the libsbml MATLAB binding on a windows 32 bit operating system
+function uninstall_Win64()
+% uninstalls the libsbml MATLAB binding on a windows 64 bit operating system
 
 % Copyright 2002 California Institute of Technology and Japan Science and
 % Technology Corporation.
@@ -23,9 +23,9 @@ if (isempty(files))
 else
   match = 0;
   for i=1:length(files)
-    if (strcmp(files(i).name, 'TranslateSBML.mex32'))
+    if (strcmp(files(i).name, 'TranslateSBML.mex64'))
       match = 1;
-    elseif (strcmp(files(i).name, 'OutputSBML.mex32'))
+    elseif (strcmp(files(i).name, 'OutputSBML.mex64'))
       match = 1;
     end;
   end;
@@ -39,7 +39,7 @@ delete TranslateSBML.mexw32
 delete OutputSBML.mexw32
 
 Path_to_libs = matlabroot;
-Path_to_libs = strcat(Path_to_libs, '\bin\win32');
+Path_to_libs = strcat(Path_to_libs, '\bin\win64');
 
 dll = strcat(Path_to_libs, '\libsbml.dll');
 lib = strcat(Path_to_libs, '\libsbml.lib');
