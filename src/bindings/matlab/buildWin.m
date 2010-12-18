@@ -1,4 +1,4 @@
-% buildWin builds the TranslateSBML executable in windows
+% buildWin builds the TranslateSBML/OutputSBML executable in windows
 % environment
 
 %
