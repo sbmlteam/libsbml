@@ -3,7 +3,7 @@
 <model>
 	<!-- valid: default namespace -->
     <annotation>
-        <top xmlns="a">...</top>
+        <top xmlns="http://www.atest.org">...</top>
     </annotation>
 </model>
 </sbml>

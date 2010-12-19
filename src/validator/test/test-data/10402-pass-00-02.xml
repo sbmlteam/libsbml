@@ -3,8 +3,8 @@
 <model>
 	<!-- valid: two distinct defauklt namespaces -->
     <annotation>
-        <top xmlns="a">...</top>
-        <top xmlns="b">...</top>
+        <top xmlns="http://www.atest.org">...</top>
+        <top xmlns="http://www.btest.org">...</top>
     </annotation>
 </model>
 </sbml>
