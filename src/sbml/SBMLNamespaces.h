@@ -54,6 +54,7 @@
 #define SBMLNamespaces_h
 
 #include <sbml/xml/XMLNamespaces.h>
+#include <sbml/util/util.h>
 
 
 
@@ -278,7 +279,7 @@ SBMLNamespaces_getNamespaces(SBMLNamespaces_t *sbmlns);
 
 
 LIBSBML_EXTERN
-const char *
+char *
 SBMLNamespaces_getSBMLNamespaceURI(unsigned int level, unsigned int version);
 
 

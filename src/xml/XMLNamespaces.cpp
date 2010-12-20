@@ -533,18 +533,10 @@ XMLNamespaces_getLength (const XMLNamespaces_t *ns)
  * 
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (ns->getPrefix(index).empty())
-    return NULL;
-  else
-    return safe_strdup(ns->getPrefix(index).c_str());
+  return ns->getPrefix(index).empty() ? NULL : safe_strdup(ns->getPrefix(index).c_str());
 }
 
 
@@ -552,54 +544,30 @@ XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
  * 
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (ns->getPrefix(uri).empty())
-    return NULL;
-  else
-    return safe_strdup(ns->getPrefix(uri).c_str());
+  return ns->getPrefix(uri).empty() ? NULL : safe_strdup(ns->getPrefix(uri).c_str());
 }
 
 /**
  * 
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (ns->getURI(index).empty())
-    return NULL;
-  else
-    return safe_strdup(ns->getURI(index).c_str());
+  return ns->getURI(index).empty() ? NULL : safe_strdup(ns->getURI(index).c_str());
 }
 
 /**
  * 
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (ns->getURI(prefix).empty())
-    return NULL;
-  else
-    return safe_strdup(ns->getURI(prefix).c_str());
+  return ns->getURI(prefix).empty() ? NULL : safe_strdup(ns->getURI(prefix).c_str());
 }
 
 

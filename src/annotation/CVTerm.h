@@ -414,7 +414,7 @@ CVTerm_getNumResources(CVTerm_t*);
 
 
 LIBSBML_EXTERN
-const char *
+char *
 CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n);
 
 

@@ -363,10 +363,10 @@ SBMLNamespaces_getNamespaces(SBMLNamespaces_t *sbmlns)
  * SBML Level and Version specified.
  */
 LIBSBML_EXTERN
-const char *
+char *
 SBMLNamespaces_getSBMLNamespaceURI(unsigned int level, unsigned int version)
 {
-  return SBMLNamespaces::getSBMLNamespaceURI(level, version).c_str();
+  return safe_strdup(SBMLNamespaces::getSBMLNamespaceURI(level, version).c_str());
 }
 
 

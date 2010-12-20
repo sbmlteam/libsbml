@@ -452,22 +452,22 @@ XMLNamespaces_getLength (const XMLNamespaces_t *ns);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix);
 
 

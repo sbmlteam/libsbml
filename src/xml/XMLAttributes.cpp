@@ -1555,18 +1555,10 @@ XMLAttributes_getLength (const XMLAttributes_t *xa)
  * Returned const char* should be freed with safe_free() by the caller.
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getName (const XMLAttributes_t *xa, int index)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (xa->getName(index).empty())
-    return NULL;
-  else
-    return safe_strdup(xa->getName(index).c_str());
+  return xa->getName(index).empty() ? NULL : safe_strdup(xa->getName(index).c_str());
 }
 
 
@@ -1586,18 +1578,10 @@ XMLAttributes_getName (const XMLAttributes_t *xa, int index)
  * Returned const char* should be freed with safe_free() by the caller.
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (xa->getPrefix(index).empty())
-    return NULL;
-  else
-    return safe_strdup(xa->getPrefix(index).c_str());
+  return xa->getPrefix(index).empty() ? NULL : safe_strdup(xa->getPrefix(index).c_str());
 }
 
 
@@ -1616,18 +1600,10 @@ XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
  * Returned const char* should be freed with safe_free() by the caller.
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (xa->getURI(index).empty())
-    return NULL;
-  else
-    return safe_strdup(xa->getURI(index).c_str());
+  return xa->getURI(index).empty() ? NULL : safe_strdup(xa->getURI(index).c_str());
 }
 
 
@@ -1647,18 +1623,10 @@ XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
  * Returned const char* should be freed with safe_free() by the caller.
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (xa->getValue(index).empty())
-    return NULL;
-  else
-    return safe_strdup(xa->getValue(index).c_str());
+  return xa->getValue(index).empty() ? NULL : safe_strdup(xa->getValue(index).c_str());
 }
 
 
@@ -1684,18 +1652,10 @@ XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
  * Returned const char* should be freed with safe_free() by the caller.
  **/
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (xa->getValue(name).empty())
-    return NULL;
-  else
-    return safe_strdup(xa->getValue(name).c_str());
+  return xa->getValue(name).empty() ? NULL : safe_strdup(xa->getValue(name).c_str());
 }
 
 
@@ -1716,18 +1676,10 @@ XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
  * Returned const char* should be freed with safe_free() by the caller.
  */
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char *name, const char* uri)
 {
-  /**
-   * I did this because MSVC and gcc handle .c_str() in different ways
-   * meaning that with MSVC the actual string goes out of scope before 
-   * the char * is returned and thus the char * is garbage once returned
-   */
-  if (xa->getValue(name, uri).empty())
-    return NULL;
-  else
-    return safe_strdup(xa->getValue(name, uri).c_str());
+  return (xa->getValue(name, uri).empty())? NULL : safe_strdup(xa->getValue(name, uri).c_str());
 }
 
 
@@ -1747,13 +1699,13 @@ XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char *name, const c
  * Returned const char* should be freed with safe_free() by the caller.
  */
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple)
 {
-  std::string val = xa->getValue(*triple);
-  if (val.empty()) return NULL;
+  //std::string val = xa->getValue(*triple);
+  //if (val.empty()) return NULL;
 
-  return safe_strdup(val.c_str());
+  return xa->getValue(*triple).empty() ? NULL : safe_strdup(xa->getValue(*triple).c_str());
 }
 
 

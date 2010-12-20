@@ -574,10 +574,10 @@ CVTerm_getNumResources(CVTerm_t* term)
  * interaction with the CVTerm class.
  */
 LIBSBML_EXTERN
-const char *
+char *
 CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
 {
-  return cv->getResourceURI(n).c_str();
+  return cv->getResourceURI(n).empty() ? NULL : safe_strdup(cv->getResourceURI(n).c_str());
 }
 
 

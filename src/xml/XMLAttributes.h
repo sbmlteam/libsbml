@@ -1167,36 +1167,36 @@ XMLAttributes_getLength (const XMLAttributes_t *xa);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getName (const XMLAttributes_t *xa, int index);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getURI (const XMLAttributes_t *xa, int index);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValue (const XMLAttributes_t *xa, int index);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name);
 
 
 LIBLAX_EXTERN
-const char *
+char *
 XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char* name, const char* uri);
 LIBLAX_EXTERN
 
-const char *
+char *
 XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple);
 
 
