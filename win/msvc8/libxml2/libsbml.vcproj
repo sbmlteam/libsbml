@@ -80,7 +80,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="zlib.lib bzip2.lib iconv.lib libxml2.lib"
+				AdditionalDependencies="zdll.lib bzip2.lib iconv.lib libxml2.lib"
 				OutputFile="../../bin/libsbmlD.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
