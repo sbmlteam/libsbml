@@ -54,6 +54,8 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBase.h>
 #include <sbml/Species.h>
+#include <sbml/Compartment.h>
+#include <sbml/Model.h>
 
 #include <check.h>
 
@@ -202,6 +204,31 @@ START_TEST (test_ListOf_clear)
 END_TEST
 
 
+START_TEST (test_ListOf_append)
+{
+  Model_t *m = Model_create(2, 4);
+  Model_createCompartment(m);
+
+  ListOf_t *loc = Model_getListOfCompartments(m);
+
+  fail_unless(ListOf_size(loc) == 1);
+
+  SBase_t *c = (SBase_t*)Compartment_create(2, 4);
+  int i = ListOf_append(loc, c);
+
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ListOf_size(loc) == 2);
+
+  SBase_t *sp = (SBase_t*)Species_create(2, 4);
+  i = ListOf_append(loc, sp);
+
+  fail_unless(i == LIBSBML_INVALID_OBJECT);
+  fail_unless(ListOf_size(loc) == 2);
+
+  Model_free(m);
+  Species_free(sp);
+}
+END_TEST
 
 Suite *
 create_suite_ListOf (void) 
@@ -215,6 +242,7 @@ create_suite_ListOf (void)
   tcase_add_test(tcase, test_ListOf_get       );
   tcase_add_test(tcase, test_ListOf_remove    );
   tcase_add_test(tcase, test_ListOf_clear     );
+  tcase_add_test(tcase, test_ListOf_append     );
 
   suite_add_tcase(suite, tcase);
 

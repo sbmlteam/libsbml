@@ -40,6 +40,23 @@ import libsbml
 class TestListOf(unittest.TestCase):
 
 
+  def test_ListOf_append(self):
+    m = libsbml.Model(2,4)
+    m.createCompartment()
+    loc = m.getListOfCompartments()
+    self.assert_( loc.size() == 1 )
+    c = libsbml.Compartment(2,4)
+    i = loc.append(c)
+    self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( loc.size() == 2 )
+    sp = libsbml.Species(2,4)
+    i = loc.append(sp)
+    self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
+    self.assert_( loc.size() == 2 )
+    _dummyList = [ m ]; _dummyList[:] = []; del _dummyList
+    _dummyList = [ sp ]; _dummyList[:] = []; del _dummyList
+    pass  
+
   def test_ListOf_clear(self):
     lo = libsbml.ListOf()
     sp = libsbml.Species(2,4)

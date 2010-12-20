@@ -35,6 +35,23 @@ require 'libSBML'
 
 class TestListOf < Test::Unit::TestCase
 
+  def test_ListOf_append
+    m = LibSBML::Model.new(2,4)
+    m.createCompartment()
+    loc = m.getListOfCompartments()
+    assert( loc.size() == 1 )
+    c = LibSBML::Compartment.new(2,4)
+    i = loc.append(c)
+    assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
+    assert( loc.size() == 2 )
+    sp = LibSBML::Species.new(2,4)
+    i = loc.append(sp)
+    assert( i == LibSBML::LIBSBML_INVALID_OBJECT )
+    assert( loc.size() == 2 )
+    m = nil
+    sp = nil
+  end
+
   def test_ListOf_clear
     lo = LibSBML::ListOf.new()
     sp = LibSBML::Species.new(2,4)

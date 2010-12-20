@@ -109,7 +109,7 @@ public:
    *
    * @see appendAndOwn(SBase* item)
    */
-  void append (const SBase* item);
+  int append (const SBase* item);
 
 
   /**
@@ -123,7 +123,7 @@ public:
    *
    * @see append(const SBase* item)
    */
-  void appendAndOwn (SBase* item);
+  int appendAndOwn (SBase* item);
 
 
   /**
@@ -396,14 +396,14 @@ ListOf_clone (const ListOf_t *lo);
  * Adds a copy of item to the end of this ListOf items.
  */
 LIBSBML_EXTERN
-void
+int
 ListOf_append (ListOf_t *lo, const SBase_t *item);
 
 /**
  * Adds the given item to the end of this ListOf items.
  */
 LIBSBML_EXTERN
-void
+int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
 
 /**

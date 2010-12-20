@@ -126,10 +126,10 @@ ListOf::clone () const
  * Adds item to the end of this ListOf items.  This ListOf items assumes
  * ownership of item and will delete it.
  */
-void
+int
 ListOf::append (const SBase* item)
 {
-  appendAndOwn( item->clone() );
+  return appendAndOwn( item->clone() );
 }
 
 
@@ -137,7 +137,7 @@ ListOf::append (const SBase* item)
  * Adds item to the end of this ListOf items.  This ListOf items assumes
  * ownership of item and will delete it.
  */
-void
+int
 ListOf::appendAndOwn (SBase* item)
 {
   bool okayToAdd = false;
@@ -203,6 +203,11 @@ ListOf::appendAndOwn (SBase* item)
     mItems.push_back( item );
     item->setSBMLDocument(mSBML);
     item->setParentSBMLObject(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
   }
 }
 
@@ -561,10 +566,10 @@ ListOf_clone (const ListOf_t *lo)
  * Adds a copy of item to the end of this ListOf items.
  */
 LIBSBML_EXTERN
-void
+int
 ListOf_append (ListOf_t *lo, const SBase *item)
 {
-  lo->append(item);
+  return lo->append(item);
 }
 
 
@@ -572,10 +577,10 @@ ListOf_append (ListOf_t *lo, const SBase *item)
  * Adds the given item to the end of this ListOf items.
  */
 LIBSBML_EXTERN
-void
+int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item)
 {
-  lo->appendAndOwn(item);
+  return lo->appendAndOwn(item);
 }
 
 

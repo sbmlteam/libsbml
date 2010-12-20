@@ -121,6 +121,24 @@ public class TestListOf {
     throw new AssertionError();
   }
 
+  public void test_ListOf_append()
+  {
+    Model m = new  Model(2,4);
+    m.createCompartment();
+    ListOf loc = m.getListOfCompartments();
+    assertTrue( loc.size() == 1 );
+    SBase c = new  Compartment(2,4);
+    int i = loc.append(c);
+    assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
+    assertTrue( loc.size() == 2 );
+    SBase sp = new  Species(2,4);
+    i = loc.append(sp);
+    assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
+    assertTrue( loc.size() == 2 );
+    m = null;
+    sp = null;
+  }
+
   public void test_ListOf_clear()
   {
     ListOf lo = new  ListOf();
