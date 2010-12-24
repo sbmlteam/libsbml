@@ -2844,8 +2844,7 @@ SBase::read (XMLInputStream& stream)
     // checks if the given default namespace (if any) is a valid
     // SBML namespace
     //
-    checkDefaultNamespace(mSBMLNamespaces->getNamespaces(), element.getName(),
-      element.getPrefix());
+    checkDefaultNamespace(mSBMLNamespaces->getNamespaces(), element.getName());
   }
 
   if ( element.isEnd() ) return;
@@ -3864,25 +3863,18 @@ SBase::checkMathMLNamespace(const XMLToken elem)
 /** @cond doxygen-libsbml-internal */
 
 void 
-SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elementName, const std::string& elementPrefix)
+SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elementName)
 {
-  unsigned int level   = getLevel();
-  unsigned int version = getVersion();
   //
   // checks if the given default namespace (if any) is a valid
   // SBML namespace
   //
   if (xmlns && xmlns->getLength() > 0)
   {
-    /* this will be based on the level and version of the containing document*/
-    const std::string currentURI = 
-                            SBMLNamespaces::getSBMLNamespaceURI(level,version); 
-
-    /* need to consider a prefix */
-
-    const std::string defaultURI = xmlns->getURI(elementPrefix);
-
-    
+    unsigned int level   = getLevel();
+    unsigned int version = getVersion();
+    const std::string currentURI = SBMLNamespaces::getSBMLNamespaceURI(level,version); 
+    const std::string defaultURI = xmlns->getURI();
     if (!defaultURI.empty() && currentURI != defaultURI)
     {
       static ostringstream errMsg;
@@ -3892,17 +3884,6 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elem
       
       logError(NotSchemaConformant, level, version, errMsg.str());
     }
-  }
-  else if (!elementPrefix.empty())
-  {
-    // prefix is not empty means but the SBMLNamespace is implies 
-    // it is not a prefixed
-      static ostringstream errMsg;
-      errMsg.str("");
-      errMsg << "The prefix=\"" << elementPrefix << "\" on <" << elementName
-             << "> element indicates an invalid namespace." << endl;
-      
-      logError(NotSchemaConformant, level, version, errMsg.str());
   }
 }
 
