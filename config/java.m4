@@ -66,10 +66,10 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     dnl Sanity checks.
 
     if test -z "$JAVA" -o "$JAVA" = "no"; then
-      AC_MSG_ERROR([Could not find `java' executable.])
+      AC_MSG_ERROR([Could not find a `java' executable.])
     fi    
     if test -z "$JAVAC" -o "$JAVAC" = "no"; then
-      AC_MSG_ERROR([Could not find `javac' executable.])
+      AC_MSG_ERROR([Could not find a `javac' executable.])
     fi    
 
     dnl Check version if required.
@@ -298,8 +298,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
           dnl We're on MacOS 10.6, which makes 64-bit bins unless told not to.
   
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
-          rm -f ${srcdir}/config/printJavaDataModel.class
-          $JAVAC ${srcdir}/config/printJavaDataModel.java
+	  BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
@@ -394,8 +393,7 @@ configure to bypass this architecture check.
           dnl can still be executed.
 
           AC_MSG_CHECKING([whether this is a 64-bit version of Java])
-          rm -f ${srcdir}/config/printJavaDataModel.class
-          $JAVAC ${srcdir}/config/printJavaDataModel.java
+	  BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
 
@@ -498,8 +496,7 @@ configure to bypass this architecture check.
           dnl We're on a system that makes 64-bit binaries by default.
   
           AC_MSG_CHECKING([whether JRE is a 64-bit version])
-          rm -f ${srcdir}/config/printJavaDataModel.class
-          $JAVAC ${srcdir}/config/printJavaDataModel.java
+	  BUILD_JAVA_DATA_TEST
           if test "`(cd ${srcdir}/config; $JAVA printJavaDataModel)`" = "64"; then
             AC_MSG_RESULT([yes])
   
@@ -600,4 +597,36 @@ the options for configure to bypass this architecture check.
 
   LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_JAVA"
 
+])
+
+AC_DEFUN([BUILD_JAVA_DATA_TEST],
+[
+  rm -f ${srcdir}/config/printJavaDataModel.class
+  $JAVAC ${srcdir}/config/printJavaDataModel.java
+  if ! test -f ${srcdir}/config/printJavaDataModel.class; then
+    AC_MSG_RESULT([can't compile Java test class])
+    AC_MSG_ERROR([
+***************************************************************************
+We're sorry for the difficulty, but 'configure' attempted to compile a
+small Java test class and failed for unknown reasons.  It is likely that
+there is something wrong with your computer's Java JDK installation and
+"javac" is unable to properly compile Java source code.  Perhaps the
+problem is that only a JRE (Java Runtime Environment) and not a JDK (Java
+Development Environment) is installed.  Please check the Java installation
+on your system before proceeding further.
+
+If you are certain that you have a properly configured and installed Java
+JDK on your system, please use the libSBML issue tracker to file a report
+that this problem has occurred, or else email libsbml-team@caltech.edu
+directly, and please include the file "config.log".  (The file should have
+been left at the top level of your libSBML source code directory.)  We will
+attempt to debug the problem and improve 'configure' for future releases.
+
+Finally, if you are certain that you have a properly configured and
+installed Java JDK on your system, and you want to try skipping this test
+and continue configuring and compiling libSBML with Java, add the option
+--without-java-bin-check to 'configure' to bypass this architecture check.
+***************************************************************************
+])
+  fi
 ])
