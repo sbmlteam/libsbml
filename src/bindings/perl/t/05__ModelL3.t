@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 291 };
+BEGIN { plan tests => 294 };
 
 use LibSBML;
 use strict;
@@ -614,12 +614,18 @@ ok($m->getEvent(0)->getTypeCode() == $LibSBML::SBML_EVENT);
 $e = new LibSBML::Event($level,$version);
 $e->setId('event_1');
 $e->setTrigger($t);
-$m->addEvent($e);
+$e->createEventAssignment();
+$e->setUseValuesFromTriggerTime(1);
+ok($e->hasRequiredElements());
+ok($e->hasRequiredAttributes());
+ok($m->addEvent($e), $LibSBML::LIBSBML_OPERATION_SUCCESS);
+
 $m->getEvent(1)->setId('event_1');
 $m->getEvent(1)->setName('event_2');
 $e = new LibSBML::Event($level,$version);
 $e->setId('event_2');
 $e->setTrigger($t);
+$e->setUseValuesFromTriggerTime(1);
 $e->createEventAssignment();
 $m->addEvent($e);
 $m->getEvent(2)->setId('event_2');

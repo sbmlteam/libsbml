@@ -68,7 +68,9 @@ $m->addRule($r);
 
 # check the model
 my $ref = join '', <DATA>;
+$ref =~ s/\r|\n//g;
 my $doc = $d->writeSBMLToString();
+$doc =~ s/\r|\n//g;
 ok($doc, $ref);
 
 # functions not wrapped
