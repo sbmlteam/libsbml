@@ -597,5 +597,3 @@ dnl echo "  enable memory tracing? = $enable_tracing"
 
 echo "----------------------------------------------------------------------"
 echo ""
-
-AS_EXIT([0])
