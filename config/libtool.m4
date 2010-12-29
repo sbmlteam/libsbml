@@ -311,7 +311,7 @@ AC_DEFUN([_LT_REQUIRED_DARWIN_CHECKS],[
       save_LDFLAGS=$LDFLAGS
       echo "_main" > conftest.sym
       LDFLAGS="$LDFLAGS -Wl,-exported_symbols_list,conftest.sym"
-      AC_LINK_IFELSE([AC_LANG_PROGRAM([],[])],
+      AC_LINK_IFELSE([AC_LANG_SOURCE([AC_LANG_PROGRAM([],[])])],
    [lt_cv_ld_exported_symbols_list=yes],
    [lt_cv_ld_exported_symbols_list=no])
    LDFLAGS="$save_LDFLAGS"
@@ -362,7 +362,7 @@ AC_DEFUN([_LT_REQUIRED_DARWIN_CHECKS],[
 # to the aix ld manual.
 AC_DEFUN([_LT_AC_SYS_LIBPATH_AIX],
 [AC_REQUIRE([LT_AC_PROG_SED])dnl
-AC_LINK_IFELSE(AC_LANG_PROGRAM,[
+AC_LINK_IFELSE([AC_LANG_SOURCE([AC_LANG_PROGRAM[()]])],[
 lt_aix_libpath_sed='
     /Import File Strings/,/^$/ {
 	/^0/ {
