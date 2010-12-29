@@ -30,12 +30,19 @@ dnl ---------------------------------------------------------------------------
 m4_define(LIBSBML_VERSION, 
   m4_esyscmd(cat VERSION.txt  |  tr -d '\n\r'))
 
-AC_INIT([libSBML], LIBSBML_VERSION, [libsbml-team@caltech.edu], [libsbml])
+dnl The AC_PREREQ macro can come before AC_INIT (but it's the only one).
+
+AC_PREREQ(2.62)
+
+AC_INIT([libSBML], 
+        LIBSBML_VERSION, 
+        [libsbml-team@caltech.edu], 
+        [libsbml], 
+        [http://sbml.org/Software/libSBML])
+
 AC_CONFIG_AUX_DIR(config)
 
 AC_REVISION($Revision$)
-
-AC_PREREQ(2.57)
 
 AC_CONFIG_SRCDIR(src/Makefile.in)
 
@@ -187,7 +194,7 @@ dnl because the language binding tests sometimes cause swig to be required.
 
 CONFIG_PROG_SWIG(1.3.40)
 
-dnl Make sure to test doxygen *after* java, because there's a dependency on
+dnl Make sure to test doxygen *after* java, because there's a dependency
 dnl in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
 
 CONFIG_PROG_DOXYGEN(1.5.8)
@@ -590,3 +597,5 @@ dnl echo "  enable memory tracing? = $enable_tracing"
 
 echo "----------------------------------------------------------------------"
 echo ""
+
+AS_EXIT([0])
