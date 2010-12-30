@@ -72,7 +72,7 @@
  * XML format for (e.g.) SBML Level&nbsp;2 Version&nbsp;4, the corresponding
  * structure is the following:
  * @verbatim
-<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4"
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   ...
 </sbml>
 @endverbatim
