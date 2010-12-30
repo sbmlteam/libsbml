@@ -29,7 +29,7 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 [
   AC_ARG_WITH([xerces],
     AC_HELP_STRING([--with-xerces@<:@=PREFIX@:>@],
-                   [use the Xerces XML Library @<:@default=yes@:>@]),
+                   [use the Xerces XML Library @<:@default=no@:>@]),
     [with_xerces="$withval"],
     [with_xerces=no])
 

@@ -67,7 +67,7 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
 [ 
   AC_ARG_WITH([libxml],
     AC_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
-                   [use the libxml2 XML library @<:@default=no@:>@]),
+                   [use the libxml2 XML library @<:@default=yes@:>@]),
             [with_libxml="$withval"], [with_libxml=yes])
 
   if test "$with_expat" != "no" -o "$with_xerces" != "no"; then
