@@ -197,7 +197,7 @@ CONFIG_PROG_SWIG(1.3.40)
 dnl Make sure to test doxygen *after* java, because there's a dependency
 dnl in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
 
-CONFIG_PROG_DOXYGEN(1.5.8)
+CONFIG_PROG_DOXYGEN(1.6.3)
 
 dnl Do this one last, because some earlier config options may end up changing
 dnl things like CFLAGS, which in turn affects the libtool script that the
