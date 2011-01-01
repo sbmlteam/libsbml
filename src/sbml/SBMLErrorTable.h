@@ -8000,6 +8000,22 @@ static const sbmlErrorTableEntry errorTable[] =
     "L2V4 Section 4.3.2)"
   },
 
+  //99302
+  {   
+    NoBodyInFunctionDef,   
+    "There must be a body within the <math> of a function definition",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "The lambda element of a functionDefinition must contain a function "
+    "body in addition to zero or more arguments."
+  },
+
   //99502
   // This is an internal error that reverts to 10501
   {

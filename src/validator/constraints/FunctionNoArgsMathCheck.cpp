@@ -130,7 +130,7 @@ FunctionNoArgsMathCheck::checkNumArgs (const Model& m, const ASTNode& node,
       /* We have a definition for this function.  Does the defined number
 	        of arguments equal the number used here? */
 
-        if (node.getNumChildren() + 1 != fdMath->getNumChildren())
+        if (node.getNumChildren() != m.getFunctionDefinition(node.getName())->getNumArguments())
 	      {
           logMathConflict(node, sb);
 	      }

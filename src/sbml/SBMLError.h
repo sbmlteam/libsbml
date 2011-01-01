@@ -812,6 +812,7 @@ typedef enum
 
  , NoTimeSymbolInFunctionDef             = 99301 /*!< <code>&lt;csymbol&gt;</code> for <code>time</code> used within the <code>&lt;math&gt;</code> of a function definition */
 
+ , NoBodyInFunctionDef                   = 99302
 
   /* These are internal errors that reverts to 10501. */
 

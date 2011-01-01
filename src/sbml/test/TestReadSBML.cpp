@@ -31,6 +31,7 @@
 
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLReader.h>
+#include <sbml/SBMLError.h>
 
 #include <check.h>
 
@@ -182,6 +183,111 @@ START_TEST (test_ReadSBML_FunctionDefinition)
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "lambda(x, pow(x, 3))") );
+
+  safe_free(formula);
+}
+END_TEST
+
+START_TEST (test_ReadSBML_FunctionDefinition_MathReturnsCN)
+{
+  FunctionDefinition_t* fd;
+  const ASTNode_t*      math;
+  char*                 formula;
+
+  const char* s = wrapSBML_L2v1
+  (
+    "<listOfFunctionDefinitions>"
+    "  <functionDefinition id='getNumber'>"
+    "    <math>"
+    "      <lambda>"
+    "        <bvar><ci> x </ci></bvar>"
+    "        <cn> 42 </cn>"
+    "      </lambda>"
+    "    </math>"
+    "  </functionDefinition>"
+    "</listOfFunctionDefinitions>"
+  );
+
+
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( Model_getNumFunctionDefinitions(M) == 1 );
+
+  fd = Model_getFunctionDefinition(M, 0);
+  fail_unless( fd != NULL );
+
+  fail_unless( FunctionDefinition_isSetId  (fd) );
+  fail_unless( !FunctionDefinition_isSetName(fd) );
+
+  fail_unless( !strcmp( FunctionDefinition_getId  (fd), "getNumber"  ) );
+
+  fail_unless( FunctionDefinition_isSetMath(fd) );
+  math = FunctionDefinition_getMath(fd);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+
+  fail_unless( !strcmp(formula, "lambda(x, 42)") );
+
+  safe_free(formula);
+}
+END_TEST
+
+START_TEST (test_ReadSBML_FunctionDefinition_OnlyBVars)
+{
+  FunctionDefinition_t* fd;
+  const SBMLError_t*	error;
+  int					numErrors;
+  const ASTNode_t*      math;
+  char*                 formula;
+
+  const char* s = wrapSBML_L2v1
+  (
+    "<listOfFunctionDefinitions>"
+    "  <functionDefinition id='invalid'>"
+    "    <math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "      <lambda>"
+    "        <bvar><ci> x </ci></bvar>"
+    "        <bvar><ci> y </ci></bvar>"
+    "        <bvar><ci> z </ci></bvar>"
+    "      </lambda>"
+    "    </math>"
+    "  </functionDefinition>"
+    "</listOfFunctionDefinitions>"
+  );
+
+
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
+
+  SBMLDocument_checkInternalConsistency(D);
+  SBMLDocument_checkConsistency(D);
+  numErrors = SBMLDocument_getNumErrors(D);
+  fail_unless(numErrors == 1);
+  error = SBMLDocument_getError(D, 0);
+  
+  //fail_unless(XMLError_getErrorId(error) == NotSchemaConformant);
+  fail_unless(XMLError_getErrorId(error) == NoBodyInFunctionDef);
+  
+  fail_unless( Model_getNumFunctionDefinitions(M) == 1 );
+
+  fd = Model_getFunctionDefinition(M, 0);
+  fail_unless( fd != NULL );
+
+  fail_unless( FunctionDefinition_isSetId  (fd) );
+  fail_unless( !FunctionDefinition_isSetName(fd) );
+
+  fail_unless( !strcmp( FunctionDefinition_getId  (fd), "invalid"  ) );
+  fail_unless( FunctionDefinition_getBody(fd) == NULL );
+
+  fail_unless( FunctionDefinition_isSetMath(fd) );
+  math = FunctionDefinition_getMath(fd);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+
+  fail_unless( !strcmp(formula, "lambda(x, y, z)") );  
 
   safe_free(formula);
 }
@@ -2504,6 +2610,8 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_Model_L2 );
 
   tcase_add_test( tcase, test_ReadSBML_FunctionDefinition  );
+  tcase_add_test( tcase, test_ReadSBML_FunctionDefinition_MathReturnsCN  );
+  tcase_add_test( tcase, test_ReadSBML_FunctionDefinition_OnlyBVars  );
 
   tcase_add_test( tcase, test_ReadSBML_UnitDefinition      );
   tcase_add_test( tcase, test_ReadSBML_UnitDefinition_L2   );

@@ -262,17 +262,18 @@ MathMLBase::checkFunction (const Model& m,
   ASTNode * fdMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
-  if (fd && fd->isSetMath())
+  if (fd && fd->isSetMath() && fd->getBody())
   {
     noBvars = fd->getNumArguments();
-    if (noBvars == 0)
-    {
-      fdMath = fd->getMath()->getLeftChild()->deepCopy();
-    }
-    else
-    {
-      fdMath = fd->getMath()->getRightChild()->deepCopy();
-    }
+    fdMath = fd->getBody()->deepCopy();
+    //if (noBvars == 0)
+    //{
+    //  fdMath = fd->getMath()->getLeftChild()->deepCopy();
+    //}
+    //else
+    //{
+    //  fdMath = fd->getMath()->getRightChild()->deepCopy();
+    //}
 
     for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {
@@ -417,17 +418,18 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
   ASTNode * fdMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node->getName());
 
-  if (fd && fd->isSetMath())
+  if (fd && fd->isSetMath() && fd->getBody())
   {
     noBvars = fd->getNumArguments();
-    if (noBvars == 0)
-    {
-      fdMath = fd->getMath()->getLeftChild()->deepCopy();
-    }
-    else
-    {
-      fdMath = fd->getMath()->getRightChild()->deepCopy();
-    }
+    fdMath = fd->getBody()->deepCopy();
+    //if (noBvars == 0)
+    //{
+    //  fdMath = fd->getMath()->getLeftChild()->deepCopy();
+    //}
+    //else
+    //{
+    //  fdMath = fd->getMath()->getRightChild()->deepCopy();
+    //}
 
     for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
     {

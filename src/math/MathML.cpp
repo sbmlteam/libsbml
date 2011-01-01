@@ -832,6 +832,7 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 
   else if (name == "bvar")
   {
+    node.setBvar();
     readMathML(node, stream, reqd_prefix);
   }
 

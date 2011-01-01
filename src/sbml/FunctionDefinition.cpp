@@ -396,12 +396,19 @@ FunctionDefinition::getBody () const
   if (!(mMath->isLambda())) return NULL;
 
   unsigned int nc = mMath->getNumChildren();
-  if (nc > 1)
-    return mMath->getRightChild();
-  else if (nc == 1)
-    return mMath->getChild(0);
+  /* here we do actually need to look at whether something is a bvar
+   * and not just assume that the last child is a function body 
+   * it should be BUT it might not be
+   */
+
+  if (nc > 0 && !(mMath->getChild(nc-1)->isBvar()))
+  {
+    return mMath->getChild(nc-1);
+  }
   else
+  {
     return NULL;
+  }
 }
 
 
@@ -421,12 +428,19 @@ FunctionDefinition::getBody ()
   if (!(mMath->isLambda())) return NULL;
 
   unsigned int nc = mMath->getNumChildren();
-  if (nc > 1)
-    return mMath->getRightChild();
-  else if (nc == 1)
-    return mMath->getChild(0);
+  /* here we do actually need to look at whether something is a bvar
+   * and not just assume that the last child is a function body 
+   * it should be BUT it might not be
+   */
+
+  if (nc > 0 && !(mMath->getChild(nc-1)->isBvar()))
+  {
+    return mMath->getChild(nc-1);
+  }
   else
+  {
     return NULL;
+  }
 }
 
 
@@ -446,7 +460,17 @@ FunctionDefinition::getNumArguments () const
     || mMath->getNumChildren() == 0) 
     return 0;
   else 
-    return mMath->getNumChildren() - 1;
+  {
+    /* here we do actually need to look at whether something is a bvar
+     * and not just assume that the last child is a function body 
+     */
+
+    unsigned int num = mMath->getNumChildren();
+    if (mMath->getChild(num-1)->isBvar())
+      return num;
+    else
+      return num - 1;
+  }
 }
 
 

@@ -438,6 +438,16 @@ START_CONSTRAINT (99301, FunctionDefinition, fd)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (99302, FunctionDefinition, fd)
+{
+
+  pre( fd.getLevel() > 1        );
+  pre( fd.isSetMath()            );
+  pre( fd.getMath()->isLambda() );
+  
+  inv( fd.getBody() != NULL );
+}
+END_CONSTRAINT
 
 
 // Unit and UnitDefinition validation

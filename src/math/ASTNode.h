@@ -1494,7 +1494,12 @@ public:
   LIBSBML_EXTERN
   bool hasCorrectNumberArguments() const;
 
+  /** @cond doxygen-libsbml-internal */
+    
+  bool isBvar() const { return mIsBvar; };
+  void setBvar() { mIsBvar = true; };
 
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -1530,6 +1535,7 @@ protected:
 
   std::string mUnits;
   void *mUserData;
+  bool mIsBvar;
 
 
   friend class MathMLFormatter;

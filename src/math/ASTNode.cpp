@@ -178,6 +178,7 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mParentSBMLObject = NULL;
   mUnits         = "";
   mUserData      = NULL;
+  mIsBvar = false;
 
   setType(type);
 
@@ -206,6 +207,7 @@ ASTNode::ASTNode (Token_t* token)
   mParentSBMLObject = NULL;
   mUnits         = "";
   mUserData      = NULL;
+  mIsBvar = false;
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
@@ -253,6 +255,7 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mParentSBMLObject     ( orig.mParentSBMLObject )
  ,mUnits                ( orig.mUnits)
  ,mUserData             ( orig.mUserData )
+ ,mIsBvar               ( orig.mIsBvar)
 {
   if (orig.mName)
   {
@@ -290,6 +293,7 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     mParentSBMLObject     = rhs.mParentSBMLObject;
     mUnits                = rhs.mUnits;
     mUserData             = rhs.mUserData;
+    mIsBvar               = rhs.mIsBvar;
     if (rhs.mName)
     {
       mName = safe_strdup(rhs.mName);
@@ -2454,7 +2458,7 @@ LIBSBML_EXTERN
 const char *
 ASTNode_getUnits(const ASTNode_t * node)
 {
-  return node->getUnits().c_str();
+  return safe_strdup(node->getUnits().c_str());
 }
 
 
