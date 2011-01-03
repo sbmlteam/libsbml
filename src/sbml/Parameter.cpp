@@ -119,14 +119,21 @@ Parameter::~Parameter ()
  */
 Parameter::Parameter(const Parameter& orig) :
     SBase      ( orig             )
-  , mId        ( orig.mId         )  
-  , mName      ( orig.mName       )
-  , mValue     ( orig.mValue      )
-  , mUnits     ( orig.mUnits      )
-  , mConstant  ( orig.mConstant   )
-  , mIsSetValue( orig.mIsSetValue )
-  , mIsSetConstant (orig.mIsSetConstant )
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mValue         = orig.mValue    ;
+    mUnits         = orig.mUnits    ;
+    mConstant      = orig.mConstant ;
+    mIsSetValue    = orig.mIsSetValue;
+    mId            = orig.mId;
+    mName          = orig.mName;
+    mIsSetConstant = orig.mIsSetConstant;
+  }
 }
 
 
@@ -135,7 +142,11 @@ Parameter::Parameter(const Parameter& orig) :
  */
 Parameter& Parameter::operator=(const Parameter& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mValue      = rhs.mValue    ;

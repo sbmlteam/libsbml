@@ -89,15 +89,24 @@ InitialAssignment::~InitialAssignment ()
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
    SBase   ( orig )
- , mSymbol ( orig.mSymbol)
  , mMath   ( 0    )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mSymbol  = orig.mSymbol;
+
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
+
 
 
 /*
@@ -105,7 +114,11 @@ InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
  */
 InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mSymbol = rhs.mSymbol;

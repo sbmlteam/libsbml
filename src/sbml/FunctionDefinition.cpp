@@ -94,14 +94,22 @@ FunctionDefinition::~FunctionDefinition ()
  */
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
    SBase             ( orig         )
- , mId               ( orig.mId     )  
- , mName             ( orig.mName   )
  , mMath             ( 0            )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId               = orig.mId;
+    mName             = orig.mName;
+  
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -111,7 +119,11 @@ FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
  */
 FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mId = rhs.mId;

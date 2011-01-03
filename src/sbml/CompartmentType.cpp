@@ -84,9 +84,17 @@ CompartmentType::~CompartmentType ()
  */
 CompartmentType::CompartmentType(const CompartmentType& orig) :
    SBase             ( orig                    )
- , mId               ( orig.mId                )  
- , mName             ( orig.mName              )
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId               = orig.mId;
+    mName             = orig.mName;
+  }
+
 }
 
 
@@ -95,7 +103,11 @@ CompartmentType::CompartmentType(const CompartmentType& orig) :
  */
 CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mId = rhs.mId;

@@ -123,7 +123,7 @@ Compartment::~Compartment ()
  */
 Compartment::Compartment(const Compartment& orig) :
    SBase             ( orig                    )
- , mId               ( orig.mId                )  
+/* , mId               ( orig.mId                )  
  , mName             ( orig.mName              )
  , mCompartmentType  ( orig.mCompartmentType   )
  , mSpatialDimensions( orig.mSpatialDimensions )
@@ -134,8 +134,27 @@ Compartment::Compartment(const Compartment& orig) :
  , mConstant         ( orig.mConstant          )
  , mIsSetSize        ( orig.mIsSetSize         )
  , mIsSetSpatialDimensions ( orig.mIsSetSpatialDimensions    )
- , mIsSetConstant          ( orig.mIsSetConstant    )
+ , mIsSetConstant          ( orig.mIsSetConstant    )*/
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mSpatialDimensions       = orig.mSpatialDimensions;
+    mSpatialDimensionsDouble = orig.mSpatialDimensions;
+    mSize                    = orig.mSize;
+    mConstant                = orig.mConstant;
+    mIsSetSize               = orig.mIsSetSize;
+    mCompartmentType         = orig.mCompartmentType;
+    mUnits                   = orig.mUnits;
+    mOutside                 = orig.mOutside;
+    mId                      = orig.mId;
+    mName                    = orig.mName;
+    mIsSetSpatialDimensions  = orig.mIsSetSpatialDimensions;
+    mIsSetConstant           = orig.mIsSetConstant;
+  }
 }
 
 
@@ -144,7 +163,11 @@ Compartment::Compartment(const Compartment& orig) :
  */
 Compartment& Compartment::operator=(const Compartment& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mSpatialDimensions= rhs.mSpatialDimensions  ;

@@ -95,12 +95,19 @@ Constraint::Constraint (const Constraint& orig) :
  , mMath   ( 0   )
  , mMessage( 0   )
 {
-  if (orig.mMath)    
+  if (&orig == NULL)
   {
-    mMath    = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  if (orig.mMessage) mMessage = new XMLNode(*orig.mMessage);
+  else
+  {
+    if (orig.mMath)    
+    {
+      mMath    = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
+    if (orig.mMessage) mMessage = new XMLNode(*orig.mMessage);
+  }
 }
 
 
@@ -109,7 +116,11 @@ Constraint::Constraint (const Constraint& orig) :
  */
 Constraint& Constraint::operator=(const Constraint& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
 

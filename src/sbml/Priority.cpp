@@ -93,12 +93,20 @@ Priority::~Priority ()
 Priority::Priority (const Priority& orig) :
    SBase          ( orig                 )
  , mMath          ( 0                   )
- , mInternalId    (orig.mInternalId  )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mInternalId = orig.mInternalId;
+
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -108,7 +116,11 @@ Priority::Priority (const Priority& orig) :
  */
 Priority& Priority::operator=(const Priority& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mInternalId = rhs.mInternalId;

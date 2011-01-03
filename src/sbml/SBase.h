@@ -158,8 +158,8 @@ class SBMLConstructorException : public std::invalid_argument
 public:
 
   /* constructor */
-  SBMLConstructorException ();
-
+  SBMLConstructorException (std::string 
+                    message="Level/version/namespaces combination is invalid");
 };
 /** @endcond */
 

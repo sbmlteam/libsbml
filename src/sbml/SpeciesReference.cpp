@@ -94,10 +94,17 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
  */
 SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& orig) :
    SBase     ( orig                    )
- , mId       ( orig.mId                )  
- , mName     ( orig.mName              )
- , mSpecies  ( orig.mSpecies           )
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId      = orig.mId;
+    mName    = orig.mName;
+    mSpecies = orig.mSpecies;
+  }
 }
 
 
@@ -106,7 +113,11 @@ SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& ori
  */
 SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesReference& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mId = rhs.mId;
@@ -689,17 +700,25 @@ SpeciesReference::~SpeciesReference ()
  */
 SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
    SimpleSpeciesReference( orig                )
- , mStoichiometry        ( orig.mStoichiometry )
- , mDenominator          ( orig.mDenominator   )
  , mStoichiometryMath    ( 0                   )
- , mConstant             ( orig.mConstant      )
- , mIsSetConstant        ( orig.mIsSetConstant )
- , mIsSetStoichiometry   ( orig.mIsSetStoichiometry )
 {
-  if (orig.mStoichiometryMath)
+  if (&orig == NULL)
   {
-    mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
-    mStoichiometryMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mStoichiometry = orig.mStoichiometry ;
+    mDenominator = orig.mDenominator   ;
+    mConstant = orig.mConstant;
+    mIsSetConstant = orig.mIsSetConstant;
+    mIsSetStoichiometry = orig.mIsSetStoichiometry;
+
+    if (orig.mStoichiometryMath)
+    {
+      mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
+      mStoichiometryMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -709,7 +728,11 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
  */
 SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->SimpleSpeciesReference::operator = ( rhs );

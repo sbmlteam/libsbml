@@ -60,8 +60,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
-SBMLConstructorException::SBMLConstructorException() :
-      std::invalid_argument("Level/version/namespaces combination is invalid")
+SBMLConstructorException::SBMLConstructorException(std::string message):
+      std::invalid_argument(message)
 {
 }
 
@@ -111,6 +111,9 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mEmptyString ("")
 {
   mSBMLNamespaces = new SBMLNamespaces(level, version);
+  if (!mSBMLNamespaces) 
+    throw SBMLConstructorException
+                            ("Level/version/namespaces combination is invalid");
 }
 /*
  * Creates a new SBase object with the given SBMLNamespaces.
@@ -130,7 +133,9 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
-  if (!sbmlns) throw SBMLConstructorException();
+  if (!sbmlns) 
+    throw SBMLConstructorException
+                            ("Level/version/namespaces combination is invalid");
   mSBMLNamespaces = sbmlns->clone();
 }
 /** @endcond */
@@ -142,6 +147,10 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  */
 SBase::SBase(const SBase& orig)
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
   this->mMetaId = orig.mMetaId;
 
   if(orig.mNotes) 
@@ -226,7 +235,11 @@ SBase::~SBase ()
  */
 SBase& SBase::operator=(const SBase& orig)
 {
-  if(&orig!=this)
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&orig!=this)
   {
     this->mMetaId = orig.mMetaId;
 

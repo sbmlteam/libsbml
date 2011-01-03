@@ -90,15 +90,23 @@ StoichiometryMath::~StoichiometryMath ()
 /*
  * Copy constructor. Creates a copy of this StoichiometryMath.
  */
-StoichiometryMath::StoichiometryMath (const StoichiometryMath& rhs) :
-   SBase          ( rhs )
+StoichiometryMath::StoichiometryMath (const StoichiometryMath& orig) :
+   SBase          ( orig )
  , mMath          ( 0    )
- , mInternalId    ( rhs.mInternalId )
 {
-  if (rhs.mMath) 
+  if (&orig == NULL)
   {
-    mMath = rhs.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mInternalId = orig.mInternalId;
+ 
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -108,7 +116,11 @@ StoichiometryMath::StoichiometryMath (const StoichiometryMath& rhs) :
  */
 StoichiometryMath& StoichiometryMath::operator=(const StoichiometryMath& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mInternalId = rhs.mInternalId;

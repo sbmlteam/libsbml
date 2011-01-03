@@ -117,105 +117,113 @@ Model::~Model ()
  */
 Model::Model(const Model& orig) :
        SBase                (orig                    )
-     , mId                  (orig.mId                )  
-     , mName                (orig.mName              )
-     , mSubstanceUnits      (orig.mSubstanceUnits )
-     , mTimeUnits           (orig.mTimeUnits )
-     , mVolumeUnits         (orig.mVolumeUnits )
-     , mAreaUnits           (orig.mAreaUnits )
-     , mLengthUnits         (orig.mLengthUnits )
-     , mExtentUnits         (orig.mExtentUnits )
-     , mConversionFactor    (orig.mConversionFactor )
-     , mFunctionDefinitions (orig.mFunctionDefinitions)
-     , mUnitDefinitions     (orig.mUnitDefinitions)
-     , mCompartmentTypes    (orig.mCompartmentTypes)
-     , mSpeciesTypes        (orig.mSpeciesTypes)
-     , mCompartments        (orig.mCompartments)
-     , mSpecies             (orig.mSpecies)
-     , mParameters          (orig.mParameters)
-     , mInitialAssignments  (orig.mInitialAssignments)
-     , mRules               (orig.mRules)
-     , mConstraints         (orig.mConstraints)
-     , mReactions           (orig.mReactions)
-     , mEvents              (orig.mEvents)
-#ifdef USE_LAYOUT
-     , mLayouts             (orig.mLayouts)
-#endif
 {
-  /* reassign parentage */
-  if (orig.getNumFunctionDefinitions() > 0)
+  if (&orig == NULL)
   {
-    mFunctionDefinitions.setParentSBMLObject(this);
-  }
-  if (orig.getNumUnitDefinitions() > 0)
-  {
-    mUnitDefinitions.setParentSBMLObject(this);
-  }
-  if (orig.getNumCompartmentTypes() > 0)
-  {
-    mCompartmentTypes.setParentSBMLObject(this);
-  }
-  if (orig.getNumSpeciesTypes() > 0)
-  {
-    mSpeciesTypes.setParentSBMLObject(this);
-  }
-  if (orig.getNumCompartments() > 0)
-  {
-    mCompartments.setParentSBMLObject(this);
-  }
-  if (orig.getNumSpecies() > 0)
-  {
-    mSpecies.setParentSBMLObject(this);
-  }
-  if (orig.getNumParameters() > 0)
-  {
-    mParameters.setParentSBMLObject(this);
-  }
-  if (orig.getNumInitialAssignments() > 0)
-  {
-    mInitialAssignments.setParentSBMLObject(this);
-  }
-  if (orig.getNumRules() > 0)
-  {
-    mRules.setParentSBMLObject(this);
-  }
-  if (orig.getNumConstraints() > 0)
-  {
-    mConstraints.setParentSBMLObject(this);
-  }
-  if (orig.getNumReactions() > 0)
-  {
-    mReactions.setParentSBMLObject(this);
-  }
-  if (orig.getNumEvents() > 0)
-  {
-    mEvents.setParentSBMLObject(this);
-  }
-    // this is now in SBase
-
-  //if (orig.mHistory)
-  //{
-  //  this->mHistory = orig.mHistory->clone();
-  //}
-  //else
-  //{
-  //  this->mHistory = 0;
-  //}
-
-  if(orig.mFormulaUnitsData)
-  {
-    this->mFormulaUnitsData  = new List();
-    unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
-    for(i = 0; i < iMax; ++i)
-    {
-      this->mFormulaUnitsData
-        ->add(static_cast<FormulaUnitsData*>
-                                 (orig.mFormulaUnitsData->get(i))->clone());
-    }
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
   else
   {
-    this->mFormulaUnitsData = 0;
+    mId                   = orig.mId;
+    mName                 = orig.mName;
+    mSubstanceUnits       = orig.mSubstanceUnits ;
+    mTimeUnits            = orig.mTimeUnits ;
+    mVolumeUnits          = orig.mVolumeUnits ;
+    mAreaUnits            = orig.mAreaUnits ;
+    mLengthUnits          = orig.mLengthUnits ;
+    mExtentUnits          = orig.mExtentUnits ;
+    mConversionFactor     = orig.mConversionFactor ;
+    mFunctionDefinitions  = orig.mFunctionDefinitions;
+    mUnitDefinitions      = orig.mUnitDefinitions;
+    mCompartmentTypes     = orig.mCompartmentTypes;
+    mSpeciesTypes         = orig.mSpeciesTypes;
+    mCompartments         = orig.mCompartments;
+    mSpecies              = orig.mSpecies;
+    mParameters           = orig.mParameters;
+    mInitialAssignments   = orig.mInitialAssignments;
+    mRules                = orig.mRules;
+    mConstraints          = orig.mConstraints;
+    mReactions            = orig.mReactions;
+    mEvents               = orig.mEvents;
+  #ifdef USE_LAYOUT
+    mLayouts              = orig.mLayouts;
+  #endif
+
+    /* reassign parentage */
+    if (orig.getNumFunctionDefinitions() > 0)
+    {
+      mFunctionDefinitions.setParentSBMLObject(this);
+    }
+    if (orig.getNumUnitDefinitions() > 0)
+    {
+      mUnitDefinitions.setParentSBMLObject(this);
+    }
+    if (orig.getNumCompartmentTypes() > 0)
+    {
+      mCompartmentTypes.setParentSBMLObject(this);
+    }
+    if (orig.getNumSpeciesTypes() > 0)
+    {
+      mSpeciesTypes.setParentSBMLObject(this);
+    }
+    if (orig.getNumCompartments() > 0)
+    {
+      mCompartments.setParentSBMLObject(this);
+    }
+    if (orig.getNumSpecies() > 0)
+    {
+      mSpecies.setParentSBMLObject(this);
+    }
+    if (orig.getNumParameters() > 0)
+    {
+      mParameters.setParentSBMLObject(this);
+    }
+    if (orig.getNumInitialAssignments() > 0)
+    {
+      mInitialAssignments.setParentSBMLObject(this);
+    }
+    if (orig.getNumRules() > 0)
+    {
+      mRules.setParentSBMLObject(this);
+    }
+    if (orig.getNumConstraints() > 0)
+    {
+      mConstraints.setParentSBMLObject(this);
+    }
+    if (orig.getNumReactions() > 0)
+    {
+      mReactions.setParentSBMLObject(this);
+    }
+    if (orig.getNumEvents() > 0)
+    {
+      mEvents.setParentSBMLObject(this);
+    }
+      // this is now in SBase
+
+    //if (orig.mHistory)
+    //{
+    //  this->mHistory = orig.mHistory->clone();
+    //}
+    //else
+    //{
+    //  this->mHistory = 0;
+    //}
+
+    if(orig.mFormulaUnitsData)
+    {
+      this->mFormulaUnitsData  = new List();
+      unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
+      for(i = 0; i < iMax; ++i)
+      {
+        this->mFormulaUnitsData
+          ->add(static_cast<FormulaUnitsData*>
+                                  (orig.mFormulaUnitsData->get(i))->clone());
+      }
+    }
+    else
+    {
+      this->mFormulaUnitsData = 0;
+    }
   }
 }
 
@@ -225,7 +233,11 @@ Model::Model(const Model& orig) :
  */
 Model& Model::operator=(const Model& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator = (rhs);
     mId = rhs.mId;

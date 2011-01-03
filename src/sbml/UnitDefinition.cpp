@@ -88,16 +88,24 @@ UnitDefinition::~UnitDefinition ()
  */
 UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
     SBase     ( orig                    )
-  , mId       ( orig.mId                )  
-  , mName     ( orig.mName              )
-  , mUnits    ( orig.mUnits             )
 {
-  /* since a unit definition has children we need to re-establish the
-   * parentage of these children
-   */
-  if (orig.getNumUnits() > 0)
+  if (&orig == NULL)
   {
-    mUnits.setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mId    = orig.mId;
+    mName  = orig.mName;
+    mUnits = orig.mUnits;
+
+    /* since a unit definition has children we need to re-establish the
+    * parentage of these children
+    */
+    if (orig.getNumUnits() > 0)
+    {
+      mUnits.setParentSBMLObject(this);
+    }
   }
 }
 
@@ -107,7 +115,11 @@ UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
  */
 UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mId = rhs.mId;

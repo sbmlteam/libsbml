@@ -155,39 +155,47 @@ Reaction::~Reaction ()
  * Copy constructor. Creates a copy of this Reaction.
  */
 Reaction::Reaction (const Reaction& orig) :
-    SBase      ( orig             )
-  , mId        ( orig.mId         )  
-  , mName      ( orig.mName       )
-  , mReactants ( orig.mReactants  )
-  , mProducts  ( orig.mProducts   )
-  , mModifiers ( orig.mModifiers  )
-  , mKineticLaw( 0                )
-  , mReversible( orig.mReversible )
-  , mFast      ( orig.mFast       )
-  , mIsSetFast ( orig.mIsSetFast  )
-  , mCompartment ( orig.mCompartment )
-  , mIsSetReversible (orig.mIsSetReversible )
+    SBase      ( orig )
+  , mKineticLaw( 0    )
 {
-  /* since a reaction has children we need to re-establish the
-   * parentage of these children
-   */
-  if (orig.getNumReactants() > 0)
+  if (&orig == NULL)
   {
-    mReactants.setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  if (orig.getNumProducts() > 0)
+  else
   {
-    mProducts.setParentSBMLObject(this);
-  }
-  if (orig.getNumModifiers() > 0)
-  {
-    mModifiers.setParentSBMLObject(this);
-  }
+    mReversible      = orig.mReversible ;
+    mFast            = orig.mFast       ;
+    mIsSetFast       = orig.mIsSetFast  ;
+    mReactants       = orig.mReactants  ;
+    mProducts        = orig.mProducts   ;
+    mModifiers       = orig.mModifiers  ;
+    mId              = orig.mId;
+    mName            = orig.mName;
+    mCompartment     = orig.mCompartment;
+    mIsSetReversible = orig.mIsSetReversible;
+ 
+    /* since a reaction has children we need to re-establish the
+    * parentage of these children
+    */
+    if (orig.getNumReactants() > 0)
+    {
+      mReactants.setParentSBMLObject(this);
+    }
+    if (orig.getNumProducts() > 0)
+    {
+      mProducts.setParentSBMLObject(this);
+    }
+    if (orig.getNumModifiers() > 0)
+    {
+      mModifiers.setParentSBMLObject(this);
+    }
 
-  if (orig.mKineticLaw)
-  {
-    mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
-    mKineticLaw->setParentSBMLObject(this);
+    if (orig.mKineticLaw)
+    {
+      mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
+      mKineticLaw->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -197,7 +205,11 @@ Reaction::Reaction (const Reaction& orig) :
  */
 Reaction& Reaction::operator=(const Reaction& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mReversible = rhs.mReversible ;

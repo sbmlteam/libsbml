@@ -96,6 +96,10 @@ LocalParameter::~LocalParameter ()
 LocalParameter::LocalParameter(const LocalParameter& orig) :
     Parameter      ( orig             )
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
 }
 
 
@@ -105,13 +109,21 @@ LocalParameter::LocalParameter(const LocalParameter& orig) :
 LocalParameter::LocalParameter(const Parameter& orig) :
     Parameter      ( orig             )
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
 }
 /*
  * Assignment operator.
  */
 LocalParameter& LocalParameter::operator=(const LocalParameter& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->Parameter::operator =(rhs);
   }

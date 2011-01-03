@@ -116,39 +116,47 @@ Event::~Event ()
  * Copy constructor. Creates a copy of this Event.
  */
 Event::Event (const Event& orig) :
-   SBase                     ( orig                           )
- , mId                       ( orig.mId                       )  
- , mName                     ( orig.mName                     )
- , mTrigger                  ( 0                              )
- , mDelay                    ( 0                              )
+   SBase                     ( orig )
+ , mTrigger                  ( 0    )
+ , mDelay                    ( 0    )
  , mPriority                 ( 0    )
- , mTimeUnits                ( orig.mTimeUnits                )
- , mUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
- , mIsSetUseValuesFromTriggerTime ( orig.mUseValuesFromTriggerTime )
- , mInternalIdOnly           ( orig.mInternalIdOnly           )
- , mEventAssignments         ( orig.mEventAssignments         )
 {
-  /* since a unit definition has children we need to re-establish the
-   * parentage of these children
-   */
-  if (orig.getNumEventAssignments() > 0)
+  if (&orig == NULL)
   {
-    mEventAssignments.setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  if (orig.mTrigger) 
+  else
   {
-    mTrigger = new Trigger(*orig.getTrigger());
-    mTrigger->setParentSBMLObject(this);
-  }
-  if (orig.mDelay) 
-  {
-    mDelay = new Delay(*orig.getDelay());
-    mDelay->setParentSBMLObject(this);
-  }
-  if (orig.mPriority) 
-  {
-    mPriority = new Priority(*orig.getPriority());
-    mPriority->setParentSBMLObject(this);
+    mId                            = orig.mId;  
+    mName                          = orig.mName;
+    mTimeUnits                     = orig.mTimeUnits;
+    mUseValuesFromTriggerTime      = orig.mUseValuesFromTriggerTime ;
+    mIsSetUseValuesFromTriggerTime = orig.mUseValuesFromTriggerTime ;
+    mInternalIdOnly                = orig.mInternalIdOnly;
+    mEventAssignments              = orig.mEventAssignments;
+ 
+    /* since an event has children we need to re-establish the
+    * parentage of these children
+    */
+    if (orig.getNumEventAssignments() > 0)
+    {
+      mEventAssignments.setParentSBMLObject(this);
+    }
+    if (orig.mTrigger) 
+    {
+      mTrigger = new Trigger(*orig.getTrigger());
+      mTrigger->setParentSBMLObject(this);
+    }
+    if (orig.mDelay) 
+    {
+      mDelay = new Delay(*orig.getDelay());
+      mDelay->setParentSBMLObject(this);
+    }
+    if (orig.mPriority) 
+    {
+      mPriority = new Priority(*orig.getPriority());
+      mPriority->setParentSBMLObject(this);
+    }
   }
 }
  
@@ -158,7 +166,11 @@ Event::Event (const Event& orig) :
  */
 Event& Event::operator=(const Event& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
    

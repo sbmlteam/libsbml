@@ -129,16 +129,23 @@ Unit::~Unit ()
  */
 Unit::Unit(const Unit& orig) :
     SBase      ( orig             )
-  , mKind      ( orig.mKind       )
-  , mExponent  ( orig.mExponent   )
-  , mExponentDouble  ( orig.mExponentDouble   )
-  , mScale     ( orig.mScale      )
-  , mMultiplier( orig.mMultiplier )
-  , mOffset    ( orig.mOffset     )
-  , mIsSetExponent    ( orig.mIsSetExponent )
-  , mIsSetScale       ( orig.mIsSetScale )
-  , mIsSetMultiplier  ( orig.mIsSetMultiplier )
 {
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mKind             = orig.mKind;
+    mExponent         = orig.mExponent;
+    mExponentDouble   = orig.mExponentDouble;
+    mScale            = orig.mScale;
+    mMultiplier       = orig.mMultiplier;
+    mOffset           = orig.mOffset;
+    mIsSetExponent    = orig.mIsSetExponent;
+    mIsSetScale       = orig.mIsSetScale;
+    mIsSetMultiplier  = orig.mIsSetMultiplier;
+  }
 }
 
 
@@ -147,7 +154,11 @@ Unit::Unit(const Unit& orig) :
  */
 Unit& Unit::operator=(const Unit& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mKind       = rhs.mKind       ;

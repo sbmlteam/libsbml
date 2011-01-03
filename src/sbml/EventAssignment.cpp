@@ -90,13 +90,21 @@ EventAssignment::~EventAssignment ()
  */
 EventAssignment::EventAssignment (const EventAssignment& orig) :
    SBase   ( orig )
-  , mVariable (orig.mVariable)
-  , mMath   ( 0    )
+  , mMath  ( 0    )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mVariable  = orig.mVariable;
+
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -106,7 +114,11 @@ EventAssignment::EventAssignment (const EventAssignment& orig) :
  */
 EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mVariable = rhs.mVariable;

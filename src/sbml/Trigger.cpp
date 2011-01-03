@@ -99,15 +99,23 @@ Trigger::~Trigger ()
 Trigger::Trigger (const Trigger& orig) :
    SBase          ( orig )
  , mMath          ( 0    )
- , mInitialValue      ( orig.mInitialValue )
- , mPersistent        ( orig.mPersistent )
- , mIsSetInitialValue ( orig.mIsSetInitialValue )
- , mIsSetPersistent   ( orig.mIsSetPersistent )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mInitialValue      = orig.mInitialValue;
+    mPersistent        = orig.mPersistent;
+    mIsSetInitialValue = orig.mIsSetInitialValue;
+    mIsSetPersistent   = orig.mIsSetPersistent;
+
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -117,7 +125,11 @@ Trigger::Trigger (const Trigger& orig) :
  */
 Trigger& Trigger::operator=(const Trigger& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     this->mInitialValue      = rhs.mInitialValue;

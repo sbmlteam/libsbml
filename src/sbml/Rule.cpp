@@ -111,18 +111,26 @@ Rule::~Rule ()
  */
 Rule::Rule (const Rule& orig) :
    SBase   ( orig          )
- , mVariable (orig.mVariable)
- , mFormula( orig.mFormula )
  , mMath   ( 0            )
- , mUnits  ( orig.mUnits   )
- , mType   ( orig.mType    )
- , mL1Type ( orig.mL1Type  )
- , mInternalId (orig.mInternalId )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mVariable   = orig.mVariable;
+    mFormula    = orig.mFormula ;
+    mUnits      = orig.mUnits   ;
+    mType       = orig.mType    ;
+    mL1Type     = orig.mL1Type  ;
+    mInternalId = orig.mInternalId;
+
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
   }
 }
 
@@ -132,7 +140,11 @@ Rule::Rule (const Rule& orig) :
  */
 Rule& Rule::operator=(const Rule& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mVariable = rhs.mVariable;

@@ -106,22 +106,36 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
  , mSubstanceUnits( orig.mSubstanceUnits )
  , mInternalId    ( orig.mInternalId     )
 {
-  if (orig.mMath) 
+  if (&orig == NULL)
   {
-    mMath = orig.mMath->deepCopy();
-    mMath->setParentSBMLObject(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
+  else
+  {
+    mFormula         = orig.mFormula;
+    mParameters      = orig.mParameters;
+    mLocalParameters = orig.mLocalParameters;
+    mTimeUnits       = orig.mTimeUnits;
+    mSubstanceUnits  = orig.mSubstanceUnits;
+    mInternalId      = orig.mInternalId;
 
-  /* since a kinetic Law has children we need to re-establish the
-   * parentage of these children
-   */
-  if (orig.getNumParameters() > 0)
-  {
-    mParameters.setParentSBMLObject(this);
-  }
-  if (orig.getNumLocalParameters() > 0)
-  {
-    mLocalParameters.setParentSBMLObject(this);
+    if (orig.mMath) 
+    {
+      mMath = orig.mMath->deepCopy();
+      mMath->setParentSBMLObject(this);
+    }
+
+    /* since a kinetic Law has children we need to re-establish the
+    * parentage of these children
+    */
+    if (orig.getNumParameters() > 0)
+    {
+      mParameters.setParentSBMLObject(this);
+    }
+    if (orig.getNumLocalParameters() > 0)
+    {
+      mLocalParameters.setParentSBMLObject(this);
+    }
   }
 }
 
@@ -131,7 +145,11 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
  */
 KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
     mFormula        = rhs.mFormula        ;

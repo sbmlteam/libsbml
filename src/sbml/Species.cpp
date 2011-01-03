@@ -143,27 +143,32 @@ Species::Species(const Species& orig) :
  , mId               ( orig.mId                )  
  , mName             ( orig.mName              )
 {
-    this->mSpeciesType = orig.mSpeciesType;
-    this->mCompartment = orig.mCompartment;
-
-    this->mInitialAmount = orig.mInitialAmount;
-    this->mInitialConcentration = orig.mInitialConcentration;
-
-    this->mSubstanceUnits = orig.mSubstanceUnits;
-    this->mSpatialSizeUnits = orig.mSpatialSizeUnits;
-
-    this->mHasOnlySubstanceUnits = orig.mHasOnlySubstanceUnits;
-    this->mBoundaryCondition = orig.mBoundaryCondition;
-    this->mCharge = orig.mCharge;
-    this->mConstant = orig.mConstant;
-
-    this->mIsSetInitialAmount = orig.mIsSetInitialAmount;
-    this->mIsSetInitialConcentration = orig.mIsSetInitialConcentration;
-    this->mIsSetCharge = orig.mIsSetCharge;
-    this->mConversionFactor         = orig.mConversionFactor;
-    this->mIsSetBoundaryCondition   = orig.mIsSetBoundaryCondition;
-    this->mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
-    this->mIsSetConstant             = orig.mIsSetConstant;
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mSpeciesType                = orig.mSpeciesType;
+    mCompartment                = orig.mCompartment;
+    mInitialAmount              = orig.mInitialAmount;
+    mInitialConcentration       = orig.mInitialConcentration;
+    mSubstanceUnits             = orig.mSubstanceUnits;
+    mSpatialSizeUnits           = orig.mSpatialSizeUnits;
+    mHasOnlySubstanceUnits      = orig.mHasOnlySubstanceUnits;
+    mBoundaryCondition          = orig.mBoundaryCondition;
+    mCharge                     = orig.mCharge;
+    mConstant                   = orig.mConstant;
+    mIsSetInitialAmount         = orig.mIsSetInitialAmount;
+    mIsSetInitialConcentration  = orig.mIsSetInitialConcentration;
+    mIsSetCharge                = orig.mIsSetCharge;
+    mConversionFactor           = orig.mConversionFactor;
+    mIsSetBoundaryCondition     = orig.mIsSetBoundaryCondition;
+    mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
+    mIsSetConstant              = orig.mIsSetConstant;
+    mId                         = orig.mId;
+    mName                       = orig.mName;
+  }
 }
 
 
@@ -172,7 +177,11 @@ Species::Species(const Species& orig) :
  */
 Species& Species::operator=(const Species& orig)
 {
-  if(&orig!=this)
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&orig!=this)
   {
     this->SBase::operator =(orig);
     this->mId = orig.mId;
