@@ -135,29 +135,36 @@ XMLToken::~XMLToken ()
  */
 XMLToken::XMLToken(const XMLToken& orig)
 {
-  if (orig.mTriple.isEmpty())
-    mTriple = XMLTriple();
+  if (&orig == NULL)
+  {
+    throw XMLConstructorException();
+  }
   else
-    mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
-  
-  if (orig.mAttributes.isEmpty())
-    mAttributes = XMLAttributes();
-  else
-    mAttributes = XMLAttributes(orig.getAttributes());
-  
-  if (orig.mNamespaces.isEmpty())
-    mNamespaces = XMLNamespaces();
-  else
-    mNamespaces = XMLNamespaces(orig.getNamespaces());
+  {
+    if (orig.mTriple.isEmpty())
+      mTriple = XMLTriple();
+    else
+      mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
+    
+    if (orig.mAttributes.isEmpty())
+      mAttributes = XMLAttributes();
+    else
+      mAttributes = XMLAttributes(orig.getAttributes());
+    
+    if (orig.mNamespaces.isEmpty())
+      mNamespaces = XMLNamespaces();
+    else
+      mNamespaces = XMLNamespaces(orig.getNamespaces());
 
-  mChars = orig.mChars;
+    mChars = orig.mChars;
 
-  mIsStart = orig.mIsStart;
-  mIsEnd = orig.mIsEnd;
-  mIsText = orig.mIsText;
+    mIsStart = orig.mIsStart;
+    mIsEnd = orig.mIsEnd;
+    mIsText = orig.mIsText;
 
-  mLine = orig.mLine;
-  mColumn = orig.mColumn;
+    mLine = orig.mLine;
+    mColumn = orig.mColumn;
+  }
 }
 
 

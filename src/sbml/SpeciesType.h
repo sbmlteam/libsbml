@@ -199,7 +199,7 @@ public:
   /**
    * Assignment operator for SpeciesType.
    */
-  SpeciesType& operator=(const SpeciesType& orig);
+  SpeciesType& operator=(const SpeciesType& rhs);
 
 
   /**

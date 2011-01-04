@@ -122,7 +122,7 @@ public:
   /**
    * Assignment operator for SBMLNamespaces.
    */
-  SBMLNamespaces& operator=(const SBMLNamespaces& orig);
+  SBMLNamespaces& operator=(const SBMLNamespaces& rhs);
 
 
   /**

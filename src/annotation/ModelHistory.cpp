@@ -23,6 +23,7 @@
 
 
 #include <sbml/annotation/ModelHistory.h>
+#include <sbml/SBase.h>
 #include <cstdio>
 
 /** @cond doxygen-ignored */
@@ -76,26 +77,13 @@ Date::~Date() {}
 /**
 * Copy constructor.
 */
-Date::Date(const Date& orig):
-   mYear            ( orig.mYear )
- , mMonth           ( orig.mMonth )
- , mDay             ( orig.mDay )
- , mHour            ( orig.mHour )  
- , mMinute          ( orig.mMinute )
- , mSecond          ( orig.mSecond )
- , mSignOffset      ( orig.mSignOffset )
- , mHoursOffset     ( orig.mHoursOffset )
- , mMinutesOffset   ( orig.mMinutesOffset )
- , mDate            ( orig.mDate )
+Date::Date(const Date& orig)
 {
-}
-
-/**
-  * Assignment operator
-  */
-Date& Date::operator=(const Date& orig)
-{
-  if(&orig!=this)
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
   {
     mYear   = orig.mYear;
     mMonth  = orig.mMonth;
@@ -109,6 +97,32 @@ Date& Date::operator=(const Date& orig)
     mMinutesOffset  = orig.mMinutesOffset;;
 
     mDate = orig.mDate;
+  }
+}
+
+/**
+  * Assignment operator
+  */
+Date& Date::operator=(const Date& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    mYear   = rhs.mYear;
+    mMonth  = rhs.mMonth;
+    mDay    = rhs.mDay;
+    mHour   = rhs.mHour;  
+    mMinute = rhs.mMinute;
+    mSecond = rhs.mSecond;
+    
+    mSignOffset     = rhs.mSignOffset;
+    mHoursOffset    = rhs.mHoursOffset;
+    mMinutesOffset  = rhs.mMinutesOffset;;
+
+    mDate = rhs.mDate;
   }
 
   return *this;
@@ -692,34 +706,46 @@ ModelCreator::~ModelCreator()
 /**
 * Copy constructor.
 */
-ModelCreator::ModelCreator(const ModelCreator& orig):
-   mFamilyName   ( orig.mFamilyName )
- , mGivenName    ( orig.mGivenName )
- , mEmail        ( orig.mEmail )
- , mOrganization ( orig.mOrganization )
+ModelCreator::ModelCreator(const ModelCreator& orig)
 {
-  if (orig.mAdditionalRDF)
-    this->mAdditionalRDF = orig.mAdditionalRDF->clone();
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
   else
-    this->mAdditionalRDF = 0;
-}
-
-
-/**
-  * Assignment operator
-  */
-ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
-{
-  if(&orig!=this)
   {
     mFamilyName   = orig.mFamilyName;
     mGivenName    = orig.mGivenName;
     mEmail        = orig.mEmail;
     mOrganization = orig.mOrganization;
 
-    delete this->mAdditionalRDF;
     if (orig.mAdditionalRDF)
       this->mAdditionalRDF = orig.mAdditionalRDF->clone();
+    else
+      this->mAdditionalRDF = 0;
+  }
+}
+
+
+/**
+  * Assignment operator
+  */
+ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment rhsor");
+  }
+  else if(&rhs!=this)
+  {
+    mFamilyName   = rhs.mFamilyName;
+    mGivenName    = rhs.mGivenName;
+    mEmail        = rhs.mEmail;
+    mOrganization = rhs.mOrganization;
+
+    delete this->mAdditionalRDF;
+    if (rhs.mAdditionalRDF)
+      this->mAdditionalRDF = rhs.mAdditionalRDF->clone();
     else
       this->mAdditionalRDF = 0;
   }
@@ -984,33 +1010,32 @@ ModelHistory::~ModelHistory()
 */
 ModelHistory::ModelHistory(const ModelHistory& orig)
 {
-  mCreators = new List();
-  mModifiedDates = new List();
-  unsigned int i;
-  for (i = 0; i < orig.mCreators->getSize(); i++)
+  if (&orig == NULL)
   {
-    this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
-  }
-  for (i = 0; i < orig.mModifiedDates->getSize(); i++)
-  {
-    this->addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
-  }
-  if (orig.mCreatedDate) 
-  {
-    this->mCreatedDate = orig.mCreatedDate->clone();
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
   else
   {
-    mCreatedDate = NULL;
+    mCreators = new List();
+    mModifiedDates = new List();
+    unsigned int i;
+    for (i = 0; i < orig.mCreators->getSize(); i++)
+    {
+      this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+    }
+    for (i = 0; i < orig.mModifiedDates->getSize(); i++)
+    {
+      this->addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
+    }
+    if (orig.mCreatedDate) 
+    {
+      this->mCreatedDate = orig.mCreatedDate->clone();
+    }
+    else
+    {
+      mCreatedDate = NULL;
+    }
   }
-  //if (orig.mModifiedDate)
-  //{
-  //  setModifiedDate(orig.mModifiedDate);
-  //}
-  //else
-  //{
-  //  mModifiedDate = NULL;
-  //}
 }
 
 
@@ -1018,9 +1043,13 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
   * Assignment operator
   */
 ModelHistory& 
-ModelHistory::operator=(const ModelHistory& orig)
+ModelHistory::operator=(const ModelHistory& rhs)
 {
-  if(&orig!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment rhsor");
+  }
+  else if(&rhs!=this)
   {
     if (mCreators)
     {
@@ -1033,9 +1062,9 @@ ModelHistory::operator=(const ModelHistory& orig)
     }
 
     unsigned int i;
-    for (i = 0; i < orig.mCreators->getSize(); i++)
+    for (i = 0; i < rhs.mCreators->getSize(); i++)
     {
-      addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+      addCreator(static_cast<ModelCreator*>(rhs.mCreators->get(i)));
     }
 
     if (mModifiedDates)
@@ -1049,14 +1078,14 @@ ModelHistory::operator=(const ModelHistory& orig)
       mModifiedDates = new List();
     }
 
-    for (i = 0; i < orig.mModifiedDates->getSize(); i++)
+    for (i = 0; i < rhs.mModifiedDates->getSize(); i++)
     {
-      addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
+      addModifiedDate(static_cast<Date*>(rhs.mModifiedDates->get(i)));
     }
 
     delete mCreatedDate;
-    if (orig.mCreatedDate) 
-      setCreatedDate(orig.mCreatedDate);
+    if (rhs.mCreatedDate) 
+      setCreatedDate(rhs.mCreatedDate);
     else
       mCreatedDate = 0;
   }

@@ -177,7 +177,7 @@ public:
   /**
    * Assignment operator for SBase.
    */
-  SBase& operator=(const SBase& orig);
+  SBase& operator=(const SBase& rhs);
 
 
   /**

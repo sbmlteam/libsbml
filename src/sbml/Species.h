@@ -465,7 +465,7 @@ public:
   /**
    * Assignment operator for Species.
    */
-  Species& operator=(const Species& orig);
+  Species& operator=(const Species& rhs);
 
 
   /**

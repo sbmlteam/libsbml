@@ -42,6 +42,7 @@
 
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 #include <sbml/xml/XMLTriple.h>
 
@@ -52,6 +53,16 @@ class XMLErrorLog;
 class XMLOutputStream;
 /** @endcond */
 
+/** @cond doxygen-libsbml-internal */
+class XMLConstructorException : public std::invalid_argument
+{
+public:
+
+  /* constructor */
+  XMLConstructorException (std::string 
+                    message="NULL reference in XML constructor");
+};
+/** @endcond */
 
 class LIBLAX_EXTERN XMLAttributes
 {

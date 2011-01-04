@@ -175,38 +175,38 @@ Species::Species(const Species& orig) :
 /*
  * Assignment operator.
  */
-Species& Species::operator=(const Species& orig)
+Species& Species::operator=(const Species& rhs)
 {
-  if (&orig == NULL)
+  if (&rhs == NULL)
   {
     throw SBMLConstructorException("Null argument to assignment operator");
   }
-  else if(&orig!=this)
+  else if(&rhs!=this)
   {
-    this->SBase::operator =(orig);
-    this->mId = orig.mId;
-    this->mName = orig.mName;
-    this->mSpeciesType = orig.mSpeciesType;
-    this->mCompartment = orig.mCompartment;
+    this->SBase::operator =(rhs);
+    this->mId = rhs.mId;
+    this->mName = rhs.mName;
+    this->mSpeciesType = rhs.mSpeciesType;
+    this->mCompartment = rhs.mCompartment;
 
-    this->mInitialAmount = orig.mInitialAmount;
-    this->mInitialConcentration = orig.mInitialConcentration;
+    this->mInitialAmount = rhs.mInitialAmount;
+    this->mInitialConcentration = rhs.mInitialConcentration;
 
-    this->mSubstanceUnits = orig.mSubstanceUnits;
-    this->mSpatialSizeUnits = orig.mSpatialSizeUnits;
+    this->mSubstanceUnits = rhs.mSubstanceUnits;
+    this->mSpatialSizeUnits = rhs.mSpatialSizeUnits;
 
-    this->mHasOnlySubstanceUnits = orig.mHasOnlySubstanceUnits;
-    this->mBoundaryCondition = orig.mBoundaryCondition;
-    this->mCharge = orig.mCharge;
-    this->mConstant = orig.mConstant;
+    this->mHasOnlySubstanceUnits = rhs.mHasOnlySubstanceUnits;
+    this->mBoundaryCondition = rhs.mBoundaryCondition;
+    this->mCharge = rhs.mCharge;
+    this->mConstant = rhs.mConstant;
 
-    this->mIsSetInitialAmount = orig.mIsSetInitialAmount;
-    this->mIsSetInitialConcentration = orig.mIsSetInitialConcentration;
-    this->mIsSetCharge = orig.mIsSetCharge;
-    this->mConversionFactor         = orig.mConversionFactor;
-    this->mIsSetBoundaryCondition   = orig.mIsSetBoundaryCondition;
-    this->mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
-    this->mIsSetConstant             = orig.mIsSetConstant;
+    this->mIsSetInitialAmount = rhs.mIsSetInitialAmount;
+    this->mIsSetInitialConcentration = rhs.mIsSetInitialConcentration;
+    this->mIsSetCharge = rhs.mIsSetCharge;
+    this->mConversionFactor         = rhs.mConversionFactor;
+    this->mIsSetBoundaryCondition   = rhs.mIsSetBoundaryCondition;
+    this->mIsSetHasOnlySubstanceUnits = rhs.mIsSetHasOnlySubstanceUnits;
+    this->mIsSetConstant             = rhs.mIsSetConstant;
   }
 
   return *this;

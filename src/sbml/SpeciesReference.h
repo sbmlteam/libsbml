@@ -377,7 +377,7 @@ public:
   /**
    * Assignment operator. 
    */
-  SimpleSpeciesReference& operator=(const SimpleSpeciesReference& orig);
+  SimpleSpeciesReference& operator=(const SimpleSpeciesReference& rhs);
 
 
   /**

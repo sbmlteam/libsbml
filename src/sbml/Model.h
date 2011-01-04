@@ -429,7 +429,7 @@ public:
   /**
    * Assignment operator for Model.
    */
-  Model& operator=(const Model& orig);
+  Model& operator=(const Model& rhs);
 
 
   /**

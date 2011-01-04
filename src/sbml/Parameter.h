@@ -257,7 +257,7 @@ public:
   /**
    * Assignment operator for Parameter.
    */
-  Parameter& operator=(const Parameter& orig);
+  Parameter& operator=(const Parameter& rhs);
 
 
   /**

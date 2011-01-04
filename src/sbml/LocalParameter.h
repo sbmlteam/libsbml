@@ -238,7 +238,7 @@ public:
   /**
    * Assignment operator for LocalParameter.
    */
-  LocalParameter& operator=(const LocalParameter& orig);
+  LocalParameter& operator=(const LocalParameter& rhs);
 
 
   /**

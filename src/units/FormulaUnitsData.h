@@ -97,7 +97,7 @@ public:
   /**
    * Assignment operator for FormulaUnitsData.
    */
-  FormulaUnitsData& operator=(const FormulaUnitsData& orig);
+  FormulaUnitsData& operator=(const FormulaUnitsData& rhs);
 
 
   /**

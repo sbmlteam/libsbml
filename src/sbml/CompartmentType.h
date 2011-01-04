@@ -199,7 +199,7 @@ public:
   /**
    * Assignment operator for CompartmentType.
    */
-  CompartmentType& operator=(const CompartmentType& orig);
+  CompartmentType& operator=(const CompartmentType& rhs);
 
 
   /**

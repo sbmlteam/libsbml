@@ -142,7 +142,7 @@ public:
   /**
    * Assignment operator.
    */
-  Date& operator=(const Date& orig);
+  Date& operator=(const Date& rhs);
 
   /**
    * Returns a copy of this Date.
@@ -440,7 +440,7 @@ public:
   /**
    * Assignment operator.
    */
-  ModelCreator& operator=(const ModelCreator& orig);
+  ModelCreator& operator=(const ModelCreator& rhs);
 
   /**
    * Creates and returns a copy of this ModelCreator.
@@ -718,7 +718,7 @@ public:
   /**
    * Assignment operator.
    */
-  ModelHistory& operator=(const ModelHistory& orig);
+  ModelHistory& operator=(const ModelHistory& rhs);
 
   /**
    * Creates and returns a copy of this ModelHistory.

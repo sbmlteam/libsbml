@@ -146,16 +146,19 @@ CVTerm::~CVTerm()
  * 
  * @param orig the CVTerm instance to copy.
  */
-CVTerm::CVTerm(const CVTerm& orig):
-          mQualifier       (orig.mQualifier)
-        , mModelQualifier  (orig.mModelQualifier)
-        , mBiolQualifier   (orig.mBiolQualifier)
+CVTerm::CVTerm(const CVTerm& orig)
 {
-  //if (orig.mResources.isEmpty())
-  //  mResources = new XMLAttributes();
-  //else
-  //  mResources = new XMLAttributes(orig.getResources());
-  mResources=new XMLAttributes(*orig.mResources);
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mQualifier      = orig.mQualifier;
+    mModelQualifier = orig.mModelQualifier;
+    mBiolQualifier  = orig.mBiolQualifier;
+    mResources      = new XMLAttributes(*orig.mResources);
+  }
 }
 
 /*
@@ -164,7 +167,11 @@ CVTerm::CVTerm(const CVTerm& orig):
 CVTerm& 
 CVTerm::operator=(const CVTerm& rhs)
 {
-  if(&rhs!=this)
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
   {
     mQualifier       = rhs.mQualifier;
     mModelQualifier  = rhs.mModelQualifier;

@@ -112,20 +112,20 @@ SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
  * Assignment operator for SBMLNamespaces.
  */
 SBMLNamespaces&
-SBMLNamespaces::operator=(const SBMLNamespaces& orig)
+SBMLNamespaces::operator=(const SBMLNamespaces& rhs)
 {
-  if (&orig == NULL)
+  if (&rhs == NULL)
   {
     throw SBMLConstructorException("Null argument to assignment operator");
   }
-  else if (&orig != this)
+  else if (&rhs != this)
   {
-    mLevel   = orig.mLevel;
-    mVersion = orig.mVersion;
+    mLevel   = rhs.mLevel;
+    mVersion = rhs.mVersion;
     delete this->mNamespaces;
-    if(orig.mNamespaces)
+    if(rhs.mNamespaces)
       this->mNamespaces = 
-            new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
+            new XMLNamespaces(*const_cast<SBMLNamespaces&>(rhs).mNamespaces);
     else
       this->mNamespaces = 0;
   }

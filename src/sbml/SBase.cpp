@@ -233,41 +233,41 @@ SBase::~SBase ()
 /*
  * Assignment operator
  */
-SBase& SBase::operator=(const SBase& orig)
+SBase& SBase::operator=(const SBase& rhs)
 {
-  if (&orig == NULL)
+  if (&rhs == NULL)
   {
     throw SBMLConstructorException("Null argument to assignment operator");
   }
-  else if(&orig!=this)
+  else if(&rhs!=this)
   {
-    this->mMetaId = orig.mMetaId;
+    this->mMetaId = rhs.mMetaId;
 
     delete this->mNotes;
 
-    if(orig.mNotes) 
-      this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
+    if(rhs.mNotes) 
+      this->mNotes = new XMLNode(*const_cast<SBase&>(rhs).getNotes());
     else
       this->mNotes = 0;
 
     delete this->mAnnotation;
 
-    if(orig.mAnnotation) 
-      this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
+    if(rhs.mAnnotation) 
+      this->mAnnotation = new XMLNode(*const_cast<SBase&>(rhs).mAnnotation);
     else
       this->mAnnotation = 0;
 
-    this->mSBML       = orig.mSBML;
-    this->mSBOTerm    = orig.mSBOTerm;
-    this->mLine       = orig.mLine;
-    this->mColumn     = orig.mColumn;
-    this->mParentSBMLObject = orig.mParentSBMLObject;
+    this->mSBML       = rhs.mSBML;
+    this->mSBOTerm    = rhs.mSBOTerm;
+    this->mLine       = rhs.mLine;
+    this->mColumn     = rhs.mColumn;
+    this->mParentSBMLObject = rhs.mParentSBMLObject;
 
     delete this->mSBMLNamespaces;
 
-    if(orig.mSBMLNamespaces)
+    if(rhs.mSBMLNamespaces)
       this->mSBMLNamespaces = 
-      new SBMLNamespaces(*const_cast<SBase&>(orig).mSBMLNamespaces);
+      new SBMLNamespaces(*const_cast<SBase&>(rhs).mSBMLNamespaces);
     else
       this->mSBMLNamespaces = 0;
 
@@ -279,14 +279,14 @@ SBase& SBase::operator=(const SBase& orig)
       delete this->mCVTerms;
     }
 
-    if(orig.mCVTerms)
+    if(rhs.mCVTerms)
     {
       this->mCVTerms  = new List();
-      unsigned int i,iMax = orig.mCVTerms->getSize();
+      unsigned int i,iMax = rhs.mCVTerms->getSize();
       for(i = 0; i < iMax; ++i)
       {
         this->mCVTerms
-          ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+          ->add(static_cast<CVTerm*>(rhs.mCVTerms->get(i))->clone());
       }
     }
     else
@@ -295,16 +295,16 @@ SBase& SBase::operator=(const SBase& orig)
     }
 
     delete this->mHistory;
-    if (orig.mHistory)
+    if (rhs.mHistory)
     {
-      this->mHistory = orig.mHistory->clone();
+      this->mHistory = rhs.mHistory->clone();
     }
     else
     {
       this->mHistory = 0;
     }
 
-    this->mHasBeenDeleted = orig.mHasBeenDeleted;
+    this->mHasBeenDeleted = rhs.mHasBeenDeleted;
   }
 
   return *this;

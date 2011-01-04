@@ -354,7 +354,7 @@ public:
   /**
    * Assignment operator.
    */
-  UnitDefinition& operator=(const UnitDefinition& orig);
+  UnitDefinition& operator=(const UnitDefinition& rhs);
 
 
   /**

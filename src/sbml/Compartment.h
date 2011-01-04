@@ -406,7 +406,7 @@ public:
   /**
    * Assignment operator for Compartment.
    */
-  Compartment& operator=(const Compartment& orig);
+  Compartment& operator=(const Compartment& rhs);
 
 
   /**

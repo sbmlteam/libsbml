@@ -422,7 +422,7 @@ public:
   /**
    * Assignment operator for SBMLDocument.
    */
-  SBMLDocument& operator=(const SBMLDocument& orig);
+  SBMLDocument& operator=(const SBMLDocument& rhs);
 
 
   /**
