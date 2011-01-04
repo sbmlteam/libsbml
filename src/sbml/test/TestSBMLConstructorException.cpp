@@ -44,6 +44,8 @@
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
 #include <sbml/units/FormulaUnitsData.h>
+#include <sbml/SBMLNamespaces.h>
+#include <sbml/SBMLDocument.h>
 
 #include <sbml/math/ASTNode.h>
 
@@ -67,6 +69,7 @@ static SBMLNamespaces SN22(2,2);
 static SBMLNamespaces SN23(2,3);
 static SBMLNamespaces SN24(2,4);
 static SBMLNamespaces SN99(9,9);
+static SBMLNamespaces SN31(3,1);
 
 
 CK_CPPSTART
@@ -81,12 +84,14 @@ START_TEST ( test_SBMLConstructorException_Compartment )
     Compartment s22(2,2);
     Compartment s23(2,3);
     Compartment s24(2,4);
+    Compartment s31(3,1);
     Compartment sn11(&SN11);
     Compartment sn12(&SN12);
     Compartment sn21(&SN21);
     Compartment sn22(&SN22);
     Compartment sn23(&SN23);
     Compartment sn24(&SN24);
+    Compartment sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -305,9 +310,11 @@ START_TEST ( test_SBMLConstructorException_Constraint )
     Constraint s22(2,2);
     Constraint s23(2,3);
     Constraint s24(2,4);
+    Constraint s31(3,1);
     Constraint sn22(&SN22);
     Constraint sn23(&SN23);
     Constraint sn24(&SN24);
+    Constraint sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -448,9 +455,11 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
     InitialAssignment s22(2,2);
     InitialAssignment s23(2,3);
     InitialAssignment s24(2,4);
+    InitialAssignment s31(3,1);
     InitialAssignment sn22(&SN22);
     InitialAssignment sn23(&SN23);
     InitialAssignment sn24(&SN24);
+    InitialAssignment sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -595,12 +604,14 @@ START_TEST ( test_SBMLConstructorException_Species )
     Species s22(2,2);
     Species s23(2,3);
     Species s24(2,4);
+    Species s31(3,1);
     Species sn11(&SN11);
     Species sn12(&SN12);
     Species sn21(&SN21);
     Species sn22(&SN22);
     Species sn23(&SN23);
     Species sn24(&SN24);
+    Species sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -821,10 +832,12 @@ START_TEST ( test_SBMLConstructorException_Delay )
     Delay s22(2,2);
     Delay s23(2,3);
     Delay s24(2,4);
+    Delay s31(3,1);
     Delay sn21(&SN21);
     Delay sn22(&SN22);
     Delay sn23(&SN23);
     Delay sn24(&SN24);
+    Delay sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -945,10 +958,12 @@ START_TEST ( test_SBMLConstructorException_Trigger )
     Trigger s22(2,2);
     Trigger s23(2,3);
     Trigger s24(2,4);
+    Trigger s31(3,1);
     Trigger sn21(&SN21);
     Trigger sn22(&SN22);
     Trigger sn23(&SN23);
     Trigger sn24(&SN24);
+    Trigger sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1069,10 +1084,12 @@ START_TEST ( test_SBMLConstructorException_Event )
     Event s22(2,2);
     Event s23(2,3);
     Event s24(2,4);
+    Event s31(3,1);
     Event sn21(&SN21);
     Event sn22(&SN22);
     Event sn23(&SN23);
     Event sn24(&SN24);
+    Event sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1193,10 +1210,12 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
     EventAssignment s22(2,2);
     EventAssignment s23(2,3);
     EventAssignment s24(2,4);
+    EventAssignment s31(3,1);
     EventAssignment sn21(&SN21);
     EventAssignment sn22(&SN22);
     EventAssignment sn23(&SN23);
     EventAssignment sn24(&SN24);
+    EventAssignment sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1317,10 +1336,12 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
     ModifierSpeciesReference s22(2,2);
     ModifierSpeciesReference s23(2,3);
     ModifierSpeciesReference s24(2,4);
+    ModifierSpeciesReference s31(3,1);
     ModifierSpeciesReference sn21(&SN21);
     ModifierSpeciesReference sn22(&SN22);
     ModifierSpeciesReference sn23(&SN23);
     ModifierSpeciesReference sn24(&SN24);
+    ModifierSpeciesReference sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1567,12 +1588,14 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
     SpeciesReference s22(2,2);
     SpeciesReference s23(2,3);
     SpeciesReference s24(2,4);
+    SpeciesReference s31(3,1);
     SpeciesReference sn11(&SN11);
     SpeciesReference sn12(&SN12);
     SpeciesReference sn21(&SN21);
     SpeciesReference sn22(&SN22);
     SpeciesReference sn23(&SN23);
     SpeciesReference sn24(&SN24);
+    SpeciesReference sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1649,10 +1672,12 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
     FunctionDefinition s22(2,2);
     FunctionDefinition s23(2,3);
     FunctionDefinition s24(2,4);
+    FunctionDefinition s31(3,1);
     FunctionDefinition sn21(&SN21);
     FunctionDefinition sn22(&SN22);
     FunctionDefinition sn23(&SN23);
     FunctionDefinition sn24(&SN24);
+    FunctionDefinition sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1775,12 +1800,14 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
     KineticLaw s22(2,2);
     KineticLaw s23(2,3);
     KineticLaw s24(2,4);
+    KineticLaw s31(3,1);
     KineticLaw sn11(&SN11);
     KineticLaw sn12(&SN12);
     KineticLaw sn21(&SN21);
     KineticLaw sn22(&SN22);
     KineticLaw sn23(&SN23);
     KineticLaw sn24(&SN24);
+    KineticLaw sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1859,12 +1886,14 @@ START_TEST ( test_SBMLConstructorException_Model )
     Model s22(2,2);
     Model s23(2,3);
     Model s24(2,4);
+    Model s31(3,1);
     Model sn11(&SN11);
     Model sn12(&SN12);
     Model sn21(&SN21);
     Model sn22(&SN22);
     Model sn23(&SN23);
     Model sn24(&SN24);
+    Model sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -1943,12 +1972,14 @@ START_TEST ( test_SBMLConstructorException_Parameter )
     Parameter s22(2,2);
     Parameter s23(2,3);
     Parameter s24(2,4);
+    Parameter s31(3,1);
     Parameter sn11(&SN11);
     Parameter sn12(&SN12);
     Parameter sn21(&SN21);
     Parameter sn22(&SN22);
     Parameter sn23(&SN23);
     Parameter sn24(&SN24);
+    Parameter sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2027,12 +2058,14 @@ START_TEST ( test_SBMLConstructorException_Reaction )
     Reaction s22(2,2);
     Reaction s23(2,3);
     Reaction s24(2,4);
+    Reaction s31(3,1);
     Reaction sn11(&SN11);
     Reaction sn12(&SN12);
     Reaction sn21(&SN21);
     Reaction sn22(&SN22);
     Reaction sn23(&SN23);
     Reaction sn24(&SN24);
+    Reaction sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2111,12 +2144,14 @@ START_TEST ( test_SBMLConstructorException_Unit )
     Unit s22(2,2);
     Unit s23(2,3);
     Unit s24(2,4);
+    Unit s31(3,1);
     Unit sn11(&SN11);
     Unit sn12(&SN12);
     Unit sn21(&SN21);
     Unit sn22(&SN22);
     Unit sn23(&SN23);
     Unit sn24(&SN24);
+    Unit sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2195,12 +2230,14 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
     UnitDefinition s22(2,2);
     UnitDefinition s23(2,3);
     UnitDefinition s24(2,4);
+    UnitDefinition s31(3,1);
     UnitDefinition sn11(&SN11);
     UnitDefinition sn12(&SN12);
     UnitDefinition sn21(&SN21);
     UnitDefinition sn22(&SN22);
     UnitDefinition sn23(&SN23);
     UnitDefinition sn24(&SN24);
+    UnitDefinition sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2279,12 +2316,14 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
     AssignmentRule s22(2,2);
     AssignmentRule s23(2,3);
     AssignmentRule s24(2,4);
+    AssignmentRule s31(3,1);
     AssignmentRule sn11(&SN11);
     AssignmentRule sn12(&SN12);
     AssignmentRule sn21(&SN21);
     AssignmentRule sn22(&SN22);
     AssignmentRule sn23(&SN23);
     AssignmentRule sn24(&SN24);
+    AssignmentRule sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2363,12 +2402,14 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
     AlgebraicRule s22(2,2);
     AlgebraicRule s23(2,3);
     AlgebraicRule s24(2,4);
+    AlgebraicRule s31(3,1);
     AlgebraicRule sn11(&SN11);
     AlgebraicRule sn12(&SN12);
     AlgebraicRule sn21(&SN21);
     AlgebraicRule sn22(&SN22);
     AlgebraicRule sn23(&SN23);
     AlgebraicRule sn24(&SN24);
+    AlgebraicRule sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2447,12 +2488,14 @@ START_TEST ( test_SBMLConstructorException_RateRule )
     RateRule s22(2,2);
     RateRule s23(2,3);
     RateRule s24(2,4);
+    RateRule s31(3,1);
     RateRule sn11(&SN11);
     RateRule sn12(&SN12);
     RateRule sn21(&SN21);
     RateRule sn22(&SN22);
     RateRule sn23(&SN23);
     RateRule sn24(&SN24);
+    RateRule sn31(&SN31);
   }
   catch (SBMLConstructorException &e)
   {
@@ -2520,6 +2563,321 @@ START_TEST ( test_SBMLConstructorException_RateRule )
 END_TEST
 
 
+START_TEST ( test_SBMLConstructorException_Priority )
+{
+  string msg;
+  try
+  {
+    Priority sn31(&SN31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+  
+  msg = "";
+  try
+  {
+    Priority s(3,1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+  
+  msg = "";
+  try
+  {
+    Priority s(9,9);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    Priority s(&SN21);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    Priority s(&SN99);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    Priority s(0);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  Priority *sn31 = NULL;
+  msg = "";
+  try
+  {
+    Priority *s = new Priority(&SN31);
+    (*s)=*sn31;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+  
+  msg = "";
+  try
+  {
+    Priority *s = new Priority(*sn31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+}
+END_TEST
+
+
+START_TEST ( test_SBMLConstructorException_LocalParameter )
+{
+  string msg;
+  try
+  {
+    LocalParameter sn31(&SN31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+  
+  msg = "";
+  try
+  {
+    LocalParameter s(3,1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+  
+  msg = "";
+  try
+  {
+    LocalParameter s(9,9);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what(); 
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    LocalParameter s(&SN21);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    LocalParameter s(&SN99);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    LocalParameter s(0);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+
+  LocalParameter *sn31 = NULL;
+  msg = "";
+  try
+  {
+    LocalParameter *s = new LocalParameter(&SN31);
+    (*s)=*sn31;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+ 
+  msg = "";
+  try
+  {
+    LocalParameter *s = new LocalParameter(*sn31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+}
+END_TEST
+
+
+START_TEST ( test_SBMLConstructorException_SBMLNamespaces )
+{
+  string msg;
+  try
+  {
+    SBMLNamespaces sn31(3,1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+  
+  //msg = "";
+  //try
+  //{
+  //  SBMLNamespaces s(4,2);
+  //}
+  //catch (SBMLConstructorException &e)
+  //{
+  //  msg = e.what();
+  //}
+  //fail_unless(msg == errMsg);
+
+  SBMLNamespaces *sn31 = NULL;
+  msg = "";
+  try
+  {
+    SBMLNamespaces *s = new SBMLNamespaces(SN31);
+    (*s)=*sn31;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+ 
+  msg = "";
+  try
+  {
+    SBMLNamespaces *s = new SBMLNamespaces(*sn31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+}
+END_TEST
+
+START_TEST ( test_SBMLConstructorException_SBMLDocument )
+{
+  string msg;
+  try
+  {
+    SBMLDocument s11(1,1);
+    SBMLDocument s12(1,2);
+    SBMLDocument s21(2,1);
+    SBMLDocument s22(2,2);
+    SBMLDocument s23(2,3);
+    SBMLDocument s24(2,4);
+    SBMLDocument s31(3,1);
+    SBMLDocument sn11(&SN11);
+    SBMLDocument sn12(&SN12);
+    SBMLDocument sn21(&SN21);
+    SBMLDocument sn22(&SN22);
+    SBMLDocument sn23(&SN23);
+    SBMLDocument sn24(&SN24);
+    SBMLDocument sn31(&SN31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+  
+  msg = "";
+  try
+  {
+    SBMLDocument s(9,9);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what(); 
+  }
+  fail_unless(msg == errMsg);
+  
+  msg = "";
+  try
+  {
+    SBMLDocument s(&SN99);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg);
+  
+  SBMLDocument *sn31 = NULL;
+  msg = "";
+  try
+  {
+    SBMLDocument *s = new SBMLDocument(&SN31);
+    (*s)=*sn31;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+ 
+  msg = "";
+  try
+  {
+    SBMLDocument *s = new SBMLDocument(*sn31);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConstructorException (void)
 {
@@ -2536,7 +2894,8 @@ create_suite_SBMLConstructorException (void)
   tcase_add_test( tcase, test_SBMLConstructorException_Trigger );
   tcase_add_test( tcase, test_SBMLConstructorException_Event );
   tcase_add_test( tcase, test_SBMLConstructorException_EventAssignment );
-  tcase_add_test( tcase, test_SBMLConstructorException_ModifierSpeciesReference );
+  tcase_add_test( tcase, 
+                  test_SBMLConstructorException_ModifierSpeciesReference );
   tcase_add_test( tcase, test_SBMLConstructorException_StoichiometryMath );
   tcase_add_test( tcase, test_SBMLConstructorException_SpeciesReference );
   tcase_add_test( tcase, test_SBMLConstructorException_FunctionDefinition );
@@ -2549,6 +2908,10 @@ create_suite_SBMLConstructorException (void)
   tcase_add_test( tcase, test_SBMLConstructorException_AssignmentRule );
   tcase_add_test( tcase, test_SBMLConstructorException_AlgebraicRule );
   tcase_add_test( tcase, test_SBMLConstructorException_RateRule );
+  tcase_add_test( tcase, test_SBMLConstructorException_Priority );
+  tcase_add_test( tcase, test_SBMLConstructorException_LocalParameter );
+  tcase_add_test( tcase, test_SBMLConstructorException_SBMLNamespaces );
+  tcase_add_test( tcase, test_SBMLConstructorException_SBMLDocument );
 
   suite_add_tcase(suite, tcase);
 

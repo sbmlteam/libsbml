@@ -179,7 +179,7 @@ START_TEST (test_Priority_createWithNS )
 {
   XMLNamespaces_t *xmlns = XMLNamespaces_create();
   XMLNamespaces_add(xmlns, "http://www.sbml.org", "testsbml");
-  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(2,1);
+  SBMLNamespaces_t *sbmlns = SBMLNamespaces_create(3,1);
   SBMLNamespaces_addNamespaces(sbmlns,xmlns);
 
   Priority_t *object = 
@@ -191,7 +191,7 @@ START_TEST (test_Priority_createWithNS )
   fail_unless( SBase_getNotes     ((SBase_t *) object) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) object) == NULL );
 
-  fail_unless( SBase_getLevel       ((SBase_t *) object) == 2 );
+  fail_unless( SBase_getLevel       ((SBase_t *) object) == 3 );
   fail_unless( SBase_getVersion     ((SBase_t *) object) == 1 );
 
   fail_unless( Priority_getNamespaces     (object) != NULL );

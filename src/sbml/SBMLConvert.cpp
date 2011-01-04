@@ -389,7 +389,7 @@ Model::addDefinitionsForDefaultUnits()
 }
 
 void
-Model::convertParametersToLocals()
+Model::convertParametersToLocals(unsigned int level, unsigned int version)
 {
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
@@ -399,7 +399,7 @@ Model::convertParametersToLocals()
       KineticLaw *kl = r->getKineticLaw();
       for (unsigned int j = 0; j < kl->getNumParameters(); j++)
       {
-        LocalParameter *lp = new LocalParameter(kl->getSBMLNamespaces());
+        LocalParameter *lp = new LocalParameter(level, version);
         (*lp) = *(kl->getParameter(j));
         kl->addLocalParameter(lp);
       }

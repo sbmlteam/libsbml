@@ -2646,7 +2646,7 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
-  void convertParametersToLocals();
+  void convertParametersToLocals(unsigned int level, unsigned int version);
   /** @endcond */
 
   /** @cond doxygen-libsbml-internal */

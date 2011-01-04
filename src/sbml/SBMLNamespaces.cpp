@@ -23,6 +23,7 @@
  */
 
 #include <sbml/SBMLNamespaces.h>
+#include <sbml/SBase.h>
 
 /** @cond doxygen-ignored */
 
@@ -73,6 +74,7 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
     }
     break;
   }
+
 }
 
 SBMLNamespaces::~SBMLNamespaces()
@@ -85,15 +87,23 @@ SBMLNamespaces::~SBMLNamespaces()
 /*
  * Copy constructor; creates a copy of a SBMLNamespaces.
  */
-SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig) :
-          mLevel    (orig.mLevel)
-      ,   mVersion  (orig.mVersion) 
+SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
 {
-  if(orig.mNamespaces)
-    this->mNamespaces = 
-           new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
+  if (&orig == NULL)
+  {
+    throw SBMLConstructorException("Null argument to copy constructor");
+  }
   else
-    this->mNamespaces = 0;
+  {
+    mLevel   = orig.mLevel;
+    mVersion = orig.mVersion;
+ 
+    if(orig.mNamespaces)
+      this->mNamespaces = 
+            new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
+    else
+      this->mNamespaces = 0;
+  }
 }
 
 
@@ -104,9 +114,13 @@ SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig) :
 SBMLNamespaces&
 SBMLNamespaces::operator=(const SBMLNamespaces& orig)
 {
-  if (&orig != this)
+  if (&orig == NULL)
   {
-    mLevel = orig.mLevel;
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if (&orig != this)
+  {
+    mLevel   = orig.mLevel;
     mVersion = orig.mVersion;
     delete this->mNamespaces;
     if(orig.mNamespaces)

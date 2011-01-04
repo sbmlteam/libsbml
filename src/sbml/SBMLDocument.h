@@ -373,6 +373,41 @@ public:
 
 
   /**
+   * Creates a new Compartment using the given SBMLNamespaces object 
+   * @p sbmlns.
+   *
+   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
+   * information.  It is used to communicate the SBML Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
+   * A common approach to using this class constructor is to create an
+   * SBMLNamespaces object somewhere in a program, once, then pass it to
+   * object constructors such as this one when needed.
+   *
+   * It is worth emphasizing that although this constructor does not take
+   * an identifier argument, in SBML Level&nbsp;2 and beyond, the "id"
+   * (identifier) attribute of a Compartment is required to have a value.
+   * Thus, callers are cautioned to assign a value after calling this
+   * constructor.  Setting the identifier can be accomplished using the
+   * method
+   * @if clike setId()@endif@if python setId()@endif@if java Compartment::setId(String id)@endif.
+   *
+   * @param sbmlns an SBMLNamespaces object.
+   *
+   * @note Upon the addition of a Compartment object to an SBMLDocument
+   * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML XML namespace of the
+   * document @em overrides the value used when creating the Compartment
+   * object via this constructor.  This is necessary to ensure that an SBML
+   * document is a consistent structure.  Nevertheless, the ability to
+   * supply the values at the time of creation of a Compartment is an
+   * important aid to producing valid SBML.  Knowledge of the intented SBML
+   * Level and Version determine whether it is valid to assign a particular
+   * value to an attribute, or whether it is valid to add an object to an
+   * existing SBMLDocument.
+   */
+  SBMLDocument (SBMLNamespaces* sbmlns);
+
+
+  /**
    * Destroys this SBMLDocument.
    */
   virtual ~SBMLDocument ();
@@ -382,6 +417,12 @@ public:
    * Copy constructor; creates a copy of this SBMLDocument.
    */
   SBMLDocument (const SBMLDocument& rhs);
+
+
+  /**
+   * Assignment operator for SBMLDocument.
+   */
+  SBMLDocument& operator=(const SBMLDocument& orig);
 
 
   /**

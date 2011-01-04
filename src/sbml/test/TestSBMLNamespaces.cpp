@@ -145,6 +145,24 @@ START_TEST (test_SBMLNamespaces_L2V4)
 END_TEST
 
 
+START_TEST (test_SBMLNamespaces_L3V1)
+{
+  SBMLNamespaces *sbml = new SBMLNamespaces(3, 1);
+
+  fail_unless( sbml->getLevel() == 3 );
+  fail_unless( sbml->getVersion() == 1 );
+
+  XMLNamespaces * ns = sbml->getNamespaces();
+
+  fail_unless(ns->getLength() == 1);
+  fail_unless(ns->getURI(0) == "http://www.sbml.org/sbml/level3/version1/core");
+  fail_unless(ns->getPrefix(0) == "");
+
+  delete sbml;
+}
+END_TEST
+
+
 START_TEST (test_SBMLNamespaces_getURI)
 {
   fail_unless( SBMLNamespaces::getSBMLNamespaceURI(1, 1) == 
@@ -159,6 +177,8 @@ START_TEST (test_SBMLNamespaces_getURI)
                             "http://www.sbml.org/sbml/level2/version3");
   fail_unless( SBMLNamespaces::getSBMLNamespaceURI(2, 4) == 
                             "http://www.sbml.org/sbml/level2/version4");
+  fail_unless( SBMLNamespaces::getSBMLNamespaceURI(3, 1) == 
+                            "http://www.sbml.org/sbml/level3/version1/core");
 }
 END_TEST
 
@@ -176,6 +196,7 @@ create_suite_SBMLNamespaces (void)
   tcase_add_test(tcase, test_SBMLNamespaces_L2V2);
   tcase_add_test(tcase, test_SBMLNamespaces_L2V3);
   tcase_add_test(tcase, test_SBMLNamespaces_L2V4);
+  tcase_add_test(tcase, test_SBMLNamespaces_L3V1);
   tcase_add_test(tcase, test_SBMLNamespaces_getURI);
 
 

@@ -98,13 +98,7 @@ KineticLaw::~KineticLaw ()
  */
 KineticLaw::KineticLaw (const KineticLaw& orig) :
    SBase          ( orig                 )
- , mFormula       ( orig.mFormula        )
  , mMath          ( 0                    )
- , mParameters    ( orig.mParameters     )
- , mLocalParameters    ( orig.mLocalParameters     )
- , mTimeUnits     ( orig.mTimeUnits      )
- , mSubstanceUnits( orig.mSubstanceUnits )
- , mInternalId    ( orig.mInternalId     )
 {
   if (&orig == NULL)
   {

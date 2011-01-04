@@ -292,6 +292,37 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 
 
 /*
+ * Creates a new SBMLDocument.  If not specified, the SBML level and
+ * version attributes default to the most recent SBML specification (at the
+ * time this libSBML was released).
+ */
+SBMLDocument::SBMLDocument (SBMLNamespaces * sbmlns) :
+   SBase (sbmlns)
+ , mModel   ( 0       )
+ , mApplicableValidators ( AllChecksON)
+ , mApplicableValidatorsForConversion ( AllChecksON )
+{
+  if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
+
+  mSBML = this;
+
+  if (mLevel   == 0)  
+  {
+    mLevel   = getDefaultLevel  ();
+    mSBMLNamespaces->setLevel(mLevel);
+  }
+
+  if (mVersion == 0)
+  {
+    mVersion = getDefaultVersion();
+    mSBMLNamespaces->setVersion(mVersion);
+  }
+
+}
+
+
+/*
  * Destroys this SBMLDocument.
  */
 SBMLDocument::~SBMLDocument ()
@@ -305,25 +336,60 @@ SBMLDocument::~SBMLDocument ()
  */
 SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
    SBase    ( orig          )
- , mLevel   ( orig.mLevel   )
- , mVersion ( orig.mVersion )
  , mModel   ( 0             )
- , mApplicableValidators (orig.mApplicableValidators)
- , mApplicableValidatorsForConversion (orig.mApplicableValidatorsForConversion)
 {
-  mSBML = this;
-
-  if (orig.mModel) 
+  if (&orig == NULL)
   {
-    mModel = static_cast<Model*>( orig.mModel->clone() );
-    mModel->setSBMLDocument(this);
+    throw SBMLConstructorException("Null argument to copy constructor");
   }
-  
-  //if(orig.mNamespaces)
-  //  this->mNamespaces = 
-  //  new XMLNamespaces(*const_cast<SBMLDocument&>(orig).mNamespaces);
-  //else
-  //  this->mNamespaces = 0;
+  else
+  {
+    mSBML = this;
+
+    mLevel                             = orig.mLevel;
+    mVersion                           = orig.mVersion;
+    mApplicableValidators              = orig.mApplicableValidators;
+    mApplicableValidatorsForConversion = 
+                                  orig.mApplicableValidatorsForConversion;
+
+    if (orig.mModel) 
+    {
+      mModel = static_cast<Model*>( orig.mModel->clone() );
+      mModel->setSBMLDocument(this);
+    }
+    
+  }
+
+}
+
+
+/*
+ * Assignment operator of this SBMLDocument.
+ */
+SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    this->SBase::operator =(rhs);
+    mSBML = this;
+
+    mLevel                             = rhs.mLevel;
+    mVersion                           = rhs.mVersion;
+    mApplicableValidators              = rhs.mApplicableValidators;
+    mApplicableValidatorsForConversion = 
+                                  rhs.mApplicableValidatorsForConversion;
+
+    if (rhs.mModel) 
+    {
+      mModel = static_cast<Model*>( rhs.mModel->clone() );
+      mModel->setSBMLDocument(this);
+    }
+  }
+  return *this;
 
 }
 
@@ -714,7 +780,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 1:
             if (!conversion_errors(checkL3v1Compatibility()))
             {
-              mModel->convertParametersToLocals();
+              mModel->convertParametersToLocals(level, version);
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
@@ -878,7 +944,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
-              mModel->convertParametersToLocals();
+              mModel->convertParametersToLocals(level, version);
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
@@ -1098,7 +1164,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL3v1Compatibility()))
             {
               mModel->removeParameterRuleUnits();
-              mModel->convertParametersToLocals();
+              mModel->convertParametersToLocals(level, version);
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
@@ -1307,7 +1373,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
-              mModel->convertParametersToLocals();
+              mModel->convertParametersToLocals(level, version);
               mLevel   = level;
               mVersion = version;
               mSBMLNamespaces->setLevel(mLevel);
