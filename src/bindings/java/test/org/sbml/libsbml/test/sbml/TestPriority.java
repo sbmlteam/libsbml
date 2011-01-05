@@ -148,14 +148,14 @@ public class TestPriority {
   {
     XMLNamespaces xmlns = new  XMLNamespaces();
     xmlns.add( "http://www.sbml.org", "testsbml");
-    SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+    SBMLNamespaces sbmlns = new  SBMLNamespaces(3,1);
     sbmlns.addNamespaces(xmlns);
     Priority object = new  Priority(sbmlns);
     assertTrue( object.getTypeCode() == libsbml.SBML_PRIORITY );
     assertTrue( object.getMetaId().equals("") == true );
     assertTrue( object.getNotes() == null );
     assertTrue( object.getAnnotation() == null );
-    assertTrue( object.getLevel() == 2 );
+    assertTrue( object.getLevel() == 3 );
     assertTrue( object.getVersion() == 1 );
     assertTrue( object.getNamespaces() != null );
     assertTrue( object.getNamespaces().getLength() == 2 );

@@ -157,14 +157,14 @@ namespace LibSBMLCSTest {
     {
       XMLNamespaces xmlns = new  XMLNamespaces();
       xmlns.add( "http://www.sbml.org", "testsbml");
-      SBMLNamespaces sbmlns = new  SBMLNamespaces(2,1);
+      SBMLNamespaces sbmlns = new  SBMLNamespaces(3,1);
       sbmlns.addNamespaces(xmlns);
       Priority object1 = new  Priority(sbmlns);
       assertTrue( object1.getTypeCode() == libsbml.SBML_PRIORITY );
       assertTrue( object1.getMetaId() == "" );
       assertTrue( object1.getNotes() == null );
       assertTrue( object1.getAnnotation() == null );
-      assertTrue( object1.getLevel() == 2 );
+      assertTrue( object1.getLevel() == 3 );
       assertTrue( object1.getVersion() == 1 );
       assertTrue( object1.getNamespaces() != null );
       assertTrue( object1.getNamespaces().getLength() == 2 );
