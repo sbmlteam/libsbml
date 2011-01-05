@@ -658,7 +658,9 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
     /* use validators that the user has selected
     */
     /* hack to catch errors caught at read time */
-    SBMLDocument *d = readSBMLFromString(writeSBMLToString(this));
+    char* doc = writeSBMLToString(this);
+    SBMLDocument *d = readSBMLFromString(doc);
+    util_free(doc);
     unsigned int errors = d->getNumErrors();
 
     for (unsigned int i = 0; i < errors; i++)
