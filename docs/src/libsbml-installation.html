@@ -423,9 +423,9 @@ accomplish the same goals as the two other individual options.
 
 <h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
 
-<p> <strong>Important</strong>: libSBML is known to work with SWIG version 1.3.40
+<p> <strong>Important</strong>: libSBML is known to work with SWIG version 2.0.0
 or later; earlier versions are known <em>not</em> to work.  You <em>must</em> use 
-version 1.3.40 or later (The latest stable version is recommended).
+version 2.0.0 or later (The latest stable version is recommended).
 
 <p> <a target="_blank" href="http://www.swig.org">SWIG</a> is the
 <em>Simplified Wrapper and Interface Generator</em> and in libSBML it is
@@ -448,19 +448,20 @@ example:
 unit tests, a second library is required, <code>libcheck</code> (version
 0.9.2 or higher).  <em>Check</em> is a very lightweight C unit test
 framework based on the xUnit framework popularized by Kent Beck and <a
-target="_blank" href="http://en.wikipedia.org/wiki/Extreme_Programming">eXtreme
+target="_blank"
+href="http://en.wikipedia.org/wiki/Extreme_Programming">eXtreme
 Programming</a>.  Check is quite small and once installed, it consists of
 only two files: <code>libcheck.a</code> and <code>check.h</code>.  To
-download Check, visit <a target="_blank"
+install Check, you may first want to examine whether it is easily available
+via a software package manager for your system (e.g., <a target="_blank"
+href="https://help.ubuntu.com/community/SynapticHowto">Synaptic</a> under
+Ubuntu Linux, <a target="_blank"
+href="http://www.macports.org">MacPorts</a> or <a target="_blank"
+href="http://www.finkproject.org/">Fink</a> under MacOSX, etc.); if not,
+you can also download Check from <a target="_blank"
 href="http://check.sf.net/">http://check.sf.net/</a>.
 
-<p> (Note #1: Debian users can find Check as a standard add-on package
-(<code>.deb</code>).  As of 11 Feb. 2007, MacOS&nbsp;X users
-<em>cannot</em> use <a target="_blank" href="http://finkproject.org">Fink</a>'s
-version of check because it is an old version, 0.8.x.  LibSBML needs
-version 0.9.x.)
-
-<p> (Note #2: If you are using g++ version 3.3, you will need to avoid
+<p> (Note: If you are using g++ version 3.3, you will need to avoid
 using Check version 0.9.5, and instead use version 0.9.2.  The problem is
 an incompatibility between Check 0.9.5 and earlier versions of g++.  It
 appears that the compatibility problems in Check 0.9.5 disappear with
@@ -560,7 +561,7 @@ the following software tools in addition to a Unix-like environment (or
 
 <li style="margin-bottom: 1em"><em>For the C, C++ and Python API
 documentation</em>: You will need <a target="_blank"
-href="http://doxygen.org">Doxygen</a> version 1.5.8 or later and a
+href="http://doxygen.org">Doxygen</a> version 1.6.3 or later and a
 reasonably complete installation of <a target="_blank"
 href="http://ctan.org/what_is_tex.html">LaTeX</a>.  You will also need to
 configure libSBML to use Doxygen by supplying the option
