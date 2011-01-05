@@ -6,30 +6,30 @@ Latest development version
 
 * New features
 
-  - Unit checking has been further improved to provide checking to a 
-    deeper level with the overall math of the model.  Thus a math 
-    expression a^b can now validate the units even if the value of b is
-    assigned b = c and the model states elsewhere that c = 2.
+  - Checking of the units of measurement in math expressions has been
+    further improved to provide checking to a deeper level with the
+    overall math of the model.  Thus, the units of the expression a^b
+    can now be validated even if the value of b is assigned b = c and
+    the model states elsewhere that c = 2.
 
-  - SBML Level 3 has no default values and thus a number of new isSetXYZ
-    functions were introduced in libSBML-4.1.0. Users pointed out
-    that whilst writing code that dealt with multiple versions of SBML
-    it was inconsistent that these functions returned 'false' for a
-    Level 2 model in which the attribute concerned did have a default
-    value.  Thus any newly introduced isSetXYZ function that deals with
-    an attribute that had a default value in Level 2 will now return
-    'true' regardless of whever the user has explictily set the function
-    or not.
+  - SBML Level 3 has no default attribute values and thus a number of
+    new isSetXYZ functions were introduced in libSBML-4.1.0.  Users
+    pointed out it was inconsistent that these functions returned
+    'false' for a Level 2 model in which the attribute concerned *did*
+    have a default value.  Thus, any newly introduced isSetXYZ
+    function that deals with an attribute that had a default value in
+    Level 2 will now return 'true' regardless of whever the user has
+    explictily set the function or not.
 
 * Bug fixes
 
-  - A number of validation checks had an incorrect ErrorCategory label;
-    thus whilst these were reported by the correct validator code 
-    querying the category would produce an inconsistent value.  These
-    have been updated.
+  - A number of validation checks had an incorrect ErrorCategory
+    labels; thus, though these were reported by the correct part of
+    the libSBML validator, querying the category would produce an
+    inconsistent value.  These have been updated.
     
-  - There were some encoding issues in a number of error messages. 
-    These have been corrected.
+  - There were some character encoding issues in a number of error
+    messages. These have been corrected.
 
   - The documentation for a number of methods had fallen slightly out
     of date with respect to the possible operation return codes they
@@ -39,29 +39,36 @@ Latest development version
     XMLToken.
     
   - The code that checked that the top-level elements of an annotation
-    had unique namespaces was incorrectly comparing prefixes not namespaces.
-    This has been fixed.  Thanks to Waclaw Kusnierczyk for reporting this 
-    and supplying the fix.
+    had unique namespaces was incorrectly comparing prefixes rather
+    than actual XML namespaces.  This has been fixed.  Thanks to
+    Waclaw Kusnierczyk for reporting this and supplying the fix.
     
-  - The namespaces for a math element may be declared on the sbml element.
-    In this case, the namespace must use a prefix.  Code that checked that
-    the MathML elements had a declared namespace failed to check whether
-    any required prefix was correctly used.  Thanks to the JSBML developers
-    for spotting this.
+  - The XML namespace for a <math> element may be declared on the
+    <sbml> element.  In this case, the XML namespace declaration must
+    use a prefix.  Code that checked that the MathML elements had a
+    declared namespace failed to check whether a prefix was correctly
+    used.  This is now fixed.  Thanks to the JSBML developers for
+    spotting this.
     
-  - The code that allows users to use LocalParameter and Parameter 
-    interchangeably had a small bug where it failed to spot a duplicate
-    id for a Parameter but not a LocalParameter.  This has been fixed.
+  - The code that allows users to use LocalParameter and Parameter
+    interchangeably had a small bug where it failed to spot a
+    duplicate id for a Parameter but not a LocalParameter.  This has
+    been fixed.
     
-  - If a kineticLaw is present it must contain a 'math' element.  Prior to 
-    SBML Level 3 Version 1 Core this has never been explicitly stated as a 
-    validation rule but should have been reported as a schema error. In some
-    case this was not happening.  This is now fixed.
+  - If a <kineticLaw> element is present, it must contain a <math>
+    element.  Prior to SBML Level 3 Version 1 Core, this has never
+    been explicitly stated as a validation rule but should have been
+    reported as a schema error.  In some case this was not happening.
+    This is now fixed.
 
 * Configuration/build system changes
 
   - MATLAB 2010b introduced some inconsistencies in the build system 
     on certain platforms.  This has been fixed. 
+
+  - Beginning with this release, LibSBML requires SWIG version 2.0.0
+    or higher.  This is to avoid a problem where the C# bindings will
+    not work with .NET 4 with SWIG versions prior to 2.0.0.
 
 * Other new features/changes
 
