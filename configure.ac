@@ -192,7 +192,7 @@ CONFIG_PROG_CSHARP
 dnl Make sure to test for SWIG after all of the language binding tests,
 dnl because the language binding tests sometimes cause swig to be required.
 
-CONFIG_PROG_SWIG(1.3.40)
+CONFIG_PROG_SWIG(2.0.0)
 
 dnl Make sure to test doxygen *after* java, because there's a dependency
 dnl in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
