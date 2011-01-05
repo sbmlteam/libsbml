@@ -1055,6 +1055,8 @@ COVARIANT_GETID(InitialAssignment)
   {}
 %}
 
+%ignore SBMLConstructorException(std::string message);
+
 //
 // cited from SWIG and C# manual ("18.4.4 Custom C# ApplicationException example")
 // in http://www.swig.org/
