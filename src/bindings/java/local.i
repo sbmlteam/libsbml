@@ -201,6 +201,11 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
 %typemap(javabase) SBMLConstructorException "java.lang.IllegalArgumentException";
 %typemap(javacode) SBMLConstructorException 
 %{
+  /*
+   * To pass the message from an exception to the parent exception class,
+   * we have to create our own variant of the constructor that takes an
+   * extra string argument.
+   */
   protected SBMLConstructorException(long cPtr, boolean cMemoryOwn, String v)
   {
     super(v);
@@ -208,13 +213,10 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
     swigCPtr    = cPtr;
   }
 
-  /**
-   * Exception thrown by libSBML object constructors if something prevents
-   * the object from being properly created.
-   *
-   * An example of what can cause this exception to be thrown is attempting
-   * to create an SBML component with an invalid SBML Level/Version
-   * combination.
+  /*
+   * Next, we define the public constructor to take a string (like all basic
+   * Java exception class constructors), and invoke our internal special
+   * constructor with the extra argument.
    */
   public SBMLConstructorException(String v)
   {
@@ -222,6 +224,16 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(CompartmentGlyph)
   }
 %}
 
+/*
+ * Finally, to make our string-passing constructor work, we have to disable
+ * the default constructor created by SWIG in newer versions of SWIG.
+ */
+%ignore SBMLConstructorException(std::string message);
+
+/*
+ * The following creates a macro used to wrap individual class constructors
+ * that may throw SBMLConstructorException.
+ */
 %define SBMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
 %javaexception("org.sbml.libsbml.SBMLConstructorException") SBASE_CLASS_NAME
 %{
