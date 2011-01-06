@@ -302,7 +302,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only.) Get the event priority portion of this
+   * (SBML Level&nbsp;3 only) Get the event priority portion of this
    * Event.
    * 
    * @return the Priority object of this Event.
@@ -314,7 +314,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only.) Get the event priority portion of this
+   * (SBML Level&nbsp;3 only) Get the event priority portion of this
    * Event.
    * 
    * @return the Priority object of this Event.
@@ -425,7 +425,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only.) Predicate for testing whether the priority
+   * (SBML Level&nbsp;3 only) Predicate for testing whether the priority
    * for this Event has been set.
    *
    * @return @c true if the priority of this Event has been set, @c false
@@ -540,7 +540,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only.) Sets the priority definition of this Event
+   * (SBML Level&nbsp;3 only) Sets the priority definition of this Event
    * to a copy of the given Priority object instance.
    *
    * @param priority the Priority object instance to use
@@ -676,7 +676,7 @@ public:
 
 
   /**
-   * (SBML Level&nbsp;3 only.) Unsets the Priority of this Event.
+   * (SBML Level&nbsp;3 only) Unsets the Priority of this Event.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -774,8 +774,8 @@ public:
 
 
   /**
-   *(SBML Level&nbsp;3 only.)  Creates a new, empty Priority, adds it to
-   * this Event and returns the Priority.
+   * (SBML Level&nbsp;3 only) Creates a new, empty Priority, adds it to this
+   * Event and returns the Priority.
    *
    * @return the newly created Priority object instance
    * 
