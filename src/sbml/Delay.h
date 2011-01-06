@@ -38,24 +38,24 @@
  * actually @em executed.  If no delay is present on a given Event, a time
  * delay of zero is assumed.
  *
- * The expression in "math" must be evaluated at the time the rule is @em
- * triggered.  The expression must always evaluate to a positive number
+ * The expression in "math" must be evaluated at the time the event is @em
+ * triggered.  The expression must always evaluate to a nonnegative number
  * (otherwise, a nonsensical situation could arise where an event is
- * defined to trigger before it is triggered!).
+ * defined to execute before it is triggered!).
  *
  * @section delay-units The units of the mathematical expression in a Delay
  *
  * In SBML Level&nbsp;2 versions before Version&nbsp;4, the units of the
- * numerical value computed by the Delay's "math" expression were @em
- * required to be in units of time or the model is considered to have a
+ * numerical value computed by the Delay's "math" expression are @em
+ * required to be in units of time, or the model is considered to have a
  * unit consistency error.  In Level&nbsp;2 Version&nbsp;4 as well as SBML
  * Level&nbsp;3 Version&nbsp;1 Core, this requirement is relaxed; these
- * later specifications only stipulate that the units of the numerical
- * value computed by a Delay instance's "math" expression @em should match
- * the model's units of time (meaning the definition of the @c time units
- * in the model).  Depending on whether an earlier Version of SBML
- * Level&nbsp;2 is in use, libSBML may or may not flag unit inconsistencies
- * as errors or just warnings.
+ * specifications only stipulate that the units of the numerical value
+ * computed by a Delay instance's "math" expression @em should match the
+ * model's units of time (meaning the definition of the @c time units in
+ * the model).  LibSBML respects these requirements, and depending on
+ * whether an earlier Version of SBML Level&nbsp;2 is in use, libSBML may
+ * or may not flag unit inconsistencies as errors or merely warnings.
  *
  * Note that <em>units are not predefined or assumed</em> for the contents
  * of "math" in a Delay object; rather, they must be defined explicitly for
@@ -70,7 +70,7 @@
 <model>
     ...
     <listOfEvents>
-        <event>
+        <event useValuesFromTriggerTime="true">
             ...
             <delay>
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -94,11 +94,11 @@
 <model>
     ...
     <listOfParameters>
-        <parameter id="transcriptionDelay" value="10" units="time"/>
+        <parameter id="transcriptionDelay" value="10" units="second"/>
     </listOfParameters>
     ...
     <listOfEvents>
-        <event>
+        <event useValuesFromTriggerTime="true">
             ...
             <delay>
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -116,11 +116,11 @@
  * of the @c units attribute, which SBML Level&nbsp;3 allows to appear on
  * MathML @c cn elements.  The value of this attribute can be used to
  * indicate the unit of measurement to be associated with the number in the
- * content of a @c cn element.  (The attribute is named @c units but,
+ * content of a @c cn element.  The attribute is named @c units but,
  * because it appears inside MathML element (which is in the XML namespace
  * for MathML and not the namespace for SBML), it must always be prefixed
  * with an XML namespace prefix for the SBML Level&nbsp;3 Version&nbsp;1
- * namespace.)  The following is an example of this approach:
+ * namespace.  The following is an example of this approach:
  * @verbatim
 <model timeUnits="second" ...>
     ...
