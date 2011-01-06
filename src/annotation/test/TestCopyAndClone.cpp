@@ -24,12 +24,17 @@
 
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/CVTerm.h>
+#include <sbml/SBase.h>
 
 #include <check.h>
 
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
+
+static const string errMsg = "Level/version/namespaces combination is invalid";
+static const string errMsg1 = "Null argument to copy constructor";
+static const string errMsg2 = "Null argument to assignment operator";
 
 CK_CPPSTART
 START_TEST ( test_Date_copyConstructor )
@@ -88,6 +93,48 @@ START_TEST ( test_Date_clone )
 END_TEST
 
 
+START_TEST ( test_Date_ConstructorException )
+{
+  string msg;
+  try 
+  {
+    Date * date = new Date(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+    delete date;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+
+  Date *date1 = NULL;
+  msg = "";
+  try
+  {
+    Date* date2=new Date(*date1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+
+  msg = "";
+  Date *date2 = new Date();
+  try
+  {
+    (*date2) = *date1;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+  delete date2;
+}
+END_TEST
+
+
 START_TEST ( test_ModelCreator_copyConstructor )
 {
   ModelCreator * mc = new ModelCreator();
@@ -106,6 +153,7 @@ START_TEST ( test_ModelCreator_copyConstructor )
   delete mc;
 }
 END_TEST
+
 
 START_TEST ( test_ModelCreator_assignmentOperator )
 {
@@ -149,6 +197,49 @@ START_TEST ( test_ModelCreator_clone )
 }
 END_TEST
 
+
+START_TEST ( test_ModelCreator_ConstructorException )
+{
+  string msg;
+  try 
+  {
+    ModelCreator * mc = new ModelCreator();
+    delete mc;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+
+  ModelCreator *mc1 = NULL;
+  msg = "";
+  try
+  {
+    ModelCreator* mc2=new ModelCreator(*mc1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+
+  msg = "";
+  ModelCreator *mc2 = new ModelCreator();
+  try
+  {
+    (*mc2) = *mc1;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+  delete mc2;
+}
+END_TEST
+
+
 START_TEST ( test_ModelHistory_copyConstructor )
 {
   ModelHistory * mh = new ModelHistory();
@@ -183,6 +274,7 @@ START_TEST ( test_ModelHistory_copyConstructor )
   delete mh;
 }
 END_TEST
+
 
 START_TEST ( test_ModelHistory_assignmentOperator )
 {
@@ -257,6 +349,48 @@ START_TEST ( test_ModelHistory_clone )
 END_TEST
 
 
+START_TEST ( test_ModelHistory_ConstructorException )
+{
+  string msg;
+  try 
+  {
+    ModelHistory * mh = new ModelHistory();
+    delete mh;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+
+  ModelHistory *mh1 = NULL;
+  msg = "";
+  try
+  {
+    ModelHistory* mh2=new ModelHistory(*mh1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+
+  msg = "";
+  ModelHistory *mh2 = new ModelHistory();
+  try
+  {
+    (*mh2) = *mh1;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+  delete mh2;
+}
+END_TEST
+
+
 START_TEST ( test_CVTerm_copyConstructor )
 {
 
@@ -277,6 +411,7 @@ START_TEST ( test_CVTerm_copyConstructor )
   delete CVTerm1;
 }
 END_TEST
+
 
 START_TEST ( test_CVTerm_assignmentOperator )
 {
@@ -323,6 +458,48 @@ START_TEST ( test_CVTerm_clone )
 END_TEST
 
 
+START_TEST ( test_CVTerm_ConstructorException )
+{
+  string msg;
+  try 
+  {
+    CVTerm * cvterm = new CVTerm(BIOLOGICAL_QUALIFIER);
+    delete cvterm;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == "");
+
+  CVTerm *cvterm1 = NULL;
+  msg = "";
+  try
+  {
+    CVTerm* cvterm2=new CVTerm(*cvterm1);
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg1);
+
+  msg = "";
+  CVTerm *cvterm2 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  try
+  {
+    (*cvterm2) = *cvterm1;
+  }
+  catch (SBMLConstructorException &e)
+  {
+    msg = e.what();
+  }
+  fail_unless(msg == errMsg2);
+  delete cvterm2;
+}
+END_TEST
+
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -332,15 +509,19 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_Date_copyConstructor );
   tcase_add_test( tcase, test_Date_assignmentOperator );
   tcase_add_test( tcase, test_Date_clone );
+  tcase_add_test( tcase, test_Date_ConstructorException );
   tcase_add_test( tcase, test_ModelCreator_copyConstructor );
   tcase_add_test( tcase, test_ModelCreator_assignmentOperator );
   tcase_add_test( tcase, test_ModelCreator_clone );
+  tcase_add_test( tcase, test_ModelCreator_ConstructorException );
   tcase_add_test( tcase, test_ModelHistory_copyConstructor );
   tcase_add_test( tcase, test_ModelHistory_assignmentOperator );
   tcase_add_test( tcase, test_ModelHistory_clone );
+  tcase_add_test( tcase, test_ModelHistory_ConstructorException );
   tcase_add_test( tcase, test_CVTerm_copyConstructor );
   tcase_add_test( tcase, test_CVTerm_assignmentOperator );
   tcase_add_test( tcase, test_CVTerm_clone );
+  tcase_add_test( tcase, test_CVTerm_ConstructorException );
   suite_add_tcase(suite, tcase);
 
   return suite;

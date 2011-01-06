@@ -734,7 +734,7 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
 {
   if (&rhs == NULL)
   {
-    throw SBMLConstructorException("Null argument to assignment rhsor");
+    throw SBMLConstructorException("Null argument to assignment operator");
   }
   else if(&rhs!=this)
   {
@@ -1047,7 +1047,7 @@ ModelHistory::operator=(const ModelHistory& rhs)
 {
   if (&rhs == NULL)
   {
-    throw SBMLConstructorException("Null argument to assignment rhsor");
+    throw SBMLConstructorException("Null argument to assignment operator");
   }
   else if(&rhs!=this)
   {
