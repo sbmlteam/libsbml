@@ -34,9 +34,9 @@
  * subelement called "math".  This subelement is used to hold MathML
  * content.  The mathematical formula represented by "math" must evaluate
  * to a numerical value.  It is used as the length of time between when the
- * event has @em fired and when the event's assignments are actually @em
- * executed.  If no delay is present on a given Event, a time delay of zero
- * is assumed.
+ * event has been @em triggered and when the event's assignments are
+ * actually @em executed.  If no delay is present on a given Event, a time
+ * delay of zero is assumed.
  *
  * The expression in "math" must be evaluated at the time the rule is @em
  * fired.  The expression must always evaluate to a positive number

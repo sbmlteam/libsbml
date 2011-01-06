@@ -36,15 +36,15 @@
  * @em triggered.
  * 
  * An event only @em triggers when its Trigger expression makes the
- * transition in value from @c false to @c true.  The event will also fire
- * at any subsequent time points when the trigger makes this transition; in
- * other words, an event can fire multiple times during a simulation if its
- * trigger condition makes the transition from @c false to @c true more
- * than once.  In SBML Level&nbsp;3, the behavior at the very start of
- * simulation (i.e., at <em>t = 0</em>, where <em>t</em> stands for time)
- * is determined in part by the boolean flag "initialValue".  This and
- * other additional features introduced in SBML Level&nbsp;3 are discussed
- * further below.
+ * transition in value from @c false to @c true.  The event will also
+ * trigger at any subsequent time points when the trigger makes this
+ * transition; in other words, an event can be triggered multiple times
+ * during a simulation if its trigger condition makes the transition from
+ * @c false to @c true more than once.  In SBML Level&nbsp;3, the behavior
+ * at the very start of simulation (i.e., at <em>t = 0</em>, where
+ * <em>t</em> stands for time) is determined in part by the boolean flag
+ * "initialValue".  This and other additional features introduced in SBML
+ * Level&nbsp;3 are discussed further below.
  *
  * @section version-diffs Version differences
  *

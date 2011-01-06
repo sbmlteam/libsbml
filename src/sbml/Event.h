@@ -34,20 +34,20 @@
  * include an optional delay (defined by an object of class Delay).
  *
  * The operation of Event is divided into two phases (even when the event
- * is not delayed): one when the event is @em fired, and the other when the
- * event is @em executed.  Trigger objects define the conditions for firing
- * an event, Delay objects define when the event is actually executed, and
- * EventAssignment objects define the effects of executing the event.
- * Please consult the descriptions of Trigger, Delay and EventAssignment
- * for more information.
+ * is not delayed): one when the event is @em triggered, and the other when
+ * the event is @em executed.  Trigger objects define the conditions for
+ * firing an event, Delay objects define when the event is actually
+ * executed, and EventAssignment objects define the effects of executing
+ * the event.  Please consult the descriptions of Trigger, Delay and
+ * EventAssignment for more information.
  *
  * The optional Delay on Event means there are two times to consider when
  * computing the results of an event: the time at which the event
- * <em>fires</em>, and the time at which assignments are <em>executed</em>.
- * It is also possible to distinguish between the time at which the
- * EventAssignment's expression is calculated, and the time at which the
- * assignment is made: the expression could be evaluated at the same time
- * the assignments are performed, i.e., when the event is
+ * <em>triggers</em>, and the time at which assignments are
+ * <em>executed</em>.  It is also possible to distinguish between the time
+ * at which the EventAssignment's expression is calculated, and the time at
+ * which the assignment is made: the expression could be evaluated at the
+ * same time the assignments are performed, i.e., when the event is
  * <em>executed</em>, but it could also be defined to be evaluated at the
  * time the event <em>fired</em>.
  * 
