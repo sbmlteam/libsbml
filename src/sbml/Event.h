@@ -24,32 +24,42 @@
  * @class Event
  * @brief LibSBML implementation of SBML's %Event construct.
  * 
- * An Event object defines when the event can occur, the variables that are
- * affected by the event, and how the variables are affected.
- *
- * An Event definition has several parts: an optional identifier (defined
- * by the attribute "id"), an optional name (defined by the attribute
- * "name"), a required trigger condition (defined by an object of class
- * Trigger), and at least one EventAssignment.  In addition, an event can
- * include an optional delay (defined by an object of class Delay).
+ * An SBML Event object defines when the event can occur, the variables
+ * that are affected by it, how the variables are affected, and the event's
+ * relationship to other events.  The effect of the event can optionally be
+ * delayed after the occurrence of the condition which invokes it.
  *
  * The operation of Event is divided into two phases (even when the event
  * is not delayed): one when the event is @em triggered, and the other when
  * the event is @em executed.  Trigger objects define the conditions for
- * firing an event, Delay objects define when the event is actually
- * executed, and EventAssignment objects define the effects of executing
- * the event.  Please consult the descriptions of Trigger, Delay and
- * EventAssignment for more information.
+ * triggering an event, Delay objects define when the event is actually
+ * executed, EventAssignment objects define the effects of executing the
+ * event, and (in SBML Level&nbsp;3) Priority objects influence the order
+ * of EventAssignment performance in cases of simultaneous events.  Please
+ * consult the descriptions of Trigger, Delay, EventAssignment and Priority
+ * for more information.
  *
- * The optional Delay on Event means there are two times to consider when
- * computing the results of an event: the time at which the event
- * <em>triggers</em>, and the time at which assignments are
- * <em>executed</em>.  It is also possible to distinguish between the time
- * at which the EventAssignment's expression is calculated, and the time at
- * which the assignment is made: the expression could be evaluated at the
- * same time the assignments are performed, i.e., when the event is
- * <em>executed</em>, but it could also be defined to be evaluated at the
- * time the event is <em>triggered</em>.
+ * @section version-diffs SBML version differences
+ * 
+ * @subsection sbml-l3 SBML Level 3
+ *
+ * SBML Level 3 introduces several changes to the structure and components
+ * of Events compared to SBML Level&nbsp;2.  These changes fall into two
+ * main categories: changes to what is optional or required, and additions
+ * of new attributes and elements.
+ * @li The attribute "useValuesFromTriggerTime" on Event is mandatory (it
+ * was optional in Level&nbsp;2);
+ * @li Event's "listOfEventAssignments" element (of class
+ * ListOfEventAssignments) is optional (it was mandatory in Level&nbsp;2);
+ * @li Event's "priority" element (of class Priority) is new in
+ * Level&nbsp;3; and
+ * @li The Trigger object gains new mandatory attributes (described as part
+ * of the definition of Trigger).
+ *
+ * The changes to the attributes of Event are described below; the changes
+ * to Trigger and Priority are described in their respective sections.
+ *
+ * @subsection sbml-l2 SBML Level 2
  * 
  * In SBML Level&nbsp;2 versions before Version&nbsp;4, the semantics of
  * Event time delays were defined such that the expressions in the event's
@@ -64,8 +74,6 @@
  * event is triggered, not after the delay.  If "useValuesFromTriggerTime"=@c
  * false, it means that the formulas in the event's assignments are to be
  * computed @em after the delay, at the time the event is executed.
- *
- * @section version-diffs SBML version differences
  *
  * The definition of Event in SBML Level&nbsp;2 Versions 1 and 2 includes
  * an additional attribute called "timeUnits", which allowed the time units
@@ -294,17 +302,25 @@ public:
 
 
   /**
-   * Get the event priority portion of this Event.
+   * (SBML Level&nbsp;3 only.) Get the event priority portion of this
+   * Event.
    * 
    * @return the Priority object of this Event.
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   const Priority* getPriority () const;
 
 
   /**
-   * Get the event priority portion of this Event.
+   * (SBML Level&nbsp;3 only.) Get the event priority portion of this
+   * Event.
    * 
    * @return the Priority object of this Event.
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   Priority* getPriority ();
 
@@ -339,21 +355,24 @@ public:
    * the event is <em>executed</em>, but it could also be defined to be
    * evaluated at the time the event is <em>triggered</em>.
    * 
-   * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
-   * Event time delays were defined such that the expressions in the event's
-   * assignments were always evaluated at the time the event was
-   * <em>triggered</em>.  This definition made it difficult to define an event
-   * whose assignment formulas were meant to be evaluated at the time the
-   * event was <em>executed</em> (i.e., after the time period defined by the
-   * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
-   * attribute "useValuesFromTriggerTime" on Event allows a model to indicate
-   * the time at which the event's assignments are intended to be evaluated.
-   * The default value is @c true, which corresponds to the interpretation of
-   * event assignments prior to Version&nbsp;4: the values of the assignment
-   * formulas are computed at the moment the event is triggered, not after the
-   * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
-   * formulas in the event's assignments are to be computed after the delay,
-   * at the time the event is executed.
+   * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics
+   * of Event time delays were defined such that the expressions in the
+   * event's assignments were always evaluated at the time the event was
+   * <em>triggered</em>.  This definition made it difficult to define an
+   * event whose assignment formulas were meant to be evaluated at the time
+   * the event was <em>executed</em> (i.e., after the time period defined
+   * by the value of the Delay element).  In SBML Level&nbsp;2
+   * Version&nbsp;4, the attribute "useValuesFromTriggerTime" on Event
+   * allows a model to indicate the time at which the event's assignments
+   * are intended to be evaluated.  In SBML Level&nbsp;2, the attribute has
+   * a default value of @c true, which corresponds to the interpretation of
+   * event assignments prior to Version&nbsp;4: the values of the
+   * assignment formulas are computed at the moment the event is triggered,
+   * not after the delay.  If "useValuesFromTriggerTime"=@c false, it means
+   * that the formulas in the event's assignments are to be computed after
+   * the delay, at the time the event is executed.  In SBML Level&nbsp;3,
+   * the attribute is mandatory, not optional, and all events must specify
+   * a value for it.
    * 
    * @return the value of the attribute "useValuesFromTriggerTime" as a boolean.
    *
@@ -406,10 +425,14 @@ public:
 
 
   /**
-   * Predicate for testing whether the priority for this Event has been set.
+   * (SBML Level&nbsp;3 only.) Predicate for testing whether the priority
+   * for this Event has been set.
    *
    * @return @c true if the priority of this Event has been set, @c false
    * otherwise.
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   bool isSetPriority () const;
 
@@ -440,14 +463,9 @@ public:
    * @return @c true if the "useValuesFromTriggerTime" attribute of this Event has been
    * set, @c false otherwise.
    *
-   * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
-   * and&nbsp;2 included the additional attribute called "timeUnits", but
-   * it was removed in SBML Level&nbsp;2 Version&nbsp;3.  LibSBML supports
-   * this attribute for compatibility with previous versions of SBML
-   * Level&nbsp;2, but its use is discouraged since models in Level 2
-   * Versions&nbsp;3 and&nbsp;4 cannot contain it.  If a Version&nbsp;3
-   * or&nbsp;4 model sets the attribute, the consistency-checking method
-   * SBMLDocument::checkConsistency() will report an error.
+   * @note In SBML Level&nbsp;2, this attribute is optional and has a default value of
+   * @c true, whereas in Level&nbsp;3 Version&nbsp;1, this optional is mandatory and
+   * has no default value.
    */
   bool isSetUseValuesFromTriggerTime () const;
 
@@ -522,8 +540,8 @@ public:
 
 
   /**
-   * Sets the priority definition of this Event to a copy of the given Priority
-   * object instance.
+   * (SBML Level&nbsp;3 only.) Sets the priority definition of this Event
+   * to a copy of the given Priority object instance.
    *
    * @param priority the Priority object instance to use
    *
@@ -535,6 +553,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_LEVEL_MISMATCH LIBSBML_LEVEL_MISMATCH @endlink
    * @li @link OperationReturnValues_t#LIBSBML_VERSION_MISMATCH LIBSBML_VERSION_MISMATCH @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   int setPriority (const Priority* priority);
 
@@ -577,21 +598,24 @@ public:
    * the event is <em>executed</em>, but it could also be defined to be
    * evaluated at the time the event is <em>triggered</em>.
    * 
-   * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
-   * Event time delays were defined such that the expressions in the event's
-   * assignments were always evaluated at the time the event was
-   * <em>triggered</em>.  This definition made it difficult to define an event
-   * whose assignment formulas were meant to be evaluated at the time the
-   * event was <em>executed</em> (i.e., after the time period defined by the
-   * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
-   * attribute "useValuesFromTriggerTime" on Event allows a model to indicate
-   * the time at which the event's assignments are intended to be evaluated.
-   * The default value is @c true, which corresponds to the interpretation of
-   * event assignments prior to Version&nbsp;4: the values of the assignment
-   * formulas are computed at the moment the event is triggered, not after the
-   * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
-   * formulas in the event's assignments are to be computed after the delay,
-   * at the time the event is executed.
+   * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics
+   * of Event time delays were defined such that the expressions in the
+   * event's assignments were always evaluated at the time the event was
+   * <em>triggered</em>.  This definition made it difficult to define an
+   * event whose assignment formulas were meant to be evaluated at the time
+   * the event was <em>executed</em> (i.e., after the time period defined
+   * by the value of the Delay element).  In SBML Level&nbsp;2
+   * Version&nbsp;4, the attribute "useValuesFromTriggerTime" on Event
+   * allows a model to indicate the time at which the event's assignments
+   * are intended to be evaluated.  In SBML Level&nbsp;2, the attribute has
+   * a default value of @c true, which corresponds to the interpretation of
+   * event assignments prior to Version&nbsp;4: the values of the
+   * assignment formulas are computed at the moment the event is triggered,
+   * not after the delay.  If "useValuesFromTriggerTime"=@c false, it means
+   * that the formulas in the event's assignments are to be computed after
+   * the delay, at the time the event is executed.  In SBML Level&nbsp;3,
+   * the attribute is mandatory, not optional, and all events must specify
+   * a value for it.
    *
    * @param value the value of useValuesFromTriggerTime to use.
    *
@@ -652,7 +676,7 @@ public:
 
 
   /**
-   * Unsets the Priority of this Event.
+   * (SBML Level&nbsp;3 only.) Unsets the Priority of this Event.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -661,6 +685,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   int unsetPriority ();
 
@@ -747,10 +774,13 @@ public:
 
 
   /**
-   * Creates a new, empty Priority, adds it to this Event and 
-   * returns the Priority.
+   *(SBML Level&nbsp;3 only.)  Creates a new, empty Priority, adds it to
+   * this Event and returns the Priority.
    *
    * @return the newly created Priority object instance
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   Priority* createPriority ();
 
@@ -933,9 +963,8 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * all the required attributes for this Event object
-   * have been set.
+   * Predicate returning @c true if all the required attributes for this
+   * Event object have been set.
    *
    * @note The required attributes for a Event object are:
    * @li "useValuesfromTriggerTime" (required in SBML Level&nbsp;3)
