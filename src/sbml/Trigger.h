@@ -24,27 +24,95 @@
  * @class Trigger
  * @brief LibSBML implementation of %SBML's %Trigger construct for %Event.
  *
- * An Event object defines when the event can occur, the variables that
- * are affected by the event, and how the variables are affected.  The
- * Trigger construct in SBML is used to define a mathematical expression
- * that determines when an Event @em fires.
+ * An Event object defines when the event can occur, the variables that are
+ * affected by the event, and how the variables are affected.  The Trigger
+ * construct in SBML is used to define a mathematical expression that
+ * determines when an Event is @em triggered.
  *
- * A Trigger contains one subelement named "math" containing a MathML
- * expression.  The expression must evaluate to a value of type @c boolean.
- * The exact moment at which the expression evaluates to @c true is the
- * time point when the Event is @em fired.
+ * A Trigger object in SBML Level&nbsp;2 and Level&nbsp;3 contains one
+ * subelement named "math" containing a MathML expression.  The expression
+ * must evaluate to a value of type @c boolean.  The exact moment at which
+ * the expression evaluates to @c true is the time point when the Event is
+ * @em triggered.
  * 
- * An event only fires when its Trigger expression makes the transition in
- * value from @c false to @c true.  The event will also fire at any future
- * time points when the trigger expression makes this transition; in other
- * words, an event can fire multiple times during a simulation if its
+ * An event only @em triggers when its Trigger expression makes the
+ * transition in value from @c false to @c true.  The event will also fire
+ * at any subsequent time points when the trigger makes this transition; in
+ * other words, an event can fire multiple times during a simulation if its
  * trigger condition makes the transition from @c false to @c true more
- * than once.
+ * than once.  In SBML Level&nbsp;3, the behavior at the very start of
+ * simulation (i.e., at <em>t = 0</em>, where <em>t</em> stands for time)
+ * is determined in part by the boolean flag "initialValue".  This and
+ * other additional features introduced in SBML Level&nbsp;3 are discussed
+ * further below.
+ *
+ * @section version-diffs Version differences
+ *
+ * SBML Level&nbsp;3 Version&nbsp;1 introduces two required attributes
+ * on the Trigger object: "persistent" and "initialValue".  The rest of
+ * this introduction describes these two attributes.
+ *
+ * @subsection trigger-persistent The "persistent" attribute on Trigger
+ *
+ * In the interval between when an Event object <em>triggers</em> (i.e.,
+ * its Trigger object expression transitions in value from @c false to
+ * @c true) and when its assignments are to be <em>executed</em>, conditions
+ * in the model may change such that the trigger expression transitions
+ * back from @c true to @c false.  Should the event's assignments still be
+ * made if this happens?  Answering this question is the purpose of the
+ * "persistent" attribute on Trigger.
  * 
- * An important question is whether an event can fire prior to, or at,
- * initial simulation time, that is <em>t &lt; 0</em>.  The answer is no:
- * an event can only be triggered immediately after initial simulation time
- * i.e., <em>t &gt; 0</em>.
+ * If the boolean attribute "persistent" has a value of @c true, then once
+ * the event is triggered, all of its assignments are always performed when
+ * the time of execution is reached.  The name @em persistent is meant to
+ * evoke the idea that the trigger expression does not have to be
+ * re-checked after it triggers if "persistent"=@c true.  Conversely, if
+ * the attribute value is @c false, then the trigger expression is not
+ * assumed to persist: if the expression transitions in value back to @c
+ * false at any time between when the event triggered and when it is to be
+ * executed, the event is no longer considered to have triggered and its
+ * assignments are not executed.  (If the trigger expression transitions
+ * once more to @c true after that point, then the event is triggered, but
+ * this then constitutes a whole new event trigger-and-execute sequence.)
+ * 
+ * The "persistent" attribute can be especially useful when Event objects
+ * contain Delay objects, but it is relevant even in a model without delays
+ * if the model contains two or more events.  As explained in the
+ * introduction to this section, the operation of all events in SBML
+ * (delayed or not) is conceptually divided into two phases,
+ * <em>triggering</em> and <em>execution</em>; however, unless events have
+ * priorities associated with them, SBML does not mandate a particular
+ * ordering of event execution in the case of simultaneous events.  Models
+ * with multiple events can lead to situations where the execution of one
+ * event affects another event's trigger expression value.  If that other
+ * event has "persistent"=@c false, and its trigger expression evaluates to
+ * @c false before it is to be executed, the event must not be executed
+ * after all.
+ * 
+ * @subsection trigger-initialvalue The "initialValue" attribute on Trigger
+ * 
+ * As mentioned above, an event <em>triggers</em> when the mathematical
+ * expression in its Trigger object transitions in value from @c false to
+ * @c true.  An unanswered question concerns what happens at the start of a
+ * simulation: can event triggers make this transition at <em>t = 0</em>,
+ * where <em>t</em> stands for time?
+ * 
+ * In order to determine whether an event may trigger at <em>t = 0</em>, it
+ * is necessary to know what value the Trigger object's "math" expression
+ * had immediately prior to <em>t = 0</em>.  This starting value of the
+ * trigger expression is determined by the value of the boolean attribute
+ * "initialValue".  A value of @c true means the trigger expression is
+ * taken to have the value @c true immediately prior to <em>t = 0</em>.  In
+ * that case, the trigger cannot transition in value from @c false to @c
+ * true at the moment simulation begins (because it has the value @c true
+ * both before and after <em>t = 0</em>), and can only make the transition
+ * from @c false to @c true sometime <em>after</em> <em>t = 0</em>.  (To do
+ * that, it would also first have to transition to @c false before it could
+ * make the transition from @c false back to @c true.)  Conversely, if
+ * "initialValue"=@c false, then the trigger expression is assumed to start
+ * with the value @c false, and therefore may trigger at <em>t = 0</em> if
+ * the expression evaluates to @c true at that moment.
+ * 
  *
  * @see Event
  * @see Delay
@@ -151,19 +219,27 @@ public:
 
 
   /**
-   * Get the value of the "initialValue" attribute of this Trigger.
+   * (SBML Level&nbsp;3 only) Get the value of the "initialValue" attribute
+   * of this Trigger.
    * 
    * @return the boolean value stored as the "initialValue" attribute value
    * in this Trigger.
+   * 
+   * @note The attribute "initialValue" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   bool getInitialValue () const;
 
 
   /**
-   * Get the value of the "persistent" attribute of this Trigger.
+   * (SBML Level&nbsp;3 only) Get the value of the "persistent" attribute
+   * of this Trigger.
    * 
    * @return the boolean value stored as the "persistent" attribute value
    * in this Trigger.
+   * 
+   * @note The attribute "persistent" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   bool getPersistent () const;
 
@@ -178,19 +254,27 @@ public:
 
 
   /**
-   * Predicate to test whether the "initialValue" attribute for this trigger has been set.
+   * (SBML Level&nbsp;3 only) Predicate to test whether the "initialValue"
+   * attribute for this trigger has been set.
    *
    * @return @c true if the initialValue attribute of
    * this Trigger has been set, @c false otherwise.
+   * 
+   * @note The attribute "initialValue" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   bool isSetInitialValue () const;
 
 
   /**
-   * Predicate to test whether the "persistent" attribute for this trigger has been set.
+   * (SBML Level&nbsp;3 only) Predicate to test whether the "persistent"
+   * attribute for this trigger has been set.
    *
    * @return @c true if the persistent attribute of
    * this Trigger has been set, @c false otherwise.
+   * 
+   * @note The attribute "persistent" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   bool isSetPersistent () const;
 
@@ -212,7 +296,7 @@ public:
 
  
   /**
-   * Sets the "initialValue" attribute of this Trigger instance.
+   * (SBML Level&nbsp;3 only) Sets the "initialValue" attribute of this Trigger instance.
    *
    * @param initialValue a boolean representing the initialValue to be set.
    *
@@ -222,12 +306,15 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * 
+   * @note The attribute "initialValue" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   int setInitialValue (bool initialValue);
 
 
   /**
-   * Sets the "persistent" attribute of this Trigger instance.
+   * (SBML Level&nbsp;3 only) Sets the "persistent" attribute of this Trigger instance.
    *
    * @param persistent a boolean representing the persistent value to be set.
    *
@@ -237,6 +324,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   * 
+   * @note The attribute "persistent" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   int setPersistent (bool persistent);
 
@@ -249,6 +339,7 @@ public:
    * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+
 
   /**
    * Sets the parent SBML object of this SBML object.
