@@ -49,19 +49,19 @@
  * which the assignment is made: the expression could be evaluated at the
  * same time the assignments are performed, i.e., when the event is
  * <em>executed</em>, but it could also be defined to be evaluated at the
- * time the event <em>fired</em>.
+ * time the event is <em>triggered</em>.
  * 
  * In SBML Level&nbsp;2 versions before Version&nbsp;4, the semantics of
  * Event time delays were defined such that the expressions in the event's
  * assignments were always evaluated at the time the event was
- * <em>fired</em>.  This definition made it difficult to define an event
+ * <em>triggered</em>.  This definition made it difficult to define an event
  * whose assignment formulas were meant to be evaluated at the time the
  * event was <em>executed</em> (i.e., after the time period defined by the
  * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4 and in
  * Level&nbsp;3, the attribute "useValuesFromTriggerTime" on Event allows a
  * model to indicate the time at which the event's assignments are intended
  * the values of the assignment formulas are computed at the moment the
- * event fired, not after the delay.  If "useValuesFromTriggerTime"=@c
+ * event is triggered, not after the delay.  If "useValuesFromTriggerTime"=@c
  * false, it means that the formulas in the event's assignments are to be
  * computed @em after the delay, at the time the event is executed.
  *
@@ -330,19 +330,19 @@ public:
    * Get the value of the "useValuesFromTriggerTime" attribute of this Event.
    * 
    * The optional Delay on Event means there are two times to consider when
-   * computing the results of an event: the time at which the event
-   * <em>fires</em>, and the time at which assignments are <em>executed</em>.
-   * It is also possible to distinguish between the time at which the
-   * EventAssignment's expression is calculated, and the time at which the
-   * assignment is made: the expression could be evaluated at the same time
-   * the assignments are performed, i.e., when the event is
-   * <em>executed</em>, but it could also be defined to be evaluated at the
-   * time the event <em>fired</em>.
+   * computing the results of an event: the time at which the event is
+   * <em>triggered</em>, and the time at which assignments are
+   * <em>executed</em>.  It is also possible to distinguish between the
+   * time at which the EventAssignment's expression is calculated, and the
+   * time at which the assignment is made: the expression could be
+   * evaluated at the same time the assignments are performed, i.e., when
+   * the event is <em>executed</em>, but it could also be defined to be
+   * evaluated at the time the event is <em>triggered</em>.
    * 
    * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
    * Event time delays were defined such that the expressions in the event's
    * assignments were always evaluated at the time the event was
-   * <em>fired</em>.  This definition made it difficult to define an event
+   * <em>triggered</em>.  This definition made it difficult to define an event
    * whose assignment formulas were meant to be evaluated at the time the
    * event was <em>executed</em> (i.e., after the time period defined by the
    * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
@@ -350,7 +350,7 @@ public:
    * the time at which the event's assignments are intended to be evaluated.
    * The default value is @c true, which corresponds to the interpretation of
    * event assignments prior to Version&nbsp;4: the values of the assignment
-   * formulas are computed at the moment the event fired, not after the
+   * formulas are computed at the moment the event is triggered, not after the
    * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
    * formulas in the event's assignments are to be computed after the delay,
    * at the time the event is executed.
@@ -568,19 +568,19 @@ public:
    * Sets the "useValuesFromTriggerTime" attribute of this Event to a @p value.
    * 
    * The optional Delay on Event means there are two times to consider when
-   * computing the results of an event: the time at which the event
-   * <em>fires</em>, and the time at which assignments are <em>executed</em>.
-   * It is also possible to distinguish between the time at which the
-   * EventAssignment's expression is calculated, and the time at which the
-   * assignment is made: the expression could be evaluated at the same time
-   * the assignments are performed, i.e., when the event is
-   * <em>executed</em>, but it could also be defined to be evaluated at the
-   * time the event <em>fired</em>.
+   * computing the results of an event: the time at which the event is
+   * <em>triggered</em>, and the time at which assignments are
+   * <em>executed</em>.  It is also possible to distinguish between the
+   * time at which the EventAssignment's expression is calculated, and the
+   * time at which the assignment is made: the expression could be
+   * evaluated at the same time the assignments are performed, i.e., when
+   * the event is <em>executed</em>, but it could also be defined to be
+   * evaluated at the time the event is <em>triggered</em>.
    * 
    * In SBML Level&nbsp;2 versions prior to Version&nbsp;4, the semantics of
    * Event time delays were defined such that the expressions in the event's
    * assignments were always evaluated at the time the event was
-   * <em>fired</em>.  This definition made it difficult to define an event
+   * <em>triggered</em>.  This definition made it difficult to define an event
    * whose assignment formulas were meant to be evaluated at the time the
    * event was <em>executed</em> (i.e., after the time period defined by the
    * value of the Delay element).  In SBML Level&nbsp;2 Version&nbsp;4, the
@@ -588,7 +588,7 @@ public:
    * the time at which the event's assignments are intended to be evaluated.
    * The default value is @c true, which corresponds to the interpretation of
    * event assignments prior to Version&nbsp;4: the values of the assignment
-   * formulas are computed at the moment the event fired, not after the
+   * formulas are computed at the moment the event is triggered, not after the
    * delay.  If "useValuesFromTriggerTime"=@c false, it means that the
    * formulas in the event's assignments are to be computed after the delay,
    * at the time the event is executed.
