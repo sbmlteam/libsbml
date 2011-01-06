@@ -33,7 +33,9 @@
  * subelement named "math" containing a MathML expression.  The expression
  * must evaluate to a value of type @c boolean.  The exact moment at which
  * the expression evaluates to @c true is the time point when the Event is
- * @em triggered.
+ * @em triggered.  In SBML Level&nbsp;3, Trigger has additional attributes
+ * that must be assigned values; they are discussed in a separate section
+ * below.
  * 
  * An event only @em triggers when its Trigger expression makes the
  * transition in value from @c false to @c true.  The event will also
