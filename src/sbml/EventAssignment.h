@@ -32,9 +32,10 @@
  * one or more elements of class EventAssignment.
  *
  * The operation of an Event is divided into two phases (regardless of
- * whether a delay is involved): one phase when the event is @em fired, and
- * the other when the event is @em executed.  EventAssignment objects are
- * interpreted when an event is executed.  The effects are described below.
+ * whether a delay is involved): one phase when the event is @em triggered,
+ * and the other when the event is @em executed.  EventAssignment objects
+ * are interpreted when an event is executed.  The effects are described
+ * below.
  * 
  * EventAssignment is derived from SBase and adds one attribute
  * ("variable") and one subelement ("math", containing MathML content).
@@ -79,7 +80,7 @@
  *
  * Note that the time of assignment of the object identified by the
  * value of the "variable" attribute is always the time at which the Event
- * is <em>executed</em>, not when it is <em>fired</em>.  The timing is
+ * is <em>executed</em>, not when it is <em>triggered</em>.  The timing is
  * controlled by the optional Delay in an Event.  The time of
  * assignment is not affected by the "useValuesFromTriggerTime"
  * attribute on Event&mdash;that attribute affects the time at which the
@@ -98,14 +99,14 @@
  * The time at which this expression is evaluated is determined by Event's
  * "useValuesFromTriggerTime" attribute.  If the attribute value is @c true
  * (the default), the expression must be evaluated when the event is
- * <em>fired</em>; more precisely, the values of identifiers occurring in
- * MathML @c ci attributes in the EventAssignment's "math" expression are
- * the values they have at the point when the event <em>fired</em>.  If,
- * instead, "useValuesFromTriggerTime"'s value is @c false, it means the
- * values at <em>execution</em> time should be used; that is, the values of
- * identifiers occurring in MathML @c ci attributes in the
- * EventAssignment's "math" expression are the values they have at the
- * point when the event <em>executed</em>.
+ * <em>triggered</em>; more precisely, the values of identifiers occurring
+ * in MathML @c ci attributes in the EventAssignment's "math" expression
+ * are the values they have at the point when the event is
+ * <em>triggered</em>.  If, instead, "useValuesFromTriggerTime"'s value is
+ * @c false, it means the values at <em>execution</em> time should be used;
+ * that is, the values of identifiers occurring in MathML @c ci attributes
+ * in the EventAssignment's "math" expression are the values they have at
+ * the point when the event <em>executed</em>.
  *
  * Between Version&nbsp;4 and previous versions of SBML Level&nbsp;2, the
  * requirements regarding the matching of units between an

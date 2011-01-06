@@ -39,9 +39,9 @@
  * delay of zero is assumed.
  *
  * The expression in "math" must be evaluated at the time the rule is @em
- * fired.  The expression must always evaluate to a positive number
+ * triggered.  The expression must always evaluate to a positive number
  * (otherwise, a nonsensical situation could arise where an event is
- * defined to fire before it is triggered!).
+ * defined to trigger before it is triggered!).
  *
  * @section delay-units The units of the mathematical expression in a Delay
  *
