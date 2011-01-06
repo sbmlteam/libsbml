@@ -22,19 +22,131 @@
  *------------------------------------------------------------------------- -->
  *
  * @class Priority
- * @brief LibSBML implementation of %SBML's %Priority construct for %Event.
+ * @brief LibSBML implementation of %SBML Level 3's %Priority construct
+ * for Event.
  *
- * An Event object defines when the event can occur, the variables that
- * are affected by the event, and how the variables are affected.  The
- * effect of the event can optionally be delayed after the occurrence of
- * the condition which invokes it.  The priority assigned to an event 
- * is defined using an
- * object of class Priority.
+ * The Priority object class (which was introduced in SBML Level&nbsp;3
+ * Version&nbsp;1), like Delay, is derived from SBase and contains a MathML
+ * formula stored in the element "math".  This formula is used to compute a
+ * dimensionless numerical value that influences the order in which a
+ * simulator is to perform the assignments of two or more events that
+ * happen to be executed simultaneously.  The formula may evaluate to any
+ * @c double value (and thus may be a positive or negative number, or
+ * zero), with positive numbers taken to signifying a higher priority than
+ * zero or negative numbers.  If no Priority object is present on a given
+ * Event object, no priority is defined for that event.
+ * 
+ * @section priority-interp The interpretation of priorities on events in a model
+ * 
+ * For the purposes of SBML, <em>simultaneous event execution</em> is
+ * defined as the situation in which multiple events have identical
+ * times of execution.  The time of execution is calculated as the
+ * sum of the time at which a given event's Trigger is <em>triggered</em>
+ * plus its Delay duration, if any.  Here, <em>identical times</em> means
+ * <em>mathematically equal</em> instants in time.  (In practice,
+ * simulation software adhering to this specification may have to
+ * rely on numerical equality instead of strict mathematical
+ * equality; robust models will ensure that this difference will not
+ * cause significant discrepancies from expected behavior.)
+ * 
+ * If no Priority subobjects are defined for two or more Event objects,
+ * then those events are still executed simultaneously but their order of
+ * execution is <em>undefined by the SBML Level&nbsp;3 Version&nbsp;1
+ * specification</em>.  A software implementation may choose to execute
+ * such simultaneous events in any order, as long as each event is executed
+ * only once and the requirements of checking the "persistent" attribute
+ * (and acting accordingly) are satisfied.
+ * 
+ * If Priority subobjects are defined for two or more
+ * simultaneously-triggered events, the order in which those particular
+ * events must be executed is dictated by their Priority objects,
+ * as follows.  If the values calculated using the two Priority
+ * objects' "math" expressions differ, then the event having
+ * the higher priority value must be executed before the event with
+ * the lower value.  If, instead, the two priority values are
+ * mathematically equal, then the two events must be triggered in a
+ * <em>random</em> order.  It is important to note that a <em>random
+ *   order is not the same as an undefined order</em>: given multiple
+ * runs of the same model with identical conditions, an undefined
+ * ordering would permit a system to execute the events in (for
+ * example) the same order every time (according to whatever scheme
+ * may have been implemented by the system), whereas the explicit
+ * requirement for random ordering means that the order of execution
+ * in different simulation runs depends on random chance.  In other
+ * words, given two events <em>A</em> and <em>B</em>, a randomly-determined
+ * order must lead to an equal chance of executing <em>A</em> first or
+ * <em>B</em> first, every time those two events are executed
+ * simultaneously.
+ * 
+ * A model may contain a mixture of events, some of which have
+ * Priority subobjects and some do not.  Should a combination of
+ * simultaneous events arise in which some events have priorities
+ * defined and others do not, the set of events with defined
+ * priorities must trigger in the order determined by their Priority
+ * objects, and the set of events without Priority objects must be
+ * executed in an <em>undefined</em> order with respect to each other
+ * and with respect to the events with Priority subobjects.  (Note
+ * that <em>undefined order</em> does not necessarily mean random
+ * order, although a random ordering would be a valid implementation
+ * of this requirement.)
+ * 
+ * The following example may help further clarify these points.
+ * Suppose a model contains four events that should be executed
+ * simultaneously, with two of the events having Priority objects
+ * with the same value and the other two events having Priority
+ * objects with the same, but different, value.  The two events with
+ * the higher priorities must be executed first, in a random order
+ * with respect to each other, and the remaining two events must be
+ * executed after them, again in a random order, for a total of four
+ * possible and equally-likely event executions: A-B-C-D, A-B-D-C,
+ * B-A-C-D, and B-A-D-C.  If, instead, the model contains four events
+ * all having the same Priority values, there are 4! or 24
+ * possible orderings, each of which must be equally likely to be
+ * chosen.  Finally, if none of the four events has a Priority
+ * subobject defined, or even if exactly one of the four events has a
+ * defined Priority, there are again 24 possible orderings, but the
+ * likelihood of choosing any particular ordering is undefined; the
+ * simulator can choose between events as it wishes.  (The SBML
+ * specification only defines the effects of priorities on Event
+ * objects with respect to <em>other</em> Event objects with
+ * priorities.  Putting a priority on a <em>single</em> Event object
+ * in a model does not cause it to fall within that scope.)
+ * 
+ * @section priority-eval Evaluation of Priority expressions
+ * 
+ * An event's Priority object "math" expression must be
+ * evaluated at the time the Event is to be <em>executed</em>.  During
+ * a simulation, all simultaneous events have their Priority values
+ * calculated, and the event with the highest priority is selected for
+ * next execution.  Note that it is possible for the execution of one
+ * Event object to cause the Priority value of another
+ * simultaneously-executing Event object to change (as well as to
+ * trigger other events, as already noted).  Thus, after executing
+ * one event, and checking whether any other events in the model have
+ * been triggered, all remaining simultaneous events that
+ * <em>either</em> (i) have Trigger objects with attributes
+ * "persistent"=@c false <em>or</em> (ii) have Trigger
+ * expressions that did not transition from @c true to
+ * @c false, must have their Priority expression reevaluated.
+ * The highest-priority remaining event must then be selected for 
+ * execution next.
+ * 
+ * @section priority-units Units of Priority object's mathematical expressions
+ * 
+ * The unit associated with the value of a Priority object's
+ * "math" expression should be @c dimensionless.  This is
+ * because the priority expression only serves to provide a relative
+ * ordering between different events, and only has meaning with
+ * respect to other Priority object expressions.  The value of
+ * Priority objects is not comparable to any other kind of object in
+ * an SBML model.
  *
- * The object class Priority is derived from SBase and adds a single
- * subelement called "math".  This subelement is used to hold MathML
- * content.  The mathematical formula represented by "math" must evaluate
- * to a numerical value.  
+ * @note The Priority construct exists only in SBML Level&nbsp;3; it cannot
+ * be used in SBML Level&nbsp;2 or Level&nbsp;1 models.
+ *
+ * @see Event
+ * @see Delay
+ * @see EventAssignment
  *
  */
 
@@ -64,8 +176,8 @@ class LIBSBML_EXTERN Priority : public SBase
 public:
 
   /**
-   * Creates a new Priority using the given SBML @p level and @p version
-   * values.
+   * Creates a new Priority object using the given SBML @p level and @p
+   * version values.
    *
    * @param level an unsigned int, the SBML Level to assign to this Priority
    *
@@ -81,13 +193,16 @@ public:
    * an important aid to producing valid SBML.  Knowledge of the intented
    * SBML Level and Version determine whether it is valid to assign a
    * particular value to an attribute, or whether it is valid to add a
-   * particular Priority object to an existing Event.
+   * particular Priority object to an existing Event.<br><br>
+   *
+   * @note The Priority construct exists only in SBML Level&nbsp;3; it
+   * cannot be used in SBML Level&nbsp;2 or Level&nbsp;1 models.
    */
   Priority (unsigned int level, unsigned int version);
 
 
   /**
-   * Creates a new Priority using the given SBMLNamespaces object
+   * Creates a new Priority object using the given SBMLNamespaces object
    * @p sbmlns.
    *
    * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
@@ -108,7 +223,10 @@ public:
    * aid to producing valid SBML.  Knowledge of the intented SBML Level and
    * Version determine whether it is valid to assign a particular value to
    * an attribute, or whether it is valid to add a particular Priority object
-   * to an existing Event.
+   * to an existing Event.<br><br>
+   *
+   * @note The Priority construct exists only in SBML Level&nbsp;3; it
+   * cannot be used in SBML Level&nbsp;2 or Level&nbsp;1 models.
    */
   Priority (SBMLNamespaces* sbmlns);
 
