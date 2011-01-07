@@ -39,7 +39,7 @@
  * consult the descriptions of Trigger, Delay, EventAssignment and Priority
  * for more information.
  *
- * @section version-diffs SBML version differences
+ * @section version-diffs SBML Level/Version differences
  * 
  * @subsection sbml-l3 SBML Level 3
  *
@@ -89,6 +89,112 @@
  * Level&nbsp;2 Version&nbsp;4.  Models defined in prior Versions of SBML
  * Level&nbsp;2 cannot use this attribute, and
  * SBMLDocument::checkConsistency() will report an error if they do.
+ *
+ * @section semantics Semantics of events in SBML Level 3 Version&nbsp;1
+ *
+ * The detailed semantics of events are described in the specification
+ * documents for each SBML Level/Version.  Here we include the description
+ * from the SBML Level&nbsp;1 Version&nbsp;1.
+ * Any transition of a Trigger object's "math" formula from the value @c
+ * false to @c true will cause the enclosing Event object to
+ * <em>trigger</em>.  Such a transition is not possible at the very start
+ * of a simulation (i.e., at time <em>t = 0</em>) unless the Trigger
+ * object's "initialValue" attribute has a value of @c false; this defines
+ * the value of the trigger formula to be @c false immediately prior to the
+ * start of simulation, thereby giving it the potential to change in value
+ * from @c false to @c true when the formula is evaluated at <em>t =
+ * 0</em>.  If "initialValue"=@c true, then the trigger expression cannot
+ * transition from @c false to @c true at <em>t = 0</em> but may do so at
+ * some time <em>t > 0</em>.
+ * 
+ * Consider an Event object definition <EM>E</EM> with delay <em>d</em> in
+ * which the Trigger object's "math" formula makes a transition in value
+ * from @c false to @c true at times <em>t<sub>1</sub></em> and
+ * <em>t<sub>2</sub></em>.  The EventAssignment within the Event object
+ * will have effect at <em>t<sub>1</sub> + d</em> and
+ * <em>t<sub>2</sub> + d</em> irrespective of the relative times of
+ * <em>t<sub>1</sub></em> and <em>t<sub>2</sub></em>.  For example, events
+ * can "overlap" so that <em>t<sub>1</sub> < t<sub>2</sub> <
+ * t<sub>1</sub> + d</em> still causes an event assignments to occur at
+ * <em>t<sub>1</sub> + d</em> and <em>t<sub>2</sub> + d</em>.
+ * 
+ * It is entirely possible for two events to be executed simultaneously,
+ * and it is possible for events to trigger other events (i.e., an event
+ * assignment can cause an event to trigger).  This leads to several
+ * points:
+ * <ul>
+ * 
+ * <li> A software package should retest all event triggers after executing
+ * an event assignment in order to account for the possibility that the
+ * assignment causes another event trigger to transition from @c false to
+ * @c true.  This check should be made after each individual Event object's
+ * execution, even when several events are to be executed simultaneously.
+ * 
+ * <li> Any Event object whose Trigger "persistent" attribute has the value
+ * @c false must have its trigger expression reevaluated continuously
+ * between when the event has been triggered and when it is executed.  If
+ * its trigger expression ever evaluates to @c false, it must be removed
+ * from the queue of events pending execution and treated as any other
+ * event whose trigger expression evaluates to @c false.
+ * 
+ * <li> Although the precise time at which events are executed is not
+ * resolved beyond the given execution point in simulated time, it is
+ * assumed that the order in which the events occur <em>is</em> resolved.
+ * This order can be significant in determining the overall outcome of a
+ * given simulation.  When an event <EM>X</EM> <em>triggers</em> another
+ * event <EM>Y</EM> and event <EM>Y</EM> has zero delay, then event
+ * <EM>Y</EM> is added to the existing set of simultaneous events that are
+ * pending <em>execution</em>.  Events <EM>X</EM> and <EM>Y</EM> form a
+ * cascade of events at the same point in simulation time.  An event such
+ * as <EM>Y</EM> may have a special priority if it contains a Priority
+ * subobject.
+ * 
+ * <li> All events in a model are open to being in a cascade.  The position
+ * of an event in the event queue does not affect whether it can be in the
+ * cascade: event <EM>Y</EM> can be triggered whether it is before or after
+ * <EM>X</EM> in the queue of events pending execution.  A cascade of
+ * events can be potentially infinite (never terminate); when this occurs a
+ * simulator should indicate this has occurred&mdash;it is incorrect for a
+ * simulator to break a cascade arbitrarily and continue the simulation
+ * without at least indicating that the infinite cascade occurred.
+ * 
+ * <li> Simultaneous events having no defined priorities are executed in an
+ * undefined order.  This does not mean that the behavior of the simulation
+ * is completely undefined; merely that the <em>order</em> of execution of
+ * these particular events is undefined.  A given simulator may use any
+ * algorithm to choose an order as long as every event is executed exactly
+ * once.
+ * 
+ * <li> Events with defined priorities are executed in the order implied by
+ * their Priority "math" formula values, with events having higher
+ * priorities being executed ahead of events with lower priorities, and
+ * events with identical priorities being executed in a random order with
+ * respect to one another (as determined at run-time by some random
+ * algorithm equivalent to coin-flipping).  Newly-triggered events that are
+ * to be executed immediately (i.e., if they define no delays) should be
+ * inserted into the queue of events pending execution according to their
+ * priorities: events with higher priority values value must be inserted
+ * ahead of events with lower priority values and after any pending events
+ * with even higher priorities, and inserted randomly among pending events
+ * with the same priority values.  Events without Priority objects must be
+ * inserted into the queue in some fashion, but the algorithm used to place
+ * it in the queue is undefined.  Similarly, there is no restriction on the
+ * order of a newly-inserted event with a defined Priority with respect to
+ * any other pending Event without a defined Priority.
+ * 
+ * <li> A model variable that is the target of one or more event
+ * assignments can change more than once when simultaneous events are
+ * processed at some time point <em>t</em>.  The model's behavior (output)
+ * for such a variable is the value of the variable at the end of
+ * processing all the simultaneous events at time <em>t</em>.
+ * 
+ * </ul>
+ *
+ * @see Trigger
+ * @see Priority
+ * @see Delay
+ * @see EventAssignment
+ * 
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 

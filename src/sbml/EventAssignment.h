@@ -24,34 +24,38 @@
  * @class EventAssignment
  * @brief LibSBML implementation of %SBML's %EventAssignment construct for %Event.
  *
+ * Event contains an optional element called "listOfEventAssignments", of
+ * class ListOfEventAssignments.  In every instance of an event definition
+ * in a model, the object's "listOfEventAssignments" element must have a
+ * non-empty list of one or more "eventAssignment" elements of class
+ * EventAssignment.  The object class EventAssignment has one required
+ * attribute, "variable", and a required element, "math".  Being derived
+ * from SBase, it also has all the usual attributes and elements of its
+ * parent class.
+ *
  * An Event object defines when the event can occur, the variables that are
  * affected by the event, and how the variables are affected.  The purpose
  * of the EventAssignment object class is to define how variables are
- * affected by an Event.  In every instance of an Event definition in a
- * model, the object's ListOfEventAssignments must have a non-empty list of
- * one or more elements of class EventAssignment.
+ * affected by an Event.  In SBML Level&nbsp;2, every Event object instance
+ * must have a nonempty list of event assignments; in SBML Level&nbsp;3,
+ * the list of assignments is optional.
  *
  * The operation of an Event is divided into two phases (regardless of
  * whether a delay is involved): one phase when the event is @em triggered,
- * and the other when the event is @em executed.  EventAssignment objects
+ * and the other when the event is @em executed.   EventAssignment objects
  * are interpreted when an event is executed.  The effects are described
  * below.
- * 
- * EventAssignment is derived from SBase and adds one attribute
- * ("variable") and one subelement ("math", containing MathML content).
- * The attribute "variable" is required to have a value.  Its type is the
- * SBML type @c SId and can contain the identifier of an existing
- * Compartment, Species or (global) Parameter instance defined in the
- * model.
  *
- * @section event-variable Effects of event assignments
+ * @section event-variable The attribute "variable"
  * 
- * An SBML event assignment has effect when the event is @em executed; that
- * is, at the end of any given delay period (if defined) following the
- * moment that the Event is triggered.  When the event fires, the effect is
- * to change the value of the model component identified by the "variable"
- * attribute.
- * 
+ * The EventAssignment attribute "variable" must be the identifier of an
+ * existing \Compartment, \Species, \SpeciesReference, or \Parameter
+ * instance defined in the model.  When the event is executed, the value of
+ * the model component identified by "variable" is changed by the
+ * \EventAssignment to the value computed by the "math" element; that is, a
+ * species' quantity, species reference's stoichiometry, compartment's size
+ * or parameter's value are reset to the value computed by "math".
+ *
  * Certain restrictions are placed on what can appear in "variable":
  * <ul>
  * <li> The object identified by the value of the EventAssignment attribute
@@ -59,8 +63,8 @@
  * @c true.  (Constants cannot be affected by events.)
  *
  * <li> The "variable" attribute must not contain the identifier of a
- * reaction; only species, compartment and parameter values may be set by
- * an Event.
+ * reaction; only species, species references, compartment and parameter
+ * values may be set by an Event.
  *
  * <li> The value of every "variable" attribute must be unique among the set
  * of EventAssignment structures within a given Event structure.  In other
@@ -92,47 +96,59 @@
  * @section event-math The "math" subelement in an EventAssignment
  * 
  * The MathML expression contained in an EventAssignment defines the new
- * value of the variable being assigned by the Event.  The order of the
- * EventAssignment structures is not significant; the effect of one
- * assignment cannot affect the result of another assignment.
+ * value of the variable being assigned by the Event.
+ * 
+ * As mentioned above, the time at which the expression in "math" is
+ * evaluated is determined by the attribute "useValuesFromTriggerTime" on
+ * \Event.  If the attribute value is @c true, the expression must be
+ * evaluated when the event is @em triggered; more precisely, the values of
+ * identifiers occurring in MathML <code>&lt;ci&gt;</code> elements in the
+ * EventAssignment's "math" expression are the values they have at the
+ * point when the event @em triggered.  If, instead,
+ * "useValuesFromTriggerTime"'s value is @c false, it means the values at
+ * @em execution time should be used; that is, the values of identifiers
+ * occurring in MathML <code>&lt;ci&gt;</code> elements in the
+ * \EventAssignment's "math" expression are the values they have at the
+ * point when the event @em executed.
  *
- * The time at which this expression is evaluated is determined by Event's
- * "useValuesFromTriggerTime" attribute.  If the attribute value is @c true
- * (the default), the expression must be evaluated when the event is
- * <em>triggered</em>; more precisely, the values of identifiers occurring
- * in MathML @c ci attributes in the EventAssignment's "math" expression
- * are the values they have at the point when the event is
- * <em>triggered</em>.  If, instead, "useValuesFromTriggerTime"'s value is
- * @c false, it means the values at <em>execution</em> time should be used;
- * that is, the values of identifiers occurring in MathML @c ci attributes
- * in the EventAssignment's "math" expression are the values they have at
- * the point when the event <em>executed</em>.
- *
+ * @section version-diffs SBML Level/Version differences
+ * 
  * Between Version&nbsp;4 and previous versions of SBML Level&nbsp;2, the
  * requirements regarding the matching of units between an
  * EvengAssignment's formula and the units of the object identified by the
  * "variable" attribute changed.  Previous versions required consistency,
- * but in Version&nbsp;4, unit consistency is only recommended.  More
- * precisely: <ul> <li> In the case of a species, an EventAssignment sets
- * the referenced species' quantity (concentration or amount of substance)
- * to the value determined by the formula in the EventAssignment's "math"
- * subelement.  The units of the "math" formula should (in SBML
- * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be identical
- * to the units of the species.
+ * but in SBML Level&nbsp;2 Version&nbsp;4 and in SBML Level&nbsp;3, unit
+ * consistency is only @em recommended.  More precisely:
+ * <ul>
+ *
+ * <li> In the case of a species, an EventAssignment sets the referenced
+ * species' quantity (concentration or amount of substance) to the value
+ * determined by the formula in the EventAssignment's "math" subelement.
+ * The units of the "math" formula should (in SBML Level&nbsp;2
+ * Version&nbsp;4 and in Level&nbsp;3) or must (in previous Versions of
+ * Level&nbsp;2) be identical to the units of the species.
+ *
+ * <li> (SBML Level&nbsp;3 only.) In the case of a species reference, an
+ * EventAssignment sets the stoichiometry of the reactant or product
+ * referenced by the SpeciesReference object to the value determined by the
+ * formula in the "math" element.  The unit associated with the value
+ * produced by the "math" formula should be @c dimensionless, because
+ * reactant and product stoichiometries in reactions are dimensionless
+ * quantities.
  *
  * <li> In the case of a compartment, an EventAssignment sets the
  * referenced compartment's size to the size determined by the formula in
  * the "math" subelement of the EventAssignment.  The overall units of the
- * formula should (in SBML Level&nbsp;2 Version&nbsp;4) or must (in
- * previous Versions) be identical to the units specified for the size of
- * the compartment identified by the EventAssignment's "variable"
- * attribute.
+ * formula should (in SBML Level&nbsp;2 Version&nbsp;4 and in Level&nbsp;3)
+ * or must (in previous Versions of Level&nbsp;2) be identical to the units
+ * specified for the size of the compartment identified by the
+ * EventAssignment's "variable" attribute.
  *
  * <li> In the case of a parameter, an EventAssignment sets the referenced
  * parameter's value to that determined by the formula in "math".  The
- * overall units of the formula should (in SBML Level&nbsp;2
- * Version&nbsp;4) or must (in previous Versions) be identical to the units
- * defined for the parameter.
+ * overall units of the formula should (in SBML Level&nbsp;2 Version&nbsp;4
+ * and Level&nbsp;3) or must (in previous Versions of Level&nbsp;2) be
+ * identical to the units defined for the parameter.
  * </ul>
  * 
  * Note that the formula placed in the "math" element <em>has no assumed
@@ -142,10 +158,7 @@
  * An approach similar to the one discussed in the context of Delay may be
  * used for the formula of an EventAssignment.
  *
- * @section event-semantics Semantics of Event and EventAssignment
- *
- * Readers are urged to consult the SBML specification for important
- * information about the interpretation of Event and EventAssignment.
+ * @see Event
  *
  *
  * @class ListOfEventAssignments 
