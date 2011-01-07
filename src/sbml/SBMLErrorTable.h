@@ -7342,7 +7342,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "The implication of 'useValuesFromTriggerTime=false' "
     "is that there is a delay between the time of trigger and the "
     "time of value assignments performed by the <event>.  This interpretation is "
-    "supported by SBML Level 2 versions prior to Version 4. "
+    "not supported by SBML Level 2 versions prior to Version 4. "
     "(References: L2V3 Section 4.14; L2V4 Section 4.14)"
   },
 
