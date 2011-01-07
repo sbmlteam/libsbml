@@ -53,9 +53,12 @@
  * "lambda" itself.  That is, the contents of MathML "ci" elements inside
  * the body of the "lambda" can only be the variables declared by its
  * "bvar" elements, or the identifiers of other FunctionDefinition
- * instances earlier in the model.  This means must be written so that all
+ * instances in the model.  This means must be written so that all
  * variables or parameters used in the MathML content are passed to them
- * via their function parameters.
+ * via their function parameters.  In SBML Level&nbsp;2, this restriction
+ * applies also to the MathML @c csymbol elements for @em time and @em
+ * delay; in SBML Level&nbsp;3, it additionally applies to the @c csymbol
+ * element for @em avogadro.
  *
  * @note Function definitions (also informally known as user-defined
  * functions) were introduced in SBML Level 2.  They have purposefully
@@ -67,7 +70,7 @@
  * are, function definitions could be implemented as textual
  * substitutions&mdash;they are simply macros.  Software implementations
  * therefore do not need the full function-definition machinery typically
- * associated with programming languages.
+ * associated with programming languages.<br><br>
  * 
  * @note Another important point to note is FunctionDefinition does not
  * have a separate attribute for defining the units of the value returned
