@@ -26,6 +26,7 @@ Suite *create_suite_XMLErrorLog (void);
 Suite *create_suite_XMLInputStream (void);
 Suite *create_suite_XMLOutputStream (void);
 Suite *create_suite_XMLAttributes_C (void);
+Suite *create_suite_XMLExceptions (void);
 
 int
 main (int argc, char* argv[]) 
@@ -46,6 +47,7 @@ main (int argc, char* argv[])
   srunner_add_suite(runner, create_suite_XMLInputStream());
   srunner_add_suite(runner, create_suite_XMLOutputStream());
   srunner_add_suite(runner, create_suite_XMLAttributes_C());
+  srunner_add_suite(runner, create_suite_XMLExceptions());
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {

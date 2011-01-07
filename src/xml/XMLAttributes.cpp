@@ -86,10 +86,17 @@ XMLAttributes::~XMLAttributes ()
  */
 XMLAttributes::XMLAttributes(const XMLAttributes& orig)
 {
-  this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
-  this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
-  this->mElementName = orig.mElementName;
-  this->mLog = orig.mLog;
+  if (&orig == NULL)
+  {
+    throw XMLConstructorException("Null argument to copy constructor");
+  }
+  else  
+  {
+    this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
+    this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
+    this->mElementName = orig.mElementName;
+    this->mLog = orig.mLog;
+  }
 }
 
 
@@ -97,14 +104,18 @@ XMLAttributes::XMLAttributes(const XMLAttributes& orig)
  * Assignment operator for XMLAttributes.
  */
 XMLAttributes& 
-XMLAttributes::operator=(const XMLAttributes& orig)
+XMLAttributes::operator=(const XMLAttributes& rhs)
 {
-  if(&orig!=this)
+  if (&rhs == NULL)
   {
-    this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
-    this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
-    this->mElementName = orig.mElementName;
-    this->mLog = orig.mLog;
+    throw XMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    this->mNames.assign( rhs.mNames.begin(), rhs.mNames.end() ); 
+    this->mValues.assign( rhs.mValues.begin(), rhs.mValues.end() ); 
+    this->mElementName = rhs.mElementName;
+    this->mLog = rhs.mLog;
   }
 
   return *this;

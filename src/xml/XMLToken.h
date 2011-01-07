@@ -141,7 +141,7 @@ public:
   /**
    * Assignment operator for XMLToken.
    */
-  XMLToken& operator=(const XMLToken& orig);
+  XMLToken& operator=(const XMLToken& rhs);
 
 
   /**

@@ -28,6 +28,7 @@
 
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLNamespaces.h>
+#include <sbml/xml/XMLAttributes.h>
 
 
 /** @cond doxygen-ignored */
@@ -59,7 +60,14 @@ XMLNamespaces::~XMLNamespaces ()
  */
 XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
 {
-  this->mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+  if (&orig == NULL)
+  {
+    throw XMLConstructorException("Null argument to copy constructor");
+  }
+  else  
+  {
+    mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+  }
 }
 
 
@@ -67,11 +75,15 @@ XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
  * Assignment operator for XMLNamespaces.
  */
 XMLNamespaces& 
-XMLNamespaces::operator=(const XMLNamespaces& orig)
+XMLNamespaces::operator=(const XMLNamespaces& rhs)
 {
-  if(&orig!=this)
+  if (&rhs == NULL)
   {
-    this->mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+    throw XMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    mNamespaces.assign( rhs.mNamespaces.begin(), rhs.mNamespaces.end() ); 
   }
   
   return *this;

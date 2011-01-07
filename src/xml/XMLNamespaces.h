@@ -95,7 +95,7 @@ public:
   /**
    * Assignment operator for XMLNamespaces.
    */
-  XMLNamespaces& operator=(const XMLNamespaces& orig);
+  XMLNamespaces& operator=(const XMLNamespaces& rhs);
 
 
   /**

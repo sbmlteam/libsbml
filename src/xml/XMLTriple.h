@@ -117,7 +117,7 @@ public:
   /**
    * Assignment operator for XMLTriple.
    */
-  XMLTriple& operator=(const XMLTriple& orig);
+  XMLTriple& operator=(const XMLTriple& rhs);
 
 
   /**

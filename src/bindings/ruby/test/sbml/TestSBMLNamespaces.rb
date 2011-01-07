@@ -101,6 +101,17 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     sbml = nil
   end
 
+  def test_SBMLNamespaces_L3V1
+    sbml = LibSBML::SBMLNamespaces.new(3,1)
+    assert( sbml.getLevel() == 3 )
+    assert( sbml.getVersion() == 1 )
+    ns = sbml.getNamespaces()
+    assert( ns.getLength() == 1 )
+    assert( ns.getURI(0) ==  "http://www.sbml.org/sbml/level3/version1/core" )
+    assert( ns.getPrefix(0) ==  "" )
+    sbml = nil
+  end
+
   def test_SBMLNamespaces_getURI
     assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" )
     assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" )
@@ -108,6 +119,7 @@ class TestSBMLNamespaces < Test::Unit::TestCase
     assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" )
     assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" )
     assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" )
+    assert( LibSBML::SBMLNamespaces.getSBMLNamespaceURI(3,1) ==                              "http://www.sbml.org/sbml/level3/version1/core" )
   end
 
 end

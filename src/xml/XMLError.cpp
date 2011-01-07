@@ -26,6 +26,7 @@
 #include <sstream>
 
 #include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLAttributes.h>
 
 /** @cond doxygen-ignored */
 
@@ -379,17 +380,51 @@ XMLError::XMLError (  const int errorId
 /*
  * Copy Constructor
  */
-XMLError::XMLError(const XMLError& orig) :
-    mErrorId(orig.mErrorId)
-  , mMessage(orig.mMessage)
-  , mShortMessage(orig.mShortMessage)
-  , mSeverity(orig.mSeverity)
-  , mCategory(orig.mCategory)
-  , mLine(orig.mLine)
-  , mColumn(orig.mColumn)
-  , mSeverityString(orig.mSeverityString)
-  , mCategoryString(orig.mCategoryString)
+XMLError::XMLError(const XMLError& orig)
 {
+  if (&orig == NULL)
+  {
+    throw XMLConstructorException("Null argument to copy constructor");
+  }
+  else  
+  {
+    mErrorId        = orig.mErrorId;
+    mMessage        = orig.mMessage;
+    mShortMessage   = orig.mShortMessage;
+    mSeverity       = orig.mSeverity;
+    mCategory       = orig.mCategory;
+    mLine           = orig.mLine;
+    mColumn         = orig.mColumn;
+    mSeverityString = orig.mSeverityString;
+    mCategoryString = orig.mCategoryString;
+  }
+}
+
+
+/*
+ * Assignment operator
+ */
+XMLError& 
+XMLError::operator=(const XMLError& rhs)
+{
+  if (&rhs == NULL)
+  {
+    throw XMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    mErrorId        = rhs.mErrorId;
+    mMessage        = rhs.mMessage;
+    mShortMessage   = rhs.mShortMessage;
+    mSeverity       = rhs.mSeverity;
+    mCategory       = rhs.mCategory;
+    mLine           = rhs.mLine;
+    mColumn         = rhs.mColumn;
+    mSeverityString = rhs.mSeverityString;
+    mCategoryString = rhs.mCategoryString;
+  }
+
+  return *this;
 }
 
 

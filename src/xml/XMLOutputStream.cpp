@@ -28,6 +28,7 @@
 #include <cstdio>
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLAttributes.h>
 #include <sbml/util/util.h>
 #include <sbml/common/common.h>
 #include <sbml/common/libsbml-version.h>
@@ -179,6 +180,9 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
  , mSkipNextIndent ( false    )
  , mNextAmpersandIsRef( false )
 {
+  if (&stream == NULL)
+    throw XMLConstructorException();
+
   unsetStringStream();
   mStream.imbue( locale::classic() );
   if (writeXMLDecl) this->writeXMLDecl();

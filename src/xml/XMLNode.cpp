@@ -181,12 +181,16 @@ XMLNode::XMLNode(const XMLNode& orig):
   * Assignment operator for XMLNode.
   */
 XMLNode& 
-XMLNode::operator=(const XMLNode& orig)
+XMLNode::operator=(const XMLNode& rhs)
 {
-  if(&orig!=this)
+  if (&rhs == NULL)
   {
-    this->XMLToken::operator=(orig);
-    this->mChildren.assign( orig.mChildren.begin(), orig.mChildren.end() ); 
+    throw XMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    this->XMLToken::operator=(rhs);
+    this->mChildren.assign( rhs.mChildren.begin(), rhs.mChildren.end() ); 
   }
 
   return *this;

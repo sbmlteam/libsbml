@@ -23,6 +23,7 @@
 
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/util/util.h>
+#include <sbml/xml/XMLAttributes.h>
 
 /** @cond doxygen-ignored */
 
@@ -45,11 +46,14 @@ XMLTriple::XMLTriple ()
  */
 XMLTriple::XMLTriple (  const std::string&  name
                       , const std::string&  uri
-                      , const std::string&  prefix ) :
-   mName  ( name   )
- , mURI   ( uri    )
- , mPrefix( prefix )
+                      , const std::string&  prefix ) 
 {
+  if ((&name == NULL) || (&uri == NULL) || (&prefix == NULL))
+    throw XMLConstructorException();
+
+  mName = name;
+  mURI = uri;
+  mPrefix = prefix;
 }
 
 
@@ -63,6 +67,9 @@ XMLTriple::XMLTriple (  const std::string&  name
  */
 XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
 { 
+  if (&triplet == NULL)
+    throw XMLConstructorException();
+
   string::size_type start = 0;
   string::size_type pos   = triplet.find(sepchar, start);
 
@@ -96,9 +103,16 @@ XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
  */
 XMLTriple::XMLTriple(const XMLTriple& orig)
 {
-  mName   = orig.mName;
-  mURI    = orig.mURI;
-  mPrefix = orig.mPrefix;
+  if (&orig == NULL)
+  {
+    throw XMLConstructorException("Null argument to copy constructor");
+  }
+  else
+  {
+    mName   = orig.mName;
+    mURI    = orig.mURI;
+    mPrefix = orig.mPrefix;
+  }
 }
 
 
@@ -106,13 +120,17 @@ XMLTriple::XMLTriple(const XMLTriple& orig)
  * Assignment operator for XMLTriple.
  */
 XMLTriple& 
-XMLTriple::operator=(const XMLTriple& orig)
+XMLTriple::operator=(const XMLTriple& rhs)
 {
-  if(&orig!=this)
+  if (&rhs == NULL)
   {
-    mName   = orig.mName;
-    mURI    = orig.mURI;
-    mPrefix = orig.mPrefix;
+    throw XMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    mName   = rhs.mName;
+    mURI    = rhs.mURI;
+    mPrefix = rhs.mPrefix;
   }
 
   return *this;

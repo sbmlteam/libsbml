@@ -89,7 +89,7 @@ public:
   /**
    * Assignment operator for XMLAttributes.
    */
-  XMLAttributes& operator=(const XMLAttributes& orig);
+  XMLAttributes& operator=(const XMLAttributes& rhs);
 
 
   /**

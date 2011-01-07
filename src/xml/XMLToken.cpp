@@ -112,13 +112,20 @@ XMLToken::XMLToken (  const XMLTriple&    triple
 XMLToken::XMLToken (  const std::string&  chars
                     , const unsigned int  line
                     , const unsigned int  column ) :
-   mChars     ( chars  )
- , mIsStart   ( false  )
+   mIsStart   ( false  )
  , mIsEnd     ( false  )
  , mIsText    ( true   )
  , mLine      ( line   )
  , mColumn    ( column )
 {
+  if (&chars == NULL)
+  {
+    throw XMLConstructorException();
+  }
+  else
+  {
+    mChars = chars;
+  }
 }
 
 
@@ -137,7 +144,7 @@ XMLToken::XMLToken(const XMLToken& orig)
 {
   if (&orig == NULL)
   {
-    throw XMLConstructorException();
+    throw XMLConstructorException("Null argument to copy constructor");
   }
   else
   {
@@ -172,33 +179,37 @@ XMLToken::XMLToken(const XMLToken& orig)
  * Assignment operator for XMLToken.
  */
 XMLToken& 
-XMLToken::operator=(const XMLToken& orig)
+XMLToken::operator=(const XMLToken& rhs)
 {
-  if(&orig!=this)
+  if (&rhs == NULL)
   {
-    if (orig.mTriple.isEmpty())
+    throw XMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    if (rhs.mTriple.isEmpty())
       mTriple = XMLTriple();
     else
-      mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
+      mTriple = XMLTriple(rhs.getName(), rhs.getURI(), rhs.getPrefix());
     
-    if (orig.mAttributes.isEmpty())
+    if (rhs.mAttributes.isEmpty())
       mAttributes = XMLAttributes();
     else
-      mAttributes = XMLAttributes(orig.getAttributes());
+      mAttributes = XMLAttributes(rhs.getAttributes());
     
-    if (orig.mNamespaces.isEmpty())
+    if (rhs.mNamespaces.isEmpty())
       mNamespaces = XMLNamespaces();
     else
-      mNamespaces = XMLNamespaces(orig.getNamespaces());
+      mNamespaces = XMLNamespaces(rhs.getNamespaces());
 
-    mChars = orig.mChars;
+    mChars = rhs.mChars;
 
-    mIsStart = orig.mIsStart;
-    mIsEnd = orig.mIsEnd;
-    mIsText = orig.mIsText;
+    mIsStart = rhs.mIsStart;
+    mIsEnd = rhs.mIsEnd;
+    mIsText = rhs.mIsText;
 
-    mLine = orig.mLine;
-    mColumn = orig.mColumn;
+    mLine = rhs.mLine;
+    mColumn = rhs.mColumn;
   }
 
   return *this;

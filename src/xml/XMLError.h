@@ -656,6 +656,12 @@ public:
 
 
   /**
+   * Assignment operator for XMLError.
+   */
+  XMLError& operator=(const XMLError& rhs);
+
+
+  /**
    * Destroys this XMLError.
    */
   virtual ~XMLError ();

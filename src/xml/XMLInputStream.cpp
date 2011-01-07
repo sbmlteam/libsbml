@@ -52,6 +52,10 @@ XMLInputStream::XMLInputStream (  const char*   content
  , mParser  ( XMLParser::create( mTokenizer, library) )
  , mSBMLns  ( 0 )
 {
+  // if the content points to nothing throw an exception ??
+  if (content == NULL)
+    throw XMLConstructorException();
+
   if ( !isGood() ) return;
   if ( errorLog ) setErrorLog(errorLog);
   // if this fails we should probably flag the stream as error

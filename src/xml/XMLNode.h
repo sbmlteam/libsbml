@@ -253,7 +253,7 @@ public:
   /**
    * Assignment operator for XMLNode.
    */
-  XMLNode& operator=(const XMLNode& orig);
+  XMLNode& operator=(const XMLNode& rhs);
 
 
   /**

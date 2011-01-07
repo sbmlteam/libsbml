@@ -106,6 +106,17 @@ class TestSBMLNamespaces(unittest.TestCase):
     sbml = None
     pass  
 
+  def test_SBMLNamespaces_L3V1(self):
+    sbml = libsbml.SBMLNamespaces(3,1)
+    self.assert_( sbml.getLevel() == 3 )
+    self.assert_( sbml.getVersion() == 1 )
+    ns = sbml.getNamespaces()
+    self.assert_( ns.getLength() == 1 )
+    self.assert_( ns.getURI(0) ==  "http://www.sbml.org/sbml/level3/version1/core" )
+    self.assert_( ns.getPrefix(0) ==  "" )
+    sbml = None
+    pass  
+
   def test_SBMLNamespaces_getURI(self):
     self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(1,1) ==                              "http://www.sbml.org/sbml/level1" )
     self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(1,2) ==                              "http://www.sbml.org/sbml/level1" )
@@ -113,6 +124,7 @@ class TestSBMLNamespaces(unittest.TestCase):
     self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,2) ==                              "http://www.sbml.org/sbml/level2/version2" )
     self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,3) ==                              "http://www.sbml.org/sbml/level2/version3" )
     self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,4) ==                              "http://www.sbml.org/sbml/level2/version4" )
+    self.assert_( libsbml.SBMLNamespaces.getSBMLNamespaceURI(3,1) ==                              "http://www.sbml.org/sbml/level3/version1/core" )
     pass  
 
 def suite():
