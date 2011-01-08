@@ -2080,8 +2080,9 @@ SBMLDocument::checkInternalConsistency()
   totalerrors += nerrors;
   
   /* hack to catch errors normally caught at read time */
-
-  SBMLDocument *d = readSBMLFromString(writeSBMLToString(this));
+  char* doc = writeSBMLToString(this);
+  SBMLDocument *d = readSBMLFromString(doc);
+  util_free(doc);
   nerrors = d->getNumErrors();
 
   for (unsigned int i = 0; i < nerrors; i++)
