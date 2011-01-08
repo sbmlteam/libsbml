@@ -59,6 +59,60 @@ namespace LibSBMLCSTestRunner
             Console.WriteLine("LibSBML C# Testrunner");
             Console.WriteLine("=====================");
 
+            if (args.Length == 1)
+            {
+                RunTestsInNamespace(args);
+            }
+            else
+            {
+                CompileAndRunTests(args);
+            }
+
+        }
+
+        /// <summary>
+        /// This runs all tests in the 'LibSBMLCSTest' namespace, which 
+        /// presumably are included in this assembly. 
+        /// </summary>
+        /// <param name="args">command line arguments</param>
+        private static void RunTestsInNamespace(string[] args)
+        {
+
+            string sData = args[0];
+
+            if (!Directory.Exists(sData))
+            {
+                Console.WriteLine("Data Directory does not exist" + Environment.NewLine);
+                Environment.Exit(-1);
+            }
+
+
+            // all seems well so let us run through the tests:
+            Console.WriteLine("Running the tests with: ");
+            Console.WriteLine("\tData Directory:   " + sData);
+            Console.WriteLine();
+
+            RunTestsInAssembly(Assembly.GetExecutingAssembly(), sData);
+
+            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine(String.Format("Total Number of Tests {0}, failures {1}",
+                                 nTestFunc, nFailureSum));
+            if (nFailureSum == 0)
+            {
+                Console.WriteLine("\nAll tests passed." + Environment.NewLine);
+                Environment.Exit(0);
+            }
+            Environment.Exit(1); 
+
+        }
+
+        /// <summary>
+        /// This runs the tests by recompiling all tests in the specified
+        /// source directory.
+        /// </summary>
+        /// <param name="args">command line arguments</param>
+        private static void CompileAndRunTests(string[] args)
+        {
             if (args.Length != 3)
             {
                 PrintUsageAndExit();
@@ -94,9 +148,7 @@ namespace LibSBMLCSTestRunner
             Console.WriteLine();
 
             RunTests(sLibrary, sSource, sData);
-
         }
-
         private static void RunTests(string sLibrary, string sSource, string sData)
         {
             // add reference library to the compiler so that it will be referenced
@@ -123,7 +175,8 @@ namespace LibSBMLCSTestRunner
                     RunTestFile(testFile, testDir, sData);
                 }
             }
-
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine(String.Format("Encountered {0} compile errors (invalid tests)", nCompileErrors));
             Console.WriteLine(String.Format("Total Number of Test files {0}, Tests {1}, failures {2}", 
                                              testFileNum, nTestFunc, nFailureSum));
@@ -142,9 +195,10 @@ namespace LibSBMLCSTestRunner
 
         private static void RunTestFile(string testFile, string testDir, string sData)
         {
+#if DEBUG
             Console.WriteLine("Runing test file: '" + new FileInfo(testFile).Name + "' in " + testDir);
             Console.WriteLine("----------------------------------------------------------------");
-
+#endif
             // read C# code
             StreamReader oReader = new StreamReader(testFile);
             string source = oReader.ReadToEnd(); oReader.Close();
@@ -164,14 +218,15 @@ namespace LibSBMLCSTestRunner
 
             // test compiled so now we can run the tests
             RunTestsInAssembly(oTestClass, sData);
-
-            Console.WriteLine(); Console.WriteLine();
+#if DEBUG
+            Console.WriteLine(); 
+            Console.WriteLine();
+#endif
         }
 
         private static void RunTestsInAssembly(Assembly oTestClass, string sData)
         {
-            // Get all classes.  We know that all test-classes begin with Test.
-
+            // get all classes, we know that all test-classes begin with Test
             Type[] types = oTestClass.GetExportedTypes();
             foreach (Type type in types)
             {
@@ -227,7 +282,11 @@ namespace LibSBMLCSTestRunner
                         }
 
                         // if we are still here the test was successful
+#if DEBUG
                         Console.WriteLine("Calling '" + member.Name + "'");
+#else
+                        Console.Write(".");
+#endif
                         nSuccess++;
 
                     }
@@ -239,11 +298,14 @@ namespace LibSBMLCSTestRunner
                 return;
             }
 
+#if DEBUG
             Console.WriteLine();
             Console.WriteLine(
                 String.Format("Testing completed: Pass:{0}, Fail:{1} (Total:{2})",
                               nSuccess, nFailure, nSuccess+nFailure));
-
+#else
+            Console.Write(".");
+#endif
             nSuccessSum += nSuccess;
             nFailureSum += nFailure;
 
@@ -251,8 +313,8 @@ namespace LibSBMLCSTestRunner
 
         private static object SetupTestClass(Assembly oTestClass, Type type)
         {
-            object oClass = Activator.CreateInstance(type);
 
+            object oClass = Activator.CreateInstance(type);
             try
             {
                 type.InvokeMember("setUp",
