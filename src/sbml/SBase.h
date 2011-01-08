@@ -2228,6 +2228,34 @@ protected:
 
 
   /**
+   * Predicate returning @c true if this
+   * object's level/version and namespace values correspond to a valid
+   * SBML specification.
+   *
+   * The valid combinations of SBML Level, Version and Namespace as of this
+   * release of libSBML are the following:
+   * <ul>
+   * <li> Level&nbsp;1 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level1"</code>
+   * <li> Level&nbsp;2 Version&nbsp;1: <code>"http://www.sbml.org/sbml/level2"</code>
+   * <li> Level&nbsp;2 Version&nbsp;2: <code>"http://www.sbml.org/sbml/level2/version2"</code>
+   * <li> Level&nbsp;2 Version&nbsp;3: <code>"http://www.sbml.org/sbml/level2/version3"</code>
+   * <li> Level&nbsp;2 Version&nbsp;4: <code>"http://www.sbml.org/sbml/level2/version4"</code>
+   * <li> Level&nbsp;3 Version&nbsp;1 Core: <code>"http://www.sbml.org/sbml/level3/version1/core"</code>
+   * </ul>
+   *
+   * @param typecode the typecode for this element
+   * @param xmlns the namespaces used by this element.
+   *
+   * @note  This function is provided as convenience method to be called from constructors. This 
+   *        allows to use it in scenarios where the namespaces or typecode have not yet been initialized. 
+   * 
+   * @return @c true if the level, version and namespace values of this 
+   * SBML object correspond to a valid set of values, @c false otherwise.
+   */
+  bool hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns);
+
+
+  /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
    *

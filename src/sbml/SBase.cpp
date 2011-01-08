@@ -2570,12 +2570,21 @@ SBase::getTypeCode () const
 bool 
 SBase::hasValidLevelVersionNamespaceCombination()
 {
+
+  int typecode = getTypeCode();
+  XMLNamespaces *xmlns = getNamespaces();  
+
+  return hasValidLevelVersionNamespaceCombination(typecode, xmlns);
+}
+
+bool 
+SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns)
+{
   bool valid = true;
   bool sbmlDeclared = false;
   std::string declaredURI("");
   unsigned int index = 0;
   unsigned int version = getVersion();
-  XMLNamespaces *xmlns = getNamespaces();
   if (xmlns)
   {
     // 
@@ -2643,7 +2652,6 @@ SBase::hasValidLevelVersionNamespaceCombination()
 
   }
 
-  SBMLTypeCode_t typecode = getTypeCode();
 
   /* Ralph pointed out that calling a virtual function here 
    * since this function is called from constructors could lead to problems
