@@ -322,11 +322,10 @@ CVTerm::getNumResources()
 /*
  * Returns the value of the nth resource for this %CVTerm.
  */
-const std::string&
-CVTerm::getResourceURI(unsigned int n)const
+std::string
+CVTerm::getResourceURI(unsigned int n)
 {
-  const std::string *res = new string(mResources->getValue(n));
-  return *(res);
+  return mResources->getValue(n);
 }
 
   

@@ -140,8 +140,6 @@ Species::~Species ()
  */
 Species::Species(const Species& orig) :
    SBase             ( orig                    )
- , mId               ( orig.mId                )  
- , mName             ( orig.mName              )
 {
   if (&orig == NULL)
   {
