@@ -892,7 +892,7 @@ Compartment::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -1646,7 +1646,7 @@ ListOfCompartments::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqComp(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Compartment*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <Compartment*> (*result);
 }
 
 
@@ -1719,7 +1719,7 @@ ListOfCompartments::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
 
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -1806,7 +1806,14 @@ LIBSBML_EXTERN
 Compartment_t *
 Compartment_clone (const Compartment_t* c)
 {
-  return static_cast<Compartment*>( c->clone() );
+  if (c != NULL)
+  {
+    return static_cast<Compartment*>(c->clone());
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -1826,7 +1833,7 @@ LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c)
 {
-  c->initDefaults();
+  if (c != NULL) c->initDefaults();
 }
 
 
@@ -1843,7 +1850,14 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Compartment_getNamespaces(Compartment_t *c)
 {
-  return c->getNamespaces();
+  if (c != NULL)
+  {
+    return c->getNamespaces();
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 /**
@@ -1858,7 +1872,7 @@ LIBSBML_EXTERN
 const char *
 Compartment_getId (const Compartment_t *c)
 {
-  return c->isSetId() ? c->getId().c_str() : NULL;
+  return (c != NULL && c->isSetId()) ? c->getId().c_str() : NULL;
 }
 
 
@@ -1874,7 +1888,7 @@ LIBSBML_EXTERN
 const char *
 Compartment_getName (const Compartment_t *c)
 {
-  return c->isSetName() ? c->getName().c_str() : NULL;
+  return (c != NULL && c->isSetName()) ? c->getName().c_str() : NULL;
 }
 
 
@@ -1891,7 +1905,8 @@ LIBSBML_EXTERN
 const char *
 Compartment_getCompartmentType (const Compartment_t *c)
 {
-  return c->isSetCompartmentType() ? c->getCompartmentType().c_str() : NULL;
+  return (c != NULL && c->isSetCompartmentType())
+                                     ? c->getCompartmentType().c_str() : NULL;
 }
 
 
@@ -1907,7 +1922,8 @@ LIBSBML_EXTERN
 unsigned int
 Compartment_getSpatialDimensions (const Compartment_t *c)
 {
-  return c->getSpatialDimensions();
+  if (c != NULL) 
+    return c->getSpatialDimensions();
 }
 
 
@@ -1923,7 +1939,8 @@ LIBSBML_EXTERN
 double
 Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c)
 {
-  return c->getSpatialDimensionsAsDouble();
+  if (c != NULL)
+    return c->getSpatialDimensionsAsDouble();
 }
 
 
@@ -1948,7 +1965,8 @@ LIBSBML_EXTERN
 double
 Compartment_getSize (const Compartment_t *c)
 {
-  return c->getSize();
+  if (c != NULL)
+    return c->getSize();
 }
 
 
@@ -1973,7 +1991,8 @@ LIBSBML_EXTERN
 double
 Compartment_getVolume (const Compartment_t *c)
 {
-  return c->getVolume();
+  if (c != NULL)
+    return c->getVolume();
 }
 
 
@@ -1989,7 +2008,7 @@ LIBSBML_EXTERN
 const char *
 Compartment_getUnits (const Compartment_t *c)
 {
-  return c->isSetUnits() ? c->getUnits().c_str() : NULL;
+  return (c != NULL && c->isSetUnits()) ? c->getUnits().c_str() : NULL;
 }
 
 
@@ -2006,7 +2025,7 @@ LIBSBML_EXTERN
 const char *
 Compartment_getOutside (const Compartment_t *c)
 {
-  return c->isSetOutside() ? c->getOutside().c_str() : NULL;
+  return (c != NULL && c->isSetOutside()) ? c->getOutside().c_str() : NULL;
 }
 
 
@@ -2022,7 +2041,7 @@ LIBSBML_EXTERN
 int
 Compartment_getConstant (const Compartment_t *c)
 {
-  return static_cast<int>( c->getConstant() );
+  return (c != NULL) ? static_cast<int>( c->getConstant() ) : 0;
 }
 
 
@@ -2039,7 +2058,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetId (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetId() );
+  return (c != NULL) ? static_cast<int>( c->isSetId() ) : 0;
 }
 
 
@@ -2056,7 +2075,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetName (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetName() );
+  return (c != NULL) ? static_cast<int>( c->isSetName() ) : 0;
 }
 
 
@@ -2073,7 +2092,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetCompartmentType (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetCompartmentType() );
+  return (c != NULL) ? static_cast<int>( c->isSetCompartmentType() ) : 0;
 }
 
 
@@ -2098,7 +2117,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetSize (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetSize() );
+  return (c != NULL) ? static_cast<int>( c->isSetSize() ):0;
 }
 
 
@@ -2130,7 +2149,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetVolume (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetVolume() );
+  return (c != NULL) ? static_cast<int>( c->isSetVolume() ) : 0;
 }
 
 
@@ -2147,7 +2166,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetUnits (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetUnits() );
+  return (c != NULL) ? static_cast<int>( c->isSetUnits() ) : 0;
 }
 
 
@@ -2164,7 +2183,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetOutside (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetOutside() );
+  return (c != NULL) ? static_cast<int>( c->isSetOutside() ) : 0;
 }
 
 
@@ -2181,7 +2200,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetSpatialDimensions (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetSpatialDimensions() );
+  return (c != NULL) ? static_cast<int>( c->isSetSpatialDimensions() ) : 0;
 }
 
 
@@ -2198,7 +2217,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetConstant (const Compartment_t *c)
 {
-  return static_cast<int>( c->isSetConstant() );
+  return (c != NULL) ? static_cast<int>( c->isSetConstant() ) : 0;
 }
 
 
@@ -2226,7 +2245,10 @@ LIBSBML_EXTERN
 int
 Compartment_setId (Compartment_t *c, const char *sid)
 {
-  return (sid == NULL) ? c->setId("") : c->setId(sid);
+  if (c != NULL)
+    return (sid == NULL) ? c->setId("") : c->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2255,7 +2277,10 @@ LIBSBML_EXTERN
 int
 Compartment_setName (Compartment_t *c, const char *name)
 {
-  return (name == NULL) ? c->unsetName() : c->setName(name);
+   if (c != NULL)
+    return (name == NULL) ? c->unsetName() : c->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2285,8 +2310,11 @@ LIBSBML_EXTERN
 int
 Compartment_setCompartmentType (Compartment_t *c, const char *sid)
 {
-  return (sid == NULL) ? 
+  if (c != NULL)
+    return (sid == NULL) ? 
              c->unsetCompartmentType() : c->setCompartmentType(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2315,7 +2343,10 @@ LIBSBML_EXTERN
 int
 Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
 {
-  return c->setSpatialDimensions(value);
+  if (c != NULL)
+    return c->setSpatialDimensions(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2339,7 +2370,10 @@ LIBSBML_EXTERN
 int
 Compartment_setSpatialDimensionsAsDouble (Compartment_t *c, double value)
 {
-  return c->setSpatialDimensions(value);
+  if (c != NULL)
+    return c->setSpatialDimensions(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2364,7 +2398,10 @@ LIBSBML_EXTERN
 int
 Compartment_setSize (Compartment_t *c, double value)
 {
-  return c->setSize(value);
+  if (c != NULL)
+    return c->setSize(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2390,7 +2427,10 @@ LIBSBML_EXTERN
 int
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  return c->setVolume(value);
+  if (c != NULL)
+    return c->setVolume(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2416,7 +2456,10 @@ LIBSBML_EXTERN
 int
 Compartment_setUnits (Compartment_t *c, const char *sid)
 {
-  return (sid == NULL) ? c->unsetUnits() : c->setUnits(sid);
+  if (c != NULL)
+    return (sid == NULL) ? c->unsetUnits() : c->setUnits(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2442,7 +2485,10 @@ LIBSBML_EXTERN
 int
 Compartment_setOutside (Compartment_t *c, const char *sid)
 {
-  return (sid == NULL) ? c->unsetOutside() : c->setOutside(sid);
+  if (c != NULL)
+    return (sid == NULL) ? c->unsetOutside() : c->setOutside(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2465,7 +2511,10 @@ LIBSBML_EXTERN
 int
 Compartment_setConstant (Compartment_t *c, int value)
 {
-  return c->setConstant( static_cast<bool>(value) );
+  if (c != NULL)
+    return c->setConstant( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2485,7 +2534,10 @@ LIBSBML_EXTERN
 int
 Compartment_unsetName (Compartment_t *c)
 {
-  return c->unsetName();
+  if (c != NULL)
+    return c->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2506,7 +2558,10 @@ LIBSBML_EXTERN
 int 
 Compartment_unsetCompartmentType (Compartment_t *c)
 {
-  return c->unsetCompartmentType();
+  if (c != NULL)
+    return c->unsetCompartmentType();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2526,7 +2581,10 @@ LIBSBML_EXTERN
 int
 Compartment_unsetSize (Compartment_t *c)
 {
-  return c->unsetSize();
+  if (c != NULL)
+    return c->unsetSize();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2551,7 +2609,10 @@ LIBSBML_EXTERN
 int
 Compartment_unsetVolume (Compartment_t *c)
 {
-  return c->unsetVolume();
+  if (c != NULL)
+    return c->unsetVolume();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2572,7 +2633,10 @@ LIBSBML_EXTERN
 int
 Compartment_unsetUnits (Compartment_t *c)
 {
-  return c->unsetUnits();
+  if (c != NULL)
+    return c->unsetUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2593,7 +2657,10 @@ LIBSBML_EXTERN
 int
 Compartment_unsetOutside (Compartment_t *c)
 {
-  return c->unsetOutside();
+  if (c != NULL)
+    return c->unsetOutside();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2614,7 +2681,10 @@ LIBSBML_EXTERN
 int
 Compartment_unsetSpatialDimensions (Compartment_t *c)
 {
-  return c->unsetSpatialDimensions();
+  if (c != NULL)
+    return c->unsetSpatialDimensions();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2642,7 +2712,10 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 Compartment_getDerivedUnitDefinition(Compartment_t *c)
 {
-  return c->getDerivedUnitDefinition();
+  if (c != NULL)
+    return c->getDerivedUnitDefinition();
+  else
+    return NULL;
 }
 
 
@@ -2664,7 +2737,7 @@ LIBSBML_EXTERN
 int
 Compartment_hasRequiredAttributes(Compartment_t *c)
 {
-  return static_cast<int>(c->hasRequiredAttributes());
+  return (c != NULL) ? static_cast<int>(c->hasRequiredAttributes()) : 0;
 }
 
 
@@ -2676,8 +2749,11 @@ LIBSBML_EXTERN
 Compartment_t *
 ListOfCompartments_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
+  if (lo != NULL) 
+    return (sid != NULL) ? 
     static_cast <ListOfCompartments *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2690,8 +2766,11 @@ LIBSBML_EXTERN
 Compartment_t *
 ListOfCompartments_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfCompartments *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+            static_cast <ListOfCompartments *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */
