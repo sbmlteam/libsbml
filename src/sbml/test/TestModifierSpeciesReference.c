@@ -59,6 +59,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static SpeciesReference_t *MSR;
 
@@ -191,3 +194,7 @@ create_suite_ModifierSpeciesReference (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

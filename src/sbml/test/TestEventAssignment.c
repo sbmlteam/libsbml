@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static EventAssignment_t *EA;
 
@@ -247,3 +250,7 @@ create_suite_EventAssignment (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

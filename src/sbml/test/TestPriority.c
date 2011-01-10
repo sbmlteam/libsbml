@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Priority_t *P;
 
@@ -224,3 +227,7 @@ create_suite_Priority (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

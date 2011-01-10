@@ -21,16 +21,28 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+
+#if WIN32 && !defined(CYGWIN)
+
+#include <iostream>
+
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <check.h>
 #include <XMLAttributes.h>
 #include <XMLTriple.h>
 #include <XMLErrorLog.h>
 #include <util/memory.h>
 #include <util/util.h>
+#include <check.h>
 
+#include <sbml/common/extern.h>
+
+#if __cplusplus
+BEGIN_C_DECL
+#endif
 
 START_TEST (test_XMLAttributes_create_C)
 {
@@ -806,3 +818,7 @@ create_suite_XMLAttributes_C (void)
 
   return suite;
 }
+
+#if __cplusplus
+END_C_DECL
+#endif

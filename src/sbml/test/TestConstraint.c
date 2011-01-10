@@ -62,6 +62,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Constraint_t *C;
 
@@ -241,3 +244,7 @@ create_suite_Constraint (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

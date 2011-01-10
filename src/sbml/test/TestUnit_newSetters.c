@@ -31,6 +31,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Unit_t *U;
 
@@ -205,3 +208,7 @@ create_suite_Unit_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

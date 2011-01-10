@@ -56,6 +56,10 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
+
 static Rule_t *SCR;
 
 
@@ -189,3 +193,7 @@ create_suite_SpeciesConcentrationRule (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

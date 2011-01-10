@@ -56,6 +56,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Model_t *M;
 
@@ -1690,3 +1693,7 @@ create_suite_Model (void)
 
   return s;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -26,6 +26,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+BEGIN_C_DECL
+#endif
 
 START_TEST (test_XMLError_create_C)
 {
@@ -72,4 +75,8 @@ create_suite_XMLError_C (void)
 
   return suite;
 }
+
+#if __cplusplus
+END_C_DECL
+#endif
 

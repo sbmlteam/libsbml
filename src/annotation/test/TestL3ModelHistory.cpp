@@ -39,6 +39,8 @@
 
 LIBSBML_CPP_NAMESPACE_USE
 
+CK_CPPSTART
+
 static Model *m;
 static Compartment *c;
 static SBMLDocument* d;
@@ -48,7 +50,7 @@ extern char *TestDataDirectory;
 /* 
  * tests the results from rdf annotations
  */
-CK_CPPSTART
+
 
 
 void

@@ -29,7 +29,9 @@
 
 #include <check.h>
 
-
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_Date_create)
 {
@@ -241,7 +243,7 @@ START_TEST (test_ModelHistory_addCreator)
   fail_unless(ModelHistory_getNumCreators(history) == 1);
   ModelCreator_free(mc);
 
-  newMC = List_get(ModelHistory_getListCreators(history), 0);
+  newMC = (ModelCreator_t*)List_get(ModelHistory_getListCreators(history), 0);
   fail_unless(newMC != NULL);
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(newMC), "Keating"));
@@ -330,7 +332,7 @@ START_TEST (test_ModelHistory_addModifiedDate)
   fail_unless(ModelHistory_getNumModifiedDates(history) == 1);
   fail_unless(ModelHistory_isSetModifiedDate(history) == 1);
 
-  Date_t * newdate = List_get(ModelHistory_getListModifiedDates(history), 0);
+  Date_t * newdate = (Date_t*)List_get(ModelHistory_getListModifiedDates(history), 0);
 
   fail_unless(Date_getYear(newdate) == 2005);
   fail_unless(Date_getMonth(newdate) == 12);
@@ -391,4 +393,6 @@ create_suite_ModelHistory (void)
 }
 
 
-END_C_DECLS
+#if __cplusplus
+CK_CPPEND
+#endif

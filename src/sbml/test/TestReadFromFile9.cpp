@@ -36,6 +36,16 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
 
 extern char *TestDataDirectory;
 

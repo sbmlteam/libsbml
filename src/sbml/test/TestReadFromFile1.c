@@ -55,6 +55,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 extern char *TestDataDirectory;
 
@@ -338,3 +341,7 @@ create_suite_TestReadFromFile1 (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

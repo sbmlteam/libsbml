@@ -54,6 +54,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_UnitKind_equals)
 {
@@ -237,10 +240,10 @@ START_TEST (test_UnitKind_toString)
   s = UnitKind_toString(UNIT_KIND_INVALID);
   fail_unless(!strcmp(s, "(Invalid UnitKind)"), NULL );
 
-  s = UnitKind_toString(-1);
+  s = UnitKind_toString((UnitKind_t)-1);
   fail_unless(!strcmp(s, "(Invalid UnitKind)"), NULL );
 
-  s = UnitKind_toString(UNIT_KIND_INVALID + 1);
+  s = UnitKind_toString((UnitKind_t)(UNIT_KIND_INVALID + 1));
   fail_unless(!strcmp(s, "(Invalid UnitKind)"), NULL );
 }
 END_TEST
@@ -279,3 +282,7 @@ create_suite_UnitKind (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

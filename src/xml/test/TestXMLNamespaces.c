@@ -25,6 +25,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+BEGIN_C_DECL
+#endif
 
 static XMLNamespaces_t *NS;
 
@@ -320,4 +323,8 @@ create_suite_XMLNamespaces (void)
 
   return suite;
 }
+
+#if __cplusplus
+END_C_DECL
+#endif
 

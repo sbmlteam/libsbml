@@ -55,6 +55,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_SBMLConvertStrict_convertNonStrictUnits)
 {
@@ -271,3 +274,7 @@ create_suite_SBMLConvertStrict (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

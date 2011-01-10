@@ -50,6 +50,7 @@
 
 #include <check.h>
 
+
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -59,6 +60,7 @@ LIBSBML_CPP_NAMESPACE_USE
 
 
 CK_CPPSTART
+
 START_TEST ( test_Compartment_copyConstructor )
 {
     Compartment* o1=new Compartment(2, 4);
@@ -1644,4 +1646,5 @@ create_suite_CopyAndClone (void)
 
   return suite;
 }
+
 CK_CPPEND

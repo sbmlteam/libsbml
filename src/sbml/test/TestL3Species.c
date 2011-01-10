@@ -31,6 +31,22 @@
 
 #include <check.h>
 
+#include <sbml/common/extern.h>
+
+#if __cplusplus
+CK_CPPSTART
+#endif
+
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
 
 static Species_t *S;
 
@@ -535,3 +551,7 @@ create_suite_L3_Species (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -37,7 +37,9 @@
  * separate header file is not necessary and only adds a maintenance burden
  * to keep the two files synchronized.
  */
-BEGIN_C_DECLS
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 Suite *create_suite_ASTNode          (void);
 Suite *create_suite_FormulaFormatter (void);
@@ -50,7 +52,6 @@ Suite *create_suite_TestReadFromFile1      (void);
 Suite *create_suite_TestReadFromFile2      (void);
 
 Suite *create_suite_TestValidASTNode  (void);
-END_C_DECLS
 
 
 /**
@@ -120,3 +121,9 @@ main (void)
 
   return num_failed;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif
+
+

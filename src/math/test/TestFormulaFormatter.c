@@ -49,13 +49,16 @@
  */
 
 
-#include <check.h>
-
 #include <sbml/common/common.h>
 
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/FormulaParser.h>
 
+#include <check.h>
+
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_FormulaFormatter_isFunction)
 {
@@ -382,8 +385,12 @@ START_TEST (test_SBML_formulaToString)
   {
     "1",
     "2.1",
+#if WIN32 && !defined(CYGWIN)
+    "2.100000e-010",
+#else
     "2.100000e-10",
-    "foo",
+#endif
+	"foo",
     "1 + foo",
     "1 + 2",
     "1 + 2 * 3",
@@ -633,3 +640,8 @@ create_suite_FormulaFormatter (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif
+

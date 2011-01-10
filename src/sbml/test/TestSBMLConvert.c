@@ -56,6 +56,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
 {
@@ -437,7 +440,7 @@ START_TEST (test_SBMLConvert_convertToL3_stoichiometryMath)
   
   Rule_t *rule = Model_getRule(m, 0);
 
-  fail_unless(SpeciesReference_getId(sr) == Rule_getVariable(rule));
+  fail_unless( strcmp(SpeciesReference_getId(sr), Rule_getVariable(rule)) == 0 );
 
   SBMLDocument_free(d);
 }
@@ -785,3 +788,7 @@ create_suite_SBMLConvert (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -61,6 +61,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Rule_t *AR;
 
@@ -198,3 +201,7 @@ create_suite_AlgebraicRule (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

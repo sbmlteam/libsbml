@@ -49,11 +49,15 @@
  */
 
 
-#include <check.h>
 
 #include <sbml/common/common.h>
 #include <sbml/math/FormulaParser.h>
 
+#include <check.h>
+
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 /**
  * The following are private and used only within FormulaParser.c; however,
@@ -715,3 +719,7 @@ create_suite_FormulaParser (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

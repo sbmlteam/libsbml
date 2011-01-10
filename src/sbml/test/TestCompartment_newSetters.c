@@ -31,6 +31,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Compartment_t *C;
 
@@ -523,3 +526,7 @@ create_suite_Compartment_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

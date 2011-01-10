@@ -59,6 +59,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Rule_t *R;
 
@@ -168,3 +171,7 @@ create_suite_Rule (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

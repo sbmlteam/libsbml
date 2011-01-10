@@ -33,6 +33,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static SpeciesReference_t *sr;
 
@@ -465,3 +468,7 @@ create_suite_SpeciesReference_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

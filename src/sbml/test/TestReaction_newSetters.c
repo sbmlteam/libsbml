@@ -33,6 +33,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Reaction_t *R;
 
@@ -582,3 +585,7 @@ create_suite_Reaction_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

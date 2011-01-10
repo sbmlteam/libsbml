@@ -32,6 +32,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static UnitDefinition_t *UD;
 
@@ -227,3 +230,7 @@ create_suite_UnitDefinition_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

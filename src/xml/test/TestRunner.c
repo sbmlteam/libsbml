@@ -10,7 +10,9 @@
 #include <string.h>
 #include <check.h>
 
-
+#if __cplusplus
+BEGIN_C_DECL
+#endif
 
 Suite *create_suite_XMLAttributes (void);
 Suite *create_suite_XMLNamespaces (void);
@@ -61,3 +63,8 @@ main (int argc, char* argv[])
 
   return num_failed;
 }
+
+#if __cplusplus
+END_C_DECL
+#endif
+

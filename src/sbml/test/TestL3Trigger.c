@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Trigger_t *T;
 
@@ -193,3 +196,7 @@ create_suite_L3Trigger (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -63,6 +63,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_SBMLDocument_create)
 {
@@ -312,3 +315,7 @@ create_suite_SBMLDocument (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

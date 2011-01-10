@@ -31,6 +31,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static SpeciesType_t *ST;
 
@@ -159,3 +162,7 @@ create_suite_SpeciesType_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

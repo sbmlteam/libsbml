@@ -32,7 +32,9 @@
 
 #include <check.h>
 
-
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static EventAssignment_t *E;
 
@@ -139,3 +141,7 @@ create_suite_EventAssignment_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

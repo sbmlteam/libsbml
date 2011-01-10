@@ -65,7 +65,18 @@
  * separate header file is not necessary and only adds a maintenance burden
  * to keep the two files synchronized.
  */
-BEGIN_C_DECLS
+#if __cplusplus
+CK_CPPSTART
+#endif
+
+#if WIN32 && !defined(CYGWIN)
+#include <math.h>
+int isnan(double x) { return x != x; }
+int isinf(double x) { return !isnan(x) && isnan(x - x); }
+int finite(double x) { return !isinf(x) && !isnan(x); }
+#endif
+
+
 
 Suite *create_suite_ReadSBML                      (void);
 Suite *create_suite_WriteSBML                     (void);
@@ -166,8 +177,6 @@ Suite *create_suite_SyntaxChecker                 (void);
 Suite *create_suite_SBMLConstructorException      (void);
 
 Suite *create_suite_SBMLTransforms                (void);
-
-END_C_DECLS
 
 
 /**
@@ -329,3 +338,9 @@ main (int argc, char* argv[])
 
   return num_failed;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif
+
+

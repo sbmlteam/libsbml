@@ -49,8 +49,6 @@
  */
 
 
-#include <check.h>
-
 #include <sbml/common/common.h>
 #include <sbml/util/List.h>
 
@@ -58,6 +56,12 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/EventAssignment.h>
 #include <sbml/xml/XMLNode.h>
+
+#include <check.h>
+
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 
 START_TEST (test_ASTNode_create)
@@ -2205,3 +2209,9 @@ create_suite_ASTNode (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif
+
+

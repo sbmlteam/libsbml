@@ -31,12 +31,28 @@
 
 #include <check.h>
 
+#include <sbml/common/extern.h>
+
+#if __cplusplus
+CK_CPPSTART
+#endif
+
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
 
 static Unit_t *U;
 
 
 void
-L3UnitTest_setup (vokind)
+L3UnitTest_setup (void)
 {
   U = Unit_create(3, 1);
 
@@ -48,7 +64,7 @@ L3UnitTest_setup (vokind)
 
 
 void
-L3UnitTest_teardown (vokind)
+L3UnitTest_teardown (void)
 {
   Unit_free(U);
 }
@@ -240,3 +256,7 @@ create_suite_L3_Unit (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

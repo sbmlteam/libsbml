@@ -49,11 +49,24 @@
  */
 
 
-#include <check.h>
-#include <locale.h>
+
+#if WIN32 && !defined(CYGWIN) 
+#include <errno.h>
+#include <math.h>
+int isnan(double x) { return x != x; }
+int isinf(double x) { return !isnan(x) && isnan(x - x); }
+int finite(double x) { return !isinf(x) && !isnan(x); }
+
+#else
 #include <sys/errno.h>
+#endif
 
 #include <sbml/common/common.h>
+#include <locale.h>
+
+#include <check.h>
+
+BEGIN_C_DECLS
 
 
 START_TEST (test_c_locale_snprintf)
@@ -344,3 +357,6 @@ create_suite_util (void)
 
   return suite;
 }
+
+END_C_DECLS
+

@@ -34,7 +34,9 @@
 
 #include <sbml/common/extern.h>
 
-BEGIN_C_DECLS
+#if __cplusplus
+BEGIN_C_DECL
+#endif
 
 START_TEST(test_XMLToken_newSetters_setAttributes1)
 {
@@ -634,4 +636,6 @@ create_suite_XMLToken_newSetters (void)
   return suite;
 }
 
-END_C_DECLS
+#if __cplusplus
+END_C_DECL
+#endif

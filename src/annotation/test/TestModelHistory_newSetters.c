@@ -29,6 +29,10 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
+
 START_TEST (test_ModelHistory_setCreatedDate1)
 {
   ModelHistory_t * mh = ModelHistory_create();
@@ -194,4 +198,6 @@ create_suite_ModelHistory_newSetters (void)
 }
 
 
-END_C_DECLS
+#if __cplusplus
+CK_CPPEND
+#endif

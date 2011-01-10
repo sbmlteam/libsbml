@@ -58,6 +58,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Parameter_t *P;
 
@@ -276,3 +279,7 @@ create_suite_Parameter (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -39,6 +39,8 @@
 
 LIBSBML_CPP_NAMESPACE_USE
 
+CK_CPPSTART
+
 Model *m2;
 SBMLDocument* d2;
 
@@ -47,7 +49,6 @@ extern char *TestDataDirectory;
 /* 
  * tests the results from rdf annotations
  */
-CK_CPPSTART
 
 void
 RDFAnnotation2_setup (void)

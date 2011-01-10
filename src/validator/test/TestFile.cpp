@@ -53,6 +53,7 @@
 
 #if defined(WIN32) && !defined(CYGWIN)
 #  include "tps/dirent.h"
+#  include "tps/dirent.c"
 #else
 #  include <sys/types.h>
 #  include <dirent.h>

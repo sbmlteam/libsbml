@@ -49,11 +49,16 @@
  */
 
 
-#include <check.h>
 #include <locale.h>
 
 #include <sbml/common/common.h>
 #include <sbml/math/FormulaTokenizer.h>
+
+#include <check.h>
+
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 
 START_TEST (test_FormulaTokenizer_create)
@@ -471,3 +476,9 @@ create_suite_FormulaTokenizer (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif
+
+

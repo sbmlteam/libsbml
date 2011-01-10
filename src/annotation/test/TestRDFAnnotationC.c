@@ -37,6 +37,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Model_t *m;
 static SBMLDocument_t* d;
@@ -307,3 +310,7 @@ create_suite_RDFAnnotation_C (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -29,6 +29,10 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
+
 START_TEST (test_ModelCreator_setFamilyName)
 {
   ModelCreator_t * mc = ModelCreator_create();
@@ -167,4 +171,6 @@ create_suite_ModelCreator_newSetters (void)
 }
 
 
-END_C_DECLS
+#if __cplusplus
+CK_CPPEND
+#endif

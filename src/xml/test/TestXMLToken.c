@@ -26,6 +26,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+BEGIN_C_DECL
+#endif
 
 START_TEST (test_XMLToken_create)
 {
@@ -616,3 +619,6 @@ create_suite_XMLToken (void)
   return suite;
 }
 
+#if __cplusplus
+END_C_DECL
+#endif

@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Delay_t *D;
 
@@ -254,3 +257,7 @@ create_suite_Delay (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

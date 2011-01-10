@@ -64,7 +64,9 @@
  * separate header file is not necessary and only adds a maintenance burden
  * to keep the two files synchronized.
  */
-BEGIN_C_DECLS
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 Suite *create_suite_CVTerms (void);
 Suite *create_suite_CVTerms_newSetters (void);
@@ -79,7 +81,6 @@ Suite *create_suite_Validation (void);
 Suite *create_suite_RDFAnnotation_C (void);
 Suite *create_suite_L3ModelHistory (void);
 
-END_C_DECLS
 /**
  * Global.
  *
@@ -148,3 +149,8 @@ main (int argc, char* argv[])
 
   return num_failed;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif
+

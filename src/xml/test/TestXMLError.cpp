@@ -21,6 +21,13 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+
+#if WIN32 && !defined(CYGWIN)
+
+#include <iostream>
+
+#endif
+
 #include <limits>
 
 #include <check.h>

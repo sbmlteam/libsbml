@@ -27,6 +27,10 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
+
 
 START_TEST (test_CVTerm_setModelQualifierType)
 {
@@ -182,4 +186,6 @@ create_suite_CVTerms_newSetters (void)
 }
 
 
-END_C_DECLS
+#if __cplusplus
+CK_CPPEND
+#endif

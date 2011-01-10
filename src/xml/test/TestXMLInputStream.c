@@ -26,6 +26,11 @@
 #include <sbml/xml/XMLErrorLog.h>
 
 #include <check.h>
+
+#if __cplusplus
+BEGIN_C_DECL
+#endif
+
 /**
  * Wraps the string s in the appropriate XML boilerplate.
  */
@@ -183,4 +188,9 @@ create_suite_XMLInputStream (void)
 
   return suite;
 }
+
+#if __cplusplus
+END_C_DECL
+#endif
+
 

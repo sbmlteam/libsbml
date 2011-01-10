@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static StoichiometryMath_t *D;
 
@@ -255,3 +258,7 @@ create_suite_StoichiometryMath (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

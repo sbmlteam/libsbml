@@ -34,6 +34,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static KineticLaw_t *kl;
 
@@ -412,3 +415,7 @@ create_suite_KineticLaw_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

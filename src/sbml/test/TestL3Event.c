@@ -32,6 +32,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Event_t *E;
 
@@ -300,3 +303,7 @@ create_suite_L3_Event (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

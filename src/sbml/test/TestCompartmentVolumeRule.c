@@ -56,6 +56,10 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
+
 static Rule_t *CVR;
 
 
@@ -190,3 +194,7 @@ create_suite_CompartmentVolumeRule (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

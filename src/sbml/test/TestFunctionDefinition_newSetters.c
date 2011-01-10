@@ -32,7 +32,9 @@
 
 #include <check.h>
 
-
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static FunctionDefinition_t *E;
 
@@ -183,3 +185,7 @@ create_suite_FunctionDefinition_newSetters (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

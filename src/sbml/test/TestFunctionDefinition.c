@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static FunctionDefinition_t *FD;
 
@@ -344,3 +347,7 @@ create_suite_FunctionDefinition (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

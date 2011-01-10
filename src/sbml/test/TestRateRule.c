@@ -60,6 +60,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Rule_t *RR;
 
@@ -228,3 +231,7 @@ create_suite_RateRule (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

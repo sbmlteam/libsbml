@@ -59,6 +59,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_ListOf_create)
 {
@@ -226,7 +229,7 @@ START_TEST (test_ListOf_append)
   fail_unless(ListOf_size(loc) == 2);
 
   Model_free(m);
-  Species_free(sp);
+  Species_free((Species_t*)sp);
 }
 END_TEST
 
@@ -248,3 +251,7 @@ create_suite_ListOf (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -31,6 +31,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 static Model_t *M;
 
@@ -435,3 +438,7 @@ create_suite_L3_Model (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

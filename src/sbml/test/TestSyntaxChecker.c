@@ -33,6 +33,9 @@
 
 #include <check.h>
 
+#if __cplusplus
+CK_CPPSTART
+#endif
 
 START_TEST (test_SyntaxChecker_validId)
 {
@@ -106,3 +109,7 @@ create_suite_SyntaxChecker (void)
 
   return suite;
 }
+
+#if __cplusplus
+CK_CPPEND
+#endif

@@ -30,6 +30,10 @@
 #include <check.h>
 
 
+#if __cplusplus
+CK_CPPSTART
+#endif
+
 START_TEST (test_Date_setYear)
 {
   Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
@@ -359,4 +363,6 @@ create_suite_Date_newSetters (void)
 }
 
 
-END_C_DECLS
+#if __cplusplus
+CK_CPPEND
+#endif
