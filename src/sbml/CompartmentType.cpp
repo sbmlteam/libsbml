@@ -510,7 +510,7 @@ ListOfCompartmentTypes::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
-  return (result == mItems.end()) ? 0 : 
+  return (result == mItems.end()) ? NULL : 
                      static_cast <CompartmentType*> (*result);
 }
 
@@ -527,7 +527,7 @@ ListOfCompartmentTypes::remove (unsigned int n)
 CompartmentType*
 ListOfCompartmentTypes::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqCT(sid) );
@@ -564,7 +564,7 @@ SBase*
 ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "compartmentType")
@@ -584,7 +584,7 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object !=NULL) mItems.push_back(object);
   }
 
   return object;
@@ -688,7 +688,14 @@ LIBSBML_EXTERN
 CompartmentType_t *
 CompartmentType_clone (const CompartmentType_t *ct)
 {
-  return static_cast<CompartmentType*>( ct->clone() );
+  if (ct != NULL)
+  {
+    return static_cast<CompartmentType*>( ct->clone() );
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -705,9 +712,15 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 CompartmentType_getNamespaces(CompartmentType_t *ct)
 {
-  return ct->getNamespaces();
+  if (ct != NULL)
+  {
+    return ct->getNamespaces();
+  }
+  else
+  {
+    return NULL;
+  }
 }
-
 
 /**
  * Takes a CompartmentType_t structure and returns its identifier.
@@ -720,7 +733,7 @@ LIBSBML_EXTERN
 const char *
 CompartmentType_getId (const CompartmentType_t *ct)
 {
-  return ct->isSetId() ? ct->getId().c_str() : NULL;
+  return (ct != NULL && ct->isSetId()) ? ct->getId().c_str() : NULL;
 }
 
 
@@ -735,7 +748,7 @@ LIBSBML_EXTERN
 const char *
 CompartmentType_getName (const CompartmentType_t *ct)
 {
-  return ct->isSetName() ? ct->getName().c_str() : NULL;
+  return (ct != NULL && ct->isSetName()) ? ct->getName().c_str() : NULL;
 }
 
 
@@ -752,7 +765,7 @@ LIBSBML_EXTERN
 int
 CompartmentType_isSetId (const CompartmentType_t *ct)
 {
-  return static_cast<int>( ct->isSetId() );
+  return (ct != NULL) ? static_cast<int>( ct->isSetId() ) : 0;
 }
 
 
@@ -769,7 +782,7 @@ LIBSBML_EXTERN
 int
 CompartmentType_isSetName (const CompartmentType_t *ct)
 {
-  return static_cast<int>( ct->isSetName() );
+  return (ct != NULL) ? static_cast<int>( ct->isSetName() ) : 0;
 }
 
 
@@ -795,7 +808,10 @@ LIBSBML_EXTERN
 int
 CompartmentType_setId (CompartmentType_t *ct, const char *sid)
 {
-  return (sid == NULL) ? ct->setId("") : ct->setId(sid);
+  if (ct != NULL)
+    return (sid == NULL) ? ct->setId("") : ct->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -821,7 +837,10 @@ LIBSBML_EXTERN
 int
 CompartmentType_setName (CompartmentType_t *ct, const char *name)
 {
-  return (name == NULL) ? ct->unsetName() : ct->setName(name);
+  if (ct != NULL)
+    return (name == NULL) ? ct->unsetName() : ct->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -841,7 +860,10 @@ LIBSBML_EXTERN
 int
 CompartmentType_unsetName (CompartmentType_t *ct)
 {
-  return ct->unsetName();
+  if (ct != NULL)
+    return ct->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -853,8 +875,11 @@ LIBSBML_EXTERN
 CompartmentType_t *
 ListOfCompartmentTypes_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfCompartmentTypes *> (lo)->get(sid) : NULL;
+  if (lo != NULL) 
+    return (sid != NULL) ? 
+      static_cast <ListOfCompartmentTypes *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -867,8 +892,11 @@ LIBSBML_EXTERN
 CompartmentType_t *
 ListOfCompartmentTypes_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfCompartmentTypes *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfCompartmentTypes *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */

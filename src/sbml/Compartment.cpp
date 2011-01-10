@@ -1662,7 +1662,7 @@ ListOfCompartments::remove (unsigned int n)
 Compartment*
 ListOfCompartments::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqComp(sid) );
@@ -1699,7 +1699,7 @@ SBase*
 ListOfCompartments::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "compartment")
@@ -1922,8 +1922,7 @@ LIBSBML_EXTERN
 unsigned int
 Compartment_getSpatialDimensions (const Compartment_t *c)
 {
-  if (c != NULL) 
-    return c->getSpatialDimensions();
+    return (c != NULL) ? c->getSpatialDimensions() : SBML_INT_MAX;
 }
 
 
@@ -1939,8 +1938,8 @@ LIBSBML_EXTERN
 double
 Compartment_getSpatialDimensionsAsDouble (const Compartment_t *c)
 {
-  if (c != NULL)
-    return c->getSpatialDimensionsAsDouble();
+  return (c != NULL) ? c->getSpatialDimensionsAsDouble() : 
+                       numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -1965,8 +1964,7 @@ LIBSBML_EXTERN
 double
 Compartment_getSize (const Compartment_t *c)
 {
-  if (c != NULL)
-    return c->getSize();
+  return (c != NULL) ? c->getSize() : numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -1991,8 +1989,7 @@ LIBSBML_EXTERN
 double
 Compartment_getVolume (const Compartment_t *c)
 {
-  if (c != NULL)
-    return c->getVolume();
+  return (c != NULL) ? c->getVolume() : numeric_limits<double>::quiet_NaN();
 }
 
 

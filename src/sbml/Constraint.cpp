@@ -48,8 +48,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Constraint::Constraint (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mMath   (  0 )
- , mMessage(  0 )
+ , mMath   (  NULL )
+ , mMessage(  NULL )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -58,8 +58,8 @@ Constraint::Constraint (unsigned int level, unsigned int version) :
 
 Constraint::Constraint (SBMLNamespaces* sbmlns) :
    SBase   ( sbmlns )
- , mMath   (  0 )
- , mMessage(  0 )
+ , mMath   (  NULL )
+ , mMessage(  NULL )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -82,8 +82,8 @@ Constraint::Constraint() :
  */
 Constraint::~Constraint ()
 {
-  if(mMath)    delete mMath;
-  if(mMessage) delete mMessage;
+  if(mMath != NULL)    delete mMath;
+  if(mMessage != NULL) delete mMessage;
 }
 
 
@@ -92,8 +92,8 @@ Constraint::~Constraint ()
  */
 Constraint::Constraint (const Constraint& orig) :
    SBase   ( orig )
- , mMath   ( 0   )
- , mMessage( 0   )
+ , mMath   ( NULL   )
+ , mMessage( NULL   )
 {
   if (&orig == NULL)
   {
@@ -101,12 +101,12 @@ Constraint::Constraint (const Constraint& orig) :
   }
   else
   {
-    if (orig.mMath)    
+    if (orig.mMath != NULL)    
     {
       mMath    = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
-    if (orig.mMessage) mMessage = new XMLNode(*orig.mMessage);
+    if (orig.mMessage != NULL) mMessage = new XMLNode(*orig.mMessage);
   }
 }
 
@@ -125,21 +125,21 @@ Constraint& Constraint::operator=(const Constraint& rhs)
     this->SBase::operator =(rhs);
 
     delete mMath;
-    if (rhs.mMath)    
+    if (rhs.mMath != NULL)    
     {
       mMath    = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
 
     delete mMessage;
-    if (rhs.mMessage) 
+    if (rhs.mMessage != NULL) 
       mMessage = new XMLNode(*rhs.mMessage);
     else
-      mMessage = 0;
+      mMessage = NULL;
   }
 
   return *this;
@@ -207,7 +207,7 @@ Constraint::getMath () const
 bool
 Constraint::isSetMessage () const
 {
-  return (mMessage != 0);
+  return (mMessage != NULL);
 }
 
 
@@ -218,7 +218,7 @@ Constraint::isSetMessage () const
 bool
 Constraint::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -235,7 +235,7 @@ Constraint::setMessage (const XMLNode* xhtml)
   else if (xhtml == NULL)
   {
     delete mMessage;
-    mMessage = 0;
+    mMessage = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!SyntaxChecker::hasExpectedXHTMLSyntax(xhtml, getSBMLNamespaces()))
@@ -245,7 +245,7 @@ Constraint::setMessage (const XMLNode* xhtml)
   else
   {
     delete mMessage;
-    mMessage = (xhtml != 0) ? new XMLNode(*xhtml) : 0;
+    mMessage = (xhtml != NULL) ? new XMLNode(*xhtml) : NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -265,7 +265,7 @@ Constraint::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -275,7 +275,7 @@ Constraint::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
     if (mMath) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -289,7 +289,7 @@ int
 Constraint::unsetMessage ()
 {
   delete mMessage;
-  mMessage = 0;
+  mMessage = NULL;
   
   if (mMessage)
   {
@@ -679,7 +679,7 @@ SBase*
 ListOfConstraints::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "constraint")
@@ -699,7 +699,7 @@ ListOfConstraints::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -802,7 +802,14 @@ LIBSBML_EXTERN
 Constraint_t *
 Constraint_clone (const Constraint_t *c)
 {
-  return static_cast<Constraint*>( c->clone() );
+  if (c != NULL)
+  {
+    return static_cast<Constraint*>( c->clone() );
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 
@@ -819,9 +826,15 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Constraint_getNamespaces(Constraint_t *c)
 {
-  return c->getNamespaces();
+  if (c != NULL)
+  {
+    return c->getNamespaces();
+  }
+  else
+  {
+    return NULL;
+  }
 }
-
 
 /**
  * Get the message, if any, associated with this Constraint
@@ -834,7 +847,7 @@ LIBSBML_EXTERN
 const XMLNode_t *
 Constraint_getMessage (const Constraint_t *c)
 {
-  return c->getMessage();
+  return (c != NULL && c->isSetMessage()) ? c->getMessage() : NULL;
 }
 
 
@@ -852,7 +865,8 @@ LIBSBML_EXTERN
 char*
 Constraint_getMessageString (const Constraint_t *c)
 {
-  return c->isSetMessage() ? safe_strdup(c->getMessageString().c_str()) : NULL;
+  return (c != NULL && c->isSetMessage()) ? 
+                       safe_strdup(c->getMessageString().c_str()) : NULL;
 }
 
 
@@ -867,7 +881,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Constraint_getMath (const Constraint_t *c)
 {
-  return c->getMath();
+  return (c != NULL && c->isSetMath()) ? c->getMath() : NULL;
 }
 
 
@@ -884,7 +898,7 @@ LIBSBML_EXTERN
 int
 Constraint_isSetMessage (const Constraint_t *c)
 {
-  return static_cast<int>( c->isSetMessage() );
+  return (c != NULL) ? static_cast<int>( c->isSetMessage() ) : 0;
 }
 
 
@@ -901,7 +915,7 @@ LIBSBML_EXTERN
 int
 Constraint_isSetMath (const Constraint_t *c)
 {
-  return static_cast<int>( c->isSetMath() );
+  return (c != NULL) ? static_cast<int>( c->isSetMath() ) : 0;
 }
 
 
@@ -923,7 +937,14 @@ LIBSBML_EXTERN
 int
 Constraint_setMessage (Constraint_t *c, const XMLNode_t *xhtml)
 {
-  return c->setMessage(xhtml);
+  if (c != NULL)
+  {
+    return c->setMessage(xhtml);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
 }
 
 
@@ -946,7 +967,14 @@ LIBSBML_EXTERN
 int
 Constraint_setMath (Constraint_t *c, const ASTNode_t *math)
 {
-  return c->setMath(math);
+  if (c != NULL)
+  {
+    return c->setMath(math);
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
 }
 
 
@@ -966,7 +994,14 @@ LIBSBML_EXTERN
 int 
 Constraint_unsetMessage (Constraint_t *c)
 {
-  return c->unsetMessage();
+  if (c != NULL)
+  {
+    return c->unsetMessage();
+  }
+  else
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
 }
 
 /** @endcond */
