@@ -256,6 +256,8 @@ static const ASTNodeType_t MATHML_TYPES[] =
 static const string
 trim (const string& s)
 {
+  if (&s == NULL) return s;
+
   static const string whitespace(" \t\r\n");
 
   string::size_type begin = s.find_first_not_of(whitespace);
@@ -281,6 +283,8 @@ trim (const string& s)
 static void
 checkFunctionArgs (ASTNode& node)
 {
+  if (&node == NULL) return;
+
   if (node.getNumChildren() == 1)
   {
     if (node.getType() == AST_FUNCTION_LOG)
@@ -310,6 +314,8 @@ checkFunctionArgs (ASTNode& node)
 static void
 reduceBinary (ASTNode& node)
 {
+  if (&node == NULL) return;
+
   if (node.getNumChildren() == 2)
   {
     ASTNode* op = new ASTNode( node.getType() );
@@ -326,6 +332,8 @@ reduceBinary (ASTNode& node)
 static void
 setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  if (&node == NULL || &element == NULL || &stream == NULL) return;
+
   if (element.getName() == "csymbol")
   {
     string url;
@@ -359,6 +367,8 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  if (&node == NULL || &element == NULL || &stream == NULL) return;
+
   string type = "real";
   element.getAttributes().readInto("type", type);
 
@@ -508,6 +518,8 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  if (&node == NULL || &element == NULL || &stream == NULL) return;
+
   static const int size = sizeof(MATHML_ELEMENTS) / sizeof(MATHML_ELEMENTS[0]);
   const char*      name = element.getName().c_str();
 
@@ -525,6 +537,8 @@ setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  if (&node == NULL || &element == NULL || &stream == NULL) return;
+
   const string& name = element.getName();
 
   if (name == "ci" || name == "csymbol")
@@ -558,6 +572,8 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 bool
 isMathMLNodeTag(const string& name)
 {
+  if (&name == NULL) return false;
+
   if ( name == "apply"
     || name == "cn"
     || name == "ci"
@@ -583,6 +599,8 @@ isMathMLNodeTag(const string& name)
 static void
 readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   std::string prefix;
   bool prefix_reqd = false;
   if (!reqd_prefix.empty())
@@ -894,6 +912,8 @@ static void writeENotation (const string& , const string&, XMLOutputStream&);
 static void
 writeCI (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   ASTNodeType_t type = node.getType();
 
   if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME
@@ -924,6 +944,8 @@ writeCI (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeCN (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   if ( node.isNaN() )
   {
     stream.startEndElement("notanumber");
@@ -991,6 +1013,8 @@ writeCN (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeConstant (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   switch ( node.getType() )
   {
     case AST_CONSTANT_PI:    stream.startEndElement("pi");            break;
@@ -1009,6 +1033,8 @@ writeConstant (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeCSymbol (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   ASTNodeType_t type = node.getType();
   string url;
 
@@ -1038,6 +1064,8 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeDouble (const double& value, XMLOutputStream& stream)
 {
+  if (&value == NULL || &stream == NULL) return;
+
   ostringstream output;
 
   output.precision(LIBSBML_DOUBLE_PRECISION);
@@ -1073,6 +1101,8 @@ writeENotation (  const double&    mantissa
                 , long             exponent
                 , XMLOutputStream& stream )
 {
+  if (&mantissa == NULL || &stream == NULL) return;
+
   ostringstream output;
 
   output.precision(LIBSBML_DOUBLE_PRECISION);
@@ -1105,6 +1135,8 @@ writeENotation (  const string&    mantissa
                 , const string&    exponent
                 , XMLOutputStream& stream )
 {
+  if (&mantissa == NULL || &exponent == NULL || &stream == NULL) return;
+
   static const string enotation = "e-notation";
   stream.writeAttribute("type", enotation);
 
@@ -1121,6 +1153,8 @@ writeENotation (  const string&    mantissa
 static void
 writeFunctionLog (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   if ( node.getNumChildren() > 1 )
   {
     stream.startElement("logbase");
@@ -1141,6 +1175,8 @@ writeFunctionLog (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   if ( node.getNumChildren() > 1 )
   {
     stream.startElement("degree");
@@ -1165,6 +1201,8 @@ writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeFunction (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   ASTNodeType_t type        = node.getType();
   unsigned int  numChildren = node.getNumChildren();
 
@@ -1220,6 +1258,8 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeLambda (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   unsigned int bvars = node.getNumChildren() - 1;
   unsigned int n;
 
@@ -1245,6 +1285,8 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   ASTNodeType_t type  = node.getType();
   ASTNode*      left  = node.getLeftChild();
   ASTNode*      right = node.getRightChild();
@@ -1286,6 +1328,8 @@ writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeOperator (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   stream.startElement("apply");
 
   switch ( node.getType() )
@@ -1310,6 +1354,8 @@ writeOperator (const ASTNode& node, XMLOutputStream& stream)
 static void
 writePiecewise (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   unsigned int numChildren = node.getNumChildren();
   unsigned int numPieces   = numChildren;
 
@@ -1350,6 +1396,8 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream)
 static void
 writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
 {
+  if (&node == NULL || &stream == NULL || &inSemantics == NULL) return;
+
   inSemantics = true;
   stream.startElement("semantics");
   if (node.getDefinitionURL())
@@ -1373,6 +1421,8 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
 static void
 writeNode (const ASTNode& node, XMLOutputStream& stream)
 {
+  if (&node == NULL || &stream == NULL) return;
+
   static bool inSemantics = false;
   
   if (node.getSemanticsFlag() && !inSemantics)
@@ -1396,6 +1446,8 @@ LIBSBML_EXTERN
 ASTNode*
 readMathML (XMLInputStream& stream, std::string reqd_prefix)
 {
+  if (&stream == NULL) return NULL;
+
   std::string prefix;
   bool prefix_reqd = false;
   if (!reqd_prefix.empty())
@@ -1498,6 +1550,8 @@ LIBSBML_EXTERN
 void
 writeMathML (const ASTNode* node, XMLOutputStream& stream)
 {
+  if (node == NULL || &stream == NULL) return;
+
   static const string uri = "http://www.w3.org/1998/Math/MathML";
 
   stream.startElement("math");
@@ -1545,7 +1599,8 @@ LIBSBML_EXTERN
 ASTNode_t *
 readMathMLFromString (const char *xml)
 {
-  if (xml == 0) return 0;
+  if (xml == NULL) return NULL;
+
   const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
   const char* xmlstr_c;
   
@@ -1576,7 +1631,7 @@ readMathMLFromString (const char *xml)
   if (log.getNumErrors() > 0)
   {
     delete ast;
-    return 0;
+    return NULL;
   }
 
   return ast;
@@ -1600,9 +1655,9 @@ writeMathMLToString (const ASTNode* node)
   ostringstream   os;
   XMLOutputStream stream(os);
 
-  char * result = 0;
+  char * result = NULL;
 
-  if (node)
+  if (node != NULL)
   {
     writeMathML(node, stream);
     result = safe_strdup( os.str().c_str() );
