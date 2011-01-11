@@ -49,10 +49,10 @@
  * @section event-variable The attribute "variable"
  * 
  * The EventAssignment attribute "variable" must be the identifier of an
- * existing \Compartment, \Species, \SpeciesReference, or \Parameter
+ * existing Compartment, Species, SpeciesReference, or Parameter
  * instance defined in the model.  When the event is executed, the value of
  * the model component identified by "variable" is changed by the
- * \EventAssignment to the value computed by the "math" element; that is, a
+ * EventAssignment to the value computed by the "math" element; that is, a
  * species' quantity, species reference's stoichiometry, compartment's size
  * or parameter's value are reset to the value computed by "math".
  *
@@ -100,7 +100,7 @@
  * 
  * As mentioned above, the time at which the expression in "math" is
  * evaluated is determined by the attribute "useValuesFromTriggerTime" on
- * \Event.  If the attribute value is @c true, the expression must be
+ * Event.  If the attribute value is @c true, the expression must be
  * evaluated when the event is @em triggered; more precisely, the values of
  * identifiers occurring in MathML <code>&lt;ci&gt;</code> elements in the
  * EventAssignment's "math" expression are the values they have at the
@@ -108,7 +108,7 @@
  * "useValuesFromTriggerTime"'s value is @c false, it means the values at
  * @em execution time should be used; that is, the values of identifiers
  * occurring in MathML <code>&lt;ci&gt;</code> elements in the
- * \EventAssignment's "math" expression are the values they have at the
+ * EventAssignment's "math" expression are the values they have at the
  * point when the event @em executed.
  *
  * @section version-diffs SBML Level/Version differences
