@@ -2577,6 +2577,8 @@ SBase::hasValidLevelVersionNamespaceCombination()
   return hasValidLevelVersionNamespaceCombination(typecode, xmlns);
 }
 
+/** @cond doxygen-libsbml-internal */
+
 bool 
 SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns)
 {
@@ -2794,6 +2796,9 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   return valid;
 }
+
+/** @endcond */
+
 
 /** @cond doxygen-libsbml-internal */
 
