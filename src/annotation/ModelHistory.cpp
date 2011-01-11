@@ -23,6 +23,7 @@
 
 
 #include <sbml/annotation/ModelHistory.h>
+#include <sbml/common/common.h>
 #include <sbml/SBase.h>
 #include <cstdio>
 
@@ -641,7 +642,7 @@ Date::representsValidDate()
  * Creates a new ModelCreator.
  */
 ModelCreator::ModelCreator () :
- mAdditionalRDF(0)
+ mAdditionalRDF(NULL)
 {
 }
 
@@ -649,7 +650,7 @@ ModelCreator::ModelCreator () :
  * create a new ModelCreator from an XMLNode
  */
 ModelCreator::ModelCreator(const XMLNode creator):
-  mAdditionalRDF(0)
+  mAdditionalRDF(NULL)
 {
   // check that this is the right place in the RDF Annotation
   if (creator.getName() == "li")
@@ -683,7 +684,7 @@ ModelCreator::ModelCreator(const XMLNode creator):
       }
       else
       {
-        if (!mAdditionalRDF)
+        if (mAdditionalRDF == NULL)
         {
           mAdditionalRDF = new XMLNode();
         }
@@ -719,10 +720,10 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
     mEmail        = orig.mEmail;
     mOrganization = orig.mOrganization;
 
-    if (orig.mAdditionalRDF)
+    if (orig.mAdditionalRDF != NULL)
       this->mAdditionalRDF = orig.mAdditionalRDF->clone();
     else
-      this->mAdditionalRDF = 0;
+      this->mAdditionalRDF = NULL;
   }
 }
 
@@ -744,10 +745,10 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
     mOrganization = rhs.mOrganization;
 
     delete this->mAdditionalRDF;
-    if (rhs.mAdditionalRDF)
+    if (rhs.mAdditionalRDF != NULL)
       this->mAdditionalRDF = rhs.mAdditionalRDF->clone();
     else
-      this->mAdditionalRDF = 0;
+      this->mAdditionalRDF = NULL;
   }
 
   return *this;
@@ -987,15 +988,15 @@ ModelHistory::ModelHistory ()
  */
 ModelHistory::~ModelHistory()
 {
-  if (mCreators)
+  if (mCreators != NULL)
   {
     unsigned int size = mCreators->getSize();
     while (size--) delete static_cast<ModelCreator*>( mCreators->remove(0) );
     delete mCreators;
   }
-  if (mCreatedDate) delete mCreatedDate;
+  if (mCreatedDate != NULL) delete mCreatedDate;
 //  if (mModifiedDate) delete mModifiedDate;
-  if (mModifiedDates)
+  if (mModifiedDates != NULL)
   {
     unsigned int size = mModifiedDates->getSize();
     while (size--) delete static_cast<Date*>
@@ -1027,7 +1028,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
     {
       this->addModifiedDate(static_cast<Date*>(orig.mModifiedDates->get(i)));
     }
-    if (orig.mCreatedDate) 
+    if (orig.mCreatedDate != NULL) 
     {
       this->mCreatedDate = orig.mCreatedDate->clone();
     }
@@ -1051,7 +1052,7 @@ ModelHistory::operator=(const ModelHistory& rhs)
   }
   else if(&rhs!=this)
   {
-    if (mCreators)
+    if (mCreators != NULL)
     {
       unsigned int size = mCreators->getSize();
       while (size--) delete static_cast<ModelCreator*>( mCreators->remove(0) );
@@ -1067,7 +1068,7 @@ ModelHistory::operator=(const ModelHistory& rhs)
       addCreator(static_cast<ModelCreator*>(rhs.mCreators->get(i)));
     }
 
-    if (mModifiedDates)
+    if (mModifiedDates != NULL)
     {
       unsigned int size = mModifiedDates->getSize();
       while (size--) delete static_cast<Date*>
@@ -1084,10 +1085,10 @@ ModelHistory::operator=(const ModelHistory& rhs)
     }
 
     delete mCreatedDate;
-    if (rhs.mCreatedDate) 
+    if (rhs.mCreatedDate != NULL) 
       setCreatedDate(rhs.mCreatedDate);
     else
-      mCreatedDate = 0;
+      mCreatedDate = NULL;
   }
 
   return *this;
@@ -1272,7 +1273,7 @@ ModelHistory::getCreator(unsigned int n)
 bool 
 ModelHistory::isSetCreatedDate()
 {
-  return mCreatedDate != 0;
+  return mCreatedDate != NULL;
 }
 
 
@@ -1368,6 +1369,7 @@ LIBSBML_EXTERN
 Date_t *
 Date_createFromString (const char * date)
 {
+  if (date == NULL ) return NULL;
   return new(nothrow) Date(date);
 }
 
@@ -1396,6 +1398,7 @@ LIBSBML_EXTERN
 Date_t *
 Date_clone (const Date_t* date)
 {
+  if (date == NULL ) return NULL;
   return static_cast<Date*>( date->clone() );
 }
 
@@ -1411,6 +1414,7 @@ LIBSBML_EXTERN
 const char *
 Date_getDateAsString(Date_t * date)
 {
+  if (date == NULL) return NULL;
   return date->getDateAsString().c_str();
 }
 
@@ -1426,6 +1430,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getYear(Date_t * date)
 {
+  if (date == NULL) return SBML_INT_MAX;
   return date->getYear();
 }
 
@@ -1441,6 +1446,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getMonth(Date_t * date)
 {
+  if (date == NULL) return SBML_INT_MAX;
   return date->getMonth();
 }
 
@@ -1456,6 +1462,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getDay(Date_t * date)
 {
+  if (date == NULL) return SBML_INT_MAX;
   return date->getDay();
 }
 
@@ -1471,6 +1478,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getHour(Date_t * date)
 {
+  if (date == NULL) return SBML_INT_MAX;
   return date->getHour();
 }
 
@@ -1486,6 +1494,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getMinute(Date_t * date)
 {
+  if (date == NULL) return SBML_INT_MAX;
   return date->getMinute();
 }
 
@@ -1501,6 +1510,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getSecond(Date_t * date) 
 { 
+  if (date == NULL) return SBML_INT_MAX;
   return date->getSecond(); 
 } 
 
@@ -1516,6 +1526,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getSignOffset(Date_t * date) 
 { 
+  if (date == NULL) return SBML_INT_MAX;
   return date->getSignOffset(); 
 } 
 
@@ -1531,6 +1542,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getHoursOffset(Date_t * date) 
 { 
+  if (date == NULL) return SBML_INT_MAX;
   return date->getHoursOffset(); 
 } 
 
@@ -1546,6 +1558,7 @@ LIBSBML_EXTERN
 unsigned int
 Date_getMinutesOffset(Date_t * date) 
 { 
+  if (date == NULL) return SBML_INT_MAX;
   return date->getMinutesOffset(); 
 } 
 
@@ -1562,11 +1575,13 @@ Date_getMinutesOffset(Date_t * date)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setYear(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setYear(value); 
 }
 
@@ -1583,11 +1598,13 @@ Date_setYear(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setMonth(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setMonth(value); 
 }
 
@@ -1604,11 +1621,13 @@ Date_setMonth(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setDay(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setDay(value); 
 }
 
@@ -1625,11 +1644,13 @@ Date_setDay(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT;
  */
 LIBSBML_EXTERN
 int
 Date_setHour(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setHour(value); 
 }
 
@@ -1646,11 +1667,13 @@ Date_setHour(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setMinute(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setMinute(value); 
 }
 
@@ -1667,11 +1690,13 @@ Date_setMinute(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setSecond(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setSecond(value); 
 }
 
@@ -1689,11 +1714,13 @@ Date_setSecond(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setSignOffset(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setSignOffset(value); 
 }
 
@@ -1711,11 +1738,13 @@ Date_setSignOffset(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setHoursOffset(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setHoursOffset(value); 
 }
 
@@ -1733,11 +1762,13 @@ Date_setHoursOffset(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setMinutesOffset(Date_t * date, unsigned int value) 
 { 
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return date->setMinutesOffset(value); 
 }
 
@@ -1753,11 +1784,13 @@ Date_setMinutesOffset(Date_t * date, unsigned int value)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 Date_setDateAsString(Date_t * date, const char *str)
 {
+  if (date == NULL) return LIBSBML_INVALID_OBJECT;
   return (str == NULL) ? date->setDateAsString("") :
                           date->setDateAsString(str);
 }
@@ -1767,6 +1800,7 @@ LIBSBML_EXTERN
 int
 Date_representsValidDate(Date_t *date)
 {
+  if (date == NULL) return (int)false;
   return static_cast<int> (date->representsValidDate());
 }
 
@@ -1793,6 +1827,7 @@ LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_createFromNode(const XMLNode_t * node)
 {
+  if (node == NULL) return NULL;
   return new(nothrow) ModelCreator(*node);
 }
 
@@ -1806,6 +1841,7 @@ LIBSBML_EXTERN
 void
 ModelCreator_free(ModelCreator_t * mc)
 {
+  if (mc == NULL) return;
   delete static_cast<ModelCreator*>(mc);
 }
 
@@ -1821,6 +1857,7 @@ LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_clone (const ModelCreator_t* mc)
 {
+  if (mc == NULL) return NULL;
   return static_cast<ModelCreator*>( mc->clone() );
 }
 
@@ -1836,6 +1873,7 @@ LIBSBML_EXTERN
 const char * 
 ModelCreator_getFamilyName(ModelCreator_t *mc)
 {
+  if (mc == NULL) return NULL;
   return mc->getFamilyName().c_str();
 }
 
@@ -1851,6 +1889,7 @@ LIBSBML_EXTERN
 const char * 
 ModelCreator_getGivenName(ModelCreator_t *mc)
 {
+  if (mc == NULL) return NULL;
   return mc->getGivenName().c_str();
 }
 
@@ -1866,6 +1905,7 @@ LIBSBML_EXTERN
 const char * 
 ModelCreator_getEmail(ModelCreator_t *mc)
 {
+  if (mc == NULL) return NULL;
   return mc->getEmail().c_str();
 }
 
@@ -1883,6 +1923,7 @@ LIBSBML_EXTERN
 const char * 
 ModelCreator_getOrganisation(ModelCreator_t *mc)
 {
+  if (mc == NULL) return NULL;
   return mc->getOrganisation().c_str();
 }
 
@@ -1915,6 +1956,7 @@ LIBSBML_EXTERN
 int 
 ModelCreator_isSetFamilyName(ModelCreator_t *mc)
 {
+  if (mc == NULL) return (int)false;
   return static_cast<int>(mc->isSetFamilyName());
 }
 
@@ -1932,6 +1974,7 @@ LIBSBML_EXTERN
 int 
 ModelCreator_isSetGivenName(ModelCreator_t *mc)
 {
+  if (mc == NULL) return (int)false;
   return static_cast<int>(mc->isSetGivenName());
 }
 
@@ -1949,6 +1992,7 @@ LIBSBML_EXTERN
 int 
 ModelCreator_isSetEmail(ModelCreator_t *mc)
 {
+  if (mc == NULL) return (int)false;
   return static_cast<int>(mc->isSetEmail());
 }
 
@@ -1968,6 +2012,7 @@ LIBSBML_EXTERN
 int 
 ModelCreator_isSetOrganisation(ModelCreator_t *mc)
 {
+  if (mc == NULL) return (int)false;
   return static_cast<int>(mc->isSetOrganisation());
 }
 
@@ -2000,11 +2045,13 @@ ModelCreator_isSetOrganization(ModelCreator_t *mc)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setFamilyName(name);
 }
 
@@ -2020,11 +2067,13 @@ ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setGivenName(name);
 }
 
@@ -2040,11 +2089,13 @@ ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_setEmail(ModelCreator_t *mc, char * email)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setEmail(email);
 }
 
@@ -2062,11 +2113,13 @@ ModelCreator_setEmail(ModelCreator_t *mc, char * email)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->setOrganisation(org);
 }
 
@@ -2082,6 +2135,7 @@ ModelCreator_setOrganisation(ModelCreator_t *mc, char * org)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
@@ -2102,11 +2156,13 @@ ModelCreator_setOrganization(ModelCreator_t *mc, char * org)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetFamilyName(ModelCreator_t *mc)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->unsetFamilyName();
 }
 
@@ -2122,11 +2178,13 @@ ModelCreator_unsetFamilyName(ModelCreator_t *mc)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetGivenName(ModelCreator_t *mc)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->unsetGivenName();
 }
 
@@ -2142,11 +2200,13 @@ ModelCreator_unsetGivenName(ModelCreator_t *mc)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetEmail(ModelCreator_t *mc)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->unsetEmail();
 }
 
@@ -2164,11 +2224,13 @@ ModelCreator_unsetEmail(ModelCreator_t *mc)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 ModelCreator_unsetOrganisation(ModelCreator_t *mc)
 {
+  if (mc == NULL) return LIBSBML_INVALID_OBJECT;
   return mc->unsetOrganisation();
 }
 
@@ -2184,6 +2246,7 @@ ModelCreator_unsetOrganisation(ModelCreator_t *mc)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
@@ -2197,6 +2260,7 @@ LIBSBML_EXTERN
 int
 ModelCreator_hasRequiredAttributes(ModelCreator_t *mc)
 {
+  if (mc == NULL) return (int)false;
   return static_cast<int> (mc->hasRequiredAttributes());
 }
 
@@ -2238,6 +2302,7 @@ LIBSBML_EXTERN
 ModelHistory_t *
 ModelHistory_clone (const ModelHistory_t* mh)
 {
+  if (mh == NULL) return NULL;
   return static_cast<ModelHistory*>( mh->clone() );
 }
 
@@ -2253,6 +2318,7 @@ ModelHistory_clone (const ModelHistory_t* mh)
 LIBSBML_EXTERN
 Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh)
 {
+  if (mh == NULL) return NULL;
   return mh->getCreatedDate();
 }
 
@@ -2268,6 +2334,7 @@ Date_t * ModelHistory_getCreatedDate(ModelHistory_t * mh)
 LIBSBML_EXTERN
 Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh)
 {
+  if (mh == NULL) return NULL;
   return mh->getModifiedDate();
 }
 
@@ -2284,6 +2351,7 @@ Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh)
 LIBSBML_EXTERN
 int ModelHistory_isSetCreatedDate(ModelHistory_t * mh)
 {
+  if (mh == NULL) return (int)false;
   return static_cast<int> (mh->isSetCreatedDate());
 }
 
@@ -2300,6 +2368,7 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh)
 LIBSBML_EXTERN
 int ModelHistory_isSetModifiedDate(ModelHistory_t * mh)
 {
+  if (mh == NULL) return (int)false;
   return static_cast<int> (mh->isSetModifiedDate());
 }
 
@@ -2322,6 +2391,7 @@ LIBSBML_EXTERN
 int ModelHistory_setCreatedDate(ModelHistory_t * mh, 
                                  Date_t * date)
 {
+  if (mh == NULL) return LIBSBML_INVALID_OBJECT;
   return mh->setCreatedDate(date);
 }
 
@@ -2345,6 +2415,7 @@ int
 ModelHistory_setModifiedDate(ModelHistory_t * mh, 
                                   Date_t * date)
 {
+	if (mh == NULL) return LIBSBML_INVALID_OBJECT;
   return mh->setModifiedDate(date);
 }
 
@@ -2369,6 +2440,7 @@ int
 ModelHistory_addCreator(ModelHistory_t * mh, 
                              ModelCreator_t * mc)
 {
+  if (mh == NULL) return LIBSBML_INVALID_OBJECT;
   return mh->addCreator(mc);
 }
 
@@ -2385,6 +2457,7 @@ ModelHistory_addCreator(ModelHistory_t * mh,
 LIBSBML_EXTERN
 List_t * ModelHistory_getListCreators(ModelHistory_t * mh)
 {
+  if (mh == NULL) return NULL;
   return mh->getListCreators();
 }
 
@@ -2400,6 +2473,7 @@ List_t * ModelHistory_getListCreators(ModelHistory_t * mh)
 LIBSBML_EXTERN
 ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n)
 {
+  if (mh == NULL) return NULL;
   return mh->getCreator(n);
 }
 
@@ -2416,6 +2490,7 @@ ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * mh, unsigned int n)
 LIBSBML_EXTERN
 unsigned int ModelHistory_getNumCreators(ModelHistory_t * mh)
 {
+  if (mh == NULL) return SBML_INT_MAX;
   return mh->getNumCreators();
 }
 
@@ -2430,6 +2505,7 @@ LIBSBML_EXTERN
 int 
 ModelHistory_addModifiedDate(ModelHistory_t * mh, Date_t * date)
 {
+  if (mh == NULL) return LIBSBML_INVALID_OBJECT;
   return mh->addModifiedDate(date);
 }
 
@@ -2446,6 +2522,7 @@ LIBSBML_EXTERN
 List_t * 
 ModelHistory_getListModifiedDates(ModelHistory_t * mh)
 {
+  if (mh == NULL) return NULL;
   return mh->getListModifiedDates();
 }
 
@@ -2462,6 +2539,7 @@ LIBSBML_EXTERN
 unsigned int 
 ModelHistory_getNumModifiedDates(ModelHistory_t * mh)
 {
+  if (mh == NULL) return SBML_INT_MAX;
   return mh->getNumModifiedDates();
 }
 
@@ -2487,6 +2565,7 @@ LIBSBML_EXTERN
 Date_t* 
 ModelHistory_getModifiedDateFromList(ModelHistory_t * mh, unsigned int n)
 {
+  if (mh == NULL) return NULL;
   return mh->getModifiedDate(n);
 }
 
@@ -2494,6 +2573,7 @@ LIBSBML_EXTERN
 int
 ModelHistory_hasRequiredAttributes(ModelHistory_t *mh)
 {
+  if (mh == NULL) return (int)false;
   return static_cast<int> (mh->hasRequiredAttributes());
 }
 

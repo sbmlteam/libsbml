@@ -168,6 +168,29 @@ START_TEST (test_CVTerm_getResources)
 }
 END_TEST
 
+START_TEST (test_CVTerm_accessWithNULL)
+{
+	fail_unless (CVTerm_addResource(NULL, NULL) == LIBSBML_OPERATION_FAILED);
+	fail_unless (CVTerm_clone(NULL) == NULL);
+	fail_unless (CVTerm_createFromNode(NULL) == NULL);
+
+	// make sure we don't crash on freeing nothing
+    CVTerm_free(NULL);
+
+	fail_unless (CVTerm_getBiologicalQualifierType(NULL) == BQB_UNKNOWN);
+	fail_unless (CVTerm_getModelQualifierType(NULL) == BQM_UNKNOWN);
+	fail_unless (CVTerm_getNumResources(NULL) == SBML_INT_MAX);
+	fail_unless (CVTerm_getQualifierType(NULL) == UNKNOWN_QUALIFIER);
+	fail_unless (CVTerm_getResources(NULL) == NULL);
+	fail_unless (CVTerm_getResourceURI(NULL, 0) == NULL);
+	fail_unless (CVTerm_hasRequiredAttributes(NULL) == 0);
+	fail_unless (CVTerm_removeResource(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+	fail_unless (CVTerm_setBiologicalQualifierType(NULL, BQB_UNKNOWN) == LIBSBML_INVALID_OBJECT);
+	fail_unless (CVTerm_setModelQualifierType(NULL, BQM_UNKNOWN) == LIBSBML_INVALID_OBJECT);
+	fail_unless (CVTerm_setQualifierType(NULL, UNKNOWN_QUALIFIER) == LIBSBML_INVALID_OBJECT);
+
+}
+END_TEST
 
 Suite *
 create_suite_CVTerms (void)
@@ -175,15 +198,16 @@ create_suite_CVTerms (void)
   Suite *suite = suite_create("CVTerms");
   TCase *tcase = tcase_create("CVTerms");
 
-  tcase_add_test( tcase, test_CVTerm_create  );
-  tcase_add_test( tcase, test_CVTerm_set_get  );
-  tcase_add_test( tcase, test_CVTerm_addResource  );
+  tcase_add_test( tcase, test_CVTerm_create          );
+  tcase_add_test( tcase, test_CVTerm_set_get         );
+  tcase_add_test( tcase, test_CVTerm_addResource     );
   tcase_add_test( tcase, test_CVTerm_createFromNode  );
-  tcase_add_test( tcase, test_CVTerm_getResources  );
+  tcase_add_test( tcase, test_CVTerm_getResources    );
+  tcase_add_test( tcase, test_CVTerm_accessWithNULL  );
   suite_add_tcase(suite, tcase);
 
   return suite;
-}
+};
 
 
 #if __cplusplus

@@ -57,6 +57,7 @@ LIBSBML_EXTERN
 void 
 parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
 {
+  if (annotation == NULL || &layouts == NULL) return; 
 
   const string&  name = annotation->getName();
   const XMLNode*  LayoutTop = NULL;
@@ -108,6 +109,8 @@ parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
 LIBSBML_EXTERN
 XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
 {
+  if (pAnnotation == NULL) return NULL;
+
   const string&  name = pAnnotation->getName();
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), pAnnotation->getAttributes(),pAnnotation->getNamespaces());
@@ -136,7 +139,8 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
 LIBSBML_EXTERN
 XMLNode* parseLayouts(const Model* pModel)
 {
- 
+  if (pModel == NULL) return NULL;
+
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes()); 
   XMLNode* pNode = new XMLNode(ann_token);
   if(pModel->getListOfLayouts()->size()>0)
@@ -157,6 +161,7 @@ LIBSBML_EXTERN
 void 
 parseSpeciesReferenceAnnotation(XMLNode * annotation, SimpleSpeciesReference& sr)
 {
+  if (annotation == NULL || &sr == NULL) return;
 
   const string&  name = annotation->getName();
   unsigned int n=0;
@@ -192,6 +197,8 @@ parseSpeciesReferenceAnnotation(XMLNode * annotation, SimpleSpeciesReference& sr
 LIBSBML_EXTERN
 XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
 {
+  if (pAnnotation == NULL) return NULL;
+
   const string&  name = pAnnotation->getName();
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
@@ -220,7 +227,8 @@ XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
 LIBSBML_EXTERN
 XMLNode* parseLayoutId(const SimpleSpeciesReference* sr)
 {
- 
+  if (sr == NULL) return NULL;
+
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes()); 
   XMLNode* pNode = new XMLNode(ann_token);
   XMLNamespaces xmlns = XMLNamespaces();

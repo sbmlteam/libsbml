@@ -291,6 +291,21 @@ START_TEST (test_RDFAnnotation_C_delete)
 }
 END_TEST
 
+START_TEST (test_RDFAnnotation_C_accessWithNULL)
+{
+	fail_unless( RDFAnnotationParser_createCVTerms ( NULL ) == NULL );
+	fail_unless( RDFAnnotationParser_createRDFDescription ( NULL ) == NULL );
+	fail_unless( RDFAnnotationParser_deleteRDFAnnotation ( NULL ) == NULL );
+	fail_unless( RDFAnnotationParser_parseCVTerms ( NULL ) == NULL );
+	fail_unless( RDFAnnotationParser_parseModelHistory ( NULL ) == NULL );
+
+	// ensure that we survive NULL arguments 
+    RDFAnnotationParser_parseRDFAnnotation ( NULL, NULL );
+
+	fail_unless( RDFAnnotationParser_parseRDFAnnotationWithModelHistory ( NULL ) == NULL );
+
+}
+END_TEST
 
 Suite *
 create_suite_RDFAnnotation_C (void)
@@ -302,10 +317,11 @@ create_suite_RDFAnnotation_C (void)
                             RDFAnnotation_C_setup,
                             RDFAnnotation_C_teardown);
 
-  tcase_add_test(tcase, test_RDFAnnotation_C_getModelHistory );
+  tcase_add_test(tcase, test_RDFAnnotation_C_getModelHistory   );
   tcase_add_test(tcase, test_RDFAnnotation_C_parseModelHistory );
-  tcase_add_test(tcase, test_RDFAnnotation_C_parseCVTerms );
-  tcase_add_test(tcase, test_RDFAnnotation_C_delete );
+  tcase_add_test(tcase, test_RDFAnnotation_C_parseCVTerms      );
+  tcase_add_test(tcase, test_RDFAnnotation_C_delete            );
+  tcase_add_test(tcase, test_RDFAnnotation_C_accessWithNULL    );
   suite_add_tcase(suite, tcase);
 
   return suite;

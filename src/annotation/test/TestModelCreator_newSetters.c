@@ -152,6 +152,38 @@ START_TEST (test_ModelCreator_setOrganization)
 }
 END_TEST
 
+START_TEST (test_ModelCreator_accessWithNULL)
+{
+	fail_unless( ModelCreator_clone(NULL) == NULL );
+	fail_unless( ModelCreator_createFromNode(NULL) == NULL );
+
+    ModelCreator_free(NULL);
+
+	fail_unless( ModelCreator_getEmail(NULL) == NULL );
+	fail_unless( ModelCreator_getFamilyName(NULL) == NULL );
+	fail_unless( ModelCreator_getGivenName(NULL) == NULL );
+	fail_unless( ModelCreator_getOrganisation(NULL) == NULL );
+	fail_unless( ModelCreator_getOrganization(NULL) == NULL );
+	fail_unless( ModelCreator_hasRequiredAttributes(NULL) == 0 );
+	fail_unless( ModelCreator_isSetEmail(NULL) == 0 );
+	fail_unless( ModelCreator_isSetFamilyName(NULL) == 0 );
+	fail_unless( ModelCreator_isSetGivenName(NULL) == 0 );
+	fail_unless( ModelCreator_isSetOrganisation(NULL) == 0 );
+	fail_unless( ModelCreator_isSetOrganization(NULL) == 0 );
+	fail_unless( ModelCreator_setEmail(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_setFamilyName(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_setGivenName(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_setOrganisation(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_setOrganization(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_unsetEmail(NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_unsetFamilyName(NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_unsetGivenName(NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_unsetOrganisation(NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( ModelCreator_unsetOrganization(NULL) == LIBSBML_INVALID_OBJECT );
+
+}
+END_TEST
+
 
 Suite *
 create_suite_ModelCreator_newSetters (void)
@@ -164,6 +196,7 @@ create_suite_ModelCreator_newSetters (void)
   tcase_add_test( tcase, test_ModelCreator_setGivenName  );
   tcase_add_test( tcase, test_ModelCreator_setEmail  );
   tcase_add_test( tcase, test_ModelCreator_setOrganization  );
+  tcase_add_test( tcase, test_ModelCreator_accessWithNULL  );
 
   suite_add_tcase(suite, tcase);
 

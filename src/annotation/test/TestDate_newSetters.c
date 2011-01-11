@@ -337,6 +337,38 @@ START_TEST (test_Date_setDateAsString)
 }
 END_TEST
 
+START_TEST (test_Date_accessWithNULL)
+{
+	fail_unless( Date_clone(NULL) == NULL );
+	fail_unless( Date_createFromString(NULL) == NULL );
+	
+	// ensure that we don't crash
+    Date_free(NULL);
+	
+	fail_unless( Date_getDateAsString(NULL) == NULL );
+	fail_unless( Date_getDay(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getHour(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getHoursOffset(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getMinute(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getMinutesOffset(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getMonth(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getSecond(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getSignOffset(NULL) == SBML_INT_MAX );
+	fail_unless( Date_getYear(NULL) == SBML_INT_MAX );
+	fail_unless( Date_representsValidDate(NULL) == 0 );
+	fail_unless( Date_setDateAsString(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setDay(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setHour(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setHoursOffset(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setMinute(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setMinutesOffset(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setMonth(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setSecond(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setSignOffset(NULL, 0) == LIBSBML_INVALID_OBJECT );
+	fail_unless( Date_setYear(NULL, 0) == LIBSBML_INVALID_OBJECT );
+
+}
+END_TEST
 
 Suite *
 create_suite_Date_newSetters (void)
@@ -356,6 +388,7 @@ create_suite_Date_newSetters (void)
   tcase_add_test( tcase, test_Date_setHoursOffset_neg_arg );
   tcase_add_test( tcase, test_Date_setMinutesOffset       );
   tcase_add_test( tcase, test_Date_setDateAsString        );
+  tcase_add_test( tcase, test_Date_accessWithNULL         );
 
   suite_add_tcase(suite, tcase);
 

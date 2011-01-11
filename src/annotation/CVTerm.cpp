@@ -22,6 +22,7 @@
  */
 
 
+#include <sbml/common/common.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -335,7 +336,7 @@ CVTerm::getResourceURI(unsigned int n)
 int 
 CVTerm::addResource(const std::string& resource)
 {
-  if (resource.empty())
+  if (&resource == NULL || resource.empty())
   {
     return LIBSBML_OPERATION_FAILED;
   }
@@ -459,6 +460,7 @@ LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createFromNode(const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return new(nothrow) CVTerm(*node);
 }
 
@@ -472,6 +474,7 @@ LIBSBML_EXTERN
 void
 CVTerm_free(CVTerm_t * term)
 {
+  if (term == NULL ) return;
   delete static_cast<CVTerm*>(term);
 }
 
@@ -486,6 +489,7 @@ LIBSBML_EXTERN
 CVTerm_t *
 CVTerm_clone (const CVTerm_t* c)
 {
+  if (c == NULL) return NULL;
   return static_cast<CVTerm*>( c->clone() );
 }
 
@@ -502,6 +506,7 @@ LIBSBML_EXTERN
 QualifierType_t 
 CVTerm_getQualifierType(CVTerm_t * term)
 {
+  if (term == NULL) return UNKNOWN_QUALIFIER;
   return term->getQualifierType();
 }
 
@@ -517,6 +522,7 @@ LIBSBML_EXTERN
 ModelQualifierType_t 
 CVTerm_getModelQualifierType(CVTerm_t * term)
 {
+  if (term == NULL) return BQM_UNKNOWN;
   return term->getModelQualifierType();
 }
 
@@ -533,6 +539,7 @@ LIBSBML_EXTERN
 BiolQualifierType_t 
 CVTerm_getBiologicalQualifierType(CVTerm_t * term)
 {
+  if (term == NULL) return BQB_UNKNOWN;
   return term->getBiologicalQualifierType();
 }
 
@@ -547,6 +554,7 @@ LIBSBML_EXTERN
 XMLAttributes_t * 
 CVTerm_getResources(CVTerm_t * term)
 {
+  if (term == NULL) return NULL;
   return term->getResources();
 }
 
@@ -562,6 +570,7 @@ LIBSBML_EXTERN
 unsigned int
 CVTerm_getNumResources(CVTerm_t* term)
 {
+  if (term == NULL) return SBML_INT_MAX;
   return term->getNumResources();
 }
 
@@ -583,6 +592,7 @@ LIBSBML_EXTERN
 char *
 CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
 {
+  if (cv == NULL) return NULL;
   return cv->getResourceURI(n).empty() ? NULL : safe_strdup(cv->getResourceURI(n).c_str());
 }
 
@@ -598,11 +608,13 @@ CVTerm_getResourceURI(CVTerm_t * cv, unsigned int n)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
 {
+  if (term == NULL) return LIBSBML_INVALID_OBJECT;
   return term->setQualifierType(type);
 }
 
@@ -619,6 +631,7 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note if the QualifierType for this object is not MODEL_QUALIFIER
  * then the ModelQualifierType will default to BQM_UNKNOWN.
@@ -627,6 +640,7 @@ LIBSBML_EXTERN
 int 
 CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
 {
+  if (term == NULL) return LIBSBML_INVALID_OBJECT;
   return term->setModelQualifierType(type);
 }
 
@@ -643,6 +657,7 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
  * then the BiolQualifierType_t will default to BQB_UNKNOWN.
@@ -651,6 +666,7 @@ LIBSBML_EXTERN
 int 
 CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
 {
+  if (term == NULL) return LIBSBML_INVALID_OBJECT;
   return term->setBiologicalQualifierType(type);
 }
 
@@ -676,6 +692,7 @@ LIBSBML_EXTERN
 int 
 CVTerm_addResource(CVTerm_t * term, const char * resource)
 {
+  if (term == NULL) return LIBSBML_OPERATION_FAILED;
   return term->addResource(resource);
 }
 
@@ -692,11 +709,13 @@ CVTerm_addResource(CVTerm_t * term, const char * resource)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int 
 CVTerm_removeResource(CVTerm_t * term, const char * resource)
 {
+  if (term == NULL) return LIBSBML_INVALID_OBJECT;
   return term->removeResource(resource);
 }
 
@@ -705,6 +724,7 @@ LIBSBML_EXTERN
 int
 CVTerm_hasRequiredAttributes(CVTerm_t *cvt)
 {
+  if (cvt == NULL) return (int)false;
   return static_cast<int> (cvt->hasRequiredAttributes());
 }
 

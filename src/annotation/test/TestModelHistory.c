@@ -368,6 +368,31 @@ START_TEST (test_ModelHistory_addModifiedDate)
 }
 END_TEST
 
+START_TEST (test_ModelHistory_accessWithNULL)
+{
+	fail_unless ( ModelHistory_addCreator(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless ( ModelHistory_addModifiedDate(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless ( ModelHistory_clone(NULL) == NULL );
+
+	// ensure that we don't crash
+    ModelHistory_free(NULL) ;
+
+	fail_unless ( ModelHistory_getCreatedDate(NULL) == NULL );
+	fail_unless ( ModelHistory_getCreator(NULL, 0) == NULL );
+	fail_unless ( ModelHistory_getListCreators(NULL) == NULL );
+	fail_unless ( ModelHistory_getListModifiedDates(NULL) == NULL );
+	fail_unless ( ModelHistory_getModifiedDate(NULL) == NULL );
+	fail_unless ( ModelHistory_getModifiedDateFromList(NULL, 0) == NULL );
+	fail_unless ( ModelHistory_getNumCreators(NULL) == SBML_INT_MAX );
+	fail_unless ( ModelHistory_getNumModifiedDates(NULL) == SBML_INT_MAX );
+	fail_unless ( ModelHistory_hasRequiredAttributes(NULL) == 0 );
+	fail_unless ( ModelHistory_isSetCreatedDate(NULL) == 0 );
+	fail_unless ( ModelHistory_isSetModifiedDate(NULL) == 0 );
+	fail_unless ( ModelHistory_setCreatedDate(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+	fail_unless ( ModelHistory_setModifiedDate(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+
+}
+END_TEST
 
 Suite *
 create_suite_ModelHistory (void)
@@ -376,17 +401,18 @@ create_suite_ModelHistory (void)
   TCase *tcase = tcase_create("ModelHistory");
 
 
-  tcase_add_test( tcase, test_Date_create  );
-  tcase_add_test( tcase, test_Date_createFromString  );
-  tcase_add_test( tcase, test_Date_setters  );
-  tcase_add_test( tcase, test_Date_getDateAsString  );
-  tcase_add_test( tcase, test_ModelCreator_create  );
-  tcase_add_test( tcase, test_ModelCreator_setters  );
-  tcase_add_test( tcase, test_ModelHistory_create  );
-  tcase_add_test( tcase, test_ModelHistory_addCreator  );
-  tcase_add_test( tcase, test_ModelHistory_setCreatedDate  );
+  tcase_add_test( tcase, test_Date_create                   );
+  tcase_add_test( tcase, test_Date_createFromString         );
+  tcase_add_test( tcase, test_Date_setters                  );
+  tcase_add_test( tcase, test_Date_getDateAsString          );
+  tcase_add_test( tcase, test_ModelCreator_create           );
+  tcase_add_test( tcase, test_ModelCreator_setters          );
+  tcase_add_test( tcase, test_ModelHistory_create           );
+  tcase_add_test( tcase, test_ModelHistory_addCreator       );
+  tcase_add_test( tcase, test_ModelHistory_setCreatedDate   );
   tcase_add_test( tcase, test_ModelHistory_setModifiedDate  );
   tcase_add_test( tcase, test_ModelHistory_addModifiedDate  );
+  tcase_add_test( tcase, test_ModelHistory_accessWithNULL   );
   suite_add_tcase(suite, tcase);
 
   return suite;

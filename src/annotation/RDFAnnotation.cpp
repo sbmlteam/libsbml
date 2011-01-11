@@ -52,6 +52,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 void 
 RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms)
 {
+  if (annotation == NULL) return;
 
   const string&  name = annotation->getName();
   const XMLNode*  RDFTop = NULL;
@@ -84,7 +85,7 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
   // find qualifier nodes and create CVTerms
   
   n = 0;
-  if (RDFTop)
+  if (RDFTop != NULL)
   {
     while (n < RDFTop->getNumChildren())
     {
@@ -105,6 +106,8 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
 XMLNode *
 RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 {
+  if (annotation == NULL) return NULL; 
+
   const string&  name = annotation->getName();
   unsigned int children = annotation->getNumChildren();
   unsigned int n = 0;
@@ -198,6 +201,8 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 ModelHistory*
 RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
 {
+  if (annotation == NULL) return NULL;
+
   const string&  name = annotation->getName();
   const XMLNode*  RDFTop = NULL;
   ModelHistory * history = NULL;
@@ -233,9 +238,9 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
   // find creation nodes and create history
   
   n = 0;
-  if (RDFTop)
+  if (RDFTop != NULL)
   {
-	  history = new ModelHistory();
+	history = new ModelHistory();
     while (n < RDFTop->getNumChildren())
     {
       const string &prefix = RDFTop->getChild(n).getPrefix();
@@ -243,14 +248,14 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
       {
 	      if (prefix == "dc")
 	      {
-          // this should be the Bag node containing the list of creators
-          const XMLNode *creatorNode = &(RDFTop->getChild(n).getChild(0));
-          for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
-          {
-	          creator = new ModelCreator(creatorNode->getChild(c));
-	          history->addCreator(creator);
-                  delete creator;
-          }
+            // this should be the Bag node containing the list of creators
+            const XMLNode *creatorNode = &(RDFTop->getChild(n).getChild(0));
+            for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
+            {
+	            creator = new ModelCreator(creatorNode->getChild(c));
+	            history->addCreator(creator);
+                delete creator;
+            }
 	      }
 	      else if (prefix == "dcterms")
 	      {
@@ -322,6 +327,8 @@ RDFAnnotationParser::createRDFAnnotation()
 XMLNode * 
 RDFAnnotationParser::createRDFDescription(const SBase *object)
 {
+  if (object == NULL) return NULL;
+
   XMLTriple descrip_triple = XMLTriple("Description", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
@@ -343,7 +350,10 @@ RDFAnnotationParser::createRDFDescription(const SBase *object)
 XMLNode * 
 RDFAnnotationParser::parseCVTerms(const SBase * object)
 {
-  if (object->getCVTerms() == NULL || object->getCVTerms()->getSize() == 0)
+
+  if (object == NULL || 
+	  object->getCVTerms() == NULL || 
+	  object->getCVTerms()->getSize() == 0)
   {
     return NULL;
   }
@@ -368,6 +378,7 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 XMLNode * 
 RDFAnnotationParser::createCVTerms(const SBase * object)
 {
+  if (object == NULL) return NULL;
 
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
@@ -513,7 +524,8 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 XMLNode * 
 RDFAnnotationParser::parseModelHistory(const SBase *object)
 {
-  if (object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL)
+  if (object == NULL  || 
+		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL))
   {
     return NULL;
   }
@@ -660,7 +672,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
       XMLNode Given(Given_token);
       Given.addChild(empty);
 
-      if (!N)
+      if (N == NULL)
       {
         N = new XMLNode(N_token);
       }
@@ -688,22 +700,22 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
     }
 
     XMLNode li(li_token);
-    if (N)
+    if (N != NULL)
     {
       li.addChild(*N);
       delete N;
     }
-    if (Email)
+    if (Email != NULL)
     {
       li.addChild(*Email);
       delete Email;
     }
-    if (Org)
+    if (Org != NULL)
     {
       li.addChild(*Org);
       delete Org;
     }
-    if (c->getAdditionalRDF())
+    if (c->getAdditionalRDF() != NULL)
     {
       li.addChild(*(c->getAdditionalRDF()));
     }
@@ -749,7 +761,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
   // add CVTerms here
 
   XMLNode *CVTerms = createCVTerms(object);
-  if (CVTerms)
+  if (CVTerms != NULL)
   {
     for (unsigned int i = 0; i < CVTerms->getNumChildren(); i++)
     {
@@ -777,6 +789,8 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
 bool 
 RDFAnnotationParser::hasRDFAnnotation(const XMLNode *annotation)
 {
+  if (annotation == NULL) return false;
+
   bool hasRDF = false;
   const string&  name = annotation->getName();
   unsigned int n = 0;
@@ -805,6 +819,8 @@ RDFAnnotationParser::hasRDFAnnotation(const XMLNode *annotation)
 bool 
 RDFAnnotationParser::hasAdditionalRDFAnnotation(const XMLNode *annotation)
 {
+  if (annotation == NULL) return false;
+
   bool hasAdditionalRDF = false;
   unsigned int n = 0;
   const XMLNode* rdf = NULL;
@@ -842,7 +858,7 @@ RDFAnnotationParser::hasAdditionalRDFAnnotation(const XMLNode *annotation)
       hasAdditionalRDF = true;
     }
     
-    if (tempCVTerms)
+    if (tempCVTerms != NULL)
     {
       unsigned int size = tempCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( tempCVTerms->remove(0) );
@@ -856,7 +872,8 @@ RDFAnnotationParser::hasAdditionalRDFAnnotation(const XMLNode *annotation)
 
 bool 
 RDFAnnotationParser::hasCVTermRDFAnnotation(const XMLNode *annotation)
-{
+{  
+
   bool hasCVTermRDF = false;
 
   if (!RDFAnnotationParser::hasRDFAnnotation(annotation))
@@ -930,6 +947,7 @@ void
 RDFAnnotationParser_parseRDFAnnotation(const XMLNode_t * annotation, 
                                        List_t *CVTerms)
 {
+  if (annotation == NULL) return;
   RDFAnnotationParser::parseRDFAnnotation(annotation, CVTerms);
 }
 
@@ -950,6 +968,7 @@ RDFAnnotationParser_parseRDFAnnotation(const XMLNode_t * annotation,
 ModelHistory_t *
 RDFAnnotationParser_parseRDFAnnotationWithModelHistory(const XMLNode_t * annotation)
 {
+  if (annotation == NULL) return NULL;
   return RDFAnnotationParser::parseRDFAnnotation(annotation);
 }
 
@@ -1005,6 +1024,7 @@ RDFAnnotationParser_createRDFAnnotation()
 XMLNode_t *
 RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation)
 {
+  if (annotation == NULL) return NULL;
   return RDFAnnotationParser::deleteRDFAnnotation(annotation);
 }
 
@@ -1069,6 +1089,7 @@ RDFAnnotationParser_createCVTerms(const SBase_t * object)
 XMLNode_t *
 RDFAnnotationParser_parseCVTerms(const SBase_t * object)
 {
+  if (object == NULL) return NULL;
   return RDFAnnotationParser::parseCVTerms(object);
 }
 
@@ -1085,6 +1106,7 @@ RDFAnnotationParser_parseCVTerms(const SBase_t * object)
 XMLNode_t *
 RDFAnnotationParser_parseModelHistory(const SBase_t * object)
 {
+  if (object == NULL) return NULL;
   return RDFAnnotationParser::parseModelHistory(object);
 }
 
