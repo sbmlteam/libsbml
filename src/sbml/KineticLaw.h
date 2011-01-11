@@ -32,14 +32,14 @@
  *
  * KineticLaw's "math" subelement for holding a MathML formula defines the
  * rate of the reaction.  The formula may refer to other entities in a
- * model (Compartment, Species, Parameter, FunctionDefinition, Reaction),
- * but the only Species identifiers that can be used in this formula are
- * those declared in the lists of reactants, products and modifiers in the
- * Reaction structure.  Parameter identifiers may be taken from either the
- * KineticLaw's list of local parameters (discussed below) or the
- * parameters defined globally on the Model instance.
+ * model as well as local parameter definitions within the scope of the
+ * Reaction (see below).  It is important to keep in mind, however, that
+ * the only Species identifiers that can be used in this formula are those
+ * declared in the lists of reactants, products and modifiers in the
+ * Reaction structure.  (In other words, before a species can be referenced
+ * in the KineticLaw, it must be declared in one of those lists.)
  *
- * KineticLaw also provides a way to define @em local parameters whose
+ * KineticLaw provides a way to define @em local parameters whose
  * identifiers can be used in the "math" formula of that KineticLaw
  * instance.  Prior to SBML Level&nbsp;3, these parameter definitions are
  * stored inside a "listOfParameters" subelement containing Parameter
@@ -48,14 +48,14 @@
  * called "listOfLocalParameters".  In both cases, the parameters so
  * defined are only visible within the KineticLaw; they cannot be accessed
  * outside.  A local parameter within one reaction is not visible from
- * within another, nor is it visible to any other construct outside of the
- * KineticLaw in which it is defined.  In addition, another important
- * feature is that if such a Parameter (or in Level&nbsp;3, LocalParameter)
- * object has the same identifier as another object in the scope of the
- * enclosing Model, the definition inside the KineticLaw takes precedence.
- * In other words, within the KineticLaw's "math" formula, references to
- * local parameter identifiers <strong>shadow any identical global
- * identifiers</strong>.
+ * within another reaction, nor is it visible to any other construct
+ * outside of the KineticLaw in which it is defined.  In addition, another
+ * important feature is that if such a Parameter (or in Level&nbsp;3,
+ * LocalParameter) object has the same identifier as another object in the
+ * scope of the enclosing Model, the definition inside the KineticLaw takes
+ * precedence.  In other words, within the KineticLaw's "math" formula,
+ * references to local parameter identifiers <strong>shadow any identical
+ * global identifiers</strong>.
  *
  * The values of local parameters defined within KineticLaw objects cannot
  * change.  In SBML Level&nbsp;3, this quality is built into the
@@ -64,8 +64,23 @@
  * objects' "constant" attribute must always have a value of @c true
  * (either explicitly or left to its default value).
  *
+ * 
+ * @section shadowing-warning A warning about identifier shadowing
  *
- * @note Before SBML Level&nbsp;2 Version&nbsp;2, the SBML specification
+ * A common misconception is that different classes of objects (e.g.,
+ * species, compartments, parameters) in SBML have different identifier
+ * scopes.  They do not.  The implication is that if a KineticLaw's local
+ * parameter definition uses an identifier identical to @em any other
+ * identifier defined in the model outside the KineticLaw, even if the
+ * other identifier does @em not belong to a parameter type of object, the
+ * local parameter's identifier takes precedence within that KineticLaw's
+ * "math" formula.  It is not an error in SBML for identifiers to shadow
+ * each other this way, but can lead to confusing and subtle errors.
+ *
+ * 
+ * @section version-diffs SBML Level/Version differences
+ *
+ * In SBML Level&nbsp;2 Version&nbsp;1, the SBML specification
  * included two additional attributes on KineticLaw called "substanceUnits"
  * and "timeUnits".  They were removed beginning with SBML Level&nbsp;2
  * Version&nbsp;2 because further research determined they introduced many
@@ -77,6 +92,10 @@
  * was to set the units of all reactions to the same set of substance
  * units, something that is better achieved by using UnitDefinition to
  * redefine @c "substance" for the whole Model.
+ *
+ * As mentioned above, in SBML Level&nbsp;2 Versions 2&ndash;4, local
+ * parameters are of class Parameter.  In SBML Level&nbsp;3, the class of
+ * object is LocalParameter.
  */
 
 
@@ -208,15 +227,7 @@ public:
    *
    * @see getMath()
    *
-   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
-   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for
-   * representing mathematical expressions.  LibSBML provides an Abstract
-   * Syntax Tree API for working with mathematical expressions; this API is
-   * more powerful than working with formulas directly in text form, and
-   * ASTs can be translated into either MathML or the text-string syntax.
-   * The libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level&nbsp;1 compatibility,
-   * but developers are encouraged to use the AST mechanisms.
+   * @note @htmlinclude level-1-uses-text-string-math.html
    */
   const std::string& getFormula () const;
 
@@ -239,8 +250,8 @@ public:
 
 
   /**
-   * Returns the value of the "timeUnits" attribute of this KineticLaw
-   * object.
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Returns the value of the
+   * "timeUnits" attribute of this KineticLaw object.
    *
    * @return the "timeUnits" attribute value.
    *
@@ -254,7 +265,7 @@ public:
 
 
   /**
-   * Returns the value of the
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Returns the value of the
    * "substanceUnits" attribute of this KineticLaw object.
    *
    * @return the "substanceUnits" attribute value.
@@ -281,15 +292,9 @@ public:
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
    *
-   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
-   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for
-   * representing mathematical expressions.  LibSBML provides an Abstract
-   * Syntax Tree API for working with mathematical expressions; this API is
-   * more powerful than working with formulas directly in text form, and
-   * ASTs can be translated into either MathML or the text-string syntax.
-   * The libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level&nbsp;1 compatibility,
-   * but developers are encouraged to use the AST mechanisms.
+   * @note @htmlinclude level-1-uses-text-string-math.html
+   *
+   * @see isSetMath(()
    */  
   bool isSetFormula () const;
 
@@ -306,12 +311,14 @@ public:
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw has been set, @c false otherwise.
+   * 
+   * @see isSetFormula(()
    */
   bool isSetMath () const;
 
 
   /**
-   * Predicate returning @c true if
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
    * this SpeciesReference's "timeUnits" attribute has been set
    *
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
@@ -327,7 +334,7 @@ public:
 
 
   /**
-   * Predicate returning @c true if
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
    * this SpeciesReference's "substanceUnits" attribute has been set
    *
    * @return @c true if the "substanceUnits" attribute of this KineticLaw
@@ -358,15 +365,9 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
-   * @note SBML Level&nbsp;1 uses a text-string format for mathematical
-   * formulas.  SBML Level&nbsp;2 uses MathML, an XML format for representing
-   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
-   * API for working with mathematical expressions; this API is more
-   * powerful than working with formulas directly in text form, and ASTs
-   * can be translated into either MathML or the text-string syntax.  The
-   * libSBML methods that accept text-string formulas directly (such as
-   * this constructor) are provided for SBML Level&nbsp;1 compatibility, but
-   * developers are encouraged to use the AST mechanisms.
+   * @note @htmlinclude level-1-uses-text-string-math.html
+   *
+   * @see setMath()
    */
   int setFormula (const std::string& formula);
 
@@ -388,12 +389,14 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
-  */
+   *
+   * @see setFormula()
+   */
   int setMath (const ASTNode* math);
 
 
   /**
-   * Sets the "timeUnits" attribute
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Sets the "timeUnits" attribute
    * of this KineticLaw object to a copy of the identifier in @p sid.
    *
    * @param sid the identifier of the units to use.
@@ -415,7 +418,7 @@ public:
 
 
   /**
-   * Sets the "substanceUnits"
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Sets the "substanceUnits"
    * attribute of this KineticLaw object to a copy of the identifier given
    * in @p sid.
    *
@@ -438,7 +441,7 @@ public:
 
 
   /**
-   * Unsets the "timeUnits"
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Unsets the "timeUnits"
    * attribugte of this KineticLaw object.
    *
    * @return integer value indicating success/failure of the
@@ -458,7 +461,7 @@ public:
 
 
   /**
-   * Unsets the "substanceUnits"
+   * (SBML Level&nbsp;2 Version&nbsp;1 only) Unsets the "substanceUnits"
    * attribute of this KineticLaw object.
    *
    * @return integer value indicating success/failure of the
@@ -553,8 +556,8 @@ public:
 
 
   /**
-   * Creates a new LocalParameter object, adds it to this KineticLaw's list of
-   * local parameters, and returns the LocalParameter object created.
+   * Creates a new LocalParameter object, adds it to this KineticLaw's list
+   * of local parameters, and returns the LocalParameter object created.
    *
    * @return a new LocalParameter object instance
    *
