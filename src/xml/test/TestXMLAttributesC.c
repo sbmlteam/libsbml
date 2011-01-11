@@ -41,7 +41,7 @@
 #include <sbml/common/extern.h>
 
 #if __cplusplus
-BEGIN_C_DECL
+CK_CPPSTART
 #endif
 
 START_TEST (test_XMLAttributes_create_C)
@@ -820,5 +820,5 @@ create_suite_XMLAttributes_C (void)
 }
 
 #if __cplusplus
-END_C_DECL
+CK_CPPEND
 #endif

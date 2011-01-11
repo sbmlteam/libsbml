@@ -29,7 +29,7 @@
 #include <check.h>
 
 #if __cplusplus
-BEGIN_C_DECL
+CK_CPPSTART
 #endif
 
 START_TEST (test_XMLNode_addChild1)
@@ -337,6 +337,6 @@ create_suite_XMLNode_newSetters (void)
 }
 
 #if __cplusplus
-END_C_DECL
+CK_CPPEND
 #endif
 

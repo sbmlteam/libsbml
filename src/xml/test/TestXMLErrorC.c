@@ -27,7 +27,7 @@
 #include <check.h>
 
 #if __cplusplus
-BEGIN_C_DECL
+CK_CPPSTART
 #endif
 
 START_TEST (test_XMLError_create_C)
@@ -77,6 +77,6 @@ create_suite_XMLError_C (void)
 }
 
 #if __cplusplus
-END_C_DECL
+CK_CPPEND
 #endif
 

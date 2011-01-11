@@ -11,7 +11,7 @@
 #include <check.h>
 
 #if __cplusplus
-BEGIN_C_DECL
+CK_CPPSTART
 #endif
 
 Suite *create_suite_XMLAttributes (void);
@@ -65,6 +65,5 @@ main (int argc, char* argv[])
 }
 
 #if __cplusplus
-END_C_DECL
+CK_CPPEND
 #endif
-

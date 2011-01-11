@@ -28,7 +28,7 @@
 #include <check.h>
 
 #if __cplusplus
-BEGIN_C_DECL
+CK_CPPSTART
 #endif
 
 /**
@@ -190,7 +190,7 @@ create_suite_XMLInputStream (void)
 }
 
 #if __cplusplus
-END_C_DECL
+CK_CPPEND
 #endif
 
 

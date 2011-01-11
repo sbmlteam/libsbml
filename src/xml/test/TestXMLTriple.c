@@ -26,7 +26,7 @@
 #include <check.h>
 
 #if __cplusplus
-BEGIN_C_DECL
+CK_CPPSTART
 #endif
 
 START_TEST (test_XMLTriple_create)
@@ -91,6 +91,5 @@ create_suite_XMLTriple (void)
 
 
 #if __cplusplus
-END_C_DECL
+CK_CPPEND
 #endif
-
