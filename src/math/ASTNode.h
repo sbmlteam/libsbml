@@ -41,15 +41,14 @@
  * An AST @em node in libSBML is a recursive structure containing a pointer
  * to the node's value (which might be, for example, a number or a symbol)
  * and a list of children nodes.  Each ASTNode node may have none, one,
- * two, or more child depending on its type. The following diagram
+ * two, or more children depending on its type.  The following diagram
  * illustrates an example of how the mathematical expression <code>"1 +
  * 2"</code> is represented as an AST with one @em plus node having two @em
  * integer children nodes for the numbers <code>1</code> and
  * <code>2</code>.  The figure also shows the corresponding MathML
  * representation:
  *
- * @image html astnode-illustration.jpg "Example AST representation of a mathematical expression."
- * @image latex astnode-illustration.jpg "Example AST representation of a mathematical expression."
+ * @htmlinclude astnode-illustration.html
  *
  * The following are other noteworthy points about the AST representation
  * in libSBML:
@@ -100,9 +99,9 @@
  * node's type will be @c AST_PLUS, @c AST_MINUS, @c AST_TIMES, @c AST_DIVIDE,
  * or @c AST_POWER, as appropriate.
  *
- * <li> If the node is a predefined function or operator from %SBML Level 1
- * (in the string-based formula syntax used in Level 1) or %SBML Level 2
- * (in the subset of MathML used in SBML Level 2), then the node's type
+ * <li> If the node is a predefined function or operator from %SBML Level&nbsp;1
+ * (in the string-based formula syntax used in Level&nbsp;1) or %SBML Levels&nbsp;2 and&nbsp;3
+ * (in the subset of MathML used in SBML Levels&nbsp;2 and&nbsp;3), then the node's type
  * will be either <code>AST_FUNCTION_</code><em><span
  * class="placeholder">X</span></em>, <code>AST_LOGICAL_</code><em><span
  * class="placeholder">X</span></em>, or
@@ -118,13 +117,16 @@
  * @c "True" or @c "False"), then the node's type will be @c AST_CONSTANT_E,
  * @c AST_CONSTANT_PI, @c AST_CONSTANT_TRUE, or @c AST_CONSTANT_FALSE.
  * 
- * <li> (Level 2 only) If the node is the special MathML csymbol @c time,
+ * <li> (Levels&nbsp;2 and&nbsp;3 only) If the node is the special MathML csymbol @c time,
  * the value of the node will be @c AST_NAME_TIME.  (Note, however, that the
  * MathML csymbol @c delay is translated into a node of type
  * @c AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
  * single variable, whereas @c delay is actually a function taking
  * arguments.)
  *
+ * <li> (Level&nbsp;3 only) If the node is the special MathML csymbol @c avogadro,
+ * the value of the node will be @c AST_NAME_AVOGADRO.
+ * 
  * <li> If the node contains a numerical value, its type will be
  * @c AST_INTEGER, @c AST_REAL, @c AST_REAL_E, or @c AST_RATIONAL,
  * as appropriate.
@@ -133,20 +135,15 @@
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
- * The text-string form of mathematical formulas produced by @if clike
- * SBML_formulaToString()@endif@if java <code><a
- * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
- * libsbml.formulaToString()</a></code>@endif and read by @if clike
- * SBML_parseFormula()@endif@if java <code><a
- * href="libsbml.html#parseFormula(java.lang.String)">
- * libsbml.parseFormula()</a></code>@endif are simple C-inspired infix
- * notation taken from SBML Level&nbsp;1.  A formula in this text-string
- * form can be handed to a program that understands SBML Level&nbsp;1
- * mathematical expressions, or used as part of a translation system.  The
- * libSBML distribution comes with an example program in the @c "examples"
- * subdirectory called @c translateMath that implements an interactive
- * command-line demonstration of translating infix formulas into MathML and
- * vice-versa.
+ * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif and
+ * read by @if clike SBML_parseFormula()@endif@if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
+ * are simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
+ * formula in this text-string form can be handed to a program that
+ * understands SBML Level&nbsp;1 mathematical expressions, or used as part
+ * of a translation system.  The libSBML distribution comes with an example
+ * program in the @c "examples" subdirectory called @c translateMath that
+ * implements an interactive command-line demonstration of translating
+ * infix formulas into MathML and vice-versa.
  *
  * The formula strings may contain operators, function calls, symbols, and
  * white space characters.  The allowable white space characters are tab
@@ -194,7 +191,7 @@
  * overlap between MathML and SBML Level&nbsp;1, there exist a few
  * differences.  The following table summarizes the differences between the
  * predefined functions in SBML Level&nbsp;1 and the MathML equivalents in
- * SBML Level&nbsp;2:
+ * SBML Levels&nbsp;2 and &nbsp;3:
  * 
  * @htmlinclude math-functions.html
  */
@@ -230,9 +227,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * AST_TIMES@endlink, @link ASTNodeType_t#AST_DIVIDE AST_DIVIDE@endlink, or
  * @link ASTNodeType_t#AST_POWER AST_POWER@endlink, as appropriate.
  *
- * <li> If the node is a predefined function or operator from %SBML Level 1
- * (in the string-based formula syntax used in Level 1) or %SBML Level 2
- * (in the subset of MathML used in SBML Level 2), then the node's type
+ * <li> If the node is a predefined function or operator from %SBML Level&nbsp;1
+ * (in the string-based formula syntax used in Level&nbsp;1) or %SBML Level&nbsp;2 and&nbsp;3
+ * (in the subset of MathML used in SBML Levels&nbsp;2 and&nbsp;3), then the node's type
  * will be either @c AST_FUNCTION_<em><span
  * class="placeholder">X</span></em>, @c AST_LOGICAL_<em><span
  * class="placeholder">X</span></em>, or @c AST_RELATIONAL_<em><span
@@ -254,13 +251,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * ASTNodeType_t#AST_CONSTANT_TRUE AST_CONSTANT_TRUE@endlink, or @link
  * ASTNodeType_t#AST_CONSTANT_FALSE AST_CONSTANT_FALSE@endlink.
  * 
- * <li> (Level 2 only) If the node is the special MathML csymbol @c time,
+ * <li> (Levels&nbsp;2 and&nbsp;3 only) If the node is the special MathML csymbol @c time,
  * the value of the node will be @link ASTNodeType_t#AST_NAME_TIME
  * AST_NAME_TIME@endlink.  (Note, however, that the MathML csymbol @c delay
  * is translated into a node of type @link ASTNodeType_t#AST_FUNCTION_DELAY
  * AST_FUNCTION_DELAY@endlink.  The difference is due to the fact that @c
  * time is a single variable, whereas @c delay is actually a function
  * taking arguments.)
+ *
+ * <li> (Level&nbsp;3 only) If the node is the special MathML csymbol @c avogadro,
+ * the value of the node will be @c AST_NAME_AVOGADRO.
  *
  * <li> If the node contains a numerical value, its type will be @link
  * ASTNodeType_t#AST_INTEGER AST_INTEGER@endlink, @link
@@ -451,8 +451,7 @@ public:
    * <code>AST_CONSTANT_</code><em><span class="placeholder">X</span></em> type.
    *
    * <li> If the node type is an @link ASTNodeType_t#AST_FUNCTION
-   * AST_FUNCTION@endlink and the node name matches an SBML Level&nbsp;1 or
-   * Level&nbsp;2 (MathML) function name, logical operator name, or
+   * AST_FUNCTION@endlink and the node name matches an SBML (MathML) function name, logical operator name, or
    * relational operator name, the node is converted to the corresponding
    * <code>AST_FUNCTION_</code><em><span class="placeholder">X</span></em> or
    * <code>AST_LOGICAL_</code><em><span class="placeholder">X</span></em> type.
@@ -893,7 +892,7 @@ public:
    * @return true if this ASTNode is a MathML constant, false otherwise.
    * 
    * @note this function will also return @c true for @link
-   * ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink
+   * ASTNodeType_t#AST_NAME_AVOGADRO AST_NAME_AVOGADRO@endlink in SBML Level&nbsp;3.
    */
   LIBSBML_EXTERN
   bool isConstant () const;
