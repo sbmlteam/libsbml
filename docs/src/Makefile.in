@@ -105,6 +105,8 @@ distfiles =                                                  \
         common-text/predefined-units.html                    \
         common-text/species-boundarycondition.html           \
         common-text/species-hasonlysubstance.html            \
+        common-text/simple-ast.graffle                       \
+        common-text/simple-ast.svg                           \
         common-text/string-functions-table.html              \
         common-text/unassigned-units-are-not-a-default.html  \
         common-text/unitid-syntax.html                       \
@@ -285,6 +287,7 @@ define run_doxygen
   $(DOXYGEN) $(1)
   cp $(logo-file) $(2)
   cp graphics/right-arrow.gif $(2)
+  cp common-text/simple-ast.svg $(2)
   cp sbml.js $(2)
   if test $(doxygen-minor-version) -lt 5; then \
     cp -rf doxygen-tabs.css $(2)/tabs.css; \
@@ -415,6 +418,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
 	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
+	cp -f common-text/*.svg $(java-manual)/org/sbml/libsbml/
 	cp -f sbml.js $(java-manual)
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
