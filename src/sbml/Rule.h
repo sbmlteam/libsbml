@@ -140,9 +140,9 @@
  * define more equations than there are unknowns in a model.  An SBML model
  * that does not contain AlgebraicRule structures cannot be overdetermined.
  * 
- * LibSBML implements the static analysis procedure described in Appendix
- * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
- * whether a model is overdetermined.
+ * LibSBML implements the static analysis procedure described in
+ * Appendix&nbsp;B of the SBML Level&nbsp;3 Version&nbsp;1 Core
+ * specification for assessing whether a model is overdetermined.
  * 
  * (In summary, assessing whether a given continuous, deterministic,
  * mathematical model is overdetermined does not require dynamic analysis; it
@@ -400,7 +400,7 @@
  * referenced species' quantity (whether a "concentration" or "amount") to
  * the value determined by the formula in the MathML subelement "math".
  * The unit associated with the value produced by the "math" formula @em
- * should (in SBML Level&nbsp;2 Version&nbsp;4 and later) or @em must (in
+ * should (in SBML Level&nbsp;2 Version&nbsp;4 and in SBML Level&nbsp;3) or @em must (in
  * SBML releases prior to Level&nbsp;2 version&nbsp;4) be equal to the unit
  * associated with the species' quantity.  <em>Restrictions</em>: There
  * must not be both an AssignmentRule "variable" attribute and a
@@ -422,14 +422,14 @@
  * referenced compartment's size to the value determined by the formula in
  * the "math" subelement of the AssignmentRule object.  The overall units
  * of the formula in "math" @em should (in SBML Level&nbsp;2 Version&nbsp;4
- * and later) or @em must (in SBML releases prior to Level&nbsp;2
+ * and in SBML Level&nbsp;3) or @em must (in SBML releases prior to Level&nbsp;2
  * version&nbsp;4) be the same as the units of the size of the compartment.
  *
  * <li> <em>In the case of a parameter</em>, an AssignmentRule sets the
  * referenced parameter's value to that determined by the formula in the
  * "math" subelement of the AssignmentRule object.  The overall units of
  * the formula in the "math" subelement @em should (in SBML Level&nbsp;2
- * Version&nbsp;4 and later) or @em must (in SBML releases prior to
+ * Version&nbsp;4 and in SBML Level&nbsp;3) or @em must (in SBML releases prior to
  * Level&nbsp;2 version&nbsp;4) be the same as the units defined for the
  * parameter.  </ul>
  * 
@@ -572,9 +572,9 @@
  * define more equations than there are unknowns in a model.  An SBML model
  * that does not contain AlgebraicRule structures cannot be overdetermined.
  * 
- * LibSBML implements the static analysis procedure described in Appendix
- * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
- * whether a model is overdetermined.
+ * LibSBML implements the static analysis procedure described in
+ * Appendix&nbsp;B of the SBML Level&nbsp;3 Version&nbsp;1 Core
+ * specification for assessing whether a model is overdetermined.
  * 
  * (In summary, assessing whether a given continuous, deterministic,
  * mathematical model is overdetermined does not require dynamic analysis; it
@@ -636,7 +636,7 @@
  * change of the species' quantity (<em>concentration</em> or <em>amount of
  * substance</em>) to the value determined by the formula in the "math"
  * subelement of the RateRule object.  The overall units of the formula in
- * "math" @em should (in SBML Level&nbsp;2 Version&nbsp;4 and later) or @em
+ * "math" @em should (in SBML Level&nbsp;2 Version&nbsp;4 and in SBML Level&nbsp;3) or @em
  * must (in SBML releases prior to Level&nbsp;2 version&nbsp;4) be equal to
  * the unit of <em>species quantity</em> divided by the model-wide unit of
  * <em>time</em>.  <em>Restrictions</em>: There must not be both a RateRule
@@ -656,19 +656,18 @@
  * <li> <em>In the case of a compartment</em>, a RateRule sets the rate of
  * change of the compartment's size to the value determined by the formula
  * in the "math" subelement of the RateRule object.  The overall units of
- * the formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and
- * later) or @em must (in SBML releases prior to Level&nbsp;2
+ * the formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and in SBML
+ * Level&nbsp;3) or @em must (in SBML releases prior to Level&nbsp;2
  * version&nbsp;4) be the units of the compartment's <em>size</em> divided
  * by the model-wide unit of <em>time</em>.
  *
  * <li> <em>In the case of a parameter</em>, a RateRule sets the rate of
  * change of the parameter's value to that determined by the formula in the
  * "math" subelement of the RateRule object.  The overall units of the
- * formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and
- * later) or @em must (in SBML releases prior to Level&nbsp;2
+ * formula @em should (in SBML Level&nbsp;2 Version&nbsp;4 and in SBML
+ * Level&nbsp;3) or @em must (in SBML releases prior to Level&nbsp;2
  * version&nbsp;4) be the Parameter object's "unit" attribute value divided
- * by the model-wide unit of <em>time</em>.
- * </ul>
+ * by the model-wide unit of <em>time</em>.  </ul>
  * 
  * In the context of a simulation, rate rules are in effect for simulation
  * time <em>t</em> &lt; <em>0</em>.  Please consult the relevant SBML
@@ -787,9 +786,9 @@
  * define more equations than there are unknowns in a model.  An SBML model
  * that does not contain AlgebraicRule structures cannot be overdetermined.
  * 
- * LibSBML implements the static analysis procedure described in Appendix
- * B of the SBML Level&nbsp;3 Version&nbsp;1 Core specification for assessing
- * whether a model is overdetermined.
+ * LibSBML implements the static analysis procedure described in
+ * Appendix&nbsp;B of the SBML Level&nbsp;3 Version&nbsp;1 Core
+ * specification for assessing whether a model is overdetermined.
  * 
  * (In summary, assessing whether a given continuous, deterministic,
  * mathematical model is overdetermined does not require dynamic analysis; it
@@ -981,13 +980,13 @@ public:
    *
    * @return an ASTNode, the value of the "math" subelement of this Rule.
    *
-   * @see getFormula()
-   *
    * @note The subelement "math" is present in SBML Levels&nbsp;2
    * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
    * attribute named "formula".  LibSBML provides a unified interface to
    * the underlying math expression and this method can be used for models
    * of all Levels of SBML.
+   *
+   * @see getFormula()
    */
   const ASTNode* getMath () const;
 
@@ -1037,13 +1036,13 @@ public:
    * @return @c true if the mathematical formula for this Rule has been
    * set, @c false otherwise.
    *
-   * @see isSetMath()
-   *
    * @note The attribute "formula" is specific to SBML Level&nbsp;1; in
    * higher Levels of SBML, it has been replaced with a subelement named
    * "math".  However, libSBML provides a unified interface to the
    * underlying math expression and this method can be used for models
    * of all Levels of SBML.
+   *
+   * @see isSetMath()
    */
   bool isSetFormula () const;
 
@@ -1062,6 +1061,8 @@ public:
    * attribute named "formula".  LibSBML provides a unified interface to
    * the underlying math expression and this method can be used for models
    * of all Levels of SBML.
+   *
+   * @see isSetFormula()
    */
   bool isSetMath () const;
 
@@ -1123,6 +1124,8 @@ public:
    * "math".  However, libSBML provides a unified interface to the
    * underlying math expression and this method can be used for models
    * of all Levels of SBML.
+   *
+   * @see setMath()
    */
   int setFormula (const std::string& formula);
 
@@ -1144,6 +1147,8 @@ public:
    * attribute named "formula".  LibSBML provides a unified interface to
    * the underlying math expression and this method can be used for models
    * of all Levels of SBML.
+   *
+   * @see setFormula()
    */
   int setMath (const ASTNode* math);
 
