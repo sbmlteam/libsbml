@@ -86,11 +86,8 @@
  * @section approaches Approaches to creating objects using the libSBML API
  *
  * LibSBML provides two main mechanisms for creating objects: class
- * constructors (e.g., @if clike @link Species::Species() Species()
- * @endlink @endif@if python @link Species::Species() Species()
- * @endlink @endif@if java <a
- * href="org/sbml/libsbml/Species.html">Species()</a> @endif), and
- * <code>create<span class="placeholder"><em>Object</em></span>()</code>
+ * constructors (e.g., @if clike @link Species::Species() Species() @endlink @endif@if python @link Species::Species() Species() @endlink @endif@if java <a href="org/sbml/libsbml/Species.html">Species()</a> @endif), 
+ * and <code>create<span class="placeholder"><em>Object</em></span>()</code>
  * methods (such as Model::createSpecies()) provided by certain <span
  * class="placeholder"><em>Object</em></span> classes such as Model.  These
  * multiple mechanisms are provided by libSBML for flexibility and to
@@ -156,9 +153,7 @@ newsp.setId("NewId");    // Warning -- doesn't change the species in 'model'!
 delete newsp;
 @endverbatim
  * 
- * The key point of the example above is that, because the @if clike
- * Model::addSpecies() @endif@if python
- * Model::addSpecies() @endif@if java Model::addSpecies(Species s) @endif
+ * The key point of the example above is that, because the @if clike Model::addSpecies() @endif@if python Model::addSpecies() @endif@if java Model::addSpecies(Species s) @endif
  * call makes a copy of the object handed to it, care is needed both when
  * attempting to make changes to the object, and when the original object
  * is no longer needed.
@@ -166,7 +161,7 @@ delete newsp;
  * @section checking Consistency and adherence to SBML specifications
  *
  * To make it easier for applications to do whatever they need,
- * libSBML&nbsp;4.x is relatively lax when it comes to enforcing
+ * libSBML versions&nbsp;4.x and&nbsp;5.x are relatively lax when it comes to enforcing
  * correctness and completeness of models @em during model construction and
  * editing.  Essentially, libSBML @em will @em not in most cases check
  * automatically that a model's components have valid attribute values, or
