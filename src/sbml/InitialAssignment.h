@@ -24,7 +24,7 @@
  * @class InitialAssignment
  * @brief  LibSBML implementation of %SBML's %InitialAssignment construct.
  *
- * SBML Level 2 Versions 2, 3 and 4 provide two ways of assigning initial
+ * SBML Level 2 Versions 2&ndash;4 and SBML Level&nbsp;3 provide two ways of assigning initial
  * values to entities in a model.  The simplest and most basic is to set
  * the values of the appropriate attributes in the relevant components; for
  * example, the initial value of a model parameter (whether it is a
@@ -71,14 +71,14 @@
  * MathML expression used to calculate the value of the constant or the
  * initial value of the variable.  The units of the value computed by the
  * formula in the "math" subelement should (in SBML Level&nbsp;2
- * Version&nbsp;4) or must (in previous Versions) be identical to be the
+ * Version&nbsp;4 and in SBML Level&nbsp;3) or must (in previous Versions) be identical to be the
  * units associated with the identifier given in the "symbol" attribute.
  * (That is, the units are the units of the species, compartment, or
  * parameter, as appropriate for the kind of object identified by the value
  * of "symbol".)
  *
  * InitialAssignment was introduced in SBML Level 2 Version 2.  It is not
- * available in earlier versions of Level 2 nor in any version of Level 1.
+ * available in SBML Level&nbsp;2 Version&nbsp;1 nor in any version of Level 1.
  *
  * @section initassign-semantics Semantics of Initial Assignments
  * 
@@ -101,25 +101,25 @@
  * referenced species' initial quantity (concentration or amount of
  * substance) to the value determined by the formula in the "math"
  * subelement.    The overall units of the formula should (in SBML
- * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be the same
+ * Level&nbsp;2 Version&nbsp;4 and in SBML Level&nbsp;3) or must (in previous Versions) be the same
  * as the units specified for the species.
  * 
  * <li> <em>In the case of a compartment</em>, an InitialAssignment sets
  * the referenced compartment's initial size to the size determined by the
  * formula in "math".  The overall units of the formula should (in SBML
- * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be the same
+ * Level&nbsp;2 Version&nbsp;4 and in SBML Level&nbsp;3) or must (in previous Versions) be the same
  * as the units specified for the size of the compartment.
  * 
  * <li> <em>In the case of a parameter</em>, an InitialAssignment sets the
  * referenced parameter's initial value to that determined by the formula
  * in "math".  The overall units of the formula should (in SBML
- * Level&nbsp;2 Version&nbsp;4) or must (in previous Versions) be the same
+ * Level&nbsp;2 Version&nbsp;4 and SBML Level&nbsp;3) or must (in previous Versions) be the same
  * as the units defined for the parameter.  </ul>
  * 
  * In the context of a simulation, initial assignments establish values
  * that are in effect prior to and including the start of simulation time,
  * i.e., <em>t \f$\leq\f$ 0</em>.  Section 3.4.8 in the SBML Level 2
- * Version 4 specification provides information about the interpretation of
+ * Version 4  and SBML Level&nbsp;3 Version&nbsp;1 Core specifications provides information about the interpretation of
  * assignments, rules, and entity values for simulation time up to and
  * including the start time <em>t = 0</em>; this is important for
  * establishing the initial conditions of a simulation if the model
@@ -179,13 +179,12 @@
  *
  * Readers may wonder about the motivations for using the ListOf___
  * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  We chose instead
- * to group them within XML elements named after ListOf<em>Classname</em>,
- * in part because we believe this helps organize the components and makes
- * visual reading of models in XML easier.  More importantly, the fact that
- * the container classes are derived from SBase means that software tools
- * can add information about the lists themselves into each list
- * container's "annotation".
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
  *
  * @see ListOfFunctionDefinitions
  * @see ListOfUnitDefinitions
@@ -823,7 +822,7 @@ public:
    * The ordering of elements in the XML form of %SBML is generally fixed
    * for most components in %SBML.  So, for example, the
    * ListOfInitialAssignments in a model is (in %SBML Level 2 Version 4)
-   * the eigth ListOf___.  (However, it differs for different Levels and
+   * the eighth ListOf___.  (However, it differs for different Levels and
    * Versions of SBML.)
    *
    * @return the ordinal position of the element with respect to its

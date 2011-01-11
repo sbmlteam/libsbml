@@ -345,13 +345,12 @@
  *
  * Readers may wonder about the motivations for using the ListOf___
  * containers.  A simpler approach in XML might be to place the components
- * all directly at the top level of the model definition.  We chose instead
- * to group them within XML elements named after ListOf<em>Classname</em>,
- * in part because we believe this helps organize the components and makes
- * visual reading of models in XML easier.  More importantly, the fact that
- * the container classes are derived from SBase means that software tools
- * can add information about the lists themselves into each list
- * container's "annotation".
+ * all directly at the top level of the model definition.  The choice made
+ * in SBML is to group them within XML elements named after
+ * ListOf<em>Classname</em>, in part because it helps organize the
+ * components.  More importantly, the fact that the container classes are
+ * derived from SBase means that software tools can add information @em about
+ * the lists themselves into each list container's "annotation".
  *
  * @see ListOfFunctionDefinitions
  * @see ListOfUnitDefinitions
