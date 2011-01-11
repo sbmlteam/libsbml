@@ -72,7 +72,7 @@
  * 
  * @warning LibSBML derives LocalParameter from Parameter; however, this
  * does not precisely match the object hierarchy defined by SBML
- * Level&nbsp;3, where LocalParamter is derived directly from SBase and not
+ * Level&nbsp;3, where LocalParameter is derived directly from SBase and not
  * Parameter.  We believe this arrangement makes it easier for libSBML
  * users to program applications that work with both SBML Level&nbsp;2 and
  * SBML Level&nbsp;3, but programmers should also keep in mind this
