@@ -225,9 +225,9 @@ public:
    * 
    * @return a string representing the formula of this KineticLaw.
    *
-   * @see getMath()
-   *
    * @note @htmlinclude level-1-uses-text-string-math.html
+   *
+   * @see getMath()
    */
   const std::string& getFormula () const;
 

@@ -672,8 +672,6 @@ public:
    * 
    * @return the line number of this SBML object.
    *
-   * @see getColumn()
-   *
    * @note The line number for each construct in an SBML model is set upon
    * reading the model.  The accuracy of the line number depends on the
    * correctness of the XML representation of the model, and on the
@@ -688,6 +686,8 @@ public:
    * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
    * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
    * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
+   *
+   * @see getColumn()
    */
   unsigned int getLine () const;
 

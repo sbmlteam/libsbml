@@ -1365,11 +1365,11 @@ public:
    *
    * @return the CompartmentType object created
    *
-   * @see addCompartmentType(const CompartmentType* ct)
-   *
    * @note The CompartmentType object class is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.  It is not available in
    * Level&nbsp;1 nor Level&nbsp;3.
+   *
+   * @see addCompartmentType(const CompartmentType* ct)
    */
   CompartmentType* createCompartmentType ();
 
