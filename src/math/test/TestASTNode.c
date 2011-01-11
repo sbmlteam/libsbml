@@ -57,11 +57,20 @@
 #include <sbml/EventAssignment.h>
 #include <sbml/xml/XMLNode.h>
 
+#include <limits.h>
 #include <check.h>
+
+#if WIN32 && !defined(CYGWIN)
+#include <math.h>
+extern int isnan(double x); 
+extern int isinf(double x); 
+extern int finite(double x);
+#endif
 
 #if __cplusplus
 CK_CPPSTART
 #endif
+
 
 
 START_TEST (test_ASTNode_create)
@@ -2157,6 +2166,87 @@ START_TEST (test_ASTNode_avogadro_bug)
 }
 END_TEST
 
+START_TEST (test_ASTNode_accessWithNULL)
+{
+  fail_unless( ASTNode_addChild (NULL, NULL) == LIBSBML_INVALID_OBJECT);  
+  fail_unless( ASTNode_addSemanticsAnnotation (NULL, NULL) 
+                == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_canonicalize (NULL) == 0);
+  fail_unless( ASTNode_createFromToken (NULL) == NULL);
+  fail_unless( ASTNode_deepCopy (NULL) == NULL);  
+
+  // survive NULL access
+  ASTNode_fillListOfNodes (NULL,NULL, NULL);
+  ASTNode_free (NULL);  
+
+  fail_unless( ASTNode_freeName (NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_getCharacter (NULL) == CHAR_MAX);
+  fail_unless( ASTNode_getChild (NULL, 0) == NULL);
+  fail_unless( ASTNode_getDenominator (NULL) == LONG_MAX);
+  fail_unless( ASTNode_getExponent (NULL) == LONG_MAX);
+  fail_unless( ASTNode_getInteger (NULL) == LONG_MAX);
+  fail_unless( ASTNode_getLeftChild (NULL) == NULL);
+  fail_unless( ASTNode_getListOfNodes (NULL, NULL) == NULL);
+  fail_unless( isnan(ASTNode_getMantissa (NULL)) );
+  fail_unless( ASTNode_getName (NULL) == NULL);
+  fail_unless( ASTNode_getNumChildren (NULL) == SBML_INT_MAX);
+  fail_unless( ASTNode_getNumerator (NULL) == LONG_MAX);
+  fail_unless( ASTNode_getNumSemanticsAnnotations (NULL) == SBML_INT_MAX);
+  fail_unless( ASTNode_getParentSBMLObject (NULL) == NULL);
+  fail_unless( ASTNode_getPrecedence (NULL) == 6);
+  fail_unless( isnan(ASTNode_getReal (NULL)));
+  fail_unless( ASTNode_getRightChild (NULL) == NULL);
+  fail_unless( ASTNode_getSemanticsAnnotation (NULL, 0) == NULL);
+  fail_unless( ASTNode_getType (NULL) == AST_UNKNOWN);
+  fail_unless( ASTNode_getUnits (NULL) == NULL);
+  fail_unless( ASTNode_getUserData (NULL) == NULL);
+  fail_unless( ASTNode_hasCorrectNumberArguments (NULL) == 0);
+  fail_unless( ASTNode_hasUnits (NULL) == 0);
+  fail_unless( ASTNode_insertChild (NULL, 0, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_isBoolean (NULL) == 0);
+  fail_unless( ASTNode_isConstant (NULL) == 0);
+  fail_unless( ASTNode_isFunction (NULL) == 0);
+  fail_unless( ASTNode_isInfinity (NULL) == 0);
+  fail_unless( ASTNode_isInteger (NULL) == 0);
+  fail_unless( ASTNode_isLambda (NULL) == 0);
+  fail_unless( ASTNode_isLog10 (NULL) == 0);
+  fail_unless( ASTNode_isLogical (NULL) == 0);
+  fail_unless( ASTNode_isName (NULL) == 0);
+  fail_unless( ASTNode_isNaN (NULL) == 0);
+  fail_unless( ASTNode_isNegInfinity (NULL) == 0);
+  fail_unless( ASTNode_isNumber (NULL) == 0);
+  fail_unless( ASTNode_isOperator (NULL) == 0);
+  fail_unless( ASTNode_isPiecewise (NULL) == 0);
+  fail_unless( ASTNode_isRational (NULL) == 0);
+  fail_unless( ASTNode_isReal (NULL) == 0);
+  fail_unless( ASTNode_isRelational (NULL) == 0);
+  fail_unless( ASTNode_isSetUnits (NULL) == 0);
+  fail_unless( ASTNode_isSqrt (NULL) == 0);
+  fail_unless( ASTNode_isUMinus (NULL) == 0);
+  fail_unless( ASTNode_isUnknown (NULL) == 0);
+  fail_unless( ASTNode_isWellFormedASTNode (NULL) == 0);
+  fail_unless( ASTNode_prependChild (NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  
+  // don't crash
+  ASTNode_reduceToBinary (NULL);
+  ASTNode_replaceArgument (NULL, NULL, NULL);
+  
+  fail_unless( ASTNode_removeChild (NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_replaceChild (NULL, 0, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setCharacter (NULL, CHAR_MAX) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setInteger (NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setName (NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setRational (NULL, 0, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setReal (NULL, 0.0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setRealWithExponent (NULL, 0.0, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setType (NULL, AST_UNKNOWN) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setUnits (NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_setUserData (NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_swapChildren (NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( ASTNode_unsetUnits (NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -2204,6 +2294,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_units                   );
   tcase_add_test( tcase, test_ASTNode_avogadro                );
   tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
+  tcase_add_test( tcase, test_ASTNode_accessWithNULL          );
 
   suite_add_tcase(suite, tcase);
 

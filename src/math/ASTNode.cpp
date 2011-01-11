@@ -24,6 +24,7 @@
 #include <new>
 #include <cmath>
 #include <stdlib.h>
+#include <limits.h>
 
 #include <sbml/common/common.h>
 #include <sbml/util/List.h>
@@ -212,25 +213,28 @@ ASTNode::ASTNode (Token_t* token)
   mChildren             = new List;
   mSemanticsAnnotations = new List;
 
-  if (token->type == TT_NAME)
+  if (token != NULL)
   {
-    setName(token->value.name);
-  }
-  else if (token->type == TT_INTEGER)
-  {
-    setValue(token->value.integer);
-  }
-  else if (token->type == TT_REAL)
-  {
-    setValue(token->value.real);
-  }
-  else if (token->type == TT_REAL_E)
-  {
-    setValue(token->value.real, token->exponent);
-  }
-  else
-  {
-    setCharacter(token->value.ch);
+    if (token->type == TT_NAME)
+    {
+      setName(token->value.name);
+    }
+    else if (token->type == TT_INTEGER)
+    {
+      setValue(token->value.integer);
+    }
+    else if (token->type == TT_REAL)
+    {
+      setValue(token->value.real);
+    }
+    else if (token->type == TT_REAL_E)
+    {
+      setValue(token->value.real, token->exponent);
+    }
+    else
+    {
+      setCharacter(token->value.ch);
+    }
   }
 }
 
@@ -699,11 +703,14 @@ ASTNode::addChild (ASTNode* child)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode::prependChild (ASTNode* child)
 {
+  if (child == NULL) return LIBSBML_INVALID_OBJECT;
+
   unsigned int numBefore = getNumChildren();
   mChildren->prepend(child);
 
@@ -740,6 +747,8 @@ LIBSBML_EXTERN
 int 
 ASTNode::replaceChild(unsigned int n, ASTNode *newChild)
 {
+  if (newChild == NULL) return LIBSBML_INVALID_OBJECT;
+
   int replaced = LIBSBML_INDEX_EXCEEDS_SIZE;
 
   unsigned int size = getNumChildren();
@@ -757,6 +766,8 @@ LIBSBML_EXTERN
 int 
 ASTNode::insertChild(unsigned int n, ASTNode *newChild)
 {
+  if (newChild == NULL) return LIBSBML_INVALID_OBJECT;
+
   int inserted = LIBSBML_INDEX_EXCEEDS_SIZE;
 
   unsigned int i, size = getNumChildren();
@@ -917,6 +928,8 @@ LIBSBML_EXTERN
 List*
 ASTNode::getListOfNodes (ASTNodePredicate predicate) const
 {
+  if (predicate == NULL) return NULL;
+
   List* lst = new List;
 
 
@@ -934,6 +947,8 @@ LIBSBML_EXTERN
 void
 ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
 {
+  if (lst == NULL || predicate == NULL) return;
+
   ASTNode*     child;
   unsigned int c;
   unsigned int numChildren = getNumChildren();
@@ -2115,6 +2130,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_createFromToken (Token_t *token)
 {
+  if (token == NULL) return NULL;
   return new(nothrow) ASTNode(token);
 }
 
@@ -2126,6 +2142,8 @@ LIBSBML_EXTERN
 void
 ASTNode_free (ASTNode_t *node)
 {
+  if (node == NULL) return;
+
   delete static_cast<ASTNode*>(node);
 }
 
@@ -2140,11 +2158,13 @@ ASTNode_free (ASTNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_freeName (ASTNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->freeName();
 }
 
@@ -2180,6 +2200,7 @@ LIBSBML_EXTERN
 int
 ASTNode_canonicalize (ASTNode_t *node)
 {
+  if (node == NULL) return (int)false;
   return (int) static_cast<ASTNode*>(node)->canonicalize();
 }
 
@@ -2194,11 +2215,13 @@ ASTNode_canonicalize (ASTNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_addChild (ASTNode_t *node, ASTNode_t *child)
 {
+	if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->addChild
                                     ( static_cast<ASTNode*>(child) );
 }
@@ -2207,11 +2230,20 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child)
 /**
  * Adds the given node as a child of this ASTNode.  This method adds child
  * nodes from "right-to-left".
+ * 
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t. @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->prependChild
                                     ( static_cast<ASTNode*>(child) );
 }
@@ -2225,6 +2257,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_deepCopy (const ASTNode_t *node)
 {
+  if ( node == NULL ) return NULL;
   return
     static_cast<ASTNode_t *>( static_cast<const ASTNode*>(node)->deepCopy() );
 }
@@ -2238,6 +2271,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_getChild (const ASTNode_t *node, unsigned int n)
 {
+  if (node == NULL) return NULL;
   return static_cast<const ASTNode*>(node)->getChild(n);
 }
 
@@ -2250,6 +2284,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_getLeftChild (const ASTNode_t *node)
 {
+  if (node == NULL) return NULL;
   return static_cast<const ASTNode*>(node)->getLeftChild();
 }
 
@@ -2265,6 +2300,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_getRightChild (const ASTNode_t *node)
 {
+  if (node == NULL) return NULL;
   return static_cast<const ASTNode*>(node)->getRightChild();
 }
 
@@ -2277,6 +2313,7 @@ LIBSBML_EXTERN
 unsigned int
 ASTNode_getNumChildren (const ASTNode_t *node)
 {
+  if (node == NULL) return SBML_INT_MAX;
   return static_cast<const ASTNode*>(node)->getNumChildren();
 }
 
@@ -2301,6 +2338,7 @@ LIBSBML_EXTERN
 List_t *
 ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate)
 {
+  if (node == NULL) return NULL;
   return static_cast<const ASTNode*>(node)->getListOfNodes(predicate);
 }
 
@@ -2315,6 +2353,8 @@ ASTNode_fillListOfNodes ( const ASTNode_t  *node,
                           ASTNodePredicate predicate,
                           List_t           *lst )
 {
+  if (node == NULL) return;
+
   List* x = static_cast<List*>(lst);
 
   static_cast<const ASTNode*>(node)->fillListOfNodes(predicate, x);
@@ -2330,6 +2370,7 @@ LIBSBML_EXTERN
 char
 ASTNode_getCharacter (const ASTNode_t *node)
 {
+  if (node == NULL) return CHAR_MAX;
   return static_cast<const ASTNode*>(node)->getCharacter();
 }
 
@@ -2342,6 +2383,7 @@ LIBSBML_EXTERN
 long
 ASTNode_getInteger (const ASTNode_t *node)
 {
+  if (node == NULL) return LONG_MAX;
   return static_cast<const ASTNode*>(node)->getInteger();
 }
 
@@ -2355,6 +2397,7 @@ LIBSBML_EXTERN
 const char *
 ASTNode_getName (const ASTNode_t *node)
 {
+  if (node == NULL) return NULL;
   return static_cast<const ASTNode*>(node)->getName();
 }
 
@@ -2367,6 +2410,7 @@ LIBSBML_EXTERN
 long
 ASTNode_getNumerator (const ASTNode_t *node)
 {
+  if (node == NULL) return LONG_MAX;
   return static_cast<const ASTNode*>(node)->getNumerator();
 }
 
@@ -2379,6 +2423,7 @@ LIBSBML_EXTERN
 long
 ASTNode_getDenominator (const ASTNode_t *node)
 {
+  if (node == NULL) return LONG_MAX;
   return static_cast<const ASTNode*>(node)->getDenominator();
 }
 
@@ -2395,6 +2440,7 @@ LIBSBML_EXTERN
 double
 ASTNode_getReal (const ASTNode_t *node)
 {
+  if (node == NULL) return util_NaN();
   return static_cast<const ASTNode*>(node)->getReal();
 }
 
@@ -2408,6 +2454,7 @@ LIBSBML_EXTERN
 double
 ASTNode_getMantissa (const ASTNode_t *node)
 {
+  if (node == NULL) return numeric_limits<double>::quiet_NaN();
   return static_cast<const ASTNode*>(node)->getMantissa();
 }
 
@@ -2420,6 +2467,7 @@ LIBSBML_EXTERN
 long
 ASTNode_getExponent (const ASTNode_t *node)
 {
+  if (node == NULL) return LONG_MAX;
   return static_cast<const ASTNode*>(node)->getExponent();
 }
 
@@ -2432,6 +2480,7 @@ LIBSBML_EXTERN
 int
 ASTNode_getPrecedence (const ASTNode_t *node)
 {
+  if (node == NULL) return 6; // default precedence
   return static_cast<const ASTNode*>(node)->getPrecedence();
 }
 
@@ -2443,6 +2492,7 @@ LIBSBML_EXTERN
 ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node)
 {
+  if (node == NULL) return AST_UNKNOWN;
   return static_cast<const ASTNode*>(node)->getType();
 }
 
@@ -2458,6 +2508,7 @@ LIBSBML_EXTERN
 const char *
 ASTNode_getUnits(const ASTNode_t * node)
 {
+  if (node == NULL) return NULL;
   return safe_strdup(node->getUnits().c_str());
 }
 
@@ -2471,6 +2522,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isBoolean (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isBoolean();
 }
 
@@ -2483,6 +2535,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isConstant (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isConstant();
 }
 
@@ -2496,6 +2549,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isFunction (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isFunction();
 }
 
@@ -2508,6 +2562,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isInfinity (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return static_cast<int>( node->isInfinity() );
 }
 
@@ -2520,6 +2575,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isInteger (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isInteger();
 }
 
@@ -2532,6 +2588,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isLambda (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isLambda();
 }
 
@@ -2547,6 +2604,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isLog10 (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isLog10();
 }
 
@@ -2559,6 +2617,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isLogical (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isLogical();
 }
 
@@ -2572,6 +2631,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isName (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isName();
 }
 
@@ -2584,6 +2644,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isNaN (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return static_cast<int>( node->isNaN() );
 }
 
@@ -2596,6 +2657,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isNegInfinity (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return static_cast<int>( node->isNegInfinity() );
 }
 
@@ -2612,6 +2674,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isNumber (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isNumber();
 }
 
@@ -2624,6 +2687,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isOperator (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isOperator();
 }
 
@@ -2636,6 +2700,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isPiecewise (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return static_cast<int>( node->isPiecewise() );
 }
 
@@ -2648,6 +2713,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isRational (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isRational();
 }
 
@@ -2663,6 +2729,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isReal (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isReal();
 }
 
@@ -2675,6 +2742,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isRelational (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isRelational();
 }
 
@@ -2690,6 +2758,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isSqrt (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isSqrt();
 }
 
@@ -2710,6 +2779,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isUMinus (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isUMinus();
 }
 
@@ -2722,6 +2792,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isUnknown (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isUnknown();
 }
 
@@ -2737,6 +2808,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isSetUnits (const ASTNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return static_cast<int>(node->isSetUnits());
 }
 
@@ -2752,6 +2824,7 @@ LIBSBML_EXTERN
 int
 ASTNode_hasUnits (const ASTNode_t *node)
 {
+  if (node == NULL) return (int)false;
   return static_cast<int>(node->hasUnits());
 }
 
@@ -2766,11 +2839,13 @@ ASTNode_hasUnits (const ASTNode_t *node)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setCharacter (ASTNode_t *node, char value)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setCharacter(value);
 }
 
@@ -2788,11 +2863,13 @@ ASTNode_setCharacter (ASTNode_t *node, char value)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setName (ASTNode_t *node, const char *name)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setName(name);
 }
 
@@ -2806,11 +2883,13 @@ ASTNode_setName (ASTNode_t *node, const char *name)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setInteger (ASTNode_t *node, long value)
 {
+  if(node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setValue(value);
 }
 
@@ -2824,11 +2903,13 @@ ASTNode_setInteger (ASTNode_t *node, long value)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setRational (ASTNode_t *node, long numerator, long denominator)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setValue(numerator, denominator);
 }
 
@@ -2846,11 +2927,13 @@ ASTNode_setRational (ASTNode_t *node, long numerator, long denominator)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setReal (ASTNode_t *node, double value)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setValue(value);
 }
 
@@ -2864,11 +2947,13 @@ ASTNode_setReal (ASTNode_t *node, double value)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setValue(mantissa, exponent);
 }
 
@@ -2882,11 +2967,13 @@ ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setType (ASTNode_t *node, ASTNodeType_t type)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setType(type);
 }
 
@@ -2907,11 +2994,13 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  * @li LIBSBML_INVALID_ATTRIBUTE_VALUE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setUnits (ASTNode_t *node, const char *units)
 {
+  if (node == NULL ) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->setUnits(units);
 }
 
@@ -2926,11 +3015,13 @@ ASTNode_setUnits (ASTNode_t *node, const char *units)
  * enumeration #OperationReturnValues_t.  @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)
                          ->swapChildren( static_cast<ASTNode*>(that) );
 }
@@ -2946,11 +3037,13 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_UNEXPECTED_ATTRIBUTE
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_unsetUnits (ASTNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return static_cast<ASTNode*>(node)->unsetUnits();
 }
 
@@ -2969,6 +3062,7 @@ LIBSBML_EXTERN
 void
 ASTNode_replaceArgument(ASTNode_t* node, const char * bvar, ASTNode_t* arg)
 {
+  if (node == NULL) return ;
   static_cast<ASTNode*>(node)->replaceArgument(bvar, 
                                                   static_cast<ASTNode*>(arg));
 }
@@ -2984,6 +3078,7 @@ LIBSBML_EXTERN
 void
 ASTNode_reduceToBinary(ASTNode_t* node)
 {
+  if (node == NULL) return;
   static_cast<ASTNode*>(node)->reduceToBinary();
 }
 
@@ -2998,6 +3093,7 @@ LIBSBML_EXTERN
 SBase_t * 
 ASTNode_getParentSBMLObject(ASTNode_t* node)
 {
+  if (node == NULL) return NULL;
   return node->getParentSBMLObject();
 }
 
@@ -3013,6 +3109,7 @@ ASTNode_getParentSBMLObject(ASTNode_t* node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note removing a child from an ASTNode may result in an
  * inaccurate representation.
@@ -3021,6 +3118,7 @@ LIBSBML_EXTERN
 int
 ASTNode_removeChild(ASTNode_t* node, unsigned int n)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeChild(n);
 }
 
@@ -3046,6 +3144,7 @@ LIBSBML_EXTERN
 int
 ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->replaceChild(n, newChild);
 }
 
@@ -3063,6 +3162,7 @@ ASTNode_replaceChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note inserting a child within an ASTNode may result in an
  * inaccurate representation.
@@ -3071,6 +3171,7 @@ LIBSBML_EXTERN
 int
 ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->insertChild(n, newChild);
 }
 
@@ -3086,11 +3187,13 @@ ASTNode_insertChild(ASTNode_t* node, unsigned int n, ASTNode_t * newChild)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_addSemanticsAnnotation(ASTNode_t* node, XMLNode_t * annotation)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addSemanticsAnnotation(annotation);
 }
 
@@ -3105,6 +3208,7 @@ LIBSBML_EXTERN
 unsigned int
 ASTNode_getNumSemanticsAnnotations(ASTNode_t* node)
 {
+  if (node == NULL) return SBML_INT_MAX;
   return node->getNumSemanticsAnnotations();
 }
 
@@ -3121,6 +3225,7 @@ LIBSBML_EXTERN
 XMLNode_t *
 ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n)
 {
+  if (node == NULL) return NULL;
   return node->getSemanticsAnnotation(n);
 }
 /**
@@ -3138,11 +3243,13 @@ ASTNode_getSemanticsAnnotation(ASTNode_t* node, unsigned int n)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBSBML_EXTERN
 int
 ASTNode_setUserData(ASTNode_t* node, void *userData)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->setUserData(userData);
 }
 
@@ -3157,6 +3264,7 @@ ASTNode_setUserData(ASTNode_t* node, void *userData)
 LIBSBML_EXTERN
 void *ASTNode_getUserData(ASTNode_t* node)
 {
+  if (node == NULL) return NULL;
   return node->getUserData();
 }
 
@@ -3180,6 +3288,7 @@ LIBSBML_EXTERN
 int
 ASTNode_hasCorrectNumberArguments(ASTNode_t* node)
 {
+  if (node == NULL) return (int)false;
   return static_cast <int> (node->hasCorrectNumberArguments());
 }
 
@@ -3201,6 +3310,7 @@ LIBSBML_EXTERN
 int
 ASTNode_isWellFormedASTNode(ASTNode_t* node)
 {
+  if (node == NULL) return (int) false;
   return static_cast <int> (node->isWellFormedASTNode());
 }
 

@@ -29,6 +29,13 @@
 #include <sbml/util/memory.h>
 #include <sbml/common/extern.h>
 
+#if WIN32 && !defined(CYGWIN)
+#include <math.h>
+int isnan(double x) { return x != x; }
+int isinf(double x) { return !isnan(x) && isnan(x - x); }
+int finite(double x) { return !isinf(x) && !isnan(x); }
+#endif
+
 
 /**
  * Test suite creation function prototypes.
