@@ -290,6 +290,10 @@ public:
    * to set the values to certain common defaults, based mostly on what
    * they are in SBML Level&nbsp;2.  In the case of Parameter, this method
    * only sets the value of the "constant" attribute to @c true.
+   *
+   * @see getConstant()
+   * @see isSetConstant()
+   * @see setConstant(@if java boolean flag@endif)
    */
   void initDefaults ();
 
@@ -355,6 +359,20 @@ public:
    * 
    * @return @c true if this Parameter has been declared as being constant,
    * @c false otherwise.
+   *
+   * @note Readers who view the documentation for LocalParameter may be
+   * confused about the presence of this method.  LibSBML derives
+   * LocalParameter from Parameter; however, this does not precisely match
+   * the object hierarchy defined by SBML Level&nbsp;3, where
+   * LocalParameter is derived directly from SBase and not Parameter.  We
+   * believe this arrangement makes it easier for libSBML users to program
+   * applications that work with both SBML Level&nbsp;2 and SBML
+   * Level&nbsp;3, but programmers should also keep in mind this difference
+   * exists.  A side-effect of libSBML's scheme is that certain methods on
+   * LocalParameter that are inherited from Parameter do not actually have
+   * relevance to LocalParameter objects.  An example of this is the
+   * methods pertaining to Parameter's attribute "constant" (i.e.,
+   * isSetConstant(), setConstant(), and getConstant()).
    *
    * @see isSetConstant()
    * @see setConstant(@if java boolean flag@endif)
@@ -427,6 +445,23 @@ public:
    *
    * @return @c true if the "constant" attribute of this Parameter has been
    * set, @c false otherwise.
+   *
+   * @note Readers who view the documentation for LocalParameter may be
+   * confused about the presence of this method.  LibSBML derives
+   * LocalParameter from Parameter; however, this does not precisely match
+   * the object hierarchy defined by SBML Level&nbsp;3, where
+   * LocalParameter is derived directly from SBase and not Parameter.  We
+   * believe this arrangement makes it easier for libSBML users to program
+   * applications that work with both SBML Level&nbsp;2 and SBML
+   * Level&nbsp;3, but programmers should also keep in mind this difference
+   * exists.  A side-effect of libSBML's scheme is that certain methods on
+   * LocalParameter that are inherited from Parameter do not actually have
+   * relevance to LocalParameter objects.  An example of this is the
+   * methods pertaining to Parameter's attribute "constant" (i.e.,
+   * isSetConstant(), setConstant(), and getConstant()).
+   *
+   * @see getConstant()
+   * @see setConstant(@if java boolean flag@endif)
    */
   bool isSetConstant () const;
 
@@ -505,6 +540,23 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
+   *
+   * @note Readers who view the documentation for LocalParameter may be
+   * confused about the presence of this method.  LibSBML derives
+   * LocalParameter from Parameter; however, this does not precisely match
+   * the object hierarchy defined by SBML Level&nbsp;3, where
+   * LocalParameter is derived directly from SBase and not Parameter.  We
+   * believe this arrangement makes it easier for libSBML users to program
+   * applications that work with both SBML Level&nbsp;2 and SBML
+   * Level&nbsp;3, but programmers should also keep in mind this difference
+   * exists.  A side-effect of libSBML's scheme is that certain methods on
+   * LocalParameter that are inherited from Parameter do not actually have
+   * relevance to LocalParameter objects.  An example of this is the
+   * methods pertaining to Parameter's attribute "constant" (i.e.,
+   * isSetConstant(), setConstant(), and getConstant()).
+   *
+   * @see getConstant()
+   * @see isSetConstant()
    */
   int setConstant (bool flag);
 
