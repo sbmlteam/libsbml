@@ -327,14 +327,14 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
   UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
   ASTNode *node = new ASTNode(AST_FUNCTION_PIECEWISE);
 
-  ud1 == uff->getUnitDefinition(node);
+  ud1 = uff->getUnitDefinition(node);
 
   fail_unless (ud1->getNumUnits() == 0);
 
   ASTNode *c = new ASTNode(AST_UNKNOWN);
   node->addChild(c);
   
-  ud1 == uff->getUnitDefinition(node);
+  ud1 = uff->getUnitDefinition(node);
 
   fail_unless (ud1->getNumUnits() == 0);
 

@@ -570,7 +570,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
   }
 
   delete tempUD;
-  if (tempUD2)
+  if (tempUD2 != NULL)
     delete tempUD2;
 
   return ud;
@@ -705,7 +705,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
   }
 
   delete tempUD;
-  if (tempUD2)
+  if (tempUD2 != NULL)
     delete tempUD2;
 
   return ud;
@@ -948,7 +948,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
           kl = model->getReaction(reactNo)->getKineticLaw();
           ud = getUnitDefinitionFromParameter(
                                            kl->getParameter(node->getName()));
-          if (ud)
+          if (ud != NULL)
           {
             found = 1;
           }
@@ -958,7 +958,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       {
         ud = getUnitDefinitionFromCompartment(
                                       model->getCompartment(node->getName()));
-        if (ud)
+        if (ud != NULL)
         {
           found = 1;
         }
@@ -968,7 +968,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       {
         ud = getUnitDefinitionFromSpecies(
                                           model->getSpecies(node->getName()));
-        if (ud)
+        if (ud != NULL)
         {
           found = 1;
         }
@@ -978,7 +978,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       {
         ud = getUnitDefinitionFromParameter(
                                        model->getParameter(node->getName()));
-        if (ud)
+        if (ud != NULL)
         {
           found = 1;
         }
@@ -1011,7 +1011,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
           // checked elsewhere
           /* check for builtin unit substance redefined */
           tempUd = model->getUnitDefinition("substance");
-          if (!tempUd) 
+          if (tempUd == NULL) 
           {
             unit = new Unit(model->getSBMLNamespaces());
             unit->setKind(UnitKind_forName("mole"));
@@ -1082,7 +1082,7 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromCompartment
                                              (const Compartment * compartment)
 {
-  if (!compartment)
+  if (compartment == NULL)
   {
     return NULL;
   }
@@ -1139,7 +1139,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         case 1: 
           /* check for builtin unit length redefined */
           tempUD = model->getUnitDefinition("length");
-          if (!tempUD) 
+          if (tempUD == NULL) 
           {
             unit = new Unit(model->getSBMLNamespaces());
             unit->setKind(UnitKind_forName("metre"));
@@ -1165,7 +1165,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         case 2:
           /* check for builtin unit area redefined */
           tempUD = model->getUnitDefinition("area");
-          if (!tempUD) 
+          if (tempUD == NULL) 
           {
             unit = new Unit(model->getSBMLNamespaces());
             unit->setKind(UnitKind_forName("metre"));
@@ -1192,7 +1192,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         case 3:
           /* check for builtin unit volume redefined */
           tempUD = model->getUnitDefinition("volume");
-          if (!tempUD) 
+          if (tempUD == NULL) 
           {
             unit = new Unit(model->getSBMLNamespaces());
             unit->setKind(UnitKind_forName("litre"));
@@ -1318,7 +1318,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 {
-  if (!species)
+  if (species == NULL)
   {
     return NULL;
   }
@@ -1352,7 +1352,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     {
       /* check for builtin unit substance redefined */
       tempUd = model->getUnitDefinition("substance");
-      if (!tempUd) 
+      if (tempUd == NULL) 
       {
         unit = new Unit(model->getSBMLNamespaces());
         unit->setKind(UnitKind_forName("mole"));
@@ -1601,7 +1601,7 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromParameter
                                                 (const Parameter * parameter)
 {
-  if (!parameter)
+  if (parameter == NULL)
   {
     return NULL;
   }
@@ -1730,7 +1730,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
 {
-  if (!event)
+  if (event == NULL)
   {
     return NULL;
   }
@@ -1933,7 +1933,7 @@ UnitFormulaFormatter::getExtentUnitDefinition()
 UnitDefinition * 
 UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
 {
-  if (!species)
+  if (species == NULL)
   {
     return NULL;
   }
@@ -1963,7 +1963,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
     {
       /* check for builtin unit substance redefined */
       tempUd = model->getUnitDefinition("substance");
-      if (!tempUd) 
+      if (tempUd == NULL) 
       {
         unit = new Unit(model->getSBMLNamespaces());
         unit->setKind(UnitKind_forName("mole"));
@@ -2073,7 +2073,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
 UnitDefinition * 
 UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
 {
-  if (!species)
+  if (species == NULL)
   {
     return NULL;
   }
@@ -2085,7 +2085,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
 
   /* get model extent - if there is none then species has none */
   UnitDefinition * modelExtent = getExtentUnitDefinition();
-  if (!modelExtent || modelExtent->getNumUnits() == 0)
+  if (modelExtent == NULL || modelExtent->getNumUnits() == 0)
   {
     ud = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;
@@ -2107,7 +2107,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
       model->getParameter(model->getConversionFactor()));
   }
     
-  if (!conversion || conversion->getNumUnits() == 0)
+  if (conversion == NULL || conversion->getNumUnits() == 0)
   {
     ud = new UnitDefinition(model->getSBMLNamespaces());
     mContainsUndeclaredUnits = true;
