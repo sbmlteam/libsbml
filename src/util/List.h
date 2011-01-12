@@ -79,7 +79,7 @@ typedef class ListNode ListNode_t;
 class ListNode
 {
 public:
-  ListNode (void* x): item(x), next(0) { }
+  ListNode (void* x): item(x), next(NULL) { }
 
   void*      item;
   ListNode*  next;
