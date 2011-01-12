@@ -42,6 +42,7 @@
 
 
 #include <sbml/common/extern.h>
+#include <string.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
