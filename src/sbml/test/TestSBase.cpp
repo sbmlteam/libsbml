@@ -2102,6 +2102,122 @@ START_TEST(test_SBase_appendNotesWithGlobalNamespace)
 }
 END_TEST
 
+START_TEST(test_SBase_hasValidLevelVersionNamespaceCombination)
+{
+
+	Species *species = new Species(3, 1);
+	// should be valid from start
+	fail_unless(species->hasValidLevelVersionNamespaceCombination() == true);
+	delete species;
+
+	XMLNamespaces invalidNamespaces;
+	species = new Species(3, 1);
+	species->setNamespaces( &invalidNamespaces );
+
+	// libsbml actually allows an undeclared SBML namespace
+	//// sbml namespace missing
+    //fail_unless(species->hasValidLevelVersionNamespaceCombination() == false);
+
+
+	// hasValidLevelVersionNamespaceCombination actually would allow for the two 
+	// namespaces defined if they had an empty prefix!
+
+	// wrong level / version combination
+	invalidNamespaces.add(SBMLNamespaces::getSBMLNamespaceURI(2, 3), "sbml23");
+    species->setNamespaces( &invalidNamespaces);
+	fail_unless(species->hasValidLevelVersionNamespaceCombination() == false);
+
+	// multiple SBML namespaces
+	invalidNamespaces.add(SBMLNamespaces::getSBMLNamespaceURI(3, 1), "sbml31");
+	species->setNamespaces( &invalidNamespaces );
+	fail_unless(species->hasValidLevelVersionNamespaceCombination() == false);
+
+	// now all should be well
+	invalidNamespaces.clear();
+	invalidNamespaces.add(SBMLNamespaces::getSBMLNamespaceURI(3, 1), "sbml31");
+	species->setNamespaces( &invalidNamespaces );
+	fail_unless(species->hasValidLevelVersionNamespaceCombination() == true);
+	delete species;
+}
+END_TEST
+
+START_TEST(test_SBase_addCVTerms_num_check)
+{
+  // test model  qualifiers
+	for (int i = (int)BQM_IS; i<(int)BQM_UNKNOWN; i++)
+	{		
+    CVTerm *term1 = new CVTerm();
+    term1->setQualifierType(MODEL_QUALIFIER);
+    term1->setModelQualifierType((ModelQualifierType_t)i);
+    term1->addResource("http://myresource1");
+    
+    CVTerm *term2 = new CVTerm();
+    term2->setQualifierType(MODEL_QUALIFIER);
+    term2->setModelQualifierType((ModelQualifierType_t)i);
+    term2->addResource("http://myresource2");		
+    
+    Species *species = new Species(3, 1);
+    species->setMetaId("meta1");
+    
+    fail_unless (species->addCVTerm(term1, false) == LIBSBML_OPERATION_SUCCESS);
+    fail_unless (species->getNumCVTerms() == 1);
+    
+    // add term 2 (should be merged with term 1)
+    fail_unless (species->addCVTerm(term2, false) == LIBSBML_OPERATION_SUCCESS);		
+    fail_unless (species->getNumCVTerms() == 1);
+    
+    species->getCVTerm(0)->removeResource(term2->getResourceURI(0));
+    
+    // add term 2 (added as separate bag)
+    fail_unless (species->addCVTerm(term2, true) == LIBSBML_OPERATION_SUCCESS);		
+    fail_unless (species->getNumCVTerms() == 2);
+    
+    delete term1; 
+    delete term2; 
+    delete species;
+
+	}
+
+  // test biol qualifiers
+
+  for (int i = (int)BQB_IS; i<(int)BQB_UNKNOWN; i++)
+	{
+    CVTerm *term1 = new CVTerm();
+    term1->setQualifierType(BIOLOGICAL_QUALIFIER);
+    term1->setBiologicalQualifierType((BiolQualifierType_t)i);
+    term1->addResource("http://myresource1");
+    
+    CVTerm *term2 = new CVTerm();
+    term2->setQualifierType(BIOLOGICAL_QUALIFIER);
+    term2->setBiologicalQualifierType((BiolQualifierType_t)i);
+    term2->addResource("http://myresource2");		
+    
+    Species *species = new Species(3, 1);
+    species->setMetaId("meta1");
+    
+    fail_unless (species->addCVTerm(term1, false) == LIBSBML_OPERATION_SUCCESS);
+    fail_unless (species->getNumCVTerms() == 1);
+    
+    // add term 2 (should be merged with term 1)
+    fail_unless (species->addCVTerm(term2, false) == LIBSBML_OPERATION_SUCCESS);		
+    fail_unless (species->getNumCVTerms() == 1);
+    
+    species->getCVTerm(0)->removeResource(term2->getResourceURI(0));
+    
+    // add term 2 (added as separate bag)
+    fail_unless (species->addCVTerm(term2, true) == LIBSBML_OPERATION_SUCCESS);		
+    fail_unless (species->getNumCVTerms() == 2);
+    
+    delete term1; 
+    delete term2; 
+    delete species;
+
+	}
+
+
+}
+END_TEST
+
 Suite *
 create_suite_SBase (void)
 {
@@ -2141,6 +2257,7 @@ create_suite_SBase (void)
 
   tcase_add_test(tcase, test_SBase_CVTerms );
   tcase_add_test(tcase, test_SBase_addCVTerms );
+  tcase_add_test(tcase, test_SBase_addCVTerms_num_check );
   tcase_add_test(tcase, test_SBase_unsetCVTerms );
   tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
 

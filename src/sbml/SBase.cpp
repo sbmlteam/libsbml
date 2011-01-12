@@ -2288,7 +2288,7 @@ SBase::addCVTerm(CVTerm * term, bool newBag)
       {
         BiolQualifierType_t biol = copyTerm->getBiologicalQualifierType();
         
-        for (unsigned int n = mCVTerms->getSize()-1; n > 0 && added == 0; n--)
+        for (int n = (int)(mCVTerms->getSize())-1; n >= 0 && added == 0; n--)
         {
           if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
           {
