@@ -448,6 +448,17 @@ START_TEST (test_FormulaTokenizer_unknown)
 }
 END_TEST
 
+START_TEST (test_FormulaTokenizer_accessWithNULL)
+{
+  
+  fail_unless( FormulaTokenizer_createFromFormula(NULL) == NULL );
+
+  FormulaTokenizer_free(NULL);
+
+  fail_unless( FormulaTokenizer_nextToken(NULL) == NULL );
+
+}
+END_TEST
 
 Suite *
 create_suite_FormulaTokenizer (void) 
@@ -471,6 +482,7 @@ create_suite_FormulaTokenizer (void)
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_nan_inf );
   tcase_add_test( tcase, test_FormulaTokenizer_unknown         );
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_locale  );
+  tcase_add_test( tcase, test_FormulaTokenizer_accessWithNULL  );
 
   suite_add_tcase(suite, tcase);
 

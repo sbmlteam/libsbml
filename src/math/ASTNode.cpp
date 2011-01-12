@@ -2313,7 +2313,7 @@ LIBSBML_EXTERN
 unsigned int
 ASTNode_getNumChildren (const ASTNode_t *node)
 {
-  if (node == NULL) return SBML_INT_MAX;
+  if (node == NULL) return 0;
   return static_cast<const ASTNode*>(node)->getNumChildren();
 }
 
@@ -3208,7 +3208,7 @@ LIBSBML_EXTERN
 unsigned int
 ASTNode_getNumSemanticsAnnotations(ASTNode_t* node)
 {
-  if (node == NULL) return SBML_INT_MAX;
+  if (node == NULL) return 0;
   return node->getNumSemanticsAnnotations();
 }
 

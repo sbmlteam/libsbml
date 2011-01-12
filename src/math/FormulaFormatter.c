@@ -191,6 +191,8 @@ FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child)
 void
 FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node)
 {
+  if (sb == NULL) return;
+
   if (ASTNode_isOperator(node))
   {
     FormulaFormatter_formatOperator(sb, node);
@@ -354,7 +356,6 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
                          const ASTNode_t *node,
                          StringBuffer_t  *sb )
 {
-
   if (ASTNode_isLog10(node))
   {
     FormulaFormatter_visitLog10(parent, node, sb);

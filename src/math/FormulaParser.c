@@ -357,9 +357,15 @@ SBML_parseFormula (const char *formula)
 
   ASTNode_t *node = NULL;
 
-  FormulaTokenizer_t *tokenizer = FormulaTokenizer_createFromFormula(formula);
-  Token_t            *token     = FormulaTokenizer_nextToken(tokenizer);
-  Stack_t            *stack     = Stack_create(20);
+  FormulaTokenizer_t *tokenizer = NULL; 
+  Stack_t            *stack     = NULL;
+  Token_t            *token     = NULL;
+
+  if (formula == NULL) return NULL;
+  
+  tokenizer = FormulaTokenizer_createFromFormula(formula);
+  token     = FormulaTokenizer_nextToken(tokenizer);
+  stack     = Stack_create(20);
 
 
   Stack_push(stack, (void *) START_STATE);
@@ -441,7 +447,8 @@ FormulaParser_getAction (long state, Token_t *token)
   long result = ERROR_STATE;
   long n, max;
 
-
+  if (token == NULL) return ERROR_STATE;
+  
   n   = FormulaParser_getActionOffset(token->type);
   max = FormulaParser_getActionLength(token->type) + n;
 

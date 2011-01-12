@@ -2189,9 +2189,9 @@ START_TEST (test_ASTNode_accessWithNULL)
   fail_unless( ASTNode_getListOfNodes (NULL, NULL) == NULL);
   fail_unless( isnan(ASTNode_getMantissa (NULL)) );
   fail_unless( ASTNode_getName (NULL) == NULL);
-  fail_unless( ASTNode_getNumChildren (NULL) == SBML_INT_MAX);
+  fail_unless( ASTNode_getNumChildren (NULL) == 0);
   fail_unless( ASTNode_getNumerator (NULL) == LONG_MAX);
-  fail_unless( ASTNode_getNumSemanticsAnnotations (NULL) == SBML_INT_MAX);
+  fail_unless( ASTNode_getNumSemanticsAnnotations (NULL) == 0);
   fail_unless( ASTNode_getParentSBMLObject (NULL) == NULL);
   fail_unless( ASTNode_getPrecedence (NULL) == 6);
   fail_unless( isnan(ASTNode_getReal (NULL)));

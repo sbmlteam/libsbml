@@ -620,6 +620,29 @@ START_TEST (test_SBML_formulaToString_L2toL1)
 }
 END_TEST
 
+START_TEST (test_FormulaFormatter_accessWithNULL)
+{
+
+  // ensure we survive NULL arguments
+  FormulaFormatter_format(NULL, NULL);
+  FormulaFormatter_formatFunction(NULL, NULL);
+  FormulaFormatter_formatOperator(NULL, NULL);
+  FormulaFormatter_formatRational(NULL, NULL);
+  FormulaFormatter_formatReal(NULL, NULL);
+  FormulaFormatter_visit(NULL, NULL, NULL);
+  FormulaFormatter_visitFunction(NULL, NULL, NULL);
+  FormulaFormatter_visitLog10(NULL, NULL, NULL);
+  FormulaFormatter_visitOther(NULL, NULL, NULL);
+  FormulaFormatter_visitSqrt(NULL, NULL, NULL);
+  FormulaFormatter_visitUMinus(NULL, NULL, NULL);
+
+  fail_unless( FormulaFormatter_isFunction(NULL) == 0 );
+  fail_unless( FormulaFormatter_isGrouped(NULL, NULL) == 0 );
+  fail_unless( SBML_formulaToString(NULL) == NULL );
+  
+}
+END_TEST
+
 
 Suite *
 create_suite_FormulaFormatter (void) 
@@ -632,6 +655,7 @@ create_suite_FormulaFormatter (void)
   tcase_add_test( tcase, test_FormulaFormatter_isGrouped      );
   tcase_add_test( tcase, test_FormulaFormatter_formatRational );
   tcase_add_test( tcase, test_FormulaFormatter_formatReal     );
+  tcase_add_test( tcase, test_FormulaFormatter_accessWithNULL );
   tcase_add_test( tcase, test_SBML_formulaToString            );
   tcase_add_test( tcase, test_SBML_formulaToString_L1toL1     );
   tcase_add_test( tcase, test_SBML_formulaToString_L2toL1     );
