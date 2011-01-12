@@ -118,6 +118,8 @@ LIBSBML_EXTERN
 void
 Stack_push (Stack_t *s, void *item)
 {
+  if (s == NULL) return; 
+
   if (Stack_size(s) == s->capacity)
   {
     s->capacity *= 2;
@@ -137,6 +139,7 @@ LIBSBML_EXTERN
 void *
 Stack_pop (Stack_t *s)
 {
+  if (s == NULL) return NULL;
   return s->stack[ (s->sp)-- ];
 }
 
@@ -151,7 +154,7 @@ Stack_pop (Stack_t *s)
 void *
 Stack_popN (Stack_t *s, unsigned int n)
 {
-  if (n == 0 || s->sp == -1) return NULL;
+  if (n == 0 || s == NULL || s->sp == -1) return NULL;
 
   s->sp -= n;
 
@@ -171,6 +174,7 @@ LIBSBML_EXTERN
 void *
 Stack_peek (Stack_t *s)
 {
+  if (s == NULL) return NULL;
   return s->stack[ s->sp ];
 }
 
@@ -186,6 +190,7 @@ Stack_peekAt (Stack_t *s, int n)
 {
   int size = Stack_size(s);
 
+  if (s == NULL) return NULL;
 
   if (n < 0 || n >= size)
   {
@@ -204,6 +209,7 @@ LIBSBML_EXTERN
 int
 Stack_size (Stack_t *s)
 {
+  if (s == NULL) return 0;
   return s->sp + 1;
 }
 
@@ -216,6 +222,7 @@ LIBSBML_EXTERN
 int
 Stack_capacity (Stack_t *s)
 {
+  if (s == NULL) return 0;
   return s->capacity;
 }
 

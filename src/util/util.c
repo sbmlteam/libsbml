@@ -120,9 +120,15 @@ LIBSBML_EXTERN
 FILE *
 safe_fopen (const char *filename, const char *mode)
 {
-  const char *format  = "%s: error: Could not open file '%s' for %s.\n";
-  const char *modestr = strcmp(mode, "r") ? "writing" : "reading";
-  FILE       *fp      = fopen(filename, mode);
+  const char *format;
+  const char *modestr;
+  FILE       *fp;
+
+  if (filename == NULL || mode == NULL) return NULL;
+
+  format  = "%s: error: Could not open file '%s' for %s.\n";
+  modestr = strcmp(mode, "r") ? "writing" : "reading";
+  fp      = fopen(filename, mode);
 
 
   if (fp == (FILE *) NULL)
@@ -146,9 +152,15 @@ LIBSBML_EXTERN
 char *
 safe_strcat (const char *str1, const char *str2)
 {
-  int  len1    = strlen(str1);
-  int  len2    = strlen(str2);
-  char *concat = (char *) safe_malloc( len1 + len2 + 1 );
+  int  len1;
+  int  len2;
+  char *concat;
+  
+  if (str1 == NULL || str2 == NULL) return NULL;
+  
+  len1    = strlen(str1);
+  len2    = strlen(str2);
+  concat = (char *) safe_malloc( len1 + len2 + 1 );
 
 
   strncpy(concat, str1, len1 + 1);
@@ -167,8 +179,13 @@ LIBSBML_EXTERN
 char *
 safe_strdup (const char* s)
 {
-  size_t  size      = strlen(s) + 1;
-  char   *duplicate = (char *) safe_malloc(size * sizeof(char));
+  size_t  size;
+  char   *duplicate;
+  
+  if (s == NULL) return NULL;
+  
+  size      = strlen(s) + 1;
+  duplicate = (char *) safe_malloc(size * sizeof(char));
 
 
   strncpy(duplicate, s, size);
@@ -233,7 +250,7 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
   int result = hi + 1;
 
 
-  if (s == NULL) return result;
+  if (s == NULL || strings == NULL) return result;
 
   while (lo <= hi)
   {
@@ -271,6 +288,7 @@ util_file_exists (const char *filename)
 #endif
 
   struct stat buf;
+  if (filename == NULL) return 0;
   return stat(filename, &buf) == 0;
 }
 

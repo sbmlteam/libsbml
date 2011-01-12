@@ -332,6 +332,22 @@ START_TEST (test_util_isInf)
 }
 END_TEST
 
+START_TEST (test_util_accessWithNULL)
+{
+  fail_unless ( util_bsearchStringsI(NULL, NULL, 0, 0) == 1 );
+  fail_unless ( util_file_exists(NULL) == 0 );
+
+  util_free(NULL);
+
+  fail_unless ( util_trim(NULL) == NULL );
+  fail_unless ( util_trim_in_place(NULL) == NULL );
+
+  fail_unless ( safe_fopen(NULL, NULL) == NULL );
+  fail_unless ( safe_strcat(NULL, NULL) == NULL );
+  fail_unless ( safe_strdup(NULL) == NULL );
+
+}
+END_TEST
 
 Suite *
 create_suite_util (void) 
@@ -352,6 +368,7 @@ create_suite_util (void)
   tcase_add_test( tcase, test_util_PosInf             );
   tcase_add_test( tcase, test_util_NegZero            );
   tcase_add_test( tcase, test_util_isInf              );
+  tcase_add_test( tcase, test_util_accessWithNULL     );
 
   suite_add_tcase(suite, tcase);
 

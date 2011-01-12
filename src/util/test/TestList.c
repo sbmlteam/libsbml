@@ -403,6 +403,28 @@ START_TEST (test_List_freeItems)
 }
 END_TEST
 
+START_TEST (test_List_accessWithNULL)
+{
+
+  // test null arguments
+  List_add (NULL, NULL);
+  
+  fail_unless( List_countIf (NULL, NULL) == 0 );
+  fail_unless( List_find (NULL, NULL, NULL) == NULL );
+  fail_unless( List_findIf (NULL, NULL) == NULL );
+  
+  List_free(NULL);
+
+  fail_unless( List_get (NULL, 0) == NULL );
+
+  List_prepend(NULL, NULL);
+
+  fail_unless( List_remove (NULL, 0) == NULL );
+  fail_unless( List_size (NULL) == 0 );
+
+}
+END_TEST
+
 
 Suite *
 create_suite_List (void)
@@ -413,22 +435,23 @@ create_suite_List (void)
 
   tcase_add_checked_fixture(tcase, ListTest_setup, ListTest_teardown);
 
-  tcase_add_test( tcase, test_List_create     );
-  tcase_add_test( tcase, test_List_free_NULL  );
-  tcase_add_test( tcase, test_ListNode_create );
-  tcase_add_test( tcase, test_List_add_1      );
-  tcase_add_test( tcase, test_List_add_2      );
-  tcase_add_test( tcase, test_List_get        );
-  tcase_add_test( tcase, test_List_countIf    );
-  tcase_add_test( tcase, test_List_findIf     );
-  tcase_add_test( tcase, test_List_find       );
-  tcase_add_test( tcase, test_List_prepend_1  );
-  tcase_add_test( tcase, test_List_prepend_2  );
-  tcase_add_test( tcase, test_List_remove_1   );
-  tcase_add_test( tcase, test_List_remove_2   );
-  tcase_add_test( tcase, test_List_remove_3   );
-  tcase_add_test( tcase, test_List_remove_4   );
-  tcase_add_test( tcase, test_List_freeItems  );
+  tcase_add_test( tcase, test_List_create         );
+  tcase_add_test( tcase, test_List_free_NULL      );
+  tcase_add_test( tcase, test_ListNode_create     );
+  tcase_add_test( tcase, test_List_add_1          );
+  tcase_add_test( tcase, test_List_add_2          );
+  tcase_add_test( tcase, test_List_get            );
+  tcase_add_test( tcase, test_List_countIf        );
+  tcase_add_test( tcase, test_List_findIf         );
+  tcase_add_test( tcase, test_List_find           );
+  tcase_add_test( tcase, test_List_prepend_1      );
+  tcase_add_test( tcase, test_List_prepend_2      );
+  tcase_add_test( tcase, test_List_remove_1       );
+  tcase_add_test( tcase, test_List_remove_2       );
+  tcase_add_test( tcase, test_List_remove_3       );
+  tcase_add_test( tcase, test_List_remove_4       );
+  tcase_add_test( tcase, test_List_freeItems      );
+  tcase_add_test( tcase, test_List_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

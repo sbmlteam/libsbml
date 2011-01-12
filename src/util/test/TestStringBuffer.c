@@ -371,6 +371,31 @@ START_TEST (test_StringBuffer_toString)
 }
 END_TEST
 
+START_TEST (test_StringBuffer_accessWithNULL)
+{
+  StringBuffer_append(NULL, NULL);
+  StringBuffer_appendChar(NULL, ' ');
+  StringBuffer_appendExp(NULL, 0.0);
+  StringBuffer_appendInt(NULL, 0);
+  StringBuffer_appendNumber(NULL, NULL);
+  StringBuffer_appendReal(NULL, 0.0);
+  
+  fail_unless (StringBuffer_capacity(NULL) == 0);
+
+  StringBuffer_ensureCapacity(NULL, 0);
+  StringBuffer_free(NULL);
+
+  fail_unless (StringBuffer_getBuffer(NULL) == NULL);
+
+  StringBuffer_grow(NULL, 0);
+
+  fail_unless (StringBuffer_length(NULL) == 0);
+
+  StringBuffer_reset(NULL);
+
+  fail_unless (StringBuffer_toString(NULL) == NULL);
+}
+END_TEST
 
 Suite *
 create_suite_StringBuffer (void)
@@ -394,6 +419,7 @@ create_suite_StringBuffer (void)
   tcase_add_test( tcase, test_StringBuffer_appendChar_grow   );
   tcase_add_test( tcase, test_StringBuffer_reset             );
   tcase_add_test( tcase, test_StringBuffer_toString          );
+  tcase_add_test( tcase, test_StringBuffer_accessWithNULL    );
 
   suite_add_tcase(suite, tcase);
 

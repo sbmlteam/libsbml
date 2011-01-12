@@ -248,6 +248,25 @@ START_TEST (test_Stack_find)
 }
 END_TEST
 
+START_TEST (test_Stack_accessWithNULL)
+{
+  fail_unless ( Stack_capacity(NULL) == 0 );
+  fail_unless ( Stack_find(NULL, NULL) == -1 );
+
+  Stack_free(NULL);
+
+  fail_unless ( Stack_peek(NULL) == NULL );
+  fail_unless ( Stack_peekAt(NULL, 0) == NULL );
+  fail_unless ( Stack_pop(NULL) == NULL );
+  fail_unless ( Stack_popN(NULL, 0) == NULL );
+
+  Stack_push(NULL, NULL);
+
+  fail_unless ( Stack_size(NULL) == 0 );
+
+}
+END_TEST
+
 
 Suite *
 create_suite_Stack (void)
@@ -257,17 +276,18 @@ create_suite_Stack (void)
 
   tcase_add_checked_fixture(tcase, StackTest_setup, StackTest_teardown);
 
-  tcase_add_test( tcase, test_Stack_create    );
-  tcase_add_test( tcase, test_Stack_free_NULL );
-  tcase_add_test( tcase, test_Stack_push      );
-  tcase_add_test( tcase, test_Stack_pop       );
-  tcase_add_test( tcase, test_Stack_popN      );
-  tcase_add_test( tcase, test_Stack_peek      );
-  tcase_add_test( tcase, test_Stack_peekAt    );
-  tcase_add_test( tcase, test_Stack_size      );
-  tcase_add_test( tcase, test_Stack_capacity  );
-  tcase_add_test( tcase, test_Stack_grow      );
-  tcase_add_test( tcase, test_Stack_find      );
+  tcase_add_test( tcase, test_Stack_create         );
+  tcase_add_test( tcase, test_Stack_free_NULL      );
+  tcase_add_test( tcase, test_Stack_push           );
+  tcase_add_test( tcase, test_Stack_pop            );
+  tcase_add_test( tcase, test_Stack_popN           );
+  tcase_add_test( tcase, test_Stack_peek           );
+  tcase_add_test( tcase, test_Stack_peekAt         );
+  tcase_add_test( tcase, test_Stack_size           );
+  tcase_add_test( tcase, test_Stack_capacity       );
+  tcase_add_test( tcase, test_Stack_grow           );
+  tcase_add_test( tcase, test_Stack_find           );
+  tcase_add_test( tcase, test_Stack_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

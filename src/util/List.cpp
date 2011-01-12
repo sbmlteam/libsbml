@@ -21,6 +21,7 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#include <stdio.h>
 #include <sbml/util/List.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -30,8 +31,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 List::List ():
     size(0)
-  , head(0)
-  , tail(0)
+  , head(NULL)
+  , tail(NULL)
 {
 }
 
@@ -55,7 +56,7 @@ List::~List ()
 
   node = head;
 
-  while (node != 0)
+  while (node != NULL)
   {
     temp = node;
     node = node->next;
@@ -74,7 +75,7 @@ List::add (void *item)
   ListNode* node = new ListNode(item);
 
 
-  if (head == 0)
+  if (head == NULL)
   {
     head = node;
     tail = node;
@@ -106,8 +107,9 @@ List::countIf (ListItemPredicate predicate) const
   unsigned int count = 0;
   ListNode     *node = head;
 
+  if (predicate == NULL) return 0;
 
-  while (node != 0)
+  while (node != NULL)
   {
     if (predicate(node->item) != 0)
     {
@@ -137,11 +139,12 @@ List::countIf (ListItemPredicate predicate) const
 void *
 List::find (const void *item1, ListItemComparator comparator) const
 {
-  void     *item2  = 0;
+  void     *item2  = NULL;
   ListNode *node   = head;
 
+  if (comparator == NULL) return NULL;
 
-  while (node != 0)
+  while (node != NULL)
   {
     if (comparator(item1, node->item) == 0)
     {
@@ -168,11 +171,12 @@ List::find (const void *item1, ListItemComparator comparator) const
 List *
 List::findIf (ListItemPredicate predicate) const
 {
-  List     *result = new List();
+  List     *result = new List();  
   ListNode *node   = head;
 
+  if (predicate == NULL) return result;
 
-  while (node != 0)
+  while (node != NULL)
   {
     if (predicate(node->item) != 0)
     {
@@ -197,7 +201,7 @@ List::get (unsigned int n) const
 
   if (n >= size)
   {
-    return 0;
+    return NULL;
   }
 
   /**
@@ -230,7 +234,7 @@ List::prepend (void *item)
   ListNode* node = new ListNode(item);
 
 
-  if (head == 0)
+  if (head == NULL)
   {
     head = node;
     tail = node;
@@ -260,7 +264,7 @@ List::remove (unsigned int n)
 
   if (n >= size)
   {
-    return 0;
+    return NULL;
   }
 
   /**
@@ -268,7 +272,7 @@ List::remove (unsigned int n)
    * prev = node before temp (or NULL if temp == list->head)
    * next = node after  temp (or NULL if temp == list->tail)
    */
-  prev = 0;
+  prev = NULL;
   temp = head;
   next = temp->next;
 
@@ -364,6 +368,7 @@ LIBSBML_EXTERN
 void
 List_free (List_t *lst)
 {
+  if (lst == NULL) return;
   delete static_cast<List*>(lst);
 }
 
@@ -385,6 +390,7 @@ LIBSBML_EXTERN
 void
 List_add (List_t *lst, void *item)
 {
+  if (lst == NULL) return;
   static_cast<List*>(lst)->add(item);
 }
 
@@ -404,6 +410,7 @@ LIBSBML_EXTERN
 unsigned int
 List_countIf (const List_t *lst, ListItemPredicate predicate)
 {
+  if (lst == NULL) return 0;
   return static_cast<const List*>(lst)->countIf(predicate);
 }
 
@@ -427,6 +434,7 @@ List_find ( const List_t *lst,
             const void   *item1,
             ListItemComparator comparator )
 {
+  if (lst == NULL) return NULL;
   return static_cast<const List*>(lst)->find(item1, comparator);
 }
 
@@ -444,6 +452,7 @@ LIBSBML_EXTERN
 List_t *
 List_findIf (const List_t *lst, ListItemPredicate predicate)
 {
+  if (lst == NULL) return NULL;
   return static_cast<const List*>(lst)->findIf(predicate);
 }
 
@@ -455,6 +464,7 @@ LIBSBML_EXTERN
 void *
 List_get (const List_t *lst, unsigned int n)
 {
+  if (lst == NULL) return NULL;
   return static_cast<const List*>(lst)->get(n);
 }
 
@@ -466,6 +476,7 @@ LIBSBML_EXTERN
 void
 List_prepend (List_t *lst, void *item)
 {
+  if (lst == NULL) return;
   static_cast<List*>(lst)->prepend(item);
 }
 
@@ -478,6 +489,7 @@ LIBSBML_EXTERN
 void *
 List_remove (List_t *lst, unsigned int n)
 {
+  if (lst == NULL) return NULL;
   return static_cast<List*>(lst)->remove(n);
 }
 
@@ -489,6 +501,7 @@ LIBSBML_EXTERN
 unsigned int
 List_size (const List_t *lst)
 {
+  if (lst == NULL) return 0;
   return static_cast<const List*>(lst)->getSize();
 }
 

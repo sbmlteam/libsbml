@@ -71,6 +71,7 @@ LIBSBML_EXTERN
 void
 StringBuffer_reset (StringBuffer_t *sb)
 {
+  if (sb == NULL) return;
   sb->buffer[ sb->length = 0 ] = '\0';
 }
 
@@ -82,8 +83,11 @@ LIBSBML_EXTERN
 void
 StringBuffer_append (StringBuffer_t *sb, const char *s)
 {
-  unsigned long len = strlen(s);
-
+  unsigned long len;
+  
+  if (sb == NULL || s == NULL) return;
+  
+  len = strlen(s);  
 
   StringBuffer_ensureCapacity(sb, len);
 
@@ -99,6 +103,8 @@ LIBSBML_EXTERN
 void
 StringBuffer_appendChar (StringBuffer_t *sb, char c)
 {
+  if (sb == NULL) return;
+
   StringBuffer_ensureCapacity(sb, 1);
 
   sb->buffer[sb->length++] = c;
@@ -127,6 +133,7 @@ StringBuffer_appendNumber (StringBuffer_t *sb, const char *format, ...)
   int       len;
   va_list   ap;
 
+  if (sb == NULL) return;
 
   StringBuffer_ensureCapacity(sb, size);
 
@@ -200,9 +207,12 @@ LIBSBML_EXTERN
 void
 StringBuffer_ensureCapacity (StringBuffer_t *sb, unsigned long n)
 {
-  unsigned long wanted = sb->length + n;
+  unsigned long wanted;
   unsigned long c;
 
+  if (sb == NULL) return;
+
+  wanted = sb->length + n;
 
   if (wanted > sb->capacity)
   {
@@ -228,6 +238,7 @@ LIBSBML_EXTERN
 void
 StringBuffer_grow (StringBuffer_t *sb, unsigned long n)
 {
+  if (sb == NULL) return;
   sb->capacity += n;
   sb->buffer    = (char *) safe_realloc(sb->buffer, sb->capacity + 1);
 }
@@ -254,6 +265,7 @@ LIBSBML_EXTERN
 char *
 StringBuffer_getBuffer (const StringBuffer_t *sb)
 {
+  if (sb == NULL) return NULL;
   return sb->buffer;
 }
 
@@ -265,6 +277,7 @@ LIBSBML_EXTERN
 unsigned long
 StringBuffer_length (const StringBuffer_t *sb)
 {
+  if (sb == NULL) return 0;
   return sb->length;
 }
 
@@ -277,6 +290,7 @@ LIBSBML_EXTERN
 unsigned long
 StringBuffer_capacity (const StringBuffer_t *sb)
 {
+  if (sb == NULL) return 0;
   return sb->capacity;
 }
 
@@ -290,10 +304,14 @@ LIBSBML_EXTERN
 char *
 StringBuffer_toString (const StringBuffer_t *sb)
 {
-  char *s = (char *) safe_malloc(sb->length + 1);
-
+  char *s = NULL;
+  
+  if (sb == NULL) return s;
+  
+  s = (char *) safe_malloc(sb->length + 1);
 
   strncpy(s, sb->buffer, sb->length + 1);
+
   return s;
 }
 
