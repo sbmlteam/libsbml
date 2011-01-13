@@ -107,10 +107,12 @@
  *
  * This list of predefined base units is nearly identical in SBML
  * Level&nbsp;2 Version&nbsp;4, the exception being that Level&nbsp;2 does
- * not define @c avogadro.  SBML Level&nbsp;2 Version&nbsp;1 (and only this
- * Level+Version combination) provides an additional predefined unit name,
- * @c Celsius.  SBML Level&nbsp;1 Versions&nbsp;2&ndash;3 provide two more
- * additional predefined unit names, @c meter and @c liter.
+ * not define @c avogadro.  SBML Level&nbsp;2 Version&nbsp;1 (and @em only
+ * this Level+Version combination) provides an additional predefined unit
+ * name, @c Celsius, not available in Level&nbsp;3.  Finally, SBML
+ * Level&nbsp;1 Versions&nbsp;2&ndash;3 provide two more additional
+ * predefined unit names, @c meter and @c liter.  This is explained in
+ * somewhat greater detail in the description of the Unit class.
  *
  * <li> In SBML Level&nbsp;2 (all Versions), there is an additional set of
  * reserved identifiers: @c substance, @c volume, @c area, @c length, and
