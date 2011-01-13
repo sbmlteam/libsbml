@@ -184,6 +184,14 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * StoichiometryMath
+   *
+   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
+   * is an optional construct available for defining the stoichiometries of
+   * reactants and products in Reaction objects.  Note that a different
+   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
+   * available.  Please consult the top of this libSBML StoichiometryMath
+   * documentation for more information about the differences between SBML
+   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    * 
    * @note Upon the addition of a StoichiometryMath object to an
    * SBMLDocument (e.g., using
@@ -213,6 +221,14 @@ public:
    * object constructors such as this one when needed.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
+   * is an optional construct available for defining the stoichiometries of
+   * reactants and products in Reaction objects.  Note that a different
+   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
+   * available.  Please consult the top of this libSBML StoichiometryMath
+   * documentation for more information about the differences between SBML
+   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    *
    * @note Upon the addition of a StoichiometryMath object to an
    * SBMLDocument (e.g., using
@@ -270,6 +286,14 @@ public:
    * return it as an AST.
    * 
    * @return the math of this StoichiometryMath.
+   *
+   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
+   * is an optional construct available for defining the stoichiometries of
+   * reactants and products in Reaction objects.  Note that a different
+   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
+   * available.  Please consult the top of this libSBML StoichiometryMath
+   * documentation for more information about the differences between SBML
+   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    */
   const ASTNode* getMath () const;
 
@@ -280,6 +304,14 @@ public:
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this StoichiometryMath has been set, @c false otherwise.
+   *
+   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
+   * is an optional construct available for defining the stoichiometries of
+   * reactants and products in Reaction objects.  Note that a different
+   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
+   * available.  Please consult the top of this libSBML StoichiometryMath
+   * documentation for more information about the differences between SBML
+   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    */
   bool isSetMath () const;
 
@@ -295,6 +327,14 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   *
+   * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
+   * is an optional construct available for defining the stoichiometries of
+   * reactants and products in Reaction objects.  Note that a different
+   * mechanism is used in SBML Level&nbsp;3, where StoichiometryMath is not
+   * available.  Please consult the top of this libSBML StoichiometryMath
+   * documentation for more information about the differences between SBML
+   * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    */
   int setMath (const ASTNode* math);
 
