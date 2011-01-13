@@ -37,14 +37,14 @@
  * inside UnitDefinition instances.
  *
  * Two points are worth discussing in the context of SBML units.  First,
- * unit declarations in SBML models are \@em optional.  The consequence of
+ * unit declarations in SBML models are @em optional.  The consequence of
  * this is that a model must be numerically self-consistent independently
  * of unit declarations, for the benefit of software tools that cannot
  * interpret or manipulate units.  Unit declarations in SBML are thus more
  * akin to a type of annotation; they can indicate intentions, and can be
  * used by model readers for checking the consistency of the model,
  * labeling simulation output, etc., but any transformations of values
- * implied by different units must be incorporated \@em explicitly into a
+ * implied by different units must be incorporated @em explicitly into a
  * model.
  * 
  * Second, the vast majority of situations that require new SBML unit
