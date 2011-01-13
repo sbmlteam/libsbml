@@ -155,8 +155,8 @@ static xmlSAXHandler SAXHandler =
  */
 LibXMLHandler::LibXMLHandler (XMLHandler& handler) :
    mHandler( handler )
- , mContext( 0       )
- , mLocator( 0       )
+ , mContext( NULL    )
+ , mLocator( NULL    )
 {
 }
 
@@ -304,7 +304,7 @@ LibXMLHandler::getInternalHandler ()
 unsigned int
 LibXMLHandler::getColumn () const
 {
-  if (mContext)
+  if (mContext != NULL)
     return static_cast<unsigned int>( xmlSAX2GetColumnNumber(mContext) );
   else
     return 0;
@@ -317,7 +317,7 @@ LibXMLHandler::getColumn () const
 unsigned int
 LibXMLHandler::getLine () const
 {
-  if (mContext)
+  if (mContext != NULL)
     return static_cast<unsigned int>( xmlSAX2GetLineNumber(mContext) );
   else
     return 0;

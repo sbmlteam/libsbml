@@ -69,7 +69,7 @@ trim (const std::string& s)
 /*
  * Creates a new empty XMLAttributes set.
  */
-XMLAttributes::XMLAttributes () : mLog( 0 )
+XMLAttributes::XMLAttributes () : mLog( NULL )
 {
 }
 
@@ -145,6 +145,12 @@ XMLAttributes::add (const std::string& name,
 		    const std::string& namespaceURI,
 		    const std::string& prefix)
 {
+  if (&name == NULL || &value == NULL 
+                    || &namespaceURI == NULL 
+                    || &prefix == NULL)
+      return LIBSBML_INVALID_OBJECT;
+
+
   int index = getIndex(name, namespaceURI);
 
   // since in the old version of the method the XMLTriple was initialized
@@ -174,6 +180,7 @@ XMLAttributes::add (const std::string& name,
 int 
 XMLAttributes::add ( const XMLTriple& triple, const std::string& value)
 {
+  if (&triple == NULL || &value == NULL) return LIBSBML_INVALID_OBJECT;
   return add(triple.getName(), value, triple.getURI(), triple.getPrefix());
 }
 
@@ -268,6 +275,8 @@ XMLAttributes::clear()
 int
 XMLAttributes::getIndex (const std::string& name) const
 {
+  if (&name == NULL) return -1;
+
   for (int index = 0; index < getLength(); ++index)
   {
     if (getName(index) == name) return index;
@@ -286,6 +295,8 @@ XMLAttributes::getIndex (const std::string& name) const
 int
 XMLAttributes::getIndex (const std::string& name, const std::string& uri) const
 {
+  if (&name == NULL || &uri == NULL) return -1;
+
   for (int index = 0; index < getLength(); ++index)
   {
     if ( (getName(index) == name) && (getURI(index) == uri) ) return index;
@@ -303,7 +314,8 @@ XMLAttributes::getIndex (const std::string& name, const std::string& uri) const
 int 
 XMLAttributes::getIndex (const XMLTriple& triple) const
 {
-
+  if (&triple  == NULL) return -1;
+  
   for (int index = 0; index < getLength(); ++index)
   {
     if (mNames[index] == triple) return index;
@@ -500,7 +512,7 @@ XMLAttributes::isEmpty () const
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+                         , const std::string& name
                          , bool&        value
                          , XMLErrorLog* log
                          , bool         required ) const
@@ -511,7 +523,7 @@ XMLAttributes::readInto (  int          index
   if ( index != -1 )
   {
     const string& trimmed = trim( getValue(index) );
-    if ( !trimmed.empty() )
+    if (&value != NULL && !trimmed.empty() )
     {
       missing = false;
 
@@ -528,9 +540,9 @@ XMLAttributes::readInto (  int          index
     }
   }
 
-  if ( !log ) log = mLog;
+  if ( log == NULL ) log = mLog;
 
-  if ( log && !assigned )
+  if ( log != NULL && !assigned && &name != NULL)
   {
     if ( !missing ) attributeTypeError(name, Boolean, log);
     else if ( required ) attributeRequiredError (name, log);
@@ -584,7 +596,8 @@ XMLAttributes::readInto (  const XMLTriple& triple
                          , XMLErrorLog*     log
                          , bool             required ) const
 {
-   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
+  if (&triple == NULL || &value == NULL) return (int)false;
+  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
 }
 
 
@@ -607,7 +620,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+                         , const std::string& name
                          , double&      value
                          , XMLErrorLog* log
                          , bool         required ) const
@@ -618,7 +631,7 @@ XMLAttributes::readInto (  int          index
   if ( index != -1 )
   {
     const std::string& trimmed = trim( getValue(index) );
-    if ( !trimmed.empty() )
+    if ( &value != NULL && !trimmed.empty() )
     {
       if (trimmed == "-INF")
       {
@@ -643,13 +656,13 @@ XMLAttributes::readInto (  int          index
         setlocale(LC_ALL, "C");
 
         errno               = 0;
-        char*        endptr = 0;
+        char*        endptr = NULL;
         const char*  nptr   = trimmed.c_str();
         double       result = strtod(nptr, &endptr);
         unsigned int length = endptr - nptr;
 
         // Restore previous locale
-        setlocale(LC_ALL, locale.empty() ? 0 : locale.c_str());
+        setlocale(LC_ALL, locale.empty() ? NULL : locale.c_str());
 
         if ((length == trimmed.size()) && (errno != ERANGE))
         {
@@ -660,9 +673,9 @@ XMLAttributes::readInto (  int          index
     }
   }
 
-  if ( !log ) log = mLog;
+  if ( log == NULL ) log = mLog;
 
-  if ( log && !assigned )
+  if ( log != NULL && !assigned && &name != NULL)
   {
     if ( !missing ) attributeTypeError(name, Double, log);
     else if ( required ) attributeRequiredError (name, log);
@@ -743,7 +756,7 @@ XMLAttributes::readInto (  const std::string&   name
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+                         , const std::string& name
                          , long&        value
                          , XMLErrorLog* log
                          , bool         required ) const
@@ -754,12 +767,12 @@ XMLAttributes::readInto (  int          index
   if ( index != -1 )
   {
     const std::string& trimmed = trim( getValue(index) );
-    if ( !trimmed.empty() )
+    if ( !trimmed.empty() && &value != NULL )
     {
       missing = false;
 
       errno               = 0;
-      char*        endptr = 0;
+      char*        endptr = NULL;
       const char*  nptr   = trimmed.c_str();
       long         result = strtol(nptr, &endptr, 10);
       unsigned int length = endptr - nptr;
@@ -772,9 +785,9 @@ XMLAttributes::readInto (  int          index
     }
   }
 
-  if ( !log ) log = mLog;
+  if ( log == NULL ) log = mLog;
 
-  if ( log && !assigned )
+  if ( log != NULL && !assigned && &name != NULL )
   {
     if ( !missing ) attributeTypeError(name, Integer, log);
     else if ( required ) attributeRequiredError (name, log);
@@ -807,6 +820,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
                          , XMLErrorLog*     log
                          , bool             required ) const
 {
+  if (&triple == NULL) return false;
   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
 }
 
@@ -853,7 +867,7 @@ XMLAttributes::readInto (  const std::string& name
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+                         , const std::string& name
                          , int&         value
                          , XMLErrorLog* log
                          , bool         required ) const
@@ -889,7 +903,8 @@ XMLAttributes::readInto (  const XMLTriple& triple
                          , XMLErrorLog*     log
                          , bool             required ) const
 {
-   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);    
+  if (&triple == NULL) return false;
+  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);    
 }
 
 
@@ -936,7 +951,7 @@ XMLAttributes::readInto (  const std::string&  name
  */
 bool
 XMLAttributes::readInto (  int           index
-			 , const std::string& name
+                         , const std::string& name
                          , unsigned int& value
                          , XMLErrorLog*  log
                          , bool          required ) const
@@ -974,6 +989,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
                          , XMLErrorLog*     log
                          , bool             required ) const
 {
+  if (&triple == NULL) return false;
   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
 }
 
@@ -1016,22 +1032,22 @@ XMLAttributes::readInto (  const std::string&  name
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
-			 , std::string& value
+                         , const std::string& name
+                         , std::string& value
                          , XMLErrorLog* log
                          , bool         required ) const
 {
   bool assigned = false;
 
-  if ( index != -1 )
+  if ( index != -1 && &value != NULL)
   {
     value    = getValue(index);
     assigned = true;
   }
 
-  if ( !log ) log = mLog;
+  if ( log == NULL ) log = mLog;
 
-  if ( log && !assigned && required )
+  if ( log != NULL && !assigned && required && &name != NULL )
   {
     attributeRequiredError(name, log);
   }
@@ -1053,10 +1069,11 @@ XMLAttributes::readInto (  int          index
  */
 bool
 XMLAttributes::readInto (  const XMLTriple& triple
-			 , std::string&     value
+                         , std::string&     value
                          , XMLErrorLog*     log
                          , bool             required ) const
 {
+  if (&triple == NULL) return false;
   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
 }
 
@@ -1072,7 +1089,7 @@ XMLAttributes::readInto (  const XMLTriple& triple
  */
 bool
 XMLAttributes::readInto (  const std::string& name
-			 , std::string&       value
+                         , std::string&       value
                          , XMLErrorLog*       log
                          , bool               required ) const
 {
@@ -1117,8 +1134,8 @@ XMLAttributes::attributeTypeError (  const std::string& name
 {
   ostringstream message;
 
-  if ( !log ) log = mLog;
-  if ( !log ) return;
+  if ( log == NULL ) log = mLog;
+  if ( log == NULL ) return;
 
   message << "The ";
   if ( !mElementName.empty() ) message << mElementName << ' ';
@@ -1164,8 +1181,8 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
 {
   ostringstream message;
 
-  if ( !log ) log = mLog;
-  if ( !log ) return;
+  if ( log == NULL ) log = mLog;
+  if ( log == NULL ) return;
 
   message << "The ";
   if ( !mElementName.empty() ) message << mElementName << ' ';
@@ -1191,7 +1208,7 @@ XMLAttributes::setErrorLog (XMLErrorLog* log)
   else if (log == NULL)
   {
     delete mLog;
-    mLog = 0;
+    mLog = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else
@@ -1240,6 +1257,7 @@ LIBLAX_EXTERN
 void
 XMLAttributes_free (XMLAttributes_t *xa)
 {
+  if (xa == NULL) return;
   delete static_cast<XMLAttributes*>(xa);
 }
 
@@ -1255,6 +1273,7 @@ LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_clone (const XMLAttributes_t* att)
 {
+  if (att == NULL) return NULL;
   return static_cast<XMLAttributes*>( att->clone() );
 }
 
@@ -1271,6 +1290,7 @@ XMLAttributes_clone (const XMLAttributes_t* att)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note if local name already exists in this attribute set, its value 
  * will be replaced.
@@ -1281,6 +1301,7 @@ XMLAttributes_add (XMLAttributes_t *xa,
                    const char *name,
                    const char *value)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->add(name, value);
 }
 
@@ -1300,6 +1321,7 @@ XMLAttributes_add (XMLAttributes_t *xa,
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note if local name with the same namespace URI already exists in this 
  * attribute set, its value will be replaced.
@@ -1312,6 +1334,7 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
                                 const char* uri,
                                 const char* prefix)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->add(name, value, uri, prefix);
 }
 
@@ -1328,6 +1351,7 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  **/
 LIBLAX_EXTERN
 int
@@ -1335,6 +1359,7 @@ XMLAttributes_addWithTriple ( XMLAttributes_t *xa
 			              , const XMLTriple_t* triple
 			              , const char *value)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->add(*triple, value);
 }
 
@@ -1372,11 +1397,13 @@ XMLAttributes_addResource (XMLAttributes_t *xa,
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->removeResource(n);
 }
 
@@ -1393,11 +1420,13 @@ XMLAttributes_removeResource (XMLAttributes_t *xa, int n)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLAttributes_remove (XMLAttributes_t *xa, int n)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->remove(n);
 }
 
@@ -1414,6 +1443,7 @@ XMLAttributes_remove (XMLAttributes_t *xa, int n)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note A prefix and namespace URI bound to the local name are set to empty 
  * in this function.
@@ -1424,6 +1454,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->remove(name);
 }
 
@@ -1442,11 +1473,13 @@ XMLAttributes_removeByName (XMLAttributes_t *xa, const char* name)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->remove(name, uri);
 }
 
@@ -1464,11 +1497,13 @@ XMLAttributes_removeByNS (XMLAttributes_t *xa, const char* name, const char* uri
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple)
 {
+  if (xa == NULL || triple == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->remove(*triple);
 }
 
@@ -1483,11 +1518,13 @@ XMLAttributes_removeByTriple (XMLAttributes_t *xa, const XMLTriple_t* triple)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLAttributes_clear(XMLAttributes_t *xa)
 {
+  if (xa == NULL) return LIBSBML_INVALID_OBJECT;
   return xa->clear();
 }
 
@@ -1504,6 +1541,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name)
 {
+  if (xa == NULL) return -1;
   return xa->getIndex(name);
 }
 
@@ -1522,6 +1560,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_getIndexByNS (const XMLAttributes_t *xa, const char *name, const char *uri)
 {
+  if (xa == NULL) return -1;
   return xa->getIndex(name,uri);
 }
 
@@ -1539,6 +1578,7 @@ LIBLAX_EXTERN
 int 
 XMLAttributes_getIndexByTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple)
 {
+  if (xa == NULL) return -1;
   return xa->getIndex(*triple);
 }
 
@@ -1554,6 +1594,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_getLength (const XMLAttributes_t *xa)
 {
+  if (xa == NULL) return 0;
   return xa->getLength();
 }
 
@@ -1578,6 +1619,7 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getName (const XMLAttributes_t *xa, int index)
 {
+  if (xa == NULL) return NULL;
   return xa->getName(index).empty() ? NULL : safe_strdup(xa->getName(index).c_str());
 }
 
@@ -1601,6 +1643,7 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
 {
+  if (xa == NULL) return NULL;
   return xa->getPrefix(index).empty() ? NULL : safe_strdup(xa->getPrefix(index).c_str());
 }
 
@@ -1623,6 +1666,7 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
 {
+  if (xa == NULL) return NULL;
   return xa->getURI(index).empty() ? NULL : safe_strdup(xa->getURI(index).c_str());
 }
 
@@ -1646,6 +1690,7 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
 {
+  if (xa == NULL) return NULL;
   return xa->getValue(index).empty() ? NULL : safe_strdup(xa->getValue(index).c_str());
 }
 
@@ -1675,6 +1720,7 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
 {
+  if (xa == NULL) return NULL;
   return xa->getValue(name).empty() ? NULL : safe_strdup(xa->getValue(name).c_str());
 }
 
@@ -1699,6 +1745,7 @@ LIBLAX_EXTERN
 char *
 XMLAttributes_getValueByNS (const XMLAttributes_t *xa, const char *name, const char* uri)
 {
+  if (xa == NULL) return NULL;
   return (xa->getValue(name, uri).empty())? NULL : safe_strdup(xa->getValue(name, uri).c_str());
 }
 
@@ -1724,7 +1771,7 @@ XMLAttributes_getValueByTriple (const XMLAttributes_t *xa, const XMLTriple_t* tr
 {
   //std::string val = xa->getValue(*triple);
   //if (val.empty()) return NULL;
-
+  if (xa == NULL) return NULL;
   return xa->getValue(*triple).empty() ? NULL : safe_strdup(xa->getValue(*triple).c_str());
 }
 
@@ -1744,6 +1791,7 @@ LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttribute (const XMLAttributes_t *xa, int index)
 {
+  if (xa == NULL) return (int)false;
   return static_cast<int>( xa->hasAttribute(index) );
 }
 
@@ -1763,6 +1811,7 @@ LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttributeWithName (const XMLAttributes_t *xa, const char* name)
 {
+  if (xa == NULL) return (int)false;
   return static_cast<int>( xa->hasAttribute(name) );
 }
 
@@ -1785,6 +1834,7 @@ int
 XMLAttributes_hasAttributeWithNS (const XMLAttributes_t *xa, 
                                   const char* name, const char* uri)
 {
+  if (xa == NULL) return (int)false;
   return static_cast<int>( xa->hasAttribute(name, uri) );
 }
 
@@ -1804,6 +1854,7 @@ LIBLAX_EXTERN
 int 
 XMLAttributes_hasAttributeWithTriple (const XMLAttributes_t *xa, const XMLTriple_t* triple)
 {
+  if (xa == NULL) return (int)false;
   return static_cast<int>( xa->hasAttribute(*triple) );
 }  
 
@@ -1821,6 +1872,7 @@ LIBLAX_EXTERN
 int
 XMLAttributes_isEmpty (const XMLAttributes_t *xa)
 {
+  if (xa == NULL) return (int)true;
   return static_cast<int>( xa->isEmpty() );
 }
 
@@ -1859,6 +1911,7 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
 			       XMLErrorLog_t *log,
 			       int required)
 {
+  if (xa == NULL) return (int)false;
   bool temp;
   bool result = xa->readInto(name, temp, log, required);
   if (result)
@@ -1899,6 +1952,8 @@ XMLAttributes_readIntoBooleanByTriple (XMLAttributes_t *xa,
                                XMLErrorLog_t *log,
                                int required)
 {
+  if (xa == NULL) return (int)false;
+
   bool temp;
   bool result = xa->readInto(*triple, temp, log, required);
   if (result)
@@ -1944,6 +1999,7 @@ XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
 			      XMLErrorLog_t *log,
 			      int required)
 {
+  if (xa == NULL) return (int)false;
   return static_cast<int>( xa->readInto(name, *(value), log, required) );
 }
 
@@ -1979,6 +2035,7 @@ XMLAttributes_readIntoDoubleByTriple (XMLAttributes_t *xa,
                                XMLErrorLog_t *log,
                                int required)
 {
+  if (xa == NULL || value == NULL || triple == NULL) return (int)false;
   return static_cast<int>( xa->readInto(*triple, *(value), log, required) );
 }
 
@@ -2018,6 +2075,7 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
 			    XMLErrorLog_t *log,
 			    int required)
 {
+  if (xa == NULL || value == NULL) return (int)false;
   return static_cast<int>( xa->readInto(name, *(value), log, required) );
 }
 
@@ -2053,6 +2111,7 @@ XMLAttributes_readIntoLongByTriple (XMLAttributes_t *xa,
                                XMLErrorLog_t *log,
                                int required)
 {
+  if (xa == NULL || triple == NULL || value == NULL) return (int)false;
   return static_cast<int>( xa->readInto(*triple, *(value), log, required) );
 }
 
@@ -2092,6 +2151,7 @@ XMLAttributes_readIntoInt (XMLAttributes_t *xa,
 			   XMLErrorLog_t *log,
 			   int required)
 {
+  if (xa == NULL || value == NULL) return (int)false;
   return static_cast<int>( xa->readInto(name, *(value), log, required) );
 }
 
@@ -2126,6 +2186,7 @@ XMLAttributes_readIntoIntByTriple (XMLAttributes_t *xa,
                                XMLErrorLog_t *log,
                                int required)
 {
+  if (xa == NULL || triple == NULL || value == NULL) return (int)false;
   return static_cast<int>( xa->readInto(*triple, *(value), log, required) );
 }
 
@@ -2165,6 +2226,7 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
 				   XMLErrorLog_t *log,
 				   int required)
 {
+  if (xa == NULL || value == NULL) return (int)false;
   return static_cast<int>( xa->readInto(name, *(value), log, required) );
 }
 
@@ -2200,6 +2262,7 @@ XMLAttributes_readIntoUnsignedIntByTriple (XMLAttributes_t *xa,
                                XMLErrorLog_t *log,
                                int required)
 {
+  if (xa == NULL || triple == NULL || value == NULL) return (int)false;
   return static_cast<int>( xa->readInto(*triple, *(value), log, required) );
 }
 
@@ -2234,6 +2297,7 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
 			      XMLErrorLog_t *log,
 			      int required)
 {
+  if (xa == NULL || value == NULL) return (int)false;
   std::string temp;
   int result = static_cast<int>( xa->readInto(name, temp, log, required) );
   if(result)
@@ -2269,6 +2333,7 @@ XMLAttributes_readIntoStringByTriple (XMLAttributes_t *xa,
                                XMLErrorLog_t *log,
                                int required)
 {
+  if (xa == NULL || value == NULL || triple == NULL) return (int)false;
   std::string temp;
   int result = static_cast<int>( xa->readInto(*triple, temp, log, required) );
   if(result)

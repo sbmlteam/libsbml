@@ -25,6 +25,7 @@
 #include <iomanip>
 #include <sstream>
 
+#include <sbml/common/common.h>
 #include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLAttributes.h>
 
@@ -329,9 +330,9 @@ XMLError::XMLError (  const int errorId
       if ( errorTable[i].code == errorId )
       {
         mMessage      = errorTable[i].message;
-	mShortMessage = errorTable[i].shortMessage;
+        mShortMessage = errorTable[i].shortMessage;
 
-        if ( !details.empty() )
+        if ( &details != NULL && !details.empty() )
         {
           mMessage.append(" ");
           mMessage.append(details);
@@ -360,7 +361,10 @@ XMLError::XMLError (  const int errorId
   // filled in all the relevant additional data.  (If they didn't, the
   // following ends up merely assigning the defaults.)
 
-  mMessage  = details;
+  if (&details == NULL)
+    mMessage  = "";
+  else
+    mMessage  = details;
 
   // The following is just a default that seems more sensible than setting
   // an empty string for the short message.
@@ -770,6 +774,7 @@ LIBLAX_EXTERN
 XMLError_t*
 XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
 {
+  if (message == NULL) return NULL;
   return new(nothrow) XMLError(errorId, message);
 }
 
@@ -823,6 +828,7 @@ LIBLAX_EXTERN
 void
 XMLError_free(XMLError_t* error)
 {
+  if (error == NULL) return;
   delete static_cast<XMLError*>(error);
 }
 
@@ -837,6 +843,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLError_getErrorId (const XMLError_t *error)
 {
+  if (error == NULL) return SBML_INT_MAX;
   return error->getErrorId();
 }
 
@@ -852,7 +859,8 @@ LIBLAX_EXTERN
 const char *
 XMLError_getMessage (const XMLError_t *error)
 {
-  return error->getMessage().empty() ? 0 : error->getMessage().c_str();
+  if (error == NULL) return NULL;
+  return error->getMessage().empty() ? NULL : error->getMessage().c_str();
 }
 
 
@@ -867,7 +875,8 @@ LIBLAX_EXTERN
 const char *
 XMLError_getShortMessage (const XMLError_t *error)
 {
-  return error->getShortMessage().empty() ? 0 : error->getShortMessage().c_str();
+  if (error == NULL) return NULL;
+  return error->getShortMessage().empty() ? NULL : error->getShortMessage().c_str();
 }
 
 
@@ -882,6 +891,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLError_getLine (const XMLError_t *error)
 {
+  if (error == NULL) return 0;
   return error->getLine();
 }
 
@@ -897,6 +907,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLError_getColumn (const XMLError_t *error)
 {
+  if (error == NULL) return 0;
   return error->getColumn();
 }
 
@@ -913,6 +924,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLError_getSeverity (const XMLError_t *error)
 {
+  if (error == NULL) return SBML_INT_MAX;
   return error->getSeverity();
 }
 
@@ -928,7 +940,8 @@ LIBLAX_EXTERN
 const char *
 XMLError_getSeverityAsString (const XMLError_t *error)
 {
-  return error->getSeverityAsString().empty() ? 0 : 
+  if (error == NULL) return NULL;
+  return error->getSeverityAsString().empty() ? NULL : 
                             error->getSeverityAsString().c_str();
 }
 
@@ -945,6 +958,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLError_getCategory (const XMLError_t *error)
 {
+  if (error == NULL) return SBML_INT_MAX;
   return error->getCategory();
 }
 
@@ -960,7 +974,8 @@ LIBLAX_EXTERN
 const char *
 XMLError_getCategoryAsString (const XMLError_t *error)
 {
-  return error->getCategoryAsString().empty() ? 0 : 
+  if (error == NULL) return NULL;
+  return error->getCategoryAsString().empty() ? NULL : 
                              error->getCategoryAsString().c_str();
 }
 
@@ -978,6 +993,7 @@ LIBLAX_EXTERN
 int
 XMLError_isInfo (const XMLError_t *error)
 {
+  if (error == NULL) return (int)false;
   return static_cast<int>( error->isInfo() );
 }
 
@@ -994,6 +1010,7 @@ LIBLAX_EXTERN
 int
 XMLError_isWarning (const XMLError_t *error)
 {
+  if (error == NULL) return (int)false;
   return static_cast<int>( error->isWarning() );
 }
 
@@ -1010,6 +1027,7 @@ LIBLAX_EXTERN
 int
 XMLError_isError (const XMLError_t *error)
 {
+  if (error == NULL) return (int)false;
   return static_cast<int>( error->isError() );
 }
 
@@ -1026,6 +1044,7 @@ LIBLAX_EXTERN
 int
 XMLError_isFatal (const XMLError_t *error)
 {
+  if (error == NULL) return (int)false;
   return static_cast<int>( error->isFatal() );
 }
 
@@ -1043,6 +1062,8 @@ LIBLAX_EXTERN
 void
 XMLError_print (const XMLError_t *error, FILE *stream)
 {
+  if (error == NULL || stream == NULL) return;
+
   ostringstream os;
   os << *(static_cast<const XMLError*>(error));
 

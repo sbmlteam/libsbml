@@ -596,6 +596,81 @@ START_TEST(test_XMLToken_attribute_set_clear)
 }
 END_TEST
 
+START_TEST(test_XMLToken_accessWithNULL)
+{
+  fail_unless (XMLToken_addAttr(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_addAttrWithNS(NULL, NULL, NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_addAttrWithTriple(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_addNamespace(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_append(NULL, NULL) == LIBSBML_OPERATION_FAILED);
+  fail_unless (XMLToken_clearAttributes(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_clearNamespaces(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_clone(NULL) == NULL);
+  fail_unless (XMLToken_createWithTriple(NULL) == NULL);
+  fail_unless (XMLToken_createWithTripleAttr(NULL, NULL) == NULL);
+  fail_unless (XMLToken_createWithTripleAttrNS(NULL, NULL, NULL) == NULL);
+  
+  XMLToken_free(NULL);
+  
+  fail_unless (XMLToken_getAttributes(NULL) == NULL);
+  fail_unless (XMLToken_getAttributesLength(NULL) == 0);
+  fail_unless (XMLToken_getAttrIndex(NULL, NULL, NULL) == -1);
+  fail_unless (XMLToken_getAttrIndexByTriple(NULL, NULL) == -1);
+  fail_unless (XMLToken_getAttrName(NULL, 0) == NULL);
+  fail_unless (XMLToken_getAttrPrefix(NULL, 0) == NULL);
+  fail_unless (XMLToken_getAttrPrefixedName(NULL, 0) == NULL);
+  fail_unless (XMLToken_getAttrURI(NULL, 0) == NULL);
+  fail_unless (XMLToken_getAttrValue(NULL, 0) == NULL);
+  fail_unless (XMLToken_getAttrValueByName(NULL, NULL) == NULL);
+  fail_unless (XMLToken_getAttrValueByNS(NULL, NULL, NULL) == NULL);
+  fail_unless (XMLToken_getAttrValueByTriple(NULL, NULL) == NULL);
+  fail_unless (XMLToken_getCharacters(NULL) == NULL);
+  fail_unless (XMLToken_getColumn(NULL) == 0);
+  fail_unless (XMLToken_getLine(NULL) == 0);
+  fail_unless (XMLToken_getName(NULL) == NULL);
+  fail_unless (XMLToken_getNamespaceIndex(NULL, NULL) == -1);
+  fail_unless (XMLToken_getNamespaceIndexByPrefix(NULL, NULL) == -1);
+  fail_unless (XMLToken_getNamespacePrefix(NULL, 0) == NULL);
+  fail_unless (XMLToken_getNamespacePrefixByURI(NULL, NULL) == NULL);
+  fail_unless (XMLToken_getNamespaces(NULL) == NULL);
+  fail_unless (XMLToken_getNamespacesLength(NULL) == 0);
+  fail_unless (XMLToken_getNamespaceURI(NULL, 0) == NULL);
+  fail_unless (XMLToken_getNamespaceURIByPrefix(NULL, NULL) == NULL);
+  fail_unless (XMLToken_getPrefix(NULL) == NULL);
+  fail_unless (XMLToken_getURI(NULL) == NULL);
+  fail_unless (XMLToken_hasAttr(NULL, 0) == 0);
+  fail_unless (XMLToken_hasAttrWithName(NULL, NULL) == 0);
+  fail_unless (XMLToken_hasAttrWithNS(NULL, NULL, NULL) == 0);
+  fail_unless (XMLToken_hasAttrWithTriple(NULL, NULL) == 0);
+  fail_unless (XMLToken_hasNamespaceNS(NULL, NULL, NULL) == 0);
+  fail_unless (XMLToken_hasNamespacePrefix(NULL, NULL) == 0);
+  fail_unless (XMLToken_hasNamespaceURI(NULL, NULL) == 0);
+  fail_unless (XMLToken_isAttributesEmpty(NULL) == 0);
+  fail_unless (XMLToken_isElement(NULL) == 0);
+  fail_unless (XMLToken_isEnd(NULL) == 0);
+  fail_unless (XMLToken_isEndFor(NULL, NULL) == 0);
+  fail_unless (XMLToken_isEOF(NULL) == 0);
+  fail_unless (XMLToken_isNamespacesEmpty(NULL) == 0);
+  fail_unless (XMLToken_isStart(NULL) == 0);
+  fail_unless (XMLToken_isText(NULL) == 0);
+  
+  fail_unless (XMLToken_removeAttr(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_removeAttrByName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_removeAttrByNS(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_removeAttrByTriple(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  
+  fail_unless (XMLToken_removeNamespace(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_removeNamespaceByPrefix(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  
+  fail_unless (XMLToken_setAttributes(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_setEnd(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_setEOF(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_setNamespaces(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (XMLToken_setTriple(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  
+  fail_unless (XMLToken_unsetEnd(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_XMLToken (void)
@@ -603,16 +678,17 @@ create_suite_XMLToken (void)
   Suite *suite = suite_create("XMLToken");
   TCase *tcase = tcase_create("XMLToken");
 
-  tcase_add_test( tcase, test_XMLToken_create  );
-  tcase_add_test( tcase, test_XMLToken_fields  );
-  tcase_add_test( tcase, test_XMLToken_chars  );
-  tcase_add_test( tcase, test_XMLToken_namespace_add );
-  tcase_add_test( tcase, test_XMLToken_namespace_get );
-  tcase_add_test( tcase, test_XMLToken_namespace_remove );
+  tcase_add_test( tcase, test_XMLToken_create                     );
+  tcase_add_test( tcase, test_XMLToken_fields                     );
+  tcase_add_test( tcase, test_XMLToken_chars                      );
+  tcase_add_test( tcase, test_XMLToken_namespace_add              );
+  tcase_add_test( tcase, test_XMLToken_namespace_get              );
+  tcase_add_test( tcase, test_XMLToken_namespace_remove           );
   tcase_add_test( tcase, test_XMLToken_namespace_remove_by_prefix );
-  tcase_add_test( tcase, test_XMLToken_namespace_set_clear );
-  tcase_add_test( tcase, test_XMLToken_attribute_add_remove);
-  tcase_add_test( tcase, test_XMLToken_attribute_set_clear);
+  tcase_add_test( tcase, test_XMLToken_namespace_set_clear        );
+  tcase_add_test( tcase, test_XMLToken_attribute_add_remove       );
+  tcase_add_test( tcase, test_XMLToken_attribute_set_clear        );
+  tcase_add_test( tcase, test_XMLToken_accessWithNULL             );
 
   suite_add_tcase(suite, tcase);
 

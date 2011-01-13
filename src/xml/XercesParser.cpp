@@ -175,7 +175,7 @@ XercesParser::reportError (const XMLErrorCode_t code,
 			   const unsigned int   line,
 			   const unsigned int   column)
 {
-  if (mErrorLog)
+  if (mErrorLog != NULL)
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
   else
   {
@@ -340,8 +340,8 @@ protected:
  * of parse events and errors.
  */
 XercesParser::XercesParser (XMLHandler& handler) :
-   mReader         ( 0       )
- , mSource         ( 0       )
+   mReader         ( NULL    )
+ , mSource         ( NULL    )
  , mHandler        ( handler )
 {
   try
@@ -381,7 +381,7 @@ XercesParser::~XercesParser ()
 InputSource*
 XercesParser::createSource (const char* content, bool isFile)
 {
-  InputSource* source = 0;
+  InputSource* source = NULL;
 
   if ( isFile )
   {
@@ -453,7 +453,7 @@ XercesParser::createSource (const char* content, bool isFile)
       {
       }
 
-      if ( source == 0 ) reportError(XMLOutOfMemory, content, 0, 0);
+      if ( source == NULL ) reportError(XMLOutOfMemory, content, 0, 0);
 
     }
     else
@@ -489,7 +489,7 @@ XercesParser::createSource (const char* content, bool isFile)
     {
     }
 
-    if ( source == 0 ) reportError(XMLOutOfMemory, "", 0, 0);
+    if ( source == NULL ) reportError(XMLOutOfMemory, "", 0, 0);
   }
 
   return source;
@@ -502,7 +502,7 @@ XercesParser::createSource (const char* content, bool isFile)
 bool
 XercesParser::error () const
 {
-  return (mReader == 0);
+  return (mReader == NULL);
 }
 
 
@@ -540,7 +540,7 @@ XercesParser::parse (const char* content, bool isFile, bool isProgressive)
   {
     mSource = createSource(content, isFile);
 
-    if (mSource)
+    if (mSource != NULL)
     {
       if (isProgressive)
       {
@@ -671,13 +671,13 @@ XercesParser::parseNext ()
 void
 XercesParser::parseReset ()
 {
-  if (mReader)
+  if (mReader != NULL)
   {
     mReader->parseReset(mToken);
   }
 
   delete mSource;
-  mSource = 0;
+  mSource = NULL;
 }
 
 LIBSBML_CPP_NAMESPACE_END

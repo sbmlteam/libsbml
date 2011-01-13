@@ -796,6 +796,53 @@ START_TEST(test_XMLAttributes_clear1)
 }
 END_TEST
 
+START_TEST(test_XMLAttributes_accessWithNULL)
+{
+  fail_unless ( XMLAttributes_add(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT );  
+  fail_unless ( XMLAttributes_addWithNamespace(NULL, NULL, NULL, NULL, NULL) 
+      == LIBSBML_INVALID_OBJECT );
+  fail_unless ( XMLAttributes_addWithTriple(NULL, NULL, NULL) 
+      == LIBSBML_INVALID_OBJECT );
+  fail_unless ( XMLAttributes_clear(NULL) == LIBSBML_INVALID_OBJECT );  
+  fail_unless ( XMLAttributes_clone(NULL) == NULL );  
+
+  XMLAttributes_free(NULL);
+
+  fail_unless ( XMLAttributes_getIndex(NULL, NULL) == -1 );  
+  fail_unless ( XMLAttributes_getIndexByNS(NULL, NULL, NULL) == -1 );  
+  fail_unless ( XMLAttributes_getIndexByTriple(NULL, NULL) == -1 );  
+  fail_unless ( XMLAttributes_getLength(NULL) == 0 );  
+  fail_unless ( XMLAttributes_getName(NULL, 0) == NULL );  
+  fail_unless ( XMLAttributes_getPrefix(NULL, 0) == NULL );  
+  fail_unless ( XMLAttributes_getURI(NULL, 0) == NULL );  
+  fail_unless ( XMLAttributes_getValue(NULL, 0) == NULL );  
+  fail_unless ( XMLAttributes_getValueByName(NULL, NULL) == NULL );  
+  fail_unless ( XMLAttributes_getValueByNS(NULL, NULL, NULL) == NULL );  
+  fail_unless ( XMLAttributes_getValueByTriple(NULL, NULL) == NULL );  
+  fail_unless ( XMLAttributes_hasAttribute(NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_hasAttributeWithName(NULL, NULL) == 0 );  
+  fail_unless ( XMLAttributes_hasAttributeWithNS(NULL, NULL, NULL) == 0 );  
+  fail_unless ( XMLAttributes_hasAttributeWithTriple(NULL, NULL) == 0 );  
+  fail_unless ( XMLAttributes_isEmpty(NULL) == 1 );  
+  fail_unless ( XMLAttributes_readIntoBoolean(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoBooleanByTriple(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoDouble(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoDoubleByTriple(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoInt(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoIntByTriple(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoLong(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoLongByTriple(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoString(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoStringByTriple(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoUnsignedInt(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_readIntoUnsignedIntByTriple(NULL, NULL, NULL, NULL, 0) == 0 );  
+  fail_unless ( XMLAttributes_remove(NULL, 0) == LIBSBML_INVALID_OBJECT );  
+  fail_unless ( XMLAttributes_removeByName(NULL, NULL) == LIBSBML_INVALID_OBJECT );  
+  fail_unless ( XMLAttributes_removeByNS(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT );  
+  fail_unless ( XMLAttributes_removeByTriple(NULL, NULL) == LIBSBML_INVALID_OBJECT );  
+  fail_unless ( XMLAttributes_removeResource(NULL, 0) == LIBSBML_INVALID_OBJECT );  
+}
+END_TEST
 
 Suite *
 create_suite_XMLAttributes_C (void)
@@ -803,17 +850,17 @@ create_suite_XMLAttributes_C (void)
   Suite *suite = suite_create("XMLAttributesC");
   TCase *tcase = tcase_create("XMLAttributesC");
 
-  tcase_add_test( tcase, test_XMLAttributes_create_C  );
-  tcase_add_test( tcase, test_XMLAttributes_add_remove_qname_C);
-  tcase_add_test( tcase, test_XMLAttributes_add1);
-  tcase_add_test( tcase, test_XMLAttributes_readInto_string_C );
+  tcase_add_test( tcase, test_XMLAttributes_create_C           );
+  tcase_add_test( tcase, test_XMLAttributes_add_remove_qname_C );
+  tcase_add_test( tcase, test_XMLAttributes_add1               );
+  tcase_add_test( tcase, test_XMLAttributes_readInto_string_C  );
   tcase_add_test( tcase, test_XMLAttributes_readInto_boolean_C );
-  tcase_add_test( tcase, test_XMLAttributes_readInto_double_C );
-  tcase_add_test( tcase, test_XMLAttributes_readInto_long_C );
-  tcase_add_test( tcase, test_XMLAttributes_readInto_int_C );
-  tcase_add_test( tcase, test_XMLAttributes_readInto_uint_C );
-  tcase_add_test( tcase, test_XMLAttributes_remove1);
-  tcase_add_test( tcase, test_XMLAttributes_clear1);
+  tcase_add_test( tcase, test_XMLAttributes_readInto_double_C  );
+  tcase_add_test( tcase, test_XMLAttributes_readInto_long_C    );
+  tcase_add_test( tcase, test_XMLAttributes_readInto_int_C     );
+  tcase_add_test( tcase, test_XMLAttributes_readInto_uint_C    );
+  tcase_add_test( tcase, test_XMLAttributes_remove1            );
+  tcase_add_test( tcase, test_XMLAttributes_accessWithNULL     );
   suite_add_tcase(suite, tcase);
 
   return suite;

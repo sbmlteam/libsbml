@@ -196,6 +196,8 @@ XMLOutputStream::XMLOutputStream (  std::ostream&       stream
 void
 XMLOutputStream::endElement (const std::string& name)
 {
+  if(&name == NULL) return;
+
   if (mInStart)
   {
     mInStart = false;
@@ -228,6 +230,8 @@ XMLOutputStream::endElement (const std::string& name)
 void
 XMLOutputStream::endElement (const XMLTriple& triple)
 {
+  if(&triple == NULL) return;
+
   if (mInStart)
   {
     mInStart = false;
@@ -269,6 +273,8 @@ XMLOutputStream::setAutoIndent (bool indent)
 void
 XMLOutputStream::startElement (const std::string& name)
 {
+  if (&name == NULL) return; 
+
   if (mInStart)
   {
     mStream << '>';
@@ -298,6 +304,8 @@ XMLOutputStream::startElement (const std::string& name)
 void
 XMLOutputStream::startElement (const XMLTriple& triple)
 {
+  if (&triple == NULL) return;
+
   if (mInStart)
   {
     mStream << '>';
@@ -326,6 +334,8 @@ XMLOutputStream::startElement (const XMLTriple& triple)
 void
 XMLOutputStream::startEndElement (const std::string& name)
 {
+  if (&name == NULL) return; 
+
   if (mInStart)
   {
     mStream << '>';
@@ -359,6 +369,8 @@ XMLOutputStream::startEndElement (const std::string& name)
 void
 XMLOutputStream::startEndElement (const XMLTriple& triple)
 {
+  if (&triple == NULL) return;
+
   if (mInStart)
   {
     mStream << '>';
@@ -391,7 +403,7 @@ XMLOutputStream::startEndElement (const XMLTriple& triple)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const std::string& value)
 {
-  if ( value.empty() ) return;
+  if ( &name == NULL || &value == NULL || value.empty() ) return; 
 
   mStream << ' ';
 
@@ -407,6 +419,8 @@ XMLOutputStream::writeAttribute (const std::string& name, const std::string& val
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const std::string& value)
 {
+  if (&triple == NULL || &value == NULL || value.empty() ) return; 
+
   mStream << ' ';
 
   writeName ( triple );
@@ -421,6 +435,8 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const std::string& val
 void
 XMLOutputStream::writeAttribute (const std::string& name, const bool& value)
 {
+  if (&name == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( name  );
@@ -435,6 +451,8 @@ XMLOutputStream::writeAttribute (const std::string& name, const bool& value)
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const bool& value)
 {
+  if (&triple == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( triple );
@@ -448,6 +466,8 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const bool& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const double& value)
 {
+  if (&name == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( name  );
@@ -461,6 +481,8 @@ XMLOutputStream::writeAttribute (const std::string& name, const double& value)
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const double& value)
 {
+  if (&triple == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( triple );
@@ -474,6 +496,8 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const double& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const long& value)
 {
+  if (&name == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( name  );
@@ -487,6 +511,8 @@ XMLOutputStream::writeAttribute (const std::string& name, const long& value)
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const long& value)
 {
+  if (&triple == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( triple );
@@ -500,6 +526,8 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const long& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const int& value)
 {
+  if (&name == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( name  );
@@ -514,6 +542,8 @@ XMLOutputStream::writeAttribute (const std::string& name, const int& value)
 void
 XMLOutputStream::writeAttribute (const XMLTriple& triple, const int& value)
 {
+  if (&triple == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( triple );
@@ -527,6 +557,8 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const int& value)
 void
 XMLOutputStream::writeAttribute (const std::string& name, const unsigned int& value)
 {
+  if (&name == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( name  );
@@ -542,6 +574,8 @@ void
 XMLOutputStream::writeAttribute (  const XMLTriple&     triple
                                  , const unsigned int&  value )
 {
+  if (&triple == NULL || &value == NULL) return; 
+
   mStream << ' ';
 
   writeName ( triple );
@@ -898,6 +932,7 @@ LIBLAX_EXTERN
 XMLOutputStream_t *
 XMLOutputStream_createAsStdout (char * encoding, int writeXMLDecl)
 {
+  if (encoding == NULL) return NULL;
   return new(nothrow) XMLOutputStream(std::cout, encoding, writeXMLDecl);
 }
 
@@ -911,6 +946,7 @@ XMLOutputStream_t *
 XMLOutputStream_createAsStdoutWithProgramInfo (char * encoding,
         int writeXMLDecl, char * programName, char * programVersion)
 {
+  if (encoding == NULL) return NULL;
   return new(nothrow) XMLOutputStream(std::cout, encoding, writeXMLDecl,
                                  programName, programVersion);
 }
@@ -923,6 +959,8 @@ LIBLAX_EXTERN
 XMLOutputStream_t *
 XMLOutputStream_createAsString (char * encoding, int writeXMLDecl)
 {
+  if (encoding == NULL) return NULL;
+
   std::ostringstream *out = new std::ostringstream();
 
   return new(nothrow) XMLOutputStringStream(*out, encoding, writeXMLDecl);
@@ -938,6 +976,8 @@ XMLOutputStream_t *
 XMLOutputStream_createAsStringWithProgramInfo (char * encoding,
         int writeXMLDecl, char * programName, char * programVersion)
 {
+  if (encoding == NULL) return NULL;
+
   std::ostringstream *out = new std::ostringstream();
 
   return new(nothrow) XMLOutputStringStream(*out, encoding, writeXMLDecl,
@@ -952,6 +992,8 @@ LIBLAX_EXTERN
 XMLOutputStream_t *
 XMLOutputStream_createFile (char * filename, char * encoding, int writeXMLDecl)
 {
+  if (filename == NULL || encoding == NULL) return NULL;
+
   std::ofstream *fout = new std::ofstream(filename, std::ios::out);
   return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl);
 }
@@ -966,6 +1008,8 @@ XMLOutputStream_t *
 XMLOutputStream_createFileWithProgramInfo (char * filename, char * encoding, 
         int writeXMLDecl, char * programName, char * programVersion)
 {
+  if (filename == NULL || encoding == NULL) return NULL;
+
   std::ofstream *fout = new std::ofstream(filename, std::ios::out);
   return new(nothrow) XMLOutputFileStream(*fout, encoding, writeXMLDecl,
                           programName, programVersion);
@@ -979,6 +1023,7 @@ LIBLAX_EXTERN
 void
 XMLOutputStream_free (XMLOutputStream_t *stream)
 {
+  if (stream == NULL) return;
   delete static_cast<XMLOutputStream*>(stream);
 }  
 
@@ -991,6 +1036,7 @@ LIBLAX_EXTERN
 void 
 XMLOutputStream_writeXMLDecl (XMLOutputStream_t *stream)
 {
+  if (stream == NULL) return; 
   stream->writeXMLDecl();
 }
 
@@ -1002,6 +1048,7 @@ LIBLAX_EXTERN
 void
 XMLOutputStream_upIndent(XMLOutputStream_t *stream)
 {
+  if (stream == NULL) return; 
   stream->upIndent();
 }
 
@@ -1013,6 +1060,7 @@ LIBLAX_EXTERN
 void
 XMLOutputStream_downIndent(XMLOutputStream_t *stream)
 {
+  if (stream == NULL) return;
   stream->downIndent();
 }
 
@@ -1024,6 +1072,7 @@ LIBLAX_EXTERN
 void 
 XMLOutputStream_endElement (XMLOutputStream_t *stream, const char* name)
 {
+  if(stream == NULL) return;
   stream->endElement(name);
 }
 
@@ -1037,6 +1086,7 @@ void
 XMLOutputStream_endElementTriple (XMLOutputStream_t *stream, 
                                   const XMLTriple_t *triple)
 {
+  if (stream == NULL || triple == NULL) return;
   stream->endElement(*triple);
 }
 
@@ -1048,6 +1098,7 @@ LIBLAX_EXTERN
 void 
 XMLOutputStream_setAutoIndent (XMLOutputStream_t *stream, int indent)
 {
+  if (stream == NULL) return; 
   stream->setAutoIndent(static_cast<bool>(indent));
 }
 
@@ -1059,6 +1110,7 @@ LIBLAX_EXTERN
 void 
 XMLOutputStream_startElement (XMLOutputStream_t *stream, const char* name)
 {
+  if (stream == NULL) return;
   stream->startElement(name);
 }
 
@@ -1072,6 +1124,7 @@ void
 XMLOutputStream_startElementTriple (XMLOutputStream_t *stream, 
                                     const XMLTriple_t *triple)
 {
+  if (stream == NULL || triple == NULL) return;
   stream->startElement(*triple);
 }
 
@@ -1083,6 +1136,7 @@ LIBLAX_EXTERN
 void 
 XMLOutputStream_startEndElement (XMLOutputStream_t *stream, const char* name)
 {
+  if (stream == NULL) return;
   stream->startEndElement(name);
 }
 
@@ -1096,6 +1150,7 @@ void
 XMLOutputStream_startEndElementTriple (XMLOutputStream_t *stream, 
                                        const XMLTriple_t *triple)
 {
+  if (stream == NULL || triple == NULL) return; 
   stream->startEndElement(*triple);
 }
 
@@ -1108,6 +1163,7 @@ void
 XMLOutputStream_writeAttributeChars (XMLOutputStream_t *stream, 
                                      const char* name, const char* chars)
 {
+  if (stream == NULL) return;
   stream->writeAttribute(name, string(chars));
 }
 
@@ -1122,6 +1178,7 @@ XMLOutputStream_writeAttributeCharsTriple (XMLOutputStream_t *stream,
                                            const XMLTriple_t *triple,
                                            const char* chars)
 {
+  if (stream == NULL || triple == NULL) return;
   stream->writeAttribute(*triple, string(chars));
 }
 
@@ -1136,6 +1193,7 @@ XMLOutputStream_writeAttributeBool (XMLOutputStream_t *stream,
                                     const char* name,
                                     const int flag)
 {
+  if (stream == NULL) return; 
   stream->writeAttribute(name, static_cast<bool>(flag));
 }
 
@@ -1150,6 +1208,7 @@ XMLOutputStream_writeAttributeBoolTriple (XMLOutputStream_t *stream,
                                           const XMLTriple_t *triple,
                                           const int flag)
 {
+  if (stream == NULL || triple == NULL) return;
   stream->writeAttribute(*triple, static_cast<bool>(flag));
 }
 
@@ -1163,6 +1222,7 @@ XMLOutputStream_writeAttributeDouble (XMLOutputStream_t *stream,
                                       const char* name,
                                       const double value)
 {
+  if (stream == NULL) return;
   stream->writeAttribute(name, value);
 }
 
@@ -1176,6 +1236,7 @@ XMLOutputStream_writeAttributeDoubleTriple (XMLOutputStream_t *stream,
                                             const XMLTriple_t *triple,
                                             const double value)
 {
+  if (stream == NULL || triple == NULL) return;
   stream->writeAttribute(*triple, value);
 }
 
@@ -1189,6 +1250,7 @@ XMLOutputStream_writeAttributeLong (XMLOutputStream_t *stream,
                                     const char* name,
                                     const long value)
 {
+  if (stream == NULL) return; 
   stream->writeAttribute(name, value);
 }
 
@@ -1202,6 +1264,7 @@ XMLOutputStream_writeAttributeLongTriple (XMLOutputStream_t *stream,
                                           const XMLTriple_t *triple,
                                           const long value)
 {
+  if (stream == NULL || triple == NULL) return; 
   stream->writeAttribute(*triple, value);
 }
 
@@ -1215,6 +1278,7 @@ XMLOutputStream_writeAttributeInt (XMLOutputStream_t *stream,
                                    const char* name,
                                    const int value)
 {
+  if (stream == NULL) return;
   stream->writeAttribute(name, value);
 }
 
@@ -1228,6 +1292,7 @@ XMLOutputStream_writeAttributeIntTriple (XMLOutputStream_t *stream,
                                          const XMLTriple_t *triple,
                                          const int value)
 {
+  if (stream == NULL || triple == NULL) return;
   stream->writeAttribute(*triple, value);
 }
 
@@ -1241,6 +1306,7 @@ XMLOutputStream_writeAttributeUInt (XMLOutputStream_t *stream,
                                     const char* name,
                                     const unsigned int value)
 {
+  if (stream == NULL) return; 
   stream->writeAttribute(name, value);
 }
 
@@ -1254,6 +1320,7 @@ XMLOutputStream_writeAttributeUIntTriple (XMLOutputStream_t *stream,
                                           const XMLTriple_t *triple,
                                           const unsigned int value)
 {
+  if (stream == NULL) return; 
   stream->writeAttribute(*triple, value);
 }
 
@@ -1265,6 +1332,7 @@ LIBLAX_EXTERN
 void
 XMLOutputStream_writeChars (XMLOutputStream_t *stream, const char* chars)
 {
+  if (stream == NULL || chars == NULL) return; 
   stream->operator <<(chars);
 }
 
@@ -1276,6 +1344,7 @@ LIBLAX_EXTERN
 void
 XMLOutputStream_writeDouble (XMLOutputStream_t *stream, const double value)
 {
+  if (stream == NULL) return; 
   stream->operator <<(value);
 }
 
@@ -1287,6 +1356,7 @@ LIBLAX_EXTERN
 void
 XMLOutputStream_writeLong (XMLOutputStream_t *stream, const long value)
 {
+  if (stream == NULL) return; 
   stream->operator <<(value);
 }
 
@@ -1298,6 +1368,8 @@ LIBLAX_EXTERN
 const char *
 XMLOutputStream_getString(XMLOutputStream_t* stream)
 {
+  if (stream == NULL) return NULL;
+
   if (stream->getStringStream())
   {
     std::string buffer = static_cast <XMLOutputStringStream*>

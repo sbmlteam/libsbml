@@ -50,7 +50,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new XMLParser.  The parser will notify the given XMLHandler
  * of parse events and errors.
  */
-XMLParser::XMLParser () : mErrorLog(0)
+XMLParser::XMLParser () : mErrorLog(NULL)
 {
 }
 
@@ -90,7 +90,7 @@ XMLParser::create (XMLHandler& handler, const string library)
   if (library.empty() || library == "xerces") return new XercesParser(handler);
 #endif
 
-  return 0;
+  return NULL;
 }
 
 
@@ -112,7 +112,7 @@ int
 XMLParser::setErrorLog (XMLErrorLog* log)
 {
   mErrorLog = log;
-  if (mErrorLog) 
+  if (mErrorLog != NULL) 
   {
     return mErrorLog->setParser(this);
   }

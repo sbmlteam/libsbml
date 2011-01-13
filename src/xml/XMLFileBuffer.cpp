@@ -45,10 +45,13 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a XMLBuffer based on the given file.  The file will be opened
  * for reading.
  */
-XMLFileBuffer::XMLFileBuffer (const string& filename) :
-   mFilename( filename )
+XMLFileBuffer::XMLFileBuffer (const string& filename)   
 {
   mStream = NULL;
+
+  if (&filename == NULL) return;
+
+  mFilename = filename;
 
   try
   {
@@ -103,7 +106,7 @@ XMLFileBuffer::XMLFileBuffer (const string& filename) :
  */
 XMLFileBuffer::~XMLFileBuffer ()
 {
-  if(mStream) delete mStream;
+  if(mStream != NULL) delete mStream;
 }
 
 
@@ -116,7 +119,7 @@ XMLFileBuffer::~XMLFileBuffer ()
 unsigned int
 XMLFileBuffer::copyTo (void* destination, unsigned int bytes) 
 {
-  if (mStream)
+  if (mStream != NULL)
   {
     mStream->read( static_cast<char*>(destination), bytes);
     return mStream->gcount();
@@ -135,7 +138,7 @@ XMLFileBuffer::copyTo (void* destination, unsigned int bytes)
 bool
 XMLFileBuffer::error ()
 {
-  if (mStream) return (!mStream->eof() && mStream->fail());
+  if (mStream != NULL) return (!mStream->eof() && mStream->fail());
   else return true;
 }
 

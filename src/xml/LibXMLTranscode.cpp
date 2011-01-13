@@ -64,7 +64,7 @@ int replaceAll(string& str, const string& tstr, const string& rstr)
 
 LibXMLTranscode::operator string ()
 {
-  if (mBuffer == 0)
+  if (mBuffer == NULL)
   {
     return "";
   }

@@ -299,6 +299,29 @@ START_TEST (test_XMLNamespaces_clear)
 }
 END_TEST
 
+START_TEST (test_XMLNamespaces_accessWithNULL)
+{
+  fail_unless( XMLNamespaces_add(NULL, NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( XMLNamespaces_clear(NULL) == LIBSBML_OPERATION_FAILED);
+  fail_unless( XMLNamespaces_clone(NULL) == NULL);
+
+  XMLNamespaces_free(NULL);
+
+  fail_unless( XMLNamespaces_getIndex(NULL, NULL) == -1);
+  fail_unless( XMLNamespaces_getIndexByPrefix(NULL, NULL) == -1);
+  fail_unless( XMLNamespaces_getLength(NULL) == 0);
+  fail_unless( XMLNamespaces_getPrefix(NULL, 0) == NULL);
+  fail_unless( XMLNamespaces_getPrefixByURI(NULL, NULL) == NULL);
+  fail_unless( XMLNamespaces_getURI(NULL, 0) == NULL);
+  fail_unless( XMLNamespaces_getURIByPrefix(NULL, NULL) == NULL);
+  fail_unless( XMLNamespaces_hasNS(NULL, NULL, NULL) == 0);
+  fail_unless( XMLNamespaces_hasPrefix(NULL, NULL) == 0);
+  fail_unless( XMLNamespaces_hasURI(NULL, NULL) == 0);
+  fail_unless( XMLNamespaces_isEmpty(NULL) == 1);
+  fail_unless( XMLNamespaces_remove(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( XMLNamespaces_removeByPrefix(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_XMLNamespaces (void)
@@ -318,6 +341,7 @@ create_suite_XMLNamespaces (void)
   tcase_add_test( tcase, test_XMLNamespaces_remove_by_prefix );
   tcase_add_test( tcase, test_XMLNamespaces_remove1          );
   tcase_add_test( tcase, test_XMLNamespaces_clear            );
+  tcase_add_test( tcase, test_XMLNamespaces_accessWithNULL   );
   
   suite_add_tcase(suite, tcase);
 

@@ -257,6 +257,7 @@ LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_createWith (const char *name, const char *uri, const char *prefix)
 {
+  if (name == NULL || uri == NULL || prefix == NULL) return NULL;
   return new(nothrow) XMLTriple(name, uri, prefix);
 }
 
@@ -270,6 +271,7 @@ LIBLAX_EXTERN
 void
 XMLTriple_free (XMLTriple_t *triple)
 {
+  if (triple == NULL) return; 
   delete static_cast<XMLTriple*>( triple );
 }
 
@@ -285,6 +287,7 @@ LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_clone (const XMLTriple_t* t)
 {
+  if (t == NULL) return NULL;
   return static_cast<XMLTriple*>( t->clone() );
 }
 
@@ -300,6 +303,7 @@ LIBLAX_EXTERN
 const char *
 XMLTriple_getName (const XMLTriple_t *triple)
 {
+  if (triple == NULL) return NULL;
   return triple->getName().empty() ? NULL : triple->getName().c_str();
 }
 
@@ -315,6 +319,7 @@ LIBLAX_EXTERN
 const char *
 XMLTriple_getPrefix (const XMLTriple_t *triple)
 {
+  if (triple == NULL) return NULL;
   return triple->getPrefix().empty() ? NULL : triple->getPrefix().c_str();
 }
 
@@ -330,6 +335,7 @@ LIBLAX_EXTERN
 const char *
 XMLTriple_getURI (const XMLTriple_t *triple)
 {
+  if (triple == NULL) return NULL;
   return triple->getURI().empty() ? NULL : triple->getURI().c_str();
 }
 
@@ -345,6 +351,7 @@ LIBLAX_EXTERN
 const char *
 XMLTriple_getPrefixedName (const XMLTriple_t *triple)
 {
+  if (triple == NULL) return NULL;
   return triple->getPrefixedName().empty() ? NULL : safe_strdup(triple->getPrefixedName().c_str());
 }
 
@@ -361,6 +368,7 @@ LIBLAX_EXTERN
 int
 XMLTriple_isEmpty (const XMLTriple_t *triple)
 {
+  if (triple == NULL) return (int)true;
   return static_cast<int> (triple->isEmpty());
 }
 
@@ -380,6 +388,8 @@ LIBLAX_EXTERN
 int
 XMLTriple_equalTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
 {
+  if (lhs == NULL && rhs == NULL) return (int) true;
+  if (lhs == NULL || rhs == NULL) return (int) false;
   return (*lhs == *rhs);
 }
 
@@ -399,7 +409,7 @@ LIBLAX_EXTERN
 int
 XMLTriple_notEqualTo(const XMLTriple_t *lhs, const XMLTriple_t* rhs)
 {
-  return (*lhs != *rhs);
+  return (int) !((bool)XMLTriple_equalTo(lhs, rhs));
 }
 
 

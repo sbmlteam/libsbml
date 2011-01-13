@@ -110,6 +110,7 @@ XMLNamespaces::clone () const
 int
 XMLNamespaces::add (const std::string& uri, const std::string& prefix)
 {
+  if (&uri == NULL || &prefix == NULL) return LIBSBML_INVALID_OBJECT;
   //
   // avoids duplicate prefix
   //
@@ -262,6 +263,7 @@ XMLNamespaces::getURI (int index) const
 std::string
 XMLNamespaces::getURI (const std::string& prefix) const
 {
+  if (&prefix == NULL) return "";
   for (int index = 0; index < getLength(); ++index)
   {
     if (getPrefix(index) == prefix) return getURI(index);
@@ -287,6 +289,7 @@ XMLNamespaces::isEmpty () const
   */
 bool XMLNamespaces::hasURI(const std::string& uri) const
 {
+  if (&uri == NULL) return false;
   return ( getIndex(uri) != -1 );
 }
 
@@ -297,6 +300,7 @@ bool XMLNamespaces::hasURI(const std::string& uri) const
  */
 bool XMLNamespaces::hasPrefix(const std::string& prefix) const
 {
+  if (&prefix == NULL) return false;
   return ( getIndexByPrefix(prefix) != -1 );
 }
 
@@ -307,6 +311,8 @@ bool XMLNamespaces::hasPrefix(const std::string& prefix) const
  */
 bool XMLNamespaces::hasNS(const std::string& uri, const std::string& prefix) const
 {
+  if (&uri == NULL || &prefix == NULL) return false;
+
   for (int i= 0; i < getLength(); ++i)
   {
      if ( (getURI(i) == uri) && (getPrefix(i) == prefix) ) 
@@ -400,6 +406,7 @@ LIBLAX_EXTERN
 void
 XMLNamespaces_free (XMLNamespaces_t *ns)
 {
+  if (ns == NULL) return;
   delete ns;
 }
 
@@ -415,6 +422,7 @@ LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_clone (const XMLNamespaces_t* ns)
 {
+  if (ns == NULL) return NULL;
   return static_cast<XMLNamespaces*>( ns->clone() );
 }
 
@@ -432,12 +440,14 @@ XMLNamespaces_clone (const XMLNamespaces_t* ns)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLNamespaces_add (XMLNamespaces_t *ns, 
 		   const char *uri, const char *prefix)
 {
+  if (ns == NULL) return LIBSBML_INVALID_OBJECT;
   return ns->add(uri, prefix);
 }
 
@@ -453,10 +463,12 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
 {
+  if (ns == NULL) return LIBSBML_INVALID_OBJECT;
   return ns->remove(index);
 }
 
@@ -472,10 +484,12 @@ int XMLNamespaces_remove (XMLNamespaces_t *ns, int index)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int XMLNamespaces_removeByPrefix (XMLNamespaces_t *ns, const char* prefix)
 {
+  if (ns == NULL) return LIBSBML_INVALID_OBJECT;
   return ns->remove(prefix);
 }
 
@@ -497,6 +511,7 @@ LIBLAX_EXTERN
 int
 XMLNamespaces_clear (XMLNamespaces_t *ns)
 {
+  if (ns == NULL) return LIBSBML_OPERATION_FAILED;
   return ns->clear();
 }
 
@@ -512,6 +527,7 @@ LIBLAX_EXTERN
 int
 XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
 {
+  if (ns == NULL) return -1;
   return ns->getIndex(uri);
 }
 
@@ -526,6 +542,7 @@ XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
 LIBLAX_EXTERN
 int XMLNamespaces_getIndexByPrefix (const XMLNamespaces_t *ns, const char* prefix)
 {
+  if (ns == NULL) return -1;
   return ns->getIndexByPrefix(prefix);
 }
 
@@ -537,6 +554,7 @@ LIBLAX_EXTERN
 int
 XMLNamespaces_getLength (const XMLNamespaces_t *ns)
 {
+  if (ns == NULL) return 0;
   return ns->getLength();
 }
 
@@ -548,6 +566,7 @@ LIBLAX_EXTERN
 char *
 XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
 {
+  if (ns == NULL) return NULL;
   return ns->getPrefix(index).empty() ? NULL : safe_strdup(ns->getPrefix(index).c_str());
 }
 
@@ -559,6 +578,7 @@ LIBLAX_EXTERN
 char *
 XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri)
 {
+  if (ns == NULL) return NULL;
   return ns->getPrefix(uri).empty() ? NULL : safe_strdup(ns->getPrefix(uri).c_str());
 }
 
@@ -569,6 +589,7 @@ LIBLAX_EXTERN
 char *
 XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index)
 {
+  if (ns == NULL) return NULL;
   return ns->getURI(index).empty() ? NULL : safe_strdup(ns->getURI(index).c_str());
 }
 
@@ -579,6 +600,7 @@ LIBLAX_EXTERN
 char *
 XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
 {
+  if (ns == NULL) return NULL;
   return ns->getURI(prefix).empty() ? NULL : safe_strdup(ns->getURI(prefix).c_str());
 }
 
@@ -593,6 +615,7 @@ LIBLAX_EXTERN
 int
 XMLNamespaces_isEmpty (const XMLNamespaces_t *ns)
 {
+  if (ns == NULL) return (int)true;
   return ns->isEmpty();
 }
 
@@ -608,6 +631,7 @@ LIBLAX_EXTERN
 int 
 XMLNamespaces_hasURI(const XMLNamespaces_t *ns, const char* uri)
 {
+  if (ns == NULL) return (int)false;
   return ns->hasURI(uri);
 }
 
@@ -623,6 +647,7 @@ LIBLAX_EXTERN
 int 
 XMLNamespaces_hasPrefix(const XMLNamespaces_t *ns, const char* prefix)
 {
+  if (ns == NULL) return (int)false;
   return ns->hasPrefix(prefix);
 }
 
@@ -638,6 +663,7 @@ LIBLAX_EXTERN
 int 
 XMLNamespaces_hasNS(const XMLNamespaces_t *ns, const char* uri, const char* prefix)
 {
+  if (ns == NULL) return (int)false;
   return ns->hasNS(uri, prefix);
 }
 

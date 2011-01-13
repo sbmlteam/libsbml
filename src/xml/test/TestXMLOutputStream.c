@@ -204,6 +204,51 @@ START_TEST (test_XMLOutputStream_PredefinedEntity)
 }
 END_TEST
 
+START_TEST (test_XMLOutputStream_accessWithNULL)
+{
+  fail_unless( XMLOutputStream_createAsStdout(NULL, 0) == NULL );
+  fail_unless( XMLOutputStream_createAsStdoutWithProgramInfo(NULL, 0, NULL, NULL) == NULL );
+  fail_unless( XMLOutputStream_createAsString(NULL, 0) == NULL );
+  fail_unless( XMLOutputStream_createAsStringWithProgramInfo(NULL, 0, NULL, NULL) == NULL );
+  fail_unless( XMLOutputStream_createFile(NULL, NULL, 0) == NULL );
+  fail_unless( XMLOutputStream_createFileWithProgramInfo(NULL, NULL, 0, NULL, NULL) == NULL );
+  
+  XMLOutputStream_downIndent(NULL);
+  XMLOutputStream_endElement(NULL, NULL);
+  XMLOutputStream_endElementTriple(NULL, NULL);
+  
+  XMLOutputStream_free(NULL);   
+  
+  fail_unless( XMLOutputStream_getString(NULL) == NULL );
+  
+  XMLOutputStream_setAutoIndent(NULL, 0);
+  
+  XMLOutputStream_startElement(NULL, NULL);
+  XMLOutputStream_startElementTriple(NULL, NULL);
+  XMLOutputStream_startEndElement(NULL, NULL);
+  XMLOutputStream_startEndElementTriple(NULL, NULL);
+  
+  XMLOutputStream_upIndent(NULL);
+  
+  XMLOutputStream_writeAttributeBool(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeBoolTriple(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeChars(NULL, NULL, NULL);
+  XMLOutputStream_writeAttributeCharsTriple(NULL, NULL, NULL);
+  XMLOutputStream_writeAttributeDouble(NULL, NULL, 0.0);
+  XMLOutputStream_writeAttributeDoubleTriple(NULL, NULL, 0.0);
+  XMLOutputStream_writeAttributeInt(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeIntTriple(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeLong(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeLongTriple(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeUInt(NULL, NULL, 0);
+  XMLOutputStream_writeAttributeUIntTriple(NULL, NULL, 0);
+  
+  XMLOutputStream_writeChars(NULL, NULL);
+  XMLOutputStream_writeDouble(NULL, 0.0);
+  XMLOutputStream_writeLong(NULL, 0);
+  XMLOutputStream_writeXMLDecl(NULL);
+}
+END_TEST
 
 Suite *
 create_suite_XMLOutputStream (void)
@@ -211,16 +256,18 @@ create_suite_XMLOutputStream (void)
   Suite *suite = suite_create("XMLOutputStream");
   TCase *tcase = tcase_create("XMLOutputStream");
 
-  tcase_add_test( tcase, test_XMLOutputStream_createStdout  );
-  tcase_add_test( tcase, test_XMLOutputStream_createFile  );
-  tcase_add_test( tcase, test_XMLOutputStream_createString  );
+  tcase_add_test( tcase, test_XMLOutputStream_createStdout                 );
+  tcase_add_test( tcase, test_XMLOutputStream_createFile                   );
+  tcase_add_test( tcase, test_XMLOutputStream_createString                 );
   tcase_add_test( tcase, test_XMLOutputStream_createStdoutWithProgramInfo  );
   tcase_add_test( tcase, test_XMLOutputStream_createFileWithProgramInfo    );
   tcase_add_test( tcase, test_XMLOutputStream_createStringWithProgramInfo  );
-  tcase_add_test( tcase, test_XMLOutputStream_startEnd  );
-  tcase_add_test( tcase, test_XMLOutputStream_Elements  );
-  tcase_add_test( tcase, test_XMLOutputStream_CharacterReference );
-  tcase_add_test( tcase, test_XMLOutputStream_PredefinedEntity );
+  tcase_add_test( tcase, test_XMLOutputStream_startEnd                     );
+  tcase_add_test( tcase, test_XMLOutputStream_Elements                     );
+  tcase_add_test( tcase, test_XMLOutputStream_CharacterReference           );
+  tcase_add_test( tcase, test_XMLOutputStream_PredefinedEntity             );
+  tcase_add_test( tcase, test_XMLOutputStream_accessWithNULL               );
+
   suite_add_tcase(suite, tcase);
 
   return suite;

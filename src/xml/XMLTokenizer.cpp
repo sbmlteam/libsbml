@@ -165,6 +165,8 @@ XMLTokenizer::XML (const string& version, const string& encoding)
 void
 XMLTokenizer::startElement (const XMLToken& element)
 {
+  if (&element == NULL) return; 
+
   if (mInChars || mInStart)
   {
     mInChars = false;
@@ -209,7 +211,7 @@ XMLTokenizer::endElement (const XMLToken& element)
     mCurrent.setEnd();
     mTokens.push_back( mCurrent );
   }
-  else
+  else if (&element != NULL) 
   {
     mTokens.push_back(element);
   }
@@ -222,6 +224,8 @@ XMLTokenizer::endElement (const XMLToken& element)
 void
 XMLTokenizer::characters (const XMLToken& data)
 {
+  if (&data == NULL) return; 
+
   if (mInStart)
   {
     mInStart = false;

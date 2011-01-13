@@ -192,7 +192,7 @@ LibXMLParser::reportError (const XMLErrorCode_t code,
 			   const unsigned int   line,
 			   const unsigned int   column)
 {
-  if (mErrorLog)
+  if (mErrorLog != NULL)
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
   else
   {
@@ -218,10 +218,10 @@ LibXMLParser::reportError (const XMLErrorCode_t code,
  * of parse events and errors.
  */
 LibXMLParser::LibXMLParser (XMLHandler& handler) :
-   mParser ( 0                     )
+   mParser ( NULL                  )
  , mHandler( handler               )
  , mBuffer ( new char[BUFFER_SIZE] )
- , mSource ( 0 )
+ , mSource ( NULL                  )
 {
   xmlSAXHandler* sax  = LibXMLHandler::getInternalHandler();
   void*          data = static_cast<void*>(&mHandler);
@@ -248,9 +248,9 @@ LibXMLParser::~LibXMLParser ()
 bool
 LibXMLParser::error () const
 {
-  bool error = (mParser == 0 || mBuffer == 0);
+  bool error = (mParser == NULL || mBuffer == NULL);
 
-  if (mSource) error = error || mSource->error();
+  if (mSource != NULL) error = error || mSource->error();
   return error;
 }
 
@@ -359,7 +359,7 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
     mSource = new XMLMemoryBuffer(content, strlen(content));
   }
 
-  if ( mSource == 0 )
+  if ( mSource == NULL )
   {
     reportError(XMLOutOfMemory, "", 0, 0);
     return false;
@@ -429,7 +429,7 @@ LibXMLParser::parseReset ()
   xmlCtxtResetPush(mParser, 0, 0, 0, 0);
 
   delete mSource;
-  mSource = 0;
+  mSource = NULL;
 }
 
 

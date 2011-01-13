@@ -76,6 +76,8 @@ XMLErrorLog::~XMLErrorLog ()
 void
 XMLErrorLog::add (const XMLError& error)
 {
+  if (&error == NULL) return;
+
   XMLError* cerror;
 
   try
@@ -142,7 +144,7 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 const XMLError*
 XMLErrorLog::getError (unsigned int n) const
 {
-  return (n < mErrors.size()) ? mErrors[n] : 0;
+  return (n < mErrors.size()) ? mErrors[n] : NULL;
 }
 
 
@@ -179,7 +181,7 @@ XMLErrorLog::setParser (const XMLParser* p)
 {
   mParser = p;
 
-  if (mParser)
+  if (mParser != NULL)
     return LIBSBML_OPERATION_SUCCESS;
   else
     return LIBSBML_OPERATION_FAILED;
@@ -212,7 +214,8 @@ LIBLAX_EXTERN
 void
 XMLErrorLog_free (XMLErrorLog_t *log)
 {
-    delete static_cast<XMLErrorLog*>(log);
+  if (log == NULL);
+  delete static_cast<XMLErrorLog*>(log);
 }
 
 
@@ -226,6 +229,7 @@ LIBLAX_EXTERN
 void
 XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error)
 {
+  if (log == NULL || error == NULL) return;
   log->add(*error);
 }
 
@@ -242,6 +246,7 @@ LIBLAX_EXTERN
 const XMLError_t *
 XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n)
 {
+  if (log == NULL) return NULL;
   return log->getError(n);
 }
 
@@ -257,6 +262,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
 {
+  if (log == NULL) return 0;
   return log->getNumErrors();
 }
 
@@ -269,6 +275,7 @@ LIBLAX_EXTERN
 void
 XMLErrorLog_clearLog (XMLErrorLog_t *log)
 {
+  if (log == NULL) return;
   log->clearLog();
 }
 

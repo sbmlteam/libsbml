@@ -62,6 +62,30 @@ START_TEST (test_XMLError_variablesAsStrings)
 }
 END_TEST
 
+START_TEST (test_XMLError_accessWithNULL)
+{
+  // survive NULL arguments  
+  XMLError_free(NULL);
+
+  fail_unless( XMLError_createWithIdAndMessage(0, NULL) == NULL);
+  fail_unless( XMLError_getCategory(NULL) == SBML_INT_MAX);
+  fail_unless( XMLError_getCategoryAsString(NULL) == NULL);
+  fail_unless( XMLError_getColumn(NULL) == 0);
+  fail_unless( XMLError_getErrorId(NULL) == SBML_INT_MAX);
+  fail_unless( XMLError_getLine(NULL) == 0);
+  fail_unless( XMLError_getMessage(NULL) == NULL);
+  fail_unless( XMLError_getSeverity(NULL) == SBML_INT_MAX);
+  fail_unless( XMLError_getSeverityAsString(NULL) == NULL);
+  fail_unless( XMLError_getShortMessage(NULL) == NULL);
+  fail_unless( XMLError_isError(NULL) == 0);
+  fail_unless( XMLError_isFatal(NULL) == 0);
+  fail_unless( XMLError_isInfo(NULL) == 0);
+  fail_unless( XMLError_isWarning(NULL) == 0);
+
+  XMLError_print(NULL, NULL); 
+
+}
+END_TEST
 
 Suite *
 create_suite_XMLError_C (void)
@@ -69,8 +93,10 @@ create_suite_XMLError_C (void)
   Suite *suite = suite_create("XMLErrorC");
   TCase *tcase = tcase_create("XMLErrorC");
 
-  tcase_add_test( tcase, test_XMLError_create_C  );
-  tcase_add_test( tcase, test_XMLError_variablesAsStrings  );
+  tcase_add_test( tcase, test_XMLError_create_C           );
+  tcase_add_test( tcase, test_XMLError_variablesAsStrings );
+  tcase_add_test( tcase, test_XMLError_accessWithNULL     );
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

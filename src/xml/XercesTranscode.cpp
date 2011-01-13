@@ -44,7 +44,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 char* 
 XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
 {
-  if ( !src_str )
+  if ( src_str == NULL )
   {
     char* str = new char[1];
     str[0] = '\0';
@@ -56,7 +56,7 @@ XercesTranscode::transcodeToUTF8(const XMLCh* src_str)
   XMLTranscoder* transcoder = XMLPlatformUtils::fgTransService->makeNewTranscoderFor(
                                 XMLRecognizer::UTF_8, res_value, block_size);
 
-  if ( !transcoder )
+  if ( transcoder == NULL )
   {
     // this should not happen
     return xercesc::XMLString::transcode(src_str);

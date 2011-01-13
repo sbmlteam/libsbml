@@ -45,19 +45,19 @@ class XMLParser;
 XMLInputStream::XMLInputStream (  const char*   content
                                 , bool          isFile
                                 , const std::string  library 
-		                , XMLErrorLog*  errorLog ) :
+                                , XMLErrorLog*  errorLog ) :
 
 
    mIsError ( false )
  , mParser  ( XMLParser::create( mTokenizer, library) )
- , mSBMLns  ( 0 )
+ , mSBMLns  ( NULL )
 {
   // if the content points to nothing throw an exception ??
   if (content == NULL)
     throw XMLConstructorException();
 
   if ( !isGood() ) return;
-  if ( errorLog ) setErrorLog(errorLog);
+  if ( errorLog != NULL ) setErrorLog(errorLog);
   // if this fails we should probably flag the stream as error
   if (!mParser->parseFirst(content, isFile))
     mIsError = true; 
@@ -69,7 +69,7 @@ XMLInputStream::XMLInputStream (  const char*   content
  */
 XMLInputStream::~XMLInputStream ()
 {
-  if ( mParser )
+  if ( mParser != NULL )
   {
      /**
       *  set NULL to 'XMLErrorLog::mParser' (corresponding XMLErrorLog* 
@@ -78,7 +78,7 @@ XMLInputStream::~XMLInputStream ()
       *  anymore.    
 	   */
     XMLErrorLog* errorLog = mParser->getErrorLog();
-    if ( errorLog ) errorLog->setParser(NULL);
+    if ( errorLog != NULL ) errorLog->setParser(NULL);
   }
   delete mParser;
   delete mSBMLns;
@@ -132,7 +132,7 @@ XMLInputStream::isEOF () const
 bool
 XMLInputStream::isError () const
 {
-  return (mIsError || mParser == 0);
+  return (mIsError || mParser == NULL);
 }
 
 
@@ -251,10 +251,10 @@ XMLInputStream::getSBMLNamespaces()
 void
 XMLInputStream::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 {
-  if (sbmlns)
+  if (sbmlns != NULL)
     mSBMLns = sbmlns->clone();
   else
-    mSBMLns = 0;
+    mSBMLns = NULL;
 }
 /**
  * 
@@ -263,6 +263,7 @@ LIBLAX_EXTERN
 XMLInputStream_t *
 XMLInputStream_create (const char* content, int isFile, const char *library)
 {
+  if (content == NULL || library == NULL) return NULL;
   return new(nothrow) XMLInputStream(content, isFile, library);
 }
 
@@ -274,6 +275,7 @@ LIBLAX_EXTERN
 void
 XMLInputStream_free (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return;
   delete static_cast<XMLInputStream*>(stream);
 }  
 
@@ -285,6 +287,7 @@ LIBLAX_EXTERN
 const char *
 XMLInputStream_getEncoding (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return NULL;
   return stream->getEncoding().empty() ? NULL : stream->getEncoding().c_str();
 }
 
@@ -296,6 +299,7 @@ LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLInputStream_getErrorLog (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return NULL;
   return stream->getErrorLog();
 }
 
@@ -307,6 +311,7 @@ LIBLAX_EXTERN
 int
 XMLInputStream_isEOF (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return (int)false;
   return static_cast<int>(stream->isEOF());
 }
 
@@ -318,6 +323,7 @@ LIBLAX_EXTERN
 int
 XMLInputStream_isError (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return (int)false;
   return static_cast<int>(stream->isError());
 }
 
@@ -329,6 +335,7 @@ LIBLAX_EXTERN
 int
 XMLInputStream_isGood (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return (int)false;
   return static_cast<int>(stream->isGood());
 }
 
@@ -340,6 +347,7 @@ LIBLAX_EXTERN
 XMLToken_t *
 XMLInputStream_next (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return NULL;
   return new (nothrow) XMLToken(stream->next());
 }
 
@@ -351,6 +359,7 @@ LIBLAX_EXTERN
 const XMLToken_t *
 XMLInputStream_peek (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return NULL;
   return &(stream->peek());
 }
 
@@ -363,6 +372,7 @@ void
 XMLInputStream_skipPastEnd (XMLInputStream_t *stream,
 			    const XMLToken_t *element)
 {
+  if (stream == NULL || element == NULL) return;
   stream->skipPastEnd(*element);
 }
 
@@ -374,6 +384,7 @@ LIBLAX_EXTERN
 void
 XMLInputStream_skipText (XMLInputStream_t *stream)
 {
+  if (stream == NULL) return;
   stream->skipText();
 }
 
@@ -385,6 +396,7 @@ LIBLAX_EXTERN
 int
 XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
 {
+  if (stream == NULL ) return LIBSBML_OPERATION_FAILED;
   return stream->setErrorLog(log);
 }
 

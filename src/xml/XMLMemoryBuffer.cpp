@@ -36,15 +36,18 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * character deleted outside during the lifetime of this XMLMemoryBuffer object.
  */
 XMLMemoryBuffer::XMLMemoryBuffer (const char* buffer, unsigned int length) :
-   mBuffer( 0 )
+   mBuffer( NULL   )
  , mLength( length )
  , mOffset( 0      )
 {
+  if (buffer == NULL) return;
+  
   int bufsize  = strlen(buffer);
   char* tmpbuf = new char[bufsize+1];
 
   strncpy(tmpbuf, buffer, bufsize+1);
   mBuffer = tmpbuf;
+
 }
 
 
@@ -83,7 +86,7 @@ XMLMemoryBuffer::copyTo (void* destination, unsigned int bytes)
 bool
 XMLMemoryBuffer::error ()
 {
-  return (mBuffer == 0);
+  return (mBuffer == NULL);
 }
 
 /** @endcond */

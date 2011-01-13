@@ -87,7 +87,7 @@ XMLNode::XMLNode (const XMLToken& token) : XMLToken(token)
 XMLNode::XMLNode (  const XMLTriple&     triple
                   , const XMLAttributes& attributes
                   , const XMLNamespaces& namespaces
-		  , const unsigned int   line
+                  , const unsigned int   line
                   , const unsigned int   column) 
                   : XMLToken(triple, attributes, namespaces, line, column)
 {
@@ -399,7 +399,9 @@ XMLNode::getChild (const std::string&  name) const
 int
 XMLNode::getIndex (const std::string& name) const
 {
-	for (int index = 0; index < getNumChildren(); ++index)
+  if (&name == NULL) return -1;
+	
+  for (unsigned int index = 0; index < getNumChildren(); ++index)
 	{
 		if (getChild(index).getName() == name) return index;
 	}
@@ -419,6 +421,8 @@ XMLNode::getIndex (const std::string& name) const
 bool 
 XMLNode::equals(const XMLNode& other) const
 {
+  if (&other == NULL) return false;
+
 	bool equal=true;
 	// check if the nodes have the same name,
 	equal=(getName()==other.getName());
@@ -484,6 +488,8 @@ XMLNode::getNumChildren () const
 void
 XMLNode::write (XMLOutputStream& stream) const
 {
+  if (&stream == NULL) return;
+
   unsigned int children = getNumChildren();
 
   XMLToken::write(stream);
@@ -536,6 +542,8 @@ std::string XMLNode::convertXMLNodeToString(const XMLNode* xnode)
  */
 XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNamespaces* xmlns)
 {
+  if (&xmlstr == NULL) return NULL;
+
   XMLNode* xmlnode     = NULL;
   std::ostringstream oss;
   const char* dummy_xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -545,7 +553,8 @@ XMLNode* XMLNode::convertStringToXMLNode(const std::string& xmlstr, const XMLNam
 
   oss << dummy_xml;
   oss << dummy_element_start;
-  if(xmlns){
+  if(xmlns != NULL)
+  {
     for(int i=0; i < xmlns->getLength(); i++)
     {
       oss << " xmlns";
@@ -639,6 +648,7 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createFromToken (const XMLToken_t *token)
 {
+  if (token == NULL) return NULL;
   return new(nothrow) XMLNode(*token);
 }
 
@@ -660,6 +670,7 @@ XMLNode_createStartElementNS (const XMLTriple_t     *triple,
 			      const XMLAttributes_t *attr,
 			      const XMLNamespaces_t *ns)
 {
+  if (triple == NULL || attr == NULL || ns == NULL) return NULL;
   return new(nothrow) XMLNode(*triple, *attr, *ns);
 }
 
@@ -678,6 +689,7 @@ XMLNode_t *
 XMLNode_createStartElement  (const XMLTriple_t *triple,
 			     const XMLAttributes_t *attr)
 {
+  if (triple == NULL || attr == NULL) return NULL;
   return new(nothrow) XMLNode(*triple, *attr);
 }
 
@@ -694,6 +706,7 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createEndElement (const XMLTriple_t *triple)
 {
+  if (triple == NULL) return NULL;
   return new(nothrow) XMLNode(*triple);
 }
 
@@ -739,6 +752,7 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_clone (const XMLNode_t* n)
 {
+  if (n == NULL) return NULL;
   return static_cast<XMLNode*>( n->clone() );
 }
 
@@ -752,6 +766,7 @@ LIBLAX_EXTERN
 void
 XMLNode_free (XMLNode_t *node)
 {
+  if (node == NULL) return;
   delete static_cast<XMLNode*>(node);
 }
 
@@ -768,11 +783,13 @@ XMLNode_free (XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
 {
+  if (node == NULL || child == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addChild(*child);
 }
 
@@ -791,7 +808,7 @@ LIBLAX_EXTERN
 XMLNode_t*
 XMLNode_insertChild (XMLNode_t *node, unsigned int n, const XMLNode_t *child)
 {
-  if (!child)
+  if (node == NULL || child == NULL )
   {
     return NULL;
   }
@@ -815,6 +832,7 @@ LIBLAX_EXTERN
 XMLNode_t* 
 XMLNode_removeChild(XMLNode_t *node, unsigned int n)
 {
+  if (node == NULL) return NULL;
   return node->removeChild(n);
 }
 
@@ -828,11 +846,13 @@ XMLNode_removeChild(XMLNode_t *node, unsigned int n)
  * enumeration #OperationReturnValues_t. @endif The possible values
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLNode_removeChildren (XMLNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeChildren();
 }
 
@@ -848,6 +868,7 @@ LIBLAX_EXTERN
 const char *
 XMLNode_getCharacters (const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return node->getCharacters().empty() ? NULL : node->getCharacters().c_str();
 }
 
@@ -865,11 +886,13 @@ XMLNode_getCharacters (const XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_setTriple(XMLNode_t *node, const XMLTriple_t *triple)
 {
+  if(node == NULL || triple == NULL) return LIBSBML_INVALID_OBJECT;
   return node->setTriple(*triple);
 }
 
@@ -885,6 +908,7 @@ LIBLAX_EXTERN
 const char *
 XMLNode_getName (const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return node->getName().empty() ? NULL : node->getName().c_str();
 }
 
@@ -903,6 +927,7 @@ LIBLAX_EXTERN
 const char *
 XMLNode_getPrefix (const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return node->getPrefix().empty() ? NULL : node->getPrefix().c_str();
 }
 
@@ -918,6 +943,7 @@ LIBLAX_EXTERN
 const char *
 XMLNode_getURI (const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return node->getURI().empty() ? NULL : node->getURI().c_str();
 }
 
@@ -934,6 +960,7 @@ LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n)
 {
+  if (node == NULL) return NULL;
   return &(node->getChild(n));
 }
 
@@ -950,6 +977,7 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_getChildNC (XMLNode_t *node, const unsigned int n)
 {
+  if (node == NULL) return NULL;
   return &(node->getChild(n));
 }
 
@@ -968,6 +996,7 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_getChildForNameNC (XMLNode_t *node, const char*  name)
 {
+  if (node == NULL) return NULL;
 	return &(node->getChild(name));
 }
 
@@ -986,6 +1015,7 @@ LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChildForName (const XMLNode_t *node, const char*  name)
 {
+  if (node == NULL) return NULL;
 	return &(node->getChild(name));
 }
 
@@ -1002,6 +1032,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getIndex (const XMLNode_t *node, const char*  name)
 {
+  if (node == NULL) return -1;
 	return (node->getIndex(name));
 }
 
@@ -1017,6 +1048,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_hasChild (const XMLNode_t *node, const char*  name)
 {
+  if (node == NULL) return (int)false;
 	return static_cast<int>( node->hasChild(name) );
 }
 
@@ -1034,6 +1066,8 @@ LIBLAX_EXTERN
 int 
 XMLNode_equals(const XMLNode_t *node, const XMLNode_t* other)
 {
+  if (node == NULL && other == NULL) return (int)true;
+  if (node == NULL || other == NULL) return (int)false;
 	return static_cast<int>( node->equals(*other) );
 }
 
@@ -1048,6 +1082,7 @@ LIBLAX_EXTERN
 unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node)
 {
+  if (node == NULL) return 0;
   return node->getNumChildren();
 }
 
@@ -1064,6 +1099,7 @@ LIBLAX_EXTERN
 const XMLAttributes_t *
 XMLNode_getAttributes (const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return &(node->getAttributes());
 }
 
@@ -1081,6 +1117,7 @@ XMLNode_getAttributes (const XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note This function replaces the existing XMLAttributes with the new one.
  */
@@ -1088,6 +1125,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_setAttributes(XMLNode_t *node, const XMLAttributes_t* attributes)
 {
+  if (node == NULL || attributes == NULL) return LIBSBML_INVALID_OBJECT;
   return node->setAttributes(*attributes);
 }
 
@@ -1107,6 +1145,7 @@ XMLNode_setAttributes(XMLNode_t *node, const XMLAttributes_t* attributes)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note if the local name without namespace URI already exists in the
  * attribute set, its value will be replaced.
@@ -1116,6 +1155,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value )
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addAttr(name, value, "", "");
 }
 
@@ -1137,6 +1177,7 @@ XMLNode_addAttr ( XMLNode_t *node,  const char* name, const char* value )
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note if local name with the same namespace URI already exists in the
  * attribute set, its value and prefix will be replaced.
@@ -1149,6 +1190,7 @@ XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
     	                , const char* namespaceURI
 	                , const char* prefix      )
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addAttr(name, value, namespaceURI, prefix);
 }
 
@@ -1172,11 +1214,13 @@ XMLNode_addAttrWithNS ( XMLNode_t *node,  const char* name
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const char* value)
 {
+  if (node == NULL || triple == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addAttr(*triple, value);
 }
 
@@ -1196,11 +1240,13 @@ XMLNode_addAttrWithTriple (XMLNode_t *node, const XMLTriple_t *triple, const cha
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttr (XMLNode_t *node, int n)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeAttr(n);
 }
 
@@ -1221,11 +1267,13 @@ XMLNode_removeAttr (XMLNode_t *node, int n)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttrByName (XMLNode_t *node, const char* name)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeAttr(name, "");
 }
 
@@ -1246,11 +1294,13 @@ XMLNode_removeAttrByName (XMLNode_t *node, const char* name)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeAttr(name, uri);
 }
 
@@ -1270,11 +1320,13 @@ XMLNode_removeAttrByNS (XMLNode_t *node, const char* name, const char* uri)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple)
 {
+  if (node == NULL || triple == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeAttr(*triple);
 }
 
@@ -1291,11 +1343,13 @@ XMLNode_removeAttrByTriple (XMLNode_t *node, const XMLTriple_t *triple)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_clearAttributes(XMLNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->clearAttributes();
 }
 
@@ -1316,6 +1370,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getAttrIndex (const XMLNode_t *node, const char* name, const char* uri)
 {
+  if (node == NULL) return -1;
   return node->getAttrIndex(name, uri);
 }
 
@@ -1333,6 +1388,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getAttrIndexByTriple (const XMLNode_t *node, const XMLTriple_t *triple)
 {
+  if (node == NULL || triple == NULL) return -1;
   return node->getAttrIndex(*triple);
 }
 
@@ -1348,6 +1404,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getAttributesLength (const XMLNode_t *node)
 {
+  if (node == NULL) return 0;
   return node->getAttributesLength();
 }
 
@@ -1370,12 +1427,11 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrName (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
+  
   const std::string str = node->getAttrName(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1397,12 +1453,11 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrPrefix (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
+
   const std::string str = node->getAttrPrefix(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1424,12 +1479,11 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrPrefixedName (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
+
   const std::string str = node->getAttrPrefixedName(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1450,12 +1504,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrURI (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
   const std::string str = node->getAttrURI(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1477,12 +1529,11 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValue (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
+
   const std::string str = node->getAttrValue(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1503,12 +1554,11 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValueByName (const XMLNode_t *node, const char* name)
 {
+  if (node == NULL) return NULL;
+
   const std::string str = node->getAttrValue(name, "");
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1530,12 +1580,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValueByNS (const XMLNode_t *node, const char* name, const char* uri)
 {
+  if (node == NULL) return NULL;
   const std::string str = node->getAttrValue(name, uri);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1556,12 +1604,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getAttrValueByTriple (const XMLNode_t *node, const XMLTriple_t *triple)
 {
+  if (node == NULL || triple == NULL) return NULL;
   const std::string str = node->getAttrValue(*triple);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1580,6 +1626,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasAttr (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return (int)false;
   return node->hasAttr(index);
 }
 
@@ -1600,6 +1647,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasAttrWithName (const XMLNode_t *node, const char* name)
 {
+  if (node == NULL) return (int)false;
   return node->hasAttr(name, "");
 }
 
@@ -1621,6 +1669,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasAttrWithNS (const XMLNode_t *node, const char* name, const char* uri)
 {
+  if (node == NULL) return (int)false;
   return node->hasAttr(name, uri);
 }
 
@@ -1641,6 +1690,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasAttrWithTriple (const XMLNode_t *node, const XMLTriple_t *triple)
 {
+  if (node == NULL || triple == NULL) return (int)false;
   return node->hasAttr(*triple);
 }
 
@@ -1658,6 +1708,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isAttributesEmpty (const XMLNode_t *node)
 {
+  if (node == NULL) return (int)false;
   return node->isAttributesEmpty();
 }
 
@@ -1674,6 +1725,7 @@ LIBLAX_EXTERN
 const XMLNamespaces_t *
 XMLNode_getNamespaces (const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return &(node->getNamespaces());
 }
 
@@ -1691,6 +1743,7 @@ XMLNode_getNamespaces (const XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  *
  * @note This function replaces the existing XMLNamespaces with the new one.
  */
@@ -1698,6 +1751,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces)
 {
+  if (node == NULL || namespaces == NULL) return LIBSBML_INVALID_OBJECT;
   return node->setNamespaces(*namespaces);
 }
 
@@ -1718,11 +1772,13 @@ XMLNode_setNamespaces(XMLNode_t *node, const XMLNamespaces_t* namespaces)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->addNamespace(uri, prefix);
 }
 
@@ -1742,11 +1798,13 @@ XMLNode_addNamespace (XMLNode_t *node, const char* uri, const char* prefix)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_removeNamespace (XMLNode_t *node, int index)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeNamespace(index);
 }
 
@@ -1765,11 +1823,13 @@ XMLNode_removeNamespace (XMLNode_t *node, int index)
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
  * @li LIBSBML_INDEX_EXCEEDS_SIZE
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->removeNamespace(prefix);
 }
 
@@ -1787,11 +1847,13 @@ XMLNode_removeNamespaceByPrefix (XMLNode_t *node, const char* prefix)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_XML_OPERATION
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int 
 XMLNode_clearNamespaces (XMLNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->clearNamespaces();
 }
 
@@ -1808,6 +1870,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getNamespaceIndex (const XMLNode_t *node, const char* uri)
 {
+  if (node == NULL) return -1;
   return node->getNamespaceIndex(uri);
 }
 
@@ -1824,6 +1887,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getNamespaceIndexByPrefix (const XMLNode_t *node, const char* prefix)
 {
+  if (node == NULL) return -1;
   return node->getNamespaceIndexByPrefix(prefix);
 }
 
@@ -1840,6 +1904,7 @@ LIBLAX_EXTERN
 int 
 XMLNode_getNamespacesLength (const XMLNode_t *node)
 {
+  if (node == NULL) return 0;
   return node->getNamespacesLength();
 }
 
@@ -1862,12 +1927,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getNamespacePrefix (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
   const std::string str = node->getNamespacePrefix(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1885,12 +1948,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getNamespacePrefixByURI (const XMLNode_t *node, const char* uri)
 {
+  if (node == NULL) return NULL;
   const std::string str = node->getNamespacePrefix(uri);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1909,12 +1970,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getNamespaceURI (const XMLNode_t *node, int index)
 {
+  if (node == NULL) return NULL;
   const std::string str = node->getNamespaceURI(index);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1932,12 +1991,10 @@ LIBLAX_EXTERN
 char* 
 XMLNode_getNamespaceURIByPrefix (const XMLNode_t *node, const char* prefix)
 {
+  if (node == NULL) return NULL;
   const std::string str = node->getNamespaceURI(prefix);
 
-  if (str.empty())
-    return NULL;
-  else
-    return safe_strdup(str.c_str());
+  return str.empty() ? NULL : safe_strdup(str.c_str());
 }
 
 
@@ -1954,6 +2011,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isNamespacesEmpty (const XMLNode_t *node)
 {
+  if (node == NULL) return (int)false;
   return node->isNamespacesEmpty();
 }
 
@@ -1973,6 +2031,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasNamespaceURI(const XMLNode_t *node, const char* uri)
 {
+  if (node == NULL) return (int) false;
   return node->hasNamespaceURI(uri);
 }
 
@@ -1992,6 +2051,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasNamespacePrefix(const XMLNode_t *node, const char* prefix)
 {
+  if (node == NULL) return (int)false;
   return node->hasNamespacePrefix(prefix);
 }
 
@@ -2012,6 +2072,7 @@ LIBLAX_EXTERN
 int
 XMLNode_hasNamespaceNS(const XMLNode_t *node, const char* uri, const char* prefix)
 {
+  if (node == NULL) return (int)false;
   return node->hasNamespaceNS(uri, prefix);
 }
 
@@ -2030,6 +2091,7 @@ LIBLAX_EXTERN
 char *
 XMLNode_toXMLString(const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return safe_strdup(node->toXMLString().c_str());
 }
 
@@ -2047,6 +2109,7 @@ LIBLAX_EXTERN
 const char *
 XMLNode_convertXMLNodeToString(const XMLNode_t *node)
 {
+  if (node == NULL) return NULL;
   return safe_strdup((XMLNode::convertXMLNodeToString(node)).c_str());
 }
 
@@ -2067,6 +2130,7 @@ LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_convertStringToXMLNode(const char * xml, const XMLNamespaces_t* xmlns)
 {
+  if (xml == NULL) return NULL;
   return XMLNode::convertStringToXMLNode(xml, xmlns);
 }
 
@@ -2083,6 +2147,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isElement (const XMLNode_t *node)
 {
+  if (node == NULL ) return (int)false;
   return static_cast<int>( node->isElement() );
 }
 
@@ -2099,6 +2164,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isEnd (const XMLNode_t *node) 
 {
+  if (node == NULL) return (int)false;
   return static_cast<int>( node->isEnd() );
 }
 
@@ -2117,6 +2183,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isEndFor (const XMLNode_t *node, const XMLNode_t *element)
 {
+  if (node == NULL) return (int)false;
   return static_cast<int>( node->isEndFor(*element) );
 }
 
@@ -2134,6 +2201,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isEOF (const XMLNode_t *node)
 {
+  if (node == NULL) return (int) false;
   return static_cast<int>( node->isEOF() );
 }
 
@@ -2150,6 +2218,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isStart (const XMLNode_t *node)
 {
+  if (node == NULL) return (int)false;
   return static_cast<int>( node->isStart() );
 }
 
@@ -2166,6 +2235,7 @@ LIBLAX_EXTERN
 int
 XMLNode_isText (const XMLNode_t *node)
 {
+  if (node == NULL) return (int)false;
   return static_cast<int>( node->isText() );
 }
 
@@ -2181,11 +2251,13 @@ XMLNode_isText (const XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLNode_setEnd (XMLNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->setEnd();
 }
 
@@ -2201,11 +2273,13 @@ XMLNode_setEnd (XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLNode_setEOF (XMLNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->setEOF();
 }
 
@@ -2221,11 +2295,13 @@ XMLNode_setEOF (XMLNode_t *node)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
  */
 LIBLAX_EXTERN
 int
 XMLNode_unsetEnd (XMLNode_t *node)
 {
+  if (node == NULL) return LIBSBML_INVALID_OBJECT;
   return node->unsetEnd();
 }
 

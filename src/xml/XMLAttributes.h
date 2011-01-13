@@ -487,7 +487,7 @@ public:
    */
   bool readInto (  const std::string&  name
                  , bool&               value
-                 , XMLErrorLog*        log      = 0
+                 , XMLErrorLog*        log      = NULL
                  , bool                required = false ) const;
 
 
@@ -515,7 +515,7 @@ public:
    */
   bool readInto (  const XMLTriple& triple
                  , bool&        value
-                 , XMLErrorLog* log      = 0
+                 , XMLErrorLog* log      = NULL
                  , bool         required = false ) const;
 
 
@@ -549,7 +549,7 @@ public:
    */
   bool readInto (  const std::string&  name
                  , double&             value
-                 , XMLErrorLog*        log      = 0
+                 , XMLErrorLog*        log      = NULL
                  , bool                required = false ) const;
 
 
@@ -577,7 +577,7 @@ public:
    */
   bool readInto (  const XMLTriple&  triple
                  , double&           value
-                 , XMLErrorLog*      log      = 0
+                 , XMLErrorLog*      log      = NULL
                  , bool              required = false ) const;
 
 
@@ -610,7 +610,7 @@ public:
    */
   bool readInto (  const std::string&  name
                  , long&               value
-                 , XMLErrorLog*        log      = 0
+                 , XMLErrorLog*        log      = NULL
                  , bool                required = false ) const;
 
 
@@ -638,7 +638,7 @@ public:
    */
   bool readInto (  const XMLTriple& triple
                  , long&            value
-                 , XMLErrorLog*     log      = 0
+                 , XMLErrorLog*     log      = NULL
                  , bool             required = false ) const;
 
 
@@ -671,7 +671,7 @@ public:
    */
   bool readInto (  const std::string&  name
                  , int&                value
-                 , XMLErrorLog*        log      = 0
+                 , XMLErrorLog*        log      = NULL
                  , bool                required = false ) const;
 
 
@@ -699,7 +699,7 @@ public:
    */
   bool readInto (  const XMLTriple& triple
                  , int&             value
-                 , XMLErrorLog*     log      = 0
+                 , XMLErrorLog*     log      = NULL
                  , bool             required = false ) const;
 
 
@@ -732,7 +732,7 @@ public:
    */
   bool readInto (  const std::string&  name
                  , unsigned int&       value
-                 , XMLErrorLog*        log      = 0
+                 , XMLErrorLog*        log      = NULL
                  , bool                required = false ) const;
 
 
@@ -760,7 +760,7 @@ public:
    */
   bool readInto (  const XMLTriple& triple
                  , unsigned int&    value
-                 , XMLErrorLog*     log      = 0
+                 , XMLErrorLog*     log      = NULL
                  , bool             required = false ) const;
 
 
@@ -787,7 +787,7 @@ public:
    */
   bool readInto (  const std::string&  name
                  , std::string&        value
-                 , XMLErrorLog*        log      = 0
+                 , XMLErrorLog*        log      = NULL
                  , bool                required = false ) const;
 
 
@@ -809,7 +809,7 @@ public:
    */
   bool readInto (  const XMLTriple& triple
                  , std::string&     value
-                 , XMLErrorLog*     log      = 0
+                 , XMLErrorLog*     log       = NULL
                  , bool              required = false ) const;
 
 
@@ -915,9 +915,9 @@ protected:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , bool&        value
-                 , XMLErrorLog* log      = 0
+                 , XMLErrorLog* log      = NULL
                  , bool         required = false ) const;
 
 
@@ -943,10 +943,10 @@ protected:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
-  bool readInto (  int          index
-	         , const std::string&  name
-                 , double&      value
-                 , XMLErrorLog* log      = 0
+  bool readInto (  int           index
+                 , const std::string&  name
+                 , double&       value
+                 , XMLErrorLog*  log      = NULL
                  , bool          required = false ) const;
 
 
@@ -972,10 +972,10 @@ protected:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
-  bool readInto (  int          index
-	         , const std::string&  name
+  bool readInto (  int           index
+                 , const std::string&  name
                  , long&         value
-                 , XMLErrorLog*  log      = 0
+                 , XMLErrorLog*  log      = NULL
                  , bool          required = false ) const;
 
 
@@ -1001,10 +1001,10 @@ protected:
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
-  bool readInto (  int          index
-	         , const std::string&  name
-                 , int&         value
-                 , XMLErrorLog* log      = 0
+  bool readInto (  int           index
+                 , const std::string&  name
+                 , int&          value
+                 , XMLErrorLog*  log      = NULL
                  , bool          required = false ) const;
 
 
@@ -1031,9 +1031,9 @@ protected:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int           index
-	         , const std::string&  name
+                 , const std::string&  name
                  , unsigned int& value
-                 , XMLErrorLog*  log      = 0
+                 , XMLErrorLog*  log      = NULL
                  , bool          required = false ) const;
 
 
@@ -1054,9 +1054,9 @@ protected:
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , std::string& value
-                 , XMLErrorLog* log      = 0
+                 , XMLErrorLog* log      = NULL
                  , bool         required = false ) const;
 
 

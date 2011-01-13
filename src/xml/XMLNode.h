@@ -72,7 +72,7 @@
                                                                                          
 std::string str = "..."; 
 XMLNode* xn = XMLNode::convertStringToXMLNode(str);                                      
-if (!xn)
+if (xn == NULL)
 {                                                                                      
   // returned value is null (error)                                                    
   ...

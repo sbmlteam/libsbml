@@ -116,7 +116,7 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
   XML_SetNamespaceDeclHandler( mParser, LIBSBML_CPP_NAMESPACE ::startNamespace, 0 );
   XML_SetUserData            ( mParser, static_cast<void*>(this)     );
   XML_SetReturnNSTriplet     ( mParser, 1                            );
-  mHandlerError = 0;
+  mHandlerError = NULL;
   setHasXMLDeclaration(false);
 }
 
@@ -149,12 +149,12 @@ ExpatHandler::XML (const XML_Char* version, const XML_Char* encoding)
   setHasXMLDeclaration(true);
 
   XML_SetUnknownEncodingHandler( mParser, &unknownEncodingHandler, 0 );
-  if (encoding == 0)
+  if (encoding == NULL)
   {
     mHandler.XML(version, "");
     return XML_STATUS_ERROR;
   }
-  else if (version == 0)
+  else if (version == NULL)
   {
     mHandler.XML("", encoding);
     return XML_STATUS_ERROR;

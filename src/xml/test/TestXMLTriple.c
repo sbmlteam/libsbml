@@ -75,6 +75,24 @@ START_TEST (test_XMLTriple_comparison)
 }
 END_TEST
 
+START_TEST (test_XMLTriple_accessWithNULL)
+{
+  fail_unless( XMLTriple_clone(NULL) == NULL);
+  fail_unless( XMLTriple_createWith(NULL, NULL, NULL) == NULL);
+  fail_unless( XMLTriple_equalTo(NULL, NULL) == 1);
+  fail_unless( XMLTriple_equalTo(NULL, XMLTriple_create()) == 0);
+  
+  XMLTriple_free(NULL);
+  
+  fail_unless( XMLTriple_getName(NULL) == NULL);
+  fail_unless( XMLTriple_getPrefix(NULL) == NULL);
+  fail_unless( XMLTriple_getPrefixedName(NULL) == NULL);
+  fail_unless( XMLTriple_getURI(NULL) == NULL);
+  fail_unless( XMLTriple_isEmpty(NULL) == 1);
+  fail_unless( XMLTriple_notEqualTo(NULL, XMLTriple_create()) == 1);
+  fail_unless( XMLTriple_notEqualTo(NULL, NULL) == 0);
+}
+END_TEST
 
 Suite *
 create_suite_XMLTriple (void)
@@ -82,8 +100,10 @@ create_suite_XMLTriple (void)
   Suite *suite = suite_create("XMLTriple");
   TCase *tcase = tcase_create("XMLTriple");
 
-  tcase_add_test( tcase, test_XMLTriple_create  );
-  tcase_add_test( tcase, test_XMLTriple_comparison );
+  tcase_add_test( tcase, test_XMLTriple_create         );
+  tcase_add_test( tcase, test_XMLTriple_comparison     );
+  tcase_add_test( tcase, test_XMLTriple_accessWithNULL );
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

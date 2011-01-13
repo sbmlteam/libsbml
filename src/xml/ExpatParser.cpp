@@ -121,7 +121,7 @@ ExpatParser::reportError (const XMLErrorCode_t code,
 			  const unsigned int   line,
 			  const unsigned int   column)
 {
-  if (mErrorLog)
+  if (mErrorLog != NULL)
     mErrorLog->add(XMLError( code, extraMsg, line, column) );
   else
   {
@@ -141,12 +141,12 @@ ExpatParser::reportError (const XMLErrorCode_t code,
  * The parser will notify the given XMLHandler of parse events and errors.
  */
 ExpatParser::ExpatParser (XMLHandler& handler) :
-   mParser ( XML_ParserCreateNS(0, ' ') )
+   mParser ( XML_ParserCreateNS(NULL, ' ') )
  , mHandler( mParser, handler )
- , mBuffer ( 0 )
- , mSource ( 0 )
+ , mBuffer ( NULL )
+ , mSource ( NULL )
 {
-  if (mParser) mBuffer = XML_GetBuffer(mParser, BUFFER_SIZE);
+  if (mParser != NULL) mBuffer = XML_GetBuffer(mParser, BUFFER_SIZE);
 }
 
 
@@ -171,9 +171,9 @@ ExpatParser::~ExpatParser ()
 bool
 ExpatParser::error () const
 {
-  bool error = (mParser == 0 || mBuffer == 0);
+  bool error = (mParser == NULL || mBuffer == NULL);
 
-  if (mSource) error = error || mSource->error();
+  if (mSource != NULL) error = error || mSource->error();
   return error;
 }
 
@@ -282,7 +282,7 @@ ExpatParser::parseFirst (const char* content, bool isFile)
   {
     mSource = new XMLMemoryBuffer(content, strlen(content));
 
-    if (mSource == 0)
+    if (mSource == NULL)
     {
       reportError(XMLOutOfMemory, "", 0, 0);
       return false;
@@ -311,7 +311,7 @@ ExpatParser::parseNext ()
 
   mBuffer = XML_GetBuffer(mParser, BUFFER_SIZE);
 
-  if ( mBuffer == 0 )
+  if ( mBuffer == NULL )
   {
     // See if Expat logged an error.  There are only two things that
     // XML_GetErrorCode will report: parser state errors and "out of memory".
@@ -346,7 +346,7 @@ ExpatParser::parseNext ()
   }
   else if ( mHandler.error() )
   {
-    if (mErrorLog) mErrorLog->add(static_cast<XMLError&>(*mHandler.error()));
+    if (mErrorLog != NULL) mErrorLog->add(static_cast<XMLError&>(*mHandler.error()));
     return false;
   }
 

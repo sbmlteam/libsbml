@@ -173,6 +173,25 @@ START_TEST (test_XMLInputStream_setErrorLog)
 }
 END_TEST 
 
+START_TEST (test_XMLInputStream_accessWithNULL)
+{
+  fail_unless (XMLInputStream_create(NULL, 0, NULL) == NULL);
+
+  XMLInputStream_free(NULL);
+
+  fail_unless (XMLInputStream_getEncoding(NULL) == NULL);
+  fail_unless (XMLInputStream_getErrorLog(NULL) == NULL);
+  fail_unless (XMLInputStream_isEOF(NULL) == 0);
+  fail_unless (XMLInputStream_isError(NULL) == 0);
+  fail_unless (XMLInputStream_isGood(NULL) == 0);
+  fail_unless (XMLInputStream_next(NULL) == NULL);
+  fail_unless (XMLInputStream_peek(NULL) == NULL);
+  fail_unless (XMLInputStream_setErrorLog(NULL, NULL) == LIBSBML_OPERATION_FAILED);
+
+  XMLInputStream_skipPastEnd(NULL, NULL);
+  XMLInputStream_skipText(NULL);  
+}
+END_TEST 
 
 Suite *
 create_suite_XMLInputStream (void)
@@ -180,10 +199,12 @@ create_suite_XMLInputStream (void)
   Suite *suite = suite_create("XMLInputStream");
   TCase *tcase = tcase_create("XMLInputStream");
 
-  tcase_add_test( tcase, test_XMLInputStream_create  );
-  tcase_add_test( tcase, test_XMLInputStream_next_peek  );
-  tcase_add_test( tcase, test_XMLInputStream_skip  );
-  tcase_add_test( tcase, test_XMLInputStream_setErrorLog  );
+  tcase_add_test( tcase, test_XMLInputStream_create         );
+  tcase_add_test( tcase, test_XMLInputStream_next_peek      );
+  tcase_add_test( tcase, test_XMLInputStream_skip           );
+  tcase_add_test( tcase, test_XMLInputStream_setErrorLog    );
+  tcase_add_test( tcase, test_XMLInputStream_accessWithNULL );
+
   suite_add_tcase(suite, tcase);
 
   return suite;

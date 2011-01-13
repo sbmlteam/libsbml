@@ -62,7 +62,7 @@ public:
   XMLInputStream (  const char*        content
                   , bool               isFile   = true
                   , const std::string  library  = "" 
-		  , XMLErrorLog*       errorLog = 0 );
+                  , XMLErrorLog*       errorLog = NULL );
 
   /**
    * Destroys this XMLInputStream.

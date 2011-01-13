@@ -61,7 +61,7 @@ getPrefix (const string& qname)
  */
 XercesHandler::XercesHandler (XMLHandler& handler) :
    mHandler( handler )
- , mLocator( 0       )
+ , mLocator( NULL    )
 {
 }
 
@@ -171,7 +171,7 @@ XercesHandler::getColumn () const
   unsigned int column = 0;
 
 
-  if (mLocator
+  if (mLocator != NULL
   &&  static_cast<const xercesc::ReaderMgr*>(mLocator)->getCurrentReader()
   &&  mLocator->getColumnNumber() > 0)
   {
@@ -191,7 +191,7 @@ XercesHandler::getLine () const
   unsigned int line = 0;
 
 
-  if (mLocator 
+  if (mLocator != NULL
   &&  static_cast<const xercesc::ReaderMgr*>(mLocator)->getCurrentReader() 
   &&  mLocator->getLineNumber() > 0)
   {
