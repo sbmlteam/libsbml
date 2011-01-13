@@ -43,15 +43,15 @@
  *
  * @htmlinclude base-units.html
  *
- * This list of predefined base units is nearly identical in SBML
- * Level&nbsp;2 Version&nbsp;4, the exception being that Level&nbsp;2 does
- * not define @c avogadro.  In SBML Level&nbsp;2 Version&nbsp;1 models, the
- * string @c Celsius is also permitted.  In SBML Level&nbsp;1 models, the
- * strings @c meter and @c liter are also permitted.  In libSBML, each of
- * the predefined base unit names is represented by an enumeration value
- * @if clike in #UnitKind_t@endif@if notcpp whose name begins with the
- * characters <code>UNIT_KIND_</code>@endif, discussed in a separate
- * section below.
+ * A few small differences exist between the Level&nbsp;3 list of base
+ * units and the list defined in other Level/Version combinations of SBML.
+ * Specifically, Levels of SBML before Level&nbsp;3 do not define @c
+ * avogadro; conversely, Level&nbsp;2 Version&nbsp;1 defines @c Celsius,
+ * and Level&nbsp;1 defines @c celsius, @c meter, and @c liter, none of
+ * which are available in Level&nbsp;3.  In libSBML, each of the predefined
+ * base unit names is represented by an enumeration value @if clike in
+ * #UnitKind_t@endif@if notcpp whose name begins with the characters
+ * <code>UNIT_KIND_</code>@endif, discussed in a separate section below.
  *
  * The attribute named "exponent" on Unit represents an exponent on the
  * unit.  In SBML Level&nbsp;2, the attribute is optional and has a default
@@ -389,7 +389,10 @@ public:
    * Predicate for testing whether this Unit is of the kind @c avogadro.
    * 
    * @return @c true if the kind of this Unit is @c avogadro, @c false
-   * otherwise. 
+   * otherwise.
+   *
+   * @note The unit @c avogadro was introduced in SBML Level&nbsp;3, and
+   * is only permitted for use in SBML Level&nbsp;3 models.
    */
   bool isAvogadro () const;
 
