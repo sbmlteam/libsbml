@@ -47,7 +47,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 InitialAssignment::InitialAssignment (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mSymbol ( "" )
- , mMath   ( 0      )
+ , mMath   ( NULL      )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -57,7 +57,7 @@ InitialAssignment::InitialAssignment (unsigned int level, unsigned int version) 
 InitialAssignment::InitialAssignment (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
  , mSymbol ( "" )
- , mMath   ( 0      )
+ , mMath   ( NULL      )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -80,7 +80,7 @@ InitialAssignment::InitialAssignment() :
  */
 InitialAssignment::~InitialAssignment ()
 {
-  if(mMath) delete mMath;
+  if(mMath != NULL) delete mMath;
 }
 
 
@@ -89,7 +89,7 @@ InitialAssignment::~InitialAssignment ()
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
    SBase   ( orig )
- , mMath   ( 0    )
+ , mMath   ( NULL    )
 {
   if (&orig == NULL)
   {
@@ -99,7 +99,7 @@ InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
   {
     mSymbol  = orig.mSymbol;
 
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -124,14 +124,14 @@ InitialAssignment& InitialAssignment::operator=(const InitialAssignment& rhs)
     this->mSymbol = rhs.mSymbol;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -201,7 +201,7 @@ InitialAssignment::isSetSymbol () const
 bool
 InitialAssignment::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -241,7 +241,7 @@ InitialAssignment::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -251,8 +251,8 @@ InitialAssignment::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -272,14 +272,14 @@ InitialAssignment::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getId(), getTypeCode())
                                              ->getUnitDefinition();
@@ -322,14 +322,14 @@ InitialAssignment::containsUndeclaredUnits()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getId(), getTypeCode())
       ->getContainsUndeclaredUnits();
@@ -416,7 +416,7 @@ InitialAssignment::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (mMath) writeMathML(mMath, stream);
+  if (mMath != NULL) writeMathML(mMath, stream);
 }
 /** @endcond */
 
@@ -445,7 +445,7 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -467,7 +467,7 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -732,7 +732,7 @@ ListOfInitialAssignments::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <InitialAssignment*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <InitialAssignment*> (*result);
 }
 
 
@@ -748,7 +748,7 @@ ListOfInitialAssignments::remove (unsigned int n)
 InitialAssignment*
 ListOfInitialAssignments::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqIA(sid) );
@@ -785,7 +785,7 @@ SBase*
 ListOfInitialAssignments::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "initialAssignment")
@@ -805,7 +805,7 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -910,7 +910,7 @@ LIBSBML_EXTERN
 InitialAssignment_t *
 InitialAssignment_clone (const InitialAssignment_t *ia)
 {
-  return static_cast<InitialAssignment*>( ia->clone() );
+  return (ia != NULL) ? static_cast<InitialAssignment*>( ia->clone() ) : NULL;
 }
 
 
@@ -927,7 +927,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 InitialAssignment_getNamespaces(InitialAssignment_t *ia)
 {
-  return ia->getNamespaces();
+  return (ia != NULL) ? ia->getNamespaces() : NULL;
 }
 
 
@@ -943,7 +943,7 @@ LIBSBML_EXTERN
 const char *
 InitialAssignment_getSymbol (const InitialAssignment_t *ia)
 {
-  return ia->isSetSymbol() ? ia->getSymbol().c_str() : NULL;
+  return (ia != NULL && ia->isSetSymbol()) ? ia->getSymbol().c_str() : NULL;
 }
 
 
@@ -959,7 +959,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 InitialAssignment_getMath (const InitialAssignment_t *ia)
 {
-  return ia->getMath();
+  return (ia != NULL) ? ia->getMath() : NULL;
 }
 
 
@@ -976,7 +976,7 @@ LIBSBML_EXTERN
 int
 InitialAssignment_isSetSymbol (const InitialAssignment_t *ia)
 {
-  return static_cast<int>( ia->isSetSymbol() );
+  return (ia != NULL) ? static_cast<int>( ia->isSetSymbol() ) : 0;
 }
 
 
@@ -993,7 +993,7 @@ LIBSBML_EXTERN
 int
 InitialAssignment_isSetMath (const InitialAssignment_t *ia)
 {
-  return static_cast<int>( ia->isSetMath() );
+  return (ia != NULL) ? static_cast<int>( ia->isSetMath() ) : 0;
 }
 
 
@@ -1019,7 +1019,10 @@ LIBSBML_EXTERN
 int
 InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid)
 {
-  return ia->setSymbol(sid ? sid : "");
+  if (ia != NULL)
+    return ia->setSymbol((sid != NULL) ? sid : "");
+  return
+    LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1044,7 +1047,10 @@ LIBSBML_EXTERN
 int
 InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math)
 {
-  return ia->setMath(math);
+  if (ia != NULL)
+    return ia->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 /**
@@ -1071,7 +1077,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 InitialAssignment_getDerivedUnitDefinition(InitialAssignment_t *ia)
 {
-  return ia->getDerivedUnitDefinition();
+  return (ia != NULL) ? ia->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -1094,7 +1100,7 @@ LIBSBML_EXTERN
 int 
 InitialAssignment_containsUndeclaredUnits(InitialAssignment_t *ia)
 {
-  return static_cast<int>(ia->containsUndeclaredUnits());
+  return (ia != NULL) ? static_cast<int>(ia->containsUndeclaredUnits()) : 0;
 }
 
 
@@ -1106,8 +1112,11 @@ LIBSBML_EXTERN
 InitialAssignment_t *
 ListOfInitialAssignments_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfInitialAssignments *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfInitialAssignments *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -1120,8 +1129,11 @@ LIBSBML_EXTERN
 InitialAssignment_t *
 ListOfInitialAssignments_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfInitialAssignments *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfInitialAssignments *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */

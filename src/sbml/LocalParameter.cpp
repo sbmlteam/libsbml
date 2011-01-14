@@ -168,7 +168,7 @@ LocalParameter::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -375,7 +375,7 @@ ListOfLocalParameters::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <LocalParameter*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <LocalParameter*> (*result);
 }
 
 
@@ -391,7 +391,7 @@ ListOfLocalParameters::remove (unsigned int n)
 LocalParameter*
 ListOfLocalParameters::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqP(sid) );
@@ -430,7 +430,7 @@ SBase*
 ListOfLocalParameters::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "localParameter")
@@ -450,7 +450,7 @@ ListOfLocalParameters::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -554,7 +554,7 @@ LIBSBML_EXTERN
 LocalParameter_t *
 LocalParameter_clone (const LocalParameter_t *p)
 {
-  return static_cast<LocalParameter_t*>( p->clone() );
+  return (p != NULL) ? static_cast<LocalParameter_t*>( p->clone() ) : NULL;
 }
 
 
@@ -571,7 +571,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 LocalParameter_getNamespaces(LocalParameter_t *p)
 {
-  return p->getNamespaces();
+  return (p != NULL) ? p->getNamespaces() : NULL;
 }
 
 /**
@@ -585,7 +585,7 @@ LIBSBML_EXTERN
 const char *
 LocalParameter_getId (const LocalParameter_t *p)
 {
-  return p->isSetId() ? p->getId().c_str() : NULL;
+  return (p != NULL && p->isSetId()) ? p->getId().c_str() : NULL;
 }
 
 
@@ -600,7 +600,7 @@ LIBSBML_EXTERN
 const char *
 LocalParameter_getName (const LocalParameter_t *p)
 {
-  return p->isSetName() ? p->getName().c_str() : NULL;
+  return (p != NULL && p->isSetName()) ? p->getName().c_str() : NULL;
 }
 
 
@@ -615,7 +615,7 @@ LIBSBML_EXTERN
 double
 LocalParameter_getValue (const LocalParameter_t *p)
 {
-  return p->getValue();
+  return (p != NULL) ? p->getValue() : numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -631,7 +631,7 @@ LIBSBML_EXTERN
 const char *
 LocalParameter_getUnits (const LocalParameter_t *p)
 {
-  return p->isSetUnits() ? p->getUnits().c_str() : NULL;
+  return (p != NULL && p->isSetUnits()) ? p->getUnits().c_str() : NULL;
 }
 
 
@@ -648,7 +648,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_isSetId (const LocalParameter_t *p)
 {
-  return static_cast<int>( p->isSetId() );
+  return (p != NULL) ? static_cast<int>( p->isSetId() ) : 0;
 }
 
 
@@ -665,7 +665,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_isSetName (const LocalParameter_t *p)
 {
-  return static_cast<int>( p->isSetName() );
+  return (p != NULL) ? static_cast<int>( p->isSetName() ) : 0;
 }
 
 
@@ -686,7 +686,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_isSetValue (const LocalParameter_t *p)
 {
-  return static_cast<int>( p->isSetValue() );
+  return (p != NULL) ? static_cast<int>( p->isSetValue() ) : 0;
 }
 
 
@@ -703,7 +703,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_isSetUnits (const LocalParameter_t *p)
 {
-  return static_cast<int>( p->isSetUnits() );
+  return (p != NULL) ? static_cast<int>( p->isSetUnits() ) : 0;
 }
 
 
@@ -729,7 +729,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_setId (LocalParameter_t *p, const char *sid)
 {
-  return (sid == NULL) ? p->setId("") : p->setId(sid);
+  if (p != NULL)
+    return (sid == NULL) ? p->setId("") : p->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -755,7 +758,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_setName (LocalParameter_t *p, const char *name)
 {
-  return (name == NULL) ? p->unsetName() : p->setName(name);
+  if (p != NULL)
+    return (name == NULL) ? p->unsetName() : p->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -775,7 +781,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_setValue (LocalParameter_t *p, double value)
 {
-  return p->setValue(value);
+  if (p != NULL)
+    return p->setValue(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -801,7 +810,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_setUnits (LocalParameter_t *p, const char *units)
 {
-  return (units == NULL) ? p->unsetUnits() : p->setUnits(units);
+  if (p != NULL)
+    return (units == NULL) ? p->unsetUnits() : p->setUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -821,7 +833,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_unsetName (LocalParameter_t *p)
 {
-  return p->unsetName();
+  if (p != NULL)
+    return p->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -845,7 +860,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_unsetValue (LocalParameter_t *p)
 {
-  return p->unsetValue();
+  if (p != NULL)
+    return p->unsetValue();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -865,7 +883,10 @@ LIBSBML_EXTERN
 int
 LocalParameter_unsetUnits (LocalParameter_t *p)
 {
-  return p->unsetUnits();
+  if (p != NULL)
+    return p->unsetUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -886,7 +907,7 @@ LIBSBML_EXTERN
 int
 LocalParameter_hasRequiredAttributes(LocalParameter_t *p)
 {
-  return static_cast<int>(p->hasRequiredAttributes());
+  return (p != NULL) ? static_cast<int>(p->hasRequiredAttributes()) : 0;
 }
 
 
@@ -907,7 +928,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 LocalParameter_getDerivedUnitDefinition(LocalParameter_t *p)
 {
-  return p->getDerivedUnitDefinition();
+  return (p != NULL) ? p->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -919,8 +940,11 @@ LIBSBML_EXTERN
 LocalParameter_t *
 ListOfLocalParameters_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfLocalParameters *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfLocalParameters *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -933,8 +957,11 @@ LIBSBML_EXTERN
 LocalParameter_t *
 ListOfLocalParameters_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfLocalParameters *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfLocalParameters *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */

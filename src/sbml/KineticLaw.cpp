@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 KineticLaw::KineticLaw (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mMath          ( 0              )
+ , mMath          ( NULL              )
  , mTimeUnits     ( ""             )
  , mSubstanceUnits( ""             )
  , mInternalId    ( ""             )
@@ -62,7 +62,7 @@ KineticLaw::KineticLaw (unsigned int level, unsigned int version) :
 
 KineticLaw::KineticLaw (SBMLNamespaces * sbmlns) :
    SBase          ( sbmlns         )
- , mMath          ( 0              )
+ , mMath          ( NULL              )
  , mTimeUnits     ( ""             )
  , mSubstanceUnits( ""             )
  , mInternalId    ( ""             )
@@ -98,7 +98,7 @@ KineticLaw::~KineticLaw ()
  */
 KineticLaw::KineticLaw (const KineticLaw& orig) :
    SBase          ( orig                 )
- , mMath          ( 0                    )
+ , mMath          ( NULL                    )
 {
   if (&orig == NULL)
   {
@@ -113,7 +113,7 @@ KineticLaw::KineticLaw (const KineticLaw& orig) :
     mSubstanceUnits  = orig.mSubstanceUnits;
     mInternalId      = orig.mInternalId;
 
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -164,14 +164,14 @@ KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
     }
     
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -209,7 +209,7 @@ KineticLaw::clone () const
 const string&
 KineticLaw::getFormula () const
 {
-  if (mFormula.empty() == true && mMath != 0)
+  if (mFormula.empty() == true && mMath != NULL)
   {
     char* s  = SBML_formulaToString(mMath);
     mFormula = s;
@@ -227,7 +227,7 @@ KineticLaw::getFormula () const
 const ASTNode*
 KineticLaw::getMath () const
 {
-  if (mMath == 0 && mFormula.empty() == false)
+  if (mMath == NULL && mFormula.empty() == false)
   {
     mMath = SBML_parseFormula( mFormula.c_str() );
   }
@@ -263,7 +263,7 @@ KineticLaw::getSubstanceUnits () const
 bool
 KineticLaw::isSetFormula () const
 {
-  return (mFormula.empty() == false) || (mMath != 0);
+  return (mFormula.empty() == false) || (mMath != NULL);
 }
 
 
@@ -332,7 +332,7 @@ KineticLaw::setFormula (const std::string& formula)
     {
       mFormula.erase();
       delete mMath;
-      mMath = 0;
+      mMath = NULL;
       return LIBSBML_OPERATION_SUCCESS;
     }
     else if (math == NULL || !(math->isWellFormedASTNode()))
@@ -343,10 +343,10 @@ KineticLaw::setFormula (const std::string& formula)
     {
       mFormula = formula;
 
-      if (mMath)
+      if (mMath != NULL)
       {
         delete mMath;
-        mMath = 0;
+        mMath = NULL;
       }
       return LIBSBML_OPERATION_SUCCESS;
     }
@@ -367,7 +367,7 @@ KineticLaw::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     mFormula.erase();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -378,8 +378,8 @@ KineticLaw::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     mFormula.erase();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -626,7 +626,7 @@ KineticLaw::createParameter ()
 {
   if (getLevel() < 3)
   {
-    Parameter* p = 0;
+    Parameter* p = NULL;
     
     try
     {
@@ -648,13 +648,13 @@ KineticLaw::createParameter ()
       mParameters.setParentSBMLObject(this);
     }
     
-    if (p) mParameters.appendAndOwn(p);
+    if (p != NULL) mParameters.appendAndOwn(p);
 
     return p;
   }
   else
   {
-    LocalParameter *p = 0;
+    LocalParameter *p = NULL;
     try
     {
       p = new LocalParameter(getSBMLNamespaces());
@@ -675,7 +675,7 @@ KineticLaw::createParameter ()
       mLocalParameters.setParentSBMLObject(this);
     }
     
-    if (p) mLocalParameters.appendAndOwn(p);
+    if (p != NULL) mLocalParameters.appendAndOwn(p);
 
     return static_cast <Parameter *> (p);
   }
@@ -689,7 +689,7 @@ KineticLaw::createParameter ()
 LocalParameter*
 KineticLaw::createLocalParameter ()
 {
-  LocalParameter* p = 0;
+  LocalParameter* p = NULL;
 
   try
   {
@@ -711,7 +711,7 @@ KineticLaw::createLocalParameter ()
     mLocalParameters.setParentSBMLObject(this);
   }
   
-  if (p) mLocalParameters.appendAndOwn(p);
+  if (p != NULL) mLocalParameters.appendAndOwn(p);
 
   return p;
 }
@@ -895,14 +895,14 @@ KineticLaw::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getInternalId(), getTypeCode())
                                              ->getUnitDefinition();
@@ -945,14 +945,14 @@ KineticLaw::containsUndeclaredUnits()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getInternalId(), getTypeCode())
       ->getContainsUndeclaredUnits();
@@ -1157,7 +1157,7 @@ KineticLaw::createObject (XMLInputStream& stream)
     }
     return &mLocalParameters;
   }
-  return 0;
+  return NULL;
 }
 /** @endcond */
 
@@ -1185,7 +1185,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
       delete mMath;
       return false;
     }
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -1211,7 +1211,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -1570,7 +1570,7 @@ LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_clone (const KineticLaw_t *kl)
 {
-  return kl->clone();
+  return (kl != NULL) ? kl->clone() : NULL;
 }
 
 
@@ -1587,7 +1587,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 KineticLaw_getNamespaces(KineticLaw_t *kl)
 {
-  return kl->getNamespaces();
+  return (kl != NULL) ? kl->getNamespaces() : NULL;
 }
 
 /**
@@ -1618,7 +1618,7 @@ LIBSBML_EXTERN
 const char *
 KineticLaw_getFormula (const KineticLaw_t *kl)
 {
-  return kl->isSetFormula() ? kl->getFormula().c_str() : NULL;
+  return (kl != NULL && kl->isSetFormula()) ? kl->getFormula().c_str() : NULL;
 }
 
 
@@ -1640,7 +1640,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 KineticLaw_getMath (const KineticLaw_t *kl)
 {
-  return kl->getMath();
+  return (kl != NULL) ? kl->getMath() : NULL;
 }
 
 
@@ -1660,7 +1660,8 @@ LIBSBML_EXTERN
 const char *
 KineticLaw_getTimeUnits (const KineticLaw_t *kl)
 {
-  return kl->isSetTimeUnits() ? kl->getTimeUnits().c_str() : NULL;
+  return (kl != NULL && kl->isSetTimeUnits()) ? 
+                        kl->getTimeUnits().c_str() : NULL;
 }
 
 
@@ -1680,7 +1681,8 @@ LIBSBML_EXTERN
 const char *
 KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
 {
-  return kl->isSetSubstanceUnits() ? kl->getSubstanceUnits().c_str() : NULL;
+  return (kl != NULL && kl->isSetSubstanceUnits()) ? 
+                        kl->getSubstanceUnits().c_str() : NULL;
 }
 
 
@@ -1713,7 +1715,7 @@ LIBSBML_EXTERN
 int
 KineticLaw_isSetFormula (const KineticLaw_t *kl)
 {
-  return static_cast<int>( kl->isSetFormula() );
+  return (kl != NULL) ? static_cast<int>( kl->isSetFormula() ) : 0;
 }
 
 
@@ -1735,7 +1737,7 @@ LIBSBML_EXTERN
 int
 KineticLaw_isSetMath (const KineticLaw_t *kl)
 {
-  return static_cast<int>( kl->isSetMath() );
+  return (kl != NULL) ? static_cast<int>( kl->isSetMath() ) : 0;
 }
 
 
@@ -1757,7 +1759,7 @@ LIBSBML_EXTERN
 int
 KineticLaw_isSetTimeUnits (const KineticLaw_t *kl)
 {
-  return static_cast<int>( kl->isSetTimeUnits() );
+  return (kl != NULL) ? static_cast<int>( kl->isSetTimeUnits() ) : 0;
 }
 
 
@@ -1779,7 +1781,7 @@ LIBSBML_EXTERN
 int
 KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
 {
-  return static_cast<int>( kl->isSetSubstanceUnits() );
+  return (kl != NULL) ? static_cast<int>( kl->isSetSubstanceUnits() ) : 0;
 }
 
 
@@ -1815,7 +1817,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_setFormula (KineticLaw_t *kl, const char *formula)
 {
-  return kl->setFormula(formula ? formula : "");
+  if (kl != NULL)
+    return kl->setFormula((formula != NULL) ? formula : "");
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1841,7 +1846,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math)
 {
-  return kl->setMath(math);
+  if (kl != NULL)
+    return kl->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1873,7 +1881,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid)
 {
-  return (sid == NULL) ? kl->unsetTimeUnits() : kl->setTimeUnits(sid);
+  if (kl != NULL)
+    return (sid == NULL) ? kl->unsetTimeUnits() : kl->setTimeUnits(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1905,7 +1916,11 @@ LIBSBML_EXTERN
 int
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
 {
-  return (sid == NULL) ? kl->unsetSubstanceUnits() : kl->setSubstanceUnits(sid);
+  if (kl != NULL)
+    return (sid == NULL) ? 
+            kl->unsetSubstanceUnits() : kl->setSubstanceUnits(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1929,7 +1944,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
 {
-  return kl->unsetTimeUnits();
+  if (kl != NULL)
+    return kl->unsetTimeUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1953,7 +1971,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
 {
-  return kl->unsetSubstanceUnits();
+  if (kl != NULL)
+    return kl->unsetSubstanceUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1979,7 +2000,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p)
 {
-  return kl->addParameter(p);
+  if (kl != NULL)
+    return kl->addParameter(p);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2005,7 +2029,10 @@ LIBSBML_EXTERN
 int
 KineticLaw_addLocalParameter (KineticLaw_t *kl, const LocalParameter_t *p)
 {
-  return kl->addLocalParameter(p);
+  if (kl != NULL)
+    return kl->addLocalParameter(p);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2022,7 +2049,7 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_createParameter (KineticLaw_t *kl)
 {
-  return kl->createParameter();
+  return (kl != NULL) ? kl->createParameter() : NULL;
 }
 
 
@@ -2039,7 +2066,7 @@ LIBSBML_EXTERN
 LocalParameter_t *
 KineticLaw_createLocalParameter (KineticLaw_t *kl)
 {
-  return kl->createLocalParameter();
+  return (kl != NULL) ? kl->createLocalParameter() : NULL;
 }
 
 
@@ -2055,7 +2082,7 @@ LIBSBML_EXTERN
 ListOf_t *
 KineticLaw_getListOfParameters (KineticLaw_t *kl)
 {
-  return kl->getListOfParameters();
+  return (kl != NULL) ? kl->getListOfParameters() : NULL;
 }
 
 
@@ -2071,7 +2098,7 @@ LIBSBML_EXTERN
 ListOf_t *
 KineticLaw_getListOfLocalParameters (KineticLaw_t *kl)
 {
-  return kl->getListOfLocalParameters();
+  return (kl != NULL) ? kl->getListOfLocalParameters() : 0;
 }
 
 
@@ -2094,7 +2121,7 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n)
 {
-  return kl->getParameter(n);
+  return (kl != NULL) ? kl->getParameter(n) : NULL;
 }
 
 
@@ -2117,7 +2144,7 @@ LIBSBML_EXTERN
 LocalParameter_t *
 KineticLaw_getLocalParameter (KineticLaw_t *kl, unsigned int n)
 {
-  return kl->getLocalParameter(n);
+  return (kl != NULL) ? kl->getLocalParameter(n) : NULL;
 }
 
 
@@ -2136,7 +2163,7 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid)
 {
-  return (sid != NULL) ? kl->getParameter(sid) : 0;
+  return (kl != NULL && sid != NULL) ? kl->getParameter(sid) : NULL;
 }
 
 
@@ -2155,7 +2182,7 @@ LIBSBML_EXTERN
 LocalParameter_t *
 KineticLaw_getLocalParameterById (KineticLaw_t *kl, const char *sid)
 {
-  return (sid != NULL) ? kl->getLocalParameter(sid) : 0;
+  return (kl != NULL && sid != NULL) ? kl->getLocalParameter(sid) : NULL;
 }
 
 
@@ -2172,7 +2199,7 @@ LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
-  return kl->getNumParameters();
+  return (kl != NULL) ? kl->getNumParameters() : SBML_INT_MAX;
 }
 
 
@@ -2189,7 +2216,7 @@ LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumLocalParameters (const KineticLaw_t *kl)
 {
-  return kl->getNumLocalParameters();
+  return (kl != NULL) ? kl->getNumLocalParameters() : SBML_INT_MAX;
 }
 
 /**
@@ -2216,7 +2243,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 KineticLaw_getDerivedUnitDefinition(KineticLaw_t *kl)
 {
-  return kl->getDerivedUnitDefinition();
+  return (kl != NULL) ? kl->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -2239,7 +2266,7 @@ LIBSBML_EXTERN
 int 
 KineticLaw_containsUndeclaredUnits(KineticLaw_t *kl)
 {
-  return static_cast<int>(kl->containsUndeclaredUnits());
+  return (kl != NULL) ? static_cast<int>(kl->containsUndeclaredUnits()) : 0;
 }
 
 
@@ -2260,8 +2287,7 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_removeParameter (KineticLaw_t *kl, unsigned int n)
 {
-  if (!kl) return 0;
-  return kl->removeParameter(n);
+  return (kl != NULL) ? kl->removeParameter(n) : NULL;
 }
 
 
@@ -2282,8 +2308,7 @@ LIBSBML_EXTERN
 LocalParameter_t *
 KineticLaw_removeLocalParameter (KineticLaw_t *kl, unsigned int n)
 {
-  if (!kl) return 0;
-  return kl->removeLocalParameter(n);
+  return (kl != NULL) ? kl->removeLocalParameter(n) : NULL;
 }
 
 
@@ -2305,8 +2330,10 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_removeParameterById (KineticLaw_t *kl, const char *sid)
 {
-  if (!kl) return 0;
-  return kl->removeParameter(sid);
+  if (kl != NULL)
+    return sid != NULL ? kl->removeParameter(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2328,8 +2355,10 @@ LIBSBML_EXTERN
 LocalParameter_t *
 KineticLaw_removeLocalParameterById (KineticLaw_t *kl, const char *sid)
 {
-  if (!kl) return 0;
-  return kl->removeLocalParameter(sid);
+  if (kl != NULL)
+    return sid != NULL ? kl->removeLocalParameter(sid) : NULL;
+  else
+    return NULL;
 }
 
 

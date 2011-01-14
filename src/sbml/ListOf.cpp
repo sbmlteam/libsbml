@@ -27,6 +27,7 @@
 #include <sbml/SBMLVisitor.h>
 #include <sbml/ListOf.h>
 #include <sbml/SBO.h>
+#include <sbml/common/common.h>
 
 /** @cond doxygen-ignored */
 
@@ -218,7 +219,7 @@ ListOf::appendAndOwn (SBase* item)
 const SBase*
 ListOf::get (unsigned int n) const
 {
-  return (n < mItems.size()) ? mItems[n] : 0;
+  return (n < mItems.size()) ? mItems[n] : NULL;
 }
 
 
@@ -296,7 +297,7 @@ SBase*
 ListOf::remove (unsigned int n)
 {
   SBase* item = get(n);
-  if (item) mItems.erase( mItems.begin() + n );
+  if (item != NULL) mItems.erase( mItems.begin() + n );
   return item;
 }
 
@@ -558,7 +559,7 @@ LIBSBML_EXTERN
 ListOf_t *
 ListOf_clone (const ListOf_t *lo)
 {
-  return static_cast<ListOf_t*>( lo->clone() );
+  return (lo != NULL) ? static_cast<ListOf_t*>( lo->clone() ) : NULL;
 }
 
 
@@ -569,7 +570,10 @@ LIBSBML_EXTERN
 int
 ListOf_append (ListOf_t *lo, const SBase *item)
 {
-  return lo->append(item);
+  if (lo != NULL)
+    return lo->append(item);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -580,7 +584,10 @@ LIBSBML_EXTERN
 int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item)
 {
-  return lo->appendAndOwn(item);
+  if (lo != NULL)
+    return lo->appendAndOwn(item);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -591,7 +598,7 @@ LIBSBML_EXTERN
 SBase *
 ListOf_get (ListOf_t *lo, unsigned int n)
 {
-  return lo->get(n);
+  return (lo != NULL) ? lo->get(n) : NULL;
 }
 
 
@@ -633,7 +640,7 @@ LIBSBML_EXTERN
 SBase *
 ListOf_remove (ListOf_t *lo, unsigned int n)
 {
-  return lo->remove(n);
+  return (lo != NULL) ? lo->remove(n) : NULL;
 }
 
 
@@ -657,7 +664,7 @@ LIBSBML_EXTERN
 unsigned int
 ListOf_size (const ListOf_t *lo)
 {
-  return lo->size();
+  return (lo != NULL) ? lo->size() : SBML_INT_MAX;
 }
 
 
@@ -669,7 +676,7 @@ LIBSBML_EXTERN
 SBMLTypeCode_t
 ListOf_getItemTypeCode (const ListOf_t *lo)
 {
-  return lo->getItemTypeCode();
+  return (lo != NULL) ? lo->getItemTypeCode() : SBML_UNKNOWN;
 }
 
 /** @endcond */
