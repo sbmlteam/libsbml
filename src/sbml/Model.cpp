@@ -58,7 +58,7 @@ Model::Model (unsigned int level, unsigned int version) :
  , mLengthUnits      ( "" )
  , mExtentUnits      ( "" )
  , mConversionFactor ( "" )
- , mFormulaUnitsData ( 0  )
+ , mFormulaUnitsData ( NULL  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -76,7 +76,7 @@ Model::Model (SBMLNamespaces * sbmlns) :
  , mLengthUnits      ( "" )
  , mExtentUnits      ( "" )
  , mConversionFactor ( "" )
- , mFormulaUnitsData ( 0  )
+ , mFormulaUnitsData ( NULL  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -102,7 +102,7 @@ Model::~Model ()
 {
     // this is now in SBase
  // delete mHistory;
-  if (mFormulaUnitsData)
+  if (mFormulaUnitsData != NULL)
   {  
     unsigned int size = mFormulaUnitsData->getSize();
     while (size--) 
@@ -209,7 +209,7 @@ Model::Model(const Model& orig) :
     //  this->mHistory = 0;
     //}
 
-    if(orig.mFormulaUnitsData)
+    if(orig.mFormulaUnitsData != NULL)
     {
       this->mFormulaUnitsData  = new List();
       unsigned int i,iMax = orig.mFormulaUnitsData->getSize();
@@ -222,7 +222,7 @@ Model::Model(const Model& orig) :
     }
     else
     {
-      this->mFormulaUnitsData = 0;
+      this->mFormulaUnitsData = NULL;
     }
   }
 }
@@ -326,15 +326,16 @@ Model& Model::operator=(const Model& rhs)
     //  this->mHistory = 0;
     //}
 
-    if (this->mFormulaUnitsData)
+    if (this->mFormulaUnitsData  != NULL)
     {
       unsigned int size = this->mFormulaUnitsData->getSize();
       while (size--)
-        delete static_cast<FormulaUnitsData*>( this->mFormulaUnitsData->remove(0) );
+        delete static_cast<FormulaUnitsData*>( 
+                          this->mFormulaUnitsData->remove(0) );
       delete this->mFormulaUnitsData;
     }
 
-    if(rhs.mFormulaUnitsData)
+    if(rhs.mFormulaUnitsData != NULL)
     {
       this->mFormulaUnitsData  = new List();
       unsigned int i,iMax = rhs.mFormulaUnitsData->getSize();
@@ -347,7 +348,7 @@ Model& Model::operator=(const Model& rhs)
     }
     else
     {
-      this->mFormulaUnitsData = 0;
+      this->mFormulaUnitsData = NULL;
     }
   }
 
@@ -1579,7 +1580,7 @@ Model::addEvent (const Event* e)
 FunctionDefinition*
 Model::createFunctionDefinition ()
 {
-  FunctionDefinition* fd = 0;
+  FunctionDefinition* fd = NULL;
 
   try
   {
@@ -1601,7 +1602,7 @@ Model::createFunctionDefinition ()
     mFunctionDefinitions.setParentSBMLObject(this);
   }
   
-  if (fd) mFunctionDefinitions.appendAndOwn(fd);
+  if (fd != NULL) mFunctionDefinitions.appendAndOwn(fd);
 
   return fd;
 }
@@ -1613,7 +1614,7 @@ Model::createFunctionDefinition ()
 UnitDefinition*
 Model::createUnitDefinition ()
 {
-  UnitDefinition* ud = 0;
+  UnitDefinition* ud = NULL;
 
   try
   {
@@ -1635,7 +1636,7 @@ Model::createUnitDefinition ()
     mUnitDefinitions.setParentSBMLObject(this);
   }
   
-  if (ud) mUnitDefinitions.appendAndOwn(ud);
+  if (ud != NULL) mUnitDefinitions.appendAndOwn(ud);
 
   return ud;
 }
@@ -1652,7 +1653,7 @@ Unit*
 Model::createUnit ()
 {
   unsigned int size = getNumUnitDefinitions();
-  return (size > 0) ? getUnitDefinition(size - 1)->createUnit() : 0;
+  return (size > 0) ? getUnitDefinition(size - 1)->createUnit() : NULL;
 }
 
 
@@ -1662,7 +1663,7 @@ Model::createUnit ()
 CompartmentType*
 Model::createCompartmentType ()
 {
-  CompartmentType* ct = 0;
+  CompartmentType* ct = NULL;
 
   try
   {
@@ -1684,7 +1685,7 @@ Model::createCompartmentType ()
     mCompartmentTypes.setParentSBMLObject(this);
   }
   
-  if (ct) mCompartmentTypes.appendAndOwn(ct);
+  if (ct != NULL) mCompartmentTypes.appendAndOwn(ct);
 
   return ct;
 }
@@ -1696,7 +1697,7 @@ Model::createCompartmentType ()
 SpeciesType*
 Model::createSpeciesType ()
 {
-  SpeciesType* st = 0;
+  SpeciesType* st = NULL;
 
   try
   {
@@ -1718,7 +1719,7 @@ Model::createSpeciesType ()
     mSpeciesTypes.setParentSBMLObject(this);
   }
 
-  if (st) mSpeciesTypes.appendAndOwn(st);
+  if (st != NULL) mSpeciesTypes.appendAndOwn(st);
 
   return st;
 }
@@ -1730,7 +1731,7 @@ Model::createSpeciesType ()
 Compartment*
 Model::createCompartment ()
 {
-  Compartment* c = 0;
+  Compartment* c = NULL;
 
   try
   {
@@ -1752,7 +1753,7 @@ Model::createCompartment ()
     mCompartments.setParentSBMLObject(this);
   }
   
-  if (c) mCompartments.appendAndOwn(c);
+  if (c != NULL) mCompartments.appendAndOwn(c);
 
   return c;
 }
@@ -1764,7 +1765,7 @@ Model::createCompartment ()
 Species*
 Model::createSpecies ()
 {
-  Species* s = 0;
+  Species* s = NULL;
 
   try
   {
@@ -1786,7 +1787,7 @@ Model::createSpecies ()
     mSpecies.setParentSBMLObject(this);
   }
   
-  if (s) mSpecies.appendAndOwn(s);
+  if (s != NULL) mSpecies.appendAndOwn(s);
 
   return s;
 }
@@ -1798,7 +1799,7 @@ Model::createSpecies ()
 Parameter*
 Model::createParameter ()
 {
-  Parameter* p = 0;
+  Parameter* p = NULL;
 
   try
   {
@@ -1820,7 +1821,7 @@ Model::createParameter ()
     mParameters.setParentSBMLObject(this);
   }
   
-  if (p) mParameters.appendAndOwn(p);
+  if (p != NULL) mParameters.appendAndOwn(p);
 
   return p;
 }
@@ -1832,7 +1833,7 @@ Model::createParameter ()
 InitialAssignment*
 Model::createInitialAssignment ()
 {
-  InitialAssignment* ia = 0;
+  InitialAssignment* ia = NULL;
 
   try
   {
@@ -1854,7 +1855,7 @@ Model::createInitialAssignment ()
     mInitialAssignments.setParentSBMLObject(this);
   }
   
-  if (ia) mInitialAssignments.appendAndOwn(ia);
+  if (ia != NULL) mInitialAssignments.appendAndOwn(ia);
 
   return ia;
 }
@@ -1866,7 +1867,7 @@ Model::createInitialAssignment ()
 AlgebraicRule*
 Model::createAlgebraicRule ()
 {
-  AlgebraicRule* ar = 0;
+  AlgebraicRule* ar = NULL;
 
   try
   {
@@ -1888,7 +1889,7 @@ Model::createAlgebraicRule ()
     mRules.setParentSBMLObject(this);
   }
   
-  if (ar) mRules.appendAndOwn(ar);
+  if (ar != NULL) mRules.appendAndOwn(ar);
 
   return ar;
 }
@@ -1900,7 +1901,7 @@ Model::createAlgebraicRule ()
 AssignmentRule*
 Model::createAssignmentRule ()
 {
-  AssignmentRule* ar = 0;
+  AssignmentRule* ar = NULL;
 
   try
   {
@@ -1922,7 +1923,7 @@ Model::createAssignmentRule ()
     mRules.setParentSBMLObject(this);
   }
   
-  if (ar) mRules.appendAndOwn(ar);
+  if (ar != NULL) mRules.appendAndOwn(ar);
 
   return ar;
 }
@@ -1934,7 +1935,7 @@ Model::createAssignmentRule ()
 RateRule*
 Model::createRateRule ()
 {
-  RateRule* rr = 0;
+  RateRule* rr = NULL;
 
   try
   {
@@ -1956,7 +1957,7 @@ Model::createRateRule ()
     mRules.setParentSBMLObject(this);
   }
   
-  if (rr) mRules.appendAndOwn(rr);
+  if (rr != NULL) mRules.appendAndOwn(rr);
 
   return rr;
 }
@@ -1968,7 +1969,7 @@ Model::createRateRule ()
 Constraint*
 Model::createConstraint ()
 {
-  Constraint* c = 0;
+  Constraint* c = NULL;
 
   try
   {
@@ -1990,7 +1991,7 @@ Model::createConstraint ()
     mConstraints.setParentSBMLObject(this);
   }
   
-  if (c) mConstraints.appendAndOwn(c);
+  if (c != NULL) mConstraints.appendAndOwn(c);
 
   return c;
 }
@@ -2002,7 +2003,7 @@ Model::createConstraint ()
 Reaction*
 Model::createReaction ()
 {
-  Reaction* r = 0;
+  Reaction* r = NULL;
 
   try
   {
@@ -2024,7 +2025,7 @@ Model::createReaction ()
     mReactions.setParentSBMLObject(this);
   }
   
-  if (r) mReactions.appendAndOwn(r);
+  if (r != NULL) mReactions.appendAndOwn(r);
 
   return r;
 }
@@ -2042,7 +2043,7 @@ SpeciesReference*
 Model::createReactant ()
 {
   unsigned int size = getNumReactions();
-  return (size > 0) ? getReaction(size - 1)->createReactant() : 0;
+  return (size > 0) ? getReaction(size - 1)->createReactant() : NULL;
 }
 
 
@@ -2058,7 +2059,7 @@ SpeciesReference*
 Model::createProduct ()
 {
   unsigned int size = getNumReactions();
-  return (size > 0) ? getReaction(size - 1)->createProduct() : 0;
+  return (size > 0) ? getReaction(size - 1)->createProduct() : NULL;
 }
 
 
@@ -2074,7 +2075,7 @@ ModifierSpeciesReference*
 Model::createModifier ()
 {
   unsigned int size = getNumReactions();
-  return (size > 0) ? getReaction(size - 1)->createModifier() : 0;
+  return (size > 0) ? getReaction(size - 1)->createModifier() : NULL;
 }
 
 
@@ -2090,7 +2091,7 @@ KineticLaw*
 Model::createKineticLaw ()
 {
   unsigned int size = getNumReactions();
-  return (size > 0) ? getReaction(size - 1)->createKineticLaw() : 0;
+  return (size > 0) ? getReaction(size - 1)->createKineticLaw() : NULL;
 }
 
 
@@ -2110,10 +2111,10 @@ Model::createKineticLawParameter ()
   if (size > 0)
   {
     KineticLaw* kl = getReaction(size - 1)->getKineticLaw();
-    if (kl) return kl->createParameter();
+    if (kl != NULL) return kl->createParameter();
   }
 
-  return 0;
+  return NULL;
 }
 
 
@@ -2133,10 +2134,10 @@ Model::createKineticLawLocalParameter ()
   if (size > 0)
   {
     KineticLaw* kl = getReaction(size - 1)->getKineticLaw();
-    if (kl) return kl->createLocalParameter();
+    if (kl != NULL) return kl->createLocalParameter();
   }
 
-  return 0;
+  return NULL;
 }
 
 
@@ -2146,7 +2147,7 @@ Model::createKineticLawLocalParameter ()
 Event*
 Model::createEvent ()
 {
-  Event* e = 0;
+  Event* e = NULL;
 
   try
   {
@@ -2168,7 +2169,7 @@ Model::createEvent ()
     mEvents.setParentSBMLObject(this);
   }
   
-  if (e) mEvents.appendAndOwn(e);
+  if (e != NULL) mEvents.appendAndOwn(e);
 
   return e;
 }
@@ -2185,7 +2186,7 @@ EventAssignment*
 Model::createEventAssignment ()
 {
   unsigned int size = getNumEvents();
-  return (size > 0) ? getEvent(size - 1)->createEventAssignment() : 0;
+  return (size > 0) ? getEvent(size - 1)->createEventAssignment() : NULL;
 }
 
 
@@ -2200,7 +2201,7 @@ Trigger*
 Model::createTrigger ()
 {
   unsigned int size = getNumEvents();
-  return (size > 0) ? getEvent(size - 1)->createTrigger() : 0;
+  return (size > 0) ? getEvent(size - 1)->createTrigger() : NULL;
 }
 
 
@@ -2215,7 +2216,7 @@ Delay*
 Model::createDelay ()
 {
   unsigned int size = getNumEvents();
-  return (size > 0) ? getEvent(size - 1)->createDelay() : 0;
+  return (size > 0) ? getEvent(size - 1)->createDelay() : NULL;
 }
 
 
@@ -2239,7 +2240,8 @@ Model::setAnnotation (const XMLNode* annotation)
     delete mHistory;
     mHistory = NULL;
 
-    if(mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+    if(mAnnotation != NULL 
+       && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
     {
       // parse mAnnotation (if any) and set mHistory
       mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
@@ -2252,7 +2254,7 @@ Model::setAnnotation (const XMLNode* annotation)
       delete lo;
     }
 
-    if(mAnnotation)
+    if(mAnnotation != NULL)
     {
       // parse mAnnotation (if any) and set mLayouts 
       parseLayoutAnnotation(mAnnotation,mLayouts);
@@ -2288,7 +2290,7 @@ Model::setAnnotation (const std::string& annotation)
     annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
 
-  if(annt_xmln)
+  if(annt_xmln != NULL)
   {
     success = setAnnotation(annt_xmln);
     delete annt_xmln;
@@ -2306,7 +2308,7 @@ int
 Model::appendAnnotation (const XMLNode* annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  if(!annotation) return LIBSBML_OPERATION_SUCCESS;
+  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
   const string&  name = annotation->getName();
@@ -2327,7 +2329,7 @@ Model::appendAnnotation (const XMLNode* annotation)
   if (RDFAnnotationParser::hasHistoryRDFAnnotation(new_annotation))
   {
     ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
-    if(new_mhistory)
+    if(new_mhistory != NULL)
     {
       delete mHistory;
       mHistory = new_mhistory;
@@ -2361,7 +2363,7 @@ Model::appendAnnotation (const std::string& annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
-  if (getSBMLDocument())
+  if (getSBMLDocument() != NULL)
   {
     XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
@@ -2371,7 +2373,7 @@ Model::appendAnnotation (const std::string& annotation)
     annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
 
-  if(annt_xmln)
+  if(annt_xmln != NULL)
   {
     success = appendAnnotation(annt_xmln);
     delete annt_xmln;
@@ -2391,7 +2393,7 @@ Model::syncAnnotation ()
   bool hasRDF = false;
   bool hasAdditionalRDF = false;
   // determine status of existing annotation before doing anything
-  if (mAnnotation)
+  if (mAnnotation != NULL)
   {
     hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
     hasAdditionalRDF = 
@@ -2400,10 +2402,10 @@ Model::syncAnnotation ()
 
   XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
 
-  if(mAnnotation && hasRDF)
+  if(mAnnotation != NULL && hasRDF)
   {
     XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    if(!new_annotation)
+    if(new_annotation == NULL)
     {
       XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
       new_annotation = new XMLNode(ann_token);
@@ -2413,9 +2415,9 @@ Model::syncAnnotation ()
     delete new_annotation;
   }
 
-  if (history)
+  if (history != NULL)
   {
-    if (!mAnnotation)
+    if (mAnnotation == NULL)
     {
       mAnnotation = history;
     }
@@ -2457,7 +2459,7 @@ Model::syncAnnotation ()
 
 
 #ifdef USE_LAYOUT
-  if(mAnnotation)
+  if(mAnnotation != NULL)
   {
     XMLNode* new_annotation = deleteLayoutAnnotation(mAnnotation);
     *mAnnotation = *new_annotation;
@@ -2473,7 +2475,7 @@ Model::syncAnnotation ()
 
     if (layouts)
     {
-      if (!mAnnotation)
+      if (mAnnotation == NULL)
       {
         mAnnotation = layouts;
       }
@@ -3187,10 +3189,10 @@ Model::getSpeciesReference (const std::string& sid)
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     sr = getReaction(i)->getReactant(sid);
-    if (sr) break;
+    if (sr != NULL) break;
 
     sr = getReaction(i)->getProduct(sid);
-    if (sr) break;
+    if (sr != NULL) break;
   }
 
   return sr;
@@ -3203,10 +3205,10 @@ Model::getSpeciesReference (const std::string& sid) const
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     sr = getReaction(i)->getReactant(sid);
-    if (sr) break;
+    if (sr != NULL) break;
 
     sr = getReaction(i)->getProduct(sid);
-    if (sr) break;
+    if (sr != NULL) break;
   }
 
   return sr;
@@ -3406,7 +3408,7 @@ LIBSBML_EXTERN
 bool
 Model::isBoolean (const ASTNode* node) const
 {
-  if ( !node )
+  if (node == NULL)
   {
     return false;
   }
@@ -3420,7 +3422,7 @@ Model::isBoolean (const ASTNode* node) const
   {
     const FunctionDefinition* fd = getFunctionDefinition( node->getName() );
 
-    if (fd && fd->isSetMath())
+    if (fd != NULL && fd->isSetMath())
     {
       return isBoolean( fd->getMath()->getRightChild() );
     }
@@ -3822,7 +3824,7 @@ Model::readOtherXML (XMLInputStream& stream)
 //    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
-    if (mAnnotation)
+    if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -3839,7 +3841,7 @@ Model::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
-    if (mCVTerms)
+    if (mCVTerms != NULL)
     {
       unsigned int size = mCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
@@ -3883,7 +3885,7 @@ SBase*
 Model::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
   unsigned int level = getLevel();
   unsigned int version = getVersion();
 
@@ -4371,10 +4373,10 @@ Model::writeAttributes (XMLOutputStream& stream) const
 void
 Model::writeElements (XMLOutputStream& stream) const
 {
-  if ( mNotes ) stream << *mNotes;
+  if ( mNotes != NULL ) stream << *mNotes;
   Model * m = const_cast <Model *> (this);
   m->syncAnnotation();
-  if ( mAnnotation ) stream << *mAnnotation;
+  if ( mAnnotation != NULL ) stream << *mAnnotation;
 
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
@@ -4529,13 +4531,13 @@ void
 Model::populateListFormulaUnitsData()
 {
   /* remove list if it already exists */
-  if (mFormulaUnitsData)
+  if (mFormulaUnitsData != NULL)
   {  
     unsigned int size = mFormulaUnitsData->getSize();
     while (size--) 
       delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
     delete mFormulaUnitsData;
-    mFormulaUnitsData = 0;
+    mFormulaUnitsData = NULL;
   }
 
   unsigned int n, j;
@@ -5585,7 +5587,7 @@ Model::getListFormulaUnitsData () const
 bool
 Model::isPopulatedListFormulaUnitsData()
 {
-  if (mFormulaUnitsData)
+  if (mFormulaUnitsData != NULL)
     return true;
   else
     return false;
@@ -5677,7 +5679,7 @@ LIBSBML_EXTERN
 Model_t *
 Model_clone (const Model_t *m)
 {
-  return static_cast<Model*>( m->clone() );
+  return (m != NULL) ? static_cast<Model*>( m->clone() ) : NULL;
 }
 
 
@@ -5707,7 +5709,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Model_getNamespaces(Model_t *m)
 {
-  return m->getNamespaces();
+  return (m != NULL) ? m->getNamespaces() : NULL;
 }
 
 
@@ -5722,7 +5724,7 @@ LIBSBML_EXTERN
 const char *
 Model_getId (const Model_t *m)
 {
-  return m->isSetId() ? m->getId().c_str() : NULL;
+  return (m != NULL && m->isSetId()) ? m->getId().c_str() : NULL;
 }
 
 
@@ -5737,7 +5739,7 @@ LIBSBML_EXTERN
 const char *
 Model_getName (const Model_t *m)
 {
-  return m->isSetName() ? m->getName().c_str() : NULL;
+  return (m != NULL && m->isSetName()) ? m->getName().c_str() : NULL;
 }
 
 
@@ -5752,7 +5754,8 @@ LIBSBML_EXTERN
 const char *
 Model_getSubstanceUnits (const Model_t *m)
 {
-  return m->isSetSubstanceUnits() ? m->getSubstanceUnits().c_str() : NULL;
+  return (m != NULL && m->isSetSubstanceUnits()) ? 
+                       m->getSubstanceUnits().c_str() : NULL;
 }
 
 
@@ -5767,7 +5770,7 @@ LIBSBML_EXTERN
 const char *
 Model_getTimeUnits (const Model_t *m)
 {
-  return m->isSetTimeUnits() ? m->getTimeUnits().c_str() : NULL;
+  return (m != NULL && m->isSetTimeUnits()) ? m->getTimeUnits().c_str() : NULL;
 }
 
 
@@ -5782,7 +5785,8 @@ LIBSBML_EXTERN
 const char *
 Model_getVolumeUnits (const Model_t *m)
 {
-  return m->isSetVolumeUnits() ? m->getVolumeUnits().c_str() : NULL;
+  return (m != NULL && m->isSetVolumeUnits()) ? 
+                       m->getVolumeUnits().c_str() : NULL;
 }
 
 
@@ -5797,7 +5801,7 @@ LIBSBML_EXTERN
 const char *
 Model_getAreaUnits (const Model_t *m)
 {
-  return m->isSetAreaUnits() ? m->getAreaUnits().c_str() : NULL;
+  return (m != NULL && m->isSetAreaUnits()) ? m->getAreaUnits().c_str() : NULL;
 }
 
 
@@ -5812,7 +5816,8 @@ LIBSBML_EXTERN
 const char *
 Model_getLengthUnits (const Model_t *m)
 {
-  return m->isSetLengthUnits() ? m->getLengthUnits().c_str() : NULL;
+  return (m != NULL && m->isSetLengthUnits()) ? 
+                       m->getLengthUnits().c_str() : NULL;
 }
 
 
@@ -5827,7 +5832,8 @@ LIBSBML_EXTERN
 const char *
 Model_getExtentUnits (const Model_t *m)
 {
-  return m->isSetExtentUnits() ? m->getExtentUnits().c_str() : NULL;
+  return (m != NULL && m->isSetExtentUnits()) ? 
+                       m->getExtentUnits().c_str() : NULL;
 }
 
 
@@ -5842,7 +5848,8 @@ LIBSBML_EXTERN
 const char *
 Model_getConversionFactor (const Model_t *m)
 {
-  return m->isSetConversionFactor() ? m->getConversionFactor().c_str() : NULL;
+  return (m != NULL && m->isSetConversionFactor()) ? 
+                       m->getConversionFactor().c_str() : NULL;
 }
 
 
@@ -5859,7 +5866,7 @@ LIBSBML_EXTERN
 int
 Model_isSetId (const Model_t *m)
 {
-  return static_cast<int>( m->isSetId() );
+  return (m != NULL) ? static_cast<int>( m->isSetId() ) : 0;
 }
 
 
@@ -5876,7 +5883,7 @@ LIBSBML_EXTERN
 int
 Model_isSetName (const Model_t *m)
 {
-  return static_cast<int>( m->isSetName() );
+  return (m != NULL) ? static_cast<int>( m->isSetName() ) : 0;
 }
 
 
@@ -5893,7 +5900,7 @@ LIBSBML_EXTERN
 int
 Model_isSetSubstanceUnits (const Model_t *m)
 {
-  return static_cast<int>( m->isSetSubstanceUnits() );
+  return (m != NULL) ? static_cast<int>( m->isSetSubstanceUnits() ) : 0;
 }
 
 
@@ -5910,7 +5917,7 @@ LIBSBML_EXTERN
 int
 Model_isSetTimeUnits (const Model_t *m)
 {
-  return static_cast<int>( m->isSetTimeUnits() );
+  return (m != NULL) ? static_cast<int>( m->isSetTimeUnits() ) : 0;
 }
 
 
@@ -5927,7 +5934,7 @@ LIBSBML_EXTERN
 int
 Model_isSetVolumeUnits (const Model_t *m)
 {
-  return static_cast<int>( m->isSetVolumeUnits() );
+  return (m != NULL) ? static_cast<int>( m->isSetVolumeUnits() ) : 0;
 }
 
 
@@ -5944,7 +5951,7 @@ LIBSBML_EXTERN
 int
 Model_isSetAreaUnits (const Model_t *m)
 {
-  return static_cast<int>( m->isSetAreaUnits() );
+  return (m != NULL) ? static_cast<int>( m->isSetAreaUnits() ) : 0;
 }
 
 
@@ -5961,7 +5968,7 @@ LIBSBML_EXTERN
 int
 Model_isSetLengthUnits (const Model_t *m)
 {
-  return static_cast<int>( m->isSetLengthUnits() );
+  return (m != NULL) ? static_cast<int>( m->isSetLengthUnits() ) : 0;
 }
 
 
@@ -5978,7 +5985,7 @@ LIBSBML_EXTERN
 int
 Model_isSetExtentUnits (const Model_t *m)
 {
-  return static_cast<int>( m->isSetExtentUnits() );
+  return (m != NULL) ? static_cast<int>( m->isSetExtentUnits() ) : 0;
 }
 
 
@@ -5995,7 +6002,7 @@ LIBSBML_EXTERN
 int
 Model_isSetConversionFactor (const Model_t *m)
 {
-  return static_cast<int>( m->isSetConversionFactor() );
+  return (m != NULL) ? static_cast<int>( m->isSetConversionFactor() ) : 0;
 }
 
 
@@ -6021,7 +6028,10 @@ LIBSBML_EXTERN
 int
 Model_setId (Model_t *m, const char *sid)
 {
-  return (sid == NULL) ? m->unsetId() : m->setId(sid);
+  if (m != NULL)
+    return (sid == NULL) ? m->unsetId() : m->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6047,7 +6057,10 @@ LIBSBML_EXTERN
 int
 Model_setName (Model_t *m, const char *name)
 {
-  return (name == NULL) ? m->unsetName() : m->setName(name);
+  if (m != NULL)
+    return (name == NULL) ? m->unsetName() : m->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6074,8 +6087,11 @@ LIBSBML_EXTERN
 int
 Model_setSubstanceUnits (Model_t *m, const char *units)
 {
-  return (units == NULL) ? m->unsetSubstanceUnits() : 
+  if (m != NULL)
+    return (units == NULL) ? m->unsetSubstanceUnits() : 
                                      m->setSubstanceUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6102,8 +6118,11 @@ LIBSBML_EXTERN
 int
 Model_setTimeUnits (Model_t *m, const char *units)
 {
-  return (units == NULL) ? m->unsetTimeUnits() : 
+  if (m != NULL)
+    return (units == NULL) ? m->unsetTimeUnits() : 
                                      m->setTimeUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6130,8 +6149,11 @@ LIBSBML_EXTERN
 int
 Model_setVolumeUnits (Model_t *m, const char *units)
 {
-  return (units == NULL) ? m->unsetVolumeUnits() : 
+  if (m != NULL)
+    return (units == NULL) ? m->unsetVolumeUnits() : 
                                      m->setVolumeUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6158,8 +6180,11 @@ LIBSBML_EXTERN
 int
 Model_setAreaUnits (Model_t *m, const char *units)
 {
-  return (units == NULL) ? m->unsetAreaUnits() : 
+  if (m != NULL)
+    return (units == NULL) ? m->unsetAreaUnits() : 
                                      m->setAreaUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6186,8 +6211,11 @@ LIBSBML_EXTERN
 int
 Model_setLengthUnits (Model_t *m, const char *units)
 {
-  return (units == NULL) ? m->unsetLengthUnits() : 
+  if (m != NULL)
+    return (units == NULL) ? m->unsetLengthUnits() : 
                                      m->setLengthUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6214,8 +6242,11 @@ LIBSBML_EXTERN
 int
 Model_setExtentUnits (Model_t *m, const char *units)
 {
-  return (units == NULL) ? m->unsetExtentUnits() : 
+  if (m != NULL)
+    return (units == NULL) ? m->unsetExtentUnits() : 
                                      m->setExtentUnits(units);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6242,8 +6273,11 @@ LIBSBML_EXTERN
 int
 Model_setConversionFactor (Model_t *m, const char *sid)
 {
-  return (sid == NULL) ? m->unsetConversionFactor() : 
+  if (m != NULL)
+    return (sid == NULL) ? m->unsetConversionFactor() : 
                                      m->setConversionFactor(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6263,7 +6297,10 @@ LIBSBML_EXTERN
 int
 Model_unsetId (Model_t *m)
 {
-  return m->unsetId();
+  if (m != NULL)
+    return m->unsetId();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6283,7 +6320,10 @@ LIBSBML_EXTERN
 int
 Model_unsetName (Model_t *m)
 {
-  return m->unsetName();
+  if (m != NULL)
+    return m->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6304,7 +6344,10 @@ LIBSBML_EXTERN
 int
 Model_unsetSubstanceUnits (Model_t *m)
 {
-  return m->unsetSubstanceUnits();
+  if (m != NULL)
+    return m->unsetSubstanceUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6325,7 +6368,10 @@ LIBSBML_EXTERN
 int
 Model_unsetTimeUnits (Model_t *m)
 {
-  return m->unsetTimeUnits();
+  if (m != NULL)
+    return m->unsetTimeUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6346,7 +6392,10 @@ LIBSBML_EXTERN
 int
 Model_unsetVolumeUnits (Model_t *m)
 {
-  return m->unsetVolumeUnits();
+  if (m != NULL)
+    return m->unsetVolumeUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6367,7 +6416,10 @@ LIBSBML_EXTERN
 int
 Model_unsetAreaUnits (Model_t *m)
 {
-  return m->unsetAreaUnits();
+  if (m != NULL)
+    return m->unsetAreaUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6388,7 +6440,10 @@ LIBSBML_EXTERN
 int
 Model_unsetLengthUnits (Model_t *m)
 {
-  return m->unsetLengthUnits();
+  if (m != NULL)
+    return m->unsetLengthUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6409,7 +6464,10 @@ LIBSBML_EXTERN
 int
 Model_unsetExtentUnits (Model_t *m)
 {
-  return m->unsetExtentUnits();
+  if (m != NULL)
+    return m->unsetExtentUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6430,7 +6488,10 @@ LIBSBML_EXTERN
 int
 Model_unsetConversionFactor (Model_t *m)
 {
-  return m->unsetConversionFactor();
+  if (m != NULL)
+    return m->unsetConversionFactor();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6445,7 +6506,7 @@ LIBSBML_EXTERN
 ModelHistory_t * 
 Model_getModelHistory(Model_t *m)
 {
-  return m->getModelHistory();
+  return (m != NULL) ? m->getModelHistory() : NULL;
 }
 
 /**
@@ -6460,7 +6521,7 @@ Model_getModelHistory(Model_t *m)
 int 
 Model_isSetModelHistory(Model_t *m)
 {
-  return static_cast<int>( m->isSetModelHistory() );
+  return (m != NULL) ? static_cast<int>( m->isSetModelHistory() ) : 0;
 }
 
 
@@ -6481,7 +6542,7 @@ LIBSBML_EXTERN
 int 
 Model_setModelHistory(Model_t *m, ModelHistory_t *history)
 {
-  return m->setModelHistory(history);
+  return (m != NULL) ? m->setModelHistory(history) : LIBSBML_INVALID_OBJECT;
 }
 
 /**
@@ -6500,7 +6561,7 @@ LIBSBML_EXTERN
 int 
 Model_unsetModelHistory(Model_t *m)
 {
-  return m->unsetModelHistory();
+  return (m != NULL) ? m->unsetModelHistory() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6525,7 +6586,7 @@ LIBSBML_EXTERN
 int
 Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd)
 {
-  return  m->addFunctionDefinition(fd);
+  return  (m != NULL) ? m->addFunctionDefinition(fd) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6549,7 +6610,7 @@ LIBSBML_EXTERN
 int
 Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
 {
-  return m->addUnitDefinition(ud);
+  return (m != NULL) ? m->addUnitDefinition(ud) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6573,7 +6634,7 @@ LIBSBML_EXTERN
 int
 Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct)
 {
-  return m->addCompartmentType(ct);
+  return (m != NULL) ? m->addCompartmentType(ct) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6597,7 +6658,7 @@ LIBSBML_EXTERN
 int
 Model_addSpeciesType (Model_t *m, const SpeciesType_t *st)
 {
-  return m->addSpeciesType(st);
+  return (m != NULL) ? m->addSpeciesType(st) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6621,7 +6682,7 @@ LIBSBML_EXTERN
 int
 Model_addCompartment (Model_t *m, const Compartment_t *c)
 {
-  return m->addCompartment(c);
+  return (m != NULL) ? m->addCompartment(c) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6645,7 +6706,7 @@ LIBSBML_EXTERN
 int
 Model_addSpecies (Model_t *m, const Species_t *s)
 {
-  return m->addSpecies(s);
+  return (m != NULL) ? m->addSpecies(s) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6669,7 +6730,7 @@ LIBSBML_EXTERN
 int
 Model_addParameter (Model_t *m, const Parameter_t *p)
 {
-  return m->addParameter(p);
+  return (m != NULL) ? m->addParameter(p) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6693,7 +6754,7 @@ LIBSBML_EXTERN
 int
 Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia)
 {
-  return m->addInitialAssignment(ia);
+  return (m != NULL) ? m->addInitialAssignment(ia) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6717,7 +6778,7 @@ LIBSBML_EXTERN
 int
 Model_addRule (Model_t *m, const Rule_t *r)
 {
-  return m->addRule(r);
+  return (m != NULL) ? m->addRule(r) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6740,7 +6801,7 @@ LIBSBML_EXTERN
 int
 Model_addConstraint (Model_t *m, const Constraint_t *c)
 {
-  return m->addConstraint(c);
+  return (m != NULL) ? m->addConstraint(c) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6764,7 +6825,7 @@ LIBSBML_EXTERN
 int
 Model_addReaction (Model_t *m, const Reaction_t *r)
 {
-  return m->addReaction(r);
+  return (m != NULL) ? m->addReaction(r) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6788,7 +6849,7 @@ LIBSBML_EXTERN
 int
 Model_addEvent (Model_t *m, const Event_t *e)
 {
-  return m->addEvent(e);
+  return (m != NULL) ? m->addEvent(e) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -6804,7 +6865,7 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_createFunctionDefinition (Model_t *m)
 {
-  return m->createFunctionDefinition();
+  return (m != NULL) ? m->createFunctionDefinition() : NULL;
 }
 
 
@@ -6820,7 +6881,7 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 Model_createUnitDefinition (Model_t *m)
 {
-  return m->createUnitDefinition();
+  return (m != NULL) ? m->createUnitDefinition() : NULL;
 }
 
 
@@ -6840,7 +6901,7 @@ LIBSBML_EXTERN
 Unit_t *
 Model_createUnit (Model_t *m)
 {
-  return m->createUnit();
+  return (m != NULL) ? m->createUnit() : NULL;
 }
 
 
@@ -6856,7 +6917,7 @@ LIBSBML_EXTERN
 CompartmentType_t *
 Model_createCompartmentType (Model_t *m)
 {
-  return m->createCompartmentType();
+  return (m != NULL) ? m->createCompartmentType() : NULL;
 }
 
 
@@ -6872,7 +6933,7 @@ LIBSBML_EXTERN
 SpeciesType_t *
 Model_createSpeciesType (Model_t *m)
 {
-  return m->createSpeciesType();
+  return (m != NULL) ? m->createSpeciesType() : NULL;
 }
 
 
@@ -6888,7 +6949,7 @@ LIBSBML_EXTERN
 Compartment_t *
 Model_createCompartment (Model_t *m)
 {
-  return m->createCompartment();
+  return (m != NULL) ? m->createCompartment() : NULL;
 }
 
 
@@ -6904,7 +6965,7 @@ LIBSBML_EXTERN
 Species_t *
 Model_createSpecies (Model_t *m)
 {
-  return m->createSpecies();
+  return (m != NULL) ? m->createSpecies() : NULL;
 }
 
 
@@ -6920,7 +6981,7 @@ LIBSBML_EXTERN
 Parameter_t *
 Model_createParameter (Model_t *m)
 {
-  return m->createParameter();
+  return (m != NULL) ? m->createParameter() : NULL;
 }
 
 
@@ -6936,7 +6997,7 @@ LIBSBML_EXTERN
 InitialAssignment_t *
 Model_createInitialAssignment (Model_t *m)
 {
-  return m->createInitialAssignment();
+  return (m != NULL) ? m->createInitialAssignment() : NULL;
 }
 
 
@@ -6952,7 +7013,7 @@ LIBSBML_EXTERN
 Rule_t *
 Model_createAlgebraicRule (Model_t *m)
 {
-  return m->createAlgebraicRule();
+  return (m != NULL) ? m->createAlgebraicRule() : NULL;
 }
 
 
@@ -6968,7 +7029,7 @@ LIBSBML_EXTERN
 Rule_t *
 Model_createAssignmentRule (Model_t *m)
 {
-  return m->createAssignmentRule();
+  return (m != NULL) ? m->createAssignmentRule() : NULL;
 }
 
 
@@ -6984,7 +7045,7 @@ LIBSBML_EXTERN
 Rule_t *
 Model_createRateRule (Model_t *m)
 {
-  return m->createRateRule();
+  return (m != NULL) ? m->createRateRule() : NULL;
 }
 
 
@@ -7000,7 +7061,7 @@ LIBSBML_EXTERN
 Constraint_t *
 Model_createConstraint (Model_t *m)
 {
-  return m->createConstraint();
+  return (m != NULL) ? m->createConstraint() : NULL;
 }
 
 /**
@@ -7015,7 +7076,7 @@ LIBSBML_EXTERN
 Reaction_t *
 Model_createReaction (Model_t *m)
 {
-  return m->createReaction();
+  return (m != NULL) ? m->createReaction() : NULL;
 }
 
 
@@ -7038,7 +7099,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createReactant (Model_t *m)
 {
-  return m->createReactant();
+  return (m != NULL) ? m->createReactant() : NULL;
 }
 
 
@@ -7061,7 +7122,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createProduct (Model_t *m)
 {
-  return m->createProduct();
+  return (m != NULL) ? m->createProduct() : NULL;
 }
 
 
@@ -7084,7 +7145,8 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createModifier (Model_t *m)
 {
-  return static_cast<SpeciesReference_t*>( m->createModifier() );
+  return (m != NULL) ? 
+          static_cast<SpeciesReference_t*>( m->createModifier() ) : NULL;
 }
 
 
@@ -7107,7 +7169,7 @@ LIBSBML_EXTERN
 KineticLaw_t *
 Model_createKineticLaw (Model_t *m)
 {
-  return m->createKineticLaw();
+  return (m != NULL) ? m->createKineticLaw() : NULL;
 }
 
 
@@ -7133,7 +7195,7 @@ LIBSBML_EXTERN
 Parameter_t *
 Model_createKineticLawParameter (Model_t *m)
 {
-  return m->createKineticLawParameter();
+  return (m != NULL) ? m->createKineticLawParameter() : NULL;
 }
 
 
@@ -7159,7 +7221,7 @@ LIBSBML_EXTERN
 LocalParameter_t *
 Model_createKineticLawLocalParameter (Model_t *m)
 {
-  return m->createKineticLawLocalParameter();
+  return (m != NULL) ? m->createKineticLawLocalParameter() : NULL;
 }
 
 
@@ -7175,7 +7237,7 @@ LIBSBML_EXTERN
 Event_t *
 Model_createEvent (Model_t *m)
 {
-  return m->createEvent();
+  return (m != NULL) ? m->createEvent() : NULL;
 }
 
 
@@ -7198,7 +7260,7 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Model_createEventAssignment (Model_t *m)
 {
-  return m->createEventAssignment();
+  return (m != NULL) ? m->createEventAssignment() : NULL;
 }
 
 
@@ -7221,7 +7283,7 @@ LIBSBML_EXTERN
 Trigger_t *
 Model_createTrigger (Model_t *m)
 {
-  return m->createTrigger();
+  return (m != NULL) ? m->createTrigger() : NULL;
 }
 
 
@@ -7244,7 +7306,7 @@ LIBSBML_EXTERN
 Delay_t *
 Model_createDelay (Model_t *m)
 {
-  return m->createDelay();
+  return (m != NULL) ? m->createDelay() : NULL;
 }
 
 
@@ -7260,7 +7322,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfFunctionDefinitions (Model_t *m)
 {
-  return m->getListOfFunctionDefinitions();
+  return (m != NULL) ? m->getListOfFunctionDefinitions() : NULL;
 }
 
 
@@ -7276,7 +7338,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfUnitDefinitions (Model_t *m)
 {
-  return m->getListOfUnitDefinitions();
+  return (m != NULL) ? m->getListOfUnitDefinitions() : NULL;
 }
 
 
@@ -7292,7 +7354,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfCompartmentTypes (Model_t *m)
 {
-  return m->getListOfCompartmentTypes();
+  return (m != NULL) ? m->getListOfCompartmentTypes() : NULL;
 }
 
 
@@ -7308,7 +7370,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfSpeciesTypes (Model_t *m)
 {
-  return m->getListOfSpeciesTypes();
+  return (m != NULL) ? m->getListOfSpeciesTypes() : NULL;
 }
 
 
@@ -7324,7 +7386,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfCompartments (Model_t *m)
 {
-  return m->getListOfCompartments();
+  return (m != NULL) ? m->getListOfCompartments() : NULL;
 }
 
 
@@ -7340,7 +7402,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfSpecies (Model_t *m)
 {
-  return m->getListOfSpecies();
+  return (m != NULL) ? m->getListOfSpecies() : NULL;
 }
 
 
@@ -7356,7 +7418,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfParameters (Model_t *m)
 {
-  return m->getListOfParameters();
+  return (m != NULL) ? m->getListOfParameters() : NULL;
 }
 
 
@@ -7372,7 +7434,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfInitialAssignments (Model_t* m)
 {
-  return m->getListOfInitialAssignments();
+  return (m != NULL) ? m->getListOfInitialAssignments() : NULL;
 }
 
 
@@ -7388,7 +7450,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfRules (Model_t *m)
 {
-  return m->getListOfRules();
+  return (m != NULL) ? m->getListOfRules() : NULL;
 }
 
 
@@ -7404,7 +7466,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfConstraints (Model_t* m)
 {
-  return m->getListOfConstraints();
+  return (m != NULL) ? m->getListOfConstraints() : NULL;
 }
 
 
@@ -7420,7 +7482,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfReactions (Model_t *m)
 {
-  return m->getListOfReactions();
+  return (m != NULL) ? m->getListOfReactions() : NULL;
 }
 
 
@@ -7436,7 +7498,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfEvents (Model_t *m)
 {
-  return m->getListOfEvents();
+  return (m != NULL) ? m->getListOfEvents() : NULL;
 }
 
 
@@ -7453,7 +7515,7 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_getFunctionDefinition (Model_t *m, unsigned int n)
 {
-  return m->getFunctionDefinition(n);
+  return (m != NULL) ? m->getFunctionDefinition(n) : NULL;
 }
 
 
@@ -7470,7 +7532,7 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_getFunctionDefinitionById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getFunctionDefinition(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getFunctionDefinition(sid) : NULL;
 }
 
 
@@ -7487,7 +7549,7 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 Model_getUnitDefinition (Model_t *m, unsigned int n)
 {
-  return m->getUnitDefinition(n);
+  return (m != NULL) ? m->getUnitDefinition(n) : NULL;
 }
 
 
@@ -7504,7 +7566,7 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 Model_getUnitDefinitionById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getUnitDefinition(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getUnitDefinition(sid) : NULL;
 }
 
 
@@ -7521,7 +7583,7 @@ LIBSBML_EXTERN
 CompartmentType_t *
 Model_getCompartmentType (Model_t *m, unsigned int n)
 {
-  return m->getCompartmentType(n);
+  return (m != NULL) ? m->getCompartmentType(n) : NULL;
 }
 
 
@@ -7538,7 +7600,7 @@ LIBSBML_EXTERN
 CompartmentType_t *
 Model_getCompartmentTypeById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getCompartmentType(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getCompartmentType(sid) : NULL;
 }
 
 
@@ -7555,7 +7617,7 @@ LIBSBML_EXTERN
 SpeciesType_t *
 Model_getSpeciesType (Model_t *m, unsigned int n)
 {
-  return m->getSpeciesType(n);
+  return (m != NULL) ? m->getSpeciesType(n) : NULL;
 }
 
 
@@ -7572,7 +7634,7 @@ LIBSBML_EXTERN
 SpeciesType_t *
 Model_getSpeciesTypeById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getSpeciesType(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getSpeciesType(sid) : NULL;
 }
 
 
@@ -7589,7 +7651,7 @@ LIBSBML_EXTERN
 Compartment_t *
 Model_getCompartment (Model_t *m, unsigned int n)
 {
-  return m->getCompartment(n);
+  return (m != NULL) ? m->getCompartment(n) : NULL;
 }
 
 
@@ -7606,7 +7668,7 @@ LIBSBML_EXTERN
 Compartment_t *
 Model_getCompartmentById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getCompartment(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getCompartment(sid) : NULL;
 }
 
 
@@ -7623,7 +7685,7 @@ LIBSBML_EXTERN
 Species_t *
 Model_getSpecies (Model_t *m, unsigned int n)
 {
-  return m->getSpecies(n);
+  return (m != NULL) ? m->getSpecies(n) : NULL;
 }
 
 
@@ -7640,7 +7702,7 @@ LIBSBML_EXTERN
 Species_t *
 Model_getSpeciesById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getSpecies(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getSpecies(sid) : NULL;
 }
 
 
@@ -7657,7 +7719,7 @@ LIBSBML_EXTERN
 Parameter_t *
 Model_getParameter (Model_t *m, unsigned int n)
 {
-  return m->getParameter(n);
+  return (m != NULL) ? m->getParameter(n) : NULL;
 }
 
 
@@ -7674,7 +7736,7 @@ LIBSBML_EXTERN
 Parameter_t *
 Model_getParameterById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getParameter(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getParameter(sid) : NULL;
 }
 
 
@@ -7691,7 +7753,7 @@ LIBSBML_EXTERN
 InitialAssignment_t *
 Model_getInitialAssignment (Model_t *m, unsigned int n)
 {
-  return m->getInitialAssignment(n);
+  return (m != NULL) ? m->getInitialAssignment(n) : NULL;
 }
 
 
@@ -7722,7 +7784,7 @@ LIBSBML_EXTERN
 Rule_t *
 Model_getRule (Model_t *m, unsigned int n)
 {
-  return m->getRule(n);
+  return (m != NULL) ? m->getRule(n) : NULL;
 }
 
 
@@ -7753,7 +7815,7 @@ LIBSBML_EXTERN
 Constraint_t *
 Model_getConstraint (Model_t *m, unsigned int n)
 {
-  return m->getConstraint(n);
+  return (m != NULL) ? m->getConstraint(n) : NULL;
 }
 
 
@@ -7770,7 +7832,7 @@ LIBSBML_EXTERN
 Reaction_t *
 Model_getReaction (Model_t *m, unsigned int n)
 {
-  return m->getReaction(n);
+  return (m != NULL) ? m->getReaction(n) : NULL;
 }
 
 
@@ -7787,7 +7849,7 @@ LIBSBML_EXTERN
 Reaction_t *
 Model_getReactionById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getReaction(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getReaction(sid) : NULL;
 }
 
 /**
@@ -7803,7 +7865,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Model_getSpeciesReferenceById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getSpeciesReference(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getSpeciesReference(sid) : NULL;
 }
 
 
@@ -7821,7 +7883,7 @@ LIBSBML_EXTERN
 Event_t *
 Model_getEvent (Model_t *m, unsigned int n)
 {
-  return m->getEvent(n);
+  return (m != NULL) ? m->getEvent(n) : NULL;
 }
 
 
@@ -7838,7 +7900,7 @@ LIBSBML_EXTERN
 Event_t *
 Model_getEventById (Model_t *m, const char *sid)
 {
-  return (sid != NULL) ? m->getEvent(sid) : NULL;
+  return (m != NULL && sid != NULL) ? m->getEvent(sid) : NULL;
 }
 
 
@@ -7855,7 +7917,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumFunctionDefinitions (const Model_t *m)
 {
-  return m->getNumFunctionDefinitions();
+  return (m != NULL) ? m->getNumFunctionDefinitions() : SBML_INT_MAX;
 }
 
 
@@ -7872,7 +7934,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumUnitDefinitions (const Model_t *m)
 {
-  return m->getNumUnitDefinitions();
+  return (m != NULL) ? m->getNumUnitDefinitions() : SBML_INT_MAX;
 }
 
 
@@ -7889,7 +7951,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumCompartmentTypes (const Model_t *m)
 {
-  return m->getNumCompartmentTypes();
+  return (m != NULL) ? m->getNumCompartmentTypes() : SBML_INT_MAX;
 }
 
 
@@ -7906,7 +7968,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumSpeciesTypes (const Model_t *m)
 {
-  return m->getNumSpeciesTypes();
+  return (m != NULL) ? m->getNumSpeciesTypes() : SBML_INT_MAX;
 }
 
 
@@ -7923,7 +7985,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumCompartments (const Model_t *m)
 {
-  return m->getNumCompartments();
+  return (m != NULL) ? m->getNumCompartments() : SBML_INT_MAX;
 }
 
 
@@ -7940,7 +8002,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumSpecies (const Model_t *m)
 {
-  return m->getNumSpecies();
+  return (m != NULL) ? m->getNumSpecies() : SBML_INT_MAX;
 }
 
 
@@ -7956,7 +8018,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumSpeciesWithBoundaryCondition (const Model_t *m)
 {
-  return m->getNumSpeciesWithBoundaryCondition();
+  return (m != NULL) ? m->getNumSpeciesWithBoundaryCondition() : SBML_INT_MAX;
 }
 
 
@@ -7973,7 +8035,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumParameters (const Model_t *m)
 {
-  return m->getNumParameters();
+  return (m != NULL) ? m->getNumParameters() : SBML_INT_MAX;
 }
 
 
@@ -7990,7 +8052,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumInitialAssignments (const Model_t *m)
 {
-  return m->getNumInitialAssignments();
+  return (m != NULL) ? m->getNumInitialAssignments() : SBML_INT_MAX;
 }
 
 
@@ -8007,7 +8069,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumRules (const Model_t *m)
 {
-  return m->getNumRules();
+  return (m != NULL) ? m->getNumRules() : SBML_INT_MAX;
 }
 
 
@@ -8024,7 +8086,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumConstraints (const Model_t *m)
 {
-  return m->getNumConstraints();
+  return (m != NULL) ? m->getNumConstraints() : SBML_INT_MAX;
 }
 
 /**
@@ -8040,7 +8102,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumReactions (const Model_t *m)
 {
-  return m->getNumReactions();
+  return (m != NULL) ? m->getNumReactions() : SBML_INT_MAX;
 }
 
 
@@ -8057,7 +8119,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumEvents (const Model_t *m)
 {
-  return m->getNumEvents();
+  return (m != NULL) ? m->getNumEvents() : SBML_INT_MAX;
 }
 
 
@@ -8076,7 +8138,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfLayouts (Model_t *m)
 {
-  return m->getListOfLayouts();
+  return (m != NULL) ? m->getListOfLayouts() : NULL;
 }
 
 
@@ -8090,7 +8152,7 @@ LIBSBML_EXTERN
 Layout_t *
 Model_getLayout (Model_t *m, unsigned int index)
 {
-  return m->getLayout(index);
+  return (m != NULL) ? m->getLayout(index) : NULL;
 }
 
 
@@ -8110,7 +8172,7 @@ LIBSBML_EXTERN
 int 
 Model_addLayout (Model_t *m, const Layout_t *layout)
 {
-  return m->addLayout(layout);
+  return (m != NULL) ? m->addLayout(layout) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -8124,7 +8186,7 @@ LIBSBML_EXTERN
 Layout_t *
 Model_createLayout (Model_t *m)
 {
-  return m->createLayout();
+  return (m != NULL) ? m->createLayout() : NULL;
 }
 
 
@@ -8145,8 +8207,10 @@ LIBSBML_EXTERN
 Layout_t*
 Model_removeLayout (Model_t *m, unsigned int n)
 {
-  if(!m) return 0;
-  return m->removeLayout(n);
+  if(m != NULL)
+    return m->removeLayout(n);
+  else
+    return NULL;
 }
 
 
@@ -8182,7 +8246,8 @@ LIBSBML_EXTERN
 void 
 Model_populateListFormulaUnitsData(Model_t *m)
 {
-  m->populateListFormulaUnitsData();
+  if (m != NULL) 
+    m->populateListFormulaUnitsData();
 }
 
 
@@ -8199,7 +8264,8 @@ LIBSBML_EXTERN
 int 
 Model_isPopulatedListFormulaUnitsData(Model_t *m)
 {
-  return static_cast<int>( m->isPopulatedListFormulaUnitsData());
+  return (m != NULL) ? 
+    static_cast<int>( m->isPopulatedListFormulaUnitsData()) : 0;
 }
 
 
@@ -8220,8 +8286,10 @@ LIBSBML_EXTERN
 FunctionDefinition_t*
 Model_removeFunctionDefinition (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeFunctionDefinition(n);
+  if (m != NULL)
+    return m->removeFunctionDefinition(n);
+  else
+    return NULL;
 }
 
 
@@ -8243,8 +8311,10 @@ LIBSBML_EXTERN
 FunctionDefinition_t*
 Model_removeFunctionDefinitionById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeFunctionDefinition(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeFunctionDefinition(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8265,8 +8335,10 @@ LIBSBML_EXTERN
 UnitDefinition_t*
 Model_removeUnitDefinition (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeUnitDefinition(n);
+  if (m != NULL)
+    return m->removeUnitDefinition(n);
+  else
+    return NULL;
 }
 
 
@@ -8287,8 +8359,10 @@ LIBSBML_EXTERN
 UnitDefinition_t*
 Model_removeUnitDefinitionById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeUnitDefinition(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeUnitDefinition(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8309,8 +8383,10 @@ LIBSBML_EXTERN
 CompartmentType_t*
 Model_removeCompartmentType (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeCompartmentType(n);
+  if (m != NULL)
+    return m->removeCompartmentType(n);
+  else
+    return NULL;
 }
 
 
@@ -8331,8 +8407,10 @@ LIBSBML_EXTERN
 CompartmentType_t*
 Model_removeCompartmentTypeById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeCompartmentType(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeCompartmentType(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8353,8 +8431,10 @@ LIBSBML_EXTERN
 SpeciesType_t*
 Model_removeSpeciesType (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeSpeciesType(n);
+  if (m != NULL)
+    return m->removeSpeciesType(n);
+  else
+    return NULL;
 }
 
 
@@ -8375,8 +8455,10 @@ LIBSBML_EXTERN
 SpeciesType_t*
 Model_removeSpeciesTypeById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeSpeciesType(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeSpeciesType(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8397,8 +8479,10 @@ LIBSBML_EXTERN
 Compartment_t*
 Model_removeCompartment (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeCompartment(n);
+  if (m != NULL)
+    return m->removeCompartment(n);
+  else
+    return NULL;
 }
 
 
@@ -8419,8 +8503,10 @@ LIBSBML_EXTERN
 Compartment_t*
 Model_removeCompartmentById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeCompartment(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeCompartment(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8441,8 +8527,10 @@ LIBSBML_EXTERN
 Species_t*
 Model_removeSpecies (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeSpecies(n);
+  if (m != NULL)
+    return m->removeSpecies(n);
+  else
+    return NULL;
 }
 
 
@@ -8463,8 +8551,10 @@ LIBSBML_EXTERN
 Species_t*
 Model_removeSpeciesById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeSpecies(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeSpecies(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8485,8 +8575,10 @@ LIBSBML_EXTERN
 Parameter_t*
 Model_removeParameter (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeParameter(n);
+  if (m != NULL)
+    return m->removeParameter(n);
+  else
+    return NULL;
 }
 
 
@@ -8507,8 +8599,10 @@ LIBSBML_EXTERN
 Parameter_t*
 Model_removeParameterById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeParameter(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeParameter(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8529,8 +8623,10 @@ LIBSBML_EXTERN
 InitialAssignment_t*
 Model_removeInitialAssignment (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeInitialAssignment(n);
+  if (m != NULL)
+    return m->removeInitialAssignment(n);
+  else
+    return NULL;
 }
 
 
@@ -8551,8 +8647,10 @@ LIBSBML_EXTERN
 InitialAssignment_t*
 Model_removeInitialAssignmentBySym (Model_t *m, const char* symbol)
 {
-  if (!m) return 0;
-  return m->removeInitialAssignment(symbol);
+  if (m != NULL)
+    return (symbol != NULL) ? m->removeInitialAssignment(symbol) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8573,8 +8671,10 @@ LIBSBML_EXTERN
 Rule_t*
 Model_removeRule (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeRule(n);
+  if (m != NULL)
+    return m->removeRule(n);
+  else
+    return NULL;
 }
 
 
@@ -8595,8 +8695,10 @@ LIBSBML_EXTERN
 Rule_t*
 Model_removeRuleByVar (Model_t *m, const char* variable)
 {
-  if (!m) return 0;
-  return m->removeRule(variable);
+  if (m != NULL)
+    return (variable != NULL) ? m->removeRule(variable) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8617,8 +8719,10 @@ LIBSBML_EXTERN
 Constraint_t*
 Model_removeConstraint (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeConstraint(n);
+  if (m != NULL)
+    return m->removeConstraint(n);
+  else
+    return NULL;
 }
 
 
@@ -8639,8 +8743,10 @@ LIBSBML_EXTERN
 Reaction_t*
 Model_removeReaction (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeReaction(n);
+  if (m != NULL)
+    return m->removeReaction(n);
+  else
+    return NULL;
 }
 
 
@@ -8661,8 +8767,10 @@ LIBSBML_EXTERN
 Reaction_t*
 Model_removeReactionById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeReaction(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeReaction(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -8683,8 +8791,10 @@ LIBSBML_EXTERN
 Event_t*
 Model_removeEvent (Model_t *m, unsigned int n)
 {
-  if (!m) return 0;
-  return m->removeEvent(n);
+  if (m != NULL)
+    return m->removeEvent(n);
+  else
+    return NULL;
 }
 
 
@@ -8705,8 +8815,10 @@ LIBSBML_EXTERN
 Event_t*
 Model_removeEventById (Model_t *m, const char* sid)
 {
-  if (!m) return 0;
-  return m->removeEvent(sid);
+  if (m != NULL)
+    return (sid != NULL) ? m->removeEvent(sid) : NULL;
+  else
+    return NULL;
 }
 
 
