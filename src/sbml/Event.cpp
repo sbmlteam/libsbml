@@ -50,9 +50,9 @@ Event::Event (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mId                       ( ""   )
  , mName                     ( ""   )
- , mTrigger                  ( 0    )
- , mDelay                    ( 0    )
- , mPriority                 ( 0    )
+ , mTrigger                  ( NULL    )
+ , mDelay                    ( NULL    )
+ , mPriority                 ( NULL    )
  , mUseValuesFromTriggerTime ( true )
  , mIsSetUseValuesFromTriggerTime ( false )
 {
@@ -72,9 +72,9 @@ Event::Event (SBMLNamespaces * sbmlns) :
    SBase                     ( sbmlns )
  , mId                       ( ""   )
  , mName                     ( ""   )
- , mTrigger                  ( 0    )
- , mDelay                    ( 0    )
- , mPriority                 ( 0    )
+ , mTrigger                  ( NULL    )
+ , mDelay                    ( NULL    )
+ , mPriority                 ( NULL    )
  , mUseValuesFromTriggerTime ( true )
  , mIsSetUseValuesFromTriggerTime (false )
 {
@@ -117,9 +117,9 @@ Event::~Event ()
  */
 Event::Event (const Event& orig) :
    SBase                     ( orig )
- , mTrigger                  ( 0    )
- , mDelay                    ( 0    )
- , mPriority                 ( 0    )
+ , mTrigger                  ( NULL    )
+ , mDelay                    ( NULL    )
+ , mPriority                 ( NULL    )
 {
   if (&orig == NULL)
   {
@@ -142,17 +142,17 @@ Event::Event (const Event& orig) :
     {
       mEventAssignments.setParentSBMLObject(this);
     }
-    if (orig.mTrigger) 
+    if (orig.mTrigger != NULL) 
     {
       mTrigger = new Trigger(*orig.getTrigger());
       mTrigger->setParentSBMLObject(this);
     }
-    if (orig.mDelay) 
+    if (orig.mDelay != NULL) 
     {
       mDelay = new Delay(*orig.getDelay());
       mDelay->setParentSBMLObject(this);
     }
-    if (orig.mPriority) 
+    if (orig.mPriority != NULL) 
     {
       mPriority = new Priority(*orig.getPriority());
       mPriority->setParentSBMLObject(this);
@@ -188,36 +188,36 @@ Event& Event::operator=(const Event& rhs)
     }
    
     delete mTrigger;
-    if (rhs.mTrigger) 
+    if (rhs.mTrigger != NULL) 
     {
       mTrigger = new Trigger(*rhs.getTrigger());
       mTrigger->setParentSBMLObject(this);
     }
     else
     {
-      mTrigger = 0;
+      mTrigger = NULL;
     }
 
     delete mDelay;
-    if (rhs.mDelay) 
+    if (rhs.mDelay != NULL) 
     {
       mDelay = new Delay(*rhs.getDelay());
       mDelay->setParentSBMLObject(this);
     }
     else
     {
-      mDelay = 0;
+      mDelay = NULL;
     }
 
     delete mPriority;
-    if (rhs.mPriority) 
+    if (rhs.mPriority != NULL) 
     {
       mPriority = new Priority(*rhs.getPriority());
       mPriority->setParentSBMLObject(this);
     }
     else
     {
-      mPriority = 0;
+      mPriority = NULL;
     }
   }
 
@@ -237,11 +237,11 @@ Event::accept (SBMLVisitor& v) const
 {
   bool result = v.visit(*this);
 
-  if (mTrigger) mTrigger->accept(v);
+  if (mTrigger != NULL) mTrigger->accept(v);
   
-  if (mDelay) mDelay->accept(v);
+  if (mDelay != NULL) mDelay->accept(v);
 
-  if (mPriority) mPriority->accept(v);
+  if (mPriority != NULL) mPriority->accept(v);
 
   mEventAssignments.accept(v);
 
@@ -394,7 +394,7 @@ Event::isSetName () const
 bool
 Event::isSetTrigger () const
 {
-  return (mTrigger != 0);
+  return (mTrigger != NULL);
 }
 
 
@@ -404,7 +404,7 @@ Event::isSetTrigger () const
 bool
 Event::isSetDelay () const
 {
-  return (mDelay != 0);
+  return (mDelay != NULL);
 }
 
 
@@ -414,7 +414,7 @@ Event::isSetDelay () const
 bool
 Event::isSetPriority () const
 {
-  return (mPriority != 0);
+  return (mPriority != NULL);
 }
 
 
@@ -523,7 +523,7 @@ Event::setTrigger (const Trigger* trigger)
   else if (trigger == NULL)
   {
     delete mTrigger;
-    mTrigger = 0;
+    mTrigger = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (getLevel() != trigger->getLevel())
@@ -537,10 +537,11 @@ Event::setTrigger (const Trigger* trigger)
   else
   {
     delete mTrigger;
-    mTrigger = (trigger != 0) ? static_cast<Trigger*>( trigger->clone() ) : 0;
+    mTrigger = (trigger != NULL) ? 
+                static_cast<Trigger*>( trigger->clone() ) : NULL;
 
-    if (mTrigger) mTrigger->setSBMLDocument(mSBML);
-    if (mTrigger) mTrigger->setParentSBMLObject(this);
+    if (mTrigger != NULL) mTrigger->setSBMLDocument(mSBML);
+    if (mTrigger != NULL) mTrigger->setParentSBMLObject(this);
     
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -560,7 +561,7 @@ Event::setDelay (const Delay* delay)
   else if (delay == NULL)
   {
     delete mDelay;
-    mDelay = 0;
+    mDelay = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (getLevel() != delay->getLevel())
@@ -574,10 +575,10 @@ Event::setDelay (const Delay* delay)
   else
   {
     delete mDelay;
-    mDelay = (delay != 0) ? static_cast<Delay*>( delay->clone() ) : 0;
+    mDelay = (delay != NULL) ? static_cast<Delay*>( delay->clone() ) : NULL;
 
-    if (mDelay) mDelay->setSBMLDocument(mSBML);
-    if (mDelay) mDelay->setParentSBMLObject(this);
+    if (mDelay != NULL) mDelay->setSBMLDocument(mSBML);
+    if (mDelay != NULL) mDelay->setParentSBMLObject(this);
     
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -601,7 +602,7 @@ Event::setPriority (const Priority* priority)
   else if (priority == NULL)
   {
     delete mPriority;
-    mPriority = 0;
+    mPriority = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (getLevel() != priority->getLevel())
@@ -615,10 +616,11 @@ Event::setPriority (const Priority* priority)
   else
   {
     delete mPriority;
-    mPriority = (priority != 0) ? static_cast<Priority*>( priority->clone() ) : 0;
+    mPriority = (priority != NULL) ? 
+                 static_cast<Priority*>( priority->clone() ) : NULL;
 
-    if (mPriority) mPriority->setSBMLDocument(mSBML);
-    if (mPriority) mPriority->setParentSBMLObject(this);
+    if (mPriority != NULL) mPriority->setSBMLDocument(mSBML);
+    if (mPriority != NULL) mPriority->setParentSBMLObject(this);
     
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -732,7 +734,7 @@ int
 Event::unsetDelay ()
 {
   delete mDelay;
-  mDelay = 0;
+  mDelay = NULL;
 
   if (mDelay == NULL) 
   {
@@ -752,7 +754,7 @@ int
 Event::unsetPriority ()
 {
   delete mPriority;
-  mPriority = 0;
+  mPriority = NULL;
 
   if (mPriority == NULL) 
   {
@@ -845,7 +847,7 @@ Event::addEventAssignment (const EventAssignment* ea)
 EventAssignment*
 Event::createEventAssignment ()
 {
-  EventAssignment* ea = 0;
+  EventAssignment* ea = NULL;
 
   try
   {
@@ -868,7 +870,7 @@ Event::createEventAssignment ()
     mEventAssignments.setParentSBMLObject(this);
   }
   
-  if (ea) mEventAssignments.appendAndOwn(ea);
+  if (ea != NULL) mEventAssignments.appendAndOwn(ea);
 
   return ea;
 }
@@ -882,7 +884,7 @@ Trigger*
 Event::createTrigger ()
 {
   delete mTrigger;
-  mTrigger = 0;
+  mTrigger = NULL;
   
   try
   {
@@ -897,7 +899,7 @@ Event::createTrigger ()
      */
   }
 
-  if (mTrigger)
+  if (mTrigger != NULL)
   {
     mTrigger->setSBMLDocument(mSBML);
     mTrigger->setParentSBMLObject(this);
@@ -915,7 +917,7 @@ Delay*
 Event::createDelay ()
 {
   delete mDelay;
-  mDelay = 0;
+  mDelay = NULL;
   
   try
   {
@@ -930,7 +932,7 @@ Event::createDelay ()
      */
   }
 
-  if (mDelay)
+  if (mDelay != NULL)
   {
     mDelay->setSBMLDocument(mSBML);
     mDelay->setParentSBMLObject(this);
@@ -948,7 +950,7 @@ Priority*
 Event::createPriority ()
 {
   delete mPriority;
-  mPriority = 0;
+  mPriority = NULL;
   
   try
   {
@@ -963,7 +965,7 @@ Event::createPriority ()
      */
   }
 
-  if (mPriority)
+  if (mPriority != NULL)
   {
     mPriority->setSBMLDocument(mSBML);
     mPriority->setParentSBMLObject(this);
@@ -1020,8 +1022,8 @@ Event::getEventAssignment (unsigned int n)
 const EventAssignment*
 Event::getEventAssignment (const std::string& variable) const
 {
-  return
-    static_cast<const EventAssignment*>( mEventAssignments.get(variable) );
+  return (&variable != NULL ) ? 
+  static_cast<const EventAssignment*>( mEventAssignments.get(variable) ) : NULL;
 }
 
 
@@ -1032,7 +1034,8 @@ Event::getEventAssignment (const std::string& variable) const
 EventAssignment*
 Event::getEventAssignment (const std::string& variable)
 {
-  return static_cast<EventAssignment*>( mEventAssignments.get(variable) );
+  return (&variable != NULL ) ? 
+    static_cast<EventAssignment*>( mEventAssignments.get(variable) ) : NULL;
 }
 
 
@@ -1064,7 +1067,7 @@ Event::removeEventAssignment (unsigned int n)
 EventAssignment* 
 Event::removeEventAssignment (const std::string& variable)
 {
-  return mEventAssignments.remove(variable);  
+  return (&variable != NULL) ? mEventAssignments.remove(variable) : NULL;  
 }
 
 
@@ -1078,8 +1081,9 @@ Event::setSBMLDocument (SBMLDocument* d)
 {
   mSBML = d;
   mEventAssignments.setSBMLDocument(d);
-  if (mTrigger) mTrigger->setSBMLDocument(d);
-  if (mDelay) mDelay->setSBMLDocument(d);
+  if (mTrigger != NULL) mTrigger->setSBMLDocument(d);
+  if (mDelay != NULL) mDelay->setSBMLDocument(d);
+  if (mPriority != NULL) mPriority->setSBMLDocument(d);
 }
 
 
@@ -1189,7 +1193,7 @@ Event::createObject (XMLInputStream& stream)
   }
   else if (name == "trigger")
   {
-    if (mTrigger)
+    if (mTrigger != NULL)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
@@ -1219,7 +1223,7 @@ Event::createObject (XMLInputStream& stream)
   }
   else if (name == "delay")
   {
-    if (mDelay)
+    if (mDelay != NULL)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
@@ -1248,7 +1252,7 @@ Event::createObject (XMLInputStream& stream)
   }
   else if (name == "priority")
   {
-    if (mPriority)
+    if (mPriority != NULL)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant, getLevel(), getVersion(),
@@ -1279,7 +1283,7 @@ Event::createObject (XMLInputStream& stream)
   }
   else
   {
-    return 0;
+    return NULL;
   }
 }
 /** @endcond */
@@ -1570,17 +1574,17 @@ Event::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (mTrigger)
+  if (mTrigger != NULL)
   {
     mTrigger->write(stream);
   }
 
-  if (mDelay)
+  if (mDelay != NULL)
   {
     mDelay->write(stream);
   }
 
-  if (mPriority)
+  if (mPriority != NULL)
   {
     mPriority->write(stream);
   }
@@ -1655,8 +1659,8 @@ struct IdEqE : public unary_function<SBase*, bool>
 Event*
 ListOfEvents::get (const std::string& sid)
 {
-  return const_cast<Event*>( 
-    static_cast<const ListOfEvents&>(*this).get(sid) );
+  return (&sid != NULL) ? const_cast<Event*>( 
+    static_cast<const ListOfEvents&>(*this).get(sid) ) : NULL;
 }
 
 
@@ -1664,10 +1668,11 @@ ListOfEvents::get (const std::string& sid)
 const Event*
 ListOfEvents::get (const std::string& sid) const
 {
+  if (&sid == NULL) return NULL;
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqE(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Event*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <Event*> (*result);
 }
 
 
@@ -1683,7 +1688,7 @@ ListOfEvents::remove (unsigned int n)
 Event*
 ListOfEvents::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqE(sid) );
@@ -1720,7 +1725,7 @@ SBase*
 ListOfEvents::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "event")
@@ -1740,7 +1745,7 @@ ListOfEvents::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -1845,7 +1850,7 @@ LIBSBML_EXTERN
 Event_t *
 Event_clone (const Event_t *e)
 {
-  return static_cast<Event_t*>( e->clone() );
+  return (e != NULL) ? static_cast<Event_t*>( e->clone() ) : NULL;
 }
 
 
@@ -1862,7 +1867,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Event_getNamespaces(Event_t *e)
 {
-  return e->getNamespaces();
+  return (e != NULL) ? e->getNamespaces() : NULL;
 }
 
 
@@ -1877,7 +1882,7 @@ LIBSBML_EXTERN
 const char *
 Event_getId (const Event_t *e)
 {
-  return e->isSetId() ? e->getId().c_str() : NULL;
+  return (e != NULL && e->isSetId()) ? e->getId().c_str() : NULL;
 }
 
 
@@ -1892,7 +1897,7 @@ LIBSBML_EXTERN
 const char *
 Event_getName (const Event_t *e)
 {
-  return e->isSetName() ? e->getName().c_str() : NULL;
+  return (e != NULL && e->isSetName()) ? e->getName().c_str() : NULL;
 }
 
 
@@ -1907,7 +1912,7 @@ LIBSBML_EXTERN
 Trigger_t *
 Event_getTrigger (Event_t *e)
 {
-  return e->getTrigger();
+  return (e != NULL) ? e->getTrigger() : NULL;
 }
 
 
@@ -1922,7 +1927,7 @@ LIBSBML_EXTERN
 Delay_t *
 Event_getDelay (Event_t *e)
 {
-  return e->getDelay();
+  return (e != NULL) ? e->getDelay() : NULL;
 }
 
 
@@ -1937,7 +1942,7 @@ LIBSBML_EXTERN
 Priority_t *
 Event_getPriority (Event_t *e)
 {
-  return e->getPriority();
+  return (e != NULL) ? e->getPriority() : NULL;
 }
 
 
@@ -1959,7 +1964,7 @@ LIBSBML_EXTERN
 const char *
 Event_getTimeUnits (const Event_t *e)
 {
-  return e->isSetTimeUnits() ? e->getTimeUnits().c_str() : NULL;
+  return (e != NULL && e->isSetTimeUnits()) ? e->getTimeUnits().c_str() : NULL;
 }
 
 
@@ -1975,7 +1980,7 @@ LIBSBML_EXTERN
 int
 Event_getUseValuesFromTriggerTime (const Event_t *e)
 {
-  return static_cast<int> (e->getUseValuesFromTriggerTime());
+  return (e != NULL) ? static_cast<int> (e->getUseValuesFromTriggerTime()) : 0;
 }
 
 
@@ -1992,7 +1997,7 @@ LIBSBML_EXTERN
 int
 Event_isSetId (const Event_t *e)
 {
-  return static_cast<int>( e->isSetId() );
+  return (e != NULL) ? static_cast<int>( e->isSetId() ) : 0;
 }
 
 
@@ -2009,7 +2014,7 @@ LIBSBML_EXTERN
 int
 Event_isSetName (const Event_t *e)
 {
-  return static_cast<int>( e->isSetName() );
+  return (e != NULL) ? static_cast<int>( e->isSetName() ) : 0;
 }
 
 
@@ -2026,7 +2031,7 @@ LIBSBML_EXTERN
 int
 Event_isSetTrigger (const Event_t *e)
 {
-  return static_cast<int>( e->isSetTrigger() );
+  return (e != NULL) ? static_cast<int>( e->isSetTrigger() ) : 0;
 }
 
 
@@ -2043,7 +2048,7 @@ LIBSBML_EXTERN
 int
 Event_isSetDelay (const Event_t *e)
 {
-  return static_cast<int>( e->isSetDelay() );
+  return (e != NULL) ? static_cast<int>( e->isSetDelay() ) : 0;
 }
 
 
@@ -2060,7 +2065,7 @@ LIBSBML_EXTERN
 int
 Event_isSetPriority (const Event_t *e)
 {
-  return static_cast<int>( e->isSetPriority() );
+  return (e != NULL) ? static_cast<int>( e->isSetPriority() ) : 0;
 }
 
 
@@ -2083,7 +2088,7 @@ LIBSBML_EXTERN
 int
 Event_isSetTimeUnits (const Event_t *e)
 {
-  return static_cast<int>( e->isSetTimeUnits() );
+  return (e != NULL) ? static_cast<int>( e->isSetTimeUnits() ) : 0;
 }
 
 
@@ -2100,7 +2105,8 @@ LIBSBML_EXTERN
 int
 Event_isSetUseValuesFromTriggerTime (const Event_t *e)
 {
-  return static_cast<int>( e->isSetUseValuesFromTriggerTime() );
+  return (e != NULL) ? 
+    static_cast<int>( e->isSetUseValuesFromTriggerTime() ) : 0;
 }
 
 
@@ -2126,7 +2132,10 @@ LIBSBML_EXTERN
 int
 Event_setId (Event_t *e, const char *sid)
 {
-  return (sid == NULL) ? e->unsetId() : e->setId(sid);
+  if (e != NULL)
+    return (sid == NULL) ? e->unsetId() : e->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2150,7 +2159,10 @@ LIBSBML_EXTERN
 int
 Event_setName (Event_t *e, const char *name)
 {
-  return (name == NULL) ? e->unsetName() : e->setName(name);
+  if (e != NULL)
+    return (name == NULL) ? e->unsetName() : e->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2172,7 +2184,10 @@ LIBSBML_EXTERN
 int
 Event_setTrigger (Event_t *e, const Trigger_t *trigger)
 {
-  return e->setTrigger(trigger);
+  if (e != NULL)
+    return e->setTrigger(trigger);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2194,7 +2209,10 @@ LIBSBML_EXTERN
 int
 Event_setDelay (Event_t *e, const Delay_t *delay)
 {
-  return e->setDelay(delay);
+  if (e != NULL)
+    return e->setDelay(delay);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2217,7 +2235,10 @@ LIBSBML_EXTERN
 int
 Event_setPriority (Event_t *e, const Priority_t *priority)
 {
-  return e->setPriority(priority);
+  if (e != NULL)
+    return e->setPriority(priority);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2249,7 +2270,10 @@ LIBSBML_EXTERN
 int
 Event_setTimeUnits (Event_t *e, const char *sid)
 {
-  return (sid == NULL) ? e->unsetTimeUnits() : e->setTimeUnits(sid);
+  if (e != NULL)
+    return (sid == NULL) ? e->unsetTimeUnits() : e->setTimeUnits(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2270,7 +2294,10 @@ LIBSBML_EXTERN
 int
 Event_setUseValuesFromTriggerTime (Event_t *e, int value)
 {
-  return e->setUseValuesFromTriggerTime( static_cast<bool>(value) );
+  if (e != NULL)
+    return e->setUseValuesFromTriggerTime( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2290,7 +2317,10 @@ LIBSBML_EXTERN
 int
 Event_unsetId (Event_t *e)
 {
-  return e->unsetId();
+  if (e != NULL)
+    return e->unsetId();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2310,7 +2340,10 @@ LIBSBML_EXTERN
 int
 Event_unsetName (Event_t *e)
 {
-  return e->unsetName();
+  if (e != NULL)
+    return e->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2330,7 +2363,10 @@ LIBSBML_EXTERN
 int
 Event_unsetDelay (Event_t *e)
 {
-  return e->unsetDelay();
+  if (e != NULL)
+    return e->unsetDelay();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2350,7 +2386,10 @@ LIBSBML_EXTERN
 int
 Event_unsetPriority (Event_t *e)
 {
-  return e->unsetPriority();
+  if (e != NULL)
+    return e->unsetPriority();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2376,7 +2415,10 @@ LIBSBML_EXTERN
 int
 Event_unsetTimeUnits (Event_t *e)
 {
-  return e->unsetTimeUnits();
+  if (e != NULL)
+    return e->unsetTimeUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2392,7 +2434,7 @@ LIBSBML_EXTERN
 int
 Event_hasRequiredAttributes (Event_t *e)
 {
-  return static_cast <int> (e->hasRequiredAttributes());
+  return (e != NULL) ? static_cast <int> (e->hasRequiredAttributes()) : 0;
 }
 
 
@@ -2410,7 +2452,7 @@ LIBSBML_EXTERN
 int
 Event_hasRequiredElements (Event_t *e)
 {
-  return static_cast <int> (e->hasRequiredElements() );
+  return (e != NULL) ? static_cast <int> (e->hasRequiredElements() ) : 0;
 }
 
 
@@ -2438,7 +2480,10 @@ LIBSBML_EXTERN
 int
 Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
 {
-  return e->addEventAssignment(ea);
+  if (e != NULL)
+    return e->addEventAssignment(ea);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2453,7 +2498,7 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Event_createEventAssignment (Event_t *e)
 {
-  return e->createEventAssignment();
+  return (e != NULL) ? e->createEventAssignment() : NULL;
 }
 
 
@@ -2468,7 +2513,7 @@ LIBSBML_EXTERN
 Trigger_t *
 Event_createTrigger (Event_t *e)
 {
-  return e->createTrigger();
+  return (e != NULL) ? e->createTrigger() : NULL;
 }
 
 
@@ -2483,7 +2528,7 @@ LIBSBML_EXTERN
 Delay_t *
 Event_createDelay (Event_t *e)
 {
-  return e->createDelay();
+  return (e != NULL) ? e->createDelay() : NULL;
 }
 
 
@@ -2498,7 +2543,7 @@ LIBSBML_EXTERN
 Priority_t *
 Event_createPriority (Event_t *e)
 {
-  return e->createPriority();
+  return (e != NULL) ? e->createPriority() : NULL;
 }
 
 
@@ -2514,7 +2559,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Event_getListOfEventAssignments (Event_t *e)
 {
-  return e->getListOfEventAssignments();
+  return (e != NULL) ? e->getListOfEventAssignments() : NULL;
 }
 
 
@@ -2531,7 +2576,7 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Event_getEventAssignment (Event_t *e, unsigned int n)
 {
-  return e->getEventAssignment(n);
+  return (e != NULL) ? e->getEventAssignment(n) : NULL;
 }
 
 
@@ -2550,7 +2595,8 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Event_getEventAssignmentByVar (Event_t *e, const char *variable)
 {
-  return (variable != NULL) ? e->getEventAssignment(variable) : NULL;
+  return (e != NULL && variable != NULL) ? 
+           e->getEventAssignment(variable) : NULL;
 }
 
 
@@ -2566,7 +2612,7 @@ LIBSBML_EXTERN
 unsigned int
 Event_getNumEventAssignments (const Event_t *e)
 {
-  return e->getNumEventAssignments();
+  return (e != NULL) ? e->getNumEventAssignments() : 0;
 }
 
 
@@ -2587,8 +2633,7 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Event_removeEventAssignment (Event_t *e, unsigned int n)
 {
-  if (!e) return 0;
-  return e->removeEventAssignment(n);
+  return (e != NULL) ? e->removeEventAssignment(n) : NULL;
 }
 
 
@@ -2609,8 +2654,10 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Event_removeEventAssignmentByVar (Event_t *e, const char *variable)
 {
-  if (!e) return 0;
-  return e->removeEventAssignment(variable);
+  if (e != NULL)
+    return (variable != NULL) ? e->removeEventAssignment(variable) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2622,8 +2669,11 @@ LIBSBML_EXTERN
 Event_t *
 ListOfEvents_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfEvents *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfEvents *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2636,8 +2686,11 @@ LIBSBML_EXTERN
 Event_t *
 ListOfEvents_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfEvents *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+                         static_cast <ListOfEvents *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */

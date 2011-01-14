@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Delay::Delay (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -59,7 +59,7 @@ Delay::Delay (unsigned int level, unsigned int version) :
 
 Delay::Delay (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -92,7 +92,7 @@ Delay::~Delay ()
  */
 Delay::Delay (const Delay& orig) :
    SBase          ( orig )
- , mMath          ( 0    )
+ , mMath          ( NULL    )
 {
   if (&orig == NULL)
   {
@@ -102,7 +102,7 @@ Delay::Delay (const Delay& orig) :
   {
     mInternalId = orig.mInternalId;
  
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -126,14 +126,14 @@ Delay& Delay::operator=(const Delay& rhs)
     this->mInternalId = rhs.mInternalId;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -179,7 +179,7 @@ Delay::getMath () const
 bool
 Delay::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -196,7 +196,7 @@ Delay::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -206,8 +206,8 @@ Delay::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -226,7 +226,7 @@ Delay::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -276,7 +276,7 @@ Delay::containsUndeclaredUnits()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -412,7 +412,7 @@ Delay::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -434,7 +434,7 @@ Delay::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -706,7 +706,7 @@ LIBSBML_EXTERN
 Delay_t *
 Delay_clone (const Delay_t *t)
 {
-  return t->clone();
+  return (t != NULL) ? t->clone() : NULL;
 }
 
 
@@ -723,7 +723,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Delay_getNamespaces(Delay_t *d)
 {
-  return d->getNamespaces();
+  return (d != NULL) ? d->getNamespaces() : NULL;
 }
 
 /**
@@ -738,7 +738,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Delay_getMath (const Delay_t *t)
 {
-  return t->getMath();
+  return (t != NULL) ? t->getMath() : NULL;
 }
 
 
@@ -755,7 +755,7 @@ LIBSBML_EXTERN
 int
 Delay_isSetMath (const Delay_t *t)
 {
-  return static_cast<int>( t->isSetMath() );
+  return (t != NULL) ? static_cast<int>( t->isSetMath() ) : 0;
 }
 
 
@@ -777,7 +777,11 @@ LIBSBML_EXTERN
 int
 Delay_setMath (Delay_t *t, const ASTNode_t *math)
 {
-  return t->setMath(math);
+  if (t != NULL)
+    return t->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
+
 }
 
 /**
@@ -804,7 +808,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 Delay_getDerivedUnitDefinition(Delay_t *d)
 {
-  return d->getDerivedUnitDefinition();
+  return (d != NULL) ? d->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -827,7 +831,7 @@ LIBSBML_EXTERN
 int 
 Delay_containsUndeclaredUnits(Delay_t *d)
 {
-  return static_cast<int>(d->containsUndeclaredUnits());
+  return (d != NULL) ? static_cast<int>(d->containsUndeclaredUnits()) : NULL;
 }
 
 /** @endcond */
