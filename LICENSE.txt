@@ -35,7 +35,7 @@ Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 MA 02111-1307 USA.
 
 
-            Third-party ssoftware incorporated into
+            Third-party software incorporated into
                    the libSBML distribution
 
 LibSBML incorporates a third-party software library, MiniZip
