@@ -2218,6 +2218,35 @@ START_TEST(test_SBase_addCVTerms_num_check)
 }
 END_TEST
 
+
+START_TEST(test_SBase_setAnnotationWithNewTerm)
+{
+
+  std::string annotation = 
+    
+    "<annotation>\n"
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+    "    <rdf:Description rdf:about=\"#meta1\">\n"
+    "      <bqmodel:isDerivedFrom>\n"
+    "        <rdf:Bag>\n"
+    "          <rdf:li rdf:resource=\"urn:miriam:biomodels.db:BIOMD0000000009\"/>\n"
+    "        </rdf:Bag>\n"
+    "      </bqmodel:isDerivedFrom>\n"
+    "    </rdf:Description>\n"
+    "</rdf:RDF>\n"
+    "</annotation>\n"
+    ;
+
+  Species *species = new Species (2, 4);
+  species->setMetaId("meta1");
+  
+  fail_unless ( species ->getAnnotationString() == "");
+  fail_unless ( species->setAnnotation(annotation) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless ( species ->getAnnotationString() != "");
+
+}
+END_TEST
+
 Suite *
 create_suite_SBase (void)
 {
@@ -2258,6 +2287,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_CVTerms );
   tcase_add_test(tcase, test_SBase_addCVTerms );
   tcase_add_test(tcase, test_SBase_addCVTerms_num_check );
+  tcase_add_test(tcase, test_SBase_setAnnotationWithNewTerm );
   tcase_add_test(tcase, test_SBase_unsetCVTerms );
   tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
 
