@@ -113,6 +113,10 @@ __DOLTCOMPILE__EOF__
 "${args@<:@@@:>@}" || exit $?
 __DOLTCOMPILE__EOF__
         fi
+    else
+            cat <<'__DOLTCOMPILE__EOF__' >>doltcompile
+cp .libs/${objbase}.o ${objbase}.o || exit $?
+__DOLTCOMPILE__EOF__
     fi
 
 dnl Write out the code to write the .lo file.
