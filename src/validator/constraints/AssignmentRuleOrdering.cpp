@@ -106,7 +106,7 @@ AssignmentRuleOrdering::checkRuleForVariable(const Model& m, const Rule& object)
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
   std::string variable = object.getVariable();
 
-  if (variables)
+  if (variables != NULL)
   {
     for (unsigned int i = 0; i < variables->getSize(); i++)
     {
@@ -131,7 +131,7 @@ AssignmentRuleOrdering::checkRuleForLaterVariables(const Model& m,
   /* list the <ci> elements of this rule*/
   List* variables = object.getMath()->getListOfNodes( ASTNode_isName );
 
-  if (variables)
+  if (variables != NULL)
   {
     unsigned int index;
     for (unsigned int i = 0; i < variables->getSize(); i++)

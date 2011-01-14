@@ -124,7 +124,7 @@ LocalParameterShadowsIdInModel::check_ (const Model& m, const Model& object)
   for (n = 0; n < size; ++n)
   {
     const KineticLaw* kl = m.getReaction(n)->getKineticLaw();
-    if (!kl) continue;
+    if (kl == NULL) continue;
 
     for (unsigned int p = 0; p < kl->getNumParameters(); ++p)
     {
@@ -133,21 +133,21 @@ LocalParameterShadowsIdInModel::check_ (const Model& m, const Model& object)
       {
         // find the element of conflict
         const SBase * conflictObject = NULL;
-        if (m.getFunctionDefinition(id)) 
+        if (m.getFunctionDefinition(id) != NULL) 
           conflictObject = static_cast <const SBase *> (m.getFunctionDefinition(id));
-        else if (m.getCompartment(id))
+        else if (m.getCompartment(id) != NULL)
           conflictObject = static_cast <const SBase *> (m.getCompartment(id));
-        else if (m.getSpecies(id))
+        else if (m.getSpecies(id) != NULL)
           conflictObject = static_cast <const SBase *> (m.getSpecies(id));
-        else if (m.getParameter(id))
+        else if (m.getParameter(id) != NULL)
           conflictObject = static_cast <const SBase *> (m.getParameter(id));
-        else if (m.getReaction(id))
+        else if (m.getReaction(id) != NULL)
           conflictObject = static_cast <const SBase *> (m.getReaction(id));
-        //else if (m.getCompartmentType(id))
+        //else if (m.getCompartmentType(id) != NULL)
         //  object = static_cast <const SBase *> (m.getCompartmentType(id));
-        //else if (m.getSpeciesType(id))
+        //else if (m.getSpeciesType(id) != NULL)
         //  object = static_cast <const SBase *> (m.getSpeciesType(id));
-        //else if (m.getEvent(id))
+        //else if (m.getEvent(id) != NULL)
         //  object = static_cast <const SBase *> (m.getEvent(id));
 
         logConflict(*(kl->getParameter(p)), *conflictObject);

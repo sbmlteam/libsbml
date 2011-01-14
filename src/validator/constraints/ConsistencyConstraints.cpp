@@ -364,7 +364,9 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
     for (unsigned int n = 0; n < fd.getNumArguments(); n++)
     {
       const ASTNode *fdArg = fd.getArgument(n);
-      if (fdArg && fdArg->getName() && fd.getBody()->getName())
+      if (fdArg != NULL && 
+	      fdArg->getName() != NULL && 
+		  fd.getBody()->getName() != NULL )
       {
         if (!strcmp(fdArg->getName(), fd.getBody()->getName()))
         {
@@ -2208,7 +2210,7 @@ START_CONSTRAINT (99129, KineticLaw, kl)
       p = m.getParameter  (t->value.name);
       p1 = kl.getParameter(t->value.name);
 
-      if (!c && !s && !p && !p1)
+      if (c == NULL && s == NULL && p == NULL && p1 == NULL)
       {
         inv_or (strcmp(t->value.name, "abs") == 0);
         inv_or (strcmp(t->value.name, "acos") == 0);

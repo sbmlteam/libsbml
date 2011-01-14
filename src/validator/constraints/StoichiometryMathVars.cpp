@@ -92,7 +92,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
         ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
         string   name = node->getName() ? node->getName() : "";
        
-        if (m.getSpecies(name) && !mSpecies.contains(name))
+        if (m.getSpecies(name) != NULL && !mSpecies.contains(name))
           logUndefined(r, name);
       }
 
@@ -113,7 +113,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
         ASTNode* node = static_cast<ASTNode*>( variables->get(ns) );
         string   name = node->getName() ? node->getName() : "";
        
-        if (m.getSpecies(name) && !mSpecies.contains(name))
+        if (m.getSpecies(name) != NULL && !mSpecies.contains(name))
           logUndefined(r, name);
       }
 

@@ -101,7 +101,7 @@ START_CONSTRAINT (99505, AssignmentRule, ar)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   char * formula = SBML_formulaToString(ar.getMath());
   msg = "The units of the <assignmentRule> <math> expression '";
@@ -123,7 +123,7 @@ START_CONSTRAINT (99505, RateRule, rr)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   char * formula = SBML_formulaToString(rr.getMath());
   msg = "The units of the <rateRule> <math> expression '";
@@ -146,7 +146,7 @@ START_CONSTRAINT (99505, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   char * formula = SBML_formulaToString(ia.getMath());
   msg = "The units of the <initialAssignment> <math> expression '";
@@ -166,7 +166,7 @@ START_CONSTRAINT (99505, KineticLaw, kl)
 
   const FormulaUnitsData * formulaUnits = 
                             m.getFormulaUnitsData(kl.getInternalId(), SBML_KINETIC_LAW);
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   char * formula = SBML_formulaToString(kl.getMath());
   msg = "The units of the <kineticLaw> <math> expression '";
@@ -206,7 +206,7 @@ START_CONSTRAINT (99505, Priority, e)
   const FormulaUnitsData * formulaUnits = 
                                   m.getFormulaUnitsData(e.getInternalId(), SBML_PRIORITY);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   char * formula = SBML_formulaToString(e.getMath());
   msg = "The units of the <event> <priority> expression '";
@@ -232,7 +232,7 @@ START_CONSTRAINT (99505, EventAssignment, ea)
   const FormulaUnitsData * formulaUnits = 
                          m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
   
   char * formula = SBML_formulaToString(ea.getMath());
   msg = "The units of the <eventAssignment> <math> expression '";
@@ -317,8 +317,8 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits != NULL );
+  pre ( variableUnits != NULL); 
 
   /* in level 3 need to check that the compartment has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -386,8 +386,8 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits != NULL );
+  pre ( variableUnits != NULL); 
 
   /* in level 3 need to check that the species has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -468,8 +468,8 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL); 
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -521,7 +521,7 @@ START_CONSTRAINT (10514, AssignmentRule, ar)
   const FormulaUnitsData * formulaUnits = 
                           m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -559,8 +559,8 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                        m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL); 
 
   /* in level 3 need to check that the compartment has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -603,8 +603,8 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                        m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits != NULL );
+  pre ( variableUnits != NULL); 
 
   /* in level 3 need to check that the species has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -648,8 +648,8 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                        m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
   
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits != NULL );
+  pre ( variableUnits != NULL); 
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -687,7 +687,7 @@ START_CONSTRAINT (10524, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                       m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -742,8 +742,8 @@ START_CONSTRAINT (10531, RateRule, rr)
   const FormulaUnitsData * formulaUnits = 
                                 m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* in level 3 need to check that the compartment has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -820,8 +820,8 @@ START_CONSTRAINT (10532, RateRule, rr)
   const FormulaUnitsData * formulaUnits = 
                                 m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* in level 3 need to check that the species has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -910,8 +910,8 @@ START_CONSTRAINT (10533, RateRule, rr)
   const FormulaUnitsData * formulaUnits = 
                                 m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL); 
 
   /* in L3 need to check that time units were set */
   pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
@@ -969,8 +969,8 @@ START_CONSTRAINT (10534, RateRule, rr)
   const FormulaUnitsData * variableUnits = 
                       m.getFormulaUnitsData(variable, SBML_SPECIES_REFERENCE);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* in L3 need to check that time units were set */
   pre ( variableUnits->getPerTimeUnitDefinition()->getNumUnits() > 0);
@@ -1006,8 +1006,8 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   const FormulaUnitsData * variableUnits = 
                            m.getFormulaUnitsData("subs_per_time", SBML_UNKNOWN);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -1061,8 +1061,8 @@ START_CONSTRAINT (10542, Species, s)
                            m.getFormulaUnitsData(s.getId()+"extent", 
                                                  SBML_SPECIES);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -1103,7 +1103,7 @@ START_CONSTRAINT (10551, Event, e)
   const FormulaUnitsData * formulaUnits = 
                                   m.getFormulaUnitsData(e.getId(), SBML_EVENT);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -1146,8 +1146,8 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   const FormulaUnitsData * formulaUnits = 
                          m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* in level 3 need to check that the compartment has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -1193,8 +1193,8 @@ START_CONSTRAINT (10562, EventAssignment, ea)
   const FormulaUnitsData * formulaUnits = 
                          m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* in level 3 need to check that the species has units defined */
   pre (variableUnits->getUnitDefinition()->getNumUnits() > 0);
@@ -1241,8 +1241,8 @@ START_CONSTRAINT (10563, EventAssignment, ea)
   const FormulaUnitsData * formulaUnits = 
                        m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
-  pre ( variableUnits != 0); 
+  pre ( formulaUnits  != NULL );
+  pre ( variableUnits != NULL ); 
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -1282,7 +1282,7 @@ START_CONSTRAINT (10564, EventAssignment, ea)
   const FormulaUnitsData * formulaUnits = 
                       m.getFormulaUnitsData(variable+eId, SBML_EVENT_ASSIGNMENT);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */
@@ -1307,7 +1307,7 @@ START_CONSTRAINT (10565, Priority, p)
   const FormulaUnitsData * formulaUnits = 
                                   m.getFormulaUnitsData(p.getInternalId(), SBML_PRIORITY);
 
-  pre ( formulaUnits != 0 );
+  pre ( formulaUnits != NULL );
 
   /* check that the formula is okay 
      ie has no parameters with undeclared units */

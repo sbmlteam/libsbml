@@ -184,7 +184,7 @@ START_CONSTRAINT (91017, Model, x)
 
   std::string extent = m.getExtentUnits();
   const UnitDefinition * ud = m.getUnitDefinition(extent);
-  if (ud)
+  if (ud != NULL)
   {
     UnitDefinition *ud1 = new UnitDefinition(m.getSBMLNamespaces());
     for (unsigned int i = 0; i < ud->getNumUnits(); i++)

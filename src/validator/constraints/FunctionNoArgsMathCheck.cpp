@@ -121,7 +121,7 @@ FunctionNoArgsMathCheck::checkNumArgs (const Model& m, const ASTNode& node,
   /* this rule was only introduced level 2 version 4 */
   if (m.getLevel() > 2 || (m.getLevel() == 2 && m.getVersion() > 3))
   {
-    if (m.getFunctionDefinition(node.getName()))
+    if (m.getFunctionDefinition(node.getName()) != NULL)
     {
       /* functiondefinition math */
       const ASTNode * fdMath = m.getFunctionDefinition(node.getName())->getMath();

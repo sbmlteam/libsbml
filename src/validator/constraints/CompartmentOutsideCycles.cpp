@@ -83,7 +83,7 @@ CompartmentOutsideCycles::checkForCycle (const Model& m, const Compartment* c)
   IdList visited;
 
 
-  while (c && !isInCycle(c))
+  while (c != NULL && !isInCycle(c))
   {
     const string& id = c->getId();
 
@@ -98,7 +98,7 @@ CompartmentOutsideCycles::checkForCycle (const Model& m, const Compartment* c)
     }
 
     visited.append(id);
-    c = c->isSetOutside() ? m.getCompartment( c->getOutside() ) : 0;
+    c = c->isSetOutside() ? m.getCompartment( c->getOutside() ) : NULL;
   }
 }
 

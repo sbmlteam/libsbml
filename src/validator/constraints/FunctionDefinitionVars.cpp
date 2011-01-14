@@ -65,8 +65,8 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
 {
   if ( fd.getLevel() == 1         ) return;
   if ( !fd.isSetMath()            ) return;
-  if ( !fd.getBody()              ) return;
-  if (  fd.getNumArguments() == 0 ) return;
+  if ( fd.getBody()  == NULL      ) return;
+  if ( fd.getNumArguments() == 0  ) return;
 
 
   List* variables = fd.getBody()->getListOfNodes( ASTNode_isName );
@@ -77,7 +77,7 @@ FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
     ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
     string   name = node->getName() ? node->getName() : "";
 
-    if ( !fd.getArgument(name) ) 
+    if ( fd.getArgument(name) == NULL ) 
     {
       /* if this is the csymbol time - technically it is allowed 
        * in L2v1 and L2v2

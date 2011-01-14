@@ -194,21 +194,23 @@ ValidatorConstraints::~ValidatorConstraints ()
 void
 ValidatorConstraints::add (VConstraint* c)
 {
+  if (c == NULL) return;
+
   ptrMap.insert(pair<VConstraint*,bool>(c,true));
 
-  if (dynamic_cast< TConstraint<SBMLDocument>* >(c))
+  if (dynamic_cast< TConstraint<SBMLDocument>* >(c) != NULL)
   {
     mSBMLDocument.add( static_cast< TConstraint<SBMLDocument>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Model>* >(c))
+  if (dynamic_cast< TConstraint<Model>* >(c) != NULL)
   {
     mModel.add( static_cast< TConstraint<Model>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<FunctionDefinition>* >(c))
+  if (dynamic_cast< TConstraint<FunctionDefinition>* >(c) != NULL)
   {
     mFunctionDefinition.add
     (
@@ -217,73 +219,73 @@ ValidatorConstraints::add (VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<UnitDefinition>* >(c))
+  if (dynamic_cast< TConstraint<UnitDefinition>* >(c) != NULL)
   {
     mUnitDefinition.add( static_cast< TConstraint<UnitDefinition>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Unit>* >(c))
+  if (dynamic_cast< TConstraint<Unit>* >(c) != NULL)
   {
     mUnit.add( static_cast< TConstraint<Unit>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Compartment>* >(c))
+  if (dynamic_cast< TConstraint<Compartment>* >(c) != NULL)
   {
     mCompartment.add( static_cast< TConstraint<Compartment>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Species>* >(c))
+  if (dynamic_cast< TConstraint<Species>* >(c) != NULL)
   {
     mSpecies.add( static_cast< TConstraint<Species>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Parameter>* >(c))
+  if (dynamic_cast< TConstraint<Parameter>* >(c) != NULL)
   {
     mParameter.add( static_cast< TConstraint<Parameter>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Rule>* >(c))
+  if (dynamic_cast< TConstraint<Rule>* >(c) != NULL)
   {
     mRule.add( static_cast< TConstraint<Rule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<AlgebraicRule>* >(c))
+  if (dynamic_cast< TConstraint<AlgebraicRule>* >(c) != NULL)
   {
     mAlgebraicRule.add( static_cast< TConstraint<AlgebraicRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<AssignmentRule>* >(c))
+  if (dynamic_cast< TConstraint<AssignmentRule>* >(c) != NULL)
   {
     mAssignmentRule.add( static_cast< TConstraint<AssignmentRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<RateRule>* >(c))
+  if (dynamic_cast< TConstraint<RateRule>* >(c) != NULL)
   {
     mRateRule.add( static_cast< TConstraint<RateRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Reaction>* >(c))
+  if (dynamic_cast< TConstraint<Reaction>* >(c) != NULL)
   {
     mReaction.add( static_cast< TConstraint<Reaction>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<KineticLaw>* >(c))
+  if (dynamic_cast< TConstraint<KineticLaw>* >(c) != NULL)
   {
     mKineticLaw.add( static_cast< TConstraint<KineticLaw>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<SimpleSpeciesReference>* >(c))
+  if (dynamic_cast< TConstraint<SimpleSpeciesReference>* >(c) != NULL)
   {
     mSimpleSpeciesReference.add
     (
@@ -297,7 +299,7 @@ ValidatorConstraints::add (VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<SpeciesReference>* >(c))
+  if (dynamic_cast< TConstraint<SpeciesReference>* >(c) != NULL)
   {
     mSpeciesReference.add
     (
@@ -311,7 +313,7 @@ ValidatorConstraints::add (VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<ModifierSpeciesReference>* >(c))
+  if (dynamic_cast< TConstraint<ModifierSpeciesReference>* >(c) != NULL)
   {
     mModifierSpeciesReference.add
     (
@@ -320,55 +322,55 @@ ValidatorConstraints::add (VConstraint* c)
     return;
   }
 
-  if (dynamic_cast< TConstraint<Event>* >(c))
+  if (dynamic_cast< TConstraint<Event>* >(c) != NULL)
   {
     mEvent.add( static_cast< TConstraint<Event>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<EventAssignment>* >(c))
+  if (dynamic_cast< TConstraint<EventAssignment>* >(c) != NULL)
   {
     mEventAssignment.add( static_cast< TConstraint<EventAssignment>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<InitialAssignment>* >(c))
+  if (dynamic_cast< TConstraint<InitialAssignment>* >(c) != NULL)
   {
     mInitialAssignment.add( static_cast< TConstraint<InitialAssignment>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Constraint>* >(c))
+  if (dynamic_cast< TConstraint<Constraint>* >(c) != NULL)
   {
     mConstraint.add( static_cast< TConstraint<Constraint>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Trigger>* >(c))
+  if (dynamic_cast< TConstraint<Trigger>* >(c) != NULL)
   {
     mTrigger.add( static_cast< TConstraint<Trigger>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Delay>* >(c))
+  if (dynamic_cast< TConstraint<Delay>* >(c) != NULL)
   {
     mDelay.add( static_cast< TConstraint<Delay>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<CompartmentType>* >(c))
+  if (dynamic_cast< TConstraint<CompartmentType>* >(c) != NULL)
   {
     mCompartmentType.add( static_cast< TConstraint<CompartmentType>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<SpeciesType>* >(c))
+  if (dynamic_cast< TConstraint<SpeciesType>* >(c) != NULL)
   {
     mSpeciesType.add( static_cast< TConstraint<SpeciesType>* >(c) );
     return;
   }
 
-  if (dynamic_cast< TConstraint<Priority>* >(c))
+  if (dynamic_cast< TConstraint<Priority>* >(c) != NULL)
   {
     mPriority.add( static_cast< TConstraint<Priority>* >(c) );
     return;
@@ -694,6 +696,7 @@ Validator::getFailures () const
 void
 Validator::logFailure (const SBMLError& msg)
 {
+  if (&msg == NULL) return;
   mFailures.push_back(msg);
 }
 
@@ -738,6 +741,8 @@ private:
 unsigned int
 Validator::validate (const SBMLDocument& d)
 {
+  if (&d == NULL) return 0;
+
   Model* m = const_cast<SBMLDocument&>(d).getModel();
 
   if (m != NULL)
@@ -771,7 +776,7 @@ Validator::validate (const SBMLDocument& d)
     n = count_if(mFailures.begin(), mFailures.end(), MatchId(99701));
 #endif
 
-    if (n)
+    if (n != 0)
       unrecognisedTerm = true;
 
     if (unrecognisedTerm)
@@ -797,6 +802,8 @@ Validator::validate (const SBMLDocument& d)
 unsigned int
 Validator::validate (const std::string& filename)
 {
+  if (&filename == NULL) return 0;
+
   SBMLReader    reader;
   SBMLDocument& d = *reader.readSBML(filename);
 

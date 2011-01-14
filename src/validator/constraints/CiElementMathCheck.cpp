@@ -139,11 +139,11 @@ CiElementMathCheck::checkCiElement (const Model& m,
     if (m.getLevel() > 2)
       allowSpeciesRef = true;
 
-    if (!m.getCompartment(name) &&
-        !m.getSpecies(name)     &&
-        !m.getParameter(name)   &&
-        (!allowReactionId || !m.getReaction(name)) &&
-        (!allowSpeciesRef || !m.getSpeciesReference(name)) )
+    if (m.getCompartment(name) == NULL &&
+        m.getSpecies(name)     == NULL &&
+        m.getParameter(name)   == NULL &&
+        (!allowReactionId || m.getReaction(name) == NULL ) &&
+        (!allowSpeciesRef || m.getSpeciesReference(name) == NULL ) )
     {
       /* check whether we are in a kinetic law since there
       * may be local parameters
@@ -153,7 +153,7 @@ CiElementMathCheck::checkCiElement (const Model& m,
       {
         kl = m.getReaction(mKLCount)->getKineticLaw();
 
-        if (!kl->getParameter(name))
+        if (kl->getParameter(name) == NULL)
         {
           logMathConflict(node, sb);
         }

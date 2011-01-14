@@ -165,7 +165,7 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
 
       if (m.getLevel() < 3 && m.getVersion() < 4)
       {
-        if (m.getFunctionDefinition(node.getName()))
+        if (m.getFunctionDefinition(node.getName()) != NULL)
         {
           /* functiondefinition math */
           const ASTNode * fdMath = m.getFunctionDefinition(node.getName())->getMath();

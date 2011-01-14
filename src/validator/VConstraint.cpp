@@ -86,6 +86,8 @@ VConstraint::logFailure (const SBase& object)
 void
 VConstraint::logFailure (const SBase& object, const std::string& message)
 {
+  if (&object == NULL || &message == NULL) return;
+
   SBMLError error = SBMLError( mId, object.getLevel(), object.getVersion(),
 			       message, object.getLine(), object.getColumn() );
 

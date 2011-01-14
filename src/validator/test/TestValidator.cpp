@@ -227,7 +227,7 @@ TestValidator::readVerboseFromEnvironment ()
   const char* s = getenv("LIBSBML_TEST_VALIDATOR_VERBOSE");
 
 
-  if (!s)
+  if (s == NULL)
   {
     return;
   }

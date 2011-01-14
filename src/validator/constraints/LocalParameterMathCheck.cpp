@@ -126,10 +126,10 @@ LocalParameterMathCheck::checkCiElement (const Model& m,
   std::string name = node.getName();
   const KineticLaw * kl;
 
-  if (!m.getCompartment(name) &&
-      !m.getSpecies(name)     &&
-      !m.getParameter(name)   &&
-      !m.getReaction(name))
+  if (m.getCompartment(name) == NULL &&
+      m.getSpecies(name)     == NULL &&
+      m.getParameter(name)   == NULL &&
+      m.getReaction(name)    == NULL)
   {
 
     /* check whether we are in a kinetic law since there
@@ -140,7 +140,7 @@ LocalParameterMathCheck::checkCiElement (const Model& m,
     {
       kl = m.getReaction(mKLCount)->getKineticLaw();
 
-      if (!kl->getParameter(name) && mLocalParameters.contains(name))
+      if (kl->getParameter(name) == NULL && mLocalParameters.contains(name))
       {
         logMathConflict(node, sb);
       }

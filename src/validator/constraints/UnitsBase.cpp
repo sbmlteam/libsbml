@@ -213,15 +213,15 @@ UnitsBase::checkChildren (const Model& m,
   */
 void 
 UnitsBase::checkFunction (const Model& m, 
-                                  const ASTNode& node, 
-                                  const SBase & sb, bool inKL, int reactNo)
+                          const ASTNode& node, 
+                          const SBase & sb, bool inKL, int reactNo)
 {
   unsigned int i, nodeCount;
   unsigned int noBvars;
   ASTNode * fdMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
-  if (fd && fd->isSetMath())
+  if (fd != NULL && fd->isSetMath())
   {
     noBvars = fd->getNumArguments();
     if (noBvars == 0)

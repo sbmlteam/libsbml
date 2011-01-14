@@ -82,7 +82,7 @@ UniqueIdsInKineticLaw::doCheck (const Model& m)
   for (unsigned int r = 0; r < m.getNumReactions(); ++r)
   {
     const KineticLaw* kl = m.getReaction(r)->getKineticLaw();
-    if (!kl) continue;
+    if (kl == NULL) continue;
 
     for (unsigned int p = 0; p < kl->getNumParameters(); ++p)
     {
