@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Priority::Priority (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -59,7 +59,7 @@ Priority::Priority (unsigned int level, unsigned int version) :
 
 Priority::Priority (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -92,7 +92,7 @@ Priority::~Priority ()
  */
 Priority::Priority (const Priority& orig) :
    SBase          ( orig                 )
- , mMath          ( 0                   )
+ , mMath          ( NULL                   )
 {
   if (&orig == NULL)
   {
@@ -102,7 +102,7 @@ Priority::Priority (const Priority& orig) :
   {
     mInternalId = orig.mInternalId;
 
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -126,14 +126,14 @@ Priority& Priority::operator=(const Priority& rhs)
     this->mInternalId = rhs.mInternalId;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -181,7 +181,7 @@ Priority::getMath () const
 bool
 Priority::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -198,7 +198,7 @@ Priority::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -208,8 +208,8 @@ Priority::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -314,7 +314,7 @@ Priority::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -336,7 +336,7 @@ Priority::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -562,7 +562,7 @@ LIBSBML_EXTERN
 Priority_t *
 Priority_clone (const Priority_t *p)
 {
-  return p->clone();
+  return (p != NULL) ? p->clone() : 0;
 }
 
 
@@ -579,7 +579,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Priority_getNamespaces(Priority_t *p)
 {
-  return p->getNamespaces();
+  return (p != NULL) ? p->getNamespaces() : NULL;
 }
 
 /**
@@ -594,7 +594,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Priority_getMath (const Priority_t *p)
 {
-  return p->getMath();
+  return (p != NULL) ? p->getMath() : NULL;
 }
 
 
@@ -611,7 +611,7 @@ LIBSBML_EXTERN
 int
 Priority_isSetMath (const Priority_t *p)
 {
-  return static_cast<int>( p->isSetMath() );
+  return (p != NULL) ? static_cast<int>( p->isSetMath() ) : 0;
 }
 
 
@@ -633,7 +633,10 @@ LIBSBML_EXTERN
 int
 Priority_setMath (Priority_t *p, const ASTNode_t *math)
 {
-  return p->setMath(math);
+  if (p != NULL)
+    return p->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 /** @endcond */
