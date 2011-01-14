@@ -48,7 +48,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 EventAssignment::EventAssignment (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mVariable ( "" )
- , mMath     ( 0  )
+ , mMath     ( NULL  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -58,7 +58,7 @@ EventAssignment::EventAssignment (unsigned int level, unsigned int version) :
 EventAssignment::EventAssignment (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
  , mVariable ( "" )
- , mMath     ( 0  )
+ , mMath     ( NULL  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -90,7 +90,7 @@ EventAssignment::~EventAssignment ()
  */
 EventAssignment::EventAssignment (const EventAssignment& orig) :
    SBase   ( orig )
-  , mMath  ( 0    )
+  , mMath  ( NULL    )
 {
   if (&orig == NULL)
   {
@@ -100,7 +100,7 @@ EventAssignment::EventAssignment (const EventAssignment& orig) :
   {
     mVariable  = orig.mVariable;
 
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -124,14 +124,14 @@ EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
     this->mVariable = rhs.mVariable;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -201,7 +201,7 @@ EventAssignment::isSetVariable () const
 bool
 EventAssignment::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -240,7 +240,7 @@ EventAssignment::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -250,8 +250,8 @@ EventAssignment::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -271,7 +271,7 @@ EventAssignment::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -279,7 +279,7 @@ EventAssignment::getDerivedUnitDefinition()
     }
     
     std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
-    if (m->getFormulaUnitsData(id, getTypeCode()))
+    if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(id, getTypeCode())
                                              ->getUnitDefinition();
@@ -322,7 +322,7 @@ EventAssignment::containsUndeclaredUnits()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -330,7 +330,7 @@ EventAssignment::containsUndeclaredUnits()
     }
 
     std::string id = getId() + getAncestorOfType(SBML_EVENT)->getId();
-    if (m->getFormulaUnitsData(id, getTypeCode()))
+    if (m->getFormulaUnitsData(id, getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(id, getTypeCode())
       ->getContainsUndeclaredUnits();
@@ -417,7 +417,7 @@ EventAssignment::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (mMath) writeMathML(mMath, stream);
+  if (mMath != NULL) writeMathML(mMath, stream);
 }
 /** @endcond */
 
@@ -446,7 +446,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -468,7 +468,7 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -738,7 +738,7 @@ ListOfEventAssignments::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
-  return (result == mItems.end()) ? 0 : 
+  return (result == mItems.end()) ? NULL : 
                      static_cast <EventAssignment*> (*result);
 }
 
@@ -755,7 +755,7 @@ ListOfEventAssignments::remove (unsigned int n)
 EventAssignment*
 ListOfEventAssignments::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqEA(sid) );
@@ -792,7 +792,7 @@ SBase*
 ListOfEventAssignments::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "eventAssignment")
@@ -812,7 +812,7 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -917,7 +917,7 @@ LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_clone (const EventAssignment_t *ea)
 {
-  return static_cast<EventAssignment*>( ea->clone() );
+  return (ea != NULL) ? static_cast<EventAssignment*>( ea->clone() ) : NULL;
 }
 
 
@@ -934,7 +934,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 EventAssignment_getNamespaces(EventAssignment_t *ea)
 {
-  return ea->getNamespaces();
+  return (ea != NULL) ? ea->getNamespaces() : NULL;
 }
 
 
@@ -950,7 +950,7 @@ LIBSBML_EXTERN
 const char *
 EventAssignment_getVariable (const EventAssignment_t *ea)
 {
-  return ea->isSetVariable() ? ea->getVariable().c_str() : NULL;
+  return (ea != NULL && ea->isSetVariable()) ? ea->getVariable().c_str() : NULL;
 }
 
 
@@ -966,7 +966,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 EventAssignment_getMath (const EventAssignment_t *ea)
 {
-  return ea->getMath();
+  return (ea != NULL) ? ea->getMath() : NULL;
 }
 
 
@@ -983,7 +983,7 @@ LIBSBML_EXTERN
 int
 EventAssignment_isSetVariable (const EventAssignment_t *ea)
 {
-  return static_cast<int>( ea->isSetVariable() );
+  return (ea != NULL) ? static_cast<int>( ea->isSetVariable() ) : 0;
 }
 
 
@@ -1000,7 +1000,7 @@ LIBSBML_EXTERN
 int
 EventAssignment_isSetMath (const EventAssignment_t *ea)
 {
-  return static_cast<int>( ea->isSetMath() );
+  return (ea != NULL) ? static_cast<int>( ea->isSetMath() ) : 0;
 }
 
 
@@ -1026,7 +1026,10 @@ LIBSBML_EXTERN
 int
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
 {
-  return ea->setVariable(sid ? sid : "");
+  if (ea != NULL)  
+    return ea->setVariable((sid != NULL) ? sid : "");
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1050,7 +1053,10 @@ LIBSBML_EXTERN
 int
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
 {
-  return ea->setMath(math);
+  if (ea != NULL)
+    return ea->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 /**
@@ -1077,7 +1083,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 EventAssignment_getDerivedUnitDefinition(EventAssignment_t *ea)
 {
-  return ea->getDerivedUnitDefinition();
+  return (ea != NULL) ? ea->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -1100,7 +1106,7 @@ LIBSBML_EXTERN
 int 
 EventAssignment_containsUndeclaredUnits(EventAssignment_t *ea)
 {
-  return static_cast<int>(ea->containsUndeclaredUnits());
+  return (ea != NULL) ? static_cast<int>(ea->containsUndeclaredUnits()) : 0;
 }
 
 
@@ -1112,8 +1118,11 @@ LIBSBML_EXTERN
 EventAssignment_t *
 ListOfEventAssignments_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfEventAssignments *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfEventAssignments *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -1126,8 +1135,11 @@ LIBSBML_EXTERN
 EventAssignment_t *
 ListOfEventAssignments_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfEventAssignments *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfEventAssignments *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */

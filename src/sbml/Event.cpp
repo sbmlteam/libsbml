@@ -2612,7 +2612,7 @@ LIBSBML_EXTERN
 unsigned int
 Event_getNumEventAssignments (const Event_t *e)
 {
-  return (e != NULL) ? e->getNumEventAssignments() : 0;
+  return (e != NULL) ? e->getNumEventAssignments() : SBML_INT_MAX;
 }
 
 

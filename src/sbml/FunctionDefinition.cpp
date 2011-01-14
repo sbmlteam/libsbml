@@ -51,7 +51,7 @@ FunctionDefinition::FunctionDefinition (unsigned int level, unsigned int version
    SBase ( level, version )
  , mId   ( "" )
  , mName ( "" )
- , mMath ( 0  )
+ , mMath ( NULL  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -62,7 +62,7 @@ FunctionDefinition::FunctionDefinition (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
  , mId   ( "" )
  , mName ( "" )
- , mMath ( 0  )
+ , mMath ( NULL  )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -94,7 +94,7 @@ FunctionDefinition::~FunctionDefinition ()
  */
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
    SBase             ( orig         )
- , mMath             ( 0            )
+ , mMath             ( NULL            )
 {
   if (&orig == NULL)
   {
@@ -105,7 +105,7 @@ FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
     mId               = orig.mId;
     mName             = orig.mName;
   
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -130,14 +130,14 @@ FunctionDefinition& FunctionDefinition::operator=(const FunctionDefinition& rhs)
     mName = rhs.mName;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -229,7 +229,7 @@ FunctionDefinition::isSetName () const
 bool
 FunctionDefinition::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 /*
@@ -309,7 +309,7 @@ FunctionDefinition::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -319,8 +319,8 @@ FunctionDefinition::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -363,7 +363,7 @@ FunctionDefinition::unsetName ()
 const ASTNode*
 FunctionDefinition::getArgument (unsigned int n) const
 {
-  return (n < getNumArguments()) ? mMath->getChild(n) : 0;
+  return (n < getNumArguments()) ? mMath->getChild(n) : NULL;
 }
 
 
@@ -375,14 +375,14 @@ const ASTNode*
 FunctionDefinition::getArgument (const std::string& name) const
 {
   const char*    cname = name.c_str();
-  const ASTNode* found = 0;
+  const ASTNode* found = NULL;
 
 
   for (unsigned int n = 0; n < getNumArguments(); ++n)
   {
     const ASTNode* node = getArgument(n);
 
-    if (node && node->isName() && !strcmp(node->getName(), cname))
+    if (node != NULL && node->isName() && !strcmp(node->getName(), cname))
     {
       found = node;
       break;
@@ -400,7 +400,7 @@ FunctionDefinition::getArgument (const std::string& name) const
 const ASTNode*
 FunctionDefinition::getBody () const
 {
-  if (!mMath) return NULL;
+  if (mMath == NULL) return NULL;
   /* if the math is not a lambda this function can cause issues
    * elsewhere, technically if the math is not a lambda
    * function the body is NULL
@@ -431,7 +431,7 @@ FunctionDefinition::getBody () const
 ASTNode*
 FunctionDefinition::getBody ()
 {
-   if (!mMath) return NULL;
+   if (mMath == NULL) return NULL;
 
   /* if the math is not a lambda this function can cause issues
    * elsewhere, technically if the math is not a lambda
@@ -563,7 +563,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
     }
 
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -585,7 +585,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -730,7 +730,7 @@ FunctionDefinition::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (mMath) writeMathML(mMath, stream);
+  if (mMath != NULL) writeMathML(mMath, stream);
 }
 /** @endcond */
 
@@ -812,7 +812,7 @@ ListOfFunctionDefinitions::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <FunctionDefinition*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <FunctionDefinition*> (*result);
 }
 
 
@@ -828,7 +828,7 @@ ListOfFunctionDefinitions::remove (unsigned int n)
 FunctionDefinition*
 ListOfFunctionDefinitions::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
@@ -865,7 +865,7 @@ SBase*
 ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "functionDefinition")
@@ -885,7 +885,7 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -989,7 +989,7 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_clone (const FunctionDefinition_t* fd)
 {
-  return static_cast<FunctionDefinition*>( fd->clone() );
+  return (fd != NULL) ? static_cast<FunctionDefinition*>( fd->clone() ) : NULL;
 }
 
 
@@ -1006,7 +1006,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 FunctionDefinition_getNamespaces(FunctionDefinition_t *fd)
 {
-  return fd->getNamespaces();
+  return (fd != NULL) ? fd->getNamespaces() : NULL;
 }
 
 
@@ -1022,7 +1022,7 @@ LIBSBML_EXTERN
 const char *
 FunctionDefinition_getId (const FunctionDefinition_t *fd)
 {
-  return fd->isSetId() ? fd->getId().c_str() : NULL;
+  return (fd != NULL && fd->isSetId()) ? fd->getId().c_str() : NULL;
 }
 
 
@@ -1037,7 +1037,7 @@ LIBSBML_EXTERN
 const char *
 FunctionDefinition_getName (const FunctionDefinition_t *fd)
 {
-  return fd->isSetName() ? fd->getName().c_str() : NULL;
+  return (fd != NULL && fd->isSetName()) ? fd->getName().c_str() : NULL;
 }
 
 
@@ -1053,7 +1053,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getMath (const FunctionDefinition_t *fd)
 {
-  return fd->getMath();
+  return (fd != NULL) ? fd->getMath() : NULL;
 }
 
 
@@ -1070,7 +1070,7 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
 {
-  return static_cast<int>( fd->isSetId() );
+  return (fd != NULL) ? static_cast<int>( fd->isSetId() ) : 0;
 }
 
 
@@ -1087,7 +1087,7 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
 {
-  return static_cast<int>( fd->isSetName() );
+  return (fd != NULL) ? static_cast<int>( fd->isSetName() ) : 0;
 }
 
 
@@ -1104,7 +1104,7 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
 {
-  return static_cast<int>( fd->isSetMath() );
+  return (fd != NULL) ? static_cast<int>( fd->isSetMath() ) : 0;
 }
 
 
@@ -1129,7 +1129,10 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
 {
-  return (sid == NULL) ? fd->setId("") : fd->setId(sid);
+  if (fd != NULL)
+    return (sid == NULL) ? fd->setId("") : fd->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1154,7 +1157,10 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
 {
-  return (name == NULL) ? fd->unsetName() : fd->setName(name);
+  if (fd != NULL)
+    return (name == NULL) ? fd->unsetName() : fd->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1179,7 +1185,10 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
 {
-  return fd->setMath(math);
+  if (fd != NULL)
+    return fd->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1199,7 +1208,10 @@ LIBSBML_EXTERN
 int
 FunctionDefinition_unsetName (FunctionDefinition_t *fd)
 {
-  return fd->unsetName();
+  if (fd != NULL)
+    return fd->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1217,7 +1229,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n)
 {
-  return fd->getArgument(n);
+  return (fd != NULL) ? fd->getArgument(n) : NULL;
 }
 
 
@@ -1236,7 +1248,7 @@ const ASTNode_t *
 FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
                                        const char *name )
 {
-  return fd->getArgument(name ? name : "");
+  return (fd != NULL) ? fd->getArgument(name != NULL ? name : "") : NULL;
 }
 
 
@@ -1253,7 +1265,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getBody (const FunctionDefinition_t *fd)
 {
-  return fd->getBody();
+  return (fd != NULL) ? fd->getBody() : NULL;
 }
 
 
@@ -1269,7 +1281,7 @@ LIBSBML_EXTERN
 unsigned int
 FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
 {
-  return fd->getNumArguments();
+  return (fd != NULL) ? fd->getNumArguments() : SBML_INT_MAX;
 }
 
 
@@ -1282,8 +1294,11 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 ListOfFunctionDefinitions_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfFunctionDefinitions *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfFunctionDefinitions *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -1296,8 +1311,11 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 ListOfFunctionDefinitions_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfFunctionDefinitions *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfFunctionDefinitions *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */
