@@ -183,7 +183,7 @@ Model::addModifiers ()
   {
     kl = getReaction(n)->getKineticLaw();
 
-    if (kl == 0 || kl->isSetMath() == false) continue;
+    if (kl == NULL || kl->isSetMath() == false) continue;
    
     node  = kl->getMath();
     names = node->getListOfNodes((ASTNodePredicate) ASTNode_isName);
@@ -198,12 +198,12 @@ Model::addModifiers ()
       if (node->getType() != AST_NAME) continue;
 
       // 2. It refers to a Species in this Model, and
-      if (id == 0 || getSpecies(id) == 0) continue;
+      if (id == NULL || getSpecies(id) == NULL) continue;
 
       // 3. It is not a Reactant, Product, or (already) a Modifier
-      if (getReaction(n)->getReactant(id) != 0) continue;
-      if (getReaction(n)->getProduct (id) != 0) continue;
-      if (getReaction(n)->getModifier(id) != 0) continue;
+      if (getReaction(n)->getReactant(id) != NULL) continue;
+      if (getReaction(n)->getProduct (id) != NULL) continue;
+      if (getReaction(n)->getModifier(id) != NULL) continue;
 
       getReaction(n)->createModifier()->setSpecies(id);
     }
@@ -1009,7 +1009,7 @@ Model::dealWithModelUnits()
   {
     std::string volume = getVolumeUnits();
     UnitDefinition * ud = removeUnitDefinition(volume);
-    if (ud)
+    if (ud != NULL)
     {
       ud->setId("volume");
     }
@@ -1028,7 +1028,7 @@ Model::dealWithModelUnits()
   {
     std::string area = getAreaUnits();
     UnitDefinition * ud = removeUnitDefinition(area);
-    if (ud)
+    if (ud != NULL)
     {
       ud->setId("area");
     }
@@ -1047,7 +1047,7 @@ Model::dealWithModelUnits()
   {
     std::string length = getLengthUnits();
     UnitDefinition * ud = removeUnitDefinition(length);
-    if (ud)
+    if (ud != NULL)
     {
       ud->setId("length");
     }
@@ -1066,7 +1066,7 @@ Model::dealWithModelUnits()
   {
     std::string substance = getSubstanceUnits();
     UnitDefinition * ud = removeUnitDefinition(substance);
-    if (ud)
+    if (ud != NULL)
     {
       ud->setId("substance");
     }
@@ -1085,7 +1085,7 @@ Model::dealWithModelUnits()
   {
     std::string time = getTimeUnits();
     UnitDefinition * ud = removeUnitDefinition(time);
-    if (ud)
+    if (ud != NULL)
     {
       ud->setId("time");
     }

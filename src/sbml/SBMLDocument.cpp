@@ -268,7 +268,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
    SBase (level, version)
  , mLevel   ( level   )
  , mVersion ( version )
- , mModel   ( 0       )
+ , mModel   ( NULL       )
  , mApplicableValidators ( AllChecksON)
  , mApplicableValidatorsForConversion ( AllChecksON )
 {
@@ -298,7 +298,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  */
 SBMLDocument::SBMLDocument (SBMLNamespaces * sbmlns) :
    SBase (sbmlns)
- , mModel   ( 0       )
+ , mModel   ( NULL       )
  , mApplicableValidators ( AllChecksON)
  , mApplicableValidatorsForConversion ( AllChecksON )
 {
@@ -336,7 +336,7 @@ SBMLDocument::~SBMLDocument ()
  */
 SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
    SBase    ( orig          )
- , mModel   ( 0             )
+ , mModel   ( NULL             )
 {
   if (&orig == NULL)
   {
@@ -352,7 +352,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
     mApplicableValidatorsForConversion = 
                                   orig.mApplicableValidatorsForConversion;
 
-    if (orig.mModel) 
+    if (orig.mModel != NULL) 
     {
       mModel = static_cast<Model*>( orig.mModel->clone() );
       mModel->setSBMLDocument(this);
@@ -383,7 +383,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
     mApplicableValidatorsForConversion = 
                                   rhs.mApplicableValidatorsForConversion;
 
-    if (rhs.mModel) 
+    if (rhs.mModel != NULL) 
     {
       mModel = static_cast<Model*>( rhs.mModel->clone() );
       mModel->setSBMLDocument(this);
@@ -401,7 +401,7 @@ bool
 SBMLDocument::accept (SBMLVisitor& v) const
 {
   v.visit(*this);
-  if (mModel) mModel->accept(v);
+  if (mModel != NULL) mModel->accept(v);
   v.leave(*this);
 
   return true;
@@ -688,7 +688,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
   bool duplicateAnn = false;
   //look at annotation on sbml element - since validation only happens on teh model :-(
   XMLNode *ann = getAnnotation();
-  if (ann)
+  if (ann != NULL)
   {
     for (i = 0; i < ann->getNumChildren(); i++)
     {
@@ -702,7 +702,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
   }
 
 
-  if (mModel != 0)
+  if (mModel != NULL)
   {
     if (!strict)
     {
@@ -1553,7 +1553,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
   mLevel   = level;
   mVersion = version;
 
-  if (mSBMLNamespaces == 0) 
+  if (mSBMLNamespaces == NULL) 
     mSBMLNamespaces = new SBMLNamespaces(mLevel, mVersion);;
 
   /**
@@ -1642,7 +1642,7 @@ SBMLDocument::setModel (const Model* m)
   else if (m == NULL)
   {
     delete mModel;
-    mModel = 0;
+    mModel = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (getLevel() != m->getLevel())
@@ -1656,10 +1656,10 @@ SBMLDocument::setModel (const Model* m)
   else
   {
     delete mModel;
-    mModel = (m != 0) ? new Model(*m) : 0;
+    mModel = (m != NULL) ? new Model(*m) : NULL;
 
-    if (mModel) mModel->setSBMLDocument(this);
-    if (mModel) mModel->setParentSBMLObject(this);
+    if (mModel != NULL) mModel->setSBMLDocument(this);
+    if (mModel != NULL) mModel->setParentSBMLObject(this);
     
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -1673,7 +1673,7 @@ SBMLDocument::setModel (const Model* m)
 Model*
 SBMLDocument::createModel (const std::string& sid)
 {
-  if (mModel) delete mModel;
+  if (mModel != NULL) delete mModel;
 
   try
   {
@@ -1688,7 +1688,7 @@ SBMLDocument::createModel (const std::string& sid)
      */
   }
   
-  if (mModel)
+  if (mModel != NULL)
   {
     mModel->setId(sid);
 
@@ -1937,7 +1937,7 @@ SBMLDocument::checkConsistency ()
     id_validator.init();
     nerrors = id_validator.validate(*this);
     total_errors += nerrors;
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       mErrorLog.add( id_validator.getFailures() );
       return total_errors;
@@ -1949,7 +1949,7 @@ SBMLDocument::checkConsistency ()
     validator.init();
     nerrors = validator.validate(*this);
     total_errors += nerrors;
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       mErrorLog.add( validator.getFailures() );
       /* only want to bail if errors not warnings */
@@ -1963,7 +1963,7 @@ SBMLDocument::checkConsistency ()
     sbo_validator.init();
     nerrors = sbo_validator.validate(*this);
     total_errors += nerrors;
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       mErrorLog.add( sbo_validator.getFailures() );
       /* only want to bail if errors not warnings */
@@ -1977,7 +1977,7 @@ SBMLDocument::checkConsistency ()
     math_validator.init();
     nerrors = math_validator.validate(*this);
     total_errors += nerrors;
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       mErrorLog.add( math_validator.getFailures() );
       /* at this point bail if any problems
@@ -1993,7 +1993,7 @@ SBMLDocument::checkConsistency ()
     unit_validator.init();
     nerrors = unit_validator.validate(*this);
     total_errors += nerrors;
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       mErrorLog.add( unit_validator.getFailures() );
       /* only want to bail if errors not warnings */
@@ -2009,7 +2009,7 @@ SBMLDocument::checkConsistency ()
     over_validator.init();
     nerrors = over_validator.validate(*this);
     total_errors += nerrors;
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       mErrorLog.add( over_validator.getFailures() );
       /* only want to bail if errors not warnings */
@@ -2022,7 +2022,7 @@ SBMLDocument::checkConsistency ()
   {
     practice_validator.init();
     nerrors = practice_validator.validate(*this);
-    if (nerrors) 
+    if (nerrors > 0) 
     {
       unsigned int errorsAdded = 0;
       const std::list<SBMLError> practiceErrors = practice_validator.getFailures();
@@ -2073,7 +2073,7 @@ SBMLDocument::checkInternalConsistency()
 
   validator.init();
   nerrors = validator.validate(*this);
-  if (nerrors) 
+  if (nerrors > 0) 
   {
     mErrorLog.add( validator.getFailures() );
   }
@@ -2107,13 +2107,13 @@ SBMLDocument::checkInternalConsistency()
 unsigned int
 SBMLDocument::checkL1Compatibility ()
 {
-  if (mModel == 0) return 0;
+  if (mModel == NULL) return 0;
 
   L1CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getFailures() );
+  if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -2129,13 +2129,13 @@ SBMLDocument::checkL1Compatibility ()
 unsigned int
 SBMLDocument::checkL2v1Compatibility ()
 {
-  if (mModel == 0) return 0;
+  if (mModel == NULL) return 0;
 
   L2v1CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getFailures() );
+  if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -2151,13 +2151,13 @@ SBMLDocument::checkL2v1Compatibility ()
 unsigned int
 SBMLDocument::checkL2v2Compatibility ()
 {
-  if (mModel == 0) return 0;
+  if (mModel == NULL) return 0;
 
   L2v2CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getFailures() );
+  if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -2173,13 +2173,13 @@ SBMLDocument::checkL2v2Compatibility ()
 unsigned int
 SBMLDocument::checkL2v3Compatibility ()
 {
-  if (mModel == 0) return 0;
+  if (mModel == NULL) return 0;
 
   L2v3CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getFailures() );
+  if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -2195,13 +2195,13 @@ SBMLDocument::checkL2v3Compatibility ()
 unsigned int
 SBMLDocument::checkL2v4Compatibility ()
 {
-  if (mModel == 0) return 0;
+  if (mModel == NULL) return 0;
 
   L2v4CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getFailures() );
+  if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -2217,13 +2217,13 @@ SBMLDocument::checkL2v4Compatibility ()
 unsigned int
 SBMLDocument::checkL3v1Compatibility ()
 {
-  if (mModel == 0) return 0;
+  if (mModel == NULL) return 0;
 
   L3v1CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);
-  if (nerrors) mErrorLog.add( validator.getFailures() );
+  if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
 }
@@ -2332,7 +2332,7 @@ SBase*
 SBMLDocument::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "model")
@@ -2629,7 +2629,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
 void
 SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
-  if (mSBMLNamespaces->getNamespaces() == 0)
+  if (mSBMLNamespaces->getNamespaces() == NULL)
   {
      XMLNamespaces xmlns;
 
@@ -2691,7 +2691,7 @@ void
 SBMLDocument::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
-  if (mModel) mModel->write(stream);
+  if (mModel != NULL) mModel->write(stream);
 }
 /** @endcond */
 
@@ -2762,7 +2762,7 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_clone (const SBMLDocument_t *d)
 {
-  return static_cast<SBMLDocument_t*>( d->clone() );
+  return (d != NULL) ? static_cast<SBMLDocument_t*>( d->clone() ) : NULL;
 }
 
 
@@ -2777,7 +2777,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getLevel (const SBMLDocument_t *d)
 {
-  return d->getLevel();
+  return (d != NULL) ? d->getLevel() : SBML_INT_MAX;
 }
 
 
@@ -2793,7 +2793,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getVersion (const SBMLDocument_t *d)
 {
-  return d->getVersion();
+  return (d != NULL) ? d->getVersion() : SBML_INT_MAX;
 }
 
 
@@ -2808,7 +2808,7 @@ LIBSBML_EXTERN
 Model_t *
 SBMLDocument_getModel (SBMLDocument_t *d)
 {
-  return d->getModel();
+  return (d != NULL) ? d->getModel() : NULL;
 }
 
 
@@ -2838,7 +2838,8 @@ LIBSBML_EXTERN
 int
 SBMLDocument_expandFunctionDefintions (SBMLDocument_t *d)
 {
-  return static_cast <int> (d->expandFunctionDefinitions());
+  return (d != NULL) ? 
+    static_cast <int> (d->expandFunctionDefinitions()) : 0;
 }
 
 
@@ -2873,7 +2874,8 @@ LIBSBML_EXTERN
 int
 SBMLDocument_expandInitialAssignments (SBMLDocument_t *d)
 {
-  return static_cast <int> (d->expandInitialAssignments());
+  return (d != NULL) ? 
+    static_cast <int> (d->expandInitialAssignments()) : 0;
 }
 
 
@@ -2923,7 +2925,8 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version )
 {
-  return static_cast <int> (d->setLevelAndVersion(level, version, true));
+  return (d != NULL) ? 
+    static_cast <int> (d->setLevelAndVersion(level, version, true)) : 0;
 }
 
 
@@ -2984,7 +2987,8 @@ SBMLDocument_setLevelAndVersionStrict (  SBMLDocument_t *d
                                        , unsigned int    level
                                        , unsigned int    version )
 {
-  return static_cast <int> (d->setLevelAndVersion(level, version, true));
+  return (d != NULL) ? 
+    static_cast <int> (d->setLevelAndVersion(level, version, true)) : 0;
 }
 
 
@@ -3034,7 +3038,8 @@ SBMLDocument_setLevelAndVersionNonStrict (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version )
 {
-  return static_cast <int> (d->setLevelAndVersion(level, version, false));
+  return (d != NULL) ? 
+    static_cast <int> (d->setLevelAndVersion(level, version, false)) : 0;
 }
 
 
@@ -3058,7 +3063,7 @@ LIBSBML_EXTERN
 int
 SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m)
 {
-  return d->setModel(m);
+  return (d != NULL) ? d->setModel(m) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3074,7 +3079,7 @@ LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d)
 {
-  return d->createModel();
+  return (d != NULL) ? d->createModel() : NULL;
 }
 
 /**
@@ -3133,7 +3138,8 @@ SBMLDocument_setConsistencyChecks(SBMLDocument_t * d,
                                   SBMLErrorCategory_t category,
                                   int apply)
 {
-  d->setConsistencyChecks(SBMLErrorCategory_t(category), apply);
+  if (d != NULL)
+    d->setConsistencyChecks(SBMLErrorCategory_t(category), apply);
 }
 
 
@@ -3193,7 +3199,8 @@ SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t * d,
                                   SBMLErrorCategory_t category,
                                   int apply)
 {
-  d->setConsistencyChecksForConversion(SBMLErrorCategory_t(category), apply);
+  if (d != NULL)
+    d->setConsistencyChecksForConversion(SBMLErrorCategory_t(category), apply);
 }
 
 
@@ -3215,7 +3222,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_checkConsistency (SBMLDocument_t *d)
 {
-  return d->checkConsistency();
+  return (d != NULL) ? d->checkConsistency() : SBML_INT_MAX;
 }
 
 
@@ -3235,7 +3242,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_checkInternalConsistency (SBMLDocument_t *d)
 {
-  return d->checkInternalConsistency();
+  return (d != NULL) ? d->checkInternalConsistency() : SBML_INT_MAX;
 }
 
 
@@ -3255,7 +3262,7 @@ LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL1Compatibility (SBMLDocument_t *d)
 {
-  return d->checkL1Compatibility();
+  return (d != NULL) ? d->checkL1Compatibility() : SBML_INT_MAX;
 }
 
 
@@ -3275,7 +3282,7 @@ LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v1Compatibility (SBMLDocument_t *d)
 {
-  return d->checkL2v1Compatibility();
+  return (d != NULL) ? d->checkL2v1Compatibility() : SBML_INT_MAX;
 }
 
 
@@ -3296,7 +3303,7 @@ LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d)
 {
-  return d->checkL2v2Compatibility();
+  return (d != NULL) ? d->checkL2v2Compatibility() : SBML_INT_MAX;
 }
 
 
@@ -3317,7 +3324,7 @@ LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v3Compatibility (SBMLDocument_t *d)
 {
-  return d->checkL2v3Compatibility();
+  return (d != NULL) ? d->checkL2v3Compatibility() : SBML_INT_MAX;
 }
 
 
@@ -3337,7 +3344,7 @@ LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v4Compatibility (SBMLDocument_t *d)
 {
-  return d->checkL2v4Compatibility();
+  return (d != NULL) ? d->checkL2v4Compatibility() : SBML_INT_MAX;
 }
 
 
@@ -3366,7 +3373,7 @@ LIBSBML_EXTERN
 const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 {
-  return d->getError(n);
+  return (d != NULL) ? d->getError(n) : NULL;
 }
 
 
@@ -3388,7 +3395,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getNumErrors (const SBMLDocument_t *d)
 {
-  return d->getNumErrors();
+  return (d != NULL) ? d->getNumErrors() : SBML_INT_MAX;
 }
 
 
@@ -3413,6 +3420,7 @@ LIBSBML_EXTERN
 void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
 {
+  if (d == NULL) return;
   unsigned int numErrors = d->getNumErrors();
 
   if (numErrors > 0)
@@ -3458,7 +3466,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 SBMLDocument_getNamespaces(SBMLDocument_t *d)
 {
-  return d->getNamespaces();
+  return (d != NULL) ? d->getNamespaces() : NULL;
 }
 
 /** @endcond */

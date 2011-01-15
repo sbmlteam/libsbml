@@ -24,6 +24,7 @@
 
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/SBase.h>
+#include <sbml/common/common.h>
 
 /** @cond doxygen-ignored */
 
@@ -79,7 +80,7 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
 
 SBMLNamespaces::~SBMLNamespaces()
 {
-  if (mNamespaces)
+  if (mNamespaces != NULL)
     delete mNamespaces;
 }
 
@@ -98,11 +99,11 @@ SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
     mLevel   = orig.mLevel;
     mVersion = orig.mVersion;
  
-    if(orig.mNamespaces)
+    if(orig.mNamespaces != NULL)
       this->mNamespaces = 
             new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
     else
-      this->mNamespaces = 0;
+      this->mNamespaces = NULL;
   }
 }
 
@@ -123,11 +124,11 @@ SBMLNamespaces::operator=(const SBMLNamespaces& rhs)
     mLevel   = rhs.mLevel;
     mVersion = rhs.mVersion;
     delete this->mNamespaces;
-    if(rhs.mNamespaces)
+    if(rhs.mNamespaces != NULL)
       this->mNamespaces = 
             new XMLNamespaces(*const_cast<SBMLNamespaces&>(rhs).mNamespaces);
     else
-      this->mNamespaces = 0;
+      this->mNamespaces = NULL;
   }
 
   return *this;
@@ -268,7 +269,7 @@ void
 SBMLNamespaces::setNamespaces(XMLNamespaces * xmlns)
 {
   delete mNamespaces;
-  if (xmlns)
+  if (xmlns != NULL)
     mNamespaces = xmlns->clone();
   else
     mNamespaces = NULL;
@@ -332,7 +333,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLNamespaces_getLevel(SBMLNamespaces_t *sbmlns)
 {
-  return sbmlns->getLevel();
+  return (sbmlns != NULL) ? sbmlns->getLevel() : SBML_INT_MAX;
 }
 
 
@@ -347,7 +348,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLNamespaces_getVersion(SBMLNamespaces_t *sbmlns)
 {
-  return sbmlns->getVersion();
+  return (sbmlns != NULL) ? sbmlns->getVersion() : SBML_INT_MAX;
 }
 
 
@@ -362,7 +363,7 @@ LIBSBML_EXTERN
 XMLNamespaces_t *
 SBMLNamespaces_getNamespaces(SBMLNamespaces_t *sbmlns)
 {
-  return sbmlns->getNamespaces();
+  return (sbmlns != NULL) ? sbmlns->getNamespaces() : NULL;
 }
 
 
@@ -396,7 +397,8 @@ void
 SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
                              XMLNamespaces_t * xmlns)
 {
-  sbmlns->addNamespaces(xmlns);
+  if (sbmlns != NULL)
+    sbmlns->addNamespaces(xmlns);
 }
 
 /** @endcond */

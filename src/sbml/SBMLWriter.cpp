@@ -360,7 +360,10 @@ LIBSBML_EXTERN
 int
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name)
 {
-  return (name == NULL) ? sw->setProgramName("") : sw->setProgramName(name);
+  if (sw != NULL)
+    return (name == NULL) ? sw->setProgramName("") : sw->setProgramName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -383,8 +386,11 @@ LIBSBML_EXTERN
 int
 SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version)
 {
-  return (version == NULL) ? sw->setProgramVersion("") :
+  if (sw != NULL)
+    return (version == NULL) ? sw->setProgramVersion("") :
                              sw->setProgramVersion(version);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -417,7 +423,11 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
                        const SBMLDocument_t *d,
                        const char           *filename )
 {
-  return static_cast<int>( sw->writeSBML(d, filename) );
+  if (sw == NULL || d == NULL) 
+    return 0;
+  else
+    return (filename != NULL) ? 
+      static_cast<int>( sw->writeSBML(d, filename) ) : 0;
 }
 
 
@@ -450,7 +460,11 @@ SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
                        const SBMLDocument_t *d,
                        const char           *filename )
 {
-  return static_cast<int>( sw->writeSBML(d, filename) );
+  if (sw == NULL || d == NULL) 
+    return 0;
+  else
+    return (filename != NULL) ? 
+      static_cast<int>( sw->writeSBML(d, filename) ) : 0;
 }
 
 
@@ -466,7 +480,10 @@ LIBSBML_EXTERN
 char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d)
 {
-  return sw->writeToString(d);
+  if (sw == NULL || d == NULL) 
+    return 0;
+  else
+    return sw->writeToString(d);
 }
 
 
@@ -512,7 +529,10 @@ int
 writeSBML (const SBMLDocument_t *d, const char *filename)
 {
   SBMLWriter sw;
-  return static_cast<int>( sw.writeSBML(d, filename) );
+  if (d == NULL || filename == NULL)
+    return 0;
+  else
+    return static_cast<int>( sw.writeSBML(d, filename) );
 }
 
 
@@ -530,7 +550,10 @@ int
 writeSBMLToFile (const SBMLDocument_t *d, const char *filename)
 {
   SBMLWriter sw;
-  return static_cast<int>( sw.writeSBML(d, filename) );
+  if (d == NULL || filename == NULL)
+    return 0;
+  else
+    return static_cast<int>( sw.writeSBML(d, filename) );
 }
 
 
@@ -550,7 +573,10 @@ char *
 writeSBMLToString (const SBMLDocument_t *d)
 {
   SBMLWriter sw;
-  return sw.writeToString(d);
+  if (d == NULL)
+    return NULL;
+  else
+    return sw.writeToString(d);
 }
 
 LIBSBML_CPP_NAMESPACE_END

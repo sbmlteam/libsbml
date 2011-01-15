@@ -198,7 +198,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 {
   SBMLDocument* d = new SBMLDocument();
 
-  if (isFile && content && (util_file_exists(content) == false))
+  if (isFile && content != NULL && (util_file_exists(content) == false))
   {
     d->getErrorLog()->logError(XMLFileUnreadable);
   }
@@ -259,7 +259,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
         d->getErrorLog()->logError(BadXMLDecl);
       }
 
-      if (d->getModel() == 0)
+      if (d->getModel() == NULL)
       {
         d->getErrorLog()->logError(MissingModel, 
                                    d->getLevel(), d->getVersion());
@@ -351,7 +351,10 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 {
-  return (filename != NULL) ? sr->readSBML(filename) : sr->readSBML("");
+  if (sr != NULL)
+    return (filename != NULL) ? sr->readSBML(filename) : sr->readSBML("");
+  else
+    return NULL;
 }
 
 
@@ -383,7 +386,10 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromFile (SBMLReader_t *sr, const char *filename)
 {
-  return (filename != NULL) ? sr->readSBML(filename) : sr->readSBML("");
+  if (sr != NULL)
+    return (filename != NULL) ? sr->readSBML(filename) : sr->readSBML("");
+  else
+    return NULL;
 }
 
 
@@ -406,8 +412,11 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 {
-  return (xml != NULL) ? sr->readSBMLFromString(xml) :
+  if (sr != NULL)
+    return (xml != NULL) ? sr->readSBMLFromString(xml) :
                          sr->readSBMLFromString("");
+  else
+    return NULL;
 }
 
 
@@ -483,7 +492,7 @@ SBMLDocument_t *
 readSBML (const char *filename)
 {
   SBMLReader sr;
-  return sr.readSBML(filename);
+  return (filename != NULL) ? sr.readSBML(filename) : sr.readSBML("");
 }
 
 
@@ -531,7 +540,7 @@ SBMLDocument_t *
 readSBMLFromFile (const char *filename)
 {
   SBMLReader sr;
-  return sr.readSBML(filename);
+  return (filename != NULL) ? sr.readSBML(filename) : sr.readSBML("");
 }
 
 
@@ -555,7 +564,7 @@ SBMLDocument_t *
 readSBMLFromString (const char *xml)
 {
   SBMLReader sr;
-  return sr.readSBMLFromString(xml);
+  return (xml != NULL) ? sr.readSBMLFromString(xml) : sr.readSBMLFromString("");
 }
 
 LIBSBML_CPP_NAMESPACE_END

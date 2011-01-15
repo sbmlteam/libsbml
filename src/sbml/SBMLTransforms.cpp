@@ -70,7 +70,9 @@ SBMLTransforms::replaceFD(ASTNode * node, const ListOfFunctionDefinitions *lofd)
 void
 SBMLTransforms::replaceFD(ASTNode * node, const FunctionDefinition *fd)
 {
-  
+  if ((node == NULL) || (fd == NULL))
+    return;
+
   if (node->isFunction() && node->getName() == fd->getId())
   {
    replaceBvars(node, fd);
@@ -93,7 +95,7 @@ SBMLTransforms::replaceBvars(ASTNode * node, const FunctionDefinition *fd)
   ASTNode * fdMath = NULL;
   unsigned int noBvars;
 
-  if (fd && fd->isSetMath())
+  if (fd != NULL && fd->isSetMath())
     {
       noBvars = fd->getNumArguments();
       if (noBvars == 0)
@@ -458,16 +460,17 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
         bool set = (mValues.find(node->getName())->second).second;
         if (isnan(result) && set)
         {
-          if (m)
+          if (m != NULL)
           {
             // means the value is set by a rule/initialAssignment
             const Rule *r = m->getRule(node->getName());
-            const InitialAssignment *ia = m->getInitialAssignment(node->getName());
-            if (r)
+            const InitialAssignment *ia = 
+                                m->getInitialAssignment(node->getName());
+            if (r != NULL)
             {
               result = evaluateASTNode(r->getMath(), m);
             }
-            else if (ia)
+            else if (ia != NULL)
             {
               result = evaluateASTNode(ia->getMath(), m);
             }
@@ -808,7 +811,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
                                                                  idsWithValues))
         {
           std::string id = m->getInitialAssignment(i)->getSymbol();
-          if (m->getCompartment(id)) 
+          if (m->getCompartment(id) != NULL) 
           {
             if (expandInitialAssignment(m->getCompartment(id), 
                                         m->getInitialAssignment(i)))
@@ -817,7 +820,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
               count--;
             }
           }
-          else if (m->getParameter(id))
+          else if (m->getParameter(id) != NULL)
           {
             if (expandInitialAssignment(m->getParameter(id), 
                                         m->getInitialAssignment(i)))
@@ -826,7 +829,7 @@ SBMLTransforms::expandInitialAssignments(Model * m)
               count--;
             }
           }
-          else if (m->getSpecies(id))
+          else if (m->getSpecies(id) != NULL)
           {
             if (expandInitialAssignment(m->getSpecies(id), 
                                         m->getInitialAssignment(i)))
