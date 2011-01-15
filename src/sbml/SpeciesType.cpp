@@ -510,7 +510,7 @@ ListOfSpeciesTypes::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqST(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <SpeciesType*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <SpeciesType*> (*result);
 }
 
 
@@ -526,7 +526,7 @@ ListOfSpeciesTypes::remove (unsigned int n)
 SpeciesType*
 ListOfSpeciesTypes::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqST(sid) );
@@ -563,7 +563,7 @@ SBase*
 ListOfSpeciesTypes::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "speciesType")
@@ -583,7 +583,7 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -687,7 +687,7 @@ LIBSBML_EXTERN
 SpeciesType_t *
 SpeciesType_clone (const SpeciesType_t *st)
 {
-  return static_cast<SpeciesType*>( st->clone() );
+  return (st != NULL) ? static_cast<SpeciesType*>( st->clone() ) : NULL;
 }
 
 
@@ -704,7 +704,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 SpeciesType_getNamespaces(SpeciesType_t *st)
 {
-  return st->getNamespaces();
+  return (st != NULL) ? st->getNamespaces() : NULL;
 }
 
 
@@ -719,7 +719,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesType_getId (const SpeciesType_t *st)
 {
-  return st->isSetId() ? st->getId().c_str() : NULL;
+  return (st != NULL && st->isSetId()) ? st->getId().c_str() : NULL;
 }
 
 
@@ -734,7 +734,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesType_getName (const SpeciesType_t *st)
 {
-  return st->isSetName() ? st->getName().c_str() : NULL;
+  return (st != NULL && st->isSetName()) ? st->getName().c_str() : NULL;
 }
 
 
@@ -751,7 +751,7 @@ LIBSBML_EXTERN
 int
 SpeciesType_isSetId (const SpeciesType_t *st)
 {
-  return static_cast<int>( st->isSetId() );
+  return (st != NULL) ? static_cast<int>( st->isSetId() ) : 0;
 }
 
 
@@ -768,7 +768,7 @@ LIBSBML_EXTERN
 int
 SpeciesType_isSetName (const SpeciesType_t *st)
 {
-  return static_cast<int>( st->isSetName() );
+  return (st != NULL) ? static_cast<int>( st->isSetName() ) : 0;
 }
 
 
@@ -794,7 +794,10 @@ LIBSBML_EXTERN
 int
 SpeciesType_setId (SpeciesType_t *st, const char *sid)
 {
-  return (sid == NULL) ? st->setId("") : st->setId(sid);
+  if (st != NULL)
+    return (sid == NULL) ? st->setId("") : st->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -820,7 +823,10 @@ LIBSBML_EXTERN
 int
 SpeciesType_setName (SpeciesType_t *st, const char *name)
 {
-  return (name == NULL) ? st->unsetName() : st->setName(name);
+  if (st != NULL)
+    return (name == NULL) ? st->unsetName() : st->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -840,7 +846,7 @@ LIBSBML_EXTERN
 int
 SpeciesType_unsetName (SpeciesType_t *st)
 {
-  return st->unsetName();
+  return (st != NULL) ? st->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -853,8 +859,11 @@ LIBSBML_EXTERN
 SpeciesType_t *
 ListOfSpeciesTypes_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfSpeciesTypes *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfSpeciesTypes *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -867,8 +876,11 @@ LIBSBML_EXTERN
 SpeciesType_t *
 ListOfSpeciesTypes_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfSpeciesTypes *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfSpeciesTypes *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 

@@ -110,10 +110,15 @@ LIBSBML_EXTERN
 UnitKind_t
 UnitKind_forName (const char *name)
 {
-  const UnitKind_t lo = UNIT_KIND_AMPERE;
-  const UnitKind_t hi = UNIT_KIND_WEBER;
+  if (name != NULL)
+  {
+    const UnitKind_t lo = UNIT_KIND_AMPERE;
+    const UnitKind_t hi = UNIT_KIND_WEBER;
 
-  return util_bsearchStringsI(UNIT_KIND_STRINGS, name, lo, hi);
+    return util_bsearchStringsI(UNIT_KIND_STRINGS, name, lo, hi);
+  }
+  else
+    return UNIT_KIND_INVALID;
 }
 
 

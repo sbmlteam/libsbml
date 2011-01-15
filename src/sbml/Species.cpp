@@ -309,7 +309,7 @@ Species::getInitialAmount () const
   if ( getLevel() == 1 && isSetInitialConcentration() )
   {
     const Compartment *c = getModel()->getCompartment(getCompartment());
-    if (c)
+    if (c != NULL)
     {
       initialAmount = mInitialConcentration * c->getSize();
     }
@@ -1075,14 +1075,14 @@ Species::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getId(), getTypeCode())
                                              ->getUnitDefinition();
@@ -1674,9 +1674,9 @@ Species::writeAttributes (XMLOutputStream& stream) const
     if ( isSetInitialConcentration() )
     {
       const Model*       m = getModel();
-      const Compartment* c = m ? m->getCompartment( getCompartment() ) : 0;
+      const Compartment* c = m ? m->getCompartment( getCompartment() ) : NULL;
 
-      if (c)
+      if (c != NULL)
       {
         double amount = mInitialConcentration * c->getSize();
         stream.writeAttribute("initialAmount", amount);
@@ -1859,7 +1859,7 @@ ListOfSpecies::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Species*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <Species*> (*result);
 }
 
 
@@ -1875,7 +1875,7 @@ ListOfSpecies::remove (unsigned int n)
 Species*
 ListOfSpecies::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
@@ -1912,7 +1912,7 @@ SBase*
 ListOfSpecies::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "species" || name == "specie")
@@ -1932,7 +1932,7 @@ ListOfSpecies::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -2036,7 +2036,7 @@ LIBSBML_EXTERN
 Species_t *
 Species_clone (const Species_t *s)
 {
-  return static_cast<Species*>( s->clone() );
+  return (s != NULL) ? static_cast<Species*>( s->clone() ) : NULL;
 }
 
 
@@ -2055,7 +2055,8 @@ LIBSBML_EXTERN
 void
 Species_initDefaults (Species_t *s)
 {
-  s->initDefaults();
+  if (s != NULL)
+    s->initDefaults();
 }
 
 
@@ -2072,7 +2073,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Species_getNamespaces(Species_t *s)
 {
-  return s->getNamespaces();
+  return (s != NULL) ? s->getNamespaces() : NULL;
 }
 
 /**
@@ -2087,7 +2088,7 @@ LIBSBML_EXTERN
 const char *
 Species_getId (const Species_t *s)
 {
-  return s->isSetId() ? s->getId().c_str() : NULL;
+  return (s != NULL && s->isSetId()) ? s->getId().c_str() : NULL;
 }
 
 
@@ -2103,7 +2104,7 @@ LIBSBML_EXTERN
 const char *
 Species_getName (const Species_t *s)
 {
-  return s->isSetName() ? s->getName().c_str() : NULL;
+  return (s != NULL && s->isSetName()) ? s->getName().c_str() : NULL;
 }
 
 
@@ -2120,7 +2121,8 @@ LIBSBML_EXTERN
 const char *
 Species_getSpeciesType (const Species_t *s)
 {
-  return s->isSetSpeciesType() ? s->getSpeciesType().c_str() : NULL;
+  return (s != NULL && s->isSetSpeciesType()) ? 
+                       s->getSpeciesType().c_str() : NULL;
 }
 
 
@@ -2136,7 +2138,8 @@ LIBSBML_EXTERN
 const char *
 Species_getCompartment (const Species_t *s)
 {
-  return s->isSetCompartment() ? s->getCompartment().c_str() : NULL;
+  return (s != NULL && s->isSetCompartment()) ? 
+                       s->getCompartment().c_str() : NULL;
 }
 
 
@@ -2152,7 +2155,8 @@ LIBSBML_EXTERN
 double
 Species_getInitialAmount (const Species_t *s)
 {
-  return s->getInitialAmount();
+  return (s != NULL) ? s->getInitialAmount() : 
+                       numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -2168,7 +2172,8 @@ LIBSBML_EXTERN
 double
 Species_getInitialConcentration (const Species_t *s)
 {
-  return s->getInitialConcentration();
+  return (s != NULL) ? s->getInitialConcentration() : 
+                       numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -2184,7 +2189,8 @@ LIBSBML_EXTERN
 const char *
 Species_getSubstanceUnits (const Species_t *s)
 {
-  return s->isSetSubstanceUnits() ? s->getSubstanceUnits().c_str() : NULL;
+  return (s != NULL && s->isSetSubstanceUnits()) ? 
+                       s->getSubstanceUnits().c_str() : NULL;
 }
 
 
@@ -2207,7 +2213,8 @@ LIBSBML_EXTERN
 const char *
 Species_getSpatialSizeUnits (const Species_t *s)
 {
-  return s->isSetSpatialSizeUnits() ? s->getSpatialSizeUnits().c_str() : NULL;
+  return (s != NULL && s->isSetSpatialSizeUnits()) ? 
+                       s->getSpatialSizeUnits().c_str() : NULL;
 }
 
 
@@ -2222,7 +2229,7 @@ LIBSBML_EXTERN
 const char *
 Species_getUnits (const Species_t *s)
 {
-  return s->isSetUnits() ? s->getUnits().c_str() : NULL;
+  return (s != NULL && s->isSetUnits()) ? s->getUnits().c_str() : NULL;
 }
 
 
@@ -2238,7 +2245,7 @@ LIBSBML_EXTERN
 int
 Species_getHasOnlySubstanceUnits (const Species_t *s)
 {
-  return static_cast<int>( s->getHasOnlySubstanceUnits() );
+  return (s != NULL) ? static_cast<int>( s->getHasOnlySubstanceUnits() ) : 0;
 }
 
 
@@ -2254,7 +2261,7 @@ LIBSBML_EXTERN
 int
 Species_getBoundaryCondition (const Species_t *s)
 {
-  return static_cast<int>( s->getBoundaryCondition() );
+  return (s != NULL) ? static_cast<int>( s->getBoundaryCondition() ) : 0;
 }
 
 
@@ -2280,7 +2287,7 @@ LIBSBML_EXTERN
 int
 Species_getCharge (const Species_t *s)
 { 
-  return s->getCharge();
+  return (s != NULL) ? s->getCharge() : SBML_INT_MAX;
 }
 
 
@@ -2296,7 +2303,7 @@ LIBSBML_EXTERN
 int
 Species_getConstant (const Species_t *s)
 {
-  return static_cast<int>( s->getConstant() );
+  return (s != NULL) ? static_cast<int>( s->getConstant() ) : 0;
 }
 
 
@@ -2312,7 +2319,8 @@ LIBSBML_EXTERN
 const char *
 Species_getConversionFactor (const Species_t *s)
 {
-  return s->isSetConversionFactor() ? s->getConversionFactor().c_str() : NULL;
+  return (s != NULL && s->isSetConversionFactor()) ? 
+                       s->getConversionFactor().c_str() : NULL;
 }
 
 
@@ -2329,7 +2337,7 @@ LIBSBML_EXTERN
 int
 Species_isSetId (const Species_t *s)
 {
-  return static_cast<int>( s->isSetId() );
+  return (s != NULL) ? static_cast<int>( s->isSetId() ) : 0;
 }
 
 
@@ -2346,7 +2354,7 @@ LIBSBML_EXTERN
 int
 Species_isSetName (const Species_t *s)
 {
-  return static_cast<int>( s->isSetName() );
+  return (s != NULL) ? static_cast<int>( s->isSetName() ) : 0;
 }
 
 
@@ -2363,7 +2371,7 @@ LIBSBML_EXTERN
 int
 Species_isSetSpeciesType (const Species_t *s)
 {
-  return static_cast<int>( s->isSetSpeciesType() );
+  return (s != NULL) ? static_cast<int>( s->isSetSpeciesType() ) : 0;
 }
 
 
@@ -2380,7 +2388,7 @@ LIBSBML_EXTERN
 int
 Species_isSetCompartment (const Species_t *s)
 {
-  return static_cast<int>( s->isSetCompartment() );
+  return (s != NULL) ? static_cast<int>( s->isSetCompartment() ) : 0;
 }
 
 
@@ -2403,7 +2411,7 @@ LIBSBML_EXTERN
 int
 Species_isSetInitialAmount (const Species_t *s)
 {
-  return static_cast<int>( s->isSetInitialAmount() );
+  return (s != NULL) ? static_cast<int>( s->isSetInitialAmount() ) : 0;
 }
 
 
@@ -2420,7 +2428,7 @@ LIBSBML_EXTERN
 int
 Species_isSetInitialConcentration (const Species_t *s)
 {
-  return static_cast<int>( s->isSetInitialConcentration() );
+  return (s != NULL) ? static_cast<int>( s->isSetInitialConcentration() ) : 0;
 }
 
 
@@ -2437,7 +2445,7 @@ LIBSBML_EXTERN
 int
 Species_isSetSubstanceUnits (const Species_t *s)
 {
-  return static_cast<int>( s->isSetSubstanceUnits() );
+  return (s != NULL) ? static_cast<int>( s->isSetSubstanceUnits() ) : 0;
 }
 
 
@@ -2462,7 +2470,7 @@ LIBSBML_EXTERN
 int
 Species_isSetSpatialSizeUnits (const Species_t *s)
 {
-  return static_cast<int>( s->isSetSpatialSizeUnits() );
+  return (s != NULL) ? static_cast<int>( s->isSetSpatialSizeUnits() ) : 0;
 }
 
 
@@ -2480,7 +2488,7 @@ LIBSBML_EXTERN
 int
 Species_isSetUnits (const Species_t *s)
 {
-  return static_cast<int>( s->isSetUnits() );
+  return (s != NULL) ? static_cast<int>( s->isSetUnits() ) : 0;
 }
 
 
@@ -2508,7 +2516,7 @@ LIBSBML_EXTERN
 int
 Species_isSetCharge (const Species_t *s)
 {
-  return static_cast<int>( s->isSetCharge() );
+  return (s != NULL) ? static_cast<int>( s->isSetCharge() ) : 0;
 }
 
 
@@ -2525,7 +2533,7 @@ LIBSBML_EXTERN
 int
 Species_isSetConversionFactor (const Species_t *s)
 {
-  return static_cast<int>( s->isSetConversionFactor() );
+  return (s != NULL) ? static_cast<int>( s->isSetConversionFactor() ) : 0;
 }
 
 
@@ -2542,7 +2550,7 @@ LIBSBML_EXTERN
 int
 Species_isSetConstant (const Species_t *s)
 {
-  return static_cast<int>( s->isSetConstant() );
+  return (s != NULL) ? static_cast<int>( s->isSetConstant() ) : 0;
 }
 
 
@@ -2559,7 +2567,7 @@ LIBSBML_EXTERN
 int
 Species_isSetBoundaryCondition (const Species_t *s)
 {
-  return static_cast<int>( s->isSetBoundaryCondition() );
+  return (s != NULL) ? static_cast<int>( s->isSetBoundaryCondition() ) : 0;
 }
 
 
@@ -2576,7 +2584,7 @@ LIBSBML_EXTERN
 int
 Species_isSetHasOnlySubstanceUnits (const Species_t *s)
 {
-  return static_cast<int>( s->isSetHasOnlySubstanceUnits() );
+  return (s != NULL) ? static_cast<int>( s->isSetHasOnlySubstanceUnits() ) : 0;
 }
 
 
@@ -2605,7 +2613,10 @@ LIBSBML_EXTERN
 int
 Species_setId (Species_t *s, const char *sid)
 {
-  return (sid == NULL) ? s->setId("") : s->setId(sid);
+  if (s != NULL)
+    return (sid == NULL) ? s->setId("") : s->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2633,7 +2644,10 @@ LIBSBML_EXTERN
 int
 Species_setName (Species_t *s, const char *name)
 {
-  return (name == NULL) ? s->unsetName() : s->setName(name);
+  if (s != NULL)
+    return (name == NULL) ? s->unsetName() : s->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2663,7 +2677,10 @@ LIBSBML_EXTERN
 int
 Species_setSpeciesType (Species_t *s, const char *sid)
 {
-  return (sid == NULL) ? s->unsetSpeciesType() : s->setSpeciesType(sid);
+  if (s != NULL)
+    return (sid == NULL) ? s->unsetSpeciesType() : s->setSpeciesType(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2692,7 +2709,10 @@ LIBSBML_EXTERN
 int
 Species_setCompartment (Species_t *s, const char *sid)
 {
-  return (sid == NULL) ? s->setCompartment("") : s->setCompartment(sid);
+  if (s != NULL)
+    return (sid == NULL) ? s->setCompartment("") : s->setCompartment(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2717,7 +2737,10 @@ LIBSBML_EXTERN
 int
 Species_setInitialAmount (Species_t *s, double value)
 {
-  return s->setInitialAmount(value);
+  if (s != NULL)
+    return s->setInitialAmount(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2744,7 +2767,10 @@ LIBSBML_EXTERN
 int
 Species_setInitialConcentration (Species_t *s, double value)
 {
-  return s->setInitialConcentration(value);
+  if (s != NULL)
+    return s->setInitialConcentration(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2773,7 +2799,10 @@ LIBSBML_EXTERN
 int
 Species_setSubstanceUnits (Species_t *s, const char *sid)
 {
-  return (sid == NULL) ? s->unsetSubstanceUnits() : s->setSubstanceUnits(sid);
+  if (s != NULL)
+    return (sid == NULL) ? s->unsetSubstanceUnits() : s->setSubstanceUnits(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2811,7 +2840,11 @@ LIBSBML_EXTERN
 int
 Species_setSpatialSizeUnits (Species_t *s, const char *sid)
 {
-  return (sid == NULL) ? s->unsetSpatialSizeUnits() : s->setSpatialSizeUnits(sid);
+  if (s != NULL)
+    return (sid == NULL) ? s->unsetSpatialSizeUnits() : 
+                           s->setSpatialSizeUnits(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2841,7 +2874,10 @@ LIBSBML_EXTERN
 int
 Species_setUnits (Species_t *s, const char *sname)
 {
-  return (sname == NULL) ? s->unsetUnits() : s->setUnits(sname);
+  if (s != NULL)
+    return (sname == NULL) ? s->unsetUnits() : s->setUnits(sname);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2864,7 +2900,10 @@ LIBSBML_EXTERN
 int
 Species_setHasOnlySubstanceUnits (Species_t *s, int value)
 {
-  return s->setHasOnlySubstanceUnits( static_cast<bool>(value) );
+  if (s != NULL)
+    return s->setHasOnlySubstanceUnits( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2886,7 +2925,10 @@ LIBSBML_EXTERN
 int
 Species_setBoundaryCondition (Species_t *s, int value)
 {
-  return s->setBoundaryCondition( static_cast<bool>(value) );
+  if (s != NULL)
+    return s->setBoundaryCondition( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2920,7 +2962,10 @@ LIBSBML_EXTERN
 int
 Species_setCharge (Species_t *s, int value)
 {
-  return s->setCharge(value);
+  if (s != NULL)
+    return s->setCharge(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2943,7 +2988,10 @@ LIBSBML_EXTERN
 int
 Species_setConstant (Species_t *s, int value)
 {
-  return s->setConstant( static_cast<bool>(value) );
+  if (s != NULL)
+    return s->setConstant( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2973,8 +3021,11 @@ LIBSBML_EXTERN
 int
 Species_setConversionFactor (Species_t *s, const char *sid)
 {
-  return (sid == NULL) ? s->unsetConversionFactor() : 
+  if (s != NULL)
+    return (sid == NULL) ? s->unsetConversionFactor() : 
                          s->setConversionFactor(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2992,7 +3043,10 @@ LIBSBML_EXTERN
 int
 Species_unsetName (Species_t *s)
 {
-  return s->unsetName();
+  if (s != NULL)
+    return s->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3012,7 +3066,10 @@ LIBSBML_EXTERN
 int
 Species_unsetSpeciesType (Species_t *s)
 {
-  return s->unsetSpeciesType();
+  if (s != NULL)
+    return s->unsetSpeciesType();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3031,7 +3088,10 @@ LIBSBML_EXTERN
 int
 Species_unsetInitialAmount (Species_t *s)
 {
-  return s->unsetInitialAmount();
+  if (s != NULL)
+    return s->unsetInitialAmount();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3051,7 +3111,10 @@ LIBSBML_EXTERN
 int
 Species_unsetInitialConcentration (Species_t *s)
 {
-  return s->unsetInitialConcentration();
+  if (s != NULL)
+    return s->unsetInitialConcentration();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3072,7 +3135,10 @@ LIBSBML_EXTERN
 int
 Species_unsetSubstanceUnits (Species_t *s)
 {
-  return s->unsetSubstanceUnits();
+  if (s != NULL)
+    return s->unsetSubstanceUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3101,7 +3167,10 @@ LIBSBML_EXTERN
 int
 Species_unsetSpatialSizeUnits (Species_t *s)
 {
-  return s->unsetSpatialSizeUnits();
+  if (s != NULL)
+    return s->unsetSpatialSizeUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3122,7 +3191,10 @@ LIBSBML_EXTERN
 int
 Species_unsetUnits (Species_t *s)
 {
-  return s->unsetUnits();
+  if (s != NULL)
+    return s->unsetUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3154,7 +3226,10 @@ LIBSBML_EXTERN
 int
 Species_unsetCharge (Species_t *s)
 {
-  return s->unsetCharge();
+  if (s != NULL)
+    return s->unsetCharge();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3174,7 +3249,10 @@ LIBSBML_EXTERN
 int
 Species_unsetConversionFactor (Species_t *s)
 {
-  return s->unsetConversionFactor();
+  if (s != NULL)
+    return s->unsetConversionFactor();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3202,7 +3280,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 Species_getDerivedUnitDefinition(Species_t *s)
 {
-  return s->getDerivedUnitDefinition();
+  return (s != NULL) ? s->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -3228,7 +3306,7 @@ LIBSBML_EXTERN
 int
 Species_hasRequiredAttributes(Species_t *s)
 {
-  return static_cast<int>(s->hasRequiredAttributes());
+  return (s != NULL) ? static_cast<int>(s->hasRequiredAttributes()) : 0;
 }
 
 
@@ -3240,8 +3318,11 @@ LIBSBML_EXTERN
 Species_t *
 ListOfSpecies_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfSpecies *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfSpecies *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -3254,8 +3335,11 @@ LIBSBML_EXTERN
 Species_t *
 ListOfSpecies_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfSpecies *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfSpecies *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 

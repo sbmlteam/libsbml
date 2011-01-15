@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -59,7 +59,7 @@ StoichiometryMath::StoichiometryMath (unsigned int level, unsigned int version) 
 
 StoichiometryMath::StoichiometryMath (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInternalId ( "" )
 {
   if (!hasValidLevelVersionNamespaceCombination())
@@ -92,7 +92,7 @@ StoichiometryMath::~StoichiometryMath ()
  */
 StoichiometryMath::StoichiometryMath (const StoichiometryMath& orig) :
    SBase          ( orig )
- , mMath          ( 0    )
+ , mMath          ( NULL    )
 {
   if (&orig == NULL)
   {
@@ -102,7 +102,7 @@ StoichiometryMath::StoichiometryMath (const StoichiometryMath& orig) :
   {
     mInternalId = orig.mInternalId;
  
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -126,14 +126,14 @@ StoichiometryMath& StoichiometryMath::operator=(const StoichiometryMath& rhs)
     this->mInternalId = rhs.mInternalId;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -178,7 +178,7 @@ StoichiometryMath::getMath () const
 bool
 StoichiometryMath::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -196,7 +196,7 @@ StoichiometryMath::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -206,8 +206,8 @@ StoichiometryMath::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -321,7 +321,7 @@ StoichiometryMath::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -425,14 +425,14 @@ StoichiometryMath::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getInternalId(), getTypeCode())
                                              ->getUnitDefinition();
@@ -475,14 +475,14 @@ StoichiometryMath::containsUndeclaredUnits()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
       m->populateListFormulaUnitsData();
     }
     
-    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+    if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
     {
       return m->getFormulaUnitsData(getInternalId(), getTypeCode())
       ->getContainsUndeclaredUnits();
@@ -610,7 +610,7 @@ LIBSBML_EXTERN
 StoichiometryMath_t *
 StoichiometryMath_clone (const StoichiometryMath_t *stoichMath)
 {
-  return stoichMath->clone();
+  return (stoichMath != NULL) ? stoichMath->clone() : NULL;
 }
 
 
@@ -627,7 +627,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 StoichiometryMath_getNamespaces(StoichiometryMath_t *sm)
 {
-  return sm->getNamespaces();
+  return (sm != NULL) ? sm->getNamespaces() : NULL;
 }
 
 
@@ -638,7 +638,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 StoichiometryMath_getMath (const StoichiometryMath_t *stoichMath)
 {
-  return stoichMath->getMath();
+  return (stoichMath != NULL) ? stoichMath->getMath() : NULL;
 }
 
 
@@ -650,7 +650,7 @@ LIBSBML_EXTERN
 int
 StoichiometryMath_isSetMath (const StoichiometryMath_t *stoichMath)
 {
-  return static_cast<int>( stoichMath->isSetMath() );
+  return (stoichMath != NULL) ? static_cast<int>( stoichMath->isSetMath() ) : 0;
 }
 
 
@@ -668,7 +668,8 @@ LIBSBML_EXTERN
 int
 StoichiometryMath_setMath (StoichiometryMath_t *stoichMath, const ASTNode_t *math)
 {
-  return stoichMath->setMath(math);
+  return (stoichMath != NULL) ? stoichMath->setMath(math) :
+                                LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -705,7 +706,9 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 StoichiometryMath_getDerivedUnitDefinition(StoichiometryMath_t *stoichMath)
 {
-  return static_cast<StoichiometryMath*>(stoichMath)->getDerivedUnitDefinition();
+  return (stoichMath != NULL) ? 
+    static_cast<StoichiometryMath*>(stoichMath)->getDerivedUnitDefinition() :
+    NULL;
 }
 
 
@@ -730,8 +733,9 @@ LIBSBML_EXTERN
 int 
 StoichiometryMath_containsUndeclaredUnits(StoichiometryMath_t *stoichMath)
 {
-  return static_cast<int>(static_cast<StoichiometryMath*>(stoichMath)
-                                         ->containsUndeclaredUnits());
+  return (stoichMath != NULL) ? 
+    static_cast<int>(static_cast<StoichiometryMath*>(stoichMath)
+                                ->containsUndeclaredUnits()) : 0;
 }
 
 

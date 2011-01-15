@@ -555,7 +555,7 @@ UnitDefinition::addUnit (const Unit* u)
 Unit*
 UnitDefinition::createUnit ()
 {
-  Unit* u = 0;
+  Unit* u = NULL;
 
   try
   {
@@ -577,7 +577,7 @@ UnitDefinition::createUnit ()
     mUnits.setParentSBMLObject(this);
   }
   
-  if (u) mUnits.appendAndOwn(u);
+  if (u != NULL) mUnits.appendAndOwn(u);
 
   return u;
 }
@@ -1203,7 +1203,7 @@ std::string
 UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
 {
   std::string unitDef;
-  if (!ud || ud->getNumUnits() == 0)
+  if (ud == NULL || ud->getNumUnits() == 0)
   {
     unitDef = "indeterminable";
   }
@@ -1281,7 +1281,7 @@ UnitDefinition::createObject (XMLInputStream& stream)
     return &mUnits;
   }
   
-  return 0;
+  return NULL;
 }
 /** @endcond */
 
@@ -1495,7 +1495,7 @@ ListOfUnitDefinitions::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqUD(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <UnitDefinition*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <UnitDefinition*> (*result);
 }
 
 
@@ -1511,7 +1511,7 @@ ListOfUnitDefinitions::remove (unsigned int n)
 UnitDefinition*
 ListOfUnitDefinitions::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqUD(sid) );
@@ -1548,7 +1548,7 @@ SBase*
 ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "unitDefinition")
@@ -1568,7 +1568,7 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -1670,7 +1670,7 @@ LIBSBML_EXTERN
 UnitDefinition_t*
 UnitDefinition_clone (const UnitDefinition_t *ud)
 {
-  return static_cast<UnitDefinition_t*>( ud->clone() );
+  return (ud != NULL) ? static_cast<UnitDefinition_t*>( ud->clone() ) : NULL;
 }
 
 
@@ -1687,7 +1687,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 UnitDefinition_getNamespaces(UnitDefinition_t *ud)
 {
-  return ud->getNamespaces();
+  return (ud != NULL) ? ud->getNamespaces() : NULL;
 }
 
 /**
@@ -1701,7 +1701,7 @@ LIBSBML_EXTERN
 const char *
 UnitDefinition_getId (const UnitDefinition_t *ud)
 {
-  return ud->isSetId() ? ud->getId().c_str() : NULL;
+  return (ud != NULL && ud->isSetId()) ? ud->getId().c_str() : NULL;
 }
 
 
@@ -1716,7 +1716,7 @@ LIBSBML_EXTERN
 const char *
 UnitDefinition_getName (const UnitDefinition_t *ud)
 {
-  return ud->isSetName() ? ud->getName().c_str() : NULL;
+  return (ud != NULL && ud->isSetName()) ? ud->getName().c_str() : NULL;
 }
 
 
@@ -1733,7 +1733,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isSetId (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isSetId() );
+  return (ud != NULL) ? static_cast<int>( ud->isSetId() ) : 0;
 }
 
 
@@ -1750,7 +1750,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isSetName (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isSetName() );
+  return (ud != NULL) ? static_cast<int>( ud->isSetName() ) : 0;
 }
 
 
@@ -1768,7 +1768,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfArea() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfArea() ) : 0;
 }
 
 
@@ -1786,7 +1786,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfLength() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfLength() ) : 0;
 }
 
 
@@ -1804,7 +1804,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfSubstance() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfSubstance() ) : 0;
 }
 
 
@@ -1822,7 +1822,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfTime() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfTime() ) : 0;
 }
 
 
@@ -1840,7 +1840,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfVolume() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfVolume() ) : 0;
 }
 
 
@@ -1858,7 +1858,7 @@ LIBSBML_EXTERN
 int 
 UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfDimensionless() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfDimensionless() ) : 0;
 }
 
 
@@ -1876,7 +1876,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfMass() );
+  return (ud != NULL) ? static_cast<int>( ud->isVariantOfMass() ) : 0;
 }
 
 
@@ -1896,7 +1896,8 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfSubstancePerTime (const UnitDefinition_t *ud)
 {
-  return static_cast<int>( ud->isVariantOfSubstancePerTime() );
+  return (ud != NULL) ? 
+    static_cast<int>( ud->isVariantOfSubstancePerTime() ) : 0;
 }
 
 
@@ -1921,7 +1922,10 @@ LIBSBML_EXTERN
 int
 UnitDefinition_setId (UnitDefinition_t *ud, const char *id)
 {
-  return (id == NULL) ? ud->setId("") : ud->setId(id);
+  if (ud != NULL)
+    return (id == NULL) ? ud->setId("") : ud->setId(id);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1946,7 +1950,10 @@ LIBSBML_EXTERN
 int
 UnitDefinition_setName (UnitDefinition_t *ud, const char *name)
 {
-  return (name == NULL) ? ud->unsetName() : ud->setName(name);
+  if (ud != NULL)
+    return (name == NULL) ? ud->unsetName() : ud->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1966,7 +1973,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_unsetName (UnitDefinition_t *ud)
 {
-  return ud->unsetName();
+  return (ud != NULL) ? ud->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -1990,7 +1997,7 @@ LIBSBML_EXTERN
 int
 UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u)
 {
-  return ud->addUnit(u);
+  return (ud != NULL) ? ud->addUnit(u) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2012,7 +2019,7 @@ LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_createUnit (UnitDefinition_t *ud)
 {
-  return ud->createUnit();
+  return (ud != NULL) ? ud->createUnit() : NULL;
 }
 
 
@@ -2027,7 +2034,7 @@ LIBSBML_EXTERN
 ListOf_t *
 UnitDefinition_getListOfUnits (UnitDefinition_t *ud)
 {
-  return ud->getListOfUnits();
+  return (ud != NULL) ? ud->getListOfUnits() : NULL;
 }
 
 
@@ -2046,7 +2053,7 @@ LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n)
 {
-  return ud->getUnit(n);
+  return (ud != NULL) ? ud->getUnit(n) : NULL;
 }
 
 
@@ -2063,7 +2070,7 @@ LIBSBML_EXTERN
 unsigned int
 UnitDefinition_getNumUnits (const UnitDefinition_t *ud)
 {
-  return ud->getNumUnits();
+  return (ud != NULL) ? ud->getNumUnits() : SBML_INT_MAX;
 }
 
 
@@ -2084,8 +2091,10 @@ LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_removeUnit (UnitDefinition_t *ud, unsigned int n)
 {
-  if (!ud) return 0;
-  return ud->removeUnit(n);
+  if (ud != NULL) 
+    return ud->removeUnit(n);
+  else
+    return NULL;
 }
 
 
@@ -2093,37 +2102,48 @@ LIBSBML_EXTERN
 void 
 UnitDefinition_simplify(UnitDefinition_t * ud)
 {
-  UnitDefinition::simplify(static_cast<UnitDefinition*>(ud));
+  if (ud != NULL) 
+    UnitDefinition::simplify(static_cast<UnitDefinition*>(ud));
 }
 
 LIBSBML_EXTERN
 void 
 UnitDefinition_reorder(UnitDefinition_t * ud)
 {
-  UnitDefinition::reorder(static_cast<UnitDefinition*>(ud));
+  if (ud != NULL) 
+    UnitDefinition::reorder(static_cast<UnitDefinition*>(ud));
 }
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
 UnitDefinition_convertToSI(UnitDefinition_t * ud)
 {
-  return UnitDefinition::convertToSI(static_cast<UnitDefinition*>(ud));
+  return (ud != NULL) ? 
+    UnitDefinition::convertToSI(static_cast<UnitDefinition*>(ud)) : NULL;
 }
 
 LIBSBML_EXTERN
 int 
 UnitDefinition_areIdentical(UnitDefinition_t * ud1, UnitDefinition_t * ud2)
 {
-  return static_cast<int>(UnitDefinition::areIdentical(static_cast<UnitDefinition*>(ud1),
+  if (ud1 != NULL && ud2 != NULL)
+    return static_cast<int>
+         (UnitDefinition::areIdentical(static_cast<UnitDefinition*>(ud1),
                                        static_cast<UnitDefinition*>(ud2)));
+  else
+    return 0;
 }
 
 LIBSBML_EXTERN
 int 
 UnitDefinition_areEquivalent(UnitDefinition_t *ud1 , UnitDefinition_t * ud2)
 {
-  return static_cast<int>(UnitDefinition::areEquivalent(static_cast<UnitDefinition*>(ud1),
+  if (ud1 != NULL && ud2 != NULL)
+    return static_cast<int>(
+         UnitDefinition::areEquivalent(static_cast<UnitDefinition*>(ud1),
                                        static_cast<UnitDefinition*>(ud2)));
+  else
+    return 0;
 }
 
 LIBSBML_EXTERN
@@ -2139,8 +2159,9 @@ LIBSBML_EXTERN
 const char *
 UnitDefinition_printUnits(UnitDefinition_t * ud, int compact)
 {
-  return safe_strdup(UnitDefinition::printUnits(static_cast<UnitDefinition*>(ud)
-    , compact).c_str());
+  return (ud != NULL) ? 
+    safe_strdup(UnitDefinition::printUnits(static_cast<UnitDefinition*>(ud)
+    , compact).c_str()) : NULL;
 }
 
 /**
@@ -2151,8 +2172,11 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 ListOfUnitDefinitions_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfUnitDefinitions *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfUnitDefinitions *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2165,8 +2189,11 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 ListOfUnitDefinitions_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfUnitDefinitions *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfUnitDefinitions *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 

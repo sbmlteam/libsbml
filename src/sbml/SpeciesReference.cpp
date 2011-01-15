@@ -626,7 +626,7 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
    SimpleSpeciesReference( level, version)
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
- , mStoichiometryMath    ( 0   )
+ , mStoichiometryMath    ( NULL   )
  , mConstant             (false)
  , mIsSetConstant        (false)
  , mIsSetStoichiometry   (false)
@@ -652,7 +652,7 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
    SimpleSpeciesReference( sbmlns )
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
- , mStoichiometryMath    ( 0             )
+ , mStoichiometryMath    ( NULL             )
  , mConstant             (false)
  , mIsSetConstant        (false)
  , mIsSetStoichiometry   (false)
@@ -700,7 +700,7 @@ SpeciesReference::~SpeciesReference ()
  */
 SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
    SimpleSpeciesReference( orig                )
- , mStoichiometryMath    ( 0                   )
+ , mStoichiometryMath    ( NULL                   )
 {
   if (&orig == NULL)
   {
@@ -714,7 +714,7 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
     mIsSetConstant = orig.mIsSetConstant;
     mIsSetStoichiometry = orig.mIsSetStoichiometry;
 
-    if (orig.mStoichiometryMath)
+    if (orig.mStoichiometryMath != NULL)
     {
       mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
       mStoichiometryMath->setParentSBMLObject(this);
@@ -743,14 +743,14 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
     mIsSetStoichiometry = rhs.mIsSetStoichiometry;
 
     delete mStoichiometryMath;
-    if (rhs.mStoichiometryMath)
+    if (rhs.mStoichiometryMath != NULL)
     {
       mStoichiometryMath = new StoichiometryMath(*rhs.getStoichiometryMath());
       mStoichiometryMath->setParentSBMLObject(this);
     }
     else
     {
-      mStoichiometryMath = 0;
+      mStoichiometryMath = NULL;
     }
   }
 
@@ -770,7 +770,7 @@ SpeciesReference::accept (SBMLVisitor& v) const
 {
   bool result = v.visit(*this);
   
-  if (mStoichiometryMath) mStoichiometryMath->accept(v);
+  if (mStoichiometryMath != NULL) mStoichiometryMath->accept(v);
   
   return result;
 }
@@ -937,8 +937,9 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 
     delete mStoichiometryMath;
     mStoichiometryMath = static_cast<StoichiometryMath*>(math->clone());
-    if (mStoichiometryMath) mStoichiometryMath->setSBMLDocument(mSBML);
-    if (mStoichiometryMath) mStoichiometryMath->setParentSBMLObject(this);
+    if (mStoichiometryMath != NULL) mStoichiometryMath->setSBMLDocument(mSBML);
+    if (mStoichiometryMath != NULL) 
+      mStoichiometryMath->setParentSBMLObject(this);
     
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -983,7 +984,7 @@ int
 SpeciesReference::unsetStoichiometryMath ()
 {
   delete mStoichiometryMath;
-  mStoichiometryMath = 0;
+  mStoichiometryMath = NULL;
 
   if ( getLevel() != 2 )
   {
@@ -1070,7 +1071,7 @@ StoichiometryMath*
 SpeciesReference::createStoichiometryMath ()
 {
   delete mStoichiometryMath;
-  mStoichiometryMath = 0;
+  mStoichiometryMath = NULL;
 
   try
   {
@@ -1085,7 +1086,7 @@ SpeciesReference::createStoichiometryMath ()
      */
   }
 
-  if (mStoichiometryMath)
+  if (mStoichiometryMath != NULL)
   {
     mStoichiometryMath->setSBMLDocument(mSBML);
     mStoichiometryMath->setParentSBMLObject(this);
@@ -1136,7 +1137,7 @@ SpeciesReference::setAnnotation (const XMLNode* annotation)
       // clear existing SBase::mID 
       setId("");
 
-      if(mAnnotation)
+      if(mAnnotation != NULL)
       {
         // parse mAnnotation (if any) and set mId 
         parseSpeciesReferenceAnnotation(mAnnotation,*this);
@@ -1164,7 +1165,7 @@ SpeciesReference::setAnnotation (const std::string& annotation)
   }
 
   XMLNode* annt_xmln;
-  if (getSBMLDocument())
+  if (getSBMLDocument() != NULL)
   {
     XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
@@ -1174,7 +1175,7 @@ SpeciesReference::setAnnotation (const std::string& annotation)
     annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
 
-  if(annt_xmln)
+  if(annt_xmln != NULL)
   {
     success = setAnnotation(annt_xmln);
     delete annt_xmln;
@@ -1192,7 +1193,7 @@ int
 SpeciesReference::appendAnnotation (const XMLNode* annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  if(!annotation) return LIBSBML_OPERATION_SUCCESS;
+  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
 
@@ -1240,7 +1241,7 @@ SpeciesReference::appendAnnotation (const std::string& annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
-  if (getSBMLDocument())
+  if (getSBMLDocument() != NULL)
   {
     XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
@@ -1250,7 +1251,7 @@ SpeciesReference::appendAnnotation (const std::string& annotation)
     annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
 
-  if(annt_xmln)
+  if(annt_xmln != NULL)
   {
     success = appendAnnotation(annt_xmln);
     delete annt_xmln;
@@ -1278,7 +1279,7 @@ SpeciesReference::getElementName () const
 void
 SpeciesReference::sortMath()
 {
-  if (mStoichiometryMath && 
+  if (mStoichiometryMath != NULL && 
     mStoichiometryMath->isSetMath() &&
     mStoichiometryMath->getMath()->isRational())
   {
@@ -1286,7 +1287,7 @@ SpeciesReference::sortMath()
     mDenominator   = mStoichiometryMath->getMath()->getDenominator();
 
     delete mStoichiometryMath;
-    mStoichiometryMath = 0;
+    mStoichiometryMath = NULL;
   }
 }
 
@@ -1359,7 +1360,7 @@ SpeciesReference::createObject (XMLInputStream& stream)
   }
   else
   {
-    return 0;
+    return NULL;
   }
 }
 /** @endcond */
@@ -1453,7 +1454,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 //    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
-    if (mAnnotation)
+    if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -1469,7 +1470,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
-    if (mCVTerms)
+    if (mCVTerms != NULL)
     {
       unsigned int size = mCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
@@ -1670,16 +1671,16 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
 void
 SpeciesReference::writeElements (XMLOutputStream& stream) const
 {
-  if ( mNotes ) stream << *mNotes;
+  if ( mNotes != NULL ) stream << *mNotes;
   SpeciesReference * sr = const_cast <SpeciesReference *> (this);
   sr->syncAnnotation();
-  if ( mAnnotation ) stream << *mAnnotation;
+  if ( mAnnotation != NULL ) stream << *mAnnotation;
 
   if (getLevel() == 2)
   {
     if (mStoichiometryMath || mDenominator != 1)
     {
-      if (mStoichiometryMath) 
+      if (mStoichiometryMath != NULL) 
       {
         mStoichiometryMath->write(stream);
       }
@@ -1713,7 +1714,7 @@ SpeciesReference::syncAnnotation ()
   {
     if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {
-      if(mAnnotation)
+      if(mAnnotation != NULL)
       {
         XMLNode* new_annotation = deleteLayoutIdAnnotation(mAnnotation);
         *mAnnotation = *new_annotation;
@@ -1723,9 +1724,9 @@ SpeciesReference::syncAnnotation ()
       if (this->isSetId())
       {
         XMLNode * idAnnotation = parseLayoutId(this);
-        if (idAnnotation)
+        if (idAnnotation != NULL)
         {
-          if (!mAnnotation)
+          if (mAnnotation == NULL)
           {
             mAnnotation = idAnnotation;
           }
@@ -1864,7 +1865,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
 //    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
-    if (mAnnotation)
+    if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -1880,7 +1881,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
-    if (mCVTerms)
+    if (mCVTerms != NULL)
     {
       unsigned int size = mCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
@@ -1917,15 +1918,18 @@ ModifierSpeciesReference::writeElements (XMLOutputStream& stream) const
   {
     if (this->isSetId())
     {
-      ModifierSpeciesReference * sr = const_cast <ModifierSpeciesReference *> (this);
+      ModifierSpeciesReference * sr = 
+        const_cast <ModifierSpeciesReference *> (this);
       XMLNode * idAnnotation = parseLayoutId(this);
-      if(!mAnnotation)
+      if(mAnnotation == NULL)
       {
-        if (idAnnotation) static_cast <SBase *> (sr)->setAnnotation(idAnnotation);
+        if (idAnnotation != NULL) 
+          static_cast <SBase *> (sr)->setAnnotation(idAnnotation);
       }
       else
       {
-        if (idAnnotation) static_cast <SBase *> (sr)->appendAnnotation(idAnnotation);
+        if (idAnnotation != NULL) 
+          static_cast <SBase *> (sr)->appendAnnotation(idAnnotation);
       }
     }
   }
@@ -2040,7 +2044,7 @@ ListOfSpeciesReferences::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqSR(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <SimpleSpeciesReference*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <SimpleSpeciesReference*> (*result);
 }
 
 
@@ -2056,7 +2060,7 @@ ListOfSpeciesReferences::remove (unsigned int n)
 SimpleSpeciesReference*
 ListOfSpeciesReferences::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqSR(sid) );
@@ -2115,7 +2119,7 @@ SBase*
 ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (mType == Reactant || mType == Product)
@@ -2206,7 +2210,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
     }
   }
 
-  if (object) mItems.push_back(object);
+  if (object != NULL) mItems.push_back(object);
 
   return object;
 }
@@ -2378,7 +2382,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_clone (const SpeciesReference_t *sr)
 {
-  return static_cast<SpeciesReference_t*>( sr->clone() );
+  return (sr != NULL) ? static_cast<SpeciesReference_t*>( sr->clone() ) : NULL;
 }
 
 
@@ -2398,8 +2402,11 @@ LIBSBML_EXTERN
 void
 SpeciesReference_initDefaults (SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return;
-  static_cast<SpeciesReference*>(sr)->initDefaults();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return;
+    static_cast<SpeciesReference*>(sr)->initDefaults();
+  }
 }
 
 
@@ -2416,7 +2423,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 SpeciesReference_getNamespaces(SpeciesReference_t *sr)
 {
-  return sr->getNamespaces();
+  return (sr != NULL) ? sr->getNamespaces() : NULL;
 }
 
 /**
@@ -2432,7 +2439,7 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isModifier (const SpeciesReference_t *sr)
 {
-  return static_cast<int>( sr->isModifier() );
+  return (sr != NULL) ? static_cast<int>( sr->isModifier() ) : 0;
 }
 
 
@@ -2448,7 +2455,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReference_getId (const SpeciesReference_t *sr)
 {
-  return sr->isSetId() ? sr->getId().c_str() : NULL;
+  return (sr != NULL && sr->isSetId()) ? sr->getId().c_str() : NULL;
 }
 
 
@@ -2464,7 +2471,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReference_getName (const SpeciesReference_t *sr)
 {
-  return sr->isSetName() ? sr->getName().c_str() : NULL;
+  return (sr != NULL && sr->isSetName()) ? sr->getName().c_str() : NULL;
 }
 
 
@@ -2480,7 +2487,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReference_getSpecies (const SpeciesReference_t *sr)
 {
-  return sr->isSetSpecies() ? sr->getSpecies().c_str() : NULL;
+  return (sr != NULL && sr->isSetSpecies()) ? sr->getSpecies().c_str() : NULL;
 }
 
 
@@ -2499,8 +2506,13 @@ LIBSBML_EXTERN
 double
 SpeciesReference_getStoichiometry (const SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return 0.0;
-  return static_cast<const SpeciesReference*>(sr)->getStoichiometry();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return 0.0;
+    return static_cast<const SpeciesReference*>(sr)->getStoichiometry();
+  }
+  else
+    return numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -2519,8 +2531,13 @@ LIBSBML_EXTERN
 StoichiometryMath_t *
 SpeciesReference_getStoichiometryMath (SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return NULL;
-  return static_cast<SpeciesReference*>(sr)->getStoichiometryMath();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return NULL;
+    return static_cast<SpeciesReference*>(sr)->getStoichiometryMath();
+  }
+  else
+    return NULL;
 }
 
 
@@ -2550,8 +2567,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_getDenominator (const SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return 0;
-  return static_cast<const SpeciesReference*>(sr)->getDenominator();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return 0;
+    return static_cast<const SpeciesReference*>(sr)->getDenominator();
+  }
+  else
+    return SBML_INT_MAX;
 }
 
 
@@ -2566,8 +2588,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_getConstant (const SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return 0;
-  return static_cast<const SpeciesReference*>(sr)->getConstant();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return 0;
+    return static_cast<const SpeciesReference*>(sr)->getConstant();
+  }
+  else
+    return 0;
 }
 
 
@@ -2585,7 +2612,7 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetId (const SpeciesReference_t *sr)
 {
-  return static_cast<int>( sr->isSetId() );
+  return (sr != NULL) ? static_cast<int>( sr->isSetId() ) : 0;
 }
 
 
@@ -2603,7 +2630,7 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetName (const SpeciesReference_t *sr)
 {
-  return static_cast<int>( sr->isSetName() );
+  return (sr != NULL) ? static_cast<int>( sr->isSetName() ) : 0;
 }
 
 
@@ -2621,7 +2648,7 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetSpecies (const SpeciesReference_t *sr)
 {
-  return static_cast<int>( sr->isSetSpecies() );
+  return (sr != NULL) ? static_cast<int>( sr->isSetSpecies() ) : 0;
 }
 
 
@@ -2642,12 +2669,17 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return 0;
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return 0;
 
-  return static_cast<int>
-  (
-    static_cast<const SpeciesReference*>(sr)->isSetStoichiometryMath()
-  );
+    return static_cast<int>
+    (
+      static_cast<const SpeciesReference*>(sr)->isSetStoichiometryMath()
+    );
+  }
+  else
+    return 0;
 }
 
 
@@ -2665,10 +2697,15 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetStoichiometry (const SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return 0;
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return 0;
 
-  return static_cast<int>( 
-    static_cast<const SpeciesReference*>(sr)->isSetStoichiometry() );
+    return static_cast<int>( 
+      static_cast<const SpeciesReference*>(sr)->isSetStoichiometry() );
+  }
+  else
+    return 0;
 }
 
 
@@ -2686,10 +2723,15 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetConstant (const SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return 0;
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return 0;
 
-  return static_cast<int>
-    (static_cast<const SpeciesReference*>(sr)->isSetConstant() );
+    return static_cast<int>
+      (static_cast<const SpeciesReference*>(sr)->isSetConstant() );
+  }
+  else
+    return 0;
 }
 
 
@@ -2719,7 +2761,10 @@ LIBSBML_EXTERN
 int
 SpeciesReference_setId (SpeciesReference_t *sr, const char *sid)
 {
-  return (sid == NULL) ? sr->unsetId() : sr->setId(sid);
+  if (sr != NULL)
+    return (sid == NULL) ? sr->unsetId() : sr->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2749,7 +2794,10 @@ LIBSBML_EXTERN
 int
 SpeciesReference_setName (SpeciesReference_t *sr, const char *name)
 {
-  return (name == NULL) ? sr->unsetName() : sr->setName(name);
+  if (sr != NULL)
+    return (name == NULL) ? sr->unsetName() : sr->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2778,7 +2826,10 @@ LIBSBML_EXTERN
 int
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid)
 {
-  return sr->setSpecies(sid ? sid : "");
+  if (sr != NULL)
+    return sr->setSpecies(sid != NULL ? sid : "");
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2803,8 +2854,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
 {
-  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  return static_cast<SpeciesReference*>(sr)->setStoichiometry(value);
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return static_cast<SpeciesReference*>(sr)->setStoichiometry(value);
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2812,7 +2868,8 @@ LIBSBML_EXTERN
 StoichiometryMath_t *
 SpeciesReference_createStoichiometryMath (SpeciesReference_t *sr)
 {
-  return static_cast<SpeciesReference*> (sr)->createStoichiometryMath();
+  return (sr != NULL) ? 
+    static_cast<SpeciesReference*> (sr)->createStoichiometryMath() : NULL;
 }
 
 /**
@@ -2841,8 +2898,13 @@ int
 SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
                                        , const StoichiometryMath_t    *math )
 {
-  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  return static_cast<SpeciesReference*>(sr)->setStoichiometryMath(math);
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return static_cast<SpeciesReference*>(sr)->setStoichiometryMath(math);
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2878,8 +2940,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_setDenominator (SpeciesReference_t *sr, int value)
 {
-  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  return static_cast<SpeciesReference*>(sr)->setDenominator(value);
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return static_cast<SpeciesReference*>(sr)->setDenominator(value);
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2901,8 +2968,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_setConstant (SpeciesReference_t *sr, int value)
 {
-  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  return static_cast<SpeciesReference*>(sr)->setConstant(value);
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return static_cast<SpeciesReference*>(sr)->setConstant(value);
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2923,7 +2995,7 @@ LIBSBML_EXTERN
 int
 SpeciesReference_unsetId (SpeciesReference_t *sr)
 {
-  return sr->unsetId();
+  return (sr != NULL) ? sr->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2944,7 +3016,7 @@ LIBSBML_EXTERN
 int
 SpeciesReference_unsetName (SpeciesReference_t *sr)
 {
-  return sr->unsetName();
+  return (sr != NULL) ? sr->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 /**
@@ -2967,8 +3039,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_unsetStoichiometryMath (SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  return static_cast<SpeciesReference*>(sr)->unsetStoichiometryMath();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return static_cast<SpeciesReference*>(sr)->unsetStoichiometryMath();
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2992,8 +3069,13 @@ LIBSBML_EXTERN
 int
 SpeciesReference_unsetStoichiometry (SpeciesReference_t *sr)
 {
-  if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
-  return static_cast<SpeciesReference*>(sr)->unsetStoichiometry();
+  if (sr != NULL)
+  {
+    if (sr->isModifier()) return LIBSBML_UNEXPECTED_ATTRIBUTE;
+    return static_cast<SpeciesReference*>(sr)->unsetStoichiometry();
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -3015,8 +3097,8 @@ LIBSBML_EXTERN
 int
 SpeciesReference_hasRequiredAttributes(SpeciesReference_t *sr)
 {
-  return static_cast<int>(
-    static_cast<SpeciesReference*>(sr)->hasRequiredAttributes());
+  return (sr != NULL) ? static_cast<int>(
+    static_cast<SpeciesReference*>(sr)->hasRequiredAttributes()) : 0;
 }
 
 
@@ -3028,8 +3110,11 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 ListOfSpeciesReferences_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfSpeciesReferences *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfSpeciesReferences *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -3042,8 +3127,11 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 ListOfSpeciesReferences_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfSpeciesReferences *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfSpeciesReferences *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 

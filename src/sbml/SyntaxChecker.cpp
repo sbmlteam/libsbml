@@ -237,7 +237,7 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
   * if a whole html tag has been used
   * or a whole body tag then namespace can be implicitly declared
   */
-  XMLNamespaces *toplevelNS = (sbmlns) ? sbmlns->getNamespaces() : 0;
+  XMLNamespaces *toplevelNS = (sbmlns) ? sbmlns->getNamespaces() : NULL;
   
   unsigned int children = xhtml->getNumChildren();
 
@@ -320,7 +320,7 @@ SyntaxChecker::hasDeclaredNS(const XMLNode& node, const XMLNamespaces* toplevelN
     /* no need to check that element is tagged with XHTML namespace */
     return correctSyntax;
   }
-  else if (toplevelNS)
+  else if (toplevelNS != NULL)
   {
     /* need to check that element is tagged with XHTML namespace */
     if (toplevelNS->getURI(node.getPrefix()) != "http://www.w3.org/1999/xhtml")
@@ -1963,8 +1963,8 @@ int
 SyntaxChecker_hasExpectedXHTMLSyntax(XMLNode_t * node, 
                                      SBMLNamespaces_t * sbmlns)
 {
-  return static_cast<int>
-                        (SyntaxChecker::hasExpectedXHTMLSyntax(node, sbmlns));
+  return (node != NULL) ? static_cast<int>
+    (SyntaxChecker::hasExpectedXHTMLSyntax(node, sbmlns)) : 0;
 }
 
 LIBSBML_CPP_NAMESPACE_END

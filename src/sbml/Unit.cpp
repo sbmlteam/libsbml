@@ -1911,7 +1911,7 @@ SBase*
 ListOfUnits::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "unit")
@@ -1931,7 +1931,7 @@ ListOfUnits::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -2033,7 +2033,7 @@ LIBSBML_EXTERN
 Unit_t *
 Unit_clone (const Unit_t* u)
 {
-  return static_cast<Unit*>( u->clone() );
+  return (u != NULL) ? static_cast<Unit*>( u->clone() ) : NULL;
 }
 
 
@@ -2051,7 +2051,8 @@ LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u)
 {
-  u->initDefaults();
+  if (u != NULL)
+    u->initDefaults();
 }
 
 
@@ -2068,7 +2069,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Unit_getNamespaces(Unit_t *u)
 {
-  return u->getNamespaces();
+  return (u != NULL) ? u->getNamespaces() : NULL;
 }
 
 
@@ -2082,7 +2083,7 @@ LIBSBML_EXTERN
 UnitKind_t
 Unit_getKind (const Unit_t *u)
 {
-  return u->getKind();
+  return (u != NULL) ? u->getKind() : UNIT_KIND_INVALID;
 }
 
 
@@ -2098,7 +2099,7 @@ LIBSBML_EXTERN
 int
 Unit_getExponent (const Unit_t *u)
 {
-  return u->getExponent();
+  return (u != NULL) ? u->getExponent() : SBML_INT_MAX;
 }
 
 
@@ -2114,7 +2115,8 @@ LIBSBML_EXTERN
 double
 Unit_getExponentAsDouble (const Unit_t *u)
 {
-  return u->getExponentAsDouble();
+  return (u != NULL) ? u->getExponentAsDouble() 
+                     : numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -2130,7 +2132,7 @@ LIBSBML_EXTERN
 int
 Unit_getScale (const Unit_t *u)
 {
-  return u->getScale();
+  return (u != NULL) ? u->getScale() : SBML_INT_MAX;
 }
 
 
@@ -2146,7 +2148,8 @@ LIBSBML_EXTERN
 double
 Unit_getMultiplier (const Unit_t *u)
 {
-  return u->getMultiplier();
+  return (u != NULL) ? u->getMultiplier()
+                     : numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -2172,7 +2175,7 @@ LIBSBML_EXTERN
 double
 Unit_getOffset (const Unit_t *u)
 {
-  return u->getOffset();
+  return (u != NULL) ? u->getOffset() : numeric_limits<double>::quiet_NaN();
 }
 
 
@@ -2189,7 +2192,7 @@ LIBSBML_EXTERN
 int
 Unit_isAmpere (const Unit_t *u)
 {
-  return static_cast<int>( u->isAmpere() );
+  return (u != NULL) ? static_cast<int>( u->isAmpere() ) : 0;
 }
 
 
@@ -2206,7 +2209,7 @@ LIBSBML_EXTERN
 int
 Unit_isBecquerel (const Unit_t *u)
 {
-  return static_cast<int>( u->isBecquerel() );
+  return (u != NULL) ? static_cast<int>( u->isBecquerel() ) : 0;
 }
 
 
@@ -2223,7 +2226,7 @@ LIBSBML_EXTERN
 int
 Unit_isCandela (const Unit_t *u)
 {
-  return static_cast<int>( u->isCandela() );
+  return (u != NULL) ? static_cast<int>( u->isCandela() ) : 0;
 }
 
 
@@ -2247,7 +2250,7 @@ LIBSBML_EXTERN
 int
 Unit_isCelsius (const Unit_t *u)
 {
-  return static_cast<int>( u->isCelsius() );
+  return (u != NULL) ? static_cast<int>( u->isCelsius() ) : 0;
 }
 
 
@@ -2264,7 +2267,7 @@ LIBSBML_EXTERN
 int
 Unit_isCoulomb (const Unit_t *u)
 {
-  return static_cast<int>( u->isCoulomb() );
+  return (u != NULL) ? static_cast<int>( u->isCoulomb() ) : 0;
 }
 
 
@@ -2281,7 +2284,7 @@ LIBSBML_EXTERN
 int
 Unit_isDimensionless (const Unit_t *u)
 {
-  return static_cast<int>( u->isDimensionless() );
+  return (u != NULL) ? static_cast<int>( u->isDimensionless() ) : 0;
 }
 
 
@@ -2298,7 +2301,7 @@ LIBSBML_EXTERN
 int
 Unit_isFarad (const Unit_t *u)
 {
-  return static_cast<int>( u->isFarad() );
+  return (u != NULL) ? static_cast<int>( u->isFarad() ) : 0;
 }
 
 
@@ -2315,7 +2318,7 @@ LIBSBML_EXTERN
 int
 Unit_isGram (const Unit_t *u)
 {
-  return static_cast<int>( u->isGram() );
+  return (u != NULL) ? static_cast<int>( u->isGram() ) : 0;
 }
 
 
@@ -2332,7 +2335,7 @@ LIBSBML_EXTERN
 int
 Unit_isGray (const Unit_t *u)
 {
-  return static_cast<int>( u->isGray() );
+  return (u != NULL) ? static_cast<int>( u->isGray() ) : 0;
 }
 
 
@@ -2349,7 +2352,7 @@ LIBSBML_EXTERN
 int
 Unit_isHenry (const Unit_t *u)
 {
-  return static_cast<int>( u->isHenry() );
+  return (u != NULL) ? static_cast<int>( u->isHenry() ) : 0;
 }
 
 
@@ -2366,7 +2369,7 @@ LIBSBML_EXTERN
 int
 Unit_isHertz (const Unit_t *u)
 {
-  return static_cast<int>( u->isHertz() );
+  return (u != NULL) ? static_cast<int>( u->isHertz() ) : 0;
 }
 
 
@@ -2383,7 +2386,7 @@ LIBSBML_EXTERN
 int
 Unit_isItem (const Unit_t *u)
 {
-  return static_cast<int>( u->isItem() );
+  return (u != NULL) ? static_cast<int>( u->isItem() ) : 0;
 }
 
 
@@ -2400,7 +2403,7 @@ LIBSBML_EXTERN
 int
 Unit_isJoule (const Unit_t *u)
 {
-  return static_cast<int>( u->isJoule() );
+  return (u != NULL) ? static_cast<int>( u->isJoule() ) : 0;
 }
 
 
@@ -2417,7 +2420,7 @@ LIBSBML_EXTERN
 int
 Unit_isKatal (const Unit_t *u)
 {
-  return static_cast<int>( u->isKatal() );
+  return (u != NULL) ? static_cast<int>( u->isKatal() ) : 0;
 }
 
 
@@ -2434,7 +2437,7 @@ LIBSBML_EXTERN
 int
 Unit_isKelvin (const Unit_t *u)
 {
-  return static_cast<int>( u->isKelvin() );
+  return (u != NULL) ? static_cast<int>( u->isKelvin() ) : 0;
 }
 
 
@@ -2451,7 +2454,7 @@ LIBSBML_EXTERN
 int
 Unit_isKilogram (const Unit_t *u)
 {
-  return static_cast<int>( u->isKilogram() );
+  return (u != NULL) ? static_cast<int>( u->isKilogram() ) : 0;
 }
 
 
@@ -2468,7 +2471,7 @@ LIBSBML_EXTERN
 int
 Unit_isLitre (const Unit_t *u)
 {
-  return static_cast<int>( u->isLitre() );
+  return (u != NULL) ? static_cast<int>( u->isLitre() ) : 0;
 }
 
 
@@ -2485,7 +2488,7 @@ LIBSBML_EXTERN
 int
 Unit_isLumen (const Unit_t *u)
 {
-  return static_cast<int>( u->isLumen() );
+  return (u != NULL) ? static_cast<int>( u->isLumen() ) : 0;
 }
 
 
@@ -2502,7 +2505,7 @@ LIBSBML_EXTERN
 int
 Unit_isLux (const Unit_t *u)
 {
-  return static_cast<int>( u->isLux() );
+  return (u != NULL) ? static_cast<int>( u->isLux() ) : 0;
 }
 
 
@@ -2519,7 +2522,7 @@ LIBSBML_EXTERN
 int
 Unit_isMetre (const Unit_t *u)
 {
-  return static_cast<int>( u->isMetre() );
+  return (u != NULL) ? static_cast<int>( u->isMetre() ) : 0;
 }
 
 
@@ -2536,7 +2539,7 @@ LIBSBML_EXTERN
 int
 Unit_isMole (const Unit_t *u)
 {
-  return static_cast<int>( u->isMole() );
+  return (u != NULL) ? static_cast<int>( u->isMole() ) : 0;
 }
 
 
@@ -2553,7 +2556,7 @@ LIBSBML_EXTERN
 int
 Unit_isNewton (const Unit_t *u)
 {
-  return static_cast<int>( u->isNewton() );
+  return (u != NULL) ? static_cast<int>( u->isNewton() ) : 0;
 }
 
 
@@ -2570,7 +2573,7 @@ LIBSBML_EXTERN
 int
 Unit_isOhm (const Unit_t *u)
 {
-  return static_cast<int>( u->isOhm() );
+  return (u != NULL) ? static_cast<int>( u->isOhm() ) : 0;
 }
 
 
@@ -2587,7 +2590,7 @@ LIBSBML_EXTERN
 int
 Unit_isPascal (const Unit_t *u)
 {
-  return static_cast<int>( u->isPascal() );
+  return (u != NULL) ? static_cast<int>( u->isPascal() ) : 0;
 }
 
 
@@ -2604,7 +2607,7 @@ LIBSBML_EXTERN
 int
 Unit_isRadian (const Unit_t *u)
 {
-  return static_cast<int>( u->isRadian() );
+  return (u != NULL) ? static_cast<int>( u->isRadian() ) : 0;
 }
 
 
@@ -2621,7 +2624,7 @@ LIBSBML_EXTERN
 int
 Unit_isSecond (const Unit_t *u)
 {
-  return static_cast<int>( u->isSecond() );
+  return (u != NULL) ? static_cast<int>( u->isSecond() ) : 0;
 }
 
 
@@ -2638,7 +2641,7 @@ LIBSBML_EXTERN
 int
 Unit_isSiemens (const Unit_t *u)
 {
-  return static_cast<int>( u->isSiemens() );
+  return (u != NULL) ? static_cast<int>( u->isSiemens() ) : 0;
 }
 
 
@@ -2655,7 +2658,7 @@ LIBSBML_EXTERN
 int
 Unit_isSievert (const Unit_t *u)
 {
-  return static_cast<int>( u->isSievert() );
+  return (u != NULL) ? static_cast<int>( u->isSievert() ) : 0;
 }
 
 
@@ -2672,7 +2675,7 @@ LIBSBML_EXTERN
 int
 Unit_isSteradian (const Unit_t *u)
 {
-  return static_cast<int>( u->isSteradian() );
+  return (u != NULL) ? static_cast<int>( u->isSteradian() ) : 0;
 }
 
 
@@ -2689,7 +2692,7 @@ LIBSBML_EXTERN
 int
 Unit_isTesla (const Unit_t *u)
 {
-  return static_cast<int>( u->isTesla() );
+  return (u != NULL) ? static_cast<int>( u->isTesla() ) : 0;
 }
 
 
@@ -2706,7 +2709,7 @@ LIBSBML_EXTERN
 int
 Unit_isVolt (const Unit_t *u)
 {
-  return static_cast<int>( u->isVolt() );
+  return (u != NULL) ? static_cast<int>( u->isVolt() ) : 0;
 }
 
 
@@ -2723,7 +2726,7 @@ LIBSBML_EXTERN
 int
 Unit_isWatt (const Unit_t *u)
 {
-  return static_cast<int>( u->isWatt() );
+  return (u != NULL) ? static_cast<int>( u->isWatt() ) : 0;
 }
 
 
@@ -2740,7 +2743,7 @@ LIBSBML_EXTERN
 int
 Unit_isWeber (const Unit_t *u)
 {
-  return static_cast<int>( u->isWeber() );
+  return (u != NULL) ? static_cast<int>( u->isWeber() ) : 0;
 }
 
 
@@ -2757,7 +2760,7 @@ LIBSBML_EXTERN
 int
 Unit_isSetKind (const Unit_t *u)
 {
-  return static_cast<int>( u->isSetKind() );
+  return (u != NULL) ? static_cast<int>( u->isSetKind() ) : 0;
 }
 
 
@@ -2774,7 +2777,7 @@ LIBSBML_EXTERN
 int
 Unit_isSetExponent (const Unit_t *u)
 {
-  return static_cast<int>( u->isSetExponent() );
+  return (u != NULL) ? static_cast<int>( u->isSetExponent() ) : 0;
 }
 
 
@@ -2791,7 +2794,7 @@ LIBSBML_EXTERN
 int
 Unit_isSetMultiplier (const Unit_t *u)
 {
-  return static_cast<int>( u->isSetMultiplier() );
+  return (u != NULL) ? static_cast<int>( u->isSetMultiplier() ) : 0;
 }
 
 
@@ -2808,7 +2811,7 @@ LIBSBML_EXTERN
 int
 Unit_isSetScale (const Unit_t *u)
 {
-  return static_cast<int>( u->isSetScale() );
+  return (u != NULL) ? static_cast<int>( u->isSetScale() ) : 0;
 }
 
 
@@ -2830,7 +2833,7 @@ LIBSBML_EXTERN
 int
 Unit_setKind (Unit_t *u, UnitKind_t kind)
 {
-  return u->setKind(kind);
+  return (u != NULL) ? u->setKind(kind) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2850,7 +2853,7 @@ LIBSBML_EXTERN
 int
 Unit_setExponent (Unit_t *u, int value)
 {
-  return u->setExponent(value);
+  return (u != NULL) ? u->setExponent(value) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2870,7 +2873,7 @@ LIBSBML_EXTERN
 int
 Unit_setExponentAsDouble (Unit_t *u, double value)
 {
-  return u->setExponent(value);
+  return (u != NULL) ? u->setExponent(value) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2890,7 +2893,7 @@ LIBSBML_EXTERN
 int
 Unit_setScale (Unit_t *u, int value)
 {
-  return u->setScale(value);
+  return (u != NULL) ? u->setScale(value) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2911,7 +2914,7 @@ LIBSBML_EXTERN
 int
 Unit_setMultiplier (Unit_t *u, double value)
 {
-  return u->setMultiplier(value);
+  return (u != NULL) ? u->setMultiplier(value) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2941,7 +2944,7 @@ LIBSBML_EXTERN
 int
 Unit_setOffset (Unit_t *u, double value)
 {
-  return u->setOffset(value);
+  return (u != NULL) ? u->setOffset(value) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2963,7 +2966,7 @@ LIBSBML_EXTERN
 int
 Unit_hasRequiredAttributes(Unit_t *u)
 {
-  return static_cast <int> (u->hasRequiredAttributes());
+  return (u != NULL) ? static_cast <int> (u->hasRequiredAttributes()) : 0;
 }
 
 
@@ -2990,38 +2993,46 @@ LIBSBML_EXTERN
 int 
 Unit_areIdentical(Unit_t * unit1, Unit_t * unit2)
 {
-  return static_cast<int>(Unit::areIdentical(
-    static_cast<Unit*>(unit1), static_cast<Unit*>(unit2)));
+  if (unit1 != NULL && unit2 != NULL)
+    return static_cast<int>(Unit::areIdentical(
+      static_cast<Unit*>(unit1), static_cast<Unit*>(unit2)));
+  else
+    return 0;
 }
 
 LIBSBML_EXTERN
 int
 Unit_areEquivalent(Unit_t * unit1, Unit_t * unit2)
 {
-  return static_cast<int>(Unit::areEquivalent(
-    static_cast<Unit*>(unit1), static_cast<Unit*>(unit2)));
+  if (unit1 != NULL && unit2 != NULL)
+    return static_cast<int>(Unit::areEquivalent(
+      static_cast<Unit*>(unit1), static_cast<Unit*>(unit2)));
+  else
+    return 0;
 }
 
 LIBSBML_EXTERN
 int 
 Unit_removeScale(Unit_t * unit)
 {
-  return Unit::removeScale(static_cast<Unit*>(unit));
+  return (unit != NULL) ? Unit::removeScale(static_cast<Unit*>(unit)) 
+                        : LIBSBML_INVALID_OBJECT;
 }
 
 LIBSBML_EXTERN
 void 
 Unit_merge(Unit_t * unit1, Unit_t * unit2)
 {
-  Unit::merge(static_cast<Unit*>(unit1), static_cast<Unit*>(unit2));
+  if (unit1 != NULL && unit2 != NULL)
+    Unit::merge(static_cast<Unit*>(unit1), static_cast<Unit*>(unit2));
 }
 
 LIBSBML_EXTERN
 UnitDefinition_t * 
 Unit_convertToSI(Unit_t * unit)
 {
-  return static_cast<UnitDefinition_t*>(Unit::convertToSI(
-    static_cast<Unit*>(unit)));
+  return (unit != NULL) ? static_cast<UnitDefinition_t*>(Unit::convertToSI(
+    static_cast<Unit*>(unit))) : NULL;
 }
 
 /** @endcond */

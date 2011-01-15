@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 Trigger::Trigger (unsigned int level, unsigned int version) :
    SBase ( level, version )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInitialValue      ( true )
  , mPersistent        ( true )
  , mIsSetInitialValue ( false )
@@ -62,7 +62,7 @@ Trigger::Trigger (unsigned int level, unsigned int version) :
 
 Trigger::Trigger (SBMLNamespaces * sbmlns) :
    SBase ( sbmlns )
- , mMath      ( 0              )
+ , mMath      ( NULL              )
  , mInitialValue      ( true )
  , mPersistent        ( true )
  , mIsSetInitialValue ( false )
@@ -98,7 +98,7 @@ Trigger::~Trigger ()
  */
 Trigger::Trigger (const Trigger& orig) :
    SBase          ( orig )
- , mMath          ( 0    )
+ , mMath          ( NULL    )
 {
   if (&orig == NULL)
   {
@@ -111,7 +111,7 @@ Trigger::Trigger (const Trigger& orig) :
     mIsSetInitialValue = orig.mIsSetInitialValue;
     mIsSetPersistent   = orig.mIsSetPersistent;
 
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -138,14 +138,14 @@ Trigger& Trigger::operator=(const Trigger& rhs)
     this->mIsSetPersistent   = rhs.mIsSetPersistent;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
   }
 
@@ -210,7 +210,7 @@ Trigger::getPersistent () const
 bool
 Trigger::isSetMath () const
 {
-  return (mMath != 0);
+  return (mMath != NULL);
 }
 
 
@@ -248,7 +248,7 @@ Trigger::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(math->isWellFormedASTNode()))
@@ -258,8 +258,8 @@ Trigger::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -424,7 +424,7 @@ Trigger::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -446,7 +446,7 @@ Trigger::readOtherXML (XMLInputStream& stream)
 
     delete mMath;
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -742,7 +742,7 @@ LIBSBML_EXTERN
 Trigger_t *
 Trigger_clone (const Trigger_t *t)
 {
-  return t->clone();
+  return (t != NULL) ? t->clone() : NULL;
 }
 
 
@@ -759,7 +759,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Trigger_getNamespaces(Trigger_t *t)
 {
-  return t->getNamespaces();
+  return (t != NULL) ? t->getNamespaces() : NULL;
 }
 
 /**
@@ -769,7 +769,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Trigger_getMath (const Trigger_t *t)
 {
-  return t->getMath();
+  return (t != NULL) ? t->getMath() : NULL;
 }
 
 
@@ -785,7 +785,7 @@ LIBSBML_EXTERN
 int
 Trigger_getInitialValue (const Trigger_t *t)
 {
-  return static_cast<int>(t->getInitialValue());
+  return (t != NULL) ? static_cast<int>(t->getInitialValue()) : 0;
 }
 
 
@@ -801,7 +801,7 @@ LIBSBML_EXTERN
 int
 Trigger_getPersistent (const Trigger_t *t)
 {
-  return static_cast<int>(t->getPersistent());
+  return (t != NULL) ? static_cast<int>(t->getPersistent()) : 0;
 }
 
 
@@ -813,7 +813,7 @@ LIBSBML_EXTERN
 int
 Trigger_isSetMath (const Trigger_t *t)
 {
-  return static_cast<int>( t->isSetMath() );
+  return (t != NULL) ? static_cast<int>( t->isSetMath() ) : 0;
 }
 
 
@@ -829,7 +829,7 @@ LIBSBML_EXTERN
 int
 Trigger_isSetInitialValue (const Trigger_t *t)
 {
-  return static_cast<int>( t->isSetInitialValue() );
+  return (t != NULL) ? static_cast<int>( t->isSetInitialValue() ) : 0;
 }
 
 
@@ -845,7 +845,7 @@ LIBSBML_EXTERN
 int
 Trigger_isSetPersistent (const Trigger_t *t)
 {
-  return static_cast<int>( t->isSetPersistent() );
+  return (t != NULL) ? static_cast<int>( t->isSetPersistent() ) : 0;
 }
 
 
@@ -863,7 +863,7 @@ LIBSBML_EXTERN
 int
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 {
-  return t->setMath(math);
+  return (t != NULL) ? t->setMath(math) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -884,7 +884,8 @@ LIBSBML_EXTERN
 int
 Trigger_setInitialValue (Trigger_t *t, int initialValue)
 {
-  return t->setInitialValue( static_cast<bool>(initialValue) );
+  return (t != NULL) ? t->setInitialValue( static_cast<bool>(initialValue) )
+    : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -905,7 +906,8 @@ LIBSBML_EXTERN
 int
 Trigger_setPersistent (Trigger_t *t, int persistent)
 {
-  return t->setPersistent( static_cast<bool>(persistent) );
+  return (t != NULL) ? t->setPersistent( static_cast<bool>(persistent) )
+    : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -922,7 +924,7 @@ LIBSBML_EXTERN
 int
 Trigger_hasRequiredAttributes (Trigger_t *t)
 {
-  return static_cast <int> (t->hasRequiredAttributes());
+  return (t != NULL) ? static_cast <int> (t->hasRequiredAttributes()) : 0;
 }
 
 
@@ -939,7 +941,7 @@ LIBSBML_EXTERN
 int
 Trigger_hasRequiredElements (Trigger_t *t)
 {
-  return static_cast <int> (t->hasRequiredElements() );
+  return (t != NULL) ? static_cast <int> (t->hasRequiredElements() ) : 0;
 }
 
 
