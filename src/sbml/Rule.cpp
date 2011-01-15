@@ -57,7 +57,7 @@ Rule::Rule (SBMLTypeCode_t type, unsigned int level, unsigned int version)
  :
    SBase   ( level, version)
  , mFormula( ""  )
- , mMath   (  0       )
+ , mMath   (  NULL       )
  , mType   ( type     )
  , mL1Type ( SBML_UNKNOWN )
  , mInternalId ( "" )
@@ -67,7 +67,7 @@ Rule::Rule (SBMLTypeCode_t type, unsigned int level, unsigned int version)
 Rule::Rule (SBMLTypeCode_t type, SBMLNamespaces * sbmlns) :
    SBase   ( sbmlns )
  , mFormula( ""       )
- , mMath   (  0       )
+ , mMath   (  NULL       )
  , mType   ( type     )
  , mL1Type ( SBML_UNKNOWN )
  , mInternalId ( "" )
@@ -111,7 +111,7 @@ Rule::~Rule ()
  */
 Rule::Rule (const Rule& orig) :
    SBase   ( orig          )
- , mMath   ( 0            )
+ , mMath   ( NULL            )
 {
   if (&orig == NULL)
   {
@@ -126,7 +126,7 @@ Rule::Rule (const Rule& orig) :
     mL1Type     = orig.mL1Type  ;
     mInternalId = orig.mInternalId;
 
-    if (orig.mMath) 
+    if (orig.mMath != NULL) 
     {
       mMath = orig.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
@@ -155,14 +155,14 @@ Rule& Rule::operator=(const Rule& rhs)
     mInternalId = rhs.mInternalId;
 
     delete mMath;
-    if (rhs.mMath) 
+    if (rhs.mMath != NULL) 
     {
       mMath = rhs.mMath->deepCopy();
       mMath->setParentSBMLObject(this);
     }
     else
     {
-      mMath = 0;
+      mMath = NULL;
     }
    
   }
@@ -201,7 +201,7 @@ Rule::clone () const
 const string&
 Rule::getFormula () const
 {
-  if (mFormula.empty() == true && mMath != 0)
+  if (mFormula.empty() == true && mMath != NULL)
   {
     char* s  = SBML_formulaToString(mMath);
     mFormula = s;
@@ -219,7 +219,7 @@ Rule::getFormula () const
 const ASTNode*
 Rule::getMath () const
 {
-  if (mMath == 0 && mFormula.empty() == false)
+  if (mMath == NULL && mFormula.empty() == false)
   {
     mMath = SBML_parseFormula( mFormula.c_str() );
   }
@@ -255,7 +255,7 @@ Rule::getUnits () const
 bool
 Rule::isSetFormula () const
 {
-  return (mFormula.empty() == false) || (mMath != 0);
+  return (mFormula.empty() == false) || (mMath != NULL);
 }
 
 
@@ -324,7 +324,7 @@ Rule::setFormula (const std::string& formula)
     {
       mFormula.erase();
       delete mMath;
-      mMath = 0;
+      mMath = NULL;
       return LIBSBML_OPERATION_SUCCESS;
     }
     else if (math == NULL || !(math->isWellFormedASTNode()))
@@ -335,10 +335,10 @@ Rule::setFormula (const std::string& formula)
     {
       mFormula = formula;
 
-      if (mMath)
+      if (mMath != NULL)
       {
         delete mMath;
-        mMath = 0;
+        mMath = NULL;
       }
       return LIBSBML_OPERATION_SUCCESS;
     }
@@ -359,7 +359,7 @@ Rule::setMath (const ASTNode* math)
   else if (math == NULL)
   {
     delete mMath;
-    mMath = 0;
+    mMath = NULL;
     mFormula.erase();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -370,8 +370,8 @@ Rule::setMath (const ASTNode* math)
   else
   {
     delete mMath;
-    mMath = (math != 0) ? math->deepCopy() : 0;
-    if (mMath) mMath->setParentSBMLObject(this);
+    mMath = (math != NULL) ? math->deepCopy() : NULL;
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     mFormula.erase();
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -479,7 +479,7 @@ Rule::getDerivedUnitDefinition()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -488,7 +488,7 @@ Rule::getDerivedUnitDefinition()
     
     if (isAlgebraic())
     {
-      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
       {
         return m->getFormulaUnitsData(getInternalId(), getTypeCode())
                                                ->getUnitDefinition();
@@ -500,7 +500,7 @@ Rule::getDerivedUnitDefinition()
     }
     else
     {
-      if (m->getFormulaUnitsData(getVariable(), getTypeCode()))
+      if (m->getFormulaUnitsData(getVariable(), getTypeCode()) != NULL)
       {
         return m->getFormulaUnitsData(getVariable(), getTypeCode())
                                               ->getUnitDefinition();
@@ -545,7 +545,7 @@ Rule::containsUndeclaredUnits()
    */
   Model * m = static_cast <Model *> (getAncestorOfType(SBML_MODEL));
 
-  if (m)
+  if (m != NULL)
   {
     if (!m->isPopulatedListFormulaUnitsData())
     {
@@ -554,7 +554,7 @@ Rule::containsUndeclaredUnits()
     
     if (isAlgebraic())
     {
-      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()))
+      if (m->getFormulaUnitsData(getInternalId(), getTypeCode()) != NULL)
       {
         return m->getFormulaUnitsData(getInternalId(), getTypeCode())
           ->getContainsUndeclaredUnits();
@@ -566,7 +566,7 @@ Rule::containsUndeclaredUnits()
     }
     else
     {
-      if (m->getFormulaUnitsData(getVariable(), getTypeCode()))
+      if (m->getFormulaUnitsData(getVariable(), getTypeCode()) != NULL)
       {
         return m->getFormulaUnitsData(getVariable(), getTypeCode())
           ->getContainsUndeclaredUnits();
@@ -638,7 +638,7 @@ Rule::isCompartmentVolume () const
   else
   {
     const Model* model = getModel();
-    return (model == 0) ? false : model->getCompartment( getVariable() ) != 0;
+    return (model == NULL) ? false : model->getCompartment( getVariable() ) != NULL;
   }
 }
 
@@ -656,7 +656,7 @@ Rule::isParameter () const
   else
   {
     const Model* model = getModel();
-    return (model == 0) ? false : model->getParameter( getVariable() ) != 0;
+    return (model == NULL) ? false : model->getParameter( getVariable() ) != NULL;
   }
 }
 
@@ -697,7 +697,7 @@ Rule::isSpeciesConcentration () const
   else
   {
     const Model* model = getModel();
-    return (model == 0) ? false : model->getSpecies( getVariable() ) != 0;
+    return (model == NULL) ? false : model->getSpecies( getVariable() ) != NULL;
   }
 }
 
@@ -844,7 +844,7 @@ Rule::readOtherXML (XMLInputStream& stream)
       return false;
     }
 
-    if (mMath)
+    if (mMath != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -867,7 +867,7 @@ Rule::readOtherXML (XMLInputStream& stream)
     const std::string prefix = checkMathMLNamespace(elem);
 
     mMath = readMathML(stream, prefix);
-    if (mMath) mMath->setParentSBMLObject(this);
+    if (mMath != NULL) mMath->setParentSBMLObject(this);
     read  = true;
   }
 
@@ -1270,7 +1270,7 @@ AlgebraicRule::AlgebraicRule (SBMLNamespaces * sbmlns) :
 
 /* constructor for validators */
 AlgebraicRule::AlgebraicRule() :
-  Rule(SBML_ALGEBRAIC_RULE, 0)
+  Rule(SBML_ALGEBRAIC_RULE, NULL)
 {
 }
 
@@ -1359,7 +1359,7 @@ AssignmentRule::AssignmentRule (SBMLNamespaces *sbmlns) :
 
 /* constructor for validators */
 AssignmentRule::AssignmentRule() :
-  Rule(SBML_ASSIGNMENT_RULE, 0)
+  Rule(SBML_ASSIGNMENT_RULE, NULL)
 {
 }
 
@@ -1428,7 +1428,7 @@ RateRule::RateRule (SBMLNamespaces *sbmlns) :
 
 /* constructor for validators */
 RateRule::RateRule() :
-  Rule(SBML_RATE_RULE, 0)
+  Rule(SBML_RATE_RULE, NULL)
 {
 }
 
@@ -1557,7 +1557,7 @@ ListOfRules::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Rule*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <Rule*> (*result);
 }
 
 
@@ -1573,7 +1573,7 @@ ListOfRules::remove (unsigned int n)
 Rule*
 ListOfRules::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqRule(sid) );
@@ -1611,7 +1611,7 @@ ListOfRules::createObject (XMLInputStream& stream)
 {
   const unsigned int level  = getLevel();
   const string&      name   = stream.peek().getName();
-  Rule*              object = 0;
+  Rule*              object = NULL;
 
 
   if (name == "algebraicRule")
@@ -1685,7 +1685,7 @@ ListOfRules::createObject (XMLInputStream& stream)
       else
       {
         delete object;
-        object = 0;
+        object = NULL;
       }
     }
   }
@@ -1962,7 +1962,7 @@ LIBSBML_EXTERN
 Rule_t *
 Rule_clone (const Rule_t *r)
 {
-  return static_cast<Rule*>( r->clone() );
+  return  (r != NULL) ? static_cast<Rule*>( r->clone() ) : NULL;
 }
 
 
@@ -1979,7 +1979,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Rule_getNamespaces(Rule_t *r)
 {
-  return r->getNamespaces();
+  return (r != NULL) ? r->getNamespaces() : NULL;
 }
 
 /**
@@ -1999,7 +1999,7 @@ LIBSBML_EXTERN
 const char *
 Rule_getFormula (const Rule_t *r)
 {
-  return r->isSetFormula() ? r->getFormula().c_str() : NULL;
+  return (r != NULL && r->isSetFormula()) ? r->getFormula().c_str() : NULL;
 }
 
 
@@ -2010,7 +2010,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Rule_getMath (const Rule_t *r)
 {
-  return r->getMath();
+  return (r != NULL) ? r->getMath() : NULL;
 }
 
 
@@ -2022,7 +2022,7 @@ LIBSBML_EXTERN
 RuleType_t
 Rule_getType (const Rule_t *r)
 {
-  return r->getType();
+  return (r != NULL) ? r->getType() : RULE_TYPE_INVALID ;
 }
 
 
@@ -2033,7 +2033,7 @@ LIBSBML_EXTERN
 const char *
 Rule_getVariable (const Rule_t *r)
 {
-  return r->isSetVariable() ? r->getVariable().c_str() : NULL;
+  return (r != NULL && r->isSetVariable()) ? r->getVariable().c_str() : NULL;
 }
 
 
@@ -2044,7 +2044,7 @@ LIBSBML_EXTERN
 const char *
 Rule_getUnits (const Rule_t *r)
 {
-  return r->isSetUnits() ? r->getUnits().c_str() : NULL;
+  return (r != NULL && r->isSetUnits()) ? r->getUnits().c_str() : NULL;
 }
 
 
@@ -2066,7 +2066,7 @@ LIBSBML_EXTERN
 int
 Rule_isSetFormula (const Rule_t *r)
 {
-  return static_cast<int>( r->isSetFormula() );
+  return (r != NULL) ? static_cast<int>( r->isSetFormula() ) : 0;
 }
 
 
@@ -2078,7 +2078,7 @@ LIBSBML_EXTERN
 int
 Rule_isSetMath (const Rule_t *r)
 {
-  return static_cast<int>( r->isSetMath() );
+  return (r != NULL) ? static_cast<int>( r->isSetMath() ) : 0;
 }
 
 
@@ -2090,7 +2090,7 @@ LIBSBML_EXTERN
 int
 Rule_isSetVariable (const Rule_t *r)
 {
-  return static_cast<int>( r->isSetVariable() );
+  return (r != NULL) ? static_cast<int>( r->isSetVariable() ) : 0;
 }
 
 
@@ -2102,7 +2102,7 @@ LIBSBML_EXTERN
 int
 Rule_isSetUnits (const Rule_t *r)
 {
-  return static_cast<int>( r->isSetUnits() );
+  return (r != NULL) ? static_cast<int>( r->isSetUnits() ) : 0;
 }
 
 
@@ -2130,7 +2130,10 @@ LIBSBML_EXTERN
 int
 Rule_setFormula (Rule_t *r, const char *formula)
 {
-  return (formula == NULL) ? r->setMath(0) : r->setFormula(formula);
+  if (r != NULL)
+    return (formula == NULL) ? r->setMath(NULL) : r->setFormula(formula);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2148,7 +2151,10 @@ LIBSBML_EXTERN
 int
 Rule_setMath (Rule_t *r, const ASTNode_t *math)
 {
-  return r->setMath(math);
+  if (r != NULL)
+    return r->setMath(math);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2170,7 +2176,10 @@ LIBSBML_EXTERN
 int
 Rule_setVariable (Rule_t *r, const char *sid)
 {
-  return (sid == NULL) ? r->setVariable("") : r->setVariable(sid);
+  if (r != NULL)
+    return (sid == NULL) ? r->setVariable("") : r->setVariable(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2193,7 +2202,10 @@ LIBSBML_EXTERN
 int
 Rule_setUnits (Rule_t *r, const char *sname)
 {
-  return (sname == NULL) ? r->unsetUnits() : r->setUnits(sname);
+  if (r != NULL)
+    return (sname == NULL) ? r->unsetUnits() : r->setUnits(sname);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2211,7 +2223,10 @@ LIBSBML_EXTERN
 int
 Rule_unsetUnits (Rule_t *r)
 {
-  return r->unsetUnits();
+  if (r != NULL)
+    return r->unsetUnits();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2223,7 +2238,7 @@ LIBSBML_EXTERN
 int
 Rule_isAlgebraic (const Rule_t *r)
 {
-  return static_cast<int>( r->isAlgebraic() );
+  return (r != NULL) ? static_cast<int>( r->isAlgebraic() ) : 0;
 }
 
 
@@ -2235,7 +2250,7 @@ LIBSBML_EXTERN
 int
 Rule_isAssignment (const Rule_t *r)
 {
-  return static_cast<int>( r->isAssignment() );
+  return (r != NULL) ? static_cast<int>( r->isAssignment() ) : 0;
 }
 
 
@@ -2250,7 +2265,7 @@ LIBSBML_EXTERN
 int
 Rule_isCompartmentVolume (const Rule_t *r)
 {
-  return static_cast<int>( r->isCompartmentVolume() );
+  return (r != NULL) ? static_cast<int>( r->isCompartmentVolume() ) : 0;
 }
 
 
@@ -2265,7 +2280,7 @@ LIBSBML_EXTERN
 int
 Rule_isParameter (const Rule_t *r)
 {
-  return static_cast<int>( r->isParameter() );
+  return (r != NULL) ? static_cast<int>( r->isParameter() ) : 0;
 }
 
 
@@ -2277,7 +2292,7 @@ LIBSBML_EXTERN
 int
 Rule_isRate (const Rule_t *r)
 {
-  return static_cast<int>( r->isRate() );
+  return (r != NULL) ? static_cast<int>( r->isRate() ) : 0;
 }
 
 
@@ -2289,7 +2304,7 @@ LIBSBML_EXTERN
 int
 Rule_isScalar (const Rule_t *r)
 {
-  return static_cast<int>( r->isScalar() );
+  return (r != NULL) ? static_cast<int>( r->isScalar() ) : 0;
 }
 
 
@@ -2304,7 +2319,7 @@ LIBSBML_EXTERN
 int
 Rule_isSpeciesConcentration (const Rule_t *r)
 {
-  return static_cast<int>( r->isSpeciesConcentration() );
+  return (r != NULL) ? static_cast<int>( r->isSpeciesConcentration() ) : 0;
 }
 
 
@@ -2316,7 +2331,7 @@ LIBSBML_EXTERN
 SBMLTypeCode_t
 Rule_getTypeCode (const Rule_t *r)
 {
-  return r->getTypeCode();
+  return (r != NULL) ? r->getTypeCode() : SBML_UNKNOWN;
 }
 
 
@@ -2328,7 +2343,7 @@ LIBSBML_EXTERN
 SBMLTypeCode_t
 Rule_getL1TypeCode (const Rule_t *r)
 {
-  return r->getL1TypeCode();
+  return (r != NULL) ? r->getL1TypeCode() : SBML_UNKNOWN;
 }
 
 /**
@@ -2351,7 +2366,7 @@ LIBSBML_EXTERN
 int
 Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type)
 {
-  return r->setL1TypeCode(L1Type);
+  return (r != NULL) ? r->setL1TypeCode(L1Type) : LIBSBML_INVALID_OBJECT;
 }
 
 /**
@@ -2378,7 +2393,7 @@ LIBSBML_EXTERN
 UnitDefinition_t * 
 Rule_getDerivedUnitDefinition(Rule_t *r)
 {
-  return r->getDerivedUnitDefinition();
+  return (r != NULL) ? r->getDerivedUnitDefinition() : NULL;
 }
 
 
@@ -2401,7 +2416,7 @@ LIBSBML_EXTERN
 int 
 Rule_containsUndeclaredUnits(Rule_t *r)
 {
-  return static_cast<int>(r->containsUndeclaredUnits());
+  return (r != NULL) ? static_cast<int>(r->containsUndeclaredUnits()) : 0;
 }
 
 
@@ -2413,8 +2428,11 @@ LIBSBML_EXTERN
 Rule_t *
 ListOfRules_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfRules *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+      return (sid != NULL) ? 
+      static_cast <ListOfRules *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2427,8 +2445,11 @@ LIBSBML_EXTERN
 Rule_t *
 ListOfRules_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfRules *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfRules *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 /** @endcond */

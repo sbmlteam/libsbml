@@ -63,7 +63,7 @@ GetSpeciesRef (ListOf& items, const string& species)
     else if (sr->getId() == species) return sr;
   }
 
-  return 0;
+  return NULL;
 }
 
 
@@ -82,7 +82,7 @@ Reaction::Reaction (unsigned int level, unsigned int version) :
    SBase ( level, version )
  , mId        ( ""       )
  , mName      ( ""       )
- , mKineticLaw( 0        )
+ , mKineticLaw( NULL        )
  , mReversible( true     )
  , mFast      ( false    )
  , mIsSetFast ( false    )
@@ -109,7 +109,7 @@ Reaction::Reaction (SBMLNamespaces * sbmlns) :
    SBase      ( sbmlns   )
  , mId        ( ""       )
  , mName      ( ""       )
- , mKineticLaw( 0        )
+ , mKineticLaw( NULL        )
  , mReversible( true     )
  , mFast      ( false    )
  , mIsSetFast ( false    )
@@ -156,7 +156,7 @@ Reaction::~Reaction ()
  */
 Reaction::Reaction (const Reaction& orig) :
     SBase      ( orig )
-  , mKineticLaw( 0    )
+  , mKineticLaw( NULL    )
 {
   if (&orig == NULL)
   {
@@ -191,7 +191,7 @@ Reaction::Reaction (const Reaction& orig) :
       mModifiers.setParentSBMLObject(this);
     }
 
-    if (orig.mKineticLaw)
+    if (orig.mKineticLaw != NULL)
     {
       mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
       mKineticLaw->setParentSBMLObject(this);
@@ -237,14 +237,14 @@ Reaction& Reaction::operator=(const Reaction& rhs)
     }
 
     delete mKineticLaw;
-    if (rhs.mKineticLaw)
+    if (rhs.mKineticLaw != NULL)
     {
       mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
       mKineticLaw->setParentSBMLObject(this);
     }
     else
     {
-      mKineticLaw = 0;
+      mKineticLaw = NULL;
     }
   }
 
@@ -268,7 +268,7 @@ Reaction::accept (SBMLVisitor& v) const
   mProducts .accept(v);
   mModifiers.accept(v);
 
-  if (mKineticLaw) mKineticLaw->accept(v);
+  if (mKineticLaw != NULL) mKineticLaw->accept(v);
 
   v.leave(*this);
 
@@ -422,7 +422,7 @@ Reaction::isSetName () const
 bool
 Reaction::isSetKineticLaw () const
 {
-  return (mKineticLaw != 0);
+  return (mKineticLaw != NULL);
 }
 
 
@@ -540,7 +540,7 @@ Reaction::setKineticLaw (const KineticLaw* kl)
   else if (kl == NULL)
   {
     delete mKineticLaw;
-    mKineticLaw = 0;
+    mKineticLaw = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (getLevel() != kl->getLevel())
@@ -556,8 +556,8 @@ Reaction::setKineticLaw (const KineticLaw* kl)
     delete mKineticLaw;
     mKineticLaw = static_cast<KineticLaw*>( kl->clone() );
 
-    if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
-    if (mKineticLaw) mKineticLaw->setParentSBMLObject(this);
+    if (mKineticLaw != NULL) mKineticLaw->setSBMLDocument(mSBML);
+    if (mKineticLaw != NULL) mKineticLaw->setParentSBMLObject(this);
     
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -652,7 +652,7 @@ int
 Reaction::unsetKineticLaw ()
 {
   delete mKineticLaw;
-  mKineticLaw = 0;
+  mKineticLaw = NULL;
 
   if (mKineticLaw == NULL) 
   {
@@ -857,7 +857,7 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
 SpeciesReference*
 Reaction::createReactant ()
 {
-  SpeciesReference* sr = 0;
+  SpeciesReference* sr = NULL;
 
   try
   {
@@ -879,7 +879,7 @@ Reaction::createReactant ()
     mReactants.setParentSBMLObject(this);
   }
 
-  if (sr) mReactants.appendAndOwn(sr);
+  if (sr != NULL) mReactants.appendAndOwn(sr);
 
   return sr;
 }
@@ -892,7 +892,7 @@ Reaction::createReactant ()
 SpeciesReference*
 Reaction::createProduct ()
 {
-  SpeciesReference* sr = 0;
+  SpeciesReference* sr = NULL;
 
   try
   {
@@ -914,7 +914,7 @@ Reaction::createProduct ()
     mProducts.setParentSBMLObject(this);
   }
   
-  if (sr) mProducts.appendAndOwn(sr);
+  if (sr != NULL) mProducts.appendAndOwn(sr);
 
   return sr;
 }
@@ -927,7 +927,7 @@ Reaction::createProduct ()
 ModifierSpeciesReference*
 Reaction::createModifier ()
 {
-  ModifierSpeciesReference* sr = 0;
+  ModifierSpeciesReference* sr = NULL;
 
   try
   {
@@ -949,7 +949,7 @@ Reaction::createModifier ()
     mModifiers.setParentSBMLObject(this);
   }
   
-  if (sr) mModifiers.appendAndOwn(sr);
+  if (sr != NULL) mModifiers.appendAndOwn(sr);
 
   return sr;
 }
@@ -963,7 +963,7 @@ KineticLaw*
 Reaction::createKineticLaw ()
 {
   delete mKineticLaw;
-  mKineticLaw = 0;
+  mKineticLaw = NULL;
 
   try
   {
@@ -978,7 +978,7 @@ Reaction::createKineticLaw ()
      */
   }
 
-  if (mKineticLaw)
+  if (mKineticLaw != NULL)
   {
     mKineticLaw->setSBMLDocument(mSBML);
     mKineticLaw->setParentSBMLObject(this);
@@ -1239,7 +1239,7 @@ Reaction::removeReactant (const std::string& species)
     if (sr->getSpecies() == species) 
       return static_cast<SpeciesReference*>(mReactants.remove(n));
   }
-  return 0;
+  return NULL;
 }
 
 
@@ -1269,7 +1269,7 @@ Reaction::removeProduct (const std::string& species)
     if (sr->getSpecies() == species) 
       return static_cast<SpeciesReference*>(mProducts.remove(n));
   }
-  return 0;
+  return NULL;
 }
 
 
@@ -1299,7 +1299,7 @@ Reaction::removeModifier (const std::string& species)
     if (sr->getSpecies() == species) 
       return static_cast<ModifierSpeciesReference*>(mModifiers.remove(n));
   }
-  return 0;
+  return NULL;
 }
 
 
@@ -1317,7 +1317,7 @@ Reaction::setSBMLDocument (SBMLDocument* d)
   mProducts .setSBMLDocument(d);
   mModifiers.setSBMLDocument(d);
 
-  if (mKineticLaw) mKineticLaw->setSBMLDocument(d);
+  if (mKineticLaw != NULL) mKineticLaw->setSBMLDocument(d);
 }
 
 
@@ -1391,7 +1391,7 @@ SBase*
 Reaction::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
 
   if (name == "listOfReactants")
@@ -1434,7 +1434,7 @@ Reaction::createObject (XMLInputStream& stream)
   }
   else if (name == "kineticLaw")
   {
-    if (mKineticLaw)
+    if (mKineticLaw != NULL)
     {
       if (getLevel() < 3)
         logError(NotSchemaConformant);
@@ -1820,7 +1820,7 @@ Reaction::writeElements (XMLOutputStream& stream) const
 
   if (level > 1 && getNumModifiers () > 0) mModifiers.write(stream);
 
-  if (mKineticLaw) mKineticLaw->write(stream);
+  if (mKineticLaw != NULL) mKineticLaw->write(stream);
 }
 /** @endcond */
 
@@ -1902,7 +1902,7 @@ ListOfReactions::get (const std::string& sid) const
   vector<SBase*>::const_iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
-  return (result == mItems.end()) ? 0 : static_cast <Reaction*> (*result);
+  return (result == mItems.end()) ? NULL : static_cast <Reaction*> (*result);
 }
 
 
@@ -1918,7 +1918,7 @@ ListOfReactions::remove (unsigned int n)
 Reaction*
 ListOfReactions::remove (const std::string& sid)
 {
-  SBase* item = 0;
+  SBase* item = NULL;
   vector<SBase*>::iterator result;
 
   result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
@@ -1955,7 +1955,7 @@ SBase*
 ListOfReactions::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
-  SBase*        object = 0;
+  SBase*        object = NULL;
 
   if (name == "reaction")
   {
@@ -1974,7 +1974,7 @@ ListOfReactions::createObject (XMLInputStream& stream)
         SBMLDocument::getDefaultVersion());
     }
     
-    if (object) mItems.push_back(object);
+    if (object != NULL) mItems.push_back(object);
   }
 
   return object;
@@ -2068,7 +2068,7 @@ LIBSBML_EXTERN
 Reaction_t *
 Reaction_clone (const Reaction_t *r)
 {
-  return static_cast<Reaction*>( r->clone() );
+  return (r != NULL) ? static_cast<Reaction*>( r->clone() ) : NULL;
 }
 
 
@@ -2082,7 +2082,8 @@ LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r)
 {
-  r->initDefaults();
+  if (r != NULL)
+    r->initDefaults();
 }
 
 
@@ -2099,7 +2100,7 @@ LIBSBML_EXTERN
 const XMLNamespaces_t *
 Reaction_getNamespaces(Reaction_t *r)
 {
-  return r->getNamespaces();
+  return (r != NULL) ? r->getNamespaces() : NULL;
 }
 
 /**
@@ -2109,7 +2110,7 @@ LIBSBML_EXTERN
 const char *
 Reaction_getId (const Reaction_t *r)
 {
-  return r->isSetId() ? r->getId().c_str() : NULL;
+  return (r != NULL && r->isSetId()) ? r->getId().c_str() : NULL;
 }
 
 
@@ -2120,7 +2121,7 @@ LIBSBML_EXTERN
 const char *
 Reaction_getName (const Reaction_t *r)
 {
-  return r->isSetName() ? r->getName().c_str() : NULL;
+  return (r != NULL && r->isSetName()) ? r->getName().c_str() : NULL;
 }
 
 
@@ -2131,7 +2132,7 @@ LIBSBML_EXTERN
 KineticLaw_t *
 Reaction_getKineticLaw (Reaction_t *r)
 {
-  return r->getKineticLaw();
+  return (r != NULL) ? r->getKineticLaw() : NULL;
 }
 
 
@@ -2142,7 +2143,7 @@ LIBSBML_EXTERN
 int
 Reaction_getReversible (const Reaction_t *r)
 {
-  return static_cast<int>( r->getReversible() );
+  return (r != NULL) ? static_cast<int>( r->getReversible() ) : 0;
 }
 
 
@@ -2153,7 +2154,7 @@ LIBSBML_EXTERN
 int
 Reaction_getFast (const Reaction_t *r)
 {
-  return static_cast<int>( r->getFast() );
+  return (r != NULL) ? static_cast<int>( r->getFast() ) : 0;
 }
 
 
@@ -2164,7 +2165,8 @@ LIBSBML_EXTERN
 const char *
 Reaction_getCompartment (const Reaction_t *r)
 {
-  return r->isSetCompartment() ? r->getCompartment().c_str() : NULL;
+  return (r != NULL && r->isSetCompartment()) ? 
+                       r->getCompartment().c_str() : NULL;
 }
 
 
@@ -2176,7 +2178,7 @@ LIBSBML_EXTERN
 int
 Reaction_isSetId (const Reaction_t *r)
 {
-  return static_cast<int>( r->isSetId() );
+  return (r != NULL) ? static_cast<int>( r->isSetId() ) : 0;
 }
 
 
@@ -2188,7 +2190,7 @@ LIBSBML_EXTERN
 int
 Reaction_isSetName (const Reaction_t *r)
 {
-  return static_cast<int>( r->isSetName() );
+  return (r != NULL) ? static_cast<int>( r->isSetName() ) : 0;
 }
 
 
@@ -2200,7 +2202,7 @@ LIBSBML_EXTERN
 int
 Reaction_isSetKineticLaw (const Reaction_t *r)
 {
-  return static_cast<int>( r->isSetKineticLaw() );
+  return (r != NULL) ? static_cast<int>( r->isSetKineticLaw() ) : 0;
 }
 
 
@@ -2216,7 +2218,7 @@ LIBSBML_EXTERN
 int
 Reaction_isSetFast (const Reaction_t *r)
 {
-  return static_cast<int>( r->isSetFast() );
+  return (r != NULL) ? static_cast<int>( r->isSetFast() ) : 0;
 }
 
 
@@ -2228,7 +2230,7 @@ LIBSBML_EXTERN
 int
 Reaction_isSetCompartment (const Reaction_t *r)
 {
-  return static_cast<int>( r->isSetCompartment() );
+  return (r != NULL) ? static_cast<int>( r->isSetCompartment() ) : 0;
 }
 
 
@@ -2240,7 +2242,7 @@ LIBSBML_EXTERN
 int
 Reaction_isSetReversible (const Reaction_t *r)
 {
-  return static_cast<int>( r->isSetReversible() );
+  return (r != NULL) ? static_cast<int>( r->isSetReversible() ) : 0;
 }
 
 
@@ -2261,7 +2263,10 @@ LIBSBML_EXTERN
 int
 Reaction_setId (Reaction_t *r, const char *sid)
 {
-  return (sid == NULL) ? r->setId("") : r->setId(sid);
+  if (r != NULL)
+    return (sid == NULL) ? r->setId("") : r->setId(sid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2282,7 +2287,10 @@ LIBSBML_EXTERN
 int
 Reaction_setName (Reaction_t *r, const char *name)
 {
-  return (name == NULL) ? r->unsetName() : r->setName(name);
+  if (r != NULL)
+    return (name == NULL) ? r->unsetName() : r->setName(name);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2301,7 +2309,10 @@ LIBSBML_EXTERN
 int
 Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl)
 {
-  return (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
+  if (r != NULL)
+    return (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2318,7 +2329,10 @@ LIBSBML_EXTERN
 int
 Reaction_setReversible (Reaction_t *r, int value)
 {
-  return r->setReversible( static_cast<bool>(value) );
+  if (r != NULL)
+    return r->setReversible( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2335,7 +2349,10 @@ LIBSBML_EXTERN
 int
 Reaction_setFast (Reaction_t *r, int value)
 {
-  return r->setFast( static_cast<bool>(value) );
+  if (r != NULL)
+    return r->setFast( static_cast<bool>(value) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2357,8 +2374,11 @@ LIBSBML_EXTERN
 int
 Reaction_setCompartment (Reaction_t *r, const char *compartment)
 {
-  return (compartment == NULL) ? r->unsetCompartment() : 
+  if (r != NULL)
+    return (compartment == NULL) ? r->unsetCompartment() : 
                                  r->setCompartment(compartment);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2376,7 +2396,10 @@ LIBSBML_EXTERN
 int
 Reaction_unsetName (Reaction_t *r)
 {
-  return r->unsetName();
+  if (r != NULL)
+    return r->unsetName();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2395,7 +2418,10 @@ LIBSBML_EXTERN
 int
 Reaction_unsetCompartment (Reaction_t *r)
 {
-  return r->unsetCompartment();
+  if (r != NULL)
+    return r->unsetCompartment();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2413,7 +2439,10 @@ LIBSBML_EXTERN
 int
 Reaction_unsetKineticLaw (Reaction_t *r)
 {
-  return r->unsetKineticLaw();
+  if (r != NULL)
+    return r->unsetKineticLaw();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2435,7 +2464,10 @@ LIBSBML_EXTERN
 int
 Reaction_unsetFast (Reaction_t *r)
 {
-  return r->unsetFast();
+  if (r != NULL)
+    return r->unsetFast();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2458,7 +2490,7 @@ LIBSBML_EXTERN
 int
 Reaction_hasRequiredAttributes(Reaction_t *r)
 {
-  return static_cast<int>(r->hasRequiredAttributes());
+  return (r != NULL) ? static_cast<int>(r->hasRequiredAttributes()) : 0;
 }
 
 
@@ -2478,7 +2510,10 @@ LIBSBML_EXTERN
 int
 Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
 {
-  return r->addReactant( static_cast<const SpeciesReference*>(sr) );
+  if (r != NULL)
+    return r->addReactant( static_cast<const SpeciesReference*>(sr) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2498,7 +2533,10 @@ LIBSBML_EXTERN
 int
 Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
 {
-  return r->addProduct( static_cast<const SpeciesReference*>(sr) );
+  if (r != NULL)
+    return r->addProduct( static_cast<const SpeciesReference*>(sr) );
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2520,14 +2558,19 @@ LIBSBML_EXTERN
 int
 Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr)
 {
-  if (msr == NULL || msr->isModifier())
+  if (r != NULL)
   {
-    return r->addModifier(static_cast<const ModifierSpeciesReference*>(msr) );
+    if (msr == NULL || msr->isModifier())
+    {
+      return r->addModifier(static_cast<const ModifierSpeciesReference*>(msr) );
+    }
+    else
+    {
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    }
   }
   else
-  {
-    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-  }
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -2539,7 +2582,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createReactant (Reaction_t *r)
 {
-  return r->createReactant();
+  return (r != NULL) ? r->createReactant() : NULL;
 }
 
 
@@ -2551,7 +2594,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createProduct (Reaction_t *r)
 {
-  return r->createProduct();
+  return (r != NULL) ? r->createProduct() : NULL;
 }
 
 
@@ -2563,7 +2606,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createModifier (Reaction_t *r)
 {
-  return r->createModifier();
+  return (r != NULL) ? r->createModifier() : NULL;
 }
 
 
@@ -2575,7 +2618,7 @@ LIBSBML_EXTERN
 KineticLaw_t *
 Reaction_createKineticLaw (Reaction_t *r)
 {
-  return r->createKineticLaw();
+  return (r != NULL) ? r->createKineticLaw() : NULL;
 }
 
 
@@ -2586,7 +2629,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfReactants (Reaction_t *r)
 {
-  return r->getListOfReactants();
+  return (r != NULL) ? r->getListOfReactants() : NULL;
 }
 
 
@@ -2597,7 +2640,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfProducts (Reaction_t *r)
 {
-  return r->getListOfProducts();
+  return (r != NULL) ? r->getListOfProducts() : NULL;
 }
 
 
@@ -2608,7 +2651,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfModifiers (Reaction_t *r)
 {
-  return r->getListOfModifiers();
+  return (r != NULL) ? r->getListOfModifiers() : NULL;
 }
 
 
@@ -2619,7 +2662,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getReactant (Reaction_t *r, unsigned int n)
 {
-  return r->getReactant(n);
+  return (r != NULL) ? r->getReactant(n) : NULL;
 }
 
 
@@ -2631,7 +2674,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getReactantBySpecies (Reaction_t *r, const char *species)
 {
-  return (species != NULL) ? r->getReactant(species) : NULL;
+  return (r != NULL && species != NULL) ? r->getReactant(species) : NULL;
 }
 
 
@@ -2642,7 +2685,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getProduct (Reaction_t *r, unsigned int n)
 {
-  return r->getProduct(n);
+  return (r != NULL) ? r->getProduct(n) : NULL;
 }
 
 
@@ -2654,7 +2697,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getProductBySpecies (Reaction_t *r, const char *species)
 {
-  return (species != NULL) ? r->getProduct(species) : NULL;
+  return (r != NULL && species != NULL) ? r->getProduct(species) : NULL;
 }
 
 
@@ -2665,7 +2708,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getModifier (Reaction_t *r, unsigned int n)
 {
-  return r->getModifier(n);
+  return (r != NULL) ? r->getModifier(n) : NULL;
 }
 
 
@@ -2677,7 +2720,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getModifierBySpecies (Reaction_t *r, const char *species)
 {
-  return (species != NULL) ? r->getModifier(species) : NULL;
+  return (r != NULL &&  species != NULL) ? r->getModifier(species) : NULL;
 }
 
 /**
@@ -2687,7 +2730,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumReactants (const Reaction_t *r)
 {
-  return r->getNumReactants();
+  return (r != NULL) ? r->getNumReactants() : SBML_INT_MAX;
 }
 
 
@@ -2698,7 +2741,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumProducts (const Reaction_t *r)
 {
-  return r->getNumProducts();
+  return (r != NULL) ? r->getNumProducts() : SBML_INT_MAX;
 }
 
 
@@ -2710,7 +2753,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumModifiers (const Reaction_t *r)
 {
-  return r->getNumModifiers();
+  return (r != NULL) ? r->getNumModifiers() : SBML_INT_MAX;
 }
 
 
@@ -2731,8 +2774,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeReactant (Reaction_t *r, unsigned int n)
 {
-  if (!r) return 0;
-  return r->removeReactant(n);
+  return (r != NULL) ? r->removeReactant(n) : NULL;
 }
 
 
@@ -2756,8 +2798,10 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeReactantBySpecies (Reaction_t *r, const char *species)
 {
-  if (!r) return 0;
-  return r->removeReactant(species);
+  if (r != NULL)
+    return (species != NULL) ? r->removeReactant(species) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2778,8 +2822,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeProduct (Reaction_t *r, unsigned int n)
 {
-  if (!r) return 0;
-  return r->removeProduct(n);
+  return (r != NULL) ? r->removeProduct(n) : NULL;
 }
 
 
@@ -2803,8 +2846,10 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeProductBySpecies (Reaction_t *r, const char *species)
 {
-  if (!r) return 0;
-  return r->removeProduct(species);
+  if (r != NULL)
+    return (species != NULL) ? r->removeProduct(species) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2825,8 +2870,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeModifier (Reaction_t *r, unsigned int n)
 {
-  if (!r) return 0;
-  return r->removeModifier(n);
+  return (r != NULL) ? r->removeModifier(n) : NULL;
 }
 
 
@@ -2850,8 +2894,10 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_removeModifierBySpecies (Reaction_t *r, const char *species)
 {
-  if (!r) return 0;
-  return r->removeModifier(species);
+  if (r != NULL)
+    return (species != NULL) ? r->removeModifier(species) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2863,8 +2909,11 @@ LIBSBML_EXTERN
 Reaction_t *
 ListOfReactions_getById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfReactions *> (lo)->get(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfReactions *> (lo)->get(sid) : NULL;
+  else
+    return NULL;
 }
 
 
@@ -2877,8 +2926,11 @@ LIBSBML_EXTERN
 Reaction_t *
 ListOfReactions_removeById (ListOf_t *lo, const char *sid)
 {
-  return (sid != NULL) ? 
-    static_cast <ListOfReactions *> (lo)->remove(sid) : NULL;
+  if (lo != NULL)
+    return (sid != NULL) ? 
+      static_cast <ListOfReactions *> (lo)->remove(sid) : NULL;
+  else
+    return NULL;
 }
 
 LIBSBML_CPP_NAMESPACE_END
