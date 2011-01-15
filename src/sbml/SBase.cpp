@@ -73,16 +73,16 @@ SBMLConstructorException::SBMLConstructorException(std::string message):
  * Only subclasses may create SBase objects.
  */
 SBase::SBase (const std::string& id, const std::string& name, int sbo) :
-   mNotes     ( 0 )
- , mAnnotation( 0 )
- , mSBML      ( 0 )
- , mSBMLNamespaces (0)
+   mNotes     ( NULL )
+ , mAnnotation( NULL )
+ , mSBML      ( NULL )
+ , mSBMLNamespaces (NULL)
  , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
- , mParentSBMLObject (0)
- , mCVTerms   ( 0 )
- , mHistory   ( 0 )
+ , mParentSBMLObject (NULL)
+ , mCVTerms   ( NULL )
+ , mHistory   ( NULL )
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
@@ -97,16 +97,16 @@ SBase::SBase (const std::string& id, const std::string& name, int sbo) :
  * Only subclasses may create SBase objects.
  */
 SBase::SBase (unsigned int level, unsigned int version) :
-   mNotes     ( 0 )
- , mAnnotation( 0 )
- , mSBML      ( 0 )
- , mSBMLNamespaces (0)
+   mNotes     ( NULL )
+ , mAnnotation( NULL )
+ , mSBML      ( NULL )
+ , mSBMLNamespaces (NULL)
  , mSBOTerm   ( -1 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
- , mParentSBMLObject (0)
- , mCVTerms   ( 0 )
- , mHistory   ( 0 )
+ , mParentSBMLObject (NULL)
+ , mCVTerms   ( NULL )
+ , mHistory   ( NULL )
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
@@ -120,16 +120,16 @@ SBase::SBase (unsigned int level, unsigned int version) :
  * Only subclasses may create SBase objects.
  */
 SBase::SBase (SBMLNamespaces *sbmlns) :
-   mNotes     ( 0 )
- , mAnnotation( 0 )
- , mSBML      ( 0 )
- , mSBMLNamespaces (0)
+   mNotes     ( NULL )
+ , mAnnotation( NULL )
+ , mSBML      ( NULL )
+ , mSBMLNamespaces (NULL)
  , mSBOTerm   ( -1 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
- , mParentSBMLObject (0)
- , mCVTerms   ( 0 )
- , mHistory   ( 0 )
+ , mParentSBMLObject (NULL)
+ , mCVTerms   ( NULL )
+ , mHistory   ( NULL )
  , mHasBeenDeleted (false)
  , mEmptyString ("")
 {
@@ -153,15 +153,15 @@ SBase::SBase(const SBase& orig)
   }
   this->mMetaId = orig.mMetaId;
 
-  if(orig.mNotes) 
+  if(orig.mNotes != NULL) 
     this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
   else
-    this->mNotes = 0;
+    this->mNotes = NULL;
   
-  if(orig.mAnnotation) 
+  if(orig.mAnnotation != NULL) 
     this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
   else
-    this->mAnnotation = 0;
+    this->mAnnotation = NULL;
  
   /* the copy does not contain a pointer to the document since technically
    * a copy is not part of the document
@@ -176,13 +176,13 @@ SBase::SBase(const SBase& orig)
    * the copy will end up with the wrong namespace information
    * need to use the default namespace NOT the namespace local to the object
    */
-  if(orig.getSBMLNamespaces())
+  if(orig.getSBMLNamespaces() != NULL)
     this->mSBMLNamespaces = 
     new SBMLNamespaces(*const_cast<SBase&>(orig).getSBMLNamespaces());
   else
-    this->mSBMLNamespaces = 0;
+    this->mSBMLNamespaces = NULL;
 
-  if(orig.mCVTerms)
+  if(orig.mCVTerms != NULL)
   {
     this->mCVTerms  = new List();
     unsigned int i,iMax = orig.mCVTerms->getSize();
@@ -194,16 +194,16 @@ SBase::SBase(const SBase& orig)
   }
   else
   {
-    this->mCVTerms = 0;
+    this->mCVTerms = NULL;
   }
 
-  if (orig.mHistory)
+  if (orig.mHistory != NULL)
   {
     this->mHistory = orig.mHistory->clone();
   }
   else
   {
-    this->mHistory = 0;
+    this->mHistory = NULL;
   }
 
   this->mHasBeenDeleted = false;
@@ -217,16 +217,16 @@ SBase::SBase(const SBase& orig)
  */
 SBase::~SBase ()
 {
-  if (mNotes)       delete mNotes;
-  if (mAnnotation)  delete mAnnotation;
-  if (mSBMLNamespaces)  delete mSBMLNamespaces;
-  if (mCVTerms)
+  if (mNotes != NULL)       delete mNotes;
+  if (mAnnotation != NULL)  delete mAnnotation;
+  if (mSBMLNamespaces != NULL)  delete mSBMLNamespaces;
+  if (mCVTerms != NULL)
   {  
     unsigned int size = mCVTerms->getSize();
     while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
     delete mCVTerms;
   }
-  if (mHistory) delete mHistory;
+  if (mHistory != NULL) delete mHistory;
   mHasBeenDeleted = true;
 }
 
@@ -245,17 +245,17 @@ SBase& SBase::operator=(const SBase& rhs)
 
     delete this->mNotes;
 
-    if(rhs.mNotes) 
+    if(rhs.mNotes != NULL) 
       this->mNotes = new XMLNode(*const_cast<SBase&>(rhs).getNotes());
     else
-      this->mNotes = 0;
+      this->mNotes = NULL;
 
     delete this->mAnnotation;
 
-    if(rhs.mAnnotation) 
+    if(rhs.mAnnotation != NULL) 
       this->mAnnotation = new XMLNode(*const_cast<SBase&>(rhs).mAnnotation);
     else
-      this->mAnnotation = 0;
+      this->mAnnotation = NULL;
 
     this->mSBML       = rhs.mSBML;
     this->mSBOTerm    = rhs.mSBOTerm;
@@ -265,21 +265,21 @@ SBase& SBase::operator=(const SBase& rhs)
 
     delete this->mSBMLNamespaces;
 
-    if(rhs.mSBMLNamespaces)
+    if(rhs.mSBMLNamespaces != NULL)
       this->mSBMLNamespaces = 
       new SBMLNamespaces(*const_cast<SBase&>(rhs).mSBMLNamespaces);
     else
-      this->mSBMLNamespaces = 0;
+      this->mSBMLNamespaces = NULL;
 
 
-    if(this->mCVTerms)
+    if(this->mCVTerms != NULL)
     {  
       unsigned int size = this->mCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( this->mCVTerms->remove(0) );
       delete this->mCVTerms;
     }
 
-    if(rhs.mCVTerms)
+    if(rhs.mCVTerms != NULL)
     {
       this->mCVTerms  = new List();
       unsigned int i,iMax = rhs.mCVTerms->getSize();
@@ -291,17 +291,17 @@ SBase& SBase::operator=(const SBase& rhs)
     }
     else
     {
-      this->mCVTerms = 0;
+      this->mCVTerms = NULL;
     }
 
     delete this->mHistory;
-    if (rhs.mHistory)
+    if (rhs.mHistory != NULL)
     {
       this->mHistory = rhs.mHistory->clone();
     }
     else
     {
-      this->mHistory = 0;
+      this->mHistory = NULL;
     }
 
     this->mHasBeenDeleted = rhs.mHasBeenDeleted;
@@ -633,7 +633,7 @@ SBase::getAnnotationString ()
 XMLNamespaces*
 SBase::getNamespaces() const
 {
-  if (mSBML)
+  if (mSBML != NULL)
     return mSBML->getSBMLNamespaces()->getNamespaces();
   else
     return mSBMLNamespaces->getNamespaces();
@@ -827,7 +827,7 @@ SBase::isSetName () const
 bool
 SBase::isSetNotes () const
 {
-  return (mNotes != 0);
+  return (mNotes != NULL);
 }
 
 
@@ -839,7 +839,7 @@ bool
 SBase::isSetAnnotation () const
 {
   const_cast <SBase *> (this)->syncAnnotation();
-  return (mAnnotation != 0);
+  return (mAnnotation != NULL);
 }
 
 
@@ -857,7 +857,7 @@ SBase::isSetSBOTerm () const
 bool
 SBase::isSetModelHistory()
 {
-  return (mHistory != 0);
+  return (mHistory != NULL);
 }
 
 /*
@@ -1187,7 +1187,7 @@ SBase::setAnnotation (const XMLNode* annotation)
   if (annotation == NULL)
   {
     delete mAnnotation;
-    mAnnotation = 0;
+    mAnnotation = NULL;
   }
   //else if (!(math->isWellFormedASTNode()))
   //{
@@ -1200,15 +1200,18 @@ SBase::setAnnotation (const XMLNode* annotation)
     const string&  name = annotation->getName();
     if (name != "annotation")
     {
-      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), 
+                                XMLAttributes());
       mAnnotation = new XMLNode(ann_t);
 
       // The root node of the given XMLNode tree can be an empty XMLNode 
       // (i.e. neither start, end, nor text XMLNode) if the given annotation was 
       // converted from an XML string whose top level elements are neither 
-      // "html" nor "body" and not enclosed with <annotation>..</annotation> tags
+      // "html" nor "body" and not enclosed with 
+      // <annotation>..</annotation> tags
       // (e.g. <foo xmlns:foo="...">..</foo><bar xmlns:bar="...">..</bar> ) 
-      if (!annotation->isStart() && !annotation->isEnd() && !annotation->isText()) 
+      if (!annotation->isStart() && !annotation->isEnd() && 
+                                    !annotation->isText()) 
       {
         for (unsigned int i=0; i < annotation->getNumChildren(); i++)
         {
@@ -1235,13 +1238,13 @@ SBase::setAnnotation (const XMLNode* annotation)
   //
   
   /* in L3 might be a model history */
-  if (mHistory)
+  if (mHistory != NULL)
   {
     delete mHistory;
     mHistory = NULL;
   }
 
-  if (mCVTerms)
+  if (mCVTerms != NULL)
   {
     // delete existing mCVTerms (if any)
     unsigned int size = mCVTerms->getSize();
@@ -1251,14 +1254,16 @@ SBase::setAnnotation (const XMLNode* annotation)
   }
 
 
-  if(mAnnotation && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
+  if(mAnnotation != NULL 
+        && RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
   {
     // parse mAnnotation (if any) and set mCVTerms 
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
   }
 
-  if(getLevel() > 2 && mAnnotation && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+  if(getLevel() > 2 && mAnnotation != NULL 
+     && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
   {
     // parse mAnnotation (if any) and set mHistory
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
@@ -1297,7 +1302,7 @@ SBase::setAnnotation (const std::string& annotation)
     XMLNode* annt_xmln;
 
     // you might not have a document !!
-    if (getSBMLDocument())
+    if (getSBMLDocument() != NULL)
     {
       XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns); 
@@ -1307,7 +1312,7 @@ SBase::setAnnotation (const std::string& annotation)
       annt_xmln = XMLNode::convertStringToXMLNode(annotation);
     }
 
-    if(annt_xmln)
+    if(annt_xmln != NULL)
     {
       success = setAnnotation(annt_xmln);
       delete annt_xmln;
@@ -1334,7 +1339,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
   // existing mCVTerm objects are properly merged in the following code.
   //
 
-  if(!annotation) return LIBSBML_OPERATION_SUCCESS;
+  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
   const string&  name = annotation->getName();
@@ -1362,7 +1367,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
 //  delete new_annotation;
 //  new_annotation = tmp_annotation;
 
-  if (mAnnotation != 0)
+  if (mAnnotation != NULL)
   {
     // if mAnnotation is just <annotation/> need to tell
     // it to no longer be an end
@@ -1427,7 +1432,7 @@ SBase::appendAnnotation (const std::string& annotation)
 
   int success = LIBSBML_OPERATION_FAILED;
   XMLNode* annt_xmln;
-  if (getSBMLDocument())
+  if (getSBMLDocument() != NULL)
   {
     XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
     annt_xmln = XMLNode::convertStringToXMLNode(annotation,xmlns);
@@ -1437,7 +1442,7 @@ SBase::appendAnnotation (const std::string& annotation)
     annt_xmln = XMLNode::convertStringToXMLNode(annotation);
   }
   
-  if(annt_xmln)
+  if(annt_xmln != NULL)
   {
     success = appendAnnotation(annt_xmln);
     delete annt_xmln;
@@ -1461,7 +1466,7 @@ SBase::setNotes(const XMLNode* notes)
   else if (notes == NULL)
   {
     delete mNotes;
-    mNotes = 0;
+    mNotes = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -1511,7 +1516,7 @@ SBase::setNotes(const XMLNode* notes)
     if (!SyntaxChecker::hasExpectedXHTMLSyntax(mNotes, getSBMLNamespaces()))
     {
       delete mNotes;
-      mNotes = 0;
+      mNotes = NULL;
       return LIBSBML_INVALID_OBJECT;
     }
   }
@@ -1540,7 +1545,7 @@ SBase::setNotes(const std::string& notes)
     XMLNode* notes_xmln;
 
     // you might not have a document !!
-    if (getSBMLDocument())
+    if (getSBMLDocument() != NULL)
     {
       XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns); 
@@ -1550,7 +1555,7 @@ SBase::setNotes(const std::string& notes)
       notes_xmln = XMLNode::convertStringToXMLNode(notes);
     }
 
-    if(notes_xmln)
+    if(notes_xmln != NULL)
     {
       success = setNotes(notes_xmln);
       delete notes_xmln;
@@ -1569,7 +1574,7 @@ int
 SBase::appendNotes(const XMLNode* notes)
 {
   int success = LIBSBML_OPERATION_FAILED;
-  if(!notes) 
+  if(notes == NULL) 
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -1727,7 +1732,7 @@ SBase::appendNotes(const XMLNode* notes)
   }
 
 
-  if ( mNotes )
+  if ( mNotes != NULL )
   {
     //------------------------------------------------------------
     //
@@ -1800,10 +1805,11 @@ SBase::appendNotes(const XMLNode* notes)
             return LIBSBML_OPERATION_FAILED;          
         }
       }
-      else if ((addedNotesType == _ANotesBody) || (addedNotesType == _ANotesAny))
+      else if ((addedNotesType == _ANotesBody) 
+             || (addedNotesType == _ANotesAny))
       {
-        // adds the given body or other tag (permitted in the body) to the current 
-        // html tag
+        // adds the given body or other tag (permitted in the body) 
+        // to the current html tag
   
         for (i=0; i < addedNotes.getNumChildren(); i++)
         {
@@ -1919,7 +1925,7 @@ SBase::appendNotes(const std::string& notes)
 
   XMLNode* notes_xmln;
   // you might not have a document !!
-  if (getSBMLDocument())
+  if (getSBMLDocument() != NULL)
   {
       XMLNamespaces* xmlns = getSBMLDocument()->getNamespaces();
       notes_xmln = XMLNode::convertStringToXMLNode(notes,xmlns); 
@@ -1929,7 +1935,7 @@ SBase::appendNotes(const std::string& notes)
       notes_xmln = XMLNode::convertStringToXMLNode(notes);
   }
 
-  if(notes_xmln)
+  if(notes_xmln != NULL)
   {
     success = appendNotes(notes_xmln);
     delete notes_xmln;
@@ -1958,13 +1964,13 @@ SBase::setModelHistory(ModelHistory * history)
   else if (history == NULL)
   {
     delete mHistory;
-    mHistory = 0;
+    mHistory = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(history->hasRequiredAttributes()))
   {
     delete mHistory;
-    mHistory = 0;
+    mHistory = NULL;
     return LIBSBML_INVALID_OBJECT;
   }
   else
@@ -2169,7 +2175,7 @@ int
 SBase::unsetNotes ()
 {
   delete mNotes;
-  mNotes = 0;
+  mNotes = NULL;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -2361,7 +2367,7 @@ SBase::getCVTerms() const
 unsigned int 
 SBase::getNumCVTerms()
 {
-  if (mCVTerms)
+  if (mCVTerms != NULL)
   {
     return mCVTerms->getSize();
   }
@@ -2383,7 +2389,7 @@ SBase::getNumCVTerms()
 CVTerm* 
 SBase::getCVTerm(unsigned int n)
 {
-  return (mCVTerms) ? static_cast <CVTerm*> (mCVTerms->get(n)) : 0;
+  return (mCVTerms) ? static_cast <CVTerm*> (mCVTerms->get(n)) : NULL;
 }
 
 
@@ -2394,15 +2400,15 @@ SBase::getCVTerm(unsigned int n)
 int 
 SBase::unsetCVTerms()
 {
-  if (mCVTerms)
+  if (mCVTerms != NULL)
   {  
     unsigned int size = mCVTerms->getSize();
     while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
     delete mCVTerms;
   }
-  mCVTerms = 0;
+  mCVTerms = NULL;
   
-  if (mCVTerms)
+  if (mCVTerms != NULL)
     return LIBSBML_OPERATION_FAILED;
   else
     return LIBSBML_OPERATION_SUCCESS;
@@ -2413,7 +2419,7 @@ int
 SBase::unsetModelHistory()
 {
   delete mHistory;
-  mHistory = 0;
+  mHistory = NULL;
 
   /* ModelHistory is only allowed on Model in L2
    * but on any element in L3
@@ -2423,7 +2429,7 @@ SBase::unsetModelHistory()
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 
-  if (mHistory)
+  if (mHistory != NULL)
   {
     return LIBSBML_OPERATION_FAILED;
   }
@@ -2446,7 +2452,7 @@ SBase::unsetModelHistory()
 BiolQualifierType_t 
 SBase::getResourceBiologicalQualifier(std::string resource)
 {
-  if (mCVTerms)
+  if (mCVTerms != NULL)
   {
     for (unsigned int n = 0; n < mCVTerms->getSize(); n++)
     {
@@ -2483,7 +2489,7 @@ SBase::getResourceBiologicalQualifier(std::string resource)
 ModelQualifierType_t 
 SBase::getResourceModelQualifier(std::string resource)
 {
-  if (mCVTerms)
+  if (mCVTerms != NULL)
   {
     for (unsigned int n = 0; n < mCVTerms->getSize(); n++)
     {
@@ -2515,7 +2521,7 @@ SBase::getResourceModelQualifier(std::string resource)
 const Model*
 SBase::getModel () const
 {
-  return (mSBML != 0) ? mSBML->getModel() : 0;
+  return (mSBML != NULL) ? mSBML->getModel() : NULL;
 }
 
 
@@ -2525,9 +2531,9 @@ SBase::getModel () const
 unsigned int
 SBase::getLevel () const
 {
-  if (mSBML)
+  if (mSBML != NULL)
     return mSBML->mLevel;
-  else if (mSBMLNamespaces != 0)
+  else if (mSBMLNamespaces != NULL)
     return mSBMLNamespaces->getLevel();
   else
     return SBMLDocument::getDefaultLevel();
@@ -2540,9 +2546,9 @@ SBase::getLevel () const
 unsigned int
 SBase::getVersion () const
 {
-  if (mSBML)
+  if (mSBML != NULL)
     return mSBML->mVersion;
-  else if (mSBMLNamespaces != 0)
+  else if (mSBMLNamespaces != NULL)
     return mSBMLNamespaces->getVersion();
   else
     return SBMLDocument::getDefaultVersion();
@@ -2587,7 +2593,7 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
   std::string declaredURI("");
   unsigned int index = 0;
   unsigned int version = getVersion();
-  if (xmlns)
+  if (xmlns != NULL)
   {
     // 
     // checks defined SBML XMLNamespace
@@ -2807,19 +2813,19 @@ void
 SBase::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 {
   delete mSBMLNamespaces;
-  if (sbmlns)
+  if (sbmlns != NULL)
     mSBMLNamespaces = sbmlns->clone();
   else
-    mSBMLNamespaces = 0;
+    mSBMLNamespaces = NULL;
 }
 
 /* gets the SBMLnamespaces - internal use only*/
 SBMLNamespaces *
 SBase::getSBMLNamespaces() const
 {
-  if (mSBML)
+  if (mSBML != NULL)
     return mSBML->mSBMLNamespaces;
-  else if (mSBMLNamespaces != 0)
+  else if (mSBMLNamespaces != NULL)
     return mSBMLNamespaces;
   else
     return new SBMLNamespaces();
@@ -2896,7 +2902,7 @@ SBase::read (XMLInputStream& stream)
     {
       SBase * object = createObject(stream);
 
-      if (object)
+      if (object != NULL)
       {
         checkOrderAndLogError(object, position);
         position = object->getElementPosition();
@@ -2963,14 +2969,14 @@ SBase::write (XMLOutputStream& stream) const
 void
 SBase::writeElements (XMLOutputStream& stream) const
 {
-  if ( mNotes      ) stream << *mNotes;
+  if ( mNotes != NULL ) stream << *mNotes;
 
   /*
    * NOTE: CVTerms on a model have already been dealt with
    */
 
   const_cast <SBase *> (this)->syncAnnotation();
-  if (mAnnotation) stream << *mAnnotation;
+  if (mAnnotation != NULL) stream << *mAnnotation;
 }
 /** @endcond */
 
@@ -2987,7 +2993,7 @@ SBase::writeElements (XMLOutputStream& stream) const
 SBase*
 SBase::createObject (XMLInputStream&)
 {
-  return 0;
+  return NULL;
 }
 /** @endcond */
 
@@ -3031,7 +3037,7 @@ SBase::readAnnotation (XMLInputStream& stream)
     // If an annotation already exists, log it as an error and replace
     // the content of the existing annotation with the new one.
 
-    if (mAnnotation)
+    if (mAnnotation != NULL)
     {
       if (getLevel() < 3) 
       {
@@ -3048,7 +3054,7 @@ SBase::readAnnotation (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
-    if(mCVTerms)
+    if(mCVTerms != NULL)
     {
       unsigned int size = mCVTerms->getSize();
       while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
@@ -3104,7 +3110,7 @@ SBase::readNotes (XMLInputStream& stream)
     // If an annotation element already exists, then the ordering is wrong.
     // In either case, replace existing content with the new notes read.
 
-    if (mNotes)
+    if (mNotes != NULL)
     {
       if (getLevel() < 3)
       {
@@ -3117,7 +3123,7 @@ SBase::readNotes (XMLInputStream& stream)
         logError(OnlyOneNotesElementAllowed, getLevel(), getVersion());
       }
     }
-    else if (mAnnotation)
+    else if (mAnnotation != NULL)
     {
       logError(NotSchemaConformant, getLevel(), getVersion(),
                "Incorrect ordering of <annotation> and <notes> elements -- "
@@ -3178,7 +3184,7 @@ SBase::getElementPosition () const
 SBMLErrorLog*
 SBase::getErrorLog ()
 {
-  return (mSBML != 0) ? mSBML->getErrorLog() : 0;
+  return (mSBML != NULL) ? mSBML->getErrorLog() : NULL;
 }
 /** @endcond */
 
@@ -3554,7 +3560,7 @@ SBase::logError (  unsigned int       id
                  , const unsigned int version
                  , const std::string& details )
 {
-  if ( SBase::getErrorLog() ) 
+  if ( SBase::getErrorLog() != NULL ) 
     getErrorLog()->logError(id, getLevel(), getVersion(), details);
 }
 /** @endcond */
@@ -3640,19 +3646,19 @@ SBase::syncAnnotation ()
   //
 
   // determine status of existing annotation before doing anything
-  if (mAnnotation)
+  if (mAnnotation != NULL)
   {
     hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
     hasAdditionalRDF = 
       RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
   }
 
-  if(mAnnotation && hasRDF)
+  if(mAnnotation != NULL && hasRDF)
   {
     XMLNode* new_annotation = 
       RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
     
-    if(!new_annotation)
+    if(new_annotation == NULL)
     {
         XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
                                       XMLAttributes());
@@ -3671,9 +3677,9 @@ SBase::syncAnnotation ()
 
   XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
 
-  if (history)
+  if (history != NULL)
   {
-    if (!mAnnotation)
+    if (mAnnotation == NULL)
     {
       mAnnotation = history;
     }
@@ -3705,9 +3711,9 @@ SBase::syncAnnotation ()
       delete history;
     }
   }
-  else if (cvTerms)
+  else if (cvTerms != NULL)
   {
-    if (!mAnnotation)
+    if (mAnnotation == NULL)
     {
       mAnnotation = cvTerms;
     }
@@ -3899,7 +3905,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elem
   // checks if the given default namespace (if any) is a valid
   // SBML namespace
   //
-  if (xmlns && xmlns->getLength() > 0)
+  if (xmlns != NULL && xmlns->getLength() > 0)
   {
     unsigned int level   = getLevel();
     unsigned int version = getVersion();
@@ -3930,7 +3936,7 @@ SBase::checkAnnotation()
   std::vector<std::string> uri_list;
   uri_list.clear();
 
-  if (!mAnnotation) return;
+  if (mAnnotation == NULL) return;
 
   //
   // checks if the given default namespace (if any) is a valid
@@ -4034,7 +4040,7 @@ SBase::checkAnnotation()
 void
 SBase::checkXHTML(const XMLNode * xhtml)
 {
-  if (!xhtml) return;
+  if (xhtml == NULL) return;
 
   const string&  name = xhtml->getName();
   unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
@@ -4078,7 +4084,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 
-  XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : 0;
+  XMLNamespaces* toplevelNS = (mSBML) ? mSBML->getNamespaces() : NULL;
 
   /*
   * namespace declaration is variable
@@ -4181,7 +4187,7 @@ SBase::removeDuplicateAnnotations()
         {
           resetNecessary = true;
           duplicate = true;
-          if (!newNode)
+          if (newNode == NULL)
           {
             // need to  create the new node
             newNode = new XMLNode(token);
@@ -4259,7 +4265,7 @@ LIBSBML_EXTERN
 int 
 SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
 {
-  return sb->addCVTerm(term);
+  return (sb != NULL) ? sb->addCVTerm(term) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4288,7 +4294,7 @@ LIBSBML_EXTERN
 int 
 SBase_addCVTermNewBag(SBase_t *sb, CVTerm_t *term)
 {
-  return sb->addCVTerm(term, true);
+  return (sb != NULL) ? sb->addCVTerm(term, true) : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4304,7 +4310,7 @@ LIBSBML_EXTERN
 List_t* 
 SBase_getCVTerms(SBase_t *sb)
 {
-  return sb->getCVTerms();
+  return (sb != NULL) ? sb->getCVTerms() : 0;
 }
 
 
@@ -4320,7 +4326,7 @@ LIBSBML_EXTERN
 unsigned int 
 SBase_getNumCVTerms(SBase_t *sb)
 {
-  return sb->getNumCVTerms();
+  return (sb != NULL) ? sb->getNumCVTerms() : SBML_INT_MAX;
 }
 
 /**
@@ -4336,7 +4342,7 @@ LIBSBML_EXTERN
 CVTerm_t* 
 SBase_getCVTerm(SBase_t *sb, unsigned int n)
 {
-  return static_cast <CVTerm_t *> (sb->getCVTerm(n));
+  return (sb != NULL) ? static_cast <CVTerm_t *> (sb->getCVTerm(n)) : NULL;
 }
 
 /**
@@ -4356,7 +4362,7 @@ LIBSBML_EXTERN
 int 
 SBase_unsetCVTerms(SBase_t *sb)
 {
-  return sb->unsetCVTerms();
+  return (sb != NULL) ? sb->unsetCVTerms() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4371,7 +4377,7 @@ LIBSBML_EXTERN
 ModelHistory_t * 
 SBase_getModelHistory(SBase_t *sb)
 {
-  return sb->getModelHistory();
+  return (sb != NULL) ? sb->getModelHistory() : NULL;
 }
 
 /**
@@ -4386,7 +4392,7 @@ SBase_getModelHistory(SBase_t *sb)
 int 
 SBase_isSetModelHistory(SBase_t *sb)
 {
-  return static_cast<int>( sb->isSetModelHistory() );
+  return (sb != NULL) ? static_cast<int>( sb->isSetModelHistory() ) : 0;
 }
 
 
@@ -4407,7 +4413,7 @@ LIBSBML_EXTERN
 int 
 SBase_setModelHistory(SBase_t *sb, ModelHistory_t *history)
 {
-  return sb->setModelHistory(history);
+  return (sb != NULL) ? sb->setModelHistory(history) : LIBSBML_INVALID_OBJECT;
 }
 
 /**
@@ -4426,7 +4432,7 @@ LIBSBML_EXTERN
 int 
 SBase_unsetModelHistory(SBase_t *sb)
 {
-  return sb->unsetModelHistory();
+  return (sb != NULL) ? sb->unsetModelHistory() : LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4444,7 +4450,11 @@ LIBSBML_EXTERN
 BiolQualifierType_t 
 SBase_getResourceBiologicalQualifier(SBase_t *sb, const char * resource)
 {
-  return sb->getResourceBiologicalQualifier(resource);
+  if (sb != NULL)
+    return (resource != NULL) ? 
+    sb->getResourceBiologicalQualifier(resource) : BQB_UNKNOWN;
+  else
+    return BQB_UNKNOWN;
 }
 
 
@@ -4462,7 +4472,11 @@ LIBSBML_EXTERN
 ModelQualifierType_t 
 SBase_getResourceModelQualifier(SBase_t *sb, const char * resource)
 { 
-  return sb->getResourceModelQualifier(resource);
+  if (sb != NULL)
+    return (resource != NULL) ? 
+    sb->getResourceModelQualifier(resource) : BQM_UNKNOWN;
+  else
+    return BQM_UNKNOWN;
 }
 
 
@@ -4480,7 +4494,7 @@ LIBSBML_EXTERN
 const char *
 SBase_getMetaId (SBase_t *sb)
 {
-  return sb->isSetMetaId() ? sb->getMetaId().c_str() : NULL;
+  return (sb != NULL && sb->isSetMetaId()) ? sb->getMetaId().c_str() : NULL;
 }
 
 
@@ -4528,7 +4542,7 @@ LIBSBML_EXTERN
 const SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb)
 {
-  return sb->getSBMLDocument();
+  return (sb != NULL) ? sb->getSBMLDocument() : NULL;
 }
 
 
@@ -4544,7 +4558,7 @@ LIBSBML_EXTERN
 const SBase_t *
 SBase_getParentSBMLObject (SBase_t *sb)
 {
-  return sb->getParentSBMLObject();
+  return (sb != NULL) ? sb->getParentSBMLObject() : NULL;
 }
 
 
@@ -4569,7 +4583,7 @@ LIBSBML_EXTERN
 const SBase_t *
 SBase_getAncestorOfType (SBase_t *sb, SBMLTypeCode_t type)
 {
-  return sb->getAncestorOfType(type);
+  return (sb != NULL) ? sb->getAncestorOfType(type) : NULL;
 }
 
 
@@ -4597,7 +4611,7 @@ LIBSBML_EXTERN
 int
 SBase_getSBOTerm (const SBase_t *sb)
 {
-  return sb->getSBOTerm();
+  return (sb != NULL) ? sb->getSBOTerm() : SBML_INT_MAX;
 }
 
 
@@ -4624,7 +4638,8 @@ LIBSBML_EXTERN
 char*
 SBase_getSBOTermID (const SBase_t *sb)
 {
-  return sb->isSetSBOTerm() ? safe_strdup(sb->getSBOTermID().c_str()) : NULL;
+  return (sb != NULL && sb->isSetSBOTerm())? 
+    safe_strdup(sb->getSBOTermID().c_str()) : NULL;
 }
 
 
@@ -4641,7 +4656,7 @@ LIBSBML_EXTERN
 unsigned int
 SBase_getLevel (const SBase_t *sb)
 {
-  return sb->getLevel();
+  return (sb != NULL) ? sb->getLevel() : SBML_INT_MAX;
 }
 
 
@@ -4658,7 +4673,7 @@ LIBSBML_EXTERN
 unsigned int
 SBase_getVersion (const SBase_t *sb)
 {
-  return sb->getVersion();
+  return (sb != NULL) ? sb->getVersion() : SBML_INT_MAX;
 }
 
 
@@ -4673,7 +4688,7 @@ LIBSBML_EXTERN
 XMLNode_t *
 SBase_getNotes (SBase_t *sb)
 {
-  return sb->getNotes();
+  return (sb != NULL) ? sb->getNotes() : NULL;
 }
 
 
@@ -4690,7 +4705,8 @@ LIBSBML_EXTERN
 char*
 SBase_getNotesString (SBase_t *sb)
 {
-  return sb->isSetNotes() ? safe_strdup(sb->getNotesString().c_str()) : NULL;
+  return (sb != NULL && sb->isSetNotes()) ? 
+    safe_strdup(sb->getNotesString().c_str()) : NULL;
 }
 
 
@@ -4705,7 +4721,7 @@ LIBSBML_EXTERN
 XMLNode_t *
 SBase_getAnnotation (SBase_t *sb)
 {
-  return sb->getAnnotation();
+  return (sb != NULL) ? sb->getAnnotation() : NULL;
 }
 
 
@@ -4722,7 +4738,8 @@ LIBSBML_EXTERN
 char*
 SBase_getAnnotationString (SBase_t *sb)
 {
-  return sb->isSetAnnotation() ? safe_strdup(sb->getAnnotationString().c_str()) : NULL;
+  return (sb != NULL && sb->isSetAnnotation()) ? 
+    safe_strdup(sb->getAnnotationString().c_str()) : NULL;
 }
 
 
@@ -4739,7 +4756,7 @@ LIBSBML_EXTERN
 int
 SBase_isSetMetaId (const SBase_t *sb)
 {
-  return static_cast<int>( sb->isSetMetaId() );
+  return (sb != NULL) ? static_cast<int>( sb->isSetMetaId() ) : 0;
 }
 
 
@@ -4790,7 +4807,7 @@ LIBSBML_EXTERN
 int
 SBase_isSetNotes (const SBase_t *sb)
 {
-  return static_cast<int>( sb->isSetNotes() );
+  return (sb != NULL) ? static_cast<int>( sb->isSetNotes() ) : 0;
 }
 
 
@@ -4807,7 +4824,7 @@ LIBSBML_EXTERN
 int
 SBase_isSetAnnotation (const SBase_t *sb)
 {
-  return static_cast<int>( sb->isSetAnnotation() );
+  return (sb != NULL) ? static_cast<int>( sb->isSetAnnotation() ) : 0;
 }
 
 
@@ -4824,7 +4841,7 @@ LIBSBML_EXTERN
 int
 SBase_isSetSBOTerm (const SBase_t *sb)
 {
-  return static_cast<int>( sb->isSetSBOTerm() );
+  return (sb != NULL) ? static_cast<int>( sb->isSetSBOTerm() ) : 0;
 }
 
 
@@ -4860,7 +4877,10 @@ LIBSBML_EXTERN
 int
 SBase_setMetaId (SBase_t *sb, const char *metaid)
 {
-  return (metaid == NULL) ? sb->unsetMetaId() : sb->setMetaId(metaid);
+  if (sb != NULL)
+    return (metaid == NULL) ? sb->unsetMetaId() : sb->setMetaId(metaid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4964,7 +4984,10 @@ LIBSBML_EXTERN
 int
 SBase_setSBOTerm (SBase_t *sb, int value)
 {
-  return sb->setSBOTerm(value);
+  if (sb != NULL)
+    return sb->setSBOTerm(value);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -4998,7 +5021,10 @@ LIBSBML_EXTERN
 int
 SBase_setSBOTermID (SBase_t *sb, const char* sboid)
 {
-  return sb->setSBOTerm(sboid);
+  if (sb != NULL)
+    return sb->setSBOTerm(sboid);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5019,7 +5045,10 @@ LIBSBML_EXTERN
 int
 SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns)
 {
-  return sb->setNamespaces(xmlns);
+  if (sb != NULL)
+    return sb->setNamespaces(xmlns);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5040,7 +5069,10 @@ LIBSBML_EXTERN
 int
 SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
 {
-  return sb->setNotes(notes);
+  if (sb != NULL)
+    return sb->setNotes(notes);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5062,14 +5094,19 @@ LIBSBML_EXTERN
 int
 SBase_setNotesString (SBase_t *sb, char *notes)
 {
-  if(notes == NULL)
+  if (sb != NULL)
   {
-    return sb->unsetNotes();
+    if(notes == NULL)
+    {
+      return sb->unsetNotes();
+    }
+    else
+    {
+      return sb->setNotes(notes);
+    }
   }
   else
-  {
-    return sb->setNotes(notes);
-  }
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5091,7 +5128,10 @@ LIBSBML_EXTERN
 int
 SBase_appendNotes (SBase_t *sb, XMLNode_t *notes)
 {
-  return sb->appendNotes(notes);
+  if (sb != NULL)
+    return sb->appendNotes(notes);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5113,7 +5153,16 @@ LIBSBML_EXTERN
 int
 SBase_appendNotesString (SBase_t *sb, char *notes)
 {
-  return sb->appendNotes(notes);
+  if (sb != NULL)
+  {
+    if (notes != NULL)
+      return sb->appendNotes(notes);
+    else
+      return LIBSBML_INVALID_OBJECT;
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
+
 }
 
 
@@ -5133,7 +5182,10 @@ LIBSBML_EXTERN
 int
 SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
 {
-  return sb->setAnnotation(annotation);
+  if (sb != NULL)
+    return sb->setAnnotation(annotation);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5154,14 +5206,19 @@ LIBSBML_EXTERN
 int
 SBase_setAnnotationString (SBase_t *sb, char *annotation)
 {
-  if(annotation == NULL)
+  if (sb != NULL)
   {
-    return sb->unsetAnnotation();
+    if(annotation == NULL)
+    {
+      return sb->unsetAnnotation();
+    }
+    else
+    {
+      return sb->setAnnotation(annotation);
+    }
   }
   else
-  {
-    return sb->setAnnotation(annotation);
-  }
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5182,7 +5239,10 @@ LIBSBML_EXTERN
 int
 SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation)
 {
-  return sb->appendAnnotation(annotation);
+  if (sb != NULL)
+    return sb->appendAnnotation(annotation);
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5203,7 +5263,15 @@ LIBSBML_EXTERN
 int
 SBase_appendAnnotationString (SBase_t *sb, char *annotation)
 {
-  return sb->appendAnnotation(annotation);
+  if (sb != NULL)
+  {
+    if (annotation != NULL)
+      return sb->appendAnnotation(annotation);
+    else
+      return LIBSBML_INVALID_OBJECT;
+  }
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5223,7 +5291,10 @@ LIBSBML_EXTERN
 int
 SBase_unsetMetaId (SBase_t *sb)
 {
-  return sb->unsetMetaId();
+  if (sb != NULL)
+    return sb->unsetMetaId();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5284,7 +5355,10 @@ LIBSBML_EXTERN
 int
 SBase_unsetNotes (SBase_t *sb)
 {
-  return sb->unsetNotes();
+  if (sb != NULL)
+    return sb->unsetNotes();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5303,7 +5377,10 @@ LIBSBML_EXTERN
 int
 SBase_unsetAnnotation (SBase_t *sb)
 {
-  return sb->unsetAnnotation();
+  if (sb != NULL)
+    return sb->unsetAnnotation();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5323,7 +5400,10 @@ LIBSBML_EXTERN
 int
 SBase_unsetSBOTerm (SBase_t *sb)
 {
-  return sb->unsetSBOTerm();
+  if (sb != NULL)
+    return sb->unsetSBOTerm();
+  else
+    return LIBSBML_INVALID_OBJECT;
 }
 
 
@@ -5338,7 +5418,7 @@ LIBSBML_EXTERN
 const Model_t *
 SBase_getModel (const SBase_t *sb)
 {
-  return sb->getModel();
+  return (sb != NULL) ? sb->getModel() : NULL;
 }
 
 
@@ -5362,7 +5442,7 @@ LIBSBML_EXTERN
 SBMLTypeCode_t
 SBase_getTypeCode (const SBase_t *sb)
 {
-  return sb->getTypeCode();
+  return (sb != NULL) ? sb->getTypeCode() : SBML_UNKNOWN;
 }
 
 
@@ -5379,7 +5459,8 @@ LIBSBML_EXTERN
 const char *
 SBase_getElementName (const SBase_t *sb)
 {
-  return sb->getElementName().empty() ? NULL : sb->getElementName().c_str();
+  return (sb != NULL && !(sb->getElementName().empty())) ? 
+    sb->getElementName().c_str() : NULL;
 }
 
 
@@ -5397,7 +5478,7 @@ LIBSBML_EXTERN
 unsigned int
 SBase_getLine (const SBase_t *sb)
 {
-  return sb->getLine();
+  return (sb != NULL) ? sb->getLine() : SBML_INT_MAX;
 }
 
 
@@ -5415,7 +5496,7 @@ LIBSBML_EXTERN
 unsigned int
 SBase_getColumn (const SBase_t *sb)
 {
-  return sb->getColumn();
+  return (sb != NULL) ? sb->getColumn() : SBML_INT_MAX;
 }
 
 
@@ -5443,7 +5524,8 @@ LIBSBML_EXTERN
 int
 SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
 {
-  return static_cast <int> (sb->hasValidLevelVersionNamespaceCombination());
+  return (sb != NULL) ? 
+    static_cast <int> (sb->hasValidLevelVersionNamespaceCombination()) : 0;
 }
 
 
