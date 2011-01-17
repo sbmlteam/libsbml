@@ -201,8 +201,8 @@ TestFile::getFilesIn ( const string& directory,
 #ifdef BUGGY_APPLE_LIBXML
       unsigned int num = file.getSequenceId();
 
-      if (id == 1013 && num <= 10) continue;
-      if (id == 1014 && num <= 4) continue;
+      if (id == 1013) continue;
+      if (id == 1014) continue;
 #endif
 
       // leave out model constraints moved to units
