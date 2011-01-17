@@ -1004,7 +1004,7 @@ KineticLaw::removeLocalParameter (unsigned int n)
 Parameter* 
 KineticLaw::removeParameter (const std::string& sid)
 {
-  return mParameters.remove(sid);
+  return (&sid != NULL) ? mParameters.remove(sid) : NULL;
 }
 
 
@@ -1015,7 +1015,7 @@ KineticLaw::removeParameter (const std::string& sid)
 LocalParameter* 
 KineticLaw::removeLocalParameter (const std::string& sid)
 {
-  return mLocalParameters.remove(sid);
+  return (&sid != NULL) ? mLocalParameters.remove(sid) : NULL;
 }
 
 

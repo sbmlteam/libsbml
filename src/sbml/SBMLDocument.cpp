@@ -2713,7 +2713,15 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_create ()
 {
-  return new(nothrow) SBMLDocument;
+  try
+  {
+    SBMLDocument* obj = new SBMLDocument();
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
 
 
@@ -2734,7 +2742,15 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version)
 {
-  return new(nothrow) SBMLDocument(level, version);
+  try
+  {
+    SBMLDocument* obj = new SBMLDocument(level, version);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
 }
 
 

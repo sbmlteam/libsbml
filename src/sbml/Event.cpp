@@ -1691,12 +1691,15 @@ ListOfEvents::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqE(sid) );
-
-  if (result != mItems.end())
+  if (&(sid) != NULL)
   {
-    item = *result;
-    mItems.erase(result);
+    result = find_if( mItems.begin(), mItems.end(), IdEqE(sid) );
+
+    if (result != mItems.end())
+    {
+      item = *result;
+      mItems.erase(result);
+    }
   }
 
   return static_cast <Event*> (item);

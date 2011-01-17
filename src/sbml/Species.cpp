@@ -1858,8 +1858,15 @@ ListOfSpecies::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
-  return (result == mItems.end()) ? NULL : static_cast <Species*> (*result);
+  if (&(sid) == NULL)
+  {
+    return NULL;
+  }
+  else
+  {
+    result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
+    return (result == mItems.end()) ? NULL : static_cast <Species*> (*result);
+  }
 }
 
 
@@ -1878,12 +1885,15 @@ ListOfSpecies::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
-
-  if (result != mItems.end())
+  if (&(sid) != NULL)
   {
-    item = *result;
-    mItems.erase(result);
+    result = find_if( mItems.begin(), mItems.end(), IdEqS(sid) );
+
+    if (result != mItems.end())
+    {
+      item = *result;
+      mItems.erase(result);
+    }
   }
 
   return static_cast <Species*> (item);

@@ -1002,6 +1002,7 @@ Unit::areEquivalent(Unit * unit1, Unit * unit2)
 int 
 Unit::removeScale(Unit * unit)
 {
+  if (unit == NULL) return LIBSBML_INVALID_OBJECT;
   double scaleFactor = pow(10.0, unit->getScale());
   double newMultiplier = unit->getMultiplier() * scaleFactor;
   /* hack to force multiplier to be double precision */

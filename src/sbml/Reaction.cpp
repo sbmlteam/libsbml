@@ -1231,6 +1231,7 @@ Reaction::removeReactant (unsigned int n)
 SpeciesReference* 
 Reaction::removeReactant (const std::string& species)
 {
+  if (&species == NULL) return NULL;
   unsigned int size = mReactants.size();
 
   for (unsigned int n = 0; n < size; ++n)
@@ -1261,6 +1262,7 @@ Reaction::removeProduct (unsigned int n)
 SpeciesReference* 
 Reaction::removeProduct (const std::string& species)
 {
+  if (&species == NULL) return NULL;
   unsigned int size = mProducts.size();
 
   for (unsigned int n = 0; n < size; ++n)
@@ -1291,6 +1293,7 @@ Reaction::removeModifier (unsigned int n)
 ModifierSpeciesReference* 
 Reaction::removeModifier (const std::string& species)
 {
+  if (&species == NULL) return NULL;
   unsigned int size = mModifiers.size();
 
   for (unsigned int n = 0; n < size; ++n)
@@ -1901,8 +1904,15 @@ ListOfReactions::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
-  return (result == mItems.end()) ? NULL : static_cast <Reaction*> (*result);
+  if (&(sid) == NULL)
+  {
+    return NULL;
+  }
+  else
+  {
+    result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
+    return (result == mItems.end()) ? NULL : static_cast <Reaction*> (*result);
+  }
 }
 
 
@@ -1921,12 +1931,15 @@ ListOfReactions::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
-
-  if (result != mItems.end())
+  if (&(sid) != NULL)
   {
-    item = *result;
-    mItems.erase(result);
+    result = find_if( mItems.begin(), mItems.end(), IdEqR(sid) );
+
+    if (result != mItems.end())
+    {
+      item = *result;
+      mItems.erase(result);
+    }
   }
 
   return static_cast <Reaction*> (item);

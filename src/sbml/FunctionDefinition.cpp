@@ -811,8 +811,16 @@ ListOfFunctionDefinitions::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
-  return (result == mItems.end()) ? NULL : static_cast <FunctionDefinition*> (*result);
+  if (&(sid) == NULL)
+  {
+    return NULL;
+  }
+  else
+  {
+    result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
+    return (result == mItems.end()) ? NULL : 
+                               static_cast <FunctionDefinition*> (*result);
+  }
 }
 
 
@@ -831,12 +839,15 @@ ListOfFunctionDefinitions::remove (const std::string& sid)
   SBase* item = NULL;
   vector<SBase*>::iterator result;
 
-  result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
-
-  if (result != mItems.end())
+  if (&(sid) != NULL)
   {
-    item = *result;
-    mItems.erase(result);
+    result = find_if( mItems.begin(), mItems.end(), IdEqFD(sid) );
+
+    if (result != mItems.end())
+    {
+      item = *result;
+      mItems.erase(result);
+    }
   }
 
   return static_cast <FunctionDefinition*> (item);
