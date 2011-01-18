@@ -2259,7 +2259,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20108
   {
     AllowedAttributesOnSBML,
-    "",
+    "Invalid attribute on <sbml>",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6812,7 +6812,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91015
   {
     ConversionFactorNotInL1,
-    "Conversion factor not supported in L1/2",
+    "SBML Level 1 does not support the 'conversionFactor' attribute",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6829,7 +6829,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91016
   {
     CompartmentNotOnL1Reaction,
-    "Compartment not attribute on L1 Reaction",
+    "SBML Level 1 does not support the 'compartment' attribute on a <Reaction>",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6845,7 +6845,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91017
   {
     ExtentUnitsNotSubstance,
-    "Extent units must be substance",
+    "Conversion to SBML Level 1 requires that 'extent' units be a variant of substance",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6955,7 +6955,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92007
   {
     NoDelayedEventAssignmentInL2v1,
-    "Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML",
+    "SBML Level 2 Version 1 does not support the 'useValuesFromTriggerTime' attribute",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7024,7 +7024,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92011
   {
     PrioirtyLostFromL3,
-    "Prioirty not in Level 2 events",
+    "SBML Level 2 Version 1 does not support priority",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7040,7 +7040,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92012
   {
     NonPersistentNotSupported,
-    "Non persistent not in Level 2 events",
+    "SBML Level 2 Version 1 does not support the 'persistent' attribute",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7055,7 +7055,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92013
   {
     InitialValueFalseEventNotSupported,
-    "InitialValue assumed true in Level 2 events",
+    "SBML Level 2 Version 1 does not support an 'initialValue' of 'false' for a <Trigger>",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8116,7 +8116,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99901
   {   
     IncorrectCompartmentSpatialDimensions,   
-    "in SBML Level 1, only three-dimensional compartments are permitted",
+    "In SBML Level 1, only three-dimensional compartments are permitted",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   

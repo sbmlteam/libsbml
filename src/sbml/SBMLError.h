@@ -444,8 +444,8 @@ typedef enum
  , MathResultMustBeNumeric               = 10217 /*!< Formula result is not a numerical value */
  , OpsNeedCorrectNumberOfArgs            = 10218 /*!< Incorrect number of arguments to operator */
  , InvalidNoArgsPassedToFunctionDef      = 10219 /*!< Incorrect number of arguments to function */
- , DisallowedMathUnitsUse                = 10220 /*!< Incorrect number of arguments to function */
- , InvalidUnitsValue                     = 10221 /*!< Incorrect number of arguments to function */
+ , DisallowedMathUnitsUse                = 10220 /*!< Attribute <code>units</code> only permitted on cn element */
+ , InvalidUnitsValue                     = 10221 /*!< Invalid value for <code>units</code> attribute */
  , DuplicateComponentId                  = 10301 /*!< Duplicate component identifier */
  , DuplicateUnitDefinitionId             = 10302 /*!< Duplicate unit definition identifier */
  , DuplicateLocalParameterId             = 10303 /*!< Duplicate local parameter identifier */
@@ -457,33 +457,33 @@ typedef enum
  , InvalidMetaidSyntax                   = 10309 /*!< Invalid <code>metaid</code> value syntax */
  , InvalidIdSyntax                       = 10310 /*!< Invalid identifier syntax */
  , InvalidUnitIdSyntax                   = 10311 /*!< Invalid unit identifier syntax */
- , InvalidNameSyntax                     = 10312
+ , InvalidNameSyntax                     = 10312 /*!< Invalid name syntax */
  , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of XML namespace for annotation */
  , DuplicateAnnotationNamespaces         = 10402 /*!< Multiple annotations using same XML namespace */
  , SBMLNamespaceInAnnotation             = 10403 /*!< Invalid use of SBML XML namespace in annotation */
- , MultipleAnnotations                   = 10404 /*!< Multiple annotations */
+ , MultipleAnnotations                   = 10404 /*!< Multiple annotation elements not allowed */
  , InconsistentArgUnits                  = 10501 /*!< Units of arguments to function call do not match function's definition */
- , InconsistentKineticLawUnitsL3         = 10503
+ , InconsistentKineticLawUnitsL3         = 10503 /*!< Inconsistent <code>&lt;kineticLaw&gt;</code> units */
  , AssignRuleCompartmentMismatch         = 10511 /*!< Mismatched units in assignment rule for compartment */
  , AssignRuleSpeciesMismatch             = 10512 /*!< Mismatched units in assignment rule for species */
  , AssignRuleParameterMismatch           = 10513 /*!< Mismatched units in assignment rule for parameter */
- , AssignRuleStoichiometryMismatch       = 10514
+ , AssignRuleStoichiometryMismatch       = 10514 /*!< Mismatched units in assignment rule for stoichiometry */
  , InitAssignCompartmenMismatch          = 10521 /*!< Mismatched units in initial assignment to compartment */
  , InitAssignSpeciesMismatch             = 10522 /*!< Mismatched units in initial assignment to species */
  , InitAssignParameterMismatch           = 10523 /*!< Mismatched units in initial assignment to parameter */
- , InitAssignStoichiometryMismatch       = 10524
+ , InitAssignStoichiometryMismatch       = 10524 /*!< Mismatched units in initial assignment to stoichiometry */
  , RateRuleCompartmentMismatch           = 10531 /*!< Mismatched units in rate rule for compartment */
  , RateRuleSpeciesMismatch               = 10532 /*!< Mismatched units in rate rule for species */
  , RateRuleParameterMismatch             = 10533 /*!< Mismatched units in rate rule for parameter */
- , RateRuleStoichiometryMismatch         = 10534
+ , RateRuleStoichiometryMismatch         = 10534 /*!< Mismatched units in rate rule for stoichiometry */
  , KineticLawNotSubstancePerTime         = 10541 /*!< Kinetic law units are not <code>substance</code>/<code>time</code> */
- , SpeciesInvalidExtentUnits             = 10542
+ , SpeciesInvalidExtentUnits             = 10542 /*!< Species units not consistent with extent */
  , DelayUnitsNotTime                     = 10551 /*!< Units of delay are not units of time */
  , EventAssignCompartmentMismatch        = 10561 /*!< Mismatched units in event assignment for compartment */
  , EventAssignSpeciesMismatch            = 10562 /*!< Mismatched units in event assignment for species */
  , EventAssignParameterMismatch          = 10563 /*!< Mismatched units in event assignment for parameter */
- , EventAssignStoichiometryMismatch      = 10564
- , PriorityUnitsNotDimensionless         = 10565
+ , EventAssignStoichiometryMismatch      = 10564 /*!< Mismatched units in event assignment for stoichiometry */
+ , PriorityUnitsNotDimensionless         = 10565 /*!< Priority units must be dimensionless */
  , OverdeterminedSystem                  = 10601 /*!< Model is overdetermined */
  , InvalidModelSBOTerm                   = 10701 /*!< Invalid <code>sboTerm</code> value for model */
  , InvalidFunctionDefSBOTerm             = 10702 /*!< Invalid <code>sboTerm</code> value for function definition */
@@ -506,53 +506,53 @@ typedef enum
  , NotesContainsXMLDecl                  = 10802 /*!< XML declarations not permitted in notes */
  , NotesContainsDOCTYPE                  = 10803 /*!< XML <code>DOCTYPE</code> not permitted in notes */
  , InvalidNotesContent                   = 10804 /*!< Invalid notes content */
- , OnlyOneNotesElementAllowed            = 10805
+ , OnlyOneNotesElementAllowed            = 10805 /*!< Only one notes element allowed. */
  , InvalidNamespaceOnSBML                = 20101 /*!< Invalid XML namespace for SBML container */
  , MissingOrInconsistentLevel            = 20102 /*!< Missing or inconsistent value for <code>level</code> attribute */
  , MissingOrInconsistentVersion          = 20103 /*!< Missing or inconsistent value for <code>version</code> attribute */
- , PackageNSMustMatch                    = 20104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
- , LevelPositiveInteger                  = 20105
- , VersionPositiveInteger                = 20106
- , AllowedAttributesOnSBML               = 20108
+ , PackageNSMustMatch                    = 20104 /*!< Invalid level/version on package namespace */
+ , LevelPositiveInteger                  = 20105 /*!< <code>level</code> must be positive integer */
+ , VersionPositiveInteger                = 20106 /*!< <code>version</code> must be positive integer */
+ , AllowedAttributesOnSBML               = 20108 /*!< Invalid attribute on <code>&lt;sbml&gt;</code>  */
  , MissingModel                          = 20201 /*!< Missing model */
  , IncorrectOrderInModel                 = 20202 /*!< Incorrect ordering of components in model definition */
- , EmptyListElement                      = 20203 /*!< A given <code>listOf___</code>, if present, cannot be empty */
+ , EmptyListElement                      = 20203 /*!< A given listOf___, if present, cannot be empty */
  , NeedCompartmentIfHaveSpecies          = 20204 /*!< Missing compartment in species definition */
- , OneOfEachListOf                       = 20205 /*!< More than one of a listOf elementn */
- , OnlyFuncDefsInListOfFuncDefs          = 20206 /*!< More than one of a listOf elementn */
- , OnlyUnitDefsInListOfUnitDefs          = 20207 /*!< More than one of a listOf elementn */
- , OnlyCompartmentsInListOfCompartments  = 20208 /*!< More than one of a listOf elementn */
- , OnlySpeciesInListOfSpecies            = 20209 /*!< More than one of a listOf elementn */
- , OnlyParametersInListOfParameters      = 20210 /*!< More than one of a listOf elementn */
- , OnlyInitAssignsInListOfInitAssigns    = 20211 /*!< More than one of a listOf elementn */
- , OnlyRulesInListOfRules                = 20212 /*!< More than one of a listOf elementn */
- , OnlyConstraintsInListOfConstraints    = 20213 /*!< More than one of a listOf elementn */
- , OnlyReactionsInListOfReactions        = 20214 /*!< More than one of a listOf elementn */
- , OnlyEventsInListOfEvents              = 20215 /*!< More than one of a listOf elementn */
- , L3ConversionFactorOnModel             = 20216
- , L3TimeUnitsOnModel                    = 20217
- , L3VolumeUnitsOnModel                  = 20218
- , L3AreaUnitsOnModel                    = 20219
- , L3LengthUnitsOnModel                  = 20220
- , L3ExtentUnitsOnModel                  = 20221
- , AllowedAttributesOnModel              = 20222
- , AllowedAttributesOnListOfFuncs        = 20223
- , AllowedAttributesOnListOfUnitDefs     = 20224
- , AllowedAttributesOnListOfComps        = 20225
- , AllowedAttributesOnListOfSpecies      = 20226
- , AllowedAttributesOnListOfParams       = 20227
- , AllowedAttributesOnListOfInitAssign   = 20228
- , AllowedAttributesOnListOfRules        = 20229
- , AllowedAttributesOnListOfConstraints  = 20230
- , AllowedAttributesOnListOfReactions    = 20231
- , AllowedAttributesOnListOfEvents       = 20232
+ , OneOfEachListOf                       = 20205 /*!< Only one of each ListOf element allowed */
+ , OnlyFuncDefsInListOfFuncDefs          = 20206 /*!< Only FunctionDefinitions allowed in ListOfFunctionDefinitions */
+ , OnlyUnitDefsInListOfUnitDefs          = 20207 /*!< Only UnitDefinitions allowed in ListOfUnitDefinitions */
+ , OnlyCompartmentsInListOfCompartments  = 20208 /*!< Only Compartments allowed in ListOfCompartments */
+ , OnlySpeciesInListOfSpecies            = 20209 /*!< Only Species allowed in ListOfSpecies */
+ , OnlyParametersInListOfParameters      = 20210 /*!< Only parameters allowed in ListOfParameters */
+ , OnlyInitAssignsInListOfInitAssigns    = 20211 /*!< Only InitialAssignments allowed in ListOfInitialAssignments */
+ , OnlyRulesInListOfRules                = 20212 /*!< Only Rules allowed in ListOfRules */
+ , OnlyConstraintsInListOfConstraints    = 20213 /*!< Only Constraints allowed in ListOfConstraints */
+ , OnlyReactionsInListOfReactions        = 20214 /*!< Only Reactions allowed in ListOfReactions */
+ , OnlyEventsInListOfEvents              = 20215 /*!< Only Events allowed in ListOfEvents */
+ , L3ConversionFactorOnModel             = 20216 /*!< ConversionFactor must be parameter */
+ , L3TimeUnitsOnModel                    = 20217 /*!< Invalid value of <code>timeUnits</code> on <code>&lt;model&gt;</code> */
+ , L3VolumeUnitsOnModel                  = 20218 /*!< Invalid value of <code>volumeUnits</code> on <code>&lt;model&gt;</code> */
+ , L3AreaUnitsOnModel                    = 20219 /*!< Invalid value of <code>areaUnits</code> on <code>&lt;model&gt;</code> */
+ , L3LengthUnitsOnModel                  = 20220 /*!< Invalid value of <code>lengthUnits</code> on <code>&lt;model&gt;</code> */
+ , L3ExtentUnitsOnModel                  = 20221 /*!< Invalid value of <code>extentUnits</code> on <code>&lt;model&gt;</code> */
+ , AllowedAttributesOnModel              = 20222 /*!< Invalid attribute on <code>&lt;model&gt;</code> */
+ , AllowedAttributesOnListOfFuncs        = 20223 /*!< Invalid attribute on <code>&lt;listOfFunctionDefinitions&gt;</code> */
+ , AllowedAttributesOnListOfUnitDefs     = 20224 /*!< Invalid attribute on <code>&lt;listOfUnitDefinitions&gt;</code> */
+ , AllowedAttributesOnListOfComps        = 20225 /*!< Invalid attribute on <code>&lt;listOfCompartments&gt;</code> */
+ , AllowedAttributesOnListOfSpecies      = 20226 /*!< Invalid attribute on <code>&lt;listOfSpecies&gt;</code> */
+ , AllowedAttributesOnListOfParams       = 20227 /*!< Invalid attribute on <code>&lt;listOfParameters&gt;</code> */
+ , AllowedAttributesOnListOfInitAssign   = 20228 /*!< Invalid attribute on <code>&lt;listOfInitialAssignments&gt;</code> */
+ , AllowedAttributesOnListOfRules        = 20229 /*!< Invalid attribute on <code>&lt;listOfRules&gt;</code> */
+ , AllowedAttributesOnListOfConstraints  = 20230 /*!< Invalid attribute on <code>&lt;listOfConstraints&gt;</code> */
+ , AllowedAttributesOnListOfReactions    = 20231 /*!< Invalid attribute on <code>&lt;listOfReactions&gt;</code> */
+ , AllowedAttributesOnListOfEvents       = 20232 /*!< Invalid attribute on <code>&lt;listOfEvents&gt;</code> */
  , FunctionDefMathNotLambda              = 20301 /*!< Invalid expression in function definition */
  , InvalidApplyCiInLambda                = 20302 /*!< Invalid forward reference in <code>&lt;apply&gt;</code><code>&lt;ci&gt;</code>...<code>&lt;/ci&gt;</code><code>&lt;/apply&gt;</code> value */
  , RecursiveFunctionDefinition           = 20303 /*!< Recursive function definition */
  , InvalidCiInLambda                     = 20304 /*!< Unknown <code>&lt;ci&gt;</code> reference in <code>&lt;lambda&gt;</code> */
  , InvalidFunctionDefReturnType          = 20305 /*!< Function return type must be either numerical or boolean */
- , OneMathElementPerFunc                 = 20306 /*!< Function return type must be either numerical or boolean */
- , AllowedAttributesOnFunc               = 20307 /*!< Function return type must be either numerical or boolean */
+ , OneMathElementPerFunc                 = 20306 /*!< FunctionDefinition must contain one math element */
+ , AllowedAttributesOnFunc               = 20307 /*!< FunctionDefinition must have id and optionally metaid and sboTerm */
  , InvalidUnitDefId                      = 20401 /*!< Invalid <code>id</code> value for unit definition */
  , InvalidSubstanceRedefinition          = 20402 /*!< Invalid redefinition of <code>substance</code> */
  , InvalidLengthRedefinition             = 20403 /*!< Invalid redefinition of <code>length</code> */
@@ -565,12 +565,12 @@ typedef enum
  , InvalidUnitKind                       = 20410 /*!< Invalid value of <code>kind</code> in unit definition */
  , OffsetNoLongerValid                   = 20411 /*!< <code>offset</code> not supported in this Level+Version of SBML */
  , CelsiusNoLongerValid                  = 20412 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
- , EmptyUnitListElement                  = 20413 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
- , OneListOfUnitsPerUnitDef              = 20414 /*!< <code>Celsius</code> not defined in this Level+Version of SBML */
- , OnlyUnitsInListOfUnits                = 20415
- , AllowedAttributesOnUnitDefinition     = 20419
- , AllowedAttributesOnListOfUnits        = 20420
- , AllowedAttributesOnUnit               = 20421
+ , EmptyUnitListElement                  = 20413 /*!< ListOfUnits must not be empty */
+ , OneListOfUnitsPerUnitDef              = 20414 /*!< Only one ListOfUnits element on UnitDefinition */
+ , OnlyUnitsInListOfUnits                = 20415 /*!< Only Units allowed in ListOfUnits */
+ , AllowedAttributesOnUnitDefinition     = 20419 /*!< Invalid attribute on <code>&lt;unitDefinition&gt;</code> */
+ , AllowedAttributesOnListOfUnits        = 20420 /*!< Invalid attribute on <code>&lt;listOfUnits&gt;</code> */
+ , AllowedAttributesOnUnit               = 20421 /*!< Invalid attribute on <code>&lt;unit&gt;</code> */
  , ZeroDimensionalCompartmentSize        = 20501 /*!< Use of <code>size</code> is invalid for a zero-dimensional compartment */
  , ZeroDimensionalCompartmentUnits       = 20502 /*!< Use of <code>units</code> is invalid for a zero-dimensional compartment */
  , ZeroDimensionalCompartmentConst       = 20503 /*!< Zero-dimensional compartments cannot be non-constant */
@@ -581,11 +581,11 @@ typedef enum
  , Invalid2DCompartmentUnits             = 20508 /*!< Invalid value of <code>units</code> for a two-dimensional compartment */
  , Invalid3DCompartmentUnits             = 20509 /*!< Invalid value of <code>units</code> for a three-dimensional compartment */
  , InvalidCompartmentTypeRef             = 20510 /*!< Invalid <code>compartmentType</code> reference */
- , OneDimensionalCompartmentUnits        = 20511
- , TwoDimensionalCompartmentUnits        = 20512
- , ThreeDimensionalCompartmentUnits      = 20513
- , AllowedAttributesOnCompartment        = 20517
- , NoUnitsOnCompartment                  = 20518
+ , OneDimensionalCompartmentUnits        = 20511 /*!< No units for 1D Compartment */
+ , TwoDimensionalCompartmentUnits        = 20512 /*!< No units for 2D Compartment */
+ , ThreeDimensionalCompartmentUnits      = 20513 /*!< No units for 3D Compartment */
+ , AllowedAttributesOnCompartment        = 20517 /*!< Invalid attribute on <compartment> */
+ , NoUnitsOnCompartment                  = 20518 /*!< No units for <compartment> */
  , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid <code>compartment</code> reference */
  , HasOnlySubsNoSpatialUnits             = 20602 /*!< No <code>spatialSizeUnits</code> permitted if <code>hasOnlySubstanceUnits</code>=<code>true</code> */
  , NoSpatialUnitsInZeroD                 = 20603 /*!< No <code>spatialSizeUnits</code> permitted if compartment is zero-dimensional */
@@ -601,99 +601,99 @@ typedef enum
  , MultSpeciesSameTypeInCompartment      = 20613 /*!< Cannot have multiple species of the same type in the same compartment */
  , MissingSpeciesCompartment             = 20614 /*!< Missing <code>compartment</code> value for species */
  , SpatialSizeUnitsRemoved               = 20615 /*!< Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML */
- , SubstanceUnitsOnSpecies               = 20616
- , ConversionFactorOnSpecies             = 20617
- , AllowedAttributesOnSpecies            = 20623
+ , SubstanceUnitsOnSpecies               = 20616 /*!< No substance units for Species */
+ , ConversionFactorOnSpecies             = 20617 /*!< Invalid conversionFactor attribute */
+ , AllowedAttributesOnSpecies            = 20623 /*!< Invalid attribute on <species&gt;</code> */
  , InvalidParameterUnits                 = 20701 /*!< Invalid value for <code>units</code> in parameter definition */
- , ParameterUnits                        = 20702
- , ConversionFactorMustConstant          = 20705
- , AllowedAttributesOnParameter          = 20706
+ , ParameterUnits                        = 20702 /*!< No units for parameter */
+ , ConversionFactorMustConstant          = 20705 /*!< ConversionFactor must be constant parameter */
+ , AllowedAttributesOnParameter          = 20706 /*!< Invalid attribute on parameter */
  , InvalidInitAssignSymbol               = 20801 /*!< Invalid <code>symbol</code> reference in initial assignment */
  , MultipleInitAssignments               = 20802 /*!< Multiple initial assignments for the same <code>symbol</code> value */
  , InitAssignmentAndRuleForSameId        = 20803 /*!< Cannot set a value with both initial assignments and assignment rules simultaneously */
- , OneMathElementPerInitialAssign        = 20804
- , AllowedAttributesOnInitialAssign      = 20805
+ , OneMathElementPerInitialAssign        = 20804 /*!< InitialAssignment must contain one math element */
+ , AllowedAttributesOnInitialAssign      = 20805 /*!< Invalid attribute on initialAssignment */
  , InvalidAssignRuleVariable             = 20901 /*!< Invalid <code>variable</code> reference in assignment rule */
  , InvalidRateRuleVariable               = 20902 /*!< Invalid <code>variable</code> reference in rate rule */
  , AssignmentToConstantEntity            = 20903 /*!< Cannot reassign a constant in an assignment rule */
  , RateRuleForConstantEntity             = 20904 /*!< Cannot reassign a constant in a rate rule */
  , RepeatedRule10304                     = 20905 /*!<  */
  , CircularRuleDependency                = 20906 /*!< Circular dependency involving rules and reactions */
- , OneMathElementPerRule                 = 20907
- , AllowedAttributesOnAssignRule         = 20908
- , AllowedAttributesOnRateRule           = 20909
- , AllowedAttributesOnAlgRule            = 20910
+ , OneMathElementPerRule                 = 20907 /*!< Rule must contain one math element */
+ , AllowedAttributesOnAssignRule         = 20908 /*!< Invalid attribute on <assignmentRule> */
+ , AllowedAttributesOnRateRule           = 20909 /*!< Invalid attribute on <rateRule> */
+ , AllowedAttributesOnAlgRule            = 20910 /*!< Invalid attribute on <algebraicRule> */
  , ConstraintMathNotBoolean              = 21001 /*!< Non-boolean math expression in constraint definition */
  , IncorrectOrderInConstraint            = 21002 /*!< Incorrect order of elements in constraint definition */
  , ConstraintNotInXHTMLNamespace         = 21003 /*!< Constraint message is not in XHTML XML namespace */
  , ConstraintContainsXMLDecl             = 21004 /*!< XML declarations not permitted in constraint messages */
  , ConstraintContainsDOCTYPE             = 21005 /*!< XML <code>DOCTYPE</code> not permitted in constraint messages */
  , InvalidConstraintContent              = 21006 /*!< Invalid content for constraint message */
- , OneMathElementPerConstraint           = 21007
- , OneMessageElementPerConstraint        = 21008
- , AllowedAttributesOnConstraint         = 21009
+ , OneMathElementPerConstraint           = 21007 /*!< Only one math element on <constraint> */
+ , OneMessageElementPerConstraint        = 21008 /*!< Only one message element on <constraint> */
+ , AllowedAttributesOnConstraint         = 21009 /*!< Invalid attribute on <constraint> */
  , NoReactantsOrProducts                 = 21101 /*!< Cannot have a reaction with neither reactants nor products */
  , IncorrectOrderInReaction              = 21102 /*!< Incorrect ordering of components in reaction definition */
  , EmptyListInReaction                   = 21103 /*!< Reaction components, if present, cannot be empty */
  , InvalidReactantsProductsList          = 21104 /*!< Invalid element in list of reactants or products */
  , InvalidModifiersList                  = 21105 /*!< Invalid element in list of modifiers */
- , OneSubElementPerReaction              = 21106
- , CompartmentOnReaction                 = 21107
- , AllowedAttributesOnReaction           = 21110
+ , OneSubElementPerReaction              = 21106 /*!< Only one of subelement on <reaction> */
+ , CompartmentOnReaction                 = 21107 /*!< Invalid compartment attribute on <reaction> */
+ , AllowedAttributesOnReaction           = 21110 /*!< Invalid attribute on <reaction> */
  , InvalidSpeciesReference               = 21111 /*!< Invalid <code>species</code> value in species reference */
  , RepeatedRule20611                     = 21112 /*!<  */
  , BothStoichiometryAndMath              = 21113 /*!< Cannot use both <code>stoichiometry</code> and <code>&lt;stoichiometryMath&gt;</code> simultaneously */
- , AllowedAttributesOnSpeciesReference   = 21116
- , AllowedAttributesOnModifier           = 21117
+ , AllowedAttributesOnSpeciesReference   = 21116 /*!< Invalid attribute on <speciesReference> */
+ , AllowedAttributesOnModifier           = 21117 /*!< Invalid attribute on <modifierSpeciesReference> */
  , UndeclaredSpeciesRef                  = 21121 /*!< Undeclared species referenced in kinetic law formula */
  , IncorrectOrderInKineticLaw            = 21122 /*!< Incorrect ordering of components in kinetic law definition */
  , EmptyListInKineticLaw                 = 21123 /*!< The list of parameters component, if present, cannot be empty */
  , NonConstantLocalParameter             = 21124 /*!< Parameters local to a kinetic law must have <code>constant</code>=<code>true</code> */
  , SubsUnitsNoLongerValid                = 21125 /*!< <code>substanceUnits</code> not supported in this Level+Version of SBML */
  , TimeUnitsNoLongerValid                = 21126 /*!< <code>timeUnits</code> not supported in this Level+Version of SBML */
- , OneListOfPerKineticLaw                = 21127
- , OnlyLocalParamsInListOfLocalParams    = 21128
- , AllowedAttributesOnListOfLocalParam   = 21129
- , OneMathPerKineticLaw                  = 21130
+ , OneListOfPerKineticLaw                = 21127 /*!< Only one listOfLocalParameters permitted on <kineticLaw> */
+ , OnlyLocalParamsInListOfLocalParams    = 21128 /*!< Only LocalParameters allowed in ListOfLocalParameters */
+ , AllowedAttributesOnListOfLocalParam   = 21129 /*!< Invalid attribute on <code>&lt;listOfLocalParameters&gt;</code> */
+ , OneMathPerKineticLaw                  = 21130 /*!< Only one math element on <kineticLaw> */
  , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula */
- , AllowedAttributesOnKineticLaw         = 21132
- , AllowedAttributesOnListOfSpeciesRef   = 21150
- , AllowedAttributesOnListOfMods         = 21151
- , AllowedAttributesOnLocalParameter     = 21172
+ , AllowedAttributesOnKineticLaw         = 21132 /*!< Invalid attribute on <kineticLaw> */
+ , AllowedAttributesOnListOfSpeciesRef   = 21150 /*!< Invalid attribute on <code>&lt;listOfSpeciesReferences&gt;</code> */
+ , AllowedAttributesOnListOfMods         = 21151 /*!< Invalid attribute on <code>&lt;listofModifiers&gt;</code> */
+ , AllowedAttributesOnLocalParameter     = 21172 /*!< Invalid attribute on <localParameter> */
  , MissingTriggerInEvent                 = 21201 /*!< Missing trigger in event definition */
  , TriggerMathNotBoolean                 = 21202 /*!< Non-boolean math expression in trigger definition */
  , MissingEventAssignment                = 21203 /*!< Missing event assignment in event definition */
  , TimeUnitsEvent                        = 21204 /*!< Units of <code>timeUnits</code> are not time units */
  , IncorrectOrderInEvent                 = 21205 /*!< Incorrect ordering of components in event definition */
  , ValuesFromTriggerTimeNeedDelay        = 21206 /*!< <code>useValuesFromTriggerTime</code>=<code>false</code>, but no delay defined in event */
- , DelayNeedsValuesFromTriggerTime       = 21207
- , OneMathPerTrigger                     = 21209
- , OneMathPerDelay                       = 21210
+ , DelayNeedsValuesFromTriggerTime       = 21207 /*!< Delay requires useValuesFromTriggerTime */
+ , OneMathPerTrigger                     = 21209 /*!< Trigger must have one math element */
+ , OneMathPerDelay                       = 21210 /*!< Delay must have one math element */
  , InvalidEventAssignmentVariable        = 21211 /*!< Invalid value for <code>variable</code> in event assignment */
  , EventAssignmentForConstantEntity      = 21212 /*!< Cannot assign to a constant component in an event assignment */
- , OneMathPerEventAssignment             = 21213
- , AllowedAttributesOnEventAssignment    = 21214
- , OnlyOneDelayPerEvent                  = 21221
- , OneListOfEventAssignmentsPerEvent     = 21222
- , OnlyEventAssignInListOfEventAssign    = 21223
- , AllowedAttributesOnListOfEventAssign  = 21224
- , AllowedAttributesOnEvent              = 21225
- , AllowedAttributesOnTrigger            = 21226
- , AllowedAttributesOnDelay              = 21227
- , PersistentNotBoolean                  = 21228
- , InitialValueNotBoolean                = 21229
- , OnlyOnePriorityPerEvent               = 21230
- , OneMathPerPriority                    = 21231
- , AllowedAttributesOnPriority           = 21232
+ , OneMathPerEventAssignment             = 21213 /*!< EventAssignment must have one math element */
+ , AllowedAttributesOnEventAssignment    = 21214 /*!< Invalid attribute on <eventAssignment> */
+ , OnlyOneDelayPerEvent                  = 21221 /*!< Event can only have one <delay> */
+ , OneListOfEventAssignmentsPerEvent     = 21222 /*!< Event can only have one <code>&lt;listOfEventAssignments&gt;</code> */
+ , OnlyEventAssignInListOfEventAssign    = 21223 /*!< <code>&lt;listOfEventAssignments&gt;</code> can only have <eventAssignment> */
+ , AllowedAttributesOnListOfEventAssign  = 21224 /*!< Invalid attribute on <code>&lt;listOfEventAssignments&gt;</code> */
+ , AllowedAttributesOnEvent              = 21225 /*!< Invalid attribute on <event> */
+ , AllowedAttributesOnTrigger            = 21226 /*!< Invalid attribute on <trigger> */
+ , AllowedAttributesOnDelay              = 21227 /*!< Invalid attribute on <delay> */
+ , PersistentNotBoolean                  = 21228 /*!< Persistent attribute on <trigger> must be boolean */
+ , InitialValueNotBoolean                = 21229 /*!< InitialValue attribute on <trigger> must be boolean */
+ , OnlyOnePriorityPerEvent               = 21230 /*!< Event can only have one <priority> */
+ , OneMathPerPriority                    = 21231 /*!< Priority must have one math element */
+ , AllowedAttributesOnPriority           = 21232 /*!< Invalid attribute on <priority> */
 
 
  , GeneralWarningNotSpecified            = 29999 /*!< Unknown error */
 
   /* ModelingPractice contraints */
 
- , CompartmentShouldHaveSize             = 80501 /*!< Compartment is missing size */
- , ParameterShouldHaveUnits              = 80701 /*!< Parameter definition should specify units */
- , LocalParameterShadowsId               = 81121 /*!< Parameter inside KineticLaw has same <code>id</code> as a global parameter */
+ , CompartmentShouldHaveSize             = 80501 /*!< It's best to define a size for every compartment in a model */
+ , ParameterShouldHaveUnits              = 80701 /*!< It's best to declare units for every parameter in a model */
+ , LocalParameterShadowsId               = 81121 /*!< Local parameters defined in a kinetic law shadow global parameters */
     
   /* Lower bound for additional error codes returned by libSBML but not
    * defined in SBML specifications. */
@@ -718,9 +718,9 @@ typedef enum
  , NoSpeciesSpatialSizeUnitsInL1         = 91012 /*!< SBML Level&nbsp;1 does not support species <code>spatialSizeUnits</code> settings */
  , NoSBOTermsInL1                        = 91013 /*!< SBML Level&nbsp;1 does not support the <code>sboTerm</code> attribute */
  , StrictUnitsRequiredInL1               = 91014 /*!< SBML Level&nbsp;1 requires strict unit consistency */
- , ConversionFactorNotInL1               = 91015
- , CompartmentNotOnL1Reaction            = 91016
- , ExtentUnitsNotSubstance               = 91017
+ , ConversionFactorNotInL1               = 91015 /*!< SBML Level&nbsp;1 does not support the <code>conversionFactor</code> attribute */
+ , CompartmentNotOnL1Reaction            = 91016 /*!< SBML Level&nbsp;1 does not support the <code>compartment</code> attribute on a <Reaction> */
+ , ExtentUnitsNotSubstance               = 91017 /*!< Conversion to SBML Level&nbsp;1 requires that <code>extent</code> units be a variant of substance */
 
   /* L2v1 compatability */
 
@@ -730,13 +730,13 @@ typedef enum
  , NoCompartmentTypeInL2v1               = 92004 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support compartment types */
  , NoSBOTermsInL2v1                      = 92005 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>sboTerm</code> attribute */
  , NoIdOnSpeciesReferenceInL2v1          = 92006 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>id</code> attribute on species references */
- , NoDelayedEventAssignmentInL2v1        = 92007 /*!< Attribute <code>useValuesFromTriggerTime</code> not supported in this Level+Version of SBML */
- , StrictUnitsRequiredInL2v1             = 92008
- , IntegerSpatialDimensions              = 92009
- , StoichiometryMathNotYetSupported      = 92010
- , PrioirtyLostFromL3                    = 92011
- , NonPersistentNotSupported             = 92012
- , InitialValueFalseEventNotSupported    = 92013
+ , NoDelayedEventAssignmentInL2v1        = 92007 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>useValuesFromTriggerTime</code> attribute */
+ , StrictUnitsRequiredInL2v1             = 92008 /*!< SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency */
+ , IntegerSpatialDimensions              = 92009 /*!< SBML Level&nbsp;2 Version&nbsp;1 requires spatial dimensions of 0 - 3 */
+ , StoichiometryMathNotYetSupported      = 92010 /*!< Conversion to StoichiometryMath not yet supported */
+ , PrioirtyLostFromL3                    = 92011 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support priority */
+ , NonPersistentNotSupported             = 92012 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>persistent</code> attribute */
+ , InitialValueFalseEventNotSupported    = 92013 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support an <code>initialValue</code> of <code>false</code> for a <Trigger> */
 
  /*!< SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency */
 
@@ -787,7 +787,7 @@ typedef enum
  , ModelSBOBranchChangedInL3v1           = 96008 /*!< The allowable <code>sboTerm</code> values for model differ for this SBML Level+Version */
  , DuplicateAnnotationInvalidInL3v1      = 96009 /*!< Duplicate top level annotations invalid for this SBML Level+Version */
  , NoCompartmentOutsideInL3v1            = 96010 /*!< The unit <code>offset</code> attribute is invalid in this Level+Version of SBML */
- , NoStoichiometryMathInL3v1             = 96011
+ , NoStoichiometryMathInL3v1             = 96011 /*!< SBML Level&nbsp;3 Version&nbsp;1 does not support stoichiometryMath */
 
  /* These are errors checked by libSBML that were never
    * published in a spec. */
@@ -795,7 +795,7 @@ typedef enum
  , InvalidSBMLLevelVersion               = 99101 /*!< Invalid SBML Level and Version */
  , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules */
- , RequiredPackagePresent                = 99107 /*!< Invalid ordering of rules */
+ , RequiredPackagePresent                = 99107 /*!< Model requires an L3 package */
 
  , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute <code>substanceUnits</code> */
  , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute <code>timeUnits</code> */
@@ -812,7 +812,7 @@ typedef enum
 
  , NoTimeSymbolInFunctionDef             = 99301 /*!< <code>&lt;csymbol&gt;</code> for <code>time</code> used within the <code>&lt;math&gt;</code> of a function definition */
 
- , NoBodyInFunctionDef                   = 99302
+ , NoBodyInFunctionDef                   = 99302 /*!< There must be a body within the <math> of a function definition */
 
   /* These are internal errors that reverts to 10501. */
 
@@ -828,7 +828,7 @@ typedef enum
 
   /* Internal consistency checks */
 
- , IncorrectCompartmentSpatialDimensions = 99901 /*!< in SBML Level&nbsp;1, only three-dimensional compartments are permitted */
+ , IncorrectCompartmentSpatialDimensions = 99901 /*!< In SBML Level&nbsp;1, only three-dimensional compartments are permitted */
  , CompartmentTypeNotValidAttribute      = 99902 /*!< Compartment types not supported in this Level+Version of SBML */
  , ConstantNotValidAttribute             = 99903 /*!< Attribute <code>constant</code> not supported on this component in SBML Level&nbsp;1 */
  , MetaIdNotValidAttribute               = 99904 /*!< Attribute <code>metaid</code> not supported in SBML Level&nbsp;1 */
@@ -854,12 +854,13 @@ typedef enum
  , MultiplierNotValidAttribute           = 99924 /*!< Attribute <code>multiplier</code> on units not supported in SBML Level&nbsp;1 */
  , OffsetNotValidAttribute               = 99925 /*!< Attribute <code>offset</code> on units only available in SBML Level&nbsp;2 Version&nbsp;1 */
 
- , InvalidTargetLevelVersion   = 99997
- , L3NotSupported              = 99998
-  /* Bounds */
+ , InvalidTargetLevelVersion             = 99997 /*!< The target Level/Version&nbspdoes not exist */
+ , L3NotSupported                        = 99998 /*!< SBML Level&nbsp;3 is not yet supported */
 
-  , SBMLCodesUpperBound                  = 99999 /*!< 99999, the upper bound of
-						  * all libSBML codes.  
+ /* Bounds */
+
+  , SBMLCodesUpperBound                  = 99999 /*!< 99999, the upper bound 
+                                                  * all libSBML codes.  
                                                   * Application-specific codes
                                                   * should begin at 100000. */
 } SBMLErrorCode_t;
