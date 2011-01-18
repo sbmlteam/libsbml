@@ -54,7 +54,7 @@ else:
     blank = decr.find(" ")
     name = decr[0:blank]
     error = SBMLError(num,1,1)
-    line = " * <tr><td><code>"
+    line = "<tr><td><code>"
     line = line + name
     line = line + "</code></td><td>"
     line = line + fixupHTML(error.getShortMessage()) + "</td>"

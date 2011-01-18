@@ -266,7 +266,6 @@ AllowedAttributesOnPriority           = 21232
 CompartmentShouldHaveSize             = 80501 /*!< Compartment is missing size */
 ParameterShouldHaveUnits              = 80701 /*!< Parameter definition should specify units */
 LocalParameterShadowsId               = 81121 /*!< Parameter inside KineticLaw has same <code>id</code> as a global parameter */
-LibSBMLAdditionalCodesLowerBound      = 90000 /*!< Lower bound of libSBML-specific codes */
 CannotConvertToL1V1                   = 90001 /*!< Cannot convert to SBML Level&nbsp;1 Version&nbsp;1 */
 NoEventsInL1                          = 91001 /*!< SBML Level&nbsp;1 does not support events */
 NoFunctionDefinitionsInL1             = 91002 /*!< SBML Level&nbsp;1 does not support function definitions */
