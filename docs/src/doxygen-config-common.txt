@@ -1066,4 +1066,5 @@ DOT_MULTI_TARGETS      = YES
 # used. If set to NO the values of all tags below this one will be ignored.
 
 SEARCHENGINE           = YES
-SERVER_BASED_SEARCH    = YES
+SERVER_BASED_SEARCH    = NO
+
