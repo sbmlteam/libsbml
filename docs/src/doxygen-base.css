@@ -330,6 +330,10 @@ div.contents hr {
   color: #880000;
 }
 
+.warning {
+  color: #880000;
+}
+
 .memproto {  
   padding: 5pt;
   border: 1px solid #b5b5b5;
