@@ -2244,6 +2244,18 @@ START_TEST(test_SBase_setAnnotationWithNewTerm)
   fail_unless ( species->setAnnotation(annotation) == LIBSBML_OPERATION_SUCCESS);
   fail_unless ( species ->getAnnotationString() != "");
 
+  fail_unless ( species->getNumCVTerms() == 1);
+
+  CVTerm* term1 = species->getCVTerm(0);
+  
+  fail_unless ( term1  != NULL);
+  fail_unless ( term1->getQualifierType() == MODEL_QUALIFIER);
+  fail_unless ( term1->getModelQualifierType() == BQM_IS_DERIVED_FROM);  
+  fail_unless ( term1->getNumResources() == 1);
+  fail_unless ( term1->getResourceURI(0) == "urn:miriam:biomodels.db:BIOMD0000000009");
+  
+  delete species;
+
 }
 END_TEST
 
