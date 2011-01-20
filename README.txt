@@ -22,24 +22,25 @@
     To contact the core libSBML developers directly, send email to
 		       libsbml-team@caltech.edu
 
-   ,----------------------------------------------------------------.
+   ,---------------------------------------------------------------.
   | Table of contents                                               |
   | 0. Foreword                                                     |
-  | 1. Quick start                                                  |
-  | 2. Introduction                                                 |
-  | 3. Detailed instructions for configuring and installing LibSBML |
-  | 4. Reporting bugs and other problems                            |
-  | 5. Mailing lists                                                |
-  | 6. Licensing and distribution                                   |
-  | 7. Acknowledgments                                              |
-   `----------------------------------------------------------------'
+  | 1. What's new in this release?                                  |
+  | 2. Quick start                                                  |
+  | 3. Introduction                                                 |
+  | 4. Detailed instructions for configuring and installing LibSBML |
+  | 5. Reporting bugs and other problems                            |
+  | 6. Mailing lists                                                |
+  | 7. Licensing and distribution                                   |
+  | 8. Acknowledgments                                              |
+   `---------------------------------------------------------------'
                   Date of last update to this file:
         $Date$
 
 
------------
+
 0. FOREWORD
------------
+======================================================================
 
 Article citations are crucial to our academic careers.  If you use
 libSBML and you publish papers about your software, we ask that you
@@ -49,9 +50,19 @@ please cite the libSBML paper:
   LibSBML: An API Library for SBML. Bioinformatics, 24(6):880-881.
 
 
---------------
-1. QUICK START
---------------
+1. WHAT'S NEW IN THIS RELEASE?
+======================================================================
+
+Please see the file NEWS.txt for more information about recent changes
+in libSBML.  For a complete list of changes, please see the revision 
+logs in the source code repository at 
+
+  http://sbml.svn.sourceforge.net/viewvc/sbml/
+
+
+2. QUICK START
+======================================================================
+
 
 1.1 Linux, MacOS X, FreeBSD, and Solaris
 ----------------------------------------
@@ -148,9 +159,8 @@ Multithreaded DLL or Debug Multithreaded DLL version of the VC++
 runtime, respectively.
 
 
----------------
 2. INTRODUCTION
----------------
+======================================================================
 
 This README file describes libSBML, a library for reading, writing and
 manipulating files and data streams containing the Systems Biology
@@ -243,9 +253,8 @@ Feature Highlights:
   and closely reflects the actual API.
 
 
----------------------------------------------------------------
 3. DETAILED INSTRUCTIONS FOR CONFIGURING AND INSTALLING LIBSBML
----------------------------------------------------------------
+======================================================================
 
 Detailed instructions for building and configuring libSBML are now
 included as part of the full documentation available for libSBML.
@@ -263,9 +272,8 @@ subdirectory.  (To do that, however, you will need certain additional
 software tools such as Doxygen and a full latex distribution.)
 
 
-------------------------------------
 4. REPORTING BUGS AND OTHER PROBLEMS
-------------------------------------
+======================================================================
 
 We invite you to report bugs and other problems using the issue
 tracker for libSBML on SourceForge.  The following URL will take you
@@ -280,9 +288,8 @@ experienced the issue and offer a workaround more quickly than the
 libSBML developers can respond.
 
 
-----------------
 5. MAILING LISTS
-----------------
+======================================================================
 
 There are two kinds of mailing lists available: normal discussion
 lists for humans, and a SVN change notification list.
@@ -320,9 +327,8 @@ list by visiting the following URL:
   https://lists.sourceforge.net/lists/listinfo/sbml-svn
 
 
------------------------------
 6. LICENSING AND DISTRIBUTION
------------------------------
+======================================================================
 
 LibSBML incorporates a third-party software library, MiniZip
 1.01e, copyright (C) 1998-2005 Gilles Vollant, released under
@@ -365,9 +371,8 @@ You may also write to obtain a copy from the Free Software Foundation,
 Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 
 
-------------------
 7. ACKNOWLEDGMENTS
-------------------
+======================================================================
 
 This and other projects of the SBML Team have been supported by the
 following organizations: the National Institutes of Health (USA) under
@@ -387,13 +392,13 @@ MiniZip 1.01e and making it freely available.  LibSBML incorporates
 MiniZip to support reading and writing compressed SBML files.
 
 
------------------------------------------------
+
+======================================================================
 File author: M. Hucka, B. Bornstein, S. Keating
 Last Modified: $Date$
 Last Modified By: $Author$
 $HeadURL$
------------------------------------------------
-
+======================================================================
 # The following is for [X]Emacs users.  Please leave in place.
 # Local Variables:
 # fill-column: 70
