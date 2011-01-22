@@ -373,7 +373,7 @@
  * 
  * In this verision of libSBML (3.3.x), there are no additional severity
  * codes in SBMLErrorSeverity_t beyond those defined in @link
- * XMLError::XMLErrorSeverity_t XMLErrorSeverity_t @endlink.
+ * XMLError::XMLErrorSeverity_t XMLErrorSeverity_t@endlink.
  * 
  * <hr>
  * @endif@if java <h3><a class="anchor"

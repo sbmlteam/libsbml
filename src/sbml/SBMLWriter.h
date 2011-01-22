@@ -29,8 +29,8 @@
  * The SBMLWriter class is the converse of SBMLReader, and provides the
  * main interface for serializing SBML models into XML and writing the
  * result to files and text strings.  The methods for writing SBML all take
- * an SBMLDocument object and a destination.  They return a boolean value
- * to indicate success or failure.
+ * an SBMLDocument object and a destination.  They return a boolean or
+ * integer value to indicate success or failure.
  *
  * @section compression Support for writing compressed files
  *
@@ -49,11 +49,8 @@
  * The compression feature requires that the @em zlib (for @em gzip and @em
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
- * support compiled-in.  Please see the @if clike <a
- * href="libsbml-installation.html">installation instructions</a> @endif@if python <a
- * href="libsbml-installation.html">installation instructions</a> @endif@if java  <a
- * href="../../../libsbml-installation.html">installation instructions</a> @endif
- * for libSBML for more information about this.  The methods
+ * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a>@endif@if python <a href="libsbml-installation.html">installation instructions</a>@endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a>@endif for 
+ * more information about this.  The methods
  * @if clike hasZlib()@endif@if python hasZlib()@endif@if java SBMLWriter::hasZlib()@endif and
  * @if clike hasBzip2()@endif@if python hasBzip2()@endif@if java SBMLWriter::hasBzip2()@endif
  * can be used by an application to query at run-time whether support
@@ -90,6 +87,9 @@ public:
 
   /**
    * Creates a new SBMLWriter.
+   *
+   * The libSBML SBMLWriter objects offer methods for writing SBML in
+   * XML form to files and text strings.
    */
   SBMLWriter  ();
 
@@ -107,11 +107,14 @@ public:
    * If the program name and version are set (see
    * @if clike setProgramVersion()@endif@if python setProgramVersion()@endif@if java SBMLWriter::setProgramVersion(String version)@endif), the
    * following XML comment, intended for human consumption, will be written
-   * at the beginning of the document:
+   * at the beginning of the XML document:
    * @verbatim
    <!-- Created by <program name> version <program version>
-   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
 @endverbatim
+   *
+   * If the program name and version are not set at some point before
+   * calling the writeSBML() methods, no such comment is written out.
    *
    * @param name the name of this program (where "this program" refers to
    * program in which libSBML is embedded, not libSBML itself!)
@@ -133,9 +136,14 @@ public:
    * If the program version and name are set (see
    * @if clike setProgramName()@endif@if python setProgramName()@endif@if java SBMLWriter::setProgramName(String name)@endif), the
    * following XML comment, intended for human consumption, will be written
-   * at the beginning of the document: @verbatim <!-- Created by <program
-   * name> version <program version> on yyyy-MM-dd HH:mm with libsbml
-   * version <libsbml version>. --> @endverbatim
+   * at the beginning of the document:
+   * @verbatim
+   <!-- Created by <program name> version <program version>
+   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
+@endverbatim
+   *
+   * If the program version and name are not set at some point before
+   * calling the writeSBML() methods, no such comment is written out.
    *
    * @param version the version of this program (where "this program"
    * refers to program in which libSBML is embedded, not libSBML itself!)
@@ -167,8 +175,6 @@ public:
    * archive will be @c "test.sbml" if the given filename is @c
    * "test.sbml.zip".
    *
-   * @note @htmlinclude note-writing-zipped-files.html
-   *
    * @param d the SBML document to be written
    *
    * @param filename the name or full pathname of the file where the SBML
@@ -176,6 +182,11 @@ public:
    *
    * @return @c true on success and @c false if the filename could not be
    * opened for writing.
+   *
+   * @note @htmlinclude note-writing-zipped-files.html
+   * 
+   * @see setProgramVersion(const std::string& version)
+   * @see setProgramName(const std::string& name)
    */
   bool writeSBML (const SBMLDocument* d, const std::string& filename);
 
@@ -189,6 +200,9 @@ public:
    *
    * @return @c true on success and @c false if one of the underlying
    * parser components fail (rare).
+   * 
+   * @see setProgramVersion(const std::string& version)
+   * @see setProgramName(const std::string& name)
    */
   bool writeSBML (const SBMLDocument* d, std::ostream& stream);
 
@@ -206,10 +220,14 @@ public:
    *
    * @return the string on success and @c 0 if one of the underlying parser
    * components fail.
+   * 
+   * @see setProgramVersion(const std::string& version)
+   * @see setProgramName(const std::string& name)
    */
   char* writeToString (const SBMLDocument* d);
 
   /** @endcond */
+
 
   /**
    * Writes the given SBML document to filename.
@@ -228,8 +246,6 @@ public:
    * archive will be @c "test.sbml" if the given filename is @c
    * "test.sbml.zip".
    *
-   * @note @htmlinclude note-writing-zipped-files.html
-   *
    * @param d the SBML document to be written
    *
    * @param filename the name or full pathname of the file where the SBML
@@ -237,6 +253,11 @@ public:
    *
    * @return @c true on success and @c false if the filename could not be
    * opened for writing.
+   *
+   * @note @htmlinclude note-writing-zipped-files.html
+   * 
+   * @see setProgramVersion(const std::string& version)
+   * @see setProgramName(const std::string& name)
    */
   bool writeSBMLToFile (const SBMLDocument* d, const std::string& filename);
 
@@ -252,6 +273,9 @@ public:
    *
    * @return the string on success and @c 0 if one of the underlying parser
    * components fail.
+   * 
+   * @see setProgramVersion(const std::string& version)
+   * @see setProgramName(const std::string& name)
    */
   char* writeSBMLToString (const SBMLDocument* d);
 
@@ -328,7 +352,7 @@ SBMLWriter_free (SBMLWriter_t *sw);
  * consumption, will be written at the beginning of the document:
  *
  *   <!-- Created by <program name> version <program version>
- *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+ *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  */
 LIBSBML_EXTERN
 int
@@ -341,7 +365,7 @@ SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
  * consumption, will be written at the beginning of the document:
  *
  *   <!-- Created by <program name> version <program version>
- *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+ *   on yyyy-MM-dd HH:mm with libSBML version <libsbml version>. -->
  */
 LIBSBML_EXTERN
 int
@@ -364,6 +388,9 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  * archive will be @c "test.sbml" if the given filename is @c
  * "test.sbml.zip".
  *
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.
+ *
  * @note To write a gzip/zip file, libSBML needs to be configured and
  * linked with the <a target="_blank" href="http://www.zlib.net/">zlib</a> library at
  * compile time.  It also needs to be linked with the <a target="_blank"
@@ -375,9 +402,6 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  *
  * @note SBMLReader::hasZlib() and SBMLReader::hasBzip2() can be used to
  * check whether libSBML has been linked with each library.
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
  */
 LIBSBML_EXTERN
 int
@@ -390,6 +414,8 @@ int
 SBMLWriter_writeSBMLToFile ( SBMLWriter_t         *sw,
                        const SBMLDocument_t *d,
                        const char           *filename );
+
+
 /**
  * Writes the given SBML document to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed

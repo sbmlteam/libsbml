@@ -39,15 +39,18 @@
  * communicate SBML Level and Version data between libSBML constructors and
  * other methods.  The SBMLNamespaces object class tracks 3-tuples
  * (triples) consisting of SBML Level, Version, and the corresponding SBML
- * XML namespace.  (The plural name is not a mistake, because in SBML
+ * XML namespace.
+ *
+ * The plural name (SBMLNamespaces) is not a mistake, because in SBML
  * Level&nbsp;3, objects may have extensions added by Level&nbsp;3 packages
- * used by a given model; however, until the introduction of SBML
+ * used by a given model and therefore may have multiple namespaces
+ * associated with them; however, until the introduction of SBML
  * Level&nbsp;3, the SBMLNamespaces object only records one SBML
- * Level/Version/namespace combination at a time.)  Most constructors for
+ * Level/Version/namespace combination at a time.  Most constructors for
  * SBML objects in libSBML take a SBMLNamespaces object as an argument,
  * thereby allowing the constructor to produce the proper combination of
- * attributes and other internal data structures for the given SBML
- * Level and Version.
+ * attributes and other internal data structures for the given SBML Level
+ * and Version.
  */
 
 #ifndef SBMLNamespaces_h
@@ -90,11 +93,16 @@ public:
    * combination of attributes and other internal data structures for the
    * given SBML Level and Version.
    *
-   * The plural name "SBMLNamespaces" is not a mistake, because in SBML
+   * The plural name (SBMLNamespaces) is not a mistake, because in SBML
    * Level&nbsp;3, objects may have extensions added by Level&nbsp;3
-   * packages used by a given model; however, until the introduction of
+   * packages used by a given model and therefore may have multiple
+   * namespaces associated with them; however, until the introduction of
    * SBML Level&nbsp;3, the SBMLNamespaces object only records one SBML
-   * Level/Version/namespace combination at a time.
+   * Level/Version/namespace combination at a time.  Most constructors for
+   * SBML objects in libSBML take a SBMLNamespaces object as an argument,
+   * thereby allowing the constructor to produce the proper combination of
+   * attributes and other internal data structures for the given SBML Level
+   * and Version.
    *
    * @param level the SBML level
    * @param version the SBML version
@@ -144,7 +152,7 @@ public:
    * SBML Level and Version specified.
    */
   static std::string getSBMLNamespaceURI(unsigned int level,
-                                            unsigned int version);
+                                         unsigned int version);
   
   
   /**
@@ -185,14 +193,6 @@ public:
 
   /**
    * Get the XML namespaces list for this SBMLNamespaces object.
-   * 
-   * The plural is not a mistake, because in SBML Level&nbsp;3, objects may
-   * have extensions added by Level&nbsp;3 packages used by a given model,
-   * and therefore there may be multiple XML namespaces involved too.
-   * However, until the introduction of SBML Level&nbsp;3, the
-   * SBMLNamespaces object only records one SBML Level/Version/namespace
-   * combination at a time, and so this method will also only return
-   * a list of one item.
    *
    * @return the XML namespaces of this SBMLNamespaces object.
    */
@@ -201,14 +201,6 @@ public:
 
   /**
    * Get the XML namespaces list for this SBMLNamespaces object.
-   * 
-   * The plural is not a mistake, because in SBML Level&nbsp;3, objects may
-   * have extensions added by Level&nbsp;3 packages used by a given model,
-   * and therefore there may be multiple XML namespaces involved too.
-   * However, until the introduction of SBML Level&nbsp;3, the
-   * SBMLNamespaces object only records one SBML Level/Version/namespace
-   * combination at a time, and so this method will also only return
-   * a list of one item.
    *
    * @return the XML namespaces of this SBMLNamespaces object.
    */

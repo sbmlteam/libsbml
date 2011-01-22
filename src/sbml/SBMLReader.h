@@ -64,11 +64,7 @@
  * The compression feature requires that the @em zlib (for @em gzip and @em
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
- * support compiled-in.  Please see the @if clike <a
- * href="libsbml-installation.html">installation instructions</a> @endif@if python <a
- * href="libsbml-installation.html">installation instructions</a> @endif@if java  <a
- * href="../../../libsbml-installation.html">installation instructions</a> @endif for
- * libSBML for more information about this.  The methods
+ * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a> @endif@if python <a href="libsbml-installation.html">installation instructions</a> @endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a> @endif for more information about this.  The methods
  * @if clike hasZlib()@endif@if python hasZlib()@endif@if java SBMLReader::hasZlib()@endif and
  * @if clike hasBzip2()@endif@if python hasBzip2()@endif@if java SBMLReader::hasBzip2()@endif
  * can be used by an application to query at run-time whether support
@@ -105,6 +101,9 @@ public:
 
   /**
    * Creates a new SBMLReader and returns it. 
+   *
+   * The libSBML SBMLReader objects offer methods for reading SBML in
+   * XML form from files and text strings.
    */
   SBMLReader ();
 

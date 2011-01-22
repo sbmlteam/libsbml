@@ -1434,9 +1434,9 @@ public:
   virtual bool hasRequiredAttributes() const ;
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
 #ifdef USE_LAYOUT
-  /** @cond doxygen-libsbml-internal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -1445,8 +1445,6 @@ protected:
    * @return true if the subclass read from the stream, false otherwise.
    */
   bool readOtherXML (XMLInputStream& stream);
-
-  /** @endcond */
 
 #endif // USE_LAYOUT
 
@@ -1474,6 +1472,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
+  /** @endcond */
 };
 
 

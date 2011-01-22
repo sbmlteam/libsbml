@@ -206,31 +206,28 @@
  * assignments, rules, and entity values for simulation time <em>t</em>
  * \f$\leq\f$ <em>0</em>.
  *
- * The ability to define arbitrary algebraic expressions in an SBML model
- * introduces the possibility that a model is mathematically overdetermined
- * by the overall system of equations constructed from its rules and
- * reactions.  An SBML model must not be overdetermined.  An SBML model
- * that does not contain AlgebraicRule structures cannot be overdetermined.
+ * An SBML model must not be overdetermined.  The ability to define
+ * arbitrary algebraic expressions in an SBML model introduces the
+ * possibility that a model is mathematically overdetermined by the overall
+ * system of equations constructed from its rules, reactions and events.
+ * Therefore, if an algebraic rule is introduced in a model, for at least
+ * one of the entities referenced in the rule's "math" element the value of
+ * that entity must not be completely determined by other constructs in the
+ * model.  This means that at least this entity must not have the attribute
+ * "constant"=@c true and there must also not be a rate rule or assignment
+ * rule for it.  Furthermore, if the entity is a Species object, its value
+ * must not be determined by reactions, which means that it must either
+ * have the attribute "boundaryCondition"=@c true or else not be involved
+ * in any reaction at all.  These restrictions are explained in more detail
+ * in the SBML specification documents.
  *
- * Assessing whether a given continuous, deterministic, mathematical model
- * is overdetermined does not require dynamic analysis; it can be done by
- * analyzing the system of equations created from the model.  One approach
- * is to construct a bipartite graph in which one set of vertices
- * represents the variables and the other the set of vertices represents
- * the equations.  Place edges between vertices such that variables in the
- * system are linked to the equations that determine them.  For algebraic
- * equations, there will be edges between the equation and each variable
- * occurring in the equation.  For ordinary differential equations (such as
- * those defined by rate rules or implied by the reaction rate
- * definitions), there will be a single edge between the equation and the
- * variable determined by that differential equation.  A mathematical model
- * is overdetermined if the maximal matchings of the bipartite graph
- * contain disconnected vertexes representing equations.  (If one maximal
- * matching has this property, then all the maximal matchings will have
- * this property; i.e., it is only necessary to find one maximal matching.)
- * Appendix&nbsp;B of the SBML Level&nbsp;3 Version&nbsp;1 Core
- * specification document describes a method of applying this procedure to
- * specific SBML data objects.
+ * In SBML Levels 2 and&nbsp;3, Reaction object identifiers can be
+ * referenced in the "math" expression of an algebraic rule, but reaction
+ * rates can never be <em>determined</em> by algebraic rules.  This is true
+ * even when a reaction does not contain a KineticLaw element.  (In such
+ * cases of missing KineticLaw elements, the model is valid but incomplete;
+ * the rates of reactions lacking kinetic laws are simply undefined, and
+ * not determined by the algebraic rule.)
  * 
  *
  * @section general General summary of SBML rules
@@ -1639,7 +1636,7 @@ public:
    * AlgebraicRule
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif), the SBML Level, SBML Version
+   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AlgebraicRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1666,7 +1663,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the
+   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the
    * document @em overrides the value used when creating the AlgebraicRule
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -1781,7 +1778,7 @@ public:
    * AssignmentRule
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
+   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AssignmentRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1808,7 +1805,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AssignmentRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of
+   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * AssignmentRule object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,
@@ -1913,7 +1910,7 @@ public:
    * RateRule
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
-   * (e.g., using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
+   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the RateRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1940,7 +1937,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
-   * using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
+   * using @if clike&nbsp; Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
    * @em overrides the value used when creating the RateRule object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the

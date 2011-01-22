@@ -89,7 +89,7 @@
  */ 
 /**
  * @class ListOfLocalParameters.
- * @brief LibSBML implementation of SBML's %ListOfLocalParameters construct.
+ * @brief LibSBML implementation of SBML Level&nbsp;3's %ListOfLocalParameters construct.
  * 
  * The various ListOf___ classes in SBML are merely containers used for
  * organizing the main components of an SBML model.  All are derived from
@@ -98,9 +98,10 @@
  * ListOf___ classes do not add any attributes of their own.
  *
  * ListOfLocalParameters is a subsidiary object class used only within
- * KineticLaw.  A KineticLaw object can have a single object of class
- * ListOfLocalParameters containing a set of local parameters used in that
- * kinetic law definition.
+ * KineticLaw in SBML Level&nbsp;3.  It is not defined in SBML Levels
+ * 1&ndash;2.  In Level&nbsp;3, a KineticLaw object can have a single
+ * object of class ListOfLocalParameters containing a set of local
+ * parameters used in that kinetic law definition.
  *
  * Readers may wonder about the motivations for using the ListOf___
  * containers.  A simpler approach in XML might be to place the components

@@ -55,14 +55,17 @@ public:
    * Returns true @c true or @c false depending on whether the argument
    * string conforms to the syntax of SBML identifiers.
    *
-   * In SBML, identifiers that are the values of <code>id</code> attributes
-   * on objects must conform to a data type called <code>SId</code> in the
-   * SBML specifications.  LibSBML does not provide an explicit
-   * <code>SId</code> data type; instead, it tests for identifier validity
-   * at various times, such as when reading in models from files and data
-   * streams.  To enable calling programs to test that the identifiers they
-   * generate also conform to the SBML identifier syntax, libSBML provides
-   * this method.
+   * In SBML, identifiers that are the values of "id" attributes on objects
+   * must conform to a data type called <code>SId</code> in the SBML
+   * specifications.  LibSBML does not provide an explicit <code>SId</code>
+   * data type; it uses ordinary character strings, which is easier for
+   * applications to support.  LibSBML does, however, test for identifier
+   * validity at various times, such as when reading in models from files
+   * and data streams.
+   *
+   * This method provides programs with the ability to test explicitly that
+   * the identifier strings they create conform to the SBML identifier
+   * syntax.
    *
    * @param sid string to be checked for conformance to SBML identifier
    * syntax.
@@ -82,14 +85,18 @@ public:
    * Returns @c true or @c false depending on whether the argument string
    * conforms to the XML data type <code>ID</code>.
    *
-   * In SBML, identifiers that are the values of <code>metaid</code>
-   * attributes on objects must conform to the <a target="_blank" 
+   * In SBML, identifiers that are the values of "metaid" attributes on
+   * objects must conform to the <a target="_blank"
    * href="http://www.w3.org/TR/REC-xml/#id">XML ID</a> data type.  LibSBML
-   * does not provide an explicit XML <code>ID</code> data type; instead,
-   * it tests for identifier validity at various times, such as when
-   * reading in models from files and data streams.  To enable calling
-   * programs to test that the identifiers they generate also conform to
-   * the SBML identifier syntax, libSBML provides this method.
+   * does not provide an explicit XML <code>ID</code> data type; it uses
+   * ordinary character strings, which is easier for applications to
+   * support.  LibSBML does, however, test for identifier validity at
+   * various times, such as when reading in models from files and data
+   * streams.
+   *
+   * This method provides programs with the ability to test explicitly that
+   * the identifier strings they create conform to the SBML identifier
+   * syntax.
    *
    * @param id string to be checked for conformance to the syntax of
    * <a target="_blank" href="http://www.w3.org/TR/REC-xml/#id">XML ID</a>.
@@ -113,11 +120,14 @@ public:
    * In SBML, the identifiers of units (of both the predefined units and
    * user-defined units) must conform to a data type called
    * <code>UnitSId</code> in the SBML specifications.  LibSBML does not
-   * provide an explicit <code>UnitSId</code> data type; instead, it tests
-   * for identifier validity at various times, such as when reading in
-   * models from files and data streams.  To enable calling programs to
-   * test that the unit identifiers they generate also conform to the SBML
-   * identifier syntax, libSBML provides this method.
+   * provide an explicit <code>UnitSId</code> data type; it uses ordinary
+   * character strings, which is easier for applications to support.
+   * LibSBML does, however, test for identifier validity at various times,
+   * such as when reading in models from files and data streams.
+   *
+   * This method provides programs with the ability to test explicitly that
+   * the identifier strings they create conform to the SBML identifier
+   * syntax.
    *
    * @param units string to be checked for conformance to SBML unit
    * identifier syntax.
