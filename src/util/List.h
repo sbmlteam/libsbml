@@ -28,8 +28,8 @@
  *
  * This class implements basic vanilla lists for libSBML.  It was developed
  * in the time before libSBML was converted to C++ and used C++ STL library
- * classes more extensively.  At some point in the future, it may be removed
- * in favor of using standard C++ classes.
+ * classes more extensively.  At some point in the future, this List class
+ * may be removed in favor of using standard C++ classes.
  *
  * This class is distinct from ListOf because the latter is derived from
  * the SBML SBase class, whereas this List class is not.  ListOf can only
