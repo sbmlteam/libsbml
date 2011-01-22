@@ -670,7 +670,7 @@ public:
   /**
    * Returns the identifier of this error.
    *
-   * @return the id of this XMLError.
+   * @return the error code for this error.
    * 
    * @see getMessage()
    * @see getShortMessage()
