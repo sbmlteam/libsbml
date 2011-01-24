@@ -59,19 +59,92 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * A Date object stores a reasonably complete date representation,
- * consisting of the following fields:
+ * A Date object stores a reasonably complete representation of date and
+ * time.  Its purpose is to serve as a way to store dates to be read and
+ * written in the <a target="_blank"
+ * href="http://www.w3.org/TR/NOTE-datetime">W3C date format</a> used in
+ * RDF Dublin Core annotations within SBML.  The W3C date format is a
+ * restricted form of <a target="_blank"
+ * href="http://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>, the
+ * international standard for the representation of dates and times.  A
+ * time and date value in this W3C format takes the form
+ * YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g., <code>1997-07-16T19:20:30+01:00</code>)
+ * where XHH:ZZ is the time zone offset.  The libSBML Date object contains
+ * the following fields to represent these values:
  * <ul>
- * <li> @em year: an unsigned int representing the year.
- * <li> @em month: an unsigned int representing the month.
- * <li> @em day: an unsigned int representing the day.
- * <li> @em hour: an unsigned int representing the hour.
- * <li> @em minute: an unsigned int representing the minute.
- * <li> @em second: an unsigned int representing the second.
- * <li> @em sign: an unsigned int representing the sign of the offset (0/1 equivalent to +/-). 
- * <li> @em hours offset: an unsigned int representing the hoursOffset.
- * <li> @em minute offset: an unsigned int representing the minutesOffset.
+ * 
+ * <li> @em year: an unsigned int representing the year.  This should be a
+ * four-digit number such as @c 2011.
+ * 
+ * <li> @em month: an unsigned int representing the month, with a range of
+ * values of 1&ndash;12.  The value @c 1 represents January, and so on.
+ *
+ * <li> @em day: an unsigned int representing the day of the month, with a
+ * range of values of 1&ndash;31.
+ * 
+ * <li> @em hour: an unsigned int representing the hour on a 24-hour clock,
+ * with a range of values of 0&ndash;23.
+ * 
+ * <li> @em minute: an unsigned int representing the minute, with a range
+ * of 0&ndash;59.
+ * 
+ * <li> @em second: an unsigned int representing the second, with a range
+ * of 0&ndash;59.
+ * 
+ * <li> @em sign: an unsigned int representing the sign of the offset (@c 0
+ * signifying @c + and @c 1 signifying @c -).  See the paragraph below for
+ * further explanations.
+ * 
+ * <li> @em hours offset: an unsigned int representing the time zone's hour
+ * offset from GMT.
+ * 
+ * <li> @em minute offset: an unsigned int representing the time zone's
+ * minute offset from GMT.
+ * 
  * </ul>
+ *
+ * To illustrate the time zone offset, a value of <code>-05:00</code> would
+ * correspond to USA Eastern Standard Time.  In the Date object, this would
+ * require a value of @c 1 for the sign field, @c 5 for the hour offset and
+ * @c 0 for the minutes offset.
+ *
+ * In the restricted RDF annotations used in SBML, described in
+ * Section&nbsp;6 of the SBML Level&nbsp;2 and Level&nbsp;3 specification
+ * documents, date/time stamps can be used to indicate the time of
+ * creation and modification of a model.  The following SBML model fragment
+ * illustrates this:
+@verbatim
+<model metaid="_180340" id="GMO" name="Goldbeter1991_MinMitOscil">
+    <annotation>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                 xmlns:dc="http://purl.org/dc/elements/1.1/"
+                 xmlns:dcterms="http://purl.org/dc/terms/"
+                 xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" >
+            <rdf:Description rdf:about="#_180340">
+                <dc:creator>
+                    <rdf:Bag>
+                        <rdf:li rdf:parseType="Resource">
+                            <vCard:N rdf:parseType="Resource">
+                                <vCard:Family>Shapiro</vCard:Family>
+                                <vCard:Given>Bruce</vCard:Given>
+                            </vCard:N>
+                            <vCard:EMAIL>bshapiro@jpl.nasa.gov</vCard:EMAIL>
+                            <vCard:ORG rdf:parseType="Resource">
+                                <vCard:Orgname>NASA Jet Propulsion Laboratory</vCard:Orgname>
+                            </vCard:ORG>
+                        </rdf:li>
+                    </rdf:Bag>
+                </dc:creator>
+                <dcterms:created rdf:parseType="Resource">
+                    <dcterms:W3CDTF>2005-02-06T23:39:40+00:00</dcterms:W3CDTF>
+                </dcterms:created>
+                <dcterms:modified rdf:parseType="Resource">
+                    <dcterms:W3CDTF>2005-09-13T13:24:56+00:00</dcterms:W3CDTF>
+                </dcterms:modified>
+            </rdf:Description>
+        </rdf:RDF>
+    </annotation>
+</model>@endverbatim
  */
 
 #ifndef ModelHistory_h
@@ -97,19 +170,54 @@ class LIBSBML_EXTERN Date
 public:
  
   /**
-   * Creates a date optionally from the individual fields entered as numbers.
+   * Creates a time and date representation for use in model annotations
+   * and elsewhere.
    *
-   * @param year an unsigned int representing the year.
-   * @param month an unsigned int representing the month.
-   * @param day an unsigned int representing the day.
-   * @param hour an unsigned int representing the hour.
-   * @param minute an unsigned int representing the minute.
-   * @param second an unsigned int representing the second.
-   * @param sign an unsigned int representing the sign of the offset 
-   * (0/1 equivalent to +/-). 
-   * @param hoursOffset an unsigned int representing the hoursOffset.
-   * @param minutesOffset an unsigned int representing the minutesOffset.
+   * The following is the complete set of possible arguments to this
+   * constructor, with default values as indicated:
    *
+   * @param year an unsigned integer representing the year.  This should be
+   * a four-digit number such as @c 2011.  (Default value used if this
+   * argument is not given: @c 2007.)
+   * 
+   * @param month an unsigned integer representing the month, with a range
+   * of values of 1&ndash;12.  The value @c 1 represents January, and so
+   * on.  (Default value used if this argument is not given: @c 1.)
+   *
+   * @param day an unsigned integer representing the day of the month, with
+   * a range of values of 1&ndash;31.  (Default value used if this argument
+   * is not given: @c 1.)
+   * 
+   * @param hour an unsigned integer representing the hour on a 24-hour
+   * clock, with a range of values of 0&ndash;23.  (Default value used if
+   * this argument is not given: @c 0.)
+   * 
+   * @param minute an unsigned integer representing the minute, with a
+   * range of 0&ndash;59.  (Default value used if this argument is not
+   * given: @c 0.)
+   * 
+   * @param second an unsigned integer representing the second, with a
+   * range of 0&ndash;59.  (Default value used if this argument is not
+   * given: @c 0.)
+   * 
+   * @param sign an unsigned integer representing the sign of the offset
+   * (@c 0 signifying @c + and @c 1 signifying @c -).  See the paragraph
+   * below for further explanations.  (Default value used if this argument
+   * is not given: @c 0.)
+   * 
+   * @param hours offset an unsigned integer representing the time zone's
+   * hour offset from GMT.  (Default value used if this argument is not
+   * given: @c 0.)
+   * 
+   * @param minute offset an unsigned integer representing the time zone's
+   * minute offset from GMT.  (Default value used if this argument is not
+   * given: @c 0.)
+   *
+   * To illustrate the time zone offset, a value of <code>-05:00</code>
+   * would correspond to USA Eastern Standard Time.  In the Date object,
+   * this would require a value of @c 1 for the sign field, @c 5 for the
+   * hour offset and @c 0 for the minutes offset.
+   * 
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   Date(unsigned int year = 2007, unsigned int month = 1, 
@@ -117,32 +225,80 @@ public:
     unsigned int minute = 0, unsigned int second = 0,
     unsigned int sign = 0, unsigned int hoursOffset = 0,
     unsigned int minutesOffset = 0);
+
  
   /**
-   * Creates a date from a string.
+   * Creates a Date object from a string expressing a date and time value.
+   *
+   * This constructor expects its argument to be in the <a target="_blank"
+   * href="http://www.w3.org/TR/NOTE-datetime">W3C date format with time
+   * zone offset</a>, used in RDF Dublin Core annotations within SBML.
+   * This format expresses a date and time value as a string of the form
+   * YYYY-MM-DDThh:mm:ssXHH:ZZ, where
+   * <ul>
+   * 
+   * <li> @em YYYY is a four-digit integer representing the year.  This
+   * should be a four-digit number such as @c 2011.
+   * 
+   * <li> @em MM is a two-digit integer representing the month, with a range
+   * of values of 01&ndash;12.  The value @c 1 represents January, and so
+   * on.
+   *
+   * <li> @em DD is a two-digit integer representing the day of the month,
+   * with a range of values of 01&ndash;31.
+   * 
+   * <li> @em hh is a two-digit integer representing the hour on a 24-hour
+   * clock, with a range of values of 00&ndash;23.
+   * 
+   * <li> @em mm is a two-digit integer representing the minute, with a
+   * range of 00&ndash;59.
+   * 
+   * <li> @em ss is a two-digit integer representing the second, with a
+   * range of 0&ndash;59.
+   * 
+   * <li> @em X is the the sign of the time zone offset, either @c + or
+   * <code>-</code>.
+   *
+   * <li> @em HH is a two-digit integer representing the hour of the time
+   * zone offset, with a range of 00&ndash;23.
+   *
+   * <li> @em ZZ is a two-digit integer representing the minutes of the time
+   * zone offset, with a range of 00&ndash;59.
+   *
+   * </ul>
+   *
+   * In the string format above, it is important not to forget the literal
+   * character @c T in the string.  Here is an example date/time string:
+   * <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16,
+   * 1997, at 19:20:30 in Central European Time (which is UTC +1:00).
+   *
+   * If this constructor is given a @c NULL argument or a string of length
+   * zero, it constructs a Date object with the value of January 1, 2000,
+   * at time 00:00 UTC.  Otherwise, the argument @em must be in the
+   * complete format described above, or unpredictable results will happen.
    *
    * @param date a string representing the date.
-   *
-   * @note the string should be in W3CDTF format 
-   * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
-   * where TZD is the time zone designator.
    */
   Date (const std::string& date); 
+
 
   /**
    * Destroys this Date.
    */
   ~Date();
 
+
   /**
    * Copy constructor; creates a copy of this Date.
    */
   Date(const Date& orig);
 
+
   /**
    * Assignment operator.
    */
   Date& operator=(const Date& rhs);
+
 
   /**
    * Returns a copy of this Date.
@@ -151,12 +307,14 @@ public:
    */
   Date* clone () const;
 
+
   /**
    * Returns the year from this Date.
    *
    * @return the year from this Date.
    */
   unsigned int getYear()    { return mYear;   }
+
 
   /**
    * Returns the month from this Date.
@@ -165,12 +323,14 @@ public:
    */
   unsigned int getMonth()   { return mMonth;  }
 
+
   /**
    * Returns the day from this Date.
    *
    * @return the day from this Date.
    */
   unsigned int getDay()     { return mDay;    }
+
 
   /**
    * Returns the hour from this Date.
@@ -179,12 +339,14 @@ public:
    */
   unsigned int getHour()    { return mHour;   }
 
+
   /**
    * Returns the minute from this Date.
    *
    * @return the minute from this Date.
    */
   unsigned int getMinute()  { return mMinute; }
+
 
   /**
    * Returns the seconds from this Date.
@@ -193,38 +355,89 @@ public:
    */
   unsigned int getSecond()  { return mSecond; }
   
+
   /**
-   * Returns the sign of the offset from this Date.
+   * Returns the sign of the time zone offset from this Date.
    *
    * @return the sign of the offset from this Date.
    */
   unsigned int getSignOffset()    { return mSignOffset;   }
  
+
   /**
-   * Returns the hours of the offset from this Date.
+   * Returns the hours of the time zone offset from this Date.
    *
    * @return the hours of the offset from this Date.
    */
   unsigned int getHoursOffset()   { return mHoursOffset;  }
+
   
   /**
-   * Returns the minutes of the offset from this Date.
+   * Returns the minutes of the time zone offset from this Date.
    *
    * @return the minutes of the offset from this Date.
    */
    unsigned int getMinutesOffset() { return mMinutesOffset;}
+
    
   /**
-   * Returns the Date as a string.
+   * Returns the current Date value in text-string form.
+   *
+   * The string returned will be in the <a target="_blank"
+   * href="http://www.w3.org/TR/NOTE-datetime">W3C date format with time
+   * zone offset</a>, used in RDF Dublin Core annotations within SBML.
+   * This format expresses a date and time value as a string of the form
+   * YYYY-MM-DDThh:mm:ssXHH:ZZ, where
+   * <ul>
+   * 
+   * <li> @em YYYY is a four-digit integer representing the year.  This
+   * should be a four-digit number such as @c 2011.
+   * 
+   * <li> @em MM is a two-digit integer representing the month, with a range
+   * of values of 01&ndash;12.  The value @c 1 represents January, and so
+   * on.
+   *
+   * <li> @em DD is a two-digit integer representing the day of the month,
+   * with a range of values of 01&ndash;31.
+   * 
+   * <li> @em hh is a two-digit integer representing the hour on a 24-hour
+   * clock, with a range of values of 00&ndash;23.
+   * 
+   * <li> @em mm is a two-digit integer representing the minute, with a
+   * range of 00&ndash;59.
+   * 
+   * <li> @em ss is a two-digit integer representing the second, with a
+   * range of 0&ndash;59.
+   * 
+   * <li> @em X is the the sign of the time zone offset, either @c + or
+   * <code>-</code>.
+   *
+   * <li> @em HH is a two-digit integer representing the hour of the time
+   * zone offset, with a range of 00&ndash;23.
+   *
+   * <li> @em ZZ is a two-digit integer representing the minutes of the time
+   * zone offset, with a range of 00&ndash;59.
+   *
+   * </ul>
+   *
+   * An example date/time string is <code>1997-07-16T19:20:30+01:00</code>,
+   * which represents July 16, 1997, at 19:20:30 in Central European Time
+   * (which is UTC +1:00).
    *
    * @return the date as a string.
    */
   const std::string& getDateAsString() { return mDate; }
 
+
   /**
-   * Sets the value of the year checking appropriateness.
+   * Sets the value of the year of this Date object.
+   *
+   * The value given as argument must be between 1000 and 9999 inclusive.
+   * (In the millennium during which this libSBML documentation is being
+   * written, a typical value is @c 2011, but we hope that SBML will
+   * continue to be used for a long time.)
    *  
-   * @param year an unsigned int representing the year to set.  
+   * @param year an unsigned int representing the year.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -235,10 +448,12 @@ public:
    */
   int setYear    (unsigned int year);    
 
+
   /**
-   * Sets the value of the month checking appropriateness.
-   *  
-   * @param month an unsigned int representing the month to set  
+   * Sets the value of the month of this Date object.
+   *
+   * @param month an unsigned int representing the month; it must be in the
+   * range 1&ndash;12 or an error will be signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -249,10 +464,12 @@ public:
    */
   int setMonth   (unsigned int month);   
 
+
   /**
-   * Sets the value of the day checking appropriateness.
+   * Sets the value of the day of this Date object.
    *  
-   * @param day an unsigned int representing the day to set.  
+   * @param day an unsigned int representing the day; it must be in the
+   * range 0&ndash;31 or an error will be signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -263,10 +480,12 @@ public:
    */
   int setDay     (unsigned int day);  
 
+
   /**
-   * Sets the value of the hour checking appropriateness.
+   * Sets the value of the hour of this Date object.
    *  
-   * @param hour an unsigned int representing the hour to set.  
+   * @param hour an unsigned int representing the hour to set; it must be
+   * in the range 0&ndash;23 or an error will be signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -277,10 +496,12 @@ public:
    */
   int setHour    (unsigned int hour); 
 
+
   /**
-   * Sets the value of the minute checking appropriateness.
+   * Sets the value of the minute of this Date object.
    *  
-   * @param minute an unsigned int representing the minute to set.  
+   * @param minute an unsigned int representing the minute to set; it must
+   * be in the range 0&ndash;59 or an error will be signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -291,10 +512,12 @@ public:
    */
   int setMinute  (unsigned int minute);  
 
+
   /**
-   * Sets the value of the second checking appropriateness.
+   * Sets the value of the second of the Date object.
    *  
-   * @param second an unsigned int representing the second to set.  
+   * @param second an unsigned int representing the seconds; it must
+   * be in the range 0&ndash;59 or an error will be signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -305,11 +528,14 @@ public:
    */
   int setSecond  (unsigned int second);
 
+
   /**
-   * Sets the value of the offset sign checking appropriateness.
+   * Sets the value of the sign of the time zone offset of this Date object.
+   *
+   * The only permissible values are @c 0 and @c 1.
    *  
-   * @param sign an unsigned int representing 
-   * the sign of the offset to set.  
+   * @param sign an unsigned int representing the sign of the offset, with
+   * @c 0 signifying @c + and @c 1 signifying @c -.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -320,11 +546,13 @@ public:
    */
   int setSignOffset   (unsigned int sign); 
 
+
   /**
-   * Sets the value of the offset hour checking appropriateness.
+   * Sets the value of this Date object's time zone hour offset.
    *  
-   * @param hoursOffset an unsigned int representing the hours of the 
-   * offset to set.  
+   * @param hoursOffset an unsigned int representing the hours of the
+   * offset; it must be in the range 0&ndash;23 or an error will be
+   * signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -335,11 +563,13 @@ public:
    */
   int setHoursOffset  (unsigned int hoursOffset);  
   
+
   /**
-   * Sets the value of the offset minutes checking appropriateness.
+   * Sets the value of this Date object's time zone minutes offset.
    *  
-   * @param minutesOffset an unsigned int representing the minutes of the 
-   * offset to set.  
+   * @param minutesOffset an unsigned int representing the minutes of the
+   * offset; it must be in the range 0&ndash;59 or an error will be
+   * signaled.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -350,11 +580,58 @@ public:
    */
   int setMinutesOffset(unsigned int minutesOffset);
 
+
   /**
-   * Sets the value of the date string checking appropriateness.
+   * Sets the value of this Date object using a date and time value
+   * expressed as a text string.
+   * 
+   * This method expects its argument to be in the <a target="_blank"
+   * href="http://www.w3.org/TR/NOTE-datetime">W3C date format with time
+   * zone offset</a>, used in RDF Dublin Core annotations within SBML.
+   * This format expresses a date and time value as a string of the form
+   * YYYY-MM-DDThh:mm:ssXHH:ZZ, where <ul>
+   * 
+   * <li> @em YYYY is a four-digit integer representing the year.  This
+   * should be a four-digit number such as @c 2011.
+   * 
+   * <li> @em MM is a two-digit integer representing the month, with a range
+   * of values of 01&ndash;12.  The value @c 1 represents January, and so
+   * on.
+   *
+   * <li> @em DD is a two-digit integer representing the day of the month,
+   * with a range of values of 01&ndash;31.
+   * 
+   * <li> @em hh is a two-digit integer representing the hour on a 24-hour
+   * clock, with a range of values of 00&ndash;23.
+   * 
+   * <li> @em mm is a two-digit integer representing the minute, with a
+   * range of 00&ndash;59.
+   * 
+   * <li> @em ss is a two-digit integer representing the second, with a
+   * range of 0&ndash;59.
+   * 
+   * <li> @em X is the the sign of the time zone offset, either @c + or
+   * <code>-</code>.
+   *
+   * <li> @em HH is a two-digit integer representing the hour of the time
+   * zone offset, with a range of 00&ndash;23.
+   *
+   * <li> @em ZZ is a two-digit integer representing the minutes of the time
+   * zone offset, with a range of 00&ndash;59.
+   *
+   * </ul>
+   *
+   * In the string format above, it is important not to forget the literal
+   * character @c T in the string.  Here is an example date/time string:
+   * <code>1997-07-16T19:20:30+01:00</code>, which would represent July 16,
+   * 1997, at 19:20:30 in Central European Time (which is UTC +1:00).
+   *
+   * If this method is given a @c NULL argument or a string of length zero,
+   * it constructs a Date object with the value of January 1, 2000, at time
+   * 00:00 UTC.  Otherwise, the argument @em must be in the complete format
+   * described above, or unpredictable results will happen.
    *
    * @param date a string representing the date.
-   *
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -362,18 +639,15 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   *
-   * @note the string should be in W3CDTF format 
-   * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
-   * where TZD is the time zone designator.
    */
   int setDateAsString (const std::string& date);
 
 
-  /* a valid date has member variables consistent with 
-   * appropriate date
-   * Date must be: YYYY-MM-DDThh:mm:ssTZD
-   * where TZD is either Z or +/-HH:MM
+  /**
+   * Returns true or false depending on whether this date object represents
+   * a valid date and time.
+   *
+   * @return @c true if the date is valid, @c false otherwise.
    */
   bool representsValidDate();
 
