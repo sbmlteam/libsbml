@@ -302,22 +302,14 @@ SBMLDocument::SBMLDocument (SBMLNamespaces * sbmlns) :
  , mApplicableValidators ( AllChecksON)
  , mApplicableValidatorsForConversion ( AllChecksON )
 {
+  mSBML = this;
+
+  mLevel   = sbmlns->getLevel();
+  mVersion = sbmlns->getVersion();
+ 
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
 
-  mSBML = this;
-
-  if (mLevel   == 0)  
-  {
-    mLevel   = getDefaultLevel  ();
-    mSBMLNamespaces->setLevel(mLevel);
-  }
-
-  if (mVersion == 0)
-  {
-    mVersion = getDefaultVersion();
-    mSBMLNamespaces->setVersion(mVersion);
-  }
 
 }
 

@@ -2886,6 +2886,7 @@ SBase::read (XMLInputStream& stream)
       XMLNamespaces * prefixedNS = new XMLNamespaces();
       prefixedNS->add(element.getURI(), element.getPrefix());
       checkDefaultNamespace(prefixedNS, element.getName(), element.getPrefix());
+      delete prefixedNS;
     }
   }
 
