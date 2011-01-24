@@ -178,7 +178,7 @@ public:
    *
    * @param year an unsigned integer representing the year.  This should be
    * a four-digit number such as @c 2011.  (Default value used if this
-   * argument is not given: @c 2007.)
+   * argument is not given: @c 2000.)
    * 
    * @param month an unsigned integer representing the month, with a range
    * of values of 1&ndash;12.  The value @c 1 represents January, and so
@@ -220,7 +220,7 @@ public:
    * 
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
-  Date(unsigned int year = 2007, unsigned int month = 1, 
+  Date(unsigned int year = 2000, unsigned int month = 1, 
     unsigned int day = 1, unsigned int hour = 0, 
     unsigned int minute = 0, unsigned int second = 0,
     unsigned int sign = 0, unsigned int hoursOffset = 0,

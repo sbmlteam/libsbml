@@ -245,6 +245,27 @@ START_TEST (test_Validation_CVTerm2)
 }
 END_TEST
 
+START_TEST (test_Validation_Date_Default)
+{
+  Date *date1 = new Date();
+  Date *date2 = new Date("");
+
+  fail_unless (date1->getYear()          == date2->getYear()          );
+  fail_unless (date1->getMonth()         == date2->getMonth()         );
+  fail_unless (date1->getDay()           == date2->getDay()           );
+  fail_unless (date1->getHour()          == date2->getHour()          );
+  fail_unless (date1->getMinute()        == date2->getMinute()        );
+  fail_unless (date1->getSecond()        == date2->getSecond()        );
+  fail_unless (date1->getSignOffset()    == date2->getSignOffset()    );
+  fail_unless (date1->getHoursOffset()   == date2->getHoursOffset()   );
+  fail_unless (date1->getMinutesOffset() == date2->getMinutesOffset() );
+  
+  delete date1;
+  delete date2;
+  
+}
+END_TEST
+  
 
 Suite *
 create_suite_Validation (void)
@@ -252,16 +273,17 @@ create_suite_Validation (void)
   Suite *suite = suite_create("Validation");
   TCase *tcase = tcase_create("Validation");
 
-  tcase_add_test(tcase, test_Validation_Date1 );
-  tcase_add_test(tcase, test_Validation_Date2 );
-  tcase_add_test(tcase, test_Validation_Date3 );
-  tcase_add_test(tcase, test_Validation_Date4 );
-  tcase_add_test(tcase, test_Validation_ModelCreator );
+  tcase_add_test(tcase, test_Validation_Date1         );
+  tcase_add_test(tcase, test_Validation_Date2         );
+  tcase_add_test(tcase, test_Validation_Date3         );
+  tcase_add_test(tcase, test_Validation_Date4         );
+  tcase_add_test(tcase, test_Validation_Date_Default  );
+  tcase_add_test(tcase, test_Validation_ModelCreator  );
   tcase_add_test(tcase, test_Validation_ModelHistory1 );
   tcase_add_test(tcase, test_Validation_ModelHistory2 );
   tcase_add_test(tcase, test_Validation_ModelHistory3 );
-  tcase_add_test(tcase, test_Validation_CVTerm1 );
-  tcase_add_test(tcase, test_Validation_CVTerm2 );
+  tcase_add_test(tcase, test_Validation_CVTerm1       );
+  tcase_add_test(tcase, test_Validation_CVTerm2       );
 
   suite_add_tcase(suite, tcase);
 
