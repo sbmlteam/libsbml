@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Latest development version
+Version 4.3.0 (Released 2011-??-??)
 ======================================================================
 
 * New features
@@ -21,7 +21,35 @@ Latest development version
     Level 2 will now return 'true' regardless of whever the user has
     explictily set the function or not.
 
+  - The MATLAB and Octave bindings now include the function
+    OutputSBML() for writing the structure used in these environments
+    back to SBML.  This function has previously shipped as part of
+    SBMLToolbox.
+    
+  - There is an additional constructor for an SBMLDocument object that
+    takes a instance of SBMLNamespaces as it's argument.  This is similar
+    to the constructors for all SBML objects.
+
 * Bug fixes
+
+  - Checking for NULL references has been greatly improved
+    throughtout.
+    
+  - The appendNotes function was not correctly checking for the
+    xhtml namespaces decalred at the top level.  This has been
+    fixed.
+    
+  - In some cases the facility to create new 'Bags' within CVTerms
+    was not performing as expected.  This has been sorted out.
+
+  - Validation previously failed to report an error if a lambda
+    function contained only <bvar> arguments and no actual function
+    body.  This has been fixed.
+
+  - LibSBML checks that each element within a model being read has
+    the correct default namespace.  However, if the namespace had been
+    'declared' via a prefix this check was not being performed.  
+    This has been corrected.
 
   - A number of validation checks had an incorrect ErrorCategory
     labels; thus, though these were reported by the correct part of
@@ -69,8 +97,6 @@ Latest development version
   - Beginning with this release, LibSBML requires SWIG version 2.0.0
     or higher.  This is to avoid a problem where the C# bindings will
     not work with .NET 4 with SWIG versions prior to 2.0.0.
-
-* Other new features/changes
 
 ======================================================================
 Version 4.2.0 (Released 2010-10-05)
