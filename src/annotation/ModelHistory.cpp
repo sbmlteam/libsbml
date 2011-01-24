@@ -35,7 +35,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
+/*
   * creates a date from the individual fields entered as numbers
   */
 Date::Date(unsigned int year, unsigned int month, 
@@ -75,7 +75,7 @@ Date::Date (const std::string& date)
 
 Date::~Date() {}
 
-/**
+/*
 * Copy constructor.
 */
 Date::Date(const Date& orig)
@@ -101,7 +101,7 @@ Date::Date(const Date& orig)
   }
 }
 
-/**
+/*
   * Assignment operator
   */
 Date& Date::operator=(const Date& rhs)
@@ -129,7 +129,7 @@ Date& Date::operator=(const Date& rhs)
   return *this;
 }
 
-/**
+/*
   * @return a (deep) copy of this Date.
   */
 Date* Date::clone () const
@@ -704,7 +704,7 @@ ModelCreator::~ModelCreator()
 }
 
 
-/**
+/*
 * Copy constructor.
 */
 ModelCreator::ModelCreator(const ModelCreator& orig)
@@ -728,7 +728,7 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
 }
 
 
-/**
+/*
   * Assignment operator
   */
 ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
@@ -755,7 +755,7 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
 }
 
 
-/**
+/*
   * @return a (deep) copy of this ModelCreator.
   */
 ModelCreator* ModelCreator::clone () const
@@ -1006,7 +1006,7 @@ ModelHistory::~ModelHistory()
 }
 
 
-/**
+/*
 * Copy constructor.
 */
 ModelHistory::ModelHistory(const ModelHistory& orig)
@@ -1040,7 +1040,7 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
 }
 
 
-/**
+/*
   * Assignment operator
   */
 ModelHistory& 
@@ -1095,7 +1095,7 @@ ModelHistory::operator=(const ModelHistory& rhs)
 }
 
 
-/**
+/*
   * @return a (deep) copy of this ModelHistory.
   */
 ModelHistory* 
@@ -1127,7 +1127,7 @@ ModelHistory::addCreator(ModelCreator * creator)
 }
 
 
-/**
+/*
   * sets the created date
   */
 int 
@@ -1156,7 +1156,7 @@ ModelHistory::setCreatedDate(Date* date)
 }
 
 
-/**
+/*
   * sets teh modiefied date
   */
 int 
@@ -1237,7 +1237,7 @@ ModelHistory::getModifiedDate(unsigned int n)
 }
 
 
-/**
+/*
   * @return number in List of Creator
   */
 unsigned int 
@@ -1247,7 +1247,7 @@ ModelHistory::getNumCreators()
 }
 
 
-/**
+/*
   * @return number in List of modified dates
   */
 unsigned int 
@@ -1256,7 +1256,7 @@ ModelHistory::getNumModifiedDates()
   return mModifiedDates->getSize();
 }
 
-/**
+/*
   * @return nth Creator
   */
 ModelCreator* 
@@ -1266,7 +1266,7 @@ ModelHistory::getCreator(unsigned int n)
 }
 
 
-/**
+/*
   * @return true if the created Date has been set, false
   * otherwise.
   */
@@ -1277,7 +1277,7 @@ ModelHistory::isSetCreatedDate()
 }
 
 
-/**
+/*
   * @return true if the modified Date has been set, false
   * otherwise.
   */
