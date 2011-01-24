@@ -2881,6 +2881,12 @@ SBase::read (XMLInputStream& stream)
     // SBML namespace
     //
     checkDefaultNamespace(mSBMLNamespaces->getNamespaces(), element.getName());
+    if (!element.getPrefix().empty())
+    {
+      XMLNamespaces * prefixedNS = new XMLNamespaces();
+      prefixedNS->add(element.getURI(), element.getPrefix());
+      checkDefaultNamespace(prefixedNS, element.getName(), element.getPrefix());
+    }
   }
 
   if ( element.isEnd() ) return;
@@ -3899,19 +3905,27 @@ SBase::checkMathMLNamespace(const XMLToken elem)
 /** @cond doxygen-libsbml-internal */
 
 void 
-SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elementName)
+SBase::checkDefaultNamespace(const XMLNamespaces* xmlns, 
+                             const std::string& elementName,
+                             const std::string& prefix)
 {
   //
   // checks if the given default namespace (if any) is a valid
   // SBML namespace
+  // if there is no explicit namespace on the object but it might
+  // be placed in the wrong namespace by using a prefix
+  // whose ns is declared further up
+  // <sbml ... foo:xmlns="something">
+  //   <foo:model>  <=============  this is implicitly in the wrong ns
   //
   if (xmlns != NULL && xmlns->getLength() > 0)
   {
     unsigned int level   = getLevel();
     unsigned int version = getVersion();
-    const std::string currentURI = SBMLNamespaces::getSBMLNamespaceURI(level,version); 
-    const std::string defaultURI = xmlns->getURI();
-    if (!defaultURI.empty() && currentURI != defaultURI)
+    const std::string currentDocumentURI = 
+                      SBMLNamespaces::getSBMLNamespaceURI(level,version); 
+    const std::string defaultURI = xmlns->getURI(prefix);
+    if (!defaultURI.empty() && currentDocumentURI != defaultURI)
     {
       static ostringstream errMsg;
       errMsg.str("");

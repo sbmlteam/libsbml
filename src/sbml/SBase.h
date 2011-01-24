@@ -2394,7 +2394,8 @@ protected:
    * Checks that the given default namespace in the given element is valid.
    * If the given default namespace is not valid, an error is logged.
    */
-  void checkDefaultNamespace(const XMLNamespaces* xmlns, const std::string& elementName);
+  void checkDefaultNamespace(const XMLNamespaces* xmlns, 
+    const std::string& elementName, const std::string& prefix = "");
 
   /**
    * Checks the annotation does not declare an sbml namespace.
