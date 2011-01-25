@@ -199,13 +199,15 @@ success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we 
    * by the appropriate "metaid" field to the given @p object, for
    * insertion into RDF annotations in a model.  The method retrieves the
    * "metaid" attribute from the @p object passed in as argument, then
-   * creates an empty element having the following form (where @c METAID is
+   * creates an empty element having the following form
+   * (where <span class="code" style="background-color: #eed0d0">metaid</span> 
    * the value of the "metaid" attribute of the argument):
-@verbatim
-<rdf:Description rdf:about="#METAID" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-...
-</rdf:Description>
-@endverbatim
+   * 
+<div class="fragment">
+&lt;rdf:Description rdf:about=&quot;#<span style="background-color: #eed0d0">metaid</span>&quot; xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;<br>
+...<br>
+&lt;/rdf:Description&gt;<br>
+</div>
    * Note that this method does @em not create a complete annotation or
    * even an RDF element; it only creates the "Description" portion.  Callers
    * will need to use other methods such as
