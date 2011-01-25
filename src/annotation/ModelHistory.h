@@ -26,13 +26,64 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * The SBML specification beginning with Level 2 Version 2 defines a
- * standard approach to recording model history and model creator
- * information in a form that complies with MIRIAM ("Minimum Information
- * Requested in the Annotation of biochemical Models", <i>Nature
- * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
- * ModelHistory class as a convenience high-level interface for working
- * with model history data.
+ * The SBML specification beginning with Level&nbsp;2 Version&nbsp;2
+ * defines a standard approach to recording optional model history and
+ * model creator information in a form that complies with MIRIAM ("Minimum
+ * Information Requested in the Annotation of biochemical Models",
+ * <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  LibSBML
+ * provides the ModelHistory class as a convenient high-level interface
+ * for working with model history data.
+ *
+ * Model histories in SBML consist of one or more <em>model creators</em>,
+ * a single date of @em creation, and one or more @em modification dates.
+ * The overall XML form of this data takes the following form:
+ * 
+<div class="fragment">
+&lt;dc:creator&gt;<br>
+&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:parseType="Resource"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;vCard:N rdf:parseType="Resource"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/vCard:N&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;vCard:ORG rdf:parseType="Resource"&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization name</span>&lt;/vCard:Orgname&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;/vCard:ORG&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:li&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
+&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
+&lt;/dc:creator&gt;<br>
+&lt;dcterms:created rdf:parseType="Resource"&gt;<br>
+&nbsp;&nbsp;&lt;dcterms:W3CDTF&gt;<span style="background-color: #bbb">creation date</span>&lt;/dcterms:W3CDTF&gt;<br>
+&lt;/dcterms:created&gt;<br>
+&lt;dcterms:modified rdf:parseType="Resource"&gt;<br>
+&nbsp;&nbsp;&lt;dcterms:W3CDTF&gt;<span style="background-color: #bbb">modification date</span>&lt;/dcterms:W3CDTF&gt;<br>
+&lt;/dcterms:modified&gt;<br>
+<span style="background-color: #edd">...</span><br>
+</div>
+ *
+ * In the template above, the <span style="border-bottom: 2px dotted #888">underlined</span>
+ * portions are optional, the symbol
+ * <span class="code" style="background-color: #d0d0ee">+++</span> is a placeholder
+ * for either no content or valid XML content that is not defined by
+ * the annotation scheme, and the ellipses
+ * <span class="code" style="background-color: #edd">...</span>
+ * are placeholders for zero or more elements of the same form as the
+ * immediately preceding element.  The various placeholders for content, namely
+ * <span class="code" style="background-color: #bbb">family name</span>,
+ * <span class="code" style="background-color: #bbb">given name</span>,
+ * <span class="code" style="background-color: #bbb">email address</span>,
+ * <span class="code" style="background-color: #bbb">organization</span>,
+ * <span class="code" style="background-color: #bbb">creation date</span>, and
+ * <span class="code" style="background-color: #bbb">modification date</span>
+ * are data that can be filled in using the various methods on
+ * the ModelHistory class described below.
+ *
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -47,39 +98,39 @@
  * defines a standard approach to recording model history and model creator
  * information in a form that complies with MIRIAM ("Minimum Information
  * Requested in the Annotation of biochemical Models", <i>Nature
- * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  This form involves the
- * use of parts of the <a target="_blank"
+ * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  For the model creator,
+ * this form involves the use of parts of the <a target="_blank"
  * href="http://en.wikipedia.org/wiki/VCard">vCard</a> representation.
  * LibSBML provides the ModelCreator class as a convenience high-level
  * interface for working with model creator data.  Objects of class
  * ModelCreator can be used to store and carry around creator data within a
- * program, and he various methods in this object class let callers
+ * program, and the various methods in this object class let callers
  * manipulate the different parts of the model creator representation.
  *
  * @section parts The different parts of a model creator definition
  *
  * The ModelCreator class mirrors the structure of the MIRIAM model creator
  * annotations in SBML.  The following template illustrates these different
- * fields:
+ * fields when they are written in XML form:
  *
 <div class="fragment">
 &lt;vCard:N rdf:parseType="Resource"&gt;<br>
-&nbsp;&nbsp;&lt;vCard:Family&gt;<span style="background-color: #eed0d0">familyName</span>&lt;/vCard:Family&gt;<br>
-&nbsp;&nbsp;&lt;vCard:Given&gt;<span style="background-color: #eed0d0">givenName</span>&lt;/vCard:Given&gt;<br>
+&nbsp;&nbsp;&lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;<br>
+&nbsp;&nbsp;&lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;<br>
 &lt;/vCard:N&gt;<br>
 ...<br>
-&lt;vCard:EMAIL&gt;<span style="background-color: #dad">emailAddress</span>&lt;/vCard:EMAIL&gt;<br>
+&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;<br>
 ...<br>
 &lt;vCard:ORG rdf:parseType="Resource"&gt;<br>
-&nbsp;&nbsp;&lt;vCard:Orgname&gt;<span style="background-color: #ccccdd">orgName</span>&lt;/vCard:Orgname&gt;<br>
+&nbsp;&nbsp;&lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization</span>&lt;/vCard:Orgname&gt;<br>
 &lt;/vCard:ORG&gt;<br>
 </div>
  *
  * Each of the separate data values
- * <span class="code" style="background-color: #edd">familyName</span>,
- * <span class="code" style="background-color: #edd">givenName</span>,
- * <span class="code" style="background-color: #dad">emailAddress</span>, and
- * <span class="code" style="background-color: #ccccdd">orgName</span> can
+ * <span class="code" style="background-color: #bbb">family name</span>,
+ * <span class="code" style="background-color: #bbb">given name</span>,
+ * <span class="code" style="background-color: #bbb">email address</span>, and
+ * <span class="code" style="background-color: #bbb">organization</span> can
  * be set and retrieved via corresponding methods in the ModelCreator 
  * class.  These methods are documented in more detail below.
  *
@@ -764,7 +815,7 @@ public:
   /**
    * Returns the "family name" stored in this ModelCreator object.
    *
-   * @return familyName from the ModelCreator.
+   * @return the "family name" portion of the ModelCreator object.
    */
   const std::string& getFamilyName()  const  {  return  mFamilyName;  }
 
@@ -772,7 +823,7 @@ public:
   /**
    * Returns the "given name" stored in this ModelCreator object.
    *
-   * @return givenName from the ModelCreator.
+   * @return the "given name" portion of the ModelCreator object.
    */
   const std::string& getGivenName() const    {  return  mGivenName;  }
 
@@ -1038,71 +1089,86 @@ class LIBSBML_EXTERN ModelHistory
 public:
 
   /**
-   * Creates a new ModelHistory.
+   * Creates a new ModelHistory object.
    */
   ModelHistory ();
 
+
   /**
-   * Destroys the ModelHistory.
+   * Destroys this ModelHistory object.
    */
   ~ModelHistory();
 
-  /**
-  * Copy constructor; creates a copy of the ModelHistory.
-  */
-  ModelHistory(const ModelHistory& orig);
 
   /**
-   * Assignment operator.
+   * Copy constructor; creates a copy of this ModelHistory object.
+   */
+  ModelHistory(const ModelHistory& orig);
+
+
+  /**
+   * Assignment operator for ModelHistory.
    */
   ModelHistory& operator=(const ModelHistory& rhs);
 
+
   /**
-   * Creates and returns a copy of this ModelHistory.
+   * Creates and returns a copy of this ModelHistory object
    *
-   * @return a (deep) copy of this ModelHistory.
+   * @return a (deep) copy of this ModelHistory object.
    */
   ModelHistory* clone () const;
 
+
   /**
-   * Returns the createdDate from the ModelHistory.
+   * Returns the "creation date" portion of this ModelHistory object.
    *
-   * @return Date object representing the createdDate
-   * from the ModelHistory.
+   * @return a Date object representing the creation date stored in
+   * this ModelHistory object.
    */
   Date * getCreatedDate();
 
+  
   /**
-   * Returns the modifiedDate from the ModelHistory.
+   * Returns the "modified date" portion of this ModelHistory object.
+   * 
+   * Note that in the MIRIAM format for annotations, there can be multiple
+   * modification dates.  The libSBML ModelHistory class supports this by
+   * storing a list of "modified date" values.  If this ModelHistory object
+   * contains more than one "modified date" value in the list, this method
+   * will return the first one in the list.
    *
-   * @return Date object representing the modifiedDate
-   * from the ModelHistory.
+   * @return a Date object representing the date of modification
+   * stored in this ModelHistory object.
    */
   Date * getModifiedDate();
 
+  
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelHistory's createdDate has been set.
+   * ModelHistory's "creation date" has been set.
    *
-   * @return @c true if the createdDate of this ModelHistory has been set, 
-   * @c false otherwise.
+   * @return @c true if the creation date value of this ModelHistory has
+   * been set, @c false otherwise.
    */
   bool isSetCreatedDate();
 
+  
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelHistory's modifiedDate has been set.
+   * ModelHistory's "modified date" has been set.
    *
-   * @return @c true if the modifiedDate of this ModelHistory has been set, 
-   * @c false otherwise.
+   * @return @c true if the modification date value of this ModelHistory
+   * object has been set, @c false otherwise.
    */
   bool isSetModifiedDate();
 
+  
   /**
-   * Sets the createdDate.
+   * Sets the creation date of this ModelHistory object.
    *  
-   * @param date a Date object representing the date
-   * the ModelHistory was created. 
+   * @param date a Date object representing the date to which the "created
+   * date" portion of this ModelHistory should be set.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -1113,60 +1179,94 @@ public:
    */
   int setCreatedDate(Date* date);
 
+  
   /**
-   * Sets the modifiedDate.
+   * Sets the modification date of this ModelHistory object.
    *  
-   * @param date a Date object representing the date
-   * the ModelHistory was modified. 
+   * @param date a Date object representing the date to which the "modified
+   * date" portion of this ModelHistory should be set.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
   int setModifiedDate(Date* date);
 
+  
   /**
-   * Adds a modifiedDate.
+   * Adds a copy of a Date object to the list of "modified date" values
+   * stored in this ModelHistory object.
+   *
+   * In the MIRIAM format for annotations, there can be multiple
+   * modification dates.  The libSBML ModelHistory class supports this by
+   * storing a list of "modified date" values.
    *  
-   * @param date a Date object representing the date
-   * the ModelHistory was modified. 
+   * @param date a Date object representing the "modified date" that should
+   * be added to this ModelHistory object.
+   * 
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
   int addModifiedDate(Date* date);
 
+  
   /**
-   * Get the list of ModifiedDate objects in this 
-   * ModelHistory.
+   * Returns the list of "modified date" values (as Date objects) stored in
+   * this ModelHistory object.
    * 
-   * @return the list of ModifiedDates for this ModelHistory.
+   * In the MIRIAM format for annotations, there can be multiple
+   * modification dates.  The libSBML ModelHistory class supports this by
+   * storing a list of "modified date" values.
+   * 
+   * @return the list of modification dates for this ModelHistory object.
    */
   List * getListModifiedDates();
 
+  
   /**
-   * Get the nth Date object in the list of ModifiedDates
-   * in this ModelHistory.
+   * Get the nth Date object in the list of "modified date" values stored
+   * in this ModelHistory object.
    * 
-   * @return the nth Date in the list of ModifiedDates of 
-   * this ModelHistory.
+   * In the MIRIAM format for annotations, there can be multiple
+   * modification dates.  The libSBML ModelHistory class supports this by
+   * storing a list of "modified date" values.
+   * 
+   * @return the nth Date in the list of ModifiedDates of this
+   * ModelHistory.
    */
   Date* getModifiedDate(unsigned int n);
 
+  
   /**
-   * Get the number of ModifiedDate objects in this 
-   * ModelHistory.
+   * Get the number of Date objects in this ModelHistory object's list of
+   * "modified dates".
    * 
-   * @return the number of ModifiedDates in this 
-   * ModelHistory.
+   * In the MIRIAM format for annotations, there can be multiple
+   * modification dates.  The libSBML ModelHistory class supports this by
+   * storing a list of "modified date" values.
+   * 
+   * @return the number of ModifiedDates in this ModelHistory.
    */
   unsigned int getNumModifiedDates();
 
-
+  
   /**
-   * Adds a copy of the given ModelCreator object to 
-   * this ModelHistory.
+   * Adds a copy of a ModelCreator object to the list of "model creator"
+   * values stored in this ModelHistory object.
    *
+   * In the MIRIAM format for annotations, there can be multiple model
+   * creators.  The libSBML ModelHistory class supports this by storing a
+   * list of "model creator" values.
+   * 
    * @param mc the ModelCreator to add
    *
    * @return integer value indicating success/failure of the
@@ -1179,36 +1279,56 @@ public:
    */
   int addCreator(ModelCreator * mc);
 
+  
   /**
-   * Get the list of ModelCreator objects in this 
-   * ModelHistory.
+   * Returns the list of ModelCreator objects stored in this ModelHistory
+   * object.
+   *
+   * In the MIRIAM format for annotations, there can be multiple model
+   * creators.  The libSBML ModelHistory class supports this by storing a
+   * list of "model creator" values.
    * 
-   * @return the list of ModelCreators for this ModelHistory.
+   * @return the list of ModelCreator objects.
    */
   List * getListCreators();
 
+  
   /**
-   * Get the nth ModelCreator object in this ModelHistory.
+   * Get the nth ModelCreator object stored in this ModelHistory object.
+   *
+   * In the MIRIAM format for annotations, there can be multiple model
+   * creators.  The libSBML ModelHistory class supports this by storing a
+   * list of "model creator" values.
    * 
-   * @return the nth ModelCreator of this ModelHistory.
+   * @return the nth ModelCreator object.
    */
   ModelCreator* getCreator(unsigned int n);
 
+  
   /**
-   * Get the number of ModelCreator objects in this 
-   * ModelHistory.
+   * Get the number of ModelCreator objects stored in this ModelHistory
+   * object.
+   *
+   * In the MIRIAM format for annotations, there can be multiple model
+   * creators.  The libSBML ModelHistory class supports this by storing a
+   * list of "model creator" values.
    * 
-   * @return the number of ModelCreators in this 
-   * ModelHistory.
+   * @return the number of ModelCreators objects.
    */
   unsigned int getNumCreators();
 
 
-  /* The required attributes for a ModelHistory are:
-   * createdDate, modifiedDate and at least one ModelCreator.
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * ModelHistory object have been set.
+   *
+   * The required elements for a ModelHistory object are "created
+   * name", "modified date", and at least one "model creator".
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
    */ 
   bool hasRequiredAttributes();
-  
 
 
 protected:
