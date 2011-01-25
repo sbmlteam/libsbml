@@ -43,13 +43,45 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * The SBML specification beginning with Level 2 Version 2 defines a
- * standard approach to recording model history and model creator
+ * The SBML specification beginning with Level&nbsp;2 Version&nbsp;2
+ * defines a standard approach to recording model history and model creator
  * information in a form that complies with MIRIAM ("Minimum Information
  * Requested in the Annotation of biochemical Models", <i>Nature
- * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  LibSBML provides the
- * ModelCreator class as a convenience high-level interface for working
- * with model creator data.
+ * Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  This form involves the
+ * use of parts of the <a target="_blank"
+ * href="http://en.wikipedia.org/wiki/VCard">vCard</a> representation.
+ * LibSBML provides the ModelCreator class as a convenience high-level
+ * interface for working with model creator data.  Objects of class
+ * ModelCreator can be used to store and carry around creator data within a
+ * program, and he various methods in this object class let callers
+ * manipulate the different parts of the model creator representation.
+ *
+ * @section parts The different parts of a model creator definition
+ *
+ * The ModelCreator class mirrors the structure of the MIRIAM model creator
+ * annotations in SBML.  The following template illustrates these different
+ * fields:
+ *
+<div class="fragment">
+&lt;vCard:N rdf:parseType="Resource"&gt;<br>
+&nbsp;&nbsp;&lt;vCard:Family&gt;<span style="background-color: #eed0d0">familyName</span>&lt;/vCard:Family&gt;<br>
+&nbsp;&nbsp;&lt;vCard:Given&gt;<span style="background-color: #eed0d0">givenName</span>&lt;/vCard:Given&gt;<br>
+&lt;/vCard:N&gt;<br>
+...<br>
+&lt;vCard:EMAIL&gt;<span style="background-color: #dad">emailAddress</span>&lt;/vCard:EMAIL&gt;<br>
+...<br>
+&lt;vCard:ORG rdf:parseType="Resource"&gt;<br>
+&nbsp;&nbsp;&lt;vCard:Orgname&gt;<span style="background-color: #ccccdd">orgName</span>&lt;/vCard:Orgname&gt;<br>
+&lt;/vCard:ORG&gt;<br>
+</div>
+ *
+ * Each of the separate data values
+ * <span class="code" style="background-color: #edd">familyName</span>,
+ * <span class="code" style="background-color: #edd">givenName</span>,
+ * <span class="code" style="background-color: #dad">emailAddress</span>, and
+ * <span class="code" style="background-color: #ccccdd">orgName</span> can
+ * be set and retrieved via corresponding methods in the ModelCreator 
+ * class.  These methods are documented in more detail below.
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -690,9 +722,10 @@ class LIBSBML_EXTERN ModelCreator
 public:
 
   /**
-   * Creates a new ModelCreator.
+   * Creates a new ModelCreator object.
    */
   ModelCreator ();
+
 
   /**
    * Creates a new ModelCreator from an XMLNode.
@@ -701,20 +734,24 @@ public:
    */
   ModelCreator(const XMLNode creator);
 
+
   /**
    * Destroys the ModelCreator.
    */
   ~ModelCreator();
+
 
   /**
    * Copy constructor; creates a copy of the ModelCreator.
    */
   ModelCreator(const ModelCreator& orig);
 
+
   /**
    * Assignment operator.
    */
   ModelCreator& operator=(const ModelCreator& rhs);
+
 
   /**
    * Creates and returns a copy of this ModelCreator.
@@ -723,36 +760,42 @@ public:
    */
   ModelCreator* clone () const;
 
+
   /**
-   * Returns the familyName from the ModelCreator.
+   * Returns the "family name" stored in this ModelCreator object.
    *
    * @return familyName from the ModelCreator.
    */
   const std::string& getFamilyName()  const  {  return  mFamilyName;  }
 
+
   /**
-   * Returns the givenName from the ModelCreator.
+   * Returns the "given name" stored in this ModelCreator object.
    *
    * @return givenName from the ModelCreator.
    */
   const std::string& getGivenName() const    {  return  mGivenName;  }
 
+
   /**
-   * Returns the email from the ModelCreator.
+   * Returns the "email" stored in this ModelCreator object.
    *
    * @return email from the ModelCreator.
    */
   const std::string& getEmail() const       {  return  mEmail;  }
 
+
   /**
-   * Returns the organization from the ModelCreator.
+   * Returns the "organization" stored in this ModelCreator object.
    *
    * @return organization from the ModelCreator.
    */
   const std::string& getOrganization() const{  return  mOrganization;  }
 
+
   /**
-   * Returns the organization from the ModelCreator.
+   * (Alternate spelling) Returns the "organization" stored in this
+   * ModelCreator object.
    *
    * @note This function is an alias of getOrganization().
    *
@@ -761,34 +804,38 @@ public:
    * @see getOrganization()
    */
   const std::string& getOrganisation() const{  return  mOrganization;  }
+
  
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's familyName has been set.
+   * ModelCreator's "family name" part has been set.
    *
    * @return @c true if the familyName of this ModelCreator has been set, @c false otherwise.
    */
   bool isSetFamilyName();
 
+
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's givenName has been set.
+   * ModelCreator's "given name" part has been set.
    *
    * @return @c true if the givenName of this ModelCreator has been set, @c false otherwise.
    */
   bool isSetGivenName();
 
+
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's email has been set.
+   * ModelCreator's "email" part has been set.
    *
    * @return @c true if the email of this ModelCreator has been set, @c false otherwise.
    */
   bool isSetEmail();
 
+
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's organization has been set.
+   * ModelCreator's "organization" part has been set.
    *
    * @return @c true if the organization of this ModelCreator has been set, @c false otherwise.
    */
@@ -796,8 +843,8 @@ public:
 
 
   /**
-   * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's organization has been set.
+   * (Alternate spelling) Predicate returning @c true or @c false depending
+   * on whether this ModelCreator's "organization" part has been set.
    *
    * @note This function is an alias of isSetOrganization().
    *
@@ -809,7 +856,7 @@ public:
 
 
   /**
-   * Sets the family name
+   * Sets the "family name" portion of this ModelCreator object.
    *  
    * @param familyName a string representing the familyName of the ModelCreator. 
    *
@@ -821,8 +868,9 @@ public:
    */
   int setFamilyName(const std::string& familyName);
 
+
   /**
-   * Sets the given name
+   * Sets the "given name" portion of this ModelCreator object.
    *  
    * @param givenName a string representing the givenName of the ModelCreator. 
    *
@@ -834,8 +882,9 @@ public:
    */
   int setGivenName(const std::string& givenName);
 
+
   /**
-   * Sets the email
+   * Sets the "email" portion of this ModelCreator object.
    *  
    * @param email a string representing the email of the ModelCreator. 
    *
@@ -847,8 +896,9 @@ public:
    */
   int setEmail(const std::string& email);
 
+
   /**
-   * Sets the organization
+   * Sets the "organization" portion of this ModelCreator object.
    *  
    * @param organization a string representing the organization of the 
    * ModelCreator. 
@@ -861,13 +911,15 @@ public:
    */
   int setOrganization(const std::string& organization);
 
+
   /**
-   * Sets the organization
+   * (Alternate spelling) Sets the "organization" portion of this
+   * ModelCreator object.
    *
    * @param organization a string representing the organization of the
    * ModelCreator.
    *
-   * @note This function is an alias of setOrganization(std::string organization).
+   * @note This function is an alias of setOrganization(const std::string& organization).
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -881,7 +933,7 @@ public:
 
 
   /**
-   * Unsets the familyName of this ModelCreator.
+   * Unsets the "family name" portion of this ModelCreator object.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -892,8 +944,9 @@ public:
    */
   int unsetFamilyName();
 
+
   /**
-   * Unsets the givenName of this ModelCreator.
+   * Unsets the "given name" portion of this ModelCreator object.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -904,8 +957,9 @@ public:
    */
   int unsetGivenName();
 
+
   /**
-   * Unsets the email of this ModelCreator.
+   * Unsets the "email" portion of this ModelCreator object.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -916,8 +970,9 @@ public:
    */
   int unsetEmail();
 
+
   /**
-   * Unsets the organization of this ModelCreator.
+   * Unsets the "organization" portion of this ModelCreator object.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -928,8 +983,9 @@ public:
    */
   int unsetOrganization();
 
+
   /**
-   * Unsets the organization of this ModelCreator.
+   * (Alternate spelling) Unsets the "organization" portion of this ModelCreator object.
    *
    * @note This function is an alias of unsetOrganization().
    *
@@ -949,8 +1005,15 @@ public:
   XMLNode * getAdditionalRDF();
   /** @endcond */
 
-  /* The required attributes for a ModelCreator are:
-   * familyName and givenName.
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * ModelCreator object have been set.
+   *
+   * The only required elements for a ModelCreator object are the "family
+   * name" and "given name".
+   *
+   * @return a boolean value indicating whether all the required
+   * elements for this object have been defined.
    */ 
   bool hasRequiredAttributes();
   
