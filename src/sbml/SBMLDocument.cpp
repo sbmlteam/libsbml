@@ -274,16 +274,18 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 {
   mSBML = this;
 
-  if (mLevel   == 0)  
+  if (mLevel   == 0 && mVersion == 0)  
   {
     mLevel   = getDefaultLevel  ();
-    mSBMLNamespaces->setLevel(mLevel);
-  }
-
-  if (mVersion == 0)
-  {
     mVersion = getDefaultVersion();
+
+    mSBMLNamespaces->setLevel(mLevel);
     mSBMLNamespaces->setVersion(mVersion);
+    XMLNamespaces *ns = new XMLNamespaces();
+    ns->add(mSBMLNamespaces->getSBMLNamespaceURI(mLevel, mVersion));
+    mSBMLNamespaces->setNamespaces(ns);
+    delete ns;
+
   }
 
   if (!hasValidLevelVersionNamespaceCombination())

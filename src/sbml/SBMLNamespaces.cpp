@@ -36,7 +36,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
 {
-  /* default is l3v1 */
   mLevel = level;
   mVersion = version;
   mNamespaces = new XMLNamespaces();
@@ -44,7 +43,13 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
   switch (level)
   {
   case 1:
-    mNamespaces->add(SBML_XMLNS_L1);
+    switch (version)
+    {
+    case 1:
+    case 2:
+      mNamespaces->add(SBML_XMLNS_L1);
+      break;
+    }
     break;
   case 2:
     switch (version)
@@ -59,21 +64,28 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
       mNamespaces->add(SBML_XMLNS_L2V3);
       break;
     case 4:
-    default:
       mNamespaces->add(SBML_XMLNS_L2V4);
       break;
     }
     break;
   case 3:
-  default:
     switch (version)
     {
     case 1:
-    default:
       mNamespaces->add(SBML_XMLNS_L3V1);
       break;
     }
     break;
+  }
+
+  if (mNamespaces->getLength() == 0)
+  {
+    mLevel = SBML_INT_MAX;
+    mVersion = SBML_INT_MAX;
+    mNamespaces = NULL;
+    //// if we get here the level and version given as arguments 
+    //// are not currently supported
+    //throw SBMLConstructorException();
   }
 
 }

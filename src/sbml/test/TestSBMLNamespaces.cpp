@@ -183,6 +183,22 @@ START_TEST (test_SBMLNamespaces_getURI)
 END_TEST
 
 
+START_TEST (test_SBMLNamespaces_invalid)
+{
+  SBMLNamespaces *sbml = new SBMLNamespaces(3, 2);
+
+  fail_unless( sbml->getLevel() == SBML_INT_MAX );
+  fail_unless( sbml->getVersion() == SBML_INT_MAX );
+
+  XMLNamespaces * ns = sbml->getNamespaces();
+
+  fail_unless(ns == NULL);
+
+  delete sbml;
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLNamespaces (void)
 {
@@ -198,6 +214,7 @@ create_suite_SBMLNamespaces (void)
   tcase_add_test(tcase, test_SBMLNamespaces_L2V4);
   tcase_add_test(tcase, test_SBMLNamespaces_L3V1);
   tcase_add_test(tcase, test_SBMLNamespaces_getURI);
+  tcase_add_test(tcase, test_SBMLNamespaces_invalid);
 
 
   suite_add_tcase(suite, tcase);
