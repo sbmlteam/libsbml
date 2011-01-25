@@ -97,43 +97,350 @@ class SBMLVisitor
 {
 public:
 
+  /**
+   * Destructor method.
+   */
   virtual ~SBMLVisitor ();
 
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on SBMLDocument objects.
+   *
+   * @param x the SBMLDocument object to visit.
+   */
   virtual void visit (const SBMLDocument &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Model objects.
+   *
+   * @param x the Model object to visit.
+   */
   virtual void visit (const Model        &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on KineticLaw objects.
+   *
+   * @param x the KineticLaw object to visit.
+   */
   virtual void visit (const KineticLaw   &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on ListOf objects.
+   *
+   * @param x the ListOf object to visit.
+   */
   virtual void visit (const ListOf       &x, SBMLTypeCode_t type);
 
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on SBase objects.
+   *
+   * @param x the SBase object to visit.
+   */
   virtual bool visit (const SBase                    &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on FunctionDefinition objects.
+   *
+   * @param x the FunctionDefinition object to visit.
+   */
   virtual bool visit (const FunctionDefinition       &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on UnitDefinition objects.
+   *
+   * @param x the UnitDefinition object to visit.
+   */
   virtual bool visit (const UnitDefinition           &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Unit objects.
+   *
+   * @param x the Unit object to visit.
+   */
   virtual bool visit (const Unit                     &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on CompartmentType objects.
+   *
+   * @param x the CompartmentType object to visit.
+   */
   virtual bool visit (const CompartmentType          &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on SpeciesType objects.
+   *
+   * @param x the SpeciesType object to visit.
+   */
   virtual bool visit (const SpeciesType              &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Compartment objects.
+   *
+   * @param x the Compartment object to visit.
+   */
   virtual bool visit (const Compartment              &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Species objects.
+   *
+   * @param x the Species object to visit.
+   */
   virtual bool visit (const Species                  &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Parameter objects.
+   *
+   * @param x the Parameter object to visit.
+   */
   virtual bool visit (const Parameter                &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on InitialAssignment objects.
+   *
+   * @param x the InitialAssignment object to visit.
+   */
   virtual bool visit (const InitialAssignment        &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Rule objects.
+   *
+   * @param x the Rule object to visit.
+   */
   virtual bool visit (const Rule                     &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on AlgebraicRule objects.
+   *
+   * @param x the AlgebraicRule object to visit.
+   */
   virtual bool visit (const AlgebraicRule            &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on AssignmentRule objects.
+   *
+   * @param x the AssignmentRule object to visit.
+   */
   virtual bool visit (const AssignmentRule           &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on RateRule objects.
+   *
+   * @param x the RateRule object to visit.
+   */
   virtual bool visit (const RateRule                 &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Constraint objects.
+   *
+   * @param x the Constraint object to visit.
+   */
   virtual bool visit (const Constraint               &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Reaction objects.
+   *
+   * @param x the Reaction object to visit.
+   */
   virtual bool visit (const Reaction                 &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on SimpleSpeciesReference objects.
+   *
+   * @param x the SimpleSpeciesReference object to visit.
+   */
   virtual bool visit (const SimpleSpeciesReference   &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on SpeciesReference objects.
+   *
+   * @param x the SpeciesReference object to visit.
+   */
   virtual bool visit (const SpeciesReference         &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on ModifierSpeciesReference objects.
+   *
+   * @param x the ModifierSpeciesReference object to visit.
+   */
   virtual bool visit (const ModifierSpeciesReference &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Event objects.
+   *
+   * @param x the Event object to visit.
+   */
   virtual bool visit (const Event                    &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on EventAssignment objects.
+   *
+   * @param x the EventAssignment object to visit.
+   */
   virtual bool visit (const EventAssignment          &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Trigger objects.
+   *
+   * @param x the Trigger object to visit.
+   */
   virtual bool visit (const Trigger                  &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Delay objects.
+   *
+   * @param x the Delay object to visit.
+   */
   virtual bool visit (const Delay                    &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Priority objects.
+   *
+   * @param x the Priority object to visit.
+   */
   virtual void visit (const Priority                 &x);
 
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on SBMLDocument objects.
+   *
+   * @param x the SBMLDocument object to visit.
+   */
   virtual void leave (const SBMLDocument &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Model objects.
+   *
+   * @param x the Model object to visit.
+   */
   virtual void leave (const Model        &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on KineticLaw objects.
+   *
+   * @param x the KineticLaw object to visit.
+   */
   virtual void leave (const KineticLaw   &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Priority objects.
+   *
+   * @param x the Priority object to visit.
+   */
   virtual void leave (const Priority     &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on Reaction objects.
+   *
+   * @param x the Reaction object to visit.
+   */
   virtual void leave (const Reaction     &x);
+
+
+  /**
+   * Interface method for using the <a target="_blank" 
+   * href="http://en.wikipedia.org/wiki/Design_pattern_(computer_science)"><i>Visitor
+   * Pattern</i></a> to perform operations on ListOf objects.
+   *
+   * @param x the ListOf object to visit.
+   */
   virtual void leave (const ListOf &x, SBMLTypeCode_t type);
 };
 

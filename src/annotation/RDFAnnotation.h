@@ -30,14 +30,14 @@
  * RDFAnnotationParser is a libSBML construct used as part of the libSBML
  * support for annotations conforming to the guidelines specified by MIRIAM
  * ("Minimum Information Requested in the Annotation of biochemical
- * Models", <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).  Section 6
- * of the SBML Level&nbsp;2 Version&nbsp;4 specification defines a recommended way
- * of encoding MIRIAM information as RDF annotations in SBML.  The general
- * scheme is as follows.  A set of RDF-based annotations attached to a
- * given SBML <code>&lt;annotation&gt;</code> element are read by
- * RDFAnnotationParser and converted into a list of CVTerm objects.  There
- * are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif
- * @if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, CVTermList *CVTerms) @endif
+ * Models", <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).
+ * Section 6 of the SBML Level&nbsp;2 and Level&nbsp;3 specification
+ * documents defines a recommended way of encoding MIRIAM information as
+ * RDF annotations in SBML.  The general scheme is as follows.  A set of
+ * RDF-based annotations attached to a given SBML
+ * <code>&lt;annotation&gt;</code> element are read by RDFAnnotationParser
+ * and converted into a list of CVTerm objects.  There
+ * are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif@if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, CVTermList *CVTerms) @endif
  * and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), 
  * used depending on whether the annotation in question concerns the MIRIAM
  * model history or other MIRIAM resource annotations.  A special object
@@ -108,13 +108,33 @@ public:
 
 
   /**
-   * Creates a blank annotation and returns the XMLNode corresonding to it.
+   * Creates a blank annotation and returns its root XMLNode object.
    *
-   * The annotation created by this method is a completely empty SBML
-   * <code>&lt;annotation&gt;</code> element.  One use for this is to
-   * then call
-   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif
-   * to construct RDF content for this empty annotation.
+   * This creates a completely empty SBML <code>&lt;annotation&gt;</code>
+   * element.  It is not attached to any SBML element.  An example of how
+   * this might be used is illustrated in the following code fragment.  In
+   * this example, suppose that @c content is an XMLNode object previously
+   * created, containing MIRIAM-style annotations, and that @c sbmlObject
+   * is an SBML object derived from SBase (e.g., a Model, or a Species, or
+   * a Compartment, etc.).  Then:
+@verbatim
+int success;                              // Status code variable, used below.
+
+XMLNode *RDF = createRDFAnnotation();     // Create RDF annotation XML structure.
+success = RDF->addChild(content);         // Put the content into it.
+...                                       // Check "success" return code value.
+
+XMLNode *ann = createAnnotation();        // Create <annotation> container.
+success = ann->addChild(RDF);             // Put the RDF annotation into it.
+...                                       // Check "success" return code value.
+
+success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we built.
+...                                       // Check "success" return code value.
+@endverbatim
+   * The SBML specification contains more information about the format of
+   * annotations.  We urge readers to consult Section&nbsp;6 of the SBML
+   * Level&nbsp;2 (Versions 2&ndash;4) and SBML Level&nbsp;3 specification
+   * documents.
    *
    * @return a pointer to an XMLNode for the annotation
    *
@@ -124,17 +144,31 @@ public:
 
  
   /**
-   * Creates blank RDF annotation content organized in the form defined in
-   * Section 6 of the SBML Level 2 Version 4 specification .
+   * Creates a blank RDF element suitable for use in SBML annotations.
    *
    * The annotation created by this method has namespace declarations for
    * all the relevant XML namespaces used in RDF annotations and also has
-   * an empty RDF element.  Note that this is not the containing
-   * <code>&lt;annotation&gt;</code> element; the method
-   * @if clike createAnnotation()@endif@if java RDFAnnotationParser::createAnnotation()@endif
-   * is available for that purpose.
+   * an empty RDF element.  The result is the following XML:
+@verbatim
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#"
+         xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"
+         xmlns:bqmodel="http://biomodels.net/model-qualifiers/" >
+
+</rdf:RDF>
+@endverbatim
+   *
+   * Note that this does not create the containing SBML
+   * <code>&lt;annotation&gt;</code> element; the method @if clike
+   * createAnnotation()@endif@if java
+   * RDFAnnotationParser::createAnnotation()@endif is available for
+   * creating the container.
    *
    * @return a pointer to an XMLNode
+   *
+   * @see createAnnotation()
    */
   static XMLNode * createRDFAnnotation();
 
@@ -143,32 +177,45 @@ public:
    * Deletes any RDF annotation found in the given XMLNode tree and returns
    * any remaining annotation content.
    *
-   * The name of the given XMLNode must be "annotation", or else this
-   * method returns NULL.
+   * The name of the XMLNode given as parameter @p annotation must be
+   * "annotation", or else this method returns @c NULL.  The method will
+   * walk down the XML structure looking for elements that are in the
+   * RDF XML namespace, and remove them.
    *
-   * @param annotation the annotation tree within which the RDF annotation
-   * is to be found and deleted
+   * @param annotation the XMLNode tree within which the RDF annotation is
+   * to be found and deleted
    *
-   * @return the XMLNode structure with any RDF annotations deleted
+   * @return the XMLNode structure that is left after RDF annotations are
+   * deleted.
    */
   static XMLNode * deleteRDFAnnotation(const XMLNode *annotation);
 
 
   /**
-   * Takes an SBML object and creates an XMLNode corresponding to an
+   * Takes an SBML object and creates an empty XMLNode corresponding to an
    * RDF "Description" element.
    *
    * This method is a handy way of creating RDF description objects linked
-   * by the appropriate "metaid" field, for insertion into RDF annotations
-   * in a model.  (Note that this method does not create a complete
-   * annotation; it only creates a description element.  For creating empty
-   * RDF annotations that can serve as containers for RDF descriptions, see
-   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif.
+   * by the appropriate "metaid" field to the given @p object, for
+   * insertion into RDF annotations in a model.  The method retrieves the
+   * "metaid" attribute from the @p object passed in as argument, then
+   * creates an empty element having the following form (where @c METAID is
+   * the value of the "metaid" attribute of the argument):
+@verbatim
+<rdf:Description rdf:about="#METAID" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+...
+</rdf:Description>
+@endverbatim
+   * Note that this method does @em not create a complete annotation or
+   * even an RDF element; it only creates the "Description" portion.  Callers
+   * will need to use other methods such as
+   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif
+   * to create the rest of the structure for an annotation.
    *
-   * @param object the object to be annotated
+   * @param object the object to which the "Description" refers
    *
-   * @return a new XMLNode containing the "rdf:about" structure for an
-   * RDF "Description" element.
+   * @return a new XMLNode containing the "rdf:Description" element with
+   * its "about" attribute value set to the @p object meta identifier.
    *
    * @see createRDFAnnotation()
    */
@@ -215,9 +262,8 @@ public:
 
 
   /**
-   * Takes an SBML object, reads off the model history information
-   * stored in it, and creates a complete SBML annotation to store that
-   * history.
+   * Takes an SBML object, reads off the model history information stored
+   * in it, and creates a complete SBML annotation to store that history.
    *
    * @param object any SBase object
    *
@@ -228,16 +274,12 @@ public:
 
 
   /** @cond doxygen-libsbml-internal */
-
   
   static bool hasRDFAnnotation(const XMLNode *annotation);
 
-
   static bool hasAdditionalRDFAnnotation(const XMLNode *annotation);
 
-
   static bool hasCVTermRDFAnnotation(const XMLNode *annotation);
-
 
   static bool hasHistoryRDFAnnotation(const XMLNode *annotation);
 
