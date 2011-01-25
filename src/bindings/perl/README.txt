@@ -25,48 +25,6 @@ COPYRIGHT:
 LGPL (the same as libSBML)
 
 
-REQUIREMENTS:
--------------
-
-   build, test, and install Perl 5
-   build, test, and install Xerces-C++ XML Library
-   build, test, (and install) libSBML
-
-
-INSTALLATION:
-------------
-
-Just follow the usual procedure:
-   
-   perl Makefile.PL              (this creates Makefile-perl)
-   make -f Makefile-perl
-   make -f Makefile-perl test
-   make -f Makefile-perl install
-
-If you don't have permission to install a module into the
-perl-directory-tree, you can alternatively install this module into
-your home directory. First create an installation directory, e.g.
-WHATSOEVER/Perl/L . To install this module into WHATSOEVER/Perl/L do
-the following:
-
-   perl Makefile.PL LIB=WHATSOEVER/Perl/L
-   make -f Makefile-perl
-   make -f Makefile-perl test
-   make -f Makefile-perl install
-
-You can use the perl command-line switch -I to prepend the locally
-installed module to the search path for modules (perldoc perlrun).
-
-If you want to re-swig the perl-bindings please do the following:
-
-   make -f Makefile-perl clean
-   rm LibSBML_wrap.cxx
-   perl Makefile.PL
-   make -f Makefile-perl
-   make -f Makefile-perl test
-   make -f Makefile-perl install
-
-
 EXAMPLES:
 ---------
 
