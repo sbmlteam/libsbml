@@ -45,6 +45,15 @@ class TestRDFAnnotationC < Test::Unit::TestCase
     @@d = nil
   end
 
+  def test_RDFAnnotation_C_accessWithNULL
+    assert( LibSBML::RDFAnnotationParser.createCVTerms(nil) == nil )
+    assert( LibSBML::RDFAnnotationParser.createRDFDescription(nil) == nil )
+    assert( LibSBML::RDFAnnotationParser.deleteRDFAnnotation(nil) == nil )
+    assert( LibSBML::RDFAnnotationParser.parseCVTerms(nil) == nil )
+    assert( LibSBML::RDFAnnotationParser.parseModelHistory(nil) == nil )
+    LibSBML::RDFAnnotationParser.parseRDFAnnotation(nil,nil)
+  end
+
   def test_RDFAnnotation_C_delete
     obj = @@m.getCompartment(0)
     node = LibSBML::RDFAnnotationParser.parseCVTerms(obj)

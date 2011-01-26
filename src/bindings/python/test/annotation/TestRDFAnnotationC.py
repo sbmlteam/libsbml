@@ -54,6 +54,15 @@ class TestRDFAnnotationC(unittest.TestCase):
     _dummyList = [ self.d ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_RDFAnnotation_C_accessWithNULL(self):
+    self.assert_( libsbml.RDFAnnotationParser.createCVTerms(None) == None )
+    self.assert_( libsbml.RDFAnnotationParser.createRDFDescription(None) == None )
+    self.assert_( libsbml.RDFAnnotationParser.deleteRDFAnnotation(None) == None )
+    self.assert_( libsbml.RDFAnnotationParser.parseCVTerms(None) == None )
+    self.assert_( libsbml.RDFAnnotationParser.parseModelHistory(None) == None )
+    libsbml.RDFAnnotationParser.parseRDFAnnotation(None,None)
+    pass  
+
   def test_RDFAnnotation_C_delete(self):
     obj = self.m.getCompartment(0)
     node = libsbml.RDFAnnotationParser.parseCVTerms(obj)

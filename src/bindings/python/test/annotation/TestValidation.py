@@ -94,6 +94,22 @@ class TestValidation(unittest.TestCase):
     date = None
     pass  
 
+  def test_Validation_Date_Default(self):
+    date1 = libsbml.Date()
+    date2 = libsbml.Date("")
+    self.assert_( date1.getYear() == date2.getYear() )
+    self.assert_( date1.getMonth() == date2.getMonth() )
+    self.assert_( date1.getDay() == date2.getDay() )
+    self.assert_( date1.getHour() == date2.getHour() )
+    self.assert_( date1.getMinute() == date2.getMinute() )
+    self.assert_( date1.getSecond() == date2.getSecond() )
+    self.assert_( date1.getSignOffset() == date2.getSignOffset() )
+    self.assert_( date1.getHoursOffset() == date2.getHoursOffset() )
+    self.assert_( date1.getMinutesOffset() == date2.getMinutesOffset() )
+    date1 = None
+    date2 = None
+    pass  
+
   def test_Validation_ModelCreator(self):
     mc = libsbml.ModelCreator()
     self.assert_( mc != None )

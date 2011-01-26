@@ -89,6 +89,22 @@ class TestValidation < Test::Unit::TestCase
     date = nil
   end
 
+  def test_Validation_Date_Default
+    date1 = LibSBML::Date.new()
+    date2 = LibSBML::Date.new("")
+    assert( date1.getYear() == date2.getYear() )
+    assert( date1.getMonth() == date2.getMonth() )
+    assert( date1.getDay() == date2.getDay() )
+    assert( date1.getHour() == date2.getHour() )
+    assert( date1.getMinute() == date2.getMinute() )
+    assert( date1.getSecond() == date2.getSecond() )
+    assert( date1.getSignOffset() == date2.getSignOffset() )
+    assert( date1.getHoursOffset() == date2.getHoursOffset() )
+    assert( date1.getMinutesOffset() == date2.getMinutesOffset() )
+    date1 = nil
+    date2 = nil
+  end
+
   def test_Validation_ModelCreator
     mc = LibSBML::ModelCreator.new()
     assert( mc != nil )
