@@ -189,9 +189,9 @@ CVTerm::operator=(const CVTerm& rhs)
 
 
 
-/**
-  * clones the CVTerm
-  */  
+/*
+ * clones the CVTerm
+ */  
 CVTerm* CVTerm::clone() const
 {
     CVTerm* term=new CVTerm(*this);
@@ -330,7 +330,7 @@ CVTerm::getResourceURI(unsigned int n)
 }
 
   
-/**
+ /*
   * adds a resource to the term
   */
 int 
@@ -347,7 +347,7 @@ CVTerm::addResource(const std::string& resource)
 }
 
 
-/**
+ /*
   * removes a resource to the term
   */
 int 
@@ -379,7 +379,7 @@ CVTerm::removeResource(std::string resource)
   return result;
 }
 
-/** @cond doxygen-libsbml-internal */
+ /* @cond doxygen-libsbml-internal */
 bool 
 CVTerm::hasRequiredAttributes()
 {
