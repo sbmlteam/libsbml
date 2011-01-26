@@ -32,10 +32,10 @@
  *
  * An XMLNode can contain any number of children.  Each child is another
  * XMLNode, thereby forming a tree.  The methods XMLNode::getNumChildren()
- * and @if clike XMLNode::getChild() can be used to access the
- * tree structure starting from a given node. @endif@if java XMLNode::getChild(long n)
- * can be used to access the tree structure starting from a given node.
- * @endif
+ * and @if clike XMLNode::getChild() can be used to access the tree
+ * structure starting from a given node. @endif@if java
+ * XMLNode::getChild(long n) can be used to access the tree structure
+ * starting from a given node.  @endif
  *
  * Each XMLNode is subclassed from XMLToken, and thus has the same methods
  * available as XMLToken.  These methods include XMLToken::getNamespaces(),
@@ -62,7 +62,7 @@
  * The returned XMLNode object by XMLNode::convertStringToXMLNode(@if java String xml@endif)
  * is a dummy root (container) XMLNode if the given XML string has two or
  * more top-level elements (e.g.,
- * "<code>&lt;p&gt;...&lt;/p&gt;&lt;p&gt;...&lt;/p&gt;</code>"). In the
+ * &quot;<code>&lt;p&gt;...&lt;/p&gt;&lt;p&gt;...&lt;/p&gt;</code>&quot;). In the
  * dummy root node, each top-level element in the given XML string is
  * contained as a child XMLNode. XMLToken::isEOF() can be used to identify
  * if the returned XMLNode object is a dummy node or not.  Here is an
@@ -72,7 +72,7 @@
                                                                                          
 std::string str = "..."; 
 XMLNode* xn = XMLNode::convertStringToXMLNode(str);                                      
-if (xn == NULL)
+if ( xn == NULL )
 {                                                                                      
   // returned value is null (error)                                                    
   ...
@@ -80,7 +80,7 @@ if (xn == NULL)
 else if ( xn->isEOF() )                                                                 
 {                                                                                      
   // root node is a dummy node                                                         
-  for (int i=0; i < xn->getNumChildren(); i++)                                          
+  for ( int i = 0; i < xn->getNumChildren(); i++ )                                          
   {                                                                                    
     // access to each child node of the dummy node.                                    
     XMLNode& xnChild = xn->getChild(i);                                                  
@@ -97,7 +97,7 @@ else
 
 String str = "...";
 XMLNode xn = XMLNode.convertStringToXMLNode(str);
-if (xn == null)
+if ( xn == null )
 {
   // returned value is null (error)
   ...
@@ -105,7 +105,7 @@ if (xn == null)
 else if ( xn.isEOF() )
 {
   // root node is a dummy node
-  for (int i=0; i < xn.getNumChildren(); i++)
+  for ( int i = 0; i < xn.getNumChildren(); i++ )
   {
     // access to each child node of the dummy node.
     XMLNode xnChild = xn.getChild(i);
