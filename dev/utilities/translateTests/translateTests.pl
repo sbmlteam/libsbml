@@ -3420,7 +3420,7 @@ sub writeCode
   my ($file) = @_;
   my $cat = 'sbml';
 
-  $cat = $1 if ( $file =~ m|/src/([^/]*)/| ); 
+  $cat = $1 if ( $file =~ m| (\w+)/test/ |x ); 
   $file =~ s/.*\///;
   my $ofile = $file;
 
