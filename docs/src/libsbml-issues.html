@@ -11,6 +11,7 @@ possible pitfalls in using libSBML:
 <li><a href="#windows-free">Explicit freeing of memory when using static MSVC runtimes</a></li>
 <li><a href="#ubuntu-tomcat">Java exceptions when running in stock Tomcat 6 under Ubuntu "Intrepid"</a></li>
 <li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
+<li><a href="#line-numbers">Different XML parsers may report different line/column numbers</a></li>
 </ul>
 
 
@@ -230,3 +231,27 @@ The method <code>setLevelAndVersion()</code> on the class
 of SBML (to the extent possible within technical and practical limits).
 However, conversion to/from SBML Level&nbsp;1 Version&nbsp;1 is not
 supported.
+
+
+<h2><a class="anchor" name="line-numbers"/>Different XML parsers may report different line/column numbers</a></h2>
+
+LibSBML includes methods to report the line and column number where an
+object or an error situation appears in a file.  However, the accuracy of
+the line and column numbers cannot be guaranteed by libSBML.  Many factors
+affect how accurate the line/column information ultimately is, and in
+particular, different XML parsers have different conventions for which line
+and column number they report for a particular problem (which in turn makes
+a difference when a problem involves an opening XML tag on one line and a
+closing tag on another line).  In some situations, some parsers report
+invalid line and/or column numbers altogether.  If this occurs and libSBML
+can detect that it has occurred, the line and/or column number reported by
+<code>SBMLError</code> and <code>XMLError</code> will be set to the the
+value of the maximum unsigned long integer representable on the platform
+where libSBML is running.  (This is equal to the constant named
+<code>ULONG_MAX</code> in C and C++.)  The probability that a <em>true</em>
+line or column number in a real-life SBML model would equal this value is
+vanishingly small; thus, if an application encounters these values in an
+XMLError object, it can assume no valid line/column number could be
+provided by libSBML in that situation.
+
+<p>
