@@ -95,6 +95,7 @@ distfiles =                                                  \
         common-text/comment-set-methods.html                 \
         common-text/compartment-size-recommendations.html    \
         common-text/compartment-size-restrictions.html       \
+	common-text/cvterm-common-description-text.html      \
         common-text/id-syntax.html                           \
         common-text/math-functions.html                      \
         common-text/math-precedence-table.html               \
