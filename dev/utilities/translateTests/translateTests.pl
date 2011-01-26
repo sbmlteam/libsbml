@@ -26,7 +26,7 @@ use Getopt::Std;
 
 (my $myname = $0) =~ s,.*[\/\\],,;
 my $usage = <<EOF;
-Usage: $myname [-d output_dir] [-h] [-r|-p|-j|-c] ctest_file [ ctest_file2 ... ]
+Usage: $myname [-o output_dir] [-h] [-r|-p|-j|-c] ctest_file [ ctest_file2 ... ]
   -r : Converts given C/C++ test files into Ruby scripts (*Default*)
   -p : Converts given C/C++ test files into Python scripts 
   -j : Converts given C/C++ test files into Java files
@@ -138,6 +138,7 @@ my %IgnoredFunc = (
   addFormulaUnitsData    => 0,
   getInternalId          => 0,
   setInternalId          => 0,
+  parseRDFAnnotationWithModelHistory => 0,
 );
 
 my %IgnoreTestFunc = (
@@ -180,9 +181,13 @@ my %IgnoreTestFunc = (
   test_Date_setHoursOffset_neg_arg               => 0,
   test_Date_setOffsetSign                        => 0,
   test_Date_ConstructorException                 => 0,
+  test_Date_accessWithNULL                       => 0,
   test_ModelCreator_ConstructorException         => 0,
+  test_ModelCreator_accessWithNULL               => 0,
   test_ModelHistory_ConstructorException         => 0,
+  test_ModelHistory_accessWithNULL               => 0,
   test_CVTerm_ConstructorException               => 0,
+  test_CVTerm_accessWithNULL                     => 0,
   test_Model_copyConstructor                     => 0,
   test_Model_assignmentOperator                  => 0,
   test_Model_clone                               => 0,
