@@ -181,6 +181,23 @@ public class TestValidation {
     date = null;
   }
 
+  public void test_Validation_Date_Default()
+  {
+    Date date1 = new Date();
+    Date date2 = new Date("");
+    assertTrue( date1.getYear() == (date2.getYear()) );
+    assertTrue( date1.getMonth() == (date2.getMonth()) );
+    assertTrue( date1.getDay() == (date2.getDay()) );
+    assertTrue( date1.getHour() == (date2.getHour()) );
+    assertTrue( date1.getMinute() == (date2.getMinute()) );
+    assertTrue( date1.getSecond() == (date2.getSecond()) );
+    assertTrue( date1.getSignOffset() == (date2.getSignOffset()) );
+    assertTrue( date1.getHoursOffset() == (date2.getHoursOffset()) );
+    assertTrue( date1.getMinutesOffset() == (date2.getMinutesOffset()) );
+    date1 = null;
+    date2 = null;
+  }
+
   public void test_Validation_ModelCreator()
   {
     ModelCreator mc = new ModelCreator();
