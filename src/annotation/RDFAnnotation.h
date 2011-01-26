@@ -32,8 +32,8 @@
  * ("Minimum Information Requested in the Annotation of biochemical
  * Models", <i>Nature Biotechnology</i>, vol. 23, no. 12, Dec. 2005).
  * Section 6 of the SBML Level&nbsp;2 and Level&nbsp;3 specification
- * documents defines a recommended way of encoding MIRIAM information as
- * RDF annotations in SBML.  The general scheme is as follows.  A set of
+ * documents defines a recommended way of encoding MIRIAM information using
+ * a subset of RDF in SBML.  The general scheme is as follows.  A set of
  * RDF-based annotations attached to a given SBML
  * <code>&lt;annotation&gt;</code> element are read by RDFAnnotationParser
  * and converted into a list of CVTerm objects.  There
