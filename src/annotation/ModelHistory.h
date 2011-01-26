@@ -42,18 +42,18 @@
 &lt;dc:creator&gt;<br>
 &nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:parseType="Resource"&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;vCard:N rdf:parseType="Resource"&gt;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;vCard:Family&gt;<span style="background-color: #bbb">family name</span>&lt;/vCard:Family&gt;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;vCard:Given&gt;<span style="background-color: #bbb">given name</span>&lt;/vCard:Given&gt;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/vCard:N&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;vCard:EMAIL&gt;<span style="background-color: #bbb">email address</span>&lt;/vCard:EMAIL&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;vCard:ORG rdf:parseType="Resource"&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;vCard:Orgname&gt;<span style="background-color: #bbb">organization name</span>&lt;/vCard:Orgname&gt;</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="border-bottom: 2px dotted #888">&lt;/vCard:ORG&gt;</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0d0ee">+++</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:li&gt;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
 &nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
@@ -69,7 +69,7 @@
  *
  * In the template above, the <span style="border-bottom: 2px dotted #888">underlined</span>
  * portions are optional, the symbol
- * <span class="code" style="background-color: #d0d0ee">+++</span> is a placeholder
+ * <span class="code" style="background-color: #d0eed0">+++</span> is a placeholder
  * for either no content or valid XML content that is not defined by
  * the annotation scheme, and the ellipses
  * <span class="code" style="background-color: #edd">...</span>
