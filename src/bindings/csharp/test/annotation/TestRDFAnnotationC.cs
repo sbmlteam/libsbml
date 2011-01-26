@@ -144,6 +144,16 @@ namespace LibSBMLCSTest {
       d = null;
     }
 
+    public void test_RDFAnnotation_C_accessWithNULL()
+    {
+      assertTrue( RDFAnnotationParser.createCVTerms(null) == null );
+      assertTrue( RDFAnnotationParser.createRDFDescription(null) == null );
+      assertTrue( RDFAnnotationParser.deleteRDFAnnotation(null) == null );
+      assertTrue( RDFAnnotationParser.parseCVTerms(null) == null );
+      assertTrue( RDFAnnotationParser.parseModelHistory(null) == null );
+      RDFAnnotationParser.parseRDFAnnotation(null,null);
+    }
+
     public void test_RDFAnnotation_C_delete()
     {
       SBase obj = m.getCompartment(0);
