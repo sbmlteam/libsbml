@@ -138,9 +138,10 @@ public:
    * Pattern</i></a> to perform operations on ListOf objects.
    *
    * @param x the ListOf object to visit.
+   *
+   * @param type the object type code.
    */
   virtual void visit (const ListOf       &x, SBMLTypeCode_t type);
-
 
 
   /**
@@ -440,6 +441,9 @@ public:
    * Pattern</i></a> to perform operations on ListOf objects.
    *
    * @param x the ListOf object to visit.
+   *
+   * @param type the object type code.
+   *
    */
   virtual void leave (const ListOf &x, SBMLTypeCode_t type);
 };

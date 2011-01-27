@@ -288,11 +288,11 @@ public:
    * below for further explanations.  (Default value used if this argument
    * is not given: @c 0.)
    * 
-   * @param hours offset an unsigned integer representing the time zone's
+   * @param hoursOffset an unsigned integer representing the time zone's
    * hour offset from GMT.  (Default value used if this argument is not
    * given: @c 0.)
    * 
-   * @param minute offset an unsigned integer representing the time zone's
+   * @param minutesOffset an unsigned integer representing the time zone's
    * minute offset from GMT.  (Default value used if this argument is not
    * given: @c 0.)
    *

@@ -584,9 +584,9 @@ typedef enum
  , OneDimensionalCompartmentUnits        = 20511 /*!< No units for 1D Compartment */
  , TwoDimensionalCompartmentUnits        = 20512 /*!< No units for 2D Compartment */
  , ThreeDimensionalCompartmentUnits      = 20513 /*!< No units for 3D Compartment */
- , AllowedAttributesOnCompartment        = 20517 /*!< Invalid attribute on <compartment> */
- , NoUnitsOnCompartment                  = 20518 /*!< No units for <compartment> */
- , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid <code>compartment</code> reference */
+ , AllowedAttributesOnCompartment        = 20517 /*!< Invalid attribute on <code>&lt;compartment&gt;</code> */
+ , NoUnitsOnCompartment                  = 20518 /*!< No units for <code>&lt;compartment&gt;</code> */
+ , InvalidSpeciesCompartmentRef          = 20601 /*!< Invalid <code>&lt;compartment&gt;</code> reference */
  , HasOnlySubsNoSpatialUnits             = 20602 /*!< No <code>spatialSizeUnits</code> permitted if <code>hasOnlySubstanceUnits</code>=<code>true</code> */
  , NoSpatialUnitsInZeroD                 = 20603 /*!< No <code>spatialSizeUnits</code> permitted if compartment is zero-dimensional */
  , NoConcentrationInZeroD                = 20604 /*!< No <code>initialConcentration</code> permitted if compartment is zero-dimensional */
@@ -603,7 +603,7 @@ typedef enum
  , SpatialSizeUnitsRemoved               = 20615 /*!< Attribute <code>spatialSizeUnits</code> not supported in this Level+Version of SBML */
  , SubstanceUnitsOnSpecies               = 20616 /*!< No substance units for Species */
  , ConversionFactorOnSpecies             = 20617 /*!< Invalid conversionFactor attribute */
- , AllowedAttributesOnSpecies            = 20623 /*!< Invalid attribute on <species&gt;</code> */
+ , AllowedAttributesOnSpecies            = 20623 /*!< Invalid attribute on <code>&lt;species&gt;</code> */
  , InvalidParameterUnits                 = 20701 /*!< Invalid value for <code>units</code> in parameter definition */
  , ParameterUnits                        = 20702 /*!< No units for parameter */
  , ConversionFactorMustConstant          = 20705 /*!< ConversionFactor must be constant parameter */
@@ -620,46 +620,46 @@ typedef enum
  , RepeatedRule10304                     = 20905 /*!<  */
  , CircularRuleDependency                = 20906 /*!< Circular dependency involving rules and reactions */
  , OneMathElementPerRule                 = 20907 /*!< Rule must contain one math element */
- , AllowedAttributesOnAssignRule         = 20908 /*!< Invalid attribute on <assignmentRule> */
- , AllowedAttributesOnRateRule           = 20909 /*!< Invalid attribute on <rateRule> */
- , AllowedAttributesOnAlgRule            = 20910 /*!< Invalid attribute on <algebraicRule> */
+ , AllowedAttributesOnAssignRule         = 20908 /*!< Invalid attribute on <code>&lt;assignmentRule&gt;</code> */
+ , AllowedAttributesOnRateRule           = 20909 /*!< Invalid attribute on <code>&lt;rateRule&gt;</code> */
+ , AllowedAttributesOnAlgRule            = 20910 /*!< Invalid attribute on <code>&lt;algebraicRule&gt;</code> */
  , ConstraintMathNotBoolean              = 21001 /*!< Non-boolean math expression in constraint definition */
  , IncorrectOrderInConstraint            = 21002 /*!< Incorrect order of elements in constraint definition */
  , ConstraintNotInXHTMLNamespace         = 21003 /*!< Constraint message is not in XHTML XML namespace */
  , ConstraintContainsXMLDecl             = 21004 /*!< XML declarations not permitted in constraint messages */
  , ConstraintContainsDOCTYPE             = 21005 /*!< XML <code>DOCTYPE</code> not permitted in constraint messages */
  , InvalidConstraintContent              = 21006 /*!< Invalid content for constraint message */
- , OneMathElementPerConstraint           = 21007 /*!< Only one math element on <constraint> */
- , OneMessageElementPerConstraint        = 21008 /*!< Only one message element on <constraint> */
- , AllowedAttributesOnConstraint         = 21009 /*!< Invalid attribute on <constraint> */
+ , OneMathElementPerConstraint           = 21007 /*!< Only one math element on <code>&lt;constraint&gt;</code> */
+ , OneMessageElementPerConstraint        = 21008 /*!< Only one message element on <code>&lt;constraint&gt;</code> */
+ , AllowedAttributesOnConstraint         = 21009 /*!< Invalid attribute on <code>&lt;constraint&gt;</code> */
  , NoReactantsOrProducts                 = 21101 /*!< Cannot have a reaction with neither reactants nor products */
  , IncorrectOrderInReaction              = 21102 /*!< Incorrect ordering of components in reaction definition */
  , EmptyListInReaction                   = 21103 /*!< Reaction components, if present, cannot be empty */
  , InvalidReactantsProductsList          = 21104 /*!< Invalid element in list of reactants or products */
  , InvalidModifiersList                  = 21105 /*!< Invalid element in list of modifiers */
- , OneSubElementPerReaction              = 21106 /*!< Only one of subelement on <reaction> */
- , CompartmentOnReaction                 = 21107 /*!< Invalid compartment attribute on <reaction> */
- , AllowedAttributesOnReaction           = 21110 /*!< Invalid attribute on <reaction> */
+ , OneSubElementPerReaction              = 21106 /*!< Only one of subelement on <code>&lt;reaction&gt;</code> */
+ , CompartmentOnReaction                 = 21107 /*!< Invalid compartment attribute on <code>&lt;reaction&gt;</code> */
+ , AllowedAttributesOnReaction           = 21110 /*!< Invalid attribute on <code>&lt;reaction&gt;</code> */
  , InvalidSpeciesReference               = 21111 /*!< Invalid <code>species</code> value in species reference */
  , RepeatedRule20611                     = 21112 /*!<  */
  , BothStoichiometryAndMath              = 21113 /*!< Cannot use both <code>stoichiometry</code> and <code>&lt;stoichiometryMath&gt;</code> simultaneously */
- , AllowedAttributesOnSpeciesReference   = 21116 /*!< Invalid attribute on <speciesReference> */
- , AllowedAttributesOnModifier           = 21117 /*!< Invalid attribute on <modifierSpeciesReference> */
+ , AllowedAttributesOnSpeciesReference   = 21116 /*!< Invalid attribute on <code>&lt;speciesReference&gt;</code> */
+ , AllowedAttributesOnModifier           = 21117 /*!< Invalid attribute on <code>&lt;modifierSpeciesReference&gt;</code> */
  , UndeclaredSpeciesRef                  = 21121 /*!< Undeclared species referenced in kinetic law formula */
  , IncorrectOrderInKineticLaw            = 21122 /*!< Incorrect ordering of components in kinetic law definition */
  , EmptyListInKineticLaw                 = 21123 /*!< The list of parameters component, if present, cannot be empty */
  , NonConstantLocalParameter             = 21124 /*!< Parameters local to a kinetic law must have <code>constant</code>=<code>true</code> */
  , SubsUnitsNoLongerValid                = 21125 /*!< <code>substanceUnits</code> not supported in this Level+Version of SBML */
  , TimeUnitsNoLongerValid                = 21126 /*!< <code>timeUnits</code> not supported in this Level+Version of SBML */
- , OneListOfPerKineticLaw                = 21127 /*!< Only one listOfLocalParameters permitted on <kineticLaw> */
+ , OneListOfPerKineticLaw                = 21127 /*!< Only one listOfLocalParameters permitted on <code>&lt;kineticLaw&gt;</code> */
  , OnlyLocalParamsInListOfLocalParams    = 21128 /*!< Only LocalParameters allowed in ListOfLocalParameters */
  , AllowedAttributesOnListOfLocalParam   = 21129 /*!< Invalid attribute on <code>&lt;listOfLocalParameters&gt;</code> */
- , OneMathPerKineticLaw                  = 21130 /*!< Only one math element on <kineticLaw> */
+ , OneMathPerKineticLaw                  = 21130 /*!< Only one math element on <code>&lt;kineticLaw&gt;</code> */
  , UndeclaredSpeciesInStoichMath         = 21131 /*!< Undeclared species referenced in <code>&lt;stoichiometryMath&gt;</code> formula */
- , AllowedAttributesOnKineticLaw         = 21132 /*!< Invalid attribute on <kineticLaw> */
+ , AllowedAttributesOnKineticLaw         = 21132 /*!< Invalid attribute on <code>&lt;kineticLaw&gt;</code> */
  , AllowedAttributesOnListOfSpeciesRef   = 21150 /*!< Invalid attribute on <code>&lt;listOfSpeciesReferences&gt;</code> */
  , AllowedAttributesOnListOfMods         = 21151 /*!< Invalid attribute on <code>&lt;listofModifiers&gt;</code> */
- , AllowedAttributesOnLocalParameter     = 21172 /*!< Invalid attribute on <localParameter> */
+ , AllowedAttributesOnLocalParameter     = 21172 /*!< Invalid attribute on <code>&lt;localParameter&gt;</code> */
  , MissingTriggerInEvent                 = 21201 /*!< Missing trigger in event definition */
  , TriggerMathNotBoolean                 = 21202 /*!< Non-boolean math expression in trigger definition */
  , MissingEventAssignment                = 21203 /*!< Missing event assignment in event definition */
@@ -672,19 +672,19 @@ typedef enum
  , InvalidEventAssignmentVariable        = 21211 /*!< Invalid value for <code>variable</code> in event assignment */
  , EventAssignmentForConstantEntity      = 21212 /*!< Cannot assign to a constant component in an event assignment */
  , OneMathPerEventAssignment             = 21213 /*!< EventAssignment must have one math element */
- , AllowedAttributesOnEventAssignment    = 21214 /*!< Invalid attribute on <eventAssignment> */
- , OnlyOneDelayPerEvent                  = 21221 /*!< Event can only have one <delay> */
+ , AllowedAttributesOnEventAssignment    = 21214 /*!< Invalid attribute on <code>&lt;eventAssignment&gt;</code> */
+ , OnlyOneDelayPerEvent                  = 21221 /*!< Event can only have one <code>&lt;delay&gt;</code> */
  , OneListOfEventAssignmentsPerEvent     = 21222 /*!< Event can only have one <code>&lt;listOfEventAssignments&gt;</code> */
- , OnlyEventAssignInListOfEventAssign    = 21223 /*!< <code>&lt;listOfEventAssignments&gt;</code> can only have <eventAssignment> */
+ , OnlyEventAssignInListOfEventAssign    = 21223 /*!< <code>&lt;listOfEventAssignments&gt;</code> can only have <code>&lt;eventAssignment&gt;</code> */
  , AllowedAttributesOnListOfEventAssign  = 21224 /*!< Invalid attribute on <code>&lt;listOfEventAssignments&gt;</code> */
- , AllowedAttributesOnEvent              = 21225 /*!< Invalid attribute on <event> */
- , AllowedAttributesOnTrigger            = 21226 /*!< Invalid attribute on <trigger> */
- , AllowedAttributesOnDelay              = 21227 /*!< Invalid attribute on <delay> */
- , PersistentNotBoolean                  = 21228 /*!< Persistent attribute on <trigger> must be boolean */
- , InitialValueNotBoolean                = 21229 /*!< InitialValue attribute on <trigger> must be boolean */
- , OnlyOnePriorityPerEvent               = 21230 /*!< Event can only have one <priority> */
+ , AllowedAttributesOnEvent              = 21225 /*!< Invalid attribute on <code>&lt;event&gt;</code> */
+ , AllowedAttributesOnTrigger            = 21226 /*!< Invalid attribute on <code>&lt;trigger&gt;</code> */
+ , AllowedAttributesOnDelay              = 21227 /*!< Invalid attribute on <code>&lt;delay&gt;</code> */
+ , PersistentNotBoolean                  = 21228 /*!< Persistent attribute on <code>&lt;trigger&gt;</code> must be boolean */
+ , InitialValueNotBoolean                = 21229 /*!< InitialValue attribute on <code>&lt;trigger&gt;</code> must be boolean */
+ , OnlyOnePriorityPerEvent               = 21230 /*!< Event can only have one <code>&lt;priority&gt;</code> */
  , OneMathPerPriority                    = 21231 /*!< Priority must have one math element */
- , AllowedAttributesOnPriority           = 21232 /*!< Invalid attribute on <priority> */
+ , AllowedAttributesOnPriority           = 21232 /*!< Invalid attribute on <code>&lt;priority&gt;</code> */
 
 
  , GeneralWarningNotSpecified            = 29999 /*!< Unknown error */
@@ -719,7 +719,7 @@ typedef enum
  , NoSBOTermsInL1                        = 91013 /*!< SBML Level&nbsp;1 does not support the <code>sboTerm</code> attribute */
  , StrictUnitsRequiredInL1               = 91014 /*!< SBML Level&nbsp;1 requires strict unit consistency */
  , ConversionFactorNotInL1               = 91015 /*!< SBML Level&nbsp;1 does not support the <code>conversionFactor</code> attribute */
- , CompartmentNotOnL1Reaction            = 91016 /*!< SBML Level&nbsp;1 does not support the <code>compartment</code> attribute on a <Reaction> */
+ , CompartmentNotOnL1Reaction            = 91016 /*!< SBML Level&nbsp;1 does not support the <code>compartment</code> attribute on a <code>&lt;reaction&gt;</code> */
  , ExtentUnitsNotSubstance               = 91017 /*!< Conversion to SBML Level&nbsp;1 requires that <code>extent</code> units be a variant of substance */
 
   /* L2v1 compatability */
@@ -736,7 +736,7 @@ typedef enum
  , StoichiometryMathNotYetSupported      = 92010 /*!< Conversion to StoichiometryMath not yet supported */
  , PrioirtyLostFromL3                    = 92011 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support priority */
  , NonPersistentNotSupported             = 92012 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support the <code>persistent</code> attribute */
- , InitialValueFalseEventNotSupported    = 92013 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support an <code>initialValue</code> of <code>false</code> for a <Trigger> */
+ , InitialValueFalseEventNotSupported    = 92013 /*!< SBML Level&nbsp;2 Version&nbsp;1 does not support an <code>initialValue</code> of <code>false</code> for a <code>&lt;trigger&gt;</code> */
 
  /*!< SBML Level&nbsp;2 Version&nbsp;1 requires strict unit consistency */
 
@@ -812,7 +812,7 @@ typedef enum
 
  , NoTimeSymbolInFunctionDef             = 99301 /*!< <code>&lt;csymbol&gt;</code> for <code>time</code> used within the <code>&lt;math&gt;</code> of a function definition */
 
- , NoBodyInFunctionDef                   = 99302 /*!< There must be a body within the <math> of a function definition */
+ , NoBodyInFunctionDef                   = 99302 /*!< There must be a body within the <code>&lt;math&gt;</code> of a function definition */
 
   /* These are internal errors that reverts to 10501. */
 
