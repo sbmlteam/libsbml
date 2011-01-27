@@ -177,6 +177,7 @@ my %IgnoreTestFunc = (
   test_MathMLFormatter_semantics_url             => 0,
   test_MathMLFormatter_ci_definitionURL          => 0,
   test_ASTNode_replaceArgument                   => 0,
+  test_ASTNode_accessWithNULL                    => 0,
   test_SBase_addCVTerms_newBag                   => 0,
   test_Date_setHoursOffset_neg_arg               => 0,
   test_Date_setOffsetSign                        => 0,
