@@ -245,8 +245,9 @@ public:
    * QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink.  If
    * an explicit value for @p type is not given, this method defaults to
    * using @link QualifierType_t#UNKNOWN_QUALIFIER
-   * UNKNOWN_QUALIFIER@endlink.  The @if clike #QualifierType_t@endif@if
-   * java qualifier type code@endif type value can be set later using the
+   * UNKNOWN_QUALIFIER@endlink.  The
+   * @if clike #QualifierType_t@endif@if java qualifier type code@endif 
+   * type value can be set later using the
    * CVTerm::setQualifierType(@if java int type@endif) method.
    *
    * Different BioModels.net qualifier elements encode different types of
