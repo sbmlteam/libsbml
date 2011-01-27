@@ -107,6 +107,14 @@ syntax), and rules 10802, 10803, 21004 and 21005 (detection of disallowed
 XML constructs inside <code>&lt;notes&gt;</code> and
 <code>&lt;annotation&gt;</code> elements).</li>
 
+<li style="margin-bottom: 1em">Some versions of libxml2 behave incorrectly
+when given a blank namespace (e.g., the use of <code>xmlns=" "</code>, with
+a space character).  Versions of libxml prior 2.7.7 will report this as an
+invalid or undefined XML namespace, but in fact a namespace URI containing
+a single space is valid (albeit not a very useful one).  This highlights
+another issue: different versions of the underlying XML parsers may behave
+differently in the face of unusual (though not necessarily illegal) inputs.
+
 </ol>
 
 
