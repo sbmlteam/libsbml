@@ -189,6 +189,7 @@ function install_mac(ismatlab, root)
           error('libsbml.dylib could not be found');
       else
         lib{1} = lib{2};
+        addDir(lib{1});
       end;
   end;
   
@@ -292,6 +293,7 @@ function install_linux(ismatlab, root)
           error('libsbml.so could not be found');
       else
         lib{1} = lib{2};
+        addDir(lib{1});
       end;
   end;
   
