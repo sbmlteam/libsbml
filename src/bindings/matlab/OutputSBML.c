@@ -540,12 +540,15 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   /* write the SBML document to the filename specified */
 	nStatus = writeSBML(sbmlDocument, pacFilename);
-	mexPrintf("Document written\n");
 
 	if (nStatus != 1)
 	{
 		mexErrMsgTxt("Failed to write file");
 	}
+  else
+  {
+    mexPrintf("Document written\n");
+  }
 	
 	/* free any memory allocated */
 	mxFree(pacNotes);

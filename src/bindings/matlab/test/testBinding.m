@@ -31,7 +31,7 @@ if (strcmp(isoctave(), '0'))
   Totalfail = Totalfail + testReadFlags;
 end;
 if (install == 0)
-  Totalfail = Totalfail + testOutput;
+  Totalfail = Totalfail + testOutput('Out-test1');
 end;
 disp ('************************************');
 disp('Overall tests:');

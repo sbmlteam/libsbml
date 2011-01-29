@@ -1,4 +1,4 @@
-function fail = testOutput
+function fail = testOutput(outdir)
 
 %  Filename    :   TestOutput.m
 %  Description :
@@ -21,8 +21,8 @@ function fail = testOutput
 % and also available online as http://sbml.org/software/sbmltoolbox/license.html
 %----------------------------------------------------------------------- -->
 
-if (~isdir('Out-test'))
-mkdir ('Out-test');
+if (~isdir(outdir))
+mkdir (outdir);
 end;
 
 if exist('OCTAVE_VERSION')
@@ -35,7 +35,7 @@ if exist('OCTAVE_VERSION')
     end;
   end;
 else
-  files = dir('test-data/*.xml');
+  files = dir(['test-data', filesep, '*.xml']);
 end;
 
 fail = 0;
@@ -52,10 +52,10 @@ for i=1:length(files)
   elseif (strcmp(files(i).name, 'convertedFormulasL2.xml') && exist('OCTAVE_VERSION'))
     %do nothing
   else
-    model = TranslateSBML(sprintf('test-data/%s', files(i).name));
+    model = TranslateSBML(['test-data', filesep, files(i).name]);
     if (~isempty(model))
-      OutputSBML(model, sprintf('Out-test/%s', files(i).name));
-      if (compareFiles(sprintf('test-data/%s', files(i).name), sprintf('Out-test/%s', files(i).name)))
+      OutputSBML(model, [outdir, filesep, files(i).name]);
+      if (compareFiles(['test-data', filesep, files(i).name], [outdir, filesep, files(i).name]))
         disp(sprintf('Output of %s failed', files(i).name));
         fail = fail + 1;
       end;
