@@ -295,44 +295,76 @@ function install_linux(ismatlab, root)
       end;
   end;
   
-  % check that the include directory exists
-  include_dir = [root, filesep, 'include'];
-  disp(sprintf('Checking for the %s directory ...', include_dir));
-  if (exist(include_dir, 'dir') ~= 7)
-    error (sprintf('%s not found\n%s', include_dir, ...
-      'the libSBML source tree expects this directory to exist'));
-  end;
-  
+  addDir(pwd);
+ 
   if (ismatlab)
+    this_dir = pwd;
     % install the files
-    inc_flag = ['-I', include_dir];
-    installMexFiles(inc_flag, lib{1});
+    try
+      M = TranslateSBML('test.xml');
+    catch
+      cd(bin_dir);
+      try
+        M = TranslateSBML('test.xml');
+        cd(this_dir);
+      catch
+        cd(this_dir);
+      end;
+    end;
+    
+    success = 1;
+    try
+      disp('checking for TranslateSBML');
+      M = TranslateSBML('test.xml');
+    catch
+      disp('Installation failed - need to build TranslateSBML');
+      success = 0;
+    end;
+
+    outFile = [tempdir, filesep, 'test-out.xml'];
+    if (success == 1)
+      try
+        disp('checking OutputSBML');
+        OutputSBML(M, outFile);
+      catch
+        disp('Installation failed - need to build OutputSBML');
+        success = 0;
+      end;
+    end;
+    
+    if (success == 1)
+      disp ('running tests for TranslateSBML');
+      cd test;
+      pass = testBinding(1);
+      cd ..;
+      if (pass == 0)
+        disp('TranslateSBML successful');
+      else
+        disp('Binding present but problem detected. Seek help.');
+        success = 0;
+      end;
+    end;
+
+    if (success == 1)
+      disp('running tests for OutputSBML');
+      cd test;
+      pass = testOutput(tempdir);
+      cd ..;
+      if (pass == 0)
+        disp('OutputSBML successful');
+      else
+        disp('Output function present but problem detected. Seek help.');
+        success = 0;
+      end;
+    end;
+
+    if (success == 1)
+      disp ('Installation completed');
+    end;
+   
 
   else
     disp('install on octave');
-  end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% runs the mex command for windows and matlab
-% the messy file handle stuff is because this seems to be the best way to 
-% be able to pass arguments to the function
-function installMexFiles(include, library)
-
-  fhandle = @mex;
-  disp('Building TranslateSBML ...');
-  feval(fhandle, 'TranslateSBML.c', include, library);
-  disp('Building OutputSBML ...');
-  feval(fhandle, 'OutputSBML.c', include, library);
-
-  transFile = strcat('TranslateSBML.', mexext());
-  outFile = strcat('OutputSBML.', mexext());
-
-  if ((exist(transFile) == 3 && ...
-      exist(outFile) == 3))      
-    disp(sprintf('%s\n%s', 'Build successful', ...
-      'Now run the install script which will install and test the files'));
-  else
-    disp('Build failed');
   end;
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
