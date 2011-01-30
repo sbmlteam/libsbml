@@ -111,7 +111,8 @@ function install_win(ismatlab, root)
       disp('checking for TranslateSBML');
       M = TranslateSBML('test.xml');
     catch
-      disp('Installation failed - need to build TranslateSBML');
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
       success = 0;
     end;
 
@@ -121,7 +122,8 @@ function install_win(ismatlab, root)
         disp('checking OutputSBML');
         OutputSBML(M, outFile);
       catch
-        disp('Installation failed - need to build OutputSBML');
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
         success = 0;
       end;
     end;
@@ -189,7 +191,7 @@ function install_mac(ismatlab, root)
           error('libsbml.dylib could not be found');
       else
         lib{1} = lib{2};
-        addDir(lib{1});
+        bin_dir = new_bin_dir;
       end;
   end;
   
@@ -216,7 +218,8 @@ function install_mac(ismatlab, root)
       disp('checking for TranslateSBML');
       M = TranslateSBML('test.xml');
     catch
-      disp('Installation failed - need to build TranslateSBML');
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
       success = 0;
     end;
 
@@ -226,7 +229,8 @@ function install_mac(ismatlab, root)
         disp('checking OutputSBML');
         OutputSBML(M, outFile);
       catch
-        disp('Installation failed - need to build OutputSBML');
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
         success = 0;
       end;
     end;
@@ -319,7 +323,8 @@ function install_linux(ismatlab, root)
       disp('checking for TranslateSBML');
       M = TranslateSBML('test.xml');
     catch
-      disp('Installation failed - need to build TranslateSBML');
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
       success = 0;
     end;
 
@@ -329,7 +334,8 @@ function install_linux(ismatlab, root)
         disp('checking OutputSBML');
         OutputSBML(M, outFile);
       catch
-        disp('Installation failed - need to build OutputSBML');
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
         success = 0;
       end;
     end;
