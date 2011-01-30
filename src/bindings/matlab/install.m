@@ -297,7 +297,7 @@ function install_linux(ismatlab, root)
           error('libsbml.so could not be found');
       else
         lib{1} = lib{2};
-        addDir(lib{1});
+        bin_dir = new_bin_dir;
       end;
   end;
   
