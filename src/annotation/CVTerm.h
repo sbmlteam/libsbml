@@ -29,8 +29,8 @@
  * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
  * format for annotating models when (a) referring to controlled vocabulary
  * terms and database identifiers that define and describe biological and
- * biochemical entities, and (b) describing the creator of a model and its
- * modification history.  This SBML format is a concrete syntax that
+ * biochemical entities, and (b) describing the creator of a model and the
+ * model's modification history.  This SBML format is a concrete syntax that
  * conforms to the guidelines of MIRIAM ("Minimum Information Requested in
  * the Annotation of biochemical Models", <i>Nature Biotechnology</i>,
  * vol. 23, no. 12, Dec. 2005).  The format uses a subset of W3C RDF (<a
@@ -88,7 +88,7 @@
  * portions are optional, the symbol
  * <span class="code" style="background-color: #d0eed0">+++</span> is a placeholder
  * for either no content or valid XML content that is not defined by
- * the annotation scheme, and the ellipses
+ * this annotation scheme, and the ellipses
  * <span class="code" style="background-color: #edd">...</span>
  * are placeholders for zero or more elements of the same form as the
  * immediately preceding element.  The optional content
@@ -145,10 +145,10 @@
  * </ul>
  *
  * Note that a CVTerm contains a single qualifier, but possibly more than
- * one resource.  This corresponds to the possibility of an annotation
- * pointing to multiple resources yet having the same BioModels.net
- * qualifier.  The CVTerm object class supports this by supporting a list
- * of resources.
+ * one resource.  This corresponds to the possibility of an annotation that
+ * points to multiple resources, all of which are qualified by the same
+ * BioModels.net qualifier.  The CVTerm object class supports this by
+ * supporting a list of resources.
  *
  * Detailed explanations of the qualifiers defined by BioModels.net can be
  * found at <a target="_blank"
@@ -225,8 +225,8 @@ public:
    * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
    * format for annotating models when (a) referring to controlled
    * vocabulary terms and database identifiers that define and describe
-   * biological and biochemical entities, and (b) describing the creator of
-   * a model and its modification history.  The annotation content is
+   * biological and other entities, and (b) describing the creator of a
+   * model and the model's modification history.  The annotation content is
    * stored in <code>&lt;annotation&gt;</code> elements attached to
    * individual SBML elements.  The format for storing the content inside
    * SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF
@@ -264,13 +264,13 @@ public:
 
 
   /**
-   * Create a new CVTerm from the given XMLNode.
+   * Creates a new CVTerm from the given XMLNode.
    *
    * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
    * format for annotating models when (a) referring to controlled
    * vocabulary terms and database identifiers that define and describe
-   * biological and biochemical entities, and (b) describing the creator of
-   * a model and its modification history.  The annotation content is
+   * biological and other entities, and (b) describing the creator of a
+   * model and the model's modification history.  The annotation content is
    * stored in <code>&lt;annotation&gt;</code> elements attached to
    * individual SBML elements.  The format for storing the content inside
    * SBML <code>&lt;annotation&gt;</code> elements is a subset of W3C RDF
@@ -544,6 +544,8 @@ public:
    * function. The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
+   *
+   * @see getQualifierType()
    */
   int setQualifierType(QualifierType_t type);
 
@@ -563,6 +565,9 @@ public:
    * @link QualifierType_t#MODEL_QUALIFIER MODEL_QUALIFIER@endlink, 
    * then the ModelQualifierType_t value will default to
    * @link QualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
+   *
+   * @see getQualifierType()
+   * @see setQualifierType()
    */
   int setModelQualifierType(ModelQualifierType_t type);
 
@@ -582,6 +587,9 @@ public:
    * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
    * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value will default
    * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
+   *
+   * @see getQualifierType()
+   * @see setQualifierType()
    */
   int setBiologicalQualifierType(BiolQualifierType_t type);
 
@@ -592,16 +600,16 @@ public:
    * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
    * standardized format for annotating models with references to
    * controlled vocabulary terms and database identifiers that define and
-   * describe biological and biochemical entities.  This annotation format
+   * describe biological or other entities.  This annotation format
    * consists of RDF-based content placed inside an
    * <code>&lt;annotation&gt;</code> element attached to an SBML component
    * such as Species, Compartment, etc.
    *
    * The specific RDF element used in this SBML format for referring to
    * external entities is <code>&lt;rdf:Description&gt;</code>, with a
-   * <code>&lt;rdf:Bag&gt;</code> element inside of it containing one or
-   * more <code>&lt;rdf:li&gt;</code> elements.  Each such element refers
-   * to a data item in an external resource; the resource and data item are
+   * <code>&lt;rdf:Bag&gt;</code> element containing one or more
+   * <code>&lt;rdf:li&gt;</code> elements.  Each such element refers to a
+   * data item in an external resource; the resource and data item are
    * together identified uniquely using a URI.  The following template
    * illustrates the structure:
    *
