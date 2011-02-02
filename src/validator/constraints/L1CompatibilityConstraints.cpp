@@ -110,7 +110,8 @@ START_CONSTRAINT (91007, Compartment, c)
   //  "A <compartment> with 'spatialDimensions' not equal to 3 cannot be "
   //  "represented in SBML Level 1.";
 
-  inv( c.getSpatialDimensions() == 3 );
+  inv_or( c.isSetSpatialDimensions() == false);
+  inv_or( c.getSpatialDimensions() == 3 );
 }
 END_CONSTRAINT
 
