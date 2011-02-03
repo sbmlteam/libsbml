@@ -1329,7 +1329,7 @@ public:
    * will be either @link RuleType_t#RULE_TYPE_RATE RULE_TYPE_RATE@endlink
    * or @link RuleType_t#RULE_TYPE_SCALAR RULE_TYPE_SCALAR@endlink.
    *
-   * @note The attribute "type" on Rule objects was present only in SBML
+   * @note The attribute "type" on Rule objects is present only in SBML
    * Level&nbsp;1.  In SBML Level&nbsp;2 and later, the type has been
    * replaced by subclassing the Rule object.
    */
