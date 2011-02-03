@@ -728,7 +728,16 @@ public:
 
   /**
    * Returns true or false depending on whether this date object represents
-   * a valid date and time.
+   * a valid date and time value.
+   *
+   * This method verifies that the date/time value stored in this object is
+   * well-formed and represents plausible values.  A time and date value in
+   * the W3C format takes the form YYYY-MM-DDThh:mm:ssXHH:ZZ (e.g.,
+   * <code>1997-07-16T19:20:30+01:00</code>) where XHH:ZZ is the time zone
+   * offset.  This method checks such things as whether the value of the
+   * month number is less than or equal to 12, whether the value of the
+   * minutes number is less than or equal to 59, whether a time zone offset
+   * is set, etc.
    *
    * @return @c true if the date is valid, @c false otherwise.
    */
