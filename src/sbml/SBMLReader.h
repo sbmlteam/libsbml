@@ -394,7 +394,7 @@ if doc.getNumErrors() > 0:
    * Predicate returning @c true if
    * this copy of libSBML supports <i>bzip2</i> format compression.
    *
-   * @return @c true if libSBML has been linked with the <i>bzip2</i>
+   * @return @c true if libSBML is linked with the <i>bzip2</i>
    * libraries, @c false otherwise.
    *
    * @see hasZlib()

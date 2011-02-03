@@ -2486,7 +2486,7 @@ Species_isSetSpatialSizeUnits (const Species_t *s)
 
 /**
  * (SBML Level 1 only) Predicate returning true or false depending on
- * whether the attribute "units" of the given Species_t structure has been
+ * whether the attribute "units" of the given Species_t structure is
  * set.
  *
  * @param s the Species_t structure

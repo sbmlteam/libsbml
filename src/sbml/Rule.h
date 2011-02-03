@@ -1030,7 +1030,7 @@ public:
    * easier compatibility with SBML Level&nbsp;1, in which mathematical
    * formulas were written in text-string form.
    * 
-   * @return @c true if the mathematical formula for this Rule has been
+   * @return @c true if the mathematical formula for this Rule is
    * set, @c false otherwise.
    *
    * @note The attribute "formula" is specific to SBML Level&nbsp;1; in

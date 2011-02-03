@@ -357,7 +357,7 @@ public:
   /**
    * Gets the value of the "constant" attribute of this Parameter instance.
    * 
-   * @return @c true if this Parameter has been declared as being constant,
+   * @return @c true if this Parameter is declared as being constant,
    * @c false otherwise.
    *
    * @note Readers who view the documentation for LocalParameter may be
@@ -384,7 +384,7 @@ public:
    * Predicate returning @c true if this
    * Parameter's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Parameter has been
+   * @return @c true if the "id" attribute of this Parameter is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -394,7 +394,7 @@ public:
    * Predicate returning @c true if this
    * Parameter's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Parameter has been
+   * @return @c true if the "name" attribute of this Parameter is
    * set, @c false otherwise.
    */
   bool isSetName () const;
@@ -431,7 +431,7 @@ public:
    * Predicate returning @c true if the
    * "units" attribute of this Parameter is set.
    *
-   * @return @c true if the "units" attribute of this Parameter has been
+   * @return @c true if the "units" attribute of this Parameter is
    * set, @c false otherwise.
    *
    * @note @htmlinclude unassigned-units-are-not-a-default.html
@@ -443,7 +443,7 @@ public:
    * Predicate returning @c true if the
    * "constant" attribute of this Parameter is set.
    *
-   * @return @c true if the "constant" attribute of this Parameter has been
+   * @return @c true if the "constant" attribute of this Parameter is
    * set, @c false otherwise.
    *
    * @note Readers who view the documentation for LocalParameter may be

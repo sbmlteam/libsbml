@@ -763,7 +763,7 @@ public:
    * such as referencing that component from metadata placed within
    * "annotation" subelements.
    *
-   * @return @c true if the "metaid" attribute of this SBML object has been
+   * @return @c true if the "metaid" attribute of this SBML object is
    * set, @c false otherwise.
    *
    * @see getMetaId()
@@ -798,7 +798,7 @@ public:
    * manner.  This applies to all uses of <code>SId</code> and
    * <code>UnitSId</code>.
    * 
-   * @return @c true if the "id" attribute of this SBML object has been
+   * @return @c true if the "id" attribute of this SBML object is
    * set, @c false otherwise.
    * 
    * @note The fact that the value of attribute "id" is defined on the
@@ -859,7 +859,7 @@ public:
    * restrictions on the uniqueness of "name" values in a model.  This
    * allows software packages leeway in assigning component identifiers.
    *
-   * @return @c true if the "name" attribute of this SBML object has been
+   * @return @c true if the "name" attribute of this SBML object is
    * set, @c false otherwise.
    *
    * @note The fact that the "name" attribute is defined on the SBase parent
@@ -955,7 +955,7 @@ public:
    * Predicate returning @c true if this
    * object's "sboTerm" attribute is set.
    *
-   * @return @c true if the "sboTerm" attribute of this SBML object has been
+   * @return @c true if the "sboTerm" attribute of this SBML object is
    * set, @c false otherwise.
    */
   bool isSetSBOTerm () const;

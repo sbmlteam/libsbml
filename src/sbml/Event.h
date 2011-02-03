@@ -495,7 +495,7 @@ public:
    * Predicate returning @c true if this
    * Event's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Event has been
+   * @return @c true if the "id" attribute of this Event is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -505,7 +505,7 @@ public:
    * Predicate returning @c true if this
    * Event's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Event has been
+   * @return @c true if the "name" attribute of this Event is
    * set, @c false otherwise.
    */
   bool isSetName () const;
@@ -546,7 +546,7 @@ public:
    * Predicate for testing whether the "timeUnits" attribute of this Event
    * is set.
    *
-   * @return @c true if the "timeUnits" attribute of this Event has been
+   * @return @c true if the "timeUnits" attribute of this Event is
    * set, @c false otherwise.
    *
    * @warning Definitions of Event in SBML Level 2 Versions&nbsp;1
@@ -565,7 +565,7 @@ public:
    * Predicate for testing whether the "useValuesFromTriggerTime" attribute of this Event
    * is set.
    *
-   * @return @c true if the "useValuesFromTriggerTime" attribute of this Event has been
+   * @return @c true if the "useValuesFromTriggerTime" attribute of this Event is
    * set, @c false otherwise.
    *
    * @note In SBML Level&nbsp;2, this attribute is optional and has a default value of

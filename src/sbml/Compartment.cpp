@@ -398,7 +398,7 @@ Compartment::isSetCompartmentType () const
 
 
 /*
- * @return true if the size (volume in L1) of this Compartment has been
+ * @return true if the size (volume in L1) of this Compartment is
  * set, false otherwise.
  */
 bool
@@ -409,7 +409,7 @@ Compartment::isSetSize () const
 
 
 /*
- * @return true if the volume (size in L2) of this Compartment has been
+ * @return true if the volume (size in L2) of this Compartment is
  * set, false otherwise.
  *
  * In SBML L1, a Compartment volume has a default value (1.0) and therefore
@@ -618,7 +618,7 @@ Compartment::setSpatialDimensions (double value)
 int
 Compartment::setSize (double value)
 {
-  /* since the setSize function has been used as an
+  /* since the setSize function is used as an
    * alias for setVolume we cant require it to only
    * be used on a L2 model
    */
@@ -639,7 +639,7 @@ Compartment::setSize (double value)
 int
 Compartment::setVolume (double value)
 {
-  /* since the setVolume function has been used as an
+  /* since the setVolume function is used as an
    * alias for setSize we cant require it to only
    * be used on a L1 model
    */
@@ -2131,7 +2131,7 @@ Compartment_isSetSize (const Compartment_t *c)
 
 /**
  * (For SBML Level 1) Predicate returning @c true or @c false depending on
- * whether the given Compartment_t structures's "volume" attribute has been
+ * whether the given Compartment_t structures's "volume" attribute is
  * set.
  * 
  * This method is similar but not identical to Compartment_isSetSize().

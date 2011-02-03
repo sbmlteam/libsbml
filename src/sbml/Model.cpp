@@ -5878,7 +5878,7 @@ Model_getConversionFactor (const Model_t *m)
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "id" attribute of this Model_t structure has been
+ * @return nonzero if the "id" attribute of this Model_t structure is
  * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN

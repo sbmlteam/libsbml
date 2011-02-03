@@ -606,7 +606,7 @@ public:
    * Predicate returning @c true if this
    * Compartment's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Compartment has been
+   * @return @c true if the "id" attribute of this Compartment is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -616,7 +616,7 @@ public:
    * Predicate returning @c true if this
    * Compartment's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Compartment has been
+   * @return @c true if the "name" attribute of this Compartment is
    * set, @c false otherwise.
    */
   bool isSetName () const;
@@ -689,7 +689,7 @@ public:
    * Predicate returning @c true if this
    * Compartment's "units" attribute is set.
    * 
-   * @return @c true if the "units" attribute of this Compartment has been
+   * @return @c true if the "units" attribute of this Compartment is
    * set, @c false otherwise.
    *
    * @note @htmlinclude unassigned-units-are-not-a-default.html

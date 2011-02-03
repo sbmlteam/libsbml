@@ -273,7 +273,7 @@ public:
    * Predicate returning @c true if this
    * FunctionDefinition's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this FunctionDefinition has been
+   * @return @c true if the "id" attribute of this FunctionDefinition is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -283,7 +283,7 @@ public:
    * Predicate returning @c true if this
    * FunctionDefinition's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this FunctionDefinition has been
+   * @return @c true if the "name" attribute of this FunctionDefinition is
    * set, @c false otherwise.
    */
   bool isSetName () const;

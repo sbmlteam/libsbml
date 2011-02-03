@@ -241,7 +241,7 @@ public:
    * Predicate returning @c true if this
    * CompartmentType's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this CompartmentType has been
+   * @return @c true if the "id" attribute of this CompartmentType is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -251,7 +251,7 @@ public:
    * Predicate returning @c true if this
    * CompartmentType's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this CompartmentTypeType has been
+   * @return @c true if the "name" attribute of this CompartmentTypeType is
    * set, @c false otherwise.
    */
   bool isSetName () const;

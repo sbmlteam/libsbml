@@ -197,7 +197,7 @@ SimpleSpeciesReference::isSetName () const
 
 
 /*
- * @return true if the species for this SimpleSpeciesReference has been
+ * @return true if the species for this SimpleSpeciesReference is
  * set, false otherwise.
  */
 bool
@@ -855,7 +855,7 @@ SpeciesReference::getConstant () const
 
 
 /*
- * @return true if the stoichiometryMath of this SpeciesReference has been
+ * @return true if the stoichiometryMath of this SpeciesReference is
  * set, false otherwise.
  */
 bool
@@ -866,7 +866,7 @@ SpeciesReference::isSetStoichiometryMath () const
 
 
 /*
- * @return true if the constant of this SpeciesReference has been
+ * @return true if the constant of this SpeciesReference is
  * set, false otherwise.
  */
 bool
@@ -877,7 +877,7 @@ SpeciesReference::isSetConstant () const
 
 
 /*
- * @return true if the stoichiometry of this SpeciesReference has been
+ * @return true if the stoichiometry of this SpeciesReference is
  * set, false otherwise.
  */
 bool

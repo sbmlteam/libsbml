@@ -419,7 +419,7 @@ public:
    * Predicate returning @c true if this
    * SimpleSpeciesReference's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this SimpleSpeciesReference has been
+   * @return @c true if the "id" attribute of this SimpleSpeciesReference is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -429,7 +429,7 @@ public:
    * Predicate returning @c true if this
    * SimpleSpeciesReference's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this SimpleSpeciesReference has been
+   * @return @c true if the "name" attribute of this SimpleSpeciesReference is
    * set, @c false otherwise.
    */
   bool isSetName () const;

@@ -399,7 +399,7 @@ public:
    * Predicate returning @c true if this
    * UnitDefinition's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this UnitDefinition has been
+   * @return @c true if the "id" attribute of this UnitDefinition is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -409,7 +409,7 @@ public:
    * Predicate returning @c true if this
    * UnitDefinition's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this UnitDefinition has been
+   * @return @c true if the "name" attribute of this UnitDefinition is
    * set, @c false otherwise.
    */
   bool isSetName () const;

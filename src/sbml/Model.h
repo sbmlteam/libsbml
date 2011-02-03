@@ -542,7 +542,7 @@ public:
    * Predicate returning @c true if this
    * Model's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Model has been
+   * @return @c true if the "id" attribute of this Model is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -552,7 +552,7 @@ public:
    * Predicate returning @c true if this
    * Model's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Model has been
+   * @return @c true if the "name" attribute of this Model is
    * set, @c false otherwise.
    */
   bool isSetName () const;
@@ -562,7 +562,7 @@ public:
    * Predicate returning @c true if this
    * Model's "substanceUnits" attribute is set.
    *
-   * @return @c true if the "substanceUnits" attribute of this Model has been
+   * @return @c true if the "substanceUnits" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "substanceUnits" attribute is available in 
@@ -575,7 +575,7 @@ public:
    * Predicate returning @c true if this
    * Model's "timeUnits" attribute is set.
    *
-   * @return @c true if the "timeUnits" attribute of this Model has been
+   * @return @c true if the "timeUnits" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "substanceUnits" attribute is available in 
@@ -588,7 +588,7 @@ public:
    * Predicate returning @c true if this
    * Model's "volumeUnits" attribute is set.
    *
-   * @return @c true if the "volumeUnits" attribute of this Model has been
+   * @return @c true if the "volumeUnits" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "volumeUnits" attribute is available in 
@@ -601,7 +601,7 @@ public:
    * Predicate returning @c true if this
    * Model's "areaUnits" attribute is set.
    *
-   * @return @c true if the "areaUnits" attribute of this Model has been
+   * @return @c true if the "areaUnits" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "areaUnits" attribute is available in 
@@ -614,7 +614,7 @@ public:
    * Predicate returning @c true if this
    * Model's "lengthUnits" attribute is set.
    *
-   * @return @c true if the "lengthUnits" attribute of this Model has been
+   * @return @c true if the "lengthUnits" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "lengthUnits" attribute is available in 
@@ -627,7 +627,7 @@ public:
    * Predicate returning @c true if this
    * Model's "extentUnits" attribute is set.
    *
-   * @return @c true if the "extentUnits" attribute of this Model has been
+   * @return @c true if the "extentUnits" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "extentUnits" attribute is available in 
@@ -640,7 +640,7 @@ public:
    * Predicate returning @c true if this
    * Model's "conversionFactor" attribute is set.
    *
-   * @return @c true if the "conversionFactor" attribute of this Model has been
+   * @return @c true if the "conversionFactor" attribute of this Model is
    * set, @c false otherwise.
    *
    * @note The "conversionFactor" attribute is available in 

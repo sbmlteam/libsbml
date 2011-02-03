@@ -291,7 +291,7 @@ public:
    * Predicate returning @c true if a
    * mathematical formula is defined for this Constraint.
    *
-   * @return @c true if the "math" subelement for this Constraint has been
+   * @return @c true if the "math" subelement for this Constraint is
    * set, @c false otherwise.
    */
   bool isSetMath () const;

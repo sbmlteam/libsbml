@@ -410,7 +410,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this Reaction has been
+   * @return @c true if the "name" attribute of this Reaction is
    * set, @c false otherwise.
    */
   bool isSetName () const;
@@ -453,7 +453,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "compartment" attribute is set.
    *
-   * @return @c true if the "compartment" attribute of this Reaction has been
+   * @return @c true if the "compartment" attribute of this Reaction is
    * set, @c false otherwise.
    *
    * @note The "compartment" attribute has been introduced in SBML
@@ -467,7 +467,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "reversible" attribute is set.
    *
-   * @return @c true if the "reversible" attribute of this Reaction has been
+   * @return @c true if the "reversible" attribute of this Reaction is
    * set, @c false otherwise.
    */
   bool isSetReversible () const;

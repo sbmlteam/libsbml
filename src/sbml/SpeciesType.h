@@ -241,7 +241,7 @@ public:
    * Predicate returning @c true if this
    * SpeciesType's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this SpeciesType has been
+   * @return @c true if the "id" attribute of this SpeciesType is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -251,7 +251,7 @@ public:
    * Predicate returning @c true if this
    * SpeciesType's "name" attribute is set.
    *
-   * @return @c true if the "name" attribute of this SpeciesType has been
+   * @return @c true if the "name" attribute of this SpeciesType is
    * set, @c false otherwise.
    */
   bool isSetName () const;
