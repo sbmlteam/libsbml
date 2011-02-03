@@ -194,6 +194,8 @@
  * SBML Levels&nbsp;2 and &nbsp;3:
  * 
  * @htmlinclude math-functions.html
+ * 
+ * @warning @htmlinclude L1-math-syntax-warning.html
  */
 
 #ifndef ASTNode_h

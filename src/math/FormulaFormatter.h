@@ -34,35 +34,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/**
+/*
  * Converts an ASTNode formula to a text string using a specific
  * syntax for mathematical formulas.
- *
- * @if clike The text-string form of mathematical formulas produced by
- * SBML_formulaToString() and read by SBML_parseFormula() are simple
- * C-inspired infix notation taken from SBML Level&nbsp;1.  A formula in
- * this text-string form therefore can be handed to a program that
- * understands SBML Level&nbsp;1 mathematical expressions, or used as part
- * of a formula translation system.  The syntax is described in detail in
- * the documentation for ASTNode. @endif@if java The text-string form of
- * mathematical formulas produced by <code><a
- * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
- * libsbml.formulaToString()</a></code> and read by
- * <code><a href="libsbml.html#parseFormula(java.lang.String)">
- * libsbml.parseFormula()</a></code> are
- * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
- * formula in this text-string form therefore can be handed to a program
- * that understands SBML Level&nbsp;1 mathematical expressions, or used as
- * part of a formula translation system.  The syntax is described in detail
- * in the documentation for ASTNode.   @endif
- *
- * @param tree the root of the ASTNode formula expression tree
- * 
- * @return the formula from the given AST as an SBML Level 1 text-string
- * mathematical formula.  The caller owns the returned string and is
- * responsible for freeing it when it is no longer needed.
- * @c NULL is returned if the given argument is @c NULL. 
- * 
  */
 LIBSBML_EXTERN
 char *
