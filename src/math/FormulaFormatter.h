@@ -34,10 +34,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
- * Converts an ASTNode formula to a text string using a specific
- * syntax for mathematical formulas.
- */
 LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode_t *tree);
