@@ -173,7 +173,7 @@ StoichiometryMath::getMath () const
 
 /*
  * @return true if the math (or equivalently the formula) of this
- * StoichiometryMath has been set, false otherwise.
+ * StoichiometryMath is set, false otherwise.
  */
 bool
 StoichiometryMath::isSetMath () const
@@ -644,7 +644,7 @@ StoichiometryMath_getMath (const StoichiometryMath_t *stoichMath)
 
 /**
  * @return true (non-zero) if the stoichMath (or equivalently the formula) of
- * this StoichiometryMath has been set, false (0) otherwise.
+ * this StoichiometryMath is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int

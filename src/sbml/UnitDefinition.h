@@ -397,7 +397,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * UnitDefinition's "id" attribute has been set.
+   * UnitDefinition's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this UnitDefinition has been
    * set, @c false otherwise.
@@ -407,7 +407,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * UnitDefinition's "name" attribute has been set.
+   * UnitDefinition's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this UnitDefinition has been
    * set, @c false otherwise.

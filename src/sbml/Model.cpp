@@ -483,7 +483,7 @@ Model::getConversionFactor () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -494,7 +494,7 @@ Model::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -507,7 +507,7 @@ Model::isSetName () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "substanceUnits" attribute has been set.
+ * Model's "substanceUnits" attribute is set.
  */
 bool 
 Model::isSetSubstanceUnits () const
@@ -518,7 +518,7 @@ Model::isSetSubstanceUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "timeUnits" attribute has been set.
+ * Model's "timeUnits" attribute is set.
  */
 bool 
 Model::isSetTimeUnits () const
@@ -529,7 +529,7 @@ Model::isSetTimeUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "volumeUnits" attribute has been set.
+ * Model's "volumeUnits" attribute is set.
  */
 bool 
 Model::isSetVolumeUnits () const
@@ -540,7 +540,7 @@ Model::isSetVolumeUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "areaUnits" attribute has been set.
+ * Model's "areaUnits" attribute is set.
  */
 bool 
 Model::isSetAreaUnits () const
@@ -551,7 +551,7 @@ Model::isSetAreaUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "lengthUnits" attribute has been set.
+ * Model's "lengthUnits" attribute is set.
  */
 bool 
 Model::isSetLengthUnits () const
@@ -562,7 +562,7 @@ Model::isSetLengthUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "extentUnits" attribute has been set.
+ * Model's "extentUnits" attribute is set.
  */
 bool 
 Model::isSetExtentUnits () const
@@ -573,7 +573,7 @@ Model::isSetExtentUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Model's "conversionFactor" attribute has been set.
+ * Model's "conversionFactor" attribute is set.
  */
 bool 
 Model::isSetConversionFactor () const
@@ -5601,7 +5601,7 @@ Model::getListFormulaUnitsData () const
 
 /** @cond doxygen-libsbml-internal */
 /*
- * returns true if the list has been populated, false otherwise
+ * returns true if the list is populated, false otherwise
  */
 bool
 Model::isPopulatedListFormulaUnitsData()
@@ -5874,7 +5874,7 @@ Model_getConversionFactor (const Model_t *m)
 
 /**
  * Predicate for testing whether the identifier of a given Model_t
- * structure has been assigned.
+ * structure is assigned.
  * 
  * @param m the Model_t structure
  * 
@@ -5890,13 +5890,13 @@ Model_isSetId (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the name of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the name of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "name" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "name" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -5907,13 +5907,13 @@ Model_isSetName (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the substanceUnits of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the substanceUnits of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "substanceUnits" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "substanceUnits" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -5924,13 +5924,13 @@ Model_isSetSubstanceUnits (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the timeUnits of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the timeUnits of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "timeUnits" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "timeUnits" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -5941,13 +5941,13 @@ Model_isSetTimeUnits (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the volumeUnits of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the volumeUnits of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "volumeUnits" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "volumeUnits" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -5958,13 +5958,13 @@ Model_isSetVolumeUnits (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the areaUnits of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the areaUnits of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "areaUnits" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "areaUnits" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -5975,13 +5975,13 @@ Model_isSetAreaUnits (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the lengthUnits of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the lengthUnits of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "lengthUnits" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "lengthUnits" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -5992,13 +5992,13 @@ Model_isSetLengthUnits (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the extentUnits of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the extentUnits of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "extentUnits" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "extentUnits" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -6009,13 +6009,13 @@ Model_isSetExtentUnits (const Model_t *m)
 
 
 /**
- * Predicate for testing whether the conversionFactor of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the conversionFactor of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the "conversionFactor" attribute of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the "conversionFactor" attribute of this Model_t structure is
+ * set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -6529,13 +6529,13 @@ Model_getModelHistory(Model_t *m)
 }
 
 /**
- * Predicate for testing whether the ModelHistory of a given Model_t structure has
- * been assigned.
+ * Predicate for testing whether the ModelHistory of a given Model_t structure is
+ * assigned.
  * 
  * @param m the Model_t structure
  * 
- * @return nonzero if the ModelHistory of this Model_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the ModelHistory of this Model_t structure is
+ * set, zero (0) otherwise.
  */LIBSBML_EXTERN
 int 
 Model_isSetModelHistory(Model_t *m)
@@ -8272,11 +8272,11 @@ Model_populateListFormulaUnitsData(Model_t *m)
 
  /*
   * Predicate returning @c true or @c false depending on whether 
-  * the list of FormulaUnitsData has been populated.
+  * the list of FormulaUnitsData is populated.
   *
   * @param m the Model_t structure
   * 
-  * @return @c true if the list of FormulaUnitsData has been populated, 
+  * @return @c true if the list of FormulaUnitsData is populated, 
   * @c false otherwise.
   */
 LIBSBML_EXTERN

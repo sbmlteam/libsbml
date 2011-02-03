@@ -201,7 +201,7 @@ Constraint::getMath () const
 
 
 /*
- * @return true if the message of this Constraint has been set,
+ * @return true if the message of this Constraint is set,
  * false otherwise.
  */
 bool
@@ -212,7 +212,7 @@ Constraint::isSetMessage () const
 
 
 /*
- * @return true if the math for this Constraint has been set,
+ * @return true if the math for this Constraint is set,
  * false otherwise.
  */
 bool
@@ -887,12 +887,12 @@ Constraint_getMath (const Constraint_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether a
- * message has been defined for this Constraint.
+ * message is defined for this Constraint.
  *
  * @param c the Constraint_t structure 
  * 
  * @return a nonzero integer if the "message" subelement for this
- * Constraint has been set, zero (0) otherwise.
+ * Constraint is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -904,12 +904,12 @@ Constraint_isSetMessage (const Constraint_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether a
- * mathematical formula has been defined for this Constraint.
+ * mathematical formula is defined for this Constraint.
  *
  * @param c the Constraint_t structure 
  * 
  * @return a nonzero integer if the "math" subelement for this Constraint
- * has been set, zero (0) otherwise.
+ * is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int

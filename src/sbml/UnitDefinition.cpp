@@ -183,7 +183,7 @@ UnitDefinition::getName () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -194,7 +194,7 @@ UnitDefinition::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -1733,12 +1733,12 @@ UnitDefinition_getName (const UnitDefinition_t *ud)
 
 /**
  * Predicate to test whether the "id" attribute of the given UnitDefinition_t
- * @p ud has been set.
+ * @p ud is set.
  *
  * @param ud the UnitDefinition_t to query.
  *
  * @return nonzero (true) if the "id" attribute of the given
- * UnitDefinition_t has been set, zero (0) otherwise.
+ * UnitDefinition_t is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1750,12 +1750,12 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud)
 
 /**
  * Predicate to test whether the "name" attribute of the given
- * UnitDefinition_t @p ud has been set.
+ * UnitDefinition_t @p ud is set.
  *
  * @param ud the UnitDefinition_t to query.
  *
  * @return nonzero (true) if the "name" attribute of the given
- * UnitDefinition_t has been set, zero (0) otherwise.
+ * UnitDefinition_t is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int

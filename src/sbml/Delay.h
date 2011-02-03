@@ -34,7 +34,7 @@
  * subelement called "math".  This subelement is used to hold MathML
  * content.  The mathematical formula represented by "math" must evaluate
  * to a numerical value.  It is used as the length of time between when the
- * event has been @em triggered and when the event's assignments are
+ * event is @em triggered and when the event's assignments are
  * actually @em executed.  If no delay is present on a given Event, a time
  * delay of zero is assumed.
  *
@@ -262,10 +262,10 @@ public:
 
 
   /**
-   * Predicate to test whether the formula for this delay has been set.
+   * Predicate to test whether the formula for this delay is set.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this Delay has been set, @c false otherwise.
+   * this Delay is set, @c false otherwise.
    */
   bool isSetMath () const;
 

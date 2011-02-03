@@ -163,7 +163,7 @@ CompartmentType::getName () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -174,7 +174,7 @@ CompartmentType::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -764,12 +764,12 @@ CompartmentType_getName (const CompartmentType_t *ct)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * CompartmentType_t structure's identifier has been set.
+ * CompartmentType_t structure's identifier is set.
  *
  * @param ct the CompartmentType_t structure to query
  * 
  * @return @c non-zero (true) if the "id" field of the given
- * CompartmentType has been set, zero (false) otherwise.
+ * CompartmentType is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -781,12 +781,12 @@ CompartmentType_isSetId (const CompartmentType_t *ct)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * CompartmentType_t structure's name has been set.
+ * CompartmentType_t structure's name is set.
  *
  * @param ct the CompartmentType_t structure to query
  * 
  * @return @c non-zero (true) if the "name" field of the given
- * CompartmentType has been set, zero (false) otherwise.
+ * CompartmentType is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int

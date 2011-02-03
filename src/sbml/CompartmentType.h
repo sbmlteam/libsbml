@@ -239,7 +239,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * CompartmentType's "id" attribute has been set.
+   * CompartmentType's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this CompartmentType has been
    * set, @c false otherwise.
@@ -249,7 +249,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * CompartmentType's "name" attribute has been set.
+   * CompartmentType's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this CompartmentTypeType has been
    * set, @c false otherwise.

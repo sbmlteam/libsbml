@@ -859,47 +859,47 @@ public:
  
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's "family name" part has been set.
+   * ModelCreator's "family name" part is set.
    *
-   * @return @c true if the familyName of this ModelCreator has been set, @c false otherwise.
+   * @return @c true if the familyName of this ModelCreator is set, @c false otherwise.
    */
   bool isSetFamilyName();
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's "given name" part has been set.
+   * ModelCreator's "given name" part is set.
    *
-   * @return @c true if the givenName of this ModelCreator has been set, @c false otherwise.
+   * @return @c true if the givenName of this ModelCreator is set, @c false otherwise.
    */
   bool isSetGivenName();
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's "email" part has been set.
+   * ModelCreator's "email" part is set.
    *
-   * @return @c true if the email of this ModelCreator has been set, @c false otherwise.
+   * @return @c true if the email of this ModelCreator is set, @c false otherwise.
    */
   bool isSetEmail();
 
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelCreator's "organization" part has been set.
+   * ModelCreator's "organization" part is set.
    *
-   * @return @c true if the organization of this ModelCreator has been set, @c false otherwise.
+   * @return @c true if the organization of this ModelCreator is set, @c false otherwise.
    */
   bool isSetOrganization();
 
 
   /**
    * (Alternate spelling) Predicate returning @c true or @c false depending
-   * on whether this ModelCreator's "organization" part has been set.
+   * on whether this ModelCreator's "organization" part is set.
    *
    * @note This function is an alias of isSetOrganization().
    *
-   * @return @c true if the organization of this ModelCreator has been set, @c false otherwise.
+   * @return @c true if the organization of this ModelCreator is set, @c false otherwise.
    *
    * @see isSetOrganization()
    */
@@ -1146,20 +1146,20 @@ public:
   
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelHistory's "creation date" has been set.
+   * ModelHistory's "creation date" is set.
    *
-   * @return @c true if the creation date value of this ModelHistory has
-   * been set, @c false otherwise.
+   * @return @c true if the creation date value of this ModelHistory is
+   * set, @c false otherwise.
    */
   bool isSetCreatedDate();
 
   
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * ModelHistory's "modified date" has been set.
+   * ModelHistory's "modified date" is set.
    *
    * @return @c true if the modification date value of this ModelHistory
-   * object has been set, @c false otherwise.
+   * object is set, @c false otherwise.
    */
   bool isSetModifiedDate();
 

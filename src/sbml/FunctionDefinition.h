@@ -271,7 +271,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * FunctionDefinition's "id" attribute has been set.
+   * FunctionDefinition's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this FunctionDefinition has been
    * set, @c false otherwise.
@@ -281,7 +281,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * FunctionDefinition's "name" attribute has been set.
+   * FunctionDefinition's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this FunctionDefinition has been
    * set, @c false otherwise.
@@ -293,7 +293,7 @@ public:
    * Predicate returning @c true if this
    * FunctionDefinition's "math" subelement contains a value.
    * 
-   * @return @c true if the "math" for this FunctionDefinition has been set,
+   * @return @c true if the "math" for this FunctionDefinition is set,
    * @c false otherwise.
    */
   bool isSetMath () const;

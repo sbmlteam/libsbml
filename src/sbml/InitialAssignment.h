@@ -335,10 +335,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * InitialAssignment's "symbol" attribute has been set.
+   * InitialAssignment's "symbol" attribute is set.
    * 
    * @return @c true if the "symbol" attribute of this InitialAssignment
-   * has been set, @c false otherwise.
+   * is set, @c false otherwise.
    */
   bool isSetSymbol () const;
 
@@ -347,7 +347,7 @@ public:
    * Predicate returning @c true if this
    * InitialAssignment's "math" subelement contains a value.
    * 
-   * @return @c true if the "math" for this InitialAssignment has been set,
+   * @return @c true if the "math" for this InitialAssignment is set,
    * @c false otherwise.
    */
   bool isSetMath () const;

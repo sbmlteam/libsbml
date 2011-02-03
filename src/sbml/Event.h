@@ -132,7 +132,7 @@
  * 
  * <li> Any Event object whose Trigger "persistent" attribute has the value
  * @c false must have its trigger expression reevaluated continuously
- * between when the event has been triggered and when it is executed.  If
+ * between when the event is triggered and when it is executed.  If
  * its trigger expression ever evaluates to @c false, it must be removed
  * from the queue of events pending execution and treated as any other
  * event whose trigger expression evaluates to @c false.
@@ -493,7 +493,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Event's "id" attribute has been set.
+   * Event's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this Event has been
    * set, @c false otherwise.
@@ -503,7 +503,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Event's "name" attribute has been set.
+   * Event's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this Event has been
    * set, @c false otherwise.
@@ -512,18 +512,18 @@ public:
 
 
   /**
-   * Predicate for testing whether the trigger for this Event has been set.
+   * Predicate for testing whether the trigger for this Event is set.
    *
-   * @return @c true if the trigger of this Event has been set, @c false
+   * @return @c true if the trigger of this Event is set, @c false
    * otherwise.
    */
   bool isSetTrigger () const;
 
 
   /**
-   * Predicate for testing whether the delay for this Event has been set.
+   * Predicate for testing whether the delay for this Event is set.
    *
-   * @return @c true if the delay of this Event has been set, @c false
+   * @return @c true if the delay of this Event is set, @c false
    * otherwise.
    */
   bool isSetDelay () const;
@@ -531,9 +531,9 @@ public:
 
   /**
    * (SBML Level&nbsp;3 only) Predicate for testing whether the priority
-   * for this Event has been set.
+   * for this Event is set.
    *
-   * @return @c true if the priority of this Event has been set, @c false
+   * @return @c true if the priority of this Event is set, @c false
    * otherwise.
    * 
    * @note The element "priority" is available in SBML Level&nbsp;3
@@ -544,7 +544,7 @@ public:
 
   /**
    * Predicate for testing whether the "timeUnits" attribute of this Event
-   * has been set.
+   * is set.
    *
    * @return @c true if the "timeUnits" attribute of this Event has been
    * set, @c false otherwise.
@@ -563,7 +563,7 @@ public:
 
   /**
    * Predicate for testing whether the "useValuesFromTriggerTime" attribute of this Event
-   * has been set.
+   * is set.
    *
    * @return @c true if the "useValuesFromTriggerTime" attribute of this Event has been
    * set, @c false otherwise.

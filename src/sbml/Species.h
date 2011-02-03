@@ -678,7 +678,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "id" attribute has been set.
+   * Species object's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this Species has been
    * set, @c false otherwise.
@@ -688,7 +688,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "name" attribute has been set.
+   * Species object's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this Species has been
    * set, @c false otherwise.
@@ -698,10 +698,10 @@ public:
 
   /**
    * Predicate returning @c true if this Species object's
-   * "speciesType" attribute has been set.
+   * "speciesType" attribute is set.
    *
-   * @return @c true if the "speciesType" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "speciesType" attribute of this Species is
+   * set, @c false otherwise.
    * 
    * @note The "speciesType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
@@ -711,20 +711,20 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "compartment" attribute has been set.
+   * Species object's "compartment" attribute is set.
    *
-   * @return @c true if the "compartment" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "compartment" attribute of this Species is
+   * set, @c false otherwise.
    */
   bool isSetCompartment () const;
 
 
   /**
    * Predicate returning @c true if this
-   * Species object's "initialAmount" attribute has been set.
+   * Species object's "initialAmount" attribute is set.
    *
-   * @return @c true if the "initialAmount" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "initialAmount" attribute of this Species is
+   * set, @c false otherwise.
    *
    * @note In SBML Level&nbsp;1, Species' "initialAmount" is required and
    * therefore <em>should always be set</em>.  (However, in Level&nbsp;1, the
@@ -737,10 +737,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "initialConcentration" attribute has been set.
+   * Species object's "initialConcentration" attribute is set.
    *
-   * @return @c true if the "initialConcentration" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "initialConcentration" attribute of this Species is
+   * set, @c false otherwise.
    *
    * @note The attribute "initialConcentration" is only available in SBML
    * Level&nbsp;2 and&nbsp;3.  It does not exist on Species in Level&nbsp;1.
@@ -750,20 +750,20 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "substanceUnits" attribute has been set.
+   * Species object's "substanceUnits" attribute is set.
    *
-   * @return @c true if the "substanceUnits" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "substanceUnits" attribute of this Species is
+   * set, @c false otherwise.
    */
   bool isSetSubstanceUnits () const;
 
 
   /**
    * Predicate returning @c true if this
-   * Species object's "spatialSizeUnits" attribute has been set.
+   * Species object's "spatialSizeUnits" attribute is set.
    *
-   * @return @c true if the "spatialSizeUnits" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "spatialSizeUnits" attribute of this Species is
+   * set, @c false otherwise.
    * 
    * @warning In versions of SBML Level~2 before Version&nbsp;3, the class
    * Species included an attribute called "spatialSizeUnits", which allowed
@@ -778,20 +778,20 @@ public:
 
   /**
    * Predicate returning @c true if
-   * this Species object's "units" attribute has been set.
+   * this Species object's "units" attribute is set.
    *
-   * @return @c true if the "units" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "units" attribute of this Species is
+   * set, @c false otherwise.
    */
   bool isSetUnits () const;
 
 
   /**
    * Predicate returning @c true if this
-   * Species object's "charge" attribute has been set.
+   * Species object's "charge" attribute is set.
    *
-   * @return @c true if the "charge" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "charge" attribute of this Species is
+   * set, @c false otherwise.
    *
    * @note Beginning in SBML Level&nbsp;2 Version&nbsp;2, the "charge"
    * attribute on Species in SBML is deprecated and in SBML Level&nbsp;3 it
@@ -810,10 +810,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "conversionFactor" attribute has been set.
+   * Species object's "conversionFactor" attribute is set.
    *
-   * @return @c true if the "conversionFactor" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "conversionFactor" attribute of this Species is
+   * set, @c false otherwise.
    * 
    * @note The "conversionFactor" attribute was introduced in SBML
    * Level&nbsp;3.  It does not exist on Species in SBML Levels&nbsp;1
@@ -824,20 +824,20 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "boundaryCondition" attribute has been set.
+   * Species object's "boundaryCondition" attribute is set.
    *
-   * @return @c true if the "boundaryCondition" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "boundaryCondition" attribute of this Species is
+   * set, @c false otherwise.
    */
   bool isSetBoundaryCondition () const;
 
 
   /**
    * Predicate returning @c true if this
-   * Species object's "hasOnlySubstanceUnits" attribute has been set.
+   * Species object's "hasOnlySubstanceUnits" attribute is set.
    *
-   * @return @c true if the "hasOnlySubstanceUnits" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "hasOnlySubstanceUnits" attribute of this Species is
+   * set, @c false otherwise.
    *
    * @note The "hasOnlySubstanceUnits" attribute does not exist in SBML
    * Level&nbsp;1.
@@ -847,10 +847,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Species object's "constant" attribute has been set.
+   * Species object's "constant" attribute is set.
    *
-   * @return @c true if the "constant" attribute of this Species has
-   * been set, @c false otherwise.
+   * @return @c true if the "constant" attribute of this Species is
+   * set, @c false otherwise.
    *
    * @note The attribute "constant" is only available in SBML Levels&nbsp;2
    * and&nbsp;3.  It does not exist on Species in Level&nbsp;1.

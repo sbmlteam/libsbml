@@ -779,7 +779,7 @@ SBase::getModelHistory()
 }
 
 /*
- * @return true if the metaid of this SBML object has been set, false
+ * @return true if the metaid of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -794,7 +794,7 @@ SBase::isSetMetaId () const
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -807,7 +807,7 @@ SBase::isSetId () const
 /*
  * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
  *
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -821,7 +821,7 @@ SBase::isSetName () const
 
 
 /*
- * @return true if the notes of this SBML object has been set, false
+ * @return true if the notes of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -832,7 +832,7 @@ SBase::isSetNotes () const
 
 
 /*
- * @return true if the annotation of this SBML object has been set,
+ * @return true if the annotation of this SBML object is set,
  * false otherwise.
  */
 bool
@@ -844,7 +844,7 @@ SBase::isSetAnnotation () const
 
 
 /*
- * @return true if the sboTerm has been set, false
+ * @return true if the sboTerm is set, false
  * otherwise.
  */
 bool
@@ -3792,7 +3792,7 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 
 /** @cond doxygen-libsbml-internal */
 /**
-  * Checks that an SBML ListOf element has been populated.  
+  * Checks that an SBML ListOf element is populated.  
   * If a listOf element has been declared with no elements, 
   * an error is logged.
   */
@@ -4396,13 +4396,13 @@ SBase_getModelHistory(SBase_t *sb)
 }
 
 /**
- * Predicate for testing whether the ModelHistory of a given SBase_t structure has
- * been assigned.
+ * Predicate for testing whether the ModelHistory of a given SBase_t structure is
+ * assigned.
  * 
  * @param m the SBase_t structure
  * 
- * @return nonzero if the ModelHistory of this SBase_t structure has
- * been set, zero (0) otherwise.
+ * @return nonzero if the ModelHistory of this SBase_t structure is
+ * set, zero (0) otherwise.
  */LIBSBML_EXTERN
 int 
 SBase_isSetModelHistory(SBase_t *sb)
@@ -4760,12 +4760,12 @@ SBase_getAnnotationString (SBase_t *sb)
 
 /**
  * Predicate returning nonzero true or false depending on whether the given
- * structure's "metaid" attribute has been set.
+ * structure's "metaid" attribute is set.
  *
  * @param sb the SBase_t structure to query
  * 
  * @return nonzero (for true) if the "metaid" attribute of this SBML object
- * has been set, zero (for false) otherwise.
+ * is set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -4777,12 +4777,12 @@ SBase_isSetMetaId (const SBase_t *sb)
 
 ///**
 // * Predicate returning nonzero true or false depending on whether the given
-// * structure's "id" attribute has been set.
+// * structure's "id" attribute is set.
 // *
 // * @param sb the SBase_t structure to query
 // * 
 // * @return nonzero (for true) if the "id" attribute of this SBML object
-// * has been set, zero (for false) otherwise.
+// * is set, zero (for false) otherwise.
 // */
 //LIBSBML_EXTERN
 //int
@@ -4794,12 +4794,12 @@ SBase_isSetMetaId (const SBase_t *sb)
 //
 ///**
 // * Predicate returning nonzero true or false depending on whether the given
-// * structure's "name" attribute has been set.
+// * structure's "name" attribute is set.
 // *
 // * @param sb the SBase_t structure to query
 // * 
 // * @return nonzero (for true) if the "name" attribute of this SBML object
-// * has been set, zero (for false) otherwise.
+// * is set, zero (for false) otherwise.
 // */
 //LIBSBML_EXTERN
 //int
@@ -4811,12 +4811,12 @@ SBase_isSetMetaId (const SBase_t *sb)
 
 /**
  * Predicate returning nonzero true or false depending on whether the given
- * structure's "notes" subelement has been set.
+ * structure's "notes" subelement is set.
  *
  * @param sb the SBase_t structure to query
  * 
  * @return nonzero (for true) if the "notes" subelement of this SBML object
- * has been set, zero (for false) otherwise.
+ * is set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -4828,12 +4828,12 @@ SBase_isSetNotes (const SBase_t *sb)
 
 /**
  * Predicate returning nonzero true or false depending on whether the given
- * structure's "annotation" subelement has been set.
+ * structure's "annotation" subelement is set.
  *
  * @param sb the SBase_t structure to query
  * 
  * @return nonzero (for true) if the "annotation" subelement of this SBML object
- * has been set, zero (for false) otherwise.
+ * is set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -4845,12 +4845,12 @@ SBase_isSetAnnotation (const SBase_t *sb)
 
 /**
  * Predicate returning nonzero true or false depending on whether the given
- * structure's "sboTerm" attribute has been set.
+ * structure's "sboTerm" attribute is set.
  *
  * @param sb the SBase_t structure to query
  * 
  * @return nonzero (for true) if the "sboTerm" attribute of this SBML object
- * has been set, zero (for false) otherwise.
+ * is set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int

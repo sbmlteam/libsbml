@@ -364,7 +364,7 @@ Compartment::getConstant () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is  set, false
  * otherwise.
  */
 bool
@@ -375,7 +375,7 @@ Compartment::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -387,7 +387,7 @@ Compartment::isSetName () const
 
 
 /*
- * @return true if the compartmentType of this Compartment has been set,
+ * @return true if the compartmentType of this Compartment is set,
  * false otherwise. 
  */
 bool
@@ -424,7 +424,7 @@ Compartment::isSetVolume () const
 
 
 /*
- * @return true if the units of this Compartment has been set, false
+ * @return true if the units of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -435,7 +435,7 @@ Compartment::isSetUnits () const
 
 
 /*
- * @return true if the outside of this Compartment has been set, false
+ * @return true if the outside of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -446,7 +446,7 @@ Compartment::isSetOutside () const
 
 
 /*
- * @return true if the spatialDimenions of this Compartment has been set, false
+ * @return true if the spatialDimenions of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -457,7 +457,7 @@ Compartment::isSetSpatialDimensions () const
 
 
 /*
- * @return true if the constant of this Compartment has been set, false
+ * @return true if the constant of this Compartment is set, false
  * otherwise.
  */
 bool
@@ -473,7 +473,7 @@ Compartment::isSetConstant () const
 int
 Compartment::setId (const std::string& sid)
 {
-  /* since the setId function has been used as an
+  /* since the setId function is used as an
    * alias for setName we cant require it to only
    * be used on a L2 model
    */
@@ -2055,12 +2055,12 @@ Compartment_getConstant (const Compartment_t *c)
 
 /**
  * Predicate indicating whether the identifier of the given Compartment_t
- * structure has been set.
+ * structure is set.
  * 
  * @param c the Compartment_t structure
  * 
  * @return true (non-zero) if the "id" attribute of the Compartment_t
- * structure @p c has been set, false (0) otherwise.
+ * structure @p c is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2072,12 +2072,12 @@ Compartment_isSetId (const Compartment_t *c)
 
 /**
  * Predicate indicating whether the name of the given Compartment_t
- * structure has been set.
+ * structure is set.
  * 
  * @param c the Compartment_t structure
  * 
  * @return true (non-zero) if the "name" attribute of the Compartment_t
- * structure @p c has been set, false (0) otherwise.
+ * structure @p c is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2089,12 +2089,12 @@ Compartment_isSetName (const Compartment_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structures's "compartmentType" attribute has been set.
+ * Compartment_t structures's "compartmentType" attribute is set.
  *
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "compartmentType" attribute of the Compartment_t
- * structure @p c has been set, @c false otherwise.
+ * structure @p c is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2106,7 +2106,7 @@ Compartment_isSetCompartmentType (const Compartment_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "size" attribute has been set.
+ * Compartment_t structure's "size" attribute is set.
  *
  * This method is similar but not identical to Compartment_isSetVolume().
  * The latter should be used in the context of SBML Level 1 models instead
@@ -2117,7 +2117,7 @@ Compartment_isSetCompartmentType (const Compartment_t *c)
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "size" attribute ("volume" in Level) of the
- * Compartment_t structure @p c has been set, @c false otherwise.
+ * Compartment_t structure @p c is set, @c false otherwise.
  *
  * @see Compartment_isSetVolume(), Compartment_setSize()
  */
@@ -2143,7 +2143,7 @@ Compartment_isSetSize (const Compartment_t *c)
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "volume" attribute ("size" in L2) of the given
- * Compartment_t structure @p c has been set, @c false otherwise.
+ * Compartment_t structure @p c is set, @c false otherwise.
  *
  * @see Compartment_isSetSize(), Compartment_setVolume()
  *
@@ -2163,12 +2163,12 @@ Compartment_isSetVolume (const Compartment_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structures's "units" attribute has been set.
+ * Compartment_t structures's "units" attribute is set.
  *
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "units" attribute of the Compartment_t structure
- * @p c has been set, @c false otherwise.
+ * @p c is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2180,12 +2180,12 @@ Compartment_isSetUnits (const Compartment_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "outside" attribute has been set.
+ * Compartment_t structure's "outside" attribute is set.
  *
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "outside" attribute of the Compartment_t
- * structure @p c has been set, @c false otherwise.
+ * structure @p c is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2197,12 +2197,12 @@ Compartment_isSetOutside (const Compartment_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "spatialDimensions" attribute has been set.
+ * Compartment_t structure's "spatialDimensions" attribute is set.
  *
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "spatialDimensions" attribute of the Compartment_t
- * structure @p c has been set, @c false otherwise.
+ * structure @p c is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2214,12 +2214,12 @@ Compartment_isSetSpatialDimensions (const Compartment_t *c)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "constant" attribute has been set.
+ * Compartment_t structure's "constant" attribute is set.
  *
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "constant" attribute of the Compartment_t
- * structure @p c has been set, @c false otherwise.
+ * structure @p c is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int

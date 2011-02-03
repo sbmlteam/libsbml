@@ -1024,7 +1024,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Rule's mathematical expression has been set.
+   * Rule's mathematical expression is set.
    * 
    * This method is equivalent to isSetMath().  This version is present for
    * easier compatibility with SBML Level&nbsp;1, in which mathematical
@@ -1046,12 +1046,12 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Rule's mathematical expression has been set.
+   * Rule's mathematical expression is set.
    *
    * This method is equivalent to isSetFormula().
    * 
    * @return @c true if the formula (or equivalently the math) for this
-   * Rule has been set, @c false otherwise.
+   * Rule is set, @c false otherwise.
    *
    * @note The subelement "math" is present in SBML Levels&nbsp;2
    * and&nbsp;3.  In SBML Level&nbsp;1, the equivalent construct is the
@@ -1066,7 +1066,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Rule's "variable" attribute has been set.
+   * Rule's "variable" attribute is set.
    *
    * In SBML Level&nbsp;1, the different rule types each have a different
    * name for the attribute holding the reference to the object
@@ -1081,17 +1081,17 @@ public:
    * "variable", regardless of whether Level&nbsp;1 rules or
    * Level&nbsp;2&ndash;3 rules are being used.
    *
-   * @return @c true if the "variable" attribute value of this Rule has
-   * been set, @c false otherwise.
+   * @return @c true if the "variable" attribute value of this Rule is
+   * set, @c false otherwise.
    */
   bool isSetVariable () const;
 
 
   /**
    * Predicate returning @c true
-   * if this Rule's "units" attribute has been set.
+   * if this Rule's "units" attribute is set.
    *
-   * @return @c true if the units for this Rule has been set, @c false
+   * @return @c true if the units for this Rule is set, @c false
    * otherwise
    *
    * @note The attribute "units" exists on SBML Level&nbsp;1 ParameterRule

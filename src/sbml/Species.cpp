@@ -411,7 +411,7 @@ Species::getConversionFactor () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -422,7 +422,7 @@ Species::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -434,7 +434,7 @@ Species::isSetName () const
 
 
 /*
- * @return true if the speciesType of this Species has been set, false
+ * @return true if the speciesType of this Species is set, false
  * otherwise.
  */
 bool
@@ -445,7 +445,7 @@ Species::isSetSpeciesType () const
 
 
 /*
- * @return true if the compartment of this Species has been set, false
+ * @return true if the compartment of this Species is set, false
  * otherwise.
  */
 bool
@@ -456,7 +456,7 @@ Species::isSetCompartment () const
 
 
 /*
- * @return true if the initialAmount of this Species has been set, false
+ * @return true if the initialAmount of this Species is set, false
  * otherwise.
  *
  * In SBML L1, a Species initialAmount is required and therefore <b>should
@@ -471,7 +471,7 @@ Species::isSetInitialAmount () const
 
 
 /*
- * @return true if the initialConcentration of this Species has been set,
+ * @return true if the initialConcentration of this Species is set,
  * false otherwise.
  */
 bool
@@ -482,7 +482,7 @@ Species::isSetInitialConcentration () const
 
 
 /*
- * @return true if the substanceUnits of this Species has been set, false
+ * @return true if the substanceUnits of this Species is set, false
  * otherwise.
  */
 bool
@@ -493,7 +493,7 @@ Species::isSetSubstanceUnits () const
 
 
 /*
- * @return true if the spatialSizeUnits of this Species has been set, false
+ * @return true if the spatialSizeUnits of this Species is set, false
  * otherwise.
  */
 bool
@@ -504,7 +504,7 @@ Species::isSetSpatialSizeUnits () const
 
 
 /*
- * @return true if the units of this Species has been set, false otherwise
+ * @return true if the units of this Species is set, false otherwise
  * (L1 only).
  */
 bool
@@ -515,7 +515,7 @@ Species::isSetUnits () const
 
 
 /*
- * @return true if the charge of this Species has been set, false
+ * @return true if the charge of this Species is set, false
  * otherwise.
  */
 bool
@@ -526,7 +526,7 @@ Species::isSetCharge () const
 
 
 /*
- * @return true if the conversionFactor of this Species has been set, false
+ * @return true if the conversionFactor of this Species is set, false
  * otherwise.
  */
 bool
@@ -538,7 +538,7 @@ Species::isSetConversionFactor () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Species's "boundaryCondition" attribute has been set.
+ * Species's "boundaryCondition" attribute is set.
  */
 bool 
 Species::isSetBoundaryCondition () const
@@ -549,7 +549,7 @@ Species::isSetBoundaryCondition () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Species's "hasOnlySubstanceUnits" attribute has been set.
+ * Species's "hasOnlySubstanceUnits" attribute is set.
  */
 bool 
 Species::isSetHasOnlySubstanceUnits () const
@@ -560,7 +560,7 @@ Species::isSetHasOnlySubstanceUnits () const
 
 /*
  * Predicate returning @c true or @c false depending on whether this
- * Species's "constant" attribute has been set.
+ * Species's "constant" attribute is set.
  */
 bool 
 Species::isSetConstant () const
@@ -2336,12 +2336,12 @@ Species_getConversionFactor (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "id" of the given Species_t structure has been set.
+ * "id" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "id" attribute of the given Species_t
- * structure has been set, false (0) otherwise.
+ * structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2353,12 +2353,12 @@ Species_isSetId (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "name" of the given Species_t structure has been set.
+ * "name" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "name" attribute of the given Species_t
- * structure has been set, false (0) otherwise.
+ * structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2370,12 +2370,12 @@ Species_isSetName (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "speciesType" of the given Species_t structure has been set.
+ * "speciesType" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "speciesType" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2387,12 +2387,12 @@ Species_isSetSpeciesType (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "compartment" of the given Species_t structure has been set.
+ * "compartment" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "compartment" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2404,12 +2404,12 @@ Species_isSetCompartment (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "initialAmount" of the given Species_t structure has been set.
+ * "initialAmount" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "initialAmount" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  *
  * @note In SBML Level 1, Species_t' "initialAmount" is required and
  * therefore <em>should always be set</em>.  (However, in Level 1, the
@@ -2427,12 +2427,12 @@ Species_isSetInitialAmount (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "compartment" of the given Species_t structure has been set.
+ * "compartment" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "compartment" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2444,12 +2444,12 @@ Species_isSetInitialConcentration (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "substanceUnits" of the given Species_t structure has been set.
+ * "substanceUnits" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "substanceUnits" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2461,12 +2461,12 @@ Species_isSetSubstanceUnits (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "spatialSizeUnits" of the given Species_t structure has been set.
+ * "spatialSizeUnits" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "spatialSizeUnits" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  * 
  * @warning In versions of SBML Level~2 before Version 3, the class
  * Species included an attribute called "spatialSizeUnits", which allowed
@@ -2492,7 +2492,7 @@ Species_isSetSpatialSizeUnits (const Species_t *s)
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "units" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2504,12 +2504,12 @@ Species_isSetUnits (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "charge" of the given Species_t structure has been set.
+ * "charge" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "charge" attribute of the given
- * Species_t structure has been set, false (0) otherwise.
+ * Species_t structure is set, false (0) otherwise.
  *
  * @note Beginning in SBML Level 2 Version 2, the "charge" attribute on
  * Species in SBML is deprecated and its use strongly discouraged.  Its
@@ -2532,12 +2532,12 @@ Species_isSetCharge (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "conversionFactor" of the given Species_t structure has been set.
+ * "conversionFactor" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "conversionFactor" attribute of the given Species_t
- * structure has been set, false (0) otherwise.
+ * structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2549,12 +2549,12 @@ Species_isSetConversionFactor (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "constant" of the given Species_t structure has been set.
+ * "constant" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "constant" attribute of the given Species_t
- * structure has been set, false (0) otherwise.
+ * structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2566,12 +2566,12 @@ Species_isSetConstant (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "boundaryCondition" of the given Species_t structure has been set.
+ * "boundaryCondition" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "boundaryCondition" attribute of the given Species_t
- * structure has been set, false (0) otherwise.
+ * structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2583,12 +2583,12 @@ Species_isSetBoundaryCondition (const Species_t *s)
 
 /**
  * Predicate returning true or false depending on whether the attribute
- * "hasOnlySubstanceUnits" of the given Species_t structure has been set.
+ * "hasOnlySubstanceUnits" of the given Species_t structure is set.
  *
  * @param s the Species_t structure
  * 
  * @return true (nonzero) if the "hasOnlySubstanceUnits" attribute of the given Species_t
- * structure has been set, false (0) otherwise.
+ * structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int

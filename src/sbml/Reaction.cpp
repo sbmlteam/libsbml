@@ -393,7 +393,7 @@ Reaction::getCompartment () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -404,7 +404,7 @@ Reaction::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -416,7 +416,7 @@ Reaction::isSetName () const
 
 
 /*
- * @return true if the KineticLaw of this Reaction has been set, false
+ * @return true if the KineticLaw of this Reaction is set, false
  * otherwise.
  */
 bool
@@ -427,7 +427,7 @@ Reaction::isSetKineticLaw () const
 
 
 /*
- * @return true if the fast status of this Reaction has been set, false
+ * @return true if the fast status of this Reaction is set, false
  * otherwise.
  *
  * In L1, fast is optional with a default of false, which means it is
@@ -442,7 +442,7 @@ Reaction::isSetFast () const
 
 
 /*
- * @return true if the compartment of this SBML object has been set, false
+ * @return true if the compartment of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -453,7 +453,7 @@ Reaction::isSetCompartment () const
 
 
 /*
- * @return true if the fast status of this Reaction has been set, false
+ * @return true if the fast status of this Reaction is set, false
  * otherwise.
  */
 bool
@@ -2184,7 +2184,7 @@ Reaction_getCompartment (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the id of this Reaction has been set, false
+ * @return true (non-zero) if the id of this Reaction is set, false
  * (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -2196,7 +2196,7 @@ Reaction_isSetId (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the name of this Reaction has been set, false
+ * @return true (non-zero) if the name of this Reaction is set, false
  * (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -2208,7 +2208,7 @@ Reaction_isSetName (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the KineticLaw of this Reaction has been set,
+ * @return true (non-zero) if the KineticLaw of this Reaction is set,
  * false (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -2220,7 +2220,7 @@ Reaction_isSetKineticLaw (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the fast status of this Reaction has been set,
+ * @return true (non-zero) if the fast status of this Reaction is set,
  * false (0) otherwise.
  *
  * In L1, fast is optional with a default of false, which means it is
@@ -2236,7 +2236,7 @@ Reaction_isSetFast (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the KineticLaw of this Reaction has been set,
+ * @return true (non-zero) if the KineticLaw of this Reaction is set,
  * false (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -2248,7 +2248,7 @@ Reaction_isSetCompartment (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the reversible attribute of this Reaction has been set,
+ * @return true (non-zero) if the reversible attribute of this Reaction is set,
  * false (0) otherwise.
  */
 LIBSBML_EXTERN

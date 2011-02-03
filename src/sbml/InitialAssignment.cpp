@@ -184,7 +184,7 @@ InitialAssignment::getMath () const
 
 
 /*
- * @return true if the symbol of this InitialAssignment has been set,
+ * @return true if the symbol of this InitialAssignment is set,
  * false otherwise.
  */
 bool
@@ -195,7 +195,7 @@ InitialAssignment::isSetSymbol () const
 
 
 /*
- * @return true if the math for this InitialAssignment has been set,
+ * @return true if the math for this InitialAssignment is set,
  * false otherwise.
  */
 bool
@@ -976,12 +976,12 @@ InitialAssignment_getMath (const InitialAssignment_t *ia)
 
 /**
  * Predicate returning @c true or @c false depending on whether this
- * InitialAssignment's "symbol" attribute has been set.
+ * InitialAssignment's "symbol" attribute is set.
  *
  * @param ia the InitialAssignment_t structure
  * 
  * @return nonzero if the "symbol" attribute of this InitialAssignment
- * has been set, zero (0) otherwise.
+ * is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -997,7 +997,7 @@ InitialAssignment_isSetSymbol (const InitialAssignment_t *ia)
  *
  * @param ia the InitialAssignment_t structure
  * 
- * @return nonzero if the "math" for this InitialAssignment has been set,
+ * @return nonzero if the "math" for this InitialAssignment is set,
  * zero (0) otherwise.
  */
 LIBSBML_EXTERN

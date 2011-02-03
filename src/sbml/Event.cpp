@@ -366,7 +366,7 @@ Event::getUseValuesFromTriggerTime () const
 
   
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -377,7 +377,7 @@ Event::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -389,7 +389,7 @@ Event::isSetName () const
 
 
 /*
- * @return true if the trigger of this Event has been set, false otherwise.
+ * @return true if the trigger of this Event is set, false otherwise.
  */
 bool
 Event::isSetTrigger () const
@@ -399,7 +399,7 @@ Event::isSetTrigger () const
 
 
 /*
- * @return true if the delay of this Event has been set, false otherwise.
+ * @return true if the delay of this Event is set, false otherwise.
  */
 bool
 Event::isSetDelay () const
@@ -409,7 +409,7 @@ Event::isSetDelay () const
 
 
 /*
- * @return true if the priority of this Event has been set, false otherwise.
+ * @return true if the priority of this Event is set, false otherwise.
  */
 bool
 Event::isSetPriority () const
@@ -419,7 +419,7 @@ Event::isSetPriority () const
 
 
 /*
- * @return true if the timeUnits of this Event has been set, false
+ * @return true if the timeUnits of this Event is set, false
  * otherwise.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
@@ -436,7 +436,7 @@ Event::isSetTimeUnits () const
 
 
 /*
- * @return true if the mUseValuesFromTriggerTime of this Event has been set, false otherwise.
+ * @return true if the mUseValuesFromTriggerTime of this Event is set, false otherwise.
  */
 bool
 Event::isSetUseValuesFromTriggerTime () const
@@ -1989,12 +1989,12 @@ Event_getUseValuesFromTriggerTime (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's identifier has been set.
+ * Event_t structure's identifier is set.
  *
  * @param e the Event_t structure to query
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
- * Event_t structure has been set, zero (false) otherwise.
+ * Event_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2006,12 +2006,12 @@ Event_isSetId (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's name has been set.
+ * Event_t structure's name is set.
  *
  * @param e the Event_t structure to query
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
- * Event_t structure has been set, zero (false) otherwise.
+ * Event_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2023,11 +2023,11 @@ Event_isSetName (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's trigger has been set.
+ * Event_t structure's trigger is set.
  *
  * @param e the Event_t structure to query
  * 
- * @return @c non-zero (true) if a Trigger_t structure has been assigned to
+ * @return @c non-zero (true) if a Trigger_t structure is assigned to
  * the given Event_t structure, zero (false) otherwise.
  */
 LIBSBML_EXTERN
@@ -2040,11 +2040,11 @@ Event_isSetTrigger (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's delay has been set.
+ * Event_t structure's delay is set.
  *
  * @param e the Event_t structure to query
  * 
- * @return @c non-zero (true) if a Delay_t structure has been assigned to
+ * @return @c non-zero (true) if a Delay_t structure is assigned to
  * the given Event_t structure, zero (false) otherwise.
  */
 LIBSBML_EXTERN
@@ -2057,11 +2057,11 @@ Event_isSetDelay (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's priority has been set.
+ * Event_t structure's priority is set.
  *
  * @param e the Event_t structure to query
  * 
- * @return @c non-zero (true) if a Priority_t structure has been assigned to
+ * @return @c non-zero (true) if a Priority_t structure is assigned to
  * the given Event_t structure, zero (false) otherwise.
  */
 LIBSBML_EXTERN
@@ -2074,12 +2074,12 @@ Event_isSetPriority (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's "timeUnits" attribute has been set.
+ * Event_t structure's "timeUnits" attribute is set.
  *
  * @param e the Event_t structure to query
  * 
- * @return @c non-zero (true) if a value for the "timeUnits" attribute has
- * been assigned in the given Event_t structure, zero (false) otherwise.
+ * @return @c non-zero (true) if a value for the "timeUnits" attribute is
+ * assigned in the given Event_t structure, zero (false) otherwise.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
  * included the additional attribute called "timeUnits", but it was
@@ -2097,12 +2097,12 @@ Event_isSetTimeUnits (const Event_t *e)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Event_t structure's useValuesFromTriggerTime attribute has been set.
+ * Event_t structure's useValuesFromTriggerTime attribute is set.
  *
  * @param e the Event_t structure to query
  * 
  * @return @c non-zero (true) if the "useValuesFromTriggerTime" attribute of the given
- * Event_t structure has been set, zero (false) otherwise.
+ * Event_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int

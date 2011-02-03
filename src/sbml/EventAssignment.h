@@ -311,17 +311,17 @@ public:
 
   /**
    * Predicate for testing whether the attribute "variable" of this
-   * EventAssignment has been set.
+   * EventAssignment is set.
    * 
    * @return @c true if the "variable" attribute of this EventAssignment
-   * has been set, @c false otherwise.
+   * is set, @c false otherwise.
    */
   bool isSetVariable () const;
 
 
   /**
    * Predicate for testing whether the "math" subelement of this
-   * EventAssignment has been set.
+   * EventAssignment is set.
    * 
    * @return @c true if this EventAssignment has a "math" subelement,
    * @c false otherwise.

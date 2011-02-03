@@ -174,7 +174,7 @@ SimpleSpeciesReference::getSpecies () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -185,7 +185,7 @@ SimpleSpeciesReference::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -2617,7 +2617,7 @@ SpeciesReference_getConstant (const SpeciesReference_t *sr)
  * @param sr The SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "id" attribute of given SpeciesReference_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2635,7 +2635,7 @@ SpeciesReference_isSetId (const SpeciesReference_t *sr)
  * @param sr The SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "name" attribute of given SpeciesReference_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2653,7 +2653,7 @@ SpeciesReference_isSetName (const SpeciesReference_t *sr)
  * @param sr The SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "species" attribute of given SpeciesReference_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2702,7 +2702,7 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr)
  * @param sr The SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "stoichiometry" attribute of given SpeciesReference_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2728,7 +2728,7 @@ SpeciesReference_isSetStoichiometry (const SpeciesReference_t *sr)
  * @param sr The SpeciesReference_t structure to use.
  * 
  * @return nonzero if the "constant" attribute of given SpeciesReference_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int

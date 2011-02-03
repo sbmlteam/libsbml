@@ -648,12 +648,12 @@ LocalParameter_getUnits (const LocalParameter_t *p)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * LocalParameter_t structure's identifier has been set.
+ * LocalParameter_t structure's identifier is set.
  *
  * @param p the LocalParameter_t structure to query
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
- * LocalParameter_t structure has been set, zero (false) otherwise.
+ * LocalParameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -665,12 +665,12 @@ LocalParameter_isSetId (const LocalParameter_t *p)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * LocalParameter_t structure's name has been set.
+ * LocalParameter_t structure's name is set.
  *
  * @param p the LocalParameter_t structure to query
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
- * LocalParameter_t structure has been set, zero (false) otherwise.
+ * LocalParameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -682,12 +682,12 @@ LocalParameter_isSetName (const LocalParameter_t *p)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * LocalParameter_t structure's value has been set.
+ * LocalParameter_t structure's value is set.
  * 
  * @param p the LocalParameter_t structure to query
  * 
  * @return @c non-zero (true) if the "value" attribute of the given
- * LocalParameter_t structure has been set, zero (false) otherwise.
+ * LocalParameter_t structure is set, zero (false) otherwise.
  *
  * @note In SBML Level 1 Version 1, a LocalParameter value is required and
  * therefore <em>should always be set</em>.  In Level 1 Version 2 and
@@ -708,7 +708,7 @@ LocalParameter_isSetValue (const LocalParameter_t *p)
  * @param p the LocalParameter_t structure to query
  * 
  * @return @c non-zero (true) if the "units" attribute of the given
- * LocalParameter_t structure has been set, zero (false) otherwise.
+ * LocalParameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int

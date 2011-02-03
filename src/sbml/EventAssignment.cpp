@@ -184,7 +184,7 @@ EventAssignment::getMath () const
 
 
 /*
- * @return true if the variable of this EventAssignment has been set, false
+ * @return true if the variable of this EventAssignment is set, false
  * otherwise.
  */
 bool
@@ -195,7 +195,7 @@ EventAssignment::isSetVariable () const
 
 
 /*
- * @return true if the math of this EventAssignment has been set, false
+ * @return true if the math of this EventAssignment is set, false
  * otherwise.
  */
 bool
@@ -982,12 +982,12 @@ EventAssignment_getMath (const EventAssignment_t *ea)
 
 /**
  * Predicate for testing whether the attribute "variable" of the
- * given EventAssignment_t structure has been set.
+ * given EventAssignment_t structure is set.
  *
  * @param ea the EventAssignment_t structure to query.
  * 
  * @return nonzero (for true) if the "variable" attribute of @p ea
- * has been set, zero (0) otherwise.
+ * is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -999,12 +999,12 @@ EventAssignment_isSetVariable (const EventAssignment_t *ea)
 
 /**
  * Predicate for testing whether the attribute "variable" of the
- * given EventAssignment_t structure has been set.
+ * given EventAssignment_t structure is set.
  *
  * @param ea the EventAssignment_t structure to query.
  * 
  * @return nonzero (for true) if the "variable" attribute of @p ea
- * has been set, zero (0) otherwise.
+ * is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int

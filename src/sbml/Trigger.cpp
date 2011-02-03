@@ -205,7 +205,7 @@ Trigger::getPersistent () const
 
 /*
  * @return true if the math (or equivalently the formula) of this
- * Trigger has been set, false otherwise.
+ * Trigger is set, false otherwise.
  */
 bool
 Trigger::isSetMath () const
@@ -807,7 +807,7 @@ Trigger_getPersistent (const Trigger_t *t)
 
 /**
  * @return true (non-zero) if the math (or equivalently the formula) of
- * this Trigger has been set, false (0) otherwise.
+ * this Trigger is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -818,12 +818,12 @@ Trigger_isSetMath (const Trigger_t *t)
 
 
 /**
- * Return true if the  "initialValue" attribute of this Trigger has been set.
+ * Return true if the  "initialValue" attribute of this Trigger is set.
  * 
  * @param t the Trigger_t structure
  *
  * @return true if the "initialValue" attribute value
- * in this Trigger has been set, false otherwise.
+ * in this Trigger is set, false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -834,12 +834,12 @@ Trigger_isSetInitialValue (const Trigger_t *t)
 
 
 /**
- * Return true if the  "persistent" attribute of this Trigger has been set.
+ * Return true if the  "persistent" attribute of this Trigger is set.
  * 
  * @param t the Trigger_t structure
  *
  * @return true if the "persisent" attribute value
- * in this Trigger has been set, false otherwise.
+ * in this Trigger is set, false otherwise.
  */
 LIBSBML_EXTERN
 int

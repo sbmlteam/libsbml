@@ -174,7 +174,7 @@ Delay::getMath () const
 
 /*
  * @return true if the math (or equivalently the formula) of this
- * Delay has been set, false otherwise.
+ * Delay is set, false otherwise.
  */
 bool
 Delay::isSetMath () const
@@ -744,12 +744,12 @@ Delay_getMath (const Delay_t *t)
 
 /**
  * Predicate to test whether the formula for the given Delay_t structure
- * has been set.
+ * is set.
  *
  * @param t the Delay_t structure to query
  *
  * @return @c true if the formula (meaning the @c math subelement) of
- * this Delay has been set, @c false otherwise.
+ * this Delay is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int

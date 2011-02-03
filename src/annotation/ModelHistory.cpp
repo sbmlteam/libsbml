@@ -1267,7 +1267,7 @@ ModelHistory::getCreator(unsigned int n)
 
 
 /*
-  * @return true if the created Date has been set, false
+  * @return true if the created Date is set, false
   * otherwise.
   */
 bool 
@@ -1278,7 +1278,7 @@ ModelHistory::isSetCreatedDate()
 
 
 /*
-  * @return true if the modified Date has been set, false
+  * @return true if the modified Date is set, false
   * otherwise.
   */
 bool 
@@ -1945,12 +1945,12 @@ ModelCreator_getOrganization(ModelCreator_t *mc)
 
 /**
  * Predicate indicating whether this
- * ModelCreator's familyName has been set.
+ * ModelCreator's familyName is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
  * @return true (non-zero) if the familyName of this 
- * ModelCreator_t structure has been set, false (0) otherwise.
+ * ModelCreator_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int 
@@ -1963,12 +1963,12 @@ ModelCreator_isSetFamilyName(ModelCreator_t *mc)
 
 /**
  * Predicate indicating whether this
- * ModelCreator's givenName has been set.
+ * ModelCreator's givenName is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
  * @return true (non-zero) if the givenName of this 
- * ModelCreator_t structure has been set, false (0) otherwise.
+ * ModelCreator_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int 
@@ -1981,12 +1981,12 @@ ModelCreator_isSetGivenName(ModelCreator_t *mc)
 
 /**
  * Predicate indicating whether this
- * ModelCreator's email has been set.
+ * ModelCreator's email is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
  * @return true (non-zero) if the email of this 
- * ModelCreator_t structure has been set, false (0) otherwise.
+ * ModelCreator_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int 
@@ -1999,14 +1999,14 @@ ModelCreator_isSetEmail(ModelCreator_t *mc)
 
 /**
  * Predicate indicating whether this
- * ModelCreator's organization has been set.
+ * ModelCreator's organization is set.
  *
  * @note This function is an alias of ModelCretor_isSetOrganization().
  *
  * @param mc the ModelCreator_t structure to be queried
  *
  * @return true (non-zero) if the organization of this 
- * ModelCreator_t structure has been set, false (0) otherwise.
+ * ModelCreator_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int 
@@ -2019,12 +2019,12 @@ ModelCreator_isSetOrganisation(ModelCreator_t *mc)
 
 /**
  * Predicate indicating whether this
- * ModelCreator's organization has been set.
+ * ModelCreator's organization is set.
  *
  * @param mc the ModelCreator_t structure to be queried
  *
  * @return true (non-zero) if the organization of this 
- * ModelCreator_t structure has been set, false (0) otherwise.
+ * ModelCreator_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int 
@@ -2341,12 +2341,12 @@ Date_t * ModelHistory_getModifiedDate(ModelHistory_t * mh)
 
 /**
  * Predicate indicating whether this
- * ModelHistory's createdDate has been set.
+ * ModelHistory's createdDate is set.
  *
  * @param mh the ModelHistory_t structure to be queried
  *
  * @return true (non-zero) if the createdDate of this 
- * ModelHistory_t structure has been set, false (0) otherwise.
+ * ModelHistory_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int ModelHistory_isSetCreatedDate(ModelHistory_t * mh)
@@ -2358,12 +2358,12 @@ int ModelHistory_isSetCreatedDate(ModelHistory_t * mh)
 
 /**
  * Predicate indicating whether this
- * ModelHistory's modifiedDate has been set.
+ * ModelHistory's modifiedDate is set.
  *
  * @param mh the ModelHistory_t structure to be queried
  *
  * @return true (non-zero) if the modifiedDate of this 
- * ModelHistory_t structure has been set, false (0) otherwise.
+ * ModelHistory_t structure is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int ModelHistory_isSetModifiedDate(ModelHistory_t * mh)

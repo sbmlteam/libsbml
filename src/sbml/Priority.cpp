@@ -176,7 +176,7 @@ Priority::getMath () const
 
 /*
  * @return true if the math (or equivalently the formula) of this
- * Priority has been set, false otherwise.
+ * Priority is set, false otherwise.
  */
 bool
 Priority::isSetMath () const
@@ -600,12 +600,12 @@ Priority_getMath (const Priority_t *p)
 
 /**
  * Predicate to test whether the formula for the given Priority_t structure
- * has been set.
+ * is set.
  *
  * @param t the Priority_t structure to query
  *
  * @return @c true if the formula (meaning the @c math subelement) of
- * this Priority has been set, @c false otherwise.
+ * this Priority is set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int

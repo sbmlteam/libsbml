@@ -604,7 +604,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "id" attribute has been set.
+   * Compartment's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this Compartment has been
    * set, @c false otherwise.
@@ -614,7 +614,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "name" attribute has been set.
+   * Compartment's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this Compartment has been
    * set, @c false otherwise.
@@ -624,10 +624,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "compartmentType" attribute has been set.
+   * Compartment's "compartmentType" attribute is set.
    *
    * @return @c true if the "compartmentType" attribute of this Compartment
-   * has been set, @c false otherwise.
+   * is set, @c false otherwise.
    *
    * @note The "compartmentType" attribute is only available in SBML
    * Level&nbsp;2 Versions&nbsp;2&ndash;4.
@@ -637,7 +637,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "size" attribute has been set.
+   * Compartment's "size" attribute is set.
    *
    * This method is similar but not identical to
    * @if clike isSetVolume()@endif@if python isSetVolume()@endif@if java Compartment::isSetVolume()@endif.  The latter
@@ -650,7 +650,7 @@ public:
    * and 2.
    * 
    * @return @c true if the "size" attribute ("volume" in Level&nbsp;2) of
-   * this Compartment has been set, @c false otherwise.
+   * this Compartment is set, @c false otherwise.
    *
    * @see isSetVolume()
    * @see setSize(double value)
@@ -660,7 +660,7 @@ public:
 
   /**
    * Predicate returning @c true if this Compartment's
-   * "volume" attribute has been set.
+   * "volume" attribute is set.
    * 
    * This method is similar but not identical to
    * @if clike isSetSize()@endif@if python isSetSize()@endif@if java Compartment::isSetSize()@endif.  The latter
@@ -669,7 +669,7 @@ public:
    * the difference in default values between SBML Levels 1 and 2.
    * 
    * @return @c true if the "volume" attribute ("size" in Level&nbsp;2 and
-   * above) of this Compartment has been set, @c false otherwise.
+   * above) of this Compartment is set, @c false otherwise.
    *
    * @note The attribute "volume" only exists by that name in SBML
    * Level&nbsp;1.  In Level&nbsp;2 and above, the equivalent attribute is
@@ -687,7 +687,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "units" attribute has been set.
+   * Compartment's "units" attribute is set.
    * 
    * @return @c true if the "units" attribute of this Compartment has been
    * set, @c false otherwise.
@@ -699,10 +699,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "outside" attribute has been set.
+   * Compartment's "outside" attribute is set.
    * 
-   * @return @c true if the "outside" attribute of this Compartment has
-   * been set, @c false otherwise.
+   * @return @c true if the "outside" attribute of this Compartment is
+   * set, @c false otherwise.
    * 
    * @note The "outside" attribute is defined in SBML Level&nbsp;1 and
    * Level&nbsp;2, but does not exist in SBML Level&nbsp;3 Version&nbsp;1
@@ -713,20 +713,20 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "spatialDimensions" attribute has been set.
+   * Compartment's "spatialDimensions" attribute is set.
    * 
    * @return @c true if the "spatialDimensions" attribute of this
-   * Compartment has been set, @c false otherwise.
+   * Compartment is set, @c false otherwise.
    */
   bool isSetSpatialDimensions () const;
 
 
   /**
    * Predicate returning @c true if this
-   * Compartment's "constant" attribute has been set.
+   * Compartment's "constant" attribute is set.
    * 
-   * @return @c true if the "constant" attribute of this Compartment has
-   * been set, @c false otherwise.
+   * @return @c true if the "constant" attribute of this Compartment is
+   * set, @c false otherwise.
    */
   bool isSetConstant () const;
 

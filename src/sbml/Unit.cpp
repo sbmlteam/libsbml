@@ -661,7 +661,7 @@ Unit::isWeber () const
 
 
 /*
- * @return true if the kind of this Unit has been set, false otherwise.
+ * @return true if the kind of this Unit is set, false otherwise.
  */
 bool
 Unit::isSetKind () const
@@ -671,7 +671,7 @@ Unit::isSetKind () const
 
 
 /*
- * @return @c true if the "exponent" attribute of this Unit has been set, 
+ * @return @c true if the "exponent" attribute of this Unit is set, 
  * @c false otherwise.
  */
 bool 
@@ -681,7 +681,7 @@ Unit::isSetExponent () const
 }
 
 /*
- * @return @c true if the "scale" attribute of this Unit has been set, 
+ * @return @c true if the "scale" attribute of this Unit is set, 
  * @c false otherwise.
  */
 bool 
@@ -692,7 +692,7 @@ Unit::isSetScale () const
 
 
 /*
- * @return @c true if the "multiplier" attribute of this Unit has been set, 
+ * @return @c true if the "multiplier" attribute of this Unit is set, 
  * @c false otherwise.
  */
 bool 
@@ -2750,12 +2750,12 @@ Unit_isWeber (const Unit_t *u)
 
 /**
  * Predicate to test whether the "kind" attribute of the given Unit_t
- * structure @p u has been set.
+ * structure @p u is set.
  *
  * @param u the Unit_t structure to query
  * 
  * @return nonzero (for true) if the "kind" attribute of the given
- * Unit_t structure has been set, zero (0) otherwise.
+ * Unit_t structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2767,12 +2767,12 @@ Unit_isSetKind (const Unit_t *u)
 
 /**
  * Predicate to test whether the "exponent" attribute of the given Unit_t
- * structure @p u has been set.
+ * structure @p u is set.
  *
  * @param u the Unit_t structure to query
  * 
  * @return nonzero (for true) if the "exponent" attribute of the given
- * Unit_t structure has been set, zero (0) otherwise.
+ * Unit_t structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2784,12 +2784,12 @@ Unit_isSetExponent (const Unit_t *u)
 
 /**
  * Predicate to test whether the "multiplier" attribute of the given Unit_t
- * structure @p u has been set.
+ * structure @p u is set.
  *
  * @param u the Unit_t structure to query
  * 
  * @return nonzero (for true) if the "multiplier" attribute of the given
- * Unit_t structure has been set, zero (0) otherwise.
+ * Unit_t structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2801,12 +2801,12 @@ Unit_isSetMultiplier (const Unit_t *u)
 
 /**
  * Predicate to test whether the "scale" attribute of the given Unit_t
- * structure @p u has been set.
+ * structure @p u is set.
  *
  * @param u the Unit_t structure to query
  * 
  * @return nonzero (for true) if the "scale" attribute of the given
- * Unit_t structure has been set, zero (0) otherwise.
+ * Unit_t structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int

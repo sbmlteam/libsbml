@@ -247,20 +247,20 @@ public:
 
 
   /**
-   * Predicate to test whether the math for this trigger has been set.
+   * Predicate to test whether the math for this trigger is set.
    *
    * @return @c true if the formula (meaning the "math" subelement) of
-   * this Trigger has been set, @c false otherwise.
+   * this Trigger is set, @c false otherwise.
    */
   bool isSetMath () const;
 
 
   /**
    * (SBML Level&nbsp;3 only) Predicate to test whether the "initialValue"
-   * attribute for this trigger has been set.
+   * attribute for this trigger is set.
    *
    * @return @c true if the initialValue attribute of
-   * this Trigger has been set, @c false otherwise.
+   * this Trigger is set, @c false otherwise.
    * 
    * @note The attribute "initialValue" is available in SBML Level&nbsp;3
    * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
@@ -270,10 +270,10 @@ public:
 
   /**
    * (SBML Level&nbsp;3 only) Predicate to test whether the "persistent"
-   * attribute for this trigger has been set.
+   * attribute for this trigger is set.
    *
    * @return @c true if the persistent attribute of
-   * this Trigger has been set, @c false otherwise.
+   * this Trigger is set, @c false otherwise.
    * 
    * @note The attribute "persistent" is available in SBML Level&nbsp;3
    * Version&nbsp;1 Core, but is not present in lower Levels of SBML.

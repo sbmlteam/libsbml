@@ -281,7 +281,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * KineticLaw's "formula" attribute has been set
+   * KineticLaw's "formula" attribute is set.
    *
    * This is functionally identical to the method
    * @if clike isSetMath()@endif@if python isSetMath()@endif@if java KineticLaw::isSetMath()@endif.  It is
@@ -290,7 +290,7 @@ public:
    * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this KineticLaw has been set, @c false otherwise.
+   * this KineticLaw is set, @c false otherwise.
    *
    * @note @htmlinclude level-1-uses-text-string-math.html
    *
@@ -301,7 +301,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Kinetic's "math" subelement has been set
+   * Kinetic's "math" subelement is set.
    *
    * This is identical to the method
    * @if clike isSetFormula()@endif@if python isSetFormula()@endif@if java KineticLaw::isSetFormula()@endif.
@@ -310,7 +310,7 @@ public:
    * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this KineticLaw has been set, @c false otherwise.
+   * this KineticLaw is set, @c false otherwise.
    * 
    * @see isSetFormula(()
    */
@@ -319,10 +319,10 @@ public:
 
   /**
    * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
-   * this SpeciesReference's "timeUnits" attribute has been set
+   * this SpeciesReference's "timeUnits" attribute is set.
    *
    * @return @c true if the "timeUnits" attribute of this KineticLaw object
-   * has been set, @c false otherwise.
+   * is set, @c false otherwise.
    *
    * @note The attributes "timeUnits" and "substanceUnits" are present only
    * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2
@@ -335,10 +335,10 @@ public:
 
   /**
    * (SBML Level&nbsp;2 Version&nbsp;1 only) Predicate returning @c true if
-   * this SpeciesReference's "substanceUnits" attribute has been set
+   * this SpeciesReference's "substanceUnits" attribute is set.
    *
    * @return @c true if the "substanceUnits" attribute of this KineticLaw
-   * object has been set, @c false otherwise.
+   * object is set, @c false otherwise.
    *
    * @note The attributes "timeUnits" and "substanceUnits" are present only
    * in SBML Level&nbsp;2 Version&nbsp;1.  In SBML Level&nbsp;2

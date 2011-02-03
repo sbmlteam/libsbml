@@ -277,10 +277,10 @@ public:
 
 
   /**
-   * Predicate to test whether the formula for this delay has been set.
+   * Predicate to test whether the formula for this delay is set.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this Priority has been set, @c false otherwise.
+   * this Priority is set, @c false otherwise.
    */
   bool isSetMath () const;
 

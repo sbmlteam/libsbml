@@ -279,9 +279,9 @@ public:
 
   /**
    * Predicate returning @c true if a
-   * message has been defined for this Constraint.
+   * message is defined for this Constraint.
    *
-   * @return @c true if the message of this Constraint has been set,
+   * @return @c true if the message of this Constraint is set,
    * @c false otherwise.
    */
   bool isSetMessage () const;
@@ -289,7 +289,7 @@ public:
 
   /**
    * Predicate returning @c true if a
-   * mathematical formula has been defined for this Constraint.
+   * mathematical formula is defined for this Constraint.
    *
    * @return @c true if the "math" subelement for this Constraint has been
    * set, @c false otherwise.

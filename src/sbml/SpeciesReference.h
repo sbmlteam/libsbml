@@ -417,7 +417,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * SimpleSpeciesReference's "id" attribute has been set.
+   * SimpleSpeciesReference's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this SimpleSpeciesReference has been
    * set, @c false otherwise.
@@ -427,7 +427,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * SimpleSpeciesReference's "name" attribute has been set.
+   * SimpleSpeciesReference's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this SimpleSpeciesReference has been
    * set, @c false otherwise.
@@ -437,10 +437,10 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * SimpleSpeciesReference's "species" attribute has been set.
+   * SimpleSpeciesReference's "species" attribute is set.
    * 
    * @return @c true if the "species" attribute of this
-   * SimpleSpeciesReference has been set, @c false otherwise.
+   * SimpleSpeciesReference is set, @c false otherwise.
    */
   bool isSetSpecies () const;
 
@@ -804,30 +804,30 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * SpeciesReference's "stoichiometryMath" subelement has been set
+   * SpeciesReference's "stoichiometryMath" subelement is set
    * 
    * @return @c true if the "stoichiometryMath" subelement of this
-   * SpeciesReference has been set, @c false otherwise.
+   * SpeciesReference is set, @c false otherwise.
    */
   bool isSetStoichiometryMath () const;
 
 
   /**
    * Predicate returning @c true if this
-   * SpeciesReference's "constant" attribute has been set
+   * SpeciesReference's "constant" attribute is set
    * 
    * @return @c true if the "constant" attribute of this
-   * SpeciesReference has been set, @c false otherwise.
+   * SpeciesReference is set, @c false otherwise.
    */
   bool isSetConstant () const;
 
 
   /**
    * Predicate returning @c true if this
-   * SpeciesReference's "stoichiometry" attribute has been set.
+   * SpeciesReference's "stoichiometry" attribute is set.
    * 
    * @return @c true if the "stoichiometry" attribute of this
-   * SpeciesReference has been set, @c false otherwise.
+   * SpeciesReference is set, @c false otherwise.
    */
   bool isSetStoichiometry () const;
 
@@ -1013,7 +1013,7 @@ public:
    * Level&nbsp;2, the "stoichiometry" attribute of this object will be
    * unset (which will result in isSetStoichiometry() returning @c false,
    * although getStoichiometry() will return @c 1.0) if the
-   * "stoichiometryMath" subelement has been set, otherwise the attribute
+   * "stoichiometryMath" subelement is set, otherwise the attribute
    * will be just reset to the default value (@c 1.0) (and
    * isSetStoichiometry() will still return @c true).  In SBML
    * Level&nbsp;3, the "stoichiometry" attribute of this object will be set

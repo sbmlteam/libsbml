@@ -300,10 +300,10 @@ public:
 
   /**
    * Predicate to test whether the math for this StoichiometryMath object
-   * has been set.
+   * is set.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
-   * this StoichiometryMath has been set, @c false otherwise.
+   * this StoichiometryMath is set, @c false otherwise.
    *
    * The StoichiometryMath construct exists only in SBML Level&nbsp;2.  It
    * is an optional construct available for defining the stoichiometries of

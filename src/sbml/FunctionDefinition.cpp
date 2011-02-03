@@ -200,7 +200,7 @@ FunctionDefinition::getMath () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -211,7 +211,7 @@ FunctionDefinition::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -223,7 +223,7 @@ FunctionDefinition::isSetName () const
 
 
 /*
- * @return true if the math of this FunctionDefinition has been set, false
+ * @return true if the math of this FunctionDefinition is set, false
  * otherwise.
  */
 bool
@@ -1070,12 +1070,12 @@ FunctionDefinition_getMath (const FunctionDefinition_t *fd)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "id" attribute has been set.
+ * Compartment_t structure's "id" attribute is set.
  *
  * @param fd the FunctionDefinition_t structure
  *
  * @return nonzero if the "id" attribute of the FunctionDefinition_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1087,12 +1087,12 @@ FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "name" attribute has been set.
+ * Compartment_t structure's "name" attribute is set.
  *
  * @param fd the FunctionDefinition_t structure
  *
  * @return nonzero if the "name" attribute of the FunctionDefinition_t
- * structure has been set, zero (0) otherwise.
+ * structure is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1104,12 +1104,12 @@ FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Compartment_t structure's "math" subelement has been set.
+ * Compartment_t structure's "math" subelement is set.
  *
  * @param fd the FunctionDefinition_t structure
  *
  * @return nonzero if the mathematical expression of this
- * FunctionDefinition has been set, zero (0) otherwise.
+ * FunctionDefinition is set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int

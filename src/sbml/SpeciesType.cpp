@@ -163,7 +163,7 @@ SpeciesType::getName () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -174,7 +174,7 @@ SpeciesType::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -191,7 +191,7 @@ SpeciesType::isSetName () const
 int
 SpeciesType::setId (const std::string& sid)
 {
-  /* since the setId function has been used as an
+  /* since the setId function is used as an
    * alias for setName we cant require it to only
    * be used on a L2 model
    */
@@ -751,12 +751,12 @@ SpeciesType_getName (const SpeciesType_t *st)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * SpeciesType_t structure's identifier has been set.
+ * SpeciesType_t structure's identifier is set.
  *
  * @param ct the SpeciesType_t structure to query
  * 
  * @return @c non-zero (true) if the "id" field of the given
- * SpeciesType has been set, zero (false) otherwise.
+ * SpeciesType is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -768,12 +768,12 @@ SpeciesType_isSetId (const SpeciesType_t *st)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * SpeciesType_t structure's name has been set.
+ * SpeciesType_t structure's name is set.
  *
  * @param ct the SpeciesType_t structure to query
  * 
  * @return @c non-zero (true) if the "name" field of the given
- * SpeciesType has been set, zero (false) otherwise.
+ * SpeciesType is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int

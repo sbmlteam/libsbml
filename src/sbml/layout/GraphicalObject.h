@@ -157,7 +157,7 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * GraphicalObject's "id" attribute has been set.
+   * GraphicalObject's "id" attribute is set.
    */
   bool isSetId () const;
 

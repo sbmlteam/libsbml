@@ -239,7 +239,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * SpeciesType's "id" attribute has been set.
+   * SpeciesType's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this SpeciesType has been
    * set, @c false otherwise.
@@ -249,7 +249,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * SpeciesType's "name" attribute has been set.
+   * SpeciesType's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this SpeciesType has been
    * set, @c false otherwise.

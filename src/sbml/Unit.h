@@ -697,9 +697,9 @@ public:
 
 
   /**
-   * Predicate to test whether the "kind" attribute of this Unit has been set.
+   * Predicate to test whether the "kind" attribute of this Unit is set.
    * 
-   * @return @c true if the "kind" attribute of this Unit has been set, @c
+   * @return @c true if the "kind" attribute of this Unit is set, @c
    * false otherwise.
    */
   bool isSetKind () const;
@@ -707,9 +707,9 @@ public:
 
   /**
    * Predicate to test whether the "exponent" attribute of this Unit 
-   * has been set.
+   * is set.
    * 
-   * @return @c true if the "exponent" attribute of this Unit has been set, 
+   * @return @c true if the "exponent" attribute of this Unit is set, 
    * @c false otherwise.
    */
   bool isSetExponent () const;
@@ -717,9 +717,9 @@ public:
 
   /**
    * Predicate to test whether the "scale" attribute of this Unit 
-   * has been set.
+   * is set.
    * 
-   * @return @c true if the "scale" attribute of this Unit has been set, 
+   * @return @c true if the "scale" attribute of this Unit is set, 
    * @c false otherwise.
    */
   bool isSetScale () const;
@@ -727,9 +727,9 @@ public:
 
   /**
    * Predicate to test whether the "multiplier" attribute of this Unit 
-   * has been set.
+   * is set.
    * 
-   * @return @c true if the "multiplier" attribute of this Unit has been set, 
+   * @return @c true if the "multiplier" attribute of this Unit is set, 
    * @c false otherwise.
    */
   bool isSetMultiplier () const;

@@ -131,7 +131,7 @@ public:
 
   /**
    * Predicate returning @c true or @c false depending on whether this
-   * BoundingBox's "id" attribute has been set.
+   * BoundingBox's "id" attribute is set.
    */
   bool isSetId () const;
 

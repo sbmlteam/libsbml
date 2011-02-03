@@ -382,7 +382,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Parameter's "id" attribute has been set.
+   * Parameter's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -392,7 +392,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Parameter's "name" attribute has been set.
+   * Parameter's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -402,7 +402,7 @@ public:
 
   /**
    * Predicate returning @c true if the
-   * "value" attribute of this Parameter has been set.
+   * "value" attribute of this Parameter is set.
    *
    * In SBML definitions after SBML Level&nbsp;1 Version&nbsp;1,
    * parameter values are optional and have no defaults.  If a model read
@@ -418,7 +418,7 @@ public:
    * set</b>.  In Level&nbsp;1 Version&nbsp;2 and beyond, the value is
    * optional and as such, the "value" attribute may or may not be set.
    *
-   * @return @c true if the value of this Parameter has been set,
+   * @return @c true if the value of this Parameter is set,
    * @c false otherwise.
    *
    * @see getValue()
@@ -429,7 +429,7 @@ public:
 
   /**
    * Predicate returning @c true if the
-   * "units" attribute of this Parameter has been set.
+   * "units" attribute of this Parameter is set.
    *
    * @return @c true if the "units" attribute of this Parameter has been
    * set, @c false otherwise.
@@ -441,7 +441,7 @@ public:
 
   /**
    * Predicate returning @c true if the
-   * "constant" attribute of this Parameter has been set.
+   * "constant" attribute of this Parameter is set.
    *
    * @return @c true if the "constant" attribute of this Parameter has been
    * set, @c false otherwise.

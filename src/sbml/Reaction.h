@@ -398,7 +398,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Reaction's "id" attribute has been set.
+   * Reaction's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -408,7 +408,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Reaction's "name" attribute has been set.
+   * Reaction's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -451,7 +451,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Reaction's "compartment" attribute has been set.
+   * Reaction's "compartment" attribute is set.
    *
    * @return @c true if the "compartment" attribute of this Reaction has been
    * set, @c false otherwise.
@@ -465,7 +465,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Reaction's "reversible" attribute has been set.
+   * Reaction's "reversible" attribute is set.
    *
    * @return @c true if the "reversible" attribute of this Reaction has been
    * set, @c false otherwise.

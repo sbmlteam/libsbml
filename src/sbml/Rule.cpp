@@ -249,8 +249,8 @@ Rule::getUnits () const
 
 
 /*
- * @return true if the formula (or equivalently the math) for this Rule has
- * been set, false otherwise.
+ * @return true if the formula (or equivalently the math) for this Rule is
+ * set, false otherwise.
  */
 bool
 Rule::isSetFormula () const
@@ -260,13 +260,13 @@ Rule::isSetFormula () const
 
 
 /*
- * @return true if the math (or equivalently the formula) for this Rule has
- * been set, false otherwise.
+ * @return true if the math (or equivalently the formula) for this Rule is
+ * set, false otherwise.
  */
 bool
 Rule::isSetMath () const
 {
-  /* if the formula has been set but it is not a correct formula
+  /* if the formula is set but it is not a correct formula
    * it cannot be correctly transferred to an ASTNode so in fact
    * getMath will return NULL
    *
@@ -286,7 +286,7 @@ Rule::isSetMath () const
 
 
 /*
- * @return true if the variable of this Rule has been set, false
+ * @return true if the variable of this Rule is set, false
  * otherwise.
  */
 bool
@@ -297,7 +297,7 @@ Rule::isSetVariable () const
 
 
 /*
- * @return true if the units for this Rule has been set, false otherwise
+ * @return true if the units for this Rule is set, false otherwise
  * (L1 ParameterRules only).
  */
 bool
@@ -2070,7 +2070,7 @@ Rule_getUnits (const Rule_t *r)
  * to use the AST mechanisms.
  *
  * @return true (non-zero) if the formula (or equivalently the math) for
- * this Rule has been set, false (0) otherwise.
+ * this Rule is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2082,7 +2082,7 @@ Rule_isSetFormula (const Rule_t *r)
 
 /**
  * @return true (non-zero) if the math (or equivalently the formula) for
- * this Rule has been set, false (0) otherwise.
+ * this Rule is set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -2093,7 +2093,7 @@ Rule_isSetMath (const Rule_t *r)
 
 
 /**
- * @return true (non-zero) if the variable of this Rule has been set, false
+ * @return true (non-zero) if the variable of this Rule is set, false
  * (0) otherwise.
  */
 LIBSBML_EXTERN
@@ -2105,7 +2105,7 @@ Rule_isSetVariable (const Rule_t *r)
 
 
 /**
- * @return true (non-zero) if the units for this Rule has been set, false
+ * @return true (non-zero) if the units for this Rule is set, false
  * (0) otherwise (L1 ParameterRules only).
  */
 LIBSBML_EXTERN

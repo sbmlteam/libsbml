@@ -540,7 +540,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "id" attribute has been set.
+   * Model's "id" attribute is set.
    *
    * @return @c true if the "id" attribute of this Model has been
    * set, @c false otherwise.
@@ -550,7 +550,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "name" attribute has been set.
+   * Model's "name" attribute is set.
    *
    * @return @c true if the "name" attribute of this Model has been
    * set, @c false otherwise.
@@ -560,7 +560,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "substanceUnits" attribute has been set.
+   * Model's "substanceUnits" attribute is set.
    *
    * @return @c true if the "substanceUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -573,7 +573,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "timeUnits" attribute has been set.
+   * Model's "timeUnits" attribute is set.
    *
    * @return @c true if the "timeUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -586,7 +586,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "volumeUnits" attribute has been set.
+   * Model's "volumeUnits" attribute is set.
    *
    * @return @c true if the "volumeUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -599,7 +599,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "areaUnits" attribute has been set.
+   * Model's "areaUnits" attribute is set.
    *
    * @return @c true if the "areaUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -612,7 +612,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "lengthUnits" attribute has been set.
+   * Model's "lengthUnits" attribute is set.
    *
    * @return @c true if the "lengthUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -625,7 +625,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "extentUnits" attribute has been set.
+   * Model's "extentUnits" attribute is set.
    *
    * @return @c true if the "extentUnits" attribute of this Model has been
    * set, @c false otherwise.
@@ -638,7 +638,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * Model's "conversionFactor" attribute has been set.
+   * Model's "conversionFactor" attribute is set.
    *
    * @return @c true if the "conversionFactor" attribute of this Model has been
    * set, @c false otherwise.
@@ -2887,9 +2887,9 @@ public:
 
   /**
    * Predicate returning @c true if 
-   * the list of FormulaUnitsData has been populated.
+   * the list of FormulaUnitsData is populated.
    * 
-   * @return @c true if the list of FormulaUnitsData has been populated, 
+   * @return @c true if the list of FormulaUnitsData is populated, 
    * @c false otherwise.
    */
   bool isPopulatedListFormulaUnitsData();

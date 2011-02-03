@@ -253,7 +253,7 @@ Parameter::getConstant () const
 
 
 /*
- * @return true if the id of this SBML object has been set, false
+ * @return true if the id of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -264,7 +264,7 @@ Parameter::isSetId () const
 
 
 /*
- * @return true if the name of this SBML object has been set, false
+ * @return true if the name of this SBML object is set, false
  * otherwise.
  */
 bool
@@ -276,7 +276,7 @@ Parameter::isSetName () const
 
 
 /*
- * @return true if the value of this Parameter has been set, false
+ * @return true if the value of this Parameter is set, false
  * otherwise.
  *
  * In SBML L1v1, a Parameter value is required and therefore <b>should
@@ -291,7 +291,7 @@ Parameter::isSetValue () const
 
 
 /*
- * @return true if the units of this Parameter has been set, false
+ * @return true if the units of this Parameter is set, false
  * otherwise.
  */
 bool
@@ -302,7 +302,7 @@ Parameter::isSetUnits () const
 
 
 /*
- * @return true if the constant of this Parameter has been set, false
+ * @return true if the constant of this Parameter is set, false
  * otherwise.
  */
 bool
@@ -1531,12 +1531,12 @@ Parameter_getConstant (const Parameter_t *p)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Parameter_t structure's identifier has been set.
+ * Parameter_t structure's identifier is set.
  *
  * @param p the Parameter_t structure to query
  * 
  * @return @c non-zero (true) if the "id" attribute of the given
- * Parameter_t structure has been set, zero (false) otherwise.
+ * Parameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1548,12 +1548,12 @@ Parameter_isSetId (const Parameter_t *p)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Parameter_t structure's name has been set.
+ * Parameter_t structure's name is set.
  *
  * @param p the Parameter_t structure to query
  * 
  * @return @c non-zero (true) if the "name" attribute of the given
- * Parameter_t structure has been set, zero (false) otherwise.
+ * Parameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1565,12 +1565,12 @@ Parameter_isSetName (const Parameter_t *p)
 
 /**
  * Predicate returning @c true or @c false depending on whether the given
- * Parameter_t structure's value has been set.
+ * Parameter_t structure's value is set.
  * 
  * @param p the Parameter_t structure to query
  * 
  * @return @c non-zero (true) if the "value" attribute of the given
- * Parameter_t structure has been set, zero (false) otherwise.
+ * Parameter_t structure is set, zero (false) otherwise.
  *
  * @note In SBML Level 1 Version 1, a Parameter value is required and
  * therefore <em>should always be set</em>.  In Level 1 Version 2 and
@@ -1591,7 +1591,7 @@ Parameter_isSetValue (const Parameter_t *p)
  * @param p the Parameter_t structure to query
  * 
  * @return @c non-zero (true) if the "units" attribute of the given
- * Parameter_t structure has been set, zero (false) otherwise.
+ * Parameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1608,7 +1608,7 @@ Parameter_isSetUnits (const Parameter_t *p)
  * @param p the Parameter_t structure to query
  * 
  * @return @c non-zero (true) if the "constant" attribute of the given
- * Parameter_t structure has been set, zero (false) otherwise.
+ * Parameter_t structure is set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int

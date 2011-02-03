@@ -746,7 +746,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * object's "metaid" attribute has been set.
+   * object's "metaid" attribute is set.
    *
    * The optional attribute named "metaid", present on every major SBML
    * component type, is for supporting metadata annotations using RDF
@@ -776,7 +776,7 @@ public:
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Predicate returning @c true if this
-   * object's "id" attribute has been set.
+   * object's "id" attribute is set.
    *
    * Most (but not all) objects in SBML include two common attributes: "id"
    * and "name".  The identifier given by an object's "id" attribute value
@@ -824,7 +824,7 @@ public:
   /*
    * NOTE: THIS IS FOR BACKWARD COMPATABILITY REASONS
    * Predicate returning @c true if this
-   * object's "name" attribute has been set.
+   * object's "name" attribute is set.
    * 
    * Most (but not all) objects in SBML include two common attributes: "id"
    * and "name".  In contrast to the "id" attribute, the "name" attribute is
@@ -953,7 +953,7 @@ public:
 
   /**
    * Predicate returning @c true if this
-   * object's "sboTerm" attribute has been set.
+   * object's "sboTerm" attribute is set.
    *
    * @return @c true if the "sboTerm" attribute of this SBML object has been
    * set, @c false otherwise.
@@ -995,7 +995,7 @@ public:
    * Predicate returning @c true if this
    * object has a ModelHistory object attached to it.
    *
-   * @return @c true if the ModelHistory of this object has been set, @c
+   * @return @c true if the ModelHistory of this object is set, @c
    * false otherwise.
    * 
    * @note In SBML Level&nbsp;2, model history annotations were only
@@ -2358,14 +2358,15 @@ protected:
 
 
   /**
-   * Checks that SBML element has been read in the proper order.  If object
-   * is not in the expected position, an error is logged.
+   * Checks that the SBML element appears in the expected order.
+   *
+   * If @p object is not in the expected position, an error is logged.
    */
   void checkOrderAndLogError (SBase* object, int expected);
 
 
   /**
-   * Checks that an SBML ListOf element has been populated.  
+   * Checks that an SBML ListOf element is populated.  
    * If a listOf element has been declared with no elements, 
    * an error is logged.
    */

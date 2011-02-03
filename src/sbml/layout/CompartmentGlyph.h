@@ -300,7 +300,7 @@ const char *
 CompartmentGlyph_getCompartmentId (const CompartmentGlyph_t *cg);
 
 /**
- * Returns 0 if the reference compartment has not been set for this glyph
+ * Returns 0 if the reference compartment is not set for this glyph
  * and 1 otherwise.
  */
 LIBSBML_EXTERN
