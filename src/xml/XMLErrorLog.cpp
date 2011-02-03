@@ -214,7 +214,7 @@ LIBLAX_EXTERN
 void
 XMLErrorLog_free (XMLErrorLog_t *log)
 {
-  if (log == NULL);
+  if (log == NULL) return;
   delete static_cast<XMLErrorLog*>(log);
 }
 

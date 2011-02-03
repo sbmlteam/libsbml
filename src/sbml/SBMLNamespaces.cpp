@@ -120,6 +120,19 @@ SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
 }
 
 
+const std::vector<const SBMLNamespaces*> 
+SBMLNamespaces::getSupportedNamespaces()
+{
+  vector<const SBMLNamespaces *> result;
+  result.push_back(new SBMLNamespaces(1,1));
+  result.push_back(new SBMLNamespaces(1,2));
+  result.push_back(new SBMLNamespaces(2,1));
+  result.push_back(new SBMLNamespaces(2,2));
+  result.push_back(new SBMLNamespaces(2,3));
+  result.push_back(new SBMLNamespaces(2,4));
+  result.push_back(new SBMLNamespaces(3,1));
+  return result;
+}
 
 /*
  * Assignment operator for SBMLNamespaces.
@@ -411,6 +424,31 @@ SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
 {
   if (sbmlns != NULL)
     sbmlns->addNamespaces(xmlns);
+}
+
+/**
+ * Returns an array of SBML Namespaces supported by this version of 
+ * LibSBML. 
+ *
+ * @param length an integer holding the length of the array
+ * @return an array of SBML namespaces, or NULL if length is NULL. The array 
+ *         has to be freed by the caller.
+ */
+LIBSBML_EXTERN
+SBMLNamespaces_t **
+SBMLNamespaces_getSupportedNamespaces(int *length)
+{
+  if (length == NULL) return NULL;
+   const std::vector<const SBMLNamespaces*> supported = SBMLNamespaces::getSupportedNamespaces();
+  
+  *length = (int) supported.size();
+  SBMLNamespaces_t ** result = (SBMLNamespaces_t**)malloc(sizeof(SBMLNamespaces_t*)*(*length));
+  memset(result, 0, sizeof(SBMLNamespaces_t*)*(*length));
+  for (int i = 0; i < *length; i++)
+  {
+    result[i] = supported[i]->clone();
+  }
+  return result;
 }
 
 /** @endcond */

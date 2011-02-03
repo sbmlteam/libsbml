@@ -561,4 +561,42 @@ util_free (void * element)
   }
 }
 
+/**
+ * Function for freeing memory allocated by libSBML functions
+ *
+ * @param objects pointer to the array to be freed.  It must
+ * be data that was originally allocated by a libSBML function.
+ * @param length number of elements in the array to be freed.
+ * 
+ * This function was introduced to deal with a specific memory issue
+ * arising on Windows OS when using libSBML compiled against a static MSVC
+ * runtime library.  In this situation, it was not possible to use the
+ * standard <code>free()</code> function when freeing memory that was
+ * actually allocated within the libSBML function call.  The following is
+ * an example of where the free function fails and needs to be replaced
+ * with util_freeArray().
+ * @code
+ *    int length;
+ *    SBMLNamespaces_t** supported = SBMLNamespaces_getSupportedNamespaces(&length);
+ *    free(supported);
+ * @endcode
+ *
+ * @note This function is only necessary when using a version of libSBML
+ * compiled and linked against a static MSVC runtime library.
+ */
+LIBSBML_EXTERN
+void
+util_freeArray (void ** objects, int length)
+{
+  int i;
+  if (objects == NULL) return;
+  for (i = 0; i < length; i++)    
+  {
+    util_free(objects[i]);
+  }
+  free(objects);
+
+}
+
+
 LIBSBML_CPP_NAMESPACE_END

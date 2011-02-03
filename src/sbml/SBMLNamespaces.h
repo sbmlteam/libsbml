@@ -154,7 +154,14 @@ public:
   static std::string getSBMLNamespaceURI(unsigned int level,
                                          unsigned int version);
   
-  
+  /**
+   * Returns a vector of all supported SBMLNamespaces in this version of 
+   * libsbml. 
+   * 
+   * @return a vector with supported SBML namespaces. 
+   */
+  static const std::vector<const SBMLNamespaces *> getSupportedNamespaces();
+
   /**
    * Get the SBML Level of this SBMLNamespaces object.
    *
@@ -280,6 +287,10 @@ void
 SBMLNamespaces_addNamespaces(SBMLNamespaces_t *sbmlns,
                              XMLNamespaces_t * xmlns);
 
+
+LIBSBML_EXTERN
+SBMLNamespaces_t **
+SBMLNamespaces_getSupportedNamespaces(int *length);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

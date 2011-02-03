@@ -225,6 +225,9 @@ LIBSBML_EXTERN
 void
 util_free (void * element);
 
+LIBSBML_EXTERN
+void
+util_freeArray (void ** objects, int length);
 
 /** @cond doxygen-libsbml-internal */
 
