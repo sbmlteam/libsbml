@@ -212,6 +212,7 @@ my %IgnoreTestFunc = (
   test_Reaction_addModifier3                     => 0,
   test_Reaction_createModifier                   => 0,
   test_Reaction_removeModifier                   => 0,
+  test_SBMLNamespaces_getSupported               => 0,
 );
 
 ######################################################################
