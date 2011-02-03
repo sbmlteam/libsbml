@@ -35,10 +35,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 
-/*
- * Parses a text-string mathematical formula and returns a representation
- * as an Abstract Syntax Tree.
- */
 LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseFormula (const char *formula);
