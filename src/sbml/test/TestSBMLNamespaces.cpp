@@ -29,6 +29,8 @@
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/xml/XMLNamespaces.h>
 
+#include <util/util.h>
+
 #include <check.h>
 
 LIBSBML_CPP_NAMESPACE_USE
@@ -198,6 +200,20 @@ START_TEST (test_SBMLNamespaces_invalid)
 }
 END_TEST
 
+  
+START_TEST (test_SBMLNamespaces_getSupported)
+{
+  fail_unless( SBMLNamespaces_getSupportedNamespaces(NULL) == NULL);
+  
+  int length; 
+  SBMLNamespaces_t **allSupported = SBMLNamespaces_getSupportedNamespaces(&length);
+  
+  fail_unless( length != 0);
+
+  util_freeArray((void**)allSupported, length);
+
+}
+END_TEST
 
 Suite *
 create_suite_SBMLNamespaces (void)
@@ -206,16 +222,17 @@ create_suite_SBMLNamespaces (void)
   TCase *tcase = tcase_create("SBMLNamespaces");
 
 
-  tcase_add_test(tcase, test_SBMLNamespaces_L1V1);
-  tcase_add_test(tcase, test_SBMLNamespaces_L1V2);
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V1);
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V2);
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V3);
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V4);
-  tcase_add_test(tcase, test_SBMLNamespaces_L3V1);
-  tcase_add_test(tcase, test_SBMLNamespaces_getURI);
-  tcase_add_test(tcase, test_SBMLNamespaces_invalid);
-
+  tcase_add_test(tcase, test_SBMLNamespaces_L1V1         );
+  tcase_add_test(tcase, test_SBMLNamespaces_L1V2         );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V1         );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V2         );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V3         );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V4         );
+  tcase_add_test(tcase, test_SBMLNamespaces_L3V1         );
+  tcase_add_test(tcase, test_SBMLNamespaces_getURI       );
+  tcase_add_test(tcase, test_SBMLNamespaces_invalid      );
+  tcase_add_test(tcase, test_SBMLNamespaces_getSupported );
+  
 
   suite_add_tcase(suite, tcase);
 
