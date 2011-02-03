@@ -89,6 +89,7 @@ distfiles =                                                  \
         DoxygenLayout.xml                                    \
         ExcludeDoclet.java                                   \
         Makefile.in                                          \
+	common-text/L1-math-syntax-warning.html              \
         common-text/astnode-types.html                       \
         common-text/base-units.html                          \
         common-text/base-units2.html                         \
