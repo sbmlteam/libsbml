@@ -389,9 +389,9 @@ public:
    * 
    * @return the compartment of this Reaction.
    *
-   * @note The "compartment" attribute has been introduced in SBML
-   * Level&nbsp;3 Version&nbsp;1 Core, but is not present on Reaction in
-   * lower Levels of SBML.
+   * @note The "compartment" attribute is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present on Reaction in lower Levels of
+   * SBML.
    */
   const std::string& getCompartment () const;
 
@@ -400,7 +400,7 @@ public:
    * Predicate returning @c true if this
    * Reaction's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this Reaction has been
+   * @return @c true if the "id" attribute of this Reaction is
    * set, @c false otherwise.
    */
   bool isSetId () const;
@@ -456,7 +456,7 @@ public:
    * @return @c true if the "compartment" attribute of this Reaction is
    * set, @c false otherwise.
    *
-   * @note The "compartment" attribute has been introduced in SBML
+   * @note The "compartment" attribute is available in SBML
    * Level&nbsp;3 Version&nbsp;1 Core, but is not present on Reaction in
    * lower Levels of SBML.
    */
@@ -580,7 +580,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    *
-   * @note The "compartment" attribute has been introduced in SBML
+   * @note The "compartment" attribute is available in SBML
    * Level&nbsp;3 Version&nbsp;1 Core, but is not present on Reaction in
    * lower Levels of SBML.
    */
@@ -652,7 +652,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
-   * @note The "compartment" attribute has been introduced in SBML
+   * @note The "compartment" attribute is available in SBML
    * Level&nbsp;3 Version&nbsp;1 Core, but is not present on Reaction in
    * lower Levels of SBML.
    */
