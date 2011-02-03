@@ -253,7 +253,7 @@ evalAST(ASTNode_t *n)
     break;
 
   case AST_FUNCTION_ABS:
-    result = (double) labs(evalAST(child[0]));
+    result = (double) fabs(evalAST(child[0]));
     break;
 
   case AST_FUNCTION_ARCCOS:
@@ -261,9 +261,12 @@ evalAST(ASTNode_t *n)
     break;
 
   case AST_FUNCTION_ARCCOSH:
+#ifndef WIN32
     result = acosh(evalAST(child[0]));
+#else
+	result = log(evalAST(child[0]) + SQR(evalAST(child[0]) * evalAST(child[0]) - 1.));
+#endif
     break;
-
   case AST_FUNCTION_ARCCOT:
     /* arccot x =  arctan (1 / x) */
     result = atan(1./ evalAST(child[0]));
@@ -297,17 +300,23 @@ evalAST(ASTNode_t *n)
   case AST_FUNCTION_ARCSIN:
     result = asin(evalAST(child[0]));
     break;
-
   case AST_FUNCTION_ARCSINH:
+#ifndef WIN32
     result = asinh(evalAST(child[0]));
+#else
+	result = log(evalAST(child[0]) + SQR(evalAST(child[0]) * evalAST(child[0]) + 1.));
+#endif
     break;
 
   case AST_FUNCTION_ARCTAN:
     result = atan(evalAST(child[0]));
     break;
-
   case AST_FUNCTION_ARCTANH:
+#ifndef WIN32
     result = atanh(evalAST(child[0]));
+#else
+	result = log((1. / evalAST(child[0]) + 1.) / (1. / evalAST(child[0]) - 1.)) / 2.;
+#endif
     break;
 
   case AST_FUNCTION_CEILING:
@@ -317,7 +326,6 @@ evalAST(ASTNode_t *n)
   case AST_FUNCTION_COS:
     result = cos(evalAST(child[0]));
     break;
-
   case AST_FUNCTION_COSH:
     result = cosh(evalAST(child[0]));
     break;
@@ -326,12 +334,10 @@ evalAST(ASTNode_t *n)
     /* cot x = 1 / tan x */
     result = (1./tan(evalAST(child[0])));
     break;
-
   case AST_FUNCTION_COTH:
     /* coth x = cosh x / sinh x */
     result = cosh(evalAST(child[0])) / sinh(evalAST(child[0]));
     break;
-
   case AST_FUNCTION_CSC:
     /* csc x = 1 / sin x */
     result = (1./sin(evalAST(child[0])));
@@ -352,7 +358,7 @@ evalAST(ASTNode_t *n)
       printf("The factorial is only implemented for integer values. If a floating\n");
       printf("point number is passed, the floor value is used for calculation!\n");
       printf("-----------------------END MESSAGE--------------------------\n\n");
-      i = floor(evalAST(child[0]));
+      i = (int)floor(evalAST(child[0]));
       for(result=1;i>1;--i)
         result *= i;
     }
