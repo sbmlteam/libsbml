@@ -1328,6 +1328,10 @@ public:
   /**
    * Creates a new FunctionDefinition inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the FunctionDefinition object created
    *
    * @see addFunctionDefinition(const FunctionDefinition* fd)
@@ -1337,6 +1341,10 @@ public:
 
   /**
    * Creates a new UnitDefinition inside this Model and returns it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * @return the UnitDefinition object created
    *
@@ -1348,6 +1356,10 @@ public:
   /**
    * Creates a new Unit object within the last UnitDefinition object
    * created in this model and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The mechanism by which the UnitDefinition was created is not
    * significant.  If a UnitDefinition object does not exist in this model,
@@ -1363,6 +1375,10 @@ public:
   /**
    * Creates a new CompartmentType inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the CompartmentType object created
    *
    * @note The CompartmentType object class is only available in SBML
@@ -1376,6 +1392,10 @@ public:
 
   /**
    * Creates a new SpeciesType inside this Model and returns it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * @return the SpeciesType object created
    *
@@ -1391,6 +1411,10 @@ public:
   /**
    * Creates a new Compartment inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the Compartment object created
    *
    * @see addCompartment(const Compartment *c)
@@ -1400,6 +1424,10 @@ public:
 
   /**
    * Creates a new Species inside this Model and returns it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * @return the Species object created
    *
@@ -1411,6 +1439,10 @@ public:
   /**
    * Creates a new Parameter inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the Parameter object created
    *
    * @see addParameter(const Parameter *p)
@@ -1420,6 +1452,10 @@ public:
 
   /**
    * Creates a new InitialAssignment inside this Model and returns it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * @return the InitialAssignment object created
    *
@@ -1431,6 +1467,10 @@ public:
   /**
    * Creates a new AlgebraicRule inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the AlgebraicRule object created
    *
    * @see addRule(const Rule* r)
@@ -1440,6 +1480,10 @@ public:
 
   /**
    * Creates a new AssignmentRule inside this Model and returns it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * @return the AssignmentRule object created
    *
@@ -1451,6 +1495,10 @@ public:
   /**
    * Creates a new RateRule inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the RateRule object created
    *
    * @see addRule(const Rule* r)
@@ -1460,6 +1508,10 @@ public:
 
   /**
    * Creates a new Constraint inside this Model and returns it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * @return the Constraint object created
    *
@@ -1471,6 +1523,10 @@ public:
   /**
    * Creates a new Reaction inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the Reaction object created
    *
    * @see addReaction(const Reaction *r)
@@ -1481,6 +1537,10 @@ public:
   /**
    * Creates a new SpeciesReference object for a reactant inside the last
    * Reaction object in this Model, and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The mechanism by which the last Reaction object was created and added
    * to this Model is not significant.  It could have been created in a
@@ -1496,6 +1556,10 @@ public:
   /**
    * Creates a new SpeciesReference object for a product inside the last
    * Reaction object in this Model, and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The mechanism by which the last Reaction object was created and added
    * to this Model is not significant.  It could have been created in a
@@ -1513,6 +1577,10 @@ public:
    * inside the last Reaction object in this Model, and returns a pointer
    * to it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * The mechanism by which the last Reaction object was created and added
    * to this Model is not significant.  It could have been created in a
    * variety of ways, for example using createReaction().  If a Reaction
@@ -1527,6 +1595,10 @@ public:
   /**
    * Creates a new KineticLaw inside the last Reaction object created in
    * this Model, and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The mechanism by which the last Reaction object was created and added
    * to this Model is not significant.  It could have been created in a
@@ -1543,6 +1615,10 @@ public:
   /**
    * Creates a new local Parameter inside the KineticLaw object of the last
    * Reaction created inside this Model, and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The last KineticLaw object in this Model could have been created in a
    * variety of ways.  For example, it could have been added using
@@ -1561,6 +1637,10 @@ public:
    * Creates a new LocalParameter inside the KineticLaw object of the last
    * Reaction created inside this Model, and returns a pointer to it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * The last KineticLaw object in this Model could have been created in a
    * variety of ways.  For example, it could have been added using
    * createKineticLaw(), or it could be the result of using
@@ -1577,6 +1657,10 @@ public:
   /**
    * Creates a new Event inside this Model and returns it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * @return the Event object created
    */
   Event* createEvent ();
@@ -1585,6 +1669,10 @@ public:
   /**
    * Creates a new EventAssignment inside the last Event object created in
    * this Model, and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The mechanism by which the last Event object in this model was created
    * is not significant.  It could have been created in a variety of ways,
@@ -1601,6 +1689,10 @@ public:
    * Creates a new Trigger inside the last Event object created in
    * this Model, and returns a pointer to it.
    *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
+   *
    * The mechanism by which the last Event object in this model was created
    * is not significant.  It could have been created in a variety of ways,
    * for example by using createEvent().  If no Event object exists in this
@@ -1615,6 +1707,10 @@ public:
   /**
    * Creates a new Delay inside the last Event object created in
    * this Model, and returns a pointer to it.
+   *
+   * The SBML Level and Version of the enclosing Model object, as well as
+   * any SBML package namespaces, are used to initialize this
+   * object's corresponding attributes.
    *
    * The mechanism by which the last Event object in this model was created
    * is not significant.  It could have been created in a variety of ways,
