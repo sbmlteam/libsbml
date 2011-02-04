@@ -459,8 +459,8 @@ public:
    * @return the XMLAttributes that store the resources of this CVTerm.
    *
    * @see getQualifierType()
-   * @see addResource()
-   * @see getResourceURI()
+   * @see addResource(const std::string& resource)
+   * @see getResourceURI(unsigned int n)
    */
   XMLAttributes * getResources(); 
 
@@ -484,8 +484,8 @@ public:
    * @return the XMLAttributes that store the resources of this CVTerm.
    *
    * @see getQualifierType()
-   * @see addResource()
-   * @see getResourceURI()
+   * @see addResource(const std::string& resource)
+   * @see getResourceURI(unsigned int n)
    */
   const XMLAttributes * getResources() const; 
 
@@ -506,7 +506,7 @@ public:
    * of this CVTerm.
    *
    * @see getResources()
-   * @see getResourceURI()
+   * @see getResourceURI(unsigned int n)
    */
   unsigned int getNumResources(); 
 
@@ -567,7 +567,7 @@ public:
    * @link QualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
    *
    * @see getQualifierType()
-   * @see setQualifierType()
+   * @see setQualifierType(@if java int type@endif)
    */
   int setModelQualifierType(ModelQualifierType_t type);
 
@@ -589,7 +589,7 @@ public:
    * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    *
    * @see getQualifierType()
-   * @see setQualifierType()
+   * @see setQualifierType(@if java int type@endif)
    */
   int setBiologicalQualifierType(BiolQualifierType_t type);
 
@@ -665,7 +665,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED@endlink
    *
    * @see getResources()
-   * @see removeResource()
+   * @see removeResource(std::string resource)
    * @see getQualifierType()
    * @see getModelQualifierType()
    * @see getBiologicalQualifierType()
@@ -686,7 +686,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    *
-   * @see addResource();
+   * @see addResource(const std::string& resource)
    */
   int removeResource(std::string resource);
   

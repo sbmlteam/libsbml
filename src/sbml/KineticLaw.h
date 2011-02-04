@@ -294,7 +294,7 @@ public:
    *
    * @note @htmlinclude level-1-uses-text-string-math.html
    *
-   * @see isSetMath(()
+   * @see isSetMath()
    */  
   bool isSetFormula () const;
 
@@ -312,7 +312,7 @@ public:
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw is set, @c false otherwise.
    * 
-   * @see isSetFormula(()
+   * @see isSetFormula()
    */
   bool isSetMath () const;
 
@@ -367,7 +367,7 @@ public:
    *
    * @note @htmlinclude level-1-uses-text-string-math.html
    *
-   * @see setMath()
+   * @see setMath(const ASTNode* math)
    */
   int setFormula (const std::string& formula);
 
@@ -390,7 +390,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
-   * @see setFormula()
+   * @see setFormula(const std::string& formula)
    */
   int setMath (const ASTNode* math);
 

@@ -2136,12 +2136,13 @@ public:
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.  For example:
-   *
-   *   SBase::writeElements(stream);
+   * implementation of this method as well.  For example:@if clike
+   * <pre>
+   *   SBase::writeElements();
    *   mReactans.write(stream);
    *   mProducts.write(stream);
    *   ...
+   * </pre>@endif
    */
   virtual void writeElements (XMLOutputStream& stream) const;
   /** @endcond */

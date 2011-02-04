@@ -1104,9 +1104,9 @@ public:
    * Sets the "math" subelement of this Rule to an expression in
    * text-string form.
    *
-   * This is equivalent to setMath().  The provision of using text-string
-   * formulas is retained for easier SBML Level&nbsp;1 compatibility.  The
-   * formula is converted to an ASTNode internally.
+   * This is equivalent to setMath(const ASTNode* math).  The provision of
+   * using text-string formulas is retained for easier SBML Level&nbsp;1
+   * compatibility.  The formula is converted to an ASTNode internally.
    *
    * @param formula a mathematical formula in text-string form.
    *
@@ -1122,7 +1122,7 @@ public:
    * underlying math expression and this method can be used for models
    * of all Levels of SBML.
    *
-   * @see setMath()
+   * @see setMath(const ASTNode* math)
    */
   int setFormula (const std::string& formula);
 
@@ -1145,7 +1145,7 @@ public:
    * the underlying math expression and this method can be used for models
    * of all Levels of SBML.
    *
-   * @see setFormula()
+   * @see setFormula(const std::string& formula)
    */
   int setMath (const ASTNode* math);
 
@@ -1937,7 +1937,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
-   * using @if clike&nbsp; Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
+   * using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
    * @em overrides the value used when creating the RateRule object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the
