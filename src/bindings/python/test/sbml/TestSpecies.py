@@ -3,7 +3,8 @@
 # @brief   Species unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein
+ 
 #
 # $Id$
 # $HeadURL$
@@ -50,6 +51,12 @@ class TestSpecies(unittest.TestCase):
 
   def tearDown(self):
     _dummyList = [ self.S ]; _dummyList[:] = []; del _dummyList
+    pass  
+
+  def test_Species_conversionFactor(self):
+    self.assertEqual( False, self.S.isSetConversionFactor() )
+    ret = self.S.unsetConversionFactor()
+    self.assert_( ret == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     pass  
 
   def test_Species_create(self):

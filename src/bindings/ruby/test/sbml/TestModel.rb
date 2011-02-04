@@ -2,7 +2,8 @@
 # @brief   SBML Model unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein
+ 
 #
 # $Id$
 # $HeadURL$
@@ -163,6 +164,12 @@ class TestModel < Test::Unit::TestCase
     assert( @@m.getUnitDefinition(0) != ud1 )
     assert( @@m.getUnitDefinition(1) != ud2 )
     assert( @@m.getUnitDefinition(2) == nil )
+  end
+
+  def test_Model_conversionFactor
+    assert_equal false, @@m.isSetConversionFactor()
+    ret = @@m.unsetConversionFactor()
+    assert( ret == LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE )
   end
 
   def test_Model_create

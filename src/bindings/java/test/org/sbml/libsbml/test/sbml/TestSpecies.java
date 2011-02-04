@@ -3,7 +3,8 @@
  * @brief   Species unit tests
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Ben Bornstein 
+ * @author  Ben Bornstein
+ 
  *
  * $Id$
  * $HeadURL$
@@ -133,6 +134,13 @@ public class TestSpecies {
   protected void tearDown() throws Exception
   {
     S = null;
+  }
+
+  public void test_Species_conversionFactor()
+  {
+    assertEquals( false, S.isSetConversionFactor() );
+    int ret = S.unsetConversionFactor();
+    assertTrue( ret == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
   }
 
   public void test_Species_create()

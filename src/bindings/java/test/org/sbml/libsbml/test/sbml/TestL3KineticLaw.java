@@ -141,7 +141,7 @@ public class TestL3KineticLaw {
     Parameter p = new  Parameter(3,1);
     int i = KL.addParameter(p);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
-    p.setId( "p");
+    p.setId( "p1");
     i = KL.addParameter(p);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
     assertTrue( KL.getNumParameters() == 1 );
@@ -162,11 +162,11 @@ public class TestL3KineticLaw {
   {
     KineticLaw kl = new  KineticLaw(3,1);
     LocalParameter lp = new  LocalParameter(3,1);
-    LocalParameter lp1 = new LocalParameter(3,1);
+    LocalParameter lp1 = new  LocalParameter(3,1);
     int i = kl.addLocalParameter(lp);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
     lp.setId( "p");
-	lp1.setId("p1");
+    lp1.setId( "p1");
     i = kl.addLocalParameter(lp);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
     assertTrue( kl.getNumParameters() == 1 );

@@ -1217,6 +1217,27 @@ namespace LibSBMLCSTest {
       cv1 = null;
     }
 
+    public void test_SBase_hasValidLevelVersionNamespaceCombination()
+    {
+      Species species = new Species(3,1);
+      assertTrue( species.hasValidLevelVersionNamespaceCombination() == true );
+      species = null;
+      XMLNamespaces invalidNamespaces = new XMLNamespaces();
+      species = new Species(3,1);
+      species.setNamespaces(invalidNamespaces);
+      invalidNamespaces.add(SBMLNamespaces.getSBMLNamespaceURI(2,3), "sbml23");
+      species.setNamespaces(invalidNamespaces);
+      assertTrue( species.hasValidLevelVersionNamespaceCombination() == false );
+      invalidNamespaces.add(SBMLNamespaces.getSBMLNamespaceURI(3,1), "sbml31");
+      species.setNamespaces(invalidNamespaces);
+      assertTrue( species.hasValidLevelVersionNamespaceCombination() == false );
+      invalidNamespaces.clear();
+      invalidNamespaces.add(SBMLNamespaces.getSBMLNamespaceURI(3,1), "sbml31");
+      species.setNamespaces(invalidNamespaces);
+      assertTrue( species.hasValidLevelVersionNamespaceCombination() == true );
+      species = null;
+    }
+
     public void test_SBase_setAnnotation()
     {
       XMLToken token;
@@ -1293,6 +1314,46 @@ namespace LibSBMLCSTest {
       assertTrue( t1.getNumChildren() == 1 );
       XMLNode t2 = t1.getChild(0);
       assertTrue((  "This is a test note" == t2.getCharacters() ));
+    }
+
+    public void test_SBase_setAnnotationWithNewTerm()
+    {
+      string annotation = "<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#meta1\">\n"
+ + 
+    "      <bqmodel:isDerivedFrom>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"urn:miriam:biomodels.db:BIOMD0000000009\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqmodel:isDerivedFrom>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "</rdf:RDF>\n"
+ + 
+    "</annotation>\n"
+  
+    ;
+      Species species = new Species(2,4);
+      species.setMetaId("meta1");
+      assertTrue( species .getAnnotationString() ==  "" );
+      assertTrue( species.setAnnotation(annotation) == libsbml.LIBSBML_OPERATION_SUCCESS );
+      assertTrue( species .getAnnotationString() !=  "" );
+      assertTrue( species.getNumCVTerms() == 1 );
+      CVTerm term1 = species.getCVTerm(0);
+      assertTrue( term1 != null );
+      assertTrue( term1.getQualifierType() == libsbml.MODEL_QUALIFIER );
+      assertTrue( term1.getModelQualifierType() == libsbml.BQM_IS_DERIVED_FROM );
+      assertTrue( term1.getNumResources() == 1 );
+      assertTrue( term1.getResourceURI(0) ==  "urn:miriam:biomodels.db:BIOMD0000000009" );
+      species = null;
     }
 
     public void test_SBase_setMetaId()

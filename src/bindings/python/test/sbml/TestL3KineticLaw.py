@@ -57,7 +57,7 @@ class TestL3KineticLaw(unittest.TestCase):
     p = libsbml.Parameter(3,1)
     i = self.KL.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
-    p.setId( "p")
+    p.setId( "p1")
     i = self.KL.addParameter(p)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( self.KL.getNumParameters() == 1 )
@@ -81,7 +81,7 @@ class TestL3KineticLaw(unittest.TestCase):
     i = kl.addLocalParameter(lp)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     lp.setId( "p")
-    lp1.setId("p1");
+    lp1.setId( "p1")
     i = kl.addLocalParameter(lp)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
     self.assert_( kl.getNumParameters() == 1 )

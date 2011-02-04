@@ -553,10 +553,10 @@ public class TestXMLNode {
     String xmlstr = "<annotation>\n" + "  <test xmlns=\"http://test.org/\" id=\"test\">test</test>\n" + "</annotation>";
     XMLNode node = new XMLNode();
     XMLNode node1 = XMLNode.convertStringToXMLNode(xmlstr,null);
-    assertEquals( false, node.equals(node1) );
+    assertEquals( false, node.xmlEquals(node1) );
     node = null;
     XMLNode node2 = XMLNode.convertStringToXMLNode(xmlstr,null);
-    assertEquals( true, node2.equals(node1) );
+    assertEquals( true, node2.xmlEquals(node1) );
     node1 = null;
     node2 = null;
   }

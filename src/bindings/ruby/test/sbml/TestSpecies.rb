@@ -2,7 +2,8 @@
 # @brief   Species unit tests
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein
+ 
 #
 # $Id$
 # $HeadURL$
@@ -43,6 +44,12 @@ class TestSpecies < Test::Unit::TestCase
 
   def teardown
     @@s = nil
+  end
+
+  def test_Species_conversionFactor
+    assert_equal false, @@s.isSetConversionFactor()
+    ret = @@s.unsetConversionFactor()
+    assert( ret == LibSBML::LIBSBML_UNEXPECTED_ATTRIBUTE )
   end
 
   def test_Species_create

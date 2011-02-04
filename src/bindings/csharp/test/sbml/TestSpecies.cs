@@ -2,7 +2,7 @@
 ///  @brief   Species unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Ben Bornstein 
+///  @author  Ben Bornstein 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -142,6 +142,13 @@ namespace LibSBMLCSTest {
     public void tearDown()
     {
       S = null;
+    }
+
+    public void test_Species_conversionFactor()
+    {
+      assertEquals( false, S.isSetConversionFactor() );
+      int ret = S.unsetConversionFactor();
+      assertTrue( ret == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
     }
 
     public void test_Species_create()

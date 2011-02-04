@@ -2,7 +2,7 @@
 ///  @brief   SBML Model unit tests
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Ben Bornstein 
+///  @author  Ben Bornstein 
 /// 
 ///  $Id$
 ///  $HeadURL$
@@ -271,6 +271,13 @@ namespace LibSBMLCSTest {
       assertNotEquals(M.getUnitDefinition(0),ud1);
       assertNotEquals(M.getUnitDefinition(1),ud2);
       assertEquals(M.getUnitDefinition(2),null);
+    }
+
+    public void test_Model_conversionFactor()
+    {
+      assertEquals( false, M.isSetConversionFactor() );
+      int ret = M.unsetConversionFactor();
+      assertTrue( ret == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE );
     }
 
     public void test_Model_create()

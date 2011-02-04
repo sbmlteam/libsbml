@@ -3,7 +3,8 @@
 # @brief   SBML Model unit tests
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Ben Bornstein 
+# @author  Ben Bornstein
+ 
 #
 # $Id$
 # $HeadURL$
@@ -170,6 +171,12 @@ class TestModel(unittest.TestCase):
     self.assert_( self.M.getUnitDefinition(0) != ud1 )
     self.assert_( self.M.getUnitDefinition(1) != ud2 )
     self.assert_( self.M.getUnitDefinition(2) == None )
+    pass  
+
+  def test_Model_conversionFactor(self):
+    self.assertEqual( False, self.M.isSetConversionFactor() )
+    ret = self.M.unsetConversionFactor()
+    self.assert_( ret == libsbml.LIBSBML_UNEXPECTED_ATTRIBUTE )
     pass  
 
   def test_Model_create(self):

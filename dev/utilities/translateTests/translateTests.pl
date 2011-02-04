@@ -213,6 +213,9 @@ my %IgnoreTestFunc = (
   test_Reaction_createModifier                   => 0,
   test_Reaction_removeModifier                   => 0,
   test_SBMLNamespaces_getSupported               => 0,
+  test_SBMLNamespaces_invalid                    => 0,
+  test_SBase_addCVTerms_num_check                => 0,
+  test_SBase_appendNotesWithGlobalNamespace      => 0,
 );
 
 ######################################################################

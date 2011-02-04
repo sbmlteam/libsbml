@@ -1088,6 +1088,26 @@ class TestSBase(unittest.TestCase):
     _dummyList = [ cv1 ]; _dummyList[:] = []; del _dummyList
     pass  
 
+  def test_SBase_hasValidLevelVersionNamespaceCombination(self):
+    species = libsbml.Species(3,1)
+    self.assert_( species.hasValidLevelVersionNamespaceCombination() == True )
+    species = None
+    invalidNamespaces = libsbml.XMLNamespaces()
+    species = libsbml.Species(3,1)
+    species.setNamespaces(invalidNamespaces)
+    invalidNamespaces.add(libsbml.SBMLNamespaces.getSBMLNamespaceURI(2,3), "sbml23")
+    species.setNamespaces(invalidNamespaces)
+    self.assert_( species.hasValidLevelVersionNamespaceCombination() == False )
+    invalidNamespaces.add(libsbml.SBMLNamespaces.getSBMLNamespaceURI(3,1), "sbml31")
+    species.setNamespaces(invalidNamespaces)
+    self.assert_( species.hasValidLevelVersionNamespaceCombination() == False )
+    invalidNamespaces.clear()
+    invalidNamespaces.add(libsbml.SBMLNamespaces.getSBMLNamespaceURI(3,1), "sbml31")
+    species.setNamespaces(invalidNamespaces)
+    self.assert_( species.hasValidLevelVersionNamespaceCombination() == True )
+    species = None
+    pass  
+
   def test_SBase_setAnnotation(self):
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
@@ -1155,6 +1175,43 @@ class TestSBase(unittest.TestCase):
     self.assert_( t1.getNumChildren() == 1 )
     t2 = t1.getChild(0)
     self.assert_((  "This is a test note" == t2.getCharacters() ))
+    pass  
+
+  def test_SBase_setAnnotationWithNewTerm(self):
+    annotation = wrapString("<annotation>\n"
+ + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+ + 
+    "    <rdf:Description rdf:about=\"#meta1\">\n"
+ + 
+    "      <bqmodel:isDerivedFrom>\n"
+ + 
+    "        <rdf:Bag>\n"
+ + 
+    "          <rdf:li rdf:resource=\"urn:miriam:biomodels.db:BIOMD0000000009\"/>\n"
+ + 
+    "        </rdf:Bag>\n"
+ + 
+    "      </bqmodel:isDerivedFrom>\n"
+ + 
+    "    </rdf:Description>\n"
+ + 
+    "</rdf:RDF>\n"
+ + 
+    "</annotation>\n")
+    species = libsbml.Species(2,4)
+    species.setMetaId("meta1")
+    self.assert_( species .getAnnotationString() ==  "" )
+    self.assert_( species.setAnnotation(annotation) == libsbml.LIBSBML_OPERATION_SUCCESS )
+    self.assert_( species .getAnnotationString() !=  "" )
+    self.assert_( species.getNumCVTerms() == 1 )
+    term1 = species.getCVTerm(0)
+    self.assert_( term1 != None )
+    self.assert_( term1.getQualifierType() == libsbml.MODEL_QUALIFIER )
+    self.assert_( term1.getModelQualifierType() == libsbml.BQM_IS_DERIVED_FROM )
+    self.assert_( term1.getNumResources() == 1 )
+    self.assert_( term1.getResourceURI(0) ==  "urn:miriam:biomodels.db:BIOMD0000000009" )
+    species = None
     pass  
 
   def test_SBase_setMetaId(self):
