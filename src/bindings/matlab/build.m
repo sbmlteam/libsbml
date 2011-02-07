@@ -4,10 +4,22 @@ function build
 
   switch detected_os
     case 0
+      disp(sprintf('%s\n\n%s\n\n%s\n', ...
+        '***********************************************************************', ...
+        'NOTE: libsbml must be built prior to running this script', ...
+        '***********************************************************************'));
       build_win(matlab, root);
     case 1
+      disp(sprintf('%s\n\n%s\n\n%s\n', ...
+        '***********************************************************************', ...
+        'NOTE: libsbml must be built and installed prior to running this script', ...
+        '***********************************************************************'));
       build_mac(matlab, root);
     case 2
+      disp(sprintf('%s\n\n%s\n\n%s\n', ...
+        '***********************************************************************', ...
+        'NOTE: libsbml must be built and installed prior to running this script', ...
+        '***********************************************************************'));
       build_linux(matlab, root);
     otherwise
       error('OS not recognised');
@@ -80,46 +92,68 @@ function build_win(ismatlab, root)
 
   % check that the win/bin directory exists
   bin_dir = [root, filesep, 'win', filesep, 'bin'];
-  disp(sprintf('Checking for the %s directory ...', bin_dir));
+  disp(sprintf('Checking for the %s directory ...\n', bin_dir));
   if (exist(bin_dir, 'dir') ~= 7)
-    error (sprintf('%s not found\n%s', bin_dir, ...
-      'the libSBML source tree expects this directory to exist'));
-  else
-    disp('Checking for libraries ...');
-    % check that the library files are all there
-    lib{1} = [bin_dir, filesep, 'libsbml.lib'];
-    lib{2} = [bin_dir, filesep, 'libsbml.dll'];
-    lib{3} = [bin_dir, filesep, 'libxml2.lib'];
-    lib{4} = [bin_dir, filesep, 'libxml2.dll'];
-    lib{5} = [bin_dir, filesep, 'iconv.lib'];
-    lib{6} = [bin_dir, filesep, 'iconv.dll'];
-    lib{7} = [bin_dir, filesep, 'bzip2.lib'];
-    lib{8} = [bin_dir, filesep, 'bzip2.dll'];
-
-    found = 1;
-    for i = 1:8
-      if (exist(lib{i}) ~= 0)
-        disp(sprintf('%s found', lib{i}));
+      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', bin_dir, ... 
+          'The build process assumes that the libsbml binaries', ...
+          'exist at', bin_dir));
+      message = sprintf('\n%s\n%s', ...
+          'if they are in another directory please enter the ', ...
+          'full path to reach the directory from this directory: ');
+      new_bin_dir = input(message, 's');
+        
+      if (exist(new_bin_dir, 'dir') == 0)
+          error('libraries could not be found');
       else
-        disp(sprintf('%s not found', lib{i}));
-        found = 0;
+        bin_dir = new_bin_dir;
       end;
-    end; 
-    
-    if (found == 0)
-      error (sprintf('Not all dependencies could be found\n%s%s', ...
-      'the libSBML source tree expects the dependencies to be in ', bin_dir));
+  end;
+
+  disp('Checking for libraries ...');
+  % check that the library files are all there
+  lib{1} = [bin_dir, filesep, 'libsbml.lib'];
+  lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+  lib{3} = [bin_dir, filesep, 'libxml2.lib'];
+  lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+  lib{5} = [bin_dir, filesep, 'iconv.lib'];
+  lib{6} = [bin_dir, filesep, 'iconv.dll'];
+  lib{7} = [bin_dir, filesep, 'bzip2.lib'];
+  lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+
+  found = 1;
+  for i = 1:8
+    if (exist(lib{i}) ~= 0)
+      disp(sprintf('%s found', lib{i}));
     else
-      disp('All dependencies found');
+      disp(sprintf('%s not found', lib{i}));
+      found = 0;
     end;
+  end; 
+
+  if (found == 0)
+    error (sprintf('Not all dependencies could be found\n%s%s', ...
+    'the libSBML source tree expects the dependencies to be in ', bin_dir));
+  else
+    disp('All dependencies found');
   end;
   
   % check that the include directory exists
   include_dir = [root, filesep, 'include'];
-  disp(sprintf('Checking for the %s directory ...', include_dir));
+  disp(sprintf('Checking for the %s directory ...\n', include_dir));
   if (exist(include_dir, 'dir') ~= 7)
-    error (sprintf('%s not found\n%s', include_dir, ...
-      'the libSBML source tree expects this directory to exist'));
+      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', include_dir, ... 
+          'The build process assumes that the libsbml include files', ...
+          'exist at', include_dir));
+      message = sprintf('\n%s\n%s', ...
+          'if they are in another directory please enter the ', ...
+          'full path to reach the directory from this directory: ');
+      new_inc_dir = input(message, 's');
+        
+      if (exist(new_inc_dir, 'dir') == 0)
+          error('include files could not be found');
+      else
+        include_dir = new_inc_dir;
+      end;
   end;
   
   if (ismatlab)
