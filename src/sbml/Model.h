@@ -161,7 +161,7 @@ delete newsp;
  * @section checking Consistency and adherence to SBML specifications
  *
  * To make it easier for applications to do whatever they need,
- * libSBML versions @htmlinclude libsbml-version.html is relatively lax when it comes to enforcing
+ * libSBML version @htmlinclude libsbml-version.html is relatively lax when it comes to enforcing
  * correctness and completeness of models @em during model construction and
  * editing.  Essentially, libSBML @em will @em not in most cases check
  * automatically that a model's components have valid attribute values, or
