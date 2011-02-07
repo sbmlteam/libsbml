@@ -2184,12 +2184,8 @@ START_CONSTRAINT (99129, KineticLaw, kl)
   pre (m.getLevel() == 1);
   pre (kl.isSetFormula() == 1);
 
-  //msg =
-  //  "In a Level 1 model only predefined functions are permitted "
-  //   "within the KineticLaw formula. (L1V2 Appendix C)";
-
-
-  FormulaTokenizer_t * ft = FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
+  FormulaTokenizer_t * ft = 
+                 FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
   Token_t * t = FormulaTokenizer_nextToken (ft);
 
   const Compartment * c;
@@ -2212,6 +2208,7 @@ START_CONSTRAINT (99129, KineticLaw, kl)
 
       if (c == NULL && s == NULL && p == NULL && p1 == NULL)
       {
+        /* defined functions */
         inv_or (strcmp(t->value.name, "abs") == 0);
         inv_or (strcmp(t->value.name, "acos") == 0);
         inv_or (strcmp(t->value.name, "asin") == 0);
@@ -2227,6 +2224,224 @@ START_CONSTRAINT (99129, KineticLaw, kl)
         inv_or (strcmp(t->value.name, "sqrt") == 0);
         inv_or (strcmp(t->value.name, "sin") == 0);
         inv_or (strcmp(t->value.name, "tan") == 0);
+        /* predefined rate laws */
+        inv_or (strcmp(t->value.name, "mass") == 0);
+        inv_or (strcmp(t->value.name, "uui") == 0);
+        inv_or (strcmp(t->value.name, "uur") == 0);
+        inv_or (strcmp(t->value.name, "uuhr") == 0);
+        inv_or (strcmp(t->value.name, "isouur") == 0);
+        inv_or (strcmp(t->value.name, "hilli") == 0);
+        inv_or (strcmp(t->value.name, "hillr") == 0);
+        inv_or (strcmp(t->value.name, "hillmr") == 0);
+        inv_or (strcmp(t->value.name, "hillmmr") == 0);
+        inv_or (strcmp(t->value.name, "usii") == 0);
+        inv_or (strcmp(t->value.name, "usir") == 0);
+        inv_or (strcmp(t->value.name, "uai") == 0);
+        inv_or (strcmp(t->value.name, "ucii") == 0);
+        inv_or (strcmp(t->value.name, "ucir") == 0);
+        inv_or (strcmp(t->value.name, "unii") == 0);
+        inv_or (strcmp(t->value.name, "unir") == 0);
+        inv_or (strcmp(t->value.name, "uuci") == 0);
+        inv_or (strcmp(t->value.name, "uucr") == 0);
+        inv_or (strcmp(t->value.name, "umi") == 0);
+        inv_or (strcmp(t->value.name, "umr") == 0);
+        inv_or (strcmp(t->value.name, "uaii") == 0);
+        inv_or (strcmp(t->value.name, "uar") == 0);
+        inv_or (strcmp(t->value.name, "ucti") == 0);
+        inv_or (strcmp(t->value.name, "uctr") == 0);
+        inv_or (strcmp(t->value.name, "umai") == 0);
+        inv_or (strcmp(t->value.name, "umar") == 0);
+        inv_or (strcmp(t->value.name, "uhmi") == 0);
+        inv_or (strcmp(t->value.name, "uhmr") == 0);
+        inv_or (strcmp(t->value.name, "ualii") == 0);
+        inv_or (strcmp(t->value.name, "ordubr") == 0);
+        inv_or (strcmp(t->value.name, "ordbur") == 0);
+        inv_or (strcmp(t->value.name, "ordbbr") == 0);
+        inv_or (strcmp(t->value.name, "ppbr") == 0);
+      }
+    }
+
+    t = FormulaTokenizer_nextToken(ft);
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99129, AssignmentRule, ar)
+{
+  pre (m.getLevel() == 1);
+  pre (ar.isSetFormula() == 1);
+
+  //msg =
+  //  "In a Level 1 model only predefined functions are permitted "
+  //   "within the KineticLaw formula. (L1V2 Appendix C)";
+
+
+  FormulaTokenizer_t * ft = 
+    FormulaTokenizer_createFromFormula (ar.getFormula().c_str());
+  Token_t * t = FormulaTokenizer_nextToken (ft);
+
+  const Compartment * c;
+  const Species * s;
+  const Parameter * p;
+
+  /* loop through each token of the formula
+   * if it has type TT_NAME then it is either the id of some component
+   * of the model or the name of a function in which case 
+   * need to check whether it is defined
+   */
+  while (t->type != TT_END)
+  {
+    if (t->type == TT_NAME)
+    {
+      c = m.getCompartment(t->value.name);
+      s = m.getSpecies    (t->value.name);
+      p = m.getParameter  (t->value.name);
+
+      if (c == NULL && s == NULL && p == NULL)
+      {
+        /* defined functions */
+        inv_or (strcmp(t->value.name, "abs") == 0);
+        inv_or (strcmp(t->value.name, "acos") == 0);
+        inv_or (strcmp(t->value.name, "asin") == 0);
+        inv_or (strcmp(t->value.name, "atan") == 0);
+        inv_or (strcmp(t->value.name, "ceil") == 0);
+        inv_or (strcmp(t->value.name, "cos") == 0);
+        inv_or (strcmp(t->value.name, "exp") == 0);
+        inv_or (strcmp(t->value.name, "floor") == 0);
+        inv_or (strcmp(t->value.name, "log") == 0);
+        inv_or (strcmp(t->value.name, "log10") == 0);
+        inv_or (strcmp(t->value.name, "pow") == 0);
+        inv_or (strcmp(t->value.name, "sqr") == 0);
+        inv_or (strcmp(t->value.name, "sqrt") == 0);
+        inv_or (strcmp(t->value.name, "sin") == 0);
+        inv_or (strcmp(t->value.name, "tan") == 0);
+        /* predefined rate laws */
+        inv_or (strcmp(t->value.name, "mass") == 0);
+        inv_or (strcmp(t->value.name, "uui") == 0);
+        inv_or (strcmp(t->value.name, "uur") == 0);
+        inv_or (strcmp(t->value.name, "uuhr") == 0);
+        inv_or (strcmp(t->value.name, "isouur") == 0);
+        inv_or (strcmp(t->value.name, "hilli") == 0);
+        inv_or (strcmp(t->value.name, "hillr") == 0);
+        inv_or (strcmp(t->value.name, "hillmr") == 0);
+        inv_or (strcmp(t->value.name, "hillmmr") == 0);
+        inv_or (strcmp(t->value.name, "usii") == 0);
+        inv_or (strcmp(t->value.name, "usir") == 0);
+        inv_or (strcmp(t->value.name, "uai") == 0);
+        inv_or (strcmp(t->value.name, "ucii") == 0);
+        inv_or (strcmp(t->value.name, "ucir") == 0);
+        inv_or (strcmp(t->value.name, "unii") == 0);
+        inv_or (strcmp(t->value.name, "unir") == 0);
+        inv_or (strcmp(t->value.name, "uuci") == 0);
+        inv_or (strcmp(t->value.name, "uucr") == 0);
+        inv_or (strcmp(t->value.name, "umi") == 0);
+        inv_or (strcmp(t->value.name, "umr") == 0);
+        inv_or (strcmp(t->value.name, "uaii") == 0);
+        inv_or (strcmp(t->value.name, "uar") == 0);
+        inv_or (strcmp(t->value.name, "ucti") == 0);
+        inv_or (strcmp(t->value.name, "ucii") == 0);
+        inv_or (strcmp(t->value.name, "umai") == 0);
+        inv_or (strcmp(t->value.name, "umar") == 0);
+        inv_or (strcmp(t->value.name, "uhmi") == 0);
+        inv_or (strcmp(t->value.name, "uhmr") == 0);
+        inv_or (strcmp(t->value.name, "ualii") == 0);
+        inv_or (strcmp(t->value.name, "ordubr") == 0);
+        inv_or (strcmp(t->value.name, "ordbur") == 0);
+        inv_or (strcmp(t->value.name, "ordbbr") == 0);
+        inv_or (strcmp(t->value.name, "ppbr") == 0);
+      }
+    }
+
+    t = FormulaTokenizer_nextToken(ft);
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (99129, RateRule, rr)
+{
+  pre (m.getLevel() == 1);
+  pre (rr.isSetFormula() == 1);
+
+  //msg =
+  //  "In a Level 1 model only predefined functions are permitted "
+  //   "within the KineticLaw formula. (L1V2 Appendix C)";
+
+
+  FormulaTokenizer_t * ft = 
+    FormulaTokenizer_createFromFormula (rr.getFormula().c_str());
+  Token_t * t = FormulaTokenizer_nextToken (ft);
+
+  const Compartment * c;
+  const Species * s;
+  const Parameter * p;
+
+  /* loop through each token of the formula
+   * if it has type TT_NAME then it is either the id of some component
+   * of the model or the name of a function in which case 
+   * need to check whether it is defined
+   */
+  while (t->type != TT_END)
+  {
+    if (t->type == TT_NAME)
+    {
+      c = m.getCompartment(t->value.name);
+      s = m.getSpecies    (t->value.name);
+      p = m.getParameter  (t->value.name);
+
+      if (c == NULL && s == NULL && p == NULL)
+      {
+        /* defined functions */
+        inv_or (strcmp(t->value.name, "abs") == 0);
+        inv_or (strcmp(t->value.name, "acos") == 0);
+        inv_or (strcmp(t->value.name, "asin") == 0);
+        inv_or (strcmp(t->value.name, "atan") == 0);
+        inv_or (strcmp(t->value.name, "ceil") == 0);
+        inv_or (strcmp(t->value.name, "cos") == 0);
+        inv_or (strcmp(t->value.name, "exp") == 0);
+        inv_or (strcmp(t->value.name, "floor") == 0);
+        inv_or (strcmp(t->value.name, "log") == 0);
+        inv_or (strcmp(t->value.name, "log10") == 0);
+        inv_or (strcmp(t->value.name, "pow") == 0);
+        inv_or (strcmp(t->value.name, "sqr") == 0);
+        inv_or (strcmp(t->value.name, "sqrt") == 0);
+        inv_or (strcmp(t->value.name, "sin") == 0);
+        inv_or (strcmp(t->value.name, "tan") == 0);
+        /* predefined rate laws */
+        inv_or (strcmp(t->value.name, "mass") == 0);
+        inv_or (strcmp(t->value.name, "uui") == 0);
+        inv_or (strcmp(t->value.name, "uur") == 0);
+        inv_or (strcmp(t->value.name, "uuhr") == 0);
+        inv_or (strcmp(t->value.name, "isouur") == 0);
+        inv_or (strcmp(t->value.name, "hilli") == 0);
+        inv_or (strcmp(t->value.name, "hillr") == 0);
+        inv_or (strcmp(t->value.name, "hillmr") == 0);
+        inv_or (strcmp(t->value.name, "hillmmr") == 0);
+        inv_or (strcmp(t->value.name, "usii") == 0);
+        inv_or (strcmp(t->value.name, "usir") == 0);
+        inv_or (strcmp(t->value.name, "uai") == 0);
+        inv_or (strcmp(t->value.name, "ucii") == 0);
+        inv_or (strcmp(t->value.name, "ucir") == 0);
+        inv_or (strcmp(t->value.name, "unii") == 0);
+        inv_or (strcmp(t->value.name, "unir") == 0);
+        inv_or (strcmp(t->value.name, "uuci") == 0);
+        inv_or (strcmp(t->value.name, "uucr") == 0);
+        inv_or (strcmp(t->value.name, "umi") == 0);
+        inv_or (strcmp(t->value.name, "umr") == 0);
+        inv_or (strcmp(t->value.name, "uaii") == 0);
+        inv_or (strcmp(t->value.name, "uar") == 0);
+        inv_or (strcmp(t->value.name, "ucti") == 0);
+        inv_or (strcmp(t->value.name, "ucii") == 0);
+        inv_or (strcmp(t->value.name, "umai") == 0);
+        inv_or (strcmp(t->value.name, "umar") == 0);
+        inv_or (strcmp(t->value.name, "uhmi") == 0);
+        inv_or (strcmp(t->value.name, "uhmr") == 0);
+        inv_or (strcmp(t->value.name, "ualii") == 0);
+        inv_or (strcmp(t->value.name, "ordubr") == 0);
+        inv_or (strcmp(t->value.name, "ordbur") == 0);
+        inv_or (strcmp(t->value.name, "ordbbr") == 0);
+        inv_or (strcmp(t->value.name, "ppbr") == 0);
       }
     }
 

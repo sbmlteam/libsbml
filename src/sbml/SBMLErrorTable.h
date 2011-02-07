@@ -7869,7 +7869,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "In a Level 1 model, only predefined functions are permitted "
-    "within the formula inside the KineticLaw. (L1V2 Appendix C) "
+    "within the formula. (L1V2 Appendix C) "
   },
 
   //99206
