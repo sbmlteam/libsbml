@@ -29,8 +29,8 @@
  * All of the lists are optional, but if a given list container is present
  * within the model, the list must not be empty; that is, it must have
  * length one or more.  The following are the components and lists
- * permitted in different Levels and Versions of SBML as of this version
- * of libSBML (4.1):
+ * permitted in different Levels and Versions of SBML in libSBML
+ * version @htmlinclude libsbml-version.html:
  * <ul>
  * <li> In SBML Level 1, the components are: UnitDefinition, Compartment,
  * Species, Parameter, Rule, and Reaction.  Instances of the classes are
@@ -161,7 +161,7 @@ delete newsp;
  * @section checking Consistency and adherence to SBML specifications
  *
  * To make it easier for applications to do whatever they need,
- * libSBML versions&nbsp;4.x and&nbsp;5.x are relatively lax when it comes to enforcing
+ * libSBML versions @htmlinclude libsbml-version.html is relatively lax when it comes to enforcing
  * correctness and completeness of models @em during model construction and
  * editing.  Essentially, libSBML @em will @em not in most cases check
  * automatically that a model's components have valid attribute values, or

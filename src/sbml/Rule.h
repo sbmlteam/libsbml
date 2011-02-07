@@ -1457,7 +1457,7 @@ public:
    *
    * The returned value can be any of a number of different strings,
    * depending on the SBML Level in use and the kind of Rule object this
-   * is.  The rules as of libSBML 4.1.0 are the following:
+   * is.  The rules as of libSBML version @html libsbml-version.txt are the following:
    * <ul>
    * <li> (Level&nbsp;2 and&nbsp;3) RateRule: returns @c "rateRule"
    * <li> (Level&nbsp;2 and&nbsp;3) AssignmentRule: returns @c "assignmentRule" 

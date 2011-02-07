@@ -310,10 +310,10 @@ public:
    * The default SBML Level of new SBMLDocument objects.
    *
    * This "default level" corresponds to the most recent SBML specification
-   * Level available at the time this version of libSBML was released.  For
-   * this copy of libSBML, the value is <code>2</code>.  The default Level
-   * is used by SBMLDocument if no Level is explicitly specified at the
-   * time of the construction of an SBMLDocument instance. 
+   * Level available at the time libSBML version @htmlinclude libsbml-version.html
+   * was released.  For this copy of libSBML, the value is <code>3</code>.
+   * The default Level is used by SBMLDocument if no Level is explicitly
+   * specified at the time of the construction of an SBMLDocument instance.
    *
    * @return an integer indicating the most recent SBML specification Level
    * 
@@ -326,11 +326,12 @@ public:
    * The default Version of new SBMLDocument objects.
    *
    * This "default version" corresponds to the most recent SBML Version
-   * within the most recent Level of SBML available at the time this
-   * version of libSBML was released.  For this copy of libSBML, the value
-   * is <code>4</code>.  The default Version is used by SBMLDocument if no
-   * Version is explicitly specified at the time of the construction of an
-   * SBMLDocument instance.
+   * within the most recent Level of SBML available at the time libSBML
+   * version @htmlinclude libsbml-version.html was released.  For this copy
+   * of libSBML, the value is <code>1</code> (where the default Level of
+   * SBML is <code>3</code>).  The default Version is used by SBMLDocument
+   * if no Version is explicitly specified at the time of the construction
+   * of an SBMLDocument instance.
    *
    * @return an integer indicating the most recent SBML specification
    * Version
