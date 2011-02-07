@@ -700,30 +700,18 @@ class TestSBase < Test::Unit::TestCase
 
   def test_SBase_appendNotesString
     notes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-    taggednewnotes = "<notes>\n"
-"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
- + 
+    taggednewnotes = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>"
-    taggednewnotes2 = "<notes>\n"
-"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
- + 
+    taggednewnotes2 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
     newnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>"
- + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-    newnotes3 = "<notes>\n"
-"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
-    newnotes4 = "<notes>\n"
-"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
- + 
+    newnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    newnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
+    newnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     assert( @@s.isSetNotes() == true )
@@ -749,73 +737,40 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_appendNotesString1
-    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <head>\n"
- + 
-    "    <title/>\n"
- + 
-    "  </head>\n"
- + 
-    "  <body>\n"
- + 
-    "    <p>This is a test note </p>\n"
- + 
-    "  </body>\n"
- + 
+    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
+    "  <body>\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "  </body>\n" + 
     "</html>"
-    taggednewnotes = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is a test note </p>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    taggednewnotes = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
-    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <head>\n"
- + 
-    "    <title/>\n"
- + 
-    "  </head>\n"
- + 
-    "  <body>\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
+    "  <body>\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</html>"
-    addnotes2 = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -830,51 +785,29 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_appendNotesString2
-    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <head>\n"
- + 
-    "    <title/>\n"
- + 
-    "  </head>\n"
- + 
-    "  <body>\n"
- + 
-    "    <p>This is a test note </p>\n"
- + 
-    "  </body>\n"
- + 
+    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
+    "  <body>\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "  </body>\n" + 
     "</html>"
-    taggednewnotes = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is a test note </p>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    taggednewnotes = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
-    addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <p>This is more test notes </p>\n" + "</body>\n";
-    addnotes2 = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>\n";
+    addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -889,74 +822,41 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_appendNotesString3
-    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <head>\n"
- + 
-    "    <title/>\n"
- + 
-    "  </head>\n"
- + 
-    "  <body>\n"
- + 
-    "    <p>This is a test note </p>\n"
- + 
-    "  </body>\n"
- + 
+    notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
+    "  <body>\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "  </body>\n" + 
     "</html>"
-    taggednewnotes = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is a test note </p>\n"
- + 
-    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    taggednewnotes = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
-    taggednewnotes2 = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is a test note </p>\n"
- + 
-    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + 
-    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    taggednewnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n";
-    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-    addnotes3 = "<notes>\n"
-"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
-    addnotes4 = "<notes>\n"
-"  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
- + 
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    addnotes3 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + "</notes>";
+    addnotes4 = "<notes>\n" + "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -981,61 +881,34 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_appendNotesString4
-    notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <p>This is a test note </p>\n" + "</body>";
-    taggednewnotes = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is a test note </p>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>";
+    taggednewnotes = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is a test note </p>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
-    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <head>\n"
- + 
-    "    <title/>\n"
- + 
-    "  </head>\n"
- + 
-    "  <body>\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
+    "  <body>\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</html>"
-    addnotes2 = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -1051,59 +924,33 @@ class TestSBase < Test::Unit::TestCase
 
   def test_SBase_appendNotesString5
     notes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-    taggednewnotes = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    taggednewnotes = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
-    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <head>\n"
- + 
-    "    <title/>\n"
- + 
-    "  </head>\n"
- + 
-    "  <body>\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <head>\n" + 
+    "    <title/>\n" + 
+    "  </head>\n" + 
+    "  <body>\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</html>"
-    addnotes2 = "<notes>\n"
- + 
-    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <head>\n"
- + 
-    "      <title/>\n"
- + 
-    "    </head>\n"
- + 
-    "    <body>\n"
- + 
-    "      <p>This is more test notes </p>\n"
- + 
-    "    </body>\n"
- + 
-    "  </html>\n"
- + 
+    addnotes2 = "<notes>\n" + 
+    "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <head>\n" + 
+    "      <title/>\n" + 
+    "    </head>\n" + 
+    "    <body>\n" + 
+    "      <p>This is more test notes </p>\n" + 
+    "    </body>\n" + 
+    "  </html>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -1118,29 +965,18 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_appendNotesString6
-    notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <p>This is a test note </p>\n" + "</body>";
-    taggednewnotes = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p>This is a test note </p>\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>";
+    taggednewnotes = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</notes>"
-    addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <p>This is more test notes </p>\n" + "</body>";
-    addnotes2 = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";
+    addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -1156,27 +992,17 @@ class TestSBase < Test::Unit::TestCase
 
   def test_SBase_appendNotesString7
     notes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-    taggednewnotes = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    taggednewnotes = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</notes>"
-    addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <p>This is more test notes </p>\n" + "</body>";
-    addnotes2 = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p>This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is more test notes </p>\n" + "</body>";
+    addnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -1191,46 +1017,28 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_appendNotesString8
-    notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-"  <p>This is a test note </p>\n" + "</body>";
-    taggednewnotes = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p>This is a test note </p>\n"
- + 
-    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
- + 
-    "  </body>\n"
- + 
+    notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + "  <p>This is a test note </p>\n" + "</body>";
+    taggednewnotes = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
+    "  </body>\n" + 
     "</notes>"
-    taggednewnotes2 = "<notes>\n"
- + 
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
- + 
-    "    <p>This is a test note </p>\n"
- + 
-    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + 
-    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
- + 
-    "  </body>\n"
- + 
+    taggednewnotes2 = "<notes>\n" + 
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n" + 
+    "    <p>This is a test note </p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
+    "  </body>\n" + 
     "</notes>"
     addnotes =  "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
-    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
-    addnotes3 = "<notes>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
- + 
+    addnotes2 = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>";
+    addnotes3 = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n" + 
     "</notes>"
-    addnotes4 = "<notes>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n"
- + 
-    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n"
- + 
+    addnotes4 = "<notes>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 1</p>\n" + 
+    "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes 2</p>\n" + 
     "</notes>"
     @@s.setNotes(notes)
     @@s.appendNotes(addnotes)
@@ -1360,26 +1168,16 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_setAnnotationWithNewTerm
-    annotation = "<annotation>\n"
- + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
- + 
-    "    <rdf:Description rdf:about=\"#meta1\">\n"
- + 
-    "      <bqmodel:isDerivedFrom>\n"
- + 
-    "        <rdf:Bag>\n"
- + 
-    "          <rdf:li rdf:resource=\"urn:miriam:biomodels.db:BIOMD0000000009\"/>\n"
- + 
-    "        </rdf:Bag>\n"
- + 
-    "      </bqmodel:isDerivedFrom>\n"
- + 
-    "    </rdf:Description>\n"
- + 
-    "</rdf:RDF>\n"
- + 
+    annotation = "<annotation>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#meta1\">\n" + 
+    "      <bqmodel:isDerivedFrom>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"urn:miriam:biomodels.db:BIOMD0000000009\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqmodel:isDerivedFrom>\n" + 
+    "    </rdf:Description>\n" + 
+    "</rdf:RDF>\n" + 
     "</annotation>\n"
   
     
@@ -1487,43 +1285,25 @@ class TestSBase < Test::Unit::TestCase
   end
 
   def test_SBase_unsetAnnotationWithCVTerms
-    annt = "<annotation>\n"
- + 
-    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
- + 
+    annt = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
     "</annotation>"
-    annt_with_cvterm = "<annotation>\n"
- + 
-    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
- + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
- + 
-    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
- + 
-    "xmlns:dcterms=\"http://purl.org/dc/terms/\" "
- + 
-    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" "
- + 
-    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" "
- + 
-    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
- + 
-    "    <rdf:Description rdf:about=\"#_000001\">\n"
- + 
-    "      <bqbiol:is>\n"
- + 
-    "        <rdf:Bag>\n"
- + 
-    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n"
- + 
-    "        </rdf:Bag>\n"
- + 
-    "      </bqbiol:is>\n"
- + 
-    "    </rdf:Description>\n"
- + 
-    "  </rdf:RDF>\n"
- + 
+    annt_with_cvterm = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <bqbiol:is>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005895\"/>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </bqbiol:is>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
     "</annotation>"
     @@s.setAnnotation(annt)
     assert( @@s.isSetAnnotation() == true )
@@ -1548,67 +1328,37 @@ class TestSBase < Test::Unit::TestCase
   def test_SBase_unsetAnnotationWithModelHistory
     h = LibSBML::ModelHistory.new()
     c = LibSBML::ModelCreator.new()
-    annt = "<annotation>\n"
- + 
-    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
- + 
+    annt = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
     "</annotation>"
-    annt_with_modelhistory = "<annotation>\n"
- + 
-    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n"
- + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" "
- + 
-    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
- + 
-    "xmlns:dcterms=\"http://purl.org/dc/terms/\" "
- + 
-    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" "
- + 
-    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" "
- + 
-    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
- + 
-    "    <rdf:Description rdf:about=\"#_000001\">\n"
- + 
-    "      <dc:creator>\n"
- + 
-    "        <rdf:Bag>\n"
- + 
-    "          <rdf:li rdf:parseType=\"Resource\">\n"
- + 
-    "            <vCard:N rdf:parseType=\"Resource\">\n"
- + 
-    "              <vCard:Family>Keating</vCard:Family>\n"
- + 
-    "              <vCard:Given>Sarah</vCard:Given>\n"
- + 
-    "            </vCard:N>\n"
- + 
-    "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n"
- + 
-    "          </rdf:li>\n"
- + 
-    "        </rdf:Bag>\n"
- + 
-    "      </dc:creator>\n"
- + 
-    "      <dcterms:created rdf:parseType=\"Resource\">\n"
- + 
-    "        <dcterms:W3CDTF>2005-12-29T12:15:45+02:00</dcterms:W3CDTF>\n"
- + 
-    "      </dcterms:created>\n"
- + 
-    "      <dcterms:modified rdf:parseType=\"Resource\">\n"
- + 
-    "        <dcterms:W3CDTF>2005-12-30T12:15:45+02:00</dcterms:W3CDTF>\n"
- + 
-    "      </dcterms:modified>\n"
- + 
-    "    </rdf:Description>\n"
- + 
-    "  </rdf:RDF>\n"
- + 
+    annt_with_modelhistory = "<annotation>\n" + 
+    "  <test:test xmlns:test=\"http://test.org/test\">this is a test node</test:test>\n" + 
+    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" " + 
+    "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" " + 
+    "xmlns:dcterms=\"http://purl.org/dc/terms/\" " + 
+    "xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" " + 
+    "xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" " + 
+    "xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
+    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
+    "      <dc:creator>\n" + 
+    "        <rdf:Bag>\n" + 
+    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
+    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
+    "              <vCard:Family>Keating</vCard:Family>\n" + 
+    "              <vCard:Given>Sarah</vCard:Given>\n" + 
+    "            </vCard:N>\n" + 
+    "            <vCard:EMAIL>sbml-team@caltech.edu</vCard:EMAIL>\n" + 
+    "          </rdf:li>\n" + 
+    "        </rdf:Bag>\n" + 
+    "      </dc:creator>\n" + 
+    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-12-29T12:15:45+02:00</dcterms:W3CDTF>\n" + 
+    "      </dcterms:created>\n" + 
+    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
+    "        <dcterms:W3CDTF>2005-12-30T12:15:45+02:00</dcterms:W3CDTF>\n" + 
+    "      </dcterms:modified>\n" + 
+    "    </rdf:Description>\n" + 
+    "  </rdf:RDF>\n" + 
     "</annotation>"
     @@s.setAnnotation(annt)
     assert( @@s.isSetAnnotation() == true )
