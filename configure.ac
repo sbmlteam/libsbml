@@ -357,6 +357,7 @@ AC_CONFIG_FILES([docs/src/doxygen-config-c.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-cpp.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-python.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-perl.txt])
+AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html])
 AC_CONFIG_FILES([docs/src/Makefile])
 
 AC_CONFIG_FILES([win/Makefile])
