@@ -1,6 +1,6 @@
 function build
 
-  [detected_os, matlab, root] = determine_system();
+  [detected_os, matlab, root, bit64] = determine_system();
 
   switch detected_os
     case 0
@@ -8,7 +8,7 @@ function build
         '***********************************************************************', ...
         'NOTE: libsbml must be built prior to running this script', ...
         '***********************************************************************'));
-      build_win(matlab, root);
+      build_win(matlab, root, bit64);
     case 1
       disp(sprintf('%s\n\n%s\n\n%s\n', ...
         '***********************************************************************', ...
@@ -27,7 +27,7 @@ function build
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check what we are using
-function [detected_os, matlab, root] = determine_system
+function [detected_os, matlab, root, bit64] = determine_system
 
   disp('Checking system ...');
   disp('Looking at software ...');
@@ -43,13 +43,19 @@ function [detected_os, matlab, root] = determine_system
   end;
 
   disp('Looking at OS ...');
+  bit64 = 0;
   % detected_os = [0, 1, 2]
   %      0 - windows
   %      1 - mac
   %      2 - unix
   if (ispc())
     detected_os = 0;
-    disp('Windows OS detected');
+    if (strcmp(computer(), 'PCWIN64') == 1)
+      bit64 = 1;
+      disp('Windows 64 bit OS detected');
+    else
+      disp('Windows 32 bit OS detected');
+    end;
   elseif(ismac())
     detected_os = 1;
     disp('Mac OS detected');
@@ -88,7 +94,7 @@ function report_incorrect_dir(this_dir, expected)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % build on windows
-function build_win(ismatlab, root)
+function build_win(ismatlab, root, bit64)
 
   % check that the win/bin directory exists
   bin_dir = [root, filesep, 'win', filesep, 'bin'];
@@ -110,15 +116,27 @@ function build_win(ismatlab, root)
   end;
 
   disp('Checking for libraries ...');
-  % check that the library files are all there
-  lib{1} = [bin_dir, filesep, 'libsbml.lib'];
-  lib{2} = [bin_dir, filesep, 'libsbml.dll'];
-  lib{3} = [bin_dir, filesep, 'libxml2.lib'];
-  lib{4} = [bin_dir, filesep, 'libxml2.dll'];
-  lib{5} = [bin_dir, filesep, 'iconv.lib'];
-  lib{6} = [bin_dir, filesep, 'iconv.dll'];
-  lib{7} = [bin_dir, filesep, 'bzip2.lib'];
-  lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+  if (bit64 == 0)
+    % check that the library files are all there
+    lib{1} = [bin_dir, filesep, 'libsbml.lib'];
+    lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+    lib{3} = [bin_dir, filesep, 'libxml2.lib'];
+    lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+    lib{5} = [bin_dir, filesep, 'iconv.lib'];
+    lib{6} = [bin_dir, filesep, 'iconv.dll'];
+    lib{7} = [bin_dir, filesep, 'bzip2.lib'];
+    lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+  else
+    % check that the library files are all there
+    lib{1} = [bin_dir, filesep, 'libsbml.lib'];
+    lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+    lib{3} = [bin_dir, filesep, 'libxml2.lib'];
+    lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+    lib{5} = [bin_dir, filesep, 'libiconv.lib'];
+    lib{6} = [bin_dir, filesep, 'libiconv.dll'];
+    lib{7} = [bin_dir, filesep, 'bzip2.lib'];
+    lib{8} = [bin_dir, filesep, 'libbz2.dll'];
+  end;
 
   found = 1;
   for i = 1:8
