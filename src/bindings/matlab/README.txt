@@ -7,7 +7,8 @@
 		     mailto:sbml-team@caltech.edu
 
 
-    Date of last update to this file: $Date$
+		  Date of last update to this file:
+	$Date$
 
 
 ---------------

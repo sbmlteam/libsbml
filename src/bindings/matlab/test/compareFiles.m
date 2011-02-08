@@ -3,7 +3,7 @@ function y = compareFiles(file1, file2)
 %  Filename    :   CompareFiles.m
 %  Description :
 %  Author(s)   :   SBML Development Group <sbml-team@caltech.edu>
-%  $Id: CompareFiles.m 7155 2008-06-26 20:24:00Z mhucka $
+%  $Id$
 %  $Source v $
 %
 %<!---------------------------------------------------------------------------

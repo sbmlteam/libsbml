@@ -6,20 +6,27 @@
  * $Id$
  * $HeadURL$
  *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2010 California Institute of Technology.
- * Copyright 2002-2005 California Institute of Technology and
- *                     Japan Science and Technology Corporation.
+ * Copyright (C) 2009-2011 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *  
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *  
+ * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
  * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  *
  * @class Model
  * @brief LibSBML implementation of %SBML's %Model construct.
@@ -29,8 +36,8 @@
  * All of the lists are optional, but if a given list container is present
  * within the model, the list must not be empty; that is, it must have
  * length one or more.  The following are the components and lists
- * permitted in different Levels and Versions of SBML in libSBML
- * version @htmlinclude libsbml-version.html:
+ * permitted in different Levels and Versions of SBML in
+ * version @htmlinclude libsbml-version.html of libSBML:
  * <ul>
  * <li> In SBML Level 1, the components are: UnitDefinition, Compartment,
  * Species, Parameter, Rule, and Reaction.  Instances of the classes are
@@ -3602,9 +3609,9 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/*-----------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
- *---------------------------------------------------------------------------*/
+ * --------------------------------------------------------------------------*/
 
 
 LIBSBML_EXTERN

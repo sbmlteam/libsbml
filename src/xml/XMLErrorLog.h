@@ -6,7 +6,7 @@
  * $Id$
  * $HeadURL$
  *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
@@ -19,7 +19,7 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  *
  * @class XMLErrorLog
  * @brief Log of errors and other events encountered while processing an XML
@@ -181,9 +181,9 @@ LIBSBML_CPP_NAMESPACE_END
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
-/*-----------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
- *---------------------------------------------------------------------------*/
+ * --------------------------------------------------------------------------*/
 
 
 LIBLAX_EXTERN

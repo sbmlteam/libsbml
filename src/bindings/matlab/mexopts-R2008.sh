@@ -40,7 +40,7 @@
 #SELECTION_TAG_MEX_OPT: Template Options file for building MEX-files via the system ANSI compiler
 #
 # Copyright 1984-2007 The MathWorks, Inc.
-# $Revision: 1.78.4.15 $  $Date: 2007/11/12 22:52:41 $
+# $Revision$  $Date$
 #----------------------------------------------------------------------------
 #
     TMW_ROOT="$MATLAB"

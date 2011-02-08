@@ -7,20 +7,27 @@
  * $Id$
  * $HeadURL$
  *
- *<!---------------------------------------------------------------------------
+ * <!--------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2005-2010 California Institute of Technology.
- * Copyright 2002-2005 California Institute of Technology and
- *                     Japan Science and Technology Corporation.
+ * Copyright (C) 2009-2011 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *  
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *  
+ * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
  * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * ------------------------------------------------------------------------ -->
  *
  * @class SBMLError
  * @brief Representation of errors, warnings and other diagnostics
@@ -371,7 +378,7 @@
  * check whether the error represents a low-level XML problem or an SBML
  * problem.
  * 
- * In libSBML version @htmlinclude libsbml-version.txt, there are no
+ * In libSBML version @htmlinclude libsbml-version.html there are no
  * additional severity codes in SBMLErrorSeverity_t beyond those defined in
  * @link XMLError::XMLErrorSeverity_t XMLErrorSeverity_t@endlink.
  * 
@@ -380,7 +387,7 @@
  * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
  * objects</h3>
  *
- * In libSBML version @htmlinclude libsbml-version.txt, there are no
+ * In libSBML version @htmlinclude libsbml-version.html there are no
  * additional severity codes beyond those defined by XMLError.  They are
  * implemented as static integer constants defined in the interface class
  * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>, and
@@ -389,7 +396,7 @@
  * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
  * objects</h3>
  *
- * In libSBML version @htmlinclude libsbml-version.txt, there are no
+ * In libSBML version @htmlinclude libsbml-version.html there are no
  * additional severity codes beyond those defined by XMLError.  They are
  * implemented as static integer constants defined in the interface class
  * @link libsbml libsbml@endlink, and have names beginning with

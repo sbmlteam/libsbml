@@ -9,8 +9,8 @@ function t=isoctave()
 % @brief   Returns true if using octave
 % @author  Sarah Keating
 %
-% $Id: isoctave.m 9730 2009-07-07 20:51:57Z sarahkeating $
-% $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/sbmldemo/src/util/isoctave.m $
+% $Id$
+% $HeadURL$
 %---------------------------------------------------------------
 %
 % ISOCTAVE.M

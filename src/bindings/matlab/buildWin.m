@@ -1,44 +1,35 @@
 % buildWin builds the TranslateSBML/OutputSBML executable in windows
 % environment
 
+% Filename    : buildWin.m
+% Description : MATLAB help file for BuildTranslate_Win32
+% Author(s)   : SBML Team <sbml-team@caltech.edu>
+% Organization: University of Hertfordshire STRC
+% Created     : 2003-09-15
+% Revision    : $Id$
+% $HeadURL$
 %
-%  Filename    : buildWin.m
-%  Description : MATLAB help file for BuildTranslate_Win32
-%  Author(s)   : SBML Team <sbml-team@caltech.edu>
-%  Organization: University of Hertfordshire STRC
-%  Created     : 2003-09-15
-%  Revision    : $Id: BuildTranslate_Win32.m 10124 2009-08-28 12:04:51Z sarahkeating $
-%  $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/trunk/libsbml/src/bindings/matlab/BuildTranslate_Win32.m $
+% This file is part of libSBML.  Please visit http://sbml.org for more
+% information about SBML, and the latest version of libSBML.
 %
-%  Copyright 2003 California Institute of Technology, the Japan Science
-%  and Technology Corporation, and the University of Hertfordshire
+% Copyright (C) 2009-2011 jointly by the following organizations: 
+%     1. California Institute of Technology, Pasadena, CA, USA
+%     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+%  
+% Copyright (C) 2006-2008 by the California Institute of Technology,
+%     Pasadena, CA, USA 
+%  
+% Copyright (C) 2002-2005 jointly by the following organizations: 
+%     1. California Institute of Technology, Pasadena, CA, USA
+%     2. Japan Science and Technology Agency, Japan
+% 
+% This library is free software; you can redistribute it and/or modify it
+% under the terms of the GNU Lesser General Public License as published by
+% the Free Software Foundation.  A copy of the license agreement is provided
+% in the file named "LICENSE.txt" included with this software distribution
+% and also available online as http://sbml.org/software/libsbml/license.html
 %
-%  This library is free software; you can redistribute it and/or modify it
-%  under the terms of the GNU Lesser General Public License as published
-%  by the Free Software Foundation; either version 2.1 of the License, or
-%  any later version.
-%
-%  This library is distributed in the hope that it will be useful, but
-%  WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-%  MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-%  documentation provided hereunder is on an "as is" basis, and the
-%  California Institute of Technology, the Japan Science and Technology
-%  Corporation, and the University of Hertfordshire have no obligations to
-%  provide maintenance, support, updates, enhancements or modifications.  In
-%  no event shall the California Institute of Technology, the Japan Science
-%  and Technology Corporation or the University of Hertfordshire be liable
-%  to any party for direct, indirect, special, incidental or consequential
-%  damages, including lost profits, arising out of the use of this software
-%  and its documentation, even if the California Institute of Technology
-%  and/or Japan Science and Technology Corporation and/or University of
-%  Hertfordshire have been advised of the possibility of such damage.  See
-%  the GNU Lesser General Public License for more details.
-%
-%  You should have received a copy of the GNU Lesser General Public License
-%  along with this library; if not, write to the Free Software Foundation,
-%  Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-%
-%  The original code contained here was initially developed by:
+% The original code contained here was initially developed by:
 %
 %      Sarah Keating
 %      Science and Technology Research Centre
@@ -49,8 +40,8 @@
 %      http://www.sbml.org
 %      mailto:sbml-team@caltech.edu
 %
-%  Contributor(s):
-%
+% Contributor(s):
+
 % buildWin builds the TranslateSBML executable in windows
 % environment
 

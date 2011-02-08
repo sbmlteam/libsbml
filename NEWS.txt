@@ -98,6 +98,11 @@ Version 4.3.0 (Released 2011-??-??)
     or higher.  This is to avoid a problem where the C# bindings will
     not work with .NET 4 with SWIG versions prior to 2.0.0.
 
+* Miscellaneous changes
+
+  - We've updated the copyright statements.
+
+
 ======================================================================
 Version 4.2.0 (Released 2010-10-05)
 ======================================================================

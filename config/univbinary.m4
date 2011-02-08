@@ -11,9 +11,16 @@ dnl <!-------------------------------------------------------------------------
 dnl This file is part of libSBML.  Please visit http://sbml.org for more
 dnl information about SBML, and the latest version of libSBML.
 dnl
-dnl Copyright 2005-2010 California Institute of Technology.
-dnl Copyright 2002-2005 California Institute of Technology and
-dnl                     Japan Science and Technology Corporation.
+dnl Copyright (C) 2009-2011 jointly by the following organizations: 
+dnl     1. California Institute of Technology, Pasadena, CA, USA
+dnl     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+dnl  
+dnl Copyright (C) 2006-2008 by the California Institute of Technology,
+dnl     Pasadena, CA, USA 
+dnl  
+dnl Copyright (C) 2002-2005 jointly by the following organizations: 
+dnl     1. California Institute of Technology, Pasadena, CA, USA
+dnl     2. Japan Science and Technology Agency, Japan
 dnl 
 dnl This library is free software; you can redistribute it and/or modify it
 dnl under the terms of the GNU Lesser General Public License as published by
