@@ -70,7 +70,7 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
                    [use the libxml2 XML library @<:@default=yes@:>@]),
             [with_libxml="$withval"])
 
-  if test -n "$with_libxml" -a "$with_libxml" != "no"; then
+  if test "$default_libxml" = "yes" -o "$with_libxml" != "no"; then
 
     if test -n "$with_xerces" -a "$with_xerces" != "no"; then
       AC_MSG_ERROR([
@@ -93,11 +93,8 @@ appropriately, then re-run 'configure'.
     fi
 
     if test "$with_libxml" != "yes"; then
-      xml_config_args="$xml_config_args --prefix=$with_libxml"
-      if test -n "$XML2_CONFIG" ; then
-	dnl The XML2_CONFIG environment variable is set, so use that.
-        XML2_CONFIG=$with_libxml/bin/xml2-config
-      else
+      xml_config_args="--prefix=$with_libxml"
+      if test -z "$XML2_CONFIG" ; then
         dnl The XML2_CONFIG environment variable is not set.  Look for
 	dnl xml2-config in the path given by $with_libxml
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [$with_libxml/bin])
@@ -317,6 +314,7 @@ main()
     AC_SUBST(LIBXML_CPPFLAGS)
     AC_SUBST(LIBXML_LDFLAGS)
     AC_SUBST(LIBXML_LIBS)
+    AC_SUBST(XML2_CONFIG)
     rm -f conf.xmltest
 
     AC_SUBST(XML_PARSER, [libxml2])
