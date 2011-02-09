@@ -2205,7 +2205,7 @@ namespace LibSBMLCSTest {
   
     public void test_SBMLNamespaces_constructor()
     {
-      SBase s; 
+      SBMLNamespaces s; 
   
       try
       {
