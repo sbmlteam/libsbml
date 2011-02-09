@@ -28,6 +28,10 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
+#ifndef EchoHandler_h
+#define EchoHandler_h
+
+ 
 #include <string>
 #include <sbml/xml/XMLHandler.h>
 
