@@ -1256,16 +1256,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new ModifierSpeciesReference((ModifierSpeciesReference) null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_StoichiometryMath_constructor()
@@ -1974,16 +1964,7 @@ namespace LibSBMLCSTest {
       assertTrue(msg == ErrMsg);
 	  
 	  msg = "";
-  
-      try
-      {
-        s = new AssignmentRule((AssignmentRule)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
+        
     }
   
   
@@ -2038,18 +2019,7 @@ namespace LibSBMLCSTest {
          msg = e.Message;
       }
       assertTrue(msg == ErrMsg);
-	  
-	  msg = "";
-  
-      try
-      {
-        s = new AlgebraicRule((AlgebraicRule)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
+	  	
     }
   
     public void test_RateRule_constructor()
@@ -2103,17 +2073,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-  
-      try
-      {
-        s = new RateRule((RateRule)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
 	
 	public void test_Priority_constructor()
@@ -2258,7 +2217,7 @@ namespace LibSBMLCSTest {
       }
       assertTrue(s != null);
   
-      msg = "";
+      string msg = "";
   
       try
       {
