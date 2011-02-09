@@ -118,6 +118,7 @@ namespace LibSBMLCSTest {
     }
   
     private string ErrMsg = "Level/version/namespaces combination is invalid";
+	// can't occur as this is caught by SWIG
     private string ErrMsg1 = "Null argument to copy constructor";
     // can't really occur
 	private string ErrMsg2 = "Null argument to assignment operator";
@@ -239,16 +240,6 @@ namespace LibSBMLCSTest {
       }
 	  assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new CompartmentType((CompartmentType)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-	  assertTrue(msg == ErrMsg1);
 	  
     }
   
@@ -315,17 +306,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new Compartment((Compartment)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_Constraint_constructor()
@@ -437,17 +417,6 @@ namespace LibSBMLCSTest {
          msg = e.Message;
       }
       assertTrue(msg == ErrMsg);
-  
-	  msg = "";
-      try
-      {
-        s = new Constraint((Constraint)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
   
     }
   
@@ -561,16 +530,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
   
-      msg = "";
-      try
-      {
-        s = new InitialAssignment((InitialAssignment)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_Species_constructor()
@@ -624,17 +583,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	   msg = "";
-      
-      try
-      {
-        s = new Species((Species)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_SpeciesType_constructor()
@@ -744,18 +692,7 @@ namespace LibSBMLCSTest {
          msg = e.Message;
       }
       assertTrue(msg == ErrMsg);
-	  
-	   msg = "";
-      try
-      {
-        s = new SpeciesType((SpeciesType)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
-  
+	   
     }
   
     public void test_Delay_constructor()
@@ -847,17 +784,7 @@ namespace LibSBMLCSTest {
          msg = e.Message;
       }
       assertTrue(msg == ErrMsg);
-	  
-	  msg = "";
-      try
-      {
-        s = new Delay((Delay)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
+	  	  
     }
   
     public void test_Trigger_constructor()
@@ -950,16 +877,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new Trigger((Trigger)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_Event_constructor()
@@ -1052,16 +969,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new Event((Event)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_EventAssignment_constructor()
@@ -1154,16 +1061,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new EventAssignment((EventAssignment)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_ModifierSpeciesReference_constructor()
@@ -1346,17 +1243,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new StoichiometryMath((StoichiometryMath)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
-	  
     }
   
   
@@ -1411,17 +1297,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new SpeciesReference((SpeciesReference)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_FunctionDefinition_constructor()
@@ -1514,17 +1389,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      try
-      {
-        s = new FunctionDefinition((FunctionDefinition)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
-	  
     }
   
     public void test_KineticLaw_constructor()
@@ -1578,17 +1442,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new KineticLaw((KineticLaw)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
   
@@ -1643,17 +1496,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new Model((Model)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_Parameter_constructor()
@@ -1707,17 +1549,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new Parameter((Parameter)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_Reaction_constructor()
@@ -1771,17 +1602,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new Reaction((Reaction)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_Unit_constructor()
@@ -1835,17 +1655,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new Unit((Unit)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg);
     }
   
     public void test_UnitDefinition_constructor()
@@ -1899,17 +1708,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-      
-      try
-      {
-        s = new UnitDefinition((UnitDefinition)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_AssignmentRule_constructor()
@@ -2126,17 +1924,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-  
-      try
-      {
-        s = new Priority((Priority)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
 	
 	public void test_LocalParameter_constructor()
@@ -2190,17 +1977,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-  
-      try
-      {
-        s = new LocalParameter((LocalParameter)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   
     public void test_SBMLNamespaces_constructor()
@@ -2217,17 +1993,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(s != null);
   
-      string msg = "";
-  
-      try
-      {
-        s = new SBMLNamespaces((SBMLNamespaces)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
 	
 	public void test_SBMLDocument_constructor()
@@ -2281,17 +2046,6 @@ namespace LibSBMLCSTest {
       }
       assertTrue(msg == ErrMsg);
 	  
-	  msg = "";
-  
-      try
-      {
-        s = new SBMLDocument((SBMLDocument)null);
-      }
-      catch (SBMLConstructorException e)
-      {
-         msg = e.Message;
-      }
-      assertTrue(msg == ErrMsg1);
     }
   }
 }            
