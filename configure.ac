@@ -226,7 +226,7 @@ AC_CHECK_LIB(m, isnan)
 CONFIG_LIB_EXPAT(1.95.8)
 CONFIG_LIB_XERCES
 if test "$with_expat" = "no" -a "$with_xerces" = "no"; then
-  with_libxml="yes"
+  default_libxml="yes"
 fi
 CONFIG_LIB_LIBXML(2.6.16)
 
@@ -254,6 +254,7 @@ AC_C_CONST
 AC_TYPE_SIZE_T
 AC_EXEEXT
 AC_OBJEXT
+
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for Sun cc.
@@ -507,9 +508,15 @@ echo "  LIBS                          = $LIBS $ZLIB_LIBS $BZ2_LIBS"
 echo ""
 echo "XML parser library configuration:"
 echo "  XML library                   = $xml_library"
+if test -n "$BUGGY_APPLE_LIBXML"; then
+  echo "  ($xml_library may be Apple's buggy version -- proceeding anyway.)"
+fi
 echo "  CPPFLAGS for XML              = $xml_cppflags"
 echo "  LDFLAGS for XML               = $xml_ldflags"
 echo "  LIBS for XML                  = $xml_libs"
+if test -n "$XML2_CONFIG"; then
+  echo "  XML2_CONFIG                   = $XML2_CONFIG"
+fi
 echo ""
 echo "Other ${PACKAGE_NAME} configuration settings:"
 echo "  Installation \$prefix          = $prefix"
