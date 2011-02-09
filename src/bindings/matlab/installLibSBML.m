@@ -109,26 +109,25 @@ function [detected_os, matlab, root, bit64, writeAccess, in_win_installer] = det
     [remain1, second] = fileparts(remain);
     [remain2, third] = fileparts(remain1);
    
-    if (strcmp(first, 'matlab') && strcmp(second, 'bindings'))
-      if (~strcmp(third, 'src'))
-        root = remain1;
+    if (strcmp(first, 'matlab') && strcmp(second, 'bindings') && ~strcmp(third, 'src'))
+      root = remain1;
+      in_win_installer = 1;
+    else
+      % we might be in the windows installer but in a location the user chose
+      % for the matlab bindings
+      % buildLibSBML will not exist in this directory
+      if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
         in_win_installer = 1;
-      else
-        % we might be in the windows installer but in a location the user chose
-        % for the matlab bindings
-        % buildLibSBML will not exist in this directory
-        if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
-          in_win_installer = 1;
-          count = 1;
-          while(exist(root, 'dir') == 0 && count < 3)
-            root = input(sprintf('%s: ', ...
-              'Please enter the location of the top-level libsbml directory'), 's');
-            count = count + 1;
-          end;
-         if (exist(root, 'dir') == 0)
-           error('Failed to find libsbml directory');
-         end;
+        count = 1;
+        while(exist(root, 'dir') == 0 && count < 3)
+          root = input(sprintf('%s: ', ...
+            'Please enter the location of the top-level libsbml directory'), 's');
+          count = count + 1;
         end;
+       if (exist(root, 'dir') == 0)
+         error('Failed to find libsbml directory');
+       end;
+        
       end;
     end;
   end;

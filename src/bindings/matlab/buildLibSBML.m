@@ -398,7 +398,7 @@ function buildMexFiles(include, library)
     copyfile('*.m', new_dir);
     copyfile('*.xml', new_dir);
     cd(new_dir);
-    delete ('buildLibSBML.m');
+%     delete ('buildLibSBML.m');
     
     % create test dir
     testdir = fullfile(pwd, 'test');
