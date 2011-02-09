@@ -212,10 +212,14 @@ function install_win(ismatlab, root, bit64, writeAccess, in_win_installer)
       % copy executables/scripts and library files 
       % cd to that dir
       this_dir = pwd;
-      user_dir = userpath;
-      user_dir = user_dir(1:length(user_dir)-1);
+	    if (ismatlab)
+        user_dir = userpath;
+        user_dir = user_dir(1:length(user_dir)-1);
+	    else
+	      user_dir = matlabroot;
+	    end;
       disp(sprintf('Copying library files to %s ...', user_dir)); 
-      if (copyLibraries(this_dir, user_dir, lib, root, bit64) == 1)
+      if (copyLibraries(this_dir, user_dir, lib, root, bit64, ismatlab) == 1)
         disp('Copy library files successful');
         disp('All dependencies found');
       else
@@ -350,15 +354,18 @@ function checkForExecutables()
 	  disp('Executables found');
 	end;
   else
-	if (~(exist(transFile) ~= 0 && exist(outFile) ~= 0))     
-	  error(sprintf('%s\n%s', 'Executables not found', ...
-		'Run the buildLibSBML script to build the relevant files'));
-	% which does not work in octave in the same way
-	% elseif (~((strcmp(which(transFile), pwd)) && ...
-	%			(strcmp(which(outFile), pwd))))     
-	% they exist but are they the right ones    
-	%  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
-	%	'Run the buildLibSBML script to build the relevant files for this installation'));
+    % octave is much more picky about whether the files exist
+	% it wants to find the libraries at the same time
+	% exist throws an exception if it cannot find them
+    if (~(myExist(transFile) ~= 0 && myExist(outFile) ~= 0))     
+	    error(sprintf('%s\n%s', 'Executables not found', ...
+		  'Run the buildLibSBML script to build the relevant files'));
+	  % which does not work in octave in the same way
+	  % elseif (~((strcmp(which(transFile), pwd)) && ...
+	  %			(strcmp(which(outFile), pwd))))     
+	  % they exist but are they the right ones    
+	  %  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
+	  %	'Run the buildLibSBML script to build the relevant files for this installation'));
 	else
 	  disp('Executables found');
 	end;
@@ -470,7 +477,7 @@ function success = testInstallation(ismatlab, in_win_installer)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % copies the library files to given directory
-function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64)
+function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64, ismatlab)
   
   copied = 0;
   cd (target_dir);
@@ -487,29 +494,40 @@ function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64)
   for i=1:8
     if (bit64 == 0)
       if (rem(i,2) == 1)
-        copyfile([root, filesep, 'win32', filesep, 'lib', filesep, lib{i}]);
+        copyfile([root, filesep, 'win32', filesep, 'lib', filesep, lib{i}], pwd);
       else
-        copyfile([root, filesep, 'win32', filesep, 'bin', filesep, lib{i}]);
+        copyfile([root, filesep, 'win32', filesep, 'bin', filesep, lib{i}], pwd);
       end;
     else
       if (rem(i,2) == 1)
-        copyfile([root, filesep, 'win64', filesep, 'lib', filesep, lib{i}]);
+        copyfile([root, filesep, 'win64', filesep, 'lib', filesep, lib{i}], pwd);
       else
-        copyfile([root, filesep, 'win64', filesep, 'bin', filesep, lib{i}]);
+        copyfile([root, filesep, 'win64', filesep, 'bin', filesep, lib{i}], pwd);
       end;
     end;
   end;
  % all files should be in this dir
   disp('Checking for library files ...');
   copied = 1;
-  for i = 1:8
-    if (strcmp(which(lib{i}), [pwd, filesep, lib{i}]))
-      disp(sprintf('%s found', lib{i}));
-    else
-      disp(sprintf('%s not found', lib{i}));
-      copied = 0;
-    end;
-  end; 
+  if (ismatlab)
+	  for i = 1:8
+		if (strcmp(which(lib{i}), [pwd, filesep, lib{i}]))
+		  disp(sprintf('%s found', lib{i}));
+		else
+		  disp(sprintf('%s not found', lib{i}));
+		  copied = 0;
+		end;
+	  end; 
+  else
+      for i = 1:8
+	    if (myExist(lib{i}) == 0)
+		  disp(sprintf('%s not found', lib{i}));
+		  copied = 0;
+		else
+		  disp(sprintf('%s found', lib{i}));
+		end;
+	  end;
+  end;
   cd(orig_dir);
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -536,4 +554,15 @@ function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64)
     % put in some tests here
     copied = 1;
     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function found = myExist(filename)
 
+  found = 0;
+  dirnames = dir(pwd);
+  i = 1;
+  while (found == 0 && i <= length(dirnames))
+    if (dirnames(i).isdir == 0)
+	  found = strcmp(dirnames(i).name, filename);
+	end;
+	i = i+1;
+  end;
