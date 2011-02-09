@@ -24538,9 +24538,7 @@ fi
 
       fi
     else
-            { $as_echo "$as_me:${as_lineno-$LINENO}: result: here" >&5
-$as_echo "here" >&6; }
-      if test x${XML2_CONFIG+set} != xset ; then
+            if test x${XML2_CONFIG+set} != xset ; then
                 # Extract the first word of "xml2-config", so it can be a program name with args.
 set dummy xml2-config; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
