@@ -102,7 +102,6 @@ appropriately, then re-run 'configure'.
       fi
     else
       dnl User did not supply a path with the flag.
-      AC_MSG_RESULT([here])
       if test x${XML2_CONFIG+set} != xset ; then
         dnl User did not set XML2_CONFIG either.  Try their default path.
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
