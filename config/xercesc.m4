@@ -40,7 +40,27 @@ AC_DEFUN([CONFIG_LIB_XERCES],
     [with_xerces="$withval"],
     [with_xerces=no])
 
-  if test $with_xerces != no; then
+  if test -n "$with_xerces" -a "$with_xerces" != "no"; then
+
+    if test -n "$with_expat" -a "$with_expat" != "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+In the command line you used to run 'configure', the options --with-xerces
+and --with-expat were both supplied.  It only makes sense to provide one
+or the other.  Please check your configuration options and modify them
+appropriately, then re-run 'configure'.
+***************************************************************************
+])
+    elif test -n "$with_libxml" -a "$with_libxml" != "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+In the command line you used to run 'configure', the options --with-xerces
+and --with-libxml were both supplied.  It only makes sense to provide one
+or the other.  Please check your configuration options and modify them
+appropriately, then re-run 'configure'.
+***************************************************************************
+])
+    fi
 
     AC_MSG_CHECKING([for Apache's Xerces-C++ XML library])
     AC_MSG_RESULT([])

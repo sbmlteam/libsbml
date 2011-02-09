@@ -68,13 +68,29 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
   AC_ARG_WITH([libxml],
     AC_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
                    [use the libxml2 XML library @<:@default=yes@:>@]),
-            [with_libxml="$withval"], [with_libxml=yes])
+            [with_libxml="$withval"])
 
-  if test "$with_expat" != "no" -o "$with_xerces" != "no"; then
-    with_libxml=no
-  fi
+  if test -n "$with_libxml" -a "$with_libxml" != "no"; then
 
-  if test "$with_libxml" != "no"; then
+    if test -n "$with_xerces" -a "$with_xerces" != "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+In the command line you used to run 'configure', the options --with-libxml
+and --with-xerces were both supplied.  It only makes sense to provide one
+or the other.  Please check your configuration options and modify them
+appropriately, then re-run 'configure'.
+***************************************************************************
+])
+    elif test -n "$with_expat" -a "$with_expat" != "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+In the command line you used to run 'configure', the options --with-libxml
+and --with-expat were both supplied.  It only makes sense to provide one
+or the other.  Please check your configuration options and modify them
+appropriately, then re-run 'configure'.
+***************************************************************************
+])
+    fi
 
     if test "$with_libxml" != "yes"; then
       xml_config_args="$xml_config_args --prefix=$with_libxml"
@@ -331,12 +347,6 @@ main()
         fi
       fi
     fi
-  elif test "$with_expat" = "no" -a "$with_xerces" = "no"; then
-    AC_MSG_ERROR([No XML parser was chosen. One of the underlying XML Parsers 
-                 (Expat, Xerces, or libXML) is required to build libSBML.
-                  Please rerun the configure script with --with-expat (Expat), 
-                  --with-xerces (Xerces) , or --with-libxml (LibXML) option. 
-                  By default, --with-libxml is enabled.])
   fi
 
 ])

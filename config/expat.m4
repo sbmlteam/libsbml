@@ -42,7 +42,27 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
     [with_expat=$withval],
     [with_expat=no])
 
-  if test $with_expat != no; then
+  if test -n "$with_expat" -a "$with_expat" != "no"; then
+
+    if test -n "$with_xerces" -a "$with_xerces" != "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+In the command line you used to run 'configure', the options --with-expat
+and --with-xerces were both supplied.  It only makes sense to provide one
+or the other.  Please check your configuration options and modify them
+appropriately, then re-run 'configure'.
+***************************************************************************
+])
+    elif test test -n "$with_libxml" -a "$with_libxml" != "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+In the command line you used to run 'configure', the options --with-expat
+and --with-libxml were both supplied.  It only makes sense to provide one
+or the other.  Please check your configuration options and modify them
+appropriately, then re-run 'configure'.
+***************************************************************************
+])
+    fi
 
     AC_LANG_PUSH(C)
 
@@ -262,10 +282,6 @@ int main ()
 
     AC_SUBST(XML_PARSER, [expat])
 
-  fi
-
-  if test $with_expat != no; then
-    with_xerces=no
   fi
 
   dnl We record the USE_XXX flag, for later testing in Makefiles.
