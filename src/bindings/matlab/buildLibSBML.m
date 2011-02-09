@@ -313,7 +313,8 @@ function build_mac(ismatlab, root)
   
   % build the files
   inc_flag = ['-I', include_dir];
-  buildMexFiles(inc_flag, lib{1}, ismatlab);
+  library = ['-L', lib{1}];
+  buildMexFiles(inc_flag, library, ismatlab);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % build on linux
@@ -355,7 +356,8 @@ function build_linux(ismatlab, root)
   
   % build the files
   inc_flag = ['-I', include_dir];
-  buildMexFiles(inc_flag, lib{1}, ismatlab);
+  library = ['-L', lib{1}];
+  buildMexFiles(inc_flag, library, ismatlab);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % runs the mex command for windows and matlab
