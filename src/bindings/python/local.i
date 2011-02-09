@@ -433,6 +433,7 @@ SBMLCONSTRUCTOR_EXCEPTION(StoichiometryMath)
 SBMLCONSTRUCTOR_EXCEPTION(Trigger)
 SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 
 // ----------------------------------------------------------------------
 // SBMLReader
