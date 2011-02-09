@@ -105,6 +105,7 @@ function [detected_os, matlab, root, bit64, writeAccess] = determine_system
   end;
 
   disp('Checking directory structure ...');
+  % THIS WILL BE octave/matlab dependant
   % need to check which directory we are in
   % if we are in the src directory we should 
   % be in directory ../src/bindings/matlab
@@ -113,15 +114,28 @@ function [detected_os, matlab, root, bit64, writeAccess] = determine_system
   [remain1, second] = fileparts(remain);
   [remain2, third] = fileparts(remain1);
 
-  if (~strcmp(first, 'matlab'))
-    report_incorrect_dir(pwd, '/src/bindings/matlab');
-  elseif (~strcmp(second, 'bindings'))
-    report_incorrect_dir(pwd, '/src/bindings/matlab');
-  elseif (~strcmp(third, 'src'))
-    report_incorrect_dir(pwd, '/src/bindings/matlab');
+  if (matlab == 1)
+    if (~strcmp(first, 'matlab'))
+	  report_incorrect_dir(pwd, '/src/bindings/matlab');
+    elseif (~strcmp(second, 'bindings'))
+	  report_incorrect_dir(pwd, '/src/bindings/matlab');
+    elseif (~strcmp(third, 'src'))
+	  report_incorrect_dir(pwd, '/src/bindings/matlab');
+    else
+	  root = remain2;
+	  disp('Expected directory structure found');
+    end;
   else
-    root = remain2;
-    disp('Expected directory structure found');
+    if (~strcmp(first, 'octave'))
+	  report_incorrect_dir(pwd, '/src/bindings/octave');
+    elseif (~strcmp(second, 'bindings'))
+	  report_incorrect_dir(pwd, '/src/bindings/octave');
+    elseif (~strcmp(third, 'src'))
+	  report_incorrect_dir(pwd, '/src/bindings/octave');
+    else
+	  root = remain2;
+	  disp('Expected directory structure found');
+	end;
   end;
 
   % check whether we have write access to this directory
@@ -250,15 +264,9 @@ function build_win(ismatlab, root, writeAccess, bit64)
     
   end; 
     
-  if (ismatlab)
-    % build the files
-    inc_flag = ['-I', include_dir];
-    buildMexFiles(inc_flag, lib{1});
-
-  else
-    % TO DO
-    disp('Build on octave');
-  end;
+  % build the files
+  inc_flag = ['-I', include_dir];
+  buildMexFiles(inc_flag, lib{1}, ismatlab);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -299,14 +307,9 @@ function build_mac(ismatlab, root)
       'the libSBML source tree expects this directory to exist'));
   end;
   
-  if (ismatlab)
-    % build the files
-    inc_flag = ['-I', include_dir];
-    buildMexFiles(inc_flag, lib{1});
-
-  else
-    disp('Build on octave');
-  end;
+  % build the files
+  inc_flag = ['-I', include_dir];
+  buildMexFiles(inc_flag, lib{1}, ismatlab);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % build on linux
@@ -346,32 +349,36 @@ function build_linux(ismatlab, root)
       'the libSBML source tree expects this directory to exist'));
   end;
   
-  if (ismatlab)
-    % build the files
-    inc_flag = ['-I', include_dir];
-    buildMexFiles(inc_flag, lib{1});
-
-  else
-    disp('Build on octave');
-  end;
+  % build the files
+  inc_flag = ['-I', include_dir];
+  buildMexFiles(inc_flag, lib{1}, ismatlab);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % runs the mex command for windows and matlab
 % the messy file handle stuff is because this seems to be the best way to 
 % be able to pass arguments to the function
-function buildMexFiles(include, library)
+function buildMexFiles(include, library, ismatlab)
 
-  fhandle = @mex;
-  disp('Building TranslateSBML ...');
-  feval(fhandle, 'TranslateSBML.c', include, library);
-  disp('Building OutputSBML ...');
-  feval(fhandle, 'OutputSBML.c', include, library);
+  if (ismatlab == 1)
+	fhandle = @mex;
+	disp('Building TranslateSBML ...');
+	feval(fhandle, 'TranslateSBML.c', include, library);
+	disp('Building OutputSBML ...');
+	feval(fhandle, 'OutputSBML.c', include, library);
+  else
+ 	fhandle = @mkoctfile;
+	disp('Building TranslateSBML ...');
+	feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', include, '-lbz2', '-lz', library);
+	disp('Building OutputSBML ...');
+	feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', include, '-lbz2', '-lz', library);
+%   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE include -lbz2 -lz library;
+  end;
 
   transFile = strcat('TranslateSBML.', mexext());
   outFile = strcat('OutputSBML.', mexext());
 
-  if ((exist(transFile) == 3 && ...
-      exist(outFile) == 3))      
+  if ((exist(transFile) ~= 0 && ...
+      exist(outFile) ~= 0))      
     disp(sprintf('%s\n%s', 'Build successful', ...
       'Now run the install script which will install and test the files'));
   else

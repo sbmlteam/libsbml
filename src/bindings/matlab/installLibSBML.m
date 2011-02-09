@@ -109,27 +109,49 @@ function [detected_os, matlab, root, bit64, writeAccess, in_win_installer] = det
     [remain1, second] = fileparts(remain);
     [remain2, third] = fileparts(remain1);
    
-    if (strcmp(first, 'matlab') && strcmp(second, 'bindings') && ~strcmp(third, 'src'))
-      root = remain1;
-      in_win_installer = 1;
-    else
+    if (matlab == 1)
+      if (strcmp(first, 'matlab') && strcmp(second, 'bindings') && ~strcmp(third, 'src'))
+        root = remain1;
+        in_win_installer = 1;
+      else
       % we might be in the windows installer but in a location the user chose
       % for the matlab bindings
       % buildLibSBML will not exist in this directory
-      if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
-        in_win_installer = 1;
-        count = 1;
-        while(exist(root, 'dir') == 0 && count < 3)
-          root = input(sprintf('%s: ', ...
-            'Please enter the location of the top-level libsbml directory'), 's');
-          count = count + 1;
+        if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
+          in_win_installer = 1;
+          count = 1;
+          while(exist(root, 'dir') == 0 && count < 3)
+            root = input(sprintf('%s: ', ...
+              'Please enter the location of the top-level libsbml directory'), 's');
+            count = count + 1;
+          end;
+          if (exist(root, 'dir') == 0)
+            error('Failed to find libsbml directory');
+          end;        
         end;
-       if (exist(root, 'dir') == 0)
-         error('Failed to find libsbml directory');
-       end;
-        
       end;
-    end;
+	else
+      if (strcmp(first, 'octave') && strcmp(second, 'bindings') && ~strcmp(third, 'src'))
+        root = remain1;
+        in_win_installer = 1;
+      else
+      % we might be in the windows installer but in a location the user chose
+      % for the matlab bindings
+      % buildLibSBML will not exist in this directory
+        if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
+          in_win_installer = 1;
+          count = 1;
+          while(exist(root, 'dir') == 0 && count < 3)
+            root = input(sprintf('%s: ', ...
+              'Please enter the location of the top-level libsbml directory'), 's');
+            count = count + 1;
+          end;
+          if (exist(root, 'dir') == 0)
+            error('Failed to find libsbml directory');
+          end;        
+        end;
+      end;
+	end;
   end;
 
   % check whether we have write access to this directory
@@ -315,17 +337,31 @@ function checkForExecutables()
   transFile = strcat('TranslateSBML.', mexext());
   outFile = strcat('OutputSBML.', mexext());
 
-  if (~(exist(transFile) == 3 && ...
-      exist(outFile) == 3))     
-    error(sprintf('%s\n%s', 'Executables not found', ...
-      'Run the buildLibSBML script to build the relevant files'));
-  elseif (~((strcmp(which(transFile), [pwd, filesep, transFile])) && ...
-            (strcmp(which(outFile), [pwd, filesep, outFile]))))     
-    % they exist are the the right ones         
-    error(sprintf('%s\n%s', 'Other executables from other installations found', ...
-            'Run the buildLibSBML script to build the relevant files for this installation'));
+  if (strcmp(isoctave(), '0'))
+	if (~(exist(transFile) ~= 0 && exist(outFile) ~= 0))     
+	  error(sprintf('%s\n%s', 'Executables not found', ...
+		'Run the buildLibSBML script to build the relevant files'));
+	elseif (~((strcmp(which(transFile), [pwd, filesep, transFile])) && ...
+				(strcmp(which(outFile), [pwd, filesep, outFile]))))     
+	% they exist but are they the right ones         
+	  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
+		'Run the buildLibSBML script to build the relevant files for this installation'));
+	else
+	  disp('Executables found');
+	end;
   else
-    disp('Executables found');
+	if (~(exist(transFile) ~= 0 && exist(outFile) ~= 0))     
+	  error(sprintf('%s\n%s', 'Executables not found', ...
+		'Run the buildLibSBML script to build the relevant files'));
+	% which does not work in octave in the same way
+	% elseif (~((strcmp(which(transFile), pwd)) && ...
+	%			(strcmp(which(outFile), pwd))))     
+	% they exist but are they the right ones    
+	%  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
+	%	'Run the buildLibSBML script to build the relevant files for this installation'));
+	else
+	  disp('Executables found');
+	end;
   end;
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -380,10 +416,56 @@ function success = testInstallation(ismatlab, in_win_installer)
         end;
       end;
     end;
-
   else
-    % TO DO
-    disp('install on octave');
+    success = 1;
+    try
+      disp('checking for TranslateSBML');
+      M = TranslateSBML('test.xml');
+    catch
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
+      success = 0;
+    end;
+
+    outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
+    if (success == 1)
+      try
+        disp('checking OutputSBML');
+        OutputSBML(M, outFile);
+      catch
+      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your matlab path'));
+        success = 0;
+      end;
+    end;
+    if (in_win_installer == 0)
+      if (success == 1)
+        disp ('running tests for TranslateSBML');
+        cd test;
+        pass = testBinding(1);
+        cd ..;
+        if (pass == 0)
+          disp('TranslateSBML successful');
+        else
+          disp('Binding present but problem detected. Seek help.');
+          success = 0;
+        end;
+      end;
+
+      if (success == 1)
+        disp('running tests for OutputSBML');
+        cd test;
+        pass = testOutput([tempdir, 'temp']);
+        cd ..;
+        if (pass == 0)
+          disp('OutputSBML successful');
+        else
+          disp('Output function present but problem detected. Seek help.');
+          success = 0;
+        end;
+      end;
+    end;
+
   end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
