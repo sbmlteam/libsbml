@@ -1,5 +1,3 @@
-## @configure_input@
-##
 ## Filename    : makefile-common-actions.mk
 ## Description : Makefile include file containing common actions
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
