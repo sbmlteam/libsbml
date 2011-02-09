@@ -237,8 +237,12 @@ function build_win(ismatlab, root, writeAccess, bit64)
   if (writeAccess == 0)% must be 0; 1 is for testing
     % create a new dir in the users path
     this_dir = pwd;
-    user_dir = userpath;
-    user_dir = user_dir(1:length(user_dir)-1);
+	  if (ismatlab)
+      user_dir = userpath;
+      user_dir = user_dir(1:length(user_dir)-1);
+    else
+	    user_dir = matlabroot;
+	  end;
     disp(sprintf('Copying library files to %s ...', user_dir)); 
     if (copyLibraries(this_dir, user_dir, lib) == 1)
       disp('Copy library files successful');
