@@ -3,7 +3,7 @@
 # libtoolize.sh
 #
 # Please run this script when importing or updating libtool resources 
-# for libSBML, and then run ./autogen.sh to update configure script.
+# for libSBML, and then run "make configure" to update configure.
 #
 # This script will create or update the following files:
 #
