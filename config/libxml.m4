@@ -68,7 +68,8 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
   AC_ARG_WITH([libxml],
     AC_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
                    [use the libxml2 XML library @<:@default=yes@:>@]),
-            [with_libxml="$withval"])
+            [with_libxml="$withval"],
+            [with_libxml=no])
 
   if test "$default_libxml" = "yes" -o "$with_libxml" != "no"; then
 
@@ -92,7 +93,7 @@ appropriately, then re-run 'configure'.
 ])
     fi
 
-    if test "$with_libxml" != "yes"; then
+    if test -n "$with_libxml" -a "$with_libxml" != "yes"; then
       xml_config_args="--prefix=$with_libxml"
       if test -z "$XML2_CONFIG" ; then
         dnl The XML2_CONFIG environment variable is not set.  Look for
@@ -101,6 +102,7 @@ appropriately, then re-run 'configure'.
       fi
     else
       dnl User did not supply a path with the flag.
+      AC_MSG_RESULT([here])
       if test x${XML2_CONFIG+set} != xset ; then
         dnl User did not set XML2_CONFIG either.  Try their default path.
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no)

@@ -423,12 +423,12 @@ dnl ---------------------------------------------------------------------------
 dnl Gather up the values of the flags into one set of variables for easier
 dnl printing below.
 
-if test $with_expat != no; then
+if test "$with_expat" != "no"; then
   xml_library="Expat"
   xml_cppflags=$EXPAT_CPPFLAGS
   xml_ldflags=$EXPAT_LDFLAGS
   xml_libs=$EXPAT_LIBS
-elif test $with_libxml != no; then
+elif test "$with_libxml" != "no"; then
   xml_library="libxml2"
   xml_cppflags=$LIBXML_CPPFLAGS
   xml_ldflags=$LIBXML_LDFLAGS
