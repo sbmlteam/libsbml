@@ -428,7 +428,7 @@ if test "$with_expat" != "no"; then
   xml_cppflags=$EXPAT_CPPFLAGS
   xml_ldflags=$EXPAT_LDFLAGS
   xml_libs=$EXPAT_LIBS
-elif test "$with_libxml" != "no"; then
+elif test "$with_libxml" != "no" -o "$default_libxml" = "yes"; then
   xml_library="libxml2"
   xml_cppflags=$LIBXML_CPPFLAGS
   xml_ldflags=$LIBXML_LDFLAGS
