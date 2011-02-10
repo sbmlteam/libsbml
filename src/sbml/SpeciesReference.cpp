@@ -634,7 +634,7 @@ SpeciesReference::SpeciesReference (unsigned int level, unsigned int version) :
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
  , mStoichiometryMath    ( NULL   )
- , mConstant             (false)
+ , mConstant             (true)
  , mIsSetConstant        (false)
  , mIsSetStoichiometry   (false)
 {
@@ -660,7 +660,7 @@ SpeciesReference::SpeciesReference (SBMLNamespaces *sbmlns) :
  , mStoichiometry        ( 1.0 )
  , mDenominator          ( 1   )
  , mStoichiometryMath    ( NULL             )
- , mConstant             (false)
+ , mConstant             (true)
  , mIsSetConstant        (false)
  , mIsSetStoichiometry   (false)
 {
