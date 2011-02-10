@@ -56,14 +56,15 @@ matlab_sources =                      \
         AUTHORS.txt                   \
         CheckAndConvert.m             \
         Contents.m                    \
+        ConvertFormulaToMathML.m      \
         isSBML_Model.m                \
         README.txt                    \
         TranslateSBML.c               \
         TranslateSBML.m               \
         OutputSBML.c                  \
-        OutputSBML.m               \
-        buildWin.m                    \
-        install_Win32.m               \
+        OutputSBML.m                  \
+        buildLibSBML.m                \
+        installLibSBML.m              \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
         mexopts-R2007.sh              \
@@ -86,7 +87,9 @@ subdirs = test
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = Makefile.in
+distfiles =                           \
+        Makefile.in                   \
+        buildLibSBMLOctave.m          \
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
