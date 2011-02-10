@@ -93,34 +93,65 @@ appropriately, then re-run 'configure'.
 ])
     fi
 
-    if test -n "$with_libxml" -a "$with_libxml" != "yes"; then
-      xml_config_args="--prefix=$with_libxml"
+    dnl If we reach here, we've either been requested deliberately via
+    dnl --with-libxml, or else we're the default.
+
+    dnl Possible values of $default_libxml:
+    dnl 1. Empty string
+    dnl 2. "yes"
+
+    dnl Possible values of $with_libxml:
+    dnl 1. Empty string
+    dnl 2. "no"
+    dnl 3. "yes" (--with-libxml given without arg)
+    dnl 4. A path (--with-libxml=arg)
+
+    dnl We need to find xml2-config.  If we have a path in $with_libxml,
+    dnl we use it to search, otherwise we search in the user's default
+    dnl command search path.
+
+    if test -n "$with_libxml" -a "$with_libxml" != "yes" -a "$with_libxml" != "no"; then
       if test -z "$XML2_CONFIG" ; then
         dnl The XML2_CONFIG environment variable is not set.  Look for
 	dnl xml2-config in the path given by $with_libxml
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [$with_libxml/bin])
       fi
+      xml_config_args="--prefix=$with_libxml"
+      libxml_lib_path="$with_libxml/lib${LIBSUFFIX}"
     else
       dnl User did not supply a path with the flag.
       if test x${XML2_CONFIG+set} != xset ; then
         dnl User did not set XML2_CONFIG either.  Try their default path.
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
       fi
+      libxml_lib_path=`$XML2_CONFIG --prefix`
     fi
 
-    libxml_lib_path="$with_libxml/lib${LIBSUFFIX}"
+    if test "$XML2_CONFIG" = "no"; then
+      AC_MSG_ERROR([
+***************************************************************************
+'configure' could not find 'xml2-config' in directory $with_libxml/bin/.
+There are a number of possible causes for this.  One possibility is that
+the PATH supplied in the argument --with-libxml=PATH is of the form
+'/usr/local/lib', when in fact it needs to be of the form '/usr/local'; in
+other words, omit the 'lib' part of the name, because 'configure' appends
+'lib' (or 'lib64' on some 64-bit systems) to whatever PATH is given as the
+--with-libxml argument value.  Another possible cause of this problem is
+that the xml2-config utility program is not located in PATH/bin, or (if no
+argument PATH was given to --with-libxml) in your shell's command search
+path.  This might happen on systems where the xml2-config utility is part
+of a development tools package that must be installed separately from
+whatever package contains the actual libxml2 library files.  Please check
+that xml2-config exists in the expected location and adjust the arguments
+to 'configure' if necessary.  Finally, if xml2-config is located in an
+unusual location, you can try setting the environment variable XML2_CONFIG
+to the full path of xml2-config and retrying the 'configure' command.
+***************************************************************************
+])
+    fi
 
     ac_save_CPPFLAGS="$CPPFLAGS"
     ac_save_LIBS="$LIBS"
-
-    if test "$XML2_CONFIG" = "no"; then
-      echo "*** Could not find 'xml2-config' in directory $with_libxml/bin/."
-      echo "*** Please check that the PATH supplied to --with-libxml=PATH"
-      echo "*** is of the form '/usr/local' and not '/usr/local/lib'; in"
-      echo "*** other words, omit the 'lib' part of the name.  The 'configure'"
-      echo "*** utility will append 'lib' to the given path automatically."
-      AC_MSG_ERROR([could not find xml2-config in $with_libxml/bin])
-    fi
 
     min_xml_version=ifelse([$1], ,2.0.0,[$1])
     AC_MSG_CHECKING(for libxml2 - version >= $min_xml_version)
