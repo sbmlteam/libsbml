@@ -238,7 +238,7 @@ function install_win(ismatlab, root, bit64, writeAccess, in_win_installer)
 
   addDir(pwd);
 
-  success = testInstallation(ismatlab, in_win_installer);
+  success = testInstallation(ismatlab, in_win_installer, 1);
 
   if (success == 1)
   disp ('Installation completed');
@@ -278,7 +278,7 @@ function install_mac(ismatlab, root)
   
   addDir(pwd);
 
-  success = testInstallation(ismatlab, 0);
+  success = testInstallation(ismatlab, 0, 0);
   
   if (success == 1)
     disp ('Installation completed');
@@ -317,7 +317,7 @@ function install_linux(ismatlab, root)
   
   addDir(pwd);
  
-  success = testInstallation(ismatlab, 0);
+  success = testInstallation(ismatlab, 0, 0);
   
   if (success == 1)
     disp ('Installation completed');
@@ -373,8 +373,7 @@ function checkForExecutables()
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % test the installation
-function success = testInstallation(ismatlab, in_win_installer)
-    inwin = 0;
+function success = testInstallation(ismatlab, in_win_installer, inwin)
   if (ismatlab)  
     success = 1;
     try
