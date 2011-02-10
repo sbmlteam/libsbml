@@ -374,6 +374,7 @@ function checkForExecutables()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % test the installation
 function success = testInstallation(ismatlab, in_win_installer)
+    inwin = 0;
   if (ismatlab)  
     success = 1;
     try
@@ -429,19 +430,23 @@ function success = testInstallation(ismatlab, in_win_installer)
       disp('checking for TranslateSBML');
       M = TranslateSBML('test.xml');
     catch
-      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
-          'Add the path to the libraries to your matlab path'));
+      disp(sprintf('Installation failed - Octave cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your Octave path'));
       success = 0;
     end;
 
+    if (inwin)
     outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
+    else
+        outFile = [tempdir, 'test-out.xml'];
+    end;
     if (success == 1)
       try
         disp('checking OutputSBML');
         OutputSBML(M, outFile);
       catch
-      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
-          'Add the path to the libraries to your matlab path'));
+      disp(sprintf('Installation failed - Octave cannot find all the libraries\n%s', ...
+          'Add the path to the libraries to your octave path'));
         success = 0;
       end;
     end;

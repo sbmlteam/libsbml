@@ -416,9 +416,9 @@ function buildMexFiles(include, library, ismatlab, notwin)
   else
  	fhandle = @mkoctfile;
 	disp('Building TranslateSBML ...');
-	feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', include, '-lbz2', '-lz', library);
+	feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', include, '-lbz2', '-lz', library, '-lsbml');
 	disp('Building OutputSBML ...');
-	feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', include, '-lbz2', '-lz', library);
+	feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', include, '-lbz2', '-lz', library, '-lsbml');
 %   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE include -lbz2 -lz library;
   end;
 

@@ -194,4 +194,14 @@ function copied = copyMatlabDir(orig_dir, target_dir)
     
     % put in some tests here
     copied = 1;
-    
+   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function t=isoctave()
+
+  if exist('OCTAVE_VERSION')
+    % Only Octave has this variable.
+    t='1';
+  else
+    t='0';
+  end;
+
