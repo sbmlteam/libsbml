@@ -335,7 +335,7 @@ function build_mac(ismatlab, root, writeAccess)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % build on linux
-function build_linux(ismatlab, root)
+function build_linux(ismatlab, root, writeAccess)
 
   % check that libsbml is in usr/local/lib directory
   bin_dir = [];
