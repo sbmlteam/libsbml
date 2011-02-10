@@ -52,13 +52,13 @@ function buildLibSBML
         '***********************************************************************', ...
         'NOTE: libsbml must be built and installed prior to running this script', ...
         '***********************************************************************'));
-      build_mac(matlab, root);
+      build_mac(matlab, root, writeAccess);
     case 2
       disp(sprintf('%s\n\n%s\n\n%s\n', ...
         '***********************************************************************', ...
         'NOTE: libsbml must be built and installed prior to running this script', ...
         '***********************************************************************'));
-      build_linux(matlab, root);
+      build_linux(matlab, root, writeAccess);
     otherwise
       error('OS not recognised');
   end;
@@ -270,12 +270,12 @@ function build_win(ismatlab, root, writeAccess, bit64)
     
   % build the files
   inc_flag = ['-I', include_dir];
-  buildMexFiles(inc_flag, lib{1}, ismatlab);
+  buildMexFiles(inc_flag, lib{1}, ismatlab, 0);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % build on mac
-function build_mac(ismatlab, root)
+function build_mac(ismatlab, root, writeAccess)
 
   % check that libsbml is in usr/local/lib directory
   bin_dir = [];
@@ -311,10 +311,27 @@ function build_mac(ismatlab, root)
       'the libSBML source tree expects this directory to exist'));
   end;
   
+  if (writeAccess == 0)% must be 0; 1 is for testing
+    % create a new dir in the users path
+    this_dir = pwd;
+	  if (ismatlab)
+      user_dir = userpath;
+      user_dir = user_dir(1:length(user_dir)-1);
+    else
+	    user_dir = matlabroot;
+	  end;
+    disp(sprintf('Copying matlab binding files to %s ...', user_dir)); 
+    if (copyMatlabDir(this_dir, user_dir) == 1)
+      disp('Copy matlab binding files successful');
+    else
+      error('Cannot copy matlab binding files on this system');
+    end;
+  end;
+  
   % build the files
   inc_flag = ['-I', include_dir];
   library = ['-L', lib{1}];
-  buildMexFiles(inc_flag, library, ismatlab);
+  buildMexFiles(inc_flag, library, ismatlab, 1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % build on linux
@@ -354,23 +371,48 @@ function build_linux(ismatlab, root)
       'the libSBML source tree expects this directory to exist'));
   end;
   
+  if (writeAccess == 0)% must be 0; 1 is for testing
+    % create a new dir in the users path
+    this_dir = pwd;
+	  if (ismatlab)
+      user_dir = userpath;
+      user_dir = user_dir(1:length(user_dir)-1);
+    else
+	    user_dir = matlabroot;
+	  end;
+    disp(sprintf('Copying matlab binding files to %s ...', user_dir)); 
+    if (copyMatlabDir(this_dir, user_dir) == 1)
+      disp('Copy matlab binding files successful');
+    else
+      error('Cannot copy matlab binding files on this system');
+    end;
+  end;
+
   % build the files
   inc_flag = ['-I', include_dir];
   library = ['-L', lib{1}];
-  buildMexFiles(inc_flag, library, ismatlab);
+  buildMexFiles(inc_flag, library, ismatlab, 1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % runs the mex command for windows and matlab
 % the messy file handle stuff is because this seems to be the best way to 
 % be able to pass arguments to the function
-function buildMexFiles(include, library, ismatlab)
+function buildMexFiles(include, library, ismatlab, notwin)
 
   if (ismatlab == 1)
 	fhandle = @mex;
 	disp('Building TranslateSBML ...');
-	feval(fhandle, 'TranslateSBML.c', include, library);
+    if (notwin)
+      feval(fhandle, 'TranslateSBML.c', include, library, '-lsbml');
+    else
+	  feval(fhandle, 'TranslateSBML.c', include, library);
+    end;
 	disp('Building OutputSBML ...');
-	feval(fhandle, 'OutputSBML.c', include, library);
+    if (notwin)
+      feval(fhandle, 'OutputSBML.c', include, library, '-lsbml');
+    else
+	  feval(fhandle, 'OutputSBML.c', include, library);
+    end;
   else
  	fhandle = @mkoctfile;
 	disp('Building TranslateSBML ...');
