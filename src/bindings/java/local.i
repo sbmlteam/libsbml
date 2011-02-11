@@ -1385,28 +1385,28 @@ LIST_WRAPPER(SBase::getCVTerms,CVTerm)
 
 %javamethodmodifiers ASTNode::getListOfNodes() "
   /**
-   * Returns a list of all ASTNodes in the tree rooted at
-   * this ASTNode.
+   * Returns a list of all {@link ASTNode} objects in the tree rooted at
+   * this {@link ASTNode}.
    * 
-   * @return The list of ASTNodes.  The List returned is owned by the
-   * caller and should be deleted after the caller is done using it.  The
-   * ASTNode objects in the list; however, are not owned by the caller (as
-   * they still belong to the tree itself), and therefore should not be
-   * deleted.
+   * @return The list of {@link ASTNode} objects.  The {@link ASTNodeList}
+   * object returned is owned by the caller and should be deleted after the
+   * caller is done using it.  The {@link ASTNode} objects in the list;
+   * however, are not owned by the caller (as they still belong to the tree
+   * itself), and therefore should not be deleted.
    */
  public";
 
 %javamethodmodifiers RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms) "
   /**
-   * Parses an annotation (given as an XMLNode tree) into a list of
-   * CVTerm objects.
+   * Parses an annotation (given as an {@link XMLNode} tree) into a list of
+   * {@link CVTerm} objects.
    *
    * This is used to take an annotation that has been read into an SBML
    * model, identify the RDF elements within it, and create a list of
-   * corresponding CVTerm (controlled vocabulary term) objects.
+   * corresponding {@link CVTerm} ('controlled vocabulary term') objects.
    *
-   * @param annotation XMLNode containing the annotation.
+   * @param annotation {@link XMLNode} containing the annotation.
    * 
-   * @param CVTerms list of CVTerm objects to be created.
+   * @param CVTerms list of {@link CVTerm} objects to be created.
    */
  public";
