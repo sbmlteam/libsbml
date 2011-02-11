@@ -1,0 +1,106 @@
+###############################################################################
+#
+# $URL$
+# $Id$
+#
+# Description       : CMake build script for libSBML Perl bindings
+# Original author(s): Frank Bergmann <fbergman@caltech.edu>
+# Organization      : California Institute of Technology
+#
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright (C) 2009-2011 jointly by the following organizations: 
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+#  
+# Copyright (C) 2006-2008 by the California Institute of Technology,
+#     Pasadena, CA, USA 
+#  
+# Copyright (C) 2002-2005 jointly by the following organizations: 
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. Japan Science and Technology Agency, Japan
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#
+###############################################################################
+
+find_package(SWIG REQUIRED)
+include(${SWIG_USE_FILE})
+include(FindPerlLibs)
+include(FindPythonInterp)
+
+# need documentation file
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/LibSBML.txt" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+ADD_CUSTOM_COMMAND(	
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
+			perl
+			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
+			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
+			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			"${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod"		
+    COMMAND "${SWIG_EXECUTABLE}"
+    ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
+			-I${CMAKE_CURRENT_SOURCE_DIR} 
+			-I${CMAKE_SOURCE_DIR}/include
+			-c++
+			-perl5
+			-proxy
+			${SWIG_EXTRA_ARGS}		 
+			-o ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp 
+			${CMAKE_CURRENT_SOURCE_DIR}/LibSBML.i
+    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/LibSBML.i
+    COMMENT "Swig Perl bindings source") 
+
+add_custom_target(binding_perl_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod)
+	
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod" DESTINATION ${MISC_PREFIX}bindings/perl)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pm" DESTINATION ${MISC_PREFIX}bindings/perl)
+
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#include <EXTERN.h>\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#include \"LibSBML_wrap.cpp\"\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "\n\n")
+
+####################################################################
+#
+# Build native library
+#
+
+include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR}/../swig)
+include_directories(BEFORE ${CMAKE_SOURCE_DIR}/include)
+include_directories(BEFORE ${PERL_INCLUDE_PATH})
+
+if (NOT UNIX)
+	add_definitions(-DWIN32SCK_IS_STDSCK -DWIN32IO_IS_STDIO)
+endif ()
+
+if(APPLE)
+	#add_definitions(-DPERL_DARWIN)
+endif()
+
+add_library(binding_perl_lib MODULE LibSBML.cpp)
+add_dependencies(binding_perl_lib binding_perl_swig)
+target_link_libraries(binding_perl_lib ${LIBSBML_LIBRARY}-static ${PERL_LIBRARY})
+
+set_target_properties(binding_perl_lib PROPERTIES  OUTPUT_NAME LibSBML)
+set_target_properties(binding_perl_lib PROPERTIES  PREFIX "")
+
+if(APPLE)
+	set_target_properties(binding_perl_lib PROPERTIES  SUFFIX ".bundle")
+endif()
+
+INSTALL(TARGETS binding_perl_lib  DESTINATION ${MISC_PREFIX}bindings/perl )
+ 
+ 
+ if (WITH_CHECK)
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/t DESTINATION ${CMAKE_CURRENT_BINARY_DIR} )
+	add_test(test_perl_binding ${PERL_EXECUTABLE} "-MExtUtils::Command::MM" -e "test_harness(0)" t${PATH_SEP}*.t)
+ endif()

@@ -1,0 +1,201 @@
+###############################################################################
+#
+# $URL$
+# $Id$
+#
+# Description       : CMake build script for libSBML Java bindings
+# Original author(s): Frank Bergmann <fbergman@caltech.edu>
+# Organization      : California Institute of Technology
+#
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
+#
+# Copyright (C) 2009-2011 jointly by the following organizations: 
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+#  
+# Copyright (C) 2006-2008 by the California Institute of Technology,
+#     Pasadena, CA, USA 
+#  
+# Copyright (C) 2002-2005 jointly by the following organizations: 
+#     1. California Institute of Technology, Pasadena, CA, USA
+#     2. Japan Science and Technology Agency, Japan
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
+#
+###############################################################################
+
+find_package(SWIG REQUIRED)
+find_package(JNI REQUIRED)
+find_package(Java COMPONENTS Development REQUIRED)
+include(FindPythonInterp)
+include(${SWIG_USE_FILE})
+
+####################################################################
+#
+# determine local dependencies, so as to re-swig if one of them changed
+# 
+
+file(GLOB SWIG_DEPENDENCIES 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.h 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
+	)
+
+
+
+
+####################################################################
+#
+# Swig bindings
+#
+#
+MAKE_DIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml)
+ADD_CUSTOM_COMMAND(	
+	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/javadoc.i
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
+			java
+			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
+			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
+			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			"${CMAKE_CURRENT_BINARY_DIR}/javadoc.i"	
+    COMMAND "${SWIG_EXECUTABLE}"
+    ARGS -I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
+         -I${CMAKE_CURRENT_SOURCE_DIR} 
+		 -I${CMAKE_SOURCE_DIR}/include
+		 -c++
+		 -java
+		 -package org.sbml.libsbml
+		 ${SWIG_EXTRA_ARGS}
+		 -outdir ${CMAKE_CURRENT_BINARY_DIR}/java-files/org/sbml/libsbml
+         -o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+         ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+	        ${SWIG_DEPENDENCIES}
+    COMMENT "Swig Java source") 
+	
+add_custom_target(binding_java_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
+
+	
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${JNI_INCLUDE_DIRS})
+include_directories(${JAVA_INCLUDE_PATH})
+include_directories(${JAVA_INCLUDE_PATH2})
+include_directories(${JAVA_INCLUDE_PATH2})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+
+add_library(binding_java_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
+add_dependencies( binding_java_lib binding_java_swig) 
+set_target_properties (binding_java_lib PROPERTIES OUTPUT_NAME "sbmlj")
+
+INSTALL(TARGETS binding_java_lib DESTINATION ${MISC_PREFIX}bindings/java )
+
+target_link_libraries(binding_java_lib ${LIBSBML_LIBRARY}-static )
+
+ADD_CUSTOM_COMMAND(	
+	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
+	
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS -DJava_JAVAC_EXECUTABLE=\"${Java_JAVAC_EXECUTABLE}\"
+		 -DJava_JAR_EXECUTABLE=\"${Java_JAR_EXECUTABLE}\"
+		 -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
+		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"		 
+		 -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
+	
+	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+    COMMENT "Building: libsbml.jar"
+	) 
+
+add_custom_target(binding_java_jar ALL DEPENDS 
+	${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
+	)
+	
+add_dependencies(binding_java_jar binding_java_swig)
+	
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar DESTINATION ${MISC_PREFIX}bindings/java) 
+	
+	
+	
+#
+# Invoke tests if compiled with check
+# 
+if(WITH_CHECK)
+
+	# copy test files
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test DESTINATION ${CMAKE_CURRENT_BINARY_DIR} PATTERN *.java )
+	# copy test runner source
+	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/AutoTestRunner.java DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+	#
+	# enumerate test files (this needs to be relative otherwise the path will be too long!)
+	# 
+	file(GLOB_RECURSE JAVA_TEST_FILES RELATIVE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/test/*.java)
+
+	set(JAVA_TEST_FILES ${JAVA_TEST_FILES} ${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.java)
+	
+	set(JAVA_NATIVE_FILES)
+	foreach(javaFile ${JAVA_TEST_FILES})
+		file(TO_NATIVE_PATH ${javaFile} temp)
+		set(JAVA_NATIVE_FILES ${JAVA_NATIVE_FILES} ${temp})
+	endforeach()
+	
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar jar_file)
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} current_dir)
+	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/test test_dir)
+	
+	#compile tests
+	ADD_CUSTOM_COMMAND(	
+		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.class ${CMAKE_CURRENT_BINARY_DIR}/TestFilenameFilter.class
+		COMMAND "${Java_JAVAC_EXECUTABLE}"
+		ARGS -cp ${jar_file} ${JAVA_NATIVE_FILES}
+		MAIN_DEPENDENCY "${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.java"
+		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
+		COMMENT "Building Java Test Runner"
+	) 
+	
+	add_custom_target(binding_java_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.class)
+	add_dependencies(binding_java_test_runner binding_java_jar)
+	
+	# run tests
+	add_test(test_java_binding "${Java_JAVA_EXECUTABLE}" 
+			-cp "${jar_file}${FILE_SEP}${current_dir}${FILE_SEP}${test_dir}"
+			AutoTestRunner	
+			)
+	# specify that tests have passed if we find only dots	
+	set_tests_properties(test_java_binding PROPERTIES PASS_REGULAR_EXPRESSION "[.]+" )
+	# specify that tests have failed in case there was one of the words below in the output
+	set_tests_properties(test_java_binding PROPERTIES FAIL_REGULAR_EXPRESSION "Error;ERROR;Failed")	
+	
+	# set up the DYLD / LD_LIBRARY /PATH to include the library
+	if(UNIX)
+		if(APPLE)
+			set_tests_properties(test_java_binding PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{DYLD_LIBRARY_PATH}")
+		else()
+			set_tests_properties(test_java_binding PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:$ENV{LD_LIBRARY_PATH}")
+		endif()
+	else()
+		if(MSVC)
+			
+			# on windows setting the path alone would only work if the dependent libraries are in the path
+			# since that is likely not the case for now we ask the users to set up the path prior to calling ctest
+			# otherwise this would do the trick: 
+			
+			#set(new_path "${current_dir};$ENV{PATH}")
+			#string(REPLACE ";" "\\;" new_path "${new_path}")
+			#set_tests_properties(test_java_binding PROPERTIES ENVIRONMENT PATH="${new_path}")
+		endif()
+	endif() 
+
+endif(WITH_CHECK)
+
