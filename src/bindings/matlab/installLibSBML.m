@@ -413,7 +413,7 @@ function success = testInstallation(ismatlab, in_win_installer, inwin)
       if (success == 1)
         disp('running tests for OutputSBML');
         cd test;
-        pass = testOutput(tempdir);
+        pass = testOutput(tempdir, 1);
         cd ..;
         if (pass == 0)
           disp('OutputSBML successful');
@@ -466,7 +466,7 @@ function success = testInstallation(ismatlab, in_win_installer, inwin)
       if (success == 1)
         disp('running tests for OutputSBML');
         cd test;
-        pass = testOutput([tempdir, 'temp']);
+        pass = testOutput([tempdir, 'temp'], 1);
         cd ..;
         if (pass == 0)
           disp('OutputSBML successful');

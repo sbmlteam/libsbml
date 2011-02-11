@@ -1,4 +1,4 @@
-function y = testReadFromFile10
+function y = testReadFromFile10(silent)
 
 filename = fullfile(pwd,'test-data', 'l2v1-allelements.xml');
 
@@ -84,11 +84,13 @@ Totalfail = Totalfail + fail_unless( strcmp(m.metaid, '_001'));
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).eventAssignment.math, '0'             ));
   Totalfail = Totalfail + fail_unless( strcmp(m.event(1).eventAssignment.metaid, '_008'));
 
+if (silent == 0)
 
 disp('Testing readFromFile10:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

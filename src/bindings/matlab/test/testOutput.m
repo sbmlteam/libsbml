@@ -1,4 +1,4 @@
-function fail = testOutput(outdir)
+function fail = testOutput(outdir, in_installer)
 
 %  Filename    :   TestOutput.m
 %  Description :
@@ -54,7 +54,11 @@ for i=1:length(files)
   else
     model = TranslateSBML(['test-data', filesep, files(i).name]);
     if (~isempty(model))
-      OutputSBML(model, [outdir, filesep, files(i).name]);
+      if (in_installer == 1)
+        OutputSBML(model, [outdir, filesep, files(i).name], in_installer);
+      else
+        OutputSBML(model, [outdir, filesep, files(i).name]);
+      end;
       if (compareFiles(['test-data', filesep, files(i).name], [outdir, filesep, files(i).name]))
         disp(sprintf('Output of %s failed', files(i).name));
         fail = fail + 1;

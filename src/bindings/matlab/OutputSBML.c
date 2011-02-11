@@ -135,6 +135,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	mxArray * mxSpeciesTypes, * mxCompartmentTypes, * mxInitialAssignments;
   unsigned int usingOctave = 0;
   mxArray * mxOctave[1];
+  int inInstaller = 0;
 
   /* determine whether we are in octave or matlab */
 
@@ -165,6 +166,10 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexErrMsgTxt("Octave requires the filename to be specified\n"
                    "USAGE: OutputSBML(SBMLModel, filename)");
   }
+  if (nrhs > 2)
+  {
+    inInstaller = 1;
+  }
 
 /**
 	* create a copy of the input
@@ -189,7 +194,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	* and optionally the filename
 	*/
   
-	if (nrhs > 2)
+	if (nrhs > 3)
 	{
 		mexErrMsgTxt("Too many input arguments\n"
                  "USAGE: OutputSBML(SBMLModel, (filename))");
@@ -203,7 +208,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
                  "USAGE: OutputSBML(SBMLModel, (filename))");
 	}
 
-  if (nrhs == 2)
+  if (nrhs >= 2)
   {
 	
 	  if (mxIsChar(prhs[1]) != 1)
@@ -548,13 +553,17 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   /* write the SBML document to the filename specified */
 	nStatus = writeSBML(sbmlDocument, pacFilename);
 
-	if (nStatus != 1)
-	{
-		mexErrMsgTxt("Failed to write file");
-	}
-  else
+  /* don't output messages from installer tests */
+  if (inInstaller == 0)
   {
-    mexPrintf("Document written\n");
+	  if (nStatus != 1)
+	  {
+		  mexErrMsgTxt("Failed to write file");
+	  }
+    else
+    {
+      mexPrintf("Document written\n");
+    }
   }
 	
 	/* free any memory allocated */

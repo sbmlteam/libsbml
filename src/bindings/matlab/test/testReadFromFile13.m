@@ -1,4 +1,4 @@
-function y = testReadFromFile13
+function y = testReadFromFile13(silent)
 
 filename = fullfile(pwd,'test-data', 'l3v1core.xml');
 
@@ -496,10 +496,12 @@ test = test + 10;
   
   test = test + 20;
   
+if (silent == 0)
 disp('Testing readFromFile13:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

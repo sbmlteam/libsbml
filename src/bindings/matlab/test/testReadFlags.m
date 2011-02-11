@@ -1,8 +1,11 @@
-function y = testReadFlags
+function y = testReadFlags(silent)
+
+if (silent == 0)
 
 disp('Testing readFlags');
 disp('Failed read messages will be printed and can be ignored.');
 disp('**************************************');
+end;
 
 test = 69;
 Totalfail = 0;
@@ -197,12 +200,14 @@ Totalfail = Totalfail + fail_unless(isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
 Totalfail = Totalfail + fail_unless(length(e)==1);
 
+if (silent == 0)
 
 disp('**************************************');
 
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

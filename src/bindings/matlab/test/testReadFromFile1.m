@@ -1,4 +1,4 @@
-function y = testReadFromFile1
+function y = testReadFromFile1(silent)
 
 filename = fullfile(pwd,'test-data', 'l1v1-branch.xml');
 notes1 = sprintf('%s\n  %s\n    %s\n    %s\n    %s\n    %s\n    %s\n  %s\n%s', ... 
@@ -190,11 +190,12 @@ Totalfail = Totalfail + fail_unless(strcmp(m.notes, notes1));
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(3).kineticLaw.parameter.name, 'k3'));
   Totalfail = Totalfail + fail_unless( m.reaction(3).kineticLaw.parameter.value == 0);
 
-
+if (silent == 0)
 disp('Testing readFromFile1:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

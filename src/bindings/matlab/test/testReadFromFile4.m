@@ -1,4 +1,4 @@
-function y = testReadFromFile4
+function y = testReadFromFile4(silent)
 
 filename = fullfile(pwd,'test-data', 'l1v1-minimal.xml');
 
@@ -64,10 +64,12 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(1).product.denominator == 1);
 
 
+if (silent == 0)
 disp('Testing readFromFile4:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

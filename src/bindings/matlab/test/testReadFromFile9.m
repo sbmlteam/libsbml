@@ -1,4 +1,4 @@
-function y = testReadFromFile9
+function y = testReadFromFile9(silent)
 
 filename = fullfile(pwd,'test-data', 'notes_annotations.xml');
  m2 = sprintf('%s\n  %s %s %s %s %s %s\n    %s\n      %s\n        %s', ...
@@ -99,10 +99,12 @@ Totalfail = Totalfail + fail_unless(strcmp(m.compartment(1).annotation, comp_ann
 Totalfail = Totalfail + fail_unless(strcmp(m.species(1).notes, species_notes));
 % 
 
+if (silent == 0)
 disp('Testing readFromFile9:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

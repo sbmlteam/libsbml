@@ -1,4 +1,4 @@
-function y = testReadFromFile14
+function y = testReadFromFile14(silent)
 
 filename = fullfile(pwd,'test-data', 'convertedFormulas.xml');
 
@@ -244,10 +244,12 @@ test = test + 2;
   test = test + 3;
 
 
+if (silent == 0)
 disp('Testing readFromFile14:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

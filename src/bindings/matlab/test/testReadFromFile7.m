@@ -1,4 +1,4 @@
-function y = testReadFromFile7
+function y = testReadFromFile7(silent)
 
 filename = fullfile(pwd,'test-data', 'l2v2-newelements.xml');
 
@@ -126,10 +126,12 @@ Totalfail = Totalfail + fail_unless(m.sboTerm == 4);
 
   Totalfail = Totalfail + fail_unless( m.reaction(1).kineticLaw.sboTerm == -1);
 
+if (silent == 0)
 disp('Testing readFromFile7:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

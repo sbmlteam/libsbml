@@ -1,4 +1,4 @@
-function y = testReadFromFile8
+function y = testReadFromFile8(silent)
 
 filename = fullfile(pwd,'test-data', 'l2v3-newelements.xml');
 
@@ -131,10 +131,12 @@ Totalfail = Totalfail + fail_unless(m.sboTerm == 4);
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).reactant.id, 'me'));
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).reactant.name, 'sarah'));
 
+if (silent == 0)
 disp('Testing readFromFile8:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

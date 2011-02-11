@@ -1,4 +1,4 @@
-function y = testReadFromFile5
+function y = testReadFromFile5(silent)
 
 filename = fullfile(pwd,'test-data', 'l2v1-assignment.xml');
 
@@ -198,10 +198,12 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( m.reaction(2).kineticLaw.parameter.value == 0.15);
 
 
+if (silent == 0)
 disp('Testing readFromFile5:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;

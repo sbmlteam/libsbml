@@ -1,4 +1,4 @@
-function y = testReadFromFile11
+function y = testReadFromFile11(silent)
 
 filename = fullfile(pwd,'test-data', 'l2v3-newMath.xml');
 
@@ -80,12 +80,13 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 3);
   
   Totalfail = Totalfail + fail_unless( strcmp( m.reaction(1).reactant(1).species, 'X0'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.reaction(1).reactant(1).stoichiometryMath.math, 'cell'             ));
+if (silent == 0)
 
 disp('Testing readFromFile11:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
-
+end;;
 if (Totalfail == 0)
     y = 0;
 else

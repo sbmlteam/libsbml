@@ -1,4 +1,4 @@
-function y = testReadFromFile6
+function y = testReadFromFile6(silent)
 
 filename = fullfile(pwd,'test-data', 'csymbolTime-reaction-l2.xml');
 
@@ -87,10 +87,12 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
   Totalfail = Totalfail + fail_unless( strcmp(m.time_symbol, 'my_time'));
   
 
+if (silent == 0)
 disp('Testing readFromFile6:');
 disp(sprintf('Number tests: %d', test));
 disp(sprintf('Number fails: %d', Totalfail));
 disp(sprintf('Pass rate: %d%%\n', ((test-Totalfail)/test)*100));
+end;
 
 if (Totalfail == 0)
     y = 0;
