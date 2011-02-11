@@ -2749,7 +2749,7 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
-  void setSpeciesReferenceConstantValue();
+  void setSpeciesReferenceConstantValueAndStoichiometry();
  
   /** @endcond */
 

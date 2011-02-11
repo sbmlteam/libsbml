@@ -80,7 +80,7 @@ Model::convertL2ToL3 ()
 {
   addDefinitionsForDefaultUnits();
 
-  setSpeciesReferenceConstantValue();
+  setSpeciesReferenceConstantValueAndStoichiometry();
 
   convertStoichiometryMath();
 
@@ -138,7 +138,7 @@ Model::convertL3ToL2 ()
 
 
 void
-Model::setSpeciesReferenceConstantValue()
+Model::setSpeciesReferenceConstantValueAndStoichiometry()
 {
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
@@ -148,14 +148,20 @@ Model::setSpeciesReferenceConstantValue()
     {
       if (!(r->getReactant(j)->isSetStoichiometryMath()))
       {
-        r->getReactant(j)->setConstant(true);
+        if (!(r->getReactant(j)->isSetStoichiometry()))
+        {
+          r->getReactant(j)->setStoichiometry(1);
+        }
       }
     }
     for (j = 0; j < r->getNumProducts(); j++)
     {
       if (!(r->getProduct(j)->isSetStoichiometryMath()))
       {
-        r->getProduct(j)->setConstant(true);
+        if (!(r->getProduct(j)->isSetStoichiometry()))
+        {
+          r->getProduct(j)->setStoichiometry(1);
+        }
       }
     }
   }
