@@ -97,6 +97,8 @@ distfiles =                                                  \
         ExcludeDoclet.java                                   \
         Makefile.in                                          \
 	common-text/L1-math-syntax-warning.html              \
+	common-text/about-sbml-units-attrib.html             \
+	common-text/about-semantic-annotations.html          \
         common-text/astnode-types.html                       \
         common-text/base-units.html                          \
         common-text/base-units2.html                         \
@@ -136,8 +138,8 @@ distfiles =                                                  \
         examples/readmath.cpp                                \
         examples/readSBML.java                               \
         examples/simpleread.cpp                              \
-        force-serif-font-on.html                             \
         force-serif-font-off.html                            \
+        force-serif-font-on.html                             \
         graphics/astnode-illustration.jpg                    \
         graphics/built-in-units.jpg                          \
         graphics/compartment-size.jpg                        \
