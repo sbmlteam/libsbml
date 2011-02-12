@@ -1,13 +1,23 @@
 function buildLibSBML
-% builds the libsbml - matlab binding
-% This script assumes that libsbml has been built and installed on your system.
+% Builds the MATLAB language interface for libSBML @PACKAGE_VERSION@.
 %
-% For Linux or Mac users this means that the libsbml library must be on
-% the library path for your system.
+% This script is meant to be invoked from libSBML's MATLAB bindings source
+% directory.  LibSBML must already have been compiled and installed on your
+% system.  This script makes the following assumptions:
 %
-% For windows users this means that libsbml must be built and the binaries (.dll
-% and .lib files) for libsbml and all its dependencies must be located together
-% in one directory. The build assumes libxml2 is the xml parser to be used.
+% Linux and Mac systems: the compiled libSBML library must be on the
+% appropriate library search paths, and/or the appropriate environment
+% variables have been set so that programs such as MATLAB can load
+% the library dynamically.
+%
+% Windows systems: the libSBML binaries (.dll and .lib files) and its
+% dependencies (such as the XML parser library being used) must be located
+% together in the same directory.  This script also assumes that libSBML
+% was configured to use the libxml2 XML parser library.  (This assumption
+% is under Windows only.)
+%
+% This script is designed for use with @PACKAGE_STRING@.
+% (File $Revision$)
 
 % Filename    : buildLibSBML.m
 % Description : build matlab binding

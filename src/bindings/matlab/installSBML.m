@@ -11,7 +11,7 @@ function installLibSBML
 % run the buildLibSBML script.
 
 
-% Filename    : installLibSBML.m
+% Filename    : install.m
 % Description : install matlab binding
 % Author(s)   : SBML Team <sbml-team@caltech.edu>
 % Organization: EMBL-EBI
