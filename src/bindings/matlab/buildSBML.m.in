@@ -17,7 +17,7 @@ function buildLibSBML
 % is under Windows only.)
 %
 % This script is designed for use with @PACKAGE_STRING@.
-% (File $Revision$)
+% (File $Revision$.)
 
 % Filename    : buildLibSBML.m
 % Description : build matlab binding
