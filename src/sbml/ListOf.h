@@ -33,6 +33,31 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
+ * SBML defines various ListOf___ classes that are containers used for
+ * organizing the main components of an SBML model.  All are derived from
+ * the abstract class SBase, and inherit the attributes and subelements of
+ * SBase, such as "metaid" as and "annotation".  The ListOf___ classes do
+ * not add any attributes of their own.
+ *
+ * The ListOf class in libSBML is a utility class that serves as the parent
+ * class for implementing the ListOf__ classes.  It provides methods for
+ * working generically with the various SBML lists of objects in a program.
+ * LibSBML uses this separate list class rather than ordinary
+ * @if clike C&#43;&#43; @endif@if java Java@endif@if python@endif lists,
+ * so that it can provide the methods and features associated with SBase.
+ *
+ * @see ListOfFunctionDefinitions
+ * @see ListOfUnitDefinitions
+ * @see ListOfCompartmentTypes
+ * @see ListOfSpeciesTypes
+ * @see ListOfCompartments
+ * @see ListOfSpecies
+ * @see ListOfParameters
+ * @see ListOfInitialAssignments
+ * @see ListOfRules
+ * @see ListOfConstraints
+ * @see ListOfReactions
+ * @see ListOfEvents
  */
 
 
@@ -192,21 +217,24 @@ public:
   /**
    * Removes all items in this ListOf object.
    *
-   * If doDelete is true (default), all items in this ListOf object are deleted
-   * and cleared, and thus the caller doesn't have to delete those items.
-   * Otherwise, all items are just cleared from this ListOf object and the caller 
-   * is responsible for deleting all items (In this case, pointers to all items 
-   * should be stored elsewhere before calling this function by the caller).
+   * If @p doDelete is @c true (default), all items in this ListOf object
+   * are deleted and cleared, and thus the caller doesn't have to delete
+   * those items.  Otherwise, all items are just cleared from this ListOf
+   * object and the caller is responsible for deleting all items.  (In that
+   * case, pointers to all items should be stored elsewhere before calling
+   * this function.)
    *
-   * @param doDelete if true (default), all items are deleted and cleared.
-   * Otherwise, all items are just cleared and not deleted. 
+   * @param doDelete if @c true (default), all items are deleted and cleared.
+   * Otherwise, all items are just cleared and not deleted.
+   * 
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */ 
   void clear (bool doDelete = true);
 
 
   /**
-   * Removes the nth item from this ListOf items and returns a pointer to
-   * it.
+   * Removes the <em>n</em>th item from this ListOf items and returns a
+   * pointer to it.
    *
    * The caller owns the returned item and is responsible for deleting it.
    *
