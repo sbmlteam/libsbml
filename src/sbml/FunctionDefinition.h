@@ -77,9 +77,9 @@
  * are, function definitions could be implemented as textual
  * substitutions&mdash;they are simply macros.  Software implementations
  * therefore do not need the full function-definition machinery typically
- * associated with programming languages.<br><br>
- * 
- * @note Another important point to note is FunctionDefinition does not
+ * associated with programming languages.
+ * <br><br>
+ * Another important point to note is FunctionDefinition does not
  * have a separate attribute for defining the units of the value returned
  * by the function.  The units associated with the function's return value,
  * when the function is called from within MathML expressions elsewhere in

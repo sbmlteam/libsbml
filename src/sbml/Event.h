@@ -54,14 +54,16 @@
  * of Events compared to SBML Level&nbsp;2.  These changes fall into two
  * main categories: changes to what is optional or required, and additions
  * of new attributes and elements.
- * @li The attribute "useValuesFromTriggerTime" on Event is mandatory (it
+ * <ul>
+ * <li> The attribute "useValuesFromTriggerTime" on Event is mandatory (it
  * was optional in Level&nbsp;2);
- * @li Event's "listOfEventAssignments" element (of class
+ * <li> Event's "listOfEventAssignments" element (of class
  * ListOfEventAssignments) is optional (it was mandatory in Level&nbsp;2);
- * @li Event's "priority" element (of class Priority) is new in
+ * <li> Event's "priority" element (of class Priority) is new in
  * Level&nbsp;3; and
- * @li The Trigger object gains new mandatory attributes (described as part
+ * <li> The Trigger object gains new mandatory attributes (described as part
  * of the definition of Trigger).
+ * </ul>
  *
  * The changes to the attributes of Event are described below; the changes
  * to Trigger and Priority are described in their respective sections.
