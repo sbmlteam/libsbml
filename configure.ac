@@ -317,8 +317,6 @@ AC_CONFIG_FILES([src/bindings/perl/Makefile])
 AC_CONFIG_FILES([src/bindings/perl/Makefile.PL])
 
 AC_CONFIG_FILES([src/bindings/matlab/Makefile])
-AC_CONFIG_FILES([src/bindings/matlab/buildSBML.m])
-AC_CONFIG_FILES([src/bindings/matlab/installSBML.m])
 AC_CONFIG_FILES([src/bindings/matlab/test/Makefile])
 
 AC_CONFIG_FILES([src/bindings/octave/Makefile])
