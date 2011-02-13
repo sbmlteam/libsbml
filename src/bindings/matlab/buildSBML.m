@@ -1,4 +1,4 @@
-function buildLibSBML
+function buildSBML
 % Builds the MATLAB language interface for libSBML.
 %
 % This script is meant to be invoked from libSBML's MATLAB bindings source
@@ -16,11 +16,15 @@ function buildLibSBML
 %   was configured to use the libxml2 XML parser library.  (This assumption
 %   is under Windows only.)
 %
+% After this script is executed successfully, a second step is necessary
+% to install the results.  This second step is performed by the "installSBML"
+% script found in the same location as this script.
+%
 % This script is designed for use with @PACKAGE_STRING@.
 % (File $Revision$.)
 
-% Filename    : buildLibSBML.m
-% Description : build matlab binding
+% Filename    : buildSBML.m
+% Description : Build MATLAB binding.
 % Author(s)   : SBML Team <sbml-team@caltech.edu>
 % Organization: EMBL-EBI
 % Created     : 2011-02-08
@@ -46,7 +50,6 @@ function buildLibSBML
 % the Free Software Foundation.  A copy of the license agreement is provided
 % in the file named "LICENSE.txt" included with this software distribution
 % and also available online as http://sbml.org/software/libsbml/license.html
-%
 
   disp(sprintf('\nConstructing the libSBML MATLAB interface.\n'));
 

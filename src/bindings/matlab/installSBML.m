@@ -1,5 +1,6 @@
-function installLibSBML
-% installs the libsbml - matlab binding
+function installSBML
+% Installs the MATLAB language interface for libSBML.
+%
 % This script assumes that the libsbml matlab binding executables files already
 % exist; either because the user has built them using buildLibSBML (only
 % in the src release) or the binding is being installed from an installer.
@@ -11,7 +12,7 @@ function installLibSBML
 % run the buildLibSBML script.
 
 
-% Filename    : install.m
+% Filename    : installSBML.m
 % Description : install matlab binding
 % Author(s)   : SBML Team <sbml-team@caltech.edu>
 % Organization: EMBL-EBI
