@@ -20,8 +20,7 @@ function buildSBML
 % to install the results.  This second step is performed by the "installSBML"
 % script found in the same location as this script.
 %
-% This script is designed for use with @PACKAGE_STRING@.
-% (File $Revision$.)
+% (File $Revision$ of $Date::                              $
 
 % Filename    : buildSBML.m
 % Description : Build MATLAB binding.
