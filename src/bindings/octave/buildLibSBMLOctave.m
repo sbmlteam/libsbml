@@ -42,7 +42,7 @@ function buildLibSBMLOctave
 
   matlab_dir = [root, filesep, 'src', filesep, 'bindings', filesep, 'matlab'];
   copyMatlabDir(matlab_dir, pwd);
-  buildLibSBML;
+  buildSBML;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check what we are using

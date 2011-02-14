@@ -118,7 +118,7 @@ function [detected_os, matlab, root, bit64, writeAccess, in_win_installer] = det
       % we might be in the windows installer but in a location the user chose
       % for the matlab bindings
       % buildLibSBML will not exist in this directory
-        if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
+        if (exist([pwd, filesep, 'buildSBML.m']) == 0)
           in_win_installer = 1;
           count = 1;
           while(exist(root, 'dir') == 0 && count < 3)
@@ -139,7 +139,7 @@ function [detected_os, matlab, root, bit64, writeAccess, in_win_installer] = det
       % we might be in the windows installer but in a location the user chose
       % for the matlab bindings
       % buildLibSBML will not exist in this directory
-        if (exist([pwd, filesep, 'buildLibSBML.m']) == 0)
+        if (exist([pwd, filesep, 'buildSBML.m']) == 0)
           in_win_installer = 1;
           count = 1;
           while(exist(root, 'dir') == 0 && count < 3)
@@ -345,12 +345,12 @@ function checkForExecutables()
   if (strcmp(isoctave(), '0'))
 	if (~(exist(transFile) ~= 0 && exist(outFile) ~= 0))     
 	  error(sprintf('%s\n%s', 'Executables not found', ...
-		'Run the buildLibSBML script to build the relevant files'));
+		'Run the buildSBML script to build the relevant files'));
 	elseif (~((strcmp(which(transFile), [pwd, filesep, transFile])) && ...
 				(strcmp(which(outFile), [pwd, filesep, outFile]))))     
 	% they exist but are they the right ones         
 	  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
-		'Run the buildLibSBML script to build the relevant files for this installation'));
+		'Run the buildSBML script to build the relevant files for this installation'));
 	else
 	  disp('Executables found');
 	end;
@@ -360,7 +360,7 @@ function checkForExecutables()
 	% exist throws an exception if it cannot find them
     if (~(myExist(transFile) ~= 0 && myExist(outFile) ~= 0))     
 	    error(sprintf('%s\n%s', 'Executables not found', ...
-		  'Run the buildLibSBML script to build the relevant files'));
+		  'Run the buildSBML script to build the relevant files'));
 	  % which does not work in octave in the same way
 	  % elseif (~((strcmp(which(transFile), pwd)) && ...
 	  %			(strcmp(which(outFile), pwd))))     
