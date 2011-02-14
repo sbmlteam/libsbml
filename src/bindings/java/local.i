@@ -1410,3 +1410,10 @@ LIST_WRAPPER(SBase::getCVTerms,CVTerm)
    * @param CVTerms list of {@link CVTerm} objects to be created.
    */
  public";
+
+
+%javamethodmodifiers ASTNode_true(const ASTNode *node) "
+  /**
+  * @deprecated libSBML internal
+  */
+public";  
