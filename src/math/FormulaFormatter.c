@@ -37,6 +37,7 @@
 #endif
 
 /**
+ * @if doxygen-c-only
  * Converts an AST to a string representation of a formula using a syntax
  * basically derived from SBML Level&nbsp;1.
  *
@@ -103,8 +104,7 @@
  * when translating between text forms and MathML forms, especially if they
  * provide a direct text-string input facility to users of their software
  * systems.<br><br>
- *
- * @warning @htmlinclude L1-math-syntax-warning.html
+ * @htmlinclude L1-math-syntax-warning.html
  *
  * @param tree the AST to be converted.
  * 
@@ -112,7 +112,8 @@
  * mathematical formula.  The caller owns the returned string and is
  * responsible for freeing it when it is no longer needed.
  *
- * @see SBML_parseFormula()
+ * SBML_parseFormula()
+ * @endif
  */
 LIBSBML_EXTERN
 char *

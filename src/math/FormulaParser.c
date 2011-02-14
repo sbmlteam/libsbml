@@ -297,6 +297,7 @@ static const StateActionPair_t Action[] =
 
 
 /**
+ * @if doxygen-c-only
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).
  *
@@ -364,8 +365,7 @@ static const StateActionPair_t Action[] =
  * when translating between text forms and MathML forms, especially if they
  * provide a direct text-string input facility to users of their software
  * systems.<br><br>
- *
- * @warning @htmlinclude L1-math-syntax-warning.html
+ * @htmlinclude L1-math-syntax-warning.html
  * 
  * @param formula the text-string formula expression to be parsed
  *
@@ -373,6 +373,7 @@ static const StateActionPair_t Action[] =
  * parsing the formula
  *
  * @see SBML_formulaToString()
+ * @endif
  */
 LIBSBML_EXTERN
 ASTNode_t *
