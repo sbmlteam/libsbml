@@ -6,6 +6,12 @@ Version 4.3.0 (Released 2011-??-??)
 
 * New features
 
+  - Tracker issue #2082682
+    The unit checking of math involving the root function has been
+    fully addressed. Previously unit checking was only applied to 
+    the expression root(n, x) if n was an integer. It can now handle
+    any value of n including an expression.
+  
   - Checking of the units of measurement in math expressions has been
     further improved to provide checking to a deeper level with the
     overall math of the model.  Thus, the units of the expression a^b
