@@ -102,10 +102,15 @@ for i = 1:length(Index)
     j = j+1;
     x = SubFormula(j:length(SubFormula)-1);
 
-    
-    ReplaceFormula = regexprep(SubFormula, n, x, 'once');
-    ReplaceFormula = regexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
-    ReplaceFormula = regexprep(ReplaceFormula, 'nthroot', 'root', 'once');
+    if (exist('OCTAVE_VERSION'))
+      ReplaceFormula = myRegexprep(SubFormula, n, x, 'once');
+      ReplaceFormula = myRegexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
+      ReplaceFormula = myRegexprep(ReplaceFormula, 'nthroot', 'root', 'once');
+   else
+      ReplaceFormula = regexprep(SubFormula, n, x, 'once');
+      ReplaceFormula = regexprep(ReplaceFormula,regexptranslate('escape',x),n,2);
+      ReplaceFormula = regexprep(ReplaceFormula, 'nthroot', 'root', 'once');
+    end;
     
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
     Index = strfind(Formula, 'nthroot(');
@@ -300,3 +305,36 @@ for i = 1:length(OpeningBracketIndex)
     j = find(OriginalPairs == pairs(i, 1));
     pairs(i, 2) = OriginalPairs(j, 2);
 end;
+
+
+
+function string = myRegexprep(string, repre, repstr, number)
+
+  %% Parse input arguements
+
+  n = -1;
+  if isnumeric(number)
+    n = number;
+  elseif strcmpi(number, 'once')
+    n = 1;
+  else
+    error('Invalid argument to myRegexprep');
+  end;
+
+  [st, en] = regexp(string, repre);
+
+
+  if (n > 0)
+    if (length(st) >= n)
+      st = st(n);
+	  en = en(n);
+    else
+      error('Invalid number of matches in myRegexprep');
+	  st = [];
+    end;
+  end;
+
+  for i = length(st):-1:1
+    string = [string(1:st(i)-1) repstr string(en(i)+1:length(string))];
+  end;
+
