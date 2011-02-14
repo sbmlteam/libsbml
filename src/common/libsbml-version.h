@@ -64,7 +64,7 @@ BEGIN_C_DECLS
 /**
  * Returns the libSBML version as an integer: version 1.2.3 becomes 10203.
  *
- * @return the libSBML version as an integer: version 1.2.3 becomes 10203.
+ * @return the libSBML version as an integer.
  */
 LIBSBML_EXTERN
 int 
@@ -74,7 +74,7 @@ getLibSBMLVersion () ;
 /**
  * Returns the libSBML version as a string of the form "1.2.3".
  *
- * @return the libSBML version as a string of the form "1.2.3".
+ * @return the libSBML version as a string.
  */
 LIBSBML_EXTERN
 const char* 
@@ -84,7 +84,7 @@ getLibSBMLDottedVersion ();
 /**
  * Returns the libSBML version as a string: version 1.2.3 becomes "10203".
  *
- * @return the libSBML version as a string: version 1.2.3 becomes "10203".
+ * @return the libSBML version as a string.
  */
 LIBSBML_EXTERN
 const char* 
