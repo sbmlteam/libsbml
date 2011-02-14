@@ -34,12 +34,14 @@
 
 #include <sbml/common/extern.h>
 
+
 /**
  * LIBSBML_DOTTED_VERSION:
  *
  * A version string of the form "1.2.3".
  */
 #define LIBSBML_DOTTED_VERSION	"@PACKAGE_VERSION@"
+
 
 /**
  * LIBSBML_VERSION:
@@ -51,6 +53,7 @@
  */
 #define LIBSBML_VERSION		@LIBSBML_VERSION_NUMERIC@
 
+
 /**
  * LIBSBML_VERSION_STRING:
  *
@@ -58,13 +61,14 @@
  */
 #define LIBSBML_VERSION_STRING	"@LIBSBML_VERSION_NUMERIC@"
 
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
 /**
- * Returns the libSBML version as an integer: version 1.2.3 becomes 10203.
+ * Returns the version number of this copy of libSBML as an integer.
  *
- * @return the libSBML version as an integer: version 1.2.3 becomes 10203.
+ * @return the libSBML version as an integer; version 1.2.3 becomes 10203.
  */
 LIBSBML_EXTERN
 int 
@@ -72,9 +76,12 @@ getLibSBMLVersion () ;
 
 
 /**
- * Returns the libSBML version as a string of the form "1.2.3".
+ * Returns the version number of this copy of libSBML as a string.
  *
- * @return the libSBML version as a string of the form "1.2.3".
+ * @return the libSBML version as a string; version 1.2.3 becomes
+ * "1.2.3".
+ *
+ * @see getLibSBMLVersionString()
  */
 LIBSBML_EXTERN
 const char* 
@@ -82,13 +89,17 @@ getLibSBMLDottedVersion ();
 
 
 /**
- * Returns the libSBML version as a string: version 1.2.3 becomes "10203".
+ * Returns the version number of this copy of libSBML as a string without
+ * periods.
  *
  * @return the libSBML version as a string: version 1.2.3 becomes "10203".
+ *
+ * @see getLibSBMLDottedVersion()
  */
 LIBSBML_EXTERN
 const char* 
 getLibSBMLVersionString ();
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
