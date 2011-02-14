@@ -123,12 +123,12 @@ public:
    * this example, suppose that @c content is an XMLNode object previously
    * created, containing MIRIAM-style annotations, and that @c sbmlObject
    * is an SBML object derived from SBase (e.g., a Model, or a Species, or
-   * a Compartment, etc.).  Then:
+   * a Compartment, etc.).  Then:@if clike
 @verbatim
 int success;                              // Status code variable, used below.
 
 XMLNode *RDF = createRDFAnnotation();     // Create RDF annotation XML structure.
-success = RDF->addChild(content);         // Put the content into it.
+success = RDF->addChild(content);         // Put some content into it.
 ...                                       // Check "success" return code value.
 
 XMLNode *ann = createAnnotation();        // Create <annotation> container.
@@ -138,6 +138,22 @@ success = ann->addChild(RDF);             // Put the RDF annotation into it.
 success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we built.
 ...                                       // Check "success" return code value.
 @endverbatim
+@endif@if java
+@verbatim
+int success;                                   // Status code variable, used below.
+
+XMLNode RDF = createRDFAnnotation();          // Create RDF annotation XML structure.
+success      = RDF.addChild(content);          // Put some content into it.
+...                                            // Check "success" return code value.
+
+XMLNode ann = createAnnotation();             // Create <annotation> container.
+success      = ann.addChild(RDF);              // Put the RDF annotation into it.
+...                                            // Check "success" return code value.
+
+success      = sbmlObject->setAnnotation(ann); // Set object's annotation to what we built.
+...                                            // Check "success" return code value.
+@endverbatim
+@endif
    * The SBML specification contains more information about the format of
    * annotations.  We urge readers to consult Section&nbsp;6 of the SBML
    * Level&nbsp;2 (Versions 2&ndash;4) and SBML Level&nbsp;3 specification
@@ -168,10 +184,9 @@ success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we 
 @endverbatim
    *
    * Note that this does not create the containing SBML
-   * <code>&lt;annotation&gt;</code> element; the method @if clike
-   * createAnnotation()@endif@if java
-   * RDFAnnotationParser::createAnnotation()@endif is available for
-   * creating the container.
+   * <code>&lt;annotation&gt;</code> element; the method
+   * @if clike createAnnotation()@endif@if java RDFAnnotationParser::createAnnotation()@endif
+   * is available for creating the container.
    *
    * @return a pointer to an XMLNode
    *
@@ -271,13 +286,13 @@ success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we 
 
 
   /**
-   * Takes an SBML object, reads off the model history information stored
-   * in it, and creates a complete SBML annotation to store that history.
+   * Reads the model history stored in @p object and creates the
+   * XML structure for an SBML annotation representing that history.
    *
    * @param object any SBase object
    *
    * @return the XMLNode corresponding to an annotation containing 
-   * MIRIAM-compliant model history information in RDF format
+   * MIRIAM-compliant model history information in RDF format.
    */
   static XMLNode * parseModelHistory(const SBase * object);
 
