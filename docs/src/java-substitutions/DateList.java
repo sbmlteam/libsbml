@@ -29,11 +29,6 @@ package org.sbml.libsbml;
  * <code>add()</code>, <code>remove()</code>, etc.), yet still
  * maintain the strong data typing requiring by Java.
  * <p>
- * @warning An important consideration in the use of this list is
- * that the <strong>caller owns the underlying C++ memory for the
- * list</strong>.  It must be explicitly deleted using
- * {@link #delete()} after the caller no longer needs it. 
- * <p>
  * @see ModelHistory#getListModifiedDates()
  */
 public class DateList {
@@ -46,9 +41,10 @@ public class DateList {
      * However, the constructor is provided in case callers need to
      * construct the lists themselves.
      * <p>
-     * Note that the internal implementation of the list nodes uses
-     * C++ objects, and those objects are in a sense "owned" by the caller
-     * when this constructor is used.  Callers need to remember to call
+     * @warning Note that the internal implementation of the list nodes uses
+     * C++ objects.  If callers use this constructor to create the list
+     * object deliberately, those objects are in a sense "owned" by the caller
+     * when this constructor is used. Callers need to remember to call
      * {@link #delete()} on this list object after it is no longer
      * needed or risk leaking memory.
      */
@@ -58,8 +54,9 @@ public class DateList {
     /**
      * Destructor for this list.
      * <p>
-     * Callers should use this method to delete this list object
-     * after it is no longer in use.
+     * If a caller created this list using the {@link #ASTNodeList()}
+     * constructor, the caller should use this method to delete this list
+     * object after it is no longer in use.
      */
     public synchronized void delete() { }
 
