@@ -154,7 +154,7 @@
  * @see Event
  * @see Delay
  * @see EventAssignment
- * @if java @endif
+ * @if java @see EventAssignment@endif
  */
 
 #ifndef Priority_h

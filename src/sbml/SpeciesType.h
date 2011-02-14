@@ -65,7 +65,7 @@
  * @see ListOfSpeciesTypes
  * @see CompartmentType
  * @see ListOfCompartmentTypes
- * @if java @endif
+ * @if java @see ListOfCompartmentTypes@endif
  * 
  * <!---------------------------------------------------------------------- -->
  *
