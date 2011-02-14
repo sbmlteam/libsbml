@@ -756,7 +756,10 @@ def rewriteDocstringForJava (docstring):
 
   docstring = docstring.replace(r'::', '.')
 
-  # Need to escape the quotation marks:
+  # Need to escape quotation marks.  The reason is that the
+  # %javamethodmodifiers directives created for use with SWIG will
+  # themselves be double-quoted strings, and leaving embedded quotes
+  # will completely screw that up.
 
   docstring = docstring.replace('"', "'")
   docstring = docstring.replace(r"'", r"\'")
