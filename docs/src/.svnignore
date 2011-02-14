@@ -14,3 +14,4 @@ doxygen-config-cpp.txt
 doxygen-config-perl.txt
 ExcludeDoclet.class
 perlmod
+java-files
