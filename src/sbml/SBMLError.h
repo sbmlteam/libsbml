@@ -378,29 +378,29 @@
  * check whether the error represents a low-level XML problem or an SBML
  * problem.
  * 
- * In libSBML version @htmlinclude libsbml-version.html there are no
- * additional severity codes in SBMLErrorSeverity_t beyond those defined in
- * @link XMLError::XMLErrorSeverity_t XMLErrorSeverity_t@endlink.
+ * In libSBML version @htmlinclude libsbml-version.html
+ * there are no additional severity codes in SBMLErrorSeverity_t beyond
+ * those defined in @link XMLError::XMLErrorSeverity_t XMLErrorSeverity_t@endlink.
  * 
  * <hr>
  * @endif@if java <h3><a class="anchor"
  * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
  * objects</h3>
  *
- * In libSBML version @htmlinclude libsbml-version.html there are no
- * additional severity codes beyond those defined by XMLError.  They are
- * implemented as static integer constants defined in the interface class
- * <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>, and
- * have names beginning with <code>LIBSBML_SEV_</code>.
+ * In libSBML version @htmlinclude libsbml-version.html
+ * there are no additional severity codes beyond those defined by XMLError.  
+ * They are implemented as static integer constants defined in the interface 
+ * class <code><a href="libsbmlConstants.html">libsbmlConstants</a></code>, 
+ * and have names beginning with <code>LIBSBML_SEV_</code>.
  * @endif@if python <h3><a class="anchor"
  * name="SBMLErrorSeverity_t">Severity codes associated with SBMLError
  * objects</h3>
  *
- * In libSBML version @htmlinclude libsbml-version.html there are no
- * additional severity codes beyond those defined by XMLError.  They are
- * implemented as static integer constants defined in the interface class
- * @link libsbml libsbml@endlink, and have names beginning with
- * <code>LIBSBML_SEV_</code>.
+ * In libSBML version @htmlinclude libsbml-version.html
+ * there are no additional severity codes beyond those defined by XMLError.
+ * They are implemented as static integer constants defined in the
+ * interface class @link libsbml libsbml@endlink, and have names beginning
+ * with <code>LIBSBML_SEV_</code>.
  * @endif
  */
 
