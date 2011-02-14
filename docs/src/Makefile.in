@@ -376,8 +376,6 @@ endif
 
 ifdef USE_JAVA
 
-java-dir            = ../../src/bindings/java/java-files
-
 javadoc-doctitle    = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Java API Reference"
 javadoc-header      = "<B>@PACKAGE_NAME@<BR>@PACKAGE_VERSION@</B>"
 javadoc-footer      = "`cat libsbml-java-footer.html`"
@@ -409,7 +407,28 @@ ExcludeDoclet.class: ExcludeDoclet.java
 
 ignorable-warnings = "warning - @param argument|Custom tags that could"
 
+# 2011-02-13 <mhucka@caltech.edu> We now do an evil work-around for the
+# problem that SWIG refuses to attach documentation to certain things:
+#
+#   1. copy the Java sources produced by our SWIG + swigdoc.py to a local dir
+#   2. overwrite certain files in this local dir with static, documented copies
+#   3. then run javadoc on this local dir instead of the real Java sources 
+#
+# Yes, heinous, and it will bite us in the ass some day when we forget to
+# update the static copies.  But believe me, I spent hours trying to find
+# a way to do the right thing with SWIG, or javadoc, and this is the least
+# complicated approach.
+
+java-source-dir = ../../src/bindings/java/java-files
+java-local-dir  = java-files
+java-subst-dir  = java-substitutions
+java-class-path = org/sbml/libsbml
+
 java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
+	rm -rf $(java-local-dir)
+	mkdir -p $(java-local-dir)/$(java-class-path)
+	cp -rp $(java-source-dir)/$(java-class-path)/* $(java-local-dir)/$(java-class-path)
+	cp -rp $(java-subst-dir)/* $(java-local-dir)/$(java-class-path)
 	$(JAVA) -cp $(JAVADOC_JAR):. ExcludeDoclet -excludefile java-skip.txt \
 	    -use -public -version -author -sourcetab 4 -keywords \
 	    -link http://java.sun.com/j2se/1.5.0/docs/api \
@@ -424,13 +443,13 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	    -tag note:a:"Note:" \
 	    -tag warning:a:"Warning:" \
 	    -tag docnote:a:"Documentation note:" \
-	    -sourcepath $(java-dir) org.sbml.libsbml \
+	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(ignorable-warnings) 
 	cp -f doxygen-base.css $(java-manual)
 	cp -f $(logo-file) $(java-manual)
-	cp -f $(logo-file) $(java-manual)/org/sbml/libsbml/
-	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
-	cp -f common-text/*.svg $(java-manual)/org/sbml/libsbml/
+	cp -f $(logo-file) $(java-manual)/$(java-class-path)/
+	cp -f graphics/*.jpg $(java-manual)/$(java-class-path)/
+	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/
 	cp -f sbml.js $(java-manual)
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
@@ -446,7 +465,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	${MAKE} insert-js
 
 insert-js : 
-	$(call insert_javascript,$(java-manual)/org/sbml/libsbml)
+	$(call insert_javascript,$(java-manual)/$(java-class-path))
 
 endif
 
