@@ -334,11 +334,11 @@ public:
    *
    * This "default version" corresponds to the most recent SBML Version
    * within the most recent Level of SBML available at the time libSBML
-   * version @htmlinclude libsbml-version.html was released.  For this copy
-   * of libSBML, the value is <code>1</code> (where the default Level of
-   * SBML is <code>3</code>).  The default Version is used by SBMLDocument
-   * if no Version is explicitly specified at the time of the construction
-   * of an SBMLDocument instance.
+   * version @htmlinclude libsbml-version.html
+   * was released.  For this copy of libSBML, the value is <code>1</code>
+   * (where the default Level of SBML is <code>3</code>).  The default
+   * Version is used by SBMLDocument if no Version is explicitly specified
+   * at the time of the construction of an SBMLDocument instance.
    *
    * @return an integer indicating the most recent SBML specification
    * Version
