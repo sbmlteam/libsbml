@@ -1059,6 +1059,16 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
+  void setExponentUnitChecking (double value); 
+                                           
+  double getExponentUnitChecking();
+
+  double getExponentUnitChecking() const;
+
+  bool isUnitChecking();
+
+  bool isUnitChecking() const;
+
   /* this is a constructor that takes no arguments and 
    * only exists because the validator code needs it
    */
@@ -1135,6 +1145,8 @@ protected:
   bool        mIsSetScale;
   bool        mIsSetMultiplier;
 
+  bool        mInternalUnitCheckingFlag;
+
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments
@@ -1154,6 +1166,8 @@ protected:
   friend class OverdeterminedValidator;
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
+  friend class UnitFormulaFormatter;
+  friend class UnitDefinition;
 
 
   /** @endcond */

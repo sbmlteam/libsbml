@@ -61,6 +61,7 @@ Unit::Unit (unsigned int level, unsigned int version) :
   , mIsSetExponent    ( false )
   , mIsSetScale       ( false )
   , mIsSetMultiplier  ( false )
+  , mInternalUnitCheckingFlag ( false) 
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -93,6 +94,7 @@ Unit::Unit (SBMLNamespaces * sbmlns) :
   , mIsSetExponent    ( false )
   , mIsSetScale       ( false )
   , mIsSetMultiplier  ( false )
+  , mInternalUnitCheckingFlag ( false )
 {
   if (!hasValidLevelVersionNamespaceCombination())
     throw SBMLConstructorException();
@@ -152,6 +154,7 @@ Unit::Unit(const Unit& orig) :
     mIsSetExponent    = orig.mIsSetExponent;
     mIsSetScale       = orig.mIsSetScale;
     mIsSetMultiplier  = orig.mIsSetMultiplier;
+    mInternalUnitCheckingFlag = orig.mInternalUnitCheckingFlag;
   }
 }
 
@@ -177,6 +180,7 @@ Unit& Unit::operator=(const Unit& rhs)
     mIsSetExponent    = rhs.mIsSetExponent;
     mIsSetScale       = rhs.mIsSetScale;
     mIsSetMultiplier  = rhs.mIsSetMultiplier;
+    mInternalUnitCheckingFlag = rhs.mInternalUnitCheckingFlag;
   }
 
   return *this;
@@ -981,7 +985,15 @@ Unit::areEquivalent(Unit * unit1, Unit * unit2)
     // what the exponent is
     if (unit1->getKind() != UNIT_KIND_DIMENSIONLESS)
     {
-      if ( (unit1->getOffset()    == unit2->getOffset())
+      if (unit1->isUnitChecking() || unit2->isUnitChecking())
+      {
+        if ( (unit1->getOffset()    == unit2->getOffset())
+          && (unit1->getExponentUnitChecking()  == unit2->getExponentUnitChecking()))
+        {
+          equivalent = true;
+        }      
+      }
+      else if ( (unit1->getOffset()    == unit2->getOffset())
         && (unit1->getExponent()  == unit2->getExponent()))
       {
         equivalent = true;
@@ -1093,7 +1105,14 @@ Unit::convertToSI(const Unit * unit)
   UnitKind_t uKind = unit->getKind();
   Unit * newUnit = new Unit(unit->getSBMLNamespaces());
   newUnit->setKind(uKind);
-  newUnit->setExponent(unit->getExponent());
+  if (unit->isUnitChecking())
+  {
+    newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
+  }
+  else
+  {
+    newUnit->setExponent(unit->getExponent());
+  }
   newUnit->setScale(unit->getScale());
   newUnit->setMultiplier(unit->getMultiplier());
   UnitDefinition * ud = new UnitDefinition(unit->getSBMLNamespaces());
@@ -1838,6 +1857,51 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   }
 
 }
+/** @endcond */
+
+
+/** @cond doxygen-libsbml-internal */
+/* private unit checking functions */
+void 
+Unit::setExponentUnitChecking (double value) 
+{ 
+  /* cannot use setExponent becuase want a double exponent 
+   * - even if we are dealing with L2/L1
+   */
+  //setExponent(value);
+  mExponentDouble = value;
+  mExponent = (int)(value);
+  mIsSetExponent = true;
+  mInternalUnitCheckingFlag = true;
+}
+
+
+double 
+Unit::getExponentUnitChecking() 
+{ 
+  return mExponentDouble; 
+}
+
+
+double 
+Unit::getExponentUnitChecking() const
+{ 
+  return mExponentDouble; 
+}
+
+
+bool
+Unit::isUnitChecking()
+{
+  return mInternalUnitCheckingFlag;
+}
+
+bool
+Unit::isUnitChecking() const
+{
+  return mInternalUnitCheckingFlag;
+}
+
 /** @endcond */
 
 

@@ -420,7 +420,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
     unit = tempUD->getUnit(i);
     /* dont change the exponent on a dimensionless unit */
     if (unit->getKind() != UNIT_KIND_DIMENSIONLESS)
-      unit->setExponent(-1 * unit->getExponent());
+      unit->setExponentUnitChecking(-1 * unit->getExponent());
     ud->addUnit(unit);
   }
   delete tempUD;
@@ -476,7 +476,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     // need to check type
     if (child->isInteger()) 
     {
-      unit->setExponent((int)(child->getInteger() * unit->getExponent()));
+      unit->setExponentUnitChecking((int)(child->getInteger() * unit->getExponent()));
     }
     else if (child->isName())
     {
@@ -532,7 +532,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
       
       newExp = (int) (value);
 
-      unit->setExponent(newExp * unit->getExponent());
+      unit->setExponentUnitChecking(newExp * unit->getExponent());
     }
     else if (child->isReal())
     {
@@ -541,7 +541,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
         mContainsUndeclaredUnits = true;
       newExp = (int) (value);
       
-      unit->setExponent(newExp * unit->getExponent());
+      unit->setExponentUnitChecking(newExp * unit->getExponent());
     }
     else
     {
@@ -558,7 +558,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
             mContainsUndeclaredUnits = true;
           newExp = (int) (value);
           
-          unit->setExponent(newExp * unit->getExponent());
+          unit->setExponentUnitChecking(newExp * unit->getExponent());
         }
         else
         {
@@ -664,17 +664,17 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
       {
         double doubleExponent = 
                  double(unit->getExponent())/double(child->getInteger());
-        if (floor(doubleExponent) != doubleExponent)
-          mContainsUndeclaredUnits = true;
-        unit->setExponent((int)(unit->getExponent()/child->getInteger()));
+        //if (floor(doubleExponent) != doubleExponent)
+        //  mContainsUndeclaredUnits = true;
+        unit->setExponentUnitChecking(doubleExponent);
       }
       else if (child->isReal())
       {
         double doubleExponent = 
                             double(unit->getExponent())/child->getReal();
-        if (floor(doubleExponent) != doubleExponent)
-          mContainsUndeclaredUnits = true;
-        unit->setExponent((int)(unit->getExponent()/child->getReal()));
+        //if (floor(doubleExponent) != doubleExponent)
+        //  mContainsUndeclaredUnits = true;
+        unit->setExponentUnitChecking(doubleExponent);
       }
       else
       {
@@ -690,9 +690,10 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
           {
             double doubleExponent = 
                                 double(unit->getExponent())/value;
-            if (floor(doubleExponent) != doubleExponent)
-              mContainsUndeclaredUnits = true;
-            unit->setExponent((int)(unit->getExponent()/value));
+            //if (floor(doubleExponent) != doubleExponent)
+              unit->setExponentUnitChecking(doubleExponent);
+//              mContainsUndeclaredUnits = true;
+//            unit->setExponentUnitChecking((int)(unit->getExponent()/value));
           }
           else
           {
@@ -1047,7 +1048,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
             unit = new Unit(model->getSBMLNamespaces());
             unit->setKind(UnitKind_forName("second"));
             unit->initDefaults();
-            unit->setExponent(-1);
+            unit->setExponentUnitChecking(-1);
         
             ud->addUnit(unit);
 
@@ -1059,7 +1060,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
             {
               unit = (const_cast<Unit*>(tempUd->getUnit(n)))->clone();
               exponent = unit->getExponent();
-              unit->setExponent(exponent * -1);
+              unit->setExponentUnitChecking(exponent * -1);
               ud->addUnit(unit);
             }
           }
@@ -1163,7 +1164,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setKind(tempUD->getUnit(0)->getKind());
             unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
             unit->setScale(tempUD->getUnit(0)->getScale());
-            unit->setExponent(tempUD->getUnit(0)->getExponent());
+            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponent());
             unit->setOffset(tempUD->getUnit(0)->getOffset());
 
             ud->addUnit(unit);
@@ -1177,7 +1178,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit = new Unit(model->getSBMLNamespaces());
             unit->setKind(UnitKind_forName("metre"));
             unit->initDefaults();
-            unit->setExponent(2);
+            unit->setExponentUnitChecking(2);
             ud   = new UnitDefinition(model->getSBMLNamespaces());
             
             ud->addUnit(unit);
@@ -1190,7 +1191,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setKind(tempUD->getUnit(0)->getKind());
             unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
             unit->setScale(tempUD->getUnit(0)->getScale());
-            unit->setExponent(tempUD->getUnit(0)->getExponent());
+            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponent());
             unit->setOffset(tempUD->getUnit(0)->getOffset());
 
             ud->addUnit(unit);
@@ -1216,7 +1217,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setKind(tempUD->getUnit(0)->getKind());
             unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
             unit->setScale(tempUD->getUnit(0)->getScale());
-            unit->setExponent(tempUD->getUnit(0)->getExponent());
+            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponent());
             unit->setOffset(tempUD->getUnit(0)->getOffset());
 
             ud->addUnit(unit);
@@ -1262,7 +1263,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -1295,7 +1296,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
         unit = new Unit(model->getSBMLNamespaces());
         unit->setKind(UnitKind_forName("metre"));
         unit->initDefaults();
-        unit->setExponent(2);
+        unit->setExponentUnitChecking(2);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "length"))
@@ -1376,7 +1377,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         unit->setKind(tempUd->getUnit(0)->getKind());
         unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
         unit->setScale(tempUd->getUnit(0)->getScale());
-        unit->setExponent(tempUd->getUnit(0)->getExponent());
+        unit->setExponentUnitChecking(tempUd->getUnit(0)->getExponent());
         unit->setOffset(tempUd->getUnit(0)->getOffset());
 
         subsUD->addUnit(unit);
@@ -1426,7 +1427,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -1526,7 +1527,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
                     model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                          model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                       model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                         model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -1559,7 +1560,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         unit = new Unit(model->getSBMLNamespaces());
         unit->setKind(UNIT_KIND_METRE);
         unit->initDefaults();
-        unit->setExponent(2);
+        unit->setExponentUnitChecking(2);
         sizeUD->addUnit(unit);
       }
       else if (!strcmp(spatialUnits, "length"))
@@ -1585,7 +1586,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     for (n = 0; n < sizeUD->getNumUnits(); n++)
     {
       unit = sizeUD->getUnit(n);
-      unit->setExponent(-1 * unit->getExponent());
+      unit->setExponentUnitChecking(-1 * unit->getExponent());
 
       ud->addUnit(unit);
     }
@@ -1660,7 +1661,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -1700,7 +1701,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
         unit = new Unit(model->getSBMLNamespaces());
         unit->setKind(UNIT_KIND_METRE);
         unit->initDefaults();
-        unit->setExponent(2);
+        unit->setExponentUnitChecking(2);
         ud->addUnit(unit);
       }
       else if (!strcmp(units, "length"))
@@ -1816,7 +1817,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -1915,7 +1916,7 @@ UnitFormulaFormatter::getExtentUnitDefinition()
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -1987,7 +1988,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
         unit->setKind(tempUd->getUnit(0)->getKind());
         unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
         unit->setScale(tempUd->getUnit(0)->getScale());
-        unit->setExponent(tempUd->getUnit(0)->getExponent());
+        unit->setExponentUnitChecking(tempUd->getUnit(0)->getExponent());
         unit->setOffset(tempUd->getUnit(0)->getOffset());
 
         ud->addUnit(unit);
@@ -2036,7 +2037,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
                    model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
-            unit->setExponent(
+            unit->setExponentUnitChecking(
                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
@@ -2132,7 +2133,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
             modelExtent->getUnit(n)->getMultiplier());
     unit->setScale(
             modelExtent->getUnit(n)->getScale());
-    unit->setExponent(
+    unit->setExponentUnitChecking(
             modelExtent->getUnit(n)->getExponent());
     unit->setOffset(
             modelExtent->getUnit(n)->getOffset());
@@ -2149,7 +2150,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
             conversion->getUnit(n)->getMultiplier());
     unit->setScale(
             conversion->getUnit(n)->getScale());
-    unit->setExponent(
+    unit->setExponentUnitChecking(
             conversion->getUnit(n)->getExponent());
     unit->setOffset(
             conversion->getUnit(n)->getOffset());

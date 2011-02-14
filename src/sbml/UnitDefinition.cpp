@@ -798,7 +798,15 @@ UnitDefinition::simplify(UnitDefinition * ud)
   for (n = numUnits; n > 0; n--)
   {
     unit = (Unit *) units->get(n-1);
-    if (unit->getExponent() == 0)
+    if (unit->isUnitChecking())
+    {
+      if (unit->getExponentUnitChecking() == 0)
+      {
+        delete units->remove(n-1);
+        cancelFlag = 1;
+      }
+    }
+    else if (unit->getExponent() == 0)
     {
       delete units->remove(n-1);
       cancelFlag = 1;
@@ -904,7 +912,14 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
     {
       tempUnit = new Unit(ud->getSBMLNamespaces());
       tempUnit->setKind(tempUd->getUnit(p)->getKind());
-      tempUnit->setExponent(tempUd->getUnit(p)->getExponent());
+      if (tempUd->getUnit(p)->isUnitChecking())
+      {
+        tempUnit->setExponentUnitChecking(tempUd->getUnit(p)->getExponentUnitChecking());
+      }
+      else
+      {
+        tempUnit->setExponent(tempUd->getUnit(p)->getExponent());
+      }
       tempUnit->setScale(tempUd->getUnit(p)->getScale());
       tempUnit->setMultiplier(tempUd->getUnit(p)->getMultiplier());
       newUd->addUnit(tempUnit);
@@ -1221,7 +1236,15 @@ UnitDefinition::printUnits(const UnitDefinition * ud, bool compact)
       for (unsigned int p = 0; p < ud->getNumUnits(); p++)
       {
 	      UnitKind_t kind = ud->getUnit(p)->getKind();
-	      double exp = ud->getUnit(p)->getExponent();
+        double exp = 0;
+        if (ud->getUnit(p)->isUnitChecking())
+        {
+          exp = ud->getUnit(p)->getExponentUnitChecking();
+        }
+        else
+        {
+	        exp = ud->getUnit(p)->getExponentAsDouble();
+        }
         int scale = ud->getUnit(p)->getScale();
         double mult = ud->getUnit(p)->getMultiplier();
 

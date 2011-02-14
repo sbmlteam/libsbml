@@ -1165,6 +1165,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
+  friend class Unit;
   /** @endcond */
 };
 
