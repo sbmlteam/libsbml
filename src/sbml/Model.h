@@ -37,7 +37,8 @@
  * within the model, the list must not be empty; that is, it must have
  * length one or more.  The following are the components and lists
  * permitted in different Levels and Versions of SBML in
- * version @htmlinclude libsbml-version.html of libSBML:
+ * version @htmlinclude libsbml-version.html
+ * of libSBML:
  * <ul>
  * <li> In SBML Level 1, the components are: UnitDefinition, Compartment,
  * Species, Parameter, Rule, and Reaction.  Instances of the classes are
@@ -104,7 +105,7 @@
  * In general, the recommended approach is to use the <code>create<span
  * class="placeholder"><em>Object</em></span>()</code> methods.  These
  * methods both create an object @em and link it to the parent in one step.
- * Here is an example:
+ * Here is an example:@if clike
  * @verbatim
 // Create an SBMLDocument object in Level 3 Version 1 format:
 
@@ -116,7 +117,7 @@ SBMLDocument* sbmlDoc = new SBMLDocument(3, 1);
 // of the object attached to the model (as expected).
 
 Model* model = sbmlDoc->createModel();
-model->setId("MyModel");
+model->setId(&#34;BestModelEver&#34;);
 
 // Create a Species object inside the Model and set its identifier.
 // Similar to the lines above, this call returns a pointer to the Species
@@ -124,8 +125,31 @@ model->setId("MyModel");
 // of the object attached to the model (as expected).
 
 Species *sp = model->createSpecies();
-sp->setId("MySpecies");
+sp->setId(&#34;MySpecies&#34;);
 @endverbatim
+@endif@if java
+@verbatim
+// Create an SBMLDocument object in Level 3 Version 1 format:
+
+SBMLDocument sbmlDoc = new SBMLDocument(3, 1);
+
+// Create a Model object inside the SBMLDocument object and set
+// its identifier.  The call returns a pointer to the Model object
+// created, and methods called on that object affect the attributes
+// of the object attached to the model (as expected).
+
+Model model = sbmlDoc.createModel();
+model.setId(&#34;BestModelEver&#34;);
+
+// Create a Species object inside the Model and set its identifier.
+// Similar to the lines above, this call returns a pointer to the Species
+// object created, and methods called on that object affect the attributes
+// of the object attached to the model (as expected).
+
+Species sp = model.createSpecies();
+sp.setId(&#34;BestSpeciesEver&#34;);
+@endverbatim
+@endif
  * 
  * The <code>create<span
  * class="placeholder"><em>Object</em></span>()</code> methods return a
@@ -140,47 +164,65 @@ sp->setId("MySpecies");
  * 
  * By contrast, the other main way of creating an object and adding it to a
  * parent makes a @em copy of the object, and requires more care on the
- * part of the caller.  Here is an example of this alternative approach:
+ * part of the caller.  Here is an example of this alternative approach: @if clike
  * @verbatim
 // Create a Species object and add it to the model.
 // This uses the Species class constructor:
 
-Species *newsp = Species("MySpecies");
+Species *newsp = Species(&#34;BestSpeciesEver&#34;);
 model->addSpecies(newsp); // Warning! This makes a COPY inside 'model'.
 
 // addSpecies(...) copies the object, with the result that
 // 'newsp' still refers to the original.  The following may not
 // do what is expected:
 
-newsp.setId("NewId");    // Warning -- doesn't change the species in 'model'!
+newsp->setId(&#34;NewId&#34;);    // Warning -- doesn't change the species in 'model'!
 
-// If 'newsp' object isn't going to be used further, it needs
+// If 'newsp' object is not going to be used further, it needs
 // to be deleted to avoid a memory leak.
 
 delete newsp;
 @endverbatim
+@endif@if java
+@verbatim
+// Create a Species object and add it to the model.
+// This uses the Species class constructor:
+
+Species newsp = Species(&#34;BestSpeciesEver&#34;);
+model.addSpecies(newsp); // Warning! This makes a COPY inside 'model'.
+
+// addSpecies(...) copies the object, with the result that
+// 'newsp' still refers to the original.  The following may not
+// do what is expected:
+
+newsp.setId(&#34;NewId&#34;);    // Warning -- doesn't change the species in 'model'!
+@endverbatim
+@endif
  * 
  * The key point of the example above is that, because the @if clike Model::addSpecies() @endif@if python Model::addSpecies() @endif@if java Model::addSpecies(Species s) @endif
- * call makes a copy of the object handed to it, care is needed both when
+ * call makes a copy of the object handed to it, care is needed
+ * @if clike both when
  * attempting to make changes to the object, and when the original object
- * is no longer needed.
+ * is no longer needed.@endif@if java when
+ * attempting to make changes to the object.@endif
  *
  * @section checking Consistency and adherence to SBML specifications
  *
  * To make it easier for applications to do whatever they need,
- * libSBML version @htmlinclude libsbml-version.html is relatively lax when it comes to enforcing
- * correctness and completeness of models @em during model construction and
- * editing.  Essentially, libSBML @em will @em not in most cases check
- * automatically that a model's components have valid attribute values, or
- * that the overall model is consistent and free of errors&mdash;even
- * obvious errors such as duplication of identifiers.  This allows
- * applications great leeway in how they build their models, but it means
- * that software authors must take deliberate steps to ensure that the
- * model will be, in the end, valid SBML.  These steps include such things
- * as keeping track of the identifiers used in a model, manually performing
- * updates in certain situations where an entity is referenced in more than
- * one place (e.g., a species that is referenced by multiple
- * SpeciesReference objects), and so on.
+ * libSBML version @htmlinclude libsbml-version.html
+ * is relatively lax when it comes to enforcing correctness and
+ * completeness of models @em during model construction and editing.
+ * Essentially, libSBML @em will @em not in most cases check automatically
+ * that a model's components have valid attribute values, or that the
+ * overall model is consistent and free of errors&mdash;even obvious errors
+ * such as duplication of identifiers.  This allows applications great
+ * leeway in how they build their models, but it means that software
+ * authors must take deliberate steps to ensure that the model will be, in
+ * the end, valid SBML.  These steps include such things as keeping track
+ * of the identifiers used in a model, manually performing updates in
+ * certain situations where an entity is referenced in more than one place
+ * (e.g., a species that is referenced by multiple SpeciesReference
+ * objects), and so on.
  *
  * That said, libSBML does provide powerful features for deliberately
  * performing validation of SBML when an application decides it is time to
