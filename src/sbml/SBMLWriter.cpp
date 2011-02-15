@@ -522,15 +522,6 @@ SBMLWriter_hasBzip2 ()
 }
 
 
-/**
- * Writes the given SBML document to filename.  This convenience function
- * is functionally equivalent to:
- *
- *   SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
- */
 LIBSBML_EXTERN
 int
 writeSBML (const SBMLDocument_t *d, const char *filename)
@@ -543,15 +534,6 @@ writeSBML (const SBMLDocument_t *d, const char *filename)
 }
 
 
-/**
- * Writes the given SBML document to filename.  This convenience function
- * is functionally equivalent to:
- *
- *   SBMLWriter_writeSBMLToFile(SBMLWriter_create(), d, filename);
- *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
- */
 LIBSBML_EXTERN
 int
 writeSBMLToFile (const SBMLDocument_t *d, const char *filename)
@@ -564,17 +546,6 @@ writeSBMLToFile (const SBMLDocument_t *d, const char *filename)
 }
 
 
-/**
- * Writes the given SBML document to an in-memory string and returns a
- * pointer to it.  The string is owned by the caller and should be freed
- * (with free()) when no longer needed.  This convenience function is
- * functionally equivalent to:
- *
- *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
- *
- * @return the string on success and NULL if one of the underlying parser
- * components fail (rare).
- */
 LIBSBML_EXTERN
 char *
 writeSBMLToString (const SBMLDocument_t *d)
