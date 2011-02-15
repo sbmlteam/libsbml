@@ -458,6 +458,9 @@ LIBSBML_CPP_NAMESPACE_USE
 
 %inline
 %{
+  /**
+  * @deprecated libSBML internal
+  */
   int ASTNode_true(const ASTNode *node)
   {
     return 1;
