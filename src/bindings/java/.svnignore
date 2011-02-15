@@ -24,3 +24,4 @@ out.xml
 AutoTestRunner.class
 .libs
 libsbmlj.so
+Manifest.txt
