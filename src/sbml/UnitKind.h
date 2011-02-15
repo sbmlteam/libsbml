@@ -97,9 +97,10 @@ typedef enum
  *
  * This function behaves exactly like C's <code>==</code> operator, except
  * for the following two cases:
- * 
- * @li @link UnitKind_t#UNIT_KIND_LITER UNIT_KIND_LITER@endlink <code>==</code> @link UnitKind_t#UNIT_KIND_LITRE UNIT_KIND_LITRE@endlink
- * @li @link UnitKind_t#UNIT_KIND_METER UNIT_KIND_METER@endlink <code>==</code> @link UnitKind_t#UNIT_KIND_METRE UNIT_KIND_METRE@endlink
+ * <ul>
+ * <li>@link UnitKind_t#UNIT_KIND_LITER UNIT_KIND_LITER@endlink <code>==</code> @link UnitKind_t#UNIT_KIND_LITRE UNIT_KIND_LITRE@endlink
+ * <li>@link UnitKind_t#UNIT_KIND_METER UNIT_KIND_METER@endlink <code>==</code> @link UnitKind_t#UNIT_KIND_METRE UNIT_KIND_METRE@endlink
+ * </ul>
  *
  * In the two cases above, C equality comparison would yield @c false
  * (because each of the above is a distinct enumeration value), but
@@ -125,18 +126,14 @@ UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
  *
  * @param name a string, the name of a predefined base unit in SBML
  * 
- * @if clike
- * @return a value from UnitKind_t corresponding to the given string @p name
- * (determined in a case-insensitive manner).
- * @endif@if python
- * @return a value the set of <code>UNIT_KIND_</code> codes defined
- * in class @link libsbml libsbml@endlink, corresponding to the
+ * @return @if clike a value from UnitKind_t corresponding to the given
  * string @p name (determined in a case-insensitive manner).
- * @endif@if java
- * @return a value the set of <code>UNIT_KIND_</code> codes defined
- * in class {@link libsbmlConstants}, corresponding to the
- * string @p name (determined in a case-insensitive manner).
- * @endif
+ * @endif@if python a value the set of <code>UNIT_KIND_</code> codes
+ * defined in class @link libsbml libsbml@endlink, corresponding to the
+ * string @p name (determined in a case-insensitive
+ * manner).@endif@if java a value the set of <code>UNIT_KIND_</code> codes
+ * defined in class {@link libsbmlConstants}, corresponding to the string
+ * @p name (determined in a case-insensitive manner).@endif
  *
  * @note For more information about the libSBML unit codes, please refer to
  * the class documentation for Unit.
@@ -149,13 +146,10 @@ UnitKind_forName (const char *name);
 /**
  * Converts a unit code to a text string equivalent.
  *
- * @if clike
- * @param uk a value from the UnitKind_t enumeration
- * @endif@if python
- * @param uk a value from the set of <code>UNIT_KIND_</code> codes
+ * @param uk @if clike a value from the UnitKind_t enumeration
+ * @endif@if python a value from the set of <code>UNIT_KIND_</code> codes
  * defined in the class @link libsbml libsbml@endlink
- * @endif@if java
- * @param uk a value from the set of <code>UNIT_KIND_</code> codes
+ * @endif@if java a value from the set of <code>UNIT_KIND_</code> codes
  * defined in the class {@link libsbmlConstants}
  * @endif
  *
