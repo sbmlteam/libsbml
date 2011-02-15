@@ -46,7 +46,9 @@
  * application&mdash;the application does not need to do anything
  * deliberate to invoke the functionality.  If a given SBML filename ends
  * with an extension for the @em gzip, @em zip or @em bzip2 compression
- * formats (respectively, @c .gz, @c .zip, or @c .bz2), then the methods
+ * formats (respectively, <code>&quot;.gz&quot;</code>,
+ * <code>&quot;.zip&quot;</code>, or <code>&quot;.bz2&quot;</code>),
+ * then the methods
  * SBMLWriter::writeSBML(@if java SBMLDocument d, String filename@endif)
  * and SBMLReader::readSBML(@if java String filename@endif)
  * will automatically compress and decompress the file while writing and
@@ -168,19 +170,7 @@ public:
   /**
    * Writes the given SBML document to filename.
    *
-   * If the given filename ends with the suffix @c ".gz" (for example, @c
-   * "myfile.xml.gz"), libSBML assumes the caller wants the file to be
-   * written compressed in @em gzip.  Similarly, if the given filename ends
-   * with @c ".zip" or @c ".bz2", libSBML assumes the caller wants the file
-   * to be compressed in @em zip or @em bzip2 format (respectively).  Files
-   * whose names lack these suffixes will be written uncompressed.
-   * <em>Special considerations for the zip format</em>: If the given
-   * filename ends with @c ".zip", the file placed in the zip archive will
-   * have the suffix @c ".xml" or @c ".sbml".  For example, the file in
-   * the zip archive will be named @c "test.xml" if the given filename is
-   * @c "test.xml.zip" or @c "test.zip".  Similarly, the filename in the
-   * archive will be @c "test.sbml" if the given filename is @c
-   * "test.sbml.zip".
+   * @htmlinclude assuming-compressed-file.html
    *
    * @param d the SBML document to be written
    *
@@ -239,19 +229,7 @@ public:
   /**
    * Writes the given SBML document to filename.
    *
-   * If the given filename ends with the suffix @c ".gz" (for example,
-   * @c "myfile.xml.gz"), libSBML assumes the caller wants the file to be
-   * written compressed in @em gzip.  Similarly, if the given filename ends
-   * with @c ".zip" or @c ".bz2", libSBML assumes the caller wants the file
-   * to be compressed in @em zip or @em bzip2 format (respectively).  Files
-   * whose names lack these suffixes will be written uncompressed.
-   * <em>Special considerations for the zip format</em>: If the given
-   * filename ends with @c ".zip", the file placed in the zip archive will
-   * have the suffix @c ".xml" or @c ".sbml".  For example, the file in
-   * the zip archive will be named @c "test.xml" if the given filename is
-   * @c "test.xml.zip" or @c "test.zip".  Similarly, the filename in the
-   * archive will be @c "test.sbml" if the given filename is @c
-   * "test.sbml.zip".
+   * @htmlinclude assuming-compressed-file.html
    *
    * @param d the SBML document to be written
    *
@@ -381,19 +359,7 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
 /**
  * Writes the given SBML document to filename.
  *
- * If the given filename ends with the suffix @c ".gz" (for example, @c
- * "myfile.xml.gz"), libSBML assumes the caller wants the file to be
- * written compressed in @em gzip.  Similarly, if the given filename ends
- * with @c ".zip" or @c ".bz2", libSBML assumes the caller wants the file
- * to be compressed in @em zip or @em bzip2 format (respectively).  Files
- * whose names lack these suffixes will be written uncompressed.
- * <em>Special considerations for the zip format</em>: If the given
- * filename ends with @c ".zip", the file placed in the zip archive will
- * have the suffix @c ".xml" or @c ".sbml".  For example, the file in
- * the zip archive will be named @c "test.xml" if the given filename is
- * @c "test.xml.zip" or @c "test.zip".  Similarly, the filename in the
- * archive will be @c "test.sbml" if the given filename is @c
- * "test.sbml.zip".
+ * @htmlinclude assuming-compressed-file.html
  *
  * @return non-zero on success and zero if the filename could not be opened
  * for writing.
@@ -461,13 +427,30 @@ SBMLWriter_hasBzip2 ();
 
 
 /**
- * Writes the given SBML document to filename.  This convenience function
- * is functionally equivalent to:
+ * Writes the given SBML document @p d to the file named by @p filename.
  *
- *   SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
+ * This function is identical to @if clike SBMLWriter::writeSBMLToFile (const SBMLDocument_t *d, const char *filename)@endif@if java <a href="#writeSBMLToFile(org.sbml.libsbml.SBMLDocument, java.lang.String)"><code>writeSBMLToFile(SBMLDocument d, String filename)</code></a>@endif.
+ * 
+ * @htmlinclude assuming-compressed-file.html
  *
- * @return non-zero on success and zero if the filename could not be opened
- * for writing.
+ * @param d the SBMLDocument object to be written out in XML format
+ * 
+ * @param filename a string giving the path to a file where the XML
+ * content is to be written.
+ *
+ * @return @c 1 on success and @c 0 (zero) if @p filename could not be
+ * written.  Some possible reasons for failure include (a) being unable to
+ * open the file, and (b) using a filename that indicates a compressed SBML
+ * file (i.e., a filename ending in <code>&quot;.zip&quot;</code> or
+ * similar) when the compression functionality has not been enabled in
+ * the underlying copy of libSBML.
+ *
+ * @if clike @warning Note that the string is owned by the caller and
+ * should be freed (with the normal string <code>free()</code> C++
+ * function) after it is no longer needed.@endif
+ *
+ * @if clike @see hasZlib()@endif@if python @see hasZlib()@endif@if java @see SBMLWriter::hasZlib()@endif
+ * @if clike @see hasBzip2()@endif@if python @see hasBzip2()@endif@if java @see SBMLWriter::hasBzip2()@endif
  */
 LIBSBML_EXTERN
 int
@@ -475,21 +458,56 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
 
 
 /**
- * Writes the given SBML document to an in-memory string and returns a
- * pointer to it.  The string is owned by the caller and should be freed
- * (with free()) when no longer needed.  This convenience function is
- * functionally equivalent to:
+ * Writes the given SBML document @p d to an in-memory string and
+ * returns the string.
  *
- *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
+ * This is a convenience function that uses the
+ * SBMLWriter::writeSBMLToString(const SBMLDocument* d) method internally,
+ * yet does not require the caller to create an SBMLWriter object first.
+ *
+ * @param d an SBMLDocument object to be written out in XML format
  *
  * @return the string on success and @c NULL if one of the underlying parser
- * components fail (rare).
+ * components fail.
+ *
+ * @if clike @warning Note that the string is owned by the caller and
+ * should be freed (with the normal string <code>free()</code> C++
+ * function) after it is no longer needed.@endif
  */
 LIBSBML_EXTERN
 char *
 writeSBMLToString (const SBMLDocument_t *d);
 
 
+/**
+ * Writes the given SBML document @p d to the file @p filename.
+ *
+ * This is a convenience function that uses the
+ * SBMLWriter::writeSBMLToFile(const SBMLDocument* d, const std::string&
+ * filename) method internally, yet does not require the caller to create
+ * an SBMLWriter object first.
+ *
+ * @htmlinclude assuming-compressed-file.html
+ * 
+ * @param d an SBMLDocument object to be written out in XML format
+ *
+ * @param filename a string giving the path to a file where the XML
+ * content is to be written.
+ *
+ * @return @c 1 on success and @c 0 (zero) if @p filename could not be
+ * written.  Some possible reasons for failure include (a) being unable to
+ * open the file, and (b) using a filename that indicates a compressed SBML
+ * file (i.e., a filename ending in <code>&quot;.zip&quot;</code> or
+ * similar) when the compression functionality has not been enabled in
+ * the underlying copy of libSBML.
+ *
+ * @if clike @warning Note that the string is owned by the caller and
+ * should be freed (with the normal string <code>free()</code> C++
+ * function) after it is no longer needed.@endif
+ *
+ * @if clike @see hasZlib()@endif@if python @see hasZlib()@endif@if java @see SBMLWriter::hasZlib()@endif
+ * @if clike @see hasBzip2()@endif@if python @see hasBzip2()@endif@if java @see SBMLWriter::hasBzip2()@endif
+ */
 LIBSBML_EXTERN
 int
 writeSBMLToFile (const SBMLDocument_t *d, const char *filename);
