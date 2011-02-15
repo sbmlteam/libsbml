@@ -1,0 +1,53 @@
+<center style="margin-bottom: 2em; margin-top: 2em">
+<table border="0">
+<tr>
+<td style="font-size: small;">
+<a href="#reading-jar-version">&bull; Reading the libSBML version from the JAR file</a>
+</td></tr><tr><td style="font-size: small;">
+<a href="#tomcat">&bull; Using libSBML from within Apache Tomcat</a>
+</td>
+</tr>
+</table>
+</center>
+
+
+This section discusses special topics that are unique to the Java language
+interface implemented in libSBML.
+
+<p>
+<h2><a class="anchor" name="reading-jar-version">Reading the libSBML version from the JAR file</a></h2>
+
+<p>
+Beginning with libSBML version 4.3, the JAR file containing the optional
+Java language bindings for libSBML incorporates the libSBML version
+number.  This allows applications and other software to query the version
+number of a libSBML JAR file without actually having to invoke libSBML.
+A complete demonstration program illustrating how to do this is provided 
+with the libSBML source code distribution in the file
+<code>&quot;examples/src/printLibSBMLVersion.java&quot;</code>; the
+essential portion is illustrated in the following code fragment:
+
+<div class="fragment"><pre class="fragment">
+Package p = Package.getPackage("org.sbml.libsbml");
+if (p != null)
+{
+  System.out.println("Package name: " + p.getImplementationTitle());
+  System.out.println("Package version: " + p.getImplementationVersion());
+}
+else
+{
+  System.err.println("Unable to get package org.sbml.libsbml");
+}
+</pre></div>
+
+A program simply needs to load the libSBML JAR file in some manner, and
+then use the standard Java <code>Package</code> class methods to extract
+the name and version number.
+<p>
+Note, however, that this approach will only work with libSBML version 4.3
+or later, because in prior versions, libSBML did not include the relevant
+fields in the JAR manifest.
+
+
+<p>
+<h2><a class="anchor" name="tomcat">Reading the libSBML version from the JAR file</a></h2>

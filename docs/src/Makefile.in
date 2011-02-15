@@ -460,6 +460,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,basic facilities for reading and writing SBML content)
 	$(call merge_html,libsbml-java-math.html,$(java-manual)/libsbml-java-math.html,facilities for manipulating mathematical expressions)
 	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,known issues and pitfalls)
+	$(call merge_html,libsbml-java-misc.html,$(java-manual)/libsbml-java-misc.html,Miscellaneous Java-specific information)
 	$(call merge_html,libsbml-uninstallation.html,$(java-manual)/libsbml-uninstallation.html,uninstallation)
 	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,license)
 	$(call merge_html_verb,../../NEWS.txt,$(java-manual)/libsbml-news.html,news)
