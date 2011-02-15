@@ -184,6 +184,7 @@ check_sources  = AutoTestRunner.java $(wildcard $(test_src_path)/**/Test*.java)
 # files.
 
 distfiles = Makefile.in      \
+	    Manifest.txt.in  \
             $(check_sources) \
             $(extra_sources) \
             $(java_files)    \
@@ -298,7 +299,8 @@ $(outpath)/libsbml.class: libsbml_wrap.cpp $(outpath)
 	$(shell $(compile_command) 2>&1 | grep -v deprecat)
 
 $(jarfile): $(outpath)/libsbml.class 
-	$(CD) $(outdir) && "$(JAR)" -cvf ../$(jarfile) $(pkg_path)/*.class
+	$(CD) $(outdir) && "$(JAR)" -cvfm ../$(jarfile) \
+	   ../Manifest.txt $(pkg_path)/*.class
 
 # Force removal of the java-files directory.
 
