@@ -100,6 +100,7 @@ distfiles =                                                  \
 	common-text/about-sbml-units-attrib.html             \
 	common-text/about-semantic-annotations.html          \
         common-text/astnode-types.html                       \
+	common-text/assuming-compressed-file.html            \
         common-text/base-units.html                          \
         common-text/base-units2.html                         \
         common-text/comment-set-methods.html                 \
