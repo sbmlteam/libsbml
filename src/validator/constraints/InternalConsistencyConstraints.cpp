@@ -73,7 +73,9 @@ END_CONSTRAINT
 START_CONSTRAINT (99902, Compartment, c)
 {
   // level 1 and L2V1 compartment shouldnt have compartmentType
-  pre( c.getLevel() == 1 || (c.getLevel() == 2 && c.getVersion() == 1));
+  // or level 3
+  pre( c.getLevel() == 1 || (c.getLevel() == 2 && c.getVersion() == 1) 
+     || c.getLevel() == 3 );
   
   inv( c.isSetCompartmentType() == false );
 }
@@ -373,8 +375,10 @@ END_CONSTRAINT
 
 START_CONSTRAINT (99908, Model, x)
 {
-  // compartmentType not valid in L1 or L2v1
-  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1));
+  // compartmentType not valid in L1 or L2v1 
+  //or L3
+  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1)
+    || x.getLevel() == 3 );
   
   inv( x.getNumCompartmentTypes() == 0 );
 }
@@ -613,7 +617,10 @@ END_CONSTRAINT
 START_CONSTRAINT (99917, Species, s)
 {
   // level 1; spatialSizeUnits didnt exist
-  pre( s.getLevel() == 1);
+  // or in L2v3 l2v4 L3
+  pre( s.getLevel() == 1
+    || (s.getLevel() == 2 && s.getVersion() > 2)
+    || s.getLevel() == 3);
   
   inv( s.isSetSpatialSizeUnits() == false );
 }
@@ -623,7 +630,9 @@ END_CONSTRAINT
 START_CONSTRAINT (99918, Species, s)
 {
   // level 1 and L2V1 species shouldnt have speciesType
-  pre( s.getLevel() == 1 || (s.getLevel() == 2 && s.getVersion() == 1));
+  // or L3
+  pre( s.getLevel() == 1 || (s.getLevel() == 2 && s.getVersion() == 1)
+    || s.getLevel() == 3);
   
   inv( s.isSetSpeciesType() == false );
 }
@@ -663,7 +672,9 @@ END_CONSTRAINT
 START_CONSTRAINT (99922, Model, x)
 {
   // speciesType not valid in L1 or L2v1
-  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1));
+  // or L3
+  pre( x.getLevel() == 1 ||(x.getLevel() == 2 && x.getVersion() == 1)
+    || x.getLevel() == 3);
   
   inv( x.getNumSpeciesTypes() == 0 );
 }
@@ -676,7 +687,8 @@ START_CONSTRAINT (99923, SpeciesReference, sr)
   // testing the stoichiometrymath element
   pre( sr.isSetStoichiometryMath());
   // level 1 stoichiometryMath didnt exist
-  pre( sr.getLevel() == 1);
+  // or L3
+  pre( sr.getLevel() == 1 || sr.getLevel() == 3);
 
   inv( sr.isSetStoichiometryMath() == false );
 }
@@ -697,12 +709,26 @@ END_CONSTRAINT
 START_CONSTRAINT (99925, Unit, u)
 {
   // offset not valid in L1
+  // or l2v2-4 or l3
   // a value of 0 will not alter the unit
-  pre( u.getLevel() == 1);
+  pre( u.getLevel() == 1 
+    || (u.getLevel() == 2 && u.getVersion() != 1)
+    || u.getLevel() == 3);
   
   inv( u.getOffset() == 0 );
 }
 END_CONSTRAINT
+
+
+//START_CONSTRAINT (20421, Unit, u)
+//{
+//  // required attributes in L3
+//  pre( u.getLevel() == 3);
+//  
+//  inv( u.hasRequiredAttributes() == true );
+//}
+//END_CONSTRAINT
+//
 
 
 
