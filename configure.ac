@@ -323,6 +323,7 @@ AC_CONFIG_FILES([src/bindings/octave/Makefile])
 AC_CONFIG_FILES([src/bindings/octave/test/Makefile])
 
 AC_CONFIG_FILES([src/bindings/java/Makefile])
+AC_CONFIG_FILES([src/bindings/java/Manifest.txt])
 
 dnl The Lisp language binding has been removed for the time being, because it
 dnl no longer works in recent versions of libSBML.
