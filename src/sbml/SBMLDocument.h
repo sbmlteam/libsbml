@@ -50,15 +50,14 @@
  * encountered (e.g., using SBMLDocument::getNumErrors()), access the Model
  * object, and perform other actions such as consistency-checking and model
  * translation.
- * @endif@if java
- * LibSBML uses the class SBMLDocument as a top-level container for storing
- * SBML content and data associated with it (such as warnings and error
- * messages).  The two primary means of reading an SBML model,
- * SBMLReader::readSBML(String filename) and
- * SBMLReader::readSBMLFromString(String xml), both return a pointer to an
- * SBMLDocument object.  From there, callers can inquire about any errors
- * encountered (e.g., using SBMLDocument::getNumErrors()), access the Model
- * object, and perform other actions such as consistency-checking and model
+ * @endif@if java LibSBML uses the class SBMLDocument as a top-level
+ * container for storing SBML content and data associated with it (such as
+ * warnings and error messages).  The two primary means of reading an SBML
+ * model, SBMLReader::readSBML(String filename) and
+ * SBMLReader::readSBMLFromString(String xml), both return an SBMLDocument
+ * object.  From there, callers can inquire about any errors encountered
+ * (e.g., using SBMLDocument::getNumErrors()), access the Model object, and
+ * perform other actions such as consistency-checking and model
  * translation.
  * @endif
  * 
@@ -119,24 +118,21 @@
  * implements more elaborate validation rules (both those defined by the
  * SBML specifications, as well as additional rules offered by libSBML).
  *
- * @if clike
- * The checks performed by SBMLDocument::checkInternalConsistency() are
+ * @if clike The checks performed by SBMLDocument::checkInternalConsistency() are
  * hardwired and cannot be changed by calling programs, but the validation
  * performed by SBMLDocument::checkConsistency() is under program control
  * using the method SBMLDocument::setConsistencyChecks().  Applications can
  * selectively disable specific kinds of checks that they may not be
  * interested in, by calling SBMLDocument::setConsistencyChecks() with
  * appropriate parameters.
- * @endif@if python
- * The checks performed by SBMLDocument::checkInternalConsistency() are
+ * @endif@if python The checks performed by SBMLDocument::checkInternalConsistency() are
  * hardwired and cannot be changed by calling programs, but the validation
  * performed by SBMLDocument::checkConsistency() is under program control
  * using the method SBMLDocument::setConsistencyChecks().  Applications can
  * selectively disable specific kinds of checks that they may not be
  * interested in, by calling SBMLDocument::setConsistencyChecks() with
  * appropriate parameters.
- * @endif@if java
- * The checks performed by SBMLDocument::checkInternalConsistency() are
+ * @endif@if java The checks performed by SBMLDocument::checkInternalConsistency() are
  * hardwired and cannot be changed by calling programs, but the validation
  * performed by SBMLDocument::checkConsistency() is under program control
  * using the method SBMLDocument::setConsistencyChecks(int categ, boolean
@@ -216,13 +212,14 @@
  * Version of SBML within a Level, the following methods allow for prior
  * assessment of whether there is sufficient compatibility to make a
  * translation possible:
- *
- * @li SBMLDocument::checkL1Compatibility(),
- * @li SBMLDocument::checkL2v1Compatibility(),
- * @li SBMLDocument::checkL2v2Compatibility(),
- * @li SBMLDocument::checkL2v3Compatibility(), 
- * @li SBMLDocument::checkL2v4Compatibility(), and
- * @li SBMLDocument::checkL3v1Compatibility().
+ * <ul>
+ * <li> SBMLDocument::checkL1Compatibility(),
+ * <li> SBMLDocument::checkL2v1Compatibility(),
+ * <li> SBMLDocument::checkL2v2Compatibility(),
+ * <li> SBMLDocument::checkL2v3Compatibility(), 
+ * <li> SBMLDocument::checkL2v4Compatibility(), and
+ * <li> SBMLDocument::checkL3v1Compatibility().
+ * </ul>
  * 
  * Some changes between Versions of SBML Level&nbsp;2 may lead to
  * unexpected behaviors when attempting conversions in either direction.
@@ -671,15 +668,15 @@ public:
    * in the interface class @link libsbml libsbml@endlink.
    * The following are the possible choices:
    * @endif
-   *
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink:
+   * <ul>
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink:
    * Correctness and consistency of specific SBML language constructs.
    * Performing this set of checks is highly recommended.  With respect to
    * the SBML specification, these concern failures in applying the
    * validation rules numbered 2xxxx in the Level&nbsp;2 Versions&nbsp;2, 3
    * and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink:
    * Correctness and consistency of identifiers used for model entities.
    * An example of inconsistency would be using a species identifier in a
    * reaction rate formula without first having declared the species.  With
@@ -687,33 +684,34 @@ public:
    * the validation rules numbered 103xx in the Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink:
    * Consistency of measurement units associated with quantities in a
    * model.  With respect to the SBML specification, these concern failures
    * in applying the validation rules numbered 105xx in the Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink:
    * Syntax of MathML constructs.  With respect to the SBML specification,
    * these concern failures in applying the validation rules numbered 102xx
    * in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink:
    * Consistency and validity of %SBO identifiers (if any) used in the
    * model.  With respect to the SBML specification, these concern failures
    * in applying the validation rules numbered 107xx in the Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink:
    * Static analysis of whether the system of equations implied by a model
    * is mathematically overdetermined.  With respect to the SBML
    * specification, this is validation rule #10601 in the SBML Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE LIBSBML_CAT_MODELING_PRACTICE@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE LIBSBML_CAT_MODELING_PRACTICE@endlink:
    * Additional checks for recommended good modeling practice. (These are
    * tests performed by libSBML and do not have equivalent SBML validation
    * rules.)
+   * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
    * an SBMLDocument object @em unless @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif is called to
@@ -767,14 +765,14 @@ public:
    * in the interface class @link libsbml libsbml@endlink.
    * The following are the possible choices:
    * @endif
-   *
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency of
+   * <ul>
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency of
    * specific SBML language constructs.  Performing this set of checks is
    * highly recommended.  With respect to the SBML specification, these
    * concern failures in applying the validation rules numbered 2xxxx in
    * the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and consistency
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and consistency
    * of identifiers used for model entities.  An example of inconsistency
    * would be using a species identifier in a reaction rate formula without
    * first having declared the species.  With respect to the SBML
@@ -782,33 +780,34 @@ public:
    * numbered 103xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
    * specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink:
    * Consistency of measurement units associated with quantities in a
    * model.  With respect to the SBML specification, these concern failures
    * in applying the validation rules numbered 105xx in the Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink:
    * Syntax of MathML constructs.  With respect to the SBML specification,
    * these concern failures in applying the validation rules numbered 102xx
    * in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink:
    * Consistency and validity of %SBO identifiers (if any) used in the
    * model.  With respect to the SBML specification, these concern failures
    * in applying the validation rules numbered 107xx in the Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink:
    * Static analysis of whether the system of equations implied by a model
    * is mathematically overdetermined.  With respect to the SBML
    * specification, this is validation rule #10601 in the SBML Level&nbsp;2
    * Versions&nbsp;2, 3 and&nbsp;4 specifications.
    * 
-   * @li @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE LIBSBML_CAT_MODELING_PRACTICE@endlink:
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE LIBSBML_CAT_MODELING_PRACTICE@endlink:
    * Additional checks for recommended good modeling practice. (These are
    * tests performed by libSBML and do not have equivalent SBML validation
    * rules.)
+   * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
    * an SBMLDocument object @em unless @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif is called to
