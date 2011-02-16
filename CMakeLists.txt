@@ -283,7 +283,7 @@ endif(WITH_XERCES)
 
 set(BZIP_INITIAL_VALUE)
 find_library(LIBBZ_LIBRARY 
-	NAMES bzip2.lib bz2
+	NAMES bzip2.lib bz2 libbz2.lib
 	PATHS /usr/lib /usr/local/lib 
 		  ${CMAKE_SOURCE_DIR} 
 		  ${CMAKE_SOURCE_DIR}/dependencies/lib
@@ -323,7 +323,11 @@ if(WITH_BZIP2)
 	
 endif(WITH_BZIP2)
 
-
+###############################################################################
+#
+# list of additional files to link against. 
+#
+set(EXTRA_LIBS "" CACHE STRING "List of Libraries to link against" )
 
 
 ###############################################################################

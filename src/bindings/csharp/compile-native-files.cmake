@@ -89,7 +89,9 @@ if (EXISTS ${BIN_DIRECTORY}/TestRunner.exe)
 endif()
 
 # find all test files
-file(GLOB_RECURSE TEST_FILES RELATIVE ${SRC_DIRECTORY}/test ${SRC_DIRECTORY}/test/*.cs)
+
+# in LibSBML 4 we don't compile in the test files yet
+# file(GLOB_RECURSE TEST_FILES RELATIVE ${SRC_DIRECTORY}/test ${SRC_DIRECTORY}/test/*.cs)
 
 set(TEST_FILES ${TEST_FILES} ${SRC_DIRECTORY}/TestRunner.cs
                              ${SRC_DIRECTORY}/Compiler.cs)
@@ -103,6 +105,8 @@ endforeach()
 
 file(TO_NATIVE_PATH ${BIN_DIRECTORY}/TestRunner.exe TEST_RUNNER)
 file(TO_NATIVE_PATH ${BIN_DIRECTORY}/libsbmlcsP.dll MANAGED_LIB)
+
+message("Creating: TestRunner.exe")
 							 
 # compile tests
 execute_process(
@@ -112,8 +116,6 @@ execute_process(
 		 -out:${TEST_RUNNER}
 		 ${CSHARP_EXTRA_ARGS}
 		 ${NATIVE_TEST_FILES}
-	OUTPUT_QUIET    
-	ERROR_QUIET    
 	WORKING_DIRECTORY "${SRC_DIRECTORY}/test"
 )
 

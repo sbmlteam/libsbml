@@ -186,7 +186,9 @@ else()
 	#  to run the compiled tests
 	add_test(test_csharp_bindings_full 
 			${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
-			${CMAKE_SOURCE_DIR}/src/sbml/test/test-data)
+			${CMAKE_SOURCE_DIR}/src/bindings/csharp/test
+			${CMAKE_SOURCE_DIR}/src/sbml/test/test-data
+			libsbmlcsP.dll)
 	
 endif()
 
