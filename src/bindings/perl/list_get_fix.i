@@ -49,13 +49,15 @@
  *  - List* ModelHistory::getListCreators()
  *  - List* ModelHistory::getListModifiedDates()
  *  - List* SBase::getCVTerms()
+ *  - List* SBMLNamespaces::getSupportedNamespaces()
  *
  *  ListWrapper<TYPENAME> class is wrapped as ListTYPENAMEs class.
  *  So, the above functions are wrapped as follows:
  *
- *  - ModelCreatorList ModelHistory::getListCreators()
- *  - DateList         ModelHistory::getListModifiedDates()
- *  - CVTermList       SBase::getCVTerms()
+ *  - ModelCreatorList   ModelHistory::getListCreators()
+ *  - DateList           ModelHistory::getListModifiedDates()
+ *  - CVTermList         SBase::getCVTerms()
+ *  - SBMLNamespacesList SBMLNamespaces::getSupportedNamespaces()
  *
  */
 
@@ -129,6 +131,32 @@ SBase::getCVTerms()
 %{
   sub getCVTerms {
     my $lox = LibSBMLc::SBase_getCVTerms(@_);
+    my @lox = ();
+    for (my $i=0; $i<$lox->getSize(); $i++) {
+      push @lox, $lox->get($i);
+    }
+    return wantarray ? @lox : $lox;
+  }
+%}
+
+%typemap(out) List* SBMLNamespaces::getSupportedNamespaces
+{
+  ListWrapper<SBMLNamespaces> *listw = ($1 != 0) ? new ListWrapper<SBMLNamespaces>($1) : 0;
+  ST(argvi) = SWIG_NewPointerObj(SWIG_as_voidptr(listw), 
+#if SWIG_VERSION > 0x010333
+                                 SWIGTYPE_p_ListWrapperT_SBMLNamespaces_t, 
+#else
+                                 SWIGTYPE_p_ListWrapperTSBMLNamespaces_t, 
+#endif
+                                 SWIG_OWNER | %newpointer_flags);
+  argvi++;
+}
+
+%feature("shadow")
+SBMLNamespaces::getSupportedNamespaces()
+%{
+  sub getSupportedNamespaces {
+    my $lox = LibSBMLc::SBMLNamespaces_getSupportedNamespaces(@_);
     my @lox = ();
     for (my $i=0; $i<$lox->getSize(); $i++) {
       push @lox, $lox->get($i);

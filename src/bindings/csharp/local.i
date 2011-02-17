@@ -1371,13 +1371,15 @@ SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
  *  - List* ModelHistory::getListCreators()
  *  - List* ModelHistory::getListModifiedDates()
  *  - List* SBase::getCVTerms()
+ *  - List* SBMLNamespaces::getSupportedNamespaces()
  *
  *  ListWrapper<TYPENAME> class is wrapped as TYPENAMEList class.
  *  So, the above functions are wrapped as follows:
  *
- *  - ModelCreatorList ModelHistory.getListCreators()
- *  - DateList         ModelHistory.getListModifiedDates()
- *  - CVTermList       SBase.getCVTerms()
+ *  - ModelCreatorList    ModelHistory.getListCreators()
+ *  - DateList            ModelHistory.getListModifiedDates()
+ *  - CVTermList          SBase.getCVTerms()
+ *  - SBMLNamespacesList  SBMLNamespaces.getSupportedNamespaces()
  *
  */
 
@@ -1398,3 +1400,4 @@ SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 LIST_WRAPPER(ModelHistory::getListCreators,ModelCreator)
 LIST_WRAPPER(ModelHistory::getListModifiedDates,Date)
 LIST_WRAPPER(SBase::getCVTerms,CVTerm)
+LIST_WRAPPER(SBMLNamespaces::getSupportedNamespaces,SBMLNamespaces)

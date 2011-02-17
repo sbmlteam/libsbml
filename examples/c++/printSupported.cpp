@@ -23,15 +23,16 @@ LIBSBML_CPP_NAMESPACE_USE
 int
 main (int argc, char* argv[])
 {
-  const vector<const SBMLNamespaces*> supported = 
+  const List* supported = 
     SBMLNamespaces::getSupportedNamespaces();
 
   cout << "LibSBML: " << getLibSBMLDottedVersion() << " supports: " << endl;
 
-  for (vector<const SBMLNamespaces*>::const_iterator 
-    it = supported.begin(); it != supported.end(); it++)
-
-       cout << "\tSBML Level " << (*it)->getLevel() << " Version: " << (*it)->getVersion() << endl;
+  for (unsigned int i = 0; i < supported->getSize(); i++)
+  {
+       const SBMLNamespaces *current = (const SBMLNamespaces *)supported->get(i);
+       cout << "\tSBML Level " << current->getLevel() << " Version: " << current->getVersion() << endl;
+  }
     
   cout << endl;
 

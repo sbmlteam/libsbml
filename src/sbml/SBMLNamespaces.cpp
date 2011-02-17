@@ -127,17 +127,17 @@ SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
 }
 
 
-const std::vector<const SBMLNamespaces*> 
+const List * 
 SBMLNamespaces::getSupportedNamespaces()
 {
-  vector<const SBMLNamespaces *> result;
-  result.push_back(new SBMLNamespaces(1,1));
-  result.push_back(new SBMLNamespaces(1,2));
-  result.push_back(new SBMLNamespaces(2,1));
-  result.push_back(new SBMLNamespaces(2,2));
-  result.push_back(new SBMLNamespaces(2,3));
-  result.push_back(new SBMLNamespaces(2,4));
-  result.push_back(new SBMLNamespaces(3,1));
+  List *result = new List();
+  result->add(new SBMLNamespaces(1,1));
+  result->add(new SBMLNamespaces(1,2));
+  result->add(new SBMLNamespaces(2,1));
+  result->add(new SBMLNamespaces(2,2));
+  result->add(new SBMLNamespaces(2,3));
+  result->add(new SBMLNamespaces(2,4));
+  result->add(new SBMLNamespaces(3,1));
   return result;
 }
 
@@ -446,14 +446,14 @@ SBMLNamespaces_t **
 SBMLNamespaces_getSupportedNamespaces(int *length)
 {
   if (length == NULL) return NULL;
-   const std::vector<const SBMLNamespaces*> supported = SBMLNamespaces::getSupportedNamespaces();
+   const List* supported = SBMLNamespaces::getSupportedNamespaces();
   
-  *length = (int) supported.size();
+   *length = (int) supported->getSize();
   SBMLNamespaces_t ** result = (SBMLNamespaces_t**)malloc(sizeof(SBMLNamespaces_t*)*(*length));
   memset(result, 0, sizeof(SBMLNamespaces_t*)*(*length));
   for (int i = 0; i < *length; i++)
   {
-    result[i] = supported[i]->clone();
+    result[i] = ((SBMLNamespaces*)supported->get(i))->clone();
   }
   return result;
 }

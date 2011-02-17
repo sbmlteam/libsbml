@@ -162,12 +162,12 @@ public:
                                          unsigned int version);
   
   /**
-   * Returns a vector of all supported SBMLNamespaces in this version of 
+   * Returns a list of all supported SBMLNamespaces in this version of 
    * libsbml. 
    * 
-   * @return a vector with supported SBML namespaces. 
+   * @return a list with supported SBML namespaces. 
    */
-  static const std::vector<const SBMLNamespaces *> getSupportedNamespaces();
+  static const List* getSupportedNamespaces();
 
   /**
    * Get the SBML Level of this SBMLNamespaces object.

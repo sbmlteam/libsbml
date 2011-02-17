@@ -81,10 +81,11 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 
 %include "ListWrapper.h"
-%template(ModelCreatorList) ListWrapper<ModelCreator>;
-%template(DateList)         ListWrapper<Date>;
-%template(CVTermList)       ListWrapper<CVTerm>;
-%template(ASTNodeList)      ListWrapper<ASTNode>;
+%template(ModelCreatorList)   ListWrapper<ModelCreator>;
+%template(DateList)           ListWrapper<Date>;
+%template(CVTermList)         ListWrapper<CVTerm>;
+%template(ASTNodeList)        ListWrapper<ASTNode>;
+%template(SBMLNamespacesList)  ListWrapper<SBMLNamespaces>;
 
 /**
  *

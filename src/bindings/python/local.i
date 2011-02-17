@@ -733,16 +733,47 @@ def readSBML(*args):
  *  - List* ModelHistory::getListCreators()
  *  - List* ModelHistory::getListModifiedDates()
  *  - List* SBase::getCVTerms()
+ *  - List* SBMLNamespaces::getSupportedNamespaces()
  *
  *  ListWrapper<TYPENAME> class is wrapped as TYPENAMEList class.
  *  So, the above functions are wrapped as follows:
  *
- *  - ModelCreatorList ModelHistory.getListCreators()
- *  - DateList         ModelHistory.getListModifiedDates()
- *  - CVTermList       SBase.getCVTerms()
+ *  - ModelCreatorList   ModelHistory.getListCreators()
+ *  - DateList           ModelHistory.getListModifiedDates()
+ *  - CVTermList         SBase.getCVTerms()
+ *  - SBMLNamespacesList SBMLNamespaces::getSupportedNamespaces()
  *
  */
 
+ %feature("shadow")
+SBMLNamespaces::getSupportedNamespaces
+%{
+  def getSupportedNamespaces(self):
+    """
+    getSupportedNamespaces(self) -> SBMLNamespaceList
+
+    Get the List of supported SBMLNamespaces for this 
+    version of LibSBML.
+
+    @return the supported list of SBMLNamespaces.
+          
+
+    """
+    return _libsbml.SBMLNamespaces_getSupportedNamespaces(self)
+%}
+
+%typemap(out) List* SBMLNamespaces::getSupportedNamespaces
+{
+  ListWrapper<SBMLNamespaces> *listw = ($1 != 0) ? new ListWrapper<SBMLNamespaces>($1) : 0;
+  $result = SWIG_NewPointerObj(SWIG_as_voidptr(listw), 
+#if SWIG_VERSION > 0x010333
+                               SWIGTYPE_p_ListWrapperT_SBMLNamespaces_t, 
+#else
+                               SWIGTYPE_p_ListWrapperTSBMLNamespaces_t, 
+#endif
+                               SWIG_POINTER_OWN |  0 );
+}
+ 
 %feature("shadow")
 ModelHistory::getListCreators
 %{
