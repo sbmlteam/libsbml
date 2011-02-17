@@ -256,6 +256,7 @@ END_CONSTRAINT
 START_CONSTRAINT (99505, Compartment, c)
 {
   pre ( c.getLevel() > 2);
+  pre ( c.getDerivedUnitDefinition() != NULL);
   
   msg = "The units of the <compartment> '";
   msg += c.getId() ;
@@ -269,6 +270,7 @@ END_CONSTRAINT
 START_CONSTRAINT (99505, Species, s)
 {
   pre ( s.getLevel() > 2);
+  pre ( s.getDerivedUnitDefinition() != NULL);
   
   msg = "The units of the <species> '";
   msg += s.getId() ;
