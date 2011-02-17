@@ -36,6 +36,12 @@ Version 4.3.0 (Released 2011-??-??)
     takes a instance of SBMLNamespaces as it's argument.  This is similar
     to the constructors for all SBML objects.
 
+  - There is now a custom manifest file included in the Java JAR file.
+    It contains the version number of the libSBML release.  An example
+    program demonstrating how to access the information is included
+    as the file examples/java/printLibSBMLVersion.java.
+
+
 * Bug fixes
 
   - Checking for NULL references has been greatly improved
