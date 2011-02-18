@@ -63,8 +63,8 @@ matlab_sources =                      \
         TranslateSBML.m               \
         OutputSBML.c                  \
         OutputSBML.m                  \
-        buildLibSBML.m                \
-        installLibSBML.m              \
+        buildSBML.m                   \
+        installSBML.m                 \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
         mexopts-R2007.sh              \
