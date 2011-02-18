@@ -161,7 +161,7 @@ ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
 endif
 
 ifdef USE_LAYOUT
-	CXXFLAGS += -DUSE_LAYOUT
+      CXXFLAGS += -DUSE_LAYOUT
 endif
 
 
