@@ -160,6 +160,11 @@ ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
       CXXFLAGS += -fno-strict-aliasing
 endif
 
+ifdef USE_LAYOUT
+	CXXFLAGS += -DUSE_LAYOUT
+endif
+
+
 #
 # Currently, libtool doesn't work for building Perl bindings on Cygwin.
 # So, for the time being, libtool is not used on Cygwin.

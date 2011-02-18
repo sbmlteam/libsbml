@@ -91,6 +91,12 @@ swig_sources =      \
   ../swig/libsbml.h \
   ../swig/libsbml.i
 
+PACKAGE_ARGS=
+
+ifeq ("@USE_LAYOUT@", "1")
+	PACKAGE_ARGS += -DUSE_LAYOUT
+endif
+
 main_sources = \
   $(shell grep '%include sbml' ../swig/libsbml.i | grep -v 'libsbml-version.h' | cut -f2 -d' ' \
     | cut -f2- -d'/' | sed -e '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
@@ -99,7 +105,7 @@ LibSBML.pm: LibSBML_wrap.cxx
 
 LibSBML_wrap.cxx: LibSBML.pod $(swig_sources)
 	@top_srcdir@/config/chk_swig_version.sh || exit
-	@SWIG@ @SWIGFLAGS@ -c++ -perl5 -proxy -I../../../include LibSBML.i
+	@SWIG@ @SWIGFLAGS@ -c++ -perl5 -proxy $(PACKAGE_ARGS) -I../../../include LibSBML.i 
 
 LibSBML.pod: $(main_sources) ../swig/libsbml.i ../swig/swigdoc.py
 	../swig/swigdoc.py perl -I../.. -D../../../docs/src ../swig/libsbml.i LibSBML.pod
