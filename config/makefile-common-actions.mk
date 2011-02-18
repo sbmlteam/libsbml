@@ -822,14 +822,14 @@ $(TOP_SRCDIR)/config/chk_swig_version.sh: $(TOP_SRCDIR)/configure \
 # 'src' directory.
 
 etags-version-check: 
-	@if test -z "`$(ETAGS) --version |2>&1 grep 'Free Software'`"; then \
+	@if test -z "`$(ETAGS) --version 2>&1 | grep 'Free Software'`"; then \
 	  echo "Your 'etags' command is not the GNU [X]Emacs version,"; \
 	  echo "and I'm afraid I don't know how to work with it. Quitting."; \
 	  exit 2; \
 	fi
 
 ctags-version-check: 
-	@if test -z "`$(CTAGS) --version |2>&1 grep 'Free Software'`"; then \
+	@if test -z "`$(CTAGS) --version 2>&1 | grep 'Free Software'`"; then \
 	  echo "Your 'ctags' command is not the GNU version, and"; \
 	  echo "I'm afraid I don't know how to work with it. Quitting."; \
 	  exit 2; \
