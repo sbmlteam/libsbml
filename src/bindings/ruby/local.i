@@ -184,7 +184,7 @@ namespace std
 
   void each(void)
   {
-     uint i;
+     unsigned int i;
      for(i=0;i<self->size();i++){    
        rb_yield(SWIG_NewPointerObj(self->get(i),
        GetDowncastSwigType(self->get(i)), 0));
