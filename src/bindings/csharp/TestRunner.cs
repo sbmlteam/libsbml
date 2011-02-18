@@ -109,6 +109,8 @@ namespace LibSBMLCSTestRunner
                 Console.WriteLine("\nAll tests passed." + Environment.NewLine);
                 Environment.Exit(0);
             }
+
+            PrintErrors();
             Environment.Exit(1); 
 
         }
@@ -192,6 +194,8 @@ namespace LibSBMLCSTestRunner
               Console.WriteLine("\nAll tests passed.");
               Environment.Exit(0); 
             }
+            
+            PrintErrors();
             Environment.Exit(1); 
         }
 
@@ -199,6 +203,30 @@ namespace LibSBMLCSTestRunner
         static int nSuccessSum;
         static int nFailureSum;
         static int nTestFunc;
+
+        static List<ErrorDetails> _errors = new List<ErrorDetails>();
+
+        /// <summary>
+        /// Prints all errors that occured
+        /// </summary>
+        private static void PrintErrors()
+        {
+            if (_errors == null || _errors.Count == 0) return;
+
+            foreach (var item in _errors)
+            {
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Console.WriteLine(item.Message);
+                Console.WriteLine(new string('=', 20));
+                Console.WriteLine(item.Exception.Message);
+                Console.WriteLine(item.Exception.StackTrace);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine();
+        }
 
         private static void RunTestFile(string testFile, string testDir, string sData)
         {
@@ -274,16 +302,19 @@ namespace LibSBMLCSTestRunner
                         }
                         catch (TargetInvocationException ex)
                         {
-                            Console.WriteLine("Error in '" + member.Name
-                                              + "': " + Environment.NewLine
-                                              + ex.InnerException);
+                            Console.Write("E");
+                            _errors.Add(new ErrorDetails(
+                                "Error in '" + member.Name + "': ", 
+                                ex.InnerException));
                             nFailure++;
                             continue;
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine("Calling '" + member.Name
-                                              + "' failed: " + ex.Message);
+                            Console.Write("E");
+                            _errors.Add(new ErrorDetails(
+                                "Error in '" + member.Name + "': ",
+                                ex));
                             nFailure++;
                             continue;
                         }
@@ -301,7 +332,10 @@ namespace LibSBMLCSTestRunner
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error running tests: " + ex.Message);
+                Console.Write("E");
+                _errors.Add(new ErrorDetails(
+                    "Error running tests for " + type.Name + ": ",
+                    ex));
                 return;
             }
 
@@ -336,6 +370,37 @@ namespace LibSBMLCSTestRunner
               // Console.WriteLine("Could not run setUp class ... ");
             }
             return oClass;
+        }
+    }
+
+    class ErrorDetails
+    {
+        private Exception _Exception;
+        public Exception Exception
+        {
+            get { return _Exception; }
+            set { _Exception = value; }
+        }
+
+        private string _Message;
+        public string Message
+        {
+            get { return _Message; }
+            set
+            {
+                _Message = value;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the ErrorDetails class.
+        /// </summary>
+        /// <param name="message">Mesage to print</param>
+        /// <param name="exception">exception object</param>
+        public ErrorDetails(string message, Exception exception)
+        {
+            _Exception = exception;
+            _Message = message;
         }
     }
 }

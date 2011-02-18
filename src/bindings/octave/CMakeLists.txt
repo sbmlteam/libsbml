@@ -92,19 +92,16 @@ build_octave_file("OutputSBML")
 
 foreach(mFile
 
-		CheckAndConvert.m  
-		Contents.m
-        ConvertFormulaToMathML.m
-        isSBML_Model.m
-        TranslateSBML.m
-        OutputSBML.m
-        buildWin.m
-        install_Win32.m
-        install_Win64.m
-        isoctave.m		
-		test.xml
-		uninstall_Win32.m
-        uninstall_Win64.m
+        test.xml
+	buildSBML.m
+	CheckAndConvert.m
+	Contents.m
+	ConvertFormulaToMathML.m
+	installSBML.m
+	isoctave.m
+	isSBML_Model.m
+	OutputSBML.m
+	TranslateSBML.m
 )
 
 	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${MISC_PREFIX}bindings/octave )

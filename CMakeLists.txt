@@ -110,10 +110,11 @@ INCLUDE(CPack)
 # should we compile examples
 option(WITH_EXAMPLES "Compile Examples"         OFF )
 
-option(WITH_LAYOUT   "include layout support" 	ON	)
+option(WITH_LAYOUT   "include layout support" 	ON  )
+option(WITH_GROUPS   "include groups support" 	OFF )
 
 
-# which language bindings should be build
+# which language bindings should be build 
 option(WITH_CSHARP   "Generate C# bindings"     OFF )
 option(WITH_JAVA     "Generate Java bindings"   OFF )
 option(WITH_PYTHON   "Generate python bindings" OFF )
@@ -154,13 +155,6 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options a
 # If with SWIG is selected we need to find swig
 #
 
-if(WITH_LAYOUT)
-	add_definitions(-DUSE_LAYOUT)
-endif()
-
-if(WITH_CPP_NAMESPACE)
-	add_definitions(-DLIBSBML_USE_CPP_NAMESPACE)
-endif()
 
 if(WITH_SWIG)
 
@@ -168,7 +162,20 @@ if(WITH_SWIG)
 		NAMES swig
 		PATHS c:/swigwin-2.0.1 c:/swigwin-2.0.0 c:/swigwin-1.3.40 /usr/bin /usr/local/bin
 		)
-	set(SWIG_EXTRA_ARGS)
+set(SWIG_EXTRA_ARGS)
+if(WITH_LAYOUT)
+	add_definitions(-DUSE_LAYOUT)
+	set(SWIG_EXTRA_ARGS ${SWIG_EXTRA_ARGS} -DUSE_LAYOUT)
+endif()
+
+if(WITH_GROUPS)
+	add_definitions(-DUSE_GROUPS)
+	set(SWIG_EXTRA_ARGS ${SWIG_EXTRA_ARGS} -DUSE_GROUPS)
+endif()
+
+if(WITH_CPP_NAMESPACE)
+	add_definitions(-DLIBSBML_USE_CPP_NAMESPACE)
+endif()
 
 endif(WITH_SWIG)
 

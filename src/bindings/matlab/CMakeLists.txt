@@ -162,19 +162,17 @@ build_matlab_file("OutputSBML")
 
 foreach(mFile
 
-		CheckAndConvert.m  
-		Contents.m
-        ConvertFormulaToMathML.m
-        isSBML_Model.m
-        TranslateSBML.m
-        OutputSBML.m
-        buildWin.m
-        install_Win32.m
-        install_Win64.m
-        isoctave.m		
         test.xml
-		uninstall_Win32.m
-        uninstall_Win64.m
+	buildSBML.m
+	CheckAndConvert.m
+	Contents.m
+	ConvertFormulaToMathML.m
+	installSBML.m
+	isoctave.m
+	isSBML_Model.m
+	OutputSBML.m
+	TranslateSBML.m
+
 		
 )
 
