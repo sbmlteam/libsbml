@@ -1728,7 +1728,9 @@ Species::writeAttributes (XMLOutputStream& stream) const
     }
     else if (level > 2)
     {
-      stream.writeAttribute( "hasOnlySubstanceUnits", 
+      // in L3 only write it out if it has been set
+      if (isSetHasOnlySubstanceUnits())
+        stream.writeAttribute( "hasOnlySubstanceUnits", 
                               mHasOnlySubstanceUnits );
     }
   }
@@ -1745,7 +1747,9 @@ Species::writeAttributes (XMLOutputStream& stream) const
   }
   else
   {
-    stream.writeAttribute("boundaryCondition", mBoundaryCondition);
+    // in L3 only write it out if it has been set
+    if (isSetBoundaryCondition())
+      stream.writeAttribute("boundaryCondition", mBoundaryCondition);
   }
 
 
@@ -1770,7 +1774,9 @@ Species::writeAttributes (XMLOutputStream& stream) const
     }
     else if (level > 2)
     {
-      stream.writeAttribute("constant", mConstant);
+      // in L3 only write it out if it has been set
+      if (isSetConstant())
+        stream.writeAttribute("constant", mConstant);
     }
 
     //

@@ -1140,7 +1140,9 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
     }
     else if (this->getTypeCode() == SBML_PARAMETER)
     {
-      stream.writeAttribute("constant", mConstant);
+      // in L3 only write it out if it has been set
+      if (isSetConstant())
+        stream.writeAttribute("constant", mConstant);
     }
 
     //

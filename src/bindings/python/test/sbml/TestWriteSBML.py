@@ -675,7 +675,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_INF(self):
-    expected =  "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";
+    expected =  "<parameter id=\"p\" value=\"INF\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_PosInf())
@@ -837,7 +837,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_NaN(self):
-    expected =  "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";
+    expected =  "<parameter id=\"p\" value=\"NaN\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NaN())
@@ -845,7 +845,7 @@ class TestWriteSBML(unittest.TestCase):
     pass  
 
   def test_WriteSBML_NegINF(self):
-    expected =  "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";
+    expected =  "<parameter id=\"p\" value=\"-INF\"/>";
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NegInf())
@@ -1742,6 +1742,7 @@ class TestWriteSBML(unittest.TestCase):
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(3.31)
+    p.setConstant(True)
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 

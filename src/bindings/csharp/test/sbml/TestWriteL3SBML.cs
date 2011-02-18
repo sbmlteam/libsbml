@@ -291,6 +291,7 @@ namespace LibSBMLCSTest {
     "  </priority>\n" + 
     "</event>";
       Event e = D.createModel().createEvent();
+      e.setUseValuesFromTriggerTime(true);
       Trigger t = e.createTrigger();
       t.setInitialValue(true);
       t.setPersistent(false);
@@ -320,6 +321,7 @@ namespace LibSBMLCSTest {
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(util_PosInf());
+      p.setConstant(true);
       assertEquals( true, equals(expected,p.toSBML()) );
     }
 
@@ -394,6 +396,7 @@ namespace LibSBMLCSTest {
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(util_NaN());
+      p.setConstant(true);
       assertEquals( true, equals(expected,p.toSBML()) );
     }
 
@@ -403,6 +406,7 @@ namespace LibSBMLCSTest {
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(util_NegInf());
+      p.setConstant(true);
       assertEquals( true, equals(expected,p.toSBML()) );
     }
 
@@ -452,10 +456,10 @@ namespace LibSBMLCSTest {
     {
       string expected = "<reaction id=\"v1\" reversible=\"true\" fast=\"false\">\n" + 
     "  <listOfReactants>\n" + 
-    "    <speciesReference species=\"x0\" constant=\"false\"/>\n" + 
+    "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
     "  <listOfProducts>\n" + 
-    "    <speciesReference species=\"s1\" constant=\"false\"/>\n" + 
+    "    <speciesReference species=\"s1\"/>\n" + 
     "  </listOfProducts>\n" + 
     "  <listOfModifiers>\n" + 
     "    <modifierSpeciesReference species=\"m1\"/>\n" + 
@@ -482,6 +486,7 @@ namespace LibSBMLCSTest {
       Reaction r = D.getModel().createReaction();
       r.setId("v1");
       r.setReversible(true);
+      r.setFast(false);
       r.createReactant().setSpecies("x0");
       r.createProduct().setSpecies("s1");
       r.createModifier().setSpecies("m1");
@@ -545,7 +550,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteL3SBML_Trigger()
     {
-      string expected =  "<trigger initialValue=\"true\" persistent=\"true\"/>";
+      string expected =  "<trigger/>";
       Trigger t = D.createModel().createEvent().createTrigger();
       assertEquals( true, equals(expected,t.toSBML()) );
     }
@@ -555,6 +560,7 @@ namespace LibSBMLCSTest {
       string expected =  "<trigger initialValue=\"false\" persistent=\"true\"/>";
       Trigger t = D.createModel().createEvent().createTrigger();
       t.setInitialValue(false);
+      t.setPersistent(true);
       assertEquals( true, equals(expected,t.toSBML()) );
     }
 
@@ -563,6 +569,7 @@ namespace LibSBMLCSTest {
       string expected =  "<trigger initialValue=\"true\" persistent=\"false\"/>";
       Trigger t = D.createModel().createEvent().createTrigger();
       t.setPersistent(false);
+      t.setInitialValue(true);
       assertEquals( true, equals(expected,t.toSBML()) );
     }
 
@@ -597,7 +604,7 @@ namespace LibSBMLCSTest {
 
     public void test_WriteL3SBML_Unit_noValues()
     {
-      string expected = "<unit kind=\"(Invalid UnitKind)\" exponent=\"NaN\"" + " scale=\"2147483647\" multiplier=\"NaN\"/>";
+      string expected =  "<unit/>";
       Unit u = D.createModel().createUnitDefinition().createUnit();
       assertEquals( true, equals(expected,u.toSBML()) );
     }
@@ -612,14 +619,13 @@ namespace LibSBMLCSTest {
     "      <unitDefinition/>\n" + 
     "    </listOfUnitDefinitions>\n" + 
     "    <listOfCompartments>\n" + 
-    "      <compartment constant=\"true\"/>\n" + 
+    "      <compartment/>\n" + 
     "    </listOfCompartments>\n" + 
     "    <listOfSpecies>\n" + 
-    "      <species hasOnlySubstanceUnits=\"false\"" + 
-    " boundaryCondition=\"false\" constant=\"false\"/>\n" + 
+    "      <species/>\n" +
     "    </listOfSpecies>\n" + 
     "    <listOfParameters>\n" + 
-    "      <parameter constant=\"true\"/>\n" + 
+    "      <parameter/>\n" + 
     "    </listOfParameters>\n" + 
     "    <listOfInitialAssignments>\n" + 
     "      <initialAssignment/>\n" + 
@@ -631,10 +637,10 @@ namespace LibSBMLCSTest {
     "      <constraint/>\n" + 
     "    </listOfConstraints>\n" + 
     "    <listOfReactions>\n" + 
-    "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
+    "      <reaction/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
+    "      <event/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n");
       Model m = D.createModel();
@@ -669,6 +675,7 @@ namespace LibSBMLCSTest {
       Parameter p = D.createModel().createParameter();
       p.setId("p");
       p.setValue(3.31);
+      p.setConstant(true);
       assertEquals( true, equals(expected,p.toSBML()) );
     }
 

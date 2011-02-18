@@ -803,10 +803,11 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_INF()
   {
-    String expected =  "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";
+    String expected =  "<parameter id=\"p\" value=\"INF\"/>";
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(util_PosInf());
+
     assertEquals( true, equals(expected,p.toSBML()) );
   }
 
@@ -978,7 +979,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_NaN()
   {
-    String expected =  "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";
+    String expected =  "<parameter id=\"p\" value=\"NaN\"/>";
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(util_NaN());
@@ -987,7 +988,7 @@ public class TestWriteSBML {
 
   public void test_WriteSBML_NegINF()
   {
-    String expected =  "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";
+    String expected =  "<parameter id=\"p\" value=\"-INF\"/>";
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(util_NegInf());
@@ -1955,6 +1956,7 @@ public class TestWriteSBML {
     Parameter p = D.createModel().createParameter();
     p.setId("p");
     p.setValue(3.31);
+    p.setConstant(true);
     assertEquals( true, equals(expected,p.toSBML()) );
   }
 

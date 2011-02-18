@@ -187,6 +187,7 @@ class TestWriteL3SBML(unittest.TestCase):
     "  </priority>\n" + 
     "</event>")
     e = self.D.createModel().createEvent()
+    e.setUseValuesFromTriggerTime(True)
     t = e.createTrigger()
     t.setInitialValue(True)
     t.setPersistent(False)
@@ -214,6 +215,7 @@ class TestWriteL3SBML(unittest.TestCase):
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_PosInf())
+    p.setConstant(True)
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
@@ -281,6 +283,7 @@ class TestWriteL3SBML(unittest.TestCase):
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NaN())
+    p.setConstant(True)
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
@@ -289,6 +292,7 @@ class TestWriteL3SBML(unittest.TestCase):
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NegInf())
+    p.setConstant(True)
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 
@@ -333,10 +337,10 @@ class TestWriteL3SBML(unittest.TestCase):
   def test_WriteL3SBML_Reaction_full(self):
     expected = wrapString("<reaction id=\"v1\" reversible=\"true\" fast=\"false\">\n" + 
     "  <listOfReactants>\n" + 
-    "    <speciesReference species=\"x0\" constant=\"false\"/>\n" + 
+    "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
     "  <listOfProducts>\n" + 
-    "    <speciesReference species=\"s1\" constant=\"false\"/>\n" + 
+    "    <speciesReference species=\"s1\"/>\n" + 
     "  </listOfProducts>\n" + 
     "  <listOfModifiers>\n" + 
     "    <modifierSpeciesReference species=\"m1\"/>\n" + 
@@ -363,6 +367,7 @@ class TestWriteL3SBML(unittest.TestCase):
     r = self.D.getModel().createReaction()
     r.setId("v1")
     r.setReversible(True)
+    r.setFast(False)
     r.createReactant().setSpecies("x0")
     r.createProduct().setSpecies("s1")
     r.createModifier().setSpecies("m1")
@@ -421,7 +426,7 @@ class TestWriteL3SBML(unittest.TestCase):
     pass  
 
   def test_WriteL3SBML_Trigger(self):
-    expected =  "<trigger initialValue=\"true\" persistent=\"true\"/>";
+    expected =  "<trigger/>";
     t = self.D.createModel().createEvent().createTrigger()
     self.assertEqual( True, self.equals(expected,t.toSBML()) )
     pass  
@@ -430,6 +435,7 @@ class TestWriteL3SBML(unittest.TestCase):
     expected =  "<trigger initialValue=\"false\" persistent=\"true\"/>";
     t = self.D.createModel().createEvent().createTrigger()
     t.setInitialValue(False)
+    t.setPersistent(True)
     self.assertEqual( True, self.equals(expected,t.toSBML()) )
     pass  
 
@@ -437,6 +443,7 @@ class TestWriteL3SBML(unittest.TestCase):
     expected =  "<trigger initialValue=\"true\" persistent=\"false\"/>";
     t = self.D.createModel().createEvent().createTrigger()
     t.setPersistent(False)
+    t.setInitialValue(True)
     self.assertEqual( True, self.equals(expected,t.toSBML()) )
     pass  
 
@@ -468,7 +475,7 @@ class TestWriteL3SBML(unittest.TestCase):
     pass  
 
   def test_WriteL3SBML_Unit_noValues(self):
-    expected = "<unit kind=\"(Invalid UnitKind)\" exponent=\"NaN\"" + " scale=\"2147483647\" multiplier=\"NaN\"/>";
+    expected =  "<unit/>";
     u = self.D.createModel().createUnitDefinition().createUnit()
     self.assertEqual( True, self.equals(expected,u.toSBML()) )
     pass  
@@ -482,14 +489,13 @@ class TestWriteL3SBML(unittest.TestCase):
     "      <unitDefinition/>\n" + 
     "    </listOfUnitDefinitions>\n" + 
     "    <listOfCompartments>\n" + 
-    "      <compartment constant=\"true\"/>\n" + 
+    "      <compartment/>\n" + 
     "    </listOfCompartments>\n" + 
     "    <listOfSpecies>\n" + 
-    "      <species hasOnlySubstanceUnits=\"false\"" + 
-    " boundaryCondition=\"false\" constant=\"false\"/>\n" + 
+    "      <species/>\n" +
     "    </listOfSpecies>\n" + 
     "    <listOfParameters>\n" + 
-    "      <parameter constant=\"true\"/>\n" + 
+    "      <parameter/>\n" + 
     "    </listOfParameters>\n" + 
     "    <listOfInitialAssignments>\n" + 
     "      <initialAssignment/>\n" + 
@@ -501,10 +507,10 @@ class TestWriteL3SBML(unittest.TestCase):
     "      <constraint/>\n" + 
     "    </listOfConstraints>\n" + 
     "    <listOfReactions>\n" + 
-    "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
+    "      <reaction/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
+    "      <event/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n")
     m = self.D.createModel()
@@ -537,6 +543,7 @@ class TestWriteL3SBML(unittest.TestCase):
     p = self.D.createModel().createParameter()
     p.setId("p")
     p.setValue(3.31)
+    p.setConstant(True)
     self.assertEqual( True, self.equals(expected,p.toSBML()) )
     pass  
 

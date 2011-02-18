@@ -1798,7 +1798,16 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   // kind: UnitKind  { use="required" }  (L1v1, L1v2, L2v1->)
   //
   const string kind = UnitKind_toString(mKind);
-  stream.writeAttribute("kind", kind);
+  if (level < 3)
+  {
+    stream.writeAttribute("kind", kind);
+  }
+  else
+  {
+    // in L3 only write it out if it has been set
+    if (isSetKind())
+      stream.writeAttribute("kind", kind);
+  }
 
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
@@ -1811,7 +1820,9 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   }
   else
   {
-    stream.writeAttribute("exponent", mExponentDouble);
+    // in L3 only write it out if it has been set
+    if (isSetExponent())
+      stream.writeAttribute("exponent", mExponentDouble);
   }
  
   //
@@ -1824,7 +1835,9 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   }
   else
   {
-    stream.writeAttribute("scale", mScale);
+    // in L3 only write it out if it has been set
+    if (isSetScale())
+      stream.writeAttribute("scale", mScale);
   }
 
   if (level > 1)
@@ -1839,7 +1852,9 @@ Unit::writeAttributes (XMLOutputStream& stream) const
     }
     else
     {
-      stream.writeAttribute("multiplier", mMultiplier);
+      // in L3 only write it out if it has been set
+      if (isSetMultiplier())
+        stream.writeAttribute("multiplier", mMultiplier);
     }
     //
     // offset  { use="optional" default="0" }  (L2v1)

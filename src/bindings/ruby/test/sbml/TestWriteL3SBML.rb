@@ -176,6 +176,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     "  </priority>\n" + 
     "</event>"
     e = @@d.createModel().createEvent()
+    e.setUseValuesFromTriggerTime(true)
     t = e.createTrigger()
     t.setInitialValue(true)
     t.setPersistent(false)
@@ -203,6 +204,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(util_PosInf())
+    p.setConstant(true)
     assert_equal true, equals(expected,p.toSBML())
   end
 
@@ -270,6 +272,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NaN())
+    p.setConstant(true)
     assert_equal true, equals(expected,p.toSBML())
   end
 
@@ -278,6 +281,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NegInf())
+    p.setConstant(true)
     assert_equal true, equals(expected,p.toSBML())
   end
 
@@ -322,10 +326,10 @@ class TestWriteL3SBML < Test::Unit::TestCase
   def test_WriteL3SBML_Reaction_full
     expected = "<reaction id=\"v1\" reversible=\"true\" fast=\"false\">\n" + 
     "  <listOfReactants>\n" + 
-    "    <speciesReference species=\"x0\" constant=\"false\"/>\n" + 
+    "    <speciesReference species=\"x0\"/>\n" + 
     "  </listOfReactants>\n" + 
     "  <listOfProducts>\n" + 
-    "    <speciesReference species=\"s1\" constant=\"false\"/>\n" + 
+    "    <speciesReference species=\"s1\"/>\n" + 
     "  </listOfProducts>\n" + 
     "  <listOfModifiers>\n" + 
     "    <modifierSpeciesReference species=\"m1\"/>\n" + 
@@ -352,6 +356,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     r = @@d.getModel().createReaction()
     r.setId("v1")
     r.setReversible(true)
+    r.setFast(false)
     r.createReactant().setSpecies("x0")
     r.createProduct().setSpecies("s1")
     r.createModifier().setSpecies("m1")
@@ -410,7 +415,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
   end
 
   def test_WriteL3SBML_Trigger
-    expected =  "<trigger initialValue=\"true\" persistent=\"true\"/>";
+    expected =  "<trigger/>";
     t = @@d.createModel().createEvent().createTrigger()
     assert_equal true, equals(expected,t.toSBML())
   end
@@ -419,6 +424,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     expected =  "<trigger initialValue=\"false\" persistent=\"true\"/>";
     t = @@d.createModel().createEvent().createTrigger()
     t.setInitialValue(false)
+    t.setPersistent(true)
     assert_equal true, equals(expected,t.toSBML())
   end
 
@@ -426,6 +432,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     expected =  "<trigger initialValue=\"true\" persistent=\"false\"/>";
     t = @@d.createModel().createEvent().createTrigger()
     t.setPersistent(false)
+    t.setInitialValue(true)
     assert_equal true, equals(expected,t.toSBML())
   end
 
@@ -457,7 +464,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
   end
 
   def test_WriteL3SBML_Unit_noValues
-    expected = "<unit kind=\"(Invalid UnitKind)\" exponent=\"NaN\"" + " scale=\"2147483647\" multiplier=\"NaN\"/>";
+    expected =  "<unit/>";
     u = @@d.createModel().createUnitDefinition().createUnit()
     assert_equal true, equals(expected,u.toSBML())
   end
@@ -471,14 +478,13 @@ class TestWriteL3SBML < Test::Unit::TestCase
     "      <unitDefinition/>\n" + 
     "    </listOfUnitDefinitions>\n" + 
     "    <listOfCompartments>\n" + 
-    "      <compartment constant=\"true\"/>\n" + 
+    "      <compartment/>\n" + 
     "    </listOfCompartments>\n" + 
     "    <listOfSpecies>\n" + 
-    "      <species hasOnlySubstanceUnits=\"false\"" + 
-    " boundaryCondition=\"false\" constant=\"false\"/>\n" + 
+    "      <species/>\n" +
     "    </listOfSpecies>\n" + 
     "    <listOfParameters>\n" + 
-    "      <parameter constant=\"true\"/>\n" + 
+    "      <parameter/>\n" + 
     "    </listOfParameters>\n" + 
     "    <listOfInitialAssignments>\n" + 
     "      <initialAssignment/>\n" + 
@@ -490,10 +496,10 @@ class TestWriteL3SBML < Test::Unit::TestCase
     "      <constraint/>\n" + 
     "    </listOfConstraints>\n" + 
     "    <listOfReactions>\n" + 
-    "      <reaction reversible=\"true\" fast=\"false\"/>\n" + 
+    "      <reaction/>\n" + 
     "    </listOfReactions>\n" + 
     "    <listOfEvents>\n" + 
-    "      <event useValuesFromTriggerTime=\"true\"/>\n" + 
+    "      <event/>\n" + 
     "    </listOfEvents>\n" + 
     "  </model>\n")
     m = @@d.createModel()
@@ -526,6 +532,7 @@ class TestWriteL3SBML < Test::Unit::TestCase
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(3.31)
+    p.setConstant(true)
     assert_equal true, equals(expected,p.toSBML())
   end
 

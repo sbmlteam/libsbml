@@ -1563,7 +1563,9 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
     }
     else
     {
-      stream.writeAttribute("constant", mConstant);
+      // in L3 only write it out if it has been set
+      if (isSetConstant())
+        stream.writeAttribute("constant", mConstant);
     }
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v3 ->)

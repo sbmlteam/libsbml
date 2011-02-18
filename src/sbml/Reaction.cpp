@@ -1776,7 +1776,9 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   }
   else
   {
-    stream.writeAttribute("reversible", mReversible);
+    // in L3 only write it out if it has been set
+    if (isSetReversible())
+      stream.writeAttribute("reversible", mReversible);
   }
 
   //
@@ -1792,7 +1794,9 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   }
   else
   {
-    stream.writeAttribute("fast", mFast);
+    // in L3 only write it out if it has been set
+    if (isSetFast())
+      stream.writeAttribute("fast", mFast);
   }
 
   if (level > 2)

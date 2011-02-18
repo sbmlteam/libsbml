@@ -283,8 +283,7 @@ END_TEST
 
 START_TEST (test_WriteL3SBML_Unit_noValues)
 {
-  const char* expected = "<unit kind=\"(Invalid UnitKind)\" exponent=\"NaN\""
-    " scale=\"2147483647\" multiplier=\"NaN\"/>";
+  const char* expected = "<unit/>";
 
 
   Unit* u = D->createModel()->createUnitDefinition()->createUnit();
@@ -469,10 +468,10 @@ START_TEST (test_WriteL3SBML_Reaction_full)
   const char* expected = 
     "<reaction id=\"v1\" reversible=\"true\" fast=\"false\">\n"
     "  <listOfReactants>\n"
-    "    <speciesReference species=\"x0\" constant=\"false\"/>\n"
+    "    <speciesReference species=\"x0\"/>\n"
     "  </listOfReactants>\n"
     "  <listOfProducts>\n"
-    "    <speciesReference species=\"s1\" constant=\"false\"/>\n"
+    "    <speciesReference species=\"s1\"/>\n"
     "  </listOfProducts>\n"
     "  <listOfModifiers>\n"
     "    <modifierSpeciesReference species=\"m1\"/>\n"
@@ -503,6 +502,7 @@ START_TEST (test_WriteL3SBML_Reaction_full)
 
   r->setId("v1");
   r->setReversible(true);
+  r->setFast(false);
 
   r->createReactant()->setSpecies("x0");
   r->createProduct ()->setSpecies("s1");
@@ -583,7 +583,7 @@ END_TEST
 
 START_TEST (test_WriteL3SBML_Trigger)
 {
-  const char* expected = "<trigger initialValue=\"true\" persistent=\"true\"/>";
+  const char* expected = "<trigger/>";
 
   Trigger *t = D->createModel()->createEvent()->createTrigger();
   
@@ -598,6 +598,7 @@ START_TEST (test_WriteL3SBML_Trigger_initialValue)
 
   Trigger *t = D->createModel()->createEvent()->createTrigger();
   t->setInitialValue(false);
+  t->setPersistent(true);
   
   fail_unless( equals(expected,t->toSBML()) );
 }
@@ -610,6 +611,7 @@ START_TEST (test_WriteL3SBML_Trigger_persistent)
 
   Trigger *t = D->createModel()->createEvent()->createTrigger();
   t->setPersistent(false);
+  t->setInitialValue(true);
   
   fail_unless( equals(expected,t->toSBML()) );
 }
@@ -644,6 +646,7 @@ START_TEST (test_WriteL3SBML_Event_full)
     "</event>";
 
   Event *e = D->createModel()->createEvent();
+  e->setUseValuesFromTriggerTime(true);
   Trigger *t = e->createTrigger();
   t->setInitialValue(true);
   t->setPersistent(false);
@@ -667,6 +670,7 @@ START_TEST (test_WriteL3SBML_NaN)
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
   p->setValue(util_NaN());
+  p->setConstant(true);
 
 
   fail_unless( equals(expected,p->toSBML()) );
@@ -682,6 +686,7 @@ START_TEST (test_WriteL3SBML_INF)
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
   p->setValue(util_PosInf());
+  p->setConstant(true);
 
   fail_unless( equals(expected,p->toSBML()) );
 
@@ -698,6 +703,7 @@ START_TEST (test_WriteL3SBML_NegINF)
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
   p->setValue(util_NegInf());
+  p->setConstant(true);
 
   fail_unless( equals(expected,p->toSBML()) );
 }
@@ -712,6 +718,7 @@ START_TEST (test_WriteL3SBML_locale)
   Parameter *p = D->createModel()->createParameter();
   p->setId("p");
   p->setValue(3.31);
+  p->setConstant(true);
 
 
   setlocale(LC_NUMERIC, "de_DE");
@@ -877,14 +884,13 @@ START_TEST (test_WriteL3SBML_elements)
     "      <unitDefinition/>\n"
     "    </listOfUnitDefinitions>\n"
     "    <listOfCompartments>\n"
-    "      <compartment constant=\"true\"/>\n"
+    "      <compartment/>\n"
     "    </listOfCompartments>\n"
     "    <listOfSpecies>\n"
-    "      <species hasOnlySubstanceUnits=\"false\""
-    " boundaryCondition=\"false\" constant=\"false\"/>\n"
+    "      <species/>\n"
     "    </listOfSpecies>\n"
     "    <listOfParameters>\n"
-    "      <parameter constant=\"true\"/>\n"
+    "      <parameter/>\n"
     "    </listOfParameters>\n"
     "    <listOfInitialAssignments>\n"
     "      <initialAssignment/>\n"
@@ -896,10 +902,10 @@ START_TEST (test_WriteL3SBML_elements)
     "      <constraint/>\n"
     "    </listOfConstraints>\n"
     "    <listOfReactions>\n"
-    "      <reaction reversible=\"true\" fast=\"false\"/>\n"
+    "      <reaction/>\n"
     "    </listOfReactions>\n"
     "    <listOfEvents>\n"
-    "      <event useValuesFromTriggerTime=\"true\"/>\n"
+    "      <event/>\n"
     "    </listOfEvents>\n"
     "  </model>\n");
 

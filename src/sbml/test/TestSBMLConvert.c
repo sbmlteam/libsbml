@@ -132,7 +132,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertToL1_Species_Amount)
 {
-  SBMLDocument_t *d   = SBMLDocument_createWithLevelAndVersion(2, 1);
+  SBMLDocument_t *d   = SBMLDocument_createWithLevelAndVersion(2, 4);
   Model_t        *m   = SBMLDocument_createModel(d);
   const char     *sid = "C";
   Compartment_t  *c   = Compartment_create(2, 4);

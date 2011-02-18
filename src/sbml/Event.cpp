@@ -1563,7 +1563,9 @@ Event::writeAttributes (XMLOutputStream& stream) const
   }
   else if (level > 2)
   {
-    stream.writeAttribute("useValuesFromTriggerTime", 
+    // in L3 only write it out if it has been set
+    if (isSetUseValuesFromTriggerTime())
+      stream.writeAttribute("useValuesFromTriggerTime", 
                           mUseValuesFromTriggerTime);
   }
 }

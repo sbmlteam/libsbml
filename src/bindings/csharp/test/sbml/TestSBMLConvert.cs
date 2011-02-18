@@ -278,7 +278,7 @@ namespace LibSBMLCSTest {
 
     public void test_SBMLConvert_convertToL1_Species_Amount()
     {
-      SBMLDocument d = new  SBMLDocument(2,1);
+      SBMLDocument d = new  SBMLDocument(2,4);
       Model m = d.createModel();
       string sid =  "C";
       Compartment c = new  Compartment(2,4);

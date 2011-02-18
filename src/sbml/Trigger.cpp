@@ -636,8 +636,12 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
 
   if (level > 2)
   {
-    stream.writeAttribute("initialValue", mInitialValue);
-    stream.writeAttribute("persistent", mPersistent);
+    // in L3 only write it out if it has been set
+    if (isSetInitialValue())
+      stream.writeAttribute("initialValue", mInitialValue);
+      // in L3 only write it out if it has been set
+    if (isSetPersistent())
+      stream.writeAttribute("persistent", mPersistent);
   }
 }
 /** @endcond */

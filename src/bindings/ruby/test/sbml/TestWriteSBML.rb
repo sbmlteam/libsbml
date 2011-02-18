@@ -664,7 +664,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_INF
-    expected =  "<parameter id=\"p\" value=\"INF\" constant=\"true\"/>";
+    expected =  "<parameter id=\"p\" value=\"INF\"/>";
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(util_PosInf())
@@ -826,7 +826,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_NaN
-    expected =  "<parameter id=\"p\" value=\"NaN\" constant=\"true\"/>";
+    expected =  "<parameter id=\"p\" value=\"NaN\"/>";
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NaN())
@@ -834,7 +834,7 @@ class TestWriteSBML < Test::Unit::TestCase
   end
 
   def test_WriteSBML_NegINF
-    expected =  "<parameter id=\"p\" value=\"-INF\" constant=\"true\"/>";
+    expected =  "<parameter id=\"p\" value=\"-INF\"/>";
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(util_NegInf())
@@ -1735,6 +1735,7 @@ class TestWriteSBML < Test::Unit::TestCase
     p = @@d.createModel().createParameter()
     p.setId("p")
     p.setValue(3.31)
+    p.setConstant(true)
     assert_equal true, equals(expected,p.toSBML())
   end
 
