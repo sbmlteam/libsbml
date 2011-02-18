@@ -37,7 +37,7 @@ __DATA__
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="xtof">
     <listOfSpecies>
-      <species id="rainer" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="rainer"/>
     </listOfSpecies>
   </model>
 </sbml>

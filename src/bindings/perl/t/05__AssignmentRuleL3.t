@@ -78,11 +78,11 @@ __DATA__
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
   <model id="assignment_rule">
     <listOfSpecies>
-      <species id="X" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="Y" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="X"/>
+      <species id="Y"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="n" constant="true"/>
+      <parameter id="n"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="Y">
