@@ -136,7 +136,6 @@ EXTERN_CONSTRAINT(94010, DuplicateTopLevelAnnotation)
 
 START_CONSTRAINT (92009, Compartment, c)
 {
-  inv_or( c.isSetSpatialDimensions() == false);
   inv_or( c.getSpatialDimensions() == 3 );
   inv_or( c.getSpatialDimensions() == 2 );
   inv_or( c.getSpatialDimensions() == 1 );
