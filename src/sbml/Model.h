@@ -2862,7 +2862,14 @@ public:
    */
   void dealWithModelUnits ();
 
+   /** @endcond */
+  
+  /** @cond doxygen-libsbml-internal */
+  
+  void dealWithStoichiometry ();
+ 
   /** @endcond */
+  
   /** @cond doxygen-libsbml-internal */
   
   /*

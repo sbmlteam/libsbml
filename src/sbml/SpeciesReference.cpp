@@ -1097,6 +1097,9 @@ SpeciesReference::createStoichiometryMath ()
   {
     mStoichiometryMath->setSBMLDocument(mSBML);
     mStoichiometryMath->setParentSBMLObject(this);
+    /* this should unset the stoichiometry */
+    mStoichiometry = 1.0;
+    mIsSetStoichiometry = false;
   }
 
   return mStoichiometryMath;

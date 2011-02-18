@@ -134,6 +134,7 @@ void
 Model::convertL3ToL2 ()
 {
   dealWithModelUnits();
+  dealWithStoichiometry();
 }
 
 
@@ -148,20 +149,30 @@ Model::setSpeciesReferenceConstantValueAndStoichiometry()
     {
       if (!(r->getReactant(j)->isSetStoichiometryMath()))
       {
+        r->getReactant(j)->setConstant(true);
         if (!(r->getReactant(j)->isSetStoichiometry()))
         {
           r->getReactant(j)->setStoichiometry(1);
         }
+      }
+      else
+      {
+        r->getReactant(j)->setConstant(false);
       }
     }
     for (j = 0; j < r->getNumProducts(); j++)
     {
       if (!(r->getProduct(j)->isSetStoichiometryMath()))
       {
+        r->getProduct(j)->setConstant(true);
         if (!(r->getProduct(j)->isSetStoichiometry()))
         {
           r->getProduct(j)->setStoichiometry(1);
         }
+      }
+      else
+      {
+        r->getProduct(j)->setConstant(false);
       }
     }
   }
@@ -694,6 +705,7 @@ Model::convertStoichiometryMath()
         {
           id = sr->getId();
         }
+        sr->setConstant(false);
 
         AssignmentRule * ar = createAssignmentRule();
         ar->setVariable(id);
@@ -719,6 +731,8 @@ Model::convertStoichiometryMath()
         {
           id = sr->getId();
         }
+
+        sr->setConstant(false);
 
         AssignmentRule * ar = createAssignmentRule();
         ar->setVariable(id);
@@ -1115,6 +1129,78 @@ Model::dealWithModelUnits()
   }
 }
 
+
+void
+Model::dealWithStoichiometry()
+{
+  unsigned int idCount = 0;
+  char newid[15];
+  std::string id;
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    Reaction *r = getReaction(i);
+    unsigned int j;
+    for (j = 0; j < r->getNumReactants(); j++)
+    {
+      SpeciesReference *sr = r->getReactant(j);
+      if (!(sr->isSetStoichiometry()))
+      {
+      /* at moment constant is true - since we are not converting if false
+       * so we are just considering two cases 
+       * 1) where the id is used by an initialAssignment to set stoichiometry
+       * 2) where the stoichiometry is just not declared
+       */
+        if (!(sr->isSetId()))
+        {
+          // definitely case 2
+          sprintf(newid, "parameterId_%u", idCount);
+          id.assign(newid);
+          idCount++;
+          Parameter *p = createParameter();
+          p->setId(id);
+          p->setConstant(false);
+
+          StoichiometryMath *sm = sr->createStoichiometryMath();
+          if (sm != NULL)
+          {
+            ASTNode *ast = SBML_parseFormula(id.c_str());
+            sm->setMath(ast);
+          }
+        }
+      }
+    }
+    for (j = 0; j < r->getNumProducts(); j++)
+    {
+      SpeciesReference *sr = r->getProduct(j);
+      if (!(sr->isSetStoichiometry()))
+      {
+      /* at moment constant is true - since we are not converting if false
+       * so we are just considering two cases 
+       * 1) where the id is used by an initialAssignment to set stoichiometry
+       * 2) where the stoichiometry is just not declared
+       */
+        if (!(sr->isSetId()))
+        {
+          // definitely case 2
+          sprintf(newid, "parameterId_%u", idCount);
+          id.assign(newid);
+          idCount++;
+          Parameter *p = createParameter();
+          p->setId(id);
+          p->setConstant(false);
+
+          StoichiometryMath *sm = sr->createStoichiometryMath();
+          if (sm != NULL)
+          {
+            ASTNode *ast = SBML_parseFormula(id.c_str());
+            sm->setMath(ast);
+          }
+        }
+        
+      }
+    }
+  }
+}
 /** @endcond **/
 
 LIBSBML_CPP_NAMESPACE_END
