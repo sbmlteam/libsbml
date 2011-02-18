@@ -2,7 +2,7 @@
 # @brief   Tests the internal consistency validation.
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 #
 # $Id$
 # $HeadURL$
@@ -34,6 +34,660 @@ require 'test/unit'
 require 'libSBML'
 
 class TestInternalConsistencyChecks < Test::Unit::TestCase
+
+  def test_internal_consistency_check_20306
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    fd = m.createFunctionDefinition()
+    fd.setId("fd")
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20306 )
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    fd.setMath(ast)
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20307
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    fd = m.createFunctionDefinition()
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    fd.setMath(ast)
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20307 )
+    fd.setId("fd")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20419
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    ud = m.createUnitDefinition()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20419 )
+    ud.setId("ud")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20421
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    ud = m.createUnitDefinition()
+    ud.setId("ud")
+    u = ud.createUnit()
+    errors = d.checkInternalConsistency()
+    assert( errors == 4 )
+    assert( d.getError(0).getErrorId() == 20421 )
+    assert( d.getError(1).getErrorId() == 20421 )
+    assert( d.getError(2).getErrorId() == 20421 )
+    assert( d.getError(3).getErrorId() == 20421 )
+    u.setKind(LibSBML::UNIT_KIND_MOLE)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 3 )
+    assert( d.getError(0).getErrorId() == 20421 )
+    assert( d.getError(1).getErrorId() == 20421 )
+    assert( d.getError(2).getErrorId() == 20421 )
+    u.setExponent(1.0)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 20421 )
+    assert( d.getError(1).getErrorId() == 20421 )
+    u.setScale(0)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20421 )
+    u.setMultiplier(1.0)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20517
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    c = m.createCompartment()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 20517 )
+    assert( d.getError(1).getErrorId() == 20517 )
+    c.setId("c")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20517 )
+    c.setConstant(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20623
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    c = m.createCompartment()
+    c.setId("c")
+    c.setConstant(true)
+    s = m.createSpecies()
+    errors = d.checkInternalConsistency()
+    assert( errors == 5 )
+    assert( d.getError(0).getErrorId() == 20623 )
+    assert( d.getError(1).getErrorId() == 20614 )
+    assert( d.getError(2).getErrorId() == 20623 )
+    assert( d.getError(3).getErrorId() == 20623 )
+    assert( d.getError(4).getErrorId() == 20623 )
+    s.setId("s")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 4 )
+    assert( d.getError(0).getErrorId() == 20614 )
+    assert( d.getError(1).getErrorId() == 20623 )
+    assert( d.getError(2).getErrorId() == 20623 )
+    assert( d.getError(3).getErrorId() == 20623 )
+    s.setCompartment("c")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 3 )
+    assert( d.getError(0).getErrorId() == 20623 )
+    assert( d.getError(1).getErrorId() == 20623 )
+    assert( d.getError(2).getErrorId() == 20623 )
+    s.setHasOnlySubstanceUnits(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 20623 )
+    assert( d.getError(1).getErrorId() == 20623 )
+    s.setBoundaryCondition(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20623 )
+    s.setConstant(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20706
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    p = m.createParameter()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 20706 )
+    assert( d.getError(1).getErrorId() == 20706 )
+    p.setId("c")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20706 )
+    p.setConstant(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20804
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    ia = m.createInitialAssignment()
+    ia.setSymbol("fd")
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20804 )
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    ia.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20805
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    ia = m.createInitialAssignment()
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    ia.setMath(ast)
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20805 )
+    ia.setSymbol("fd")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20907_alg
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createAlgebraicRule()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20907 )
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    r.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20907_assign
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createAssignmentRule()
+    r.setVariable("fd")
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20907 )
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    r.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20907_rate
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createRateRule()
+    r.setVariable("fd")
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20907 )
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    r.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20908
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createAssignmentRule()
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    r.setMath(ast)
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20908 )
+    r.setVariable("fd")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_20909
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createRateRule()
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    r.setMath(ast)
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 20909 )
+    r.setVariable("fd")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21007
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createConstraint()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21007 )
+    ast = LibSBML::parseFormula("lambda(x, 2*x)")
+    r.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21101
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createReaction()
+    r.setId("r")
+    r.setReversible(true)
+    r.setFast(false)
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21101 )
+    sr = r.createReactant()
+    sr.setSpecies("s")
+    sr.setConstant(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21110
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createReaction()
+    sr = r.createProduct()
+    sr.setSpecies("s")
+    sr.setConstant(true)
+    errors = d.checkInternalConsistency()
+    assert( errors == 3 )
+    assert( d.getError(0).getErrorId() == 21110 )
+    assert( d.getError(1).getErrorId() == 21110 )
+    assert( d.getError(2).getErrorId() == 21110 )
+    r.setId("r")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 21110 )
+    assert( d.getError(1).getErrorId() == 21110 )
+    r.setReversible(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21110 )
+    r.setFast(false)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21116
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createReaction()
+    r.setId("r")
+    r.setReversible(true)
+    r.setFast(false)
+    sr = r.createReactant()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 21116 )
+    assert( d.getError(1).getErrorId() == 21116 )
+    sr.setSpecies("s")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21116 )
+    sr.setConstant(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21117
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createReaction()
+    r.setId("r")
+    r.setReversible(true)
+    r.setFast(false)
+    sr = r.createReactant()
+    sr.setSpecies("s")
+    sr.setConstant(true)
+    msr = r.createModifier()
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21117 )
+    msr.setSpecies("s")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21130
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createReaction()
+    r.setId("r")
+    r.setReversible(true)
+    r.setFast(false)
+    sr = r.createReactant()
+    sr.setSpecies("s")
+    sr.setConstant(true)
+    kl = r.createKineticLaw()
+    lp = kl.createLocalParameter()
+    lp.setId("s")
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21130 )
+    ast = LibSBML::parseFormula("2*x")
+    kl.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21172
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createReaction()
+    r.setId("r")
+    r.setReversible(true)
+    r.setFast(false)
+    sr = r.createReactant()
+    sr.setSpecies("s")
+    sr.setConstant(true)
+    kl = r.createKineticLaw()
+    ast = LibSBML::parseFormula("2*x")
+    kl.setMath(ast)
+    lp = kl.createLocalParameter()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21172 )
+    lp.setId("pp")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21201
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ea = r.createEventAssignment()
+    ea.setVariable("s")
+    ast = LibSBML::parseFormula("2*x")
+    ea.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21201 )
+    t = r.createTrigger()
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    t.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21203
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ast = LibSBML::parseFormula("2*x")
+    t = r.createTrigger()
+    t.setMath(ast)
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21203 )
+    ea = r.createEventAssignment()
+    ea.setVariable("ea")
+    ea.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21209
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ea = r.createEventAssignment()
+    ea.setVariable("s")
+    ast = LibSBML::parseFormula("2*x")
+    ea.setMath(ast)
+    t = r.createTrigger()
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21209 )
+    t.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21210
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ast = LibSBML::parseFormula("2*x")
+    t = r.createTrigger()
+    t.setMath(ast)
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    ea = r.createEventAssignment()
+    ea.setVariable("ea")
+    ea.setMath(ast)
+    delay = r.createDelay()
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21210 )
+    delay.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21213
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ea = r.createEventAssignment()
+    ea.setVariable("s")
+    ast = LibSBML::parseFormula("2*x")
+    t = r.createTrigger()
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    t.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21213 )
+    ea.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21214
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ea = r.createEventAssignment()
+    ast = LibSBML::parseFormula("2*x")
+    ea.setMath(ast)
+    t = r.createTrigger()
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    t.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21214 )
+    ea.setVariable("s")
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21225
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    ea = r.createEventAssignment()
+    ea.setVariable("s")
+    ast = LibSBML::parseFormula("2*x")
+    ea.setMath(ast)
+    t = r.createTrigger()
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    t.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21225 )
+    r.setUseValuesFromTriggerTime(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21226
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ea = r.createEventAssignment()
+    ea.setVariable("s")
+    ast = LibSBML::parseFormula("2*x")
+    ea.setMath(ast)
+    t = r.createTrigger()
+    t.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 2 )
+    assert( d.getError(0).getErrorId() == 21226 )
+    assert( d.getError(1).getErrorId() == 21226 )
+    t.setPersistent(true)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21226 )
+    t.setInitialValue(false)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
+
+  def test_internal_consistency_check_21231
+    d = LibSBML::SBMLDocument.new(3,1)
+    m = d.createModel()
+    r = m.createEvent()
+    r.setUseValuesFromTriggerTime(true)
+    ast = LibSBML::parseFormula("2*x")
+    t = r.createTrigger()
+    t.setMath(ast)
+    t.setPersistent(true)
+    t.setInitialValue(false)
+    ea = r.createEventAssignment()
+    ea.setVariable("ea")
+    ea.setMath(ast)
+    prior = r.createPriority()
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21231 )
+    prior.setMath(ast)
+    d.getErrorLog().clearLog()
+    errors = d.checkInternalConsistency()
+    assert( errors == 0 )
+    d = nil
+  end
 
   def test_internal_consistency_check_99901
     d = LibSBML::SBMLDocument.new(2,4)
@@ -89,6 +743,8 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     c.setId("cc")
     r = m.createReaction()
     r.setId("r")
+    sr = r.createReactant()
+    sr.setSpecies("s")
     kl = r.createKineticLaw()
     kl.setFormula("2")
     p.setId("p")
@@ -140,6 +796,8 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     c.setId("cc")
     r = m.createReaction()
     r.setId("r")
+    sr = r.createReactant()
+    sr.setSpecies("s")
     kl.setFormula("2")
     kl.setMetaId("mmm")
     r.setKineticLaw(kl)
@@ -266,14 +924,15 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     c.setId("c")
     s = m.createSpecies()
     s.setId("s")
+    s.setCompartment("c")
     r = m.createReaction()
     r.setId("r")
-    s.setCompartment("c")
     sr.setSpecies("s")
     sr.setMetaId("mmm")
     r.addProduct(sr)
     errors = d.checkInternalConsistency()
-    assert( errors == 0 )
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21101 )
     d = nil
   end
 
@@ -517,12 +1176,17 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     c.setId("c")
     c.setConstant(false)
     e = m.createEvent()
+    ast = LibSBML::parseFormula("2*x")
+    t = e.createTrigger()
+    t.setMath(ast)
     ea = LibSBML::EventAssignment.new(2,4)
     ea.setVariable("c")
     ea.setSBOTerm(2)
+    ea.setMath(ast)
     e.addEventAssignment(ea)
     errors = d.checkInternalConsistency()
-    assert( errors == 0 )
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21203 )
     d = nil
   end
 
@@ -557,6 +1221,8 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     m = d.createModel()
     r = m.createReaction()
     r.setId("r")
+    sr = r.createReactant()
+    sr.setSpecies("s")
     kl = LibSBML::KineticLaw.new(2,4)
     kl.setSBOTerm(2)
     p = kl.createParameter()
@@ -665,7 +1331,8 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     sr.setSBOTerm(4)
     r.addReactant(sr)
     errors = d.checkInternalConsistency()
-    assert( errors == 0 )
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21101 )
     d = nil
   end
 
@@ -858,7 +1525,8 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     sr.setId("mmm")
     r.addProduct(sr)
     errors = d.checkInternalConsistency()
-    assert( errors == 0 )
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21101 )
     d = nil
   end
 
@@ -878,7 +1546,8 @@ class TestInternalConsistencyChecks < Test::Unit::TestCase
     sr.setName("mmm")
     r.addReactant(sr)
     errors = d.checkInternalConsistency()
-    assert( errors == 0 )
+    assert( errors == 1 )
+    assert( d.getError(0).getErrorId() == 21101 )
     d = nil
   end
 

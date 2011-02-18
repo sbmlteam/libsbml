@@ -720,16 +720,103 @@ START_CONSTRAINT (99925, Unit, u)
 END_CONSTRAINT
 
 
-//START_CONSTRAINT (20421, Unit, u)
-//{
-//  // required attributes in L3
-//  pre( u.getLevel() == 3);
-//  
-//  inv( u.hasRequiredAttributes() == true );
-//}
-//END_CONSTRAINT
-//
+START_CONSTRAINT (20306, FunctionDefinition, fd)
+{
+  inv( fd.hasRequiredElements() == true );
+}
+END_CONSTRAINT
 
+
+START_CONSTRAINT (20804, InitialAssignment, ia)
+{
+  inv( ia.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+
+START_CONSTRAINT (20907, AssignmentRule, r)
+{
+  inv( r.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20907, RateRule, r)
+{
+  inv( r.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20907, AlgebraicRule, r)
+{
+  inv( r.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21007, Constraint, c)
+{
+  inv( c.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21101, Reaction, r)
+{
+  inv( r.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21130, KineticLaw, kl)
+{
+  inv( kl.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21201, Event, e)
+{
+  inv( e.isSetTrigger() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21203, Event, e)
+{
+  inv( e.getNumEventAssignments() > 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21209, Trigger, t)
+{
+  inv( t.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21210, Delay, d)
+{
+  inv( d.hasRequiredElements() == true );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21213, EventAssignment, e)
+{
+  inv( e.hasRequiredElements() == true);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21231, Priority, p)
+{
+  inv( p.hasRequiredElements() == true);
+}
+END_CONSTRAINT
 
 
 /** @endcond */

@@ -3,7 +3,7 @@
  * @brief   Tests the internal consistency validation.
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  *
  * $Id$
  * $HeadURL$
@@ -121,6 +121,720 @@ public class TestInternalConsistencyChecks {
     throw new AssertionError();
   }
 
+  public void test_internal_consistency_check_20306()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    FunctionDefinition fd = m.createFunctionDefinition();
+    fd.setId("fd");
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20306 );
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    fd.setMath(ast);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20307()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    FunctionDefinition fd = m.createFunctionDefinition();
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    fd.setMath(ast);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20307 );
+    fd.setId("fd");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20419()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    UnitDefinition ud = m.createUnitDefinition();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20419 );
+    ud.setId("ud");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20421()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    UnitDefinition ud = m.createUnitDefinition();
+    ud.setId("ud");
+    Unit u = ud.createUnit();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 4 );
+    assertTrue( d.getError(0).getErrorId() == 20421 );
+    assertTrue( d.getError(1).getErrorId() == 20421 );
+    assertTrue( d.getError(2).getErrorId() == 20421 );
+    assertTrue( d.getError(3).getErrorId() == 20421 );
+    u.setKind(libsbml.UNIT_KIND_MOLE);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 3 );
+    assertTrue( d.getError(0).getErrorId() == 20421 );
+    assertTrue( d.getError(1).getErrorId() == 20421 );
+    assertTrue( d.getError(2).getErrorId() == 20421 );
+    u.setExponent(1.0);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 20421 );
+    assertTrue( d.getError(1).getErrorId() == 20421 );
+    u.setScale(0);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20421 );
+    u.setMultiplier(1.0);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20517()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Compartment c = m.createCompartment();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 20517 );
+    assertTrue( d.getError(1).getErrorId() == 20517 );
+    c.setId("c");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20517 );
+    c.setConstant(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20623()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Compartment c = m.createCompartment();
+    c.setId("c");
+    c.setConstant(true);
+    Species s = m.createSpecies();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 5 );
+    assertTrue( d.getError(0).getErrorId() == 20623 );
+    assertTrue( d.getError(1).getErrorId() == 20614 );
+    assertTrue( d.getError(2).getErrorId() == 20623 );
+    assertTrue( d.getError(3).getErrorId() == 20623 );
+    assertTrue( d.getError(4).getErrorId() == 20623 );
+    s.setId("s");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 4 );
+    assertTrue( d.getError(0).getErrorId() == 20614 );
+    assertTrue( d.getError(1).getErrorId() == 20623 );
+    assertTrue( d.getError(2).getErrorId() == 20623 );
+    assertTrue( d.getError(3).getErrorId() == 20623 );
+    s.setCompartment("c");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 3 );
+    assertTrue( d.getError(0).getErrorId() == 20623 );
+    assertTrue( d.getError(1).getErrorId() == 20623 );
+    assertTrue( d.getError(2).getErrorId() == 20623 );
+    s.setHasOnlySubstanceUnits(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 20623 );
+    assertTrue( d.getError(1).getErrorId() == 20623 );
+    s.setBoundaryCondition(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20623 );
+    s.setConstant(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20706()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Parameter p = m.createParameter();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 20706 );
+    assertTrue( d.getError(1).getErrorId() == 20706 );
+    p.setId("c");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20706 );
+    p.setConstant(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20804()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    InitialAssignment ia = m.createInitialAssignment();
+    ia.setSymbol("fd");
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20804 );
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    ia.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20805()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    InitialAssignment ia = m.createInitialAssignment();
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    ia.setMath(ast);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20805 );
+    ia.setSymbol("fd");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20907_alg()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    AlgebraicRule r = m.createAlgebraicRule();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20907 );
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    r.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20907_assign()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    AssignmentRule r = m.createAssignmentRule();
+    r.setVariable("fd");
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20907 );
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    r.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20907_rate()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    RateRule r = m.createRateRule();
+    r.setVariable("fd");
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20907 );
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    r.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20908()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    AssignmentRule r = m.createAssignmentRule();
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    r.setMath(ast);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20908 );
+    r.setVariable("fd");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_20909()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    RateRule r = m.createRateRule();
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    r.setMath(ast);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 20909 );
+    r.setVariable("fd");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21007()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Constraint r = m.createConstraint();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21007 );
+    ASTNode ast = libsbml.parseFormula("lambda(x, 2*x)");
+    r.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21101()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    r.setId("r");
+    r.setReversible(true);
+    r.setFast(false);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21101 );
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
+    sr.setConstant(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21110()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    SpeciesReference sr = r.createProduct();
+    sr.setSpecies("s");
+    sr.setConstant(true);
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 3 );
+    assertTrue( d.getError(0).getErrorId() == 21110 );
+    assertTrue( d.getError(1).getErrorId() == 21110 );
+    assertTrue( d.getError(2).getErrorId() == 21110 );
+    r.setId("r");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 21110 );
+    assertTrue( d.getError(1).getErrorId() == 21110 );
+    r.setReversible(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21110 );
+    r.setFast(false);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21116()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    r.setId("r");
+    r.setReversible(true);
+    r.setFast(false);
+    SpeciesReference sr = r.createReactant();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 21116 );
+    assertTrue( d.getError(1).getErrorId() == 21116 );
+    sr.setSpecies("s");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21116 );
+    sr.setConstant(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21117()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    r.setId("r");
+    r.setReversible(true);
+    r.setFast(false);
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
+    sr.setConstant(true);
+    ModifierSpeciesReference msr = r.createModifier();
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21117 );
+    msr.setSpecies("s");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21130()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    r.setId("r");
+    r.setReversible(true);
+    r.setFast(false);
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
+    sr.setConstant(true);
+    KineticLaw kl = r.createKineticLaw();
+    LocalParameter lp = kl.createLocalParameter();
+    lp.setId("s");
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21130 );
+    ASTNode ast = libsbml.parseFormula("2*x");
+    kl.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21172()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Reaction r = m.createReaction();
+    r.setId("r");
+    r.setReversible(true);
+    r.setFast(false);
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
+    sr.setConstant(true);
+    KineticLaw kl = r.createKineticLaw();
+    ASTNode ast = libsbml.parseFormula("2*x");
+    kl.setMath(ast);
+    LocalParameter lp = kl.createLocalParameter();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21172 );
+    lp.setId("pp");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21201()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("s");
+    ASTNode ast = libsbml.parseFormula("2*x");
+    ea.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21201 );
+    Trigger t = r.createTrigger();
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    t.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21203()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    ASTNode ast = libsbml.parseFormula("2*x");
+    Trigger t = r.createTrigger();
+    t.setMath(ast);
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21203 );
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("ea");
+    ea.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21209()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("s");
+    ASTNode ast = libsbml.parseFormula("2*x");
+    ea.setMath(ast);
+    Trigger t = r.createTrigger();
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21209 );
+    t.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21210()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    ASTNode ast = libsbml.parseFormula("2*x");
+    Trigger t = r.createTrigger();
+    t.setMath(ast);
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("ea");
+    ea.setMath(ast);
+    Delay delay = r.createDelay();
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21210 );
+    delay.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21213()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("s");
+    ASTNode ast = libsbml.parseFormula("2*x");
+    Trigger t = r.createTrigger();
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    t.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21213 );
+    ea.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21214()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    EventAssignment ea = r.createEventAssignment();
+    ASTNode ast = libsbml.parseFormula("2*x");
+    ea.setMath(ast);
+    Trigger t = r.createTrigger();
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    t.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21214 );
+    ea.setVariable("s");
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21225()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("s");
+    ASTNode ast = libsbml.parseFormula("2*x");
+    ea.setMath(ast);
+    Trigger t = r.createTrigger();
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    t.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21225 );
+    r.setUseValuesFromTriggerTime(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21226()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("s");
+    ASTNode ast = libsbml.parseFormula("2*x");
+    ea.setMath(ast);
+    Trigger t = r.createTrigger();
+    t.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 2 );
+    assertTrue( d.getError(0).getErrorId() == 21226 );
+    assertTrue( d.getError(1).getErrorId() == 21226 );
+    t.setPersistent(true);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21226 );
+    t.setInitialValue(false);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
+  public void test_internal_consistency_check_21231()
+  {
+    SBMLDocument d = new SBMLDocument(3,1);
+    long errors;
+    Model m = d.createModel();
+    Event r = m.createEvent();
+    r.setUseValuesFromTriggerTime(true);
+    ASTNode ast = libsbml.parseFormula("2*x");
+    Trigger t = r.createTrigger();
+    t.setMath(ast);
+    t.setPersistent(true);
+    t.setInitialValue(false);
+    EventAssignment ea = r.createEventAssignment();
+    ea.setVariable("ea");
+    ea.setMath(ast);
+    Priority prior = r.createPriority();
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21231 );
+    prior.setMath(ast);
+    d.getErrorLog().clearLog();
+    errors = d.checkInternalConsistency();
+    assertTrue( errors == 0 );
+    d = null;
+  }
+
   public void test_internal_consistency_check_99901()
   {
     SBMLDocument d = new SBMLDocument(2,4);
@@ -183,6 +897,8 @@ public class TestInternalConsistencyChecks {
     c.setId("cc");
     Reaction r = m.createReaction();
     r.setId("r");
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
     KineticLaw kl = r.createKineticLaw();
     kl.setFormula("2");
     p.setId("p");
@@ -240,6 +956,8 @@ public class TestInternalConsistencyChecks {
     c.setId("cc");
     Reaction r = m.createReaction();
     r.setId("r");
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
     kl.setFormula("2");
     kl.setMetaId("mmm");
     r.setKineticLaw(kl);
@@ -382,14 +1100,15 @@ public class TestInternalConsistencyChecks {
     c.setId("c");
     Species s = m.createSpecies();
     s.setId("s");
+    s.setCompartment("c");
     Reaction r = m.createReaction();
     r.setId("r");
-    s.setCompartment("c");
     sr.setSpecies("s");
     sr.setMetaId("mmm");
     r.addProduct(sr);
     errors = d.checkInternalConsistency();
-    assertTrue( errors == 0 );
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21101 );
     d = null;
   }
 
@@ -667,12 +1386,17 @@ public class TestInternalConsistencyChecks {
     c.setId("c");
     c.setConstant(false);
     Event e = m.createEvent();
+    ASTNode ast = libsbml.parseFormula("2*x");
+    Trigger t = e.createTrigger();
+    t.setMath(ast);
     EventAssignment ea = new EventAssignment(2,4);
     ea.setVariable("c");
     ea.setSBOTerm(2);
+    ea.setMath(ast);
     e.addEventAssignment(ea);
     errors = d.checkInternalConsistency();
-    assertTrue( errors == 0 );
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21203 );
     d = null;
   }
 
@@ -713,6 +1437,8 @@ public class TestInternalConsistencyChecks {
     Model m = d.createModel();
     Reaction r = m.createReaction();
     r.setId("r");
+    SpeciesReference sr = r.createReactant();
+    sr.setSpecies("s");
     KineticLaw kl = new KineticLaw(2,4);
     kl.setSBOTerm(2);
     Parameter p = kl.createParameter();
@@ -835,7 +1561,8 @@ public class TestInternalConsistencyChecks {
     sr.setSBOTerm(4);
     r.addReactant(sr);
     errors = d.checkInternalConsistency();
-    assertTrue( errors == 0 );
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21101 );
     d = null;
   }
 
@@ -1052,7 +1779,8 @@ public class TestInternalConsistencyChecks {
     sr.setId("mmm");
     r.addProduct(sr);
     errors = d.checkInternalConsistency();
-    assertTrue( errors == 0 );
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21101 );
     d = null;
   }
 
@@ -1074,7 +1802,8 @@ public class TestInternalConsistencyChecks {
     sr.setName("mmm");
     r.addReactant(sr);
     errors = d.checkInternalConsistency();
-    assertTrue( errors == 0 );
+    assertTrue( errors == 1 );
+    assertTrue( d.getError(0).getErrorId() == 21101 );
     d = null;
   }
 
