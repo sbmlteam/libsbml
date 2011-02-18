@@ -33,7 +33,7 @@ FILE * fout;
  * owns the returned string and is responsible for freeing it.
  */
 char *
-SBML_formulaToDot (ASTNode_t *tree)
+SBML_formulaToDot (const ASTNode_t *tree)
 {
   StringBuffer_t *sb = StringBuffer_create(128);
   char           *name;
@@ -64,7 +64,7 @@ SBML_formulaToDot (ASTNode_t *tree)
  * function.
  */
 int
-FormulaGraphvizFormatter_isFunction (ASTNode_t *node)
+FormulaGraphvizFormatter_isFunction (const ASTNode_t *node)
 {
   return
     ASTNode_isFunction  (node) ||
@@ -79,7 +79,7 @@ FormulaGraphvizFormatter_isFunction (ASTNode_t *node)
  * a string.
  */
 char *
-FormulaGraphvizFormatter_format (ASTNode_t *node)
+FormulaGraphvizFormatter_format (const ASTNode_t *node)
 {
   StringBuffer_t *p = StringBuffer_create(128);
   char           *s = NULL;
@@ -136,7 +136,7 @@ FormulaGraphvizFormatter_format (ASTNode_t *node)
  * THIS COULD BE DONE BETTER
  */
 char *
-FormulaGraphvizFormatter_getUniqueName (ASTNode_t *node)
+FormulaGraphvizFormatter_getUniqueName (const ASTNode_t *node)
 {
   StringBuffer_t *p = StringBuffer_create(128);
   char           *s = NULL;
@@ -178,7 +178,7 @@ FormulaGraphvizFormatter_getUniqueName (ASTNode_t *node)
  * result as a string.
  */
 char *
-FormulaGraphvizFormatter_formatFunction (ASTNode_t *node)
+FormulaGraphvizFormatter_formatFunction (const ASTNode_t *node)
 {
   char           *s;
   StringBuffer_t *p   = StringBuffer_create(128);
@@ -240,7 +240,7 @@ FormulaGraphvizFormatter_formatFunction (ASTNode_t *node)
  * THIS COULD BE DONE BETTER
  */
 char *
-FormulaGraphvizFormatter_FunctionGetUniqueName (ASTNode_t *node)
+FormulaGraphvizFormatter_FunctionGetUniqueName (const ASTNode_t *node)
 {
   char           *s;
   StringBuffer_t *p   = StringBuffer_create(128);
@@ -248,7 +248,9 @@ FormulaGraphvizFormatter_FunctionGetUniqueName (ASTNode_t *node)
  
   if (ASTNode_getNumChildren(node) != 0)
   {
-    StringBuffer_append(p, ASTNode_getName(ASTNode_getChild(node,0)));
+	const char* name = ASTNode_getName(ASTNode_getChild(node,0));
+	if (name != NULL)
+    StringBuffer_append(p, name);
   }
   else
   {
@@ -302,7 +304,7 @@ FormulaGraphvizFormatter_FunctionGetUniqueName (ASTNode_t *node)
  * as a string.
  */
 char *
-FormulaGraphvizFormatter_formatOperator (ASTNode_t *node)
+FormulaGraphvizFormatter_formatOperator (const ASTNode_t *node)
 {
   char           *s;
   ASTNodeType_t  type = ASTNode_getType(node);
@@ -352,7 +354,7 @@ FormulaGraphvizFormatter_formatOperator (ASTNode_t *node)
  * THIS COULD BE DONE BETTER
  */
 char *
-FormulaGraphvizFormatter_OperatorGetUniqueName (ASTNode_t *node)
+FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
 {
   char           *s;
   char           number[10];
@@ -368,12 +370,12 @@ FormulaGraphvizFormatter_OperatorGetUniqueName (ASTNode_t *node)
   {
     if (ASTNode_isInteger(ASTNode_getChild(node, 0)))
     {
-      _itoa(ASTNode_getInteger(ASTNode_getChild(node, 0)), number, 10);
+      sprintf(number, "%d", (int)ASTNode_getInteger(ASTNode_getChild(node, 0)));
       StringBuffer_append(p, number);
     }
     else if (ASTNode_isReal(ASTNode_getChild(node, 0)))
     {
-      _ltoa(ASTNode_getNumerator(ASTNode_getChild(node, 0)), number, 10);
+      sprintf(number, "%ld", ASTNode_getNumerator(ASTNode_getChild(node, 0)));
       StringBuffer_append(p, number);
     }
     else
@@ -424,7 +426,7 @@ FormulaGraphvizFormatter_OperatorGetUniqueName (ASTNode_t *node)
  *   "(numerator/denominator)"
  */
 char *
-FormulaGraphvizFormatter_formatRational (ASTNode_t *node)
+FormulaGraphvizFormatter_formatRational (const ASTNode_t *node)
 {
   char           *s;
   StringBuffer_t *p = StringBuffer_create(128);
@@ -448,7 +450,7 @@ FormulaGraphvizFormatter_formatRational (ASTNode_t *node)
  * a string.
  */
 char *
-FormulaGraphvizFormatter_formatReal (ASTNode_t *node)
+FormulaGraphvizFormatter_formatReal (const ASTNode_t *node)
 {
   StringBuffer_t *p    = StringBuffer_create(128);
   double         value = ASTNode_getReal(node);
@@ -492,8 +494,8 @@ FormulaGraphvizFormatter_formatReal (ASTNode_t *node)
  * FormulaGraphvizFormatter_visitOther().
  */
 void
-FormulaGraphvizFormatter_visit (ASTNode_t *parent,
-                                ASTNode_t *node,
+FormulaGraphvizFormatter_visit (const ASTNode_t *parent,
+                                const ASTNode_t *node,
                                 StringBuffer_t  *sb )
 {
   if (ASTNode_isLog10(node))
@@ -526,8 +528,8 @@ FormulaGraphvizFormatter_visit (ASTNode_t *parent,
  * to the StringBuffer.
  */
 void
-FormulaGraphvizFormatter_visitFunction (ASTNode_t *parent,
-                                        ASTNode_t *node,
+FormulaGraphvizFormatter_visitFunction (const ASTNode_t *parent,
+                                        const ASTNode_t *node,
                                         StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
@@ -579,8 +581,8 @@ FormulaGraphvizFormatter_visitFunction (ASTNode_t *parent,
  * A seperate function may not be strictly speaking necessary for graphs
  */
 void
-FormulaGraphvizFormatter_visitLog10 (ASTNode_t *parent,
-                                     ASTNode_t *node,
+FormulaGraphvizFormatter_visitLog10 (const ASTNode_t *parent,
+                                     const ASTNode_t *node,
                                      StringBuffer_t  *sb )
 {
   char *uniqueName = FormulaGraphvizFormatter_getUniqueName(node);
@@ -604,8 +606,8 @@ FormulaGraphvizFormatter_visitLog10 (ASTNode_t *parent,
  * A seperate function may not be strictly speaking necessary for graphs
  */
 void
-FormulaGraphvizFormatter_visitSqrt (ASTNode_t *parent,
-                                    ASTNode_t *node,
+FormulaGraphvizFormatter_visitSqrt (const ASTNode_t *parent,
+                                    const ASTNode_t *node,
                                     StringBuffer_t  *sb )
 {
   char *uniqueName = FormulaGraphvizFormatter_getUniqueName(node);
@@ -627,8 +629,8 @@ FormulaGraphvizFormatter_visitSqrt (ASTNode_t *parent,
  * to the StringBuffer.
  */
 void
-FormulaGraphvizFormatter_visitUMinus (ASTNode_t *parent,
-                                      ASTNode_t *node,
+FormulaGraphvizFormatter_visitUMinus (const ASTNode_t *parent,
+                                      const ASTNode_t *node,
                                       StringBuffer_t  *sb )
 {
   char *uniqueName = FormulaGraphvizFormatter_getUniqueName(node);
@@ -663,8 +665,8 @@ FormulaGraphvizFormatter_visitUMinus (ASTNode_t *parent,
  * to the StringBuffer.
  */
 void
-FormulaGraphvizFormatter_visitOther (ASTNode_t *parent,
-                                     ASTNode_t *node,
+FormulaGraphvizFormatter_visitOther (const ASTNode_t *parent,
+                                     const ASTNode_t *node,
                                      StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
@@ -802,7 +804,7 @@ printEventMath (unsigned int n, Event_t *e)
 
   if ( Event_isSetDelay(e) )
   {
-    formula = SBML_formulaToDot( Event_getDelay(e) );
+    formula = SBML_formulaToDot( Delay_getMath(Event_getDelay(e)) );
     fprintf(fout, "subgraph cluster%u {\n", noClusters);
     fprintf(fout, "label=\"Event %s delay:\";\n%s\n", Event_getId(e), formula);
     free(formula);
@@ -811,7 +813,7 @@ printEventMath (unsigned int n, Event_t *e)
 
   if ( Event_isSetTrigger(e) )
   {
-    formula = SBML_formulaToDot( Event_getTrigger(e) );
+    formula = SBML_formulaToDot( Trigger_getMath(Event_getTrigger(e)) );
     fprintf(fout, "subgraph cluster%u {\n", noClusters);
     fprintf(fout, "label=\"Event %s trigger:\";\n%s\n", Event_getId(e), formula);
     noClusters++;
@@ -879,7 +881,7 @@ main (int argc, char *argv[])
 
   if (argc != 3)
   {
-    printf("\n  usage: drawMath <filename>\n\n");
+    printf("\n  usage: drawMath <sbml filename> <output dot filename>\n\n");
     return 1;
   }
   
