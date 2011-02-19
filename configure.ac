@@ -576,11 +576,6 @@ if test -n "$with_csharp" -a "$with_csharp" != "no"; then
   echo "  Using CSharp compiler = $CSHARP_COMPILER"
 fi
 
-if test -n "$with_matlab" -a "$with_matlab" != "no"; then
-  echo "  MATLAB architecture assumed   = $MEX_ARCH"
-  echo "  MATLAB binary file extension  = $MEXEXT"
-fi
-
 dnl Print these warnings at the end so they're less likely to be overlooked.
 
 if test "$with_zlib" = no && test "$with_bzip2" = no; then
