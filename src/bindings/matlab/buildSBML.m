@@ -176,8 +176,12 @@ function [location, writeAccess] = check_location(matlab_octave)
   else
     [libsbml_root, src] = fileparts(remain);
     if exist(fullfile(libsbml_root, 'VERSION.txt'))
-      disp('  - We appear to be in the libSBML source tree.');    
-      location = 'source';
+      disp('  - We appear to be in the libSBML source tree.'); 
+      if ispc()
+        location = libsbml_root;
+      else
+        location = 'source';
+      end;
     else
       % We don't know where we are.
       if strcmpi(matlab_octave, 'MATLAB')
@@ -295,7 +299,7 @@ function [include, lib] = find_unix_dirs(location, bit64)
 % 
 % Drive the build process (Windows version).
 % -------------------------------------------------------------------------
-function build_win(ismatlab, root, writeAccess, bit64)
+function build_win(matlab_octave, root, writeAccess, bit64)
 
   disp('Phase 2: tests for libraries and other dependencies ...');
   % check that the win/bin directory exists
@@ -318,7 +322,7 @@ function build_win(ismatlab, root, writeAccess, bit64)
   end;
 
   disp('  - Checking for the presence of needed libraries ...');
-  if (bit64 == 0)
+  if (bit64 == 32)
     % check that the library files are all there
     lib{1} = [bin_dir, filesep, 'libsbml.lib'];
     lib{2} = [bin_dir, filesep, 'libsbml.dll'];
@@ -380,7 +384,7 @@ function build_win(ismatlab, root, writeAccess, bit64)
   if (writeAccess == 0)% must be 0; 1 is for testing
     % create a new dir in the users path
     this_dir = pwd;
-	  if (ismatlab)
+	  if (matlab_octave == 'MATLAB')
       user_dir = userpath;
       user_dir = user_dir(1:length(user_dir)-1);
     else
@@ -394,7 +398,7 @@ function build_win(ismatlab, root, writeAccess, bit64)
     end;
     disp(sprintf('  - Copying MATLAB binding files to %s ...', user_dir)); 
     if (copyMatlabDir(this_dir, user_dir) == 1)
-      disp('  - Copying of MATLAB binding files successful');
+      disp('- Copying of MATLAB binding files successful');
     else
       error('Cannot copy matlab binding files on this system');
     end;
@@ -412,8 +416,7 @@ function build_win(ismatlab, root, writeAccess, bit64)
   end; 
     
   % build the files
-  inc_flag = ['  -I', include_dir];
-  buildMexFiles(inc_flag, lib{1}, ismatlab, 0);
+  compile_mex(include_dir, lib{1}, matlab_octave);
 
 
 % 
@@ -458,19 +461,38 @@ function compile_mex(include_dir, library_dir, matlab_octave)
   % be able to pass arguments to the feval function.
 
   if strcmpi(matlab_octave, 'matlab')
-    fhandle = @mex;
-    disp('  - Building TranslateSBML ...');
-    feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);
-    disp('  - Building OutputSBML ...');
-    feval(fhandle, 'OutputSBML.c', inc_arg, lib_arg, added_args);
+    % on windows the command needs to be different
+    if ispc()
+      fhandle = @mex;
+      disp('  - Building TranslateSBML ...');
+      feval(fhandle, 'TranslateSBML.c', inc_arg, library_dir);
+      disp('  - Building OutputSBML ...');
+      feval(fhandle, 'OutputSBML.c', inc_arg, library_dir);
+    else
+      fhandle = @mex;
+      disp('  - Building TranslateSBML ...');
+      feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);
+      disp('  - Building OutputSBML ...');
+      feval(fhandle, 'OutputSBML.c', inc_arg, lib_arg, added_args);
+    end;
   else
-    fhandle = @mkoctfile;
-    disp('  - Building TranslateSBML ...');
-    feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
-          '-lbz2', '-lz', lib_arg, added_args); 
-    disp('  - Building OutputSBML ...');
-    feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
-          '-lbz2', '-lz', lib_arg, added_args);
+    if ispc()
+      fhandle = @mkoctfile;
+      disp('  - Building TranslateSBML ...');
+      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+            '-lbz2', '-lz', library_dir); 
+      disp('  - Building OutputSBML ...');
+      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+            '-lbz2', '-lz', library_dir);
+    else
+      fhandle = @mkoctfile;
+      disp('  - Building TranslateSBML ...');
+      feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+            '-lbz2', '-lz', lib_arg, added_args); 
+      disp('  - Building OutputSBML ...');
+      feval(fhandle, '--mex', 'OutputSBML.c', '-DUSE_OCTAVE', inc_arg, ...
+            '-lbz2', '-lz', lib_arg, added_args);
+    end;
 %   mkoctfile --mex TranslateSBML.c -DUSE_OCTAVE inc_arg -lbz2 -lz lib_arg;
   end;
 
@@ -583,7 +605,88 @@ function error_incorrect_dir(expected)
 
 
 
+% 
+% Copy library files to the given directory on windows
+% -------------------------------------------------------------------------
+function copied = copyLibraries(orig_dir, target_dir, lib)
+  
+  copied = 0;
+  cd (target_dir);
+  
+  % if we moving to another location create a libsbml directory
+  % if we are staying in src/matlab/bindings copy here
+  if (~strcmp(orig_dir, target_dir))
+    if (exist('libsbml', 'dir') == 0)
+      mkdir('libsbml');
+    end;
+    cd libsbml;
+  end;
+  new_dir = pwd;
+  % copy the necessary files
+  for i = 1:8
+    copyfile(lib{i}, new_dir);
+  end;
+  cd(orig_dir);
+  
+  copied = 1;
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  % creates a copy of the matlab binding directory with tests
+  function copied = copyMatlabDir(orig_dir, target_dir)
+    
+    copied = 0;
+    cd (target_dir);
+    % create libsbml dir
+    if (exist('libsbml', 'dir') == 0)
+      mkdir('libsbml');
+    end;
+    cd libsbml;
+    new_dir = pwd;
+
+    %copy files to libsbml
+    cd(orig_dir);
+    copyfile('TranslateSBML.c', new_dir);
+    copyfile('OutputSBML.c', new_dir);
+    copyfile('*.m', new_dir);
+    copyfile('*.xml', new_dir);
+    cd(new_dir);
+%     delete ('buildLibSBML.m');
+    
+    % create test dir
+    testdir = fullfile(pwd, 'test');
+    if (exist(testdir, 'dir') == 0)
+      mkdir('test');
+    end;
+    cd('test');
+    new_dir = pwd;
+    
+    %copy test files
+    cd(orig_dir);
+    cd('test');
+    copyfile('*.m', new_dir);
+    
+    % create test-data dir
+    cd(new_dir);
+    testdir = fullfile(pwd, 'test-data');
+    if (exist(testdir, 'dir') == 0)
+      mkdir('test-data');
+    end;
+    cd('test-data');
+    new_dir = pwd;
+    
+    %copy test-data files
+    cd(orig_dir);
+    cd ('test');
+    cd ('test-data');
+    copyfile('*.xml', new_dir);
+    
+    %navigate to new libsbml directory
+    cd(new_dir);
+    cd ..;
+    cd ..;
+    
+    % put in some tests here
+    copied = 1;
 
 
 % =========================================================================
