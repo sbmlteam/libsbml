@@ -1136,6 +1136,12 @@ Model::dealWithStoichiometry()
   unsigned int idCount = 0;
   char newid[15];
   std::string id;
+   /* at moment constant is true - since we are not converting if false
+    * so we are just considering three cases (no stoichiometry declared)
+    * 1) where the id is used by an initialAssignment to set stoichiometry
+    * 2) where the stoichiometry is just not declared no id set
+    * 3) no stoichiometry declared id set but not used
+    */
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     Reaction *r = getReaction(i);
@@ -1145,11 +1151,6 @@ Model::dealWithStoichiometry()
       SpeciesReference *sr = r->getReactant(j);
       if (!(sr->isSetStoichiometry()))
       {
-      /* at moment constant is true - since we are not converting if false
-       * so we are just considering two cases 
-       * 1) where the id is used by an initialAssignment to set stoichiometry
-       * 2) where the stoichiometry is just not declared
-       */
         if (!(sr->isSetId()))
         {
           // definitely case 2
@@ -1166,6 +1167,53 @@ Model::dealWithStoichiometry()
             ASTNode *ast = SBML_parseFormula(id.c_str());
             sm->setMath(ast);
           }
+        }
+        else
+        {
+          // id is set
+          if (getInitialAssignment(sr->getId()) == NULL)
+          {
+            // case 3
+            sprintf(newid, "parameterId_%u", idCount);
+            id.assign(newid);
+            idCount++;
+            Parameter *p = createParameter();
+            p->setId(id);
+            p->setConstant(false);
+
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              ASTNode *ast = SBML_parseFormula(id.c_str());
+              sm->setMath(ast);
+            }
+          }
+          else
+          {
+            // id used by initialAssignment
+            // case 1
+            // use stoichiometryMath instead
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getInitialAssignment(sr->getId())->getMath());
+              removeInitialAssignment(sr->getId());
+            }
+          }
+        }
+      }
+      else
+      {
+        // need to deal with the case where stoichiometry is set 
+        // but there is also an initialAssignment
+        if (sr->isSetId() && getInitialAssignment(sr->getId()) != NULL)
+        {
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getInitialAssignment(sr->getId())->getMath());
+              removeInitialAssignment(sr->getId());
+            }
         }
       }
     }
@@ -1174,11 +1222,6 @@ Model::dealWithStoichiometry()
       SpeciesReference *sr = r->getProduct(j);
       if (!(sr->isSetStoichiometry()))
       {
-      /* at moment constant is true - since we are not converting if false
-       * so we are just considering two cases 
-       * 1) where the id is used by an initialAssignment to set stoichiometry
-       * 2) where the stoichiometry is just not declared
-       */
         if (!(sr->isSetId()))
         {
           // definitely case 2
@@ -1196,7 +1239,52 @@ Model::dealWithStoichiometry()
             sm->setMath(ast);
           }
         }
-        
+        else
+        {
+          // id is set
+          if (getInitialAssignment(sr->getId()) == NULL)
+          {
+            // case 3
+            sprintf(newid, "parameterId_%u", idCount);
+            id.assign(newid);
+            idCount++;
+            Parameter *p = createParameter();
+            p->setId(id);
+            p->setConstant(false);
+
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              ASTNode *ast = SBML_parseFormula(id.c_str());
+              sm->setMath(ast);
+            }
+          }
+          else
+          {
+            // id used by initialAssignment
+            // use stoichiometryMath instead
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getInitialAssignment(sr->getId())->getMath());
+              removeInitialAssignment(sr->getId());
+            }
+          }
+        }        
+      }
+      else
+      {
+        // need to deal with the case where stoichiometry is set 
+        // but there is also an initialAssignment
+        if (sr->isSetId() && getInitialAssignment(sr->getId()) != NULL)
+        {
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getInitialAssignment(sr->getId())->getMath());
+              removeInitialAssignment(sr->getId());
+            }
+        }
       }
     }
   }
