@@ -143,15 +143,7 @@ SN                    = @SN@
 GACUTIL               = @GACUTIL@
 
 USE_MATLAB        = @USE_MATLAB@
-MATLABROOT        = @MATLABROOT@
 MATLAB            = @MATLAB@
-MATLAB_CPPFLAGS   = @MATLAB_CPPFLAGS@
-MATLAB_LDFLAGS    = @MATLAB_LDFLAGS@
-MATLAB_LIBS       = @MATLAB_LIBS@
-MEX               = @MEX@
-MEX_FLAGS         = @MEX_FLAGS@
-MEX_ARCH          = @MEX_ARCH@
-MEXEXT            = @MEXEXT@
 
 USE_OCTAVE        = @USE_OCTAVE@
 OCTAVE            = @OCTAVE@

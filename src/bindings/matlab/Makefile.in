@@ -47,14 +47,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = src/bindings/matlab
 
-sources = TranslateSBML.c \
-		 OutputSBML.c 
-
-# This use of $(libraries) is slightly inconsistent with the other makefiles,
-# but for Matlab, these object files act a lot like dynamic libraries and
-# we're installing them in the same place as the other libraries, so....
-
-libraries = $(sources:.c=.$(MEXEXT))
+sources = TranslateSBML.c OutputSBML.c 
 
 subdirs = test
 
@@ -78,60 +71,70 @@ distfiles =                           \
         installSBML.m                 \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
-        mexopts-R2007.sh              \
-        mexopts-R2008.sh              \
-        mexopts-R2009-R2010.sh        \
-	    test.xml                      
+	test.xml                      
 	    
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = TranslateSBML.$(MEXTEXT) runTests.log
+possible_mexext := mexmaci64 mexmaci mexglx mexa64
+
+binaries := $(addprefix TranslateSBML.,$(possible_mexext)) \
+	    $(addprefix OutputSBML.,$(possible_mexext))
+
+extra_clean := $(binaries) runTests.log
 
 
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-all: Makefile $(libraries)
+matlab_args := -nosplash -nodesktop -nojvm
 
-flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -I../../../include -L../..
+# Figure out the mex extension for this system.  Nasty bit of business, this.
+#
+# We can't rely on finding or using Matlab's own "mexext" shell script,
+# because I've seen it report the wrong architecture on some combinatinos
+# of OS and Matlab version.  Need to ask Matlab itself.
+#
+# The business with fprintf(2...) is because matlab buffers the output of
+# stdout and sometimes doesn't print it if you just do 'mexext; quit'.
+# So we force it to print to stderr, which is unbuffered. The grep call is
+# there to get rid of everything except the string we're looking for, and
+# the tr is there because sometimes matlab prints the prompt in front of
+# the output.
+#
+# Don't bother setting this variable if all we're doing is a "make clean".
 
-# Figure out which mex options file to use.  I couldn't figure out a way to
-# get the version number without relying on the installation directory name
-# (which the user might change) -- there doesn't seem to be a command-line
-# command that will return the matlab version.  Lucky for us, "mex" is a
-# shell script, and it has a variable inside of it storing the version.
-
-version = `grep full_ver= $(MEX) | cut -f2 -d'=' | tr -d "'"`
-
-ifeq "$(version)" "R2007a"
-  mexopts_file = mexopts-R2007.sh
-else ifeq "$(version)" "R2007b"
-  mexopts_file = mexopts-R2007.sh
-else ifeq "$(version)" "R2008a"
-  mexopts_file = mexopts-R2008.sh
-else ifeq "$(version)" "R2008b"
-  mexopts_file = mexopts-R2008.sh
-else ifeq "$(version)" "R2009a"
-  mexopts_file = mexopts-R2009-R2010.sh
-else ifeq "$(version)" "R2009b"
-  mexopts_file = mexopts-R2009-R2010.sh
-else ifeq "$(version)" "R2010a"
-  mexopts_file = mexopts-R2009-R2010.sh
-else ifeq "$(version)" "R2010b"
-  mexopts_file = mexopts-R2009-R2010.sh
-else
-  # We didn't recognize the version.  Punt and hope for the best.
-  mexopts_file = mexopts-R2009-R2010.sh
+ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+  ifeq ($(origin mexext), undefined)
+    mexext := $(shell $(MATLAB) $(matlab_args) -r "fprintf(2, '%s\n', mexext); quit" 2>&1 | grep mex | tr -d '> ')
+  endif
 endif
 
-%.$(MEXEXT): %.c
-	env MATLABROOT=$(MATLABROOT) ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) \
-          CFLAGS="${CFLAGS}" $(LIBTOOL) --tag=CC --mode=link $(MEX) \
-          ARCH=$(MEX_ARCH) Arch=$(MEX_ARCH) -f ./$(mexopts_file) \
-          -o $@ $^ $(flags) ../../libsbml.la $(MATLAB_LIBS)
-	cp -f .libs/$@ .
+all: Makefile
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -$(MAKEFLAGS) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
+else
+	$(MAKE) -w mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
+endif
+
+# Run the compilation using libtool and setting CFLAGS.  Not sure if this
+# is really necessary, but it seems prudent.
+
+define matlabrun
+  env CFLAGS="$(CFLAGS)" srcdir=. \
+    $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
+endef
+
+# In the pattern rule below, we can't use $(mexext) because it's not set at
+# the time this file is parsed -- it's only set when the variable is
+# referenced.  If you attempt to use it in the left-hand side of the rule
+# below, it will be empty, and it won't work.  Kludgy solution: use every
+# possible mex extension to define this rule.
+
+$(addprefix %.,$(possible_mexext)): %.c
+	$(call matlabrun,$(MATLAB) $(matlab_args) -r 'buildSBML; quit')	
+
 
 # -----------------------------------------------------------------------------
 # Tags.
@@ -139,8 +142,8 @@ endif
 
 matlab-tags-extra-flags = *.c --lang=none --regex=@matlab-tags-regexp.txt *.m
 
-etags-command = $(ETAGS) $(ETAGSFLAGS) $(matlab-tags-extra-flags)
-ctags-command = $(CTAGS) $(CTAGSFLAGS) $(matlab-tags-extra-flags)
+etags-command := $(ETAGS) $(ETAGSFLAGS) $(matlab-tags-extra-flags)
+ctags-command := $(CTAGS) $(CTAGSFLAGS) $(matlab-tags-extra-flags)
 
 tags: etags ctags
 
@@ -156,11 +159,21 @@ check: all check-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-libraries install-checkandconvert install-isoctave install-issbmlmodel install-convertformula
+install: all install-translatesbml install-outputsbml \
+	 install-checkandconvert install-isoctave install-issbmlmodel \
+	 install-convertformula
 
-installdirs: all
+installdirs: 
 
-uninstall: uninstall-libraries uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel uninstall-convertformula
+uninstall: uninstall-translatesbml uninstall-outputsbml \
+	   uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel 
+	   uninstall-convertformula
+
+install-translatesbml:
+	$(INSTALL_SH) -m 644 TranslateSBML.$(mexext) "$(DESTDIR)$(LIBDIR)"
+
+install-outputsbml:
+	$(INSTALL_SH) -m 644 OutputSBML.$(mexext) "$(DESTDIR)$(LIBDIR)"
 
 install-checkandconvert:
 	$(INSTALL_SH) -m 644 CheckAndConvert.m "$(DESTDIR)$(LIBDIR)"
