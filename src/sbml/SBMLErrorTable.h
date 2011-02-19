@@ -7023,7 +7023,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_NOT_APPLICABLE,
     "Conversion of a varying stoichiometry to an SBML L2 StoichiometryMath "
     "element is not yet supported."
   },

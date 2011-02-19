@@ -1136,12 +1136,6 @@ Model::dealWithStoichiometry()
   unsigned int idCount = 0;
   char newid[15];
   std::string id;
-   /* at moment constant is true - since we are not converting if false
-    * so we are just considering three cases (no stoichiometry declared)
-    * 1) where the id is used by an initialAssignment to set stoichiometry
-    * 2) where the stoichiometry is just not declared no id set
-    * 3) no stoichiometry declared id set but not used
-    */
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     Reaction *r = getReaction(i);
@@ -1153,7 +1147,8 @@ Model::dealWithStoichiometry()
       {
         if (!(sr->isSetId()))
         {
-          // definitely case 2
+          // no stoichiometry and no id to set the stoichiometry
+          // replace with stoichiometryMath using a parameter with no value
           sprintf(newid, "parameterId_%u", idCount);
           id.assign(newid);
           idCount++;
@@ -1170,10 +1165,43 @@ Model::dealWithStoichiometry()
         }
         else
         {
-          // id is set
-          if (getInitialAssignment(sr->getId()) == NULL)
+          // id is set it could be used by initialAssignment
+          // used by rule
+          // not used
+          if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // case 3
+            // use stoichiometryMath instead
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getInitialAssignment(sr->getId())->getMath());
+              removeInitialAssignment(sr->getId());
+            }
+          }
+          else if (getRule(sr->getId()) != NULL)
+          {
+            // use stoichiometryMath instead
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getRule(sr->getId())->getMath());
+              removeRule(sr->getId());
+            }
+          }
+          //else if (getRateRule(sr->getId()) != NULL)
+          //{
+          //  // use stoichiometryMath instead
+          //  StoichiometryMath *sm = sr->createStoichiometryMath();
+          //  if (sm != NULL)
+          //  {
+          //    sm->setMath(getRateRule(sr->getId())->getMath());
+          //    removeRateRule(sr->getId());
+          //  }
+          //}
+          else
+          {
+            // is set but not used 
+            // use StoichiometryMath with parameter with no value
             sprintf(newid, "parameterId_%u", idCount);
             id.assign(newid);
             idCount++;
@@ -1188,10 +1216,18 @@ Model::dealWithStoichiometry()
               sm->setMath(ast);
             }
           }
-          else
+        }
+      }
+      else
+      {
+        // stoichiometry is set
+        if (sr->isSetId())
+        {
+          // id is set it could be used by initialAssignment
+          // used by rule
+          // not used
+          if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // id used by initialAssignment
-            // case 1
             // use stoichiometryMath instead
             StoichiometryMath *sm = sr->createStoichiometryMath();
             if (sm != NULL)
@@ -1200,21 +1236,28 @@ Model::dealWithStoichiometry()
               removeInitialAssignment(sr->getId());
             }
           }
-        }
-      }
-      else
-      {
-        // need to deal with the case where stoichiometry is set 
-        // but there is also an initialAssignment
-        if (sr->isSetId() && getInitialAssignment(sr->getId()) != NULL)
-        {
+          else if (getRule(sr->getId()) != NULL)
+          {
+            // use stoichiometryMath instead
             StoichiometryMath *sm = sr->createStoichiometryMath();
             if (sm != NULL)
             {
-              sm->setMath(getInitialAssignment(sr->getId())->getMath());
-              removeInitialAssignment(sr->getId());
+              sm->setMath(getRule(sr->getId())->getMath());
+              removeRule(sr->getId());
             }
+          }
+          //else if (getRateRule(sr->getId()) != NULL)
+          //{
+          //  // use stoichiometryMath instead
+          //  StoichiometryMath *sm = sr->createStoichiometryMath();
+          //  if (sm != NULL)
+          //  {
+          //    sm->setMath(getRateRule(sr->getId())->getMath());
+          //    removeRateRule(sr->getId());
+          //  }
+          //}
         }
+        // no id set - do not need to do anything
       }
     }
     for (j = 0; j < r->getNumProducts(); j++)
@@ -1224,7 +1267,8 @@ Model::dealWithStoichiometry()
       {
         if (!(sr->isSetId()))
         {
-          // definitely case 2
+          // no stoichiometry and no id to set the stoichiometry
+          // replace with stoichiometryMath using a parameter with no value
           sprintf(newid, "parameterId_%u", idCount);
           id.assign(newid);
           idCount++;
@@ -1241,10 +1285,43 @@ Model::dealWithStoichiometry()
         }
         else
         {
-          // id is set
-          if (getInitialAssignment(sr->getId()) == NULL)
+          // id is set it could be used by initialAssignment
+          // used by rule
+          // not used
+          if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // case 3
+            // use stoichiometryMath instead
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getInitialAssignment(sr->getId())->getMath());
+              removeInitialAssignment(sr->getId());
+            }
+          }
+          else if (getRule(sr->getId()) != NULL)
+          {
+            // use stoichiometryMath instead
+            StoichiometryMath *sm = sr->createStoichiometryMath();
+            if (sm != NULL)
+            {
+              sm->setMath(getRule(sr->getId())->getMath());
+              removeRule(sr->getId());
+            }
+          }
+          //else if (getRateRule(sr->getId()) != NULL)
+          //{
+          //  // use stoichiometryMath instead
+          //  StoichiometryMath *sm = sr->createStoichiometryMath();
+          //  if (sm != NULL)
+          //  {
+          //    sm->setMath(getRateRule(sr->getId())->getMath());
+          //    removeRateRule(sr->getId());
+          //  }
+          //}
+          else
+          {
+            // is set but not used 
+            // use StoichiometryMath with parameter with no value
             sprintf(newid, "parameterId_%u", idCount);
             id.assign(newid);
             idCount++;
@@ -1259,9 +1336,18 @@ Model::dealWithStoichiometry()
               sm->setMath(ast);
             }
           }
-          else
+        }
+      }
+      else
+      {
+        // stoichiometry is set
+        if (sr->isSetId())
+        {
+          // id is set it could be used by initialAssignment
+          // used by rule
+          // not used
+          if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // id used by initialAssignment
             // use stoichiometryMath instead
             StoichiometryMath *sm = sr->createStoichiometryMath();
             if (sm != NULL)
@@ -1270,21 +1356,28 @@ Model::dealWithStoichiometry()
               removeInitialAssignment(sr->getId());
             }
           }
-        }        
-      }
-      else
-      {
-        // need to deal with the case where stoichiometry is set 
-        // but there is also an initialAssignment
-        if (sr->isSetId() && getInitialAssignment(sr->getId()) != NULL)
-        {
+          else if (getRule(sr->getId()) != NULL)
+          {
+            // use stoichiometryMath instead
             StoichiometryMath *sm = sr->createStoichiometryMath();
             if (sm != NULL)
             {
-              sm->setMath(getInitialAssignment(sr->getId())->getMath());
-              removeInitialAssignment(sr->getId());
+              sm->setMath(getRule(sr->getId())->getMath());
+              removeRule(sr->getId());
             }
+          }
+          //else if (getRateRule(sr->getId()) != NULL)
+          //{
+          //  // use stoichiometryMath instead
+          //  StoichiometryMath *sm = sr->createStoichiometryMath();
+          //  if (sm != NULL)
+          //  {
+          //    sm->setMath(getRateRule(sr->getId())->getMath());
+          //    removeRateRule(sr->getId());
+          //  }
+          //}
         }
+        // no id set - do not need to do anything
       }
     }
   }
