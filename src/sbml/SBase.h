@@ -1359,12 +1359,12 @@ public:
    * @if clike
    * @verbatim
 SBMLDocument* s = new SBMLDocument(3, 1);
-s->setNotes("<body xmlns=\"http://www.w3.org/1999/xhtml\"><p>here is my note</p></body>");
+s->setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
 @endverbatim
 @endif@if java
 @verbatim
 SBMLDocument s = new SBMLDocument(3, 1);
-s.setNotes("<body xmlns=\"http://www.w3.org/1999/xhtml\"><p>here is my note</p></body>");
+s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
 @endverbatim
 @endif
    *
