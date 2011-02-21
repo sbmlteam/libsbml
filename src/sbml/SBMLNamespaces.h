@@ -222,8 +222,63 @@ public:
 
 
   /**
-   * Add the XML namespaces list to the set of namespaces
-   * within this SBMLNamespaces object.
+   * Add the given XML namespaces list to the set of namespaces within this
+   * SBMLNamespaces object.
+   *
+   * The following code gives an example of how one could add the XHTML
+   * namespace to the list of namespaces recorded by the top-level
+   * <code>&lt;sbml&gt;</code> element of a model.  It gives the new
+   * namespace a prefix of <code>html</code>.  @if clike
+   * @verbatim
+SBMLDocument *sd;
+try 
+{
+    sd = new SBMLDocument(3, 1);
+} 
+catch (SBMLConstructorException e)
+{
+    // Here, have code to handle a truly exceptional situation. Candidate
+    // causes include invalid combinations of SBML Level and Version
+    // (impossible if hardwired as given here), running out of memory, and
+    // unknown system exceptions.
+}
+
+SBMLNamespaces sn = sd->getNamespaces();
+if (sn != NULL)
+{
+    sn->add("http://www.w3.org/1999/xhtml", "html");
+}
+else
+{
+    // Handle another truly exceptional situation.
+}
+@endverbatim
+@endif@if java
+@verbatim
+SBMLDocument sd;
+try 
+{
+    sd = new SBMLDocument(3, 1);
+} 
+catch (SBMLConstructorException e)
+{
+    // Here, have code to handle a truly exceptional situation. Candidate
+    // causes include invalid combinations of SBML Level and Version
+    // (impossible if hardwired as given here), running out of memory, and
+    // unknown system exceptions.
+}
+
+SBMLNamespaces sn = sd.getNamespaces();
+if (sn != null)
+{
+    sn.add("http://www.w3.org/1999/xhtml", "html");
+}
+else
+{
+    // Handle another truly exceptional situation.
+}
+@endverbatim
+@endif
    * 
    * @param xmlns the XML namespaces to be added.
    */
