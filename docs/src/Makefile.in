@@ -459,6 +459,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	cp -f graphics/*.jpg $(java-manual)/$(java-class-path)/
 	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/
 	cp -f sbml.js $(java-manual)
+	cp common-text/simple-ast.svg $(java-manual)
 	$(call merge_html,libsbml-java-overview.html,$(java-manual)/overview-summary.html,Java @PACKAGE_VERSION@ API)
 	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,installation)
 	$(call merge_html,libsbml-accessing.html,$(java-manual)/libsbml-accessing.html,accessibility to your software)
