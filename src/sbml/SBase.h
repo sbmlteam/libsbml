@@ -1352,6 +1352,22 @@ public:
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
+   * The following code illustrates a very simple way of setting the notes
+   * using this method.  Here, the object being annotated is the whole SBML
+   * document, but that is for illustration purposes only; you could of
+   * course use this same approach to annotate any other SBML component.
+   * @if clike
+   * @verbatim
+SBMLDocument* s = new SBMLDocument(3, 1);
+s->setNotes("<body xmlns=\"http://www.w3.org/1999/xhtml\"><p>here is my note</p></body>");
+@endverbatim
+@endif@if java
+@verbatim
+SBMLDocument s = new SBMLDocument(3, 1);
+s.setNotes("<body xmlns=\"http://www.w3.org/1999/xhtml\"><p>here is my note</p></body>");
+@endverbatim
+@endif
+   *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
    *
