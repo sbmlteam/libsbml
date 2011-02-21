@@ -114,7 +114,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     ])
 
-    dnl Look for the path to the include files for Java.
+    dnl Look for the path to jni.h.
 
     dnl On some systems, what we first get as $JAVA or $JAVAC is a symlink.
     dnl We need to get to the real directory first.
@@ -238,7 +238,14 @@ AC_DEFUN([CONFIG_PROG_JAVA],
             headers="${parent}/include"
             JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
           else
-            AC_MSG_ERROR([Cannot find Java include files.])
+	    dnl Not there either.  Are we dealing with gcj?
+
+	    if `$JAVA -version 2>&1 | egrep -q gcj` -a test -d "/usr/lib/jvm/java-gcj/include"; then
+              headers="/usr/lib/jvm/java-gcj/include"
+              JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
+	    else
+              AC_MSG_ERROR([Cannot find Java include files.])
+            fi
           fi
         fi
 
