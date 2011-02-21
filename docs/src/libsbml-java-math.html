@@ -28,7 +28,7 @@ href="org/sbml/libsbml/package-summary.html">org.sbml.libsbml</a></code>.
 href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
 Trees</a> (ASTs) to provide a canonical, in-memory representation for all
 mathematical formulas regardless of their original format (i.e., C-like
-infix strings or <a href="http://www.w3.org/Math/">MathML</a>).  In
+infix strings or <a href="http://www.w3.org/Math/">MathML&nbsp;2.0</a>).  In
 libSBML, an AST is a collection of one or more objects of class <code><a
 href="org/sbml/libsbml/ASTNode.html">ASTNode</a></code>.  An AST
 <em>node</em> in libSBML is a recursive structure containing a pointer to
@@ -43,14 +43,32 @@ illustrates an example of how the mathematical expression "<code>1 +
 href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> representation:
 </p>
 
-<center>
-<table border="0" cellspacing="5">
-<caption class="bottom-caption">Example AST representation of a
-mathematical expression.</caption> <tr><td><img
-src="org/sbml/libsbml/astnode-illustration.jpg" alt="Example AST
-representation of a mathematical expression."></tr><td>
+<center style="padding-bottom: 0.5em">
+<table border="0" class="text-table width80 normal-font">
+<caption class="top-caption">Example AST representation of a mathematical expression.</caption>
+<tr>
+<th>Infix</th>
+<th>AST</th>
+<th>MathML</th>
+</tr>
+<tr>
+<td valign="middle">
+<code>1 + 2</code>
+</td>
+<td valign="middle">
+<iframe src="simple-ast.svg" width="140" height="120" scrolling="no" frameborder="0"></iframe>
+</td>
+<td valign="middle">
+<code>&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;</code><br>
+<code>&nbsp;&nbsp;&lt;apply&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;plus/&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;cn type="integer"&gt; 1 &lt;/cn&gt;</code><br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;&lt;cn type="integer"&gt; 2 &lt;/cn&gt;</code><br>
+<code>&nbsp;&nbsp;&lt;/apply&gt;</code><br>
+<code>&lt;/math&gt;</code>
+</td>
+</tr>
 </table>
-</a>
 </center>
 
 <p>
@@ -677,6 +695,7 @@ string.  The caller owns the character string returned and should free it
 after it is no longer needed.
 
 </ul>
+
 
 <p> The <a href="#example-program">example program</a> given above
 demonstrate the use of these methods.
