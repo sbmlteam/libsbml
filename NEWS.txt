@@ -11,7 +11,8 @@ Version 4.3.0 (Released 2011-??-??)
     had not in fact been set. Following discussion within the libSBML 
     team and subsequently the libsbml-development mailing list it was 
     decided that the appropriate behaviour was to ignore the attribute
-    out when writing and thus not inadvertly attribute a value to it.   
+    when writing out the model and thus not inadvertly give the
+    impression it has a value.   
     
   - Conversion from Level 3 to Level 2 involving variable stoichiometry
     has now been implemented and this feature of L3 can now be converted
@@ -48,7 +49,7 @@ Version 4.3.0 (Released 2011-??-??)
     SBMLToolbox.
     
   - There is an additional constructor for an SBMLDocument object that
-    takes a instance of SBMLNamespaces as it's argument.  This is similar
+    takes an instance of SBMLNamespaces as its argument.  This is similar
     to the constructors for all SBML objects.
 
   - There is now a custom manifest file included in the Java JAR file.
@@ -68,7 +69,7 @@ Version 4.3.0 (Released 2011-??-??)
     Octave was failing to convert the formula into the appropriate
     MathML.  This has been fixed.
 
-  - The code that checks for aloowed functions in a Level 1 
+  - The code that checks for allowed functions in a Level 1 
     document was reporting an error if it encountered one of the 
     predefined functions.  This has been corrected.
 
@@ -131,8 +132,13 @@ Version 4.3.0 (Released 2011-??-??)
 
 * Configuration/build system changes
 
-  - MATLAB 2010b introduced some inconsistencies in the build system 
-    on certain platforms.  This has been fixed. 
+  - MATLAB 2010b introduced some inconsistencies in the build system
+    on certain platforms.  This has been fixed.  In addition, the
+    'configure' script for Linux and MacOS no longer attempts to
+    divine various properties of the MATLAB installation and run mex
+    itself, and instead, invokes MATLAB to compile TranslateSBML and
+    OutputSBML.  This should lead to fewer problems building the
+    bindings for MATLAB.
 
   - Beginning with this release, LibSBML requires SWIG version 2.0.0
     or higher.  This is to avoid a problem where the C# bindings will
@@ -141,6 +147,10 @@ Version 4.3.0 (Released 2011-??-??)
 * Miscellaneous changes
 
   - We've updated the copyright statements.
+
+  - We've updated and fleshed out more of the API documentation.
+    Almost all object classes are now documented, especially for the
+    C++ and Java APIs.
 
 
 ======================================================================
