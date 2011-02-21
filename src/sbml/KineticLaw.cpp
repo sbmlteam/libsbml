@@ -1216,6 +1216,12 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     const XMLToken elem = stream.peek();
     const std::string prefix = checkMathMLNamespace(elem);
 
+    // the following assumes that the SBML Namespaces object is valid
+    if (stream.getSBMLNamespaces() == NULL)
+    {
+      stream.setSBMLNamespaces(new SBMLNamespaces(getLevel(), getVersion()));
+    }
+
     delete mMath;
     mMath = readMathML(stream, prefix);
     if (mMath != NULL) mMath->setParentSBMLObject(this);
