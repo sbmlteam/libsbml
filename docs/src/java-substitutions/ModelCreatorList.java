@@ -52,7 +52,7 @@ public class ModelCreatorList {
     /**
      * Destructor for this list.
      * <p>
-     * If a caller created this list using the {@link #ASTNodeList()}
+     * If a caller created this list using the {@link #ModelCreatorList()}
      * constructor, the caller should use this method to delete this list
      * object after it is no longer in use.
      */

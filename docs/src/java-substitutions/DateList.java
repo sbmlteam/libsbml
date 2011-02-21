@@ -52,7 +52,7 @@ public class DateList {
     /**
      * Destructor for this list.
      * <p>
-     * If a caller created this list using the {@link #ASTNodeList()}
+     * If a caller created this list using the {@link #DateList()}
      * constructor, the caller should use this method to delete this list
      * object after it is no longer in use.
      */
