@@ -387,9 +387,12 @@
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\XMLTriple.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\SBMLNamespacesList.cs">
+      <SubType>Code</SubType>
+    </Compile>	
     <Compile Include="..\..\..\..\src\bindings\csharp\Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </Compile>	
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

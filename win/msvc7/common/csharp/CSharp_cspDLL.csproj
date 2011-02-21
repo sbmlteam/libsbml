@@ -584,6 +584,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "csharp-files-win\SBMLNamespacesList.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "Properties\AssemblyInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

@@ -389,7 +389,9 @@
     <Compile Include="..\..\..\..\src\bindings\csharp\Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SBMLNamespacesList.cs" />
+    <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\SBMLNamespacesList.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
