@@ -74,6 +74,11 @@ endif()
 SET(LIBSBML_VERSION_NUMERIC 50000)
 SET(PACKAGE_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}${LIBSBML_VERSION_RELEASE}")
 
+# configure the version for documentation / bindings
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html.in
+	${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html
+)
 
 ###############################################################################
 #
