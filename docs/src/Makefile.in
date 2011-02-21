@@ -170,6 +170,12 @@ distfiles =                                                  \
         graphics/unitdefinition.pdf                          \
         graphics/unitdefinition.vtt                          \
         java-skip.txt                                        \
+        java-substitutions/ASTNodeList.java                  \
+        java-substitutions/CVTermList.java                   \
+        java-substitutions/DateList.java                     \
+        java-substitutions/ModelCreatorList.java             \
+        java-substitutions/SBMLConstructorException.java     \
+        java-substitutions/SBMLNamespacesList.java           \
         libsbml-accessing.html                               \
         libsbml-accessing.txt                                \
         libsbml-authors.html                                 \
