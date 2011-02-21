@@ -350,27 +350,28 @@ href="libsbml-installation.html">installation instructions</a>.
 
 <h4>MATLAB on Linux, MacOS X and similar Unix-like systems</h4>
 
-<p> As with the other cases described above, the first configuration
-step necessary for users is to make sure that their
-<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
-environment variable (see the <a
+<p> As with the other cases described above, the first configuration step
+necessary for users is to make sure that their <code>LD_LIBRARY_PATH</code>
+or <code>DYLD_LIBRARY_PATH</code> environment variable (see the <a
 href="libsbml-installation.html#accessing">relevant section in the
-installation instructions</a>) is set to the directory where the
-libSBML shared library object is installed.  When the MATLAB bindings
-are enabled in libSBML, this directory is also the same one where the
-additional files <code>TranslateSBML</code>.<em>extension</em> and
+installation instructions</a>) is set to the directory where the libSBML
+shared library object is installed.  When the MATLAB bindings are enabled
+in libSBML, this directory is also the same one where the additional files
+<code>TranslateSBML</code>.<em>extension</em>,
+<code>OutputSBML</code>.<em>extension</em> and
 <code>CheckAndConvert.m</code> will have been placed.  These files
 implement the MATLAB interface to libSBML.  The
-<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code>
-environment variable must be set in the terminal shell from which
-MATLAB is started prior to starting MATLAB.  (Otherwise, MATLAB
-itself will not "see" the value of the variable.)
+<code>LD_LIBRARY_PATH</code>/<code>DYLD_LIBRARY_PATH</code> environment
+variable must be set in the terminal shell from which MATLAB is started
+prior to starting MATLAB.  (Otherwise, MATLAB itself will not "see" the
+value of the variable.)
 
 <p> An additional step is necessary in the MATLAB environment itself:
 adding the same directory to the list of directories that MATLAB
 searches to find functions.  If <em>DIR</em> is the directory where
 the libSBML shared library as well as
-<code>TranslateSBML</code>.<em>extension</em>, and
+<code>TranslateSBML</code>.<em>extension</em>,
+<code>OutputSBML</code>.<em>extension</em>, and
 <code>CheckAndConvert.m</code> have been installed, then the
 following MATLAB command must be executed:
 
@@ -381,9 +382,11 @@ addpath('<em>DIR</em>');
 <p> For example, suppose you are using an Intel-based MacOS X system
 and you have configured libSBML to install itself into
 <code>/usr/local</code>.  Then the files
-<code>TranslateSBML.mexmaci</code> and <code>CheckAndConvert.m</code>
+<code>TranslateSBML.mexmaci</code>, <code>OutputSBML.mexmaci</code>
+and <code>CheckAndConvert.m</code>
 will have been installed as
-<code>/usr/local/lib/TranslateSBML.mexmaci</code> and
+<code>/usr/local/lib/TranslateSBML.mexmaci</code>,
+<code>/usr/local/lib/OutpuSBML.mexmaci</code> and
 <code>/usr/local/lib/CheckAndConvert.m</code>.  You will need to set
 your <code>DYLD_LIBRARY_PATH</code> environment variable to
 <code>/usr/local/lib</code>, and also execute the following command
