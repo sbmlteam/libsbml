@@ -6,6 +6,21 @@ Version 4.3.0 (Released 2011-??-??)
 
 * New features
 
+  - There was some diagreement about what libsbml when asked to write
+    out a required attribute in Level 3 where the value of the attribute
+    had not in fact been set. Following discussion within the libSBML 
+    team and subsequently the libsbml-development mailing list it was 
+    decided that the appropriate behaviour was to ignore the attribute
+    out when writing and thus not inadvertly attribute a value to it.   
+    
+  - Conversion from Level 3 to Level 2 involving variable stoichiometry
+    has now been implemented and this feature of L3 can now be converted
+    to L2.
+
+  - There is a getSupportedNamespaces function on the SBMLNamepaces
+    class which returns a List of the SBMLNamespaces supported by
+    this version of libSBML.
+
   - Tracker issue #2082682
     The unit checking of math involving the root function has been
     fully addressed. Previously unit checking was only applied to 
@@ -43,6 +58,19 @@ Version 4.3.0 (Released 2011-??-??)
 
 
 * Bug fixes
+
+  - The InternalConsistency validator was failing to report the absence
+    of required attributes or elements within an in-memory model.
+    This has been sorted out with a large number of tests added.
+
+  - Tracker issue #2960646
+    When writing out an SBML model containing the root function 
+    Octave was failing to convert the formula into the appropriate
+    MathML.  This has been fixed.
+
+  - The code that checks for aloowed functions in a Level 1 
+    document was reporting an error if it encountered one of the 
+    predefined functions.  This has been corrected.
 
   - Checking for NULL references has been greatly improved
     throughtout.
