@@ -5663,9 +5663,7 @@ $as_echo "no" >&6; }
             JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
           else
 
-	    if `$JAVA -version 2>&1 | egrep -q gcj`; then
-                            as_fn_error $? "Cannot find Java include files." "$LINENO" 5
-            else
+	    if `$JAVA -version 2>&1 | grep -q gcj`; then
 
               if test -d "/usr/lib/jvm/java-gcj/include"; then
                 headers="/usr/lib/jvm/java-gcj/include"
@@ -5673,6 +5671,8 @@ $as_echo "no" >&6; }
               else
                 as_fn_error $? "Cannot find Java include files." "$LINENO" 5
               fi
+            else
+              as_fn_error $? "Cannot find Java include files." "$LINENO" 5
             fi
           fi
         fi
