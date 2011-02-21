@@ -348,23 +348,32 @@ Level&nbsp;3 Version&nbsp;1.
 
 Writing SBML is, in the end, a very simple matter in libSBML.  The library
 provides the <a href="org/sbml/libsbml/SBMLWriter.html">SBMLWriter</a>
-class with the following two functions for this purposes:
+class with the following functions for this purposes:
 
 <ul>
 
 <li style="margin-bottom: 1em"> <code>public boolean <a
-href="org/sbml/libsbml/SBMLWriter.html#writeSBML(org.sbml.libsbml.SBMLDocument, java.lang.String)">writeSBML(SBMLDocument d,
+href="org/sbml/libsbml/SBMLWriter.html#writeSBMLToFile(org.sbml.libsbml.SBMLDocument, java.lang.String)">writeSBMLToFile(SBMLDocument d,
 java.lang.String filename)</a></code> writes the given SBML
 <code>d</code> to the file named <code>filename</code> and returns
 either <code>true</code> on success or <code>false</code> on failure.
 Reasons for failure can be, for example, that the named file could not be
 opened for writing.
+</li>
 
 <li style="margin-bottom: 1em"> <code>public java.lang.string <a
 href="org/sbml/libsbml/SBMLWriter.html#writeToString(org.sbml.libsbml.SBMLDocument)">
 writeSBMLToString(SBMLDocument d)</a></code> writes the given
 SBML document <code>d</code> to a character string and returns a pointer to
 it, or throws an exception if a failure occurred.  
+</li>
+
+<li style="margin-bottom: 1em"> <code>public boolean <a
+href="org/sbml/libsbml/SBMLWriter.html#writeSBML(org.sbml.libsbml.SBMLDocument,
+org.sbml.libsbml.OStream stream)">writeSBML(SBMLDocument d, OStream
+stream)</a></code> writes the given SBML <code>d</code> to the given
+output stream and returns either <code>true</code> on success or
+<code>false</code> on failure.  
 </li>
 
 </ul>
