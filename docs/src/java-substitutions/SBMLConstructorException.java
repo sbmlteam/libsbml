@@ -5,9 +5,7 @@ package org.sbml.libsbml;
  * <p>
  * <em style='color: #555'>
  * This class of objects is defined by libSBML only and has no direct
- * equivalent in terms of SBML components.  This class is not prescribed by
- * the SBML specifications, although it is used to implement features
- * defined in SBML.
+ * equivalent in terms of SBML components.
  * </em>
  * <p>
  * This class makes it possible to catch exceptions thrown by many libSBML
