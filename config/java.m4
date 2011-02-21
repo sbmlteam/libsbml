@@ -239,13 +239,8 @@ AC_DEFUN([CONFIG_PROG_JAVA],
             JAVA_CPPFLAGS="$JAVA_CPPFLAGS -I\"${headers}\""
           else
 	    dnl Not there either.  Are we dealing with gcj?
-            dnl Note about the following test: it returns *zero* for a match,
-	    dnl so the sense of the test seems reversed.
 
-	    if `$JAVA -version 2>&1 | egrep -q gcj`; then
-              dnl No, not gcj.  Give up.
-              AC_MSG_ERROR([Cannot find Java include files.])
-            else
+	    if `$JAVA -version 2>&1 | grep -q gcj`; then
 	      dnl Yes, gcj.  Try its special place.
 
               if test -d "/usr/lib/jvm/java-gcj/include"; then
@@ -254,6 +249,8 @@ AC_DEFUN([CONFIG_PROG_JAVA],
               else
                 AC_MSG_ERROR([Cannot find Java include files.])
               fi
+            else
+              AC_MSG_ERROR([Cannot find Java include files.])
             fi
           fi
         fi
