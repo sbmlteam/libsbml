@@ -20,4 +20,4 @@ cd ..
 C:/swigwin-2.0.0./swig.exe -I../swig -I../../../include -c++ -DUSE_LAYOUT -java -package org.sbml.libsbml -outdir java-files/org/sbml/libsbml -o libsbml_java_wrap.cpp libsbml.i
 cd java-files
 C:/Sun/SDK/jdk/bin/javac org/sbml/libsbml/*.java
-C:/Sun/SDK/jdk/bin/jar cf sbmlj.jar org/sbml/libsbml/*.class
+C:/Sun/SDK/jdk/bin/jar cf libsbmlj.jar org/sbml/libsbml/*.class

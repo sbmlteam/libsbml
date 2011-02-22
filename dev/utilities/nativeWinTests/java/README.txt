@@ -10,8 +10,8 @@ Java Bindings
 
 2. testJava.bat does the following:
    
-   i) copies sbmlj.lib to the bindings/java dir
-  ii) copies sbmlj.dll to the bindings/java dir
+   i) copies libsbmlj.lib to the bindings/java dir
+  ii) copies libsbmlj.dll to the bindings/java dir
  iii) builds the AutoTestRunner in the bindings/java dir
   iv) runs the AutoTestRunner
 

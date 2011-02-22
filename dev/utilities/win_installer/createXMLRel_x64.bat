@@ -196,7 +196,7 @@ cd java
 mkdir classes
 
 cd classes
-copy ..\..\..\..\..\..\..\src\bindings\java\java-files\sbmlj.jar sbmlj.jar
+copy ..\..\..\..\..\..\..\src\bindings\java\java-files\libsbmlj.jar libsbmlj.jar
 
 cd ..
 copy ..\..\..\..\..\..\win\bin\java\sbmlj.dll sbmlj.dll

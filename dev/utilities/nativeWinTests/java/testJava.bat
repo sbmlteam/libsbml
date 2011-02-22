@@ -18,7 +18,7 @@ cd java
 
 
 
-set CLASSPATH=.;C:\libsbml_trunk\src\bindings\java\java-files\sbmlj.jar;C:\libsbml_trunk\win\bin;C:\libsbml_trunk\win\bin\java;C:\libsbml_trunk\src\bindings\java\test;
+set CLASSPATH=.;C:\libsbml_trunk\src\bindings\java\java-files\libsbmlj.jar;C:\libsbml_trunk\win\bin;C:\libsbml_trunk\win\bin\java;C:\libsbml_trunk\src\bindings\java\test;
 
 javac -g AutoTestRunner.java test/org/sbml/libsbml/test/annotation/*.java test/org/sbml/libsbml/test/math/*.java test/org/sbml/libsbml/test/sbml/*.java test/org/sbml/libsbml/test/xml/*.java
 

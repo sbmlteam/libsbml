@@ -288,7 +288,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 	;;
     *cygwin*)
 	JNIEXT="dll"
-	JNIBASENAME="sbmlj"
+	JNIBASENAME="libsbmlj"
 	;;
     *)
 	JNIEXT="so"

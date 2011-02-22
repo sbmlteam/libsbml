@@ -567,7 +567,7 @@ begin
 
   if (InstallOptionsPage.Values[1] = True) then begin
       S := S + NewLine;
-      S := S + 'Writing libSBML Java library files (sbmlj.*) to ' + NewLine;
+      S := S + 'Writing libSBML Java library files (libsbmlj.*) to ' + NewLine;
       S := S + '      ' + JavaPage.Values[0];
       S := S + NewLine;
   end else begin
