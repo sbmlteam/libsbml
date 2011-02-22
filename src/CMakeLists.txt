@@ -80,9 +80,10 @@ endforeach(dir)
 copy_files( ${CMAKE_CURRENT_SOURCE_DIR}/sbml/ 
 				${CMAKE_CURRENT_SOURCE_DIR}/../include/sbml *.h )
 
+if (WITH_LAYOUT)
 copy_files( ${CMAKE_CURRENT_SOURCE_DIR}/sbml/layout 
 				${CMAKE_CURRENT_SOURCE_DIR}/../include/sbml/layout *.h )
-
+endif()
 				
 FILE(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/*.h")
 INSTALL(FILES ${files} DESTINATION include/sbml)
@@ -96,7 +97,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/validator/constraints)
 # Find all sources and add compression or xml parsers as needed
 #
 set(LIBSBML_SOURCES)
-foreach (directory annotation common extension math sbml sbml/layout 
+foreach (directory annotation common extension math sbml
 					units util 
 					validator validator/constraints)
 	
@@ -110,16 +111,22 @@ foreach (directory annotation common extension math sbml sbml/layout
 	
 endforeach()
 	
-###############################################################################
-#
-# Include all packages
-#
-file(GLOB PACKAGE_OPTIONS "*package.cmake")
-foreach(package ${PACKAGE_OPTIONS})
+if (WITH_LAYOUT)
+foreach (directory sbml/layout )
+	
+	file(GLOB temp ${directory}/*.cpp ${directory}/*.c ${directory}/*.h)
 
-	include(${package})
+	# create source group for IDEs
+	source_group(${directory} FILES ${temp})
 
+	# add to libsbml sources
+	set(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${temp})
+	
 endforeach()
+else()
+	# remove layout annoation
+	list(REMOVE_ITEM LIBSBML_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/annotation/LayoutAnnotation.cpp")
+endif()
 	
 set (COMPRESS_SOURCES)	
 # add compression sources
@@ -271,6 +278,25 @@ endif(WITH_XERCES)
 source_group(xml FILES ${XML_SOURCES})
 set(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${XML_SOURCES})
 
+###############################################################################
+#
+# this is a directory level operation!
+#
+if (WITH_STATIC_RUNTIME)
+	foreach(flag_var
+		CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+		CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
+		CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+		CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
+
+		if(${flag_var} MATCHES "/MD")
+			string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+		endif(${flag_var} MATCHES "/MD")
+		
+		
+	endforeach(flag_var)
+	add_definitions( -D_MT)
+endif(WITH_STATIC_RUNTIME)
 
 ###############################################################################
 #

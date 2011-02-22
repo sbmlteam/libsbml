@@ -33,6 +33,10 @@ if(WITH_MATLAB)
 SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${CMAKE_MODULE_PATH}) 
 find_package(Matlab)
 
+option(WITH_MATLAB_MEX   "Generate Matlab bindings using MEX compiler "     OFF )
+
+if (WITH_MATLAB_MEX)
+
 if (NOT EXISTS "${MATLAB_MEX_COMMAND}")
 	# fail if mex was not found
 	message (FATAL_ERROR "The mex command is vital for building matlab bindings. It was not found during configuration. Please manually specify MATLAB_MEX_COMMAND.")
@@ -158,11 +162,51 @@ endmacro()
 build_matlab_file("TranslateSBML")
 build_matlab_file("OutputSBML")
 
+else()
+
+	###############################################################################
+	#
+	# this is a directory level operation!
+	#
+	if (WITH_STATIC_RUNTIME)
+		foreach(flag_var
+			CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
+			CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
+			CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
+			CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
+	
+			if(${flag_var} MATCHES "/MD")
+				string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
+			endif(${flag_var} MATCHES "/MD")
+			
+			
+		endforeach(flag_var)
+		add_definitions( -D_MT)
+	endif(WITH_STATIC_RUNTIME)
+	
+	include_directories(${MATLAB_INCLUDE_DIR})
+	foreach(matlab_source_file "TranslateSBML" "OutputSBML")
+	
+		add_library(matlab_binding_${matlab_source_file} SHARED "${CMAKE_CURRENT_SOURCE_DIR}/${matlab_source_file}.c")
+		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES OUTPUT_NAME "${matlab_source_file}")
+		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES SUFFIX ".${MATLAB_MEX_EXT}")
+		if (MSVC)
+		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES LINK_FLAGS "/export:mexFunction") 
+		endif()
+		target_link_libraries(matlab_binding_${matlab_source_file} ${MATLAB_LIBRARIES} ${LIBSBML_LIBRARY}-static)				
+		install(TARGETS matlab_binding_${matlab_source_file} DESTINATION ${MISC_PREFIX}bindings/matlab )
+
+	endforeach()
+	
+	
+endif(WITH_MATLAB_MEX)
+
+
 # mark files for installation
 
 foreach(mFile
 
-        test.xml
+    test.xml
 	buildSBML.m
 	CheckAndConvert.m
 	Contents.m
@@ -172,7 +216,6 @@ foreach(mFile
 	isSBML_Model.m
 	OutputSBML.m
 	TranslateSBML.m
-
 		
 )
 
