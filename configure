@@ -5707,7 +5707,7 @@ $as_echo "no" >&6; }
 	;;
     *cygwin*)
 	JNIEXT="dll"
-	JNIBASENAME="sbmlj"
+	JNIBASENAME="libsbmlj"
 	;;
     *)
 	JNIEXT="so"
