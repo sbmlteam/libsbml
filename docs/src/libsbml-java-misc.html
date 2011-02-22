@@ -40,6 +40,7 @@ else
 }
 </pre></div>
 
+<p>
 A program simply needs to load the libSBML JAR file in some manner, and
 then use the standard Java <code>Package</code> class methods to extract
 the name and version number.
@@ -69,10 +70,10 @@ the root of the Apache Tomcat installation directory on your system.
 <h3>Setup step 1: Add the libSBML libraries to Tomcat</h3>
 
 First, you need to add the libSBML Java bindings files to Tomcat's library
-directory.  Prior to doing this, you will of course need to have built and
+directory.  (Prior to doing this, you will of course need to have built and
 installed libSBML with the Java bindings enabled, as described in <a
 target="_blank" href="libsbml-installation.html#other-lang">a separate
-section of this manual</a>.
+section of this manual</a>.)
 
 <p> In the table below, for Linux and Mac&nbsp;OS&nbsp;X, let the
 placeholder <em><span class="placeholder">PREFIX</span></em> stand for the
@@ -84,10 +85,10 @@ class="placeholder">PREFIX</span></em></code></nobr>, typically
 name of the particular libSBML installation you have downloaded and
 installed in the folder <nobr><code>C:\Program Files\SBML\</code></nobr> on
 your system.  (For example, for the 64-bit binary installation of libSBML
-version&nbsp;4.2.0, this folder is often <nobr><code>C:\Program
-Files\SBML\libsbml-4.2.0-libxml2-x64</code></nobr>.  The same thing will
-work for the 32-bit version by simply substituting <code>x86</code> for the
-<code>x64</code>.)
+version&nbsp;4.2.0, this folder would by default be <nobr><code>C:\Program
+Files\SBML\libsbml-4.2.0-libxml2-x64</code></nobr>.  The same instructions
+will work for the 32-bit version by simply substituting <code>x86</code>
+for the <code>x64</code>.)
 
 <p>
 <center style="padding: 1em auto">
@@ -234,6 +235,7 @@ here is not important, so you could replace it with other code that makes
 sense for your application.  In the next section, we will show the
 <code>Initialize()</code> method is called.
 
+<p>
 <div class="fragment"><pre class="fragment">
 package mypackage; 
 import org.sbml.libsbml.libsbml; 
@@ -274,6 +276,7 @@ invoking <code>Initialize()</code> once is by calling it from the
 <code>jspInit()</code> method.  We illustrate this using an example JSP
 page listed below:
 
+<p>
 <div class="fragment"><pre class="fragment">
 &lt;%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="org.sbml.libsbml.*" import="mypackage.*"%&gt;
@@ -334,8 +337,62 @@ number.
 It is also possible to use libSBML in servlets served by Tomcat.  The
 following listing gives an example of doing this.
 
-
+<p>
 <div class="fragment"><pre class="fragment">
+package mypackage;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.sbml.libsbml.*;
+
+/**
+ * Servlet implementation class Hello
+ */
+@WebServlet(description = "test program testing libsbml", urlPatterns = { "/Hello" })
+public class Hello extends HttpServlet 
+{
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Hello() 
+    {
+        super();
+        Initializer.Initialize();  // Call the libSBML initializer.
+    }
+
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    	throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+    
+    private void handleRequest(HttpServletRequest request,
+        HttpServletResponse response) throws IOException 
+    {
+        response.getOutputStream().println("Hello from servlet!");		
+        response.getOutputStream().println("Using libsbml version: " + 
+    	libsbml.getLibSBMLDottedVersion());
+    }
+    
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    	throws ServletException, IOException 
+    {
+    	handleRequest(request, response);
+    }
+}
 </pre></div>
 
 
