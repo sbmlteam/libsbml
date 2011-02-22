@@ -133,7 +133,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   /* variables */
   char *pacFilename = NULL;
   char *pacTempString1, *pacTempString2;
-  int nBufferLen, nStatus, nBuflen;
+  size_t nBufferLen, nBuflen;
+  int nStatus;
   FILE *fp;
   mxArray * mxFilename[2], * mxExt[1];
   int validateFlag = 0;
@@ -312,8 +313,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "namespaces"
   };
 
-  int dims[2] = {1, 1};
-  int errordims[2];
+  mwSize dims[2] = {1, 1};
+  mwSize errordims[2];
 
   SBMLDocument_t *sbmlDocument;
   Model_t *sbmlModel;
@@ -978,7 +979,7 @@ GetNamespaces(SBMLDocument_t * document)
 {
   const XMLNamespaces_t * NS = SBMLDocument_getNamespaces(document);
   int n = XMLNamespaces_getLength(NS);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a namespace structure */
   const int nNoFields = 2;
@@ -1198,7 +1199,7 @@ GetSpecies ( Model_t      *pModel,
              unsigned int unSBMLVersion )
 {
   int n = Model_getNumSpecies(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 11;
@@ -1609,7 +1610,7 @@ GetUnitDefinition ( Model_t      *pModel,
                     unsigned int unSBMLVersion )
 {
   int n = Model_getNumUnitDefinitions(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a unit definition structure */
   const int nNoFields_l1 = 5;
@@ -1797,7 +1798,7 @@ GetCompartment ( Model_t      *pModel,
                  unsigned int unSBMLVersion )
 {
   int n = Model_getNumCompartments(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a compartment structure */
   const int nNoFields_l1 = 8;
@@ -2134,7 +2135,7 @@ GetParameter ( Model_t      *pModel,
                unsigned int unSBMLVersion )
 {
   int n = Model_getNumParameters(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 7;
@@ -2380,7 +2381,7 @@ void GetReaction ( Model_t      *pModel,
                    unsigned int unSBMLVersion )
 {
   int n = Model_getNumReactions(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 9;
@@ -2675,7 +2676,7 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
           unsigned int     unSBMLVersion )
 {
   int n = UnitDefinition_getNumUnits(pUnitDefinition);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 6;
@@ -2893,7 +2894,7 @@ GetReactants ( Reaction_t   *pReaction,
                unsigned int unSBMLVersion )
 {
   int n = Reaction_getNumReactants(pReaction);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 6;
@@ -3180,7 +3181,7 @@ GetProducts ( Reaction_t   *pReaction,
               unsigned int unSBMLVersion )
 {
   int n = Reaction_getNumProducts(pReaction);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 6;
@@ -3468,7 +3469,7 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
                      unsigned int unSBMLVersion )
 {
   int n = (SpeciesReference_isSetStoichiometryMath(pSpeciesReference)) ? 1 : 0;
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   const int nNoFields_l2v3 = 6;
   const char *field_names_l2v3[] = {	
@@ -3489,7 +3490,8 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   StoichiometryMath_t * pStoichiometryMath;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
 
@@ -3603,7 +3605,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
                 unsigned int unSBMLVersion)
 {
   int n = Reaction_isSetKineticLaw(pReaction) ? 1 : 0;
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l1 = 7;
@@ -3669,7 +3671,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
   KineticLaw_t *pKineticLaw;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
 
 
@@ -3937,7 +3940,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
                           unsigned int unSBMLVersion )
 {
   int n = KineticLaw_getNumParameters(pKineticLaw);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   const int nNoFields_l1 = 7;
   const char *field_names_l1[] = {	
@@ -4194,7 +4197,7 @@ GetModifier ( Reaction_t   *pReaction,
               unsigned int unSBMLVersion )
 {
   int n = Reaction_getNumModifiers(pReaction);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l2 = 5;
@@ -4360,7 +4363,7 @@ GetRule ( Model_t      *pModel,
               unsigned int unSBMLVersion )
 {
   int n = Model_getNumRules(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a rule structure */
   const int nNoFields_l1 = 10;
@@ -4433,7 +4436,8 @@ GetRule ( Model_t      *pModel,
   int i;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  mwSize nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
 
   if (unSBMLLevel == 1) 
@@ -4800,7 +4804,7 @@ GetFunctionDefinition ( Model_t      *pModel,
                         unsigned int unSBMLVersion )
 {
   int n = Model_getNumFunctionDefinitions(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
   const int nNoFields_l2 = 7;
@@ -4848,7 +4852,8 @@ GetFunctionDefinition ( Model_t      *pModel,
   FunctionDefinition_t *pFuncDefinition;
   int i;
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
 
 
@@ -4992,7 +4997,7 @@ GetEvent (Model_t      *pModel,
           unsigned int unSBMLVersion )
 {
   int n = Model_getNumEvents(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a event structure */
   const int nNoFields_l2 = 10;
@@ -5076,7 +5081,8 @@ GetEvent (Model_t      *pModel,
   Event_t *pEvent;
   int i;
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
   /* create the structure array */
@@ -5312,7 +5318,7 @@ GetEventAssignment ( Event_t      *pEvent,
                      unsigned int unSBMLVersion )
 {
   int n = Event_getNumEventAssignments(pEvent);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   const int nNoFields_l2 = 6;
   const char *field_names_l2[] = {	
@@ -5353,7 +5359,8 @@ GetEventAssignment ( Event_t      *pEvent,
   int i;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
 
@@ -5496,7 +5503,7 @@ GetTrigger ( Event_t      *pEvent,
                      unsigned int unSBMLVersion )
 {
   int n = (Event_isSetTrigger(pEvent)) ? 1 : 0;
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
 
   const int nNoFields_l2v3 = 6;
@@ -5530,7 +5537,8 @@ GetTrigger ( Event_t      *pEvent,
   Trigger_t * pTrigger;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
 
@@ -5664,7 +5672,7 @@ GetDelay ( Event_t      *pEvent,
                      unsigned int unSBMLVersion )
 {
   int n = (Event_isSetDelay(pEvent)) ? 1 : 0;
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   const int nNoFields_l2v3 = 6;
   const char *field_names_l2v3[] = {	
@@ -5685,7 +5693,8 @@ GetDelay ( Event_t      *pEvent,
   Delay_t * pDelay;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
 
 
@@ -5809,7 +5818,7 @@ GetPriority ( Event_t      *pEvent,
                      unsigned int unSBMLVersion )
 {
   int n = (Event_isSetPriority(pEvent)) ? 1 : 0;
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
 
   const int nNoFields_l3v1 = 6;
@@ -5831,7 +5840,8 @@ GetPriority ( Event_t      *pEvent,
   Priority_t * pPriority;
   
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
 
@@ -6047,7 +6057,7 @@ GetCompartmentType (Model_t      *pModel,
                     unsigned int unSBMLVersion )
 {
   int n = Model_getNumCompartmentTypes(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a compartmentType structure */
   const int nNoFields_l2v2 = 6;
@@ -6188,7 +6198,7 @@ GetSpeciesType (Model_t      *pModel,
                     unsigned int unSBMLVersion )
 {
   int n = Model_getNumSpeciesTypes(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a SpeciesType structure */
   const int nNoFields_l2v2 = 6;
@@ -6330,7 +6340,7 @@ GetInitialAssignment (Model_t      *pModel,
           unsigned int unSBMLVersion )
 {
   int n = Model_getNumInitialAssignments(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a InitialAssignment structure */
   const int nNoFields_l2v2 = 7;
@@ -6364,7 +6374,8 @@ GetInitialAssignment (Model_t      *pModel,
   InitialAssignment_t *pInitialAssignment;
   int i;
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
   /* create the structure array */
@@ -6501,7 +6512,7 @@ GetConstraint (Model_t      *pModel,
           unsigned int unSBMLVersion )
 {
   int n = Model_getNumConstraints(pModel);
-  int dims[2] = {1, n};
+  mwSize dims[2] = {1, n};
 
   /* fields within a Constraint structure */
   const int nNoFields_l2v2 = 7;
@@ -6536,7 +6547,8 @@ GetConstraint (Model_t      *pModel,
   Constraint_t *pConstraint;
   int i;
   /* variables for mathML - matlab hack */
-  int nStatus, nBuflen;
+  int nStatus;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
    
   /* create the structure array */

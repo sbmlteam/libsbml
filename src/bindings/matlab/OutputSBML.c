@@ -779,10 +779,10 @@ GetCompartment (mxArray * mxCompartments,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel)
 {
-	int nNoCompartments = mxGetNumberOfElements(mxCompartments);
+	size_t nNoCompartments = mxGetNumberOfElements(mxCompartments);
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* field values */
 	char * pacNotes;
@@ -1107,10 +1107,10 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel )
 {
-	int nNoUnitDefinitions = mxGetNumberOfElements(mxUnitDefinitions);
+	size_t nNoUnitDefinitions = mxGetNumberOfElements(mxUnitDefinitions);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -1251,10 +1251,10 @@ GetUnit ( mxArray * mxUnits,
           unsigned int unSBMLVersion, 
 			    UnitDefinition_t * sbmlUnitDefinition )
 {
-	int nNoUnits = mxGetNumberOfElements(mxUnits);
+	size_t nNoUnits = mxGetNumberOfElements(mxUnits);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -1447,10 +1447,10 @@ GetUnit ( mxArray * mxUnits,
               unsigned int unSBMLVersion, 
 			        Model_t * sbmlModel)
 {
-	int nNoSpecies = mxGetNumberOfElements(mxSpecies);
+	size_t nNoSpecies = mxGetNumberOfElements(mxSpecies);
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	char * pacNotes;
 	char * pacAnnotations;
@@ -1856,10 +1856,10 @@ GetUnit ( mxArray * mxUnits,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel)
 {
-	int nNoParameters = mxGetNumberOfElements(mxParameters);
+	size_t nNoParameters = mxGetNumberOfElements(mxParameters);
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	char * pacNotes;
 	char * pacAnnotations;
@@ -2077,10 +2077,10 @@ GetUnit ( mxArray * mxUnits,
            unsigned int unSBMLVersion, 
 			     Model_t * sbmlModel)
 {
-	int nNoRules = mxGetNumberOfElements(mxRule);
+	size_t nNoRules = mxGetNumberOfElements(mxRule);
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
   char * pacTypecode;
 	char * pacNotes;
@@ -2481,10 +2481,10 @@ GetUnit ( mxArray * mxUnits,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel)
 {
-	int nNoReaction = mxGetNumberOfElements(mxReaction);
+	size_t nNoReaction = mxGetNumberOfElements(mxReaction);
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	char * pacNotes;
 	char * pacAnnotations;
@@ -2768,10 +2768,10 @@ GetUnit ( mxArray * mxUnits,
 			                 Reaction_t * sbmlReaction, 
 			                 int nFlag)
 {
-	int nNoReactant = 0;
+	size_t nNoReactant = 0;
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
   char * pacNotes;
   char * pacAnnotations;
@@ -3099,10 +3099,10 @@ GetUnit ( mxArray * mxUnits,
                unsigned int unSBMLVersion, 
 			         Reaction_t * sbmlReaction)
 {
-	int nNoModifier = 0;
+	size_t nNoModifier = 0;
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
   char * pacNotes;
   char * pacAnnotations;
@@ -3292,7 +3292,7 @@ GetUnit ( mxArray * mxUnits,
 			         Reaction_t * sbmlReaction)
 {
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
   char * pacNotes;
   char * pacAnnotations;
@@ -3585,10 +3585,10 @@ GetUnit ( mxArray * mxUnits,
                unsigned int unSBMLVersion, 
 			         KineticLaw_t * sbmlKineticLaw)
 {
-	int nNoParameters = mxGetNumberOfElements(mxParameters);
+	size_t nNoParameters = mxGetNumberOfElements(mxParameters);
 
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	char * pacNotes;
 	char * pacAnnotations;
@@ -3849,10 +3849,10 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel )
 {
-	int nNoFunctions = mxGetNumberOfElements(mxFunctionDefinitions);
+	size_t nNoFunctions = mxGetNumberOfElements(mxFunctionDefinitions);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
  	char * pacNotes;
@@ -4023,10 +4023,10 @@ GetEvent ( mxArray * mxEvents,
            unsigned int unSBMLVersion, 
 			     Model_t * sbmlModel )
 {
-	int nNoEvents = mxGetNumberOfElements(mxEvents);
+	size_t nNoEvents = mxGetNumberOfElements(mxEvents);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -4311,10 +4311,10 @@ GetEventAssignment ( mxArray * mxEventAssignment,
                unsigned int unSBMLVersion, 
 			         Event_t * sbmlEvent )
 {
-	int nNoEventAssigns = mxGetNumberOfElements(mxEventAssignment);
+	size_t nNoEventAssigns = mxGetNumberOfElements(mxEventAssignment);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -4473,10 +4473,10 @@ GetCompartmentType ( mxArray * mxCompartmentType,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel )
 {
-	int nNoCompTypes = mxGetNumberOfElements(mxCompartmentType);
+	size_t nNoCompTypes = mxGetNumberOfElements(mxCompartmentType);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -4600,10 +4600,10 @@ GetSpeciesType ( mxArray * mxSpeciesType,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel )
 {
-	int nNoSpeciesTypes = mxGetNumberOfElements(mxSpeciesType);
+	size_t nNoSpeciesTypes = mxGetNumberOfElements(mxSpeciesType);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -4727,10 +4727,10 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel )
 {
-	int nNoInitialAssignments = mxGetNumberOfElements(mxInitialAssignment);
+	size_t nNoInitialAssignments = mxGetNumberOfElements(mxInitialAssignment);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -4879,10 +4879,10 @@ GetConstraint ( mxArray * mxConstraint,
                unsigned int unSBMLVersion, 
 			         Model_t * sbmlModel )
 {
-	int nNoConstraints = mxGetNumberOfElements(mxConstraint);
+	size_t nNoConstraints = mxGetNumberOfElements(mxConstraint);
   
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -5034,7 +5034,7 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
 			         SpeciesReference_t * sbmlSpeciesReference )
 {
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -5170,7 +5170,7 @@ GetTrigger ( mxArray * mxTrigger,
 			         Event_t * sbmlEvent )
 {
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -5321,7 +5321,7 @@ GetDelay ( mxArray * mxDelay,
 			         Event_t * sbmlEvent )
 {
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
@@ -5457,7 +5457,7 @@ GetPriority ( mxArray * mxPriority,
 			         Event_t * sbmlEvent )
 {
 	int nStatus;
-	int nBuflen;
+	size_t nBuflen;
 
 	/* values */
 	char * pacNotes;
