@@ -166,14 +166,28 @@ install: all install-translatesbml install-outputsbml \
 installdirs: 
 
 uninstall: uninstall-translatesbml uninstall-outputsbml \
-	   uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel 
+	   uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel \
 	   uninstall-convertformula
 
 install-translatesbml:
 	$(INSTALL_SH) -m 644 TranslateSBML.$(mexext) "$(DESTDIR)$(LIBDIR)"
 
+uninstall-translatesbml:
+	@target="$(DESTDIR)$(LIBDIR)/TranslateSBML.$(mexext)"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
 install-outputsbml:
 	$(INSTALL_SH) -m 644 OutputSBML.$(mexext) "$(DESTDIR)$(LIBDIR)"
+
+uninstall-outputsbml:
+	@target="$(DESTDIR)$(LIBDIR)/OutputSBML.$(mexext)"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
 
 install-checkandconvert:
 	$(INSTALL_SH) -m 644 CheckAndConvert.m "$(DESTDIR)$(LIBDIR)"
