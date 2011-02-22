@@ -384,12 +384,13 @@ function build_win(matlab_octave, root, writeAccess, bit64)
   if (writeAccess == 0)% must be 0; 1 is for testing
     % create a new dir in the users path
     this_dir = pwd;
-	  if (matlab_octave == 'MATLAB')
+    if (matlab_octave == 'MATLAB')
       user_dir = userpath;
       user_dir = user_dir(1:length(user_dir)-1);
     else
-	    user_dir = matlabroot;
-	  end;
+      % This is Octave.  Octave doesn't have 'userpath'.
+      user_dir = tempdir;
+    end;
     disp(sprintf('  - Copying library files to %s ...', user_dir)); 
     if (copyLibraries(this_dir, user_dir, lib) == 1)
       disp('  - Copying of library files successful.');
@@ -512,7 +513,8 @@ function working_dir = find_working_dir(matlab_octave)
     user_dir = userpath;
     user_dir = user_dir(1:length(user_dir)-1);
   else
-    user_dir = matlabroot;
+    % This is Octave.  Octave doesn't have 'userpath'.  
+    user_dir = tempdir;
   end;
   
   working_dir = fullfile(user_dir, 'libsbml');
@@ -694,34 +696,7 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
 % 
 % Please leave the following for [X]Emacs users:
 % Local Variables:
-% matlab-indent-level: 4
+% matlab-indent-level: 2
 % fill-column: 72
 % End:
 % =========================================================================
-
-
-% $$$ 
-% $$$ % 
-% $$$ % Copy library files to the given directory.
-% $$$ % -------------------------------------------------------------------------
-% $$$ function copied = copyLibraries(orig_dir, target_dir, lib)
-% $$$   
-% $$$   copied = 0;
-% $$$   cd (target_dir);
-% $$$   
-% $$$   % if we moving to another location create a libsbml directory
-% $$$   % if we are staying in src/matlab/bindings copy here
-% $$$   if (~strcmp(orig_dir, target_dir))
-% $$$     if (exist('libsbml', 'dir') == 0)
-% $$$       mkdir('libsbml');
-% $$$     end;
-% $$$     cd libsbml;
-% $$$   end;
-% $$$   new_dir = pwd;
-% $$$   % copy the necessary files
-% $$$   for i = 1:8
-% $$$     copyfile(lib{i}, new_dir);
-% $$$   end;
-% $$$   cd(orig_dir);
-% $$$   
-% $$$   copied = 1;
