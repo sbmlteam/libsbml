@@ -19,7 +19,7 @@ LibSBML</a>
 <ul>
 
 <li><a href="#basic-config">Configuring libSBML
-for Linux, MacOS&nbsp;X, Solaris, and Cygwin</a></li> 
+for Linux, Mac&nbsp;OS&nbsp;X, Solaris, and Cygwin</a></li> 
 
 <li><a href="#other-lang">Configuring libSBML
 interfaces to C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></li> 
@@ -30,7 +30,7 @@ interfaces to C#, Java, Perl, Python, MATLAB, Octave and Ruby</a></li>
 
 <li><a href="#univbinary">Creating 32- and/or 64-bit binaries</a></li>
 
-<li><a href="#univbinary">Creating universal binaries on MacOS&nbsp;X</a></li>
+<li><a href="#univbinary">Creating universal binaries on Mac&nbsp;OS&nbsp;X</a></li>
 
 <li><a href="#swig">Configuring for SWIG</a></li>
 
@@ -46,7 +46,7 @@ documentation</a></li>
 </ul>
 
 <li><a href="#compiling">Compiling and installing
-LibSBML on Unix, Linux and MacOS&nbsp;X</a></li> 
+LibSBML on Unix, Linux and Mac&nbsp;OS&nbsp;X</a></li> 
 
 <li><a href="#windows">Configuring and building
 for Windows</li> 
@@ -93,7 +93,7 @@ trouble of following the remaining instructions on this page.
 
 
 <h3><a class="anchor" name="quick-unix">Building libSBML on Linux,
-MacOS&nbsp;X, FreeBSD, Solaris, and Cygwin</a></h3>
+Mac&nbsp;OS&nbsp;X, FreeBSD, Solaris, and Cygwin</a></h3>
 
 <p> If there is no installer for your system, or you prefer to build
 libSBML from the source distribution, proceed as follows.  Download and
@@ -189,11 +189,11 @@ Windows.
 
 <p> LibSBML requires a separate XML library for low-level XML tokenizing
 and Unicode support.  For this, it supports the Xerces-C++, Expat, and
-libXML XML libraries on Linux, Windows, MacOS&nbsp;X, FreeBSD, Solaris and
+libXML XML libraries on Linux, Windows, Mac&nbsp;OS&nbsp;X, FreeBSD, Solaris and
 Cygwin.  Many Linux and other UNIX-like systems provide one or more of
 these libraries either as part of their standard distribution or as an
 optional RPM, Debian, Mandrake or other package distributions.  (Libxml2
-appears to be the most commonly available library on Linux and MacOS&nbsp;X
+appears to be the most commonly available library on Linux and Mac&nbsp;OS&nbsp;X
 systems.)  For more information, see <a target="_blank"
 href="http://xerces.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
 for Xerces, <a target="_blank"
@@ -208,10 +208,10 @@ and above, are all known to work.
 
 
 <h3><a class="anchor" name="basic-config">Configuring for Linux,
-MacOS&nbsp;X, FreeBSD, Solaris, and Cygwin</a></h3>
+Mac&nbsp;OS&nbsp;X, FreeBSD, Solaris, and Cygwin</a></h3>
 
 <p> If you have obtained the libSBML source code distribution, then at your
-Linux, MacOS&nbsp;X, FreeBSD, Solaris or Cygwin terminal command prompt,
+Linux, Mac&nbsp;OS&nbsp;X, FreeBSD, Solaris or Cygwin terminal command prompt,
 unpack the distribution, and <code>cd</code> into the directory created
 (e.g., <code>libsbml-4.1.0</code>).  If you only want to build the C and
 C++ interfaces and install the results in <code>/usr/local</code> (the
@@ -257,7 +257,7 @@ or
 <p> where <span class="placeholder"><em>DIR</em></span> is the
 parent directory of where the <code>include</code> and <code>lib</code>
 directories of Xerces, Expat or libxml2 (whichever one you are trying to
-use) is located.  For example, on MacOS&nbsp;X, if you used <a
+use) is located.  For example, on Mac&nbsp;OS&nbsp;X, if you used <a
 target="_blank" href="http://finkproject.org">Fink</a> to install Expat in
 Fink's default software tree, you would configure libSBML using the
 following command:
@@ -330,7 +330,7 @@ the core C/C++ libSBML library still must be compiled and installed.  The
 language binding files are <em>not</em> standalone implementations.  For
 instance, the Java language API files consist of a file named
 <code>libsbmlj.jar</code> and a native object library file named (depending
-on the operating system) <code>libsbmlj.jnilib</code> (MacOS&nbsp;X),
+on the operating system) <code>libsbmlj.jnilib</code> (Mac&nbsp;OS&nbsp;X),
 <code>libsbml.so</code> (Linux), or <code>sbmlj.dll</code> (Windows);
 <em>both</em> of these must be installed and shipped with applications
 <em>along with</em> the core libSBML library file.  Please refer to section
@@ -377,14 +377,14 @@ built as a 32-bit binary:
 
 <p> The two options <nobr><code>--enable-m32</code></nobr> and
 <nobr><code>--enable-m64</code></nobr> cannot be used together; if they are
-both given, then the 32-bit option is silently ignored.  On MacOS&nbsp;X
+both given, then the 32-bit option is silently ignored.  On Mac&nbsp;OS&nbsp;X
 systems, where it is in fact possible to build so-called <em>universal</em>
 (or "fat") binaries containing both 32-bit and 64-bit executable code, a
 separate option is available for <code>configure</code> and is discussed in
 the next section.
 
 
-<h4><a class="anchor" name="univbinary">Creating universal binaries on MacOS&nbsp;X</a></h4>
+<h4><a class="anchor" name="univbinary">Creating universal binaries on Mac&nbsp;OS&nbsp;X</a></h4>
 
 <p> Apple Macintosh operating systems after 2005 have provided the option
 of building binaries that can run natively on either PowerPC or x86 (Intel)
@@ -422,7 +422,7 @@ copies of the same code (one for each architecture).
 and either <nobr><code>--enable-m32</nobr></code> or
 <nobr><code>--enable-m64</nobr></code> are given, the latter two options
 are ignored and the option for universal binaries takes precedence.  This
-is justified because, on MacOS&nbsp;X, the optional argument to
+is justified because, on Mac&nbsp;OS&nbsp;X, the optional argument to
 <nobr><code>--enable-universal-binary</nobr></code> can be used to
 accomplish the same goals as the two other individual options.
 
@@ -463,7 +463,7 @@ via a software package manager for your system (e.g., <a target="_blank"
 href="https://help.ubuntu.com/community/SynapticHowto">Synaptic</a> under
 Ubuntu Linux, <a target="_blank"
 href="http://www.macports.org">MacPorts</a> or <a target="_blank"
-href="http://www.finkproject.org/">Fink</a> under MacOSX, etc.); if not,
+href="http://www.finkproject.org/">Fink</a> under Mac&Nbsp;OS&Nbsp;X, etc.); if not,
 you can also download Check from <a target="_blank"
 href="http://check.sf.net/">http://check.sf.net/</a>.
 
@@ -572,7 +572,7 @@ reasonably complete installation of <a target="_blank"
 href="http://ctan.org/what_is_tex.html">LaTeX</a>.  You will also need to
 configure libSBML to use Doxygen by supplying the option
 <nobr><code>--with-doxygen</code></nobr> to the <code>configure</code>
-program.  <em>Tip for Macintosh users</em>: if you are on a MacOS&nbsp;X
+program.  <em>Tip for Macintosh users</em>: if you are on a Mac&nbsp;OS&nbsp;X
 system and you installed the binary distribution of Doxygen from the
 <code>.dmg</code> image provided by Doxygen's author, you will need to
 point <code>configure</code> to the doxygen executable inside the package
@@ -619,10 +619,10 @@ to recreate just the Python documentation.
 
 
 <h3><a class="anchor" name="compiling">Compiling and installing libSBML on
-Unix, Linux and MacOS&nbsp;X</a></h3>
+Unix, Linux and Mac&nbsp;OS&nbsp;X</a></h3>
 
 <p> Once configured, building and installing libSBML should be very easy.
-Simply execute the following commands at your Linux, MacOS&nbsp;X or
+Simply execute the following commands at your Linux, Mac&nbsp;OS&nbsp;X or
 Solaris command prompt:
 
 <div class="fragment"><pre class="fragment">
@@ -808,7 +808,7 @@ the version number:
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">Type of file</th>
      <th align="left">Linux/Unix-based OS</th>
-     <th align="left">MacOS&nbsp;X</th>
+     <th align="left">Mac&nbsp;OS&nbsp;X</th>
      <th align="left">Windows</th>
  </tr>
 <tr>
@@ -846,7 +846,7 @@ table below lists the pathnames where those files will be installed.
  <tr style="background: lightgray; font-size: 14px;">
      <th colspan="2" align="left">Language</th>
      <th align="left">Linux/Unix-based OS</th>
-     <th align="left">MacOS&nbsp;X</th>
+     <th align="left">Mac&nbsp;OS&nbsp;X</th>
      <th align="left">Windows</th>
  </tr>
 <tr>
