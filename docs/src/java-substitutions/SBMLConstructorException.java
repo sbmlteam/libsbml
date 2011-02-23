@@ -12,13 +12,14 @@ package org.sbml.libsbml;
  * constructors.  Callers can use the class in code such as the
  * following example:
  * <div class='fragment'><pre>
+Model m;
 try
 {
-  Model s = new Model(level,version);
+    m = new Model(level, version);
 }
 catch (SBMLConstructorException e)
 {
-   String errmsg = e.getMessage();
+    String errmsg = e.getMessage();
 }
 </pre></div>
  * Not all libSBML object classes throw this exception; the cases are
