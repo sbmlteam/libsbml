@@ -145,6 +145,7 @@ distfiles =                                                  \
         graphics/built-in-units.jpg                          \
         graphics/compartment-size.jpg                        \
         graphics/enzymatic-reaction.jpg                      \
+        graphics/hellojsp-screenshot.png                     \
         graphics/listof-illustration.jpg                     \
         graphics/right-arrow.gif                             \
         graphics/math-formula-precedence.jpg                 \
@@ -456,6 +457,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	cp -f doxygen-base.css $(java-manual)
 	cp -f $(logo-file) $(java-manual)
 	cp -f $(logo-file) $(java-manual)/$(java-class-path)/
+	cp -f graphics/hellojsp-screenshot.png $(java-manual)
 	cp -f graphics/*.jpg $(java-manual)/$(java-class-path)/
 	cp -f common-text/*.svg $(java-manual)/$(java-class-path)/
 	cp -f sbml.js $(java-manual)

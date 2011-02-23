@@ -164,7 +164,7 @@ then only add the line setting the environment variable.
 
 <p>
 <center style="padding: 1em auto">
-<table border="0" class="text-table  bigger-row-spacing  width80  normal-font  alt-row-colors">
+<table border="0" class="text-table  bigger-row-spacing  width80  normal-font">
  <tr style="background: lightgray; font-size: 14px;">
      <th align="left">System</th>
      <th align="left">File name</th>
@@ -201,8 +201,6 @@ export DYLD_LIBRARY_PATH=<em><span class="placeholder">TOMCAT</span></em>/lib:$D
 <td><code>setenv.bat</code></td>
 <td>
 <div class="fragment"><pre class="fragment">
-#!/bin/bash
-
 set PATH=<em><span class="placeholder">TOMCAT</span></em>/lib:%PATH%
 </pre></div>
 </td>
@@ -238,7 +236,7 @@ sense for your application.  In the next section, we will show the
 <p>
 <div class="fragment"><pre class="fragment">
 package mypackage; 
-import org.sbml.libsbml.libsbml; 
+import org.sbml.libsbml.libsbml;   // The repeated "libsbml" is not a typo.
 
 public class Initializer 
 {
@@ -315,7 +313,7 @@ operating system).
 <li style="margin-bottom: 1ex"> Save the file contents listed above in
 <em><span class="placeholder">WebContent</span></em> as some file with a
 <code>.jsp</code> extension.  For purposes of the rest of this discussion,
-we will call this file <em><span class="placeholder">hello.jsp</span></em>.
+we will call this file <em><span class="placeholder">hellojsp.jsp</span></em>.
 
 <li style="margin-bottom: 1ex"> Start Tomcat.  For purposes of this
 discussion, we assume that your Tomcat instance is running on your local
@@ -324,12 +322,17 @@ host computer, and that it is listening to port 8080.
 <li style="margin-bottom: 1ex"> Navigate a web browser to the URL
 <nobr><code>http://localhost:8080/</code><em><span
 class="placeholder">WebContent</span></em><code>/</code><em><span
-class="placeholder">hello.jsp</span></em></nobr>.
+class="placeholder">hellojsp.jsp</span></em></nobr>.
 
 </ul>
 
 <p> You should see the string "Hello!" printed along with libSBML's version
-number.
+number.  The screenshot shown below illustrates this.
+
+<center style="padding-bottom: 1.5em; padding-top: 1em">
+<img style="padding: 2em auto 1em auto; border: none" src="hellojsp-screenshot.png">
+<p> Screenshot of the simple JSP page calling a libSBML method.
+</center>
 
 
 <h3>Using libSBML in servelets</h3>
@@ -395,5 +398,6 @@ public class Hello extends HttpServlet
 }
 </pre></div>
 
+<br>
 
 <p>
