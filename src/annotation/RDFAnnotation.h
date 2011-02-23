@@ -150,7 +150,7 @@ XMLNode ann = createAnnotation();             // Create <annotation> container.
 success      = ann.addChild(RDF);              // Put the RDF annotation into it.
 ...                                            // Check "success" return code value.
 
-success      = sbmlObject->setAnnotation(ann); // Set object's annotation to what we built.
+success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what we built.
 ...                                            // Check "success" return code value.
 @endverbatim
 @endif
