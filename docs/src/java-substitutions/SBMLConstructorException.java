@@ -22,6 +22,7 @@ catch (SBMLConstructorException e)
     String errmsg = e.getMessage();
 }
 </pre></div>
+ * <p>
  * Not all libSBML object classes throw this exception; the cases are
  * limited to the classes that create SBML objects (e.g.,
  * {@link Compartment}, {@link Species}, etc.) and {@link SBMLDocument}.
