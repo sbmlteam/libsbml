@@ -71,7 +71,7 @@ protected:
   SpeciesReferenceRole_t mRole;
   Curve mCurve;
 
-public:
+private: 
   
   static const std::string SPECIES_REFERENCE_ROLE_STRING[];
 
