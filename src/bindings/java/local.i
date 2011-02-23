@@ -285,6 +285,84 @@ SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 
 /**
+ * Wraps the XMLConstructorException
+ *
+ * The XMLConstructorException (C++ class) is wrapped as the 
+ * XMLConstructorException (Java class) which is derived from
+ * the built-in IllegalArgumentException class which is a subclass
+ * of RunTimeException.
+ *
+ * For example, the exception can be catched in Java code as follows:
+ *
+ * ---------------------------------------------
+ *  try
+ *  {
+ *    Model s = new Model(level,version);
+ *  }
+ *  catch (XMLConstructorException e)
+ *  {
+ *     String errmsg = e.getMessage();
+ *  }
+ * ---------------------------------------------
+ */
+
+%typemap(javabase) XMLConstructorException "java.lang.IllegalArgumentException";
+%typemap(javacode) XMLConstructorException 
+%{
+  /*
+   * To pass the message from an exception to the parent exception class,
+   * we have to create our own variant of the constructor that takes an
+   * extra string argument.
+   */
+  protected XMLConstructorException(long cPtr, boolean cMemoryOwn, String v)
+  {
+    super(v);
+    swigCMemOwn = cMemoryOwn;
+    swigCPtr    = cPtr;
+  }
+
+  /*
+   * Next, we define the public constructor to take a string (like all basic
+   * Java exception class constructors), and invoke our internal special
+   * constructor with the extra argument.
+   */
+  public XMLConstructorException(String v)
+  {
+    this(libsbmlJNI.new_XMLConstructorException(), true, v);
+  }
+%}
+
+/*
+ * Finally, to make our string-passing constructor work, we have to disable
+ * the default constructor created by SWIG in newer versions of SWIG.
+ */
+%ignore XMLConstructorException(std::string message);
+
+/*
+ * The following creates a macro used to wrap individual class constructors
+ * that may throw XMLConstructorException.
+ */
+%define XMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%javaexception("org.sbml.libsbml.XMLConstructorException") SBASE_CLASS_NAME
+%{
+  try {
+    $action
+  }
+  catch (const XMLConstructorException &e) {
+    jenv->ExceptionClear();
+    jclass clazz = jenv->FindClass("org/sbml/libsbml/XMLConstructorException");
+    if (clazz)
+      jenv->ThrowNew(clazz, e.what());
+    return $null;
+  }
+%}
+%enddef
+
+
+XMLCONSTRUCTOR_EXCEPTION(XMLAttributes)
+
+
+/**
  * Ignores XMLToken::clone() in order to use XMLNode::clone().
  * (XMLNode is a derived class of XMLToken)
  * In JDK 1.4.2, "XMLNode XMLNode::clone()" can't override 
