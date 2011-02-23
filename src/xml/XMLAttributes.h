@@ -61,7 +61,7 @@ class XMLOutputStream;
 /** @endcond */
 
 /** @cond doxygen-libsbml-internal */
-class XMLConstructorException : public std::invalid_argument
+class LIBSBML_EXTERN XMLConstructorException : public std::invalid_argument
 {
 public:
 
