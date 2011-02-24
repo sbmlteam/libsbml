@@ -1038,9 +1038,10 @@ COVARIANT_GETID(InitialAssignment)
  * For example, the exception can be catched in C# code as follows:
  *
  * ---------------------------------------------
+ *  Model m;
  *  try
  *  {
- *    Model m = new Model(level,version);
+ *    m = new Model(level,version);
  *  }
  *  catch (SBMLConstructorException e)
  *  {
@@ -1065,6 +1066,22 @@ COVARIANT_GETID(InitialAssignment)
 
 %ignore SBMLConstructorException(std::string message);
 
+%typemap(csbase) XMLConstructorException "System.ArgumentException";
+%typemap(cscode) XMLConstructorException 
+%{
+  internal XMLConstructorException(IntPtr cPtr, bool cMemoryOwn, string v) : base(v)
+  {
+    swigCMemOwn = cMemoryOwn;
+    swigCPtr    = new HandleRef(this, cPtr);
+  }
+
+  public XMLConstructorException(string v) : 
+   this(libsbmlPINVOKE.new_XMLConstructorException(), true, v) 
+  {}
+%}
+
+%ignore XMLConstructorException(std::string message);
+
 //
 // cited from SWIG and C# manual ("18.4.4 Custom C# ApplicationException example")
 // in http://www.swig.org/
@@ -1073,7 +1090,7 @@ COVARIANT_GETID(InitialAssignment)
   // Code to handle throwing of C# CustomApplicationException from C/C++ code.
   // The equivalent delegate to the callback, CSharpExceptionCallback_t, is CustomExceptionDelegate
   // and the equivalent customExceptionCallback instance is customDelegate
-  typedef void (SWIGSTDCALL* CSharpExceptionCallback_t)(const char *);
+  typedef void (SWIGSTDCALL* CSharpExceptionCallback_t)(const char *, int);
   CSharpExceptionCallback_t customExceptionCallback = NULL;
 
   extern "C" SWIGEXPORT
@@ -1083,15 +1100,15 @@ COVARIANT_GETID(InitialAssignment)
 
   // Note that SWIG detects any method calls named starting with
   // SWIG_CSharpSetPendingException for warning 845
-  static void SWIG_CSharpSetPendingExceptionCustom(const char *msg) {
-    customExceptionCallback(msg);
+  static void SWIG_CSharpSetPendingExceptionCustom(const char *msg, int type) {
+    customExceptionCallback(msg, type);
   }
 %}
 
 %pragma(csharp) imclasscode=%{
   class CustomExceptionHelper {
     // C# delegate for the C/C++ customExceptionCallback
-    public delegate void CustomExceptionDelegate(string message);
+    public delegate void CustomExceptionDelegate(string message, int type);
     static CustomExceptionDelegate customDelegate =
                                    new CustomExceptionDelegate(SetPendingCustomException);
 
@@ -1099,8 +1116,11 @@ COVARIANT_GETID(InitialAssignment)
     public static extern
            void CustomExceptionRegisterCallback(CustomExceptionDelegate customCallback);
 
-    static void SetPendingCustomException(string message) {
-      SWIGPendingException.Set(new SBMLConstructorException(message));
+    static void SetPendingCustomException(string message, int type) {
+      if (type == 0)
+		SWIGPendingException.Set(new SBMLConstructorException(message));
+	  else 
+		SWIGPendingException.Set(new XMLConstructorException(message));
     }
 
     static CustomExceptionHelper() {
@@ -1125,7 +1145,7 @@ COVARIANT_GETID(InitialAssignment)
     $action
   }
   catch (const SBMLConstructorException &e) {
-    SWIG_CSharpSetPendingExceptionCustom(e.what());
+    SWIG_CSharpSetPendingExceptionCustom(e.what(),0);
   }
 %}
 %enddef
@@ -1158,6 +1178,26 @@ SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 
+%define XMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME
+%{
+  try {
+    $action
+  }
+  catch (const XMLConstructorException &e) {
+    SWIG_CSharpSetPendingExceptionCustom(e.what(),1);
+  }
+%}
+%enddef
+
+
+XMLCONSTRUCTOR_EXCEPTION(XMLAttributes)
+XMLCONSTRUCTOR_EXCEPTION(XMLError)
+XMLCONSTRUCTOR_EXCEPTION(XMLNamespaces)
+XMLCONSTRUCTOR_EXCEPTION(XMLNode)
+XMLCONSTRUCTOR_EXCEPTION(XMLOutputStream)
+XMLCONSTRUCTOR_EXCEPTION(XMLToken)
+XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 
 
 /**
