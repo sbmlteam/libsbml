@@ -50,6 +50,16 @@ file(GLOB SWIG_DEPENDENCIES
 
 ####################################################################
 #
+# create correct assembly information file
+# 
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/Properties/AssemblyInfo.cs.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/AssemblyInfo.cs"
+  )
+	
+	
+####################################################################
+#
 # SWIG C# bindings
 #
 

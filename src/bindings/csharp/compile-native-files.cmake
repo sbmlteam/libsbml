@@ -33,7 +33,7 @@ message("Creating: libsbmlcsP.dll")
 
 # find all sources
 file(GLOB_RECURSE SOURCE_FILES RELATIVE ${BIN_DIRECTORY} ${BIN_DIRECTORY}/csharp-files/*.cs)
-set(SOURCE_FILES ${SOURCE_FILES} ${SRC_DIRECTORY}/Properties/AssemblyInfo.cs)
+set(SOURCE_FILES ${SOURCE_FILES} ${BIN_DIRECTORY}/AssemblyInfo.cs)
 
 # convert paths
 set(NATIVE_FILES)
