@@ -177,7 +177,7 @@ distfiles =                                                  \
         java-substitutions/ModelCreatorList.java             \
         java-substitutions/SBMLConstructorException.java     \
         java-substitutions/SBMLNamespacesList.java           \
-        java-substitutions/XMLNamespacesList.java            \
+        java-substitutions/XMLConstructorException.java      \
         java-substitutions/libsbmlConstants.java             \
         libsbml-accessing.html                               \
         libsbml-accessing.txt                                \
