@@ -435,6 +435,44 @@ SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 
+/**
+ *
+ * Wraps the XMLConstructorException class (C++ exception defined by libSBML) 
+ * as the VaueError class (Python built-in exception).
+ *
+ * For example, the exception can be catched in Python code as follows:
+ *
+ * --------------------------------------
+ *  try:
+ *    s = libsbml.XMLAttributes(invalid arguments)
+ *  except ValueError, inst:
+ *    errmsg = inst.args[0]
+ * --------------------------------------
+ */
+
+%ignore XMLConstructorException;
+
+%define XMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME {
+  try {
+    $action
+  }
+  catch (XMLConstructorException &e) {
+    PyErr_SetString(PyExc_ValueError, const_cast<char*>(e.what()));
+    return NULL;
+  }
+}
+%enddef
+
+XMLCONSTRUCTOR_EXCEPTION(XMLAttributes)
+XMLCONSTRUCTOR_EXCEPTION(XMLError)
+XMLCONSTRUCTOR_EXCEPTION(XMLNamespaces)
+XMLCONSTRUCTOR_EXCEPTION(XMLNode)
+XMLCONSTRUCTOR_EXCEPTION(XMLOutputStream)
+XMLCONSTRUCTOR_EXCEPTION(XMLToken)
+XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
+
+
 // ----------------------------------------------------------------------
 // SBMLReader
 // ----------------------------------------------------------------------
