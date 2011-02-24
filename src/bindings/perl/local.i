@@ -272,3 +272,42 @@ SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 
+
+/**
+ * Wraps the XMLConstructorException
+ *
+ * The XMLConstructorException (C++ class) is converted into
+ * Perl exception.
+ *
+ * For example, the exception can be catched in Perl as follows:
+ *
+ *  -----------------------------------------------------------------
+ *  eval
+ *  {
+ *    $m = new LibSBML::XMLAttributes(invalid arguments);
+ *  };
+ *  if ($@) 
+ *  {
+ *    warn $@; # print error message
+ *  }
+ *  -----------------------------------------------------------------
+ */
+
+%define XMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME {
+  try {
+    $action
+  }
+  catch (XMLConstructorException &e){
+    croak("%s", e.what());
+  }
+}
+%enddef
+
+XMLCONSTRUCTOR_EXCEPTION(XMLAttributes)
+XMLCONSTRUCTOR_EXCEPTION(XMLError)
+XMLCONSTRUCTOR_EXCEPTION(XMLNamespaces)
+XMLCONSTRUCTOR_EXCEPTION(XMLNode)
+XMLCONSTRUCTOR_EXCEPTION(XMLOutputStream)
+XMLCONSTRUCTOR_EXCEPTION(XMLToken)
+XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
