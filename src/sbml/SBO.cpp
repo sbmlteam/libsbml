@@ -597,16 +597,16 @@ SBO::isObselete  (unsigned int sboTerm)
 void
 SBO::populateSBOTree()
 {
-  // generated from SBO on September 25th 2010
+  // generated from SBO on February 24th 2011
   mParent.insert( pair<const int, int>(  1,  64) );
-  mParent.insert( pair<const int, int>(  2,   0) );
+  mParent.insert( pair<const int, int>(  2, 545) );
   mParent.insert( pair<const int, int>(  3,   0) );
   mParent.insert( pair<const int, int>(  4,   0) );
   mParent.insert( pair<const int, int>(  5, 1000) );
   mParent.insert( pair<const int, int>(  6, 1000) );
   mParent.insert( pair<const int, int>(  7, 1000) );
   mParent.insert( pair<const int, int>(  8, 1000) );
-  mParent.insert( pair<const int, int>(  9, 256) );
+  mParent.insert( pair<const int, int>(  9,   2) );
   mParent.insert( pair<const int, int>( 10,   3) );
   mParent.insert( pair<const int, int>( 11,   3) );
   mParent.insert( pair<const int, int>( 12,   1) );
@@ -773,9 +773,9 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(145, 166) );
   mParent.insert( pair<const int, int>(146,  60) );
   mParent.insert( pair<const int, int>(146, 166) );
-  mParent.insert( pair<const int, int>(147, 255) );
-  mParent.insert( pair<const int, int>(148, 255) );
-  mParent.insert( pair<const int, int>(149, 188) );
+  mParent.insert( pair<const int, int>(147,   2) );
+  mParent.insert( pair<const int, int>(148,   2) );
+  mParent.insert( pair<const int, int>(149, 157) );
   mParent.insert( pair<const int, int>(150, 268) );
   mParent.insert( pair<const int, int>(151, 150) );
   mParent.insert( pair<const int, int>(152, 150) );
@@ -819,7 +819,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(185, 167) );
   mParent.insert( pair<const int, int>(186,  46) );
   mParent.insert( pair<const int, int>(187, 1000) );
-  mParent.insert( pair<const int, int>(188, 256) );
+  mParent.insert( pair<const int, int>(188,   2) );
   mParent.insert( pair<const int, int>(189, 188) );
   mParent.insert( pair<const int, int>(190, 382) );
   mParent.insert( pair<const int, int>(191, 193) );
@@ -885,12 +885,12 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(251, 246) );
   mParent.insert( pair<const int, int>(252, 246) );
   mParent.insert( pair<const int, int>(253, 240) );
-  mParent.insert( pair<const int, int>(254, 255) );
-  mParent.insert( pair<const int, int>(255,   2) );
-  mParent.insert( pair<const int, int>(256,   2) );
-  mParent.insert( pair<const int, int>(257, 255) );
-  mParent.insert( pair<const int, int>(258, 255) );
-  mParent.insert( pair<const int, int>(259, 255) );
+  mParent.insert( pair<const int, int>(254,   2) );
+  mParent.insert( pair<const int, int>(255, 1000) );
+  mParent.insert( pair<const int, int>(256, 1000) );
+  mParent.insert( pair<const int, int>(257,   2) );
+  mParent.insert( pair<const int, int>(258,   2) );
+  mParent.insert( pair<const int, int>(259,   2) );
   mParent.insert( pair<const int, int>(260, 267) );
   mParent.insert( pair<const int, int>(260, 270) );
   mParent.insert( pair<const int, int>(261, 282) );
@@ -912,7 +912,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(276, 275) );
   mParent.insert( pair<const int, int>(277, 276) );
   mParent.insert( pair<const int, int>(278, 404) );
-  mParent.insert( pair<const int, int>(279, 255) );
+  mParent.insert( pair<const int, int>(279,   2) );
   mParent.insert( pair<const int, int>(280, 241) );
   mParent.insert( pair<const int, int>(281, 193) );
   mParent.insert( pair<const int, int>(282, 281) );
@@ -945,7 +945,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(306, 309) );
   mParent.insert( pair<const int, int>(307, 306) );
   mParent.insert( pair<const int, int>(307, 310) );
-  mParent.insert( pair<const int, int>(308, 256) );
+  mParent.insert( pair<const int, int>(308,   2) );
   mParent.insert( pair<const int, int>(309, 308) );
   mParent.insert( pair<const int, int>(310, 309) );
   mParent.insert( pair<const int, int>(311, 278) );
@@ -989,7 +989,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(343, 342) );
   mParent.insert( pair<const int, int>(344, 342) );
   mParent.insert( pair<const int, int>(345, 1000) );
-  mParent.insert( pair<const int, int>(346, 255) );
+  mParent.insert( pair<const int, int>(346,   2) );
   mParent.insert( pair<const int, int>(347, 346) );
   mParent.insert( pair<const int, int>(348,   9) );
   mParent.insert( pair<const int, int>(348, 346) );
@@ -1026,7 +1026,7 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(377, 176) );
   mParent.insert( pair<const int, int>(378, 270) );
   mParent.insert( pair<const int, int>(379, 430) );
-  mParent.insert( pair<const int, int>(380, 256) );
+  mParent.insert( pair<const int, int>(380,   2) );
   mParent.insert( pair<const int, int>(381, 380) );
   mParent.insert( pair<const int, int>(382, 380) );
   mParent.insert( pair<const int, int>(383, 381) );
@@ -1112,12 +1112,12 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(462, 459) );
   mParent.insert( pair<const int, int>(463, 303) );
   mParent.insert( pair<const int, int>(464, 375) );
-  mParent.insert( pair<const int, int>(465, 255) );
+  mParent.insert( pair<const int, int>(465,   2) );
   mParent.insert( pair<const int, int>(466, 465) );
   mParent.insert( pair<const int, int>(467, 465) );
   mParent.insert( pair<const int, int>(468, 465) );
   mParent.insert( pair<const int, int>(469, 413) );
-  mParent.insert( pair<const int, int>(470, 360) );
+  mParent.insert( pair<const int, int>(470, 540) );
   mParent.insert( pair<const int, int>(471, 196) );
   mParent.insert( pair<const int, int>(472, 196) );
   mParent.insert( pair<const int, int>(473, 374) );
@@ -1152,27 +1152,27 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(502, 343) );
   mParent.insert( pair<const int, int>(503, 361) );
   mParent.insert( pair<const int, int>(504, 361) );
-  mParent.insert( pair<const int, int>(505, 196) );
+  mParent.insert( pair<const int, int>(505, 518) );
   mParent.insert( pair<const int, int>(506, 504) );
-  mParent.insert( pair<const int, int>(507, 503) );
+  mParent.insert( pair<const int, int>(507, 517) );
   mParent.insert( pair<const int, int>(508, 503) );
   mParent.insert( pair<const int, int>(509, 196) );
   mParent.insert( pair<const int, int>(510, 504) );
   mParent.insert( pair<const int, int>(511, 503) );
   mParent.insert( pair<const int, int>(512, 196) );
   mParent.insert( pair<const int, int>(513, 504) );
-  mParent.insert( pair<const int, int>(514, 503) );
-  mParent.insert( pair<const int, int>(515, 196) );
-  mParent.insert( pair<const int, int>(516, 504) );
+  mParent.insert( pair<const int, int>(514, 508) );
+  mParent.insert( pair<const int, int>(515, 509) );
+  mParent.insert( pair<const int, int>(516, 510) );
   mParent.insert( pair<const int, int>(517, 503) );
   mParent.insert( pair<const int, int>(518, 196) );
   mParent.insert( pair<const int, int>(519, 504) );
-  mParent.insert( pair<const int, int>(520, 503) );
-  mParent.insert( pair<const int, int>(521, 196) );
-  mParent.insert( pair<const int, int>(522, 504) );
-  mParent.insert( pair<const int, int>(523, 503) );
-  mParent.insert( pair<const int, int>(524, 196) );
-  mParent.insert( pair<const int, int>(525, 504) );
+  mParent.insert( pair<const int, int>(520, 517) );
+  mParent.insert( pair<const int, int>(521, 518) );
+  mParent.insert( pair<const int, int>(522, 519) );
+  mParent.insert( pair<const int, int>(523, 517) );
+  mParent.insert( pair<const int, int>(524, 518) );
+  mParent.insert( pair<const int, int>(525, 519) );
   mParent.insert( pair<const int, int>(526, 344) );
   mParent.insert( pair<const int, int>(527,   1) );
   mParent.insert( pair<const int, int>(528, 527) );
@@ -1185,7 +1185,16 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(535, 461) );
   mParent.insert( pair<const int, int>(536, 207) );
   mParent.insert( pair<const int, int>(537, 207) );
-  mParent.insert( pair<const int, int>(538, 256) );
+  mParent.insert( pair<const int, int>(538,   2) );
+  mParent.insert( pair<const int, int>(539,   2) );
+  mParent.insert( pair<const int, int>(540, 360) );
+  mParent.insert( pair<const int, int>(541, 540) );
+  mParent.insert( pair<const int, int>(542,   2) );
+  mParent.insert( pair<const int, int>(543, 296) );
+  mParent.insert( pair<const int, int>(544,   0) );
+  mParent.insert( pair<const int, int>(545,   0) );
+  mParent.insert( pair<const int, int>(546, 545) );
+
 
 }
 /** @endcond */
