@@ -46,7 +46,8 @@ thisdir = src/bindings/octave/test
 # to the Matlab files and then compile in the current directory.
 
 matlab_test_path = ../../matlab/test
-matlab_test_sources = $(wildcard $(matlab_test_path)/test*.m)
+matlab_test_sources = $(wildcard $(matlab_test_path)/test*.m)\
+                      $(matlab_test_path)/compareFiles.m
 
 local_sources = \
   testReadFromFile9.m
@@ -90,7 +91,7 @@ link-sources:
 check: all
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,$(OCTAVE) --path ..:. --eval testBinding)
+	$(call libsbmlrun,$(OCTAVE) --path .. --path . --eval testBinding)
 	@echo -----------------------------------------------------------------
 	@echo
 
