@@ -60,10 +60,10 @@ function buildSBML
   disp(sprintf('\nConstructing the libSBML MATLAB interface.\n'));
 
   [matlab_octave, bit64]  = check_system();
-  [location, writeAccess] = check_location(matlab_octave);
+  [location, writeAccess, in_installer] = check_location(matlab_octave);
 
   if ispc()
-    build_win(matlab_octave, location, writeAccess, bit64);
+    build_win(matlab_octave, location, writeAccess, bit64, in_installer);
   elseif ismac() || isunix()
     build_unix(matlab_octave, location, writeAccess, bit64);
   else
@@ -137,7 +137,7 @@ function [matlab_octave, bit64] = check_system()
 %     1 -> we can write in this directory
 %     0 -> we can't write in this directory
 %
-function [location, writeAccess] = check_location(matlab_octave)
+function [location, writeAccess, in_installer] = check_location(matlab_octave)
   disp('* Trying to establish our location ...');
   
   % This is where things get iffy.  There are a lot of possibilities, and 
@@ -169,12 +169,18 @@ function [location, writeAccess] = check_location(matlab_octave)
     end;
   end;
 
-  [remain, above_bindings] = fileparts(remain);
+  in_installer = 0;
+  [above_bindings, bindings] = fileparts(remain);
   if exist(fullfile(above_bindings, 'VERSION.txt'))
-    disp('  - We appear to be in the installation target directory.');    
-    location = 'installed';
+    disp('  - We appear to be in the installation target directory.');  
+    in_installer = 1;
+    if ispc()
+      location = above_bindings;
+    else
+      location = 'installed';
+    end;
   else
-    [libsbml_root, src] = fileparts(remain);
+    [libsbml_root, src] = fileparts(above_bindings);
     if exist(fullfile(libsbml_root, 'VERSION.txt'))
       disp('  - We appear to be in the libSBML source tree.'); 
       if ispc()
@@ -299,51 +305,12 @@ function [include, lib] = find_unix_dirs(location, bit64)
 % 
 % Drive the build process (Windows version).
 % -------------------------------------------------------------------------
-function build_win(matlab_octave, root, writeAccess, bit64)
+function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
 
   disp('Phase 2: tests for libraries and other dependencies ...');
-  % check that the win/bin directory exists
-  bin_dir = [root, filesep, 'win', filesep, 'bin'];
-  disp(sprintf('  - Checking for the existence of the %s directory ...\n', bin_dir));
-  if (exist(bin_dir, 'dir') ~= 7)
-      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', bin_dir, ... 
-          'The build process assumes that the libsbml binaries', ...
-          'exist at', bin_dir));
-      message = sprintf('\n%s\n%s', ...
-          'if they are in another directory please enter the ', ...
-          'full path to reach the directory from this directory: ');
-      new_bin_dir = input(message, 's');
-        
-      if (exist(new_bin_dir, 'dir') == 0)
-          error('libraries could not be found');
-      else
-        bin_dir = new_bin_dir;
-      end;
-  end;
-
-  disp('  - Checking for the presence of needed libraries ...');
-  if (bit64 == 32)
-    % check that the library files are all there
-    lib{1} = [bin_dir, filesep, 'libsbml.lib'];
-    lib{2} = [bin_dir, filesep, 'libsbml.dll'];
-    lib{3} = [bin_dir, filesep, 'libxml2.lib'];
-    lib{4} = [bin_dir, filesep, 'libxml2.dll'];
-    lib{5} = [bin_dir, filesep, 'iconv.lib'];
-    lib{6} = [bin_dir, filesep, 'iconv.dll'];
-    lib{7} = [bin_dir, filesep, 'bzip2.lib'];
-    lib{8} = [bin_dir, filesep, 'bzip2.dll'];
-  else
-    % check that the library files are all there
-    lib{1} = [bin_dir, filesep, 'libsbml.lib'];
-    lib{2} = [bin_dir, filesep, 'libsbml.dll'];
-    lib{3} = [bin_dir, filesep, 'libxml2.lib'];
-    lib{4} = [bin_dir, filesep, 'libxml2.dll'];
-    lib{5} = [bin_dir, filesep, 'libiconv.lib'];
-    lib{6} = [bin_dir, filesep, 'libiconv.dll'];
-    lib{7} = [bin_dir, filesep, 'bzip2.lib'];
-    lib{8} = [bin_dir, filesep, 'libbz2.dll'];
-  end;
-
+  [include_dir, lib] = find_win_dirs(root, bit64, in_installer);
+  
+  % check that the libraries can all be found
   found = 1;
   for i = 1:8
     if (exist(lib{i}) ~= 0)
@@ -356,30 +323,12 @@ function build_win(matlab_octave, root, writeAccess, bit64)
 
   if (found == 0)
     error (sprintf('Not all dependencies could be found\n%s%s', ...
-    'expected the dependencies to be in ', bin_dir));
+    'expected the dependencies to be in ', fileparts(lib{1})));
   else
     disp('  - All dependencies found.  Good.');
   end;
-  
-  % check that the include directory exists
-  include_dir = [root, filesep, 'include'];
-  disp(sprintf('  - Checking for the existence of the %s directory ...\n', include_dir));
-  if (exist(include_dir, 'dir') ~= 7)
-      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', include_dir, ... 
-          'The build process assumes that the libsbml include files', ...
-          'exist at', include_dir));
-      message = sprintf('\n%s\n%s', ...
-          'if they are in another directory please enter the ', ...
-          'full path to reach the directory from this directory: ');
-      new_inc_dir = input(message, 's');
-        
-      if (exist(new_inc_dir, 'dir') == 0)
-          error('include files could not be found');
-      else
-        include_dir = new_inc_dir;
-      end;
-  end;
-  
+
+    
   % if we do not have write access need to find somewhere else to build
   if (writeAccess == 0)% must be 0; 1 is for testing
     % create a new dir in the users path
@@ -413,11 +362,140 @@ function build_win(matlab_octave, root, writeAccess, bit64)
     else
       error('Cannot copy library files on this system');
     end;
-    
-  end; 
-    
+  end;
+
   % build the files
   compile_mex(include_dir, lib{1}, matlab_octave);
+
+% 
+% Find include and library dirs (windows case).
+% -------------------------------------------------------------------------
+% Return values:
+%   INCLUDE -> the full path to the include directory
+%   LIB     -> an array of the libsbml dependency libraries
+%
+function [include, lib] = find_win_dirs(root, bit64, in_installer)
+  disp('* Locating libSBML library and include files ...');
+
+  % in the src tree we expect all lib dlls to be in root/win/bin
+  %                 and the include dir to be root/include
+  % in the installer the lib will be in root/win32/lib
+  %                  the dll will be in root/win32/bin
+  %                 and the include dir to be root/win32/include
+  % and for 64 bits the win32 will be win64
+  if (in_installer == 0)
+    bin_dir = [root, filesep, 'win', filesep, 'bin'];
+    lib_dir = [root, filesep, 'win', filesep, 'bin'];
+    include = [root, filesep, 'include'];
+  else
+    if (bit64 == 32)
+      bin_dir = [root, filesep, 'win32', filesep, 'bin'];
+      lib_dir = [root, filesep, 'win32', filesep, 'lib'];
+      include = [root, filesep, 'win32', filesep, 'include'];
+    else
+      bin_dir = [root, filesep, 'win64', filesep, 'bin'];
+      lib_dir = [root, filesep, 'win64', filesep, 'lib'];
+      include = [root, filesep, 'win64', filesep, 'include'];
+    end;
+  end;
+      
+  disp(sprintf('  - Checking for the existence of the %s directory ...\n', bin_dir));
+  if (exist(bin_dir, 'dir') ~= 7)
+      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', bin_dir, ... 
+          'The build process assumes that the libsbml binaries', ...
+          'exist at', bin_dir));
+      message = sprintf('\n%s\n%s', ...
+          'if they are in another directory please enter the ', ...
+          'full path to reach the directory from this directory: ');
+      new_bin_dir = input(message, 's');
+
+      if (exist(new_bin_dir, 'dir') == 0)
+          error('libraries could not be found');
+      else
+        bin_dir = new_bin_dir;
+      end;
+  end;
+
+  if (~strcmp(bin_dir, lib_dir))
+    disp(sprintf('  - Checking for the existence of the %s directory ...\n', lib_dir));
+    if (exist(lib_dir, 'dir') ~= 7)
+        disp(sprintf('%s directory could not be found\n\n%s\n%s %s', lib_dir, ... 
+            'The build process assumes that the libsbml binaries', ...
+            'exist at', lib_dir));
+        message = sprintf('\n%s\n%s', ...
+            'if they are in another directory please enter the ', ...
+            'full path to reach the directory from this directory: ');
+        new_lib_dir = input(message, 's');
+
+        if (exist(new_lib_dir, 'dir') == 0)
+            error('libraries could not be found');
+        else
+          lib_dir = new_lib_dir;
+        end;
+    end;
+  end;
+
+
+% check that the include directory exists
+  disp(sprintf('  - Checking for the existence of the %s directory ...\n', include));
+  if (exist(include, 'dir') ~= 7)
+      disp(sprintf('%s directory could not be found\n\n%s\n%s %s', include, ... 
+          'The build process assumes that the libsbml include files', ...
+          'exist at', include));
+      message = sprintf('\n%s\n%s', ...
+          'if they are in another directory please enter the ', ...
+          'full path to reach the directory from this directory: ');
+      new_inc_dir = input(message, 's');
+
+      if (exist(new_inc_dir, 'dir') == 0)
+          error('include files could not be found');
+      else
+        include = new_inc_dir;
+      end;
+  end;
+    
+  % create the array of library files
+  if (bit64 == 32)
+    if (in_installer == 0)
+      lib{1} = [bin_dir, filesep, 'libsbml.lib'];
+      lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+      lib{3} = [bin_dir, filesep, 'libxml2.lib'];
+      lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+      lib{5} = [bin_dir, filesep, 'iconv.lib'];
+      lib{6} = [bin_dir, filesep, 'iconv.dll'];
+      lib{7} = [bin_dir, filesep, 'bzip2.lib'];
+      lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+    else
+      lib{1} = [lib_dir, filesep, 'libsbml.lib'];
+      lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+      lib{3} = [lib_dir, filesep, 'libxml2.lib'];
+      lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+      lib{5} = [lib_dir, filesep, 'iconv.lib'];
+      lib{6} = [bin_dir, filesep, 'iconv.dll'];
+      lib{7} = [lib_dir, filesep, 'bzip2.lib'];
+      lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+    end;
+  else
+    if (in_installer == 0)
+      lib{1} = [bin_dir, filesep, 'libsbml.lib'];
+      lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+      lib{3} = [bin_dir, filesep, 'libxml2.lib'];
+      lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+      lib{5} = [bin_dir, filesep, 'libiconv.lib'];
+      lib{6} = [bin_dir, filesep, 'libiconv.dll'];
+      lib{7} = [bin_dir, filesep, 'bzip2.lib'];
+      lib{8} = [bin_dir, filesep, 'libbz2.dll'];
+    else
+      lib{1} = [lib_dir, filesep, 'libsbml.lib'];
+      lib{2} = [bin_dir, filesep, 'libsbml.dll'];
+      lib{3} = [lib_dir, filesep, 'libxml2.lib'];
+      lib{4} = [bin_dir, filesep, 'libxml2.dll'];
+      lib{5} = [lib_dir, filesep, 'libiconv.lib'];
+      lib{6} = [bin_dir, filesep, 'libiconv.dll'];
+      lib{7} = [lib_dir, filesep, 'bzip2.lib'];
+      lib{8} = [bin_dir, filesep, 'libbz2.dll'];
+    end;
+  end;
 
 
 % 
