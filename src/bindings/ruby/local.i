@@ -320,6 +320,47 @@ SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
 
 
 /**
+ * Wraps the XMLConstructorException
+ *
+ * The XMLConstructorException (C++ class) is wrapped as the 
+ * SBMLConsturctorException (Ruby class) which is derived from
+ * the built-in ArgumentError class (Ruby class).
+ *
+ * For example, the exception can be catched in Ruby code as follows:
+ *
+ * -------------------------------------------------
+ *  begin
+ *    s = LibSBML::XMLAttributes.new(invalid arguments)
+ *  rescue XMLConstructorException
+ *    errmsg = $! 
+ *  end
+ * -------------------------------------------------
+ */
+
+%exceptionclass XMLConstructorException;
+
+%define XMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
+%exception SBASE_CLASS_NAME{
+  try {
+    $action
+  }
+  catch (const XMLConstructorException &e){
+    static VALUE cpperror = rb_define_class("XMLConstructorException", rb_eArgError);
+    rb_raise(cpperror, e.what());    
+  }
+}
+%enddef
+
+
+XMLCONSTRUCTOR_EXCEPTION(XMLAttributes)
+XMLCONSTRUCTOR_EXCEPTION(XMLError)
+XMLCONSTRUCTOR_EXCEPTION(XMLNamespaces)
+XMLCONSTRUCTOR_EXCEPTION(XMLNode)
+XMLCONSTRUCTOR_EXCEPTION(XMLOutputStream)
+XMLCONSTRUCTOR_EXCEPTION(XMLToken)
+XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
+
+/**
  *  Wraps the following functions by using the corresponding 
  *  ListWrapper<TYPENAME> class.
  *
