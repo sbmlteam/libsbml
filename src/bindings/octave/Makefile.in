@@ -140,15 +140,15 @@ link-sources:
 
 flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include 
 
-%.lo: %.c
-	$(LIBTOOL) --tag=CC --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
+#%.lo: %.c
+#	$(LIBTOOL) --tag=CC --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
 
 	
-%.$(OCTAVEEXT): %.lo
-	$(TOP_SRCDIR)/config/lt_link_helper.sh $(MKOCTFILE_WRAPPER) --libdir $(LIBDIR) $(MKOCTFILE) -o $@ $(flags) $^ ../../libsbml.la $(MKOCTFILE_LIBS)
+#%.$(OCTAVEEXT): %.lo
+#	$(TOP_SRCDIR)/config/lt_link_helper.sh $(MKOCTFILE_WRAPPER) --libdir $(LIBDIR) $(MKOCTFILE) -o $@ $(flags) $^ ../../libsbml.la $(MKOCTFILE_LIBS)
 
-#%.$(OCTAVEEXT): %.c
-#	$(MKOCTFILE) $(flags) $^ -lsbml $(MKOCTFILE_LIBS)
+%.$(OCTAVEEXT): %.c
+	$(MKOCTFILE) $(flags) $^ -lsbml -L../../.libs $(MKOCTFILE_LIBS)
 
 
 # -----------------------------------------------------------------------------
