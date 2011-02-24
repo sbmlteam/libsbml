@@ -72,7 +72,8 @@ endif()
 # create jar
 execute_process(
 	COMMAND "${Java_JAR_EXECUTABLE}"
-		 -cvf ..${PATH_SEP}libsbmlj.jar
+		 -cvfm ..${PATH_SEP}libsbmlj.jar
+		 ../Manifest.txt
 		 ${NATIVE_CLASS_FILES}	
 	WORKING_DIRECTORY "${BIN_DIRECTORY}/java-files"
 )

@@ -35,6 +35,34 @@ find_package(Java COMPONENTS Development REQUIRED)
 include(FindPythonInterp)
 include(${SWIG_USE_FILE})
 
+
+####################################################################
+#
+# create manifest file
+# 
+configure_file (
+  "${CMAKE_CURRENT_SOURCE_DIR}/Manifest.txt.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/Manifest.txt"
+  )
+
+####################################################################
+#
+# ensure that javac, jar and python are available
+# 
+
+if (NOT EXISTS "${Java_JAVAC_EXECUTABLE}")
+	message(FATAL_ERROR "The java language bindings require Java_JAVAC_EXECUTABLE to be set to the javac command.")
+endif()
+
+if (NOT EXISTS "${Java_JAR_EXECUTABLE}")
+	message(FATAL_ERROR "The java language bindings require Java_JAR_EXECUTABLE to be set to the jar command.")
+endif()
+
+if (NOT EXISTS "${PYTHON_EXECUTABLE}")
+	message(FATAL_ERROR "The java language bindings require PYTHON_EXECUTABLE to be set to the python command.")
+endif()
+
+
 ####################################################################
 #
 # determine local dependencies, so as to re-swig if one of them changed
