@@ -356,7 +356,7 @@ create-build-dir: $(libraries)
 	mkdir -p build build/libsbml
 	echo "libsbml" > build/libsbml.pth
 	cp $(libraries)  build/libsbml
-	cp libsbml.py    build/libsbml
+	cp libsbml.py    build/libsbml/__init__.py
 
 installcheck:
 
