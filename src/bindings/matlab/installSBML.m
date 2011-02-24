@@ -201,7 +201,7 @@ function install_win(ismatlab, root, bit64, writeAccess, in_win_installer)
       this_dir = pwd;
       user_dir = pwd;
       disp(sprintf('Copying library files to %s ...', user_dir)); 
-      if (copyLibraries(this_dir, user_dir, lib, root, bit64) == 1)
+      if (copyLibraries(this_dir, user_dir, lib, root, bit64, ismatlab) == 1)
       disp('Copy library files successful');
       disp('All dependencies found');
       else
