@@ -662,14 +662,14 @@ end;
 { function to return flag as to whether to write libraries to other directories directory}
 function GetPython27() : Boolean;
 begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 2) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 1) then
     Result := True
   else
     Result := False;
 end;
 function GetPython26() : Boolean;
 begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 1) then
+  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 0) then
     Result := True
   else
     Result := False;
@@ -677,9 +677,9 @@ end;
 
 function GetPython25() : Boolean;
 begin
-  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 0) then
+{  if (InstallOptionsPage.Values[4] = True) and (PythonPage.SelectedValueIndex = 0) then
     Result := True
-  else
+  else    }
     Result := False;
 end;
 
