@@ -1,19 +1,19 @@
-; Version No is currently 4.2.0
+; Version No is currently 4.3.0
 ; Check before use
 
 
 [Setup]
 AppName=libSBML
-AppVerName=libSBML 4.2.0
+AppVerName=libSBML 4.3.0
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-4.2.0-libxml2-x86
+DefaultDirName={pf}\SBML\libSBML-4.3.0-libxml2-x86
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=.\Output
-OutputBaseFilename=libSBML-4.2.0-win-libxml2-x86
+OutputBaseFilename=libSBML-4.3.0-win-libxml2-x86
 WizardSmallImageFile=.\graphics\libsbml-installer-mini-logo.bmp
 WizardImageFile=.\graphics\libsbml-installer-graphic.bmp
 UsePreviousAppDir=no
@@ -29,18 +29,14 @@ Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\java\*; De
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
-Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python25\libsbml.py; DestDir: {code:GetPython25Dir}; Check: GetPython25
-Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python25\_libsbml.pyd; DestDir: {code:GetPython25Dir}; Check: GetPython25
-Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python26\libsbml.py; DestDir: {code:GetPython26Dir}; Check: GetPython26
 Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\perl\*; DestDir: {code:GetPerlDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
-Source: C:\libsbml_trunk\dev\utilities\win_installer\libsbml\bindings\python\python26\_libsbml.pyd; DestDir: {code:GetPython26Dir}; Check: GetPython26
 
 [Registry]
 Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 4.2.0
+Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 4.3.0
 Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -59,6 +55,7 @@ var
   Python25Present: Boolean;
   Python26Present: Boolean;
   PythonPresent: Boolean;
+  Python27Present: Boolean;
   MatlabVersion: String;
   MatlabRoot: String;
   CSharpRoot: String;
@@ -153,6 +150,25 @@ begin
   Result := Root;
 end;
 
+{function to return python 2.6 dir directory}
+function GetPython27Dir(S : String): String;
+var
+  Root:String;
+  Key: String;
+
+begin
+  Key := '';
+  Root := '';
+  Key := Key + 'Software\Python\PythonCore\2.7\InstallPath\';
+  if RegQueryStringValue(HKLM, Key, '', Root) then begin
+    Root:= Root + 'Lib\site-packages\';
+    Python27Present := True;
+  end else begin
+    Python27Present := False;
+  end;
+  Result := Root;
+end;
+
 function GetJavaDir(Param: String): String;
 begin
   { Return the selected DataDir }
@@ -220,7 +236,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of libSBML 4.2.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of libSBML 4.3.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 3.0.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
 end;
 
@@ -237,11 +253,11 @@ procedure InitializeWizard;
 begin
   {get data from system}
   PreviousInstalledVersion := GetVersion();
-  ThisVersion := '4.2.0';
+  ThisVersion := '4.3.0';
   MatlabRoot := GetMatlabRoot('');
   GetPython25Dir('');
   GetPython26Dir('');
-  if (not Python25Present) and (not Python26Present) then begin
+  if (not Python25Present) and (not Python26Present) and (not Python27Present) then begin
     PythonPresent := False;
   end else begin
     PythonPresent := True;
@@ -297,7 +313,7 @@ begin
     'Select the version of python you wish to install', True, False);
   PythonPage.Add('Python 2.5');
   PythonPage.Add('Python 2.6');
-
+  PythonPage.Add('Python 2.7');
 
   { perl page : location to install perl binding }
   PerlPage := CreateInputDirPage(InstallOptionsPage.ID,
@@ -379,6 +395,7 @@ begin
   case GetPreviousData('PythonVers', '') of
     'Python 2.5': PythonPage.SelectedValueIndex := 0;
     'Python 2.6': PythonPage.SelectedValueIndex := 1;
+    'Python 2.7': PythonPage.SelectedValueIndex := 2;
    else
     PythonPage.SelectedValueIndex := 1;
   end;
@@ -459,6 +476,7 @@ begin
   case PythonPage.SelectedValueIndex of
     0: PythonVers := 'Python 2.5';
     1: PythonVers := 'Python 2.6';
+    2: PythonVers := 'Python 2.7';
    end;
   SetPreviousData(PreviousDataKey, 'PythonVers', PythonVers);
 
@@ -534,6 +552,8 @@ begin
       MsgBox('Python 2.5 cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
     end else if (not Python26Present) and  (PythonPage.SelectedValueIndex = 1) then begin
       MsgBox('Python 2.6 cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
+    end else if (not Python27Present) and  (PythonPage.SelectedValueIndex = 2) then begin
+      MsgBox('Python 2.7 cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
 
     end;
     Result := True;
@@ -620,6 +640,11 @@ begin
         S := S + 'Writing libSBML Python 2.6 files to site-packages directory' + NewLine;
         S := S + '      ' + GetPython26Dir('');
         S := S + NewLine;
+      end else if (PythonPage.SelectedValueIndex = 2) then begin
+        S := S + NewLine;
+        S := S + 'Writing libSBML Python 2.7 files to site-packages directory' + NewLine;
+        S := S + '      ' + GetPython27Dir('');
+        S := S + NewLine;
        end;
   end else begin
       S := S + NewLine;
@@ -635,7 +660,15 @@ begin
   Result:= S;
 end;
 
-{ function to return flag as to whether to write libraries to system directory}
+{ function to return flag as to whether to write libraries to other directories directory}
+function GetPython27() : Boolean;
+begin
+  if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 2) then
+    Result := True
+  else
+    Result := False;
+end;
+
 function GetPython26() : Boolean;
 begin
   if (InstallOptionsPage.Values[5] = True) and (PythonPage.SelectedValueIndex = 1) then
@@ -710,3 +743,10 @@ begin
   { Return the selected DataDir }
   Result := OctavePage.Values[0];
 end;
+
+[Run]
+
+Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.5.exe"; flags: nowait; Check: GetPython25;
+Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.6.exe"; flags: nowait; Check: GetPython26;
+Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.7.exe"; flags: nowait; Check: GetPython27;
+

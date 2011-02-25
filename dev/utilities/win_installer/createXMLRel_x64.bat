@@ -208,10 +208,17 @@ rem bindings/matlab directory
 cd matlab
 copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.mexw64 TranslateSBML.mexw64
 copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.c TranslateSBML.c
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.mexw64 OutputSBML.mexw64
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.m OutputSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.c OutputSBML.c
 copy ..\..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
 copy ..\..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\..\src\bindings\matlab\isoctave.m  isoctave.m
-copy ..\..\..\..\..\..\src\bindings\matlab\install_for_win64installers.m install_win64.m
+copy ..\..\..\..\..\..\src\bindings\matlab\ConvertFormulaToMathML.m  ConvertFormulaToMathML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
+copy ..\..\..\..\..\..\src\bindings\matlab\buildSBML.m  buildSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\installSBML.m  installSBML.m
 copy ..\..\..\..\..\..\src\bindings\matlab\test.xml test.xml
 cd ..
 

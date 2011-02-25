@@ -209,21 +209,37 @@ rem bindings/matlab directory
 cd matlab
 copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
 copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.c TranslateSBML.c
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.mexw32 OutputSBML.mexw32
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.m OutputSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.c OutputSBML.c
 copy ..\..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
 copy ..\..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\..\src\bindings\matlab\isoctave.m  isoctave.m
-copy ..\..\..\..\..\..\src\bindings\matlab\install_for_Win32installers.m install_Win32.m
+copy ..\..\..\..\..\..\src\bindings\matlab\ConvertFormulaToMathML.m  ConvertFormulaToMathML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
+copy ..\..\..\..\..\..\src\bindings\matlab\buildSBML.m  buildSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\installSBML.m  installSBML.m
 copy ..\..\..\..\..\..\src\bindings\matlab\test.xml test.xml
 cd ..
 
 rem bindings/octave directory
 cd octave
 copy ..\..\..\..\..\..\src\bindings\octave\TranslateSBML.mex TranslateSBML.mex
+copy ..\..\..\..\..\..\src\bindings\octave\OutputSBML.mex OutputSBML.mex
+copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\TranslateSBML.c TranslateSBML.c
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.m OutputSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\OutputSBML.c OutputSBML.c
+copy ..\..\..\..\..\..\src\bindings\matlab\Contents.m Contents.m
 copy ..\..\..\..\..\..\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
 copy ..\..\..\..\..\..\src\bindings\matlab\isoctave.m  isoctave.m
+copy ..\..\..\..\..\..\src\bindings\matlab\ConvertFormulaToMathML.m  ConvertFormulaToMathML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
+copy ..\..\..\..\..\..\src\bindings\matlab\buildSBML.m  buildSBML.m
+copy ..\..\..\..\..\..\src\bindings\matlab\installSBML.m  installSBML.m
 copy ..\..\..\..\..\..\src\bindings\matlab\test.xml test.xml
-copy ..\..\..\..\..\..\src\bindings\matlab\install_for_Win32installers.m install_Win32.m
-cd ..
+d ..
 
 rem bindings/csharp directory
 cd csharp
