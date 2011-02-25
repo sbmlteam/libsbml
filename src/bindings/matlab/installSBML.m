@@ -41,139 +41,251 @@ function installSBML
 % and also available online as http://sbml.org/software/libsbml/license.html
 %
 
+% =========================================================================
+% Main loop.
+% =========================================================================
+
+  disp(sprintf('\nInstalling the libSBML MATLAB interface.\n'));
+
+  [matlab_octave, bit64]  = check_system();
 
   % check to see whether the executable exist
-  checkForExecutables();
-
-  [detected_os, matlab, root, bit64, writeAccess, in_win_installer] = determine_system();
-
-  switch detected_os
-    case 0
-      install_win(matlab, root, bit64, writeAccess, in_win_installer);
-    case 1
-      install_mac(matlab, root);
-    case 2
-      install_linux(matlab, root);
-    otherwise
-      error('OS not recognised');
-  end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% check what we are using
-function [detected_os, matlab, root, bit64, writeAccess, in_win_installer] = determine_system
-
-  disp('Checking system ...');
-  disp('Looking at software ...');
-  % matlab = [0, 1]
-  %     0 - octave
-  %     1 - matlab
-  if (strcmp(isoctave(), '0'))
-    matlab = 1;
-    disp('MATLAB detected');
+  % if they do not this function will halt the process asking the user
+  % to build the executables
+  [functioning] = checkForExecutables(matlab_octave);
+  
+  if (functioning == 1)
+    % everything is working - add this directory to path and we are done
+    disp(sprintf('adding %s to path', pwd));
+    addDir(pwd);
+    [root, writeAccess, in_installer] = check_location(matlab_octave, functioning);
   else
-    matlab = 0;
-    disp('Octave detected');
-  end;
-
-  disp('Looking at OS ...');
-  bit64 = 0;
-  % detected_os = [0, 1, 2]
-  %      0 - windows
-  %      1 - mac
-  %      2 - unix
-  if (ispc())
-    detected_os = 0;
-    if (strcmp(computer(), 'PCWIN64') == 1)
-      bit64 = 1;
-      disp('Windows 64 bit OS detected');
+    [root, writeAccess, in_installer] = check_location(matlab_octave, functioning);
+    if ispc()
+      % if we are not in an installer then something has gone wrong
+      if (in_installer == 0)
+        error('Error detected - please contact libsbml-team@caltech.edu for help');
+      else
+        install_win(matlab_octave, root, bit64, writeAccess);
+      end;
+    elseif ismac()
+      install_mac();
+    elseif islinux()
+      install_linux();
     else
-      disp('Windows 32 bit OS detected');
+      error('OS not recognised');
     end;
-  elseif(ismac())
-    detected_os = 1;
-    disp('Mac OS detected');
-  elseif(isunix())
-    detected_os = 2;
-    disp('Linux OS detected');
+  end;
+  
+  testInstallation(matlab_octave, in_installer);
+  
+
+% =========================================================================
+% Support functions.
+% =========================================================================
+
+% 
+% Assess our computing environment.
+% -------------------------------------------------------------------------
+function [matlab_octave, bit64] = check_system()
+  disp('* Doing preliminary checks of runtime environment ...');
+
+  if (strcmp(isoctave(), '0'))
+    matlab_octave = 'MATLAB';
+    disp('  - This appears to be MATLAB and not Octave.');
   else
-    error('Unable to establish operating system');
+    matlab_octave = 'Octave';
+    disp('  - This appears to be Octave and not MATLAB.');
   end;
 
-  root = '';
-  in_win_installer = 0;
-  if (detected_os == 0)
-    disp('Checking directory structure ...');
-    
-    % are we in the windows installer
-    % should be in directory ../bindings/matlab
-    [remain, first] = fileparts(pwd);
-    [remain1, second] = fileparts(remain);
-    [remain2, third] = fileparts(remain1);
-   
-    if (matlab == 1)
-      if (strcmp(first, 'matlab') && strcmp(second, 'bindings') && ~strcmp(third, 'src'))
-        root = remain1;
-        in_win_installer = 1;
-      else
-      % we might be in the windows installer but in a location the user chose
-      % for the matlab bindings
-      % buildLibSBML will not exist in this directory
-        if (exist([pwd, filesep, 'buildSBML.m']) == 0)
-          in_win_installer = 1;
-          count = 1;
-          while(exist(root, 'dir') == 0 && count < 3)
-            root = input(sprintf('%s: ', ...
-              'Please enter the location of the top-level libsbml directory'), 's');
-            count = count + 1;
-          end;
-          if (exist(root, 'dir') == 0)
-            error('Failed to find libsbml directory');
-          end;        
-        end;
-      end;
-	else
-      if (strcmp(first, 'octave') && strcmp(second, 'bindings') && ~strcmp(third, 'src'))
-        root = remain1;
-        in_win_installer = 1;
-      else
-      % we might be in the windows installer but in a location the user chose
-      % for the matlab bindings
-      % buildLibSBML will not exist in this directory
-        if (exist([pwd, filesep, 'buildSBML.m']) == 0)
-          in_win_installer = 1;
-          count = 1;
-          while(exist(root, 'dir') == 0 && count < 3)
-            root = input(sprintf('%s: ', ...
-              'Please enter the location of the top-level libsbml directory'), 's');
-            count = count + 1;
-          end;
-          if (exist(root, 'dir') == 0)
-            error('Failed to find libsbml directory');
-          end;        
-        end;
-      end;
-	end;
+  bit64 = 32;
+  if ispc()
+    if strcmp(computer(), 'PCWIN64') == 1
+      bit64 = 64;
+      disp(sprintf('  - %s reports the OS is Windows 64-bit.', matlab_octave));
+    else
+      disp(sprintf('  - %s reports the OS is Windows 32-bit.', matlab_octave));
+    end;
+  elseif ismac()
+    if strcmp(computer(), 'MACI64') == 1
+      bit64 = 64;
+      disp(sprintf('  - %s reports the OS is 64-bit MacOS.', matlab_octave));
+    else
+      % Reading http://www.mathworks.com/help/techdoc/ref/computer.html
+      % it is still not clear to me what a non-64-bit MacOS will report.
+      % Let's not assume the only other alternative is 32-bit, since we
+      % actually don't care here.  Let's just say "macos".
+      %
+      disp(sprintf('  - %s reports the OS is MacOS.', matlab_octave));
+    end;
+  elseif isunix()
+    if strcmp(computer(), 'GLNXA64') == 1
+      bit64 = 64;
+      disp(sprintf('  - %s reports the OS is 64-bit Linux.', matlab_octave));
+    else
+      disp(sprintf('  - %s reports the OS is 32-bit Linux.', matlab_octave));
+    end;
   end;
 
-  % check whether we have write access to this directory
+
+%
+% Assess our location in the file system.
+% -------------------------------------------------------------------------
+% Possible values returned:
+%   LOCATION:
+%     'installed'  -> installation directory
+%     'source'    -> libsbml source tree
+%   
+%  WRITEACCESS:
+%     1 -> we can write in this directory
+%     0 -> we can't write in this directory
+%
+function [location, writeAccess, in_installer] = check_location(matlab_octave, ...
+    functioning)
+  
+  myDisp('* Trying to establish our location ...', functioning);
+  
+  % This is where things get iffy.  There are a lot of possibilities, and 
+  % we have to resort to heuristics.
+  % 
+  % Linux and Mac: we look for 2 possibilities
+  % - installation dir ends in "libsbml/bindings/matlab"
+  %   Detect it by looking for ../../VERSION.txt.
+  %   Assume we're in .../share/libsbml/bindings/matlab and that our
+  %   library is in   .../lib/
+  %
+  % - source dir ends in "libsbml/src/bindings/matlab"
+  %   Detect it by looking for ../../../VERSION.txt.
+  %   Assume our library is in ../../
+  % 
+
+  in_installer = 0;
+  
+  [remain, first] = fileparts(pwd);
+  if strcmpi(matlab_octave, 'matlab')
+    if ~strcmp(first, 'matlab')
+      if ~ispc()
+        error_incorrect_dir('matlab');
+      else
+        in_installer = 1;
+      end;
+    else
+      myDisp('  - We are in the libSBML subdirectory for Matlab.', functioning);
+    end;
+  else
+    if ~strcmp(first, 'octave')
+      if ~ispc()
+        error_incorrect_dir('octave');
+      else
+        in_installer = 1;
+      end;
+    else
+      myDisp('  - We are in the libSBML subdirectory for Octave.', functioning);
+    end;
+  end;
+
+
+  location = '';
+  % if in_installer == 1 then we are in the windows installer but in
+  % path provided by the user
+  % checking further is pointless
+  if (in_installer == 0)
+    [above_bindings, bindings] = fileparts(remain);
+    if exist(fullfile(above_bindings, 'VERSION.txt'))
+      myDisp('  - We appear to be in the installation target directory.', functioning);  
+      in_installer = 1;
+      if ispc()
+        location = above_bindings;
+      else
+        location = 'installed';
+      end;
+    else
+      [libsbml_root, src] = fileparts(above_bindings);
+      if exist(fullfile(libsbml_root, 'VERSION.txt'))
+        myDisp('  - We appear to be in the libSBML source tree.', functioning); 
+        if ispc()
+          location = libsbml_root;
+        else
+          location = 'source';
+        end;
+      else
+        if ispc()
+          % we might be in the windows installer but in a location the user chose
+          % for the bindings
+          % Makefile.in will not exist in this directory
+          if (exist([pwd, filesep, 'Makefile.in']) == 0)
+            in_installer = 1;
+          else
+             % We don't know where we are.
+            if strcmpi(matlab_octave, 'MATLAB')
+              error_incorrect_dir('matlab');
+            else
+              error_incorrect_dir('octave');
+            end;         
+          end;        
+        else
+          % We don't know where we are.
+          if strcmpi(matlab_octave, 'MATLAB')
+            error_incorrect_dir('matlab');
+          else
+            error_incorrect_dir('octave');
+          end;
+        end;
+      end;
+    end;
+  end;
+  
+  % if we are in the windows installer but in a location the user chose
+  % for the bindings
+  % we need the user to tell use the root directory for the rest of libsbml
+  % unless we are already functioning
+  if (ispc() && functioning == 0 && in_installer == 1 && isempty(location))
+    count = 1;
+    while(exist(location, 'dir') == 0 && count < 3)
+    location = input(sprintf('%s: ', ...
+      'Please enter the location of the top-level libsbml directory'), 's');
+    count = count + 1;
+    end;
+    if (exist(location, 'dir') == 0)
+      error('Failed to find libsbml directory');
+    end; 
+  end;
+
+  % Test that it looks like we have the expected pieces in this directory.
+  % We don't want to assume particular paths, because we might be
+  % getting run from the libSBML source tree or the installed copy of
+  % the matlab bindings sources.  So, we test for just a couple of
+  % things: the tail of the name of the directory in which this file is
+  % located (should be either "matlab" or "octave") and the presence of
+  % another file, "OutputSBML.c", which became part of libsbml at the
+  % same time this new build scheme was introduced.
+
+  our_name   = sprintf('%s.m', mfilename);
+  other_name = 'OutputSBML.c';
+  if ~exist(fullfile(pwd, our_name), 'file') ...
+        || ~exist(fullfile(pwd, other_name), 'file')
+    error_incorrect_dir('matlab');
+  end;  
+
+  % Check whether we have write access to this directory.
+
   writeAccess = 1;
-  if (fopen('temp', 'w') == -1)
+  if fopen('temp', 'w') == -1
+    myDisp('  - We do not have write access here -- will write elsewhere.', functioning);
     writeAccess = 0;
+  else
+    myDisp('  - We have write access here!  That makes us happy.', functioning);
   end;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% tell user we are in the wrong location
-function report_incorrect_dir(this_dir, expected)
 
-  message = sprintf('You are in directory %s \nbut should be in %s', this_dir, expected);
-  error(message);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  
 % install on windows
-function install_win(ismatlab, root, bit64, writeAccess, in_win_installer)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function install_win(matlab_octave, root, bit64, writeAccess)
 
   % list the library files
-  if (bit64 == 0)
+  if (bit64 == 32)
     lib{1} = ['libsbml.lib'];
     lib{2} = ['libsbml.dll'];
     lib{3} = ['libxml2.lib'];
@@ -192,63 +304,47 @@ function install_win(ismatlab, root, bit64, writeAccess, in_win_installer)
     lib{7} = ['bzip2.lib'];
     lib{8} = ['libbz2.dll'];
   end;
+  
+  % if we can write here do - otherwise find somewhere else
+  if (writeAccess == 1)% must be 1 0 for testing
+    this_dir = pwd;
+    user_dir = pwd;
+  else
+    this_dir = pwd;
+    if strcmpi(matlab_octave, 'matlab')
+      user_dir = userpath;
+      user_dir = user_dir(1:length(user_dir)-1);
+	  else
+	    user_dir = matlabroot;
+	  end;
+  end;
+ 
 
-  % if we are in windows installer
-  if (in_win_installer == 1)
-    % if writeAccess
-    % copy library files to this dir
-    if (writeAccess == 1)% must be 1 0 for testing
-      this_dir = pwd;
-      user_dir = pwd;
-      disp(sprintf('Copying library files to %s ...', user_dir)); 
-      if (copyLibraries(this_dir, user_dir, lib, root, bit64, ismatlab) == 1)
-      disp('Copy library files successful');
-      disp('All dependencies found');
-      else
-      error (sprintf('%s\nNot all dependencies could be found\n%s%s', ...
-       'Error copying files', ...
+  disp(sprintf('Copying library files to %s ...', user_dir)); 
+  if (copyLibraries(this_dir, user_dir, lib, root, bit64, matlab_octave) == 1)
+    disp('Copy library files successful');
+    disp('All dependencies found');
+  else
+    error (sprintf('%s\nNot all dependencies could be found\n%s%s', ...
+      'Error copying files', ...
       'expected the dependencies to be in ', pwd));
-      end;
+  end;
+  
+  if (writeAccess == 0)
+    disp(sprintf('Copying matlab binding files to %s ...', user_dir)); 
+    if (copyMatlabDir(this_dir, user_dir) == 1)
+      disp('Copy matlab binding files successful');
     else
-      % copy executables/scripts and library files 
-      % cd to that dir
-      this_dir = pwd;
-	    if (ismatlab)
-        user_dir = userpath;
-        user_dir = user_dir(1:length(user_dir)-1);
-	    else
-	      user_dir = matlabroot;
-	    end;
-      disp(sprintf('Copying library files to %s ...', user_dir)); 
-      if (copyLibraries(this_dir, user_dir, lib, root, bit64, ismatlab) == 1)
-        disp('Copy library files successful');
-        disp('All dependencies found');
-      else
-        error (sprintf('%s\nNot all dependencies could be found\n%s%s', ...
-        'Error copying files', ...
-        'expected the dependencies to be in ', pwd));
-      end;
-      disp(sprintf('Copying matlab binding files to %s ...', user_dir)); 
-      if (copyMatlabDir(this_dir, user_dir) == 1)
-        disp('Copy matlab binding files successful');
-      else
-        error('Cannot copy matlab binding files on this system');
-      end;
+      error('Cannot copy matlab binding files on this system');
     end;
   end;
-
+    
   addDir(pwd);
-
-  success = testInstallation(ismatlab, in_win_installer, 1);
-
-  if (success == 1)
-  disp ('Installation completed');
-  end;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % install on mac
-function install_mac(ismatlab, root)
+function install_mac()
 
   % check that libsbml is in usr/local/lib directory
   bin_dir = [];
@@ -279,15 +375,10 @@ function install_mac(ismatlab, root)
   
   addDir(pwd);
 
-  success = testInstallation(ismatlab, 0, 0);
-  
-  if (success == 1)
-    disp ('Installation completed');
-  end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % install on linux
-function install_linux(ismatlab, root)
+function install_linux()
 
   % check that libsbml is in usr/local/lib directory
   bin_dir = [];
@@ -318,11 +409,6 @@ function install_linux(ismatlab, root)
   
   addDir(pwd);
  
-  success = testInstallation(ismatlab, 0, 0);
-  
-  if (success == 1)
-    disp ('Installation completed');
-  end;
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % add directory to the matlab path
@@ -337,23 +423,23 @@ function addDir(name)
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check for executables and that they are right ones
-function checkForExecutables()  
+function success = checkForExecutables(matlab_octave)  
   disp('Checking for executables ...');
   transFile = strcat('TranslateSBML.', mexext());
   outFile = strcat('OutputSBML.', mexext());
 
-  if (strcmp(isoctave(), '0'))
-	if (~(exist(transFile) ~= 0 && exist(outFile) ~= 0))     
-	  error(sprintf('%s\n%s', 'Executables not found', ...
-		'Run the buildSBML script to build the relevant files'));
-	elseif (~((strcmp(which(transFile), [pwd, filesep, transFile])) && ...
-				(strcmp(which(outFile), [pwd, filesep, outFile]))))     
-	% they exist but are they the right ones         
-	  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
-		'Run the buildSBML script to build the relevant files for this installation'));
-	else
-	  disp('Executables found');
-	end;
+  if strcmpi(matlab_octave, 'matlab')
+    if (~(exist(transFile) ~= 0 && exist(outFile) ~= 0))     
+      error(sprintf('%s\n%s', 'Executables not found', ...
+      'Run the buildSBML script to build the relevant files'));
+    elseif (~((strcmp(which(transFile), [pwd, filesep, transFile])) && ...
+          (strcmp(which(outFile), [pwd, filesep, outFile]))))     
+    % they exist but are they the right ones         
+      error(sprintf('%s\n%s', 'Other executables from other installations found', ...
+      'Run the buildSBML script to build the relevant files for this installation'));
+    else
+      disp('Executables found');
+    end;
   else
     % octave is much more picky about whether the files exist
 	% it wants to find the libraries at the same time
@@ -367,122 +453,120 @@ function checkForExecutables()
 	  % they exist but are they the right ones    
 	  %  error(sprintf('%s\n%s', 'Other executables from other installations found', ...
 	  %	'Run the buildLibSBML script to build the relevant files for this installation'));
-	else
-	  disp('Executables found');
-	end;
+    else
+	    disp('Executables found');
+	  end;
   end;
+  
+  success = doesItRun(matlab_octave);
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % test the installation
-function success = testInstallation(ismatlab, in_win_installer, inwin)
-  if (ismatlab)  
-    success = 1;
-    try
-      disp('checking for TranslateSBML');
-      M = TranslateSBML('test.xml');
-    catch
-      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
-          'Add the path to the libraries to your matlab path'));
-      success = 0;
-    end;
+function success = testInstallation(matlab_octave, in_installer, inwin)
+  disp(sprintf('\nTesting the installation.\n'));
 
+  success = 1;
+
+  try
+    disp('checking for TranslateSBML');
+    M = TranslateSBML('test.xml');
+  catch
+    disp(sprintf('Installation failed - %s cannot find all the libraries\n%s\n%s', ...
+        matlab_octave, 'Add the path to the libraries to your path', ...
+        'If this fails please contact the libsbml-team@caltech.edu'));
+    success = 0;
+  end;
+
+  if strcmpi(matlab_octave, 'matlab')
     outFile = [tempdir, filesep, 'test-out.xml'];
-    if (success == 1)
-      try
-        disp('checking OutputSBML');
-        OutputSBML(M, outFile);
-      catch
-      disp(sprintf('Installation failed - MATLAB cannot find all the libraries\n%s', ...
-          'Add the path to the libraries to your matlab path'));
-        success = 0;
-      end;
-    end;
-    if (in_win_installer == 0)
-      if (success == 1)
-        disp ('running tests for TranslateSBML');
-        cd test;
-        pass = testBinding(1);
-        cd ..;
-        if (pass == 0)
-          disp('TranslateSBML successful');
-        else
-          disp('Binding present but problem detected. Seek help.');
-          success = 0;
-        end;
-      end;
-
-      if (success == 1)
-        disp('running tests for OutputSBML');
-        cd test;
-        pass = testOutput(tempdir, 1);
-        cd ..;
-        if (pass == 0)
-          disp('OutputSBML successful');
-        else
-          disp('Output function present but problem detected. Seek help.');
-          success = 0;
-        end;
-      end;
-    end;
   else
-    success = 1;
+    if ispc()
+      outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
+    else
+      outFile = [tempdir, 'test-out.xml'];
+    end;
+  end;
+  
+  if (success == 1)
     try
-      disp('checking for TranslateSBML');
-      M = TranslateSBML('test.xml');
+      disp('checking OutputSBML');
+      OutputSBML(M, outFile);
     catch
-      disp(sprintf('Installation failed - Octave cannot find all the libraries\n%s', ...
-          'Add the path to the libraries to your Octave path'));
+      disp(sprintf('Installation failed - %s cannot find all the libraries\n%s\n%s', ...
+        matlab_octave, 'Add the path to the libraries to your path', ...
+        'If this fails please contact the libsbml-team@caltech.edu'));
       success = 0;
     end;
-
-    if (inwin)
-    outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
-    else
-        outFile = [tempdir, 'test-out.xml'];
-    end;
+  end;
+  
+  %if we are in the src tree run through all the tests
+  if (in_installer == 0)
     if (success == 1)
-      try
-        disp('checking OutputSBML');
-        OutputSBML(M, outFile);
-      catch
-      disp(sprintf('Installation failed - Octave cannot find all the libraries\n%s', ...
-          'Add the path to the libraries to your octave path'));
+      disp ('running tests for TranslateSBML');
+      cd test;
+      pass = testBinding(1);
+      cd ..;
+      if (pass == 0)
+        disp('TranslateSBML successful');
+      else
+        disp('Binding present but problem detected. Seek help.');
         success = 0;
       end;
     end;
-    if (in_win_installer == 0)
-      if (success == 1)
-        disp ('running tests for TranslateSBML');
-        cd test;
-        pass = testBinding(1);
-        cd ..;
-        if (pass == 0)
-          disp('TranslateSBML successful');
-        else
-          disp('Binding present but problem detected. Seek help.');
-          success = 0;
-        end;
-      end;
 
-      if (success == 1)
-        disp('running tests for OutputSBML');
-        cd test;
-        pass = testOutput([tempdir, 'temp'], 1);
-        cd ..;
-        if (pass == 0)
-          disp('OutputSBML successful');
-        else
-          disp('Output function present but problem detected. Seek help.');
-          success = 0;
-        end;
+    if (success == 1)
+      disp('running tests for OutputSBML');
+      cd test;
+      pass = testOutput([tempdir, 'temp'], 1);
+      cd ..;
+      if (pass == 0)
+        disp('OutputSBML successful');
+      else
+        disp('Output function present but problem detected. Seek help.');
+        success = 0;
       end;
     end;
+  end;
+  
+  if (success == 1)
+    disp ('Installation successfully completed');
+  end;
+    
+  
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% test the installation
+function success = doesItRun(matlab_octave)
+    
+  success = 1;
+    
+  try
+    M = TranslateSBML('test.xml');
+  catch
+    success = 0;
+  end;
+
+  if strcmpi(matlab_octave, 'matlab')
+    outFile = [tempdir, filesep, 'test-out.xml'];
+  else
+    if ispc()
+      outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
+    else
+      outFile = [tempdir, 'test-out.xml'];
+    end;
+  end;
+      
+  if (success == 1)
+    try
+      OutputSBML(M, outFile, 1);
+    catch
+      success = 0;
+    end;
   end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % copies the library files to given directory
-function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64, ismatlab)
+function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64, matlab_octave)
   
   copied = 0;
   cd (target_dir);
@@ -497,7 +581,7 @@ function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64, ismatlab
   end;
   % copy the necessary files
   for i=1:8
-    if (bit64 == 0)
+    if (bit64 == 32)
       if (rem(i,2) == 1)
         copyfile([root, filesep, 'win32', filesep, 'lib', filesep, lib{i}], pwd);
       else
@@ -514,23 +598,23 @@ function copied = copyLibraries(orig_dir, target_dir, lib, root, bit64, ismatlab
  % all files should be in this dir
   disp('Checking for library files ...');
   copied = 1;
-  if (ismatlab)
-	  for i = 1:8
-		if (strcmp(which(lib{i}), [pwd, filesep, lib{i}]))
-		  disp(sprintf('%s found', lib{i}));
-		else
-		  disp(sprintf('%s not found', lib{i}));
-		  copied = 0;
-		end;
+  if strcmpi(matlab_octave, 'matlab')	  
+    for i = 1:8
+      if (strcmp(which(lib{i}), [pwd, filesep, lib{i}]))
+        disp(sprintf('%s found', lib{i}));
+      else
+        disp(sprintf('%s not found', lib{i}));
+        copied = 0;
+      end;
 	  end; 
   else
-      for i = 1:8
+    for i = 1:8
 	    if (myExist(lib{i}) == 0)
-		  disp(sprintf('%s not found', lib{i}));
-		  copied = 0;
-		else
-		  disp(sprintf('%s found', lib{i}));
-		end;
+		    disp(sprintf('%s not found', lib{i}));
+        copied = 0;
+      else
+        disp(sprintf('%s found', lib{i}));
+      end;
 	  end;
   end;
   cd(orig_dir);
@@ -571,3 +655,24 @@ function found = myExist(filename)
 	end;
 	i = i+1;
   end;
+
+% 
+% Print error about being in the wrong location.
+% -------------------------------------------------------------------------
+function error_incorrect_dir(expected)
+  message = sprintf('\n%s\n%s%s%s\n%s\n%s%s%s\n%s\n', ...
+      'This script needs to be invoked from the libSBML subdirectory ', ...
+      'ending in "', expected, '". However, it is being invoked', ...
+      'from the directory', '   "', pwd, '"', ...
+      'instead.  Please change your working directory and re-run this script.');
+  error(message);
+
+  
+  
+%
+% only display the message if we are running in non-silent mode
+%
+  function myDisp(message, silent);
+    if (silent == 0)
+      disp(message);
+    end;
