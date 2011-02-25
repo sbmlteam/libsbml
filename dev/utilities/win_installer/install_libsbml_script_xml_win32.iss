@@ -257,6 +257,7 @@ begin
   MatlabRoot := GetMatlabRoot('');
   GetPython25Dir('');
   GetPython26Dir('');
+  GetPython27Dir('');
   if (not Python25Present) and (not Python26Present) and (not Python27Present) then begin
     PythonPresent := False;
   end else begin
