@@ -9,7 +9,7 @@ AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-4..0-libxml2-x64
+DefaultDirName={pf}\SBML\libSBML-4.3.0-libxml2-x64
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=.\Output
@@ -256,6 +256,7 @@ begin
   MatlabRoot := GetMatlabRoot('');
   GetPython25Dir('');
   GetPython26Dir('');
+  GetPython27Dir('');
   if (not Python26Present) and (not Python27Present) then begin
     PythonPresent := False;
   end else begin
@@ -302,7 +303,6 @@ begin
   InstallOptionsPage.Add('Install C# language interface');
   InstallOptionsPage.Add('Install Java language interface');
   InstallOptionsPage.Add('Install MATLAB language interface');
-  InstallOptionsPage.Add('Install Octave language interface');
   InstallOptionsPage.Add('Install Perl language interface');
   InstallOptionsPage.Add('Install Python language interface');
 
@@ -741,8 +741,9 @@ begin
   { Return the selected DataDir }
   Result := OctavePage.Values[0];
 end;
+
 [Run]
 
-Filename: "{app}\bindings\python\libsbml-4.3.0.win64-py2.6.exe"; flags: nowait; Check: GetPython26;
-Filename: "{app}\bindings\python\libsbml-4.3.0.win64-py2.7.exe"; flags: nowait; Check: GetPython27;
+Filename: "{app}\bindings\python\libsbml-4.3.0.win-amd64-py2.6.exe"; flags: nowait; Check: GetPython26;
+Filename: "{app}\bindings\python\libsbml-4.3.0.win-amd64-py2.7.exe"; flags: nowait; Check: GetPython27;
 
