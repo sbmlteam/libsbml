@@ -390,6 +390,9 @@
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\SBMLNamespacesList.cs">
       <SubType>Code</SubType>
     </Compile>	
+	<Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\XMLConstructorException.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="..\..\..\..\src\bindings\csharp\Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>	
