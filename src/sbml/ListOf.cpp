@@ -35,6 +35,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBO.h>
 #include <sbml/common/common.h>
+#include <sbml/common/operationReturnValues.h>
 
 /** @cond doxygen-ignored */
 
@@ -137,6 +138,7 @@ ListOf::clone () const
 int
 ListOf::append (const SBase* item)
 {
+  if (item == NULL) return LIBSBML_INVALID_OBJECT;
   return appendAndOwn( item->clone() );
 }
 
@@ -148,6 +150,8 @@ ListOf::append (const SBase* item)
 int
 ListOf::appendAndOwn (SBase* item)
 {
+  if (item == NULL) return LIBSBML_INVALID_OBJECT;
+  
   bool okayToAdd = false;
   /* okay to add the object if
    * 1) first object to be added to listOf doesnt have type
