@@ -200,6 +200,24 @@ START_TEST (test_Constraint_createWithNS )
 }
 END_TEST
 
+START_TEST (test_Constraint_accessWithNULL )
+{
+  fail_unless( Constraint_clone(NULL) == NULL );
+  fail_unless( Constraint_createWithNS(NULL) == NULL );
+
+  Constraint_free(NULL);
+
+  fail_unless( Constraint_getMath(NULL) == NULL );
+  fail_unless( Constraint_getMessage(NULL) == NULL );
+  fail_unless( Constraint_getMessageString(NULL) == NULL );
+  fail_unless( Constraint_getNamespaces(NULL) == NULL );
+  fail_unless( Constraint_isSetMath(NULL) == 0);
+  fail_unless( Constraint_isSetMessage(NULL) == 0);
+  fail_unless( Constraint_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Constraint_setMessage(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Constraint_unsetMessage(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_Constraint (void)
@@ -212,12 +230,13 @@ create_suite_Constraint (void)
                              ConstraintTest_setup,
                              ConstraintTest_teardown );
 
-  tcase_add_test( tcase, test_Constraint_create      );
-  //tcase_add_test( tcase, test_Constraint_createWithMath      );
-  tcase_add_test( tcase, test_Constraint_free_NULL   );
-  tcase_add_test( tcase, test_Constraint_setMath     );
-  tcase_add_test( tcase, test_Constraint_setMessage  );
-  tcase_add_test( tcase, test_Constraint_createWithNS         );
+  tcase_add_test( tcase, test_Constraint_create           );
+  //tcase_add_test( tcase, test_Constraint_createWithMath );
+  tcase_add_test( tcase, test_Constraint_free_NULL        );
+  tcase_add_test( tcase, test_Constraint_setMath          );
+  tcase_add_test( tcase, test_Constraint_setMessage       );
+  tcase_add_test( tcase, test_Constraint_createWithNS     );
+  tcase_add_test( tcase, test_Constraint_accessWithNULL   );
 
   suite_add_tcase(suite, tcase);
 

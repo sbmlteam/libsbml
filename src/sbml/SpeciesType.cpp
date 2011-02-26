@@ -690,6 +690,7 @@ LIBSBML_EXTERN
 void
 SpeciesType_free (SpeciesType_t *st)
 {
+  if (st != NULL)
   delete st;
 }
 

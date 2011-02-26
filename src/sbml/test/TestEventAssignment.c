@@ -206,6 +206,26 @@ START_TEST (test_EventAssignment_createWithNS )
 }
 END_TEST
 
+START_TEST (test_EventAssignment_accessWithNULL)
+{
+  fail_unless( EventAssignment_clone(NULL) == NULL );
+  fail_unless( EventAssignment_containsUndeclaredUnits(NULL) == 0 );
+  fail_unless( EventAssignment_createWithNS(NULL) == NULL );
+  
+  EventAssignment_free(NULL);
+
+  fail_unless( EventAssignment_getDerivedUnitDefinition(NULL) == NULL );
+  fail_unless( EventAssignment_getMath(NULL) == NULL );
+  fail_unless( EventAssignment_getNamespaces(NULL) == NULL );
+  fail_unless( EventAssignment_getVariable(NULL) == NULL );
+  fail_unless( EventAssignment_isSetMath(NULL) == 0 );
+  fail_unless( EventAssignment_isSetVariable(NULL) == 0 );
+  fail_unless( EventAssignment_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( EventAssignment_setVariable(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( EventAssignment_setVariable(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+}
+END_TEST
+
 
 Suite *
 create_suite_EventAssignment (void)
@@ -218,12 +238,13 @@ create_suite_EventAssignment (void)
                              EventAssignmentTest_setup,
                              EventAssignmentTest_teardown );
 
-  tcase_add_test( tcase, test_EventAssignment_create      );
-  //tcase_add_test( tcase, test_EventAssignment_createWith  );
-  tcase_add_test( tcase, test_EventAssignment_free_NULL   );
-  tcase_add_test( tcase, test_EventAssignment_setVariable );
-  tcase_add_test( tcase, test_EventAssignment_setMath     );
-  tcase_add_test( tcase, test_EventAssignment_createWithNS         );
+  tcase_add_test( tcase, test_EventAssignment_create         );
+  //tcase_add_test( tcase, test_EventAssignment_createWith   );
+  tcase_add_test( tcase, test_EventAssignment_free_NULL      );
+  tcase_add_test( tcase, test_EventAssignment_setVariable    );
+  tcase_add_test( tcase, test_EventAssignment_setMath        );
+  tcase_add_test( tcase, test_EventAssignment_createWithNS   );
+  tcase_add_test( tcase, test_EventAssignment_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

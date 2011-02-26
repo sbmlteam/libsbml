@@ -1559,6 +1559,184 @@ START_TEST (test_Model_conversionFactor)
 END_TEST
 
 
+START_TEST (test_Model_accessWithNULL)
+{
+  fail_unless(Model_addCompartment(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addCompartmentType(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addConstraint(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addEvent(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addFunctionDefinition(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addInitialAssignment(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+#ifdef USE_LAYOUT
+  fail_unless(Model_addLayout(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+#endif
+  fail_unless(Model_addParameter(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addReaction(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addRule(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addSpecies(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addSpeciesType(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_addUnitDefinition(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_clone(NULL) == NULL);
+  fail_unless(Model_createAlgebraicRule(NULL) == NULL);
+  fail_unless(Model_createAssignmentRule(NULL) == NULL);
+  fail_unless(Model_createCompartment(NULL) == NULL);
+  fail_unless(Model_createCompartmentType(NULL) == NULL);
+  fail_unless(Model_createConstraint(NULL) == NULL);
+  fail_unless(Model_createDelay(NULL) == NULL);
+  fail_unless(Model_createEvent(NULL) == NULL);
+  fail_unless(Model_createEventAssignment(NULL) == NULL);
+  fail_unless(Model_createFunctionDefinition(NULL) == NULL);
+  fail_unless(Model_createInitialAssignment(NULL) == NULL);
+  fail_unless(Model_createKineticLaw(NULL) == NULL);
+  fail_unless(Model_createKineticLawLocalParameter(NULL) == NULL);
+  fail_unless(Model_createKineticLawParameter(NULL) == NULL);
+#ifdef USE_LAYOUT
+  fail_unless(Model_createLayout(NULL) == NULL);
+#endif
+  fail_unless(Model_createModifier(NULL) == NULL);
+  fail_unless(Model_createParameter(NULL) == NULL);
+  fail_unless(Model_createProduct(NULL) == NULL);
+  fail_unless(Model_createRateRule(NULL) == NULL);
+  fail_unless(Model_createReactant(NULL) == NULL);
+  fail_unless(Model_createReaction(NULL) == NULL);
+  fail_unless(Model_createSpecies(NULL) == NULL);
+  fail_unless(Model_createSpeciesType(NULL) == NULL);
+  fail_unless(Model_createTrigger(NULL) == NULL);
+  fail_unless(Model_createUnit(NULL) == NULL);
+  fail_unless(Model_createUnitDefinition(NULL) == NULL);
+  fail_unless(Model_createWithNS(NULL) == NULL);
+
+  Model_free(NULL);
+
+  fail_unless(Model_getAreaUnits(NULL) == NULL);
+  fail_unless(Model_getCompartment(NULL, 0) == NULL);
+  fail_unless(Model_getCompartmentById(NULL, NULL) == NULL);
+  fail_unless(Model_getCompartmentType(NULL, 0) == NULL);
+  fail_unless(Model_getCompartmentTypeById(NULL, NULL) == NULL);
+  fail_unless(Model_getConstraint(NULL, 0) == NULL);
+  fail_unless(Model_getConversionFactor(NULL) == NULL);
+  fail_unless(Model_getEvent(NULL, 0) == NULL);
+  fail_unless(Model_getEventById(NULL, NULL) == NULL);
+  fail_unless(Model_getExtentUnits(NULL) == NULL);
+  fail_unless(Model_getFunctionDefinition(NULL, 0) == NULL);
+  fail_unless(Model_getFunctionDefinitionById(NULL, NULL) == NULL);
+  fail_unless(Model_getId(NULL) == NULL);
+  fail_unless(Model_getInitialAssignment(NULL, 0) == NULL);
+  fail_unless(Model_getInitialAssignmentBySym(NULL, NULL) == NULL);
+#ifdef USE_LAYOUT
+  fail_unless(Model_getLayout(NULL, 0) == NULL);
+#endif
+  fail_unless(Model_getLengthUnits(NULL) == NULL);
+  fail_unless(Model_getListOfCompartments(NULL) == NULL);
+  fail_unless(Model_getListOfCompartmentTypes(NULL) == NULL);
+  fail_unless(Model_getListOfConstraints(NULL) == NULL);
+  fail_unless(Model_getListOfEvents(NULL) == NULL);
+  fail_unless(Model_getListOfFunctionDefinitions(NULL) == NULL);
+  fail_unless(Model_getListOfInitialAssignments(NULL) == NULL);
+#ifdef USE_LAYOUT
+  fail_unless(Model_getListOfLayouts(NULL) == NULL);  
+#endif
+  fail_unless(Model_getListOfParameters(NULL) == NULL);
+  fail_unless(Model_getListOfReactions(NULL) == NULL);
+  fail_unless(Model_getListOfRules(NULL) == NULL);
+  fail_unless(Model_getListOfSpecies(NULL) == NULL);
+  fail_unless(Model_getListOfSpeciesTypes(NULL) == NULL);
+  fail_unless(Model_getListOfUnitDefinitions(NULL) == NULL);
+  fail_unless(Model_getModelHistory(NULL) == NULL);
+  fail_unless(Model_getName(NULL) == NULL);
+  fail_unless(Model_getNamespaces(NULL) == NULL);
+  fail_unless(Model_getNumCompartments(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumCompartmentTypes(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumConstraints(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumEvents(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumFunctionDefinitions(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumInitialAssignments(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumParameters(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumReactions(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumRules(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumSpecies(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumSpeciesTypes(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumSpeciesWithBoundaryCondition(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getNumUnitDefinitions(NULL) == SBML_INT_MAX);
+  fail_unless(Model_getParameter(NULL, 0) == NULL);
+  fail_unless(Model_getParameterById(NULL, NULL) == NULL);
+  fail_unless(Model_getReaction(NULL, 0) == NULL);
+  fail_unless(Model_getReactionById(NULL, NULL) == NULL);
+  fail_unless(Model_getRule(NULL, 0) == NULL);
+  fail_unless(Model_getRuleByVar(NULL, NULL) == NULL);
+  fail_unless(Model_getSpecies(NULL, 0) == NULL);
+  fail_unless(Model_getSpeciesById(NULL, NULL) == NULL);
+  fail_unless(Model_getSpeciesReferenceById(NULL, NULL) == NULL);
+  fail_unless(Model_getSpeciesType(NULL, 0) == NULL);
+  fail_unless(Model_getSpeciesTypeById(NULL, NULL) == NULL);
+  fail_unless(Model_getSubstanceUnits(NULL) == NULL);
+  fail_unless(Model_getTimeUnits(NULL) == NULL);
+  fail_unless(Model_getUnitDefinition(NULL, 0) == NULL);
+  fail_unless(Model_getUnitDefinitionById(NULL, NULL) == NULL);
+  fail_unless(Model_getVolumeUnits(NULL) == NULL);
+  fail_unless(Model_isPopulatedListFormulaUnitsData(NULL) == 0);
+  fail_unless(Model_isSetAreaUnits(NULL) == 0);
+  fail_unless(Model_isSetConversionFactor(NULL) == 0);
+  fail_unless(Model_isSetExtentUnits(NULL) == 0);
+  fail_unless(Model_isSetId(NULL) == 0);
+  fail_unless(Model_isSetLengthUnits(NULL) == 0);
+  fail_unless(Model_isSetModelHistory(NULL) == 0);
+  fail_unless(Model_isSetName(NULL) == 0);
+  fail_unless(Model_isSetSubstanceUnits(NULL) == 0);
+  fail_unless(Model_isSetTimeUnits(NULL) == 0);
+  fail_unless(Model_isSetVolumeUnits(NULL) == 0);
+
+  Model_populateListFormulaUnitsData(NULL);
+
+  fail_unless(Model_removeCompartment(NULL, 0) == NULL);
+  fail_unless(Model_removeCompartmentById(NULL, NULL) == NULL);
+  fail_unless(Model_removeCompartmentType(NULL, 0) == NULL);
+  fail_unless(Model_removeCompartmentTypeById(NULL, NULL) == NULL);
+  fail_unless(Model_removeConstraint(NULL, 0) == NULL);
+  fail_unless(Model_removeEvent(NULL, 0) == NULL);
+  fail_unless(Model_removeEventById(NULL, NULL) == NULL);
+  fail_unless(Model_removeFunctionDefinition(NULL, 0) == NULL);
+  fail_unless(Model_removeFunctionDefinitionById(NULL, NULL) == NULL);
+  fail_unless(Model_removeInitialAssignment(NULL, 0) == NULL);
+  fail_unless(Model_removeInitialAssignmentBySym(NULL, NULL) == NULL);
+#ifdef USE_LAYOUT
+  fail_unless(Model_removeLayout(NULL, 0) == NULL);  
+#endif
+  fail_unless(Model_removeParameter(NULL, 0) == NULL);
+  fail_unless(Model_removeParameterById(NULL, NULL) == NULL);
+  fail_unless(Model_removeReaction(NULL, 0) == NULL);
+  fail_unless(Model_removeReactionById(NULL, NULL) == NULL);
+  fail_unless(Model_removeRule(NULL, 0) == NULL);
+  fail_unless(Model_removeRuleByVar(NULL, NULL) == NULL);
+  fail_unless(Model_removeSpecies(NULL, 0) == NULL);
+  fail_unless(Model_removeSpeciesById(NULL, NULL) == NULL);
+  fail_unless(Model_removeSpeciesType(NULL, 0) == NULL);
+  fail_unless(Model_removeSpeciesTypeById(NULL, NULL) == NULL);
+  fail_unless(Model_removeUnitDefinition(NULL, 0) == NULL);
+  fail_unless(Model_removeUnitDefinitionById(NULL, NULL) == NULL);
+  fail_unless(Model_setAreaUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setConversionFactor(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setExtentUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setLengthUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setModelHistory(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setSubstanceUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setTimeUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_setVolumeUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetAreaUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetConversionFactor(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetExtentUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetId(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetLengthUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetModelHistory(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetSubstanceUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetTimeUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Model_unsetVolumeUnits(NULL) == LIBSBML_INVALID_OBJECT);
+
+}
+END_TEST
 
 Suite *
 create_suite_Model (void)
@@ -1667,6 +1845,8 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_removeConstraint          );
   tcase_add_test( t, test_Model_removeReaction            );
   tcase_add_test( t, test_Model_removeEvent               );
+  
+  tcase_add_test( t, test_Model_accessWithNULL            );
 
   suite_add_tcase(s, t);
 

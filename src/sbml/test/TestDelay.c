@@ -213,6 +213,24 @@ START_TEST (test_Delay_createWithNS )
 END_TEST
 
 
+START_TEST (test_Delay_accessWithNULL )
+{
+  fail_unless( Delay_clone(NULL) == NULL );
+  fail_unless( Delay_containsUndeclaredUnits(NULL) == 0);
+  fail_unless( Delay_createWithNS(NULL) == NULL);
+
+  Delay_free(NULL);
+
+
+  fail_unless( Delay_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless( Delay_getMath(NULL) == NULL);
+  fail_unless( Delay_getNamespaces(NULL) == NULL);
+  fail_unless( Delay_isSetMath(NULL) == 0);
+  fail_unless( Delay_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  
+}
+END_TEST
+
 Suite *
 create_suite_Delay (void)
 {
@@ -224,13 +242,14 @@ create_suite_Delay (void)
                              DelayTest_setup,
                              DelayTest_teardown );
 
-  tcase_add_test( tcase, test_Delay_create       );
-  //tcase_add_test( tcase, test_Delay_createWithMath   );
-  tcase_add_test( tcase, test_Delay_setMath      );
-  tcase_add_test( tcase, test_Delay_setMath1     );
-  tcase_add_test( tcase, test_Delay_setMath2     );
-  tcase_add_test( tcase, test_Delay_free_NULL );
-  tcase_add_test( tcase, test_Delay_createWithNS         );
+  tcase_add_test( tcase, test_Delay_create           );
+  //tcase_add_test( tcase, test_Delay_createWithMath );
+  tcase_add_test( tcase, test_Delay_setMath          );
+  tcase_add_test( tcase, test_Delay_setMath1         );
+  tcase_add_test( tcase, test_Delay_setMath2         );
+  tcase_add_test( tcase, test_Delay_free_NULL        );
+  tcase_add_test( tcase, test_Delay_createWithNS     );
+  tcase_add_test( tcase, test_Delay_accessWithNULL   );
 
   suite_add_tcase(suite, tcase);
 

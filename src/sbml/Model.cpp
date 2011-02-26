@@ -5718,6 +5718,7 @@ LIBSBML_EXTERN
 void
 Model_free (Model_t *m)
 {
+  if (m != NULL)
   delete m;
 }
 

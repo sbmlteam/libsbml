@@ -1811,6 +1811,7 @@ LIBSBML_EXTERN
 void
 Compartment_free (Compartment_t *c)
 {
+  if (c != NULL)
   delete c;
 }
 

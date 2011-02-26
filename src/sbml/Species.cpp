@@ -2044,6 +2044,7 @@ LIBSBML_EXTERN
 void
 Species_free (Species_t *s)
 {
+  if (s != NULL)
   delete s;
 }
 

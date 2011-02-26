@@ -2238,6 +2238,61 @@ START_TEST(test_SBase_setAnnotationWithNewTerm)
 }
 END_TEST
 
+START_TEST(test_SBase_accessWithNULL)
+{
+  fail_unless(SBase_addCVTerm(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_addCVTermNewBag(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_appendAnnotation(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_appendAnnotationString(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_appendNotes(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_appendNotesString(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_getAncestorOfType(NULL, SBML_UNKNOWN) == NULL);
+  fail_unless(SBase_getAnnotation(NULL) == NULL);
+  fail_unless(SBase_getAnnotationString(NULL) == NULL);
+  fail_unless(SBase_getColumn(NULL) == SBML_INT_MAX);
+  fail_unless(SBase_getCVTerm(NULL, 0 ) == NULL);
+  fail_unless(SBase_getCVTerms(NULL) == NULL);
+  fail_unless(SBase_getElementName(NULL) == NULL);
+  fail_unless(SBase_getLevel(NULL) == SBML_INT_MAX);
+  fail_unless(SBase_getLine(NULL) == SBML_INT_MAX);
+  fail_unless(SBase_getMetaId(NULL) == NULL);
+  fail_unless(SBase_getModel(NULL) == NULL);
+  fail_unless(SBase_getModelHistory(NULL) == NULL);
+  fail_unless(SBase_getNotes(NULL) == NULL);
+  fail_unless(SBase_getNotesString(NULL) == NULL);
+  fail_unless(SBase_getNumCVTerms(NULL) == SBML_INT_MAX);
+  fail_unless(SBase_getParentSBMLObject(NULL) == NULL);
+  fail_unless(SBase_getResourceBiologicalQualifier(NULL, NULL) == BQB_UNKNOWN);
+  fail_unless(SBase_getResourceModelQualifier(NULL, NULL) == BQM_UNKNOWN);
+  fail_unless(SBase_getSBMLDocument(NULL) == NULL);
+  fail_unless(SBase_getSBOTerm(NULL) == SBML_INT_MAX);
+  fail_unless(SBase_getSBOTermID(NULL) == NULL);
+  fail_unless(SBase_getTypeCode(NULL) == SBML_UNKNOWN);
+  fail_unless(SBase_getVersion(NULL) == SBML_INT_MAX);
+  fail_unless(SBase_hasValidLevelVersionNamespaceCombination(NULL) == 0);
+  fail_unless(SBase_isSetAnnotation(NULL) == 0);
+  fail_unless(SBase_isSetMetaId(NULL) == 0);
+  fail_unless(SBase_isSetModelHistory(NULL) == 0);
+  fail_unless(SBase_isSetNotes(NULL) == 0);
+  fail_unless(SBase_isSetSBOTerm(NULL) == 0);
+  fail_unless(SBase_setAnnotation(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setAnnotationString(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setMetaId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setModelHistory(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setNamespaces(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setNotes(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setNotesString(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setSBOTerm(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_setSBOTermID(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_unsetAnnotation(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_unsetCVTerms(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_unsetMetaId(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_unsetModelHistory(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_unsetNotes(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(SBase_unsetSBOTerm(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
+
 Suite *
 create_suite_SBase (void)
 {
@@ -2281,6 +2336,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setAnnotationWithNewTerm );
   tcase_add_test(tcase, test_SBase_unsetCVTerms );
   tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
+  tcase_add_test(tcase, test_SBase_accessWithNULL);
 
   suite_add_tcase(suite, tcase);
 

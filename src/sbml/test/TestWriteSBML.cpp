@@ -2582,6 +2582,18 @@ START_TEST (test_WriteSBML_elements_L2v2)
 }
 END_TEST
 
+START_TEST (test_WriteSBML_accessWithNULL)
+{
+
+  SBMLWriter_free(NULL);
+
+  fail_unless( SBMLWriter_setProgramName(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( SBMLWriter_setProgramVersion(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( SBMLWriter_writeSBML(NULL, NULL, NULL) == 0 );
+  fail_unless( SBMLWriter_writeSBMLToFile(NULL, NULL, NULL) == 0 );
+  fail_unless( SBMLWriter_writeSBMLToString(NULL, NULL) == NULL );
+}
+END_TEST
 
 Suite *
 create_suite_WriteSBML ()
@@ -2758,6 +2770,7 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_elements_L1v2  );
   tcase_add_test( tcase, test_WriteSBML_elements_L2v1  );
   tcase_add_test( tcase, test_WriteSBML_elements_L2v2  );
+  tcase_add_test( tcase, test_WriteSBML_accessWithNULL  );
 
   suite_add_tcase(suite, tcase);
 

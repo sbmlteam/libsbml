@@ -1568,6 +1568,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_free (KineticLaw_t *kl)
 {
+  if (kl != NULL)
   delete kl;
 }
 

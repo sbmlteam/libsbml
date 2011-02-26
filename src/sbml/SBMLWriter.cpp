@@ -344,6 +344,7 @@ LIBSBML_EXTERN
 void
 SBMLWriter_free (SBMLWriter_t *sw)
 {
+  if (sw != NULL)
   delete sw;
 }
 
@@ -488,7 +489,7 @@ char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d)
 {
   if (sw == NULL || d == NULL) 
-    return 0;
+    return NULL;
   else
     return sw->writeToString(d);
 }

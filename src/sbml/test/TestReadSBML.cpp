@@ -2601,6 +2601,16 @@ START_TEST (test_ReadSBML_invalid_default_namespace )
 }
 END_TEST
 
+START_TEST (test_ReadSBML_accessWithNULL)
+{
+
+  SBMLReader_free(NULL);
+
+  fail_unless(SBMLReader_readSBML(NULL, NULL) == NULL);
+  fail_unless(SBMLReader_readSBMLFromFile(NULL, NULL) == NULL);
+  fail_unless(SBMLReader_readSBMLFromString(NULL, NULL) == NULL);
+}
+END_TEST
 
 Suite *
 create_suite_ReadSBML (void)
@@ -2692,6 +2702,7 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_line_col_numbers );
 
   tcase_add_test( tcase, test_ReadSBML_invalid_default_namespace );
+  tcase_add_test( tcase, test_ReadSBML_accessWithNULL );
   
   suite_add_tcase(suite, tcase);
 

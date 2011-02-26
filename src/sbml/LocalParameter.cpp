@@ -557,6 +557,7 @@ LIBSBML_EXTERN
 void
 LocalParameter_free (LocalParameter_t *p)
 {
+  if (p != NULL)
   delete p;
 }
 

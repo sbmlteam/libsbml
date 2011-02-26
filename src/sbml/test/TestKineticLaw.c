@@ -427,6 +427,49 @@ START_TEST (test_KineticLaw_removeParameter)
 END_TEST
 
 
+START_TEST (test_KineticLaw_accessWithNULL)
+{
+  fail_unless( KineticLaw_addLocalParameter(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( KineticLaw_addParameter(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( KineticLaw_clone(NULL) == NULL);
+  fail_unless( KineticLaw_containsUndeclaredUnits(NULL) == 0);
+  fail_unless( KineticLaw_createLocalParameter(NULL) == NULL);
+  fail_unless( KineticLaw_createParameter(NULL) == NULL);
+  fail_unless( KineticLaw_createWithNS(NULL) == NULL);  
+
+  KineticLaw_free(NULL);
+
+  fail_unless( KineticLaw_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless( KineticLaw_getFormula(NULL) == NULL);
+  fail_unless( KineticLaw_getListOfLocalParameters(NULL) == NULL);
+  fail_unless( KineticLaw_getListOfParameters(NULL) == NULL);
+  fail_unless( KineticLaw_getLocalParameter(NULL, 0) == NULL);
+  fail_unless( KineticLaw_getLocalParameterById(NULL, NULL) == NULL);
+  fail_unless( KineticLaw_getMath(NULL) == NULL);
+  fail_unless( KineticLaw_getNamespaces(NULL) == NULL);
+  fail_unless( KineticLaw_getNumLocalParameters(NULL) == SBML_INT_MAX);
+  fail_unless( KineticLaw_getNumParameters(NULL) == SBML_INT_MAX);
+  fail_unless( KineticLaw_getParameter(NULL, 0) == NULL);
+  fail_unless( KineticLaw_getParameterById(NULL, NULL) == NULL);
+  fail_unless( KineticLaw_getSubstanceUnits(NULL) == NULL);
+  fail_unless( KineticLaw_getTimeUnits(NULL) == NULL);
+  fail_unless( KineticLaw_isSetFormula(NULL) == 0);
+  fail_unless( KineticLaw_isSetMath(NULL) == 0);
+  fail_unless( KineticLaw_isSetSubstanceUnits(NULL) == 0);
+  fail_unless( KineticLaw_isSetTimeUnits(NULL) == 0);
+  fail_unless( KineticLaw_removeLocalParameter(NULL, 0) == NULL);
+  fail_unless( KineticLaw_removeLocalParameterById(NULL, NULL) == NULL);
+  fail_unless( KineticLaw_removeParameter(NULL, 0) == NULL);
+  fail_unless( KineticLaw_removeParameterById(NULL, NULL) == NULL);
+  fail_unless( KineticLaw_setFormula(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( KineticLaw_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( KineticLaw_setSubstanceUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( KineticLaw_setTimeUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( KineticLaw_unsetSubstanceUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( KineticLaw_unsetTimeUnits(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
+
 Suite *
 create_suite_KineticLaw (void)
 {
@@ -439,19 +482,20 @@ create_suite_KineticLaw (void)
                              KineticLawTest_teardown );
 
   tcase_add_test( tcase, test_KineticLaw_create             );
-  //tcase_add_test( tcase, test_KineticLaw_createWith         );
-  //tcase_add_test( tcase, test_KineticLaw_createWithMath         );
+  //tcase_add_test( tcase, test_KineticLaw_createWith       );
+  //tcase_add_test( tcase, test_KineticLaw_createWithMath   );
   tcase_add_test( tcase, test_KineticLaw_free_NULL          );
   tcase_add_test( tcase, test_KineticLaw_setFormula         );
-  tcase_add_test( tcase, test_KineticLaw_setBadFormula         );
+  tcase_add_test( tcase, test_KineticLaw_setBadFormula      );
   tcase_add_test( tcase, test_KineticLaw_setFormulaFromMath );
   tcase_add_test( tcase, test_KineticLaw_setMath            );
   tcase_add_test( tcase, test_KineticLaw_setMathFromFormula );
   tcase_add_test( tcase, test_KineticLaw_addParameter       );
   tcase_add_test( tcase, test_KineticLaw_getParameter       );
   tcase_add_test( tcase, test_KineticLaw_getParameterById   );
-  tcase_add_test( tcase, test_KineticLaw_createWithNS         );
+  tcase_add_test( tcase, test_KineticLaw_createWithNS       );
   tcase_add_test( tcase, test_KineticLaw_removeParameter    );
+  tcase_add_test( tcase, test_KineticLaw_accessWithNULL     );
 
   suite_add_tcase(suite, tcase);
 

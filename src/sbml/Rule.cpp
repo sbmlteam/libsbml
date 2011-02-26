@@ -1968,6 +1968,7 @@ LIBSBML_EXTERN
 void
 Rule_free (Rule_t *r)
 {
+  if (r != NULL)
   delete r;
 }
 

@@ -1895,8 +1895,8 @@ LIBSBML_EXTERN
 int
 SyntaxChecker_isValidSBMLSId(const char * sid)
 {
-  return static_cast<int>((sid == NULL) ? 
-    SyntaxChecker::isValidSBMLSId("") : SyntaxChecker::isValidSBMLSId(sid));
+  if (sid == NULL) return 1;
+  return static_cast<int>(SyntaxChecker::isValidSBMLSId(sid));
 }
 
 

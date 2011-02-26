@@ -261,6 +261,38 @@ START_TEST (test_L3_LocalParameter_NS)
 }
 END_TEST
 
+START_TEST (test_L3_LocalParameter_accessWithNULL)
+{
+  fail_unless( LocalParameter_clone(NULL) == NULL );
+  fail_unless( LocalParameter_createWithNS(NULL) == NULL );
+
+  LocalParameter_free(NULL);
+
+  //fail_unless( LocalParameter_getConstant(NULL) == 0 );
+  fail_unless( LocalParameter_getDerivedUnitDefinition(NULL) == NULL );
+  fail_unless( LocalParameter_getId(NULL) == NULL );
+  fail_unless( LocalParameter_getName(NULL) == NULL );
+  fail_unless( LocalParameter_getNamespaces(NULL) == NULL );
+  fail_unless( LocalParameter_getUnits(NULL) == NULL );
+  fail_unless( isnan( LocalParameter_getValue(NULL) ));
+  fail_unless( LocalParameter_hasRequiredAttributes(NULL) == 0);
+
+  //LocalParameter_initDefaults(NULL);
+
+  fail_unless( LocalParameter_isSetId(NULL) == 0);
+  fail_unless( LocalParameter_isSetName(NULL) == 0);
+  fail_unless( LocalParameter_isSetUnits(NULL) == 0);
+  fail_unless( LocalParameter_isSetValue(NULL) == 0);
+  //fail_unless( LocalParameter_setConstant(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_setUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_setValue(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_unsetUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( LocalParameter_unsetValue(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_L3_LocalParameter (void)
@@ -273,15 +305,16 @@ create_suite_L3_LocalParameter (void)
                              L3LocalParameterTest_setup,
                              L3LocalParameterTest_teardown );
 
-  tcase_add_test( tcase, test_L3_LocalParameter_create              );
-  tcase_add_test( tcase, test_L3_LocalParameter_free_NULL           );
-  tcase_add_test( tcase, test_L3_LocalParameter_id               );
-  tcase_add_test( tcase, test_L3_LocalParameter_name             );
-  tcase_add_test( tcase, test_L3_LocalParameter_units            );
-  tcase_add_test( tcase, test_L3_LocalParameter_value);
-  tcase_add_test( tcase, test_L3_LocalParameter_createWithNS         );
-  tcase_add_test( tcase, test_L3_LocalParameter_hasRequiredAttributes        );
-  tcase_add_test( tcase, test_L3_LocalParameter_NS              );
+  tcase_add_test( tcase, test_L3_LocalParameter_create                 );
+  tcase_add_test( tcase, test_L3_LocalParameter_free_NULL              );
+  tcase_add_test( tcase, test_L3_LocalParameter_id                     );
+  tcase_add_test( tcase, test_L3_LocalParameter_name                   );
+  tcase_add_test( tcase, test_L3_LocalParameter_units                  );
+  tcase_add_test( tcase, test_L3_LocalParameter_value                  );
+  tcase_add_test( tcase, test_L3_LocalParameter_createWithNS           );
+  tcase_add_test( tcase, test_L3_LocalParameter_hasRequiredAttributes  );
+  tcase_add_test( tcase, test_L3_LocalParameter_NS                     );
+  tcase_add_test( tcase, test_L3_LocalParameter_accessWithNULL         );
 
   suite_add_tcase(suite, tcase);
 

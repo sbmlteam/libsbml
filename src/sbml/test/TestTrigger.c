@@ -212,6 +212,27 @@ START_TEST (test_Trigger_createWithNS )
 }
 END_TEST
 
+START_TEST (test_Trigger_accessWithNULL)
+{
+  fail_unless( Trigger_clone(NULL) == NULL );
+  fail_unless( Trigger_createWithNS(NULL) == NULL );
+
+  Trigger_free(NULL);
+
+  fail_unless( Trigger_getInitialValue(NULL) == 0 );
+  fail_unless( Trigger_getMath(NULL) == NULL );
+  fail_unless( Trigger_getNamespaces(NULL) == NULL );
+  fail_unless( Trigger_getPersistent(NULL) == 0);
+  fail_unless( Trigger_hasRequiredAttributes(NULL) == 0);
+  fail_unless( Trigger_hasRequiredElements(NULL) == 0 );
+  fail_unless( Trigger_isSetInitialValue(NULL) == 0 );
+  fail_unless( Trigger_isSetMath(NULL) == 0 );
+  fail_unless( Trigger_isSetPersistent(NULL) == 0 );
+  fail_unless( Trigger_setInitialValue(NULL, 0 ) == LIBSBML_INVALID_OBJECT );
+  fail_unless( Trigger_setMath(NULL, NULL ) == LIBSBML_INVALID_OBJECT );
+  fail_unless( Trigger_setPersistent(NULL, 0 ) == LIBSBML_INVALID_OBJECT );
+}
+END_TEST
 
 Suite *
 create_suite_Trigger (void)
@@ -224,13 +245,14 @@ create_suite_Trigger (void)
                              TriggerTest_setup,
                              TriggerTest_teardown );
 
-  tcase_add_test( tcase, test_Trigger_create       );
-  ////tcase_add_test( tcase, test_Trigger_createWithMath   );
-  tcase_add_test( tcase, test_Trigger_setMath      );
-  tcase_add_test( tcase, test_Trigger_setMath1     );
-  tcase_add_test( tcase, test_Trigger_setMath2     );
-  tcase_add_test( tcase, test_Trigger_free_NULL );
-  tcase_add_test( tcase, test_Trigger_createWithNS         );
+  tcase_add_test( tcase, test_Trigger_create             );
+  ////tcase_add_test( tcase, test_Trigger_createWithMath );
+  tcase_add_test( tcase, test_Trigger_setMath            );
+  tcase_add_test( tcase, test_Trigger_setMath1           );
+  tcase_add_test( tcase, test_Trigger_setMath2           );
+  tcase_add_test( tcase, test_Trigger_free_NULL          );
+  tcase_add_test( tcase, test_Trigger_createWithNS       );
+  tcase_add_test( tcase, test_Trigger_accessWithNULL     );
 
   suite_add_tcase(suite, tcase);
 

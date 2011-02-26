@@ -913,6 +913,7 @@ LIBSBML_EXTERN
 void
 InitialAssignment_free (InitialAssignment_t *ia)
 {
+  if (ia != NULL)
   delete ia;
 }
 

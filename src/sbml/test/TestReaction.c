@@ -490,6 +490,67 @@ START_TEST (test_Reaction_removeModifier)
 }
 END_TEST
 
+START_TEST (test_Reaction_accessWithNULL)
+{
+  fail_unless( Reaction_addModifier(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( Reaction_addProduct(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( Reaction_addReactant(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( Reaction_clone(NULL) == NULL);
+  fail_unless( Reaction_createKineticLaw(NULL) == NULL);
+  fail_unless( Reaction_createModifier(NULL) == NULL);
+  fail_unless( Reaction_createProduct(NULL) == NULL);
+  fail_unless( Reaction_createReactant(NULL) == NULL);
+  fail_unless( Reaction_createWithNS(NULL) == NULL);
+
+  Reaction_free(NULL);
+
+  fail_unless( Reaction_getCompartment(NULL) == NULL);
+  fail_unless( Reaction_getFast(NULL) == 0);
+  fail_unless( Reaction_getId(NULL) == NULL);
+  fail_unless( Reaction_getKineticLaw(NULL) == NULL);
+  fail_unless( Reaction_getListOfModifiers(NULL) == NULL);
+  fail_unless( Reaction_getListOfProducts(NULL) == NULL);
+  fail_unless( Reaction_getListOfReactants(NULL) == NULL);
+  fail_unless( Reaction_getModifier(NULL, 0) == NULL);
+  fail_unless( Reaction_getModifierBySpecies(NULL, NULL) == NULL);
+  fail_unless( Reaction_getName(NULL) == NULL);
+  fail_unless( Reaction_getNamespaces(NULL) == NULL);
+  fail_unless( Reaction_getNumModifiers(NULL) == SBML_INT_MAX);
+  fail_unless( Reaction_getNumProducts(NULL) == SBML_INT_MAX);
+  fail_unless( Reaction_getNumReactants(NULL) == SBML_INT_MAX);
+  fail_unless( Reaction_getProduct(NULL, 0) == NULL);
+  fail_unless( Reaction_getProductBySpecies(NULL, NULL) == NULL);
+  fail_unless( Reaction_getReactant(NULL, 0) == NULL);
+  fail_unless( Reaction_getReactantBySpecies(NULL, NULL) == NULL);
+  fail_unless( Reaction_getReversible(NULL) == 0);
+  fail_unless( Reaction_hasRequiredAttributes(NULL) == 0);
+
+  Reaction_initDefaults(NULL);
+
+  fail_unless( Reaction_isSetCompartment(NULL) == 0);
+  fail_unless( Reaction_isSetFast(NULL) == 0);
+  fail_unless( Reaction_isSetId(NULL) == 0);
+  fail_unless( Reaction_isSetKineticLaw(NULL) == 0);
+  fail_unless( Reaction_isSetName(NULL) == 0);
+  fail_unless( Reaction_isSetReversible(NULL) == 0);
+  fail_unless( Reaction_removeModifier(NULL, 0) == 0);
+  fail_unless( Reaction_removeModifierBySpecies(NULL, NULL) == 0);
+  fail_unless( Reaction_removeProduct(NULL, 0) == 0);
+  fail_unless( Reaction_removeProductBySpecies(NULL, NULL) == 0);
+  fail_unless( Reaction_removeReactant(NULL, 0) == 0);
+  fail_unless( Reaction_removeReactantBySpecies(NULL, NULL) == 0);
+  fail_unless( Reaction_setCompartment(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_setFast(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_setKineticLaw(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_setReversible(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_unsetCompartment(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_unsetFast(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_unsetKineticLaw(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_Reaction (void)
@@ -501,7 +562,7 @@ create_suite_Reaction (void)
   tcase_add_checked_fixture(tcase, ReactionTest_setup, ReactionTest_teardown);
 
   tcase_add_test( tcase, test_Reaction_create          );
-  //tcase_add_test( tcase, test_Reaction_createWith      );
+  //tcase_add_test( tcase, test_Reaction_createWith    );
   tcase_add_test( tcase, test_Reaction_free_NULL       );
   tcase_add_test( tcase, test_Reaction_setId           );
   tcase_add_test( tcase, test_Reaction_setName         );
@@ -514,10 +575,11 @@ create_suite_Reaction (void)
   tcase_add_test( tcase, test_Reaction_getProductById  );
   tcase_add_test( tcase, test_Reaction_getModifier     );
   tcase_add_test( tcase, test_Reaction_getModifierById );
-  tcase_add_test( tcase, test_Reaction_createWithNS         );
+  tcase_add_test( tcase, test_Reaction_createWithNS    );
   tcase_add_test( tcase, test_Reaction_removeReactant  );
   tcase_add_test( tcase, test_Reaction_removeProduct   );
   tcase_add_test( tcase, test_Reaction_removeModifier  );
+  tcase_add_test( tcase, test_Reaction_accessWithNULL  );
 
   suite_add_tcase(suite, tcase);
 

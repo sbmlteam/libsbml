@@ -41,6 +41,16 @@
 CK_CPPSTART
 #endif
 
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
 static Compartment_t *C;
 
 
@@ -368,6 +378,57 @@ START_TEST (test_Compartment_createWithNS )
 }
 END_TEST
 
+START_TEST (test_Compartment_accessWithNULL )
+{
+  fail_unless(Compartment_clone(NULL) == NULL);
+  fail_unless(Compartment_createWithNS(NULL) == NULL);
+
+  Compartment_free(NULL);
+
+  fail_unless(Compartment_getCompartmentType(NULL) == NULL);
+  fail_unless(Compartment_getConstant(NULL) == 0);
+  fail_unless(Compartment_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless(Compartment_getId(NULL) == NULL);
+  fail_unless(Compartment_getName(NULL) == NULL);
+  fail_unless(Compartment_getNamespaces(NULL) == NULL);
+  fail_unless(Compartment_getOutside(NULL) == NULL);
+  fail_unless( isnan ( Compartment_getSize(NULL) ));
+  fail_unless(Compartment_getSpatialDimensions(NULL) == SBML_INT_MAX);
+  fail_unless( isnan ( Compartment_getSpatialDimensionsAsDouble(NULL) ));
+  fail_unless(Compartment_getUnits(NULL) == NULL);
+  fail_unless( isnan ( Compartment_getVolume(NULL) ));
+  fail_unless(Compartment_hasRequiredAttributes(NULL) == 0);
+
+  Compartment_initDefaults(NULL);
+
+  fail_unless(Compartment_isSetCompartmentType(NULL) == 0);
+  fail_unless(Compartment_isSetConstant(NULL) == 0);
+  fail_unless(Compartment_isSetId(NULL) == 0);
+  fail_unless(Compartment_isSetName(NULL) == 0);
+  fail_unless(Compartment_isSetOutside(NULL) == 0);
+  fail_unless(Compartment_isSetSize(NULL) == 0);
+  fail_unless(Compartment_isSetSpatialDimensions(NULL) == 0);
+  fail_unless(Compartment_isSetUnits(NULL) == 0);
+  fail_unless(Compartment_isSetVolume(NULL) == 0);
+  fail_unless(Compartment_setCompartmentType(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setConstant(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setOutside(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setSize(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setSpatialDimensions(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setSpatialDimensionsAsDouble(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_setUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetCompartmentType(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetOutside(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetSize(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetSpatialDimensions(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Compartment_unsetVolume(NULL) == LIBSBML_INVALID_OBJECT);
+  
+}
+END_TEST
 
 Suite *
 create_suite_Compartment (void)
@@ -380,20 +441,21 @@ create_suite_Compartment (void)
                              CompartmentTest_setup,
                              CompartmentTest_teardown );
 
-  tcase_add_test( tcase, test_Compartment_create              );
-  tcase_add_test( tcase, test_Compartment_createWith          );
-  tcase_add_test( tcase, test_Compartment_free_NULL           );
-  tcase_add_test( tcase, test_Compartment_setId               );
-  tcase_add_test( tcase, test_Compartment_setName             );
-  tcase_add_test( tcase, test_Compartment_setUnits            );
-  tcase_add_test( tcase, test_Compartment_setOutside          );
-  tcase_add_test( tcase, test_Compartment_unsetSize           );
-  tcase_add_test( tcase, test_Compartment_unsetVolume         );
-  tcase_add_test( tcase, test_Compartment_getsetType          );
-  tcase_add_test( tcase, test_Compartment_getsetConstant      );
-  tcase_add_test( tcase, test_Compartment_getSpatialDimensions);
-  tcase_add_test( tcase, test_Compartment_initDefaults        );
+  tcase_add_test( tcase, test_Compartment_create               );
+  tcase_add_test( tcase, test_Compartment_createWith           );
+  tcase_add_test( tcase, test_Compartment_free_NULL            );
+  tcase_add_test( tcase, test_Compartment_setId                );
+  tcase_add_test( tcase, test_Compartment_setName              );
+  tcase_add_test( tcase, test_Compartment_setUnits             );
+  tcase_add_test( tcase, test_Compartment_setOutside           );
+  tcase_add_test( tcase, test_Compartment_unsetSize            );
+  tcase_add_test( tcase, test_Compartment_unsetVolume          );
+  tcase_add_test( tcase, test_Compartment_getsetType           );
+  tcase_add_test( tcase, test_Compartment_getsetConstant       );
+  tcase_add_test( tcase, test_Compartment_getSpatialDimensions );
+  tcase_add_test( tcase, test_Compartment_initDefaults         );
   tcase_add_test( tcase, test_Compartment_createWithNS         );
+  tcase_add_test( tcase, test_Compartment_accessWithNULL       );
 
   suite_add_tcase(suite, tcase);
 

@@ -750,6 +750,49 @@ START_TEST (test_UnitDefinition_removeUnit)
 }
 END_TEST
 
+START_TEST (test_UnitDefinition_accessWithNULL)
+{
+  fail_unless( UnitDefinition_addUnit(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( UnitDefinition_areEquivalent(NULL, NULL) == 0 );
+  fail_unless( UnitDefinition_areIdentical(NULL, NULL) == 0 );
+  fail_unless( UnitDefinition_clone(NULL) == NULL );
+  fail_unless( UnitDefinition_combine(NULL, NULL) == NULL );
+  fail_unless( UnitDefinition_convertToSI(NULL) == NULL );
+  fail_unless( UnitDefinition_createUnit(NULL) == NULL );
+  fail_unless( UnitDefinition_createWithNS(NULL) == NULL );
+
+  UnitDefinition_free(NULL);
+
+  fail_unless( UnitDefinition_getId(NULL) == NULL );
+  fail_unless( UnitDefinition_getListOfUnits(NULL) == NULL );
+  fail_unless( UnitDefinition_getName(NULL) == NULL );
+  fail_unless( UnitDefinition_getNamespaces(NULL) == NULL );
+  fail_unless( UnitDefinition_getNumUnits(NULL) == SBML_INT_MAX );
+  fail_unless( UnitDefinition_getUnit(NULL, 0) == NULL );
+  fail_unless( UnitDefinition_isSetId(NULL) == 0 );
+  fail_unless( UnitDefinition_isSetName(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfArea(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfDimensionless(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfLength(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfMass(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfSubstance(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfSubstancePerTime(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfTime(NULL) == 0 );
+  fail_unless( UnitDefinition_isVariantOfVolume(NULL) == 0 );
+  fail_unless( UnitDefinition_printUnits(NULL, 0) == NULL );
+  fail_unless( UnitDefinition_removeUnit(NULL, 0) == NULL );
+
+  UnitDefinition_reorder(NULL);
+
+  fail_unless( UnitDefinition_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( UnitDefinition_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+
+  UnitDefinition_simplify(NULL);
+
+  fail_unless( UnitDefinition_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
+
 
 Suite *
 create_suite_UnitDefinition (void)
@@ -784,6 +827,7 @@ create_suite_UnitDefinition (void)
   tcase_add_test( tcase, test_UnitDefinition_createWithNS         );
   tcase_add_test( tcase, test_UnitDefinition_printUnits        );
   tcase_add_test( tcase, test_UnitDefinition_removeUnit        );
+  tcase_add_test( tcase, test_UnitDefinition_accessWithNULL    );
 
   suite_add_tcase(suite, tcase);
 

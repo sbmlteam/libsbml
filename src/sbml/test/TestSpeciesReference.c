@@ -45,6 +45,18 @@
 CK_CPPSTART
 #endif
 
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
+
+
 static SpeciesReference_t *SR;
 
 
@@ -245,6 +257,48 @@ START_TEST (test_SpeciesReference_createWithNS )
 }
 END_TEST
 
+START_TEST (test_SpeciesReference_accessWithNULL)
+{
+  fail_unless( SpeciesReference_clone(NULL) == NULL );
+  fail_unless( SpeciesReference_createModifierWithNS(NULL) == NULL );
+  fail_unless( SpeciesReference_createStoichiometryMath(NULL) == NULL );
+  fail_unless( SpeciesReference_createWithNS(NULL) == NULL );
+
+  SpeciesReference_free(NULL);
+
+  fail_unless( SpeciesReference_getConstant(NULL) == 0 );
+  fail_unless( SpeciesReference_getDenominator(NULL) == SBML_INT_MAX );
+  fail_unless( SpeciesReference_getId(NULL) == NULL );
+  fail_unless( SpeciesReference_getName(NULL) == NULL );
+  fail_unless( SpeciesReference_getNamespaces(NULL) == NULL );
+  fail_unless( SpeciesReference_getSpecies(NULL) == NULL );
+  fail_unless( isnan(SpeciesReference_getStoichiometry(NULL)));
+  fail_unless( SpeciesReference_getStoichiometryMath(NULL) == NULL );
+  fail_unless( SpeciesReference_hasRequiredAttributes(NULL) == 0);
+
+  SpeciesReference_initDefaults(NULL);
+
+  fail_unless( SpeciesReference_isModifier(NULL) == 0);
+  fail_unless( SpeciesReference_isSetConstant(NULL) == 0);
+  fail_unless( SpeciesReference_isSetId(NULL) == 0);
+  fail_unless( SpeciesReference_isSetName(NULL) == 0);
+  fail_unless( SpeciesReference_isSetSpecies(NULL) == 0);
+  fail_unless( SpeciesReference_isSetStoichiometry(NULL) == 0);
+  fail_unless( SpeciesReference_isSetStoichiometryMath(NULL) == 0);
+  fail_unless( SpeciesReference_setConstant(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_setDenominator(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_setSpecies(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_setStoichiometry(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_setStoichiometryMath(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_unsetId(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_unsetStoichiometry(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( SpeciesReference_unsetStoichiometryMath(NULL) == LIBSBML_INVALID_OBJECT);
+  
+}
+END_TEST
 
 Suite *
 create_suite_SpeciesReference (void)
@@ -258,13 +312,14 @@ create_suite_SpeciesReference (void)
                              SpeciesReferenceTest_teardown );
 
   tcase_add_test( tcase, test_SpeciesReference_create               );
-  //tcase_add_test( tcase, test_SpeciesReference_createWith           );
-  tcase_add_test( tcase, test_SpeciesReference_createModifier           );
+  //tcase_add_test( tcase, test_SpeciesReference_createWith         );
+  tcase_add_test( tcase, test_SpeciesReference_createModifier       );
   tcase_add_test( tcase, test_SpeciesReference_free_NULL            );
   tcase_add_test( tcase, test_SpeciesReference_setSpecies           );
-  tcase_add_test( tcase, test_SpeciesReference_setId           );
+  tcase_add_test( tcase, test_SpeciesReference_setId                );
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath );
   tcase_add_test( tcase, test_SpeciesReference_createWithNS         );
+  tcase_add_test( tcase, test_SpeciesReference_accessWithNULL       );
 
   suite_add_tcase(suite, tcase);
 

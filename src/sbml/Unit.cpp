@@ -2105,6 +2105,7 @@ LIBSBML_EXTERN
 void
 Unit_free (Unit_t *u)
 {
+  if (u != NULL)
   delete u;
 }
 

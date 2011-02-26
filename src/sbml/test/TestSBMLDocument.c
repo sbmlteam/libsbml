@@ -267,6 +267,38 @@ START_TEST (test_SBMLDocument_setLevelAndVersion_UnitsError)
 }
 END_TEST
 
+START_TEST (test_SBMLDocument_accessWithNULL)
+{
+  fail_unless(SBMLDocument_checkConsistency(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_checkInternalConsistency(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_checkL1Compatibility(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_checkL2v1Compatibility(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_checkL2v2Compatibility(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_checkL2v3Compatibility(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_checkL2v4Compatibility(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_clone(NULL) == NULL);
+  fail_unless(SBMLDocument_createModel(NULL) == NULL);
+  fail_unless(SBMLDocument_expandFunctionDefintions(NULL) == 0);
+  fail_unless(SBMLDocument_expandInitialAssignments(NULL) == 0);
+
+  SBMLDocument_free(NULL);
+
+  fail_unless(SBMLDocument_getError(NULL, 0) == NULL);
+  fail_unless(SBMLDocument_getLevel(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_getModel(NULL) == NULL);
+  fail_unless(SBMLDocument_getNamespaces(NULL) == NULL);
+  fail_unless(SBMLDocument_getNumErrors(NULL) == SBML_INT_MAX);
+  fail_unless(SBMLDocument_getVersion(NULL) == SBML_INT_MAX);
+
+  SBMLDocument_printErrors(NULL, NULL);
+  SBMLDocument_setConsistencyChecks(NULL, LIBSBML_CAT_SBML_L3V1_COMPAT, 0);
+  SBMLDocument_setConsistencyChecksForConversion(NULL, LIBSBML_CAT_SBML_L3V1_COMPAT, 0);
+  fail_unless(SBMLDocument_setLevelAndVersion(NULL, 0 , 0) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(NULL, 0 , 0) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(NULL, 0 , 0) == 0);
+  fail_unless(SBMLDocument_setModel(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_SBMLDocument (void) 
@@ -289,6 +321,7 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_setModel3   );
 
   tcase_add_test(tcase, test_SBMLDocument_setLevelAndVersion_UnitsError   );
+  tcase_add_test(tcase, test_SBMLDocument_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

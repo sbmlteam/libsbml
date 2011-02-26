@@ -183,6 +183,19 @@ START_TEST (test_Priority_createWithNS )
 }
 END_TEST
 
+START_TEST (test_Priority_accessWithNULL)
+{
+  fail_unless(Priority_clone(NULL)==NULL);
+  fail_unless(Priority_createWithNS(NULL)==NULL);
+
+  Priority_free(NULL);
+
+  fail_unless(Priority_getMath(NULL)==NULL);
+  fail_unless(Priority_getNamespaces(NULL)==NULL);
+  fail_unless(Priority_isSetMath(NULL)==0);
+  fail_unless(Priority_setMath(NULL, NULL)==LIBSBML_INVALID_OBJECT);  
+}
+END_TEST
 
 Suite *
 create_suite_Priority (void)
@@ -195,12 +208,13 @@ create_suite_Priority (void)
                              PriorityTest_setup,
                              PriorityTest_teardown );
 
-  tcase_add_test( tcase, test_Priority_create       );
-  tcase_add_test( tcase, test_Priority_setMath      );
-  tcase_add_test( tcase, test_Priority_setMath1     );
-  tcase_add_test( tcase, test_Priority_setMath2     );
-  tcase_add_test( tcase, test_Priority_free_NULL );
-  tcase_add_test( tcase, test_Priority_createWithNS         );
+  tcase_add_test( tcase, test_Priority_create         );
+  tcase_add_test( tcase, test_Priority_setMath        );
+  tcase_add_test( tcase, test_Priority_setMath1       );
+  tcase_add_test( tcase, test_Priority_setMath2       );
+  tcase_add_test( tcase, test_Priority_free_NULL      );
+  tcase_add_test( tcase, test_Priority_createWithNS   );
+  tcase_add_test( tcase, test_Priority_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

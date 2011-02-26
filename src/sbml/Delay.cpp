@@ -698,6 +698,7 @@ LIBSBML_EXTERN
 void
 Delay_free (Delay_t *t)
 {
+  if (t != NULL)
   delete t;
 }
 

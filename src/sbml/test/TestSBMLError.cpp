@@ -113,7 +113,6 @@ START_TEST (test_SBMLError_create)
 }
 END_TEST
 
-
 Suite *
 create_suite_SBMLError (void)
 {

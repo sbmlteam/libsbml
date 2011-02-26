@@ -212,6 +212,25 @@ START_TEST (test_ListOf_append)
 }
 END_TEST
 
+START_TEST (test_ListOf_accessWithNULL)
+{
+  fail_unless( ListOf_append(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( ListOf_appendAndOwn(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+
+  ListOf_clear(NULL, 0);
+
+  fail_unless( ListOf_clone(NULL) == NULL);
+
+  ListOf_free(NULL);
+
+  fail_unless( ListOf_get(NULL, 0) == NULL);
+  fail_unless( ListOf_getItemTypeCode(NULL) == SBML_UNKNOWN);
+  fail_unless( ListOf_remove(NULL, 0) == NULL);
+  fail_unless( ListOf_size(NULL) == SBML_INT_MAX);
+
+}
+END_TEST
+
 Suite *
 create_suite_ListOf (void) 
 { 
@@ -219,12 +238,13 @@ create_suite_ListOf (void)
   TCase *tcase = tcase_create("ListOf");
  
 
-  tcase_add_test(tcase, test_ListOf_create    );
-  tcase_add_test(tcase, test_ListOf_free_NULL );
-  tcase_add_test(tcase, test_ListOf_get       );
-  tcase_add_test(tcase, test_ListOf_remove    );
-  tcase_add_test(tcase, test_ListOf_clear     );
-  tcase_add_test(tcase, test_ListOf_append     );
+  tcase_add_test(tcase, test_ListOf_create         );
+  tcase_add_test(tcase, test_ListOf_free_NULL      );
+  tcase_add_test(tcase, test_ListOf_get            );
+  tcase_add_test(tcase, test_ListOf_remove         );
+  tcase_add_test(tcase, test_ListOf_clear          );
+  tcase_add_test(tcase, test_ListOf_append         );
+  tcase_add_test(tcase, test_ListOf_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

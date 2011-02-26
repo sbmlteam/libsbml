@@ -152,7 +152,6 @@ START_TEST (test_ModifierSpeciesReference_createWithNS )
 }
 END_TEST
 
-
 Suite *
 create_suite_ModifierSpeciesReference (void)
 {
@@ -164,10 +163,10 @@ create_suite_ModifierSpeciesReference (void)
                              ModifierSpeciesReferenceTest_setup,
                              ModifierSpeciesReferenceTest_teardown );
 
-  tcase_add_test( tcase, test_ModifierSpeciesReference_create     );
-  tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL  );
-  tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies );
-  tcase_add_test( tcase, test_ModifierSpeciesReference_createWithNS         );
+  tcase_add_test( tcase, test_ModifierSpeciesReference_create         );
+  tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL      );
+  tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies     );
+  tcase_add_test( tcase, test_ModifierSpeciesReference_createWithNS   );
 
   suite_add_tcase(suite, tcase);
 

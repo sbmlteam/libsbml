@@ -220,6 +220,17 @@ START_TEST (test_SBMLNamespaces_getSupported)
 }
 END_TEST
 
+START_TEST (test_SBMLNamespaces_accessWithNULL)
+{
+  SBMLNamespaces_addNamespaces(NULL, NULL);
+
+  fail_unless( SBMLNamespaces_getLevel(NULL) == SBML_INT_MAX);
+  fail_unless( SBMLNamespaces_getNamespaces(NULL) == NULL);
+  fail_unless( SBMLNamespaces_getSupportedNamespaces(NULL) == NULL);
+  fail_unless( SBMLNamespaces_getVersion(NULL) == SBML_INT_MAX);
+}
+END_TEST
+
 Suite *
 create_suite_SBMLNamespaces (void)
 {
@@ -227,16 +238,17 @@ create_suite_SBMLNamespaces (void)
   TCase *tcase = tcase_create("SBMLNamespaces");
 
 
-  tcase_add_test(tcase, test_SBMLNamespaces_L1V1         );
-  tcase_add_test(tcase, test_SBMLNamespaces_L1V2         );
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V1         );
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V2         );
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V3         );
-  tcase_add_test(tcase, test_SBMLNamespaces_L2V4         );
-  tcase_add_test(tcase, test_SBMLNamespaces_L3V1         );
-  tcase_add_test(tcase, test_SBMLNamespaces_getURI       );
-  tcase_add_test(tcase, test_SBMLNamespaces_invalid      );
-  tcase_add_test(tcase, test_SBMLNamespaces_getSupported );
+  tcase_add_test(tcase, test_SBMLNamespaces_L1V1           );
+  tcase_add_test(tcase, test_SBMLNamespaces_L1V2           );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V1           );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V2           );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V3           );
+  tcase_add_test(tcase, test_SBMLNamespaces_L2V4           );
+  tcase_add_test(tcase, test_SBMLNamespaces_L3V1           );
+  tcase_add_test(tcase, test_SBMLNamespaces_getURI         );
+  tcase_add_test(tcase, test_SBMLNamespaces_invalid        );
+  tcase_add_test(tcase, test_SBMLNamespaces_getSupported   );
+  tcase_add_test(tcase, test_SBMLNamespaces_accessWithNULL );
   
 
   suite_add_tcase(suite, tcase);

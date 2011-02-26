@@ -375,6 +375,57 @@ START_TEST (test_Event_removeEventAssignment)
 }
 END_TEST
 
+START_TEST (test_Event_accessWithNULL)
+{
+  fail_unless(Event_addEventAssignment(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_clone(NULL) == NULL);
+  fail_unless(Event_createDelay(NULL) == NULL);
+  fail_unless(Event_createEventAssignment(NULL) == NULL);
+  fail_unless(Event_createPriority(NULL) == NULL);
+  fail_unless(Event_createTrigger(NULL) == NULL);
+  fail_unless(Event_createWithNS(NULL) == NULL);
+
+  Event_free(NULL);
+
+  fail_unless(Event_getDelay(NULL) == NULL);
+  fail_unless(Event_getEventAssignment(NULL, 0) == NULL);
+  fail_unless(Event_getEventAssignmentByVar(NULL, NULL) == NULL);
+  fail_unless(Event_getId(NULL) == NULL);
+  fail_unless(Event_getListOfEventAssignments(NULL) == NULL);
+  fail_unless(Event_getName(NULL) == NULL);
+  fail_unless(Event_getNamespaces(NULL) == NULL);
+  fail_unless(Event_getNumEventAssignments(NULL) == SBML_INT_MAX);
+  fail_unless(Event_getPriority(NULL) == NULL);
+  fail_unless(Event_getTimeUnits(NULL) == NULL);
+  fail_unless(Event_getTrigger(NULL) == NULL);
+  fail_unless(Event_getUseValuesFromTriggerTime(NULL) == 0);
+  fail_unless(Event_hasRequiredAttributes(NULL) == 0);
+  fail_unless(Event_hasRequiredElements(NULL) == 0);
+  fail_unless(Event_isSetDelay(NULL) == 0);
+  fail_unless(Event_isSetId(NULL) == 0);
+  fail_unless(Event_isSetName(NULL) == 0);
+  fail_unless(Event_isSetPriority(NULL) == 0);
+  fail_unless(Event_isSetTimeUnits(NULL) == 0);
+  fail_unless(Event_isSetTrigger(NULL) == 0);
+  fail_unless(Event_isSetUseValuesFromTriggerTime(NULL) == 0);
+  fail_unless(Event_removeEventAssignment(NULL, 0) == NULL);
+  fail_unless(Event_removeEventAssignmentByVar(NULL, NULL) == NULL);
+  fail_unless(Event_setDelay(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_setPriority(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_setTimeUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_setTrigger(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_setUseValuesFromTriggerTime(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_unsetDelay(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_unsetId(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_unsetPriority(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Event_unsetTimeUnits(NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
+
+
 Suite *
 create_suite_Event (void)
 {
@@ -386,18 +437,19 @@ create_suite_Event (void)
                              EventTest_setup,
                              EventTest_teardown );
 
-  tcase_add_test( tcase, test_Event_create       );
-  //tcase_add_test( tcase, test_Event_createWith   );
-  tcase_add_test( tcase, test_Event_free_NULL    );
-  tcase_add_test( tcase, test_Event_setId        );
-  tcase_add_test( tcase, test_Event_setName      );
-  tcase_add_test( tcase, test_Event_setTrigger   );
-  tcase_add_test( tcase, test_Event_setDelay     );
-  tcase_add_test( tcase, test_Event_setTimeUnits );
-  tcase_add_test( tcase, test_Event_full         );
+  tcase_add_test( tcase, test_Event_create                      );
+  //tcase_add_test( tcase, test_Event_createWith                );
+  tcase_add_test( tcase, test_Event_free_NULL                   );
+  tcase_add_test( tcase, test_Event_setId                       );
+  tcase_add_test( tcase, test_Event_setName                     );
+  tcase_add_test( tcase, test_Event_setTrigger                  );
+  tcase_add_test( tcase, test_Event_setDelay                    );
+  tcase_add_test( tcase, test_Event_setTimeUnits                );
+  tcase_add_test( tcase, test_Event_full                        );
   tcase_add_test( tcase, test_Event_setUseValuesFromTriggerTime );
-  tcase_add_test( tcase, test_Event_createWithNS         );
-  tcase_add_test( tcase, test_Event_removeEventAssignment  );
+  tcase_add_test( tcase, test_Event_createWithNS                );
+  tcase_add_test( tcase, test_Event_removeEventAssignment       );
+  tcase_add_test( tcase, test_Event_accessWithNULL              );
 
   suite_add_tcase(suite, tcase);
 

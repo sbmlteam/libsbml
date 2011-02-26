@@ -742,6 +742,7 @@ LIBSBML_EXTERN
 void
 Trigger_free (Trigger_t *t)
 {
+  if (t != NULL)
   delete t;
 }
 

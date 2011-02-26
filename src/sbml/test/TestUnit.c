@@ -41,6 +41,18 @@
 CK_CPPSTART
 #endif
 
+
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
+
 static Unit_t *U;
 
 
@@ -303,6 +315,78 @@ START_TEST (test_Unit_createWithNS )
 }
 END_TEST
 
+START_TEST (test_Unit_accessWithNULL)
+{
+  fail_unless(Unit_areEquivalent(NULL, NULL) == 0);
+  fail_unless(Unit_areIdentical(NULL, NULL) == 0);
+  fail_unless(Unit_clone(NULL) == NULL);
+  fail_unless(Unit_convertToSI(NULL) == NULL);
+  fail_unless(Unit_createWithNS(NULL) == NULL);
+
+  Unit_free(NULL);
+
+  fail_unless(Unit_getExponent(NULL) == SBML_INT_MAX);
+  fail_unless(isnan(Unit_getExponentAsDouble(NULL) ));
+  fail_unless(Unit_getKind(NULL) == UNIT_KIND_INVALID );
+  fail_unless(isnan(Unit_getMultiplier(NULL) ));
+  fail_unless(Unit_getNamespaces(NULL) == NULL);
+  fail_unless(isnan(Unit_getOffset(NULL) ));
+  fail_unless(Unit_getScale(NULL) == SBML_INT_MAX);
+  fail_unless(Unit_hasRequiredAttributes(NULL) == 0);
+
+  Unit_initDefaults(NULL);
+
+  fail_unless(Unit_isAmpere(NULL) == 0);
+  fail_unless(Unit_isBecquerel(NULL) == 0);
+  fail_unless(Unit_isBuiltIn(NULL, 0) == 0);
+  fail_unless(Unit_isCandela(NULL) == 0);
+  fail_unless(Unit_isCelsius(NULL) == 0);
+  fail_unless(Unit_isCoulomb(NULL) == 0);
+  fail_unless(Unit_isDimensionless(NULL) == 0);
+  fail_unless(Unit_isFarad(NULL) == 0);
+  fail_unless(Unit_isGram(NULL) == 0);
+  fail_unless(Unit_isGray(NULL) == 0);
+  fail_unless(Unit_isHenry(NULL) == 0);
+  fail_unless(Unit_isHertz(NULL) == 0);
+  fail_unless(Unit_isItem(NULL) == 0);
+  fail_unless(Unit_isJoule(NULL) == 0);
+  fail_unless(Unit_isKatal(NULL) == 0);
+  fail_unless(Unit_isKelvin(NULL) == 0);
+  fail_unless(Unit_isKilogram(NULL) == 0);
+  fail_unless(Unit_isLitre(NULL) == 0);
+  fail_unless(Unit_isLumen(NULL) == 0);
+  fail_unless(Unit_isLux(NULL) == 0);
+  fail_unless(Unit_isMetre(NULL) == 0);
+  fail_unless(Unit_isMole(NULL) == 0);
+  fail_unless(Unit_isNewton(NULL) == 0);
+  fail_unless(Unit_isOhm(NULL) == 0);
+  fail_unless(Unit_isPascal(NULL) == 0);
+  fail_unless(Unit_isRadian(NULL) == 0);
+  fail_unless(Unit_isSecond(NULL) == 0);
+  fail_unless(Unit_isSetExponent(NULL) == 0);
+  fail_unless(Unit_isSetKind(NULL) == 0);
+  fail_unless(Unit_isSetMultiplier(NULL) == 0);
+  fail_unless(Unit_isSetScale(NULL) == 0);
+  fail_unless(Unit_isSiemens(NULL) == 0);
+  fail_unless(Unit_isSievert(NULL) == 0);
+  fail_unless(Unit_isSteradian(NULL) == 0);
+  fail_unless(Unit_isTesla(NULL) == 0);
+  fail_unless(Unit_isVolt(NULL) == 0);
+  fail_unless(Unit_isWatt(NULL) == 0);
+  fail_unless(Unit_isWeber(NULL) == 0);
+
+  Unit_merge(NULL, NULL);
+
+  fail_unless(Unit_removeScale(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Unit_setExponent(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Unit_setExponentAsDouble(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Unit_setKind(NULL, UNIT_KIND_INVALID ) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Unit_setMultiplier(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Unit_setOffset(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Unit_setScale(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  
+}
+END_TEST
 
 Suite *
 create_suite_Unit (void)
@@ -313,13 +397,14 @@ create_suite_Unit (void)
 
   tcase_add_checked_fixture( tcase, UnitTest_setup, UnitTest_teardown );
 
-  tcase_add_test( tcase, test_Unit_create     );
-  //tcase_add_test( tcase, test_Unit_createWith );
-  tcase_add_test( tcase, test_Unit_free_NULL  );
-  tcase_add_test( tcase, test_Unit_isXXX      );
-  tcase_add_test( tcase, test_Unit_isBuiltIn  );
-  tcase_add_test( tcase, test_Unit_set_get    );
-  tcase_add_test( tcase, test_Unit_createWithNS         );
+  tcase_add_test( tcase, test_Unit_create         );
+  //tcase_add_test( tcase, test_Unit_createWith   );
+  tcase_add_test( tcase, test_Unit_free_NULL      );
+  tcase_add_test( tcase, test_Unit_isXXX          );
+  tcase_add_test( tcase, test_Unit_isBuiltIn      );
+  tcase_add_test( tcase, test_Unit_set_get        );
+  tcase_add_test( tcase, test_Unit_createWithNS   );
+  tcase_add_test( tcase, test_Unit_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

@@ -919,6 +919,7 @@ LIBSBML_EXTERN
 void
 EventAssignment_free (EventAssignment_t *ea)
 {
+  if (ea != NULL)
   delete ea;
 }
 

@@ -1847,6 +1847,7 @@ LIBSBML_EXTERN
 void
 Event_free (Event_t *e)
 {
+  if (e != NULL)
   delete e;
 }
 

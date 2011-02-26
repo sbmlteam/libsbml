@@ -690,6 +690,7 @@ LIBSBML_EXTERN
 void
 CompartmentType_free (CompartmentType_t *ct)
 {
+  if (ct != NULL)
   delete ct;
 }
 

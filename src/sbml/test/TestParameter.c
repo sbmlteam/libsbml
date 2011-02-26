@@ -41,6 +41,17 @@
 CK_CPPSTART
 #endif
 
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
+
 static Parameter_t *P;
 
 
@@ -234,6 +245,40 @@ START_TEST (test_Parameter_createWithNS )
 }
 END_TEST
 
+START_TEST (test_Parameter_accessWithNULL)
+{
+  fail_unless(Parameter_clone(NULL) == NULL);
+  fail_unless(Parameter_createWithNS(NULL) == NULL);
+
+  Parameter_free(NULL);
+
+  fail_unless(Parameter_getConstant(NULL) == 0);
+  fail_unless(Parameter_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless(Parameter_getId(NULL) == NULL);
+  fail_unless(Parameter_getName(NULL) == NULL);
+  fail_unless(Parameter_getNamespaces(NULL) == NULL);
+  fail_unless(Parameter_getUnits(NULL) == NULL);
+  fail_unless(isnan(Parameter_getValue(NULL)));
+  fail_unless(Parameter_hasRequiredAttributes(NULL) == 0);
+
+  Parameter_initDefaults(NULL);
+
+  fail_unless(Parameter_isSetConstant(NULL) == 0);
+  fail_unless(Parameter_isSetId(NULL) == 0);
+  fail_unless(Parameter_isSetName(NULL) == 0);
+  fail_unless(Parameter_isSetUnits(NULL) == 0);
+  fail_unless(Parameter_isSetValue(NULL) == 0);
+  fail_unless(Parameter_setConstant(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_setUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_setValue(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_unsetUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(Parameter_unsetValue(NULL) == LIBSBML_INVALID_OBJECT);
+
+}
+END_TEST
 
 Suite *
 create_suite_Parameter (void)
@@ -246,13 +291,14 @@ create_suite_Parameter (void)
                              ParameterTest_setup,
                              ParameterTest_teardown );
 
-  tcase_add_test( tcase, test_Parameter_create     );
+  tcase_add_test( tcase, test_Parameter_create         );
   ////tcase_add_test( tcase, test_Parameter_createWith );
-  tcase_add_test( tcase, test_Parameter_free_NULL  );
-  tcase_add_test( tcase, test_Parameter_setId      );
-  tcase_add_test( tcase, test_Parameter_setName    );
-  tcase_add_test( tcase, test_Parameter_setUnits   );
-  tcase_add_test( tcase, test_Parameter_createWithNS         );
+  tcase_add_test( tcase, test_Parameter_free_NULL      );
+  tcase_add_test( tcase, test_Parameter_setId          );
+  tcase_add_test( tcase, test_Parameter_setName        );
+  tcase_add_test( tcase, test_Parameter_setUnits       );
+  tcase_add_test( tcase, test_Parameter_createWithNS   );
+  tcase_add_test( tcase, test_Parameter_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

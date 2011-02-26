@@ -794,6 +794,7 @@ LIBSBML_EXTERN
 void
 Constraint_free (Constraint_t *c)
 {
+  if (c != NULL)
   delete c;
 }
 

@@ -992,6 +992,7 @@ LIBSBML_EXTERN
 void
 FunctionDefinition_free (FunctionDefinition_t *fd)
 {
+  if (fd != NULL)
   delete fd;
 }
 

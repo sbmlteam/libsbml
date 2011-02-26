@@ -213,6 +213,21 @@ START_TEST (test_StoichiometryMath_createWithNS )
 }
 END_TEST
 
+START_TEST (test_StoichiometryMath_accessWithNULL)
+{
+  fail_unless( StoichiometryMath_clone(NULL) == NULL );
+  fail_unless( StoichiometryMath_containsUndeclaredUnits(NULL) == 0 );
+  fail_unless( StoichiometryMath_createWithNS(NULL) == NULL );
+
+  StoichiometryMath_free(NULL);
+
+  fail_unless( StoichiometryMath_getDerivedUnitDefinition(NULL) == NULL );
+  fail_unless( StoichiometryMath_getMath(NULL) == NULL );
+  fail_unless( StoichiometryMath_getNamespaces(NULL) == NULL );
+  fail_unless( StoichiometryMath_isSetMath(NULL) == 0);
+  fail_unless( StoichiometryMath_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+}
+END_TEST
 
 Suite *
 create_suite_StoichiometryMath (void)
@@ -225,13 +240,14 @@ create_suite_StoichiometryMath (void)
                              StoichiometryMathTest_setup,
                              StoichiometryMathTest_teardown );
 
-  tcase_add_test( tcase, test_StoichiometryMath_create       );
-  //tcase_add_test( tcase, test_StoichiometryMath_createWithMath   );
-  tcase_add_test( tcase, test_StoichiometryMath_setMath      );
-  tcase_add_test( tcase, test_StoichiometryMath_setMath1      );
-  tcase_add_test( tcase, test_StoichiometryMath_setMath2      );
-  tcase_add_test( tcase, test_StoichiometryMath_free_NULL );
-  tcase_add_test( tcase, test_StoichiometryMath_createWithNS         );
+  tcase_add_test( tcase, test_StoichiometryMath_create           );
+  //tcase_add_test( tcase, test_StoichiometryMath_createWithMath );
+  tcase_add_test( tcase, test_StoichiometryMath_setMath          );
+  tcase_add_test( tcase, test_StoichiometryMath_setMath1         );
+  tcase_add_test( tcase, test_StoichiometryMath_setMath2         );
+  tcase_add_test( tcase, test_StoichiometryMath_free_NULL        );
+  tcase_add_test( tcase, test_StoichiometryMath_createWithNS     );
+  tcase_add_test( tcase, test_StoichiometryMath_accessWithNULL   );
 
   suite_add_tcase(suite, tcase);
 

@@ -208,6 +208,23 @@ START_TEST (test_SpeciesType_createWithNS )
 }
 END_TEST
 
+START_TEST (test_SpeciesType_accessWithNULL)
+{
+  fail_unless( SpeciesType_clone(NULL) == NULL );
+  fail_unless( SpeciesType_createWithNS(NULL) == NULL );
+
+  SpeciesType_free(NULL);
+
+  fail_unless( SpeciesType_getId(NULL) == NULL );
+  fail_unless( SpeciesType_getName(NULL) == NULL );
+  fail_unless( SpeciesType_getNamespaces(NULL) == NULL );
+  fail_unless( SpeciesType_isSetId(NULL) == 0 );
+  fail_unless( SpeciesType_isSetName(NULL) == 0 );
+  fail_unless( SpeciesType_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( SpeciesType_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT );
+  fail_unless( SpeciesType_unsetName(NULL) == LIBSBML_INVALID_OBJECT );
+}
+END_TEST
 
 Suite *
 create_suite_SpeciesType (void)
@@ -220,13 +237,14 @@ create_suite_SpeciesType (void)
                              SpeciesTypeTest_setup,
                              SpeciesTypeTest_teardown );
 
-  tcase_add_test( tcase, test_SpeciesType_create      );
-  //tcase_add_test( tcase, test_SpeciesType_createWith  );
-  tcase_add_test( tcase, test_SpeciesType_free_NULL   );
-  tcase_add_test( tcase, test_SpeciesType_setId       );
-  tcase_add_test( tcase, test_SpeciesType_setName     );
-  tcase_add_test( tcase, test_SpeciesType_unsetName   );
-  tcase_add_test( tcase, test_SpeciesType_createWithNS         );
+  tcase_add_test( tcase, test_SpeciesType_create         );
+  //tcase_add_test( tcase, test_SpeciesType_createWith   );
+  tcase_add_test( tcase, test_SpeciesType_free_NULL      );
+  tcase_add_test( tcase, test_SpeciesType_setId          );
+  tcase_add_test( tcase, test_SpeciesType_setName        );
+  tcase_add_test( tcase, test_SpeciesType_unsetName      );
+  tcase_add_test( tcase, test_SpeciesType_createWithNS   );
+  tcase_add_test( tcase, test_SpeciesType_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

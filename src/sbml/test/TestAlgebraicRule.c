@@ -158,6 +158,46 @@ START_TEST (test_AlgebraicRule_createWithNS )
 }
 END_TEST
 
+START_TEST (test_AlgebraicRule_accessWithNULL)
+{
+  fail_unless (Rule_clone(NULL) == NULL);
+  fail_unless (Rule_containsUndeclaredUnits(NULL) == 0);
+  fail_unless (Rule_createAlgebraicWithNS(NULL) == NULL);
+  fail_unless (Rule_createAssignmentWithNS(NULL) == NULL);
+  fail_unless (Rule_createRateWithNS(NULL) == NULL);
+  
+  Rule_free(NULL);
+
+  fail_unless (Rule_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless (Rule_getFormula(NULL) == NULL);
+  fail_unless (Rule_getL1TypeCode(NULL) == SBML_UNKNOWN);
+  fail_unless (Rule_getMath(NULL) == NULL);
+  fail_unless (Rule_getNamespaces(NULL) == NULL);
+  fail_unless (Rule_getType(NULL) == RULE_TYPE_INVALID);
+  fail_unless (Rule_getTypeCode(NULL) == SBML_UNKNOWN);
+  fail_unless (Rule_getUnits(NULL) == NULL);
+  fail_unless (Rule_getVariable(NULL) == NULL);
+  fail_unless (Rule_isAlgebraic(NULL) == 0);
+  fail_unless (Rule_isAssignment(NULL) == 0);
+  fail_unless (Rule_isCompartmentVolume(NULL) == 0);
+  fail_unless (Rule_isParameter(NULL) == 0);
+  fail_unless (Rule_isRate(NULL) == 0);
+  fail_unless (Rule_isScalar(NULL) == 0);
+  fail_unless (Rule_isSetFormula(NULL) == 0);
+  fail_unless (Rule_isSetMath(NULL) == 0);
+  fail_unless (Rule_isSetUnits(NULL) == 0);
+  fail_unless (Rule_isSetVariable(NULL) == 0);
+  fail_unless (Rule_isSpeciesConcentration(NULL) == 0);
+  fail_unless (Rule_setFormula(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (Rule_setL1TypeCode(NULL, SBML_UNKNOWN) == LIBSBML_INVALID_OBJECT);
+  fail_unless (Rule_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (Rule_setUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (Rule_setVariable(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless (Rule_setVariable(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+
+}
+END_TEST
+
 
 Suite *
 create_suite_AlgebraicRule (void)
@@ -170,11 +210,12 @@ create_suite_AlgebraicRule (void)
                              AlgebraicRuleTest_setup,
                              AlgebraicRuleTest_teardown );
 
-  tcase_add_test( tcase, test_AlgebraicRule_create         );
-  tcase_add_test( tcase, test_AlgebraicRule_createWithFormula     );
-  tcase_add_test( tcase, test_AlgebraicRule_createWithMath );
-  tcase_add_test( tcase, test_AlgebraicRule_free_NULL      );
-  tcase_add_test( tcase, test_AlgebraicRule_createWithNS         );
+  tcase_add_test( tcase, test_AlgebraicRule_create            );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithFormula );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithMath    );
+  tcase_add_test( tcase, test_AlgebraicRule_free_NULL         );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithNS      );
+  tcase_add_test( tcase, test_AlgebraicRule_accessWithNULL    );
 
   suite_add_tcase(suite, tcase);
 

@@ -559,6 +559,7 @@ LIBSBML_EXTERN
 void
 ListOf_free (ListOf_t *lo)
 {
+  if (lo != NULL)
   delete lo;
 }
 
@@ -638,6 +639,7 @@ LIBSBML_EXTERN
 void
 ListOf_clear (ListOf_t *lo, int doDelete)
 {
+  if (lo != NULL)
   lo->clear(doDelete);
 }
 

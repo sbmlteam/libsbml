@@ -2389,6 +2389,7 @@ LIBSBML_EXTERN
 void
 SpeciesReference_free (SpeciesReference_t *sr)
 {
+  if (sr != NULL)
   delete sr;
 }
 

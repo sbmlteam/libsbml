@@ -202,6 +202,24 @@ START_TEST (test_InitialAssignment_createWithNS )
 }
 END_TEST
 
+START_TEST (test_InitialAssignment_accessWithNULL)
+{
+  fail_unless(InitialAssignment_clone(NULL) == NULL);
+  fail_unless(InitialAssignment_containsUndeclaredUnits(NULL) == 0);
+  fail_unless(InitialAssignment_createWithNS(NULL) == NULL);
+
+  InitialAssignment_free(NULL);
+
+  fail_unless(InitialAssignment_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless(InitialAssignment_getMath(NULL) == NULL);
+  fail_unless(InitialAssignment_getNamespaces(NULL) == NULL);
+  fail_unless(InitialAssignment_getSymbol(NULL) == NULL);
+  fail_unless(InitialAssignment_isSetMath(NULL) == 0);
+  fail_unless(InitialAssignment_isSetSymbol(NULL) == 0);
+  fail_unless(InitialAssignment_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless(InitialAssignment_setSymbol(NULL, NULL) == LIBSBML_INVALID_OBJECT);  
+}
+END_TEST
 
 Suite *
 create_suite_InitialAssignment (void)
@@ -214,12 +232,13 @@ create_suite_InitialAssignment (void)
                              InitialAssignmentTest_setup,
                              InitialAssignmentTest_teardown );
 
-  tcase_add_test( tcase, test_InitialAssignment_create      );
-  //tcase_add_test( tcase, test_InitialAssignment_createWith  );
-  tcase_add_test( tcase, test_InitialAssignment_free_NULL   );
-  tcase_add_test( tcase, test_InitialAssignment_setSymbol );
-  tcase_add_test( tcase, test_InitialAssignment_setMath     );
-  tcase_add_test( tcase, test_InitialAssignment_createWithNS         );
+  tcase_add_test( tcase, test_InitialAssignment_create         );
+  //tcase_add_test( tcase, test_InitialAssignment_createWith   );
+  tcase_add_test( tcase, test_InitialAssignment_free_NULL      );
+  tcase_add_test( tcase, test_InitialAssignment_setSymbol      );
+  tcase_add_test( tcase, test_InitialAssignment_setMath        );
+  tcase_add_test( tcase, test_InitialAssignment_createWithNS   );
+  tcase_add_test( tcase, test_InitialAssignment_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

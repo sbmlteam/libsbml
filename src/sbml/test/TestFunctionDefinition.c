@@ -300,6 +300,31 @@ START_TEST (test_FunctionDefinition_createWithNS )
 }
 END_TEST
 
+START_TEST (test_FunctionDefinition_accessWithNULL )
+{
+  fail_unless( FunctionDefinition_clone(NULL) == NULL );
+  fail_unless( FunctionDefinition_createWithNS(NULL) == NULL );
+
+  FunctionDefinition_free(NULL);
+
+  fail_unless( FunctionDefinition_getArgument(NULL, 0) == NULL );
+  fail_unless( FunctionDefinition_getArgumentByName(NULL, NULL) == NULL );
+  fail_unless( FunctionDefinition_getBody(NULL) == NULL );
+  fail_unless( FunctionDefinition_getId(NULL) == NULL );
+  fail_unless( FunctionDefinition_getMath(NULL) == NULL );
+  fail_unless( FunctionDefinition_getName(NULL) == NULL );
+  fail_unless( FunctionDefinition_getNamespaces(NULL) == NULL );
+  fail_unless( FunctionDefinition_getNumArguments(NULL) == SBML_INT_MAX );
+  fail_unless( FunctionDefinition_isSetId(NULL) == 0 );
+  fail_unless( FunctionDefinition_isSetMath(NULL) == 0 );
+  fail_unless( FunctionDefinition_isSetName(NULL) == 0 );
+  fail_unless( FunctionDefinition_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( FunctionDefinition_setMath(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( FunctionDefinition_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( FunctionDefinition_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  
+}
+END_TEST
 
 Suite *
 create_suite_FunctionDefinition (void)
@@ -312,15 +337,16 @@ create_suite_FunctionDefinition (void)
                              FunctionDefinitionTest_setup,
                              FunctionDefinitionTest_teardown );
 
-  tcase_add_test( tcase, test_FunctionDefinition_create       );
-  tcase_add_test( tcase, test_FunctionDefinition_createWith   );
-  tcase_add_test( tcase, test_FunctionDefinition_free_NULL    );
-  tcase_add_test( tcase, test_FunctionDefinition_getArguments );
-  tcase_add_test( tcase, test_FunctionDefinition_getBody      );
-  tcase_add_test( tcase, test_FunctionDefinition_setId        );
-  tcase_add_test( tcase, test_FunctionDefinition_setName      );
-  tcase_add_test( tcase, test_FunctionDefinition_setMath      );
-  tcase_add_test( tcase, test_FunctionDefinition_createWithNS         );
+  tcase_add_test( tcase, test_FunctionDefinition_create         );
+  tcase_add_test( tcase, test_FunctionDefinition_createWith     );
+  tcase_add_test( tcase, test_FunctionDefinition_free_NULL      );
+  tcase_add_test( tcase, test_FunctionDefinition_getArguments   );
+  tcase_add_test( tcase, test_FunctionDefinition_getBody        );
+  tcase_add_test( tcase, test_FunctionDefinition_setId          );
+  tcase_add_test( tcase, test_FunctionDefinition_setName        );
+  tcase_add_test( tcase, test_FunctionDefinition_setMath        );
+  tcase_add_test( tcase, test_FunctionDefinition_createWithNS   );
+  tcase_add_test( tcase, test_FunctionDefinition_accessWithNULL );
 
   suite_add_tcase(suite, tcase);
 

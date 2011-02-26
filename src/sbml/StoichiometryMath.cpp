@@ -606,6 +606,7 @@ LIBSBML_EXTERN
 void
 StoichiometryMath_free (StoichiometryMath_t *stoichMath)
 {
+  if (stoichMath != NULL)
   delete stoichMath;
 }
 

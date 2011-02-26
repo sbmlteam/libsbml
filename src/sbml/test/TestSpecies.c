@@ -41,6 +41,17 @@
 CK_CPPSTART
 #endif
 
+#if WIN32 && !defined(CYGWIN)
+int isnan(double x);
+int isinf(double x);
+int finite(double x);
+#ifndef __DBL_EPSILON__ 
+#include <float.h>
+#define __DBL_EPSILON__ DBL_EPSILON
+#endif
+#endif
+
+
 static Species_t *S;
 
 
@@ -387,6 +398,74 @@ START_TEST (test_Species_conversionFactor)
 END_TEST
 
 
+START_TEST (test_Species_accessWithNULL)
+{
+  fail_unless( Species_clone(NULL) == NULL );
+  fail_unless( Species_createWithNS(NULL) == NULL );
+  
+  Species_free(NULL);
+
+  fail_unless( Species_getBoundaryCondition(NULL) == 0 );
+  fail_unless( Species_getCharge(NULL) == SBML_INT_MAX );
+  fail_unless( Species_getCompartment(NULL) == NULL );
+  fail_unless( Species_getConstant(NULL) == 0 );
+  fail_unless( Species_getConversionFactor(NULL) == NULL);
+  fail_unless( Species_getDerivedUnitDefinition(NULL) == NULL);
+  fail_unless( Species_getHasOnlySubstanceUnits(NULL) == 0);
+  fail_unless( Species_getId(NULL) == NULL);
+  fail_unless( isnan (Species_getInitialAmount(NULL)));
+  fail_unless( isnan (Species_getInitialConcentration(NULL)));
+  fail_unless( Species_getName(NULL) == NULL);
+  fail_unless( Species_getNamespaces(NULL) == NULL);
+  fail_unless( Species_getSpatialSizeUnits(NULL) == NULL);
+  fail_unless( Species_getSpeciesType(NULL) == NULL);
+  fail_unless( Species_getSubstanceUnits(NULL) == NULL);
+  fail_unless( Species_getUnits(NULL) == NULL);
+  fail_unless( Species_hasRequiredAttributes(NULL) == 0);
+
+  Species_initDefaults(NULL);
+
+  fail_unless( Species_isSetBoundaryCondition(NULL) == 0);
+  fail_unless( Species_isSetCharge(NULL) == 0);
+  fail_unless( Species_isSetCompartment(NULL) == 0);
+  fail_unless( Species_isSetConstant(NULL) == 0);
+  fail_unless( Species_isSetConversionFactor(NULL) == 0);
+  fail_unless( Species_isSetHasOnlySubstanceUnits(NULL) == 0);
+  fail_unless( Species_isSetId(NULL) == 0);
+  fail_unless( Species_isSetInitialAmount(NULL) == 0);
+  fail_unless( Species_isSetInitialConcentration(NULL) == 0);
+  fail_unless( Species_isSetName(NULL) == 0);
+  fail_unless( Species_isSetSpatialSizeUnits(NULL) == 0);
+  fail_unless( Species_isSetSpeciesType(NULL) == 0);
+  fail_unless( Species_isSetSubstanceUnits(NULL) == 0);
+  fail_unless( Species_isSetUnits(NULL) == 0);
+  fail_unless( Species_setBoundaryCondition(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setCharge(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setCompartment(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setConstant(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setConversionFactor(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setHasOnlySubstanceUnits(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setInitialAmount(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setInitialConcentration(NULL, 0) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setSpatialSizeUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setSpeciesType(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setSubstanceUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_setUnits(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetCharge(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetConversionFactor(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetInitialAmount(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetInitialConcentration(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetName(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetSpatialSizeUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetSpeciesType(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetSubstanceUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Species_unsetUnits(NULL) == LIBSBML_INVALID_OBJECT);
+  
+}
+END_TEST
+
 Suite *
 create_suite_Species (void)
 {
@@ -411,6 +490,7 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setUnits                );
   tcase_add_test( tcase, test_Species_createWithNS            );
   tcase_add_test( tcase, test_Species_conversionFactor        );
+  tcase_add_test( tcase, test_Species_accessWithNULL          );
 
   suite_add_tcase(suite, tcase);
 

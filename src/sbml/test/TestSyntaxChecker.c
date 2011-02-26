@@ -97,6 +97,14 @@ START_TEST (test_SyntaxChecker_validXHTML)
 }
 END_TEST
 
+START_TEST (test_SyntaxChecker_accessWithNULL)
+{
+  fail_unless(SyntaxChecker_hasExpectedXHTMLSyntax(NULL, NULL) == 0);
+  fail_unless(SyntaxChecker_isValidSBMLSId(NULL) == 1);
+  fail_unless(SyntaxChecker_isValidUnitSId(NULL) == 1);
+  fail_unless(SyntaxChecker_isValidXMLID(NULL) == 0);
+}
+END_TEST
 
 Suite *
 create_suite_SyntaxChecker (void)
@@ -105,10 +113,11 @@ create_suite_SyntaxChecker (void)
   TCase *tcase = tcase_create("SyntaxChecker");
 
 
-  tcase_add_test( tcase, test_SyntaxChecker_validId       );
-  tcase_add_test( tcase, test_SyntaxChecker_validID       );
-  tcase_add_test( tcase, test_SyntaxChecker_validUnitId   );
-  tcase_add_test( tcase, test_SyntaxChecker_validXHTML    );
+  tcase_add_test( tcase, test_SyntaxChecker_validId        );
+  tcase_add_test( tcase, test_SyntaxChecker_validID        );
+  tcase_add_test( tcase, test_SyntaxChecker_validUnitId    );
+  tcase_add_test( tcase, test_SyntaxChecker_validXHTML     );
+  tcase_add_test( tcase, test_SyntaxChecker_accessWithNULL );
 
 
   suite_add_tcase(suite, tcase);
