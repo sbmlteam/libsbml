@@ -79,6 +79,8 @@ List::~List ()
 void
 List::add (void *item)
 {
+  if (item == NULL) return;
+
   ListNode* node = new ListNode(item);
 
 

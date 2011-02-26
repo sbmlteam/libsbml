@@ -402,10 +402,10 @@ if(WITH_CSHARP)
 		)
 	if(UNIX)
 	else()
-		if (${CMAKE_SIZEOF_VOID_P} EQUAL 4)
+		if (CMAKE_SIZEOF_VOID_P EQUAL 4)
 			# mark libsbml library as x86 
 			set(CSHARP_EXTRA_ARGS -platform:x86 )
-		elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+		elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
 			# mark libsbml library as x64
 			set(CSHARP_EXTRA_ARGS -platform:x64 )		
 		endif()
