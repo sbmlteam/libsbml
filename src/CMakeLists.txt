@@ -83,6 +83,8 @@ copy_files( ${CMAKE_CURRENT_SOURCE_DIR}/sbml/
 if (WITH_LAYOUT)
 copy_files( ${CMAKE_CURRENT_SOURCE_DIR}/sbml/layout 
 				${CMAKE_CURRENT_SOURCE_DIR}/../include/sbml/layout *.h )
+ file(GLOB layout_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/layout/*.h" )
+ install(FILES ${layout_files} DESTINATION include/sbml/layout)			
 endif()
 				
 FILE(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/*.h")
