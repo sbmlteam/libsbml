@@ -52,7 +52,7 @@
  * long and drawn from the enumeration <a class="el"
  * href="#XMLErrorCode_t">XMLErrorCode_t</a>.  Applications can use the
  * error identifiers as a means of recognizing the error encountered and
- * changing their behavior if desired. @endif@if java This
+ * changing their behavior if desired. @else This
  * error identifier is one of the constants listed in the next section below.
  * Applications can use the error identifiers as a means of recognizing the
  * error encountered and changing their behavior if desired.  @endif
@@ -72,7 +72,7 @@
  * <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> 
  * described below.  Categories are used by libSBML to provide more
  * information to calling programs about the nature of a given
- * error. @endif@if java drawn from a set of constants whose
+ * error. @else drawn from a set of constants whose
  * names begin with the characters @c LIBSBML_CAT_.  The list of possible
  * codes is described in a separate section below. Categories are used by
  * libSBML to provide more information to calling programs about the nature
@@ -86,7 +86,7 @@
  * in a separate section below.  Severity levels range from informational
  * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink) to
  * fatal errors (@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink).
- * @endif@if java drawn from a
+ * @else drawn from a
  * set of constants whose names begin with the characters @c LIBSBML_SEV_.
  * The list of possible severity codes is described in a separate section
  * below.  Severity levels range from informational
@@ -120,7 +120,7 @@
  * the XML layer in libSBML.  Each code is an integer with a 4-digit value
  * less than 10000.  The following table lists each possible value and a
  * brief description of its meaning.
- * @endif@if java <h3><a class="anchor" 
+ * @else <h3><a class="anchor" 
  * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
  * 
  * The error and warning codes returned by the XML layer in libSBML are
@@ -209,7 +209,7 @@
  * enumeration of category codes <a class="el" href="#XMLErrorCategory_t">
  * XMLErrorCategory_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
- * @endif@if java <h3><a class="anchor"
+ * @else <h3><a class="anchor"
  * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
@@ -259,7 +259,7 @@
  * enumeration of category codes <a class="el" href="#XMLErrorSeverity_t">
  * XMLErrorSeverity_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
- * @endif@if java <h3><a class="anchor"
+ * @else <h3><a class="anchor"
  * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
  * 
  * As described above, each XMLError object contains a value for a severity
@@ -564,7 +564,7 @@ public:
    * the exception.  @if clike These numbers are drawn from
    * the enumeration <a class="el"
    * href="#XMLErrorCode_t">XMLErrorCode_t</a>.
-   * @endif@if java These numbers are defined as unsigned 
+   * @else These numbers are defined as unsigned 
    * integer constants in the file
    * "libsbmlConstants.java".  See the <a class="el"
    * href="#XMLErrorCode_t">top of this documentation</a> for a table
@@ -580,7 +580,7 @@ public:
    * codes, and these fields are filled-in as well from the enumerations <a
    * class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a
    * class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a>,
-   * respectively. @endif@if java set of constants.  If it is
+   * respectively. @else set of constants.  If it is
    * one of the predefined error identifiers, the XMLError class assumes
    * the error is a low-level system or XML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
@@ -613,7 +613,7 @@ public:
    * href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> and <a class="el"
    * href="#XMLErrorCategory_t">XMLErrorCategory_t</a>, but their own
    * special values) for @p severity and @p
-   * category. @endif@if java As mentioned above, 
+   * category. @else As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#XMLErrorSeverity_t">standard severity</a> and <a class="el"
    * href="#XMLErrorCategory_t">standard category</a> codes, and every predefined 
@@ -863,7 +863,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink from the
    * @if clike enumeration
-   * #XMLErrorSeverity_t. @endif@if java set of predefined
+   * #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this XMLError is for informational purposes only,
@@ -884,7 +884,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_WARNING LIBSBML_SEV_WARNING@endlink from the
    * @if clike enumeration
-   * #XMLErrorSeverity_t. @endif@if java set of predefined
+   * #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is a warning, @c false otherwise.
@@ -904,7 +904,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_ERROR LIBSBML_SEV_ERROR@endlink from the
    * @if clike enumeration
-   * #XMLErrorSeverity_t. @endif@if java set of predefined
+   * #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is an error, @c false otherwise.
@@ -924,7 +924,7 @@ public:
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink from the
    * @if clike enumeration
-   * #XMLErrorSeverity_t. @endif@if java set of predefined
+   * #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is a fatal error, @c false otherwise.
@@ -944,7 +944,7 @@ public:
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_INTERNAL LIBSBML_CAT_INTERNAL@endlink from the
    * @if clike
-   * enumeration #XMLErrorCategory_t. @endif@if java set of
+   * enumeration #XMLErrorCategory_t. @else set of
    * predefined category codes.@endif
    *
    * @return @c true or @c false
@@ -963,7 +963,7 @@ public:
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_SYSTEM LIBSBML_CAT_SYSTEM@endlink from the
    * @if clike
-   * enumeration #XMLErrorCategory_t. @endif@if java set of
+   * enumeration #XMLErrorCategory_t. @else set of
    * predefined category codes.@endif
    *
    * @return @c true or @c false
@@ -983,7 +983,7 @@ public:
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_XML LIBSBML_CAT_XML@endlink from the
    * @if clike
-   * enumeration #XMLErrorCategory_t. @endif@if java set of
+   * enumeration #XMLErrorCategory_t. @else set of
    * predefined category codes.@endif
    *
    * @return @c true or @c false
@@ -1031,7 +1031,7 @@ public:
    * @param code the error code whose message is sought; it must be a
    * predefined value from @if clike <a class="el"
    * href="#XMLErrorCode_t">
-   * XMLErrorCode_t</a>. @endif@if java <a class="el"
+   * XMLErrorCode_t</a>. @else <a class="el"
    * href="#XMLErrorCode_t">the set of predefined error identifiers.@endif
    */
   static const std::string getStandardMessage (const int code);

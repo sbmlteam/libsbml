@@ -55,34 +55,34 @@
  * such as Species, Compartment, etc.  The following template illustrates
  * the different parts of SBML annotations in XML form:
  * 
-<div class="fragment">
-&lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;<br>
-&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
-&nbsp;&nbsp;&lt;annotation&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:dc="http://purl.org/dc/elements/1.1/"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:dcterm="http://purl.org/dc/terms/"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:bqmodel="http://biomodels.net/model-qualifiers/" &gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">URI</span>&quot; /&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Description&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:RDF&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
-&nbsp;&nbsp;&lt;/annotation&gt;<br>
-&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
-&lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;<br>
-</div>
+ <div class="fragment">
+ &lt;<span style="background-color: #bbb">SBML_ELEMENT</span> <span style="background-color: #d0eed0">+++</span> metaid=&quot;<span style="border-bottom: 1px solid black">meta id</span>&quot; <span style="background-color: #d0eed0">+++</span>&gt;<br>
+ &nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
+ &nbsp;&nbsp;&lt;annotation&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:dc="http://purl.org/dc/elements/1.1/"<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:dcterm="http://purl.org/dc/terms/"<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:bqbiol="http://biomodels.net/biology-qualifiers/"<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmlns:bqmodel="http://biomodels.net/model-qualifiers/" &gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">URI</span>&quot; /&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Description&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:RDF&gt;<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
+ &nbsp;&nbsp;&lt;/annotation&gt;<br>
+ &nbsp;&nbsp;<span style="background-color: #d0eed0">+++</span><br>
+ &lt;/<span style="background-color: #bbb">SBML_ELEMENT</span>&gt;<br>
+ </div>
  * 
  * In the template above, the placeholder
  * <span class="code" style="background-color: #bbb">SBML_ELEMENT</span> stands for
@@ -99,7 +99,7 @@
  * <span class="code" style="background-color: #edd">...</span>
  * are placeholders for zero or more elements of the same form as the
  * immediately preceding element.  The optional content
- * <span class="code" style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span>
+ * <span class="code" style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span>
  * is a creation and modification history; in libSBML, this is stored
  * using ModelHistory objects.
  *
@@ -226,8 +226,7 @@ public:
 
   /**
    * Creates an empty CVTerm, optionally with the given
-   * @if clike #QualifierType_t@endif@if java qualifier type code@endif value
-   * @p type.
+   * @if clike #QualifierType_t value@else qualifier@endif @p type.
    *
    * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
    * format for annotating models when (a) referring to controlled
@@ -253,8 +252,8 @@ public:
    * an explicit value for @p type is not given, this method defaults to
    * using @link QualifierType_t#UNKNOWN_QUALIFIER
    * UNKNOWN_QUALIFIER@endlink.  The
-   * @if clike #QualifierType_t@endif@if java qualifier type code@endif 
-   * type value can be set later using the
+   * @if clike #QualifierType_t value@else qualifier type@endif 
+   * can be set later using the
    * CVTerm::setQualifierType(@if java int type@endif) method.
    *
    * Different BioModels.net qualifier elements encode different types of
@@ -263,7 +262,7 @@ public:
    * qualifiers web page</a> for an explanation of the meaning of these
    * different qualifiers.
    *
-   * @param type a @if clike #QualifierType_t@endif@if java qualifier type code@endif value
+   * @param type a @if clike #QualifierType_t value@else qualifier type@endif
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
@@ -337,7 +336,7 @@ public:
 
 
   /**
-   * Returns the qualifier type code for this CVTerm object.
+   * Returns the qualifier type of this CVTerm object.
    *
    * @htmlinclude cvterm-common-description-text.html
    *
@@ -363,8 +362,8 @@ public:
    * the @em other two methods to call to find out the specific
    * relationship.
    *
-   * @return the @if clike #QualifierType_t@endif@if java qualifier type code@endif value of this object or
-   * @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink
+   * @return the @if clike #QualifierType_t value@else qualifier type@endif
+   * of this object or @link QualifierType_t#UNKNOWN_QUALIFIER UNKNOWN_QUALIFIER@endlink
    * (the default).
    *
    * @see getResources()
@@ -375,7 +374,7 @@ public:
 
 
   /**
-   * Returns the model qualifier type code for this CVTerm object.
+   * Returns the model qualifier type of this CVTerm object.
    * 
    * @htmlinclude cvterm-common-description-text.html
    *
@@ -399,15 +398,15 @@ public:
    * unknown by libSBML and reported as
    * @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink.
    *
-   * @return the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value of this object or
-   * @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink
+   * @return the @if clike #ModelQualifierType_t value@else model qualifier type@endif
+   * of this object or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink
    * (the default).
    */
   ModelQualifierType_t getModelQualifierType();
 
 
   /**
-   * Returns the biological qualifier type code for this CVTerm object.
+   * Returns the biological qualifier type of this CVTerm object.
    * 
    * @htmlinclude cvterm-common-description-text.html
    *
@@ -440,8 +439,8 @@ public:
    * unknown by libSBML and reported as
    * @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    *
-   * @return the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value of this object or
-   * @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink
+   * @return the @if clike #BiolQualifierType_t value@else biology qualifier type@endif
+   * of this object or @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink
    * (the default).
    */
   BiolQualifierType_t getBiologicalQualifierType();
@@ -545,11 +544,11 @@ public:
 
   
   /**
-   * Sets the @if clike #QualifierType_t@endif@if java qualifier type code@endif value of this CVTerm object.
+   * Sets the @if clike #QualifierType_t@else qualifier code@endif of this
+   * CVTerm object.
    *
-   * @param type the @if clike #QualifierType_t@endif@if java qualifier type code@endif type value 
-   * function. The possible values
-   * returned by this function are:
+   * @param type the @if clike #QualifierType_t value@else qualifier type@endif.
+   * The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    *
    * @see getQualifierType()
@@ -558,13 +557,13 @@ public:
 
 
   /**
-   * Sets the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value of this CVTerm object.
+   * Sets the @if clike #ModelQualifierType_t value@else model qualifier type@endif
+   * of this CVTerm object.
    *
-   * @param type the @if clike #ModelQualifierType_t@endif@if java model qualifier type code@endif value
+   * @param type the @if clike #ModelQualifierType_t value@else model qualifier type@endif
    *
    * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * function. The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    *
@@ -580,19 +579,19 @@ public:
 
 
   /**
-   * Sets the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif of this CVTerm object.
+   * Sets the @if clike #BiolQualifierType_t value@else biology qualifier type@endif
+   * of this CVTerm object.
    *
-   * @param type the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value
+   * @param type the @if clike #BiolQualifierType_t value@else biology qualifier type@endif.
    *
    * @return integer value indicating success/failure of the
-   * function. The possible values
-   * returned by this function are:
+   * function. The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    *
    * @note If the Qualifier Type of this object is not
    * @link QualifierType_t#BIOLOGICAL_QUALIFIER BIOLOGICAL_QUALIFIER@endlink,
-   * then the @if clike #BiolQualifierType_t@endif@if java biology qualifier type code@endif value will default
+   * then the @if clike #BiolQualifierType_t value@else biology qualifier type@endif will default
    * to @link BiolQualifierType_t#BQB_UNKNOWN BQB_UNKNOWN@endlink.
    *
    * @see getQualifierType()
@@ -620,18 +619,18 @@ public:
    * together identified uniquely using a URI.  The following template
    * illustrates the structure:
    *
-<DIV class="fragment">
-&lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;<br>
-&nbsp;&nbsp;<span style="background-color: #ddd; border-bottom: 2px dotted #888">HISTORY</span><br>
-&nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
-&nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
-&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
-&lt;/rdf:Description&gt;<br>
-</div>
+   <DIV class="fragment">
+   &lt;rdf:Description rdf:about=&quot;#<span style="border-bottom: 1px solid black">meta id</span>&quot;&gt;<br>
+   &nbsp;&nbsp;<span style="background-color: #e0e0e0; border-bottom: 2px dotted #888">HISTORY</span><br>
+   &nbsp;&nbsp;&lt;<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:Bag&gt;<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdf:li rdf:resource=&quot;<span style="background-color: #d0d0ee">resource URI</span>&quot; /&gt;<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;/rdf:Bag&gt;<br>
+   &nbsp;&nbsp;&lt;/<span style="background-color: #bbb">RELATION_ELEMENT</span>&gt;<br>
+   &nbsp;&nbsp;<span style="background-color: #edd">...</span><br>
+   &lt;/rdf:Description&gt;<br>
+   </div>
    *
    * In the template above, the placeholder <span class="code"
    * style="border-bottom: 1px solid black">meta id</span> stands for the

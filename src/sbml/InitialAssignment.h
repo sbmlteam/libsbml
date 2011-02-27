@@ -400,7 +400,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -413,13 +413,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java InitialAssignment::containsUndeclaredUnits()@endif
+   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -439,7 +439,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * InitialAssignment and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -452,13 +452,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java InitialAssignment::containsUndeclaredUnits()@endif
+   * @if java InitialAssignment::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -481,7 +481,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -500,7 +500,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java InitialAssignment::getDerivedUnitDefinition()@endif
+   * @if java InitialAssignment::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()

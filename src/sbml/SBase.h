@@ -611,10 +611,10 @@ public:
    * SpeciesReference, ListOfSpeciesReferences, Reaction, ListOfReactions
    * and Model, any of which can be accessed via this function.
    *
-   * @param type the @if clike #SBMLTypeCode_t value@endif@if java SBML object type code@endif@if python SBML object type code@endif of the ancestor being sought.
+   * @param type the @if clike #SBMLTypeCode_t value@else SBML object type code@endif of the ancestor being sought.
    * 
    * @return the ancestor SBML object of this SBML object that corresponds
-   * to the given @if clike #SBMLTypeCode_t value@endif@if notcpp SBML object type code@endif, or @c NULL if none exists.
+   * to the given @if clike #SBMLTypeCode_t value@else SBML object type code@endif, or @c NULL if none exists.
    */
   SBase* getAncestorOfType(SBMLTypeCode_t type);
 
@@ -1357,16 +1357,16 @@ public:
    * document, but that is for illustration purposes only; you could of
    * course use this same approach to annotate any other SBML component.
    * @if clike
-   * @verbatim
+@verbatim
 SBMLDocument* s = new SBMLDocument(3, 1);
 s->setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
 @endverbatim
-@endif@if java
+   * @endif@if java
 @verbatim
 SBMLDocument s = new SBMLDocument(3, 1);
 s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></body>");
 @endverbatim
-@endif
+   * @endif
    *
    * @param notes an XML string that is to be used as the content of the
    * "notes" subelement of this object
@@ -1550,7 +1550,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    *
-   * @see setSBOTerm(@if clike const std::string &sboid@endif@if java String sbo_id@endif)
+   * @see setSBOTerm(@if java String sbo_id@else const std::string &sboid@endif)
    */
   virtual int setSBOTerm (int value);
 
@@ -2085,7 +2085,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * LibSBML C interface, in which class and subclass information is not
    * readily available.
    *
-   * @return the @if clike #SBMLTypeCode_t value@endif@if notcpp SBML object type code@endif
+   * @return the @if clike #SBMLTypeCode_t value@else SBML object type code@endif
    * of this SBML object or
    * @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (the default).
    *

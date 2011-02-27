@@ -60,8 +60,8 @@
  * system running libSBML, and that libSBML was configured with their
  * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a>@endif@if python <a href="libsbml-installation.html">installation instructions</a>@endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a>@endif for 
  * more information about this.  The methods
- * @if clike hasZlib()@endif@if python hasZlib()@endif@if java SBMLWriter::hasZlib()@endif and
- * @if clike hasBzip2()@endif@if python hasBzip2()@endif@if java SBMLWriter::hasBzip2()@endif
+ * SBMLWriter::hasZlib() and
+ * SBMLWriter::hasBzip2()
  * can be used by an application to query at run-time whether support
  * for the compression libraries is available in the present copy of
  * libSBML.
@@ -114,7 +114,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program name and version are set (see
-   * @if clike setProgramVersion()@endif@if python setProgramVersion()@endif@if java SBMLWriter::setProgramVersion(String version)@endif), the
+   * SBMLWriter::setProgramVersion(@if java String version@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the XML document:
    * @verbatim
@@ -143,7 +143,7 @@ public:
    * write out the SBMLDocument.
    *
    * If the program version and name are set (see
-   * @if clike setProgramName()@endif@if python setProgramName()@endif@if java SBMLWriter::setProgramName(String name)@endif), the
+   * SBMLWriter::setProgramName(@if java String name@endif)), the
    * following XML comment, intended for human consumption, will be written
    * at the beginning of the document:
    * @verbatim
@@ -449,8 +449,8 @@ SBMLWriter_hasBzip2 ();
  * should be freed (with the normal string <code>free()</code> C++
  * function) after it is no longer needed.@endif
  *
- * @if clike @see hasZlib()@endif@if python @see hasZlib()@endif@if java @see SBMLWriter::hasZlib()@endif
- * @if clike @see hasBzip2()@endif@if python @see hasBzip2()@endif@if java @see SBMLWriter::hasBzip2()@endif
+ * @see SBMLWriter::hasZlib()
+ * @see SBMLWriter::hasBzip2()
  */
 LIBSBML_EXTERN
 int
@@ -505,8 +505,8 @@ writeSBMLToString (const SBMLDocument_t *d);
  * should be freed (with the normal string <code>free()</code> C++
  * function) after it is no longer needed.@endif
  *
- * @if clike @see hasZlib()@endif@if python @see hasZlib()@endif@if java @see SBMLWriter::hasZlib()@endif
- * @if clike @see hasBzip2()@endif@if python @see hasBzip2()@endif@if java @see SBMLWriter::hasBzip2()@endif
+ * @see SBMLWriter::hasZlib()
+ * @see SBMLWriter::hasBzip2()
  */
 LIBSBML_EXTERN
 int

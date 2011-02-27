@@ -341,7 +341,7 @@ public:
    *
    * @note If index
    * is out of range, an empty string will be returned.  Use
-   * @if clike hasAttr()@endif@if java XMLToken::hasAttr(int index)@endif
+   * XMLToken::hasAttr(@if java int index@endif)
    * to test for the attribute existence.
    */
   std::string getAttrName (int index) const;
@@ -358,7 +358,7 @@ public:
    * (by position).  
    *
    * @note If index is out of range, an empty string will be returned. Use
-   * @if clike hasAttr()@endif@if java XMLToken::hasAttr(int index)@endif to test
+   * XMLToken::hasAttr(@if java int index@endif) to test
    * for the attribute existence.
    */
   std::string getAttrPrefix (int index) const;
@@ -375,7 +375,7 @@ public:
    * (by position).  
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * @if clike hasAttr()@endif@if java XMLToken::hasAttr(int index)@endif to test
+   * XMLToken::hasAttr(@if java int index@endif) to test
    * for attribute existence.
    */
   std::string getAttrPrefixedName (int index) const;
@@ -391,7 +391,7 @@ public:
    * @return the namespace URI of an attribute in the attribute set (by position).
    *
    * @note If index is out of range, an empty string will be returned.  Use
-   * @if clike hasAttr()@endif@if java XMLToken::hasAttr(int index)@endif to test
+   * XMLToken::hasAttr(@if java int index@endif) to test
    * for attribute existence.
    */
   std::string getAttrURI (int index) const;
@@ -407,7 +407,7 @@ public:
    * @return the value of an attribute in the attribute set (by position).  
    *
    * @note If index is out of range, an empty string will be returned. Use
-   * @if clike hasAttr()@endif@if java XMLToken::hasAttr(int index)@endif to test
+   * XMLToken::hasAttr(@if java int index@endif) to test
    * for attribute existence.
    */
   std::string getAttrValue (int index) const;
@@ -424,7 +424,7 @@ public:
    * @note If an attribute with the 
    * given local name and namespace URI does not exist, an empty string will be 
    * returned.  
-   * Use @if clike hasAttr()@endif@if java XMLToken::hasAttr(String name, String uri)@endif
+   * Use XMLToken::hasAttr(@if java String name, String uri@endif)
    * to test for attribute existence.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
@@ -442,7 +442,7 @@ public:
    *
    * @note If an attribute with the
    * given XMLTriple does not exist, an empty string will be returned.  
-   * Use @if clike hasAttr()@endif@if java XMLToken::hasAttr(XMLTriple triple)@endif
+   * Use XMLToken::hasAttr(@if java XMLTriple triple@endif)
    * to test for attribute existence.
    */
   std::string getAttrValue (const XMLTriple& triple) const;

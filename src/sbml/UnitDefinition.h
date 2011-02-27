@@ -845,7 +845,7 @@ public:
    * Expresses the given definition in a plain-text form.
    *
    * For example,
-   * @if clike printUnits()@endif@if python printUnits()@endif@if java UnitDefinition::printUnits(UnitDefinition u)@endif
+   * UnitDefinition::printUnits(@if java UnitDefinition u@endif)
    * applied to
    * @code
    * <unitDefinition>

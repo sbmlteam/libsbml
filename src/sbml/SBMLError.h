@@ -1054,7 +1054,7 @@ public:
    * filled-in as well from the enumerations <a class="el"
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>,
-   * respectively. @endif@if notcpp set of constants.  If it @em
+   * respectively. @else set of constants.  If it @em
    * is one of the predefined error identifiers, the SBMLError class
    * assumes the error is a low-level system or SBML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
@@ -1087,7 +1087,7 @@ public:
    * href="#SBMLErrorSeverity_t">SBMLErrorSeverity_t</a> and <a class="el"
    * href="#SBMLErrorCategory_t">SBMLErrorCategory_t</a>, but their own
    * special values) for @p severity and 
-   * @p category. @endif@if notcpp As mentioned above, 
+   * @p category. @else As mentioned above, 
    * there are additional constants defined for <a class="el"
    * href="#SBMLErrorSeverity_t">standard severity</a> and <a class="el"
    * href="#SBMLErrorCategory_t">standard category</a> codes, and every predefined 

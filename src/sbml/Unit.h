@@ -57,7 +57,7 @@
  * and Level&nbsp;1 defines @c celsius, @c meter, and @c liter, none of
  * which are available in Level&nbsp;3.  In libSBML, each of the predefined
  * base unit names is represented by an enumeration value @if clike in
- * #UnitKind_t@endif@if notcpp whose name begins with the characters
+ * #UnitKind_t@else whose name begins with the characters
  * <code>UNIT_KIND_</code>@endif, discussed in a separate section below.
  *
  * The attribute named "exponent" on Unit represents an exponent on the
@@ -81,8 +81,7 @@
  *
  * @if clike
  * <h3><a class="anchor" name="UnitKind_t">UnitKind_t</a></h3>
- * @endif
- * @if notcpp
+ * @else
  * <h3><a class="anchor" name="UnitKind_t">%Unit identification codes</a></h3>
  * @endif
  *
@@ -155,7 +154,7 @@
  *
  * @if clike The table below lists the symbols defined in the
  * @c UnitKind_t enumeration, and their
- * meanings. @endif@if notcpp The table below lists the unit
+ * meanings. @else The table below lists the unit
  * constants defined in libSBML, and their meanings. @endif
  *
  * @htmlinclude unitkind-table.html

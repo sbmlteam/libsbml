@@ -253,7 +253,7 @@ else
     // Handle another truly exceptional situation.
 }
 @endverbatim
-@endif@if java
+   * @endif@if java
 @verbatim
 SBMLDocument sd;
 try 
@@ -276,9 +276,9 @@ if (sn != null)
 else
 {
     // Handle another truly exceptional situation.
-}
+ }
 @endverbatim
-@endif
+   * @endif
    * 
    * @param xmlns the XML namespaces to be added.
    */

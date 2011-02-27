@@ -36,7 +36,7 @@
  * mismatched tags or other problems).
  *
  * A typical approach for using this error log is to first use
- * @if clike getNumErrors()@endif@if java XMLErrorLog::getNumErrors()@endif to inquire how many XMLError
+ * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif to inquire how many XMLError
  * object instances it contains, and then to iterate over the list of
  * objects one at a time using getError(unsigned int n) const.  Indexing in
  * the list begins at 0.
@@ -75,7 +75,7 @@ public:
    * Returns the number of errors that have been logged.
    *
    * To retrieve individual errors from the log, callers may use
-   * @if clike getError()@endif@if java XMLErrorLog::getError(long n)@endif const.
+   * XMLErrorLog::getError(@if java long n@endif) const.
    *
    * @return the number of errors that have been logged.
    */
@@ -87,7 +87,7 @@ public:
    *
    * Index @p n is counted from 0.  Callers should first inquire about the
    * number of items in the log by using the method
-   * @if clike getNumErrors()@endif@if java XMLErrorLog::getNumErrors()@endif.
+   * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif.
    * Attempts to use an error index number that exceeds the actual number
    * of errors in the log will result in a @c NULL being returned.
    *
@@ -96,7 +96,7 @@ public:
    *
    * @return the <i>n</i>th XMLError in this log, or @c NULL if @p n is
    * greater than or equal to
-   * @if clike getNumErrors()@endif@if java XMLErrorLog::getNumErrors()@endif.
+   * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif.
    *
    * @see getNumErrors()
    */

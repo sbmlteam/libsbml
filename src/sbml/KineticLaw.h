@@ -226,7 +226,7 @@ public:
    * it as as a text string.
    *
    * This is fundamentally equivalent to
-   * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
+   * @if java KineticLaw::getMath()@else getMath()@endif.
    * This variant is provided principally for compatibility compatibility
    * with SBML Level&nbsp;1.
    * 
@@ -244,7 +244,7 @@ public:
    * it as as an AST.
    *
    * This is fundamentally equivalent to
-   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::getFormula()@endif.
+   * @if java KineticLaw::getFormula()@else getFormula()@endif.
    * The latter is provided principally for compatibility compatibility
    * with SBML Level&nbsp;1, which represented mathematical formulas in
    * text-string form.
@@ -291,10 +291,10 @@ public:
    * KineticLaw's "formula" attribute is set.
    *
    * This is functionally identical to the method
-   * @if clike isSetMath()@endif@if python isSetMath()@endif@if java KineticLaw::isSetMath()@endif.  It is
+   * @if java KineticLaw::isSetMath()@else isSetMath()@endif.  It is
    * provided in order to mirror the parallel between
-   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::getFormula()@endif and
-   * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
+   * @if java KineticLaw::getFormula()@else getFormula()@endif and
+   * @if java KineticLaw::getMath()@else getMath()@endif.
    *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw is set, @c false otherwise.
@@ -311,10 +311,10 @@ public:
    * Kinetic's "math" subelement is set.
    *
    * This is identical to the method
-   * @if clike isSetFormula()@endif@if python isSetFormula()@endif@if java KineticLaw::isSetFormula()@endif.
+   * @if java KineticLaw::isSetFormula()@else isSetFormula()@endif.
    * It is provided in order to mirror the parallel between
-   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::getFormula()@endif and
-   * @if clike getMath()@endif@if python getMath()@endif@if java KineticLaw::getMath()@endif.
+   * @if java KineticLaw::getFormula()@else getFormula()@endif and
+   * @if java KineticLaw::getMath()@else getMath()@endif.
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this KineticLaw is set, @c false otherwise.
@@ -384,7 +384,7 @@ public:
    * of the given ASTNode.
    *
    * This is fundamentally identical to
-   * @if clike getFormula()@endif@if python getFormula()@endif@if java KineticLaw::setFormula(String formula)@endif.
+   * @if java KineticLaw::setFormula(String formula)@else getFormula()@endif.
    * The latter is provided principally for compatibility compatibility with
    * SBML Level&nbsp;1, which represented mathematical formulas in text-string
    * form.
@@ -511,7 +511,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if clike createParameter()@endif@if python createParameter()@endif@if java KineticLaw::createParameter()@endif
+   * @if java KineticLaw::createParameter()@else createParameter()@endif
    * for a method that does not lead to these issues.
    *
    * @see createParameter()
@@ -543,7 +543,7 @@ public:
    * instance in the KineticLaw</em>.  In addition, the caller should make
    * sure to free the original object if it is no longer being used, or
    * else a memory leak will result.  Please see
-   * @if clike createParameter()@endif@if python createParameter()@endif@if java KineticLaw::createParameter()@endif
+   * @if java KineticLaw::createParameter()@else createParameter()@endif
    * for a method that does not lead to these issues.
    *
    * @see createLocalParameter()
@@ -717,7 +717,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -730,13 +730,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if java KineticLaw::containsUndeclaredUnits()@endif
+   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers may
    * wish to take suitable actions in those scenarios.
    *
@@ -756,7 +756,7 @@ public:
    * The units are calculated based on the mathematical expression in the
    * KineticLaw and the model quantities referenced by
    * <code>&lt;ci&gt;</code> elements used within that expression.  The
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * method returns the calculated units.
    *
    * Note that the functionality that facilitates unit analysis depends 
@@ -769,13 +769,13 @@ public:
    * units.  In those cases, it is not possible to calculate the units of
    * the overall expression without making assumptions.  LibSBML does not
    * make assumptions about the units, and
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * only returns the units as far as it is able to determine them.  For
    * example, in an expression <em>X + Y</em>, if <em>X</em> has
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if java KineticLaw::containsUndeclaredUnits()@endif
+   * @if java KineticLaw::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    *
@@ -798,7 +798,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()
@@ -817,7 +817,7 @@ public:
    *
    * @note A return value of @c true indicates that the UnitDefinition
    * returned by
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java KineticLaw::getDerivedUnitDefinition()@endif
+   * @if java KineticLaw::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * may not accurately represent the units of the expression.
    *
    * @see getDerivedUnitDefinition()

@@ -51,7 +51,7 @@ BEGIN_C_DECLS
  * this text-string form therefore can be handed to a program that
  * understands SBML Level&nbsp;1 mathematical expressions, or used as part
  * of a formula translation system.  The syntax is described in detail in
- * the documentation for ASTNode. @endif@if java The text-string form of
+ * the documentation for ASTNode. @else The text-string form of
  * mathematical formulas produced by <code><a
  * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
  * libsbml.formulaToString()</a></code> and read by

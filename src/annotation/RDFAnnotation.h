@@ -44,7 +44,7 @@
  * RDF-based annotations attached to a given SBML
  * <code>&lt;annotation&gt;</code> element are read by RDFAnnotationParser
  * and converted into a list of CVTerm objects.  There
- * are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @endif@if java RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, CVTermList *CVTerms) @endif
+ * are different versions of the main method, @if clike RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, %List *CVTerms) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, CVTermList *CVTerms) @endif
  * and RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation), 
  * used depending on whether the annotation in question concerns the MIRIAM
  * model history or other MIRIAM resource annotations.  A special object
@@ -128,7 +128,7 @@ public:
 int success;                              // Status code variable, used below.
 
 XMLNode *RDF = createRDFAnnotation();     // Create RDF annotation XML structure.
-success = RDF->addChild(content);         // Put some content into it.
+success = RDF->addChild(...content...);   // Put some content into it.
 ...                                       // Check "success" return code value.
 
 XMLNode *ann = createAnnotation();        // Create <annotation> container.
@@ -138,12 +138,12 @@ success = ann->addChild(RDF);             // Put the RDF annotation into it.
 success = sbmlObject->setAnnotation(ann); // Set object's annotation to what we built.
 ...                                       // Check "success" return code value.
 @endverbatim
-@endif@if java
+   * @endif@if java
 @verbatim
 int success;                                   // Status code variable, used below.
 
 XMLNode RDF = createRDFAnnotation();          // Create RDF annotation XML structure.
-success      = RDF.addChild(content);          // Put some content into it.
+success      = RDF.addChild(...content...);    // Put some content into it.
 ...                                            // Check "success" return code value.
 
 XMLNode ann = createAnnotation();             // Create <annotation> container.
@@ -153,7 +153,20 @@ success      = ann.addChild(RDF);              // Put the RDF annotation into it
 success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what we built.
 ...                                            // Check "success" return code value.
 @endverbatim
-@endif
+   * @endif@if python
+@verbatim
+RDF     = RDFAnnotationParser.createRDFAnnotation() # Create RDF annotation XML structure.
+success = RDF.addChild(...content...)               # Put some content into it.
+...                                                 # Check "success" return code value.
+
+annot   = RDFAnnotationParser.createAnnotation()    # Create <annotation> container.
+success = annot.addChild(RDF)                       # Put the RDF annotation into it.
+...                                                 # Check "success" return code value.
+
+success = sbmlObject.setAnnotation(annot)           # Set object's annotation to what we built.
+...                                                 # Check "success" return code value.
+@endverbatim
+   * @endif
    * The SBML specification contains more information about the format of
    * annotations.  We urge readers to consult Section&nbsp;6 of the SBML
    * Level&nbsp;2 (Versions 2&ndash;4) and SBML Level&nbsp;3 specification
@@ -185,7 +198,7 @@ success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what
    *
    * Note that this does not create the containing SBML
    * <code>&lt;annotation&gt;</code> element; the method
-   * @if clike createAnnotation()@endif@if java RDFAnnotationParser::createAnnotation()@endif
+   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif
    * is available for creating the container.
    *
    * @return a pointer to an XMLNode
@@ -233,7 +246,7 @@ success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what
    * Note that this method does @em not create a complete annotation or
    * even an RDF element; it only creates the "Description" portion.  Callers
    * will need to use other methods such as
-   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif
+   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif
    * to create the rest of the structure for an annotation.
    *
    * @param object the object to which the "Description" refers
@@ -252,7 +265,7 @@ success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what
    *
    * This essentially takes the given SBML object, reads out the CVTerm objects
    * attached to it, calls
-   * @if clike createRDFDescription()@endif@if java RDFAnnotationParser::createRDFDescription(SBase object)@endif
+   * @if clike createRDFDescription()@else RDFAnnotationParser::createRDFDescription(SBase object)@endif
    * to create an RDF "Description" element to hold the terms and adds
    * each term with appropriate qualifiers.
    *
@@ -269,13 +282,13 @@ success      = sbmlObject.setAnnotation(ann); // Set object's annotation to what
    * around it.
    *
    * This essentially takes the given SBML object, calls
-   * @if clike RDFAnnotationParser::createCVTerms()@endif@if java RDFAnnotationParser::createCVTerms(SBase object)@endif
+   * @if clike RDFAnnotationParser::createCVTerms()@else RDFAnnotationParser::createCVTerms(SBase object)@endif
    * to read out the CVTerm objects
    * attached to it, calls
-   * @if clike createRDFAnnotation()@endif@if java RDFAnnotationParser::createRDFAnnotation()@endif
+   * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif
    * to create an RDF
    * annotation to hold the terms, and finally calls
-   * @if clike createAnnotation()@endif@if java RDFAnnotationParser::createAnnotation()@endif
+   * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif
    * to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
    *
    * @param object the SBML object to start from

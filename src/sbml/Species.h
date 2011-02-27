@@ -438,7 +438,7 @@ public:
    * (identifier) attribute of a Species is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if clike setId()@endif@if python setId()@endif@if java Species::setId(String id)@endif.
+   * method Species::setId(@if java String id@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -1270,7 +1270,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
@@ -1289,7 +1289,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * The @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *
@@ -1313,7 +1313,7 @@ public:
    * compartment)</em> in which the species is located, or finally, if
    * these are not redefined by the Model, the relevant SBML default units
    * for those quantities.  Following that procedure, the method
-   * @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * returns a UnitDefinition based on the
    * interpreted units of this species's amount or concentration.
    *
@@ -1332,7 +1332,7 @@ public:
    * In SBML Level&nbsp;2 specifications prior to Version&nbsp;3, Species
    * includes an additional attribute named "spatialSizeUnits", which
    * allows explicitly setting the units of size for initial concentration.
-   * The @if clike getDerivedUnitDefinition()@endif@if python getDerivedUnitDefinition()@endif@if java Species::getDerivedUnitDefinition()@endif
+   * The @if java Species::getDerivedUnitDefinition()@else getDerivedUnitDefinition()@endif
    * takes this into account for models
    * expressed in SBML Level&nbsp;2 Versions&nbsp;1 and&nbsp;2.
    *

@@ -1097,7 +1097,7 @@ public:
    * subelement of this object.
    *
    * The content in @p annotation is copied.  Unlike
-   * @if clike setAnnotation()@endif@if python setAnnotation()@endif@if java SpeciesReference::setAnnotation(String annotation)@endif,
+   * SpeciesReference::setAnnotation(@if java String annotation@endif),
    * this method allows other annotations to be preserved when an application
    * adds its own data.
    *
@@ -1121,7 +1121,7 @@ public:
    * subelement of this object.
    *
    * The content in @p annotation is copied.  Unlike
-   * @if clike setAnnotation()@endif@if python setAnnotation()@endif@if java SpeciesReference::setAnnotation(String annotation)@endif, this
+   * SpeciesReference::setAnnotation(@if java String annotation@endif), this
    * method allows other annotations to be preserved when an application
    * adds its own data.
    *

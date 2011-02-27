@@ -229,7 +229,7 @@ public:
    * Thus, callers are cautioned to assign a value after calling this
    * constructor if no identifier is provided as an argument.  Setting the
    * identifier can be accomplished using the method
-   * @if clike setId()@endif@if python setId()@endif@if java setId(String id)@endif.
+   * @if java setId(String id)@else setId()@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *

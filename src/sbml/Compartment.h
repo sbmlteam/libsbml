@@ -376,8 +376,7 @@ public:
    * (identifier) attribute of a Compartment is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method
-   * @if clike setId()@endif@if python setId()@endif@if java Compartment::setId(String id)@endif.
+   * method @if java Compartment::setId(String id)@else setId()@endif.
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -522,14 +521,14 @@ public:
    * Get the size of this Compartment.
    *
    * This method is identical to
-   * @if clike getVolume()@endif@if python getVolume()@endif@if java Compartment::getVolume()@endif.
+   * @if java Compartment::getVolume()@else getVolume()@endif.
    * In SBML Level&nbsp;1, compartments are always three-dimensional
    * constructs and only have volumes, whereas in SBML Level&nbsp;2,
    * compartments may be other than three-dimensional and therefore the
    * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
    * both
-   * @if clike getSize()@endif@if python getSize()@endif@if java Compartment::getSize()@endif and
-   * @if clike getVolume()@endif@if python getVolume()@endif@if java Compartment::getVolume()@endif for
+   * @if java Compartment::getSize()@else getSize()@endif and
+   * @if java Compartment::getVolume()@else getVolume()@endif for
    * easier compatibility between SBML Levels.
    *
    * @return the value of the "size" attribute ("volume" in Level&nbsp;1) of
@@ -545,14 +544,14 @@ public:
    * Get the volume of this Compartment.
    * 
    * This method is identical to
-   * @if clike getSize()@endif@if python getSize()@endif@if java Compartment::getSize()@endif.  In
+   * @if java Compartment::getSize()@else getSize()@endif.  In
    * SBML Level&nbsp;1, compartments are always three-dimensional
    * constructs and only have volumes, whereas in SBML Level&nbsp;2,
    * compartments may be other than three-dimensional and therefore the
    * "volume" attribute is named "size" in Level&nbsp;2.  LibSBML provides
    * both
-   * @if clike getSize()@endif@if python getSize()@endif@if java Compartment::getSize()@endif and
-   * @if clike getVolume()@endif@if python getVolume()@endif@if java Compartment::getVolume()@endif
+   * @if java Compartment::getSize()@else getSize()@endif and
+   * @if java Compartment::getVolume()@else getVolume()@endif
    * for easier compatibility between SBML Levels.
    *
    * @return the value of the "volume" attribute ("size" in Level&nbsp;2) of
@@ -581,7 +580,7 @@ public:
    * @note @htmlinclude unassigned-units-are-not-a-default.html
    *
    * @see isSetUnits()
-   * @see @if clike setUnits()@endif@if python setUnits()@endif@if java Compartment::setUnits(String sid)@endif
+   * @see @if java Compartment::setUnits(String sid)@else setUnits()@endif
    * @see getSize()
    */
   const std::string& getUnits () const;
@@ -647,14 +646,12 @@ public:
    * Compartment's "size" attribute is set.
    *
    * This method is similar but not identical to
-   * @if clike isSetVolume()@endif@if python isSetVolume()@endif@if java Compartment::isSetVolume()@endif.  The latter
+   * @if java Compartment::isSetVolume()@else isSetVolume()@endif.  The latter
    * should be used in the context of SBML Level&nbsp;1 models instead of
-   * @if clike isSetSize()@endif@if python isSetSize()@endif@if java Compartment::isSetSize()@endif
-   * because
-   * @if clike isSetVolume()@endif@if python isSetVolume()@endif@if java Compartment::isSetVolume()@endif
-   * performs extra processing to take
-   * into account the difference in default values between SBML Levels 1
-   * and 2.
+   * @if java Compartment::isSetSize()@else isSetSize()@endif
+   * because @if java Compartment::isSetVolume()@else isSetVolume()@endif
+   * performs extra processing to take into account the difference in
+   * default values between SBML Levels 1 and 2.
    * 
    * @return @c true if the "size" attribute ("volume" in Level&nbsp;2) of
    * this Compartment is set, @c false otherwise.
@@ -670,7 +667,7 @@ public:
    * "volume" attribute is set.
    * 
    * This method is similar but not identical to
-   * @if clike isSetSize()@endif@if python isSetSize()@endif@if java Compartment::isSetSize()@endif.  The latter
+   * @if java Compartment::isSetSize()@else isSetSize()@endif.  The latter
    * should not be used in the context of SBML Level&nbsp;1 models because this
    * method performs extra processing to take into account
    * the difference in default values between SBML Levels 1 and 2.
@@ -687,7 +684,7 @@ public:
    * therefore may or may not be set.
    *
    * @see isSetSize()
-   * @see @if clike setVolume()@endif@if python setVolume()@endif@if java Compartment::setVolume(double value)@endif
+   * @see @if java Compartment::setVolume(double value)@else setVolume()@endif
    */
   bool isSetVolume () const;
 
@@ -831,7 +828,7 @@ public:
    * Compartment.
    *
    * This method is identical to
-   * @if clike setVolume()@endif@if python setVolume()@endif@if java Compartment::setVolume(double value)@endif
+   * @if java Compartment::setVolume(double value)@else setVolume()@endif
    * and is provided for compatibility between
    * SBML Level&nbsp;1 and Level&nbsp;2.
    *
@@ -855,7 +852,7 @@ public:
    * Compartment.
    *
    * This method is identical to
-   * @if clike setVolume()@endif@if python setVolume()@endif@if java Compartment::setVolume(double value)@endif
+   * @if java Compartment::setVolume(double value)@else setVolume()@endif
    * and is provided for compatibility between SBML Level&nbsp;1 and
    * Level&nbsp;2.
    * 
@@ -1050,7 +1047,7 @@ public:
    *
    * Note that unit declarations for Compartment objects are specified in
    * terms of the @em identifier of a unit (e.g., using
-   * @if clike setUnits()@endif@if python setUnits()@endif@if java Compartment::setUnits(String sid)@endif), but
+   * @if java Compartment::setUnits(String sid)@else setUnits()@endif), but
    * @em this method returns a UnitDefinition object, not a unit
    * identifier.  It does this by constructing an appropriate
    * UnitDefinition.  For SBML Level&nbsp;2 models, it will do this even

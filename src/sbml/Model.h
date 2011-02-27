@@ -94,7 +94,8 @@
  * @section approaches Approaches to creating objects using the libSBML API
  *
  * LibSBML provides two main mechanisms for creating objects: class
- * constructors (e.g., @if clike @link Species::Species() Species() @endlink @endif@if python @link Species::Species() Species() @endlink @endif@if java <a href="org/sbml/libsbml/Species.html">Species()</a> @endif), 
+ * constructors
+ * (e.g., @if java <a href="org/sbml/libsbml/Species.html">Species()</a> @else Species::Species() @endif), 
  * and <code>create<span class="placeholder"><em>Object</em></span>()</code>
  * methods (such as Model::createSpecies()) provided by certain <span
  * class="placeholder"><em>Object</em></span> classes such as Model.  These
@@ -127,7 +128,7 @@ model->setId(&#34;BestModelEver&#34;);
 Species *sp = model->createSpecies();
 sp->setId(&#34;MySpecies&#34;);
 @endverbatim
-@endif@if java
+ * @endif@if java
 @verbatim
 // Create an SBMLDocument object in Level 3 Version 1 format:
 
@@ -149,7 +150,7 @@ model.setId(&#34;BestModelEver&#34;);
 Species sp = model.createSpecies();
 sp.setId(&#34;BestSpeciesEver&#34;);
 @endverbatim
-@endif
+ * @endif
  * 
  * The <code>create<span
  * class="placeholder"><em>Object</em></span>()</code> methods return a
@@ -183,7 +184,7 @@ newsp->setId(&#34;NewId&#34;);    // Warning -- doesn't change the species in 'm
 
 delete newsp;
 @endverbatim
-@endif@if java
+ * @endif@if java
 @verbatim
 // Create a Species object and add it to the model.
 // This uses the Species class constructor:
@@ -197,14 +198,14 @@ model.addSpecies(newsp); // Warning! This makes a COPY inside 'model'.
 
 newsp.setId(&#34;NewId&#34;);    // Warning -- doesn't change the species in 'model'!
 @endverbatim
-@endif
+ * @endif
  * 
- * The key point of the example above is that, because the @if clike Model::addSpecies() @endif@if python Model::addSpecies() @endif@if java Model::addSpecies(Species s) @endif
+ * The key point of the example above is that, because the
+ * @if java Model::addSpecies(Species s)@else Model::addSpecies()@endif
  * call makes a copy of the object handed to it, care is needed
- * @if clike both when
- * attempting to make changes to the object, and when the original object
- * is no longer needed.@endif@if java when
- * attempting to make changes to the object.@endif
+ * @if clike both when attempting to make changes to the object, and when
+ * the original object is no longer needed.@else when attempting to make
+ * changes to the object.@endif
  *
  * @section checking Consistency and adherence to SBML specifications
  *

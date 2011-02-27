@@ -174,7 +174,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * type, #RuleType_t, whose values are @else with the enumeration
  * values @endif listed in the following table.  
  * 
  * <p>
@@ -367,7 +367,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * type, #RuleType_t, whose values are @else with the enumeration
  * values @endif listed in the following table.  
  * 
  * <p>
@@ -604,7 +604,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * type, #RuleType_t, whose values are @else with the enumeration
  * values @endif listed in the following table.  
  * 
  * <p>
@@ -818,7 +818,7 @@
  * Level&nbsp;3 for distinguishing rules; specifically, it uses an
  * attribute whose value is drawn from an enumeration of 3 values.  LibSBML
  * supports this using methods that work @if clike a libSBML enumeration
- * type, #RuleType_t, whose values are @endif@if notcpp  with the enumeration
+ * type, #RuleType_t, whose values are @else with the enumeration
  * values @endif listed in the following table.  
  * 
  * <p>
@@ -962,7 +962,7 @@ public:
    * Returns the mathematical expression of this Rule in text-string form.
    *
    * The text string is produced by
-   * @if clike SBML_formulaToString()@endif@if python SBML_formulaToString()@endif@if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif; please consult
+   * @if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@else SBML_formulaToString()@endif; please consult
    * the documentation for that function to find out more about the format
    * of the text-string formula.
    * 
@@ -1244,7 +1244,7 @@ public:
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
+   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers may
    * wish to take suitable actions in those scenarios.
    * 
@@ -1280,7 +1280,7 @@ public:
    * unambiguously-defined units and <em>Y</em> does not, it will return
    * the units of <em>X</em>.  <strong>It is important that callers also
    * invoke the method</strong>
-   * @if clike containsUndeclaredUnits()@endif@if python containsUndeclaredUnits()@endif@if java Rule::containsUndeclaredUnits()@endif
+   * @if java Rule::containsUndeclaredUnits()@else containsUndeclaredUnits()@endif
    * <strong>to determine whether this situation holds</strong>.  Callers
    * may wish to take suitable actions in those scenarios.
    * 
@@ -1644,7 +1644,7 @@ public:
    * AlgebraicRule
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif), the SBML Level, SBML Version
+   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif), the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AlgebraicRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1671,7 +1671,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the
+   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of the
    * document @em overrides the value used when creating the AlgebraicRule
    * object via this constructor.  This is necessary to ensure that an SBML
    * document is a consistent structure.  Nevertheless, the ability to
@@ -1786,7 +1786,7 @@ public:
    * AssignmentRule
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
+   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the AssignmentRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1813,7 +1813,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a AssignmentRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of
+   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of
    * the document @em overrides the value used when creating the
    * AssignmentRule object via this constructor.  This is necessary to
    * ensure that an SBML document is a consistent structure.  Nevertheless,
@@ -1918,7 +1918,7 @@ public:
    * RateRule
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
-   * (e.g., using&nbsp; @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML Level, SBML Version
+   * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML Level, SBML Version
    * and XML namespace of the document @em override the values used
    * when creating the RateRule object via this constructor.  This is
    * necessary to ensure that an SBML document is a consistent structure.
@@ -1945,7 +1945,7 @@ public:
    * @param sbmlns an SBMLNamespaces object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
-   * using @if clike Model::addRule()@endif@if python Model::addRule()@endif@if java Model::addRule(Rule r)@endif, the SBML XML namespace of the document
+   * using @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of the document
    * @em overrides the value used when creating the RateRule object via
    * this constructor.  This is necessary to ensure that an SBML document
    * is a consistent structure.  Nevertheless, the ability to supply the

@@ -46,12 +46,12 @@
  *
  * For convenience as well as easy access from other languages besides C++,
  * this file also defines two global functions,
- * @if clike readSBMLFromFile()@endif@if python readSBMLFromFile()@endif@if java libsbml::readSBML(String filename)@endif
- * and @if clike readSBMLFromString()@endif@if python readSBMLFromString()@endif@if java libsbml::readSBMLFromString(String xml)@endif.
+ * libsbml::readSBML(@if java String filename@endif)
+ * and libsbml::readSBMLFromString(@if java String xml@endif).
  * They are equivalent to creating an SBMLReader
  * object and then calling the
- * @if clike SBMLReader::readSBML()@endif@if python SBMLReader::readSBML()@endif@if java SBMLReader::readSBML(String filename)@endif or
- * @if clike SBMLReader::readSBMLFromString()@endif@if python SBMLReader::readSBMLFromString()@endif@if java SBMLReader::readSBMLFromString(String xml)@endif
+ * SBMLReader::readSBML(@if java String filename@endif) or
+ * SBMLReader::readSBMLFromString(@if java String xml@endif)
  * methods, respectively.
  *
  * @section compression Support for reading compressed files
@@ -72,8 +72,8 @@
  * zip formats) and/or @em bzip2 (for @em bzip2 format) be available on the
  * system running libSBML, and that libSBML was configured with their
  * support compiled-in.  Please see the libSBML @if clike <a href="libsbml-installation.html">installation instructions</a> @endif@if python <a href="libsbml-installation.html">installation instructions</a> @endif@if java  <a href="../../../libsbml-installation.html">installation instructions</a> @endif for more information about this.  The methods
- * @if clike hasZlib()@endif@if python hasZlib()@endif@if java SBMLReader::hasZlib()@endif and
- * @if clike hasBzip2()@endif@if python hasBzip2()@endif@if java SBMLReader::hasBzip2()@endif
+ * @if java SBMLReader::hasZlib()@else hasZlib()@endif and
+ * @if java SBMLReader::hasBzip2()@else hasBzip2()@endif
  * can be used by an application to query at run-time whether support
  * for the compression libraries is available in the present copy of
  * libSBML.
@@ -130,8 +130,8 @@ public:
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned by this method.  Callers can use the methods on
    * SBMLDocument such as SBMLDocument::getNumErrors() and
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif to get the errors.  The object returned by
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif is an SBMLError object, and it has methods to
+   * SBMLDocument::getError(@if java long n@endif) to get the errors.  The object returned by
+   * SBMLDocument::getError(@if java long n@endif) is an SBMLError object, and it has methods to
    * get the error code, category, and severity level of the problem, as
    * well as a textual description of the problem.  The possible severity
    * levels range from informational messages to fatal errors; see the
@@ -146,63 +146,63 @@ public:
    * by the underlying operating system.  Callers can check for these
    * situations using a program fragment such as the following:
    * @if clike
-@verbatim
-SBMLReader* reader = new SBMLReader();
-SBMLDocument* doc  = reader.readSBMLFromFile(filename);
-
-if (doc->getNumErrors() > 0)
-{
-  if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
-  {
-    // Handle case of unreadable file here.
-  } 
-  else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
-  {
-    // Handle case of other file operation error here.
-  }
-  else
-  {
-    // Handle other cases -- see error codes defined in XMLErrorCode_t
-    // for other possible cases to check.
-  }
-}
-@endverbatim
-@endif@if java
-@verbatim
-SBMLReader reader = new SBMLReader();
-SBMLDocument doc  = reader.readSBMLFromFile(filename);
-
-if (doc.getNumErrors() > 0)
-{
-    if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileUnreadable)
-    {
-        // Handle case of unreadable file here.
-    } 
-    else if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileOperationError)
-    {
-        // Handle case of other file operation error here.
-    }
-    else
-    {
-        // Handle other error cases.
-    }
-}
-@endverbatim
-@endif@if python
-@verbatim
-reader = SBMLReader()
-doc    = reader.readSBMLFromFile(filename)
-
-if doc.getNumErrors() > 0:
-  if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
-    # Handle case of unreadable file here.
-  elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
-    # Handle case of other file error here.
-  else:
-    # Handle other error cases here.
-  
-@endverbatim
-@endif
+ @verbatim
+ SBMLReader* reader = new SBMLReader();
+ SBMLDocument* doc  = reader.readSBMLFromFile(filename);
+ 
+ if (doc->getNumErrors() > 0)
+ {
+   if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
+   {
+     // Handle case of unreadable file here.
+   } 
+   else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
+   {
+     // Handle case of other file operation error here.
+   }
+   else
+   {
+     // Handle other cases -- see error codes defined in XMLErrorCode_t
+     // for other possible cases to check.
+   }
+ }
+ @endverbatim
+ @endif@if java
+ @verbatim
+ SBMLReader reader = new SBMLReader();
+ SBMLDocument doc  = reader.readSBMLFromFile(filename);
+ 
+ if (doc.getNumErrors() > 0)
+ {
+     if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileUnreadable)
+     {
+         // Handle case of unreadable file here.
+     } 
+     else if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileOperationError)
+     {
+         // Handle case of other file operation error here.
+     }
+     else
+     {
+         // Handle other error cases.
+     }
+ }
+ @endverbatim
+ @endif@if python
+ @verbatim
+ reader = SBMLReader()
+ doc    = reader.readSBMLFromFile(filename)
+ 
+ if doc.getNumErrors() > 0:
+   if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+     # Handle case of unreadable file here.
+   elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+     # Handle case of other file error here.
+   else:
+     # Handle other error cases here.
+   
+ @endverbatim
+ @endif
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -250,8 +250,8 @@ if doc.getNumErrors() > 0:
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned by this method.  Callers can use the methods on
    * SBMLDocument such as SBMLDocument::getNumErrors() and
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif to get the errors.  The object returned by
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif is an SBMLError object, and it has methods to
+   * SBMLDocument::getError(@if java long n@endif) to get the errors.  The object returned by
+   * SBMLDocument::getError(@if java long n@endif) is an SBMLError object, and it has methods to
    * get the error code, category, and severity level of the problem, as
    * well as a textual description of the problem.  The possible severity
    * levels range from informational messages to fatal errors; see the
@@ -266,63 +266,63 @@ if doc.getNumErrors() > 0:
    * by the underlying operating system.  Callers can check for these
    * situations using a program fragment such as the following:
    * @if clike
-@verbatim
-SBMLReader* reader = new SBMLReader();
-SBMLDocument* doc  = reader.readSBML(filename);
-
-if (doc->getNumErrors() > 0)
-{
-  if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
-  {
-    // Handle case of unreadable file here.
-  } 
-  else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
-  {
-    // Handle case of other file operation error here.
-  }
-  else
-  {
-    // Handle other cases -- see error codes defined in XMLErrorCode_t
-    // for other possible cases to check.
-  }
-}
-@endverbatim
-@endif@if java
-@verbatim
-SBMLReader reader = new SBMLReader();
-SBMLDocument doc  = reader.readSBMLFromFile(filename);
-
-if (doc.getNumErrors() > 0)
-{
-    if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileUnreadable)
-    {
-        // Handle case of unreadable file here.
-    } 
-    else if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileOperationError)
-    {
-        // Handle case of other file operation error here.
-    }
-    else
-    {
-        // Handle other error cases.
-    }
-}
-@endverbatim
-@endif@if python
-@verbatim
-reader = SBMLReader()
-doc    = reader.readSBMLFromFile(filename)
-
-if doc.getNumErrors() > 0:
-  if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
-    # Handle case of unreadable file here.
-  elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
-    # Handle case of other file error here.
-  else:
-    # Handle other error cases here.
-  
-@endverbatim
-@endif
+ @verbatim
+ SBMLReader* reader = new SBMLReader();
+ SBMLDocument* doc  = reader.readSBML(filename);
+ 
+ if (doc->getNumErrors() > 0)
+ {
+   if (doc->getError(0)->getErrorId() == XMLError::FileUnreadable)
+   {
+     // Handle case of unreadable file here.
+   } 
+   else if (doc->getError(0)->getErrorId() == XMLError::FileOperationError)
+   {
+     // Handle case of other file operation error here.
+   }
+   else
+   {
+     // Handle other cases -- see error codes defined in XMLErrorCode_t
+     // for other possible cases to check.
+   }
+ }
+ @endverbatim
+ @endif@if java
+ @verbatim
+ SBMLReader reader = new SBMLReader();
+ SBMLDocument doc  = reader.readSBMLFromFile(filename);
+ 
+ if (doc.getNumErrors() > 0)
+ {
+     if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileUnreadable)
+     {
+         // Handle case of unreadable file here.
+     } 
+     else if (doc.getError(0).getErrorId() == libsbmlConstants.XMLFileOperationError)
+     {
+         // Handle case of other file operation error here.
+     }
+     else
+     {
+         // Handle other error cases.
+     }
+ }
+ @endverbatim
+ @endif@if python
+ @verbatim
+ reader = SBMLReader()
+ doc    = reader.readSBMLFromFile(filename)
+ 
+ if doc.getNumErrors() > 0:
+   if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
+     # Handle case of unreadable file here.
+   elif doc.getError(0).getErrorId() == libsbml.XMLFileOperationError:
+     # Handle case of other file error here.
+   else:
+     # Handle other error cases here.
+   
+ @endverbatim
+ @endif
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c
    * "myfile.xml.gz"), the file is assumed to be compressed in @em gzip
@@ -373,14 +373,14 @@ if doc.getNumErrors() > 0:
    *
    * This method will log a fatal error if the content given in the
    * parameter @p xml is not SBML.  See the method documentation for
-   * @if clike SBMLReader::readSBML()@endif@if python SBMLReader::readSBML()@endif@if java SBMLReader::readSBML(String filename)@endif
+   * SBMLReader::readSBML(@if java String filename@endif)
    * for an example of code for testing the returned error code.
    *
    * @param xml a string containing a full SBML model
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @if clike @see SBMLReader::readSBML()@endif@if python @see SBMLReader::readSBML()@endif@if java @see SBMLReader::readSBML(String filename)@endif
+   * @see SBMLReader:@if java :readSBML(String filename@endif)
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
 

@@ -39,10 +39,8 @@
  *
  * An XMLNode can contain any number of children.  Each child is another
  * XMLNode, thereby forming a tree.  The methods XMLNode::getNumChildren()
- * and @if clike XMLNode::getChild() can be used to access the tree
- * structure starting from a given node. @endif@if java
- * XMLNode::getChild(long n) can be used to access the tree structure
- * starting from a given node.  @endif
+ * and XMLNode::getChild(@if java long n@endif) can be used to access the tree
+ * structure starting from a given node.
  *
  * Each XMLNode is subclassed from XMLToken, and thus has the same methods
  * available as XMLToken.  These methods include XMLToken::getNamespaces(),
@@ -99,7 +97,9 @@ else
   // root node is NOT a dummy node                                                     
   ...                                                                                  
 }
-@endverbatim @endif@if java @verbatim
+@endverbatim
+  *  @endif@if java
+@verbatim
 // Checks if the returned XMLNode object is a dummy root node:
 
 String str = "...";
@@ -124,7 +124,8 @@ else
   // root node is NOT a dummy node
   ...
 }
-@endverbatim @endif
+@endverbatim
+ * @endif
  *
  */
 

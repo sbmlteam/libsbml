@@ -172,7 +172,7 @@ public:
    * (identifier) attribute of a CompartmentType is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method @if clike setId() @endif@if python setId() @endif@if java setId(String id) @endif.
+   * method setId(@if java String id@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *

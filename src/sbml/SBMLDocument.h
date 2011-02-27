@@ -80,8 +80,7 @@
  * @verbatim
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   ...
-</sbml>
-@endverbatim
+</sbml>@endverbatim
  * 
  * SBMLDocument is derived from SBase, and therefore contains the usual SBase
  * attributes (in SBML Level&nbsp;2 and Level&nbsp;3) of "metaid" and "sboTerm", as
@@ -161,7 +160,7 @@
  * calling SBMLDocument::getNumErrors()</li>
  * 
  * <li style="margin-bottom: 0.5em">
- * Call @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif to configure which checks
+ * Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure which checks
  * will be performed by SBMLDocument::checkConsistency()</li>
  * 
  * <li>Call SBMLDocument::checkConsistency(), then inquire about the results by
@@ -176,7 +175,7 @@
  * to inquire about the results by using SBMLDocument::getNumErrors()</li>
  * 
  * <li style="margin-bottom: 0.5em">
- * Call @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif to configure which
+ * Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure which
  * checks are performed by SBMLDocument::checkConsistency()</li>
  * 
  * <li>Call SBMLDocument::checkConsistency(), then inquire about the results
@@ -194,18 +193,18 @@
  *
  * LibSBML provides facilities for limited translation of SBML between
  * Levels and Versions of the SBML specifications.  The method for doing is
- * is @if clike setLevelAndVersion() @endif@if python setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif.  In 
+ * is @if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @else setLevelAndVersion() @endif.  In 
  * general, models can be converted upward without difficulty (e.g., from
  * SBML Level&nbsp;1 to Level&nbsp;2, or from an earlier Version of
  * Level&nbsp;2 to the latest Version of Level&nbsp;2).  Sometimes models
  * can be translated downward as well, if they do not use constructs
  * specific to more advanced Levels of SBML.
  *
- * Calling @if clike SBMLDocument::setLevelAndVersion() @endif@if python SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif will not @em necessarily lead
+ * Calling @if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @else SBMLDocument::setLevelAndVersion() @endif will not @em necessarily lead
  * to a successful conversion.  The method will return a boolean value
  * to indicate success or failure.  Callers must check the error log (see 
  * next section) attached to the SBMLDocument object after calling
- * @if clike SBMLDocument::setLevelAndVersion() @endif@if python SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver) @endif in order to assess whether any
+ * @if java SBMLDocument::setLevelAndVersion(long lev, long ver) @else SBMLDocument::setLevelAndVersion() @endif in order to assess whether any
  * problems arose.
  *
  * If an application is interested in translating to a lower Level and/or
@@ -239,7 +238,7 @@
  * reported through a single common interface involving the object class
  * SBMLError.
  *
- * The methods SBMLDocument::getNumErrors(), @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif and
+ * The methods SBMLDocument::getNumErrors(), @if java SBMLDocument::getError(long n) @else SBMLDocument::getError() @endif and
  * SBMLDocument::printErrors() allow callers to interact with the warnings
  * or errors logged.  Alternatively, callers may retrieve the entire log as
  * an SBMLErrorLog object using the method SBMLDocument::getErrorLog().
@@ -357,11 +356,13 @@ public:
    * object has no associated XML attributes, including (but not limited
    * to) an XML namespace declaration.  The XML namespace declaration is
    * not added until the model is written out, <em>or</em> the method
-   * @if clike SBMLDocument::setLevelAndVersion() @endif@if python SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif is called.  This may be important to keep in mind
+   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
+   * is called.  This may be important to keep in mind
    * if an application needs to add additional XML namespace declarations
    * on the <code>&lt;sbml&gt;</code> element.  Application writers should
    * either provide values for @p level and @p version on the call to this
-   * constructor, or else call @if clike SBMLDocument::setLevelAndVersion() @endif@if python SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif shortly after creating
+   * constructor, or else call
+   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif) shortly after creating
    * the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
@@ -370,7 +371,7 @@ public:
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    *
-   * @if clike @see SBMLDocument::setLevelAndVersion() @endif@if python @see SBMLDocument::setLevelAndVersion() @endif@if java @see SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif
+   * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
    * @see getDefaultLevel()
    * @see getDefaultVersion()
    */
@@ -393,8 +394,7 @@ public:
    * (identifier) attribute of a Compartment is required to have a value.
    * Thus, callers are cautioned to assign a value after calling this
    * constructor.  Setting the identifier can be accomplished using the
-   * method
-   * @if clike setId()@endif@if python setId()@endif@if java Compartment::setId(String id)@endif.
+   * method Compartment::setId(@if java String id@endif).
    *
    * @param sbmlns an SBMLNamespaces object.
    *
@@ -454,7 +454,7 @@ public:
    * It is important to note that this method <em>does not create</em> a
    * Model instance.  The model in the SBMLDocument must have been created
    * at some prior time, for example using SBMLDocument::createModel() 
-   * or @if clike SBMLDocument::setModel() @endif@if python SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif.
+   * or SBMLDocument::setModel(@if java Model m@endif).
    * This method returns @c NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
@@ -470,7 +470,7 @@ public:
    * It is important to note that this method <em>does not create</em> a
    * Model instance.  The model in the SBMLDocument must have been created
    * at some prior time, for example using SBMLDocument::createModel() 
-   * or @if clike SBMLDocument::setModel() @endif@if python SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif.
+   * or SBMLDocument::setModel(@if java Model m@endif).
    * This method returns @c NULL if a model does not yet exist.
    * 
    * @return the Model contained in this SBMLDocument.
@@ -635,7 +635,7 @@ public:
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    *
    * @see getModel()
-   * @see @if clike SBMLDocument::setModel() @endif@if python SBMLDocument::setModel() @endif@if java SBMLDocument::setModel(Model m) @endif
+   * @see SBMLDocument::setModel(@if java Model m@endif)
    */
   Model* createModel (const std::string& sid = "");
 
@@ -714,16 +714,20 @@ public:
    * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
-   * an SBMLDocument object @em unless @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif is called to
-   * indicate that only a subset should be applied.  Further, this default
-   * (i.e., performing all checks) applies separately to <em>each new
-   * SBMLDocument object</em> created.  In other words, each time a model
-   * is read using @if clike SBMLReader::readSBML() @endif@if python SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif, @if clike SBMLReader::readSBMLFromString() @endif@if python SBMLReader::readSBMLFromString() @endif@if java SBMLReader::readSBMLFromString(String xml) @endif,
+   * an SBMLDocument object @em unless
+   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+   * is called to indicate that only a subset should be applied.  Further,
+   * this default (i.e., performing all checks) applies separately to
+   * <em>each new SBMLDocument object</em> created.  In other words, each
+   * time a model is read using SBMLReader::readSBML(@if java String filename@endif),
+   * SBMLReader::readSBMLFromString(@if java String xml@endif),
    * or the global functions readSBML() and readSBMLFromString(), a new
    * SBMLDocument is created and for that document, a call to
    * SBMLDocument::checkConsistency() will default to applying all possible checks.
-   * Calling programs must invoke @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif for each such new
-   * model if they wish to change the consistency checks applied.
+   * Calling programs must invoke
+   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+   * for each such new model if they wish to change the consistency checks
+   * applied.
    * 
    * @param category a value drawn from #SBMLErrorCategory_t indicating the
    * consistency checking/validation to be turned on or off
@@ -810,16 +814,20 @@ public:
    * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
-   * an SBMLDocument object @em unless @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif is called to
-   * indicate that only a subset should be applied.  Further, this default
-   * (i.e., performing all checks) applies separately to <em>each new
-   * SBMLDocument object</em> created.  In other words, each time a model
-   * is read using @if clike SBMLReader::readSBML() @endif@if python SBMLReader::readSBML() @endif@if java SBMLReader::readSBML(String filename) @endif, @if clike SBMLReader::readSBMLFromString() @endif@if python SBMLReader::readSBMLFromString() @endif@if java SBMLReader::readSBMLFromString(String xml) @endif,
+   * an SBMLDocument object @em unless
+   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+   * is called to indicate that only a subset should be applied.  Further,
+   * this default (i.e., performing all checks) applies separately to
+   * <em>each new SBMLDocument object</em> created.  In other words, each
+   * time a model is read using SBMLReader::readSBML(@if java String filename@endif),
+   * SBMLReader::readSBMLFromString(@if java String xml@endif),
    * or the global functions readSBML() and readSBMLFromString(), a new
    * SBMLDocument is created and for that document, a call to
    * SBMLDocument::checkConsistency() will default to applying all possible checks.
-   * Calling programs must invoke @if clike SBMLDocument::setConsistencyChecks() @endif@if python SBMLDocument::setConsistencyChecks() @endif@if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @endif for each such new
-   * model if they wish to change the consistency checks applied.
+   * Calling programs must invoke
+   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif)
+   * for each such new model if they wish to change the consistency checks
+   * applied.
    * 
    * @param category a value drawn from #SBMLErrorCategory_t indicating the
    * consistency checking/validation to be turned on or off
@@ -827,7 +835,7 @@ public:
    * @param apply a boolean indicating whether the checks indicated by
    * @p category should be applied or not.
    *
-   * @see @if clike SBMLDocument::setLevelAndVersion() @endif@if python SBMLDocument::setLevelAndVersion() @endif@if java SBMLDocument::setLevelAndVersion(long lev, long ver, boolean strict) @endif
+   * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
    */
   void setConsistencyChecksForConversion(SBMLErrorCategory_t category, 
                                          bool apply);
@@ -840,7 +848,7 @@ public:
    * consistency checks have failed for SBML document), the failures may be
    * due to warnings @em or errors.  Callers should inspect the severity
    * flag in the individual SBMLError objects returned by
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif to determine the nature of the failures.
+   * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
    *
    * @return the number of failed checks (errors) encountered.
    *
@@ -854,7 +862,7 @@ public:
    * an SBML Model.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    *
@@ -877,7 +885,7 @@ public:
    * to Level&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -890,7 +898,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -903,7 +911,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;2.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -916,7 +924,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;3.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -929,7 +937,7 @@ public:
    * be converted to Level&nbsp;2 Version&nbsp;4.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -942,7 +950,7 @@ public:
    * be converted to Level&nbsp;3 Version&nbsp;1.
    *
    * Callers should query the results of the consistency check by calling
-   * @if clike SBMLDocument::getError() @endif@if python SBMLDocument::getError() @endif@if java SBMLDocument::getError(long n) @endif.
+   * SBMLDocument::getError(@if java long n@endif).
    *
    * @return the number of failed checks (errors) encountered.
    */
