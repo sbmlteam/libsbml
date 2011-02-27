@@ -118,7 +118,7 @@ SBMLDocument* sbmlDoc = new SBMLDocument(3, 1);
 // of the object attached to the model (as expected).
 
 Model* model = sbmlDoc->createModel();
-model->setId(&#34;BestModelEver&#34;);
+model->setId("BestModelEver");
 
 // Create a Species object inside the Model and set its identifier.
 // Similar to the lines above, this call returns a pointer to the Species
@@ -126,7 +126,7 @@ model->setId(&#34;BestModelEver&#34;);
 // of the object attached to the model (as expected).
 
 Species *sp = model->createSpecies();
-sp->setId(&#34;MySpecies&#34;);
+sp->setId("MySpecies");
 @endverbatim
  * @endif@if java
 @verbatim
@@ -137,7 +137,9 @@ SBMLDocument sbmlDoc = new SBMLDocument(3, 1);
 // Create a Model object inside the SBMLDocument object and set
 // its identifier.  The call returns a pointer to the Model object
 // created, and methods called on that object affect the attributes
-// of the object attached to the model (as expected).
+// of the object attached to the model (as expected).  Note that
+// the call to setId() returns a status code, and a real program
+// should check this status code to make sure everything went okay.
 
 Model model = sbmlDoc.createModel();
 model.setId(&#34;BestModelEver&#34;);
@@ -145,10 +147,35 @@ model.setId(&#34;BestModelEver&#34;);
 // Create a Species object inside the Model and set its identifier.
 // Similar to the lines above, this call returns a pointer to the Species
 // object created, and methods called on that object affect the attributes
-// of the object attached to the model (as expected).
+// of the object attached to the model (as expected).  Note that, like
+// with Model, the call to setId() returns a status code, and a real program
+// should check this status code to make sure everything went okay.
 
 Species sp = model.createSpecies();
 sp.setId(&#34;BestSpeciesEver&#34;);
+@endverbatim
+ * @endif@if python
+@verbatim
+# Create an SBMLDocument object in Level 3 Version 1 format:
+
+sbmlDoc = SBMLDocument(3, 1)
+
+# Create a Model object inside the SBMLDocument object and set
+# its identifier.  The call to setId() returns a status code
+# to indicate whether the assignment was successful.  Code 0
+# means success; see the documentation for Model's setId() for 
+# more information.
+
+model = sbmlDoc.createModel()
+model.setId(&#34;BestModelEver&#34;)
+
+# Create a Species object inside the Model and set its identifier.
+# Again, the setId() returns a status code to indicate whether the
+# assignment was successful.  Code 0 means success; see the
+# documentation for Specie's setId() for more information.
+
+sp = model.createSpecies()
+sp.setId(&#34;BestSpeciesEver&#34;)
 @endverbatim
  * @endif
  * 
@@ -156,56 +183,13 @@ sp.setId(&#34;BestSpeciesEver&#34;);
  * class="placeholder"><em>Object</em></span>()</code> methods return a
  * pointer to the object created, but they also add the object to the
  * relevant list of object instances contained in the parent.  (These lists
- * become the <code>&lt;listOf<i>Object</i>s&gt;</code> elements in the
+ * become the <code>&lt;listOf<span
+ * class="placeholder"><em>Object</em></span>s&gt;</code> elements in the
  * finished XML rendition of SBML.)  In the example above,
  * Model::createSpecies() adds the created species directly to the
  * <code>&lt;listOfSpecies<i></i>&gt;</code> list in the model.  Subsequently,
  * methods called on the species change the species in the model (which is
  * what is expected in most situations).
- * 
- * By contrast, the other main way of creating an object and adding it to a
- * parent makes a @em copy of the object, and requires more care on the
- * part of the caller.  Here is an example of this alternative approach: @if clike
- * @verbatim
-// Create a Species object and add it to the model.
-// This uses the Species class constructor:
-
-Species *newsp = Species(&#34;BestSpeciesEver&#34;);
-model->addSpecies(newsp); // Warning! This makes a COPY inside 'model'.
-
-// addSpecies(...) copies the object, with the result that
-// 'newsp' still refers to the original.  The following may not
-// do what is expected:
-
-newsp->setId(&#34;NewId&#34;);    // Warning -- doesn't change the species in 'model'!
-
-// If 'newsp' object is not going to be used further, it needs
-// to be deleted to avoid a memory leak.
-
-delete newsp;
-@endverbatim
- * @endif@if java
-@verbatim
-// Create a Species object and add it to the model.
-// This uses the Species class constructor:
-
-Species newsp = Species(&#34;BestSpeciesEver&#34;);
-model.addSpecies(newsp); // Warning! This makes a COPY inside 'model'.
-
-// addSpecies(...) copies the object, with the result that
-// 'newsp' still refers to the original.  The following may not
-// do what is expected:
-
-newsp.setId(&#34;NewId&#34;);    // Warning -- doesn't change the species in 'model'!
-@endverbatim
- * @endif
- * 
- * The key point of the example above is that, because the
- * @if java Model::addSpecies(Species s)@else Model::addSpecies()@endif
- * call makes a copy of the object handed to it, care is needed
- * @if clike both when attempting to make changes to the object, and when
- * the original object is no longer needed.@else when attempting to make
- * changes to the object.@endif
  *
  * @section checking Consistency and adherence to SBML specifications
  *

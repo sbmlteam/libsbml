@@ -278,6 +278,23 @@ else
     // Handle another truly exceptional situation.
  }
 @endverbatim
+   * @endif@if python
+@verbatim
+sbmlDoc = SBMLDocument(3, 1)
+if sbmlDoc == None:
+  # Do something to handle exceptional situation.  Candidate
+  # causes include invalid combinations of SBML Level and Version
+  # (impossible if hardwired as given here), running out of memory, and
+  # unknown system exceptions.
+
+namespaces = sbmlDoc.getNamespaces()
+if namespaces == None:
+  # Do something to handle exceptional situation.
+
+status = namespaces.add("http://www.w3.org/1999/xhtml", "html")
+if status != LIBSBML_OPERATION_SUCCESS:
+  # Do something to handle exceptional situation.
+@endverbatim
    * @endif
    * 
    * @param xmlns the XML namespaces to be added.

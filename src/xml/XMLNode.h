@@ -125,8 +125,19 @@ else
   ...
 }
 @endverbatim
+ * @endif@if python
+@verbatim
+xn = XMLNode.convertStringToXMLNode("<p></p>")
+if xn == None:
+  # Do something to handle exceptional situation.
+
+elif xn.isEOF():
+  # Node is a dummy node.
+
+else:
+  # None is not a dummy node.
+@endverbatim
  * @endif
- *
  */
 
 #ifndef XMLNode_h
