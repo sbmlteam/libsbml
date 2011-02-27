@@ -38,6 +38,7 @@ import sys, string, os.path, re
 # Globally-scoped variables
 #
 
+language       = ''
 docincpath     = ''
 libsbmlclasses = ["AlgebraicRule",
                   "ASTNode",
@@ -124,8 +125,8 @@ class CHeader:
     - functions
   """
 
-  def __init__ (self, forLanguage, stream):
-    """CHeader (forLanguage, stream=None) -> CHeader
+  def __init__ (self, stream):
+    """CHeader (stream=None) -> CHeader
 
     Creates a new CHeader reading from the given stream.
     """
@@ -134,10 +135,10 @@ class CHeader:
     self.classDocs = [ ]
 
     if stream is not None:
-      self.read(forLanguage, stream)
+      self.read(stream)
 
 
-  def read (self, forLanguage, stream):
+  def read (self, stream):
     """read (PushBackStream)
 
     Reads a C/C++ header file from the given stream.
@@ -165,8 +166,8 @@ class CHeader:
       # Track things that we flag as internal, so that we can
       # remove them from the documentation.
 
-      if (stripped.find('@cond doxygen-libsbml-internal') >= 0):    isInternal = True
-      if (stripped.find('@endcond') >= 0): isInternal = False
+      if (stripped.find('@cond doxygen-libsbml-internal') >= 0): isInternal = True
+      if (stripped.find('@endcond') >= 0):                       isInternal = False
 
       # Watch for class description, usually at top of file.
 
@@ -264,7 +265,7 @@ class CHeader:
             # Swig doesn't seem to mind C++ argument lists, even though they
             # have "const", "&", etc.  So I'm leaving the arg list unmodified.
 
-            func = Method(forLanguage, isInternal, docstring, name, args, (isConst > 0))
+            func = Method(isInternal, docstring, name, args, (isConst > 0))
 
             if inClass:
               c = self.classes[-1]
@@ -301,7 +302,6 @@ class Method:
   """A Method encapsulates a C/C++ function.  Currently, it has the
   following public attributes:
 
-    - forLanguage
     - isInternal
     - docstring
     - name
@@ -309,11 +309,11 @@ class Method:
     - isConst
   """
 
-  def __init__ (self, forLanguage, isInternal, docstring, name, args, isConst):
-    """Method(forLanguage, isInternal, docstring name, args, isConst) -> Method
+  def __init__ (self, isInternal, docstring, name, args, isConst):
+    """Method(isInternal, docstring name, args, isConst) -> Method
 
     Creates a new Method description with the given docstring, name and args,
-    for the language forLanguage, with special consideration if the method
+    for the language, with special consideration if the method
     was declared constant and/or internal.
     """
 
@@ -321,7 +321,7 @@ class Method:
     self.isConst = isConst
 
     if isInternal:
-      if forLanguage == 'java':
+      if language == 'java':
         # This is a hack, but Javadoc offers no way of selectively omitting
         # documentation from the output, so this is the most straightforward
         # and unobtrusive approach I've found.  The following flags our
@@ -348,7 +348,7 @@ class Method:
     # combination doesn't seem to arise in libSBML currently, and anyway,
     # this fixes a real problem in the Java documentation for libSBML.
 
-    if forLanguage == 'java':
+    if language == 'java':
       if isConst and (args.find('unsigned int') >= 0):
         self.args = ''
       elif not args.strip() == '()':
@@ -429,8 +429,8 @@ def getHeadersFromSWIG (filename):
 
 
 
-def rewriteCommonReferences (docstring, language):
-  """rewriteCommonReferences (docstring, language) -> docstring
+def rewriteCommonReferences (docstring):
+  """rewriteCommonReferences (docstring) -> docstring
 
   Rewrites common C++ doxygen references to match language-specific needs.
   """
@@ -495,29 +495,15 @@ def translateInclude (match):
   return content
 
 
-def translateIfJava (match):
+
+def translateIfElse (match):
   text = match.group()
-  if match.group(1) == 'java' or match.group(1) == 'notcpp':
+  if match.group(1) == language or \
+     match.group(1) == 'notcpp' or \
+     match.group(1) == 'notclike':
     text =  match.group(2)
-  else:
-    text = ''
-  return text
-
-
-def translateIfPerl (match):
-  text = match.group()
-  if match.group(1) == 'perl' or match.group(1) == 'notcpp':
-    text =  match.group(2)
-  else:
-    text = ''
-  return text
-
-
-
-def translateIfPython (match):
-  text = match.group()
-  if match.group(1) == 'python' or match.group(1) == 'notcpp':
-    text =  match.group(2)
+  elif match.group(4) == '@else':
+    text = match.group(5)
   else:
     text = ''
   return text
@@ -571,22 +557,30 @@ def translateClassRef (match):
 
 
 
-def sanitizeForHTML (docstring, language):
-  """sanitizeForHTML (docstring, language) -> docstring
+def sanitizeForHTML (docstring):
+  """sanitizeForHTML (docstring) -> docstring
 
   Performs HTML transformations on the C++/Doxygen docstring.
   """
 
   # First do conditional section inclusion based on the current language.
-  # This ONLY handles @if foo @endif, not @if foo @else bar @endif. 
+  # Our possible conditional elements and their meanings are:
+  #
+  #   java:     only Java
+  #   python:   only Python
+  #   perl:     only Perl
+  #   cpp:      only C++
+  #   conly:    only C
+  #   clike:    C, C++
+  #   notcpp:	not C++
+  #   notclike: not C or C++
+  #
+  # The notcpp/notclike variants are because Doxygen 1.6.x doesn't have
+  # @ifnot, yet sometimes we want to say "if not C or C++".
 
-  p = re.compile('@if\s+(java|python|perl|clike|notcpp)\s+(.+?)@endif', re.DOTALL)
-  if language == 'java':
-    docstring = p.sub(translateIfJava, docstring)
-  elif language == 'perl':
-    docstring = p.sub(translateIfPerl, docstring)
-  elif language == 'python':
-    docstring = p.sub(translateIfPython, docstring)
+  cases = 'java|python|perl|cpp|conly|clike|notcpp|notclike'
+  p = re.compile('@if\s+(' + cases + ')\s+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
+  docstring = p.sub(translateIfElse, docstring)
 
   # Replace blank lines between paragraphs with <p>.  There are two main
   # cases: comments blocks whose lines always begin with an asterix (e.g.,
@@ -696,7 +690,7 @@ def rewriteDocstringForJava (docstring):
   C++/Doxygen docstring.
   """
 
-  docstring = rewriteCommonReferences(docstring, 'java')  
+  docstring = rewriteCommonReferences(docstring)  
 
   # Preliminary: rewrite some of the data type references to equivalent
   # Java types.  (Note: this rewriting affects only the documentation
@@ -720,7 +714,7 @@ def rewriteDocstringForJava (docstring):
 
   # Do the big work.
 
-  docstring = sanitizeForHTML(docstring, 'java')
+  docstring = sanitizeForHTML(docstring)
 
   # Fix up for a problem introduced by sanitizeForHTML -- should fix
   # properly some day.
@@ -789,7 +783,7 @@ def rewriteDocstringForPython (docstring):
   more elaborate filter that processes the output of *this* filter.
   """
 
-  docstring = rewriteCommonReferences(docstring, 'python')  
+  docstring = rewriteCommonReferences(docstring)  
 
   docstring = docstring.replace('/**', '').replace('*/', '')
   p = re.compile('^(\s*)\*([ \t]*)', re.MULTILINE)
@@ -853,7 +847,7 @@ def rewriteDocstringForPerl (docstring):
   C++/Doxygen docstring.
   """
 
-  docstring = rewriteCommonReferences(docstring, 'perl')  
+  docstring = rewriteCommonReferences(docstring)  
 
   # Get rid of the /** ... */ and leading *'s.
   docstring = docstring.replace('/**', '').replace('*/', '').replace('*', ' ')
@@ -898,7 +892,7 @@ def rewriteDocstringForPerl (docstring):
 
 
 
-def processClassMethods(ostream, language, cclass):
+def processClassMethods(ostream, cclass):
   # In the Python docs, we have to combine the docstring for methods with
   # different signatures and write out a single method docstring.  In the
   # other languages, we write out separate docstrings for every method
@@ -927,7 +921,7 @@ def processClassMethods(ostream, language, cclass):
             docstring += rewriteDocstringForPython(mm.docstring)
       else:
         docstring = rewriteDocstringForPython(m.docstring)
-      ostream.write(formatMethodDocString(language, m.name, cclass.name, docstring, m.args))
+      ostream.write(formatMethodDocString(m.name, cclass.name, docstring, m.args))
       written[m.name + m.args] = 1
   else: # Not python
     for m in cclass.methods:
@@ -937,13 +931,13 @@ def processClassMethods(ostream, language, cclass):
         docstring = rewriteDocstringForJava(m.docstring)
       elif language == 'perl':
         docstring = rewriteDocstringForPerl(m.docstring)  
-      ostream.write(formatMethodDocString(language, m.name, cclass.name, docstring, m.args))
+      ostream.write(formatMethodDocString(m.name, cclass.name, docstring, m.args))
 
   ostream.flush()
 
 
 
-def formatMethodDocString (language, methodname, classname, docstring, args=None):
+def formatMethodDocString (methodname, classname, docstring, args=None):
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
@@ -970,18 +964,18 @@ def formatMethodDocString (language, methodname, classname, docstring, args=None
 
 
 
-def generateFunctionDocString (language, methodname, docstring, args):
+def generateFunctionDocString (methodname, docstring, args):
   if language == 'java':
     doc = rewriteDocstringForJava(docstring)
   elif language == 'python':
     doc = rewriteDocstringForPython(docstring)
   elif language == 'perl':
     doc = rewriteDocstringForPerl(docstring)
-  return formatMethodDocString(language, methodname, None, doc, args)
+  return formatMethodDocString(methodname, None, doc, args)
 
 
 
-def generateClassDocString (language, docstring, classname):
+def generateClassDocString (docstring, classname):
   if language == 'java':
     pre = '%typemap(javaimports) '
     docstring = rewriteDocstringForJava(docstring)    
@@ -1000,26 +994,26 @@ def generateClassDocString (language, docstring, classname):
 
 
 
-def processClasses (ostream, classes, language):
+def processClasses (ostream, classes):
   for c in classes:
-    processClassMethods(ostream, language, c)
+    processClassMethods(ostream, c)
 
 
 
-def processFunctions (ostream, functions, language):
+def processFunctions (ostream, functions):
   for f in functions:
-    ostream.write(generateFunctionDocString(language, f.name, f.docstring, f.args))
+    ostream.write(generateFunctionDocString(f.name, f.docstring, f.args))
 
 
 
-def processClassDocs (ostream, classDocs, language):
+def processClassDocs (ostream, classDocs):
   for c in classDocs:
-    ostream.write(generateClassDocString(language, c.docstring, c.name))
+    ostream.write(generateClassDocString(c.docstring, c.name))
 
 
 
-def processFile (filename, ostream, language):
-  """processFile (filename, ostream, language='java'|'python')
+def processFile (filename, ostream):
+  """processFile (filename, ostream)
 
   Reads the the given header file and writes to ostream the necessary SWIG
   incantation to annotate each method (or function) with a docstring
@@ -1027,12 +1021,12 @@ def processFile (filename, ostream, language):
   """
 
   istream = open(filename)
-  header  = CHeader(language, istream)
+  header  = CHeader(istream)
   istream.close()
 
-  processClassDocs(ostream, header.classDocs, language)
-  processClasses(ostream, header.classes, language)
-  processFunctions(ostream, header.functions, language)
+  processClassDocs(ostream, header.classDocs)
+  processClasses(ostream, header.classes)
+  processFunctions(ostream, header.functions)
 
   ostream.flush()
 
@@ -1052,6 +1046,7 @@ def main (args):
     sys.exit(1)
 
   global docincpath
+  global language
 
   language    = args[1]
   includepath = args[2].replace('-I', '')
@@ -1068,7 +1063,7 @@ def main (args):
 
   for file in headers:
     filename = os.path.normpath(os.path.join(includepath, file))
-    processFile(filename, stream, language)
+    processFile(filename, stream)
 
   if language == 'perl':
    stream.write('=cut\n')
