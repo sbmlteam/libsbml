@@ -348,9 +348,6 @@
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\SWIGTYPE_p_std__ostream.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\SWIGTYPE_p_std__string.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="..\..\..\..\src\bindings\csharp\csharp-files-win\TextGlyph.cs">
       <SubType>Code</SubType>
     </Compile>

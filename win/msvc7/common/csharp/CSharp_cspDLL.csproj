@@ -519,11 +519,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "csharp-files-win\SWIGTYPE_p_std__string.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "csharp-files-win\TextGlyph.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
