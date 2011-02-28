@@ -213,7 +213,7 @@ namespace LibSBMLCSTestRunner
         {
             if (_errors == null || _errors.Count == 0) return;
 
-            foreach (var item in _errors)
+            foreach (ErrorDetails item in _errors)
             {
                 Console.WriteLine();
                 Console.WriteLine();
