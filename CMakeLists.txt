@@ -531,7 +531,9 @@ else(UNIX)
 		endif(WITH_STATIC_RUNTIME)
 	
 		file(GLOB WIN32_BINARIES ${CMAKE_SOURCE_DIR}/dependencies/bin/*.dll)
-		INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
+		install(FILES ${WIN32_BINARIES} DESTINATION bin)
+		file(GLOB WIN32_DEPENDENCIES ${CMAKE_SOURCE_DIR}/dependencies/lib/*.lib)
+		install(FILES ${WIN32_BINARIES} DESTINATION lib)
 		
 	elseif(CYGWIN)
 		add_definitions(-DCYGWIN)
