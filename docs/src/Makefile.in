@@ -96,18 +96,20 @@ distfiles =                                                  \
         DoxygenLayout.xml                                    \
         ExcludeDoclet.java                                   \
         Makefile.in                                          \
-	common-text/L1-math-syntax-warning.html              \
-	common-text/about-sbml-units-attrib.html             \
-	common-text/about-semantic-annotations.html          \
+        common-text/L1-math-syntax-warning.html              \
+        common-text/about-sbml-units-attrib.html             \
+        common-text/about-semantic-annotations.html          \
+        common-text/assuming-compressed-file.html            \
+        common-text/astnode-illustration.html                \
         common-text/astnode-types.html                       \
-	common-text/assuming-compressed-file.html            \
         common-text/base-units.html                          \
         common-text/base-units2.html                         \
         common-text/comment-set-methods.html                 \
         common-text/compartment-size-recommendations.html    \
         common-text/compartment-size-restrictions.html       \
-	common-text/cvterm-common-description-text.html      \
+        common-text/cvterm-common-description-text.html      \
         common-text/id-syntax.html                           \
+        common-text/level-1-uses-text-string-math.html       \
         common-text/libsbml-version.html.in                  \
         common-text/math-functions.html                      \
         common-text/math-precedence-table.html               \
@@ -116,10 +118,11 @@ distfiles =                                                  \
         common-text/note-writing-zipped-files.html           \
         common-text/parameter-addition-overrides-values.html \
         common-text/predefined-units.html                    \
-        common-text/species-boundarycondition.html           \
-        common-text/species-hasonlysubstance.html            \
+        common-text/sbmlerror-table.html                     \
         common-text/simple-ast.graffle                       \
         common-text/simple-ast.svg                           \
+        common-text/species-boundarycondition.html           \
+        common-text/species-hasonlysubstance.html            \
         common-text/string-functions-table.html              \
         common-text/unassigned-units-are-not-a-default.html  \
         common-text/unitid-syntax.html                       \
