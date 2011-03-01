@@ -99,7 +99,6 @@ public class printUnits
       InitialAssignment ia = model.getInitialAssignment(n);
 
       println("InitialAssignment #" + (n+1) + " --");
-      println("  id in model: " + ia.getId());
 
       printUD(ia.getDerivedUnitDefinition());
 
@@ -120,7 +119,6 @@ public class printUnits
       Rule r = model.getRule(n);
 
       println("Rule #" + (n+1) + " --");
-      println("  id in model: " + r.getId());
 
       printUD(r.getDerivedUnitDefinition());
 
@@ -165,7 +163,6 @@ public class printUnits
           EventAssignment ea = e.getEventAssignment(nn);
 
           println("EventAssignment #" + (n+1) + " --");
-          println("  id in model: " + ea.getId());
 
           printUD(ea.getDerivedUnitDefinition());
 
