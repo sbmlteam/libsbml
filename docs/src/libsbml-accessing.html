@@ -43,21 +43,21 @@ consult the man page for <code>ldconfig</code> if this is unfamiliar.  On
 MacOS&nbsp;X, there is no equivalent to the <code>ldconfig</code>
 facility.)</li></ul>
 
-<em>or</em>
+<em><b>or</b></em>
 
 <ul><li>Ensure that each user sets the environment variable
 <code>LD_LIBRARY_PATH</code> in their command shells.  (On MacOS&nbsp;X,
 the variable is named <code>DYLD_LIBRARY_PATH</code>.)  The value of
 <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> must include
-the directory used as the value of the <nobr><code>--prefix=</code><em><span
-style="background-color: #dfd">DIR</span></em></nobr> option used during the <a
-href="libsbml-installation.html">libSBML configuration step</a>.
-
-<p> For example, suppose that you configured libSBML to use the default
-installation prefix <code><nobr>/usr/local/</nobr></code>.  Then in
-csh-based command shells under Linux, if the <code>ldconfig</code> step is
-not performed, you may have to set the variable as follows (perhaps in your
-<code>.cshrc</code> file):
+the directory <span class="placeholder">DIR</span> used as the value of the
+<nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr>
+option used during the <a href="libsbml-installation.html">libSBML
+configuration step</a>.  For example, suppose that you configured
+libSBML to use the default installation prefix
+<code><nobr>/usr/local/</nobr></code>.  Then in csh-based command shells
+under Linux, if the <code>ldconfig</code> step is not performed, you may
+have to set the variable as follows (perhaps in your <code>.cshrc</code>
+file):
 
 <div class="fragment"><pre class="fragment">
 setenv LD_LIBRARY_PATH /usr/local/lib
@@ -87,9 +87,9 @@ and C</a></h3>
 software to use it is a matter of supplying certain compilation and
 linking options.  There are two main sets of settings:
 <ul>
-<li> The flag <nobr><code>-I</code><i>prefix</i><code>/include</code></nobr> needs
-to be supplied to the compiler, where <i>prefix</i> is the value of
-the <nobr><code>--prefix=</code><i>value</i></nobr> option given during
+<li> The flag <nobr><code>-I</code><span class="placeholder">DIR</span><code>/include</code></nobr> needs
+to be supplied to the compiler, where <span class="placeholder">DIR</span> is the value of
+the <nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr> option given during
 configuration of libSBML.  In addition, it may be necessary to supply
 a second <nobr><code>-I</code></nobr> flag with the directory containing the
 include files of the XML parser being used by libSBML.  For example,
@@ -100,10 +100,10 @@ to use libSBML, you will also need to add the flag
 
 <p>
 
-<li> The flags <nobr><code>-L</code></nobr><i>prefix</i><code>/lib <nobr>-lsbml</nobr>
+<li> The flags <nobr><code>-L</code></nobr><span class="placeholder">DIR</span><code>/lib <nobr>-lsbml</nobr>
 <nobr>-lstdc++</nobr> <nobr>-lm</nobr></code> need to be supplied to the compiler or linker,
-where <i>prefix</i> is again the value of the
-<nobr><code>--prefix=</code><i>value</i></nobr> option given during configuration
+where <span class="placeholder">DIR</span> is again the value of the
+<nobr><code>--prefix=</code><span class="placeholder">DIR</span></nobr> option given during configuration
 of libSBML.  In addition, you may need to supply a corresponding
 <nobr><code>-L</code></nobr> flag value to tell the linker where to find the XML
 parser library being used by libSBML.
@@ -112,7 +112,7 @@ parser library being used by libSBML.
 <p> If you have the <nobr><code>pkg-config</code></nobr> utility, the steps above
 can be substantially simplified.  First, make sure that your
 <code>PKG_CONFIG_PATH</code> environment variable includes the path to
-the directory <i>prefix</i><code>/lib/pkgconfig</code> (which is the
+the directory <span class="placeholder">DIR</span><code>/lib/pkgconfig</code> (which is the
 directory where the file <code>libsbml.pc</code> will be installed by
 libSBML's <code>make install</code> step).  Then, you can run
 <nobr><code>pkg-config</code></nobr> with the <nobr><code>--cflags</code></nobr> and/or
@@ -165,14 +165,15 @@ system in use, as follows:
 
 <li><em>Java on Linux, MacOS X and similar Unix-like systems:</em>
 
-<p>
-You must either (1) set your <code>CLASSPATH</code> environment
-variable to include the <code>.jar</code> file, or (2) the file must
-be listed in the <nobr><code>-classpath</code></nobr> option passed to the Java
-interpreter when it is started.  As an example of the former approach,
+<p> You must either (1) set your <code>CLASSPATH</code> environment
+variable to include the <code>.jar</code> file, or (2) the file must be
+listed in the <nobr><code>-classpath</code></nobr> option passed to the
+Java interpreter when it is started.  As an example of the former approach,
 if you had configured libSBML to install itself into
-<code>/usr/local</code>, the <code>libsbmlj.jar</code> file will end
-up as <code>/usr/local/share/java/libsbmlj.jar</code> and your environment
+<code>/usr/local</code> (e.g., by using
+<nobr><code>--prefix=/usr/local</code></nobr> when configuring libSBML),
+the <code>libsbmlj.jar</code> file will end up as
+<code>/usr/local/share/java/libsbmlj.jar</code> and your environment
 variable would at minimum need to be set as follows:
 
 <div class="fragment"><pre class="fragment">
@@ -223,14 +224,14 @@ public class YourMainApplicationClass
 </span>
   /**
    * The following static block is needed in order to load the
-   * the libSBML Java module when the application starts.
+   * libSBML Java interface library when the application starts.
    */
   static
   {
     String varname;
     String shlibname;
 
-    if (System.getProperty("mrj.version") != null)
+    if (System.getProperty("os.name").startsWith("Mac OS"))
     {
       varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
       shlibname = "libsbmlj.jnilib and/or libsbml.dylib";
@@ -262,11 +263,10 @@ public class YourMainApplicationClass
     }
     catch (ClassNotFoundException e)
     {
-      e.printStackTrace();
-      System.err.println("Error: unable to load the file libsbmlj.jar." +
-                         " It is likely your -classpath option and/or" +
-                         " CLASSPATH environment variable do not" +
-                         " include the path to the file libsbmlj.jar.");
+      System.err.println("Error: unable to load the file 'libsbmlj.jar'." +
+                         " It is likely that your -classpath command line " +
+                         " setting or your CLASSPATH environment variable " +
+                         " do not include the file 'libsbmlj.jar'.");
       System.exit(1);
     }
     catch (SecurityException e)
@@ -292,39 +292,40 @@ To build the Python API as well, libSBML has to be configured with the
 <nobr><code>--with-python</code></nobr> flag as described in the <a
 href="libsbml-installation.html">installation instructions</a>.
 
-<p> Once that is done, then in addition to the instructions for configuring
-the <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
-variables described at the beginning of this section, Python needs another
-environment variable named <code>PYTHONPATH</code> to be set according to
-where the libSBML Python binaries have been installed.  Unfortunately, this
-variable's value is confusing to set.  On Unix-based systems at least, if
-<em><span style="background-color: #dfd">DIR</span></em> is the value of
-the <nobr><code>--prefix=</code><em><span style="background-color:
-#dfd">DIR</span></em></nobr> option given during configuration of libSBML
-and <em><span style="background-color: #dfd">version</span></em> is the
-version of your copy of Python, then the value of <code>PYTHONPATH</code>
-needs to be set as follows:
+<p> Once that is done, and libSBML has been installed on your system, then
+Python needs just one more thing to be informed where to find the libSBML
+package: it needs the environment variable named <code>PYTHONPATH</code> to
+be set.  On Unix-based systems at least, if <em><span
+class="placeholder">DIR</span></em> is the value of the
+<nobr><code>--prefix=</code><em><span
+class="placeholder">DIR</span></em></nobr> option given during
+configuration of libSBML and <em><span
+class="placeholder">version</span></em> is the version of your copy of
+Python, then the value of <code>PYTHONPATH</code> needs to be set as
+follows:
 
 <div class="fragment" style="padding: 1em 3px !important">
 <tt class="fragment" style="font-size: 12px">
-export PYTHONPATH=<u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages/libsbml:<u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages
+export PYTHONPATH=<u><em><span
+class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
 </tt></div>
 for <i>sh</i>-based shells such as Bash, or 
 <div class="fragment" style="padding: 1em 3px !important">
 <tt class="fragment" style="font-size: 12px">
-setenv PYTHONPATH <u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages/libsbml:<u><em><span style="background-color: #dfd">DIR</span></em></u>/lib/<u><em><span style="background-color: #dfd">version</span></em></u>/site-packages
+setenv PYTHONPATH  <u><em><span
+class="placeholder">DIR</span></em></u>/lib/<u><em><span class="placeholder">version</span></em></u>/site-packages
 </tt></div>
-for <i>csh</i>-based shells.  What is crucial in both cases is that the two
-directories listed on the path are the directories containing the files
-<code>_libsbml.so</code> and <code>libsbml.py</code>.  Please see the
-section titled "<a href="libsbml-installation.html#locations">Files
-installed by libSBML, and their locations</a>" elsewhere in this manual for
-more information about the files installed for libSBML.
+for <i>csh</i>-based shells.  In other words, the <code>PYTHONPATH</code>
+environment variable needs to be set to the
+<nobr><code>site-packages</code></nobr> directory path where the libSBML
+library has been installed.  Please see the section titled "<a
+href="libsbml-installation.html#locations">Files installed by libSBML, and
+their locations</a>" elsewhere in this manual for more information about
+the files installed for libSBML.
 
-<p>
-Once both the library path environment variable and <code>PYTHONPATH</code>
-have been set, you should be able to start the Python interpreter and type
-the following command to import the libSBML package for Python:
+<p> Once the <code>PYTHONPATH</code> variable has been set, you should be
+able to start the Python interpreter and type the following command to
+import the libSBML package for Python:
 
 <div class="fragment"><pre class="fragment">
 from libsbml import *
@@ -375,7 +376,7 @@ the libSBML shared library as well as
 following MATLAB command must be executed:
 
 <div class="fragment"><pre class="fragment">
-addpath('<em>DIR</em>');
+addpath('<span class="placeholder">DIR</span>');
 </pre></div>
 
 <p> For example, suppose you are using an Intel-based MacOS X system
