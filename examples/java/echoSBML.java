@@ -1,7 +1,8 @@
 /**
  * @file    echoSBML.java
  * @brief   Echos (and pretty prints) an SBML model.
- * @author  Akira Funahashi (translated from libSBML C++ examples (using other Java examples provided by Nicolas Rodriguez))
+ * @author  Akira Funahashi (translated from libSBML C++ examples using
+ *          other Java examples provided by Nicolas Rodriguez)
  * @author  Ben Bornstein
  * @author  Michael Hucka
  *
@@ -25,9 +26,9 @@ public class echoSBML
       System.exit(2);
     }
 
-	SBMLReader reader     = new SBMLReader();
-	SBMLWriter writer     = new SBMLWriter();
-	writer.writeSBML(reader.readSBML(args[0]), args[1]);
+    SBMLReader reader = new SBMLReader();
+    SBMLWriter writer = new SBMLWriter();
+    writer.writeSBML(reader.readSBML(args[0]), args[1]);
   }
 
 
@@ -44,11 +45,18 @@ public class echoSBML
   static
   {
     String varname;
+    String shlibname;
 
-    if (System.getProperty("mrj.version") != null)
-      varname = "DYLD_LIBRARY_PATH";	// We're on a Mac.
+    if (System.getProperty("os.name").startsWith("Mac OS"))
+    {
+      varname = "DYLD_LIBRARY_PATH";    // We're on a Mac.
+      shlibname = "'libsbmlj.jnilib'";
+    }
     else
-      varname = "LD_LIBRARY_PATH";	// We're not on a Mac.
+    {
+      varname = "LD_LIBRARY_PATH";      // We're not on a Mac.
+      shlibname = "'libsbmlj.so' and/or 'libsbml.so'";
+    }
 
     try
     {
@@ -58,24 +66,32 @@ public class echoSBML
     }
     catch (UnsatisfiedLinkError e)
     {
-      System.err.println("Error: could not link with the libSBML library."+
-			 "  It is likely\nyour " + varname +
-			 " environment variable does not include\nthe"+
-			 " directory containing the libsbml library file.");
+      System.err.println("Error encountered while attempting to load libSBML:");
+      e.printStackTrace();
+      System.err.println("Please check the value of your " + varname +
+                         " environment variable and/or" +
+                         " your 'java.library.path' system property" +
+                         " (depending on which one you are using) to" +
+                         " make sure it list the directories needed to" +
+                         " find the " + shlibname + " library file and the" +
+                         " libraries it depends upon (e.g., the XML parser).");
       System.exit(1);
     }
     catch (ClassNotFoundException e)
     {
-      System.err.println("Error: unable to load the file libsbmlj.jar."+
-			 "  It is likely\nyour " + varname + " environment"+
-			 " variable or CLASSPATH variable\ndoes not include"+
-			 " the directory containing the libsbmlj.jar file.");
+      System.err.println("Error: unable to load the file 'libsbmlj.jar'." +
+                         " It is likely that your -classpath command line " +
+                         " setting or your CLASSPATH environment variable " +
+                         " do not include the file 'libsbmlj.jar'.");
       System.exit(1);
     }
     catch (SecurityException e)
     {
+      System.err.println("Error encountered while attempting to load libSBML:");
+      e.printStackTrace();
       System.err.println("Could not load the libSBML library files due to a"+
-			 " security exception.");
+                         " security exception.\n");
+      System.exit(1);
     }
   }
 }
