@@ -130,6 +130,11 @@ Version 4.3.0 (Released 2011-??-??)
     reported as a schema error.  In some case this was not happening.
     This is now fixed.
 
+  - The printUnits.java example in examples/java incorrectly used
+    getId() on SBML objects that aren't defined to have id's in SBML.
+    Talk about setting a bad example!  Fixed.
+
+
 * Configuration/build system changes
 
   - MATLAB 2010b introduced some inconsistencies in the build system
@@ -143,6 +148,7 @@ Version 4.3.0 (Released 2011-??-??)
   - Beginning with this release, LibSBML requires SWIG version 2.0.0
     or higher.  This is to avoid a problem where the C# bindings will
     not work with .NET 4 with SWIG versions prior to 2.0.0.
+
 
 * Miscellaneous changes
 
