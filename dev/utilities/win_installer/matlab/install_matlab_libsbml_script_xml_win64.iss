@@ -59,6 +59,8 @@ var
   Root:String;
   Number: Longint;
   Key: String;
+  len: Integer;
+  c: Char;
 
 begin
   RegGetSubKeyNames(HKLM, 'Software\Mathworks\MATLAB', Names);
@@ -78,7 +80,16 @@ begin
     MatlabVersion := Names[Number-1];
   end;
 
-  Result := Root;
+  len := Length(root);
+  if len = 0 then begin
+    Result := Root;
+  end else begin
+    c := Root[len];
+    if not (c = '\') then begin
+      Root := Root + '\';
+    end;
+    Result := Root;
+  end;
 end;
 
 function GetProceed : Boolean;
