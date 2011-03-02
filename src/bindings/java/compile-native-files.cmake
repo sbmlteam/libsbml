@@ -49,9 +49,9 @@ endif()
 # compile files
 execute_process(
 	COMMAND "${Java_JAVAC_EXECUTABLE}"
+		 -source 1.5
+		 -target 1.5
 		 -d java-files
-		 -source 1.4
-		 -target 1.4
 		 ${NATIVE_FILES}	
 	WORKING_DIRECTORY "${BIN_DIRECTORY}"
 )
