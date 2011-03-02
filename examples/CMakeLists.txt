@@ -76,7 +76,7 @@ endif()
 
 # install sample-models
 file(GLOB l2_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level-2/*.xml")
-install(FILES ${l2_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level2)
+install(FILES ${l2_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level-2)
 
 file(GLOB l3_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level-3/*.xml")
 install(FILES ${l3_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level-3)
