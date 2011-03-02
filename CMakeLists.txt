@@ -598,12 +598,9 @@ add_subdirectory(src)
 #
 # Build examples if specified
 #
-if(WITH_EXAMPLES)
 
-	# code that builds the examples
-	add_subdirectory(examples)
-
-endif(WITH_EXAMPLES)
+# code that builds the examples
+add_subdirectory(examples)
 
 
 ###############################################################################
