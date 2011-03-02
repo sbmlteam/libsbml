@@ -64,6 +64,7 @@ if (WITH_PYTHON)
   install(FILES ${python_samples} DESTINATION ${MISC_PREFIX}examples/python)
 endif()
 
+if (WITH_LAYOUT)
 # install layout examples
 file(GLOB layout_samples "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.cpp"
 					 "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.java"
@@ -71,12 +72,12 @@ file(GLOB layout_samples "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.cpp"
 					 "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.py"
 					 )
 install(FILES ${layout_samples} DESTINATION ${MISC_PREFIX}examples/layout)
+endif()
 
-
-# install sample-model
-file(GLOB l2_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level2/*")
+# install sample-models
+file(GLOB l2_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level-2/*.xml")
 install(FILES ${l2_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level2)
 
-file(GLOB l3_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level3/*")
-install(FILES ${l3_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level3)
+file(GLOB l3_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level-3/*.xml")
+install(FILES ${l3_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level-3)
 
