@@ -74,9 +74,9 @@ install(FILES ${layout_samples} DESTINATION ${MISC_PREFIX}examples/layout)
 
 
 # install sample-model
-file(GLOB l2_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec-level2/*")
-install(FILES ${l2_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec-level2)
+file(GLOB l2_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level2/*")
+install(FILES ${l2_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level2)
 
-file(GLOB l3_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec-level3/*")
-install(FILES ${l3_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec-level3)
+file(GLOB l3_samples "${CMAKE_CURRENT_SOURCE_DIR}/sample-models/from-spec/level3/*")
+install(FILES ${l3_samples} DESTINATION ${MISC_PREFIX}examples/sample-models/from-spec/level3)
 
