@@ -3,7 +3,7 @@
 
 
 [Setup]
-AppName=libSBML-matlab
+AppName=libSBML MATLAB Interface
 AppVerName=libSBML-matlab 4.3.0
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
