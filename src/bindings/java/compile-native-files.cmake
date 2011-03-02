@@ -50,6 +50,8 @@ endif()
 execute_process(
 	COMMAND "${Java_JAVAC_EXECUTABLE}"
 		 -d java-files
+		 -source 1.4
+		 -target 1.4
 		 ${NATIVE_FILES}	
 	WORKING_DIRECTORY "${BIN_DIRECTORY}"
 )

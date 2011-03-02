@@ -54,6 +54,7 @@ if (NOT EXISTS "${Java_JAVAC_EXECUTABLE}")
 	message(FATAL_ERROR "The java language bindings require Java_JAVAC_EXECUTABLE to be set to the javac command.")
 endif()
 
+
 if (NOT EXISTS "${Java_JAR_EXECUTABLE}")
 	message(FATAL_ERROR "The java language bindings require Java_JAR_EXECUTABLE to be set to the jar command.")
 endif()
@@ -186,6 +187,8 @@ if(WITH_CHECK)
 		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.class ${CMAKE_CURRENT_BINARY_DIR}/TestFilenameFilter.class
 		COMMAND "${Java_JAVAC_EXECUTABLE}"
 		ARGS -cp ${jar_file} ${JAVA_NATIVE_FILES}
+		-source 1.5
+		-target 1.5
 		MAIN_DEPENDENCY "${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.java"
 		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
