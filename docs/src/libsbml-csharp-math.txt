@@ -28,7 +28,7 @@ The following are noteworthy about the AST representation in libSBML:
 @li A numerical value represented in <a
 href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> as a real number with an
 exponent is preserved as such in the AST node representation, even if the
-number could be stored in a @c float data type.  This is done so that when
+number could be stored in a @c double data type.  This is done so that when
 an SBML model is read in and then written out again, the amount of change
 introduced by libSBML to the SBML during the round-trip activity is
 minimized.
@@ -134,7 +134,7 @@ reads an AST, converts it to a text string in SBML Level&nbsp;1 formula
 syntax, and returns it.  The caller owns the character string returned and
 should free it after it is no longer needed.
 
-@li libsbml.libsbml.parseFormula(string) \f$\rightarrow\f$ @c @link libsbml.ASTNode ASTNode@endlink
+@li libsbml.libsbml.parseFormula(string) \f$\rightarrow\f$ @link libsbml.ASTNode ASTNode@endlink
 reads a text-string containing a mathematical expression in
 SBML Level&nbsp;1 syntax, and returns an AST corresponding to the
 expression.
@@ -336,9 +336,9 @@ following meethods are available for returning values from nodes:
 
 @li @c int @link libsbml.ASTNode.getDenominator() ASTNode.getDenominator()@endlink 
 
-@li @c float @link libsbml.ASTNode.getReal() ASTNode.getReal()@endlink 
+@li @c double @link libsbml.ASTNode.getReal() ASTNode.getReal()@endlink 
 
-@li @c float @link libsbml.ASTNode.getMantissa() ASTNode.getMantissa()@endlink 
+@li @c double @link libsbml.ASTNode.getMantissa() ASTNode.getMantissa()@endlink 
 
 @li @c int @link libsbml.ASTNode.getExponent() ASTNode.getExponent()@endlink 
 
@@ -355,9 +355,9 @@ AST_UNKNOWN.
 @li @link libsbml.ASTNode.setName(string) ASTNode.setName(string)@endlink
 sets the value of this AST node to the given name.  The node type will be
 set (to @c AST_NAME) <em>only if</em> the AST node was previously an
-operator (@link libsbml.ASTNode.isOperator(node) isOperator(node)@endlink
-<code>!= 0</code>) or number (@link libsbml.ASTNode.isNumber(node)
-isNumber(node)@endlink <code>!= 0</code>).  This allows names to be set for
+operator (@link libsbml.ASTNode.isOperator() isOperator()@endlink
+<code>!= 0</code>) or number (@link libsbml.ASTNode.isNumber()
+isNumber()@endlink <code>!= 0</code>).  This allows names to be set for
 @c AST_FUNCTIONs and the like.
 
 @li @link libsbml.ASTNode.setValue(int) ASTNode.setValue(int)@endlink
@@ -368,11 +368,11 @@ int)@endlink sets the value of this @link libsbml.ASTNode ASTNode@endlink
 to the given rational in two parts: the numerator and denominator.  The
 node type is set to @c AST_RATIONAL.
 
-@li @link libsbml.ASTNode.setValue(float) ASTNode.setValue(float)@endlink
+@li @link libsbml.ASTNode.setValue(double) ASTNode.setValue(double)@endlink
 sets the value of this @link libsbml.ASTNode ASTNode@endlink to the given
 floating-point number and sets the node type to @c AST_REAL.
 
-@li @link libsbml.ASTNode.setValue(float, int) ASTNode.setValue(float,
+@li @link libsbml.ASTNode.setValue(double, int) ASTNode.setValue(double,
 int)@endlink sets the value of this @link libsbml.ASTNode ASTNode@endlink
 to the given floating-point number in two parts: the mantissa and the
 exponent.  The node type is set to @c AST_REAL_E.
@@ -399,14 +399,14 @@ AST node.  Child nodes are added in left-to-right order.
 ASTNode.prependChild(ASTNode)@endlink adds the given node as a child of
 this AST node.  This method adds child nodes in right-to-left order.
 
-@li @link libsbml.ASTNode ASTNode@endlink @link libsbml.ASTNode.getChild (unsigned int) ASTNode.getChild
-(unsigned int)@endlink returns the nth child of this AST node or @c NULL if
+@li @link libsbml.ASTNode ASTNode@endlink @link libsbml.ASTNode.getChild (long) ASTNode.getChild
+(long)@endlink returns the nth child of this AST node or @c NULL if
 this node has no nth child (n &gt; (@link libsbml.ASTNode.getNumChildren()
 ASTNode.getNumChildren()@endlink - 1)).
 
 @li @link libsbml.ASTNode ASTNode@endlink @link libsbml.ASTNode.getLeftChild()
 ASTNode.getLeftChild()@endlink returns the left child of this AST node.
-This is equivalent to @link libsbml.ASTNode.getChild(0)
+This is equivalent to @link libsbml.ASTNode.getChild()
 ASTNode.getChild(0)@endlink;
 
 @li @link libsbml.ASTNode ASTNode@endlink @link libsbml.ASTNode.getRightChild()
