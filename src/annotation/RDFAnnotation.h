@@ -249,14 +249,14 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @if clike createRDFAnnotation()@else RDFAnnotationParser::createRDFAnnotation()@endif
    * to create the rest of the structure for an annotation.
    *
-   * @param object the object to which the "Description" refers
+   * @param obj the object to which the "Description" refers
    *
    * @return a new XMLNode containing the "rdf:Description" element with
    * its "about" attribute value set to the @p object meta identifier.
    *
    * @see createRDFAnnotation()
    */
-  static XMLNode * createRDFDescription(const SBase *object);
+  static XMLNode * createRDFDescription(const SBase *obj);
 
 
   /**
@@ -269,12 +269,12 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * to create an RDF "Description" element to hold the terms and adds
    * each term with appropriate qualifiers.
    *
-   * @param object the SBML object to start from
+   * @param obj the SBML object to start from
    *
    * @return the XMLNode tree corresponding to the Description element of
    * an RDF annotation.
    */
-  static XMLNode * createCVTerms(const SBase *object);
+  static XMLNode * createCVTerms(const SBase *obj);
 
 
   /**
@@ -291,23 +291,23 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @if clike createAnnotation()@else RDFAnnotationParser::createAnnotation()@endif
    * to wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
    *
-   * @param object the SBML object to start from
+   * @param obj the SBML object to start from
    *
    * @return the XMLNode tree corresponding to the annotation.
    */
-  static XMLNode * parseCVTerms(const SBase * object);
+  static XMLNode * parseCVTerms(const SBase * obj);
 
 
   /**
    * Reads the model history stored in @p object and creates the
    * XML structure for an SBML annotation representing that history.
    *
-   * @param object any SBase object
+   * @param obj any SBase object
    *
    * @return the XMLNode corresponding to an annotation containing 
    * MIRIAM-compliant model history information in RDF format.
    */
-  static XMLNode * parseModelHistory(const SBase * object);
+  static XMLNode * parseModelHistory(const SBase * obj);
 
 
   /** @cond doxygen-libsbml-internal */
@@ -354,16 +354,16 @@ XMLNode_t *
 RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation);
 
 XMLNode_t *
-RDFAnnotationParser_createRDFDescription(const SBase_t * object);
+RDFAnnotationParser_createRDFDescription(const SBase_t * obj);
 
 XMLNode_t *
-RDFAnnotationParser_createCVTerms(const SBase_t * object);
+RDFAnnotationParser_createCVTerms(const SBase_t * obj);
 
 XMLNode_t *
-RDFAnnotationParser_parseCVTerms(const SBase_t * object);
+RDFAnnotationParser_parseCVTerms(const SBase_t * obj);
 
 XMLNode_t *
-RDFAnnotationParser_parseModelHistory(const SBase_t * object);
+RDFAnnotationParser_parseModelHistory(const SBase_t * obj);
 
 
 END_C_DECLS
