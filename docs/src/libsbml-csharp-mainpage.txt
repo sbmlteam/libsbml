@@ -1,0 +1,34 @@
+/** @mainpage About libSBML and its use
+
+@htmlinclude libsbml-authors.html
+
+<p>
+This manual describes the C# application programming interface
+(API) of libSBML, an open-source (LGPL) library for writing and
+manipulating the Systems Biology Markup Language (SBML).
+@htmlinclude libsbml-blurb.html
+
+@htmlinclude libsbml-conversion-warnings.html
+
+@section main-general General information
+- @subpage libsbml-installation
+- @subpage libsbml-accessing
+- @subpage libsbml-features
+- @subpage libsbml-communications
+
+@section main-programming Programming with libSBML
+- @subpage libsbml-csharp-reading-files
+- @subpage libsbml-csharp-math
+- @subpage libsbml-issues
+
+@section main-other Other topics
+- @subpage libsbml-uninstallation
+- @subpage libsbml-coding for developers and contributors
+- @subpage license
+- @subpage changes
+
+@htmlinclude libsbml-papers.html
+
+@htmlinclude FUNDING.txt
+
+*/
