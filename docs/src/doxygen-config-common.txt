@@ -362,6 +362,16 @@ INPUT =                            \
 # excluded from the INPUT source files. This way you can easily exclude a 
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
+# LibSBML note: Some of the files listed below are only meaningful for
+# specific language bindings; however, since it doesn't make a difference
+# to doxygen to list them in EXCLUDE even when the particular language
+# binding is *not* being processed, it's better to have them all here.
+# Otherwise, we end up having to duplicate most of the EXCLUDE list in
+# different configuration files, and that's a maintenance risk.  (There is
+# apparently no way to simply add more items to an existing EXCLUDE list,
+# so the only thing you can do for language variants is to have mostly the
+# same list with a few additions -- not a good approach.)
+
 EXCLUDE =                            \
   force-serif-font-on.html           \
   force-serif-font-off.html          \
@@ -418,7 +428,10 @@ EXCLUDE =                            \
   ../../src/xml/XMLParser.cpp        \
   ../../src/xml/XMLParser.h          \
   ../../src/xml/XMLTokenizer.cpp     \
-  ../../src/xml/XMLTokenizer.h
+  ../../src/xml/XMLTokenizer.h       \
+  ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs \
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
