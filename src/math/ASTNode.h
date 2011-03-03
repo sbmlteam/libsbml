@@ -142,8 +142,8 @@
  * 
  * <h3><a class="anchor" name="math-convert">Converting between ASTs and text strings</a></h3>
  * 
- * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@else <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif and
- * read by @if clike SBML_parseFormula()@else <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
+ * The text-string form of mathematical formulas produced by @if clike SBML_formulaToString()@endif@if csharp libsbml.libsbml.formulaToString()@else <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@endif and
+ * read by @if clike SBML_parseFormula()@endif@if csharp libsbml.libsbml.parseFormula()@else <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@endif
  * are simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
  * formula in this text-string form can be handed to a program that
  * understands SBML Level&nbsp;1 mathematical expressions, or used as part
