@@ -25925,6 +25925,8 @@ ac_config_files="$ac_config_files docs/src/doxygen-config-c.txt"
 
 ac_config_files="$ac_config_files docs/src/doxygen-config-cpp.txt"
 
+ac_config_files="$ac_config_files docs/src/doxygen-config-csharp.txt"
+
 ac_config_files="$ac_config_files docs/src/doxygen-config-python.txt"
 
 ac_config_files="$ac_config_files docs/src/doxygen-config-perl.txt"
@@ -26764,6 +26766,7 @@ do
     "docs/Makefile") CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
     "docs/src/doxygen-config-c.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-c.txt" ;;
     "docs/src/doxygen-config-cpp.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-cpp.txt" ;;
+    "docs/src/doxygen-config-csharp.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-csharp.txt" ;;
     "docs/src/doxygen-config-python.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-python.txt" ;;
     "docs/src/doxygen-config-perl.txt") CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-perl.txt" ;;
     "docs/src/common-text/libsbml-version.html") CONFIG_FILES="$CONFIG_FILES docs/src/common-text/libsbml-version.html" ;;
