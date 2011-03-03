@@ -1032,7 +1032,7 @@ public:
    * predefined value from @if clike <a class="el"
    * href="#XMLErrorCode_t">
    * XMLErrorCode_t</a>. @else <a class="el"
-   * href="#XMLErrorCode_t">the set of predefined error identifiers.@endif
+   * href="#XMLErrorCode_t">the set of predefined error identifiers</a>.@endif
    */
   static const std::string getStandardMessage (const int code);
 
