@@ -166,7 +166,7 @@ def filterForDoxygen (contents):
 
 
 def main (args):
-  """Usage: pythondocfilter.py < libsbml.py > output.py
+  """Usage: pythondocfilter.py libsbml.py > output.py
 
   libsbml.py    pathname to the libsbml.py file produced by SWIG.
 
