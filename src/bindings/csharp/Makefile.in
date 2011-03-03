@@ -223,7 +223,7 @@ tmpfiles = $(wildcard test*.xml*)
 extra_clean = $(csproxy_lib) $(dllimport_lib) $(check_runner_exe) $(tmpfiles) $(sn_keyfile) \
               $(wildcard test.xml.*) out.xml
 
-extra_distclean = 
+extra_distclean =
 
 # library distributions shouldn't have to run SWIG because we provide the
 # wrapper file ready-made.
@@ -355,12 +355,16 @@ else
   endef
 endif
 
+# generate C# documentation
+csdoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py
+	../swig/swigdoc.py csharp -I../.. -D../../../docs/src ../swig/libsbml.i csdoc.i
+
 # libsbml_wrap.cpp (for non-Windows) and libsbml_wrap-win.cpp (for Windows)
 # stand-in for the .cs files.  Their creation results in the creation of the .cs 
 # files too -- both are made by running swig.
 
 # for non-Windows
-libsbml_wrap.cpp $(outpath) : $(swig_sources) $(main_sources) $(shell $(call check_layout))
+libsbml_wrap.cpp $(outpath) : $(swig_sources) $(main_sources) csdoc.i $(shell $(call check_layout))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	test -d $(outpath) || mkdir -p $(outpath)
 	"$(SWIG)" $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
@@ -368,7 +372,7 @@ libsbml_wrap.cpp $(outpath) : $(swig_sources) $(main_sources) $(shell $(call che
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
 
 # for Windows
-libsbml_wrap-win.cpp $(outpath_win) : $(swig_sources) $(main_sources) $(shell $(call check_layout))
+libsbml_wrap-win.cpp $(outpath_win) : $(swig_sources) $(main_sources) csdoc.i $(shell $(call check_layout))
 	@top_srcdir@/config/chk_swig_version.sh || exit
 	test -d $(outpath_win) || mkdir -p $(outpath_win)
 	"$(SWIG)" $(SWIGFLAGS) $(SWIGFLAGS_WIN) $(sort $(default_includes) $(INCLUDES)) \
