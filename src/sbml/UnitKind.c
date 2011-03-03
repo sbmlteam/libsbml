@@ -161,9 +161,9 @@ UnitKind_toString (UnitKind_t uk)
  */
 LIBSBML_EXTERN
 int
-UnitKind_isValidUnitKindString (const char *string, unsigned int level, unsigned int version)
+UnitKind_isValidUnitKindString (const char *unit, unsigned int level, unsigned int version)
 {
-  UnitKind_t uk = UnitKind_forName(string);
+  UnitKind_t uk = UnitKind_forName(unit);
   if (level == 1)
   {
     return uk != UNIT_KIND_INVALID;
