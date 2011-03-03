@@ -26,7 +26,7 @@ Name: english; MessagesFile: compiler:Default.isl
 [Files]
 Source: @CURRENT_DIR@\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: @CURRENT_DIR@\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
-Source: @CURRENT_DIR@\libsbml\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
+;Source: @CURRENT_DIR@\libsbml\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: @CURRENT_DIR@\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: @CURRENT_DIR@\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: @CURRENT_DIR@\libsbml\bindings\perl\*; DestDir: {code:GetPerlDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
@@ -331,12 +331,12 @@ begin
   OctavePage.Add('');
 
 
-  { matlab page : location to install matlab binding }
+  { matlab page : location to install matlab binding
   MatlabPage := CreateInputDirPage(InstallOptionsPage.ID,
     'MATLAB binding', '',
     'Select the folder in which Setup should install MATLAB binding files, then click Next.',
     False, '');
-  MatlabPage.Add('');
+  MatlabPage.Add('');   }
 
   { java page : location to install java binding }
   JavaPage := CreateInputDirPage(InstallOptionsPage.ID,
@@ -356,7 +356,7 @@ begin
   { Set default values, using settings that were stored last time if possible }
 
   {install options page}
-  if GetPreviousData('CSharp', '') = '0' then begin
+ { if GetPreviousData('CSharp', '') = '0' then begin
     InstallOptionsPage.Values[0] := False;
   end else begin
     InstallOptionsPage.Values[0] := True;
@@ -391,31 +391,31 @@ begin
   end else begin
     InstallOptionsPage.Values[5] := True;
   end;
-
+ }
   {python page}
-  case GetPreviousData('PythonVers', '') of
+ { case GetPreviousData('PythonVers', '') of
     'Python 2.5': PythonPage.SelectedValueIndex := 0;
     'Python 2.6': PythonPage.SelectedValueIndex := 1;
     'Python 2.7': PythonPage.SelectedValueIndex := 2;
    else
     PythonPage.SelectedValueIndex := 1;
   end;
-
+  }
   {matlab page}
-  MatlabPage.Values[0] := GetPreviousData('MatlabDir', MatlabRoot);
-
+{  MatlabPage.Values[0] := GetPreviousData('MatlabDir', MatlabRoot);
+ }
   {csharp page}
-  CSharpPage.Values[0] := GetPreviousData('CSharpDir', CSharpRoot);
-  
+{  CSharpPage.Values[0] := GetPreviousData('CSharpDir', CSharpRoot);
+ }
   {java page}
-  JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
-
+{  JavaPage.Values[0] := GetPreviousData('JavaDir', JavaRoot);
+ }
   {octave page}
-  OctavePage.Values[0] := GetPreviousData('OctaveDir', OctaveRoot);
-
+{  OctavePage.Values[0] := GetPreviousData('OctaveDir', OctaveRoot);
+ }
   {perl page}
-  PerlPage.Values[0] := GetPreviousData('PerlDir', PerlRoot);
-
+{  PerlPage.Values[0] := GetPreviousData('PerlDir', PerlRoot);
+ }
 end;
 
 procedure RegisterPreviousData(PreviousDataKey: Integer);
@@ -481,8 +481,8 @@ begin
    end;
   SetPreviousData(PreviousDataKey, 'PythonVers', PythonVers);
 
-  {matlab page}
-  SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);
+  {matlab page
+  SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);      }
 
   {csharp page}
   SetPreviousData(PreviousDataKey, 'CSharpDir', CSharpPage.Values[0]);
@@ -509,8 +509,8 @@ begin
     Result := True
   else if (PageID = OctavePage.ID) and (InstallOptionsPage.Values[3] = False) then
     Result := True
-  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[2] = False) then
-    Result := True
+{  else if (PageID = MatlabPage.ID) and (InstallOptionsPage.Values[2] = False) then
+    Result := True   }
   else if (PageID = PerlPage.ID) and (InstallOptionsPage.Values[4] = False) then
     Result := True
   else
@@ -535,7 +535,7 @@ begin
       end;
     end;
     Result := True;
-  end else if CurPageId = MatlabPage.ID  then begin
+{  end else if CurPageId = MatlabPage.ID  then begin
     if (MatlabPresent) then begin
       Result := True;
     end else begin
@@ -544,7 +544,7 @@ begin
           InstallOptionsPage.Values[2] := False;
       end;
       Result := True;
-    end;
+    end;    }
   end else if CurPageId = PythonPage.ID  then begin
     if not PythonPresent then begin
       MsgBox('Python cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
@@ -557,6 +557,11 @@ begin
       MsgBox('Python 2.7 cannot be detected on the system. Cannot install to site-packages directory.', mbInformation, MB_OK);
 
     end;
+    Result := True;
+  end else if CurPageId = InstallOptionsPage.ID then begin
+    JavaPage.Values[0] := ExpandConstant('{app}/bindings/java');
+    CSharpPage.Values[0] := ExpandConstant('{app}/bindings/csharp');
+    OctavePage.Values[0] := ExpandConstant('{app}/bindings/octave');
     Result := True;
   end else begin
     Result := True;
@@ -599,8 +604,7 @@ begin
 
   if(InstallOptionsPage.Values[2] = True) then begin
       S := S + NewLine;
-      S := S + 'Writing libSBML MATLAB files to ' + NewLine;
-      S := S + '      ' + MatlabPage.Values[0];
+      S := S + 'Installing libSBML MATLAB' + NewLine;
       S := S + NewLine;
   end else begin
       S := S + NewLine;
@@ -750,4 +754,6 @@ end;
 Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win32-py2.5.exe"; flags: nowait; Check: GetPython25;
 Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win32-py2.6.exe"; flags: nowait; Check: GetPython26;
 Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win32-py2.7.exe"; flags: nowait; Check: GetPython27;
+Filename: "{app}\bindings\matlab\matlab-libSBML-@PACKAGE_VERSION@-win-libxml2-x86.exe"; Check: GetMatlab;
+
 
