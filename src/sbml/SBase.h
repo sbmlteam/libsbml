@@ -605,16 +605,31 @@ public:
    * Returns the ancestor SBML object that corresponds to the given
    * SBML type code value.
    *
-   * This function allows any object to determine its exact
-   * location/function within a model.  For example, in SBML Level&nbsp;2 a
-   * StoichiometryMath object has ancestors (in order) of type
-   * SpeciesReference, ListOfSpeciesReferences, Reaction, ListOfReactions
-   * and Model, any of which can be accessed via this function.
-   *
-   * @param type the @if clike #SBMLTypeCode_t value@else SBML object type code@endif of the ancestor being sought.
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbml.libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
    * 
    * @return the ancestor SBML object of this SBML object that corresponds
-   * to the given @if clike #SBMLTypeCode_t value@else SBML object type code@endif, or @c NULL if none exists.
+   * to the given @if clike #SBMLTypeCode_t value@else SBML object type
+   * code@endif, or @c NULL if no ancestor exists.
    */
   SBase* getAncestorOfType(SBMLTypeCode_t type);
 
@@ -1830,6 +1845,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * values) will <em>not affect the instance added here</em>.  In
    * addition, the caller should make sure to free the original object if
    * it is no longer being used, or else a memory leak will result.
+   *
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   int addCVTerm(CVTerm * term, bool newBag = false);
 
@@ -2011,9 +2028,10 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param resource string representing the resource; e.g.,
    * <code>"http://www.geneontology.org/#GO:0005892"</code>.
    *
-   * @return the #ModelQualifierType_t value associated with the resource,
-   * or @link ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink if the
-   * resource does not exist.
+   * @return the @if clike #ModelQualifierType_t value@else model qualifier
+   * type@endif associated with the resource, or @link
+   * ModelQualifierType_t#BQM_UNKNOWN BQM_UNKNOWN@endlink if the resource
+   * does not exist.
    *
    * @if clike
    * @note The set of MIRIAM biological qualifiers grows over
