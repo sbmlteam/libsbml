@@ -20,8 +20,7 @@ with one @em plus node having two @em integer children nodes for the
 numbers 1 and 2.  The figure also shows the corresponding <a
 href="http://www.w3.org/Math/">MathML&nbsp;2.0</a> representation:
 
-@image html astnode-illustration.jpg "Example AST representation of a mathematical expression."
-@image latex astnode-illustration.jpg "Example AST representation of a mathematical expression."
+@htmlinclude astnode-illustration.html
 
 The following are noteworthy about the AST representation in libSBML:
 
