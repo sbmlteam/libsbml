@@ -53,12 +53,12 @@ var
 
 function GetRunMatlab(Param: String): String;
 begin
-  Result:= MatlabRoots[MatlabVersPage.SelectedValueIndex];
+  if Number > 1 then begin
+    Result:= MatlabRoots[MatlabVersPage.SelectedValueIndex];
+  end else begin
+    Result := MatlabRoots[0];
+  end;
 end;
-
-
-
-
 
 
 function GetProceed : Boolean;
@@ -70,6 +70,7 @@ function GetMatlabPresent : Boolean;
 begin
   Result := MatlabPresent;
 end;
+
 {function to return matlab root directory}
 procedure GetAllMatlabs;
 var
@@ -79,13 +80,15 @@ var
   len: Integer;
   c: Char;
   i: Integer;
+
 begin
   RegGetSubKeyNames(HKLM, 'Software\Mathworks\MATLAB', MatlabNames);
+
   MatlabPresent := False;
   {deals with possible multiple installations of Matlab
    and choses most recent }
   Number := GetArrayLength(MatlabNames);
-  { Number:= 0;   - for testing }
+  { Number:= 1;   - for testing }
   if not (Number = 0) then begin
     MatlabPresent := True;
     SetArrayLength(MatlabVersions, Number);
@@ -110,6 +113,7 @@ begin
     end;
   end;
 end;
+
 {functions to activate buttons and url on screen}
 procedure AboutButtonOnClick(Sender: TObject);
 begin
@@ -225,7 +229,11 @@ begin
   if (Proceed) then begin
    S := '';
    if (MatlabPresent) then begin
-    S := S + 'Using MATLAB Version' + MatlabVersions[MatlabVersPage.SelectedValueIndex] + NewLine + NewLine;
+    if Number > 1 then begin
+      S := S + 'Using MATLAB Version' + MatlabVersions[MatlabVersPage.SelectedValueIndex] + NewLine + NewLine;
+    end else begin
+      S := S + 'Using MATLAB Version' + MatlabVersions[0] + NewLine + NewLine;
+    end;
    end;
    S := S + MemoDirInfo + NewLine;
    S := S + NewLine;

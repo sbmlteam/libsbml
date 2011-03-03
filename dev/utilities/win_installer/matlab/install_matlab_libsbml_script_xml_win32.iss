@@ -52,7 +52,11 @@ var
 
 function GetRunMatlab(Param: String): String;
 begin
-  Result:= MatlabRoots[MatlabVersPage.SelectedValueIndex];
+  if Number > 1 then begin
+    Result:= MatlabRoots[MatlabVersPage.SelectedValueIndex];
+  end else begin
+    Result := MatlabRoots[0];
+  end;
 end;
 
 
@@ -83,7 +87,7 @@ begin
   {deals with possible multiple installations of Matlab
    and choses most recent }
   Number := GetArrayLength(MatlabNames);
-  { Number:= 0;   - for testing }
+  { Number:= 1;   - for testing }
   if not (Number = 0) then begin
     MatlabPresent := True;
     SetArrayLength(MatlabVersions, Number);
@@ -179,7 +183,6 @@ begin
     MatlabVersPage.SelectedValueIndex := Number-1;
   end;
 
-
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
@@ -226,7 +229,11 @@ begin
   if (Proceed) then begin
    S := '';
    if (MatlabPresent) then begin
-    S := S + 'Using MATLAB Version' + MatlabVersions[MatlabVersPage.SelectedValueIndex] + NewLine + NewLine;
+    if Number > 1 then begin
+      S := S + 'Using MATLAB Version' + MatlabVersions[MatlabVersPage.SelectedValueIndex] + NewLine + NewLine;
+    end else begin
+      S := S + 'Using MATLAB Version' + MatlabVersions[0] + NewLine + NewLine;
+    end;
    end;
    S := S + MemoDirInfo + NewLine;
    S := S + NewLine;
@@ -244,4 +251,7 @@ end;
 
 
 Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; Description: "Run MATLAB and install libSBML Interface"; Flags: postinstall  runascurrentuser
+;Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; StatusMsg: "Run MATLAB and install libSBML Interface"
+;Filename: "{app}\install\install.bat"; Check: GetMatlabPresent ;
+;Filename: "{code:GetRunMatlab}"; Parameters: "-r installSBML" ; Check: GetMatlabPresent
 
