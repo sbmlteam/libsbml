@@ -258,8 +258,8 @@ public:
    * documentation for SBMLError for more information.
    *
    * If the file @p filename could not be read, the file-reading error will
-   * appear first.  The error code (a value drawn from the enumeration
-   * #XMLErrorCode_t) can provide a clue about what happened.  For example,
+   * appear first.  The error code @if clike (a value drawn from the enumeration
+   * #XMLErrorCode_t)@endif can provide a clue about what happened.  For example,
    * a file might be unreadable (either because it does not actually exist
    * or because the user does not have the necessary access priviledges to
    * read it) or some sort of file operation error may have been reported
