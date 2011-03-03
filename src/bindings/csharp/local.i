@@ -38,7 +38,6 @@
 %include <typemaps.i>
 
 
-
 %include "enumsimple.swg"
 %csconst(1);
 
@@ -49,6 +48,7 @@
 %csconstvalue("'/'") AST_DIVIDE;
 %csconstvalue("'^'") AST_POWER;
 
+%include "csdoc.i"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
