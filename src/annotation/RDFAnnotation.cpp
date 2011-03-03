@@ -333,16 +333,16 @@ RDFAnnotationParser::createRDFAnnotation()
 }
 
 XMLNode * 
-RDFAnnotationParser::createRDFDescription(const SBase *object)
+RDFAnnotationParser::createRDFDescription(const SBase *obj)
 {
-  if (object == NULL) return NULL;
+  if (obj == NULL) return NULL;
 
   XMLTriple descrip_triple = XMLTriple("Description", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
 
   XMLAttributes desc_att = XMLAttributes();
-  desc_att.add("rdf:about", "#" + object->getMetaId());
+  desc_att.add("rdf:about", "#" + obj->getMetaId());
  
   XMLToken descrip_token = XMLToken(descrip_triple, desc_att);
 
@@ -356,18 +356,18 @@ RDFAnnotationParser::createRDFDescription(const SBase *object)
  */
 
 XMLNode * 
-RDFAnnotationParser::parseCVTerms(const SBase * object)
+RDFAnnotationParser::parseCVTerms(const SBase * obj)
 {
 
-  if (object == NULL || 
-	  object->getCVTerms() == NULL || 
-	  object->getCVTerms()->getSize() == 0)
+  if (obj == NULL || 
+	  obj->getCVTerms() == NULL || 
+	  obj->getCVTerms()->getSize() == 0)
   {
     return NULL;
   }
 
 
-  XMLNode *CVTerms = createCVTerms(object);
+  XMLNode *CVTerms = createCVTerms(obj);
 
   XMLNode * RDF = createRDFAnnotation();
   RDF->addChild(*CVTerms);
@@ -384,9 +384,9 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 
 
 XMLNode * 
-RDFAnnotationParser::createCVTerms(const SBase * object)
+RDFAnnotationParser::createCVTerms(const SBase * obj)
 {
-  if (object == NULL) return NULL;
+  if (obj == NULL) return NULL;
 
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
@@ -408,22 +408,22 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 
   XMLAttributes *resources;
 
-  XMLNode *description = createRDFDescription(object);
+  XMLNode *description = createRDFDescription(obj);
 
   /* loop through the cv terms and add */
   /* want to add these in blocks of same qualifier */
-  if (object->getCVTerms())
+  if (obj->getCVTerms())
   {
-    for (unsigned int n = 0; n < object->getCVTerms()->getSize(); n++)
+    for (unsigned int n = 0; n < obj->getCVTerms()->getSize(); n++)
     {
 
-      if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+      if (static_cast <CVTerm *> (obj->getCVTerms()->get(n))
         ->getQualifierType() == MODEL_QUALIFIER)
       {
         prefix = "bqmodel";
         uri = "http://biomodels.net/model-qualifiers/";
 
-        switch (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+        switch (static_cast <CVTerm *> (obj->getCVTerms()->get(n))
                                             ->getModelQualifierType())
         {
         case BQM_IS:
@@ -440,13 +440,13 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 	        break;
         }
       }
-      else if (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+      else if (static_cast <CVTerm *> (obj->getCVTerms()->get(n))
         ->getQualifierType() == BIOLOGICAL_QUALIFIER)
       {
         prefix = "bqbiol";
         uri = "http://biomodels.net/biological-qualifiers/";
 
-        switch (static_cast <CVTerm *> (object->getCVTerms()->get(n))
+        switch (static_cast <CVTerm *> (obj->getCVTerms()->get(n))
                                             ->getBiologicalQualifierType())
         {
         case BQB_IS:
@@ -496,7 +496,7 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
       }
       
 
-      resources = static_cast <CVTerm *> (object->getCVTerms()->get(n))
+      resources = static_cast <CVTerm *> (obj->getCVTerms()->get(n))
                                                         ->getResources();
       XMLNode   bag(bag_token);
 
@@ -530,21 +530,21 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
  * and creates the RDF annotation
  */
 XMLNode * 
-RDFAnnotationParser::parseModelHistory(const SBase *object)
+RDFAnnotationParser::parseModelHistory(const SBase *obj)
 {
-  if (object == NULL  || 
-		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL))
+  if (obj == NULL  || 
+		(obj->getLevel() < 3 && obj->getTypeCode() != SBML_MODEL))
   {
     return NULL;
   }
   
-  ModelHistory * history = object->getModelHistory();
+  ModelHistory * history = obj->getModelHistory();
   if (history == NULL)
   {
     return NULL;
   }
 
-  XMLNode *description = createRDFDescription(object);
+  XMLNode *description = createRDFDescription(obj);
 
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
@@ -597,8 +597,8 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
   // for L2V4 it was realised that it was invalid for the creator 
   // to have a parseType attribute
   XMLToken creator_token;
-  if (object->getLevel() > 2 || 
-    (object->getLevel() == 2 && object->getVersion() > 3))
+  if (obj->getLevel() > 2 || 
+    (obj->getLevel() == 2 && obj->getVersion() > 3))
   {
     creator_token  = XMLToken(creator_triple,  blank_att);
   }
@@ -615,8 +615,8 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
   // for L2V4 it was realised that the VCard:ORG 
   // should  have a parseType attribute
   XMLToken Org_token;
-  if (object->getLevel() > 2 || 
-    (object->getLevel() == 2 && object->getVersion() > 3))
+  if (obj->getLevel() > 2 || 
+    (obj->getLevel() == 2 && obj->getVersion() > 3))
   {
     Org_token  = XMLToken(Org_triple,  parseType_att);
   }
@@ -768,7 +768,7 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
 
   // add CVTerms here
 
-  XMLNode *CVTerms = createCVTerms(object);
+  XMLNode *CVTerms = createCVTerms(obj);
   if (CVTerms != NULL)
   {
     for (unsigned int i = 0; i < CVTerms->getNumChildren(); i++)
@@ -1047,7 +1047,7 @@ RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation)
   * RDF annotations that can serve as containers for RDF descriptions, see
   * RDFAnnotationParser_createRDFAnnotation().
   *
-  * @param object the object to be annotated
+  * @param obj the object to be annotated
   *
   * @return a new XMLNode_t containing the "rdf:about" structure for an
   * RDF "Description" element.
@@ -1055,9 +1055,9 @@ RDFAnnotationParser_deleteRDFAnnotation(XMLNode_t *annotation)
   * @see RDFAnnotationParser_createRDFAnnotation()
   */
 XMLNode_t *
-RDFAnnotationParser_createRDFDescription(const SBase_t * object)
+RDFAnnotationParser_createRDFDescription(const SBase_t * obj)
 {
-  return RDFAnnotationParser::createRDFDescription(object);
+  return RDFAnnotationParser::createRDFDescription(obj);
 }
 
 /**
@@ -1069,15 +1069,15 @@ RDFAnnotationParser_createRDFDescription(const SBase_t * object)
   * "Description" element to hold the terms and adds each term with
   * appropriate qualifiers.
   *
-  * @param object the SBML object to start from
+  * @param obj the SBML object to start from
   *
   * @return the XMLNode_t tree corresponding to the Description element of
   * an RDF annotation.
   */
 XMLNode_t *
-RDFAnnotationParser_createCVTerms(const SBase_t * object)
+RDFAnnotationParser_createCVTerms(const SBase_t * obj)
 {
-  return RDFAnnotationParser::createCVTerms(object);
+  return RDFAnnotationParser::createCVTerms(obj);
 }
 
 /**
@@ -1090,15 +1090,15 @@ RDFAnnotationParser_createCVTerms(const SBase_t * object)
   * annotation to hold the terms, and finally calls createAnnotation() to
   * wrap the result as an SBML <code>&lt;annotation&gt;</code> element.
   *
-  * @param object the SBML object to start from
+  * @param obj the SBML object to start from
   *
   * @return the XMLNode_t tree corresponding to the annotation.
   */
 XMLNode_t *
-RDFAnnotationParser_parseCVTerms(const SBase_t * object)
+RDFAnnotationParser_parseCVTerms(const SBase_t * obj)
 {
-  if (object == NULL) return NULL;
-  return RDFAnnotationParser::parseCVTerms(object);
+  if (obj == NULL) return NULL;
+  return RDFAnnotationParser::parseCVTerms(obj);
 }
 
 /**
@@ -1106,16 +1106,16 @@ RDFAnnotationParser_parseCVTerms(const SBase_t * object)
   * stored in it, and creates a complete SBML annotation to store that
   * history.
   *
-  * @param object a Model_t
+  * @param obj a Model_t
   *
   * @return the XMLNode_t corresponding to an annotation containing 
   * MIRIAM-compliant model history information in RDF format
   */
 XMLNode_t *
-RDFAnnotationParser_parseModelHistory(const SBase_t * object)
+RDFAnnotationParser_parseModelHistory(const SBase_t * obj)
 {
-  if (object == NULL) return NULL;
-  return RDFAnnotationParser::parseModelHistory(object);
+  if (obj == NULL) return NULL;
+  return RDFAnnotationParser::parseModelHistory(obj);
 }
 
 /** @endcond */
