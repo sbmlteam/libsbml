@@ -108,5 +108,3 @@ OPTIMIZE_OUTPUT_JAVA    = YES
 # Ignore some symbols from the output
 
 EXCLUDE_SYMBOLS         = *_swigregister __cmp__
-
-GENERATE_XML = YES
