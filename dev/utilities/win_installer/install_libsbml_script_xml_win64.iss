@@ -27,7 +27,7 @@ Name: english; MessagesFile: compiler:Default.isl
 [Files]
 Source: C:\libsbml\dev\utilities\win_installer\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: C:\libsbml\dev\utilities\win_installer\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
-Source: C:\libsbml\dev\utilities\win_installer\libsbml\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
+;Source: C:\libsbml\dev\utilities\win_installer\libsbml\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: C:\libsbml\dev\utilities\win_installer\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: C:\libsbml\dev\utilities\win_installer\libsbml\bindings\perl\*; DestDir: {code:GetPerlDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
 
@@ -480,7 +480,7 @@ begin
   SetPreviousData(PreviousDataKey, 'PythonVers', PythonVers);
 
   {matlab page}
-  SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]);
+  { SetPreviousData(PreviousDataKey, 'MatlabDir', MatlabPage.Values[0]); }
 
   {csharp page}
   SetPreviousData(PreviousDataKey, 'CSharpDir', CSharpPage.Values[0]);
@@ -559,7 +559,6 @@ begin
   end else if CurPageId = InstallOptionsPage.ID then begin
     JavaPage.Values[0] := ExpandConstant('{app}/bindings/java');
     CSharpPage.Values[0] := ExpandConstant('{app}/bindings/csharp');
-    OctavePage.Values[0] := ExpandConstant('{app}/bindings/octave');
     Result := True;
   end else begin
     Result := True;

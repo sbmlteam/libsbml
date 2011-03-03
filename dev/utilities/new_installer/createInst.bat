@@ -30,7 +30,13 @@ cd /d %THIS_BASE_DIR%
 REM configure
 cmake .
 
+REM create matlab installers
+cd /d %THIS_BASE_DIR%\..\win_installer\matlab
+call createInstallers.bat
+REM copy matlab installers to share
+copy /y Output\*.exe "%DROP_DIR%\matlab-win-installer"
 
+cd /d %THIS_BASE_DIR%
 REM create 32 bit inst
 rd /s /q libsbml
 call createXMLRel_x86.bat

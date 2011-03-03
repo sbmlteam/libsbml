@@ -7,6 +7,8 @@ REM it should only need adjusting of the following constants.
 SET INST_BASE_DIR=%~dp0
 SET LIBSBML_ROOT=%INST_BASE_DIR%\..\..\..\
 SET DEPENDENCIES_32_BIT=%LIBSBML_ROOT%\dependencies_32_static
+SET MATLAB_INSTALLER_DIR=%INST_BASE_DIR%\..\win_installer\matlab\Output
+
 
 REM the installation directory as created by a cmake installation
 SET INSTALL_DIR=c:\32bit
@@ -228,20 +230,23 @@ cd ..
 rem bindings/matlab directory
 
 cd matlab
-copy %INSTALL_DIR%\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
-copy %INSTALL_DIR%\bindings\matlab\OutputSBML.mexw32 OutputSBML.mexw32
-copy %LIBSBML_ROOT%\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\TranslateSBML.c TranslateSBML.c
-copy %LIBSBML_ROOT%\src\bindings\matlab\OutputSBML.m OutputSBML.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\OutputSBML.c OutputSBML.c
-copy %LIBSBML_ROOT%\src\bindings\matlab\Contents.m Contents.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\isoctave.m  isoctave.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\ConvertFormulaToMathML.m  ConvertFormulaToMathML.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\buildSBML.m  buildSBML.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\installSBML.m  installSBML.m
-copy %LIBSBML_ROOT%\src\bindings\matlab\test.xml test.xml
+
+copy "%MATLAB_INSTALLER_DIR%\matlab-libSBML-*-win-libxml2-x86.exe" .
+
+REM copy %INSTALL_DIR%\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
+REM copy %INSTALL_DIR%\bindings\matlab\OutputSBML.mexw32 OutputSBML.mexw32
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\TranslateSBML.m TranslateSBML.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\TranslateSBML.c TranslateSBML.c
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\OutputSBML.m OutputSBML.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\OutputSBML.c OutputSBML.c
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\Contents.m Contents.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\CheckAndConvert.m  CheckAndConvert.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\isoctave.m  isoctave.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\ConvertFormulaToMathML.m  ConvertFormulaToMathML.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\isSBML_Model.m  isSBML_Model.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\buildSBML.m  buildSBML.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\installSBML.m  installSBML.m
+REM copy %LIBSBML_ROOT%\src\bindings\matlab\test.xml test.xml
 cd ..
 
 rem bindings/octave directory
