@@ -73,9 +73,16 @@ file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/csharp-files LIBSBML_CS_FILES)
 
 MAKE_DIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/csharp-files)
 ADD_CUSTOM_COMMAND(	
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp csdoc.i
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E remove_directory "${LIBSBML_CS_FILES}"
+	COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/../swig/swigdoc.py"
+			csharp
+			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
+			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
+			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
+			"${CMAKE_CURRENT_BINARY_DIR}/csdoc.i"	
 	COMMAND "${CMAKE_COMMAND}"
     ARGS  -E make_directory "${LIBSBML_CS_FILES}"
     COMMAND "${SWIG_EXECUTABLE}"

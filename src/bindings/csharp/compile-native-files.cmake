@@ -116,6 +116,8 @@ execute_process(
 		 -out:${TEST_RUNNER}
 		 ${CSHARP_EXTRA_ARGS}
 		 ${NATIVE_TEST_FILES}
+	OUTPUT_QUIET    
+	ERROR_QUIET    
 	WORKING_DIRECTORY "${SRC_DIRECTORY}/test"
 )
 
