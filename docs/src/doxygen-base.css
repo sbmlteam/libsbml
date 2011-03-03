@@ -779,6 +779,6 @@ caption {
 .placeholder { 
   font-style: italic;
   background-color: #ffeaba;
-  border-left: 2px solid #ffeaba;
+  border-left: 1px solid #ffeaba;
   border-right: 3px solid #ffeaba;
 }
