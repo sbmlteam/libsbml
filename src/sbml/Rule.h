@@ -1449,8 +1449,8 @@ public:
   /**
    * Returns the SBML Level&nbsp;1 type code for this Rule object.
    *
-   * This only applies to SBML Level&nbsp;1 model objects.  If this is not
-   * an SBML Level&nbsp;1 rule object, this method will return @link
+   * This method only applies to SBML Level&nbsp;1 model objects.  If this
+   * is not an SBML Level&nbsp;1 rule object, this method will return @link
    * SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink.
    * 
    * @return the SBML Level&nbsp;1 type code for this Rule (namely, @link
@@ -1503,9 +1503,8 @@ public:
   /**
    * Sets the SBML Level&nbsp;1 type code for this Rule.
    *
-   * @param type the SBML Level&nbsp;1 type code for this Rule, drawn from
-   * the enumeration #SBMLTypeCode_t.  The allowable values are @link
-   * SBMLTypeCode_t#SBML_COMPARTMENT_VOLUME_RULE
+   * @param type the SBML Level&nbsp;1 type code for this Rule. The
+   * allowable values are @link SBMLTypeCode_t#SBML_COMPARTMENT_VOLUME_RULE
    * SBML_COMPARTMENT_VOLUME_RULE@endlink, @link
    * SBMLTypeCode_t#SBML_PARAMETER_RULE SBML_PARAMETER_RULE@endlink, and
    * @link SBMLTypeCode_t#SBML_SPECIES_CONCENTRATION_RULE
@@ -1516,7 +1515,6 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS@endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
    * if given @p type value is not one of the above.
-   *
    */
   int setL1TypeCode (SBMLTypeCode_t type);
 
