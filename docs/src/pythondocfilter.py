@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #
 # @file    pythondocfilter.py
 # @brief   Post-process libSBML's Python doc strings for use by Doxygen.
@@ -166,14 +166,14 @@ def filterForDoxygen (contents):
 
 
 def main (args):
-  """Usage: swigdoc.py libsbml.py > output.py
+  """Usage: pythondocfilter.py < libsbml.py > output.py
 
   libsbml.py    pathname to the libsbml.py file produced by SWIG.
 
   This cooks the final output of our swigdoc.py + SWIG sequence for use
   with doxygen, to do additional transformations that can't be done in
   swigdoc.py because they rely on having in hand the final output from
-  SWIG.
+  SWIG.  This only acts on files whose names end in .py.
   """
 
   if len(args) != 2:
