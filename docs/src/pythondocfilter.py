@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# @file    swigdocpostprocess.py
+# @file    pythondocfilter.py
 # @brief   Post-process libSBML's Python doc strings for use by Doxygen.
 # @author  Michael Hucka
 #
@@ -9,13 +9,12 @@
 #
 # Usage: pythondocfilter.py libsbml.py > output.py
 #
-# This filter reads the standard input (on which it expects the libsbml.py
-# file produced by <libsbml>/src/bindings/swig/swigdoc.py), cooks the
-# contents for use with Doxygen, and writes the results to standard output.
 # This is designed to be used as the value of the INPUT_FILTER
-# configuration variable in Doxygen.  The need for this is to do additional
-# transformations that can't be done in swigdoc.py because they rely on
-# having in hand the final output from SWIG.
+# configuration variable in Doxygen.  This filter reads the standard input,
+# on which it expects one file at a time fed to it by doxygen, then cooks
+# the contents and writes the results to standard output.  The need for
+# this is to do additional transformations that can't be done in swigdoc.py
+# because they rely on having in hand the final output from SWIG.
 #
 # <!--------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
