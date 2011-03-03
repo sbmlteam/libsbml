@@ -8,3 +8,4 @@ TAGS
 CTAGS
 libsbml.pc
 *.o
+formatted
