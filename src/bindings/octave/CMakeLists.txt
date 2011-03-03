@@ -40,7 +40,7 @@ endif()
 
 
 # get location of library
-get_property(sbml_location TARGET sbml PROPERTY LOCATION)
+get_property(sbml_location TARGET ${LIBSBML_LIBRARY} PROPERTY LOCATION)
 get_filename_component(sbml_path ${sbml_location} PATH)
 file(TO_NATIVE_PATH ${sbml_path} sbml_path)
 
@@ -48,13 +48,15 @@ file(TO_NATIVE_PATH ${sbml_path} sbml_path)
 # break up the libsbml library dependencies into paths and libraries
 set(OCTAVE_EXTRA_LIBS)
 set(OCTAVE_EXTRA_PATHS)
-foreach(lib ${LIBSBML_LIBS})
-	get_filename_component(name ${lib} NAME_WE)	
-	get_filename_component(path ${lib} PATH)	
-	string(REGEX REPLACE "lib" "" name "${name}")
-	list(APPEND OCTAVE_EXTRA_LIBS -l${name})
-	list(APPEND OCTAVE_EXTRA_PATHS -L${path})
-endforeach()
+if (UNIX)
+ foreach(lib ${LIBSBML_LIBS})
+ 	get_filename_component(name ${lib} NAME_WE)	
+ 	get_filename_component(path ${lib} PATH)	
+ 	string(REGEX REPLACE "lib" "" name "${name}")
+ 	list(APPEND OCTAVE_EXTRA_LIBS -l${name})
+ 	list(APPEND OCTAVE_EXTRA_PATHS -L${path})
+ endforeach()
+endif()
 
 macro(build_octave_file fileName)
 	# compile and link mex file
