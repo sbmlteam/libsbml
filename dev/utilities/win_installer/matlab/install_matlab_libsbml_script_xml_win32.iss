@@ -4,12 +4,12 @@
 
 [Setup]
 AppName=libSBML MATLAB Interface
-AppVerName=libSBML-matlab 4.3.0
+AppVerName=MATLAB Interface of libSBML 4.3.0
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\matlab-libSBML-4.3.0-libxml2-x86
+DefaultDirName={pf}\SBML\MATLAB\matlab-libSBML-4.3.0-libxml2-x86
 DefaultGroupName=matlab-libSBML
 DisableProgramGroupPage=yes
 OutputDir=.\Output
@@ -39,57 +39,22 @@ var
   URLLabel: TNewStaticText;
   AboutButton, CancelButton: TButton;
 
+  MatlabVersPage: TInputOptionWizardPage;
+
   MatlabPresent: Boolean;
-  MatlabVersion: String;
-  MatlabRoot: String;
-  
+
+  MatlabNames: TArrayOfString;
+  MatlabVersions: TArrayOfString;
+  MatlabRoots: TArrayOfString;
+  Number: Longint;
+
   Proceed: Boolean;
 
 function GetRunMatlab(Param: String): String;
 begin
-  Result:= MatlabRoot;
+  Result:= MatlabRoots[MatlabVersPage.SelectedValueIndex];
 end;
 
-
-{function to return matlab root directory}
-function GetMatlabRoot(S : String): String;
-var
-  Names: TArrayOfString;
-  Root:String;
-  Number: Longint;
-  Key: String;
-  len: Integer;
-  c: Char;
-
-begin
-  RegGetSubKeyNames(HKLM, 'Software\Mathworks\MATLAB', Names);
-
-  {deals with possible multiple installations of Matlab
-   and choses most recent }
-  Number := GetArrayLength(Names);
-  if Number = 0 then begin
-    Root := '';
-    MatlabPresent := False;
-  end else begin
-    Key := '';
-    Key := Key + 'Software\Mathworks\MATLAB\';
-    Key := Key + Names[Number-1];
-    RegQueryStringValue(HKLM, Key, 'MATLABROOT', Root);
-    MatlabPresent := True;
-    MatlabVersion := Names[Number-1];
-  end;
-
-  len := Length(root);
-  if len = 0 then begin
-    Result := Root;
-  end else begin
-    c := Root[len];
-    if not (c = '\') then begin
-      Root := Root + '\';
-    end;
-    Result := Root;
-  end;
-end;
 
 function GetProceed : Boolean;
 begin
@@ -100,6 +65,51 @@ function GetMatlabPresent : Boolean;
 begin
   Result := MatlabPresent;
 end;
+
+{function to return matlab root directory}
+procedure GetAllMatlabs;
+var
+  Root:String;
+  Key: String;
+  Vers: String;
+  len: Integer;
+  c: Char;
+  i: Integer;
+
+begin
+  RegGetSubKeyNames(HKLM, 'Software\Mathworks\MATLAB', MatlabNames);
+
+  MatlabPresent := False;
+  {deals with possible multiple installations of Matlab
+   and choses most recent }
+  Number := GetArrayLength(MatlabNames);
+  { Number:= 0;   - for testing }
+  if not (Number = 0) then begin
+    MatlabPresent := True;
+    SetArrayLength(MatlabVersions, Number);
+    SetArrayLength(MatlabRoots, Number);
+
+    for i := 0 to Number-1 do begin
+      Key := '';
+      Key := Key + 'Software\Mathworks\MATLAB\';
+      Key := Key + MatlabNames[i];
+      RegQueryStringValue(HKLM, Key, 'MATLABROOT', Root);
+      len := Length(Root);
+      if len > 0 then begin
+        c := Root[len];
+        if not (c = '\') then begin
+          Root := Root + '\';
+        end;
+      end;
+      len := Length(Root);
+      Vers := Root[len-5] + Root[len-4] + Root[len-3] + Root[len-2] + Root[len-1];
+      MatlabVersions[i] :=  Vers;
+      Root := Root + 'bin\matlab.exe';
+      MatlabRoots[i] := Root;
+    end;
+  end;
+end;
+
 {functions to activate buttons and url on screen}
 procedure AboutButtonOnClick(Sender: TObject);
 begin
@@ -124,9 +134,12 @@ begin
 end;
 
 procedure InitializeWizard;
+var
+  index: Integer;
+  caption: String;
+  
 begin
-  MatlabRoot := GetMatlabRoot('');
-  MatlabRoot := MatlabRoot + 'bin\matlab.exe';
+  GetAllMatlabs();
   Proceed := True;
 
   {add an about button and a url to all pages}
@@ -152,6 +165,19 @@ begin
   URLLabel.Cursor := crHand;
   URLLabel.OnClick := @URLLabelOnClick;
   URLLabel.Parent := WizardForm;
+
+  {which matlab page}
+  if Number > 1 then begin
+    MatlabVersPage := CreateInputOptionPage(wpSelectDir,
+      'Customise installation', '',
+      'Select which version of matlab to use',
+      True, False);
+    for index := 0 to Number-1 do begin
+      caption := 'Version ' + MatlabNames[index] + ' (' + MatlabVersions[index] + ')';
+      MatlabVersPage.Add(caption);
+    end;
+    MatlabVersPage.SelectedValueIndex := Number-1;
+  end;
 
 
 end;
@@ -199,6 +225,9 @@ begin
   { Fill the 'Ready Memo' with the normal settings and the custom settings }
   if (Proceed) then begin
    S := '';
+   if (MatlabPresent) then begin
+    S := S + 'Using MATLAB Version' + MatlabVersions[MatlabVersPage.SelectedValueIndex] + NewLine + NewLine;
+   end;
    S := S + MemoDirInfo + NewLine;
    S := S + NewLine;
   end else begin
@@ -214,5 +243,5 @@ end;
 [Run]
 
 
-Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent
+Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; Description: "Run MATLAB and install libSBML Interface"; Flags: postinstall
 
