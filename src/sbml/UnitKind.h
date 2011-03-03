@@ -170,7 +170,7 @@ UnitKind_toString (UnitKind_t uk);
  * Predicate for testing whether a given string corresponds to a
  * predefined libSBML unit code.
  *
- * @param string a text string naming a base unit defined by SBML
+ * @param unit a text string naming a base unit defined by SBML
  * @param level the Level of SBML
  * @param version the Version within the Level of SBML
  *
@@ -182,7 +182,7 @@ UnitKind_toString (UnitKind_t uk);
  */
 LIBSBML_EXTERN
 int
-UnitKind_isValidUnitKindString (const char *string, unsigned int level, unsigned int version);
+UnitKind_isValidUnitKindString (const char *unit, unsigned int level, unsigned int version);
 
 
 END_C_DECLS
