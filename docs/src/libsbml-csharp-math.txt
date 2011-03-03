@@ -191,23 +191,7 @@ MathML and SBML Level 1, there exist a few differences.  The following
 table summarizes the differences between the predefined functions in SBML
 Level 1 and the MathML equivalents in SBML Level 2:
 
-<center>
-<table cellspacing="1" border="0">
- <tr style="background: lightgray; font-size: 14px;">
-     <td>Text string formula functions</td>
-     <td>MathML equivalents in SBML Level 2</td>
- </tr>
- <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
- <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
- <tr><td><code>atan</code></td><td><code>arctan</code></td></tr>
- <tr><td><code>ceil</code></td><td><code>ceiling</code></td></tr>
- <tr><td><code>log</code></td><td><code>ln</code></td></tr>
- <tr><td><code>log10(x)</code></td><td><code>log(10, x)</code></td></tr>
- <tr><td><code>pow(x, y)</code></td><td><code>power(x, y)</code></td></tr>
- <tr><td><code>sqr(x)</code></td><td><code>power(x, 2)</code></td></tr>
- <tr><td><code>sqrt(x)</code></td><td><code>root(2, x)</code></td></tr>
-</table>
-</center>
+@htmlinclude math-functions.html
 
 
 @section math-ast Methods for working with libSBML's Abstract Syntax Trees
