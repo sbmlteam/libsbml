@@ -35,7 +35,7 @@ minimized.
  
 @li Rational numbers are represented in an AST node using separate
 numerator and denominator values.  These can be retrieved using the methods
-libsbml.ASTNode.getNumerator() and libsbmlASTNode.getDenominator().
+libsbml.ASTNode.getNumerator() and libsbml.ASTNode.getDenominator().
 
 @li The children of an @link libsbml.ASTNode ASTNode@endlink are other
 @link libsbml.ASTNode ASTNode@endlink objects.  The list of
@@ -82,7 +82,41 @@ and shows that libSBML preserves the ordering and structure of the
 mathematical expressions.
 
 @verbatim
------------------ NEED CODE ------------------
+using System;
+using libsbml;
+
+public class Example
+{
+    public static void Main(String[] args)
+    {
+        String expected = "1 + f(x)";
+        String input_mathml = "<?xml version='1.0' encoding='UTF-8'?>"
+          + "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+          + "  <apply> <plus/> <cn> 1 </cn>"
+          + "                  <apply> <ci> f </ci> <ci> x </ci> </apply>"
+          + "  </apply>"
+          + "</math>";
+
+        ASTNode ast_result   = libsbml.libsbml.readMathMLFromString(input_mathml);
+        String ast_as_string = libsbml.libsbml.formulaToString(ast_result);
+
+        if (ast_as_string == expected)
+        {
+            Console.WriteLine("Got expected result.");
+        }
+        else
+        {
+            Console.WriteLine("Mismatch after readMathMLFromString().");
+            Environment.Exit(1);
+        }
+
+        ASTNode new_mathml = libsbml.libsbml.parseFormula(ast_as_string);
+        String new_string = libsbml.libsbml.writeMathMLToString(new_mathml);
+
+        Console.WriteLine("Result of writing AST to string:");
+        Console.WriteLine(new_string);
+    }
+}
 @endverbatim
 
 The text-string form of mathematical formulas produced by
