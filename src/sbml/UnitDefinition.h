@@ -772,7 +772,7 @@ public:
    * @return a new UnitDefinition object representing the results of the
    * conversion.
    */
-  static UnitDefinition * convertToSI(const UnitDefinition *);
+  static UnitDefinition * convertToSI(const UnitDefinition *ud);
 
 
   /** 
