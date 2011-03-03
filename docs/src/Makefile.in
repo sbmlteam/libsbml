@@ -55,6 +55,7 @@ formatted     = ../formatted
 
 cpp-manual    = $(formatted)/cpp-api
 c-manual      = $(formatted)/c-api
+csharp-manual = $(formatted)/csharp-api
 java-manual   = $(formatted)/java-api
 python-manual = $(formatted)/python-api
 perl-manual   = $(formatted)/perl-api
@@ -73,6 +74,9 @@ endif
 ifdef USE_PERL
   docs += $(perl-manual)
 endif
+ifdef USE_CSHARP
+  docs += $(csharp-manual)
+endif
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
@@ -81,12 +85,13 @@ endif
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
 
-extra_distclean =               \
-        Makefile                \
-        $(docs)                 \
-        doxygen-config-c.txt    \
-        doxygen-config-cpp.txt  \
-        doxygen-config-perl.txt \
+extra_distclean =                 \
+        Makefile                  \
+        $(docs)                   \
+        doxygen-config-c.txt      \
+        doxygen-config-cpp.txt    \
+        doxygen-config-csharp.txt \
+        doxygen-config-perl.txt   \
         doxygen-config-python.txt
 
 # The `make dist' rules for this directory are more complicated than usual.
@@ -133,6 +138,7 @@ distfiles =                                                  \
         doxygen-config-c.txt.in                              \
         doxygen-config-common.txt                            \
         doxygen-config-cpp.txt.in                            \
+        doxygen-config-csharp.txt.in                         \
         doxygen-config-perl.txt.in                           \
         doxygen-config-python.txt.in                         \
         doxygen-footer.html                                  \
@@ -192,6 +198,9 @@ distfiles =                                                  \
         libsbml-communications.txt                           \
         libsbml-conversion-warnings.txt                      \
         libsbml-conversion-warnings.html                     \
+        libsbml-csharp-mainpage.txt                          \
+        libsbml-csharp-math.txt                              \
+        libsbml-csharp-reading-files.txt                     \
         libsbml-example.txt                                  \
         libsbml-features.html                                \
         libsbml-features.txt                                 \
@@ -270,10 +279,11 @@ endif
 # configure.
 #
 
-doxygen-cpp-conf  = doxygen-config-cpp.txt.in doxygen-config-common.txt
-doxygen-c-conf    = doxygen-config-c.txt.in doxygen-config-common.txt
-doxygen-py-conf   = doxygen-config-python.txt.in doxygen-config-common.txt
-doxygen-perl-conf = doxygen-config-perl.txt.in doxygen-config-common.txt
+doxygen-cpp-conf    = doxygen-config-cpp.txt.in doxygen-config-common.txt
+doxygen-c-conf      = doxygen-config-c.txt.in doxygen-config-common.txt
+doxygen-csharp-conf = doxygen-config-csharp.txt.in doxygen-config-common.txt
+doxygen-py-conf     = doxygen-config-python.txt.in doxygen-config-common.txt
+doxygen-perl-conf   = doxygen-config-perl.txt.in doxygen-config-common.txt
 
 doxygen-config-cpp.txt:  $(doxygen-cpp-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
@@ -282,6 +292,10 @@ doxygen-config-cpp.txt:  $(doxygen-cpp-conf) $(TOP_SRCDIR)/VERSION.txt
 doxygen-config-c.txt:  $(doxygen-c-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
+
+doxygen-config-csharp.txt:  $(doxygen-csharp-conf) $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && \
+	  $(SHELL) ./config.status $(thisdir)/doxygen-config-csharp.txt
 
 doxygen-config-python.txt:  $(doxygen-py-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
@@ -325,6 +339,7 @@ define run_doxygen
     sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C++ Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML C# Public API //' $(2)/tree.html;\
     sed -is 's/libSBML Perl Public API //' $(2)/tree.html;\
   else \
     cp -rf doxygen-tabs.css $(2)/doxygen-tabs.css; \
@@ -333,6 +348,7 @@ define run_doxygen
     sed -is 's/libSBML Python Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C++ Public API //' $(2)/tree.html;\
     sed -is 's/libSBML C Public API //' $(2)/tree.html;\
+    sed -is 's/libSBML C# Public API //' $(2)/tree.html;\
     sed -is 's/libSBML Perl Public API //' $(2)/tree.html;\
   fi
 endef
@@ -342,6 +358,9 @@ cpp-manual $(cpp-manual): doxygen-config-cpp.txt $(core-sources)
 
 c-manual $(c-manual): doxygen-config-c.txt $(core-sources)
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual))
+
+csharp-manual $(csharp-manual): doxygen-config-csharp.txt $(core-sources)
+	$(call run_doxygen,doxygen-config-csharp.txt,$(csharp-manual))
 
 ifdef USE_PYTHON
 python-sources = ../../src/bindings/python/libsbml.py
