@@ -228,6 +228,12 @@
  * if converted to Version&nbsp;3 with no other changes, may fail
  * validation as a Version&nbsp;3 model because Version&nbsp;3 imposed
  * stricter requirements on unit consistency.
+ *
+ * Other changes between SBML Level 2 and Level 3 make downward conversions
+ * challenging.  In some cases, it means that a model converted to
+ * Level&nbsp;2 from Level&nbsp;3 will contain attributes that were not
+ * explicitly given in the Level&nbsp;3 model, because in Level&nbsp;2
+ * these attributes may have been optional or have default values.
  * 
  * @section errors Error handling
  *
@@ -312,7 +318,7 @@ public:
   /**
    * The default SBML Level of new SBMLDocument objects.
    *
-   * This "default level" corresponds to the most recent SBML specification
+   * This "default Level" corresponds to the most recent SBML specification
    * Level available at the time libSBML version @htmlinclude libsbml-version.html
    * was released.  For this copy of libSBML, the value is <code>3</code>.
    * The default Level is used by SBMLDocument if no Level is explicitly
@@ -328,7 +334,7 @@ public:
   /**
    * The default Version of new SBMLDocument objects.
    *
-   * This "default version" corresponds to the most recent SBML Version
+   * This "default Version" corresponds to the most recent Version
    * within the most recent Level of SBML available at the time libSBML
    * version @htmlinclude libsbml-version.html
    * was released.  For this copy of libSBML, the value is <code>1</code>
@@ -362,8 +368,8 @@ public:
    * on the <code>&lt;sbml&gt;</code> element.  Application writers should
    * either provide values for @p level and @p version on the call to this
    * constructor, or else call
-   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif) shortly after creating
-   * the SBMLDocument object.
+   * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
+   * shortly after creating the SBMLDocument object.
    *
    * @param level an integer for the SBML Level
    *
@@ -481,51 +487,54 @@ public:
 
 
   /**
-   * Removes any FunctionDefinition objects from the document and expands
-   * any instances of their use within &lt;math&gt; elements.
+   * Removes FunctionDefinition constructs from the document and expands
+   * any instances of their use within <code>&lt;math&gt;</code> elements.
    *
-   * For example a Model contains a FunctionDefinition with id f
-   * representing the math expression: <em>f(x, y) = x * y</em>.  The math
-   * element of the KineticLaw uses <em>f(s, p)</em>.  The outcome of the
-   * function is that the math of the KineticLaw now represents the math
-   * expression: <em>s * p</em> and the model no longer contains any
+   * For example, suppose a Model contains a FunctionDefinition with
+   * identifier @c "f" representing the math expression: <em>f(x, y) = x *
+   * y</em>.  Suppose further that there is a reaction in which the
+   * <code>&lt;math&gt;</code> element of the KineticLaw object contains
+   * <code>f(s, p)</code>, where @c s and @c p are other identifiers
+   * defined in the model.  The outcome of invoking this method is that the
+   * <code>&lt;math&gt;</code> of the KineticLaw now represents the
+   * expression <em>s * p</em> and the model no longer contains any
    * FunctionDefinition objects.
    * 
    * @return bool @c true if the transformation was successful, 
    * @c false, otherwise.
    *
-   * @note This function will check the consistency of a model
-   * before attemptimg the transformation.  In the case of a model
-   * with invalid SBML the transformation will not be done and the
-   * function will return @c false.
-   * 
+   * @note This function will check the consistency of a model before
+   * attemptimg the transformation.  If the model is not valid SBML, the
+   * transformation will not be performed and the function will return @c
+   * false.
    */
   bool expandFunctionDefinitions();
 
 
   /**
-   * Removes any InitialAssignments from the document and replaces
-   * the appropriate values.
+   * Removes InitialAssignment constructs from the document and
+   * replaces them with appropriate values.
    *
-   * For example a Model contains a InitialAssignment with symbol k
-   * where k is the id of a Parameter.
-   * The outcome of the function is that the value attribute of
-   * the Parameter is the value calculated using the math expression
-   * of the InitialAssignment and the corresponding InitialAssignment
-   * has been removed from the Model.
+   * For example, suppose a Model contains a InitialAssignment to a symbol
+   * @c "k" where @c "k" is the identifier of a Parameter.  The outcome of
+   * invoking this method is that the "value" attribute of the Parameter
+   * definition is set to the result calculated using the InitialAssignment
+   * object's <code>&lt;math&gt;</code> formula, and the corresponding
+   * InitialAssignment is then removed from the Model.
    * 
    * @return bool @c true if the transformation was successful, 
    * @c false, otherwise.
    *
-   * @note This function will check the consistency of a model
-   * before attemptimg the transformation.  In the case of a model
-   * with invalid SBML the transformation will not be done and the
-   * function will return @c false.  As part of the process the 
-   * function will check that it has values for any components
-   * referred to by the math elements of InitialAssignments.  In
-   * the case where not all values have been declared the particular
-   * InitialAssignment will not be removed and the function will 
-   * return @c false.
+   * @note This function will check the consistency of a model before
+   * attemptimg the transformation.  If the model is not valid SBML, the
+   * transformation will not be performed and the function will return @c
+   * false.  As part of that process, this method will check that it has
+   * values for any components referred to by the <code>&lt;math&gt;</code>
+   * elements of InitialAssignment objects.  In cases where not all of the
+   * values have been declared (e.g., if the mathematical expression refers
+   * to model entities that have no declared values), the InitialAssignment
+   * in question will @em not be removed and this method will return @c
+   * false.
    */
   bool expandInitialAssignments();
 
@@ -669,48 +678,54 @@ public:
    * The following are the possible choices:
    * @endif
    * <ul>
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink:
-   * Correctness and consistency of specific SBML language constructs.
-   * Performing this set of checks is highly recommended.  With respect to
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
+   * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
+   * of specific SBML language constructs.  Performing this set of checks
+   * is highly recommended.  With respect to the SBML specification, these
+   * concern failures in applying the validation rules numbered 2xxxx in
+   * the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1
+   * specifications.
+   * 
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY
+   * LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and
+   * consistency of identifiers used for model entities.  An example of
+   * inconsistency would be using a species identifier in a reaction rate
+   * formula without first having declared the species.  With respect to
    * the SBML specification, these concern failures in applying the
-   * validation rules numbered 2xxxx in the Level&nbsp;2 Versions&nbsp;2, 3
-   * and&nbsp;4 specifications.
+   * validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+   * and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink:
-   * Correctness and consistency of identifiers used for model entities.
-   * An example of inconsistency would be using a species identifier in a
-   * reaction rate formula without first having declared the species.  With
-   * respect to the SBML specification, these concern failures in applying
-   * the validation rules numbered 103xx in the Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY
+   * LIBSBML_CAT_UNITS_CONSISTENCY@endlink: Consistency of measurement
+   * units associated with quantities in a model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
+   * Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink:
-   * Consistency of measurement units associated with quantities in a
-   * model.  With respect to the SBML specification, these concern failures
-   * in applying the validation rules numbered 105xx in the Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY
+   * LIBSBML_CAT_MATHML_CONSISTENCY@endlink: Syntax of MathML constructs.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 102xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink:
-   * Syntax of MathML constructs.  With respect to the SBML specification,
-   * these concern failures in applying the validation rules numbered 102xx
-   * in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY
+   * LIBSBML_CAT_SBO_CONSISTENCY@endlink: Consistency and validity of %SBO
+   * identifiers (if any) used in the model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
+   * Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink:
-   * Consistency and validity of %SBO identifiers (if any) used in the
-   * model.  With respect to the SBML specification, these concern failures
-   * in applying the validation rules numbered 107xx in the Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL
+   * LIBSBML_CAT_OVERDETERMINED_MODEL@endlink: Static analysis of whether
+   * the system of equations implied by a model is mathematically
+   * overdetermined.  With respect to the SBML specification, this is
+   * validation rule #10601 in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and
+   * Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink:
-   * Static analysis of whether the system of equations implied by a model
-   * is mathematically overdetermined.  With respect to the SBML
-   * specification, this is validation rule #10601 in the SBML Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE LIBSBML_CAT_MODELING_PRACTICE@endlink:
-   * Additional checks for recommended good modeling practice. (These are
-   * tests performed by libSBML and do not have equivalent SBML validation
-   * rules.)
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE
+   * LIBSBML_CAT_MODELING_PRACTICE@endlink: Additional checks for
+   * recommended good modeling practice. (These are tests performed by
+   * libSBML and do not have equivalent SBML validation rules.)
    * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
@@ -771,47 +786,54 @@ public:
    * The following are the possible choices:
    * @endif
    * <ul>
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency of
-   * specific SBML language constructs.  Performing this set of checks is
-   * highly recommended.  With respect to the SBML specification, these
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY
+   * LIBSBML_CAT_GENERAL_CONSISTENCY@endlink: Correctness and consistency
+   * of specific SBML language constructs.  Performing this set of checks
+   * is highly recommended.  With respect to the SBML specification, these
    * concern failures in applying the validation rules numbered 2xxxx in
-   * the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
-   * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and consistency
-   * of identifiers used for model entities.  An example of inconsistency
-   * would be using a species identifier in a reaction rate formula without
-   * first having declared the species.  With respect to the SBML
-   * specification, these concern failures in applying the validation rules
-   * numbered 103xx in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4
+   * the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1
    * specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink:
-   * Consistency of measurement units associated with quantities in a
-   * model.  With respect to the SBML specification, these concern failures
-   * in applying the validation rules numbered 105xx in the Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY
+   * LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink: Correctness and
+   * consistency of identifiers used for model entities.  An example of
+   * inconsistency would be using a species identifier in a reaction rate
+   * formula without first having declared the species.  With respect to
+   * the SBML specification, these concern failures in applying the
+   * validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+   * and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink:
-   * Syntax of MathML constructs.  With respect to the SBML specification,
-   * these concern failures in applying the validation rules numbered 102xx
-   * in the Level&nbsp;2 Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY
+   * LIBSBML_CAT_UNITS_CONSISTENCY@endlink: Consistency of measurement
+   * units associated with quantities in a model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 105xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
+   * Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink:
-   * Consistency and validity of %SBO identifiers (if any) used in the
-   * model.  With respect to the SBML specification, these concern failures
-   * in applying the validation rules numbered 107xx in the Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY
+   * LIBSBML_CAT_MATHML_CONSISTENCY@endlink: Syntax of MathML constructs.
+   * With respect to the SBML specification, these concern failures in
+   * applying the validation rules numbered 102xx in the Level&nbsp;2
+   * Versions&nbsp;2&ndash;4 and Level&nbsp;3 Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink:
-   * Static analysis of whether the system of equations implied by a model
-   * is mathematically overdetermined.  With respect to the SBML
-   * specification, this is validation rule #10601 in the SBML Level&nbsp;2
-   * Versions&nbsp;2, 3 and&nbsp;4 specifications.
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY
+   * LIBSBML_CAT_SBO_CONSISTENCY@endlink: Consistency and validity of %SBO
+   * identifiers (if any) used in the model.  With respect to the SBML
+   * specification, these concern failures in applying the validation rules
+   * numbered 107xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and Level&nbsp;3
+   * Version&nbsp;1 specifications.
    * 
-   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE LIBSBML_CAT_MODELING_PRACTICE@endlink:
-   * Additional checks for recommended good modeling practice. (These are
-   * tests performed by libSBML and do not have equivalent SBML validation
-   * rules.)
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL
+   * LIBSBML_CAT_OVERDETERMINED_MODEL@endlink: Static analysis of whether
+   * the system of equations implied by a model is mathematically
+   * overdetermined.  With respect to the SBML specification, this is
+   * validation rule #10601 in the Level&nbsp;2 Versions&nbsp;2&ndash;4 and
+   * Level&nbsp;3 Version&nbsp;1 specifications.
+   * 
+   * <li> @link SBMLErrorCategory_t#LIBSBML_CAT_MODELING_PRACTICE
+   * LIBSBML_CAT_MODELING_PRACTICE@endlink: Additional checks for
+   * recommended good modeling practice. (These are tests performed by
+   * libSBML and do not have equivalent SBML validation rules.)
    * </ul>
    * 
    * <em>By default, all validation checks are applied</em> to the model in
