@@ -4,8 +4,8 @@
 # Description       : Doxygen config for Python libSBML API manual 
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Organization      : California Institute of Technology
-# $Id: doxygen-config-python.txt.in 12164 2010-10-18 08:39:46Z sarahkeating $
-# $HeadURL: https://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/docs/src/doxygen-config-python.txt.in $
+# $Id$
+# $HeadURL$
 # -----------------------------------------------------------------------------
 
 # Include libSBML's common Doxygen settings:

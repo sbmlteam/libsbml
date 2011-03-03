@@ -3,8 +3,8 @@
 # Description       : Common elements of doxygen configuration
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Organization      : California Institute of Technology
-# $Id: doxygen-config-common.txt 11938 2010-09-20 02:04:23Z mhucka $
-# $HeadURL: http://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/docs/src/doxygen-config-common.txt $
+# $Id$
+# $HeadURL$
 # -----------------------------------------------------------------------------
 #
 # Originally based on the sample config file from Doxygen 1.3.4.

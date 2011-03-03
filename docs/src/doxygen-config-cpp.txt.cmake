@@ -4,8 +4,8 @@
 # Description       : Doxygen config for C++ libSBML API manual 
 # Original author(s): Michael Hucka <mhucka@caltech.edu>
 # Organization      : California Institute of Technology
-# $Id: doxygen-config-cpp.txt.in 11938 2010-09-20 02:04:23Z mhucka $
-# $HeadURL: http://sbml.svn.sourceforge.net/svnroot/sbml/branches/libsbml-5/docs/src/doxygen-config-cpp.txt.in $
+# $Id$
+# $HeadURL$
 # -----------------------------------------------------------------------------
 
 # Include libSBML's common Doxygen settings:
