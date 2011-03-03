@@ -1,4 +1,47 @@
+@echo off
+REM 
+REM This file copies the matlab binaries into the ./libsbml-matlab
+REM directory. This batch file accepts three arguments: 
+REM 
+REM createInstallFiles <architecture> <binary dir> -silent
+REM 
+REM where <architecture> is 32 or 64, <binary dir> a directory that
+REM contains the mexw<architecture> files in bindings\matlab. if the 
+REM third argument '-silent' is given the batch file will not ask whether
+REM to delete an existing libsbml-matlab directory and hide most output.
+REM
+REM If no output is specified this is the same as invoking the file as: 
+REM 
+REM createInstallFiles 32 ..\..\..\friday-25\libSBML-4.3.0-win32\libSBML-4.3.0-win32\
+REM 
+
+SET MATLAB_INST_DIR=%~dp0
+cd /d %MATLAB_INST_DIR%
+SET ARCH=%1
+
+if "%ARCH%" == "" SET ARCH=32
+
+REM this is the directory that contains the static matlab bindings
+REM in its bindings\matlab directory.
+ 
+SET MATLAB_BIN=%2
+if "%MATLAB_BIN%" == "" SET MATLAB_BIN=..\..\..\friday-25\libSBML-4.3.0-win32\libSBML-4.3.0-win32\
+
+echo. 
+echo createInstallFiles %ARCH% %MATLAB_BIN%
+echo.
+
+
+if "%3" == "-silent" goto SILENT_DELETE
+echo on
 rmdir /S libsbml-matlab
+goto CREATE
+
+:SILENT_DELETE
+@echo off
+rd /s /q libsbml-matlab
+
+:CREATE
 
 mkdir libsbml-matlab
 cd libsbml-matlab
@@ -35,8 +78,8 @@ copy ..\..\..\..\..\..\src\bindings\matlab\test.xml test.xml
 
 REM these need to find the static matlab builds
 
-copy ..\..\..\friday-25\libSBML-4.3.0-win32\libSBML-4.3.0-win32\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
-copy ..\..\..\friday-25\libSBML-4.3.0-win32\libSBML-4.3.0-win32\bindings\matlab\OutputSBML.mexw32 OutputSBML.mexw32
+copy %MATLAB_BIN%\bindings\matlab\TranslateSBML.mexw%ARCH% TranslateSBML.mexw%ARCH%
+copy %MATLAB_BIN%\bindings\matlab\OutputSBML.mexw%ARCH% OutputSBML.mexw%ARCH%
 
 cd ..
 
@@ -45,16 +88,5 @@ copy ..\..\install\install.bat install.bat
 cd ..
 
 
-cd C:\libsbml_trunk\dev\utilities\win_installer\matlab
-
-
-
-
-
-
-
-
-
-
-
+cd /d %MATLAB_INST_DIR%
 

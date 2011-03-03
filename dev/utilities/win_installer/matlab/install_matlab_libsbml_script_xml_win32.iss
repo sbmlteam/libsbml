@@ -24,7 +24,7 @@ SolidCompression=yes
 Name: english; MessagesFile: compiler:Default.isl
 
 [Files]
-Source: C:\libsbml_trunk\dev\utilities\win_installer\matlab\libsbml-matlab\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetProceed
+Source: .\libsbml-matlab\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetProceed
 
 [Registry]
 ;Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
