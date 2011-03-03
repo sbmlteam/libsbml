@@ -729,8 +729,9 @@ public:
    * for each such new model if they wish to change the consistency checks
    * applied.
    * 
-   * @param category a value drawn from #SBMLErrorCategory_t indicating the
-   * consistency checking/validation to be turned on or off
+   * @param category a value drawn from @if clike #SBMLErrorCategory_t@else
+   * the set of SBML error categories@endif indicating the
+   * consistency checking/validation to be turned on or off.
    *
    * @param apply a boolean indicating whether the checks indicated by
    * @p category should be applied or not.
@@ -829,8 +830,9 @@ public:
    * for each such new model if they wish to change the consistency checks
    * applied.
    * 
-   * @param category a value drawn from #SBMLErrorCategory_t indicating the
-   * consistency checking/validation to be turned on or off
+   * @param category a value drawn from @if clike #SBMLErrorCategory_t@else
+   * the set of SBML error categories@endif indicating the consistency
+   * checking/validation to be turned on or off.
    *
    * @param apply a boolean indicating whether the checks indicated by
    * @p category should be applied or not.
