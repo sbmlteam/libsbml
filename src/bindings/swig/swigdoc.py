@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 #
 # @file   swigdoc.py
-# @brief  Creates documentation for Java, Python, and Perl.
+# @brief  Creates documentation for Java, Python, Perl and C#.
 # @author Ben Bornstein
 # @author Christoph Flamm
 # @author Akiya Jouraku
 # @author Michael Hucka
+# @author Frank Bergmann
 #
 # $Id$
 # $HeadURL$
@@ -111,6 +112,34 @@ libsbmlclasses = ["AlgebraicRule",
                   "XMLNode",
                   "XMLToken",
                   "XMLTriple" ]
+
+# In some languages like C#, we have to be careful about the method declaration
+# that we put on the swig %{java|cs}methodmodifiers.  In particular, in C#, if
+# a method overrides a base class' method, we have to add the modifier "new".
+#
+# FIXME: The following approach of hard-coding the list of cases is
+# definitely not ideal.  We need to extract the list somehow, but it's not
+# easy to do within this script (swigdoc.py) because the syntax of the
+# files we read in is C++, not the target language like C#, and in C++,
+# it's not obvious if the method you're looking at overrides another.  We a
+# more sophisticated parser like the compiler itself, or we should write a
+# small C# program to gather this info prior to running swigdoc.py.
+
+overriders = { 'Compartment'            : [ 'setId', 'setName' ],
+               'CompartmentType'        : [ 'setId', 'setName' ],
+               'Event'                  : [ 'setId', 'setName' ],
+               'FunctionDefinition'     : [ 'setId', 'setName' ],
+               'Parameter'              : [ 'setId', 'setName' ],
+               'Model'                  : [ 'setId', 'setName', 'setAnnotation', 'appendAnnotation' ],
+               'Reaction'               : [ 'setId', 'setName' ],
+               'Species'                : [ 'setId', 'setName' ],
+               'SimpleSpeciesReference' : [ 'setId', 'setName' ],
+               'SpeciesReference'       : [ 'setId', 'setName', 'setAnnotation', 'appendAnnotation' ],
+               'SpeciesType'            : [ 'setId', 'setName' ],
+               'UnitDefinition'         : [ 'setId', 'setName' ],
+               'ListOfLocalParameters'  : [ 'get', 'remove' ],
+               'LocalParameter'         : [ 'getDerivedUnitDefinition' ] }
+
 
 #
 # Classes and methods.
@@ -242,9 +271,9 @@ class CHeader:
         lines += stripped + ' '         # Space avoids jamming code together.
 
         # Keep an eye out for the end of the declaration.
-
         if not stripped.startswith('*') and \
                (stripped.endswith(';') or stripped.endswith(')') or stripped.endswith('}')):
+
           # It might be a forward declaration.  Skip it.
           if lines.startswith('class'):
             continue
@@ -254,28 +283,45 @@ class CHeader:
             continue
 
           # It might be an enum.  Skip it.
+          # If it's not an enum at this point, parse it.
           if stripped.endswith('}'):
             lines   = lines[:lines.rfind('{')]
           if not stripped.startswith('enum'):
-            stop    = lines.rfind('(')
-            name    = lines[:stop].split()[-1]
-            args    = lines[stop:lines.rfind(')')+1]
-            isConst = lines[lines.rfind(')'):].rfind('const')
-  
-            # Swig doesn't seem to mind C++ argument lists, even though they
-            # have "const", "&", etc.  So I'm leaving the arg list unmodified.
 
-            func = Method(isInternal, docstring, name, args, (isConst > 0))
+            # If this segment begins with a comment, we need to skip over it.
+            searchstart = lines.rfind('*/')
+            if (searchstart < 0):
+              searchstart = 0
 
-            if inClass:
-              c = self.classes[-1]
-              c.methods.append(func)
-              if c.methodVariants.get(name) == None:
-                c.methodVariants[name] = {}
-              c.methodVariants[name][name + args] = c.methodVariants[name].get(name + args, 0) + 1
-            else:
-              self.functions.append(func)
-              # FIXME need do nc variants
+            # Find (we hope) the end of the method name.
+            stop = lines[searchstart:].find('(')
+
+            # Pull out the method name & signature.
+            if (stop > 0):
+              name     = lines[searchstart : searchstart + stop].split()[-1]
+              endparen = lines.rfind(')')
+              args     = lines[searchstart + stop : endparen + 1]
+              isConst  = lines[endparen:].rfind('const')
+
+              # Swig doesn't seem to mind C++ argument lists, even though they
+              # have "const", "&", etc. So I'm leaving the arg list unmodified.
+              func = Method(isInternal, docstring, name, args, (isConst > 0))
+
+#             print name + args
+
+              # Reset buffer for the next iteration, to skip the part seen.
+              lines = lines[endparen + 2:]
+
+              if inClass:
+                c = self.classes[-1]
+                c.methods.append(func)
+                if c.methodVariants.get(name) == None:
+                  c.methodVariants[name] = {}
+                c.methodVariants[name][name + args] = c.methodVariants[name].get(name + args, 0) + 1
+              else:
+                self.functions.append(func)
+                # FIXME need do nc variants
+
 
 
 class CClass:
@@ -331,12 +377,15 @@ class Method:
         #
         p = re.compile('(.+?)\*/', re.MULTILINE)
         self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
+      elif language == 'csharp':
+        p = re.compile('/\*\*?(.+?)', re.MULTILINE)
+        self.docstring = p.sub(r'/** @internal \1', docstring)
       else:
         self.docstring = "  @internal\n" + docstring
     else:
       self.docstring = docstring
 
-    # In Java, if a method is const and swig has to translate the type,
+    # In Java and C#, if a method is const and swig has to translate the type,
     # then for some reason swig cannot match up the resulting doc strings
     # that we put into %javamethodmodifiers.  The result is that the java
     # documentation for the methods are empty.  I can't figure out why, but
@@ -348,7 +397,7 @@ class Method:
     # combination doesn't seem to arise in libSBML currently, and anyway,
     # this fixes a real problem in the Java documentation for libSBML.
 
-    if language == 'java':
+    if language == 'java' or language == 'csharp':
       if isConst and (args.find('unsigned int') >= 0):
         self.args = ''
       elif not args.strip() == '()':
@@ -437,6 +486,8 @@ def rewriteCommonReferences (docstring):
 
   if language == 'java':  
     target = 'libsbmlConstants#'
+  elif language == 'csharp':  
+    target = 'libsbml.libsbml.'
   elif language == 'python':
     target = 'libsbml.'
   else:
@@ -518,6 +569,14 @@ def translateJavaCrossRef (match):
 
 
 
+def translateCSharpCrossRef (match):
+  prior = match.group(1)
+  classname = match.group(2)
+  method = match.group(3)
+  return prior + '<see cref="' + classname + '.' + method + '"/>'
+
+
+
 def translatePythonCrossRef (match):
   prior = match.group(1)
   classname = match.group(2)
@@ -535,23 +594,35 @@ def translatePythonSeeRef (match):
 
 
 
-def javafyClassRef (match):
+def rewriteClassRefAddingSpace (match):
   return match.group(1) + match.group(2) + ' '
 
 
 
-def pythonifyClassRef (match):
+def rewriteClassRef (match):
   return match.group(1) + match.group(2)
 
 
 
-def translateClassRef (match):
+def translateClassRefJava (match):
   leading      = match.group(1)
   classname    = match.group(2)
   trailing     = match.group(3)
 
   if leading != '%' and leading != '(':
     return leading + '{@link ' + classname + '}' + trailing
+  else:
+    return leading + classname + trailing
+
+
+
+def translateClassRefCSharp (match):
+  leading      = match.group(1)
+  classname    = match.group(2)
+  trailing     = match.group(3)
+
+  if leading != '%' and leading != '(':
+    return leading + '<see cref="' + classname + '"/>' + trailing
   else:
     return leading + classname + trailing
 
@@ -570,6 +641,7 @@ def sanitizeForHTML (docstring):
   #   python:   only Python
   #   perl:     only Perl
   #   cpp:      only C++
+  #   csharp:   only C#
   #   conly:    only C
   #   clike:    C, C++
   #   notcpp:	not C++
@@ -578,7 +650,7 @@ def sanitizeForHTML (docstring):
   # The notcpp/notclike variants are because Doxygen 1.6.x doesn't have
   # @ifnot, yet sometimes we want to say "if not C or C++".
 
-  cases = 'java|python|perl|cpp|conly|clike|notcpp|notclike'
+  cases = 'java|python|perl|cpp|csharp|conly|clike|notcpp|notclike'
   p = re.compile('@if\s+(' + cases + ')\s+(.+?)((@else)\s+(.+?))?@endif', re.DOTALL)
   docstring = p.sub(translateIfElse, docstring)
 
@@ -660,12 +732,18 @@ def sanitizeForHTML (docstring):
   # done better (e.g., by not hard-wiring the class names).
 
   p = re.compile(r'(\W)(' + '|'.join(libsbmlclasses) + r')\b([^:])', re.DOTALL)
-  docstring = p.sub(translateClassRef, docstring)
+  if language == 'csharp':
+    docstring = p.sub(translateClassRefCSharp, docstring)
+  elif language == 'java':
+    docstring = p.sub(translateClassRefJava, docstring)
 
-  # Massage Java method cross-references.
+  # Massage method cross-references.
 
   p = re.compile('(\s+)(\S+?)::(\w+\s*\([^)]*?\))', re.MULTILINE)
-  docstring = p.sub(translateJavaCrossRef, docstring)
+  if language == 'csharp':
+    docstring = p.sub(translateCSharpCrossRef, docstring)
+  elif language == 'java':
+    docstring = p.sub(translateJavaCrossRef, docstring)
 
   # Take out any left-over quotes, because Javadoc doesn't have the %foo
   # quoting mechanism.
@@ -708,9 +786,9 @@ def rewriteDocstringForJava (docstring):
   # Also use Java syntax instead of "const XMLNode*" etc.
 
   p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(javafyClassRef, docstring)  
+  docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
   p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(javafyClassRef, docstring)  
+  docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
 
   # Do the big work.
 
@@ -762,6 +840,79 @@ def rewriteDocstringForJava (docstring):
 
 
 
+def rewriteDocstringForCSharp (docstring):
+  """rewriteDocstringForCSharp (docstring) -> docstring
+
+  Performs some mimimal C#-specific sanitizations on the
+  C++/Doxygen docstring.
+  """
+
+  docstring = rewriteCommonReferences(docstring)  
+
+  # Preliminary: rewrite some of the data type references to equivalent
+  # C# types.  (Note: this rewriting affects only the documentation
+  # comments inside classes & methods, not the actual method signatures.)
+
+  docstring = docstring.replace(r'const char *', 'string ')
+  docstring = docstring.replace(r'const char* ', 'string ')
+  docstring = docstring.replace(r'an unsigned int', 'a long integer')
+  docstring = docstring.replace(r'unsigned int', 'long')
+  docstring = docstring.replace(r'const std::string&', 'string')
+  docstring = docstring.replace(r'const std::string', 'string')
+  docstring = docstring.replace(r'std::string', 'string')
+  docstring = docstring.replace(r'const ', '')
+  docstring = docstring.replace(r'NULL', 'null')
+  docstring = docstring.replace(r'boolean', 'bool')
+
+  # Use C# syntax instead of "const XMLNode*" etc.
+
+  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  docstring = p.sub(rewriteClassRef, docstring)  
+  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  docstring = p.sub(rewriteClassRef, docstring)  
+
+  # <code> has its own special meaning in C#; we have to turn our input
+  # file's uses of <code> into <c>.  Conversely, we have to turn our
+  # uses of verbatim to <code>.
+
+  p = re.compile(r'<code>(.+?)</code>', re.DOTALL)
+  docstring = p.sub(r'<c>\1</c>', docstring)
+  p = re.compile('@verbatim(.+?)@endverbatim', re.DOTALL)
+  docstring = p.sub(r'<code>\1</code>', docstring)
+
+  # Do replacements on some documentation text we sometimes use.
+
+  docstring = docstring.replace(r'libsbmlConstants', 'libsbml.libsbml')
+
+  # Can't use math symbols.  Kluge around it.
+
+  docstring = re.sub(r'\\f\$\\geq\\f\$', '>=', docstring)
+  docstring = re.sub(r'\\f\$\\leq\\f\$', '<=', docstring)
+  docstring = re.sub(r'\\f\$\\times\\f\$', '*', docstring)
+
+
+  
+#   #delete variable names (one argument)
+#   p = re.compile('\((\w+)\s+\w+\)', re.DOTALL)
+#   docstring = p.sub(r'(\1)', docstring) 
+  
+#   #delete variable names (two arguments)
+#   p = re.compile('\((\w+\s*)\w+(,\s*\w+)\s*\w+\)', re.DOTALL)
+#   docstring = p.sub(r'(\1\2)', docstring) 
+  
+#   #delete variable names (three arguments)
+#   p = re.compile('\((\w+\s*)\w+(,\s*\w+)\s*\w+(,\s*\w+)\s*\w+\)', re.DOTALL)
+#   docstring = p.sub(r'(\1\2\3)', docstring) 
+  
+  # Need to escape the quotation marks:
+
+  docstring = docstring.replace('"', "'")
+  docstring = docstring.replace(r"'", r"\'")  
+
+  return docstring
+
+
+
 def indentVerbatimForPython (match):
   text = match.group()
 
@@ -805,9 +956,9 @@ def rewriteDocstringForPython (docstring):
   # Also use Python syntax instead of "const XMLNode*" etc.
 
   p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(pythonifyClassRef, docstring)  
+  docstring = p.sub(rewriteClassRef, docstring)  
   p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(pythonifyClassRef, docstring)  
+  docstring = p.sub(rewriteClassRef, docstring)  
 
   # Need to escape the quotation marks:
 
@@ -929,6 +1080,8 @@ def processClassMethods(ostream, cclass):
         continue
       if language == 'java':
         docstring = rewriteDocstringForJava(m.docstring)
+      elif language == 'csharp':
+        docstring = rewriteDocstringForCSharp(m.docstring)
       elif language == 'perl':
         docstring = rewriteDocstringForPerl(m.docstring)  
       ostream.write(formatMethodDocString(m.name, cclass.name, docstring, m.args))
@@ -941,6 +1094,15 @@ def formatMethodDocString (methodname, classname, docstring, args=None):
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
+  if language == 'csharp':
+    pre  = '%csmethodmodifiers'
+    # See the comment for the definition of 'overriders' for more info.
+    if overriders.has_key(classname) and methodname in overriders[classname]:
+      post = ' public new'
+    elif re.search('@internal', docstring) != None:
+      post = ' private'
+    else:
+      post = ' public'
   elif language == 'perl':
     pre  = '=item'
     post = ''
@@ -954,11 +1116,11 @@ def formatMethodDocString (methodname, classname, docstring, args=None):
     output += classname + '::'
 
   if language == 'perl':
-    output += '%s\n\n%s%s\n\n'   % (methodname, docstring, post)
+    output += '%s\n\n%s%s\n\n\n'   % (methodname, docstring, post)
   elif language == 'python':
-    output += '%s "\n%s%s";\n\n' % (methodname, docstring, post)
+    output += '%s "\n%s%s";\n\n\n' % (methodname, docstring, post)
   else:
-    output += '%s%s "\n%s%s";\n\n' % (methodname, args, docstring, post)
+    output += '%s%s "\n%s%s";\n\n\n' % (methodname, args, docstring, post)
 
   return output
 
@@ -967,6 +1129,8 @@ def formatMethodDocString (methodname, classname, docstring, args=None):
 def generateFunctionDocString (methodname, docstring, args):
   if language == 'java':
     doc = rewriteDocstringForJava(docstring)
+  elif language == 'csharp':
+    doc = rewriteDocstringForCSharp(docstring)
   elif language == 'python':
     doc = rewriteDocstringForPython(docstring)
   elif language == 'perl':
@@ -980,6 +1144,11 @@ def generateClassDocString (docstring, classname):
     pre = '%typemap(javaimports) '
     docstring = rewriteDocstringForJava(docstring)    
     output = pre + classname + ' "\n' + docstring + '"\n\n'
+
+  elif language == 'csharp':
+    pre = '%typemap(csimports) '
+    docstring = rewriteDocstringForCSharp(docstring)    
+    output = pre + classname + ' "\n using System;\n using System.Runtime.InteropServices;\n\n' + docstring + '"\n\n'    
 
   elif language == 'python':
     pre = '%feature("docstring") '
@@ -1033,12 +1202,12 @@ def processFile (filename, ostream):
 
 
 def main (args):
-  """usage: swigdoc.py [java | python | perl] -Ipath -Dpath libsbml.i output.i
+  """usage: swigdoc.py [java | python | perl | csharp] -Ipath -Dpath libsbml.i output.i
 
-  java | python | perl  generate docstrings for this language module.
-  path                  is the path to the libsbml src/ directory.
-  libsbml.i             is the master libsbml SWIG interface file.
-  output.i              is the file to output the SWIG docstrings.
+  java | python | perl | csharp  generate docstrings for this language module.
+  path                           is the path to the libsbml src/ directory.
+  libsbml.i                      is the master libsbml SWIG interface file.
+  output.i                       is the file to output the SWIG docstrings.
   """
 
   if len(args) != 6:
