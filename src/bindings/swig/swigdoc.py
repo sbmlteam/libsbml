@@ -816,6 +816,7 @@ def rewriteDocstringForJava (docstring):
   docstring = docstring.replace(r'unsigned int', 'long')
   docstring = docstring.replace(r'const std::string&', 'String')
   docstring = docstring.replace(r'const std::string &', 'String ')
+  docstring = docstring.replace(r'const std::string ', 'String ')
   docstring = docstring.replace(r'std::string', 'String')
   docstring = docstring.replace(r'NULL', 'null')
 
@@ -1122,7 +1123,7 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
-  if language == 'csharp':
+  elif language == 'csharp':
     pre  = '%csmethodmodifiers'
     # See the comment for the definition of 'overriders' for more info.
     if overriders.has_key(classname) and methodname in overriders[classname]:
