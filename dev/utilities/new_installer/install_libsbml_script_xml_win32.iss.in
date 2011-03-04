@@ -28,6 +28,7 @@ Source: @CURRENT_DIR@\libsbml\*; DestDir: {app}; Flags: ignoreversion recursesub
 Source: @CURRENT_DIR@\libsbml\bindings\java\*; DestDir: {code:GetJavaDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetJava
 ;Source: @CURRENT_DIR@\libsbml\bindings\matlab\*; DestDir: {code:GetMatlabDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetMatlab
 Source: @CURRENT_DIR@\libsbml\bindings\octave\*; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
+Source: @CURRENT_DIR@\libsbml\win32\bin\libsbml.dll; DestDir: {code:GetOctaveDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetOctave
 Source: @CURRENT_DIR@\libsbml\bindings\csharp\*; DestDir: {code:GetCSharpDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetCSharp
 Source: @CURRENT_DIR@\libsbml\bindings\perl\*; DestDir: {code:GetPerlDir}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetPerl
 
