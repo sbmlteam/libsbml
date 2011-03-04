@@ -431,7 +431,8 @@ EXCLUDE =                            \
   ../../src/xml/XMLTokenizer.h       \
   ../../src/bindings/csharp/csharp-files/libsbmlPINVOKE.cs \
   ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__ostream.cs \
-  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs
+  ../../src/bindings/csharp/csharp-files/SWIGTYPE_p_std__vectorT_SBMLNamespaces_const_p_t.cs \
+  ../../src/bindings/csharp/csharp-files/SBMLTransforms.cs
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
