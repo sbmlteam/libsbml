@@ -60,10 +60,17 @@ java-manual   = $(formatted)/java-api
 python-manual = $(formatted)/python-api
 perl-manual   = $(formatted)/perl-api
 
-# The C++ and C manuals are always made, but additional manuals depend on
-# the options with which libSBML was configured.
+# If libSBML has been configured with doxygen support, then the C++ and C
+# manuals are always made, and additional manuals depend on the options
+# with which libSBML was configured.  If libSBML has not been configured
+# with doxygen support, then only the Java manual can be made (since doing
+# so doesn't require doxygen).
 
-docs = $(cpp-manual) $(c-manual)
+ifneq "$(USE_DOXYGEN)" ""
+  docs = $(cpp-manual) $(c-manual)
+else
+  docs = 
+endif
 
 ifdef USE_JAVA
   docs += $(java-manual)
@@ -243,6 +250,17 @@ distfiles =                                                  \
 
 logo-file = graphics/official-sbml-supported-40.jpg
 
+# Error msg used below.  Do not put a period on the last sentence because
+# one will be added automatically.
+
+define nodoxygen
+
+  Cannot create manuals, either because libSBML was not
+  configured using --with-doxygen, or 'doxygen' cannot be found, or
+  the version of 'doxygen' found is too old.  Please reconfigure with
+  a suitable value for the configuration flag --with-doxygen
+endef
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
@@ -252,7 +270,15 @@ logo-file = graphics/official-sbml-supported-40.jpg
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all docs: Makefile $(docs)
+ifeq "$(USE_DOXYGEN)" ""
+  ifdef USE_JAVA
+    all docs: Makefile $(docs)
+  else
+    $(error $(nodoxygen))
+  endif
+else
+  all docs: Makefile $(docs)
+endif
 
 
 # -----------------------------------------------------------------------------

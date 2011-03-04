@@ -262,11 +262,12 @@ ifeq "$(HOST_TYPE)" "cygwin"
   extra_clean += libsbml.la
 endif
 
-# Misc things used later below.
+# Error msg used below.  Do not put a period on the last sentence because
+# one will be added automatically.
 
 define nodoxygen
 
-  Cannot create this manual, either because libSBML was not
+  Cannot create manuals, either because libSBML was not
   configured using --with-doxygen, or 'doxygen' cannot be found, or
   the version of 'doxygen' found is too old.  Please reconfigure with
   a suitable value for the configuration flag --with-doxygen
