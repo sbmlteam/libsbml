@@ -13,7 +13,7 @@ DefaultDirName={pf}\SBML\libSBML-@PACKAGE_VERSION@-libxml2-x86
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=.\Output
-OutputBaseFilename=libSBML-@PACKAGE_VERSION@-win-libxml2-x86
+OutputBaseFilename=libSBML-@PACKAGE_VERSION@-win-x86
 WizardSmallImageFile=.\graphics\libsbml-installer-mini-logo.bmp
 WizardImageFile=.\graphics\libsbml-installer-graphic.bmp
 UsePreviousAppDir=no
@@ -550,9 +550,9 @@ end;
 
 [Run]
 
-Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win32-py2.5.exe"; Check: GetPython25;
-Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win32-py2.6.exe"; Check: GetPython26;
-Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win32-py2.7.exe"; Check: GetPython27;
-Filename: "{app}\bindings\matlab\libSBML-matlab-@PACKAGE_VERSION@-win-libxml2-x86.exe"; Check: GetMatlab;
+Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.5-x86.exe"; Check: GetPython25;
+Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.6-x86.exe"; Check: GetPython26;
+Filename: "{app}\bindings\python\libSBML-@PACKAGE_VERSION@-win-py2.7-x86.exe"; Check: GetPython27;
+Filename: "{app}\bindings\matlab\libSBML-@PACKAGE_VERSION@-win-matlab-x86.exe"; Check: GetMatlab;
 
 
