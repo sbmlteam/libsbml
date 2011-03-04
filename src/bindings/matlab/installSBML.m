@@ -56,7 +56,6 @@ function installSBML
   
   if (functioning == 1)
     % everything is working - add this directory to path and we are done
-    disp(sprintf('adding %s to path', pwd));
     addDir(pwd);
     [root, writeAccess, in_installer] = check_location(matlab_octave, functioning);
   else
@@ -201,7 +200,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave, .
       end;
     else
       [libsbml_root, src] = fileparts(above_bindings);
-      if exist(fullfile(libsbml_root, 'VERSION.txt'))
+      if exist(fullfile(libsbml_root, 'Makefile.in'))
         myDisp('  - We appear to be in the libSBML source tree.', functioning); 
         if ispc()
           location = libsbml_root;
