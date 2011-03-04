@@ -1099,8 +1099,6 @@ def formatMethodDocString (methodname, classname, docstring, args=None):
     # See the comment for the definition of 'overriders' for more info.
     if overriders.has_key(classname) and methodname in overriders[classname]:
       post = ' public new'
-    elif re.search('@internal', docstring) != None:
-      post = ' private'
     else:
       post = ' public'
   elif language == 'perl':
