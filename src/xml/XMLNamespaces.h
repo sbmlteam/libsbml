@@ -117,7 +117,7 @@ public:
    * Appends an XML namespace prefix and URI pair to this list of namespace
    * declarations.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  If there is an XML namespace with the given @p uri prefix
    * in this list, then its corresponding URI will be overwritten by the
    * new @p uri.  Calling programs could use one of the other XMLNamespaces
@@ -188,7 +188,7 @@ public:
   /**
    * Look up the index of an XML namespace declaration by URI.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  If this XMLNamespaces object contains a pair with the given
    * URI @p uri, this method returns its index in the list.
    *
@@ -203,7 +203,7 @@ public:
   /**
    * Look up the index of an XML namespace declaration by prefix.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  If this XMLNamespaces object contains a pair with the given
    * prefix @p prefix, this method returns its index in the list.
    *
@@ -228,7 +228,7 @@ public:
   /**
    * Look up the prefix of an XML namespace declaration by its position.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  This method returns the prefix of the <code>n</code>th
    * element in that list (if it exists).  Callers should use
    * XMLAttributes::getLength() first to find out how many namespaces are
@@ -247,7 +247,7 @@ public:
   /**
    * Look up the prefix of an XML namespace declaration by its URI.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  This method returns the prefix for a pair that has the
    * given @p uri.
    *
@@ -262,7 +262,7 @@ public:
   /**
    * Look up the URI of an XML namespace declaration by its position.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  This method returns the URI of the <code>n</code>th element
    * in that list (if it exists).  Callers should use
    * XMLAttributes::getLength() first to find out how many namespaces are
@@ -281,7 +281,7 @@ public:
   /**
    * Look up the URI of an XML namespace declaration by its prefix.
    *
-   * An XMLNamespace object stores a list of pairs of namespaces and their
+   * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  This method returns the namespace URI for a pair that has
    * the given @p prefix.
    *

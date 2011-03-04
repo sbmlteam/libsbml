@@ -1001,7 +1001,7 @@ public:
    * In SBML Level&nbsp;1, the different rule types each have a different
    * name for the attribute holding the reference to the object
    * constituting the left-hand side of the rule.  (E.g., for
-   * SpeciesConcentrationRule the attribute is "species", for
+   * SBML Level&nbsp;1's SpeciesConcentrationRule the attribute is "species", for
    * CompartmentVolumeRule it is "compartment", etc.)  In SBML
    * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
    * left-hand side object reference are AssignmentRule and RateRule, and
@@ -1078,7 +1078,7 @@ public:
    * In SBML Level&nbsp;1, the different rule types each have a different
    * name for the attribute holding the reference to the object
    * constituting the left-hand side of the rule.  (E.g., for
-   * SpeciesConcentrationRule the attribute is "species", for
+   * SBML Level&nbsp;1's SpeciesConcentrationRule the attribute is "species", for
    * CompartmentVolumeRule it is "compartment", etc.)  In SBML
    * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
    * left-hand side object reference are AssignmentRule and RateRule, and
@@ -1163,7 +1163,7 @@ public:
    * In SBML Level&nbsp;1, the different rule types each have a different
    * name for the attribute holding the reference to the object
    * constituting the left-hand side of the rule.  (E.g., for
-   * SpeciesConcentrationRule the attribute is "species", for
+   * SBML Level&nbsp;1's SpeciesConcentrationRule the attribute is "species", for
    * CompartmentVolumeRule it is "compartment", etc.)  In SBML
    * Levels&nbsp;2 and&nbsp;3, the only two types of Rule objects with a
    * left-hand side object reference are AssignmentRule and RateRule, and
@@ -1362,8 +1362,14 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * this Rule is an CompartmentVolumeRule.
+   * Predicate returning @c true if this Rule is an CompartmentVolumeRule
+   * or equivalent.
+   *
+   * This libSBML method works for SBML Level&nbsp;1 models (where there is
+   * such a thing as an explicit CompartmentVolumeRule), as well as other Levels of
+   * SBML.  For Levels above Level&nbsp;1, this method checks the symbol
+   * being affected by the rule, and returns @c true if the symbol is the
+   * identifier of a Compartment object defined in the model.
    *
    * @return @c true if this Rule is a CompartmentVolumeRule, @c false
    * otherwise.
@@ -1372,8 +1378,14 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * this Rule is an ParameterRule.
+   * Predicate returning @c true if this Rule is an ParameterRule or
+   * equivalent.
+   *
+   * This libSBML method works for SBML Level&nbsp;1 models (where there is
+   * such a thing as an explicit ParameterRule), as well as other Levels of
+   * SBML.  For Levels above Level&nbsp;1, this method checks the symbol
+   * being affected by the rule, and returns @c true if the symbol is the
+   * identifier of a Parameter object defined in the model.
    *
    * @return @c true if this Rule is a ParameterRule, @c false
    * otherwise.
@@ -1404,8 +1416,14 @@ public:
 
 
   /**
-   * Predicate returning @c true if
-   * this Rule is an SpeciesConcentrationRule.
+   * Predicate returning @c true if this Rule is a
+   * SpeciesConcentrationRule or equivalent.
+   *
+   * This libSBML method works for SBML Level&nbsp;1 models (where there is
+   * such a thing as an explicit SpeciesConcentrationRule), as well as
+   * other Levels of SBML.  For Levels above Level&nbsp;1, this method
+   * checks the symbol being affected by the rule, and returns @c true if
+   * the symbol is the identifier of a Species object defined in the model.
    *
    * @return @c true if this Rule is a SpeciesConcentrationRule, @c false
    * otherwise.

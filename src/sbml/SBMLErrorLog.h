@@ -50,7 +50,7 @@
  * The general approach to working with SBMLErrorLog in user programs
  * involves first obtaining a pointer to a log from a libSBML object such
  * as SBMLDocument.  Callers should then use
- * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif to inquire how
+ * @if java XMLErrorLog::getNumErrors()@else getNumErrors() @endif to inquire how
  * many objects there are in the list.  (The answer may be 0.)  If there is
  * at least one SBMLError object in the SBMLErrorLog instance, callers can
  * then iterate over the list using

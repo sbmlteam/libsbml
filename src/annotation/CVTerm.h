@@ -226,7 +226,7 @@ public:
 
   /**
    * Creates an empty CVTerm, optionally with the given
-   * @if clike #QualifierType_t value@else qualifier@endif @p type.
+   * @if clike #QualifierType_t value@else qualifier@endif &nbsp; @p type.
    *
    * The SBML Level&nbsp;2 and Level&nbsp;3 specifications define a simple
    * format for annotating models when (a) referring to controlled

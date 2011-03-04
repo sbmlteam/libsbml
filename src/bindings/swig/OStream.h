@@ -35,8 +35,10 @@
  *
  * A few libSBML methods accept an argument for indicating where to send
  * text string output.  An example is the SBMLDocument::printErrors(OStream
- * stream) method. However, the methods use C++ style streams and not Java
- * stream objects.  The OStream object exists to bridge the Java and
+ * stream) method. However, the methods use C++ style streams and
+ * not @if java Java @endif@if csharp C# @else other language's @endif stream
+ * objects.  The OStream object exists to bridge
+ * the @if java Java @endif@if csharp C# @else stream concept in this language @endif and
  * underlying native implementation.  It is a simple wrapper around the
  * underlying stream object and provides a few basic methods for
  * manipulating it.
@@ -54,8 +56,10 @@
  * This class may be useful because some libSBML methods accept an argument
  * for indicating where to send text string output.  An example is the
  * SBMLDocument::printErrors(OStream stream) method.  The methods use C++ style streams
- * and not Java stream objects.  The OStream object exists to bridge the
- * Java and underlying native implementation.  It is a simple wrapper
+ * and not @if java Java @endif@if csharp C# @else other language's @endif stream
+ * objects.  The OStream object exists to bridge the
+ * @if java Java @endif@if csharp C# @else stream concept in this language @endif and
+ * underlying native implementation.  It is a simple wrapper
  * around the underlying stream object and provides a few basic methods for
  * manipulating it.
  *
@@ -71,8 +75,11 @@
  * This class may be useful because some libSBML methods accept an argument
  * for indicating where to send text string output.  An example is the 
  * SBMLDocument::printErrors(OStream stream) method.  The methods use
- * C++ style streams and not Java stream objects.  The OStream object
- * exists to bridge the Java and underlying native implementation.  It is a
+ * C++ style streams and
+ * not @if java Java @endif@if csharp C# @else other language's @endif stream
+ * objects.  The OStream object exists to bridge
+ * the @if java Java @endif@if csharp C# @else stream concept in this language @endif and
+ * underlying native implementation.  It is a
  * simple wrapper around the underlying stream object and provides a few
  * basic methods for manipulating it.
  */

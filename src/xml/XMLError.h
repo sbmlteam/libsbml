@@ -68,30 +68,19 @@
  *
  * Each XMLError object also contains a category code; its value may be
  * retrieved using the method XMLError::getCategory().  Category values
- * are @if clike drawn from the enumeration
- * <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> 
- * described below.  Categories are used by libSBML to provide more
- * information to calling programs about the nature of a given
- * error. @else drawn from a set of constants whose
- * names begin with the characters @c LIBSBML_CAT_.  The list of possible
- * codes is described in a separate section below. Categories are used by
- * libSBML to provide more information to calling programs about the nature
- * of a given error.  @endif
+ * are drawn from @if clike the enumeration <a class="el" href="#XMLErrorCategory_t">XMLErrorCategory_t</a> described below.@else a
+ * set of constants whose names begin with the characters @c LIBSBML_CAT_, described below.@endif &nbsp;Categories
+ * are used by libSBML to provide more information to calling programs about
+ * the nature of a given error.  
  *
  * In addition to category codes, each XMLError object also has a severity
  * code; its value may be retrieved using the method
- * XMLError::getSeverity().  Severity code values are 
- * @if clike drawn from the enumeration 
- * <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a> described
- * in a separate section below.  Severity levels range from informational
+ * XMLError::getSeverity().  Severity code values are drawn from
+ * @if clike the enumeration <a class="el" href="#XMLErrorSeverity_t">XMLErrorSeverity_t</a>@else a
+ * set of constants whose names begin with the characters @c LIBSBML_SEV_@endif,
+ * described below. Severity levels range from informational
  * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink) to
  * fatal errors (@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink).
- * @else drawn from a
- * set of constants whose names begin with the characters @c LIBSBML_SEV_.
- * The list of possible severity codes is described in a separate section
- * below.  Severity levels range from informational
- * (@link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink)
- * to fatal errors (@link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink). @endif
  *
  * Finally, XMLError objects record the line and column near where the
  * problem occurred in the XML content.  The values can be retrieved using
@@ -120,7 +109,7 @@
  * the XML layer in libSBML.  Each code is an integer with a 4-digit value
  * less than 10000.  The following table lists each possible value and a
  * brief description of its meaning.
- * @else <h3><a class="anchor" 
+ * @endif@if java <h3><a class="anchor" 
  * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
  * 
  * The error and warning codes returned by the XML layer in libSBML are
@@ -132,7 +121,13 @@
  * programming, but it was necessary to work around the lack of
  * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
  * use a proper Java enumeration type to define the error
- * identifiers. @endif
+ * identifiers. @endif@if csharp <h3><a class="anchor" 
+ * name="XMLErrorCode_t">Error codes associated with XMLError objects</a></h3>
+ * 
+ * The error and warning codes returned by the XML layer in libSBML are
+ * listed in the table below.  In the libSBML C# language interface,
+ * these error identifiers are currently implemented as static integer
+ * constants defined in the interface class @link libsbml.libsbml@endlink.@endif
  *
  * <center>
  * <table cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -209,7 +204,7 @@
  * enumeration of category codes <a class="el" href="#XMLErrorCategory_t">
  * XMLErrorCategory_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
- * @else <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
  *
  * As discussed above, each XMLError object contains a value for a category
@@ -223,7 +218,19 @@
  * integer constants defined in the interface class
  * <code>libsbmlConstants</code> in the file "<a
  * href="libsbmlConstants.html">libsbmlConstants.java</a>".
- * @endif
+ * @endif@if csharp <h3><a class="anchor"
+ * name="XMLErrorCategory_t">Category codes associated with XMLError objects</a></h3>
+ *
+ * As discussed above, each XMLError object contains a value for a category
+ * identifier, describing the type of issue that the XMLError object represents.
+ * The category can be retrieved from an XMLError object using the method
+ * XMLError::getCategory(). The following table lists each possible value
+ * and a brief description of its meaning.
+ * 
+ * As is the case with the error codes, in the libSBML C# language
+ * interface, the category identifiers are currently implemented as static
+ * integer constants defined in the interface
+ * class @link libsbml.libsbml@endlink. @endif
  *
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -259,7 +266,7 @@
  * enumeration of category codes <a class="el" href="#XMLErrorSeverity_t">
  * XMLErrorSeverity_t</a>.  The following table
  * lists each possible value and a brief description of its meaning.
- * @else <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
  * 
  * As described above, each XMLError object contains a value for a severity
@@ -269,14 +276,27 @@
  * value and a brief description of its meaning.
  * 
  * As is the case with the category codes, in the libSBML Java language
- * interface, these severity codes are currently (in libSBML 3.3.x)
+ * interface, these severity codes are currently
  * implemented as static integer constants defined in the interface class
  * <code>libsbmlConstants</code> in the file "<a
  * href="libsbmlConstants.html">libsbmlConstants.java</a>".  This
  * is admittedly not an ideal approach from the standpoint of modern Java
  * programming, but it was necessary to work around the lack of
  * enumerations in Java prior to JDK 1.5.  Future versions of libSBML may
- * use a proper Java enumeration type to define the severity codes. @endif
+ * use a proper Java enumeration type to define the severity
+ * codes. @endif@if csharp <h3><a class="anchor"
+ * name="XMLErrorSeverity_t">Severity codes associated with XMLError objects</a></h3>
+ * 
+ * As described above, each XMLError object contains a value for a severity
+ * code, describing how severe is the issue that the XMLError object
+ * represents.  The severity be retrieved from an XMLError object using the
+ * method XMLError::getSeverity(). The following table lists each possible
+ * value and a brief description of its meaning.
+ * 
+ * As is the case with the category codes, in the libSBML C# language
+ * interface, these severity codes are currently
+ * implemented as static integer constants defined in the interface class
+ * @link libsbml.libsbml@endlink.@endif
  *
  * <center>
  * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="text-table width80 normal-font alt-row-colors">
@@ -862,8 +882,7 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_INFO LIBSBML_SEV_INFO@endlink from the
-   * @if clike enumeration
-   * #XMLErrorSeverity_t. @else set of predefined
+   * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this XMLError is for informational purposes only,
@@ -883,8 +902,7 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_WARNING LIBSBML_SEV_WARNING@endlink from the
-   * @if clike enumeration
-   * #XMLErrorSeverity_t. @else set of predefined
+   * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is a warning, @c false otherwise.
@@ -903,8 +921,7 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_ERROR LIBSBML_SEV_ERROR@endlink from the
-   * @if clike enumeration
-   * #XMLErrorSeverity_t. @else set of predefined
+   * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined
    * severity codes.@endif
    *
    * @return @c true if this error is an error, @c false otherwise.
@@ -923,9 +940,7 @@ public:
    * This is equivalent to obtaining the severity code from an XMLError
    * object (via XMLError::getSeverity()) and then comparing it to the
    * value @link XMLErrorSeverity_t#LIBSBML_SEV_FATAL LIBSBML_SEV_FATAL@endlink from the
-   * @if clike enumeration
-   * #XMLErrorSeverity_t. @else set of predefined
-   * severity codes.@endif
+   * @if clike enumeration #XMLErrorSeverity_t. @else set of predefined severity codes.@endif
    *
    * @return @c true if this error is a fatal error, @c false otherwise.
    *
@@ -943,9 +958,7 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_INTERNAL LIBSBML_CAT_INTERNAL@endlink from the
-   * @if clike
-   * enumeration #XMLErrorCategory_t. @else set of
-   * predefined category codes.@endif
+   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif
    *
    * @return @c true or @c false
    *
@@ -962,9 +975,7 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_SYSTEM LIBSBML_CAT_SYSTEM@endlink from the
-   * @if clike
-   * enumeration #XMLErrorCategory_t. @else set of
-   * predefined category codes.@endif
+   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif
    *
    * @return @c true or @c false
    *
@@ -982,9 +993,7 @@ public:
    * This is equivalent to obtaining the category identifier from an
    * XMLError object (via XMLError::getCategory()) and then comparing it to
    * the value @link XMLErrorCategory_t#LIBSBML_CAT_XML LIBSBML_CAT_XML@endlink from the
-   * @if clike
-   * enumeration #XMLErrorCategory_t. @else set of
-   * predefined category codes.@endif
+   * @if clike enumeration #XMLErrorCategory_t. @else set of predefined category codes.@endif
    *
    * @return @c true or @c false
    *

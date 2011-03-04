@@ -51,17 +51,23 @@ BEGIN_C_DECLS
  * this text-string form therefore can be handed to a program that
  * understands SBML Level&nbsp;1 mathematical expressions, or used as part
  * of a formula translation system.  The syntax is described in detail in
- * the documentation for ASTNode. @else The text-string form of
- * mathematical formulas produced by <code><a
+ * the documentation for ASTNode. @endif@if csharp The text-string form of
+ * mathematical formulas produced by SBML_formulaToString() and read by
+ * SBML_parseFormula() are simple C-inspired infix notation taken from SBML
+ * Level&nbsp;1.  A formula in this text-string form therefore can be
+ * handed to a program that understands SBML Level&nbsp;1 mathematical
+ * expressions, or used as part of a formula translation system.  The
+ * syntax is described in detail in the documentation for
+ * ASTNode. @else The text-string form of mathematical formulas produced by <code><a
  * href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">
- * libsbml.formulaToString()</a></code> and read by
- * <code><a href="libsbml.html#parseFormula(java.lang.String)">
- * libsbml.parseFormula()</a></code> are
- * simple C-inspired infix notation taken from SBML Level&nbsp;1.  A
- * formula in this text-string form therefore can be handed to a program
- * that understands SBML Level&nbsp;1 mathematical expressions, or used as
- * part of a formula translation system.  The syntax is described in detail
- * in the documentation for ASTNode.   @endif
+ * libsbml.formulaToString()</a></code> and read by <code><a
+ * href="libsbml.html#parseFormula(java.lang.String)">
+ * libsbml.parseFormula()</a></code> are simple C-inspired infix notation
+ * taken from SBML Level&nbsp;1.  A formula in this text-string form
+ * therefore can be handed to a program that understands SBML Level&nbsp;1
+ * mathematical expressions, or used as part of a formula translation
+ * system.  The syntax is described in detail in the documentation for
+ * ASTNode.  @endif
  *
  * Note that this facility is provided as a convenience by libSBML&mdash;the
  * MathML standard does not actually define a "string-form" equivalent to
@@ -117,6 +123,7 @@ BEGIN_C_DECLS
  * responsible for freeing it when it is no longer needed.
  *
  * @if clike @see SBML_parseFormula()@endif
+ * @if csharp @see SBML_parseFormula()@endif
  * @if java @see parseFormula(java.lang.String)@endif
  */
 LIBSBML_EXTERN
