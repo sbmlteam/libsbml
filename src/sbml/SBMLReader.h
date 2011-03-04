@@ -202,6 +202,28 @@ public:
      # Handle other error cases here.
    
  @endverbatim
+ @endif@if csharp
+ @verbatim
+ SBMLReader reader = new SBMLReader();
+ SBMLDocument doc = reader.readSBMLFromFile(filename);
+
+ if (doc.getNumErrors() > 0)
+ {
+     if (doc.getError(0).getErrorId() == libsbml.libsbml.XMLFileUnreadable)
+     {
+          // Handle case of unreadable file here.
+     }
+     else if (doc.getError(0).getErrorId() == libsbml.libsbml.XMLFileOperationError)
+     {
+          // Handle case of other file operation error here.
+     }
+     else
+     {
+          // Handle other cases -- see error codes defined in XMLErrorCode_t
+          // for other possible cases to check.
+     }
+  }
+ @endverbatim
  @endif
    *
    * If the given filename ends with the suffix @c ".gz" (for example, @c

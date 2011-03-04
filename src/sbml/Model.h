@@ -177,6 +177,28 @@ model.setId(&#34;BestModelEver&#34;)
 sp = model.createSpecies()
 sp.setId(&#34;BestSpeciesEver&#34;)
 @endverbatim
+ * @endif@if csharp
+@verbatim
+// Create an SBMLDocument object in Level 3 Version 1 format:
+
+SBMLDocument sbmlDoc = new SBMLDocument(3, 1);
+
+// Create a Model object inside the SBMLDocument object and set
+// its identifier.  The call returns a pointer to the Model object
+// created, and methods called on that object affect the attributes
+// of the object attached to the model (as expected).
+
+Model model = sbmlDoc.createModel();
+model.setId("BestModelEver");
+
+// Create a Species object inside the Model and set its identifier.
+// Similar to the lines above, this call returns a pointer to the Species
+// object created, and methods called on that object affect the attributes
+// of the object attached to the model (as expected).
+
+Species sp = model.createSpecies();
+sp.setId("MySpecies");
+@endverbatim
  * @endif
  * 
  * The <code>create<span

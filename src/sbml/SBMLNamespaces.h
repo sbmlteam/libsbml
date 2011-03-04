@@ -295,8 +295,33 @@ status = namespaces.add("http://www.w3.org/1999/xhtml", "html")
 if status != LIBSBML_OPERATION_SUCCESS:
   # Do something to handle exceptional situation.
 @endverbatim
+   * @endif@if csharp
+@verbatim
+SBMLDocument sd = null;
+try
+{
+    sd = new SBMLDocument(3, 1);
+}
+catch (SBMLConstructorException e)
+{
+    // Here, have code to handle a truly exceptional situation.
+    // Candidate causes include invalid combinations of SBML
+    // Level and Version (impossible if hardwired as given here),
+    // running out of memory, and unknown system exceptions.
+}
+
+XMLNamespaces sn = sd.getNamespaces();
+if (sn != null)
+{
+    sn.add("http://www.w3.org/1999/xhtml", "html");            
+}
+else
+{
+    // Handle another truly exceptional situation.
+}
+@endverbatim
    * @endif
-   * 
+   *
    * @param xmlns the XML namespaces to be added.
    */
   void addNamespaces(XMLNamespaces * xmlns);
