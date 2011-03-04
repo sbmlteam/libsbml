@@ -57,6 +57,10 @@ Version 4.3.0 (Released 2011-??-??)
     program demonstrating how to access the information is included
     as the file examples/java/printLibSBMLVersion.java.
 
+  - An API manual for the C# language bindings is now available.  It
+    is not as complete as the C++ and Java versions, but it is quite
+    close.
+
 
 * Bug fixes
 
