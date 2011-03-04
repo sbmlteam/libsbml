@@ -380,13 +380,13 @@ prior to starting MATLAB.  (Otherwise, MATLAB itself will not "see" the
 value of the variable.)
 
 <p> An additional step is necessary in the MATLAB environment itself:
-adding the same directory to the list of directories that MATLAB
-searches to find functions.  If <em>DIR</em> is the directory where
-the libSBML shared library as well as
+adding the same directory to the list of directories that MATLAB searches
+to find functions.  If <span class="placeholder">DIR</span> is the
+directory where the libSBML shared library as well as
 <code>TranslateSBML</code>.<em>extension</em>,
 <code>OutputSBML</code>.<em>extension</em>, and
-<code>CheckAndConvert.m</code> have been installed, then the
-following MATLAB command must be executed:
+<code>CheckAndConvert.m</code> have been installed, then the following
+MATLAB command must be executed:
 
 <div class="fragment"><pre class="fragment">
 addpath('<span class="placeholder">DIR</span>');
@@ -409,61 +409,48 @@ your <code>DYLD_LIBRARY_PATH</code> environment variable to
 addpath('/usr/local/lib');
 </pre></div>
 
-<p> (To save the trouble of having to type the command above each
+<p> To save the trouble of having to type the command above each
 time you start MATLAB, you may wish to put it in your
 <code>startup.m</code> file (i.e., the file MATLAB uses for user
 initialization).  Please refer to the MATLAB documentation for more
-information about <code>startup.m</code> and where it is located.)
+information about <code>startup.m</code> and where it is located.
 
 
 <h4>MATLAB on Windows systems</h4>
 
-<p> Most Windows users will probably prefer to install libSBML using
-the self-extracting installer provided separately and available for
-downloading from the same servers as the libSBML source code
-distribution.  The installer will take care of placing the MATLAB
-files in directories where MATLAB can find them.  Nothing further
-needs to be done in that case.
+<p> Most Windows users will probably prefer to install libSBML using the
+self-extracting installer provided separately and available for downloading
+from the same servers as the libSBML source code distribution.  The
+installer will take care of placing the MATLAB files in directories where
+MATLAB can find them.  Nothing further needs to be done in that case.  You
+should be able to start MATLAB at will, and be able to invoke functions
+like <code>TranslateSBML</code> and <code>OutputSBML</code>.
 
-<p> If you are compiling and installing libSBML from the sources, or
-else want/need to install the MATLAB bindings directly from the
-libSBML source distribution, there are two possible approaches.
+<p> If you are compiling and installing libSBML from the sources, or else
+want/need to install the MATLAB bindings directly from the libSBML source
+distribution on Windows, follow these simple steps:
 
-<ul>
+<ol>
 
-<li style="margin-bottom: 1em">You can start a regular Windows
-command shell.  At the prompt, change the current directory to the
-directory where the libSBML MATLAB bindings files are located, namely
-<em>libsbml/</em><code>src/bindings/matlab</code> with
-<em>libsbml</em> here standing in for the directory where you
-unzip'ed the source distribution archive.  Then, execute the command
-<code>make.bat</code>.
+<li style="margin-bottom: 1em">Start MATLAB.
 
-<div class="fragment"><pre class="fragment">
-cd <em>libsbml/</em>src/bindings/matlab
-make.bat
-</pre></div>
+<li style="margin-bottom: 1em">Within MATLAB, change directory to the
+directory in your libSBML source tree containing the MATLAB code.  This
+directory will be <code><span
+class="placeholder">libsbml</span>/src/bindings/matlab</code>, where
+<code><span class="placeholder">libsbml</span></code> is the root of your
+libSBML source directory on your computer.
 
-This script will start MATLAB, then run commands to install the
-bindings files and set up paths in your MATLAB environment so that
-MATLAB will find the files in future sessions.
+<li style="margin-bottom: 1em">Execute <code>buildSBML</code> in MATLAB.
 
-<p>
-<li style="margin-bottom: 1em">You can start MATLAB manually, then
-change directory to
-<em>libsbml/</em><code>src/bindings/matlab</code>, and finally run
-the MATLAB script <code>install_Win32.m</code> located in that
-directory.
+<li style="margin-bottom: 1em">Execute <code>installSBML</code> in MATLAB.
 
-<div class="fragment"><pre class="fragment">
-cd <em>libsbml/</em>src/bindings/matlab;
-install_Win32;
-</pre></div>
+</ol>
 
-This will have the same effect as the previous alterantive
-
-
-</ul>
+After these steps, you should be able to invoke functions
+such as <code>TranslateSBML</code> and <code>OutputSBML</code>.  These will
+be accessible after you restart MATLAB and even when you are no longer in
+the libSBML directory.
 
 
 
