@@ -216,12 +216,15 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
 
   % Check whether we have write access to this directory.
 
+  fid = fopen('temp.txt', 'w');
   writeAccess = 1;
-  if fopen('temp', 'w') == -1
+  if fid == -1
     disp('  - We do not have write access here -- will write elsewhere.');
     writeAccess = 0;
   else
     disp('  - We have write access here!  That makes us happy.');
+    fclose(fid);
+    delete('temp.txt');
   end;
 
 
