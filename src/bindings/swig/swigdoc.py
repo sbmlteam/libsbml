@@ -631,7 +631,7 @@ def translatePythonSeeRef (match):
 
 
 def rewriteClassRefAddingSpace (match):
-  return match.group(1) + match.group(2) + ' '
+  return match.group(1) + match.group(2) + match.group(3)
 
 
 
@@ -815,15 +815,15 @@ def rewriteDocstringForJava (docstring):
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
   docstring = docstring.replace(r'unsigned int', 'long')
   docstring = docstring.replace(r'const std::string&', 'String')
-  docstring = docstring.replace(r'const std::string', 'String')
+  docstring = docstring.replace(r'const std::string &', 'String ')
   docstring = docstring.replace(r'std::string', 'String')
   docstring = docstring.replace(r'NULL', 'null')
 
   # Also use Java syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
-  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
+  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
   docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
 
   # Do the big work.
@@ -894,6 +894,7 @@ def rewriteDocstringForCSharp (docstring):
   docstring = docstring.replace(r'an unsigned int', 'a long integer')
   docstring = docstring.replace(r'unsigned int', 'long')
   docstring = docstring.replace(r'const std::string&', 'string')
+  docstring = docstring.replace(r'const std::string &', 'string ')
   docstring = docstring.replace(r'const std::string', 'string')
   docstring = docstring.replace(r'std::string', 'string')
   docstring = docstring.replace(r'const ', '')
@@ -902,10 +903,10 @@ def rewriteDocstringForCSharp (docstring):
 
   # Use C# syntax instead of "const XMLNode*" etc.
 
-  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRef, docstring)  
-  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r') ?(\*|&)', re.DOTALL)
-  docstring = p.sub(rewriteClassRef, docstring)  
+  p = re.compile(r'const (%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
+  docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
+  p = re.compile(r'(%?)(' + '|'.join(libsbmlclasses) + r')( ?)(\*|&)', re.DOTALL)
+  docstring = p.sub(rewriteClassRefAddingSpace, docstring)  
 
   # <code> has its own special meaning in C#; we have to turn our input
   # file's uses of <code> into <c>.  Conversely, we have to turn our
@@ -926,20 +927,11 @@ def rewriteDocstringForCSharp (docstring):
   docstring = re.sub(r'\\f\$\\leq\\f\$', '<=', docstring)
   docstring = re.sub(r'\\f\$\\times\\f\$', '*', docstring)
 
+  # Some additional special cases.
 
-  
-#   #delete variable names (one argument)
-#   p = re.compile('\((\w+)\s+\w+\)', re.DOTALL)
-#   docstring = p.sub(r'(\1)', docstring) 
-  
-#   #delete variable names (two arguments)
-#   p = re.compile('\((\w+\s*)\w+(,\s*\w+)\s*\w+\)', re.DOTALL)
-#   docstring = p.sub(r'(\1\2)', docstring) 
-  
-#   #delete variable names (three arguments)
-#   p = re.compile('\((\w+\s*)\w+(,\s*\w+)\s*\w+(,\s*\w+)\s*\w+\)', re.DOTALL)
-#   docstring = p.sub(r'(\1\2\3)', docstring) 
-  
+  docstring = docstring.replace(r'SBML_formulaToString()', 'libsbml.libsbml.formulaToString()')
+  docstring = docstring.replace(r'SBML_parseFormula()', 'libsbml.libsbml.parseFormula()')
+
   # Need to escape the quotation marks:
 
   docstring = docstring.replace('"', "'")
