@@ -14,10 +14,10 @@ information about how to do that.
       <li><a href="#accessing-java">Java</a></li>
       <li><a href="#accessing-python">Python</a></li>
       <li><a href="#accessing-matlab">MATLAB</a></li>
-      <li><a href="#accessing-octave">Octave</a></li>
-      <li><a href="#accessing-perl">Perl</a></li>
       <li><a href="#accessing-csharp">C#</a></li>
       <li><a href="#accessing-ruby">Ruby</a></li>
+      <li><a href="#accessing-perl">Perl</a></li>
+      <li><a href="#accessing-octave">Octave</a></li>
     </ul>
   </li>
 </ol>
@@ -33,15 +33,16 @@ destination directories on your computer.  However, this does not
 necessarily guarantee that a given software application will be able to
 <em>find</em> those files when it runs.  The run-time environment must be
 properly configured first.
+<dl>
+<dt><b><i>On most Linux/Unix-based platforms:</i></b></dt>
 
-<p> In particular, on most Linux/Unix-based platforms, you must perform one
-of the following two steps:
-
-<ul><li>(<em>On Linux and Unix-based systems other than MacOS&nbsp;X</em>.)
-Run the system program <code>ldconfig</code> as user 'root'.  (Please
-consult the man page for <code>ldconfig</code> if this is unfamiliar.  On
-MacOS&nbsp;X, there is no equivalent to the <code>ldconfig</code>
-facility.)</li></ul>
+<dd>
+<p><em><b>Either</b></em>
+<ul>
+<li>Unless using MacOS&nbsp;X systems, run the system program
+<code>ldconfig</code> as user 'root'.  (Please consult the man page for
+<code>ldconfig</code> if this is unfamiliar.  On MacOS&nbsp;X, there is no
+equivalent to the <code>ldconfig</code> facility.)</li></ul>
 
 <em><b>or</b></em>
 
@@ -64,6 +65,17 @@ setenv LD_LIBRARY_PATH /usr/local/lib
 </pre></div>
 
 </li></ul>
+</dd>
+
+<dt><b><i>On Microsoft Windows platforms:</i></b></dt>
+
+<dd><p>Set the <code>PATH</code> environment variable to include the
+directory of the libSBML native library.  To set an environmental variable
+in Windows, use the <em>System</em> option in the Windows <em>Control
+Panel</em>.
+</dd>
+</dt>
+</dl>
 
 <p> If your run-time environment and the run-time environment for your
 software applications do not know to look in the installation directory for
@@ -143,14 +155,15 @@ and libSBML has been installed on a computer, three more steps are required
 to use the Java-libSBML interface in an application.
 
 
-<h4>Step 1: set LD_LIBRARY_PATH or DYLD_LIBRARY_PATH</h4>
+<h4>Step 1: set LD_LIBRARY_PATH (Linux), DYLD_LIBRARY_PATH
+(Mac&nbsp;OS&nbsp;X), or PATH (Windows)</h4>
 
-First, the instructions for configuring the <code>LD_LIBRARY_PATH</code>
-(under Linux, Unix, Cygwin) or <code>DYLD_LIBRARY_PATH</code> (under
-MacOSX) variables described in the beginning of this section must be
-followed.  This is necessary so that before the operating system starts a
-Java application, the system loaders will know where to find the native
-library components of libSBML.
+First, please follow the instructions for configuring the
+<code>LD_LIBRARY_PATH</code> (under Linux, Unix, Cygwin),
+<code>DYLD_LIBRARY_PATH</code> (under MacOSX) or <code>PATH</code> (under
+Windows) variables described in the beginning of this section.  This is
+necessary so that, before the operating system starts a Java application,
+the system loaders can find libSBML's native library components.
 
 
 <h4>Step 2: adjust the application's class search path</h4>
@@ -454,6 +467,54 @@ This will have the same effect as the previous alterantive
 
 
 
+<h3><a class="anchor" name="accessing-csharp">C#</a></h3>
+
+First, as mentioned for some of the other languages described on this page,
+please be aware that libSBML by default only builds the C and C++ APIs.
+To build the C# API as well, libSBML has to be configured with the
+<nobr><code>--with-csharp</code></nobr> flag as described in the <a
+href="libsbml-installation.html">installation instructions</a>.
+
+<p> The C# interface for libSBML is implemented partly as pure C# and
+partly as native code.  Once libSBML is configured and built using the
+<nobr><code>--with-csharp</code></nobr> flag described above, and libSBML
+has been installed on a computer, two more steps are required to use the
+C#-libSBML interface in an application.
+
+<h4>Step 1: set LD_LIBRARY_PATH (Linux), DYLD_LIBRARY_PATH
+(Mac&nbsp;OS&nbsp;X), or PATH (Windows)</h4>
+
+<p> First, please follow the instructions for configuring the
+<code>LD_LIBRARY_PATH</code> (under Linux, Unix, Cygwin),
+<code>DYLD_LIBRARY_PATH</code> (under MacOSX) or <code>PATH</code> (under
+Windows) variables described in the <a href="#common">beginning of this
+section</a>.  This is necessary so that, before the operating system starts
+a C# application, the system loaders can find libSBML's native library
+components.
+
+<h4>Step 2: place the managed library <code>libsbmlcsP.dll</code> into your
+application's directory</h4>
+
+<p> C# applications need to be compiled by referencing the managed library
+<code>libsbmlcsP.dll</code>.  This will also copy this managed library into
+the application's output directory.
+
+<p> Once the managed library is referenced, and the native library can be
+found in the <code>PATH</code> (or, on Windows systems, if it is in the
+same directory as the executable), the C# bindings can be used in any .Net
+language program by simply including the libSBML namespace.  The following
+C# code fragment illustrates how to use the namespace:
+
+<div class="fragment"><pre class="fragment">
+using namespace libsbml;
+</pre></div>
+
+
+<h3><a class="anchor" name="accessing-ruby">Ruby</a></h3>
+
+(Documentation unfinished.)
+
+
 <h3><a class="anchor" name="accessing-octave">Octave</a></h3>
 
 (Documentation unfinished.)
@@ -464,12 +525,5 @@ This will have the same effect as the previous alterantive
 (Documentation unfinished.)
 
 
-<h3><a class="anchor" name="accessing-csharp">C#</a></h3>
 
-(Documentation unfinished.)
-
-
-<h3><a class="anchor" name="accessing-ruby">Ruby</a></h3>
-
-(Documentation unfinished.)
 
