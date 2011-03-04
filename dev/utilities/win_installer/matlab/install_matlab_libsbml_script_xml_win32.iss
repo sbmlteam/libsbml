@@ -9,13 +9,13 @@ AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\MATLAB\matlab-libSBML-4.3.0-libxml2-x86
-DefaultGroupName=matlab-libSBML
+DefaultDirName={pf}\SBML\libSBML-4.3.0-libxml2-x86\bindings\matlab
+DefaultGroupName=libSBML-matlab
 DisableProgramGroupPage=yes
 OutputDir=.\Output
-OutputBaseFilename=matlab-libSBML-4.3.0-win-libxml2-x86
+OutputBaseFilename=libSBML-matlab-4.3.0-win-libxml2-x86
 WizardSmallImageFile=..\graphics\libsbml-installer-mini-logo.bmp
-WizardImageFile=..\graphics\libsbml-installer-graphic.bmp
+WizardImageFile=..\graphics\libsbml-matlab-installer-graphic.bmp
 UsePreviousAppDir=no
 Compression=lzma
 SolidCompression=yes
@@ -27,12 +27,12 @@ Name: english; MessagesFile: compiler:Default.isl
 Source: .\libsbml-matlab\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetProceed
 
 [Registry]
-;Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
-;Root: HKCU; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-;Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
-;Root: HKLM; Subkey: Software\SBML\libSBML; Flags: uninsdeletekey
-;Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: Version; ValueData: 4.3.0
-;Root: HKLM; Subkey: Software\SBML\libSBML; ValueType: string; ValueName: InstallPath; ValueData: {app}
+Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
+Root: HKCU; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
+Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: Version; ValueData: 4.3.0
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
 var
@@ -251,7 +251,4 @@ end;
 
 
 Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; Description: "Run MATLAB and install libSBML Interface"; Flags: postinstall  runascurrentuser
-;Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; StatusMsg: "Run MATLAB and install libSBML Interface"
-;Filename: "{app}\install\install.bat"; Check: GetMatlabPresent ;
-;Filename: "{code:GetRunMatlab}"; Parameters: "-r installSBML" ; Check: GetMatlabPresent
 

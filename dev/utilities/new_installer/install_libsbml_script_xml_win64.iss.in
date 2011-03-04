@@ -749,5 +749,5 @@ end;
 
 Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win-amd64-py2.6.exe"; flags: nowait; Check: GetPython26;
 Filename: "{app}\bindings\python\libsbml-@PACKAGE_VERSION@.win-amd64-py2.7.exe"; flags: nowait; Check: GetPython27;
-Filename: "{app}\bindings\matlab\matlab-libSBML-@PACKAGE_VERSION@-win-libxml2-x64.exe"; Check: GetMatlab;
+Filename: "{app}\bindings\matlab\libSBML-matlab-@PACKAGE_VERSION@-win-libxml2-x64.exe"; Check: GetMatlab;
 

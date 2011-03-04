@@ -754,6 +754,6 @@ end;
 Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.5.exe"; Check: GetPython25;
 Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.6.exe"; Check: GetPython26;
 Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.7.exe"; Check: GetPython27;
-Filename: "{app}\bindings\matlab\matlab-libSBML-4.3.0-win-libxml2-x86.exe"; Check: GetMatlab;
+Filename: "{app}\bindings\matlab\libSBML-matlab-4.3.0-win-libxml2-x86.exe"; Check: GetMatlab;
 
 

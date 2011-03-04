@@ -231,7 +231,7 @@ rem bindings/matlab directory
 
 cd matlab
 
-copy "%MATLAB_INSTALLER_DIR%\matlab-libSBML-*-win-libxml2-x86.exe" .
+copy "%MATLAB_INSTALLER_DIR%\libSBML-matlab-*-win-libxml2-x86.exe" .
 
 REM copy %INSTALL_DIR%\bindings\matlab\TranslateSBML.mexw32 TranslateSBML.mexw32
 REM copy %INSTALL_DIR%\bindings\matlab\OutputSBML.mexw32 OutputSBML.mexw32
