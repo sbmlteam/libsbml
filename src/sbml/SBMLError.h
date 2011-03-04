@@ -271,7 +271,7 @@
  * The following table lists each possible value and a brief description of
  * its meaning.
  * 
- * @endif@if csharp <h3><a class="anchor"
+ * @endif@if java <h3><a class="anchor"
  * name="SBMLErrorCategory_t">Category codes associated with SBMLError objects</a></h3>
  * 
  * As discussed above, each SBMLError object contains a value for a
@@ -288,7 +288,7 @@
  * The following table lists each possible value and a brief description of
  * its meaning.
  * 
- * @endif@if java <h3><a class="anchor"
+ * @endif@if csharp <h3><a class="anchor"
  * name="SBMLErrorCategory_t">Category codes associated with SBMLError objects</a></h3>
  * 
  * As discussed above, each SBMLError object contains a value for a
