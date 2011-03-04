@@ -271,7 +271,7 @@
  * The following table lists each possible value and a brief description of
  * its meaning.
  * 
- * @endif@if java <h3><a class="anchor"
+ * @endif@if csharp <h3><a class="anchor"
  * name="SBMLErrorCategory_t">Category codes associated with SBMLError objects</a></h3>
  * 
  * As discussed above, each SBMLError object contains a value for a
@@ -284,6 +284,23 @@
  * interface, the category identifiers are currently implemented as static
  * integer constants defined in the interface class
  * {@link libsbmlConstants}.
+ *
+ * The following table lists each possible value and a brief description of
+ * its meaning.
+ * 
+ * @endif@if java <h3><a class="anchor"
+ * name="SBMLErrorCategory_t">Category codes associated with SBMLError objects</a></h3>
+ * 
+ * As discussed above, each SBMLError object contains a value for a
+ * category identifier, describing the type of issue that the SBMLError
+ * object represents.  The category can be retrieved from an SBMLError
+ * object using the method SBMLError::getCategory().  The following table
+ * lists each possible value and a brief description of its meaning.
+ * 
+ * As is the case with the error codes, in the libSBML C# language
+ * interface, the category identifiers are currently implemented as static
+ * integer constants defined in the interface class
+ * {@link libsbml.libsbml}.
  *
  * The following table lists each possible value and a brief description of
  * its meaning.
@@ -316,33 +333,34 @@
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_GENERAL_CONSISTENCY LIBSBML_CAT_GENERAL_CONSISTENCY@endlink</td><td>Category of
  * errors that can occur while validating general SBML constructs.  With
  * respect to the SBML specification, these concern failures in applying
- * the validation rules numbered 2xxxx in the Level&nbsp;2 Versions&nbsp;2
- * and&nbsp;3 specifications.</td></tr>
+ * the validation rules numbered 2xxxx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+ * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_IDENTIFIER_CONSISTENCY LIBSBML_CAT_IDENTIFIER_CONSISTENCY@endlink</td><td>Category of
  * errors that can occur while validating symbol identifiers in a model.
  * With respect to the SBML specification, these concern failures in
- * applying the validation rules numbered 103xx in the Level&nbsp;2
- * Versions&nbsp;2 and&nbsp;3 specifications.</td></tr>  
+ * applying the validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+ * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr>  
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_UNITS_CONSISTENCY LIBSBML_CAT_UNITS_CONSISTENCY@endlink</td><td>Category of
  * errors that can occur while validating the units of measurement on
  * quantities in a model.  With respect to the SBML specification, these
  * concern failures in applying the validation rules numbered 105xx in the
- * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.</td></tr> 
+ * Level&nbsp;2 Versions&nbsp;2&ndash;4
+ * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr> 
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_MATHML_CONSISTENCY LIBSBML_CAT_MATHML_CONSISTENCY@endlink</td><td>Category of
  * errors that can occur while validating MathML formulas in a model.  With
  * respect to the SBML specification, these concern failures in applying
- * the validation rules numbered 102xx in the Level&nbsp;2 Versions&nbsp;2
- * and&nbsp;3 specifications.</td></tr> 
+ * the validation rules numbered 102xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+ * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr> 
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_SBO_CONSISTENCY LIBSBML_CAT_SBO_CONSISTENCY@endlink</td><td>Category of errors
  * that can occur while validating SBO identifiers in a model.  With
  * respect to the SBML specification, these concern failures in applying
- * the validation rules numbered 107xx in the Level&nbsp;2 Versions&nbsp;2
- * and&nbsp;3 specifications.</td></tr> 
+ * the validation rules numbered 107xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+ * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr> 
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_OVERDETERMINED_MODEL LIBSBML_CAT_OVERDETERMINED_MODEL@endlink</td><td>Error in the
  * system of equations in the model: the system is overdetermined,
  * therefore violating a tenet of proper SBML.  With respect to the SBML
- * specification, this is validation rule #10601 in the SBML Level&nbsp;2
- * Versions&nbsp;2 and&nbsp;3 specifications.</td></tr> 
+ * specification, this is validation rule #10601 in the SBML Level&nbsp;2 Versions&nbsp;2&ndash;4
+ * and Level&nbsp;3 Version&nbsp;1 specifications.</td></tr> 
  * <tr><td>@link XMLErrorCategory_t#LIBSBML_CAT_SBML_L2V3_COMPAT LIBSBML_CAT_SBML_L2V3_COMPAT@endlink</td><td>Category of errors
  * that can only occur during attempted translation from one Level/Version
  * of SBML to another.  This particular category applies to errors
@@ -910,38 +928,44 @@ typedef enum
     /*!< Category of errors that can occur while validating general SBML
      * constructs.  With respect to the SBML specification, these concern
      * failures in applying the validation rules numbered 2xxxx in the
-     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications. */
+     * Level&nbsp;2 Versions&nbsp;2&ndash;4
+     * and Level&nbsp;3 Version&nbsp;1 specifications. */
 
   , LIBSBML_CAT_IDENTIFIER_CONSISTENCY
     /*!< Category of errors that can occur while validating symbol
      * identifiers in a model.  With respect to the SBML specification,
      * these concern failures in applying the validation rules numbered
-     * 103xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications. */
+     * 103xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+     * and Level&nbsp;3 Version&nbsp;1 specifications. */
 
   , LIBSBML_CAT_UNITS_CONSISTENCY
     /*!< Category of errors that can occur while validating the units of
      * measurement on quantities in a model.  With respect to the SBML
      * specification, these concern failures in applying the validation
-     * rules numbered 105xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
+     * rules numbered 105xx in the Level&nbsp;2 Versions&nbsp;2&ndash;4
+     * and Level&nbsp;3 Version&nbsp;1
      * specifications. */
 
   , LIBSBML_CAT_MATHML_CONSISTENCY
     /*!< Category of errors that can occur while validating MathML formulas
      * in a model.  With respect to the SBML specification, these concern
      * failures in applying the validation rules numbered 102xx in the
-     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications. */
+     * Level&nbsp;2 Versions&nbsp;2&ndash;4
+     * and Level&nbsp;3 Version&nbsp;1 specifications. */
 
   , LIBSBML_CAT_SBO_CONSISTENCY
     /*!< Category of errors that can occur while validating SBO identifiers
      * in a model.  With respect to the SBML specification, these concern
      * failures in applying the validation rules numbered 107xx in the
-     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications. */
+     * Level&nbsp;2 Versions&nbsp;2&ndash;4
+     * and Level&nbsp;3 Version&nbsp;1 specifications. */
 
   , LIBSBML_CAT_OVERDETERMINED_MODEL
     /*!< Error in the system of equations in the model: the system is
      * overdetermined, therefore violating a tenet of proper SBML.  With
      * respect to the SBML specification, this is validation rule #10601 in
-     * the SBML Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications. */
+     * the SBML Level&nbsp;2 Versions&nbsp;2&ndash;4
+     * and Level&nbsp;3 Version&nbsp;1 specifications. */
 
   , LIBSBML_CAT_SBML_L2V3_COMPAT
     /*!< Category of errors that can only occur during attempted
