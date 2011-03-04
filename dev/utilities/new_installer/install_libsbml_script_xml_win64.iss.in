@@ -373,9 +373,9 @@ begin
   end else if CurPageId = InstallOptionsPage.ID then begin
     JavaPage.Values[0] := ExpandConstant('{app}/bindings/java');
     CSharpPage.Values[0] := ExpandConstant('{app}/bindings/csharp');
-    if ((InstallOptionsPage.Values[4]) and ((not PerlPresent) or (PerlVersion < '1200'))) then begin
+    if ((InstallOptionsPage.Values[3]) and ((not PerlPresent) or (PerlVersion < '1200'))) then begin
       MsgBox('Libsbml Perl bindings require Perl 5.12 which cannot be detected on the system. Cannot install to the lib directory.', mbError, MB_OK);
-      InstallOptionsPage.Values[4] := False;
+      InstallOptionsPage.Values[3] := False;
     end;
     Result := True;
   end else begin
@@ -422,7 +422,7 @@ begin
 
   if (InstallOptionsPage.Values[3] = True) then begin
       S := S + NewLine;
-      S := S + 'Writing libSBML perl library files (to ' + NewLine;
+      S := S + 'Writing libSBML perl library files to ' + NewLine;
       S := S + '      ' + GetPerlLibDir('');
       S := S + NewLine;
   end;
