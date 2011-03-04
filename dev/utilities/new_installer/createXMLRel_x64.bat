@@ -1,4 +1,4 @@
-REM @echo off
+@echo off
 
 REM this file is based on sarah's file that creates the 
 REM directory structure for the inno setup script. However
@@ -24,9 +24,19 @@ SET BZIP2_INCLUDE_DIR=%OLD_DEPENDENCIES_DIR%\include\bzip2
 SET ZIP_INCLUDE_DIR=%OLD_DEPENDENCIES_DIR%\include\zlib
 SET ICONV_INCLUDE_DIR=%OLD_DEPENDENCIES_DIR%\include\iconv
 
+
+REM if set to a directory, the files will be produced
+REM and copied into it. To disable simply comment out 
+REM the next line.
+SET DROP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist
+
+
+
 REM the remaining relies only on these variables 
 
+if not exist libsbml goto NO_DELETE
 rmdir /S /Q libsbml
+:NO_DELETE
 
 mkdir libsbml
 cd libsbml
@@ -227,7 +237,7 @@ cd ..
 rem bindings/matlab directory
 
 cd matlab
-copy "%MATLAB_INSTALLER_DIR%\libSBML-matlab-*-win-libxml2-x64.exe" .
+copy "%MATLAB_INSTALLER_DIR%\*-x64.exe" .
 
 REM copy %INSTALL_DIR%\bindings\matlab\TranslateSBML.mexw64 TranslateSBML.mexw64
 REM copy %INSTALL_DIR%\bindings\matlab\OutputSBML.mexw64 OutputSBML.mexw64
@@ -256,7 +266,14 @@ rem bindings/python directory
 
 cd python
 
-copy "%INSTALL_DIR_32%\bindings\python\src\dist\*amd*exe" .
+copy /y "%INSTALL_DIR_32%\bindings\python\src\dist\libsbml-4.3.0.win-amd64-py2.6.exe" libSBML-4.3.0-win-py2.6-amd64.exe
+copy /y "%INSTALL_DIR_32%\bindings\python\src\dist\libsbml-4.3.0.win-amd64-py2.7.exe" libSBML-4.3.0-win-py2.7-amd64.exe
+
+
+if "%DROP_DIR%" == "" goto DONE_COPYING
+copy /Y *.exe "%DROP_DIR%"
+
+:DONE_COPYING
 
 cd ..
 

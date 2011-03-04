@@ -15,9 +15,8 @@ REM set up directory variables
 SET THIS_BASE_DIR=%~dp0
 
 REM if arg1 is skip build we don't have to build 
-
 if "%1" == "--skip-build" goto BUILD_COMPLETE
-
+if "%1" == "--skip-all-build" goto BUILD_ALL_COMPLETE
 cd /d %THIS_BASE_DIR%
 
 call buildAll.bat
@@ -36,6 +35,7 @@ call createInstallers.bat
 REM copy matlab installers to share
 copy /y Output\*.exe "%DROP_DIR%\matlab-win-installer"
 
+:BUILD_ALL_COMPLETE
 cd /d %THIS_BASE_DIR%
 REM create 32 bit inst
 rd /s /q libsbml

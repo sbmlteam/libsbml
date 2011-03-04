@@ -22,14 +22,6 @@ SET PYTHON_27_32=C:\Python27\python.exe
 SET PYTHON_27_64=C:\Python27_64\python.exe
 
 
-
-
-REM if set to a directory, the files will be produced
-REM and copied into it. To disable simply comment out 
-REM the next line.
-SET DROP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist
-
-
 cd  /d %WIN_INST_DIR%
 
 SET BUILD_DIR_32_BIT=%LIBSBML_ROOT%\build_32
@@ -160,11 +152,6 @@ REM dist utils fails to create the python 25 64bit installer
 REM "%PYTHON_25_64%" setup64.py bdist_wininst --skip-build --target-version="2.5"
 "%PYTHON_26_64%" setup64.py bdist_wininst --skip-build --target-version="2.6" --bitmap libsbml-python-installer-graphic.bmp
 "%PYTHON_27_64%" setup64.py bdist_wininst --skip-build --target-version="2.7" --bitmap libsbml-python-installer-graphic.bmp
-
-if "%DROP_DIR%" == "" goto DONE_BUILDING
-copy /Y dist\*.exe "%DROP_DIR%"
-
-:DONE_BUILDING
 
 REM here we can test the new bindindgs
 cd  /d %WIN_INST_DIR%
