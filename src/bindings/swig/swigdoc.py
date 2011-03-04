@@ -398,8 +398,9 @@ class Method:
     was declared constant and/or internal.
     """
 
-    self.name    = name
-    self.isConst = isConst
+    self.name       = name
+    self.isConst    = isConst
+    self.isInternal = isInternal
 
     if isInternal:
       if language == 'java':
@@ -413,8 +414,8 @@ class Method:
         p = re.compile('(.+?)\*/', re.MULTILINE)
         self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
       elif language == 'csharp':
-        p = re.compile('/\*\*?(.+?)', re.MULTILINE)
-        self.docstring = p.sub(r'/** @internal \1', docstring)
+        # We mark internal methods in a different way for C#.
+        self.docstring = docstring
       else:
         self.docstring = "  @internal\n" + docstring
     else:
@@ -1093,39 +1094,39 @@ def processClassMethods(ostream, cclass):
         continue
 
       if cclass.methodVariants[m.name].__len__() > 1:
-        docstring = ' This method has multiple variants that differ in the' + \
-                    ' arguments they accept.  Each is described separately' + \
-                    ' below.\n'
+        newdoc = ' This method has multiple variants that differ in the' + \
+                 ' arguments they accept.  Each is described separately' + \
+                 ' below.\n'
         for mm in cclass.methods:
           # Ignore methods marked @internal.
-          if mm.name == m.name and re.search('@internal', docstring) == None:
-            docstring += "\n <hr>\n Method variant with the following"\
-                         + " signature:\n <pre class='signature'>" \
-                         + mm.name \
-                         + rewriteDocstringForPython(mm.args) \
-                         + "</pre>\n\n"
-            docstring += rewriteDocstringForPython(mm.docstring)
+          if mm.name == m.name and re.search('@internal', mm.docstring) == None:
+            newdoc += "\n <hr>\n Method variant with the following"\
+                      + " signature:\n <pre class='signature'>" \
+                      + mm.name \
+                      + rewriteDocstringForPython(mm.args) \
+                      + "</pre>\n\n"
+            newdoc += rewriteDocstringForPython(mm.docstring)
       else:
-        docstring = rewriteDocstringForPython(m.docstring)
-      ostream.write(formatMethodDocString(m.name, cclass.name, docstring, m.args))
+        newdoc = rewriteDocstringForPython(m.docstring)
+      ostream.write(formatMethodDocString(m.name, cclass.name, newdoc, m.isInternal, m.args))
       written[m.name + m.args] = 1
   else: # Not python
     for m in cclass.methods:
       if m.name.startswith('~'):
         continue
       if language == 'java':
-        docstring = rewriteDocstringForJava(m.docstring)
+        newdoc = rewriteDocstringForJava(m.docstring)
       elif language == 'csharp':
-        docstring = rewriteDocstringForCSharp(m.docstring)
+        newdoc = rewriteDocstringForCSharp(m.docstring)
       elif language == 'perl':
-        docstring = rewriteDocstringForPerl(m.docstring)  
-      ostream.write(formatMethodDocString(m.name, cclass.name, docstring, m.args))
+        newdoc = rewriteDocstringForPerl(m.docstring)  
+      ostream.write(formatMethodDocString(m.name, cclass.name, newdoc, m.isInternal, m.args))
 
   ostream.flush()
 
 
 
-def formatMethodDocString (methodname, classname, docstring, args=None):
+def formatMethodDocString (methodname, classname, docstring, isInternal, args=None):
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
@@ -1136,6 +1137,8 @@ def formatMethodDocString (methodname, classname, docstring, args=None):
       post = ' public new'
     else:
       post = ' public'
+    if isInternal:
+      post = ' /* libsbml-internal */' + post
   elif language == 'perl':
     pre  = '=item'
     post = ''
@@ -1159,7 +1162,7 @@ def formatMethodDocString (methodname, classname, docstring, args=None):
 
 
 
-def generateFunctionDocString (methodname, docstring, args):
+def generateFunctionDocString (methodname, docstring, args, isInternal):
   if language == 'java':
     doc = rewriteDocstringForJava(docstring)
   elif language == 'csharp':
@@ -1168,7 +1171,7 @@ def generateFunctionDocString (methodname, docstring, args):
     doc = rewriteDocstringForPython(docstring)
   elif language == 'perl':
     doc = rewriteDocstringForPerl(docstring)
-  return formatMethodDocString(methodname, None, doc, args)
+  return formatMethodDocString(methodname, None, doc, isInternal, args)
 
 
 
@@ -1204,7 +1207,7 @@ def processClasses (ostream, classes):
 
 def processFunctions (ostream, functions):
   for f in functions:
-    ostream.write(generateFunctionDocString(f.name, f.docstring, f.args))
+    ostream.write(generateFunctionDocString(f.name, f.docstring, f.args, f.isInternal))
 
 
 

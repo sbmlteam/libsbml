@@ -40,17 +40,14 @@
 
 import sys, string, os.path, re
 
-methodsMakePrivate = [ "public new int setId", "public new int setName" ]
-
 
 def filterForDoxygen (istream, ostream):
-  # Read the stream line by line, looking for things we want to rewrite.
-  p = re.compile('(.+?)public(.+?)')
+  # Read the stream line by line, looking for our marker.
+  pattern = re.compile('(.+?)/\* libsbml-internal \*/(.+?)public(.+?)')
   for line in istream.readlines():
-    for decl in methodsMakePrivate:
-      if re.search(decl, line):
-        ostream.write(p.sub(r'\1private\2', line))
-        break
+    match = pattern.search(line)
+    if match:
+      ostream.write(pattern.sub(r'\1\2private\3', line))
     else:
       ostream.write(line)
 
