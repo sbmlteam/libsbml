@@ -9,3 +9,4 @@ CTAGS
 libsbml.pc
 *.o
 formatted
+index.html
