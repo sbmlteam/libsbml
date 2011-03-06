@@ -13,7 +13,7 @@ DefaultDirName={pf}\SBML\libSBML-4.3.0-libxml2-x86
 DefaultGroupName=libSBML
 DisableProgramGroupPage=yes
 OutputDir=.\Output
-OutputBaseFilename=libSBML-4.3.0-win-libxml2-x86
+OutputBaseFilename=libSBML-4.3.0-win-x86
 WizardSmallImageFile=.\graphics\libsbml-installer-mini-logo.bmp
 WizardImageFile=.\graphics\libsbml-installer-graphic.bmp
 UsePreviousAppDir=no
@@ -551,9 +551,9 @@ end;
 
 [Run]
 
-Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.5.exe"; Check: GetPython25;
-Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.6.exe"; Check: GetPython26;
-Filename: "{app}\bindings\python\libsbml-4.3.0.win32-py2.7.exe"; Check: GetPython27;
-Filename: "{app}\bindings\matlab\libSBML-matlab-4.3.0-win-libxml2-x86.exe"; Check: GetMatlab;
+Filename: "{app}\bindings\python\libSBML-4.3.0-win-py2.5-x86.exe"; Check: GetPython25;
+Filename: "{app}\bindings\python\libSBML-4.3.0-win-py2.6-x86.exe"; Check: GetPython26;
+Filename: "{app}\bindings\python\libSBML-4.3.0-win-py2.7-x86.exe"; Check: GetPython27;
+Filename: "{app}\bindings\matlab\libSBML-4.3.0-win-matlab-x86.exe"; Check: GetMatlab;
 
 
