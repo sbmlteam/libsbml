@@ -57,7 +57,10 @@ thisdir = docs
 
 subdirs = src
 
-distfiles = Makefile.in README.txt index.html.in .graphics
+distfiles = Makefile.in README.txt index.html.in \
+	.graphics/Icon-right-arrow-32px.jpg \
+	.graphics/Icon-thumbs-down-32px.jpg \
+	.graphics/supports-sbml-170x75.jpg
 
 
 # -----------------------------------------------------------------------------
