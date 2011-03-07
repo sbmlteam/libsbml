@@ -8,12 +8,11 @@ This package includes the C/C++ core libSBML library and the following language 
   
    + C# (Mono)
    + Java
-   + Octave
    + Perl
    + Python
    + Ruby
 
-The MATLAB interface is currently not included in the MacOSX installer. If you need the MATLAB interface, please compile it directly using the libSBML source code distribution.
+The MATLAB and Octave interfaces are currently not included in the MacOSX installer. If you need the MATLAB and/or Octave interface, please compile them directly using the libSBML source code distribution.
 
 To uninstall libSBML, please run the following command in your terminal:
 
