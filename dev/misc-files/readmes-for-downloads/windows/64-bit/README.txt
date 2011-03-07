@@ -17,7 +17,9 @@ find the following:
 
       Complete libSBML binary distribution, containing the precompiled
       C/C++ libSBML core library and the following libSBML language
-      interfaces: C# (Mono), Java, MATLAB, Octave, Perl, Python, Ruby.
+      interfaces: C# (Mono), Java, MATLAB, Perl, Python, Ruby.  (Note:
+      the Octave interface is not included because there are no 64-bit
+      versions of Octave available at this time.)
 
   * libSBML-4.3.0-win-matlab-x64.exe
 
