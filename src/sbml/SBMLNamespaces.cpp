@@ -46,6 +46,8 @@ SBMLNamespaces::SBMLNamespaces(unsigned int level, unsigned int version)
   mLevel = level;
   mVersion = version;
   mNamespaces = new XMLNamespaces();
+  mPackagePrefixes.clear();
+
 
   switch (level)
   {
@@ -123,6 +125,8 @@ SBMLNamespaces::SBMLNamespaces(const SBMLNamespaces& orig)
             new XMLNamespaces(*const_cast<SBMLNamespaces&>(orig).mNamespaces);
     else
       this->mNamespaces = NULL;
+
+    mPackagePrefixes = orig.mPackagePrefixes;
   }
 }
 
@@ -161,6 +165,7 @@ SBMLNamespaces::operator=(const SBMLNamespaces& rhs)
             new XMLNamespaces(*const_cast<SBMLNamespaces&>(rhs).mNamespaces);
     else
       this->mNamespaces = NULL;
+    mPackagePrefixes = rhs.mPackagePrefixes;
   }
 
   return *this;
@@ -306,6 +311,35 @@ SBMLNamespaces::setNamespaces(XMLNamespaces * xmlns)
   else
     mNamespaces = NULL;
 }
+
+void 
+SBMLNamespaces::addPackagePrefix(std::string package_prefix)
+{
+  mPackagePrefixes.push_back(package_prefix);
+}
+
+std::string 
+SBMLNamespaces::getPackagePrefix(unsigned int index)
+{
+  return mPackagePrefixes.at(index);
+}
+
+bool 
+SBMLNamespaces::containsPackagePrefix(std::string package_prefix)
+{
+  bool found = false;
+  unsigned int i = 0;
+  while (!found && i < mPackagePrefixes.size())
+  {
+    if (mPackagePrefixes.at(i) == package_prefix)
+    {
+      found = true;
+    }
+    i++;
+  }
+  return found;
+}
+
 /** @endcond */
 /** @cond doxygen-c-only */
 

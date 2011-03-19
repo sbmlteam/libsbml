@@ -2944,7 +2944,12 @@ SBase::read (XMLInputStream& stream)
                    || readAnnotation(stream)
                    || readNotes(stream) ))
       {
-        logUnknownElement(next.getName(), getLevel(), getVersion());
+        // if this is an unknown element from possibly a L3 package we want 
+        // a different warning/error
+        if (!(mSBMLNamespaces->containsPackagePrefix(next.getPrefix())))
+        {
+          logUnknownElement(next.getName(), getLevel(), getVersion());
+        }
         stream.skipPastEnd( stream.next() );
       }
     }

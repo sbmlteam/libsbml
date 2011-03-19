@@ -335,6 +335,13 @@ else
 
 
   void setNamespaces(XMLNamespaces * xmlns);
+
+  void addPackagePrefix(std::string package_prefix);
+
+  std::string getPackagePrefix(unsigned int index);
+  
+  bool containsPackagePrefix(std::string package_prefix);
+
   /** @endcond */
 
 protected:  
@@ -343,6 +350,7 @@ protected:
   unsigned int    mLevel;
   unsigned int    mVersion;
   XMLNamespaces * mNamespaces;
+  std::vector<std::string> mPackagePrefixes;
 
   /** @endcond */
 };

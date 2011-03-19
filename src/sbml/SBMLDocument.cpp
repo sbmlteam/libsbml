@@ -2593,26 +2593,40 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
     {
       // look for a required package and report that one exists
       bool required = false;
-      int ns = 0;
+      int j = 0;
       do
       {
-        if (attributes.getName(ns) == "required")
+        if (attributes.getName(j) == "required")
         {
-          const XMLTriple *triple = new XMLTriple(attributes.getName(ns), 
-            attributes.getURI(ns), attributes.getPrefix(ns));
+          const XMLTriple *triple = new XMLTriple(attributes.getName(j), 
+            attributes.getURI(j), attributes.getPrefix(j));
           attributes.readInto(*triple, required);
+          // look to see if the namespace might be a valid L3 package
+          size_t pos = attributes.getURI(j).find(
+                                    "http://www.sbml.org/sbml/level3/version");
+          if (pos == 0)
+          { // we have found a URI that could be L3 package
+            mSBMLNamespaces->addPackagePrefix(attributes.getPrefix(j));
+       
+            ostringstream msg;
+          
+            if (required)
+            {
+              msg << "Package '" << attributes.getPrefix(j) << 
+                "' is a required package.";
+              logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
+            }
+            else
+            {
+              msg << "Package '" << attributes.getPrefix(j) << 
+                "' is not a required package.";
+              logError(UnrequiredPackagePresent, mLevel, mVersion, msg.str());
+            }
+          }
         }
-        ns++;
-      } while (!required && ns < attributes.getLength());
+        j++;
+      } while (j < attributes.getLength());
 
-      if (required)
-      {
-        ostringstream msg;
-
-        msg << "Package '" << attributes.getPrefix(ns-1) << "' is a required package.";
-            
-        logError(RequiredPackagePresent, mLevel, mVersion, msg.str());
-      }
     }
 
   }

@@ -821,6 +821,7 @@ typedef enum
  , AnnotationNotesNotAllowedLevel1       = 99104 /*!< Annotation on <code>&lt;sbml&gt;</code> not permitted in SBML Level&nbsp;1 */
  , InvalidRuleOrdering                   = 99106 /*!< Invalid ordering of rules */
  , RequiredPackagePresent                = 99107 /*!< Model requires an L3 package */
+ , UnrequiredPackagePresent              = 99108 /*!< Possible L3 package detected */
 
  , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute <code>substanceUnits</code> */
  , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute <code>timeUnits</code> */
