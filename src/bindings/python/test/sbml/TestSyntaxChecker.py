@@ -49,6 +49,7 @@ class TestSyntaxChecker(unittest.TestCase):
   def test_SyntaxChecker_validId(self):
     self.assert_( libsbml.SyntaxChecker.isValidSBMLSId("cell") == True )
     self.assert_( libsbml.SyntaxChecker.isValidSBMLSId("1cell") == False )
+    self.assert_( libsbml.SyntaxChecker.isValidSBMLSId("") == False )
     pass  
 
   def test_SyntaxChecker_validUnitId(self):

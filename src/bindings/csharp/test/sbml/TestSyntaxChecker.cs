@@ -141,6 +141,7 @@ namespace LibSBMLCSTest {
     {
       assertTrue( SyntaxChecker.isValidSBMLSId("cell") == true );
       assertTrue( SyntaxChecker.isValidSBMLSId("1cell") == false );
+      assertTrue( SyntaxChecker.isValidSBMLSId("") == false);
     }
 
     public void test_SyntaxChecker_validUnitId()

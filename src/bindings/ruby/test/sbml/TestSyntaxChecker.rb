@@ -44,6 +44,7 @@ class TestSyntaxChecker < Test::Unit::TestCase
   def test_SyntaxChecker_validId
     assert( LibSBML::SyntaxChecker.isValidSBMLSId("cell") == true )
     assert( LibSBML::SyntaxChecker.isValidSBMLSId("1cell") == false )
+    assert( LibSBML::SyntaxChecker.isValidSBMLSId("") == false )
   end
 
   def test_SyntaxChecker_validUnitId
