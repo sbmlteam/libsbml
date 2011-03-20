@@ -2603,7 +2603,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
           attributes.readInto(*triple, required);
           // look to see if the namespace might be a valid L3 package
           size_t pos = attributes.getURI(j).find(
-                                    "http://www.sbml.org/sbml/level3/version");
+                                    "http://www.sbml.org/sbml/level3/version1/");
           if (pos == 0)
           { // we have found a URI that could be L3 package
             mSBMLNamespaces->addPackagePrefix(attributes.getPrefix(j));
@@ -2618,8 +2618,8 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
             }
             else
             {
-              msg << "Package '" << attributes.getPrefix(j) << 
-                "' is not a required package.";
+              msg << "Information from package '" << attributes.getPrefix(j) << 
+                "' will be lost.";
               logError(UnrequiredPackagePresent, mLevel, mVersion, msg.str());
             }
           }

@@ -4116,7 +4116,12 @@ Model::createObject (XMLInputStream& stream)
     }
   }
 #ifdef USE_LAYOUT
-  else if ( name == "listOfLayouts"             ) object = &mLayouts;
+  else if ( name == "listOfLayouts"             ) 
+    // do not create an object in L3
+    if (level < 3)
+    {
+      object = &mLayouts;
+    }
 #endif /* USE_LAYOUT */  
 
   return object;
