@@ -608,7 +608,7 @@ Model::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -635,7 +635,7 @@ Model::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -667,7 +667,7 @@ Model::setSubstanceUnits (const std::string& units)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -693,7 +693,7 @@ Model::setTimeUnits (const std::string& units)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -719,7 +719,7 @@ Model::setVolumeUnits (const std::string& units)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -745,7 +745,7 @@ Model::setAreaUnits (const std::string& units)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -771,7 +771,7 @@ Model::setLengthUnits (const std::string& units)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -797,7 +797,7 @@ Model::setExtentUnits (const std::string& units)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(units)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -823,7 +823,7 @@ Model::setConversionFactor (const std::string& id)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(id)))
+  else if (!(SyntaxChecker::isValidInternalSId(id)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -4193,7 +4193,7 @@ Model::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<model>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   if (level > 1)
   {
@@ -4219,7 +4219,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     {
       logEmptyString("substanceUnits", level, version, "<model>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -4232,7 +4232,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     {
       logEmptyString("timeUnits", level, version, "<model>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mTimeUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mTimeUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -4245,7 +4245,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     {
       logEmptyString("volumeUnits", level, version, "<model>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mVolumeUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mVolumeUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -4258,7 +4258,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     {
       logEmptyString("areaUnits", level, version, "<model>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mAreaUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mAreaUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -4271,7 +4271,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     {
       logEmptyString("lengthUnits", level, version, "<model>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mLengthUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mLengthUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -4284,7 +4284,7 @@ Model::readAttributes (const XMLAttributes& attributes)
     {
       logEmptyString("extentUnits", level, version, "<model>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mExtentUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mExtentUnits))
     {
       logError(InvalidUnitIdSyntax);
     }

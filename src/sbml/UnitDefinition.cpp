@@ -231,7 +231,7 @@ UnitDefinition::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -258,7 +258,7 @@ UnitDefinition::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -1383,7 +1383,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   {
     logEmptyString(id, level, version, "<unitDefinition>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v1->)

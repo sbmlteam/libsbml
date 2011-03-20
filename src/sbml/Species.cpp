@@ -595,7 +595,7 @@ Species::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -622,7 +622,7 @@ Species::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -655,7 +655,7 @@ Species::setSpeciesType (const std::string& sid)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -677,7 +677,7 @@ Species::setCompartment (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -736,7 +736,7 @@ Species::setSubstanceUnits (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -763,7 +763,7 @@ Species::setSpatialSizeUnits (const std::string& sid)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -870,7 +870,7 @@ Species::setConversionFactor (const std::string& sid)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -1257,7 +1257,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
@@ -1278,7 +1278,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -1366,7 +1366,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // compartment: SId    { use="required" }  (L2v1->)
@@ -1386,7 +1386,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("substanceUnits", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -1432,7 +1432,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("spatialSizeUnits", level, version, "<species>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mSpatialSizeUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mSpatialSizeUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -1516,7 +1516,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // compartment: SId    { use="required" }  (L2v1->)
@@ -1541,7 +1541,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("substanceUnits", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mSubstanceUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mSubstanceUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -1598,7 +1598,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("conversionFactor", level, version, "<species>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mConversionFactor))
+  if (!SyntaxChecker::isValidInternalSId(mConversionFactor))
   {
     logError(InvalidIdSyntax);
   }

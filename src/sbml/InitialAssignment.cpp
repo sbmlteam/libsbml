@@ -222,7 +222,7 @@ InitialAssignment::setSymbol (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -564,7 +564,7 @@ InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSymbol)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mSymbol)) logError(InvalidIdSyntax);
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -623,7 +623,7 @@ InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mSymbol)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mSymbol)) logError(InvalidIdSyntax);
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)

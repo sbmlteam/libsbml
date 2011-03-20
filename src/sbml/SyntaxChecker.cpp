@@ -116,11 +116,6 @@ SyntaxChecker::isValidSBMLSId(std::string sid)
 {
   unsigned int size = sid.size();
 
-  if (size == 0)
-  {
-    return true;
-  }
-
   unsigned int n = 0;
 
   char c = sid[n];
@@ -300,6 +295,41 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
   return correctSyntax;
 }
 /** @cond doxygen-libsbml-internal */
+bool
+SyntaxChecker::isValidInternalUnitSId(std::string units)
+{
+  return isValidInternalSId(units);
+}
+
+
+
+bool
+SyntaxChecker::isValidInternalSId(std::string sid)
+{
+  unsigned int size = sid.size();
+
+  if (size == 0)
+  {
+    return true;
+  }
+
+  unsigned int n = 0;
+
+  char c = sid[n];
+  bool okay = (isalpha(c) || (c == '_'));
+  n++;
+
+  while (okay && n < size)
+  {
+    c = sid[n];
+    okay = (isalnum(c) || c == '_');
+    n++;
+  }
+
+  return okay;
+
+}
+
 
 bool 
 SyntaxChecker::isAllowedElement(const XMLNode& node)
@@ -1895,7 +1925,7 @@ LIBSBML_EXTERN
 int
 SyntaxChecker_isValidSBMLSId(const char * sid)
 {
-  if (sid == NULL) return 1;
+  if (sid == NULL) return 0;
   return static_cast<int>(SyntaxChecker::isValidSBMLSId(sid));
 }
 

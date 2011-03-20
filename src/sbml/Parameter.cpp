@@ -338,7 +338,7 @@ Parameter::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -365,7 +365,7 @@ Parameter::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -405,7 +405,7 @@ Parameter::setUnits (const std::string& units)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else  if (!(SyntaxChecker::isValidUnitSId(units)))
+  else  if (!(SyntaxChecker::isValidInternalUnitSId(units)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -724,7 +724,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   //{
   //  logEmptyString(id, level, version, "<parameter>");
   //}
-  //if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  //if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   ////
   //// value: double  { use="required" }  (L1v2)
@@ -748,7 +748,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   //{
   //  logEmptyString("units", level, version, "<parameter>");
   //}
-  //if (!SyntaxChecker::isValidUnitSId(mUnits))
+  //if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   //{
   //  logError(InvalidUnitIdSyntax);
   //}
@@ -834,7 +834,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // value: double  { use="required" }  (L1v2)
@@ -857,7 +857,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -926,7 +926,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // value: double  { use="optional" }  (L1v2->)
@@ -941,7 +941,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -1035,7 +1035,7 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // value: double  { use="optional" }  (L1v2->)
@@ -1050,7 +1050,7 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<parameter>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax);
   }

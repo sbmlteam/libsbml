@@ -1033,7 +1033,7 @@ SBase::setName (const std::string& name)
     */
     if (getLevel() == 1)
     {
-      if (!(SyntaxChecker::isValidSBMLSId(name)))
+      if (!(SyntaxChecker::isValidInternalSId(name)))
       {
         return LIBSBML_INVALID_ATTRIBUTE_VALUE;
       }

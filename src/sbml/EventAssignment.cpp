@@ -222,7 +222,7 @@ EventAssignment::setVariable (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -563,7 +563,7 @@ EventAssignment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("variable", level, version, "<eventAssignment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mVariable)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mVariable)) logError(InvalidIdSyntax);
 
 
   //
@@ -622,7 +622,7 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("variable", level, version, "<eventAssignment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mVariable)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mVariable)) logError(InvalidIdSyntax);
 
 
   //

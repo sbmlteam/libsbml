@@ -489,7 +489,7 @@ Reaction::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -516,7 +516,7 @@ Reaction::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -610,7 +610,7 @@ Reaction::setCompartment (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
 
-  if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -1548,7 +1548,7 @@ Reaction::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1615,7 +1615,7 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // reversible: boolean  { use="optional"  default="true" }
@@ -1695,7 +1695,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // reversible: boolean  { use="required"} (L3v1->)
@@ -1733,7 +1733,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("compartment", level, version, "<reaction>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mCompartment)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mCompartment)) logError(InvalidIdSyntax);
 }
 /** @endcond */
 

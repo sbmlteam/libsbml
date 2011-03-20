@@ -1717,7 +1717,7 @@ ASTNode::setUnits (std::string units)
   if (!isNumber())
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
 
-  if (!SyntaxChecker::isValidUnitSId(units))
+  if (!SyntaxChecker::isValidInternalUnitSId(units))
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
 
   mUnits     = units;

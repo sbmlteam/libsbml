@@ -493,7 +493,7 @@ Compartment::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -520,7 +520,7 @@ Compartment::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -553,7 +553,7 @@ Compartment::setCompartmentType (const std::string& sid)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -669,7 +669,7 @@ Compartment::setUnits (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -691,7 +691,7 @@ Compartment::setOutside (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -1061,7 +1061,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //{
   //  logEmptyString(id, level, version, "<compartment>");
   //}
-  //if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  //if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   ////
   //// volume  { use="optional" default="1" }  (L1v1, L1v2)
@@ -1078,7 +1078,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //{
   //  logEmptyString("units", level, version, "<compartment>");
   //}
-  //if (!SyntaxChecker::isValidUnitSId(mUnits))
+  //if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   //{
   //  logError(InvalidUnitIdSyntax);
   //}
@@ -1206,7 +1206,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("name", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
@@ -1221,7 +1221,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -1293,7 +1293,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // size    { use="optional" }              (L2v1 ->)
@@ -1308,7 +1308,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax);
   }
@@ -1420,7 +1420,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // size    { use="optional" }              (L2v1 ->)
@@ -1435,7 +1435,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("units", level, version, "<compartment>");
   }
-  if (!SyntaxChecker::isValidUnitSId(mUnits))
+  if (!SyntaxChecker::isValidInternalUnitSId(mUnits))
   {
     logError(InvalidUnitIdSyntax);
   }

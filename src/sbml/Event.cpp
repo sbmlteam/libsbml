@@ -471,7 +471,7 @@ Event::setId (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -499,7 +499,7 @@ Event::setName (const std::string& name)
   }
   else if (getLevel() == 1)
   {
-    if (!(SyntaxChecker::isValidSBMLSId(name)))
+    if (!(SyntaxChecker::isValidInternalSId(name)))
     {
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     }
@@ -654,7 +654,7 @@ Event::setTimeUnits (const std::string& sid)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -1384,7 +1384,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<event>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
@@ -1402,7 +1402,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("timeUnits", level, version, "<event>");
     }
-    if (!SyntaxChecker::isValidUnitSId(mTimeUnits))
+    if (!SyntaxChecker::isValidInternalUnitSId(mTimeUnits))
     {
       logError(InvalidUnitIdSyntax);
     }
@@ -1472,7 +1472,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<event>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v1 ->)

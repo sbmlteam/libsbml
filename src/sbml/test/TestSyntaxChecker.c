@@ -47,6 +47,7 @@ START_TEST (test_SyntaxChecker_validId)
 {
   fail_unless( SyntaxChecker_isValidSBMLSId("cell")  == 1 );
   fail_unless( SyntaxChecker_isValidSBMLSId("1cell") == 0 );
+  fail_unless( SyntaxChecker_isValidSBMLSId("") == 0 );
 }
 END_TEST
 
@@ -100,8 +101,8 @@ END_TEST
 START_TEST (test_SyntaxChecker_accessWithNULL)
 {
   fail_unless(SyntaxChecker_hasExpectedXHTMLSyntax(NULL, NULL) == 0);
-  fail_unless(SyntaxChecker_isValidSBMLSId(NULL) == 1);
-  fail_unless(SyntaxChecker_isValidUnitSId(NULL) == 1);
+  fail_unless(SyntaxChecker_isValidSBMLSId(NULL) == 0);
+  fail_unless(SyntaxChecker_isValidUnitSId(NULL) == 0);
   fail_unless(SyntaxChecker_isValidXMLID(NULL) == 0);
 }
 END_TEST

@@ -229,6 +229,13 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
+  /**
+   * Returns true @c true or @c false depending on whether the argument
+   * string conforms to the syntax of SBML identifiers or is empty.
+   */  
+  static bool isValidInternalSId(std::string sid);
+
+  static bool isValidInternalUnitSId(std::string sid);
   /*
    * return true if element is an allowed xhtml element
    */

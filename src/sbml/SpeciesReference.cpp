@@ -224,7 +224,7 @@ SimpleSpeciesReference::setSpecies (const std::string& sid)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -256,7 +256,7 @@ SimpleSpeciesReference::setId (const std::string& sid)
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
 #endif
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -283,7 +283,7 @@ SimpleSpeciesReference::setName (const std::string& name)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(name)))
+  else if (!(SyntaxChecker::isValidInternalSId(name)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -491,7 +491,7 @@ SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("id", level, version, "<speciesReference>");
     }
-    if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+    if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
     //
     // name: string  { use="optional" }  (L2v2->)
@@ -567,7 +567,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   {
     logEmptyString("id", level, version, "<speciesReference>");
   }
-  if (!SyntaxChecker::isValidSBMLSId(mId)) logError(InvalidIdSyntax);
+  if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
   //
   // name: string  { use="optional" }  (L2v2->)

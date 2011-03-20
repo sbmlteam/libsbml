@@ -241,7 +241,7 @@ int LineSegment::setId (const std::string& id)
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(id)))
+  else if (!(SyntaxChecker::isValidInternalSId(id)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }

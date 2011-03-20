@@ -399,7 +399,7 @@ Rule::setVariable (const std::string& sid)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidSBMLSId(sid)))
+  else if (!(SyntaxChecker::isValidInternalSId(sid)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -431,7 +431,7 @@ Rule::setUnits (const std::string& sname)
   {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
   }
-  else if (!(SyntaxChecker::isValidUnitSId(sname)))
+  else if (!(SyntaxChecker::isValidInternalUnitSId(sname)))
   {
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
@@ -976,7 +976,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     {
       logEmptyString(s, level, version, "<rule>");
     }
-    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    if (!SyntaxChecker::isValidInternalSId(mVariable)) 
       logError(InvalidIdSyntax);
   }
   else if ( isCompartmentVolume() )
@@ -989,7 +989,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("compartment", level, version, "<rule>");
     }
-    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    if (!SyntaxChecker::isValidInternalSId(mVariable)) 
       logError(InvalidIdSyntax);
   }
   else if ( isParameter() )
@@ -1002,7 +1002,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("name", level, version, "<rule>");
     }
-    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    if (!SyntaxChecker::isValidInternalSId(mVariable)) 
       logError(InvalidIdSyntax);
 
     //
@@ -1063,7 +1063,7 @@ Rule::readL2Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("variable", level, version, "<rule>");
     }
-    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    if (!SyntaxChecker::isValidInternalSId(mVariable)) 
       logError(InvalidIdSyntax);
   }
 
@@ -1138,7 +1138,7 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
     {
       logEmptyString("variable", level, version, "<rule>");
     }
-    if (!SyntaxChecker::isValidSBMLSId(mVariable)) 
+    if (!SyntaxChecker::isValidInternalSId(mVariable)) 
       logError(InvalidIdSyntax);
   }
 
