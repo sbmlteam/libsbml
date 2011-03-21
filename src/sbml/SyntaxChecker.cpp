@@ -349,7 +349,6 @@ bool
 SyntaxChecker::hasDeclaredNS(const XMLNode& node, const XMLNamespaces* toplevelNS)
 {
   bool correctSyntax = true;
-  bool match = false;
 
   /* check whether the element has the namespaces declared */
   if (node.getNamespaces().hasURI("http://www.w3.org/1999/xhtml"))
