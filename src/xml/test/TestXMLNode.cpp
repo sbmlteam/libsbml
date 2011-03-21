@@ -383,8 +383,6 @@ START_TEST (test_XMLNode_convert_dummyroot)
 
   XMLNode_t       *rootnode;
   const XMLNode_t *child, *gchild;
-  const XMLAttributes_t *attr;
-  const XMLNamespaces_t *ns;
   char *toxmlstring;
 
   // xmlstr_nodummy1 
