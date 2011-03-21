@@ -5,8 +5,8 @@
  *
  * $Id$
  * $HeadURL$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
+ *
+ * Copyright 2003 California Institute of Technology and Japan Science and
  * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
