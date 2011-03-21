@@ -1,6 +1,19 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Version 4.3.1 ()
+======================================================================
+
+* Bug fixes
+
+  - Some source files had doubled comment start sequences in the
+    file headers, which lead to many annoying warning messages
+    from gcc if -Wall or other flags were used.  Fixed.
+
+  - The LICENSE.* files had an outdated disclaimer statement.  Fixed.
+
+
+======================================================================
 Version 4.3.0 (Released 2011-03-04)
 ======================================================================
 
