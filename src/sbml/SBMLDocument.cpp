@@ -594,6 +594,8 @@ SBMLDocument::expandInitialAssignments()
 
   mApplicableValidators = AllChecksON;
 
+  checkConsistency();
+
   if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0)
   {
     SBMLTransforms::expandInitialAssignments(getModel());
