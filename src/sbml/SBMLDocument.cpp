@@ -594,8 +594,6 @@ SBMLDocument::expandInitialAssignments()
 
   mApplicableValidators = AllChecksON;
 
-  unsigned int errors = checkConsistency();
-  
   if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0)
   {
     SBMLTransforms::expandInitialAssignments(getModel());
@@ -628,7 +626,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                                   bool strict)
 {
   /* check we are not already the level and version */
-  if (mLevel == level && mVersion == version)
+  if ((unsigned int) mLevel == level && (unsigned int) mVersion == version)
   {
     return true;
   }
