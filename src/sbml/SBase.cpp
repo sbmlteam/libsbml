@@ -2598,7 +2598,6 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
   bool valid = true;
   bool sbmlDeclared = false;
   std::string declaredURI("");
-  unsigned int index = 0;
   unsigned int version = getVersion();
   if (xmlns != NULL)
   {

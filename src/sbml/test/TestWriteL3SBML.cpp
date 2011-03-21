@@ -184,9 +184,6 @@ START_TEST (test_WriteL3SBML_Model)
     "  <model/>\n"
     );
 
-  Model * m = D->createModel("");
-
-
   S = writeSBMLToString(D);
 
   fail_unless( equals(expected, S) );

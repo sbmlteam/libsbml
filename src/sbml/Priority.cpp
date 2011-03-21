@@ -441,7 +441,6 @@ Priority::writeAttributes (XMLOutputStream& stream) const
   SBase::writeAttributes(stream);
 
   const unsigned int level = getLevel();
-  const unsigned int version = getVersion();
 
   /* invalid level/version */
   if (level < 3)

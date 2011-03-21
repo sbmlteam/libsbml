@@ -791,9 +791,6 @@ SBMLTransforms::expandInitialAssignments(Model * m)
   IdValueIter iter;
   bool needToBail = false;
 
-  /* need a fail safe in case a value is just missing */
-  unsigned int num = m->getNumInitialAssignments();
-  unsigned int count = 0;
   do
   {
     /* need a fail safe in case a value is just missing */

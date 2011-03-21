@@ -1551,9 +1551,6 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
 void
 SpeciesReference::readL1Attributes (const XMLAttributes& attributes)
 {
-
-  const int level = getLevel();
-
   //
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
@@ -1572,7 +1569,6 @@ SpeciesReference::readL1Attributes (const XMLAttributes& attributes)
   // denominator: integer  { use="optional" default="1" }  (L1v1, L1v2)
   //
   attributes.readInto("denominator", mDenominator);
-
 }
 /** @endcond */
 
