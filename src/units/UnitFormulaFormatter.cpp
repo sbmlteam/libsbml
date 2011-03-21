@@ -2089,8 +2089,6 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
   UnitDefinition * ud = NULL;
   Unit * unit = NULL;
 
-  char * convFactor = "";
-
   /* get model extent - if there is none then species has none */
   UnitDefinition * modelExtent = getExtentUnitDefinition();
   if (modelExtent == NULL || modelExtent->getNumUnits() == 0)
