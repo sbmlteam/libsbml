@@ -1956,7 +1956,7 @@ create_suite_ReadMathML ()
   // this fails while default level/version is 2/4
   // but other validation fails if I change it to 3/1
   
-  // tcase_add_test( tcase, test_element_ci_definitionURL       );
+  tcase_add_test( tcase, test_element_ci_definitionURL       );
   tcase_add_test( tcase, test_element_csymbol_avogadro              );
 
   suite_add_tcase(suite, tcase);

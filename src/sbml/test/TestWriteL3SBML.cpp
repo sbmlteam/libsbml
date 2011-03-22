@@ -183,7 +183,7 @@ START_TEST (test_WriteL3SBML_Model)
   const char* expected = wrapSBML_L3v1(
     "  <model/>\n"
     );
-  Model * m = D->createModel("");
+  D->createModel("");
 
   S = writeSBMLToString(D);
 

@@ -71,11 +71,12 @@ START_TEST ( test_XMLAttributes )
   fail_unless(msg == "");
 
   XMLAttributes *att1 = NULL;
+  XMLAttributes *att2 = NULL;
   msg = "";
   // copy constructor
   try
   {
-    XMLAttributes* att2=new XMLAttributes(*att1);
+    att2=new XMLAttributes(*att1);
   }
   catch (XMLConstructorException &e)
   {
@@ -84,7 +85,7 @@ START_TEST ( test_XMLAttributes )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  XMLAttributes *att2 = new XMLAttributes();
+  att2 = new XMLAttributes();
   // assignment
   try
   {
@@ -115,11 +116,12 @@ START_TEST ( test_XMLError )
   fail_unless(msg == "");
 
   XMLError *err1 = NULL;
+  XMLError *err2 = NULL;
   msg = "";
   // copy constructor
   try
   {
-    XMLError* err2=new XMLError(*err1);
+    err2=new XMLError(*err1);
   }
   catch (XMLConstructorException &e)
   {
@@ -128,7 +130,7 @@ START_TEST ( test_XMLError )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  XMLError *err2 = new XMLError(MissingXMLDecl);
+  err2 = new XMLError(MissingXMLDecl);
   // assignment
   try
   {
@@ -159,11 +161,12 @@ START_TEST ( test_XMLNamespaces )
   fail_unless(msg == "");
 
   XMLNamespaces *ns1 = NULL;
+  XMLNamespaces *ns2 = NULL;
   msg = "";
   // copy constructor
   try
   {
-    XMLNamespaces* ns2=new XMLNamespaces(*ns1);
+    ns2=new XMLNamespaces(*ns1);
   }
   catch (XMLConstructorException &e)
   {
@@ -172,7 +175,7 @@ START_TEST ( test_XMLNamespaces )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  XMLNamespaces *ns2 = new XMLNamespaces();
+  ns2 = new XMLNamespaces();
   // assignment
   try
   {
@@ -203,11 +206,12 @@ START_TEST ( test_XMLNode )
   fail_unless(msg == "");
 
   XMLNode *node1 = NULL;
+  XMLNode *node2 = NULL;
   msg = "";
   // copy constructor
   try
   {
-    XMLNode* node2=new XMLNode(*node1);
+    node2=new XMLNode(*node1);
   }
   catch (XMLConstructorException &e)
   {
@@ -216,7 +220,7 @@ START_TEST ( test_XMLNode )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  XMLNode *node2 = new XMLNode();
+  node2 = new XMLNode();
   // assignment
   try
   {
@@ -248,10 +252,11 @@ START_TEST ( test_XMLToken )
 
   msg = "";
   XMLTriple *triple = NULL;
+  XMLToken * token3 = NULL;
   // ctor from triple
   try 
   {
-    XMLToken * token3 = new XMLToken(*(triple));
+    token3 = new XMLToken(*(triple));
   }
   catch (XMLConstructorException &e)
   {
@@ -265,7 +270,7 @@ START_TEST ( test_XMLToken )
   // ctor from triple and attributes
   try 
   {
-    XMLToken * token3 = new XMLToken(*(triple1), *(att));
+    token3 = new XMLToken(*(triple1), *(att));
   }
   catch (XMLConstructorException &e)
   {
@@ -279,7 +284,7 @@ START_TEST ( test_XMLToken )
   // ctor from triple, attributes & namespaces
   try 
   {
-    XMLToken * token3 = new XMLToken(*(triple1), *(att1), *(ns));
+    token3 = new XMLToken(*(triple1), *(att1), *(ns));
   }
   catch (XMLConstructorException &e)
   {
@@ -292,7 +297,7 @@ START_TEST ( test_XMLToken )
   // ctor from string
   try 
   {
-    XMLToken * token3 = new XMLToken(*(mess));
+    token3 = new XMLToken(*(mess));
   }
   catch (XMLConstructorException &e)
   {
@@ -301,11 +306,12 @@ START_TEST ( test_XMLToken )
   fail_unless(msg == errMsg);
 
   XMLToken *token1 = NULL;
+  XMLToken *token2 = NULL;
   msg = "";
   // copy ctor
   try
   {
-    XMLToken* token2=new XMLToken(*token1);
+    token2=new XMLToken(*token1);
   }
   catch (XMLConstructorException &e)
   {
@@ -314,7 +320,7 @@ START_TEST ( test_XMLToken )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  XMLToken *token2 = new XMLToken();
+  token2 = new XMLToken();
   // assignment
   try
   {
@@ -348,11 +354,12 @@ START_TEST ( test_XMLTriple )
   fail_unless(msg == "");
 
   XMLTriple *triple1 = NULL;
+  XMLTriple *triple2 = NULL;
   msg = "";
   // copy constructor
   try
   {
-    XMLTriple* triple2=new XMLTriple(*triple1);
+    triple2=new XMLTriple(*triple1);
   }
   catch (XMLConstructorException &e)
   {
@@ -361,7 +368,7 @@ START_TEST ( test_XMLTriple )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  XMLTriple *triple2 = new XMLTriple();
+  triple2 = new XMLTriple();
   // assignment
   try
   {
@@ -380,7 +387,7 @@ START_TEST ( test_XMLTriple )
     std::string *name = NULL;
     std::string uri = "uri";
     std::string prefix = "prefix";
-    XMLTriple *triple2 = new XMLTriple (*(name), uri, prefix);
+    triple2 = new XMLTriple (*(name), uri, prefix);
   }
   catch (XMLConstructorException &e)
   {
@@ -395,7 +402,7 @@ START_TEST ( test_XMLTriple )
     std::string name = "name";
     std::string *uri = NULL;
     std::string prefix = "prefix";
-    XMLTriple *triple2 = new XMLTriple (name, *(uri), prefix);
+    triple2 = new XMLTriple (name, *(uri), prefix);
   }
   catch (XMLConstructorException &e)
   {
@@ -411,7 +418,7 @@ START_TEST ( test_XMLTriple )
     std::string name = "name";
     std::string uri = "uri";
     std::string *prefix = NULL;
-    XMLTriple *triple2 = new XMLTriple (name, uri, *(prefix));
+    triple2 = new XMLTriple (name, uri, *(prefix));
   }
   catch (XMLConstructorException &e)
   {
@@ -424,7 +431,7 @@ START_TEST ( test_XMLTriple )
   std::string *triplet = NULL;
   try
   {
-    XMLTriple *triple2 = new XMLTriple (*(triplet));
+    triple2 = new XMLTriple (*(triplet));
   }
   catch (XMLConstructorException &e)
   {
@@ -441,11 +448,12 @@ START_TEST ( test_XMLOutputStream )
 {
   string msg;
   std::ostream *stream = NULL;
+  XMLOutputStream* opstream2 = NULL;
   msg = "";
   // ctor from stream
   try
   {
-    XMLOutputStream* opstream2=new XMLOutputStream(*(stream));
+    opstream2=new XMLOutputStream(*(stream));
   }
   catch (XMLConstructorException &e)
   {

@@ -114,10 +114,11 @@ START_TEST ( test_Date_ConstructorException )
   fail_unless(msg == "");
 
   Date *date1 = NULL;
+  Date *date2 = NULL;
   msg = "";
   try
   {
-    Date* date2=new Date(*date1);
+    date2=new Date(*date1);
   }
   catch (SBMLConstructorException &e)
   {
@@ -126,7 +127,7 @@ START_TEST ( test_Date_ConstructorException )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  Date *date2 = new Date();
+  date2 = new Date();
   try
   {
     (*date2) = *date1;
@@ -219,10 +220,11 @@ START_TEST ( test_ModelCreator_ConstructorException )
   fail_unless(msg == "");
 
   ModelCreator *mc1 = NULL;
+  ModelCreator *mc2 = NULL;
   msg = "";
   try
   {
-    ModelCreator* mc2=new ModelCreator(*mc1);
+    mc2=new ModelCreator(*mc1);
   }
   catch (SBMLConstructorException &e)
   {
@@ -231,7 +233,7 @@ START_TEST ( test_ModelCreator_ConstructorException )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  ModelCreator *mc2 = new ModelCreator();
+  mc2 = new ModelCreator();
   try
   {
     (*mc2) = *mc1;
@@ -370,10 +372,11 @@ START_TEST ( test_ModelHistory_ConstructorException )
   fail_unless(msg == "");
 
   ModelHistory *mh1 = NULL;
+  ModelHistory *mh2 = NULL;
   msg = "";
   try
   {
-    ModelHistory* mh2=new ModelHistory(*mh1);
+    mh2=new ModelHistory(*mh1);
   }
   catch (SBMLConstructorException &e)
   {
@@ -382,7 +385,7 @@ START_TEST ( test_ModelHistory_ConstructorException )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  ModelHistory *mh2 = new ModelHistory();
+  mh2 = new ModelHistory();
   try
   {
     (*mh2) = *mh1;
@@ -479,10 +482,11 @@ START_TEST ( test_CVTerm_ConstructorException )
   fail_unless(msg == "");
 
   CVTerm *cvterm1 = NULL;
+  CVTerm *cvterm2 = NULL;
   msg = "";
   try
   {
-    CVTerm* cvterm2=new CVTerm(*cvterm1);
+    cvterm2=new CVTerm(*cvterm1);
   }
   catch (SBMLConstructorException &e)
   {
@@ -491,7 +495,7 @@ START_TEST ( test_CVTerm_ConstructorException )
   fail_unless(msg == errMsg1);
 
   msg = "";
-  CVTerm *cvterm2 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  cvterm2 = new CVTerm(BIOLOGICAL_QUALIFIER);
   try
   {
     (*cvterm2) = *cvterm1;
