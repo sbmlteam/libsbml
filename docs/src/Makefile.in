@@ -274,7 +274,7 @@ ifeq "$(USE_DOXYGEN)" ""
   ifdef USE_JAVA
     all docs: Makefile $(docs)
   else
-    $(error $(nodoxygen))
+    all docs:; $(error $(nodoxygen))
   endif
 else
   all docs: Makefile $(docs)
@@ -429,7 +429,7 @@ define nodoxygen
   value for the configuration flag --with-doxygen.
 endef
 
-docs cpp-manual c-manual perl-manual python-manual:
+cpp-manual c-manual perl-manual python-manual:
 	$(error $(nodoxygen))
 
 endif
