@@ -7827,7 +7827,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "URI and defines the attribute named 'required'. A value of required="
     "true indicates that interpreting the package is necessary for complete "
     "mathematical interpretation of the model. (L3V1 Section 4.1.2) LibSBML "
-    "version 4 does not SBML Level 3 packages and cannot read the model."
+    "version 4 does not parse SBML Level 3 packages and cannot read the model."
   },
 
   //99108
