@@ -203,14 +203,12 @@ make_objects_list = \
 
 tmplist  ?= $(sources:.cpp=.lo) $(sources:.c=.lo)
 objfiles ?= $(filter %.lo,$(tmplist))
-depfiles ?= $(addprefix $(DEPDIR)/,$(objfiles:.lo=.$(DEPEXT)))
 
-# This next line includes the dependency files.  This doesn't use
-# $depfiles, but rather a wildcard on the actual files, so that if they
-# don't exist yet, `make' won't generate errors about being unable to
-# include such-and-such file.  If the files are missing, the wildcard will
-# expand to nothing.  The /dev/null at the end makes sure that we don't
-# have an empty `include' line.
+# This next line includes the dependency files.  This uses a wildcard on
+# the actual files, so that if they don't exist yet, `make' won't generate
+# errors about being unable to include such-and-such file.  If the files
+# are missing, the wildcard will expand to nothing.  The /dev/null at the
+# end makes sure that we don't have an empty `include' line.
 
 include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 
@@ -271,6 +269,7 @@ ifeq "$(HOST_TYPE)" "aix"
 	fi
 
 else
+# All hosts types that are not aix.
 
 .c.lo:
 ifndef USE_UNIVBINARY
@@ -686,14 +685,17 @@ dist-normal: $(distfiles)
 mostlyclean:        clean-generic mostlyclean-libtool
 mostlyclean-normal: clean-generic mostlyclean-libtool
 
-clean:        mostlyclean clean-libraries clean-libtool clean-extras
-clean-normal: mostlyclean clean-libraries clean-libtool clean-extras
+clean:        mostlyclean clean-libraries clean-libtool clean-extras clean-deps
+clean-normal: mostlyclean clean-libraries clean-libtool clean-extras clean-deps
 
 clean-generic:
 	-rm -f *.$(OBJEXT) *.lo core *.core
 
 clean-libtool:
 	-rm -rf .libs _libs
+
+clean-deps:
+	-test -z "./$(DEPDIR)" || rm -rf ./$(DEPDIR)
 
 ifdef libraries
   clean-libraries:
@@ -712,16 +714,13 @@ endif
 mostlyclean-libtool:
 	-rm -f *.lo *.la *.loT
 
-distclean: clean distclean-compile distclean-depend distclean-generic \
+distclean: clean distclean-compile distclean-generic \
 	distclean-tags distclean-libtool
-distclean-normal: clean distclean-compile distclean-depend distclean-generic \
+distclean-normal: clean distclean-compile distclean-generic \
 	distclean-tags distclean-libtool
 
 distclean-compile:
 	-rm -f *.tab.c
-
-distclean-depend:
-	-test -z "./$(DEPDIR)" || rm -rf ./$(DEPDIR)
 
 distclean-generic:
 	-rm -f Makefile
