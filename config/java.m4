@@ -36,13 +36,13 @@ dnl
 AC_DEFUN([CONFIG_PROG_JAVA],
 [
   AC_ARG_WITH([java],
-    AC_HELP_STRING([--with-java@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-java@<:@=PREFIX@:>@],
                    [generate Java interface library @<:@default=no@:>@]),
     [with_java=$withval],
     [with_java=no])
 
   AC_ARG_WITH(java-bin-check,
-    AC_HELP_STRING([--without-jre-check], [disable checking for 32 vs. 64-bit JRE]),
+    AS_HELP_STRING([--without-jre-check], [disable checking for 32 vs. 64-bit JRE]),
       	  [  if test "x$withval" = "xno"; then
   		bin_check_nonfatal=1
   	     fi

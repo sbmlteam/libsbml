@@ -39,12 +39,12 @@ m4_define(LIBSBML_VERSION,
 
 dnl The AC_PREREQ macro can come before AC_INIT (but it's the only one).
 
-AC_PREREQ(2.62)
+AC_PREREQ([2.61])
 
-AC_INIT([libSBML], 
-        LIBSBML_VERSION, 
-        [libsbml-team@caltech.edu], 
-        [libsbml], 
+AC_INIT([libSBML],
+        [LIBSBML_VERSION],
+        [libsbml-team@caltech.edu],
+        [libsbml],
         [http://sbml.org/Software/libSBML])
 
 AC_CONFIG_AUX_DIR(config)
@@ -85,7 +85,7 @@ dnl ---------------------------------------------------------------------------
 dnl [2007-06-25] This is not currently functioning and may never be again.
 
 dnl AC_ARG_ENABLE([memory-tracing],
-dnl   AC_HELP_STRING([--enable-memory-tracing],
+dnl   AS_HELP_STRING([--enable-memory-tracing],
 dnl                  [Enable memory tracing (default: disabled)]),
 dnl     [enable_tracing=$withval],
 dnl     [enable_tracing=no])
@@ -96,7 +96,7 @@ dnl             [Define to 1 to enable primitive memory tracing.])
 dnl fi
 
 AC_ARG_ENABLE([cpp-namespace],
-  AC_HELP_STRING([--enable-cpp-namespace@<:@=ARG@:>@],
+  AS_HELP_STRING([--enable-cpp-namespace@<:@=ARG@:>@],
                  [enable C++ namespace for libsbml @<:@default=no@:>@]),
   [enable_cpp_namespace=$enableval],
   [enable_cpp_namespace=no])
@@ -106,7 +106,7 @@ if test "$enable_cpp_namespace" != no; then
 fi
 
 AC_ARG_ENABLE([layout],
-  AC_HELP_STRING([--enable-layout@<:@=ARG@:>@],
+  AS_HELP_STRING([--enable-layout@<:@=ARG@:>@],
                  [build the SBML layout extension @<:@default=no@:>@]),
   [enable_layout=$enableval],
   [enable_layout=no])
@@ -117,7 +117,7 @@ if test "$enable_layout" != no; then
 fi
 
 AC_ARG_ENABLE([compression],
-  AC_HELP_STRING([--enable-compression@<:@=ARG@:>@],
+  AS_HELP_STRING([--enable-compression@<:@=ARG@:>@],
                  [enable file compression if possible @<:@default=yes@:>@]),
   [enable_compression=$enableval],
   [enable_compression=yes])

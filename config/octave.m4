@@ -34,7 +34,7 @@ dnl CONFIG_PROG_OCTAVE(oversion, mversion)
 AC_DEFUN([CONFIG_PROG_OCTAVE],
 [
   AC_ARG_WITH([octave],
-    AC_HELP_STRING([--with-octave@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-octave@<:@=PREFIX@:>@],
                    [generate Octave interface library @<:@default=no@:>@]),
     [with_octave=$withval],
     [with_octave=no])

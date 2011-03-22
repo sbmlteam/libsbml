@@ -51,7 +51,7 @@ AC_DEFUN([CONFIG_WITH_LISP],
 [
   AC_SUBST(LISP)
   AC_ARG_WITH(lisp,
-    AC_HELP_STRING([--with-lisp=<binary>],
+    AS_HELP_STRING([--with-lisp=<binary>],
                    [Use this Lisp program (default: autodetect)]),
     [with_lisp=$withval],
     [with_lisp=no]
@@ -214,7 +214,7 @@ AC_DEFUN([CONFIG_ASDF_CHECK],
   AC_SUBST(ASDF_RUN)
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(asdf,
-      AC_HELP_STRING([--with-asdf=<pathname>],
+      AS_HELP_STRING([--with-asdf=<pathname>],
 	             [Use asdf at <pathname> (default:src/bindings/lisp/tps/asdf)]),
       ASDFPATH="$with_asdf:`dirname ${with_asdf}`"
      ,
@@ -254,7 +254,7 @@ AC_DEFUN([CONFIG_UFFI_CHECK],
   AC_SUBST(EXT_UFFI)
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(uffi,
-      AC_HELP_STRING([--with-uffi=<pathname>],
+      AS_HELP_STRING([--with-uffi=<pathname>],
                      [Use uffi at <pathname> (default:src/bindings/lisp/tps/uffi)]), 
         UFFIPATH="${with_uffi}:`dirname ${with_uffi}`"
 	,
@@ -300,7 +300,7 @@ AC_DEFUN([CONFIG_CPARSE_CHECK],
   AC_SUBST(EXT_CPARSE)
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(cparse,
-      AC_HELP_STRING([--with-cparse=<pathname>],
+      AS_HELP_STRING([--with-cparse=<pathname>],
         [use cparse at <pathname> (default:src/bindings/lisp/tps/cparse, don't change)]), 
         CPARSEPATH="$with_cparse"
 	,

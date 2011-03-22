@@ -38,7 +38,7 @@ AC_DEFUN([CONFIG_LIB_UNIVBINARY],
   AC_ARG_VAR([UNIVBINARY])
 
   AC_ARG_ENABLE(universal-binary,
-`              AC_HELP_STRING([--enable-universal-binary@<:@=ARG@:>@],
+`              AS_HELP_STRING([--enable-universal-binary@<:@=ARG@:>@],
                              [generate universal binaries on MacOSX @<:@default=no@:>@ 
                               ("-arch i386 -arch ppc" used when enabled without ARG) ]),
 	      [enable_univbinary=$enableval],

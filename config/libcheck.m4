@@ -46,7 +46,7 @@ dnl
 AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
   AC_ARG_WITH([check],
-    AC_HELP_STRING([--with-check@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-check@<:@=PREFIX@:>@],
                    [use the libcheck unit testing library @<:@default=no@:>@]),
     [with_libcheck=$withval],
     [with_libcheck=no])
@@ -134,7 +134,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     AC_MSG_CHECKING(for Check version >= $min_check_version)
 
     rm -f conf.check-test
-    AC_RUN_IFELSE([AC_LANG_SOURCE([
+    AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -189,7 +189,7 @@ int main ()
 
   return 1;
 }
-])], AC_MSG_RESULT(yes), no_check=yes)
+]])], [AC_MSG_RESULT(yes)], [no_check=yes], [[]])
 
     CFLAGS="$tmp_CFLAGS"
     LDFLAGS="$tmp_LDFLAGS"
@@ -207,11 +207,13 @@ int main ()
         LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
         LIBS="$LIBCHECK_LIBS $LIBS"
 
-        AC_TRY_LINK([
-#include <stdio.h>
-#include <stdlib.h>
-#include <check.h>
-], ,    [ echo "*** The test program compiled, but did not run.  This usually"
+        AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM([[
+	  #include <stdio.h>
+	  #include <stdlib.h>
+	  #include <check.h>]], [])], 
+
+        [ echo "*** The test program compiled, but did not run.  This usually"
           echo "*** means that the run-time linker is not finding libcheck, but"
           echo "*** could also be the result of mixing binary architectures"
           echo "*** (e.g., trying to use a 32-bit check library while compiling"

@@ -203,12 +203,12 @@ AC_PROVIDE_IFELSE([AC_LIBTOOL_WIN32_DLL],
 enable_win32_dll=yes, enable_win32_dll=no)
 
 AC_ARG_ENABLE([libtool-lock],
-    [AC_HELP_STRING([--disable-libtool-lock],
+    [AS_HELP_STRING([--disable-libtool-lock],
 	[avoid locking (might break parallel builds)])])
 test "x$enable_libtool_lock" != xno && enable_libtool_lock=yes
 
 AC_ARG_WITH([pic],
-    [AC_HELP_STRING([--with-pic],
+    [AS_HELP_STRING([--with-pic],
 	[use only PIC/non-PIC objects @<:@default=use both@:>@])],
     [pic_mode="$withval"],
     [pic_mode=default])
@@ -550,7 +550,7 @@ AC_SUBST(ECHO)
 # -----------
 AC_DEFUN([_LT_AC_LOCK],
 [AC_ARG_ENABLE([libtool-lock],
-    [AC_HELP_STRING([--disable-libtool-lock],
+    [AS_HELP_STRING([--disable-libtool-lock],
 	[avoid locking (might break parallel builds)])])
 test "x$enable_libtool_lock" != xno && enable_libtool_lock=yes
 
@@ -660,7 +660,7 @@ s390*-*linux*|sparc*-*linux*)
   CFLAGS="$CFLAGS -belf"
   AC_CACHE_CHECK([whether the C compiler needs -belf], lt_cv_cc_needs_belf,
     [AC_LANG_PUSH(C)
-     AC_TRY_LINK([],[],[lt_cv_cc_needs_belf=yes],[lt_cv_cc_needs_belf=no])
+     AC_LINK_IFELSE([AC_LANG_PROGRAM([],[])],[lt_cv_cc_needs_belf=yes],[lt_cv_cc_needs_belf=no])
      AC_LANG_POP])
   if test x"$lt_cv_cc_needs_belf" != x"yes"; then
     # this is probably gcc 2.8.0, egcs 1.0 or newer; no need for -belf
@@ -1912,7 +1912,7 @@ fi
 AC_DEFUN([_LT_AC_TAGCONFIG],
 [AC_REQUIRE([LT_AC_PROG_SED])dnl
 AC_ARG_WITH([tags],
-    [AC_HELP_STRING([--with-tags@<:@=TAGS@:>@],
+    [AS_HELP_STRING([--with-tags@<:@=TAGS@:>@],
         [include additional configurations @<:@automatic@:>@])],
     [tagnames="$withval"])
 
@@ -1949,7 +1949,7 @@ if test -f "$ltmain" && test -n "$tagnames"; then
 
     if grep "^# ### BEGIN LIBTOOL TAG CONFIG: $tagname$" < "${ofile}" > /dev/null
     then
-      AC_MSG_ERROR([tag name \"$tagname\" already exists])
+      AC_MSG_ERROR([tag name "$tagname" already exists])
     fi
 
     # Update the list of available tags.
@@ -2035,7 +2035,7 @@ AC_DEFUN([AC_LIBTOOL_WIN32_DLL],
 AC_DEFUN([AC_ENABLE_SHARED],
 [define([AC_ENABLE_SHARED_DEFAULT], ifelse($1, no, no, yes))dnl
 AC_ARG_ENABLE([shared],
-    [AC_HELP_STRING([--enable-shared@<:@=PKGS@:>@],
+    [AS_HELP_STRING([--enable-shared@<:@=PKGS@:>@],
 	[build shared libraries @<:@default=]AC_ENABLE_SHARED_DEFAULT[@:>@])],
     [p=${PACKAGE-default}
     case $enableval in
@@ -2074,7 +2074,7 @@ AC_ENABLE_SHARED(no)
 AC_DEFUN([AC_ENABLE_STATIC],
 [define([AC_ENABLE_STATIC_DEFAULT], ifelse($1, no, no, yes))dnl
 AC_ARG_ENABLE([static],
-    [AC_HELP_STRING([--enable-static@<:@=PKGS@:>@],
+    [AS_HELP_STRING([--enable-static@<:@=PKGS@:>@],
 	[build static libraries @<:@default=]AC_ENABLE_STATIC_DEFAULT[@:>@])],
     [p=${PACKAGE-default}
     case $enableval in
@@ -2113,7 +2113,7 @@ AC_ENABLE_STATIC(no)
 AC_DEFUN([AC_ENABLE_FAST_INSTALL],
 [define([AC_ENABLE_FAST_INSTALL_DEFAULT], ifelse($1, no, no, yes))dnl
 AC_ARG_ENABLE([fast-install],
-    [AC_HELP_STRING([--enable-fast-install@<:@=PKGS@:>@],
+    [AS_HELP_STRING([--enable-fast-install@<:@=PKGS@:>@],
     [optimize for fast installation @<:@default=]AC_ENABLE_FAST_INSTALL_DEFAULT[@:>@])],
     [p=${PACKAGE-default}
     case $enableval in
@@ -2253,7 +2253,7 @@ fi
 # find the pathname to the GNU or non-GNU linker
 AC_DEFUN([AC_PROG_LD],
 [AC_ARG_WITH([gnu-ld],
-    [AC_HELP_STRING([--with-gnu-ld],
+    [AS_HELP_STRING([--with-gnu-ld],
 	[assume the C compiler uses GNU ld @<:@default=no@:>@])],
     [test "$withval" = no || with_gnu_ld=yes],
     [with_gnu_ld=no])
@@ -4179,7 +4179,7 @@ CC="$lt_save_CC"
 # AC_LIBTOOL_CONFIG to write the compiler configuration to `libtool'.
 AC_DEFUN([AC_LIBTOOL_LANG_GCJ_CONFIG], [_LT_AC_LANG_GCJ_CONFIG(GCJ)])
 AC_DEFUN([_LT_AC_LANG_GCJ_CONFIG],
-[AC_LANG_SAVE
+[AC_LANG_PUSH([C])
 
 # Source file extension for Java test sources.
 ac_ext=java
@@ -4227,7 +4227,7 @@ AC_LIBTOOL_PROG_LD_HARDCODE_LIBPATH($1)
 
 AC_LIBTOOL_CONFIG($1)
 
-AC_LANG_RESTORE
+AC_LANG_POP()
 CC="$lt_save_CC"
 ])# AC_LIBTOOL_LANG_GCJ_CONFIG
 
@@ -4239,7 +4239,7 @@ CC="$lt_save_CC"
 # AC_LIBTOOL_CONFIG to write the compiler configuration to `libtool'.
 AC_DEFUN([AC_LIBTOOL_LANG_RC_CONFIG], [_LT_AC_LANG_RC_CONFIG(RC)])
 AC_DEFUN([_LT_AC_LANG_RC_CONFIG],
-[AC_LANG_SAVE
+[AC_LANG_PUSH([C])
 
 # Source file extension for RC test sources.
 ac_ext=rc
@@ -4271,7 +4271,7 @@ _LT_AC_TAGVAR(lt_cv_prog_compiler_c_o, $1)=yes
 
 AC_LIBTOOL_CONFIG($1)
 
-AC_LANG_RESTORE
+AC_LANG_POP()
 CC="$lt_save_CC"
 ])# AC_LIBTOOL_LANG_RC_CONFIG
 

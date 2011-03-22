@@ -50,7 +50,7 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
 [
 
   AC_ARG_WITH([zlib],
-	      AC_HELP_STRING([--with-zlib@<:@=PREFIX@:>@], 
+	      AS_HELP_STRING([--with-zlib@<:@=PREFIX@:>@], 
                              [enable reading/writing files compressed with zlib @<:@default=autodetect@:>@ ]
               ),
 	      [with_zlib="$withval"], [with_zlib=autodetect]
@@ -91,7 +91,8 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
   		LDFLAGS="-L/usr/lib${LIBSUFFIX} -L/usr/local/lib${LIBSUFFIX} ${LDFLAGS} ${ZLIB_LDFLAGS}"
   		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${ZLIB_CPPFLAGS}"
                   LIBS="${LIBS} ${ZLIB_LIBS}"
-  		AC_TRY_LINK_FUNC(deflate, 
+  		AC_TRY_LINK_FUNC(
+                 [AC_LANG_CALL([], [[deflate]])],
                  [
                     libz_detected=yes
                     AC_DEFINE(HAVE_LIBZ)
@@ -124,7 +125,7 @@ AC_DEFUN([CONFIG_LIB_ZLIB],
     )
   
     AC_ARG_WITH(zlib-version-check,
-            AC_HELP_STRING([--without-zlib-version-check], [disable zlib version check]),
+            AS_HELP_STRING([--without-zlib-version-check], [disable zlib version check]),
       	  [  if test "x$withval" = "xno"; then
   		zlib_check_nonfatal=1
   	     fi

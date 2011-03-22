@@ -40,15 +40,15 @@ dnl
 AC_DEFUN([CONFIG_BINARIES],
 [
   AC_ARG_ENABLE([m32],
-    AC_HELP_STRING([--enable-m32],
+    AS_HELP_STRING([--enable-m32],
                    [build 32-bit binaries @<:@default=autodetect@:>@]))
 
   AC_ARG_ENABLE([m64],
-    AC_HELP_STRING([--enable-m64],
+    AS_HELP_STRING([--enable-m64],
                    [build 64-bit binaries @<:@default=autodetect@:>@]))
 
   AC_ARG_ENABLE(universal-binary,
-              AC_HELP_STRING([--enable-universal-binary@<:@=ARG@:>@],
+              AS_HELP_STRING([--enable-universal-binary@<:@=ARG@:>@],
                              [generate universal binaries on MacOSX @<:@default=no@:>@
                               ("-arch i386 -arch ppc" used when no ARG given) ]),
 	      [enable_univbinary=$enableval],

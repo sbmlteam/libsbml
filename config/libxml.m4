@@ -66,7 +66,7 @@ dnl Tests for libxml2, and defines LIBXML_CPPFLAGS and LIBXML_LIBS.
 AC_DEFUN([CONFIG_LIB_LIBXML],
 [ 
   AC_ARG_WITH([libxml],
-    AC_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-libxml@<:@=PREFIX@:>@],
                    [use the libxml2 XML library @<:@default=yes@:>@]),
             [with_libxml="$withval"],
             [with_libxml=no])
@@ -190,7 +190,7 @@ to the full path of xml2-config and retrying the 'configure' command.
       dnl (Also sanity checks the results of xml2-config to some extent)
 
       rm -f conf.xmltest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -276,7 +276,7 @@ main()
     }
   return 1;
 }
-],, no_xml=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]])],[],[no_xml=yes],[echo $ac_n "cross compiling; assumed OK... $ac_c"])
       CPPFLAGS="$ac_save_CPPFLAGS"
       LIBS="$ac_save_LIBS"
     fi
@@ -297,10 +297,12 @@ main()
           echo "*** Could not run libxml test program, checking why..."
           CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
           LIBS="$LIBS $LIBXML_LIBS"
-          AC_TRY_LINK([
-#include <libxml/xmlversion.h>
-#include <stdio.h>
-],      [ LIBXML_TEST_VERSION; return 0;],
+          AC_LINK_IFELSE(
+	[AC_LANG_PROGRAM(
+          [[#include <libxml/xmlversion.h>
+            #include <stdio.h>]],
+          [[ LIBXML_TEST_VERSION; return 0; ]])],
+
         [ echo "*** The test program compiled, but did not run.  This usually"
           echo "*** means that the run-time linker is not finding libxml2.  You"
           echo "*** will need to set your LD_LIBRARY_PATH or DYLD_LIBRARY_PATH"

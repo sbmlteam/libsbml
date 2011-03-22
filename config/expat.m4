@@ -37,7 +37,7 @@ dnl Default minimum version is 1.95.8 because that's the minimum LibSBML needs.
 AC_DEFUN([CONFIG_LIB_EXPAT],
 [
   AC_ARG_WITH([expat],
-    AC_HELP_STRING([--with-expat@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-expat@<:@=PREFIX@:>@],
                    [use the Expat XML Library @<:@default=no@:>@]),
     [with_expat=$withval],
     [with_expat=no])
@@ -223,11 +223,14 @@ int main ()
         LDFLAGS="$EXPAT_LDFLAGS $LDFLAGS"
         LIBS="$EXPAT_LIBS $LIBS"
 
-        AC_TRY_LINK([
-#include <stdio.h>
-#include <stdlib.h>
-#include <expat.h>
-], ,    [ echo "*** The test program compiled, but did not run.  This usually"
+        AC_LINK_IFELSE(
+	[AC_LANG_PROGRAM([[
+	  #include <stdio.h>
+	  #include <stdlib.h>
+	  #include <expat.h>
+	]], [])],
+
+        [ echo "*** The test program compiled, but did not run.  This usually"
           echo "*** means that the run-time linker is not finding expat.  You"
           echo "*** will need to set your LD_LIBRARY_PATH environment variable,"
           echo "*** or edit /etc/ld.so.conf to point to the installed location."

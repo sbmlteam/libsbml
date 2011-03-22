@@ -39,7 +39,7 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
   AC_SUBST(DOXYGEN_CONFIG_OPT)
 
   AC_ARG_WITH([doxygen],
-    AC_HELP_STRING([--with-doxygen@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-doxygen@<:@=PREFIX@:>@],
                    [specify path to doxygen @<:@default=autodetect@:>@]),
     [with_doxygen=$withval],
     [with_doxygen=no])

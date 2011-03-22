@@ -38,7 +38,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
   AC_ARG_VAR([RUBY])
 
   AC_ARG_WITH(ruby,
-              AC_HELP_STRING([--with-ruby@<:@=PREFIX@:>@],
+              AS_HELP_STRING([--with-ruby@<:@=PREFIX@:>@],
                              [generate Ruby interface library @<:@default=no@:>@]),
 	      [with_ruby=$withval],
 	      [with_ruby=no])

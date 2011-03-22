@@ -38,7 +38,7 @@ AC_DEFUN([CONFIG_PROG_PERL],
   AC_ARG_VAR([PERL])
 
   AC_ARG_WITH(perl,
-              AC_HELP_STRING([--with-perl@<:@=PREFIX@:>@],
+              AS_HELP_STRING([--with-perl@<:@=PREFIX@:>@],
                              [generate Perl interface library @<:@default=no@:>@]),
 	      [with_perl=$withval],
 	      [with_perl=no])

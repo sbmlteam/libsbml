@@ -53,7 +53,7 @@ dnl --------------------------------------------------------------------- -->*/
 AC_DEFUN([CONFIG_LIB_BZ2],
 [
   AC_ARG_WITH([bzip2],
-    AC_HELP_STRING([--with-bzip2@<:@=PREFIX@:>@], 
+    AS_HELP_STRING([--with-bzip2@<:@=PREFIX@:>@], 
 	           [enable reading/writing files compressed with bzip2 @<:@default=autodetect@:>@ ]
               ),
     [with_bzip2="$withval"], 
@@ -96,7 +96,8 @@ AC_DEFUN([CONFIG_LIB_BZ2],
   		LDFLAGS="-L/usr/lib${LIBSUFFIX} -L/usr/local/lib${LIBSUFFIX} ${LDFLAGS} ${BZ2_LDFLAGS}"
   		CPPFLAGS="-I/usr/include -I/usr/local/include ${CPPFLAGS} ${BZ2_CPPFLAGS}"
                   LIBS="${LIBS} ${BZ2_LIBS}"
-  		AC_TRY_LINK_FUNC(BZ2_bzopen, 
+  		AC_LINK_IFELSE(
+	          [AC_LANG_CALL([], [BZ2_bzopen])],
                   [
                     libbz2_detected=yes
                     AC_DEFINE(HAVE_BZ2)

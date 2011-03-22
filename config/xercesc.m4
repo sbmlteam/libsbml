@@ -35,7 +35,7 @@ dnl
 AC_DEFUN([CONFIG_LIB_XERCES],
 [
   AC_ARG_WITH([xerces],
-    AC_HELP_STRING([--with-xerces@<:@=PREFIX@:>@],
+    AS_HELP_STRING([--with-xerces@<:@=PREFIX@:>@],
                    [use the Xerces XML Library @<:@default=no@:>@]),
     [with_xerces="$withval"],
     [with_xerces=no])
@@ -147,14 +147,14 @@ exit(0);
 	AC_MSG_ERROR([unable to use this version of Xerces-C++ library])])
 
     AC_MSG_CHECKING([ability to link with Xerces-C++ library])
-    AC_TRY_LINK([
-#include <xercesc/util/XercesDefs.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#ifndef XERCES_HAS_CPP_NAMESPACE
-#define XERCES_CPP_NAMESPACE_QUALIFIER
-#endif
-],
-      [XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();],
+    AC_LINK_IFELSE(
+      [AC_LANG_PROGRAM(
+	[[#include <xercesc/util/XercesDefs.hpp>
+	  #include <xercesc/util/PlatformUtils.hpp>
+	  #ifndef XERCES_HAS_CPP_NAMESPACE
+	    #define XERCES_CPP_NAMESPACE_QUALIFIER
+	  #endif]],
+        [[XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();]])],
       [AC_MSG_RESULT([yes])],
       [AC_MSG_ERROR([unable to link with the Xerces-C++ XML library.])])
 
