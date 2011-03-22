@@ -6,6 +6,14 @@ Version 4.3.1 ()
 
 * Bug fixes
 
+  - configure.ac and related m4 files used some obsolete autoconf
+    macros.  configure.ac also required a minimum of version 2.62 of
+    autoconf, but many systems shipped with lower versions.  These
+    issues are now fixed.
+
+  - 'make clean' incorrectly always complained that doxygen wasn't
+    configured in, if you didn't configure with doxygen.  Fixed.
+
   - Some source files had doubled comment start sequences in the
     file headers, which lead to many annoying warning messages
     from gcc if -Wall or other flags were used.  Fixed.
