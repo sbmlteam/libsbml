@@ -334,11 +334,11 @@ END_TEST
 
 START_TEST (test_SBase_setNotesString)
 {
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednotes = "<notes><p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p></notes>";
-  char * badnotes = "<notes>This is a test note</notes>";
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednotes = "<notes><p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p></notes>";
+  const char * badnotes = "<notes>This is a test note</notes>";
 
-  int i = SBase_setNotesString(S, notes);
+  int i = SBase_setNotesString(S, (char *)(notes));
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
@@ -349,7 +349,7 @@ START_TEST (test_SBase_setNotesString)
   fail_unless( SBase_isSetNotes(S) != 1);
 
 
-  i = SBase_setNotesString(S, taggednotes);
+  i = SBase_setNotesString(S, (char *)(taggednotes));
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
@@ -359,7 +359,7 @@ START_TEST (test_SBase_setNotesString)
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless( SBase_isSetNotes(S) != 1);
 
-  i = SBase_setNotesString(S, badnotes);
+  i = SBase_setNotesString(S, (char *)(badnotes));
 
   fail_unless ( i == LIBSBML_INVALID_OBJECT);
   fail_unless( SBase_isSetNotes(S) != 1);
@@ -369,21 +369,21 @@ END_TEST
 
 START_TEST (test_SBase_setAnnotationString)
 {
-  char * annotation = "This is a test note";
-  char * taggedannotation = "<annotation>This is a test note</annotation>";
+  const char * annotation = "This is a test note";
+  const char * taggedannotation = "<annotation>This is a test note</annotation>";
 
-  int i = SBase_setAnnotationString(S, annotation);
+  int i = SBase_setAnnotationString(S, (char *) (annotation));
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetAnnotation(S) == 1);
 
 
-  i = SBase_setAnnotationString(S, "");
+  i = SBase_setAnnotationString(S, (char *) (""));
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetAnnotation(S) == 0 );
 
-  i = SBase_setAnnotationString(S, taggedannotation);
+  i = SBase_setAnnotationString(S, (char *) (taggedannotation));
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetAnnotation(S) == 1);
@@ -1265,7 +1265,7 @@ START_TEST (test_SBase_appendAnnotationString)
   int i = SBase_setAnnotation(S, node);
   fail_unless( i == LIBSBML_OPERATION_SUCCESS);
 
-  i = SBase_appendAnnotationString(S, "This is additional");
+  i = SBase_appendAnnotationString(S, (char *) ("This is additional"));
 
   XMLNode_t *t1 = SBase_getAnnotation(S);
 
@@ -1276,37 +1276,37 @@ START_TEST (test_SBase_appendAnnotationString)
   const XMLNode_t *c1 = XMLNode_getChild(t1, 1);
 
   fail_unless(XMLNode_getNumChildren(c1) == 0);
-  fail_unless(!strcmp(XMLNode_getCharacters(c1), "This is additional"));
+  fail_unless(!strcmp(XMLNode_getCharacters(c1), (char *) ("This is additional")));
 }
 END_TEST
 
 
 START_TEST (test_SBase_appendNotesString)
 {
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednotes = "<notes>\n"
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednotes = "<notes>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
                        "</notes>";
-  char * taggednewnotes = "<notes>\n"
+  const char * taggednewnotes = "<notes>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
                        "  <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                        "</notes>";
-  char * badnotes = "<notes>This is a test note</notes>";
-  char * newnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+  const char * badnotes = "<notes>This is a test note</notes>";
+  const char * newnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
 
-  int i = SBase_setNotesString(S, notes);
+  int i = SBase_setNotesString(S, (char *) (notes));
 
   fail_unless ( i == LIBSBML_OPERATION_SUCCESS);
   fail_unless(SBase_isSetNotes(S) == 1);
 
-  i = SBase_appendNotesString(S, badnotes);
+  i = SBase_appendNotesString(S, (char *) (badnotes));
   const char * notes1 = SBase_getNotesString(S);
 
   fail_unless( i == LIBSBML_INVALID_OBJECT);
   fail_unless(SBase_isSetNotes(S) == 1);
   fail_unless(!strcmp(taggednotes, notes1));
 
-  i = SBase_appendNotesString(S, newnotes);
+  i = SBase_appendNotesString(S, (char *) (newnotes));
 
   notes1 = SBase_getNotesString(S);
 
@@ -1320,7 +1320,7 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString1)
 { // add html to html
-  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1328,7 +1328,7 @@ START_TEST (test_SBase_appendNotesString1)
                  "    <p>This is a test note </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1340,7 +1340,7 @@ START_TEST (test_SBase_appendNotesString1)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1349,8 +1349,8 @@ START_TEST (test_SBase_appendNotesString1)
                  "  </body>\n"
                  "</html>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1364,7 +1364,7 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString2)
 { // add body to html
-  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1372,7 +1372,7 @@ START_TEST (test_SBase_appendNotesString2)
                  "    <p>This is a test note </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1384,12 +1384,12 @@ START_TEST (test_SBase_appendNotesString2)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                     "  <p>This is more test notes </p>\n"
                     "</body>\n";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1403,7 +1403,7 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString3)
 { // add p to html
-  char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1411,7 +1411,7 @@ START_TEST (test_SBase_appendNotesString3)
                  "    <p>This is a test note </p>\n"
                  "  </body>\n"
                  "</html>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1423,10 +1423,10 @@ START_TEST (test_SBase_appendNotesString3)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+  const char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1440,10 +1440,10 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString4)
 { // add html to body
-  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is a test note </p>\n"
                  "</body>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1455,7 +1455,7 @@ START_TEST (test_SBase_appendNotesString4)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1464,8 +1464,8 @@ START_TEST (test_SBase_appendNotesString4)
                  "  </body>\n"
                  "</html>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1479,8 +1479,8 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString5)
 { // add html to p
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednewnotes = 
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <head>\n"
@@ -1492,7 +1492,7 @@ START_TEST (test_SBase_appendNotesString5)
                  "    </body>\n"
                  "  </html>\n"
                  "</notes>";
-  char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <head>\n"
                  "    <title/>\n"
                  "  </head>\n"
@@ -1501,8 +1501,8 @@ START_TEST (test_SBase_appendNotesString5)
                  "  </body>\n"
                  "</html>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1516,22 +1516,22 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString6)
 { // add body to body
-  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is a test note </p>\n"
                  "</body>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is a test note </p>\n"
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is more test notes </p>\n"
                  "</body>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1545,20 +1545,20 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString7)
 { // add body to p
-  char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
-  char * taggednewnotes = 
+  const char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>\n"
                  "    <p>This is more test notes </p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * addnotes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is more test notes </p>\n"
                  "</body>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1572,20 +1572,20 @@ END_TEST
 
 START_TEST (test_SBase_appendNotesString8)
 { // add p to body
-  char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+  const char * notes = "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "  <p>This is a test note </p>\n"
                  "</body>";
-  char * taggednewnotes = 
+  const char * taggednewnotes = 
                  "<notes>\n"
                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
                  "    <p>This is a test note </p>\n"
                  "    <p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>\n"
                  "  </body>\n"
                  "</notes>";
-  char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
+  const char * addnotes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is more test notes </p>";
 
-  int i = SBase_setNotesString(S, notes);
-  i = SBase_appendNotesString(S, addnotes);
+  int i = SBase_setNotesString(S, (char *) (notes));
+  i = SBase_appendNotesString(S, (char *) (addnotes));
 
   const char *notes1 = SBase_getNotesString(S);
 
@@ -1928,10 +1928,10 @@ START_TEST (test_SBase_setModelHistory_Model)
   Date_t * date = 
     Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
 
-  ModelCreator_setFamilyName(mc, "Keating");
-  ModelCreator_setGivenName(mc, "Sarah");
-  ModelCreator_setEmail(mc, "sbml-team@caltech.edu");
-  ModelCreator_setOrganisation(mc, "UH");
+  ModelCreator_setFamilyName(mc, (char *) ("Keating"));
+  ModelCreator_setGivenName(mc, (char *) ("Sarah"));
+  ModelCreator_setEmail(mc, (char *) ("sbml-team@caltech.edu"));
+  ModelCreator_setOrganisation(mc, (char *) ("UH"));
 
   ModelHistory_addCreator(history, mc);
   ModelHistory_setCreatedDate(history, date);
@@ -1954,10 +1954,10 @@ START_TEST (test_SBase_setModelHistoryL3)
   Date_t * date = 
     Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
 
-  ModelCreator_setFamilyName(mc, "Keating");
-  ModelCreator_setGivenName(mc, "Sarah");
-  ModelCreator_setEmail(mc, "sbml-team@caltech.edu");
-  ModelCreator_setOrganisation(mc, "UH");
+  ModelCreator_setFamilyName(mc, (char *) ("Keating"));
+  ModelCreator_setGivenName(mc, (char *) ("Sarah"));
+  ModelCreator_setEmail(mc, (char *) ("sbml-team@caltech.edu"));
+  ModelCreator_setOrganisation(mc, (char *) ("UH"));
 
   ModelHistory_addCreator(mh, mc);
   ModelHistory_setCreatedDate(mh, date);

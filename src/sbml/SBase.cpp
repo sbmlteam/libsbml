@@ -3526,6 +3526,8 @@ SBase::logUnknownElement( string element,
                                 level, version, msg.str());
       logged = true;
       break;
+    default:
+      break;
     }
   }
 

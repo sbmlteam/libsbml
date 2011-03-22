@@ -2305,7 +2305,7 @@ create_suite_SBase (void)
   tcase_add_checked_fixture(tcase, SBaseTest_setup, SBaseTest_teardown);
 
   tcase_add_test(tcase, test_SBase_setMetaId     );
- // tcase_add_test(tcase, test_SBase_setNotes      );
+  tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setAnnotationString);

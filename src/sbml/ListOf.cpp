@@ -208,6 +208,8 @@ ListOf::appendAndOwn (SBase* item)
           okayToAdd = true;
         break;
 #endif
+      default:
+        break;
     }
   }
   if (okayToAdd)
