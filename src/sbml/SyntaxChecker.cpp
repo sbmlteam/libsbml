@@ -231,8 +231,10 @@ bool
 SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml, 
                                      SBMLNamespaces * sbmlns)
 {
+  if (xhtml == NULL) return false;
   bool correctSyntax = true;
   unsigned int i;
+  unsigned int level = (sbmlns) ? sbmlns->getLevel() : SBML_DEFAULT_LEVEL ;
 
   /*
   * namespace declaration is variable
@@ -240,23 +242,13 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
   * or a whole body tag then namespace can be implicitly declared
   */
   XMLNamespaces *toplevelNS = (sbmlns) ? sbmlns->getNamespaces() : NULL;
-  
-  unsigned int children = xhtml->getNumChildren();
+  /* SBML Level 3 relaxed the restrictions on XHTML notes */
 
-  if (children > 1)
+  if (level > 2)
   {
-    /* each element must be allowed and declare namespace */
-    for (i=0; i < children; i++)
+    for (i = 0; i < xhtml->getNumChildren(); i++)
     {
-      if (SyntaxChecker::isAllowedElement(xhtml->getChild(i)))
-      {
-        if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(i), toplevelNS))
-        {
-          correctSyntax = false;
-          break;
-        }
-      }
-      else
+      if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(i), toplevelNS))
       {
         correctSyntax = false;
         break;
@@ -265,30 +257,56 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
   }
   else
   {
-    /* only one element which can be html or body with either implicit/explicit
-    * namespace declaration
-    * OR could be one of the listed elements.
-    */
+    
+    unsigned int children = xhtml->getNumChildren();
 
-    const string& top_name = xhtml->getChild(0).getName();
-
-    if (top_name != "html" && top_name != "body"
-      && !SyntaxChecker::isAllowedElement(xhtml->getChild(0)))
+    if (children > 1)
     {
-      correctSyntax = false;
+      /* each element must be allowed and declare namespace */
+      for (i=0; i < children; i++)
+      {
+        if (SyntaxChecker::isAllowedElement(xhtml->getChild(i)))
+        {
+          if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(i), toplevelNS))
+          {
+            correctSyntax = false;
+            break;
+          }
+        }
+        else
+        {
+          correctSyntax = false;
+          break;
+        }
+      }
     }
     else
     {
-      if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(0), toplevelNS))
+      /* only one element which can be html or body with either implicit/explicit
+      * namespace declaration
+      * OR could be one of the listed elements.
+      */
+
+      const string& top_name = xhtml->getChild(0).getName();
+
+      if (top_name != "html" && top_name != "body"
+        && !SyntaxChecker::isAllowedElement(xhtml->getChild(0)))
       {
         correctSyntax = false;
       }
-    }
-    /* if it is an html doc then it must include title and body */ 
-    if (top_name == "html" 
-      && !SyntaxChecker::isCorrectHTMLNode(xhtml->getChild(0)))
-    {
-      correctSyntax = false;
+      else
+      {
+        if (!SyntaxChecker::hasDeclaredNS(xhtml->getChild(0), toplevelNS))
+        {
+          correctSyntax = false;
+        }
+      }
+      /* if it is an html doc then it must include title and body */ 
+      if (top_name == "html" 
+        && !SyntaxChecker::isCorrectHTMLNode(xhtml->getChild(0)))
+      {
+        correctSyntax = false;
+      }
     }
   }
 
