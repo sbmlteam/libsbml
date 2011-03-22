@@ -7826,7 +7826,8 @@ static const sbmlErrorTableEntry errorTable[] =
     "Every SBML Level 3 package is identified uniquely by an XML namespace "
     "URI and defines the attribute named 'required'. A value of required="
     "true indicates that interpreting the package is necessary for complete "
-    "mathematical interpretation of the model. (L3V1 Section 4.1.2)."
+    "mathematical interpretation of the model. (L3V1 Section 4.1.2) LibSBML "
+    "version 4 does not SBML Level 3 packages and cannot read the model."
   },
 
   //99108
@@ -7843,9 +7844,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "Every SBML Level 3 package is identified uniquely by an XML namespace "
     "URI and defines the attribute named 'required'. LibSBML has detected "
-    "what appears to be an L3 package with required=false. User should be "
-    "aware that libSBML-4 does not attempt to read "
-    "or even store information from L3 packages."
+    "what appears to be an SBML Level 3 package with required=false. Users "
+    "should be aware that libSBML version 4 does not attempt to read "
+    "or even store information from Level 3 packages."
   },
 
   //99127
