@@ -6,6 +6,24 @@ Version 4.3.1 ()
 
 * Bug fixes
 
+  - The SyntaxChecker::hasExpectedXHTMLSyntax(xhtml) function had not
+    applied the relaxation on the XHTML restrictions for SBML 
+    Level 3.  This has been sorted out.
+
+  - The SyntaxChecker::isValidSBMLSId(string) function was incorrectly
+    reporting that an empty string was a valid id.  This has been corrected.
+
+  - The presence of SBML L3 package information was not being reported
+    in a consistent manner.  The code has been changed so that libSBML
+    makes an assessment of whether there is information relating to 
+    an L3 package contained within a document.  This assessment is based
+    on the existance of a namespace that matches the format of L3 package 
+    namespaces and a require attribute.  If there is a package with
+    the required attribute set to true libsbml will log an error and stop
+    reading; if the required attribute is set to false a warning that
+    data will be lost is issued but the remaining core information
+    is read in as expected.
+
   - configure.ac and related m4 files used some obsolete autoconf
     macros.  configure.ac also required a minimum of version 2.62 of
     autoconf, but many systems shipped with lower versions.  These
