@@ -1,19 +1,19 @@
-; Version No is currently 4.3.0
+; Version No is currently 4.3.1
 ; Check before use
 
 
 [Setup]
 AppName=libSBML MATLAB Interface
-AppVerName=MATLAB Interface of libSBML 4.3.0
+AppVerName=MATLAB Interface of libSBML 4.3.1
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-4.3.0-libxml2-x86\bindings\matlab
+DefaultDirName={pf}\SBML\libSBML-4.3.1-libxml2-x86\bindings\matlab
 DefaultGroupName=libSBML-matlab
 DisableProgramGroupPage=yes
 OutputDir=.\Output
-OutputBaseFilename=libSBML-4.3.0-win-matlab-x86
+OutputBaseFilename=libSBML-4.3.1-win-matlab-x86
 WizardSmallImageFile=..\graphics\libsbml-installer-mini-logo.bmp
 WizardImageFile=..\graphics\libsbml-matlab-installer-graphic.bmp
 UsePreviousAppDir=no
@@ -31,7 +31,7 @@ Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: Version; ValueData: 4.3.0
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: Version; ValueData: 4.3.1
 Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -58,6 +58,13 @@ begin
     Result := MatlabRoots[0];
   end;
 end;
+
+function GetPWD(Param: String): String;
+begin
+  Result := ExpandConstant('{app}');
+  Result := Result + '\matlab';
+end;
+
 
 
 function GetProceed : Boolean;
@@ -125,7 +132,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of the MATLAB binding of libSBML 4.3.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of the MATLAB binding of libSBML 4.3.1 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
  end;
 
 
@@ -250,5 +257,5 @@ end;
 [Run]
 
 
-Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; Description: "Run MATLAB and install libSBML Interface"; Flags: postinstall  runascurrentuser
+Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}"" ""'{code:GetPWD}'""" ; Check: GetMatlabPresent ; Description: "Run MATLAB and install libSBML Interface"; Flags: postinstall  runascurrentuser
 
