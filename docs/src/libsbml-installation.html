@@ -838,7 +838,7 @@ possibilities.  The first table lists the names of the files, while the second
 table below lists the pathnames where those files will be installed.
 
 <center>
-<table border="0" class="text-table  bigger-row-spacing  width80  normal-font  alt-row-colors">
+<table border="0" class="text-table  bigger-row-spacing  width80  normal-font">
  <tr style="background: lightgray; font-size: 14px;">
    <th colspan="2" style="border-bottom: none"></th>
    <th colspan="3" align="center">Names of language extension object files</th>
@@ -849,7 +849,7 @@ table below lists the pathnames where those files will be installed.
      <th align="left">Mac&nbsp;OS&nbsp;X</th>
      <th align="left">Windows</th>
  </tr>
-<tr>
+<tr style="background: #f3f3f3">
   <td>C#</td>
   <td>
     <nobr><em>(unmanaged C++ DLL)</em></nobr><br>
@@ -867,56 +867,105 @@ table below lists the pathnames where those files will be installed.
   <td><code>libsbmlj.so</code><br><code> libsbmlj.jar</code></td>
   <td><code>libsbmlj.jnilib</code><br><code> libsbmlj.jar</code></td>
   <td><code>sbmlj.dll</code><br><code> libsbmlj.jar</code></td>
+</tr><tr style="background: #f3f3f3">
+  <td rowspan="4">MATLAB</td>
+  <td style="border-bottom: 1px dotted #aaa" valign="middle">
+    <nobr><em>(Intel 32-bit)</em></nobr>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
+    <code>TranslateSBML.mexglx</code><br>
+    <code>OutputSBML.mexglx</code><br>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
+    <code>TranslateSBML.mexmaci</code></br>
+    <code>OutputSBML.mexmaci</code></br>
+  </td>  
+  <td style="border-bottom: 1px dotted #aaa" valign="top">
+    <code>TranslateSBML.mexw32</code><br>
+    <code>OutputSBML.mexw32</code><br>
+  </td>
 </tr><tr>
-  <td>MATLAB</td>
-  <td valign="top">
-    <nobr><em>(Intel 32-bit)</em></nobr><br><br><br>
-    <nobr><em>(Intel 64-bit)</em></nobr><br><br><br>
-    <nobr><em>(PPC)</em><br><br>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="middle">
+    <nobr><em>(Intel 64-bit)</em></nobr>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+                   <code>TranslateSBML.mexa64</code><br>
+                   <code>OutputSBML.mexa64</code>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+                   <code>TranslateSBML.mexmaci64</code></br>
+                   <code>OutputSBML.mexmaci64</code></br>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+                   <code>TranslateSBML.mexw64</code><br>
+                   <code>OutputSBML.mexw64</code><br>
+  </td>
+</tr><tr>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="middle">
+    <nobr><em>(PPC)</em></nobr>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+                   <em>N/A</em><br><br>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+                   <code>TranslateSBML.mexmac</code><br>
+                   <code>OutputSBML.mexmac</code>
+  </td>
+  <td style="border-bottom: 1px dotted #aaa; background: #f3f3f3" valign="top">
+                   <em>N/A</em><br><br>
+  </td>
+</tr><tr>
+  <td valign="middle" style="background: #f3f3f3">
     <nobr><em>(Additional files)</em></nobr>
   </td>
-  <td valign="top"><code>TranslateSBML.mexglx</code><br>
-                   <code>OutputSBML.mexglx</code><br><br>
-
-                   <code>TranslateSBML.mexa64</code><br>
-                   <code>OutputSBML.mexa64</code><br><br>
-
-                   <em>N/A</em><br><br><br>
-
-                   <code>CheckAndConvert.m</code></td>
-
-  <td valign="top"><code>TranslateSBML.mexmaci</code></br>
-                   <code>OutputSBML.mexmaci</code></br><br>
-
-                   <code>TranslateSBML.mexmaci64</code></br>
-                   <code>OutputSBML.mexmaci64</code></br><br>
-
-                   <code>TranslateSBML.mexmac</code><br>
-                   <code>OutputSBML.mexmac</code><br><br>
-
-                   <code>CheckAndConvert.m</code></td>
-
-  <td valign="top"><code>TranslateSBML.mexw32</code><br>
-                   <code>OutputSBML.mexw32</code><br><br>
-
-                   <code>TranslateSBML.mexw64</code><br>
-                   <code>OutputSBML.mexw64</code><br><br>
-
-                   <em>N/A</em><br><br><br>
-
-                   <code>CheckAndConvert.m</code></td>
+  <td valign="top" style="background: #f3f3f3">
+                   <code>CheckAndConvert.m</code><br>
+                   <code>Contents.m</code><br>
+                   <code>ConvertFormulaToMathML.m</code><br>
+                   <code>isSBML_Model.m</code><br>
+                   <code>isoctave.m</code><br>
+  </td>
+  <td valign="top" style="background: #f3f3f3">
+                   <code>CheckAndConvert.m</code><br>
+                   <code>Contents.m</code><br>
+                   <code>ConvertFormulaToMathML.m</code><br>
+                   <code>isSBML_Model.m</code><br>
+                   <code>isoctave.m</code><br>
+  </td>
+  <td valign="top" style="background: #f3f3f3">
+                   <code>CheckAndConvert.m</code><br>
+                   <code>Contents.m</code><br>
+                   <code>ConvertFormulaToMathML.m</code><br>
+                   <code>isSBML_Model.m</code><br>
+                   <code>isoctave.m</code><br>
+  </td>
 </tr><tr>
   <td colspan="2">Octave</td>
   <td><code>TranslateSBML.mex</code><br>
       <code>OutputSBML.mex</code><br>
-      <code>CheckAndConvert.m</code></td>
+      <code>CheckAndConvert.m</code>
+      <code>Contents.m</code><br>
+      <code>ConvertFormulaToMathML.m</code><br>
+      <code>isSBML_Model.m</code><br>
+      <code>isoctave.m</code><br>
+  </td>
   <td><code>TranslateSBML.mex</code><br>
       <code>OutputSBML.mex</code><br>
-      <code>CheckAndConvert.m</code></td>
+      <code>CheckAndConvert.m</code>
+      <code>Contents.m</code><br>
+      <code>ConvertFormulaToMathML.m</code><br>
+      <code>isSBML_Model.m</code><br>
+      <code>isoctave.m</code><br>
+  </td>
   <td><code>TranslateSBML.mex</code><br>
       <code>OutputSBML.mex</code><br>
-       <code>CheckAndConvert.m</code></td>
-</tr><tr>
+      <code>CheckAndConvert.m</code>
+      <code>Contents.m</code><br>
+      <code>ConvertFormulaToMathML.m</code><br>
+      <code>isSBML_Model.m</code><br>
+      <code>isoctave.m</code><br>
+  </td>
+</tr><tr style="background: #f3f3f3">
   <td>Perl</td>
   <td valign="top">
     <nobr><em>(native C++ library)</em></nobr><br>
@@ -955,7 +1004,7 @@ table below lists the pathnames where those files will be installed.
       <code>libsbml.py</code><br>
       <code>libsbml.pyc</code><br>
       <code>libsbml.pth</code></td>
-</tr><tr>
+</tr><tr style="background: #f3f3f3">
   <td>Python <nobr>2.5&ndash;2.7</nobr></td>
   <td>
     <nobr><em>(native C++ library)</em></nobr><br>
