@@ -1,0 +1,32 @@
+/** @mainpage About libSBML and its use
+
+@htmlinclude libsbml-authors.html
+
+<p>
+This manual describes the MATLAB application programming interface (API) of
+libSBML, an open-source (LGPL) library for writing and manipulating the
+Systems Biology Markup Language (SBML).
+@htmlinclude libsbml-blurb.html
+
+@htmlinclude force-serif-font-on.html
+@section main-general General information
+- @subpage libsbml-installation
+- @subpage libsbml-accessing
+- @subpage libsbml-features
+- @subpage libsbml-communications
+
+@section main-programming Programming with libSBML
+- @subpage libsbml-matlab-reading-files
+- @subpage libsbml-issues
+
+@section main-other Other topics
+- @subpage libsbml-uninstallation
+- @subpage license
+- @subpage changes
+
+@htmlinclude force-serif-font-off.html
+@htmlinclude libsbml-papers.html
+
+@htmlinclude FUNDING.txt
+
+*/

@@ -13,6 +13,7 @@ doxygen-config-c.txt
 doxygen-config-cpp.txt
 doxygen-config-csharp.txt
 doxygen-config-perl.txt
+doxygen-config-matlab.txt
 ExcludeDoclet.class
 perlmod
 java-files
