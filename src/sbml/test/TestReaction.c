@@ -544,7 +544,7 @@ START_TEST (test_Reaction_accessWithNULL)
   fail_unless( Reaction_setId(NULL, NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless( Reaction_setKineticLaw(NULL, NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless( Reaction_setName(NULL, NULL) == LIBSBML_INVALID_OBJECT);
-  fail_unless( Reaction_setReversible(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+  fail_unless( Reaction_setReversible(NULL, 0) == LIBSBML_INVALID_OBJECT);
   fail_unless( Reaction_unsetCompartment(NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless( Reaction_unsetFast(NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless( Reaction_unsetKineticLaw(NULL) == LIBSBML_INVALID_OBJECT);

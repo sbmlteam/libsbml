@@ -194,8 +194,8 @@ START_TEST (test_SBMLNamespaces_invalid)
 {
   SBMLNamespaces *sbml = new SBMLNamespaces(3, 2);
 
-  fail_unless( sbml->getLevel() == SBML_INT_MAX );
-  fail_unless( sbml->getVersion() == SBML_INT_MAX );
+  fail_unless( sbml->getLevel() == (unsigned int)(SBML_INT_MAX) );
+  fail_unless( sbml->getVersion() == (unsigned int)(SBML_INT_MAX) );
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -224,10 +224,10 @@ START_TEST (test_SBMLNamespaces_accessWithNULL)
 {
   SBMLNamespaces_addNamespaces(NULL, NULL);
 
-  fail_unless( SBMLNamespaces_getLevel(NULL) == SBML_INT_MAX);
+  fail_unless( SBMLNamespaces_getLevel(NULL) == (unsigned int)(SBML_INT_MAX));
   fail_unless( SBMLNamespaces_getNamespaces(NULL) == NULL);
   fail_unless( SBMLNamespaces_getSupportedNamespaces(NULL) == NULL);
-  fail_unless( SBMLNamespaces_getVersion(NULL) == SBML_INT_MAX);
+  fail_unless( SBMLNamespaces_getVersion(NULL) == (unsigned int)(SBML_INT_MAX));
 }
 END_TEST
 
