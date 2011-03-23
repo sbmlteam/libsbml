@@ -32,6 +32,7 @@
 
 #include <sbml/SBase.h>
 #include <sbml/SyntaxChecker.h>
+#include <sbml/SBMLNamespaces.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLTriple.h>
@@ -71,6 +72,13 @@ END_TEST
 
 START_TEST (test_SyntaxChecker_validXHTML)
 {
+  SBMLNamespaces_t *NS24 = SBMLNamespaces_create(2,4);
+  SBMLNamespaces_t *NS31 = SBMLNamespaces_create(3,1);
+
+  XMLToken_t *toptoken;
+  XMLNode_t *topnode;
+  XMLTriple_t * toptriple = XMLTriple_createWith("notes", "", "");
+
   XMLToken_t *token;
   XMLNode_t *node;
   XMLTriple_t * triple = XMLTriple_createWith("p", "", "");
@@ -81,11 +89,28 @@ START_TEST (test_SyntaxChecker_validXHTML)
   XMLNode_t *n1 = XMLNode_createFromToken(tt);
 
 
+  toptoken = XMLToken_createWithTripleAttr(toptriple, att);
+  topnode = XMLNode_createFromToken(toptoken);
+
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
+  XMLNode_addChild(topnode, node);
 
-  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(node, NULL) == 0 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NULL) == 1 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 1 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 1 );
+
+  triple = XMLTriple_createWith("html", "", "");
+  token = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node = XMLNode_createFromToken(token);
+  XMLNode_addChild(node, n1);
+  XMLNode_removeChild(topnode, 0);
+  XMLNode_addChild(topnode, node);
+
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NULL) == 1 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 0 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 1 );
 
   triple = XMLTriple_createWith("html", "", "");
   XMLNamespaces_clear(ns);
@@ -93,8 +118,12 @@ START_TEST (test_SyntaxChecker_validXHTML)
   token = XMLToken_createWithTripleAttrNS(triple, att, ns);
   node = XMLNode_createFromToken(token);
   XMLNode_addChild(node, n1);
+  XMLNode_removeChild(topnode, 0);
+  XMLNode_addChild(topnode, node);
 
-  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(node, NULL) == 0 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NULL) == 0 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS24) == 0 );
+  fail_unless( SyntaxChecker_hasExpectedXHTMLSyntax(topnode, NS31) == 0 );
 }
 END_TEST
 

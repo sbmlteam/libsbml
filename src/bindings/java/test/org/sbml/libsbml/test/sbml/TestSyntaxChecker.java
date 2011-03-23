@@ -33,7 +33,7 @@
  * -----------------------------------------------------------------------------
  */
 
-package org.sbml.libsbml.test.sbml;
+package org.sbml.libsbml.test.0;
 
 import org.sbml.libsbml.*;
 
@@ -143,6 +143,11 @@ public class TestSyntaxChecker {
 
   public void test_SyntaxChecker_validXHTML()
   {
+    SBMLNamespaces NS24 = new  SBMLNamespaces(2,4);
+    SBMLNamespaces NS31 = new  SBMLNamespaces(3,1);
+    XMLToken toptoken;
+    XMLNode topnode;
+    XMLTriple toptriple = new  XMLTriple("notes", "", "");
     XMLToken token;
     XMLNode node;
     XMLTriple triple = new  XMLTriple("p", "", "");
@@ -151,16 +156,34 @@ public class TestSyntaxChecker {
     ns.add( "http://www.w3.org/1999/xhtml", "");
     XMLToken tt = new  XMLToken("This is my text");
     XMLNode n1 = new XMLNode(tt);
+    toptoken = new  XMLToken(toptriple,att);
+    topnode = new XMLNode(toptoken);
     token = new  XMLToken(triple,att,ns);
     node = new XMLNode(token);
     node.addChild(n1);
-    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(node,null) == false );
+    topnode.addChild(node);
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,null) == true );
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == true );
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == true );
+    triple = new  XMLTriple("html", "", "");
+    token = new  XMLToken(triple,att,ns);
+    node = new XMLNode(token);
+    node.addChild(n1);
+    topnode.removeChild(0);
+    topnode.addChild(node);
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,null) == true );
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == false );
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == true );
     triple = new  XMLTriple("html", "", "");
     ns.clear();
     token = new  XMLToken(triple,att,ns);
     node = new XMLNode(token);
     node.addChild(n1);
-    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(node,null) == false );
+    topnode.removeChild(0);
+    topnode.addChild(node);
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,null) == false );
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS24) == false );
+    assertTrue( SyntaxChecker.hasExpectedXHTMLSyntax(topnode,NS31) == false );
   }
 
   /**
