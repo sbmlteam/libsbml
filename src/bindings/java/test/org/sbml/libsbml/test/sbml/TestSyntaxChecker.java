@@ -33,7 +33,7 @@
  * -----------------------------------------------------------------------------
  */
 
-package org.sbml.libsbml.test.0;
+package org.sbml.libsbml.test.sbml;
 
 import org.sbml.libsbml.*;
 
