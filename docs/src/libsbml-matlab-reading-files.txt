@@ -68,7 +68,7 @@ required argument.
 @li @em validateFlag:
 This flag tells libSBML whether to perform full validation of the SBML file
 being read.  The default value is @c 0, which signifies not to perform
-validation.  (Note libSBML will still check for and port basic XML parsing
+validation.  (Note libSBML will still check for and report basic XML parsing
 errors regardless of the value of this flag.)
 
 @li @em verboseFlag:
@@ -239,7 +239,7 @@ the error or warning for the issue reported by libSBML.
 
 @section rf-writing OutputSBML
 
-The functino @c OutputSBML is the converse of @c TranslateSBML: it writes
+The function @c OutputSBML is the converse of @c TranslateSBML: it writes
 an @em MATLAB_SBML structure to an XML file.  It accepts two arguments:
 
 @li @em model: This argument must be a @em MATLAB_SBML structure
