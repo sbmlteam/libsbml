@@ -529,7 +529,7 @@ util_isNegZero (double d)
 {
   unsigned char *b = (unsigned char *) &d;
 
-#if WORDS_BIGENDIAN
+#if WORDS_BIGENDIAN || __BIG_ENDIAN__
   return b[0] == 0x80;
 #else
   return b[7] == 0x80;
