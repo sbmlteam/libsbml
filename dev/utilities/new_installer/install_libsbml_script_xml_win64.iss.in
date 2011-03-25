@@ -308,6 +308,7 @@ begin
     'Select the version of python you wish to install', True, False);
   PythonPage.Add('Python 2.6');
   PythonPage.Add('Python 2.7');
+  PythonPage.SelectedValueIndex := 1;
 
 
 

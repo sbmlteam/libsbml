@@ -312,6 +312,7 @@ begin
   PythonPage.Add('Python 2.5');
   PythonPage.Add('Python 2.6');
   PythonPage.Add('Python 2.7');
+  PythonPage.SelectedValueIndex := 2;
 
  { Octave page : location to install Octave binding }
   OctavePage := CreateInputDirPage(InstallOptionsPage.ID,
