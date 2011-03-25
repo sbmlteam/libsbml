@@ -10,6 +10,10 @@ Version 4.3.1 ()
 
 * Bug fixes
 
+  - The improved build of the MATLAB interface proved unsuccessful
+    in cases where the user had a startup.m file that changed
+    directory.  This has been corrected.  
+
   - The SyntaxChecker::hasExpectedXHTMLSyntax(xhtml) function had not
     applied the relaxation on the XHTML restrictions for SBML 
     Level 3.  This has been sorted out.
