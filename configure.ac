@@ -39,7 +39,7 @@ m4_define(LIBSBML_VERSION,
 
 dnl The AC_PREREQ macro can come before AC_INIT (but it's the only one).
 
-AC_PREREQ([2.61])
+AC_PREREQ([2.62])
 
 AC_INIT([libSBML],
         [LIBSBML_VERSION],
