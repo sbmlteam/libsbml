@@ -1,9 +1,20 @@
-% OutputSBML('SBML_Structure') translates a MATLAB_SBML structure into a
-% sbml file
+% OutputSBML(model, filename(optional)) outputs an xml file
 %
-% SBML_Structure is the name of the MATLAB_SBML structure
+% The function OutputSBML is the converse of TranslateSBML: 
+% it writes an MATLAB_SBML structure to an XML file. It accepts two arguments:
 %
-% OutputSBML outputs an xml file
+%   * model: This argument must be a MATLAB_SBML structure representing the 
+%            model to be written out to a file. Note that the structure will 
+%            not be validated to check if it is fully correct SBML; OutputSBML 
+%            will only verify the basic integrity of the structure (i.e., to 
+%            make sure it has the form expected of a MATLAB_SBML structure), 
+%            but nothing more.
+%
+%   * filename: The name of the file where the SBML content should be written.
+%
+%      NOTE: This argument is optional where a graphical user interface is
+%            available, in which case a missing argument will open a browse window.
+%
 
 %  Filename    : OutputSBML.m
 %  Description : MATLAB help file for OutputSBML

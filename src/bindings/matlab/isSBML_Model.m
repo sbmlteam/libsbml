@@ -1,41 +1,15 @@
 function [y, message] = isSBML_Model(SBMLStructure)
-% isSBML_Model(SBMLStructure) checks that SBMLStructure represents an sbml model
+% isSBML_Model(SBMLStructure) checks that SBMLStructure matches the expected 
+% form of a MATLAB_SBML structure
 % 
-% if SBMLStructure represents an SBML model
-% it has the appropriate fields 
-% eg    Typecode
-%       Metaid (L2V1)
-%       Notes
-%       Annotations
-%       Level
-%       Version
-%       Name
-%       Id (L2V1)
-%       SBOTerm (L2V2)
-%       ListFunctionDefinition (L2V1)
-%       ListUnitDefinition
-%       ListOfCompartmentTypes (L2V2)
-%       ListOfSpeciesTypes (L2V2)
-%       ListCompartment
-%       ListSpecies
-%       ListParameter
-%       ListOfInitialAssignments (L2V2)
-%       ListRule
-%       ListOfConstraints (L2V2)
-%       ListReaction
-%       ListEvent (2)
-%
-% NOTE: content of brackets indicates the level and version of sbml from which the given field
-% is appropriate.
-%
-% Returns 1 if SBMLStructure is a structure containing each of the above
+% Returns y = 1 if SBMLStructure is a structure containing each of the
 % fields (appropriate with the given level and version) and the typecode is "SBML_MODEL"
 % 
-% Returns 0 if SBMLStructure is not a structure 
+% Returns y = 0 if SBMLStructure is not a structure 
 % or does not contain one of the appropriate fields
 % or the typecode is not "SBML_MODEL"
 %
-% Returns message indicating the structure that is invalid.
+% Returns 'message' a string detailing why the structure is invalid.
 
 %  Filename    :   isSBML_Model.m
 %  Description :

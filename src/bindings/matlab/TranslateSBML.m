@@ -1,48 +1,29 @@
-% TranslateSBML((optional)'filename', (optional) validateFlag) 
-% imports an SBML model into a matlab structure
+% TranslateSBML('filename' (optional), validateFlag (optional), verboseFlag (optional))
+% reads an SBML document and converts it to a MATLAB_SBML structure.
 %
-% filename is the name of the file containing the sbml definition of a
-% model - if not supplied a browse window is opened
+% It accepts three optional arguments:
 %
-% validateFlag is an optional argument indicating whether the model should
-% be validated. The default value is 0; indicating no validation.
+%   * filename: This is the name of the file to be imported. 
+%               If the file is not in the current directory, then the 
+%               argument must be a full pathname (either absolute or 
+%               relative to the current working directory). 
 %
-% NOTE: In the case of no arguments to the function; 
-%       which opens a browse window to locate the file to import; 
-%       the user will be prompted to indicate whether validation should be done. 
+%        NOTE: In Octave the filename is a required argument.
 %
-% In the case of validation errors these will be displayed to the user, who 
-% will be prompted as to whether to import the model regardless.
+%   * validateFlag: This flag tells libSBML whether to perform full 
+%                   validation of the SBML file being read. The default 
+%                   value is 0, which signifies not to perform validation. 
+%                   (Note libSBML will still check for and report basic 
+%                   XML parsing errors regardless of the value of this flag.)
 %
-% TranslateSBML returns a structure with the following fields
-% i.e. a sbml model structure
-% eg    Typecode
-%       Notes
-%       Annotations
-%       Level
-%       Version
-%       Name
-%       Id (l2v1)
-%       ListFunctionDefinition (l2v1)
-%       ListUnitDefinition
-%       ListCompartmentType (l2v2)
-%       ListSpeciesType (l2v2)
-%       ListCompartment
-%       ListSpecies
-%       ListParameter
-%       ListInitialAssignment (l2v2)
-%       ListRule
-%       ListConstraint (l2v2)
-%       ListReaction
-%       ListEvent (l2v1)
+%   * verboseFlag: A value of 1 (the default) indicates that TranslateSBML 
+%                  should perform the validation process interactively, 
+%                  displaying errors and prompting the user for feedback 
+%                  if the model is invalid. A value of 0 will suppress user 
+%                  interaction, and is useful when calling TranslateSBML 
+%                  from within another function/script.
 %
-% NOTE number in brackets indicates field is appropriate beginning with that 
-% level and version of SBML.
-%
-% where Typecode,  Notes,  Annotations & Name are all of type char * 
-%                           (ie mxArray of char)
-%       ListXX refers to an array of structures of type XXX
-%
+
 
 % Filename    : TranslateSBML.m
 % Description : MATLAB help file for TranslateSBML

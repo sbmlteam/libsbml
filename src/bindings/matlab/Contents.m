@@ -1,6 +1,6 @@
 %
-% These are the functions to import and export an SBML model into a MATLAB 
-% structure and back to an SBML file.
+% These are the functions to import and export an SBML model into a 
+% MATLAB_SBML structure and back to an SBML file.
 %
 % FUNCTIONS include:
 %
@@ -30,22 +30,19 @@
 % isSBML_Model.m
 %
 % - a script used by OutputSBML to check that a structure is an appropriate
-%   MATLAB-SBML structure for conversion to SBML
+%   MATLAB_SBML structure for conversion to SBML
 %
 % isoctave.m
 %
 % - a script to determine if octave or matlab is being used
 %
-% buildWin 
+% buildSBML 
 %
-% - builds the TranslateSBML/OutputSBML executables in the Windows environment
+% - builds the TranslateSBML/OutputSBML executables from source
 %
-% install_Win32
-% install_Win64
-% uninstall_Win32
-% uninstall_Win64
+% installSBML
 %
-% - installs/uninstalls the appropriate libraries in the Windows environment
+% - installs the libSBML MATLAB interface
 %
 
 % Description : This is the binding to translate 

@@ -2,14 +2,14 @@ function installSBML
 % Installs the MATLAB language interface for libSBML.
 %
 % This script assumes that the libsbml matlab binding executables files already
-% exist; either because the user has built them using buildLibSBML (only
+% exist; either because the user has built them using buildSBML (only
 % in the src release) or the binding is being installed from an installer.
 %
 % Currently prebuilt executables are only available in the windows installers
 % of libSBML.
 %
 % For Linux or Mac users this means that you need to build libsbml and then
-% run the buildLibSBML script.
+% run the buildSBML script.
 
 
 % Filename    : installSBML.m
