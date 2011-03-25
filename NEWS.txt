@@ -33,9 +33,7 @@ Version 4.3.1 ()
     is read in as expected.
 
   - configure.ac and related m4 files used some obsolete autoconf
-    macros.  configure.ac also required a minimum of version 2.62 of
-    autoconf, but many systems shipped with lower versions.  These
-    issues are now fixed.
+    macros.  This is fixed.
 
   - 'make clean' incorrectly always complained that doxygen wasn't
     configured in, if you didn't configure with doxygen.  Fixed.
