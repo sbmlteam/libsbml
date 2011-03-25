@@ -786,22 +786,11 @@ $(TOP_SRCDIR)/configure: \
 	     $(TOP_SRCDIR)/configure.ac \
 	     $(TOP_SRCDIR)/VERSION.txt \
 	     $(ACLOCAL_M4)
-	cd $(TOP_SRCDIR) && $(AUTOCONF) --force
+	cd $(TOP_SRCDIR) && $(AUTOCONF) -Wall --force
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
 $(ACLOCAL_M4): $(ACINCLUDE_M4) $(wildcard $(TOP_SRCDIR)/config/*.m4)
 	cd $(TOP_SRCDIR) && $(ACLOCAL) -I config
-
-$(TOP_SRCDIR)/src/sbml/config.h: src/sbml/stamp-h1
-	@if test ! -f $@; then \
-	  rm -f src/sbml/stamp-h1; \
-	  $(MAKE) src/sbml/stamp-h1; \
-	else :; fi
-
-$(TOP_SRCDIR)/src/sbml/stamp-h1: $(TOP_SRCDIR)/./src/sbml/config.h.in \
-	     $(TOP_BUILDDIR)/config.status
-	@rm -f src/sbml/stamp-h1
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status src/sbml/config.h
 
 $(TOP_SRCDIR)/config/chk_swig_version.sh: $(TOP_SRCDIR)/configure \
 	    $(TOP_BUILDDIR)/config.status \
