@@ -442,7 +442,7 @@ values.  We describe them in the list below:
 This is the @em MATLAB_SBML structure corresponding to the content of an
 SBML document.
 
-@li @em errMsg:
+@li @em errors:
 The output of validation performed by libSBML can be captured into a second
 value returned by @c TranslateSBML.  The value is an array of structures
 detailing the warnings and errors encountered while reading and translating
@@ -645,8 +645,8 @@ ans =
 octave-3.2.4:25>
 @endverbatim
 
-Each error structure returned by @c TranslateSBML contains four fields: @em
-a line number, indicating approximately where in the SBML file the error
+Each error structure returned by @c TranslateSBML contains four fields: a
+@em line number, indicating approximately where in the SBML file the error
 occurred; @em errorId, the libSBML error/warning identification code; @em
 severity, indicating how serious the issue is; and @em message, the text of
 the error or warning for the issue reported by libSBML.  
