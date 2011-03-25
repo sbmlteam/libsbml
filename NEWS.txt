@@ -35,6 +35,10 @@ Version 4.3.1 ()
   - configure.ac and related m4 files used some obsolete autoconf
     macros.  This is fixed.
 
+  - 'make clean' didn't remove dependency-tracking files (.deps/*.Po),
+    which was a problem for some language bindings code if you changed
+    a file but didn't do a top-down rebuild.  Should be fixed now.
+
   - 'make clean' incorrectly always complained that doxygen wasn't
     configured in, if you didn't configure with doxygen.  Fixed.
 
