@@ -50,3 +50,5 @@ INPUT =                            \
   libsbml-news.txt                 \
   libsbml-papers.txt               \
   libsbml-uninstallation.txt
+
+SEARCHENGINE = NO
