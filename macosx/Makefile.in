@@ -140,7 +140,7 @@ create-dist:
 	&& $(MAKE) install DESTDIR=$(apath_thisdir)/$(staging)
 
 create-pkg: create-dist pmdoc-files
-	/Developer/usr/bin/packagemaker -v --doc libsbml-package.pmdoc --out $(PKGNAME)
+	/Developer/usr/bin/packagemaker -v --id org.sbml.libsbml --doc libsbml-package.pmdoc --out $(PKGNAME)
 
 create-dmg: create-pkg build.sh
 	./build.sh 
