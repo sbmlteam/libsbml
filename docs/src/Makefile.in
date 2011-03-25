@@ -60,6 +60,7 @@ java-manual   = $(formatted)/java-api
 python-manual = $(formatted)/python-api
 perl-manual   = $(formatted)/perl-api
 matlab-manual = $(formatted)/matlab-api
+octave-manual = $(formatted)/octave-api
 
 # If libSBML has been configured with doxygen support, then the C++ and C
 # manuals are always made, and additional manuals depend on the options
@@ -88,6 +89,9 @@ endif
 ifdef USE_MATLAB
   docs += $(matlab-manual)
 endif
+ifdef USE_OCTAVE
+  docs += $(octave-manual)
+endif
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
@@ -103,6 +107,7 @@ extra_distclean =                 \
         doxygen-config-cpp.txt    \
         doxygen-config-csharp.txt \
         doxygen-config-matlab.txt \
+        doxygen-config-octave.txt \
         doxygen-config-perl.txt   \
         doxygen-config-python.txt
 
@@ -152,6 +157,7 @@ distfiles =                                                  \
         doxygen-config-cpp.txt.in                            \
         doxygen-config-csharp.txt.in                         \
         doxygen-config-matlab.txt.in                         \
+        doxygen-config-octave.txt.in                         \
         doxygen-config-perl.txt.in                           \
         doxygen-config-python.txt.in                         \
         doxygen-footer.html                                  \
@@ -317,6 +323,7 @@ doxygen-csharp-conf = doxygen-config-csharp.txt.in doxygen-config-common.txt
 doxygen-py-conf     = doxygen-config-python.txt.in doxygen-config-common.txt
 doxygen-perl-conf   = doxygen-config-perl.txt.in doxygen-config-common.txt
 doxygen-matlab-conf = doxygen-config-matlab.txt.in doxygen-config-common.txt
+doxygen-octave-conf = doxygen-config-octave.txt.in doxygen-config-common.txt
 
 doxygen-config-cpp.txt:  $(doxygen-cpp-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
@@ -341,6 +348,10 @@ doxygen-config-perl.txt:  $(doxygen-perl-conf) $(TOP_SRCDIR)/VERSION.txt
 doxygen-config-matlab.txt:  $(doxygen-matlab-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-matlab.txt
+
+doxygen-config-octave.txt:  $(doxygen-octave-conf) $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && \
+	  $(SHELL) ./config.status $(thisdir)/doxygen-config-octave.txt
 
 core-sources = \
   $(wildcard ../../src/*/*.[cpp,h]) \
@@ -377,6 +388,7 @@ define postprocess_doxygen
     sed -is 's/libSBML C# Public API //' $(1)/tree.html;\
     sed -is 's/libSBML Perl Public API //' $(1)/tree.html;\
     sed -is 's/libSBML MATLAB Public API //' $(1)/tree.html;\
+    sed -is 's/libSBML Octave Public API //' $(1)/tree.html;\
   else \
     cp -rf doxygen-tabs.css $(1)/doxygen-tabs.css; \
     cp -rf search.png $(1)/search/search.png; \
@@ -387,6 +399,7 @@ define postprocess_doxygen
     sed -is 's/libSBML C# Public API //' $(1)/tree.html;\
     sed -is 's/libSBML Perl Public API //' $(1)/tree.html;\
     sed -is 's/libSBML MATLAB Public API //' $(1)/tree.html;\
+    sed -is 's/libSBML Octave Public API //' $(1)/tree.html;\
   fi
 endef
 
@@ -425,6 +438,15 @@ matlab-manual $(matlab-manual): doxygen-config-matlab.txt $(matlab-sources)
 	mkdir -p $(matlab-manual)
 	$(DOXYGEN) doxygen-config-matlab.txt
 	$(call postprocess_doxygen,$(matlab-manual))
+endif
+
+ifdef USE_OCTAVE
+octave-sources = $(wildcard ../../src/bindings/octave/*.m ../../src/bindings/octave/*.c)
+
+octave-manual $(octave-manual): doxygen-config-octave.txt $(octave-sources)
+	mkdir -p $(octave-manual)
+	$(DOXYGEN) doxygen-config-octave.txt
+	$(call postprocess_doxygen,$(octave-manual))
 endif
 
 ifdef USE_CSHARP

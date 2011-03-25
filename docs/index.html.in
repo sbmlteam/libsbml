@@ -15,6 +15,7 @@
 <h2><a href="./formatted/java-api/index.html">Java API Reference Manual</a></h2>
 <h2><a href="./formatted/python-api/index.html">Python API Reference Manual</a></h2>
 <h2><a href="./formatted/matlab-api/index.html">MATLAB API Reference Manual</a></h2>
+<h2><a href="./formatted/octave-api/index.html">Octave API Reference Manual</a></h2>
 </center>
 <p style="width: 450px; margin: 2em auto 1em">We are keenly interested in improving the libSBML documentation.  If you find any errors or problems in these manuals, <em>please</em> report them!
 </p>
