@@ -108,6 +108,19 @@ uninstall: uninstall-libraries
 
 
 # -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-recursive
+
+distclean: distclean-recursive
+
+mostlyclean: mostlyclean-recursive
+
+maintainer-clean: maintainer-clean-recursive
+
+
+# -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
