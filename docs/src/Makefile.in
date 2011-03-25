@@ -223,7 +223,7 @@ distfiles =                                                  \
         libsbml-example.txt                                  \
         libsbml-features.html                                \
         libsbml-features.txt                                 \
-        libsbml-installation.html                            \
+        libsbml-installation.html.in                         \
         libsbml-installation.txt                             \
         libsbml-issues.html                                  \
         libsbml-issues.txt                                   \
