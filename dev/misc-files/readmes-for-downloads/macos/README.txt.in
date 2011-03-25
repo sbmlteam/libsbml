@@ -1,7 +1,5 @@
-                         l i b S B M L   4.3
+                        l i b S B M L   @PACKAGE_VERSION@
 	      Installers for Mac OS X operating systems
-
-                        Released 4 March 2011
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination before you install libSBML using this installer,
@@ -20,8 +18,12 @@ addition to the C/C++ libSBML core:
   * Ruby
 
 The MATLAB and Octave interfaces are currently not included in the
-MacOSX installer. If you need the MATLAB or Octave interfaces, please
-compile them directly using the libSBML source code distribution.
+MacOSX installer.  If you need the MATLAB and/or Octave interfaces, or
+need to use a different XML parser library, it will be necessary to
+build libSBML yourself from the source distribution using suitable
+configuration flags.  The procedure is described in the libSBML
+documentation.  The source and docs are available from the download
+directory http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
 
 By default, the installer will put the contents in /usr/local, but
 this location can be changed from the installer interface.

@@ -1,7 +1,5 @@
-                         l i b S B M L   4.3
-      Installers for 32-bit Microsoft Windows operating systems
-
-                        Released 4 March 2011
+                        l i b S B M L   @PACKAGE_VERSION@
+      Installers for 64-bit Microsoft Windows operating systems
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination on your computer before you install libSBML using
@@ -9,21 +7,23 @@ these installers, or you may end up with mixed versions of different
 libSBML components on your system.
 
 This directory contains installers for precompiled versions of libSBML
-for Microsoft Windows 32-bit systems.  The copies of libSBML contained
+for Microsoft Windows 64-bit systems.  The copies of libSBML contained
 here were built using the libxml2 XML parser library.  Here you will
 find the following:
 
-  * libSBML-4.3.0-win-x86.exe
+  * libSBML-@PACKAGE_VERSION@-win-x64.exe
 
       Complete libSBML binary distribution, containing the precompiled
       C/C++ libSBML core library and the following libSBML language
-      interfaces: C# (Mono), Java, MATLAB, Octave, Perl, Python, Ruby.
+      interfaces: C# (Mono), Java, MATLAB, Perl, Python, Ruby.  (Note:
+      the Octave interface is not included because there are no 64-bit
+      versions of Octave available at this time.)
 
-  * libSBML-4.3.0-win-matlab-x86.exe
+  * libSBML-@PACKAGE_VERSION@-win-matlab-x64.exe
 
       Installer for the MATLAB libSBML interface ONLY.  Download this
       if you ONLY need to use libSBML from MATLAB.  (This installer is
-      also contained within libSBML-4.3.0-win-x86.exe, so if you
+      also contained within libSBML-@PACKAGE_VERSION@-win-x64.exe, so if you
       downloaded that, you do NOT need to download and install this
       MATLAB interface installer in addition.)
 
@@ -32,7 +32,7 @@ find the following:
       This folder contains installers for the Python libSBML interface
       ONLY, for different versions of Python.  Download and use one of
       these installers if you only need the Python interface.  (The
-      interface is also included within libSBML-4.3.0-win-x86.exe, so
+      interface is also included within libSBML-@PACKAGE_VERSION@-win-x64.exe, so
       if you downloaded that, you do NOT need to download and install
       the Python interface installer separately.)
 

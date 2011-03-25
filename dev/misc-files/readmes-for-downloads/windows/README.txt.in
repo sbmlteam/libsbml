@@ -1,39 +1,16 @@
-                         l i b S B M L   4.3
-	    Installers for 64-bit Linux operating systems
-
-                        Released 4 March 2011
-
-IMPORTANT: Please uninstall any existing copy of libSBML located in
-the same destination before you install libSBML using this installer,
-or you may end up with mixed versions of different libSBML components
-on your system.
+                        l i b S B M L   @PACKAGE_VERSION@
+	  Installers for Microsoft Windows operating systems
 
 This directory contains installers for precompiled versions of libSBML
-for 64-bit Linux systems.  All copies were built using the libxml2 XML
-parser library.  The installer provides only the core libSBML library
-(C/C++ interface); it does not include the other language bindings.
+for Microsoft Windows systems.  Please navigate to either the 32-bit
+or 64-bit folders, to match the version of the operating system you
+are using.
 
-Here you will find the following files:
-
-  libSBML-4.3.0-Linux-x64.rpm -- for RPM-based Linux distributions
-                                 (Fedora, Red Hat, CentOS)
-
-  libSBML-4.3.0-Linux-x64.deb -- for Debian-based Linux distributions
-                                 (Ubuntu & its variants, Debian)
-
-By default, the installer will put the contents in /usr/local.
-
-For detailed information about how to make libSBML accessible to your
-software, please visit the following URL:
-
-  http://sbml.org/Software/libSBML/docs/cpp-api/libsbml-accessing.html
-
-For additional information about this version of libSBML, please visit
-the libSBML website at
+For more information about libSBML, please visit the libSBML website at
 
   http://sbml.org/Software/libSBML
 
-Please report problems with libSBML using the tracker at
+Please report any problems with libSBML using the tracker at
 
   http://sbml.org/Software/libSBML/issue-tracker
 

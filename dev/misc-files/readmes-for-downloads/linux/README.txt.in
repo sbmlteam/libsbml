@@ -1,7 +1,5 @@
-                         l i b S B M L   4.3
+                        l i b S B M L   @PACKAGE_VERSION@
 		Installers for Linux operating systems
-
-                        Released 4 March 2011
 
 IMPORTANT: Please uninstall any existing copy of libSBML located in
 the same destination before you install libSBML using this installer,
@@ -10,15 +8,21 @@ on your system.
 
 This directory contains installers for precompiled versions of libSBML
 for Linux systems.  All copies were built using the libxml2 XML parser
-library.  The installer provides only the core libSBML library (C/C++
-interface); it does not include the other language bindings.
+library.  The installer provides ONLY the core libSBML library (C/C++
+interface); it does not include the other language bindings. 
 
 Please navigate to either the 32-bit or 64-bit folders, to match the
 version of the operating system you are using.
 
+If you need the MATLAB or other language interfaces, or need to use a
+different XML parser library, it will be necessary to build libSBML
+yourself from the source distribution using suitable configuration
+flags.  The procedure is described in the libSBML documentation.  The
+source and documentation are available from the top-level download
+directory, http://sourceforge.net/projects/sbml/files/libsbml/@PACKAGE_VERSION@
+
 For additional information about this version of libSBML, please see
-the files in the "docs" subdirectory of this installer or visit the
-libSBML website at 
+the documentation or visit the libSBML website at
 
   http://sbml.org/Software/libSBML
 
