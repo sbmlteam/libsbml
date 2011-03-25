@@ -107,12 +107,14 @@ define matlabrun
     $(LIBTOOL) -dlopen $(TOP_BUILDDIR)/src/libsbml.la --mode=execute $(1)
 endef
 
+here = $(shell /bin/pwd)
+
 check: $(libraries)
 	@echo
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call matlabrun,$(MATLAB) $(matlab_test_args) -r runTests)
+	$(call matlabrun,$(MATLAB) $(matlab_test_args) -r "cd ('$(here)'); runTests")
 	@echo -----------------------------------------------------------------
 	@echo
 
