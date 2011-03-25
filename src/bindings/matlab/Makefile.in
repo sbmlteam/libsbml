@@ -132,8 +132,10 @@ endef
 # below, it will be empty, and it won't work.  Kludgy solution: use every
 # possible mex extension to define this rule.
 
+here = $(shell /bin/pwd)
+
 $(addprefix %.,$(possible_mexext)): %.c
-	$(call matlabrun,$(MATLAB) $(matlab_args) -r 'buildSBML; quit')	
+	$(call matlabrun,$(MATLAB) $(matlab_args) -r "cd ('$(here)'); buildSBML; quit")	
 
 
 # -----------------------------------------------------------------------------
