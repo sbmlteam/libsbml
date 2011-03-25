@@ -63,7 +63,6 @@ matlab_sources =                      \
         TranslateSBML.m               \
         OutputSBML.c                  \
         OutputSBML.m                  \
-        buildSBML.m                   \
         installSBML.m                 \
         isoctave.m                    \
         matlab-tags-regexp.txt        \
@@ -143,7 +142,7 @@ flags = $(MKOCTFILE_FLAGS) -DUSE_OCTAVE -I../.. -I../../../include
 #%.lo: %.c
 #	$(LIBTOOL) --tag=CC --mode=compile $(MKOCTFILE_WRAPPER) $(MKOCTFILE) -c -o $@ $(flags) $<
 
-	
+
 #%.$(OCTAVEEXT): %.lo
 #	$(TOP_SRCDIR)/config/lt_link_helper.sh $(MKOCTFILE_WRAPPER) --libdir $(LIBDIR) $(MKOCTFILE) -o $@ $(flags) $^ ../../libsbml.la $(MKOCTFILE_LIBS)
 
