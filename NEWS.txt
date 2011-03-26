@@ -48,6 +48,12 @@ Version 4.3.1 ()
 
   - The LICENSE.* files had an outdated disclaimer statement.  Fixed.
 
+* Miscellaneous changes
+
+  - Choosing --enable-universal-binary on MacOS 10.5 now includes all
+    three of the following architectures: i386, x86_64, ppc.  It
+    previously only selected i386 and ppc.
+
 
 ======================================================================
 Version 4.3.0 (Released 2011-03-04)
