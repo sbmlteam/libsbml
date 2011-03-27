@@ -233,7 +233,6 @@ distfiles =                         \
   config/csharp.m4                  \
   config/runldpath.m4               \
   config/swig.m4                    \
-  config/univbinary.m4              \
   config/xercesc.m4                 \
   config/zlib.m4                    \
   config/bzip2.m4                   \
