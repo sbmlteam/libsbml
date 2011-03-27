@@ -112,19 +112,22 @@ by libSBML, only MacOSX systems commonly support fat binaries.
       dnl will normally get i386, x86_64 and ppc, but if Xcode 4 has been
       dnl installed, we only get i386 and x86_64.
       dnl 
-      default_OPTS="-arch i386"
+      default_OPTS=""
       if test -e "/Developer/usr/libexec/gcc/darwin/x86_64"; then
-        default_OPTS="${default_OPTS} -arch x86_64"
+        default_OPTS="-arch x86_64 ${default_OPTS}"
       fi
       if test -e "/Developer/usr/libexec/gcc/darwin/ppc"; then
-        default_OPTS="${default_OPTS} -arch ppc"
+        default_OPTS="-arch ppc ${default_OPTS}"
+      fi
+      if test -e "/Developer/usr/libexec/gcc/darwin/i386"; then
+        default_OPTS="-arch i386 ${default_OPTS}"
       fi
 
       dnl Leaving this out, because I don't think there's any call for it,
       dnl instead it might just bite us one day.
       dnl
       dnl if test -e "/Developer/usr/libexec/gcc/darwin/ppc64"; then
-      dnl   default_OPTS="${default_OPTS} -arch ppc64"
+      dnl   default_OPTS="-arch ppc64 ${default_OPTS}"
       dnl fi
 
       CFLAGS="${CFLAGS} ${default_OPTS}"
