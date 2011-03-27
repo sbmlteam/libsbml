@@ -146,7 +146,7 @@ extra_distclean = Makefile-perl Makefile-perl.old
 
 all: Makefile-perl
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl
+	$(MAKE) -f Makefile-perl -$(MAKEFLAGS)
 else
 	$(MAKE) -f Makefile-perl
 endif
@@ -215,7 +215,7 @@ tags: etags ctags
 
 install: Makefile.PL Makefile-perl
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl pure_install
+	$(MAKE) -f Makefile-perl -$(MAKEFLAGS) pure_install
 else
 	$(MAKE) -f Makefile-perl pure_install
 endif
@@ -224,7 +224,7 @@ installcheck:
 
 uninstall:
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl myuninstall
+	$(MAKE) -f Makefile-perl -$(MAKEFLAGS) myuninstall
 else
 	$(MAKE) -f Makefile-perl myuninstall
 endif
@@ -236,7 +236,7 @@ endif
 
 clean: Makefile-perl
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl clean
+	$(MAKE) -f Makefile-perl -$(MAKEFLAGS) clean
 else
 	$(MAKE) -f Makefile-perl clean
 endif
