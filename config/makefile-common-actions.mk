@@ -345,6 +345,13 @@ recursive_targets = all-recursive include-recursive install-data-recursive \
 	docs-recursive install-docs-recursive \
 	dist-recursive distcheck-recursive
 
+# Always want -w in the flags passed to recursive makes, so that it prints
+# the current directory at each step.
+
+ifeq "$(findstring $(MAKEFLAGS),-w)" ""
+  MAKEFLAGS := $(MAKEFLAGS) -w
+endif
+
 # Notes about the following:
 #
 # include-recursive is split out as a separate target, so that
@@ -360,9 +367,9 @@ subdirs: $(subdirs_recurse)
 
 $(subdirs_recurse): 
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -w -C $(subst -recurse,,$@) -$(MAKEFLAGS) $(MAKECMDGOALS)
+	$(MAKE) -C $(subst -recurse,,$@) -$(MAKEFLAGS) $(MAKECMDGOALS)
 else
-	$(MAKE) -w -C $(subst -recurse,,$@) $(MAKECMDGOALS)
+	$(MAKE) -C $(subst -recurse,,$@) $(MAKECMDGOALS)
 endif
 
 # Now here's the separate logic for include-recursive:
@@ -373,9 +380,9 @@ include-recursive: $(subdirs_recurse_inc)
 
 $(subdirs_recurse_inc): 
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -w -C $(subst -recurse-inc,,$@) -$(MAKEFLAGS) include
+	$(MAKE) -C $(subst -recurse-inc,,$@) -$(MAKEFLAGS) include
 else
-	$(MAKE) -w -C $(subst -recurse-inc,,$@) include
+	$(MAKE) -C $(subst -recurse-inc,,$@) include
 endif
 
 
@@ -785,11 +792,12 @@ $(TOP_SRCDIR)/config.status: $(TOP_SRCDIR)/configure $(TOP_SRCDIR)/VERSION.txt
 $(TOP_SRCDIR)/configure: \
 	     $(TOP_SRCDIR)/configure.ac \
 	     $(TOP_SRCDIR)/VERSION.txt \
-	     $(ACLOCAL_M4)
+	     $(ACLOCAL_M4) \
+	     $(wildcard $(TOP_SRCDIR)/config/*.m4)
 	cd $(TOP_SRCDIR) && $(AUTOCONF) -Wall --force
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
-$(ACLOCAL_M4): $(ACINCLUDE_M4) $(wildcard $(TOP_SRCDIR)/config/*.m4)
+$(ACLOCAL_M4): $(ACINCLUDE_M4) 
 	cd $(TOP_SRCDIR) && $(ACLOCAL) -I config
 
 $(TOP_SRCDIR)/config/chk_swig_version.sh: $(TOP_SRCDIR)/configure \
