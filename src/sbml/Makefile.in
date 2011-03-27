@@ -216,7 +216,11 @@ distfiles = $(sources) $(headers) Makefile.in
 all: Makefile all-recursive all-this-dir
 
 all-this-dir: ;
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) default
+else
 	$(MAKE) default
+endif
 
 
 # -----------------------------------------------------------------------------
@@ -224,7 +228,11 @@ all-this-dir: ;
 # -----------------------------------------------------------------------------
 
 check: all check-recursive
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS)
+else
 	$(MAKE) include
+endif
 
 include: include-recursive
 

@@ -277,7 +277,11 @@ endif
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) $(shell $(call check_layout))
 	@top_srcdir@/config/chk_swig_version.sh || exit
+ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) clean-swigfiles
+else
+	$(MAKE) clean-swigfiles
+endif
 	test -d $(outpath) || mkdir -p $(outpath)
 	"$(SWIG)" $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -java -package $(java_package) \

@@ -145,7 +145,11 @@ extra_distclean = Makefile-perl Makefile-perl.old
 # The default action is to remake everything.
 
 all: Makefile-perl
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl
+else
 	$(MAKE) -f Makefile-perl
+endif
 
 # The Perl-created Makefile is named 'Makefile-perl'.
 
@@ -210,12 +214,20 @@ tags: etags ctags
 # -----------------------------------------------------------------------------
 
 install: Makefile.PL Makefile-perl
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl pure_install
+else
 	$(MAKE) -f Makefile-perl pure_install
+endif
 
 installcheck:
 
 uninstall:
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl myuninstall
+else
 	$(MAKE) -f Makefile-perl myuninstall
+endif
 
 
 # -----------------------------------------------------------------------------
@@ -223,7 +235,11 @@ uninstall:
 # -----------------------------------------------------------------------------
 
 clean: Makefile-perl
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) -f Makefile-perl clean
+else
 	$(MAKE) -f Makefile-perl clean
+endif
 
 distclean: Makefile-perl distclean-normal
 

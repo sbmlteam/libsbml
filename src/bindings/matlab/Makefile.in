@@ -113,9 +113,9 @@ endif
 
 all: Makefile
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -w -$(MAKEFLAGS) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
+	$(MAKE) -$(MAKEFLAGS) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
 else
-	$(MAKE) -w mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
+	$(MAKE) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
 endif
 
 # Run the compilation using libtool and setting CFLAGS.  Not sure if this

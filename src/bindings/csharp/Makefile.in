@@ -455,8 +455,11 @@ installcheck:
 # -----------------------------------------------------------------------------
 
 dist: libsbml_wrap.cpp libsbml_wrap-win.cpp $(outpath) $(outpath_win)
+ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) dist-normal
-
+else
+	$(MAKE) dist-normal
+endif
 
 distcheck: distcheck-normal
 

@@ -110,7 +110,11 @@ docs:
 check: check-prereq check-recursive
 
 check-prereq: ;
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) all
+else
 	$(MAKE) all
+endif
 
 
 # -----------------------------------------------------------------------------

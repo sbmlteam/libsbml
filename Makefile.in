@@ -570,7 +570,11 @@ config-check:
 	fi
 
 dist-all: $(distfiles)
-	$(MAKE) $(MAKEFLAGS) all
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -$(MAKEFLAGS) all
+else
+	$(MAKE) all
+endif
 	-rm -f $(distarchive)
 	@$(remove_distdir)
 	mkdir -p $(DISTDIR)
@@ -599,7 +603,7 @@ dist-all: $(distfiles)
 	    test -d $(DISTDIR)/$$subdir \
 	    || mkdir $(DISTDIR)/$$subdir \
 	    || exit 1; \
-	    $(MAKE) $(MAKEFLAGS) -wC $$subdir \
+	    $(MAKE) -$(MAKEFLAGS) -C $$subdir \
 	        TOP_DISTDIR="$(TOP_DISTDIR)" \
 	        DISTDIR=$(DISTDIR) \
 	        dist \
