@@ -104,10 +104,28 @@ by libSBML, only MacOSX systems commonly support fat binaries.
       CXXFLAGS="${CXXFLAGS} $enable_univbinary"
       LDFLAGS="${LDFLAGS} $enable_univbinary"
     else
-      OSX_MAJOR_VER=`uname -r | cut -d'.' -f1`
-      if expr ${OSX_MAJOR_VER} \>= 9 | grep -q 1; then
-	default_OPTS="-arch i386 -arch x86_64 -arch ppc"
+      dnl Variations in what's supported between Xcode 3 and Xcode 4, plus
+      dnl expected changes in Mac OS X Lion, means we need to be careful
+      dnl about what we try to use.  The principle below is to try to build
+      dnl with all the architectures we can actually find.  This means, for
+      dnl example, that on a Mac OS X 10.6.6 system with Xcode 3.x, we
+      dnl will normally get i386, x86_64 and ppc, but if Xcode 4 has been
+      dnl installed, we only get i386 and x86_64.
+      dnl 
+      default_OPTS="-arch i386"
+      if test -e "/Developer/usr/libexec/gcc/darwin/x86_64"; then
+        default_OPTS="${default_OPTS} -arch x86_64"
       fi
+      if test -e "/Developer/usr/libexec/gcc/darwin/ppc"; then
+        default_OPTS="${default_OPTS} -arch ppc"
+      fi
+
+      dnl Leaving this out, because I don't think there's any call for it,
+      dnl instead it might just bite us one day.
+      dnl
+      dnl if test -e "/Developer/usr/libexec/gcc/darwin/ppc64"; then
+      dnl   default_OPTS="${default_OPTS} -arch ppc64"
+      dnl fi
 
       CFLAGS="${CFLAGS} ${default_OPTS}"
       CXXFLAGS="${CXXFLAGS} ${default_OPTS}"
