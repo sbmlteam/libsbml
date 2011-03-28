@@ -58,6 +58,12 @@ configure_file(
 endforeach()
 
 
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-installation.html.in
+	${CMAKE_CURRENT_SOURCE_DIR}/src/libsbml-installation.html
+)
+
+
 # create C-api manuals
 macro(createManual lang)
 	make_directory(${CMAKE_CURRENT_SOURCE_DIR}/formatted/${lang}-api)
