@@ -94,7 +94,8 @@ matlab_args := -nosplash -nodesktop -nojvm
 #
 # We can't rely on finding or using Matlab's own "mexext" shell script,
 # because I've seen it report the wrong architecture on some combinatinos
-# of OS and Matlab version.  Need to ask Matlab itself.
+# of OS and Matlab version.  Need to ask Matlab itself, because Matlab is what
+# we will ultimately use to invoke 'mex'.
 #
 # The business with fprintf(2...) is because matlab buffers the output of
 # stdout and sometimes doesn't print it if you just do 'mexext; quit'.
@@ -106,12 +107,16 @@ matlab_args := -nosplash -nodesktop -nojvm
 # Don't bother setting this variable if all we're doing is a "make clean".
 
 ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+  empty        :=
+  space        := $(empty) $(empty)
+  mexext_regex := $(subst $(space),|,$(possible_mexext))
   ifeq ($(origin mexext), undefined)
-    mexext := $(shell $(MATLAB) $(matlab_args) -r "fprintf(2, '%s\n', mexext); quit" 2>&1 | grep mex | tr -d '> ')
+    mexext := $(shell $(MATLAB) $(matlab_args) -r "fprintf(2, '%s\n', mexext); quit" 2>&1 | egrep '($(mexext_regex))' | tr -d '> ')
   endif
 endif
 
 all: Makefile
+	echo '($(mexext_regex))'
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
 else
