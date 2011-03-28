@@ -116,7 +116,6 @@ ifeq (,$(findstring clean,$(MAKECMDGOALS)))
 endif
 
 all: Makefile
-	echo '($(mexext_regex))'
 ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -$(MAKEFLAGS) mexext=$(mexext) TranslateSBML.$(mexext) OutputSBML.$(mexext)
 else
