@@ -3980,6 +3980,16 @@ SBase::checkAnnotation()
     std::string uri = topLevel.getURI();
     std::string prefix = topLevel.getPrefix();
 
+#ifdef USE_LIBXML
+    // sometimes libxml does not catch an empty ns with a prefix
+    if (uri.empty() && !prefix.empty())
+    {
+      logError(BadXMLPrefix);
+      nNodes++;
+      continue;
+    }
+#endif
+
     // cannot be other toplevel element with this uri
     if (!uri.empty())
     {
