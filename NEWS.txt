@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Version 4.3.1 ()
+Version 4.3.1 (Released 2011-03-29)
 ======================================================================
 
 * New features
@@ -9,6 +9,11 @@ Version 4.3.1 ()
   - There is now API documentation for the MATLAB and Octave bindings.
 
 * Bug fixes
+
+  - Certain versions of the libxml2 parser fail to catch a prefix
+    being assigned to an empty namespace. Additional code has
+    been included to catch this error if the version of libxml2 has
+    not reported it.
 
   - The improved build of the MATLAB interface proved unsuccessful
     in cases where the user had a startup.m file that changed
