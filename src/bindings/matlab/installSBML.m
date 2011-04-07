@@ -69,7 +69,7 @@ function installSBML
       end;
     elseif ismac()
       install_mac();
-    elseif islinux()
+    elseif isunix()
       install_linux();
     else
       error('OS not recognised');
