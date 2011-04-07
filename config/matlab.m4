@@ -1,4 +1,4 @@
-ednl
+dnl
 dnl Filename    : matlab.m4
 dnl Description : Autoconf macro for MATLAB configuration
 dnl Author(s)   : Mike Hucka
