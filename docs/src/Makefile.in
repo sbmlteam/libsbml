@@ -239,9 +239,13 @@ distfiles =                                                  \
         libsbml-license.txt                                  \
         libsbml-mainpage.txt                                 \
         libsbml-math.txt                                     \
+        libsbml-matlab-mainpage.txt                          \
+        libsbml-matlab-reading-files.txt                     \
         libsbml-news.txt                                     \
         libsbml-papers.html                                  \
         libsbml-papers.txt                                   \
+        libsbml-octave-mainpage.txt                          \
+        libsbml-octave-reading-files.txt                     \
         libsbml-python-mainpage.txt                          \
         libsbml-python-math.txt                              \
         libsbml-python-reading-files.txt                     \
