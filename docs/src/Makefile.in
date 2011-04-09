@@ -151,6 +151,7 @@ distfiles =                                                  \
         common-text/unitkind-table.html                      \
         common-text/warn-default-args-in-docs.html           \
         common-text/xmlid-syntax.html                        \
+	csdocfilter.py                                       \
         doxygen-base.css                                     \
         doxygen-config-c.txt.in                              \
         doxygen-config-common.txt                            \
