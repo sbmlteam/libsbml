@@ -1,0 +1,11 @@
+autom4te.cache
+Makefile
+config.log
+config.status
+.deps
+include
+TAGS
+CTAGS
+libsbml.pc
+*.o
+.libs

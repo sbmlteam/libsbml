@@ -1,0 +1,14 @@
+autom4te.cache
+Makefile
+config.log
+config.status
+.deps
+include
+TAGS
+CTAGS
+libsbml.pc
+*.o
+test.xml.zip
+test.xml.gz
+TestRunner
+test.xml.bz2

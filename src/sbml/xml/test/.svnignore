@@ -1,0 +1,11 @@
+*.lo
+*.la
+.deps
+.libs
+Makefile
+TestRunner
+*.dylib
+TAGS
+CTAGS
+*.o
+out.xml
