@@ -1,0 +1,48 @@
+@echo off 
+
+REM This file tests the python build
+REM it needs three arguments
+REM 
+REM - python interpreter
+REM - directory of python build
+REM - test directory
+REM
+REM 2011/02/26 Frank Bergmann
+REM
+
+REM ensure visual studio is in the path
+if "%INCLUDE%"=="" call vs10.bat
+
+REM set up directory variables
+SET BASE_DIR=%~dp0
+SET PYTHON_INTERP=%1
+SET PYTHON_BUILD=%2
+SET TEST_DIR=%3
+
+if "%PYTHON_INTERP%" == "" goto MISSING_ARGS
+if "%PYTHON_BUILD%" == "" goto MISSING_ARGS
+if "%TEST_DIR%" == "" goto MISSING_ARGS
+
+cd /d "%TEST_DIR%"
+
+echo.
+echo Testing Python bindings from: %PYTHON_BUILD%
+echo wyth python:                  %PYTHON_INTERP%
+echo.
+SET PYTHONPATH=%PYTHON_BUILD%;%PYTHON_BUILD%\libsbml;%TEST_DIR%;%TEST_DIR%\test;.;test;test\sbml;test\annotation;test\math;test\xml
+"%PYTHON_INTERP%" test.py
+
+goto ALL_DONE
+
+:MISSING_ARGS
+echo.
+echo Please call this script with three arguments: 
+echo. 
+echo - python interpreter
+echo - libsbml python build
+echo - libsbml python test directory
+echo. 
+goto ALL_DONE
+
+:ALL_DONE
+cd  /d %BASE_DIR%

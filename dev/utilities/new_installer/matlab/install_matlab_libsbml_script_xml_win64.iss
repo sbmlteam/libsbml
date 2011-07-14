@@ -1,0 +1,255 @@
+; Version No is currently 5.0.0
+; Check before use
+
+
+[Setup]
+AppName=libSBML MATLAB Interface
+AppVerName=MATLAB Interface of libSBML 5.0.0
+AppPublisher=SBML Team
+AppPublisherURL=http://sbml.org
+AppSupportURL=http://sbml.org
+AppUpdatesURL=http://sbml.org
+DefaultDirName={pf}\SBML\libSBML-5.0.0-libxml2-x64\bindings\matlab
+DefaultGroupName=libSBML-matlab
+DisableProgramGroupPage=yes
+OutputDir=.\Output
+OutputBaseFilename=libSBML-5.0.0-win-matlab-x64
+WizardSmallImageFile=..\graphics\libsbml-installer-mini-logo.bmp
+WizardImageFile=..\graphics\libsbml-matlab-installer-graphic.bmp
+UsePreviousAppDir=no
+Compression=lzma
+SolidCompression=yes
+ArchitecturesInstallIn64BitMode=x64
+
+[Languages]
+Name: english; MessagesFile: compiler:Default.isl
+
+[Files]
+Source: .\libsbml-matlab\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs; Check: GetProceed
+
+[Registry]
+Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
+Root: HKCU; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
+Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: Version; ValueData: 5.0.0
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: InstallPath; ValueData: {app}
+
+[Code]
+var
+  URLLabel: TNewStaticText;
+  AboutButton, CancelButton: TButton;
+
+  MatlabVersPage: TInputOptionWizardPage;
+
+  MatlabPresent: Boolean;
+
+  MatlabNames: TArrayOfString;
+  MatlabVersions: TArrayOfString;
+  MatlabRoots: TArrayOfString;
+  Number: Longint;
+
+  Proceed: Boolean;
+
+function GetRunMatlab(Param: String): String;
+begin
+  if Number > 1 then begin
+    Result:= MatlabRoots[MatlabVersPage.SelectedValueIndex];
+  end else begin
+    Result := MatlabRoots[0];
+  end;
+end;
+
+
+function GetProceed : Boolean;
+begin
+  Result := Proceed;
+end;
+
+function GetMatlabPresent : Boolean;
+begin
+  Result := MatlabPresent;
+end;
+
+{function to return matlab root directory}
+procedure GetAllMatlabs;
+var
+  Root:String;
+  Key: String;
+  Vers: String;
+  len: Integer;
+  c: Char;
+  i: Integer;
+
+begin
+  RegGetSubKeyNames(HKLM, 'Software\Mathworks\MATLAB', MatlabNames);
+
+  MatlabPresent := False;
+  {deals with possible multiple installations of Matlab
+   and choses most recent }
+  Number := GetArrayLength(MatlabNames);
+  { Number:= 1;   - for testing }
+  if not (Number = 0) then begin
+    MatlabPresent := True;
+    SetArrayLength(MatlabVersions, Number);
+    SetArrayLength(MatlabRoots, Number);
+
+    for i := 0 to Number-1 do begin
+      Key := '';
+      Key := Key + 'Software\Mathworks\MATLAB\';
+      Key := Key + MatlabNames[i];
+      RegQueryStringValue(HKLM, Key, 'MATLABROOT', Root);
+      len := Length(Root);
+      if len > 0 then begin
+        c := Root[len];
+        if not (c = '\') then begin
+          Root := Root + '\';
+        end;
+      end;
+      len := Length(Root);
+      Vers := Root[len-5] + Root[len-4] + Root[len-3] + Root[len-2] + Root[len-1];
+      MatlabVersions[i] :=  Vers;
+      Root := Root + 'bin\matlab.exe';
+      MatlabRoots[i] := Root;
+    end;
+  end;
+end;
+
+{functions to activate buttons and url on screen}
+procedure AboutButtonOnClick(Sender: TObject);
+begin
+
+{*********************************************************************************************************
+ The text for this message box is what the user will see if they click the About button during installation
+
+ Feel free to alter it to taste but beware it must all be on one line.
+
+  Note: it includes a version number
+**********************************************************************************************************}
+  MsgBox('This setup installs the Windows version of the MATLAB binding of libSBML 5.0.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
+ end;
+
+
+{send to url}
+procedure URLLabelOnClick(Sender: TObject);
+var
+  Dummy: Integer;
+begin
+  ShellExec('open', 'http://www.sbml.org', '', '', SW_SHOW, ewNoWait, Dummy);
+end;
+
+procedure InitializeWizard;
+var
+  index: Integer;
+  caption: String;
+  
+begin
+  GetAllMatlabs();
+  Proceed := True;
+
+  {add an about button and a url to all pages}
+  {need a cancel button to locate other}
+  CancelButton := WizardForm.CancelButton;
+
+  AboutButton := TButton.Create(WizardForm);
+  AboutButton.Left := WizardForm.ClientWidth - CancelButton.Left - CancelButton.Width;
+  AboutButton.Top := CancelButton.Top;
+  AboutButton.Width := CancelButton.Width;
+  AboutButton.Height := CancelButton.Height;
+  AboutButton.Caption := '&About...';
+  AboutButton.OnClick := @AboutButtonOnClick;
+  AboutButton.Parent := WizardForm;
+
+
+  URLLabel := TNewStaticText.Create(WizardForm);
+  URLLabel.Top := AboutButton.Top + AboutButton.Height - URLLabel.Height - 2;
+  URLLabel.Left := AboutButton.Left + AboutButton.Width + 20;
+  URLLabel.Caption := 'www.sbml.org';
+  URLLabel.Font.Style := URLLabel.Font.Style + [fsUnderLine];
+  URLLabel.Font.Color := clBlue;
+  URLLabel.Cursor := crHand;
+  URLLabel.OnClick := @URLLabelOnClick;
+  URLLabel.Parent := WizardForm;
+
+  {which matlab page}
+  if Number > 1 then begin
+    MatlabVersPage := CreateInputOptionPage(wpSelectDir,
+      'Customise installation', '',
+      'Select which version of matlab to use',
+      True, False);
+    for index := 0 to Number-1 do begin
+      caption := 'Version ' + MatlabNames[index] + ' (' + MatlabVersions[index] + ')';
+      MatlabVersPage.Add(caption);
+    end;
+    MatlabVersPage.SelectedValueIndex := Number-1;
+  end;
+
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if (not Proceed and (CurPageID = wpReady)) then
+    WizardForm.NextButton.Enabled := False;
+end;
+
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+  { Skip pages that shouldn't be shown }
+  if (not Proceed and (PageID = wpSelectDir)) then
+    Result := True
+  else
+   Result := False;
+end;
+
+function NextButtonClick(CurPageID: Integer): Boolean;
+
+begin
+  { Validate certain pages before allowing the user to proceed }
+  if CurPageID = wpWelcome then begin
+    if (MatlabPresent) then begin
+      Proceed := True;
+    end else begin
+      if MsgBox('MATLAB has not been detected on your system. Files can be copied but not installed. Proceed?', mbError, MB_YESNO or MB_DEFBUTTON2) = IDNO then
+        begin
+          Proceed := False;
+        end else begin
+          Proceed := True;
+      end;
+    end;
+    Result := True;
+  end else begin
+    Result := True;
+  end;
+end;
+
+function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo, MemoComponentsInfo, MemoGroupInfo, MemoTasksInfo: String): String;
+var
+  S: String;
+begin
+  { Fill the 'Ready Memo' with the normal settings and the custom settings }
+  if (Proceed) then begin
+   S := '';
+   if (MatlabPresent) then begin
+    if Number > 1 then begin
+      S := S + 'Using MATLAB Version' + MatlabVersions[MatlabVersPage.SelectedValueIndex] + NewLine + NewLine;
+    end else begin
+      S := S + 'Using MATLAB Version' + MatlabVersions[0] + NewLine + NewLine;
+    end;
+   end;
+   S := S + MemoDirInfo + NewLine;
+   S := S + NewLine;
+  end else begin
+   S := 'Installation cancelled';
+   S := S + NewLine;
+  end;
+
+
+
+  Result:= S;
+end;
+
+[Run]
+
+
+Filename: "{app}\install\install.bat"; Parameters: """{code:GetRunMatlab}""" ; Check: GetMatlabPresent ; Description: "Run MATLAB and install libSBML Interface"; Flags: postinstall  runascurrentuser
+
