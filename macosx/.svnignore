@@ -1,0 +1,8 @@
+Makefile
+.deps
+*.o
+build.sh
+*.pkg
+libsbml-dist
+disk-image
+disk-image-previous
