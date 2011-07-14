@@ -1,7 +1,0 @@
-autom4te.cache
-Makefile
-.deps
-TAGS
-CTAGS
-*.o
-.libs

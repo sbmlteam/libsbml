@@ -1,3 +1,0 @@
-Testing custom keywords:
-$Id$
-$Version$
