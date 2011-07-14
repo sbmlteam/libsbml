@@ -1,0 +1,846 @@
+BODY {
+  background: white;
+  color: #443;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+  line-height: 140%;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+CODE {
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+}
+
+.code {
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+}
+
+LI { 
+  font-size: 12px;
+}
+
+P {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+  line-height: 140%;
+}
+
+.footer {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+}
+
+td {
+  font-size: 12px;
+}
+
+table {
+  font-size: 12px;
+  border: none;
+}
+
+/* The next two (TableRowColor) are for javadoc */
+
+tr.TableRowColor td {
+  font-style: italic;
+  color: #666;
+  border: none;
+  border-bottom: 1px solid #bbb;
+  vertical-align: top;
+} 
+
+tr.TableRowColor td code {
+  font-style: normal;
+  color: #444;
+  padding-left: 4px;
+  line-height: 18px;
+} 
+
+tr.TableHeadingColor th {
+  color: #666;
+  text-shadow: 0px 1px 1px #fff, 0px -1px 0 #222; 
+  letter-spacing: 1px;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 18px;
+  margin: 1em auto 2em;
+  padding: 5px 2px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  background: -moz-linear-gradient(top, #eee, #ccc); 
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#bbb)); 
+  line-height: 150%;
+
+}
+
+tr.TableHeadingColor th font b {
+  font-size: 18px;
+}
+
+tr.TableSubHeadingColor th {
+  border: none;
+  border-top: 1px solid #bbb;
+  background-color: #d0d0d0;
+  padding: 5px;
+}
+
+TD.footer {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+}
+
+.footercomment {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: x-small;
+  font-style: italic;
+  color: #555555;
+}
+
+H1 {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 2em;
+}
+
+H2 {
+  color: #443;
+  text-shadow: 0px 1px 1px #fff, 0px -1px 0 #222; 
+  letter-spacing: 1px;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 18px;
+  margin-top: 1em;
+  padding-left: 2px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #999;
+  border-right: 1px solid #aaa;
+  background: -moz-linear-gradient(top, #eee, #b8b8b8); 
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#b8b8b8)); 
+  -moz-box-shadow: 3px 3px 3px #d0d0d0;
+  -webkit-box-shadow: 3px 3px 3px #d0d0d0;
+}
+
+h2 code {
+  font-size: 16px;
+  color: #443;
+}
+
+h2 a code {
+  font-size: 16px;
+  color: #443;
+}
+
+H3 {
+  color: #443;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  padding-top: 0.5em;
+  padding-bottom: 3px;
+}
+
+h3 code {
+  font-size: 14px;
+}
+
+h3 a code {
+  color: #443;
+}
+
+.version {
+  border-bottom: none;
+}
+
+H4 {
+  color: #443;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-style: italic;
+  font-size: 14px;
+}
+
+h4 code {
+  font-size: 12px;
+}
+
+DIV.qindex {
+  width: 100%;
+  background-color: #eeeeff;
+  border: 4px solid #eeeeff;
+  text-align: left;
+  margin-bottom: 2px;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+}
+
+A.anchor {
+  color: #443;
+  text-decoration: none;
+}
+
+A {
+  color: #1133ca;
+  text-decoration: none;
+}
+
+/* This shows up in javadoc output. */
+A code {
+  color: #1133ca;
+  text-decoration: none;
+}
+
+A:visited {
+  color: #5580cf;
+  text-decoration: none;
+}
+
+A.qindex {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+}
+
+A.qindex:hover {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #ddddff
+}
+
+A.qindexHL {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #6666cc;
+  color: #ffffff
+}
+
+A.qindexHL:hover {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #6666cc;
+  color: #ffffff
+}
+
+A.qindexHL:visited {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #6666cc;
+  color: #ffffff
+}
+
+A.el {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+A.elRef {
+  font-weight: bol&nbsp;
+}
+
+A.codeRef {
+  font-weight: normal;
+  color: black;
+}
+
+A:hover {
+  color: black;
+  background-color: #dfdfdf;
+  text-decoration: none;
+  border-bottom: 1px dotted #444;
+}
+
+DL {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  margin: 6px 8px 6px 0px;
+}
+
+DL.el {
+  margin-left: -1cm 
+}
+
+pre.fragment {
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-weight: bold;
+  color: #222;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+DIV.fragment {
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-weight: bold;
+  width: 92%;
+  border: 1px solid #c0c0c0;
+  background-color: #f5f5f5;
+  color: #222;
+  padding: 5px;
+  margin: 6px;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+}
+
+DIV.ah {
+  background-color: black;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 3px;
+  margin-top: 3px
+}
+
+/* Here's what a member function block looks like in 1.5.4:
+
+<hr><h2>Member Function Documentation</h2> 
+<a class="anchor" name="0f38e685208fe8c5ef69e01222af2c2f"></a><!-- doxytag: member="libsbml::Parameter::__init__" ref="0f38e685208fe8c5ef69e01222af2c2f" args="" --> 
+<div class="memitem"> 
+<div class="memproto"> 
+      <table class="memname"> 
+        <tr> 
+          <td class="memname">def libsbml.Parameter.__init__           </td> 
+          <td>(</td> 
+          <td class="paramtype">&nbsp;</td> 
+          <td class="paramname"> <em>self</em>, </td> 
+        </tr> 
+        <tr> 
+          <td class="paramkey"></td> 
+          <td></td> 
+          <td class="paramtype">&nbsp;</td> 
+          <td class="paramname"> <em>args</em></td><td>&nbsp;</td> 
+        </tr> 
+        <tr> 
+          <td></td> 
+          <td>)</td> 
+          <td></td><td></td><td width="100%"></td> 
+        </tr> 
+      </table> 
+</div> 
+<div class="memdoc"> 
+ 
+*/
+
+div.contents hr { 
+  margin: 2em 0 2em 0;
+}
+
+.memitem {
+  margin-top: 1em;
+  width: 100%;
+  margin-bottom: 3em;
+}
+
+.memdoc { 
+  padding: 5pt;
+  background-color: #f8f8f8;
+  border: 1px solid #b5b5b5;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
+  -moz-box-shadow: 4px 4px 4px #bbb;
+  -webkit-box-shadow: 4px 4px 4px #bbb;
+}
+
+.memdoc dl dd table td {
+  vertical-align: top;
+  font-size: 12px;
+}
+
+.memdoc dl dd table td p {
+  margin: auto auto 5px auto;
+}
+
+.memdoc dl.warning {
+  color: #880000;
+}
+
+.warning {
+  color: #880000;
+}
+
+.memproto {  
+  padding: 5pt;
+  border: 1px solid #b5b5b5;
+/*
+  border-top: 2px solid #666666;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  background-color: #e5e9e7;
+*/
+  background-color: #ddd;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
+  -moz-box-shadow: 5px 5px 5px #bbb;
+  -webkit-box-shadow: 5px 5px 5px #bbb;
+}
+
+TABLE.memname { 
+  font-weight: bold;
+  font-size: 10pt;
+  text-align: left;
+  background-color: #ddd;
+}
+
+TABLE.memname TR {
+  white-space: nowrap;
+}
+
+TD.md, TD.memname, TD.paramtype {
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-weight: bold;
+  font-size: 10pt;
+  background-color: #ddd;
+  white-space: nowrap;
+}
+
+TD.mdname1 {
+  background-color: #ddd;
+  font-weight: bold;
+  font-size: 10pt;
+  color: #602020;
+}
+
+TD.mdname, TD.paramname {
+  background-color: #ddd;
+  font-weight: bold;
+  font-size: 10pt;
+  color: #602020;
+  white-space: nowrap;
+}
+
+DIV.groupHeader {
+  margin-left: 16px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  font-weight: bold
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif; 
+  font-size: 10pt;
+}
+
+DIV.groupText {
+  margin-left: 16px;
+  font-style: italic;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif; 
+  font-size: 10pt;
+}
+
+TD.indexkey { 
+  width: 30%;
+  vertical-align: middle;
+  font-weight: bold; 
+  font-size: 12px;
+  padding-right  : 10px; 
+  padding-top    : 3px; 
+  padding-left   : 10px; 
+  padding-bottom : 2px; 
+  margin-left    : 0px; 
+  margin-right   : 0px; 
+  margin-top     : 2px; 
+  margin-bottom  : 2px;
+  border-bottom: 1px dotted #ccc;
+}
+
+TD.indexvalue { 
+  vertical-align: middle;
+  font-style: italic; 
+  font-size: 12px;
+  padding-right  : 10px; 
+  padding-top    : 3px; 
+  padding-left   : 10px; 
+  padding-bottom : 2px; 
+  margin-left    : 0px; 
+  margin-right   : 0px; 
+  margin-top     : 2px; 
+  margin-bottom  : 2px;
+  border-bottom: 1px dotted #ccc;
+}
+
+TR.memlist {
+  background-color: #f0f0f0; 
+  font-size: 12px;
+}
+
+P.formulaDsp { text-align: center; }
+IMG.formulaDsp { }
+IMG.formulaInl { vertical-align: middle; }
+
+SPAN.comment       { color: #777 }
+
+A.code {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/*
+SPAN.preprocessor  { color: #806020 }
+SPAN.stringliteral { color: #002080 }
+SPAN.charliteral   { color: #008080 }
+*/
+
+.mdRow {
+  padding: 8px 20px;
+}
+
+.mdescLeft {
+  font-size: smaller;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  background-color: #FAFAFA;
+  padding-left: 8px;
+  border-top: 1px none #E0E0E0;
+  border-right: 1px none #E0E0E0;
+  border-bottom: 1px none #E0E0E0;
+  border-left: 1px none #E0E0E0;
+  margin: 4px;
+}
+
+.mdescRight {
+  font-size: 12px;
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-style: italic;
+  color: #666;
+  background-color: #FAFAFA;
+  padding-left: 4px;
+  border-top: 1px none #E0E0E0;
+  border-right: 1px none #E0E0E0;
+  border-bottom: 1px none #E0E0E0;
+  border-left: 1px none #E0E0E0;
+  margin: 4px;
+  padding-bottom: 4px;
+  padding-right: 8px;
+  padding-top: 0px;
+}
+
+.mdescRight code {
+  font-size: 10pt;
+  font-weight: bold;
+  color: #555;
+}
+
+.memItemLeft {
+  white-space: nowrap;
+  padding: 4px 0px 2px 8px;
+  margin: 4px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-top-style: solid;
+  border-top-color: #E0E0E0;
+  border-right-color: #E0E0E0;
+  border-bottom-color: #E0E0E0;
+  border-left-color: #E0E0E0;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  background-color: #FAFAFA;
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-weight: bold;
+  font-size: 12px;
+  color: black;
+}
+
+.memItemRight {
+  padding: 4px 0px 2px 4px;
+  margin: 4px;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+  border-top-style: solid;
+  border-top-color: #E0E0E0;
+  border-right-color: #E0E0E0;
+  border-bottom-color: #E0E0E0;
+  border-left-color: #E0E0E0;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  background-color: #FAFAFA;
+  font-family: "Courier New", Courier, monospace, fixed;
+  font-size: 12px;
+}
+
+table td.memItemRight {
+  font-weight: bold;
+  color: black;
+}
+
+.search {
+  color: #0000ee;
+  font-weight: bold;
+}
+
+FORM.search {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+INPUT.search {
+  font-size: 75%;
+  color: #000080;
+  font-weight: normal;
+  background-color: #eeeeff;
+}
+
+/* 2010-12-17 Stupendous hack: "tiny" is used in the display of search results
+   for the list of "Matches" shown under the link.  The matches are confusing,
+   so we set the font color to white to make them invisible.
+ */
+
+TD.tiny {
+  font-size: 75%;
+  color: white;
+}
+
+PRE { 
+  font-size: 12px;
+}
+
+TT {
+  width: 92%;
+  padding-left: 5px;
+  margin: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+TD.simpletableleft { 
+  background-color: #eeeeff; 
+  vertical-align: middle;
+  font-weight: bold; 
+  font-size: 14px;
+  padding-right  : 10px; 
+  padding-top    : 3px; 
+  padding-left   : 10px; 
+  padding-bottom : 2px; 
+  margin-left    : 0px; 
+  margin-right   : 0px; 
+  margin-top     : 2px; 
+  margin-bottom  : 2px  
+}
+
+TD.simpletableright { 
+  background-color: #eeeeff; 
+  vertical-align: middle;
+  font-style: italic; 
+  font-size: 14px;
+  padding-right  : 10px; 
+  padding-top    : 3px; 
+  padding-left   : 10px; 
+  padding-bottom : 2px; 
+  margin-left    : 0px; 
+  margin-right   : 0px; 
+  margin-top     : 2px; 
+  margin-bottom  : 2px  
+}
+
+.NavBarFont1 { 
+  font-size: 14px;
+}
+
+.signatureTable { 
+  font-size: 14px;
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+TD.signatureIntro { 
+  font-size: 14px;  
+  margin-left: 0px;
+  margin-right: 20px;
+  padding-top: 0.5ex;
+  padding-left: 0px;
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+TD.signatureBlock { 
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 1px dotted #aaaaaa;
+  border-collapse: collapse;
+}
+
+signatureTitle { 
+}
+
+PRE.signature { 
+  font-size: 14px;
+  font-weight:  bold;
+  margin-left: 5ex;
+}
+
+.signatureArrow { 
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+docnote { 
+  margin-left: 1cm;
+  margin-top: 0;
+}
+
+dd table tr {
+  font-size: 14px;
+  height: 20px;
+}
+
+.directory { font-size: 9px; font-weight: bold; }
+.directory a.el { font-size: 11px; }
+.directory h3 { margin: 0px; margin-top: 0.8em; font-size: 12px; border-bottom: none; }
+.directory p { margin: 0px; white-space: nowrap; ; font-size: 12px; }
+.directory div { display: none; margin: 0px; }
+.directory img { vertical-align: middle; }
+
+.normal-font {
+  font-size: 12px;
+}
+
+.small-font {
+  font-size: 11px;
+}
+
+td.s-fatal {
+  background-color: #ff2233 !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-error {
+  background-color: #ff99aa !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-warning {
+  background-color: gold !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-info {
+  background-color: #4c4 !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.s-na {
+  font-weight: bold;
+  text-align: center;
+}
+
+caption {
+  font-weight: normal;
+  font-style: italic;
+  text-align: center;
+}
+
+.top-caption {
+  padding-top: 1em;
+  padding-bottom: 0.5em;
+  caption-side: top;
+}
+
+.bottom-caption {
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+  caption-side: bottom;
+}
+
+.text-table {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-collapse: collapse;
+  margin: 0.5em auto 1em auto;
+  -webkit-margin: 1em auto 1em auto;
+}
+
+.text-table {
+  font-size: 12px;
+}
+
+.text-table th {
+  font-size: 12px;
+  background-color: #dfdfdf;
+  padding: 3px 0.5em 1px 0.5em;
+  border-bottom: 1px solid #bbb;
+  vertical-align: bottom;
+}
+
+.text-table td { 
+  padding: 2px 0.5em;
+  line-height: 140%;
+}
+
+.width80 {
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+.bigger-row-spacing td {
+  padding-top: 0.35em !important;  
+  padding-bottom: 0.35em !important;  
+}
+
+.ftvtree { 
+  background-color: #efefef
+}
+
+#main-page-sections H2,
+#main-page-sections H2 a
+{
+  font-size: 16px;
+  text-shadow: none;
+  border: none;
+  background-color: white;
+  background: none;
+  padding-top: 0.2em;
+  padding-bottom: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+#main-page-sections ul a.el { 
+  font-size: 10pt;
+  font-weight: normal;
+  line-height: 120%;
+}
+
+.placeholder { 
+  font-style: italic;
+  background-color: #ffeaba;
+  border-left: 1px solid #ffeaba;
+  border-right: 3px solid #ffeaba;
+}
+
+.screenshot {
+  -moz-box-shadow: 5px 5px 5px #d0d0d0;
+  -webkit-box-shadow: 5px 5px 5px #d0d0d0;
+}
+
+#normal-formatting h2 {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  text-shadow: none;
+  background: none;
+  border: none;
+  padding-bottom: 0;
+}

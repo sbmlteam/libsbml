@@ -1,0 +1,5 @@
+/** @page libsbml-features LibSBML features
+
+@htmlinclude libsbml-features.html
+
+*/
