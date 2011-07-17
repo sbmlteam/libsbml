@@ -588,6 +588,8 @@ public:
   bool setLevelAndVersion (unsigned int level, unsigned int version,
                            bool strict = true);
 
+  void updateSBMLNamespace(const std::string& package, unsigned int level, 
+                            unsigned int version);
 
   /**
    * Sets the Model for this SBMLDocument to a copy of the given Model.

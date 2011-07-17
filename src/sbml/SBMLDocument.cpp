@@ -168,8 +168,6 @@ SBMLDocument::hasStrictUnits()
   * not warnings
   * but in a L2V4 model they will only be warnings
   * so need to go by ErrorId
-  * EventAssignParameterMismatch is the largest errorId that
-  * would be considered an error in other level/versions
   */
   if (errors > 0)
   {
@@ -178,7 +176,7 @@ SBMLDocument::hasStrictUnits()
 
     for (iter = fails.begin(); iter != fails.end(); iter++)
     {
-      if ( iter->getErrorId() > EventAssignParameterMismatch)
+      if ( iter->getErrorId() > UpperUnitBound)
       {
         errors--;
       }
@@ -686,6 +684,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
     return true;
   }
 
+  std::string currentSBMLCoreURI = 
+                        SBMLNamespaces::getSBMLNamespaceURI(getLevel(), 
+                                                            getVersion()); 
+  std::string currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()->
+    getPrefix(currentSBMLCoreURI);
+
   /* since this function will write to the error log we should
    * clear anything in the log first
    */
@@ -808,6 +812,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             mErrorLog.add(CannotConvertToL1V1);
             break;
           case 2:
+            updateSBMLNamespace("core", level, version);
             conversionSuccess = true;
             break;
           default:
@@ -821,14 +826,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 1:
             if (!conversion_errors(checkL2v1Compatibility()))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -836,14 +834,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 2:
             if (!conversion_errors(checkL2v2Compatibility()))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -851,14 +842,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 3:
             if (!conversion_errors(checkL2v3Compatibility()))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -866,14 +850,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 4:
             if (!conversion_errors(checkL2v4Compatibility()))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -890,14 +867,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL3v1Compatibility()))
             {
               mModel->convertParametersToLocals(level, version);
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL3();
               conversionSuccess = true;
             }
@@ -932,12 +902,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               {
                 logError(StrictUnitsRequiredInL1);
               }
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL2ToL1();
               conversionSuccess = true;
             }
@@ -960,6 +925,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               {
                 logError(StrictUnitsRequiredInL2v1);
               }
+              updateSBMLNamespace("core", level, version);
               conversionSuccess = true;
             }
             break;
@@ -990,6 +956,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
+              updateSBMLNamespace("core", level, version);
               conversionSuccess = true;
             }
             break;
@@ -1019,6 +986,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
+              updateSBMLNamespace("core", level, version);
               conversionSuccess = true;
             }
             break;
@@ -1037,6 +1005,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
+              updateSBMLNamespace("core", level, version);
               conversionSuccess = true;
             }
             break;
@@ -1064,14 +1033,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 mModel->removeDuplicateTopLevelAnnotations();
               }
               mModel->convertParametersToLocals(level, version);
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL2ToL3();
               conversionSuccess = true;
             }
@@ -1104,14 +1066,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 2:
             if (!conversion_errors(checkL1Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL1();
               conversionSuccess = true;
             }
@@ -1131,14 +1086,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 1:
             if (!conversion_errors(checkL2v1Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1146,14 +1094,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 2:
             if (!conversion_errors(checkL2v2Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1161,29 +1102,15 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 3:
             if (!conversion_errors(checkL2v3Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
               conversionSuccess = true;
             }
             break;
           case 4:
             if (!conversion_errors(checkL2v4Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1237,6 +1164,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             mErrorLog.add(CannotConvertToL1V1);
             break;
           case 2:
+            updateSBMLNamespace("core", level, version);
             conversionSuccess = true;
             break;
           default:
@@ -1251,14 +1179,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL2v1Compatibility()))
             {
               mModel->removeParameterRuleUnits();
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -1267,14 +1188,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL2v2Compatibility()))
             {
               mModel->removeParameterRuleUnits();
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -1283,14 +1197,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL2v3Compatibility()))
             {
               mModel->removeParameterRuleUnits();
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -1299,14 +1206,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             if (!conversion_errors(checkL2v4Compatibility()))
             {
               mModel->removeParameterRuleUnits();
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL2();
               conversionSuccess = true;
             }
@@ -1324,14 +1224,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
             {
               mModel->removeParameterRuleUnits();
               mModel->convertParametersToLocals(level, version);
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL1ToL3();
               conversionSuccess = true;
             }
@@ -1374,6 +1267,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               if (!strictFailed)
               {
                 mModel->convertL2ToL1(strict);
+                updateSBMLNamespace("core", level, version);
                 conversionSuccess = true;
               }
             }
@@ -1404,6 +1298,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
               if (!strictFailed)
               {
                 mModel->removeSBOTerms();
+                updateSBMLNamespace("core", level, version);
                 conversionSuccess = true;
               }
             }
@@ -1448,6 +1343,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                   this->removeDuplicateAnnotations();
                   mModel->removeDuplicateTopLevelAnnotations();
                 }
+                updateSBMLNamespace("core", level, version);
                 conversionSuccess = true;
               }
             }
@@ -1491,6 +1387,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                   this->removeDuplicateAnnotations();
                   mModel->removeDuplicateTopLevelAnnotations();
                 }
+                updateSBMLNamespace("core", level, version);
                 conversionSuccess = true;
               }
             }
@@ -1510,6 +1407,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 this->removeDuplicateAnnotations();
                 mModel->removeDuplicateTopLevelAnnotations();
               }
+              updateSBMLNamespace("core", level, version);
               conversionSuccess = true;
             }
             break;
@@ -1537,14 +1435,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                 mModel->removeDuplicateTopLevelAnnotations();
               }
               mModel->convertParametersToLocals(level, version);
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL2ToL3();
               conversionSuccess = true;
             }
@@ -1577,14 +1468,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 2:
             if (!conversion_errors(checkL1Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL1();
               conversionSuccess = true;
             }
@@ -1604,14 +1488,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 1:
             if (!conversion_errors(checkL2v1Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1619,14 +1496,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 2:
             if (!conversion_errors(checkL2v2Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1634,14 +1504,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 3:
             if (!conversion_errors(checkL2v3Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-                   (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1649,12 +1512,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
           case 4:
             if (!conversion_errors(checkL2v4Compatibility(), strictUnits))
             {
-              mLevel   = level;
-              mVersion = version;
-              mSBMLNamespaces->setLevel(mLevel);
-              mSBMLNamespaces->setVersion(mVersion);
-              mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+              updateSBMLNamespace("core", level, version);
               mModel->convertL3ToL2();
               conversionSuccess = true;
             }
@@ -1685,23 +1543,13 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
       {
         delete origModel;
         mApplicableValidators = origValidators;
-        mLevel   = origLevel;
-        mVersion = origVersion;
-        mSBMLNamespaces->setLevel(mLevel);
-        mSBMLNamespaces->setVersion(mVersion);
-        mSBMLNamespaces->addNamespace
-             (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-        mSBMLNamespaces->addNamespace
-         (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+        updateSBMLNamespace("core", origLevel, origVersion);
         return conversionSuccess;
       }
       else
       {
         /* now we want to check whether the resulting model is valid
-         * but need to make it think its new level/version
          */
-        mLevel   = level;
-        mVersion = version;
         this->checkConsistency();
         unsigned int errors = 
                      getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
@@ -1710,24 +1558,15 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
            * restore original values and return
            */
           conversionSuccess = false;
+          /* undo any changes */
           mModel = origModel->clone();
-          mLevel   = origLevel;
-          mVersion = origVersion;
-          mSBMLNamespaces->setLevel(mLevel);
-          mSBMLNamespaces->setVersion(mVersion);
-          mSBMLNamespaces->addNamespace
-               (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "");
-          mSBMLNamespaces->addNamespace
-           (SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion), "sbml");
+          updateSBMLNamespace("core", origLevel, origVersion);
           mApplicableValidators = origValidators;
           delete origModel;
           return conversionSuccess;
         }
         else
         {
-          mLevel   = origLevel;
-          mVersion = origVersion;
-          mApplicableValidators = origValidators;
           delete origModel;
         }
       }
@@ -1735,88 +1574,86 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
   }
   else
   {
+    updateSBMLNamespace("core", level, version);
     conversionSuccess = true;
   }
 
   /* restore original value */
   mApplicableValidators = origValidators; 
   
+
+  return conversionSuccess;
+}
+
+
+void 
+SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level, 
+                            unsigned int version)
+{
+  // is there a prefix on the sbml namespace
+  std::string currentSBMLCoreURI = 
+                        SBMLNamespaces::getSBMLNamespaceURI(getLevel(), 
+                                                            getVersion()); 
+  std::string currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()->
+    getPrefix(currentSBMLCoreURI);
+
+  bool sbmlDecl = false;
+
+  if (currentSBMLCorePrefix.empty() == false)
+    sbmlDecl = true;
+
   mLevel   = level;
   mVersion = version;
 
   if (mSBMLNamespaces == NULL) 
-    mSBMLNamespaces = new SBMLNamespaces(mLevel, mVersion);;
+    mSBMLNamespaces = new SBMLNamespaces(mLevel, mVersion);
 
-  /**
-   * check for the case where the sbml namespace has been expicitly declared
-   * as well as being the default
-   */
-  bool sbmlDecl = false;
-  int index;
-  for (index = 0; index < mSBMLNamespaces->getNamespaces()->getLength(); 
-                                                                  index++)
+  std::string uri;
+
+  switch (mLevel)
   {
-    if (!mSBMLNamespaces->getNamespaces()->getPrefix(index).empty() 
-      && mSBMLNamespaces->getNamespaces()->getPrefix(index)=="sbml")
-    {
-      sbmlDecl = true;
+    case 1:
+      uri = SBML_XMLNS_L1;
       break;
-    }
+    case 2:
+      switch (mVersion)
+      {
+      case 1:
+        uri = SBML_XMLNS_L2V1;
+        break;
+      case 2:
+        uri = SBML_XMLNS_L2V2;
+        break;
+      case 3:
+        uri = SBML_XMLNS_L2V3;
+        break;
+      case 4:
+      default:
+        uri = SBML_XMLNS_L2V4;
+        break;
+      }
+      break;
+    case 3:
+    default:
+      switch (mVersion)
+      {
+      case 1:
+      default:
+        uri = SBML_XMLNS_L3V1;
+        break;
+      }
+      break;
   }
+
+
+  mSBMLNamespaces->getNamespaces()->add(uri);
   if (sbmlDecl)
   {
-    XMLNamespaces * copyNamespaces = mSBMLNamespaces->getNamespaces()->clone();
-    mSBMLNamespaces->getNamespaces()->clear();
-    for (int i = 0; i < copyNamespaces->getLength(); i++)
-    {
-      if ( i != index)
-        mSBMLNamespaces->getNamespaces()->add(copyNamespaces->getURI(i),
-                         copyNamespaces->getPrefix(i));
-    }
-    delete copyNamespaces;
+    mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
   }
-
-  if (mLevel == 1)
-  {
-    if (sbmlDecl)
-      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level1", "sbml");
-    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level1");
-  }
-  else if (mLevel == 2 && mVersion == 1)
-  {
-    if (sbmlDecl)
-      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2", "sbml");
-    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2");
-  }
-  else if (mLevel == 2 && mVersion == 2)
-  {
-    if (sbmlDecl)
-      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version2", "sbml");
-    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version2");
-  }
-  else if (mLevel == 2 && mVersion == 3)
-  {
-    if (sbmlDecl)
-      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version3", "sbml");
-    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version3");
-  }
-  else if (mLevel == 2 && mVersion == 4)
-  {
-    if (sbmlDecl)
-      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version4", "sbml");
-    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level2/version4");
-  }
-  else if (mLevel == 3 && mVersion == 1)
-  {
-    if (sbmlDecl)
-      mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level3/version1/core", "sbml");
-    mSBMLNamespaces->getNamespaces()->add("http://www.sbml.org/sbml/level3/version1/core");
-  }
-
   mSBMLNamespaces->setLevel(mLevel);
   mSBMLNamespaces->setVersion(mVersion);
-
-  return conversionSuccess;
+  setElementNamespace(uri); // this needs to propagate
 }
 
 

@@ -299,7 +299,7 @@ START_TEST (test_SBMLConvert_convertToL3_defaultUnits)
 END_TEST
 
 
-START_TEST (test_SBMLConvert_convertFromL3)
+START_TEST (test_SBMLConvert_convertFromL3_Comp)
 {
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
   Model_t        *m = SBMLDocument_createModel(d);
@@ -727,6 +727,60 @@ START_TEST (test_SBMLConvert_convertFromL3_initialValue)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_convertFromL1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL2)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertFromL3)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 1) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 2) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 3) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -742,7 +796,7 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc );
   tcase_add_test( tcase, test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_defaultUnits );
-  tcase_add_test( tcase, test_SBMLConvert_convertFromL3 );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3_Comp );
   tcase_add_test( tcase, test_SBMLConvert_invalidLevelVersion );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_localParameters );
   tcase_add_test( tcase, test_SBMLConvert_convertToL3_stoichiometryMath );
@@ -761,6 +815,9 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertFromL3_priority );
   tcase_add_test( tcase, test_SBMLConvert_convertFromL3_persistent );
   tcase_add_test( tcase, test_SBMLConvert_convertFromL3_initialValue );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL1 );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL2 );
+  tcase_add_test( tcase, test_SBMLConvert_convertFromL3 );
 
   suite_add_tcase(suite, tcase);
 

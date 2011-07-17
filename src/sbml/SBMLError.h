@@ -507,6 +507,7 @@ typedef enum
  , EventAssignParameterMismatch          = 10563 /*!< Mismatched units in event assignment for parameter */
  , EventAssignStoichiometryMismatch      = 10564 /*!< Mismatched units in event assignment for stoichiometry */
  , PriorityUnitsNotDimensionless         = 10565 /*!< Priority units must be dimensionless */
+ , UpperUnitBound                        = 10599 /*!< Upper bound of unit validation */
  , OverdeterminedSystem                  = 10601 /*!< Model is overdetermined */
  , InvalidModelSBOTerm                   = 10701 /*!< Invalid <code>sboTerm</code> value for model */
  , InvalidFunctionDefSBOTerm             = 10702 /*!< Invalid <code>sboTerm</code> value for function definition */
