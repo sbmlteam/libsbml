@@ -684,11 +684,6 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
     return true;
   }
 
-  std::string currentSBMLCoreURI = 
-                        SBMLNamespaces::getSBMLNamespaceURI(getLevel(), 
-                                                            getVersion()); 
-  std::string currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()->
-    getPrefix(currentSBMLCoreURI);
 
   /* since this function will write to the error log we should
    * clear anything in the log first

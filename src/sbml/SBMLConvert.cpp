@@ -97,16 +97,12 @@ Model::convertL2ToL1 (bool strict)
   //
   // Level 2 allows a model to be specified without a Compartment.  However
   // this is not valid in Level 1.  Thus if a L2 model has no Compartment
-  // one must be included and any species are assumed to be within it.
+  // one must be included 
   //
   if (getNumCompartments() == 0)
   {
     createCompartment()->setId(ASSIGNED_COMPARTMENT);
 
-    for (unsigned int n = 0; n < getNumSpecies(); ++n) 
-    {
-      getSpecies(n)->setCompartment(ASSIGNED_COMPARTMENT);
-    }
   }
 
   /* make sure underlying model is correct */
