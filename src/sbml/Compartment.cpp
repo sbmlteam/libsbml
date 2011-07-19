@@ -153,7 +153,7 @@ Compartment::Compartment(const Compartment& orig) :
   else
   {
     mSpatialDimensions       = orig.mSpatialDimensions;
-    mSpatialDimensionsDouble = orig.mSpatialDimensions;
+    mSpatialDimensionsDouble = orig.mSpatialDimensionsDouble;
     mSize                    = orig.mSize;
     mConstant                = orig.mConstant;
     mIsSetSize               = orig.mIsSetSize;
