@@ -83,6 +83,37 @@ START_TEST ( test_Compartment_copyConstructor )
 }
 END_TEST
 
+
+START_TEST ( test_Compartment_copyConstructor_L3 )
+{
+    Compartment* o1=new Compartment(3, 1);
+    o1->setId("c");
+    o1->setSpatialDimensions(2.5);
+    o1->setSize(2);
+
+    
+    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getSpatialDimensionsAsDouble() == 2.5);
+    fail_unless(o1->isSetSpatialDimensions() == true);
+    fail_unless(o1->getConstant() == true);
+    fail_unless(o1->isSetConstant() == false);
+
+    Compartment* o2=new Compartment(*o1);
+
+    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getSpatialDimensionsAsDouble() == 2.5);
+    fail_unless(o2->isSetSpatialDimensions() == true);
+    fail_unless(o2->getConstant() == true);
+    fail_unless(o2->isSetConstant() == false);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+    delete o2;
+    delete o1;
+}
+END_TEST
+
+
 START_TEST ( test_Compartment_assignmentOperator )
 {
     Compartment* o1=new Compartment(2, 4);
@@ -97,6 +128,37 @@ START_TEST ( test_Compartment_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
     fail_unless(o2->getOutside() == "c2");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+    delete o2;
+    delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_Compartment_assignmentOperator_L3 )
+{
+    Compartment* o1=new Compartment(3, 1);
+    o1->setId("c");
+    o1->setSpatialDimensions(2.5);
+    o1->setSize(2);
+
+    
+    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getSpatialDimensionsAsDouble() == 2.5);
+    fail_unless(o1->isSetSpatialDimensions() == true);
+    fail_unless(o1->getConstant() == true);
+    fail_unless(o1->isSetConstant() == false);
+
+    Compartment* o2 = new Compartment(3, 1);;
+    (*o2)=*o1;
+
+    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getSpatialDimensionsAsDouble() == 2.5);
+    fail_unless(o2->isSetSpatialDimensions() == true);
+    fail_unless(o2->getConstant() == true);
+    fail_unless(o2->isSetConstant() == false);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -419,6 +481,29 @@ START_TEST ( test_Event_copyConstructor )
 }
 END_TEST
 
+START_TEST ( test_Event_copyConstructor_L3 )
+{
+    Event* o1=new Event(3, 1);
+    o1->setId("c");
+    
+    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getUseValuesFromTriggerTime() == true);
+    fail_unless(o1->isSetUseValuesFromTriggerTime() == false);
+
+
+    Event* o2=new Event(*o1);
+
+    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getUseValuesFromTriggerTime() == true);
+    fail_unless(o2->isSetUseValuesFromTriggerTime() == false);
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+    delete o2;
+    delete o1;
+}
+END_TEST
+
 START_TEST ( test_Event_assignmentOperator )
 {
     Event* o1=new Event(2, 4);
@@ -430,6 +515,31 @@ START_TEST ( test_Event_assignmentOperator )
     (*o2)=*o1;
 
     fail_unless(o2->getId() == "c");
+
+    fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
+
+    delete o2;
+    delete o1;
+}
+END_TEST
+
+
+START_TEST ( test_Event_assignmentOperator_L3 )
+{
+    Event* o1=new Event(3, 1);
+    o1->setId("c");
+    o1->setUseValuesFromTriggerTime(false);
+    
+    fail_unless(o1->getId() == "c");
+    fail_unless(o1->getUseValuesFromTriggerTime() == false);
+    fail_unless(o1->isSetUseValuesFromTriggerTime() == true);
+    
+    Event* o2 = new Event(2, 4);;
+    (*o2)=*o1;
+
+    fail_unless(o2->getId() == "c");
+    fail_unless(o2->getUseValuesFromTriggerTime() == false);
+    fail_unless(o2->isSetUseValuesFromTriggerTime() == true);
 
     fail_unless(o2->getParentSBMLObject() == o1->getParentSBMLObject());
 
@@ -1579,7 +1689,9 @@ create_suite_CopyAndClone (void)
   TCase *tcase = tcase_create("CopyAndClone");
 
   tcase_add_test( tcase, test_Compartment_copyConstructor );
+  tcase_add_test( tcase, test_Compartment_copyConstructor_L3 );
   tcase_add_test( tcase, test_Compartment_assignmentOperator );
+  tcase_add_test( tcase, test_Compartment_assignmentOperator_L3 );
   tcase_add_test( tcase, test_Compartment_clone );
   tcase_add_test( tcase, test_CompartmentType_copyConstructor );
   tcase_add_test( tcase, test_CompartmentType_assignmentOperator );
