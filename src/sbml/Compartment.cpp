@@ -183,7 +183,7 @@ Compartment& Compartment::operator=(const Compartment& rhs)
   {
     this->SBase::operator =(rhs);
     mSpatialDimensions= rhs.mSpatialDimensions  ;
-    mSpatialDimensionsDouble= rhs.mSpatialDimensions  ;
+    mSpatialDimensionsDouble= rhs.mSpatialDimensionsDouble  ;
     mSize             = rhs.mSize      ;
     mConstant         = rhs.mConstant     ;
     mIsSetSize        = rhs.mIsSetSize    ;

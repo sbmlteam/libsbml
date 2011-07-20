@@ -142,7 +142,7 @@ Event::Event (const Event& orig) :
     mName                          = orig.mName;
     mTimeUnits                     = orig.mTimeUnits;
     mUseValuesFromTriggerTime      = orig.mUseValuesFromTriggerTime ;
-    mIsSetUseValuesFromTriggerTime = orig.mUseValuesFromTriggerTime ;
+    mIsSetUseValuesFromTriggerTime = orig.mIsSetUseValuesFromTriggerTime ;
     mExplicitlySetUVFTT            = orig.mExplicitlySetUVFTT;
     mInternalIdOnly                = orig.mInternalIdOnly;
  
@@ -181,7 +181,7 @@ Event& Event::operator=(const Event& rhs)
     mName = rhs.mName;
     mTimeUnits        = rhs.mTimeUnits        ;
     mUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
-    mIsSetUseValuesFromTriggerTime = rhs.mUseValuesFromTriggerTime;
+    mIsSetUseValuesFromTriggerTime = rhs.mIsSetUseValuesFromTriggerTime;
     mExplicitlySetUVFTT = rhs.mExplicitlySetUVFTT;
     mInternalIdOnly   = rhs.mInternalIdOnly   ;
     mEventAssignments = rhs.mEventAssignments ;
