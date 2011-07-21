@@ -279,11 +279,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 typedef enum
 {
-    AST_PLUS    = 43 // '+'
-  , AST_MINUS   = 45 // '-'
-  , AST_TIMES   = 42 // '*'
-  , AST_DIVIDE  = 47 // '/'
-  , AST_POWER   = 94 // '^'  
+    AST_PLUS    = 43 /* '+' */
+  , AST_MINUS   = 45 /* '-' */
+  , AST_TIMES   = 42 /* '*' */
+  , AST_DIVIDE  = 47 /* '/' */
+  , AST_POWER   = 94 /* '^' */  
 
   , AST_INTEGER = 256
   , AST_REAL
