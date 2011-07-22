@@ -2806,7 +2806,7 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
-  void removeSBOTerms();
+  void removeSBOTerms(bool strict);
 
   /** @endcond */
 
@@ -2820,7 +2820,7 @@ public:
 
   /** @cond doxygen-libsbml-internal */
 
-  void removeSBOTermsNotInL2V2();
+  void removeSBOTermsNotInL2V2(bool strict);
 
   /** @endcond */
 
@@ -2836,7 +2836,7 @@ public:
 
   /*
    */
-  void removeParameterRuleUnits ();
+  void removeParameterRuleUnits (bool strict);
 
   /** @endcond */
 

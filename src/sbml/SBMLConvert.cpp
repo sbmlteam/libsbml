@@ -109,7 +109,7 @@ Model::convertL2ToL1 (bool strict)
   if (strict)
   {
     removeMetaId();
-    removeSBOTerms();
+    removeSBOTerms(strict);
     removeHasOnlySubstanceUnits();
   }
 }
@@ -429,19 +429,21 @@ Model::convertParametersToLocals(unsigned int level, unsigned int version)
  * some actions and think it is already L2 for others
  */
 void 
-Model::removeParameterRuleUnits ()
+Model::removeParameterRuleUnits (bool strict)
 {
-  /* in L1 a parameterRule coulkd specify units
-   * for a strict conversion this attribute should be unset
-   */
-  for (unsigned int n = 0; n < getNumParameters(); n++)
+  if (strict == true)
   {
-    if (getRule(getParameter(n)->getId()) != NULL)
+    /* in L1 a parameterRule coulkd specify units
+     * for a strict conversion this attribute should be unset
+     */
+    for (unsigned int n = 0; n < getNumParameters(); n++)
     {
-      getRule(getParameter(n)->getId())->unsetUnits();
+      if (getRule(getParameter(n)->getId()) != NULL)
+      {
+        getRule(getParameter(n)->getId())->unsetUnits();
+      }
     }
   }
-
 }
 
 /* converting to l1 any metaid attributes should be removed */
@@ -503,92 +505,94 @@ Model::removeMetaId()
 /* converting to l1 or l2v1 any sboTerm attributes should be removed */
 
 void
-Model::removeSBOTerms()
+Model::removeSBOTerms(bool strict)
 {
   unsigned int n, i;
 
-  unsetSBOTerm();
-  
-  for (n = 0; n < getNumUnitDefinitions(); n++)
+  if (strict == true)
   {
-    getUnitDefinition(n)->unsetSBOTerm();
-    for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
+    unsetSBOTerm();
+    
+    for (n = 0; n < getNumUnitDefinitions(); n++)
     {
-      getUnitDefinition(n)->getUnit(i)->unsetSBOTerm();
-    }
-  }
-
-  for (n = 0; n < getNumCompartments(); n++)
-  {
-    getCompartment(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumSpecies(); n++)
-  {
-    getSpecies(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumParameters(); n++)
-  {
-    getParameter(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumRules(); n++)
-  {
-    getRule(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumReactions(); n++)
-  {
-    getReaction(n)->unsetSBOTerm();
-    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
-    {
-      getReaction(n)->getReactant(i)->unsetSBOTerm();
-      if (getReaction(n)->getReactant(i)->isSetStoichiometryMath())
+      getUnitDefinition(n)->unsetSBOTerm();
+      for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
       {
-        getReaction(n)->getReactant(i)->getStoichiometryMath()->unsetSBOTerm();
+        getUnitDefinition(n)->getUnit(i)->unsetSBOTerm();
       }
     }
-    for (i = 0; i < getReaction(n)->getNumProducts(); i++)
+
+    for (n = 0; n < getNumCompartments(); n++)
     {
-      getReaction(n)->getProduct(i)->unsetSBOTerm();
-      if (getReaction(n)->getProduct(i)->isSetStoichiometryMath())
+      getCompartment(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumSpecies(); n++)
+    {
+      getSpecies(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumParameters(); n++)
+    {
+      getParameter(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumRules(); n++)
+    {
+      getRule(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumReactions(); n++)
+    {
+      getReaction(n)->unsetSBOTerm();
+      for (i = 0; i < getReaction(n)->getNumReactants(); i++)
       {
-        getReaction(n)->getProduct(i)->getStoichiometryMath()->unsetSBOTerm();
+        getReaction(n)->getReactant(i)->unsetSBOTerm();
+        if (getReaction(n)->getReactant(i)->isSetStoichiometryMath())
+        {
+          getReaction(n)->getReactant(i)->getStoichiometryMath()->unsetSBOTerm();
+        }
+      }
+      for (i = 0; i < getReaction(n)->getNumProducts(); i++)
+      {
+        getReaction(n)->getProduct(i)->unsetSBOTerm();
+        if (getReaction(n)->getProduct(i)->isSetStoichiometryMath())
+        {
+          getReaction(n)->getProduct(i)->getStoichiometryMath()->unsetSBOTerm();
+        }
+      }
+      for (i = 0; i < getReaction(n)->getNumModifiers(); i++)
+      {
+        getReaction(n)->getModifier(i)->unsetSBOTerm();
+      }
+      if (getReaction(n)->isSetKineticLaw())
+      {
+        getReaction(n)->getKineticLaw()->unsetSBOTerm();
       }
     }
-    for (i = 0; i < getReaction(n)->getNumModifiers(); i++)
+
+    for (n = 0; n < getNumFunctionDefinitions(); n++)
     {
-      getReaction(n)->getModifier(i)->unsetSBOTerm();
+      getFunctionDefinition(n)->unsetSBOTerm();
     }
-    if (getReaction(n)->isSetKineticLaw())
+
+    for (n = 0; n < getNumEvents(); n++)
     {
-      getReaction(n)->getKineticLaw()->unsetSBOTerm();
+      getEvent(n)->unsetSBOTerm();
+      for (i = 0; i < getEvent(n)->getNumEventAssignments(); i++)
+      {
+        getEvent(n)->getEventAssignment(i)->unsetSBOTerm();
+      }
+      if (getEvent(n)->isSetTrigger())
+      {
+        getEvent(n)->getTrigger()->unsetSBOTerm();
+      }
+      if (getEvent(n)->isSetDelay())
+      {
+        getEvent(n)->getDelay()->unsetSBOTerm();
+      }
     }
   }
-
-  for (n = 0; n < getNumFunctionDefinitions(); n++)
-  {
-    getFunctionDefinition(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumEvents(); n++)
-  {
-    getEvent(n)->unsetSBOTerm();
-    for (i = 0; i < getEvent(n)->getNumEventAssignments(); i++)
-    {
-      getEvent(n)->getEventAssignment(i)->unsetSBOTerm();
-    }
-    if (getEvent(n)->isSetTrigger())
-    {
-      getEvent(n)->getTrigger()->unsetSBOTerm();
-    }
-    if (getEvent(n)->isSetDelay())
-    {
-      getEvent(n)->getDelay()->unsetSBOTerm();
-    }
-  }
-
 }
 
 /* converting to l1 any hasOnlySubstanceUnits attributes should be removed */
@@ -604,70 +608,72 @@ Model::removeHasOnlySubstanceUnits()
 /* converting to l2v2 some sboTerm attributes should be removed */
 
 void
-Model::removeSBOTermsNotInL2V2()
+Model::removeSBOTermsNotInL2V2(bool strict)
 {
   unsigned int n, i;
 
-  for (n = 0; n < getNumUnitDefinitions(); n++)
+  if (strict == true)
   {
-    getUnitDefinition(n)->unsetSBOTerm();
-    for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
+    for (n = 0; n < getNumUnitDefinitions(); n++)
     {
-      getUnitDefinition(n)->getUnit(i)->unsetSBOTerm();
-    }
-  }
-
-  for (n = 0; n < getNumCompartments(); n++)
-  {
-    getCompartment(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumSpecies(); n++)
-  {
-    getSpecies(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumCompartmentTypes(); n++)
-  {
-    getCompartmentType(n)->unsetSBOTerm();
-  }
-
-  for (n = 0; n < getNumSpeciesTypes(); n++)
-  {
-    getSpeciesType(n)->unsetSBOTerm();
-  }
-
-
-  for (n = 0; n < getNumReactions(); n++)
-  {
-    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
-    {
-      if (getReaction(n)->getReactant(i)->isSetStoichiometryMath())
+      getUnitDefinition(n)->unsetSBOTerm();
+      for (i = 0; i < getUnitDefinition(n)->getNumUnits(); i++)
       {
-        getReaction(n)->getReactant(i)->getStoichiometryMath()->unsetSBOTerm();
+        getUnitDefinition(n)->getUnit(i)->unsetSBOTerm();
       }
     }
-    for (i = 0; i < getReaction(n)->getNumProducts(); i++)
+
+    for (n = 0; n < getNumCompartments(); n++)
     {
-      if (getReaction(n)->getProduct(i)->isSetStoichiometryMath())
+      getCompartment(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumSpecies(); n++)
+    {
+      getSpecies(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumCompartmentTypes(); n++)
+    {
+      getCompartmentType(n)->unsetSBOTerm();
+    }
+
+    for (n = 0; n < getNumSpeciesTypes(); n++)
+    {
+      getSpeciesType(n)->unsetSBOTerm();
+    }
+
+
+    for (n = 0; n < getNumReactions(); n++)
+    {
+      for (i = 0; i < getReaction(n)->getNumReactants(); i++)
       {
-        getReaction(n)->getProduct(i)->getStoichiometryMath()->unsetSBOTerm();
+        if (getReaction(n)->getReactant(i)->isSetStoichiometryMath())
+        {
+          getReaction(n)->getReactant(i)->getStoichiometryMath()->unsetSBOTerm();
+        }
+      }
+      for (i = 0; i < getReaction(n)->getNumProducts(); i++)
+      {
+        if (getReaction(n)->getProduct(i)->isSetStoichiometryMath())
+        {
+          getReaction(n)->getProduct(i)->getStoichiometryMath()->unsetSBOTerm();
+        }
+      }
+    }
+
+    for (n = 0; n < getNumEvents(); n++)
+    {
+      if (getEvent(n)->isSetTrigger())
+      {
+        getEvent(n)->getTrigger()->unsetSBOTerm();
+      }
+      if (getEvent(n)->isSetDelay())
+      {
+        getEvent(n)->getDelay()->unsetSBOTerm();
       }
     }
   }
-
-  for (n = 0; n < getNumEvents(); n++)
-  {
-    if (getEvent(n)->isSetTrigger())
-    {
-      getEvent(n)->getTrigger()->unsetSBOTerm();
-    }
-    if (getEvent(n)->isSetDelay())
-    {
-      getEvent(n)->getDelay()->unsetSBOTerm();
-    }
-  }
-
 }
 
 void
