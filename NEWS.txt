@@ -1,6 +1,28 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
+Next release
+======================================================================
+
+* New features
+
+ - The inline formula code will now deal with a unary plus. 
+ 
+* Bug fixes
+
+ - There were a couple of places where the clone methods failed to
+   create a proper copy.  These have been fixed.  Thanks to Nicolas 
+   Rodriguez for reporting this.  
+
+* Miscellaneous
+
+ - Necessary updates to support the latest version of swig. 
+
+* Configuration/build system changes
+
+
+
+======================================================================
 Version 5.0.0 (2011-04-14)
 ======================================================================
 
