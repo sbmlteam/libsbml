@@ -1092,6 +1092,7 @@ Event::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
   mEventAssignments.enablePackageInternal(pkgURI,pkgPrefix,flag);
   if (mTrigger) mTrigger->enablePackageInternal(pkgURI,pkgPrefix,flag);
   if (mDelay)   mDelay->enablePackageInternal(pkgURI,pkgPrefix,flag);
+  if (mPriority)   mPriority->enablePackageInternal(pkgURI,pkgPrefix,flag);
 }
 
 
