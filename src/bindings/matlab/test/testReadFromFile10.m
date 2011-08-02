@@ -74,7 +74,7 @@ Totalfail = Totalfail + fail_unless( strcmp(m.metaid, '_001'));
   
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).id, 'e'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).timeUnits, 'second'             ));
-  Totalfail = Totalfail + fail_unless( strcmp( m.event(1).trigger, 'neq(0,1)'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.event(1).trigger, 'ne(0,1)'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).delay, 'p'             ));
   Totalfail = Totalfail + fail_unless( strcmp(m.event(1).metaid, '_007'));
 

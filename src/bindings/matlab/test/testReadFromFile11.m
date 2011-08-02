@@ -51,7 +51,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 3);
   Totalfail = Totalfail + fail_unless( length(m.event) == 1);
   
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).id, 'e'             ));
-  Totalfail = Totalfail + fail_unless( strcmp( m.event(1).trigger.math, 'neq(0,1)'             ));
+  Totalfail = Totalfail + fail_unless( strcmp( m.event(1).trigger.math, 'ne(0,1)'             ));
   Totalfail = Totalfail + fail_unless( strcmp( m.event(1).delay.math, 'p'             ));
 
   Totalfail = Totalfail + fail_unless( length(m.event.eventAssignment) == 1);
