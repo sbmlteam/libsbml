@@ -62,6 +62,8 @@ Formula = strrep(Formula, 'ge(', 'geq(');
 
 Formula = strrep(Formula, 'le(', 'leq(');
 
+Formula = strrep(Formula, 'ne(', 'neq(');
+
 Formula = strrep(Formula, 'power(', 'pow(');
 
 % log2(x) must become log(2, x)
