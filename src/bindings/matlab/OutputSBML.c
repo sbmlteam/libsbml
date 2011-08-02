@@ -37,9 +37,13 @@
 #include <sbml/math/ASTNode.h>
 
 static char * timeSymbol = "";
+static char * delaySymbol = "";
+static char * avoSymbol = "";
 
 /* function declarations */
 void LookForCSymbolTime(ASTNode_t *);
+void LookForCSymbolDelay(ASTNode_t *);
+void LookForCSymbolAvo(ASTNode_t *);
 
 
 SBMLTypeCode_t  CharToTypecode (char *);
@@ -119,6 +123,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray * mxName, * mxId, *mxNamespaces, *mxMetaid, *mxTimeSymbol;
   mxArray * mxSubstanceUnits, * mxTimeUnits, *mxLengthUnits, *mxAreaUnits;
   mxArray * mxVolumeUnits, * mxExtentUnits, *mxConversionFactor;
+  mxArray * mxDelaySymbol, *mxAvoSymbol;
 	unsigned int nLevel, nVersion;
 	char * pacNotes, * pacAnnotations;
   char * pacName, * pacId, *pacMetaid;
@@ -245,8 +250,20 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     nBuflen = (mxGetM(mxTimeSymbol)*mxGetN(mxTimeSymbol)+1);
     timeSymbol = (char *)mxCalloc(nBuflen, sizeof(char));
     nStatus = mxGetString(mxTimeSymbol, timeSymbol, nBuflen);
+ 
+    mxDelaySymbol = mxGetField(mxModel[0], 0, "delay_symbol");
+    nBuflen = (mxGetM(mxDelaySymbol)*mxGetN(mxDelaySymbol)+1);
+    delaySymbol = (char *)mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxDelaySymbol, delaySymbol, nBuflen);
   }
 
+  if (nLevel > 2)
+  {
+    mxAvoSymbol = mxGetField(mxModel[0], 0, "avogadro_symbol");
+    nBuflen = (mxGetM(mxAvoSymbol)*mxGetN(mxAvoSymbol)+1);
+    avoSymbol = (char *)mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxAvoSymbol, avoSymbol, nBuflen); 
+  }
   sbmlDocument = SBMLDocument_createWithLevelAndVersion(nLevel, nVersion);
 
   /* add any saved namespaces */
@@ -628,6 +645,74 @@ LookForCSymbolTime(ASTNode_t * math)
   for (i = 0; i < ASTNode_getNumChildren(math); i++)
   {
     LookForCSymbolTime(ASTNode_getChild(math, i));
+  }
+}
+
+/**
+ * NAME:    LookForCSymbolTime
+ *
+ * PARAMETERS:  ASTNode_t * 
+ *
+ * RETURNS:   
+ *
+ * FUNCTION:  replaces the csymbol time in this function
+ */
+void
+LookForCSymbolDelay(ASTNode_t * math)
+{
+  /*const char * time = "my_time";*/
+  unsigned int i;
+
+  if (math == NULL)
+  {
+    return;
+  }
+
+  if (ASTNode_getType(math) == AST_FUNCTION)
+  {
+    if (!strcmp(ASTNode_getName(math), delaySymbol))
+    {
+      ASTNode_setType(math, AST_FUNCTION_DELAY);
+    }
+  }
+
+  for (i = 0; i < ASTNode_getNumChildren(math); i++)
+  {
+    LookForCSymbolDelay(ASTNode_getChild(math, i));
+  }
+}
+
+/**
+ * NAME:    LookForCSymbolAvo
+ *
+ * PARAMETERS:  ASTNode_t * 
+ *
+ * RETURNS:   
+ *
+ * FUNCTION:  replaces the csymbol avogadro in this function
+ */
+void
+LookForCSymbolAvo(ASTNode_t * math)
+{
+  /*const char * time = "my_time";*/
+  unsigned int i;
+
+  if (math == NULL)
+  {
+    return;
+  }
+
+  if (ASTNode_getType(math) == AST_NAME)
+  {
+    if (!strcmp(ASTNode_getName(math), avoSymbol))
+    {
+      ASTNode_setType(math, AST_NAME_AVOGADRO);
+    }
+  }
+
+  for (i = 0; i < ASTNode_getNumChildren(math); i++)
+  {
+    LookForCSymbolAvo(ASTNode_getChild(math, i));
   }
 }
 
@@ -2181,6 +2266,8 @@ GetUnit ( mxArray * mxUnits,
     
     ast = SBML_parseFormula(pacFormula);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
 		/* get each of the fields regardless of whether appropriate type */
 
@@ -3468,6 +3555,8 @@ GetUnit ( mxArray * mxUnits,
     /* END OF HACK */
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     KineticLaw_setMath(pKineticLaw, ast);
 
@@ -3532,6 +3621,8 @@ GetUnit ( mxArray * mxUnits,
     /* END OF HACK */
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     KineticLaw_setMath(pKineticLaw, ast);
 
@@ -3979,6 +4070,8 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
     /* END OF HACK */
     ast = SBML_parseFormula(pacFormula);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
 		FunctionDefinition_setMath(pFuncDefinition, ast);
 
@@ -4423,6 +4516,8 @@ GetEventAssignment ( mxArray * mxEventAssignment,
     /* END OF HACK */
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     EventAssignment_setMath(pEventAssignment, ast);
 
@@ -4839,6 +4934,8 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
     /* END OF HACK */
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     InitialAssignment_setMath(pInitialAssignment, ast);
     
@@ -4992,6 +5089,8 @@ GetConstraint ( mxArray * mxConstraint,
     /* END OF HACK */
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     Constraint_setMath(pConstraint, ast);
 
@@ -5128,6 +5227,8 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
     /* END OF HACK */
   ast = SBML_parseFormula(pacMath);
   LookForCSymbolTime(ast);
+  LookForCSymbolDelay(ast);
+  LookForCSymbolAvo(ast);
 
   StoichiometryMath_setMath(pStoichiometryMath, ast);
   
@@ -5265,6 +5366,8 @@ GetTrigger ( mxArray * mxTrigger,
     /* END OF HACK */
   ast = SBML_parseFormula(pacMath);
   LookForCSymbolTime(ast);
+  LookForCSymbolDelay(ast);
+  LookForCSymbolAvo(ast);
 
   Trigger_setMath(pTrigger, ast);
   
@@ -5415,6 +5518,8 @@ GetDelay ( mxArray * mxDelay,
   {
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     Delay_setMath(pDelay, ast);
   }
@@ -5551,6 +5656,8 @@ GetPriority ( mxArray * mxPriority,
   {
     ast = SBML_parseFormula(pacMath);
     LookForCSymbolTime(ast);
+    LookForCSymbolDelay(ast);
+    LookForCSymbolAvo(ast);
 
     Priority_setMath(pPriority, ast);
   }

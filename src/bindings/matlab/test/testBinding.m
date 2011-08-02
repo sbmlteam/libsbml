@@ -48,6 +48,7 @@ try
   Totalfail = Totalfail + testReadFromFile12(install);
   Totalfail = Totalfail + testReadFromFile13(install);
   Totalfail = Totalfail + testReadFromFile14(install);
+  Totalfail = Totalfail + testReadFromFile15(install);
   if (strcmp(isoctave(), '0') && install == 0)
     Totalfail = Totalfail + testReadFlags(install);
   end;
