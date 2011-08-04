@@ -1210,7 +1210,7 @@ GetSpecies ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 11;
+  const int nNoFields_l1 = 13;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
@@ -1222,9 +1222,11 @@ GetSpecies ( Model_t      *pModel,
 		"boundaryCondition", 
 		"charge",
 		"isSetInitialAmount", 
-		"isSetCharge"};
+		"isSetCharge",
+    "level",
+    "version"};
   
-  const int nNoFields_l2 = 18;
+  const int nNoFields_l2 = 20;
   const char *field_names_l2[] = {	
     "typecode",		
     "metaid",
@@ -1243,9 +1245,11 @@ GetSpecies ( Model_t      *pModel,
 		"constant",
 		"isSetInitialAmount", 
 		"isSetInitialConcentration", 
-		"isSetCharge"};
+		"isSetCharge",
+    "level",
+    "version"};
 
-   const int nNoFields_l2v2 = 19;
+   const int nNoFields_l2v2 = 21;
    const char *field_names_l2v2[] = {	
     "typecode",		
     "metaid",
@@ -1265,9 +1269,11 @@ GetSpecies ( Model_t      *pModel,
 		"constant",
 		"isSetInitialAmount", 
 		"isSetInitialConcentration", 
-		"isSetCharge"};
+		"isSetCharge",
+    "level",
+    "version"};
     
-   const int nNoFields_l2v3 = 19;
+   const int nNoFields_l2v3 = 21;
    const char *field_names_l2v3[] = {	
     "typecode",		
     "metaid",
@@ -1287,9 +1293,11 @@ GetSpecies ( Model_t      *pModel,
 		"constant",
 		"isSetInitialAmount", 
 		"isSetInitialConcentration", 
-		"isSetCharge"};
+		"isSetCharge",
+    "level",
+    "version"};
                   
-   const int nNoFields_l2v4 = 19;
+   const int nNoFields_l2v4 = 21;
    const char *field_names_l2v4[] = {	
     "typecode",		
     "metaid",
@@ -1309,9 +1317,11 @@ GetSpecies ( Model_t      *pModel,
 		"constant",
 		"isSetInitialAmount", 
 		"isSetInitialConcentration", 
-		"isSetCharge"};
+		"isSetCharge",
+    "level",
+    "version"};
 
-   const int nNoFields_l3v1 = 17;
+   const int nNoFields_l3v1 = 19;
    const char *field_names_l3v1[] = {	
     "typecode",		
     "metaid",
@@ -1329,7 +1339,9 @@ GetSpecies ( Model_t      *pModel,
 		"constant",
     "conversionFactor",
 		"isSetInitialAmount", 
-		"isSetInitialConcentration"};
+		"isSetInitialConcentration",
+    "level",
+    "version"};
 
   /* values */
   const char * pacTypecode;
@@ -1534,6 +1546,9 @@ GetSpecies ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxSpeciesReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxSpeciesReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxSpeciesReturn,i,"typecode",mxCreateString(pacTypecode));
     if (unSBMLLevel > 1)
     {
@@ -1621,15 +1636,17 @@ GetUnitDefinition ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a unit definition structure */
-  const int nNoFields_l1 = 5;
+  const int nNoFields_l1 = 7;
   const char * field_names_l1[] = {	
     "typecode", 
 		"notes", 
 		"annotation",
 		"name", 
-		"unit"};
+		"unit",
+    "level",
+    "version"};
   
-  const int nNoFields_l2 = 7;
+  const int nNoFields_l2 = 9;
   const char * field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -1637,9 +1654,11 @@ GetUnitDefinition ( Model_t      *pModel,
 		"annotation",
 		"name", 
 		"id", 
-		"unit"};
+		"unit",
+    "level",
+    "version"};
   
-  const int nNoFields_l2v3 = 8;
+  const int nNoFields_l2v3 = 10;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -1648,7 +1667,9 @@ GetUnitDefinition ( Model_t      *pModel,
     "sboTerm",
 		"name", 
 		"id", 
-		"unit"};
+		"unit",
+    "level",
+    "version"};
 
   /* determine the values */
   const char * pacTypecode;
@@ -1764,6 +1785,9 @@ GetUnitDefinition ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxUnitDefReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxUnitDefReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxUnitDefReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -1809,7 +1833,7 @@ GetCompartment ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a compartment structure */
-  const int nNoFields_l1 = 8;
+  const int nNoFields_l1 = 10;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
@@ -1818,8 +1842,11 @@ GetCompartment ( Model_t      *pModel,
 		"volume",
 		"units", 
 		"outside", 
-		"isSetVolume"};
-  const int nNoFields_l2 = 13;
+		"isSetVolume",
+    "level",
+    "version"};
+
+  const int nNoFields_l2 = 15;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -1833,8 +1860,11 @@ GetCompartment ( Model_t      *pModel,
 		"outside", 
 		"constant", 
 		"isSetSize", 
-		"isSetVolume"};
-  const int nNoFields_l2v2 = 14;
+		"isSetVolume",
+    "level",
+    "version"};
+
+  const int nNoFields_l2v2 = 16;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -1849,8 +1879,11 @@ GetCompartment ( Model_t      *pModel,
 		"outside", 
 		"constant", 
 		"isSetSize", 
-		"isSetVolume"};
-  const int nNoFields_l2v3 = 15;
+		"isSetVolume",
+    "level",
+    "version"};
+
+  const int nNoFields_l2v3 = 17;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -1866,9 +1899,11 @@ GetCompartment ( Model_t      *pModel,
 		"outside", 
 		"constant", 
 		"isSetSize", 
-		"isSetVolume"};
+		"isSetVolume",
+    "level",
+    "version"};
 
-  const int nNoFields_l3v1 = 13;
+  const int nNoFields_l3v1 = 15;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -1882,7 +1917,10 @@ GetCompartment ( Model_t      *pModel,
 		"units", 
 		"constant", 
 		"isSetSize", 
-    "isSetSpatialDimensions"};
+    "isSetSpatialDimensions",
+    "level",
+    "version"};
+
   /* field values */
   const char * pacTypecode;
   const char * pacNotes = NULL;
@@ -2072,6 +2110,9 @@ GetCompartment ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxCompartReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxCompartReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxCompartReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -2146,7 +2187,7 @@ GetParameter ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 7;
+  const int nNoFields_l1 = 9;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
@@ -2154,8 +2195,10 @@ GetParameter ( Model_t      *pModel,
 		"name", 
 		"value",
 		"units",
-		"isSetValue"};
-  const int nNoFields_l2 = 10;
+		"isSetValue",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 12;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -2166,8 +2209,10 @@ GetParameter ( Model_t      *pModel,
 		"value",
 		"units", 
 		"constant", 
-		"isSetValue"};
-   const int nNoFields_l2v2 = 11;
+		"isSetValue",
+    "level",
+    "version"};
+   const int nNoFields_l2v2 = 13;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -2179,8 +2224,10 @@ GetParameter ( Model_t      *pModel,
 		"units", 
 		"constant",
     "sboTerm",
-		"isSetValue"};
-   const int nNoFields_l2v3 = 11;
+		"isSetValue",
+    "level",
+    "version"};
+   const int nNoFields_l2v3 = 13;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -2192,7 +2239,9 @@ GetParameter ( Model_t      *pModel,
 		"value",
 		"units", 
 		"constant",
-		"isSetValue"};
+		"isSetValue",
+    "level",
+    "version"};
  
   const char * pacTypecode;
   const char * pacNotes = NULL;
@@ -2342,6 +2391,9 @@ GetParameter ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxParameterReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxParameterReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxParameterReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -2392,7 +2444,7 @@ void GetReaction ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 9;
+  const int nNoFields_l1 = 11;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
@@ -2402,8 +2454,10 @@ void GetReaction ( Model_t      *pModel,
 		"product", 
 		"kineticLaw",
 		"reversible", 
-		"fast"};
-  const int nNoFields_l2 = 13;
+		"fast",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 15;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -2417,8 +2471,10 @@ void GetReaction ( Model_t      *pModel,
 		"kineticLaw",
 		"reversible", 
 		"fast", 
-		"isSetFast"};
-  const int nNoFields_l2v2 = 14;
+		"isSetFast",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 16;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -2433,8 +2489,10 @@ void GetReaction ( Model_t      *pModel,
 		"reversible", 
 		"fast",
     "sboTerm",
-		"isSetFast"};
-  const int nNoFields_l2v3 = 14;
+		"isSetFast",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 16;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -2449,8 +2507,10 @@ void GetReaction ( Model_t      *pModel,
 		"kineticLaw",
 		"reversible", 
 		"fast",
-		"isSetFast"};
-  const int nNoFields_l3v1 = 15;
+		"isSetFast",
+    "level",
+    "version"};
+  const int nNoFields_l3v1 = 17;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -2466,7 +2526,9 @@ void GetReaction ( Model_t      *pModel,
 		"reversible", 
 		"fast",
     "compartment",
-		"isSetFast"};
+		"isSetFast",
+    "level",
+    "version"};
 
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -2623,6 +2685,9 @@ void GetReaction ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxReactionReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxReactionReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxReactionReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -2687,15 +2752,17 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 6;
+  const int nNoFields_l1 = 8;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
 		"annotation",
 		"kind", 
 		"exponent",
-		"scale"};
-  const int nNoFields_l2 = 9;
+		"scale",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 11;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -2705,8 +2772,10 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 		"exponent", 
 		"scale", 
 		"multiplier", 
-		"offset"};
-  const int nNoFields_l2v2 = 8;
+		"offset",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 10;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -2715,8 +2784,10 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 		"kind", 
 		"exponent", 
 		"scale", 
-		"multiplier"};
-  const int nNoFields_l2v3 = 9;
+		"multiplier",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 11;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -2726,7 +2797,9 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 		"kind", 
 		"exponent", 
 		"scale", 
-		"multiplier"};
+		"multiplier",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -2849,6 +2922,9 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     }
 
     /* put into structure */
+    mxSetField( mxUnitReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxUnitReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxUnitReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -2905,15 +2981,17 @@ GetReactants ( Reaction_t   *pReaction,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 6;
+  const int nNoFields_l1 = 8;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
 		"annotation",
 		"species", 
 		"stoichiometry",
-		"denominator"};
-  const int nNoFields_l2 = 8;
+		"denominator",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 10;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -2922,8 +3000,10 @@ GetReactants ( Reaction_t   *pReaction,
 		"species", 
 		"stoichiometry",
 		"denominator", 
-		"stoichiometryMath"};
-  const int nNoFields_l2v2 = 10;
+		"stoichiometryMath",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 12;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -2934,8 +3014,10 @@ GetReactants ( Reaction_t   *pReaction,
     "name",
     "sboTerm",
 		"stoichiometry",
-		"stoichiometryMath"};
-  const int nNoFields_l2v3 = 10;
+		"stoichiometryMath",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 12;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -2946,8 +3028,10 @@ GetReactants ( Reaction_t   *pReaction,
     "id",
     "name",
 		"stoichiometry",
-		"stoichiometryMath"};
-  const int nNoFields_l3v1 = 11;
+		"stoichiometryMath",
+    "level",
+    "version"};
+  const int nNoFields_l3v1 = 13;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -2959,7 +3043,9 @@ GetReactants ( Reaction_t   *pReaction,
     "name",
 		"stoichiometry",
 		"constant",
-    "isSetStoichiometry"};
+    "isSetStoichiometry",
+    "level",
+    "version"};
    /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -3118,6 +3204,9 @@ GetReactants ( Reaction_t   *pReaction,
     }
 
     /* put into structure */
+    mxSetField( mxReactantReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxReactantReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxReactantReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -3192,15 +3281,17 @@ GetProducts ( Reaction_t   *pReaction,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 6;
+  const int nNoFields_l1 = 8;
   const char *field_names_l1[] = {
     "typecode", 
 		"notes", 
 		"annotation",
 		"species", 
 		"stoichiometry",
-		"denominator"};
-  const int nNoFields_l2 = 8;
+		"denominator",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 10;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -3209,8 +3300,10 @@ GetProducts ( Reaction_t   *pReaction,
 		"species", 
 		"stoichiometry",
 		"denominator", 
-		"stoichiometryMath"};
-const int nNoFields_l2v2 = 10;
+		"stoichiometryMath",
+    "level",
+    "version"};
+const int nNoFields_l2v2 = 12;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -3221,8 +3314,10 @@ const int nNoFields_l2v2 = 10;
     "name",
     "sboTerm",
 		"stoichiometry",
-		"stoichiometryMath"};
-  const int nNoFields_l2v3 = 10;
+		"stoichiometryMath",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 12;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -3233,8 +3328,10 @@ const int nNoFields_l2v2 = 10;
     "id",
     "name",
 		"stoichiometry",
-		"stoichiometryMath"};
-  const int nNoFields_l3v1 = 11;
+		"stoichiometryMath",
+    "level",
+    "version"};
+  const int nNoFields_l3v1 = 13;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -3246,7 +3343,9 @@ const int nNoFields_l2v2 = 10;
     "name",
 		"stoichiometry",
 		"constant",
-    "isSetStoichiometry"};
+    "isSetStoichiometry",
+    "level",
+    "version"};
    /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -3406,6 +3505,9 @@ const int nNoFields_l2v2 = 10;
     }
 
     /* put into structure */
+    mxSetField( mxProductReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxProductReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxProductReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -3479,14 +3581,16 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   int n = (SpeciesReference_isSetStoichiometryMath(pSpeciesReference)) ? 1 : 0;
   mwSize dims[2] = {1, n};
 
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 8;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
-		"math"};
+		"math",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -3586,6 +3690,9 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
   }
 
   /* put into structure */
+  mxSetField( mxStoichiometryMathReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+  mxSetField( mxStoichiometryMathReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+
   mxSetField(mxStoichiometryMathReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
   mxSetField(mxStoichiometryMathReturn, 0, "metaid", mxCreateString(pacMetaid));
   mxSetField(mxStoichiometryMathReturn, 0, "notes",      mxCreateString(pacNotes));
@@ -3616,7 +3723,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l1 = 7;
+  const int nNoFields_l1 = 9;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
@@ -3624,8 +3731,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"formula",	
 		"parameter",
 		"timeUnits", 
-		"substanceUnits"};
-  const int nNoFields_l2 = 9;
+		"substanceUnits",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 11;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -3635,8 +3744,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"math", 
 		"parameter",
 		"timeUnits", 
-		"substanceUnits"};
-  const int nNoFields_l2v2 = 8;
+		"substanceUnits",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 10;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -3645,8 +3756,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"formula", 
 		"math", 
 		"parameter",
-    "sboTerm"};
-  const int nNoFields_l2v3 = 8;
+    "sboTerm",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 10;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -3655,8 +3768,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
     "sboTerm",
 		"formula", 
 		"math", 
-		"parameter"};
-  const int nNoFields_l3v1 = 7;
+		"parameter",
+    "level",
+    "version"};
+  const int nNoFields_l3v1 = 9;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -3664,7 +3779,9 @@ GetKineticLaw ( Reaction_t   *pReaction,
 		"annotation",
     "sboTerm",
 		"math", 
-		"localParameter"};
+		"localParameter",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode = NULL;
   const char * pacMetaid = NULL;
@@ -3892,6 +4009,9 @@ GetKineticLaw ( Reaction_t   *pReaction,
   }
 
   /* put into structure */
+    mxSetField( mxKineticLawReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxKineticLawReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+
   mxSetField(mxKineticLawReturn,0,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -3951,7 +4071,7 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
   int n = KineticLaw_getNumParameters(pKineticLaw);
   mwSize dims[2] = {1, n};
 
-  const int nNoFields_l1 = 7;
+  const int nNoFields_l1 = 9;
   const char *field_names_l1[] = {	
     "typecode", 
 		"notes", 
@@ -3959,8 +4079,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"name", 
 		"value",
 		"units", 
-		"isSetValue"};
-  const int nNoFields_l2 = 10;
+		"isSetValue",
+    "level",
+    "version"};
+  const int nNoFields_l2 = 12;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -3971,8 +4093,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"value",
 		"units", 
 		"constant", 
-		"isSetValue"};
-    const int nNoFields_l2v2 = 11;
+		"isSetValue",
+    "level",
+    "version"};
+    const int nNoFields_l2v2 = 13;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -3984,8 +4108,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"units", 
 		"constant",
     "sboTerm",
-		"isSetValue"};
-    const int nNoFields_l2v3 = 11;
+		"isSetValue",
+    "level",
+    "version"};
+    const int nNoFields_l2v3 = 13;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -3997,8 +4123,10 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"value",
 		"units", 
 		"constant",
-		"isSetValue"};
-    const int nNoFields_l3v1 = 10;
+		"isSetValue",
+    "level",
+    "version"};
+    const int nNoFields_l3v1 = 12;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -4009,7 +4137,9 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
 		"id", 
 		"value",
 		"units", 
-		"isSetValue"};
+		"isSetValue",
+    "level",
+    "version"};
  
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -4159,6 +4289,9 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     }
 
     /* put into structure */
+    mxSetField( mxKineticLawParameterReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxKineticLawParameterReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxKineticLawParameterReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -4209,14 +4342,16 @@ GetModifier ( Reaction_t   *pReaction,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l2 = 5;
+  const int nNoFields_l2 = 7;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
-		"species"};
-  const int nNoFields_l2v2 = 8;
+		"species",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 10;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -4225,8 +4360,10 @@ GetModifier ( Reaction_t   *pReaction,
 		"species",
     "id",
     "name",
-    "sboTerm"};
-  const int nNoFields_l2v3 = 8;
+    "sboTerm",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 10;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -4235,7 +4372,9 @@ GetModifier ( Reaction_t   *pReaction,
     "sboTerm",
 		"species",
     "id",
-    "name"};
+    "name",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -4329,6 +4468,9 @@ GetModifier ( Reaction_t   *pReaction,
     }
 
     /* put into structure */
+    mxSetField( mxModifierReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxModifierReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxModifierReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -4375,7 +4517,7 @@ GetRule ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a rule structure */
-  const int nNoFields_l1 = 10;
+  const int nNoFields_l1 = 12;
   const char *field_names_l1[] = {	
     "typecode", 
     "notes", 
@@ -4386,9 +4528,11 @@ GetRule ( Model_t      *pModel,
     "species", 
     "compartment",
     "name", 
-    "units"};
+    "units",
+    "level",
+    "version"};
  
-  const int nNoFields_l2 = 10;
+  const int nNoFields_l2 = 12;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -4399,8 +4543,10 @@ GetRule ( Model_t      *pModel,
     "species", 
     "compartment",
     "name", 
-    "units"};
-  const int nNoFields_l2v2 = 11;
+    "units",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 13;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -4412,8 +4558,10 @@ GetRule ( Model_t      *pModel,
     "species", 
     "compartment",
     "name", 
-    "units"};
-  const int nNoFields_l2v3 = 11;
+    "units",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 13;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -4425,7 +4573,9 @@ GetRule ( Model_t      *pModel,
     "species", 
     "compartment",
     "name", 
-    "units"};
+    "units",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode;
@@ -4771,6 +4921,9 @@ GetRule ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxListRuleReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxListRuleReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxListRuleReturn,i,"typecode",mxCreateString(pacTypecode)); 
     if (unSBMLLevel > 1)
     {
@@ -4817,7 +4970,7 @@ GetFunctionDefinition ( Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a species structure */
-  const int nNoFields_l2 = 7;
+  const int nNoFields_l2 = 9;
   const char * field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -4825,9 +4978,11 @@ GetFunctionDefinition ( Model_t      *pModel,
 		"annotation",
 		"name", 
 		"id", 
-		"math"};
+		"math",
+    "level",
+    "version"};
   /* fields within a species structure */
-  const int nNoFields_l2v2 = 8;
+  const int nNoFields_l2v2 = 10;
   const char * field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -4836,8 +4991,10 @@ GetFunctionDefinition ( Model_t      *pModel,
     "sboTerm",
 		"name", 
 		"id", 
-		"math"};
-  const int nNoFields_l2v3 = 8;
+		"math",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 10;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -4846,7 +5003,9 @@ GetFunctionDefinition ( Model_t      *pModel,
     "sboTerm",
 		"name", 
 		"id", 
-		"math"};
+		"math",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode;
@@ -4975,6 +5134,9 @@ GetFunctionDefinition ( Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxFunctionDefReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxFunctionDefReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxFunctionDefReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxFunctionDefReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxFunctionDefReturn, i, "notes",mxCreateString(pacNotes));
@@ -5011,7 +5173,7 @@ GetEvent (Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a event structure */
-  const int nNoFields_l2 = 10;
+  const int nNoFields_l2 = 12;
   const char * field_names_l2[] = {	
     "typecode", 
     "metaid",
@@ -5022,8 +5184,10 @@ GetEvent (Model_t      *pModel,
 		"trigger", 
 		"delay", 
 		"timeUnits", 
-		"eventAssignment"};
-  const int nNoFields_l2v2 = 11;
+		"eventAssignment",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 13;
   const char * field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -5035,8 +5199,10 @@ GetEvent (Model_t      *pModel,
 		"delay", 
 		"timeUnits",
     "sboTerm",
-		"eventAssignment"};
-  const int nNoFields_l2v3 = 10;
+		"eventAssignment",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 12;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -5047,8 +5213,10 @@ GetEvent (Model_t      *pModel,
 		"id", 
 		"trigger", 
 		"delay", 
-		"eventAssignment"};
-  const int nNoFields_l2v4 = 11;
+		"eventAssignment",
+    "level",
+    "version"};
+  const int nNoFields_l2v4 = 13;
   const char * field_names_l2v4[] = {	
     "typecode", 
     "metaid",
@@ -5060,8 +5228,10 @@ GetEvent (Model_t      *pModel,
     "useValuesFromTriggerTime",
 		"trigger", 
 		"delay", 
-		"eventAssignment"};
-  const int nNoFields_l3v1 = 12;
+		"eventAssignment",
+    "level",
+    "version"};
+  const int nNoFields_l3v1 = 14;
   const char * field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -5074,7 +5244,9 @@ GetEvent (Model_t      *pModel,
 		"trigger", 
 		"delay", 
     "priority",
-		"eventAssignment"};
+		"eventAssignment",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode;
@@ -5266,6 +5438,9 @@ GetEvent (Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxEventReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxEventReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxEventReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxEventReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventReturn, i, "notes",mxCreateString(pacNotes));
@@ -5333,15 +5508,17 @@ GetEventAssignment ( Event_t      *pEvent,
   int n = Event_getNumEventAssignments(pEvent);
   mwSize dims[2] = {1, n};
 
-  const int nNoFields_l2 = 6;
+  const int nNoFields_l2 = 8;
   const char *field_names_l2[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
 		"variable", 
-		"math"};
-  const int nNoFields_l2v2 = 7;
+		"math",
+    "level",
+    "version"};
+  const int nNoFields_l2v2 = 9;
   const char *field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -5349,8 +5526,10 @@ GetEventAssignment ( Event_t      *pEvent,
 		"annotation",
 		"variable",
     "sboTerm",
-		"math"};
-  const int nNoFields_l2v3 = 7;
+		"math",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 9;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -5358,7 +5537,9 @@ GetEventAssignment ( Event_t      *pEvent,
 		"annotation",
     "sboTerm",
 		"variable",
-		"math"};
+		"math",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -5480,6 +5661,9 @@ GetEventAssignment ( Event_t      *pEvent,
     }
 
     /* put into structure */
+    mxSetField( mxEventAssignReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxEventAssignReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxEventAssignReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxEventAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxEventAssignReturn, i, "notes",mxCreateString(pacNotes));
@@ -5520,15 +5704,17 @@ GetTrigger ( Event_t      *pEvent,
   mwSize dims[2] = {1, n};
 
 
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 8;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
-		"math"};
-  const int nNoFields_l3v1 = 8;
+		"math",
+    "level",
+    "version"};
+  const int nNoFields_l3v1 = 10;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
@@ -5537,7 +5723,9 @@ GetTrigger ( Event_t      *pEvent,
     "sboTerm",
     "persistent",
     "initialValue",
-		"math"};
+		"math",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -5653,6 +5841,9 @@ GetTrigger ( Event_t      *pEvent,
   }
 
   /* put into structure */
+    mxSetField( mxTriggerReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxTriggerReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+
   mxSetField(mxTriggerReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
   mxSetField(mxTriggerReturn, 0, "metaid", mxCreateString(pacMetaid));
   mxSetField(mxTriggerReturn, 0, "notes",      mxCreateString(pacNotes));
@@ -5689,14 +5880,16 @@ GetDelay ( Event_t      *pEvent,
   int n = (Event_isSetDelay(pEvent)) ? 1 : 0;
   mwSize dims[2] = {1, n};
 
-  const int nNoFields_l2v3 = 6;
+  const int nNoFields_l2v3 = 8;
   const char *field_names_l2v3[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
-		"math"};
+		"math",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -5805,6 +5998,9 @@ GetDelay ( Event_t      *pEvent,
     }
 
     /* put into structure */
+    mxSetField( mxDelayReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxDelayReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxDelayReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
     mxSetField(mxDelayReturn, 0, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxDelayReturn, 0, "notes",      mxCreateString(pacNotes));
@@ -5837,14 +6033,16 @@ GetPriority ( Event_t      *pEvent,
   mwSize dims[2] = {1, n};
 
 
-  const int nNoFields_l3v1 = 6;
+  const int nNoFields_l3v1 = 8;
   const char *field_names_l3v1[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
     "sboTerm",
-		"math"};
+		"math",
+    "level",
+    "version"};
   /* determine the values */
   const char * pacTypecode;
   const char * pacMetaid = NULL;
@@ -5941,6 +6139,9 @@ GetPriority ( Event_t      *pEvent,
   }
 
   /* put into structure */
+    mxSetField( mxPriorityReturn, 0, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxPriorityReturn, 0, "version"    , CreateIntScalar(unSBMLVersion) );
+
   mxSetField(mxPriorityReturn, 0, "typecode",   mxCreateString(pacTypecode)); 
   mxSetField(mxPriorityReturn, 0, "metaid", mxCreateString(pacMetaid));
   mxSetField(mxPriorityReturn, 0, "notes",      mxCreateString(pacNotes));
@@ -6130,15 +6331,17 @@ GetCompartmentType (Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a compartmentType structure */
-  const int nNoFields_l2v2 = 6;
+  const int nNoFields_l2v2 = 8;
   const char * field_names_l2v2[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
 		"name", 
-		"id"};
-  const int nNoFields_l2v3 = 7;
+		"id",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 9;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -6146,7 +6349,9 @@ GetCompartmentType (Model_t      *pModel,
 		"annotation",
     "sboTerm",
 		"name", 
-		"id"};
+		"id",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode = NULL;
@@ -6237,6 +6442,9 @@ GetCompartmentType (Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxCompartmentTypeReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxCompartmentTypeReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxCompartmentTypeReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxCompartmentTypeReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxCompartmentTypeReturn, i, "notes",mxCreateString(pacNotes));
@@ -6271,15 +6479,17 @@ GetSpeciesType (Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a SpeciesType structure */
-  const int nNoFields_l2v2 = 6;
+  const int nNoFields_l2v2 = 8;
   const char * field_names_l2v2[] = {	
     "typecode", 
     "metaid",
 		"notes", 
 		"annotation",
 		"name", 
-		"id"};
-  const int nNoFields_l2v3 = 7;
+		"id",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 9;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -6287,7 +6497,9 @@ GetSpeciesType (Model_t      *pModel,
 		"annotation",
     "sboTerm",
 		"name", 
-		"id"};
+		"id",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode = NULL;
@@ -6379,6 +6591,9 @@ GetSpeciesType (Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxSpeciesTypeReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxSpeciesTypeReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxSpeciesTypeReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxSpeciesTypeReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxSpeciesTypeReturn, i, "notes",mxCreateString(pacNotes));
@@ -6413,7 +6628,7 @@ GetInitialAssignment (Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a InitialAssignment structure */
-  const int nNoFields_l2v2 = 7;
+  const int nNoFields_l2v2 = 9;
   const char * field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -6421,8 +6636,10 @@ GetInitialAssignment (Model_t      *pModel,
 		"annotation",
 		"symbol",
     "sboTerm",
-		"math"};
-  const int nNoFields_l2v3 = 7;
+		"math",
+    "level",
+    "version"};
+  const int nNoFields_l2v3 = 9;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -6430,7 +6647,9 @@ GetInitialAssignment (Model_t      *pModel,
 		"annotation",
     "sboTerm",
 		"symbol",
-		"math"};
+		"math",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode = NULL;
@@ -6548,6 +6767,9 @@ GetInitialAssignment (Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxInitialAssignReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxInitialAssignReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxInitialAssignReturn, i, "typecode",   mxCreateString(pacTypecode)); 
     mxSetField(mxInitialAssignReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxInitialAssignReturn, i, "notes",      mxCreateString(pacNotes));
@@ -6586,7 +6808,7 @@ GetConstraint (Model_t      *pModel,
   mwSize dims[2] = {1, n};
 
   /* fields within a Constraint structure */
-  const int nNoFields_l2v2 = 7;
+  const int nNoFields_l2v2 = 9;
   const char * field_names_l2v2[] = {	
     "typecode", 
     "metaid",
@@ -6594,9 +6816,11 @@ GetConstraint (Model_t      *pModel,
 		"annotation",
     "sboTerm",
 		"math",
-    "message"};
+    "message",
+    "level",
+    "version"};
   
-  const int nNoFields_l2v3 = 7;
+  const int nNoFields_l2v3 = 9;
   const char * field_names_l2v3[] = {	
     "typecode", 
     "metaid",
@@ -6604,7 +6828,9 @@ GetConstraint (Model_t      *pModel,
 		"annotation",
     "sboTerm",
 		"math",
-    "message"};
+    "message",
+    "level",
+    "version"};
   
   /* determine the values */
   const char * pacTypecode = NULL;
@@ -6725,6 +6951,9 @@ GetConstraint (Model_t      *pModel,
     }
 
     /* put into structure */
+    mxSetField( mxConstraintReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
+    mxSetField( mxConstraintReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+
     mxSetField(mxConstraintReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxConstraintReturn, i, "metaid", mxCreateString(pacMetaid));
     mxSetField(mxConstraintReturn, i, "notes",mxCreateString(pacNotes));
