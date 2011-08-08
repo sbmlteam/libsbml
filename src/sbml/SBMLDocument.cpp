@@ -387,7 +387,7 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
   }
   else
   {
-    mSBML = this;
+    setSBMLDocument(this);
 
     mLevel                             = orig.mLevel;
     mVersion                           = orig.mVersion;
@@ -425,7 +425,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
   else if(&rhs!=this)
   {
     this->SBase::operator =(rhs);
-    mSBML = this;
+    setSBMLDocument(this);
 
     mLevel                             = rhs.mLevel;
     mVersion                           = rhs.mVersion;
@@ -439,6 +439,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
       mModel->setSBMLDocument(this);
     }
   }
+  connectToChild();
   return *this;
 
 }
@@ -2014,6 +2015,7 @@ void
 SBMLDocument::connectToChild()
 {
 	if (mModel) mModel->connectToParent(this);
+  connectToParent(this);
 }
 
 /** @endcond */

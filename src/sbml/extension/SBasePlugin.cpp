@@ -68,8 +68,9 @@ SBasePlugin::SBasePlugin(const SBasePlugin& orig)
    ,mSBMLNS(NULL)
    ,mPrefix(orig.mPrefix)
 {
-  if (orig.mSBMLNS)
+  if (orig.mSBMLNS) {
     mSBMLNS = orig.mSBMLNS->clone();
+  }
 }
 /** @endcond */
 

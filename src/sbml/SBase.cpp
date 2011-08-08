@@ -253,6 +253,10 @@ SBase::SBase(const SBase& orig)
   mPlugins.resize( orig.mPlugins.size() );
   transform( orig.mPlugins.begin(), orig.mPlugins.end(), 
              mPlugins.begin(), ClonePluginEntity() );
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    mPlugins[i]->connectToParent(this);
+  }
 }
 /** @endcond */
 
@@ -617,6 +621,33 @@ SBase::getSBMLDocument ()
 }
 SBase*
 SBase::getParentSBMLObject ()
+{
+  if (mParentSBMLObject != NULL)
+  {
+    // if the parent object has been deleted the pointer is 
+    // still valid but points to nothing
+    try 
+    {
+      if (mParentSBMLObject->getHasBeenDeleted())
+      {
+        return NULL;
+      }
+      else
+      {
+        return mParentSBMLObject;
+      }
+    }
+    catch ( ... )
+    {
+      return NULL;
+    }
+  }
+  
+  return mParentSBMLObject;
+}
+
+const SBase*
+SBase::getParentSBMLObject () const
 {
   if (mParentSBMLObject != NULL)
   {
@@ -1701,12 +1732,14 @@ SBase::connectToParent (SBase* parent)
  * Subclasses must override this function if they define
  * one ore more child elements.
  * Basically, this function needs to be called in
- * constructor, opy constructor and assignment operator.
+ * constructors, copy constructors and assignment operators.
  */
 void
 SBase::connectToChild()
 {
-	// do nothing.
+  for (size_t p=0; p<mPlugins.size(); p++) {
+    mPlugins[p]->connectToParent(this);
+  }
 }
 
 /** @endcond */
@@ -1719,6 +1752,35 @@ SBase::getAncestorOfType(int type, const std::string pkgName)
 
   SBase *child = this;
   SBase *parent = getParentSBMLObject();
+
+  while ( parent != NULL && 
+          !( parent->getPackageName() == "core" &&
+             parent->getTypeCode() == SBML_DOCUMENT )
+        )
+  {
+    if (parent->getTypeCode() == type && parent->getPackageName() == pkgName)
+      return parent;
+    else
+    {
+      child = parent;
+      parent = child->getParentSBMLObject();
+    }
+  }
+
+  // if we get here we havent found an ancestor of this type
+  return NULL;
+
+}
+
+
+const SBase* 
+SBase::getAncestorOfType(int type, const std::string pkgName) const
+{
+  if (pkgName == "core" && type == SBML_DOCUMENT)
+    return getSBMLDocument();
+
+  const SBase *child = this;
+  const SBase *parent = getParentSBMLObject();
 
   while ( parent != NULL && 
           !( parent->getPackageName() == "core" &&

@@ -639,6 +639,20 @@ public:
    */
   SBase* getParentSBMLObject();
 
+  /**
+   * Returns the parent SBML object containing this object.
+   *
+   * This returns the immediately-containing object.  This method is
+   * convenient when holding an object nested inside other objects in an
+   * SBML model.  
+   * 
+   * @return the parent SBML object of this SBML object.
+   *
+   * @see getSBMLDocument()
+   * @see getModel()
+   */
+  const SBase* getParentSBMLObject() const;
+
 
   /**
    * Returns the first ancestor object that has the given SBML type code.
@@ -683,6 +697,48 @@ public:
    */
   SBase* getAncestorOfType(int type, const std::string pkgName = "core");
 
+  /**
+   * Returns the first ancestor object that has the given SBML type code.
+   *
+   * @if clike LibSBML attaches an identifying code to every kind of SBML
+   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
+   * The names of the type codes all begin with the characters @c
+   * SBML_. @endif@if java LibSBML attaches an identifying code to every
+   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * other languages, the set of type codes is stored in an enumeration; in
+   * the Java language interface for libSBML, the type codes are defined as
+   * static integer constants in the interface class {@link
+   * libsbmlConstants}.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the Python language interface for libSBML, the type
+   * codes are defined as static integer constants in the interface class
+   * @link libsbml@endlink.  The names of the type codes all begin with the
+   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
+   * code to every kind of SBML object.  These are known as <em>SBML type
+   * codes</em>.  In the C# language interface for libSBML, the type codes
+   * are defined as static integer constants in the interface class @link
+   * libsbmlcs.libsbml libsbml@endlink.  The names of the type codes all begin with
+   * the characters @c SBML_. @endif
+   *
+   * This method searches the tree of objects that are parents of this
+   * object, and returns the first one that has the given SBML type code.
+   * If the optional argument @p pkgName is given, it will cause the search
+   * to be limited to the SBML Level&nbsp;3 package given.
+   *
+   * @param type the SBML type code of the object sought
+   *
+   * @param pkgName (optional) the short name of an SBML Level&nbsp;3
+   * package to which the sought-after object must belong
+   * 
+   * @return the ancestor SBML object of this SBML object that corresponds
+   * to the given @if clike #SBMLTypeCode_t value@else SBML object type
+   * code@endif, or @c NULL if no ancestor exists.
+   *
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   */
+  const SBase* getAncestorOfType(int type, const std::string pkgName = "core") const;
 
   /**
    * Returns the integer portion of the value of the "sboTerm" attribute of
