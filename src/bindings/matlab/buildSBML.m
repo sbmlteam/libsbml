@@ -529,12 +529,36 @@ function build_unix(matlab_octave, location, writeAccess, bit64)
 function compile_mex(include_dir, library_dir, matlab_octave)
   disp(sprintf('* Creating mex files in %s', pwd));  
 
+  % list the possible opts files to be tried
+  optsfiles = {'', './mexopts-lion.sh', './mexopts-R2009-R2010.sh', './mexopts-R2008.sh', './mexopts-R2007.sh'};
+  
+  success = 0;
+  n = 1;
+  
+  while(~success && n < length(optsfiles))
+      try
+        if ~isempty(optsfiles{n})
+            disp(sprintf('* Trying to compile with mexopts file: %s', optsfiles{n}));  
+        end;
+        success = do_compile_mex(include_dir, library_dir, matlab_octave, optsfiles{n});
+      catch err
+        disp(' ==> The last attempt to build the Matlab bindings failed. We will try again with a different mexopts file');
+      end;
+    n = n + 1;
+  end;
+  
+  if ~success
+    error('Build failed');
+  end;
+  
+function success = do_compile_mex(include_dir, library_dir, matlab_octave, altoptions)
+
   inc_arg    = ['-I', include_dir];
   lib_arg    = ['-L', library_dir];
   added_args = [' '];
 
   if ismac() || isunix()
-    added_args = ['-lsbml'];
+    added_args = ['-lsbml'];    
   end;
 
   % The messy file handle stuff is because this seems to be the best way to 
@@ -542,7 +566,7 @@ function compile_mex(include_dir, library_dir, matlab_octave)
 
   if strcmpi(matlab_octave, 'matlab')
     % on windows the command needs to be different
-    if ispc()
+    if ispc() and ~ismac()
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
       feval(fhandle, 'TranslateSBML.c', inc_arg, library_dir, '-DWIN32');
@@ -551,9 +575,17 @@ function compile_mex(include_dir, library_dir, matlab_octave)
     else
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
-      feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);
+      if ~isempty(altoptions)
+        feval(fhandle, 'TranslateSBML.c', '-f', altoptions, inc_arg, lib_arg, added_args);
+      else
+        feval(fhandle, 'TranslateSBML.c', inc_arg, lib_arg, added_args);  
+      end;
       disp('  - Building OutputSBML ...');
-      feval(fhandle, 'OutputSBML.c', inc_arg, lib_arg, added_args);
+      if ~isempty(altoptions)
+        feval(fhandle, 'OutputSBML.c', '-f', altoptions, inc_arg, lib_arg, added_args);
+      else
+        feval(fhandle, 'OutputSBML.c', inc_arg, lib_arg, added_args);
+      end;
     end;
   else
     if ispc()
@@ -579,9 +611,12 @@ function compile_mex(include_dir, library_dir, matlab_octave)
   transFile = strcat('TranslateSBML.', mexext());
   outFile = strcat('OutputSBML.', mexext());
   if ~exist(transFile) || ~exist(outFile)
-    error('Build failed.');
+    success = 0;
+  else
+    success = 1;
   end;
 
+ 
 
 %
 % Find a directory where we can copy our files (Linux & Mac version).
