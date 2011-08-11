@@ -383,7 +383,27 @@ public:
   virtual UnitDefinition* clone () const;
 
 
+   /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   *
+   * @param id, string representing the id of objects to find.
+   *
+   * @return a vector of pointers to objects with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
   /**
+   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   *
+   * @param id, string representing the metaid of objects to find
+   *
+   * @return a vector of pointers to objects with the given metaid.
+   */
+  virtual SBase* getElementByMetaId(std::string metaid);
+  
+  
+ /**
    * Returns the value of the "id" attribute of this UnitDefinition.
    * 
    * @return the id of this UnitDefinition.
@@ -1175,6 +1195,16 @@ public:
   virtual const UnitDefinition* get (const std::string& sid) const;
 
 
+  /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.  Note that UnitDefinitions themselves are in the UnitId namespace, not the SId namespace, so no UnitDefinition object will be returned from this function (and is the reason we override the base ListOf::getElementBySId function here).
+   *
+   * @param id, string representing the id of objects to find
+   *
+   * @return a vector of pointers to objects with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
   /**
    * Removes the nth item from this ListOfUnitDefinitions items and returns a pointer to
    * it.

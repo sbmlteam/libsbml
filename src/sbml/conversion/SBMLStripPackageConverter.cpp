@@ -1,0 +1,184 @@
+/**
+ * @file    SBMLStripPackageConverter.cpp
+ * @brief   Implementation of SBMLStripPackageConverter, the base class of package extensions.
+ * @author  Sarah Keating
+ * 
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2009-2011 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *  
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *  
+ * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ * 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
+ */
+
+#include <sbml/conversion/SBMLStripPackageConverter.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
+#include <sbml/conversion/SBMLConverterRegister.h>
+#include <sbml/extension/SBasePlugin.h>
+
+#ifdef __cplusplus
+
+#include <algorithm>
+#include <string>
+
+using namespace std;
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+  
+void SBMLStripPackageConverter::init()
+{
+  SBMLConverterRegistry::getInstance().addConverter(new SBMLStripPackageConverter());
+}
+
+
+SBMLStripPackageConverter::SBMLStripPackageConverter () :
+    SBMLConverter()
+{
+}
+
+
+/*
+ * Copy constructor.
+ */
+SBMLStripPackageConverter::SBMLStripPackageConverter(const SBMLStripPackageConverter& orig) :
+    SBMLConverter(orig)
+{
+}
+
+
+/*
+ * Destroy this object.
+ */
+SBMLStripPackageConverter::~SBMLStripPackageConverter ()
+{
+}
+
+
+/*
+ * Assignment operator for SBMLStripPackageConverter.
+ */
+SBMLStripPackageConverter& 
+SBMLStripPackageConverter::operator=(const SBMLStripPackageConverter& rhs)
+{  
+  if (&rhs == NULL)
+  {
+    throw SBMLConstructorException("Null argument to assignment operator");
+  }
+  else if(&rhs!=this)
+  {
+    this->SBMLConverter::operator =(rhs);
+  }
+
+  return *this;
+}
+
+
+SBMLStripPackageConverter*
+SBMLStripPackageConverter::clone () const
+{
+  return new SBMLStripPackageConverter(*this);
+}
+
+
+ConversionProperties
+SBMLStripPackageConverter::getDefaultProperties() const
+{
+  static ConversionProperties prop;
+  prop.addOption("stripPackage", true, "this is checked by matchProperties");
+  prop.addOption("package", "", "name of the package to be stripped");
+  return prop;
+}
+
+
+bool 
+SBMLStripPackageConverter::matchesProperties(const ConversionProperties &props) const
+{
+  if (&props == NULL || !props.hasOption("stripPackage"))
+    return false;
+  return true;
+}
+
+
+int
+SBMLStripPackageConverter::convert()
+{
+// TO DO - SK Comment
+  // would like an option that put the extension classes somewhere were I 
+  // could get at them later
+
+  bool conversion = false;
+
+  std::string packageToStrip = getPackageToStrip();
+
+  if (packageToStrip.empty())
+  {
+    return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+  }
+
+// TO DO - SK Comment
+  // pass control to package code to see if needs to do more 
+  // additional boolean flag is to do with preseving info
+  // not yet used but I think it will need to be passed
+  conversion = mDocument->getModel()->getPlugin(packageToStrip)
+                                         ->stripPackage(packageToStrip, false);
+
+  std::string pkgURI = 
+    mDocument->getSBMLNamespaces()->getNamespaces()->getURI(packageToStrip);
+  if (conversion == true)
+  {
+    // disabling the package will literally strip the pkg info
+    mDocument->enablePackage(pkgURI, packageToStrip, false);
+  }
+
+
+
+// TO DO - SK Comment
+  // test that package is stripped
+
+  if (conversion)
+    // disabling the package will literally strip the pkg info
+    return LIBSBML_OPERATION_SUCCESS;
+  else
+    return LIBSBML_OPERATION_FAILED;
+}
+  
+
+std::string 
+SBMLStripPackageConverter::getPackageToStrip()
+{
+  if (getProperties()->getOption("package") != NULL)
+  {
+    return getProperties()->getOption("package")->getValue();
+  }
+  else
+  {
+    return "";
+  }
+}
+
+
+/** @cond doxygen-c-only */
+
+
+/** @endcond */
+
+LIBSBML_CPP_NAMESPACE_END
+
+#endif  /* __cplusplus */
+
+

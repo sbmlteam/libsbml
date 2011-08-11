@@ -139,6 +139,23 @@ SBasePlugin::getSBMLDocument () const
 }
 
 
+
+SBase*
+SBasePlugin::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  return NULL;
+}
+
+
+SBase*
+SBasePlugin::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  return NULL;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Sets the parent SBML object of this plugin object to
@@ -193,6 +210,14 @@ SBasePlugin::enablePackageInternal(const std::string& pkgURI,
 {
  // do nothing.
 }
+
+
+bool 
+SBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
+{
+  return true;
+}
+
 /** @endcond */
 
 

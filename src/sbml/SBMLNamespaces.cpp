@@ -501,6 +501,183 @@ SBMLNamespaces::isSBMLNamespace(const std::string& uri)
   return false;
 }
 
+bool 
+SBMLNamespaces::isValidCombination()
+{
+  bool valid = true;
+  bool sbmlDeclared = false;
+  std::string declaredURI("");
+  unsigned int version = getVersion();
+  XMLNamespaces *xmlns = getNamespaces();
+
+  if (xmlns != NULL)
+  {
+    // 
+    // checks defined SBML XMLNamespace
+    // returns false if different SBML XMLNamespaces 
+    // (e.g. SBML_XMLNS_L2V1 and SBML_XMLNS_L2V3) are defined.
+    //
+    int numNS = 0;
+
+    if (xmlns->hasURI(SBML_XMLNS_L3V1))
+    {
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L3V1);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V4))
+    {
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V4);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V3))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V3);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V2))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V2);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L2V1))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L2V1);
+    }
+
+    if (xmlns->hasURI(SBML_XMLNS_L1))
+    {
+      // checks different SBML XMLNamespaces
+      if (numNS > 0) return false;
+      ++numNS;
+      declaredURI.assign(SBML_XMLNS_L1);
+    }
+
+    // checks if the SBML Namespace is explicitly defined.
+    for (int i=0; i < xmlns->getLength(); i++)
+    {
+      if (!declaredURI.empty() && 
+                      xmlns->getURI(i) == declaredURI)
+      {
+        sbmlDeclared = true;
+        break;
+      }
+    }
+  }
+
+
+  switch (getLevel())
+  {
+    case 1:
+     switch (version)
+      {
+        case 1:
+        case 2:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        default:
+          valid = false;
+          break;
+        }
+      break;
+    case 2:
+      switch (version)
+      {
+        case 1:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 2:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V2))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 3:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V3))
+            {
+              valid = false;
+            }
+          }
+          break;
+        case 4:
+          // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L2V4))
+            {
+              valid = false;
+            }
+          }
+          break;
+        default:
+          valid = false;
+          break;
+        }
+      break;
+    case 3:
+      switch (version)
+      {
+        case 1:
+         // the namespaces contains the sbml namespaces
+          // check it is the correct ns for the level/version
+          if (sbmlDeclared)
+          {
+            if (declaredURI != string(SBML_XMLNS_L3V1))
+            {
+              valid = false;
+            }
+          }
+          break;
+        default:
+          valid = false;
+          break;
+      }
+      break;
+    default:
+      valid = false;
+      break;
+  }
+
+  return valid;
+}
+
 
 /** @cond doxygen-libsbml-internal */
 void 

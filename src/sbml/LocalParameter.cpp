@@ -426,6 +426,20 @@ ListOfLocalParameters::get (const std::string& sid) const
 }
 
 
+SBase*
+ListOfLocalParameters::getElementBySId(std::string id)
+{
+  for (unsigned int i = 0; i < size(); i++)
+  {
+    SBase* obj = get(i);
+    //LocalParameters are not in the SId namespace, so don't check 'getId'.  However, their children (through plugins) may have the element we are looking for, so we still need to check all of them.
+    obj = obj->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+
+  return getElementFromPluginsBySId(id);
+}
+  
 /* Removes the nth item from this list */
 LocalParameter*
 ListOfLocalParameters::remove (unsigned int n)

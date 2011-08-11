@@ -7039,7 +7039,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
     "Prioirty is not supported in SBML Level 2.  This information will be "
-    "during conversion."
+    "lost during conversion."
   },
 
   //92012

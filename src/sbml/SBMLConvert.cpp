@@ -124,11 +124,13 @@ Model::convertL3ToL1 ()
 
 /* convert from L1 to L3 */
 void 
-Model::convertL3ToL2 ()
+Model::convertL3ToL2 (bool strict)
 {
   dealWithModelUnits();
 
   dealWithStoichiometry();
+
+  dealWithEvents(strict);
 }
 
 
@@ -1004,6 +1006,23 @@ Model::assignRequiredValues()
     }
   }
 
+}
+
+void
+Model::dealWithEvents(bool strict)
+{
+  // if strict conversion want to unset L3 prioirty
+  if (strict == true)
+  {
+    if (getNumEvents() > 0)
+    {
+      for (unsigned int i = 0; i < getNumEvents(); i++)
+      {
+        Event * e = getEvent(i);
+        e->unsetPriority();
+      }
+    }
+  }
 }
 
 void

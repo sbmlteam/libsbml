@@ -139,7 +139,7 @@ localobjfiles = $(filter %.lo,$(tmp))
 
 otherdirs     = .. ../.. ../../util ../../annotation \
                ../../validator ../../validator/constraints ../../units ../../compress \
-               ../../common ../../math ../../extension
+               ../../common ../../math ../../extension ../../conversion
 			   
 ifdef USE_LAYOUT
   otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \

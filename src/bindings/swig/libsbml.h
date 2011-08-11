@@ -68,6 +68,11 @@
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/SBMLTransforms.h>
 
+#include <sbml/conversion/ConversionOption.h>
+#include <sbml/conversion/ConversionProperties.h>
+#include <sbml/conversion/SBMLConverter.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
+
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 #include <sbml/math/FormulaFormatter.h>

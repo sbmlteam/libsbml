@@ -151,6 +151,7 @@ Suite *create_suite_SBMLConstructorException      (void);
 
 Suite *create_suite_SBMLTransforms                (void);
 
+Suite *create_suite_GetMultipleObjects            (void);
 
 /**
  * Global.
@@ -196,6 +197,7 @@ main (int argc, char* argv[])
   setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_ReadSBML               () );
+  srunner_add_suite( runner, create_suite_GetMultipleObjects            () );
   srunner_add_suite( runner, create_suite_WriteSBML                     () );
   srunner_add_suite( runner, create_suite_WriteL3SBML                   () );
   srunner_add_suite( runner, create_suite_AlgebraicRule                 () ); 
@@ -282,6 +284,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_SyntaxChecker                 () );
   srunner_add_suite( runner, create_suite_SBMLConstructorException      () );
   srunner_add_suite( runner, create_suite_SBMLTransforms                () );
+//  srunner_add_suite( runner, create_suite_GetMultipleObjects            () );
 
 
 #ifdef TRACE_MEMORY

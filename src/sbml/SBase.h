@@ -245,6 +245,47 @@ public:
 
 
   /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   *
+   * @param id, string representing the id of objects to find
+   *
+   * @return a vector of pointers to objects with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
+  /**
+   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   *
+   * @param id, string representing the metaid of objects to find
+   *
+   * @return a vector of pointers to objects with the given metaid.
+   */
+  virtual SBase* getElementByMetaId(std::string metaid);
+  
+  
+  //LS DEBUG: make these two function private?
+  /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace from all plugins associated with this element, or NULL if no such object is found.
+   *
+   * @param id, string representing the id of objects to find
+   *
+   * @return a vector of pointers to objects with the given id.
+   */
+  virtual SBase* getElementFromPluginsBySId(std::string id);
+  
+  
+  /**
+   * Returns the first child element it can find with the given metaid from all plugins associated with this element, or NULL if no such object is found.
+   *
+   * @param id, string representing the metaid of objects to find
+   *
+   * @return a vector of pointers to objects with the given metaid.
+   */
+  virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
+  
+  
+  /**
    * Returns the value of the "metaid" attribute of this object.
    * 
    * The optional attribute named "metaid", present on every major SBML

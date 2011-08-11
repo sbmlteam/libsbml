@@ -235,6 +235,57 @@ START_TEST (test_SBMLConvertStrict_convertL1ParamRule)
 END_TEST
 
 
+START_TEST (test_SBMLConvertStrict_convertL3Priority)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t * m = SBMLDocument_createModel(d);
+  
+  /* create a compartment */
+  Compartment_t * c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setConstant(c, 0);
+  Compartment_setSpatialDimensions(c, 3);
+
+  /* create  a parameter */
+  Parameter_t * p = Model_createParameter(m);
+  Parameter_setId(p, "p");
+  Parameter_setConstant(p, 0);
+
+  /* create a math element */
+  ASTNode_t *math = SBML_parseFormula("3");
+  ASTNode_t *math1 = SBML_parseFormula("lt(p,2)");
+
+  /* create an event */
+  Event_t *ar = Model_createEvent(m);
+  Event_setUseValuesFromTriggerTime(ar, 1);
+
+  Trigger_t *t = Event_createTrigger(ar);
+  Trigger_setInitialValue(t, 1);
+  Trigger_setPersistent(t, 1);
+  Trigger_setMath(t, math1);
+
+  EventAssignment_t *ea = Event_createEventAssignment(ar);
+  EventAssignment_setVariable(ea, "c");
+  EventAssignment_setMath(ea, math);
+
+  Priority_t *pr = Event_createPriority(ar);
+  Priority_setMath(pr, math);
+
+  fail_unless( Event_isSetPriority(ar) == 1);
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 4, NULL );
+
+  Event_t * r1 = Model_getEvent(SBMLDocument_getModel(d), 0);
+
+  fail_unless (Event_isSetPriority(r1) == 0 );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvertStrict (void) 
 { 
@@ -247,6 +298,7 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertToL1                 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertSBO                  );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertL1ParamRule          );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertL3Priority          );
 
   suite_add_tcase(suite, tcase);
 

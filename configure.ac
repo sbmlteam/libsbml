@@ -365,6 +365,9 @@ AC_CONFIG_FILES([src/sbml/compress/Makefile])
 AC_CONFIG_FILES([src/sbml/extension/Makefile])
 AC_CONFIG_FILES([src/sbml/extension/test/Makefile])
 
+AC_CONFIG_FILES([src/sbml/conversion/Makefile])
+AC_CONFIG_FILES([src/sbml/conversion/test/Makefile])
+
 AC_CONFIG_FILES([src/sbml/packages/Makefile])
 AC_CONFIG_FILES([src/sbml/packages/layout/Makefile])
 AC_CONFIG_FILES([src/sbml/packages/layout/common/Makefile])

@@ -150,7 +150,7 @@ tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
 localobjfiles = $(filter %.lo,$(tmp))
 otherdirs     = .. ../.. ../constraints ../../util ../../xml ../../math \
 	 ../../units ../../annotation ../../compress ../../common \
-         ../../extension
+         ../../extension ../../conversion
 
 ifdef USE_LAYOUT
   otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \

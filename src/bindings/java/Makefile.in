@@ -150,7 +150,7 @@ libraries         = $(jarfile) $(jnifile)
 otherdirs = ../../sbml/common ../../sbml/util ../../sbml/xml \
 	    ../../sbml/math ../../sbml/validator ../../sbml/validator/constraints \
 	    ../../sbml/units ../../sbml/annotation ../../sbml/compress \
-            ../../sbml/ ../../sbml/extension 
+            ../../sbml/ ../../sbml/extension ../../sbml/conversion
 
 ifdef USE_LAYOUT
   otherdirs += ../../sbml/packages/layout/common \

@@ -282,6 +282,52 @@ Reaction::clone () const
 }
 
 
+SBase*
+Reaction::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  if (mReactants.getId() == id) return &mReactants;
+  if (mProducts.getId() == id) return &mProducts;
+  if (mModifiers.getId() == id) return &mModifiers;
+  if (mKineticLaw && mKineticLaw->getId() == id) return mKineticLaw;
+
+  SBase* obj = mReactants.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mProducts.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mModifiers.getElementBySId(id);
+  if (obj != NULL) return obj;
+  if (mKineticLaw != NULL) {
+    obj = mKineticLaw->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+Reaction::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  if (mReactants.getMetaId() == metaid) return &mReactants;
+  if (mProducts.getMetaId() == metaid) return &mProducts;
+  if (mModifiers.getMetaId() == metaid) return &mModifiers;
+  if (mKineticLaw && mKineticLaw->getMetaId() == metaid) return mKineticLaw;
+
+  SBase* obj = mReactants.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mProducts.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mModifiers.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  if (mKineticLaw != NULL) {
+    obj = mKineticLaw->getElementByMetaId(metaid);
+    if (obj != NULL) return obj;
+  }
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
 /*
  * Initializes the fields of this Reaction to their defaults:
  *

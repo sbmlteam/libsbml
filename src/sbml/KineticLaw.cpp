@@ -197,6 +197,35 @@ KineticLaw::clone () const
 }
 
 
+SBase*
+KineticLaw::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  //Don't look in mParameters--they're only for L1, so their IDs are not appropriate, and they won't have L3 plugins on them.  We can't rely on ListOfParameters being overridden, either, as we can for ListOfLocalParameters.
+  SBase* obj = mLocalParameters.getElementBySId(id);
+  if (obj != NULL) return obj;
+
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+KineticLaw::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  //Go ahead and check mParameters, since metaIDs are global.
+  if (mParameters.getMetaId() == metaid) return &mParameters;
+  if (mLocalParameters.getMetaId() == metaid) return &mLocalParameters;
+
+  SBase* obj = mLocalParameters.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mParameters.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
 /*
  * @return the formula of this KineticLaw.
  */

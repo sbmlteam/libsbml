@@ -304,6 +304,26 @@ public:
   virtual SBasePlugin* clone () const = 0;
 
 
+  /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   *
+   * @param id, string representing the id of objects to find
+   *
+   * @return a vector of pointers to objects with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
+  /**
+   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   *
+   * @param id, string representing the metaid of objects to find
+   *
+   * @return a vector of pointers to objects with the given metaid.
+   */
+  virtual SBase* getElementByMetaId(std::string metaid);
+  
+  
   // --------------------------------------------------------
   //
   // virtual functions for reading/writing/checking elements
@@ -477,6 +497,9 @@ public:
                                      const std::string& pkgPrefix, bool flag);
 
 
+  virtual bool stripPackage(const std::string& pkgPrefix, bool flag);
+
+
   /** @endcond doxygen-libsbml-internal */
 
   // ----------------------------------------------------------
@@ -550,8 +573,6 @@ public:
 
 protected:
   /** @cond doxygen-libsbml-internal */
-
-
   /**
    * Constructor. Creates an SBasePlugin object with the URI and 
    * prefix of an package extension.

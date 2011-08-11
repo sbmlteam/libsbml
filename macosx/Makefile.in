@@ -50,7 +50,11 @@ ifeq "${OS}" "Darwin"
 		ifeq "$(OSX_MINOR_VER)" "6"
 		MACOS=snowleopard
 		else
+    ifeq "$(OSX_MINOR_VER)" "7"
+		MACOS=lion
+    else
 		MACOS=leopard
+    endif
 		endif
 	endif
 	PKGNAME=libSBML-@PACKAGE_VERSION@-@XML_PARSER@-${MACOS}.pkg

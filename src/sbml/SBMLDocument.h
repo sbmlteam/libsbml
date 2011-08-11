@@ -281,6 +281,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class Model;
+class ConversionProperties;
 class SBMLVisitor;
 class XMLError;
 
@@ -464,6 +465,26 @@ public:
   Model* getModel ();
 
 
+  /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   *
+   * @param id, string representing the id of objects to find
+   *
+   * @return a vector of pointers to objects with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
+  /**
+   * Returns the first child element it can find with the given metaid, or itself if it has the given metaid, or NULL if no such object is found.
+   *
+   * @param id, string representing the metaid of objects to find
+   *
+   * @return a vector of pointers to objects with the given metaid.
+   */
+  virtual SBase* getElementByMetaId(std::string metaid);
+  
+  
   /**
    * Removes FunctionDefinition constructs from the document and expands
    * any instances of their use within <code>&lt;math&gt;</code> elements.
@@ -1033,6 +1054,22 @@ public:
 
 
   /**
+   * Converts this document using the converter that best matches
+   * the given conversion properties. 
+   * 
+   * @param props the conversion properties to use
+   * 
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED  @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE  @endlink
+   */
+  virtual int convert(const ConversionProperties& props);
+
+  /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
    * (This is an internal implementation for enablePakcage function)
@@ -1212,6 +1249,10 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  unsigned char getApplicableValidators();
+  unsigned char getConversionValidators();
+  void setApplicableValidators(unsigned char appl);
+  void setConversionValidators(unsigned char appl);
   /** @endcond */
 
 
@@ -1265,27 +1306,6 @@ protected:
    */
   virtual void writeXMLNS (XMLOutputStream& stream) const;
 
-
-  /*
-   * Predicate returning true if the errors encountered are not ignorable.
-   */
-  bool conversion_errors(unsigned int errors, bool strictUnits = true);
-
-  /*
-   * Predicate returning true if model has strict unit consistency.
-   */
-  bool hasStrictUnits();
-
-  /*
-   * Predicate returning true if model has strict sbo consistency.
-   */
-  bool hasStrictSBO();
-
-
-  /*
-   * Predicate returning true if the errors encountered are not ignorable.
-   */
-  bool expandFD_errors(unsigned int errors);
 
   int mLevel;
   int mVersion;

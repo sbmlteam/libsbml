@@ -197,6 +197,43 @@ ListOf::get (unsigned int n)
 }
 
 
+SBase*
+ListOf::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  for (unsigned int i = 0; i < size(); i++)
+  {
+    SBase* obj = get(i);
+    if (obj->getId() == id)
+    {
+      return obj;
+    }
+    obj = obj->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+
+  return getElementFromPluginsBySId(id);
+}
+
+SBase*
+ListOf::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  for (unsigned int i = 0; i < size(); i++)
+  {
+    SBase* obj = get(i);
+    if (obj->getMetaId() == metaid)
+    {
+      return obj;
+    }
+    obj = obj->getElementByMetaId(metaid);
+    if (obj != NULL) return obj;
+  }
+
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */

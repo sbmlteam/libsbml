@@ -35,6 +35,7 @@
 if(WITH_CHECK)
 
 	add_subdirectory(annotation/test)
+	add_subdirectory(conversion/test)
 	add_subdirectory(extension/test)
 	add_subdirectory(math/test)
 	add_subdirectory(test)

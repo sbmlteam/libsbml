@@ -28,7 +28,9 @@
 # ---------------------------------------------------------------------- -->*/
 
 OSX_MAJOR_VER=`uname -r | cut -d'.' -f1`
-if expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
+if expr ${OSX_MAJOR_VER} \>= 11 | grep -q 1; then
+  MACOS="lion"
+elif expr ${OSX_MAJOR_VER} \>= 10 | grep -q 1; then
   MACOS="snowleopard"
 else
   MACOS="leopard"

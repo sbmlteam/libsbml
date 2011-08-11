@@ -164,6 +164,18 @@ typedef enum
      * extensions are only registered once. 
      */
 
+   /* ---------------------------------------------------------------------------
+    *   
+    *              Return codes for conversion extensions
+    *
+    * -------------------------------------------------------------------------- */
+
+  , LIBSBML_CONV_INVALID_TARGET_NAMESPACE  = -30
+
+  , LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE = -31
+
+  , LIBSBML_CONV_INVALID_SRC_DOCUMENT = -32
+
 } OperationReturnValues_t;
 
 LIBSBML_CPP_NAMESPACE_END

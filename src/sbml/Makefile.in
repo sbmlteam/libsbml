@@ -134,7 +134,7 @@ sources =                \
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = common util compress annotation math units xml validator extension packages
+subdirs = common util compress annotation math units xml validator extension packages conversion
 
 extra_CPPFLAGS = -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\"
 
@@ -177,7 +177,7 @@ endif
 
 objects   = $(call make_objects_list,$(sources))
 otherdirs = common util xml math validator validator/constraints units \
-	    annotation compress extension
+	    annotation compress extension conversion
 
 ifdef USE_LAYOUT
   otherdirs +=	packages/layout/extension packages/layout/sbml \

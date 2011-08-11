@@ -86,7 +86,7 @@ configure_file (
 #
 # mark header files for installation
 # 
-foreach(dir annotation common compress extension math units util validator xml  )
+foreach(dir annotation common compress conversion extension math units util validator xml  )
 
 	file(GLOB header_files "${CMAKE_CURRENT_SOURCE_DIR}/sbml/${dir}/*.h")
 	install(FILES ${header_files} DESTINATION include/sbml/${dir})
@@ -111,7 +111,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 #
 set(LIBSBML_SOURCES)
 
-foreach (directory annotation common extension math sbml 
+foreach (directory annotation common conversion extension math sbml 
 					units util 
 					validator validator/constraints)
 	

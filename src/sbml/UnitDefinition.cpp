@@ -166,6 +166,29 @@ UnitDefinition::clone () const
 }
 
 
+SBase*
+UnitDefinition::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  SBase* obj = mUnits.getElementBySId(id);
+  if (obj != NULL) return obj;
+
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+UnitDefinition::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  if (mUnits.getMetaId() == metaid) return &mUnits;
+  SBase* obj = mUnits.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
 /*
  * @return the id of this SBML object.
  */
@@ -1626,6 +1649,20 @@ ListOfUnitDefinitions::get (const std::string& sid) const
 }
 
 
+SBase*
+ListOfUnitDefinitions::getElementBySId(std::string id)
+{
+  for (unsigned int i = 0; i < size(); i++)
+  {
+    SBase* obj = get(i);
+    //Units are not in the SId namespace, so don't check 'getId'.  However, their children (through plugins) may have the element we are looking for, so we still need to check all of them.
+    obj = obj->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+
+  return getElementFromPluginsBySId(id);
+}
+  
 /* Removes the nth item from this list */
 UnitDefinition*
 ListOfUnitDefinitions::remove (unsigned int n)

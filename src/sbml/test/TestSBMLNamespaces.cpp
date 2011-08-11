@@ -45,6 +45,7 @@ START_TEST (test_SBMLNamespaces_L1V1)
 
   fail_unless( sbml->getLevel() == 1 );
   fail_unless( sbml->getVersion() == 1 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -63,6 +64,7 @@ START_TEST (test_SBMLNamespaces_L1V2)
 
   fail_unless( sbml->getLevel() == 1 );
   fail_unless( sbml->getVersion() == 2 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -81,6 +83,7 @@ START_TEST (test_SBMLNamespaces_L2V1)
 
   fail_unless( sbml->getLevel() == 2 );
   fail_unless( sbml->getVersion() == 1 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -99,6 +102,7 @@ START_TEST (test_SBMLNamespaces_L2V2)
 
   fail_unless( sbml->getLevel() == 2 );
   fail_unless( sbml->getVersion() == 2 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -117,6 +121,7 @@ START_TEST (test_SBMLNamespaces_L2V3)
 
   fail_unless( sbml->getLevel() == 2 );
   fail_unless( sbml->getVersion() == 3 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -135,6 +140,7 @@ START_TEST (test_SBMLNamespaces_L2V4)
 
   fail_unless( sbml->getLevel() == 2 );
   fail_unless( sbml->getVersion() == 4 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -153,6 +159,7 @@ START_TEST (test_SBMLNamespaces_L3V1)
 
   fail_unless( sbml->getLevel() == 3 );
   fail_unless( sbml->getVersion() == 1 );
+  fail_unless( sbml->isValidCombination() == true);
 
   XMLNamespaces * ns = sbml->getNamespaces();
 
@@ -234,6 +241,7 @@ START_TEST (test_SBMLNamespaces_invalid)
   XMLNamespaces * ns = sbml->getNamespaces();
 
   fail_unless(ns == NULL);
+  fail_unless(sbml->isValidCombination() == false);
 
   delete sbml;
 }

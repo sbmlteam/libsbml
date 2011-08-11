@@ -257,6 +257,59 @@ Event::clone () const
 }
 
 
+SBase*
+Event::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  SBase* obj = NULL;
+  if (mTrigger != NULL) {
+    if (mTrigger->getId() == id) return mTrigger;
+    obj = mTrigger->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+  if (mDelay != NULL) {
+    if (mDelay->getId() == id) return mDelay;
+    obj = mDelay->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+  if (mPriority != NULL) {
+    if (mPriority->getId() == id) return mPriority;
+    obj = mPriority->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+  if (mEventAssignments.getId() == id) return &mEventAssignments;
+  obj = mEventAssignments.getElementBySId(id);
+  if (obj != NULL) return obj;
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+Event::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  SBase* obj = NULL;
+  if (mTrigger != NULL) {
+    if (mTrigger->getMetaId() == metaid) return mTrigger;
+    obj = mTrigger->getElementByMetaId(metaid);
+    if (obj != NULL) return obj;
+  }
+  if (mDelay != NULL) {
+    if (mDelay->getMetaId() == metaid) return mDelay;
+    obj = mDelay->getElementByMetaId(metaid);
+    if (obj != NULL) return obj;
+  }
+  if (mPriority != NULL) {
+    if (mPriority->getMetaId() == metaid) return mPriority;
+    obj = mPriority->getElementByMetaId(metaid);
+    if (obj != NULL) return obj;
+  }
+  if (mEventAssignments.getMetaId() == metaid) return &mEventAssignments;
+  obj = mEventAssignments.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  return getElementFromPluginsByMetaId(metaid);
+}
+
 /*
  * @return the id of this SBML object.
  */
@@ -1575,7 +1628,7 @@ Event::writeElements (XMLOutputStream& stream) const
     mDelay->write(stream);
   }
 
-  if (mPriority != NULL)
+  if (getLevel() > 2 && mPriority != NULL)
   {
     mPriority->write(stream);
   }

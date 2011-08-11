@@ -138,7 +138,8 @@ test_sources =                   \
   TestInternalConsistencyChecks.cpp               \
   TestConsistencyChecks.cpp      \
   TestSBMLTransforms.cpp      \
-  TestSBMLConstructorException.cpp
+  TestSBMLConstructorException.cpp  \
+  TestGetMultipleObjects.cpp
 
 
 extra_CPPFLAGS = -I.. -I../..
@@ -213,7 +214,7 @@ localobjfiles = $(filter %.lo,$(tmp))
 
 otherdirs     = ..  ../util ../xml ../math ../units \
                 ../validator ../validator/constraints ../annotation \
-                ../compress ../common ../extension
+                ../compress ../common ../extension ../conversion
 
 ifdef USE_LAYOUT
   otherdirs +=	../packages/layout/extension ../packages/layout/sbml \

@@ -50,6 +50,7 @@
 #include <sbml/validator/L3v1CompatibilityValidator.h>
 #include <sbml/validator/InternalConsistencyValidator.h>
 
+
 #include <sbml/Model.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLVisitor.h>
@@ -62,6 +63,10 @@
 #include <sbml/extension/SBasePluginCreatorBase.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBMLDocumentPlugin.h>
+
+#include <sbml/conversion/ConversionProperties.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
+
 
 #ifdef USE_LAYOUT
   #include <sbml/packages/layout/extension/LayoutExtension.h>
@@ -95,164 +100,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 //  91013
 //};
 
-
-/** @cond doxygen-libsbml-internal */
-/*
- * Predicate returning true if the errors encountered are not ignorable.
- */
-bool
-SBMLDocument::conversion_errors(unsigned int errors, bool strictUnits)
-{
-  /* if we are converting back from L3 and do not care about units
-   * then we will allow a conversion where the spatialDimensions
-   * has not been set
-   */
-  if (!strictUnits && errors > 0)
-  {
-    for (unsigned int n = 0; n < errors; n++)
-    {
-      if (mErrorLog.getError(n)->getErrorId() == L3SpatialDimensionsUnset)
-      {
-        mErrorLog.remove(NoNon3DComparmentsInL1);
-        mErrorLog.remove(IntegerSpatialDimensions);
-      }
-    }
-  }
-  /** 
-   * changed this code in line with the rest of the validation 
-   * errors: ie each now assigns a severity
-   * Error would imply conversion not possible
-   * Warning implies lose of data but conversion still possible
-   */
-  if (errors > 0)
-  {
-    if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
-      return true;
-    else
-      return false;
-  }
-  else
-  {
-    return false;
-  }
-
-  //for (unsigned int i = 0; i < errors; i++)
-  //{
-  //  bool failure = true;
-  //    
-  //  for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
-  //  {
-  //    if (getError(i)->getErrorId() == ignorable[n])
-  //    {
-  //      failure = false;
-  //      break;
-  //    }
-  //  }
-
-  //  if (failure) return failure;
-  //}
-
-  //return false;
-}
-
-bool
-SBMLDocument::hasStrictUnits()
-{
-  unsigned int errors = 0;
-
-  UnitConsistencyValidator unit_validator;
-  unit_validator.init();
-  errors = unit_validator.validate(*this);
-
-  /* only want to return true if there are errors
-  * not warnings
-  * but in a L2V4 model they will only be warnings
-  * so need to go by ErrorId
-  */
-  if (errors > 0)
-  {
-    std::list<SBMLError> fails = unit_validator.getFailures();
-    std::list<SBMLError>::iterator iter;
-
-    for (iter = fails.begin(); iter != fails.end(); iter++)
-    {
-      if ( iter->getErrorId() > UpperUnitBound)
-      {
-        errors--;
-      }
-    }
-  }
-    
-  return (errors == 0);
-}
-
-
-bool
-SBMLDocument::hasStrictSBO()
-{
-  unsigned int errors = 0;
-
-  SBOConsistencyValidator sbo_validator;
-  sbo_validator.init();
-  errors = sbo_validator.validate(*this);
-
-  /* only want to return true if there are errors
-  * not warnings
-  * but in a L2V4 model they will only be warnings
-  * so need to go by ErrorId
-  * InvalidDelaySBOTerm is the largest errorId that
-  * would be considered an error in other level/versions
-  */
-  if (errors > 0)
-  {
-    std::list<SBMLError> fails = sbo_validator.getFailures();
-    std::list<SBMLError>::iterator iter;
-
-    for (iter = fails.begin(); iter != fails.end(); iter++)
-    {
-      if ( iter->getErrorId() > InvalidDelaySBOTerm)
-      {
-        errors--;
-      }
-    }
-  }
-    
-  return (errors == 0);
-
-}
-
-
-/*
- * Predicate returning true if the errors encountered are not ignorable.
- */
-bool
-SBMLDocument::expandFD_errors(unsigned int errors)
-{
-  if (errors > 0)
-  {
-    if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
-      return true;
-    else
-    {  /* in L2V1 error 10214 (ie function used but not defined)
-        * is actually reported as a warning
-        */
-      for (unsigned int i = 0; i < mErrorLog.getNumErrors(); i++)
-      {
-        if (mErrorLog.getError(i)->getErrorId() == ApplyCiMustBeUserFunction)
-        {
-          return true;
-        }
-      }
-
-      return false;
-    }
-  }
-  else
-  {
-    return false;
-  }
-}
-/** @endcond */
 
 
 /*
@@ -488,176 +335,87 @@ SBMLDocument::getModel ()
   return mModel;
 }
 
+
+SBase* 
+SBMLDocument::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  if (mModel != NULL) {
+    if (mModel->getId() == id) return mModel;
+    SBase* obj = mModel->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+SBMLDocument::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  if (getMetaId()==metaid) return this;
+  if (mModel != NULL) {
+    if (mModel->getMetaId() == metaid) return mModel;
+    SBase * obj = mModel->getElementByMetaId(metaid);
+    if (obj != NULL) return obj;
+  }
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
+unsigned char
+SBMLDocument::getApplicableValidators()
+{
+  return mApplicableValidators;
+}
+
+
+unsigned char
+SBMLDocument::getConversionValidators()
+{
+  return mApplicableValidatorsForConversion;
+}
+
+
+void
+SBMLDocument::setApplicableValidators(unsigned char appl)
+{
+  mApplicableValidators = appl;
+}
+
+
+void
+SBMLDocument::setConversionValidators(unsigned char appl)
+{
+  mApplicableValidatorsForConversion = appl;
+}
 /* 
  * removes FD and expands them in math elements
  */
 bool
 SBMLDocument::expandFunctionDefinitions()
 {
-  bool success = false;
-  unsigned int i, j;
+  ConversionProperties prop(getSBMLNamespaces());
+  prop.addOption("expandFunctionDefinitions", true, "expand function definitions");
 
-  /* if there are no function definitions bail now */
-  if (mModel->getNumFunctionDefinitions() == 0)
-  {
+  if (convert(prop) == LIBSBML_OPERATION_SUCCESS)
     return true;
-  }
-
-  /* check consistency of model */
-  /* since this function will write to the error log we should
-   * clear anything in the log first
-   */
-  getErrorLog()->clearLog();
-  unsigned char origValidators = mApplicableValidators;
-
-  mApplicableValidators = AllChecksON;
-
-  unsigned int errors = checkConsistency();
-  
-  if (!expandFD_errors(errors))
-  {
-    // for any math in document replace each function def
-    for (i = 0; i < mModel->getNumRules(); i++)
-    {
-      if (mModel->getRule(i)->isSetMath())
-      {
-        SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel->getRule(i)
-          ->getMath()), mModel->getListOfFunctionDefinitions());
-      }
-    }
-    for (i = 0; i < mModel->getNumInitialAssignments(); i++)
-    {
-      if (mModel->getInitialAssignment(i)->isSetMath())
-      {
-        SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel
-          ->getInitialAssignment(i)->getMath()), 
-          mModel->getListOfFunctionDefinitions());
-      }
-    }
-    for (i = 0; i < mModel->getNumConstraints(); i++)
-    {
-      if (mModel->getConstraint(i)->isSetMath())
-      {
-        SBMLTransforms::replaceFD(const_cast <ASTNode *>(mModel
-          ->getConstraint(i)->getMath()), 
-          mModel->getListOfFunctionDefinitions());
-      }
-    }
-    for (i = 0; i < mModel->getNumReactions(); i++)
-    {
-      if (mModel->getReaction(i)->isSetKineticLaw())
-      {
-        if (mModel->getReaction(i)->getKineticLaw()->isSetMath())
-        {
-          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
-              ->getReaction(i)->getKineticLaw()->getMath()), 
-              mModel->getListOfFunctionDefinitions());
-        }
-      }
-      for (j = 0; j < mModel->getReaction(i)->getNumReactants(); j++)
-      {
-        if (mModel->getReaction(i)->getReactant(j)->isSetStoichiometryMath())
-        {
-          if (mModel->getReaction(i)->getReactant(j)->getStoichiometryMath()
-            ->isSetMath())
-          {
-            SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
-                ->getReaction(i)->getReactant(j)->getStoichiometryMath()->getMath()), 
-                mModel->getListOfFunctionDefinitions());
-          }
-        }
-      }
-      for (j = 0; j < mModel->getReaction(i)->getNumProducts(); j++)
-      {
-        if (mModel->getReaction(i)->getProduct(j)->isSetStoichiometryMath())
-        {
-          if (mModel->getReaction(i)->getProduct(j)->getStoichiometryMath()
-            ->isSetMath())
-          {
-            SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
-                ->getReaction(i)->getProduct(j)->getStoichiometryMath()->getMath()), 
-                mModel->getListOfFunctionDefinitions());
-          }
-        }
-      }
-    }
-    for (i = 0; i < mModel->getNumEvents(); i++)
-    {
-      if (mModel->getEvent(i)->isSetTrigger())
-      {
-        if (mModel->getEvent(i)->getTrigger()->isSetMath())
-        {
-          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
-            ->getEvent(i)->getTrigger()->getMath()),
-            mModel->getListOfFunctionDefinitions());
-        }
-      }
-      if (mModel->getEvent(i)->isSetDelay())
-      {
-        if (mModel->getEvent(i)->getDelay()->isSetMath())
-        {
-          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
-            ->getEvent(i)->getDelay()->getMath()),
-            mModel->getListOfFunctionDefinitions());
-        }
-      }
-
-      for(j = 0; j < mModel->getEvent(i)->getNumEventAssignments(); j++)
-      {
-        if (mModel->getEvent(i)->getEventAssignment(j)->isSetMath())
-        {
-          SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
-            ->getEvent(i)->getEventAssignment(j)->getMath()),
-            mModel->getListOfFunctionDefinitions());
-        }
-      }
-    }
-
-    unsigned int size = mModel->getNumFunctionDefinitions();
-    while (size--) mModel->getListOfFunctionDefinitions()->remove(size);
-  }
-
-  success = (mModel->getNumFunctionDefinitions() == 0);
-
-  /* replace original consistency checks */
-  mApplicableValidators = origValidators;
-
-  return success;
+  else
+    return false;
 }
 
 
 bool
 SBMLDocument::expandInitialAssignments()
 {
-  bool success = false;
-  /* if no initial assignments bail now */
-  if (mModel->getNumInitialAssignments() == 0)
-  {
-    return true;
-  }
-
-  /* check consistency of model */
-  /* since this function will write to the error log we should
-   * clear anything in the log first
-   */
-  getErrorLog()->clearLog();
-  unsigned char origValidators = mApplicableValidators;
-
-  mApplicableValidators = AllChecksON;
-
-  checkConsistency();
   
-  if (mErrorLog.getNumFailsWithSeverity(LIBSBML_SEV_ERROR) == 0)
-  {
-    SBMLTransforms::expandInitialAssignments(getModel());
-  }
+  ConversionProperties prop(getSBMLNamespaces());
+  prop.addOption("expandInitialAssignments", true, "expand initial assignments");
 
-  /* replace original consistency checks */
-  mApplicableValidators = origValidators;
-
-  success = (mModel->getNumInitialAssignments() == 0);
-
-  return success;
+  if (convert(prop) == LIBSBML_OPERATION_SUCCESS)
+    return true;
+  else
+    return false;
 }
 
 
@@ -679,599 +437,14 @@ bool
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
                                   bool strict)
 {
-  /* check we are not already the level and version */
-  if ((unsigned int) mLevel == level && (unsigned int) mVersion == version)
-  {
+  ConversionProperties prop(new SBMLNamespaces(level, version));
+  prop.addOption("strict", strict, "should validity be preserved");
+  prop.addOption("setLevelAndVersion", true, "this is checked by matchProperties");
+
+  if (convert(prop) == LIBSBML_OPERATION_SUCCESS)
     return true;
-  }
-
-
-  /* since this function will write to the error log we should
-   * clear anything in the log first
-   */
-  getErrorLog()->clearLog();
-
-  bool conversionSuccess = false;
-
-  /* if model has extensions we cannot convert */
-  if (this->getNumPlugins() > 0)
-  {
-    /* if it is layout extension and we are converting between l2 versions
-     * that is okay
-     */
-    if (mLevel == 2 && getPlugin("layout") != NULL)
-    {
-      bool problem = false;
-      /* if there is no layout - no problem ! */
-#ifdef USE_LAYOUT
-      if (mModel != NULL)
-      {
-        LayoutModelPlugin * mplugin = static_cast<LayoutModelPlugin*>
-                      (mModel->getPlugin("layout"));
-      
-        if (mplugin != NULL && mplugin->getNumLayouts() > 0 && level != 2)
-        {
-          problem = true;
-        }
-        else if (getNumPlugins() > 1)
-        {
-          problem = true;
-        }
-      }
-#endif      
-      if (problem == true)
-      {
-        logError(PackageConversionNotSupported, mLevel, mVersion);
-        return conversionSuccess;
-      }
-    }
-    else
-    {
-      logError(PackageConversionNotSupported, mLevel, mVersion);
-      return conversionSuccess;
-    }
-  }
-
-  unsigned char origValidators = mApplicableValidators;
-  mApplicableValidators = mApplicableValidatorsForConversion;
-  /* if strict = true we will only convert a valid model
-   * to a valid model with a valid internal representation
-   */
-  /* see whether the unit validator is on */
-  bool strictSBO   = ((mApplicableValidatorsForConversion & 0x04) == 0x04);
-  bool strictUnits = ((mApplicableValidatorsForConversion & 0x10) == 0x10);
-  
-  if (strict == true)
-  {
-    /* use validators that the user has selected
-    */
-    /* hack to catch errors caught at read time */
-    char* doc = writeSBMLToString(this);
-    SBMLDocument *d = readSBMLFromString(doc);
-    util_free(doc);
-    unsigned int errors = d->getNumErrors();
-
-    for (unsigned int i = 0; i < errors; i++)
-    {
-      mErrorLog.add(*(d->getError(i)));
-    }
-    delete d;
-
-    errors += checkConsistency();
-    errors = getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-
-    /* if the current model is not valid dont convert 
-    */
-    if (errors > 0)
-    {
-      return conversionSuccess;
-    }
-
-    getErrorLog()->clearLog();
-  }
-
-
-
-  unsigned int i;
-  bool duplicateAnn = false;
-  //look at annotation on sbml element - since validation only happens on the model :-(
-  XMLNode *ann = getAnnotation();
-  if (ann != NULL)
-  {
-    for (i = 0; i < ann->getNumChildren(); i++)
-    {
-      std::string name = ann->getChild(i).getPrefix();
-      for( unsigned int n= i+1; n < ann->getNumChildren(); n++)
-      {
-        if (ann->getChild(n).getPrefix() == name)
-          duplicateAnn = true;
-      }
-    }
-  }
-
-  if (mModel != NULL)
-  {
-    bool doConversion = false;
-    unsigned int origLevel;
-    unsigned int origVersion;
-    Model *origModel;
-    if (strict)
-    {
-      /* here we are strict and only want to do
-       * conversion if output will be valid
-       *
-       * save a copy of the model so it can be restored
-       */
-      origLevel = mLevel;
-      origVersion = mVersion;
-      origModel = mModel->clone();
-    }
-      
-    if (mLevel == 1)
-    {
-      switch (level)
-      {
-      case 1:
-        switch (version)
-        {
-        case 1:
-          mErrorLog.add(CannotConvertToL1V1);
-          break;
-        case 2:
-          updateSBMLNamespace("core", level, version);
-          conversionSuccess = true;
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-        break;
-      case 2:    
-        switch (version)
-        {
-        case 1:
-          if (!conversion_errors(checkL2v1Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        case 2:
-          if (!conversion_errors(checkL2v2Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        case 3:
-          if (!conversion_errors(checkL2v3Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        case 4:
-          if (!conversion_errors(checkL2v4Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          mModel->removeParameterRuleUnits(strict);
-          updateSBMLNamespace("core", level, version);
-          mModel->convertL1ToL2();
-          conversionSuccess = true;
-        }
-        break;
-      case 3:
-        switch (version)
-        {
-        case 1:
-          if (!conversion_errors(checkL3v1Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          mModel->removeParameterRuleUnits(strict);
-          mModel->convertParametersToLocals(level, version);
-          updateSBMLNamespace("core", level, version);
-          mModel->convertL1ToL3();
-          conversionSuccess = true;
-        }
-        break;
-      default:
-        logError(InvalidTargetLevelVersion, mLevel, mVersion);
-        break;
-      }
-    }
-    else if (mLevel == 2)
-    {
-      switch (level)
-      {
-      case 1:
-        switch (version)
-        {
-        case 1:
-          mErrorLog.add(CannotConvertToL1V1);
-          break;
-        case 2:
-          if (!conversion_errors(checkL1Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                logError(StrictUnitsRequiredInL1);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  logError(StrictUnitsRequiredInL1);
-                  doConversion = false;
-                }
-              }
-            }
-            else
-            {
-              doConversion = true;
-            }
-          }
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          mModel->convertL2ToL1(strict);
-          updateSBMLNamespace("core", level, version);
-          conversionSuccess = true;
-        }
-        break;
-      case 2:
-        switch (version)
-        {
-        case 1:
-          if (!conversion_errors(checkL2v1Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                logError(StrictUnitsRequiredInL2v1);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  logError(StrictUnitsRequiredInL2v1);
-                  doConversion = false;
-                }
-              }
-            }
-            else
-            {
-              doConversion = true;
-            }
-          }
-          break;
-        case 2:
-          if (!conversion_errors(checkL2v2Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                logError(StrictUnitsRequiredInL2v2);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  logError(StrictUnitsRequiredInL2v2);
-                  doConversion = false;
-                }
-              }
-            }
-            
-            if (mVersion == 4 && !hasStrictSBO())
-            {
-              if (strict == false)
-              {
-                logError(StrictSBORequiredInL2v2);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  logError(StrictSBORequiredInL2v2);
-                  doConversion = false;
-                }
-              }
-            }
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                                  == DuplicateAnnotationInvalidInL2v2)
-                duplicateAnn = true;
-            }
-           }
-          break;
-        case 3:
-          if (!conversion_errors(checkL2v3Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to check that
-            * units are strict
-            */
-            if (mVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                logError(StrictUnitsRequiredInL2v3);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  logError(StrictUnitsRequiredInL2v3);
-                  doConversion = false;
-                }
-              }
-            }
-            
-            if (mVersion == 4 && !hasStrictSBO())
-            {
-              if (strict == false)
-              {
-                logError(StrictSBORequiredInL2v3);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  logError(StrictSBORequiredInL2v3);
-                  doConversion = false;
-                }
-              }
-            }
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                              == DuplicateAnnotationInvalidInL2v3)
-                duplicateAnn = true;
-            }
-           }
-          break;
-        case 4:
-          if (!conversion_errors(checkL2v4Compatibility()))
-          {
-            doConversion = true;
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                              == DuplicateAnnotationInvalidInL2v4)
-                duplicateAnn = true;
-            }
-          }
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          if (duplicateAnn == true)
-          {
-            this->removeDuplicateAnnotations();
-            mModel->removeDuplicateTopLevelAnnotations();
-          }
-          if (version == 1)
-          {
-            mModel->removeSBOTerms(strict);
-          }
-          else if (version == 2)
-          {
-            mModel->removeSBOTermsNotInL2V2(strict);
-          }
-          updateSBMLNamespace("core", level, version);
-          conversionSuccess = true;
-        }
-        break;
-      case 3:
-        switch (version)
-        {
-        case 1:
-          if (!conversion_errors(checkL3v1Compatibility()))
-          {
-            doConversion = true;
-            // look for duplicate top level annotations
-            for (i = 0; i < getErrorLog()->getNumErrors(); i++)
-            {
-              if (getErrorLog()->getError(i)->getErrorId() 
-                              == DuplicateAnnotationInvalidInL2v4)
-                duplicateAnn = true;
-            }
-          }
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          if (duplicateAnn == true)
-          {
-            this->removeDuplicateAnnotations();
-            mModel->removeDuplicateTopLevelAnnotations();
-          }
-          mModel->convertParametersToLocals(level, version);
-          updateSBMLNamespace("core", level, version);
-          mModel->convertL2ToL3();
-          conversionSuccess = true;
-        }
-        break;
-      default:
-        logError(InvalidTargetLevelVersion, mLevel, mVersion);
-        break;
-      }      
-    }
-    else if (mLevel == 3)
-      {
-        switch (level)
-        {
-        case 1:
-          switch (version)
-          {
-          case 1:
-            mErrorLog.add(CannotConvertToL1V1);
-            break;
-          case 2:
-            if (!conversion_errors(checkL1Compatibility(), strictUnits))
-            {
-              updateSBMLNamespace("core", level, version);
-              mModel->convertL3ToL1();
-              conversionSuccess = true;
-            }
-            break;
-          default:
-            logError(InvalidTargetLevelVersion, mLevel, mVersion);
-            break;
-          }
-          break;
-        case 2:
-          switch (version)
-          {
-          case 1:
-            if (!conversion_errors(checkL2v1Compatibility(), strictUnits))
-            {
-              doConversion = true;
-            }
-            break;
-          case 2:
-            if (!conversion_errors(checkL2v2Compatibility(), strictUnits))
-            {
-              doConversion = true;
-            }
-            break;
-          case 3:
-            if (!conversion_errors(checkL2v3Compatibility(), strictUnits))
-            {
-              doConversion = true;
-            }
-            break;
-          case 4:
-            if (!conversion_errors(checkL2v4Compatibility(), strictUnits))
-            {
-              doConversion = true;
-            }
-            break;
-          default:
-            logError(InvalidTargetLevelVersion, mLevel, mVersion);
-            break;
-          }
-          if (doConversion == true)
-          {
-            updateSBMLNamespace("core", level, version);
-            mModel->convertL3ToL2();
-            conversionSuccess = true;
-          }
-          break;
-        case 3:
-          switch (version)
-          {
-          case 1:
-            conversionSuccess = true;
-            break;
-          default:
-            logError(InvalidTargetLevelVersion, mLevel, mVersion);
-            break;
-          }
-          break;
-        default:
-          logError(InvalidTargetLevelVersion, mLevel, mVersion);
-          break;
-        }
-
-      }
-
-      
-    if (conversionSuccess == false)
-    {
-      /* if we were strict restore original model */
-
-      if (strict)
-      {
-        delete origModel;
-        mApplicableValidators = origValidators;
-        updateSBMLNamespace("core", origLevel, origVersion);
-      }
-
-      return conversionSuccess;
-    }
-    else
-    {
-      if (strict)
-      {
-        /* now we want to check whether the resulting model is valid
-         */
-        this->checkConsistency();
-        unsigned int errors = 
-                     getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
-        if (errors > 0)
-        { /* error - we dont covert
-           * restore original values and return
-           */
-          conversionSuccess = false;
-          /* undo any changes */
-          mModel = origModel->clone();
-          updateSBMLNamespace("core", origLevel, origVersion);
-          mApplicableValidators = origValidators;
-          delete origModel;
-          return conversionSuccess;
-        }
-        else
-        {
-          delete origModel;
-        }
-      }
-    }
-  }
   else
-  {
-    updateSBMLNamespace("core", level, version);
-    conversionSuccess = true;
-  }
-
-  /* restore original value */
-  mApplicableValidators = origValidators; 
-  
-
-  return conversionSuccess;
+    return false;
 }
 
 
@@ -2016,6 +1189,23 @@ SBMLDocument::connectToChild()
 {
 	if (mModel) mModel->connectToParent(this);
   connectToParent(this);
+}
+
+
+
+int SBMLDocument::convert(const ConversionProperties& props)
+{
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
+
+  if (converter == NULL) return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+
+  converter->setDocument(this);
+  converter->setProperties(&props);
+  int result = converter->convert();
+
+  delete converter;
+
+  return result;
 }
 
 /** @endcond */

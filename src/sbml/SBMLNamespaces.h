@@ -490,6 +490,15 @@ else
   static bool isSBMLNamespace(const std::string& uri);
 
 
+  /**
+   * Predicate returning @c true if the given
+   * set of namespaces represent a valid set
+   *
+   * @return @c true if the set of namespaces is valid, @c false otherwise.
+   */
+  bool isValidCombination();
+
+
   /** @cond doxygen-libsbml-internal */
   void setLevel(unsigned int level);
 

@@ -100,6 +100,46 @@ struct ClonePluginEntity : public unary_function<SBasePlugin*, SBasePlugin*>
 /** @endcond */
 
 
+SBase*
+SBase::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+SBase::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
+SBase*
+SBase::getElementFromPluginsBySId(std::string id)
+{
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    SBase* subObj = mPlugins[i]->getElementBySId(id);
+    if (subObj != NULL) return subObj;
+  }
+  return NULL;
+}
+
+
+SBase*
+SBase::getElementFromPluginsByMetaId(std::string metaid)
+{
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    SBase* subObj = mPlugins[i]->getElementByMetaId(metaid);
+    if (subObj != NULL) return subObj;
+  }
+  return NULL;
+}
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Creates a new SBase object with the given level and version.

@@ -299,6 +299,85 @@ Model::clone () const
   return new Model(*this);
 }
 
+SBase* 
+Model::getElementBySId(std::string id)
+{
+  if (id.empty()) return NULL;
+  SBase* obj = mFunctionDefinitions.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mUnitDefinitions.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mCompartmentTypes.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mSpeciesTypes.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mCompartments.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mSpecies.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mParameters.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mInitialAssignments.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mRules.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mConstraints.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mReactions.getElementBySId(id);
+  if (obj != NULL) return obj;
+  obj = mEvents.getElementBySId(id);
+  if (obj != NULL) return obj;
+
+  return getElementFromPluginsBySId(id);
+}
+
+
+SBase*
+Model::getElementByMetaId(std::string metaid)
+{
+  if (metaid.empty()) return NULL;
+  if (mFunctionDefinitions.getMetaId()==metaid) return &mFunctionDefinitions;
+  if (mUnitDefinitions.getMetaId()==metaid) return &mUnitDefinitions;
+  if (mCompartmentTypes.getMetaId()==metaid) return &mCompartmentTypes;
+  if (mSpeciesTypes.getMetaId()==metaid) return &mSpeciesTypes;
+  if (mCompartments.getMetaId()==metaid) return &mCompartments;
+  if (mSpecies.getMetaId()==metaid) return &mSpecies;
+  if (mParameters.getMetaId()==metaid) return &mParameters;
+  if (mInitialAssignments.getMetaId()==metaid) return &mInitialAssignments;
+  if (mRules.getMetaId()==metaid) return &mRules;
+  if (mConstraints.getMetaId()==metaid) return &mConstraints;
+  if (mReactions.getMetaId()==metaid) return &mReactions;
+  if (mEvents.getMetaId()==metaid) return &mEvents;
+
+  SBase* obj = mFunctionDefinitions.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mUnitDefinitions.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mCompartmentTypes.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mSpeciesTypes.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mCompartments.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mSpecies.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mParameters.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mInitialAssignments.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mRules.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mConstraints.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mReactions.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+  obj = mEvents.getElementByMetaId(metaid);
+  if (obj != NULL) return obj;
+
+  return getElementFromPluginsByMetaId(metaid);
+}
+
+
 /*
  * @return the id of this SBML object.
  */
