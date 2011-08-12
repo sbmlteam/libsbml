@@ -882,11 +882,14 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node,
       else
       {
         tempUd = model->getUnitDefinition(units);
-        ud   = new UnitDefinition(model->getSBMLNamespaces());
-
-        for (n = 0; n < tempUd->getNumUnits(); n++)
+        if (tempUd != NULL)
         {
-          ud->addUnit(tempUd->getUnit(n));
+          ud   = new UnitDefinition(model->getSBMLNamespaces());
+          
+          for (n = 0; n < tempUd->getNumUnits(); n++)
+          {
+            ud->addUnit(tempUd->getUnit(n));
+          }
         }
 
       }
