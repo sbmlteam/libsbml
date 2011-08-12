@@ -132,7 +132,8 @@
 #include <sbml/util/List.h>
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/SyntaxChecker.h>
-
+#include <sbml/SBMLConstructorException.h>
+#include <sbml/ExpectedAttributes.h>
 
 #ifdef __cplusplus
 
@@ -159,53 +160,8 @@ class XMLToken;
 
 class SBasePlugin;
 
-/** @cond doxygen-libsbml-internal */
-class LIBSBML_EXTERN SBMLConstructorException : public std::invalid_argument
-{
-public:
-
-  /* constructor */
-  SBMLConstructorException (std::string errmsg = "");
-  virtual ~SBMLConstructorException () throw();
-  
-  const std::string& getSBMLErrMsg() const { return mSBMLErrMsg; }
-
-private:
-  std::string mSBMLErrMsg;
-
-};
-
-#ifndef SWIG
-class LIBSBML_EXTERN ExpectedAttributes
-{
-public:
-
-  ExpectedAttributes() 
-  {}
-
-  ExpectedAttributes(const ExpectedAttributes& orig) 
-    : mAttributes(orig.mAttributes) 
-  {}
-    
-  void add(const std::string& attribute) { mAttributes.push_back(attribute); }
-
-  std::string get(unsigned int i) const
-  {
-    return (mAttributes.size() < i) ? mAttributes[i] : ""; 
-  }
-
-  bool hasAttribute(const std::string& attribute) const
-  {
-    return ( std::find(mAttributes.begin(), mAttributes.end(), attribute)
-             != mAttributes.end() );
-  }
-
-private:
-  std::vector<std::string> mAttributes;
-};
 
 
-#endif //SWIG
 
 /** @endcond */
 
@@ -3341,28 +3297,6 @@ SBase_getElementName (const SBase_t *sb);
 LIBSBML_EXTERN
 int
 SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb);
-
-
-LIBSBML_EXTERN 
-ExpectedAttributes_t *
-ExpectedAttributes_create();
-
-LIBSBML_EXTERN 
-ExpectedAttributes_t *
-ExpectedAttributes_clone(ExpectedAttributes_t *attr);
-
-LIBSBML_EXTERN 
-int
-ExpectedAttributes_add(ExpectedAttributes_t *attr, const char* attribute);
-
-LIBSBML_EXTERN 
-char*
-ExpectedAttributes_get(ExpectedAttributes_t *attr, unsigned int index);
-
-LIBSBML_EXTERN 
-int
-ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribute);
-
 
 
 END_C_DECLS

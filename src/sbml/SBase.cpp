@@ -62,21 +62,6 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygen-libsbml-internal */
 
-SBMLConstructorException::SBMLConstructorException(std::string errmsg) :
-       std::invalid_argument("Level/version/namespaces combination is invalid")
-     , mSBMLErrMsg(errmsg)
-{
-}
-
-SBMLConstructorException::~SBMLConstructorException() throw()
-{
-}
-
-
-/** @endcond */
-
-/** @cond doxygen-libsbml-internal */
-
 /**
  * Used by the Destructor to delete each item in mPlugins.
  */
@@ -6259,46 +6244,6 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
     static_cast <int> (sb->hasValidLevelVersionNamespaceCombination()) : 0;
 }
 
-
-LIBSBML_EXTERN 
-ExpectedAttributes_t *
-ExpectedAttributes_create()
-{
-  return new ExpectedAttributes();
-}
-
-LIBSBML_EXTERN 
-ExpectedAttributes_t *
-ExpectedAttributes_clone(ExpectedAttributes_t *attr)
-{
-  if (attr == NULL) return NULL;
-  return new ExpectedAttributes(*attr);
-}
-
-LIBSBML_EXTERN 
-int
-ExpectedAttributes_add(ExpectedAttributes_t *attr, const char* attribute)
-{
-  if (attr == NULL || attribute == NULL) return LIBSBML_INVALID_OBJECT;
-  attr->add(string(attribute));
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-LIBSBML_EXTERN 
-char*
-ExpectedAttributes_get(ExpectedAttributes_t *attr, unsigned int index)
-{
-  if (attr == NULL) return NULL;
-  return safe_strdup(attr->get(index).c_str());
-}
-
-LIBSBML_EXTERN 
-int
-ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribute)
-{
-  if (attr == NULL) return (int)false;
-  return attr->hasAttribute(string(attribute));
-}
 
 
 /** @endcond */
