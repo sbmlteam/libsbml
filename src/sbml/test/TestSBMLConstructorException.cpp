@@ -124,6 +124,7 @@ START_TEST ( test_SBMLConstructorException_Compartment )
   {
     msg = e.what();
   }
+
   fail_unless(msg == errMsg);
 
   msg = "";

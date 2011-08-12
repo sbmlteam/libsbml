@@ -1230,16 +1230,7 @@ AlgebraicRule::AlgebraicRule (SBMLNamespaces * sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
-    std::string err(getElementName());
-    XMLNamespaces* xmlns = sbmlns->getNamespaces();
-    if (xmlns)
-    {
-      std::ostringstream oss;
-      XMLOutputStream xos(oss);
-      xos << *xmlns;
-      err.append(oss.str());
-    }
-    throw SBMLConstructorException(err);
+    throw SBMLConstructorException(getElementName(), sbmlns);
   }
 
   mInternalIdOnly = false;
@@ -1324,16 +1315,7 @@ AssignmentRule::AssignmentRule (SBMLNamespaces *sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
-    std::string err(getElementName());
-    XMLNamespaces* xmlns = sbmlns->getNamespaces();
-    if (xmlns)
-    {
-      std::ostringstream oss;
-      XMLOutputStream xos(oss);
-      xos << *xmlns;
-      err.append(oss.str());
-    }
-    throw SBMLConstructorException(err);
+    throw SBMLConstructorException(getElementName(), sbmlns);
   }
 
   loadPlugins(sbmlns);
@@ -1398,16 +1380,7 @@ RateRule::RateRule (SBMLNamespaces *sbmlns) :
 {
   if (!hasValidLevelVersionNamespaceCombination())
   {
-    std::string err(getElementName());
-    XMLNamespaces* xmlns = sbmlns->getNamespaces();
-    if (xmlns)
-    {
-      std::ostringstream oss;
-      XMLOutputStream xos(oss);
-      xos << *xmlns;
-      err.append(oss.str());
-    }
-    throw SBMLConstructorException(err);
+    throw SBMLConstructorException(getElementName(), sbmlns);
   }
 
   loadPlugins(sbmlns);

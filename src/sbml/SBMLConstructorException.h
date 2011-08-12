@@ -30,6 +30,7 @@
 #define SBML_CONSTRUCTOR_EXCEPTION_H
 
 #include <sbml/common/extern.h>
+#include <sbml/SBMLNamespaces.h>
 
 #ifdef __cplusplus
 
@@ -45,11 +46,15 @@ class LIBSBML_EXTERN SBMLConstructorException : public std::invalid_argument
 public:
 
   /* constructor */
-  SBMLConstructorException (std::string errmsg = "Level/version/namespaces combination is invalid");
+  SBMLConstructorException (std::string errmsg = "");
+  SBMLConstructorException (std::string errmsg, std::string sbmlErrMsg);
+  SBMLConstructorException (std::string elementName, SBMLNamespaces* xmlns);
   virtual ~SBMLConstructorException () throw();
   
-  const std::string getSBMLErrMsg() const { return std::string(what()); }
+  const std::string getSBMLErrMsg() const { return mSBMLErrMsg; }
 
+private:
+  std::string mSBMLErrMsg;
 };
 
 LIBSBML_CPP_NAMESPACE_END
