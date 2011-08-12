@@ -339,7 +339,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int warnings = 0;
   unsigned int errors = 0;
   mxArray * mxErrors[1], *mxNone[1];
-  char * pacErrors, * pacError;
+  char * pacError;
   char * pacErrors1, * pacError1;
   unsigned int i;
   mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1], *mxPrompt1[2];
@@ -625,27 +625,43 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mxPrompt1[0]= mxCreateString(pacPromptLoadAnyway);
       mxPrompt1[1]= mxCreateString("s");
 
-      pacErrors = (char *) mxCalloc(totalerrors * 1000, sizeof(char));
-      pacError  = (char *) mxCalloc(1000, sizeof(char));
-      sprintf(pacErrors, "\n************************************\nLine ErrorId Severity Message\n");
+      /* only allocate memory if we are going to print the error messages */
+      if (verboseFlag == 1)
+      {
+        pacError  = (char *) mxCalloc(1000, sizeof(char));
+
+        mxErrors[0] = mxCreateString("\n************************************\nLine ErrorId Severity Message\n");
+        mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+        mxDestroyArray(mxErrors[0]);
+      }
       for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
       {
         e = (const XMLError_t *) SBMLDocument_getError(sbmlDocument, i);
-        if (listFlag == 1)
+
+        if (verboseFlag == 1)
         {
-          sprintf(pacError, "%u: (%u)  %s %s\n",
-	          XMLError_getLine(e), XMLError_getErrorId(e),
-            ErrorSeverity_toString(XMLError_getSeverity(e)),
-	          XMLError_getMessage(e));
-          pacErrors = safe_strcat(pacErrors, pacError);
-        }
-        else if (XMLError_getSeverity(e) > 1)
-        {
-          sprintf(pacError, "%u: (%u)  %s %s\n",
-	          XMLError_getLine(e), XMLError_getErrorId(e),
-            ErrorSeverity_toString(XMLError_getSeverity(e)),
-	          XMLError_getMessage(e));
-          pacErrors = safe_strcat(pacErrors, pacError);
+          if (listFlag == 1)
+          {
+            sprintf(pacError, "%u: (%u)  %s %s\n",
+	            XMLError_getLine(e), XMLError_getErrorId(e),
+              ErrorSeverity_toString(XMLError_getSeverity(e)),
+	            XMLError_getMessage(e));
+            
+            mxErrors[0] = mxCreateString(pacError);
+            mexCallMATLAB(0, NULL, 1, mxErrors, "disp");          
+            mxDestroyArray(mxErrors[0]);
+          }
+          else if (XMLError_getSeverity(e) > 1)
+          {
+            sprintf(pacError, "%u: (%u)  %s %s\n",
+	            XMLError_getLine(e), XMLError_getErrorId(e),
+              ErrorSeverity_toString(XMLError_getSeverity(e)),
+	            XMLError_getMessage(e));
+            
+            mxErrors[0] = mxCreateString(pacError);
+            mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+            mxDestroyArray(mxErrors[0]);    
+          }
         }
         if (outputErrors == 1)
         {
@@ -666,6 +682,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       {
         mxErrors[0] = mxCreateString("Error encountered during read.");
         mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
+        mxDestroyArray(mxErrors[0]);
         pacReply = (char *)mxCalloc(3,sizeof(char));
         pacReply = "n";
       }
@@ -673,9 +690,6 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       {
         if (verboseFlag == 1)
         {
-          mxErrors[0] = mxCreateString(pacErrors);
-
-          mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
           mexCallMATLAB(1, mxReply, 2, mxPrompt1, "input");
 
           nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
