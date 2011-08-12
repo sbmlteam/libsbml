@@ -486,6 +486,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/StoichiometryMath.h
 %include sbml/SBMLNamespaces.h
 %include sbml/SBMLTransforms.h
+%include sbml/SBMLConstructorException.h
 
 %include <sbml/conversion/ConversionOption.h>
 %include <sbml/conversion/ConversionProperties.h>
