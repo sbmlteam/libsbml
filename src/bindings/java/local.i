@@ -195,7 +195,7 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(Unit)
    */
   public SBMLConstructorException(String v)
   {
-    this(libsbmlJNI.new_SBMLConstructorException(), true, v);
+    this(libsbmlJNI.new_SBMLConstructorException__SWIG_0(), true, v);
   }
 %}
 
