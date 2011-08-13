@@ -66,7 +66,7 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix="");
  */
 LIBSBML_EXTERN
 void
-writeMathML (const ASTNode* node, XMLOutputStream& stream);
+writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NULL);
 
 
 /** @endcond */

@@ -1129,7 +1129,7 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream);
+  if ( getLevel() > 1 && isSetMath() ) writeMathML(getMath(), stream, getSBMLNamespaces());
   if ( getLevel() < 3 && getNumParameters() > 0 ) mParameters.write(stream);
   if ( getLevel() > 2 && getNumLocalParameters() > 0 ) 
     mLocalParameters.write(stream);

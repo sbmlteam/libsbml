@@ -909,8 +909,8 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 /* ---------------------------------------------------------------------- */
 
 static void writeAttributes(const ASTNode&, XMLOutputStream&);
-static void writeNode      (const ASTNode&, XMLOutputStream&);
-static void writeCSymbol   (const ASTNode&, XMLOutputStream&);
+static void writeNode      (const ASTNode&, XMLOutputStream&, SBMLNamespaces* sbmlns=NULL);
+static void writeCSymbol   (const ASTNode&, XMLOutputStream&, SBMLNamespaces *sbmlns=NULL);
 static void writeDouble    (const double& , XMLOutputStream&);
 static void writeENotation (const double& , long, XMLOutputStream&);
 static void writeENotation (const string& , const string&, XMLOutputStream&);
@@ -944,7 +944,7 @@ writeAttributes(const ASTNode& node, XMLOutputStream& stream)
  * Writes the given ASTNode as a <ci> or <csymbol> element as appropriate.
  */
 static void
-writeCI (const ASTNode& node, XMLOutputStream& stream)
+writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -953,7 +953,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream)
   if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME
     || type == AST_NAME_AVOGADRO )
   {
-    writeCSymbol(node, stream);
+    writeCSymbol(node, stream, sbmlns);
   }
   else if (type == AST_NAME || type == AST_FUNCTION)
   {
@@ -979,7 +979,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream)
  * <cn type='integer'>, or <cn type='rational'> as appropriate.
  */
 static void
-writeCN (const ASTNode& node, XMLOutputStream& stream)
+writeCN (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NULL)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1013,6 +1013,9 @@ writeCN (const ASTNode& node, XMLOutputStream& stream)
 #endif
     if (!node.getUnits().empty())
     {
+      // we only write out the units iff, we don't know what namespace we 
+      // have been given, or if we know that we are dealing with a L3 model
+      if (sbmlns == NULL || sbmlns->getLevel() == 3)
       stream.writeAttribute("sbml:units", node.getUnits());
     }
     
@@ -1078,7 +1081,7 @@ writeConstant (const ASTNode& node, XMLOutputStream& stream)
  * appropriate.
  */
 static void
-writeCSymbol (const ASTNode& node, XMLOutputStream& stream)
+writeCSymbol (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1200,7 +1203,7 @@ writeENotation (  const string&    mantissa
  * wrapped in a <logbase> element.
  */
 static void
-writeFunctionLog (const ASTNode& node, XMLOutputStream& stream)
+writeFunctionLog (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1208,12 +1211,12 @@ writeFunctionLog (const ASTNode& node, XMLOutputStream& stream)
   {
     stream.startElement("logbase");
 
-    if ( node.getLeftChild() )  writeNode(*node.getLeftChild(), stream);
+    if ( node.getLeftChild() )  writeNode(*node.getLeftChild(), stream, sbmlns);
 
     stream.endElement("logbase");
   }
 
-  if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream);
+  if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream, sbmlns);
 }
 
 
@@ -1222,7 +1225,7 @@ writeFunctionLog (const ASTNode& node, XMLOutputStream& stream)
  * in a <degree> element.
  */
 static void
-writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
+writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1230,7 +1233,7 @@ writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
   {
     stream.startElement("degree");
 
-    if ( node.getLeftChild() )  writeNode(*node.getLeftChild(), stream);
+    if ( node.getLeftChild() )  writeNode(*node.getLeftChild(), stream, sbmlns);
 
     stream.endElement("degree");
   }
@@ -1240,7 +1243,7 @@ writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
     writeNode(*node.getChild(0), stream);
   }
 
-  if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream);
+  if ( node.getRightChild() ) writeNode(*node.getRightChild(), stream, sbmlns);
 }
 
 
@@ -1248,7 +1251,7 @@ writeFunctionRoot (const ASTNode& node, XMLOutputStream& stream)
  * Writes the given ASTNode as <apply> <fn/> ... </apply>.
  */
 static void
-writeFunction (const ASTNode& node, XMLOutputStream& stream)
+writeFunction (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1265,11 +1268,11 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream)
     //
     if (type == AST_FUNCTION)
     {
-      writeCI(node, stream);
+      writeCI(node, stream,sbmlns);
     }
     else if (type == AST_FUNCTION_DELAY)
     {
-      writeCSymbol(node, stream);
+      writeCSymbol(node, stream,sbmlns);
     }
     else
     {
@@ -1283,17 +1286,17 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream)
     //
     if (type == AST_FUNCTION_LOG)
     {
-      writeFunctionLog(node, stream);
+      writeFunctionLog(node, stream, sbmlns);
     }
     else if (type == AST_FUNCTION_ROOT)
     {
-      writeFunctionRoot(node, stream);
+      writeFunctionRoot(node, stream, sbmlns);
     }
     else
     {
       for (unsigned int c = 0; c < numChildren; c++)
       {
-        writeNode(*node.getChild(c), stream);
+        writeNode(*node.getChild(c), stream, sbmlns);
       }
     }
   }
@@ -1306,7 +1309,7 @@ writeFunction (const ASTNode& node, XMLOutputStream& stream)
  * Writes the given ASTNode as a <lambda> element.
  */
 static void
-writeLambda (const ASTNode& node, XMLOutputStream& stream)
+writeLambda (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1318,11 +1321,11 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream)
   for (n = 0; n < bvars; n++)
   {
     stream.startElement("bvar");
-    writeNode(*node.getChild(n), stream);
+    writeNode(*node.getChild(n), stream, sbmlns);
     stream.endElement("bvar");
   }
 
-  writeNode( *node.getChild(n), stream );
+  writeNode( *node.getChild(n), stream, sbmlns);
 
   stream.endElement("lambda");
 }
@@ -1333,7 +1336,7 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream)
  * doOperator().
  */
 static void
-writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream)
+writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1354,20 +1357,20 @@ writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream)
   {
     if (left)
     {
-      if (left->getType() == type) writeOperatorArgs(*left, stream);
-      else writeNode(*left, stream);
+      if (left->getType() == type) writeOperatorArgs(*left, stream, sbmlns);
+      else writeNode(*left, stream, sbmlns);
     }
 
     if (right)
     {
-      if (right->getType() == type) writeOperatorArgs(*right, stream);
-      else writeNode(*right, stream);
+      if (right->getType() == type) writeOperatorArgs(*right, stream, sbmlns);
+      else writeNode(*right, stream, sbmlns);
     }
   }
   else
   {
-    if (left)  writeNode(*left , stream);
-    if (right) writeNode(*right, stream);
+    if (left)  writeNode(*left , stream, sbmlns);
+    if (right) writeNode(*right, stream, sbmlns);
   }
 }
 
@@ -1376,7 +1379,7 @@ writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream)
  * Writes the given ASTNode as a <apply> <op/> ... </apply>.
  */
 static void
-writeOperator (const ASTNode& node, XMLOutputStream& stream)
+writeOperator (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1398,7 +1401,7 @@ writeOperator (const ASTNode& node, XMLOutputStream& stream)
     default:  break;
   }
 
-  writeOperatorArgs(node, stream);
+  writeOperatorArgs(node, stream, sbmlns);
 
   stream.endElement("apply");
 }
@@ -1408,7 +1411,7 @@ writeOperator (const ASTNode& node, XMLOutputStream& stream)
  * Formats the given ASTNode as a <piecewise> element.
  */
 static void
-writePiecewise (const ASTNode& node, XMLOutputStream& stream)
+writePiecewise (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
@@ -1427,8 +1430,8 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream)
   {
     stream.startElement("piece");
 
-    writeNode( *node.getChild(n)    , stream );
-    writeNode( *node.getChild(n + 1), stream );
+    writeNode( *node.getChild(n)    , stream, sbmlns );
+    writeNode( *node.getChild(n + 1), stream, sbmlns );
 
     stream.endElement("piece");
   }
@@ -1437,7 +1440,7 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream)
   {
     stream.startElement("otherwise");
 
-    writeNode( *node.getChild(numPieces), stream );
+    writeNode( *node.getChild(numPieces), stream, sbmlns );
 
     stream.endElement("otherwise");
   }
@@ -1450,7 +1453,7 @@ writePiecewise (const ASTNode& node, XMLOutputStream& stream)
  * Formats the given ASTNode as a <semantics> element.
  */
 static void
-writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
+writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL || &inSemantics == NULL) return;
 
@@ -1462,7 +1465,7 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
   if (node.getDefinitionURL())
     stream.writeAttribute("definitionURL", 
                             node.getDefinitionURL()->getValue(0));
-  writeNode(node, stream);
+  writeNode(node, stream, sbmlns);
 
   for (unsigned int n = 0; n < node.getNumSemanticsAnnotations(); n++)
   {
@@ -1478,22 +1481,22 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics)
  * MathML.
  */
 static void
-writeNode (const ASTNode& node, XMLOutputStream& stream)
+  writeNode (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (&node == NULL || &stream == NULL) return;
 
   static bool inSemantics = false;
   
   if (node.getSemanticsFlag() && !inSemantics)
-                     writeSemantics(node, stream, inSemantics);
+                     writeSemantics(node, stream, inSemantics, sbmlns);
 
-  else if (  node.isNumber   () ) writeCN       (node, stream);
-  else if (  node.isName     () ) writeCI       (node, stream);
+  else if (  node.isNumber   () ) writeCN       (node, stream, sbmlns);
+  else if (  node.isName     () ) writeCI       (node, stream, sbmlns);
   else if (  node.isConstant () ) writeConstant (node, stream);
-  else if (  node.isOperator () ) writeOperator (node, stream);
-  else if (  node.isLambda   () ) writeLambda   (node, stream);
-  else if (  node.isPiecewise() ) writePiecewise(node, stream);
-  else if ( !node.isUnknown  () ) writeFunction (node, stream);
+  else if (  node.isOperator () ) writeOperator (node, stream, sbmlns);
+  else if (  node.isLambda   () ) writeLambda   (node, stream, sbmlns);
+  else if (  node.isPiecewise() ) writePiecewise(node, stream, sbmlns);
+  else if ( !node.isUnknown  () ) writeFunction (node, stream, sbmlns);
 }
 
 
@@ -1600,7 +1603,7 @@ readMathML (XMLInputStream& stream, std::string reqd_prefix)
  */
 LIBSBML_EXTERN
 void
-writeMathML (const ASTNode* node, XMLOutputStream& stream)
+writeMathML (const ASTNode* node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
 {
   if (node == NULL || &stream == NULL) return;
 
@@ -1614,11 +1617,12 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
 	// FIX-ME need to know what level and version
 	if (node->hasUnits())
 	{
+    if (sbmlns == NULL || sbmlns->getLevel() == 3)
 		stream.writeAttribute(XMLTriple("sbml", "", "xmlns"), 
 		                   SBMLNamespaces::getSBMLNamespaceURI(3,1));
 	}
 	
-	writeNode(*node, stream);
+	writeNode(*node, stream,sbmlns);
   }
 
   stream.endElement("math");

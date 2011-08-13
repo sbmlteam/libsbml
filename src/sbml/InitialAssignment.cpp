@@ -427,7 +427,7 @@ InitialAssignment::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (mMath != NULL) writeMathML(mMath, stream);
+  if (mMath != NULL) writeMathML(mMath, stream, getSBMLNamespaces());
 
   //
   // (EXTENSION)

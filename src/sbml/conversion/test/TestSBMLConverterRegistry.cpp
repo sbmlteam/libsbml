@@ -91,6 +91,27 @@ START_TEST (test_conversion_registry_getByIndex)
 }
 END_TEST
 
+#include <string>
+#include <iostream>
+using namespace std;
+
+START_TEST (test_conversion_units)
+{
+  string filename(TestDataDirectory);
+  filename += "wrongl3v1.xml";
+
+  SBMLDocument* doc = readSBMLFromFile(filename.c_str());
+
+  fail_unless(doc != NULL);
+  doc->setLevelAndVersion(2, 4, false);
+
+  string sbml = writeSBMLToString(doc);
+  
+  fail_unless(sbml.find("sbml:units") == string::npos);
+
+}
+END_TEST
+
 Suite *
 create_suite_TestSBMLConverterRegistry (void)
 { 
@@ -100,6 +121,8 @@ create_suite_TestSBMLConverterRegistry (void)
   
   tcase_add_test(tcase, test_conversion_registry_get);
   tcase_add_test(tcase, test_conversion_registry_getByIndex);
+
+  tcase_add_test(tcase, test_conversion_units);
 
   suite_add_tcase(suite, tcase);
 
