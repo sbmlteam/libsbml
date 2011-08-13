@@ -267,3 +267,4 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
 #endif /* !ConversionProperties_h */
+
