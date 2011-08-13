@@ -869,7 +869,7 @@ COVARIANT_GETID(InitialAssignment)
   }
 
   public SBMLConstructorException(string v) : 
-   this(libsbmlPINVOKE.new_SBMLConstructorException(), true, v) 
+   this(libsbmlPINVOKE.new_SBMLConstructorException__SWIG_0(), true, v) 
   {}
 %}
 
