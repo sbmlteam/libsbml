@@ -82,3 +82,4 @@ ExpectedAttributes_hasAttribute(ExpectedAttributes_t *attr, const char* attribut
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
+
