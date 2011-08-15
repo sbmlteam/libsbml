@@ -8,17 +8,45 @@ Next release
 
  - The inline formula code will now deal with a unary plus. 
  
+ - There is a new API for performing conversions between levels,
+   versions and packages on an SBML Document.  Existing functions
+   such as setLevelAndVersion have been reimplemented using the 
+   new API and so will continue to work as expected.  The new API will
+   facilitate the introduction of conversion routines that deal with
+   Level 3 packages.
+   
+ - The MATLAB_SBML Structure produced using the MATLAB/Octave bindings
+   now includes fields for the sbml level and version on all 
+   sub-structures.
+   
+ - There are new functions getElementBySId and getElementByMetaId that
+   will traverse the entire document and return a pointer to an SBase 
+   object with the SId or MetaId supplied.
+ 
 * Bug fixes
 
  - There were a couple of places where the clone methods failed to
    create a proper copy.  These have been fixed.  Thanks to Nicolas 
    Rodriguez for reporting this.  
+   
+ - The introduction of the ability to place a units attribute from
+   the SBML L3V1 core namespace into a <cn> MathMl element meant that
+   the code for reading and writing MathML needed to be fully aware
+   of which SBML namespaces it was working with.  This has been done.
+   
+ - Tracker issue #3296228
+   Importing a file with a large number of validation errors into
+   MATLAB was causing memory issues within MATLAB.  The handling of
+   errors has been improved to avoid this situation.
 
 * Miscellaneous
 
  - Necessary updates to support the latest version of swig. 
 
 * Configuration/build system changes
+
+ - The introduction of Mac OS X 10.7 Lion produced issues with both 
+   XCode 4.0 and MATLAB.  These have been addressed. 
 
 
 
