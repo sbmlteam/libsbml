@@ -1484,7 +1484,6 @@ SBMLDocument::addExpectedAttributes(ExpectedAttributes& attributes)
 
   attributes.add("level");
   attributes.add("version");
-  attributes.add("metaid");
   attributes.add("schemaLocation");
 }
 
