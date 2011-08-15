@@ -1808,7 +1808,6 @@ START_TEST (test_element_cn_units)
 }
 END_TEST
 
-#if (0)
 START_TEST (test_element_cn_id)
 {
   const char* s = wrapMathML("<cn id=\"test\"> 12345.7 </cn>");  
@@ -1853,7 +1852,6 @@ START_TEST (test_element_cn_style)
   fail_unless( N->getNumChildren() == 0        );
 }
 END_TEST
-#endif
 
 
 START_TEST (test_element_ci_definitionURL)
@@ -2019,11 +2017,9 @@ create_suite_ReadMathML ()
 
   tcase_add_test( tcase, test_element_invalid_mathml       );
   tcase_add_test( tcase, test_element_cn_units             );
-#if (0)
   tcase_add_test( tcase, test_element_cn_id                );
   tcase_add_test( tcase, test_element_cn_class             );
   tcase_add_test( tcase, test_element_cn_style             );
-#endif
   // this fails while default level/version is 2/4
   // but other validation fails if I change it to 3/1
   

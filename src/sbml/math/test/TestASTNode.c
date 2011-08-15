@@ -2127,7 +2127,6 @@ START_TEST (test_ASTNode_units)
 }
 END_TEST
 
-#if (0)
 START_TEST (test_ASTNode_id)
 {
   int i;
@@ -2190,7 +2189,6 @@ START_TEST (test_ASTNode_style)
   ASTNode_free(n);
 }
 END_TEST
-#endif
 
 START_TEST (test_ASTNode_avogadro)
 {
@@ -2350,11 +2348,9 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_freeName                );
   tcase_add_test( tcase, test_ASTNode_addSemanticsAnnotation  );
   tcase_add_test( tcase, test_ASTNode_units                   );
-#if (0)
   tcase_add_test( tcase, test_ASTNode_id                      );
   tcase_add_test( tcase, test_ASTNode_class                   );
   tcase_add_test( tcase, test_ASTNode_style                   );
-#endif
   tcase_add_test( tcase, test_ASTNode_avogadro                );
   tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
   tcase_add_test( tcase, test_ASTNode_accessWithNULL          );

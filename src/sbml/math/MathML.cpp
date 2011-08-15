@@ -674,17 +674,14 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
   string type;
   string url;
   string units;
-#if (0)
   string id; 
   string className;
   string style;
-#endif
 
   elem.getAttributes().readInto( "encoding"     , encoding  );
   elem.getAttributes().readInto( "type"         , type      );
   elem.getAttributes().readInto( "definitionURL", url       );
   elem.getAttributes().readInto( "units"        , units     );
-#if (0)
   elem.getAttributes().readInto( "id"           , id        );
   elem.getAttributes().readInto( "class"        , className );
   elem.getAttributes().readInto( "style"        , style     );
@@ -697,7 +694,6 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
 
   if (!style.empty())
 	  node.setStyle(style);
-#endif
 
   if ( !type.empty() && name != "cn")
   {
@@ -930,14 +926,12 @@ writeStartEndElement (const string& name, const ASTNode& node, XMLOutputStream& 
 static void 
 writeAttributes(const ASTNode& node, XMLOutputStream& stream)
 {
-#if (0)
   if (node.isSetId())
     stream.writeAttribute("id", node.getId());
   if (node.isSetClass())
 	  stream.writeAttribute("class", node.getClass());
   if (node.isSetStyle())
     stream.writeAttribute("style", node.getStyle());
-#endif
 }
 
 /**
@@ -959,9 +953,7 @@ writeCI (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns)
   {
     stream.startElement("ci");
     stream.setAutoIndent(false);
-#if (0)
 	writeAttributes(node, stream);
-#endif
   if (node.getDefinitionURL())
     stream.writeAttribute("definitionURL", 
                             node.getDefinitionURL()->getValue(0));
@@ -1008,9 +1000,7 @@ writeCN (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmlns=NU
   else
   {
     stream.startElement("cn");
-#if (0)
-	writeAttributes(node, stream);
-#endif
+  	writeAttributes(node, stream);
     if (!node.getUnits().empty())
     {
       // we only write out the units iff, we don't know what namespace we 
@@ -1094,9 +1084,7 @@ writeCSymbol (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbml
 
   stream.startElement("csymbol");
   stream.setAutoIndent(false);
-#if (0)
   writeAttributes(node, stream);
-#endif
   static const string text = "text";
   stream.writeAttribute( "encoding"     , text );
   stream.writeAttribute( "definitionURL", url  );
@@ -1459,9 +1447,7 @@ writeSemantics(const ASTNode& node, XMLOutputStream& stream, bool &inSemantics, 
 
   inSemantics = true;
   stream.startElement("semantics");
-#if (0)
   writeAttributes(node, stream);
-#endif
   if (node.getDefinitionURL())
     stream.writeAttribute("definitionURL", 
                             node.getDefinitionURL()->getValue(0));

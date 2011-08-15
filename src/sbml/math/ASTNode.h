@@ -798,7 +798,6 @@ public:
   LIBSBML_EXTERN
   char getCharacter () const;
 
-#if (0)
   /**
    * Get the id of this ASTNode.  
    * 
@@ -822,7 +821,6 @@ public:
    */
   LIBSBML_EXTERN
   std::string getStyle () const;
-#endif
 
   /**
    * Get the value of this node as an integer. This function should be
@@ -1219,7 +1217,6 @@ public:
   LIBSBML_EXTERN
   bool isUnknown () const;
 
-#if (0)
   /**
    * Predicate returning @c true (non-zero) if this node has the mathml attribute
    * <code>id</code>.
@@ -1246,7 +1243,6 @@ public:
    */
   LIBSBML_EXTERN
   bool isSetStyle() const;
-#endif
     
   /**
    * Predicate returning @c true (non-zero) if this node has the attribute
@@ -1295,7 +1291,6 @@ public:
   LIBSBML_EXTERN
   int setCharacter (char value);
 
-#if (0)
   /**
    * Sets the mathml id of this ASTNode to id.
    *
@@ -1331,7 +1326,6 @@ public:
    */
   LIBSBML_EXTERN
   int setStyle (std::string style);
-#endif
 
   /**
    * Sets the value of this ASTNode to the given name.
@@ -1508,7 +1502,6 @@ public:
   LIBSBML_EXTERN
   int unsetUnits ();
 
-#if (0)
   /**
    * Unsets the mathml id of this ASTNode.
    *
@@ -1541,7 +1534,6 @@ public:
    */
   LIBSBML_EXTERN
   int unsetStyle ();
-#endif
 
   /** @cond doxygen-libsbml-internal */
 
@@ -1759,12 +1751,10 @@ protected:
   void *mUserData;
   bool mIsBvar;
 
-#if (0)
   // additional MathML attributes
   std::string mId;
   std::string mClass;
   std::string mStyle;
-#endif
 
   friend class MathMLFormatter;
   friend class MathMLHandler;
@@ -2039,7 +2029,7 @@ ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node);
 
 
-#if (0)
+
 LIBSBML_EXTERN
 const char *
 ASTNode_getId(const ASTNode_t * node);
@@ -2051,7 +2041,7 @@ ASTNode_getClass(const ASTNode_t * node);
 LIBSBML_EXTERN
 const char *
 ASTNode_getStyle(const ASTNode_t * node);
-#endif
+
 
 LIBSBML_EXTERN
 const char *
@@ -2252,7 +2242,6 @@ LIBSBML_EXTERN
 int
 ASTNode_isUnknown (const ASTNode_t *node);
 
-#if (0)
 LIBSBML_EXTERN
 int
 ASTNode_isSetId (const ASTNode_t *node);
@@ -2264,7 +2253,6 @@ ASTNode_isSetClass (const ASTNode_t *node);
 LIBSBML_EXTERN
 int
 ASTNode_isSetStyle (const ASTNode_t *node);
-#endif
 
 
 LIBSBML_EXTERN
@@ -2342,7 +2330,7 @@ LIBSBML_EXTERN
 int
 ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
 
-#if (0)
+
 LIBSBML_EXTERN
 int
 ASTNode_setId (ASTNode_t *node, const char *id);
@@ -2354,7 +2342,7 @@ ASTNode_setClass (ASTNode_t *node, const char *className);
 LIBSBML_EXTERN
 int
 ASTNode_setStyle (ASTNode_t *node, const char *style);
-#endif
+
 
 LIBSBML_EXTERN
 int
@@ -2367,7 +2355,6 @@ LIBSBML_EXTERN
 int
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 
-#if (0)
 
 LIBSBML_EXTERN
 int
@@ -2380,7 +2367,7 @@ ASTNode_unsetClass (ASTNode_t *node);
 LIBSBML_EXTERN
 int
 ASTNode_unsetStyle (ASTNode_t *node);
-#endif
+
 
 LIBSBML_EXTERN
 int

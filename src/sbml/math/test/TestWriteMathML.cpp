@@ -992,7 +992,6 @@ START_TEST (test_MathMLFormatter_ci_definitionURL)
 }
 END_TEST
 
-#if (0)
 START_TEST (test_MathMLFormatter_ci_id)
 {
   const char* expected = wrapMathML("  <ci id=\"test\"> foo </ci>\n");
@@ -1028,7 +1027,6 @@ START_TEST (test_MathMLFormatter_ci_style)
   fail_unless( equals(expected, S) );
 }
 END_TEST
-#endif
 
 
 Suite *
@@ -1090,11 +1088,9 @@ create_suite_WriteMathML ()
 
   tcase_add_test( tcase, test_MathMLFormatter_csymbol_avogadro         );
   tcase_add_test( tcase, test_MathMLFormatter_ci_definitionURL         );
-#if (0)
   tcase_add_test( tcase, test_MathMLFormatter_ci_id                    );
   tcase_add_test( tcase, test_MathMLFormatter_ci_class                 );
   tcase_add_test( tcase, test_MathMLFormatter_ci_style                 );
-#endif
 
   suite_add_tcase(suite, tcase);
 

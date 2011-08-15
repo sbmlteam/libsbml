@@ -182,11 +182,9 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mDenominator   = 1;
   mParentSBMLObject = NULL;
   mUnits         = "";
-#if (0)
   mId			 = "";
   mClass		 = "";
   mStyle		 = "";
-#endif
   mUserData      = NULL;
   mIsBvar = false;
 
@@ -216,11 +214,9 @@ ASTNode::ASTNode (Token_t* token)
   mDenominator   = 1;
   mParentSBMLObject = NULL;
   mUnits         = "";
-#if (0)
   mId			 = "";
   mClass		 = "";
   mStyle		 = "";
-#endif
   mUserData      = NULL;
   mIsBvar = false;
 
@@ -272,11 +268,9 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mSemanticsAnnotations ( new List() )
  ,mParentSBMLObject     ( orig.mParentSBMLObject )
  ,mUnits                ( orig.mUnits)
-#if (0)
  ,mId                   ( orig.mId)
  ,mClass                ( orig.mClass)
  ,mStyle                ( orig.mStyle)
-#endif
  ,mUserData             ( orig.mUserData )
  ,mIsBvar               ( orig.mIsBvar)
 {
@@ -315,11 +309,9 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     hasSemantics          = rhs.hasSemantics;
     mParentSBMLObject     = rhs.mParentSBMLObject;
     mUnits                = rhs.mUnits;
-#if (0)
     mId                   = rhs.mId;
     mClass                = rhs.mClass;
     mStyle                = rhs.mStyle;
-#endif
     mUserData             = rhs.mUserData;
     mIsBvar               = rhs.mIsBvar;
     if (rhs.mName)
@@ -1192,7 +1184,6 @@ ASTNode::getType () const
   return mType;
 }
 
-#if (0)
 LIBSBML_EXTERN
 std::string
 ASTNode::getId() const
@@ -1213,7 +1204,6 @@ ASTNode::getStyle() const
 {
   return mStyle;
 }
-#endif
 
 LIBSBML_EXTERN
 std::string
@@ -1547,7 +1537,6 @@ ASTNode::isUnknown () const
 }
 
 
-#if (0)
 LIBSBML_EXTERN
 bool 
 ASTNode::isSetId() const
@@ -1568,7 +1557,6 @@ ASTNode::isSetStyle() const
 {
   return (mStyle.empty() == false);
 }
-#endif
   
 LIBSBML_EXTERN
 bool 
@@ -1788,7 +1776,6 @@ ASTNode::setType (ASTNodeType_t type)
   }
 }
 
-#if (0)
 LIBSBML_EXTERN
 int
 ASTNode::setId (std::string id)
@@ -1812,7 +1799,6 @@ ASTNode::setStyle (std::string style)
   mStyle     = style;
   return LIBSBML_OPERATION_SUCCESS;
 }
-#endif
 
 
 
@@ -1847,7 +1833,6 @@ ASTNode::swapChildren (ASTNode *that)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
-#if (0)
 LIBSBML_EXTERN
 int
 ASTNode::unsetId ()
@@ -1896,7 +1881,6 @@ ASTNode::unsetStyle ()
     return LIBSBML_OPERATION_FAILED;
   }
 }
-#endif
 
 LIBSBML_EXTERN
 int
@@ -2659,7 +2643,6 @@ ASTNode_getType (const ASTNode_t *node)
   return static_cast<const ASTNode*>(node)->getType();
 }
 
-#if (0)
 /**
  * Get the mathml id of this ASTNode.  
  * 
@@ -2697,7 +2680,6 @@ ASTNode_getStyle(const ASTNode_t * node)
 }
 
 
-#endif
 
 /**
  * Get the units of this ASTNode.  
@@ -3013,7 +2995,6 @@ ASTNode_isUnknown (const ASTNode_t *node)
 }
 
 
-#if (0)
 /**
  * @return true (non-zero) if this ASTNode has a mathml id, false
  * (0) otherwise.
@@ -3046,7 +3027,6 @@ ASTNode_isSetStyle (const ASTNode_t *node)
 {
   return static_cast<int>(node->isSetStyle());
 }
-#endif
 
 /**
  * Predicate returning true (non-zero) if this node has sbml:units.
@@ -3229,7 +3209,6 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type)
 }
 
 
-#if (0)
 /**
  * Sets the mathml id of this ASTNode to id.
  *
@@ -3280,7 +3259,6 @@ ASTNode_setStyle (ASTNode_t *node, const char *style)
 {
   return static_cast<ASTNode*>(node)->setStyle(style);
 }
-#endif
 
 /**
  * Sets the units of this ASTNode to units.
@@ -3330,7 +3308,6 @@ ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that)
                          ->swapChildren( static_cast<ASTNode*>(that) );
 }
 
-#if (0)
 
 /**
  * Unsets the mathml id of this ASTNode.
@@ -3376,7 +3353,6 @@ ASTNode_unsetStyle (ASTNode_t *node)
 {
   return static_cast<ASTNode*>(node)->unsetStyle();
 }
-#endif
 
 /**
  * Unsets the units of this ASTNode.
