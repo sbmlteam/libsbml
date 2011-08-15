@@ -3929,7 +3929,17 @@ SBase::readAttributes (const XMLAttributes& attributes,
     //
     // Checks if there are attributes of unknown package extensions
     //
-    if (!prefix.empty() && (prefix != getPrefix()) && (uri != mURI) )
+    // if we happen to be on the sbml element (document) then
+    // getPrefix() and mURI have not been set and just return defaults
+    // thus a prefix does not appear to come from the right place !!!
+    if (!prefix.empty() && getElementName() == "sbml")
+    {
+      if (!expectedAttributes.hasAttribute(name))
+      {
+        logUnknownAttribute(name, level, version, getElementName());
+      }    
+    }
+    else if (!prefix.empty() && (prefix != getPrefix()) && (uri != mURI) )
     {
       storeUnknownExtAttribute(getElementName(), attributes, i);
     }
