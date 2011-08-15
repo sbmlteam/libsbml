@@ -154,7 +154,8 @@ static struct sbmlCategoryString {
   { LIBSBML_CAT_SBML_L2V3_COMPAT,	"Translation to SBML L2V3"    },
   { LIBSBML_CAT_MODELING_PRACTICE,      "Modeling practice"           },
   { LIBSBML_CAT_INTERNAL_CONSISTENCY,   "Internal consistency"        },
-  { LIBSBML_CAT_SBML_L2V4_COMPAT,	"Translation to SBML L2V4"    }
+  { LIBSBML_CAT_SBML_L2V4_COMPAT,	"Translation to SBML L2V4"    },
+  { LIBSBML_CAT_SBML_L3V1_COMPAT, "Translation to SBML L3V1Core" }
 };
 
 static unsigned int sbmlCategoryStringTableSize
