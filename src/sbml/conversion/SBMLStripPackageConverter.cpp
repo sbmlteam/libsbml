@@ -130,7 +130,7 @@ SBMLStripPackageConverter::convert()
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
-// TO DO - SK Comment
+  // TO DO - SK Comment
   // pass control to package code to see if needs to do more 
   // additional boolean flag is to do with preseving info
   // not yet used but I think it will need to be passed

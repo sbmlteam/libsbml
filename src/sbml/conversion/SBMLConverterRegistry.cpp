@@ -69,7 +69,11 @@ SBMLConverterRegistry::getConverterFor(const ConversionProperties& props) const
   for (it = mConverters.begin(); it != mConverters.end(); it++)
   {
     if ((*it)->matchesProperties(props))
-      return (*it)->clone();
+    {
+      SBMLConverter* converter = (*it)->clone();
+      converter->setProperties(&props);
+      return converter;
+    }
   }
   return NULL;
 }

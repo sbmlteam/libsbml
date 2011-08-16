@@ -55,7 +55,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class SBMLLevelVersionConverter : public SBMLConverter
+class LIBSBML_EXTERN  SBMLLevelVersionConverter : public SBMLConverter
 {
 public:
 

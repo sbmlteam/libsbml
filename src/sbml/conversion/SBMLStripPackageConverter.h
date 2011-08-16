@@ -41,7 +41,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class SBMLStripPackageConverter : public SBMLConverter
+class LIBSBML_EXTERN SBMLStripPackageConverter : public SBMLConverter
 {
 public:
 

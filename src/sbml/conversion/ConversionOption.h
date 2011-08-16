@@ -58,7 +58,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  *  @brief class encapsulating conversion options
  */
-class ConversionOption
+class LIBSBML_EXTERN ConversionOption
 {
 public:
   /**

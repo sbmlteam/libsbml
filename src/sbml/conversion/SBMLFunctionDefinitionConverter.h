@@ -42,7 +42,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class SBMLFunctionDefinitionConverter : public SBMLConverter
+class LIBSBML_EXTERN SBMLFunctionDefinitionConverter : public SBMLConverter
 {
 public:
 

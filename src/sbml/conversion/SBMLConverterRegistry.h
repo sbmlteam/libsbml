@@ -44,7 +44,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /** 
  * Registry of all converters. 
  */
-class SBMLConverterRegistry
+class LIBSBML_EXTERN SBMLConverterRegistry
 {
 public:
   /** 

@@ -42,7 +42,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 
-class SBMLInitialAssignmentConverter : public SBMLConverter
+class LIBSBML_EXTERN SBMLInitialAssignmentConverter : public SBMLConverter
 {
 public:
 
