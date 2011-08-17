@@ -168,6 +168,7 @@ function copied = copyMatlabDir(orig_dir, target_dir)
     copyfile('testReadFromFile12.m', new_dir);
     copyfile('testReadFromFile13.m', new_dir);
     copyfile('testReadFromFile14.m', new_dir);
+    copyfile('testReadFromFile15.m', new_dir);
     copyfile('testBinding.m', new_dir);
     copyfile('testOutput.m', new_dir);
     copyfile('compareFiles.m', new_dir);

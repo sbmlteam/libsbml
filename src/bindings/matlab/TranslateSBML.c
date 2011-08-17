@@ -345,6 +345,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray *mxPrompt[2], *mxReply[1], *mxWarn[1], *mxPrompt1[2];
   char *pacPromptValid = "Do you want to validate the model? Enter y/n ";
   char *pacPromptLoadAnyway = "Do you want to load the model anyway? Enter y/n ";
+  char *pacPromptValidAnyway = "There are errors found during reading. Do you want to continue validation? Enter y/n ";
   char *pacReply;
   char *pacWarn;
   char *pacNone = "No model returned.";
@@ -555,7 +556,24 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (validateFlag > 0)
     {
-      totalerrors += SBMLDocument_checkConsistency(sbmlDocument);
+      if (verboseFlag > 0 && totalerrors > 0)
+      {
+        mxPrompt[0]= mxCreateString(pacPromptValidAnyway);
+        mxPrompt[1]= mxCreateString("s");
+        mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
+        nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
+        pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
+        mxGetString(mxReply[0], pacReply, nBufferLen);
+  
+        if (strcmp_insensitive(pacReply, "y") == 0)
+        {
+            totalerrors += SBMLDocument_checkConsistency(sbmlDocument);
+        }
+      }
+      else
+      {
+        totalerrors += SBMLDocument_checkConsistency(sbmlDocument);
+      }
     }
 
     /* divide the totalerrors into errors 

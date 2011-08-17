@@ -309,7 +309,7 @@ function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
   
   % check that the libraries can all be found
   found = 1;
-  for i = 1:8
+  for i = 1:length(lib)
     if (exist(lib{i}) ~= 0)
       disp(sprintf('%s found', lib{i}));
     else
@@ -466,6 +466,8 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
       lib{6} = [bin_dir, filesep, 'iconv.dll'];
       lib{7} = [bin_dir, filesep, 'bzip2.lib'];
       lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+      lib{9} = [bin_dir, filesep, 'zdll.lib'];
+      lib{10} = [bin_dir, filesep, 'zlib1.dll'];
     else
       lib{1} = [lib_dir, filesep, 'libsbml.lib'];
       lib{2} = [bin_dir, filesep, 'libsbml.dll'];
@@ -475,6 +477,8 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
       lib{6} = [bin_dir, filesep, 'iconv.dll'];
       lib{7} = [lib_dir, filesep, 'bzip2.lib'];
       lib{8} = [bin_dir, filesep, 'bzip2.dll'];
+      lib{9} = [lib_dir, filesep, 'zdll.lib'];
+      lib{10} = [bin_dir, filesep, 'zlib1.dll'];
     end;
   else
     if (in_installer == 0)
@@ -486,6 +490,8 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
       lib{6} = [bin_dir, filesep, 'libiconv.dll'];
       lib{7} = [bin_dir, filesep, 'bzip2.lib'];
       lib{8} = [bin_dir, filesep, 'libbz2.dll'];
+      lib{9} = [bin_dir, filesep, 'zdll.lib'];
+      lib{10} = [bin_dir, filesep, 'zlib1.dll'];
     else
       lib{1} = [lib_dir, filesep, 'libsbml.lib'];
       lib{2} = [bin_dir, filesep, 'libsbml.dll'];
@@ -495,6 +501,8 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
       lib{6} = [bin_dir, filesep, 'libiconv.dll'];
       lib{7} = [lib_dir, filesep, 'bzip2.lib'];
       lib{8} = [bin_dir, filesep, 'libbz2.dll'];
+      lib{9} = [lib_dir, filesep, 'zdll.lib'];
+      lib{10} = [bin_dir, filesep, 'zlib1.dll'];
     end;
   end;
 
@@ -534,17 +542,21 @@ function compile_mex(include_dir, library_dir, matlab_octave)
   
   success = 0;
   n = 1;
-  
-  while(~success && n < length(optsfiles))
-      try
-        if ~isempty(optsfiles{n})
-            disp(sprintf('* Trying to compile with mexopts file: %s', optsfiles{n}));  
+
+  if strcmpi(matlab_octave, 'matlab')  
+    while(~success && n < length(optsfiles))
+        try
+          if ~isempty(optsfiles{n})
+              disp(sprintf('* Trying to compile with mexopts file: %s', optsfiles{n}));  
+          end;
+          success = do_compile_mex(include_dir, library_dir, matlab_octave, optsfiles{n});
+        catch err
+          disp(' ==> The last attempt to build the Matlab bindings failed. We will try again with a different mexopts file');
         end;
-        success = do_compile_mex(include_dir, library_dir, matlab_octave, optsfiles{n});
-      catch err
-        disp(' ==> The last attempt to build the Matlab bindings failed. We will try again with a different mexopts file');
-      end;
-    n = n + 1;
+      n = n + 1;
+    end;
+  else
+    success = do_compile_mex(include_dir, library_dir, matlab_octave, optsfiles{n});
   end;
   
   if ~success
@@ -739,7 +751,7 @@ function copied = copyLibraries(orig_dir, target_dir, lib)
   end;
   new_dir = pwd;
   % copy the necessary files
-  for i = 1:8
+  for i = 1:length(lib)
     copyfile(lib{i}, new_dir);
   end;
   cd(orig_dir);

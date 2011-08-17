@@ -9,7 +9,7 @@ end;
 if (strcmp(isoctave(), '0'))
   test = 15 + 36;
 else
-  test = 14 + 36;
+  test = 15 + 36;
 end;
 
 if (strcmp(isoctave(), '0'))
@@ -49,7 +49,7 @@ try
   Totalfail = Totalfail + testReadFromFile13(install);
   Totalfail = Totalfail + testReadFromFile14(install);
   Totalfail = Totalfail + testReadFromFile15(install);
-  if (strcmp(isoctave(), '0') && install == 0)
+  if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);
   end;
 
@@ -83,9 +83,7 @@ try
   Totalfail = Totalfail + testReadFromFile12(install);
   Totalfail = Totalfail + testReadFromFile13(install);
   Totalfail = Totalfail + testReadFromFile14(install);
-  if (strcmp(isoctave(), '0') && install == 0)
-    Totalfail = Totalfail + testReadFlags(install);
-  end;
+  Totalfail = Totalfail + testReadFromFile15(install);
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0);
