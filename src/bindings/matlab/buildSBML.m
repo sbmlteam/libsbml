@@ -566,7 +566,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
 
   if strcmpi(matlab_octave, 'matlab')
     % on windows the command needs to be different
-    if ispc() and ~ismac()
+    if ispc() && ~ismac()
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
       feval(fhandle, 'TranslateSBML.c', inc_arg, library_dir, '-DWIN32');
