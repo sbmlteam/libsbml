@@ -214,18 +214,21 @@ SBMLError::SBMLError (  const unsigned int errorId
       }
     }
 
-    if ( index == 0 && mErrorId != UnknownError
-         && ! (mErrorId > LibSBMLAdditionalCodesLowerBound
-               && mErrorId < SBMLCodesUpperBound) )
+    if ( index == 0 && mErrorId != UnknownError )
     {
       // The id is in the range of error numbers that are supposed to be in
       // the SBML layer, but it's NOT in our table. This is an internal error.
       // Unfortunately, we don't have an error log or anywhere to report it
       // except the measure of last resort: the standard error output.
     
-      cerr << "Internal error: unknown error code '" << mErrorId
-           << "' encountered while processing error." << endl;
-      return;
+      //cerr << "Internal error: unknown error code '" << mErrorId
+      //     << "' encountered while processing error." << endl;
+      //return;
+      // Changed this behaviour
+
+      // Now we log the error as an UnKnown Error and mark it as invalid
+
+      mValidError = false;
     }
 
     // The rest of this block massages the results to account for how some
@@ -244,6 +247,9 @@ SBMLError::SBMLError (  const unsigned int errorId
 
     ostringstream newMsg;
     mSeverity = getSeverityForEntry(index, level, version);
+
+    if (mValidError == false)
+      mSeverity = LIBSBML_SEV_WARNING;
 
     if (mSeverity == LIBSBML_SEV_SCHEMA_ERROR)
     {

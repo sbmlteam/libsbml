@@ -971,6 +971,21 @@ public:
 
 
   /**
+   * Predicate returning @c true or @c false depending on whether this
+   * error resulted from a problem or whether it was logged as an unknown
+   * error.
+   *
+   * This is equivalent to obtaining the error identifier from an
+   * XMLError object (via XMLError::getErrorId()) and then comparing it to
+   * the value XMLUnknownError or UnknownError from the
+   * @if clike enumeration #XMLErrorCode_t. @else set of predefined error codes.@endif
+   *
+   * @return @c true or @c false
+   */
+  bool isValid () const;
+
+
+  /**
    * Sets the line number where this error occurred.
    * 
    * @param line an unsigned int, the line number to set.
@@ -1052,6 +1067,8 @@ protected:
 
   std::string mSeverityString;
   std::string mCategoryString;
+
+  bool mValidError;
 
   virtual std::string stringForSeverity(unsigned int code) const;
   virtual std::string stringForCategory(unsigned int code) const;

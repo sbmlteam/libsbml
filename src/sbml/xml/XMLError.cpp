@@ -320,6 +320,7 @@ XMLError::XMLError (  const int errorId
     mErrorId( errorId )
   , mLine   ( line    )
   , mColumn ( column  )
+  , mValidError ( true )
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
@@ -334,7 +335,7 @@ XMLError::XMLError (  const int errorId
       if ( errorTable[i].code == errorId )
       {
         mMessage      = errorTable[i].message;
-	mShortMessage = errorTable[i].shortMessage;
+	      mShortMessage = errorTable[i].shortMessage;
 
         if ( &details != NULL && !details.empty() )
         {
@@ -354,11 +355,36 @@ XMLError::XMLError (  const int errorId
 
     // The id is in the range of error numbers that are supposed to be in
     // the XML layer, but it's NOT in our table.  This is an internal error.
-    // Unfortunately, we don't have an error log or anywhere to report it
-    // except the measure of last resort: the standard error output.
+
+    //// Unfortunately, we don't have an error log or anywhere to report it
+    //// except the measure of last resort: the standard error output.
+    //
+    //
+    //cerr << "Internal error: unknown error code '" << errorId
+    //     << "' encountered while processing error" << endl;
+
+    // Changed this behaviour
+
+    // Now we log the error as an UnKnown Error and mark it as invalid
+
+    mMessage      = errorTable[0].message;
+    mShortMessage = errorTable[0].shortMessage;
+
+    if ( &details != NULL && !details.empty() )
+    {
+      mMessage.append(" ");
+      mMessage.append(details);
+    }
+
+    mSeverity = LIBSBML_SEV_WARNING;
+    mCategory = errorTable[0].category;
     
-    cerr << "Internal error: unknown error code '" << errorId
-         << "' encountered while processing error" << endl;
+    mSeverityString = stringForSeverity(mSeverity);
+    mCategoryString = stringForCategory(mCategory);
+
+    mValidError = false;
+
+
   }
 
   // It's not an error code in the XML layer, so assume the caller has
@@ -632,6 +658,19 @@ bool
 XMLError::isInternal () const
 {
   return (mCategory == LIBSBML_CAT_INTERNAL);
+}
+
+
+/*
+ * Predicate returning @c true or @c false depending on whether this
+ * XMLError resulted from an internal program error.
+ *
+ * @return @c true or @c false
+ */
+bool
+XMLError::isValid () const
+{
+  return mValidError;
 }
 
 

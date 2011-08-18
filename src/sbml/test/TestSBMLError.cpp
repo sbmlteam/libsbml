@@ -61,6 +61,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverityAsString() == "Error" );
   fail_unless( error->getCategory() == LIBSBML_CAT_SBML );
   fail_unless( error->getCategoryAsString() == "General SBML conformance");
+  fail_unless( error->isValid() == true);
   delete error;
 
   error = new SBMLError(OverdeterminedSystem, 2, 1);
@@ -69,6 +70,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverityAsString() == "Warning" );
   fail_unless( error->getCategory() == LIBSBML_CAT_SBML );
   fail_unless( error->getCategoryAsString() == "General SBML conformance");
+  fail_unless( error->isValid() == true);
   delete error;
 
   error = new SBMLError(OffsetNoLongerValid, 2, 2);
@@ -77,6 +79,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverityAsString() == "Error" );
   fail_unless( error->getCategory() == LIBSBML_CAT_GENERAL_CONSISTENCY );
   fail_unless( error->getCategoryAsString() == "SBML component consistency");
+  fail_unless( error->isValid() == true);
   delete error;
 
   error = new SBMLError(NoSBOTermsInL1, 2, 2);
@@ -85,6 +88,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverityAsString() == "Warning" );
   fail_unless( error->getCategory() == LIBSBML_CAT_SBML_L1_COMPAT );
   fail_unless( error->getCategoryAsString() == "Translation to SBML L1V2");
+  fail_unless( error->isValid() == true);
   delete error;
 
   error = new SBMLError(DisallowedMathMLEncodingUse, 2, 2);
@@ -93,12 +97,14 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverityAsString() == "Error" );
   fail_unless( error->getCategory() == LIBSBML_CAT_MATHML_CONSISTENCY );
   fail_unless( error->getShortMessage() == "Disallowed use of MathML 'encoding' attribute");
+  fail_unless( error->isValid() == true);
   delete error;
 
   error = new SBMLError(DisallowedMathMLEncodingUse, 1, 2);
   fail_unless( error->getErrorId()  == DisallowedMathMLEncodingUse );
   fail_unless( error->getSeverity() == LIBSBML_SEV_NOT_APPLICABLE );
   fail_unless( error->getCategory() == LIBSBML_CAT_MATHML_CONSISTENCY );
+  fail_unless( error->isValid() == true);
   delete error;
 
   error = new SBMLError(UnknownError, 2, 4);
@@ -107,6 +113,16 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverityAsString() == "Fatal" );
   fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
   fail_unless( error->getShortMessage() == "Unknown internal libSBML error");
+  fail_unless( error->isValid() == true);
+  delete error;
+
+  error = new SBMLError(70912, 2, 4);
+  fail_unless( error->getErrorId()  == 70912 );
+  fail_unless( error->getSeverity() == LIBSBML_SEV_WARNING );
+  fail_unless( error->getSeverityAsString() == "Warning" );
+  fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
+  fail_unless( error->getShortMessage() == "Unknown internal libSBML error");
+  fail_unless( error->isValid() == false);
   delete error;
 }
 END_TEST
