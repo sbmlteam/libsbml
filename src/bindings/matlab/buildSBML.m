@@ -60,7 +60,7 @@ function buildSBML
   [matlab_octave, bit64]  = check_system();
   [location, writeAccess, in_installer] = check_location(matlab_octave);
 
-  if ispc()
+  if isWindows()
     build_win(matlab_octave, location, writeAccess, bit64, in_installer);
   elseif ismac() || isunix()
     build_unix(matlab_octave, location, writeAccess, bit64);
@@ -79,6 +79,31 @@ function buildSBML
 % Support functions.
 % =========================================================================
 
+%
+%
+% Is this windows
+% Mac OS X 10.7 Lion returns true for a call to ispc()
+% since we were using that to distinguish between windows and macs we need
+% to catch this
+% ------------------------------------------------------------------------
+function y = isWindows()
+
+  y = 1;
+  
+  if isunix()
+    y = 0;
+    return;
+  end;
+  
+  if ismac()
+    y = 0;
+    return;
+  end;
+  
+  if ~ispc()
+    error('Unable to identify operating system');
+  end;
+    
 % 
 % Assess our computing environment.
 % -------------------------------------------------------------------------
@@ -94,7 +119,7 @@ function [matlab_octave, bit64] = check_system()
   end;
 
   bit64 = 32;
-  if ispc()
+  if isWindows()
     if strcmp(computer(), 'PCWIN64') == 1
       bit64 = 64;
       disp(sprintf('  - %s reports the OS is Windows 64-bit.', matlab_octave));
@@ -172,7 +197,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
   if exist(fullfile(above_bindings, 'VERSION.txt'))
     disp('  - We appear to be in the installation target directory.');  
     in_installer = 1;
-    if ispc()
+    if isWindows()
       location = above_bindings;
     else
       location = 'installed';
@@ -181,7 +206,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave)
     [libsbml_root, src] = fileparts(above_bindings);
     if exist(fullfile(libsbml_root, 'VERSION.txt'))
       disp('  - We appear to be in the libSBML source tree.'); 
-      if ispc()
+      if isWindows()
         location = libsbml_root;
       else
         location = 'source';
@@ -578,7 +603,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
 
   if strcmpi(matlab_octave, 'matlab')
     % on windows the command needs to be different
-    if ispc() && ~ismac()
+    if isWindows()
       fhandle = @mex;
       disp('  - Building TranslateSBML ...');
       feval(fhandle, 'TranslateSBML.c', inc_arg, library_dir, '-DWIN32');
@@ -600,7 +625,7 @@ function success = do_compile_mex(include_dir, library_dir, matlab_octave, altop
       end;
     end;
   else
-    if ispc()
+    if isWindows()
       fhandle = @mkoctfile;
       disp('  - Building TranslateSBML ...');
       feval(fhandle, '--mex', 'TranslateSBML.c', '-DUSE_OCTAVE', inc_arg, ...
