@@ -1,4 +1,4 @@
-function [valid, message] = isValidSBML_Model(SBMLStructure)
+function [valid, message] = isSBML_Model(SBMLStructure)
 % [valid, message] = isSBML_Model(SBMLModel)
 %
 % Takes
@@ -3394,68 +3394,66 @@ function [SBMLfieldnames, nNumberFields] = getFieldnames(typecode, ...
 
 switch (typecode)
   case {'SBML_ALGEBRAIC_RULE', 'AlgebraicRule', 'algebraicRule'}
-    fhandle = str2func('getAlgebraicRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getAlgebraicRuleFieldnames(level, version);
   case {'SBML_ASSIGNMENT_RULE', 'AssignmentRule', 'assignmentRule'}
-    fhandle = str2func('getAssignmentRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getAssignmentRuleFieldnames(level, version);
   case {'SBML_COMPARTMENT', 'Compartment', 'compartment'}
-    fhandle = str2func('getCompartmentFieldnames');
+    [SBMLfieldnames, nNumberFields] = getCompartmentFieldnames(level, version);
   case {'SBML_COMPARTMENT_TYPE', 'CompartmentType', 'compartmentType'}
-    fhandle = str2func('getCompartmentTypeFieldnames');
+    [SBMLfieldnames, nNumberFields] = getCompartmentTypeFieldnames(level, version);
   case {'SBML_COMPARTMENT_VOLUME_RULE', 'CompartmentVolumeRule', 'compartmentVolumeRule'}
-    fhandle = str2func('getCompartmentVolumeRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getCompartmentVolumeRuleFieldnames(level, version);
   case {'SBML_CONSTRAINT', 'Constraint', 'constraint'}
-    fhandle = str2func('getConstraintFieldnames');
+    [SBMLfieldnames, nNumberFields] = getConstraintFieldnames(level, version);
   case {'SBML_DELAY', 'Delay', 'delay'}
-    fhandle = str2func('getDelayFieldnames');
+    [SBMLfieldnames, nNumberFields] = getDelayFieldnames(level, version);
   case {'SBML_EVENT', 'Event', 'event'}
-    fhandle = str2func('getEventFieldnames');
+    [SBMLfieldnames, nNumberFields] = getEventFieldnames(level, version);
   case {'SBML_EVENT_ASSIGNMENT', 'EventAssignment', 'eventAssignment'}
-    fhandle = str2func('getEventAssignmentFieldnames');
+    [SBMLfieldnames, nNumberFields] = getEventAssignmentFieldnames(level, version);
   case {'SBML_FUNCTION_DEFINITION', 'FunctionDefinition', 'functionDefinition'}
-    fhandle = str2func('getFunctionDefinitionFieldnames');
+    [SBMLfieldnames, nNumberFields] = getFunctionDefinitionFieldnames(level, version);
   case {'SBML_INITIAL_ASSIGNMENT', 'InitialAssignment', 'initialAssignment'}
-    fhandle = str2func('getInitialAssignmentFieldnames');
+    [SBMLfieldnames, nNumberFields] = getInitialAssignmentFieldnames(level, version);
   case {'SBML_KINETIC_LAW', 'KineticLaw', 'kineticLaw'}
-    fhandle = str2func('getKineticLawFieldnames');
+    [SBMLfieldnames, nNumberFields] = getKineticLawFieldnames(level, version);
   case {'SBML_LOCAL_PARAMETER', 'LocalParameter', 'localParameter'}
-    fhandle = str2func('getLocalParameterFieldnames');
+    [SBMLfieldnames, nNumberFields] = getLocalParameterFieldnames(level, version);
   case {'SBML_MODEL', 'Model', 'model'}
-    fhandle = str2func('getModelFieldnames');
+    [SBMLfieldnames, nNumberFields] = getModelFieldnames(level, version);
   case {'SBML_MODIFIER_SPECIES_REFERENCE', 'ModifierSpeciesReference', 'modifierSpeciesReference'}
-    fhandle = str2func('getModifierSpeciesReferenceFieldnames');
+    [SBMLfieldnames, nNumberFields] = getModifierSpeciesReferenceFieldnames(level, version);
   case {'SBML_PARAMETER', 'Parameter', 'parameter'}
-    fhandle = str2func('getParameterFieldnames');
+    [SBMLfieldnames, nNumberFields] = getParameterFieldnames(level, version);
   case {'SBML_PARAMETER_RULE', 'ParameterRule', 'parameterRule'}
-    fhandle = str2func('getParameterRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getParameterRuleFieldnames(level, version);
   case {'SBML_PRIORITY', 'Priority', 'priority'}
-    fhandle = str2func('getPriorityFieldnames');
+    [SBMLfieldnames, nNumberFields] = getPriorityFieldnames(level, version);
   case {'SBML_RATE_RULE', 'RateRule', 'ruleRule'}
-    fhandle = str2func('getRateRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getRateRuleFieldnames(level, version);
   case {'SBML_REACTION', 'Reaction', 'reaction'}
-    fhandle = str2func('getReactionFieldnames');
+    [SBMLfieldnames, nNumberFields] = getReactionFieldnames(level, version);
   case {'SBML_SPECIES', 'Species', 'species'}
-    fhandle = str2func('getSpeciesFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesFieldnames(level, version);
   case {'SBML_SPECIES_CONCENTRATION_RULE', 'SpeciesConcentrationRule', 'speciesConcentrationRule'}
-    fhandle = str2func('getSpeciesConcentrationRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesConcentrationRuleFieldnames(level, version);
   case {'SBML_SPECIES_REFERENCE', 'SpeciesReference', 'speciesReference'}
-    fhandle = str2func('getSpeciesReferenceFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesReferenceFieldnames(level, version);
   case {'SBML_SPECIES_TYPE', 'SpeciesType', 'speciesType'}
-    fhandle = str2func('getSpeciesTypeFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesTypeFieldnames(level, version);
   case {'SBML_STOICHIOMETRY_MATH', 'StoichiometryMath', 'stoichiometryMath'}
-    fhandle = str2func('getStoichiometryMathFieldnames');
+    [SBMLfieldnames, nNumberFields] = getStoichiometryMathFieldnames(level, version);
   case {'SBML_TRIGGER', 'Trigger', 'trigger'}
-    fhandle = str2func('getTriggerFieldnames');
+    [SBMLfieldnames, nNumberFields] = getTriggerFieldnames(level, version);
   case {'SBML_UNIT', 'Unit', 'unit'}
-    fhandle = str2func('getUnitFieldnames');
+    [SBMLfieldnames, nNumberFields] = getUnitFieldnames(level, version);
   case {'SBML_UNIT_DEFINITION', 'UnitDefinition', 'unitDefinition'}
-    fhandle = str2func('getUnitDefinitionFieldnames');
+    [SBMLfieldnames, nNumberFields] = getUnitDefinitionFieldnames(level, version);
   otherwise
     error('%s\n%s', ...
       'getFieldnames(typecode, level, version', ...
       'typecode not recognised');    
 end;
-
-[SBMLfieldnames, nNumberFields] = feval(fhandle, level, version);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
