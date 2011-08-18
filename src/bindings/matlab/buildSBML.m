@@ -1,4 +1,4 @@
-function buildSBML
+function buildSBML(varargin)
 % Builds the MATLAB language interface for libSBML.
 %
 % This script is meant to be invoked from libSBML's MATLAB bindings
@@ -63,7 +63,38 @@ function buildSBML
   if isWindows()
     build_win(matlab_octave, location, writeAccess, bit64, in_installer);
   elseif ismac() || isunix()
-    build_unix(matlab_octave, location, writeAccess, bit64);
+
+    % here we allow input arguments of include and library directories
+    % but we only use these if we are in the source tree
+    
+    if (nargin > 0 && strcmp(location, 'source'))
+      
+      % we need two arguments
+      % one must be the full path to the include directory
+      % two must be the full path to the library directory
+      
+      correctArguments = 0;
+      if (nargin == 2)
+        include_dir_supplied = varargin{1};
+        lib_dir_supplied = varargin{2};
+        if checkSuppliedArguments(include_dir_supplied, lib_dir_supplied)
+          correctArguments = 1;
+        end;       
+      end;
+      if correctArguments == 0
+        message = sprintf('\n%s\n%s\n%s\n', ...
+          'If arguments are passed to the buildSBML script we expect 2 arguments:', ...
+          '1) the full path to the include directory', ...
+          '2) the full path to the directory containing the libSBML library');
+        error(message);
+      else
+        % arguments are fine - go ahead and build
+        build_unix(matlab_octave, location, writeAccess, bit64, ...
+                   include_dir_supplied, lib_dir_supplied);
+      end;
+    else
+      build_unix(matlab_octave, location, writeAccess, bit64);
+    end;
   else
     message = sprintf('\n%s\n%s\n', ...
       'Unable to determine the type of operating system in use.', ...
@@ -101,7 +132,10 @@ function y = isWindows()
   end;
   
   if ~ispc()
-    error('Unable to identify operating system');
+    message = sprintf('\n%s\n%s\n', ...
+      'Unable to determine the type of operating system in use.', ...
+      'Please contact libsbml-team@caltech.edu to help resolve this problem.');
+    error(message);
   end;
     
 % 
@@ -325,6 +359,40 @@ function [include, lib] = find_unix_dirs(location, bit64)
 
 
 % 
+% we on occasion allow the user to supply arguments for the directories
+% Check include and library dirs (Linux & Mac case) supplied exist
+% -------------------------------------------------------------------------
+function y = checkSuppliedArguments(include_supplied, lib_supplied)
+  disp('* Checking for libSBML library and include files ...');
+
+  % assume we find them
+  y = 1;
+  
+  % check the include directory supplied exists
+  if exist(include_supplied)
+    disp(sprintf('  - Root of includes found at %s', include_supplied));
+  else
+    disp(sprintf('  - Root of includes NOT found at %s', include_supplied));
+    y = 0;
+  end;
+
+  % check that the correct library is found
+  if ismac()
+    libname = 'libsbml.dylib';
+  else
+    libname = 'libsbml.so';  
+  end;
+
+  libfile = fullfile(lib_supplied, libname);
+  if exist(libfile)
+    disp(sprintf('  - Found %s', libfile));
+  else
+    disp(sprintf('  - NOT found %s', libfile));
+    y = 0;
+  end;
+ 
+
+% 
 % Drive the build process (Windows version).
 % -------------------------------------------------------------------------
 function build_win(matlab_octave, root, writeAccess, bit64, in_installer)
@@ -535,9 +603,19 @@ function [include, lib] = find_win_dirs(root, bit64, in_installer)
 % 
 % Drive the build process (Mac and Linux version).
 % -------------------------------------------------------------------------
-function build_unix(matlab_octave, location, writeAccess, bit64)
-
-  [include, lib] = find_unix_dirs(location, bit64);
+function build_unix(varargin)
+  
+  matlab_octave = varargin{1};
+  location = varargin{2};
+  writeAccess = varargin{3};
+  bit64 = varargin{4};
+  
+  if (nargin == 4)
+    [include, lib] = find_unix_dirs(location, bit64);
+  else
+    include = varargin{5};
+    lib = varargin{6};
+  end;
 
   if writeAccess == 1
     % We can write to the current directory.  Our job is easy-peasy.
