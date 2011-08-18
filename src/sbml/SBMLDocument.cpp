@@ -1188,7 +1188,7 @@ int SBMLDocument::convert(const ConversionProperties& props)
 {
   SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(props);
 
-  if (converter == NULL) return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+  if (converter == NULL) return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
 
   converter->setDocument(this);
   converter->setProperties(&props);

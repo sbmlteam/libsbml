@@ -171,10 +171,32 @@ typedef enum
     * -------------------------------------------------------------------------- */
 
   , LIBSBML_CONV_INVALID_TARGET_NAMESPACE  = -30
+    /*!< The target namespace is not a valid SBML namespace. 
+     * This error is typically returned when a conversion routine has been  
+     * passed an invalid target namespace. The function isValidCombination on
+     * the SBMLNamespaces class may be useful in avoiding this error.
+     */
 
   , LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE = -31
+    /*!< Conversions involving packages are not available in the specified routine. 
+     * This error is typically returned when calling a converter that does not
+     * have the functionality to deal with packages. To avoid this error, ensure 
+     * that Conversion Properties requested specify packages.
+     */
 
   , LIBSBML_CONV_INVALID_SRC_DOCUMENT = -32
+    /*!< The document on which conversion is requested is not sufficiently valid
+     * for the requested conversion to be performed. 
+     * This error is typically returned when a conversion routine has been  
+     * passed an invalid target document or the conversion requires a certain
+     * level of validity that is not present in the document. To avoid this
+     * error use the checkConsisitency function to find and resolve errors
+     * before passing the document for conversion.
+     */
+
+  , LIBSBML_CONV_CONVERSION_NOT_AVAILABLE = -33
+    /*!< Conversion with the given properties is not yet available. 
+     */
 
 } OperationReturnValues_t;
 
