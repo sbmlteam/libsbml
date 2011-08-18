@@ -92,6 +92,8 @@ using namespace std;
 
 /** @endcond */
 
+EXTERN_CONSTRAINT( 10214, FunctionApplyMathCheck )
+
 
 // General Notes validation
 

@@ -9,7 +9,7 @@
 			<assignmentRule variable="p">
 				<math xmlns="http://www.w3.org/1998/Math/MathML">
 					<apply>
-						<ci> pow3</ci>
+						<times/>
 						<ci> c </ci>
 						<cn> 3 </cn>
 					</apply>
