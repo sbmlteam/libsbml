@@ -1,4 +1,4 @@
-function buildLibSBMLOctave
+function buildLibSBMLOctave(varargin)
 % builds the libsbml - octave binding
 % This script assumes that libsbml has been built and installed on your system.
 %
@@ -40,7 +40,7 @@ function buildLibSBMLOctave
 
   matlab_dir = [root, filesep, 'src', filesep, 'bindings', filesep, 'matlab'];
   copyMatlabDir(matlab_dir, pwd);
-  buildSBML;
+  buildSBML(varargin);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check what we are using
