@@ -68,8 +68,9 @@ START_TEST (test_consistency_checks)
   d->setConsistencyChecks(LIBSBML_CAT_IDENTIFIER_CONSISTENCY, false);
   errors = d->checkConsistency();
 
-  fail_unless(errors == 1);
-  fail_unless(d->getError(0)->getErrorId() == 20612);
+  fail_unless(errors == 2);
+  fail_unless(d->getError(0)->getErrorId() == 10214);
+  fail_unless(d->getError(1)->getErrorId() == 20612);
 
   d->getErrorLog()->clearLog();
   d->setConsistencyChecks(LIBSBML_CAT_GENERAL_CONSISTENCY, false);
