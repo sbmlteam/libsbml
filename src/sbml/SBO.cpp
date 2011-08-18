@@ -571,6 +571,74 @@ SBO::isLogicalFramework  (unsigned int sboTerm)
 
 
 /*
+ * Function for checking the SBO term is from correct part of SBO.
+ *
+ * @return true if the term is-a MetadataRepresentation, false otherwise
+ */
+bool
+SBO::isMetadataRepresentation  (unsigned int sboTerm)
+{
+  if (sboTerm == 544)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 544);
+  }
+}
+
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ *
+ * @return true if the term is-a OccurringEntityRepresentation, false otherwise
+ */
+bool
+SBO::isOccurringEntityRepresentation  (unsigned int sboTerm)
+{
+  if (sboTerm == 231)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 231);
+  }
+}
+
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ *
+ * @return true if the term is-a PhysicalEntityRepresentation, false otherwise
+ */
+bool
+SBO::isPhysicalEntityRepresentation  (unsigned int sboTerm)
+{
+  if (sboTerm == 236)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 236);
+  }
+}
+
+
+/*
+ * Function for checking the SBO term is from correct part of SBO.
+ *
+ * @return true if the term is-a SystemsDescriptionParameter, false otherwise
+ */
+bool
+SBO::isSystemsDescriptionParameter  (unsigned int sboTerm)
+{
+  if (sboTerm == 545)
+    return true;
+  else
+  {
+    return isChildOf(sboTerm, 545);
+  }
+}
+
+
+/*
  * Function for checking the SBO term is Obselete
  *
  * @return true if the term is-a Obselete, false otherwise
@@ -595,8 +663,8 @@ SBO::isObselete  (unsigned int sboTerm)
 void
 SBO::populateSBOTree()
 {
-  // generated from SBO on April 15th, 2011
-    mParent.insert( pair<const int, int>(  1,  64) );
+  // generated from SBO on August 18th, 2011
+  mParent.insert( pair<const int, int>(  1,  64) );
   mParent.insert( pair<const int, int>(  2, 545) );
   mParent.insert( pair<const int, int>(  3,   0) );
   mParent.insert( pair<const int, int>(  4,   0) );
@@ -1196,7 +1264,40 @@ SBO::populateSBOTree()
   mParent.insert( pair<const int, int>(548, 547) );
   mParent.insert( pair<const int, int>(549, 547) );
   mParent.insert( pair<const int, int>(550, 544) );
-  mParent.insert( pair<const int, int>(551, 550) );
+  mParent.insert( pair<const int, int>(551, 555) );
+  mParent.insert( pair<const int, int>(552, 550) );
+  mParent.insert( pair<const int, int>(553, 552) );
+  mParent.insert( pair<const int, int>(554, 552) );
+  mParent.insert( pair<const int, int>(555, 557) );
+  mParent.insert( pair<const int, int>(556, 557) );
+  mParent.insert( pair<const int, int>(557, 550) );
+  mParent.insert( pair<const int, int>(558,   2) );
+  mParent.insert( pair<const int, int>(559,   2) );
+  mParent.insert( pair<const int, int>(560, 163) );
+  mParent.insert( pair<const int, int>(561, 166) );
+  mParent.insert( pair<const int, int>(562,  45) );
+  mParent.insert( pair<const int, int>(563, 562) );
+  mParent.insert( pair<const int, int>(564, 562) );
+  mParent.insert( pair<const int, int>(565, 545) );
+  mParent.insert( pair<const int, int>(566, 538) );
+  mParent.insert( pair<const int, int>(567, 565) );
+  mParent.insert( pair<const int, int>(568, 565) );
+  mParent.insert( pair<const int, int>(569, 391) );
+  mParent.insert( pair<const int, int>(570, 569) );
+  mParent.insert( pair<const int, int>(571,   2) );
+  mParent.insert( pair<const int, int>(572, 571) );
+  mParent.insert( pair<const int, int>(573, 572) );
+  mParent.insert( pair<const int, int>(574, 573) );
+  mParent.insert( pair<const int, int>(575, 573) );
+  mParent.insert( pair<const int, int>(576, 571) );
+  mParent.insert( pair<const int, int>(577, 576) );
+  mParent.insert( pair<const int, int>(578, 577) );
+  mParent.insert( pair<const int, int>(579, 577) );
+  mParent.insert( pair<const int, int>(580, 571) );
+  mParent.insert( pair<const int, int>(581, 580) );
+  mParent.insert( pair<const int, int>(582, 581) );
+  mParent.insert( pair<const int, int>(583, 581) );
+
 
 
 }

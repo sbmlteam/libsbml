@@ -409,6 +409,38 @@ public:
 
 
   /**
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
+   *
+   * @return @c true if @p term is-a %SBO <em>"metadata representation"</em>, @c false otherwise.
+   */
+  static bool isMetadataRepresentation  (unsigned int term);
+
+
+  /**
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
+   *
+   * @return @c true if @p term is-a %SBO <em>"occurring entity representation"</em>, @c false otherwise.
+   */
+  static bool isOccurringEntityRepresentation  (unsigned int term);
+
+
+  /**
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
+   *
+   * @return @c true if @p term is-a %SBO <em>"physical entity representation"</em>, @c false otherwise.
+   */
+  static bool isPhysicalEntityRepresentation  (unsigned int term);
+
+
+  /**
+   * Returns @c true if the given term identifier comes from the stated branch of %SBO.
+   *
+   * @return @c true if @p term is-a %SBO <em>"systems description parameter"</em>, @c false otherwise.
+   */
+  static bool isSystemsDescriptionParameter  (unsigned int term);
+
+
+  /**
    * Predicate for checking whether the given term is obsolete.
    *
    * @return @c true if @p term is-a %SBO <em>"obsolete"</em> term, @c false otherwise.
