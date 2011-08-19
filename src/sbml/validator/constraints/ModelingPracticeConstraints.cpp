@@ -55,6 +55,15 @@ START_CONSTRAINT (80501, Compartment, c)
 }
 END_CONSTRAINT
 
+
+START_CONSTRAINT (80601, Species, s)
+{
+  inv_or (s.isSetInitialAmount() == true);
+  inv_or (s.isSetInitialConcentration() == true);
+}
+END_CONSTRAINT
+
+
 // Parameters
 EXTERN_CONSTRAINT( 81121, LocalParameterShadowsIdInModel             )
 

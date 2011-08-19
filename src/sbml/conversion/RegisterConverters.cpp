@@ -35,6 +35,7 @@
 #include <sbml/conversion/SBMLInitialAssignmentConverter.h>
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
 #include <sbml/conversion/SBMLStripPackageConverter.h>
+#include <sbml/conversion/SBMLUnitsConverter.h>
 
   // TO DO - SK Comment
 
@@ -45,6 +46,7 @@ static SBMLConverterRegister<SBMLFunctionDefinitionConverter> registerFDConverte
 static SBMLConverterRegister<SBMLInitialAssignmentConverter> registerIAConverter;
 static SBMLConverterRegister<SBMLLevelVersionConverter> registerLVConverter;
 static SBMLConverterRegister<SBMLStripPackageConverter> registerStripConverter;
+static SBMLConverterRegister<SBMLUnitsConverter> registerUnitsConverter;
 
 
 

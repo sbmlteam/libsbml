@@ -716,6 +716,7 @@ typedef enum
   /* ModelingPractice contraints */
 
  , CompartmentShouldHaveSize             = 80501 /*!< It's best to define a size for every compartment in a model */
+ , SpeciesShouldHaveValue                = 80601 /*!< It's best to define an initialAmount or initialConcentration for every species in a model */
  , ParameterShouldHaveUnits              = 80701 /*!< It's best to declare units for every parameter in a model */
  , LocalParameterShadowsId               = 81121 /*!< Local parameters defined in a kinetic law shadow global parameters */
     

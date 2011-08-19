@@ -832,7 +832,8 @@ public:
    * @see areEquivalent(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areIdentical(Unit * unit1, %Unit * unit2)
    */
-  static bool areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2);
+  static bool areIdentical(const UnitDefinition * ud1, 
+    const UnitDefinition * ud2, bool conversion = false);
 
 
   /** 

@@ -59,7 +59,8 @@ common_headers = \
   SBMLFunctionDefinitionConverter.h \
   SBMLInitialAssignmentConverter.h \
   SBMLLevelVersionConverter.h \
-  SBMLStripPackageConverter.h
+  SBMLStripPackageConverter.h \
+  SBMLUnitsConverter.h
 
 common_sources = \
   ConversionOption.cpp  \
@@ -70,7 +71,8 @@ common_sources = \
   SBMLFunctionDefinitionConverter.cpp \
   SBMLInitialAssignmentConverter.cpp \
   SBMLLevelVersionConverter.cpp \
-  SBMLStripPackageConverter.cpp
+  SBMLStripPackageConverter.cpp \
+  SBMLUnitsConverter.cpp
 
 sources = $(common_sources)
 headers = $(common_headers)

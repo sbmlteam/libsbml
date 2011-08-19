@@ -961,7 +961,9 @@ UnitDefinition::convertToSI(const UnitDefinition * ud)
  * @see areEquivalent();
  */
 bool 
-UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
+UnitDefinition::areIdentical(const UnitDefinition * ud1, 
+                             const UnitDefinition * ud2,
+                             bool conversion)
 {
   bool identical = false;
 
@@ -1011,7 +1013,7 @@ UnitDefinition::areIdentical(const UnitDefinition * ud1, const UnitDefinition * 
     n = 0;
     while (n < ud1->getNumUnits())
     {
-      if (!Unit::areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      if (!Unit::areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n), conversion))
       {
         break;
       }

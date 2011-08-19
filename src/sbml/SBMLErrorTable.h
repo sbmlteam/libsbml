@@ -6263,6 +6263,26 @@ static const sbmlErrorTableEntry errorTable[] =
   },
 
 
+  // 80601
+  {
+    SpeciesShouldHaveValue,
+    "It's best to define an initialAmount or initialConcentration for every species in a model",
+    LIBSBML_CAT_MODELING_PRACTICE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "As a principle of best modeling practice, the <species> "
+    "should set an initial value(amount or concentration) rather than be left undefined. Doing so "
+    "improves the portability of models between different simulation and "
+    "analysis systems, and helps make it easier to detect potential errors "
+    "in models."
+  },
+
+
   // 80701
   {
     ParameterShouldHaveUnits,
