@@ -30,19 +30,59 @@ if(WITH_MATLAB)
 SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${CMAKE_MODULE_PATH}) 
 find_package(Matlab)
 
-# on windows let us build the library using MSVC, on Linux and OS X it seems
-# safer to have it built using MEX. 
+# on windows let us build the library using MSVC, on Linux and OS X we choose
+# to build with the buildSBML script by default
 set(MATLAB_MEX_DEFAULT)
 if (UNIX)
-   set(MATLAB_MEX_DEFAULT ON)
+   set(WITH_MATLAB_BUILDSBML ON)
+   set(MATLAB_MEX_DEFAULT OFF)
 else()
+   set(WITH_MATLAB_BUILDSBML OFF)
    set(MATLAB_MEX_DEFAULT OFF)
 endif()
 
-option(WITH_MATLAB_MEX   "Generate Matlab bindings using MEX compiler "     ${MATLAB_MEX_DEFAULT} )
+option(WITH_MATLAB_BUILDSBML   
+      "Generate Matlab bindings using the buildsbml script from matlab"     ${WITH_MATLAB_BUILDSBML} )
+option(WITH_MATLAB_MEX   
+      "Generate Matlab bindings using MEX compiler "     ${MATLAB_MEX_DEFAULT} )
+
+if (WITH_MATLAB_BUILDSBML)
+
+file(TO_CMAKE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../ binding_include_dir )
+file(TO_CMAKE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../ binding_lib_dir )
 
 
-if (WITH_MATLAB_MEX)
+ADD_CUSTOM_COMMAND(	
+
+OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT}
+       ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT}
+
+COMMAND "${MATLAB_MATLAB_COMMAND}"
+ARGS  -nosplash -nodesktop -memmgr debug -logfile runTests.log 
+      -r \"buildSBML('${binding_include_dir}', '${binding_lib_dir}')\;quit\;\"
+DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.c"
+
+WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+COMMENT "compile and link bindings using buildSBML"
+
+) 
+
+add_custom_target(binding_matlab_mexfiles ALL 
+       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT} 
+               ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
+               ${LIBSBML_LIBRARY})
+add_dependencies(binding_matlab_mexfiles ${LIBSBML_LIBRARY})
+
+install(
+    FILES 
+       ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT}  
+       ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT}  
+    DESTINATION 
+       ${MISC_PREFIX}bindings/matlab 
+)
+
+elseif (WITH_MATLAB_MEX)
 
 if (NOT EXISTS "${MATLAB_MEX_COMMAND}")
 	# fail if mex was not found
@@ -210,23 +250,23 @@ else()
 	endforeach()
 	
 	
-endif(WITH_MATLAB_MEX)
+endif(WITH_MATLAB_BUILDSBML)
 
 
 # mark files for installation
 
 foreach(mFile
 
-    test.xml
-	buildSBML.m
-	CheckAndConvert.m  
-	Contents.m
-    ConvertFormulaToMathML.m
-	installSBML.m
-	isoctave.m
-    isSBML_Model.m
-	OutputSBML.m
-    TranslateSBML.m
+   test.xml
+   buildSBML.m
+   CheckAndConvert.m  
+   Contents.m
+   ConvertFormulaToMathML.m
+   installSBML.m
+   isoctave.m
+   isSBML_Model.m
+   OutputSBML.m
+   TranslateSBML.m
 		
 )
 
