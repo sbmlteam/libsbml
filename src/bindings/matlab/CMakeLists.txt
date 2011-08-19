@@ -59,7 +59,7 @@ OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT}
 
 COMMAND "${MATLAB_MATLAB_COMMAND}"
 ARGS  -nosplash -nodesktop -memmgr debug -logfile runTests.log 
-      -r \"buildSBML('${binding_include_dir}', '${binding_lib_dir}')\;quit\;\"
+      -r \"cd ('${CMAKE_CURRENT_SOURCE_DIR}')\;buildSBML('${binding_include_dir}', '${binding_lib_dir}')\;quit\;\"
 
 COMMAND "${CMAKE_COMMAND}"
 ARGS  -E copy_if_different 
@@ -69,7 +69,7 @@ ARGS  -E copy_if_different
 COMMAND "${CMAKE_COMMAND}"
 ARGS  -E copy_if_different 
       ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
-      ${}
+      ${CMAKE_CURRENT_BINARY_DIR}
 
 DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.c"
