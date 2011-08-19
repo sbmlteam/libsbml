@@ -54,12 +54,23 @@ file(TO_CMAKE_PATH ${CMAKE_CURRENT_BINARY_DIR}/../../ binding_lib_dir )
 
 ADD_CUSTOM_COMMAND(	
 
-OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT}
-       ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT}
+OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT}
+       ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT}
 
 COMMAND "${MATLAB_MATLAB_COMMAND}"
 ARGS  -nosplash -nodesktop -memmgr debug -logfile runTests.log 
       -r \"buildSBML('${binding_include_dir}', '${binding_lib_dir}')\;quit\;\"
+
+COMMAND "${CMAKE_COMMAND}"
+ARGS  -E copy_if_different 
+      ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT} 
+      ${CMAKE_CURRENT_BINARY_DIR}
+
+COMMAND "${CMAKE_COMMAND}"
+ARGS  -E copy_if_different 
+      ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
+      ${}
+
 DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.c"
 
@@ -69,15 +80,15 @@ COMMENT "compile and link bindings using buildSBML"
 ) 
 
 add_custom_target(binding_matlab_mexfiles ALL 
-       DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT} 
-               ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
+       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT} 
+               ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT} 
                ${LIBSBML_LIBRARY})
 add_dependencies(binding_matlab_mexfiles ${LIBSBML_LIBRARY})
 
 install(
     FILES 
-       ${CMAKE_CURRENT_SOURCE_DIR}/TranslateSBML.${MATLAB_MEX_EXT}  
-       ${CMAKE_CURRENT_SOURCE_DIR}/OutputSBML.${MATLAB_MEX_EXT}  
+       ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT}  
+       ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT}  
     DESTINATION 
        ${MISC_PREFIX}bindings/matlab 
 )
