@@ -135,8 +135,9 @@ public class TestConsistencyChecks {
     d.getErrorLog().clearLog();
     d.setConsistencyChecks(libsbml.LIBSBML_CAT_IDENTIFIER_CONSISTENCY,false);
     errors = d.checkConsistency();
-    assertTrue( errors == 1 );
-    assertTrue( d.getError(0).getErrorId() == 20612 );
+    assertTrue( errors == 2);
+    assertTrue( d.getError(0).getErrorId() == 10214 );
+    assertTrue( d.getError(1).getErrorId() == 20612 );
     d.getErrorLog().clearLog();
     d.setConsistencyChecks(libsbml.LIBSBML_CAT_GENERAL_CONSISTENCY,false);
     errors = d.checkConsistency();
