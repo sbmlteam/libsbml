@@ -138,6 +138,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int usingOctave = 0;
   mxArray * mxOctave[1];
   int inInstaller = 0;
+  timeSymbol = "";
+  delaySymbol = "";
+  avoSymbol = "";
 
   /* determine whether we are in octave or matlab */
 
