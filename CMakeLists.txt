@@ -194,6 +194,7 @@ if(WITH_SWIG)
     find_program(SWIG_EXECUTABLE
         NAMES swig
         PATHS
+      c:/swigwin-2.0.4
 	    c:/swigwin-2.0.2
 	    c:/swigwin-2.0.1
 	    c:/swigwin-2.0.0
@@ -519,8 +520,15 @@ if(UNIX)
             # if universal binaries are requested and none defined so far
             # overwrite them with all three common architectures. If the user 
             # specified their own list of architectures do not touch!
-            if (CMAKE_OSX_ARCHITECTURES STREQUAL "")                        
-                set(CMAKE_OSX_ARCHITECTURES "i386;ppc;x86_64" CACHE STRING "A semicolon separated list of build architectures to be used" FORCE)                
+            if (CMAKE_OSX_ARCHITECTURES STREQUAL "")  
+                STRING(REGEX REPLACE "^.*MacOSX([0-9]*\\.[0-9]*)\\.sdk$" "\\1"
+                       OSX_SDK_VERSION "${CMAKE_OSX_SYSROOT}")
+                if (OSX_SDK_VERSION  VERSION_EQUAL "10.7" )
+                   # OSX Lion no longer supports ppc architecture
+                   set(CMAKE_OSX_ARCHITECTURES "i386;x86_64" CACHE STRING "A semicolon separated list of build architectures to be used" FORCE)                
+                else()
+                   set(CMAKE_OSX_ARCHITECTURES "i386;ppc;x86_64" CACHE STRING "A semicolon separated list of build architectures to be used" FORCE)                
+                endif()
             endif()
         endif(ENABLE_UNIVERSAL)
     else(APPLE)
