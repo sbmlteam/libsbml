@@ -26,7 +26,8 @@ SET ICONV_INCLUDE_DIR=%OLD_DEPENDENCIES_DIR%\include\iconv
 REM if set to a directory, the files will be produced
 REM and copied into it. To disable simply comment out 
 REM the next line.
-SET DROP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist
+REM SET DROP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist
+SET DROP_DIR=C:\Development\libsbml-dist
 
 
 REM the remaining relies only on these variables 
@@ -284,9 +285,9 @@ rem bindings/python directory
 
 cd python
 
-copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.0.0.win32-py2.5.exe" libSBML-5.0.0-win-py2.5-x86.exe
-copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.0.0.win32-py2.6.exe" libSBML-5.0.0-win-py2.6-x86.exe
-copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.0.0.win32-py2.7.exe" libSBML-5.0.0-win-py2.7-x86.exe
+copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.1.0b0.win32-py2.5.exe" libSBML-5.1.0b0-win-py2.5-x86.exe
+copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.1.0b0.win32-py2.6.exe" libSBML-5.1.0b0-win-py2.6-x86.exe
+copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.1.0b0.win32-py2.7.exe" libSBML-5.1.0b0-win-py2.7-x86.exe
 if "%DROP_DIR%" == "" goto DONE_COPYING
 copy /Y *.exe "%DROP_DIR%"
 
