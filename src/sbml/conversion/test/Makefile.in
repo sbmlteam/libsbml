@@ -50,10 +50,11 @@ thisdir   = src/sbml/conversion/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =                    \
-  TestConversionOption.cpp     \
-  TestConversionProperties.cpp             \
+test_sources =                       \
+  TestConversionOption.cpp           \
+  TestConversionProperties.cpp       \
   TestSBMLConverterRegistry.cpp      \
+  TestUnitsConverter.cpp             \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..

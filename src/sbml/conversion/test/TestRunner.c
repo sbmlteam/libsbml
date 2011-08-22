@@ -47,6 +47,7 @@ CK_CPPSTART
 Suite *create_suite_TestConversionOption      (void);
 Suite *create_suite_TestConversionProperties  (void);
 Suite *create_suite_TestSBMLConverterRegistry (void);
+Suite *create_suite_TestUnitsConverter (void);
 
 
 /**
@@ -95,6 +96,7 @@ main (void)
   SRunner *runner = srunner_create( create_suite_TestConversionOption() );
   srunner_add_suite( runner, create_suite_TestConversionProperties   () );
   srunner_add_suite( runner, create_suite_TestSBMLConverterRegistry  () );
+  srunner_add_suite( runner, create_suite_TestUnitsConverter  () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 
