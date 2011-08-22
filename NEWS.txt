@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Next release
+Version 5.1.0-b0 (2011-08-25)
 ======================================================================
 
 * New features
@@ -22,6 +22,9 @@ Next release
  - There are new functions getElementBySId and getElementByMetaId that
    will traverse the entire document and return a pointer to an SBase 
    object with the SId or MetaId supplied.
+   
+ - There are new functions on the SBO class to reflect the new top level
+   names introduced in the ontology.
  
 * Bug fixes
 
