@@ -165,6 +165,15 @@ MathMLBase::check_ (const Model& m, const Model& object)
                                             *m.getEvent(n));
       }
     }
+    if (m.getEvent(n)->isSetPriority())
+    {
+      if (m.getEvent(n)->getPriority()->isSetMath())
+      {
+        mIsTrigger = 0;
+        checkMath(m, *m.getEvent(n)->getPriority()->getMath(), 
+                                            *m.getEvent(n));
+      }
+    }
     for (ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
     {
       if (m.getEvent(n)->getEventAssignment(ea)->isSetMath())
