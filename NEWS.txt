@@ -8,23 +8,23 @@ Version 5.1.0-b0 (2011-08-25)
 
  - The inline formula code will now deal with a unary plus. 
  
- - There is a new API for performing conversions between levels,
-   versions and packages on an SBML Document.  Existing functions
-   such as setLevelAndVersion have been reimplemented using the 
-   new API and so will continue to work as expected.  The new API will
-   facilitate the introduction of conversion routines that deal with
-   Level 3 packages.
+ - There is a new API for performing conversions between SBML Levels,
+   Versions, and SBML Level 3 packages on an SBML Document.  Existing
+   functions such as setLevelAndVersion() have been reimplemented
+   using the new API and so will continue to work as expected.  The
+   new API will facilitate the introduction of conversion routines
+   that deal with Level 3 packages.
    
  - The MATLAB_SBML Structure produced using the MATLAB/Octave bindings
-   now includes fields for the sbml level and version on all 
+   now includes fields for the SBML Level and Version on all 
    sub-structures.
    
- - There are new functions getElementBySId and getElementByMetaId that
-   will traverse the entire document and return a pointer to an SBase 
-   object with the SId or MetaId supplied.
+ - There are new functions getElementBySId() and getElementByMetaId()
+   that will traverse the entire document and return a pointer to an
+   SBase object with the SId or MetaId supplied.
    
- - There are new functions on the SBO class to reflect the new top level
-   names introduced in the ontology.
+ - There are new functions on the SBO class to reflect the new top-level
+   names introduced in the SBO ontology.
  
 * Bug fixes
 
@@ -33,7 +33,7 @@ Version 5.1.0-b0 (2011-08-25)
    Rodriguez for reporting this.  
    
  - The introduction of the ability to place a units attribute from
-   the SBML L3V1 core namespace into a <cn> MathMl element meant that
+   the SBML L3V1 core namespace into a <cn> MathML element meant that
    the code for reading and writing MathML needed to be fully aware
    of which SBML namespaces it was working with.  This has been done.
    
