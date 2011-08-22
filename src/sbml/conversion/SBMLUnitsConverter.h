@@ -137,7 +137,10 @@ private:
 
   bool unacceptable_errors(unsigned int errors);
 
- 
+  bool hasCnUnits(Model& m);
+
+  bool mathHasCnUnits(const ASTNode *ast);
+
   unsigned int newIdCount;
 
   /** @endcond doxygen-libsbml-internal */
