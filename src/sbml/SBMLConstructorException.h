@@ -62,3 +62,4 @@ LIBSBML_CPP_NAMESPACE_END
 #endif // __cplusplus
 
 #endif // SBML_CONSTRUCTOR_EXCEPTION_H
+
