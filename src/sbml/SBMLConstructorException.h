@@ -59,7 +59,7 @@ private:
 
 LIBSBML_CPP_NAMESPACE_END
 
-#endif // __cplusplus
+#endif /* __cplusplus */
 
-#endif // SBML_CONSTRUCTOR_EXCEPTION_H
+#endif /* SBML_CONSTRUCTOR_EXCEPTION_H */
 
