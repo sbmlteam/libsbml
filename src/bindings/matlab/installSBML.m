@@ -57,7 +57,7 @@ function installSBML
     [root, writeAccess, in_installer] = check_location(matlab_octave, functioning);
   else
     [root, writeAccess, in_installer] = check_location(matlab_octave, functioning);
-    if ispc()
+    if isWindows()
       % if we are not in an installer then something has gone wrong
       if (in_installer == 0)
         error('Error detected - please contact libsbml-team@caltech.edu for help');
@@ -95,7 +95,7 @@ function [matlab_octave, bit64] = check_system()
   end;
 
   bit64 = 32;
-  if ispc()
+  if isWindows()
     if strcmp(computer(), 'PCWIN64') == 1
       bit64 = 64;
       disp(sprintf('  - %s reports the OS is Windows 64-bit.', matlab_octave));
@@ -160,7 +160,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave, .
   [remain, first] = fileparts(pwd);
   if strcmpi(matlab_octave, 'matlab')
     if ~strcmp(first, 'matlab')
-      if ~ispc()
+      if ~isWindows()
         error_incorrect_dir('matlab');
       else
         in_installer = 1;
@@ -170,7 +170,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave, .
     end;
   else
     if ~strcmp(first, 'octave')
-      if ~ispc()
+      if ~isWindows()
         error_incorrect_dir('octave');
       else
         in_installer = 1;
@@ -190,7 +190,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave, .
     if exist(fullfile(above_bindings, 'VERSION.txt'))
       myDisp('  - We appear to be in the installation target directory.', functioning);  
       in_installer = 1;
-      if ispc()
+      if isWindows()
         location = above_bindings;
       else
         location = 'installed';
@@ -199,13 +199,13 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave, .
       [libsbml_root, src] = fileparts(above_bindings);
       if exist(fullfile(libsbml_root, 'Makefile.in'))
         myDisp('  - We appear to be in the libSBML source tree.', functioning); 
-        if ispc()
+        if isWindows()
           location = libsbml_root;
         else
           location = 'source';
         end;
       else
-        if ispc()
+        if isWindows()
           % we might be in the windows installer but in a location the user chose
           % for the bindings
           % Makefile.in will not exist in this directory
@@ -235,7 +235,7 @@ function [location, writeAccess, in_installer] = check_location(matlab_octave, .
   % for the bindings
   % we need the user to tell use the root directory for the rest of libsbml
   % unless we are already functioning
-  if (ispc() && functioning == 0 && in_installer == 1 && isempty(location))
+  if (isWindows() && functioning == 0 && in_installer == 1 && isempty(location))
     count = 1;
     while(exist(location, 'dir') == 0 && count < 3)
     location = input(sprintf('%s: ', ...
@@ -479,7 +479,7 @@ function success = testInstallation(matlab_octave, in_installer, inwin)
   if strcmpi(matlab_octave, 'matlab')
     outFile = [tempdir, filesep, 'test-out.xml'];
   else
-    if ispc()
+    if isWindows()
       outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
     else
       outFile = [tempdir, 'test-out.xml'];
@@ -548,7 +548,7 @@ function success = doesItRun(matlab_octave)
   if strcmpi(matlab_octave, 'matlab')
     outFile = [tempdir, filesep, 'test-out.xml'];
   else
-    if ispc()
+    if isWindows()
       outFile = [tempdir, 'temp', filesep, 'test-out.xml'];
     else
       outFile = [tempdir, 'test-out.xml'];
@@ -675,3 +675,32 @@ function error_incorrect_dir(expected)
     if (silent == 0)
       disp(message);
     end;
+
+%
+%
+% Is this windows
+% Mac OS X 10.7 Lion returns true for a call to ispc()
+% since we were using that to distinguish between windows and macs we need
+% to catch this
+% ------------------------------------------------------------------------
+function y = isWindows()
+
+  y = 1;
+  
+  if isunix()
+    y = 0;
+    return;
+  end;
+  
+  if ismac()
+    y = 0;
+    return;
+  end;
+  
+  if ~ispc()
+    message = sprintf('\n%s\n%s\n', ...
+      'Unable to determine the type of operating system in use.', ...
+      'Please contact libsbml-team@caltech.edu to help resolve this problem.');
+    error(message);
+  end;
+    
