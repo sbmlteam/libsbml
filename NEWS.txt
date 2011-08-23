@@ -4,6 +4,19 @@
 Version 5.1.0-b0 (2011-08-25)
 ======================================================================
 
+This release includes a provisional implementation of support for an
+SBML Level 3 package for "layout" based on code from Ralph Gauges of
+the COPASI group.  No other packages are included with this release;
+this applies to the "groups" package as well, which was in the beta
+release but is not in this release.  However, the SVN repository on
+SourceForge has a branch for packages where ongoing development is
+proceeding, and as specifications and code for SBML Level 3 packages
+are settled, future libSBML releases will include stable versions of
+packages as they become available.  Source code for beta versions of
+packages will also be made available from a separate download area,
+http://sf.net/projects/sbml/files/libsbml/5.1-packages-beta
+
+
 * New features
 
  - The inline formula code will now deal with a unary plus. 
