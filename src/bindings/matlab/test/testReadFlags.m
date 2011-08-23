@@ -152,7 +152,7 @@ filename = fullfile(pwd,'test-data', 'readerror.xml');
 [m, e] = TranslateSBML(filename, 1, 0);
 Totalfail = Totalfail + fail_unless(~isempty(m));
 Totalfail = Totalfail + fail_unless(~isempty(e));
-Totalfail = Totalfail + fail_unless(length(e)==1);
+Totalfail = Totalfail + fail_unless(length(e)==4);
 
 filename = fullfile(pwd,'test-data', 'readerror.xml');
 [m, e] = TranslateSBML(filename, 0, 1);
