@@ -235,11 +235,16 @@ SBMLUnitsConverter::convert()
 bool
 SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
 {
+  /* NOTE: the getDerivedUnitDefinition functions will return
+   * units from the original model - they do not get updated
+   * until after the conversion is complete
+   */
   bool conversion = false;
 
   int tc = sb.getTypeCode();
 
   UnitDefinition *ud = NULL;
+  UnitDefinition *ud_vol = NULL;
 
   double oldValue = 0;
   switch(tc)
@@ -272,14 +277,12 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
        */
       if (static_cast<Species &>(sb).getHasOnlySubstanceUnits() == false)
       {
-        UnitDefinition *ud_vol = 
-          m.getCompartment(static_cast<Species &>(sb).getCompartment())
+        ud_vol = m.getCompartment(static_cast<Species &>(sb).getCompartment())
                                           ->getDerivedUnitDefinition();
-        if (ud_vol != NULL)
-        {
-          ud = UnitDefinition::combine(ud, ud_vol);
-        }
-
+      }
+      else
+      {
+        ud_vol = NULL;
       }
       break;
     default:
@@ -290,6 +293,19 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
   UnitDefinition *siud = UnitDefinition::convertToSI(ud);
   double newValue = oldValue * pow(siud->getUnit(0)->getMultiplier(),
     siud->getUnit(0)->getExponentAsDouble());
+  for (unsigned int n = 1; n < siud->getNumUnits(); n++)
+  {
+    newValue = newValue * pow(siud->getUnit(n)->getMultiplier(),
+                          siud->getUnit(n)->getExponentAsDouble());
+  }
+  if (ud_vol != NULL)
+  {
+    /* we are dealing in concentration 
+    * but the unit of the species must be substance
+    */
+    ud = UnitDefinition::combine(ud, ud_vol);
+    siud = UnitDefinition::convertToSI(ud);
+  }
 
   int i;
   switch(tc)
@@ -306,6 +322,16 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
     case SBML_SPECIES:
       if (static_cast<Species &>(sb).isSetInitialAmount() == true)
       {
+        if (static_cast<Species &>(sb).getHasOnlySubstanceUnits() == false)
+        {
+          if (m.getCompartment(static_cast<Species &>(sb).getCompartment())
+                                            ->getSpatialDimensions() != 0)
+          {
+            newValue = newValue * 
+              m.getCompartment(static_cast<Species &>(sb).getCompartment())
+                                            ->getSize();
+          }
+        }
         i = static_cast<Species &>(sb).setInitialAmount(newValue);
       }
       else
