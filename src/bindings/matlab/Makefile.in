@@ -52,26 +52,29 @@ subdirs = test
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles =                           \
-        AUTHORS.txt                   \
-        CheckAndConvert.m             \
-        Contents.m                    \
-        ConvertFormulaToMathML.m      \
-        isSBML_Model.m                \
-        Makefile.in                   \
-        README.txt                    \
-        TranslateSBML.c               \
-        TranslateSBML.m               \
-        OutputSBML.c                  \
-        OutputSBML.m                  \
-        buildSBML.m                   \
-        installSBML.m                 \
-        isoctave.m                    \
-        matlab-tags-regexp.txt        \
-        test.xml                      \
-	FindMatlab.cmake              \
-	CMakeLists.txt	              \
-	test/CMakeLists.txt           
+distfiles =                      \
+        AUTHORS.txt              \
+        CMakeLists.txt           \
+        CheckAndConvert.m        \
+        Contents.m               \
+        ConvertFormulaToMathML.m \
+        FindMatlab.cmake         \
+        Makefile.in              \
+        OutputSBML.c             \
+        OutputSBML.m             \
+        README.txt               \
+        TranslateSBML.c          \
+        TranslateSBML.m          \
+        buildSBML.m              \
+        isSBML_Model.m           \
+        isoctave.m               \
+        matlab-tags-regexp.txt   \
+        mexopts-R2007.sh         \
+        mexopts-R2008.sh         \
+        mexopts-R2009-R2010.sh   \
+        mexopts-lion.sh          \
+        test.xml                 \
+        test/CMakeLists.txt           
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
