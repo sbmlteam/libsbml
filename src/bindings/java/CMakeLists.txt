@@ -180,7 +180,7 @@ endif()
 
 INSTALL(TARGETS binding_java_lib DESTINATION ${MISC_PREFIX}bindings/java )
 
-target_link_libraries(binding_java_lib ${LIBSBML_LIBRARY} )
+target_link_libraries(binding_java_lib ${LIBSBML_LIBRARY}-static )
 
 ADD_CUSTOM_COMMAND(	
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
