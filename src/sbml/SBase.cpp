@@ -4523,6 +4523,23 @@ SBase::checkListOfPopulated(SBase* object)
 }
 /** @endcond */
 
+//This assumes that the parent of the object is of the type ListOf.  If this is not the case, it will need to be overridden.
+int SBase::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  ListOf* parentList = static_cast<ListOf*>(parent);
+  if (parentList == NULL) return LIBSBML_OPERATION_FAILED;
+  for (unsigned int i=0; i<parentList->size(); i++) {
+    SBase* sibling = parentList->get(i);
+    if (sibling == this) {
+      parentList->remove(i);
+      delete this;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+  return LIBSBML_OPERATION_FAILED;
+}
 
 /** @cond doxygen-libsbml-internal */
 const std::string

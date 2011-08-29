@@ -258,6 +258,15 @@ StoichiometryMath::hasRequiredElements() const
   return allPresent;
 }
 
+int StoichiometryMath::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  SpeciesReference* parentSR = static_cast<SpeciesReference*>(parent);
+  if (parentSR == NULL) return LIBSBML_OPERATION_FAILED;
+  return parentSR->unsetStoichiometryMath();
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*

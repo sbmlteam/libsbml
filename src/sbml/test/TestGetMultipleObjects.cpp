@@ -260,6 +260,11 @@ START_TEST (test_GetMultipleObjects_getMetaId)
   fail_unless(obj != NULL);
   fail_unless(obj->getTypeCode() == SBML_UNIT);
 
+  obj = d->getElementByMetaId("meta33");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_LIST_OF);
+  fail_unless(static_cast<ListOf*>(obj)->getItemTypeCode() == SBML_PARAMETER);
+
 
   delete d;
 }

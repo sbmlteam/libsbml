@@ -359,6 +359,15 @@ Delay::hasRequiredElements() const
   return allPresent;
 }
 
+int Delay::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  Event* parentEvent = static_cast<Event*>(parent);
+  if (parentEvent == NULL) return LIBSBML_OPERATION_FAILED;
+  return parentEvent->unsetDelay();
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*

@@ -808,6 +808,26 @@ Event::unsetPriority ()
 
 
 /*
+ * Unsets the trigger of this Event.
+ */
+int
+Event::unsetTrigger ()
+{
+  delete mTrigger;
+  mTrigger = NULL;
+
+  if (mTrigger == NULL) 
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
+
+
+/*
  * Unsets the timeUnits of this Event.
  *
  * @warning Definitions of Event in SBML Level 2 Versions 1 and 2

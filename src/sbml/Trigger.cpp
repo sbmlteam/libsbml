@@ -371,6 +371,15 @@ Trigger::hasRequiredAttributes() const
   return allPresent;
 }
 
+int Trigger::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  Event* parentEvent = static_cast<Event*>(parent);
+  if (parentEvent == NULL) return LIBSBML_OPERATION_FAILED;
+  return parentEvent->unsetTrigger();
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*

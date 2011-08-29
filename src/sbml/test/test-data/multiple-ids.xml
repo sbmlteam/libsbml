@@ -31,7 +31,7 @@
     <listOfSpecies metaid="meta5">
       <species id="b" compartment="comp" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" metaid="meta6"/>
     </listOfSpecies>
-    <listOfParameters>
+    <listOfParameters metaid="meta33">
       <parameter id="x" constant="false" metaid="meta18"/>
       <parameter id="C" constant="false"/>
     </listOfParameters>

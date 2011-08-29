@@ -2532,6 +2532,17 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   const std::string checkMathMLNamespace(const XMLToken elem);
   /** @endcond */
 
+  /**
+   * Removes itself from its parent.  If the parent was storing it as a pointer, it is deleted.  If not, it is simply cleared (as in ListOf objects).  Pure virutal, as every SBase element has different parents, and therefore different methods of removing itself.  Will fail (and not delete itself) if it has no parent object.  This function is designed to be overridden, but for all objects whose parent is of the class ListOf, the default implementation will work.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   */
+  virtual int removeFromParentAndDelete();
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -2732,7 +2743,6 @@ protected:
    * an error is logged.
    */
   void checkListOfPopulated(SBase* object);
-
 
 #if 0
   /**

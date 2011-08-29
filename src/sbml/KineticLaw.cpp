@@ -1104,6 +1104,15 @@ KineticLaw::hasRequiredElements() const
   return allPresent;
 }
 
+int KineticLaw::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  Reaction* parentReaction = static_cast<Reaction*>(parent);
+  if (parentReaction== NULL) return LIBSBML_OPERATION_FAILED;
+  return parentReaction->unsetKineticLaw();
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*

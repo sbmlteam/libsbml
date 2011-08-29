@@ -262,6 +262,15 @@ Priority::hasRequiredElements() const
 }
 
 
+int Priority::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  Event* parentEvent = static_cast<Event*>(parent);
+  if (parentEvent == NULL) return LIBSBML_OPERATION_FAILED;
+  return parentEvent->unsetPriority();
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read (and store) XHTML,

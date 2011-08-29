@@ -1,6 +1,6 @@
 /**
  * @file    EventAssignment.h
- * @brief   Definition of EventAssignment.
+ * @brief   Definition of EventAssignment and ListOfEventAssignments.
  * @author  Ben Bornstein
  * 
  * <!--------------------------------------------------------------------------

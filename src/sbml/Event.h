@@ -813,13 +813,28 @@ public:
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    * 
    * @note The element "priority" is available in SBML Level&nbsp;3
    * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
    */
   int unsetPriority ();
+
+
+  /**
+   * Unsets the Trigger of this Event.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * 
+   * @note The element "priority" is available in SBML Level&nbsp;3
+   * Version&nbsp;1 Core, but is not present in lower Levels of SBML.
+   */
+  int unsetTrigger();
 
 
   /**
@@ -830,6 +845,7 @@ public:
    * enumeration #OperationReturnValues_t. @endif The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @warning Definitions of Event in SBML Level&nbsp;2 Versions 1 and 2

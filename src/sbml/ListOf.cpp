@@ -288,6 +288,19 @@ ListOf::clear (bool doDelete)
   mItems.clear();
 }
 
+int ListOf::removeFromParentAndDelete()
+{
+  clear(true);
+  unsetAnnotation();
+  unsetCVTerms();
+  unsetId(); //Just in case
+  unsetMetaId();
+  unsetModelHistory();
+  unsetName(); //Just in case
+  unsetNotes();
+  unsetSBOTerm();  
+  return LIBSBML_OPERATION_SUCCESS;
+}
 
 /*
  * Removes the nth item from this ListOf items and returns a pointer to

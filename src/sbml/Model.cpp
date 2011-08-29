@@ -3132,6 +3132,15 @@ Model::getNumEvents () const
   return mEvents.size();
 }
 
+int Model::removeFromParentAndDelete()
+{
+  SBase* parent = getParentSBMLObject();
+  if (parent==NULL) return LIBSBML_OPERATION_FAILED;
+  SBMLDocument* parentDoc= static_cast<SBMLDocument*>(parent);
+  if (parentDoc== NULL) return LIBSBML_OPERATION_FAILED;
+  return parentDoc->setModel(NULL);
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*
