@@ -2652,7 +2652,10 @@ LIBSBML_EXTERN
 const char *
 ASTNode_getId(const ASTNode_t * node)
 {
-  return node->getId().c_str();
+  if (node == NULL)
+    return NULL;
+
+  return node->getId().empty() ? "" : safe_strdup(node->getId().c_str());
 }
 
 /**
@@ -2664,7 +2667,10 @@ LIBSBML_EXTERN
 const char *
 ASTNode_getClass(const ASTNode_t * node)
 {
-  return node->getClass().c_str();
+  if (node == NULL)
+    return NULL;
+
+  return node->getClass().empty() ? "" : safe_strdup(node->getClass().c_str());
 }
 
 /**
@@ -2676,7 +2682,10 @@ LIBSBML_EXTERN
 const char *
 ASTNode_getStyle(const ASTNode_t * node)
 {
-  return node->getStyle().c_str();
+  if (node == NULL)
+    return NULL;
+
+  return node->getStyle().empty() ? "" : safe_strdup(node->getStyle().c_str());
 }
 
 
