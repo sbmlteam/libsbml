@@ -353,6 +353,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int usingOctave = 0;
   mxArray * mxOctave[1];
   int outputErrors = 0;
+  char * msgTxt = NULL;
 
   pacCSymbolTime = NULL;
   pacCSymbolDelay = NULL;
@@ -432,7 +433,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         fp = fopen( pacFilename, "r");
         if(fp == NULL)
         {
-            mexErrMsgTxt( "File does not exist on this path" );
+          msgTxt = (char *) mxCalloc(nBufferLen+35, sizeof(char));
+          sprintf(msgTxt, "File %s does not exist on this path", pacFilename);
+          mexErrMsgTxt(msgTxt);
         }
         else
         {
@@ -497,7 +500,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         fp = fopen( pacFilename, "r");
         if(fp == NULL)
         {
-            mexErrMsgTxt( "File does not exist on this path" );
+          msgTxt = (char *) mxCalloc(nBufferLen+35, sizeof(char));
+          sprintf(msgTxt, "File %s does not exist on this path", pacFilename);
+          mexErrMsgTxt(msgTxt);
         }
         else
         {
