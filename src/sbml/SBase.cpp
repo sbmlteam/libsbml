@@ -6272,6 +6272,21 @@ SBase_hasValidLevelVersionNamespaceCombination(SBase_t *sb)
 }
 
 
+LIBSBML_EXTERN
+int
+SBase_getNumPlugins(SBase_t *sb)
+{
+  return (sb != NULL) ? sb->getNumPlugins() : 0;
+}
+
+
+LIBSBML_EXTERN
+SBasePlugin_t* 
+SBase_getPlugin(SBase_t *sb, const char *package)
+{
+  return (sb != NULL) ? sb->getPlugin(package) : NULL;
+}
+
 
 /** @endcond */
 
