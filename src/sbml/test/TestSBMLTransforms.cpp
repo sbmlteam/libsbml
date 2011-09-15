@@ -471,9 +471,6 @@ START_TEST (test_SBMLTransforms_replaceIA)
   SBMLReader        reader;
   SBMLDocument*     d;
   Model*            m;
-  const ASTNode*          ast;
-  FunctionDefinition*     fd;
-  ListOfFunctionDefinitions * lofd;
 
   std::string filename(TestDataDirectory);
   filename += "initialAssignments.xml";
@@ -510,9 +507,6 @@ START_TEST (test_SBMLTransforms_replaceIA_species)
   SBMLReader        reader;
   SBMLDocument*     d;
   Model*            m;
-  const ASTNode*          ast;
-  FunctionDefinition*     fd;
-  ListOfFunctionDefinitions * lofd;
 
   std::string filename(TestDataDirectory);
   filename += "initialAssignments_species.xml";
