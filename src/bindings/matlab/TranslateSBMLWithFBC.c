@@ -162,7 +162,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nNoFields_l2v3 = 24;
   int nNoFields_l2v4 = 24;
   int nNoFields_l3v1 = 30;
-  int nNoFields_l3v1_fbc = 32;
+  int nNoFields_l3v1_fbc = 33;
 
   const char *error_struct[] =
   {
@@ -338,6 +338,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "annotation",
     "SBML_level",
     "SBML_version",
+    "fbc_version",
     "name",
     "id",
     "timeUnits",
@@ -358,8 +359,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "constraint",
     "reaction",
     "event",
-    "fluxBound",
-    "objective",
+    "fbc_fluxBound",
+    "fbc_objective",
     "time_symbol",
     "delay_symbol",
     "avogadro_symbol",
@@ -999,6 +1000,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     mxSetField( plhs[0], 0, "SBML_level"      , CreateIntScalar(unSBMLLevel)   ); 
     mxSetField( plhs[0], 0, "SBML_version"    , CreateIntScalar(unSBMLVersion) );
+    if (unSBMLLevel > 2 && fbcPresent == 1)
+    {
+      mxSetField( plhs[0], 0, "fbc_version"    , CreateIntScalar(1) );
+    }
+
     mxSetField( plhs[0], 0, "notes"      , mxCreateString(pacNotes)       );
     mxSetField( plhs[0], 0, "annotation", mxCreateString(pacAnnotations) );
 
@@ -1056,8 +1062,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     }
     if (unSBMLLevel > 2 && fbcPresent == 1)
     {
-      mxSetField(plhs[0], 0, "fluxBound", mxFluxBoundReturn);
-      mxSetField(plhs[0], 0, "objective", mxObjectiveReturn);
+      mxSetField(plhs[0], 0, "fbc_fluxBound", mxFluxBoundReturn);
+      mxSetField(plhs[0], 0, "fbc_objective", mxObjectiveReturn);
     }
     if (unSBMLLevel > 1)
     {
@@ -1485,7 +1491,7 @@ GetSpecies ( Model_t      *pModel,
     "level",
     "version"};
 
-   const int nNoFields_l3v1_fbc = 21;
+   const int nNoFields_l3v1_fbc = 22;
    const char *field_names_l3v1_fbc[] = {	
     "typecode",		
     "metaid",
@@ -1504,10 +1510,11 @@ GetSpecies ( Model_t      *pModel,
     "conversionFactor",
 		"isSetInitialAmount", 
 		"isSetInitialConcentration",
-    "charge",
-    "chemicalFormula",
+    "fbc_charge",
+    "fbc_chemicalFormula",
     "level",
-    "version"};
+    "version",
+    "fbc_version"};
 
   /* values */
   const char * pacTypecode;
@@ -1728,6 +1735,10 @@ GetSpecies ( Model_t      *pModel,
     /* put into structure */
     mxSetField( mxSpeciesReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
     mxSetField( mxSpeciesReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
+    if (unSBMLLevel > 2 && fbcPresent == 1)
+    {
+      mxSetField( mxSpeciesReturn, i, "fbc_version"    , CreateIntScalar(1) );
+    }
 
     mxSetField(mxSpeciesReturn,i,"typecode",mxCreateString(pacTypecode));
     if (unSBMLLevel > 1)
@@ -1791,8 +1802,8 @@ GetSpecies ( Model_t      *pModel,
       mxSetField(mxSpeciesReturn,i,"isSetInitialConcentration",CreateIntScalar(unIsSetInitConc)); 
       if (fbcPresent == 1)
       {
-        mxSetField(mxSpeciesReturn,i,"charge",CreateIntScalar(nCharge)); 
-        mxSetField(mxSpeciesReturn,i,"chemicalFormula",mxCreateString(pacChemicalFormula)); 
+        mxSetField(mxSpeciesReturn,i,"fbc_charge",CreateIntScalar(nCharge)); 
+        mxSetField(mxSpeciesReturn,i,"fbc_chemicalFormula",mxCreateString(pacChemicalFormula)); 
       }
     }
   }
@@ -7175,13 +7186,13 @@ GetFluxBound (Model_t      *pModel,
   const char * field_names_l3v1_fbc[] = {	
     "typecode", 
     "metaid",
-		"notes", 
+    "notes", 
 		"annotation",
     "sboTerm",
-		"id",
-    "reaction",
-    "operation",
-    "value",
+    "fbc_id",
+    "fbc_reaction",
+    "fbc_operation",
+    "fbc_value",
     "level",
     "version",
     "fbc_version"};
@@ -7276,10 +7287,10 @@ GetFluxBound (Model_t      *pModel,
     mxSetField(mxFluxBoundReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFluxBoundReturn, i, "annotation",mxCreateString(pacAnnotations));
     mxSetField(mxFluxBoundReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    mxSetField(mxFluxBoundReturn,i,"id",mxCreateString(pacId)); 
-    mxSetField(mxFluxBoundReturn,i,"reaction",mxCreateString(pacReaction)); 
-    mxSetField(mxFluxBoundReturn,i,"operation",mxCreateString(pacOperation)); 
-    mxSetField(mxFluxBoundReturn,i,"value",mxCreateDoubleScalar(dValue)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_id",mxCreateString(pacId)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_reaction",mxCreateString(pacReaction)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_operation",mxCreateString(pacOperation)); 
+    mxSetField(mxFluxBoundReturn,i,"fbc_value",mxCreateDoubleScalar(dValue)); 
   }
 }
 
@@ -7313,9 +7324,9 @@ GetObjective (Model_t      *pModel,
 		"notes", 
 		"annotation",
     "sboTerm",
-		"id",
-    "type",
-    "fluxObjective",
+    "fbc_id",
+    "fbc_type",
+    "fbc_fluxObjective",
     "level",
     "version",
     "fbc_version"};
@@ -7396,9 +7407,9 @@ GetObjective (Model_t      *pModel,
     mxSetField(mxObjectiveReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxObjectiveReturn, i, "annotation",mxCreateString(pacAnnotations));
     mxSetField(mxObjectiveReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    mxSetField(mxObjectiveReturn,i,"id",mxCreateString(pacId)); 
-    mxSetField(mxObjectiveReturn,i,"type",mxCreateString(pacType)); 
-    mxSetField(mxObjectiveReturn,i,"fluxObjective",mxFluxObjectiveReturn); 
+    mxSetField(mxObjectiveReturn,i,"fbc_id",mxCreateString(pacId)); 
+    mxSetField(mxObjectiveReturn,i,"fbc_type",mxCreateString(pacType)); 
+    mxSetField(mxObjectiveReturn,i,"fbc_fluxObjective",mxFluxObjectiveReturn); 
 
     mxFluxObjectiveReturn = NULL;
   }
@@ -7433,8 +7444,8 @@ GetFluxObjective (Objective_t      *pObjective,
 		"notes", 
 		"annotation",
     "sboTerm",
-		"reaction",
-    "coefficient",
+    "fbc_reaction",
+    "fbc_coefficient",
     "level",
     "version",
     "fbc_version"};
@@ -7520,8 +7531,8 @@ GetFluxObjective (Objective_t      *pObjective,
     mxSetField(mxFluxObjectiveReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxFluxObjectiveReturn, i, "annotation",mxCreateString(pacAnnotations));
     mxSetField(mxFluxObjectiveReturn,i,"sboTerm",CreateIntScalar(nSBO)); 
-    mxSetField(mxFluxObjectiveReturn,i,"reaction",mxCreateString(pacReaction)); 
-    mxSetField(mxFluxObjectiveReturn,i,"coefficient",mxCreateDoubleScalar(dCoefficient)); 
+    mxSetField(mxFluxObjectiveReturn,i,"fbc_reaction",mxCreateString(pacReaction)); 
+    mxSetField(mxFluxObjectiveReturn,i,"fbc_coefficient",mxCreateDoubleScalar(dCoefficient)); 
 
   }
 }
