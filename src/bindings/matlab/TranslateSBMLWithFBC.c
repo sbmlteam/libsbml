@@ -414,6 +414,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   pacCSymbolTime = NULL;
   pacCSymbolDelay = NULL;
   pacCSymbolAvo = NULL;
+
+  fbcPresent = 0;
   
   /* determine whether we are in octave or matlab */
 
@@ -1079,8 +1081,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     if (packages > 0)
     {
-      mxNone[0] = mxCreateString(pacL3packages);
-      mexCallMATLAB(0, NULL, 1, mxNone, "disp");   
+      if (packages > 1 || fbcPresent == 0)
+      {
+        mxNone[0] = mxCreateString(pacL3packages);
+        mexCallMATLAB(0, NULL, 1, mxNone, "disp");  
+      }
     }
     
   }
