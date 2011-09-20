@@ -33,6 +33,7 @@
 #ifndef USE_OCTAVE
 #include <matrix.h>
 #endif
+#include <sbml/packages/fbc/extension/FbcExtension.h>
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
@@ -42,7 +43,6 @@
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 
-//#include <sbml/packages/fbc/extension/FbcExtension.h>
 
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
@@ -124,10 +124,19 @@ static mxArray * mxFluxObjectiveReturn       = NULL;
 char *    pacCSymbolTime              = NULL;
 char *    pacCSymbolDelay              = NULL;
 char *    pacCSymbolAvo              = NULL;
+char *    pacActiveObj              = NULL;
 
 int fbcPresent = 0;
 
 
+typedef enum
+{
+    SBML_FBC_ASSOCIATION      = 800
+   ,SBML_FBC_FLUXBOUND        = 801
+   ,SBML_FBC_FLUXOBJECTIVE    = 802
+   ,SBML_FBC_GENEASSOCIATION  = 803
+   ,SBML_FBC_OBJECTIVE        = 804
+} SBMLFbcTypeCode_t;
 
 /**
  * NAME:    mexFunction
@@ -162,7 +171,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nNoFields_l2v3 = 24;
   int nNoFields_l2v4 = 24;
   int nNoFields_l3v1 = 30;
-  int nNoFields_l3v1_fbc = 33;
+  int nNoFields_l3v1_fbc = 34;
 
   const char *error_struct[] =
   {
@@ -361,6 +370,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "event",
     "fbc_fluxBound",
     "fbc_objective",
+    "fbc_activeObjective",
     "time_symbol",
     "delay_symbol",
     "avogadro_symbol",
@@ -389,6 +399,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   int nSBO = -1;
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
+  unsigned int unFBCVersion;
   unsigned int totalerrors = 0;
   unsigned int warnings = 0;
   unsigned int errors = 0;
@@ -414,6 +425,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   pacCSymbolTime = NULL;
   pacCSymbolDelay = NULL;
   pacCSymbolAvo = NULL;
+  pacActiveObj = NULL;
 
   fbcPresent = 0;
   
@@ -824,6 +836,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         if (SBase_getPlugin((SBase_t *)(sbmlDocument), "fbc") != NULL)
         {
           fbcPresent = 1;
+          unFBCVersion = SBasePlugin_getPackageVersion(
+                         SBase_getPlugin((SBase_t *)(sbmlDocument), "fbc"));
         }
       }
     }
@@ -938,6 +952,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       if (pacCSymbolAvo == NULL) {
         pacCSymbolAvo = "";
       }
+      if (pacActiveObj == NULL) {
+        pacActiveObj = "";
+      }
       if ( pacTimeUnits == NULL )
         pacTimeUnits = "";
       if ( pacSubstanceUnits == NULL )
@@ -1004,7 +1021,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxSetField( plhs[0], 0, "SBML_version"    , CreateIntScalar(unSBMLVersion) );
     if (unSBMLLevel > 2 && fbcPresent == 1)
     {
-      mxSetField( plhs[0], 0, "fbc_version"    , CreateIntScalar(1) );
+      mxSetField( plhs[0], 0, "fbc_version"    , CreateIntScalar(unFBCVersion) );
     }
 
     mxSetField( plhs[0], 0, "notes"      , mxCreateString(pacNotes)       );
@@ -1066,6 +1083,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     {
       mxSetField(plhs[0], 0, "fbc_fluxBound", mxFluxBoundReturn);
       mxSetField(plhs[0], 0, "fbc_objective", mxObjectiveReturn);
+      mxSetField(plhs[0], 0, "fbc_activeObjective", mxCreateString(pacActiveObj));
     }
     if (unSBMLLevel > 1)
     {
@@ -1296,17 +1314,17 @@ TypecodeToChar (SBMLTypeCode_t typecode)
       pacTypecode = "SBML_PRIORITY";
       break;
 
-    //case SBML_FBC_FLUXBOUND:
-    //  pacTypecode = "SBML_FBC_FLUXBOUND";
-    //  break;
+    case SBML_FBC_FLUXBOUND:
+      pacTypecode = "SBML_FBC_FLUXBOUND";
+      break;
 
-    //case SBML_FBC_FLUXOBJECTIVE:
-    //  pacTypecode = "SBML_FBC_FLUXOBJECTIVE";
-    //  break;
+    case SBML_FBC_FLUXOBJECTIVE:
+      pacTypecode = "SBML_FBC_FLUXOBJECTIVE";
+      break;
 
-    //case SBML_FBC_OBJECTIVE:
-    //  pacTypecode = "SBML_FBC_OBJECTIVE";
-    //  break;
+    case SBML_FBC_OBJECTIVE:
+      pacTypecode = "SBML_FBC_OBJECTIVE";
+      break;
 
     default:
       pacTypecode = "ERROR";
@@ -1548,6 +1566,8 @@ GetSpecies ( Model_t      *pModel,
   unsigned int unIsSetInitConc = 1;
   unsigned int unIsSetCharge = 1;
 
+  unsigned int unFBCVersion;
+
   int i;
   Species_t *pSpecies;
 
@@ -1676,6 +1696,7 @@ GetSpecies ( Model_t      *pModel,
       }
       if (fbcPresent == 1)
       {
+        unFBCVersion = SBasePlugin_getPackageVersion(SBase_getPlugin((SBase_t *)(pSpecies), "fbc"));
         pacChemicalFormula = FbcSpeciesPlugin_getChemicalFormula(SBase_getPlugin((SBase_t *)(pSpecies), "fbc"));
         nCharge            = FbcSpeciesPlugin_getCharge(SBase_getPlugin((SBase_t *)(pSpecies), "fbc"));
         unIsSetCharge      = 1;
@@ -1742,7 +1763,7 @@ GetSpecies ( Model_t      *pModel,
     mxSetField( mxSpeciesReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
     if (unSBMLLevel > 2 && fbcPresent == 1)
     {
-      mxSetField( mxSpeciesReturn, i, "fbc_version"    , CreateIntScalar(1) );
+      mxSetField( mxSpeciesReturn, i, "fbc_version"    , CreateIntScalar(unFBCVersion) );
     }
 
     mxSetField(mxSpeciesReturn,i,"typecode",mxCreateString(pacTypecode));
@@ -7215,6 +7236,8 @@ GetFluxBound (Model_t      *pModel,
   unsigned int unIsSetValue = 0;
   double dZero = 0.0;
 
+  unsigned int unFBCVersion;
+
   FluxBound_t *pFluxBound;
   int i;
   /* create the structure array */
@@ -7251,6 +7274,8 @@ GetFluxBound (Model_t      *pModel,
     dValue          = FluxBound_getValue(pFluxBound);
     unIsSetValue    = FluxBound_isSetValue(pFluxBound);
 
+    unFBCVersion = SBasePlugin_getPackageVersion(plugin);
+
 
 
     /**        
@@ -7285,7 +7310,7 @@ GetFluxBound (Model_t      *pModel,
     /* put into structure */
     mxSetField( mxFluxBoundReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
     mxSetField( mxFluxBoundReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
-    mxSetField( mxFluxBoundReturn, i, "fbc_version"    , CreateIntScalar(1) );
+    mxSetField( mxFluxBoundReturn, i, "fbc_version"    , CreateIntScalar(unFBCVersion) );
 
     mxSetField(mxFluxBoundReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxFluxBoundReturn, i, "metaid", mxCreateString(pacMetaid));
@@ -7345,8 +7370,14 @@ GetObjective (Model_t      *pModel,
   int nSBO = -1;
   const char * pacType = NULL;
 
+  unsigned int unFBCVersion;
+
   Objective_t *pObjective;
   int i;
+  
+  /* get the activeObjective */
+  pacActiveObj = FbcModelPlugin_getActiveObjectiveId(plugin);
+
   /* create the structure array */
   if (unSBMLLevel == 1) 
   {
@@ -7378,8 +7409,9 @@ GetObjective (Model_t      *pModel,
     pacId           = Objective_getId(pObjective);
     pacType         = Objective_getType(pObjective);
 
+    unFBCVersion = SBasePlugin_getPackageVersion(plugin);
 
-    GetFluxObjective(pObjective, unSBMLLevel, unSBMLVersion);
+    GetFluxObjective(pObjective, unSBMLLevel, unSBMLVersion, unFBCVersion);
 
     /**        
      * check for NULL strings - Matlab doesnt like creating 
@@ -7405,7 +7437,7 @@ GetObjective (Model_t      *pModel,
     /* put into structure */
     mxSetField( mxObjectiveReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
     mxSetField( mxObjectiveReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
-    mxSetField( mxObjectiveReturn, i, "fbc_version"    , CreateIntScalar(1) );
+    mxSetField( mxObjectiveReturn, i, "fbc_version"    , CreateIntScalar(unFBCVersion) );
 
     mxSetField(mxObjectiveReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxObjectiveReturn, i, "metaid", mxCreateString(pacMetaid));
@@ -7436,7 +7468,8 @@ GetObjective (Model_t      *pModel,
 void
 GetFluxObjective (Objective_t      *pObjective,
           unsigned int unSBMLLevel,
-          unsigned int unSBMLVersion )
+          unsigned int unSBMLVersion,
+          unsigned int unFBCVersion)
 {
   int n = Objective_getNumFluxObjectives(pObjective);
   mwSize dims[2] = {1, n};
@@ -7529,7 +7562,7 @@ GetFluxObjective (Objective_t      *pObjective,
     /* put into structure */
     mxSetField( mxFluxObjectiveReturn, i, "level"      , CreateIntScalar(unSBMLLevel)   ); 
     mxSetField( mxFluxObjectiveReturn, i, "version"    , CreateIntScalar(unSBMLVersion) );
-    mxSetField( mxFluxObjectiveReturn, i, "fbc_version"    , CreateIntScalar(1) );
+    mxSetField( mxFluxObjectiveReturn, i, "fbc_version"    , CreateIntScalar(unFBCVersion) );
 
     mxSetField(mxFluxObjectiveReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxFluxObjectiveReturn, i, "metaid", mxCreateString(pacMetaid));
