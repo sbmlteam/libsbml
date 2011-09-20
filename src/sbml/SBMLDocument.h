@@ -1355,6 +1355,11 @@ SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version
 
 
 LIBSBML_EXTERN
+SBMLDocument_t *
+SBMLDocument_createWithSBMLNamespaces (SBMLNamespaces_t *sbmlns);
+
+
+LIBSBML_EXTERN
 void
 SBMLDocument_free (SBMLDocument_t *d);
 
@@ -1493,6 +1498,27 @@ SBMLDocument_getDefaultVersion (void);
 LIBSBML_EXTERN
 const XMLNamespaces_t *
 SBMLDocument_getNamespaces(SBMLDocument_t *d);
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns);
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag);
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

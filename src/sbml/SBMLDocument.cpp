@@ -2031,6 +2031,22 @@ SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version
 }
 
 
+LIBSBML_EXTERN
+SBMLDocument_t *
+SBMLDocument_createWithSBMLNamespaces (SBMLNamespaces_t *sbmlns)
+{
+  try
+  {
+    SBMLDocument* obj = new SBMLDocument(sbmlns);
+    return obj;
+  }
+  catch (SBMLConstructorException)
+  {
+    return NULL;
+  }
+}
+
+
 /**
  * Frees the given SBMLDocument_t structure.
  *
@@ -2761,6 +2777,40 @@ SBMLDocument_getNamespaces(SBMLDocument_t *d)
 {
   return (d != NULL) ? d->getNamespaces() : NULL;
 }
+
+LIBSBML_EXTERN
+int
+SBMLDocument_setSBMLNamespaces (SBMLDocument_t *d, SBMLNamespaces_t * sbmlns)
+{
+  return (d != NULL) ? static_cast<SBase*>(d)->setSBMLNamespaces(sbmlns) 
+    : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package)
+{
+  return (d != NULL) ? static_cast<int>(d->getPkgRequired(package)) : 0;
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag)
+{
+  return (d != NULL) ? d->setPkgRequired(package, flag) : LIBSBML_INVALID_OBJECT;
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package)
+{
+  return (d != NULL) ? static_cast<int>(d->isSetPkgRequired(package)) : 0;
+}
+
+
 
 /** @endcond */
 LIBSBML_CPP_NAMESPACE_END

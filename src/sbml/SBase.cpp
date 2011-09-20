@@ -2919,11 +2919,16 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 }
 
 /* sets the SBMLnamespaces - internal use only*/
-void 
+int 
 SBase::setSBMLNamespaces(SBMLNamespaces * sbmlns)
 {
+  if (sbmlns == NULL)
+    return LIBSBML_INVALID_OBJECT;
+
   SBMLNamespaces* sbmlnsClone = (sbmlns) ? sbmlns->clone() : 0;
   setSBMLNamespacesAndOwn(sbmlnsClone);
+
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 /*

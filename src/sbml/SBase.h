@@ -2513,7 +2513,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   /** @cond doxygen-libsbml-internal */
   /* sets the SBMLnamespaces - internal use only*/
-  void setSBMLNamespaces(SBMLNamespaces * sbmlns);
+  int setSBMLNamespaces(SBMLNamespaces * sbmlns);
 
   /* sets the SBMLNamaepaces and owns the given object - internal use only */
   void setSBMLNamespacesAndOwn(SBMLNamespaces * sbmlns);
