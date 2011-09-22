@@ -297,6 +297,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
   {
     newValue = newValue * pow(siud->getUnit(n)->getMultiplier(),
                           siud->getUnit(n)->getExponentAsDouble());
+    siud->getUnit(n)->setMultiplier(1.0);
   }
   if (ud_vol != NULL)
   {

@@ -186,6 +186,220 @@ START_TEST (test_convertSpecies)
 END_TEST
 
 
+START_TEST (test_convertParameters)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(1.0);
+  p->setConstant(true);
+  p->setUnits("coulomb");
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 1.0) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertParameters_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(10.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_KILOGRAM);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_NEWTON);
+  Unit * u2 = ud1->createUnit();
+  u2->initDefaults();
+  u2->setKind(UNIT_KIND_JOULE);
+  u2->setExponent(-1);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 10.0) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), -1.0) == true);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertParameters_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(2.0);
+  p->setConstant(true);
+  p->setUnits("hertz");
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 2.0) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -1.0) == true);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertParameters_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 3.0) == true);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertParameters_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LITRE);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_HERTZ);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), -1.0) == true);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 3.0) == true);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestUnitsConverter (void)
 { 
@@ -197,6 +411,11 @@ create_suite_TestUnitsConverter (void)
   tcase_add_test(tcase, test_setDocument);
   tcase_add_test(tcase, test_convertCompartment);
   tcase_add_test(tcase, test_convertSpecies);
+  tcase_add_test(tcase, test_convertParameters);
+  tcase_add_test(tcase, test_convertParameters_1);
+  tcase_add_test(tcase, test_convertParameters_2);
+  tcase_add_test(tcase, test_convertParameters_3);
+  tcase_add_test(tcase, test_convertParameters_4);
 
   suite_add_tcase(suite, tcase);
 
