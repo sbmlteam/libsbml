@@ -35,12 +35,12 @@
 #include <sbml/SBMLTypes.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/math/ASTNode.h>
-#include <sbml/packages/fbc/sbml/FluxBound.h>
+
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 #include <sbml/packages/fbc/extension/FbcExtension.h>
 
-
+#include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 
@@ -166,7 +166,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   nBuflen = (mxGetM(mxOctave[0])*mxGetN(mxOctave[0])+1);
   pacTempString1 = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOctave[0], pacTempString1, nBuflen);
+  nStatus = mxGetString(mxOctave[0], pacTempString1, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -242,7 +242,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     nBuflen = (mxGetM(prhs[1])*mxGetN(prhs[1])+1);
     pacFilename = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(prhs[1], pacFilename, nBuflen);
+    nStatus = mxGetString(prhs[1], pacFilename, (mwSize)(nBuflen));
   
     if (nStatus != 0)
     {
@@ -270,12 +270,12 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxTimeSymbol = mxGetField(mxModel[0], 0, "time_symbol");
     nBuflen = (mxGetM(mxTimeSymbol)*mxGetN(mxTimeSymbol)+1);
     timeSymbol = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxTimeSymbol, timeSymbol, nBuflen);
+    nStatus = mxGetString(mxTimeSymbol, timeSymbol, (mwSize)(nBuflen));
  
     mxDelaySymbol = mxGetField(mxModel[0], 0, "delay_symbol");
     nBuflen = (mxGetM(mxDelaySymbol)*mxGetN(mxDelaySymbol)+1);
     delaySymbol = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxDelaySymbol, delaySymbol, nBuflen);
+    nStatus = mxGetString(mxDelaySymbol, delaySymbol, (mwSize)(nBuflen));
   }
 
   if (nLevel > 2)
@@ -283,7 +283,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mxAvoSymbol = mxGetField(mxModel[0], 0, "avogadro_symbol");
     nBuflen = (mxGetM(mxAvoSymbol)*mxGetN(mxAvoSymbol)+1);
     avoSymbol = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxAvoSymbol, avoSymbol, nBuflen); 
+    nStatus = mxGetString(mxAvoSymbol, avoSymbol, (mwSize)(nBuflen)); 
   }
 
   /* add any saved namespaces */
@@ -291,8 +291,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	mxNamespaces = mxGetField(mxModel[0], 0, "namespaces");
   GetNamespaces(mxNamespaces, ns);
 
-  /* look for fbc */
   sbmlDocument = SBMLDocument_createWithSBMLNamespaces(ns);
+
+  /* look for fbc */
 
   if (XMLNamespaces_hasPrefix(SBMLNamespaces_getNamespaces(ns), "fbc") == 1)
   {
@@ -313,7 +314,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	mxNotes = mxGetField(mxModel[0], 0, "notes");
   nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
   pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+  nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -327,7 +328,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
   pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
   
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -340,7 +341,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	mxName = mxGetField(mxModel[0], 0, "name");
   nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
   pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxName, pacName, nBuflen);
+  nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -374,7 +375,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxId = mxGetField(mxModel[0], 0, "id");
 		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxId, pacId, nBuflen);
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -387,7 +388,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxMetaid = mxGetField(mxModel[0], 0, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -448,7 +449,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxSubstanceUnits = mxGetField(mxModel[0], 0, "substanceUnits");
 		nBuflen = (mxGetM(mxSubstanceUnits)*mxGetN(mxSubstanceUnits)+1);
 		pacSubstanceUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, nBuflen);
+		nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -461,7 +462,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxTimeUnits = mxGetField(mxModel[0], 0, "timeUnits");
 		nBuflen = (mxGetM(mxTimeUnits)*mxGetN(mxTimeUnits)+1);
 		pacTimeUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxTimeUnits, pacTimeUnits, nBuflen);
+		nStatus = mxGetString(mxTimeUnits, pacTimeUnits, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -474,7 +475,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxLengthUnits = mxGetField(mxModel[0], 0, "lengthUnits");
 		nBuflen = (mxGetM(mxLengthUnits)*mxGetN(mxLengthUnits)+1);
 		pacLengthUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxLengthUnits, pacLengthUnits, nBuflen);
+		nStatus = mxGetString(mxLengthUnits, pacLengthUnits, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -487,7 +488,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxAreaUnits = mxGetField(mxModel[0], 0, "areaUnits");
 		nBuflen = (mxGetM(mxAreaUnits)*mxGetN(mxAreaUnits)+1);
 		pacAreaUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAreaUnits, pacAreaUnits, nBuflen);
+		nStatus = mxGetString(mxAreaUnits, pacAreaUnits, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -500,7 +501,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxVolumeUnits = mxGetField(mxModel[0], 0, "volumeUnits");
 		nBuflen = (mxGetM(mxVolumeUnits)*mxGetN(mxVolumeUnits)+1);
 		pacVolumeUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxVolumeUnits, pacVolumeUnits, nBuflen);
+		nStatus = mxGetString(mxVolumeUnits, pacVolumeUnits, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -513,7 +514,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxExtentUnits = mxGetField(mxModel[0], 0, "extentUnits");
 		nBuflen = (mxGetM(mxExtentUnits)*mxGetN(mxExtentUnits)+1);
 		pacExtentUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxExtentUnits, pacExtentUnits, nBuflen);
+		nStatus = mxGetString(mxExtentUnits, pacExtentUnits, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -526,7 +527,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		mxConversionFactor = mxGetField(mxModel[0], 0, "conversionFactor");
 		nBuflen = (mxGetM(mxConversionFactor)*mxGetN(mxConversionFactor)+1);
 		pacConversionFactor = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxConversionFactor, pacConversionFactor, nBuflen);
+		nStatus = mxGetString(mxConversionFactor, pacConversionFactor, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -547,13 +548,14 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mxActiveObjective = mxGetField(mxModel[0], 0, "fbc_activeObjective");
 		  nBuflen = (mxGetM(mxActiveObjective)*mxGetN(mxActiveObjective)+1);
 		  pacActiveObjective = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxActiveObjective, pacActiveObjective, nBuflen);
+		  nStatus = mxGetString(mxActiveObjective, pacActiveObjective, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
 			  mexErrMsgTxt("Cannot copy ActiveObjective");
 		  }
-      FbcModelPlugin_setActiveObjectiveId(SBase_getPlugin(sbmlModel, "fbc"),
+      
+      FbcModelPlugin_setActiveObjectiveId(SBase_getPlugin((SBase_t *)(sbmlModel), "fbc"),
         pacActiveObjective);
     }
 	}
@@ -581,7 +583,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     /* get the filename returned */ 
     nBuflen = (mxGetM(mxFilename[0])*mxGetN(mxFilename[0])+1);
     pacTempString1 = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxFilename[0], pacTempString1, nBuflen);
+    nStatus = mxGetString(mxFilename[0], pacTempString1, (mwSize)(nBuflen));
   
     if (nStatus != 0)
     {
@@ -591,7 +593,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	  /* get the full path */
     nBufferLen = (mxGetM(mxFilename[1])*mxGetN(mxFilename[1])+1);
     pacTempString2 = (char *)mxCalloc(nBufferLen, sizeof(char));
-    nStatus = mxGetString(mxFilename[1], pacTempString2, nBufferLen);
+    nStatus = mxGetString(mxFilename[1], pacTempString2, (mwSize)(nBufferLen));
   
     if (nStatus != 0)
     {
@@ -860,7 +862,7 @@ GetNamespaces (mxArray * mxNamespaces,
 
 	mxArray * mxURI, * mxPrefix;
 	
-	size_t i;
+	int i;
 
   xmlns = XMLNamespaces_create();
 	for (i = 1; i < nNoNamespaces; i++) {
@@ -869,7 +871,7 @@ GetNamespaces (mxArray * mxNamespaces,
 		mxURI = mxGetField(mxNamespaces, i, "uri");
 		nBuflen = (mxGetM(mxURI)*mxGetN(mxURI)+1);
 		pacURI = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxURI, pacURI, nBuflen);
+		nStatus = mxGetString(mxURI, pacURI, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -881,7 +883,7 @@ GetNamespaces (mxArray * mxNamespaces,
 		mxPrefix = mxGetField(mxNamespaces, i, "prefix");
 		nBuflen = (mxGetM(mxPrefix)*mxGetN(mxPrefix)+1);
 		pacPrefix = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxPrefix, pacPrefix, nBuflen);
+		nStatus = mxGetString(mxPrefix, pacPrefix, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -964,7 +966,7 @@ GetCompartment (mxArray * mxCompartments,
 		mxNotes = mxGetField(mxCompartments, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -978,7 +980,7 @@ GetCompartment (mxArray * mxCompartments,
 		mxAnnotations = mxGetField(mxCompartments, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -992,7 +994,7 @@ GetCompartment (mxArray * mxCompartments,
 		mxName = mxGetField(mxCompartments, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1006,7 +1008,7 @@ GetCompartment (mxArray * mxCompartments,
 		mxUnits = mxGetField(mxCompartments, i, "units");
 		nBuflen = (mxGetM(mxUnits)*mxGetN(mxUnits)+1);
 		pacUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxUnits, pacUnits, nBuflen);
+		nStatus = mxGetString(mxUnits, pacUnits, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1023,7 +1025,7 @@ GetCompartment (mxArray * mxCompartments,
       mxOutside = mxGetField(mxCompartments, i, "outside");
       nBuflen = (mxGetM(mxOutside)*mxGetN(mxOutside)+1);
       pacOutside = (char *)mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutside, pacOutside, nBuflen);
+      nStatus = mxGetString(mxOutside, pacOutside, (mwSize)(nBuflen));
 
       if (nStatus != 0)
       {
@@ -1059,7 +1061,7 @@ GetCompartment (mxArray * mxCompartments,
 		  mxMetaid = mxGetField(mxCompartments, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1072,7 +1074,7 @@ GetCompartment (mxArray * mxCompartments,
 			mxId = mxGetField(mxCompartments, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1114,7 +1116,7 @@ GetCompartment (mxArray * mxCompartments,
 			  mxCompartmentType = mxGetField(mxCompartments, i, "compartmentType");
 			  nBuflen = (mxGetM(mxCompartmentType)*mxGetN(mxCompartmentType)+1);
 			  pacCompartmentType = (char *)mxCalloc(nBuflen, sizeof(char));
-			  nStatus = mxGetString(mxCompartmentType, pacCompartmentType, nBuflen);
+			  nStatus = mxGetString(mxCompartmentType, pacCompartmentType, (mwSize)(nBuflen));
 
 			  if (nStatus != 0)
 			  {
@@ -1141,7 +1143,7 @@ GetCompartment (mxArray * mxCompartments,
 		  mxMetaid = mxGetField(mxCompartments, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1154,7 +1156,7 @@ GetCompartment (mxArray * mxCompartments,
 			mxId = mxGetField(mxCompartments, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1278,7 +1280,7 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 		mxNotes = mxGetField(mxUnitDefinitions, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1292,7 +1294,7 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 		mxAnnotations = mxGetField(mxUnitDefinitions, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1306,7 +1308,7 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 		mxName = mxGetField(mxUnitDefinitions, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1328,7 +1330,7 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 		  mxMetaid = mxGetField(mxUnitDefinitions, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1341,7 +1343,7 @@ GetUnitDefinition ( mxArray * mxUnitDefinitions,
 			mxId = mxGetField(mxUnitDefinitions, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1427,7 +1429,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxUnits, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1441,7 +1443,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxUnits, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1455,7 +1457,7 @@ GetUnit ( mxArray * mxUnits,
 		mxKind = mxGetField(mxUnits, i, "kind");
 		nBuflen = (mxGetM(mxKind)*mxGetN(mxKind)+1);
 		pacKind = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxKind, pacKind, nBuflen);
+		nStatus = mxGetString(mxKind, pacKind, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1479,7 +1481,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxUnits, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1520,7 +1522,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxUnits, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1640,7 +1642,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxSpecies, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1654,7 +1656,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxSpecies, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1667,7 +1669,7 @@ GetUnit ( mxArray * mxUnits,
 		mxName = mxGetField(mxSpecies, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1681,7 +1683,7 @@ GetUnit ( mxArray * mxUnits,
 		mxCompartment = mxGetField(mxSpecies, i, "compartment");
 		nBuflen = (mxGetM(mxCompartment)*mxGetN(mxCompartment)+1);
 		pacCompartment = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxCompartment, pacCompartment, nBuflen);
+		nStatus = mxGetString(mxCompartment, pacCompartment, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -1734,7 +1736,7 @@ GetUnit ( mxArray * mxUnits,
 			mxUnits = mxGetField(mxSpecies, i, "units");
 			nBuflen = (mxGetM(mxUnits)*mxGetN(mxUnits)+1);
 			pacUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxUnits, pacUnits, nBuflen);
+			nStatus = mxGetString(mxUnits, pacUnits, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1753,7 +1755,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxSpecies, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1766,7 +1768,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxSpecies, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1792,7 +1794,7 @@ GetUnit ( mxArray * mxUnits,
 			mxSubstanceUnits = mxGetField(mxSpecies, i, "substanceUnits");
 			nBuflen = (mxGetM(mxSubstanceUnits)*mxGetN(mxSubstanceUnits)+1);
 			pacSubstanceUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, nBuflen);
+			nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1822,7 +1824,7 @@ GetUnit ( mxArray * mxUnits,
 			  mxSpatialSizeUnits = mxGetField(mxSpecies, i, "spatialSizeUnits");
 			  nBuflen = (mxGetM(mxSpatialSizeUnits)*mxGetN(mxSpatialSizeUnits)+1);
 			  pacSpatialSizeUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-			  nStatus = mxGetString(mxSpatialSizeUnits, pacSpatialSizeUnits, nBuflen);
+			  nStatus = mxGetString(mxSpatialSizeUnits, pacSpatialSizeUnits, (mwSize)(nBuflen));
 
 			  if (nStatus != 0)
 			  {
@@ -1839,7 +1841,7 @@ GetUnit ( mxArray * mxUnits,
 			  mxSpeciesType = mxGetField(mxSpecies, i, "speciesType");
 			  nBuflen = (mxGetM(mxSpeciesType)*mxGetN(mxSpeciesType)+1);
 			  pacSpeciesType = (char *)mxCalloc(nBuflen, sizeof(char));
-			  nStatus = mxGetString(mxSpeciesType, pacSpeciesType, nBuflen);
+			  nStatus = mxGetString(mxSpeciesType, pacSpeciesType, (mwSize)(nBuflen));
 
 			  if (nStatus != 0)
 			  {
@@ -1864,7 +1866,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxSpecies, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1877,7 +1879,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxSpecies, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1903,7 +1905,7 @@ GetUnit ( mxArray * mxUnits,
 			mxSubstanceUnits = mxGetField(mxSpecies, i, "substanceUnits");
 			nBuflen = (mxGetM(mxSubstanceUnits)*mxGetN(mxSubstanceUnits)+1);
 			pacSubstanceUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, nBuflen);
+			nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -1936,7 +1938,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxConversionFactor = mxGetField(mxSpecies, i, "conversionFactor");
 		  nBuflen = (mxGetM(mxConversionFactor)*mxGetN(mxConversionFactor)+1);
 		  pacConversionFactor = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxConversionFactor, pacConversionFactor, nBuflen);
+		  nStatus = mxGetString(mxConversionFactor, pacConversionFactor, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -1959,7 +1961,7 @@ GetUnit ( mxArray * mxUnits,
         mxChemicalFormula = mxGetField(mxSpecies, i, "fbc_chemicalFormula");
 		    nBuflen = (mxGetM(mxChemicalFormula)*mxGetN(mxChemicalFormula)+1);
 		    pacChemicalFormula = (char *)mxCalloc(nBuflen, sizeof(char));
-		    nStatus = mxGetString(mxChemicalFormula, pacChemicalFormula, nBuflen);
+		    nStatus = mxGetString(mxChemicalFormula, pacChemicalFormula, (mwSize)(nBuflen));
         
 		    if (nStatus != 0)
 		    {
@@ -2061,7 +2063,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxParameters, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2075,7 +2077,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxParameters, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2089,7 +2091,7 @@ GetUnit ( mxArray * mxUnits,
 		mxName = mxGetField(mxParameters, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2103,7 +2105,7 @@ GetUnit ( mxArray * mxUnits,
 		mxUnits = mxGetField(mxParameters, i, "units");
 		nBuflen = (mxGetM(mxUnits)*mxGetN(mxUnits)+1);
 		pacUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxUnits, pacUnits, nBuflen);
+		nStatus = mxGetString(mxUnits, pacUnits, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2134,7 +2136,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxParameters, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2147,7 +2149,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxParameters, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -2179,7 +2181,7 @@ GetUnit ( mxArray * mxUnits,
  		  mxMetaid = mxGetField(mxParameters, i, "metaid");
  		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2192,7 +2194,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxParameters, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -2290,7 +2292,7 @@ GetUnit ( mxArray * mxUnits,
 		mxTypecode = mxGetField(mxRule, i, "typecode");
 		nBuflen = (mxGetM(mxTypecode)*mxGetN(mxTypecode)+1);
 		pacTypecode = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxTypecode, pacTypecode, nBuflen);
+		nStatus = mxGetString(mxTypecode, pacTypecode, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2302,7 +2304,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxRule, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2314,7 +2316,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxRule, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2325,7 +2327,7 @@ GetUnit ( mxArray * mxUnits,
 		mxFormula = mxGetField(mxRule, i, "formula");
 		nBuflen = (mxGetM(mxFormula)*mxGetN(mxFormula)+1);
 		pacFormula = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxFormula, pacFormula, nBuflen);
+		nStatus = mxGetString(mxFormula, pacFormula, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2345,7 +2347,7 @@ GetUnit ( mxArray * mxUnits,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -2365,7 +2367,7 @@ GetUnit ( mxArray * mxUnits,
 		mxVariable = mxGetField(mxRule, i, "variable");
 		nBuflen = (mxGetM(mxVariable)*mxGetN(mxVariable)+1);
 		pacVariable = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxVariable, pacVariable, nBuflen);
+		nStatus = mxGetString(mxVariable, pacVariable, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2376,7 +2378,7 @@ GetUnit ( mxArray * mxUnits,
 		mxSpecies = mxGetField(mxRule, i, "species");
 		nBuflen = (mxGetM(mxSpecies)*mxGetN(mxSpecies)+1);
 		pacSpecies = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxSpecies, pacSpecies, nBuflen);
+		nStatus = mxGetString(mxSpecies, pacSpecies, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2388,7 +2390,7 @@ GetUnit ( mxArray * mxUnits,
 		mxCompartment = mxGetField(mxRule, i, "compartment");
 		nBuflen = (mxGetM(mxCompartment)*mxGetN(mxCompartment)+1);
 		pacCompartment = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxCompartment, pacCompartment, nBuflen);
+		nStatus = mxGetString(mxCompartment, pacCompartment, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2400,7 +2402,7 @@ GetUnit ( mxArray * mxUnits,
 		mxName = mxGetField(mxRule, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2412,7 +2414,7 @@ GetUnit ( mxArray * mxUnits,
 		mxUnits = mxGetField(mxRule, i, "units");
 		nBuflen = (mxGetM(mxUnits)*mxGetN(mxUnits)+1);
 		pacUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxUnits, pacUnits, nBuflen);
+		nStatus = mxGetString(mxUnits, pacUnits, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2425,7 +2427,7 @@ GetUnit ( mxArray * mxUnits,
       mxType = mxGetField(mxRule, i, "type");
       nBuflen = (mxGetM(mxType)*mxGetN(mxType)+1);
       pacType = (char *)mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxType, pacType, nBuflen);
+      nStatus = mxGetString(mxType, pacType, (mwSize)(nBuflen));
       
       if (nStatus != 0)
       {
@@ -2438,7 +2440,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxRule, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2459,7 +2461,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxRule, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2692,7 +2694,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxReaction, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2706,7 +2708,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxReaction, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2720,7 +2722,7 @@ GetUnit ( mxArray * mxUnits,
 		mxName = mxGetField(mxReaction, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -2771,7 +2773,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxReaction, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2784,7 +2786,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxReaction, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -2833,7 +2835,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxReaction, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2846,7 +2848,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxReaction, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -2889,7 +2891,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxCompartment = mxGetField(mxReaction, i, "compartment");
 		  nBuflen = (mxGetM(mxCompartment)*mxGetN(mxCompartment)+1);
 		  pacCompartment = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxCompartment, pacCompartment, nBuflen);
+		  nStatus = mxGetString(mxCompartment, pacCompartment, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -2995,7 +2997,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxReactant, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3009,7 +3011,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxReactant, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3023,7 +3025,7 @@ GetUnit ( mxArray * mxUnits,
 		mxSpecies = mxGetField(mxReactant, i, "species");
 		nBuflen = (mxGetM(mxSpecies)*mxGetN(mxSpecies)+1);
 		pacSpecies = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxSpecies, pacSpecies, nBuflen);
+		nStatus = mxGetString(mxSpecies, pacSpecies, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3059,7 +3061,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxReactant, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -3079,7 +3081,7 @@ GetUnit ( mxArray * mxUnits,
       {
         nBuflen = (mxGetM(mxStoichiometryMath)*mxGetN(mxStoichiometryMath)+1);
         pacStoichiometryMath = (char *)mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxStoichiometryMath, pacStoichiometryMath, nBuflen);
+        nStatus = mxGetString(mxStoichiometryMath, pacStoichiometryMath, (mwSize)(nBuflen));
 
         if (nStatus != 0)
         {
@@ -3099,7 +3101,7 @@ GetUnit ( mxArray * mxUnits,
         /* get the formula returned */
         nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
         pacStoichiometryMath = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxOutput[0], (char *) pacStoichiometryMath, nBuflen);
+        nStatus = mxGetString(mxOutput[0], (char *) pacStoichiometryMath, (mwSize)(nBuflen));
 
         if (nStatus != 0)
         {
@@ -3134,7 +3136,7 @@ GetUnit ( mxArray * mxUnits,
 		    mxName = mxGetField(mxReactant, i, "name");
 		    nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		    pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		    nStatus = mxGetString(mxName, pacName, nBuflen);
+		    nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		    if (nStatus != 0)
 		    {
@@ -3147,7 +3149,7 @@ GetUnit ( mxArray * mxUnits,
 			  mxId = mxGetField(mxReactant, i, "id");
 			  nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			  pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			  nStatus = mxGetString(mxId, pacId, nBuflen);
+			  nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			  if (nStatus != 0)
 			  {
@@ -3164,7 +3166,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxReactant, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -3195,7 +3197,7 @@ GetUnit ( mxArray * mxUnits,
       mxName = mxGetField(mxReactant, i, "name");
       nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
       pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxName, pacName, nBuflen);
+      nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
       if (nStatus != 0)
       {
@@ -3208,7 +3210,7 @@ GetUnit ( mxArray * mxUnits,
       mxId = mxGetField(mxReactant, i, "id");
       nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
       pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxId, pacId, nBuflen);
+      nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
       if (nStatus != 0)
       {
@@ -3308,7 +3310,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxModifier, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3322,7 +3324,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxModifier, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3336,7 +3338,7 @@ GetUnit ( mxArray * mxUnits,
 		mxSpecies = mxGetField(mxModifier, i, "species");
 		nBuflen = (mxGetM(mxSpecies)*mxGetN(mxSpecies)+1);
 		pacSpecies = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxSpecies, pacSpecies, nBuflen);
+		nStatus = mxGetString(mxSpecies, pacSpecies, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3350,7 +3352,7 @@ GetUnit ( mxArray * mxUnits,
 		mxMetaid = mxGetField(mxModifier, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -3372,7 +3374,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxName = mxGetField(mxModifier, i, "name");
 		  nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		  pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxName, pacName, nBuflen);
+		  nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		  if (nStatus != 0)
 		  {
@@ -3385,7 +3387,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxModifier, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -3407,7 +3409,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxName = mxGetField(mxModifier, i, "name");
 		  nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		  pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxName, pacName, nBuflen);
+		  nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		  if (nStatus != 0)
 		  {
@@ -3420,7 +3422,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxModifier, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -3493,7 +3495,7 @@ GetUnit ( mxArray * mxUnits,
   mxNotes = mxGetField(mxKineticLaw, 0, "notes");
   nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
   pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+  nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -3507,7 +3509,7 @@ GetUnit ( mxArray * mxUnits,
   mxAnnotations = mxGetField(mxKineticLaw, 0, "annotation");
   nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
   pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -3522,7 +3524,7 @@ GetUnit ( mxArray * mxUnits,
   mxFormula = mxGetField(mxKineticLaw, 0, "formula");
   nBuflen = (mxGetM(mxFormula)*mxGetN(mxFormula)+1);
   pacFormula = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxFormula, pacFormula, nBuflen);
+  nStatus = mxGetString(mxFormula, pacFormula, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -3542,7 +3544,7 @@ GetUnit ( mxArray * mxUnits,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -3560,7 +3562,7 @@ GetUnit ( mxArray * mxUnits,
     mxTimeUnits = mxGetField(mxKineticLaw, 0, "timeUnits");
     nBuflen = (mxGetM(mxTimeUnits)*mxGetN(mxTimeUnits)+1);
     pacTimeUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxTimeUnits, pacTimeUnits, nBuflen);
+    nStatus = mxGetString(mxTimeUnits, pacTimeUnits, (mwSize)(nBuflen));
     
     if (nStatus != 0)
     {
@@ -3574,7 +3576,7 @@ GetUnit ( mxArray * mxUnits,
     mxSubstanceUnits = mxGetField(mxKineticLaw, 0, "substanceUnits");
     nBuflen = (mxGetM(mxSubstanceUnits)*mxGetN(mxSubstanceUnits)+1);
     pacSubstanceUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, nBuflen);
+    nStatus = mxGetString(mxSubstanceUnits, pacSubstanceUnits, (mwSize)(nBuflen));
     
     if (nStatus != 0)
     {
@@ -3602,7 +3604,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxKineticLaw, 0, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -3615,7 +3617,7 @@ GetUnit ( mxArray * mxUnits,
     mxMath = mxGetField(mxKineticLaw, 0, "formula");
     nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);   
     pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxMath, pacMath, nBuflen);
+    nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
     
     if (nStatus != 0)
     {
@@ -3635,7 +3637,7 @@ GetUnit ( mxArray * mxUnits,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -3668,7 +3670,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxKineticLaw, 0, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -3681,7 +3683,7 @@ GetUnit ( mxArray * mxUnits,
     mxMath = mxGetField(mxKineticLaw, 0, "math");
     nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);   
     pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxMath, pacMath, nBuflen);
+    nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
     
     if (nStatus != 0)
     {
@@ -3701,7 +3703,7 @@ GetUnit ( mxArray * mxUnits,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -3804,7 +3806,7 @@ GetUnit ( mxArray * mxUnits,
 		mxNotes = mxGetField(mxParameters, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3825,7 +3827,7 @@ GetUnit ( mxArray * mxUnits,
 		mxAnnotations = mxGetField(mxParameters, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3847,7 +3849,7 @@ GetUnit ( mxArray * mxUnits,
 		mxName = mxGetField(mxParameters, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3869,7 +3871,7 @@ GetUnit ( mxArray * mxUnits,
 		mxUnits = mxGetField(mxParameters, i, "units");
 		nBuflen = (mxGetM(mxUnits)*mxGetN(mxUnits)+1);
 		pacUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxUnits, pacUnits, nBuflen);
+		nStatus = mxGetString(mxUnits, pacUnits, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -3916,7 +3918,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxParameters, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -3929,7 +3931,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxParameters, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -3962,7 +3964,7 @@ GetUnit ( mxArray * mxUnits,
 		  mxMetaid = mxGetField(mxParameters, i, "metaid");
 		  nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		  pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		  nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
       
 		  if (nStatus != 0)
 		  {
@@ -3975,7 +3977,7 @@ GetUnit ( mxArray * mxUnits,
 			mxId = mxGetField(mxParameters, i, "id");
 			nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 			pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-			nStatus = mxGetString(mxId, pacId, nBuflen);
+			nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 			if (nStatus != 0)
 			{
@@ -4061,7 +4063,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		mxNotes = mxGetField(mxFunctionDefinitions, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4075,7 +4077,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		mxAnnotations = mxGetField(mxFunctionDefinitions, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4089,7 +4091,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		mxName = mxGetField(mxFunctionDefinitions, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4103,7 +4105,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		mxMetaid = mxGetField(mxFunctionDefinitions, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -4116,7 +4118,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		mxId = mxGetField(mxFunctionDefinitions, i, "id");
 		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxId, pacId, nBuflen);
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4130,7 +4132,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
 		mxMath = mxGetField(mxFunctionDefinitions, i, "math");
 		nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
 		pacFormula = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMath, pacFormula, nBuflen);
+		nStatus = mxGetString(mxMath, pacFormula, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4150,7 +4152,7 @@ GetFunctionDefinition ( mxArray * mxFunctionDefinitions,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -4239,7 +4241,7 @@ GetEvent ( mxArray * mxEvents,
 		mxNotes = mxGetField(mxEvents, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4253,7 +4255,7 @@ GetEvent ( mxArray * mxEvents,
 		mxAnnotations = mxGetField(mxEvents, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4267,7 +4269,7 @@ GetEvent ( mxArray * mxEvents,
 		mxName = mxGetField(mxEvents, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4281,7 +4283,7 @@ GetEvent ( mxArray * mxEvents,
 		mxMetaid = mxGetField(mxEvents, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -4297,7 +4299,7 @@ GetEvent ( mxArray * mxEvents,
 
       nBuflen = (mxGetM(mxTrigger)*mxGetN(mxTrigger)+1);
 		pacTrigger = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxTrigger, pacTrigger, nBuflen);
+		nStatus = mxGetString(mxTrigger, pacTrigger, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4316,7 +4318,7 @@ GetEvent ( mxArray * mxEvents,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacTrigger = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -4342,7 +4344,7 @@ GetEvent ( mxArray * mxEvents,
     {
 		nBuflen = (mxGetM(mxDelay)*mxGetN(mxDelay)+1);
 		pacDelay = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxDelay, pacDelay, nBuflen);
+		nStatus = mxGetString(mxDelay, pacDelay, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4361,7 +4363,7 @@ GetEvent ( mxArray * mxEvents,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacDelay, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -4390,7 +4392,7 @@ GetEvent ( mxArray * mxEvents,
 		  mxTimeUnits = mxGetField(mxEvents, i, "timeUnits");
 		  nBuflen = (mxGetM(mxTimeUnits)*mxGetN(mxTimeUnits)+1);
 		  pacTimeUnits = (char *)mxCalloc(nBuflen, sizeof(char));
-		  nStatus = mxGetString(mxTimeUnits, pacTimeUnits, nBuflen);
+		  nStatus = mxGetString(mxTimeUnits, pacTimeUnits, (mwSize)(nBuflen));
 
 		  if (nStatus != 0)
 		  {
@@ -4410,7 +4412,7 @@ GetEvent ( mxArray * mxEvents,
     mxId = mxGetField(mxEvents, i, "id");
     nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
     pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxId, pacId, nBuflen);
+    nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
     
     if (nStatus != 0)
     {
@@ -4522,7 +4524,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 		mxNotes = mxGetField(mxEventAssignment, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4536,7 +4538,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 		mxAnnotations = mxGetField(mxEventAssignment, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4550,7 +4552,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 		mxMetaid = mxGetField(mxEventAssignment, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -4563,7 +4565,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 		mxVariable = mxGetField(mxEventAssignment, i, "variable");
 		nBuflen = (mxGetM(mxVariable)*mxGetN(mxVariable)+1);
 		pacVariable = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxVariable, pacVariable, nBuflen);
+		nStatus = mxGetString(mxVariable, pacVariable, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4576,7 +4578,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
 		mxMath = mxGetField(mxEventAssignment, i, "math");
 		nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
 		pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMath, pacMath, nBuflen);
+		nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4596,7 +4598,7 @@ GetEventAssignment ( mxArray * mxEventAssignment,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -4683,7 +4685,7 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 		mxNotes = mxGetField(mxCompartmentType, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4697,7 +4699,7 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 		mxAnnotations = mxGetField(mxCompartmentType, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4711,7 +4713,7 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 		mxName = mxGetField(mxCompartmentType, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4724,7 +4726,7 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 		mxMetaid = mxGetField(mxCompartmentType, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -4737,7 +4739,7 @@ GetCompartmentType ( mxArray * mxCompartmentType,
 		mxId = mxGetField(mxCompartmentType, i, "id");
 		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxId, pacId, nBuflen);
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4810,7 +4812,7 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 		mxNotes = mxGetField(mxSpeciesType, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4824,7 +4826,7 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 		mxAnnotations = mxGetField(mxSpeciesType, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4838,7 +4840,7 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 		mxName = mxGetField(mxSpeciesType, i, "name");
 		nBuflen = (mxGetM(mxName)*mxGetN(mxName)+1);
 		pacName = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxName, pacName, nBuflen);
+		nStatus = mxGetString(mxName, pacName, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4851,7 +4853,7 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 		mxMetaid = mxGetField(mxSpeciesType, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -4864,7 +4866,7 @@ GetSpeciesType ( mxArray * mxSpeciesType,
 		mxId = mxGetField(mxSpeciesType, i, "id");
 		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxId, pacId, nBuflen);
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4940,7 +4942,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		mxNotes = mxGetField(mxInitialAssignment, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4954,7 +4956,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		mxAnnotations = mxGetField(mxInitialAssignment, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4968,7 +4970,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		mxMetaid = mxGetField(mxInitialAssignment, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -4981,7 +4983,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		mxSymbol = mxGetField(mxInitialAssignment, i, "symbol");
 		nBuflen = (mxGetM(mxSymbol)*mxGetN(mxSymbol)+1);
 		pacSymbol = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxSymbol, pacSymbol, nBuflen);
+		nStatus = mxGetString(mxSymbol, pacSymbol, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -4994,7 +4996,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
 		mxMath = mxGetField(mxInitialAssignment, i, "math");
 		nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
 		pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMath, pacMath, nBuflen);
+		nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5014,7 +5016,7 @@ GetInitialAssignment ( mxArray * mxInitialAssignment,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -5094,7 +5096,7 @@ GetConstraint ( mxArray * mxConstraint,
 		mxNotes = mxGetField(mxConstraint, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5108,7 +5110,7 @@ GetConstraint ( mxArray * mxConstraint,
 		mxAnnotations = mxGetField(mxConstraint, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5122,7 +5124,7 @@ GetConstraint ( mxArray * mxConstraint,
 		mxMetaid = mxGetField(mxConstraint, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -5135,7 +5137,7 @@ GetConstraint ( mxArray * mxConstraint,
 		mxMessage = mxGetField(mxConstraint, i, "message");
 		nBuflen = (mxGetM(mxMessage)*mxGetN(mxMessage)+1);
 		pacMessage = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMessage, pacMessage, nBuflen);
+		nStatus = mxGetString(mxMessage, pacMessage, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5149,7 +5151,7 @@ GetConstraint ( mxArray * mxConstraint,
 		mxMath = mxGetField(mxConstraint, i, "math");
 		nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
 		pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMath, pacMath, nBuflen);
+		nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5169,7 +5171,7 @@ GetConstraint ( mxArray * mxConstraint,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -5246,7 +5248,7 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   mxNotes = mxGetField(mxStoichiometryMath, 0, "notes");
   nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
   pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+  nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5260,7 +5262,7 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   mxAnnotations = mxGetField(mxStoichiometryMath, 0, "annotation");
   nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
   pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5274,7 +5276,7 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
 	mxMetaid = mxGetField(mxStoichiometryMath, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 	pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-	nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+	nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
   
 	if (nStatus != 0)
 	{
@@ -5287,7 +5289,7 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
   mxMath = mxGetField(mxStoichiometryMath, 0, "math");
   nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
   pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxMath, pacMath, nBuflen);
+  nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5307,7 +5309,7 @@ GetStoichiometryMath ( mxArray * mxStoichiometryMath,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -5385,7 +5387,7 @@ GetTrigger ( mxArray * mxTrigger,
   mxNotes = mxGetField(mxTrigger, 0, "notes");
   nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
   pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+  nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5399,7 +5401,7 @@ GetTrigger ( mxArray * mxTrigger,
   mxAnnotations = mxGetField(mxTrigger, 0, "annotation");
   nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
   pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5413,7 +5415,7 @@ GetTrigger ( mxArray * mxTrigger,
 	mxMetaid = mxGetField(mxTrigger, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 	pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-	nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+	nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
   
 	if (nStatus != 0)
 	{
@@ -5426,7 +5428,7 @@ GetTrigger ( mxArray * mxTrigger,
   mxMath = mxGetField(mxTrigger, 0, "math");
   nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
   pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxMath, pacMath, nBuflen);
+  nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5446,7 +5448,7 @@ GetTrigger ( mxArray * mxTrigger,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -5535,7 +5537,7 @@ GetDelay ( mxArray * mxDelay,
   mxNotes = mxGetField(mxDelay, 0, "notes");
   nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
   pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+  nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5549,7 +5551,7 @@ GetDelay ( mxArray * mxDelay,
   mxAnnotations = mxGetField(mxDelay, 0, "annotation");
   nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
   pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5563,7 +5565,7 @@ GetDelay ( mxArray * mxDelay,
 	mxMetaid = mxGetField(mxDelay, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 	pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-	nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+	nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
   
 	if (nStatus != 0)
 	{
@@ -5576,7 +5578,7 @@ GetDelay ( mxArray * mxDelay,
   mxMath = mxGetField(mxDelay, 0, "math");
   nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
   pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxMath, pacMath, nBuflen);
+  nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5596,7 +5598,7 @@ GetDelay ( mxArray * mxDelay,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -5673,7 +5675,7 @@ GetPriority ( mxArray * mxPriority,
   mxNotes = mxGetField(mxPriority, 0, "notes");
   nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
   pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+  nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5687,7 +5689,7 @@ GetPriority ( mxArray * mxPriority,
   mxAnnotations = mxGetField(mxPriority, 0, "annotation");
   nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
   pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+  nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5701,7 +5703,7 @@ GetPriority ( mxArray * mxPriority,
 	mxMetaid = mxGetField(mxPriority, 0, "metaid");
 	nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 	pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-	nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+	nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
   
 	if (nStatus != 0)
 	{
@@ -5714,7 +5716,7 @@ GetPriority ( mxArray * mxPriority,
   mxMath = mxGetField(mxPriority, 0, "math");
   nBuflen = (mxGetM(mxMath)*mxGetN(mxMath)+1);
   pacMath = (char *)mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxMath, pacMath, nBuflen);
+  nStatus = mxGetString(mxMath, pacMath, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -5734,7 +5736,7 @@ GetPriority ( mxArray * mxPriority,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -5821,7 +5823,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 		mxNotes = mxGetField(mxFluxBound, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5835,7 +5837,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 		mxAnnotations = mxGetField(mxFluxBound, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5849,7 +5851,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 		mxMetaid = mxGetField(mxFluxBound, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -5869,7 +5871,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 		mxId = mxGetField(mxFluxBound, i, "fbc_id");
 		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxId, pacId, nBuflen);
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5882,7 +5884,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 		mxReaction = mxGetField(mxFluxBound, i, "fbc_reaction");
 		nBuflen = (mxGetM(mxReaction)*mxGetN(mxReaction)+1);
 		pacReaction = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxReaction, pacReaction, nBuflen);
+		nStatus = mxGetString(mxReaction, pacReaction, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5895,7 +5897,7 @@ GetFluxBound ( mxArray * mxFluxBound,
 		mxOperation = mxGetField(mxFluxBound, i, "fbc_operation");
 		nBuflen = (mxGetM(mxOperation)*mxGetN(mxOperation)+1);
 		pacOperation = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxOperation, pacOperation, nBuflen);
+		nStatus = mxGetString(mxOperation, pacOperation, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5976,7 +5978,7 @@ GetObjective ( mxArray * mxObjective,
 		mxNotes = mxGetField(mxObjective, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -5990,7 +5992,7 @@ GetObjective ( mxArray * mxObjective,
 		mxAnnotations = mxGetField(mxObjective, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -6004,7 +6006,7 @@ GetObjective ( mxArray * mxObjective,
 		mxMetaid = mxGetField(mxObjective, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -6024,7 +6026,7 @@ GetObjective ( mxArray * mxObjective,
 		mxId = mxGetField(mxObjective, i, "fbc_id");
 		nBuflen = (mxGetM(mxId)*mxGetN(mxId)+1);
 		pacId = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxId, pacId, nBuflen);
+		nStatus = mxGetString(mxId, pacId, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -6037,7 +6039,7 @@ GetObjective ( mxArray * mxObjective,
 		mxType = mxGetField(mxObjective, i, "fbc_type");
 		nBuflen = (mxGetM(mxType)*mxGetN(mxType)+1);
 		pacType = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxType, pacType, nBuflen);
+		nStatus = mxGetString(mxType, pacType, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -6114,7 +6116,7 @@ GetFluxObjective ( mxArray * mxFluxObjective,
 		mxNotes = mxGetField(mxFluxObjective, i, "notes");
 		nBuflen = (mxGetM(mxNotes)*mxGetN(mxNotes)+1);
 		pacNotes = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxNotes, pacNotes, nBuflen);
+		nStatus = mxGetString(mxNotes, pacNotes, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -6128,7 +6130,7 @@ GetFluxObjective ( mxArray * mxFluxObjective,
 		mxAnnotations = mxGetField(mxFluxObjective, i, "annotation");
 		nBuflen = (mxGetM(mxAnnotations)*mxGetN(mxAnnotations)+1);
 		pacAnnotations = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxAnnotations, pacAnnotations, nBuflen);
+		nStatus = mxGetString(mxAnnotations, pacAnnotations, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{
@@ -6142,7 +6144,7 @@ GetFluxObjective ( mxArray * mxFluxObjective,
 		mxMetaid = mxGetField(mxFluxObjective, i, "metaid");
 		nBuflen = (mxGetM(mxMetaid)*mxGetN(mxMetaid)+1);
 		pacMetaid = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxMetaid, pacMetaid, nBuflen);
+		nStatus = mxGetString(mxMetaid, pacMetaid, (mwSize)(nBuflen));
     
 		if (nStatus != 0)
 		{
@@ -6162,7 +6164,7 @@ GetFluxObjective ( mxArray * mxFluxObjective,
 		mxReaction = mxGetField(mxFluxObjective, i, "fbc_reaction");
 		nBuflen = (mxGetM(mxReaction)*mxGetN(mxReaction)+1);
 		pacReaction = (char *)mxCalloc(nBuflen, sizeof(char));
-		nStatus = mxGetString(mxReaction, pacReaction, nBuflen);
+		nStatus = mxGetString(mxReaction, pacReaction, (mwSize)(nBuflen));
 
 		if (nStatus != 0)
 		{

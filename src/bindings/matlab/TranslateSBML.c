@@ -34,9 +34,9 @@
 #include <matrix.h>
 #endif
 
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLTypes.h"
-#include "sbml/util/util.h"
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLTypes.h>
+#include <sbml/util/util.h>
 
 
 
@@ -67,9 +67,9 @@ void GetStoichiometryMath (SpeciesReference_t *, unsigned int, unsigned int);
 void GetDelay           (Event_t *, unsigned int, unsigned int);
 void GetTrigger         (Event_t *, unsigned int, unsigned int);
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
+void GetPriority        (Event_t *, unsigned int, unsigned int);
 
 void GetNamespaces   (SBMLDocument_t *);
-void GetPriority           (Event_t *, unsigned int, unsigned int);
 
 
 
@@ -365,7 +365,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   nBuflen = (mxGetM(mxOctave[0])*mxGetN(mxOctave[0])+1);
   pacTempString1 = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOctave[0], pacTempString1, nBuflen);
+  nStatus = mxGetString(mxOctave[0], pacTempString1, (mwSize)(nBuflen));
 
   if (nStatus != 0)
   {
@@ -422,7 +422,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         */
         nBufferLen  = (mxGetM(prhs[0]) * mxGetN(prhs[0])) + 1;
         pacFilename = (char *) mxCalloc(nBufferLen, sizeof(char));
-        nStatus     = mxGetString(prhs[0], pacFilename, nBufferLen);
+        nStatus     = mxGetString(prhs[0], pacFilename, (mwSize)(nBufferLen));
  
         if (nStatus != 0)
         {
@@ -443,7 +443,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         }
         
         /* if a second argument has been given this is the flag indicating
-         * whether to validate the model or not
+         * whether to validate the Model or not
          */
         if (nrhs > 1)
         {
@@ -476,7 +476,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         /* get the filename returned */
         nBuflen = (mxGetM(mxFilename[0])*mxGetN(mxFilename[0])+1);
         pacTempString1 = (char *) mxCalloc(nBuflen, sizeof(char));
-        nStatus = mxGetString(mxFilename[0], pacTempString1, nBuflen);
+        nStatus = mxGetString(mxFilename[0], pacTempString1, (mwSize)(nBuflen));
         
         if (nStatus != 0)
         {
@@ -485,7 +485,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
         nBufferLen = (mxGetM(mxFilename[1])*mxGetN(mxFilename[1])+1);
         pacTempString2 = (char *) mxCalloc(nBufferLen, sizeof(char));
-        nStatus = mxGetString(mxFilename[1], pacTempString2, nBufferLen);
+        nStatus = mxGetString(mxFilename[1], pacTempString2, (mwSize)(nBufferLen));
         
         if (nStatus != 0)
         {
@@ -514,7 +514,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
         nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
         pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
-        mxGetString(mxReply[0], pacReply, nBufferLen);
+        mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
   
         if (strcmp_insensitive(pacReply, "y") == 0)
         {
@@ -568,7 +568,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
         nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
         pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
-        mxGetString(mxReply[0], pacReply, nBufferLen);
+        mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
   
         if (strcmp_insensitive(pacReply, "y") == 0)
         {
@@ -603,7 +603,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   
   /**
    *  if errors occur report these 
-   *  promt user as to whether to import the model    
+   *  promt user as to whether to import the Model    
    */
 
     if (totalerrors != 0)
@@ -636,7 +636,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
           nBufferLen = (mxGetM(mxWarn[0])*mxGetN(mxWarn[0])+1);
           pacWarn = (char *) mxCalloc(nBufferLen, sizeof(char));
-          mxGetString(mxWarn[0], pacWarn, nBufferLen);
+          mxGetString(mxWarn[0], pacWarn, (mwSize)(nBufferLen));
 
           if (strcmp_insensitive(pacWarn, "n") == 0) 
           {
@@ -717,7 +717,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
           nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
           pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
-          mxGetString(mxReply[0], pacReply, nBufferLen);
+          mxGetString(mxReply[0], pacReply, (mwSize)(nBufferLen));
         }
         else
         {
@@ -732,7 +732,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       pacReply = "y";
     }
   }
-  /* if pacReply is 'y' we read the model */
+  /* if pacReply is 'y' we read the Model */
   if (strcmp_insensitive(pacReply, "y") == 0) 
   {
     sbmlModel = SBMLDocument_getModel(sbmlDocument);
@@ -987,7 +987,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   }
   else
   {
-    /* we havent read in a model */
+    /* we havent read in a Model */
     mxNone[0] = mxCreateString(pacNone);
     mexCallMATLAB(0, NULL, 1, mxNone, "disp");
     plhs[0] = mxCreateStructArray(0, 0, 0, NULL);
@@ -3699,7 +3699,7 @@ GetStoichiometryMath ( SpeciesReference_t      *pSpeciesReference,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -3976,7 +3976,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
       /* get the formula returned */
       nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
       pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
       
       if (nStatus != 0)
       {
@@ -3998,7 +3998,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
       /* get the formula returned */
       nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
       pacMathFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacMathFormula, nBuflen);
+      nStatus = mxGetString(mxOutput[0], (char *) pacMathFormula, (mwSize)(nBuflen));
       
       if (nStatus != 0)
       {
@@ -4633,7 +4633,7 @@ GetRule ( Model_t      *pModel,
   
   /* variables for mathML - matlab hack */
   int nStatus;
-  mwSize nBuflen;
+  size_t nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
 
   if (unSBMLLevel == 1) 
@@ -4709,7 +4709,7 @@ GetRule ( Model_t      *pModel,
   /* get the formula returned */
   nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
   pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+  nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -5138,7 +5138,7 @@ GetFunctionDefinition ( Model_t      *pModel,
   /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
     
     if (nStatus != 0)
     {
@@ -5400,7 +5400,7 @@ GetEvent (Model_t      *pModel,
       /* get the formula returned */
       nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
       pacTrigger = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, nBuflen);
+      nStatus = mxGetString(mxOutput[0], (char *) pacTrigger, (mwSize)(nBuflen));
 
       if (nStatus != 0)
       {
@@ -5425,7 +5425,7 @@ GetEvent (Model_t      *pModel,
       /* get the formula returned */
       nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
       pacDelay = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacDelay, nBuflen);
+      nStatus = mxGetString(mxOutput[0], (char *) pacDelay, (mwSize)(nBuflen));
 
       if (nStatus != 0)
       {
@@ -5666,7 +5666,7 @@ GetEventAssignment ( Event_t      *pEvent,
   /* get the formula returned */
   nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
   pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+  nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -5844,7 +5844,7 @@ GetTrigger ( Event_t      *pEvent,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -6007,7 +6007,7 @@ GetDelay ( Event_t      *pEvent,
       /* get the formula returned */
       nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
       pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+      nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
       if (nStatus != 0)
       {
@@ -6148,7 +6148,7 @@ GetPriority ( Event_t      *pEvent,
     /* get the formula returned */
     nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
     pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
-    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, (mwSize)(nBuflen));
 
     if (nStatus != 0)
     {
@@ -6771,7 +6771,7 @@ GetInitialAssignment (Model_t      *pModel,
   /* get the formula returned */
   nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
   pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+  nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {
@@ -6955,7 +6955,7 @@ GetConstraint (Model_t      *pModel,
   /* get the formula returned */
   nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
   pacMath = (char *) mxCalloc(nBuflen, sizeof(char));
-  nStatus = mxGetString(mxOutput[0], (char *) pacMath, nBuflen);
+  nStatus = mxGetString(mxOutput[0], (char *) pacMath, (mwSize)(nBuflen));
   
   if (nStatus != 0)
   {

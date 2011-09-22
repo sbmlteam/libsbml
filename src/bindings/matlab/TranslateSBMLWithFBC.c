@@ -28,22 +28,22 @@
 #include <stdio.h>
 #include <string.h>
 
+
 #include <mex.h>
 
 #ifndef USE_OCTAVE
 #include <matrix.h>
 #endif
+
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLTypes.h>
+#include <sbml/util/util.h>
+
 #include <sbml/packages/fbc/extension/FbcExtension.h>
-
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLTypes.h"
-#include "sbml/util/util.h"
-
-#include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/extension/FbcModelPlugin.h>
 #include <sbml/packages/fbc/extension/FbcSpeciesPlugin.h>
 
-
+#include <sbml/packages/fbc/sbml/FluxBound.h>
 #include <sbml/packages/fbc/sbml/FluxObjective.h>
 #include <sbml/packages/fbc/sbml/Objective.h>
 
@@ -79,7 +79,7 @@ void GetTrigger         (Event_t *, unsigned int, unsigned int);
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 void GetPriority        (Event_t *, unsigned int, unsigned int);
 
-void GetFluxObjective   (Objective_t *, unsigned int, unsigned int);
+void GetFluxObjective   (Objective_t *, unsigned int, unsigned int, unsigned int);
 
 void GetNamespaces   (SBMLDocument_t *);
 
