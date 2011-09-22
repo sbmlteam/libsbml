@@ -137,14 +137,16 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray * mxName, * mxId, *mxNamespaces, *mxMetaid, *mxTimeSymbol;
   mxArray * mxSubstanceUnits, * mxTimeUnits, *mxLengthUnits, *mxAreaUnits;
   mxArray * mxVolumeUnits, * mxExtentUnits, *mxConversionFactor;
-  mxArray * mxDelaySymbol, *mxAvoSymbol;
+  mxArray * mxDelaySymbol, *mxAvoSymbol, *mxActiveObjective;
 	unsigned int nLevel, nVersion, nFBCVersion;
 	char * pacNotes, * pacAnnotations;
   char * pacName, * pacId, *pacMetaid;
   char * pacSubstanceUnits, * pacTimeUnits, *pacLengthUnits, *pacAreaUnits;
-  char * pacVolumeUnits, * pacExtentUnits, *pacConversionFactor;
+  char * pacVolumeUnits, * pacExtentUnits, *pacConversionFactor, *pacActiveObjective;
   int nSBOTerm;
 	
+  SBasePlugin_t * plugin;
+
 	mxArray * mxParameters, * mxCompartments, * mxFunctionDefinitions;
   mxArray * mxUnitDefinitions, *mxSBOTerm;
 	mxArray * mxSpecies, * mxRules, * mxReactions, * mxEvents, * mxConstraints;
@@ -540,6 +542,19 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       
       mxObjectives = mxGetField(mxModel[0], 0, "fbc_objective");
       GetObjective(mxObjectives, nLevel, nVersion, nFBCVersion, sbmlModel);
+      
+      /* get conversionFactor */
+      mxActiveObjective = mxGetField(mxModel[0], 0, "fbc_activeObjective");
+		  nBuflen = (mxGetM(mxActiveObjective)*mxGetN(mxActiveObjective)+1);
+		  pacActiveObjective = (char *)mxCalloc(nBuflen, sizeof(char));
+		  nStatus = mxGetString(mxActiveObjective, pacActiveObjective, nBuflen);
+      
+		  if (nStatus != 0)
+		  {
+			  mexErrMsgTxt("Cannot copy ActiveObjective");
+		  }
+      FbcModelPlugin_setActiveObjectiveId(SBase_getPlugin(sbmlModel, "fbc"),
+        pacActiveObjective);
     }
 	}
 
@@ -1603,13 +1618,15 @@ GetUnit ( mxArray * mxUnits,
   char * pacConversionFactor;
   char * pacChemicalFormula;
 
-  mxArray *mxMetaid, *mxConversionFactor;
+  mxArray *mxMetaid, *mxConversionFactor, *mxChemicalFormula;
 	mxArray * mxNotes, * mxAnnotations, * mxName, * mxId, * mxCompartment;
   mxArray * mxInitialAmount, * mxUnits, * mxSpeciesType;
 	mxArray * mxInitialConcentration, * mxSpatialSizeUnits, * mxHasOnlySubstance;
   mxArray * mxBoundaryCondition, * mxCharge, * mxSBOTerm, * mxSubstanceUnits;
 	mxArray * mxConstant, * mxIsSetInitialAmt, * mxIsSetInitialConc, * mxIsSetCharge;
   
+  SBasePlugin_t *plugin;
+
 	Species_t *pSpecies;
 
 	int i;
@@ -1927,7 +1944,31 @@ GetUnit ( mxArray * mxUnits,
 		  }
 
 		  Species_setConversionFactor(pSpecies, pacConversionFactor);
-		}
+
+      if (fbcPresent == 1)
+      {
+        plugin = SBase_getPlugin((SBase_t *)(pSpecies), "fbc");
+
+        /* get charge */
+        mxCharge = mxGetField(mxSpecies, i, "fbc_charge");
+        nCharge = (int)mxGetScalar(mxCharge);
+
+        FbcSpeciesPlugin_setCharge(plugin, nCharge);
+        
+        /* getChemicalFormula */
+        mxChemicalFormula = mxGetField(mxSpecies, i, "fbc_chemicalFormula");
+		    nBuflen = (mxGetM(mxChemicalFormula)*mxGetN(mxChemicalFormula)+1);
+		    pacChemicalFormula = (char *)mxCalloc(nBuflen, sizeof(char));
+		    nStatus = mxGetString(mxChemicalFormula, pacChemicalFormula, nBuflen);
+        
+		    if (nStatus != 0)
+		    {
+			    mexErrMsgTxt("Cannot copy ChemicalFormula");
+		    }
+
+		    FbcSpeciesPlugin_setChemicalFormula(plugin, pacChemicalFormula);
+  		}
+    }
 
 
     /* free any memory allocated */
@@ -1961,6 +2002,8 @@ GetUnit ( mxArray * mxUnits,
   	  mxFree(pacId);
   	  mxFree(pacSubstanceUnits);
       mxFree(pacConversionFactor);
+      if (fbcPresent)
+        mxFree(pacChemicalFormula);
     }
 	}
 
