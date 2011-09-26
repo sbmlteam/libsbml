@@ -400,6 +400,90 @@ START_TEST (test_convertParameters_4)
 END_TEST
 
 
+START_TEST (test_convertParameters_fromFile)
+{
+  string filename(TestDataDirectory);
+  filename += "units1.xml";
+
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  fail_unless(d != NULL);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.008) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "kilogram");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(1)->getValue(), 2) == true);
+  fail_unless (d->getModel()->getParameter(1)->getUnits() == "unitSid_0");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(2)->getValue(), 2) == true);
+  fail_unless (d->getModel()->getParameter(2)->getUnits() == "unitSid_0");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(3)->getValue(), 1.204428358e24) == true);
+  fail_unless (d->getModel()->getParameter(3)->getUnits() == "dimensionless");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(4)->getValue(), 2) == true);
+  fail_unless (d->getModel()->getParameter(4)->getUnits() == "ml1");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(5)->getValue(), 2.901295339109152326e48) == true);
+  fail_unless (d->getModel()->getParameter(5)->getUnits() == "dimensionless");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(6)->getValue(), 0.002) == true);
+  fail_unless (d->getModel()->getParameter(6)->getUnits() == "unitSid_1");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(7)->getValue(), 4.0) == true);
+  fail_unless (d->getModel()->getParameter(7)->getUnits() == "kilogram");
+
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 3);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "ml1");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  ud = d->getModel()->getUnitDefinition(1);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -3.0) == true);
+
+  ud = d->getModel()->getUnitDefinition(2);
+  fail_unless(ud->getId() == "unitSid_1");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 3.0) == true);
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
 Suite *
 create_suite_TestUnitsConverter (void)
 { 
@@ -416,6 +500,7 @@ create_suite_TestUnitsConverter (void)
   tcase_add_test(tcase, test_convertParameters_2);
   tcase_add_test(tcase, test_convertParameters_3);
   tcase_add_test(tcase, test_convertParameters_4);
+  tcase_add_test(tcase, test_convertParameters_fromFile);
 
   suite_add_tcase(suite, tcase);
 
