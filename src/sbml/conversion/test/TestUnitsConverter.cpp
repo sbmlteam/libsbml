@@ -36,6 +36,7 @@
 
 
 #include <string>
+using namespace std;
 
 #include <check.h>
 
@@ -402,7 +403,7 @@ END_TEST
 
 START_TEST (test_convertParameters_fromFile)
 {
-  std::string filename(TestDataDirectory);
+  string filename(TestDataDirectory);
   filename += "units1.xml";
 
   SBMLUnitsConverter * units = new SBMLUnitsConverter();
@@ -484,6 +485,595 @@ START_TEST (test_convertParameters_fromFile)
 }
 END_TEST
 
+START_TEST (test_convert_ampere_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AMPERE);
+
+  units->setDocument(d);
+
+  /* 3 Amps = 3 Amps */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "ampere");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_ampere_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AMPERE);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Amps) = 6 Amps */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 6) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "ampere");
+  
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_ampere_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AMPERE);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((Amps)^2) = 3 ((Amps)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "my_ud");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "my_ud");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_ampere_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AMPERE);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3Amps)^2) = 27 ((Amps)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 27) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_avogadro_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AVOGADRO);
+
+  units->setDocument(d);
+
+  /* 3 avogadro = 1.806642537e24 dimensionless */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 1.806642537e24) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_avogadro_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AVOGADRO);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Avogadro) = 3.613285074e24 dimensionless */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3.613285074e24) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+  
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_avogadro_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AVOGADRO);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((avogadro)^2) = 1.087985752165932123e48 (dimensionless) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 1.087985752165932123e48) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_avogadro_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_AVOGADRO);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3avogadro)^2) = 9.791871769493389107e48 (dimensionless) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  double ans = pow((6.02214179e23 * 3), 2)*3;
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), ans) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_hertz_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+
+  units->setDocument(d);
+
+  /* 3 Hz = 3 ((sec)^-1) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -1.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_hertz_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Hz) = 6 ((sec)^-1) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 6) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -1.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_hertz_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((Hz)^2) = 3 ((sec)^-2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_hertz_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3Hz)^2) = 27 ((sec)^-2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 27) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_candela_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_CANDELA);
+
+  units->setDocument(d);
+
+  /* 3 Candela = 3 Candela */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "candela");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_candela_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_CANDELA);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Candela) = 6 Candela */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 6) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "candela");
+  
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_candela_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_CANDELA);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((Candela)^2) = 3 ((Candela)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "my_ud");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "my_ud");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_CANDELA);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_candela_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_CANDELA);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3Candela)^2) = 27 ((Candela)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 27) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_CANDELA);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestUnitsConverter (void)
 { 
@@ -501,6 +1091,22 @@ create_suite_TestUnitsConverter (void)
   tcase_add_test(tcase, test_convertParameters_3);
   tcase_add_test(tcase, test_convertParameters_4);
   tcase_add_test(tcase, test_convertParameters_fromFile);
+  tcase_add_test(tcase, test_convert_ampere_1);
+  tcase_add_test(tcase, test_convert_ampere_2);
+  tcase_add_test(tcase, test_convert_ampere_3);
+  tcase_add_test(tcase, test_convert_ampere_4);
+  tcase_add_test(tcase, test_convert_avogadro_1);
+  tcase_add_test(tcase, test_convert_avogadro_2);
+  tcase_add_test(tcase, test_convert_avogadro_3);
+  tcase_add_test(tcase, test_convert_avogadro_4);
+  tcase_add_test(tcase, test_convert_hertz_1);
+  tcase_add_test(tcase, test_convert_hertz_2);
+  tcase_add_test(tcase, test_convert_hertz_3);
+  tcase_add_test(tcase, test_convert_hertz_4);
+  tcase_add_test(tcase, test_convert_candela_1);
+  tcase_add_test(tcase, test_convert_candela_2);
+  tcase_add_test(tcase, test_convert_candela_3);
+  tcase_add_test(tcase, test_convert_candela_4);
 
   suite_add_tcase(suite, tcase);
 
