@@ -402,7 +402,7 @@ END_TEST
 
 START_TEST (test_convertParameters_fromFile)
 {
-  string filename(TestDataDirectory);
+  std::string filename(TestDataDirectory);
   filename += "units1.xml";
 
   SBMLUnitsConverter * units = new SBMLUnitsConverter();

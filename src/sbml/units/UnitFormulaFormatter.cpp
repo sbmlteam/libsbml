@@ -417,7 +417,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node,
     unit = tempUD->getUnit(i);
     /* dont change the exponent on a dimensionless unit */
     if (unit->getKind() != UNIT_KIND_DIMENSIONLESS)
-      unit->setExponentUnitChecking(-1 * unit->getExponent());
+      unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
     ud->addUnit(unit);
   }
   delete tempUD;
@@ -1164,7 +1164,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setKind(tempUD->getUnit(0)->getKind());
             unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
             unit->setScale(tempUD->getUnit(0)->getScale());
-            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponent());
+            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponentUnitChecking());
             unit->setOffset(tempUD->getUnit(0)->getOffset());
 
             ud->addUnit(unit);
@@ -1191,7 +1191,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setKind(tempUD->getUnit(0)->getKind());
             unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
             unit->setScale(tempUD->getUnit(0)->getScale());
-            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponent());
+            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponentUnitChecking());
             unit->setOffset(tempUD->getUnit(0)->getOffset());
 
             ud->addUnit(unit);
@@ -1217,7 +1217,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setKind(tempUD->getUnit(0)->getKind());
             unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
             unit->setScale(tempUD->getUnit(0)->getScale());
-            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponent());
+            unit->setExponentUnitChecking(tempUD->getUnit(0)->getExponentUnitChecking());
             unit->setOffset(tempUD->getUnit(0)->getOffset());
 
             ud->addUnit(unit);
@@ -1264,7 +1264,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                     model->getUnitDefinition(n)->getUnit(p)->getExponentUnitChecking());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -1377,7 +1377,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         unit->setKind(tempUd->getUnit(0)->getKind());
         unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
         unit->setScale(tempUd->getUnit(0)->getScale());
-        unit->setExponentUnitChecking(tempUd->getUnit(0)->getExponent());
+        unit->setExponentUnitChecking(tempUd->getUnit(0)->getExponentUnitChecking());
         unit->setOffset(tempUd->getUnit(0)->getOffset());
 
         subsUD->addUnit(unit);
@@ -1428,7 +1428,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                     model->getUnitDefinition(n)->getUnit(p)->getExponentUnitChecking());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -1528,7 +1528,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             unit->setScale(
                          model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                      model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                      model->getUnitDefinition(n)->getUnit(p)->getExponentUnitChecking());
             unit->setOffset(
                         model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -1586,7 +1586,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     for (n = 0; n < sizeUD->getNumUnits(); n++)
     {
       unit = sizeUD->getUnit(n);
-      unit->setExponentUnitChecking(-1 * unit->getExponent());
+      unit->setExponentUnitChecking(-1 * unit->getExponentUnitChecking());
 
       ud->addUnit(unit);
     }
@@ -1662,7 +1662,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                     model->getUnitDefinition(n)->getUnit(p)->getExponentAsDouble());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -1818,7 +1818,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                     model->getUnitDefinition(n)->getUnit(p)->getExponentUnitChecking());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -1917,7 +1917,7 @@ UnitFormulaFormatter::getExtentUnitDefinition()
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                     model->getUnitDefinition(n)->getUnit(p)->getExponentUnitChecking());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -1988,7 +1988,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
         unit->setKind(tempUd->getUnit(0)->getKind());
         unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
         unit->setScale(tempUd->getUnit(0)->getScale());
-        unit->setExponentUnitChecking(tempUd->getUnit(0)->getExponent());
+        unit->setExponentUnitChecking(tempUd->getUnit(0)->getExponentUnitChecking());
         unit->setOffset(tempUd->getUnit(0)->getOffset());
 
         ud->addUnit(unit);
@@ -2038,7 +2038,7 @@ UnitFormulaFormatter::getSpeciesSubstanceUnitDefinition(const Species * species)
             unit->setScale(
                         model->getUnitDefinition(n)->getUnit(p)->getScale());
             unit->setExponentUnitChecking(
-                     model->getUnitDefinition(n)->getUnit(p)->getExponent());
+                     model->getUnitDefinition(n)->getUnit(p)->getExponentUnitChecking());
             unit->setOffset(
                        model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
@@ -2132,7 +2132,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
     unit->setScale(
             modelExtent->getUnit(n)->getScale());
     unit->setExponentUnitChecking(
-            modelExtent->getUnit(n)->getExponent());
+            modelExtent->getUnit(n)->getExponentUnitChecking());
     unit->setOffset(
             modelExtent->getUnit(n)->getOffset());
 
@@ -2149,7 +2149,7 @@ UnitFormulaFormatter::getSpeciesExtentUnitDefinition(const Species * species)
     unit->setScale(
             conversion->getUnit(n)->getScale());
     unit->setExponentUnitChecking(
-            conversion->getUnit(n)->getExponent());
+            conversion->getUnit(n)->getExponentUnitChecking());
     unit->setOffset(
             conversion->getUnit(n)->getOffset());
 
