@@ -385,6 +385,11 @@ public:
 
 #endif  /* !SWIG */
 
+  /** @cond doxygen-libsbml-internal */
+
+  friend class SBase;
+
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -394,6 +399,8 @@ protected:
    */
   void removeDefault ();
 
+
+  bool containIdenticalSetNS(XMLNamespaces* rhs);
 
   typedef std::pair<std::string, std::string> PrefixURIPair;
   std::vector<PrefixURIPair> mNamespaces;

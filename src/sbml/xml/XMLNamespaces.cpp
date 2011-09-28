@@ -355,6 +355,32 @@ XMLNamespaces::removeDefault ()
     }
   }
 }
+
+bool 
+XMLNamespaces::containIdenticalSetNS(XMLNamespaces* rhs)
+{
+  bool equivalent = true;
+
+  if (getNumNamespaces() != rhs->getNumNamespaces())
+  {
+    equivalent = false;
+  }
+
+  int i = 0;
+
+  while(i < getNumNamespaces() && equivalent == true)
+  {
+    if (!rhs->hasNS(getURI(i), getPrefix(i)))
+    {
+      equivalent = false;
+    }
+
+    i++;
+  }
+
+  return equivalent;
+}
+
 /** @endcond */
 
 #ifndef SWIG

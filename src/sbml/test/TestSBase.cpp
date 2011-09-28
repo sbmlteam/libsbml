@@ -2194,6 +2194,62 @@ START_TEST(test_SBase_addCVTerms_num_check)
 }
 END_TEST
 
+START_TEST(test_SBase_matchesSBMLNamespaces)
+{
+  SBMLNamespaces *sbmlns1 = new SBMLNamespaces(3,1);
+  SBMLNamespaces *sbmlns2 = new SBMLNamespaces(2,4);
+
+  Species * s = new Species(sbmlns1);
+  Parameter * p = new Parameter(sbmlns1);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(p)) == true);
+  fail_unless(p->matchesSBMLNamespaces((SBase *)(s)) == true);
+
+  p = new Parameter(sbmlns2);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(p)) == false);
+  fail_unless(p->matchesSBMLNamespaces((SBase *)(s)) == false);
+
+  sbmlns1->addNamespace("http:foo", "bar");
+
+  Compartment *c = new Compartment(sbmlns1);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == false);
+  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == false);
+  fail_unless(p->matchesSBMLNamespaces((SBase *)(c)) == false);
+  fail_unless(c->matchesSBMLNamespaces((SBase *)(p)) == false);
+
+  s = new Species(sbmlns1);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == true);
+  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == true);
+
+  sbmlns2 = new SBMLNamespaces(3,1);
+  c = new Compartment(sbmlns2);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == false);
+  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == false);
+
+  sbmlns2->addNamespace("http:foo1", "bar1");
+  c = new Compartment(sbmlns2);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == false);
+  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == false);
+
+  sbmlns2->addNamespace("http:foo", "bar");
+  sbmlns1->addNamespace("http:foo1", "bar1");
+  s = new Species(sbmlns1);
+  c = new Compartment(sbmlns2);
+
+  fail_unless(s->matchesSBMLNamespaces((SBase *)(c)) == true);
+  fail_unless(c->matchesSBMLNamespaces((SBase *)(s)) == true);
+
+  delete s;
+  delete p;
+  delete c;
+}
+END_TEST
+
 Suite *
 create_suite_SBase (void)
 {
@@ -2237,6 +2293,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_unsetCVTerms );
   tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
   tcase_add_test(tcase, test_SBase_hasValidLevelVersionNamespaceCombination);
+  tcase_add_test(tcase, test_SBase_matchesSBMLNamespaces);
 
   suite_add_tcase(suite, tcase);
 

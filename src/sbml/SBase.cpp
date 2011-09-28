@@ -2686,6 +2686,29 @@ SBase::hasValidLevelVersionNamespaceCombination()
 
 /** @cond doxygen-libsbml-internal */
 
+bool
+SBase::matchesSBMLNamespaces(const SBase * sb)
+{
+  bool match = false;
+
+  SBMLNamespaces *sbmlns = getSBMLNamespaces();
+  SBMLNamespaces *sbmlns_rhs = sb->getSBMLNamespaces();
+
+  if (sbmlns->getLevel() != sbmlns_rhs->getLevel())
+    return match;
+
+  if (sbmlns->getVersion() != sbmlns_rhs->getVersion())
+    return match;
+
+  if (sbmlns->getNamespaces()->containIdenticalSetNS(sbmlns_rhs->getNamespaces()) 
+                                       == true)
+  {
+    match = true;
+  }
+
+  return match;
+}
+
 bool 
 SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns)
 {

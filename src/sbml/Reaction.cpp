@@ -769,6 +769,10 @@ Reaction::addReactant (const SpeciesReference* sr)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(sr)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (sr->isSetId() 
        && (getListOfReactants()->get(sr->getId())) != NULL)
   {
@@ -805,6 +809,10 @@ Reaction::addProduct (const SpeciesReference* sr)
   else if (getVersion() != sr->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(sr)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (sr->isSetId() 
        && (getListOfProducts()->get(sr->getId())) != NULL)
@@ -847,6 +855,10 @@ Reaction::addModifier (const ModifierSpeciesReference* msr)
   else if (getVersion() != msr->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(msr)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (msr->isSetId() 
        && (getListOfModifiers()->get(msr->getId())) != NULL)

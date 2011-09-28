@@ -560,6 +560,10 @@ KineticLaw::addParameter (const Parameter* p)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(p)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getParameter(p->getId()) != NULL)
   {
     // an parameter with this id already exists
@@ -595,6 +599,10 @@ KineticLaw::addLocalParameter (const LocalParameter* p)
   else if (getVersion() != p->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(p)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (getLocalParameter(p->getId()) != NULL)
   {

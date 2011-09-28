@@ -1052,6 +1052,10 @@ Model::addFunctionDefinition (const FunctionDefinition* fd)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(fd)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getFunctionDefinition(fd->getId()) != NULL)
   {
     // an object with this id already exists
@@ -1087,6 +1091,10 @@ Model::addUnitDefinition (const UnitDefinition* ud)
   else if (getVersion() != ud->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ud)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (getUnitDefinition(ud->getId()) != NULL)
   {
@@ -1124,6 +1132,10 @@ Model::addCompartmentType (const CompartmentType* ct)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ct)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getCompartmentType(ct->getId()) != NULL)
   {
     // an object with this id already exists
@@ -1159,6 +1171,10 @@ Model::addSpeciesType (const SpeciesType* st)
   else if (getVersion() != st->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(st)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (getSpeciesType(st->getId()) != NULL)
   {
@@ -1196,6 +1212,10 @@ Model::addCompartment (const Compartment* c)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(c)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getCompartment(c->getId()) != NULL)
   {
     // an object with this id already exists
@@ -1232,6 +1252,10 @@ Model::addSpecies (const Species* s)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(s)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getSpecies(s->getId()) != NULL)
   {
     // an object with this id already exists
@@ -1267,6 +1291,10 @@ Model::addParameter (const Parameter* p)
   else if (getVersion() != p->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(p)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (getParameter(p->getId()) != NULL)
   {
@@ -1313,6 +1341,10 @@ Model::addInitialAssignment (const InitialAssignment* ia)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ia)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getInitialAssignment(ia->getSymbol()) != NULL)
   {
     // an object with this id already exists
@@ -1348,6 +1380,10 @@ Model::addRule (const Rule* r)
   else if (getVersion() != r->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(r)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (!r->isAlgebraic() 
          && getRule(r->getVariable()) != NULL)
@@ -1386,6 +1422,10 @@ Model::addConstraint (const Constraint* c)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(c)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else
   {
     mConstraints.append(c);
@@ -1416,6 +1456,10 @@ Model::addReaction (const Reaction* r)
   else if (getVersion() != r->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(r)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (getReaction(r->getId()) != NULL)
   {
@@ -1452,6 +1496,10 @@ Model::addEvent (const Event* e)
   else if (getVersion() != e->getVersion())
   {
     return LIBSBML_VERSION_MISMATCH;
+  }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(e)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
   }
   else if (e->isSetId() && getEvent(e->getId()) != NULL)
   {

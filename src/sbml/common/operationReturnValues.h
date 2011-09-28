@@ -108,6 +108,12 @@ typedef enum
      * of libSBML, when a calling program attempts to construct or manipulate
      * XML in an invalid way.  */
 
+  , LIBSBML_NAMESPACES_MISMATCH   = -10
+    /*!< The XML operation attempted is not valid for the object or context
+     * involved.  This error is typically returned by the XML interface layer
+     * of libSBML, when a calling program attempts to construct or manipulate
+     * XML in an invalid way.  */
+
    /* ---------------------------------------------------------------------------
     *   
     *              Return codes for package extension

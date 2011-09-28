@@ -2544,6 +2544,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    */
   virtual int removeFromParentAndDelete();
 
+  bool matchesSBMLNamespaces(const SBase * sb);
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -2997,7 +2999,6 @@ protected:
   XMLNode       mElementsOfUnknownPkg;
 
   //-----------------------------------------------------------------------------
-
 
   /** @endcond */
 

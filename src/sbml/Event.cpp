@@ -879,6 +879,10 @@ Event::addEventAssignment (const EventAssignment* ea)
   {
     return LIBSBML_VERSION_MISMATCH;
   }
+  else if (matchesSBMLNamespaces(static_cast<const SBase *>(ea)) == false)
+  {
+    return LIBSBML_NAMESPACES_MISMATCH;
+  }
   else if (getEventAssignment(ea->getVariable()) != NULL)
   {
     // an eventAssignment for this variable already exists
