@@ -82,6 +82,7 @@ examples =                                                          \
   examples/c++/printMath.cpp                                        \
   examples/c++/printNotes.cpp                                       \
   examples/c++/printSBML.cpp                                        \
+  examples/c++/printSupported.cpp                                   \
   examples/c++/printUnits.cpp                                       \
   examples/c++/readSBML.cpp                                         \
   examples/c++/translateMath.cpp                                    \
