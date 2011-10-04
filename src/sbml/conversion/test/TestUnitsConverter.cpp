@@ -1074,6 +1074,1189 @@ START_TEST (test_convert_candela_4)
 END_TEST
 
 
+START_TEST (test_convert_coulomb_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_COULOMB);
+
+  units->setDocument(d);
+
+  /* 3 Coulomb = 3 Ampere second */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_coulomb_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_COULOMB);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Coulomb) = 6 Ampere second */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 6) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_coulomb_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_COULOMB);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((Coulomb)^2) = 3 ((Ampere)^2(second)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_coulomb_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_COULOMB);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3Coulomb)^2) = 27 ((Ampere)^2(second)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 27) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_lumen_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LUMEN);
+
+  units->setDocument(d);
+
+  /* 3 lumen = 3 candela */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "candela");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_lumen_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LUMEN);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Lumen) = 6 candela */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 6) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "candela");
+  
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 0);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_lumen_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LUMEN);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((lumen)^2) = 3 ((candela)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+  
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_CANDELA);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_lumen_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LUMEN);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3lumen)^2) = 27 ((candela)^2) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 27) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+  
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_CANDELA);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_farad_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_FARAD);
+
+  units->setDocument(d);
+  
+  /* 1 Farad = 1 m^-2 kg^-1 s^4 A^2 */
+  /* 3 Farad = 3 m^-2 kg^-1 s^4 A^2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), -1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), 4.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_farad_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_FARAD);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*Coulomb) = 6  m^-2 kg^-1 s^4 A^2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 6) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), -1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), 4.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_farad_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_FARAD);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((Coulomb)^2) = 3 (m^-4 kg^-2 s^8 A^4) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 4.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), -4.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), 8.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_farad_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_FARAD);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3Coulomb)^2) = 27 (m^-4 kg^-2 s^8 A^4) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 27) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 4.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), -4.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), 8.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_litre_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LITRE);
+
+  units->setDocument(d);
+
+  /* 3 litre = 0.003 m^3  */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 3.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_litre_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 (2*l) = 0.006 (m^3) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.006) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 3.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_litre_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((l)^2) = 0.000003 ((m)^6) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.000003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 6.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_litre_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LITRE);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 3 ((3l)^2) = .000027 ((m)^6) */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.000027) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 1);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 6.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+
+  units->setDocument(d);
+  
+  /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
+  /* 1 litre = 0.001 m^3*/
+  /* 1 H l = 0.001 m^5 kg s^-2 A^-2 */
+  /* 3 H l = 0.003 m^5 kg s^-2 A^-2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 5.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  u->setMultiplier(2.0);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+
+  units->setDocument(d);
+
+  /* 3 H l = 0.003 m^5 kg s^-2 A^-2 */
+  /* 3 (2H) l = 0.006 m^5 kg s^-2 A^-2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.006) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 5.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  u->setMultiplier(1.0);
+  u->setExponent(2.0);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+
+  units->setDocument(d);
+
+  /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
+  /* 1 litre = 0.001 m^3*/
+  /* 1 H l = 0.001 m^5 kg s^-2 A^-2 */
+  /* 3 H l = 0.003 m^5 kg s^-2 A^-2 */
+  /* 3 (H^2) l = 0.003 m^7 kg^2 s^-4 A^-4 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -4.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 7.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -4.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  u->setMultiplier(3.0);
+  u->setExponent(2.0);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+
+  units->setDocument(d);
+
+  /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
+  /* 1 litre = 0.001 m^3*/
+  /* 3 ((3H)^2) l = 0.027 m^7 kg^2 s^-4 A^-4 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.027) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -4.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 7.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -4.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_5)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(2.0);
+
+  units->setDocument(d);
+
+  /* 3 H l = 0.003 m^5 kg s^-2 A^-2 */
+  /* 3 (H) (2l) = 0.006 m^5 kg s^-2 A^-2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.006) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 5.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_6)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(1.0);
+  u1->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
+  /* 1 litre = 0.001 m^3*/
+  /* 1 H l = 0.001 m^5 kg s^-2 A^-2 */
+  /* 3 (H) (l^2) = 0.000003 m^8 kg s^-2 A^-2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.000003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 8.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_7)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(3.0);
+  u1->setExponent(2.0);
+
+  units->setDocument(d);
+
+  /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
+  /* 1 litre = 0.001 m^3*/
+  /* 3 (H) ((3l)^2) = 0.00027 m^8 kg s^-2 A^-2 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.00027) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), 8.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -2.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_henry_litre_8)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setValue(3.0);
+  p->setConstant(true);
+  p->setUnits("my_ud");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("my_ud");
+  Unit * u = ud1->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HENRY);
+  u1->setMultiplier(2.3);
+  u1->setExponent(2.0);
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_LITRE);
+  u1->setMultiplier(0.5);
+  u1->setExponent(-2.0);
+
+  units->setDocument(d);
+
+  /* 1 Henry = 1 m^2 kg s^-2 A^-2*/
+  /* 1 litre = 0.001 m^3*/
+  /* 3 ((2.3H)^2) ((0.5l)^-2) = 63480000 m^-2 kg^2 s^-4 A^-4 */
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  double ans = 3 * (2.3*2.3) * (pow((0.5*0.001), -2));
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), ans) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 4);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), -4.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 2.0) == true);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(2)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(2)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(2)->getExponent(), -2.0) == true);
+  fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(3)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(3)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(3)->getExponent(), -4.0) == true);
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestUnitsConverter (void)
 { 
@@ -1107,6 +2290,30 @@ create_suite_TestUnitsConverter (void)
   tcase_add_test(tcase, test_convert_candela_2);
   tcase_add_test(tcase, test_convert_candela_3);
   tcase_add_test(tcase, test_convert_candela_4);
+  tcase_add_test(tcase, test_convert_coulomb_1);
+  tcase_add_test(tcase, test_convert_coulomb_2);
+  tcase_add_test(tcase, test_convert_coulomb_3);
+  tcase_add_test(tcase, test_convert_coulomb_4);
+  tcase_add_test(tcase, test_convert_lumen_1);
+  tcase_add_test(tcase, test_convert_lumen_2);
+  tcase_add_test(tcase, test_convert_lumen_3);
+  tcase_add_test(tcase, test_convert_lumen_4);
+  tcase_add_test(tcase, test_convert_farad_1);
+  tcase_add_test(tcase, test_convert_farad_2);
+  tcase_add_test(tcase, test_convert_farad_3);
+  tcase_add_test(tcase, test_convert_farad_4);
+  tcase_add_test(tcase, test_convert_litre_1);
+  tcase_add_test(tcase, test_convert_litre_2);
+  tcase_add_test(tcase, test_convert_litre_3);
+  tcase_add_test(tcase, test_convert_litre_4);
+  tcase_add_test(tcase, test_convert_henry_litre_1);
+  tcase_add_test(tcase, test_convert_henry_litre_2);
+  tcase_add_test(tcase, test_convert_henry_litre_3);
+  tcase_add_test(tcase, test_convert_henry_litre_4);
+  tcase_add_test(tcase, test_convert_henry_litre_5);
+  tcase_add_test(tcase, test_convert_henry_litre_6);
+  tcase_add_test(tcase, test_convert_henry_litre_7);
+  tcase_add_test(tcase, test_convert_henry_litre_8);
 
   suite_add_tcase(suite, tcase);
 
