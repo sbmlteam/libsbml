@@ -353,6 +353,23 @@ SBMLDocument::getElementByMetaId(std::string metaid)
   return getElementFromPluginsByMetaId(metaid);
 }
 
+List*
+SBMLDocument::getAllElements()
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  if (mModel != NULL) {
+    ret->add(mModel);
+    sublist = mModel->getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  sublist = getAllElementsFromPlugins();
+  ret->transferFrom(sublist);
+  delete sublist;
+  return ret;
+}
+
 
 unsigned char
 SBMLDocument::getApplicableValidators()

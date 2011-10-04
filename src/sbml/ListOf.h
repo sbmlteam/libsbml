@@ -223,7 +223,7 @@ public:
    *
    * @param id, string representing the id of objects to find
    *
-   * @return a vector of pointers to objects with the given id.
+   * @return pointer to the first element found with the given id.
    */
   virtual SBase* getElementBySId(std::string id);
   
@@ -233,11 +233,19 @@ public:
    *
    * @param id, string representing the metaid of objects to find
    *
-   * @return a vector of pointers to objects with the given metaid.
+   * @return pointer to the first element found with the given metaid.
    */
   virtual SBase* getElementByMetaId(std::string metaid);
   
+  /**
+   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   *
+   * @return a List* of pointers to all children objects.
+   */
+  virtual List* getAllElements();
   
+  
+
   
 #if 0
   /**

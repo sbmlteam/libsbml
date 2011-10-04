@@ -369,6 +369,90 @@ Model::getElementByMetaId(std::string metaid)
 }
 
 
+List*
+Model::getAllElements()
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  if (mFunctionDefinitions.size() > 0) {
+    ret->add(&mFunctionDefinitions);
+    sublist = mFunctionDefinitions.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mUnitDefinitions.size() > 0) {
+    ret->add(&mUnitDefinitions);
+    sublist = mUnitDefinitions.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mCompartmentTypes.size() > 0) {
+    ret->add(&mCompartmentTypes);
+    sublist = mCompartmentTypes.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mSpeciesTypes.size() > 0) {
+    ret->add(&mSpeciesTypes);
+    sublist = mSpeciesTypes.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mCompartments.size() > 0) {
+    ret->add(&mCompartments);
+    sublist = mCompartments.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mSpecies.size() > 0) {
+    ret->add(&mSpecies);
+    sublist = mSpecies.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mParameters.size() > 0) {
+    ret->add(&mParameters);
+    sublist = mParameters.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mInitialAssignments.size() > 0) {
+    ret->add(&mInitialAssignments);
+    sublist = mInitialAssignments.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mRules.size() > 0) {
+    ret->add(&mRules);
+    sublist = mRules.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mConstraints.size() > 0) {
+    ret->add(&mConstraints);
+    sublist = mConstraints.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mReactions.size() > 0) {
+    ret->add(&mReactions);
+    sublist = mReactions.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mEvents.size() > 0) {
+    ret->add(&mEvents);
+    sublist = mEvents.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+
+  sublist = getAllElementsFromPlugins();
+  ret->transferFrom(sublist);
+  delete sublist;
+  return ret;
+}
+
 /*
  * @return the id of this SBML object.
  */

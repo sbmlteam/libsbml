@@ -234,6 +234,23 @@ ListOf::getElementByMetaId(std::string metaid)
 }
 
 
+List*
+ListOf::getAllElements()
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  for (unsigned int i = 0; i < size(); i++) {
+    SBase* obj = get(i);
+    ret->add(obj);
+    sublist = obj->getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  sublist = getAllElementsFromPlugins();
+  ret->transferFrom(sublist);
+  delete sublist;
+  return ret;
+}
 /**
  * Used by ListOf::get() to lookup an SBase based by its id.
  */

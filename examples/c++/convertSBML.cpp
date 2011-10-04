@@ -28,7 +28,7 @@ main (int argc, char *argv[])
     cout << "Usage: convertSBML input-filename output-filename" << endl
 	 << "This program will attempt to convert a model either to" << endl
 	 << "SBML Level " << latestLevel << " Version " << latestVersion
-	 << " (if the model is not already) or, if" << endl
+	 << " (if the model is not already) or, if " << endl
 	 << "the model is already expressed in Level " << latestLevel
 	 << " Version " << latestVersion << ", this" << endl
 	 << "program will attempt to convert the model to Level 1 Version 2."

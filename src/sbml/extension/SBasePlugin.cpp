@@ -155,6 +155,11 @@ SBasePlugin::getElementByMetaId(std::string metaid)
   return NULL;
 }
 
+List*
+SBasePlugin::getAllElements()
+{
+  return NULL;
+}
 
 /** @cond doxygen-libsbml-internal */
 /*

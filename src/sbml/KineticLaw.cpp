@@ -217,6 +217,31 @@ KineticLaw::getElementByMetaId(std::string metaid)
 }
 
 
+List*
+KineticLaw::getAllElements()
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  if (mParameters.size() > 0) {
+    ret->add(&mParameters);
+    sublist = mParameters.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+
+  if (mLocalParameters.size() > 0) {
+    ret->add(&mLocalParameters);
+    sublist = mLocalParameters.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+
+  sublist = getAllElementsFromPlugins();
+  ret->transferFrom(sublist);
+  delete sublist;
+  return ret;
+}
+
 /*
  * @return the formula of this KineticLaw.
  */

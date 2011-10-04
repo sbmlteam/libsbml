@@ -180,6 +180,24 @@ UnitDefinition::getElementByMetaId(std::string metaid)
 }
 
 
+List*
+UnitDefinition::getAllElements()
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  if (mUnits.size() > 0) {
+    ret->add(&mUnits);
+    sublist = mUnits.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+
+  sublist = getAllElementsFromPlugins();
+  ret->transferFrom(sublist);
+  delete sublist;
+  return ret;
+}
+
 /*
  * @return the id of this SBML object.
  */
@@ -1673,7 +1691,7 @@ UnitDefinition*
 ListOfUnitDefinitions::remove (const std::string& sid)
 {
   SBase* item = NULL;
-  vector<SBase*>::iterator result;
+  ListItemIter result;
 
   if (&(sid) != NULL)
   {

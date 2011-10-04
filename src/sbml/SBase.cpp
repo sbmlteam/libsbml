@@ -100,6 +100,11 @@ SBase::getElementByMetaId(std::string metaid)
   return getElementFromPluginsByMetaId(metaid);
 }
 
+List*
+SBase::getAllElements()
+{
+  return getAllElementsFromPlugins();
+}
 
 SBase*
 SBase::getElementFromPluginsBySId(std::string id)
@@ -122,6 +127,21 @@ SBase::getElementFromPluginsByMetaId(std::string metaid)
     if (subObj != NULL) return subObj;
   }
   return NULL;
+}
+
+List*
+SBase::getAllElementsFromPlugins()
+{
+  List* ret = new List();
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    List* sublist = mPlugins[i]->getAllElements();
+    if (sublist != NULL) {
+      ret->transferFrom(sublist);
+      delete sublist;
+    }
+  }
+  return ret;
 }
 
 

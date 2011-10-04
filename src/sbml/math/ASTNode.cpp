@@ -559,7 +559,7 @@ ASTNode::canonicalizeFunctionL1 ()
   /**
    * "log(x)" in L1 is represented as "ln(x)" in L2.
    *
-   * Notice, however, that the conversion is performed only ifthe number of
+   * Notice, however, that the conversion is performed only if the number of
    * arguments is 1.  Thus "log(5, x)" will still be "log(5, x) when passed
    * through this filter.
    */

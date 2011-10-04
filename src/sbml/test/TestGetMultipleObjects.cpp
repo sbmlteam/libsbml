@@ -328,6 +328,30 @@ START_TEST (test_GetMultipleObjects_noUnits)
 END_TEST
 
 
+START_TEST (test_GetMultipleObjects_allElements)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+
+  std::string filename(TestDataDirectory);
+  filename += "multiple-ids.xml";
+
+
+  d = reader.readSBML(filename);
+
+ if (d == NULL)
+  {
+    fail("readSBML(\"multiple-ids.xml\") returned a NULL pointer.");
+  }
+
+  List* list = d->getAllElements();
+  fail_unless(list->getSize() == 33);
+
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_GetMultipleObjects (void)
 {
@@ -339,6 +363,7 @@ create_suite_GetMultipleObjects (void)
   tcase_add_test(tcase, test_GetMultipleObjects_getMetaId);
   tcase_add_test(tcase, test_GetMultipleObjects_noLocalParameters);
   tcase_add_test(tcase, test_GetMultipleObjects_noUnits);
+  tcase_add_test(tcase, test_GetMultipleObjects_allElements);
 
 
   suite_add_tcase(suite, tcase);

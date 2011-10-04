@@ -232,6 +232,11 @@ public:
    */
   unsigned int getSize () const;
 
+  /**
+   * Merge this elements of the second list into this list (by pointing the last ListNode to the first ListNode in the supplied List)
+   *
+   */
+  void transferFrom(List* list);
 
 protected:
   /** @cond doxygen-libsbml-internal */

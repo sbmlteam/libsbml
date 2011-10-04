@@ -301,6 +301,42 @@ Event::getElementByMetaId(std::string metaid)
   return getElementFromPluginsByMetaId(metaid);
 }
 
+List*
+Event::getAllElements()
+{
+  List* ret = new List();
+  List* sublist = NULL;
+  if (mTrigger != NULL) {
+    ret->add(mTrigger);
+    sublist = mTrigger->getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mDelay != NULL) {
+    ret->add(mDelay);
+    sublist = mDelay->getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mPriority != NULL) {
+    ret->add(mPriority);
+    sublist = mPriority->getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+  if (mEventAssignments.size() > 0) {
+    ret->add(&mEventAssignments);
+    sublist = mEventAssignments.getAllElements();
+    ret->transferFrom(sublist);
+    delete sublist;
+  }
+
+  sublist = getAllElementsFromPlugins();
+  ret->transferFrom(sublist);
+  delete sublist;
+  return ret;
+}
+
 /*
  * @return the id of this SBML object.
  */

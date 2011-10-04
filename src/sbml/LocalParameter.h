@@ -630,7 +630,7 @@ public:
    *
    * @param id, string representing the id of objects to find
    *
-   * @return a vector of pointers to objects with the given id.
+   * @return pointer to the first element found with the given id.
    */
   virtual SBase* getElementBySId(std::string id);
   

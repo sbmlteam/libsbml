@@ -333,6 +333,25 @@ List::getSize () const
   return size;
 }
 
+void
+List::transferFrom(List* list)
+{
+  if (list==NULL) return;
+  if (list->head == NULL) return;
+  if (head==NULL) {
+    head = list->head;
+    tail = list->tail;
+    size = list->size;
+  }
+  else {
+    tail->next = list->head;
+    tail = list->tail;
+    size += list->size;
+  }
+  list->head = NULL;
+  list->tail = NULL;
+  list->size = 0;
+}
 
 /** @cond doxygen-c-only */
 
