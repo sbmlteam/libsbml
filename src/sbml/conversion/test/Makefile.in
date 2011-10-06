@@ -55,6 +55,7 @@ test_sources =                       \
   TestConversionProperties.cpp       \
   TestSBMLConverterRegistry.cpp      \
   TestUnitsConverter.cpp             \
+  TestUnitsConverter2.cpp            \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..

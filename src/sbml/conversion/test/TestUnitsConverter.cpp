@@ -2163,8 +2163,9 @@ START_TEST (test_convert_henry_litre_7)
   /* 1 litre = 0.001 m^3*/
   /* 3 (H) ((3l)^2) = 0.00027 m^8 kg s^-2 A^-2 */
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  double ans = 3 * pow((3 * 0.001),2);
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.00027) == true);
+      equalDouble(d->getModel()->getParameter(0)->getValue(), ans) == true);
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
@@ -2210,8 +2211,8 @@ START_TEST (test_convert_henry_litre_8)
   Unit * u = ud1->createUnit();
   u->initDefaults();
   u->setKind(UNIT_KIND_HENRY);
-  u1->setMultiplier(2.3);
-  u1->setExponent(2.0);
+  u->setMultiplier(2.3);
+  u->setExponent(2.0);
   Unit * u1 = ud1->createUnit();
   u1->initDefaults();
   u1->setKind(UNIT_KIND_LITRE);
@@ -2224,9 +2225,8 @@ START_TEST (test_convert_henry_litre_8)
   /* 1 litre = 0.001 m^3*/
   /* 3 ((2.3H)^2) ((0.5l)^-2) = 63480000 m^-2 kg^2 s^-4 A^-4 */
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
-  double ans = 3 * (2.3*2.3) * (pow((0.5*0.001), -2));
   fail_unless (
-      equalDouble(d->getModel()->getParameter(0)->getValue(), ans) == true);
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 63480000) == true);
   fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);

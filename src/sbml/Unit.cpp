@@ -1082,7 +1082,7 @@ Unit::merge(Unit * unit1, Unit * unit2)
   Unit::removeScale(unit1);
   Unit::removeScale(unit2);
 
-  newExponent = unit1->getExponent() + unit2->getExponent();
+  newExponent = unit1->getExponentAsDouble() + unit2->getExponentAsDouble();
 
   if (newExponent == 0)
   {
@@ -1090,8 +1090,8 @@ Unit::merge(Unit * unit1, Unit * unit2)
   }
   else
   {
-    newMultiplier = pow(pow(unit1->getMultiplier(), unit1->getExponent())*
-      pow(unit2->getMultiplier(), unit2->getExponent()), 
+    newMultiplier = pow(pow(unit1->getMultiplier(), unit1->getExponentAsDouble())*
+      pow(unit2->getMultiplier(), unit2->getExponentAsDouble()), 
                                                   1/(double)(newExponent));
   }
     
@@ -1161,7 +1161,7 @@ Unit::convertToSI(const Unit * unit)
       /* 1 becquerel = 1 sec^-1 = (0.1 sec)^-1 */
       /* 1 hertz = 1 sec^-1 = (0.1 sec) ^-1*/
       newUnit->setKind(UNIT_KIND_SECOND);
-      newUnit->setExponent(newUnit->getExponent()*-1);
+      newUnit->setExponentUnitChecking(newUnit->getExponentUnitChecking()*-1);
       /* hack to force multiplier to be double precision */
       newMultiplier = pow(newUnit->getMultiplier(), -1.0);
 
@@ -1190,7 +1190,7 @@ Unit::convertToSI(const Unit * unit)
       ud->addUnit(newUnit);
  //     newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       newUnit->setMultiplier(1);
       ud->addUnit(newUnit);
       break;
@@ -1213,22 +1213,22 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(2*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(4*unit->getExponent());  
+      newUnit->setExponentUnitChecking(4*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1251,12 +1251,12 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(2*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
  //     newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1270,22 +1270,22 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
  //     newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1301,12 +1301,12 @@ Unit::convertToSI(const Unit * unit)
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1317,7 +1317,7 @@ Unit::convertToSI(const Unit * unit)
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
      break;
 
@@ -1335,7 +1335,7 @@ Unit::convertToSI(const Unit * unit)
     case UNIT_KIND_LITRE:
       /* 1 litre = 0.001 m^3 = (0.1 m)^3*/ 
       newUnit->setKind(UNIT_KIND_METRE);
-      newUnit->setExponent(newUnit->getExponent()*3);
+      newUnit->setExponentUnitChecking(newUnit->getExponentUnitChecking()*3);
       /* hack to force multiplier to be double precision */
       newMultiplier = pow((newUnit->getMultiplier() * 0.001), 1.0/3.0);
 
@@ -1359,7 +1359,7 @@ Unit::convertToSI(const Unit * unit)
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1382,12 +1382,12 @@ Unit::convertToSI(const Unit * unit)
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1401,22 +1401,22 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(-2*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-3*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-3*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1427,12 +1427,12 @@ Unit::convertToSI(const Unit * unit)
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1451,22 +1451,22 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(2*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(2*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-1*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(3*unit->getExponent());  
+      newUnit->setExponentUnitChecking(3*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1480,17 +1480,17 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1504,22 +1504,22 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-3*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-3*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1530,12 +1530,12 @@ Unit::convertToSI(const Unit * unit)
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-3*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-3*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 
@@ -1549,22 +1549,22 @@ Unit::convertToSI(const Unit * unit)
       newMultiplier = strtod(ossMultiplier.str().c_str(), NULL);
 
       newUnit->setMultiplier(newMultiplier); 
-      newUnit->setExponent(-1*newUnit->getExponent());  
+      newUnit->setExponentUnitChecking(-1*newUnit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_KILOGRAM);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(unit->getExponent());
+      newUnit->setExponentUnitChecking(unit->getExponentUnitChecking());
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
 //      newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier());
       newUnit->setKind(UNIT_KIND_SECOND);
       newUnit->setMultiplier(1.0);
-      newUnit->setExponent(-2*unit->getExponent());  
+      newUnit->setExponentUnitChecking(-2*unit->getExponentUnitChecking());  
       ud->addUnit(newUnit);
       break;
 

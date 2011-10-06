@@ -130,12 +130,12 @@ SBMLUnitsConverter::convert()
       return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
     else if (m->isSetTimeUnits() == true)
       return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    else if (m->isSetLengthUnits() == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    else if (m->isSetAreaUnits() == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    else if (m->isSetVolumeUnits() == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    //else if (m->isSetLengthUnits() == true)
+    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    //else if (m->isSetAreaUnits() == true)
+    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    //else if (m->isSetVolumeUnits() == true)
+    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
     else if (m->isSetExtentUnits() == true)
       return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
 
@@ -291,6 +291,10 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
   }
 
   UnitDefinition *siud = UnitDefinition::convertToSI(ud);
+  /* catch in case things have gone wrong */
+  if (siud->getNumUnits() == 0)
+    return false;
+
   double newValue = oldValue * pow(siud->getUnit(0)->getMultiplier(),
     siud->getUnit(0)->getExponentAsDouble());
   for (unsigned int n = 1; n < siud->getNumUnits(); n++)
@@ -375,7 +379,31 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
               i = static_cast<Parameter &>(sb).setUnits(newUnit);
               break;
             case SBML_COMPARTMENT:
-              i = static_cast<Compartment &>(sb).setUnits(newUnit);
+              // units might have come from model attributes
+              if (static_cast<Compartment &>(sb).getUnits().empty())
+              {
+                unsigned int dims 
+                  = static_cast<Compartment &>(sb).getSpatialDimensions();
+                switch (dims)
+                {
+                case 1:
+                  i = m.setLengthUnits(newUnit);
+                  break;
+                case 2:
+                  i = m.setAreaUnits(newUnit);
+                  break;
+                case 3:
+                  i = m.setVolumeUnits(newUnit);
+                  break;
+                default:
+                  i = -1;
+                  break;
+                }
+              }
+              else
+              {
+                i = static_cast<Compartment &>(sb).setUnits(newUnit);
+              }
               break;
             case SBML_SPECIES:
               i = static_cast<Species &>(sb).setSubstanceUnits(newUnit);
@@ -480,7 +508,31 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
           i = static_cast<Parameter &>(sb).setUnits(newId);
           break;
         case SBML_COMPARTMENT:
-          i = static_cast<Compartment &>(sb).setUnits(newId);
+          // units might have come from model attributes
+          if (oldUnits.empty())
+          {
+            unsigned int dims 
+              = static_cast<Compartment &>(sb).getSpatialDimensions();
+            switch (dims)
+            {
+            case 1:
+              i = m.setLengthUnits(newId);
+              break;
+            case 2:
+              i = m.setAreaUnits(newId);
+              break;
+            case 3:
+              i = m.setVolumeUnits(newId);
+              break;
+            default:
+              i = -1;
+              break;
+            }
+          }
+          else
+          {
+            i = static_cast<Compartment &>(sb).setUnits(newId);
+          }
           break;
         case SBML_SPECIES:
           i = static_cast<Species &>(sb).setSubstanceUnits(newId);
@@ -506,7 +558,31 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
         i = static_cast<Parameter &>(sb).setUnits(newId);
         break;
       case SBML_COMPARTMENT:
-        i = static_cast<Compartment &>(sb).setUnits(newId);
+          // units might have come from model attributes
+          if (oldUnits.empty())
+          {
+            unsigned int dims 
+              = static_cast<Compartment &>(sb).getSpatialDimensions();
+            switch (dims)
+            {
+            case 1:
+              i = m.setLengthUnits(newId);
+              break;
+            case 2:
+              i = m.setAreaUnits(newId);
+              break;
+            case 3:
+              i = m.setVolumeUnits(newId);
+              break;
+            default:
+              i = -1;
+              break;
+            }
+          }
+          else
+          {
+            i = static_cast<Compartment &>(sb).setUnits(newId);
+          }
         break;
       case SBML_SPECIES:
         i = static_cast<Species &>(sb).setSubstanceUnits(newId);
