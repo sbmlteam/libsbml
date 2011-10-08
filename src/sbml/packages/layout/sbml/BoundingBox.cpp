@@ -401,6 +401,7 @@ void BoundingBox::setPosition (const Point* p)
 {
     if(!p) return;  
     this->mPosition = Point(*p);
+	this->mPosition.setElementName("position");
     this->mPosition.connectToParent(this);
 }
 
