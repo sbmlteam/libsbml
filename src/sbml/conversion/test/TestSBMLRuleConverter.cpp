@@ -44,7 +44,7 @@ BEGIN_C_DECLS
 extern char *TestDataDirectory;
 
 
-START_TEST (test_conversion_rulecovnerter_create)
+START_TEST (test_conversion_rulecovnerter_sort)
 {
 
   // create test model
@@ -74,7 +74,7 @@ START_TEST (test_conversion_rulecovnerter_create)
   rule2->setFormula("1");
   rule2->setMetaId("m2");
 
-  std::string model1 = doc.toSBML();
+  //std::string model1 = doc.toSBML();
 
   ConversionProperties *props = new ConversionProperties();
   props->addOption("sortRules", true, "sort rules");
@@ -93,7 +93,74 @@ START_TEST (test_conversion_rulecovnerter_create)
     // why oh why
     doc.convert(*props);
   }
-  std::string model2 = doc.toSBML();
+
+  fail_unless (model->getNumRules() == 2);
+  fail_unless (model->getRule(0)->getMetaId() == "m2");
+  fail_unless (model->getRule(1)->getMetaId() == "m1");
+
+  //std::string model2 = doc.toSBML();
+  
+  delete props;
+}
+END_TEST
+
+  
+START_TEST (test_conversion_rulecovnerter_dontSort)
+{
+
+  // create test model
+
+  SBMLDocument doc; 
+  
+  Model* model = doc.createModel();
+  model->setId("m");
+
+  Parameter* parameter1 = model->createParameter();
+  parameter1->setId("s");
+  parameter1->setConstant(false);
+  parameter1->setValue(0);
+
+  Parameter* parameter = model->createParameter();
+  parameter->setId("p");
+  parameter->setConstant(false);
+  parameter->setValue(0);
+
+  AssignmentRule* rule2 = model->createAssignmentRule();
+  rule2->setVariable("p");
+  rule2->setFormula("1");
+  rule2->setMetaId("m2");
+
+  AssignmentRule* rule1 = model->createAssignmentRule();
+  rule1->setVariable("s");
+  rule1->setFormula("p + 1");
+  rule1->setMetaId("m1");
+
+
+  //std::string model1 = doc.toSBML();
+
+  ConversionProperties *props = new ConversionProperties();
+  props->addOption("sortRules", true, "sort rules");
+  
+  SBMLConverter* converter = SBMLConverterRegistry::getInstance().getConverterFor(*props);
+  
+  if (converter == NULL)
+  {
+    converter = new SBMLRuleConverter();
+    converter->setProperties(props);
+    converter->setDocument(&doc);
+    converter->convert();
+  }
+  else
+  {
+    // why oh why
+    doc.convert(*props);
+  }
+
+  fail_unless (model->getNumRules() == 2);
+  fail_unless (model->getRule(0)->getMetaId() == "m2");
+  fail_unless (model->getRule(1)->getMetaId() == "m1");
+
+  //std::string model2 = doc.toSBML();
   
   delete props;
 }
@@ -112,7 +179,8 @@ create_suite_TestSBMLRuleConverter (void)
   Suite *suite = suite_create("SBMLRuleConverter");
   TCase *tcase = tcase_create("SBMLRuleConverter");
 
-  tcase_add_test(tcase, test_conversion_rulecovnerter_create);
+  tcase_add_test(tcase, test_conversion_rulecovnerter_sort);
+  tcase_add_test(tcase, test_conversion_rulecovnerter_dontSort);
 
   suite_add_tcase(suite, tcase);
 
