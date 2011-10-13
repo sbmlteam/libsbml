@@ -77,8 +77,7 @@ START_TEST (test_conversion_ruleconverter_sort)
   ConversionProperties *props = new ConversionProperties();
   props->addOption("sortRules", true, "sort rules");
 
-  SBMLConverter* 
-    converter = new SBMLRuleConverter();
+  SBMLConverter* converter = new SBMLRuleConverter();
   converter->setProperties(props);
   converter->setDocument(&doc);
   

@@ -217,8 +217,7 @@ int
   Model* mModel = mDocument->getModel();
   if (mModel == NULL) return LIBSBML_INVALID_OBJECT;
 
-  bool success = false;  
-
+  
   /* if there are no function definitions bail now */
   if (mModel->getNumRules() == 0)
   {
@@ -264,9 +263,8 @@ int
   for (unsigned int i = 0; i < assignmentRules.size();i++)
     mModel->getListOfRules()->insertAndOwn(i,assignmentRules[i]);
 
-  if (success) return LIBSBML_OPERATION_SUCCESS;
-  return LIBSBML_OPERATION_FAILED;
-
+  return LIBSBML_OPERATION_SUCCESS;
+  
 }
 
 /** @cond doxygen-c-only */
