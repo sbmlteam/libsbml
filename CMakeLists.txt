@@ -180,6 +180,12 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel" FORCE)
 endif()
 
+# set the default dependency directory
+set(LIBSBML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH "The directory that contains the dependencies")
+if("${LIBSBML_DEPENDENCY_DIR}" STREQUAL "")
+  set(LIBSBML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH "The directory that contains the dependencies" FORCE)
+endif()
+
 ###############################################################################
 #
 # If with SWIG is selected we need to find swig
@@ -194,7 +200,7 @@ if(WITH_SWIG)
     find_program(SWIG_EXECUTABLE
         NAMES swig
         PATHS
-      c:/swigwin-2.0.4
+        c:/swigwin-2.0.4
 	    c:/swigwin-2.0.2
 	    c:/swigwin-2.0.1
 	    c:/swigwin-2.0.0
@@ -220,14 +226,14 @@ if(WITH_EXPAT)
         NAMES libexpat.lib expat
         PATHS /usr/lib /usr/local/lib 
               ${CMAKE_SOURCE_DIR} 
-              ${CMAKE_SOURCE_DIR}/dependencies/lib
+              ${LIBSBML_DEPENDENCY_DIR}/lib
                 )
     
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
         PATHS /usr/include /usr/local/include 
               ${CMAKE_SOURCE_DIR}/include 
-              ${CMAKE_SOURCE_DIR}/dependencies/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
               )     
 
     add_definitions( -DUSE_EXPAT )
@@ -254,7 +260,7 @@ if(WITH_LIBXML)
         NAMES libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib 
               ${CMAKE_SOURCE_DIR} 
-              ${CMAKE_SOURCE_DIR}/dependencies/lib
+              ${LIBSBML_DEPENDENCY_DIR}/lib
                 )
     
     find_path(LIBXML_INCLUDE_DIR
@@ -263,7 +269,7 @@ if(WITH_LIBXML)
               /usr/include/libxml2
               /usr/local/include/libxml2
               ${CMAKE_SOURCE_DIR}/include 
-              ${CMAKE_SOURCE_DIR}/dependencies/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
               )     
 
     add_definitions( -DUSE_LIBXML )
@@ -289,7 +295,7 @@ if(WITH_XERCES)
         NAMES xerces-c_3.lib xerces-c
         PATHS /usr/lib /usr/local/lib 
               ${CMAKE_SOURCE_DIR} 
-              ${CMAKE_SOURCE_DIR}/dependencies/lib
+              ${LIBSBML_DEPENDENCY_DIR}/lib
                 )
     
     find_path(XERCES_INCLUDE_DIR
@@ -298,7 +304,7 @@ if(WITH_XERCES)
               /usr/include/xercesc
               /usr/local/include/xercesc
               ${CMAKE_SOURCE_DIR}/include 
-              ${CMAKE_SOURCE_DIR}/dependencies/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
               )     
 
     set(LIBSBML_XML_LIBRARY "xerces-c")
@@ -322,7 +328,7 @@ find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
     PATHS /usr/lib /usr/local/lib 
           ${CMAKE_SOURCE_DIR} 
-          ${CMAKE_SOURCE_DIR}/dependencies/lib
+          ${LIBSBML_DEPENDENCY_DIR}/lib
 )
 
 if(EXISTS ${LIBBZ_LIBRARY})
@@ -338,7 +344,7 @@ if(WITH_BZIP2)
         NAMES bzlib.h bzip2/bzlib.h
         PATHS /usr/include /usr/local/include 
               ${CMAKE_SOURCE_DIR}/include 
-              ${CMAKE_SOURCE_DIR}/dependencies/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
               )     
 
     add_definitions( -DUSE_BZ2 )    
@@ -377,7 +383,7 @@ find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
     PATHS /usr/lib /usr/local/lib 
           ${CMAKE_SOURCE_DIR} 
-          ${CMAKE_SOURCE_DIR}/dependencies/lib
+          ${LIBSBML_DEPENDENCY_DIR}/lib
     )
 
 if(EXISTS ${LIBZ_LIBRARY})
@@ -393,7 +399,7 @@ if(WITH_ZLIB)
         NAMES zlib.h zlib/zlib.h
         PATHS /usr/include /usr/local/include 
               ${CMAKE_SOURCE_DIR}/include 
-              ${CMAKE_SOURCE_DIR}/dependencies/include
+              ${LIBSBML_DEPENDENCY_DIR}/include
               )     
 
     add_definitions( -DUSE_ZLIB )
@@ -454,12 +460,12 @@ if(WITH_CHECK)
     
     find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
-        PATHS /usr/lib /usr/local/lib ${CMAKE_SOURCE_DIR}/dependencies/lib
+        PATHS /usr/lib /usr/local/lib ${LIBSBML_DEPENDENCY_DIR}/lib
     )
     
     find_path(LIBCHECK_INCLUDE_DIR
         NAMES check.h
-        PATHS /usr/include /usr/local/include  ${CMAKE_SOURCE_DIR}/dependencies/include
+        PATHS /usr/include /usr/local/include  ${LIBSBML_DEPENDENCY_DIR}/include
               )
     
     if (NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
@@ -568,9 +574,9 @@ else(UNIX)
         add_definitions( -D_MT)
         endif(WITH_STATIC_RUNTIME)
     
-        file(GLOB WIN32_BINARIES ${CMAKE_SOURCE_DIR}/dependencies/bin/*.dll)
+        file(GLOB WIN32_BINARIES ${LIBSBML_DEPENDENCY_DIR}/bin/*.dll)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
-        file(GLOB WIN32_DEPENDENCIES ${CMAKE_SOURCE_DIR}/dependencies/lib/*.lib)
+        file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
         install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
         
     elseif(CYGWIN)
