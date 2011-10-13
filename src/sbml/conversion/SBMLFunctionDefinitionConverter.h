@@ -66,9 +66,9 @@ public:
   SBMLFunctionDefinitionConverter(const SBMLFunctionDefinitionConverter&);
 
   /**
-   * Creates and returns a deep copy of this SBMLLevelVersionConverter.
+   * Creates and returns a deep copy of this converter.
    * 
-   * @return a (deep) copy of this SBMLLevelVersionConverter.
+   * @return a (deep) copy of this converter.
    */
   virtual SBMLConverter* clone() const;
 

@@ -194,6 +194,36 @@ public:
   int appendAndOwn (SBase* item);
 
 
+  /** 
+   * Inserts the item at the given position of this ListOf
+   * 
+   * This variant of the method makes a clone of the @p item handet to it. 
+   * This means that when the ListOf is destroyed, the original items will
+   * not be destroyed. 
+   * 
+   * @param location the location where to insert the item
+   * @param item the item to be inserted to the list
+   * 
+   * @see insertAndOwn (SBase* item)
+   */
+  int insert(int location, const SBase* item);
+
+
+  /** 
+   * Inserts the item at the given position of this ListOf
+   * 
+   * This variant of the method makes a clone of the @p item handet to it. 
+   * This means that when the ListOf is destroyed, the original items will
+   * not be destroyed. 
+   * 
+   * @param location the location where to insert the item
+   * @param item the item to be inserted to the list
+   * 
+   * @see insertAndOwn (SBase* item)
+   */
+  int insertAndOwn(int location, SBase* item);
+
+
   /**
    * Get an item from the list.
    *
@@ -559,6 +589,21 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
 LIBSBML_EXTERN
 int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
+
+/**
+ * inserts a copy of item to this ListOf items at the given position.
+ */
+LIBSBML_EXTERN
+int
+ListOf_insert (ListOf_t *lo, int location, const SBase_t *item);
+
+/**
+ * inserts the item to this ListOf items at the given position.
+ */
+LIBSBML_EXTERN
+int
+ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *item);
+
 
 /**
  * Returns the nth item in this ListOf items.

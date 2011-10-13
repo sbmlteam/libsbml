@@ -138,10 +138,45 @@ ListOf::clone () const
   return new ListOf(*this);
 }
 
+/*
+ * Inserts the item at the given location.  This ListOf items assumes
+ * no ownership of item and will not delete it.
+ */
+int 
+ListOf::insert(int location, const SBase* item)
+{
+  return insertAndOwn(location, item->clone());
+}
+
+/*
+ * Inserts the item at the given location.  This ListOf items assumes
+ * ownership of item and will delete it.
+ */
+int 
+ListOf::insertAndOwn(int location, SBase* item)
+{
+  /* no list elements yet */
+  if (this->getItemTypeCode() == SBML_UNKNOWN )
+  {
+    mItems.insert( mItems.begin() + location, item );
+    item->connectToParent(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else if (!isValidTypeForList(item))
+  {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  else
+  {
+    mItems.insert( mItems.begin() + location, item );
+    item->connectToParent(this);
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+}
 
 /*
  * Adds item to the end of this ListOf items.  This ListOf items assumes
- * ownership of item and will delete it.
+ * no ownership of item and will not delete it.
  */
 int
 ListOf::append (const SBase* item)
@@ -616,6 +651,34 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item)
 {
   if (lo != NULL)
     return lo->appendAndOwn(item);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * inserts a copy of item to this ListOf items at the given position.
+ */
+LIBSBML_EXTERN
+int
+ListOf_insert (ListOf_t *lo, int location, const SBase_t *item)
+{
+  if (lo != NULL)
+    return lo->insert(location, item);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * inserts the item to this ListOf items at the given position.
+ */
+LIBSBML_EXTERN
+int
+ListOf_insertAndOwn (ListOf_t *lo, int location, SBase_t *item)
+{
+  if (lo != NULL)
+    return lo->insertAndOwn(location, item);
   else
     return LIBSBML_INVALID_OBJECT;
 }

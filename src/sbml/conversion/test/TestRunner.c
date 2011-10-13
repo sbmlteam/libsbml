@@ -49,6 +49,7 @@ Suite *create_suite_TestConversionProperties  (void);
 Suite *create_suite_TestSBMLConverterRegistry (void);
 Suite *create_suite_TestUnitsConverter (void);
 Suite *create_suite_TestUnitsConverter2 (void);
+Suite *create_suite_TestSBMLRuleConverter(void);
 
 
 /**
@@ -95,10 +96,11 @@ main (void)
   setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_TestConversionOption() );
+  srunner_add_suite( runner, create_suite_TestSBMLRuleConverter      () );
   srunner_add_suite( runner, create_suite_TestConversionProperties   () );
   srunner_add_suite( runner, create_suite_TestSBMLConverterRegistry  () );
-  srunner_add_suite( runner, create_suite_TestUnitsConverter  () );
-  srunner_add_suite( runner, create_suite_TestUnitsConverter2  () );
+  srunner_add_suite( runner, create_suite_TestUnitsConverter         () );
+  srunner_add_suite( runner, create_suite_TestUnitsConverter2        () );
 
   /* srunner_set_fork_status(runner, CK_NOFORK); */
 

@@ -36,12 +36,12 @@
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
 #include <sbml/conversion/SBMLStripPackageConverter.h>
 #include <sbml/conversion/SBMLUnitsConverter.h>
-
-  // TO DO - SK Comment
+#include <sbml/conversion/SBMLRuleConverter.h>
 
 // Presumably this means that converters added are hardcoded into a release
 // some one adding their own would need to add to this file manually ??
   
+static SBMLConverterRegister<SBMLRuleConverter> registerRuleConverter;
 static SBMLConverterRegister<SBMLFunctionDefinitionConverter> registerFDConverter;
 static SBMLConverterRegister<SBMLInitialAssignmentConverter> registerIAConverter;
 static SBMLConverterRegister<SBMLLevelVersionConverter> registerLVConverter;
