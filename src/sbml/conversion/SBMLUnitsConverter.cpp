@@ -126,9 +126,9 @@ SBMLUnitsConverter::convert()
   /* do not yet deal with the following units */
   if (m->getLevel() > 2)
   {
-    if (m->isSetSubstanceUnits() == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    else if (m->isSetTimeUnits() == true)
+    //if (m->isSetSubstanceUnits() == true)
+    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    if (m->isSetTimeUnits() == true)
       return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
     //else if (m->isSetLengthUnits() == true)
     //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
@@ -190,6 +190,70 @@ SBMLUnitsConverter::convert()
     return LIBSBML_CONV_INVALID_SRC_DOCUMENT;
   }
 
+  //create a copy of any global units
+  if (m->getLevel() > 2)
+  {
+    if (m->isSetSubstanceUnits() == true)
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("substance", m->getSubstanceUnits()));
+    }
+    else
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("substance", ""));
+    }
+    if (m->isSetVolumeUnits() == true)
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("volume", m->getVolumeUnits()));
+    }
+    else
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("volume", ""));
+    }
+    if (m->isSetAreaUnits() == true)
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("area", m->getAreaUnits()));
+    }
+    else
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("area", ""));
+    }
+    if (m->isSetLengthUnits() == true)
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("length", m->getLengthUnits()));
+    }
+    else
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("length", ""));
+    }
+    if (m->isSetTimeUnits() == true)
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("time", m->getTimeUnits()));
+    }
+    else
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("time", ""));
+    }
+    if (m->isSetExtentUnits() == true)
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("extent", m->getExtentUnits()));
+    }
+    else
+    {
+      mGlobalUnits.insert(pair<const std::string, const std::string>
+        ("extent", ""));
+    }
+  }
 
   bool conversion = true;
 
@@ -222,6 +286,8 @@ SBMLUnitsConverter::convert()
     }
   }
 
+  conversion = convertGlobalUnits(*m);
+
   removeUnusedUnitDefinitions(*m);
     
   mDocument->setApplicableValidators(origValidators);
@@ -234,6 +300,16 @@ SBMLUnitsConverter::convert()
   
 bool
 SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
+{
+  std::string emptyString = "";
+  return convertUnits(sb, m, emptyString);
+
+}
+
+
+bool
+SBMLUnitsConverter::convertUnits(SBase &sb, Model &m, 
+                                 std::string &modelUnitAttribute)
 {
   /* NOTE: the getDerivedUnitDefinition functions will return
    * units from the original model - they do not get updated
@@ -283,6 +359,43 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
       else
       {
         ud_vol = NULL;
+      }
+      break;
+    case SBML_MODEL:
+      if (modelUnitAttribute == "substance")
+      {
+        ud =  m.getFormulaUnitsData("substance", SBML_MODEL)
+                                                 ->getUnitDefinition();
+      }
+      if (modelUnitAttribute == "substance")
+      {
+        ud =  m.getFormulaUnitsData("substance", SBML_MODEL)
+                                                 ->getUnitDefinition();
+      }
+      else if (modelUnitAttribute == "volume")
+      {
+        ud =  m.getFormulaUnitsData("volume", SBML_MODEL)
+                                                 ->getUnitDefinition();
+      }
+      else if (modelUnitAttribute == "area")
+      {
+        ud =  m.getFormulaUnitsData("area", SBML_MODEL)
+                                                 ->getUnitDefinition();
+      }
+      else if (modelUnitAttribute == "length")
+      {
+        ud =  m.getFormulaUnitsData("length", SBML_MODEL)
+                                                 ->getUnitDefinition();
+      }
+      else if (modelUnitAttribute == "time")
+      {
+        ud =  m.getFormulaUnitsData("time", SBML_MODEL)
+                                                 ->getUnitDefinition();
+      }
+      else if (modelUnitAttribute == "extent")
+      {
+        ud =  m.getFormulaUnitsData("extent", SBML_MODEL)
+                                                 ->getUnitDefinition();
       }
       break;
     default:
@@ -344,6 +457,9 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
         i = static_cast<Species &>(sb).setInitialConcentration(newValue);
       }
       break;
+    case SBML_MODEL:
+      i = LIBSBML_OPERATION_SUCCESS;
+      break;
     default:
       i = LIBSBML_INVALID_OBJECT;
       break;
@@ -357,7 +473,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
       i = siud->getUnit(0)->setMultiplier(1.0);
       if (i == LIBSBML_OPERATION_SUCCESS)
       {
-        i = applyNewUnitDefinition(sb, m, siud);
+        i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute);
       }
     }
     else
@@ -406,7 +522,41 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
               }
               break;
             case SBML_SPECIES:
-              i = static_cast<Species &>(sb).setSubstanceUnits(newUnit);
+              // units might have come from model attributes
+              if (static_cast<Species &>(sb).getSubstanceUnits().empty())
+              {
+                i = m.setSubstanceUnits(newUnit);
+              }
+              else
+              {
+                i = static_cast<Species &>(sb).setSubstanceUnits(newUnit);
+              }
+              break;
+            case SBML_MODEL:
+              if (modelUnitAttribute == "substance")
+              {
+                i = m.setSubstanceUnits(newUnit);
+              }
+              else if (modelUnitAttribute == "volume")
+              {
+                i = m.setVolumeUnits(newUnit);
+              }
+              else if (modelUnitAttribute == "area")
+              {
+                i = m.setAreaUnits(newUnit);
+              }
+              else if (modelUnitAttribute == "length")
+              {
+                i = m.setLengthUnits(newUnit);
+              }
+              else if (modelUnitAttribute == "time")
+              {
+                i = m.setTimeUnits(newUnit);
+              }
+              else if (modelUnitAttribute == "extent")
+              {
+                i = m.setExtentUnits(newUnit);
+              }
               break;
             default:
               i = LIBSBML_INVALID_OBJECT;
@@ -415,7 +565,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
         }
         else
         {
-          i = applyNewUnitDefinition(sb, m, siud);
+          i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute);
         }
       }
     }
@@ -429,9 +579,12 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
 }
 
 
+
+
 int
 SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m, 
-                                           UnitDefinition* newUD)
+                                           UnitDefinition* newUD,
+                                           std::string &modelUnitAttribute)
 {
 
   int tc = sb.getTypeCode();
@@ -450,6 +603,32 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
       break;
     case SBML_SPECIES:
       oldUnits = static_cast<Species &>(sb).getSubstanceUnits();
+      break;
+    case SBML_MODEL:
+      if (modelUnitAttribute == "substance")
+      {
+        oldUnits = m.getSubstanceUnits();
+      }
+      else if (modelUnitAttribute == "volume")
+      {
+        oldUnits = m.getVolumeUnits();
+      }
+      else if (modelUnitAttribute == "area")
+      {
+        oldUnits = m.getAreaUnits();
+      }
+      else if (modelUnitAttribute == "length")
+      {
+        oldUnits = m.getLengthUnits();
+      }
+      else if (modelUnitAttribute == "time")
+      {
+        oldUnits = m.getTimeUnits();
+      }
+      else if (modelUnitAttribute == "extent")
+      {
+        oldUnits = m.getExtentUnits();
+      }
       break;
     default:
       return LIBSBML_INVALID_OBJECT;
@@ -535,7 +714,40 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
           }
           break;
         case SBML_SPECIES:
-          i = static_cast<Species &>(sb).setSubstanceUnits(newId);
+          if (oldUnits.empty())
+          {
+            i = m.setSubstanceUnits(newId);
+          }
+          else
+          {
+            i = static_cast<Species &>(sb).setSubstanceUnits(newId);
+          }
+          break;
+        case SBML_MODEL:
+          if (modelUnitAttribute == "substance")
+          {
+            i = m.setSubstanceUnits(newId);
+          }
+          else if (modelUnitAttribute == "volume")
+          {
+            i = m.setVolumeUnits(newId);
+          }
+          else if (modelUnitAttribute == "area")
+          {
+            i = m.setAreaUnits(newId);
+          }
+          else if (modelUnitAttribute == "length")
+          {
+            i = m.setLengthUnits(newId);
+          }
+          else if (modelUnitAttribute == "time")
+          {
+            i = m.setTimeUnits(newId);
+          }
+          else if (modelUnitAttribute == "extent")
+          {
+            i = m.setExtentUnits(newId);
+          }
           break;
         default:
           i = LIBSBML_INVALID_OBJECT;
@@ -585,7 +797,40 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
           }
         break;
       case SBML_SPECIES:
-        i = static_cast<Species &>(sb).setSubstanceUnits(newId);
+        if (oldUnits.empty())
+        {
+          i = m.setSubstanceUnits(newId);
+        }
+        else
+        {
+          i = static_cast<Species &>(sb).setSubstanceUnits(newId);
+        }
+        break;
+      case SBML_MODEL:
+        if (modelUnitAttribute == "substance")
+        {
+          i = m.setSubstanceUnits(newId);
+        }
+        else if (modelUnitAttribute == "volume")
+        {
+          i = m.setVolumeUnits(newId);
+        }
+        else if (modelUnitAttribute == "area")
+        {
+          i = m.setAreaUnits(newId);
+        }
+        else if (modelUnitAttribute == "length")
+        {
+          i = m.setLengthUnits(newId);
+        }
+        else if (modelUnitAttribute == "time")
+        {
+          i = m.setTimeUnits(newId);
+        }
+        else if (modelUnitAttribute == "extent")
+        {
+          i = m.setExtentUnits(newId);
+        }
         break;
       default:
         i = LIBSBML_INVALID_OBJECT;
@@ -596,6 +841,95 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
   return i;
 }
 
+/* if a global unit has been set but not used by a compartment
+ * species or parameter it will not have been converted.
+ * Thus we check whether the value of the attribute has changed
+ * and if not we do conversion just to make sure
+ */
+bool
+SBMLUnitsConverter::convertGlobalUnits(Model &m)
+{
+  bool converted = true;
+
+  std::string attrib = "substance";
+
+  GlobalUnitsIter it = mGlobalUnits.find(attrib);
+  std::string origUnits = (*it).second;
+
+  // very unlikely that the model does not have units 
+  // calculated as unit consistency checks will have been done
+  // but just in case
+  if (!m.isPopulatedListFormulaUnitsData())
+  {
+    m.populateListFormulaUnitsData();
+  }
+
+
+  if (converted == true && origUnits.empty() == false)
+  { /* the substanceUnits have not been converted */
+    if (m.getSubstanceUnits() == origUnits)
+    {
+      converted = convertUnits(m, m, attrib);
+    }    
+  }
+
+  attrib = "volume";
+  it = mGlobalUnits.find(attrib);
+  origUnits = (*it).second;
+  if (converted == true && origUnits.empty() == false)
+  { /* the volume Units have not been converted */
+    if (m.getVolumeUnits() == origUnits)
+    {
+      converted = convertUnits(m, m, attrib);
+    }    
+  }
+
+  attrib = "area";
+  it = mGlobalUnits.find(attrib);
+  origUnits = (*it).second;
+  if (converted == true && origUnits.empty() == false)
+  { /* the area Units have not been converted */
+    if (m.getAreaUnits() == origUnits)
+    {
+      converted = convertUnits(m, m, attrib);
+    }    
+  }
+
+  attrib = "length";
+  it = mGlobalUnits.find(attrib);
+  origUnits = (*it).second;
+  if (converted == true && origUnits.empty() == false)
+  { /* the length Units have not been converted */
+    if (m.getLengthUnits() == origUnits)
+    {
+      converted = convertUnits(m, m, attrib);
+    }    
+  }
+
+  attrib = "time";
+  it = mGlobalUnits.find(attrib);
+  origUnits = (*it).second;
+  if (converted == true && origUnits.empty() == false)
+  { /* the time Units have not been converted */
+    if (m.getTimeUnits() == origUnits)
+    {
+      converted = convertUnits(m, m, attrib);
+    }    
+  }
+
+  attrib = "extent";
+  it = mGlobalUnits.find(attrib);
+  origUnits = (*it).second;
+  if (converted == true && origUnits.empty() == false)
+  { /* the extent Units have not been converted */
+    if (m.getExtentUnits() == origUnits)
+    {
+      converted = convertUnits(m, m, attrib);
+    }    
+  }
+
+  return converted;
+}
 
 
 std::string 

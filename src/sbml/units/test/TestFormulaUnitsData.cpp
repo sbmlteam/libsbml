@@ -96,7 +96,7 @@ START_TEST (test_FormulaUnitsData_setters)
 
   m->addFormulaUnitsData(fud);
 
-  fail_unless(m->getNumFormulaUnitsData() == 17);
+  fail_unless(m->getNumFormulaUnitsData() == 23);
 
 //  delete fud;
 
@@ -105,7 +105,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getdefaults)
 {
-  const FormulaUnitsData *fud = m->getFormulaUnitsData(0);
+  const FormulaUnitsData *fud = m->getFormulaUnitsData(6);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "subs_per_time"), NULL);
   fail_unless(fud->getContainsUndeclaredUnits() == 0);
@@ -133,7 +133,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getcompartment)
 {
-  const FormulaUnitsData *fud = m->getFormulaUnitsData(1);
+  const FormulaUnitsData *fud = m->getFormulaUnitsData(7);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "cell"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Compartment"), NULL);
@@ -166,7 +166,7 @@ START_TEST (test_FormulaUnitsData_getcompartment)
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(2);
+  fud = m->getFormulaUnitsData(8);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "cell1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Compartment"), NULL);
@@ -203,7 +203,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getspecies)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(3);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(9);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Species"), NULL);
@@ -248,7 +248,7 @@ START_TEST (test_FormulaUnitsData_getspecies)
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(2)->getOffset() == 0.0);
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(2)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(4);
+  fud = m->getFormulaUnitsData(10);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "y"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Species"), NULL);
@@ -281,7 +281,7 @@ START_TEST (test_FormulaUnitsData_getspecies)
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(5);
+  fud = m->getFormulaUnitsData(11);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "z2"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Species"), NULL);
@@ -331,7 +331,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getparameter)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(6);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(12);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Parameter"), NULL);
@@ -370,7 +370,7 @@ START_TEST (test_FormulaUnitsData_getparameter)
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getPerTimeUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(7);
+  fud = m->getFormulaUnitsData(13);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "k2"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Parameter"), NULL);
@@ -386,7 +386,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getinitialassignment)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(8);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(14);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "z2"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "InitialAssignment"), NULL);
@@ -408,7 +408,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getrule)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(9);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(15);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "AssignmentRule"), NULL);
@@ -420,7 +420,7 @@ START_TEST (test_FormulaUnitsData_getrule)
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
 
-  fud = m->getFormulaUnitsData(10);
+  fud = m->getFormulaUnitsData(16);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "y"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "RateRule"), NULL);
@@ -443,7 +443,7 @@ START_TEST (test_FormulaUnitsData_getrule)
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(11);
+  fud = m->getFormulaUnitsData(17);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "alg_rule_0"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "AlgebraicRule"), NULL);
@@ -464,7 +464,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getreaction)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(12);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(18);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "R"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "KineticLaw"), NULL);
@@ -493,7 +493,7 @@ START_TEST (test_FormulaUnitsData_getreaction)
   fail_unless(fud->getUnitDefinition()->getUnit(2)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(2)->getKind() == UNIT_KIND_SECOND);
 
-  fud = m->getFormulaUnitsData(13);
+  fud = m->getFormulaUnitsData(19);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "x"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "StoichiometryMath"), NULL);
@@ -511,7 +511,7 @@ END_TEST
 
 START_TEST (test_FormulaUnitsData_getevent)
 {
-  FormulaUnitsData *fud = m->getFormulaUnitsData(14);
+  FormulaUnitsData *fud = m->getFormulaUnitsData(20);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "e1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "Event"), NULL);
@@ -522,7 +522,7 @@ START_TEST (test_FormulaUnitsData_getevent)
 
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
-  fud = m->getFormulaUnitsData(15);
+  fud = m->getFormulaUnitsData(21);
 
   fail_unless(!strcmp(fud->getUnitReferenceId().c_str(), "celle1"), NULL);
   fail_unless(!strcmp(SBMLTypeCode_toString(fud->getComponentTypecode(), "core"), "EventAssignment"), NULL);

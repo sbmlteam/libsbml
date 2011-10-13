@@ -49,6 +49,10 @@ public:
   
   /* register with the ConversionRegistry */
   static void init();  
+#ifndef SWIG
+  typedef std::map<const std::string, const std::string> GlobalUnits;
+  typedef GlobalUnits::iterator                  GlobalUnitsIter;
+#endif
 
   /** @endcond doxygen-libsbml-internal */
 
@@ -122,14 +126,18 @@ private:
 
   bool convertUnits(SBase& sb, Model& m);
 
+  bool convertUnits(SBase& sb, Model& m, std::string &modelUnitAttribute);
 
-  int applyNewUnitDefinition(SBase& sb, Model& m, UnitDefinition *newUD);
-
+  int applyNewUnitDefinition(SBase& sb, Model& m, UnitDefinition *newUD,
+    std::string &modelUnitAttribute);
 
   std::string existsAlready(Model& m, UnitDefinition *newUD);
 
 
   void removeUnusedUnitDefinitions(Model& m);
+  
+  
+  bool convertGlobalUnits(Model& m);
 
  
   bool isUsed(Model& m, std::string unitSId);
@@ -142,6 +150,8 @@ private:
   bool mathHasCnUnits(const ASTNode *ast);
 
   unsigned int newIdCount;
+
+  GlobalUnits mGlobalUnits;
 
   /** @endcond doxygen-libsbml-internal */
 
