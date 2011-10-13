@@ -139,6 +139,7 @@ test_sources =                   \
   TestConsistencyChecks.cpp      \
   TestSBMLTransforms.cpp      \
   TestSBMLConstructorException.cpp  \
+  TestRemoveFromParent.cpp       \
   TestGetMultipleObjects.cpp
 
 
