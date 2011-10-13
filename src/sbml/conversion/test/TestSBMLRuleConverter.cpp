@@ -158,8 +158,13 @@ START_TEST (test_conversion_ruleconverter_with_alg)
   parameter->setConstant(false);
   parameter->setValue(0);
 
+  Parameter* parameter2 = model->createParameter();
+  parameter2->setId("k");
+  parameter2->setConstant(false);
+  parameter2->setValue(0);
+
   AlgebraicRule* rule0 = model->createAlgebraicRule();
-  rule0->setFormula("p + s");
+  rule0->setFormula("k + 2");
   rule0->setMetaId("m0");
 
   AssignmentRule* rule1 = model->createAssignmentRule();
@@ -171,7 +176,6 @@ START_TEST (test_conversion_ruleconverter_with_alg)
   rule2->setVariable("p");
   rule2->setFormula("1");
   rule2->setMetaId("m2");
-
 
   ConversionProperties *props = new ConversionProperties();
   props->addOption("sortRules", true, "sort rules");
