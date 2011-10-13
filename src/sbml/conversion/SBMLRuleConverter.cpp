@@ -116,8 +116,8 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
 {
   if (assignmentRules.size() < 2) return assignmentRules;
 
-  for (size_t n = 0; n < assignmentRules.size(); n++)
-    cout << "before: " << assignmentRules[n]->getMetaId() << endl; 
+  //for (size_t n = 0; n < assignmentRules.size(); n++)
+  //  cout << "before: " << assignmentRules[n]->getMetaId() << endl; 
 
 
   map<int, vector<string> > allSymbols;
@@ -204,8 +204,8 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
 
 
   
-  for (size_t n = 0; n < result.size(); n++)
-    cout << "after: " << result[n]->getMetaId() << endl; 
+  //for (size_t n = 0; n < result.size(); n++)
+  //  cout << "after: " << result[n]->getMetaId() << endl; 
 
   return result;
 }

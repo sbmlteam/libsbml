@@ -74,9 +74,6 @@ START_TEST (test_conversion_rulecovnerter_create)
   rule2->setFormula("1");
   rule2->setMetaId("m2");
 
-  doc.checkConsistency();
-  doc.printErrors();
-
   std::string model1 = doc.toSBML();
 
   ConversionProperties *props = new ConversionProperties();
