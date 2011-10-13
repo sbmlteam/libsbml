@@ -89,7 +89,7 @@ static void getSymbols(const ASTNode* node, vector<string>& list)
   {
     string name = node->getName();
     vector<string>::iterator it = find(list.begin(), list.end(), name);
-    if (it != list.end())
+    if (it == list.end())
       list.push_back(name);
   }
 
@@ -149,7 +149,7 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
   // build dependency graph
   for (int i = 0; i < idList.size(); i++)
   {
-    string id = idList[0];
+    string id = idList[i];
     for (int index = 0; index < assignmentRules.size(); index++)
     {
       vector<string>::iterator it = ::find(allSymbols[index].begin(), allSymbols[index].end(), id);
@@ -261,8 +261,8 @@ int
 
   assignmentRules = reorderRules(assignmentRules);
 
-  for (unsigned int i = 1; i <= assignmentRules.size();i++)
-    mModel->getListOfRules()->insertAndOwn(0,assignmentRules[assignmentRules.size()-i]);
+  for (unsigned int i = 0; i < assignmentRules.size();i++)
+    mModel->getListOfRules()->insertAndOwn(i,assignmentRules[i]);
 
   if (success) return LIBSBML_OPERATION_SUCCESS;
   return LIBSBML_OPERATION_FAILED;
