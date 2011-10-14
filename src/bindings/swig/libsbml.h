@@ -73,6 +73,12 @@
 #include <sbml/conversion/ConversionProperties.h>
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
+#include <sbml/conversion/SBMLFunctionDefinitionConverter.h>
+#include <sbml/conversion/SBMLInitialAssignmentConverter.h>
+#include <sbml/conversion/SBMLLevelVersionConverter.h>
+#include <sbml/conversion/SBMLRuleConverter.h>
+#include <sbml/conversion/SBMLStripPackageConverter.h>
+#include <sbml/conversion/SBMLUnitsConverter.h>
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
