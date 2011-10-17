@@ -1491,6 +1491,20 @@ public:
 
 
   /**
+   * Renames all the SIdRef attributes on this node and any child node
+   */
+  LIBSBML_EXTERN
+  virtual void renameSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
+   * Renames all the UnitSIdRef attributes on this node and any child node.  (The only place UnitSIDRefs appear is in <cn> elements.)
+   */
+  LIBSBML_EXTERN
+  virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
+
+
+  /**
    * Unsets the units of this ASTNode.
    *
    * @return integer value indicating success/failure of the

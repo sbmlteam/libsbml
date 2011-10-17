@@ -51,75 +51,53 @@ thisdir   = src/sbml/test
 # rules in `makefile-common-actions.mk' included at the end.
 
 test_sources =                   \
-  TestReadSBML.cpp               \
-  TestWriteSBML.cpp              \
-  TestWriteL3SBML.cpp            \
-  TestRunner.c                   \
+  TestAlgebraicRule.c            \
+  TestAncestor.cpp               \
+  TestAssignmentRule.c           \
   TestCompartment.c              \
-  TestL3Compartment.c            \
-  TestCompartment_newSetters.c   \
   TestCompartmentType.c          \
   TestCompartmentType_newSetters.c   \
+  TestCompartmentVolumeRule.c    \
+  TestCompartment_newSetters.c   \
+  TestConsistencyChecks.cpp      \
   TestConstraint.c               \
   TestConstraint_newSetters.c    \
+  TestCopyAndClone.cpp           \
+  TestDelay.c                    \
   TestEvent.c                    \
-  TestL3Event.c                  \
-  TestEvent_newSetters.c         \
   TestEventAssignment.c          \
   TestEventAssignment_newSetters.c          \
+  TestEvent_newSetters.c         \
   TestFunctionDefinition.c       \
   TestFunctionDefinition_newSetters.c       \
+  TestGetMultipleObjects.cpp     \
   TestInitialAssignment.c        \
   TestInitialAssignment_newSetters.c        \
+  TestInternalConsistencyChecks.cpp         \
   TestKineticLaw.c               \
-  TestL3KineticLaw.c                 \
   TestKineticLaw_newSetters.c    \
-  TestListOf.c                   \
-  TestParameter.c                \
-  TestL3Parameter.c                \
+  TestL3Compartment.c            \
+  TestL3Event.c                  \
+  TestL3KineticLaw.c                 \
   TestL3LocalParameter.c                \
+  TestL3Model.c                    \
+  TestL3Parameter.c                \
+  TestL3Reaction.c                 \
+  TestL3Species.c                  \
+  TestL3SpeciesReference.c         \
+  TestL3Trigger.c                \
+  TestL3Unit.c                     \
+  TestListOf.c                   \
+  TestModel.c                    \
+  TestModel_newSetters.c         \
+  TestModifierSpeciesReference.c \
+  TestParameter.c                \
+  TestParameterRule.c            \
   TestParameter_newSetters.c     \
   TestPriority.c                \
-  TestReaction.c                 \
-  TestL3Reaction.c                 \
-  TestReaction_newSetters.c      \
-  TestRule.c                     \
-  TestRule_newSetters.c          \
-  TestSpecies.c                  \
-  TestL3Species.c                  \
-  TestSpecies_newSetters.c       \
-  TestSpeciesReference.c         \
-  TestL3SpeciesReference.c         \
-  TestSpeciesReference_newSetters.c         \
-  TestSpeciesType.c              \
-  TestSpeciesType_newSetters.c   \
-  TestUnit.c                     \
-  TestL3Unit.c                     \
-  TestUnit_newSetters.c          \
-  TestUnitDefinition.c           \
-  TestUnitDefinition_newSetters.c           \
-  TestUnitKind.c                 \
-  TestAssignmentRule.c           \
-  TestCopyAndClone.cpp           \
-  TestAlgebraicRule.c            \
   TestRateRule.c                 \
-  TestDelay.c                    \
-  TestTrigger.c                  \
-  TestL3Trigger.c                \
-  TestModel.c                    \
-  TestL3Model.c                    \
-  TestModel_newSetters.c         \
-  TestSBase.cpp                  \
-  TestSBase_newSetters.cpp       \
-  TestStoichiometryMath.c        \
-  TestModifierSpeciesReference.c \
-  TestCompartmentVolumeRule.c    \
-  TestParameterRule.c            \
-  TestSpeciesConcentrationRule.c \
-  TestSBMLConvert.c              \
-  TestSBMLConvertStrict.c        \
-  TestSBMLDocument.c             \
-  TestSyntaxChecker.c            \
+  TestReaction.c                 \
+  TestReaction_newSetters.c      \
   TestReadFromFile1.c            \
   TestReadFromFile2.c            \
   TestReadFromFile3.c            \
@@ -129,18 +107,41 @@ test_sources =                   \
   TestReadFromFile7.cpp          \
   TestReadFromFile8.cpp          \
   TestReadFromFile9.cpp          \
-  TestSBMLParentObject.cpp       \
-  TestSBMLError.cpp              \
-  TestAncestor.cpp               \
+  TestReadSBML.cpp               \
+  TestRemoveFromParent.cpp       \
+  TestRenameIDs.cpp              \
   TestRequiredAttributes.cpp               \
   TestRequiredElements.cpp               \
-  TestSBMLNamespaces.cpp         \
-  TestInternalConsistencyChecks.cpp               \
-  TestConsistencyChecks.cpp      \
-  TestSBMLTransforms.cpp      \
+  TestRule.c                     \
+  TestRule_newSetters.c          \
+  TestRunner.c                   \
   TestSBMLConstructorException.cpp  \
-  TestRemoveFromParent.cpp       \
-  TestGetMultipleObjects.cpp
+  TestSBMLConvert.c              \
+  TestSBMLConvertStrict.c        \
+  TestSBMLDocument.c             \
+  TestSBMLError.cpp              \
+  TestSBMLNamespaces.cpp         \
+  TestSBMLParentObject.cpp       \
+  TestSBMLTransforms.cpp      \
+  TestSBase.cpp                  \
+  TestSBase_newSetters.cpp       \
+  TestSpecies.c                  \
+  TestSpeciesConcentrationRule.c \
+  TestSpeciesReference.c         \
+  TestSpeciesReference_newSetters.c         \
+  TestSpeciesType.c              \
+  TestSpeciesType_newSetters.c   \
+  TestSpecies_newSetters.c       \
+  TestStoichiometryMath.c        \
+  TestSyntaxChecker.c            \
+  TestTrigger.c                  \
+  TestUnit.c                     \
+  TestUnitDefinition.c           \
+  TestUnitDefinition_newSetters.c           \
+  TestUnitKind.c                 \
+  TestUnit_newSetters.c          \
+  TestWriteL3SBML.cpp            \
+  TestWriteSBML.cpp              
 
 
 extra_CPPFLAGS = -I.. -I../..

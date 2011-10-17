@@ -50,8 +50,12 @@ Species::Species (unsigned int level, unsigned int version) :
    SBase ( level, version )
   , mId                       ( ""    )
   , mName                     ( ""    )
+  , mSpeciesType              ( ""    )
+  , mCompartment              ( ""    )
   , mInitialAmount            ( 0.0   )
   , mInitialConcentration     ( 0.0   )
+  , mSubstanceUnits           ( ""    )
+  , mSpatialSizeUnits         ( ""    )
   , mHasOnlySubstanceUnits    ( false )
   , mBoundaryCondition        ( false )
   , mCharge                   ( 0     )
@@ -93,8 +97,12 @@ Species::Species (SBMLNamespaces *sbmlns) :
     SBase                     ( sbmlns    )
   , mId                       ( ""    )
   , mName                     ( ""    )
+  , mSpeciesType              ( ""    )
+  , mCompartment              ( ""    )
   , mInitialAmount            ( 0.0   )
   , mInitialConcentration     ( 0.0   )
+  , mSubstanceUnits           ( ""    )
+  , mSpatialSizeUnits         ( ""    )
   , mHasOnlySubstanceUnits    ( false )
   , mBoundaryCondition        ( false )
   , mCharge                   ( 0     )
@@ -156,6 +164,8 @@ Species::Species(const Species& orig) :
   }
   else
   {
+    mId                         = orig.mId;
+    mName                       = orig.mName;
     mSpeciesType                = orig.mSpeciesType;
     mCompartment                = orig.mCompartment;
     mInitialAmount              = orig.mInitialAmount;
@@ -173,8 +183,6 @@ Species::Species(const Species& orig) :
     mIsSetBoundaryCondition     = orig.mIsSetBoundaryCondition;
     mIsSetHasOnlySubstanceUnits = orig.mIsSetHasOnlySubstanceUnits;
     mIsSetConstant              = orig.mIsSetConstant;
-    mId                         = orig.mId;
-    mName                       = orig.mName;
     mExplicitlySetBoundaryCondition = orig.mExplicitlySetBoundaryCondition;
     mExplicitlySetConstant          = orig.mExplicitlySetConstant;
     mExplicitlySetHasOnlySubsUnits  = orig.mExplicitlySetHasOnlySubsUnits;
@@ -1189,6 +1197,31 @@ Species::hasRequiredAttributes() const
   return allPresent;
 }
 
+
+void
+Species::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetSpeciesType()) {
+    if (mSpeciesType==oldid) setSpeciesType(newid);
+  }
+  if (isSetCompartment()) {
+    if (mCompartment==oldid) setCompartment(newid);
+  }
+  if (isSetConversionFactor()) {
+    if (mConversionFactor==oldid) setConversionFactor(newid);
+  }
+}
+
+void 
+Species::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetSubstanceUnits()) {
+    if (mSubstanceUnits==oldid) setSubstanceUnits(newid);
+  }
+  if (isSetSpatialSizeUnits()) {
+    if (mSpatialSizeUnits==oldid) setSpatialSizeUnits(newid);
+  }
+}
 
 /** @cond doxygen-libsbml-internal */
 /**

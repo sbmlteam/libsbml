@@ -726,6 +726,19 @@ Compartment::setConstant (bool value)
 }
 
 
+void
+Compartment::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (mCompartmentType==oldid) mCompartmentType = newid;
+  if (mOutside==oldid) mOutside= newid; //You know, just in case.
+}
+
+void 
+Compartment::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (mUnits==oldid) mUnits = newid;
+}
+
 /*
  * Unsets the name of this SBML object.
  */

@@ -227,7 +227,25 @@ public:
    */
   virtual List* getAllElements();
   
-  
+
+  /**
+   * Renames all the SIdRef attributes on this element, including any found in MathML
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
+
+  /**
+   * Renames all the MetaIdRef attributes on this element
+   */
+  virtual void renameMetaIdRefs(std::string oldid, std::string newid);
+
+
+  /**
+   * Renames all the UnitSIdRef attributes on this element
+   */
+  virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
+
+
   //LS DEBUG: make these two function private?
   /**
    * Returns the first child element found that has the given id in the model-wide SId namespace from all plugins associated with this element, or NULL if no such object is found.

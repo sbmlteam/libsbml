@@ -271,6 +271,22 @@ int Priority::removeFromParentAndDelete()
   return parentEvent->unsetPriority();
 }
 
+void
+Priority::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+}
+
+void 
+Priority::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read (and store) XHTML,

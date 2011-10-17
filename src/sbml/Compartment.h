@@ -917,6 +917,18 @@ public:
 
 
   /**
+   * Renames all the SIdRef attributes on this element, including any found in MathML
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
+
+  /**
+   * Renames all the UnitSIdRef attributes on this element
+   */
+  virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
+
+
+  /**
    * Unsets the value of the "name" attribute of this Compartment.
    *
    * @return integer value indicating success/failure of the

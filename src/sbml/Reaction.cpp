@@ -355,6 +355,14 @@ Reaction::getAllElements()
   return ret;
 }
 
+void
+Reaction::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (mCompartment == oldid) {
+    setCompartment(newid);
+  }
+}
+
 /*
  * Initializes the fields of this Reaction to their defaults:
  *

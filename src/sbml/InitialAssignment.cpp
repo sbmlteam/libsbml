@@ -416,6 +416,25 @@ InitialAssignment::hasRequiredElements() const
 }
 
 
+void
+InitialAssignment::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (mSymbol == oldid) {
+    setSymbol(newid);
+  }
+  if (isSetMath()) {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+}
+
+void 
+InitialAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to write out their contained

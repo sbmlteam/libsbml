@@ -534,6 +534,14 @@ FunctionDefinition::hasRequiredElements() const
   return allPresent;
 }
 
+void 
+FunctionDefinition::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
 
 /** @cond doxygen-libsbml-internal */
 /*

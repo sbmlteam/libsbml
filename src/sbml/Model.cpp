@@ -3703,6 +3703,27 @@ Model::removeEvent (const std::string& sid)
 }
 
 
+void
+Model::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetConversionFactor()) {
+    if (getConversionFactor()==oldid) {
+      setConversionFactor(newid);
+    }
+  }
+}
+
+void 
+Model::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
+  if (mTimeUnits == oldid)      mTimeUnits = newid;
+  if (mVolumeUnits == oldid)    mVolumeUnits = newid;
+  if (mAreaUnits == oldid)      mAreaUnits = newid;
+  if (mLengthUnits == oldid)    mLengthUnits = newid;
+  if (mExtentUnits == oldid)    mExtentUnits = newid;
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read (and store) XHTML,

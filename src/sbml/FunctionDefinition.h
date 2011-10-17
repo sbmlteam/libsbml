@@ -503,6 +503,11 @@ public:
    */
   virtual bool hasRequiredElements() const ;
 
+  /**
+   * Renames all the UnitSIdRef attributes on this element
+   */
+  virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
+
 
 protected:
   /** @cond doxygen-libsbml-internal */

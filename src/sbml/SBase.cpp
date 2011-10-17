@@ -106,6 +106,35 @@ SBase::getAllElements()
   return getAllElementsFromPlugins();
 }
 
+void
+SBase::renameSIdRefs(std::string oldid, std::string newid)
+{
+  //No SIdRefs in SBase
+}
+
+void
+SBase::renameMetaIdRefs(std::string oldid, std::string newid)
+{
+  if (oldid == newid) return;
+  if (isSetAnnotation()) {
+    //This is pretty hacky, but I don't know enough about annotations to do it 'right' right now.
+    string oldrdfabout = "rdf:about=\"#" + oldid;
+    string newrdfabout = "rdf:about=\"#" + newid;
+    string annot = getAnnotationString();
+    size_t place = annot.find(oldrdfabout);
+    while (place != string::npos) {
+      annot.replace(place, oldrdfabout.size(), newrdfabout);
+      place = annot.find(oldrdfabout);
+    }
+  }
+}
+
+void 
+SBase::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  //No UnitSIdRefs in SBase, either.
+}
+
 SBase*
 SBase::getElementFromPluginsBySId(std::string id)
 {

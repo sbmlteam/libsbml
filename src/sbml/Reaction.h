@@ -315,7 +315,7 @@ public:
   virtual SBase* getElementByMetaId(std::string metaid);
   
   
-    /**
+  /**
    * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
    *
    * @return a List* of pointers to all children objects.
@@ -323,6 +323,12 @@ public:
   virtual List* getAllElements();
   
   
+  /**
+   * Renames all the SIdRef attributes on this element, including any found in MathML
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
+
 /**
    * Initializes the fields of this Reaction object to "typical" default
    * values.

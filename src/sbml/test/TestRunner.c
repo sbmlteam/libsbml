@@ -153,6 +153,7 @@ Suite *create_suite_SBMLTransforms                (void);
 
 Suite *create_suite_GetMultipleObjects            (void);
 Suite *create_suite_RemoveFromParent              (void);
+Suite *create_suite_RenameIDs                     (void);
 
 /**
  * Global.
@@ -198,6 +199,7 @@ main (int argc, char* argv[])
   setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_ReadSBML               () );
+  srunner_add_suite( runner, create_suite_RenameIDs                     () );
   srunner_add_suite( runner, create_suite_RemoveFromParent              () );
   srunner_add_suite( runner, create_suite_GetMultipleObjects            () );
   srunner_add_suite( runner, create_suite_WriteSBML                     () );

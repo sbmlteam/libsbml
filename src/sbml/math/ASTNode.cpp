@@ -1834,6 +1834,37 @@ ASTNode::swapChildren (ASTNode *that)
 }
 
 LIBSBML_EXTERN
+void 
+ASTNode::renameSIdRefs(const string& oldid, const string& newid)
+{
+  if (getType() == AST_NAME ||
+      getType() == AST_FUNCTION ||
+      getType() == AST_UNKNOWN) {
+    if (getName() == oldid) {
+      setName(newid.c_str());
+    }
+  }
+  for (unsigned int child=0; child<getNumChildren(); child++) {
+    getChild(child)->renameSIdRefs(oldid, newid);
+  }
+}
+
+LIBSBML_EXTERN
+void 
+ASTNode::renameUnitSIdRefs(const string& oldid, const string& newid)
+{
+  if (isSetUnits()) {
+    if (getUnits() == oldid) {
+      setUnits(newid);
+    }
+  }
+  for (unsigned int child=0; child<getNumChildren(); child++) {
+    getChild(child)->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
+
+LIBSBML_EXTERN
 int
 ASTNode::unsetId ()
 {

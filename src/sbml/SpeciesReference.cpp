@@ -373,6 +373,14 @@ SimpleSpeciesReference::isModifier () const
 }
 
 
+void
+SimpleSpeciesReference::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetSpecies()) {
+    if (mSpecies==oldid) setSpecies(newid);
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 bool 
 SimpleSpeciesReference::hasRequiredAttributes() const

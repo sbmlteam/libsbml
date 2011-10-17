@@ -1147,6 +1147,27 @@ int KineticLaw::removeFromParentAndDelete()
 }
 
 
+void
+KineticLaw::renameSIdRefs(std::string oldid, std::string newid)
+{
+  //If the oldid is actually a local parameter, we should not rename it.
+  if (getParameter(oldid) != NULL) return;
+  if (getLocalParameter(oldid) != NULL) return;
+  if (isSetMath()) {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+}
+
+void 
+KineticLaw::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+  if (mTimeUnits == oldid) mTimeUnits = newid;
+  if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its siblings

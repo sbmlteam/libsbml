@@ -520,6 +520,12 @@ public:
   bool isModifier () const;
 
 
+  /**
+   * Renames all the SIdRef attributes on this element, including any found in MathML
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
+
 
 protected:
   /** @cond doxygen-libsbml-internal */

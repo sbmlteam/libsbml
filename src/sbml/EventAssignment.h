@@ -591,6 +591,18 @@ public:
    */
   virtual const std::string& getId() const;
 
+  /**
+   * Renames all the SIdRef attributes on this element, including any found in MathML
+   */
+  virtual void renameSIdRefs(std::string oldid, std::string newid);
+
+
+  /**
+   * Renames all the UnitSIdRef attributes on this element
+   */
+  virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
+
+
   /** @endcond */
 
 

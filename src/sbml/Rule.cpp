@@ -320,6 +320,7 @@ Rule::setFormula (const std::string& formula)
     ASTNode * math = SBML_parseFormula(formula.c_str());
     if (formula == "")
     {
+      delete math;
       mFormula.erase();
       delete mMath;
       mMath = NULL;
@@ -327,10 +328,12 @@ Rule::setFormula (const std::string& formula)
     }
     else if (math == NULL || !(math->isWellFormedASTNode()))
     {
+      delete math;
       return LIBSBML_INVALID_OBJECT;
     }
     else
     {
+      delete math;
       mFormula = formula;
 
       if (mMath != NULL)
@@ -788,6 +791,40 @@ Rule::hasRequiredElements() const
   return allPresent;
 }
 
+
+void
+Rule::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+  else if (isSetFormula()) {
+    ASTNode* math = SBML_parseFormula(mFormula.c_str());
+    if (math==NULL) return;
+    math->renameSIdRefs(oldid, newid);
+    char* formula = SBML_formulaToString(math);
+    setFormula(formula);
+    delete math;
+    delete formula;
+  }
+}
+
+void 
+Rule::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+  else if (isSetFormula()) {
+    ASTNode* math = SBML_parseFormula(mFormula.c_str());
+    if (math==NULL) return;
+    math->renameUnitSIdRefs(oldid, newid);
+    char* formula = SBML_formulaToString(math);
+    setFormula(formula);
+    delete math;
+    delete formula;
+  }
+}
 
 /** @cond doxygen-libsbml-internal */
 bool 
@@ -1368,6 +1405,17 @@ AssignmentRule::hasRequiredAttributes() const
 }
 
 
+void
+AssignmentRule::renameSIdRefs(std::string oldid, std::string newid)
+{
+  Rule::renameSIdRefs(oldid, newid);
+  if (isSetVariable()) {
+    if (getVariable()==oldid) {
+      setVariable(newid);
+    }
+  }
+}
+
 RateRule::RateRule (unsigned int level, unsigned int version) :
   Rule(SBML_RATE_RULE, level, version)
 {
@@ -1431,6 +1479,17 @@ RateRule::accept (SBMLVisitor& v) const
   return v.visit(*this);
 }
 
+
+void
+RateRule::renameSIdRefs(std::string oldid, std::string newid)
+{
+  Rule::renameSIdRefs(oldid, newid);
+  if (isSetVariable()) {
+    if (getVariable()==oldid) {
+      setVariable(newid);
+    }
+  }
+}
 
 /*
  * Creates a new ListOfRules items.

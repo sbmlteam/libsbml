@@ -644,6 +644,12 @@ Parameter::hasRequiredAttributes() const
 }
 
 
+void 
+Parameter::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (mUnits == oldid) mUnits= newid;
+}
+
 /** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to get the list of

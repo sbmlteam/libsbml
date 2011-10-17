@@ -421,6 +421,25 @@ EventAssignment::hasRequiredElements() const
 }
 
 
+void
+EventAssignment::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (mVariable == oldid) {
+    setVariable(newid);
+  }
+  if (isSetMath()) {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+}
+
+void 
+EventAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to write out their contained

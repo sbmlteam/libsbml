@@ -170,6 +170,20 @@ START_TEST (test_RemoveFromParent_successfulRemoves)
   obj = d->getElementByMetaId("meta9");
   fail_unless(obj == NULL);
 
+  //Modifier species reference
+  obj = d->getElementByMetaId("meta35");
+  fail_unless(obj != NULL);
+  fail_unless(obj->removeFromParentAndDelete() == LIBSBML_OPERATION_SUCCESS);
+  obj = d->getElementByMetaId("meta35");
+  fail_unless(obj == NULL);
+
+  //List of modifiers
+  obj = d->getElementByMetaId("meta34");
+  fail_unless(obj != NULL);
+  fail_unless(obj->removeFromParentAndDelete() == LIBSBML_OPERATION_SUCCESS);
+  obj = d->getElementByMetaId("meta34");
+  fail_unless(obj == NULL);
+
   //Reaction
   obj = d->getElementByMetaId("meta8");
   fail_unless(obj != NULL);
@@ -372,6 +386,17 @@ START_TEST (test_RemoveFromParent_alreadyRemoved)
 
   //List of local parameters
   obj = d->getElementByMetaId("meta27");
+  fail_unless(obj == NULL);
+
+  //List of modifiers
+  obj = d->getElementByMetaId("meta34");
+  fail_unless(obj != NULL);
+  fail_unless(obj->removeFromParentAndDelete() == LIBSBML_OPERATION_SUCCESS);
+  obj = d->getElementByMetaId("meta34");
+  fail_unless(obj == NULL);
+
+  //Modifier species reference
+  obj = d->getElementByMetaId("meta35");
   fail_unless(obj == NULL);
 
   //Reaction

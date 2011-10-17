@@ -299,6 +299,22 @@ Constraint::unsetMessage ()
 }
 
 
+void
+Constraint::renameSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameSIdRefs(oldid, newid);
+  }
+}
+
+void 
+Constraint::renameUnitSIdRefs(std::string oldid, std::string newid)
+{
+  if (isSetMath()) {
+    mMath->renameUnitSIdRefs(oldid, newid);
+  }
+}
+
 /*
  * @return the typecode (int) of this SBML object or SBML_UNKNOWN
  * (default).

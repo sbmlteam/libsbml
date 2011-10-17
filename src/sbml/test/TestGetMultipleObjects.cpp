@@ -265,6 +265,15 @@ START_TEST (test_GetMultipleObjects_getMetaId)
   fail_unless(obj->getTypeCode() == SBML_LIST_OF);
   fail_unless(static_cast<ListOf*>(obj)->getItemTypeCode() == SBML_PARAMETER);
 
+  obj = d->getElementByMetaId("meta34");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_LIST_OF);
+  fail_unless(static_cast<ListOf*>(obj)->getItemTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE);
+
+  obj = d->getElementByMetaId("meta35");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE);
+
 
   delete d;
 }
@@ -345,7 +354,7 @@ START_TEST (test_GetMultipleObjects_allElements)
   }
 
   List* list = d->getAllElements();
-  fail_unless(list->getSize() == 33);
+  fail_unless(list->getSize() == 37);
 
   delete d;
 }
