@@ -126,7 +126,7 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
   vector<AssignmentRule*> result;
 
   // read id list, initialize all symbols
-  for (int index = 0; index < assignmentRules.size(); index++)
+  for (size_t index = 0; index < assignmentRules.size(); index++)
   {
     AssignmentRule* rule = (AssignmentRule*)assignmentRules[index];
     string variable = rule->getVariable();
@@ -141,16 +141,16 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
 
   // initialize order array
   vector<int> order;
-  for (int i = 0; i < assignmentRules.size(); i++)
+  for (size_t i = 0; i < assignmentRules.size(); i++)
   {
     order.push_back(i);
   }
 
   // build dependency graph
-  for (int i = 0; i < idList.size(); i++)
+  for (size_t i = 0; i < idList.size(); i++)
   {
     string id = idList[i];
-    for (int index = 0; index < assignmentRules.size(); index++)
+    for (size_t index = 0; index < assignmentRules.size(); index++)
     {
       vector<string>::iterator it = ::find(allSymbols[index].begin(), allSymbols[index].end(), id);
       if (it != allSymbols[index].end())
@@ -166,11 +166,11 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
   while (changed)
   {
     changed = false;
-    for (int i = 0; i < order.size(); i++)
+    for (size_t i = 0; i < order.size(); i++)
     {
 
       int first = order[i];
-      for (int j = i + 1; j < order.size(); j++)
+      for (size_t j = i + 1; j < order.size(); j++)
       {
         int second = order[j];
 
@@ -199,7 +199,7 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
 
 
   // create new order
-  for (int i = 0; i < order.size(); i++)
+  for (size_t i = 0; i < order.size(); i++)
     result.push_back(assignmentRules[order[i]]);
 
 
