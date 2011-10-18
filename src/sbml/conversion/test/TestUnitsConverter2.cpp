@@ -348,8 +348,7 @@ START_TEST (test_convert_model_volume3)
       equalDouble(d->getModel()->getCompartment(0)->getSize(), 0.001) == true);
   fail_unless (d->getModel()->getCompartment(0)->getUnits() == "unitSid_0");
 
-  // NEED TO CHANGE THIS
-  fail_unless (d->getModel()->getVolumeUnits() == "litre");
+  fail_unless (d->getModel()->getVolumeUnits() == "unitSid_0");
 
   fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
   fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
@@ -1079,7 +1078,6 @@ START_TEST (test_convert_model_global)
   fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
   fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
 
-  // NEED TO CHANGE THIS
   fail_unless (d->getModel()->getVolumeUnits() == "unitSid_0");
   fail_unless (d->getModel()->getSubstanceUnits() == "kilogram");
 
@@ -1098,6 +1096,44 @@ START_TEST (test_convert_model_global)
 END_TEST
 
 
+START_TEST (test_convert_model_global1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setAreaUnits("area");
+  m->setSubstanceUnits("avogadro");
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("area");
+  Unit * u = ud->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(2);
+
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  fail_unless (d->getModel()->getAreaUnits() == "area");
+  fail_unless (d->getModel()->getSubstanceUnits() == "dimensionless");
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "area");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_METRE);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == 2);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestUnitsConverter2 (void)
 { 
@@ -1105,27 +1141,28 @@ create_suite_TestUnitsConverter2 (void)
   TCase *tcase = tcase_create("UnitsConverter2");
 
 
-  //tcase_add_test(tcase, test_convert_double_exponent);
-  //tcase_add_test(tcase, test_convert_double_exponent1);
-  //tcase_add_test(tcase, test_convert_model_volume);
-  //tcase_add_test(tcase, test_convert_model_volume1);
-  //tcase_add_test(tcase, test_convert_model_volume2);
-  //tcase_add_test(tcase, test_convert_model_volume3);
-  //tcase_add_test(tcase, test_convert_model_volume4);
-  //tcase_add_test(tcase, test_convert_model_area);
-  //tcase_add_test(tcase, test_convert_model_area1);
-  //tcase_add_test(tcase, test_convert_model_area2);
-  //tcase_add_test(tcase, test_convert_model_area3);
-  //tcase_add_test(tcase, test_convert_model_length);
-  //tcase_add_test(tcase, test_convert_model_length1);
-  //tcase_add_test(tcase, test_convert_model_length2);
-  //tcase_add_test(tcase, test_convert_model_substance);
-  //tcase_add_test(tcase, test_convert_model_substance1);
-  //tcase_add_test(tcase, test_convert_model_substance2);
-  //tcase_add_test(tcase, test_convert_model_substance3);
-  //tcase_add_test(tcase, test_convert_model_substance4);
-  //tcase_add_test(tcase, test_convert_model_substance5);
+  tcase_add_test(tcase, test_convert_double_exponent);
+  tcase_add_test(tcase, test_convert_double_exponent1);
+  tcase_add_test(tcase, test_convert_model_volume);
+  tcase_add_test(tcase, test_convert_model_volume1);
+  tcase_add_test(tcase, test_convert_model_volume2);
+  tcase_add_test(tcase, test_convert_model_volume3);
+  tcase_add_test(tcase, test_convert_model_volume4);
+  tcase_add_test(tcase, test_convert_model_area);
+  tcase_add_test(tcase, test_convert_model_area1);
+  tcase_add_test(tcase, test_convert_model_area2);
+  tcase_add_test(tcase, test_convert_model_area3);
+  tcase_add_test(tcase, test_convert_model_length);
+  tcase_add_test(tcase, test_convert_model_length1);
+  tcase_add_test(tcase, test_convert_model_length2);
+  tcase_add_test(tcase, test_convert_model_substance);
+  tcase_add_test(tcase, test_convert_model_substance1);
+  tcase_add_test(tcase, test_convert_model_substance2);
+  tcase_add_test(tcase, test_convert_model_substance3);
+  tcase_add_test(tcase, test_convert_model_substance4);
+  tcase_add_test(tcase, test_convert_model_substance5);
   tcase_add_test(tcase, test_convert_model_global);
+  tcase_add_test(tcase, test_convert_model_global1);
 
   suite_add_tcase(suite, tcase);
 
