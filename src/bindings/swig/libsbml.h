@@ -80,6 +80,8 @@
 #include <sbml/conversion/SBMLStripPackageConverter.h>
 #include <sbml/conversion/SBMLUnitsConverter.h>
 
+#include <sbml/validator/SBMLValidator.h>
+
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 #include <sbml/math/FormulaFormatter.h>

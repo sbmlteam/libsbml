@@ -25,7 +25,9 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-%module libsbml
+%module(directors="1") libsbml
+%feature("director") SBMLValidator;  
+%feature("director") SBMLConverter;  
 
 %pragma(java) moduleclassmodifiers="
 /**
@@ -498,6 +500,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %include <sbml/conversion/SBMLRuleConverter.h>
 %include <sbml/conversion/SBMLStripPackageConverter.h>
 %include <sbml/conversion/SBMLUnitsConverter.h>
+
+%include <sbml/validator/SBMLValidator.h>
 
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h
