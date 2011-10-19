@@ -285,6 +285,10 @@ class ConversionProperties;
 class SBMLVisitor;
 class XMLError;
 
+#ifndef DONT_USE_VALIDATOR_API
+class SBMLValidator;
+class SBMLInternalValidator;
+#endif
 
 /** @cond doxygen-libsbml-internal */
 /* Internal constants for setting/unsetting particular consistency checks. */
@@ -1257,10 +1261,22 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  unsigned char getApplicableValidators();
-  unsigned char getConversionValidators();
+  unsigned char getApplicableValidators() const;
+  unsigned char getConversionValidators() const;
   void setApplicableValidators(unsigned char appl);
   void setConversionValidators(unsigned char appl);
+
+#ifndef DONT_USE_VALIDATOR_API
+
+  unsigned int getNumValidators() const;
+  int clearValidators();
+  int addValidator(const SBMLValidator* validator);
+  SBMLValidator* getValidator(unsigned int index);
+
+
+#endif
+
+
   /** @endcond */
 
 
@@ -1322,8 +1338,13 @@ protected:
 
   SBMLErrorLog mErrorLog;
 
+#ifdef DONT_USE_VALIDATOR_API
   unsigned char mApplicableValidators;
   unsigned char mApplicableValidatorsForConversion;
+#else
+  std::list<SBMLValidator*> mValidators;
+  SBMLInternalValidator *mInternalValidator;
+#endif
 
   //PkgRequiredMap           mPkgRequiredMap;
   XMLAttributes            mRequiredAttrOfUnknownPkg;

@@ -35,6 +35,8 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLError.h>
 
+
+#ifdef DONT_USE_VALIDATOR_API
 #include <sbml/validator/ConsistencyValidator.h>
 #include <sbml/validator/IdentifierConsistencyValidator.h>
 #include <sbml/validator/MathMLConsistencyValidator.h>
@@ -49,7 +51,9 @@
 #include <sbml/validator/L2v4CompatibilityValidator.h>
 #include <sbml/validator/L3v1CompatibilityValidator.h>
 #include <sbml/validator/InternalConsistencyValidator.h>
-
+#else
+#include <sbml/validator/SBMLInternalValidator.h>
+#endif
 
 #include <sbml/Model.h>
 #include <sbml/SBMLErrorLog.h>
@@ -146,9 +150,19 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mLevel   ( level   )
  , mVersion ( version )
  , mModel   ( NULL       )
- , mApplicableValidators(AllChecksON)
- , mApplicableValidatorsForConversion(AllChecksON)
 {
+
+#ifdef DONT_USE_VALIDATOR_API
+  mApplicableValidators = AllChecksON;
+  mApplicableValidatorsForConversion=AllChecksON;
+#else
+  mInternalValidator = new SBMLInternalValidator();
+  mInternalValidator->setDocument(this);
+  mInternalValidator->setApplicableValidators(AllChecksON);
+  mInternalValidator->setConversionValidators(AllChecksON);
+#endif
+  
+
   mSBML = this;
 
   if (mLevel   == 0 && mVersion == 0)  
@@ -174,9 +188,19 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
    SBase (sbmlns)
  , mModel   ( NULL       )
- , mApplicableValidators(AllChecksON)
- , mApplicableValidatorsForConversion(AllChecksON)
 {
+
+#ifdef DONT_USE_VALIDATOR_API
+  mApplicableValidators = AllChecksON;
+  mApplicableValidatorsForConversion=AllChecksON;
+#else
+  mInternalValidator = new SBMLInternalValidator();
+  mInternalValidator->setDocument(this);
+  mInternalValidator->setApplicableValidators(AllChecksON);
+  mInternalValidator->setConversionValidators(AllChecksON);
+#endif
+  
+
   mSBML = this;
   mLevel   = sbmlns->getLevel();
   mVersion = sbmlns->getVersion();
@@ -203,11 +227,49 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
 }
 
 
+#ifndef DONT_USE_VALIDATOR_API
+
+  unsigned int SBMLDocument::getNumValidators() const
+  {
+    return (unsigned int)mValidators.size();
+  }
+  int SBMLDocument::clearValidators()
+  {
+    mValidators.clear();
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  int SBMLDocument::addValidator(const SBMLValidator* validator)
+  {
+    mValidators.push_back(validator->clone());
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  SBMLValidator* SBMLDocument::getValidator(unsigned int index)
+  {
+    if (index >= getNumValidators()) return NULL;
+    list<SBMLValidator*>::iterator it;
+    unsigned int count = 0;
+    for (it = mValidators.begin(); it != mValidators.end(); it++)
+    {
+      if (count == index) return *it;
+    }
+    return NULL;
+  }
+
+
+#endif
+
+
 /*
  * Destroys this SBMLDocument.
  */
 SBMLDocument::~SBMLDocument ()
 {
+#ifndef DONT_USE_VALIDATOR_API
+  if (mInternalValidator != NULL)
+    delete mInternalValidator;
+#endif
+  if (mModel != NULL)
   delete mModel;
 }
 
@@ -229,9 +291,17 @@ SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
 
     mLevel                             = orig.mLevel;
     mVersion                           = orig.mVersion;
-    mApplicableValidators              = orig.mApplicableValidators;
-    mApplicableValidatorsForConversion = 
-                                  orig.mApplicableValidatorsForConversion;
+
+#ifdef DONT_USE_VALIDATOR_API
+    mApplicableValidators = orig.getApplicableValidators();
+    mApplicableValidatorsForConversion=orig.getConversionValidators();
+#else
+    mInternalValidator = new SBMLInternalValidator();
+    mInternalValidator->setDocument(this);
+    mInternalValidator->setApplicableValidators(orig.getApplicableValidators());
+    mInternalValidator->setConversionValidators(orig.getConversionValidators());
+#endif
+  
 
     if (orig.mModel != NULL) 
     {
@@ -267,9 +337,15 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 
     mLevel                             = rhs.mLevel;
     mVersion                           = rhs.mVersion;
-    mApplicableValidators              = rhs.mApplicableValidators;
-    mApplicableValidatorsForConversion = 
-                                  rhs.mApplicableValidatorsForConversion;
+
+#ifdef DONT_USE_VALIDATOR_API
+    mApplicableValidators = rhs.getApplicableValidators();
+    mApplicableValidatorsForConversion=rhs.getConversionValidators();
+#else
+    mInternalValidator = (SBMLInternalValidator*)rhs.mInternalValidator->clone();
+    mInternalValidator->setDocument(this);
+#endif
+  
 
     if (rhs.mModel != NULL) 
     {
@@ -372,30 +448,49 @@ SBMLDocument::getAllElements()
 
 
 unsigned char
-SBMLDocument::getApplicableValidators()
+SBMLDocument::getApplicableValidators() const
 {
+#ifdef DONT_USE_VALIDATOR_API
   return mApplicableValidators;
+#else
+  return mInternalValidator->getApplicableValidators();
+#endif
+  
+
 }
 
 
 unsigned char
-SBMLDocument::getConversionValidators()
+SBMLDocument::getConversionValidators() const
 {
+#ifdef DONT_USE_VALIDATOR_API
   return mApplicableValidatorsForConversion;
+#else
+  return mInternalValidator->getConversionValidators();
+#endif
 }
 
 
 void
 SBMLDocument::setApplicableValidators(unsigned char appl)
 {
+#ifdef DONT_USE_VALIDATOR_API
   mApplicableValidators = appl;
+#else
+  return mInternalValidator->setApplicableValidators(appl);
+#endif
+
 }
 
 
 void
 SBMLDocument::setConversionValidators(unsigned char appl)
 {
+#ifdef DONT_USE_VALIDATOR_API
   mApplicableValidatorsForConversion = appl;
+#else
+  return mInternalValidator->setConversionValidators(appl);
+#endif
 }
 /* 
  * removes FD and expands them in math elements
@@ -599,6 +694,7 @@ void
 SBMLDocument::setConsistencyChecks(SBMLErrorCategory_t category,
                                    bool apply)
 {
+#ifdef DONT_USE_VALIDATOR_API  
   switch (category)
   {
   case LIBSBML_CAT_IDENTIFIER_CONSISTENCY:
@@ -689,7 +785,9 @@ SBMLDocument::setConsistencyChecks(SBMLErrorCategory_t category,
     // If it's a category for which we don't have validators, ignore it.
     break;
   }
-
+#else
+  return mInternalValidator->setConsistencyChecks(category, apply);
+#endif
 }
 
 
@@ -697,6 +795,7 @@ void
 SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
                                    bool apply)
 {
+#ifdef DONT_USE_VALIDATOR_API  
   switch (category)
   {
   case LIBSBML_CAT_IDENTIFIER_CONSISTENCY:
@@ -787,7 +886,9 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
     // If it's a category for which we don't have validators, ignore it.
     break;
   }
-
+#else
+  return mInternalValidator->setConsistencyChecksForConversion(category, apply);
+#endif
 }
 
 
@@ -800,6 +901,7 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
 unsigned int
 SBMLDocument::checkConsistency ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;
 
@@ -954,6 +1056,23 @@ SBMLDocument::checkConsistency ()
 
 
   return total_errors;
+#else
+
+  unsigned int numErrors = mInternalValidator->checkConsistency();
+
+  list<SBMLValidator*>::iterator it;
+  for (it = mValidators.begin(); it != mValidators.end(); it++)
+  {
+    long newErrors = (*it)->validate(*this);
+    if (newErrors > 0)
+    {
+      mErrorLog.add((*it)->getFailures());
+      numErrors += newErrors;
+    }
+  }
+
+  return numErrors;
+#endif
 }
 
 
@@ -969,6 +1088,7 @@ SBMLDocument::checkConsistency ()
 unsigned int
 SBMLDocument::checkInternalConsistency()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   unsigned int nerrors = 0;
   unsigned int totalerrors = 0;
 
@@ -997,7 +1117,9 @@ SBMLDocument::checkInternalConsistency()
 
 
   return totalerrors;
-
+#else
+  return mInternalValidator->checkInternalConsistency();
+#endif
 }
 
 /*
@@ -1010,6 +1132,7 @@ SBMLDocument::checkInternalConsistency()
 unsigned int
 SBMLDocument::checkL1Compatibility ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   if (mModel == NULL) return 0;
 
   L1CompatibilityValidator validator;
@@ -1019,6 +1142,9 @@ SBMLDocument::checkL1Compatibility ()
   if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
+#else
+  return mInternalValidator->checkL1Compatibility();
+#endif
 }
 
 
@@ -1032,6 +1158,7 @@ SBMLDocument::checkL1Compatibility ()
 unsigned int
 SBMLDocument::checkL2v1Compatibility ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   if (mModel == NULL) return 0;
 
   L2v1CompatibilityValidator validator;
@@ -1041,6 +1168,9 @@ SBMLDocument::checkL2v1Compatibility ()
   if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
+#else
+  return mInternalValidator->checkL2v1Compatibility();
+#endif
 }
 
 
@@ -1054,6 +1184,7 @@ SBMLDocument::checkL2v1Compatibility ()
 unsigned int
 SBMLDocument::checkL2v2Compatibility ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   if (mModel == NULL) return 0;
 
   L2v2CompatibilityValidator validator;
@@ -1063,6 +1194,9 @@ SBMLDocument::checkL2v2Compatibility ()
   if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
+#else
+  return mInternalValidator->checkL2v2Compatibility();
+#endif
 }
 
 
@@ -1076,6 +1210,7 @@ SBMLDocument::checkL2v2Compatibility ()
 unsigned int
 SBMLDocument::checkL2v3Compatibility ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   if (mModel == NULL) return 0;
 
   L2v3CompatibilityValidator validator;
@@ -1085,6 +1220,9 @@ SBMLDocument::checkL2v3Compatibility ()
   if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
+#else
+  return mInternalValidator->checkL2v3Compatibility();
+#endif
 }
 
 
@@ -1098,6 +1236,7 @@ SBMLDocument::checkL2v3Compatibility ()
 unsigned int
 SBMLDocument::checkL2v4Compatibility ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   if (mModel == NULL) return 0;
 
   L2v4CompatibilityValidator validator;
@@ -1107,6 +1246,9 @@ SBMLDocument::checkL2v4Compatibility ()
   if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
+#else
+  return mInternalValidator->checkL2v4Compatibility();
+#endif
 }
 
 
@@ -1120,6 +1262,7 @@ SBMLDocument::checkL2v4Compatibility ()
 unsigned int
 SBMLDocument::checkL3v1Compatibility ()
 {
+#ifdef DONT_USE_VALIDATOR_API  
   if (mModel == NULL) return 0;
 
   L3v1CompatibilityValidator validator;
@@ -1129,6 +1272,9 @@ SBMLDocument::checkL3v1Compatibility ()
   if (nerrors > 0) mErrorLog.add( validator.getFailures() );
 
   return nerrors;
+#else
+  return mInternalValidator->checkL3v1Compatibility();
+#endif
 }
 
 
