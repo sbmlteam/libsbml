@@ -191,6 +191,9 @@ START_CONSTRAINT (99505, Event, e)
                                   m.getFormulaUnitsData(e.getId(), SBML_EVENT);
 
   pre ( formulaUnits != 0 );
+ 
+  /* in L3 need to check that time units were set */
+  pre ( formulaUnits->getEventTimeUnitDefinition()->getNumUnits() > 0);
 
   char * formula = SBML_formulaToString(e.getDelay()->getMath());
   msg = "The units of the <event> <delay> expression '";
