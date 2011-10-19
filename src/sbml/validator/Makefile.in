@@ -53,7 +53,7 @@ thisdir   = src/sbml/validator
 headers =								\
   ConsistencyValidator.h				\
   IdentifierConsistencyValidator.h		\
-  InternalConsistencyValidator.h				\
+  InternalConsistencyValidator.h		\
   MathMLConsistencyValidator.h			\
   UnitConsistencyValidator.h			\
   SBOConsistencyValidator.h				\
@@ -67,6 +67,8 @@ headers =								\
   L2v3CompatibilityValidator.h			\
   L2v4CompatibilityValidator.h			\
   L3v1CompatibilityValidator.h			\
+  SBMLInternalValidator.h		     	\
+  SBMLValidator.h		             	\
   Validator.h
 
 header_inst_prefix = validator
@@ -74,7 +76,7 @@ header_inst_prefix = validator
 sources =								\
   ConsistencyValidator.cpp				\
   IdentifierConsistencyValidator.cpp    \
-  InternalConsistencyValidator.cpp				\
+  InternalConsistencyValidator.cpp		\
   MathMLConsistencyValidator.cpp		\
   UnitConsistencyValidator.cpp			\
   SBOConsistencyValidator.cpp			\
@@ -87,6 +89,8 @@ sources =								\
   L2v3CompatibilityValidator.cpp		\
   L2v4CompatibilityValidator.cpp		\
   L3v1CompatibilityValidator.cpp		\
+  SBMLInternalValidator.cpp             \
+  SBMLValidator.cpp                     \
   Validator.cpp
 
 subdirs = constraints test
