@@ -50,7 +50,7 @@ SBMLTypeCode_t  CharToTypecode (char *);
 
 void
 GetNamespaces (mxArray * mxNamespaces,
-			         XMLNamespaces_t * pNamespaces);
+			         SBMLNamespaces_t * pNamespaces);
 
 void  GetParameter			( mxArray *, unsigned int, unsigned int, Model_t * );
 void  GetCompartment		( mxArray *, unsigned int, unsigned int, Model_t * );
