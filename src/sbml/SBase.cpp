@@ -4575,6 +4575,10 @@ SBase::checkListOfPopulated(SBase* object)
       case SBML_LOCAL_PARAMETER:
         error = EmptyListInKineticLaw;
         break;
+      case SBML_EVENT_ASSIGNMENT:
+        if (object->getLevel() > 2)
+          error = MissingEventAssignment;
+        break;
 
       default:;
       }
