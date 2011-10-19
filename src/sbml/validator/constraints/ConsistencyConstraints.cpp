@@ -2513,6 +2513,9 @@ START_CONSTRAINT (21203, Event, e)
   //  "its <listOfEventAssignments>. (References: L2V1 Section 4.10.5; L2V2 "
   //  "Section 4.14; L2V3 Section 4.14.)";
 
+  // in L3 it is not compulsory to have a listOfEventAssignments
+  pre(e.getLevel() < 3);
+
   inv( e.getNumEventAssignments() != 0 );
 }
 END_CONSTRAINT

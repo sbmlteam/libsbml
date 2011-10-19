@@ -27,6 +27,7 @@
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments/>
       </event>
     </listOfEvents>
   </model>
