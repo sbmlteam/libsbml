@@ -1,6 +1,6 @@
 /**
 * @file    SBMLInternalValidator.h
-* @brief   Definition of SBMLInternalValidator, the base class for user all SBML validation performed by libSBML.
+* @brief   Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML.
 * @author  Frank Bergmann
 * 
 * <!--------------------------------------------------------------------------
@@ -419,13 +419,12 @@ public:
   SBMLInternalValidator(const SBMLInternalValidator&);
 
   /**
-   * Creates and returns a deep copy of this converter.
+   * Creates and returns a deep copy of this validator.
    * 
-   * @return a (deep) copy of this converter.
+   * @return a (deep) copy of this validator.
    */
   virtual SBMLValidator* clone() const;
 
-  
   /** 
    * the actual conversion 
    * 

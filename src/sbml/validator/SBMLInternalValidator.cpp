@@ -1,6 +1,6 @@
 /**
  * @file    SBMLInternalValidator.cpp
- * @brief   Implementation of SBMLInternalValidator, the base class for user all SBML validation performed by libSBML.
+ * @brief   Implementation of SBMLInternalValidator, the validator for all internal validation performed by libSBML.
  * @author  Frank Bergmann
  * 
  * <!--------------------------------------------------------------------------
