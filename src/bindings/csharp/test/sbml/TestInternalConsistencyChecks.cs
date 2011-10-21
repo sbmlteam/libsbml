@@ -647,8 +647,8 @@ namespace LibSBMLCSTest.sbml {
       t.setInitialValue(false);
       d.getErrorLog().clearLog();
       errors = d.checkInternalConsistency();
-      assertTrue( errors == 1 );
-      assertTrue( d.getError(0).getErrorId() == 21203 );
+      //assertTrue( errors == 1 );
+      //assertTrue( d.getError(0).getErrorId() == 21203 );
       EventAssignment ea = r.createEventAssignment();
       ea.setVariable("ea");
       ea.setMath(ast);
