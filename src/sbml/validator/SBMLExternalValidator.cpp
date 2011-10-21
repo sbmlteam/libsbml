@@ -155,7 +155,7 @@ void startProgramAndWaitForFinish(std::string& mProgram, std::string& sbmlFile, 
     commandLineString += " \"" + (*it) +"\""; 
   const char* commandLine = commandLineString.c_str();
 
-#ifdef WIN32
+#if defined (WIN32) && !defined (CYGWIN)
   STARTUPINFO si;
 	memset(&si,0,sizeof(si));
 	si.cb = sizeof(si);     // Set byte count
