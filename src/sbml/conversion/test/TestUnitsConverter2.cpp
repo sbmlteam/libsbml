@@ -1134,6 +1134,46 @@ START_TEST (test_convert_model_global1)
 END_TEST
 
 
+START_TEST (test_convert_global_time_extent)
+{
+  string filename(TestDataDirectory);
+  filename += "units2.xml";
+
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+
+  SBMLDocument* d = readSBMLFromFile(filename.c_str());
+
+  fail_unless(d != NULL);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(d->getModel()->getTimeUnits() == "second");
+  fail_unless(d->getModel()->getExtentUnits() == "kilogram");
+
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 
+      pow(0.0166666666666666666666666666666666667, -1)) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_SECOND);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == -1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+
+
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+
+
 Suite *
 create_suite_TestUnitsConverter2 (void)
 { 
@@ -1163,6 +1203,7 @@ create_suite_TestUnitsConverter2 (void)
   tcase_add_test(tcase, test_convert_model_substance5);
   tcase_add_test(tcase, test_convert_model_global);
   tcase_add_test(tcase, test_convert_model_global1);
+  tcase_add_test(tcase, test_convert_global_time_extent);
 
   suite_add_tcase(suite, tcase);
 

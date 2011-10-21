@@ -126,18 +126,18 @@ SBMLUnitsConverter::convert()
   /* do not yet deal with the following units */
   if (m->getLevel() > 2)
   {
-    //if (m->isSetSubstanceUnits() == true)
+    ////if (m->isSetSubstanceUnits() == true)
+    ////  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    //if (m->isSetTimeUnits() == true)
     //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    if (m->isSetTimeUnits() == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    //else if (m->isSetLengthUnits() == true)
+    ////else if (m->isSetLengthUnits() == true)
+    ////  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    ////else if (m->isSetAreaUnits() == true)
+    ////  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    ////else if (m->isSetVolumeUnits() == true)
+    ////  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    //else if (m->isSetExtentUnits() == true)
     //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    //else if (m->isSetAreaUnits() == true)
-    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    //else if (m->isSetVolumeUnits() == true)
-    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
-    else if (m->isSetExtentUnits() == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
 
     if (hasCnUnits(*m) == true)
       return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
