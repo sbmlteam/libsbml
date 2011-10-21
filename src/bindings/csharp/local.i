@@ -157,8 +157,8 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 %typemap(ctype,  out="const unsigned int&") const unsigned int& "const long long&"
 
 // mapping for a type of function argument in csharp-files/libsbmlPINVOKE.cs
-%typemap(imtype, out="long") unsigned int        "long"
-%typemap(imtype, out="long") const unsigned int& "long"
+%typemap(imtype, out="uint") unsigned int        "long"
+%typemap(imtype, out="const uint") const unsigned int& "long"
 
 // mapping for a type of function argument in csharp-files/*.cs (C# proxy classes)
 %typemap(cstype) unsigned int        "long"
@@ -172,6 +172,7 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 %typemap(csout)  unsigned int        { return (long)$imcall; }
 %typemap(csout)  const unsigned int& { return (long)$imcall; }
 %typemap(csout)  uint                { return (long)$imcall; }
+%typemap(csdirectorout) unsigned int "(uint)$cscall"
 
 //////////////////////////////////////////////////////////////////////
 
