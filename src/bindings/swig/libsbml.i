@@ -502,6 +502,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include <sbml/conversion/SBMLUnitsConverter.h>
 
 %include <sbml/validator/SBMLValidator.h>
+%include <sbml/validator/SBMLExternalValidator.h>
 
 %include sbml/math/MathML.h
 %include sbml/math/ASTNode.h
