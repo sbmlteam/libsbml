@@ -2517,8 +2517,12 @@ START_TEST (test_internal_consistency_check_21203)
   d->getErrorLog()->clearLog();
   errors = d->checkInternalConsistency();
 
-  fail_unless(errors == 1);
-  fail_unless(d->getError(0)->getErrorId() == 21203);
+  // actually in l3 it is not an error to have  no listOfEventAssignments
+  // this bug was fixed 18th oct 2011
+  //fail_unless(errors == 1);
+  //fail_unless(d->getError(0)->getErrorId() == 21203);
+
+  fail_unless(errors == 0);
 
   EventAssignment *ea = r->createEventAssignment();
   ea->setVariable("ea");

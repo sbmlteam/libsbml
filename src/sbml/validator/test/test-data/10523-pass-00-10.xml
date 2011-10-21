@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
-  <model id="l2v3_all">
+  <model id="l2v3_all" timeUnits="time" extentUnits="substance">
     <listOfUnitDefinitions>
       <unitDefinition id="volume">
         <listOfUnits>

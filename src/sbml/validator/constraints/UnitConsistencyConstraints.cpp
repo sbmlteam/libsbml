@@ -279,6 +279,63 @@ START_CONSTRAINT (99505, Species, s)
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (99506, Model, x)
+{
+  pre (m.getLevel() > 2);
+
+  // it only really matters if there is no global time unit if we have
+  // actually used eqns with time - if not who cares ?
+  // hoever time might be anywhere so let us just eliminate models with math
+  bool timeUsed = false;
+  
+  if (m.getNumRules() > 0)
+    timeUsed = true;
+
+  if (m.getNumConstraints() > 0)
+    timeUsed = true;
+
+  if (m.getNumEvents() > 0)
+    timeUsed = true;
+
+  unsigned int n = 0;
+
+  while (timeUsed == false && n < m.getNumReactions())
+  {
+    if (m.getReaction(n)->isSetKineticLaw() == true)
+      timeUsed = true;
+
+    n++;
+  }
+
+  pre (timeUsed == true);
+
+  inv(m.isSetTimeUnits() == true);
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99507, Model, x)
+{
+  pre (m.getLevel() > 2);
+
+  // it only really matters if there is no global extent unit if we have
+  // kineticLaws - if not who cares ?
+  bool extentUsed = false;
+  unsigned int n = 0;
+  while (extentUsed == false && n < m.getNumReactions())
+  {
+    if (m.getReaction(n)->isSetKineticLaw() == true)
+      extentUsed = true;
+
+    n++;
+  }
+
+  pre (extentUsed == true);
+
+
+  inv(m.isSetExtentUnits() == true);
+}
+END_CONSTRAINT
+
 // General Unit validation
 
 

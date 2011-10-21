@@ -8127,6 +8127,42 @@ static const sbmlErrorTableEntry errorTable[] =
     "to verify accurately the consistency of the units in the expression. "
   },
 
+  //99506
+  {
+    UndeclaredTimeUnitsL3,
+    "L3 undeclared time units",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "In situations when a mathematical expression refers to time, the units "
+    "of time should be consistent with the global time units of the model. "
+    "In models where the 'timeUnits' attribute has not been declared, it is not possible "
+    "to verify accurately the consistency of the units in such expressions. "
+  },
+
+  //99507
+  {
+    UndeclaredExtentUnitsL3,
+    "L3 undeclared extent units",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "In situations when a mathematical expression refers to extent, the units "
+    "of extent should be consistent with the global extent units of the model. "
+    "In models where the 'extentUnits' attribute has not been declared, it is not possible "
+    "to verify accurately the consistency of the units in such expressions. "
+  },
+
   //99701
   {   
     UnrecognisedSBOTerm,   
