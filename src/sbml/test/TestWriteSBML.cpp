@@ -2337,6 +2337,8 @@ START_TEST (test_WriteSBML_SpeciesType)
 
 
   SpeciesType *st = D->createModel()->createSpeciesType();
+  fail_unless(st != NULL);
+
   st->setId("st");
   st->setSBOTerm(4);
   

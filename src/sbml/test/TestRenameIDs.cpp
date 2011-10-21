@@ -54,7 +54,7 @@ START_TEST (test_RenameIDs)
 
   d = reader.readSBML(filename);
 
-  if (d == NULL)
+  if (d == NULL || d->getModel() == NULL)
   {
     fail("readSBML(\"multiple-ids.xml\") returned a NULL pointer.");
   }

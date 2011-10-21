@@ -141,6 +141,7 @@ test_sources =                   \
   TestUnitKind.c                 \
   TestUnit_newSetters.c          \
   TestWriteL3SBML.cpp            \
+  TestSBMLValidators.cpp         \
   TestWriteSBML.cpp              
 
 
