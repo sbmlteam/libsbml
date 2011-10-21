@@ -185,7 +185,7 @@ void startProgramAndWaitForFinish(std::string& mProgram, std::string& sbmlFile, 
 		const char *arg = "-c";
 		argv[0] = const_cast<char*>(command);
 		argv[1] = const_cast<char*>(arg);
-		argv[2] = commandLine;
+		argv[2] = const_cast<char*>(commandLine);
 		argv[3] = NULL;
 
 		if (execvp("/bin/sh", argv) > -1) // Only returns on failure.
@@ -199,11 +199,8 @@ void startProgramAndWaitForFinish(std::string& mProgram, std::string& sbmlFile, 
 	// Simply exit and hope the child process started.
 	if (bWait)
   {
-    int child_status;
-    do {
-       pid_t tpid = wait(&child_status);
-       if(tpid != pid) process_terminated(tpid);
-     } while(tpid != pid);
+    int child_status;   
+    waitpid (pid, &child_status, 0);
 
   }
 #endif
