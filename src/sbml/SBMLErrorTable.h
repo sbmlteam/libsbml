@@ -8141,8 +8141,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "In situations when a mathematical expression refers to time, the units "
     "of time should be consistent with the global time units of the model. "
-    "In models where the 'timeUnits' attribute has not been declared, it is not possible "
-    "to verify accurately the consistency of the units in such expressions. "
+    "In models where the 'timeUnits' attribute has not been declared, libSBML "
+    "does not yet have the functionality to verify accurately the consistency "
+    "of the units in such expressions. "
   },
 
   //99507
@@ -8159,8 +8160,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "In situations when a mathematical expression refers to extent, the units "
     "of extent should be consistent with the global extent units of the model. "
-    "In models where the 'extentUnits' attribute has not been declared, it is not possible "
-    "to verify accurately the consistency of the units in such expressions. "
+    "In models where the 'extentUnits' attribute has not been declared, libSBML "
+    "does not yet have the functionality to verify accurately the consistency "
+    "of the units in such expressions. "
   },
 
   //99701
