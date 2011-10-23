@@ -139,8 +139,8 @@ SBMLUnitsConverter::convert()
     //else if (m->isSetExtentUnits() == true)
     //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
 
-    if (hasCnUnits(*m) == true)
-      return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
+    //if (hasCnUnits(*m) == true)
+    //  return LIBSBML_CONV_CONVERSION_NOT_AVAILABLE;
   }
 
   unsigned int i;
@@ -288,6 +288,11 @@ SBMLUnitsConverter::convert()
 
   conversion = convertGlobalUnits(*m);
 
+  if (m->getLevel() > 2)
+  {
+    conversion = convertCnUnits(*m);
+  }
+
   removeUnusedUnitDefinitions(*m);
     
   mDocument->setApplicableValidators(origValidators);
@@ -309,7 +314,8 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m)
 
 bool
 SBMLUnitsConverter::convertUnits(SBase &sb, Model &m, 
-                                 std::string &modelUnitAttribute)
+                                 std::string &modelUnitAttribute,
+                                 ASTNode *ast)
 {
   /* NOTE: the getDerivedUnitDefinition functions will return
    * units from the original model - they do not get updated
@@ -412,10 +418,44 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
       }
       break;
     default:
-      return conversion;
+      if (ast != NULL)
+      {
+        hasValue = true;
+        if (ast->isInteger())
+        {
+          oldValue = ast->getInteger(); 
+        }
+        else if (ast->isReal())
+        {
+          oldValue = ast->getReal();
+        }
+        else
+        {
+          hasValue = false;
+        }
+        std::string units = ast->getUnits();
+        if (UnitKind_isValidUnitKindString(units.c_str(), m.getLevel(), m.getVersion()))
+        {
+          ud = new UnitDefinition(m.getSBMLNamespaces());
+          Unit * u = ud->createUnit();
+          u->initDefaults();
+          u->setKind(UnitKind_forName(units.c_str()));
+        }
+        else
+        {
+          // unit value refers to a unitDefinition
+          ud = m.getUnitDefinition(units);
+        }
+      }
+      else
+      {
+        return conversion;
+      }
       break;
   }
 
+
+ 
   UnitDefinition *siud = UnitDefinition::convertToSI(ud);
   /* catch in case things have gone wrong */
   if (siud->getNumUnits() == 0)
@@ -501,7 +541,10 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
         }
         break;
       default:
-        i = LIBSBML_INVALID_OBJECT;
+        if (ast != NULL)
+          i = ast->setValue(newValue);
+        else
+          i = LIBSBML_INVALID_OBJECT;
         break;
     }
   }
@@ -514,7 +557,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
       i = siud->getUnit(0)->setMultiplier(1.0);
       if (i == LIBSBML_OPERATION_SUCCESS)
       {
-        i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute);
+        i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute, ast);
       }
     }
     else
@@ -600,13 +643,20 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
               }
               break;
             default:
-              i = LIBSBML_INVALID_OBJECT;
+              if (ast != NULL)
+              {
+                i = ast->setUnits(newUnit);
+              }
+              else
+              {
+                i = LIBSBML_INVALID_OBJECT;
+              }
               break;
           }
         }
         else
         {
-          i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute);
+          i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute, ast);
         }
       }
     }
@@ -625,7 +675,8 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
 int
 SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m, 
                                            UnitDefinition* newUD,
-                                           std::string &modelUnitAttribute)
+                                           std::string &modelUnitAttribute,
+                                           ASTNode * ast)
 {
 
   int tc = sb.getTypeCode();
@@ -672,7 +723,14 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
       }
       break;
     default:
-      return LIBSBML_INVALID_OBJECT;
+      if (ast != NULL)
+      {
+        oldUnits = ast->getUnits();
+      }
+      else
+      {
+        return LIBSBML_INVALID_OBJECT;
+      }
       break;
   }
 
@@ -791,7 +849,14 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
           }
           break;
         default:
-          i = LIBSBML_INVALID_OBJECT;
+          if (ast != NULL)
+          {
+            i = ast->setUnits(newId);
+          }
+          else
+          {
+            i = LIBSBML_INVALID_OBJECT;
+          }
           break;
       }
       if (i == LIBSBML_OPERATION_SUCCESS)
@@ -874,7 +939,14 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
         }
         break;
       default:
-        i = LIBSBML_INVALID_OBJECT;
+        if (ast != NULL)
+        {
+          i = ast->setUnits(newId);
+        }
+        else
+        {
+          i = LIBSBML_INVALID_OBJECT;
+        }
         break;
     }
   }
@@ -967,6 +1039,122 @@ SBMLUnitsConverter::convertGlobalUnits(Model &m)
     {
       converted = convertUnits(m, m, attrib);
     }    
+  }
+
+  return converted;
+}
+
+
+bool
+SBMLUnitsConverter::convertCnUnits(Model& m)
+{
+  bool converted = true;
+  /* check all math within a model */
+
+  unsigned int n;
+  for (n = 0; n < m.getNumRules(); n++)
+  {
+    if (m.getRule(n)->isSetMath())
+    {
+      if (mathHasCnUnits(m.getRule(n)->getMath()) == true)
+      {
+        if (convertAST(const_cast<ASTNode *>(m.getRule(n)->getMath()), m) != true)
+          converted = false;
+      }
+    }
+  }
+
+  //for (n = 0; n < m.getNumReactions(); n++)
+  //{
+  //  if (m.getReaction(n)->isSetKineticLaw())
+  //  {
+  //    if (m.getReaction(n)->getKineticLaw()->isSetMath())
+  //    {
+  //      if (mathHasCnUnits(m.getReaction(n)->getKineticLaw()->getMath()) == true)
+  //        return true;
+  //    }
+  //  }
+  //}
+
+  //for (n = 0; n < m.getNumEvents(); n++)
+  //{
+  //  if (m.getEvent(n)->isSetTrigger())
+  //  {
+  //    if (m.getEvent(n)->getTrigger()->isSetMath())
+  //    {
+  //      if (mathHasCnUnits(m.getEvent(n)->getTrigger()->getMath()) == true)
+  //        return true;
+  //    }
+  //  }
+  //  if (m.getEvent(n)->isSetDelay())
+  //  {
+  //    if (m.getEvent(n)->getDelay()->isSetMath())
+  //    {
+  //      if (mathHasCnUnits(m.getEvent(n)->getDelay()->getMath()) == true)
+  //        return true;
+  //    }
+  //  }
+  //  if (m.getEvent(n)->isSetPriority())
+  //  {
+  //    if (m.getEvent(n)->getPriority()->isSetMath())
+  //    {
+  //      if (mathHasCnUnits(m.getEvent(n)->getPriority()->getMath()) == true)
+  //        return true;
+  //    }
+  //  }
+  //  for (unsigned int ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
+  //  {
+  //    if (m.getEvent(n)->getEventAssignment(ea)->isSetMath())
+  //    {
+  //      if (mathHasCnUnits(m.getEvent(n)->getEventAssignment(ea)->getMath()) == true)
+  //        return true;
+  //    }
+  //  }
+  //}
+
+  //for (n = 0; n < m.getNumInitialAssignments(); n++)
+  //{
+  //  if (m.getInitialAssignment(n)->isSetMath())
+  //  {
+  //    if (mathHasCnUnits(m.getInitialAssignment(n)->getMath()) == true)
+  //      return true;
+  //  }
+  //}
+
+  //for (n = 0; n < m.getNumConstraints(); n++)
+  //{
+  //  if (m.getConstraint(n)->isSetMath())
+  //  {
+  //    if (mathHasCnUnits(m.getConstraint(n)->getMath()) == true)
+  //      return true;
+  //  }
+  //}
+
+  return converted;
+}
+
+
+
+bool
+SBMLUnitsConverter::convertAST(ASTNode *ast, Model & m)
+{
+  bool converted = true;
+  std::string emptyString = "";
+ 
+  if (ast->isNumber() && ast->hasUnits() == true)
+  {
+    // do the conversion
+    SBase *sb = ast->getParentSBMLObject();
+    if (sb == NULL)
+      sb = new AlgebraicRule(m.getSBMLNamespaces());
+    converted = convertUnits(*(sb), m, emptyString, ast);
+  }
+
+  unsigned int n = 0; 
+  while(n < ast->getNumChildren() && converted == true)
+  {
+    converted = convertAST(ast->getChild(n), m);
+    n++;
   }
 
   return converted;
@@ -1120,6 +1308,14 @@ SBMLUnitsConverter::unacceptable_errors(unsigned int errors)
         //  return true;
         //}
         else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredUnits)
+        {
+          return true;
+        }
+        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredTimeUnitsL3)
+        {
+          return true;
+        }
+        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredExtentUnitsL3)
         {
           return true;
         }

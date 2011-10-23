@@ -126,10 +126,10 @@ private:
 
   bool convertUnits(SBase& sb, Model& m);
 
-  bool convertUnits(SBase& sb, Model& m, std::string &modelUnitAttribute);
+  bool convertUnits(SBase& sb, Model& m, std::string &modelUnitAttribute, ASTNode *ast = 0);
 
   int applyNewUnitDefinition(SBase& sb, Model& m, UnitDefinition *newUD,
-    std::string &modelUnitAttribute);
+    std::string &modelUnitAttribute, ASTNode * ast);
 
   std::string existsAlready(Model& m, UnitDefinition *newUD);
 
@@ -140,6 +140,9 @@ private:
   bool convertGlobalUnits(Model& m);
 
  
+  bool convertCnUnits(Model& m);
+
+
   bool isUsed(Model& m, std::string unitSId);
 
 
@@ -148,6 +151,8 @@ private:
   bool hasCnUnits(Model& m);
 
   bool mathHasCnUnits(const ASTNode *ast);
+
+  bool convertAST(ASTNode *ast, Model &m);
 
   unsigned int newIdCount;
 

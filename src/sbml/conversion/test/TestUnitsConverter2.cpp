@@ -1420,6 +1420,133 @@ START_TEST (test_convertParameter_noValue)
 END_TEST
 
 
+START_TEST (test_convertUnitDefinition_noUnits)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setSize(2);
+  c->setUnits("myComp");
+
+  Species *s = m->createSpecies();
+  s->setId("s");
+  s->setCompartment("c");
+  s->setInitialAmount(2500);
+  s->setSubstanceUnits("mySpecies");
+  s->setHasOnlySubstanceUnits(true);
+  s->setBoundaryCondition(true);
+  s->setConstant(false);
+
+  Species *s1 = m->createSpecies();
+  s1->setId("s1");
+  s1->setCompartment("c");
+  s1->setInitialAmount(2500);
+  s1->setSubstanceUnits("mySpecies");
+  s1->setHasOnlySubstanceUnits(false);
+  s1->setBoundaryCondition(true);
+  s1->setConstant(false);
+
+  Species *s2 = m->createSpecies();
+  s2->setId("s2");
+  s2->setCompartment("c");
+  s2->setInitialConcentration(2500);
+  s2->setSubstanceUnits("mySpecies");
+  s2->setHasOnlySubstanceUnits(false);
+  s2->setBoundaryCondition(true);
+  s2->setConstant(false);
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(2);
+  p->setUnits("myParam");
+  p->setConstant(true);
+  
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("myComp");
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("mySpecies");
+  UnitDefinition *ud2 = m->createUnitDefinition();
+  ud2->setId("myParam");
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getCompartment(0)->getSize(), 2) == true);
+  fail_unless (d->getModel()->getCompartment(0)->getUnits() == "myComp");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "mySpecies");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(1)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(1)->getSubstanceUnits() == "mySpecies");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(2)->getInitialConcentration(), 2500) == true);
+  fail_unless (d->getModel()->getSpecies(2)->getSubstanceUnits() == "mySpecies");
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 2) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "myParam");
+
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_cn_units)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(2);
+  p->setUnits("gram");
+  p->setConstant(false);
+  
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("2*1.5");
+  ast->getChild(0)->setUnits("gram");
+  ast->getChild(1)->setUnits("dimensionless");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.002) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "kilogram");
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 0.002) == true);
+  fail_unless( child1->getUnits() == "kilogram");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "dimensionless");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestUnitsConverter2 (void)
 { 
@@ -1455,6 +1582,8 @@ create_suite_TestUnitsConverter2 (void)
   tcase_add_test(tcase, test_convertSpecies_noCompSize);
   tcase_add_test(tcase, test_convertSpecies_noCompSize1);
   tcase_add_test(tcase, test_convertParameter_noValue);
+//  tcase_add_test(tcase, test_convertUnitDefinition_noUnits);
+  tcase_add_test(tcase, test_convert_cn_units);
 
   suite_add_tcase(suite, tcase);
 
