@@ -322,29 +322,40 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
   UnitDefinition *ud = NULL;
   UnitDefinition *ud_vol = NULL;
 
+  bool hasValue = false;
+  bool speciesHasSize = true;
   double oldValue = 0;
   switch(tc)
   {
     case SBML_PARAMETER:
-      oldValue = static_cast<Parameter &>(sb).getValue();
+      hasValue = static_cast<Parameter &>(sb).isSetValue();
+      if (hasValue == true)
+        oldValue = static_cast<Parameter &>(sb).getValue();
       ud = static_cast<Parameter &>(sb).getDerivedUnitDefinition();
       break;
     case SBML_LOCAL_PARAMETER:
-      oldValue = static_cast<Parameter &>(sb).getValue();
+      hasValue = static_cast<Parameter &>(sb).isSetValue();
+      if (hasValue == true)
+        oldValue = static_cast<Parameter &>(sb).getValue();
       ud = static_cast<Parameter &>(sb).getDerivedUnitDefinition();
       break;
     case SBML_COMPARTMENT:
-      oldValue = static_cast<Compartment &>(sb).getSize();
+      hasValue = static_cast<Compartment &>(sb).isSetSize();
+      if (hasValue == true)
+        oldValue = static_cast<Compartment &>(sb).getSize();
       ud = static_cast<Compartment &>(sb).getDerivedUnitDefinition();
       break;
     case SBML_SPECIES:
       if (static_cast<Species &>(sb).isSetInitialAmount() == true)
       {
+        hasValue = true;
         oldValue = static_cast<Species &>(sb).getInitialAmount();
       }
       else
       {
-        oldValue = static_cast<Species &>(sb).getInitialConcentration();
+        hasValue = static_cast<Species &>(sb).isSetInitialConcentration();
+        if (hasValue == true)
+          oldValue = static_cast<Species &>(sb).getInitialConcentration();
       }
       ud = static_cast<Species &>(sb).getDerivedUnitDefinition();
       /* the derived units will be concentration unless species
@@ -360,6 +371,8 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
       {
         ud_vol = NULL;
       }
+      speciesHasSize = m.getCompartment(static_cast<Species &>(sb).getCompartment())
+                                          ->isSetSize();
       break;
     case SBML_MODEL:
       if (modelUnitAttribute == "substance")
@@ -408,15 +421,12 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
   if (siud->getNumUnits() == 0)
     return false;
 
-  double newValue = oldValue * pow(siud->getUnit(0)->getMultiplier(),
-    siud->getUnit(0)->getExponentAsDouble());
-  for (unsigned int n = 1; n < siud->getNumUnits(); n++)
-  {
-    newValue = newValue * pow(siud->getUnit(n)->getMultiplier(),
-                          siud->getUnit(n)->getExponentAsDouble());
-    siud->getUnit(n)->setMultiplier(1.0);
-  }
-  if (ud_vol != NULL)
+  /* if we are dealing in substance only then we need to use substance
+   * units when calculating the newvalue 
+   */
+  if (speciesHasSize == false 
+    && static_cast<Species &>(sb).isSetInitialAmount() == true
+    && ud_vol != NULL)
   {
     /* we are dealing in concentration 
     * but the unit of the species must be substance
@@ -425,44 +435,75 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
     siud = UnitDefinition::convertToSI(ud);
   }
 
-  int i;
-  switch(tc)
+  double newValue;
+  if (hasValue == true)
+      newValue = oldValue * pow(siud->getUnit(0)->getMultiplier(),
+                            siud->getUnit(0)->getExponentAsDouble());
+  for (unsigned int n = 1; n < siud->getNumUnits(); n++)
   {
-    case SBML_PARAMETER:
-      i = static_cast<Parameter &>(sb).setValue(newValue);
-      break;
-    case SBML_LOCAL_PARAMETER:
-      i = static_cast<Parameter &>(sb).setValue(newValue);
-      break;
-    case SBML_COMPARTMENT:
-      i = static_cast<Compartment &>(sb).setSize(newValue);
-      break;
-    case SBML_SPECIES:
-      if (static_cast<Species &>(sb).isSetInitialAmount() == true)
-      {
-        if (static_cast<Species &>(sb).getHasOnlySubstanceUnits() == false)
+    if (hasValue == true)
+      newValue = newValue * pow(siud->getUnit(n)->getMultiplier(),
+                          siud->getUnit(n)->getExponentAsDouble());
+    siud->getUnit(n)->setMultiplier(1.0);
+  }
+
+  if ((speciesHasSize == true && ud_vol != NULL)
+    || (speciesHasSize == false 
+        && static_cast<Species &>(sb).isSetInitialConcentration() == true 
+        && ud_vol != NULL))
+
+    {
+      /* we are dealing in concentration 
+      * but the unit of the species must be substance
+      */
+      ud = UnitDefinition::combine(ud, ud_vol);
+      siud = UnitDefinition::convertToSI(ud);
+    }
+
+
+  int i = LIBSBML_OPERATION_SUCCESS;
+  if (hasValue == true)
+  {
+    switch(tc)
+    {
+      case SBML_PARAMETER:
+        i = static_cast<Parameter &>(sb).setValue(newValue);
+        break;
+      case SBML_LOCAL_PARAMETER:
+        i = static_cast<Parameter &>(sb).setValue(newValue);
+        break;
+      case SBML_COMPARTMENT:
+        i = static_cast<Compartment &>(sb).setSize(newValue);
+        break;
+      case SBML_SPECIES:
+        if (static_cast<Species &>(sb).isSetInitialAmount() == true)
         {
-          if (m.getCompartment(static_cast<Species &>(sb).getCompartment())
-                                            ->getSpatialDimensions() != 0)
+          if (static_cast<Species &>(sb).getHasOnlySubstanceUnits() == false)
           {
-            newValue = newValue * 
+            if (speciesHasSize == true &&
               m.getCompartment(static_cast<Species &>(sb).getCompartment())
-                                            ->getSize();
+                                              ->getSpatialDimensions() != 0)
+            {
+              newValue = newValue * 
+                m.getCompartment(static_cast<Species &>(sb).getCompartment())
+                                              ->getSize();
+            }
           }
+          i = static_cast<Species &>(sb).setInitialAmount(newValue);
         }
-        i = static_cast<Species &>(sb).setInitialAmount(newValue);
-      }
-      else
-      {
-        i = static_cast<Species &>(sb).setInitialConcentration(newValue);
-      }
-      break;
-    case SBML_MODEL:
-      i = LIBSBML_OPERATION_SUCCESS;
-      break;
-    default:
-      i = LIBSBML_INVALID_OBJECT;
-      break;
+        else
+        {
+          if (speciesHasSize == true)
+            i = static_cast<Species &>(sb).setInitialConcentration(newValue);
+          else
+            i = static_cast<Species &>(sb).setInitialAmount(newValue);
+
+        }
+        break;
+      default:
+        i = LIBSBML_INVALID_OBJECT;
+        break;
+    }
   }
 
   if (i == LIBSBML_OPERATION_SUCCESS)
@@ -1066,18 +1107,18 @@ SBMLUnitsConverter::unacceptable_errors(unsigned int errors)
     {  
       for (unsigned int i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
       {
-        if (mDocument->getErrorLog()->getError(i)->getErrorId() == CompartmentShouldHaveSize)
+        //if (mDocument->getErrorLog()->getError(i)->getErrorId() == CompartmentShouldHaveSize)
+        //{
+        //  return true;
+        //}
+        if (mDocument->getErrorLog()->getError(i)->getErrorId() == ParameterShouldHaveUnits)
         {
           return true;
         }
-        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == ParameterShouldHaveUnits)
-        {
-          return true;
-        }
-        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == SpeciesShouldHaveValue)
-        {
-          return true;
-        }
+        //else if (mDocument->getErrorLog()->getError(i)->getErrorId() == SpeciesShouldHaveValue)
+        //{
+        //  return true;
+        //}
         else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredUnits)
         {
           return true;

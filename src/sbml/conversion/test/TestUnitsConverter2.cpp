@@ -1172,6 +1172,252 @@ START_TEST (test_convert_global_time_extent)
 END_TEST
 
 
+START_TEST (test_convertCompartment_noSize)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setUnits("litre");
+
+  fail_unless(m->getNumUnitDefinitions() == 0);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+  fail_unless (d->getModel()->getCompartment(0)->isSetSize() == false);
+  fail_unless (d->getModel()->getCompartment(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_METRE);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == 3);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertSpecies_noInitialValue)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setSize(1.0);
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setUnits("litre");
+  Species *s = m->createSpecies();
+  s->setId("s");
+  s->setCompartment("c");
+  s->setSubstanceUnits("gram");
+  s->setHasOnlySubstanceUnits(true);
+  s->setBoundaryCondition(true);
+  s->setConstant(false);
+
+  Species *s1 = m->createSpecies();
+  s1->setId("s1");
+  s1->setCompartment("c");
+  s1->setSubstanceUnits("gram");
+  s1->setHasOnlySubstanceUnits(false);
+  s1->setBoundaryCondition(true);
+  s1->setConstant(false);
+
+  Species *s2 = m->createSpecies();
+  s2->setId("s2");
+  s2->setCompartment("c");
+  s2->setSubstanceUnits("gram");
+  s2->setHasOnlySubstanceUnits(false);
+  s2->setBoundaryCondition(true);
+  s2->setConstant(false);
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (d->getModel()->getSpecies(0)->isSetInitialAmount() == false);
+  fail_unless (d->getModel()->getSpecies(0)->isSetInitialConcentration() == false);
+  fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "kilogram");
+  fail_unless (d->getModel()->getSpecies(1)->isSetInitialAmount() == false);
+  fail_unless (d->getModel()->getSpecies(1)->isSetInitialConcentration() == false);
+  fail_unless (d->getModel()->getSpecies(1)->getSubstanceUnits() == "kilogram");
+  fail_unless (d->getModel()->getSpecies(2)->isSetInitialAmount() == false);
+  fail_unless (d->getModel()->getSpecies(2)->isSetInitialConcentration() == false);
+  fail_unless (d->getModel()->getSpecies(2)->getSubstanceUnits() == "kilogram");
+
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertSpecies_noCompSize)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setUnits("metre_cubed");
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("metre_cubed");
+  Unit * u = ud->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_METRE);
+  u->setExponent(3);
+
+  Species *s = m->createSpecies();
+  s->setId("s");
+  s->setCompartment("c");
+  s->setInitialAmount(2500);
+  s->setSubstanceUnits("gram");
+  s->setHasOnlySubstanceUnits(true);
+  s->setBoundaryCondition(true);
+  s->setConstant(false);
+
+  Species *s1 = m->createSpecies();
+  s1->setId("s1");
+  s1->setCompartment("c");
+  s1->setInitialAmount(2500);
+  s1->setSubstanceUnits("gram");
+  s1->setHasOnlySubstanceUnits(false);
+  s1->setBoundaryCondition(true);
+  s1->setConstant(false);
+
+  Species *s2 = m->createSpecies();
+  s2->setId("s2");
+  s2->setCompartment("c");
+  s2->setInitialConcentration(2500);
+  s2->setSubstanceUnits("gram");
+  s2->setHasOnlySubstanceUnits(false);
+  s2->setBoundaryCondition(true);
+  s2->setConstant(false);
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "kilogram");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(1)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(1)->getSubstanceUnits() == "kilogram");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(2)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(2)->getSubstanceUnits() == "kilogram");
+
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertSpecies_noCompSize1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Compartment *c = m->createCompartment();
+  c->setId("c");
+  c->setSpatialDimensions(3.0);
+  c->setConstant(true);
+  c->setUnits("litre");
+
+  Species *s = m->createSpecies();
+  s->setId("s");
+  s->setCompartment("c");
+  s->setInitialAmount(2500);
+  s->setSubstanceUnits("gram");
+  s->setHasOnlySubstanceUnits(true);
+  s->setBoundaryCondition(true);
+  s->setConstant(false);
+
+  Species *s1 = m->createSpecies();
+  s1->setId("s1");
+  s1->setCompartment("c");
+  s1->setInitialAmount(2500);
+  s1->setSubstanceUnits("gram");
+  s1->setHasOnlySubstanceUnits(false);
+  s1->setBoundaryCondition(true);
+  s1->setConstant(false);
+
+  Species *s2 = m->createSpecies();
+  s2->setId("s2");
+  s2->setCompartment("c");
+  s2->setInitialConcentration(2500);
+  s2->setSubstanceUnits("gram");
+  s2->setHasOnlySubstanceUnits(false);
+  s2->setBoundaryCondition(true);
+  s2->setConstant(false);
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "kilogram");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(1)->getInitialAmount(), 2.5) == true);
+  fail_unless (d->getModel()->getSpecies(1)->getSubstanceUnits() == "kilogram");
+  fail_unless (
+      equalDouble(d->getModel()->getSpecies(2)->getInitialAmount(), 2500) == true);
+  fail_unless (d->getModel()->getSpecies(2)->getSubstanceUnits() == "kilogram");
+
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convertParameter_noValue)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  Parameter *p = m->createParameter();
+  p->setId("c");
+  p->setConstant(true);
+  p->setUnits("coulomb");
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (d->getModel()->getParameter(0)->isSetValue() == false);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  UnitDefinition *ud = d->getModel()->getUnitDefinition(0);
+  fail_unless(ud->getId() == "unitSid_0");
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(0)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(0)->getExponent(), 1.0) == true);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(equalDouble(ud->getUnit(1)->getMultiplier(), 1.0) == true);
+  fail_unless(equalDouble(ud->getUnit(1)->getExponent(), 1.0) == true);
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
 
 
 Suite *
@@ -1204,6 +1450,11 @@ create_suite_TestUnitsConverter2 (void)
   tcase_add_test(tcase, test_convert_model_global);
   tcase_add_test(tcase, test_convert_model_global1);
   tcase_add_test(tcase, test_convert_global_time_extent);
+  tcase_add_test(tcase, test_convertCompartment_noSize);
+  tcase_add_test(tcase, test_convertSpecies_noInitialValue);
+  tcase_add_test(tcase, test_convertSpecies_noCompSize);
+  tcase_add_test(tcase, test_convertSpecies_noCompSize1);
+  tcase_add_test(tcase, test_convertParameter_noValue);
 
   suite_add_tcase(suite, tcase);
 
