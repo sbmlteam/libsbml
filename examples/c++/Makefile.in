@@ -89,6 +89,12 @@ validateSBML: validateSBML.cpp util.c
 # The following are still somewhat experimental and are not built by
 # default, but are provided for interested persons.
 
+experimental_examples = addCustomValidator callExternalValidator appendAnnotation \
+               printAnnotation printNotes unsetAnnotation unsetNotes \
+			   createExampleSBML
+
+experimental: $(experimental_examples)
+			   
 addCustomValidator: addCustomValidator.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
@@ -114,7 +120,8 @@ createExampleSBML: createExampleSBML.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
-	/bin/rm -f *~ $(programs) $(patsubst %,%.exe,$(programs))
+	/bin/rm -f *~ $(programs) $(patsubst %,%.exe,$(programs)) \
+	              $(experimental_examples) $(patsubst %,%.exe,$(experimental_examples))
 
 distclean: clean
 	/bin/rm Makefile
