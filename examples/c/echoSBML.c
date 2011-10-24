@@ -15,13 +15,25 @@
 int
 main (int argc, char *argv[])
 {
+  SBMLDocument_t *doc;
+
   if (argc != 3)
   {
     printf("Usage: echoSBML input-filename output-filename\n");
     return 2;
   }
 
-  writeSBML(readSBML(argv[1]), argv[2]);
+  doc = readSBML(argv[1]);
+
+  if (SBMLDocument_getNumErrors(doc) > 0)
+  {
+    SBMLDocument_printErrors(doc, stderr);
+  }
+  else
+  {
+    writeSBML(doc, argv[2]);
+  }
+
   return 0;
 }
 
