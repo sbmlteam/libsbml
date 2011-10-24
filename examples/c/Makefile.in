@@ -45,7 +45,7 @@
 # configuration program.
 
 SRCDIR     = ../../src
-INCLUDEDIR = ../../include
+INCLUDEDIR = ../../src
 
 top_builddir = @top_builddir@
 LIBTOOL    = @LIBTOOL@
