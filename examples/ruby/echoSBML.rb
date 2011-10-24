@@ -15,5 +15,10 @@ if ARGV.size != 2
   exit(2)
 end
 
-LibSBML::writeSBML(LibSBML::readSBML(ARGV[0]),ARGV[1])
+d = LibSBML::readSBML(ARGV[0])
+if (d.getNumErrors() > 0)
+	d.printErrors
+else
+	LibSBML::writeSBML(d,ARGV[1])
+end
 
