@@ -49,7 +49,7 @@ thisdir = src/bindings/ruby
 # `sources' are used by the default rules to determine what needs to be
 # compiled.
 
-sources       =  libsbml_wrap.cpp
+sources       =  libsbml_wrap.cpp libsbml_wrap.h
 extra_sources =  libsbml.i \
                  local-packages.i \
 				 local-layout.i \

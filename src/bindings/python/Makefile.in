@@ -51,7 +51,7 @@ thisdir = src/bindings/python
 # handled explicitly below.  However, to maintain some resemblance to the
 # other libSBML build organization, we still use the name `sources'.
 
-sources       = libsbml.py libsbml_wrap.cpp pydoc.i
+sources       = libsbml.py libsbml_wrap.cpp libsbml_wrap.h pydoc.i
 extra_sources =  libsbml.i \
                  local.cpp \
 				 local.i \

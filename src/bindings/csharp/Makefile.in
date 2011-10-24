@@ -77,7 +77,8 @@ thisdir           = src/bindings/csharp
 #
 # -----------------------------------------------------------------------------
 sources           = \
-                     libsbml_wrap.cpp 
+                     libsbml_wrap.cpp \
+                     libsbml_wrap.h 
 
 extra_sources     = \
                      libsbml.i \
