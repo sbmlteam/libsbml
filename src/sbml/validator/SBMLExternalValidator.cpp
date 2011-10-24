@@ -239,6 +239,13 @@ int getSeverity(string severity)
 void parseResultFile(std::string &mOutputFileName, std::list<SBMLError>& errors)
 {
   XMLInputStream stream (mOutputFileName.c_str());  
+
+  if (!stream.isGood())
+  {
+    // output file is not readable we could run add a warning
+    return;
+  }
+
   const XMLToken  element  = stream.next();
   int errorId=0; 
   int categoryId=0;
