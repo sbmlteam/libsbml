@@ -26,11 +26,15 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
+
 #include <sbml/SBase.h>
+#include <sbml/SBMLTypes.h>
+
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLRuleConverter.h>
 
+#include <sbml/math/FormulaParser.h>
 
 #include <string>
 
@@ -139,6 +143,101 @@ START_TEST (test_conversion_ruleconverter_dontSort)
 END_TEST
 
 
+
+START_TEST (test_conversion_ruleconverter_sortIA)
+{
+
+  // create test model
+
+  SBMLDocument doc; 
+
+  Model* model = doc.createModel();
+  model->setId("m");
+
+  Parameter* parameter1 = model->createParameter();
+  parameter1->setId("s");
+  parameter1->setConstant(false);
+  parameter1->setValue(0);
+
+  Parameter* parameter = model->createParameter();
+  parameter->setId("p");
+  parameter->setConstant(false);
+  parameter->setValue(0);
+
+  InitialAssignment* ia1 = model->createInitialAssignment();
+  ia1->setSymbol("s");
+  ia1->setMath(SBML_parseFormula("p + 1"));
+  ia1->setMetaId("m1");
+
+  InitialAssignment* ia2 = model->createInitialAssignment();
+  ia2->setSymbol("p");
+  ia2->setMath(SBML_parseFormula("1"));
+  ia2->setMetaId("m2");
+
+  ConversionProperties *props = new ConversionProperties();
+  props->addOption("sortRules", true, "sort rules");
+
+  SBMLConverter* converter = new SBMLRuleConverter();
+  converter->setProperties(props);
+  converter->setDocument(&doc);
+  
+  fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (model->getNumInitialAssignments() == 2);
+  fail_unless (model->getInitialAssignment(0)->getMetaId() == "m2");
+  fail_unless (model->getInitialAssignment(1)->getMetaId() == "m1");
+
+  delete props;
+}
+END_TEST
+
+
+START_TEST (test_conversion_ruleconverter_dontSortIA)
+{
+
+  // create test model
+
+  SBMLDocument doc; 
+
+  Model* model = doc.createModel();
+  model->setId("m");
+
+  Parameter* parameter1 = model->createParameter();
+  parameter1->setId("s");
+  parameter1->setConstant(false);
+  parameter1->setValue(0);
+
+  Parameter* parameter = model->createParameter();
+  parameter->setId("p");
+  parameter->setConstant(false);
+  parameter->setValue(0);
+
+  InitialAssignment* ia2 = model->createInitialAssignment();
+  ia2->setSymbol("p");
+  ia2->setMath(SBML_parseFormula("1"));
+  ia2->setMetaId("m2");
+  
+  InitialAssignment* ia1 = model->createInitialAssignment();
+  ia1->setSymbol("s");
+  ia1->setMath(SBML_parseFormula("p + 1"));
+  ia1->setMetaId("m1");
+
+  ConversionProperties *props = new ConversionProperties();
+  props->addOption("sortRules", true, "sort rules");
+
+  SBMLConverter* converter = new SBMLRuleConverter();
+  converter->setProperties(props);
+  converter->setDocument(&doc);
+  
+  fail_unless (converter->convert() == LIBSBML_OPERATION_SUCCESS);
+  fail_unless (model->getNumInitialAssignments() == 2);
+  fail_unless (model->getInitialAssignment(0)->getMetaId() == "m2");
+  fail_unless (model->getInitialAssignment(1)->getMetaId() == "m1");
+
+  delete props;
+}
+END_TEST
+
+
 START_TEST (test_conversion_ruleconverter_with_alg)
 {
   // create test model
@@ -210,6 +309,9 @@ create_suite_TestSBMLRuleConverter (void)
   tcase_add_test(tcase, test_conversion_ruleconverter_sort);
   tcase_add_test(tcase, test_conversion_ruleconverter_dontSort);
   tcase_add_test(tcase, test_conversion_ruleconverter_with_alg);
+  tcase_add_test(tcase, test_conversion_ruleconverter_sortIA);
+  tcase_add_test(tcase, test_conversion_ruleconverter_dontSortIA);
+      
 
   suite_add_tcase(suite, tcase);
 

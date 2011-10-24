@@ -115,11 +115,7 @@ static vector<string> getSymbols(const ASTNode* nodes)
 static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentRules)
 {
   if (assignmentRules.size() < 2) return assignmentRules;
-
-  //for (size_t n = 0; n < assignmentRules.size(); n++)
-  //  cout << "before: " << assignmentRules[n]->getMetaId() << endl; 
-
-
+  
   map<int, vector<string> > allSymbols;
   map<string, vector<string> > map;
   vector<string> idList;
@@ -131,9 +127,9 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
     AssignmentRule* rule = (AssignmentRule*)assignmentRules[index];
     string variable = rule->getVariable();
     if (!rule->isSetMath())
-      allSymbols[index] = vector<string>();
+      allSymbols[(int)index] = vector<string>();
     else
-      allSymbols[index] = getSymbols(rule->getMath());
+      allSymbols[(int)index] = getSymbols(rule->getMath());
     idList.push_back(variable);
     map[variable] = vector<string>();
   }
@@ -143,7 +139,7 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
   vector<int> order;
   for (size_t i = 0; i < assignmentRules.size(); i++)
   {
-    order.push_back(i);
+    order.push_back((int)i);
   }
 
   // build dependency graph
@@ -152,10 +148,10 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
     string id = idList[i];
     for (size_t index = 0; index < assignmentRules.size(); index++)
     {
-      vector<string>::iterator it = ::find(allSymbols[index].begin(), allSymbols[index].end(), id);
-      if (it != allSymbols[index].end())
+      vector<string>::iterator it = ::find(allSymbols[(int)index].begin(), allSymbols[(int)index].end(), id);
+      if (it != allSymbols[(int)index].end())
       {
-        map[(assignmentRules[index])->getVariable()].push_back(id);
+        map[(assignmentRules[(int)index])->getVariable()].push_back(id);
       }
     }
   }
@@ -203,23 +199,108 @@ static vector<AssignmentRule*> reorderRules(vector<AssignmentRule*>& assignmentR
     result.push_back(assignmentRules[order[i]]);
 
 
-  
-  //for (size_t n = 0; n < result.size(); n++)
-  //  cout << "after: " << result[n]->getMetaId() << endl; 
+  return result;
+}
+
+
+static vector<InitialAssignment*> reorderInitialAssignments(vector<InitialAssignment*>& intialAssignments)
+{
+  if (intialAssignments.size() < 2) return intialAssignments;
+
+  map<int, vector<string> > allSymbols;
+  map<string, vector<string> > map;
+  vector<string> idList;
+  vector<InitialAssignment*> result;
+
+  // read id list, initialize all symbols
+  for (size_t index = 0; index < intialAssignments.size(); index++)
+  {
+    InitialAssignment* ia = (InitialAssignment*)intialAssignments[index];
+    string variable = ia->getSymbol();
+    if (!ia->isSetMath())
+      allSymbols[(int)index] = vector<string>();
+    else
+      allSymbols[(int)index] = getSymbols(ia->getMath());
+    idList.push_back(variable);
+    map[variable] = vector<string>();
+  }
+
+  // initialize order array
+  vector<int> order;
+  for (size_t i = 0; i < intialAssignments.size(); i++)
+  {
+    order.push_back((int)i);
+  }
+
+  // build dependency graph
+  for (size_t i = 0; i < idList.size(); i++)
+  {
+    string id = idList[i];
+    for (size_t index = 0; index < intialAssignments.size(); index++)
+    {
+      vector<string>::iterator it = ::find(allSymbols[(int)index].begin(), allSymbols[(int)index].end(), id);
+      if (it != allSymbols[(int)index].end())
+      {
+        map[(intialAssignments[(int)index])->getSymbol()].push_back(id);
+      }
+    }
+  }
+
+
+  // sort
+  bool changed = true;
+  while (changed)
+  {
+    changed = false;
+    for (size_t i = 0; i < order.size(); i++)
+    {
+
+      int first = order[i];
+      for (size_t j = i + 1; j < order.size(); j++)
+      {
+        int second = order[j];
+
+        string secondVar = intialAssignments[second]->getSymbol();
+        string firstVar = intialAssignments[first]->getSymbol();
+
+
+        vector<string>::iterator it = ::find(map[firstVar].begin(), map[firstVar].end(), secondVar);
+
+        if (it != map[firstVar].end())
+        {
+          // found dependency, swap and start over
+          order[i] = second;
+          order[j] = first;
+
+          changed = true;
+          break;
+        }
+      }
+
+      // if swapped start over
+      if (changed)
+        break;
+    }
+  }
+
+
+  // create new order
+  for (size_t i = 0; i < order.size(); i++)
+    result.push_back(intialAssignments[order[i]]);
 
   return result;
 }
 
 int 
-  SBMLRuleConverter::convert()
+SBMLRuleConverter::convert()
 {
   if (mDocument == NULL) return LIBSBML_INVALID_OBJECT;
   Model* mModel = mDocument->getModel();
   if (mModel == NULL) return LIBSBML_INVALID_OBJECT;
 
   
-  /* if there are no function definitions bail now */
-  if (mModel->getNumRules() == 0)
+  /* if there are no function definitions and initial assignments bail now */
+  if (mModel->getNumRules() == 0 && mModel->getNumInitialAssignments() == 0)
   {
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -262,6 +343,19 @@ int
 
   for (unsigned int i = 0; i < assignmentRules.size();i++)
     mModel->getListOfRules()->insertAndOwn(i,assignmentRules[i]);
+
+
+  vector<InitialAssignment*> initialAssignments;
+  unsigned int numInitialAssignments = mModel->getNumInitialAssignments();
+  for (unsigned int i=0; i < numInitialAssignments; i++)
+  {
+    initialAssignments.push_back(mModel->getListOfInitialAssignments()->remove(0));
+  }
+
+  initialAssignments = reorderInitialAssignments(initialAssignments);
+
+  for (unsigned int i = 0; i < initialAssignments.size();i++)
+    mModel->getListOfInitialAssignments()->appendAndOwn(initialAssignments[i]);
 
   return LIBSBML_OPERATION_SUCCESS;
   
