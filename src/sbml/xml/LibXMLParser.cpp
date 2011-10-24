@@ -209,7 +209,7 @@ LibXMLParser::reportError (const XMLErrorCode_t code,
 
     if (line != 0 || column != 0)
       cerr << line << ":" << column;
-    else
+    else if (libxmlError != NULL)
       cerr << libxmlError->line << ":" << libxmlError->int2;
 
     cerr << ":\n" << extraMsg << endl;
