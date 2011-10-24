@@ -12,10 +12,12 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 foreach(example 
 
 	addCVTerms
+	addCustomValidator
 	addingEvidenceCodes_1
 	addingEvidenceCodes_2
 	addModelHistory
 	appendAnnotation
+	callExternalValidator
 	convertSBML
 	createExampleSBML
 	echoSBML

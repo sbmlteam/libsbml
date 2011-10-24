@@ -89,6 +89,12 @@ validateSBML: validateSBML.cpp util.c
 # The following are still somewhat experimental and are not built by
 # default, but are provided for interested persons.
 
+addCustomValidator: addCustomValidator.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+callExternalValidator: callExternalValidator.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	
 appendAnnotation: appendAnnotation.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
