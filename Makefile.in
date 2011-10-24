@@ -71,10 +71,12 @@ examples =                                                          \
   examples/c/validateSBML.c                                         \
   examples/c++/Makefile.in                                          \
   examples/c++/addCVTerms.cpp                                       \
+  examples/c++/addCustomValidator.cpp                               \
   examples/c++/addModelHistory.cpp                                  \
   examples/c++/addingEvidenceCodes_1.cpp                            \
   examples/c++/addingEvidenceCodes_2.cpp                            \
   examples/c++/appendAnnotation.cpp                                 \
+  examples/c++/callExternalValidator.cpp                            \
   examples/c++/convertSBML.cpp                                      \
   examples/c++/createExampleSBML.cpp                                \
   examples/c++/echoSBML.cpp                                         \
