@@ -89,12 +89,28 @@ validateSBML: validateSBML.cpp util.c
 # The following are still somewhat experimental and are not built by
 # default, but are provided for interested persons.
 
-experimental_examples = addCustomValidator callExternalValidator appendAnnotation \
-               printAnnotation printNotes unsetAnnotation unsetNotes \
-			   createExampleSBML
+experimental_examples = addCustomValidator callExternalValidator \
+               appendAnnotation printAnnotation printNotes unsetAnnotation \
+               unsetNotes createExampleSBML addCVTerms addModelHistory \
+			   addingEvidenceCodes_1 addingEvidenceCodes_2 printSupported
 
 experimental: $(experimental_examples)
-			   
+
+addCVTerms: addCVTerms.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addModelHistory: addModelHistory.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addingEvidenceCodes_1: addingEvidenceCodes_1.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addingEvidenceCodes_2: addingEvidenceCodes_2.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printSupported: printSupported.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
 addCustomValidator: addCustomValidator.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 

@@ -37,7 +37,7 @@ public:
   }
   virtual ~MyCustomValidator() {}
 
-  SBMLValidator* clone() { return new MyCustomValidator(*this); }
+  virtual SBMLValidator* clone() const { return new MyCustomValidator(*this); }
 
   virtual unsigned int validate() {
     // if we don't have a model we don't apply this validator.
@@ -55,7 +55,7 @@ public:
       if (getModel()->getRule(i)->getTypeCode() == SBML_ALGEBRAIC_RULE) {
         
         getErrorLog()->add(SBMLError(99999, 3, 1, 
-          "This model uses algebraic rules, however this application does not support them",
+          "This model uses algebraic rules, however this application does not support them.",
           0, 0, 
           LIBSBML_SEV_WARNING, // or LIBSBML_SEV_ERROR if you want to stop
           LIBSBML_CAT_SBML // or whatever category you prefer
