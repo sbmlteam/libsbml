@@ -1547,6 +1547,376 @@ START_TEST (test_convert_cn_units)
 END_TEST
 
 
+START_TEST (test_convert_cn_units1)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(3);
+  p->setUnits("avogadro");
+  p->setConstant(false);
+  
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("3*1.5");
+  ast->getChild(0)->setUnits("avogadro");
+  ast->getChild(1)->setUnits("dimensionless");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 1.806642537e24) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 1.806642537e24) == true);
+  fail_unless( child1->getUnits() == "dimensionless");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "dimensionless");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_cn_units2)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(3);
+  p->setUnits("litre");
+  p->setConstant(false);
+  
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("3*1.5");
+  ast->getChild(0)->setUnits("litre");
+  ast->getChild(1)->setUnits("dimensionless");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_METRE);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == 3);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 0.003) == true);
+  fail_unless( child1->getUnits() == "unitSid_0");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "dimensionless");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_cn_units3)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(3);
+  p->setUnits("litre_second");
+  p->setConstant(false);
+  
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("litre_second");
+  Unit * u = ud->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_LITRE);
+  Unit * u1 = ud->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_SECOND);
+
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("3*1.5");
+  ast->getChild(0)->setUnits("litre");
+  ast->getChild(1)->setUnits("second");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 0.003) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "unitSid_0");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 2);
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 2);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_METRE);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == 3);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(1)->getKind() 
+                                                       == UNIT_KIND_SECOND);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(1)->getExponent() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(1)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(1)->getScale() == 0);
+
+  fail_unless (d->getModel()->getUnitDefinition(1)->getId() == "unitSid_1");
+  fail_unless (d->getModel()->getUnitDefinition(1)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(1)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_METRE);
+  fail_unless (d->getModel()->getUnitDefinition(1)->getUnit(0)->getExponent() == 3);
+  fail_unless (d->getModel()->getUnitDefinition(1)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(1)->getUnit(0)->getScale() == 0);
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 0.003) == true);
+  fail_unless( child1->getUnits() == "unitSid_1");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "second");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_cn_units4)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(3);
+  p->setUnits("metre_second");
+  p->setConstant(false);
+  
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("metre_second");
+  Unit * u = ud->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_METRE);
+  Unit * u1 = ud->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_SECOND);
+
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("3*1.5");
+  ast->getChild(0)->setUnits("metre_second");
+  ast->getChild(1)->setUnits("dimensionless");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "metre_second");
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 3) == true);
+  fail_unless( child1->getUnits() == "metre_second");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "dimensionless");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_cn_units5)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("mine");
+  Unit * u = ud->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(3);
+  p->setUnits("dimensionless");
+  p->setConstant(false);
+  
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("3*1.5");
+  ast->getChild(0)->setUnits("mine");
+  ast->getChild(1)->setUnits("second");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "unitSid_0");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_SECOND);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == -1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 3) == true);
+  fail_unless( child1->getUnits() == "unitSid_0");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "second");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_convert_cn_units6)
+{
+  SBMLUnitsConverter * units = new SBMLUnitsConverter();
+  SBMLDocument *d = new SBMLDocument(3, 1);
+  Model * m = d->createModel();
+  m->setTimeUnits("second");
+
+  UnitDefinition *ud = m->createUnitDefinition();
+  ud->setId("mine");
+  Unit * u = ud->createUnit();
+  u->initDefaults();
+  u->setKind(UNIT_KIND_HERTZ);
+
+  UnitDefinition *ud1 = m->createUnitDefinition();
+  ud1->setId("mine2");
+  Unit * u1 = ud1->createUnit();
+  u1->initDefaults();
+  u1->setKind(UNIT_KIND_SECOND);
+  u1->setExponent(-1);
+
+  Parameter *p = m->createParameter();
+  p->setId("p");
+  p->setValue(3);
+  p->setUnits("dimensionless");
+  p->setConstant(false);
+  
+  AssignmentRule *ar = m->createAssignmentRule();
+  ar->setVariable("p");
+
+  ASTNode *ast = SBML_parseFormula("3*1.5");
+  ast->getChild(0)->setUnits("mine");
+  ast->getChild(1)->setUnits("second");
+
+  ar->setMath(ast);
+
+  units->setDocument(d);
+
+  fail_unless (units->convert() == LIBSBML_OPERATION_SUCCESS);
+ 
+  fail_unless (
+      equalDouble(d->getModel()->getParameter(0)->getValue(), 3) == true);
+  fail_unless (d->getModel()->getParameter(0)->getUnits() == "dimensionless");
+
+  fail_unless (d->getModel()->getNumUnitDefinitions() == 1);
+
+  fail_unless (d->getModel()->getUnitDefinition(0)->getId() == "mine2");
+  fail_unless (d->getModel()->getUnitDefinition(0)->getNumUnits() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getKind() 
+                                                       == UNIT_KIND_SECOND);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getExponent() == -1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getMultiplier() == 1);
+  fail_unless (d->getModel()->getUnitDefinition(0)->getUnit(0)->getScale() == 0);
+
+  const ASTNode *convertedAST = d->getModel()->getRule(0)->getMath();
+
+  ASTNode * child1 = convertedAST->getChild(0);
+  ASTNode * child2 = convertedAST->getChild(1);
+
+  fail_unless( equalDouble(child1->getReal(), 3) == true);
+  fail_unless( child1->getUnits() == "mine2");
+  fail_unless( equalDouble(child2->getReal(), 1.5) == true);
+  fail_unless( child2->getUnits() == "second");
+
+  
+  delete units;
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_TestUnitsConverter2 (void)
 { 
@@ -1584,6 +1954,12 @@ create_suite_TestUnitsConverter2 (void)
   tcase_add_test(tcase, test_convertParameter_noValue);
 //  tcase_add_test(tcase, test_convertUnitDefinition_noUnits);
   tcase_add_test(tcase, test_convert_cn_units);
+  tcase_add_test(tcase, test_convert_cn_units1);
+  tcase_add_test(tcase, test_convert_cn_units2);
+  tcase_add_test(tcase, test_convert_cn_units3);
+  tcase_add_test(tcase, test_convert_cn_units4);
+  tcase_add_test(tcase, test_convert_cn_units5);
+  tcase_add_test(tcase, test_convert_cn_units6);
 
   suite_add_tcase(suite, tcase);
 

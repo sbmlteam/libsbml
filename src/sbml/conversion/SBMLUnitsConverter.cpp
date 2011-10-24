@@ -1058,77 +1058,119 @@ SBMLUnitsConverter::convertCnUnits(Model& m)
     {
       if (mathHasCnUnits(m.getRule(n)->getMath()) == true)
       {
-        if (convertAST(const_cast<ASTNode *>(m.getRule(n)->getMath()), m) != true)
+        if (convertAST(const_cast<ASTNode *>
+                        (m.getRule(n)->getMath()), m) != true)
           converted = false;
       }
     }
   }
 
-  //for (n = 0; n < m.getNumReactions(); n++)
-  //{
-  //  if (m.getReaction(n)->isSetKineticLaw())
-  //  {
-  //    if (m.getReaction(n)->getKineticLaw()->isSetMath())
-  //    {
-  //      if (mathHasCnUnits(m.getReaction(n)->getKineticLaw()->getMath()) == true)
-  //        return true;
-  //    }
-  //  }
-  //}
+  for (n = 0; n < m.getNumReactions(); n++)
+  {
+    if (m.getReaction(n)->isSetKineticLaw())
+    {
+      if (m.getReaction(n)->getKineticLaw()->isSetMath())
+      {
+        if (mathHasCnUnits(m.getReaction(n)->getKineticLaw()->getMath()) == true)
+        {
+          if (convertAST(const_cast<ASTNode *>
+                    (m.getReaction(n)->getKineticLaw()->getMath()), m) != true)
+            converted = false;
+        }
+      }
+    }
+  }
 
-  //for (n = 0; n < m.getNumEvents(); n++)
-  //{
-  //  if (m.getEvent(n)->isSetTrigger())
-  //  {
-  //    if (m.getEvent(n)->getTrigger()->isSetMath())
-  //    {
-  //      if (mathHasCnUnits(m.getEvent(n)->getTrigger()->getMath()) == true)
-  //        return true;
-  //    }
-  //  }
-  //  if (m.getEvent(n)->isSetDelay())
-  //  {
-  //    if (m.getEvent(n)->getDelay()->isSetMath())
-  //    {
-  //      if (mathHasCnUnits(m.getEvent(n)->getDelay()->getMath()) == true)
-  //        return true;
-  //    }
-  //  }
-  //  if (m.getEvent(n)->isSetPriority())
-  //  {
-  //    if (m.getEvent(n)->getPriority()->isSetMath())
-  //    {
-  //      if (mathHasCnUnits(m.getEvent(n)->getPriority()->getMath()) == true)
-  //        return true;
-  //    }
-  //  }
-  //  for (unsigned int ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
-  //  {
-  //    if (m.getEvent(n)->getEventAssignment(ea)->isSetMath())
-  //    {
-  //      if (mathHasCnUnits(m.getEvent(n)->getEventAssignment(ea)->getMath()) == true)
-  //        return true;
-  //    }
-  //  }
-  //}
+  for (n = 0; n < m.getNumEvents(); n++)
+  {
+    if (m.getEvent(n)->isSetTrigger())
+    {
+      if (m.getEvent(n)->getTrigger()->isSetMath())
+      {
+        if (mathHasCnUnits(m.getEvent(n)->getTrigger()->getMath()) == true)
+        {
+          if (convertAST(const_cast<ASTNode *>(
+                           m.getEvent(n)->getTrigger()->getMath()), m) != true)
+            converted = false;
+        }
+      }
+    }
+    if (m.getEvent(n)->isSetDelay())
+    {
+      if (m.getEvent(n)->getDelay()->isSetMath())
+      {
+        if (mathHasCnUnits(m.getEvent(n)->getDelay()->getMath()) == true)
+        {
+          if (convertAST(const_cast<ASTNode *>(
+                             m.getEvent(n)->getDelay()->getMath()), m) != true)
+            converted = false;
+        }
+      }
+    }
+    if (m.getEvent(n)->isSetPriority())
+    {
+      if (m.getEvent(n)->getPriority()->isSetMath())
+      {
+        if (mathHasCnUnits(m.getEvent(n)->getPriority()->getMath()) == true)
+        {
+          if (convertAST(const_cast<ASTNode *>(
+                          m.getEvent(n)->getPriority()->getMath()), m) != true)
+            converted = false;
+        }
+      }
+    }
+    for (unsigned int ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
+    {
+      if (m.getEvent(n)->getEventAssignment(ea)->isSetMath())
+      {
+        if (mathHasCnUnits(m.getEvent(n)->getEventAssignment(ea)->getMath()) == true)
+        {
+          if (convertAST(const_cast<ASTNode *>(
+                  m.getEvent(n)->getEventAssignment(ea)->getMath()), m) != true)
+            converted = false;
+        }
+      }
+    }
+  }
 
-  //for (n = 0; n < m.getNumInitialAssignments(); n++)
-  //{
-  //  if (m.getInitialAssignment(n)->isSetMath())
-  //  {
-  //    if (mathHasCnUnits(m.getInitialAssignment(n)->getMath()) == true)
-  //      return true;
-  //  }
-  //}
+  for (n = 0; n < m.getNumInitialAssignments(); n++)
+  {
+    if (m.getInitialAssignment(n)->isSetMath())
+    {
+      if (mathHasCnUnits(m.getInitialAssignment(n)->getMath()) == true)
+      {
+        if (convertAST(const_cast<ASTNode *>(
+                             m.getInitialAssignment(n)->getMath()), m) != true)
+          converted = false;
+      }
+    }
+  }
 
-  //for (n = 0; n < m.getNumConstraints(); n++)
-  //{
-  //  if (m.getConstraint(n)->isSetMath())
-  //  {
-  //    if (mathHasCnUnits(m.getConstraint(n)->getMath()) == true)
-  //      return true;
-  //  }
-  //}
+  for (n = 0; n < m.getNumConstraints(); n++)
+  {
+    if (m.getConstraint(n)->isSetMath())
+    {
+      if (mathHasCnUnits(m.getConstraint(n)->getMath()) == true)
+      {
+        if (convertAST(const_cast<ASTNode *>(
+                                    m.getConstraint(n)->getMath()), m) != true)
+          converted = false;
+      }
+    }
+  }
+
+  for (n = 0; n < m.getNumFunctionDefinitions(); n++)
+  {
+    if (m.getFunctionDefinition(n)->isSetMath())
+    {
+      if (mathHasCnUnits(m.getFunctionDefinition(n)->getMath()) == true)
+      {
+        if (convertAST(const_cast<ASTNode *>(
+                             m.getFunctionDefinition(n)->getMath()), m) != true)
+          converted = false;
+      }
+    }
+  }
 
   return converted;
 }
@@ -1209,6 +1251,9 @@ SBMLUnitsConverter::isUsed(Model& m, std::string unitSId)
     else if (unitSId == m.getVolumeUnits())
       return true;
     else if (unitSId == m.getExtentUnits())
+      return true;
+
+    if (matchesCnUnits(m, unitSId) == true)
       return true;
   }
 
@@ -1420,6 +1465,90 @@ SBMLUnitsConverter::hasCnUnits(Model& m)
 }
 
 bool
+SBMLUnitsConverter::matchesCnUnits(Model& m, std::string& units)
+{
+  /* check all math within a model */
+
+  unsigned int n;
+  for (n = 0; n < m.getNumRules(); n++)
+  {
+    if (m.getRule(n)->isSetMath())
+    {
+      if (mathMatchesCnUnits(m.getRule(n)->getMath(), units) == true)
+        return true;
+    }
+  }
+
+  for (n = 0; n < m.getNumReactions(); n++)
+  {
+    if (m.getReaction(n)->isSetKineticLaw())
+    {
+      if (m.getReaction(n)->getKineticLaw()->isSetMath())
+      {
+        if (mathMatchesCnUnits(m.getReaction(n)->getKineticLaw()->getMath(), units) == true)
+          return true;
+      }
+    }
+  }
+
+  for (n = 0; n < m.getNumEvents(); n++)
+  {
+    if (m.getEvent(n)->isSetTrigger())
+    {
+      if (m.getEvent(n)->getTrigger()->isSetMath())
+      {
+        if (mathMatchesCnUnits(m.getEvent(n)->getTrigger()->getMath(), units) == true)
+          return true;
+      }
+    }
+    if (m.getEvent(n)->isSetDelay())
+    {
+      if (m.getEvent(n)->getDelay()->isSetMath())
+      {
+        if (mathMatchesCnUnits(m.getEvent(n)->getDelay()->getMath(), units) == true)
+          return true;
+      }
+    }
+    if (m.getEvent(n)->isSetPriority())
+    {
+      if (m.getEvent(n)->getPriority()->isSetMath())
+      {
+        if (mathMatchesCnUnits(m.getEvent(n)->getPriority()->getMath(), units) == true)
+          return true;
+      }
+    }
+    for (unsigned int ea = 0; ea < m.getEvent(n)->getNumEventAssignments(); ea++)
+    {
+      if (m.getEvent(n)->getEventAssignment(ea)->isSetMath())
+      {
+        if (mathMatchesCnUnits(m.getEvent(n)->getEventAssignment(ea)->getMath(), units) == true)
+          return true;
+      }
+    }
+  }
+
+  for (n = 0; n < m.getNumInitialAssignments(); n++)
+  {
+    if (m.getInitialAssignment(n)->isSetMath())
+    {
+      if (mathMatchesCnUnits(m.getInitialAssignment(n)->getMath(), units) == true)
+        return true;
+    }
+  }
+
+  for (n = 0; n < m.getNumConstraints(); n++)
+  {
+    if (m.getConstraint(n)->isSetMath())
+    {
+      if (mathMatchesCnUnits(m.getConstraint(n)->getMath(), units) == true)
+        return true;
+    }
+  }
+
+  return false;
+}
+
+bool
 SBMLUnitsConverter::mathHasCnUnits(const ASTNode * ast)
 {
   bool hasCnUnits = false;
@@ -1435,6 +1564,25 @@ SBMLUnitsConverter::mathHasCnUnits(const ASTNode * ast)
   }
   return hasCnUnits;
 }
+
+bool
+SBMLUnitsConverter::mathMatchesCnUnits(const ASTNode * ast, std::string & units)
+{
+  bool hasCnUnits = false;
+  if (ast->isNumber() && ast->hasUnits() == true)
+  {
+    if (ast->getUnits() == units)
+      return true;
+  }
+  unsigned int n = 0; 
+  while(n < ast->getNumChildren() && hasCnUnits == false)
+  {
+    hasCnUnits = mathMatchesCnUnits(ast->getChild(n), units);
+    n++;
+  }
+  return hasCnUnits;
+}
+
 
 /** @cond doxygen-c-only */
 

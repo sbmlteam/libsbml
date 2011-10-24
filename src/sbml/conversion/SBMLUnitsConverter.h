@@ -152,6 +152,9 @@ private:
 
   bool mathHasCnUnits(const ASTNode *ast);
 
+  bool matchesCnUnits(Model& m, std::string& units);
+
+  bool mathMatchesCnUnits(const ASTNode *ast, std::string& units);
   bool convertAST(ASTNode *ast, Model &m);
 
   unsigned int newIdCount;
