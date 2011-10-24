@@ -10,6 +10,7 @@
  */
 
 import org.sbml.libsbml.SBMLReader;
+import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLWriter;
 
 public class echoSBML
@@ -20,11 +21,20 @@ public class echoSBML
     {
       println("Usage: java echoSBML input-filename output-filename");
       System.exit(2);
-    }
+    }	
 
 	SBMLReader reader     = new SBMLReader();
 	SBMLWriter writer     = new SBMLWriter();
-	writer.writeSBML(reader.readSBML(args[0]), args[1]);
+
+	SBMLDocument doc = reader.readSBML(args[0]);
+	if (doc.getNumErrors() > 0)
+	{
+		doc.printErrors();
+	}
+	else
+	{
+	  writer.writeSBML(doc, args[1]);
+	}
   }
 
 

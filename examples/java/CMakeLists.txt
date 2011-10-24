@@ -39,6 +39,7 @@ foreach(file
 			 -d ${CMAKE_CURRENT_BINARY_DIR}
 		MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/../../src/bindings/java/local.i"
 		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.java
 		COMMENT "Build java example ${file}"
 	) 
 	add_custom_target(example_java_${file} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${file}.class )
