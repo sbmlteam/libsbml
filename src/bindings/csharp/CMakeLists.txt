@@ -1,7 +1,4 @@
 ###############################################################################
-#
-# 
-#
 # Description       : CMake build script for libSBML C# bindings
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
@@ -50,8 +47,6 @@ endforeach()
 
 file(GLOB SWIG_DEPENDENCIES 
 	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.h 
-	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
 	)
@@ -111,7 +106,7 @@ MAKE_DIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/csharp-files)
 ADD_CUSTOM_COMMAND(	
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	       ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs 
-		   ${CMAKE_CURRENT_BINARY_DIR}/csharp-files/csdoc.i
+		   ${CMAKE_CURRENT_BINARY_DIR}/csdoc.i
     COMMAND "${CMAKE_COMMAND}"
     ARGS  -E remove_directory "${LIBSBML_CS_FILES}"
 	COMMAND "${PYTHON_EXECUTABLE}"
@@ -138,13 +133,10 @@ ADD_CUSTOM_COMMAND(
 	     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-	        ${SWIG_DEPENDENCIES}
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt	        
     COMMENT "Swig C# source") 
 
-add_custom_target(binding_csharp_swig ALL DEPENDS 
-	${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
-	${CMAKE_CURRENT_BINARY_DIR}/csharp-files/csdoc.i)
+add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
 
 	
 ####################################################################
@@ -154,8 +146,8 @@ add_custom_target(binding_csharp_swig ALL DEPENDS
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
-include_directories(${CMAKE_SOURCE_DIR}/include)
-add_library(binding_csharp_native_lib SHARED libsbml_wrap.cpp)
+include_directories(${CMAKE_SOURCE_DIR}/src)
+add_library(binding_csharp_native_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp) 
 add_dependencies(binding_csharp_native_lib binding_csharp_swig)
 if (UNIX)
 set_target_properties (binding_csharp_native_lib PROPERTIES OUTPUT_NAME "sbmlcs")
@@ -185,7 +177,6 @@ ADD_CUSTOM_COMMAND(
 	MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 			${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake
-			${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp
 			${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
 	
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -219,7 +210,7 @@ ADD_CUSTOM_COMMAND(
     COMMENT "Build C# TestRuner") 
 
 	
-add_custom_target(binding_csharp_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe libsbmlcsP.dll ${LIBSBML_CS_LIBRARY})
+add_custom_target(binding_csharp_test_runner ALL DEPENDS libsbmlcsP.dll)
 add_dependencies(binding_csharp_test_runner binding_csharp_managed_lib )
 
 if(UNIX)
