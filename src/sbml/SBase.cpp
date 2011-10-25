@@ -193,6 +193,7 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
  , mURI("")
+ , mUserData(NULL)
 {
   mSBMLNamespaces = new SBMLNamespaces(level, version);
 
@@ -229,6 +230,7 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
  , mURI("")
+ , mUserData(NULL)
 {
   if (!sbmlns) 
   {
@@ -285,6 +287,7 @@ SBase::SBase(const SBase& orig)
   this->mLine       = orig.mLine;
   this->mColumn     = orig.mColumn;
   this->mParentSBMLObject = NULL;
+  this->mUserData   = orig.mUserData;
 
   /* if the object belongs to document that has had the level/version reset
    * the copy will end up with the wrong namespace information
@@ -387,6 +390,7 @@ SBase& SBase::operator=(const SBase& rhs)
     this->mLine       = rhs.mLine;
     this->mColumn     = rhs.mColumn;
     this->mParentSBMLObject = rhs.mParentSBMLObject;
+    this->mUserData   = rhs.mUserData;
 
     delete this->mSBMLNamespaces;
 
@@ -621,6 +625,28 @@ SBase::getAnnotationString ()
   return XMLNode::convertXMLNodeToString(getAnnotation());
 }
 
+
+
+void *
+SBase::getUserData() const
+{
+	return this->mUserData;
+}
+
+
+int
+SBase::setUserData(void *userData)
+{
+	this->mUserData = userData;
+  if (mUserData != NULL)
+  {
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+  else
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+}
 
 /*
  * @return the Namespaces associated with this SBML object
@@ -6368,6 +6394,45 @@ SBase_getPlugin(SBase_t *sb, const char *package)
   return (sb != NULL) ? sb->getPlugin(package) : NULL;
 }
 
+/**
+ * Sets the user data of this node. This can be used by the application
+ * developer to attach custom information to the node. In case of a deep
+ * copy this attribute will passed as it is. The attribute will be never
+ * interpreted by this class.
+ * 
+ * @param node defines the node of which the user data should be set.
+ * @param userData specifies the new user data. 
+ *
+ * @return integer value indicating success/failure of the
+ * function.  @if clike The value is drawn from the
+ * enumeration #OperationReturnValues_t.  @endif The possible values
+ * returned by this function are:
+ * @li LIBSBML_OPERATION_SUCCESS
+ * @li LIBSBML_OPERATION_FAILED
+ * @li LIBSBML_INVALID_OBJECT
+ */
+LIBSBML_EXTERN
+int
+SBase_setUserData(SBase_t* sb, void *userData)
+{
+  if (sb == NULL) return LIBSBML_INVALID_OBJECT;
+  return sb->setUserData(userData);
+}
+
+
+/**
+ * Returns the user data that has been previously set by setUserData().
+ *
+ * @param node defines the node of interest.
+ * @return the user data of this node. NULL if no user data has been.
+ * @see SBase_setUserData
+ */
+LIBSBML_EXTERN
+void *SBase_getUserData(SBase_t* sb)
+{
+  if (sb == NULL) return NULL;
+  return sb->getUserData();
+}
 
 /** @endcond */
 

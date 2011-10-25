@@ -2250,6 +2250,30 @@ START_TEST(test_SBase_matchesSBMLNamespaces)
 }
 END_TEST
 
+START_TEST(test_SBase_userData)
+{
+  Species s1(3, 1);
+  int myValue = 10;
+  fail_unless(s1.getUserData() == NULL);
+  fail_unless(s1.setUserData(&myValue) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless((*(int*)s1.getUserData()) == 10);
+
+  // for whatever reason unsetting the user data returns a failure for now
+  // we should revisit whether that is what we want ... i'll add it as test case
+  // for now
+
+  fail_unless(s1.setUserData(NULL) == LIBSBML_OPERATION_FAILED);
+  fail_unless(s1.getUserData() == NULL);
+
+  // test that when accessed with NULL arguments nothing bad happens
+
+  fail_unless(SBase_getUserData(NULL) == NULL);
+  fail_unless(SBase_setUserData(NULL, NULL) == LIBSBML_INVALID_OBJECT);
+
+
+}
+END_TEST
+
 Suite *
 create_suite_SBase (void)
 {
@@ -2294,6 +2318,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_getQualifiersFromResources );
   tcase_add_test(tcase, test_SBase_hasValidLevelVersionNamespaceCombination);
   tcase_add_test(tcase, test_SBase_matchesSBMLNamespaces);
+  tcase_add_test(tcase, test_SBase_userData);
 
   suite_add_tcase(suite, tcase);
 

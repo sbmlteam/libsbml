@@ -2580,6 +2580,31 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
   bool matchesSBMLNamespaces(const SBase * sb);
 
+   /**
+  * Sets the user data of this element. This can be used by the application
+  * developer to attach custom information to the node. In case of a deep
+  * copy this attribute will passed as it is. The attribute will be never
+  * interpreted by this class.
+  * 
+  * @param userData specifies the new user data. 
+  *
+  * @return integer value indicating success/failure of the
+  * function.  The possible values returned by this function are:
+  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+  */  
+  int setUserData(void *userData);
+
+
+ /**
+  * Returns the user data that has been previously set via setUserData().
+  *
+  * @return the user data of this node, or @c NULL if no user data has been.
+  * 
+  * @see ASTNode::setUserData
+  */  
+  void *getUserData() const;
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -2968,6 +2993,7 @@ protected:
   XMLNode*        mAnnotation;
   SBMLDocument*   mSBML;
   SBMLNamespaces* mSBMLNamespaces;
+  void*           mUserData;
 
   int mSBOTerm;
 
@@ -3351,6 +3377,16 @@ SBase_getNumPlugins(SBase_t *sb);
 LIBSBML_EXTERN
 SBasePlugin_t* 
 SBase_getPlugin(SBase_t *sb, const char *package);
+
+
+LIBSBML_EXTERN
+int 
+SBase_setUserData(SBase_t* sb, void *userData);
+
+LIBSBML_EXTERN
+void *
+SBase_getUserData(SBase_t* sb);
+
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
