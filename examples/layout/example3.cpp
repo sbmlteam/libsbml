@@ -76,7 +76,7 @@ int main(int argc,char** argv){
 // package name.
 //
 SBMLNamespaces sbmlns(2,3);
-sbmlns.addNamespace(LayoutExtension::XmlnsL2,"layout");
+sbmlns.addNamespace(LayoutExtension::getXmlnsL2(),"layout");
 
 // (NOTES) The above code creating an SBMLNamespaces object can be replaced
 //         with the following other style.

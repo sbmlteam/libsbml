@@ -98,7 +98,7 @@ SBMLNamespaces sbmlns(3,1,"layout",1);
 //           OR
 //
 //         SBMLNamespaces sbmlns(3,1);
-//         sbmlns.addNamespace(LayoutExtension::XmlnsL3V1V1,"layout");
+//         sbmlns.addNamespace(LayoutExtension::getXmlnsL3V1V1(),"layout");
 //
 // (2) Creates a LayoutPkgNamespaces object (SBMLNamespace derived class for
 //     layout package. The class is basically used for createing an SBase derived
