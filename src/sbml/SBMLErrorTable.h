@@ -8165,6 +8165,25 @@ static const sbmlErrorTableEntry errorTable[] =
     "of the units in such expressions. "
   },
 
+  //99508
+  {
+    UndeclaredObjectUnitsL3,
+    "L3 undeclared object units",
+    LIBSBML_CAT_UNITS_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "In situations when a mathematical expression refers to a compartment, "
+    "species or parameter, it is necessary to know the units "
+    "of the object to establish unit consistency. "
+    "In models where the units of an object have not been declared, libSBML "
+    "does not yet have the functionality to accurately verify the consistency "
+    "of the units in mathematical expressions referring to that object. "
+  },
   //99701
   {   
     UnrecognisedSBOTerm,   

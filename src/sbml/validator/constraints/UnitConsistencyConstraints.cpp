@@ -251,7 +251,7 @@ START_CONSTRAINT (99505, EventAssignment, ea)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (99505, Compartment, c)
+START_CONSTRAINT (99508, Compartment, c)
 {
   pre ( c.getLevel() > 2);
   pre ( c.getDerivedUnitDefinition() != NULL);
@@ -265,7 +265,7 @@ START_CONSTRAINT (99505, Compartment, c)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (99505, Species, s)
+START_CONSTRAINT (99508, Species, s)
 {
   pre ( s.getLevel() > 2);
   pre ( s.getDerivedUnitDefinition() != NULL);
@@ -276,6 +276,20 @@ START_CONSTRAINT (99505, Species, s)
   msg += "or further unit errors related to this object may not be accurate.";
 
   inv( !(s.getDerivedUnitDefinition()->getNumUnits() == 0));
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (99508, Parameter, p)
+{
+  pre ( p.getLevel() > 2);
+  pre ( p.getDerivedUnitDefinition() != NULL);
+  
+  msg = "The units of the <parameter> '";
+  msg += p.getId() ;
+  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+  msg += "or further unit errors related to this object may not be accurate.";
+
+  inv( !(p.getDerivedUnitDefinition()->getNumUnits() == 0));
 }
 END_CONSTRAINT
 

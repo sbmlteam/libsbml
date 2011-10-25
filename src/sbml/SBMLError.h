@@ -851,6 +851,7 @@ typedef enum
  , UndeclaredUnits                       = 99505 /*!< Undeclared units */
  , UndeclaredTimeUnitsL3                 = 99506 /*!< L3 undeclared time units */
  , UndeclaredExtentUnitsL3               = 99507 /*!< L3 undeclared extentunits */
+ , UndeclaredObjectUnitsL3               = 99508 /*!< L3 undeclared object units */
  , UnrecognisedSBOTerm                   = 99701 /*!< Unrecognized <code>sboTerm</code> value */
  , ObseleteSBOTerm                       = 99702 /*!< Obsolete <code>sboTerm</code> value */
 
