@@ -115,9 +115,12 @@ SBase::renameSIdRefs(std::string oldid, std::string newid)
 void
 SBase::renameMetaIdRefs(std::string oldid, std::string newid)
 {
+  //The only thing in core that uses metaids is the annotation element.  If the metaid of an SBase object is changed, and the annotation was in the 'sbml-official' form, the rdf:about will be changed automatically, so this function doesn't need to do anything.  However, we do need the function itself so that packages can extend it for their own purposes (such as comp, with its 'metaIdRef' attributes, and annot, which one would imagine would use something similar).
+
+  //The following code is here in case you want a hacky solution for your own package:
+  /*
   if (oldid == newid) return;
   if (isSetAnnotation()) {
-    //This is pretty hacky, but I don't know enough about annotations to do it 'right' right now.
     string oldrdfabout = "rdf:about=\"#" + oldid;
     string newrdfabout = "rdf:about=\"#" + newid;
     string annot = getAnnotationString();
@@ -127,6 +130,7 @@ SBase::renameMetaIdRefs(std::string oldid, std::string newid)
       place = annot.find(oldrdfabout);
     }
   }
+  */
 }
 
 void 

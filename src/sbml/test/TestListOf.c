@@ -184,7 +184,20 @@ START_TEST (test_ListOf_append)
   fail_unless(i == LIBSBML_INVALID_OBJECT);
   fail_unless(ListOf_size(loc) == 2);
 
+  Model_t* m2 = m->clone();
+  ListOf_t* loc2 = Model_getListOfCompartments(m2);
+  fail_unless(ListOf_size(loc2) == 2);
+  i = ListOf_appendFrom(loc, loc2);
+  fail_unless(i == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(ListOf_size(loc) == 4);
+
+  ListOf_t* los = Model_getListOfSpecies(m);
+  i = ListOf_appendFrom(loc, los);
+  fail_unless(i == LIBSBML_INVALID_OBJECT);
+
+
   Model_free(m);
+  Model_free(m2);
   Species_free((Species_t*)sp);
 }
 END_TEST
@@ -200,8 +213,8 @@ create_suite_ListOf (void)
   tcase_add_test(tcase, test_ListOf_free_NULL );
   tcase_add_test(tcase, test_ListOf_remove    );
   tcase_add_test(tcase, test_ListOf_clear     );
-  tcase_add_test(tcase, test_ListOf_append     );
-
+  tcase_add_test(tcase, test_ListOf_append    );
+ 
   suite_add_tcase(suite, tcase);
 
   return suite;

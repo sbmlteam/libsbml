@@ -211,6 +211,19 @@ ListOf::appendAndOwn (SBase* item)
   }
 }
 
+int ListOf::appendFrom(const ListOf* list)
+{
+  if (list==NULL) return LIBSBML_INVALID_OBJECT;
+  if (getItemTypeCode() != list->getItemTypeCode()) {
+    return LIBSBML_INVALID_OBJECT;
+  }
+  int ret = LIBSBML_OPERATION_SUCCESS;
+  for (unsigned int item=0; item<list->size(); item++) {
+    ret = appendAndOwn(list->get(item)->clone());
+    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  }
+  return ret;
+}
 
 /*
  * @return the nth item in this ListOf items.
@@ -651,6 +664,20 @@ ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item)
 {
   if (lo != NULL)
     return lo->appendAndOwn(item);
+  else
+    return LIBSBML_INVALID_OBJECT;
+}
+
+
+/**
+ * Adds clones of the given items from the second list to the end of this ListOf items.
+ */
+LIBSBML_EXTERN
+int
+ListOf_appendFrom (ListOf_t *lo, ListOf_t *list)
+{
+  if (lo != NULL)
+    return lo->appendFrom(list);
   else
     return LIBSBML_INVALID_OBJECT;
 }

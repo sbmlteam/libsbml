@@ -194,6 +194,16 @@ public:
   int appendAndOwn (SBase* item);
 
 
+  /**
+   * Adds a clone of all items in the provided ListOf to this object.  This means that when this ListOf is destroyed, the original items will not be destroyed.
+   *
+   * @param A list of items to be added.
+   *
+   * @see append(const SBase* item)
+   */
+  int appendFrom(const ListOf* list);
+  
+
   /** 
    * Inserts the item at the given position of this ListOf
    * 
@@ -274,8 +284,6 @@ public:
    */
   virtual List* getAllElements();
   
-  
-
   
 #if 0
   /**
@@ -589,6 +597,13 @@ ListOf_append (ListOf_t *lo, const SBase_t *item);
 LIBSBML_EXTERN
 int
 ListOf_appendAndOwn (ListOf_t *lo, SBase_t *item);
+
+/**
+ * Adds clones of the given items from the second list to the end of this ListOf items.
+ */
+LIBSBML_EXTERN
+int
+ListOf_appendFrom (ListOf_t *lo, ListOf_t *list);
 
 /**
  * inserts a copy of item to this ListOf items at the given position.
