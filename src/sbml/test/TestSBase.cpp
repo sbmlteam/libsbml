@@ -2258,6 +2258,11 @@ START_TEST(test_SBase_userData)
   fail_unless(s1.setUserData(&myValue) == LIBSBML_OPERATION_SUCCESS);
   fail_unless((*(int*)s1.getUserData()) == 10);
 
+  // make sure that cloning also clones the pointer to the data
+  Species *s2 = s1.clone();
+  fail_unless((*(int*)s2->getUserData()) == 10);
+  delete s2;
+
   // for whatever reason unsetting the user data returns a failure for now
   // we should revisit whether that is what we want ... i'll add it as test case
   // for now
