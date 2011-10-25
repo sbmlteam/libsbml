@@ -94,7 +94,7 @@ programs = example1 example2 example3 example1-L3 example2-L3 example3-L3 \
 all: $(programs) Makefile.in
 
 addLayout: addLayout.cpp
-    $(CXX) $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
+	$(CXX)  $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
 
 example1: example1.cpp
 	$(CXX) $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
