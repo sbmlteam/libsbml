@@ -7,7 +7,7 @@
  */
 
 #include <iostream>
-#incldue <string>
+#include <string>
 
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
