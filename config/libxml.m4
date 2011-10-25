@@ -111,7 +111,7 @@ appropriately, then re-run 'configure'.
     if test -n "$with_libxml" -a "$with_libxml" != "yes" -a "$with_libxml" != "no"; then
       if test -z "$XML2_CONFIG" ; then
         dnl The XML2_CONFIG environment variable is not set.  Look for
-	dnl xml2-config in the path given by $with_libxml
+        dnl xml2-config in the path given by $with_libxml
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [$with_libxml/bin])
       fi
       xml_config_args="--prefix=$with_libxml"
@@ -122,7 +122,14 @@ appropriately, then re-run 'configure'.
         dnl User did not set XML2_CONFIG either.  Try their default path.
         AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
       fi
-      libxml_lib_path=`$XML2_CONFIG --prefix`
+	  
+	  if test "$HOST_TYPE" = "darwin"; then
+	    dnl On OSX default to the libXML provided by the system
+        xml_config_args="--prefix=/usr"
+        libxml_lib_path="/usr/lib${LIBSUFFIX}"
+	  else	  
+        libxml_lib_path=`$XML2_CONFIG --prefix`
+	  fi
     fi
 
     if test "$XML2_CONFIG" = "no"; then
