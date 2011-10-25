@@ -1480,10 +1480,10 @@ START_TEST (test_convertUnitDefinition_noUnits)
       equalDouble(d->getModel()->getCompartment(0)->getSize(), 2) == true);
   fail_unless (d->getModel()->getCompartment(0)->getUnits() == "myComp");
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2.5) == true);
+      equalDouble(d->getModel()->getSpecies(0)->getInitialAmount(), 2500) == true);
   fail_unless (d->getModel()->getSpecies(0)->getSubstanceUnits() == "mySpecies");
   fail_unless (
-      equalDouble(d->getModel()->getSpecies(1)->getInitialAmount(), 2.5) == true);
+      equalDouble(d->getModel()->getSpecies(1)->getInitialAmount(), 2500) == true);
   fail_unless (d->getModel()->getSpecies(1)->getSubstanceUnits() == "mySpecies");
   fail_unless (
       equalDouble(d->getModel()->getSpecies(2)->getInitialConcentration(), 2500) == true);
@@ -1952,7 +1952,7 @@ create_suite_TestUnitsConverter2 (void)
   tcase_add_test(tcase, test_convertSpecies_noCompSize);
   tcase_add_test(tcase, test_convertSpecies_noCompSize1);
   tcase_add_test(tcase, test_convertParameter_noValue);
-//  tcase_add_test(tcase, test_convertUnitDefinition_noUnits);
+  tcase_add_test(tcase, test_convertUnitDefinition_noUnits);
   tcase_add_test(tcase, test_convert_cn_units);
   tcase_add_test(tcase, test_convert_cn_units1);
   tcase_add_test(tcase, test_convert_cn_units2);
