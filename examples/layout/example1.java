@@ -57,12 +57,43 @@ public class example1
         System.loadLibrary("sbmlj");
     }
 
+    public static Point createPoint(double x, double y)
+    {
+      Point point = new Point();
+      point.setX(x);
+      point.setY(y);
+      return point;
+    }
+  
+    public static Dimensions createDimensions(double width, double height)
+    {
+      Dimensions dim = new Dimensions();
+      dim.setWidth(width);
+      dim.setHeight(height);
+      return dim;
+    }
+  
+    public static BoundingBox createBoundingBox(String id, double x, double y, double width, double height)
+    {
+      BoundingBox bounds = new BoundingBox();
+      bounds.setId(id);
+      bounds.setX(x);
+      bounds.setY(y);
+      bounds.setWidth(width);
+      bounds.setHeight(height);
+      return bounds;
+    }
+  
     public static void main (String args[])
     {
 
         // create the document
 
         SBMLDocument document=new SBMLDocument(2,1);
+      
+        // ensure the layout api is enabled
+        document.enablePackage(LayoutExtension.getXmlnsL2(),"layout", true);
+      
         // create the Model
 
         Model model=document.createModel("TestModel");
@@ -88,40 +119,35 @@ public class example1
         Reaction reaction1=model.createReaction();
         reaction1.setId("Reaction_1");
 
-        SpeciesReference reference1=new SpeciesReference();
+        SpeciesReference reference1=reaction1.createReactant();
         reference1.setSpecies(species1.getId());
         reference1.setId("SpeciesReference_1");
 
-        reaction1.addReactant(reference1);
         reaction1.setReversible(false);
 
-        SpeciesReference reference2=new SpeciesReference();
+      SpeciesReference reference2=reaction1.createProduct();
         reference2.setSpecies(species2.getId());
         reference2.setId("SpeciesReference_2");
-
-        reaction1.addProduct(reference2);
 
         Reaction reaction2=model.createReaction();
         reaction2.setId("Reaction_2");
         reaction2.setReversible(false);
 
-        SpeciesReference reference3=new SpeciesReference();
+      SpeciesReference reference3=reaction2.createReactant();
         reference3.setSpecies(species2.getId());
         reference3.setId("SpeciesReference_3");
 
-        SpeciesReference reference4=new SpeciesReference();
+      SpeciesReference reference4=reaction2.createProduct();
         reference4.setSpecies(species1.getId());
         reference4.setId("SpeciesReference_4");
 
-        reaction2.addReactant(reference3);
-        reaction2.addProduct(reference4);
-
         // create the Layout
-		LayoutModelPlugin mplugin = (LayoutModelPlugin)(model.getPlugin("layout"));
+        
+    		LayoutModelPlugin mplugin = (LayoutModelPlugin)(model.getPlugin("layout"));
         Layout layout=mplugin.createLayout();
 
         layout.setId("Layout_1");
-        layout.setDimensions(new Dimensions(400.0,220.0));
+        layout.setDimensions(createDimensions(400,220));
 
 
         // create the CompartmentGlyph
@@ -129,7 +155,7 @@ public class example1
         CompartmentGlyph compartmentGlyph=layout.createCompartmentGlyph();
         compartmentGlyph.setId("CompartmentGlyph_1");
         compartmentGlyph.setCompartmentId(compartment.getId());
-        compartmentGlyph.setBoundingBox(new BoundingBox("bb1",5.0,5.0,390.0,210.0));
+        compartmentGlyph.setBoundingBox(createBoundingBox("bb1", 5, 5, 390, 210));
 
 
         // create the SpeciesGlyphs
@@ -137,22 +163,22 @@ public class example1
         SpeciesGlyph speciesGlyph1=layout.createSpeciesGlyph();
         speciesGlyph1.setId("SpeciesGlyph_1");
         speciesGlyph1.setSpeciesId(species1.getId());
-        speciesGlyph1.setBoundingBox(new BoundingBox("bb2",80.0,26.0,240.0,24.0));
+        speciesGlyph1.setBoundingBox(createBoundingBox("bb2", 80, 26, 240, 24));
 
         TextGlyph textGlyph1=layout.createTextGlyph();
         textGlyph1.setId("TextGlyph_01");
-        textGlyph1.setBoundingBox(new BoundingBox("bbA",92.0,26.0,228.0,24.0));
+        textGlyph1.setBoundingBox(createBoundingBox("bbA", 92, 26, 228, 24));
         textGlyph1.setOriginOfTextId(speciesGlyph1.getId());
         textGlyph1.setGraphicalObjectId(speciesGlyph1.getId());
 
         SpeciesGlyph speciesGlyph2=layout.createSpeciesGlyph();
         speciesGlyph2.setId("SpeciesGlyph_2");
         speciesGlyph2.setSpeciesId(species2.getId());
-        speciesGlyph2.setBoundingBox(new BoundingBox("bb3",80.0,170.0,240.0,24.0));
+        speciesGlyph2.setBoundingBox(createBoundingBox("bb3", 80, 170, 240, 24));
 
         TextGlyph textGlyph2=layout.createTextGlyph();
         textGlyph2.setId("TextGlyph_02");
-        textGlyph2.setBoundingBox(new BoundingBox("bbB",92.0,170.0,228.0,24.0));
+        textGlyph2.setBoundingBox(createBoundingBox("bbB", 92, 170, 228, 24));
         textGlyph2.setOriginOfTextId(speciesGlyph2.getId());
         textGlyph2.setGraphicalObjectId(speciesGlyph2.getId());
 
@@ -164,8 +190,8 @@ public class example1
 
         Curve reactionCurve1=reactionGlyph1.getCurve();
         LineSegment ls=reactionCurve1.createLineSegment();
-        ls.setStart(new Point(165.0,105.0));
-        ls.setEnd(new Point(165.0,115.0));
+        ls.setStart(createPoint(165,105));
+        ls.setEnd(createPoint(165, 115));
 
         ReactionGlyph reactionGlyph2=layout.createReactionGlyph();
         reactionGlyph2.setId("ReactionGlyph_1");
@@ -173,8 +199,8 @@ public class example1
 
         Curve reactionCurve2=reactionGlyph2.getCurve();
         ls=reactionCurve2.createLineSegment();
-        ls.setStart(new Point(235.0,105.0));
-        ls.setEnd(new Point(235.0,115.0));
+        ls.setStart(createPoint(235, 105));
+        ls.setEnd(createPoint(235,115));
 
         // add the SpeciesReferenceGlyphs
 
@@ -186,10 +212,10 @@ public class example1
 
         Curve speciesReferenceCurve1=speciesReferenceGlyph1.getCurve();
         CubicBezier cb=speciesReferenceCurve1.createCubicBezier();
-        cb.setStart(new Point(165.0,105.0));
-        cb.setBasePoint1(new Point(165.0,90.0));
-        cb.setBasePoint2(new Point(165.0,90.0));
-        cb.setEnd(new Point(195.0,60.0));
+        cb.setStart(createPoint(165.0,105.0));
+        cb.setBasePoint1(createPoint(165.0,90.0));
+        cb.setBasePoint2(createPoint(165.0,90.0));
+        cb.setEnd(createPoint(195.0,60.0));
 
         SpeciesReferenceGlyph speciesReferenceGlyph2=reactionGlyph1.createSpeciesReferenceGlyph();
         speciesReferenceGlyph2.setId("SpeciesReferenceGlyph_2");
@@ -199,10 +225,10 @@ public class example1
 
         Curve speciesReferenceCurve2=speciesReferenceGlyph2.getCurve();
         cb=speciesReferenceCurve2.createCubicBezier();
-        cb.setStart(new Point(165.0,115.0));
-        cb.setBasePoint1(new Point(165.0,130.0));
-        cb.setBasePoint2(new Point(165.0,130.0));
-        cb.setEnd(new Point(195.0,160.0));
+        cb.setStart(createPoint(165.0,115.0));
+        cb.setBasePoint1(createPoint(165.0,130.0));
+        cb.setBasePoint2(createPoint(165.0,130.0));
+        cb.setEnd(createPoint(195.0,160.0));
 
 
         SpeciesReferenceGlyph speciesReferenceGlyph3=reactionGlyph2.createSpeciesReferenceGlyph();
@@ -213,10 +239,10 @@ public class example1
 
         Curve speciesReferenceCurve3=speciesReferenceGlyph3.getCurve();
         cb=speciesReferenceCurve3.createCubicBezier();
-        cb.setStart(new Point(235.0,115.0));
-        cb.setBasePoint1(new Point(235.0,130.0));
-        cb.setBasePoint2(new Point(235.0,130.0));
-        cb.setEnd(new Point(205.0,160.0));
+        cb.setStart(createPoint(235.0,115.0));
+        cb.setBasePoint1(createPoint(235.0,130.0));
+        cb.setBasePoint2(createPoint(235.0,130.0));
+        cb.setEnd(createPoint(205.0,160.0));
 
         SpeciesReferenceGlyph speciesReferenceGlyph4=reactionGlyph2.createSpeciesReferenceGlyph();
         speciesReferenceGlyph4.setId("SpeciesReferenceGlyph_4");
@@ -226,10 +252,10 @@ public class example1
 
         Curve speciesReferenceCurve4=speciesReferenceGlyph4.getCurve();
         cb=speciesReferenceCurve4.createCubicBezier();
-        cb.setStart(new Point(235.0,105.0));
-        cb.setBasePoint1(new Point(235.0,90.0));
-        cb.setBasePoint2(new Point(235.0,90.0));
-        cb.setEnd(new Point(205.0,60.0));
+        cb.setStart(createPoint(235.0,105.0));
+        cb.setBasePoint1(createPoint(235.0,90.0));
+        cb.setBasePoint2(createPoint(235.0,90.0));
+        cb.setEnd(createPoint(205.0,60.0));
 
 
         libsbml.writeSBML(document,"TestModel1-java.xml");
