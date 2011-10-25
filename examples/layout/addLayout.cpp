@@ -3,32 +3,32 @@
  * @brief   SBML Layout example
  * @author  Sarah Keating
  * 
- * information about SBML, and the latest version of libSBML.
+ * This example adds a layout to the loaded model. 
  */
 
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/Model.h"
-#include "sbml/Compartment.h"
-#include "sbml/Species.h"
-#include "sbml/SpeciesReference.h"
-#include "sbml/Reaction.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/Compartment.h>
+#include <sbml/Species.h>
+#include <sbml/SpeciesReference.h>
+#include <sbml/Reaction.h>
 
-#include "sbml/packages/layout/sbml/Layout.h"
-#include "sbml/packages/layout/sbml/CompartmentGlyph.h"
-#include "sbml/packages/layout/sbml/SpeciesGlyph.h"
-#include "sbml/packages/layout/sbml/ReactionGlyph.h"
-#include "sbml/packages/layout/sbml/SpeciesReferenceGlyph.h"
-#include "sbml/packages/layout/sbml/SpeciesReferenceGlyph.h"
-#include "sbml/packages/layout/extension/LayoutExtension.h"
-#include "sbml/packages/layout/extension/LayoutModelPlugin.h"
-#include "sbml/packages/layout/sbml/Curve.h"
-#include "sbml/packages/layout/sbml/Dimensions.h"
-#include "sbml/packages/layout/sbml/BoundingBox.h"
-#include "sbml/packages/layout/sbml/Point.h"
-#include "sbml/packages/layout/sbml/LineSegment.h"
-#include "sbml/packages/layout/sbml/CubicBezier.h"
-#include "sbml/SBMLWriter.h"
+#include <sbml/packages/layout/sbml/Layout.h>
+#include <sbml/packages/layout/sbml/CompartmentGlyph.h>
+#include <sbml/packages/layout/sbml/SpeciesGlyph.h>
+#include <sbml/packages/layout/sbml/ReactionGlyph.h>
+#include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
+#include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
+#include <sbml/packages/layout/extension/LayoutExtension.h>
+#include <sbml/packages/layout/extension/LayoutModelPlugin.h>
+#include <sbml/packages/layout/sbml/Curve.h>
+#include <sbml/packages/layout/sbml/Dimensions.h>
+#include <sbml/packages/layout/sbml/BoundingBox.h>
+#include <sbml/packages/layout/sbml/Point.h>
+#include <sbml/packages/layout/sbml/LineSegment.h>
+#include <sbml/packages/layout/sbml/CubicBezier.h>
+#include <sbml/SBMLWriter.h>
 
 LIBSBML_CPP_NAMESPACE_USE
 

@@ -54,16 +54,15 @@ include ../../config/makefile-common-vars.mk
 # The values of the following variables are obtained using the libSBML
 # configuration program.
 
-CORE_LIB       = ../../src/libsbml.la
-LAYOUT_PKG_LIB = ../../src/packages/layout/libsbml-layout.la
-INCLUDEDIR = ../../include
+CORE_LIB     = ../../src/libsbml.la
+INCLUDEDIR   = ../../src
 
 top_builddir = @top_builddir@
-LIBTOOL    = @LIBTOOL@
-CXX        = $(LIBTOOL) --mode=link @CXX@ $(CXXFLAGS)
-CXXFLAGS   = @CXXFLAGS@ -Wall
+LIBTOOL      = @LIBTOOL@
+CXX          = $(LIBTOOL) --mode=link @CXX@ $(CXXFLAGS)
+CXXFLAGS     = @CXXFLAGS@ -Wall
 extra_CPPFLAGS = -I.. -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\" -I$(INCLUDEDIR)
-LIBS = $(CORE_LIB) $(LAYOUT_PKG_LIB)
+LIBS = $(CORE_LIB) 
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
@@ -88,10 +87,14 @@ endif
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.
 
-programs = example1 example2 example3 example1-L3 example2-L3 example3-L3
+programs = example1 example2 example3 example1-L3 example2-L3 example3-L3 \
+           addLayout
 
 
 all: $(programs) Makefile.in
+
+addLayout: addLayout.cpp
+    $(CXX) $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
 
 example1: example1.cpp
 	$(CXX) $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
