@@ -6,6 +6,8 @@
  * This example adds a layout to the loaded model. 
  */
 
+#include <iostream>
+#incldue <string>
 
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
@@ -30,6 +32,7 @@
 #include <sbml/packages/layout/sbml/CubicBezier.h>
 #include <sbml/SBMLWriter.h>
 
+using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
 int main(int argc,char** argv){

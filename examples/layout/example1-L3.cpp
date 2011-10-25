@@ -5,7 +5,7 @@
  * @author  Akiya Jouraku (Modified this file for layout package of SBML Level 3 
  * in libSBML 5)
  * 
-/* Copyright 2004 European Media Laboratories Research gGmbH
+ * Copyright 2004 European Media Laboratories Research gGmbH
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published
