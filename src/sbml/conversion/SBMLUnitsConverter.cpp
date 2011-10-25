@@ -1331,6 +1331,7 @@ SBMLUnitsConverter::isUsed(Model& m, std::string unitSId)
 bool
 SBMLUnitsConverter::unacceptable_errors(unsigned int errors)
 {
+  unsigned int i;
   if (errors > 0)
   {
     if (mDocument->getErrorLog()
@@ -1338,29 +1339,25 @@ SBMLUnitsConverter::unacceptable_errors(unsigned int errors)
       return true;
     else
     {  
-      for (unsigned int i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+      for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
       {
-        //if (mDocument->getErrorLog()->getError(i)->getErrorId() == CompartmentShouldHaveSize)
-        //{
-        //  return true;
-        //}
-        if (mDocument->getErrorLog()->getError(i)->getErrorId() == ParameterShouldHaveUnits)
+        if (mDocument->getErrorLog()->getError(i)->getErrorId() == 
+                                               ParameterShouldHaveUnits)
         {
           return true;
         }
-        //else if (mDocument->getErrorLog()->getError(i)->getErrorId() == SpeciesShouldHaveValue)
-        //{
-        //  return true;
-        //}
-        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredUnits)
+        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == 
+                                                UndeclaredUnits)
         {
           return true;
         }
-        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredTimeUnitsL3)
+        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == 
+                                                UndeclaredTimeUnitsL3)
         {
           return true;
         }
-        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == UndeclaredExtentUnitsL3)
+        else if (mDocument->getErrorLog()->getError(i)->getErrorId() == 
+                                                 UndeclaredExtentUnitsL3)
         {
           return true;
         }
@@ -1370,9 +1367,42 @@ SBMLUnitsConverter::unacceptable_errors(unsigned int errors)
           return true;
         }
       }
-
-      return false;
     }
+  
+    // look for species in conc units with substance units declared but
+    // comp size undeclared
+
+    bool checkSpecies = false;
+    for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+    {
+      if (mDocument->getErrorLog()->getError(i)->getErrorId() 
+                                                  == CompartmentShouldHaveSize)
+      {
+        checkSpecies = true;
+      }
+    }
+    if (checkSpecies == true)
+    {
+      Species *s;
+      Compartment *c;
+      for (i = 0; i < mDocument->getModel()->getNumSpecies(); i++)
+      {
+        s = mDocument->getModel()->getSpecies(i);
+        if (s->getHasOnlySubstanceUnits() == false)
+        {
+          c = mDocument->getModel()->getCompartment(s->getCompartment());
+          if (c->getSpatialDimensions() != 0)
+          {
+            if (c->isSetSize() == false)
+            {
+              return true;
+            }
+          }
+        }
+      }
+    }
+   
+    return false;
   }
   else
   {
