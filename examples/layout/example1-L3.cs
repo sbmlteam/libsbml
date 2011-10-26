@@ -218,7 +218,7 @@ class Example1
 		speciesReferenceGlyph1.setId ("SpeciesReferenceGlyph_1");
 		speciesReferenceGlyph1.setSpeciesGlyphId (speciesGlyph1.getId ());
 		speciesReferenceGlyph1.setSpeciesReferenceId (reference1.getId ());
-		speciesReferenceGlyph1.setRole (libsbml.libsbml.SPECIES_ROLE_SUBSTRATE);
+		speciesReferenceGlyph1.setRole (libsbml.SPECIES_ROLE_SUBSTRATE);
 		
 		Curve speciesReferenceCurve1 = speciesReferenceGlyph1.getCurve ();
 		CubicBezier cb = speciesReferenceCurve1.createCubicBezier ();
@@ -235,7 +235,7 @@ class Example1
 		speciesReferenceGlyph2.setId ("SpeciesReferenceGlyph_2");
 		speciesReferenceGlyph2.setSpeciesGlyphId (speciesGlyph2.getId ());
 		speciesReferenceGlyph2.setSpeciesReferenceId (reference2.getId ());
-		speciesReferenceGlyph2.setRole (libsbml.libsbml.SPECIES_ROLE_PRODUCT);
+		speciesReferenceGlyph2.setRole (libsbml.SPECIES_ROLE_PRODUCT);
 		
 		Curve speciesReferenceCurve2 = speciesReferenceGlyph2.getCurve ();
 		cb = speciesReferenceCurve2.createCubicBezier ();
@@ -253,7 +253,7 @@ class Example1
 		speciesReferenceGlyph3.setId ("SpeciesReferenceGlyph_3");
 		speciesReferenceGlyph3.setSpeciesGlyphId (speciesGlyph2.getId ());
 		speciesReferenceGlyph3.setSpeciesReferenceId (reference3.getId ());
-		speciesReferenceGlyph3.setRole (libsbml.libsbml.SPECIES_ROLE_SUBSTRATE);
+		speciesReferenceGlyph3.setRole (libsbml.SPECIES_ROLE_SUBSTRATE);
 		
 		Curve speciesReferenceCurve3 = speciesReferenceGlyph3.getCurve ();
 		cb = speciesReferenceCurve3.createCubicBezier ();
@@ -270,7 +270,7 @@ class Example1
 		speciesReferenceGlyph4.setId ("SpeciesReferenceGlyph_4");
 		speciesReferenceGlyph4.setSpeciesGlyphId (speciesGlyph1.getId ());
 		speciesReferenceGlyph4.setSpeciesReferenceId (reference4.getId ());
-		speciesReferenceGlyph4.setRole (libsbml.libsbml.SPECIES_ROLE_PRODUCT);
+		speciesReferenceGlyph4.setRole (libsbml.SPECIES_ROLE_PRODUCT);
 		
 		Curve speciesReferenceCurve4 = speciesReferenceGlyph4.getCurve ();
 		cb = speciesReferenceCurve4.createCubicBezier ();
@@ -283,7 +283,7 @@ class Example1
 		p = new Point (layoutns, 205, 60);
 		cb.setEnd (p);
 		
-		libsbml.libsbml.writeSBML (document, "layout_example1_L3-cs.xml");			
+		libsbml.writeSBML (document, "layout_example1_L3-cs.xml");			
 		Console.WriteLine("all done ...");
 	}
 }
