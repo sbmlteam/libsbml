@@ -184,7 +184,7 @@ START_TEST (test_ListOf_append)
   fail_unless(i == LIBSBML_INVALID_OBJECT);
   fail_unless(ListOf_size(loc) == 2);
 
-  Model_t* m2 = m->clone();
+  Model_t* m2 = Model_clone(m);
   ListOf_t* loc2 = Model_getListOfCompartments(m2);
   fail_unless(ListOf_size(loc2) == 2);
   i = ListOf_appendFrom(loc, loc2);
