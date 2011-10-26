@@ -48,12 +48,36 @@
 
 from libsbml import *
 
+def createDimensions(width, height):
+  "Create a dimension object with given width and height"
+  dim = Dimensions()
+  dim.setWidth(width)
+  dim.setHeight(height)
+  return dim
+
+def createPoint(x, y):
+  "Create a point object with given coordinates"
+  p = Point()
+  p.setX(x)
+  p.setY(y)
+  return p
+
+def createBoundingBox(id, x, y, width, height):
+  "Create a bounding box object with given coordinates and dimensions"
+  bb = BoundingBox()
+  bb.setX(x)
+  bb.setY(y)
+  bb.setWidth(width)
+  bb.setHeight(height)
+  return bb
+
 # create the document
 
 document=SBMLDocument(2,1)
 # create the Model
 
 model=document.createModel("TestModel")
+document.enablePackage(LayoutExtension.getXmlnsL2(), "layout", True)
 
 # create the Compartment
 
@@ -75,39 +99,32 @@ reaction1=model.createReaction()
 reaction1.setId("Reaction_1")
 reaction1.setReversible(False)
 
-reference1=SpeciesReference()
+reference1=reaction1.createReactant()
 reference1.setSpecies(species1.getId())
 reference1.setId("SpeciesReference_1")
 
-reaction1.addReactant(reference1)
-
-reference2=SpeciesReference()
+reference2=reaction1.createProduct()
 reference2.setSpecies(species2.getId())
 reference2.setId("SpeciesReference_2")
-
-reaction1.addProduct(reference2)
 
 reaction2=model.createReaction()
 reaction2.setId("Reaction_2")
 reaction2.setReversible(False)
 
-reference3=SpeciesReference()
+reference3=reaction1.createReactant()
 reference3.setSpecies(species2.getId())
 reference3.setId("SpeciesReference_3")
 
-reference4=SpeciesReference()
+reference4=reaction1.createProduct()
 reference4.setSpecies(species1.getId())
 reference4.setId("SpeciesReference_4")
-
-reaction2.addReactant(reference3)
-reaction2.addProduct(reference4)
 
 # create the Layout
 mplugin = model.getPlugin("layout");
 layout = mplugin.createLayout()
 
 layout.setId("Layout_1")
-layout.setDimensions(Dimensions(400.0,220.0))
+layout.setDimensions(createDimensions(400.0,220.0))
 
 
 # create the CompartmentGlyph
@@ -115,7 +132,7 @@ layout.setDimensions(Dimensions(400.0,220.0))
 compartmentGlyph=layout.createCompartmentGlyph()
 compartmentGlyph.setId("CompartmentGlyph_1")
 compartmentGlyph.setCompartmentId(compartment.getId())
-compartmentGlyph.setBoundingBox(BoundingBox("bb1",5,5,390,210))
+compartmentGlyph.setBoundingBox(createBoundingBox("bb1",5,5,390,210))
 
 
 # create the SpeciesGlyphs
@@ -123,11 +140,11 @@ compartmentGlyph.setBoundingBox(BoundingBox("bb1",5,5,390,210))
 speciesGlyph1=layout.createSpeciesGlyph()
 speciesGlyph1.setId("SpeciesGlyph_1")
 speciesGlyph1.setSpeciesId(species1.getId())
-speciesGlyph1.setBoundingBox(BoundingBox("bb2",80,26,240,24))
+speciesGlyph1.setBoundingBox(createBoundingBox("bb2",80,26,240,24))
 
 textGlyph1=layout.createTextGlyph()
 textGlyph1.setId("TextGlyph_01")
-textGlyph1.setBoundingBox(BoundingBox("bbA",92,26,228,24))
+textGlyph1.setBoundingBox(createBoundingBox("bbA",92,26,228,24))
 textGlyph1.setOriginOfTextId(speciesGlyph1.getId())
 textGlyph1.setGraphicalObjectId(speciesGlyph1.getId())
 
@@ -135,11 +152,11 @@ textGlyph1.setGraphicalObjectId(speciesGlyph1.getId())
 speciesGlyph2=layout.createSpeciesGlyph()
 speciesGlyph2.setId("SpeciesGlyph_2")
 speciesGlyph2.setSpeciesId(species2.getId())
-speciesGlyph2.setBoundingBox(BoundingBox("bb3",80,170,240,24))
+speciesGlyph2.setBoundingBox(createBoundingBox("bb3",80,170,240,24))
 
 textGlyph2=layout.createTextGlyph()
 textGlyph2.setId("TextGlyph_02")
-textGlyph2.setBoundingBox(BoundingBox("bbB",92,170,228,24))
+textGlyph2.setBoundingBox(createBoundingBox("bbB",92,170,228,24))
 textGlyph2.setOriginOfTextId(speciesGlyph2.getId())
 textGlyph2.setGraphicalObjectId(speciesGlyph2.getId())
 
@@ -151,8 +168,8 @@ reactionGlyph1.setReactionId(reaction1.getId())
 
 reactionCurve1=reactionGlyph1.getCurve()
 ls=reactionCurve1.createLineSegment()
-ls.setStart(Point(165,105))
-ls.setEnd(Point(165,115))
+ls.setStart(createPoint(165,105))
+ls.setEnd(createPoint(165,115))
 
 reactionGlyph2=layout.createReactionGlyph()
 reactionGlyph2.setId("ReactionGlyph_1")
@@ -160,8 +177,8 @@ reactionGlyph2.setReactionId(reaction2.getId())
 
 reactionCurve2=reactionGlyph2.getCurve()
 ls=reactionCurve2.createLineSegment()
-ls.setStart(Point(235,105))
-ls.setEnd(Point(235,115))
+ls.setStart(createPoint(235,105))
+ls.setEnd(createPoint(235,115))
 
 # add the SpeciesReferenceGlyphs
 
@@ -173,10 +190,10 @@ speciesReferenceGlyph1.setRole(SPECIES_ROLE_SUBSTRATE)
 
 speciesReferenceCurve1=speciesReferenceGlyph1.getCurve()
 cb=speciesReferenceCurve1.createCubicBezier()
-cb.setStart(Point(165,105))
-cb.setBasePoint1(Point(165,90))
-cb.setBasePoint2(Point(165,90))
-cb.setEnd(Point(195,60))
+cb.setStart(createPoint(165,105))
+cb.setBasePoint1(createPoint(165,90))
+cb.setBasePoint2(createPoint(165,90))
+cb.setEnd(createPoint(195,60))
 
 speciesReferenceGlyph2=reactionGlyph1.createSpeciesReferenceGlyph()
 speciesReferenceGlyph2.setId("SpeciesReferenceGlyph_2")
@@ -186,10 +203,10 @@ speciesReferenceGlyph2.setRole(SPECIES_ROLE_PRODUCT)
 
 speciesReferenceCurve2=speciesReferenceGlyph2.getCurve()
 cb=speciesReferenceCurve2.createCubicBezier()
-cb.setStart(Point(165,115))
-cb.setBasePoint1(Point(165,130))
-cb.setBasePoint2(Point(165,130))
-cb.setEnd(Point(195,160))
+cb.setStart(createPoint(165,115))
+cb.setBasePoint1(createPoint(165,130))
+cb.setBasePoint2(createPoint(165,130))
+cb.setEnd(createPoint(195,160))
 
 
 speciesReferenceGlyph3=reactionGlyph2.createSpeciesReferenceGlyph()
@@ -200,10 +217,10 @@ speciesReferenceGlyph3.setRole(SPECIES_ROLE_SUBSTRATE)
 
 speciesReferenceCurve3=speciesReferenceGlyph3.getCurve()
 cb=speciesReferenceCurve3.createCubicBezier()
-cb.setStart(Point(235,115))
-cb.setBasePoint1(Point(235,130))
-cb.setBasePoint2(Point(235,130))
-cb.setEnd(Point(205,160))
+cb.setStart(createPoint(235,115))
+cb.setBasePoint1(createPoint(235,130))
+cb.setBasePoint2(createPoint(235,130))
+cb.setEnd(createPoint(205,160))
 
 speciesReferenceGlyph4=reactionGlyph2.createSpeciesReferenceGlyph()
 speciesReferenceGlyph4.setId("SpeciesReferenceGlyph_4")
@@ -213,10 +230,10 @@ speciesReferenceGlyph4.setRole(SPECIES_ROLE_PRODUCT)
 
 speciesReferenceCurve4=speciesReferenceGlyph4.getCurve()
 cb=speciesReferenceCurve4.createCubicBezier()
-cb.setStart(Point(235,105))
-cb.setBasePoint1(Point(235,90))
-cb.setBasePoint2(Point(235,90))
-cb.setEnd(Point(205,60))
+cb.setStart(createPoint(235,105))
+cb.setBasePoint1(createPoint(235,90))
+cb.setBasePoint2(createPoint(235,90))
+cb.setEnd(createPoint(205,60))
 
 
 writeSBML(document,"TestModel1-python.xml")
