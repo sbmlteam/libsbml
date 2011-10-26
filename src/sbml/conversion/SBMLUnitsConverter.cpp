@@ -286,11 +286,13 @@ SBMLUnitsConverter::convert()
     }
   }
 
-  conversion = convertGlobalUnits(*m);
 
   if (m->getLevel() > 2)
   {
-    conversion = convertCnUnits(*m);
+    if (conversion == true)
+      conversion = convertGlobalUnits(*m);
+    if (conversion == true)
+      conversion = convertCnUnits(*m);
   }
 
   removeUnusedUnitDefinitions(*m);
@@ -386,11 +388,6 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
         ud =  m.getFormulaUnitsData("substance", SBML_MODEL)
                                                  ->getUnitDefinition();
       }
-      if (modelUnitAttribute == "substance")
-      {
-        ud =  m.getFormulaUnitsData("substance", SBML_MODEL)
-                                                 ->getUnitDefinition();
-      }
       else if (modelUnitAttribute == "volume")
       {
         ud =  m.getFormulaUnitsData("volume", SBML_MODEL)
@@ -458,8 +455,8 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
  
   UnitDefinition *siud = UnitDefinition::convertToSI(ud);
   /* catch in case things have gone wrong */
-  if (siud->getNumUnits() == 0)
-    return false;
+  //if (siud->getNumUnits() == 0)
+  //  return false;
 
   /* if we are dealing in substance only then we need to use substance
    * units when calculating the newvalue 
@@ -477,9 +474,9 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
 
   double newValue;
   if (hasValue == true)
-      newValue = oldValue * pow(siud->getUnit(0)->getMultiplier(),
-                            siud->getUnit(0)->getExponentAsDouble());
-  for (unsigned int n = 1; n < siud->getNumUnits(); n++)
+    newValue = oldValue;
+
+  for (unsigned int n = 0; n < siud->getNumUnits(); n++)
   {
     if (hasValue == true)
       newValue = newValue * pow(siud->getUnit(n)->getMultiplier(),
@@ -522,7 +519,8 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
           {
             if (speciesHasSize == true &&
               m.getCompartment(static_cast<Species &>(sb).getCompartment())
-                                              ->getSpatialDimensions() != 0)
+                                              ->getSpatialDimensions() != 0
+                                              && ud_vol->getNumUnits() > 0)
             {
               newValue = newValue * 
                 m.getCompartment(static_cast<Species &>(sb).getCompartment())
@@ -560,7 +558,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
         i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute, ast);
       }
     }
-    else
+    else if (siud->getNumUnits() == 1)
     {
       Unit *u = siud->getUnit(0);
       i = u->setMultiplier(1.0);
@@ -584,20 +582,71 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
               {
                 unsigned int dims 
                   = static_cast<Compartment &>(sb).getSpatialDimensions();
-                switch (dims)
+                if (m.getLevel() > 2)
                 {
-                case 1:
-                  i = m.setLengthUnits(newUnit);
-                  break;
-                case 2:
-                  i = m.setAreaUnits(newUnit);
-                  break;
-                case 3:
-                  i = m.setVolumeUnits(newUnit);
-                  break;
-                default:
-                  i = -1;
-                  break;
+                  switch (dims)
+                  {
+                  case 1:
+                    i = m.setLengthUnits(newUnit);
+                    break;
+                  case 2:
+                    i = m.setAreaUnits(newUnit);
+                    break;
+                  case 3:
+                    i = m.setVolumeUnits(newUnit);
+                    break;
+                  default:
+                    i = -1;
+                    break;
+                  }
+                }
+                else
+                {
+                  // the builtin unit might be already declared
+                  switch (dims)
+                  {
+                  case 1:
+                    if (UnitDefinition::areIdentical(m.getUnitDefinition("length"),
+                               siud, true))
+                    {
+                      i = LIBSBML_OPERATION_SUCCESS;
+                    }
+                    else if (m.getUnitDefinition("length") == NULL 
+                      && newUnit == "metre")
+                    {
+                      i = LIBSBML_OPERATION_SUCCESS;
+                    }
+                    else
+                    {
+                      i = static_cast<Compartment &>(sb).setUnits(newUnit);
+                    }
+                    break;
+                  case 2:
+                    if (UnitDefinition::areIdentical(m.getUnitDefinition("area"),
+                               siud, true))
+                    {
+                      i = LIBSBML_OPERATION_SUCCESS;
+                    }
+                    else
+                    {
+                      i = static_cast<Compartment &>(sb).setUnits(newUnit);
+                    }
+                    break;
+                  case 3:
+                    if (UnitDefinition::areIdentical(m.getUnitDefinition("volume"),
+                               siud, true))
+                    {
+                      i = LIBSBML_OPERATION_SUCCESS;
+                    }
+                    else
+                    {
+                      i = static_cast<Compartment &>(sb).setUnits(newUnit);
+                    }
+                    break;
+                  default:
+                    i = -1;
+                    break;
+                  }
                 }
               }
               else
@@ -609,7 +658,27 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
               // units might have come from model attributes
               if (static_cast<Species &>(sb).getSubstanceUnits().empty())
               {
-                i = m.setSubstanceUnits(newUnit);
+                if (m.getLevel() > 2)
+                {
+                  i = m.setSubstanceUnits(newUnit);
+                }
+                else
+                {
+                  if (UnitDefinition::areIdentical(m.getUnitDefinition("substance"),
+                               siud, true))
+                  {
+                    i = LIBSBML_OPERATION_SUCCESS;
+                  }
+                  else if (m.getUnitDefinition("substance") == NULL 
+                    && newUnit == "mole")
+                  {
+                    i = LIBSBML_OPERATION_SUCCESS;
+                  }
+                  else
+                  {
+                    i = static_cast<Species &>(sb).setSubstanceUnits(newUnit);
+                  }
+                }
               }
               else
               {
@@ -659,6 +728,10 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
           i = applyNewUnitDefinition(sb, m, siud, modelUnitAttribute, ast);
         }
       }
+    }
+    else
+    {
+      i = LIBSBML_OPERATION_SUCCESS;
     }
   }
 
@@ -752,6 +825,7 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
   std::string newId;
   char number[4];
   int i;
+  bool changedId = false;
   newId = existsAlready(m, newUD);
   if (newId.empty())
   {
@@ -786,25 +860,49 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
           i = static_cast<Parameter &>(sb).setUnits(newId);
           break;
         case SBML_COMPARTMENT:
-          // units might have come from model attributes
+          // units might have come from model attributes or default unit
           if (oldUnits.empty())
           {
             unsigned int dims 
               = static_cast<Compartment &>(sb).getSpatialDimensions();
-            switch (dims)
+            if (m.getLevel() > 2)
             {
-            case 1:
-              i = m.setLengthUnits(newId);
-              break;
-            case 2:
-              i = m.setAreaUnits(newId);
-              break;
-            case 3:
-              i = m.setVolumeUnits(newId);
-              break;
-            default:
-              i = -1;
-              break;
+              switch (dims)
+              {
+              case 1:
+                i = m.setLengthUnits(newId);
+                break;
+              case 2:
+                i = m.setAreaUnits(newId);
+                break;
+              case 3:
+                i = m.setVolumeUnits(newId);
+                break;
+              default:
+                i = -1;
+                break;
+              }
+            }
+            else
+            {
+              switch (dims)
+              {
+              case 1:
+                newId = "length";
+                break;
+              case 2:
+                newId = "area";
+                break;
+              case 3:
+                newId = "volume";
+                break;
+              default:
+                newId = "12345";
+                break;
+              }
+              i = newUD->setId(newId);
+              if (i == LIBSBML_OPERATION_SUCCESS)
+                changedId = true;
             }
           }
           else
@@ -815,7 +913,17 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
         case SBML_SPECIES:
           if (oldUnits.empty())
           {
-            i = m.setSubstanceUnits(newId);
+            if (m.getLevel() > 2)
+            {
+              i = m.setSubstanceUnits(newId);
+            }
+            else
+            {
+              newId = "substance";
+              i = newUD->setId(newId);
+              if (i == LIBSBML_OPERATION_SUCCESS)
+                changedId = true;
+           }
           }
           else
           {
@@ -861,6 +969,17 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
       }
       if (i == LIBSBML_OPERATION_SUCCESS)
       {
+        // in L2 models where there is a definition of a builtin unit that is 
+        // not SI we will have changed the id to be the builtin unit
+        // thus the add function will not work
+        // need to check for this
+        if (changedId == true)
+        {
+          if (m.getUnitDefinition(newId) != NULL)
+          {
+            m.removeUnitDefinition(newId);
+          }
+        }
         i = m.addUnitDefinition(newUD);
       }
     }
@@ -876,11 +995,13 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
         i = static_cast<Parameter &>(sb).setUnits(newId);
         break;
       case SBML_COMPARTMENT:
-          // units might have come from model attributes
-          if (oldUnits.empty())
+        // units might have come from model attributes or default unit
+        if (oldUnits.empty())
+        {
+          unsigned int dims 
+            = static_cast<Compartment &>(sb).getSpatialDimensions();
+          if (m.getLevel() > 2)
           {
-            unsigned int dims 
-              = static_cast<Compartment &>(sb).getSpatialDimensions();
             switch (dims)
             {
             case 1:
@@ -899,13 +1020,53 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
           }
           else
           {
-            i = static_cast<Compartment &>(sb).setUnits(newId);
+            bool isNew = false;
+            switch (dims)
+            {
+            case 1:
+              if (newId != "length")
+                isNew = true;
+              break;
+            case 2:
+              if (newId != "area")
+                isNew = true;
+              break;
+            case 3:
+              if (newId != "volume")
+                isNew = true;
+              break;
+            default:
+              break;
+            }
+            if (isNew == true)
+            {
+              i = static_cast<Compartment &>(sb).setUnits(newId);
+            }
+            else
+            {
+              i = LIBSBML_OPERATION_SUCCESS;
+            }
           }
+        }
+        else
+        {
+          i = static_cast<Compartment &>(sb).setUnits(newId);
+        }
         break;
       case SBML_SPECIES:
         if (oldUnits.empty())
         {
-          i = m.setSubstanceUnits(newId);
+          if (m.getLevel() > 2)
+          {
+            i = m.setSubstanceUnits(newId);
+          }
+          else
+          {
+            if (newId != "substance")
+              i = static_cast<Species &>(sb).setSubstanceUnits(newId);
+            else
+              i = LIBSBML_OPERATION_SUCCESS;
+          }
         }
         else
         {
@@ -1225,7 +1386,8 @@ SBMLUnitsConverter::removeUnusedUnitDefinitions(Model& m)
   unsigned int num = m.getNumUnitDefinitions()-1;
   for (int i = num; i >= 0; i--)
   {
-    if (isUsed(m, m.getUnitDefinition(i)->getId()) == false)
+    if (Unit::isBuiltIn(m.getUnitDefinition(i)->getId(), m.getLevel()) == false
+      && (isUsed(m, m.getUnitDefinition(i)->getId()) == false))
     {
       m.removeUnitDefinition(i);
     }
