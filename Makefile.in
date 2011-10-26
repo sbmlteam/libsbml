@@ -115,20 +115,20 @@ examples =                                                          \
   examples/java/unsetNotes.java                                     \
   examples/java/validateSBML.java                                   \
   examples/layout/Makefile.in                                       \
-  examples/layout/addLayout.cpp                                      \
+  examples/layout/addLayout.cpp                                     \
   examples/layout/example1.cpp                                      \
-  examples/layout/example1-L3.cpp                                      \
+  examples/layout/example1-L3.cpp                                   \
   examples/layout/example1.java                                     \
-  examples/layout/example1-L3.java                                     \
-  examples/layout/example1-L3.pl                                     \
-  examples/layout/example1-L3.py                                     \
-  examples/layout/example1-L3.rb                                     \
-  examples/layout/example1-L3.cs                                     \
+  examples/layout/example1_L3.java                                  \
+  examples/layout/example1-L3.pl                                    \
+  examples/layout/example1-L3.py                                    \
+  examples/layout/example1-L3.rb                                    \
+  examples/layout/example1-L3.cs                                    \
   examples/layout/example1.py                                       \
   examples/layout/example2.cpp                                      \
-  examples/layout/example2-L3.cpp                                      \
+  examples/layout/example2-L3.cpp                                   \
   examples/layout/example3.cpp                                      \
-  examples/layout/example3-L3.cpp                                      \
+  examples/layout/example3-L3.cpp                                   \
   examples/layout/layout2svg.xsl                                    \
   examples/perl/convertSBML.pl                                      \
   examples/perl/evaluateMath.pl                                     \
