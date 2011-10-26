@@ -46,7 +46,7 @@
  import org.sbml.libsbml.*;
 
 
-public class example1 {
+public class example1_L3 {
 
 	/**
 	 * @param args
