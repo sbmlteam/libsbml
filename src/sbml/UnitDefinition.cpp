@@ -511,7 +511,8 @@ UnitDefinition::isVariantOfMass () const
   if (getNumUnits() == 1)
   {
     const Unit* u = getUnit(0);
-    result        = (u->isGram() || u->isKilogram());
+    result        = ((u->isGram() || u->isKilogram())
+                && u->getExponent() == 1);
   }
 
   return result;
