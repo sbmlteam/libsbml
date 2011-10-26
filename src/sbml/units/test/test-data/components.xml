@@ -58,6 +58,14 @@
         <unit kind="second" exponent="-1"/>
       </listOfUnits>
     </unitDefinition>
+    <unitDefinition id="v">
+      <listOfUnits>
+        <unit kind="metre"/>
+        <unit kind="metre" exponent="2"/>
+        <unit kind="second" exponent="-1"/>
+        <unit kind="second" exponent="1"/>
+      </listOfUnits>
+    </unitDefinition>
     <unitDefinition id="volt_sq">
       <listOfUnits>
         <unit kind="volt" exponent="2"/>
@@ -81,22 +89,22 @@
   </listOfUnitDefinitions>
   <listOfCompartments>
     <compartment id="cell" size="1" units="litre"/>
-    <compartment id="cell1" size="1" units="m_per_sec"/>
-    <compartment id="cell2" size="1" spatialDimensions="0"/>
+    <compartment id="cell1" size="1" units="v"/>
+    <compartment id="cell2" spatialDimensions="0"/>
     <compartment id="cell3" size="1" spatialDimensions="1"/>
     <compartment id="cell4" size="1" spatialDimensions="2"/>
     <compartment id="cell5" size="1" spatialDimensions="3"/>
     <compartment id="cell6" size="1" units="volume"/>
-    <compartment id="cell7" size="1" units="area"/>
-    <compartment id="cell8" size="1" units="length"/>
+    <compartment id="cell7" size="1" units="area" spatialDimensions="2"/>
+    <compartment id="cell8" size="1" units="length" spatialDimensions="1"/>
  </listOfCompartments>
   <listOfSpecies>
-    <species id="x" compartment="cell" initialConcentration="0.5" substanceUnits="mole" spatialSizeUnits="litre"/>
-    <species id="y" compartment="cell" initialConcentration="0.5" hasOnlySubstanceUnits="1"/>
-    <species id="y1" compartment="cell" initialConcentration="0.5" substanceUnits="volt_sq" hasOnlySubstanceUnits="1"/>
+    <species id="x" compartment="cell" initialConcentration="0.5" substanceUnits="mole" spatialSizeUnits="litre" constant="false"/>
+    <species id="y" compartment="cell" initialConcentration="0.5" hasOnlySubstanceUnits="true" constant="false"/>
+    <species id="y1" compartment="cell" initialConcentration="0.5" substanceUnits="substance" hasOnlySubstanceUnits="true"/>
     <species id="x1" compartment="cell4" initialConcentration="0.5" substanceUnits="mole"/>
     <species id="z" compartment="cell" initialConcentration="1" spatialSizeUnits="litre"/>
-    <species id="z1" compartment="cell" initialConcentration="1" spatialSizeUnits="volt_sq"/>
+    <species id="z1" compartment="cell" initialConcentration="1" spatialSizeUnits="v"/>
     <species id="z2" compartment="cell" initialConcentration="1"/>
     <species id="b" compartment="cell" initialConcentration="0.5" substanceUnits="substance" spatialSizeUnits="volume"/>
   </listOfSpecies>
@@ -105,6 +113,12 @@
     <parameter id="k1" units="m_per_sec"/>
     <parameter id="k2"/>
     <parameter id="k3" units="time"/>
+    <parameter id="y2" constant="false"/>
+    <parameter id="y3" constant="false"/>
+    <parameter id="y4" constant="false"/>
+    <parameter id="y5" constant="false" units="substance"/>
+    <parameter id="y6" constant="false"/>
+    <parameter id="y7" constant="false"/>
   </listOfParameters>
   <listOfRules>
     <assignmentRule variable="x">
@@ -120,12 +134,12 @@
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
           <ci> f </ci>
-          <ci> k </ci>
+          <ci> y5 </ci>
           <ci> k2 </ci>
         </apply>
       </math>
     </assignmentRule>
-    <assignmentRule variable="y">
+    <assignmentRule variable="y2">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
           <ci> g </ci>
@@ -133,7 +147,7 @@
         </apply>
       </math>
     </assignmentRule>
-    <assignmentRule variable="y">
+    <assignmentRule variable="y3">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
           <ci> h </ci>
@@ -141,13 +155,6 @@
         </apply>
       </math>
     </assignmentRule>
- <!--   <assignmentRule variable="y">
-      <math xmlns="http://www.w3.org/1998/Math/MathML">
-        <apply>
-          <ci> j </ci>
-        </apply>
-      </math>
-    </assignmentRule>-->
  </listOfRules>
  <listOfEvents>
   <event>
@@ -157,7 +164,7 @@
 		</math>
 	</trigger>
 	<listOfEventAssignments>
-		<eventAssignment variable="cell"/>
+		<eventAssignment variable="y4"/>
 	</listOfEventAssignments>
   </event>
   <event timeUnits="minutes">
@@ -167,7 +174,7 @@
 		</math>
 	</trigger>
 	<listOfEventAssignments>
-		<eventAssignment variable="cell"/>
+		<eventAssignment variable="y5"/>
 	</listOfEventAssignments>
   </event>
   <event timeUnits="second">
@@ -177,7 +184,7 @@
 		</math>
 	</trigger>
 	<listOfEventAssignments>
-		<eventAssignment variable="cell"/>
+		<eventAssignment variable="y6"/>
 	</listOfEventAssignments>
   </event>
   <event timeUnits="time">
@@ -187,7 +194,7 @@
 		</math>
 	</trigger>
 	<listOfEventAssignments>
-		<eventAssignment variable="cell"/>
+		<eventAssignment variable="y7"/>
 	</listOfEventAssignments>
   </event>
  </listOfEvents>

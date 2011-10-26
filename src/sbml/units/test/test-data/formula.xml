@@ -36,16 +36,18 @@
   </listOfUnitDefinitions>
   <listOfCompartments>
     <compartment id="cell" size="1" units="litre"/>
-    <compartment id="cell1" size="1" spatialDimensions="1" units="length"/>
+    <compartment id="cell1" size="1" spatialDimensions="1" units="length" constant="false"/>
  </listOfCompartments>
   <listOfSpecies>
     <species id="x" compartment="cell" initialConcentration="0.5" substanceUnits="mole" spatialSizeUnits="litre"/>
-    <species id="y" compartment="cell" initialConcentration="0.5" hasOnlySubstanceUnits="1"/>
+    <species id="y" compartment="cell" initialConcentration="0.5" hasOnlySubstanceUnits="true"/>
     <species id="z2" compartment="cell" initialConcentration="1"/>
+    <species id="x1" compartment="cell" initialConcentration="0.5" substanceUnits="mole" hasOnlySubstanceUnits="true"/>
+    <species id="y1" compartment="cell" initialConcentration="0.5" hasOnlySubstanceUnits="true"/>
   </listOfSpecies>
   <listOfParameters>
     <parameter id="k1" units="m_per_sec"/>
-    <parameter id="k2"/>
+    <parameter id="k2" constant="false"/>
   </listOfParameters>
 	<listOfInitialAssignments>
 		<initialAssignment symbol="z2">
@@ -68,7 +70,7 @@
         </apply>
       </math>
     </assignmentRule>
-    <rateRule variable="y">
+    <rateRule variable="cell1">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
           <plus/>
@@ -90,7 +92,7 @@
    <listOfReactions>
       <reaction id="R" reversible="false">
         <listOfReactants>
-          <speciesReference species="x">
+          <speciesReference species="x1">
             <stoichiometryMath>
            <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -103,13 +105,13 @@
           </speciesReference>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="y"/>
+          <speciesReference species="y1"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <divide/>
-              <ci> x </ci>
+              <ci> x1 </ci>
               <ci> k_1 </ci>
             </apply>
           </math>
@@ -140,7 +142,7 @@
 	</math>
 	</delay>
 	<listOfEventAssignments>
-		<eventAssignment variable="cell">
+		<eventAssignment variable="k2">
 			<math xmlns="http://www.w3.org/1998/Math/MathML">
 			<apply> 
 			<times/> 

@@ -98,21 +98,17 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
   /* compartment with declared units from unit definition */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(1));
 
-  fail_unless(ud->getNumUnits() == 2);
+  UnitDefinition::simplify(ud);
+
+  fail_unless(ud->getNumUnits() == 1);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getExponent() == 3);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-
-  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(1)->getScale() == 0);
-  fail_unless(ud->getUnit(1)->getExponent() == -1);
-  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
   /* compartment with no declared units spatial dimensions = 0 */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(2));
@@ -267,10 +263,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(ud->getUnit(0)->getExponent() == 2);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_VOLT);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
 
   /* species with declared standard units for substance and no spatialSizeUnits*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(3));
@@ -313,6 +309,8 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
   /* species with declared units from unit definition for spatialSizeUnits but no substance*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(5));
 
+  UnitDefinition::simplify(ud);
+
   fail_unless(ud->getNumUnits() == 2);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
@@ -325,9 +323,9 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getUnit(1)->getMultiplier() == 1);
   fail_unless(ud->getUnit(1)->getScale() == 0);
-  fail_unless(ud->getUnit(1)->getExponent() == -2);
+  fail_unless(ud->getUnit(1)->getExponent() == -3);
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_VOLT);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
 
   /* species with no units for substance and spatialSize*/
   ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(6));
@@ -485,10 +483,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
 
   /* function with two arguments but only one bvar */
   uff->resetFlags();

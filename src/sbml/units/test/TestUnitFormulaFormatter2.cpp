@@ -98,21 +98,17 @@ START_TEST (test_UnitFormulaFormatter2_getUnitDefinition_compartment)
   /* compartment with declared units from unit definition */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(1));
 
-  fail_unless(ud->getNumUnits() == 2);
+  UnitDefinition::simplify(ud);
+
+  fail_unless(ud->getNumUnits() == 1);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getExponent() == 3);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-
-  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(1)->getScale() == 0);
-  fail_unless(ud->getUnit(1)->getExponent() == -1);
-  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
   /* compartment with spatial dimensions = 3 deduced from model */
   ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(2));

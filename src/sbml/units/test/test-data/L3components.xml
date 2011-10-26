@@ -69,6 +69,12 @@
           <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
         </listOfUnits>
       </unitDefinition>
+      <unitDefinition id="vol">
+        <listOfUnits>
+          <unit kind="metre" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="metre" exponent="2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
       <unitDefinition id="length">
         <listOfUnits>
           <unit kind="metre" scale="-2" exponent="1" multiplier="1"/>
@@ -87,7 +93,7 @@
     </listOfUnitDefinitions>
     <listOfCompartments>
       <compartment id="cell" size="1" units="litre" constant="false"/>
-      <compartment id="cell1" size="1" units="m_per_sec" constant="true"/>
+      <compartment id="cell1" size="1" units="vol" constant="true"/>
       <compartment id="cell2" spatialDimensions="3" size="1" constant="true"/>
       <compartment id="cell3" spatialDimensions="1" size="1" constant="true"/>
       <compartment id="cell4" size="1" constant="true"/>
@@ -110,8 +116,11 @@
       <parameter id="k" units="metre" constant="false"/>
       <parameter id="k1" units="m_per_sec" constant="false"/>
       <parameter id="k2" constant="false"/>
-      <parameter id="k3" units="second"/>
-      <parameter id="cf" units="second"/>
+      <parameter id="k3" units="second" constant="false"/>
+      <parameter id="cf" units="second" constant="true"/>
+      <parameter id="y2" constant="false"/>
+      <parameter id="y3" constant="false"/>
+      <parameter id="y4" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <assignmentRule variable="x">
@@ -123,7 +132,7 @@
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="y">
+      <assignmentRule variable="y2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <ci> f </ci>
@@ -140,7 +149,7 @@
           </apply>
         </math>
       </assignmentRule>
-      <assignmentRule variable="y">
+      <assignmentRule variable="y3">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
             <ci> h </ci>
@@ -150,8 +159,8 @@
       </assignmentRule>
     </listOfRules>
     <listOfEvents>
-      <event>
-        <trigger>
+      <event useValuesFromTriggerTime="true">
+        <trigger initialValue="true" persistent="false">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <neq/>
@@ -161,7 +170,15 @@
           </math>
         </trigger>
         <listOfEventAssignments>
-          <eventAssignment variable="cell"/>
+          <eventAssignment variable="cell">
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+              <apply>
+                <times/>
+                <cn> 1 </cn>
+                <cn> 2 </cn>
+              </apply>
+            </math>
+          </eventAssignment>
         </listOfEventAssignments>
       </event>
     </listOfEvents>

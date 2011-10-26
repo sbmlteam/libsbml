@@ -263,7 +263,7 @@ START_TEST (test_DerivedUnitDefinition_reaction)
 
   fail_unless(undecl == 0);
 
-  fail_unless(fud->getNumUnits() == 3);
+  fail_unless(fud->getNumUnits() == 2);
 
   fail_unless(!strcmp(fud->getId().c_str(), ""), NULL);
 
@@ -277,13 +277,7 @@ START_TEST (test_DerivedUnitDefinition_reaction)
   fail_unless(fud->getUnit(1)->getScale() == 0);
   fail_unless(fud->getUnit(1)->getExponent() == -1);
   fail_unless(fud->getUnit(1)->getOffset() == 0.0);
-  fail_unless(fud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
-
-  fail_unless(fud->getUnit(2)->getMultiplier() == 1);
-  fail_unless(fud->getUnit(2)->getScale() == 0);
-  fail_unless(fud->getUnit(2)->getExponent() == -1);
-  fail_unless(fud->getUnit(2)->getOffset() == 0.0);
-  fail_unless(fud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(fud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
   fud = m->getReaction(0)->getReactant(0)->getStoichiometryMath()->getDerivedUnitDefinition();
   undecl = m->getReaction(0)->getReactant(0)->getStoichiometryMath()->containsUndeclaredUnits();
