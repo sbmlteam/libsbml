@@ -53,6 +53,8 @@ template<class SBMLExtensionType>
 class LIBSBML_EXTERN SBMLExtensionNamespaces
 #ifndef SWIG
 : public ISBMLExtensionNamespaces
+#else
+: public SBMLNamespaces
 #endif
 {
 public:
