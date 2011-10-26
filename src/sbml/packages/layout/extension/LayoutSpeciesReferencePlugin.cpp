@@ -206,7 +206,7 @@ LayoutSpeciesReferencePlugin::writeAttributes (XMLOutputStream& stream) const
   // This plugin object is used only for SBML Level 2 Version 1.
   //
   if ( getURI() != LayoutExtension::getXmlnsL2() ) return;
-  // in a conversion teh uri might be L2 but the model will be L3
+  // in a conversion the uri might be L2 but the model will be L3
   if ( parent->getLevel() != 2)               return;
   if ( parent->getVersion() > 1 )             return;
 
