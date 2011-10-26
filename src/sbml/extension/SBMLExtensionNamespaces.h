@@ -50,7 +50,10 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 template<class SBMLExtensionType>
-class LIBSBML_EXTERN SBMLExtensionNamespaces : public ISBMLExtensionNamespaces
+class LIBSBML_EXTERN SBMLExtensionNamespaces
+#ifndef SWIG
+: public ISBMLExtensionNamespaces
+#endif
 {
 public:
 
