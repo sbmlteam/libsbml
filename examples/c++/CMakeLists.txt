@@ -34,7 +34,7 @@ foreach(example
 	validateSBML
 
 )
-	add_executable(example_cpp_${example} ${example} util.c)
+	add_executable(example_cpp_${example} ${example}.cpp util.c)
 	set_target_properties(example_cpp_${example} PROPERTIES  OUTPUT_NAME ${example})
 	target_link_libraries(example_cpp_${example} ${LIBSBML_LIBRARY}-static)
 

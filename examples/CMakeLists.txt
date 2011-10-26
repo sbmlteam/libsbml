@@ -14,6 +14,11 @@ if(WITH_JAVA)
   add_subdirectory(java)
 endif(WITH_JAVA)
 
+if (ENABLE_LAYOUT)
+  add_subdirectory(layout)
+endif(ENABLE_LAYOUT)
+
+
 endif(WITH_EXAMPLES)
 
 
@@ -64,7 +69,7 @@ file(GLOB python_samples "${CMAKE_CURRENT_SOURCE_DIR}/python/*.py"
 install(FILES ${python_samples} DESTINATION ${MISC_PREFIX}examples/python)
 endif()
 
-if (WITH_LAYOUT)
+if (ENABLE_LAYOUT)
 # install layout examples
 file(GLOB layout_samples "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.cpp"
 					 "${CMAKE_CURRENT_SOURCE_DIR}/layout/*.java"

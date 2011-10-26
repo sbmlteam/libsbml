@@ -55,7 +55,7 @@ my $filename = shift()
 	  };
 
 my $t0        = new Benchmark;
-my $rd        = new LibSBML::SBMLReader();
+my $rd        = new LibSBML$L:SBMLReader();
 my $d         = $rd->readSBML($filename);
 my $t1        = new Benchmark;
 (my $ellapsed = timestr(timediff($t1, $t0), 'nop')) =~ s/\A([\d\.]+)/$1/;
