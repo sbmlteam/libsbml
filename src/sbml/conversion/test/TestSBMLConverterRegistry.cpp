@@ -98,7 +98,7 @@ using namespace std;
 START_TEST (test_conversion_units)
 {
   string filename(TestDataDirectory);
-  filename += "wrongl3v1.xml";
+  filename += "wrongl3v1-invalid.xml";
 
   SBMLDocument* doc = readSBMLFromFile(filename.c_str());
 
