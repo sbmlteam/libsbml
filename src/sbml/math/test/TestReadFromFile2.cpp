@@ -58,14 +58,14 @@ START_TEST (test_read_MathML_2)
 
 
   std::string filename(TestDataDirectory);
-  filename += "mathML_2.xml";
+  filename += "mathML_2-invalid.xml";
 
 
   d = reader.readSBML(filename);
 
   if (d == NULL)
   {
-    fail("readSBML(\"mathML_2.xml\") returned a NULL pointer.");
+    fail("readSBML(\"mathML_2-invalid.xml\") returned a NULL pointer.");
   }
 
   m = d->getModel();

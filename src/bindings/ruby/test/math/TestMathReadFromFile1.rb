@@ -36,7 +36,7 @@ class TestMathReadFromFile1 < Test::Unit::TestCase
   def test_read_MathML_1
     reader = LibSBML::SBMLReader.new()
     filename = "../../sbml/math/test/test-data/"
-    filename += "mathML_1.xml"
+    filename += "mathML_1-invalid.xml"
     d = reader.readSBML(filename)
     if (d == nil)
     end

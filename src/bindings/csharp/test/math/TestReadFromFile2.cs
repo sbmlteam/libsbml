@@ -137,7 +137,7 @@ namespace LibSBMLCSTest.math {
       InitialAssignment ia;
       Rule r;
       string filename =  "../../sbml/math/test/test-data/";
-      filename += "mathML_2.xml";
+      filename += "mathML_2-invalid.xml";
       d = reader.readSBML(filename);
       if (d == null);
       {

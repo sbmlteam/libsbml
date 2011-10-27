@@ -128,7 +128,7 @@ public class TestReadFromFile1 {
     Rule r;
     KineticLaw kl;
     String filename = new String( "../../sbml/math/test/test-data/" );
-    filename += "mathML_1.xml";
+    filename += "mathML_1-invalid.xml";
     d = reader.readSBML(filename);
     if (d == null);
     {

@@ -40,7 +40,7 @@ class TestMathReadFromFile1(unittest.TestCase):
   def test_read_MathML_1(self):
     reader = libsbml.SBMLReader()
     filename = "../../sbml/math/test/test-data/"
-    filename += "mathML_1.xml"
+    filename += "mathML_1-invalid.xml"
     d = reader.readSBML(filename)
     if (d == None):
       pass    
