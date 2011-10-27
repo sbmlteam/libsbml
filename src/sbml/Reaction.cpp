@@ -1386,7 +1386,7 @@ Reaction::connectToChild()
 /**
  * Enables/Disables the given package with this element and child
  * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * (This is an internal implementation for enablePackage function)
  */
 void 
 Reaction::enablePackageInternal(const std::string& pkgURI, 

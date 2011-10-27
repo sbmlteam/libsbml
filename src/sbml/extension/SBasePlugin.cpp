@@ -263,6 +263,23 @@ SBasePlugin::getPackageVersion() const
 
 
 /*
+ * This function does nothing itself--subclasses with ASTNode subelements must override this function.
+ */
+void 
+SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+}
+
+
+/*
+ * This function does nothing itself--subclasses with ASTNode subelements must override this function.
+ */
+void 
+SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+}
+
+/*
  * Returns the namespace URI of this element.
  */
 const std::string& 
@@ -290,6 +307,17 @@ SBasePlugin::getPackageName() const
 {
   return mSBMLExt->getName();
 }
+
+/** @cond doxygen-libsbml-internal */
+/*
+ * Intended to be overridden by package extensions of the Model object.
+ */
+int 
+SBasePlugin::appendFrom(const Model* model)
+{
+  return LIBSBML_OPERATION_SUCCESS;
+}
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -923,7 +951,7 @@ SBasePlugin_connectToParent(SBasePlugin_t* plugin, SBase_t* sbase)
  * Enables/Disables the given package with child elements in this plugin 
  * object (if any).
  * (This is an internal implementation invoked from 
- *  SBase::enablePakcageInternal() function)
+ *  SBase::enablePackageInternal() function)
  *
  * Subclasses which contain one or more SBase derived elements should 
  * override this function if elements defined in them can be extended by

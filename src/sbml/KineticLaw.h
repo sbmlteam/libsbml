@@ -936,7 +936,7 @@ public:
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
+   * (This is an internal implementation for enablePackage function)
    *
    * @note Subclasses of the SBML Core package in which one or more child
    * elements are defined must override this function.
@@ -1065,6 +1065,22 @@ public:
   std::string getInternalId() const { return mInternalId; };
   void setInternalId(std::string id) { mInternalId = id; };
   /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Replace all nodes with the name 'id' from the child 'math' object with the provided function. 
+   *
+   */
+  virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If this reaction id matches the provided 'id' string, replace the 'math' object with the function (existing/function). 
+   */
+  virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
 
 
 protected:

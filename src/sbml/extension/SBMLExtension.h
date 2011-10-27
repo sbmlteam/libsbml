@@ -557,7 +557,7 @@ public:
   //    (1) typedef for SBMLExtensionNamespaces<SBMLExtensionType>
   //        (e.g.,  typedef SBMLExtensionNamespaces<LayoutExtension> LayoutPkgNamespaces; )
   //      
-  //   Pakcage developers also must implement a template instantiation code for the above 
+  //   Package developers also must implement a template instantiation code for the above 
   //   typedef definition in the implementation file (i.e. *.cpp file).
   //   For example, the template instantiation code for LayoutExtension is implemented
   //   in LayoutExtension.cpp as follows:

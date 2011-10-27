@@ -630,6 +630,21 @@ SBase::getAnnotationString ()
 }
 
 
+/*
+ * This function does nothing itself--subclasses with ASTNode subelements must override this function.
+ */
+void 
+SBase::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+}
+
+/*
+ * This function does nothing itself--subclasses with ASTNode subelements must override this function.
+ */
+void 
+SBase::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+}
 
 void *
 SBase::getUserData() const
@@ -2643,7 +2658,7 @@ SBase::enablePackage(const std::string& pkgURI, const std::string& prefix, bool 
 /*
  * Enables/Disables the given package with this element and child
  * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * (This is an internal implementation for enablePackage function)
  */
 void 
 SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag)
@@ -6436,6 +6451,78 @@ void *SBase_getUserData(SBase_t* sb)
 {
   if (sb == NULL) return NULL;
   return sb->getUserData();
+}
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementBySId(SBase_t* sb, const char* id)
+{
+  if (sb == NULL) return NULL;
+  return sb->getElementBySId(id);
+}
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementByMetaId(SBase_t* sb, const char* metaid)
+{
+  if (sb == NULL) return NULL;
+  return sb->getElementByMetaId(metaid);
+}
+
+LIBSBML_EXTERN 
+List_t* 
+SBase_getAllElements(SBase_t* sb)
+{
+  if (sb == NULL) return NULL;
+  return sb->getAllElements();
+}
+
+LIBSBML_EXTERN 
+void 
+SBase_renameSIdRefs(SBase_t* sb, const char* oldid, const char* newid)
+{
+  if (sb == NULL) return;
+  return sb->renameSIdRefs(oldid, newid);
+}
+
+LIBSBML_EXTERN 
+void 
+SBase_renameMetaIdRefs(SBase_t* sb, const char* oldid, const char* newid)
+{
+  if (sb == NULL) return;
+  return sb->renameMetaIdRefs(oldid, newid);
+}
+
+LIBSBML_EXTERN 
+void 
+SBase_renameUnitSIdRefs(SBase_t* sb, const char* oldid, const char* newid)
+{
+  if (sb == NULL) return;
+  return sb->renameUnitSIdRefs(oldid, newid);
+}
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementFromPluginsBySId(SBase_t* sb, const char* id)
+{
+  if (sb == NULL) return NULL;
+  return sb->getElementFromPluginsBySId(id);
+}
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementFromPluginsByMetaId(SBase_t* sb, const char* metaid)
+{
+  if (sb == NULL) return NULL;
+  return sb->getElementFromPluginsByMetaId(metaid);
+}
+
+LIBSBML_EXTERN 
+List_t* 
+SBase_getAllElementsFromPlugins(SBase_t* sb)
+{
+  if (sb == NULL) return NULL;
+  return sb->getAllElementsFromPlugins();
 }
 
 /** @endcond */

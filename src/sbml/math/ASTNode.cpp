@@ -1865,6 +1865,36 @@ ASTNode::renameUnitSIdRefs(const string& oldid, const string& newid)
 
 
 LIBSBML_EXTERN
+void 
+ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  for (unsigned int i=0; i<getNumChildren(); i++) {
+    ASTNode* child = getChild(i);
+    if (child->getType() == AST_NAME &&
+        child->getId() == id) {
+      replaceChild(i, function->deepCopy());
+    }
+    else {
+      child->replaceIDWithFunction(id, function);
+    }
+  }
+}
+
+LIBSBML_EXTERN
+void ASTNode::multiplyTimeBy(const ASTNode* function)
+{
+  for (unsigned int i=0; i<getNumChildren(); i++) {
+    getChild(i)->multiplyTimeBy(function);
+  }
+  if (getType() == AST_NAME_TIME) {
+    setType(AST_TIMES);
+    addChild(function->deepCopy());
+    ASTNode* time = new ASTNode(AST_NAME_TIME);
+    addChild(time);
+  }
+}
+
+LIBSBML_EXTERN
 int
 ASTNode::unsetId ()
 {

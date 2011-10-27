@@ -229,7 +229,7 @@ public:
   
 
   /**
-   * Renames all the SIdRef attributes on this element, including any found in MathML
+   * Renames all the SIdRef attributes on this element, including any found in MathML, but not any found in child or 
    */
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
@@ -246,7 +246,27 @@ public:
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
 
-  //LS DEBUG: make these two function private?
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If this object has a child 'math' object (or anything with ASTNodes in general), replace all nodes with the name 'id' with the provided function. 
+   *
+   * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
+   */
+  virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If the function of this object is to assign a value has a child 'math' object (or anything with ASTNodes in general), replace  the 'math' object with the function (existing/function).  
+   *
+   * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
+   */
+  virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * Returns the first child element found that has the given id in the model-wide SId namespace from all plugins associated with this element, or NULL if no such object is found.
    *
@@ -255,8 +275,10 @@ public:
    * @return pointer to the first element found with the given id.
    */
   virtual SBase* getElementFromPluginsBySId(std::string id);
+  /** @endcond */
   
   
+  /** @cond doxygen-libsbml-internal */
   /**
    * Returns the first child element it can find with the given metaid from all plugins associated with this element, or NULL if no such object is found.
    *
@@ -265,6 +287,7 @@ public:
    * @return pointer to the first element found with the given metaid.
    */
   virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
+  /** @endcond */
   
   
   /**
@@ -2440,7 +2463,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
+   * (This is an internal implementation for enablePackage function)
    *
    * @note Subclasses in which one or more child elements are defined 
    * must override this function.
@@ -2604,6 +2627,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   * @see ASTNode::setUserData
   */  
   void *getUserData() const;
+
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -3387,6 +3411,41 @@ LIBSBML_EXTERN
 void *
 SBase_getUserData(SBase_t* sb);
 
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementBySId(SBase_t* sb, const char* id);
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementByMetaId(SBase_t* sb, const char* metaid);
+
+LIBSBML_EXTERN 
+List_t* 
+SBase_getAllElements(SBase_t* sb);
+
+LIBSBML_EXTERN 
+void 
+SBase_renameSIdRefs(SBase_t* sb, const char* oldid, const char* newid);
+
+LIBSBML_EXTERN 
+void 
+SBase_renameMetaIdRefs(SBase_t* sb, const char* oldid, const char* newid);
+
+LIBSBML_EXTERN 
+void 
+SBase_renameUnitSIdRefs(SBase_t* sb, const char* oldid, const char* newid);
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementFromPluginsBySId(SBase_t* sb, const char* id);
+
+LIBSBML_EXTERN 
+SBase_t* 
+SBase_getElementFromPluginsByMetaId(SBase_t* sb, const char* metaid);
+
+LIBSBML_EXTERN 
+List_t* 
+SBase_getAllElementsFromPlugins(SBase_t* sb);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

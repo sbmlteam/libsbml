@@ -3374,7 +3374,7 @@ Model::connectToChild()
 /**
  * Enables/Disables the given package with this element and child
  * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * (This is an internal implementation for enablePackage function)
  */
 void 
 Model::enablePackageInternal(const std::string& pkgURI, 
@@ -3702,6 +3702,41 @@ Model::removeEvent (const std::string& sid)
   return mEvents.remove(sid);
 }
 
+int 
+Model::appendFrom(const Model* model)
+{
+  int ret = LIBSBML_OPERATION_SUCCESS;
+  ret = mFunctionDefinitions.appendFrom(&model->mFunctionDefinitions);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mUnitDefinitions    .appendFrom(&model->mUnitDefinitions);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mCompartmentTypes   .appendFrom(&model->mCompartmentTypes);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mSpeciesTypes       .appendFrom(&model->mSpeciesTypes);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mCompartments       .appendFrom(&model->mCompartments);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mSpecies            .appendFrom(&model->mSpecies);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mParameters         .appendFrom(&model->mParameters);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mInitialAssignments .appendFrom(&model->mInitialAssignments);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mRules              .appendFrom(&model->mRules);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mConstraints        .appendFrom(&model->mConstraints);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mReactions          .appendFrom(&model->mReactions);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  ret = mEvents             .appendFrom(&model->mEvents);
+  if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+
+  for (size_t i=0; i < mPlugins.size(); i++) {
+    ret = mPlugins[i]->appendFrom(model);
+    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  }
+  return ret;
+}
 
 void
 Model::renameSIdRefs(std::string oldid, std::string newid)

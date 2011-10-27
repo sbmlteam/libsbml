@@ -29,7 +29,7 @@
  * @brief Representation of an extension point of SBML's package extension.
  *
  * SBaseExtensionPoint represents an element to be extended (extension point) and the
- * extension point is identified by a combination of a pakcage name and a typecode of the 
+ * extension point is identified by a combination of a package name and a typecode of the 
  * element.
  * 
  * <p>

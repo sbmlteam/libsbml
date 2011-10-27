@@ -1597,6 +1597,23 @@ public:
   virtual const std::string& getId() const;
 
 
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Replace all nodes with the name 'id' from the child 'math' object with the provided function. 
+   *
+   */
+  virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If this rule assigns a value or a change to the 'id' element, replace the 'math' object with the function (existing/function). 
+   */
+  virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
 

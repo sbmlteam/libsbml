@@ -1068,7 +1068,7 @@ public:
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
+   * (This is an internal implementation for enablePackage function)
    *
    * @note Subclasses of the SBML Core package in which one or more child
    * elements are defined must override this function.

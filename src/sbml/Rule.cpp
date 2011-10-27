@@ -61,6 +61,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 Rule::Rule (int type, unsigned int level, unsigned int version)
  :
    SBase   ( level, version)
+ , mVariable( "" )
  , mFormula( ""  )
  , mMath   (  NULL       )
  , mType   ( type     )
@@ -71,6 +72,7 @@ Rule::Rule (int type, unsigned int level, unsigned int version)
 
 Rule::Rule (int type, SBMLNamespaces * sbmlns) :
    SBase   ( sbmlns )
+ , mVariable( "" )
  , mFormula( ""       )
  , mMath   (  NULL       )
  , mType   ( type     )
@@ -823,6 +825,31 @@ Rule::renameUnitSIdRefs(std::string oldid, std::string newid)
     setFormula(formula);
     delete math;
     delete formula;
+  }
+}
+
+void 
+Rule::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  if (isSetMath()) {
+    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+      delete mMath;
+      mMath = function->deepCopy();
+    }
+    else {
+      mMath->replaceIDWithFunction(id, function);
+    }
+  }
+}
+
+void 
+Rule::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+  if (mVariable == id && isSetMath()) {
+    ASTNode* temp = mMath;
+    mMath = new ASTNode(AST_DIVIDE);
+    mMath->addChild(temp);
+    mMath->addChild(function->deepCopy());
   }
 }
 

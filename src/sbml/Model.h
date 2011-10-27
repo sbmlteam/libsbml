@@ -2795,6 +2795,20 @@ public:
   /** @endcond */
 
   /** @cond doxygen-libsbml-internal */
+  //void convertTimeWith(ASTNode* conversionFactor);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  //void convertExtentWith(ASTNode* conversionFactor);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  //void convertSubstanceWith(ASTNode* conversionFactor);
+  /** @endcond */
+
+
+
+  /** @cond doxygen-libsbml-internal */
 
   /*****************************************************
    * helper functions used by the main conversion functions 
@@ -3579,11 +3593,19 @@ public:
   Event* removeEvent (const std::string& sid);
 
 
+  /**
+   * Takes the contents of the passed-in Model, makes copies of everything, and appends those copies to the appropriate places in this Model.  Also calls 'appendFrom' on all plugin objects.
+   *
+   * @param The Model to merge with this one.
+   *
+   */
+  virtual int appendFrom(const Model* model);
+
   /** @cond doxygen-libsbml-internal */
   /**
    * Enables/Disables the given package with this element and child
    * elements (if any).
-   * (This is an internal implementation for enablePakcage function)
+   * (This is an internal implementation for enablePackage function)
    *
    * @note Subclasses of the SBML Core package in which one or more child
    * elements are defined must override this function.

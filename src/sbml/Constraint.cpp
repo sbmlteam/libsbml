@@ -315,6 +315,20 @@ Constraint::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+void 
+Constraint::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  if (isSetMath()) {
+    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+      delete mMath;
+      mMath = function->deepCopy();
+    }
+    else {
+      mMath->replaceIDWithFunction(id, function);
+    }
+  }
+}
+
 /*
  * @return the typecode (int) of this SBML object or SBML_UNKNOWN
  * (default).

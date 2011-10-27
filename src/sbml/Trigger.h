@@ -412,6 +412,15 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
+   * Replace all nodes with the name 'id' from the child 'math' object with the provided function. 
+   *
+   */
+  virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
    * Returns the position of this element.
    * 
    * @return the ordinal position of the element with respect to its

@@ -284,6 +284,20 @@ StoichiometryMath::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+void 
+StoichiometryMath::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  if (isSetMath()) {
+    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+      delete mMath;
+      mMath = function->deepCopy();
+    }
+    else {
+      mMath->replaceIDWithFunction(id, function);
+    }
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to read (and store) XHTML,

@@ -440,6 +440,31 @@ EventAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+void 
+EventAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  if (isSetMath()) {
+    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+      delete mMath;
+      mMath = function->deepCopy();
+    }
+    else {
+      mMath->replaceIDWithFunction(id, function);
+    }
+  }
+}
+
+void 
+EventAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+  if (mVariable == id && isSetMath()) {
+    ASTNode* temp = mMath;
+    mMath = new ASTNode(AST_DIVIDE);
+    mMath->addChild(temp);
+    mMath->addChild(function->deepCopy());
+  }
+}
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Subclasses should override this method to write out their contained

@@ -2103,7 +2103,7 @@ SBMLDocument::writeElements (XMLOutputStream& stream) const
 /**
  * Enables/Disables the given package with this element and child
  * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * (This is an internal implementation for enablePackage function)
  */
 void 
 SBMLDocument::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag)

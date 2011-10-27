@@ -34,7 +34,7 @@
  * contained by some pre-defined element are contained/accessed by <a href="#SBasePlugin"> 
  * SBasePlugin </a> class which is extended by package developers for each extension point.
  * The extension point, which represents an element to be extended, is identified by a 
- * combination of a pakcage name and a typecode of the element, and is represented by
+ * combination of a Package name and a typecode of the element, and is represented by
  * SBaseExtensionPoint class.
  * </p>
  *
@@ -342,6 +342,14 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
+   * Takes the contents of the passed-in Model, makes copies of everything, and appends those copies to the appropriate places in this Model.  Only called from Model::appendFrom, and is intended to be extended for packages that add new things to the Model object.
+   *
+   * @param The Model to merge with this one.
+   *
+   */
+  virtual int appendFrom(const Model* model);
+
+  /**
    * Subclasses must override this method to create, store, and then
    * return an SBML object corresponding to the next XMLToken in the
    * XMLInputStream if they have their specific elements.
@@ -491,7 +499,7 @@ public:
    * Enables/Disables the given package with child elements in this plugin 
    * object (if any).
    * (This is an internal implementation invoked from 
-   *  SBase::enablePakcageInternal() function)
+   *  SBase::enablePackageInternal() function)
    *
    * Subclasses which contain one or more SBase derived elements should 
    * override this function if elements defined in them can be extended by
@@ -576,6 +584,26 @@ public:
    * this plugin object.
    */
   unsigned int getPackageVersion() const;
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If this object has a child 'math' object (or anything with ASTNodes in general), replace all nodes with the name 'id' with the provided function. 
+   *
+   * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
+   */
+  virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * If the function of this object is to assign a value has a child 'math' object (or anything with ASTNodes in general), replace  the 'math' object with the function (existing/function).  
+   *
+   * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
+   */
+  virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
 
 
 protected:

@@ -1504,6 +1504,25 @@ public:
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
 
 
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Replace any nodes of type AST_NAME with the name 'id' from the child 'math' object with the provided ASTNode. 
+   *
+   */
+  LIBSBML_EXTERN
+  virtual void replaceIDWithFunction(const std::string& id, const ASTNode* function);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Replaces any 'AST_NAME_TIME' nodes with a node that multiplies time by the given function.
+   *
+   */
+  LIBSBML_EXTERN
+  virtual void multiplyTimeBy(const ASTNode* function);
+  /** @endcond */
+
+
   /**
    * Unsets the units of this ASTNode.
    *

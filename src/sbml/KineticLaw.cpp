@@ -1066,7 +1066,7 @@ KineticLaw::connectToChild()
 /**
  * Enables/Disables the given package with this element and child
  * elements (if any).
- * (This is an internal implementation for enablePakcage function)
+ * (This is an internal implementation for enablePackage function)
  */
 void 
 KineticLaw::enablePackageInternal(const std::string& pkgURI, 
@@ -1166,6 +1166,33 @@ KineticLaw::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
   if (mTimeUnits == oldid) mTimeUnits = newid;
   if (mSubstanceUnits == oldid) mSubstanceUnits = newid;
+}
+
+void 
+KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
+{
+  if (isSetMath()) {
+    if (mMath->getType() == AST_NAME && mMath->getId() == id) {
+      delete mMath;
+      mMath = function->deepCopy();
+    }
+    else {
+      mMath->replaceIDWithFunction(id, function);
+    }
+  }
+}
+
+void 
+KineticLaw::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
+{
+  SBase* parentrxn = getParentSBMLObject();
+  if (parentrxn==NULL) return;
+  if (parentrxn->getId() == id && isSetMath()) {
+    ASTNode* temp = mMath;
+    mMath = new ASTNode(AST_DIVIDE);
+    mMath->addChild(temp);
+    mMath->addChild(function->deepCopy());
+  }
 }
 
 /** @cond doxygen-libsbml-internal */
