@@ -1965,38 +1965,16 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (mSBMLNamespaces->getNamespaces() == NULL)
+  if (mSBMLNamespaces->getNamespaces()->getLength() == 0)
   {
      XMLNamespaces xmlns;
 
-     if (mLevel == 1)
-     {
-        xmlns.add("http://www.sbml.org/sbml/level1");
-     }
-     else if (mLevel == 2 && mVersion == 1)
-     {
-       xmlns.add("http://www.sbml.org/sbml/level2");
-     }
-     else if (mLevel == 2 && mVersion == 2)
-     {
-       xmlns.add("http://www.sbml.org/sbml/level2/version2");
-     }
-     else if (mLevel == 2 && mVersion == 3)
-     {
-       xmlns.add("http://www.sbml.org/sbml/level2/version3");
-     }
-     else if (mLevel == 2 && mVersion == 4)
-     {
-       xmlns.add("http://www.sbml.org/sbml/level2/version4");
-     }
-     else if (mLevel == 3 && mVersion == 1)
-     {
-       xmlns.add("http://www.sbml.org/sbml/level3/version1/core");
-     }
+     xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
+
      stream << xmlns;
 
      mSBMLNamespaces->setNamespaces(&xmlns);
-  }  
+  }
 
   //
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
