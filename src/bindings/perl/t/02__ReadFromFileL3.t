@@ -15,7 +15,7 @@ $testDataDir = File::Spec->catdir(@dataPathFrags);
 $level = 1;
 $version = 1;
 $rd = new LibSBML::SBMLReader;
-@files = qw/l3v1-new.xml/;
+@files = qw/l3v1-new-invalid.xml/;
 
 foreach (@files) {
   $level = 3;

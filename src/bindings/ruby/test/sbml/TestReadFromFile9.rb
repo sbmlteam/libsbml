@@ -2,7 +2,8 @@
 # @brief   Reads tests/l3v1-new.xml into memory and tests it.
 #
 # @author  Akiya Jouraku (Ruby conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating
+ 
 #
 #
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
@@ -40,7 +41,7 @@ class TestReadFromFile9 < Test::Unit::TestCase
   def test_read_l3v1_new
     reader = LibSBML::SBMLReader.new()
     filename = "../../sbml/test/test-data/"
-    filename += "l3v1-new.xml"
+    filename += "l3v1-new-invalid.xml"
     d = reader.readSBML(filename)
     if (d == nil)
     end

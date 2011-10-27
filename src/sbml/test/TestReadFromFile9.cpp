@@ -75,14 +75,14 @@ START_TEST (test_read_l3v1_new)
   Priority*         pr;
 
   std::string filename(TestDataDirectory);
-  filename += "l3v1-new.xml";
+  filename += "l3v1-new-invalid.xml";
 
 
   d = reader.readSBML(filename);
 
   if (d == NULL)
   {
-    fail("readSBML(\"l3v1-new.xml\") returned a NULL pointer.");
+    fail("readSBML(\"l3v1-new-invalid.xml\") returned a NULL pointer.");
   }
 
 

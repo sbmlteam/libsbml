@@ -2,7 +2,8 @@
 ///  @brief   Reads tests/l3v1-new.xml into memory and tests it.
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating
+ 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
@@ -152,7 +153,7 @@ namespace LibSBMLCSTest.sbml {
       Trigger t;
       Priority pr;
       string filename =  "../../sbml/test/test-data/";
-      filename += "l3v1-new.xml";
+      filename += "l3v1-new-invalid.xml";
       d = reader.readSBML(filename);
       if (d == null);
       {

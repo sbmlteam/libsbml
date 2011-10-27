@@ -3,7 +3,8 @@
  * @brief   Reads tests/l3v1-new.xml into memory and tests it.
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating
+ 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
@@ -142,7 +143,7 @@ public class TestReadFromFile9 {
     Trigger t;
     Priority pr;
     String filename = new String( "../../sbml/test/test-data/" );
-    filename += "l3v1-new.xml";
+    filename += "l3v1-new-invalid.xml";
     d = reader.readSBML(filename);
     if (d == null);
     {
