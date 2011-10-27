@@ -397,6 +397,7 @@ main (int argc, char* argv[])
   // the test-data and test-data conversion directories 
   string testDataDir = prefix + "/" + "test-data";
   string testDataConversionDir = prefix + "/" + "test-data-conversion";
+  string testThisDataDir;
 
   cout << endl;
   cout << "Validator testrunner" << endl;
@@ -406,35 +407,45 @@ main (int argc, char* argv[])
   cout << endl;
 
 
+  testThisDataDir = testDataDir + "/" + "xml-parser-constraints";
   failed += runTests( "Testing Bad XML Constraints (0000 - 10000)",
-		      testDataDir, 0, 9999, runTestBadXML, library);
+		      testThisDataDir, 0, 9999, runTestBadXML, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-xml-constraints";
   failed += runTests( "Testing General XML Consistency Constraints (10000 - 10199)",
-		      testDataDir, 10000, 10199, runMainTest, library);
+		      testThisDataDir, 10000, 10199, runMainTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-mathml-constraints";
   failed += runTests( "Testing General MathML Consistency Constraints (10200 - 10299)",
-		      testDataDir, 10200, 10299, runMathMLTest, library);
+		      testThisDataDir, 10200, 10299, runMathMLTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-identifier-constraints";
   failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
-		      testDataDir, 10300, 10399, runIdTest, library);
+		      testThisDataDir, 10300, 10399, runIdTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-annotation-constraints";
   failed += runTests( "Testing General Annotation Consistency Constraints (10400 - 10499)",
-		      testDataDir, 10400, 10499, runMainTest, library);
+		      testThisDataDir, 10400, 10499, runMainTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-unit-constraints";
   failed += runTests( "Testing Unit Consistency Constraints (10500 - 10599)",
-		      testDataDir, 10500, 10599, runUnitTest, library);
+		      testThisDataDir, 10500, 10599, runUnitTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-modeldefinition-constraints";
   failed += runTests( "Testing Overdetermined Constraints (10600 - 10699)",
-		      testDataDir, 10600, 10699, runOverTest, library);
+		      testThisDataDir, 10600, 10699, runOverTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-sbo-constraints";
   failed += runTests( "Testing SBO Consistency Constraints (10700 - 10799)",
-		      testDataDir, 10700, 10799, runSBOTest, library);
+		      testThisDataDir, 10700, 10799, runSBOTest, library);
 
-  failed += runTests( "Testing General Annotation Consistency Constraints (10800 - 19999)",
-		      testDataDir, 10800, 19999, runMainTest, library);
+  testThisDataDir = testDataDir + "/" + "sbml-notes-constraints";
+  failed += runTests( "Testing General Notes Consistency Constraints (10800 - 19999)",
+		      testThisDataDir, 10800, 19999, runMainTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-general-consistency-constraints";
   failed += runTests( "Testing Model Consistency Constraints (20000 - 29999)",
-		      testDataDir, 20000, 29999, runMainTest, library);
+		      testThisDataDir, 20000, 29999, runMainTest, library);
 
   failed += runTests( "Testing L1 Compatibility Constraints (91000 - 91999)",
 		      testDataConversionDir, 91000, 91999, runL1Test, library);
@@ -454,23 +465,25 @@ main (int argc, char* argv[])
   failed += runTests( "Testing L3v1 Compatibility Constraints (96000 - 96999)",
 		      testDataConversionDir, 96000, 96999, runL3v1Test, library);
 
+  testThisDataDir = testDataDir + "/" + "libsbml-constraints";
   failed += runTests("Testing Additional SBML Constraints (99100 - 99199)",
-		     testDataDir, 99100, 99199, runAdditionalSBMLTest, library);
+		     testThisDataDir, 99100, 99199, runAdditionalSBMLTest, library);
 
   failed += runTests("Testing Additional Math Constraints (99200 - 99299)",
-		     testDataDir, 99200, 99299, runAdditionalMathTest, library);
+		     testThisDataDir, 99200, 99299, runAdditionalMathTest, library);
 
   failed += runTests("Testing Additional SBML Constraints (99300 - 99399)",
-		     testDataDir, 99300, 99399, runAdditionalSBMLTest, library);
+		     testThisDataDir, 99300, 99399, runAdditionalSBMLTest, library);
 
   failed += runTests("Testing Additional Unit Constraints (99500 - 99599)",
-		     testDataDir, 99500, 99599, runAdditionalUnitTest, library);
+		     testThisDataDir, 99500, 99599, runAdditionalUnitTest, library);
 
   failed += runTests("Testing Additional SBO Constraints (99700 - 99799)",
-		     testDataDir, 99700, 99799, runAdditionalSBOTest, library);
+		     testThisDataDir, 99700, 99799, runAdditionalSBOTest, library);
 
+  testThisDataDir = testDataDir + "/" + "sbml-modeling-practice-constraints";
   failed += runTests("Testing Modeling Practice Constraints (80000 - 89999)",
-		     testDataDir, 80000, 89999, runModelingPracticeTest, library);
+		     testThisDataDir, 80000, 89999, runModelingPracticeTest, library);
 
   return failed;
 }

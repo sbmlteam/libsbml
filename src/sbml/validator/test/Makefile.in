@@ -114,7 +114,18 @@ endif
 # they appear in `distfiles', they will not be copied in the distribution.
 
 test_data_files = \
-  $(wildcard test-data/*.xml) \
+  $(wildcard test-data/libsbml-constraints/*.xml) \
+  $(wildcard test-data/sbml-annotation-constraints/*.xml) \
+  $(wildcard test-data/sbml-general-consistency-constraints/*.xml) \
+  $(wildcard test-data/sbml-identifier-constraints/*.xml) \
+  $(wildcard test-data/sbml-mathml-constraints/*.xml) \
+  $(wildcard test-data/sbml-modeldefinition-constraints/*.xml) \
+  $(wildcard test-data/sbml-modeling-practice-constraints/*.xml) \
+  $(wildcard test-data/sbml-notes-constraints/*.xml) \
+  $(wildcard test-data/sbml-sbo-constraints/*.xml) \
+  $(wildcard test-data/sbml-unit-constraints/*.xml) \
+  $(wildcard test-data/sbml-xml-constraints/*.xml) \
+  $(wildcard test-data/xml-parser-constraints/*.xml) \
   $(wildcard test-data-conversion/*.xml)
 
 test_extras =  \
