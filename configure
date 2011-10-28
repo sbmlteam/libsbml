@@ -24185,7 +24185,7 @@ appropriately, then re-run 'configure'.
 
     if test -n "$with_libxml" -a "$with_libxml" != "yes" -a "$with_libxml" != "no"; then
       if test -z "$XML2_CONFIG" ; then
-                        # Extract the first word of "xml2-config", so it can be a program name with args.
+        	        # Extract the first word of "xml2-config", so it can be a program name with args.
 set dummy xml2-config; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -24230,55 +24230,8 @@ fi
       xml_config_args="--prefix=$with_libxml"
       libxml_lib_path="$with_libxml/lib${LIBSUFFIX}"
     else
-      if test "$HOST_TYPE" = "darwin"; then
-        if test -z "$XML2_CONFIG" ; then
-                              # Extract the first word of "xml2-config", so it can be a program name with args.
-set dummy xml2-config; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_XML2_CONFIG+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $XML2_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_XML2_CONFIG="$XML2_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in /usr/bin
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_path_XML2_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  test -z "$ac_cv_path_XML2_CONFIG" && ac_cv_path_XML2_CONFIG="no"
-  ;;
-esac
-fi
-XML2_CONFIG=$ac_cv_path_XML2_CONFIG
-if test -n "$XML2_CONFIG"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $XML2_CONFIG" >&5
-$as_echo "$XML2_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-        fi
-        xml_config_args="--prefix=/usr"
-        libxml_lib_path="/usr/lib${LIBSUFFIX}"
-      else
-                if test x${XML2_CONFIG+set} != xset ; then
-                    # Extract the first word of "xml2-config", so it can be a program name with args.
+            if test x${XML2_CONFIG+set} != xset ; then
+                # Extract the first word of "xml2-config", so it can be a program name with args.
 set dummy xml2-config; ac_word=$2
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
@@ -24319,10 +24272,8 @@ $as_echo "no" >&6; }
 fi
 
 
-        fi
-
-        libxml_lib_path=`$XML2_CONFIG --prefix`
       fi
+      libxml_lib_path=`$XML2_CONFIG --prefix`
     fi
 
     if test "$XML2_CONFIG" = "no"; then
