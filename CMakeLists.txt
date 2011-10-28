@@ -1,7 +1,5 @@
 ###############################################################################
 #
-# 
-#
 # Description       : CMake build script for libSBML
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
@@ -47,12 +45,13 @@ include (CheckTypeSize)
 #
 # Parse VERSION.txt to determine the package version
 #
-SET(LIBSBML_VERSION_MAJOR)
-SET(LIBSBML_VERSION_MINOR)
-SET(LIBSBML_VERSION_PATCH)
-SET(LIBSBML_VERSION_RELEASE)
 
-if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
+set(LIBSBML_VERSION_MAJOR)
+set(LIBSBML_VERSION_MINOR)
+set(LIBSBML_VERSION_PATCH)
+set(LIBSBML_VERSION_RELEASE)
+
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
 
     file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt" VersionString NEWLINE_CONSUME)
     string(STRIP "${VersionString}" VersionString)
@@ -63,15 +62,15 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
     list(GET VersionString 1 LIBSBML_VERSION_MINOR )
     list(GET VersionString 2 LIBSBML_VERSION_PATCH )
     
-    if (${versionLength} GREATER 3)
+    if(${versionLength} GREATER 3)
         list(GET VersionString 3 LIBSBML_VERSION_RELEASE )
     endif() 
     
 endif()
 
-SET(LIBSBML_VERSION_NUMERIC 50000)
-SET(PACKAGE_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}${LIBSBML_VERSION_RELEASE}")
-SET(PACKAGE_NAME "libSBML")
+set(LIBSBML_VERSION_NUMERIC 50000)
+set(PACKAGE_VERSION "${LIBSBML_VERSION_MAJOR}.${LIBSBML_VERSION_MINOR}.${LIBSBML_VERSION_PATCH}${LIBSBML_VERSION_RELEASE}")
+set(PACKAGE_NAME "libSBML")
 
 # configure the version for documentation / bindings
 configure_file(
@@ -82,113 +81,114 @@ configure_file(
 
 ###############################################################################
 #
-# the next lines configure the parameters for packaging the binaries
-# they can be invoked with: make package / nmake package or by using 
+# The next lines configure the parameters for packaging the binaries.
+# They can be invoked with "make package" or "nmake package" or by using
 # cpack -G zip|deb|rpm|dmg|nsis
 #
 
-INCLUDE(InstallRequiredSystemLibraries)
+include(InstallRequiredSystemLibraries)
 
-SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating SBML")
-SET(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
-SET(CPACK_PACKAGE_VENDOR "The SBML Team")
-SET(CPACK_PACKAGE_CONTACT "LibSBML Team <libsbml-team@caltech.edu>")
-SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.txt")
-SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING.txt")
-SET(CPACK_PACKAGE_VERSION_MAJOR "${LIBSBML_VERSION_MAJOR}")
-SET(CPACK_PACKAGE_VERSION_MINOR "${LIBSBML_VERSION_MINOR}")
-SET(CPACK_PACKAGE_VERSION_PATCH "${LIBSBML_VERSION_PATCH}")
-SET(CPACK_RPM_PACKAGE_LICENSE "LGPL")
-SET(CPACK_RPM_PACKAGE_GROUP "Libraries/Development")
-SET(CPACK_DEBIAN_PACKAGE_SECTION "Libraries")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating SBML")
+set(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
+set(CPACK_PACKAGE_VENDOR "The SBML Team")
+set(CPACK_PACKAGE_CONTACT "LibSBML Team <libsbml-team@caltech.edu>")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/COPYING.txt")
+set(CPACK_PACKAGE_VERSION_MAJOR "${LIBSBML_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${LIBSBML_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${LIBSBML_VERSION_PATCH}")
+set(CPACK_RPM_PACKAGE_LICENSE "LGPL")
+set(CPACK_RPM_PACKAGE_GROUP "Libraries/Development")
+set(CPACK_DEBIAN_PACKAGE_SECTION "Libraries")
 
-if (UNIX)
-    SET(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-    SET(CPACK_SET_DESTDIR "ON") 
+if(UNIX)
+    set(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+    set(CPACK_SET_DESTDIR "ON") 
 endif()
 
-if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-    SET (CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
-    SET (CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "i386")
+    set(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
 else()
-    SET (CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
-    SET (CPACK_RPM_PACKAGE_ARCHITECTURE "x86_64")
+    set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+    set(CPACK_RPM_PACKAGE_ARCHITECTURE "x86_64")
 endif()
 
-INCLUDE(CPack)
+include(CPack)
 
 
 ###############################################################################
 #
-# Here we have the main configuration options for libsbml
+# Here we have the main configuration options for libsbml.
 #
 
-# build static / shared library
+# Build static / shared library
 # option(BUILD_SHARED_LIBS  "Build shared library (Set to OFF to build static libraries)" OFF)
 
-# should we compile examples
-option(WITH_EXAMPLES "Compile Examples"         OFF )
+# Whether to compile examples
+option(WITH_EXAMPLES "Compile libSBML example programs"  OFF )
 
-# which language bindings should be build
-option(WITH_CSHARP   "Generate C# bindings"     OFF )
-option(WITH_JAVA     "Generate Java bindings"   OFF )
-option(WITH_PYTHON   "Generate python bindings" OFF )
-option(WITH_PERL     "Generate perl bindings"   OFF )
-option(WITH_RUBY     "Generate ruby bindings"   OFF )
-option(WITH_OCTAVE   "Generate octave bindings" OFF )
-option(WITH_MATLAB   "Generate matlab bindings" OFF )
+# Which language bindings should be built
+option(WITH_CSHARP   "Generate C# language bindings"     OFF )
+option(WITH_JAVA     "Generate Java language bindings"   OFF )
+option(WITH_PYTHON   "Generate python language bindings" OFF )
+option(WITH_PERL     "Generate perl language bindings"   OFF )
+option(WITH_RUBY     "Generate ruby language bindings"   OFF )
+option(WITH_OCTAVE   "Generate octave language bindings" OFF )
+option(WITH_MATLAB   "Generate matlab language bindings" OFF )
 
-# add an option to compile with all warnings shown
-option(WITH_WALL     "Compile with -Wall displaying all warnings" OFF )
+# Add an option to compile with all warnings shown
+option(WITH_WALL     "Compile with -Wall to display all warnings" OFF )
 mark_as_advanced(WITH_WALL)
 
-if (WITH_WALL)
-	if (MSVC)
-		add_definitions(/W4)
-	else()
-		add_definitions(-Wall)
-	endif()
+if(WITH_WALL)
+    if(MSVC)
+        add_definitions(/W4)
+    else()
+        add_definitions(-Wall)
+    endif()
 endif()
 
-# enable the generation of unit tests. If enabled all test runners 
-# will be created and can be run with make test, or ctest
-# this won't work in Visual Studio 2003 so we disable this option there
+# Enable the generation of unit tests. If enabled, all test runners 
+# will be created and can be run with "make test" or ctest.
+# This won't work in Visual Studio 2003, so we disable this option there.
 #
-if (NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 6" AND NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
+if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 6" AND NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
     option(WITH_CHECK    "Unit tests"               OFF )
 endif()
 
-# choose the xml parsing library to be used
-option(WITH_EXPAT    "Use Expat XML parser"     OFF )
-option(WITH_LIBXML   "Use libxml XML parser"    ON  )
-option(WITH_XERCES   "Use xerces XML parser"    OFF )
+# Choose the xml parsing library to be used.
+option(WITH_EXPAT    "Use the Expat XML parser library"     OFF )
+option(WITH_LIBXML   "Use the libxml2 XML parser library"   ON  )
+option(WITH_XERCES   "Use the Xerces XML parser library"    OFF )
 
-# use C++ namespace
-option(WITH_CPP_NAMESPACE "Use C++ namespace for libsbml" OFF)
+# Use C++ namespace.
+option(WITH_CPP_NAMESPACE "Use C++ namespace for libSBML"   OFF)
 
-# generate documentation
-option(WITH_DOXYGEN   "Generate Documentation"    OFF )
+# Generate documentation.
+option(WITH_DOXYGEN  "Generate documentation for libSBML using Doxygen"  OFF )
 
-# re-generate the swig bindings? This really should be on by default
+# Re-generate the swig bindings? This really should be on by default
 # otherwise one might have the wrong wrapper code without support for
 # the libsbml packages one wants. 
-option(WITH_SWIG     "Regenerate SWIG bindings"  ON )
+option(WITH_SWIG     "Regenerate SWIG-based language bindings"  ON )
 
-# set build type default
+# Set build type default.
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel")
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel" FORCE)
 endif()
 
-# set the default dependency directory
+# Set the default dependency directory.
 set(LIBSBML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH "The directory that contains the dependencies")
 if("${LIBSBML_DEPENDENCY_DIR}" STREQUAL "")
   set(LIBSBML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH "The directory that contains the dependencies" FORCE)
 endif()
 
+
 ###############################################################################
 #
-# If with SWIG is selected we need to find swig
+# If WITH_SWIG is selected, we need to find swig
 #
 
 if(WITH_CPP_NAMESPACE)
@@ -196,20 +196,18 @@ if(WITH_CPP_NAMESPACE)
 endif()
 
 if(WITH_SWIG)
-
     find_program(SWIG_EXECUTABLE
         NAMES swig
         PATHS
         c:/swigwin-2.0.4
-	    c:/swigwin-2.0.2
-	    c:/swigwin-2.0.1
-	    c:/swigwin-2.0.0
-	    /usr/local/bin
-	    /opt/local/bin
-	    /usr/bin
+        c:/swigwin-2.0.2
+        c:/swigwin-2.0.1
+        c:/swigwin-2.0.0
+        /usr/local/bin
+        /opt/local/bin
+        /usr/bin
         )
     set(SWIG_EXTRA_ARGS)
-
 endif(WITH_SWIG)
 
 
@@ -217,11 +215,12 @@ endif(WITH_SWIG)
 #
 # Locate expat if needed
 #
+
 set(LIBSBML_XML_LIBRARY)
 set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
-if(WITH_EXPAT)
 
+if(WITH_EXPAT)
     find_library(LIBEXPAT_LIBRARY 
         NAMES libexpat.lib expat
         PATHS /usr/lib /usr/local/lib 
@@ -242,10 +241,9 @@ if(WITH_EXPAT)
     set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBEXPAT_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${LIBEXPAT_LIBRARY})
     
-    if (NOT EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
+    if(NOT EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
         message(FATAL_ERROR "The expat include directory you specified is invalid it has to contain: expat.h")
     endif()
-    
 endif(WITH_EXPAT)
 
 
@@ -255,7 +253,6 @@ endif(WITH_EXPAT)
 #
 
 if(WITH_LIBXML)
-
     find_library(LIBXML_LIBRARY 
         NAMES libxml2.lib xml2
         PATHS /usr/lib /usr/local/lib 
@@ -278,16 +275,16 @@ if(WITH_LIBXML)
     set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBXML_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${LIBXML_LIBRARY})
 
-    if (NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
-	message(FATAL_ERROR "The libxml include directory you specified is invalid it has to contain: libxml/parser.h")
+    if(NOT EXISTS "${LIBXML_INCLUDE_DIR}/libxml/parser.h")
+        message(FATAL_ERROR "The libxml include directory you specified is invalid it has to contain: libxml/parser.h")
     endif()
-  
 endif(WITH_LIBXML)
 
 
 ###############################################################################
 #
 # Locate xerces
+#
 
 if(WITH_XERCES)
     add_definitions( -DUSE_XERCES )
@@ -311,7 +308,7 @@ if(WITH_XERCES)
     set(LIBSBML_XML_LIBRARY_INCLUDE ${XERCES_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${XERCES_LIBRARY})
 
-    if (NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
+    if(NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
         message(FATAL_ERROR "The xerces include directory you specified is invalid it has to contain: xercesc/parsers/XercesDOMParser.hpp")
     endif()
               
@@ -351,15 +348,15 @@ if(WITH_BZIP2)
     
     # make sure that we have a valid bzip2 library  
     check_library_exists("${LIBBZ_LIBRARY}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
-    if (NOT LIBBZ_FOUND_SYMBOL)
+    if(NOT LIBBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
         # warning on linux
-        if (UNIX)
+        if(UNIX)
             message(WARNING "The bz2 library does not seem to be valid, as it is missing required symbols. Please chack that ${LIBBZ_LIBRARY} is a bzip2 library. For details see: ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")     
         endif()
     endif()
-    if (NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
+    if(NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
         message(FATAL_ERROR "The bzip2 include directory you specified is invalid it has to contain: bzlib.h")
     endif()
 
@@ -371,6 +368,7 @@ endif(WITH_BZIP2)
 #
 # list of additional files to link against. 
 #
+
 set(EXTRA_LIBS "" CACHE STRING "List of Libraries to link against" )
 
 
@@ -378,6 +376,7 @@ set(EXTRA_LIBS "" CACHE STRING "List of Libraries to link against" )
 #
 # Locate zlib
 #
+
 set(ZLIB_INITIAL_VALUE)
 find_library(LIBZ_LIBRARY 
     NAMES zdll.lib z zlib.lib
@@ -406,16 +405,16 @@ if(WITH_ZLIB)
     
     # make sure that we have a valid zip library    
     check_library_exists("${LIBZ_LIBRARY}" "gzopen" "" LIBZ_FOUND_SYMBOL)
-    if (NOT LIBZ_FOUND_SYMBOL)
+    if(NOT LIBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
         # warning on linux
-        if (UNIX)
+        if(UNIX)
             message(WARNING "The zlib library does not seem to be valid, as it is missing required symbols. Please chack that ${LIBZ_LIBRARY} is a zlib library. For details see: ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")      
         endif()
     endif()
 
-    if (NOT EXISTS "${LIBZ_INCLUDE_DIR}/zlib.h")
+    if(NOT EXISTS "${LIBZ_INCLUDE_DIR}/zlib.h")
         message(FATAL_ERROR "The zlib include directory you specified is invalid it has to contain: zlib.h")
     endif()
     
@@ -433,7 +432,7 @@ if(WITH_CSHARP)
         )
     if(UNIX)
     else()
-        if (${CMAKE_SIZEOF_VOID_P} EQUAL 4)
+        if(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
             # mark libsbml library as x86 
             set(CSHARP_EXTRA_ARGS -platform:x86 )
         elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
@@ -456,7 +455,7 @@ if(WITH_CHECK)
     # we do use tests, that require 2.8.4 
     cmake_minimum_required(VERSION 2.8.4)
 
-    ENABLE_TESTING()
+    enable_testing()
     
     find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
@@ -468,11 +467,11 @@ if(WITH_CHECK)
         PATHS /usr/include /usr/local/include  ${LIBSBML_DEPENDENCY_DIR}/include
               )
     
-    if (NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
+    if(NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
         message(FATAL_ERROR "The check include directory you specified is invalid it has to contain: check.h")
     endif()
 
-    if (${CMAKE_GENERATOR} MATCHES "Visual Studio 6" OR ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
+    if(${CMAKE_GENERATOR} MATCHES "Visual Studio 6" OR ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
         message(WARNING "LibCheck is not compatible with Visual Studio 2003 (or earlier versions).")
     endif()
     
@@ -498,7 +497,7 @@ else()
     set( MISC_PREFIX "" )
     set(PATH_SEP "\\")
     set(FILE_SEP ";")
-    if (MINGW)
+    if(MINGW)
         set(LIBSBML_LIBRARY sbml)
     else()
         set(LIBSBML_LIBRARY libsbml)
@@ -510,6 +509,7 @@ endif()
 #
 # Set up remaining variables, add option for universal binaries
 #
+
 set(BUILD_DEFINITIONS)
 if(UNIX)
     if(APPLE)
@@ -526,10 +526,10 @@ if(UNIX)
             # if universal binaries are requested and none defined so far
             # overwrite them with all three common architectures. If the user 
             # specified their own list of architectures do not touch!
-            if (CMAKE_OSX_ARCHITECTURES STREQUAL "")  
+            if(CMAKE_OSX_ARCHITECTURES STREQUAL "")  
                 STRING(REGEX REPLACE "^.*MacOSX([0-9]*\\.[0-9]*)\\.sdk$" "\\1"
                        OSX_SDK_VERSION "${CMAKE_OSX_SYSROOT}")
-                if (OSX_SDK_VERSION  VERSION_EQUAL "10.7" )
+                if(OSX_SDK_VERSION  VERSION_EQUAL "10.7" )
                    # OSX Lion no longer supports ppc architecture
                    set(CMAKE_OSX_ARCHITECTURES "i386;x86_64" CACHE STRING "A semicolon separated list of build architectures to be used" FORCE)                
                 else()
@@ -540,7 +540,7 @@ if(UNIX)
     else(APPLE)
         add_definitions(-DLINUX)
         
-        if (NOT CYGWIN)
+        if(NOT CYGWIN)
             # on cygwin all code is position independent so -fPIC is not needed
             set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -fPIC")
             set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing -fPIC")
@@ -560,7 +560,7 @@ else(UNIX)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -D_CRT_SECURE_NO_WARNINGS")
         option(WITH_STATIC_RUNTIME "Compile using the static MSVC Runtime" OFF)
-        if (WITH_STATIC_RUNTIME)
+        if(WITH_STATIC_RUNTIME)
             foreach(flag_var
                 CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
                 CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
@@ -591,6 +591,7 @@ else(UNIX)
     
 endif(UNIX)
 
+
 ###############################################################################
 #
 # Disable in-source build
@@ -605,14 +606,15 @@ endif()
 #
 # Add check that only one XML library was selection
 #
-SET(LIBRARY_COUNT 0)
-if (WITH_EXPAT)
+
+set(LIBRARY_COUNT 0)
+if(WITH_EXPAT)
     math(EXPR LIBRARY_COUNT "${LIBRARY_COUNT} + 1")
 endif()
-if (WITH_LIBXML)
+if(WITH_LIBXML)
     math(EXPR LIBRARY_COUNT "${LIBRARY_COUNT} + 1")
 endif()
-if (WITH_XERCES)
+if(WITH_XERCES)
     math(EXPR LIBRARY_COUNT "${LIBRARY_COUNT} + 1")
 endif()
 
@@ -625,6 +627,7 @@ endif()
 #
 # Add check that at least one XML library was selection
 #
+
 if(LIBRARY_COUNT EQUAL 0)
     message(FATAL_ERROR "A XML library has to be chosen. Please select one of: WITH_LIBXML, WITH_EXPAT or WITH_XERCES")
 endif()
@@ -634,6 +637,7 @@ endif()
 #
 # Build the actual libSBML library
 #
+
 add_subdirectory(src)
 
 
@@ -641,6 +645,7 @@ add_subdirectory(src)
 #
 # Build examples if specified
 #
+
 if(WITH_EXAMPLES)
 
     # code that builds the examples
@@ -653,12 +658,13 @@ endif(WITH_EXAMPLES)
 #
 # Include options for all libSBML packages
 #
+
 file(GLOB PACKAGE_OPTIONS "*package.cmake")
 foreach(package ${PACKAGE_OPTIONS})
     include(${package})
 endforeach()
 
-if (WITH_DOXYGEN)
+if(WITH_DOXYGEN)
     add_subdirectory(docs)
 endif()
 
@@ -694,7 +700,7 @@ More information and the latest version are available online at
 http://sbml.org/Software/libSBML
 
 Please report problems using the issue tracker at
-http://sbml.org/software/libsbml/issue-tracker
+http://sbml.org/Software/libsbml/issue-tracker
 
 To contact the developers directly, email libsbml-team@caltech.edu
 
@@ -721,68 +727,68 @@ Other libSBML configuration settings:
 
 
 
-if (UNIX)
-    if (APPLE)
+if(UNIX)
+    if(APPLE)
         message(STATUS "  Value of $DYLD_LIBRARY_PATH   = $ENV{DYLD_LIBRARY_PATH}")
     else()
         message(STATUS "  Value of $LD_LIBRARY_PATH     = $ENV{LD_LIBRARY_PATH}")
     endif()
 endif()
 
-if (WITH_SWIG)
+if(WITH_SWIG)
     message(STATUS "  Using SWIG                    = ${SWIG_EXECUTABLE}")
 endif()
 
 
-if (WITH_CSHARP)
+if(WITH_CSHARP)
     message(STATUS "  Using C#                      = ${CSHARP_COMPILER}")
 endif()
 
-if (WITH_JAVA)
+if(WITH_JAVA)
     message(STATUS "  Using Java                    = ${Java_JAVA_EXECUTABLE}")
 endif()
 
-if (WITH_PYTHON)
+if(WITH_PYTHON)
     message(STATUS "  Using Python                  = ${PYTHON_EXECUTABLE}")
 endif()
 
-if (WITH_PERL)
+if(WITH_PERL)
     message(STATUS "  Using Perl                    = ${PERL_EXECUTABLE}")
 endif()
 
-if (WITH_RUBY)
+if(WITH_RUBY)
     message(STATUS "  Using Ruby                    = ${RUBY_EXECUTABLE}")
 endif()
 
-if (WITH_OCTAVE)
+if(WITH_OCTAVE)
     message(STATUS "  Using Octave                  = ${MKOCTFILE_EXECUTABLE}")
 endif()
 
-if (WITH_MATLAB)
+if(WITH_MATLAB)
     message(STATUS "  Using Matlab                  = ${MATLAB_ROOT_PATH}")
 endif()
 
-if (WITH_CHECK)
+if(WITH_CHECK)
     message(STATUS "  Using LibCheck                = ${LIBCHECK_LIBRARY}")
 endif()
 message(STATUS "
 ")
 
-if (WITH_CPP_NAMESPACE)
+if(WITH_CPP_NAMESPACE)
     message(STATUS "  Using C++ namespace for libSBML (libsbml) = yes")
 else()
     message(STATUS "  Using C++ namespace for libSBML (libsbml) = no")
 endif()
 
-if (APPLE)
-    if (CMAKE_OSX_ARCHITECTURES STREQUAL "")
+if(APPLE)
+    if(CMAKE_OSX_ARCHITECTURES STREQUAL "")
         message(STATUS "  Building universal binaries               = no (using native arch)")
     else()
         list(REMOVE_DUPLICATES CMAKE_OSX_ARCHITECTURES) 
         list(REMOVE_ITEM CMAKE_OSX_ARCHITECTURES "")
         list(SORT CMAKE_OSX_ARCHITECTURES)
         list(LENGTH CMAKE_OSX_ARCHITECTURES NUM_ARCHS)
-        if (NUMARCHS EQUAL 1)
+        if(NUMARCHS EQUAL 1)
             message(STATUS "  Building universal binaries               = no (using ${CMAKE_OSX_ARCHITECTURES})")
         else()
             message(STATUS "  Building universal binaries               = yes (using ${CMAKE_OSX_ARCHITECTURES})")
@@ -792,17 +798,17 @@ endif()
 
 
 # print selected packages if configured previously
-if (EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
+if(EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
 file(STRINGS  ${CMAKE_BINARY_DIR}/CMakeCache.txt cache)
 
 set(last_line)
 foreach(line ${cache})
     
     string(LENGTH "${line}" length)
-    if (${length} GREATER 7)
+    if(${length} GREATER 7)
         string(SUBSTRING "${line}" 0 7 start)
-        if ("${start}" STREQUAL  "ENABLE_")
-            if ("${line}" MATCHES "^.*ON")
+        if("${start}" STREQUAL  "ENABLE_")
+            if("${line}" MATCHES "^.*ON")
                 message(STATUS "  ${last_line} = yes")
             else()
                 message(STATUS "  ${last_line} = no")
@@ -810,7 +816,7 @@ foreach(line ${cache})
         endif()
     
         math(EXPR new_length "${length} - 2")
-        if (${new_length} GREATER 3)
+        if(${new_length} GREATER 3)
         string(SUBSTRING "${line}" 2 ${new_length} last_line)
         endif() 
     else()
@@ -851,7 +857,7 @@ message(STATUS "
 #
 #OPTION(WITH_TEST_PROGRAM " COMPILE SMALL TEST PROGRAM " ON)
 #
-#if (WITH_TEST_PROGRAM)
+#if(WITH_TEST_PROGRAM)
 #
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 #include_directories(${CMAKE_SOURCE_DIR}/include)
