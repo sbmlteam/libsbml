@@ -165,7 +165,10 @@ INSTALL(TARGETS binding_csharp_native_lib
 # 
 
 ADD_CUSTOM_COMMAND(	
-	OUTPUT libsbmlcsP.dll TestRunner.exe libsbmlcsP.xml 
+	OUTPUT 
+		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll 
+		${CMAKE_CURRENT_BINARY_DIR}/TestRunner.exe 
+		${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.xml 
 	
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DCSHARP_EXTRA_ARGS=\"${CSHARP_EXTRA_ARGS}\"
@@ -210,7 +213,7 @@ ADD_CUSTOM_COMMAND(
     COMMENT "Build C# TestRuner") 
 
 	
-add_custom_target(binding_csharp_test_runner ALL DEPENDS libsbmlcsP.dll)
+add_custom_target(binding_csharp_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/TestRW.exe)
 add_dependencies(binding_csharp_test_runner binding_csharp_managed_lib )
 
 if(UNIX)
