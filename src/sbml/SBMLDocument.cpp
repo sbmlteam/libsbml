@@ -1965,7 +1965,8 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (mSBMLNamespaces->getNamespaces()->getLength() == 0)
+  if (mSBMLNamespaces->getNamespaces() == NULL
+    || mSBMLNamespaces->getNamespaces()->getLength() == 0)
   {
      XMLNamespaces xmlns;
 
