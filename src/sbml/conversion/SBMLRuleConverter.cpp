@@ -314,8 +314,8 @@ SBMLRuleConverter::convert()
 
   mDocument->setApplicableValidators(AllChecksON);
 
+  mDocument->checkConsistency();
 
-  unsigned int errors = mDocument->checkConsistency();
 
   /* replace original consistency checks */
   mDocument->setApplicableValidators(origValidators);

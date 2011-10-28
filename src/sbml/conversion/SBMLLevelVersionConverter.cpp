@@ -258,7 +258,7 @@ SBMLLevelVersionConverter::convert()
    * to a valid model with a valid internal representation
    */
   /* see whether the unit validator is on */
-  bool strictSBO   = ((convValidators & 0x04) == 0x04);
+  //bool strictSBO   = ((convValidators & 0x04) == 0x04);
   bool strictUnits = ((convValidators & 0x10) == 0x10);
   
   if (strict == true)
