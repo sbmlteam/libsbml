@@ -102,9 +102,34 @@ public:
 
   
   /** 
-   * the actual conversion 
+   * This function converts the units in the model to base SI units;
+   * namely metre, kilogram, second, Ampere, Kelvin, mole and candela.
    * 
-   * @return status code represeting success/failure/conversion impossible
+   * Unit conversion will only be performed on models that are fully unit 
+   * consistent, that is, all objects have associated units and there are no
+   * literal numbers with no units specified. In the case of an Level 3
+   * involving any math expression, this means that the 'timeUnits' attribute
+   * on the <model> must be set and if there are reactions the 'extentUnits'
+   * attribute must also be supplied.
+   * 
+   * This converter has the additional boolean property 'removeUnusedUnits' 
+   * that can be used to tell the converter whether or not to remove any 
+   * unitDefinitions that are not referred to, after conversion is complete.
+   * You can set this value by adding the property using
+   * <code>
+   *   prop.addOption("removeUnusedUnits", false);
+   * </code>
+   * to add this property to the converter. The default behaviour is to
+   * remove the unused unitDefinitions.
+   * 
+   * @return integer value indicating success/failure of the function or
+   * indicating that this model cannot yet be converted.
+   * The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_CONV_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_CONVERSION_NOT_AVAILABLE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_SRC_DOCUMENT LIBSBML_CONV_INVALID_SRC_DOCUMENT @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int convert();
 
@@ -133,6 +158,7 @@ private:
 
   std::string existsAlready(Model& m, UnitDefinition *newUD);
 
+  bool getRemoveUnusedUnitsFlag();
 
   void removeUnusedUnitDefinitions(Model& m);
   

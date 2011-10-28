@@ -102,6 +102,8 @@ SBMLUnitsConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
   prop.addOption("units", true, "this is checked by matchProperties");
+  prop.addOption("removeUnusedUnits", true, 
+                             "should unsed unitDefinitions be removed");
   return prop;
 }
 
@@ -114,6 +116,23 @@ SBMLUnitsConverter::matchesProperties(const ConversionProperties &props) const
   return true;
 }
 
+
+bool
+SBMLUnitsConverter::getRemoveUnusedUnitsFlag()
+{
+  if (getProperties() == NULL)
+  {
+    return true;
+  }
+  else if (getProperties()->hasOption("removeUnusedUnits") == false)
+  {
+    return true;
+  }
+  else
+  {
+    return getProperties()->getBoolValue("removeUnusedUnits");
+  }
+}
 
 int
 SBMLUnitsConverter::convert()
@@ -295,7 +314,10 @@ SBMLUnitsConverter::convert()
       conversion = convertCnUnits(*m);
   }
 
-  removeUnusedUnitDefinitions(*m);
+  if (getRemoveUnusedUnitsFlag() == true)
+  {
+    removeUnusedUnitDefinitions(*m);
+  }
     
   mDocument->setApplicableValidators(origValidators);
 
