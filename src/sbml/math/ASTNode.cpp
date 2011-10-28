@@ -185,8 +185,8 @@ ASTNode::ASTNode (ASTNodeType_t type)
   mId			 = "";
   mClass		 = "";
   mStyle		 = "";
-  mUserData      = NULL;
   mIsBvar = false;
+  mUserData      = NULL;
 
   setType(type);
 
@@ -217,8 +217,8 @@ ASTNode::ASTNode (Token_t* token)
   mId			 = "";
   mClass		 = "";
   mStyle		 = "";
-  mUserData      = NULL;
   mIsBvar = false;
+  mUserData      = NULL;
 
   mChildren             = new List;
   mSemanticsAnnotations = new List;
@@ -271,8 +271,8 @@ ASTNode::ASTNode (const ASTNode& orig) :
  ,mId                   ( orig.mId)
  ,mClass                ( orig.mClass)
  ,mStyle                ( orig.mStyle)
- ,mUserData             ( orig.mUserData )
  ,mIsBvar               ( orig.mIsBvar)
+ ,mUserData             ( orig.mUserData )
 {
   if (orig.mName)
   {
@@ -312,8 +312,8 @@ ASTNode& ASTNode::operator=(const ASTNode& rhs)
     mId                   = rhs.mId;
     mClass                = rhs.mClass;
     mStyle                = rhs.mStyle;
-    mUserData             = rhs.mUserData;
     mIsBvar               = rhs.mIsBvar;
+    mUserData             = rhs.mUserData;
     if (rhs.mName)
     {
       mName = safe_strdup(rhs.mName);

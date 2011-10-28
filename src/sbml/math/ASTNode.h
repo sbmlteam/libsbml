@@ -1781,14 +1781,15 @@ protected:
   SBase *mParentSBMLObject;
 
   std::string mUnits;
-  void *mUserData;
-  bool mIsBvar;
 
   // additional MathML attributes
   std::string mId;
   std::string mClass;
   std::string mStyle;
 
+  bool mIsBvar;
+  void *mUserData;
+  
   friend class MathMLFormatter;
   friend class MathMLHandler;
 
