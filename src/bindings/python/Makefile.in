@@ -345,9 +345,9 @@ installed_files_list = installed-files.txt
 # MACOSX_DEPLOYMENT_TARGET if the environment variable is set to ''.
 
 ifeq (, $(shell $(PYTHON) setup.py install --help | grep "\--install-layout.*known values: deb")) 
-  install-cmd = setup.py install --record $(installed_files_list) --skip-build $(root)
+  install-cmd = setup.py install --record $(installed_files_list) --skip-build --prefix=$(prefix) $(root)
 else
-  install-cmd = setup.py install --record $(installed_files_list) --skip-build --install-layout=deb $(root)
+  install-cmd = setup.py install --record $(installed_files_list) --skip-build --prefix=$(prefix) --install-layout=deb $(root)
 endif
 
 install: setup.py create-build-dir
