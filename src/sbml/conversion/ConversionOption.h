@@ -256,8 +256,8 @@ public:
 protected: 
   std::string mKey;
   std::string mValue;
-  std::string mDescription;
   ConversionOptionType_t mType;
+  std::string mDescription;
 
 };
 
