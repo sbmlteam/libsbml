@@ -184,12 +184,16 @@ target_link_libraries(binding_java_lib ${LIBSBML_LIBRARY}-static )
 
 ADD_CUSTOM_COMMAND(	
 	OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
-	
+		   ${CMAKE_CURRENT_BINARY_DIR}/test/AutoTestRunner.class
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS    -E make_directory  ${CMAKE_CURRENT_BINARY_DIR}/test
 	COMMAND "${CMAKE_COMMAND}"
 	ARGS -DJava_JAVAC_EXECUTABLE=\"${Java_JAVAC_EXECUTABLE}\"
 		 -DJava_JAR_EXECUTABLE=\"${Java_JAR_EXECUTABLE}\"
 		 -DBIN_DIRECTORY=\"${CMAKE_CURRENT_BINARY_DIR}\"
-		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"		 
+		 -DSRC_DIRECTORY=\"${CMAKE_CURRENT_SOURCE_DIR}\"
+		 -DFILE_SEP=\"${FILE_SEP}\"
+		 -DPATH_SEP=${PATH_SEP}
 		 -P "${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake"
 	
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -217,41 +221,10 @@ if(WITH_CHECK)
 	  # necessary
 	  cmake_policy(SET CMP0010 NEW)
 	endif()
-
-	#
-	# enumerate test files (this needs to be relative otherwise the path will be too long!)
-	# 
-	file(GLOB_RECURSE JAVA_TEST_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/test/*.java)
-
-	set(JAVA_TEST_FILES ${JAVA_TEST_FILES} ${CMAKE_CURRENT_SOURCE_DIR}/AutoTestRunner.java)
-	
-	set(JAVA_NATIVE_FILES)
-	foreach(javaFile ${JAVA_TEST_FILES})
-		file(TO_NATIVE_PATH ${javaFile} temp)
-		set(JAVA_NATIVE_FILES ${JAVA_NATIVE_FILES} ${temp})
-	endforeach()
 	
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar jar_file)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} current_dir)
-	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/test test_dir)
-	
-	#compile tests
-	ADD_CUSTOM_COMMAND(	
-		OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.class 
-		       ${CMAKE_CURRENT_BINARY_DIR}/TestFilenameFilter.class
-		COMMAND "${Java_JAVAC_EXECUTABLE}"
-		ARGS -cp ${jar_file} ${JAVA_NATIVE_FILES}
-		-source 1.5
-		-target 1.5
-		-d ${current_dir}
-		MAIN_DEPENDENCY "${CMAKE_CURRENT_SOURCE_DIR}/AutoTestRunner.java"
-		WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar
-		COMMENT "Building Java Test Runner"
-	) 
-	
-	add_custom_target(binding_java_test_runner ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/AutoTestRunner.class)
-	add_dependencies(binding_java_test_runner binding_java_jar)
+    file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR} current_dir)
+    file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/test test_dir)
 	
 	# run tests
 	add_test(NAME test_java_binding 

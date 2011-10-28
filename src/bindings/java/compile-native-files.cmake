@@ -61,13 +61,6 @@ foreach(classFile ${CLASS_FILES})
 	set(NATIVE_CLASS_FILES ${NATIVE_CLASS_FILES} ${temp})
 endforeach()
 
-set (PATH_SEP)
-if (UNIX OR CYGWIN)
-	set (PATH_SEP "/")
-else()
-	set (PATH_SEP "\\")
-endif()
-
 # create jar
 execute_process(
 	COMMAND "${Java_JAR_EXECUTABLE}"
@@ -77,10 +70,42 @@ execute_process(
 	WORKING_DIRECTORY "${BIN_DIRECTORY}/java-files"
 )
 
+# compile test runner
+
+file(GLOB_RECURSE JAVA_TEST_FILES RELATIVE ${SRC_DIRECTORY} ${SRC_DIRECTORY}/test/*.java)
+set(JAVA_TEST_FILES ${JAVA_TEST_FILES} ${SRC_DIRECTORY}/AutoTestRunner.java)
+	
+set(JAVA_NATIVE_FILES)
+foreach(javaFile ${JAVA_TEST_FILES})
+	file(TO_NATIVE_PATH ${javaFile} temp)
+	set(JAVA_NATIVE_FILES ${JAVA_NATIVE_FILES} ${temp})
+endforeach()
+
+file(TO_NATIVE_PATH ${BIN_DIRECTORY}/libsbmlj.jar jar_file)
+file(TO_NATIVE_PATH ${BIN_DIRECTORY} current_dir)
+file(TO_NATIVE_PATH ${BIN_DIRECTORY}/test test_dir)
+
+message("
+	${Java_JAVAC_EXECUTABLE}
+	     -cp ${jar_file}${FILE_SEP}${current_dir}
+		 -source 1.5
+		 -target 1.5		 
+		 -d ${test_dir}
+		 ${JAVA_NATIVE_FILES}	")
+	
+# compile files
+execute_process(
+	COMMAND "${Java_JAVAC_EXECUTABLE}"
+	     -cp ${jar_file}
+		 -source 1.5
+		 -target 1.5		 
+		 -d ${test_dir}
+		 ${JAVA_NATIVE_FILES}	
+	WORKING_DIRECTORY "${SRC_DIRECTORY}"
+)
 
 # # print variables for debug purposes 
 # message("BIN_DIRECTORY         : ${BIN_DIRECTORY}")
 # message("Java_JAVAC_EXECUTABLE : ${Java_JAVAC_EXECUTABLE}")
 # message("Java_JAR_EXECUTABLE   : ${Java_JAR_EXECUTABLE}")
-
 
