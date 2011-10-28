@@ -1965,17 +1965,18 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
-  if (mSBMLNamespaces->getNamespaces() == NULL
-    || mSBMLNamespaces->getNamespaces()->getLength() == 0)
-  {
-     XMLNamespaces xmlns;
+  // moved this to trhe writeXMLNS function
+  //if (mSBMLNamespaces->getNamespaces() == NULL
+  //  || mSBMLNamespaces->getNamespaces()->getLength() == 0)
+  //{
+  //   XMLNamespaces xmlns;
 
-     xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
+  //   xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
 
-     stream << xmlns;
+  //   stream << xmlns;
 
-     mSBMLNamespaces->setNamespaces(&xmlns);
-  }
+  //   mSBMLNamespaces->setNamespaces(&xmlns);
+  //}
 
   //
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
@@ -2036,7 +2037,44 @@ SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
 {
   // need to check that we have indeed a namespace set!
   XMLNamespaces * thisNs = this->getNamespaces();
-  if (thisNs == NULL) return;
+
+  // the sbml namespace is missing - add it
+  if (thisNs == NULL)
+  {
+    XMLNamespaces xmlns;
+    xmlns.add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
+
+    mSBMLNamespaces->setNamespaces(&xmlns);
+    thisNs = getNamespaces();
+  }
+  else if (thisNs->getLength() == 0)
+  {
+     thisNs->add(SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion));
+  }
+  else
+  {
+    // check that there is an sbml namespace
+    std::string sbmlURI = SBMLNamespaces::getSBMLNamespaceURI(mLevel, mVersion);
+    std::string sbmlPrefix = thisNs->getPrefix(sbmlURI);
+    if (thisNs->hasNS(sbmlURI, sbmlPrefix) == false)
+    {
+      // the sbml ns is not present
+      std::string other = thisNs->getURI(sbmlPrefix);
+      if (other.empty() == false)
+      {
+        // there is another ns with the prefix that the sbml ns expects to have
+        //remove the this ns, add the sbml ns and 
+        //add the new ns with a new prefix
+        thisNs->remove(sbmlPrefix);
+        thisNs->add(sbmlURI, sbmlPrefix);
+        thisNs->add(other, "addedPrefix");
+      }
+      else
+      {
+        thisNs->add(sbmlURI, sbmlPrefix);
+      }
+    }
+  }
 
   // we do not want to write the l2 layout ns on the top level
   XMLNamespaces * xmlns = thisNs->clone();
