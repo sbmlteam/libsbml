@@ -188,6 +188,7 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mAnnotation( NULL )
  , mSBML      ( NULL )
  , mSBMLNamespaces (NULL)
+ , mUserData(NULL)
  , mSBOTerm   ( -1 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
@@ -197,7 +198,6 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
  , mURI("")
- , mUserData(NULL)
 {
   mSBMLNamespaces = new SBMLNamespaces(level, version);
 
@@ -225,6 +225,7 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mAnnotation( NULL )
  , mSBML      ( NULL )
  , mSBMLNamespaces (NULL)
+ , mUserData(NULL)
  , mSBOTerm   ( -1 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
@@ -234,7 +235,6 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
  , mURI("")
- , mUserData(NULL)
 {
   if (!sbmlns) 
   {
