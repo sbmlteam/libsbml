@@ -3,7 +3,7 @@
  * \brief   Perl-specific SWIG support code for wrapping libSBML API
  * \author  Ben Bornstein and Ben Kovitz
  * 
-/* Copyright 2004 California Institute of Technology and
+ * Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it

@@ -3,7 +3,7 @@
  * \brief   Perl-specific SWIG directives for wrapping libSBML API
  * \author  TBI {xtof,raim}@tbi.univie.ac.at
  * 
-/* Copyright 2004 TBI
+ * Copyright 2004 TBI
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published
