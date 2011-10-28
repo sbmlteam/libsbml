@@ -36,7 +36,7 @@ function buildLibSBMLOctave(varargin)
 % and also available online as http://sbml.org/software/libsbml/license.html
 %
 
-  [detected_os, matlab, root, bit64, writeAccess] = determine_system();
+  [matlab, root] = determine_system();
 
   matlab_dir = [root, filesep, 'src', filesep, 'bindings', filesep, 'matlab'];
   copyMatlabDir(matlab_dir, pwd);
@@ -44,7 +44,7 @@ function buildLibSBMLOctave(varargin)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check what we are using
-function [detected_os, matlab, root, bit64, writeAccess] = determine_system
+function [matlab, root] = determine_system
 
   disp('Checking system ...');
   disp('Looking at software ...');
@@ -59,30 +59,6 @@ function [detected_os, matlab, root, bit64, writeAccess] = determine_system
     disp('Octave detected');
   end;
 
-  disp('Looking at OS ...');
-  bit64 = 0;
-  % detected_os = [0, 1, 2]
-  %      0 - windows
-  %      1 - mac
-  %      2 - unix
-  if (ispc())
-    detected_os = 0;
-    if (strcmp(computer(), 'PCWIN64') == 1)
-      bit64 = 1;
-      disp('Windows 64 bit OS detected');
-    else
-      disp('Windows 32 bit OS detected');
-    end;
-  elseif(ismac())
-    detected_os = 1;
-    disp('Mac OS detected');
-  elseif(isunix())
-    detected_os = 2;
-    disp('Linux OS detected');
-  else
-    error('Unable to establish operating system');
-  end;
-
   disp('Checking directory structure ...');
   % THIS WILL BE octave/matlab dependant
   % need to check which directory we are in
@@ -93,35 +69,17 @@ function [detected_os, matlab, root, bit64, writeAccess] = determine_system
   [remain1, second] = fileparts(remain);
   [remain2, third] = fileparts(remain1);
 
-  if (matlab == 1)
-    if (~strcmp(first, 'matlab'))
-	  report_incorrect_dir(pwd, '/src/bindings/matlab');
-    elseif (~strcmp(second, 'bindings'))
-	  report_incorrect_dir(pwd, '/src/bindings/matlab');
-    elseif (~strcmp(third, 'src'))
-	  report_incorrect_dir(pwd, '/src/bindings/matlab');
-    else
-	  root = remain2;
-	  disp('Expected directory structure found');
-    end;
+  if (~strcmp(first, 'octave'))
+    report_incorrect_dir(pwd, '/src/bindings/octave');
+  elseif (~strcmp(second, 'bindings'))
+    report_incorrect_dir(pwd, '/src/bindings/octave');
+  elseif (~strcmp(third, 'src'))
+    report_incorrect_dir(pwd, '/src/bindings/octave');
   else
-    if (~strcmp(first, 'octave'))
-	  report_incorrect_dir(pwd, '/src/bindings/octave');
-    elseif (~strcmp(second, 'bindings'))
-	  report_incorrect_dir(pwd, '/src/bindings/octave');
-    elseif (~strcmp(third, 'src'))
-	  report_incorrect_dir(pwd, '/src/bindings/octave');
-    else
-	  root = remain2;
-	  disp('Expected directory structure found');
-	end;
+    root = remain2;
+    disp('Expected directory structure found');
   end;
 
-  % check whether we have write access to this directory
-  writeAccess = 1;
-  if (fopen('temp', 'w') == -1)
-    writeAccess = 0;
-  end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % tell user we are in the wrong location

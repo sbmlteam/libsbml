@@ -55,9 +55,11 @@ function buildSBML(varargin)
 % Main loop.
 % =========================================================================
 
-  disp(sprintf('\nConstructing the libSBML MATLAB interface.\n'));
 
   [matlab_octave, bit64]  = check_system();
+
+  disp(sprintf('\nConstructing the libSBML %s interface.\n', matlab_octave));
+
   [location, writeAccess, in_installer] = check_location(matlab_octave);
 
   if isWindows()
