@@ -41,39 +41,62 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 ConversionOption::ConversionOption(string key, string value, 
     ConversionOptionType_t type, 
-    string description): mKey(key), mValue(value), mType(type), mDescription(description)
+    string description) : 
+    mKey(key)
+  , mValue(value)
+  , mType(type)
+  , mDescription(description)
 {
 }
 
-    ConversionOption::ConversionOption(std::string key, const char* value, 
-      std::string description): mKey(key), mValue(value), mType(CNV_TYPE_STRING), mDescription(description)
-    {
+ConversionOption::ConversionOption(std::string key, const char* value, 
+  std::string description) : 
+    mKey(key)
+  , mValue(value)
+  , mType(CNV_TYPE_STRING)
+  , mDescription(description)
+{
+}
 
-    }
+ConversionOption::ConversionOption(std::string key, bool value, 
+  std::string description) : 
+    mKey(key)
+  , mValue("")
+  , mType(CNV_TYPE_STRING)
+  , mDescription(description)
+{
+  setBoolValue(value);
+}
 
-    ConversionOption::ConversionOption(std::string key, bool value, 
-      std::string description)  : mKey(key), mDescription(description)
-    {
-      setBoolValue(value);
-    }
+ConversionOption::ConversionOption(std::string key, double value, 
+  std::string description): 
+    mKey(key)
+  , mValue("")
+  , mType(CNV_TYPE_STRING)
+  , mDescription(description)
+{
+  setDoubleValue(value);
+}
 
-    ConversionOption::ConversionOption(std::string key, double value, 
-    std::string description) : mKey(key), mDescription(description)
-    {
-      setDoubleValue(value);
-    }
+ConversionOption::ConversionOption(std::string key, float value, 
+  std::string description) : 
+    mKey(key)
+  , mValue("")
+  , mType(CNV_TYPE_STRING)
+  , mDescription(description)
+{
+  setFloatValue(value);
+}
 
-    ConversionOption::ConversionOption(std::string key, float value, 
-    std::string description) : mKey(key), mDescription(description)
-    {
-      setFloatValue(value);
-    }
-
-    ConversionOption::ConversionOption(std::string key, int value, 
-    std::string description) : mKey(key), mDescription(description)
-    {
+ConversionOption::ConversionOption(std::string key, int value, 
+  std::string description) : 
+    mKey(key)
+  , mValue("")
+  , mType(CNV_TYPE_STRING)
+  , mDescription(description)
+{
       setIntValue(value);
-    }
+}
 
 
 ConversionOption::ConversionOption
