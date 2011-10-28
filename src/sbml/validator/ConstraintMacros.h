@@ -83,9 +83,10 @@ LIBSBML_CPP_NAMESPACE_END
 #define EXTERN_CONSTRAINT(Id, Name) \
   addConstraint( new Name(Id, *this) ); \
 
-#define pre(expr)
-#define inv(expr)
-#define inv_or(expr)
+
+#define pre(expr)    { (void)(expr);}
+#define inv(expr)    { (void)(expr);}
+#define inv_or(expr) { (void)(expr);}
 #define fail()
 
 
