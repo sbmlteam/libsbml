@@ -1703,7 +1703,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_Delay_assignmentOperator );
   tcase_add_test( tcase, test_Delay_clone );
   tcase_add_test( tcase, test_Event_copyConstructor );
+  tcase_add_test( tcase, test_Event_copyConstructor_L3 );
   tcase_add_test( tcase, test_Event_assignmentOperator );
+  tcase_add_test( tcase, test_Event_assignmentOperator_L3 );
   tcase_add_test( tcase, test_Event_clone );
   tcase_add_test( tcase, test_EventAssignment_copyConstructor );
   tcase_add_test( tcase, test_EventAssignment_assignmentOperator );
