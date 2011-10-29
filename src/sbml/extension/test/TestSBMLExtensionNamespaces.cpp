@@ -69,7 +69,7 @@ START_TEST (test_SBMLExtensionNamespaces_c_api)
   SBMLExtensionNamespaces_t* extNs = SBMLExtensionNamespaces_clone(&ns);
   fail_unless( extNs != NULL);
   fail_unless(strcmp(SBMLExtensionNamespaces_getPackageName(extNs), 
-    TestExtension::getPackageName().c_str()) == NULL);
+    TestExtension::getPackageName().c_str()) == 0);
   fail_unless(SBMLExtensionNamespaces_getPackageVersion(extNs) ==  
     TestExtension::getDefaultPackageVersion());
 
