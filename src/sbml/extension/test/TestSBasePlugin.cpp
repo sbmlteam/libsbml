@@ -68,6 +68,7 @@ START_TEST (test_SBasePlugin_c_api)
 	TestPkgNamespaces ns(3, 1, 1);
 	string uri = TestExtension::getXmlnsL3V1V1();
 	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
+        (void) ext;
 	TestModelPlugin plugin(uri, "prefix", &ns);
 
   SBasePlugin_t* cPlugin = SBasePlugin_clone(&plugin);
