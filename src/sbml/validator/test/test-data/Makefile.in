@@ -57,116 +57,46 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = src/sbml/validator/test
+thisdir   = src/sbml/validator/test/test-data
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =                 \
-  TestFile.cpp                 \
-  TestConsistencyValidator.cpp \
-  TestValidator.cpp
-
-test_headers =                 \
-  TestFile.h                   \
-  TestValidator.h
-
-extra_CPPFLAGS = -I.. -I../..
-
-ifdef USE_LIBCHECK
-  check_driver      = TestConsistencyValidator
-  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
-    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
-  endif
-  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
-    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
-  endif
-  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
-    extra_LIBS      += $(LIBCHECK_LIBS)
-  endif
-  extra_clean       += $(check_driver)
-endif
-
-ifdef USE_EXPAT
-  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
-  extra_LIBS     += $(EXPAT_LIBS)
-endif
-
-ifdef USE_XERCES
-  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS  += $(XERCES_LDFLAGS)
-  extra_LIBS     += $(XERCES_LIBS)
-endif
-
-ifdef USE_LIBXML
-  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
-  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
-  extra_LIBS     += $(LIBXML_LIBS)
-ifdef BUGGY_APPLE_LIBXML
-  extra_CPPFLAGS += -DBUGGY_APPLE_LIBXML=$(BUGGY_APPLE_LIBXML)
-endif
-endif
-
-# `distfiles' determines the files and directories included in a distribution.
-# `distfiles_exclude' is used to filter out specific items, so that even if
-# they appear in `distfiles', they will not be copied in the distribution.
 
 test_data_files = \
-  $(wildcard test-data-conversion/*.xml)
+  $(wildcard libsbml-constraints/*.xml) \
+  $(wildcard sbml-annotation-constraints/*.xml) \
+  $(wildcard sbml-identifier-constraints/*.xml) \
+  $(wildcard sbml-mathml-constraints/*.xml) \
+  $(wildcard sbml-modeldefinition-constraints/*.xml) \
+  $(wildcard sbml-modeling-practice-constraints/*.xml) \
+  $(wildcard sbml-notes-constraints/*.xml) \
+  $(wildcard sbml-sbo-constraints/*.xml) \
+  $(wildcard sbml-unit-constraints/*.xml) \
+  $(wildcard sbml-xml-constraints/*.xml) \
+  $(wildcard xml-parser-constraints/*.xml)
 
-test_extras =  \
-  tps/dirent.c \
-  tps/dirent.h
 
-distfiles = $(test_sources) $(test_extras) $(test_headers) $(test_data_files) \
-	    Makefile.in CMakeLists.txt
+distfiles = $(test_data_files) \
+	    Makefile.in 
 
-subdirs = test-data
+subdirs = sbml-general-consistency-constraints
 
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to do nothing except maybe remake the Makefile.  The
-# real actions are triggered by 'make check'.
+# The default action is to remake everything.
 
-all: Makefile all-recursive
+all: Makefile default all-recursive
 
-
+
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-# Variables $(test_objfiles), $(check_driver), and the rest of the code
-# for running check are abstracted out into makefile-common-actions.mk,
-# which is included at the bottom of this file.  Here we just need to construct
-# the appropriate list of object files to link together.  Because there are
-# dependencies on other subdirectoris of the source tree, we do some rummaging
-# around in .. and ../../subdirs.
-
-tmp           = $(test_sources:.cpp=.lo) $(test_sources:.c=.lo)
-localobjfiles = $(filter %.lo,$(tmp))
-otherdirs     = .. ../.. ../constraints ../../util ../../xml ../../math \
-	 ../../units ../../annotation ../../compress ../../common \
-         ../../extension ../../conversion
-
-ifdef USE_LAYOUT
-  otherdirs +=	../../packages/layout/extension ../../packages/layout/sbml \
-				../../packages/layout/common  ../../packages/layout/util 
-endif
-
-
-otherobjfiles = $(wildcard $(addsuffix /*.lo,$(otherdirs)))
-test_objfiles = $(localobjfiles) $(otherobjfiles)
-
-
-ifdef USE_LIBCHECK
-  check: all run-checks
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
+check: all check-recursive
 
 
 # -----------------------------------------------------------------------------
