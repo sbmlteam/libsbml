@@ -163,9 +163,6 @@ class SBasePlugin;
 
 
 
-/** @endcond */
-
-
 class LIBSBML_EXTERN SBase
 {
 public:
