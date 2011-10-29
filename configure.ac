@@ -356,6 +356,8 @@ AC_CONFIG_FILES([src/sbml/util/test/Makefile])
 AC_CONFIG_FILES([src/sbml/validator/Makefile])
 AC_CONFIG_FILES([src/sbml/validator/constraints/Makefile])
 AC_CONFIG_FILES([src/sbml/validator/test/Makefile])
+AC_CONFIG_FILES([src/sbml/validator/test/test-data/Makefile])
+AC_CONFIG_FILES([src/sbml/validator/test/test-data/sbml-general-consistency-constraints/Makefile])
 
 AC_CONFIG_FILES([src/sbml/xml/Makefile])
 AC_CONFIG_FILES([src/sbml/xml/test/Makefile])
