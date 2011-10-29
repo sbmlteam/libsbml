@@ -292,6 +292,9 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_doc)
   char * annotation = "<rdf/>\n<rdf/>";
 
   int i = SBase_setAnnotationString((SBase_t *) (d), annotation);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
   fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (d))) == 2);
@@ -317,6 +320,9 @@ START_TEST (test_SBMLConvert_convertToL2v4_DuplicateAnnotations_model)
   char * annotation = "<rdf/>\n<rdf/>";
 
   int i = SBase_setAnnotationString((SBase_t *) (m), annotation);
+
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS );
+
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
   fail_unless( XMLNode_getNumChildren(SBase_getAnnotation((SBase_t *) (m))) == 2);
@@ -446,6 +452,7 @@ START_TEST (test_SBMLConvert_convertToL3_localParameters)
   fail_unless(KineticLaw_getNumLocalParameters(kl) == 1);
 
   LocalParameter_t *lp = KineticLaw_getLocalParameter(kl, 0);
+  (void) lp;
 
   SBMLDocument_free(d);
 }
@@ -653,6 +660,8 @@ START_TEST (test_SBMLConvert_convertToL3_event)
   Event_t  *e = Model_createEvent(m);
   Event_t *e1;
 
+  (void) e;
+
   fail_unless( SBMLDocument_setLevelAndVersionNonStrict(d, 3, 1) == 1, NULL);
 
   e1 = Model_getEvent(m, 0);
@@ -671,6 +680,7 @@ START_TEST (test_SBMLConvert_convertToL3_trigger)
 
   Event_t  *e = Model_createEvent(m);
   Trigger_t *t = Event_createTrigger(e);
+  (void) t;
 
   Trigger_t *t1;
 
@@ -740,6 +750,7 @@ START_TEST (test_SBMLConvert_convertFromL3_priority)
 
   Event_t * e = Model_createEvent(m);
   Priority_t * p = Event_createPriority(e);
+  (void) p;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 0);
@@ -800,6 +811,7 @@ START_TEST (test_SBMLConvert_convertFromL1V1)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 1);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 1);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
@@ -818,6 +830,7 @@ START_TEST (test_SBMLConvert_convertFromL1V2)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
@@ -836,6 +849,7 @@ START_TEST (test_SBMLConvert_convertFromL2V1)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
@@ -854,6 +868,7 @@ START_TEST (test_SBMLConvert_convertFromL2V2)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
@@ -872,6 +887,7 @@ START_TEST (test_SBMLConvert_convertFromL2V3)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 3);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
@@ -890,6 +906,7 @@ START_TEST (test_SBMLConvert_convertFromL2V4)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);
@@ -908,6 +925,7 @@ START_TEST (test_SBMLConvert_convertFromL3V1)
   SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
   Model_t        *m = SBMLDocument_createModel(d);
 
+  (void) m;
 
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 1) == 0);
   fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 1, 2) == 1);

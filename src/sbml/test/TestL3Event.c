@@ -269,8 +269,9 @@ START_TEST (test_L3_Event_setPriority2)
 {
   const Priority_t   *priority 
     = Event_createPriority(E);
- 
+
   fail_unless (Event_isSetPriority(E) );
+  (void) priority;
 
   Priority_t * p = Event_getPriority(E);
 

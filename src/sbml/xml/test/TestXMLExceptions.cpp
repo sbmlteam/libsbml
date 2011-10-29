@@ -73,6 +73,7 @@ START_TEST ( test_XMLAttributes )
   try
   {
     XMLAttributes* att2=new XMLAttributes(*att1);
+    (void) att2;
   }
   catch (XMLConstructorException &e)
   {
@@ -117,6 +118,7 @@ START_TEST ( test_XMLError )
   try
   {
     XMLError* err2=new XMLError(*err1);
+    (void) err2;
   }
   catch (XMLConstructorException &e)
   {
@@ -161,6 +163,7 @@ START_TEST ( test_XMLNamespaces )
   try
   {
     XMLNamespaces* ns2=new XMLNamespaces(*ns1);
+    (void) ns2;
   }
   catch (XMLConstructorException &e)
   {
@@ -205,6 +208,7 @@ START_TEST ( test_XMLNode )
   try
   {
     XMLNode* node2=new XMLNode(*node1);
+    (void) node2;
   }
   catch (XMLConstructorException &e)
   {
@@ -249,6 +253,7 @@ START_TEST ( test_XMLToken )
   try 
   {
     XMLToken * token3 = new XMLToken(*(triple));
+    (void) token3;
   }
   catch (XMLConstructorException &e)
   {
@@ -263,6 +268,7 @@ START_TEST ( test_XMLToken )
   try 
   {
     XMLToken * token3 = new XMLToken(*(triple1), *(att));
+    (void) token3;
   }
   catch (XMLConstructorException &e)
   {
@@ -277,6 +283,7 @@ START_TEST ( test_XMLToken )
   try 
   {
     XMLToken * token3 = new XMLToken(*(triple1), *(att1), *(ns));
+    (void) token3;
   }
   catch (XMLConstructorException &e)
   {
@@ -290,6 +297,7 @@ START_TEST ( test_XMLToken )
   try 
   {
     XMLToken * token3 = new XMLToken(*(mess));
+    (void) token3;
   }
   catch (XMLConstructorException &e)
   {
@@ -303,6 +311,7 @@ START_TEST ( test_XMLToken )
   try
   {
     XMLToken* token2=new XMLToken(*token1);
+    (void) token2;
   }
   catch (XMLConstructorException &e)
   {
@@ -350,6 +359,7 @@ START_TEST ( test_XMLTriple )
   try
   {
     XMLTriple* triple2=new XMLTriple(*triple1);
+    (void) triple2;
   }
   catch (XMLConstructorException &e)
   {
@@ -378,6 +388,7 @@ START_TEST ( test_XMLTriple )
     std::string uri = "uri";
     std::string prefix = "prefix";
     XMLTriple *triple2 = new XMLTriple (*(name), uri, prefix);
+    (void) triple2;
   }
   catch (XMLConstructorException &e)
   {
@@ -393,6 +404,7 @@ START_TEST ( test_XMLTriple )
     std::string *uri = NULL;
     std::string prefix = "prefix";
     XMLTriple *triple2 = new XMLTriple (name, *(uri), prefix);
+    (void) triple2;
   }
   catch (XMLConstructorException &e)
   {
@@ -409,6 +421,7 @@ START_TEST ( test_XMLTriple )
     std::string uri = "uri";
     std::string *prefix = NULL;
     XMLTriple *triple2 = new XMLTriple (name, uri, *(prefix));
+    (void) triple2;
   }
   catch (XMLConstructorException &e)
   {
@@ -422,6 +435,7 @@ START_TEST ( test_XMLTriple )
   try
   {
     XMLTriple *triple2 = new XMLTriple (*(triplet));
+    (void) triple2;
   }
   catch (XMLConstructorException &e)
   {
@@ -443,6 +457,7 @@ START_TEST ( test_XMLOutputStream )
   try
   {
     XMLOutputStream* opstream2=new XMLOutputStream(*(stream));
+    (void) opstream2;
   }
   catch (XMLConstructorException &e)
   {

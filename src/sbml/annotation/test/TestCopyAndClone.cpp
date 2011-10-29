@@ -115,6 +115,7 @@ START_TEST ( test_Date_ConstructorException )
   try
   {
     Date* date2=new Date(*date1);
+    (void) date2;
   }
   catch (SBMLConstructorException &e)
   {
@@ -220,6 +221,7 @@ START_TEST ( test_ModelCreator_ConstructorException )
   try
   {
     ModelCreator* mc2=new ModelCreator(*mc1);
+    (void) mc2;
   }
   catch (SBMLConstructorException &e)
   {
@@ -371,6 +373,7 @@ START_TEST ( test_ModelHistory_ConstructorException )
   try
   {
     ModelHistory* mh2=new ModelHistory(*mh1);
+    (void) mh2;
   }
   catch (SBMLConstructorException &e)
   {
@@ -480,6 +483,7 @@ START_TEST ( test_CVTerm_ConstructorException )
   try
   {
     CVTerm* cvterm2=new CVTerm(*cvterm1);
+    (void) cvterm2;
   }
   catch (SBMLConstructorException &e)
   {

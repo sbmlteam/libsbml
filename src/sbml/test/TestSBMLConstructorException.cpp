@@ -155,6 +155,7 @@ START_TEST ( test_SBMLConstructorException_Compartment )
   try
   {
     Compartment *s = new Compartment(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -298,6 +299,7 @@ START_TEST ( test_SBMLConstructorException_CompartmentType )
   try
   {
     CompartmentType *s = new CompartmentType(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -444,6 +446,7 @@ START_TEST ( test_SBMLConstructorException_Constraint )
   try
   {
     Constraint *s = new Constraint(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -589,6 +592,7 @@ START_TEST ( test_SBMLConstructorException_InitialAssignment )
   try
   {
     InitialAssignment *s = new InitialAssignment(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -675,6 +679,7 @@ START_TEST ( test_SBMLConstructorException_Species )
   try
   {
     Species *s = new Species(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -819,6 +824,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesType )
   try
   {
     SpeciesType *s = new SpeciesType(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -945,6 +951,7 @@ START_TEST ( test_SBMLConstructorException_Delay )
   try
   {
     Delay *s = new Delay(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1071,6 +1078,7 @@ START_TEST ( test_SBMLConstructorException_Trigger )
   try
   {
     Trigger *s = new Trigger(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1197,6 +1205,7 @@ START_TEST ( test_SBMLConstructorException_Event )
   try
   {
     Event *s = new Event(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1323,6 +1332,7 @@ START_TEST ( test_SBMLConstructorException_EventAssignment )
   try
   {
     EventAssignment *s = new EventAssignment(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1449,6 +1459,7 @@ START_TEST ( test_SBMLConstructorException_ModifierSpeciesReference )
   try
   {
     ModifierSpeciesReference *s = new ModifierSpeciesReference(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1573,6 +1584,7 @@ START_TEST ( test_SBMLConstructorException_StoichiometryMath )
   try
   {
     StoichiometryMath *s = new StoichiometryMath(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1659,6 +1671,7 @@ START_TEST ( test_SBMLConstructorException_SpeciesReference )
   try
   {
     SpeciesReference *s = new SpeciesReference(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1785,6 +1798,7 @@ START_TEST ( test_SBMLConstructorException_FunctionDefinition )
   try
   {
     FunctionDefinition *s = new FunctionDefinition(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1871,6 +1885,7 @@ START_TEST ( test_SBMLConstructorException_KineticLaw )
   try
   {
     KineticLaw *s = new KineticLaw(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -1957,6 +1972,7 @@ START_TEST ( test_SBMLConstructorException_Model )
   try
   {
     Model *s = new Model(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2043,6 +2059,7 @@ START_TEST ( test_SBMLConstructorException_Parameter )
   try
   {
     Parameter *s = new Parameter(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2129,6 +2146,7 @@ START_TEST ( test_SBMLConstructorException_Reaction )
   try
   {
     Reaction *s = new Reaction(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2215,6 +2233,7 @@ START_TEST ( test_SBMLConstructorException_Unit )
   try
   {
     Unit *s = new Unit(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2301,6 +2320,7 @@ START_TEST ( test_SBMLConstructorException_UnitDefinition )
   try
   {
     UnitDefinition *s = new UnitDefinition(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2387,6 +2407,7 @@ START_TEST ( test_SBMLConstructorException_AssignmentRule )
   try
   {
     AssignmentRule *s = new AssignmentRule(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2473,6 +2494,7 @@ START_TEST ( test_SBMLConstructorException_AlgebraicRule )
   try
   {
     AlgebraicRule *s = new AlgebraicRule(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2559,6 +2581,7 @@ START_TEST ( test_SBMLConstructorException_RateRule )
   try
   {
     RateRule *s = new RateRule(*sn24);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2654,6 +2677,7 @@ START_TEST ( test_SBMLConstructorException_Priority )
   try
   {
     Priority *s = new Priority(*sn31);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2749,6 +2773,7 @@ START_TEST ( test_SBMLConstructorException_LocalParameter )
   try
   {
     LocalParameter *s = new LocalParameter(*sn31);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2800,6 +2825,7 @@ START_TEST ( test_SBMLConstructorException_SBMLNamespaces )
   try
   {
     SBMLNamespaces *s = new SBMLNamespaces(*sn31);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {
@@ -2874,6 +2900,7 @@ START_TEST ( test_SBMLConstructorException_SBMLDocument )
   try
   {
     SBMLDocument *s = new SBMLDocument(*sn31);
+    (void) s;
   }
   catch (SBMLConstructorException &e)
   {

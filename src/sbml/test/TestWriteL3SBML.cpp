@@ -183,7 +183,7 @@ START_TEST (test_WriteL3SBML_Model)
     );
 
   Model * m = D->createModel("");
-
+  (void) m;
 
   S = writeSBMLToString(D);
 
