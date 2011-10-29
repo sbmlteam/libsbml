@@ -312,7 +312,7 @@ SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
 {
   SBMLExtensionRegistry instance = getInstance();
   SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
-  int count = 0;
+  unsigned int count = 0;
   while (it != instance.mSBMLExtensionMap.end())
   {   
     if (count == index) return (*it).second->getName();
