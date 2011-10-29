@@ -286,7 +286,7 @@ SBMLExtensionRegistry::isRegistered(const std::string& uri)
 }
 
 List* 
-SBMLExtensionRegistry::getRegisteredPackages()
+SBMLExtensionRegistry::getRegisteredPackageNames()
 {
   SBMLExtensionRegistry instance = getInstance();
   SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
@@ -297,6 +297,29 @@ SBMLExtensionRegistry::getRegisteredPackages()
     it++;
   }
   return result;
+}
+
+unsigned int 
+SBMLExtensionRegistry::getNumRegisteredPackages()
+{
+  SBMLExtensionRegistry instance = getInstance();
+  return (unsigned int)instance.mSBMLExtensionMap.size();
+}
+
+
+std::string
+SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
+{
+  SBMLExtensionRegistry instance = getInstance();
+  SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
+  int count = 0;
+  while (it != instance.mSBMLExtensionMap.end())
+  {   
+    if (count == index) return (*it).second->getName();
+    count++;
+    it++;
+  }
+  return NULL;
 }
 
 
@@ -506,10 +529,36 @@ LIBSBML_EXTERN
 List_t*
 SBMLExtensionRegistry_getRegisteredPackages()
 {
-  return (List_t*)SBMLExtensionRegistry::getRegisteredPackages();
+  return (List_t*)SBMLExtensionRegistry::getRegisteredPackageNames();
 }
 
 
+/** 
+ * Returns the number of registered packages.
+ * 
+ * @return the number of registered packages.
+ */
+LIBSBML_EXTERN
+int
+SBMLExtensionRegistry_getNumRegisteredPackages()
+{
+  return (int)SBMLExtensionRegistry::getNumRegisteredPackages();
+}
+
+
+/** 
+ * Returns the registered package name at the given index
+ * 
+ * @param index zero based index of the package name to return
+ * 
+ * @return the package name with the given index or NULL
+ */
+LIBSBML_EXTERN
+char*
+SBMLExtensionRegistry_getRegisteredPackageName(int index)
+{
+  return safe_strdup(SBMLExtensionRegistry::getRegisteredPackageName(index).c_str());
+}
 
 /** @endcond */
 

@@ -203,7 +203,24 @@ public:
    * 
    * @return the names of the registered packages in a list
    */
-  static List* getRegisteredPackages();
+  static List* getRegisteredPackageNames();
+
+  /** 
+   * Returns the number of registered packages.
+   * 
+   * @return the number of registered packages.
+   */
+  static unsigned int getNumRegisteredPackages();
+
+
+  /** 
+   * Returns the registered package name at the given index
+   * 
+   * @param index zero based index of the package name to return
+   * 
+   * @return the package name with the given index or NULL
+   */
+  static std::string getRegisteredPackageName(unsigned int index);
 
 private:
 

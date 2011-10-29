@@ -25,6 +25,7 @@ foreach(example
 	printMath
 	printNotes
 	printSBML
+	printRegisteredPackages
 	printSupported
 	printUnits
 	readSBML

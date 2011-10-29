@@ -121,6 +121,11 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore ASTNode::getUserData;
 %ignore ASTNode::setParentSBMLObject;
 
+/** 
+ * Ignore the list that can't be wrapped
+ */
+%ignore SBMLExtensionRegistry::getRegisteredPackageNames;
+
 /**
  * SWIG makes no distinction between int and long arguments.
  * (SWIG 1.3 Manual, Section 6.15.2)

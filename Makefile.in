@@ -83,6 +83,7 @@ examples =                                                          \
   examples/c++/printAnnotation.cpp                                  \
   examples/c++/printMath.cpp                                        \
   examples/c++/printNotes.cpp                                       \
+  examples/c++/printRegisteredPackages.cpp                          \
   examples/c++/printSBML.cpp                                        \
   examples/c++/printSupported.cpp                                   \
   examples/c++/printUnits.cpp                                       \
