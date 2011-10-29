@@ -85,7 +85,7 @@ bool validateSBML(const string& filename, bool enableUnitCheck)
   document = reader.readSBML(filename);
   stop     = getCurrentMillis();
   
-  double     timeRead = (stop - start);
+  double     timeRead = (double)(stop - start);
   unsigned int errors = document->getNumErrors();
   bool  seriousErrors = false;
 
@@ -138,7 +138,7 @@ bool validateSBML(const string& filename, bool enableUnitCheck)
     start    = getCurrentMillis();
     failures = document->checkConsistency();
     stop     = getCurrentMillis();
-    timeCC   = stop - start;
+    timeCC   = (double)(stop - start);
 
     if (failures > 0)
     {
