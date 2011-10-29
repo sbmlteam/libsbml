@@ -285,6 +285,21 @@ SBMLExtensionRegistry::isRegistered(const std::string& uri)
   return (getExtensionInternal(uri)) ? true : false;
 }
 
+List* 
+SBMLExtensionRegistry::getRegisteredPackages()
+{
+  SBMLExtensionRegistry instance = getInstance();
+  SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
+  List* result = new List();
+  while (it != instance.mSBMLExtensionMap.end())
+  {    
+    result->add(safe_strdup((*it).second->getName().c_str()));
+    it++;
+  }
+  return result;
+}
+
+
 /** @cond doxygen-c-only */
 
 
@@ -479,6 +494,22 @@ SBMLExtensionRegistry_getNumExtensions(const SBaseExtensionPoint_t* extPoint)
   if (extPoint == NULL) return 0;
   return SBMLExtensionRegistry::getInstance().getNumExtension(*extPoint);
 }
+
+
+/** 
+ * Returns a list of registered packages (such as 'layout', 'fbc' or 'comp')
+ * the list contains char* strings and has to be freed by the caller. 
+ * 
+ * @return the names of the registered packages in a list
+ */
+LIBSBML_EXTERN
+List_t*
+SBMLExtensionRegistry_getRegisteredPackages()
+{
+  return (List_t*)SBMLExtensionRegistry::getRegisteredPackages();
+}
+
+
 
 /** @endcond */
 

@@ -196,6 +196,15 @@ public:
    */
   bool isRegistered(const std::string& uri);
 
+
+  /** 
+   * Returns a list of registered packages (such as 'layout', 'fbc' or 'comp')
+   * the list contains char* strings and has to be freed by the caller. 
+   * 
+   * @return the names of the registered packages in a list
+   */
+  static List* getRegisteredPackages();
+
 private:
 
   //
@@ -270,6 +279,10 @@ SBMLExtensionRegistry_isRegistered(const char* uri);
 LIBSBML_EXTERN
 int 
 SBMLExtensionRegistry_getNumExtensions(const SBaseExtensionPoint_t* extPoint);
+
+LIBSBML_EXTERN
+List_t*
+SBMLExtensionRegistry_getRegisteredPackages();
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
