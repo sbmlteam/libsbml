@@ -425,7 +425,7 @@ LIBSBML_CPP_NAMESPACE_USE
 {
 	ListWrapper<SBase>* getAllElements()
 	{
-		List* list = $selv->getAllElements();
+		List* list = $self->getAllElements();
 		return new ListWrapper<SBase>(list);
 	}
 }
