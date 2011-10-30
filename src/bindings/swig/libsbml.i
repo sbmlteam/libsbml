@@ -423,6 +423,9 @@ LIBSBML_CPP_NAMESPACE_USE
 
 %ignore SBase::getAllElementsFromPlugins;
 %ignore SBase::getAllElements;
+%ignore SBase::setUserData;
+%ignore SBase::getUserData;
+
 
 %extend SBase
 {
