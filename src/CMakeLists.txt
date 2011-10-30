@@ -1,7 +1,4 @@
 ###############################################################################
-#
-# 
-#
 # Description       : CMake build script for libSBML 
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
@@ -28,6 +25,17 @@
 #
 ###############################################################################
 
+
+###############################################################################
+#
+# Include all packages
+#
+file(GLOB PACKAGE_OPTIONS "*package.cmake")
+foreach(package ${PACKAGE_OPTIONS})
+
+	include(${package})
+
+endforeach()
 
 ###############################################################################
 #
@@ -143,19 +151,6 @@ foreach (directory annotation common conversion extension math sbml
 	# add to libsbml sources
 	set(LIBSBML_SOURCES ${LIBSBML_SOURCES} ${temp})
 	
-endforeach()
-
-
-
-###############################################################################
-#
-# Include all packages
-#
-file(GLOB PACKAGE_OPTIONS "*package.cmake")
-foreach(package ${PACKAGE_OPTIONS})
-
-	include(${package})
-
 endforeach()
 
 ###############################################################################

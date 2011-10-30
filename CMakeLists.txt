@@ -508,7 +508,7 @@ endif(WITH_CHECK)
 #
 
 set( MISC_PREFIX )
-if(UNIX)
+if(UNIX OR CYGWIN)
     set(PATH_SEP "/")
     set(FILE_SEP ":")
     set( MISC_PREFIX "share/libsbml/" )

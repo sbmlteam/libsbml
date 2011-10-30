@@ -87,6 +87,9 @@
 /* Define to 1 to build the SBML groups extension. */
 #cmakedefine USE_GROUPS
 
+/* Define to build the SBML FBC extension. */
+#cmakedefine USE_FBC 1
+
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
 #cmakedefine WORDS_BIGENDIAN 1
