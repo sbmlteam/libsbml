@@ -421,15 +421,24 @@ LIBSBML_CPP_NAMESPACE_USE
   }
 %}
 
+%ignore SBase::getAllElementsFromPlugins;
 %ignore SBase::getAllElements;
+
 %extend SBase
 {
-	ListWrapper<SBase>* getAllElements()
+	ListWrapper<SBase>* getListOfAllElements()
 	{
 		List* list = $self->getAllElements();
 		return new ListWrapper<SBase>(list);
 	}
+
+	ListWrapper<SBase>* getListOfAllElementsFromPlugins()
+	{
+		List* list = $self->getAllElementsFromPlugins();
+		return new ListWrapper<SBase>(list);
+	}
 }
+
 
 %extend ASTNode
 {

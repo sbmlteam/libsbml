@@ -1279,7 +1279,8 @@ SWIGJAVA_EQUALS(XMLOutputStream)
 LIST_WRAPPER(ModelHistory::getListCreators,ModelCreator)
 LIST_WRAPPER(ModelHistory::getListModifiedDates,Date)
 LIST_WRAPPER(SBase::getCVTerms,CVTerm)
-LIST_WRAPPER(SBase::getAllElements,SBase)
+LIST_WRAPPER(SBase::getListOfAllElements,SBase)
+LIST_WRAPPER(SBase::getListOfAllElementsFromPlugins,SBase)
 LIST_WRAPPER(SBMLNamespaces::getSupportedNamespaces,SBMLNamespaces)
 
 
