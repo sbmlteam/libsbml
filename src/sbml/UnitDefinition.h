@@ -841,7 +841,7 @@ public:
    * @see Unit::areIdentical(Unit * unit1, %Unit * unit2)
    */
   static bool areIdentical(const UnitDefinition * ud1, 
-    const UnitDefinition * ud2, bool conversion = false);
+    const UnitDefinition * ud2);
 
 
   /** 

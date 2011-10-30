@@ -951,15 +951,10 @@ Unit::isL1UnitKind (const std::string& name)
 }
 
 bool 
-Unit::areIdentical(Unit * unit1, Unit * unit2, bool conversion)
+Unit::areIdentical(Unit * unit1, Unit * unit2)
 {
   bool identical = false;
 
-  if (conversion == false)
-  {
-    removeScale(unit1);
-    removeScale(unit2);
-  }
   if (!strcmp(UnitKind_toString(unit1->getKind()), 
               UnitKind_toString(unit2->getKind())))
   {

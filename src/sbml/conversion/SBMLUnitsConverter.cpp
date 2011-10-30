@@ -629,7 +629,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
                   {
                   case 1:
                     if (UnitDefinition::areIdentical(m.getUnitDefinition("length"),
-                               siud, true))
+                               siud))
                     {
                       i = LIBSBML_OPERATION_SUCCESS;
                     }
@@ -645,7 +645,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
                     break;
                   case 2:
                     if (UnitDefinition::areIdentical(m.getUnitDefinition("area"),
-                               siud, true))
+                               siud))
                     {
                       i = LIBSBML_OPERATION_SUCCESS;
                     }
@@ -656,7 +656,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
                     break;
                   case 3:
                     if (UnitDefinition::areIdentical(m.getUnitDefinition("volume"),
-                               siud, true))
+                               siud))
                     {
                       i = LIBSBML_OPERATION_SUCCESS;
                     }
@@ -687,7 +687,7 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
                 else
                 {
                   if (UnitDefinition::areIdentical(m.getUnitDefinition("substance"),
-                               siud, true))
+                               siud))
                   {
                     i = LIBSBML_OPERATION_SUCCESS;
                   }
@@ -834,8 +834,7 @@ SBMLUnitsConverter::applyNewUnitDefinition(SBase &sb, Model &m,
    * check whether the existing defn matches the si ud */
   if (m.getUnitDefinition(oldUnits) != NULL)
   {
-    if (UnitDefinition::areIdentical(m.getUnitDefinition(oldUnits),
-               newUD, true))
+    if (UnitDefinition::areIdentical(m.getUnitDefinition(oldUnits), newUD))
     {
       return LIBSBML_OPERATION_SUCCESS;
     }
@@ -1392,7 +1391,7 @@ SBMLUnitsConverter::existsAlready(Model& m, UnitDefinition *newUD)
   std::string id = "";
   for (unsigned int i = 0; i < m.getNumUnitDefinitions(); i++)
   {
-    if (UnitDefinition::areIdentical(m.getUnitDefinition(i), newUD, true))
+    if (UnitDefinition::areIdentical(m.getUnitDefinition(i), newUD))
     {
       return m.getUnitDefinition(i)->getId();
     }

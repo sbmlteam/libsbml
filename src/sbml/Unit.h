@@ -961,7 +961,7 @@ public:
   *
   * @see areEquivalent(@if java Unit u1, %Unit u2@endif)
   */
-  static bool areIdentical(Unit * unit1, Unit * unit2, bool conversion = false);
+  static bool areIdentical(Unit * unit1, Unit * unit2);
 
 
   /** 
