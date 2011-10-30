@@ -1248,6 +1248,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 LIST_WRAPPER(ModelHistory::getListCreators,ModelCreator)
 LIST_WRAPPER(ModelHistory::getListModifiedDates,Date)
 LIST_WRAPPER(SBase::getCVTerms,CVTerm)
+LIST_WRAPPER(SBase::getAllElements,SBase)
 LIST_WRAPPER(SBMLNamespaces::getSupportedNamespaces,SBMLNamespaces)
 
  
