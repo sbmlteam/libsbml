@@ -77,10 +77,12 @@ public:
    */
   virtual unsigned int validate();
 
+
   /** 
    * @return the program name of the validator to be run
    */
   const std::string& getProgram()  const;
+
 
   /**
    * Sets the name of the program to run
@@ -89,10 +91,12 @@ public:
    */
   void setProgram (std::string program);
 
+
   /**
    * @return the output file name (this is the file the external program will write)
    */
   const std::string& getOutputFileName()  const;
+
 
   /**
    * Sets the output file name
@@ -101,22 +105,26 @@ public:
    */
   void setOutputFileName(std::string outputFileName);
 
+
   /** 
    * @return the name of the SBML file (the document of this validator will be written to it)
    */
   const std::string& getSBMLFileName()  const;
 
+
   /**
    * Sets the filename for the temporary file to be created
    *
-   * @param sbmlFilename the temporary name
+   * @param sbmlFileName the temporary name
    */
   void setSBMLFileName(std::string sbmlFileName);
+
 
   /**
    * Clear all additional arguments
    */
   void clearArguments();
+
 
   /** 
    * Adds the given argument to the list of additional arguments 
@@ -125,10 +133,12 @@ public:
    */
   void addArgument(std::string arg);
 
+
   /**
    * @return all arguments
    */
   const std::vector<std::string>& getArguments() const;
+
 
   /** 
    * Sets the additional arguments

@@ -197,7 +197,7 @@ public:
   /**
    * Adds a clone of all items in the provided ListOf to this object.  This means that when this ListOf is destroyed, the original items will not be destroyed.
    *
-   * @param A list of items to be added.
+   * @param list A list of items to be added.
    *
    * @see append(const SBase* item)
    */
@@ -214,7 +214,7 @@ public:
    * @param location the location where to insert the item
    * @param item the item to be inserted to the list
    * 
-   * @see insertAndOwn (SBase* item)
+   * @see insertAndOwn(int location, SBase* item)
    */
   int insert(int location, const SBase* item);
 
@@ -229,7 +229,7 @@ public:
    * @param location the location where to insert the item
    * @param item the item to be inserted to the list
    * 
-   * @see insertAndOwn (SBase* item)
+   * @see insert(int location, const SBase* item)
    */
   int insertAndOwn(int location, SBase* item);
 
@@ -261,7 +261,7 @@ public:
   /**
    * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
    *
-   * @param id, string representing the id of objects to find
+   * @param id string representing the id of objects to find
    *
    * @return pointer to the first element found with the given id.
    */
@@ -271,7 +271,7 @@ public:
   /**
    * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
    *
-   * @param id, string representing the metaid of objects to find
+   * @param metaid string representing the metaid of objects to find
    *
    * @return pointer to the first element found with the given metaid.
    */

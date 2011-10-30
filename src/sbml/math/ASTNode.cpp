@@ -1835,7 +1835,7 @@ ASTNode::swapChildren (ASTNode *that)
 
 LIBSBML_EXTERN
 void 
-ASTNode::renameSIdRefs(const string& oldid, const string& newid)
+ASTNode::renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (getType() == AST_NAME ||
       getType() == AST_FUNCTION ||
@@ -1851,7 +1851,7 @@ ASTNode::renameSIdRefs(const string& oldid, const string& newid)
 
 LIBSBML_EXTERN
 void 
-ASTNode::renameUnitSIdRefs(const string& oldid, const string& newid)
+ASTNode::renameUnitSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetUnits()) {
     if (getUnits() == oldid) {
@@ -1864,6 +1864,7 @@ ASTNode::renameUnitSIdRefs(const string& oldid, const string& newid)
 }
 
 
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 void 
 ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
@@ -1879,7 +1880,10 @@ ASTNode::replaceIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 LIBSBML_EXTERN
 void ASTNode::multiplyTimeBy(const ASTNode* function)
 {
@@ -1893,6 +1897,7 @@ void ASTNode::multiplyTimeBy(const ASTNode* function)
     addChild(time);
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 LIBSBML_EXTERN
 int

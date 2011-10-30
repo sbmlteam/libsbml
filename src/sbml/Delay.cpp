@@ -385,6 +385,7 @@ Delay::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 Delay::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -398,6 +399,7 @@ Delay::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-libsbml-internal */
 /*

@@ -628,7 +628,7 @@ public:
    /**
    * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.  Note that LocalParameters, while they use the SId namespace, are not in the model-wide SId namespace, so no LocalParameter object will be returned from this function (and is the reason we override the base ListOf::getElementBySId function here).
    *
-   * @param id, string representing the id of objects to find
+   * @param id string representing the id of objects to find
    *
    * @return pointer to the first element found with the given id.
    */

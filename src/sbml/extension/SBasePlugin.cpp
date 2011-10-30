@@ -262,6 +262,7 @@ SBasePlugin::getPackageVersion() const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * This function does nothing itself--subclasses with ASTNode subelements must override this function.
  */
@@ -269,8 +270,10 @@ void
 SBasePlugin::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * This function does nothing itself--subclasses with ASTNode subelements must override this function.
  */
@@ -278,6 +281,7 @@ void
 SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
 /*
  * Returns the namespace URI of this element.

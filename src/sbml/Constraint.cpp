@@ -315,6 +315,7 @@ Constraint::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 Constraint::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -328,6 +329,7 @@ Constraint::replaceSIDWithFunction(const std::string& id, const ASTNode* functio
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 /*
  * @return the typecode (int) of this SBML object or SBML_UNKNOWN

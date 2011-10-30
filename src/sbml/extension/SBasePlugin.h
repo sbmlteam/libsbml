@@ -70,8 +70,9 @@
  *         </li>
  *         <li> <code>virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream)</code>
  *         <p>This function should be overridden if elements of annotation, notes, MathML, etc. need 
- *            to be directly parsed from the given XMLInputStream object instead of SBase::readAnnotation() 
- *            and/or SBase::readNotes() functions.
+ *            to be directly parsed from the given XMLInputStream object instead of the
+ *            SBase::readAnnotation(XMLInputStream& stream) 
+ *            and/or SBase::readNotes(XMLInputStream& stream) functions.
  *         </p> 
  *         </li>
  *       </ol>
@@ -307,7 +308,7 @@ public:
   /**
    * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
    *
-   * @param id, string representing the id of objects to find
+   * @param id string representing the id of objects to find
    *
    * @return pointer to the first element found with the given id.
    */
@@ -317,7 +318,7 @@ public:
   /**
    * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
    *
-   * @param id, string representing the metaid of objects to find
+   * @param metaid string representing the metaid of objects to find
    *
    * @return pointer to the first element found with the given metaid.
    */
@@ -363,8 +364,8 @@ public:
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream if the target elements
-   * can't be parsed by SBase::readAnnotation() and/or SBase::readNotes() 
-   * functions
+   * can't be parsed by SBase::readAnnotation(XMLInputStream& stream)
+   * and/or SBase::readNotes(XMLInputStream& stream) functions.
    *
    * @return true if the subclass read from the stream, false otherwise.
    */

@@ -949,8 +949,9 @@ public:
   * Unit objects are identical.
   *
   * Two Unit objects are considered to be @em identical if they match in
-  * all attributes.  (Contrast this to the method areEquivalent(@if java Unit u1, %Unit u2@endif), which
-  * compares Unit objects only with respect to certain attributes.)
+  * all attributes.  (Contrast this to the method areEquivalent(@if java
+  * Unit u1, %Unit u2@endif), which compares Unit objects only with respect
+  * to certain attributes.)
   *
   * @param unit1 the first Unit object to compare
   * @param unit2 the second Unit object to compare

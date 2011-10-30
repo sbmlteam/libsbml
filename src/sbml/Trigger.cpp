@@ -397,6 +397,7 @@ Trigger::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 Trigger::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -410,6 +411,7 @@ Trigger::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-libsbml-internal */
 /*

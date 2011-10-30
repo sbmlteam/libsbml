@@ -1498,7 +1498,8 @@ public:
 
 
   /**
-   * Renames all the UnitSIdRef attributes on this node and any child node.  (The only place UnitSIDRefs appear is in <cn> elements.)
+   * Renames all the UnitSIdRef attributes on this node and any child node.
+   * (The only place UnitSIDRefs appear in MathML <code>&lt;cn&gt;</code> elements.)
    */
   LIBSBML_EXTERN
   virtual void renameUnitSIdRefs(const std::string& oldid, const std::string& newid);
@@ -1699,9 +1700,11 @@ public:
  /**
   * Returns the user data that has been previously set via setUserData().
   *
-  * @return the user data of this node, or @c NULL if no user data has been.
-  * 
+  * @return the user data of this node, or @c NULL if no user data has been set.
+  *
+  * @if clike
   * @see ASTNode::setUserData
+  * @endif
   */
   LIBSBML_EXTERN
   void *getUserData() const;

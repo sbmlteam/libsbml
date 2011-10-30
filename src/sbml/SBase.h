@@ -200,7 +200,7 @@ public:
   /**
    * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
    *
-   * @param id, string representing the id of objects to find
+   * @param id string representing the id of objects to find
    *
    * @return pointer to the first element found with the given id.
    */
@@ -210,7 +210,7 @@ public:
   /**
    * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
    *
-   * @param id, string representing the metaid of objects to find
+   * @param metaid string representing the metaid of objects to find
    *
    * @return pointer to the first element found with the given metaid.
    */
@@ -267,7 +267,7 @@ public:
   /**
    * Returns the first child element found that has the given id in the model-wide SId namespace from all plugins associated with this element, or NULL if no such object is found.
    *
-   * @param id, string representing the id of objects to find
+   * @param id string representing the id of objects to find
    *
    * @return pointer to the first element found with the given id.
    */
@@ -279,7 +279,7 @@ public:
   /**
    * Returns the first child element it can find with the given metaid from all plugins associated with this element, or NULL if no such object is found.
    *
-   * @param id, string representing the metaid of objects to find
+   * @param id string representing the metaid of objects to find
    *
    * @return pointer to the first element found with the given metaid.
    */
@@ -1686,8 +1686,10 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param d the SBMLDocument object to use
    *
-   * @see connectToChild(0
+   * @see connectToChild()
+   * @if clike
    * @see enablePackageInternal()
+   * @endif
    */
   virtual void setSBMLDocument (SBMLDocument* d);
   /** @endcond */
@@ -1716,8 +1718,10 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Basically, this function needs to be called in
    * constructor, copy constructor, assignment operator.
    *
+   * @if clike
    * @see setSBMLDocument()
    * @see enablePackageInternal()
+   * @endif
    */
   virtual void connectToChild ();
 
@@ -2465,8 +2469,10 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @note Subclasses in which one or more child elements are defined 
    * must override this function.
    *
-   * @see setSBMLDocument
-   * @see connectToChild
+   * @if clike
+   * @see setSBMLDocument()
+   * @endif
+   * @see connectToChild()
    */
   virtual void enablePackageInternal(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
   /** @endcond */
@@ -2619,9 +2625,11 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
  /**
   * Returns the user data that has been previously set via setUserData().
   *
-  * @return the user data of this node, or @c NULL if no user data has been.
+  * @return the user data of this node, or @c NULL if no user data has been set.
   * 
-  * @see ASTNode::setUserData
+  * @if clike
+  * @see ASTNode::setUserData(void *userData)
+  * @endif
   */  
   void *getUserData() const;
 

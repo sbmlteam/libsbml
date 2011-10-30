@@ -435,6 +435,7 @@ InitialAssignment::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 InitialAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -448,7 +449,9 @@ InitialAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* 
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
+/** @cond doxygen-libsbml-internal */
 void 
 InitialAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
@@ -459,6 +462,7 @@ InitialAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const
     mMath->addChild(function->deepCopy());
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-libsbml-internal */
 /*

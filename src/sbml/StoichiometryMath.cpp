@@ -284,6 +284,7 @@ StoichiometryMath::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 StoichiometryMath::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -297,6 +298,7 @@ StoichiometryMath::replaceSIDWithFunction(const std::string& id, const ASTNode* 
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-libsbml-internal */
 /*

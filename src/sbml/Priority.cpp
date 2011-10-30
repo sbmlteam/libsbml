@@ -287,6 +287,7 @@ Priority::renameUnitSIdRefs(std::string oldid, std::string newid)
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 void 
 Priority::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
@@ -300,6 +301,7 @@ Priority::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 /** @cond doxygen-libsbml-internal */
 /*

@@ -226,6 +226,7 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
   //
 }
 
+/** @cond doxygen-libsbml-internal */
 
 #ifndef DONT_USE_VALIDATOR_API
 
@@ -258,6 +259,7 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
 
 
 #endif
+/** @endcond doxygen-libsbml-internal */
 
 
 /*
@@ -447,6 +449,7 @@ SBMLDocument::getAllElements()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 unsigned char
 SBMLDocument::getApplicableValidators() const
 {
@@ -458,8 +461,10 @@ SBMLDocument::getApplicableValidators() const
   
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 unsigned char
 SBMLDocument::getConversionValidators() const
 {
@@ -469,8 +474,10 @@ SBMLDocument::getConversionValidators() const
   return mInternalValidator->getConversionValidators();
 #endif
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 void
 SBMLDocument::setApplicableValidators(unsigned char appl)
 {
@@ -481,8 +488,10 @@ SBMLDocument::setApplicableValidators(unsigned char appl)
 #endif
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 void
 SBMLDocument::setConversionValidators(unsigned char appl)
 {
@@ -492,6 +501,9 @@ SBMLDocument::setConversionValidators(unsigned char appl)
   return mInternalValidator->setConversionValidators(appl);
 #endif
 }
+/** @endcond doxygen-libsbml-internal */
+
+
 /* 
  * removes FD and expands them in math elements
  */

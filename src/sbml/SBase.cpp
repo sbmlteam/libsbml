@@ -139,6 +139,7 @@ SBase::renameUnitSIdRefs(std::string oldid, std::string newid)
   //No UnitSIdRefs in SBase, either.
 }
 
+/** @cond doxygen-libsbml-internal */
 SBase*
 SBase::getElementFromPluginsBySId(std::string id)
 {
@@ -149,8 +150,10 @@ SBase::getElementFromPluginsBySId(std::string id)
   }
   return NULL;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 SBase*
 SBase::getElementFromPluginsByMetaId(std::string metaid)
 {
@@ -161,6 +164,8 @@ SBase::getElementFromPluginsByMetaId(std::string metaid)
   }
   return NULL;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 List*
 SBase::getAllElementsFromPlugins()
@@ -630,6 +635,7 @@ SBase::getAnnotationString ()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * This function does nothing itself--subclasses with ASTNode subelements must override this function.
  */
@@ -637,7 +643,9 @@ void
 SBase::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
+/** @cond doxygen-libsbml-internal */
 /*
  * This function does nothing itself--subclasses with ASTNode subelements must override this function.
  */
@@ -645,6 +653,7 @@ void
 SBase::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
 void *
 SBase::getUserData() const
