@@ -77,11 +77,12 @@ LIBSBML_CPP_NAMESPACE_USE
  */
 
 %include "ListWrapper.h"
-%template(ModelCreatorList) ListWrapper<ModelCreator>;
-%template(DateList)         ListWrapper<Date>;
-%template(CVTermList)       ListWrapper<CVTerm>;
-%template(ASTNodeList)      ListWrapper<ASTNode>;
-%template(SBMLNamespacesList)  ListWrapper<SBMLNamespaces>;
+%template(ModelCreatorList)   ListWrapper<ModelCreator>;
+%template(DateList)           ListWrapper<Date>;
+%template(CVTermList)         ListWrapper<CVTerm>;
+%template(ASTNodeList)        ListWrapper<ASTNode>;
+%template(SBMLNamespacesList) ListWrapper<SBMLNamespaces>;
+%template(SBaseList)          ListWrapper<SBase>;
 
 /**
  *
@@ -419,6 +420,15 @@ LIBSBML_CPP_NAMESPACE_USE
     return 1;
   }
 %}
+
+%extend SBase
+{
+	ListWrapper<SBase>* getAllElements()
+	{
+		List* list = $selv->getAllElements();
+		return new ListWrapper<SBase>(list);
+	}
+}
 
 %extend ASTNode
 {
