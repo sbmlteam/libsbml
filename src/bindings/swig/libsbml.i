@@ -422,10 +422,19 @@ LIBSBML_CPP_NAMESPACE_USE
 %}
 
 %ignore SBase::getAllElementsFromPlugins;
+%ignore SBasePlugin::getAllElements;
 %ignore SBase::getAllElements;
 %ignore SBase::setUserData;
 %ignore SBase::getUserData;
 
+%extend SBasePlugin
+{
+	ListWrapper<SBase>* getListOfAllElements()
+	{
+		List* list = $self->getAllElements();
+		return new ListWrapper<SBase>(list);
+	}
+}
 
 %extend SBase
 {
@@ -441,7 +450,6 @@ LIBSBML_CPP_NAMESPACE_USE
 		return new ListWrapper<SBase>(list);
 	}
 }
-
 
 %extend ASTNode
 {
