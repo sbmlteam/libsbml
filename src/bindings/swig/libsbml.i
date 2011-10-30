@@ -421,6 +421,7 @@ LIBSBML_CPP_NAMESPACE_USE
   }
 %}
 
+%ignore SBase::getAllElements;
 %extend SBase
 {
 	ListWrapper<SBase>* getAllElements()
