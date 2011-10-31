@@ -150,7 +150,18 @@ SBMLLevelVersionConverter::getTargetVersion()
 bool 
 SBMLLevelVersionConverter::getValidityFlag()
 {
-  return getProperties()->getBoolValue("strict");
+  if (getProperties() == NULL)
+  {
+    return true;
+  }
+  else if (getProperties()->hasOption("strict") == false)
+  {
+    return true;
+  }
+  else
+  {
+    return getProperties()->getBoolValue("strict");
+  }
 }
 
 
