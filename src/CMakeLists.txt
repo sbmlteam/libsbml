@@ -25,6 +25,11 @@
 #
 ###############################################################################
 
+###############################################################################
+#
+# Initialize SBML sources
+#
+set(LIBSBML_SOURCES)
 
 ###############################################################################
 #
@@ -117,7 +122,6 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 #
 # Find all sources 
 #
-set(LIBSBML_SOURCES)
 
 foreach (directory annotation common conversion extension math sbml 
 					units util 
