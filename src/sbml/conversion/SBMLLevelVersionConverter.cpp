@@ -232,6 +232,14 @@ SBMLLevelVersionConverter::convert()
         {
           problem = true;
         }
+        else if (targetLevel == 3)
+        {
+          /* disable the L2 extension as leaving it enabled means you
+           * cannot enable the L3 extension later
+           */
+          mDocument->enablePackage(LayoutExtension::getXmlnsL2(),"layout", false);
+
+        }
       }
 #endif      
       if (problem == true)
