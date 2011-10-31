@@ -50,6 +50,15 @@ SBMLExtensionRegistry::getInstance()
   return singletonObj;
 }
 
+SBMLExtensionRegistry::SBMLExtensionRegistry(const SBMLExtensionRegistry& orig)
+{
+  if (&orig != NULL)
+  {
+    mSBMLExtensionMap =   orig.mSBMLExtensionMap;
+    mSBasePluginMap   =   orig.mSBasePluginMap;
+  }
+}
+
 
 /*
  * Add the given SBMLExtension to SBMLTypeCode_t element

@@ -228,7 +228,7 @@ private:
   // Constructor and Copy constructor must not be overridden.
   //
   SBMLExtensionRegistry() {};
-  SBMLExtensionRegistry(const SBMLExtensionRegistry&) {};
+  SBMLExtensionRegistry(const SBMLExtensionRegistry& orig);
 
   /** @cond doxygen-libsbml-internal */
  
