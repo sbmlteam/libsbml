@@ -121,6 +121,14 @@ by libSBML, only MacOSX systems commonly support fat binaries.
         default_OPTS="-arch i386 ${default_OPTS}"
       fi
 
+	  dnl In XCode 4.2 the directories above do not exist. So at  
+	  dnl least build 32/64 bit binaries. 
+	  dnl 
+	  if test "x$default_OPTS" == "x";
+	  then
+		default_OPTS="-arch i386 -arch x86_64"
+	  fi
+	  
       dnl Leaving this out, because I don't think there's any call for it,
       dnl instead it might just bite us one day.
       dnl
