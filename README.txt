@@ -379,8 +379,8 @@ included with the software distribution.  A copy is also
 available online at the Internet address
 http://sbml.org/software/libsbml/COPYING.html for your
 convenience.  You may also write to obtain a copy from the Free
-Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-MA 02111-1307 USA.
+Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301, USA.
 
 
 7. ACKNOWLEDGMENTS
