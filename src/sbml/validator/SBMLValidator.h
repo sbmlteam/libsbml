@@ -112,7 +112,7 @@ public:
    * 
    * @return a list of failures logged during validation.
    */
-  const std::list<SBMLError>& getFailures () const;
+  const std::vector<SBMLError>& getFailures () const;
 
 
   /**
@@ -176,6 +176,26 @@ public:
    */
   Model* getModel ();
 
+  /** 
+   * Returns the local number of failures
+   * 
+   * This method returns the number of failures logged by this validator 
+   * (that is it does not include the number of the documents error log).
+   *
+   * @return the number of errors logged by this validator. 
+   */
+  unsigned int getNumFailures() const;
+
+  /** 
+   * Returns the failure at the given index. 
+   *
+   * @param n the zero based index of failures
+   * 
+   * @return the failure at the given index
+   */
+  SBMLError* getFailure (unsigned int n) const;
+
+
 #ifndef SWIG
 
 #endif // SWIG
@@ -184,7 +204,7 @@ public:
 
 protected:
   /** @cond doxygen-libsbml-internal */
-  std::list<SBMLError>  mFailures;
+  std::vector<SBMLError>  mFailures;
   SBMLDocument *   mDocument;
   friend class SBMLDocument;
   /** @endcond doxygen-libsbml-internal */

@@ -173,6 +173,14 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore XMLErrorLog::add(const std::list<XMLError>& errors);
 %ignore SBMLErrorLog::add(const std::list<SBMLError>& errors);
 
+/** 
+ * Ignore methods from SBML Validator that can't be wrapped
+ */
+%ignore SBMLValidator::getFailures;
+%ignore SBMLExternalValidator::getArguments;
+%ignore SBMLExternalValidator::setArguments;
+
+
 /**
  * Ignore 'static ParentMap mParent;' in SBO.h
  */

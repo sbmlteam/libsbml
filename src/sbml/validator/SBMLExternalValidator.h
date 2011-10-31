@@ -133,6 +133,19 @@ public:
    */
   void addArgument(std::string arg);
 
+  /** 
+   * @return the number of arguments. 
+   */
+  unsigned int getNumArguments() const;
+
+  /** 
+   * Returns the argument for the given index. 
+   * 
+   * @param n the zero based index of the argument. 
+   *
+   * @return the argument at the given index. 
+   */
+  std::string getArgument(unsigned int n) const;
 
   /**
    * @return all arguments

@@ -236,7 +236,7 @@ int getSeverity(string severity)
   return LIBSBML_SEV_NOT_APPLICABLE;
 }
 
-void parseResultFile(std::string &mOutputFileName, std::list<SBMLError>& errors)
+void parseResultFile(std::string &mOutputFileName, std::vector<SBMLError>& errors)
 {
   XMLInputStream stream (mOutputFileName.c_str());  
 
@@ -332,6 +332,20 @@ SBMLExternalValidator::validate()
 
   return (unsigned int)mFailures.size();
 }
+
+unsigned int 
+SBMLExternalValidator::getNumArguments() const
+{
+  return (unsigned int)mArguments.size();
+}
+
+std::string 
+SBMLExternalValidator::getArgument(unsigned int n) const
+{
+  return (n < mArguments.size()) ? mArguments[n] : "";
+}
+
+
 
 /** @cond doxygen-c-only */
 

@@ -140,6 +140,21 @@ SBMLErrorLog::add (const std::list<SBMLError>& errors)
     XMLErrorLog::add( *iter );
 }
 
+/*
+ * Logs (copies) the SBMLErrors in the given SBMLError vector to this
+ * SBMLErrorLog.
+ *
+ * @param errors vector, a vector of SBMLError to be added to the log.
+ */
+void
+SBMLErrorLog::add (const std::vector<SBMLError>& errors)
+{
+  vector<SBMLError>::const_iterator end = errors.end();
+  vector<SBMLError>::const_iterator iter;
+
+  for (iter = errors.begin(); iter != end; ++iter)
+    XMLErrorLog::add( *iter );
+}
 
 /*
  * Helper class used by SBMLErrorLog::remove.

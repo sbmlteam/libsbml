@@ -77,6 +77,8 @@
 
 #ifdef __cplusplus
 
+#include <vector>
+
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN SBMLErrorLog : public XMLErrorLog
@@ -199,6 +201,13 @@ public:
    */
   void add (const std::list<SBMLError>& errors);
 
+  /**
+   * Adds (copies) the SBMLErrors in the given SBMLError vector to this
+   * SBMLErrorLog.
+   *
+   * @param errors vector, a vector of SBMLError to be added to the log.
+   */
+  void add (const std::vector<SBMLError>& errors);
 
   /**
    * Removes an error having errorId from the SBMLError list.

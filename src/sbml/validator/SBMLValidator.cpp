@@ -143,7 +143,7 @@ SBMLValidator::clearFailures ()
 /*
  * @return a list of failures logged during validation.
  */
-const std::list<SBMLError>&
+const std::vector<SBMLError>&
 SBMLValidator::getFailures () const
 {
   return mFailures;
@@ -233,6 +233,17 @@ SBMLValidator::validate()
 }
   
 
+SBMLError*
+SBMLValidator::getFailure (unsigned int n) const
+{
+  return (n < mFailures.size()) ? mFailures[n].clone() : NULL;
+}
+
+unsigned int
+SBMLValidator::getNumFailures() const
+{
+  return (unsigned int) mFailures.size();
+}
   
 /** @cond doxygen-c-only */
 
