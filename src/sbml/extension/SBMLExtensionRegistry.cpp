@@ -35,6 +35,8 @@
 
 #ifdef __cplusplus
 
+#include <sbml/validator/constraints/IdList.h>
+
 using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -300,35 +302,42 @@ SBMLExtensionRegistry::getRegisteredPackageNames()
   SBMLExtensionRegistry instance = getInstance();
   SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
   List* result = new List();
+  IdList  * present = new IdList();
   while (it != instance.mSBMLExtensionMap.end())
   {    
-    result->add(safe_strdup((*it).second->getName().c_str()));
+    if (present->contains((*it).second->getName().c_str()) == false)
+    {
+      result->add(safe_strdup((*it).second->getName().c_str()));
+      present->append(safe_strdup((*it).second->getName().c_str()));
+    }
     it++;
   }
+  delete present;
   return result;
 }
 
 unsigned int 
 SBMLExtensionRegistry::getNumRegisteredPackages()
 {
-  SBMLExtensionRegistry instance = getInstance();
-  return (unsigned int)instance.mSBMLExtensionMap.size();
+  return (unsigned int) getRegisteredPackageNames()->getSize();
+  //SBMLExtensionRegistry instance = getInstance();
+  //return (unsigned int)instance.mSBMLExtensionMap.size();
 }
 
 
 std::string
 SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
 {
-  SBMLExtensionRegistry instance = getInstance();
-  SBMLExtensionMap::const_iterator it = instance.mSBMLExtensionMap.begin();
-  unsigned int count = 0;
-  while (it != instance.mSBMLExtensionMap.end())
-  {   
-    if (count == index) return (*it).second->getName();
-    count++;
-    it++;
-  }
-  return NULL;
+  char * name = (char *) (getRegisteredPackageNames()->get(index));
+  return string(name);
+  //if (index > packages->getSize()
+  //while (it != instance.mSBMLExtensionMap.end())
+  //{   
+  //  if (count == index) return (*it).second->getName();
+  //  count++;
+  //  it++;
+  //}
+  //return NULL;
 }
 
 
