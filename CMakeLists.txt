@@ -149,6 +149,13 @@ if(WITH_WALL)
     endif()
 endif()
 
+# When allocation of memory fails or the libSBML C API is unable to open
+# a file, libSBML can exit the current process. By default this behavior 
+# is disabled. 
+#
+option (EXIT_ON_ERROR "Call exit(-1) in case of allocation or file error." OFF)
+mark_as_advanced(EXIT_ON_ERROR)
+
 # Enable the generation of unit tests. If enabled, all test runners 
 # will be created and can be run with "make test" or ctest.
 # This won't work in Visual Studio 2003, so we disable this option there.

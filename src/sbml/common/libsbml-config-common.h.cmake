@@ -93,3 +93,7 @@
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
 #cmakedefine WORDS_BIGENDIAN 1
+
+/* Define to allow the c-functions in util.c and memory.c exit the 
+   application in case of an allocation / file system error. */
+#cmakedefine EXIT_ON_ERROR 1
