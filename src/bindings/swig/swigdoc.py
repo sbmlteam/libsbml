@@ -649,6 +649,14 @@ def translateClassRefCSharp (match):
 
 
 
+def rewriteList (match):
+  lead = match.group(1);
+  list = match.group(2);
+  list = re.sub(r'@li\b', '<li>', list)
+  return lead + "<ul>\n" + lead + list + "\n" + lead + "</ul>"
+
+
+
 def sanitizeForHTML (docstring):
   """sanitizeForHTML (docstring) -> docstring
 
@@ -742,9 +750,12 @@ def sanitizeForHTML (docstring):
   docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'<em>\1</em>', docstring)
   docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1<em>\2</em>', docstring)
 
-  docstring = re.sub(r'@li\b', '<li>', docstring)
+  # Convert @li into <li>, but also add <ul> ... </ul>.  This is a bit
+  # simple-minded (I suppose like most of this code), but ought to work
+  # for the cases we use in practice.
 
-  docstring = re.sub(r'\s*\Z', '\n', docstring)
+  p = re.compile('^(\s+\*\s+)(@li\s+.*?)\s+\*\s+(\*/|@(?!li\s)|<p>)', re.MULTILINE|re.DOTALL)
+  docstring = p.sub(rewriteList, docstring)
 
   # Doxygen automatically cross-references class names in text to the class
   # definition page, but Javadoc does not.  Rather than having to put in a
