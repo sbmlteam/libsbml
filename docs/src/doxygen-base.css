@@ -54,6 +54,7 @@ tr.TableRowColor td {
   border: none;
   border-bottom: 1px solid #bbb;
   vertical-align: top;
+  padding-top: 4px;
 } 
 
 tr.TableRowColor td code {
@@ -65,6 +66,10 @@ tr.TableRowColor td code {
 
 table {
   margin-top: 2em;
+}
+
+table[summary] {
+  margin-top: 0;
 }
 
 td.NavBarCell1,
@@ -90,7 +95,7 @@ font.NavBarFont1Rev {
 
 td[align="right"] {
   background-color: #eee;  
-  vertical-align: middle;
+  vertical-align: bottom;
   padding: 5px;
 }
 
@@ -103,7 +108,7 @@ tr.TableHeadingColor th {
   background-color: #ddd;
   line-height: 150%;
   border-bottom: 1px solid #aaa;
-  border-top: 2px solid #888;
+  border-top: 3px solid #888;
   border-left: none;
   border-right: none;
 }
