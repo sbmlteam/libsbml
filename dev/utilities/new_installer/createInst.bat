@@ -6,7 +6,8 @@ REM 2011/02/26 Frank Bergmann
 REM
 
 SET COMPILER=C:\Program Files (x86)\Inno Setup 5\ISCC.exe
-SET DROP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist
+REM SET DROP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist
+SET DROP_DIR=C:\Development\libsbml-dist
 
 REM ensure visual studio is in the path
 if "%INCLUDE%"=="" call vs10.bat

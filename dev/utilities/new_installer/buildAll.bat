@@ -15,7 +15,8 @@ SET LIBSBML_ROOT=%BASE_DIR%\..\..\..\
 REM if set to a directory, zip files will be produced
 REM and copied into it. To disable simply comment out 
 REM the next line.
-SET ZIP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist\cmake-static-release
+REM SET ZIP_DIR=C:\Users\fbergmann\Documents\My Dropbox\libsbml-dist\cmake-static-release
+SET ZIP_DIR=C:\Development\libsbml-dist
 
 
 cd  /d %BASE_DIR%

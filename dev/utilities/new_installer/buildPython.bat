@@ -76,7 +76,7 @@ copy /Y "%LIBSBML_ROOT%\src\bindings\swig\OStream.h" %SOURCE_32%\
 copy /Y "%LIBSBML_ROOT%\src\bindings\swig\OStream.cpp" %SOURCE_32%\
 
 copy /Y "%LIBSBML_ROOT%\src\bindings\python\*.cpp" %SOURCE_32%\
-copy /Y "%BUILD_DIR_32_BIT%\src\bindings\python\libsbml_wrap.cpp" %SOURCE_32%\
+copy /Y "%BUILD_DIR_32_BIT%\src\bindings\python\libsbml_wrap.*" %SOURCE_32%\
 copy /Y "%BUILD_DIR_32_BIT%\src\bindings\python\libsbml.py" libsbml\__init__.py
 
 copy /Y "%WIN_INST_DIR%\python\CMakeLists.txt" %SOURCE_32%

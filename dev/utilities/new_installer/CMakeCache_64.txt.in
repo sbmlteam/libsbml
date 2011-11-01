@@ -296,6 +296,9 @@ WITH_JAVA:BOOL=ON
 //Enable SBML Layout package
 ENABLE_LAYOUT:BOOL=ON
 
+//Hierarchical Composition
+ENABLE_COMP:BOOL=OFF
+
 //Use libxml XML parser
 WITH_LIBXML:BOOL=ON
 

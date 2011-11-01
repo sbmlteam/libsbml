@@ -8,7 +8,7 @@ SET INST_BASE_DIR=%~dp0
 SET LIBSBML_ROOT=%INST_BASE_DIR%\..\..\..\
 SET DEPENDENCIES_32_BIT=%LIBSBML_ROOT%\dependencies_32_static
 SET MATLAB_INSTALLER_DIR=%INST_BASE_DIR%\matlab\Output
-
+SET VERSION=5.2.0
 
 REM the installation directory as created by a cmake installation
 SET INSTALL_DIR=c:\32bit
@@ -285,9 +285,9 @@ rem bindings/python directory
 
 cd python
 
-copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.1.0b0.win32-py2.5.exe" libSBML-5.1.0b0-win-py2.5-x86.exe
-copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.1.0b0.win32-py2.6.exe" libSBML-5.1.0b0-win-py2.6-x86.exe
-copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-5.1.0b0.win32-py2.7.exe" libSBML-5.1.0b0-win-py2.7-x86.exe
+copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-%VERSION%.win32-py2.5.exe" libSBML-%VERSION%-win-py2.5-x86.exe
+copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-%VERSION%.win32-py2.6.exe" libSBML-%VERSION%-win-py2.6-x86.exe
+copy /y "%INSTALL_DIR%\bindings\python\src\dist\libsbml-%VERSION%.win32-py2.7.exe" libSBML-%VERSION%-win-py2.7-x86.exe
 if "%DROP_DIR%" == "" goto DONE_COPYING
 copy /Y *.exe "%DROP_DIR%"
 

@@ -290,6 +290,9 @@ WITH_EXPAT:BOOL=OFF
 //Enable SBML Layout package
 ENABLE_LAYOUT:BOOL=ON
 
+//Hierarchical Composition
+ENABLE_COMP:BOOL=OFF
+
 //Generate Java bindings
 WITH_JAVA:BOOL=ON
 
