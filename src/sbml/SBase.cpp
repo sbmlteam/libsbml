@@ -167,6 +167,36 @@ SBase::getElementFromPluginsByMetaId(std::string metaid)
 /** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
+bool SBase::hasNonstandardIdentifierBeginningWith(const std::string& prefix)
+{
+  return false;
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+int 
+SBase::prependStringToAllIdentifiers(const std::string& prefix)
+{
+  int ret;
+  if (isSetId()) {
+    ret = setId(prefix + getId());
+    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  }
+  if (isSetMetaId()) {
+    ret = setMetaId(prefix + getMetaId());
+    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  }
+  for (unsigned int p=0; p<getNumPlugins(); p++) {
+    ret = getPlugin(p)->prependStringToAllIdentifiers(prefix);
+    if (ret != LIBSBML_OPERATION_SUCCESS) return ret;
+  }
+  return LIBSBML_OPERATION_SUCCESS;
+}
+  /** @endcond */
+  
+
 List*
 SBase::getAllElementsFromPlugins()
 {
@@ -2572,12 +2602,36 @@ SBase::getPlugin(const std::string& package) const
 }
 
 
+SBasePlugin* 
+SBase::getPlugin(unsigned int n)
+{
+  if (n>=getNumPlugins()) return NULL;
+  return mPlugins[n];
+}
+
+
+/*
+ * Returns a plugin object (extenstion interface) of package extension
+ * with the given package name or URI.
+ *
+ * @param package the name or URI of the package
+ *
+ * @return the plugin object of package extension with the given package
+ * name or URI. 
+ */
+const SBasePlugin* 
+SBase::getPlugin(unsigned int n) const
+{
+  return const_cast<SBase*>(this)->getPlugin(n);
+}
+
+
 /*
  * Returns the number of plugin objects of package extensions.
  *
  * @return the number of plugin objects of package extensions.
  */
-int 
+unsigned int 
 SBase::getNumPlugins() const
 {
   return (int)mPlugins.size();

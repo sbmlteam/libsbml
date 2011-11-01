@@ -606,6 +606,21 @@ public:
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
 
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Check to see if the given prefix is used by any of the IDs defined by extension elements.  A package that defines its own 'id' attribute for a core element would check that attribute here.
+   */
+  virtual bool hasIdentifierBeginningWith(const std::string& prefix);
+  /** @endcond */
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Add the given string to all identifiers in the object.  If the string is added to anything other than an id or a metaid, this code is responsible for tracking down and renaming all *idRefs in the package extention that identifier comes from.
+   */
+  virtual int prependStringToAllIdentifiers(const std::string& prefix);
+  /** @endcond */
+  
+
 
 protected:
   /** @cond doxygen-libsbml-internal */

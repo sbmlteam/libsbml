@@ -286,7 +286,22 @@ public:
   virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
   /** @endcond */
   
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Check to see if the given prefix is used by any of the IDs defined by extension elements *excluding* 'id' and 'metaid' attributes (as, for example, the spatial id attributes 'spid').
+   */
+  virtual bool hasNonstandardIdentifierBeginningWith(const std::string& prefix);
+  /** @endcond */
+
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Add the given string to all identifiers in the object.  If the string is added to anything other than an id or a metaid, this code is responsible for tracking down and renaming all *idRefs in the package extention that identifier comes from.
+   */
+  virtual int prependStringToAllIdentifiers(const std::string& prefix);
+  /** @endcond */
   
+
   /**
    * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
    *
@@ -2426,13 +2441,33 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
   /**
+   * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
+   * package extension.
+   *
+   * @return the plugin object (the libSBML extension interface) of
+   * a package extension with the given package name or URI.
+   */
+  SBasePlugin* getPlugin(unsigned int n);
+
+
+  /**
+   * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
+   * package extension.
+   *
+   * @return the plugin object (the libsbml extension interface) of a
+   * package extension with the given package name or URI.
+   */
+  const SBasePlugin* getPlugin(unsigned int n) const;
+
+
+  /**
    * Returns the number of plugin objects (extenstion interfaces) for SBML
    * Level&nbsp;3 package extensions known.
    *
    * @return the number of plugin objects (extension interfaces) of
    * package extensions known by this instance of libSBML.
    */
-  int getNumPlugins() const;
+  unsigned int getNumPlugins() const;
 
 
   /**
