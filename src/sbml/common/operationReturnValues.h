@@ -177,27 +177,30 @@ typedef enum
     * -------------------------------------------------------------------------- */
 
   , LIBSBML_CONV_INVALID_TARGET_NAMESPACE  = -30
-    /*!< The target namespace is not a valid SBML namespace. 
-     * This error is typically returned when a conversion routine has been  
-     * passed an invalid target namespace. The function isValidCombination on
-     * the SBMLNamespaces class may be useful in avoiding this error.
+    /*!< The target namespace is not a valid SBML namespace. while
+     * attempting to convert the SBML document using
+     * SBMLLevelVersionConverter::convert() or related methods, the target
+     * namespace has been found to be invalid or unset.  (The function
+     * {@link SBMLNamespaces#isValidCombination()} may be useful in
+     * detecting this situation and preventing the error.)
      */
 
   , LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE = -31
-    /*!< Conversions involving packages are not available in the specified routine. 
-     * This error is typically returned when calling a converter that does not
-     * have the functionality to deal with packages. To avoid this error, ensure 
-     * that Conversion Properties requested specify packages.
+    /*!< Conversions involving packages are not available in the specified
+     * routine. This error is typically returned when calling a converter
+     * that does not have the functionality to deal with SBML Level&nbsp;3
+     * packages. To avoid this error, ensure that the requested
+     * ConversionProperties specifies packages.
      */
 
   , LIBSBML_CONV_INVALID_SRC_DOCUMENT = -32
-    /*!< The document on which conversion is requested is not sufficiently valid
-     * for the requested conversion to be performed. 
-     * This error is typically returned when a conversion routine has been  
-     * passed an invalid target document or the conversion requires a certain
-     * level of validity that is not present in the document. To avoid this
-     * error use the checkConsisitency function to find and resolve errors
-     * before passing the document for conversion.
+    /*!< The document on which conversion is being requested is invalid and
+     * the requested conversion cannot be performed. This error is
+     * typically returned when a conversion routine has been given an
+     * invalid target document or the conversion requires a certain degree
+     * of validity that is not present in the document. To avoid this
+     * error, use the SBMLDocument::checkConsistency() function to find and
+     * resolve errors before passing the document to a conversion method.
      */
 
   , LIBSBML_CONV_CONVERSION_NOT_AVAILABLE = -33
