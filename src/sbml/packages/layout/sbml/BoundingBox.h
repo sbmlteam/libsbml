@@ -408,7 +408,7 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI, 
                                      const std::string& pkgPrefix, bool flag);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
     
 protected:
   /**

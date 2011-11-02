@@ -208,7 +208,7 @@ public:
 
   static void init();
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 };
 

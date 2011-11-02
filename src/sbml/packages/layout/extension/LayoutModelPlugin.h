@@ -135,7 +135,7 @@ public:
    */
   virtual bool hasRequiredElements() const ;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif
 
@@ -311,7 +311,7 @@ public:
    */
   virtual void enablePackageInternal(const std::string& pkgURI,
                                      const std::string& pkgPrefix, bool flag);
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 protected:
@@ -321,7 +321,7 @@ protected:
 
   ListOfLayouts mLayouts;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
