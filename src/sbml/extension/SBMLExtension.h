@@ -524,7 +524,7 @@ public:
 /** @cond doxygen-libsbml-internal */
   typedef std::vector<std::string>           SupportedPackageURIList;
   typedef std::vector<std::string>::iterator SupportedPackageURIListIter;
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
   //
   //  (NOTICE) 
@@ -841,7 +841,7 @@ protected:
   SupportedPackageURIList              mSupportedPackageURI;
   std::vector<SBasePluginCreatorBase*> mSBasePluginCreators;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 private:
@@ -849,7 +849,7 @@ private:
 
   friend class SBMLExtensionRegistry;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

@@ -199,7 +199,7 @@ public:
     mPackageVersion = pkgVersion;
   }
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 #endif //SWIG
 
 
@@ -209,7 +209,7 @@ protected:
   unsigned int mPackageVersion;
   const std::string& mPackageName;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

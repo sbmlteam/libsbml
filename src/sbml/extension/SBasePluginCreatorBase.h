@@ -124,7 +124,7 @@ protected:
   SupportedPackageURIList  mSupportedPackageURI;
   SBaseExtensionPoint       mTargetExtensionPoint;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 private:
@@ -132,7 +132,7 @@ private:
   
   SBasePluginCreatorBase& operator=(const SBasePluginCreatorBase&);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

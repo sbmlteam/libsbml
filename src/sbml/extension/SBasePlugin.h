@@ -449,7 +449,7 @@ public:
   virtual void writeXMLNS (XMLOutputStream& stream) const;
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif // SWIG
 
@@ -516,7 +516,7 @@ public:
   virtual bool stripPackage(const std::string& pkgPrefix, bool flag);
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
   // ----------------------------------------------------------
 
@@ -719,7 +719,7 @@ protected:
   //
   std::string          mPrefix;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

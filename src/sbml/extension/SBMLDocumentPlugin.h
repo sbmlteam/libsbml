@@ -124,7 +124,7 @@ public:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 #endif //SWIG
 
@@ -171,7 +171,7 @@ protected:
 
   bool mRequired;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 };
 

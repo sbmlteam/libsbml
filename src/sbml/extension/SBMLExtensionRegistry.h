@@ -246,7 +246,7 @@ private:
   template <class SBMLExtensionType> friend class SBMLExtensionNamespaces;
   template<class SBasePluginType, class SBMLExtensionType> friend class SBasePluginCreator;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
