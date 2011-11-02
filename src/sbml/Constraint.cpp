@@ -329,7 +329,7 @@ Constraint::replaceSIDWithFunction(const std::string& id, const ASTNode* functio
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /*
  * @return the typecode (int) of this SBML object or SBML_UNKNOWN

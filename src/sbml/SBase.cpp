@@ -150,7 +150,7 @@ SBase::getElementFromPluginsBySId(std::string id)
   }
   return NULL;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -164,7 +164,7 @@ SBase::getElementFromPluginsByMetaId(std::string metaid)
   }
   return NULL;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -172,7 +172,7 @@ bool SBase::hasNonstandardIdentifierBeginningWith(const std::string& prefix)
 {
   return false;
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -673,7 +673,7 @@ void
 SBase::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
 {
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*
@@ -683,7 +683,7 @@ void
 SBase::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function)
 {
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 void *
 SBase::getUserData() const

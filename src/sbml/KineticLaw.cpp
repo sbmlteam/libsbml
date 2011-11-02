@@ -1182,7 +1182,7 @@ KineticLaw::replaceSIDWithFunction(const std::string& id, const ASTNode* functio
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 void 
@@ -1197,7 +1197,7 @@ KineticLaw::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNod
     mMath->addChild(function->deepCopy());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*

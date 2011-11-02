@@ -411,7 +411,7 @@ Trigger::replaceSIDWithFunction(const std::string& id, const ASTNode* function)
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*

@@ -56,7 +56,7 @@ public:
 private:
   std::string mSBMLErrMsg;
 };
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 LIBSBML_CPP_NAMESPACE_END
 

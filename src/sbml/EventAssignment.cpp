@@ -454,7 +454,7 @@ EventAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* fu
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 void 
@@ -467,7 +467,7 @@ EventAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const A
     mMath->addChild(function->deepCopy());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*

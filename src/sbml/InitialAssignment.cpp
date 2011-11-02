@@ -449,7 +449,7 @@ InitialAssignment::replaceSIDWithFunction(const std::string& id, const ASTNode* 
     }
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 void 
@@ -462,7 +462,7 @@ InitialAssignment::divideAssignmentsToSIdByFunction(const std::string& id, const
     mMath->addChild(function->deepCopy());
   }
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 /*

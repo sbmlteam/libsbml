@@ -259,7 +259,7 @@ SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
 
 
 #endif
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /*
@@ -461,7 +461,7 @@ SBMLDocument::getApplicableValidators() const
   
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -474,7 +474,7 @@ SBMLDocument::getConversionValidators() const
   return mInternalValidator->getConversionValidators();
 #endif
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -488,7 +488,7 @@ SBMLDocument::setApplicableValidators(unsigned char appl)
 #endif
 
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /** @cond doxygen-libsbml-internal */
@@ -501,7 +501,7 @@ SBMLDocument::setConversionValidators(unsigned char appl)
   return mInternalValidator->setConversionValidators(appl);
 #endif
 }
-/** @endcond doxygen-libsbml-internal */
+/** @endcond */
 
 
 /* 
