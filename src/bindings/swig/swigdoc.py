@@ -780,8 +780,14 @@ def sanitizeForHTML (docstring):
   elif language == 'java':
     docstring = p.sub(translateJavaCrossRef, docstring)
 
-  # Take out any left-over quotes, because Javadoc doesn't have the %foo
-  # quoting mechanism.
+  # Clean-up step needed because some of the procedures above are imperfect.
+  # This converts " * * @foo" lines into " * @foo":
+
+  p = re.compile('^(\s+)\*\s+\*\s+@', re.MULTILINE)
+  docstring = p.sub(r'\1* @', docstring)
+
+  # Take out any left-over Doxygen-style quotes, because Javadoc doesn't have
+  # the %foo quoting mechanism.
 
   docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
 
