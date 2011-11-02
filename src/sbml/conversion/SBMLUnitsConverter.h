@@ -54,7 +54,7 @@ public:
   typedef GlobalUnits::iterator                  GlobalUnitsIter;
 #endif
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -187,7 +187,7 @@ private:
 
   GlobalUnits mGlobalUnits;
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 };

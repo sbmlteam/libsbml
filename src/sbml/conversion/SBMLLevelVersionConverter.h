@@ -64,7 +64,7 @@ public:
   /* register with the ConversionRegistry */
   static void init();  
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -168,7 +168,7 @@ private:
 
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 };

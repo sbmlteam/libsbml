@@ -50,7 +50,7 @@ public:
   /* register with the ConversionRegistry */
   static void init();  
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -124,7 +124,7 @@ private:
   std::string getPackageToStrip();
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 };

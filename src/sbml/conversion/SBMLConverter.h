@@ -146,14 +146,14 @@ protected:
   ConversionProperties *mProps;
 
   friend class SBMLDocument;
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 private:
   /** @cond doxygen-libsbml-internal */
 
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

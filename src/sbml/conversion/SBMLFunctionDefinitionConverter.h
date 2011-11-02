@@ -51,7 +51,7 @@ public:
   /* register with the ConversionRegistry */
   static void init();  
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -103,7 +103,7 @@ private:
 
   bool expandFD_errors(unsigned int errors);
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 };
