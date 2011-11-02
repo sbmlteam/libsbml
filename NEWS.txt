@@ -68,6 +68,8 @@ Version 5.2.0 (Coming soon)
   - The UnitDefinition::isVariantOfMass() function was not checking that
     teh exponent of any unit was '1'.  This has been fixed.
         
+  - The postal address for the Free Software Foundation was out of
+    date in all files where it was mentioned.  Fixed.
 
 * Miscellaneous
 
