@@ -404,7 +404,7 @@ public:
   /** @cond doxygen-libsbml-internal */
   
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
   /**
@@ -441,7 +441,7 @@ protected:
 private:
   /** @cond doxygen-libsbml-internal */
 
-  /** @endcond doxygen-libsbml-internal */
+  /** @endcond */
 
 
 };
