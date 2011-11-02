@@ -40,7 +40,11 @@ function buildLibSBMLOctave(varargin)
 
   matlab_dir = [root, filesep, 'src', filesep, 'bindings', filesep, 'matlab'];
   copyMatlabDir(matlab_dir, pwd);
-  buildSBML(varargin);
+  if (nargin == 0)
+    buildSBML()
+  else 
+    buildSBML(varargin);
+  end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % check what we are using
