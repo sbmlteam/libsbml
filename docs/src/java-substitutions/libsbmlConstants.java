@@ -22,7 +22,7 @@ public interface libsbmlConstants
     /**
      * A version string of the form "1.2.3".
      */
-    public final static String LIBSBML_DOTTED_VERSION = "4.2.0";
+    public final static String LIBSBML_DOTTED_VERSION = "5.2.0";
 
 
     /**
@@ -31,13 +31,15 @@ public interface libsbmlConstants
      * libSBML is released, making it easy to use less-than and greater-than
      * comparisons when testing versions numbers.
      */
-    public final static int LIBSBML_VERSION = 40200;
+    public final static int LIBSBML_VERSION = 50200;
 
 
     /**
      * The numeric version as a string: version 1.2.3 becomes "10203".
      */
-    public final static String LIBSBML_VERSION_STRING = "40200";
+    public final static String LIBSBML_VERSION_STRING = "50200";
+
+
     // OperationReturnValues_t 
   
 
@@ -109,8 +111,8 @@ public interface libsbmlConstants
      * This code has the following meaning: The object passed as an
      * argument to the method is not of a type that is valid for the
      * operation or kind of object involved.  For example, handing an
-     * invalidly-constructed ASTNode to a method expecting an ASTNode will
-     * result in this error.
+     * invalidly-constructed {@link ASTNode} to a method expecting an
+     * {@link ASTNode} will result in this error.
      */
     public final static int LIBSBML_INVALID_OBJECT = -5;
   
@@ -166,6 +168,18 @@ public interface libsbmlConstants
 
 
     /**
+     * One of the possible libSBML operation return codes.
+     *
+     * This code has the following meaning: The operation attempt could not
+     * be performed because the object(s) involved have mismatched XML
+     * namespaces for SBML Level/Versions.  This typically means the
+     * properties of the {@link SBMLNamespaces} objects possessed by the
+     * SBML objects do not correspond in some way.
+     */
+    public final static int LIBSBML_NAMESPACE_MISMATCH = -10;
+
+
+    /**
      * One of the possible libSBML package operation return codes.
      *
      * This code has the following meaning: the Version of the package
@@ -184,10 +198,11 @@ public interface libsbmlConstants
      *
      * This code has the following meaning: the required package extension
      * is unknown. This error is typically returned when creating an object
-     * of SBase derived class with the required package, creating an object
-     * of SBMLNamespaces or its derived class with the required package, or
-     * invoking functions depending on the required package.  To avoid this
-     * error, the library of the required package needs to be linked.
+     * of {@link SBase} derived class with the required package, creating
+     * an object of {@link SBMLNamespaces} or its derived class with the
+     * required package, or invoking functions depending on the required
+     * package.  To avoid this error, the library of the required package
+     * needs to be linked.
      */
     public final static int LIBSBML_PKG_UNKNOWN           = -21;
 
@@ -197,11 +212,11 @@ public interface libsbmlConstants
      *
      * This code has the following meaning: The required version of the
      * package extension is unknown.  This error is typically returned when
-     * creating an object of SBase derived class with the required package,
-     * creating an object of SBMLNamespaces or its derived class with the
-     * required package, or invoking functions depending on the required
-     * package.  This error may be avoided by updating the library of the
-     * required package to be linked.
+     * creating an object of {@link SBase} derived class with the required
+     * package, creating an object of {@link SBMLNamespaces} or its derived
+     * class with the required package, or invoking functions depending on
+     * the required package.  This error may be avoided by updating the
+     * library of the required package to be linked.
      */
     public final static int LIBSBML_PKG_UNKNOWN_VERSION    = -22;
 
@@ -211,11 +226,11 @@ public interface libsbmlConstants
      *
      * This code has the following meaning: The required package extension
      * is disabled.  This error is typically returned when creating an
-     * object of SBase derived class with the required package, creating an
-     * object of SBMLNamespaces or its derived class with the required
-     * package, or invoking functions depending on the required package.
-     * To avoid this error, the library of the required package needs to be
-     * enabled.
+     * object of {@link SBase} derived class with the required package,
+     * creating an object of {@link SBMLNamespaces} or its derived class
+     * with the required package, or invoking functions depending on the
+     * required package.  To avoid this error, the library of the required
+     * package needs to be enabled.
      */
     public final static int LIBSBML_PKG_DISABLED            = -23;
 
@@ -227,10 +242,10 @@ public interface libsbmlConstants
      * package extension has already been enabled in the target SBase
      * object, or enabled in the model to/in which the target object to be
      * added/contained. This error is typically returned when adding an
-     * object of some SBase derived class with the required package to
-     * other SBase derived object, or when enabling the required package in
-     * the target object.  To avoid this error, the conflict of versions
-     * need to be avoided.
+     * object of some {@link SBase} derived class with the required package
+     * to other {@link SBase} derived object, or when enabling the required
+     * package in the target object.  To avoid this error, the conflict of
+     * versions need to be avoided.
      */
     public final static int LIBSBML_PKG_CONFLICTED_VERSION  = -24;
 
@@ -241,10 +256,60 @@ public interface libsbmlConstants
      * This code has the following meaning: another SBML package extension
      * for the same URI has already been registered. This error is
      * typically returned when adding a SBML package extension to the
-     * SBMLExtensionRegistry. To avoid this error, ensure that SBML package
-     * extensions are only registered once.
+     * {@link SBMLExtensionRegistry}. To avoid this error, ensure that SBML
+     * package extensions are only registered once.
      */
     public final static int LIBSBML_PKG_CONFLICT            = -25;
+
+
+    /**
+     * One of the possible libSBML package operation return codes.
+     *
+     * This code has the following meaning: while attempting to convert the
+     * SBML document using {@link SBMLLevelVersionConverter#convert()} or
+     * related methods, the target namespace has been found to be invalid
+     * or unset.  (The function {@link SBMLNamespaces#isValidCombination()}
+     * may be useful in detecting this situation and preventing the error.)
+     */
+    public final static int LIBSBML_CONV_INVALID_TARGET_NAMESPACE = -30;
+
+
+    /**
+     * One of the possible libSBML package operation return codes.
+     *
+     * This code has the following meaning: conversions involving SBML
+     * Level&nbsp;3 packages are not available in the given libSBML
+     * method. This error is typically returned when calling a converter
+     * that does not have the functionality to deal with SBML packages. To
+     * avoid this error, ensure that the requested {@link
+     * ConversionProperties} specifies packages.
+     */
+    public final static int LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE = -31;
+
+
+    /**
+     * One of the possible libSBML package operation return codes.
+     *
+     * This code has the following meaning: The document on which
+     * conversion is being requested is invalid and the requested
+     * conversion cannot be performed. This error is typically returned
+     * when a conversion routine has been given an invalid target document
+     * or the conversion requires a certain degree of validity that is not
+     * present in the document. To avoid this error use the {@link
+     * SBMLDocument#checkConsistency()} function to find and resolve errors
+     * before passing the document to a conversion method.
+     */
+    public final static int LIBSBML_CONV_INVALID_SRC_DOCUMENT = -32;
+
+
+    /**
+     * One of the possible libSBML package operation return codes.
+     *
+     * This code has the following meaning: conversion with the given
+     * properties is not yet available.
+     */
+    public final static int LIBSBML_CONV_CONVERSION_NOT_AVAILABLE = -33;
+
 
 
     // SBMLTypeCode_t 
@@ -1193,33 +1258,41 @@ public interface libsbmlConstants
   
 
     /**
+     * Character string storing the XML namespace URI for SBML Level&nbsp;1.
      */
     public final static String SBML_XMLNS_L1 = "http://www.sbml.org/sbml/level1";
   
 
     /**
+     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;1.
      */
     public final static String SBML_XMLNS_L2V1 = "http://www.sbml.org/sbml/level2";
   
 
     /**
+     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;2.
      */
     public final static String SBML_XMLNS_L2V2 = "http://www.sbml.org/sbml/level2/version2";
   
 
     /**
+     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;3.
      */
     public final static String SBML_XMLNS_L2V3 = "http://www.sbml.org/sbml/level2/version3";
   
 
     /**
+     * Character string storing the XML namespace URI for SBML Level&nbsp;2 Version&nbsp;4.
      */
     public final static String SBML_XMLNS_L2V4 = "http://www.sbml.org/sbml/level2/version4";
   
 
     /**
+     * Character string storing the XML namespace URI for SBML Level&nbsp;3 Version&nbsp;1 Core.
      */
     public final static String SBML_XMLNS_L3V1 = "http://www.sbml.org/sbml/level3/version1/core";
+
+
     // ASTNodeType_t 
   
 
@@ -4873,8 +4946,8 @@ public interface libsbmlConstants
      * meaning of this particular error code.
      */
     public final static int SBOTermNotUniversalInL2v2 = 93001;
-  
 
+  
     /**
      * A value in the enumeration of all the SBML error and warning codes
      * for objects of class {@link SBMLError}.  Please consult the
@@ -5241,6 +5314,15 @@ public interface libsbmlConstants
      * documentation for {@link SBMLError} for an explanation of the
      * meaning of this particular error code.
      */
+    public final static int UnrequiredPackagePresent = 99108;
+
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
     public final static int SubsUnitsAllowedInKL = 99127;
   
 
@@ -5378,6 +5460,33 @@ public interface libsbmlConstants
      */
     public final static int UndeclaredUnits = 99505;
   
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int UndeclaredTimeUnitsL3 = 99506;
+
+  
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int UndeclaredExtentUnitsL3 = 99507;
+  
+
+    /**
+     * A value in the enumeration of all the SBML error and warning codes
+     * for objects of class {@link SBMLError}.  Please consult the
+     * documentation for {@link SBMLError} for an explanation of the
+     * meaning of this particular error code.
+     */
+    public final static int UndeclaredObjectUnitsL3 = 99508;
+
 
     /**
      * A value in the enumeration of all the SBML error and warning codes
@@ -5675,10 +5784,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can only occur during attempted
-     * translation from one Level/Version of SBML to another.  This
-     * particular category applies to errors encountered while trying to
-     * convert a model to SBML Level&nbsp;2 Version&nbsp;1.
+     * This code has the following meaning: Category of errors that can
+     * only occur during attempted translation from one Level/Version of
+     * SBML to another.  This particular category applies to errors
+     * encountered while trying to convert a model to SBML Level&nbsp;2
+     * Version&nbsp;1.
      */
     public final static int LIBSBML_CAT_SBML_L2V1_COMPAT = LIBSBML_CAT_SBML_L1_COMPAT + 1;
   
@@ -5686,10 +5796,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can only occur during attempted
-     * translation from one Level/Version of SBML to another.  This
-     * particular category applies to errors encountered while trying to
-     * convert a model to SBML Level&nbsp;2 Version&nbsp;2.
+     * This code has the following meaning: Category of errors that can
+     * only occur during attempted translation from one Level/Version of
+     * SBML to another.  This particular category applies to errors
+     * encountered while trying to convert a model to SBML Level&nbsp;2
+     * Version&nbsp;2.
      */
     public final static int LIBSBML_CAT_SBML_L2V2_COMPAT = LIBSBML_CAT_SBML_L2V1_COMPAT + 1;
   
@@ -5697,10 +5808,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can occur while validating general SBML
-     * constructs.  With respect to the SBML specification, these concern
-     * failures in applying the validation rules numbered 2xxxx in the
-     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
+     * This code has the following meaning: Category of errors that can
+     * occur while validating general SBML constructs.  With respect to the
+     * SBML specification, these concern failures in applying the
+     * validation rules numbered 2xxxx in the Level&nbsp;2 Versions&nbsp;2
+     * and&nbsp;3 specifications.
      */
     public final static int LIBSBML_CAT_GENERAL_CONSISTENCY = LIBSBML_CAT_SBML_L2V2_COMPAT + 1;
   
@@ -5708,10 +5820,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can occur while validating symbol
-     * identifiers in a model.  With respect to the SBML specification,
-     * these concern failures in applying the validation rules numbered
-     * 103xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
+     * This code has the following meaning: Category of errors that can
+     * occur while validating symbol identifiers in a model.  With respect
+     * to the SBML specification, these concern failures in applying the
+     * validation rules numbered 103xx in the Level&nbsp;2 Versions&nbsp;2
+     * and&nbsp;3 specifications.
      */
     public final static int LIBSBML_CAT_IDENTIFIER_CONSISTENCY = LIBSBML_CAT_GENERAL_CONSISTENCY + 1;
   
@@ -5719,11 +5832,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can occur while validating the units of
-     * measurement on quantities in a model.  With respect to the SBML
-     * specification, these concern failures in applying the validation
-     * rules numbered 105xx in the Level&nbsp;2 Versions&nbsp;2 and&nbsp;3
-     * specifications.
+     * This code has the following meaning: Category of errors that can
+     * occur while validating the units of measurement on quantities in a
+     * model.  With respect to the SBML specification, these concern
+     * failures in applying the validation rules numbered 105xx in the
+     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
      */
     public final static int LIBSBML_CAT_UNITS_CONSISTENCY = LIBSBML_CAT_IDENTIFIER_CONSISTENCY + 1;
   
@@ -5731,10 +5844,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can occur while validating MathML formulas
-     * in a model.  With respect to the SBML specification, these concern
-     * failures in applying the validation rules numbered 102xx in the
-     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
+     * This code has the following meaning: Category of errors that can
+     * occur while validating MathML formulas in a model.  With respect to
+     * the SBML specification, these concern failures in applying the
+     * validation rules numbered 102xx in the Level&nbsp;2 Versions&nbsp;2
+     * and&nbsp;3 specifications.
      */
     public final static int LIBSBML_CAT_MATHML_CONSISTENCY = LIBSBML_CAT_UNITS_CONSISTENCY + 1;
   
@@ -5742,10 +5856,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can occur while validating SBO identifiers
-     * in a model.  With respect to the SBML specification, these concern
-     * failures in applying the validation rules numbered 107xx in the
-     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
+     * This code has the following meaning: Category of errors that can
+     * occur while validating SBO identifiers in a model.  With respect to
+     * the SBML specification, these concern failures in applying the
+     * validation rules numbered 107xx in the Level&nbsp;2 Versions&nbsp;2
+     * and&nbsp;3 specifications.
      */
     public final static int LIBSBML_CAT_SBO_CONSISTENCY = LIBSBML_CAT_MATHML_CONSISTENCY + 1;
   
@@ -5753,10 +5868,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Error in the system of equations in the model: the system is
-     * overdetermined, therefore violating a tenet of proper SBML.  With
-     * respect to the SBML specification, this is validation rule #10601 in
-     * the SBML Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
+     * This code has the following meaning: Error in the system of
+     * equations in the model: the system is overdetermined, therefore
+     * violating a tenet of proper SBML.  With respect to the SBML
+     * specification, this is validation rule #10601 in the SBML
+     * Level&nbsp;2 Versions&nbsp;2 and&nbsp;3 specifications.
      */
     public final static int LIBSBML_CAT_OVERDETERMINED_MODEL = LIBSBML_CAT_SBO_CONSISTENCY + 1;
   
@@ -5764,10 +5880,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can only occur during attempted
-     * translation from one Level/Version of SBML to another.  This
-     * particular category applies to errors encountered while trying to
-     * convert a model to SBML Level&nbsp;2 Version&nbsp;3.
+     * This code has the following meaning: Category of errors that can
+     * only occur during attempted translation from one Level/Version of
+     * SBML to another.  This particular category applies to errors
+     * encountered while trying to convert a model to SBML Level&nbsp;2
+     * Version&nbsp;3.
      */
     public final static int LIBSBML_CAT_SBML_L2V3_COMPAT = LIBSBML_CAT_OVERDETERMINED_MODEL + 1;
   
@@ -5775,9 +5892,10 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of warnings about recommended good practices involving
-     * SBML and computational modeling.  (These are tests performed by
-     * libSBML and do not have equivalent SBML validation rules.)
+     * This code has the following meaning: Category of warnings about
+     * recommended good practices involving SBML and computational
+     * modeling.  (These are tests performed by libSBML and do not have
+     * equivalent SBML validation rules.)
      */
     public final static int LIBSBML_CAT_MODELING_PRACTICE = LIBSBML_CAT_SBML_L2V3_COMPAT + 1;
   
@@ -5785,10 +5903,10 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can occur while validating libSBML's 
-     * internal representation of SBML constructs. (These are tests 
-     * performed by libSBML and do not have equivalent SBML validation 
-     * rules.)
+     * This code has the following meaning: Category of errors that can
+     * occur while validating libSBML's internal representation of SBML
+     * constructs. (These are tests performed by libSBML and do not have
+     * equivalent SBML validation rules.)
      */
     public final static int LIBSBML_CAT_INTERNAL_CONSISTENCY = LIBSBML_CAT_MODELING_PRACTICE + 1;
   
@@ -5796,10 +5914,11 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:      Category of errors that can only occur during attempted
-     * translation from one Level/Version of SBML to another.  This
-     * particular category applies to errors encountered while trying to
-     * convert a model to SBML Level&nbsp;2 Version&nbsp;4.
+     * This code has the following meaning: Category of errors that can
+     * only occur during attempted translation from one Level/Version of
+     * SBML to another.  This particular category applies to errors
+     * encountered while trying to convert a model to SBML Level&nbsp;2
+     * Version&nbsp;4.
      */
     public final static int LIBSBML_CAT_SBML_L2V4_COMPAT = LIBSBML_CAT_INTERNAL_CONSISTENCY + 1;
   
@@ -5807,12 +5926,14 @@ public interface libsbmlConstants
     /**
      * Category code for {@link SBMLError} diagnostics.
      *
-     * This code has the following meaning:    Category of errors that can only occur during attempted
-     * translation from one Level/Version of SBML to another.  This
-     * particular category applies to errors encountered while trying to
-     * convert a model to SBML Level&nbsp;3 Version&nbsp;1.  
+     * This code has the following meaning: Category of errors that can
+     * only occur during attempted translation from one Level/Version of
+     * SBML to another.  This particular category applies to errors
+     * encountered while trying to convert a model to SBML Level&nbsp;3
+     * Version&nbsp;1.
      */
     public final static int LIBSBML_CAT_SBML_L3V1_COMPAT = LIBSBML_CAT_SBML_L2V4_COMPAT + 1;
+
 
     // SBMLErrorSeverity_t 
   
