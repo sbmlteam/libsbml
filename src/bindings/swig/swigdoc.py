@@ -650,10 +650,13 @@ def translateClassRefCSharp (match):
 
 
 def rewriteList (match):
-  lead = match.group(1);
-  list = match.group(2);
+  lead   = match.group(1);
+  list   = match.group(2);
+  space  = match.group(3);
+  ending = match.group(4);
+
   list = re.sub(r'@li\b', '<li>', list)
-  return lead + "<ul>\n" + lead + list + "\n" + lead + "</ul>"
+  return lead + "<ul>\n" + lead + list + "\n" + lead + "</ul>" + space + ending;
 
 
 
@@ -754,7 +757,7 @@ def sanitizeForHTML (docstring):
   # simple-minded (I suppose like most of this code), but ought to work
   # for the cases we use in practice.
 
-  p = re.compile('^(\s+\*\s+)(@li\s+.*?)\s+\*\s+(\*/|@(?!li\s)|<p>)', re.MULTILINE|re.DOTALL)
+  p = re.compile('^(\s+\*\s+)(@li\s+.*?)(\s+)(\*/|\*\s+@(?!li\s)|\*\s+<p>)', re.MULTILINE|re.DOTALL)
   docstring = p.sub(rewriteList, docstring)
 
   # Doxygen automatically cross-references class names in text to the class
