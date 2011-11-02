@@ -26,14 +26,14 @@ Version 5.2.0 (Coming soon)
   - There are new functions that will rename any references to
     SId and UnitSId throughout the model.
     
-  - The C API for interacting with teh package plugin mechanism
+  - The C API for interacting with the package plugin mechanism
     has been expanded.
     
   - A new converter has been added that will convert the units
     of a model to base SI units.  
     
   - A new converter has been added that will order assignmentRules 
-    and initialAssignments in such a way that forward refernces 
+    and initialAssignments in such a way that forward references 
     are avoided.
     
   - The validation API has been refactored to facilitate the use
@@ -46,7 +46,13 @@ Version 5.2.0 (Coming soon)
     be useful to particular software.
     
   - A new function, appendFrom(ListOf *), on the ListOf class allows
-    teh contents of one ListOf object to be appended to another. 
+    the contents of one ListOf object to be appended to another. 
+    
+  - There are new functions getNumRegisteredPackages() and
+    getRegisteredPackageName(index) that allow the user to establish
+    which Level 3 packages have been enabled in the instance of the
+    libSBML library being used.
+    
  
 * Bug fixes
 
@@ -66,14 +72,37 @@ Version 5.2.0 (Coming soon)
     inconsistent.  These have now been standardized.
     
   - The UnitDefinition::isVariantOfMass() function was not checking that
-    teh exponent of any unit was '1'.  This has been fixed.
+    the exponent of any unit was '1'.  This has been fixed.
         
   - The postal address for the Free Software Foundation was out of
     date in all files where it was mentioned.  Fixed.
+    
+  - It was possible to allow the sbml namespace to be replaced and 
+    produce a document with no sbml namespace.  This situation has
+    been corrected.
+    
+  - Some of the older C functions call the exit() function when
+    a memory allocation error is found.  This is not an ideal way
+    to handle a problem. Since the functionality has existed
+    in libSBML for many years it has been removed from a standard build
+    but can be reenabled using a configuration flag should any users
+    wish to do so.
 
 * Miscellaneous
 
   - All example files have been overhauled and new ones added.
+  
+  - It had been reported that some of the sbml files in test-data
+    directories were invalid.  Since these files are primarily used
+    for testing purposes, in some cases this was intentional.  In
+    order to avoid further confusion the invalid files have had 
+    '-invalid' appended to the filename.
+    
+  - The files used for testing validation located in the 
+    validator/test-data directory have been reorganised into smaller 
+    subdirectories which group the files according to the type of
+    validation being tested.
+    
 
 
 * Configuration/build system changes
