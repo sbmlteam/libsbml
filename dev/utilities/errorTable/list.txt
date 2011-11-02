@@ -267,7 +267,6 @@ CompartmentShouldHaveSize             = 80501 /*!< It's best to define a size fo
 SpeciesShouldHaveValue                = 80601 /*!< It's best to define an initialAmount or initialConcentration for every species in a model */
 ParameterShouldHaveUnits              = 80701 /*!< It's best to declare units for every parameter in a model */
 LocalParameterShadowsId               = 81121 /*!< Local parameters defined in a kinetic law shadow global parameters */
-LibSBMLAdditionalCodesLowerBound      = 90000 /*!< Lower bound of libSBML-specific codes */
 CannotConvertToL1V1                   = 90001 /*!< Cannot convert to SBML Level&nbsp;1 Version&nbsp;1 */
 NoEventsInL1                          = 91001 /*!< SBML Level&nbsp;1 does not support events */
 NoFunctionDefinitionsInL1             = 91002 /*!< SBML Level&nbsp;1 does not support function definitions */
