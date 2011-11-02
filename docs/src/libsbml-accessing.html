@@ -33,21 +33,20 @@ destination directories on your computer.  However, this does not
 necessarily guarantee that a given software application will be able to
 <em>find</em> those files when it runs.  The run-time environment must be
 properly configured first.
-<dl>
-<dt><b><i>On most Linux/Unix-based platforms:</i></b></dt>
 
-<dd>
-<p><em><b>Either</b></em>
+<h3>On most Linux/Unix-based platforms:</h3
+
+<p><em><b>Either do the following:</b></em>
 <ul>
-<li>Unless using MacOS&nbsp;X systems, run the system program
+<li><i>Unless</i> using Mac&nbsp;OS&nbsp;X systems, run the program
 <code>ldconfig</code> as user 'root'.  (Please consult the man page for
-<code>ldconfig</code> if this is unfamiliar.  On MacOS&nbsp;X, there is no
+<code>ldconfig</code> if this is unfamiliar.  On Mac&nbsp;OS&nbsp;X, there is no
 equivalent to the <code>ldconfig</code> facility.)</li></ul>
 
-<em><b>or</b></em>
+<em><b>or do the following:</b></em>
 
 <ul><li>Ensure that each user sets the environment variable
-<code>LD_LIBRARY_PATH</code> in their command shells.  (On MacOS&nbsp;X,
+<code>LD_LIBRARY_PATH</code> in their command shells.  (On Mac&nbsp;OS&nbsp;X,
 the variable is named <code>DYLD_LIBRARY_PATH</code>.)  The value of
 <code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code> must include
 the directory <span class="placeholder">DIR</span> used as the value of the
@@ -65,11 +64,11 @@ setenv LD_LIBRARY_PATH /usr/local/lib
 </pre></div>
 
 </li></ul>
-</dd>
 
-<dt><b><i>On Microsoft Windows platforms:</i></b></dt>
 
-<dd><p>Set the <code>PATH</code> environment variable to include the
+<h3>On Microsoft Windows platforms:</h3>
+
+<p>Set the <code>PATH</code> environment variable to include the
 directory of the libSBML native library.  To set an environmental variable
 in Windows, use the <em>System</em> option in the Windows <em>Control
 Panel</em>.
@@ -160,7 +159,7 @@ to use the Java-libSBML interface in an application.
 
 First, please follow the instructions for configuring the
 <code>LD_LIBRARY_PATH</code> (under Linux, Unix, Cygwin),
-<code>DYLD_LIBRARY_PATH</code> (under MacOSX) or <code>PATH</code> (under
+<code>DYLD_LIBRARY_PATH</code> (under Mac&nbsp;OS&nbsp;X) or <code>PATH</code> (under
 Windows) variables described in the beginning of this section.  This is
 necessary so that, before the operating system starts a Java application,
 the system loaders can find libSBML's native library components.
@@ -176,7 +175,7 @@ system in use, as follows:
 
 <ul>
 
-<li><em>Java on Linux, MacOS X and similar Unix-like systems:</em>
+<li><em>Java on Linux, Mac&nbsp;OS X and similar Unix-like systems:</em>
 
 <p> You must either (1) set your <code>CLASSPATH</code> environment
 variable to include the <code>.jar</code> file, or (2) the file must be
@@ -361,7 +360,7 @@ To build the MATLAB API as well, libSBML has to be configured with the
 <nobr><code>--with-matlab</code></nobr> flag as described in the <a
 href="libsbml-installation.html">installation instructions</a>.
 
-<h4>MATLAB on Linux, MacOS X and similar Unix-like systems</h4>
+<h4>MATLAB on Linux, Mac&nbsp;OS X and similar Unix-like systems</h4>
 
 <p> As with the other cases described above, the first configuration step
 necessary for users is to make sure that their <code>LD_LIBRARY_PATH</code>
@@ -392,7 +391,7 @@ MATLAB command must be executed:
 addpath('<span class="placeholder">DIR</span>');
 </pre></div>
 
-<p> For example, suppose you are using an Intel-based MacOS X system
+<p> For example, suppose you are using an Intel-based Mac&nbsp;OS X system
 and you have configured libSBML to install itself into
 <code>/usr/local</code>.  Then the files
 <code>TranslateSBML.mexmaci</code>, <code>OutputSBML.mexmaci</code>
@@ -473,7 +472,7 @@ C#-libSBML interface in an application.
 
 <p> First, please follow the instructions for configuring the
 <code>LD_LIBRARY_PATH</code> (under Linux, Unix, Cygwin),
-<code>DYLD_LIBRARY_PATH</code> (under MacOSX) or <code>PATH</code> (under
+<code>DYLD_LIBRARY_PATH</code> (under Mac&nbsp;OS&nbsp;X) or <code>PATH</code> (under
 Windows) variables described in the <a href="#common">beginning of this
 section</a>.  This is necessary so that, before the operating system starts
 a C# application, the system loaders can find libSBML's native library
