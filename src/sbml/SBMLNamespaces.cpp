@@ -357,7 +357,7 @@ SBMLNamespaces::addNamespaces(const XMLNamespaces * xmlns)
  *
  */
 int 
-SBMLNamespaces::addPkgNamespace(const std::string &pkgName, unsigned int pkgVersion, 
+SBMLNamespaces::addPackageNamespace(const std::string &pkgName, unsigned int pkgVersion, 
                                 const std::string &pkgPrefix)
 {
   if (!mNamespaces) 
@@ -392,13 +392,28 @@ SBMLNamespaces::addPkgNamespace(const std::string &pkgName, unsigned int pkgVers
 
 
 /*
+ * (For Extension)
+ *
+ * Add an XML namespace (a pair of URI and prefix) of a package extension
+ * to the set of namespaces within this SBMLNamespaces object.
+ *
+ */
+int 
+SBMLNamespaces::addPkgNamespace(const std::string &pkgName, unsigned int pkgVersion, 
+                                const std::string &pkgPrefix)
+{
+
+  return addPackageNamespace(pkgName, pkgVersion, pkgPrefix);
+}
+
+/*
  * Add the XML namespaces of package extensions in the given
  * XMLNamespace object to the set of namespaces within this
  * SBMLNamespaces object (Non-package XML namespaces are not added
  * by this function).
  */
 int
-SBMLNamespaces::addPkgNamespaces (const XMLNamespaces *xmlns)
+SBMLNamespaces::addPackageNamespaces (const XMLNamespaces *xmlns)
 {
   if (!mNamespaces) 
   {
@@ -423,6 +438,11 @@ SBMLNamespaces::addPkgNamespaces (const XMLNamespaces *xmlns)
   return LIBSBML_OPERATION_SUCCESS;
 }
 
+int
+SBMLNamespaces::addPkgNamespaces (const XMLNamespaces *xmlns)
+{
+  return addPackageNamespaces(xmlns);
+}
 
 void
 SBMLNamespaces::addNamespace(const std::string &uri, const std::string &prefix)
@@ -453,7 +473,7 @@ SBMLNamespaces::removeNamespace(const std::string &uri)
  * within this SBMLNamespaces object.
  */
 int
-SBMLNamespaces::removePkgNamespace(unsigned int level, unsigned version, const std::string &pkgName,
+SBMLNamespaces::removePackageNamespace(unsigned int level, unsigned version, const std::string &pkgName,
                                    unsigned int pkgVersion)
 {
   //
@@ -483,6 +503,12 @@ SBMLNamespaces::removePkgNamespace(unsigned int level, unsigned version, const s
   }
 }
 
+int
+SBMLNamespaces::removePkgNamespace(unsigned int level, unsigned version, const std::string &pkgName,
+                                   unsigned int pkgVersion)
+{
+  return removePackageNamespace(level, version, pkgName, pkgVersion);
+}
 
 /*
  * Predicate returning @c true if the given

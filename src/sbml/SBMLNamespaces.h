@@ -432,6 +432,77 @@ else
    *
    * @see addNamespace(@if java String uri, String prefix@endif)
    */
+  int addPackageNamespace(const std::string &pkgName, unsigned int pkgVersion, 
+                      const std::string &prefix = "");
+
+
+  /**
+   * Add the XML namespaces of package extensions in the given 
+   * XMLNamespace object to the set of namespaces within this 
+   * SBMLNamespaces object (Non-package XML namespaces are not added
+   * by this function).
+   *
+   * @note XML namespaces of a non-registered package extensions are not
+   * added (just ignored) by this function. @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink
+   * will be returned if the given xmlns is null.
+   * 
+   * @param xmlns the XML namespaces to be added.
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   */
+  int addPackageNamespaces(const XMLNamespaces* xmlns);
+
+
+  /**
+   * Removes an XML namespace of a package extension from the set of namespaces 
+   * within this SBMLNamespaces object.
+   *
+   * @param level   the SBML level
+   * @param version the SBML version
+   * @param pkgName the string of package name (e.g. "layout", "multi")
+   * @param pkgVersion the package version
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INDEX_EXCEEDS_SIZE LIBSBML_INDEX_EXCEEDS_SIZE @endlink
+   */
+  int removePackageNamespace(unsigned int level, unsigned version, const std::string &pkgName,
+                         unsigned int pkgVersion);
+
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Add an XML namespace (a pair of URI and prefix) of a package extension
+   * to the set of namespaces within this SBMLNamespaces object.
+   * The SBML Level and SBML Version of this object is used.
+   *
+   * @note An XML namespace of a non-registered package extension can't be
+   * added by this function (@link
+   * OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE@endlink 
+   * will be returned).
+   * 
+   * @param pkgName the string of package name (e.g. "layout", "multi")
+   * @param pkgVersion the package version
+   * @param prefix the prefix of the package namespace to be added.
+   *        The package's name will be used if the given string is empty (default).
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   *
+   * @see addNamespace(@if java String uri, String prefix@endif)
+   */
   int addPkgNamespace(const std::string &pkgName, unsigned int pkgVersion, 
                       const std::string &prefix = "");
 
@@ -478,7 +549,7 @@ else
   int removePkgNamespace(unsigned int level, unsigned version, const std::string &pkgName,
                          unsigned int pkgVersion);
 
-
+  /** @endcond */
   /**
    * Predicate returning @c true if the given
    * URL is one of SBML XML namespaces.

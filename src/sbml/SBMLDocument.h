@@ -1185,6 +1185,67 @@ public:
    */
   bool isEnabledDefaultNS(const std::string& package);
 
+  
+  /**
+   * Sets the required attribute of the given package extension.
+   *
+   * @note the name of package must not be given if the package is
+   *       not enabled.
+   *
+   * @param package the name or URI of the package extension.
+   * @param flag bool value
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink
+   */
+  int setPackageRequired(const std::string& package, bool flag);
+
+
+  /**
+   * Returnes the required attribute of the given package extension.
+   *
+   * @note the name of package must not be given if the package is
+   *       not enabled.
+   *
+   * @param package the name or URI of the package extension.
+   *
+   * @return boolean flag indicating whether the package is flagged as
+   * being required.
+   */
+  bool getPackageRequired(const std::string& package);
+
+
+  /**
+   * Returnes @c true if the required attribute of the given package extension
+   * is defined, otherwise returns @c false.
+   *
+   * @note the name of package must not be given if the package is
+   *       not enabled.
+   *
+   * @param package the name or URI of the package extension.
+   *
+   * @return a boolean
+   */
+  bool isSetPackageRequired(const std::string& package);
+
+
+  /**
+   * Returnes @c true if the given package extension is one of ignored
+   * packages (i.e. the package is defined in this document but the package
+   * is not available), otherwise returns @c false.
+   *
+   * @param pkgURI the URI of the package extension.
+   *
+   * @return a boolean
+   */
+  bool isIgnoredPackage(const std::string& pkgURI);
+  
+  
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Sets the required attribute of the given package extension.
@@ -1243,10 +1304,7 @@ public:
    * @return a boolean
    */
   bool isIgnoredPkg(const std::string& pkgURI);
-
-
-  /** @cond doxygen-libsbml-internal */
-
+  
   /**
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
@@ -1538,15 +1596,27 @@ LIBSBML_EXTERN
 int
 SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package);
 
+LIBSBML_EXTERN
+int
+SBMLDocument_getPackageRequired (SBMLDocument_t *d, const char * package);
+
 
 LIBSBML_EXTERN
 int
 SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag);
 
+LIBSBML_EXTERN
+int
+SBMLDocument_setPackageRequired (SBMLDocument_t *d, const char * package, int flag);
+
 
 LIBSBML_EXTERN
 int
 SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package);
+
+LIBSBML_EXTERN
+int
+SBMLDocument_isSetPackageRequired (SBMLDocument_t *d, const char * package);
 
 
 END_C_DECLS

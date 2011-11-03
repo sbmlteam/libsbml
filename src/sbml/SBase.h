@@ -2526,6 +2526,29 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   int enablePackage(const std::string& pkgURI, const std::string& pkgPrefix, bool flag);
 
 
+  /**
+   * Disables the given SBML Level&nbsp;3 package
+   *
+   * This method enables or disables the specified package on this object
+   * and other objects connected by child-parent links in the same
+   * SBMLDocument object.
+   *
+   * @param pkgURI the URI of the package
+   * 
+   * @param pkgPrefix the XML prefix of the package
+   * 
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN LIBSBML_PKG_UNKNOWN @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_PKG_VERSION_MISMATCH LIBSBML_PKG_VERSION_MISMATCH @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_PKG_CONFLICTED_VERSION LIBSBML_PKG_CONFLICTED_VERSION @endlink
+   */
+  int disablePackage(const std::string& pkgURI, const std::string& pkgPrefix);
+  
+
   /** @cond doxygen-libsbml-internal */
   /**
    * Enables/Disables the given package with this element and child
@@ -2553,11 +2576,42 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @return @c true if the given package is enabled within this object, @c 
    * false otherwise.
    *
+   * @see isPackageEnabled(@if java String pkgName@endif)
+   */
+  bool isPackageURIEnabled(const std::string& pkgURI) const;
+
+  /**
+   * Predicate returning @c true if the given SBML Level&nbsp;3 package is
+   * enabled with this object.
+   *
+   * The search ignores the package version.
+   *
+   * @param pkgName the name of the package
+   *
+   * @return @c true if the given package is enabled within this object, @c
+   * false otherwise.
+   *
+   * @see isPackageURIEnabled(@if java String pkgURI@endif)
+   */
+  bool isPackageEnabled(const std::string& pkgName) const;
+
+
+  /** @cond doxygen-libsbml-internal */
+  
+  /**
+   * Predicate returning @c true if an SBML Level&nbsp;3 package with the
+   * given URI is enabled with this object.
+   *
+   * @param pkgURI the URI of the package
+   *
+   * @return @c true if the given package is enabled within this object, @c 
+   * false otherwise.
+   *
    * @see isPkgEnabled(@if java String pkgName@endif)
    */
   bool isPkgURIEnabled(const std::string& pkgURI) const;
 
-
+  
   /**
    * Predicate returning @c true if the given SBML Level&nbsp;3 package is
    * enabled with this object.

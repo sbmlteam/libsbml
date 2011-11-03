@@ -2637,6 +2637,11 @@ SBase::getNumPlugins() const
   return (int)mPlugins.size();
 }
 
+int 
+SBase::disablePackage(const std::string& pkgURI, const std::string& prefix)
+{
+	return enablePackage(pkgURI, prefix, false);
+}
 
 /*
  * Enables/Disables the given package with this object.
@@ -2800,7 +2805,7 @@ SBase::enablePackageInternal(const std::string& pkgURI, const std::string& pkgPr
  * false otherwise.
  */
 bool 
-SBase::isPkgURIEnabled(const std::string& pkgURI) const
+SBase::isPackageURIEnabled(const std::string& pkgURI) const
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -2810,6 +2815,42 @@ SBase::isPkgURIEnabled(const std::string& pkgURI) const
   return false;
 }
 
+
+/*
+ * Predicate returning @c true if 
+ * the a package with the given URI is enabled with this object.
+ *
+ * @param pkgURI the URI of the package
+ *
+ * @return @c true if the given package is enabled with this object, @c
+ * false otherwise.
+ */
+bool 
+SBase::isPkgURIEnabled(const std::string& pkgURI) const
+{  
+  return isPackageURIEnabled(pkgURI);
+}
+
+/*
+ * Predicate returning @c true if
+ * the given package (don't care the package version) is enabled with 
+ * this object.
+ *
+ * @param pkgName the URI of the package
+ *
+ * @return @c true if the given package is enabled with this object, @c
+ * false otherwise.
+ */
+bool
+SBase::isPackageEnabled(const std::string& pkgName) const
+{
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    if (mPlugins[i]->getPackageName() == pkgName)
+      return true;
+  }
+  return false;
+}
 
 /*
  * Predicate returning @c true if
@@ -2823,13 +2864,8 @@ SBase::isPkgURIEnabled(const std::string& pkgURI) const
  */
 bool
 SBase::isPkgEnabled(const std::string& pkgName) const
-{
-  for (size_t i=0; i < mPlugins.size(); i++)
-  {
-    if (mPlugins[i]->getPackageName() == pkgName)
-      return true;
-  }
-  return false;
+{  
+  return isPackageEnabled(pkgName);
 }
 
 bool 

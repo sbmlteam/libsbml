@@ -1531,7 +1531,7 @@ SBMLDocument::isEnabledDefaultNS(const std::string& package)
 
 
 int
-SBMLDocument::setPkgRequired(const std::string& package, bool flag)
+SBMLDocument::setPackageRequired(const std::string& package, bool flag)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -1566,9 +1566,15 @@ SBMLDocument::setPkgRequired(const std::string& package, bool flag)
   return LIBSBML_PKG_UNKNOWN_VERSION;
 }
 
+int
+SBMLDocument::setPkgRequired(const std::string& package, bool flag)
+{
+  return setPackageRequired(package,flag);
+}
+
 
 bool 
-SBMLDocument::getPkgRequired(const std::string& package)
+SBMLDocument::getPackageRequired(const std::string& package)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -1596,9 +1602,14 @@ SBMLDocument::getPkgRequired(const std::string& package)
   return false;
 }
 
+bool 
+SBMLDocument::getPkgRequired(const std::string& package)
+{
+  return getPackageRequired(package);
+}
 
 bool 
-SBMLDocument::isSetPkgRequired(const std::string& package)
+SBMLDocument::isSetPackageRequired(const std::string& package)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
@@ -1621,6 +1632,11 @@ SBMLDocument::isSetPkgRequired(const std::string& package)
   return false;
 }
 
+bool 
+SBMLDocument::isSetPkgRequired(const std::string& package)
+{
+  return isSetPackageRequired(package);
+}
 
 /**
  * Returnes @c true if the given package extension is one of ignored
@@ -1628,12 +1644,18 @@ SBMLDocument::isSetPkgRequired(const std::string& package)
  * is not available), otherwise returns @c false.
  */
 bool 
-SBMLDocument::isIgnoredPkg(const std::string& pkgURI)
+SBMLDocument::isIgnoredPackage(const std::string& pkgURI)
 {
   if (isSetPkgRequired(pkgURI) && !isPkgURIEnabled(pkgURI))
     return true;
 
   return false;
+}
+
+bool 
+SBMLDocument::isIgnoredPkg(const std::string& pkgURI)
+{
+  return isIgnoredPackage(pkgURI);
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -2986,6 +3008,13 @@ SBMLDocument_getPkgRequired (SBMLDocument_t *d, const char * package)
   return (d != NULL) ? static_cast<int>(d->getPkgRequired(package)) : 0;
 }
 
+LIBSBML_EXTERN
+int
+SBMLDocument_getPackageRequired (SBMLDocument_t *d, const char * package)
+{
+  return (d != NULL) ? static_cast<int>(d->getPackageRequired(package)) : 0;
+}
+
 
 LIBSBML_EXTERN
 int
@@ -2994,6 +3023,12 @@ SBMLDocument_setPkgRequired (SBMLDocument_t *d, const char * package, int flag)
   return (d != NULL) ? d->setPkgRequired(package, flag) : LIBSBML_INVALID_OBJECT;
 }
 
+LIBSBML_EXTERN
+int
+SBMLDocument_setPackageRequired (SBMLDocument_t *d, const char * package, int flag)
+{
+  return (d != NULL) ? d->setPackageRequired(package, flag) : LIBSBML_INVALID_OBJECT;
+}
 
 LIBSBML_EXTERN
 int
@@ -3002,6 +3037,12 @@ SBMLDocument_isSetPkgRequired (SBMLDocument_t *d, const char * package)
   return (d != NULL) ? static_cast<int>(d->isSetPkgRequired(package)) : 0;
 }
 
+LIBSBML_EXTERN
+int
+SBMLDocument_isSetPackageRequired (SBMLDocument_t *d, const char * package)
+{
+  return (d != NULL) ? static_cast<int>(d->isSetPackageRequired(package)) : 0;
+}
 
 
 /** @endcond */
