@@ -163,11 +163,6 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore XMLAttributes::readInto;
 
 /**
- * Ignore methods which receive List*.
- */
-%ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
-
-/**
  * Ignore methods which receive std::list.
  */
 %ignore XMLErrorLog::add(const std::list<XMLError>& errors);
@@ -476,10 +471,11 @@ LIBSBML_CPP_NAMESPACE_USE
  *
  */
 
+%ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
+
 %extend RDFAnnotationParser
 {
-  static void RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, 
-                                                      ListWrapper<CVTerm> *CVTerms)
+  static void parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms)
   {
     if (!CVTerms) return;
 
