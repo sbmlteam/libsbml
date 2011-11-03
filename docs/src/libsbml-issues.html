@@ -12,6 +12,7 @@ possible pitfalls in using libSBML:
 <li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
 <li><a href="#line-numbers">Different XML parsers may report different line/column numbers</a></li>
 <li><a href="#libsbml_wrap">Sometimes, the libsbml_wrap.cpp files are not recreated</a></li>
+<li><a href="#matlab-linux">Some versions of MATLAB use libstdc++ that conflicts</a></li>
 </ul>
 
 
@@ -267,3 +268,13 @@ developing new features in libSBML.
 
 
 <p>
+
+<h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB use libstdc++ that conflicts</a></h2>
+  
+Some versions of MATLAB produced for Linux use a version of the stdc++ library
+that conflicts with the version used by the operating system.  The conflict
+can arise during either building or execution of the MATLAB binding functions.
+
+<p> The solution is to preload the system stdc++ library before invoking MATLAB 
+  using the command <br/><br/>
+<code>export LD_PRELOAD=/path/to/system/libstdc++</code>
