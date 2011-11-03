@@ -53,10 +53,10 @@ thisdir           = src/bindings/java
 # other libSBML build organization, we still use the name `sources'.
 
 sources           = libsbml_wrap.cpp libsbml_wrap.h javadoc.i
-extra_sources     = javadoc-extras.i                   \
-                    libsbml.i                          \
+extra_sources     = libsbml.i                          \
                     local.cpp                          \
                     local.i                            \
+                    local-doc-extras.i                 \
                     local-downcast-extension-layout.i  \
                     local-downcast-extension.i         \
                     local-downcast-namespaces-layout.i \
@@ -294,7 +294,6 @@ endif
 
 javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
 	../swig/swigdoc.py java -I../.. -D../../../docs/src ../swig/libsbml.i javadoc.i
-	cat javadoc-extras.i >> javadoc.i
 
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources) \
 	$(shell $(call check_layout))
