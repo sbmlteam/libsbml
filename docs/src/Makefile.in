@@ -574,7 +574,7 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	    -stylesheetfile doxygen-base.css \
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" \
-	    -tag warning:a:"<br>Warning:" \
+	    -tag warning:a:"Warning:" \
 	    -tag docnote:a:"Documentation note:" \
 	    -sourcepath $(java-local-dir) org.sbml.libsbml \
         2>&1 | egrep -v $(java-ignorable-warnings) 
