@@ -111,12 +111,12 @@
  *
  * @section sbase-miriam Standard format for annotations linking data resources
  *
- * SBML Level 2 Versions 2, 3 and 4 define a proposed regular format for
- * encoding two particular categories of annotations: (a) references to
- * controlled vocabulary terms and database identifiers which define and
- * describe biological and biochemical entities in a model; and (b)
- * descriptions of the provenance of a model, including its author(s) and
- * modification history.
+ * SBML Level 2 Versions 2, 3 and 4, and Level&nbsp;3, define a proposed
+ * regular format for encoding two particular categories of annotations:
+ * (a) references to controlled vocabulary terms and database identifiers
+ * which define and describe biological and biochemical entities in a
+ * model; and (b) descriptions of the provenance of a model, including its
+ * author(s) and modification history.
  */
 
 
@@ -198,56 +198,90 @@ public:
 
 
   /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.
+   * Returns the first child element found that has the given @p id in the
+   * model-wide SId namespace, or @c NULL if no such object is found.
    *
-   * @param id string representing the id of objects to find
+   * @param id string representing the "id" attribute value of the object
+   * to find
    *
-   * @return pointer to the first element found with the given id.
+   * @return pointer to the first element found with the given identifier.
    */
   virtual SBase* getElementBySId(std::string id);
   
   
   /**
-   * Returns the first child element it can find with the given metaid, or NULL if no such object is found.
+   * Returns the first child element it can find with the given @p metaid,
+   * or @c NULL if no such object is found.
    *
-   * @param metaid string representing the metaid of objects to find
+   * @param metaid string representing the "metaid" attribute value of the
+   * object to find
    *
-   * @return pointer to the first element found with the given metaid.
+   * @return pointer to the first element found with the given meta-identifier.
    */
   virtual SBase* getElementByMetaId(std::string metaid);
   
   
   /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   * Returns a List of all child SBase objects, including those nested to
+   * an arbitrary depth.
    *
-   * @return a List* of pointers to all children objects.
+   * @return a pointer to a List of pointers to all children objects.
    */
   virtual List* getAllElements();
   
 
   /**
-   * Renames all the SIdRef attributes on this element, including any found in MathML, but not any found in child or 
+   * Renames all the SIdRef attributes on this element, including any found
+   * in MathML content (if such exists).
+   *
+   * This method works by looking at all attributes and (if appropriate)
+   * math formulas, comparing the identifiers to the value of @p oldid.  If
+   * any matches are found, the matching identifiers are replaced with @p
+   * newid.  The method does @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
 
   /**
-   * Renames all the MetaIdRef attributes on this element
+   * Renames all the MetaIdRef attributes on this element.
+   *
+   * This method works by looking at all meta-attribute values, comparing
+   * the identifiers to the value of @p oldid.  If any matches are found,
+   * the matching identifiers are replaced with @p newid.  The method does
+   * @em not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
   virtual void renameMetaIdRefs(std::string oldid, std::string newid);
 
 
   /**
-   * Renames all the UnitSIdRef attributes on this element
+   * Renames all the UnitSIdRef attributes on this element.
+   *
+   * This method works by looking at all unit identifier attribute values
+   * (including, if appropriate, inside math formulas), comparing the unit
+   * identifiers to the value of @p oldid.  If any matches are found, the
+   * matching identifiers are replaced with @p newid.  The method does @em
+   * not descend into child elements.
+   *
+   * @param oldid the old identifier
+   * @param newid the new identifier
    */
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
 
   /** @cond doxygen-libsbml-internal */
   /**
-   * If this object has a child 'math' object (or anything with ASTNodes in general), replace all nodes with the name 'id' with the provided function. 
+   * If this object has a child 'math' object (or anything with ASTNodes in
+   * general), replace all nodes with the name 'id' with the provided
+   * function.
    *
-   * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
+   * @note This function does nothing itself&mdash;subclasses with ASTNode
+   * subelements must override this function.
    */
   virtual void replaceSIDWithFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
@@ -255,9 +289,12 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
-   * If the function of this object is to assign a value has a child 'math' object (or anything with ASTNodes in general), replace  the 'math' object with the function (existing/function).  
+   * If the function of this object is to assign a value has a child 'math'
+   * object (or anything with ASTNodes in general), replace the 'math'
+   * object with the function (existing/function).
    *
-   * @note This function does nothing itself--subclasses with ASTNode subelements must override this function.
+   * @note This function does nothing itself&mdash;subclasses with ASTNode
+   * subelements must override this function.
    */
   virtual void divideAssignmentsToSIdByFunction(const std::string& id, const ASTNode* function);
   /** @endcond */
@@ -265,7 +302,9 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
-   * Returns the first child element found that has the given id in the model-wide SId namespace from all plugins associated with this element, or NULL if no such object is found.
+   * Returns the first child element found that has the given id in the
+   * model-wide SId namespace from all plugins associated with this
+   * element, or @c NULL if no such object is found.
    *
    * @param id string representing the id of objects to find
    *
@@ -277,7 +316,9 @@ public:
   
   /** @cond doxygen-libsbml-internal */
   /**
-   * Returns the first child element it can find with the given metaid from all plugins associated with this element, or NULL if no such object is found.
+   * Returns the first child element it can find with the given metaid from
+   * all plugins associated with this element, or @c NULL if no such object
+   * is found.
    *
    * @param id string representing the metaid of objects to find
    *
@@ -285,10 +326,13 @@ public:
    */
   virtual SBase* getElementFromPluginsByMetaId(std::string metaid);
   /** @endcond */
+
   
   /** @cond doxygen-libsbml-internal */
   /**
-   * Check to see if the given prefix is used by any of the IDs defined by extension elements *excluding* 'id' and 'metaid' attributes (as, for example, the spatial id attributes 'spid').
+   * Check to see if the given prefix is used by any of the IDs defined by
+   * extension elements *excluding* 'id' and 'metaid' attributes (as, for
+   * example, the spatial id attributes 'spid').
    */
   virtual bool hasNonstandardIdentifierBeginningWith(const std::string& prefix);
   /** @endcond */
@@ -296,16 +340,24 @@ public:
 
   /** @cond doxygen-libsbml-internal */
   /**
-   * Add the given string to all identifiers in the object.  If the string is added to anything other than an id or a metaid, this code is responsible for tracking down and renaming all *idRefs in the package extention that identifier comes from.
+   * Add the given string to all identifiers in the object.  If the string
+   * is added to anything other than an id or a metaid, this code is
+   * responsible for tracking down and renaming all *idRefs in the package
+   * extention that identifier comes from.
    */
   virtual int prependStringToAllIdentifiers(const std::string& prefix);
   /** @endcond */
   
 
   /**
-   * Returns a List of all child SBase* objects, including those nested to an arbitrary depth
+   * Returns a List of all child SBase objects contained in SBML package
+   * plugins.
    *
-   * @return a List* of pointers to all children objects from plugins.
+   * This method walks down the list of all packages used by the model and
+   * returns all objects contained in them.
+   *
+   * @return a pointer to a List of pointers to all children objects from
+   * plugins.
    */
   virtual List* getAllElementsFromPlugins();
   
@@ -705,6 +757,7 @@ public:
    */
   SBase* getParentSBMLObject();
 
+
   /**
    * Returns the parent SBML object containing this object.
    *
@@ -763,6 +816,7 @@ public:
    */
   SBase* getAncestorOfType(int type, const std::string pkgName = "core");
 
+
   /**
    * Returns the first ancestor object that has the given SBML type code.
    *
@@ -805,6 +859,7 @@ public:
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   const SBase* getAncestorOfType(int type, const std::string pkgName = "core") const;
+
 
   /**
    * Returns the integer portion of the value of the "sboTerm" attribute of
@@ -1173,8 +1228,7 @@ public:
    * "metaid" attribute
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -1212,8 +1266,7 @@ public:
    * @param sid the string to use as the identifier of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
@@ -1274,8 +1327,7 @@ public:
    * Level and Version in use.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    *
@@ -1320,8 +1372,7 @@ public:
    * of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
    * @see getAnnotationString()
@@ -1367,8 +1418,7 @@ public:
    * of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
@@ -1409,8 +1459,7 @@ public:
    * to the content of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
@@ -1451,8 +1500,7 @@ public:
    * to the content of the "annotation" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
@@ -1496,8 +1544,7 @@ public:
    * "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    *
@@ -1564,8 +1611,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1610,8 +1656,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * of the "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1656,8 +1701,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * the "notes" subelement of this object
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1682,8 +1726,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param history ModelHistory of this object.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
@@ -1764,8 +1807,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param value the NNNNNNN integer portion of the SBO identifier
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -1798,8 +1840,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param sboid the SBO identifier string of the form "SBO:NNNNNNN"
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
@@ -1822,8 +1863,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * @param xmlns the namespaces to set
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    */
   int setNamespaces(XMLNamespaces* xmlns);
@@ -1848,8 +1888,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * "annotation" subelements.
    *  
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -1881,13 +1920,12 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * <code>UnitSId</code>.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   *
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int unsetId ();
+
 
   /**
    * Unsets the value of the "name" attribute of this SBML object.
@@ -1926,9 +1964,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * allows software applications leeway in assigning component identifiers.
    * 
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   *
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
@@ -1959,8 +1995,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * content must be structured.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
    * @see getNotesString()
@@ -1992,8 +2027,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * different tools.  Please see the SBML specifications for more details.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    *
    * @see getAnnotation()
@@ -2011,8 +2045,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Unsets the value of the "sboTerm" attribute of this SBML object.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    */
@@ -2095,8 +2128,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Clears the list of CVTerm objects attached to this SBML object.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
@@ -2107,8 +2139,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Unsets the ModelHistory object attached to this object.
    *
    * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
+   * function.  The possible values returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
@@ -2434,7 +2465,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param package the name or URI of the package
    *
-   * @return the plugin object (the libsbml extension interface) of a
+   * @return the plugin object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
    */
   const SBasePlugin* getPlugin(const std::string& package) const;
@@ -2454,7 +2485,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
-   * @return the plugin object (the libsbml extension interface) of a
+   * @return the plugin object (the libSBML extension interface) of a
    * package extension with the given package name or URI.
    */
   const SBasePlugin* getPlugin(unsigned int n) const;
@@ -2519,7 +2550,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param pkgURI the URI of the package
    *
-   * @return @c true if the given package is enabled with this object, @c 
+   * @return @c true if the given package is enabled within this object, @c 
    * false otherwise.
    *
    * @see isPkgEnabled(@if java String pkgName@endif)
@@ -2535,7 +2566,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    *
    * @param pkgName the name of the package
    *
-   * @return @c true if the given package is enabled with this object, @c
+   * @return @c true if the given package is enabled within this object, @c
    * false otherwise.
    *
    * @see isPkgURIEnabled(@if java String pkgURI@endif)
@@ -2627,8 +2658,15 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   const std::string checkMathMLNamespace(const XMLToken elem);
   /** @endcond */
 
+
   /**
-   * Removes itself from its parent.  If the parent was storing it as a pointer, it is deleted.  If not, it is simply cleared (as in ListOf objects).  Pure virutal, as every SBase element has different parents, and therefore different methods of removing itself.  Will fail (and not delete itself) if it has no parent object.  This function is designed to be overridden, but for all objects whose parent is of the class ListOf, the default implementation will work.
+   * Removes itself from its parent.  If the parent was storing it as a
+   * pointer, it is deleted.  If not, it is simply cleared (as in ListOf
+   * objects).  Pure virutal, as every SBase element has different parents,
+   * and therefore different methods of removing itself.  Will fail (and
+   * not delete itself) if it has no parent object.  This function is
+   * designed to be overridden, but for all objects whose parent is of the
+   * class ListOf, the default implementation will work.
    *
    * @return integer value indicating success/failure of the
    * function.  @if clike The value is drawn from the
@@ -2639,33 +2677,44 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    */
   virtual int removeFromParentAndDelete();
 
+
+  /**
+   * Returns @c true if this object's set of XML namespaces are the same
+   * as the given object's XML namespaces.
+   *
+   * @param sb an object to compare with respect to namespaces
+   *
+   * @return boolean, @c true if this object's collection of namespaces is
+   * the same as @p sb's, @c false otherwise.
+   */
   bool matchesSBMLNamespaces(const SBase * sb);
 
-   /**
-  * Sets the user data of this element. This can be used by the application
-  * developer to attach custom information to the node. In case of a deep
-  * copy this attribute will passed as it is. The attribute will be never
-  * interpreted by this class.
-  * 
-  * @param userData specifies the new user data. 
-  *
-  * @return integer value indicating success/failure of the
-  * function.  The possible values returned by this function are:
-  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-  */  
+
+  /**
+   * Sets the user data of this element. This can be used by the application
+   * developer to attach custom information to the node. In case of a deep
+   * copy this attribute will passed as it is. The attribute will be never
+   * interpreted by this class.
+   * 
+   * @param userData specifies the new user data. 
+   *
+   * @return integer value indicating success/failure of the
+   * function.  The possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   */  
   int setUserData(void *userData);
 
 
- /**
-  * Returns the user data that has been previously set via setUserData().
-  *
-  * @return the user data of this node, or @c NULL if no user data has been set.
-  * 
-  * @if clike
-  * @see ASTNode::setUserData(void *userData)
-  * @endif
-  */  
+  /**
+   * Returns the user data that has been previously set via setUserData().
+   *
+   * @return the user data of this node, or @c NULL if no user data has been set.
+   * 
+   * @if clike
+   * @see ASTNode::setUserData(void *userData)
+   * @endif
+   */  
   void *getUserData() const;
 
 
@@ -2970,9 +3019,23 @@ protected:
    * 
    * Be sure to call your parents implementation of this function as well.  
    * For example:
-   *
-   *   SBase::reaeExtensionAttributes(attributes);
-   *
+   * @if clike
+@verbatim
+SBase::readExtensionAttributes(attributes);
+@endverbatim
+   * @endif@if java
+@verbatim
+SBase.readExtensionAttributes(attributes);
+@endverbatim
+   * @endif@if java
+@verbatim
+SBase.readExtensionAttributes(attributes);
+@endverbatim
+   * @endif@if python
+@verbatim
+SBase.readExtensionAttributes(attributes);
+@endverbatim
+   * @endif
    */
   virtual void readExtensionAttributes (const XMLAttributes& attributes);
 
