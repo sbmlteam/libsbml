@@ -3716,4 +3716,17 @@ ASTNode_isWellFormedASTNode(ASTNode_t* node)
   return static_cast <int> (node->isWellFormedASTNode());
 }
 
+/** @cond doxygen-libsbml-internal */
+/*
+ * Internal utility function used in some language binding code.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_true(const ASTNode *node)
+{
+  return 1;
+}
+/** @endcond */
+
+
 LIBSBML_CPP_NAMESPACE_END
