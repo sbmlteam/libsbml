@@ -64,7 +64,7 @@ tr.TableRowColor td code {
   line-height: 18px;
 } 
 
-table {
+body > table {
   margin-top: 2em;
 }
 
@@ -172,31 +172,10 @@ H1 {
   padding-top: 2em;
 }
 
-/*
+
 H2 {
   color: #443;
-  text-shadow: 0px 1px 1px #fff, 0px -1px 0 #222; 
-  letter-spacing: 1px;
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 18px;
-  margin-top: 1em;
-  padding-left: 2px;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  background-color: #ddd;
-  border: 1px solid #ccc;
-  border-bottom: 1px solid #999;
-  border-right: 1px solid #aaa;
-}
-*/
-
-body hr { 
-  display: none;
- }
-
-H2 {
-  color: #443;
-  font-size: 20px;
   font-weight: bold;
   line-height: 100%;
   letter-spacing: 1px;
@@ -577,7 +556,7 @@ SPAN.charliteral   { color: #008080 }
 .mdescLeft {
   font-size: smaller;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  background-color: #FAFAFA;
+  background-color: #eee;
   padding-left: 8px;
   border-top: 1px none #E0E0E0;
   border-right: 1px none #E0E0E0;
@@ -611,8 +590,6 @@ SPAN.charliteral   { color: #008080 }
 
 .memItemLeft {
   white-space: nowrap;
-  padding: 4px 0px 2px 8px;
-  margin: 4px;
   border-top-width: 1px;
   border-right-width: 1px;
   border-bottom-width: 1px;
@@ -625,7 +602,6 @@ SPAN.charliteral   { color: #008080 }
   border-right-style: none;
   border-bottom-style: none;
   border-left-style: none;
-  background-color: #FAFAFA;
   font-family: "Courier New", Courier, monospace, fixed;
   font-weight: bold;
   font-size: 12px;
@@ -633,7 +609,7 @@ SPAN.charliteral   { color: #008080 }
 }
 
 .memItemRight {
-  padding: 4px 0px 2px 4px;
+  padding: 4px 0px 4px 4px;
   margin: 4px;
   border-top-width: 1px;
   border-right-width: 1px;
@@ -923,4 +899,18 @@ caption {
   background: none;
   border: none;
   padding-bottom: 0;
+}
+
+/* The next two items remove <hr> lines (because Javadoc loves to 
+   insert them all over the place) and adds a line after (only) top-level
+   <dl> elements.  The result is that documentation for functions in
+   Javadoc get lines between them, but the hardwired-by-Javadoc <hr>
+   elements are made invisible. */
+
+body > hr { 
+  display: none;
+ }
+
+body > dl {
+  border-bottom: 1px solid #bbb;
 }
