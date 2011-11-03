@@ -2464,6 +2464,13 @@ LIBSBML_EXTERN
 int
 ASTNode_isWellFormedASTNode(ASTNode_t* node);
 
+/** @cond doxygen-libsbml-internal */
+LIBSBML_EXTERN
+int
+ASTNode_true(const ASTNode_t *node);
+/** @endcond */
+
+
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
