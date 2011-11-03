@@ -56,9 +56,6 @@ Version 5.2.0 (Coming soon)
  
 * Bug fixes
 
-  - There was an issue with strings returned from ASTNode C functions;
-    an issue unique to debugging using MSVC.  This is fixed.
-    
   - The functions that add SBase objects were only checking that the 
     object being added had the correct Level and Version of SBML.  It
     failed to check that any SBML namespaces used also matched.  This has
