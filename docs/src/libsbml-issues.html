@@ -271,10 +271,33 @@ developing new features in libSBML.
 
 <h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB use libstdc++ that conflicts</a></h2>
   
-Some versions of MATLAB produced for Linux use a version of the stdc++ library
-that conflicts with the version used by the operating system.  The conflict
-can arise during either building or execution of the MATLAB binding functions.
+Some versions of MATLAB produced for Linux include a version of the stdc++
+library that conflicts with the version provided by the operating system.
+This copy of the library is installed in MATLAB's own directories.  This
+then causes a conflict when MATLAB's mex compiler is invoked:
+<code>mex</code> may try to use this version of the stdc++ library when it
+links with libSBML's <code>libsbml.so</code> library, but
+<code>libsbml.so</code> may have been built against the operating system's
+version of stdc++.  The result is that <code>mex</code> fails with an error
+about being unable to find a version of <code>libstdc++</code>.  (Example
+error message: <em>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6:
+version `GLIBCXX_3.4.11' not found"</em>.)
+<p>
 
-<p> The solution is to preload the system stdc++ library before invoking MATLAB 
-  using the command <br/><br/>
-<code>export LD_PRELOAD=/path/to/system/libstdc++</code>
+<p> The solution is to preload the system stdc++ library before invoking
+MATLAB.  You can accomplish this by setting the Linux environment variable
+<code>LD_PRELOAD</code> to the path of the system's <code>libstdc++</code>
+library file.  This will take the form of the following:
+
+<div class="fragment" style="padding: 1em 3px !important">
+<tt class="fragment" style="font-size: 12px">
+export LD_PRELOAD=/path/to/system/libstdc++</code>
+</tt></div>
+for <i>sh</i>-based shells such as Bash, or 
+<div class="fragment" style="padding: 1em 3px !important">
+<tt class="fragment" style="font-size: 12px">
+setenv LD_PRELOAD /path/to/system/libstdc++</code>
+</tt></div>
+for <i>csh</i>-based shells.
+
+<p>
