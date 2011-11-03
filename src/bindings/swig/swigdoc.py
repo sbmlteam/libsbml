@@ -1286,8 +1286,11 @@ def main (args):
     filename = os.path.normpath(os.path.join(includepath, file))
     processFile(filename, stream)
 
+  if os.path.exists('local-doc-extras.i'):
+    stream.write('\n%include "local-doc-extras.i"\n')
+
   if language == 'perl':
-   stream.write('=cut\n')
+    stream.write('=cut\n')
 
   stream.close()
 
