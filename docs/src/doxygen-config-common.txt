@@ -349,14 +349,15 @@ INPUT =                            \
   libsbml-uninstallation.txt       \
   libsbml-extension-support-classes.txt \
   libsbml-howto-implement-extension.txt \
-  ../../src/sbml/common                 \
   ../../src/sbml/annotation             \
+  ../../src/sbml/common                 \
+  ../../src/sbml/conversion             \
+  ../../src/sbml/extension              \
   ../../src/sbml/math                   \
   ../../src/sbml/util                   \
   ../../src/sbml/validator              \
-  ../../src/sbml/xml                    \
   ../../src/sbml                        \
-  ../../src/sbml/extension
+  ../../src/sbml/xml
 
 # The EXCLUDE tag can be used to specify files and/or directories that should 
 # excluded from the INPUT source files. This way you can easily exclude a 
