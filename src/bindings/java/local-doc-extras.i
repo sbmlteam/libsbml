@@ -20,3 +20,21 @@
    * objects from plugins.
    */
  public";
+
+
+%javamethodmodifiers RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation, ListWrapper<CVTerm> *CVTerms) "
+  /**
+   * Parses an annotation (given as an {@link XMLNode} tree) into a
+   * list of {@link CVTerm} objects.
+   * <p>
+   * This is used to take an annotation that has been read into an SBML
+   * model, identify the RDF elements within it, and create a list of
+   * corresponding {@link CVTerm} (controlled vocabulary term) objects.
+   * <p>
+   * @param annotation {@link XMLNode} containing the annotation.
+   * <p>
+   * @param CVTerms a {@link CVTermList} of {@link CVTerm} objects to be created.
+   * <p>
+   * @see #parseRDFAnnotation(XMLNode annotation)
+   */
+ public";
