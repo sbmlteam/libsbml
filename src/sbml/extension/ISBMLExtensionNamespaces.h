@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-libsbml-internal
+ *
  * @file    ISBMLExtensionNamespaces.h
  * @brief   ISBMLExtensionNamespaces interface to the SBMLExtensionNamespaces class
  * @author  Frank Bergmann
@@ -90,3 +92,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 
 #endif  /* ISBMLExtensionNamespaces_h */
+
+/** @endcond */
