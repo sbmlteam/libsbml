@@ -407,6 +407,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
 
+
 /**
  * 
  * wraps "List* ASTNode::getListOfNodes(ASTNodePredicate)" function
@@ -414,15 +415,6 @@ LIBSBML_CPP_NAMESPACE_USE
  * which returns a list of all ASTNodes. 
  *
  */
-
-
-%inline
-%{
-  int ASTNode_true(const ASTNode *node)
-  {
-    return 1;
-  }
-%}
 
 %ignore SBase::getAllElementsFromPlugins;
 %ignore SBasePlugin::getAllElements;
