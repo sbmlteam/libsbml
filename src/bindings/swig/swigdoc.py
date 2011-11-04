@@ -718,7 +718,7 @@ def sanitizeForHTML (docstring):
   # Javadoc doesn't have an @htmlinclude command, so we process the file
   # inclusion directly here.
 
-  p = re.compile('@htmlinclude\s+([^\s]+).*$', re.MULTILINE)
+  p = re.compile('@htmlinclude\s+([^\s]+)\s', re.MULTILINE)
   docstring = p.sub(translateInclude, docstring)
 
   # There's no Javadoc verbatim or @code/@endcode equivalent, so we have to
