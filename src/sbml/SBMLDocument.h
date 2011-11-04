@@ -599,6 +599,10 @@ public:
    * of both the source and target model when performing
    * conversion (defaults to <code> true </code>)
    *
+   * @return @c true if the level and version of the document were
+   * successfully set to the requested values (which may have required
+   * conversion of the model), @c false otherwise.
+   *
    * @note Calling this method will not @em necessarily lead to a successful
    * conversion.  If the conversion fails, it will be logged in the error
    * list associated with this SBMLDocument.  Callers should consult
