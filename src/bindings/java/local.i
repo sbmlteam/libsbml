@@ -426,6 +426,22 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 %pragma(java) modulecode =
 %{
 	
+  /**
+   * Downcast a package extension object to its specific package class.
+   *
+   * This method is used in the implementation of libSBML extensions to
+   * support SBML Level&nbsp;3 packages.  It allows an object to be
+   * downcast to the actual {@link SBMLExtension} object it is.
+   *
+   * @param cPtr the the pointer to the object
+   * @param owner if <code>true</code>, it indicates the caller will "own"
+   * the memory associated with the object and will be responsible for
+   * freeing it.
+   *
+   * @return the {@link SBMLExtension} for the package
+   *
+   * @exclude
+   */
   public static SBMLExtension DowncastExtension(long cPtr, boolean owner)
   {		
     if (cPtr == 0) return null;
@@ -437,8 +453,12 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 %pragma(java) modulecode =
 %{
     return new SBMLExtension(cPtr,owner);
-  }	
-	
+  }     
+        
+  /**
+   * SBMLExtension derived classes must override this method
+   * @exclude
+   */
   public static SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
   {
     if (cPtr == 0) return null;
@@ -454,29 +474,31 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
     return new SBasePlugin(cPtr,owner);
   }
 
-	public static SBMLNamespaces DowncastSBMLNamespaces(long cPtr, boolean owner)
-	{
-		if (cPtr == 0) return null;
-		
-		SBMLNamespaces sbn = new SBMLNamespaces(cPtr, false);
-		if (sbn != null)
-		{
-			XMLNamespaces ns = sbn.getNamespaces();
+  /**
+   * @exclude
+   */
+  public static SBMLNamespaces DowncastSBMLNamespaces(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) return null;
+                
+    SBMLNamespaces sbn = new SBMLNamespaces(cPtr, false);
+    if (sbn != null)
+    {
+      XMLNamespaces ns = sbn.getNamespaces();
 %}
 %include "local-downcast-namespaces.i"
 %pragma(java) modulecode =
-%{				
-		}
-		return new SBMLNamespaces(cPtr, owner);
-		
-	}	
-	
+%{                              
+    }
+    return new SBMLNamespaces(cPtr, owner);
+  }     
+        
   /**
    * Internal method.  This is not actually deprecated, but we
    * cheat and use @deprecated to hide this in the documentation
    * produced by Javadoc:
    *
-   * @deprecated
+   * @exclude
    */
   public static SBase DowncastSBase(long cPtr, boolean owner)
   {
