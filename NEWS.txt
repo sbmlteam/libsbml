@@ -85,6 +85,16 @@ Version 5.2.0 (Coming soon)
     be reenabled using a configuration flag should any users wish to
     do so.
 
+  - The point at which an MSVC call to the c_str() function tidies up its 
+    memory usage when running in debug mode is different to the point at 
+    which the memory is tidied up when running in release mode or with other 
+    C compilers.  This means that a C function that returns a char * which 
+    is created using c_str() will return an invalid pointer. Unit testing 
+    does not highlight this issue as it only occurs in an MSVC Debug build. 
+    Duplicating the string before returning it solves the problem. 
+    LibSBML-5.1.0-b0 had three new functions where the string duplication 
+    was missing.  This has now been fixed.
+    
 * Miscellaneous
 
   - All example files have been overhauled and new ones added.
