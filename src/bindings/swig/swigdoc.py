@@ -432,15 +432,13 @@ class Method:
 
     if isInternal:
       if language == 'java':
-        # This is a hack, but Javadoc offers no way of selectively omitting
-        # documentation from the output, so this is the most straightforward
-        # and unobtrusive approach I've found.  The following flags our
-        # internal methods with the Javadoc @deprecated tag.  We then invoke
-        # the javadoc program with the flag -nodeprecated, and presto, the
-        # methods are not put into the documentation generated.
+        # We have a special Javadoc doclet that understands a non-standard
+        # Javadoc tag, @exclude.  When present in the documentation string
+        # of a method, it causes it to be excluded from the final
+        # documentation output.
         #
-        p = re.compile('(.+?)\*/', re.MULTILINE)
-        self.docstring = p.sub(r'\1\n * @deprecated libSBML internal\n */', docstring)
+        p = re.compile('(\s+?)\*/', re.MULTILINE)
+        self.docstring = p.sub(r'\1* @exclude\1*/', docstring)
       elif language == 'csharp':
         # We mark internal methods in a different way for C#.
         self.docstring = docstring
