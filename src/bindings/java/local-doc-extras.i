@@ -38,3 +38,13 @@
    * @see #parseRDFAnnotation(XMLNode annotation)
    */
  public";
+
+
+%javamethodmodifiers ASTNode::getListOfNodes "
+  /**
+   * Performs a depth-first search of the tree rooted at this {@link ASTNode}
+   * object, and returns an {@link ASTNodeList} of all nodes.
+   *
+   * @return the list of {@link ASTNode} objects.
+   */
+ public";
