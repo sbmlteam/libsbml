@@ -266,24 +266,15 @@ libSBML, only the libSBML developers and those are are venturing into
 developing new features in libSBML.
 
 
-
-<p>
-
 <h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB use libstdc++ that conflicts</a></h2>
   
 Some versions of MATLAB produced for Linux include a version of the stdc++
-library that conflicts with the version provided by the operating system.
-This copy of the library is installed in MATLAB's own directories.  This
-may cause a conflict when MATLAB tries to run or compile code involving
-libSBML: MATLAB may try to use this version of the stdc++ library when it
-links with libSBML's <code>libsbml.so</code> library, but
-<code>libsbml.so</code> may have been built against the operating system's
-version of stdc++.  The result is that MATLAB and/or MATLAB's
-<code>mex</code> fail with an error about being unable to find a version of
-<code>libstdc++</code>.  (Example error message:
+library that conflicts with the version provided by the operating
+system. This copy of the library is installed in MATLAB's own
+directories. This may cause a conflict when MATLAB tries to run or compile
+code involving LibSBML.  (Example error message:
 <em>"/unix/bin/glnxa64/../../sys/os/glnxa64/libstdc++.so.6: version
 `GLIBCXX_3.4.11' not found"</em>.)
-<p>
 
 <p> The solution is to preload the system stdc++ library before invoking
 MATLAB.  You can accomplish this by setting the Linux environment variable
