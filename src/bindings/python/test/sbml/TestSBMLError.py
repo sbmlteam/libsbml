@@ -74,7 +74,7 @@ class TestSBMLError(unittest.TestCase):
     self.assert_( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR )
     self.assert_( error.getSeverityAsString() ==  "Error"  )
     self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_MATHML_CONSISTENCY )
-    self.assert_( error.getShortMessage() ==  "Disallowed use of MathML 'encoding' attribute" )
+    self.assert_( error.getShortMessage() ==  "Use of the MathML 'encoding' attribute is not allowed on this element" )
     error = None
     error = libsbml.SBMLError(libsbml.DisallowedMathMLEncodingUse,1,2)
     self.assert_( error.getErrorId() == libsbml.DisallowedMathMLEncodingUse )
@@ -86,7 +86,7 @@ class TestSBMLError(unittest.TestCase):
     self.assert_( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL )
     self.assert_( error.getSeverityAsString() ==  "Fatal"  )
     self.assert_( error.getCategory() == libsbml.LIBSBML_CAT_INTERNAL )
-    self.assert_( error.getShortMessage() ==  "Unknown internal libSBML error" )
+    self.assert_( error.getShortMessage() ==  "Encountered unknown internal libSBML error" )
     error = None
     pass  
 

@@ -53,7 +53,6 @@ Version 5.2.0 (Coming soon)
   - The C API for interacting with the package plugin mechanism
     has been expanded.
     
- 
 * Bug fixes
 
   - The functions that add SBase objects were only checking that the 
@@ -94,8 +93,12 @@ Version 5.2.0 (Coming soon)
     Duplicating the string before returning it solves the problem. 
     LibSBML-5.1.0-b0 had three new functions where the string duplication 
     was missing.  This has now been fixed.
-    
+
 * Miscellaneous
+
+  - The text of many SBML validation and consistency-checking error
+    messages have been edited to hopefully improve readability,
+    clarity and consistency.
 
   - All example files have been overhauled and new ones added.
   

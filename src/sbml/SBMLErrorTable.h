@@ -66,7 +66,7 @@ static const sbmlErrorTableEntry errorTable[] =
 {
   // 10000
   { UnknownError, 
-    "Unknown internal libSBML error",
+    "Encountered unknown internal libSBML error",
     LIBSBML_CAT_INTERNAL, 
     LIBSBML_SEV_FATAL,
     LIBSBML_SEV_FATAL,
@@ -80,7 +80,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10101
   {
     NotUTF8,
-    "Not UTF8",
+    "File does not use UTF-8 encoding",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -105,7 +105,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10102
   {
     UnrecognizedElement,
-    "Unrecognized element",
+    "Encountered unrecognized element",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -129,7 +129,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10103
   {
     NotSchemaConformant,
-    "Not conformant to SBML XML schema",
+    "Document does not conform to the SBML XML schema",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -153,7 +153,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10104
   {
     L3NotSchemaConformant,
-    "Not conformant to SBML XML schema",
+    "Document is not well-formed XML",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -200,7 +200,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10202
   {
     DisallowedMathMLSymbol,
-    "Disallowed MathML symbol",
+    "Disallowed MathML symbol found",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -231,7 +231,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10203
   {
     DisallowedMathMLEncodingUse,
-    "Disallowed use of MathML 'encoding' attribute",
+    "Use of the MathML 'encoding' attribute is not allowed on this element",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -261,7 +261,7 @@ static const sbmlErrorTableEntry errorTable[] =
       * reverted to this id
       */
     DisallowedDefinitionURLUse,
-    "Disallowed use of MathML 'definitionURL' attribute",
+    "Use of the MathML 'definitionURL' attribute is not allowed on this element",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -308,7 +308,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10206
   {
     DisallowedMathTypeAttributeUse,
-    "Disallowed use of MathML 'type' attribute",
+    "Use of the MathML 'type' attribute is not allowed on this element",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -353,7 +353,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10208
   {
     LambdaOnlyAllowedInFunctionDef,
-    "Use of <lambda> not permitted outside of a <functionDefinition>",
+    "Use of <lambda> not permitted outside of FunctionDefinition objects",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -362,7 +362,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "MathML 'lambda' elements are only permitted as the first element inside "
+    "MathML <lambda> elements are only permitted as the first element inside "
     "the 'math' element of a <functionDefinition> or as the first element "
     "of a semantics element immediately inside inside the math element "
     "of a <functionDefinition>; they may not be used "
@@ -378,7 +378,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10209
   {
     BooleanOpsNeedBooleanArgs,
-    "Non-boolean argument given to boolean operator",
+    "Non-Boolean argument given to Boolean operator",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -387,8 +387,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
-    "'not' must have boolean values.",
+    "The arguments of the MathML logical operators <and>, <or>, <xor>, and "
+    "<not> must have Boolean values.",
     {"",
      "",
      "L2V2 Section 3.5.8",
@@ -410,11 +410,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The arguments to the following MathML constructs must have a numeric "
-    "type: 'plus', 'minus', 'times', 'divide', 'power', 'root', 'abs', "
-    "'exp', 'ln', 'log', 'floor', 'ceiling', 'factorial', 'sin', 'cos', "
-    "'tan', 'sec', 'csc', 'cot', 'sinh', 'cosh', 'tanh', 'sech', 'csch', "
-    "'coth', 'arcsin', 'arccos', 'arctan', 'arcsec', 'arccsc', 'arccot', "
-    "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. ",
+    "type: <plus>, <minus>, <times>, <divide>, <power>, <root>, <abs>, "
+    "<exp>, <ln>, <log>, <floor>, <ceiling>, <factorial>, <sin>, <cos>, "
+    "<tan>, <sec>, <csc>, <cot>, <sinh>, <cosh>, <tanh>, <sech>, <csch>, "
+    "<coth>, <arcsin>, <arccos>, <arctan>, <arcsec>, <arccsc>, <arccot>, "
+    "<arcsinh>, <arccosh>, <arctanh>, <arcsech>, <arccsch>, <arccoth>. ",
     {"",
      "",
      "L2V2 Section 3.5.8",
@@ -426,7 +426,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10211
   {
     ArgsToEqNeedSameType,
-    "Arguments to <eq> or <neq> have inconsistent data types",
+    "Arguments to <eq> and <neq> must have the same data types",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -435,8 +435,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The values of all arguments to 'eq' and 'neq' operators must have the "
-    "same type (either all boolean or all numeric). ",
+    "The values of all arguments to <eq> and <neq> operators must have the "
+    "same type (either all Boolean or all numeric). ",
     {"",
      "",
      "L2V2 Section 3.5.8",
@@ -448,7 +448,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10212
   {
     PiecewiseNeedsConsistentTypes,
-    "<piecewise> terms have inconsistent data types",
+    "Terms in a <piecewise> expression must have consistent data types",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -457,9 +457,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The types of values within 'piecewise' operators must all be "
+    "The types of values within <piecewise> operators must all be "
     "consistent: the set of expressions that make up the first arguments of "
-    "the 'piece' and 'otherwise' operators within the same 'piecewise' "
+    "the <piece> and <otherwise> operators within the same <piecewise> "
     "operator should all return values of the same type.",
     {"",
      "",
@@ -472,7 +472,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10213
   {
     PieceNeedsBoolean,
-    "Second argument of <piece> must yield a boolean value",
+    "The second argument of a <piece> expression must yield a Boolean value",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -481,7 +481,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The second argument of a MathML 'piece' operator must have a boolean "
+    "The second argument of a MathML <piece> operator must have a Boolean "
     "value. ",
     {"",
      "",
@@ -494,7 +494,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10214
   {
     ApplyCiMustBeUserFunction,
-    "<ci> does not refer to a function definition",
+    "A <ci> element in this context must refer to a function definition",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -503,8 +503,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Outside of a <functionDefinition>, if a 'ci' element is the first "
-    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "Outside of a <functionDefinition>, if a <ci> element is the first "
+    "element within a MathML <apply>, then the <ci>'s value can only be "
     "chosen from the set of identifiers of <functionDefinition>s defined in "
     "the SBML model.",
     {"",
@@ -518,7 +518,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10215
   {
     ApplyCiMustBeModelComponent,
-    "<ci>'s value is not a component in this model",
+    "A <ci> element in this context must refer to a model component",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -527,11 +527,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Outside of a <functionDefinition>, if a 'ci' element is not the first "
-    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "Outside of a <functionDefinition>, if a <ci> element is not the first "
+    "element within a MathML <apply>, then the <ci>'s value can only be "
     "chosen from the set of identifiers of <species>, <compartment>, "
     "<parameter> or <reaction> objects defined in the SBML model (In L2V1, the "
-    "'ci''s value can't be chosen from the identifiers of <reaction> objects). ",
+    "<ci>'s value can't be chosen from the identifiers of <reaction> objects). ",
     {"",
      "",
      "L2V2 Section 3.5.4",
@@ -543,7 +543,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10216
   {
     KineticLawParametersAreLocalOnly,
-    "Cannot use <kineticLaw> parameter outside local scope",
+    "Cannot use a KineticLaw local parameter outside of its local scope",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -553,7 +553,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
-    "be used in 'ci' elements within the MathML content of that same "
+    "be used in <ci> elements within the MathML content of that same "
     "<kineticLaw>; the identifier is not visible to other parts of the "
     "model. ",
     {"",
@@ -567,7 +567,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10217
   {
     MathResultMustBeNumeric,
-    "Formula result is not a numerical value",
+    "A formula's result in this context must be a numerical value",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -577,10 +577,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The MathML formulas in the following elements must yield numeric "
-    "expressions: 'math' in <kineticLaw>, 'stoichiometryMath' in "
-    "<speciesReference>, 'math' in <initialAssignment>, 'math' in "
-    "<assignmentRule>, 'math' in <rateRule>, 'math' in <algebraicRule>, and "
-    "'delay' in <event>, and 'math' in <eventAssignment>. ",
+    "expressions: <math> in <kineticLaw>, <stoichiometryMath> in "
+    "<speciesReference>, <math> in <initialAssignment>, <math> in "
+    "<assignmentRule>, <math> in <rateRule>, <math> in <algebraicRule>, and "
+    "<delay> in <event>, and <math> in <eventAssignment>. ",
     {"",
      "",
      "L2V2 Sections 4.10, 4.11, 4.12 and 4.13",
@@ -592,7 +592,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10218
   {
     OpsNeedCorrectNumberOfArgs,
-    "Incorrect number of arguments to operator",
+    "Incorrect number of arguments given to MathML operator",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -614,7 +614,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10219
   {
     InvalidNoArgsPassedToFunctionDef,
-    "Incorrect number of arguments to function",
+    "Incorrect number of arguments given to function invocation",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -638,7 +638,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10220
   {
     DisallowedMathUnitsUse,
-    "Attribute 'units' only permitted on cn element",
+    "Attribute 'units' is only permitted on <cn> elements",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -647,8 +647,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The SBML attribute units may only be added to MathML cn elements; "
-    "no other MathML elements are permitted to have the units attribute. ",
+    "The SBML attribute 'units' may only be added to MathML <cn> elements; "
+    "no other MathML elements are permitted to have the 'units' attribute. ",
     {"",
      "",
      "",
@@ -660,7 +660,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10221
   {
     InvalidUnitsValue,
-    "Invalid value for 'units' attribute",
+    "Invalid value given for the 'units' attribute",
     LIBSBML_CAT_MATHML_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -669,7 +669,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The value of the SBML attribute units on a MathML cn element must "
+    "The value of the SBML attribute 'units' on a MathML <cn> element must "
     "be chosen from either the set of identifiers of UnitDefinition "
     "objects in the model, or the set of base units defined by SBML. ",
     {"",
@@ -683,7 +683,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10301
   {
     DuplicateComponentId,
-    "Duplicate component identifier",
+    "Duplicate 'id' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -709,7 +709,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10302
   {
     DuplicateUnitDefinitionId,
-    "Duplicate unit definition identifier",
+    "Duplicate unit definition 'id' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -731,7 +731,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10303
   {
     DuplicateLocalParameterId,
-    "Duplicate local parameter identifier",
+    "Duplicate local parameter 'id' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -754,7 +754,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10304
   {
     MultipleAssignmentOrRateRules,
-    "Multiple rules for the same variable",
+    "Multiple rules for the same variable are not allowed",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -777,7 +777,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10305
   {
     MultipleEventAssignmentsForId,
-    "Multiple event assignments for the same variable",
+    "Multiple event assignments for the same variable are not allowed",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -800,7 +800,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10306
   {
     EventAndAssignmentRuleForId,
-    "'variable' value used in both event assignments and assignment rules",
+    "An event assignment and an assignment rule must not have the same value for 'variable'",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -822,7 +822,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10307
   {
     DuplicateMetaId,
-    "Duplicate 'metaid' identifier",
+    "Duplicate 'metaid' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -844,7 +844,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10308
   {
     InvalidSBOTermSyntax,
-    "Invalid 'sboTerm' value syntax",
+    "Invalid syntax for an 'sboTerm' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -867,7 +867,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10309
   {
     InvalidMetaidSyntax,
-    "Invalid 'metaid' value syntax",
+    "Invalid syntax for a 'metaid' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -889,7 +889,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10310
   {
     InvalidIdSyntax,
-    "Invalid identifier syntax",
+    "Invalid syntax for an 'id' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -911,7 +911,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10311
   {
     InvalidUnitIdSyntax,
-    "Invalid unit identifier syntax",
+    "Invalid syntax for the identifier of a unit",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -920,9 +920,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The syntax of unit identifiers (i.e., the values of the id attribute "
-    "on UnitDefinition, the units attribute on Compartment, the units "
-    "attribute on Parameter, and the substanceUnits attribute on Species) "
+    "The syntax of unit identifiers (i.e., the values of the 'id' attribute "
+    "on UnitDefinition, the 'units' attribute on Compartment, the 'units' "
+    "attribute on Parameter, and the 'substanceUnits' attribute on Species) "
     "must conform to the syntax of the SBML type UnitSId.",
     {"",
      "",
@@ -935,7 +935,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10312
   {
     InvalidNameSyntax,
-    "Invalid name syntax",
+    "Invalid syntax for a 'name' attribute value",
     LIBSBML_CAT_IDENTIFIER_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -956,7 +956,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10401
   {
     MissingAnnotationNamespace,
-    "Missing declaration of XML namespace for annotation",
+    "Missing declaration of the XML namespace for the annotation",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -978,7 +978,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10402
   {
     DuplicateAnnotationNamespaces,
-    "Multiple annotations using same XML namespace",
+    "Multiple annotations using the same XML namespace",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1000,7 +1000,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10403
   {
     SBMLNamespaceInAnnotation,
-    "Invalid use of SBML XML namespace in annotation",
+    "The SBML XML namespace cannot be used in an Annotation object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1028,7 +1028,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10404
   {
     MultipleAnnotations,
-    "Multiple annotation elements not allowed",
+    "Only one Annotation object is permitted under a given SBML object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1037,7 +1037,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A given SBML element may contain at most one Annotation object.",
+    "A given SBML object may contain at most one <annotation> element.",
     {"",
      "",
      "",
@@ -1049,7 +1049,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10501
   {
     InconsistentArgUnits,
-    "Units of arguments to function call do not match function's definition",
+    "The units of the function call's arguments are not consistent with its definition",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -1071,7 +1071,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10503
   {
     InconsistentKineticLawUnitsL3,
-    "Inconsistent <kineticLaw> units",
+    "The kinetic law's units are inconsistent with those of other kinetic laws in the model",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1378,7 +1378,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10541
   {
     KineticLawNotSubstancePerTime,
-    "Kinetic law units are not 'substance'/'time'",
+    "The units of the kinetic law are not 'substance'/'time'",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -1400,7 +1400,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10542
   {
     SpeciesInvalidExtentUnits,
-    "Species units not consistent with extent",
+    "The species' units are not consistent with units of extent",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1429,7 +1429,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10551
   {
     DelayUnitsNotTime,
-    "Units of delay are not units of time",
+    "The units of the delay expression are not units of time",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1546,7 +1546,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10565
   {
     PriorityUnitsNotDimensionless,
-    "Priority units must be dimensionless",
+    "The units of a priority expression must be 'dimensionless'",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1556,19 +1556,40 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
     "In an Event object, the unit of measurement associated with a Priority "
-    "object's math expression object should be 'dimensionless'. ",
+    "object's <math> expression object should be 'dimensionless'. ",
     {"",
      "",
      "",
      "",
      "",
      "L3V1 Section 4.12.3"}
-},
+  },
+
+  //10599
+  {
+    UpperUnitBound,
+    "Upper boundary of unit validation diagnostic codes",
+    LIBSBML_CAT_INTERNAL,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     ""}
+  },
 
   //10601
   {
     OverdeterminedSystem,
-    "Model is overdetermined",
+    "The model is overdetermined",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -1590,7 +1611,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10701
   {
     InvalidModelSBOTerm,
-    "Invalid 'sboTerm' value for model",
+    "Invalid 'sboTerm' attribute value for a Model object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1616,7 +1637,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10702
   {
     InvalidFunctionDefSBOTerm,
-    "Invalid 'sboTerm' value for function definition",
+    "Invalid 'sboTerm' attribute value for a FunctionDefinition object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1640,7 +1661,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10703
   {
     InvalidParameterSBOTerm,
-    "Invalid 'sboTerm' value for parameter",
+    "Invalid 'sboTerm' attribute value for a Parameter object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1664,7 +1685,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10704
   {
     InvalidInitAssignSBOTerm,
-    "Invalid 'sboTerm' value for initial assignment",
+    "Invalid 'sboTerm' attribute value for an InitialAssignment object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1688,7 +1709,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10705
   {
     InvalidRuleSBOTerm,
-    "Invalid 'sboTerm' value for rule",
+    "Invalid 'sboTerm' attribute value for a Rule object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1713,7 +1734,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10706
   {
     InvalidConstraintSBOTerm,
-    "Invalid 'sboTerm' value for constraint",
+    "Invalid 'sboTerm' attribute value for a Constraint object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1737,7 +1758,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10707
   {
     InvalidReactionSBOTerm,
-    "Invalid 'sboTerm' value for reaction",
+    "Invalid 'sboTerm' attribute value for a Reaction object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1760,7 +1781,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10708
   {
     InvalidSpeciesReferenceSBOTerm,
-    "Invalid 'sboTerm' value for species reference",
+    "Invalid 'sboTerm' attribute value for a SpeciesReference object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1788,7 +1809,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10709
   {
     InvalidKineticLawSBOTerm,
-    "Invalid 'sboTerm' value for kinetic law",
+    "Invalid 'sboTerm' attribute value for a KineticLaw object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1811,7 +1832,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10710
   {
     InvalidEventSBOTerm,
-    "Invalid 'sboTerm' value for event",
+    "Invalid 'sboTerm' attribute value for an Event object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1834,7 +1855,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10711
   {
     InvalidEventAssignmentSBOTerm,
-    "Invalid 'sboTerm' value for event assignment",
+    "Invalid 'sboTerm' attribute value for an EventAssignment object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1858,7 +1879,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10712
   {
     InvalidCompartmentSBOTerm,
-    "Invalid 'sboTerm' value for compartment",
+    "Invalid 'sboTerm' attribute value for a Compartment object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1885,7 +1906,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10713
   {
     InvalidSpeciesSBOTerm,
-    "Invalid 'sboTerm' value for species",
+    "Invalid 'sboTerm' attribute value for a Species object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1912,7 +1933,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10714
   {
     InvalidCompartmentTypeSBOTerm,
-    "Invalid 'sboTerm' value for compartment type",
+    "Invalid 'sboTerm' attribute value for a CompartmentType object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1939,7 +1960,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10715
   {
     InvalidSpeciesTypeSBOTerm,
-    "Invalid 'sboTerm' value for species type",
+    "Invalid 'sboTerm' attribute value for a SpeciesType object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1966,7 +1987,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10716
   {
     InvalidTriggerSBOTerm,
-    "Invalid 'sboTerm' value for event trigger",
+    "Invalid 'sboTerm' attribute value for an Event Trigger object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -1990,7 +2011,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10717
   {
     InvalidDelaySBOTerm,
-    "Invalid 'sboTerm' value for event delay",
+    "Invalid 'sboTerm' attribute value for an Event Delay object",
     LIBSBML_CAT_SBO_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2014,7 +2035,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10801
   {
     NotesNotInXHTMLNamespace,
-    "Notes not placed in XHTML namespace",
+    "Notes must be placed in the XHTML XML namespace",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
@@ -2036,7 +2057,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10802
   {
     NotesContainsXMLDecl,
-    "XML declarations not permitted in notes",
+    "XML declarations are not permitted in Notes objects",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2059,7 +2080,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10803
   {
     NotesContainsDOCTYPE,
-    "XML DOCTYPE not permitted in notes",
+    "XML DOCTYPE elements are not permitted in Notes objects",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2081,7 +2102,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10804
   {
     InvalidNotesContent,
-    "Invalid notes content",
+    "Invalid notes content found",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2106,7 +2127,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //10805
   {
     OnlyOneNotesElementAllowed,
-    "Only one notes element allowed.",
+    "Only one Notes subobject is permitted on a given SBML object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2115,7 +2136,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A given SBML object may contain at most one <notes> subobject. ",
+    "A given SBML object may contain at most one <notes> element. ",
     {"",
      "",
      "",
@@ -2123,10 +2144,11 @@ static const sbmlErrorTableEntry errorTable[] =
      "",
      "L3V1 Section 3.2"}
   },
+
   //20101
   {
     InvalidNamespaceOnSBML,
-    "Invalid XML namespace for SBML container",
+    "Invalid XML namespace for the SBML container element",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -2149,7 +2171,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20102
   {
     MissingOrInconsistentLevel,
-    "Missing or inconsistent value for 'level' attribute",
+    "Missing or inconsistent value for the 'level' attribute",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -2160,7 +2182,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The <sbml> container element must declare the SBML Level using the "
     "attribute 'level', and this declaration must be consistent with the XML "
-    "Namespace declared for the <sbml> element. ",
+    "Namespace declared for the <sbml> element.",
     {"",
      "",
      "L2V2 Section 4.1",
@@ -2172,7 +2194,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20103
   {
     MissingOrInconsistentVersion,
-    "Missing or inconsistent value for 'version' attribute",
+    "Missing or inconsistent value for the 'version' attribute",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -2183,7 +2205,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     "The <sbml> container element must declare the SBML Version using the "
     "attribute 'version', and this declaration must be consistent with the "
-    "XML Namespace declared for the <sbml> element. ", 
+    "XML Namespace declared for the <sbml> element.", 
     {"",
      "",
      "L2V2 Section 4.1",
@@ -2195,7 +2217,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20104 
   {
     PackageNSMustMatch,
-    "Invalid level/version on package namespace",
+    "Inconsistent or invalid SBML Level/Version for the package namespace declaration",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2204,10 +2226,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The sbml container element must declare the XML Namespace for any "
+    "The <sbml> container element must declare the XML Namespace for any "
     "SBML Level 3 packages used within the SBML document. This declaration "
-    "must be consistent with the values of the level and version attributes "
-    "on the sbml element.",
+    "must be consistent with the values of the 'level' and 'version' attributes "
+    "on the <sbml> element.",
     {"",
      "",
      "",
@@ -2219,7 +2241,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20105
   {
     LevelPositiveInteger,
-    "'level' must be positive integer",
+    "The 'level' attribute must have a positive integer value",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2228,8 +2250,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The attribute 'level' on the sbml container element must have a value "
-    "of type positiveInteger.",
+    "The attribute 'level' on the <sbml> container element must have a value "
+    "of type 'positiveInteger'.",
     {"",
      "",
      "",
@@ -2241,7 +2263,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20106
   {
     VersionPositiveInteger,
-    "'version' must be positive integer",
+    "The 'version' attribute must have a positive integer value",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2250,8 +2272,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The attribute 'version' on the sbml container element must have a value "
-    "of type positiveInteger.",
+    "The attribute 'version' on the <sbml> container element must have a value "
+    "of type 'positiveInteger'.",
     {"",
      "",
      "",
@@ -2263,7 +2285,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20108
   {
     AllowedAttributesOnSBML,
-    "Invalid attribute on <sbml>",
+    "Invalid attribute found on the SBML container element",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2272,7 +2294,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The sbml object may have the optional attributes metaid and sboTerm.",
+    "The <sbml> object may only have the optional attributes 'metaid' and 'sboTerm'.",
     {"",
      "",
      "",
@@ -2284,7 +2306,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20201
   {
     MissingModel,
-    "Missing model",
+    "No model definition found",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -2293,7 +2315,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "An SBML document must contain a <model> definition. ", 
+    "An SBML document must contain a <model> element. ", 
     {"",
      "L2V1 Section 4.1",
      "L2V2 Section 4.1",
@@ -2305,7 +2327,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20202
   {
     IncorrectOrderInModel,
-    "Incorrect ordering of components in model definition",
+    "Incorrect ordering of components within the Model object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -2314,8 +2336,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "The order of subelements within a <model> must be the following (where "
-    "any one may be optional, but the ordering must be maintained): "
+    "The order of subelements within a <model> element must be the following "
+    "(where any one may be optional, but the ordering must be maintained): "
     "<listOfFunctionDefinitions>, <listOfUnitDefinitions>, "
     "<listOfCompartmentTypes>, <listOfSpeciesTypes>, <listOfCompartments>, "
     "<listOfSpecies>, <listOfParameters>, <listOfInitialAssignments>, "
@@ -2332,7 +2354,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20203
   {
     EmptyListElement,
-    "A given listOf___, if present, cannot be empty",
+    "Empty ListOf___ object found",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -2360,7 +2382,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20204
   {
     NeedCompartmentIfHaveSpecies,
-    "Missing compartment in species definition",
+    "The presence of a species requires a compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
@@ -2383,7 +2405,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20205
   {
     OneOfEachListOf,
-    "Only one of each ListOf element allowed",
+    "Only one of each kind of ListOf___ object is allowed inside a Model object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2393,7 +2415,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "There may be at most one instance of each of the following kind of "
-    "object in a Model object: ListOfFunctionDefinitions, "
+    "element in a <model> object: ListOfFunctionDefinitions, "
     "ListOfUnitDefinitions, ListOfCompartments, ListOfSpecies, "
     "ListOfParameters, ListOfInitialAssignments, ListOfRules, "
     "ListOfConstraints, ListOfReactions and ListOfEvents.",
@@ -2408,7 +2430,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20206
   {
     OnlyFuncDefsInListOfFuncDefs,
-    "Only FunctionDefinitions allowed in ListOfFunctionDefinitions",
+    "Only FunctionDefinition, Notes and Annotation objects are allowed in ListOfFunctionDefinitions",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2417,7 +2439,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfFunctionDefinitions container object may only "
     "contain FunctionDefinition objects.",
     {"",
@@ -2431,7 +2453,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20207
   {
     OnlyUnitDefsInListOfUnitDefs,
-    "Only UnitDefinitions allowed in ListOfUnitDefinitions",
+    "Only UnitDefinition, Notes and Annotation objects are allowed in ListOfUnitDefinitions objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2440,7 +2462,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfUnitDefinitions container object may only "
     "contain UnitDefinition objects.",
     {"",
@@ -2454,7 +2476,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20208
   {
     OnlyCompartmentsInListOfCompartments,
-    "Only Compartments allowed in ListOfCompartments",
+    "Only Compartment, Notes and Annotation objects are allowed in ListOfCompartments objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2463,7 +2485,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfCompartments container object may only "
     "contain Compartment objects.",
     {"",
@@ -2477,7 +2499,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20209
   {
     OnlySpeciesInListOfSpecies,
-    "Only Species allowed in ListOfSpecies",
+    "Only Species, Notes and Annotation objects are allowed in ListOfSpecies objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2486,7 +2508,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfSpecies container object may only "
     "contain Species objects.",
     {"",
@@ -2500,7 +2522,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20210
   {
     OnlyParametersInListOfParameters,
-    "Only parameters allowed in ListOfParameters",
+    "Only Parameter, Notes and Annotation objects are allowed in ListOfParameters objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2509,7 +2531,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfParameters container object may only "
     "contain Parameter objects.",
     {"",
@@ -2523,7 +2545,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20211
   {
     OnlyInitAssignsInListOfInitAssigns,
-    "Only InitialAssignments allowed in ListOfInitialAssignments",
+    "Only InitialAssignment, Notes and Annotation objects are allowed in ListOfInitialAssignments objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2532,7 +2554,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfInitialAssignments container object may only "
     "contain InitialAssignment objects.",
     {"",
@@ -2546,7 +2568,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20212
   {
     OnlyRulesInListOfRules,
-    "Only Rules allowed in ListOfRules",
+    "Only Rule, Notes and Annotation objects are allowed in ListOfRules objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2555,7 +2577,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfRules container object may only "
     "contain Rule objects.",
     {"",
@@ -2569,7 +2591,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20213
   {
     OnlyConstraintsInListOfConstraints,
-    "Only Constraints allowed in ListOfConstraints",
+    "Only Constraint, Notes and Annotation objects are allowed in ListOfConstraints objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2578,7 +2600,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfConstraints container object may only "
     "contain Constraint objects.",
     {"",
@@ -2592,7 +2614,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20214
   {
     OnlyReactionsInListOfReactions,
-    "Only Reactions allowed in ListOfReactions",
+    "Only Reaction, Notes and Annotation objects are allowed in ListOfReactions objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2601,7 +2623,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfReactions container object may only "
     "contain Reaction objects.",
     {"",
@@ -2615,7 +2637,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20215
   {
     OnlyEventsInListOfEvents,
-    "Only Events allowed in ListOfEvents",
+    "Only Event, Notes and Annotation objects are allowed in ListOfEvents objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2624,7 +2646,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfEvents container object may only "
     "contain Event objects.",
     {"",
@@ -2638,7 +2660,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20216
   {
     L3ConversionFactorOnModel,
-    "ConversionFactor must be parameter",
+    "A 'conversionFactor' attribute value must reference a Parameter object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2647,7 +2669,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute conversionFactor on a Model object "
+    "The value of the attribute 'conversionFactor' on a Model object "
     "must be the identifier of an existing Parameter object defined "
     "in the Model object's ListOfParameters.",
     {"",
@@ -2661,7 +2683,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20217
   {
     L3TimeUnitsOnModel,
-    "Invalid value of 'timeUnits' on <model>",
+    "Invalid 'timeUnits' attribute value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2670,7 +2692,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "The value of the attribute timeUnits on a Model object should be either "
+    "The value of the attribute 'timeUnits' on a Model object should be either "
     "the units 'second', 'dimensionless', or the identifier of a "
     "UnitDefinition object based on these units.",
     {"",
@@ -2684,7 +2706,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20218
   {
     L3VolumeUnitsOnModel,
-    "Invalid value of 'volumeUnits' on <model>",
+    "Invalid 'volumeUnits' attribute value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2693,7 +2715,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "The value of the attribute volumeUnits on a Model object should be "
+    "The value of the attribute 'volumeUnits' on a Model object should be "
     "either the units 'litre', 'dimensionless', or the identifier of a "
     "UnitDefinition object based on these units or a unit derived from "
     "'metre' (with an exponent of '3').",
@@ -2708,7 +2730,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20219
   {
     L3AreaUnitsOnModel,
-    "Invalid value of 'areaUnits' on <model>",
+    "Invalid 'areaUnits' attribute value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2717,7 +2739,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "The value of the attribute areaUnits on a Model object should be "
+    "The value of the attribute 'areaUnits' on a Model object should be "
     "either 'dimensionless' or the identifier of a UnitDefinition object "
     "based on 'dimensionless' or a unit derived from 'metre' (with an "
     "exponent of '2').",
@@ -2732,7 +2754,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20220
   {
     L3LengthUnitsOnModel,
-    "Invalid value of 'lengthUnits' on <model>",
+    "Invalid 'lengthUnits' attribute value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2741,7 +2763,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "The value of the attribute lengthUnits on a Model object should be "
+    "The value of the attribute 'lengthUnits' on a Model object should be "
     "either the units 'metre', 'dimensionless', or the identifier of a "
     "UnitDefinition object based on these units.",
     {"",
@@ -2755,7 +2777,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20221
   {
     L3ExtentUnitsOnModel,
-    "Invalid value of 'extentUnits' on <model>",
+    "Invalid 'extentUnits' attribute value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2779,7 +2801,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20222
   {
     AllowedAttributesOnModel,
-    "Invalid attribute on <model>",
+    "Invalid attribute found on the Model object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2789,9 +2811,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A Model object may only have the following attributes, all of "
-    "which are optional: metaid, sboTerm, id, name, substanceUnits, "
-    "timeUnits, volumeUnits, areaUnits, lengthUnits, extentUnits and "
-    "conversionFactor. No other attributes from the SBML Level 3 Core "
+    "which are optional: 'metaid', 'sboTerm', 'id', 'name', 'substanceUnits', "
+    "'timeUnits', 'volumeUnits', 'areaUnits', 'lengthUnits', 'extentUnits' and "
+    "'conversionFactor'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a Model object.",
     {"",
      "",
@@ -2804,7 +2826,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20223
   {
     AllowedAttributesOnListOfFuncs,
-    "Invalid attribute on <listOfFunctionDefinitions>",
+    "Invalid attribute found on the ListOfFunctionDefinitions object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2814,7 +2836,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfFunctionDefinitions object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfFunctionDefinitions object.",
     {"",
      "",
@@ -2827,7 +2849,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20224
   {
     AllowedAttributesOnListOfUnitDefs,
-    "Invalid attribute on <listOfUnitDefinitions>",
+    "Invalid attribute found on the ListOfUnitDefinitions object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2837,7 +2859,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfUnitDefinitions object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfUnitDefinitions object.",
     {"",
      "",
@@ -2850,7 +2872,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20225
   {
     AllowedAttributesOnListOfComps,
-    "Invalid attribute on <listOfCompartments>",
+    "Invalid attribute found on the ListOfCompartments object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2860,7 +2882,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfCompartments object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfCompartments object.",
     {"",
      "",
@@ -2873,7 +2895,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20226
   {
     AllowedAttributesOnListOfSpecies,
-    "Invalid attribute on <listOfSpecies>",
+    "Invalid attribute found on the ListOfSpecies object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2883,7 +2905,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfSpecies object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfSpecies object.",
     {"",
      "",
@@ -2896,7 +2918,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20227
   {
     AllowedAttributesOnListOfParams,
-    "Invalid attribute on <listOfParameters>",
+    "Invalid attribute found on the ListOfParameters object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2906,7 +2928,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfParameters object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfParameters object.",
     {"",
      "",
@@ -2919,7 +2941,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20228
   {
     AllowedAttributesOnListOfInitAssign,
-    "Invalid attribute on <listOfInitialAssignments>",
+    "Invalid attribute found on the ListOfInitialAssignments object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2929,7 +2951,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfInitialAssignments object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfInitialAssignments object.",
     {"",
      "",
@@ -2942,7 +2964,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20229
   {
     AllowedAttributesOnListOfRules,
-    "Invalid attribute on <listOfRules>",
+    "Invalid attribute found on the ListOfRules object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2952,7 +2974,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfRules object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfRules object.",
     {"",
      "",
@@ -2965,7 +2987,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20230
   {
     AllowedAttributesOnListOfConstraints,
-    "Invalid attribute on <listOfConstraints>",
+    "Invalid attribute found on the ListOfConstraints object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2975,7 +2997,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfConstraints object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfConstraints object.",
     {"",
      "",
@@ -2988,7 +3010,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20231
   {
     AllowedAttributesOnListOfReactions,
-    "Invalid attribute on <listOfReactions>",
+    "Invalid attribute found on the ListOfReactions object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -2998,7 +3020,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfReactions object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfReactions object.",
     {"",
      "",
@@ -3011,7 +3033,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20232
   {
     AllowedAttributesOnListOfEvents,
-    "Invalid attribute on <listOfEvents>",
+    "Invalid attribute found on the ListOfEvents object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3021,7 +3043,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfEvents object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfEvents object.",
     {"",
      "",
@@ -3034,7 +3056,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20301
   {
     FunctionDefMathNotLambda,
-    "Invalid expression in function definition",
+    "Invalid expression found in the function definition",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3058,7 +3080,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20302
   {
     InvalidApplyCiInLambda,
-    "Invalid forward reference in <apply><ci>...</ci></apply> value",
+    "Invalid forward reference in the MathML <apply><ci>...</ci></apply> expression",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3067,8 +3089,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is the "
-    "first element within a MathML 'apply', then the 'ci''s value can only "
+    "Inside the <lambda> of a <functionDefinition>, if a <ci> element is the "
+    "first element within a MathML <apply>, then the <ci>'s value can only "
     "be chosen from the set of identifiers of other SBML "
     "<functionDefinition>s defined prior to that point in the SBML model. In "
     "other words, forward references to user-defined functions are not "
@@ -3084,7 +3106,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20303
   {
     RecursiveFunctionDefinition,
-    "Recursive function definition",
+    "Recursive function definitions are not permitted",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3107,7 +3129,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20304
   {
     InvalidCiInLambda,
-    "Unknown <ci> reference in <lambda>",
+    "Invalid <ci> reference found inside the <lambda> mathematical formula",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3116,9 +3138,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is not "
-    "the first element within a MathML 'apply', then the 'ci''s value can "
-    "only be the value of a 'bvar' element declared in that 'lambda'. In "
+    "Inside the <lambda> of a <functionDefinition>, if a <ci> element is not "
+    "the first element within a MathML <apply>, then the <ci>'s value can "
+    "only be the value of a <bvar> element declared in that <lambda>. In "
     "other words, all model entities referenced inside a function definition "
     "must be passed arguments to that function. ",
     {"",
@@ -3132,7 +3154,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20305
   {
     InvalidFunctionDefReturnType,
-    "Function return type must be either numerical or boolean",
+    "A function's return type must be either a number or a Boolean",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3142,7 +3164,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value type returned by a <functionDefinition>'s <lambda> must be "
-    "either boolean or numeric.",
+    "either Boolean or numeric.",
     {"",
      "",
      "L2V2 Section 3.5.8",
@@ -3154,7 +3176,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20306
   {
     OneMathElementPerFunc,
-    "FunctionDefinition must contain one math element",
+    "A FunctionDefinition object must contain one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3176,7 +3198,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20307
   {
     AllowedAttributesOnFunc,
-    "FunctionDefinition must have id and optionally metaid and sboTerm",
+    "Invalid attribute found on the FunctionDefinition object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3185,8 +3207,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "FunctionDefinition object must have the required attribute id, and "
-    "may have the optional attributes metaid, sboTerm and name. No other "
+    "FunctionDefinition object must have the required attribute 'id', and "
+    "may have the optional attributes 'metaid', 'sboTerm' and 'name'. No other "
     "attributes from the SBML Level 3 Core namespace are permitted on a "
     "FunctionDefinition object.",
     {"",
@@ -3200,7 +3222,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20401
   {
     InvalidUnitDefId,
-    "Invalid 'id' value for unit definition",
+    "Invalid 'id' attribute value for a UnitDefinition object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3224,7 +3246,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20402
   {
     InvalidSubstanceRedefinition,
-    "Invalid redefinition of 'substance'",
+    "Invalid redefinition of built-in type 'substance'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3247,7 +3269,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20403
   {
     InvalidLengthRedefinition,
-    "Invalid redefinition of 'length'",
+    "Invalid redefinition of built-in type 'length'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -3270,7 +3292,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20404
   {
     InvalidAreaRedefinition,
-    "Invalid redefinition of 'area'",
+    "Invalid redefinition of built-in type name 'area'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -3293,7 +3315,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20405
   {
     InvalidTimeRedefinition,
-    "Invalid redefinition of 'time'",
+    "Invalid redefinition of built-in type name 'time'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3316,7 +3338,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20406
   {
     InvalidVolumeRedefinition,
-    "Invalid redefinition of 'volume'",
+    "Invalid redefinition of built-in type name 'volume'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3385,7 +3407,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20409
   {
     EmptyListOfUnits,
-    "Empty list of units not permitted",
+    "An empty list of Unit objects is not permitted in a UnitDefinition object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
@@ -3406,7 +3428,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20410
   {
     InvalidUnitKind,
-    "Invalid value of 'kind' in unit definition",
+    "Invalid value for the 'kind' attribute of a UnitDefinition object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3430,7 +3452,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20411
   {
     OffsetNoLongerValid,
-    "'offset' not supported in this Level+Version of SBML",
+    "Unit attribute 'offset' is not supported in this Level+Version of SBML",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3452,7 +3474,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20412
   {
     CelsiusNoLongerValid,
-    "'Celsius' not defined in this Level+Version of SBML",
+    "Unit name 'Celsius' is not defined in this Level+Version of SBML",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3474,7 +3496,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20413
   {
     EmptyUnitListElement,
-    "ListOfUnits must not be empty",
+    "A ListOfUnits object must not be empty",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3496,7 +3518,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20414
   {
     OneListOfUnitsPerUnitDef,
-    "Only one ListOfUnits element on UnitDefinition",
+    "At most one ListOfUnits object is allowed inside a UnitDefinition object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3518,7 +3540,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20415
   {
     OnlyUnitsInListOfUnits,
-    "Only Units allowed in ListOfUnits",
+    "Only Unit, Notes and Annotation objects are allowed in ListOfUnits objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3527,7 +3549,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfUnits container object may only contain "
     "Unit objects.",
     {"",
@@ -3541,7 +3563,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20419
   {
     AllowedAttributesOnUnitDefinition,
-    "Invalid attribute on <unitDefinition>",
+    "Invalid attribute found on the UnitDefinition object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3550,8 +3572,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A UnitDefinition object must have the required attribute id and "
-    "may have the optional attributes metaid, sboTerm and name. No other "
+    "A UnitDefinition object must have the required attribute 'id' and "
+    "may have the optional attributes 'metaid', 'sboTerm' and 'name'. No other "
     "attributes from the SBML Level 3 Core namespace are permitted on "
     "a UnitDefinition object.",
     {"",
@@ -3565,7 +3587,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20420
   {
     AllowedAttributesOnListOfUnits,
-    "Invalid attribute on <listOfUnits>",
+    "Invalid attribute found on the ListOfUnits object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3574,8 +3596,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A ListOfUnits object may have the optional attributes metaid and "
-    "sboTerm. No other attributes from the SBML Level 3 Core namespace "
+    "A ListOfUnits object may have the optional attributes 'metaid' and "
+    "'sboTerm'. No other attributes from the SBML Level 3 Core namespace "
     "are permitted on a ListOfUnits object.",
     {"",
      "",
@@ -3588,7 +3610,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20421
   {
     AllowedAttributesOnUnit,
-    "Invalid attribute on <unit>",
+    "Invalid attribute found on the Unit object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3597,9 +3619,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Unit object must have the required attributes kind, exponent, "
-    "scale and multiplier, and may have the optional attributes metaid "
-    "and sboTerm. No other attributes from the SBML Level 3 Core namespace "
+    "A Unit object must have the required attributes 'kind', 'exponent', "
+    "'scale' and 'multiplier', and may have the optional attributes 'metaid' "
+    "and 'sboTerm'. No other attributes from the SBML Level 3 Core namespace "
     "are permitted on a Unit object.",
     {"",
      "",
@@ -3612,7 +3634,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20501
   {
     ZeroDimensionalCompartmentSize,
-    "Use of 'size' is invalid for a zero-dimensional compartment",
+    "Invalid use of the 'size' attribute for a zero-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3634,7 +3656,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20502
   {
     ZeroDimensionalCompartmentUnits,
-    "Use of 'units' is invalid for a zero-dimensional compartment",
+    "Invalid use of the 'units' attribute for a zero-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3657,7 +3679,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20503
   {
     ZeroDimensionalCompartmentConst,
-    "Zero-dimensional compartments cannot be non-constant",
+    "Zero-dimensional compartments must be defined to be constant",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3681,7 +3703,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20504
   {
     UndefinedOutsideCompartment,
-    "Undefined compartment used as 'outside' value",
+    "Invalid value for the 'outside' attribute of a Compartment object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3703,7 +3725,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20505
   {
     RecursiveCompartmentContainment,
-    "Recursive nesting of compartments via 'outside'",
+    "Recursive nesting of compartments via the 'outside' attribute is not permitted",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -3753,7 +3775,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20507
   {
     Invalid1DCompartmentUnits,
-    "Invalid value of 'units' for a one-dimensional compartment",
+    "Invalid value for the 'units' attribute of a one-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3777,7 +3799,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20508
   {
     Invalid2DCompartmentUnits,
-    "Invalid value of 'units' for a two-dimensional compartment",
+    "Invalid value for the 'units' attribute of a two-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3801,7 +3823,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20509
   {
     Invalid3DCompartmentUnits,
-    "Invalid value of 'units' for a three-dimensional compartment",
+    "Invalid value for the 'units' attribute of a three-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3825,7 +3847,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20510
   {
     InvalidCompartmentTypeRef,
-    "Invalid 'compartmentType' reference",
+    "Invalid value for the 'compartmentType' attribute of a compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3848,7 +3870,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20511
   {
     OneDimensionalCompartmentUnits,
-    "No units for 1D Compartment",
+    "No units defined for 1-D compartment",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3857,11 +3879,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "If the attribute units on a Compartment object having a spatialDimensions "
+    "If the attribute 'units' on a Compartment object having a 'spatialDimensions' "
     "attribute value of '1' has not been set, then the unit of measurement "
     "associated with the compartment's size is determined by the value of the "
-    "enclosing Model object's lengthUnits attribute. If neither the Compartment "
-    "object's units nor the enclosing Model object's lengthUnits attributes "
+    "enclosing Model object's 'lengthUnits' attribute. If neither the Compartment "
+    "object's 'units' nor the enclosing Model object's 'lengthUnits' attributes "
     "are set, the unit of compartment size is undefined.",
     {"",
      "",
@@ -3874,7 +3896,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20512
   {
     TwoDimensionalCompartmentUnits,
-    "No units for 2D Compartment",
+    "No units defined for 2-D compartment",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3883,11 +3905,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "If the attribute units on a Compartment object having a spatialDimensions "
+    "If the attribute 'units' on a Compartment object having a 'spatialDimensions' "
     "attribute value of '2' has not been set, then the unit of measurement "
     "associated with the compartment's size is determined by the value of the "
-    "enclosing Model object's areaUnits attribute. If neither the Compartment "
-    "object's units nor the enclosing Model object's areaUnits attributes "
+    "enclosing Model object's 'areaUnits' attribute. If neither the Compartment "
+    "object's 'units' nor the enclosing Model object's 'areaUnits' attributes "
     "are set, the unit of compartment size is undefined.",
     {"",
      "",
@@ -3900,7 +3922,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20513
   {
     ThreeDimensionalCompartmentUnits,
-    "No units for 3D Compartment",
+    "No units defined for 3-D Compartment object",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3909,11 +3931,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "If the attribute units on a Compartment object having a spatialDimensions "
+    "If the attribute 'units' on a Compartment object having a 'spatialDimensions' "
     "attribute value of '3' has not been set, then the unit of measurement "
     "associated with the compartment's size is determined by the value of the "
-    "enclosing Model object's volumeUnits attribute. If neither the Compartment "
-    "object's units nor the enclosing Model object's volumeUnits attributes "
+    "enclosing Model object's 'volumeUnits' attribute. If neither the Compartment "
+    "object's 'units' nor the enclosing Model object's 'volumeUnits' attributes "
     "are set, the unit of compartment size is undefined.",
     {"",
      "",
@@ -3926,7 +3948,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20517
   {
     AllowedAttributesOnCompartment,
-    "Invalid attribute on <compartment>",
+    "Invalid attribute found on Compartment object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3935,9 +3957,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Compartment object must have the required attributes id and constant, "
-    "and may have the optional attributes metaid, sboTerm, name, "
-    "spatialDimensions, size and units. No other attributes from the SBML "
+    "A Compartment object must have the required attributes 'id' and 'constant', "
+    "and may have the optional attributes 'metaid', 'sboTerm', 'name', "
+    "'spatialDimensions', 'size' and 'units'. No other attributes from the SBML "
     "Level 3 Core namespace are permitted on a Compartment object.",
     {"",
      "",
@@ -3950,7 +3972,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20518
   {
     NoUnitsOnCompartment,
-    "No units for <compartment>",
+    "No units defined for Compartment object",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -3959,7 +3981,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "If neither the attribute units nor the attribute spatialDimensions "
+    "If neither the attribute 'units' nor the attribute 'spatialDimensions' "
     "on a Compartment object is set, the unit associated with that "
     "compartment's size is undefined.",
     {"",
@@ -3973,7 +3995,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20601
   {
     InvalidSpeciesCompartmentRef,
-    "Invalid 'compartment' reference",
+    "Invalid value found for Species 'compartment' attribute",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -3995,7 +4017,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20602
   {
     HasOnlySubsNoSpatialUnits,
-    "No 'spatialSizeUnits' permitted if 'hasOnlySubstanceUnits'='true'",
+    "Attribute 'spatialSizeUnits' must not be set if 'hasOnlySubstanceUnits'='true'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4017,7 +4039,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20603
   {
     NoSpatialUnitsInZeroD,
-    "No 'spatialSizeUnits' permitted if compartment is zero-dimensional",
+    "Attribute 'spatialSizeUnits' must not be set if the compartment is zero-dimensional",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4040,7 +4062,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20604
   {
     NoConcentrationInZeroD,
-    "No 'initialConcentration' permitted if compartment is zero-dimensional",
+    "Attribute 'initialConcentration' must not be set if the compartment is zero-dimensional",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4063,7 +4085,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20605
   {
     SpatialUnitsInOneD,
-    "Invalid value of 'spatialSizeUnits' for a one-dimensional compartment",
+    "Invalid value for 'spatialSizeUnits' attribute of a one-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4088,7 +4110,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20606
   {
     SpatialUnitsInTwoD,
-    "Invalid value of 'spatialSizeUnits' for a two-dimensional compartment",
+    "Invalid value for the 'spatialSizeUnits' attribute of a two-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4113,7 +4135,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20607
   {
     SpatialUnitsInThreeD,
-    "Invalid value of 'spatialSizeUnits' for a three-dimensional compartment",
+    "Invalid value for the 'spatialSizeUnits' attribute of a three-dimensional compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4138,7 +4160,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20608
   {
     InvalidSpeciesSusbstanceUnits,
-    "Invalid value of 'units'",
+    "Invalid value for a Species 'units' attribute",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -4161,7 +4183,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20609
   {
     BothAmountAndConcentrationSet,
-    "Cannot set both 'initialConcentration' and 'initialAmount'",
+    "Cannot set both 'initialConcentration' and 'initialAmount' attributes simultaneously",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4183,7 +4205,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20610
   {
     NonBoundarySpeciesAssignedAndUsed,
-    "Cannot use non-boundary species in both reactions and rules simultaneously",
+    "Cannot use a non-boundary species in both reactions and rules simultaneously",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -4209,7 +4231,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20611
   {
     NonConstantSpeciesUsed,
-    "Cannot use non-boundary, constant species as reactant or product",
+    "Cannot use a constant, non-boundary species as a reactant or product",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4232,7 +4254,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20612
   {
     InvalidSpeciesTypeRef,
-    "Invalid 'speciesType' reference",
+    "Invalid value for the 'speciesType' attribute of a species",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4254,7 +4276,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20613
   {
     MultSpeciesSameTypeInCompartment,
-    "Cannot have multiple species of the same type in the same compartment",
+    "Cannot have multiple species of the same species type in the same compartment",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4282,7 +4304,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20614
   {
     MissingSpeciesCompartment,
-    "Missing 'compartment' value for species",
+    "Missing value for the 'compartment' attribute",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
@@ -4304,7 +4326,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20615
   {
     SpatialSizeUnitsRemoved,
-    "Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML",
+    "Attribute 'spatialSizeUnits' is not supported in this Level+Version of SBML",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4327,7 +4349,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20616
   {
     SubstanceUnitsOnSpecies,
-    "No substance units for Species",
+    "No substance units defined for the species",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4336,11 +4358,11 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "If the attribute substanceUnits in a Species object has not been set, "
+    "If the attribute 'substanceUnits' in a Species object has not been set, "
     "then the unit of measurement associated with the species' quantity is "
-    "determined by the value of the enclosing Model object's substanceUnits "
-    "attribute. If neither the Species object's substanceUnits attribute nor "
-    "the enclosing Model object's substanceUnits attribute are set, then the "
+    "determined by the value of the enclosing Model object's 'substanceUnits' "
+    "attribute. If neither the Species object's 'substanceUnits' attribute nor "
+    "the enclosing Model object's 'substanceUnits' attribute are set, then the "
     "unit of that species' quantity is undefined.",
     {"",
      "",
@@ -4353,7 +4375,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20617
   {
     ConversionFactorOnSpecies,
-    "Invalid conversionFactor attribute",
+    "Invalid value for the 'conversionFactor' attribute",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4362,7 +4384,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute conversionFactor on a Species object must be "
+    "The value of the attribute 'conversionFactor' on a Species object must be "
     "the identifier of an existing Parameter object defined in the enclosing "
     "Model object.",
     {"",
@@ -4376,7 +4398,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20623
   {
     AllowedAttributesOnSpecies,
-    "Invalid attribute on <species>",
+    "Invalid attribute found on Species object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4385,10 +4407,10 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Species object must have the required attributes id, compartment, "
-    "hasOnlySubstanceUnits, boundaryCondition and constant, and may have "
-    "the optional attributes metaid, sboTerm, name, initialAmount, "
-    "initialConcentration, substanceUnits and conversionFactor. No other "
+    "A Species object must have the required attributes 'id', 'compartment', "
+    "'hasOnlySubstanceUnits', 'boundaryCondition' and 'constant', and may have "
+    "the optional attributes 'metaid', 'sboTerm', 'name', 'initialAmount', "
+    "'initialConcentration', 'substanceUnits' and 'conversionFactor'. No other "
     "attributes from the SBML Level 3 Core namespace are permitted on a "
     "Species object.",
     {"",
@@ -4402,7 +4424,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20701
   {
     InvalidParameterUnits,
-    "Invalid value for 'units' in parameter definition",
+    "Invalid value for the 'units' attribute of a Parameter object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -4426,7 +4448,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20702
   {
     ParameterUnits,
-    "No units for parameter",
+    "No units defined for the parameter",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4435,7 +4457,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "If the attribute units on a given Parameter object has not been set, "
+    "If the attribute 'units' on a given Parameter object has not been set, "
     "then the unit of measurement associated with that parameter's value is "
     "undefined.",
     {"",
@@ -4449,7 +4471,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20705
   {
     ConversionFactorMustConstant,
-    "ConversionFactor must be constant parameter",
+    "A conversion factor must reference a Parameter object declared to be a constant",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4458,9 +4480,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Parameter object referenced by the attribute conversionFactor "
+    "A Parameter object referenced by the attribute 'conversionFactor' "
     "on a Species or Model object must have a value of 'true' for its "
-    "attribute constant.",
+    "attribute 'constant'.",
     {"",
      "",
      "",
@@ -4472,7 +4494,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20706
   {
     AllowedAttributesOnParameter,
-    "Invalid attribute on parameter",
+    "Invalid attribute found on Parameter object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4481,9 +4503,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Parameter object must have the required attributes id and constant, "
-    "and may have the optional attributes metaid, sboTerm, name, value and "
-    "units. No other attributes from the SBML Level 3 Core namespace are "
+    "A Parameter object must have the required attributes 'id' and 'constant', "
+    "and may have the optional attributes 'metaid', 'sboTerm', 'name', 'value' and "
+    "'units'. No other attributes from the SBML Level 3 Core namespace are "
     "permitted on a Parameter object.",
     {"",
      "",
@@ -4496,7 +4518,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20801
   {
     InvalidInitAssignSymbol,
-    "Invalid 'symbol' reference in initial assignment",
+    "Invalid value for the 'symbol' attribute of an InitialAssignment object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4519,7 +4541,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20802
   {
     MultipleInitAssignments,
-    "Multiple initial assignments for the same 'symbol' value",
+    "Multiple initial assignments for the same 'symbol' value are not allowed",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4541,7 +4563,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20803
   {
     InitAssignmentAndRuleForSameId,
-    "Cannot set a value with both initial assignments and assignment rules simultaneously",
+    "Cannot set a value using both an initial assignment and an assignment rule simultaneously",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4564,7 +4586,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20804
   {
     OneMathElementPerInitialAssign,
-    "InitialAssignment must contain one math element",
+    "An InitialAssignment object must contain one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4573,7 +4595,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An InitialAssignment object must contain exactly one MathML math element.",
+    "An InitialAssignment object must contain exactly one MathML <math> element.",
     {"",
      "",
      "",
@@ -4585,7 +4607,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20805
   {
     AllowedAttributesOnInitialAssign,
-    "Invalid attribute on initialAssignment",
+    "Invalid attribute found on an InitialAssignment object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4594,8 +4616,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An InitialAssignment object must have the required attribute symbol and "
-    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "An InitialAssignment object must have the required attribute 'symbol' and "
+    "may have the optional attributes 'metaid' and 'sboTerm'. No other attributes "
     "from the SBML Level 3 Core namespace are permitted on an "
     "InitialAssignment object.",
     {"",
@@ -4609,7 +4631,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20901
   {
     InvalidAssignRuleVariable,
-    "Invalid 'variable' reference in assignment rule",
+    "Invalid value for the 'variable' attribute of an AssignmentRule object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -4631,7 +4653,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20902
   {
     InvalidRateRuleVariable,
-    "Invalid 'variable' reference in rate rule",
+    "Invalid value for the 'variable' attribute of a RateRule object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -4653,7 +4675,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20903
   {
     AssignmentToConstantEntity,
-    "Cannot reassign a constant in an assignment rule",
+    "An assignment rule cannot assign an entity declared to be constant",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4676,7 +4698,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20904
   {
     RateRuleForConstantEntity,
-    "Cannot reassign a constant in a rate rule",
+    "A rate rule cannot assign an entity declared to be constant",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4714,7 +4736,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20906
   {
     CircularRuleDependency,
-    "Circular dependency involving rules and reactions",
+    "Circular dependencies involving rules and reactions are not permitted",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4744,7 +4766,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20907
   {
     OneMathElementPerRule,
-    "Rule must contain one math element",
+    "A rule object must contain one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4754,7 +4776,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "Every AssignmentRule, RateRule and AlgebraicRule object must contain "
-    "exactly one MathML math element.",
+    "exactly one MathML <math> element.",
     {"",
      "",
      "",
@@ -4766,7 +4788,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20908
   {
     AllowedAttributesOnAssignRule,
-    "Invalid attribute on <assignmentRule>",
+    "Invalid attribute found on an AssignmentRule object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4775,8 +4797,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An AssignmentRule object must have the required attribute variable and "
-    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "An AssignmentRule object must have the required attribute 'variable' and "
+    "may have the optional attributes 'metaid' and 'sboTerm'. No other attributes "
     "from the SBML Level 3 Core namespace are permitted on an "
     "AssignmentRule object.",
     {"",
@@ -4790,7 +4812,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20909
   {
     AllowedAttributesOnRateRule,
-    "Invalid attribute on <rateRule>",
+    "Invalid attribute found on a RateRule object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4799,8 +4821,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A RateRule object must have the required attribute variable and "
-    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "A RateRule object must have the required attribute 'variable' and "
+    "may have the optional attributes 'metaid' and 'sboTerm'. No other attributes "
     "from the SBML Level 3 Core namespace are permitted on a "
     "RateRule object.",
     {"",
@@ -4814,7 +4836,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //20910
   {
     AllowedAttributesOnAlgRule,
-    "Invalid attribute on <algebraicRule>",
+    "Invalid attribute found on an AlgebraicRule object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4824,7 +4846,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "An AlgebraicRule object "
-    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "may have the optional attributes 'metaid' and 'sboTerm'. No other attributes "
     "from the SBML Level 3 Core namespace are permitted on an "
     "AlgebraicRule object.",
     {"",
@@ -4838,7 +4860,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21001
   {
     ConstraintMathNotBoolean,
-    "Non-boolean math expression in constraint definition",
+    "A Constraint object's <math> must evaluate to a Boolean value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4848,7 +4870,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "A <constraint>'s <math> expression must evaluate to a value of type "
-    "boolean.",
+    "Boolean.",
     {"",
      "",
      "L2V2 Section 4.12.1",
@@ -4860,7 +4882,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21002
   {
     IncorrectOrderInConstraint,
-    "Incorrect order of elements in constraint definition",
+    "Subobjects inside the Constraint object are not in the prescribed order",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4883,7 +4905,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21003
   {
     ConstraintNotInXHTMLNamespace,
-    "Constraint message is not in XHTML XML namespace",
+    "A Constraint's Message subobject must be in the XHTML XML namespace",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4905,7 +4927,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21004
   {
     ConstraintContainsXMLDecl,
-    "XML declarations not permitted in constraint messages",
+    "XML declarations are not permitted within Constraint's Message objects",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4928,7 +4950,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21005
   {
     ConstraintContainsDOCTYPE,
-    "XML DOCTYPE not permitted in constraint messages",
+    "XML DOCTYPE elements are not permitted within Constraint's Message objects",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4950,7 +4972,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21006
   {
     InvalidConstraintContent,
-    "Invalid content for constraint message",
+    "Invalid content for a Constraint object's Message object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4976,7 +4998,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21007
   {
     OneMathElementPerConstraint,
-    "Only one math element on <constraint>",
+    "A Constraint object must contain one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -4997,7 +5019,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21008
   {
     OneMessageElementPerConstraint,
-    "Only one message element on <constraint>",
+    "A Constraint object must contain one Message subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5018,7 +5040,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21009
   {
     AllowedAttributesOnConstraint,
-    "Invalid attribute on <constraint>",
+    "Invalid attribute found on Constraint object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5028,7 +5050,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A Constraint object "
-    "may have the optional attributes metaid and sboTerm. No other attributes "
+    "may have the optional attributes 'metaid' and 'sboTerm'. No other attributes "
     "from the SBML Level 3 Core namespace are permitted on a "
     "Constraint object.",
     {"",
@@ -5066,7 +5088,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21102
   {
     IncorrectOrderInReaction,
-    "Incorrect ordering of components in reaction definition",
+    "Subobjects inside the Reaction object are not in the prescribed order",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -5112,7 +5134,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21104
   {
     InvalidReactantsProductsList,
-    "Invalid element in list of reactants or products",
+    "Invalid object found in the list of reactants or products",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -5135,7 +5157,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21105
   {
     InvalidModifiersList,
-    "Invalid element in list of modifiers",
+    "Invalid object found in the list of modifiers",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5157,7 +5179,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21106
   {
     OneSubElementPerReaction,
-    "Only one of subelement on <reaction>",
+    "A Reaction object can only contain one of each allowed type of object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5167,8 +5189,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A Reaction object may contain at most one of each of the following "
-    "elements: listOfReactants, listOfProducts, listOfModifiers, and "
-    "kineticLaw.",
+    "elements: <listOfReactants>, <listOfProducts>, <listOfModifiers>, and "
+    "<kineticLaw>.",
     {"",
      "",
      "",
@@ -5180,7 +5202,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21107
   {
     CompartmentOnReaction,
-    "Invalid compartment attribute on <reaction>",
+    "Invalid value for the Reaction 'compartment' attribute",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5189,7 +5211,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "The value of the attribute compartment in a Reaction object is "
+    "The value of the attribute 'compartment' in a Reaction object is "
     "optional, but if present, must be the identifier of an existing "
     "Compartment object defined in the model.",
     {"",
@@ -5203,7 +5225,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21110
   {
     AllowedAttributesOnReaction,
-    "Invalid attribute on <reaction>",
+    "Invalid attribute for a Reaction object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5212,9 +5234,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Reaction object must have the required attributes id, reversible "
-    "and fast, and may have the optional attributes metaid, sboTerm, name "
-    "and compartment. No other attributes from the SBML Level 3 Core "
+    "A Reaction object must have the required attributes 'id', 'reversible' "
+    "and 'fast', and may have the optional attributes 'metaid', 'sboTerm', 'name' "
+    "and 'compartment'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a Reaction object.",
     {"",
      "",
@@ -5227,7 +5249,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21111
   {
     InvalidSpeciesReference,
-    "Invalid 'species' value in species reference",
+    "Invalid 'species' attribute value in SpeciesReference object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -5264,7 +5286,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21113
   {
     BothStoichiometryAndMath,
-    "Cannot use both 'stoichiometry' and <stoichiometryMath> simultaneously",
+    "The 'stoichiometry' attribute and StoichiometryMath subobject are mutually exclusive",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5286,7 +5308,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21116
   {
     AllowedAttributesOnSpeciesReference,
-    "Invalid attribute on <speciesReference>",
+    "Invalid attribute found on the SpeciesReference object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5295,9 +5317,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A SpeciesReference object must have the required attributes species "
-    "and constant, and may have the optional attributes metaid, sboTerm, name "
-    "id and stoichiometry. No other attributes from the SBML Level 3 Core "
+    "A SpeciesReference object must have the required attributes 'species' "
+    "and 'constant', and may have the optional attributes 'metaid', 'sboTerm', 'name' "
+    "'id' and 'stoichiometry'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a SpeciesReference object.",
     {"",
      "",
@@ -5310,7 +5332,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21117
   {
     AllowedAttributesOnModifier,
-    "Invalid attribute on <modifierSpeciesReference>",
+    "Invalid attribute found on the ModifierSpeciesReference object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5319,9 +5341,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A ModifierSpeciesReference object must have the required attribute species "
-    "and may have the optional attributes metaid, sboTerm, id "
-    "and name. No other attributes from the SBML Level 3 Core "
+    "A ModifierSpeciesReference object must have the required attribute 'species' "
+    "and may have the optional attributes 'metaid', 'sboTerm', 'id' "
+    "and 'name'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ModifierSpeciesReference object.",
     {"",
      "",
@@ -5334,7 +5356,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21121
   {
     UndeclaredSpeciesRef,
-    "Undeclared species referenced in kinetic law formula",
+    "Unknown species referenced in the kinetic law <math> formula",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_GENERAL_WARNING,
     LIBSBML_SEV_GENERAL_WARNING,
@@ -5346,7 +5368,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "All species referenced in the <kineticLaw> formula of a given reaction "
     "must first be declared using <speciesReference> or "
     "<modifierSpeciesReference>. More formally, if a <species> identifier "
-    "appears in a 'ci' element of a <reaction>'s <kineticLaw> formula, that "
+    "appears in a <ci> element of a <reaction>'s <kineticLaw> formula, that "
     "same identifier must also appear in at least one <speciesReference> or "
     "<modifierSpeciesReference> in the <reaction> definition.",
     {"",
@@ -5360,7 +5382,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21122
   {
     IncorrectOrderInKineticLaw,
-    "Incorrect ordering of components in kinetic law definition",
+    "Incorrect ordering of components in the KineticLaw object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5383,7 +5405,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21123
   {
     EmptyListInKineticLaw,
-    "The list of parameters component, if present, cannot be empty",
+    "The list of parameters, if present, cannot be empty",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -5405,7 +5427,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21124
   {
     NonConstantLocalParameter,
-    "Parameters local to a kinetic law must have 'constant'='true'",
+    "Parameters local to a KineticLaw object must have a 'constant' attribute value of 'true'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5429,7 +5451,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21125
   {
     SubsUnitsNoLongerValid,
-    "'substanceUnits' not supported in this Level+Version of SBML",
+    "Attribute 'substanceUnits' is not supported in this Level+Version of SBML",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5453,7 +5475,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21126
   {
     TimeUnitsNoLongerValid,
-    "'timeUnits' not supported in this Level+Version of SBML",
+    "Attribute 'timeUnits' is not supported in this Level+Version of SBML",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5477,7 +5499,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21127
   {
     OneListOfPerKineticLaw,
-    "Only one listOfLocalParameters permitted on <kineticLaw>",
+    "Only one ListOfLocalParameters object is permitted within a KineticLaw object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5499,7 +5521,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21128
   {
     OnlyLocalParamsInListOfLocalParams,
-    "Only LocalParameters allowed in ListOfLocalParameters",
+    "Only LocalParameter, Notes and Annotation objects are allowed in ListOfLocalParameter objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5508,7 +5530,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfLocalParameters container object may only "
     "contain LocalParameter objects.",
     {"",
@@ -5522,7 +5544,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21129
   {
     AllowedAttributesOnListOfLocalParam,
-    "Invalid attribute on <listOfLocalParameters>",
+    "Invalid attribute found on the ListOfLocalParameters object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5531,8 +5553,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A ListOfLocalParameters object may have the optional attributes metaid "
-    "and sboTerm. No other attributes from the SBML Level 3 Core "
+    "A ListOfLocalParameters object may have the optional attributes 'metaid' "
+    "and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfLocalParameters object.",
     {"",
      "",
@@ -5545,7 +5567,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21130
   {
     OneMathPerKineticLaw,
-    "Only one math element on <kineticLaw>",
+    "Only one <math> element is allowed in a KineticLaw object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5554,7 +5576,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_SCHEMA_ERROR,
     LIBSBML_SEV_ERROR,
-    "A KineticLaw object must contain exactly one MathML math element.",
+    "A KineticLaw object must contain exactly one MathML <math> element.",
     {"",
      "",
      "",
@@ -5566,7 +5588,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21131
   {
     UndeclaredSpeciesInStoichMath,
-    "Undeclared species referenced in <stoichiometryMath> formula",
+    "Unknown species referenced in the StoichiometryMath object's <math> formula",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5593,7 +5615,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21132
   {
     AllowedAttributesOnKineticLaw,
-    "Invalid attribute on <kineticLaw>",
+    "Invalid attribute found on the KineticLaw object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5602,8 +5624,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A KineticLaw object may have the optional attributes metaid and "
-    "sboTerm. No other attributes from the SBML Level 3 Core "
+    "A KineticLaw object may have the optional attributes 'metaid' and "
+    "'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a KineticLaw object.",
     {"",
      "",
@@ -5616,7 +5638,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21150
   {
     AllowedAttributesOnListOfSpeciesRef,
-    "Invalid attribute on <listOfSpeciesReferences>",
+    "Invalid attribute found on the ListOfSpeciesReferences object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5626,7 +5648,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfSpeciesReferences object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfSpeciesReferences object.",
     {"",
      "",
@@ -5639,7 +5661,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21151
   {
     AllowedAttributesOnListOfMods,
-    "Invalid attribute on <listofModifiers>",
+    "Invalid attribute found on the ListOfModifiers object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5649,7 +5671,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfModifierSpeciesReferences object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfModifierSpeciesReferences object.",
     {"",
      "",
@@ -5662,7 +5684,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21172
   {
     AllowedAttributesOnLocalParameter,
-    "Invalid attribute on <localParameter>",
+    "Invalid attribute found on the LocalParameter object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5671,9 +5693,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A LocalParameter object must have the required attribute id and "
-    "may have the optional attributes metaid, sboTerm, name, value and "
-    "units. No other attributes from the SBML Level 3 Core namespace "
+    "A LocalParameter object must have the required attribute 'id' and "
+    "may have the optional attributes 'metaid', 'sboTerm', 'name', 'value' and "
+    "'units'. No other attributes from the SBML Level 3 Core namespace "
     "are permitted on a LocalParameter object.", 
     {"",
      "",
@@ -5686,7 +5708,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21201
   {
     MissingTriggerInEvent,
-    "Missing trigger in event definition",
+    "The Event object is missing a Trigger subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5707,7 +5729,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21202
   {
     TriggerMathNotBoolean,
-    "Non-boolean math expression in trigger definition",
+    "A Trigger object's <math> expression must evaluate to a Boolean value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5717,7 +5739,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "An <event>'s <trigger> expression must evaluate to a value of type "
-    "boolean.",
+    "Boolean.",
     {"",
      "L2V1 Section 4.10.2",
      "L2V2 Section 4.14.1",
@@ -5729,7 +5751,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21203
   {
     MissingEventAssignment,
-    "Missing event assignment in event definition",
+    "The Event object is missing an EventAssignment subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5751,7 +5773,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21204
   {
     TimeUnitsEvent,
-    "Units of 'timeUnits' are not time units",
+    "Units referenced by 'timeUnits' attribute are not compatible with units of time",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5774,7 +5796,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21205
   {
     IncorrectOrderInEvent,
-    "Incorrect ordering of components in event definition",
+    "Incorrect ordering of components in Event object",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5797,7 +5819,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21206
   {
     ValuesFromTriggerTimeNeedDelay,
-    "'useValuesFromTriggerTime'='false', but no delay defined in event",
+    "Attribute 'useValuesFromTriggerTime'='false', but the Event object does not define a delay",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5822,7 +5844,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21207
   {
     DelayNeedsValuesFromTriggerTime,
-    "Delay requires useValuesFromTriggerTime",
+    "The use of a Delay object requires the Event attribute 'useValuesFromTriggerTime'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5832,7 +5854,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "If an Event object contains a Delay subobject, then the Event must "
-    "have a value for the attribute useValuesFromTriggerTime.", 
+    "have a value for the attribute 'useValuesFromTriggerTime'.", 
     {"",
      "",
      "",
@@ -5844,7 +5866,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21209
   {
     OneMathPerTrigger,
-    "Trigger must have one math element",
+    "A Trigger object must have one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5853,7 +5875,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Trigger object must contain exactly one MathML math element.", 
+    "A Trigger object must contain exactly one MathML <math> element.", 
     {"",
      "",
      "",
@@ -5865,7 +5887,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21210
   {
     OneMathPerDelay,
-    "Delay must have one math element",
+    "A Delay object must have one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5874,7 +5896,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Delay object must contain exactly one MathML math element.", 
+    "A Delay object must contain exactly one MathML <math> element.", 
     {"",
      "",
      "",
@@ -5886,7 +5908,7 @@ static const sbmlErrorTableEntry errorTable[] =
  //21211
   {
     InvalidEventAssignmentVariable,
-    "Invalid value for 'variable' in event assignment",
+    "Invalid 'variable' attribute value in Event object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5895,8 +5917,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "The value of 'variable' in an <eventAssignment> can only be the "
-    "identifier of a <compartment>, <species>, or model-wide <parameter> "
+    "The value of the attribute 'variable' in an <eventAssignment> can only be "
+    "the identifier of a <compartment>, <species>, or model-wide <parameter> "
     "definition.",
     {"",
      "L2V1 Section 4.10.5",
@@ -5909,7 +5931,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21212
   {
     EventAssignmentForConstantEntity,
-    "Cannot assign to a constant component in an event assignment",
+    "An EventAssignment object cannot assign to a component having attribute 'constant'='true'",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5932,7 +5954,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21213
   {
     OneMathPerEventAssignment,
-    "EventAssignment must have one math element",
+    "An EventAssignment object must have one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5941,7 +5963,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An EventAssignment object must contain exactly one MathML math element.", 
+    "An EventAssignment object must contain exactly one MathML <math> element.", 
     {"",
      "",
      "",
@@ -5953,7 +5975,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21214
   {
     AllowedAttributesOnEventAssignment,
-    "Invalid attribute on <eventAssignment>",
+    "Invalid attribute found on the EventAssignment object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5962,8 +5984,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An EventAssignment object must have the required attribute variable and "
-    "may have the optional attributes metaid and sboTerm. No other "
+    "An EventAssignment object must have the required attribute 'variable' and "
+    "may have the optional attributes 'metaid' and 'sboTerm'. No other "
     "attributes from the SBML Level 3 Core namespace are permitted on "
     "an EventAssignment object.", 
     {"",
@@ -5977,7 +5999,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21221
   {
     OnlyOneDelayPerEvent,
-    "Event can only have one <delay>",
+    "An Event object can only have one Delay subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -5998,7 +6020,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21222
   {
     OneListOfEventAssignmentsPerEvent,
-    "Event can only have one <listOfEventAssignments>",
+    "An Event object can only have one ListOfEventAssignments subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6019,7 +6041,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21223
   {
     OnlyEventAssignInListOfEventAssign,
-    "<listOfEventAssignments> can only have <eventAssignment>",
+    "Only EventAssignment, Notes and Annotation objects are allowed in ListOfEventAssignments",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6028,7 +6050,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "Apart from the general notes and annotation subobjects permitted on "
+    "Apart from the general Notes and Annotation subobjects permitted on "
     "all SBML components, a ListOfEventAssignments container object may "
     "only contain EventAssignment objects.", 
     {"",
@@ -6042,7 +6064,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21224
   {
     AllowedAttributesOnListOfEventAssign,
-    "Invalid attribute on <listOfEventAssignments>",
+    "Invalid attribute found on the ListOfEventAssignments object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6052,7 +6074,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "A ListOfEventAssignments object may have the optional attributes "
-    "metaid and sboTerm. No other attributes from the SBML Level 3 Core "
+    "'metaid' and 'sboTerm'. No other attributes from the SBML Level 3 Core "
     "namespace are permitted on a ListOfEventAssignments object.", 
     {"",
      "",
@@ -6065,7 +6087,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21225
   {
     AllowedAttributesOnEvent,
-    "Invalid attribute on <event>",
+    "Invalid attribute found on the Event object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6074,9 +6096,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An Event object must have the required attribute useValuesFromTriggerTime "
-    "and in addition may have the optional attributes metaid, sboTerm, id, "
-    " and name. No other attributes from the SBML Level 3 "
+    "An Event object must have the required attribute 'useValuesFromTriggerTime' "
+    "and in addition may have the optional attributes 'metaid', 'sboTerm', 'id', "
+    " and 'name'. No other attributes from the SBML Level 3 "
     "Core namespace are permitted on an Event object.", 
     {"",
      "",
@@ -6089,7 +6111,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21226
   {
     AllowedAttributesOnTrigger,
-    "Invalid attribute on <trigger>",
+    "Invalid attribute found on the Trigger object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6098,9 +6120,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Trigger object must have the required attributes persistent and "
-    "initialValue, and in addition, may have the optional attributes metaid "
-    "and sboTerm. "
+    "A Trigger object must have the required attributes 'persistent' and "
+    "'initialValue', and in addition, may have the optional attributes 'metaid' "
+    "and 'sboTerm'. "
     "No other attributes from the SBML Level 3 Core namespace are permitted "
     "on a Trigger object.", 
     {"",
@@ -6114,7 +6136,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21227
   {
     AllowedAttributesOnDelay,
-    "Invalid attribute on <delay>",
+    "Invalid attribute found on the Delay object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6123,7 +6145,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Delay object may have the optional attributes metaid and sboTerm. "
+    "A Delay object may have the optional attributes 'metaid' and 'sboTerm'. "
     "No other attributes from the SBML Level 3 Core namespace are permitted "
     "on a Delay object.", 
     {"",
@@ -6137,7 +6159,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21228
   {
     PersistentNotBoolean,
-    "Persistent attribute on <trigger> must be boolean",
+    "The Trigger attribute 'persistent' must evaluate to a Boolean value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6147,7 +6169,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "The attribute 'persistent' on a Trigger object must have a value "
-    "of type boolean.", 
+    "of type Boolean.", 
     {"",
      "",
      "",
@@ -6159,7 +6181,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21229
   {
     InitialValueNotBoolean,
-    "InitialValue attribute on <trigger> must be boolean",
+    "The Trigger attribute 'initialValue' must evaluate to a Boolean value",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6169,7 +6191,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
     "The attribute 'initialValue' on a Trigger object must have a value "
-    "of type boolean.", 
+    "of type Boolean.", 
     {"",
      "",
      "",
@@ -6181,7 +6203,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21230
   {
     OnlyOnePriorityPerEvent,
-    "Event can only have one <priority>",
+    "An Event object can only have one Priority subobject",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6202,7 +6224,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21231
   {
     OneMathPerPriority,
-    "Priority must have one math element",
+    "A Priority object must have one <math> element",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6211,7 +6233,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "An Priority object must contain exactly one math element.", 
+    "An Priority object must contain exactly one MathML <math> element.", 
     {"",
      "",
      "",
@@ -6223,7 +6245,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //21232
   {
     AllowedAttributesOnPriority,
-    "Invalid attribute on <priority>",
+    "Invalid attribute found on the Priority object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6232,7 +6254,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "A Priority object may have the optional attributes metaid and sboTerm. "
+    "A Priority object may have the optional attributes 'metaid' and 'sboTerm'. "
     "No other attributes from the SBML Level 3 Core namespace are permitted "
     "on a Priority object.", 
     {"",
@@ -6242,6 +6264,32 @@ static const sbmlErrorTableEntry errorTable[] =
      "",
      "L3V1 Section 4.12"}
     },
+
+  //29999
+  {
+    GeneralWarningNotSpecified,
+    "Unknown error",
+    LIBSBML_CAT_INTERNAL,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     ""}
+    },
+
+
+  /* --------------------------------------------------------------------------
+   * Modeling practice rules
+   * ----------------------------------------------------------------------- */
 
   // 80501
   {
@@ -6266,7 +6314,7 @@ static const sbmlErrorTableEntry errorTable[] =
   // 80601
   {
     SpeciesShouldHaveValue,
-    "It's best to define an initialAmount or initialConcentration for every species in a model",
+    "It's best to define an initial amount or initial concentration for every species in a model",
     LIBSBML_CAT_MODELING_PRACTICE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6305,7 +6353,7 @@ static const sbmlErrorTableEntry errorTable[] =
   // 81121
   {
     LocalParameterShadowsId,
-    "Local parameters defined in a kinetic law shadow global parameters",
+    "Local parameters defined within a kinetic law shadow global object symbols",
     LIBSBML_CAT_MODELING_PRACTICE,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -6321,6 +6369,33 @@ static const sbmlErrorTableEntry errorTable[] =
     "the global value. Modelers may wish to take precautions to avoid this "
     "happening accidentally."
   },
+
+
+  /* --------------------------------------------------------------------------
+   * Lower bound for additional error codes returned by libSBML but not
+   * defined in SBML specifications.
+   * ----------------------------------------------------------------------- */
+
+  //90000
+  {
+    LibSBMLAdditionalCodesLowerBound,
+    "Lower boundary of libSBML-specific diagnostic codes",
+    LIBSBML_CAT_INTERNAL,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     ""}
+    },
 
   //90001
   {
@@ -6610,6 +6685,10 @@ static const sbmlErrorTableEntry errorTable[] =
   //},
 
 
+  /* --------------------------------------------------------------------------
+   * L1 compatibility.
+   * ----------------------------------------------------------------------- */
+
   //91001
   {
     NoEventsInL1,
@@ -6705,7 +6784,7 @@ static const sbmlErrorTableEntry errorTable[] =
 
   //91007
   {
-    NoNon3DComparmentsInL1,
+    NoNon3DCompartmentsInL1,
     "SBML Level 1 only supports three-dimensional compartments",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6845,7 +6924,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_ERROR,
-    "This model contains conversionFactors "
+    "This model contains conversion factors "
     "and thus conversion to earlier levels "
     "is not supported."
   },
@@ -6853,7 +6932,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91016
   {
     CompartmentNotOnL1Reaction,
-    "SBML Level 1 does not support the 'compartment' attribute on a <Reaction>",
+    "SBML Level 1 does not support the 'compartment' attribute on Reaction objects",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6869,7 +6948,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //91017
   {
     ExtentUnitsNotSubstance,
-    "Extent units must equal substance",
+    "Units of extent must be compatible with units of substance",
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6882,10 +6961,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "variant of substance",
   },
 
+  /* --------------------------------------------------------------------------
+   * L2 compatibility.
+   * ----------------------------------------------------------------------- */
+
   //92001
   {
     NoConstraintsInL2v1,
-    "SBML Level 2 Version 1 does not support constraints",
+    "SBML Level 2 Version 1 does not support Constraint objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6901,7 +6984,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92002
   {
     NoInitialAssignmentsInL2v1,
-    "SBML Level 2 Version 1 does not support initial assignments",
+    "SBML Level 2 Version 1 does not support InitialAssignment objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6917,7 +7000,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92003
   {
     NoSpeciesTypeInL2v1,
-    "SBML Level 2 Version 1 does not support species types",
+    "SBML Level 2 Version 1 does not support SpeciesType objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6933,7 +7016,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92004
   {
     NoCompartmentTypeInL2v1,
-    "SBML Level 2 Version 1 does not support compartment types",
+    "SBML Level 2 Version 1 does not support CompartmentType objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -6964,7 +7047,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92006
   {
     NoIdOnSpeciesReferenceInL2v1,
-    "SBML Level 2 Version 1 does not support the 'id' attribute on species references",
+    "SBML Level 2 Version 1 does not support the 'id' attribute on SpeciesReference objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7017,7 +7100,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92009
   {
     IntegerSpatialDimensions,
-    "SBML Level 2 Version 1 requires spatial dimensions of 0 - 3",
+    "SBML Level 2 Version 1 requires that compartments have spatial dimensions of 0-3",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7033,7 +7116,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92010
   {
     StoichiometryMathNotYetSupported,
-    "Conversion to StoichiometryMath not yet supported",
+    "Conversion to StoichiometryMath objects not yet supported",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7048,8 +7131,8 @@ static const sbmlErrorTableEntry errorTable[] =
 
   //92011
   {
-    PrioirtyLostFromL3,
-    "SBML Level 2 Version 1 does not support priority",
+    PriorityLostFromL3,
+    "SBML Level 2 Version 1 does not support priorities on Event objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7065,7 +7148,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92012
   {
     NonPersistentNotSupported,
-    "SBML Level 2 Version 1 does not support the 'persistent' attribute",
+    "SBML Level 2 Version 1 does not support the 'persistent' attribute on Trigger objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7080,7 +7163,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //92013
   {
     InitialValueFalseEventNotSupported,
-    "SBML Level 2 Version 1 does not support an 'initialValue' of 'false' for a <Trigger>",
+    "SBML Level 2 Version 1 does not support the 'initialValue' attribute on Trigger objects",
     LIBSBML_CAT_SBML_L2V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7092,10 +7175,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "Initialvalue of event Triggers was assumed true in L2."
   },
 
+  /* --------------------------------------------------------------------------
+   * L2V2 compatibility.
+   * ----------------------------------------------------------------------- */
+
   //93001
   {
     SBOTermNotUniversalInL2v2,
-    "The 'sboTerm' attribute is invalid for this component in Level 2 Version 2",
+    "The 'sboTerm' attribute is invalid for this component in SBML Level 2 Version 2",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7113,7 +7200,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //93002
   {
     NoUnitOffsetInL2v2,
-    "The unit 'offset' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'offset' attribute on Unit objects",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7130,7 +7217,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //93003
   {
     NoKineticLawTimeUnitsInL2v2,
-    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7149,7 +7236,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //93004
   {
     NoKineticLawSubstanceUnitsInL2v2,
-    "The 'substanceUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'substanceUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7168,7 +7255,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //93005
   {
     NoDelayedEventAssignmentInL2v2,
-    "Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'useValuesFromTriggerTime' attribute",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7187,7 +7274,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //93006
   {
     ModelSBOBranchChangedBeyondL2v2,
-    "The allowable 'sboTerm' values for model differ for this SBML Level+Version",
+    "The allowable 'sboTerm' attribute values for Model objects differ for this SBML Level+Version",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7226,7 +7313,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //93008
   {
     StrictSBORequiredInL2v2,
-    "SBML Level 2 Version 2 requires strict sbo consistency",
+    "SBML Level 2 Version 2 requires strict SBO term consistency",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7242,10 +7329,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "would produce an invalid model."
   },
 
+  /* --------------------------------------------------------------------------
+   * L2V3 compatibility.
+   * ----------------------------------------------------------------------- */
+
   //93009
   {
     DuplicateAnnotationInvalidInL2v2,
-    "Duplicate top level annotations invalid in L2V2",
+    "Duplicate top-level annotations are invalid in SBML Level 2 Version 2",
     LIBSBML_CAT_SBML_L2V2_COMPAT,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -7266,7 +7357,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94001
   {
     NoUnitOffsetInL2v3,
-    "Attribute 'offset' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'offset' attribute on Unit objects",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7283,7 +7374,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94002
   {
     NoKineticLawTimeUnitsInL2v3,
-    "Attribute 'timeUnits' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7302,7 +7393,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94003
   {
     NoKineticLawSubstanceUnitsInL2v3,
-    "Attribute 'substanceUnits' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'substanceUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7321,7 +7412,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94004
   {
     NoSpeciesSpatialSizeUnitsInL2v3,
-    "Attribute 'spatialSizeUnits' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'spatialSizeUnit' attribute on Species objects",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7338,7 +7429,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94005
   {
     NoEventTimeUnitsInL2v3,
-    "Attribute 'timeUnits' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on Event objects",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7355,7 +7446,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94006
   {
     NoDelayedEventAssignmentInL2v3,
-    "Attribute 'useValuesFromTriggerTime' not supported in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'useValuesFromTriggerTime' attribute",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7374,7 +7465,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94007
   {
     ModelSBOBranchChangedBeyondL2v3,
-    "The allowable 'sboTerm' values for model differ for this SBML Level+Version",
+    "The allowable 'sboTerm' attribute values for Model objects differ for this SBML Level+Version",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7413,7 +7504,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94009
   {
     StrictSBORequiredInL2v3,
-    "SBML Level 2 Version 3 requires strict sbo consistency",
+    "SBML Level 2 Version 3 requires strict SBO term consistency",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7432,7 +7523,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //94010
   {
     DuplicateAnnotationInvalidInL2v3,
-    "Duplicate top level annotations invalid in L2V3",
+    "Duplicate top-level annotations are invalid in SBML Level 2 Version 3",
     LIBSBML_CAT_SBML_L2V3_COMPAT,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -7450,10 +7541,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"http://www.sbml.org/libsbml/annotation\""
   },
 
+  /* --------------------------------------------------------------------------
+   * L2V4 compatibility.
+   * ----------------------------------------------------------------------- */
+
   //95001
   {
     NoUnitOffsetInL2v4,
-    "The unit 'offset' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'offset' attribute on Unit objects",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7470,7 +7565,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //95002
   {
     NoKineticLawTimeUnitsInL2v4,
-    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7489,7 +7584,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //95003
   {
     NoKineticLawSubstanceUnitsInL2v4,
-    "The 'substanceUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'substanceUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7508,7 +7603,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //95004
   {
     NoSpeciesSpatialSizeUnitsInL2v4,
-    "The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'spatialSizeUnit' attribute on Species objects",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7525,7 +7620,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //95005
   {
     NoEventTimeUnitsInL2v4,
-    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on Event objects",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7542,7 +7637,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //95006
   {
     ModelSBOBranchChangedInL2v4,
-    "The allowable 'sboTerm' values for model differ for this SBML Level+Version",
+    "The allowable 'sboTerm' attribute values for Model objects differ for this SBML Level+Version",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7563,7 +7658,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //95007
   {
     DuplicateAnnotationInvalidInL2v4,
-    "Duplicate top level annotations invalid in L2V4",
+    "Duplicate top-level annotations are invalid in SBML Level 2 Version 4",
     LIBSBML_CAT_SBML_L2V4_COMPAT,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -7581,10 +7676,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "\"http://www.sbml.org/libsbml/annotation\""
   },
 
+  /* --------------------------------------------------------------------------
+   * L3V1 compatibility.
+   * ----------------------------------------------------------------------- */
+
   //96001
   {
     NoSpeciesTypeInL3v1,
-    "SBML Level 3 Version 1 does not support species types",
+    "SBML Level 3 Version 1 does not support SpeciesType objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7600,7 +7699,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96002
   {
     NoCompartmentTypeInL3v1,
-    "SBML Level 3 Version 1 does not support compartment types",
+    "SBML Level 3 Version 1 does not support CompartmentType objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7616,7 +7715,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96003
   {
     NoUnitOffsetInL3v1,
-    "The unit 'offset' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'offset' attribute on Unit objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7633,7 +7732,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96004
   {
     NoKineticLawTimeUnitsInL3v1,
-    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7652,7 +7751,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96005
   {
     NoKineticLawSubstanceUnitsInL3v1,
-    "The 'substanceUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'substanceUnits' attribute on KineticLaw objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7671,7 +7770,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96006
   {
     NoSpeciesSpatialSizeUnitsInL3v1,
-    "The 'spatialSizeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'spatialSizeUnit' attribute on Species objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7688,7 +7787,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96007
   {
     NoEventTimeUnitsInL3v1,
-    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on Event objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7705,7 +7804,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96008
   {
     ModelSBOBranchChangedInL3v1,
-    "The allowable 'sboTerm' values for model differ for this SBML Level+Version",
+    "The allowable 'sboTerm' attribute values for Model objects differ for this SBML Level+Version",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7726,7 +7825,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96009
   {
     DuplicateAnnotationInvalidInL3v1,
-    "Duplicate top level annotations invalid in L3V1",
+    "Duplicate top-level annotations are invalid in SBML Level 3 Version 1",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -7747,7 +7846,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96010
   {
     NoCompartmentOutsideInL3v1,
-    "The 'outside' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'outside' attribute on Compartment objects",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -7764,7 +7863,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //96011
   {
     NoStoichiometryMathInL3v1,
-    "SBML Level 3 Version 1 does not support stoichiometryMath",
+    "This Level+Version of SBML does not support the StoichiometryMath object",
     LIBSBML_CAT_SBML_L3V1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7777,10 +7876,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "yet supported."
   },
 
+  /* --------------------------------------------------------------------------
+   * These are errors checked by libSBML that were never published in a spec.
+   * ----------------------------------------------------------------------- */
+
   //99101
   {
     InvalidSBMLLevelVersion,
-    "Invalid SBML Level and Version",
+    "Unknown Level+Version combination of SBML",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7797,7 +7900,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99104
   {
     AnnotationNotesNotAllowedLevel1,
-    "Annotation on <sbml> not permitted in SBML Level 1",
+    "Annotation objects on the SBML container element are not permitted in SBML Level 1",
     LIBSBML_CAT_SBML,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7823,7 +7926,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     "The math field of an assignment rule structure can contain any "
-    "identifier in a MathML ci element except for the following: (a) "
+    "identifier in a MathML <ci> element except for the following: (a) "
     "identifiers for which there exists a subsequent assignment rule, "
     "and (b) the identifier for which the rule is defined. (L2V1 Section "
     "4.8.4)."
@@ -7832,7 +7935,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99107
   {
     RequiredPackagePresent,
-    "Model requires an L3 package",
+    "The SBML document requires an SBML Level 3 package unavailable in this software",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7845,14 +7948,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "URI and defines the attribute named 'required'. A value of required="
     "true indicates that interpreting the package is necessary for complete "
     "mathematical interpretation of the model. (L3V1 Section 4.1.2) "
-    "This instance of libSBML-5 cannot find the code necessary to parse this "
-    "information."
+    "This instance of libSBML version 5 cannot find the code necessary to "
+    "interpret the package information."
   },
 
   //99108
   {
     UnrequiredPackagePresent,
-    "Possible L3 package detected",
+    "The SBML document uses an SBML Level 3 package unavailable in this software",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7871,7 +7974,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99127
   {
     SubsUnitsAllowedInKL,
-    "Disallowed value for attribute 'substanceUnits'",
+    "Disallowed value for attribute 'substanceUnits' on KineticLaw object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7888,7 +7991,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99128
   {
     TimeUnitsAllowedInKL,
-    "Disallowed value for attribute 'timeUnits'",
+    "Disallowed value for attribute 'timeUnits' on KineticLaw object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7905,7 +8008,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99129
   {
     FormulaInLevel1KL,
-    "Only predefined functions are permitted in SBML Level 1 formulas",
+    "Only predefined functions are allowed in SBML Level 1 formulas",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
@@ -7921,7 +8024,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99206
   {
     TimeUnitsRemoved,
-    "The 'timeUnits' attribute is invalid in this Level+Version of SBML",
+    "This Level+Version of SBML does not support the 'timeUnits' attribute on Event objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -7953,7 +8056,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99220
   {   
     FailedMathMLReadOfDouble,   
-    "Failed to read floating-point number",
+    "Missing or invalid floating-point number in MathML expression",
     LIBSBML_CAT_MATHML_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -7968,7 +8071,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99221
   {   
     FailedMathMLReadOfInteger,   
-    "Failed to read an integer",
+    "Missing or invalid integer in MathML expression",
     LIBSBML_CAT_MATHML_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -7983,7 +8086,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99222
   {   
     FailedMathMLReadOfExponential,   
-    "Failed to read an exponential expression",
+    "Missing or invalid exponential expression in MathML",
     LIBSBML_CAT_MATHML_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -7998,7 +8101,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99223
   {   
     FailedMathMLReadOfRational,   
-    "Failed to read a rational expression",
+    "Missing or invalid rational expression in MathML",
     LIBSBML_CAT_MATHML_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8032,7 +8135,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99301
   {   
     NoTimeSymbolInFunctionDef,   
-    "<csymbol> for 'time' used within the <math> of a function definition",
+    "Use of <csymbol> for 'time' not allowed within FunctionDefinition objects",
     LIBSBML_CAT_GENERAL_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8049,7 +8152,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99302
   {   
     NoBodyInFunctionDef,   
-    "There must be a body within the <math> of a function definition",
+    "There must be a <lambda> body within the <math> element of a FunctionDefinition object",
     LIBSBML_CAT_GENERAL_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8058,9 +8161,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
-    "The lambda element of a functionDefinition must contain a function "
+    "The <lambda> element of a FunctionDefinition object must contain a function "
     "body in addition to zero or more arguments."
   },
+
+  /* --------------------------------------------------------------------------
+   * These are internal errors that reverts to 10501.
+   * ----------------------------------------------------------------------- */
 
   //99502
   // This is an internal error that reverts to 10501
@@ -8113,7 +8220,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99505
   {
     UndeclaredUnits,
-    "Undeclared units",
+    "Missing unit declarations on parameters or literal numbers in expression",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
@@ -8130,7 +8237,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99506
   {
     UndeclaredTimeUnitsL3,
-    "L3 undeclared time units",
+    "Unable to verify consistency of units: the unit of time has not been declared",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8149,7 +8256,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99507
   {
     UndeclaredExtentUnitsL3,
-    "L3 undeclared extent units",
+    "Unable to verify consistency of units: the units of reaction extent have not been declared",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8168,7 +8275,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99508
   {
     UndeclaredObjectUnitsL3,
-    "L3 undeclared object units",
+    "Unable to verify consistency of units: encountered a model entity with no declared units",
     LIBSBML_CAT_UNITS_CONSISTENCY,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
@@ -8187,7 +8294,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99701
   {   
     UnrecognisedSBOTerm,   
-    "Unrecognized 'sboTerm' value",
+    "Unrecognized 'sboTerm' attribute value",
     LIBSBML_CAT_SBO_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8204,7 +8311,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99701
   {   
     ObseleteSBOTerm,   
-    "Obsolete 'sboTerm' value",
+    "Obsolete 'sboTerm' attribute value",
     LIBSBML_CAT_SBO_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8216,10 +8323,14 @@ static const sbmlErrorTableEntry errorTable[] =
     "The SBOTerm value used is considered obsolete."
   },
 
+  /* --------------------------------------------------------------------------
+   * Internal consistency checks.
+   * ----------------------------------------------------------------------- */
+
   //99901
   {   
     IncorrectCompartmentSpatialDimensions,   
-    "In SBML Level 1, only three-dimensional compartments are permitted",
+    "In SBML Level 1, only three-dimensional compartments are allowed",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8237,7 +8348,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99902
   {   
     CompartmentTypeNotValidAttribute,   
-    "Compartment types not supported in this Level+Version of SBML",
+    "CompartmentType objects are not available in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8255,7 +8366,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99903
   {   
     ConstantNotValidAttribute,   
-    "Attribute 'constant' not supported on this component in SBML Level 1",
+    "This Level+Version of SBML does not support the 'constant' attribute on this component",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8275,7 +8386,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99904
   {   
     MetaIdNotValidAttribute,   
-    "Attribute 'metaid' not supported in SBML Level 1",
+    "Attribute 'metaid' is not available in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8284,16 +8395,16 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    "The 'metaId' attribute on all <SBase> objects was not available "
+    "The 'metaid' attribute on all <SBase> objects was not available "
     "in SBML Level 1. In order for the internal "
     "respresentation to be correct, the value for the "
-    "metaId member variable should be not be set."
+    "'metaid' member variable should be not be set."
   },
 
   //99905
   {   
     SBOTermNotValidAttributeBeforeL2V3,   
-    "'sboTerm' not available on this component before SBML Level 2 Version 3",
+    "The 'sboTerm' attribute is not available on this component before SBML Level 2 Version 3",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8331,7 +8442,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99907
   {   
     L1V1CompartmentVolumeReqd,   
-    "Compartment volume must be specified",
+    "In SBML Level 1, a compartment's volume must be specified",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8348,7 +8459,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99908
   {   
     CompartmentTypeNotValidComponent,   
-    "Compartment types not supported in this Level+Version of SBML",
+    "CompartmentType objects are not available in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8365,7 +8476,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99909
   {   
     ConstraintNotValidComponent,   
-    "Constraints not supported in this Level+Version of SBML",
+    "Constraint objects are not available in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8382,7 +8493,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99910
   {   
     EventNotValidComponent,   
-    "Events not supported in this Level+Version of SBML",
+    "Event objects are not available in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8419,7 +8530,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99912
   {   
     FuncDefNotValidComponent,   
-    "Function definitions are not supported in this Level+Version of SBML",
+    "FunctionDefinition objects are not available in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8436,7 +8547,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99913
   {   
     InitialAssignNotValidComponent,   
-    "Initial assignments are not supported in this Level+Version of SBML",
+    "InitialAssignment objects are not available in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8453,7 +8564,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99914
   {   
     VariableNotValidAttribute,   
-    "Attribute 'variable' not valid",
+    "Attribute 'variable' is not available on this component in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8469,7 +8580,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99915
   {   
     UnitsNotValidAttribute,   
-    "Attribute 'units' not valid",
+    "Attribute 'units' is not available on this component in this Level+Version of SBML",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8486,7 +8597,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99916
   {   
     ConstantSpeciesNotValidAttribute,   
-    "Attribute 'constant' on species not supported in SBML Level 1",
+    "Attribute 'constant' is not available on Species objects in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8508,7 +8619,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99917
   {   
     SpatialSizeUnitsNotValidAttribute,   
-    "Attribute 'spatialSizeUnits' on species not supported in SBML Level 1",
+    "Attribute 'spatialSizeUnits' is not available on Species objects in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8526,7 +8637,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99918
   {   
     SpeciesTypeNotValidAttribute,   
-    "Attribute 'speciesType' on species not supported in SBML Level 1",
+    "Attribute 'speciesType' is not available on Species objects in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8544,7 +8655,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99919
   {   
     HasOnlySubsUnitsNotValidAttribute,   
-    "Attribute 'hasOnlySubstanceUnits' on species not supported in SBML Level 1",
+    "Attribute 'hasOnlySubstanceUnits' is not available on Species objects in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8562,7 +8673,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99920
   {   
     IdNotValidAttribute,   
-    "Attribute 'id' on species references not supported in SBML Level 1",
+    "Attribute 'id' is not available on SpeciesReference objects in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8580,7 +8691,7 @@ static const sbmlErrorTableEntry errorTable[] =
     //99921
   {   
     NameNotValidAttribute,   
-    "Attribute 'name' on species references not supported in SBML Level 1",
+    "Attribute 'name' is not available on SpeciesReference objects in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8598,7 +8709,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99922
   {   
     SpeciesTypeNotValidComponent,   
-    "Species types not supported in SBML Level 1",
+    "The SpeciesType object is not supported in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8615,7 +8726,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99923
   {   
     StoichiometryMathNotValidComponent,   
-    "<stoichiometryMath> not supported in SBML Level 1",
+    "The StoichiometryMath object is not supported in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8633,7 +8744,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99924
   {   
     MultiplierNotValidAttribute,   
-    "Attribute 'multiplier' on units not supported in SBML Level 1",
+    "Attribute 'multiplier' on Unit objects is not supported in SBML Level 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8650,7 +8761,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99925
   {   
     OffsetNotValidAttribute,   
-    "Attribute 'offset' on units only available in SBML Level 2 Version 1",
+    "Attribute 'offset' on Unit objects is only available in SBML Level 2 Version 1",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8667,7 +8778,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99926
   {   
     L3SpatialDimensionsUnset,   
-    "Attribute 'spatialDimensions' on L3 compartment unset",
+    "No value given for 'spatialDimensions' attribute; assuming a value of 3",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_NOT_APPLICABLE,   
     LIBSBML_SEV_NOT_APPLICABLE,   
@@ -8683,7 +8794,7 @@ static const sbmlErrorTableEntry errorTable[] =
   //99996
   {   
     PackageConversionNotSupported,   
-    "Conversion of L3 package information is not yet supported",
+    "Conversion of SBML Level 3 package constructs is not yet supported",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8692,13 +8803,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,   
-    "Conversion of L3 package information is not yet supported."
+    "Conversion of SBML Level 3 package information is not yet supported."
   },
 
   //99997
   {   
     InvalidTargetLevelVersion,   
-    "The target Level/Version does not exist",
+    "The requested SBML Level/Version combination is not known to exist",
     LIBSBML_CAT_INTERNAL_CONSISTENCY,   
     LIBSBML_SEV_ERROR,   
     LIBSBML_SEV_ERROR,   
@@ -8724,8 +8835,32 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,   
     "Validation of or conversion from L3 documents/models is not yet "
     "supported."
-  } 
+  },
 
+  /* --------------------------------------------------------------------------
+   * Boundary marker.  Application-specific codes should begin at 100000.
+   * ----------------------------------------------------------------------- */
+
+  //99999
+  {
+    SBMLCodesUpperBound,
+    "Upper boundary of libSBML-specific diagnostic codes",
+    LIBSBML_CAT_INTERNAL,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    "Application-specific codes should begin at 100000.", 
+    {"",
+     "",
+     "",
+     "",
+     "",
+     ""}
+    }
 };
 
 LIBSBML_CPP_NAMESPACE_END

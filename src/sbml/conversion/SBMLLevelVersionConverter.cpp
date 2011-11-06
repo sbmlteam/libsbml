@@ -829,7 +829,7 @@ SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUni
     {
       if (mDocument->getErrorLog()->getError(n)->getErrorId() == L3SpatialDimensionsUnset)
       {
-        mDocument->getErrorLog()->remove(NoNon3DComparmentsInL1);
+        mDocument->getErrorLog()->remove(NoNon3DCompartmentsInL1);
         mDocument->getErrorLog()->remove(IntegerSpatialDimensions);
       }
     }

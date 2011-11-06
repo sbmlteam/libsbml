@@ -166,7 +166,7 @@ namespace LibSBMLCSTest.sbml {
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_ERROR );
       assertTrue( error.getSeverityAsString() ==  "Error"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_MATHML_CONSISTENCY );
-      assertTrue( error.getShortMessage() ==  "Disallowed use of MathML 'encoding' attribute" );
+      assertTrue( error.getShortMessage() ==  "Use of the MathML 'encoding' attribute is not allowed on this element" );
       error = null;
       error = new SBMLError(libsbml.DisallowedMathMLEncodingUse,1,2);
       assertTrue( error.getErrorId() == libsbml.DisallowedMathMLEncodingUse );
@@ -178,7 +178,7 @@ namespace LibSBMLCSTest.sbml {
       assertTrue( error.getSeverity() == libsbml.LIBSBML_SEV_FATAL );
       assertTrue( error.getSeverityAsString() ==  "Fatal"  );
       assertTrue( error.getCategory() == libsbml.LIBSBML_CAT_INTERNAL );
-      assertTrue( error.getShortMessage() ==  "Unknown internal libSBML error" );
+      assertTrue( error.getShortMessage() ==  "Encountered unknown internal libSBML error" );
       error = null;
     }
 

@@ -96,7 +96,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverity() == LIBSBML_SEV_ERROR );
   fail_unless( error->getSeverityAsString() == "Error" );
   fail_unless( error->getCategory() == LIBSBML_CAT_MATHML_CONSISTENCY );
-  fail_unless( error->getShortMessage() == "Disallowed use of MathML 'encoding' attribute");
+  fail_unless( error->getShortMessage() == "Use of the MathML 'encoding' attribute is not allowed on this element");
   fail_unless( error->isValid() == true);
   delete error;
 
@@ -112,7 +112,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverity() == LIBSBML_SEV_FATAL );
   fail_unless( error->getSeverityAsString() == "Fatal" );
   fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
-  fail_unless( error->getShortMessage() == "Unknown internal libSBML error");
+  fail_unless( error->getShortMessage() == "Encountered unknown internal libSBML error");
   fail_unless( error->isValid() == true);
   delete error;
 
@@ -121,7 +121,7 @@ START_TEST (test_SBMLError_create)
   fail_unless( error->getSeverity() == LIBSBML_SEV_WARNING );
   fail_unless( error->getSeverityAsString() == "Warning" );
   fail_unless( error->getCategory() == LIBSBML_CAT_INTERNAL );
-  fail_unless( error->getShortMessage() == "Unknown internal libSBML error");
+  fail_unless( error->getShortMessage() == "Encountered unknown internal libSBML error");
   fail_unless( error->isValid() == false);
   delete error;
 }

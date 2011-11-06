@@ -70,7 +70,7 @@ class TestSBMLError < Test::Unit::TestCase
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_ERROR )
     assert( error.getSeverityAsString() ==  "Error"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_MATHML_CONSISTENCY )
-    assert( error.getShortMessage() ==  "Disallowed use of MathML 'encoding' attribute" )
+    assert( error.getShortMessage() ==  "Use of the MathML 'encoding' attribute is not allowed on this element" )
     error = nil
     error = LibSBML::SBMLError.new(LibSBML::DisallowedMathMLEncodingUse,1,2)
     assert( error.getErrorId() == LibSBML::DisallowedMathMLEncodingUse )
@@ -82,7 +82,7 @@ class TestSBMLError < Test::Unit::TestCase
     assert( error.getSeverity() == LibSBML::LIBSBML_SEV_FATAL )
     assert( error.getSeverityAsString() ==  "Fatal"  )
     assert( error.getCategory() == LibSBML::LIBSBML_CAT_INTERNAL )
-    assert( error.getShortMessage() ==  "Unknown internal libSBML error" )
+    assert( error.getShortMessage() ==  "Encountered unknown internal libSBML error" )
     error = nil
   end
 
