@@ -102,6 +102,12 @@ Version 5.2.0 (2011-11-11)
 
 * Miscellaneous
 
+  - There were inconsistencies arising from the naming of functions
+    related to packages; some being named doPkgFoobar and others 
+    doPackageFoobar.  All of these functions now use the doPackageFoobar
+    naming format.  Existing functions using the Pkg format will still
+    work but should be considered deprecated.
+
   - The text of many SBML validation and consistency-checking error
     messages have been edited to hopefully improve readability,
     clarity and consistency.
