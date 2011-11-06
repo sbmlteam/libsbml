@@ -676,6 +676,15 @@ def rewriteList (match):
 
 
 
+def rewriteDeprecated (match):
+  lead   = match.group(1);
+  depr   = match.group(2);
+  body   = match.group(3);
+  ending = match.group(5);
+  return lead + depr + '<div class="deprecated">' + body + '</div>\n' + lead + ending
+
+
+
 def sanitizeForHTML (docstring):
   """sanitizeForHTML (docstring) -> docstring
 
@@ -775,6 +784,11 @@ def sanitizeForHTML (docstring):
 
   p = re.compile('^(\s+\*\s+)(@li\s+.*?)(\s+)(\*/|\*\s+@(?!li\s)|\*\s+<p>)', re.MULTILINE|re.DOTALL)
   docstring = p.sub(rewriteList, docstring)
+
+  # Wrap @deprecated content with a class so that we can style it.
+
+  p = re.compile('^(\s+\*\s+)(@deprecated\s)((\S|\s)+)(<p>|\*/)', re.MULTILINE|re.DOTALL)
+  docstring = p.sub(rewriteDeprecated, docstring)
 
   # Doxygen automatically cross-references class names in text to the class
   # definition page, but Javadoc does not.  Rather than having to put in a
