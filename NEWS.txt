@@ -2,7 +2,7 @@
 
 
 ======================================================================
-Version 5.2.0 (Coming soon)
+Version 5.2.0 (2011-11-11)
 ======================================================================
 
 * SBML Level 3 Packages
@@ -93,6 +93,12 @@ Version 5.2.0 (Coming soon)
     Duplicating the string before returning it solves the problem. 
     LibSBML-5.1.0-b0 had three new functions where the string duplication 
     was missing.  This has now been fixed.
+    
+  - In the layout code, adding a <Point> to a <BoundingBox> produced
+    an element with the wrong name. This has been fixed; a fix that 
+    revealed further issues with the constructors for packageNamespaces.
+    This issue has also been fixed.  Thanks to Chris Myers for reporting 
+    the original problem.   
 
 * Miscellaneous
 
