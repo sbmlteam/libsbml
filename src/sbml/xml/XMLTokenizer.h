@@ -28,7 +28,7 @@
  * @class XMLTokenizer
  * @brief Class implementing methods for turning XML into tokens.
  *
- * @if java @deprecated libSBML internal @endif
+ * @exclude
  */
 
 #ifndef XMLTokenizer_h

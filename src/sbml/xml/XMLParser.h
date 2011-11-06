@@ -30,7 +30,7 @@
  * @class XMLParser
  * @brief Class providing a unified interface to different XML parsers.
  *
- * @if java @deprecated libSBML internal @endif
+ * @exclude
  */
 
 #ifndef XMLParser_h

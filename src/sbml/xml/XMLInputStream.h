@@ -27,7 +27,7 @@
  *
  * @class XMLInputStream
  *
- * @if java @deprecated libSBML internal @endif
+ * @exclude
  */
 
 #ifndef XMLInputStream_h
