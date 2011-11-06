@@ -1249,8 +1249,6 @@ public:
   bool isIgnoredPackage(const std::string& pkgURI);
   
   
-  /** @cond doxygen-libsbml-internal */
-
   /**
    * Sets the required attribute of the given package extension.
    *
@@ -1266,6 +1264,9 @@ public:
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_PKG_UNKNOWN_VERSION LIBSBML_PKG_UNKNOWN_VERSION @endlink
+   *
+   * @deprecated Replaced in libSBML 5.2.0 by
+   * setPackageRequired(@if java String package, boolean flag@endif)
    */
   int setPkgRequired(const std::string& package, bool flag);
 
@@ -1280,6 +1281,9 @@ public:
    *
    * @return boolean flag indicating whether the package is flagged as
    * being required.
+   *
+   * @deprecated Replaced in libSBML 5.2.0 by
+   * getPackageRequired(@if java String package flag@endif)
    */
   bool getPkgRequired(const std::string& package);
 
@@ -1294,6 +1298,9 @@ public:
    * @param package the name or URI of the package extension.
    *
    * @return a boolean
+   *
+   * @deprecated Replaced in libSBML 5.2.0 by
+   * isSetPackageRequired(@if java String package flag@endif)
    */
   bool isSetPkgRequired(const std::string& package);
 
@@ -1306,16 +1313,23 @@ public:
    * @param pkgURI the URI of the package extension.
    *
    * @return a boolean
+   *
+   * @deprecated Replaced in libSBML 5.2.0 by
+   * isIgnoredPkg(@if java String pkgURI flag@endif)
    */
   bool isIgnoredPkg(const std::string& pkgURI);
   
+
+  /** @cond doxygen-libsbml-internal */
   /**
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
    */
   int getElementPosition () const;
+  /** @endcond */
 
 
+  /** @cond doxygen-libsbml-internal */
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -1323,21 +1337,57 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+
+  /**
+   * Validation system.
+   */
   unsigned char getApplicableValidators() const;
+
+
+  /**
+   * Validation system.
+   */
   unsigned char getConversionValidators() const;
+
+
+  /**
+   * Validation system.
+   */
   void setApplicableValidators(unsigned char appl);
+
+
+  /**
+   * Validation system.
+   */
   void setConversionValidators(unsigned char appl);
+
 
 #ifndef DONT_USE_VALIDATOR_API
 
+  /**
+   * Validation system.
+   */
   unsigned int getNumValidators() const;
+
+
+  /**
+   * Validation system.
+   */
   int clearValidators();
+
+
+  /**
+   * Validation system.
+   */
   int addValidator(const SBMLValidator* validator);
+
+
+  /**
+   * Validation system.
+   */
   SBMLValidator* getValidator(unsigned int index);
 
-
 #endif
-
 
   /** @endcond */
 
