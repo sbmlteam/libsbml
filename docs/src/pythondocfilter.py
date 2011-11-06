@@ -45,7 +45,7 @@ def reformatDocString (match):
   # make the following code slightly more readable
 
   intro  = '<span class="signatureTitle">Python method signature(s)</span>:\n'
-  sStart = '<pre class="signature">'
+  sStart = '<pre class="signature">%'
   sEnd   = '</pre>'
 
   # Regexp for one or more signatures of the form
