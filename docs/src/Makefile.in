@@ -565,7 +565,6 @@ java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
 	$(JAVA) -cp $(JAVADOC_JAR):. ExcludeDoclet -excludefile java-skip.txt \
 	    -use -public -version -author -sourcetab 4 -keywords \
 	    -link http://java.sun.com/j2se/1.5.0/docs/api \
-	    -nodeprecated \
 	    -header $(javadoc-header) \
 	    -bottom $(javadoc-footer) \
 	    -windowtitle $(javadoc-windowtitle) \
