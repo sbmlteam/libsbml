@@ -2580,6 +2580,7 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    */
   bool isPackageURIEnabled(const std::string& pkgURI) const;
 
+
   /**
    * Predicate returning @c true if the given SBML Level&nbsp;3 package is
    * enabled with this object.
@@ -2596,8 +2597,6 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   bool isPackageEnabled(const std::string& pkgName) const;
 
 
-  /** @cond doxygen-libsbml-internal */
-  
   /**
    * Predicate returning @c true if an SBML Level&nbsp;3 package with the
    * given URI is enabled with this object.
@@ -2608,6 +2607,9 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * false otherwise.
    *
    * @see isPkgEnabled(@if java String pkgName@endif)
+   *
+   * @deprecated Replaced in libSBML 5.2.0 by
+   * isPackageURIEnabled(@if java String pkgURI@endif)
    */
   bool isPkgURIEnabled(const std::string& pkgURI) const;
 
@@ -2624,13 +2626,15 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * false otherwise.
    *
    * @see isPkgURIEnabled(@if java String pkgURI@endif)
+   *
+   * @deprecated Replaced in libSBML 5.2.0 by
+   * isPackageEnabled(@if java String pkgName@endif)
    */
   bool isPkgEnabled(const std::string& pkgName) const;
 
 
   /** @cond doxygen-libsbml-internal */
   /**
-   *
    * Writes out contained SBML objects of package extensions (if any)
    * as XML elements.
    *
