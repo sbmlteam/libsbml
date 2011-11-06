@@ -455,6 +455,7 @@ TABLE.memname {
   font-size: 10pt;
   text-align: left;
   background-color: #ddd;
+  color: #222;
 }
 
 TABLE.memname TR {
