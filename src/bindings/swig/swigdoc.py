@@ -370,17 +370,17 @@ class CHeader:
               # have "const", "&", etc. So I'm leaving the arg list unmodified.
               func = Method(isInternal, docstring, name, args, (isConst > 0))
 
-#             print name + args
-
               # Reset buffer for the next iteration, to skip the part seen.
               lines = lines[endparen + 2:]
 
               if inClass:
                 c = self.classes[-1]
                 c.methods.append(func)
+
+                # Record method variants that take different arguments.
                 if c.methodVariants.get(name) == None:
                   c.methodVariants[name] = {}
-                c.methodVariants[name][name + args] = c.methodVariants[name].get(name + args, 0) + 1
+                c.methodVariants[name][args] = func
               else:
                 self.functions.append(func)
                 # FIXME need do nc variants
@@ -1108,18 +1108,34 @@ def processClassMethods(ostream, cclass):
         continue
 
       if cclass.methodVariants[m.name].__len__() > 1:
+
+        # This method has more than one variant.  It's possible some or all
+        # of them are marked @internal.  Therefore, before we start writing
+        # a statement that there are multiple variants, we must check that
+        # we're left with more than one non-internal method to document.
+        count = 0
+        for argVariant in cclass.methodVariants[m.name].values():
+          if re.search('@internal', argVariant.docstring) == None:
+            count += 1
+        if count <= 1:
+          continue
+
         newdoc = ' This method has multiple variants that differ in the' + \
                  ' arguments they accept.  Each is described separately' + \
                  ' below.\n'
-        for mm in cclass.methods:
-          # Ignore methods marked @internal.
-          if mm.name == m.name and re.search('@internal', mm.docstring) == None:
+
+        for argVariant in cclass.methodVariants[m.name].values():
+          # Each entry in the methodVariants dictionary is itself a dictionary.
+          # The dictionary entries are keyed by method arguments (as strings).
+          # The dictionary values are the 'func' objects we use.
+          if re.search('@internal', argVariant.docstring) == None:
             newdoc += "\n <hr>\n Method variant with the following"\
                       + " signature:\n <pre class='signature'>" \
-                      + mm.name \
-                      + rewriteDocstringForPython(mm.args) \
+                      + argVariant.name \
+                      + rewriteDocstringForPython(argVariant.args) \
                       + "</pre>\n\n"
-            newdoc += rewriteDocstringForPython(mm.docstring)
+            newdoc += rewriteDocstringForPython(argVariant.docstring)
+          written[argVariant.name + argVariant.args] = 1
       else:
         newdoc = rewriteDocstringForPython(m.docstring)
       ostream.write(formatMethodDocString(m.name, cclass.name, newdoc, m.isInternal, m.args))
