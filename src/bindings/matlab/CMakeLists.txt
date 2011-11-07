@@ -46,6 +46,17 @@ option(WITH_MATLAB_BUILDSBML
 option(WITH_MATLAB_MEX   
       "Generate Matlab bindings using MEX compiler "     ${MATLAB_MEX_DEFAULT} )
 
+
+# 
+# Determine the matlab installation directory
+#
+set(MATLAB_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+  set(MATLAB_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib)
+else()
+  set(MATLAB_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/matlab)
+endif()
+
 if (WITH_MATLAB_BUILDSBML)
 
 file(TO_CMAKE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../ binding_include_dir )
@@ -90,7 +101,7 @@ install(
        ${CMAKE_CURRENT_BINARY_DIR}/TranslateSBML.${MATLAB_MEX_EXT}  
        ${CMAKE_CURRENT_BINARY_DIR}/OutputSBML.${MATLAB_MEX_EXT}  
     DESTINATION 
-       ${MISC_PREFIX}bindings/matlab 
+       ${MATLAB_PACKAGE_INSTALL_DIR} 
 )
 
 elseif (WITH_MATLAB_MEX)
@@ -114,15 +125,7 @@ message(STATUS "matlab libraries   ${MATLAB_LIBRARIES}")
 message(STATUS "matlab root path   ${MATLAB_ROOT_PATH}")
 message(STATUS "extension is       ${MATLAB_MEX_EXT}")
 
-# 
-# Determine the matlab installation directory
-#
-set(MATLAB_PACKAGE_INSTALL_DIR)
-if (UNIX OR CYGWIN) 
-  set(MATLAB_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib)
-else()
-  set(MATLAB_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/matlab)
-endif()
+
 
 # break up the libsbml library dependencies into paths and libraries
 set(MATLAB_EXTRA_LIBS)
