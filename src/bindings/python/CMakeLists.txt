@@ -149,11 +149,23 @@ endif()
 
 target_link_libraries(binding_python_lib ${LIBSBML_LIBRARY}-static ${PYTHON_LIBRARIES})
 
-INSTALL(TARGETS binding_python_lib DESTINATION ${MISC_PREFIX}bindings/python/libsbml )
+# 
+# Determine the python installation directory
+#
+set(PYTHON_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+  execute_process(COMMAND "${PYTHON_EXECUTABLE}" -c "import sys;import platform; sys.stdout.write(platform.python_version()[:3])"
+    OUTPUT_VARIABLE PYTHON_VERSION)
+  set(PYTHON_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/python${PYTHON_VERSION}/site-packages)
+else()
+  set(PYTHON_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/python)
+endif()
+
+INSTALL(TARGETS binding_python_lib DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
 
 file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth" "libsbml\n")
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth  DESTINATION ${MISC_PREFIX}bindings/python )
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${MISC_PREFIX}bindings/python/libsbml )
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.pth  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR})
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbml.py  DESTINATION ${PYTHON_PACKAGE_INSTALL_DIR}/libsbml )
 
 
 ####################################################################
