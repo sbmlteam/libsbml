@@ -104,7 +104,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "SBMLExtensionRegistry",
                   "SBMLExternalValidator",
                   "SBMLFunctionDefinitionConverter",
-                  "SBMLInitialAssigmentConverter",
+                  "SBMLInitialAssignmentConverter",
                   "SBMLLevelVersionConverter",
                   "SBMLNamespaces",
                   "SBMLNamespacesList",
@@ -580,7 +580,7 @@ def translateInclude (match):
   content = stream.read()
   stream.close()
 
-  return content.strip() + ending
+  return content + ending
 
 
 
