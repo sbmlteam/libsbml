@@ -114,13 +114,13 @@ add_library(binding_ruby_lib SHARED libsbml_wrap.cpp)
 add_dependencies(binding_ruby_lib binding_ruby_swig)
 
 # 
-# Determine the python installation directory
+# Determine the ruby installation directory
 #
 set(RUBY_PACKAGE_INSTALL_DIR)
 if (UNIX OR CYGWIN) 
   execute_process(COMMAND "${RUBY_EXECUTABLE}" -e "print RUBY_PLATFORM"
     OUTPUT_VARIABLE RUBY_PLATFORM)
-  set(RUBY_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ruby/site-ruby/${RUBY_VERSION_MAJOR}.${RUBY_VERSION_MINOR}/${RUBY_PLATFORM} CACHE STRING "")
+  set(RUBY_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ruby/site-ruby/${RUBY_VERSION_MAJOR}.${RUBY_VERSION_MINOR}/${RUBY_PLATFORM})
 else()
   set(RUBY_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/ruby)
 endif()
