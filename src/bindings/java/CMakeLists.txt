@@ -120,7 +120,18 @@ foreach(package ${DOWNCAST_EXTENSION})
 endforeach()
 file(APPEND "${CMAKE_CURRENT_SOURCE_DIR}/local-packages.i" "\n")
 
-
+# 
+# Determine the csharp installation directory
+#
+set(JAVA_PACKAGE_BIN_INSTALL_DIR)
+set(JAVA_PACKAGE_JAR_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+  set(JAVA_PACKAGE_BIN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib)
+  set(JAVA_PACKAGE_JAR_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/share/java)  
+else()
+  set(JAVA_PACKAGE_BIN_INSTALL_DIR ${MISC_PREFIX}bindings/java)
+  set(JAVA_PACKAGE_JAR_INSTALL_DIR ${MISC_PREFIX}bindings/java)  
+endif()
 
 ####################################################################
 #
@@ -178,7 +189,7 @@ if(APPLE)
 	set_target_properties (binding_java_lib PROPERTIES SUFFIX ".jnilib")
 endif()
 
-INSTALL(TARGETS binding_java_lib DESTINATION ${MISC_PREFIX}bindings/java )
+INSTALL(TARGETS binding_java_lib DESTINATION ${JAVA_PACKAGE_BIN_INSTALL_DIR} )
 
 target_link_libraries(binding_java_lib ${LIBSBML_LIBRARY}-static )
 
@@ -207,7 +218,7 @@ add_custom_target(binding_java_jar ALL DEPENDS
 	
 add_dependencies(binding_java_jar binding_java_swig)
 	
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar DESTINATION ${MISC_PREFIX}bindings/java) 
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlj.jar DESTINATION ${JAVA_PACKAGE_JAR_INSTALL_DIR}) 
 	
 	
 	
