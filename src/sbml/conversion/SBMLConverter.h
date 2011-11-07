@@ -47,6 +47,13 @@
  * @li SBMLRuleConverter
  * @li SBMLStripPackageConverter
  * @li SBMLUnitsConverter
+ *
+ * Many converters provide the ability to configure their behavior to some
+ * extent.  This is realized through the use of @em properties that offer
+ * different @em options.  Two related classes implement these features:
+ * ConversionProperties and ConversionOptions.  The default property values
+ * for each converter can be interrogated using the method
+ * getDefaultProperties() on the converter class.
  */
 
 #ifndef SBMLConverter_h
@@ -145,7 +152,7 @@ public:
    * configured in the converter.  For example, the actions of
    * SBMLLevelVersionConverter, the converter for converting SBML documents
    * from one Level+Version combination to another, are fundamentally
-   * dependent on the SBML namespaces being targetted.
+   * dependent on the SBML namespaces being targeted.
    *
    * @return the SBMLNamespaces object that describes the SBML namespaces
    * in effect.
