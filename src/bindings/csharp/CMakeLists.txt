@@ -138,6 +138,15 @@ ADD_CUSTOM_COMMAND(
 
 add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
 
+# 
+# Determine the csharp installation directory
+#
+set(CSHAPR_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+  set(CSHAPR_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/mono/libsbmlcsP)
+else()
+  set(CSHAPR_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/csharp)
+endif()
 	
 ####################################################################
 #
@@ -156,7 +165,7 @@ set_target_properties (binding_csharp_native_lib PROPERTIES OUTPUT_NAME "libsbml
 endif()
 target_link_libraries(binding_csharp_native_lib ${LIBSBML_LIBRARY}-static)
 INSTALL(TARGETS binding_csharp_native_lib 
-        DESTINATION ${MISC_PREFIX}bindings/csharp	
+        DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR}	
   )
 
 ####################################################################
@@ -189,7 +198,7 @@ ADD_CUSTOM_COMMAND(
 add_custom_target(binding_csharp_managed_lib ALL DEPENDS libsbmlcsP.dll)
 add_dependencies(binding_csharp_managed_lib binding_csharp_swig)
 
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${MISC_PREFIX}bindings/csharp) 
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/libsbmlcsP.dll DESTINATION ${CSHAPR_PACKAGE_INSTALL_DIR}) 
 
 ####################################################################
 #
