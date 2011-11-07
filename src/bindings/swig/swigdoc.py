@@ -574,13 +574,13 @@ def translateVerbatim (match):
 def translateInclude (match):
   global docincpath
 
-  text    = match.group()
   file    = match.group(1)
+  ending  = match.group(2)
   stream  = open(docincpath + '/common-text/' + file, 'r')
   content = stream.read()
   stream.close()
 
-  return content
+  return content.strip() + ending
 
 
 
@@ -727,7 +727,7 @@ def sanitizeForHTML (docstring):
   # Javadoc doesn't have an @htmlinclude command, so we process the file
   # inclusion directly here.
 
-  p = re.compile('@htmlinclude\s+([^\s]+)\s', re.MULTILINE)
+  p = re.compile('@htmlinclude\s+([^\s:;,(){}+|?"\'/]+)([\s:;,(){}+|?"\'/])', re.MULTILINE)
   docstring = p.sub(translateInclude, docstring)
 
   # There's no Javadoc verbatim or @code/@endcode equivalent, so we have to
