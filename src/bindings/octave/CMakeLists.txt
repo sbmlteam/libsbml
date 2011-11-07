@@ -56,7 +56,7 @@ endforeach()
 endif()
 
 # 
-# Determine the csharp installation directory
+# Determine the octave installation directory
 #
 set(OCTAVE_PACKAGE_INSTALL_DIR)
 if (UNIX OR CYGWIN) 
