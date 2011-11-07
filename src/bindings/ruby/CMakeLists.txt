@@ -113,6 +113,18 @@ include_directories(${RUBY_HDR_DIR})
 add_library(binding_ruby_lib SHARED libsbml_wrap.cpp)
 add_dependencies(binding_ruby_lib binding_ruby_swig)
 
+# 
+# Determine the python installation directory
+#
+set(RUBY_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+  execute_process(COMMAND "${RUBY_EXECUTABLE}" -e "print RUBY_PLATFORM"
+    OUTPUT_VARIABLE RUBY_PLATFORM)
+  set(RUBY_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ruby/site-ruby/${RUBY_VERSION_MAJOR}.${RUBY_VERSION_MINOR}/${RUBY_PLATFORM} CACHE STRING "")
+else()
+  set(RUBY_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/ruby)
+endif()
+
 set_target_properties (binding_ruby_lib PROPERTIES OUTPUT_NAME "libSBML")
 if (UNIX)
 	set_target_properties (binding_ruby_lib PROPERTIES PREFIX "")
@@ -121,7 +133,7 @@ if (UNIX)
 	endif()
 endif()
 target_link_libraries(binding_ruby_lib ${LIBSBML_LIBRARY}-static ${RUBY_LIBRARY})
-INSTALL(TARGETS binding_ruby_lib DESTINATION ${MISC_PREFIX}bindings/ruby )
+INSTALL(TARGETS binding_ruby_lib DESTINATION ${RUBY_PACKAGE_INSTALL_DIR} )
 
 ####################################################################
 #
