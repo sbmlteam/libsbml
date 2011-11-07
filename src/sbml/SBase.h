@@ -2475,6 +2475,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
    * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
    * package extension.
    *
+   * @param n the index of the plugin to return
+   *
    * @return the plugin object (the libSBML extension interface) of
    * a package extension with the given package name or URI.
    */
@@ -2484,6 +2486,8 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
   /**
    * Returns the nth plugin object (extension interface) for an SBML Level&nbsp;3
    * package extension.
+   *
+   * @param n the index of the plugin to return
    *
    * @return the plugin object (the libSBML extension interface) of a
    * package extension with the given package name or URI.

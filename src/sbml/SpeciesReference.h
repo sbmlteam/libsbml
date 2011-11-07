@@ -1461,7 +1461,9 @@ public:
    */
   virtual bool hasRequiredAttributes() const ;
 
+
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /* the validator classes need to be friends to access the 
    * protected constructor that takes no arguments
@@ -1481,6 +1483,7 @@ protected:
   friend class SBOConsistencyValidator;
   friend class UnitConsistencyValidator;
 
+  /** @endcond */
 };
 
 

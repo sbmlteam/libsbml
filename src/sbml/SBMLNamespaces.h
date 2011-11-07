@@ -478,6 +478,7 @@ else
   int removePackageNamespace(unsigned int level, unsigned version, const std::string &pkgName,
                          unsigned int pkgVersion);
 
+
   /** @cond doxygen-libsbml-internal */
   /**
    * Add an XML namespace (a pair of URI and prefix) of a package extension
@@ -550,6 +551,7 @@ else
                          unsigned int pkgVersion);
 
   /** @endcond */
+
   /**
    * Predicate returning @c true if the given
    * URL is one of SBML XML namespaces.

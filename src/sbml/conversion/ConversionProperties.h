@@ -50,40 +50,49 @@ class LIBSBML_EXTERN ConversionProperties
 public:
   /** 
    * Constructor that initializes the conversion properties
-   * with a specific SBML target namespace
+   * with a specific SBML target namespace.
    * 
    * @param targetNS the target namespace to convert to
    */
   ConversionProperties(SBMLNamespaces* targetNS=NULL);
 
+
   /** 
-   * Copy constructor
+   * Copy constructor.
    */
   ConversionProperties(const ConversionProperties&);
+
   
   /**
    * Assignment operator for conversion properties.
    */
   ConversionProperties& operator=(const ConversionProperties&);
 
+
   /** 
    * clone method
    */
   virtual ConversionProperties* clone() const; 
+
 
   /**
    * Destructor
    */
   virtual ~ConversionProperties();
 
+
   /**
    * @return the current target namespace
    */ 
   virtual SBMLNamespaces * getTargetNamespaces() const;
+
+
   /**
    * @return boolean indicating whether the target namespace has been set.
    */
   virtual bool hasTargetNamespaces() const;
+
+
   /** 
    * Sets the target namespace
    * 
@@ -91,27 +100,36 @@ public:
    */
   virtual void setTargetNamespaces(SBMLNamespaces *targetNS);
 
+
   /**
    * @param key the key for the option
    * @return the description of the option with the given key
    */
   virtual std::string getDescription(std::string key) const;
+
+
   /**
    * @param key the key for the option
    * @return the type of the option with the given key
    */
   virtual ConversionOptionType_t  getType(std::string key) const;
+
+
   /**
    * @param key the key for the option
    * @return the option with the given key
    */
   virtual ConversionOption* getOption(std::string key) const;  
+
+
   /**
    * Adds a copy of the given option to the properties 
    * 
    * @param option the option to add
    */
   virtual void addOption(const ConversionOption& option);
+
+
   /**
    * Adds a new option with the given parameters
    * 
@@ -123,6 +141,8 @@ public:
   virtual void addOption(std::string key, std::string value="", 
     ConversionOptionType_t type=CNV_TYPE_STRING, 
     std::string description="");
+
+
   /**
    * Adds a new option with the given parameters
    * 
@@ -132,6 +152,8 @@ public:
    */
   virtual void addOption(std::string key, const char* value, 
     std::string description="");
+
+
   /**
    * Adds a new option with the given parameters
    * 
@@ -141,6 +163,8 @@ public:
    */
   virtual void addOption(std::string key, bool value, 
     std::string description="");
+
+
   /**
    * Adds a new option with the given parameters
    * 
@@ -150,6 +174,8 @@ public:
    */
   virtual void addOption(std::string key, double value, 
     std::string description="");
+
+
   /**
    * Adds a new option with the given parameters
    * 
@@ -159,6 +185,8 @@ public:
    */
   virtual void addOption(std::string key, float value, 
     std::string description="");
+
+
   /**
    * Adds a new option with the given parameters
    * 
@@ -168,6 +196,8 @@ public:
    */
   virtual void addOption(std::string key, int value, 
     std::string description="");
+
+
   /**
    * Removes the option with the given key from the properties
    * 
@@ -175,6 +205,8 @@ public:
    * @return the removed option
    */
   virtual ConversionOption* removeOption(std::string key);
+
+
   /** 
    * Tests whether the properties contain an option with the given key
    * @param key the key of the option to find
@@ -182,11 +214,14 @@ public:
    */
   virtual bool hasOption(std::string key) const;  
   
+
   /**
    * @param key the key for the option
    * @return the string value of the option with the given key
    */
   virtual std::string getValue(std::string key) const;  
+
+
   /**
    * Sets the value of the option with given key
    * 
@@ -195,11 +230,14 @@ public:
    */
   virtual void setValue(std::string key, std::string value);  
   
+
   /**
    * @param key the key for the option
    * @return the boolean value of the option with the given key
    */
   virtual bool getBoolValue(std::string key) const;
+
+
   /**
    * Sets the value of the option with given key
    * 
@@ -207,12 +245,15 @@ public:
    * @param value the new boolean value
    */
   virtual void setBoolValue(std::string key, bool value);
+
   
   /**
    * @param key the key for the option
    * @return the double value of the option with the given key
    */
   virtual double getDoubleValue(std::string key) const;
+
+
   /**
    * Sets the value of the option with given key
    * 
@@ -220,12 +261,15 @@ public:
    * @param value the new double value
    */
   virtual void setDoubleValue(std::string key, double value);
+
   
   /**
    * @param key the key for the option
    * @return the float value of the option with the given key
    */
   virtual float getFloatValue(std::string key) const;
+
+
   /**
    * Sets the value of the option with given key
    * 
@@ -233,12 +277,15 @@ public:
    * @param value the new float value
    */
   virtual void setFloatValue(std::string key, float value);
+
   
   /**
    * @param key the key for the option
    * @return the int value of the option with the given key
    */
   virtual int getIntValue(std::string key) const;
+
+
   /**
    * Sets the value of the option with given key
    * 

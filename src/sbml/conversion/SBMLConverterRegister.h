@@ -1,4 +1,6 @@
 /**
+ * @cond doxygen-cpp-only
+ * 
  * @file    SBMLConverterRegister.h
  * @brief   Definition of SBMLConverterRegister, a template to register converters.
  * @author  Frank Bergmann
@@ -55,3 +57,5 @@ LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* __cplusplus */
 #endif  /* SBMLConverterRegister_h */
+
+/** @endcond */
