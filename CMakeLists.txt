@@ -156,6 +156,11 @@ endif()
 option (EXIT_ON_ERROR "Call exit(-1) in case of allocation or file error." OFF)
 mark_as_advanced(EXIT_ON_ERROR)
 
+# Use the version number in the shared library. 
+#
+option (LIBSBML_SHARED_VERSION "Build the libsbml shared library with version information" ON)
+mark_as_advanced(LIBSBML_SHARED_VERSION)
+
 # Enable the generation of unit tests. If enabled, all test runners 
 # will be created and can be run with "make test" or ctest.
 # This won't work in Visual Studio 2003, so we disable this option there.
