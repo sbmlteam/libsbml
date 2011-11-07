@@ -114,6 +114,16 @@ message(STATUS "matlab libraries   ${MATLAB_LIBRARIES}")
 message(STATUS "matlab root path   ${MATLAB_ROOT_PATH}")
 message(STATUS "extension is       ${MATLAB_MEX_EXT}")
 
+# 
+# Determine the matlab installation directory
+#
+set(MATLAB_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+  set(MATLAB_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib)
+else()
+  set(MATLAB_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/matlab)
+endif()
+
 # break up the libsbml library dependencies into paths and libraries
 set(MATLAB_EXTRA_LIBS)
 foreach(lib ${LIBSBML_LIBS})
@@ -212,8 +222,8 @@ macro(build_matlab_file fileName)
 	add_custom_target(binding_matlab_${fileName} ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT} ${LIBSBML_LIBRARY})
 	add_dependencies(binding_matlab_${fileName} ${LIBSBML_LIBRARY})
 
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT} DESTINATION ${MISC_PREFIX}bindings/matlab )
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${fileName}.m DESTINATION ${MISC_PREFIX}bindings/matlab )
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.${MATLAB_MEX_EXT} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
+	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${fileName}.m DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
 
 endmacro()
 
@@ -256,7 +266,7 @@ else()
 		set_target_properties(matlab_binding_${matlab_source_file} PROPERTIES LINK_FLAGS "/export:mexFunction") 
 		endif()
 		target_link_libraries(matlab_binding_${matlab_source_file} ${MATLAB_LIBRARIES} ${LIBSBML_LIBRARY}-static)				
-		install(TARGETS matlab_binding_${matlab_source_file} DESTINATION ${MISC_PREFIX}bindings/matlab )
+		install(TARGETS matlab_binding_${matlab_source_file} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
 
 	endforeach()
 	
@@ -281,7 +291,7 @@ foreach(mFile
 		
 )
 
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${MISC_PREFIX}bindings/matlab )
+	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
 
 endforeach()
 
