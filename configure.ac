@@ -388,7 +388,8 @@ AC_CONFIG_FILES([docs/src/doxygen-config-python.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-perl.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-matlab.txt])
 AC_CONFIG_FILES([docs/src/libsbml-installation.html])
-AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html])
+AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html],
+                [perl -i -p -e "chomp;" docs/src/common-text/libsbml-version.html])
 AC_CONFIG_FILES([docs/src/Makefile])
 
 AC_CONFIG_FILES([examples/c/Makefile])
