@@ -31,8 +31,7 @@ dnl
 dnl Bug reports are sent to sbml-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-m4_define(LIBSBML_VERSION, 
-  m4_esyscmd(cat VERSION.txt  |  tr -d '\n\r'))
+m4_define(LIBSBML_VERSION, m4_esyscmd_s(cat VERSION.txt))
 
 dnl The AC_PREREQ macro can come before AC_INIT (but it's the only one).
 
@@ -389,7 +388,8 @@ AC_CONFIG_FILES([docs/src/doxygen-config-perl.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-matlab.txt])
 AC_CONFIG_FILES([docs/src/libsbml-installation.html])
 AC_CONFIG_FILES([docs/src/common-text/libsbml-version.html],
-                [perl -i -p -e "chomp;" docs/src/common-text/libsbml-version.html])
+                [tr -d '\n' < docs/src/common-text/libsbml-version.html > libsbmlversiontmp;
+		 mv libsbmlversiontmp docs/src/common-text/libsbml-version.html])
 AC_CONFIG_FILES([docs/src/Makefile])
 
 AC_CONFIG_FILES([examples/c/Makefile])
