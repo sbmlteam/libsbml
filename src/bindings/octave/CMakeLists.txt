@@ -1,7 +1,5 @@
 ###############################################################################
 #
-# 
-#
 # Description       : CMake build script for libSBML Octave bindings
 # Original author(s): Frank Bergmann <fbergman@caltech.edu>
 # Organization      : California Institute of Technology
@@ -57,6 +55,19 @@ foreach(lib ${LIBSBML_LIBS})
 endforeach()
 endif()
 
+# 
+# Determine the csharp installation directory
+#
+set(OCTAVE_PACKAGE_INSTALL_DIR)
+if (UNIX OR CYGWIN) 
+execute_process(COMMAND "${OCTAVE_CONFIG_EXECUTABLE}" -p CANONICAL_HOST_TYPE
+    OUTPUT_VARIABLE OCTAVE_PLATFORM OUTPUT_STRIP_TRAILING_WHITESPACE)
+  set(OCTAVE_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/octave/site/oct/${OCTAVE_PLATFORM})
+else()
+  set(OCTAVE_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/octave)
+endif()
+	
+
 macro(build_octave_file fileName)
 	# compile and link mex file
 	ADD_CUSTOM_COMMAND(	
@@ -83,7 +94,7 @@ macro(build_octave_file fileName)
 	add_dependencies(binding_octave_${fileName} ${LIBSBML_LIBRARY})
 	
 	# mark files
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.mex DESTINATION ${MISC_PREFIX}bindings/octave )
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${fileName}.mex DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR} )
 
 endmacro()
 
@@ -94,19 +105,19 @@ build_octave_file("OutputSBML")
 foreach(mFile
 
     test.xml
-	buildSBML.m
-	CheckAndConvert.m  
-	Contents.m
+    buildSBML.m
+    CheckAndConvert.m  
+    Contents.m
     ConvertFormulaToMathML.m
-	installSBML.m
-	isoctave.m
+    installSBML.m
+    isoctave.m
     isSBML_Model.m
-	OutputSBML.m
+    OutputSBML.m
     TranslateSBML.m
 	
 )
 
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${MISC_PREFIX}bindings/octave )
+	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${OCTAVE_PACKAGE_INSTALL_DIR} )
 
 endforeach()
 
