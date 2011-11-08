@@ -38,12 +38,14 @@
  * implemented as objects derived from the class SBMLConverter.
  *
  * The converter registry, implemented as a singleton object of class
- * SBMLConverterRegistry, maintains a list of known converters and
- * provides methods for discovering them.  Callers can use the method
- * getNumConverters() to find out how many converters are registered, then
- * use getConverterByIndex() to iterate over each one; alternatively,
- * callers can use getConverterFor() to search for a converter having
- * specific properties.
+ * SBMLConverterRegistry, maintains a list of known converters and provides
+ * methods for discovering them.  Callers can use the method
+ * SBMLConverterRegistry::getNumConverters() to find out how many
+ * converters are registered, then use
+ * SBMLConverterRegistry::getConverterByIndex(@if java int index@endif) to
+ * iterate over each one; alternatively, callers can use
+ * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
+ * to search for a converter having specific properties.
  */
 
 #ifndef SBMLConverterRegistry_h
@@ -94,9 +96,9 @@ public:
    * Returns the converter with the given index number.
    *
    * Converters are given arbitrary index numbers by the registry.  Callers
-   * can use the method getNumConverters() to find out how many converters
-   * are registered, then use this method to iterate over the list and
-   * obtain each one in turn.
+   * can use the method SBMLConverterRegistry::getNumConverters() to find
+   * out how many converters are registered, then use this method to
+   * iterate over the list and obtain each one in turn.
    * 
    * @param index the zero-based index of the converter to fetch.
    * 

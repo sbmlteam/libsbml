@@ -41,12 +41,50 @@
  * @li A @em key, acting as the name of the option;
  * @li A @em value of this option;
  * @li A @em type for the value; this is chosen from  the enumeration type
- * ConversionOption#ConversionOptionType_t; and
+ * #ConversionOptionType_t; and
  * @li A @em description consisting of a text string that describes the
  * option in some way.
  *
  * There are no constraints on the values of keys or descriptions;
  * authors of SBML converters are free to choose them as they see fit.
+ *
+ * @section ConversionOptionType_t Conversion option data types
+ *
+ * An option in ConversionOption must have a data type declared, to
+ * indicate whether it is a string value, an integer, and so forth.  The
+ * possible types of values are taken from the enumeration <a
+ * class="el" href="#ConversionOptionType_t">ConversionOptionType_t</a>.
+ * The following are the possible values:
+ * 
+ * <p>
+ * <center>
+ * <table width="90%" cellspacing="1" cellpadding="1" border="0" class="normal-font">
+ *  <tr style="background: lightgray" class="normal-font">
+ *      <td><strong>Enumerator</strong></td>
+ *      <td><strong>Meaning</strong></td>
+ *  </tr>
+ * <tr>
+ * <td><code>@link ConversionOptionType_t#CNV_TYPE_BOOL CNV_TYPE_BOOL@endlink</code></td>
+ * <td>Indicates the value type is a Boolean.</td>
+ * </tr>
+ * <tr>
+ * <td><code>@link ConversionOptionType_t#CNV_TYPE_DOUBLE CNV_TYPE_DOUBLE@endlink</code></td>
+ * <td>Indicates the value type is a double-sized float.</td>
+ * </tr>
+ * <tr>
+ * <td><code>@link ConversionOptionType_t#CNV_TYPE_INT CNV_TYPE_INT@endlink</code></td>
+ * <td>Indicates the value type is an integer.</td>
+ * </tr>
+ * <tr>
+ * <td><code>@link ConversionOptionType_t#CNV_TYPE_SINGLE CNV_TYPE_SINGLE@endlink</code></td>
+ * <td>Indicates the value type is a float.</td>
+ * </tr>
+ * <tr>
+ * <td><code>@link ConversionOptionType_t#CNV_TYPE_STRING CNV_TYPE_STRING@endlink</code></td>
+ * <td>Indicates the value type is a string.</td>
+ * </tr>
+ * </table>
+ * </center>
  *
  * @see ConversionProperties
  */
@@ -74,6 +112,7 @@ typedef enum
 } ConversionOptionType_t;
 
 LIBSBML_CPP_NAMESPACE_END
+
 
 #ifdef __cplusplus
 #include <string>
@@ -259,7 +298,7 @@ public:
    * Set the value of this option to a given Boolean value.
    *
    * Invoking this method will also set the type of the option to
-   * ConversionOptionType_t#CNV_TYPE_BOOL.
+   * @link ConversionOptionType_t#CNV_TYPE_BOOL CNV_TYPE_BOOL@endlink.
    * 
    * @param value the Boolean value to set
    */
@@ -277,8 +316,8 @@ public:
   /** 
    * Set the value of this option to a given @c double value.
    *
-   * Invoking this method will also set the type of the option to @c
-   * ConversionOptionType_t#CNV_TYPE_DOUBLE.
+   * Invoking this method will also set the type of the option to
+   * @link ConversionOptionType_t#CNV_TYPE_DOUBLE CNV_TYPE_DOUBLE@endlink.
    * 
    * @param value the value to set
    */
@@ -296,8 +335,8 @@ public:
   /** 
    * Set the value of this option to a given @c float value.
    *
-   * Invoking this method will also set the type of the option to @c
-   * ConversionOptionType_t#CNV_TYPE_SINGLE.
+   * Invoking this method will also set the type of the option to
+   * @link ConversionOptionType_t#CNV_TYPE_SINGLE CNV_TYPE_SINGLE@endlink.
    * 
    * @param value the value to set
    */
@@ -315,8 +354,8 @@ public:
   /** 
    * Set the value of this option to a given @c int value.
    *
-   * Invoking this method will also set the type of the option to @c
-   * ConversionOptionType_t#CNV_TYPE_INT.
+   * Invoking this method will also set the type of the option to
+   * @link ConversionOptionType_t#CNV_TYPE_INT CNV_TYPE_INT@endlink.
    * 
    * @param value the value to set
    */

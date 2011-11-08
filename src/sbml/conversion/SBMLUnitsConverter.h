@@ -133,8 +133,9 @@ public:
    * object, setting the options desired, and then calling this method on
    * an SBMLUnitsConverter object to find out if the object's
    * property values match the given ones.  This method is also used by
-   * the method SBMLConverterRegistry::getConverterFor() to search across
-   * all registered converters for one matching particular properties.
+   * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
+   * to search across all registered converters for one matching particular
+   * properties.
    * 
    * @param props the properties to match.
    * 

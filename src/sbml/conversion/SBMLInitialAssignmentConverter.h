@@ -134,8 +134,9 @@ public:
    * object, setting the options desired, and then calling this method on
    * an SBMLInitialAssignmentConverter object to find out if the object's
    * property values match the given ones.  This method is also used by
-   * the method SBMLConverterRegistry::getConverterFor() to search across
-   * all registered converters for one matching particular properties.
+   * SBMLConverterRegistry::getConverterFor(@if java const ConversionProperties& props@endif)
+   * to search across all registered converters for one matching particular
+   * properties.
    * 
    * @param props the properties to match.
    * 
@@ -148,10 +149,11 @@ public:
   /** 
    * Perform the conversion.
    *
-   * This method causes the converter to do the actual conversion
-   * work, that is, to convert the SBMLDocument object set by
-   * setDocument(const SBMLDocument* doc) and with the configuration
-   * options set by setProperties(const ConversionProperties *props).
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
    * 
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration

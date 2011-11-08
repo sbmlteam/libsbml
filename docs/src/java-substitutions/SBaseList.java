@@ -26,8 +26,6 @@ package org.sbml.libsbml;
  * the underlying C++ generic lists provide (such as <code>get()</code>,
  * <code>add()</code>, <code>remove()</code>, etc.), yet still
  * maintain the strong data typing requiring by Java.
- * <p>
- * @see SBase#getListOfNodes()
  */
 public class SBaseList {
 

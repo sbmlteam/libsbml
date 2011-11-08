@@ -6106,4 +6106,33 @@ public interface libsbmlConstants
      */
     public final static int BQB_UNKNOWN = BQB_IS_PROPERTY_OF + 1;
 
+
+    /**
+     * One of the possible SBML {@link ConversionOption} value types.
+     */
+    public final static int CNV_TYPE_BOOL = 0;
+
+
+    /**
+     * One of the possible SBML {@link ConversionOption} value types.
+     */
+    public final static int CNV_TYPE_DOUBLE = 1;
+
+
+    /**
+     * One of the possible SBML {@link ConversionOption} value types.
+     */
+    public final static int CNV_TYPE_INT = 2;
+
+
+    /**
+     * One of the possible SBML {@link ConversionOption} value types.
+     */
+    public final static int CNV_TYPE_SINGLE = 3;
+
+
+    /**
+     * One of the possible SBML {@link ConversionOption} value types.
+     */
+    public final static int CNV_TYPE_STRING = 4;
 }

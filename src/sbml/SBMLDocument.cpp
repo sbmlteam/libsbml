@@ -563,6 +563,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
 }
 
 
+/** @cond doxygen-libsbml-internal */
 void 
 SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level, 
                             unsigned int version)
@@ -632,6 +633,7 @@ SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level
   mSBMLNamespaces->setVersion(mVersion);
   setElementNamespace(uri); // this needs to propagate
 }
+/** @endcond */
 
 
 /*

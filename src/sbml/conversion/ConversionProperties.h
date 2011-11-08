@@ -77,7 +77,7 @@ public:
   /** 
    * Copy constructor.
    */
-  ConversionProperties(const ConversionProperties&);
+  ConversionProperties(const ConversionProperties& obj);
 
   
   /**

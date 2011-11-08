@@ -53,7 +53,7 @@
  * different @em options.  Two related classes implement these features:
  * ConversionProperties and ConversionOptions.  The default property values
  * for each converter can be interrogated using the method
- * getDefaultProperties() on the converter class.
+ * SBMLConverter::getDefaultProperties() on the converter class.
  */
 
 #ifndef SBMLConverter_h
@@ -133,12 +133,12 @@ public:
    * meant to be called in order to discover all the settings for the
    * converter object.  The run-time properties of the converter object can
    * be adjusted by using the method
-   * setProperties(const ConversionProperties *props).
+   * SBMLConverter::setProperties(const ConversionProperties *props).
    * 
    * @return the default properties for the converter.
    *
-   * @see setProperties()
-   * @see matchesProperties()
+   * @see setProperties(const ConversionProperties *props)
+   * @see matchesProperties(const ConversionProperties &props)
    */
   virtual ConversionProperties getDefaultProperties() const;
 
@@ -208,7 +208,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @see getProperties()
-   * @see matchesProperties()
+   * @see matchesProperties(const ConversionProperties &props)
    */  
   virtual int setProperties(const ConversionProperties *props);
 
@@ -220,12 +220,12 @@ public:
    * in order to influence the behavior of the converter.  This method
    * returns the current properties for this converter; in other words, the
    * settings in effect at this moment.  To change the property values, you
-   * can use setProperties(const ConversionProperties *props).
+   * can use SBMLConverter::setProperties(const ConversionProperties *props).
    * 
    * @return the currently set configuration properties.
    *
-   * @see setProperties()
-   * @see matchesProperties()
+   * @see setProperties(const ConversionProperties *props)
+   * @see matchesProperties(const ConversionProperties &props)
    */
   virtual ConversionProperties* getProperties() const;
 
@@ -233,10 +233,11 @@ public:
   /** 
    * Perform the conversion.
    *
-   * This method causes the converter to do the actual conversion
-   * work, that is, to convert the SBMLDocument object set by
-   * setDocument(const SBMLDocument* doc) and with the configuration
-   * options set by setProperties(const ConversionProperties *props).
+   * This method causes the converter to do the actual conversion work,
+   * that is, to convert the SBMLDocument object set by
+   * SBMLConverter::setDocument(@if java const SBMLDocument* doc@endif) and
+   * with the configuration options set by
+   * SBMLConverter::setProperties(@if java const ConversionProperties *props@endif).
    * 
    * @return  integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
