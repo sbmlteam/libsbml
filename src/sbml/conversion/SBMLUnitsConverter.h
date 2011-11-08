@@ -101,7 +101,7 @@ public:
    *
    * @param obj the SBMLUnitsConverter object to copy.
    */
-  SBMLUnitsConverter(const SBMLUnitsConverter&);
+  SBMLUnitsConverter(const SBMLUnitsConverter& obj);
 
   
   /**

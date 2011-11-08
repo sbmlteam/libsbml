@@ -122,7 +122,7 @@ public:
    *
    * @param obj the SBMLLevelVersionConverter object to copy.
    */
-  SBMLRuleConverter(const SBMLRuleConverter&);
+  SBMLRuleConverter(const SBMLRuleConverter& obj);
 
 
   /**

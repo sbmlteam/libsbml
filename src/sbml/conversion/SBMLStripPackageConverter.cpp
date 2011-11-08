@@ -40,10 +40,12 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   
+/** @cond doxygen-libsbml-internal */
 void SBMLStripPackageConverter::init()
 {
   SBMLConverterRegistry::getInstance().addConverter(new SBMLStripPackageConverter());
 }
+/** @endcond */
 
 
 SBMLStripPackageConverter::SBMLStripPackageConverter () :
@@ -161,6 +163,7 @@ SBMLStripPackageConverter::convert()
 }
   
 
+/** @cond doxygen-libsbml-internal */
 std::string 
 SBMLStripPackageConverter::getPackageToStrip()
 {
@@ -173,6 +176,7 @@ SBMLStripPackageConverter::getPackageToStrip()
     return "";
   }
 }
+/** @endcond */
 
 
 /** @cond doxygen-c-only */

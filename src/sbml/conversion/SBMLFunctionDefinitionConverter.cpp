@@ -40,10 +40,14 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+/** @cond doxygen-libsbml-internal */
 void SBMLFunctionDefinitionConverter::init()
 {
   SBMLConverterRegistry::getInstance().addConverter(new SBMLFunctionDefinitionConverter());
 }
+/** @endcond */
+
 
 SBMLFunctionDefinitionConverter::SBMLFunctionDefinitionConverter() : SBMLConverter()
 {
@@ -224,6 +228,7 @@ SBMLFunctionDefinitionConverter::convert()
   
 }
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.
  */
@@ -254,6 +259,8 @@ SBMLFunctionDefinitionConverter::expandFD_errors(unsigned int errors)
     return false;
   }
 }
+/** @endcond */
+
 
 /** @cond doxygen-c-only */
 

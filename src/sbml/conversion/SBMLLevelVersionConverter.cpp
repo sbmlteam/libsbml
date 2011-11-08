@@ -43,10 +43,12 @@ using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
   
+/** @cond doxygen-libsbml-internal */
 void SBMLLevelVersionConverter::init()
 {
   SBMLConverterRegistry::getInstance().addConverter(new SBMLLevelVersionConverter());
 }
+/** @endcond */
 
 
 SBMLLevelVersionConverter::SBMLLevelVersionConverter () :
@@ -814,6 +816,7 @@ SBMLLevelVersionConverter::convert()
     return LIBSBML_OPERATION_FAILED;
 }
   
+/** @cond doxygen-libsbml-internal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.
  */
@@ -854,7 +857,9 @@ SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUni
   }
 
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 bool
 SBMLLevelVersionConverter::hasStrictUnits()
 {
@@ -885,8 +890,9 @@ SBMLLevelVersionConverter::hasStrictUnits()
     
   return (errors == 0);
 }
+/** @endcond */
 
-
+/** @cond doxygen-libsbml-internal */
 bool
 SBMLLevelVersionConverter::hasStrictSBO()
 {
@@ -920,6 +926,7 @@ SBMLLevelVersionConverter::hasStrictSBO()
   return (errors == 0);
 
 }
+/** @endcond */
 
 
 

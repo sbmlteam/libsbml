@@ -114,7 +114,7 @@ public:
    *
    * @param obj the SBMLInitialAssignmentConverter object to copy.
    */
-  SBMLInitialAssignmentConverter(const SBMLInitialAssignmentConverter&);
+  SBMLInitialAssignmentConverter(const SBMLInitialAssignmentConverter& obj);
 
 
   /**

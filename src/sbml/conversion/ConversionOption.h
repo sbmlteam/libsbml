@@ -158,7 +158,7 @@ public:
    /**
    * Copy constructor; creates a copy of an ConversionOption object.
    *
-   * @param c the ConversionOption object to copy.
+   * @param option the ConversionOption object to copy.
     */
    ConversionOption(const ConversionOption& option);
 

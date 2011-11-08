@@ -39,10 +39,14 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+
+/** @cond doxygen-libsbml-internal */
 void SBMLInitialAssignmentConverter::init()
 {
   SBMLConverterRegistry::getInstance().addConverter(new SBMLInitialAssignmentConverter());
 }
+/** @endcond */
+
 
 SBMLInitialAssignmentConverter::SBMLInitialAssignmentConverter() : SBMLConverter()
 {

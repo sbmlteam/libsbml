@@ -97,7 +97,7 @@ public:
    *
    * @param obj the SBMLLevelVersionConverter object to copy.
    */
-  SBMLLevelVersionConverter(const SBMLLevelVersionConverter&);
+  SBMLLevelVersionConverter(const SBMLLevelVersionConverter& obj);
 
   
   /**

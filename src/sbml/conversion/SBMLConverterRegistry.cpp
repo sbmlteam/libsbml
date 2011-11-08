@@ -93,6 +93,8 @@ SBMLConverterRegistry::getConverterByIndex(int index) const
 }
 
 
+/** @cond doxygen-libsbml-internal */
+
 SBMLConverterRegistry::SBMLConverterRegistry()
 {
 }
@@ -100,6 +102,8 @@ SBMLConverterRegistry::SBMLConverterRegistry()
 SBMLConverterRegistry::~SBMLConverterRegistry()
 {
 }
+
+/** @endcond */
 
 
 LIBSBML_CPP_NAMESPACE_END

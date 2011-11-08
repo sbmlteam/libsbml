@@ -43,16 +43,18 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-  void SBMLRuleConverter::init()
+
+/** @cond doxygen-libsbml-internal */
+void SBMLRuleConverter::init()
 {
   SBMLConverterRegistry::getInstance().addConverter(new SBMLRuleConverter());
 }
+/** @endcond */
 
 SBMLRuleConverter::SBMLRuleConverter() : SBMLConverter()
 {
 
 }
-
 
 SBMLRuleConverter::SBMLRuleConverter(const SBMLRuleConverter& orig) :
 SBMLConverter(orig)

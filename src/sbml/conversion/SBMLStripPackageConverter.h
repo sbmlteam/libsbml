@@ -81,7 +81,7 @@ public:
    *
    * @param obj the SBMLStripPackageConverter object to copy.
    */
-  SBMLStripPackageConverter(const SBMLStripPackageConverter&);
+  SBMLStripPackageConverter(const SBMLStripPackageConverter& obj);
 
   
   /**
@@ -137,7 +137,7 @@ public:
    * #OperationReturnValues_t. @endif The possible values are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE LIBSBML_INVALID_ATTRIBUTE @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
    */
   virtual int convert();
 
