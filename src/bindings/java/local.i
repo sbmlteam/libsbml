@@ -440,7 +440,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
    *
    * @return the {@link SBMLExtension} for the package
    *
-   * @exclude
+   * @internal
    */
   public static SBMLExtension DowncastExtension(long cPtr, boolean owner)
   {		
@@ -457,7 +457,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
         
   /**
    * SBMLExtension derived classes must override this method
-   * @exclude
+   * @internal
    */
   public static SBasePlugin DowncastSBasePlugin(long cPtr, boolean owner)
   {
@@ -475,7 +475,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   }
 
   /**
-   * @exclude
+   * @internal
    */
   public static SBMLNamespaces DowncastSBMLNamespaces(long cPtr, boolean owner)
   {
@@ -494,11 +494,9 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
   }     
         
   /**
-   * Internal method.  This is not actually deprecated, but we
-   * cheat and use @deprecated to hide this in the documentation
-   * produced by Javadoc:
+   * Internal method.
    *
-   * @exclude
+   * @internal
    */
   public static SBase DowncastSBase(long cPtr, boolean owner)
   {
