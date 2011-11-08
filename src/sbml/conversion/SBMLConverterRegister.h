@@ -28,7 +28,9 @@
  * ------------------------------------------------------------------------ -->
  *
  * @class SBMLConverterRegister
- * @brief Template class for converters to register with the registry.
+ * @brief Template class for SBML converters to register with the registry.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
  *
  * The converter registry, implemented as a singleton object of class
  * SBMLConverterRegistry, maintains a list of known converters and provides
