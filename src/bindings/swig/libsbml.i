@@ -29,6 +29,8 @@
 %feature("director") SBMLValidator;  
 %feature("director") SBMLConverter;  
 
+#pragma SWIG nowarn=473,401,844
+
 %pragma(java) moduleclassmodifiers="
 /**
   * Wrapper class for global methods and constants defined by libSBML.
