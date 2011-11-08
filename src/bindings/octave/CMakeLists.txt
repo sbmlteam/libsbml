@@ -39,7 +39,7 @@ endif()
 # get location of library
 get_property(sbml_location TARGET ${LIBSBML_LIBRARY} PROPERTY LOCATION)
 get_filename_component(sbml_path ${sbml_location} PATH)
-file(TO_NATIVE_PATH ${sbml_path} sbml_path)
+file(TO_CMAKE_PATH ${sbml_path} sbml_path)
 
 
 # break up the libsbml library dependencies into paths and libraries
@@ -62,7 +62,7 @@ set(OCTAVE_PACKAGE_INSTALL_DIR)
 if (UNIX OR CYGWIN) 
 execute_process(COMMAND "${OCTAVE_CONFIG_EXECUTABLE}" -p CANONICAL_HOST_TYPE
     OUTPUT_VARIABLE OCTAVE_PLATFORM OUTPUT_STRIP_TRAILING_WHITESPACE)
-  set(OCTAVE_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/octave/site/oct/${OCTAVE_PLATFORM})
+  set(OCTAVE_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/octave/site/oct/${OCTAVE_PLATFORM})
 else()
   set(OCTAVE_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/octave)
 endif()

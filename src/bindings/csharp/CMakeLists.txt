@@ -143,7 +143,7 @@ add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
 #
 set(CSHAPR_PACKAGE_INSTALL_DIR)
 if (UNIX OR CYGWIN) 
-  set(CSHAPR_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/mono/libsbmlcsP)
+  set(CSHAPR_PACKAGE_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/mono/libsbmlcsP)
 else()
   set(CSHAPR_PACKAGE_INSTALL_DIR ${MISC_PREFIX}bindings/csharp)
 endif()
