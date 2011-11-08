@@ -31,7 +31,7 @@
  * @htmlinclude libsbml-facility-only-warning.html
  *
  * LibSBML provides a number of converters that can perform transformations
- * of SBML documents.  These converters often allow their behaviors to be
+ * of SBML documents.  These converters allow their behaviors to be
  * controlled by setting property values.  Converter properties are
  * communicated using objects of class ConversionProperties, and within
  * such objects, individual options are encapsulated using ConversionOption
@@ -46,7 +46,7 @@
  * option in some way.
  *
  * There are no constraints on the values of keys or descriptions;
- * authors of SBML converters are free to chose them as they see fit.
+ * authors of SBML converters are free to choose them as they see fit.
  *
  * @see ConversionProperties
  */

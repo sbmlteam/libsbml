@@ -35,7 +35,7 @@
  * are encapsulated using ConversionOption objects.  The ConversionProperties
  * class provides numerous methods for setting and getting options.
  *
- * ConversionProperties ojects are also used to determine the target SBML
+ * ConversionProperties objects are also used to determine the target SBML
  * namespace when an SBML converter's behavior depends on the intended
  * Level+Version combination of SBML.  In addition, it is conceivable that
  * conversions may be affected by SBML Level&nbsp;3 packages being used
