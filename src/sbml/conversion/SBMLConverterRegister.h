@@ -26,6 +26,51 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLConverterRegister
+ * @brief Template class for converters to register with the registry.
+ *
+ * The converter registry, implemented as a singleton object of class
+ * SBMLConverterRegistry, maintains a list of known converters and provides
+ * methods for discovering them.  LibSBML comes with a number of converters
+ * built-in, but applications can create their own converters and add them
+ * to the set known to libSBML.  Such converters would be subclasses of
+ * SBMLConverter.
+ *
+ * To register themselves, the subclasses should provide
+ * an @c init() method that calls the SBMLConverterRegistry::addConverter()
+ * method on the SBMLConverter instance.  For example, if a new converter
+ * class named @c SweetConverter were to be created, it should provide
+ * an @c init() method along the following lines:
+ * @verbatim
+#include <sbml/conversion/SBMLConverterRegistry.h>
+#include <sbml/conversion/SBMLConverterRegister.h>
+
+#ifdef __cplusplus
+
+#include <algorithm>
+#include <string>
+
+using namespace std;
+LIBSBML_CPP_NAMESPACE_BEGIN
+
+void SweetConverter::init()
+{
+  SBMLConverterRegistry::getInstance().addConverter(new SweetConverter());
+}
+@endverbatim
+ * Then, to perform the registration, the caller code should perform a
+ * final step of instantiatiating the template in a separate file used
+ * for this purpose for all user-defined converters:
+ * @verbatim
+#include <sbml/conversion/SBMLConverterRegister.h>
+
+static SBMLConverterRegister<SweetConverter> registerSweetConverter;
+/* ... other converter template instantiations here ... */
+@endverbatim
+ * 
+ * For more information about the registry, please consult the introduction
+ * to the class SBMLRegistry.
  */
 
 #ifndef SBMLConverterRegister_h
@@ -43,11 +88,13 @@ class LIBSBML_EXTERN SBMLConverterRegister
 public:
 
   /**
-   * Constructor
+   * Constructor.
    *
-   * Initialization code of corresponding converter 
-   * will be executed when an object of this class is created.
-   *
+   * This constructor invokes the @c init() method of the class given as
+   * the template parameter.  When an object of the concrete class is
+   * created (typically as a static instance in the caller's code),
+   * the act of calling the @c init() method should do the steps of
+   * registering the converter with the SBML converter registry.
    */
   SBMLConverterRegister() { SBMLConversionType::init(); };
 
