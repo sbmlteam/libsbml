@@ -27,7 +27,7 @@
  *
  * @class XMLInputStream
  *
- * @exclude
+ * @if notclike @internal @endif
  */
 
 #ifndef XMLInputStream_h

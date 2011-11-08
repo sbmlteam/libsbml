@@ -28,7 +28,7 @@
  * @class XMLTokenizer
  * @brief Class implementing methods for turning XML into tokens.
  *
- * @exclude
+ * @if notclike @internal @endif
  */
 
 #ifndef XMLTokenizer_h

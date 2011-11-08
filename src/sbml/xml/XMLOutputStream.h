@@ -27,7 +27,7 @@
  *
  * @class XMLOutputStream
  *
- * @exclude
+ * @if notclike @internal @endif
  */
 
 #ifndef XMLOutputStream_h

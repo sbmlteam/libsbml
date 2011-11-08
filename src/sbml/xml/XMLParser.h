@@ -30,7 +30,7 @@
  * @class XMLParser
  * @brief Class providing a unified interface to different XML parsers.
  *
- * @exclude
+ * @if notclike @internal @endif
  */
 
 #ifndef XMLParser_h

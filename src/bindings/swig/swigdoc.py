@@ -280,7 +280,7 @@ class CHeader:
           continue
         else:
           docstring = '/**\n' + docstring + ' */'
-          doc = CClassDoc(docstring, classname)
+          doc = CClassDoc(docstring, classname, isInternal)
           self.classDocs.append(doc)
 
         # There may be more class docs in the same comment.
@@ -433,12 +433,12 @@ class Method:
     if isInternal:
       if language == 'java':
         # We have a special Javadoc doclet that understands a non-standard
-        # Javadoc tag, @exclude.  When present in the documentation string
+        # Javadoc tag, @internal.  When present in the documentation string
         # of a method, it causes it to be excluded from the final
-        # documentation output.
+        # documentation output.  @internal is something doxygen offers.
         #
         p = re.compile('(\s+?)\*/', re.MULTILINE)
-        self.docstring = p.sub(r'\1* @exclude\1*/', docstring)
+        self.docstring = p.sub(r'\1* @internal\1*/', docstring)
       elif language == 'csharp':
         # We mark internal methods in a different way for C#.
         self.docstring = docstring
@@ -485,7 +485,7 @@ class CClassDoc:
     - name
   """
 
-  def __init__ (self, docstring, name):
+  def __init__ (self, docstring, name, isInternal):
     """CClassDoc(docstring, name) -> CClassDoc
 
     Creates a new CClassDoc with the given docstring and name.
@@ -494,8 +494,9 @@ class CClassDoc:
     # Take out excess leading blank lines.
     docstring = re.sub('/\*\*(\s+\*)+', r'/** \n *', docstring)
 
-    self.docstring = docstring
-    self.name      = name
+    self.docstring  = docstring
+    self.name       = name
+    self.isInternal = isInternal
 
 
 
@@ -1258,7 +1259,8 @@ def processFunctions (ostream, functions):
 
 def processClassDocs (ostream, classDocs):
   for c in classDocs:
-    ostream.write(generateClassDocString(c.docstring, c.name))
+    if c.isInternal == False:
+      ostream.write(generateClassDocString(c.docstring, c.name))
 
 
 

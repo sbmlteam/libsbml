@@ -1,6 +1,6 @@
 /**
  * @file    ExcludeDoclet.java
- * @brief   Allow files to be excluded, and methods to be marked @exclude
+ * @brief   Allow files to be excluded, and methods to be marked @internal
  * @author  Jamie Ho, Sun Microsystems, Inc.
  * @author  Chris Nokleberg
  * @author  Michael Hucka
@@ -102,6 +102,9 @@
  * did is take the code and make it a subclass within this file, and took
  * the bulk of the previous doclet code and put it in *another* subclass in
  * this file, then hooked them together through the main() method.
+ *
+ * - 2011-11-08 Changed @exclude to @internal, which is what Doxygen uses
+ * for the purse we're using this for.
  */
 
 import java.io.*;
@@ -137,7 +140,7 @@ public class ExcludeDoclet extends Doclet
         name = FileExclusionDoclet.class.getName();
         Main.execute(name, name, args);
 
-        name = ExcludeTagDoclet.class.getName();
+        name = InternalTagDoclet.class.getName();
         Main.execute(name, name, (String[]) m_args.toArray(new String[] {}));
     }
     
@@ -298,7 +301,7 @@ public class ExcludeDoclet extends Doclet
         }
     }
 
-    public static class ExcludeTagDoclet
+    public static class InternalTagDoclet
         extends Doclet
     {
         public static boolean validOptions(String[][] options,
@@ -320,10 +323,10 @@ public class ExcludeDoclet extends Doclet
         private static boolean exclude(Doc doc)
         {
             if (doc instanceof ProgramElementDoc) {
-                if (((ProgramElementDoc)doc).containingPackage().tags("exclude").length > 0)
+                if (((ProgramElementDoc)doc).containingPackage().tags("internal").length > 0)
                     return true;
             }
-            return doc.tags("exclude").length > 0;
+            return doc.tags("internal").length > 0;
         }
 
         private static Object process(Object obj, Class expect)
