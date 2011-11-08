@@ -625,8 +625,12 @@ public:
   bool setLevelAndVersion (unsigned int level, unsigned int version,
                            bool strict = true);
 
+
+  /** @cond doxygen-libsbml-internal */
   void updateSBMLNamespace(const std::string& package, unsigned int level, 
-                            unsigned int version);
+                           unsigned int version);
+  /** @endcond */
+
 
   /**
    * Sets the Model for this SBMLDocument to a copy of the given Model.
@@ -1084,6 +1088,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_CONV_CONVERSION_NOT_AVAILABLE LIBSBML_CONV_CONVERSION_NOT_AVAILABLE  @endlink
    */
   virtual int convert(const ConversionProperties& props);
+
 
   /**
    * Enables/Disables the given package with this element and child
