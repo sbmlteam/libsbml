@@ -129,13 +129,13 @@ public:
    *
    * A given converter exposes one or more properties that can be adjusted
    * in order to influence the behavior of the converter.  This method
-   * returns the @em default property settings for this converter.  The
-   * default properties are set when the converter object is created.  The
-   * defaults themselves cannot be changed, but the run-time properties of 
-   * the converter object can be adjusted by using the method
+   * returns the @em default property settings for this converter.  It is
+   * meant to be called in order to discover all the settings for the
+   * converter object.  The run-time properties of the converter object can
+   * be adjusted by using the method
    * setProperties(const ConversionProperties *props).
    * 
-   * @return default properties for the converter
+   * @return the default properties for the converter.
    *
    * @see setProperties()
    * @see matchesProperties()
@@ -195,7 +195,8 @@ public:
    * in order to influence the behavior of the converter.  This method sets
    * the current properties for this converter.
    *
-   * @param props the properties
+   * @param props the ConversionProperties object defining the properties
+   * to set.
    * 
    * @return integer value indicating the success/failure of the operation.
    * @if clike The value is drawn from the enumeration
@@ -221,7 +222,7 @@ public:
    * settings in effect at this moment.  To change the property values, you
    * can use setProperties(const ConversionProperties *props).
    * 
-   * @return the currently set configuration properties 
+   * @return the currently set configuration properties.
    *
    * @see setProperties()
    * @see matchesProperties()
