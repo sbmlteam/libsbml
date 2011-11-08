@@ -399,7 +399,7 @@ public:
    *
    * @return a pointer to the SBMLDocument created from the SBML content.
    *
-   * @see SBMLReader:@if java :readSBML(String filename@endif)
+   * @see SBMLReader::readSBML(@if java String filename@endif)
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
 
