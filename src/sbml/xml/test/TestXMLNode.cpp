@@ -59,11 +59,11 @@ START_TEST (test_XMLNode_hasChild)
 	"</annotation>";
 	
 	XMLNode_t *node = XMLNode_create();
-	fail_unless(XMLNode_hasChild(node, "test") == false);	
+	fail_unless(XMLNode_hasChild(node, "test") == (int)false);	
 	XMLNode_free(node);	
 	
 	node   = XMLNode_convertStringToXMLNode(xmlstr, NULL);
-	fail_unless(XMLNode_hasChild(node, "test") == true);	
+	fail_unless(XMLNode_hasChild(node, "test") == (int)true);	
 	XMLNode_free(node);			
 }
 END_TEST
