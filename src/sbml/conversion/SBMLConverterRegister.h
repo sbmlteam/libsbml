@@ -68,7 +68,7 @@ void SweetConverter::init()
 #include <sbml/conversion/SBMLConverterRegister.h>
 
 static SBMLConverterRegister<SweetConverter> registerSweetConverter;
-/* ... other converter template instantiations here ... */
+... other converter template instantiations here ... 
 @endverbatim
  * 
  * For more information about the registry, please consult the introduction
