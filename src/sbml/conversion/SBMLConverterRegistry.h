@@ -24,6 +24,26 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLConverterRegistry
+ * @brief Registry of all SBML converters.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * LibSBML provides facilities for transforming and converting SBML
+ * documents in various ways.  These transformations can involve
+ * essentially anything that can be written algorithmically; examples
+ * include converting the units of measurement in a model, or converting
+ * from one Level+Version combination of SBML to another.  Converters are
+ * implemented as objects derived from the class SBMLConverter.
+ *
+ * The converter registry, implemented as a singleton object of class
+ * SBMLConverterRegistry, maintains a list of known converters and
+ * provides methods for discovering them.  Callers can use the method
+ * getNumConverters() to find out how many converters are registered, then
+ * use getConverterByIndex() to iterate over each one; alternatively,
+ * callers can use getConverterFor() to search for a converter having
+ * specific properties.
  */
 
 #ifndef SBMLConverterRegistry_h
@@ -41,54 +61,93 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** 
- * Registry of all converters. 
- */
+
 class LIBSBML_EXTERN SBMLConverterRegistry
 {
 public:
-  /** 
+  /**
+   * Returns the singleton instance for the converter registry.
+   *
+   * Prior to using the registry, callers have to obtain a copy of the
+   * registry.  This static method provides the means for doing that.
+   * 
    * @return the singleton for the converter registry. 
    */
   static SBMLConverterRegistry& getInstance();
 
+
   /** 
-   * Adds the given converter to the registry
+   * Adds the given converter to the registry of SBML converters.
    * 
-   * @param converter the converter to add to the registry
+   * @param converter the converter to add to the registry.
    * 
-   * @return status code
+   * @return integer value indicating the success/failure of the operation.
+   * @if clike The value is drawn from the enumeration
+   * #OperationReturnValues_t. @endif The possible values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
   int addConverter (const SBMLConverter* converter);
+
   
   /** 
-   * Return the converter with the given index
+   * Returns the converter with the given index number.
+   *
+   * Converters are given arbitrary index numbers by the registry.  Callers
+   * can use the method getNumConverters() to find out how many converters
+   * are registered, then use this method to iterate over the list and
+   * obtain each one in turn.
    * 
-   * @param index the zero-based index of the converter to return 
+   * @param index the zero-based index of the converter to fetch.
    * 
-   * @return the converter with the given index, or NULL if not found
+   * @return the converter with the given index number, or @c NULL if the
+   * number is less than @c 0 or there is no converter at the given index
+   * position.
    */
   SBMLConverter* getConverterByIndex(int index) const;
 
+
   /** 
-   * Return the converter that best matches the given configuration properties
+   * Returns the converter that best matches the given configuration
+   * properties.
    * 
-   * @param props the properties to match
+   * Many converters provide the ability to configure their behavior.  This
+   * is realized through the use of @em properties that offer different @em
+   * options.  The present method allows callers to search for converters
+   * that have specific property values.  Callers can do this by creating a
+   * ConversionProperties object, adding the desired option(s) to the
+   * object, then passing the object to this method.
    * 
-   * @return the converter matching the proeprties or NULL if not found. 
+   * @param props a ConversionProperties object defining the properties
+   * to match against.
+   * 
+   * @return the converter matching the properties, or @c NULL if no
+   * suitable converter is found.
+   *
+   * @see getConverterByIndex(@if java int index@endif)
    */
   SBMLConverter* getConverterFor(const ConversionProperties& props) const;
 
-  /** 
-   * @return the number of registered converters. 
+
+  /**
+   * Returns the number of converters known by the registry.
+   * 
+   * @return the number of registered converters.
+   *
+   * @see getConverterByIndex(@if java int index@endif)
    */
   int getNumConverters() const;
   
+
 protected:
+  /** @cond doxygen-libsbml-internal */
+
   /** 
    * protected constructor, use the getInstance() method to access the registry.
    */ 
   SBMLConverterRegistry();
+
+
   /** 
    * Destructor
    */
@@ -97,6 +156,7 @@ protected:
 protected: 
   std::vector<const SBMLConverter*>  mConverters;
    
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
