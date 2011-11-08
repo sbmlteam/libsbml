@@ -103,7 +103,7 @@ AC_DEFUN([CONFIG_PROG_RUBY],
     dnl
 
     changequote(<<, >>)
-    if test `ruby -e "print ['f'].pack('p').size"` = "8"; then
+    if test `$RUBY -e "print ['f'].pack('p').size"` = "8"; then
       RUBY_64BIT=1
     else
       RUBY_64BIT=0
