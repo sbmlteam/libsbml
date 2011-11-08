@@ -531,6 +531,7 @@ def rewriteCommonReferences (docstring):
     target = ''
 
   if target != '':
+    docstring = re.sub(r'ConversionOptionType_t#',  target, docstring)
     docstring = re.sub(r'OperationReturnValues_t#', target, docstring)
     docstring = re.sub(r'SBMLTypeCode_t#',          target, docstring)
     docstring = re.sub(r'ASTNodeType_t#',           target, docstring)
