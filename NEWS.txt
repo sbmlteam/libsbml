@@ -5,14 +5,45 @@
 Version 5.2.0 (2011-11-11)
 ======================================================================
 
-* SBML Level 3 Packages
+* Download directory structure
 
-  - This release includes a provisional implementation of plug-in
-    support for the SBML Level 3 package "layout".
+  - Prior to this release we have provided stable libSBML source 
+    code and associated binary installers, but only provided the 
+    source code of the L3 packages that are in beta development. 
+    In response to requests to provide binaries including the package 
+    code, we have slightly reorganised the directory structure of 
+    the 5.2.0 release.
 
-  - Source code for beta versions of packages will also be made 
-    available from a separate download area,
-    http://sf.net/projects/sbml/files/libsbml/5.2-packages-beta
+    The top level directory remains as expected
+
+    https://sourceforge.net/projects/sbml/files/libsbml/5.2.0 
+
+    This directory contains two sub-directories 'stable' and 
+    'experimental'.
+
+    1) files/libsbml/5.2.0/stable
+
+    This directory contains the source code and various binary 
+    installers arranged in a structure identical to that used 
+    in the  5.1.0-b0 and 5.0.0 releases.
+
+    2) files/libsbml/5.2.0/experimental
+    
+    This directory also contains two subdirectories.
+
+    a) files/libsbml/5.2.0/experimental/src
+
+    This directory contains the archives of the beta source 
+    code for the L3 packages; similar to those previously contained 
+    in the separate top level directory /5.1-packages-beta/.
+
+    b) files/libsbml/5.2.0/experimental/binaries
+    
+    This directory contains binaries that include the stable 
+    source code plus the beta code for ALL of the packages. It 
+    should be noted that these binaries may be untested and 
+    are provided 'as-is' to facilitate experimentation with L3 packages.
+
 
 * New features
 
