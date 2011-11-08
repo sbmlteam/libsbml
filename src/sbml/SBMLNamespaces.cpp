@@ -391,6 +391,7 @@ SBMLNamespaces::addPackageNamespace(const std::string &pkgName, unsigned int pkg
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /*
  * (For Extension)
  *
@@ -405,7 +406,9 @@ SBMLNamespaces::addPkgNamespace(const std::string &pkgName, unsigned int pkgVers
 
   return addPackageNamespace(pkgName, pkgVersion, pkgPrefix);
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 /*
  * Add the XML namespaces of package extensions in the given
  * XMLNamespace object to the set of namespaces within this
@@ -437,12 +440,15 @@ SBMLNamespaces::addPackageNamespaces (const XMLNamespaces *xmlns)
 
   return LIBSBML_OPERATION_SUCCESS;
 }
+/** @endcond */
 
+/** @cond doxygen-libsbml-internal */
 int
 SBMLNamespaces::addPkgNamespaces (const XMLNamespaces *xmlns)
 {
   return addPackageNamespaces(xmlns);
 }
+/** @endcond */
 
 void
 SBMLNamespaces::addNamespace(const std::string &uri, const std::string &prefix)
@@ -503,12 +509,14 @@ SBMLNamespaces::removePackageNamespace(unsigned int level, unsigned version, con
   }
 }
 
+/** @cond doxygen-libsbml-internal */
 int
 SBMLNamespaces::removePkgNamespace(unsigned int level, unsigned version, const std::string &pkgName,
                                    unsigned int pkgVersion)
 {
   return removePackageNamespace(level, version, pkgName, pkgVersion);
 }
+/** @endcond */
 
 /*
  * Predicate returning @c true if the given

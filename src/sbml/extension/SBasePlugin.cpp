@@ -283,11 +283,12 @@ SBasePlugin::divideAssignmentsToSIdByFunction(const std::string& id, const ASTNo
 }
 /** @endcond doxygen-libsbml-internal */
 
+/** @cond doxygen-libsbml-internal */
 bool SBasePlugin::hasIdentifierBeginningWith(const std::string& prefix)
 {
   return false;
 }
-
+/** @endcond */
 
 /** @cond doxygen-libsbml-internal */
 //Override and provide your own renaming scheme for the rest of the model if you do anything here.
