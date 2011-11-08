@@ -320,7 +320,7 @@ endif
 # Until we improve swigdoc.py, the following warnings are spurious and annoying
 # and we don't need to see them.
 
-CSC_NOWARN = -nowarn:108,109
+CSC_NOWARN = -nowarn:108,109,219
 
 $(csproxy_lib): $(outpath)/libsbml.cs $(dllimport_lib)
 	-"$(SN)" -k $(sn_keyfile)
