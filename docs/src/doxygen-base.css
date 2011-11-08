@@ -1,4 +1,4 @@
-BODY {
+body {
   background: white;
   color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
@@ -8,7 +8,19 @@ BODY {
   margin-left: 20px;
 }
 
-CODE {
+pre { 
+  font-size: 12px;
+}
+
+tt {
+  width: 92%;
+  padding-left: 5px;
+  margin: 7px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+code {
   font-family: "Courier New", Courier, monospace, fixed;
   font-size: 13px;
   font-weight: bold;
@@ -22,19 +34,19 @@ CODE {
   color: black;
 }
 
-LI { 
-  font-size: 12px;
-}
-
-P {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  font-size: 12px;
-  line-height: 140%;
-}
-
 .footer {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 12px;
+}
+
+li { 
+  font-size: 12px;
+}
+
+p {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  font-size: 12px;
+  line-height: 140%;
 }
 
 td {
@@ -153,7 +165,7 @@ tr.TableSubHeadingColor th {
   padding: 5px;
 }
 
-TD.footer {
+td.footer {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 12px;
 }
@@ -165,7 +177,7 @@ TD.footer {
   color: #555555;
 }
 
-H1 {
+h1 {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   text-align: center;
   font-size: 20px;
@@ -173,7 +185,7 @@ H1 {
 }
 
 
-H2 {
+h2 {
   color: #443;
   font-size: 18px;
   font-weight: bold;
@@ -198,7 +210,7 @@ h2 a code {
   color: #443;
 }
 
-H3 {
+h3 {
   color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-style: italic;
@@ -219,7 +231,7 @@ h3 a code {
   border-bottom: none;
 }
 
-H4 {
+h4 {
   color: #443;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-style: italic;
@@ -230,7 +242,7 @@ h4 code {
   font-size: 12px;
 }
 
-DIV.qindex {
+div.qindex {
   width: 100%;
   background-color: #eeeeff;
   border: 4px solid #eeeeff;
@@ -240,86 +252,91 @@ DIV.qindex {
   font-size: 12px;
 }
 
-A.anchor {
+a.anchor {
   color: #443;
   text-decoration: none;
 }
 
-A {
+a {
   color: #1133ca;
   text-decoration: none;
 }
 
 /* This shows up in javadoc output. */
-A code {
+a code {
   color: #1133ca;
   text-decoration: none;
 }
 
-A:visited {
-  color: #5580cf;
-  text-decoration: none;
-}
-
-A.qindex {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  text-decoration: none;
-}
-
-A.qindex:hover {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  text-decoration: none;
-  background-color: #ddddff
-}
-
-A.qindexHL {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  text-decoration: none;
-  background-color: #6666cc;
-  color: #ffffff
-}
-
-A.qindexHL:hover {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  text-decoration: none;
-  background-color: #6666cc;
-  color: #ffffff
-}
-
-A.qindexHL:visited {
-  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
-  text-decoration: none;
-  background-color: #6666cc;
-  color: #ffffff
-}
-
-A.el {
-  font-weight: bold;
-  text-decoration: none;
-}
-
-A.elRef {
-  font-weight: bol&nbsp;
-}
-
-A.codeRef {
-  font-weight: normal;
-  color: black;
-}
-
-A:hover {
+a:hover {
   color: black;
   background-color: #dfdfdf;
   text-decoration: none;
   border-bottom: 1px dotted #444;
 }
 
-DL {
+a:visited {
+  color: #5580cf;
+  text-decoration: none;
+}
+
+a.qindex {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+}
+
+a.qindex:hover {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #ddddff
+}
+
+a.qindexHL {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #6666cc;
+  color: #ffffff
+}
+
+a.qindexHL:hover {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #6666cc;
+  color: #ffffff
+}
+
+a.qindexHL:visited {
+  font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
+  text-decoration: none;
+  background-color: #6666cc;
+  color: #ffffff
+}
+
+a.el {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.elRef {
+  font-weight: bol&nbsp;
+}
+
+a.code {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a.codeRef {
+  font-weight: normal;
+  color: black;
+}
+
+dl {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   margin: 6px 8px 6px 0px;
 }
 
-DL.el {
+dl.el {
   margin-left: -1cm 
 }
 
@@ -331,7 +348,7 @@ pre.fragment {
   margin-bottom: 6px;
 }
 
-DIV.fragment {
+div.fragment {
   font-family: "Courier New", Courier, monospace, fixed;
   font-weight: bold;
   width: 92%;
@@ -350,7 +367,7 @@ DIV.fragment {
   -webkit-border-bottom-right-radius: 8px;
 }
 
-DIV.ah {
+div.ah {
   background-color: black;
   font-weight: bold;
   color: #ffffff;
@@ -450,7 +467,7 @@ div.contents hr {
   -webkit-box-shadow: 5px 5px 5px #bbb;
 }
 
-TABLE.memname { 
+table.memname { 
   font-weight: bold;
   font-size: 10pt;
   text-align: left;
@@ -458,11 +475,11 @@ TABLE.memname {
   color: #222;
 }
 
-TABLE.memname TR {
+table.memname tr {
   white-space: nowrap;
 }
 
-TD.md, TD.memname, TD.paramtype {
+td.md, td.memname, td.paramtype {
   font-family: "Courier New", Courier, monospace, fixed;
   font-weight: bold;
   font-size: 10pt;
@@ -470,14 +487,14 @@ TD.md, TD.memname, TD.paramtype {
   white-space: nowrap;
 }
 
-TD.mdname1 {
+td.mdname1 {
   background-color: #ddd;
   font-weight: bold;
   font-size: 10pt;
   color: #602020;
 }
 
-TD.mdname, TD.paramname {
+td.mdname, td.paramname {
   background-color: #ddd;
   font-weight: bold;
   font-size: 10pt;
@@ -485,7 +502,7 @@ TD.mdname, TD.paramname {
   white-space: nowrap;
 }
 
-DIV.groupHeader {
+div.groupHeader {
   margin-left: 16px;
   margin-top: 12px;
   margin-bottom: 6px;
@@ -494,14 +511,14 @@ DIV.groupHeader {
   font-size: 10pt;
 }
 
-DIV.groupText {
+div.groupText {
   margin-left: 16px;
   font-style: italic;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif; 
   font-size: 10pt;
 }
 
-TD.indexkey { 
+td.indexkey { 
   width: 30%;
   vertical-align: middle;
   font-weight: bold; 
@@ -517,7 +534,7 @@ TD.indexkey {
   border-bottom: 1px dotted #ccc;
 }
 
-TD.indexvalue { 
+td.indexvalue { 
   vertical-align: middle;
   font-style: italic; 
   font-size: 12px;
@@ -532,20 +549,17 @@ TD.indexvalue {
   border-bottom: 1px dotted #ccc;
 }
 
-TR.memlist {
+tr.memlist {
   background-color: #f0f0f0; 
   font-size: 12px;
 }
 
-P.formulaDsp { text-align: center; }
-IMG.formulaDsp { }
-IMG.formulaInl { vertical-align: middle; }
+p.formulaDsp { text-align: center; }
+img.formulaDsp { }
+img.formulaInl { vertical-align: middle; }
 
-SPAN.comment       { color: #777 }
-
-A.code {
-  text-decoration: none;
-  font-weight: bold;
+span.comment {
+  color: #777 
 }
 
 /*
@@ -643,12 +657,12 @@ table td.memItemRight {
   font-weight: bold;
 }
 
-FORM.search {
+form.search {
   margin-bottom: 0px;
   margin-top: 0px;
 }
 
-INPUT.search {
+input.search {
   font-size: 75%;
   color: #000080;
   font-weight: normal;
@@ -660,24 +674,12 @@ INPUT.search {
    so we set the font color to white to make them invisible.
  */
 
-TD.tiny {
+td.tiny {
   font-size: 75%;
   color: white;
 }
 
-PRE { 
-  font-size: 12px;
-}
-
-TT {
-  width: 92%;
-  padding-left: 5px;
-  margin: 7px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-TD.simpletableleft { 
+td.simpletableleft { 
   background-color: #eeeeff; 
   vertical-align: middle;
   font-weight: bold; 
@@ -692,7 +694,7 @@ TD.simpletableleft {
   margin-bottom  : 2px  
 }
 
-TD.simpletableright { 
+td.simpletableright { 
   background-color: #eeeeff; 
   vertical-align: middle;
   font-style: italic; 
@@ -717,7 +719,7 @@ TD.simpletableright {
   border-collapse: collapse;
 }
 
-TD.signatureIntro { 
+td.signatureIntro { 
   font-size: 14px;  
   margin-left: 0px;
   margin-right: 20px;
@@ -727,7 +729,7 @@ TD.signatureIntro {
   border-collapse: collapse;
 }
 
-TD.signatureBlock { 
+td.signatureBlock { 
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 14px;
   padding-left: 20px;
@@ -741,7 +743,7 @@ TD.signatureBlock {
 signatureTitle { 
 }
 
-PRE.signature { 
+pre.signature { 
   font-size: 14px;
   font-weight:  bold;
   margin-left: 5ex;
@@ -918,4 +920,8 @@ body > hr {
 
 body > dl {
   border-bottom: 1px solid #bbb;
+}
+
+body div.contents ol li {
+  margin-bottom: 0.5em;
 }
