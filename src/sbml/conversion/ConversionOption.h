@@ -24,6 +24,31 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class ConversionOption
+ * @brief Class of object that encapsulates a conversion option.
+ * 
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * LibSBML provides a number of converters that can perform transformations
+ * of SBML documents.  These converters often allow their behaviors to be
+ * controlled by setting property values.  Converter properties are
+ * communicated using objects of class ConversionProperties, and within
+ * such objects, individual options are encapsulated using ConversionOption
+ * objects.
+ *
+ * A ConversionOption object consists of four parts:
+ * @li A @em key, acting as the name of the option;
+ * @li A @em value of this option;
+ * @li A @em type for the value; this is chosen from  the enumeration type
+ * ConversionOption#ConversionOptionType_t; and
+ * @li A @em description consisting of a text string that describes the
+ * option in some way.
+ *
+ * There are no constraints on the values of keys or descriptions;
+ * authors of SBML converters are free to chose them as they see fit.
+ *
+ * @see ConversionProperties
  */
 
 #ifndef ConversionOption_h
@@ -41,11 +66,11 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  */
 typedef enum
 {
-    CNV_TYPE_BOOL
-  , CNV_TYPE_DOUBLE
-  , CNV_TYPE_INT
-  , CNV_TYPE_SINGLE
-  , CNV_TYPE_STRING
+    CNV_TYPE_BOOL     /*!< The Boolean option value type. */
+  , CNV_TYPE_DOUBLE   /*!< The double-sized float option value type. */
+  , CNV_TYPE_INT      /*!< The integer option value type. */
+  , CNV_TYPE_SINGLE   /*!< The float option value type. */
+  , CNV_TYPE_STRING   /*!< The string option value type. */
 } ConversionOptionType_t;
 
 LIBSBML_CPP_NAMESPACE_END
@@ -55,14 +80,15 @@ LIBSBML_CPP_NAMESPACE_END
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- *  @brief class encapsulating conversion options
- */
+
 class LIBSBML_EXTERN ConversionOption
 {
 public:
   /**
-   * @brief creates a new ConversionOption
+   * Creates a new ConversionOption.
+   *
+   * This is the general constructor, taking arguments for all aspects of
+   * an option.  Other constructors exist with different arguments.
    * 
    * @param key the key for this option
    * @param value an optional value for this option
@@ -70,195 +96,242 @@ public:
    * @param description the description for this option
    */
   ConversionOption(std::string key, std::string value="", 
-    ConversionOptionType_t type=CNV_TYPE_STRING, 
-    std::string description="");
+                   ConversionOptionType_t type=CNV_TYPE_STRING, 
+                   std::string description="");
+
   
   /**
-   * Constructor creating a string option
+   * Creates a new ConversionOption specialized for string-type options.
    * 
    * @param key the key for this option
    * @param value the value for this option
    * @param description an optional description
-   * 
    */
   ConversionOption(std::string key, const char* value, 
-    std::string description="");
+                   std::string description="");
+
+
   /**
-   * Constructor creating a bool option
+   * Creates a new ConversionOption specialized for Boolean-type options.
    * 
    * @param key the key for this option
    * @param value the value for this option
    * @param description an optional description
-   * 
    */
   ConversionOption(std::string key, bool value, 
-    std::string description="");
+                   std::string description="");
+
 
   /**
-   * Constructor creating a double option
+   * Creates a new ConversionOption specialized for double-type options.
    * 
    * @param key the key for this option
    * @param value the value for this option
    * @param description an optional description
-   * 
    */
   ConversionOption(std::string key, double value, 
-    std::string description="");
+                   std::string description="");
+
 
   /**
-   * Constructor creating a float option
+   * Creates a new ConversionOption specialized for float-type options.
    * 
    * @param key the key for this option
    * @param value the value for this option
    * @param description an optional description
-   * 
    */
   ConversionOption(std::string key, float value, 
-    std::string description="");
+                   std::string description="");
+
 
   /**
-   * Constructor creating a integer option
+   * Creates a new ConversionOption specialized for integer-type options.
    * 
    * @param key the key for this option
    * @param value the value for this option
    * @param description an optional description
-   * 
    */
   ConversionOption(std::string key, int value, 
-    std::string description="");
+                   std::string description="");
+
 
    /**
-    * Copy constructor.
+   * Copy constructor; creates a copy of an ConversionOption object.
+   *
+   * @param c the ConversionOption object to copy.
     */
    ConversionOption(const ConversionOption& option);
 
+
    /**
-    * Assignment operator for conversion option.
+    * Assignment operator for ConversionOption.
     */
    ConversionOption& operator=(const ConversionOption& option);
 
+
   /**
-   * Destroy this object.
+   * Destroys this object.
    */ 
   virtual ~ConversionOption();
 
+
   /** 
-   * Clone method
+   * Creates and returns a deep copy of this ConversionOption object.
    * 
-   * @return returns a clone of this option
+   * @return a (deep) copy of this ConversionOption object.
    */
   virtual ConversionOption* clone() const;
 
+
   /**
-   * @return the key for this option
+   * Returns the key for this option.
+   * 
+   * @return the key, as a string.
    */
   virtual std::string getKey() const; 
+
+
   /**
-   * Set the key for this option
+   * Sets the key for this option.
    * 
-   * @param key the key to set
-   *
+   * @param key a string representing the key to set.
    */
   virtual void setKey(std::string key);
 
+
   /**
-   * @return the value of this option as string
+   * Returns the value of this option.
+   * 
+   * @return the value of this option, as a string.
    */
   virtual std::string getValue() const;
+
+
   /**
-   * Set the value for this option
+   * Sets the value for this option.
    * 
-   * @param value the value to set
-   *
+   * @param value the value to set, as a string.
    */
   virtual void setValue(std::string value);
 
+
   /**
-   * @return the description for this option
+   * Returns the description string for this option.
+   * 
+   * @return the description of this option.
    */
   virtual std::string getDescription() const;
+
+
   /**
-   * Set the description for this option
+   * Sets the description text for this option.
    * 
-   * @param description the description to set
-   *
+   * @param description the description to set for this option.
    */
   virtual void setDescription(std::string description);
 
+
   /**
-   * @return the type of this option
+   * Returns the type of this option
+   * 
+   * @return the type of this option.
    */
   virtual ConversionOptionType_t getType() const;
+
+
   /**
-   * Set the type of this option
+   * Sets the type of this option.
    * 
-   * @param type the type to set
-   *
+   * @param type the type value to use.
    */
   virtual void setType(ConversionOptionType_t type);
 
+
   /**
-   * Convenience method returning the value of this option as boolean
+   * Returns the value of this option as a Boolean.
    * 
-   * @return the value of this option as bool
+   * @return the value of this option.
    */   
   virtual bool getBoolValue() const;
+
+
   /** 
-   * Convenience method setting the value of this option to the given bool. 
-   * This will also set the type to boolean.
+   * Set the value of this option to a given Boolean value.
+   *
+   * Invoking this method will also set the type of the option to
+   * ConversionOptionType_t#CNV_TYPE_BOOL.
    * 
-   * @param value the value to set
+   * @param value the Boolean value to set
    */
   virtual void setBoolValue(bool value);
 
+
   /**
-   * Convenience method returning the value of this option as double
+   * Returns the value of this option as a @c double.
    * 
-   * @return the value of this option as double
+   * @return the value of this option.
    */   
   virtual double getDoubleValue() const;
+
+
   /** 
-   * Convenience method setting the value of this option to the given double. 
-   * This will also set the type to double.
+   * Set the value of this option to a given @c double value.
+   *
+   * Invoking this method will also set the type of the option to @c
+   * ConversionOptionType_t#CNV_TYPE_DOUBLE.
    * 
    * @param value the value to set
    */
   virtual void setDoubleValue(double value);
 
+
   /**
-   * Convenience method returning the value of this option as single
+   * Returns the value of this option as a @c float.
    * 
-   * @return the value of this option as float
+   * @return the value of this option as a float
    */   
   virtual float getFloatValue() const;
+
+
   /** 
-   * Convenience method setting the value of this option to the given single. 
-   * This will also set the type to single.
+   * Set the value of this option to a given @c float value.
+   *
+   * Invoking this method will also set the type of the option to @c
+   * ConversionOptionType_t#CNV_TYPE_SINGLE.
    * 
    * @param value the value to set
    */
   virtual void setFloatValue(float value);
 
+
   /**
-   * Convenience method returning the value of this option as integer
+   * Returns the value of this option as an @c integer.
    * 
-   * @return the value of this option as int
+   * @return the value of this option, as an int
    */   
   virtual int getIntValue() const;
+
+
   /** 
-   * Convenience method setting the value of this option to the given integer. 
-   * This will also set the type to integer.
+   * Set the value of this option to a given @c int value.
+   *
+   * Invoking this method will also set the type of the option to @c
+   * ConversionOptionType_t#CNV_TYPE_INT.
    * 
    * @param value the value to set
    */
   virtual void setIntValue(int value);
 
+
 protected: 
+  /** @cond doxygen-libsbml-internal */
+
   std::string mKey;
   std::string mValue;
   ConversionOptionType_t mType;
   std::string mDescription;
 
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END

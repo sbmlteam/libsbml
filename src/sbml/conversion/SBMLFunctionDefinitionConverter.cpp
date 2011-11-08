@@ -66,7 +66,8 @@ ConversionProperties
 SBMLFunctionDefinitionConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("expandFunctionDefinitions", true, "expand initial assignments");
+  prop.addOption("expandFunctionDefinitions", true,
+                 "Expand all function definitions in the model");
   return prop;
 }
 

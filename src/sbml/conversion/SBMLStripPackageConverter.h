@@ -24,6 +24,22 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLStripPackageConverter
+ * @brief SBML converter for removing packages.
+ * 
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This SBML converter takes an SBML document and removes (strips) a package
+ * from it.  No conversion is performed; the package constructs are simply
+ * removed from the SBML document.  The package to be stripped is determined
+ * by the value of the option "package" on the conversion properties.
+ *
+ * @see SBMLFunctionDefinitionConverter
+ * @see SBMLLevelVersionConverter
+ * @see SBMLRuleConverter
+ * @see SBMLLevelVersionConverter
+ * @see SBMLUnitsConverter
  */
 
 #ifndef SBMLStripPackageConverter_h
@@ -54,20 +70,22 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new SBMLStripPackageConverter object.
    */
   SBMLStripPackageConverter ();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an SBMLStripPackageConverter
+   * object.
+   *
+   * @param obj the SBMLStripPackageConverter object to copy.
    */
   SBMLStripPackageConverter(const SBMLStripPackageConverter&);
 
-
   
   /**
-   * Destroy this object.
+   * Destroys this object.
    */
   virtual ~SBMLStripPackageConverter ();
 
@@ -79,34 +97,62 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this SBMLStripPackageConverter.
+   * Creates and returns a deep copy of this SBMLStripPackageConverter
+   * object.
    * 
-   * @return a (deep) copy of this SBMLStripPackageConverter.
+   * @return a (deep) copy of this converter.
    */
   virtual SBMLStripPackageConverter* clone() const;
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
+   * Returns @c true if this converter object's properties match the given
+   * properties.
+   *
+   * A typical use of this method involves creating a ConversionProperties
+   * object, setting the options desired, and then calling this method on
+   * an SBMLStripPackageConverter object to find out if the object's
+   * property values match the given ones.  This method is also used by
+   * the method SBMLConverterRegistry::getConverterFor() to search across
+   * all registered converters for one matching particular properties.
    * 
-   * @param props the properties to match
+   * @param props the properties to match.
    * 
-   * @return <c>true</c> if this covnerter is a match, <c>false</c> otherwise.
+   * @return @c true if this converter's properties match, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
   
   /** 
-   * the actual conversion 
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion
+   * work, that is, to convert the SBMLDocument object set by
+   * setDocument(const SBMLDocument* doc) and with the configuration
+   * options set by setProperties(const ConversionProperties *props).
    * 
-   * @return status code represeting success/failure/conversion impossible
+   * @return  integer value indicating the success/failure of the operation.
+   * @if clike The value is drawn from the enumeration
+   * #OperationReturnValues_t. @endif The possible values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE LIBSBML_INVALID_ATTRIBUTE @endlink
    */
   virtual int convert();
 
 
   /**
-   * @return default properties for the converter
+   * Returns the default properties of this converter.
+   * 
+   * A given converter exposes one or more properties that can be adjusted
+   * in order to influence the behavior of the converter.  This method
+   * returns the @em default property settings for this converter.  It is
+   * meant to be called in order to discover all the settings for the
+   * converter object.
+   *
+   * @return the ConversionProperties object describing the default properties
+   * for this converter.
    */
   virtual ConversionProperties getDefaultProperties() const;
 

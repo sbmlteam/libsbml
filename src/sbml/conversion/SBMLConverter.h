@@ -28,7 +28,7 @@
  * @class SBMLConverter
  * @brief Base class for SBML converters.
  *
- * @htmlinclude not-sbml-warning.html
+ * @htmlinclude libsbml-facility-only-warning.html
  *
  * The SBMLConverter class is the base class for the various SBML @em
  * converters: classes of objects that transform or convert SBML documents.

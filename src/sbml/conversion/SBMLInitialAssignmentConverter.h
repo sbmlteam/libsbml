@@ -24,8 +24,56 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLInitialAssignmentConverter
+ * @brief SBML converter for replacing initial assignments.
+ *
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This is an SBML converter for replacing InitialAssignment objects 
+ * (when possible) by setting the initial value attributes on the model
+ * objects being assigned.  In other words, for every object that is
+ * the target of an initial assignment in the model, it evaluates the
+ * mathematical expression of the assignment to get a numerical value,
+ * and then sets the corresponding attribute of the object to the
+ * value.  The effects for different kinds of SBML components are
+ * as follows:
+ * 
+ * <center>
+ * <table border="0" class="text-table width80 normal-font alt-row-colors">
+ *  <tr style="background: lightgray; font-size: 14px;">
+ *      <th align="left" width="200">Component</th>
+ *      <th align="left">Effect</th>
+ *  </tr>
+ *  <tr>
+ *  <td>Compartment</td>
+ *  <td>Sets the value of the <code>size</code> attribute.</td>
+ *  </tr>
+ *  <tr>
+ *  <td>Species</td>
+ *  <td>Sets the value of either the <code>initialAmount</code>
+ *  or the <code>initialConcentration</code> attributes, depending
+ *  on the value of the Species object's
+ *  <code>hasOnlySubstanceUnits</code> attribute.</td>
+ *  </tr>
+ *  <tr>
+ *  <td>Parameter</td>
+ *  <td>Sets the value of the <code>value</code> attribute.</td>
+ *  </tr>
+ *  <tr>
+ *  <td>SpeciesReference</td>
+ *  <td>Sets the value of the <code>stoichiometry</code> attribute
+ *  in the Reaction object where the SpeciesReference object appears.</td>
+ *  </tr>
+ * </table>
+ * </center>
+ *
+ * @see SBMLFunctionDefinitionConverter
+ * @see SBMLLevelVersionConverter
+ * @see SBMLRuleConverter
+ * @see SBMLStripPackageConverter
+ * @see SBMLUnitsConverter
  */
-
 
 #ifndef SBMLInitialAssignmentConverter_h
 #define SBMLInitialAssignmentConverter_h
@@ -55,45 +103,77 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new SBMLInitialAssignmentConverter object.
    */
   SBMLInitialAssignmentConverter();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an SBMLInitialAssignmentConverter
+   * object.
+   *
+   * @param obj the SBMLInitialAssignmentConverter object to copy.
    */
   SBMLInitialAssignmentConverter(const SBMLInitialAssignmentConverter&);
 
+
   /**
-   * Creates and returns a deep copy of this SBMLInitialAssignmentConverter.
+   * Creates and returns a deep copy of this SBMLInitialAssignmentConverter
+   * object.
    * 
-   * @return a (deep) copy of this SBMLInitialAssignmentConverter.
+   * @return a (deep) copy of this converter.
    */
   virtual SBMLConverter* clone() const;
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
+   * Returns @c true if this converter object's properties match the given
+   * properties.
+   *
+   * A typical use of this method involves creating a ConversionProperties
+   * object, setting the options desired, and then calling this method on
+   * an SBMLInitialAssignmentConverter object to find out if the object's
+   * property values match the given ones.  This method is also used by
+   * the method SBMLConverterRegistry::getConverterFor() to search across
+   * all registered converters for one matching particular properties.
    * 
-   * @param props the properties to match
+   * @param props the properties to match.
    * 
-   * @return <c>true</c> if this covnerter is a match, <c>false</c> otherwise.
+   * @return @c true if this converter's properties match, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
   
   /** 
-   * the actual conversion 
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion
+   * work, that is, to convert the SBMLDocument object set by
+   * setDocument(const SBMLDocument* doc) and with the configuration
+   * options set by setProperties(const ConversionProperties *props).
    * 
-   * @return status code represeting success/failure/conversion impossible
+   * @return  integer value indicating the success/failure of the operation.
+   * @if clike The value is drawn from the enumeration
+   * #OperationReturnValues_t. @endif The possible values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
    */
   virtual int convert();
 
 
   /**
-   * @return default properties for the converter
+   * Returns the default properties of this converter.
+   * 
+   * A given converter exposes one or more properties that can be adjusted
+   * in order to influence the behavior of the converter.  This method
+   * returns the @em default property settings for this converter.  It is
+   * meant to be called in order to discover all the settings for the
+   * converter object.
+   *
+   * @return the ConversionProperties object describing the default properties
+   * for this converter.
    */
   virtual ConversionProperties getDefaultProperties() const;
 

@@ -24,8 +24,38 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLFunctionDefinitionConverter
+ * @brief SBML converter for replacing function definitions.
+ * 
+ * @htmlinclude libsbml-facility-only-warning.html
+ *
+ * This is an SBML converter for manipulating user-defined functions in an
+ * SBML file.  When invoked on the current model, it performs the following
+ * operation:
+ * <ol>
+ * <li>Read the list of user-defined functions in the model (i.e., the
+ * list of FunctionDefinition objects);
+ * <li>Look for invocations of the function in mathematical expressions
+ * throughout the model; and
+ * <li>For each invocation found, replaces the invocation with a
+ * in-line copy of the function's body, similar to how macro expansions
+ * might be performed in scripting and programming languages.
+ * </ol>
+ *
+ * For example, suppose the model contains a function definition
+ * representing the function <i>f(x, y) = x * y</i>.  Further
+ * suppose this functions invoked somewhere else in the model, in
+ * a mathematical formula, as <i>f(s, p)</i>.  The outcome of running
+ * SBMLFunctionDefinitionConverter on the model will be to replace
+ * the call to <i>f</i> with the expression <i>s * p</i>.
+ *
+ * @see SBMLInitialAssignmentConverter
+ * @see SBMLLevelVersionConverter
+ * @see SBMLRuleConverter
+ * @see SBMLStripPackageConverter
+ * @see SBMLUnitsConverter
  */
-
 
 #ifndef SBMLFunctionDefinitionConverter_h
 #define SBMLFunctionDefinitionConverter_h
@@ -55,18 +85,23 @@ public:
 
 
   /**
-   * Constructor.
+   * Creates a new SBMLFunctionDefinitionConverter object.
    */
   SBMLFunctionDefinitionConverter();
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an SBMLFunctionDefinitionConverter
+   * object.
+   *
+   * @param obj the SBMLFunctionDefinitionConverter object to copy.
    */
-  SBMLFunctionDefinitionConverter(const SBMLFunctionDefinitionConverter&);
+  SBMLFunctionDefinitionConverter(const SBMLFunctionDefinitionConverter& obj);
+
 
   /**
-   * Creates and returns a deep copy of this converter.
+   * Creates and returns a deep copy of this SBMLFunctionDefinitionConverter
+   * object.
    * 
    * @return a (deep) copy of this converter.
    */
@@ -74,26 +109,54 @@ public:
 
 
   /**
-   * This function determines whether a given converter matches the 
-   * configuration properties given. 
+   * Returns @c true if this converter object's properties match the given
+   * properties.
+   *
+   * A typical use of this method involves creating a ConversionProperties
+   * object, setting the options desired, and then calling this method on
+   * an SBMLFunctionDefinitionConverter object to find out if the object's
+   * property values match the given ones.  This method is also used by
+   * the method SBMLConverterRegistry::getConverterFor() to search across
+   * all registered converters for one matching particular properties.
    * 
-   * @param props the properties to match
+   * @param props the properties to match.
    * 
-   * @return <c>true</c> if this covnerter is a match, <c>false</c> otherwise.
+   * @return @c true if this converter's properties match, @c false
+   * otherwise.
    */
   virtual bool matchesProperties(const ConversionProperties &props) const;
 
   
   /** 
-   * the actual conversion 
+   * Perform the conversion.
+   *
+   * This method causes the converter to do the actual conversion
+   * work, that is, to convert the SBMLDocument object set by
+   * setDocument(const SBMLDocument* doc) and with the configuration
+   * options set by setProperties(const ConversionProperties *props).
    * 
-   * @return status code represeting success/failure/conversion impossible
+   * @return  integer value indicating the success/failure of the operation.
+   * @if clike The value is drawn from the enumeration
+   * #OperationReturnValues_t. @endif The possible values are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_CONV_INVALID_SRC_DOCUMENT LIBSBML_CONV_INVALID_SRC_DOCUMENT @endlink
    */
   virtual int convert();
 
 
   /**
-   * @return default properties for the converter
+   * Returns the default properties of this converter.
+   * 
+   * A given converter exposes one or more properties that can be adjusted
+   * in order to influence the behavior of the converter.  This method
+   * returns the @em default property settings for this converter.  It is
+   * meant to be called in order to discover all the settings for the
+   * converter object.
+   *
+   * @return the ConversionProperties object describing the default properties
+   * for this converter.
    */
   virtual ConversionProperties getDefaultProperties() const;
 

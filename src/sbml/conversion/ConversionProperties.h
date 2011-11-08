@@ -24,11 +24,30 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ *
+ * @class ConversionProperties
+ * @brief Class of object that encapsulates the properties of an SBML converter.
+ * 
+ * @htmlinclude libsbml-facility-only-warning.html
+ * 
+ * The properties of SBML converters are communicated using objects of
+ * class ConversionProperties, and within such objects, individual options
+ * are encapsulated using ConversionOption objects.  The ConversionProperties
+ * class provides numerous methods for setting and getting options.
+ *
+ * ConversionProperties ojects are also used to determine the target SBML
+ * namespace when an SBML converter's behavior depends on the intended
+ * Level+Version combination of SBML.  In addition, it is conceivable that
+ * conversions may be affected by SBML Level&nbsp;3 packages being used
+ * by an SBML document.  These, too, are communicated by the values of
+ * the SBML namespaces set on a ConversionProperties object.
+ *
+ * @see ConversionOption
+ * @see SBMLNamespaces
  */
 
 #ifndef ConversionProperties_h
 #define ConversionProperties_h
-
 
 
 #include <sbml/common/extern.h>
@@ -42,9 +61,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
- *  @brief class encapsulating conversion properties
- */
+
 class LIBSBML_EXTERN ConversionProperties
 {
 public:
@@ -70,60 +87,77 @@ public:
 
 
   /** 
-   * clone method
+   * Creates and returns a deep copy of this ConversionProperties object.
+   * 
+   * @return a (deep) copy of this ConversionProperties object.
    */
   virtual ConversionProperties* clone() const; 
 
 
   /**
-   * Destructor
+   * Destructor.
    */
   virtual ~ConversionProperties();
 
 
   /**
-   * @return the current target namespace
+   * Returns the current target SBML namespace.
+   *
+   * @return the SBMLNamepaces object expressing the target namespace.
    */ 
   virtual SBMLNamespaces * getTargetNamespaces() const;
 
 
   /**
-   * @return boolean indicating whether the target namespace has been set.
+   * Returns @c true if the target SBML namespace has been set.
+   * 
+   * @return @c true if the target namespace has been set, @c false
+   * otherwise.
    */
   virtual bool hasTargetNamespaces() const;
 
 
   /** 
-   * Sets the target namespace
+   * Sets the target namespace.
    * 
-   * @param targetNS the target namespace
+   * @param targetNS the target namespace to use.
    */
   virtual void setTargetNamespaces(SBMLNamespaces *targetNS);
 
 
   /**
-   * @param key the key for the option
-   * @return the description of the option with the given key
+   * Returns the description string for a given option in this properties
+   * object.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the description text of the option with the given key.
    */
   virtual std::string getDescription(std::string key) const;
 
 
   /**
-   * @param key the key for the option
-   * @return the type of the option with the given key
+   * Returns the type of a given option in this properties object.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the type of the option with the given key.
    */
   virtual ConversionOptionType_t  getType(std::string key) const;
 
 
   /**
-   * @param key the key for the option
-   * @return the option with the given key
+   * Returns the ConversionOption object for a given key.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the option with the given key.
    */
   virtual ConversionOption* getOption(std::string key) const;  
 
 
   /**
-   * Adds a copy of the given option to the properties 
+   * Adds a copy of the given option to this properties object.
    * 
    * @param option the option to add
    */
@@ -131,7 +165,7 @@ public:
 
 
   /**
-   * Adds a new option with the given parameters
+   * Adds a new ConversionOption object with the given parameters.
    * 
    * @param key the key for the new option
    * @param value (optional) the value of that option
@@ -139,23 +173,23 @@ public:
    * @param description (optional) the description for the option
    */
   virtual void addOption(std::string key, std::string value="", 
-    ConversionOptionType_t type=CNV_TYPE_STRING, 
-    std::string description="");
+                         ConversionOptionType_t type=CNV_TYPE_STRING, 
+                         std::string description="");
 
 
   /**
-   * Adds a new option with the given parameters
+   * Adds a new ConversionOption object with the given parameters.
    * 
    * @param key the key for the new option
    * @param value the string value of that option
    * @param description (optional) the description for the option
    */
   virtual void addOption(std::string key, const char* value, 
-    std::string description="");
+                         std::string description="");
 
 
   /**
-   * Adds a new option with the given parameters
+   * Adds a new ConversionOption object with the given parameters.
    * 
    * @param key the key for the new option
    * @param value the boolean value of that option
@@ -166,40 +200,40 @@ public:
 
 
   /**
-   * Adds a new option with the given parameters
+   * Adds a new ConversionOption object with the given parameters.
    * 
    * @param key the key for the new option
    * @param value the double value of that option
    * @param description (optional) the description for the option
    */
   virtual void addOption(std::string key, double value, 
-    std::string description="");
+                         std::string description="");
 
 
   /**
-   * Adds a new option with the given parameters
+   * Adds a new ConversionOption object with the given parameters.
    * 
    * @param key the key for the new option
    * @param value the float value of that option
    * @param description (optional) the description for the option
    */
   virtual void addOption(std::string key, float value, 
-    std::string description="");
+                         std::string description="");
 
 
   /**
-   * Adds a new option with the given parameters
+   * Adds a new ConversionOption object with the given parameters.
    * 
    * @param key the key for the new option
    * @param value the integer value of that option
    * @param description (optional) the description for the option
    */
   virtual void addOption(std::string key, int value, 
-    std::string description="");
+                         std::string description="");
 
 
   /**
-   * Removes the option with the given key from the properties
+   * Removes the option with the given key from this properties object.
    * 
    * @param key the key for the new option to remove
    * @return the removed option
@@ -208,22 +242,29 @@ public:
 
 
   /** 
-   * Tests whether the properties contain an option with the given key
-   * @param key the key of the option to find
-   * @return <c>true</c> if the option could be found, <c>false</c> otherwise
+   * Returns @c true if this properties object contains an option with
+   * the given key.
+   * 
+   * @param key the key of the option to find.
+   * 
+   * @return @c true if an option with the given @p key exists in
+   * this properties object, @c false otherwise.
    */
   virtual bool hasOption(std::string key) const;  
   
 
   /**
-   * @param key the key for the option
-   * @return the string value of the option with the given key
+   * Returns the value of the given option as a string.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the string value of the option with the given key.
    */
   virtual std::string getValue(std::string key) const;  
 
 
   /**
-   * Sets the value of the option with given key
+   * Sets the value of the given option to a string.
    * 
    * @param key the key for the option
    * @param value the new value
@@ -232,72 +273,92 @@ public:
   
 
   /**
-   * @param key the key for the option
-   * @return the boolean value of the option with the given key
+   * Returns the value of the given option as a Boolean.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the boolean value of the option with the given key.
    */
   virtual bool getBoolValue(std::string key) const;
 
 
   /**
-   * Sets the value of the option with given key
+   * Sets the value of the given option to a Boolean.
    * 
-   * @param key the key for the option
-   * @param value the new boolean value
+   * @param key the key for the option.
+   * 
+   * @param value the new Boolean value.
    */
   virtual void setBoolValue(std::string key, bool value);
 
   
   /**
-   * @param key the key for the option
-   * @return the double value of the option with the given key
+   * Returns the value of the given option as a @c double.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the double value of the option with the given key.
    */
   virtual double getDoubleValue(std::string key) const;
 
 
   /**
-   * Sets the value of the option with given key
+   * Sets the value of the given option to a @c double.
    * 
-   * @param key the key for the option
-   * @param value the new double value
+   * @param key the key for the option.
+   * 
+   * @param value the new double value.
    */
   virtual void setDoubleValue(std::string key, double value);
 
   
   /**
-   * @param key the key for the option
-   * @return the float value of the option with the given key
+   * Returns the value of the given option as a @c float.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the float value of the option with the given key.
    */
   virtual float getFloatValue(std::string key) const;
 
 
   /**
-   * Sets the value of the option with given key
+   * Sets the value of the given option to a @c float.
    * 
-   * @param key the key for the option
-   * @param value the new float value
+   * @param key the key for the option.
+   * 
+   * @param value the new float value.
    */
   virtual void setFloatValue(std::string key, float value);
 
   
   /**
-   * @param key the key for the option
-   * @return the int value of the option with the given key
+   * Returns the value of the given option as an integer.
+   * 
+   * @param key the key for the option.
+   * 
+   * @return the int value of the option with the given key.
    */
   virtual int getIntValue(std::string key) const;
 
 
   /**
-   * Sets the value of the option with given key
+   * Sets the value of the given option to an integer.
    * 
-   * @param key the key for the option
-   * @param value the new integer value
+   * @param key the key for the option.
+   * 
+   * @param value the new integer value.
    */
   virtual void setIntValue(std::string key, int value);
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
+
   SBMLNamespaces *mTargetNamespaces;
   std::map<std::string, ConversionOption*> mOptions;
+
+  /** @endcond */
 };
 
 LIBSBML_CPP_NAMESPACE_END
