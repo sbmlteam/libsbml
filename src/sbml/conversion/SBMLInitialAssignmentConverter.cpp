@@ -66,7 +66,8 @@ ConversionProperties
 SBMLInitialAssignmentConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("expandInitialAssignments", true, "expand initial assignments");
+  prop.addOption("expandInitialAssignments", true,
+                 "Expand initial assignments in the model");
   return prop;
 }
 

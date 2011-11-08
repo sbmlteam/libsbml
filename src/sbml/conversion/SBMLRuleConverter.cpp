@@ -69,7 +69,8 @@ ConversionProperties
   SBMLRuleConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("sortRules", true, "sort rules");
+  prop.addOption("sortRules", true,
+                 "Sort AssignmentRules and InitialAssignments in the model");
   return prop;
 }
 

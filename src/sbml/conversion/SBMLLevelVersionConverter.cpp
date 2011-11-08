@@ -103,9 +103,10 @@ SBMLLevelVersionConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
   prop.setTargetNamespaces(new SBMLNamespaces()); // default namespaces
-  prop.addOption("strict", true, "should validity be preserved");
+  prop.addOption("strict", true,
+                 "Whether validity should be strictly preserved");
   prop.addOption("setLevelAndVersion", true, 
-                                        "this is checked by matchProperties");
+                 "Convert the model to a given Level and Version of SBML");
   return prop;
 }
 

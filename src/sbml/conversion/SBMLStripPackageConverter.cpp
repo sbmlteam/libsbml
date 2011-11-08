@@ -99,8 +99,10 @@ ConversionProperties
 SBMLStripPackageConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("stripPackage", true, "this is checked by matchProperties");
-  prop.addOption("package", "", "name of the package to be stripped");
+  prop.addOption("stripPackage", true,
+                 "Strip SBML Level 3 package constructs from the model");
+  prop.addOption("package", "",
+                 "Name of the SBML Level 3 package to be stripped");
   return prop;
 }
 

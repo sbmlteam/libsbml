@@ -101,9 +101,10 @@ ConversionProperties
 SBMLUnitsConverter::getDefaultProperties() const
 {
   static ConversionProperties prop;
-  prop.addOption("units", true, "this is checked by matchProperties");
+  prop.addOption("units", true,
+                 "Convert units in the model to SI units");
   prop.addOption("removeUnusedUnits", true, 
-                             "should unsed unitDefinitions be removed");
+                 "Whether unused UnitDefinition objects should be removed");
   return prop;
 }
 
