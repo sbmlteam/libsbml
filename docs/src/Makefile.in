@@ -130,6 +130,7 @@ distfiles =                                                  \
         common-text/id-syntax.html                           \
         common-text/level-1-uses-text-string-math.html       \
         common-text/libsbml-version.html.in                  \
+        common-text/libsbml-facility-only-warning.html       \
         common-text/math-functions.html                      \
         common-text/math-precedence-table.html               \
         common-text/not-sbml-warning.html                    \
