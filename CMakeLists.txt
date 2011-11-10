@@ -545,7 +545,7 @@ endif()
 # On some Linux systems the libraries should be installed into lib64 rather
 # than lib. It will default to 'lib' but can be overwritten. 
 
-SET(CMAKE_INSTALL_LIBDIR lib CACHE PATH "Output directory for libraries")
+SET(CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Full path to the library output directory")
 
 
 ###############################################################################
