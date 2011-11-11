@@ -527,7 +527,7 @@ define merge_html_verb
 endef
 
 define insert_javascript
-  sed -i -e 's:<SCRIPT type="text/javascript">:<script type="text/javascript" src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
+  sed -i "" -e 's:<SCRIPT type="text/javascript">:<script type="text/javascript" src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
 endef
 
 # Compile the ExcludeDoclet class file if needed.
