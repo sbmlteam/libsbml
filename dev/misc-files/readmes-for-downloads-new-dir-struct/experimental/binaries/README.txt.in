@@ -1,0 +1,34 @@
+                        l i b S B M L   @PACKAGE_VERSION@
+
+This directory contains binaries of libSBML@PACKAGE_VERSION@ which include
+the extensions that implement support for SBML Level 3 packages with code 
+in the beta development stage (see the experimental/src directory).
+
+It should be noted that these may be untested and are supplied 'as-is' 
+for experimental development. Feedback is highly encouraged.
+
+
+For more information about libSBML, please visit the libSBML website at
+                   http://sbml.org/Software/libSBML
+
+
+Thank you for your interest in libSBML!
+
+The LibSBML Team.
+
+
+     .-://///:`  .:/+++++/-`      .--.             `---`  `--
+  -/++//:---:.`://+syyyssoo+`    ohhy`            /hhh.  -hy`
+`/++/-`       ::/ohhyyssssoss-   ohhh+           .yhhh.  .hy`          
+:++/.        `:::sysoo+++++oss.  ohoyh-         `ohoyh.  .hy`          
+++//`        `--:/oo+///://+os:  oh//hs`        :hs.yh.  .hy`          
+/+//.       `..--:////:--:/oos.  oh/`sh/       `yh-`yh.  .hy`          
+`////:-.......---::://///++oo-   oh/ -hy.      +h+ `yh.  .hy`          
+  .:///:::::--::::://///++oo:    oh/  +hs     -hy` `yh.  .hy`          
+`::-``..--::::::://osyyysoooo.   oh/  `yh:   `sh:  `yh.  .hy`          
+:o+/`      .:////oyhyyyyyyssss`  oh/   :hy`  /ho`  `yh.  .hy`          
+/oo/        .///oyysoo+++oosyy-  oh/    oho .hh.   `yh.  .hy`          
+.sso:       `+++oso+//////syyy`  oh/    .hh-oh/    `yh.  .hy`          
+ :sss+-`   ./oooooo//:::+syyy.   oh/     /hhhs`    `yh.  -hy`          
+  `/syssooossssssssssssyyyy/`    oh/      shh-     `yh.  -hhooooooooooo
+    `-/+oso+/-.-:/osyyso/-`      -:.      .:-      `--`  `:::::::::::::
