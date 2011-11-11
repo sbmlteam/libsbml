@@ -1,14 +1,17 @@
                         l i b S B M L   @PACKAGE_VERSION@
 
-This is the experimental directory of the libSBML @PACKAGE_VERSION@ release. Here you
-will find the following:
+This directory contains an experimental release of libSBML @PACKAGE_VERSION@
+containing SBML Level 3 package plugins.  Here you will find the following:
 
-  src       -- folder of libSBML packages in the beta stage of development
-  binaries  -- folder of binaries that include the beta package code
+  src      -- source code for current versions of plugins for SBML packages
+  binaries -- binary installers for libSBML prebuilt with all the packages
 
-It should be noted that code in these directories reflects the current development
-of SBML Level 3 packages. The binaries available may be untested and are
-supplied 'as-is' for experimental development.
+Please note: the code in these directories reflects the current state of
+development of SBML Level 3 packages and the libSBML plugins for the
+packages. None of the SBML Level 3 package specifications have been
+finalized, and the package implementations are themselves in a state of
+development.  The binaries available may be untested and are supplied
+'as-is' for experimental development only.
 
 For more information about libSBML, please visit the libSBML website at
                    http://sbml.org/Software/libSBML

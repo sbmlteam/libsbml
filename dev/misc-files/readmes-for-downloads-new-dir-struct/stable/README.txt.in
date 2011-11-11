@@ -1,6 +1,6 @@
                         l i b S B M L   @PACKAGE_VERSION@
 
-This is the stable directory of the libSBML @PACKAGE_VERSION@ release. Here you
+This directory contains the stable release of libSBML @PACKAGE_VERSION@. Here you
 will find the following:
 
   Mac OS X -- folder of binary installers for Mac OS X systems
