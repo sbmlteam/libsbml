@@ -4,7 +4,9 @@ This directory contains beta releases of libSBML@PACKAGE_VERSION@ extensions to
 implement support for certain SBML Level 3 packages.
 
 To integrate one of these packages into your copy of libSBML 5, simply
-extract the package archive into the existing libSBML source directory.
+extract the package archive into the existing libSBML source directory. 
+Alternatively, the libSBML-@PACKAGE-VERSION@-Source archive contains
+all the necessary code in the appropriate locations.
 Then, re-run CMake, and enable the package you just added using the
 appropriate check-box in the list of options presented by CMake.  For
 example, to enable the "groups" package, select ENABLE_GROUPS in the

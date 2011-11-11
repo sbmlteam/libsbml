@@ -16,9 +16,10 @@ addition to the C/C++ libSBML core:
   * Perl
   * Python
   * Ruby
+  * MATLAB
 
-The MATLAB and Octave interfaces are currently not included in the
-MacOSX installer.  If you need the MATLAB and/or Octave interfaces, or
+The Octave interface are currently not included in the
+MacOSX installer.  If you need the Octave interfaces, or
 need to use a different XML parser library, it will be necessary to
 build libSBML yourself from the source distribution using suitable
 configuration flags.  The procedure is described in the libSBML

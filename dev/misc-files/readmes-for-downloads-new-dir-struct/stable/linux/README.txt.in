@@ -8,13 +8,12 @@ on your system.
 
 This directory contains installers for precompiled versions of libSBML
 for Linux systems.  All copies were built using the libxml2 XML parser
-library.  The installer provides ONLY the core libSBML library (C/C++
-interface); it does not include the other language bindings. 
+library.  
 
 Please navigate to either the 32-bit or 64-bit folders, to match the
 version of the operating system you are using.
 
-If you need the MATLAB or other language interfaces, or need to use a
+If you need the MATLAB language interface, or need to use a
 different XML parser library, it will be necessary to build libSBML
 yourself from the source distribution using suitable configuration
 flags.  The procedure is described in the libSBML documentation.  The

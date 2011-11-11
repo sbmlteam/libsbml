@@ -4,7 +4,7 @@ This is the experimental directory of the libSBML @PACKAGE_VERSION@ release. Her
 will find the following:
 
   src       -- folder of libSBML packages in the beta stage of development
-  binaries  -- folder of binary installers that include the beta package code
+  binaries  -- folder of binaries that include the beta package code
 
 It should be noted that code in these directories reflects the current development
 of SBML Level 3 packages. The binaries available may be untested and are
