@@ -1,6 +1,6 @@
                         l i b S B M L   @PACKAGE_VERSION@
 
-This directory contains source code to libSBML plugins supporting draft
+This directory contains source code to libSBML plug-ins supporting draft
 SBML Level 3 package specifications.
 
 To integrate one of these packages into your copy of libSBML 5, simply
@@ -14,7 +14,7 @@ GUI.  (Alternatively, you can run the command line version of CMake with the
 flag -DENABLE_GROUPS=ON.)
 
 Please note: the code in these directories reflects the current state of
-development of SBML Level 3 packages and the libSBML plugins for the
+development of SBML Level 3 packages and the libSBML plug-ins for the
 packages. None of the SBML Level 3 package specifications have been
 finalized, and the package implementations are themselves in a state of
 development.  The binaries available may be untested and are supplied
