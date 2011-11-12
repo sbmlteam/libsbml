@@ -4,7 +4,7 @@ This directory contains an experimental release of libSBML @PACKAGE_VERSION@
 containing SBML Level 3 package plugins.  Here you will find the following:
 
   src      -- source code for current versions of plugins for SBML packages
-  binaries -- binary installers for libSBML prebuilt with all the packages
+  binaries -- binaries for libSBML prebuilt with all the packages
 
 Please note: the code in these directories reflects the current state of
 development of SBML Level 3 packages and the libSBML plugins for the

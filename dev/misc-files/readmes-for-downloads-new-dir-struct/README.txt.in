@@ -17,7 +17,7 @@ The "stable" directory contains the fully tested source, documentation
 and binary installers that reflect the current stable libSBML core.
 
 The "experimental" directory contains source code for packages still in
-development, as well as binary installers containing libSBML core
+development, as well as binaries containing libSBML core
 together with all the packages included. It should be noted that these
 may be untested and undocumented, and are supplied as-is.
 
