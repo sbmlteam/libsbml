@@ -1,10 +1,10 @@
                         l i b S B M L   @PACKAGE_VERSION@
 
-This directory contains binary versions of libSBML compiled with plugins
+This directory contains binary versions of libSBML compiled with plug-ins
 supporting draft SBML Level 3 package specifications.
 
 Please note: the code in these directories reflects the current state of
-development of SBML Level 3 packages and the libSBML plugins for the
+development of SBML Level 3 packages and the libSBML plug-ins for the
 packages. None of the SBML Level 3 package specifications have been
 finalized, and the package implementations are themselves in a state of
 development.  The binaries available may be untested and are supplied
