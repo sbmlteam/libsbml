@@ -108,7 +108,7 @@ void
 mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
 
-	mxArray * mxCheckStructure[1];
+	mxArray * mxCheckStructure[2];
 	mxArray * mxFilename[2], * mxExt[1];
 	int nStatus;
 	char *pacFilename = NULL, *pacTempString1 = NULL, *pacTempString2 = NULL;
@@ -138,6 +138,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int usingOctave = 0;
   mxArray * mxOctave[1];
   int inInstaller = 0;
+  char * msgTxt = NULL;
   timeSymbol = "";
   delaySymbol = "";
   avoSymbol = "";
@@ -205,12 +206,28 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
                  "USAGE: OutputSBML(SBMLModel, (filename))");
 	}
   
-	nStatus = mexCallMATLAB(1, mxCheckStructure, 1, mxModel, "isSBML_Model");
+	nStatus = mexCallMATLAB(2, mxCheckStructure, 1, mxModel, "isSBML_Model");
 	
 	if ((nStatus != 0) || (mxIsLogicalScalarTrue(mxCheckStructure[0]) != 1))
 	{
-		mexErrMsgTxt("First input must be a valid MATLAB_SBML Structure\n"
-                 "USAGE: OutputSBML(SBMLModel, (filename))");
+    /* there are errors - use the pacFilename char * to list these to the user */
+    nBuflen = (mxGetM(mxCheckStructure[1])*mxGetN(mxCheckStructure[1])+1);
+    pacFilename = (char *)mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxCheckStructure[1], pacFilename, (mwSize)(nBuflen));
+    if (nStatus == 0)
+    {
+      msgTxt = (char *) mxCalloc(200+nBuflen, sizeof(char));
+      sprintf(msgTxt, "\n%s\n\nErrors reported: %s%s\n", "First input must be a valid MATLAB_SBML Structure", 
+                   pacFilename, "USAGE: OutputSBML(SBMLModel, (filename))");
+      mexErrMsgTxt(msgTxt);
+    }
+    else
+    {
+      msgTxt = (char *) mxCalloc(200, sizeof(char));
+      sprintf(msgTxt, "%s\n%s", "First input must be a valid MATLAB_SBML Structure", 
+                   "USAGE: OutputSBML(SBMLModel, (filename))");
+      mexErrMsgTxt(msgTxt);
+    } 
 	}
 
   if (nrhs >= 2)
@@ -809,7 +826,7 @@ GetNamespaces (mxArray * mxNamespaces,
 	int i;
 
   xmlns = XMLNamespaces_create();
-	for (i = 1; i < nNoNamespaces; i++) {
+	for (i = 0; i < nNoNamespaces; i++) {
 
 		/* get uri */
 		mxURI = mxGetField(mxNamespaces, i, "uri");

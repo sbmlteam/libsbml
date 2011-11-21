@@ -46,12 +46,22 @@ function [valid, message] = isSBML_Model(SBMLStructure)
 %check the input arguments are appropriate
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 if ~isempty(SBMLStructure)
-  level = SBMLStructure.SBML_level;
-  version = SBMLStructure.SBML_version;
+  if isfield(SBMLStructure, 'SBML_level')
+    level = SBMLStructure.SBML_level;
+  else
+    level = 3;
+  end;
+  if isfield(SBMLStructure, 'SBML_version')
+    version = SBMLStructure.SBML_version;
+  else
+    version = 1;
+  end;
 else
   level = 3;
   version = 1;
@@ -67,11 +77,19 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_MODEL';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
+
 
 % check that structure contains all the necessary fields
 [SBMLfieldnames, numFields] = getFieldnames('SBML_MODEL', level, version);
@@ -219,17 +237,13 @@ end;
 
 % report failure
 if (valid == 0)
-	message = sprintf('Invalid Model\n%s\n', message);
+	message = sprintf('Invalid Model structure\n%s\n', message);
 end;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valid, message] = isSBML_AlgebraicRule(varargin)
-
-
-
-
 
 
 
@@ -243,7 +257,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -264,10 +280,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_ALGEBRAIC_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -322,7 +345,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -343,25 +368,34 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_ASSIGNMENT_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (level > 1)
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
+  if isfield(SBMLStructure, 'typecode')
+    if (level > 1)
+      if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+        valid = 0;
+        message = 'typecode mismatch';
+        return;
+      end;
+    else
+      % check L1 types
+      typecode = SBMLStructure.typecode;
+      cvr = strcmp(typecode, 'SBML_COMPARTMENT_VOLUME_RULE');
+      pr = strcmp(typecode, 'SBML_PARAMETER_RULE');
+      scr = strcmp(typecode, 'SBML_SPECIES_CONCENTRATION_RULE');
+      if (cvr ~= 1 && pr ~= 1 && scr ~= 1)
+        valid = 0;
+        message = 'typecode mismatch';
+        return;
+      elseif (strcmp(SBMLStructure.type, 'scalar') ~= 1)
+        valid = 0;
+        message = 'expected scalar type';
+        return;
+      end;      
     end;
   else
-    % check L1 types
-    typecode = SBMLStructure.typecode;
-    cvr = strcmp(typecode, 'SBML_COMPARTMENT_VOLUME_RULE');
-    pr = strcmp(typecode, 'SBML_PARAMETER_RULE');
-    scr = strcmp(typecode, 'SBML_SPECIES_CONCENTRATION_RULE');
-    if (cvr ~= 1 && pr ~= 1 && scr ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-    elseif (strcmp(SBMLStructure.type, 'scalar') ~= 1)
-      valid = 0;
-      message = 'expected scalar type';
-    end;      
-	end;
+    valid = 0;
+    message = 'missing typecode';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -416,7 +450,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -437,10 +473,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_COMPARTMENT';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -495,7 +538,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -516,10 +561,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_COMPARTMENT_TYPE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -574,7 +626,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -595,10 +649,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_COMPARTMENT_VOLUME_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -653,7 +714,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -674,10 +737,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_CONSTRAINT';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -732,7 +802,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -753,10 +825,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_DELAY';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -811,7 +890,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -832,10 +913,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_EVENT';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -943,7 +1031,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -964,10 +1054,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_EVENT_ASSIGNMENT';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1022,7 +1119,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1043,10 +1142,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_FUNCTION_DEFINITION';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1101,7 +1207,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1122,10 +1230,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_INITIAL_ASSIGNMENT';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1180,7 +1295,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1201,10 +1318,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_KINETIC_LAW';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1284,7 +1408,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1305,10 +1431,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_LOCAL_PARAMETER';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1363,7 +1496,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1384,10 +1519,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_MODIFIER_SPECIES_REFERENCE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1442,7 +1584,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1463,10 +1607,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_PARAMETER';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1521,7 +1672,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1542,10 +1695,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_PARAMETER_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1600,7 +1760,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1621,10 +1783,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_PRIORITY';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1679,7 +1848,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1700,25 +1871,34 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_RATE_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (level > 1)
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
+  if isfield(SBMLStructure, 'typecode')
+    if (level > 1)
+      if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+        valid = 0;
+        message = 'typecode mismatch';
+        return;
+      end;
+    else
+      % check L1 types
+      typecode = SBMLStructure.typecode;
+      cvr = strcmp(typecode, 'SBML_COMPARTMENT_VOLUME_RULE');
+      pr = strcmp(typecode, 'SBML_PARAMETER_RULE');
+      scr = strcmp(typecode, 'SBML_SPECIES_CONCENTRATION_RULE');
+      if (cvr ~= 1 && pr ~= 1 && scr ~= 1)
+        valid = 0;
+        message = 'typecode mismatch';
+        return;
+      elseif (strcmp(SBMLStructure.type, 'rate') ~= 1)
+        valid = 0;
+        message = 'expected rate type';
+        return;
+      end;      
     end;
   else
-    % check L1 types
-    typecode = SBMLStructure.typecode;
-    cvr = strcmp(typecode, 'SBML_COMPARTMENT_VOLUME_RULE');
-    pr = strcmp(typecode, 'SBML_PARAMETER_RULE');
-    scr = strcmp(typecode, 'SBML_SPECIES_CONCENTRATION_RULE');
-    if (cvr ~= 1 && pr ~= 1 && scr ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-    elseif (strcmp(SBMLStructure.type, 'rate') ~= 1)
-      valid = 0;
-      message = 'expected rate type';
-    end;
-	end;
+    valid = 0;
+    message = 'missing typecode';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1773,7 +1953,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1794,10 +1976,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_REACTION';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -1891,7 +2080,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1907,7 +2098,13 @@ isValidLevelVersionCombination(level, version);
 message = '';
 
 if ~isempty(SBMLStructure)
-  typecode = SBMLStructure.typecode;
+  if isfield(SBMLStructure, 'typecode')
+    typecode = SBMLStructure.typecode;
+  else
+    valid = 0;
+    message = 'missing typecode';
+    return;
+  end;
 else
   typecode = 'SBML_ASSIGNMENT_RULE';
 end;
@@ -1925,10 +2122,67 @@ switch (typecode)
     [valid, message] = isSBML_RateRule(SBMLStructure, level, version);
   case 'SBML_SPECIES_CONCENTRATION_RULE'
     [valid, message] = isSBML_SpeciesConcentrationRule(SBMLStructure, level, version);
+  case 'SBML_RULE'
+    [valid, message] = checkRule(SBMLStructure, level, version);
   otherwise
     valid = 0;
     message = 'Incorrect rule typecode';
  end;
+ 
+
+function [valid, message] = checkRule(SBMLStructure, level, version)
+
+
+message = '';
+
+% check that argument is a structure
+valid = isstruct(SBMLStructure);
+
+% check the typecode
+typecode = 'SBML_RULE';
+if (valid == 1 && ~isempty(SBMLStructure))
+  if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+    valid = 0;
+    message = 'typecode mismatch';
+  end;
+end;
+
+% if the level and version fields exist they must match
+if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
+	if ~isequal(level, SBMLStructure.level)
+		valid = 0;
+		message = 'level mismatch';
+	end;
+end;
+if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
+	if ~isequal(version, SBMLStructure.version)
+		valid = 0;
+		message = 'version mismatch';
+	end;
+end;
+
+% check that structure contains all the necessary fields
+[SBMLfieldnames, numFields] = getAlgebraicRuleFieldnames(level, version);
+
+if (numFields ==0)
+	valid = 0;
+	message = 'invalid level/version';
+end;
+
+index = 1;
+while (valid == 1 && index <= numFields)
+	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
+	if (valid == 0);
+		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
+	end;
+	index = index + 1;
+end;
+
+% report failure
+if (valid == 0)
+	message = sprintf('Invalid Rule\n%s\n', message);
+end;
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1946,7 +2200,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -1967,10 +2223,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_SPECIES';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2025,7 +2288,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2046,10 +2311,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_SPECIES_CONCENTRATION_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2104,7 +2376,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2125,10 +2399,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_SPECIES_REFERENCE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2183,7 +2464,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2204,10 +2487,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_SPECIES_TYPE';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2262,7 +2552,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2283,10 +2575,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_STOICHIOMETRY_MATH';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2341,7 +2640,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2362,10 +2663,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_TRIGGER';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2420,7 +2728,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2441,10 +2751,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_UNIT';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -2499,7 +2816,9 @@ end;
 SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
-	error('cannot deal with arrays of structures');
+  valid = 0;
+  message = 'cannot deal with arrays of structures';
+  return;
 end;
 
 level = varargin{2};
@@ -2520,10 +2839,17 @@ valid = isstruct(SBMLStructure);
 % check the typecode
 typecode = 'SBML_UNIT_DEFINITION';
 if (valid == 1 && ~isempty(SBMLStructure))
-	if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-		valid = 0;
-		message = 'typecode mismatch';
-	end;
+  if isfield(SBMLStructure, 'typecode')
+    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+      valid = 0;
+      message = 'typecode mismatch';
+      return;
+    end;
+  else
+    valid = 0;
+    message = 'missing typecode field';
+    return;
+  end;
 end;
 
 % if the level and version fields exist they must match
@@ -3390,70 +3716,92 @@ function [SBMLfieldnames, nNumberFields] = getFieldnames(typecode, ...
 
 
 
+done = 1;
 
 
 switch (typecode)
   case {'SBML_ALGEBRAIC_RULE', 'AlgebraicRule', 'algebraicRule'}
-    [SBMLfieldnames, nNumberFields] = getAlgebraicRuleFieldnames(level, version);
+    fhandle = str2func('getAlgebraicRuleFieldnames');
   case {'SBML_ASSIGNMENT_RULE', 'AssignmentRule', 'assignmentRule'}
-    [SBMLfieldnames, nNumberFields] = getAssignmentRuleFieldnames(level, version);
+    fhandle = str2func('getAssignmentRuleFieldnames');
   case {'SBML_COMPARTMENT', 'Compartment', 'compartment'}
-    [SBMLfieldnames, nNumberFields] = getCompartmentFieldnames(level, version);
+    fhandle = str2func('getCompartmentFieldnames');
   case {'SBML_COMPARTMENT_TYPE', 'CompartmentType', 'compartmentType'}
-    [SBMLfieldnames, nNumberFields] = getCompartmentTypeFieldnames(level, version);
+    fhandle = str2func('getCompartmentTypeFieldnames');
   case {'SBML_COMPARTMENT_VOLUME_RULE', 'CompartmentVolumeRule', 'compartmentVolumeRule'}
-    [SBMLfieldnames, nNumberFields] = getCompartmentVolumeRuleFieldnames(level, version);
+    fhandle = str2func('getCompartmentVolumeRuleFieldnames');
   case {'SBML_CONSTRAINT', 'Constraint', 'constraint'}
-    [SBMLfieldnames, nNumberFields] = getConstraintFieldnames(level, version);
+    fhandle = str2func('getConstraintFieldnames');
   case {'SBML_DELAY', 'Delay', 'delay'}
-    [SBMLfieldnames, nNumberFields] = getDelayFieldnames(level, version);
+    fhandle = str2func('getDelayFieldnames');
   case {'SBML_EVENT', 'Event', 'event'}
-    [SBMLfieldnames, nNumberFields] = getEventFieldnames(level, version);
+    fhandle = str2func('getEventFieldnames');
   case {'SBML_EVENT_ASSIGNMENT', 'EventAssignment', 'eventAssignment'}
-    [SBMLfieldnames, nNumberFields] = getEventAssignmentFieldnames(level, version);
+    fhandle = str2func('getEventAssignmentFieldnames');
   case {'SBML_FUNCTION_DEFINITION', 'FunctionDefinition', 'functionDefinition'}
-    [SBMLfieldnames, nNumberFields] = getFunctionDefinitionFieldnames(level, version);
+    fhandle = str2func('getFunctionDefinitionFieldnames');
   case {'SBML_INITIAL_ASSIGNMENT', 'InitialAssignment', 'initialAssignment'}
-    [SBMLfieldnames, nNumberFields] = getInitialAssignmentFieldnames(level, version);
+    fhandle = str2func('getInitialAssignmentFieldnames');
   case {'SBML_KINETIC_LAW', 'KineticLaw', 'kineticLaw'}
-    [SBMLfieldnames, nNumberFields] = getKineticLawFieldnames(level, version);
+    fhandle = str2func('getKineticLawFieldnames');
   case {'SBML_LOCAL_PARAMETER', 'LocalParameter', 'localParameter'}
-    [SBMLfieldnames, nNumberFields] = getLocalParameterFieldnames(level, version);
+    fhandle = str2func('getLocalParameterFieldnames');
   case {'SBML_MODEL', 'Model', 'model'}
-    [SBMLfieldnames, nNumberFields] = getModelFieldnames(level, version);
+    fhandle = str2func('getModelFieldnames');
   case {'SBML_MODIFIER_SPECIES_REFERENCE', 'ModifierSpeciesReference', 'modifierSpeciesReference'}
-    [SBMLfieldnames, nNumberFields] = getModifierSpeciesReferenceFieldnames(level, version);
+    fhandle = str2func('getModifierSpeciesReferenceFieldnames');
   case {'SBML_PARAMETER', 'Parameter', 'parameter'}
-    [SBMLfieldnames, nNumberFields] = getParameterFieldnames(level, version);
+    fhandle = str2func('getParameterFieldnames');
   case {'SBML_PARAMETER_RULE', 'ParameterRule', 'parameterRule'}
-    [SBMLfieldnames, nNumberFields] = getParameterRuleFieldnames(level, version);
+    fhandle = str2func('getParameterRuleFieldnames');
   case {'SBML_PRIORITY', 'Priority', 'priority'}
-    [SBMLfieldnames, nNumberFields] = getPriorityFieldnames(level, version);
+    fhandle = str2func('getPriorityFieldnames');
   case {'SBML_RATE_RULE', 'RateRule', 'ruleRule'}
-    [SBMLfieldnames, nNumberFields] = getRateRuleFieldnames(level, version);
+    fhandle = str2func('getRateRuleFieldnames');
   case {'SBML_REACTION', 'Reaction', 'reaction'}
-    [SBMLfieldnames, nNumberFields] = getReactionFieldnames(level, version);
+    fhandle = str2func('getReactionFieldnames');
   case {'SBML_SPECIES', 'Species', 'species'}
-    [SBMLfieldnames, nNumberFields] = getSpeciesFieldnames(level, version);
+    fhandle = str2func('getSpeciesFieldnames');
   case {'SBML_SPECIES_CONCENTRATION_RULE', 'SpeciesConcentrationRule', 'speciesConcentrationRule'}
-    [SBMLfieldnames, nNumberFields] = getSpeciesConcentrationRuleFieldnames(level, version);
+    fhandle = str2func('getSpeciesConcentrationRuleFieldnames');
   case {'SBML_SPECIES_REFERENCE', 'SpeciesReference', 'speciesReference'}
-    [SBMLfieldnames, nNumberFields] = getSpeciesReferenceFieldnames(level, version);
+    fhandle = str2func('getSpeciesReferenceFieldnames');
   case {'SBML_SPECIES_TYPE', 'SpeciesType', 'speciesType'}
-    [SBMLfieldnames, nNumberFields] = getSpeciesTypeFieldnames(level, version);
+    fhandle = str2func('getSpeciesTypeFieldnames');
   case {'SBML_STOICHIOMETRY_MATH', 'StoichiometryMath', 'stoichiometryMath'}
-    [SBMLfieldnames, nNumberFields] = getStoichiometryMathFieldnames(level, version);
+    fhandle = str2func('getStoichiometryMathFieldnames');
   case {'SBML_TRIGGER', 'Trigger', 'trigger'}
-    [SBMLfieldnames, nNumberFields] = getTriggerFieldnames(level, version);
+    fhandle = str2func('getTriggerFieldnames');
   case {'SBML_UNIT', 'Unit', 'unit'}
-    [SBMLfieldnames, nNumberFields] = getUnitFieldnames(level, version);
+    fhandle = str2func('getUnitFieldnames');
   case {'SBML_UNIT_DEFINITION', 'UnitDefinition', 'unitDefinition'}
-    [SBMLfieldnames, nNumberFields] = getUnitDefinitionFieldnames(level, version);
+    fhandle = str2func('getUnitDefinitionFieldnames');
   otherwise
-    error('%s\n%s', ...
-      'getFieldnames(typecode, level, version', ...
-      'typecode not recognised');    
+    done = 0;  
 end;
+
+if done == 1
+  [SBMLfieldnames, nNumberFields] = feval(fhandle, level, version);
+else
+  switch (typecode)
+    case {'SBML_FBC_FLUXBOUND', 'FluxBound', 'fluxBound'}
+      fhandle = str2func('getFluxBoundFieldnames');
+    case {'SBML_FBC_FLUXOBJECTIVE', 'FluxObjective', 'fluxObjective'}
+      fhandle = str2func('getFluxObjectiveFieldnames');
+    case {'SBML_FBC_OBJECTIVE', 'Objective', 'objective'}
+      fhandle = str2func('getObjectiveFieldnames');
+    case {'SBML_FBC_MODEL', 'FBCModel'}
+      fhandle = str2func('getFBCModelFieldnames');
+    case {'SBML_FBC_SPECIES', 'FBCSpecies'}
+      fhandle = str2func('getFBCSpeciesFieldnames');
+    otherwise
+      error('%s\n%s', ...
+        'getFieldnames(typecode, level, version', ...
+        'typecode not recognised');    
+  end;
+  [SBMLfieldnames, nNumberFields] = feval(fhandle, level, version, 1);
+end;
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

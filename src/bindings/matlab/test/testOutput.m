@@ -36,7 +36,10 @@ else
   files = dir(['test-data', filesep, '*.xml']);
 end;
 
+disp('Testing output model');
+
 fail = 0;
+test = 0;
 
 for i=1:length(files)
   model = [];
@@ -53,6 +56,7 @@ for i=1:length(files)
       else
         OutputSBML(model, [outdir, filesep, files(i).name]);
       end;
+      test = test + 1;
       if (compareFiles(['test-data', filesep, files(i).name], [outdir, filesep, files(i).name]))
         disp(sprintf('Output of %s failed', files(i).name));
         fail = fail + 1;
@@ -61,4 +65,55 @@ for i=1:length(files)
   end;
 end;
 
- 
+disp ('************************************');
+disp('Overall tests:');
+disp(sprintf('Number tests: %d', test));
+disp(sprintf('Number fails: %d', fail));
+disp(sprintf('Pass rate: %d%%\n', ((test-fail)/test)*100));
+
+
+disp('Testing invalid model structures');
+test = 0;
+invalidFail = 0;
+
+test = test + 2;
+m = [];
+[v, mess] = isSBML_Model(m);
+
+expected = sprintf('Invalid Model structure\n%s\n', '');
+if v ~= 0 || ~strcmp(mess, expected)
+  invalidFail = invalidFail + 1;
+  disp('empty [] failed');
+end;
+
+try
+  OutputSBML(m, [outdir, filesep, 'temp.xml']);
+  invalidFail = invalidFail + 1;
+  disp('empty [] write failed');
+catch
+end;
+
+test = test + 2;
+m = struct();
+[v, mess] = isSBML_Model(m);
+
+expected = sprintf('missing typecode field');
+if v ~= 0 || ~strcmp(mess, expected)
+  invalidFail = invalidFail + 1;
+  disp('empty structure failed');
+end;
+
+try
+  OutputSBML(m, [outdir, filesep, 'temp.xml']);
+  invalidFail = invalidFail + 1;
+  disp('empty structure write failed');
+catch
+end;
+
+disp ('************************************');
+disp('Overall tests:');
+disp(sprintf('Number tests: %d', test));
+disp(sprintf('Number fails: %d', invalidFail));
+disp(sprintf('Pass rate: %d%%\n', ((test-invalidFail)/test)*100));
+
+fail = fail + invalidFail;
