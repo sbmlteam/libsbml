@@ -46,6 +46,8 @@
 #include <sbml/compress/CompressCommon.h>
 #include <sbml/compress/InputDecompressor.h>
 
+#include <sbml/common/common.h>
+
 
 /** @cond doxygen-ignored */
 
