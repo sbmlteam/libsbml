@@ -1,5 +1,45 @@
            libSBML NEWS -- History of user-visible changes
 
+======================================================================
+Next release
+======================================================================
+
+STABLE
+
+* New features
+
+    
+* Bug fixes
+
+  - An SBML Level 3 model allows the user to specify a stoichiometry
+    that is changing with time.  The conversion code incorrectly 
+    attempted to convert this to a Level 2 StoichiometryMath. This
+    has been changed and the conversion will no longer be attempted.
+
+  - Tracker issue #3438777
+    The XercesParser was failing to find the line and column number
+    definitions with some compilers. This is now fixed.  Thanks to
+    David Fange for reporting it.
+   
+
+
+* Miscellaneous
+
+
+* Configuration/build system changes
+
+EXPERIMENTAL
+
+* New features
+
+    
+* Bug fixes
+
+
+* Miscellaneous
+
+
+* Configuration/build system changes
 
 ======================================================================
 Version 5.2.0 (2011-11-11)
