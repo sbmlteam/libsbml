@@ -7175,6 +7175,22 @@ static const sbmlErrorTableEntry errorTable[] =
     "Initialvalue of event Triggers was assumed true in L2."
   },
 
+  //92014
+  {
+    VaryingStoichiometryNotSupported,
+    "This Level+Version of SBML does not support varying stoichiometry.",
+    LIBSBML_CAT_SBML_L2V1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "The use of a stoichiometry that varies with time is only permitted "
+    "in SBML Level 3."
+  },
+
   /* --------------------------------------------------------------------------
    * L2V2 compatibility.
    * ----------------------------------------------------------------------- */

@@ -745,6 +745,7 @@ typedef enum
 , PriorityLostFromL3                    = 92011 /*!< SBML Level 2 Version 1 does not support priorities on Event objects. */
 , NonPersistentNotSupported             = 92012 /*!< SBML Level 2 Version 1 does not support the 'persistent' attribute on Trigger objects. */
 , InitialValueFalseEventNotSupported    = 92013 /*!< SBML Level 2 Version 1 does not support the 'initialValue' attribute on Trigger objects. */
+, VaryingStoichiometryNotSupported      = 92014 /*!< This Level+Version of SBML does not support varying stoichiometry. */
 , SBOTermNotUniversalInL2v2             = 93001 /*!< The 'sboTerm' attribute is invalid for this component in SBML Level 2 Version 2. */
 , NoUnitOffsetInL2v2                    = 93002 /*!< This Level+Version of SBML does not support the 'offset' attribute on Unit objects. */
 , NoKineticLawTimeUnitsInL2v2           = 93003 /*!< This Level+Version of SBML does not support the 'timeUnits' attribute on KineticLaw objects. */
