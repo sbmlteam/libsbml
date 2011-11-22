@@ -278,7 +278,8 @@ endif(WITH_MATLAB_BUILDSBML)
 
 
 # mark files for installation
-file(GLOB matlab_scripts "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.m")
+file(GLOB matlab_scripts "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.m"
+                         "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.xml")
 install(FILES ${matlab_scripts} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR})
 
 # add test cases
