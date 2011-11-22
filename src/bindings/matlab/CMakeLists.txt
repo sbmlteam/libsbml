@@ -278,26 +278,8 @@ endif(WITH_MATLAB_BUILDSBML)
 
 
 # mark files for installation
-
-foreach(mFile
-
-   test.xml
-   buildSBML.m
-   CheckAndConvert.m  
-   Contents.m
-   ConvertFormulaToMathML.m
-   installSBML.m
-   isoctave.m
-   isSBML_Model.m
-   OutputSBML.m
-   TranslateSBML.m
-		
-)
-
-	install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/${mFile} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR} )
-
-endforeach()
-
+file(GLOB matlab_scripts "${CMAKE_CURRENT_SOURCE_DIR}/../matlab/*.m")
+install(FILES ${matlab_scripts} DESTINATION ${MATLAB_PACKAGE_INSTALL_DIR})
 
 # add test cases
 if (WITH_CHECK)
