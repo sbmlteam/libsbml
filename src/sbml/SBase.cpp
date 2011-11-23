@@ -3248,7 +3248,7 @@ SBase::read (XMLInputStream& stream)
     {
       text += stream.next().getCharacters(); 
     }
-    setElemenentText(text);
+    setElementText(text);
 
     const XMLToken& next = stream.peek();
 
