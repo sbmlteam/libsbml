@@ -2789,7 +2789,7 @@ protected:
    * 
    * @param text the text string found between the element tags.
    */ 
-  virtual void setElemenentText(const std::string &text);
+  virtual void setElementText(const std::string &text);
 
   /** @cond doxygen-libsbml-internal */
 

@@ -3313,7 +3313,7 @@ SBase::read (XMLInputStream& stream)
 
 
 void 
-SBase::setElemenentText(const std::string &text) 
+SBase::setElementText(const std::string &text) 
 {
 }
 
