@@ -2781,6 +2781,16 @@ s.setNotes("<body xmlns='http://www.w3.org/1999/xhtml'><p>here is my note</p></b
 
 
 protected:
+
+  
+  /** 
+   * When overridden allows SBase elements to use the text included in between
+   * the elements tags. The default implementation does nothing.
+   * 
+   * @param text the text string found between the element tags.
+   */ 
+  virtual void setElemenentText(const std::string &text);
+
   /** @cond doxygen-libsbml-internal */
 
   
@@ -3250,7 +3260,6 @@ SBase.readExtensionAttributes(attributes);
   //-----------------------------------------------------------------------------
 
   /** @endcond */
-
 
 private:
   /** @cond doxygen-libsbml-internal */

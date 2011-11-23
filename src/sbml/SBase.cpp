@@ -3240,7 +3240,16 @@ SBase::read (XMLInputStream& stream)
 
   while ( stream.isGood() )
   {
-    stream.skipText();
+    // this used to skip the text
+    //    stream.skipText();
+    // instead, read text and store in variable
+    std::string text;
+    while(stream.isGood() && stream.peek().isText())
+    {
+      text += stream.next().getCharacters(); 
+    }
+    setElemenentText(text);
+
     const XMLToken& next = stream.peek();
 
     // Re-check stream.isGood() because stream.peek() could hit something.
@@ -3302,6 +3311,11 @@ SBase::read (XMLInputStream& stream)
 }
 /** @endcond */
 
+
+void 
+SBase::setElemenentText(const std::string &text) 
+{
+}
 
 /** @cond doxygen-libsbml-internal */
 /*
