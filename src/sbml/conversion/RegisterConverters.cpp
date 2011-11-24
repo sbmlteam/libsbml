@@ -38,6 +38,9 @@
 #include <sbml/conversion/SBMLUnitsConverter.h>
 #include <sbml/conversion/SBMLRuleConverter.h>
 
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 // Presumably this means that converters added are hardcoded into a release
 // some one adding their own would need to add to this file manually ??
   
@@ -47,6 +50,8 @@ static SBMLConverterRegister<SBMLInitialAssignmentConverter> registerIAConverter
 static SBMLConverterRegister<SBMLLevelVersionConverter> registerLVConverter;
 static SBMLConverterRegister<SBMLStripPackageConverter> registerStripConverter;
 static SBMLConverterRegister<SBMLUnitsConverter> registerUnitsConverter;
+
+LIBSBML_CPP_NAMESPACE_END
 
 
 
