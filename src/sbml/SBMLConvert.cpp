@@ -40,6 +40,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";
 
+/* functions used in adjusting L3 -> L2 stoichiometryMath */
+
+void createNoValueStoichMath(Model & m, SpeciesReference & sr, 
+                             unsigned int idCount);
+void createParameterAsRateRule(Model &m, SpeciesReference &sr, Rule &rr, 
+                          unsigned int idCount);
+
+void useStoichMath(Model & m, SpeciesReference &sr, bool isRule);
 
 /*
  * Converts the model to a from SBML L1 to L2.  Most of the necessary
@@ -1129,34 +1137,20 @@ void
 Model::dealWithStoichiometry()
 {
   unsigned int idCount = 0;
-  char newid[15];
-  std::string id;
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     Reaction *r = getReaction(i);
     unsigned int j;
+
     for (j = 0; j < r->getNumReactants(); j++)
     {
       SpeciesReference *sr = r->getReactant(j);
-      if (!(sr->isSetStoichiometry()))
+      if (sr->isSetStoichiometry() == false)
       {
-        if (!(sr->isSetId()))
+        if (sr->isSetId() == false)
         {
-          // no stoichiometry and no id to set the stoichiometry
-          // replace with stoichiometryMath using a parameter with no value
-          sprintf(newid, "parameterId_%u", idCount);
-          id.assign(newid);
+          createNoValueStoichMath(*this, *sr, idCount);
           idCount++;
-          Parameter *p = createParameter();
-          p->setId(id);
-          p->setConstant(false);
-
-          StoichiometryMath *sm = sr->createStoichiometryMath();
-          if (sm != NULL)
-          {
-            ASTNode *ast = SBML_parseFormula(id.c_str());
-            sm->setMath(ast);
-          }
         }
         else
         {
@@ -1165,51 +1159,25 @@ Model::dealWithStoichiometry()
           // not used
           if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
-            {
-              sm->setMath(getInitialAssignment(sr->getId())->getMath());
-              removeInitialAssignment(sr->getId());
-            }
+            useStoichMath(*this, *sr, false);
           }
           else if (getRule(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
+            //assignmentRule
+            if (getRule(sr->getId())->getTypeCode() == SBML_ASSIGNMENT_RULE)
+            {  
+              useStoichMath(*this, *sr, true);
+            }
+            else if (getRule(sr->getId())->getTypeCode() == SBML_RATE_RULE)
             {
-              sm->setMath(getRule(sr->getId())->getMath());
-              removeRule(sr->getId());
+              createParameterAsRateRule(*this, *sr, *(getRule(sr->getId())), idCount);
+              idCount++;
             }
           }
-          //else if (getRateRule(sr->getId()) != NULL)
-          //{
-          //  // use stoichiometryMath instead
-          //  StoichiometryMath *sm = sr->createStoichiometryMath();
-          //  if (sm != NULL)
-          //  {
-          //    sm->setMath(getRateRule(sr->getId())->getMath());
-          //    removeRateRule(sr->getId());
-          //  }
-          //}
           else
           {
-            // is set but not used 
-            // use StoichiometryMath with parameter with no value
-            sprintf(newid, "parameterId_%u", idCount);
-            id.assign(newid);
+            createNoValueStoichMath(*this, *sr, idCount);
             idCount++;
-            Parameter *p = createParameter();
-            p->setId(id);
-            p->setConstant(false);
-
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
-            {
-              ASTNode *ast = SBML_parseFormula(id.c_str());
-              sm->setMath(ast);
-            }
           }
         }
       }
@@ -1223,34 +1191,21 @@ Model::dealWithStoichiometry()
           // not used
           if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
-            {
-              sm->setMath(getInitialAssignment(sr->getId())->getMath());
-              removeInitialAssignment(sr->getId());
-            }
+            useStoichMath(*this, *sr, false);
           }
           else if (getRule(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
+            //assignmentRule
+            if (getRule(sr->getId())->getTypeCode() == SBML_ASSIGNMENT_RULE)
+            {            
+              useStoichMath(*this, *sr, true);
+            }
+            else if (getRule(sr->getId())->getTypeCode() == SBML_RATE_RULE)
             {
-              sm->setMath(getRule(sr->getId())->getMath());
-              removeRule(sr->getId());
+              createParameterAsRateRule(*this, *sr, *(getRule(sr->getId())), idCount);
+              idCount++;
             }
           }
-          //else if (getRateRule(sr->getId()) != NULL)
-          //{
-          //  // use stoichiometryMath instead
-          //  StoichiometryMath *sm = sr->createStoichiometryMath();
-          //  if (sm != NULL)
-          //  {
-          //    sm->setMath(getRateRule(sr->getId())->getMath());
-          //    removeRateRule(sr->getId());
-          //  }
-          //}
         }
         // no id set - do not need to do anything
       }
@@ -1258,25 +1213,12 @@ Model::dealWithStoichiometry()
     for (j = 0; j < r->getNumProducts(); j++)
     {
       SpeciesReference *sr = r->getProduct(j);
-      if (!(sr->isSetStoichiometry()))
+      if (sr->isSetStoichiometry() == false)
       {
-        if (!(sr->isSetId()))
+        if (sr->isSetId() == false)
         {
-          // no stoichiometry and no id to set the stoichiometry
-          // replace with stoichiometryMath using a parameter with no value
-          sprintf(newid, "parameterId_%u", idCount);
-          id.assign(newid);
+          createNoValueStoichMath(*this, *sr, idCount);
           idCount++;
-          Parameter *p = createParameter();
-          p->setId(id);
-          p->setConstant(false);
-
-          StoichiometryMath *sm = sr->createStoichiometryMath();
-          if (sm != NULL)
-          {
-            ASTNode *ast = SBML_parseFormula(id.c_str());
-            sm->setMath(ast);
-          }
         }
         else
         {
@@ -1285,51 +1227,25 @@ Model::dealWithStoichiometry()
           // not used
           if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
-            {
-              sm->setMath(getInitialAssignment(sr->getId())->getMath());
-              removeInitialAssignment(sr->getId());
-            }
+            useStoichMath(*this, *sr, false);
           }
           else if (getRule(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
+            //assignmentRule
+            if (getRule(sr->getId())->getTypeCode() == SBML_ASSIGNMENT_RULE)
+            {  
+              useStoichMath(*this, *sr, true);
+            }
+            else if (getRule(sr->getId())->getTypeCode() == SBML_RATE_RULE)
             {
-              sm->setMath(getRule(sr->getId())->getMath());
-              removeRule(sr->getId());
+              createParameterAsRateRule(*this, *sr, *(getRule(sr->getId())), idCount);
+              idCount++;
             }
           }
-          //else if (getRateRule(sr->getId()) != NULL)
-          //{
-          //  // use stoichiometryMath instead
-          //  StoichiometryMath *sm = sr->createStoichiometryMath();
-          //  if (sm != NULL)
-          //  {
-          //    sm->setMath(getRateRule(sr->getId())->getMath());
-          //    removeRateRule(sr->getId());
-          //  }
-          //}
           else
           {
-            // is set but not used 
-            // use StoichiometryMath with parameter with no value
-            sprintf(newid, "parameterId_%u", idCount);
-            id.assign(newid);
+            createNoValueStoichMath(*this, *sr, idCount);
             idCount++;
-            Parameter *p = createParameter();
-            p->setId(id);
-            p->setConstant(false);
-
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
-            {
-              ASTNode *ast = SBML_parseFormula(id.c_str());
-              sm->setMath(ast);
-            }
           }
         }
       }
@@ -1343,40 +1259,99 @@ Model::dealWithStoichiometry()
           // not used
           if (getInitialAssignment(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
-            {
-              sm->setMath(getInitialAssignment(sr->getId())->getMath());
-              removeInitialAssignment(sr->getId());
-            }
+            useStoichMath(*this, *sr, false);
           }
           else if (getRule(sr->getId()) != NULL)
           {
-            // use stoichiometryMath instead
-            StoichiometryMath *sm = sr->createStoichiometryMath();
-            if (sm != NULL)
+            //assignmentRule
+            if (getRule(sr->getId())->getTypeCode() == SBML_ASSIGNMENT_RULE)
+            {            
+              useStoichMath(*this, *sr, true);
+            }
+            else if (getRule(sr->getId())->getTypeCode() == SBML_RATE_RULE)
             {
-              sm->setMath(getRule(sr->getId())->getMath());
-              removeRule(sr->getId());
+              createParameterAsRateRule(*this, *sr, *(getRule(sr->getId())), idCount);
+              idCount++;
             }
           }
-          //else if (getRateRule(sr->getId()) != NULL)
-          //{
-          //  // use stoichiometryMath instead
-          //  StoichiometryMath *sm = sr->createStoichiometryMath();
-          //  if (sm != NULL)
-          //  {
-          //    sm->setMath(getRateRule(sr->getId())->getMath());
-          //    removeRateRule(sr->getId());
-          //  }
-          //}
         }
         // no id set - do not need to do anything
       }
     }
   }
 }
+
+void
+createNoValueStoichMath(Model & m, SpeciesReference & sr, unsigned int idCount)
+{
+  char newid[15];
+  std::string id;
+
+  // no stoichiometry and no id to set the stoichiometry
+  // replace with stoichiometryMath using a parameter with no value
+
+  sprintf(newid, "parameterId_%u", idCount);
+  id.assign(newid);
+
+  Parameter *p = m.createParameter();
+  p->setId(id);
+  p->setConstant(false);
+
+  StoichiometryMath *sm = sr.createStoichiometryMath();
+  if (sm != NULL)
+  {
+    ASTNode *ast = SBML_parseFormula(id.c_str());
+    sm->setMath(ast);
+  }
+}
+
+
+void
+createParameterAsRateRule(Model &m, SpeciesReference &sr, Rule &rr, 
+                          unsigned int idCount)
+{
+  char newid[15];
+  std::string id;
+
+  // create parameter as variable of rate rule 
+  // and use stoichiometryMath to point to this
+  sprintf(newid, "parameterId_%u", idCount);
+  id.assign(newid);
+
+  Parameter *p = m.createParameter();
+  p->setId(id);
+  p->setConstant(false);
+
+  rr.setVariable(id);
+  
+  StoichiometryMath *sm = sr.createStoichiometryMath();
+  if (sm != NULL)
+  {
+    ASTNode *ast = SBML_parseFormula(id.c_str());
+    sm->setMath(ast);
+  }
+}
+
+void
+useStoichMath(Model & m, SpeciesReference &sr, bool isRule)
+{
+  // use stoichiometryMath instead
+  StoichiometryMath *sm = sr.createStoichiometryMath();
+  if (sm != NULL)
+  {
+    if (isRule == true)
+    {
+      sm->setMath(m.getRule(sr.getId())->getMath());
+      m.removeRule(sr.getId());
+    }
+    else
+    {
+      sm->setMath(m.getInitialAssignment(sr.getId())->getMath());
+      m.removeInitialAssignment(sr.getId());
+    }
+  }
+}
+
 /** @endcond **/
 
 LIBSBML_CPP_NAMESPACE_END
