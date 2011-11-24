@@ -228,17 +228,6 @@ START_CONSTRAINT (92013, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (92014, SpeciesReference, sr)
-{
-  pre (sr.getLevel() > 2);
-  pre (sr.isSetId());
-  pre (m.getRule(sr.getId()) != NULL);
-
-  inv( m.getRule(sr.getId())->getTypeCode() != SBML_RATE_RULE );
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (99926, Compartment, c)
 {
   pre (c.getLevel() > 2);
