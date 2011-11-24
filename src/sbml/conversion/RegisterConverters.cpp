@@ -41,8 +41,8 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-// Presumably this means that converters added are hardcoded into a release
-// some one adding their own would need to add to this file manually ??
+// All new converters are registered here once. If a converter is not in this
+// list it needs to be registered manually. 
   
 static SBMLConverterRegister<SBMLRuleConverter> registerRuleConverter;
 static SBMLConverterRegister<SBMLFunctionDefinitionConverter> registerFDConverter;
