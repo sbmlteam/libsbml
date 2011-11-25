@@ -8,18 +8,33 @@ STABLE
 
 * New features
 
+  - Errors reported by the matlab binding function 'OutputSBML' 
+    have been improved to provide information about why the
+    structure is invalid.
+    
+  - There is a new virtual function on an SBase object 'setElementText'
+    that will allow a user to read/write and manipulate text within an 
+    XML element.
     
 * Bug fixes
 
-  - An SBML Level 3 model allows the user to specify a stoichiometry
-    that is changing with time.  The conversion code incorrectly 
-    attempted to convert this to a Level 2 StoichiometryMath. This
-    has been changed and the conversion will no longer be attempted.
-
+  - The conversion code incorrectly converted an L3 model where the
+    stoichiometry was changed by a RateRule.  This has been fixed.
+    
+  - The RegisterConverters class was not included in the
+    LIBSBML_CPP_NAMESPACE.  This has been corrected.  Thanks to
+    Christoph Flamm for letting us know.
+    
   - Tracker issue #3438777
     The XercesParser was failing to find the line and column number
     definitions with some compilers. This is now fixed.  Thanks to
     David Fange for reporting it.
+    
+  - Tracker issue #3441615
+    There was an issue with SWIG, C# and MSVC compilers caused by 
+    conflict with MS MFC and GDI classes.  This has been fixed by 
+    explicilty excluding these classes.  Thanks to  Totte Karlsson 
+    for reporting this.
    
 
 
