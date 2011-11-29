@@ -1,8 +1,6 @@
 /**
- * @file    ExcludeDoclet.java
- * @brief   Allow files to be excluded, and methods to be marked @internal
- * @author  Jamie Ho, Sun Microsystems, Inc.
- * @author  Chris Nokleberg
+ * @file    SBMLDoclet.java
+ * @brief   Exclude files, allow tag "@internal", and more.
  * @author  Michael Hucka
  * 
  * <!-- -----------------------------------------------------------------------
@@ -43,6 +41,7 @@
  *
  * Portions of this code was originally obtained on 24 Feb. 2008 from
  * http://java.sun.com/developer/JDCTechTips/2004/tt1214.html
+ * Author: Jamie Ho, Sun Microsystems, Inc.
  *
  * The following documentation was copied from that page.
  *
@@ -120,8 +119,9 @@ import com.sun.javadoc.*;
  * which specifies which classes and packages should be excluded from the output.
  * 
  * @author Jamie Ho
+ * @author Michael Hucka
  */
-public class ExcludeDoclet extends Doclet
+public class SBMLDoclet extends Doclet
 {
     private static List m_args = new ArrayList();
     private static Set m_excludeSet = new HashSet();
@@ -140,15 +140,17 @@ public class ExcludeDoclet extends Doclet
         name = FileExclusionDoclet.class.getName();
         Main.execute(name, name, args);
 
-        name = InternalTagDoclet.class.getName();
+        name = SBMLProcessingDoclet.class.getName();
         Main.execute(name, name, (String[]) m_args.toArray(new String[] {}));
     }
     
+    /* --------------------------------------------------------------------- */
+
     /**
-     * File exclusion handler.
+     * File exclusion handler class.
      * 
      * This code was originally taken from:
-     * @(#)ExcludeDoclet.java	1.1 04/08/31
+     * @(#)SBMLDoclet.java	1.1 04/08/31
      * http://java.sun.com/developer/JDCTechTips/2004/tt1214.html
      */
     public static class FileExclusionDoclet
@@ -162,7 +164,7 @@ public class ExcludeDoclet extends Doclet
          */
         public static boolean start(RootDoc root)
         {
-            root.printNotice("ExcludeDoclet: removing excluded source files...");
+            root.printNotice("SBMLDoclet: removing excluded source files...");
             ClassDoc[] classes = root.classes();
             for (int i = 0; i < classes.length; i++) {
                 if (m_excludeSet.contains(classes[i].qualifiedName()) ||
@@ -301,7 +303,26 @@ public class ExcludeDoclet extends Doclet
         }
     }
 
-    public static class InternalTagDoclet
+    /* --------------------------------------------------------------------- */
+
+    /**
+     * Our own processing doclet.
+     *
+     * The code to handle @internal was originally taken from:
+     * http://www.sixlegs.com/blog/java/exclude-javadoc-tag.html
+     * Author:  Chris Nokleberg.
+     * It looks for @internal in documentation strings and excludes the
+     * method or class marked by it.
+     *
+     * This has added code to substitute a documentation string for
+     * delete().  I have not been able to find a way to do otherwise.  SWIG
+     * will simply not let me attach doc strings to delete() at all, so I
+     * have to do it outside.  Grafting the code here was the best
+     * solution, though this code could stand to be reorganized and
+     * modularized better.
+     */
+
+    public static class SBMLProcessingDoclet
         extends Doclet
     {
         public static boolean validOptions(String[][] options,
@@ -317,16 +338,27 @@ public class ExcludeDoclet extends Doclet
         
         public static boolean start(RootDoc root)
         {
-            return Standard.start((RootDoc)process(root, RootDoc.class));
+            return Standard.start((RootDoc) process(root, RootDoc.class));
         }
 
-        private static boolean exclude(Doc doc)
+        private static boolean markedInternal(Doc doc)
         {
-            if (doc instanceof ProgramElementDoc) {
-                if (((ProgramElementDoc)doc).containingPackage().tags("internal").length > 0)
+            if (doc instanceof ProgramElementDoc)
+            {
+                if (((ProgramElementDoc) doc).containingPackage().tags("internal").length > 0)
                     return true;
             }
             return doc.tags("internal").length > 0;
+        }
+
+        private static boolean substituteDelete(Doc doc)
+        {
+            if (doc instanceof ProgramElementDoc)
+            {
+                if (((ProgramElementDoc) doc).qualifiedName().endsWith("delete"))
+                    return true;
+            }
+            return (doc.isMethod() && doc.name().equals("delete"));
         }
 
         private static Object process(Object obj, Class expect)
@@ -334,32 +366,55 @@ public class ExcludeDoclet extends Doclet
             if (obj == null)
                 return null;
             Class cls = obj.getClass();
-            if (cls.getName().startsWith("com.sun.")) {
+            if (cls.getName().startsWith("com.sun."))
+            {
                 return Proxy.newProxyInstance(cls.getClassLoader(),
                                               cls.getInterfaces(),
-                                              new ExcludeHandler(obj));
-            } else if (obj instanceof Object[]) {
+                                              new InternalTagHandler(obj));
+            }
+            else if (obj instanceof Object[])
+            {
                 Class componentType = expect.getComponentType();
                 Object[] array = (Object[])obj;
                 List list = new ArrayList(array.length);
-                for (int i = 0; i < array.length; i++) {
+                for (int i = 0; i < array.length; i++)
+                {
                     Object entry = array[i];
-                    if ((entry instanceof Doc) && exclude((Doc)entry))
-                        continue;
+                    if (entry instanceof Doc)
+                    {
+                        if (markedInternal((Doc) entry))
+                            continue;
+
+                        if (substituteDelete((Doc)entry))
+                        {
+                            ((Doc) entry).setRawCommentText(
+                                 "Explicit destructor." +
+                                 "<p>" +
+                                 "This method will be called automatically by the Java " +
+                                 "garbage collector when this object is no longer being used. " +
+                                 "However, if callers want to delete the object earlier, they may " +
+                                 "invoke this method.  A possible situation might be when a program " +
+                                 "is processing a large amount of SBML data in a loop, and needs " +
+                                 "to conserve memory by freeing objects as soon as they are known " +
+                                 "to be no longer needed.");
+                        }
+                    }
                     list.add(process(entry, componentType));
                 }
                 return list.toArray((Object[])Array.newInstance(componentType, list.size()));
-            } else {
+            }
+            else
+            {
                 return obj;
             }
         }
 
-        private static class ExcludeHandler
+        private static class InternalTagHandler
             implements InvocationHandler
         {
             private Object target;
         
-            public ExcludeHandler(Object target)
+            public InternalTagHandler(Object target)
             {
                 this.target = target;
             }
@@ -367,18 +422,21 @@ public class ExcludeDoclet extends Doclet
             public Object invoke(Object proxy, Method method, Object[] args)
                 throws Throwable
             {
-                if (args != null) {
-                    String methodName = method.getName();
-                    if (methodName.equals("compareTo") ||
-                        methodName.equals("equals") ||
-                        methodName.equals("overrides") ||
-                        methodName.equals("subclassOf")) {
+                if (args != null)
+                {
+                    String mName = method.getName();
+                    if (mName.equals("compareTo") || mName.equals("equals") ||
+                        mName.equals("overrides") || mName.equals("subclassOf"))
+                    {
                         args[0] = unwrap(args[0]);
                     }
                 }
-                try {
+                try
+                {
                     return process(method.invoke(target, args), method.getReturnType());
-                } catch (InvocationTargetException e) {
+                }
+                catch (InvocationTargetException e)
+                {
                     throw e.getTargetException();
                 }
             }
@@ -386,11 +444,10 @@ public class ExcludeDoclet extends Doclet
             private Object unwrap(Object proxy)
             {
                 if (proxy instanceof Proxy)
-                    return ((ExcludeHandler)Proxy.getInvocationHandler(proxy)).target;
+                    return ((InternalTagHandler) Proxy.getInvocationHandler(proxy)).target;
                 return proxy;
             }
         }
     }
+
 }
-
-

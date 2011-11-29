@@ -114,7 +114,7 @@ extra_distclean =                 \
 
 distfiles =                                                  \
         DoxygenLayout.xml                                    \
-        ExcludeDoclet.java                                   \
+        SBMLDoclet.java                                   \
         Makefile.in                                          \
         common-text/L1-math-syntax-warning.html              \
         common-text/about-sbml-units-attrib.html             \
@@ -531,9 +531,9 @@ define insert_javascript
   sed -i "" -e 's:<SCRIPT type="text/javascript">:<script type="text/javascript" src="../../../sbml.js"></script><SCRIPT type="text/javascript">:g' $(wildcard $(1)/*.html)
 endef
 
-# Compile the ExcludeDoclet class file if needed.
+# Compile the SBMLDoclet class file if needed.
 
-ExcludeDoclet.class: ExcludeDoclet.java
+SBMLDoclet.class: SBMLDoclet.java
 	$(JAVAC) -nowarn -cp $(JAVADOC_JAR) $<
 
 # There are certain things I can't figure out how to make compatible
@@ -559,12 +559,12 @@ java-local-dir  = java-files
 java-subst-dir  = java-substitutions
 java-class-path = org/sbml/libsbml
 
-java-manual $(java-manual): $(core-sources) ExcludeDoclet.class
+java-manual $(java-manual): $(core-sources) SBMLDoclet.class
 	rm -rf $(java-local-dir)
 	mkdir -p $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-source-dir)/$(java-class-path)/* $(java-local-dir)/$(java-class-path)
 	cp -rp $(java-subst-dir)/* $(java-local-dir)/$(java-class-path)
-	$(JAVA) -cp $(JAVADOC_JAR):. ExcludeDoclet -excludefile java-skip.txt \
+	$(JAVA) -cp $(JAVADOC_JAR):. SBMLDoclet -excludefile java-skip.txt \
 	    -use -public -version -author -sourcetab 4 -keywords \
 	    -link http://java.sun.com/j2se/1.5.0/docs/api \
 	    -header $(javadoc-header) \
