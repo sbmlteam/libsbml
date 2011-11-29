@@ -106,7 +106,8 @@ extra_distclean =                 \
         doxygen-config-matlab.txt \
         doxygen-config-octave.txt \
         doxygen-config-perl.txt   \
-        doxygen-config-python.txt
+        doxygen-config-python.txt \
+	*.class
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
