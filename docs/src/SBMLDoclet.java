@@ -351,7 +351,7 @@ public class SBMLDoclet extends Doclet
             return doc.tags("internal").length > 0;
         }
 
-        private static boolean substituteDelete(Doc doc)
+        private static boolean isDeleteMethod(Doc doc)
         {
             if (doc instanceof ProgramElementDoc)
             {
@@ -385,7 +385,7 @@ public class SBMLDoclet extends Doclet
                         if (markedInternal((Doc) entry))
                             continue;
 
-                        if (substituteDelete((Doc)entry))
+                        if (isDeleteMethod((Doc)entry))
                         {
                             ((Doc) entry).setRawCommentText(
                                  "Explicit destructor." +
