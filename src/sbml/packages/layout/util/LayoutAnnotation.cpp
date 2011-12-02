@@ -100,11 +100,19 @@ parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
     while (n < LayoutTop->getNumChildren())
     {
       const string &name2 = LayoutTop->getChild(n).getName();
+      
+      if (name2 == "annotation")
+      {
+        const XMLNode &annot = LayoutTop->getChild(n);
+        layouts.setAnnotation(&annot);
+      }
+      
       if (name2 == "layout")
       {
         layout = new Layout(LayoutTop->getChild(n));
         layouts.appendAndOwn(layout);
       }
+
       n++;
     }
   }
@@ -148,14 +156,16 @@ LIBSBML_EXTERN
 XMLNode* parseLayouts(const Model* pModel)
 {
   if (!pModel) return 0;
- 
+  
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes()); 
   XMLNode* pNode = new XMLNode(ann_token);
   const LayoutModelPlugin* lep;
 
   lep = static_cast<const LayoutModelPlugin*>(pModel->getPlugin("layout"));
-  if( lep->getListOfLayouts()->size()>0)
-  {
+  ListOfLayouts* lol = const_cast<ListOfLayouts*>(lep->getListOfLayouts());
+  if( lol->size()>0)
+  {        
+    // then add the ones toXML()
     pNode->addChild(lep->getListOfLayouts()->toXML());
   }
   return pNode;

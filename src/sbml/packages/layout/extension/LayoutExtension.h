@@ -210,6 +210,31 @@ public:
 
   /** @endcond */
 
+    /**
+   * Removes the L2 Namespace from a document. 
+   *
+   * This method should be overridden by all extensions that want to serialize
+   * to an L2 annotation.
+   */
+  virtual void removeL2Namespaces(XMLNamespaces* xmlns)  const;
+
+  
+  /**
+   * adds all L2 Extension namespaces to the namespace list. 
+   * 
+   * This method should be overridden by all extensions that want to serialize
+   * to an L2 annotation.
+   */
+  virtual void addL2Namespaces(XMLNamespaces *xmlns) const;
+
+  /**
+   * Adds the L2 Namespace to the document and enables the extension.
+   *
+   * If the extension supports serialization to SBML L2 Annotations, this 
+   * method should be overrridden, so it will be activated.
+   */
+  virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
+
 };
 
 

@@ -72,11 +72,6 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 
 
-#ifdef USE_LAYOUT
-  #include <sbml/packages/layout/extension/LayoutExtension.h>
-  #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
-#endif
-
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -1947,19 +1942,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
 
   }
 
-#ifdef USE_LAYOUT
-  /* if using layout and reading an L2 model the package
-   * is not enabled by the read since the l3 ns is missing
-   * force the package to be enabled
-   */
-  if (SBMLExtensionRegistry::getInstance().isRegistered("layout"))
-  {
-    if (mLevel == 2)
-    {
-      enablePackage(LayoutExtension::getXmlnsL2(),"layout", true);
-    }
-  }
-#endif
+  SBMLExtensionRegistry::getInstance().enableL2NamespaceForDocument(this);
 
 //   if (getLevel() > 2)
 //   {
@@ -2116,15 +2099,8 @@ SBMLDocument::writeXMLNS (XMLOutputStream& stream) const
   XMLNamespaces * xmlns = thisNs->clone();
   if (xmlns != NULL) 
   {
-#ifdef USE_LAYOUT
-    for (int n = 0; n < xmlns->getNumNamespaces(); n++)
-    {
-      if (xmlns->getURI(n) == LayoutExtension::getXmlnsL2())
-      {
-        xmlns->remove(n);
-      }
-    }
-#endif
+    SBMLExtensionRegistry::getInstance().removeL2Namespaces(xmlns);
+
     stream << *(xmlns);
     delete xmlns;
   }

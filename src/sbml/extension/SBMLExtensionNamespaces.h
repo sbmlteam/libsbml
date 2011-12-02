@@ -81,7 +81,8 @@ public:
 #ifndef SWIG
     : ISBMLExtensionNamespaces(level, version, SBMLExtensionType::getPackageName(), pkgVersion, prefix)
      ,mPackageVersion(pkgVersion), mPackageName(prefix)
-   {}
+   {
+   }
 #else
    ;
 #endif //SWIG

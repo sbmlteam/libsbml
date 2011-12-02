@@ -1125,6 +1125,11 @@ SBase::setAnnotation (const XMLNode* annotation)
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
   }
 
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    mPlugins[i]->parseAnnotation(this, mAnnotation);
+  }
+
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -4636,6 +4641,34 @@ SBase::syncAnnotation ()
       delete cvTerms;
     }
   }
+
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
+                                      XMLAttributes());
+  XMLNode *annotation = new XMLNode(ann_token);
+
+  // sync annotations of plugins
+  for (size_t i=0; i < mPlugins.size(); i++)
+  {
+    mPlugins[i]->syncAnnotation(this, annotation);
+  }
+
+  // if we have new annotations add them to the current one
+  if (mAnnotation == NULL)
+  {
+    if (annotation->getNumChildren() > 0)
+      mAnnotation = annotation;
+    else
+      delete annotation;
+  }
+  else
+  {
+    for (unsigned int i = 0; i < annotation->getNumChildren(); i++)
+    {
+      mAnnotation->addChild(annotation->getChild(i));
+    }
+    delete annotation;
+  }
+
 }
 /** @endcond */
 

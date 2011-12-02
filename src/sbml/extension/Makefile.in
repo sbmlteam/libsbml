@@ -65,14 +65,15 @@ headers =            \
 
 header_inst_prefix = extension
 
-sources =            \
-  SBasePlugin.cpp \
-  SBMLDocumentPlugin.cpp \
-  SBaseExtensionPoint.cpp \
-  SBasePluginCreatorBase.cpp \
-  SBMLExtension.cpp \
-  SBMLExtensionNamespaces.cpp \
-  SBMLExtensionException.cpp \
+sources =                      \
+  SBasePlugin.cpp              \
+  SBMLDocumentPlugin.cpp       \
+  SBaseExtensionPoint.cpp      \
+  SBasePluginCreatorBase.cpp   \
+  SBMLExtension.cpp            \
+  SBMLExtensionNamespaces.cpp  \
+  ISBMLExtensionNamespaces.cpp \
+  SBMLExtensionException.cpp   \
   SBMLExtensionRegistry.cpp 
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',

@@ -163,6 +163,15 @@ Layout::Layout(const XMLNode& node, unsigned int l2version)
   ,mTextGlyphs(2,l2version)
   ,mAdditionalGraphicalObjects(2,l2version)
 {
+
+  LayoutPkgNamespaces *layoutNS = new LayoutPkgNamespaces(2,l2version);
+
+  setSBMLNamespacesAndOwn(layoutNS);  
+    
+  // load plugins
+  loadPlugins(mSBMLNamespaces);
+
+
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
     //ExpectedAttributes ea(getElementName());
@@ -334,10 +343,10 @@ Layout::Layout(const XMLNode& node, unsigned int l2version)
         ++n;
     }
 
-  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(2,l2version));  
 
   // connect child elements to this element.
   connectToChild();
+
 }
 
 /**
@@ -1379,7 +1388,14 @@ XMLNode Layout::toXML() const
   XMLNode layout_node(layout_token);
   // add the notes and annotations
   if(this->mNotes) layout_node.addChild(*this->mNotes);
-  if(this->mAnnotation) layout_node.addChild(*this->mAnnotation);
+  
+  Layout *self = const_cast<Layout*>(this);
+  XMLNode *annot = self->getAnnotation();
+  if(annot)
+  {
+    layout_node.addChild(*annot);
+  }
+  
   // add the dimensions
   layout_node.addChild(this->mDimensions.toXML());
   // add the list of compartment glyphs
@@ -1510,6 +1526,9 @@ ListOfLayouts::ListOfLayouts(LayoutPkgNamespaces* layoutns)
   // set the element namespace of this object
   //
   setElementNamespace(layoutns->getURI());
+
+  loadPlugins(layoutns);
+
 }
 
 
@@ -1520,6 +1539,8 @@ ListOfLayouts::ListOfLayouts(unsigned int level, unsigned int version, unsigned 
  : ListOf(level,version)
 {
   setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(level,version,pkgVersion));
+
+  
 };
 
 
@@ -1641,7 +1662,21 @@ ListOfLayouts::createObject (XMLInputStream& stream)
 
   if (name == "layout")
   {
-    object = new Layout(static_cast<LayoutPkgNamespaces*>(mSBMLNamespaces));
+    SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
+    XMLNamespaces* xmlns = sbmlns->getNamespaces();
+    LayoutPkgNamespaces* layoutns1 = dynamic_cast<LayoutPkgNamespaces*>(sbmlns);
+    if (layoutns1 == NULL)
+    {
+       layoutns1 = new LayoutPkgNamespaces(sbmlns->getLevel(), sbmlns->getVersion());
+       for (int i = 0; i < xmlns->getNumNamespaces(); i++)
+       {         
+         if (!layoutns1->getNamespaces()->hasURI(xmlns->getURI(i)))
+           layoutns1->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));
+       }
+    }
+    //LayoutPkgNamespaces* layoutns2 = (LayoutPkgNamespaces*)(this->getSBMLNamespaces());
+    //LayoutPkgNamespaces* layoutns = static_cast<LayoutPkgNamespaces*>(this->getSBMLNamespaces());
+    object = new Layout(layoutns1);
     appendAndOwn(object);
     //mItems.push_back(object);
   }
@@ -1689,9 +1724,12 @@ XMLNode ListOfLayouts::toXML() const
       node.addChild(*this->mNotes);
       end=false;
   }
-  if(this->mAnnotation)
+  ListOfLayouts *self = const_cast<ListOfLayouts*>(this);
+  XMLNode *annot = self->getAnnotation();
+  if(annot)
   {
-      node.addChild(*this->mAnnotation);
+    
+    node.addChild(*annot);
       end=false;
   }
   unsigned int i,iMax=this->size();

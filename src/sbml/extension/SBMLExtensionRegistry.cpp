@@ -275,6 +275,46 @@ SBMLExtensionRegistry::setEnabled(const std::string& uri, bool isEnabled)
   return (sbmlext) ? sbmlext->mIsEnabled = isEnabled : false;
 }
 
+void
+SBMLExtensionRegistry::removeL2Namespaces(XMLNamespaces *xmlns)  const
+{
+  SBMLExtensionMap::const_iterator it = mSBMLExtensionMap.begin();
+  while (it != mSBMLExtensionMap.end())
+  {
+    it->second->removeL2Namespaces(xmlns);
+    it++;
+  }
+}
+
+/**
+ * adds all L2 Extension namespaces to the namespace list. This will call all 
+ * overriden SBMLExtension::addL2Namespaces methods.
+ */
+void
+SBMLExtensionRegistry::addL2Namespaces(XMLNamespaces *xmlns) const
+{
+  SBMLExtensionMap::const_iterator it = mSBMLExtensionMap.begin();
+  while (it != mSBMLExtensionMap.end())
+  {
+    it->second->addL2Namespaces(xmlns);
+    it++;
+  }
+}
+
+/**
+ * Enables all extensions that support serialization / deserialization with
+ * SBML Annotations.
+ */
+void 
+SBMLExtensionRegistry::enableL2NamespaceForDocument(SBMLDocument* doc)  const
+{
+  SBMLExtensionMap::const_iterator it = mSBMLExtensionMap.begin();
+  while (it != mSBMLExtensionMap.end())
+  {
+    it->second->enableL2NamespaceForDocument(doc);
+    it++;
+  }
+}
 
 /*
  * Checks if the extension with the given URI is enabled (true) or disabled (false)

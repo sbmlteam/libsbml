@@ -196,6 +196,11 @@ public:
    */
   int getIndex (const std::string uri) const;
 
+  /**
+   * Tests whether the given uri is contained in this set of namespaces. 
+   * 
+   */
+  bool containsUri(const std::string uri) const;
 
   /**
    * Look up the index of an XML namespace declaration by prefix.

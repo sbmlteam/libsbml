@@ -41,6 +41,7 @@
 LIBSBML_CPP_NAMESPACE_BEGIN
 BEGIN_C_DECLS
 
+
 /** @cond doxygen-c-only */
 
 /**

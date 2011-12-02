@@ -48,37 +48,17 @@ class LIBSBML_EXTERN ISBMLExtensionNamespaces : public SBMLNamespaces
 {
 public:
    
-   ISBMLExtensionNamespaces()
-   #ifndef SWIG
-   : SBMLNamespaces( SBML_DEFAULT_LEVEL, SBML_DEFAULT_VERSION )
-				 {
-				 }
-   #else
-   ;
-   #endif
+  ISBMLExtensionNamespaces();
+  
+  ISBMLExtensionNamespaces(unsigned int level, 
+                           unsigned int version, 
+                           const std::string &pkgName,
+                           unsigned int pkgVersion, 
+                           const std::string& pkgPrefix = "");
+
+  ISBMLExtensionNamespaces(const ISBMLExtensionNamespaces& orig);   
    
-   
-   ISBMLExtensionNamespaces(unsigned int level, unsigned int version, const std::string &pkgName,
-                 unsigned int pkgVersion, const std::string& pkgPrefix = "") 
-   #ifndef SWIG
-   : SBMLNamespaces( level, version, pkgName, pkgVersion,  pkgPrefix )
-				 {
-				 }
-   #else
-   ;
-   #endif
-   
-   ISBMLExtensionNamespaces(const ISBMLExtensionNamespaces& orig)
-   #ifndef SWIG
-   : SBMLNamespaces(orig)
-   {
-   }
-   #else
-   ;
-   #endif
-   
-   
-  virtual ~ISBMLExtensionNamespaces()  {}
+  virtual ~ISBMLExtensionNamespaces();
    
   virtual std::string getURI() const = 0;
   virtual unsigned int getPackageVersion() const = 0;

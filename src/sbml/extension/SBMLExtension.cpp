@@ -249,6 +249,40 @@ SBMLExtension::isEnabled() const
   return SBMLExtensionRegistry::getInstance().isEnabled(getSupportedPackageURI(0));
 }
 
+
+/**
+ * Removes the L2 Namespace
+ *
+ * This method should be overridden by all extensions that want to serialize
+ * to an L2 annotation.
+ */
+void SBMLExtension::removeL2Namespaces(XMLNamespaces* xmlns)  const
+{
+
+}
+
+/**
+ * adds the L2 Namespace 
+ *
+ * This method should be overridden by all extensions that want to serialize
+ * to an L2 annotation.
+ */
+void SBMLExtension::addL2Namespaces(XMLNamespaces* xmlns)  const
+{
+
+}
+
+/**
+ * Adds the L2 Namespace to the document and enables the extension.
+ *
+ * If the extension supports serialization to SBML L2 Annotations, this 
+ * method should be overrridden, so it will be activated.
+ */
+void SBMLExtension::enableL2NamespaceForDocument(SBMLDocument* doc)  const
+{
+
+}
+
 /** @cond doxygen-c-only */
 
 /**

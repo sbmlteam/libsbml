@@ -295,7 +295,7 @@ LayoutExtension::getPackageVersion(const std::string &uri) const
 SBMLNamespaces*
 LayoutExtension::getSBMLExtensionNamespaces(const std::string &uri) const
 {
-  LayoutPkgNamespaces* pkgns = 0;
+  LayoutPkgNamespaces* pkgns = NULL;
   if ( uri == getXmlnsL3V1V1())
   {
     pkgns = new LayoutPkgNamespaces(3,1,1);    
@@ -425,6 +425,55 @@ LayoutExtension::init()
     std::cerr << "[Error] LayoutExtension::init() failed." << std::endl;
   }
 }
+
+
+
+/**
+* Removes the L2 Namespace from a document. 
+*
+* This method should be overridden by all extensions that want to serialize
+* to an L2 annotation.
+*/
+void LayoutExtension::removeL2Namespaces(XMLNamespaces* xmlns)  const
+{
+    for (int n = 0; n < xmlns->getNumNamespaces(); n++)
+    {
+      if (xmlns->getURI(n) == LayoutExtension::getXmlnsL2())
+      {
+        xmlns->remove(n);
+      }
+    }
+}
+
+/**
+ * adds the L2 Namespace 
+ *
+ * This method should be overridden by all extensions that want to serialize
+ * to an L2 annotation.
+ */
+void LayoutExtension::addL2Namespaces(XMLNamespaces* xmlns)  const
+{
+  if (!xmlns->containsUri( LayoutExtension::getXmlnsL2()))
+    xmlns->add(LayoutExtension::getXmlnsL2(), "layout");
+}
+
+
+/**
+* Adds the L2 Namespace to the document and enables the extension.
+*
+* If the extension supports serialization to SBML L2 Annotations, this 
+* method should be overrridden, so it will be activated.
+*/
+void LayoutExtension::enableL2NamespaceForDocument(SBMLDocument* doc)  const
+{
+  if (doc->getLevel() == 2)
+  {
+    doc->enablePackage(LayoutExtension::getXmlnsL2(),"layout", true);
+  }
+
+}
+
+
 
 #endif  /* __cplusplus */
 LIBSBML_CPP_NAMESPACE_END

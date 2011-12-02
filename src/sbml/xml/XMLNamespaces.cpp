@@ -196,6 +196,14 @@ XMLNamespaces::getIndex (const std::string uri) const
   return -1;
 }
 
+/**
+ * Tests whether the given uri is contained in this set of namespaces. 
+ */
+bool 
+XMLNamespaces::containsUri(const std::string uri) const
+{
+  return getIndex(uri) != -1;
+}
 
 /*
  * Lookup the index of an XML namespace declaration by Prefix.
@@ -220,7 +228,7 @@ XMLNamespaces::getIndexByPrefix (const std::string prefix) const
 int
 XMLNamespaces::getLength () const
 {
-  return mNamespaces.size();
+  return (int)mNamespaces.size();
 }
 
 
@@ -230,7 +238,7 @@ XMLNamespaces::getLength () const
 int
 XMLNamespaces::getNumNamespaces () const
 {
-  return mNamespaces.size();
+  return (int)mNamespaces.size();
 }
 
 

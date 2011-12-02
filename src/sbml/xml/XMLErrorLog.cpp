@@ -158,7 +158,7 @@ XMLErrorLog::getError (unsigned int n) const
 unsigned int
 XMLErrorLog::getNumErrors () const
 {
-  return mErrors.size();
+  return (unsigned int)mErrors.size();
 }
 
 

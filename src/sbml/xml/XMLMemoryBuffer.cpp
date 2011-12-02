@@ -46,7 +46,7 @@ XMLMemoryBuffer::XMLMemoryBuffer (const char* buffer, unsigned int length) :
 {
   if (buffer == NULL) return;
   
-  int bufsize  = strlen(buffer);
+  size_t bufsize  = strlen(buffer);
   char* tmpbuf = new char[bufsize+1];
 
   strncpy(tmpbuf, buffer, bufsize+1);

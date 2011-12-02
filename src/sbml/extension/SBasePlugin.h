@@ -371,6 +371,23 @@ public:
    */
   virtual bool readOtherXML (SBase* parentObject, XMLInputStream& stream);
 
+  
+  /**
+   * Synchronizes the annotation of this SBML object.
+   *
+   * Annotation element (XMLNode* mAnnotation) is synchronized with the 
+   * current CVTerm objects (List* mCVTerm).
+   * Currently, this method is called in getAnnotation, isSetAnnotation,
+   * and writeElements methods.
+   */
+  virtual void syncAnnotation(SBase* parentObject, XMLNode *annotation);
+
+
+  /** 
+   * Parse L2 annotation if supported
+   *
+   */
+  virtual void parseAnnotation(SBase *parentObject, XMLNode *annotation);
 
   /**
    * Subclasses must override this method to write out their contained

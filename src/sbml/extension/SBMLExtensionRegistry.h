@@ -96,6 +96,24 @@ public:
    */
   SBMLExtension* getExtension(const std::string& package);
 
+  /**
+   * Remove all L2 Extension namespaces from the namespace list. This will call all 
+   * overriden SBMLExtension::removeL2Namespaces methods.
+   */
+  void removeL2Namespaces(XMLNamespaces *xmlns) const;
+
+  /**
+   * adds all L2 Extension namespaces to the namespace list. This will call all 
+   * overriden SBMLExtension::addL2Namespaces methods.
+   */
+  void addL2Namespaces(XMLNamespaces *xmlns) const;
+
+  /**
+   * Enables all extensions that support serialization / deserialization with
+   * SBML Annotations.
+   */
+  void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
+
 private:
   /**
    * Returns an SBMLExtension object with the given package URI or package name (string).
