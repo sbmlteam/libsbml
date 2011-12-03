@@ -225,6 +225,13 @@ GraphicalObject::GraphicalObject (LayoutPkgNamespaces* layoutns, const std::stri
 GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
  : SBase(2,l2version)  
 {
+    //
+  // (TODO) check the xmlns of layout extension
+  //
+  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(2,l2version));  
+
+  loadPlugins(mSBMLNamespaces);
+
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
     //ExpectedAttributes ea(getElementName());
@@ -255,10 +262,6 @@ GraphicalObject::GraphicalObject(const XMLNode& node, unsigned int l2version)
         ++n;
     }    
 
-  //
-  // (TODO) check the xmlns of layout extension
-  //
-  setSBMLNamespacesAndOwn(new LayoutPkgNamespaces(2,l2version));  
 
   connectToChild();
 }
@@ -542,7 +545,12 @@ XMLNode GraphicalObject::toXML() const
   XMLNode node(token);
   // add the notes and annotations
   if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  GraphicalObject *self = const_cast<GraphicalObject*>(this);
+  XMLNode *annot = self->getAnnotation();
+  if(annot)
+  {    
+    node.addChild(*annot);    
+  }
   // write the bounding box
   node.addChild(this->mBoundingBox.toXML());
   return node;

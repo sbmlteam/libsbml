@@ -1674,8 +1674,6 @@ ListOfLayouts::createObject (XMLInputStream& stream)
            layoutns1->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));
        }
     }
-    //LayoutPkgNamespaces* layoutns2 = (LayoutPkgNamespaces*)(this->getSBMLNamespaces());
-    //LayoutPkgNamespaces* layoutns = static_cast<LayoutPkgNamespaces*>(this->getSBMLNamespaces());
     object = new Layout(layoutns1);
     appendAndOwn(object);
     //mItems.push_back(object);
@@ -2592,7 +2590,20 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
 
   if (name == "graphicalObject")
   {
-    object = new GraphicalObject();
+    SBMLNamespaces* sbmlns = this->getSBMLNamespaces();
+    XMLNamespaces* xmlns = sbmlns->getNamespaces();
+    LayoutPkgNamespaces* layoutns1 = dynamic_cast<LayoutPkgNamespaces*>(sbmlns);
+    if (layoutns1 == NULL)
+    {
+       layoutns1 = new LayoutPkgNamespaces(sbmlns->getLevel(), sbmlns->getVersion());
+       for (int i = 0; i < xmlns->getNumNamespaces(); i++)
+       {         
+         if (!layoutns1->getNamespaces()->hasURI(xmlns->getURI(i)))
+           layoutns1->getNamespaces()->add(xmlns->getURI(i), xmlns->getPrefix(i));
+       }
+    }
+
+    object = new GraphicalObject(layoutns1);
     appendAndOwn(object);
 //    mItems.push_back(object);
   }

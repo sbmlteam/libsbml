@@ -91,7 +91,7 @@ StringBuffer_append (StringBuffer_t *sb, const char *s)
 
   if (sb == NULL || s == NULL) return;
   
-  len = strlen(s);  
+  len = (unsigned long)strlen(s);  
 
   StringBuffer_ensureCapacity(sb, len);
 
