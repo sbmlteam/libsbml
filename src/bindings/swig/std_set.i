@@ -33,21 +33,21 @@
 
 namespace std {
 
-    template<class V> class set {
+    template< class V > class set {
         // add typemaps here
       public:
         typedef size_t size_type;
         typedef ptrdiff_t difference_type;
         typedef V value_type;
         set();
-        set(const set<V> &);
+        set(const set< V > &);
 
         unsigned int size() const;
         bool empty() const;
         void clear();
         %extend {
             const V& get(const V& key) throw (std::out_of_range) {
-                std::set<V>::iterator i = self->find(key);
+                std::set< V >::iterator i = self->find(key);
                 if (i != self->end())
                     return *i;
                 else
@@ -57,14 +57,14 @@ namespace std {
                 self->insert(key);
             }
             void del(const V& key) throw (std::out_of_range) {
-                std::set<V>::iterator i = self->find(key);
+                std::set< V >::iterator i = self->find(key);
                 if (i != self->end())
                     self->erase(i);
                 else
                     throw std::out_of_range("key not found");
             }
             bool has_key(const V& key) {
-                std::set<V>::iterator i = self->find(key);
+                std::set< V >::iterator i = self->find(key);
                 return i != self->end();
             }
         }
