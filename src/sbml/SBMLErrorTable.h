@@ -530,7 +530,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "Outside of a <functionDefinition>, if a <ci> element is not the first "
     "element within a MathML <apply>, then the <ci>'s value can only be "
     "chosen from the set of identifiers of <species>, <compartment>, "
-    "<parameter> or <reaction> objects defined in the SBML model (In L2V1, the "
+    "<parameter>, <reaction>, or (in Level3) <speciesReference> objects defined in the SBML model (In L2V1, the "
     "<ci>'s value can't be chosen from the identifiers of <reaction> objects). ",
     {"",
      "",
@@ -4641,7 +4641,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of an <assignmentRule>'s 'variable' must be the identifier of "
-    "an existing <compartment>, <species>, or globally-defined <parameter>. ",
+    "an existing <compartment>, <species>, globally-defined <parameter>, or (in Level 3) <speciesReference>. ",
     {"",
      "L2V1 Section 4.8.2",
      "L2V2 Section 4.11.3",
@@ -4663,7 +4663,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of a <rateRule>'s 'variable' must be the identifier of an "
-    "existing <compartment>, <species>, or globally-defined <parameter>. ",
+    "existing <compartment>, <species>, globally-defined <parameter>, or (in Level 3) <speciesReference>. ",
     {"",
      "L2V1 Section 4.8.3",
      "L2V2 Section 4.11.4",
@@ -4707,7 +4707,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Any <compartment>, <species> or <parameter> whose identifier is the "
+    "Any <compartment>, <species>, <parameter>, or (in Level 3) <speciesReference> whose identifier is the "
     "value of a 'variable' attribute in an <rateRule>, must have a value of "
     "'false' for 'constant'.",
     {"",
@@ -5918,8 +5918,8 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     "The value of the attribute 'variable' in an <eventAssignment> can only be "
-    "the identifier of a <compartment>, <species>, or model-wide <parameter> "
-    "definition.",
+    "the identifier of a <compartment>, <species>, model-wide <parameter> "
+    "definition, or <speciesReference> in Level 3.",
     {"",
      "L2V1 Section 4.10.5",
      "L2V2 Section 4.14.3",
@@ -5940,7 +5940,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Any <compartment>, <species> or <parameter> definition whose identifier "
+    "Any <compartment>, <species>, <parameter>, or (in Level 3) <speciesReference> definition whose identifier "
     "is used as the value of 'variable' in an <eventAssignment> must have a "
     "value of 'false' for its 'constant' attribute.",
     {"",
