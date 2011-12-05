@@ -351,7 +351,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath1)
 
   
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -405,7 +405,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath2)
 
   
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -452,7 +452,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath3)
   SpeciesReference_setConstant(sr, 0);
   SpeciesReference_setStoichiometry(sr, 1.0);
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -489,7 +489,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath4)
   SpeciesReference_setSpecies(sr, "s");
   SpeciesReference_setConstant(sr, 0);
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -540,7 +540,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath5)
 
   
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -587,7 +587,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath6)
 
   
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -632,7 +632,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath7)
 
   
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -678,7 +678,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath8)
 
   
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -718,7 +718,7 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath9)
   SpeciesReference_setConstant(sr, 0);
   SpeciesReference_setId(sr, "XREF");
 
-  fail_unless(SBMLDocument_setLevelAndVersionNonStrict(d, 2, 4) == 1);
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
 
   m = SBMLDocument_getModel(d);
 
@@ -734,6 +734,122 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_stoichMath9)
   fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
   fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
     SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  Compartment_t *p = Model_getCompartment(m, 0);
+
+  fail_unless(!strcmp(Compartment_getId(p), "c"));
+  fail_unless(Compartment_getConstant(p) == 1);
+  fail_unless(Compartment_getSpatialDimensions(p) == 3);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim2)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 2);
+  Compartment_setConstant(c, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  Compartment_t *p = Model_getCompartment(m, 0);
+
+  fail_unless(!strcmp(Compartment_getId(p), "c"));
+  fail_unless(Compartment_getConstant(p) == 1);
+  fail_unless(Compartment_getSpatialDimensions(p) == 2);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim3)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 1);
+  Compartment_setConstant(c, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  Compartment_t *p = Model_getCompartment(m, 0);
+
+  fail_unless(!strcmp(Compartment_getId(p), "c"));
+  fail_unless(Compartment_getConstant(p) == 1);
+  fail_unless(Compartment_getSpatialDimensions(p) == 1);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim4)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 0);
+  Compartment_setConstant(c, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  Compartment_t *p = Model_getCompartment(m, 0);
+
+  fail_unless(!strcmp(Compartment_getId(p), "c"));
+  fail_unless(Compartment_getConstant(p) == 1);
+  fail_unless(Compartment_getSpatialDimensions(p) == 0);
+
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim5)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensionsAsDouble(c, 3.2);
+  Compartment_setConstant(c, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 0);
 
   SBMLDocument_free(d);
 }
@@ -764,6 +880,11 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath7 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath8 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_stoichMath9 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim2 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim3 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim4 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim5 );
 
   suite_add_tcase(suite, tcase);
 

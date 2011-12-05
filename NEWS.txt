@@ -21,6 +21,10 @@ STABLE
   - The conversion code incorrectly converted an L3 model where the
     stoichiometry was changed by a RateRule.  This has been fixed.
     
+  - Conversion from L3 to L2 was failing to write out the spatialDimensions 
+    attribute of a Compartment regardless of the value.  It now
+    correctly writes out a non default value. 
+    
   - The RegisterConverters class was not included in the
     LIBSBML_CPP_NAMESPACE.  This has been corrected.  Thanks to
     Christoph Flamm for letting us know.
