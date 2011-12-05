@@ -36,8 +36,6 @@
 %include "exception.i"
 %include <typemaps.i>
 
-
-
 %include "enumsimple.swg"
 %csconst(1);
 
@@ -154,11 +152,11 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 
 // mapping for a type of function argument in libsbml_wrap.cpp
 %typemap(ctype,  out="unsigned int")        unsigned int        "long long"
-%typemap(ctype,  out="const unsigned int&") const unsigned int& "const long long&"
+%typemap(ctype,  out="unsigned int") const unsigned int& "const long long&"
 
 // mapping for a type of function argument in csharp-files/libsbmlPINVOKE.cs
 %typemap(imtype, out="uint") unsigned int        "long"
-%typemap(imtype, out="const uint") const unsigned int& "long"
+%typemap(imtype, out="uint") const unsigned int& "long"
 
 // mapping for a type of function argument in csharp-files/*.cs (C# proxy classes)
 %typemap(cstype) unsigned int        "long"
@@ -166,7 +164,7 @@ SWIGEXPORT void SWIGSTDCALL SWIGRegisterWStringCallback_$module(SWIG_CSharpWStri
 
 // conversion for a given argument in libsbml_wrap.cpp
 %typemap(in)     unsigned int        { $1 = (unsigned int)$input;  }
-%typemap(in)     const unsigned int& { $1 = (unsigned int*)$input; }
+%typemap(in)     unsigned int*       { $1 = (unsigned int*)$input; }
 
 // conversion for a returned value in csharp-files/*.cs (C# proxy classes)
 %typemap(csout)  unsigned int        { return (long)$imcall; }
