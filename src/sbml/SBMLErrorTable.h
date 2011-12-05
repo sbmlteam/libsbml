@@ -4684,7 +4684,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    "Any <compartment>, <species> or <parameter> whose identifier is the "
+    "Any <compartment>, <species>, <parameter>, or (in Level 3) <speciesReference> whose identifier is the "
     "value of a 'variable' attribute in an <assignmentRule>, must have a value "
     "of 'false' for 'constant'.",
     {"",
