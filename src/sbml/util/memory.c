@@ -82,6 +82,7 @@ safe_malloc (size_t size)
  * returns a pointer to the allocated memory.  The memory is set to zero.
  * If the memory could not be allocated, prints an error message and exits.
  */
+LIBSBML_EXTERN
 void *
 safe_calloc (size_t nmemb, size_t size)
 {
