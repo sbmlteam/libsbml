@@ -530,7 +530,7 @@ static const sbmlErrorTableEntry errorTable[] =
     "Outside of a <functionDefinition>, if a <ci> element is not the first "
     "element within a MathML <apply>, then the <ci>'s value can only be "
     "chosen from the set of identifiers of <species>, <compartment>, "
-    "<parameter>, <reaction>, or (in Level3) <speciesReference> objects defined in the SBML model (In L2V1, the "
+    "<parameter>, <reaction>, or (in Level 3) <speciesReference> objects defined in the SBML model. (In L2V1, the "
     "<ci>'s value can't be chosen from the identifiers of <reaction> objects). ",
     {"",
      "",
