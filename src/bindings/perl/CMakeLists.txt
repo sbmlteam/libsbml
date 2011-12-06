@@ -134,8 +134,14 @@ endif()
 	
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod" DESTINATION ${PERL_PACKAGE_INSTALL_DIR})
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pm" DESTINATION ${PERL_PACKAGE_INSTALL_DIR})
-
-file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#include <EXTERN.h>\n")
+ 
+file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#ifdef WIN32\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "// do not include MFC\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#define WIN32_LEAN_AND_MEAN \n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "// do not include GDI by default\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#define NOGDI\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#endif\n\n")
+file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#include <EXTERN.h>\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "#include \"LibSBML_wrap.cpp\"\n")
 file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp" "\n\n")
 
