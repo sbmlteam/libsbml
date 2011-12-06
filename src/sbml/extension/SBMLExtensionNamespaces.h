@@ -120,8 +120,11 @@ public:
   SBMLExtensionNamespaces& operator=(const SBMLExtensionNamespaces& orig)
 #ifndef SWIG
   {
+    if (this == &orig) return *this;
+
     SBMLNamespaces::operator=(orig);
     mPackageVersion = orig.mPackageVersion;
+    mPackageName = orig.mPackageName;
 
     return *this;
   }
@@ -208,7 +211,7 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
   unsigned int mPackageVersion;
-  const std::string& mPackageName;
+  std::string mPackageName;
 
   /** @endcond */
 };
