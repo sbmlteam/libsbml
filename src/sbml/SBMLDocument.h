@@ -285,10 +285,8 @@ class ConversionProperties;
 class SBMLVisitor;
 class XMLError;
 
-#ifndef DONT_USE_VALIDATOR_API
 class SBMLValidator;
 class SBMLInternalValidator;
-#endif
 
 /** @cond doxygen-libsbml-internal */
 /* Internal constants for setting/unsetting particular consistency checks. */
@@ -1367,8 +1365,6 @@ public:
   void setConversionValidators(unsigned char appl);
 
 
-#ifndef DONT_USE_VALIDATOR_API
-
   /**
    * Validation system.
    */
@@ -1391,8 +1387,6 @@ public:
    * Validation system.
    */
   SBMLValidator* getValidator(unsigned int index);
-
-#endif
 
   /** @endcond */
 
@@ -1455,13 +1449,8 @@ protected:
 
   SBMLErrorLog mErrorLog;
 
-#ifdef DONT_USE_VALIDATOR_API
-  unsigned char mApplicableValidators;
-  unsigned char mApplicableValidatorsForConversion;
-#else
   std::list<SBMLValidator*> mValidators;
   SBMLInternalValidator *mInternalValidator;
-#endif
 
   //PkgRequiredMap           mPkgRequiredMap;
   XMLAttributes            mRequiredAttrOfUnknownPkg;
