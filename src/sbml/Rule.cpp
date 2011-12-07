@@ -1537,6 +1537,7 @@ ListOfRules::ListOfRules (unsigned int level, unsigned int version)
 ListOfRules::ListOfRules (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

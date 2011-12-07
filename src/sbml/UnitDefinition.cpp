@@ -1572,6 +1572,7 @@ ListOfUnitDefinitions::ListOfUnitDefinitions (unsigned int level, unsigned int v
 ListOfUnitDefinitions::ListOfUnitDefinitions (SBMLNamespaces* sbmlns)
  : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

@@ -1881,6 +1881,7 @@ ListOfReactions::ListOfReactions (unsigned int level, unsigned int version)
 ListOfReactions::ListOfReactions (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

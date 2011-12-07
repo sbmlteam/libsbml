@@ -2058,6 +2058,7 @@ ListOfUnits::ListOfUnits (unsigned int level, unsigned int version)
 ListOfUnits::ListOfUnits (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

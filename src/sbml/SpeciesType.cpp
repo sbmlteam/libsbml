@@ -477,6 +477,7 @@ ListOfSpeciesTypes::ListOfSpeciesTypes (unsigned int level, unsigned int version
 ListOfSpeciesTypes::ListOfSpeciesTypes (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

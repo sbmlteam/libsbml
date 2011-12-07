@@ -1823,6 +1823,7 @@ ListOfSpecies::ListOfSpecies (unsigned int level, unsigned int version)
 ListOfSpecies::ListOfSpecies (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

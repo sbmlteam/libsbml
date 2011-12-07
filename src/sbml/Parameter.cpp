@@ -1034,6 +1034,7 @@ ListOfParameters::ListOfParameters (unsigned int level, unsigned int version)
 ListOfParameters::ListOfParameters (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

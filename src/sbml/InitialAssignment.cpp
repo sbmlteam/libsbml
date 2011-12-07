@@ -723,6 +723,7 @@ ListOfInitialAssignments::ListOfInitialAssignments (unsigned int level, unsigned
 ListOfInitialAssignments::ListOfInitialAssignments (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

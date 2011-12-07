@@ -824,6 +824,7 @@ ListOfFunctionDefinitions::ListOfFunctionDefinitions (unsigned int level, unsign
 ListOfFunctionDefinitions::ListOfFunctionDefinitions (SBMLNamespaces* sbmlns)
 : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

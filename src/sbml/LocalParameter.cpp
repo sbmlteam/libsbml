@@ -325,6 +325,7 @@ ListOfLocalParameters::ListOfLocalParameters (unsigned int level, unsigned int v
 ListOfLocalParameters::ListOfLocalParameters (SBMLNamespaces* sbmlns)
   : ListOfParameters(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

@@ -1879,11 +1879,14 @@ SBase::connectToParent (SBase* parent)
 	  cout << "[DEBUG] connectToParent " << this << " (parent) " << SBMLTypeCode_toString(parent->getTypeCode(),"core")
 			   << " " << parent->getSBMLDocument() << endl;
 #endif
-	  setSBMLDocument(mParentSBMLObject->getSBMLDocument());
+    setSBMLDocument(mParentSBMLObject->getSBMLDocument());
   }
   else
   {
-	setSBMLDocument(0);
+    setSBMLDocument(0);
+  }
+  for (unsigned int p=0; p<mPlugins.size(); p++) {
+    mPlugins[p]->connectToParent(this);
   }
 }
 

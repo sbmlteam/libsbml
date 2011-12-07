@@ -479,6 +479,7 @@ ListOfCompartmentTypes::ListOfCompartmentTypes (unsigned int level, unsigned int
 ListOfCompartmentTypes::ListOfCompartmentTypes (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

@@ -729,6 +729,7 @@ ListOfEventAssignments::ListOfEventAssignments (unsigned int level, unsigned int
 ListOfEventAssignments::ListOfEventAssignments (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

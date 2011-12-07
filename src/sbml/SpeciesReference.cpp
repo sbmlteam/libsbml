@@ -70,6 +70,7 @@ SimpleSpeciesReference::SimpleSpeciesReference (SBMLNamespaces *sbmlns) :
  , mName   ( "" )
  , mSpecies( "" )
 {
+  loadPlugins(sbmlns);
 }
 /** @endcond */
 
@@ -1747,15 +1748,8 @@ ListOfSpeciesReferences::ListOfSpeciesReferences (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
  , mType(Unknown)
 {
+  loadPlugins(sbmlns);
 }
-
-
-/*
- * Creates a new ListOfSpeciesReferences.
- */
-// ListOfSpeciesReferences::ListOfSpeciesReferences () : mType(Unknown)
-// {
-// }
 
 
 /*

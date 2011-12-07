@@ -1709,6 +1709,7 @@ ListOfEvents::ListOfEvents (unsigned int level, unsigned int version)
 ListOfEvents::ListOfEvents (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 

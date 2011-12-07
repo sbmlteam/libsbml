@@ -639,6 +639,7 @@ ListOfConstraints::ListOfConstraints (unsigned int level, unsigned int version)
 ListOfConstraints::ListOfConstraints (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
 {
+  loadPlugins(sbmlns);
 }
 
 
