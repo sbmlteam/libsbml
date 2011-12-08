@@ -32,13 +32,13 @@
 #define SBMLExtensionRegistry_h
 
 #include <sbml/extension/SBMLExtension.h>
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 #ifdef __cplusplus
 
 #include <list>
 #include <map>
-
-LIBSBML_CPP_NAMESPACE_BEGIN
 
 class LIBSBML_EXTERN SBMLExtensionRegistry
 {

@@ -77,9 +77,10 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
-#include <string>
 
 #ifdef __cplusplus
+
+#include <string>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
