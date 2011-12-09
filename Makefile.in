@@ -58,17 +58,29 @@ examples =                                                          \
   examples/java/CMakeLists.txt                                      \
   examples/c/FormulaGraphvizFormatter.h                             \
   examples/c/Makefile.in                                            \
+  examples/c/addCVTerms.c                                           \
+  examples/c/addingEvidenceCodes_1.c                                \
+  examples/c/addingEvidenceCodes_2.c                                \
+  examples/c/addModelHistory.c                                      \
+  examples/c/appendAnnotation.c                                     \
   examples/c/convertSBML.c                                          \
   examples/c/drawMath.c                                             \
   examples/c/echoSBML.c                                             \
   examples/c/evaluateMath.c                                         \
+  examples/c/printAnnotation.c                                      \
   examples/c/printMath.c                                            \
+  examples/c/printNotes.c                                           \
+  examples/c/printRegisteredPackages.c                              \
   examples/c/printSBML.c                                            \
+  examples/c/printSupported.c                                       \
+  examples/c/printUnits.c                                           \
   examples/c/readSBML.c                                             \
   examples/c/translateMath.c                                        \
   examples/c/util.c                                                 \
   examples/c/util.h                                                 \
   examples/c/validateSBML.c                                         \
+  examples/c/unsetNotes.c                                           \
+  examples/c/unsetAnnotation.c                                      \
   examples/c++/Makefile.in                                          \
   examples/c++/addCVTerms.cpp                                       \
   examples/c++/addCustomValidator.cpp                               \
