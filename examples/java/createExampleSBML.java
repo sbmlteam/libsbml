@@ -57,6 +57,7 @@ public class createExampleSBML {
 	// ===============================================================================
 	//
 	public static int main(String[] args) {
+		System.loadLibrary("sbmlj");
 		SBMLDocument sbmlDoc = null;
 		boolean SBMLok = false;
 

@@ -18,6 +18,8 @@ public class printsupported {
 	// / The main entry point for the application.
 	// / </summary>
 	public static void main(String[] args) {
+		System.loadLibrary("sbmlj");
+
 		System.out.println("Supported by LibSBML "
 				+ libsbml.getLibSBMLDottedVersion());
 		System.out.println();

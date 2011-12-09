@@ -15,6 +15,8 @@ import org.sbml.libsbml.libsbml;
 public class addingEvidenceCodes_1 {
 	public static int main(String[] args) {
 
+		System.loadLibrary("sbmlj");
+
 		SBMLDocument d;
 
 		long errors, n;

@@ -19,6 +19,8 @@ import org.sbml.libsbml.libsbml;
 
 public class addingEvidenceCodes_2 {
 	public static int main(String[] args) {
+		System.loadLibrary("sbmlj");
+
 		if (args.length != 2) {
 			System.out
 					.println("  usage: addingEvidenceCodes_2 <input-filename> <output-filename>");

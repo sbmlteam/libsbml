@@ -17,6 +17,8 @@ import org.sbml.libsbml.libsbml;
 
 public class callExternalValidator {
 	public static int main(String[] args) {
+		System.loadLibrary("sbmlj");
+
 		if (args.length < 3) {
 			System.out
 					.println("Usage: callExternalValidator filename externalValidator [ tempSBMLFile outputFile [ ADDITIONAL-ARGS] ]");

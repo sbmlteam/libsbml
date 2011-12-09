@@ -107,6 +107,8 @@ public class addCustomValidator extends SBMLValidator {
 			return 1;
 		}
 
+		System.loadLibrary("sbmlj");
+
 		// read the file name
 		SBMLDocument document = libsbml.readSBML(args[0]);
 
