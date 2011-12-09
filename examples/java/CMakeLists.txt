@@ -7,16 +7,24 @@
 find_package(Java COMPONENTS Development REQUIRED)
 
 foreach(file 
+		addCustomValidator
 		addCVTerms
+		addingEvidenceCodes_1
+		addingEvidenceCodes_2
 		addModelHistory
 		appendAnnotation
+		callExternalValidator
 		convertSBML
+		createExampleSBML
 		echoSBML
 		evaluateMath
 		printAnnotation
 		printMath
 		printNotes
+		printRegisteredPackages
 		printSBML
+		printSBML
+		printsupported
 		printUnits
 		readSBML
 		translateMath
