@@ -23,7 +23,6 @@ foreach(file
 		printNotes
 		printRegisteredPackages
 		printSBML
-		printSBML
 		printsupported
 		printUnits
 		readSBML
