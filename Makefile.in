@@ -107,7 +107,26 @@ examples =                                                          \
   examples/c++/util.h                                               \
   examples/c++/validateSBML.cpp                                     \
   examples/csharp/Makefile.in                                       \
+  examples/csharp/addCustomValidator.cs                             \
+  examples/csharp/addCVTerms.cs                                     \
+  examples/csharp/addingEvidenceCodes_1.cs                          \
+  examples/csharp/addingEvidenceCodes_2.cs                          \
+  examples/csharp/addModelHistory.cs                                \
+  examples/csharp/appendAnnotation.cs                               \
+  examples/csharp/convertSBML.cs                                    \
+  examples/csharp/createExampleSBML.cs                              \
   examples/csharp/echoSBML.cs                                       \
+  examples/csharp/printAnnotation.cs                                \
+  examples/csharp/printMath.cs                                      \
+  examples/csharp/printNotes.cs                                     \
+  examples/csharp/printRegisteredPackages.cs                        \
+  examples/csharp/printSBML.cs                                      \
+  examples/csharp/printsupported.cs                                 \
+  examples/csharp/printUnits.cs                                     \
+  examples/csharp/readSBML.cs                                       \
+  examples/csharp/translateMath.cs                                  \
+  examples/csharp/unsetAnnotation.cs                                \
+  examples/csharp/unsetNotes.cs                                     \
   examples/csharp/validateSBML.cs                                   \
   examples/java/Makefile.in                                         \
   examples/java/README.txt                                          \
