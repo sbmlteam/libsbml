@@ -260,20 +260,21 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore SBO::readTerm;
 %ignore SBO::writeTerm;
 
-
 /**
- * Ignore internal implementation methods in SBMLErrorLog
- */
-%ignore SBMLErrorLog::logError;
-%ignore SBMLErrorLog::add;
-%ignore SBMLErrorLog::remove;
-%ignore SBMLErrorLog::SBMLErrorLog;
+ * With the new Validator API we no longer exclude the following 
+ * methods:
+ */ 
+//%ignore SBMLErrorLog::logError;
+//%ignore SBMLErrorLog::add;
+//%ignore SBMLErrorLog::remove;
+//%ignore SBMLErrorLog::SBMLErrorLog;
+//%ignore XMLErrorLog::XMLErrorLog;
+//%ignore XMLErrorLog::add;
+
 
 /**
  * Ignore internal implementation methods in XMLErrorLog
  */
-%ignore XMLErrorLog::XMLErrorLog;
-%ignore XMLErrorLog::add;
 %ignore XMLErrorLog::setParser;
 
 
