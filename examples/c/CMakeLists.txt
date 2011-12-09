@@ -12,14 +12,27 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 foreach(example 
 
+	addCVTerms
+	addingEvidenceCodes_1
+	addingEvidenceCodes_2
+	addModelHistory
+	appendAnnotation
 	convertSBML
+	createExampleSBML
 	drawMath
 	echoSBML
 	evaluateMath
+	printAnnotation
 	printMath
+	printNotes
+	printRegisteredPackages
 	printSBML
+	printSupported
+	printUnits
 	readSBML
 	translateMath
+	unsetAnnotation
+	unsetNotes
 	validateSBML
 
 )

@@ -71,7 +71,11 @@ LIBS      += -lstdc++ -lm
 # assigned to the variables above.
 
 programs   = convertSBML evaluateMath echoSBML printMath printSBML \
-             readSBML translateMath validateSBML 
+             readSBML translateMath validateSBML addCVTerms \
+			 addingEvidenceCodes_1 addingEvidenceCodes_2 addModelHistory \
+			 appendAnnotation createExampleSBML printAnnotation \
+			 printNotes printRegisteredPackages printSupported printUnits \
+			 unsetAnnotation unsetNotes
 
 all: $(programs)
 
@@ -100,6 +104,45 @@ translateMath: translateMath.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 validateSBML: validateSBML.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addCVTerms: addCVTerms.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addingEvidenceCodes_1: addingEvidenceCodes_1.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addingEvidenceCodes_2: addingEvidenceCodes_2.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+addModelHistory: addModelHistory.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+appendAnnotation: appendAnnotation.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+createExampleSBML: createExampleSBML.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printAnnotation: printAnnotation.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printNotes: printNotes.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printRegisteredPackages: printRegisteredPackages.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printSupported: printSupported.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+printUnits: printUnits.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+unsetAnnotation: unsetAnnotation.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+unsetNotes: unsetNotes.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
