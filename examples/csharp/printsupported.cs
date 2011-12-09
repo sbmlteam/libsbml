@@ -21,13 +21,13 @@ public static class PrintSupported
     private static void Main(string[] args)
     {	
         Console.WriteLine("Supported by LibSBML " + 
-					libsbml.libsbml.getLibSBMLDottedVersion());
+					libsbml.getLibSBMLDottedVersion());
 		Console.WriteLine();
 		
-		var supported = SBMLNamespaces.getSupportedNamespaces();
+		SBMLNamespacesList supported = SBMLNamespaces.getSupportedNamespaces();
 		for (uint i = 0; i < supported.getSize(); i++)
 		{
-			var current = supported.get(i);
+			SBMLNamespaces current = supported.get(i);
 			Console.WriteLine("\tSBML Level: " + current.getLevel() + 
 							" Version: " + current.getVersion());				
 		}

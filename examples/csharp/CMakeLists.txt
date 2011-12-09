@@ -8,7 +8,27 @@
 
 foreach( example
 	
+	addCustomValidator
+	addCVTerms
+	addingEvidenceCodes_1
+	addingEvidenceCodes_2
+	addModelHistory
+	appendAnnotation
+	callExternalValidator
+	convertSBML
+	createExampleSBML
 	echoSBML
+	printAnnotation
+	printMath
+	printNotes
+	printRegisteredPackages
+	printSBML
+	printsupported
+	printUnits
+	readSBML
+	translateMath
+	unsetAnnotation
+	unsetNotes
 	validateSBML
 	
 )
