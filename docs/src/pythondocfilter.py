@@ -98,20 +98,20 @@ def filterDocStrings (contents):
 
   # These enumeration types are actually integers in the Python bindings.
 
-  contents = contents.replace(r'OperationReturnValues_t', 'long')
-  contents = contents.replace(r'SBMLTypeCode_t',          'long')
   contents = contents.replace(r'ASTNodeType_t',           'long')
   contents = contents.replace(r'ASTNode_t',               'long')
-  contents = contents.replace(r'RuleType_t',              'long')
-  contents = contents.replace(r'UnitKind_t',              'long')
-  contents = contents.replace(r'ModelQualifierType_t',    'long')
   contents = contents.replace(r'BiolQualifierType_t',     'long')
+  contents = contents.replace(r'ModelQualifierType_t',    'long')
+  contents = contents.replace(r'OperationReturnValues_t', 'long')
   contents = contents.replace(r'QualifierType_t',         'long')
-  contents = contents.replace(r'SBMLErrorCode_t',         'long')
+  contents = contents.replace(r'RuleType_t',              'long')
   contents = contents.replace(r'SBMLErrorCategory_t',     'long')
+  contents = contents.replace(r'SBMLErrorCode_t',         'long')
   contents = contents.replace(r'SBMLErrorSeverity_t',     'long')
-  contents = contents.replace(r'XMLErrorCode_t',          'long')
+  contents = contents.replace(r'SBMLTypeCode_t',          'long')
+  contents = contents.replace(r'UnitKind_t',              'long')
   contents = contents.replace(r'XMLErrorCategory_t',      'long')
+  contents = contents.replace(r'XMLErrorCode_t',          'long')
   contents = contents.replace(r'XMLErrorSeverity_t',      'long')
 
   # Other type replacements
