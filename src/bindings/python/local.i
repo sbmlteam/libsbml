@@ -381,7 +381,7 @@ TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),1)
 /**
  *
  * Wraps the SBMLConstructorException class (C++ exception defined by libSBML) 
- * as the VaueError class (Python built-in exception).
+ * as the ValueError class (Python built-in exception).
  *
  * For example, the exception can be catched in Python code as follows:
  *
