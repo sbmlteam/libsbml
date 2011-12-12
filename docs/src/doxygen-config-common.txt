@@ -380,8 +380,6 @@ EXCLUDE =                            \
   plain-font-off.html          \
   ../../src/sbml/sbml/SBMLTransforms.h    \
   ../../src/sbml/sbml/SBMLTransforms.cpp  \
-  ../../src/sbml/math/FormulaTokenizer.c  \
-  ../../src/sbml/math/FormulaTokenizer.h  \
   ../../src/sbml/util/memory.c            \
   ../../src/sbml/util/memory.h            \
   ../../src/sbml/util/Stack.c             \
