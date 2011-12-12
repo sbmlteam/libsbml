@@ -178,7 +178,27 @@ examples =                                                          \
   examples/perl/readSBML.pl                                         \
   examples/perl/translateMath.pl                                    \
   examples/perl/validateSBML.pl                                     \
+  examples/python/addCustomValidator.py                             \
+  examples/python/addCVTerms.py                                     \
+  examples/python/addingEvidenceCodes_1.py                          \
+  examples/python/addingEvidenceCodes_2.py                          \
+  examples/python/addModelHistory.py                                \
+  examples/python/appendAnnotation.py                               \
+  examples/python/callExternalValidator.py                          \
+  examples/python/convertSBML.py                                    \
+  examples/python/createExampleSBML.py                              \
   examples/python/echoSBML.py                                       \
+  examples/python/printAnnotation.py                                \
+  examples/python/printMath.py                                      \
+  examples/python/printNotes.py                                     \
+  examples/python/printRegisteredPackages.py                        \
+  examples/python/printSBML.py                                      \
+  examples/python/printsupported.py                                 \
+  examples/python/printUnits.py                                     \
+  examples/python/readSBML.py                                       \
+  examples/python/translateMath.py                                  \
+  examples/python/unsetAnnotation.py                                \
+  examples/python/unsetNotes.py                                     \
   examples/python/validateSBML.py                                   \
   examples/ruby/convertSBML.rb                                      \
   examples/ruby/echoSBML.rb                                         \
