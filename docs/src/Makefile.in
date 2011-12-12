@@ -107,6 +107,7 @@ extra_distclean =                 \
         doxygen-config-octave.txt \
         doxygen-config-perl.txt   \
         doxygen-config-python.txt \
+        libsbml.py                \
 	*.class
 
 # The `make dist' rules for this directory are more complicated than usual.
@@ -268,6 +269,7 @@ distfiles =                                                  \
         plain-font-off.html                                  \
         plain-font-on.html                                   \
         pythondocfilter.py                                   \
+        pythondocsubstituter.py                              \
         search.css                                           \
         search.png                                           \
         sbml.js                                              \
@@ -432,10 +434,12 @@ c-manual $(c-manual): doxygen-config-c.txt $(core-sources)
 	$(call postprocess_doxygen,$(c-manual))
 
 ifdef USE_PYTHON
-python-sources = ../../src/bindings/python/libsbml.py
+python-sources   = ../../src/bindings/python/libsbml.py
+python-subst-dir = python-substitutions
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
+	./pythondocsubstituter.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(DOXYGEN) doxygen-config-python.txt
 	$(call postprocess_doxygen,$(python-manual))
 endif
