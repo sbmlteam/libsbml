@@ -59,6 +59,18 @@ PREDEFINED             = __cplusplus  \
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.
 
+# In libSBML, we use the following section names for the languages:
+#
+#   java:     only Java
+#   python:   only Python
+#   perl:     only Perl
+#   cpp:      only C++
+#   csharp:   only C#
+#   conly:    only C
+#   clike:    C, C++
+#   notcpp:   not C++
+#   notclike: not C or C++
+
 ENABLED_SECTIONS       = python notclike notcpp doxygen-python-only
 
 # Because of how we construct the Python documentation, we don't want
@@ -83,7 +95,7 @@ INPUT = \
   libsbml-python-math.txt          \
   libsbml-python-reading-files.txt \
   libsbml-uninstallation.txt       \
-  ../../src/bindings/python/libsbml.py
+  libsbml.py
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should 
 # invoke to filter for each input file. Doxygen will invoke the filter program 

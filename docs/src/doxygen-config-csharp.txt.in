@@ -85,6 +85,18 @@ INPUT_FILTER           = ./csdocfilter.py
 
 RECURSIVE              = NO
 
+# In libSBML, we use the following section names for the languages:
+#
+#   java:     only Java
+#   python:   only Python
+#   perl:     only Perl
+#   cpp:      only C++
+#   csharp:   only C#
+#   conly:    only C
+#   clike:    C, C++
+#   notcpp:   not C++
+#   notclike: not C or C++
+
 ENABLED_SECTIONS       = csharp notclike notcpp doxygen-csharp-only
 
 # Ignore some symbols from the output
