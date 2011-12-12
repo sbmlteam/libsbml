@@ -396,8 +396,11 @@ public:
 
 
   /**
-   * Creates a new ASTNode from the given Token.  The resulting ASTNode
-   * will contain the same data as the Token.
+   * Creates a new ASTNode from the given Token_t structure.
+   *
+   * The resulting ASTNode will contain the same data as the Token_t
+   * object.  Please refer to the documentation for Token_t to learn
+   * about the possible contents.
    *
    * @param token the Token to add.
    */

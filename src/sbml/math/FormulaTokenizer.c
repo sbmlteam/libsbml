@@ -1,6 +1,4 @@
 /**
- * @cond doxygen-libsbml-internal
- *
  * @file    FormulaTokenizer.c
  * @brief   Tokenizes an SBML formula string
  * @author  Ben Bornstein
@@ -25,7 +23,16 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- * ---------------------------------------------------------------------- -->*/
+ * ---------------------------------------------------------------------- -->
+ * 
+ * @class FormulaTokenizer
+ * @brief Tokenizes a mathematical formula string in SBML Level 1 syntax.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * This file contains functions to tokenize a text string containing a
+ * mathematical formula in SBML Level&nbsp;1 syntax.  
+ */
 
 #include <ctype.h>
 #include <sbml/common/common.h>
@@ -35,10 +42,14 @@
 
 /* Forward references */
 
+/** @cond doxygen-libsbml-internal */
+
 void Token_convertNaNInf (Token_t *t);
 
+/** @endcond */
 
-/**
+
+/*
  * Creates a new FormulaTokenizer for the given formula string and returns
  * a pointer to it.
  */
@@ -59,7 +70,7 @@ FormulaTokenizer_createFromFormula (const char *formula)
 }
 
 
-/**
+/*
  * Frees the given FormulaTokenizer.
  */
 LIBSBML_EXTERN
@@ -74,7 +85,9 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft)
 }
 
 
-/**
+/** @cond doxygen-internal-libsbml */
+
+/*
  * Reads a TT_NAME from the FormulaTokenizer into the given Token.  This is
  * a supporting function for FormulaTokenizer_nextToken().
  *
@@ -114,7 +127,7 @@ FormulaTokenizer_getName (FormulaTokenizer_t *ft, Token_t *t)
 }
 
 
-/**
+/*
  * Reads either a TT_INTEGER or a TT_REAL from the FormulaTokenizer into
  * the given Token.  This is a supporting function for
  * FormulaTokenizer_nextToken().
@@ -242,8 +255,10 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
   ft->formula[ endpos ] = endchar;
 }
 
+/** @endcond */
 
-/**
+
+/*
  * @return the next token in the formula string.  If no more tokens are
  * available, the token type will be TT_END.
  */
@@ -305,7 +320,9 @@ FormulaTokenizer_nextToken (FormulaTokenizer_t *ft)
 }
 
 
-/**
+/** @cond doxygen-libsbml-internal */
+
+/*
  * Creates a new Token and returns a point to it.
  */
 LIBSBML_EXTERN
@@ -321,7 +338,7 @@ Token_create (void)
 }
 
 
-/**
+/*
  * Frees the given Token
  */
 LIBSBML_EXTERN
@@ -362,7 +379,7 @@ Token_convertNaNInf (Token_t *t)
 }
 
 
-/**
+/*
  * @return the value of this Token as a (long) integer.  This function
  * should be called only when the Token's type is TT_INTEGER.  If the type
  * is TT_REAL or TT_REAL_E, the function will cope by truncating the
@@ -388,7 +405,7 @@ Token_getInteger (const Token_t *t)
 }
 
 
-/**
+/*
  * @return the value of this Token as a real (double).  This function
  * should be called only when the Token's is a number (TT_REAL, TT_REAL_E
  * or TT_INTEGER).
@@ -418,7 +435,7 @@ Token_getReal (const Token_t *t)
 }
 
 
-/**
+/*
  * Negates the value of this Token.  This operation is only valid if the
  * Token's type is TT_INTEGER, TT_REAL, or TT_REAL_E.
  */
@@ -438,6 +455,4 @@ Token_negateValue (Token_t *t)
   }
 }
 
-
 /** @endcond */
-
