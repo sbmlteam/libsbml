@@ -63,12 +63,12 @@ START_TEST (test_read_MathML_1)
 
   d = reader.readSBML(filename);
 
-  if (d == NULL)
+  m = d->getModel();
+  if (m == NULL)
   {
     fail("readSBML(\"mathML_1-invalid.xml\") returned a NULL pointer.");
   }
 
-  m = d->getModel();
   fail_unless( m != NULL, NULL );
 
   // check that whole model has been read in

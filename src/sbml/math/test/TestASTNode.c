@@ -2302,6 +2302,212 @@ START_TEST (test_ASTNode_accessWithNULL)
 }
 END_TEST
 
+START_TEST (test_ASTNode_isBoolean)
+{
+  ASTNode_t *n;// = ASTNode_createWithType(AST_FUNCTION);
+  n = ASTNode_createWithType(AST_PLUS);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_MINUS);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_TIMES);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_DIVIDE);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_POWER);
+  fail_unless(! ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_INTEGER);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_REAL);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_REAL_E);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RATIONAL);
+  fail_unless(! ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_NAME);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_NAME_AVOGADRO);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_NAME_TIME);
+  fail_unless(! ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_CONSTANT_E);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_CONSTANT_FALSE);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_CONSTANT_PI);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_CONSTANT_TRUE);
+  fail_unless( ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_LAMBDA);
+  fail_unless(! ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ABS);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCCOS);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCCOSH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCCOT);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCCOTH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCCSC);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCCSCH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCSEC);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCSECH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCSIN);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCSINH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCTAN);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ARCTANH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_CEILING);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_COS);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_COSH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_COT);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_COTH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_CSC);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_CSCH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_DELAY);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_EXP);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_FACTORIAL);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_FLOOR);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_LN);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_LOG);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_PIECEWISE);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_POWER);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_ROOT);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_SEC);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_SECH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_SIN);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_SINH);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_TAN);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_FUNCTION_TANH);
+  fail_unless(! ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_LOGICAL_AND);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_LOGICAL_NOT);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_LOGICAL_OR);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_LOGICAL_XOR);
+  fail_unless( ASTNode_isBoolean(n));
+
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RELATIONAL_EQ);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RELATIONAL_GEQ);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RELATIONAL_GT);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RELATIONAL_LEQ);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RELATIONAL_LT);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+  n = ASTNode_createWithType(AST_RELATIONAL_NEQ);
+  fail_unless( ASTNode_isBoolean(n));
+  ASTNode_free(n);
+
+  n = ASTNode_createWithType(AST_UNKNOWN);
+  fail_unless(! ASTNode_isBoolean(n));
+  ASTNode_free(n);
+}
+END_TEST
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -2354,6 +2560,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_avogadro                );
   tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
   tcase_add_test( tcase, test_ASTNode_accessWithNULL          );
+  tcase_add_test( tcase, test_ASTNode_isBoolean               );
 
   suite_add_tcase(suite, tcase);
 
