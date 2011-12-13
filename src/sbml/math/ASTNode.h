@@ -396,11 +396,8 @@ public:
 
 
   /**
-   * Creates a new ASTNode from the given Token_t structure.
-   *
-   * The resulting ASTNode will contain the same data as the Token_t
-   * object.  Please refer to the documentation for Token_t to learn
-   * about the possible contents.
+   * Creates a new ASTNode from the given Token.  The resulting ASTNode
+   * will contain the same data as the Token.
    *
    * @param token the Token to add.
    */
@@ -968,6 +965,18 @@ public:
    */
   LIBSBML_EXTERN
   bool isBoolean () const;
+
+
+  /**
+   * Predicate returning @c true (non-zero) if this node has a boolean type
+   * (a logical operator, a relational operator, or the constants @c true
+   * or @c false), or if it is a piecewise function that always returns a
+   * boolean, or if it is a function definition that returns a boolean.
+   *
+   * @return true if this ASTNode returns a boolean, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isBooleanFor (const Model* model) const;
 
 
   /**
@@ -2095,7 +2104,15 @@ ASTNode_getUnits(const ASTNode_t * node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_isBoolean (const ASTNode_t *node);
+ASTNode_isBoolean (const ASTNode_t * node);
+
+/**
+ * @return true (non-zero) if this ASTNode returns a boolean, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isBooleanFor (const ASTNode_t *node, const Model_t* model);
+
 
 /**
  * @return true (non-zero) if this ASTNode is a MathML constant (true,
@@ -2103,7 +2120,7 @@ ASTNode_isBoolean (const ASTNode_t *node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_isConstant (const ASTNode_t *node);
+ASTNode_isConstant (const ASTNode_t * node);
 
 /**
  * @return true (non-zero) if this ASTNode is a function in SBML L1, L2
@@ -2112,7 +2129,7 @@ ASTNode_isConstant (const ASTNode_t *node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_isFunction (const ASTNode_t *node);
+ASTNode_isFunction (const ASTNode_t * node);
 
 /**
  * @return true if this ASTNode is the special IEEE 754 value infinity,

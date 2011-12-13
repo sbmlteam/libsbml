@@ -31,6 +31,7 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/EventAssignment.h>
+#include <sbml/Model.h>
 #include <sbml/xml/XMLNode.h>
 
 #include <limits.h>
@@ -2258,6 +2259,7 @@ START_TEST (test_ASTNode_accessWithNULL)
   fail_unless( ASTNode_hasUnits (NULL) == 0);
   fail_unless( ASTNode_insertChild (NULL, 0, NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless( ASTNode_isBoolean (NULL) == 0);
+  fail_unless( ASTNode_isBooleanFor (NULL, NULL) == 0);
   fail_unless( ASTNode_isConstant (NULL) == 0);
   fail_unless( ASTNode_isFunction (NULL) == 0);
   fail_unless( ASTNode_isInfinity (NULL) == 0);
@@ -2508,6 +2510,38 @@ START_TEST (test_ASTNode_isBoolean)
 }
 END_TEST
 
+START_TEST (test_ASTNode_isBooleanFor)
+{
+  ASTNode_t *n = ASTNode_create();
+  ASTNode_setName(n, "func1");
+  ASTNode_setType(n, AST_FUNCTION);
+
+  fail_unless(ASTNode_isBooleanFor(n, NULL) == 0);
+
+  Model_t* model = Model_create(3,1);
+  FunctionDefinition_t* fd = Model_createFunctionDefinition(model);
+  FunctionDefinition_setId(fd, "func1");
+  FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, true)"));
+  fail_unless(ASTNode_isBooleanFor(n, model));
+
+  ASTNode_setName(n, "func2");
+  fd = Model_createFunctionDefinition(model);
+  FunctionDefinition_setId(fd, "func2");
+  FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, 6)"));
+  fail_unless(!ASTNode_isBooleanFor(n, model));
+  ASTNode_free(n);
+
+  n = SBML_parseFormula("piecewise(true, geq(X, T), false)");
+  fail_unless(ASTNode_isBooleanFor(n, model));
+  ASTNode_free(n);
+
+  n = SBML_parseFormula("piecewise(true, geq(X, T), 5)");
+  fail_unless(!ASTNode_isBooleanFor(n, model));
+  ASTNode_free(n);
+
+}
+END_TEST
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -2561,6 +2595,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
   tcase_add_test( tcase, test_ASTNode_accessWithNULL          );
   tcase_add_test( tcase, test_ASTNode_isBoolean               );
+  tcase_add_test( tcase, test_ASTNode_isBooleanFor            );
 
   suite_add_tcase(suite, tcase);
 

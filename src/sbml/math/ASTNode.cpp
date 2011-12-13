@@ -36,6 +36,7 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLNode.h>
+#include <sbml/Model.h>
 
 /** @cond doxygen-ignored */
 
@@ -1225,6 +1226,15 @@ ASTNode::isBoolean () const
     isRelational() ||
     mType == AST_CONSTANT_TRUE ||
     mType == AST_CONSTANT_FALSE;
+}
+
+
+LIBSBML_EXTERN
+bool
+ASTNode::isBooleanFor (const Model* model) const
+{
+  if (model==NULL) return false;
+  return model->isBoolean(this);
 }
 
 
@@ -2783,6 +2793,15 @@ ASTNode_isBoolean (const ASTNode_t *node)
 {
   if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->isBoolean();
+}
+
+
+LIBSBML_EXTERN
+int
+ASTNode_isBooleanFor (const ASTNode_t *node, const Model_t* model)
+{
+  if (node == NULL) return (int) false;
+  return (int) static_cast<const ASTNode*>(node)->isBooleanFor(model);
 }
 
 
