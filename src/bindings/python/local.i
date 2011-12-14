@@ -110,10 +110,27 @@ namespace std
       str(const basic_string<_CharT, _Traits, _Alloc>& __s);
   };
 
+
+  /**
+   * Insert a newline character into the given C++ stream.
+   *
+   * This is a wrapper around the underlying C++ OStream method
+   * <code>endl</code>.  It inserts a newline into the stream
+   * passed as argument.  Additionally, it flushes buffered
+   * streams.
+   */
   template<typename _CharT, typename _Traits = char_traits<_CharT> >
   basic_ostream<_CharT, _Traits>& 
   endl(basic_ostream<_CharT, _Traits>&);
 
+
+  /**
+   * Flush the given C++ stream.
+   *
+   * This is a wrapper around the underlying C++ OStream method
+   * <code>flush</code>.  It flush any pending output in the stream 
+   * passed as argument.  
+   */
   template<typename _CharT, typename _Traits = char_traits<_CharT> >
   basic_ostream<_CharT, _Traits>& 
   flush(basic_ostream<_CharT, _Traits>&);
@@ -158,6 +175,12 @@ namespace std
   %pythoncode
   {
     def __str__(self):
+      """
+      Return a string representation of this object.
+
+      Note that the string will not be a complete SBML document.
+      """
+
       return self.toSBML()
   }
 }*/
@@ -482,6 +505,7 @@ XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 import sys
 import os.path
 
+# @cond doxygen-libsbml-internal
 
 def conditional_abspath (filename):
   """conditional_abspath (filename) -> filename
@@ -496,6 +520,8 @@ def conditional_abspath (filename):
     return filename
   else:
     return os.path.abspath(filename)
+
+# @endcond
 %}
 
 
@@ -898,6 +924,45 @@ SBase::getCVTerms
 }
 
 
+/**
+ * Rewrite some functions to make them more Python-user-friendly.
+ */
+
+%extend SBMLDocument
+{
+  %pythoncode
+  {
+    def printErrors(self, *args):
+        """
+        printErrors(self) -> string
+        printErrors(self, ostream stream = cerr)
+
+        Prints all the errors or warnings encountered during parsing,
+        consistency-checking, or attempted translation of this SBML
+        document.  Without an argument, it returns a string.  With an
+        argument @p stream, it prints the messages to the given stream.
+
+        If no errors have occurred, i.e., <code>getNumErrors() == 0</code>, no
+        output will be sent to the stream.
+
+        The format of the output is:
+          @verbatim
+            N error(s):
+              line NNN: (id) message
+          @endverbatim
+
+        @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+        """
+        if args:
+            return _libsbml.SBMLDocument_printErrors(self, *args)
+        else:
+            if self.getNumErrors() == 0:
+                return ""
+            else:
+                oss = ostringstream()
+                _libsbml.SBMLDocument_printErrors(self, oss)
+                return oss.str()
+  }
+}
+
 %include "local-packages.i"
-
-
