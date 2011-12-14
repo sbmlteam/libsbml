@@ -3,9 +3,21 @@
 import re
 import sys
 
+def getFunctionNames(filename):
+    file = open(filename, 'r')
+    functions = []
+
+    for line in file.readlines():
+        if re.search(r'\Adef ', line):
+            functions.append(line[4:line.rfind('(')])
+
+    file.close()
+    return functions
+
+
 def main (args):
     """Usage:
-        pythondoctrimmer.py sourcelibsbml.py outputlibsbml.py CLASS CLASS CLASS ...
+        pythondocsubstituter.py sourcelibsbml.py outputlibsbml.py FILE FILE FILE ...
     """
 
     if len(sys.argv) < 4:
@@ -16,21 +28,33 @@ def main (args):
     output    = open(args[2], 'w')
     filenames = args[3:]
 
-    classes = []
-    for f in filenames:
-        classes.append(f[f.rfind('/') + 1 : f.rfind('.')])
+    classes   = []
+    functions = []
 
-    print "Processing " + args[1] + " to remove classes " + ", ".join(classes)
+    for f in filenames:
+        if re.search('libsbml.py', f) != None:
+            functions = getFunctionNames(f)
+        else:
+            classes.append(f[f.rfind('/') + 1 : f.rfind('.')])
+
+    print "Processing " + args[1]
+    print "Will remove the following classes: " + ", ".join(classes)
+    print "Will remove the following functions: " + ", ".join(functions)
 
     skipping = False
     for line in input.readlines():
-        if skipping and re.search(r"\A\S", line):
+        if skipping and re.search(r'\A(\S|\n)', line):
             skipping = False
             output.write(line)
             continue
         if skipping == False:
             for c in classes:
-                if re.search(r"\Aclass " + c + "\(_object\):", line):
+                if re.search(r'\Aclass ' + c + '\(_object\):', line):
+                    skipping = True
+                    continue
+        if skipping == False:
+            for f in functions:
+                if re.search(r'\Adef ' + f, line):
                     skipping = True
                     continue
         if skipping:
@@ -38,7 +62,7 @@ def main (args):
         else:
             output.write(line)
 
-    print "Appending the following files: " + " ".join(filenames)
+    print "Will substitute the contents from the following files: " + " ".join(filenames)
     for f in filenames:
         contents = open(f, 'r').read()
         output.write(contents)
