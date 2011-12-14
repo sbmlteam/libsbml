@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # -*-Perl-*-
 
 ##
@@ -44,7 +44,7 @@
 
 use File::Basename;
 use Benchmark qw/:hireswallclock/;
-use blib '../../src/bindings/perl';
+#use blib '../../src/bindings/perl';
 use LibSBML;
 use strict;
 use vars qw/$tu/;

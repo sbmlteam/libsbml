@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # -*-Perl-*-
 
 ##
@@ -42,7 +42,7 @@
 ##     Waehringerstrasse 17/3/308
 ##     A-1090 Wien, Austria
 
-use blib '../../src/bindings/perl';
+#use blib '../../src/bindings/perl';
 use LibSBML;
 use strict;
 

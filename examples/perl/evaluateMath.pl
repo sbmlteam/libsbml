@@ -1,6 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # -*-Perl-*-
-
 ##
 ## \file    evaluateMath.pl
 ## \brief   Evaluates infix expressions

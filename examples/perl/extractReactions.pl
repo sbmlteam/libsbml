@@ -1,6 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # -*-Perl-*-
-
 ##
 ## \file    extractReactions.pl
 ## \brief   Illustrates howto extract the reactions from a SBML file
