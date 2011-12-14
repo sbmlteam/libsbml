@@ -42,10 +42,6 @@ STABLE RELEASE
    
 * Miscellaneous
 
-  - Python bindings: SBMLDocument's printErrors() can now be 
-    invoked with no arguments, and it will return the diagnostic
-    messages as a string.
-
   - Python bindings: we have fixed a number of errors in the API
     documentation, such as return values being reported as "char" when
     in fact they were strings, and have filled out more of the missing
