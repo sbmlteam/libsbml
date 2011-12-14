@@ -56,7 +56,8 @@ def reformatDocString (match):
   # every method documentation string is the signature of the method.
   # The \A at the beginning of the regexp forces it that way.
 
-  sigRE = '\A(\s*)((\w+\([\w()=:"<>?,.\n ]*\)( -> [\w()=:"<>?|, \t]+)?\s*)+)'
+  sigREfunc = '\w+\([\w()=:"<>?,.\n ]*\)'
+  sigRE     = '\A(\s*)((' + sigREfunc + '( -> [\w()=:"<>?|, \t]+)?\s*)+)'
 
   # This matches when the signatures are the only thing in a docstring.
   p = re.compile(sigRE + '\Z', re.MULTILINE)
@@ -69,6 +70,15 @@ def reformatDocString (match):
   # This ditches the "self" part of the signature string.
   text = text.replace(r'(self)', '()')
   text = text.replace(r'(self, ', '(')
+
+  # This fixes a weird translation by SWIG's doc string generator: it
+  # seems to turn "char *" to "char" instead of "string".  In our code,
+  # this is almost never correct.  So:
+  p = re.compile('(' + sigREfunc + ') -> char')
+  text = p.sub(r'\1 -> string', text)
+
+  # Exceptions to the previous rule:
+  text = text.replace('getCharacter() -> string', 'getCharacter() -> char')
 
   # Prettify the arrow:
   newArrow = '@htmlonly ' + \
