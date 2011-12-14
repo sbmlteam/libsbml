@@ -4,7 +4,7 @@
 Next release
 ======================================================================
 
-STABLE
+STABLE RELEASE
 
 * New features
 
@@ -40,14 +40,21 @@ STABLE
     explicilty excluding these classes.  Thanks to  Totte Karlsson 
     for reporting this.
    
-
-
 * Miscellaneous
 
+  - Python bindings: SBMLDocument's printErrors() can now be 
+    invoked with no arguments, and it will return the diagnostic
+    messages as a string.
+
+  - Python bindings: we have fixed a number of errors in the API
+    documentation, such as return values being reported as "char" when
+    in fact they were strings, and have filled out more of the missing
+    documentation.
 
 * Configuration/build system changes
 
-EXPERIMENTAL
+
+EXPERIMENTAL RELEASE
 
 * New features
 
@@ -59,6 +66,7 @@ EXPERIMENTAL
 
 
 * Configuration/build system changes
+
 
 ======================================================================
 Version 5.2.0 (2011-11-11)
