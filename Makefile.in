@@ -215,9 +215,27 @@ examples =                                                          \
   examples/python/unsetAnnotation.py                                \
   examples/python/unsetNotes.py                                     \
   examples/python/validateSBML.py                                   \
+  examples/ruby/addCustomValidator.rb                               \
+  examples/ruby/addCVTerms.rb                                       \
+  examples/ruby/addingEvidenceCodes_1.rb                            \
+  examples/ruby/addingEvidenceCodes_2.rb                            \
+  examples/ruby/addModelHistory.rb                                  \
+  examples/ruby/appendAnnotation.rb                                 \
+  examples/ruby/callExternalValidator.rb                            \
   examples/ruby/convertSBML.rb                                      \
+  examples/ruby/createExampleSBML.rb                                \
   examples/ruby/echoSBML.rb                                         \
+  examples/ruby/printAnnotation.rb                                  \
   examples/ruby/printMath.rb                                        \
+  examples/ruby/printNotes.rb                                       \
+  examples/ruby/printRegisteredPackages.rb                          \
+  examples/ruby/printSBML.rb                                        \
+  examples/ruby/printsupported.rb                                   \
+  examples/ruby/printUnits.rb                                       \
+  examples/ruby/readSBML.rb                                         \
+  examples/ruby/translateMath.rb                                    \
+  examples/ruby/unsetAnnotation.rb                                  \
+  examples/ruby/unsetNotes.rb                                       \
   examples/ruby/validateSBML.rb                                     \
   examples/sample-models/README.txt                                 \
   examples/sample-models/from-spec/level-2/README.txt               \
