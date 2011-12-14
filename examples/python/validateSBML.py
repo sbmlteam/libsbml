@@ -49,7 +49,9 @@ class validateSBML:
         else:
           numReadWarn += 1
 
-        errMsgRead = sbmlDoc.printErrors()
+        oss = libsbml.ostringstream()
+        sbmlDoc.printErrors(oss)
+        errMsgRead = oss.str()
 
     # If serious errors are encountered while reading an SBML document, it
     # does not make sense to go on and do full consistency checking because
@@ -87,7 +89,9 @@ class validateSBML:
         if isinvalid:
           self.numinvalid += 1;    
 
-        errMsgCC = sbmlDoc.printErrors()
+        oss = libsbml.ostringstream()
+        sbmlDoc.printErrors(oss)
+        errMsgCC = oss.str()
 
     #
     # print results
