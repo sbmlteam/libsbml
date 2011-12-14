@@ -332,13 +332,14 @@ SyntaxChecker::hasExpectedXHTMLSyntax(const XMLNode * xhtml,
 
   return correctSyntax;
 }
+
+
 /** @cond doxygen-libsbml-internal */
 bool
 SyntaxChecker::isValidInternalUnitSId(std::string units)
 {
   return isValidInternalSId(units);
 }
-
 
 
 bool
@@ -1203,6 +1204,7 @@ case 3:
       
   return letter; 
 }
+
 /** @endcond */
 
 

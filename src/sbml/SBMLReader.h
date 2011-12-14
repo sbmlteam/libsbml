@@ -405,25 +405,37 @@ public:
 
 
   /**
-   * Predicate returning @c true if this copy
-   * of libSBML supports <i>gzip</I> and <i>zip</i> format compression.
+   * Static method; returns @c true if this copy of libSBML supports
+   * <i>gzip</I> and <i>zip</i> format compression.
    *
    * @return @c true if libSBML has been linked with the <i>zlib</i>
    * library, @c false otherwise.
    *
-   * @see hasBzip2()
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLReader), and the other
+   * will be a standalone top-level function with the name
+   * SBMLReader_hasZlib(). They are functionally identical. @endif
+   *
+   * @see SBMLReader::hasBzip2()
    */
   static bool hasZlib();
 
 
   /**
-   * Predicate returning @c true if
-   * this copy of libSBML supports <i>bzip2</i> format compression.
+   * Static method; returns @c true if this copy of libSBML supports
+   * <i>bzip2</i> format compression.
    *
    * @return @c true if libSBML is linked with the <i>bzip2</i>
    * libraries, @c false otherwise.
    *
-   * @see hasZlib()
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLReader), and the other
+   * will be a standalone top-level function with the name
+   * SBMLReader_hasBzip2(). They are functionally identical. @endif
+   *
+   * @see SBMLReader::hasZlib()
    */
   static bool hasBzip2();
 

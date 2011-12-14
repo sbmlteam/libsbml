@@ -432,7 +432,7 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
  */
 LIBSBML_EXTERN
 int
-SBMLReader_hasZlib ()
+SBMLReader_hasZlib (void)
 {
   return static_cast<int>( SBMLReader::hasZlib() );
 }
@@ -446,7 +446,7 @@ SBMLReader_hasZlib ()
  */
 LIBSBML_EXTERN
 int
-SBMLReader_hasBzip2 ()
+SBMLReader_hasBzip2 (void)
 {
   return static_cast<int>( SBMLReader::hasBzip2() );
 }

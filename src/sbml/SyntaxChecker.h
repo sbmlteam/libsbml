@@ -79,10 +79,18 @@ public:
    *
    * @note @htmlinclude id-syntax.html
    *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SyntaxChecker), and the
+   * other will be a standalone top-level function with the name
+   * SyntaxChecker_isValidSBMLSId(). They are functionally
+   * identical. @endif
+   *
    * @see isValidUnitSId(std::string sid)
    * @see isValidXMLID(std::string sid)
    */  
   static bool isValidSBMLSId(std::string sid);
+
 
 #ifndef SWIG
   /**
@@ -99,6 +107,7 @@ public:
    */
   static int checkAndSetSId(const std::string &srcId, std::string &dstId);
 #endif //SWIG
+
   
   /**
    * Returns @c true or @c false depending on whether the argument string
@@ -125,6 +134,13 @@ public:
    * href="http://www.w3.org/TR/REC-xml/#id">ID</a>, @c false otherwise.
    *
    * @note @htmlinclude xmlid-syntax.html
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SyntaxChecker), and the
+   * other will be a standalone top-level function with the name
+   * SyntaxChecker_isValidXMLID(). They are functionally
+   * identical. @endif
    * 
    * @see isValidSBMLSId(std::string sid)
    * @see isValidUnitSId(std::string sid)
@@ -155,6 +171,13 @@ public:
    * <code>UnitSId</code>, @c false otherwise.
    *
    * @note @htmlinclude unitid-syntax.html
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SyntaxChecker), and the
+   * other will be a standalone top-level function with the name
+   * SyntaxChecker_isValidUnitSId(). They are functionally
+   * identical. @endif
    *
    * @see isValidSBMLSId(std::string sid)
    * @see isValidXMLID(std::string sid)
@@ -233,6 +256,13 @@ public:
    *
    * @return @c true if the XMLNode content conforms, @c false otherwise.
    *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SyntaxChecker), and the
+   * other will be a standalone top-level function with the name
+   * SyntaxChecker_hasExpectedXHTMLSyntax(). They are functionally
+   * identical. @endif
+   *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   static bool hasExpectedXHTMLSyntax(const XMLNode * xhtml, 
@@ -248,12 +278,14 @@ public:
   static bool isValidInternalSId(std::string sid);
 
   static bool isValidInternalUnitSId(std::string sid);
+
   /*
    * return true if element is an allowed xhtml element
    */
   static bool isAllowedElement(const XMLNode &node);
 
   /** @endcond */
+
 
   /** @cond doxygen-libsbml-internal */
 
@@ -264,6 +296,7 @@ public:
 
   /** @endcond */
 
+
   /** @cond doxygen-libsbml-internal */
 
   /*
@@ -273,6 +306,7 @@ public:
   static bool isCorrectHTMLNode(const XMLNode &node);
 
   /** @endcond */
+
 
 protected:  
   /** @cond doxygen-libsbml-internal */

@@ -794,6 +794,12 @@ public:
    * @endcode
    *
    * @param ud the UnitDefinition object to be simplified.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_simplify(). They are functionally identical. @endif
    */
   static void simplify(UnitDefinition * ud);
 
@@ -803,6 +809,12 @@ public:
    * UnitDefinition.
    *
    * @param ud the UnitDefinition object whose units are to be reordered.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_reorder(). They are functionally identical. @endif
    */
   static void reorder(UnitDefinition * ud);
 
@@ -815,6 +827,12 @@ public:
    *
    * @return a new UnitDefinition object representing the results of the
    * conversion.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_convertToSI(). They are functionally identical. @endif
    */
   static UnitDefinition * convertToSI(const UnitDefinition *ud);
 
@@ -837,11 +855,17 @@ public:
    * @return @c true if all the Unit objects in ud1 are identical to the
    * Unit objects of ud2, @c false otherwise.
    *
-   * @see areEquivalent(const UnitDefinition * ud1, const %UnitDefinition * ud2)
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_areIdentical(). They are functionally identical. @endif
+   *
+   * @see UnitDefinition::areEquivalent(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areIdentical(Unit * unit1, %Unit * unit2)
    */
   static bool areIdentical(const UnitDefinition * ud1, 
-    const UnitDefinition * ud2);
+                           const UnitDefinition * ud2);
 
 
   /** 
@@ -862,7 +886,13 @@ public:
    * @return @c true if all the Unit objects in ud1 are equivalent
    * to the Unit objects in ud2, @c false otherwise.
    *
-   * @see areIdentical(const UnitDefinition * ud1, const %UnitDefinition * ud2)
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_areEquivalent(). They are functionally identical. @endif
+   *
+   * @see UnitDefinition::areIdentical(const UnitDefinition * ud1, const %UnitDefinition * ud2)
    * @see Unit::areEquivalent(Unit * unit1, %Unit * unit2)
    */
   static bool areEquivalent(const UnitDefinition *ud1 , const UnitDefinition * ud2);
@@ -887,6 +917,12 @@ public:
    *
    * @return a UnitDefinition which represents the product of the 
    * units of the two argument UnitDefinitions.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_combine(). They are functionally identical. @endif
    */
   static UnitDefinition* combine(UnitDefinition * ud1, UnitDefinition * ud2);
 
@@ -918,6 +954,12 @@ public:
    *
    * @return a string expressing the unit definition defined by the given
    * UnitDefinition object @p ud.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., UnitDefinition), and the
+   * other will be a standalone top-level function with the name
+   * UnitDefinition_printUnits(). They are functionally identical. @endif
    */
   static std::string printUnits(const UnitDefinition * ud, 
                                 bool compact = false);

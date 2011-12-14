@@ -236,6 +236,12 @@ public:
    *
    * @return @c true if @p term is-a %SBO <em>"quantiative parameter"</em>, @c false
    * otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isQuantitativeParameter(). They are functionally identical. @endif
    */
   static bool isQuantitativeParameter  (unsigned int term);
 
@@ -244,6 +250,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"participant role"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isParticipantRole(). They are functionally identical. @endif
    */
   static bool isParticipantRole  (unsigned int term);
 
@@ -252,6 +264,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"modeling framework"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isModellingFramework(). They are functionally identical. @endif
    */
   static bool isModellingFramework  (unsigned int term);
 
@@ -260,6 +278,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"mathematical expression"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isMathematicalExpression(). They are functionally identical. @endif
    */
   static bool isMathematicalExpression  (unsigned int term);
 
@@ -268,6 +292,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"kinetic constant"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isKineticConstant(). They are functionally identical. @endif
    */
   static bool isKineticConstant  (unsigned int term);
 
@@ -276,6 +306,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"reactant"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isReactant(). They are functionally identical. @endif
    */
   static bool isReactant  (unsigned int term);
 
@@ -284,6 +320,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"product"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isProduct(). They are functionally identical. @endif
    */
   static bool isProduct  (unsigned int term);
 
@@ -292,6 +334,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"modifier"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isModifier(). They are functionally identical. @endif
    */
   static bool isModifier  (unsigned int term);
 
@@ -300,6 +348,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"rate law"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isRateLaw(). They are functionally identical. @endif
    */
   static bool isRateLaw  (unsigned int term);
 
@@ -308,6 +362,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"event"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isEvent(). They are functionally identical. @endif
    */
   static bool isEvent  (unsigned int term);
 
@@ -316,6 +376,12 @@ public:
     * Returns @c true if the given term identifier comes from the stated branch of %SBO.
     *
     * @return @c true if @p term is-a %SBO <em>"physical participant</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isPhysicalParticipant(). They are functionally identical. @endif
     */
   static bool isPhysicalParticipant  (unsigned int term);
 
@@ -324,6 +390,12 @@ public:
     * Returns @c true if the given term identifier comes from the stated branch of %SBO.
     *
     * @return @c true if @p term is-a %SBO <em>"participant"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isParticipant(). They are functionally identical. @endif
     */
   static bool isParticipant  (unsigned int term);
 
@@ -332,6 +404,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"interaction"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isInteraction(). They are functionally identical. @endif
    */
   static bool isInteraction  (unsigned int term);
 
@@ -340,6 +418,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"entity"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isEntity(). They are functionally identical. @endif
    */
   static bool isEntity  (unsigned int term);
 
@@ -348,6 +432,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"functional entity"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isFunctionalEntity(). They are functionally identical. @endif
    */
   static bool isFunctionalEntity  (unsigned int term);
 
@@ -356,6 +446,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"material entity"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isMaterialEntity(). They are functionally identical. @endif
    */
   static bool isMaterialEntity  (unsigned int term);
 
@@ -364,6 +460,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"conservation law"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isConservationLaw(). They are functionally identical. @endif
    */
   static bool isConservationLaw  (unsigned int term);
 
@@ -372,6 +474,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"steady state expression"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isSteadyStateExpression(). They are functionally identical. @endif
    */
   static bool isSteadyStateExpression  (unsigned int term);
 
@@ -380,6 +488,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"functional compartment"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isFunctionalCompartment(). They are functionally identical. @endif
    */
   static bool isFunctionalCompartment  (unsigned int term);
 
@@ -388,6 +502,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"continuous framework"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isContinuousFramework(). They are functionally identical. @endif
    */
   static bool isContinuousFramework  (unsigned int term);
 
@@ -396,6 +516,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"discrete framework"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isDiscreteFramework(). They are functionally identical. @endif
    */
   static bool isDiscreteFramework  (unsigned int term);
 
@@ -404,6 +530,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"logical framework"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isLogicalFramework(). They are functionally identical. @endif
    */
   static bool isLogicalFramework  (unsigned int term);
 
@@ -412,6 +544,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"metadata representation"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isMetadataRepresentation(). They are functionally identical. @endif
    */
   static bool isMetadataRepresentation  (unsigned int term);
 
@@ -420,6 +558,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"occurring entity representation"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isOccurringEntityRepresentation(). They are functionally identical. @endif
    */
   static bool isOccurringEntityRepresentation  (unsigned int term);
 
@@ -428,6 +572,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"physical entity representation"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isPhysicalEntityRepresentation(). They are functionally identical. @endif
    */
   static bool isPhysicalEntityRepresentation  (unsigned int term);
 
@@ -436,6 +586,12 @@ public:
    * Returns @c true if the given term identifier comes from the stated branch of %SBO.
    *
    * @return @c true if @p term is-a %SBO <em>"systems description parameter"</em>, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isSystemsDescriptionParameter(). They are functionally identical. @endif
    */
   static bool isSystemsDescriptionParameter  (unsigned int term);
 
@@ -444,6 +600,12 @@ public:
    * Predicate for checking whether the given term is obsolete.
    *
    * @return @c true if @p term is-a %SBO <em>"obsolete"</em> term, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_isObselete(). They are functionally identical. @endif
    */
   static bool isObselete  (unsigned int term);
 
@@ -455,6 +617,12 @@ public:
    *
    * @note If the sboTerm is not in the correct range
    * (0000000&ndash;9999999), an empty string is returned.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_intToString(). They are functionally identical. @endif
    */
   static std::string intToString (int sboTerm);
 
@@ -465,6 +633,12 @@ public:
    * @return the given string sboTerm as an integer.  If the sboTerm is not
    * in the correct format (a zero-padded, seven digit string), <code>-1</code> is
    * returned.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_stringToInt(). They are functionally identical. @endif
    */
   static int stringToInt (const std::string& sboTerm);
 
@@ -474,6 +648,12 @@ public:
    *
    * @return @c true if sboTerm is in the correct format (a zero-padded, seven
    * digit string), @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_checkTerm(). They are functionally identical. @endif
    */
   static bool checkTerm (const std::string& sboTerm);
 
@@ -484,6 +664,12 @@ public:
    *
    * @return @c true if sboTerm is in the range (0000000&ndash;9999999), @c false
    * otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBO), and the other will
+   * be a standalone top-level function with the name
+   * SBO_checkTerm(). They are functionally identical. @endif
    */
   static bool checkTerm (int sboTerm);
 

@@ -909,6 +909,13 @@ public:
    *
    * @note The predefined unit identifiers @c "length" and @c "area" were
    * added in Level&nbsp;2 Version&nbsp;1
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_isBuiltIn(). They are functionally
+   * identical. @endif
    */
   static bool isBuiltIn (const std::string& name, unsigned int level);
 
@@ -939,115 +946,157 @@ public:
    * @note The allowed unit names differ between SBML Levels&nbsp;1
    * and&nbsp;2 and again slightly between Level&nbsp;2 Versions&nbsp;1
    * and&nbsp;2.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_isUnitKind(). They are functionally
+   * identical. @endif
    */
   static bool isUnitKind (const std::string& name,
                           unsigned int level, unsigned int version);
 
 
   /** 
-  * Predicate returning @c true if two
-  * Unit objects are identical.
-  *
-  * Two Unit objects are considered to be @em identical if they match in
-  * all attributes.  (Contrast this to the method areEquivalent(@if java
-  * Unit u1, %Unit u2@endif), which compares Unit objects only with respect
-  * to certain attributes.)
-  *
-  * @param unit1 the first Unit object to compare
-  * @param unit2 the second Unit object to compare
-  *
-  * @return @c true if all the attributes of unit1 are identical
-  * to the attributes of unit2, @c false otherwise.
-  *
-  * @see areEquivalent(@if java Unit u1, %Unit u2@endif)
-  */
+   * Predicate returning @c true if two
+   * Unit objects are identical.
+   *
+   * Two Unit objects are considered to be @em identical if they match in
+   * all attributes.  (Contrast this to the method areEquivalent(@if java
+   * Unit u1, %Unit u2@endif), which compares Unit objects only with respect
+   * to certain attributes.)
+   *
+   * @param unit1 the first Unit object to compare
+   * @param unit2 the second Unit object to compare
+   *
+   * @return @c true if all the attributes of unit1 are identical
+   * to the attributes of unit2, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_areIdentical(). They are functionally
+   * identical. @endif
+   *
+   * @see areEquivalent(@if java Unit u1, %Unit u2@endif)
+   */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
 
   /** 
-  * Predicate returning @c true if 
-  * Unit objects are equivalent.
-  *
-  * Two Unit objects are considered to be @em equivalent either if (1) both
-  * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
-  * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
-  * attribute values are equal. (Contrast this to the method
-  * areIdentical(@if java Unit u1, %Unit u2@endif), which compares Unit objects with respect to all
-  * attributes, not just the "kind" and "exponent".)
-  *
-  * @param unit1 the first Unit object to compare
-  * @param unit2 the second Unit object to compare
-  *
-  * @return @c true if the "kind" and "exponent" attributes of unit1 are
-  * identical to the kind and exponent attributes of unit2, @c false
-  * otherwise.
-  * 
-  * @see areIdentical(@if java Unit u1, %Unit u2@endif)
-  */
+   * Predicate returning @c true if 
+   * Unit objects are equivalent.
+   *
+   * Two Unit objects are considered to be @em equivalent either if (1) both
+   * have a "kind" attribute value of @c dimensionless, or (2) their "kind",
+   * "exponent" and (for SBML Level&nbsp;2 Version&nbsp;1) "offset"
+   * attribute values are equal. (Contrast this to the method
+   * areIdentical(@if java Unit u1, %Unit u2@endif), which compares Unit objects with respect to all
+   * attributes, not just the "kind" and "exponent".)
+   *
+   * @param unit1 the first Unit object to compare
+   * @param unit2 the second Unit object to compare
+   *
+   * @return @c true if the "kind" and "exponent" attributes of unit1 are
+   * identical to the kind and exponent attributes of unit2, @c false
+   * otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_areEquivalent(). They are functionally
+   * identical. @endif
+   * 
+   * @see areIdentical(@if java Unit u1, %Unit u2@endif)
+   */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
 
   /** 
-  * Manipulates the attributes of the Unit to express the unit with the 
-  * value of the scale attribute reduced to zero.
-  *
-  * For example, 1 millimetre can be expressed as a Unit with kind=@c
-  * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
-  * expressed as a Unit with kind=@c "metre"
-  * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
-  *
-  * @param unit the Unit object to manipulate.
-  *
-  * @return integer value indicating success/failure of the function.  The
-  * possible values returned by this function are:
-  * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-  *
-  * @see convertToSI(@if java Unit u@endif)
-  * @see merge(@if java Unit u1, Unit u2@endif)
-  */
+   * Manipulates the attributes of the Unit to express the unit with the 
+   * value of the scale attribute reduced to zero.
+   *
+   * For example, 1 millimetre can be expressed as a Unit with kind=@c
+   * "metre" multiplier=@c "1" scale=@c "-3" exponent=@c "1". It can also be
+   * expressed as a Unit with kind=@c "metre"
+   * multiplier=<code>"0.001"</code> scale=@c "0" exponent=@c "1".
+   *
+   * @param unit the Unit object to manipulate.
+   *
+   * @return integer value indicating success/failure of the function.  The
+   * possible values returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_removeScale(). They are functionally
+   * identical. @endif
+   *
+   * @see convertToSI(@if java Unit u@endif)
+   * @see merge(@if java Unit u1, Unit u2@endif)
+   */
   static int removeScale(Unit * unit);
 
 
   /** 
-  * Merges two Unit objects with the same "kind" attribute value into a
-  * single Unit.
-  * 
-  * For example, the following,
-  * @code
-  * <unit kind="metre" exponent="2"/>
-  * <unit kind="metre" exponent="1"/>
-  * @endcode
-  * would be merged to become
-  * @code
-  * <unit kind="metre" exponent="3"/>
-  * @endcode
-  *
-  * @param unit1 the first Unit object; the result of the operation is
-  * left as a new version of this unit, modified in-place.
-  * 
-  * @param unit2 the second Unit object to merge with the first
-  * 
-  * @see convertToSI(@if java Unit u@endif)
-  * @see removeScale(@if java Unit u@endif)
-  */
+   * Merges two Unit objects with the same "kind" attribute value into a
+   * single Unit.
+   * 
+   * For example, the following,
+   * @code
+   * <unit kind="metre" exponent="2"/>
+   * <unit kind="metre" exponent="1"/>
+   * @endcode
+   * would be merged to become
+   * @code
+   * <unit kind="metre" exponent="3"/>
+   * @endcode
+   *
+   * @param unit1 the first Unit object; the result of the operation is
+   * left as a new version of this unit, modified in-place.
+   * 
+   * @param unit2 the second Unit object to merge with the first
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_merge(). They are functionally
+   * identical. @endif
+   * 
+   * @see convertToSI(@if java Unit u@endif)
+   * @see removeScale(@if java Unit u@endif)
+   */
   static void merge(Unit * unit1, Unit * unit2);
 
 
   /**
-  * Returns a UnitDefinition object containing the given @p unit converted
-  * to the appropriate SI unit.
-  *
-  * This method exists because some units can be expressed in terms of
-  * others when the same physical dimension is involved.  For example, one
-  * hertz is identical to 1&nbsp;sec<sup>-1</sup>, one litre is equivalent
-  * to 1 cubic decametre, and so on.
-  *
-  * @param unit the Unit object to convert to SI
-  *
-  * @return a UnitDefinition object containing the SI unit.
-  *
-  * @see merge(@if java Unit u1, Unit u2@endif)
-  */
+   * Returns a UnitDefinition object containing the given @p unit converted
+   * to the appropriate SI unit.
+   *
+   * This method exists because some units can be expressed in terms of
+   * others when the same physical dimension is involved.  For example, one
+   * hertz is identical to 1&nbsp;sec<sup>-1</sup>, one litre is equivalent
+   * to 1 cubic decametre, and so on.
+   *
+   * @param unit the Unit object to convert to SI
+   *
+   * @return a UnitDefinition object containing the SI unit.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., Unit), and the
+   * other will be a standalone top-level function with the name
+   * Unit_convertToSI(). They are functionally
+   * identical. @endif
+   *
+   * @see merge(@if java Unit u1, Unit u2@endif)
+   */
   static UnitDefinition * convertToSI(const Unit * unit);
 
 
@@ -1112,6 +1161,7 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
+
   /**
    * Predicate to test whether a given string is the name of a valid
    * base unit in SBML Level 1 (such as @c "gram" or @c "mole")
@@ -1134,6 +1184,7 @@ protected:
    */
   static bool isL2V1UnitKind (const std::string& name);
 
+
   /**
    * Predicate to test whether a given string is the name of a valid base
    * unit in SBML Level&nbsp;2 Version&nbsp;2, 3 or 4 (such as @c "gram" or @c
@@ -1144,6 +1195,7 @@ protected:
    * @return @c true if name is a valid SBML UnitKind, @c false otherwise
    */
   static bool isL2UnitKind (const std::string& name);
+
 
   /**
    * Predicate to test whether a given string is the name of a valid base

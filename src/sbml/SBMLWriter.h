@@ -271,7 +271,15 @@ public:
    * allows a calling program to inquire whether that is the case for the
    * copy of libSBML it is using.
    *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLWriter), and the other
+   * will be a standalone top-level function with the name
+   * SBMLWriter_hasZlib(). They are functionally identical. @endif
+   *
    * @return @c true if libSBML is linked with zlib, @c false otherwise.
+   *
+   * @see SBMLWriter::hasBzip2()
    */
   static bool hasZlib();
 
@@ -286,7 +294,15 @@ public:
    * allows a calling program to inquire whether that is the case for the
    * copy of libSBML it is using.
    *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLWriter), and the other
+   * will be a standalone top-level function with the name
+   * SBMLWriter_hasZlib(). They are functionally identical. @endif
+   *
    * @return @c true if libSBML is linked with bzip2, @c false otherwise.
+   *
+   * @see SBMLWriter::hasZlib()
    */
   static bool hasBzip2();
 

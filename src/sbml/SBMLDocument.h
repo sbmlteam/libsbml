@@ -324,6 +324,13 @@ public:
    * specified at the time of the construction of an SBMLDocument instance.
    *
    * @return an integer indicating the most recent SBML specification Level
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLDocument), and the
+   * other will be a standalone top-level function with the name
+   * SBMLDocument_getDefaultLevel(). They are functionally
+   * identical. @endif
    * 
    * @see getDefaultVersion()
    */
@@ -343,6 +350,13 @@ public:
    *
    * @return an integer indicating the most recent SBML specification
    * Version
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLDocument), and the
+   * other will be a standalone top-level function with the name
+   * SBMLDocument_getDefaultVersion(). They are functionally
+   * identical. @endif
    *
    * @see getDefaultLevel()
    */

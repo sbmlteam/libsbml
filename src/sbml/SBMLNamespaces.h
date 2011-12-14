@@ -190,6 +190,13 @@ public:
    *
    * @return a string representing the SBML namespace that reflects the
    * SBML Level and Version specified.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLNamespaces), and the
+   * other will be a standalone top-level function with the name
+   * SBMLNamespaces_getSBMLNamespaceURI(). They are functionally
+   * identical. @endif
    */
   static std::string getSBMLNamespaceURI(unsigned int level,
                                          unsigned int version);
@@ -199,8 +206,16 @@ public:
    * libsbml. 
    * 
    * @return a list with supported SBML namespaces. 
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLNamespaces), and the
+   * other will be a standalone top-level function with the name
+   * SBMLNamespaces_getSupportedNamespaces(). They are functionally
+   * identical. @endif
    */
   static const List* getSupportedNamespaces();
+
 
   /**
    * Returns a string representing the SBML XML namespace of this
@@ -561,6 +576,13 @@ else
    * @param uri the URI of namespace
    *
    * @return @c true if the "uri" is one of SBML namespaces, @c false otherwise.
+   *
+   * @if notclike @note Because this is a @em static method, the
+   * non-C++ language interfaces for libSBML will contain two variants.  One
+   * will be a static method on the class (i.e., SBMLNamespaces), and the
+   * other will be a standalone top-level function with the name
+   * SBMLNamespaces_isSBMLNamespace(). They are functionally
+   * identical. @endif
    */
   static bool isSBMLNamespace(const std::string& uri);
 
