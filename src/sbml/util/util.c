@@ -39,6 +39,10 @@
 #include <sbml/util/List.h>
 #include <sbml/util/util.h>
 
+#if defined(__arm__)
+#  define finite(d) isfinite(d)
+#endif
+
 
 /** @cond doxygen-libsbml-internal */
 
