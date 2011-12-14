@@ -1030,9 +1030,12 @@ public:
 
 
   /**
-   * Prints to the given output stream all the errors or warnings
-   * encountered during parsing, consistency checking, or attempted
-   * translation of this model.
+   * Prints all the errors or warnings encountered trying to parse,
+   * check, or translate this SBML document.
+   *
+   * It prints the text to the stream given by the optional parameter @p
+   * stream.  If no parameter is given, it prints the output to the
+   * standard error stream.
    *
    * If no errors have occurred, i.e., <code>getNumErrors() == 0</code>, no
    * output will be sent to the stream.
@@ -1042,6 +1045,9 @@ public:
    N error(s):
      line NNN: (id) message
  @endverbatim
+   *
+   * @param stream the ostream or ostringstream object indicating where
+   * the output should be printed.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
@@ -1623,12 +1629,13 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
 
 LIBSBML_EXTERN
 unsigned int
-SBMLDocument_getDefaultLevel (void);
+SBMLDocument_getDefaultLevel ();
 
 
 LIBSBML_EXTERN
 unsigned int
-SBMLDocument_getDefaultVersion (void);
+SBMLDocument_getDefaultVersion ();
+
 
 LIBSBML_EXTERN
 const XMLNamespaces_t *
