@@ -169,14 +169,29 @@ examples =                                                          \
   examples/layout/example3.cpp                                      \
   examples/layout/example3-L3.cpp                                   \
   examples/layout/layout2svg.xsl                                    \
+  examples/perl/addCVTerms.pl                                       \
+  examples/perl/addingEvidenceCodes_1.pl                            \
+  examples/perl/addingEvidenceCodes_2.pl                            \
+  examples/perl/addModelHistory.pl                                  \
+  examples/perl/appendAnnotation.pl                                 \
+  examples/perl/callExternalValidator.pl                            \
   examples/perl/convertSBML.pl                                      \
+  examples/perl/createExampleSBML.pl                                \
+  examples/perl/echoSBML.pl                                         \
   examples/perl/evaluateMath.pl                                     \
   examples/perl/extractReactionInfo.pl                              \
   examples/perl/extractReactions.pl                                 \
+  examples/perl/printAnnotation.pl                                  \
   examples/perl/printMath.pl                                        \
+  examples/perl/printNotes.pl                                       \
+  examples/perl/printRegisteredPackages.pl                          \
   examples/perl/printSBML.pl                                        \
+  examples/perl/printsupported.pl                                   \
+  examples/perl/printUnits.pl                                       \
   examples/perl/readSBML.pl                                         \
   examples/perl/translateMath.pl                                    \
+  examples/perl/unsetAnnotation.pl                                  \
+  examples/perl/unsetNotes.pl                                       \
   examples/perl/validateSBML.pl                                     \
   examples/python/addCustomValidator.py                             \
   examples/python/addCVTerms.py                                     \
