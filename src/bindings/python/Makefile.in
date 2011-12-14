@@ -73,7 +73,9 @@ libraries = _libsbml.$(PYTHON_EXT)
 # of the libSBML distributions; only developers should need to regenerate
 # them.  The conditions for this are handled later below.
 
-swig_sources = ../swig/libsbml.h ../swig/libsbml.i
+swig_sources = ../swig/libsbml.h \
+	       ../swig/libsbml.i \
+	       local.i 
 
 ifdef USE_LAYOUT
   swig_sources += ../swig/layout-package.i
