@@ -108,34 +108,34 @@ def filterDocStrings (contents):
 
   # These enumeration types are actually integers in the Python bindings.
 
-  contents = contents.replace(r'ASTNodeType_t',           'long')
-  contents = contents.replace(r'ASTNode_t',               'long')
-  contents = contents.replace(r'BiolQualifierType_t',     'long')
-  contents = contents.replace(r'ModelQualifierType_t',    'long')
-  contents = contents.replace(r'OperationReturnValues_t', 'long')
-  contents = contents.replace(r'QualifierType_t',         'long')
-  contents = contents.replace(r'RuleType_t',              'long')
-  contents = contents.replace(r'SBMLErrorCategory_t',     'long')
-  contents = contents.replace(r'SBMLErrorCode_t',         'long')
-  contents = contents.replace(r'SBMLErrorSeverity_t',     'long')
-  contents = contents.replace(r'SBMLTypeCode_t',          'long')
-  contents = contents.replace(r'UnitKind_t',              'long')
-  contents = contents.replace(r'XMLErrorCategory_t',      'long')
-  contents = contents.replace(r'XMLErrorCode_t',          'long')
-  contents = contents.replace(r'XMLErrorSeverity_t',      'long')
+  contents = re.sub(r'ASTNodeType_t\b',           'long',            contents)
+  contents = re.sub(r'ASTNode_t\b',               'long',            contents)
+  contents = re.sub(r'BiolQualifierType_t\b',     'long',            contents)
+  contents = re.sub(r'ModelQualifierType_t\b',    'long',            contents)
+  contents = re.sub(r'OperationReturnValues_t\b', 'long',            contents)
+  contents = re.sub(r'QualifierType_t\b',         'long',            contents)
+  contents = re.sub(r'RuleType_t\b',              'long',            contents)
+  contents = re.sub(r'SBMLErrorCategory_t\b',     'long',            contents)
+  contents = re.sub(r'SBMLErrorCode_t\b',         'long',            contents)
+  contents = re.sub(r'SBMLErrorSeverity_t\b',     'long',            contents)
+  contents = re.sub(r'SBMLTypeCode_t\b',          'long',            contents)
+  contents = re.sub(r'UnitKind_t\b',              'long',            contents)
+  contents = re.sub(r'XMLErrorCategory_t\b',      'long',            contents)
+  contents = re.sub(r'XMLErrorCode_t\b',          'long',            contents)
+  contents = re.sub(r'XMLErrorSeverity_t\b',      'long',            contents)
 
   # Other type replacements
 
-  contents = contents.replace(r'const char* ', 'string ')
-  contents = contents.replace(r'an unsigned int', 'a long integer')
-  contents = contents.replace(r'unsigned int', 'long')
-  contents = contents.replace(r'const std.string&', 'string')
-  contents = contents.replace(r'const std.string', 'string')
-  contents = contents.replace(r'const ', '')
+  contents = re.sub(r'const char* ',              'string ',         contents)
+  contents = re.sub(r'an unsigned int',           'a long integer',  contents)
+  contents = re.sub(r'unsigned int',              'long',            contents)
+  contents = re.sub(r'const std.string&',         'string',          contents)
+  contents = re.sub(r'const std.string',          'string',          contents)
+  contents = re.sub(r'const ',                    '',                contents)
 
   # We alter the names of some functions.
-  contents = contents.replace('SBML_parseFormula', "parseFormula")
-  contents = contents.replace('SBML_formulaToString', "formulaToString")
+  contents = re.sub('SBML_parseFormula\b',        "parseFormula",    contents)
+  contents = re.sub('SBML_formulaToString\b',     "formulaToString", contents)
 
   return contents
 
