@@ -57,8 +57,8 @@ XMLInputStream::XMLInputStream (  const char*   content
  , mSBMLns  ( NULL )
 {
   // if the content points to nothing throw an exception ??
-  if (content == NULL)
-    throw XMLConstructorException();
+  //if (content == NULL)
+  //  throw XMLConstructorException();
 
   if ( !isGood() ) return;
   if ( errorLog != NULL ) setErrorLog(errorLog);

@@ -616,6 +616,8 @@ XercesParser::parse (const char* content, bool isFile)
 bool
 XercesParser::parseFirst (const char* content, bool isFile)
 {
+  if (content == NULL) return false;
+
   return parse(content, isFile, true);
 }
 

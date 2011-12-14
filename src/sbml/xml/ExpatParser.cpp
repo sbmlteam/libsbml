@@ -251,7 +251,9 @@ bool
 ExpatParser::parseFirst (const char* content, bool isFile)
 {
   if ( error() ) return false;
-
+ 
+  if (content == NULL) return false;
+  
   if (isFile)
   {
     try
