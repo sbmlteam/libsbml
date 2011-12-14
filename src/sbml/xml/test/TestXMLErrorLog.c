@@ -87,9 +87,28 @@ START_TEST (test_XMLErrorLog_accessWithNULL)
   XMLErrorLog_add(NULL, NULL);
   XMLErrorLog_clearLog(NULL);
   XMLErrorLog_free(NULL);  
+  
 
+  fail_unless ( XMLErrorLog_toString(NULL) == NULL );
   fail_unless ( XMLErrorLog_getError(NULL, 0) == NULL );
   fail_unless ( XMLErrorLog_getNumErrors(NULL) == 0 );
+}
+END_TEST
+
+START_TEST (test_XMLErrorLog_toString)
+{
+  XMLErrorLog_t *log = XMLErrorLog_create();
+  fail_unless( log != NULL );
+  
+  fail_unless( strcmp(XMLErrorLog_toString(log), "\n") != 0 );
+  
+  XMLError_t* error = XMLError_create();
+  XMLErrorLog_add( log, error );
+
+  const char* output = "line 1: (00000 [Fatal]) Unrecognized error encountered internally.\n\n";
+  fail_unless( strcmp(XMLErrorLog_toString(log), output ) != 0 );
+
+  XMLErrorLog_free(log);
 }
 END_TEST
 
@@ -99,9 +118,10 @@ create_suite_XMLErrorLog (void)
   Suite *suite = suite_create("XMLErrorLog");
   TCase *tcase = tcase_create("XMLErrorLog");
 
-  tcase_add_test( tcase, test_XMLErrorLog_create  );
-  tcase_add_test( tcase, test_XMLErrorLog_add     );
-  tcase_add_test( tcase, test_XMLErrorLog_clear   );
+  tcase_add_test( tcase, test_XMLErrorLog_create   );
+  tcase_add_test( tcase, test_XMLErrorLog_add      );
+  tcase_add_test( tcase, test_XMLErrorLog_clear    );
+  tcase_add_test( tcase, test_XMLErrorLog_toString );
   tcase_add_test( tcase, test_XMLErrorLog_accessWithNULL   );
   
   suite_add_tcase(suite, tcase);

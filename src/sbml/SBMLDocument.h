@@ -1172,6 +1172,17 @@ public:
    */
   SBMLErrorLog* getErrorLog ();
 
+  /**
+   * Returns a constent pointer to the list of errors or warnings 
+   * logged during parsing, consistency checking, or attempted translation 
+   * of this model.
+   * 
+   * @return the SBMLErrorLog used for this SBMLDocument
+   * 
+   * @see SBMLDocument::getNumErrors()
+   */
+  const SBMLErrorLog* getErrorLog () const;
+
 
   /**
    * Returns a list of XML Namespaces associated with the XML content

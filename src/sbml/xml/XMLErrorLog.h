@@ -62,6 +62,7 @@
 
 #ifdef __cplusplus
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <list>
@@ -165,6 +166,37 @@ public:
 
   /** @endcond */
 
+  /** 
+   * Writes all errors contained in this log to a string and returns it. 
+   *
+   * @return a string containing all logged errors.
+   *
+   *  @see printErrors
+   */
+  std::string toString() const;
+
+  /**
+   * Prints all the errors or warnings stored in this error log
+   *
+   * It prints the text to the stream given by the optional parameter @p
+   * stream.  If no parameter is given, it prints the output to the
+   * standard error stream.
+   *
+   * If no errors have occurred, i.e., <code>getNumErrors() == 0</code>, no
+   * output will be sent to the stream.
+   *
+   * The format of the output is:
+   * @verbatim
+   N error(s):
+     line NNN: (id) message
+ @endverbatim
+   *
+   * @param stream the ostream or ostringstream object indicating where
+   * the output should be printed.
+   *
+   * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   */
+  void printErrors (std::ostream& stream = std::cerr) const;
 
 protected:
   /** @cond doxygen-libsbml-internal */
@@ -218,6 +250,10 @@ XMLErrorLog_getNumErrors (const XMLErrorLog_t *log);
 LIBLAX_EXTERN
 void
 XMLErrorLog_clearLog (XMLErrorLog_t *log);
+
+LIBLAX_EXTERN
+char*
+XMLErrorLog_toString (XMLErrorLog_t *log);
 
 
 END_C_DECLS

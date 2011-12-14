@@ -192,8 +192,37 @@ XMLErrorLog::setParser (const XMLParser* p)
 }
 /** @endcond */
 
+string
+XMLErrorLog::toString() const
+{
+  stringstream stream;
+  printErrors(stream);  
+  return stream.str();
+}
+
+void 
+XMLErrorLog::printErrors (std::ostream& stream /*= std::cerr*/) const
+{
+  vector<XMLError*>::const_iterator iter;
+
+  for (iter = mErrors.begin(); iter != mErrors.end(); ++iter) 
+    stream << *(*iter);
+}
 
 /** @cond doxygen-c-only */
+
+/**
+ * Writes all errors contained in this log to a string and returns it. 
+ *
+ * @return a string containing all logged errors.
+ */
+LIBLAX_EXTERN
+char*
+XMLErrorLog_toString (XMLErrorLog_t *log)
+{
+  if (log == NULL) return NULL;
+  return safe_strdup(log->toString().c_str());
+}
 
 
 /**

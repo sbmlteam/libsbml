@@ -335,7 +335,7 @@ XMLAttributes::getIndex (const XMLTriple& triple) const
 int
 XMLAttributes::getLength () const
 {
-  return mNames.size();
+  return (int)mNames.size();
 }
 
 
@@ -345,7 +345,7 @@ XMLAttributes::getLength () const
 int
 XMLAttributes::getNumAttributes () const
 {
-  return mNames.size();
+  return (int)mNames.size();
 }
 
 
@@ -673,7 +673,7 @@ XMLAttributes::readInto (  int          index
         char*        endptr = NULL;
         const char*  nptr   = trimmed.c_str();
         double       result = strtod(nptr, &endptr);
-        unsigned int length = endptr - nptr;
+        unsigned int length = (unsigned int)(endptr - nptr);
 
         // Restore previous locale
         setlocale(LC_ALL, locale.empty() ? NULL : locale.c_str());
@@ -789,7 +789,7 @@ XMLAttributes::readInto (  int          index
       char*        endptr = NULL;
       const char*  nptr   = trimmed.c_str();
       long         result = strtol(nptr, &endptr, 10);
-      unsigned int length = endptr - nptr;
+      unsigned int length = (unsigned int)(endptr - nptr);
 
       if ((length == trimmed.size()) && (errno != ERANGE))
       {

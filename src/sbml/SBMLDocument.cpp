@@ -807,15 +807,7 @@ SBMLDocument::getNumErrors () const
 void
 SBMLDocument::printErrors (std::ostream& stream) const
 {
-  unsigned int numErrors = getNumErrors();
-
-  if (numErrors > 0)
-  {
-    for (unsigned int n = 0; n < numErrors; n++)
-    {
-      stream << *(getError(n));
-    }
-  }
+  getErrorLog()->printErrors(stream);
 }
 
 /** @cond doxygen-libsbml-internal */
@@ -952,6 +944,16 @@ SBMLDocument::getNamespaces() const
  */
 SBMLErrorLog*
 SBMLDocument::getErrorLog ()
+{
+  return &mErrorLog;
+}
+
+/*
+ * @return the SBMLErrorLog used to log errors during while reading and
+ * validating SBML.
+ */
+const SBMLErrorLog*
+SBMLDocument::getErrorLog () const
 {
   return &mErrorLog;
 }
