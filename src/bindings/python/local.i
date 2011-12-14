@@ -924,45 +924,4 @@ SBase::getCVTerms
 }
 
 
-/**
- * Rewrite some functions to make them more Python-user-friendly.
- */
-
-%extend SBMLDocument
-{
-  %pythoncode
-  {
-    def printErrors(self, *args):
-        """
-        printErrors(self) -> string
-        printErrors(self, ostream stream = cerr)
-
-        Prints all the errors or warnings encountered during parsing,
-        consistency-checking, or attempted translation of this SBML
-        document.  Without an argument, it returns a string.  With an
-        argument @p stream, it prints the messages to the given stream.
-
-        If no errors have occurred, i.e., <code>getNumErrors() == 0</code>, no
-        output will be sent to the stream.
-
-        The format of the output is:
-          @verbatim
-            N error(s):
-              line NNN: (id) message
-          @endverbatim
-
-        @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
-        """
-        if args:
-            return _libsbml.SBMLDocument_printErrors(self, *args)
-        else:
-            if self.getNumErrors() == 0:
-                return ""
-            else:
-                oss = ostringstream()
-                _libsbml.SBMLDocument_printErrors(self, oss)
-                return oss.str()
-  }
-}
-
 %include "local-packages.i"
