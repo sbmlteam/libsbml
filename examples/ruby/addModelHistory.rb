@@ -35,42 +35,44 @@ if ARGV.size != 2:
   exit(2)
 end
 
-  d = LibSBML::readSBML(ARGV[0]);
-  errors = d.getNumErrors
+d = LibSBML::readSBML(ARGV[0]);
+errors = d.getNumErrors
 
-  if errors > 0
-      print("Read Error(s):" + "\n");
-      d.printErrors();  
-      print("Correct the above and re-run." + "\n");
-  else
-      h = LibSBML::ModelHistory.new
-  
-      c = LibSBML::ModelCreator.new
-      c.setFamilyName("Keating");
-      c.setGivenName("Sarah");
-      c.setEmail("sbml-team@caltech.edu");
-      c.setOrganization("University of Hertfordshire");
-  
-      status = h.addCreator(c);
-      printStatus("Status for addCreator: ", status);
-  
-  
-      date = LibSBML::Date.new("1999-11-13T06:54:32");
-      date2 = LibSBML::Date.new("2007-11-30T06:54:00-02:00");
-  
-      status = h.setCreatedDate(date);
-      printStatus("Set created date:      ", status);
-  
-      status = h.setModifiedDate(date2);
-      printStatus("Set modified date:     ", status);
-  
-      status = d.getModel().setModelHistory(h);
-      printStatus("Set model history:     ", status);
-  
-  
-      LibSBML::writeSBML(d, ARGV[1]);
-  end
-  exit(errors);
+if errors > 0
+    print("Read Error(s):" + "\n");
+    d.printErrors();  
+    print("Correct the above and re-run." + "\n");
+	exit(errors);
+end
+
+h = LibSBML::ModelHistory.new
+
+c = LibSBML::ModelCreator.new
+c.setFamilyName("Keating");
+c.setGivenName("Sarah");
+c.setEmail("sbml-team@caltech.edu");
+c.setOrganization("University of Hertfordshire");
+
+status = h.addCreator(c);
+printStatus("Status for addCreator: ", status);
+
+
+date = LibSBML::Date.new("1999-11-13T06:54:32");
+date2 = LibSBML::Date.new("2007-11-30T06:54:00-02:00");
+
+status = h.setCreatedDate(date);
+printStatus("Set created date:      ", status);
+
+status = h.setModifiedDate(date2);
+printStatus("Set modified date:     ", status);
+
+status = d.getModel().setModelHistory(h);
+printStatus("Set model history:     ", status);
+
+
+LibSBML::writeSBML(d, ARGV[1]);
+
+exit(errors);
 
 
 

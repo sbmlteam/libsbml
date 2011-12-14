@@ -78,18 +78,18 @@ if ARGV.size != 1
   exit(1)
 end
 
-  # read the file name
-  document = LibSBML::readSBML(ARGV[0])
+# read the file name
+document = LibSBML::readSBML(ARGV[0])
 
-  # add a custom validator
-  document.addValidator(MyCustomValidator.new)
-  
-  # check consistency like before
-  numErrors = document.checkConsistency
+# add a custom validator
+document.addValidator(MyCustomValidator.new)
 
-  # print errors and warnings
-  document.printErrors
+# check consistency like before
+numErrors = document.checkConsistency
 
-  # return number of errors
-  exit(numErrors)
+# print errors and warnings
+document.printErrors
+
+# return number of errors
+exit(numErrors)
 

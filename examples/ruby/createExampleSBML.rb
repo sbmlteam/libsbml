@@ -7,14 +7,11 @@
 ## @author  Michael Hucka
 ## @author  Sarah Keating
 ## 
-## This file is part of libSBML.  Please visit http:#sbml.org for more
+## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ## 
 
-
-
 require 'libSBML'
-
 
 #
 # These variables are used in writeExampleSBML when writing an SBML
@@ -29,8 +26,6 @@ ProgramVersion = "1.0.0";
 #
 Level = 2;
 Version = 4;
-
-
 
 
 #===============================================================================
@@ -252,7 +247,7 @@ def createExampleEnzymaticReaction
     # Creates an object which represents the following math of the
     # KineticLaw.
     #
-    #      <math xmlns="http:#www.w3.org/1998/Math/MathML">
+    #      <math xmlns="http://www.w3.org/1998/Math/MathML">
     #        <apply>
     #          <times/>
     #          <ci> cytosol </ci>
@@ -342,7 +337,7 @@ def createExampleEnzymaticReaction
     # as a binary tree.
     #
     # Please see "Converting between ASTs and text strings" described
-    # at http:#sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
+    # at http://sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
     # for the detailed information.
     #
     #--------------------------------------------
@@ -775,7 +770,7 @@ def createExampleInvolvingUnits
     #---------------------------------------------------------------------------
     # Creates an object which represents the following KineticLaw object.
     #
-    #  <math xmlns="http:#www.w3.org/1998/Math/MathML">
+    #  <math xmlns="http://www.w3.org/1998/Math/MathML">
     #   <apply>
     #     <times/>
     #     <apply>
@@ -1343,53 +1338,53 @@ end
 #  SBML" in Section 7 of the SBML Level 2 Version 4 specification(*). 
 #
 #   (*) The specification document is available at the following URL:
-#       http:#sbml.org/Documents/Specifications
+#       http://sbml.org/Documents/Specifications
 #
 #===============================================================================
 #
-    sbmlDoc = nil;
-    @SBMLok = false;
+sbmlDoc = nil;
+@SBMLok = false;
 
-    begin
-      #-------------------------------------------------
-      # 7.1 A Simple example application of SBML
-      #-------------------------------------------------
-      
-      sbmlDoc = createExampleEnzymaticReaction
-      @SBMLok = validateExampleSBML(sbmlDoc)
-      if @SBMLok
-	writeExampleSBML(sbmlDoc, "enzymaticreaction.xml")
-      else
-        exit(1)
-      end
-      
-      #-------------------------------------------------
-      # 7.2 Example involving units
-      #-------------------------------------------------
-      
-      sbmlDoc = createExampleInvolvingUnits
-      @SBMLok = validateExampleSBML(sbmlDoc)
-      if @SBMLok
-	  writeExampleSBML(sbmlDoc, "units.xml")
-      else
-        exit(1)
-      end
-      
-      #-------------------------------------------------
-      # 7.8 Example involving function definitions
-      #-------------------------------------------------
-      
-      sbmlDoc = createExampleInvolvingFunctionDefinitions
-      @SBMLok = validateExampleSBML(sbmlDoc)
-      if @SBMLok
-  	writeExampleSBML(sbmlDoc, "functiondef.xml")
-      else
-        exit(1)
-      end
-    rescue Exception=>e
-      puts "Unexpected exceptional condition encountered."
-     exit(1)
-    end
-    # A 0 return status is the standard Unix/Linux way to say "all ok".
-    exit(0)
+begin
+  #-------------------------------------------------
+  # 7.1 A Simple example application of SBML
+  #-------------------------------------------------
+  
+  sbmlDoc = createExampleEnzymaticReaction
+  @SBMLok = validateExampleSBML(sbmlDoc)
+  if @SBMLok
+    writeExampleSBML(sbmlDoc, "enzymaticreaction.xml")
+  else
+    exit(1)
+  end
+  
+  #-------------------------------------------------
+  # 7.2 Example involving units
+  #-------------------------------------------------
+  
+  sbmlDoc = createExampleInvolvingUnits
+  @SBMLok = validateExampleSBML(sbmlDoc)
+  if @SBMLok
+    writeExampleSBML(sbmlDoc, "units.xml")
+  else
+    exit(1)
+  end
+  
+  #-------------------------------------------------
+  # 7.8 Example involving function definitions
+  #-------------------------------------------------
+  
+  sbmlDoc = createExampleInvolvingFunctionDefinitions
+  @SBMLok = validateExampleSBML(sbmlDoc)
+  if @SBMLok
+    writeExampleSBML(sbmlDoc, "functiondef.xml")
+  else
+    exit(1)
+  end
+rescue Exception=>e
+  puts "Unexpected exceptional condition encountered."
+ exit(1)
+end
+# A 0 return status is the standard Unix/Linux way to say "all ok".
+exit(0)
 

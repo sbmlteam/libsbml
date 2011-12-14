@@ -50,146 +50,144 @@ if errors > 0
 end
   
  
-  # Model
-  
-  m = document.getModel
-  printAnnotation(m)
-  
-  m.getNumReactions.times do |i|
-      re = m.getReaction(i)
-      printAnnotation(re)
-  
-      # SpeciesReference (Reacatant)  
-      re.getNumReactants.times do |j|
-          rt = re.getReactant(j)
-          if rt.isSetAnnotation
-			puts("     ")
-          end
-          printAnnotation(rt, rt.getSpecies)
-       end
-  
-      # SpeciesReference (Product) 
-      re.getNumProducts().times do |j|
-          rt = re.getProduct(j)
-          if rt.isSetAnnotation
-			puts("     ")
-          end
-          printAnnotation(rt, rt.getSpecies)
-      end
+# Model
 
-      # ModifierSpeciesReference (Modifiers)  
-      re.getNumModifiers.times do |j|
-          md = re.getModifier(j)
-          if md.isSetAnnotation
-			puts("     ")
-          end
-          printAnnotation(md, md.getSpecies)
-      end
+m = document.getModel
+printAnnotation(m)
 
-      # KineticLaw   
-      if re.isSetKineticLaw
-          kl = re.getKineticLaw
-          if kl.isSetAnnotation
-			puts("   ");
-          end
-          printAnnotation(kl)
-  
-          # Parameter   
-          kl.getNumParameters.times do |j|
-              pa = kl.getParameter(j);
-              if pa.isSetAnnotation
-				puts("      ");
-              end
-              printAnnotation(pa)
-          end
-       end
-  end
-  
-  # Species 
-  m.getNumSpecies.times do |i|
-      sp = m.getSpecies(i)
-      printAnnotation(sp)
-  end
-  
-  # Compartments 
-  m.getNumCompartments.times do |i|
-      sp = m.getCompartment(i)
-      printAnnotation(sp)
-  end
+m.getNumReactions.times do |i|
+    re = m.getReaction(i)
+    printAnnotation(re)
 
-  # FunctionDefinition 
-  m.getNumFunctionDefinitions.times do |i|
-      sp = m.getFunctionDefinition(i)
-      printAnnotation(sp)
-  end
+    # SpeciesReference (Reacatant)  
+    re.getNumReactants.times do |j|
+        rt = re.getReactant(j)
+        if rt.isSetAnnotation
+		puts("     ")
+        end
+        printAnnotation(rt, rt.getSpecies)
+     end
 
-  # UnitDefinition 
-  m.getNumUnitDefinitions.times do |i|
-      sp = m.getUnitDefinition(i)
-      printAnnotation(sp)
-  end
+    # SpeciesReference (Product) 
+    re.getNumProducts().times do |j|
+        rt = re.getProduct(j)
+        if rt.isSetAnnotation
+		puts("     ")
+        end
+        printAnnotation(rt, rt.getSpecies)
+    end
 
-  # Parameter 
-  m.getNumParameters.times do |i|
-      sp = m.getParameter(i)
-      printAnnotation(sp)
-  end
+    # ModifierSpeciesReference (Modifiers)  
+    re.getNumModifiers.times do |j|
+        md = re.getModifier(j)
+        if md.isSetAnnotation
+		puts("     ")
+        end
+        printAnnotation(md, md.getSpecies)
+    end
 
-  # Rule 
-  m.getNumRules.times do |i|
-      sp = m.getRule(i)
-      printAnnotation(sp)
-  end
+    # KineticLaw   
+    if re.isSetKineticLaw
+        kl = re.getKineticLaw
+        if kl.isSetAnnotation
+		puts("   ");
+        end
+        printAnnotation(kl)
 
-  # InitialAssignment 
-  m.getNumInitialAssignments.times do |i|
-      sp = m.getInitialAssignment(i)
-      printAnnotation(sp)
-  end
+        # Parameter   
+        kl.getNumParameters.times do |j|
+            pa = kl.getParameter(j);
+            if pa.isSetAnnotation
+			puts("      ");
+            end
+            printAnnotation(pa)
+        end
+     end
+end
 
-  # Event 
-  m.getNumEvents.times do |i|
-      sp = m.getEvent(i)
-      printAnnotation(sp)
-  
-      # Trigger 
-      if sp.isSetTrigger
-          tg = sp.getTrigger
-          if tg.isSetAnnotation
-			puts("   ")
-          end
-          printAnnotation(tg)
-      end
+# Species 
+m.getNumSpecies.times do |i|
+    sp = m.getSpecies(i)
+    printAnnotation(sp)
+end
 
-      # Delay 
-      if sp.isSetDelay
-          dl = sp.getDelay()
-          if dl.isSetAnnotation
-			puts("   ")
-          end
-          printAnnotation(dl)
-      end
-  
-      # EventAssignment 
-      sp.getNumEventAssignments.times do |j|
-          ea = sp.getEventAssignment(j)
-          if ea.isSetAnnotation
-			puts("   ")
-          end
-          printAnnotation(ea)
-      end
-  end
-  # SpeciesType 
-  m.getNumSpeciesTypes.times do |i|
-      sp = m.getSpeciesType(i)
-      printAnnotation(sp)
-  end
+# Compartments 
+m.getNumCompartments.times do |i|
+    sp = m.getCompartment(i)
+    printAnnotation(sp)
+end
 
-  # Constraints 
-  m.getNumConstraints.times do |i|
-      sp = m.getConstraint(i)
-      printAnnotation(sp)
-  end
-  exit(errors)
-  
+# FunctionDefinition 
+m.getNumFunctionDefinitions.times do |i|
+    sp = m.getFunctionDefinition(i)
+    printAnnotation(sp)
+end
 
+# UnitDefinition 
+m.getNumUnitDefinitions.times do |i|
+    sp = m.getUnitDefinition(i)
+    printAnnotation(sp)
+end
+
+# Parameter 
+m.getNumParameters.times do |i|
+    sp = m.getParameter(i)
+    printAnnotation(sp)
+end
+
+# Rule 
+m.getNumRules.times do |i|
+    sp = m.getRule(i)
+    printAnnotation(sp)
+end
+
+# InitialAssignment 
+m.getNumInitialAssignments.times do |i|
+    sp = m.getInitialAssignment(i)
+    printAnnotation(sp)
+end
+
+# Event 
+m.getNumEvents.times do |i|
+    sp = m.getEvent(i)
+    printAnnotation(sp)
+
+    # Trigger 
+    if sp.isSetTrigger
+        tg = sp.getTrigger
+        if tg.isSetAnnotation
+		puts("   ")
+        end
+        printAnnotation(tg)
+    end
+
+    # Delay 
+    if sp.isSetDelay
+        dl = sp.getDelay()
+        if dl.isSetAnnotation
+		puts("   ")
+        end
+        printAnnotation(dl)
+    end
+
+    # EventAssignment 
+    sp.getNumEventAssignments.times do |j|
+        ea = sp.getEventAssignment(j)
+        if ea.isSetAnnotation
+		puts("   ")
+        end
+        printAnnotation(ea)
+    end
+end
+# SpeciesType 
+m.getNumSpeciesTypes.times do |i|
+    sp = m.getSpeciesType(i)
+    printAnnotation(sp)
+end
+
+# Constraints 
+m.getNumConstraints.times do |i|
+    sp = m.getConstraint(i)
+    printAnnotation(sp)
+end
+exit(errors)

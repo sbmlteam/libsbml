@@ -40,37 +40,37 @@ end
 # don't print the exception 
 trap("SIGINT") { exit! }
 
-  puts "This program translates infix formulas into MathML and"
-  puts "vice-versa.  Enter or return on an empty line triggers"
-  puts "translation. Ctrl-C quits"
+puts "This program translates infix formulas into MathML and"
+puts "vice-versa.  Enter or return on an empty line triggers"
+puts "translation. Ctrl-C quits"
 
-  sb = ""  
-  begin
-    while true
-        puts "Enter infix formula or MathML expression (Ctrl-C to quit):"
-        print ("> ")
-        STDOUT.flush
-    
-        line = gets
-        while line != nil:
-            trimmed = line.strip!
-            length = trimmed.size
-            if (length > 0)
-                sb = sb + trimmed;
-            else
-                str = sb;
-                result = ""
-                if (str[0] == 60)
-	    	  result = translateMathML(str)
-                else
-	    	  result =  translateInfix(str)
-                end    
-                print("Result:\n\n #{result}\n\n");
-                sb = "";
-                break;
-            end
-            line = gets
-        end
-     end
-   rescue SystemExit, Interrupt, Exception
+sb = ""  
+begin
+  while true
+      puts "Enter infix formula or MathML expression (Ctrl-C to quit):"
+      print ("> ")
+      STDOUT.flush
+  
+      line = gets
+      while line != nil:
+          trimmed = line.strip!
+          length = trimmed.size
+          if (length > 0)
+              sb = sb + trimmed;
+          else
+              str = sb;
+              result = ""
+              if (str[0] == 60)
+    	  result = translateMathML(str)
+              else
+    	  result =  translateInfix(str)
+              end    
+              print("Result:\n\n #{result}\n\n");
+              sb = "";
+              break;
+          end
+          line = gets
+      end
    end
+rescue SystemExit, Interrupt, Exception
+end

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #
 ## 
-## @file    printsupported.cs
+## @file    printsupported.rb
 ## @brief   Prints all SBML Levels and Versions supported by this version 
 ##          of libsbml.
 ## @author  Frank Bergmann
