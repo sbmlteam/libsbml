@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*-Perl-*-
 ## 
-## \file    addModelHistory.py
+## \file    addModelHistory.pl
 ## \brief   adds Model History to a model
 ## \author  Sarah Keating
 ## 
@@ -39,41 +39,42 @@ if ($#ARGV  != 1) {
   exit 2;
 }
 
-  $d = LibSBML::readSBML($ARGV[0]);
-  $errors = $d->getNumErrors();
+$d = LibSBML::readSBML($ARGV[0]);
+$errors = $d->getNumErrors();
 
-  if (errors > 0) {
-      print("Read Error(s):", "\n");
-      $d->printErrors();  
-      print("Correct the above and re-run.", "\n");
-  }
-  else {
-      $h = new LibSBML::ModelHistory();
-  
-      $c = new LibSBML::ModelCreator();
-      $c->setFamilyName("Keating");
-      $c->setGivenName("Sarah");
-      $c->setEmail("sbml-team@caltech.edu");
-      $c->setOrganization("University of Hertfordshire");
-  
-      $status = $h->addCreator($c);
-      printStatus("Status for addCreator: ", $status);
-  
-  
-      $date = new LibSBML::Date("1999-11-13T06:54:32");
-      $date2 = new LibSBML::Date("2007-11-30T06:54:00-02:00");
-  
-      $status = $h->setCreatedDate($date);
-      printStatus("Set created date:      ", $status);
-  
-      $status = $h->setModifiedDate($date2);
-      printStatus("Set modified date:     ", $status);
-  
-      $status = $d->getModel()->setModelHistory($h);
-      printStatus("Set model history:     ", $status);
-  
-  
-      LibSBML::writeSBML($d, $ARGV[1]);
-  }
-  exit $errors;
+if (errors > 0) {
+    print("Read Error(s):", "\n");
+    $d->printErrors();  
+    print("Correct the above and re-run.", "\n");
+	exit $errors;
+}
+
+$h = new LibSBML::ModelHistory();
+
+$c = new LibSBML::ModelCreator();
+$c->setFamilyName("Keating");
+$c->setGivenName("Sarah");
+$c->setEmail("sbml-team@caltech.edu");
+$c->setOrganization("University of Hertfordshire");
+
+$status = $h->addCreator($c);
+printStatus("Status for addCreator: ", $status);
+
+
+$date = new LibSBML::Date("1999-11-13T06:54:32");
+$date2 = new LibSBML::Date("2007-11-30T06:54:00-02:00");
+
+$status = $h->setCreatedDate($date);
+printStatus("Set created date:      ", $status);
+
+$status = $h->setModifiedDate($date2);
+printStatus("Set modified date:     ", $status);
+
+$status = $d->getModel()->setModelHistory($h);
+printStatus("Set model history:     ", $status);
+
+
+LibSBML::writeSBML($d, $ARGV[1]);
+
+exit $errors;
 

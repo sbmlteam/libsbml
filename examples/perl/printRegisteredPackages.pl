@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*-Perl-*-
 ## 
-## @file    printRegisteredPackages.py
+## @file    printRegisteredPackages.pl
 ## @brief   Prints the registerd packages for this libSBML
 ## @author  Frank Bergmann
 ## 

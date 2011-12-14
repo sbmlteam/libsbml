@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*-Perl-*-
 ## 
-## @file    printsupported.cs
+## @file    printsupported.pl
 ## @brief   Prints all SBML Levels and Versions supported by this version 
 ##          of libsbml.
 ## @author  Frank Bergmann

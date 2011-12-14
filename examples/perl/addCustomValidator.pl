@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*-Perl-*-
 ##
-## @file    addCustomValidator.py
+## @file    addCustomValidator.pl
 ## @brief   Example creating a custom validator to be called during validation
 ## @author  Frank T. Bergmann
 ## 
@@ -84,18 +84,18 @@ if ($#ARGV != 0) {
 }
 
 
-  # read the file name
-  $document = LibSBML::readSBML($ARGV[0]);
+# read the file name
+$document = LibSBML::readSBML($ARGV[0]);
 
-  # add a custom validator
-  $document->addValidator(new MyCustomValidator());
-  
-  # check consistency like before
-  $numErrors = $document->checkConsistency();
+# add a custom validator
+$document->addValidator(new MyCustomValidator());
 
-  # print errors and warnings
-  $document->printErrors();
+# check consistency like before
+$numErrors = $document->checkConsistency();
 
-  # return number of errors
-  exit $numErrors;
+# print errors and warnings
+$document->printErrors();
+
+# return number of errors
+exit $numErrors;
 

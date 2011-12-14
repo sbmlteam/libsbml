@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 # -*-Perl-*-
 ##
-## @file    createExampleSBML.py
+## @file    createExampleSBML.pl
 ## @brief   Creates example SBML $models presented in the SBML specification.
 ## @author  Akiya Jouraku
 ## @author  Michael Hucka
@@ -22,7 +22,7 @@ no strict;
 # the program information into comments within the SBML file.
 #
 $ProgramName = "createExampleModels";
-$ProgramVersion = "1->0->0";
+$ProgramVersion = "1.0.0";
 
 #
 # The SBML Level and Version of the example SBML $models.
@@ -101,7 +101,7 @@ sub createExampleEnzymaticReaction() {
 
     # Note that we can reuse the pointers '$unitdef' and 'unit' because the
     # actual UnitDefinition object (along with the Unit objects within it)
-    # is already attached to the Model object->
+    # is already attached to the Model object.
 
     $unitdef = $model->createUnitDefinition();
     $unitdef->setId("litre_per_mole_per_second");
@@ -174,7 +174,7 @@ sub createExampleEnzymaticReaction() {
     #  determined by two attributes, "substanceUnits" and
     #  "hasOnlySubstanceUnits", and the "spatialDimensions" attribute
     #  of the Compartment object ("cytosol") in which the species
-    #  object is located->  Here, we are using the default values for
+    #  object is located.  Here, we are using the default values for
     #  "substanceUnits" (which is "mole") and "hasOnlySubstanceUnits"
     #  (which is "False").  The compartment in which the species is
     #  located uses volume units of liters, so the units of these
@@ -348,7 +348,7 @@ sub createExampleEnzymaticReaction() {
     # as a binary tree.
     #
     # Please see "Converting between ASTs and text strings" described
-    # at http:#sbml->org/Software/libSBML/docs/cpp-api/class_a_s_t_node->html
+    # at http://sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
     # for the detailed information.
     #
     #--------------------------------------------
@@ -486,7 +486,7 @@ sub createExampleEnzymaticReaction() {
 
     # To create mathematical expressions, one would typically construct
     # an tree as the above example code which creates a math of another
-    # KineticLaw object->  Here, to save some space and illustrate another approach 
+    # KineticLaw object.  Here, to save some space and illustrate another approach 
     # of doing it, we will write out the formula in MathML form and then use a 
     # libSBML convenience function to create the tree for us.
     # (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
@@ -711,7 +711,7 @@ sub createExampleInvolvingUnits() {
 
     #---------------------------------------------------------------------------
     #
-    # Creates global Parameter objects inside the Model object-> 
+    # Creates global Parameter objects inside the Model object.
     #
     #---------------------------------------------------------------------------
 
@@ -908,7 +908,7 @@ sub createExampleInvolvingUnits() {
     # of doing it, we will write out the formula in MathML form and then use a 
     # libSBML convenience function to create the tree for us.
     # (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
-    # by hand, so in a real program, we would not really want to do it this way->)
+    # by hand, so in a real program, we would not really want to do it this way.)
 
     $mathXMLString = '<?xml version="1.0" encoding="UTF-8"?>
   <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -974,7 +974,7 @@ sub createExampleInvolvingUnits() {
     $kl->setNotes($notesString);
 
     #---------------------------------------------------------------------------
-    # Sets a math (object) to the KineticLaw object->
+    # Sets a math (object) to the KineticLaw object.
     #---------------------------------------------------------------------------
 
     $mathXMLString = '<math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -1045,7 +1045,7 @@ sub createExampleInvolvingFunctionDefinitions {
     $fdef = $model->createFunctionDefinition();
     $fdef->setId("f");
 
-    # Sets a math (object) to the FunctionDefinition object->
+    # Sets a math (object) to the FunctionDefinition object.
 
     $mathXMLString = '<math xmlns="http://www.w3.org/1998/Math/MathML">
       <lambda>
@@ -1211,17 +1211,17 @@ sub createExampleInvolvingFunctionDefinitions {
 #===============================================================================
 #
 #
-# Helper functions for writing/validating the given SBML documents->
+# Helper functions for writing/validating the given SBML documents.
 # 
 #
 #===============================================================================
 
 #
 # 
-# Validates the given SBMLDocument->
+# Validates the given SBMLDocument.
 #
-#  This function is based on validateSBML->py implemented by
-#  Sarah Keating, Ben Bornstein, and Michael Hucka->
+#  This function is based on validateSBML.pl implemented by
+#  Sarah Keating, Ben Bornstein, and Michael Hucka.
 #
 #
 
@@ -1265,7 +1265,7 @@ sub validateExampleSBML {
     # be properly interpreted->
 
     if ($numConsistencyErrors > 0) {
-        $consistencyMessages = $consistencyMessages  + "Further validation aborted->";
+        $consistencyMessages = $consistencyMessages  + "Further validation aborted.";
     }
     else {
         $numCheckFailures = $sbmlDoc->checkConsistency();
@@ -1324,7 +1324,7 @@ sub validateExampleSBML {
 
 # 
 # 
-# Writes the given SBMLDocument to the given file->
+# Writes the given SBMLDocument to the given file.
 # 
 # 
 sub writeExampleSBML {
@@ -1349,53 +1349,53 @@ sub writeExampleSBML {
 #  SBML" in Section 7 of the SBML Level 2 Version 4 specification(*).
 #
 #   (*) The specification document is available at the following URL:
-#       http:#sbml->org/Documents/Specifications
+#       http://sbml.org/Documents/Specifications
 #
 #===============================================================================
 #
-    $sbmlDoc = undef;
-    $SBMLok = 0;
+$sbmlDoc = undef;
+$SBMLok = 0;
 
-    try {
-      #-------------------------------------------------
-      # 7.1 A Simple example application of SBML
-      #-------------------------------------------------
-      
-      $sbmlDoc = createExampleEnzymaticReaction();
-      $SBMLok = validateExampleSBML($sbmlDoc);
-      if ($SBMLok) {
-	  	writeExampleSBML($sbmlDoc, "enzymaticreaction.xml");
-      } else {
-	  	exit 1;
-      }
-      #-------------------------------------------------
-      # 7.2 Example involving units
-      #-------------------------------------------------
-      
-      $sbmlDoc = createExampleInvolvingUnits();
-      $SBMLok = validateExampleSBML($sbmlDoc);
-      if ($SBMLok) {
-	  	writeExampleSBML($sbmlDoc, "units.xml");
-      } else {
-	  	exit 1;
-      }
-      #-------------------------------------------------
-      # 7.8 Example involving function definitions
-      #-------------------------------------------------
-      
-      $sbmlDoc = createExampleInvolvingFunctionDefinitions();
-      $SBMLok = validateExampleSBML($sbmlDoc);
-      if ($SBMLok) {
-	  	writeExampleSBML($sbmlDoc, "functiondef.xml");
-      } else {
-	  	exit 1;
-      }
-      exit 0;
-    } 
-    catch {
-      print("Unexpected exceptional condition encountered.\n");
-      exit 1;
-    }
-    # A 0 return status is the standard Unix/Linux way to say "all ok"->
-    exit 0;
+try {
+  #-------------------------------------------------
+  # 7.1 A Simple example application of SBML
+  #-------------------------------------------------
+  
+  $sbmlDoc = createExampleEnzymaticReaction();
+  $SBMLok = validateExampleSBML($sbmlDoc);
+  if ($SBMLok) {
+  	writeExampleSBML($sbmlDoc, "enzymaticreaction.xml");
+  } else {
+  	exit 1;
+  }
+  #-------------------------------------------------
+  # 7.2 Example involving units
+  #-------------------------------------------------
+  
+  $sbmlDoc = createExampleInvolvingUnits();
+  $SBMLok = validateExampleSBML($sbmlDoc);
+  if ($SBMLok) {
+  	writeExampleSBML($sbmlDoc, "units.xml");
+  } else {
+  	exit 1;
+  }
+  #-------------------------------------------------
+  # 7.8 Example involving function definitions
+  #-------------------------------------------------
+  
+  $sbmlDoc = createExampleInvolvingFunctionDefinitions();
+  $SBMLok = validateExampleSBML($sbmlDoc);
+  if ($SBMLok) {
+  	writeExampleSBML($sbmlDoc, "functiondef.xml");
+  } else {
+  	exit 1;
+  }
+  exit 0;
+} 
+catch {
+  print("Unexpected exceptional condition encountered.\n");
+  exit 1;
+}
+# A 0 return status is the standard Unix/Linux way to say "all ok".
+exit 0;
 
