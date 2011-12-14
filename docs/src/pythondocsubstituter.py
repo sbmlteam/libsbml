@@ -49,7 +49,7 @@ def main (args):
             continue
         if skipping == False:
             for c in classes:
-                if re.search(r'\Aclass ' + c + '\(_object\):', line):
+                if re.search(r'\Aclass ' + c + '\([^)]+\):', line):
                     skipping = True
                     continue
         if skipping == False:
