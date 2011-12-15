@@ -42,11 +42,9 @@ def main (args):
     print "Will remove the following functions: " + ", ".join(functions)
 
     skipping = False
-    for line in input.readlines():
-        if skipping and re.search(r'\A(\S|\n)', line):
+    for line in input:
+        if skipping and re.search(r'\A\S', line):
             skipping = False
-            output.write(line)
-            continue
         if skipping == False:
             for c in classes:
                 if re.search(r'\Aclass ' + c + '\([^)]+\):', line):
