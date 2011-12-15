@@ -64,7 +64,7 @@ def main (args):
   # (where additionalargs contains the output file as last argument)
   #
   # The output file that is generated should be an XML document following the 
-  # Validator XML format as described here: http:#sbml.org/validator/api/#xml
+  # Validator XML format as described here: http://sbml.org/validator/api/#xml
   #
   
   # disable all regular checks

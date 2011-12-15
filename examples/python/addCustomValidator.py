@@ -5,7 +5,7 @@
 ## @author  Frank T. Bergmann
 ## 
 ## 
-## This file is part of libSBML.  Please visit http:#sbml.org for more
+## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ## 
 ## 

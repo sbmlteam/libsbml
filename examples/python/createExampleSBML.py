@@ -6,7 +6,7 @@
 ## @author  Michael Hucka
 ## @author  Sarah Keating
 ## 
-## This file is part of libSBML.  Please visit http:#sbml.org for more
+## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
 ## 
 
@@ -251,7 +251,7 @@ def createExampleEnzymaticReaction():
     # Creates an object which represents the following math of the
     # KineticLaw.
     #
-    #      <math xmlns="http:#www.w3.org/1998/Math/MathML">
+    #      <math xmlns="http://www.w3.org/1998/Math/MathML">
     #        <apply>
     #          <times/>
     #          <ci> cytosol </ci>
@@ -341,7 +341,7 @@ def createExampleEnzymaticReaction():
     # as a binary tree.
     #
     # Please see "Converting between ASTs and text strings" described
-    # at http:#sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
+    # at http://sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
     # for the detailed information.
     #
     #--------------------------------------------
@@ -485,7 +485,7 @@ def createExampleEnzymaticReaction():
     # (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
     # by hand, so in a real program, we would not really want to do it this way.)
 
-    mathXMLString = """<math xmlns="http:#www.w3.org/1998/Math/MathML">
+    mathXMLString = """<math xmlns="http://www.w3.org/1998/Math/MathML">
       <apply>
         <times/>
         <ci> cytosol </ci>
@@ -540,7 +540,7 @@ def createExampleInvolvingUnits():
     # because we will add notes to the model.  (By default, the SBML document
     # created by SBMLDocument only declares the SBML XML namespace.)
 
-    sbmlDoc.getNamespaces().add("http:#www.w3.org/1999/xhtml", "xhtml");
+    sbmlDoc.getNamespaces().add("http://www.w3.org/1999/xhtml", "xhtml");
 
     #---------------------------------------------------------------------------
     #
@@ -773,7 +773,7 @@ def createExampleInvolvingUnits():
     #---------------------------------------------------------------------------
     # Creates an object which represents the following KineticLaw object.
     #
-    #  <math xmlns="http:#www.w3.org/1998/Math/MathML">
+    #  <math xmlns="http://www.w3.org/1998/Math/MathML">
     #   <apply>
     #     <times/>
     #     <apply>
@@ -1329,7 +1329,7 @@ def writeExampleSBML(sbmlDoc, filename):
 #  SBML" in Section 7 of the SBML Level 2 Version 4 specification(*). 
 #
 #   (*) The specification document is available at the following URL:
-#       http:#sbml.org/Documents/Specifications
+#       http://sbml.org/Documents/Specifications
 #
 #===============================================================================
 #
