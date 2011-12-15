@@ -28,7 +28,8 @@
 
 #include <sbml/conversion/SBMLLevelVersionConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
-#include <sbml/conversion/SBMLConverterRegister.h>
+#include <sbml/conversion/SBMLConverterRegistry.h>
+#include <sbml/extension/SBMLExtensionRegistry.h>
 
 #ifdef __cplusplus
 
