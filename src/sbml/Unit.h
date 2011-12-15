@@ -210,9 +210,10 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Unit
    *
-   * @throws SBMLConstructorException Thrown if the given @p level and @p
-   * version combination, or this kind of SBML object, are either invalid
-   * or mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    * 
    * @note Upon the addition of a Unit object to an SBMLDocument, the SBML
    * Level, SBML Version and XML namespace of the document @em
@@ -241,9 +242,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws SBMLConstructorException Thrown if the given @p sbmlns
-   * namespace, or this kind of SBML object, are either invalid or
-   * mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    *
    * @note Upon the addition of a Unit object to an SBMLDocument, the SBML
    * XML namespace of the document @em overrides the value used when

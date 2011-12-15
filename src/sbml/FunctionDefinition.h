@@ -168,9 +168,10 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * FunctionDefinition
    *
-   * @throws SBMLConstructorException Thrown if the given @p level and @p
-   * version combination, or this kind of SBML object, are either invalid
-   * or mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    * 
    * @note Upon the addition of a FunctionDefinition object to an
    * SBMLDocument (e.g., using Model::addFunctionDefinition(@if java FunctionDefinition f@endif)), the SBML
@@ -200,9 +201,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws SBMLConstructorException Thrown if the given @p sbmlns
-   * namespace, or this kind of SBML object, are either invalid or
-   * mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    *
    * @note Upon the addition of a FunctionDefinition object to an
    * SBMLDocument (e.g., using Model::addFunctionDefinition(@if java FunctionDefinition f@endif)), the SBML

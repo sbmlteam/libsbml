@@ -166,9 +166,10 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * LocalParameter.
    *
-   * @throws SBMLConstructorException Thrown if the given @p level and @p
-   * version combination, or this kind of SBML object, are either invalid
-   * or mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    * 
    * @note Upon the addition of a LocalParameter object to an SBMLDocument
    * (e.g., using KineticLaw::addLocalParameter(@if java LocalParameter p@endif)), the SBML Level, SBML
@@ -206,9 +207,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws SBMLConstructorException Thrown if the given @p sbmlns
-   * namespace, or this kind of SBML object, are either invalid or
-   * mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    *
    * @note Upon the addition of a LocalParameter object to an SBMLDocument
    * (e.g., using KineticLaw::addLocalParameter(@if java LocalParameter p@endif)), the SBML XML namespace of

@@ -282,9 +282,10 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Event
    *
-   * @throws SBMLConstructorException Thrown if the given @p level and @p
-   * version combination, or this kind of SBML object, are either invalid
-   * or mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    * 
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
    * using Model::addEvent(@if java Event e@endif)), the SBML Level, SBML Version and XML
@@ -314,9 +315,10 @@ public:
    * 
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws SBMLConstructorException Thrown if the given @p sbmlns
-   * namespace, or this kind of SBML object, are either invalid or
-   * mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    *
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
    * using Model::addEvent(@if java Event e@endif)), the SBML XML namespace of the document @em

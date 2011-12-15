@@ -179,9 +179,10 @@ public:
    * @param version an unsigned int, the SBML Version to assign to this
    * Delay
    *
-   * @throws SBMLConstructorException Thrown if the given @p level and @p
-   * version combination, or this kind of SBML object, are either invalid
-   * or mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    * 
    * @note Upon the addition of a Delay object to an Event (e.g., using
    * Event::setDelay(@if java Delay d@endif)), the SBML Level, SBML Version
@@ -210,9 +211,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws SBMLConstructorException Thrown if the given @p sbmlns
-   * namespace, or this kind of SBML object, are either invalid or
-   * mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    *
    * @note Upon the addition of a Delay object to an Event (e.g., using
    * Event::setDelay(@if java Delay d@endif)), the SBML XML namespace of

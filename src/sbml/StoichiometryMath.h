@@ -197,9 +197,10 @@ public:
    * documentation for more information about the differences between SBML
    * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    *
-   * @throws SBMLConstructorException Thrown if the given @p level and @p
-   * version combination, or this kind of SBML object, are either invalid
-   * or mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    * 
    * @note Upon the addition of a StoichiometryMath object to an
    * SBMLDocument (e.g., using
@@ -238,9 +239,10 @@ public:
    * documentation for more information about the differences between SBML
    * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    *
-   * @throws SBMLConstructorException Thrown if the given @p sbmlns
-   * namespace, or this kind of SBML object, are either invalid or
-   * mismatched with respect to the parent SBMLDocument object.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the given @p level and @p version combination, or this kind
+   * of SBML object, are either invalid or mismatched with respect to the
+   * parent SBMLDocument object.
    *
    * @note Upon the addition of a StoichiometryMath object to an
    * SBMLDocument (e.g., using
