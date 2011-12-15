@@ -49,6 +49,7 @@ LIBSBML_CPP_NAMESPACE_USE
 static const string errMsg = "NULL reference in XML constructor";
 static const string errMsg1 = "Null argument to copy constructor";
 static const string errMsg2 = "Null argument to assignment operator";
+static const string errMsg3 = "Null argument given to constructor";
 
 
 CK_CPPSTART
@@ -394,7 +395,7 @@ START_TEST ( test_XMLTriple )
   {
     msg = e.what();
   }
-  fail_unless(msg == errMsg);
+  fail_unless(msg == errMsg3);
 
   msg = "";
   // ctor with name/uri/prefix
@@ -410,7 +411,7 @@ START_TEST ( test_XMLTriple )
   {
     msg = e.what();
   }
-  fail_unless(msg == errMsg);
+  fail_unless(msg == errMsg3);
 
   msg = "";
   // ctor with name/uri/prefix
@@ -427,7 +428,7 @@ START_TEST ( test_XMLTriple )
   {
     msg = e.what();
   }
-  fail_unless(msg == errMsg);
+  fail_unless(msg == errMsg3);
 
   msg = "";
   // ctor with triplet
