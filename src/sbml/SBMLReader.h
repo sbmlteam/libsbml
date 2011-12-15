@@ -417,7 +417,7 @@ public:
    * will be a standalone top-level function with the name
    * SBMLReader_hasZlib(). They are functionally identical. @endif
    *
-   * @see SBMLReader::hasBzip2()
+   * @see @if clike hasBzip2() @else SBMLReader::hasBzip2() @endif
    */
   static bool hasZlib();
 
@@ -435,7 +435,7 @@ public:
    * will be a standalone top-level function with the name
    * SBMLReader_hasBzip2(). They are functionally identical. @endif
    *
-   * @see SBMLReader::hasZlib()
+   * @see @if clike hasZlib() @else SBMLReader::hasZlib() @endif
    */
   static bool hasBzip2();
 

@@ -929,7 +929,7 @@ public:
    * "time"), @c false otherwise.
    *
    * @note The predefined unit identifiers @c "length" and @c "area" were
-   * added in Level&nbsp;2 Version&nbsp;1
+   * added in Level&nbsp;2 Version&nbsp;1.
    *
    * @if notclike @note Because this is a @em static method, the
    * non-C++ language interfaces for libSBML will contain two variants.  One
@@ -1001,7 +1001,7 @@ public:
    * Unit_areIdentical(). They are functionally
    * identical. @endif
    *
-   * @see areEquivalent(@if java Unit u1, %Unit u2@endif)
+   * @see @if clike areEquivalent() @else Unit::areEquivalent(Unit u1, %Unit u2) @endif
    */
   static bool areIdentical(Unit * unit1, Unit * unit2);
 
@@ -1031,7 +1031,7 @@ public:
    * Unit_areEquivalent(). They are functionally
    * identical. @endif
    * 
-   * @see areIdentical(@if java Unit u1, %Unit u2@endif)
+   * @see @if clike areIdentical() @else Unit::areIdentical(Unit u1, %Unit u2) @endif
    */
   static bool areEquivalent(Unit * unit1, Unit * unit2);
 
@@ -1058,8 +1058,8 @@ public:
    * Unit_removeScale(). They are functionally
    * identical. @endif
    *
-   * @see convertToSI(@if java Unit u@endif)
-   * @see merge(@if java Unit u1, Unit u2@endif)
+   * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif
+   * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif
    */
   static int removeScale(Unit * unit);
 
@@ -1090,8 +1090,8 @@ public:
    * Unit_merge(). They are functionally
    * identical. @endif
    * 
-   * @see convertToSI(@if java Unit u@endif)
-   * @see removeScale(@if java Unit u@endif)
+   * @see @if clike convertToSI() @else Unit::convertToSI(Unit u) @endif
+   * @see @if clike removeScale() @else Unit::removeScale(Unit u) @endif
    */
   static void merge(Unit * unit1, Unit * unit2);
 
@@ -1116,7 +1116,7 @@ public:
    * Unit_convertToSI(). They are functionally
    * identical. @endif
    *
-   * @see merge(@if java Unit u1, Unit u2@endif)
+   * @see @if clike merge() @else Unit::merge(Unit u1, Unit u2) @endif
    */
   static UnitDefinition * convertToSI(const Unit * unit);
 

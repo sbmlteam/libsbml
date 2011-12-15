@@ -94,7 +94,7 @@ public:
    * 
    * @param CVTerms list of CVTerm objects to be created.
    *
-   * @see parseRDFAnnotation(const XMLNode *annotation)
+   * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif
    */
   static void parseRDFAnnotation(const XMLNode *annotation, List *CVTerms);
 
@@ -173,7 +173,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * @return a pointer to an XMLNode for the annotation
    *
-   * @see createRDFAnnotation()
+   * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif
    */
   static XMLNode * createAnnotation();
 
@@ -202,7 +202,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    *
    * @return a pointer to an XMLNode
    *
-   * @see createAnnotation()
+   * @see @if clike createAnnotation() @else RDFAnnotationParser::createAnnotation() @endif
    */
   static XMLNode * createRDFAnnotation();
 
@@ -253,7 +253,7 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
    * @return a new XMLNode containing the "rdf:Description" element with
    * its "about" attribute value set to the @p object meta identifier.
    *
-   * @see createRDFAnnotation()
+   * @see @if clike createRDFAnnotation() @else RDFAnnotationParser::createRDFAnnotation() @endif
    */
   static XMLNode * createRDFDescription(const SBase *obj);
 

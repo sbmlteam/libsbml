@@ -1031,10 +1031,9 @@ public:
    * predefined XMLError code.
    *
    * @param code the error code whose message is sought; it must be a
-   * predefined value from @if clike <a class="el"
-   * href="#XMLErrorCode_t">
-   * XMLErrorCode_t</a>. @else <a class="el"
-   * href="#XMLErrorCode_t">the set of predefined error identifiers</a>.@endif
+   * predefined value from @if clike <a class="el" href="#XMLErrorCode_t">
+   * XMLErrorCode_t</a>. @else <a class="el" href="#XMLErrorCode_t">the set
+   * of predefined error identifiers</a>.@endif
    */
   static const std::string getStandardMessage (const int code);
 

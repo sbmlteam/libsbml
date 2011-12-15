@@ -86,8 +86,8 @@ public:
    * SyntaxChecker_isValidSBMLSId(). They are functionally
    * identical. @endif
    *
-   * @see isValidUnitSId(std::string sid)
-   * @see isValidXMLID(std::string sid)
+   * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif
+   * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif
    */  
   static bool isValidSBMLSId(std::string sid);
 
@@ -142,8 +142,8 @@ public:
    * SyntaxChecker_isValidXMLID(). They are functionally
    * identical. @endif
    * 
-   * @see isValidSBMLSId(std::string sid)
-   * @see isValidUnitSId(std::string sid)
+   * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif
+   * @see @if clike isValidUnitSId(std::string sid) @else SyntaxChecker::isValidUnitSId(std::string sid) @endif
    */  
   static bool isValidXMLID(std::string id);
 
@@ -179,8 +179,8 @@ public:
    * SyntaxChecker_isValidUnitSId(). They are functionally
    * identical. @endif
    *
-   * @see isValidSBMLSId(std::string sid)
-   * @see isValidXMLID(std::string sid)
+   * @see @if clike isValidSBMLSId(std::string sid) @else SyntaxChecker::isValidSBMLSId(std::string sid) @endif
+   * @see @if clike isValidXMLID(std::string sid) @else SyntaxChecker::isValidXMLID(std::string sid) @endif
    */
    static bool isValidUnitSId(std::string units);
 

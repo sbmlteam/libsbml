@@ -332,7 +332,7 @@ public:
    * SBMLDocument_getDefaultLevel(). They are functionally
    * identical. @endif
    * 
-   * @see getDefaultVersion()
+   * @see @if clike getDefaultVersion() @else SBMLDocument::getDefaultVersion() @endif
    */
   static unsigned int getDefaultLevel ();
 
@@ -358,7 +358,7 @@ public:
    * SBMLDocument_getDefaultVersion(). They are functionally
    * identical. @endif
    *
-   * @see getDefaultLevel()
+   * @see @if clike getDefaultLevel() @else SBMLDocument::getDefaultLevel() @endif
    */
   static unsigned int getDefaultVersion ();
 

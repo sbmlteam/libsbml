@@ -279,7 +279,7 @@ public:
    *
    * @return @c true if libSBML is linked with zlib, @c false otherwise.
    *
-   * @see SBMLWriter::hasBzip2()
+   * @see @if clike hasBzip2() @else SBMLWriter::hasBzip2() @endif
    */
   static bool hasZlib();
 
@@ -302,7 +302,7 @@ public:
    *
    * @return @c true if libSBML is linked with bzip2, @c false otherwise.
    *
-   * @see SBMLWriter::hasZlib()
+   * @see @if clike hasZlib() @else SBMLWriter::hasZlib() @endif
    */
   static bool hasBzip2();
 
