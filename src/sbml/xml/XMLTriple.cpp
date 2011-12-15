@@ -53,7 +53,7 @@ XMLTriple::XMLTriple (  const std::string&  name
                       , const std::string&  prefix ) 
 {
   if ((&name == NULL) || (&uri == NULL) || (&prefix == NULL))
-    throw XMLConstructorException();
+    throw XMLConstructorException("Null argument given to constructor");
 
   mName = name;
   mURI = uri;
@@ -72,7 +72,7 @@ XMLTriple::XMLTriple (  const std::string&  name
 XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
 { 
   if (&triplet == NULL)
-    throw XMLConstructorException();
+    throw XMLConstructorException("NULL reference in XML constructor");
 
   string::size_type start = 0;
   string::size_type pos   = triplet.find(sepchar, start);
