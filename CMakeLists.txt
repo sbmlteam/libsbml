@@ -624,7 +624,19 @@ else(UNIX)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
         file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
         install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
-        
+        if(WITH_LIBXML AND WITH_STATIC_RUNTIME)
+		  if (EXTRA_LIBS STREQUAL "")
+		  # populate EXTRA_LIBS variable
+          find_library(LIBICONV_LIBRARY 
+              NAMES libiconv.lib iconv.lib iconv
+              PATHS /usr/lib /usr/local/lib 
+                    ${CMAKE_SOURCE_DIR} 
+                    ${LIBSBML_DEPENDENCY_DIR}/lib
+              DOC "The file name of the libiconv compression library."
+              )
+		  set(EXTRA_LIBS "WS_32.lib;${LIBICONV_LIBRARY};${LIBZ_LIBRARY};" CACHE STRING "List of additional libraries to link against." FORCE)
+		  endif()
+		endif()
     elseif(CYGWIN)
         add_definitions(-DCYGWIN)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DCYGWIN")
