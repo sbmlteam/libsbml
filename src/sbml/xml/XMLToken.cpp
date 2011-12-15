@@ -124,7 +124,7 @@ XMLToken::XMLToken (  const std::string&  chars
 {
   if (&chars == NULL)
   {
-    throw XMLConstructorException();
+    throw XMLConstructorException("NULL reference in XML constructor");
   }
   else
   {
