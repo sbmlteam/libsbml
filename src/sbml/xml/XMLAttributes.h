@@ -114,8 +114,8 @@ public:
    *
    * @p orig the XMLAttributes object to copy.
    *
-   * @throws XMLConstructorException Thrown if the argument @p orig is not
-   * given.
+   * @throws @if python ValueError @else XMLConstructorException @endif
+   * Thrown if the argument @p orig is @c NULL.
    */
   XMLAttributes(const XMLAttributes& orig);
 
@@ -126,8 +126,8 @@ public:
    * @param rhs The XMLAttributes object whose values are used as the basis
    * of the assignment.
    *
-   * @throws XMLConstructorException Thrown if the argument @p rhs is not
-   * provided.
+   * @throws @if python ValueError @else XMLConstructorException @endif
+   * Thrown if the argument @p rhs is @c NULL.
    */
   XMLAttributes& operator=(const XMLAttributes& rhs);
 

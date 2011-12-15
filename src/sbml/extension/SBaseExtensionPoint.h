@@ -97,7 +97,7 @@ public:
   /**
    * copy constructor
    */
-  SBaseExtensionPoint(const SBaseExtensionPoint& orig);
+  SBaseExtensionPoint(const SBaseExtensionPoint& rhs);
 
 
   /**

@@ -276,8 +276,8 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws XMLConstructorException Thrown if the argument @p orig is not
-   * given.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p orig is @c NULL.
    */
   EventAssignment (const EventAssignment& orig);
 
@@ -288,8 +288,8 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws XMLConstructorException Thrown if the argument @p rhs is not
-   * provided.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p rhs is @c NULL.
    */
   EventAssignment& operator=(const EventAssignment& rhs);
 

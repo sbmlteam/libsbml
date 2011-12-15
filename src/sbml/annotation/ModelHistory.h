@@ -380,8 +380,8 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws XMLConstructorException Thrown if the argument @p orig is not
-   * given.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p orig is @c NULL.
    */
   Date(const Date& orig);
 
@@ -392,8 +392,8 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws XMLConstructorException Thrown if the argument @p rhs is not
-   * provided.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p rhs is @c NULL.
    */
   Date& operator=(const Date& rhs);
 
@@ -821,8 +821,8 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws XMLConstructorException Thrown if the argument @p orig is not
-   * given.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p orig is @c NULL.
    */
   ModelCreator(const ModelCreator& orig);
 
@@ -833,8 +833,8 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws XMLConstructorException Thrown if the argument @p rhs is not
-   * provided.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p rhs is @c NULL.
    */
   ModelCreator& operator=(const ModelCreator& rhs);
 
@@ -1140,8 +1140,8 @@ public:
    *
    * @param orig the object to copy.
    * 
-   * @throws XMLConstructorException Thrown if the argument @p orig is not
-   * given.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p orig is @c NULL.
    */
   ModelHistory(const ModelHistory& orig);
 
@@ -1152,8 +1152,8 @@ public:
    * @param rhs The object whose values are used as the basis of the
    * assignment.
    *
-   * @throws XMLConstructorException Thrown if the argument @p rhs is not
-   * provided.
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p rhs is @c NULL.
    */
   ModelHistory& operator=(const ModelHistory& rhs);
 
