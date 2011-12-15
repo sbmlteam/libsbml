@@ -112,8 +112,14 @@ public:
 
   /**
    * Assignment operator for SBMLUnitsConverter.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
-  SBMLUnitsConverter& operator=(const SBMLUnitsConverter&);
+  SBMLUnitsConverter& operator=(const SBMLUnitsConverter& rhs);
 
 
   /**

@@ -281,6 +281,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Event
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
    * using Model::addEvent(@if java Event e@endif)), the SBML Level, SBML Version and XML
@@ -310,6 +314,10 @@ public:
    * 
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of an Event object to an SBMLDocument (e.g.,
    * using Model::addEvent(@if java Event e@endif)), the SBML XML namespace of the document @em
    * overrides the value used when creating the Event object via this
@@ -332,12 +340,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this Event.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   Event (const Event& orig);
 
 
   /**
    * Assignment operator
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   Event& operator=(const Event& rhs);
 

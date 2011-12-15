@@ -84,6 +84,9 @@ public:
    * Copy constructor; creates a copy of an SBMLConverter object.
    *
    * @param c the SBMLConverter object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   SBMLConverter(const SBMLConverter& c);
 
@@ -96,8 +99,14 @@ public:
 
   /**
    * Assignment operator for SBMLConverter.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
-  SBMLConverter& operator=(const SBMLConverter&);
+  SBMLConverter& operator=(const SBMLConverter& rhs);
 
 
   /**

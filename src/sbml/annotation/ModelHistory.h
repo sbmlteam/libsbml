@@ -377,12 +377,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this Date.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   Date(const Date& orig);
 
 
   /**
    * Assignment operator.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   Date& operator=(const Date& rhs);
 
@@ -807,12 +818,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of the ModelCreator.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   ModelCreator(const ModelCreator& orig);
 
 
   /**
    * Assignment operator.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   ModelCreator& operator=(const ModelCreator& rhs);
 
@@ -1115,12 +1137,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this ModelHistory object.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   ModelHistory(const ModelHistory& orig);
 
 
   /**
    * Assignment operator for ModelHistory.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   ModelHistory& operator=(const ModelHistory& rhs);
 

@@ -262,12 +262,21 @@ public:
    * Copy constructor; creates a copy of this XMLNode.
    * 
    * @param orig the XMLNode instance to copy.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   XMLNode(const XMLNode& orig);
 
 
   /**
    * Assignment operator for XMLNode.
+   *
+   * @param rhs The XMLNode object whose values are used as the basis
+   * of the assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   XMLNode& operator=(const XMLNode& rhs);
 

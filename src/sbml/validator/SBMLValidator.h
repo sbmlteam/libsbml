@@ -44,41 +44,59 @@ class LIBSBML_EXTERN SBMLValidator
 public:
 
   /**
-  * Constructor.
-  */
+   * Constructor.
+   */
   SBMLValidator ();
 
-  /**
-  * Copy constructor.
-  */
-  SBMLValidator(const SBMLValidator&);
 
   /**
-  * Destroy this object.
-  */
+   * Copy constructor.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
+   */
+  SBMLValidator(const SBMLValidator& orig);
+
+
+  /**
+   * Destroy this object.
+   */
   virtual ~SBMLValidator ();
 
-  /**
-  * Assignment operator for SBMLConverter.
-  */
-  SBMLValidator& operator=(const SBMLValidator&);
 
   /**
-  * Creates and returns a deep copy of this SBMLConverter.
-  * 
-  * @return a (deep) copy of this SBMLConverter.
-  */
+   * Assignment operator for SBMLConverter.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
+   */
+  SBMLValidator& operator=(const SBMLValidator&);
+
+
+  /**
+   * Creates and returns a deep copy of this SBMLConverter.
+   * 
+   * @return a (deep) copy of this SBMLConverter.
+   */
   virtual SBMLValidator* clone() const;
+
 
   /**
    * @return the current SBML document
    */
   virtual SBMLDocument* getDocument();
 
+
   /**
    * @return a const reference to the current SBML document
    */
   virtual const SBMLDocument* getDocument() const;
+
 
   /** 
    * Sets the current SBML document
@@ -88,6 +106,7 @@ public:
    * @return status code
    */
   virtual int setDocument(const SBMLDocument* doc);
+
 
   /** 
    * the actual validation code 
@@ -106,7 +125,8 @@ public:
    */
   virtual void clearFailures ();
 
-    /**
+
+  /**
    * Get the list of SBMLError objects (if any) logged as a result
    * of running the validator.
    * 
@@ -120,7 +140,8 @@ public:
    */
   void logFailure (const SBMLError& msg);
 
-    /**
+
+  /**
    * Validates the given SBMLDocument.  Failures logged during
    * validation may be retrieved via getFailures().
    *
@@ -137,6 +158,7 @@ public:
    */
   unsigned int validate (const std::string& filename);
 
+
   /**
    * Returns the list of errors or warnings logged during parsing, 
    * consistency checking, or attempted translation of this model.
@@ -146,6 +168,7 @@ public:
    * @see SBMLDocument::getNumErrors()
    */
   SBMLErrorLog* getErrorLog ();
+
 
   /**
    * Returns the Model object stored in the SBMLDocument.
@@ -176,6 +199,7 @@ public:
    */
   Model* getModel ();
 
+
   /** 
    * Returns the local number of failures
    * 
@@ -185,6 +209,7 @@ public:
    * @return the number of errors logged by this validator. 
    */
   unsigned int getNumFailures() const;
+
 
   /** 
    * Returns the failure at the given index. 

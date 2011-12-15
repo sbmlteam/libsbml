@@ -109,8 +109,14 @@ public:
 
   /**
    * Assignment operator for SBMLLevelVersionConverter.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
-  SBMLLevelVersionConverter& operator=(const SBMLLevelVersionConverter&);
+  SBMLLevelVersionConverter& operator=(const SBMLLevelVersionConverter& rhs);
 
 
   /**

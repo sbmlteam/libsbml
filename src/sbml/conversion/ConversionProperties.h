@@ -65,6 +65,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 class LIBSBML_EXTERN ConversionProperties
 {
 public:
+
   /** 
    * Constructor that initializes the conversion properties
    * with a specific SBML target namespace.
@@ -76,14 +77,25 @@ public:
 
   /** 
    * Copy constructor.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
-  ConversionProperties(const ConversionProperties& obj);
+  ConversionProperties(const ConversionProperties& orig);
 
   
   /**
    * Assignment operator for conversion properties.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
-  ConversionProperties& operator=(const ConversionProperties&);
+  ConversionProperties& operator=(const ConversionProperties& rhs);
 
 
   /** 

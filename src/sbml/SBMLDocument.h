@@ -388,6 +388,10 @@ public:
    *
    * @param version an integer for the Version within the SBML Level
    *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
+   *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    *
    * @see SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif)
@@ -395,6 +399,7 @@ public:
    * @see getDefaultVersion()
    */
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
+
 
   /**
    * Creates a new SBMLDocument using the given SBMLNamespaces object 
@@ -409,6 +414,9 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
    */
   SBMLDocument (SBMLNamespaces* sbmlns);
 
@@ -421,12 +429,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this SBMLDocument.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
-  SBMLDocument (const SBMLDocument& rhs);
+  SBMLDocument (const SBMLDocument& orig);
 
 
   /**
    * Assignment operator for SBMLDocument.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   SBMLDocument& operator=(const SBMLDocument& rhs);
 

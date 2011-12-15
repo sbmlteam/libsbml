@@ -926,12 +926,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this Rule.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   Rule (const Rule& orig);
 
 
   /**
    * Assignment operator for Rule.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   Rule& operator=(const Rule& rhs);
 
@@ -1702,6 +1713,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * AlgebraicRule
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of an AlgebraicRule object to an SBMLDocument
    * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif), the SBML Level, SBML Version
@@ -1729,6 +1744,10 @@ public:
    * object constructors such as this one when needed.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
    *
    * @note Upon the addition of a AlgebraicRule object to an SBMLDocument
    * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of the
@@ -1838,6 +1857,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * AssignmentRule
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of an AssignmentRule object to an SBMLDocument
    * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML Level, SBML Version
@@ -1865,6 +1888,10 @@ public:
    * object constructors such as this one when needed.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
    *
    * @note Upon the addition of a AssignmentRule object to an SBMLDocument
    * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of
@@ -1967,6 +1994,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * RateRule
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a RateRule object to an SBMLDocument
    * (e.g., using&nbsp; @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML Level, SBML Version
@@ -1994,6 +2025,10 @@ public:
    * object constructors such as this one when needed.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
    *
    * @note Upon the addition of a RateRule object to an SBMLDocument (e.g.,
    * using @if java Model::addRule(Rule r)@else Model::addRule()@endif, the SBML XML namespace of the document

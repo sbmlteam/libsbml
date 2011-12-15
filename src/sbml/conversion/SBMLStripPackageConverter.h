@@ -92,8 +92,14 @@ public:
 
   /**
    * Assignment operator for SBMLStripPackageConverter.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
-  SBMLStripPackageConverter& operator=(const SBMLStripPackageConverter&);
+  SBMLStripPackageConverter& operator=(const SBMLStripPackageConverter& rhs);
 
 
   /**

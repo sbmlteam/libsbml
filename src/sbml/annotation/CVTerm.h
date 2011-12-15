@@ -314,12 +314,21 @@ public:
    * Copy constructor; creates a copy of a CVTerm object.
    * 
    * @param orig the CVTerm instance to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   CVTerm(const CVTerm& orig);
 
 
   /**
    * Assignment operator for CVTerm.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   CVTerm& operator=(const CVTerm& rhs);
 

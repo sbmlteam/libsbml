@@ -159,6 +159,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Trigger
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    */
   Trigger (unsigned int level, unsigned int version);
 
@@ -175,6 +179,10 @@ public:
    * object constructors such as this one when needed.
    *
    * @param sbmlns an SBMLNamespaces object.
+   *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
    */
   Trigger (SBMLNamespaces* sbmlns);
 
@@ -187,12 +195,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this Trigger.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   Trigger (const Trigger& orig);
 
 
   /**
    * Assignment operator
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   Trigger& operator=(const Trigger& rhs);
 

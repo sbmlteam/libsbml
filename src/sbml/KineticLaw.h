@@ -140,6 +140,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * KineticLaw
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a KineticLaw object to an SBMLDocument
    * (e.g., using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML Level, SBML Version
@@ -168,6 +172,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of a KineticLaw object to an SBMLDocument
    * (e.g., using Reaction::setKineticLaw(@if java KineticLaw kl@endif)), the SBML XML namespace of the
    * document @em overrides the value used when creating the KineticLaw
@@ -190,12 +198,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this KineticLaw.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   KineticLaw (const KineticLaw& orig);
 
 
   /**
    * Assignment operator for KineticLaw.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   KineticLaw& operator=(const KineticLaw& rhs);
 

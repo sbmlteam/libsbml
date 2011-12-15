@@ -123,6 +123,9 @@ public:
    * @param line an unsigned int, the line number (default = 0).
    * @param column an unsigned int, the column number (default = 0).
    *
+   * @throws XMLConstructorException Thrown if the argument @p chars is
+   * @c NULL.
+   *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   XMLToken (  const std::string&  chars
@@ -138,12 +141,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this XMLToken.
+   *
+   * @param orig the XMLToken object to copy.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   XMLToken(const XMLToken& orig);
 
 
   /**
    * Assignment operator for XMLToken.
+   *
+   * @param rhs The XMLToken object whose values are used as the basis
+   * of the assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   XMLToken& operator=(const XMLToken& rhs);
 

@@ -194,18 +194,27 @@ public:
                    std::string description="");
 
 
-   /**
+  /**
    * Copy constructor; creates a copy of an ConversionOption object.
    *
    * @param option the ConversionOption object to copy.
-    */
-   ConversionOption(const ConversionOption& option);
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
+   */
+  ConversionOption(const ConversionOption& orig);
 
 
-   /**
-    * Assignment operator for ConversionOption.
-    */
-   ConversionOption& operator=(const ConversionOption& option);
+  /**
+   * Assignment operator for ConversionOption.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
+   */
+  ConversionOption& operator=(const ConversionOption& option);
 
 
   /**

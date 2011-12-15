@@ -92,13 +92,26 @@ public:
    */
   FormulaUnitsData();
 
+
   /**
    * Copy constructor; creates a copy of this FormulaUnitsData.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   FormulaUnitsData(const FormulaUnitsData& orig);
 
+
   /**
    * Assignment operator for FormulaUnitsData.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   FormulaUnitsData& operator=(const FormulaUnitsData& rhs);
 
@@ -125,6 +138,7 @@ public:
    */
   const std::string& getUnitReferenceId();
 
+
   /**
    * Get the unitReferenceId of this FormulaUnitsData.
    * 
@@ -133,6 +147,7 @@ public:
    */
   const std::string& getUnitReferenceId() const;
  
+
   /**
    * Get the SBMLTypecode of this FormulaUnitsData.
    * This will be the typecode of the SBML component used to populate
@@ -143,6 +158,7 @@ public:
    */
   int getComponentTypecode();
 
+
   /**
    * Get the SBMLTypecode of this FormulaUnitsData.
    * This will be the typecode of the SBML component used to populate
@@ -152,6 +168,7 @@ public:
    * FormulaUnitsData.
    */
   const int getComponentTypecode() const;
+
 
   /**
    * Get the value of the "containsUndeclaredUnits" flag for this 
@@ -191,6 +208,7 @@ public:
    */
   bool getCanIgnoreUndeclaredUnits();
 
+
   /**
    * Get the value of the "canIgnoreUndeclaredUnits" flag for this 
    * FormulaUnitsData.
@@ -209,6 +227,7 @@ public:
    */
   const bool getCanIgnoreUndeclaredUnits() const;
 
+
   /**
    * Get the unit definition for this FormulaUnitsData.
    * 
@@ -219,6 +238,7 @@ public:
    * this FormulaUnitsData object.
    */
   UnitDefinition * getUnitDefinition();
+
 
   /**
    * Get the unit definition for this FormulaUnitsData.
@@ -231,6 +251,7 @@ public:
    */
   const UnitDefinition * getUnitDefinition() const;
 
+
   /**
    * Get the 'perTime' unit definition for this FormulaUnitsData.
    * 
@@ -241,6 +262,7 @@ public:
    * this FormulaUnitsData object divided by the time units for the model.
    */
   UnitDefinition * getPerTimeUnitDefinition();
+
   
   /**
    * Get the 'perTime' unit definition for this FormulaUnitsData.
@@ -253,6 +275,7 @@ public:
    */
   const UnitDefinition * getPerTimeUnitDefinition() const;
 
+
   /**
    * Get the 'EventTime' unit definition for this FormulaUnitsData.
    * 
@@ -263,6 +286,7 @@ public:
    * this FormulaUnitsData object.
    */
   UnitDefinition * getEventTimeUnitDefinition();
+
 
   /**
    * Get the 'EventTime' unit definition for this FormulaUnitsData.
@@ -288,6 +312,7 @@ public:
    * unit information.
    */
   void setUnitReferenceId(const std::string& unitReferenceId);
+
     
   /**
    * Sets the SBMLTypecode of this FormulaUnitsData.
@@ -298,6 +323,7 @@ public:
    */
   void setComponentTypecode(int typecode);
 
+
   /**
    * Sets the value of the "containsUndeclaredUnits" flag for this 
    * FormulaUnitsData.
@@ -306,6 +332,7 @@ public:
    * includes parameters/numbers with undeclared units.
    */
   void setContainsParametersWithUndeclaredUnits(bool flag);
+
 
   /**
    * Sets the value of the "canIgnoreUndeclaredUnits" flag for this 
@@ -316,6 +343,7 @@ public:
    */
   void setCanIgnoreUndeclaredUnits(bool flag);
 
+
   /**
    * Set the unit definition for this FormulaUnitsData.
    * 
@@ -325,6 +353,7 @@ public:
    */
   void setUnitDefinition(UnitDefinition * ud);
 
+
   /**
    * Set the 'perTime' unit definition for this FormulaUnitsData.
    * 
@@ -333,6 +362,7 @@ public:
    * this FormulaUnitsData object divided by the time units for the model.
    */
   void setPerTimeUnitDefinition(UnitDefinition * ud);
+
 
   /**
    * Set the 'EventTime' unit definition for this FormulaUnitsData.

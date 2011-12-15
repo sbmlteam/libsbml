@@ -165,6 +165,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * LocalParameter.
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a LocalParameter object to an SBMLDocument
    * (e.g., using KineticLaw::addLocalParameter(@if java LocalParameter p@endif)), the SBML Level, SBML
@@ -202,6 +206,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of a LocalParameter object to an SBMLDocument
    * (e.g., using KineticLaw::addLocalParameter(@if java LocalParameter p@endif)), the SBML XML namespace of
    * the document @em overrides the value used when creating the
@@ -226,6 +234,9 @@ public:
    * Copy constructor; creates a copy of a given LocalParameter object.
    * 
    * @param orig the LocalParameter instance to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   LocalParameter(const LocalParameter& orig);
 
@@ -235,12 +246,21 @@ public:
    * the attributes of a given Parameter object.
    * 
    * @param orig the Parameter instance to copy.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   LocalParameter(const Parameter& orig);
 
 
   /**
    * Assignment operator for LocalParameter.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   LocalParameter& operator=(const LocalParameter& rhs);
 

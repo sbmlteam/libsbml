@@ -196,6 +196,10 @@ public:
    * available.  Please consult the top of this libSBML StoichiometryMath
    * documentation for more information about the differences between SBML
    * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a StoichiometryMath object to an
    * SBMLDocument (e.g., using
@@ -234,6 +238,10 @@ public:
    * documentation for more information about the differences between SBML
    * Level&nbsp;2 and&nbsp;3 with respect to stoichiometries.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of a StoichiometryMath object to an
    * SBMLDocument (e.g., using
    * SpeciesReference::createStoichiometryMath()), the SBML XML namespace
@@ -257,12 +265,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this StoichiometryMath.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   StoichiometryMath (const StoichiometryMath& orig);
 
 
   /**
    * Assignment operator
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   StoichiometryMath& operator=(const StoichiometryMath& rhs);
 

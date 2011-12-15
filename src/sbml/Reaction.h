@@ -217,6 +217,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Reaction
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
    * using Model::addReaction(@if java Reaction r@endif)), the SBML Level, SBML Version and
@@ -245,6 +249,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of a Reaction object to an SBMLDocument (e.g.,
    * using Model::addReaction(@if java Reaction r@endif)), the SBML XML namespace of the document
    * @em overrides the value used when creating the Reaction object via
@@ -267,12 +275,23 @@ public:
 
   /**
    * Copy constructor; creates a copy of this Reaction.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   Reaction (const Reaction& orig);
 
 
   /**
    * Assignment operator for Reaction.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   Reaction& operator=(const Reaction& rhs);
 

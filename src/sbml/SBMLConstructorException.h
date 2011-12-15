@@ -24,6 +24,19 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
+ * 
+ * @class SBMLConstructorException
+ * @brief Class of exceptions thrown by constructors of some libSBML objects.
+ *
+ * In some situations, constructors for SBML objects may need to indicate to
+ * callers that the creation of the object failed.  The failure may be for
+ * different reasons, such as an attempt to use invalid parameters or a
+ * system condition such as a memory error.  To communicate this to callers,
+ * those classes will throw an SBMLConstructorException.
+ *
+ * In languages that don't have an exception mechanism (e.g., C), the
+ * constructors generally try to return an error code instead of throwing
+ * an exception.
  */
 
 #ifndef SBML_CONSTRUCTOR_EXCEPTION_H
@@ -40,10 +53,12 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/** @cond doxygen-libsbml-internal */
+
 class LIBSBML_EXTERN SBMLConstructorException : public std::invalid_argument
 {
 public:
+
+  /** @cond doxygen-libsbml-internal */
 
   /* constructor */
   SBMLConstructorException (std::string errmsg = "");
@@ -51,12 +66,19 @@ public:
   SBMLConstructorException (std::string elementName, SBMLNamespaces* xmlns);
   virtual ~SBMLConstructorException () throw();
   
+ /** @endcond */
+
+  /**
+   * Returns the message associated with this SBML exception.
+   *
+   * @return the message string.
+   */
   const std::string getSBMLErrMsg() const { return mSBMLErrMsg; }
 
 private:
   std::string mSBMLErrMsg;
 };
-/** @endcond */
+
 
 LIBSBML_CPP_NAMESPACE_END
 

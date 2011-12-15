@@ -136,6 +136,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * SpeciesType
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a SpeciesType object to an SBMLDocument
    * (e.g., using Model::addSpeciesType(@if java SpeciesType st@endif)),
@@ -172,6 +176,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of a SpeciesType object to an SBMLDocument
    * (e.g., using Model::addSpeciesType(@if java SpeciesType st@endif)),
    * the SBML XML namespace of the document @em overrides the value used
@@ -194,13 +202,24 @@ public:
 
 
   /**
-  * Copy constructor; creates a copy of this SpeciesType.
-  */
+   * Copy constructor; creates a copy of this SpeciesType.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
+   */
   SpeciesType(const SpeciesType& orig);
 
 
   /**
    * Assignment operator for SpeciesType.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   SpeciesType& operator=(const SpeciesType& rhs);
 

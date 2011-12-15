@@ -92,12 +92,21 @@ public:
    * Copy constructor; creates a copy of this XMLNamespaces list.
    *
    * @param orig the XMLNamespaces object to copy
+   *
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   XMLNamespaces(const XMLNamespaces& orig);
 
 
   /**
    * Assignment operator for XMLNamespaces.
+   *
+   * @param rhs The XMLNamespaces object whose values are used as the basis
+   * of the assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   XMLNamespaces& operator=(const XMLNamespaces& rhs);
 

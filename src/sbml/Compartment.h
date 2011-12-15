@@ -342,6 +342,10 @@ public:
    *
    * @param version an unsigned int, the SBML Version to assign to this
    * Compartment
+   *
+   * @throws SBMLConstructorException Thrown if the given @p level and @p
+   * version combination, or this kind of SBML object, are either invalid
+   * or mismatched with respect to the parent SBMLDocument object.
    * 
    * @note Upon the addition of a Compartment object to an SBMLDocument
    * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML Level, SBML Version
@@ -377,6 +381,10 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
+   * @throws SBMLConstructorException Thrown if the given @p sbmlns
+   * namespace, or this kind of SBML object, are either invalid or
+   * mismatched with respect to the parent SBMLDocument object.
+   *
    * @note Upon the addition of a Compartment object to an SBMLDocument
    * (e.g., using Model::addCompartment(@if java Compartment c@endif)), the SBML XML namespace of the
    * document @em overrides the value used when creating the Compartment
@@ -401,12 +409,21 @@ public:
    * Copy constructor; creates a copy of a Compartment.
    * 
    * @param orig the Compartment instance to copy.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p orig is not
+   * given.
    */
   Compartment(const Compartment& orig);
 
 
   /**
    * Assignment operator for Compartment.
+   *
+   * @param rhs The object whose values are used as the basis of the
+   * assignment.
+   *
+   * @throws XMLConstructorException Thrown if the argument @p rhs is not
+   * provided.
    */
   Compartment& operator=(const Compartment& rhs);
 
