@@ -470,19 +470,14 @@ END_TEST
 
 START_TEST ( test_XMLInputStream )
 {
-  string msg;
   const char *stream = NULL;
-  msg = "";
-  // ctor from content
-  try
-  {
-    XMLInputStream opstream2(stream);
-  }
-  catch (XMLConstructorException &e)
-  {
-    msg = e.what();
-  }
-  fail_unless(msg == errMsg);
+  
+  // XMLInputStream no longer throws an exception when invoked with 
+  // NULL stream, instead it produces an invald stream;
+
+  XMLInputStream opstream2(stream);
+  fail_unless(opstream2.isError());
+
 }
 END_TEST
 
