@@ -283,6 +283,13 @@ void SBMLExtension::enableL2NamespaceForDocument(SBMLDocument* doc)  const
 
 }
 
+
+bool 
+SBMLExtension::isInUse(SBMLDocument *doc) const
+{
+  return true;
+}
+
 /** @cond doxygen-c-only */
 
 /**

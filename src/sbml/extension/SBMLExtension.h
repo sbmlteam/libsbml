@@ -858,6 +858,20 @@ public:
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 
+  /** 
+   * Determines whether this extension is being used by the given SBMLDocument
+   *
+   * The default implementation returns true. This means that when a document
+   * had this extension enabled, it will not be possible to convert it to L2
+   * as we cannot make sure that the extension can be converted.
+   * 
+   * @param doc the sbml document to test. 
+   * 
+   * @return a boolean indicating whether the extension is actually being used
+   *         byy the document. 
+   */
+  virtual bool isInUse(SBMLDocument *doc) const;
+
 protected:
   /** @cond doxygen-libsbml-internal */
 

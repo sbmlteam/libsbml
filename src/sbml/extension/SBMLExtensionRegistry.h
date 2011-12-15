@@ -114,6 +114,12 @@ public:
    */
   void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 
+  /** 
+   * Goes through all extensions in the list of plugins of the given document
+   * and disables all plugins that are not being used. 
+   */
+  void disableUnusedPackages(SBMLDocument *doc);
+
 private:
   /**
    * Returns an SBMLExtension object with the given package URI or package name (string).

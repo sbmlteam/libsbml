@@ -235,6 +235,18 @@ public:
    */
   virtual void enableL2NamespaceForDocument(SBMLDocument* doc)  const;
 
+  /** 
+   * Determines whether this extension is being used by the given SBMLDocument
+   *
+   * The implementation returns true if the model object contains one 
+   * or more layouts.
+   * 
+   * @param doc the sbml document to test. 
+   * 
+   * @return a boolean indicating whether the extension is actually being used
+   *         byy the document. 
+   */
+  virtual bool isInUse(SBMLDocument *doc) const;
 };
 
 

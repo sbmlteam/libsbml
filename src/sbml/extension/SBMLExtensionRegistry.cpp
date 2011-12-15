@@ -29,6 +29,8 @@
  */
 
 #include <sbml/extension/SBMLExtensionRegistry.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/extension/SBasePlugin.h>
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -370,14 +372,18 @@ SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
 {
   char * name = (char *) (getRegisteredPackageNames()->get(index));
   return string(name);
-  //if (index > packages->getSize()
-  //while (it != instance.mSBMLExtensionMap.end())
-  //{   
-  //  if (count == index) return (*it).second->getName();
-  //  count++;
-  //  it++;
-  //}
-  //return NULL;
+}
+
+void 
+SBMLExtensionRegistry::disableUnusedPackages(SBMLDocument *doc)
+{
+  for (unsigned int i = doc->getNumPlugins()-1; i >= 0; i--)
+  {
+    SBasePlugin *plugin = doc->getPlugin(i);
+    const SBMLExtension *ext = getExtensionInternal(plugin->getURI());
+    if (!ext->isInUse(doc))
+      doc->disablePackage(plugin->getURI(), plugin->getPrefix());
+  }
 }
 
 

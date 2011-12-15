@@ -30,6 +30,7 @@
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePluginCreator.h>
 #include <sbml/extension/SBMLDocumentPlugin.h>
+#include <sbml/SBMLDocument.h>
 
 #include <sbml/packages/layout/extension/LayoutExtension.h>
 #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
@@ -473,6 +474,15 @@ void LayoutExtension::enableL2NamespaceForDocument(SBMLDocument* doc)  const
 
 }
 
+bool 
+LayoutExtension::isInUse(SBMLDocument *doc) const
+{
+  if (doc == NULL || doc->getModel() == NULL) return false;
+  LayoutModelPlugin* plugin = (LayoutModelPlugin*)doc->getModel()->getPlugin("layout");
+  if (plugin == NULL) return false;
+
+  return (plugin->getNumLayouts() > 0);
+}
 
 
 #endif  /* __cplusplus */

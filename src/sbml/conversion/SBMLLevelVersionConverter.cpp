@@ -34,10 +34,10 @@
 
 #include <algorithm>
 #include <string>
-#ifdef USE_LAYOUT
-  #include <sbml/packages/layout/extension/LayoutExtension.h>
-  #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
-#endif
+//#ifdef USE_LAYOUT
+//  #include <sbml/packages/layout/extension/LayoutExtension.h>
+//  #include <sbml/packages/layout/extension/LayoutModelPlugin.h>
+//#endif
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_BEGIN
@@ -214,50 +214,61 @@ SBMLLevelVersionConverter::convert()
   /* if model has extensions we cannot convert */
   if (mDocument->getNumPlugins() > 0)
   {
-    /* if it is layout extension and we are converting between l2 targetVersions
-     * that is okay
-     */
-    if (currentLevel == 2 && mDocument->getPlugin("layout") != NULL)
-    {
-      bool problem = false;
-      /* if there is no layout - no problem ! */
-#ifdef USE_LAYOUT
-      if (currentModel != NULL)
-      {
-        LayoutModelPlugin * mplugin = static_cast<LayoutModelPlugin*>
-                      (currentModel->getPlugin("layout"));
-      
-        if (mplugin != NULL && mplugin->getNumLayouts() > 0 && targetLevel != 2)
-        {
-          problem = true;
-        }
-        else if (mDocument->getNumPlugins() > 1)
-        {
-          problem = true;
-        }
-        else if (targetLevel == 3)
-        {
-          /* disable the L2 extension as leaving it enabled means you
-           * cannot enable the L3 extension later
-           */
-          mDocument->enablePackage(LayoutExtension::getXmlnsL2(),"layout", false);
 
-        }
-      }
-#endif      
-      if (problem == true)
-      {
-        mDocument->getErrorLog()->logError(PackageConversionNotSupported, 
-                                           currentLevel, currentVersion);
-        return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
-      }
-    }
-    else
+    // disable all unused packages
+    SBMLExtensionRegistry::getInstance().disableUnusedPackages(mDocument);
+    if (mDocument->getNumPlugins() > 0)
     {
+      // if there are still plugins enabled fail
       mDocument->getErrorLog()->logError(PackageConversionNotSupported, 
                                          currentLevel, currentVersion);
       return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+
     }
+//     /* if it is layout extension and we are converting between l2 targetVersions
+//      * that is okay
+//      */
+//     if (currentLevel == 2 && mDocument->getPlugin("layout") != NULL)
+//     {
+//       bool problem = false;
+//       /* if there is no layout - no problem ! */
+// #ifdef USE_LAYOUT
+//       if (currentModel != NULL)
+//       {
+//         LayoutModelPlugin * mplugin = static_cast<LayoutModelPlugin*>
+//                       (currentModel->getPlugin("layout"));
+//       
+//         if (mplugin != NULL && mplugin->getNumLayouts() > 0 && targetLevel != 2)
+//         {
+//           problem = true;
+//         }
+//         else if (mDocument->getNumPlugins() > 1)
+//         {
+//           problem = true;
+//         }
+//         else if (targetLevel == 3)
+//         {
+//           /* disable the L2 extension as leaving it enabled means you
+//            * cannot enable the L3 extension later
+//            */
+//           mDocument->enablePackage(LayoutExtension::getXmlnsL2(),"layout", false);
+// 
+//         }
+//       }
+// #endif      
+//       if (problem == true)
+//       {
+//         mDocument->getErrorLog()->logError(PackageConversionNotSupported, 
+//                                            currentLevel, currentVersion);
+//         return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+//       }
+//    }
+//    else
+//    {
+//      mDocument->getErrorLog()->logError(PackageConversionNotSupported, 
+//                                         currentLevel, currentVersion);
+//      return LIBSBML_CONV_PKG_CONVERSION_NOT_AVAILABLE;
+//    }
   }
 
 
