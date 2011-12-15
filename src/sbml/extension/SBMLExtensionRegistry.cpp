@@ -377,9 +377,10 @@ SBMLExtensionRegistry::getRegisteredPackageName(unsigned int index)
 void 
 SBMLExtensionRegistry::disableUnusedPackages(SBMLDocument *doc)
 {
-  for (unsigned int i = doc->getNumPlugins()-1; i >= 0; i--)
+  for (unsigned int i = doc->getNumPlugins(); i > 0; i--)
   {
-    SBasePlugin *plugin = doc->getPlugin(i);
+    SBasePlugin *plugin = doc->getPlugin(i-1);
+    if (plugin == NULL) continue;
     const SBMLExtension *ext = getExtensionInternal(plugin->getURI());
     if (!ext->isInUse(doc))
       doc->disablePackage(plugin->getURI(), plugin->getPrefix());
