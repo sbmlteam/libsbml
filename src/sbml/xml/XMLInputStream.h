@@ -61,6 +61,17 @@ public:
   /**
    * Creates a new XMLInputStream.
    *
+   * @p content the source of the stream.
+   *
+   * @p isFile boolean flag to indicate whether @p content is a file name.
+   * If @c true, @p content is assumed to be the file from which the XML
+   * content is to be read.  If @c false, @p content is taken to be a
+   * string that @em is the content to be read.
+   *
+   * @p library the name of the parser library to use.
+   *
+   * @p errorLog the XMLErrorLog object to use.
+   *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */
   XMLInputStream (  const char*        content
