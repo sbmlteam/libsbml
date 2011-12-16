@@ -30,14 +30,16 @@ def main (args):
   """Usage: printNotes filename
   """
 
+  if len(args) != 2:
+    print(main.__doc__)
+    sys.exit(2)
+
   filename = args[1];
   document = readSBML(filename);
   
   errors = document.getNumErrors();
   
-  print("\n");
   print("filename: " + filename + "\n");
-  print("\n");
   
   if (errors > 0):
       document.printErrors();

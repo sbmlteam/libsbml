@@ -24,7 +24,7 @@ def printStatus(message, status):
   else:
     statusString = "unknown";          
   
-  print (message + statusString + "\n");
+  print (message + statusString );
 
 def main (args):
   """usage: addModelHistory <input-filename> <output-filename>
@@ -39,9 +39,9 @@ def main (args):
   errors = d.getNumErrors();
 
   if (errors > 0):
-      print("Read Error(s):" + "\n");
+      print("Read Error(s):" );
       d.printErrors();  
-      print("Correct the above and re-run." + "\n");
+      print("Correct the above and re-run." );
   else:
       h = ModelHistory();
   

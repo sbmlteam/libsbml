@@ -20,14 +20,14 @@ def main (args):
   
   
   if (len(args) != 2):
-      print("\n" + "Usage: printSBML filename" + "\n" + "\n");
+      print("\n" + "Usage: printSBML filename"  );
       return 1;
   
   filename = args[1];
   document = readSBML(filename);
   
   if (document.getNumErrors() > 0):
-      printLine("Encountered the following SBML errors:" + "\n");
+      printLine("Encountered the following SBML errors:" );
       document.printErrors();
       return 1;
   
@@ -36,39 +36,39 @@ def main (args):
   
   print("\n"
                         + "File: " + filename
-                        + " (Level " + str(level) + ", version " + str(version) + ")" + "\n");
+                        + " (Level " + str(level) + ", version " + str(version) + ")" );
   
   model = document.getModel();
   
   if (model == None):
-      print("No model present." + "\n");
+      print("No model present." );
       return 1;
   
-  idString = "id"
+  idString = "  id: "
   if (level == 1):
-	idString = "name"
+	idString = "name: "
   id = "(empty)"
   if (model.isSetId()):
 	id = model.getId()
   print("               "
                         + idString
-                        + id + "\n");
+                        + id );
   
   if (model.isSetSBOTerm()):
-      print("      model sboTerm: " + model.getSBOTerm() + "\n");
+      print("      model sboTerm: " + model.getSBOTerm() );
   
-  print("functionDefinitions: " + str(model.getNumFunctionDefinitions()) + "\n");
-  print("    unitDefinitions: " + str(model.getNumUnitDefinitions()) + "\n");
-  print("   compartmentTypes: " + str(model.getNumCompartmentTypes()) + "\n");
-  print("        specieTypes: " + str(model.getNumSpeciesTypes()) + "\n");
-  print("       compartments: " + str(model.getNumCompartments()) + "\n");
-  print("            species: " + str(model.getNumSpecies()) + "\n");
-  print("         parameters: " + str(model.getNumParameters()) + "\n");
-  print(" initialAssignments: " + str(model.getNumInitialAssignments()) + "\n");
-  print("              rules: " + str(model.getNumRules()) + "\n");
-  print("        constraints: " + str(model.getNumConstraints()) + "\n");
-  print("          reactions: " + str(model.getNumReactions()) + "\n");
-  print("             events: " + str(model.getNumEvents()) + "\n");
+  print("functionDefinitions: " + str(model.getNumFunctionDefinitions()) );
+  print("    unitDefinitions: " + str(model.getNumUnitDefinitions()) );
+  print("   compartmentTypes: " + str(model.getNumCompartmentTypes()) );
+  print("        specieTypes: " + str(model.getNumSpeciesTypes()) );
+  print("       compartments: " + str(model.getNumCompartments()) );
+  print("            species: " + str(model.getNumSpecies()) );
+  print("         parameters: " + str(model.getNumParameters()) );
+  print(" initialAssignments: " + str(model.getNumInitialAssignments()) );
+  print("              rules: " + str(model.getNumRules()) );
+  print("        constraints: " + str(model.getNumConstraints()) );
+  print("          reactions: " + str(model.getNumReactions()) );
+  print("             events: " + str(model.getNumEvents()) );
   print("\n");
   
   return 0;

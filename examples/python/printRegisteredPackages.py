@@ -15,6 +15,6 @@ from libsbml import *
 print("This version of LibSBML: " + getLibSBMLDottedVersion() + " includes: " + "\n");
 
 for i in range (0, SBMLExtensionRegistry.getNumRegisteredPackages()):
-    print("\t" + SBMLExtensionRegistry.getRegisteredPackageName(i) + "\n");
+    print("\t" + SBMLExtensionRegistry.getRegisteredPackageName(i));
 print("\n");
 
