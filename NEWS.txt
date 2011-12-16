@@ -1,7 +1,7 @@
            libSBML NEWS -- History of user-visible changes
 
 ======================================================================
-Next release
+Version 5.3.0 (2011-12-23)
 ======================================================================
 
 STABLE RELEASE
@@ -16,6 +16,18 @@ STABLE RELEASE
     that will allow a user to read/write and manipulate text within an 
     XML element.
     
+  - There is a new function on an ASTNode 'returnsBoolean' that returns
+    a predicate indicating that the math of the ASTNode will return a 
+    boolean result or not. Note this check is done in the context of the
+    parent Model of the particular ASTNode.
+    
+  - There are new functions to facilitate the use of packages. The 
+    SBMLExtensionRegistry has a 'disableUnusedPackages' function which
+    disables registered packages that are not being used by the target
+    SBMLDocument.  The base SBMLExtension class has a function 'isInUse'
+    that will establish whether a package is being used by the target
+    document.
+    
 * Bug fixes
 
   - The conversion code incorrectly converted an L3 model where the
@@ -28,6 +40,10 @@ STABLE RELEASE
   - The RegisterConverters class was not included in the
     LIBSBML_CPP_NAMESPACE.  This has been corrected.  Thanks to
     Christoph Flamm for letting us know.
+    
+  - There was a slight discrepancy in how the assignment operator 
+    for the SBMLExtensionNamespaces was behaving depending on OS.
+    This has been sorted so that behaviour is the same for all.
     
   - Tracker issue #3438777
     The XercesParser was failing to find the line and column number
@@ -46,23 +62,23 @@ STABLE RELEASE
     documentation, such as return values being reported as "char" when
     in fact they were strings, and have filled out more of the missing
     documentation.
+    
+  - The libSBML examples code has been ported to all language bindings;
+    so all examples exist in each language. 
 
 * Configuration/build system changes
+
+  - Using CMake to link against the static runtime libraries on windows
+    when using libxml2 it was necessary to manually add links to other
+    libraries.  The build system now takes care of these.
 
 
 EXPERIMENTAL RELEASE
 
 * New features
 
+  - There is now code to support the L3 render package.
     
-* Bug fixes
-
-
-* Miscellaneous
-
-
-* Configuration/build system changes
-
 
 ======================================================================
 Version 5.2.0 (2011-11-11)
