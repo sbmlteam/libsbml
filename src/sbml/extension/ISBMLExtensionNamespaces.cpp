@@ -31,8 +31,12 @@
  *
  */
 
+#include <sbml/common/common.h>
 #include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
+
+LIBSBML_CPP_NAMESPACE_BEGIN
+
 
 ISBMLExtensionNamespaces::ISBMLExtensionNamespaces()
   : SBMLNamespaces( SBML_DEFAULT_LEVEL, SBML_DEFAULT_VERSION )
@@ -59,4 +63,7 @@ ISBMLExtensionNamespaces::ISBMLExtensionNamespaces(const ISBMLExtensionNamespace
 ISBMLExtensionNamespaces::~ISBMLExtensionNamespaces()  
 {
 }
+
+
+LIBSBML_CPP_NAMESPACE_END
 
