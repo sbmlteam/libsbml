@@ -195,7 +195,7 @@ public class PrintMath
             return 1;
         }
 
-        string filename = args[1];
+        string filename = args[0];
         SBMLDocument document = libsbml.readSBML(filename);
 
         if (document.getNumErrors() > 0)

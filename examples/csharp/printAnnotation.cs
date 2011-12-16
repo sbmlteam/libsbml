@@ -40,7 +40,7 @@ public class PrintAnnotation
 
     public static int Main(string[] args)
     {
-        if (args.Length != 2)
+        if (args.Length != 1)
         {
             Console.Write(Environment.NewLine + "Usage: printAnnotation filename" + Environment.NewLine + Environment.NewLine);
             return 1;
