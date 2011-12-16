@@ -18,7 +18,7 @@ import org.sbml.libsbml.XMLTriple;
 import org.sbml.libsbml.libsbml;
 
 public class addingEvidenceCodes_2 {
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		System.loadLibrary("sbmlj");
 
 		if (args.length != 2) {
@@ -27,7 +27,7 @@ public class addingEvidenceCodes_2 {
 			System.out
 					.println("  Adds controlled vocabulary term to a species");
 			System.out.println();
-			return 2;
+			System.exit( 2);
 		}
 
 		SBMLDocument d = libsbml.readSBML(args[0]);
@@ -204,6 +204,6 @@ public class addingEvidenceCodes_2 {
 			}
 		}
 
-		return (int) errors;
+		System.exit((int) errors);
 	}
 }

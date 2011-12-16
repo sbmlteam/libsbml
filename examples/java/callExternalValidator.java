@@ -16,13 +16,13 @@ import org.sbml.libsbml.SBMLExternalValidator;
 import org.sbml.libsbml.libsbml;
 
 public class callExternalValidator {
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		System.loadLibrary("sbmlj");
 
 		if (args.length < 3) {
 			System.out
 					.println("Usage: callExternalValidator filename externalValidator [ tempSBMLFile outputFile [ ADDITIONAL-ARGS] ]");
-			return 1;
+			System.exit(1);
 		}
 
 		String filename = args[0];
@@ -89,7 +89,7 @@ public class callExternalValidator {
 		document.printErrors();
 
 		// return number of errors
-		return numErrors;
+		System.exit(numErrors);
 
 	}
 }

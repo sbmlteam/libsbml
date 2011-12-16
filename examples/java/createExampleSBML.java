@@ -56,7 +56,7 @@ public class createExampleSBML {
 	//
 	// ===============================================================================
 	//
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		System.loadLibrary("sbmlj");
 		SBMLDocument sbmlDoc = null;
 		boolean SBMLok = false;
@@ -71,7 +71,7 @@ public class createExampleSBML {
 			if (SBMLok)
 				writeExampleSBML(sbmlDoc, "enzymaticreaction.xml");
 			if (!SBMLok)
-				return 1;
+				System.exit(1);
 
 			// -------------------------------------------------
 			// 7.2 Example involving units
@@ -82,7 +82,7 @@ public class createExampleSBML {
 			if (SBMLok)
 				writeExampleSBML(sbmlDoc, "units.xml");
 			if (!SBMLok)
-				return 1;
+				System.exit(1);
 
 			// -------------------------------------------------
 			// 7.8 Example involving function definitions
@@ -93,15 +93,15 @@ public class createExampleSBML {
 			if (SBMLok)
 				writeExampleSBML(sbmlDoc, "functiondef.xml");
 			if (!SBMLok)
-				return 1;
+				System.exit( 1);
 
 		} catch (Exception e) {
 			System.err.println("Unexpected exceptional condition encountered.");
-			return 1;
+			System.exit(1);
 		}
 
 		// A 0 return status is the standard Unix/Linux way to say "all ok".
-		return 0;
+		System.exit(0);
 
 	}
 

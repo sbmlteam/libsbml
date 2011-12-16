@@ -101,10 +101,10 @@ public class addCustomValidator extends SBMLValidator {
 		return numErrors;
 	}
 
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		if (args.length != 1) {
 			System.out.println("Usage: addCustomValidator filename");
-			return 1;
+			System.exit(1);
 		}
 
 		System.loadLibrary("sbmlj");
@@ -122,7 +122,7 @@ public class addCustomValidator extends SBMLValidator {
 		document.printErrors();
 
 		// return number of errors
-		return numErrors;
+		System.exit(numErrors);
 
 	}
 

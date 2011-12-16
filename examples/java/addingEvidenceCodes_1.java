@@ -13,7 +13,7 @@ import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.libsbml;
 
 public class addingEvidenceCodes_1 {
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 
 		System.loadLibrary("sbmlj");
 
@@ -29,7 +29,7 @@ public class addingEvidenceCodes_1 {
 							+ "\n"
 							+ "  Adds controlled vocabulary term to a reaction"
 							+ "\n" + "\n");
-			return 2;
+			System.exit(2);
 		}
 
 		d = libsbml.readSBML(args[1]);
@@ -74,6 +74,6 @@ public class addingEvidenceCodes_1 {
 			}
 		}
 
-		return (int) errors;
+		System.exit( (int) errors);
 	}
 }

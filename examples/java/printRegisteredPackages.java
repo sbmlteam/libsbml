@@ -11,7 +11,7 @@ import org.sbml.libsbml.SBMLExtensionRegistry;
 import org.sbml.libsbml.libsbml;
 
 public class printRegisteredPackages {
-	public static int main(String[] args) {
+	public static void main(String[] args) {
 		System.loadLibrary("sbmlj");
 		System.out.print("This version of LibSBML: "
 				+ libsbml.getLibSBMLDottedVersion() + " includes: " + "\n");
@@ -23,7 +23,7 @@ public class printRegisteredPackages {
 
 		System.out.print("\n");
 
-		return 0;
+		System.exit(0);
 	}
 
 }
