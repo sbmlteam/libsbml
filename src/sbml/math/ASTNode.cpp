@@ -1233,19 +1233,22 @@ ASTNode::isBoolean () const
 
 LIBSBML_EXTERN
 bool
-ASTNode::returnsBoolean () const
-{
+ASTNode::returnsBoolean (const Model* givenModel /*=NULL*/) const
+{   
 
   if (isBoolean() == true)
   {
     return true;
   }
 
-  else if (getType() == AST_FUNCTION)
+  const Model* model = givenModel;
+  if (givenModel == NULL && getParentSBMLObject() != NULL)
   {
-    const Model * model = (this->getParentSBMLObject() != NULL ? 
-      this->getParentSBMLObject()->getModel() : NULL);
+    model = getParentSBMLObject()->getModel();
+  }
 
+  if (getType() == AST_FUNCTION)
+  {
     if (model == NULL)
     {
       return false;
@@ -1275,6 +1278,9 @@ ASTNode::returnsBoolean () const
 
     return true;
   }
+
+  // add explicit return value in case we overlooked something
+  return false;
 }
 
 
@@ -2845,6 +2851,18 @@ ASTNode_returnsBoolean (const ASTNode_t *node)
   if (node == NULL) return (int) false;
   return (int) static_cast<const ASTNode*>(node)->returnsBoolean();
 }
+
+/**
+ * @return true (non-zero) if this ASTNode returns a boolean, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_returnsBooleanForModel (const ASTNode_t *node, const Model_t* model)
+{
+  if (node == NULL) return (int) false;
+  return (int) static_cast<const ASTNode*>(node)->returnsBoolean(model);
+}
+
 
 
 /**

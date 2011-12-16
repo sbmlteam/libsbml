@@ -984,7 +984,7 @@ public:
    * @return true if this ASTNode returns a boolean, false otherwise.
    */
   LIBSBML_EXTERN
-  bool returnsBoolean () const;
+  bool returnsBoolean (const Model* model=NULL) const;
 
 
   /**
@@ -2120,6 +2120,14 @@ ASTNode_isBoolean (const ASTNode_t * node);
 LIBSBML_EXTERN
 int
 ASTNode_returnsBoolean (const ASTNode_t *node);
+
+
+/**
+ * @return true (non-zero) if this ASTNode returns a boolean, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_returnsBooleanForModel (const ASTNode_t *node, const Model_t* model);
 
 
 /**

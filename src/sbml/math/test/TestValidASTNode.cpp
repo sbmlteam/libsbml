@@ -229,6 +229,49 @@ START_TEST (test_ValidASTNode_setType)
 }
 END_TEST
 
+START_TEST (test_ValidASTNode_returnsBoolean)
+{ 
+  ASTNode node(AST_LOGICAL_AND);
+  fail_unless(node.returnsBoolean());
+
+  node.setType(AST_LOGICAL_NOT);
+  fail_unless(node.returnsBoolean());
+
+  node.setType(AST_LOGICAL_OR);  
+  fail_unless(node.returnsBoolean());
+
+  node.setType(AST_LOGICAL_XOR);
+  fail_unless(node.returnsBoolean());
+
+  node.setType(AST_FUNCTION_PIECEWISE);
+  fail_unless(node.returnsBoolean());
+
+  node.setType(AST_RELATIONAL_EQ);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_RELATIONAL_GEQ);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_RELATIONAL_GT);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_RELATIONAL_LEQ);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_RELATIONAL_LT);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_RELATIONAL_NEQ);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_CONSTANT_TRUE);
+  fail_unless(node.returnsBoolean());
+  
+  node.setType(AST_CONSTANT_FALSE);
+  fail_unless(node.returnsBoolean());
+  
+}
+END_TEST
 
 Suite *
 create_suite_TestValidASTNode ()
@@ -237,6 +280,7 @@ create_suite_TestValidASTNode ()
   TCase *tcase = tcase_create("TestValidASTNode");
 
   tcase_add_test( tcase, test_ValidASTNode_Number       );
+  tcase_add_test( tcase, test_ValidASTNode_returnsBoolean );
   tcase_add_test( tcase, test_ValidASTNode_Name         );
   tcase_add_test( tcase, test_ValidASTNode_unary         );
   tcase_add_test( tcase, test_ValidASTNode_binary         );
