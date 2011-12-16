@@ -58,6 +58,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "FunctionDefinition",
                   "InitialAssignment",
                   "KineticLaw",
+                  "libsbml",
                   "List",
                   "ListOf",
                   "ListOfCompartmentTypes",
@@ -86,6 +87,7 @@ libsbmlclasses = ["AlgebraicRule",
                   "OStream",
                   "OStringStream",
                   "Parameter",
+                  "Priority",
                   "RDFAnnotationParser",
                   "RateRule",
                   "Reaction",
@@ -116,8 +118,8 @@ libsbmlclasses = ["AlgebraicRule",
                   "SBMLWriter",
                   "SBO",
                   "SBase",
-                  "SBaseList",
                   "SBaseExtensionPoint",
+                  "SBaseList",
                   "SBasePlugin",
                   "SBasePluginCreator",
                   "SBasePluginCreatorBase",
@@ -131,11 +133,11 @@ libsbmlclasses = ["AlgebraicRule",
                   "Unit", 
                   "UnitDefinition",
                   "XMLAttributes",
+                  "XMLConstructorException",
                   "XMLError",
                   "XMLErrorLog",
                   "XMLNamespaces",
                   "XMLNode",
-                  "libsbml",
                   "XMLToken",
                   "XMLTriple" ]
 
@@ -871,8 +873,8 @@ def rewriteDocstringForJava (docstring):
   # Fix up for a problem introduced by sanitizeForHTML -- should fix
   # properly some day.
 
-  p = re.compile('(@see\s+[\w ,(]*){@link\s+([^}]+?)}')
-  docstring = p.sub(r'\1\2', docstring)
+  p = re.compile('((@see|@throws)\s+[\w ,(]*){@link\s+([^}]+?)}')
+  docstring = p.sub(r'\1\3', docstring)
 
   # Inside of @see, change double colons to pound signs.
 
