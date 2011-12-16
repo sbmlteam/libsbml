@@ -53,16 +53,17 @@ main (int argc, char *argv[])
   for (i = 0; i < Model_getNumSpecies(model); i++)
   {
     Species_t* s = Model_getSpecies(model, i);
-    printf("Species %d: "
+    printf("Species %d: %s\n"
       , i
       , UnitDefinition_printUnits(Species_getDerivedUnitDefinition(s), 0)
     );    
   }
 
+
   for (i = 0; i < Model_getNumCompartments(model); i++)
   {
     Compartment_t *c = Model_getCompartment(model, i);
-    printf("Compartment %d: "
+    printf("Compartment %d: %s\n"
       , i
       , UnitDefinition_printUnits(Compartment_getDerivedUnitDefinition(c), 0)
     );    
@@ -71,7 +72,7 @@ main (int argc, char *argv[])
   for (i = 0; i < Model_getNumParameters(model); i++)
   {
     Parameter_t *p = Model_getParameter(model, i);
-    printf("Parameter %d: "
+    printf("Parameter %d: %s\n"
       , i
       , UnitDefinition_printUnits(Parameter_getDerivedUnitDefinition(p), 0)
     ); 
@@ -81,7 +82,7 @@ main (int argc, char *argv[])
   for (i = 0; i < Model_getNumInitialAssignments(model); i++)
   {
     InitialAssignment_t *ia = Model_getInitialAssignment(model, i);
-    printf("InitialAssignment %d: "
+    printf("InitialAssignment %d: %s"
       , i
       , UnitDefinition_printUnits(InitialAssignment_getDerivedUnitDefinition(ia), 0)
     ); 
@@ -99,7 +100,7 @@ main (int argc, char *argv[])
     {
       printf( "Delay: %s\n", 
         UnitDefinition_printUnits(Delay_getDerivedUnitDefinition(Event_getDelay(e)), 0));
-      printf( "        undeclared units: %s\n", 
+      printf( "        undeclared units: %s", 
         (Delay_containsUndeclaredUnits(Event_getDelay(e)) ? "yes\n" : "no\n"));
     }
       
@@ -108,7 +109,7 @@ main (int argc, char *argv[])
       EventAssignment_t *ea = Event_getEventAssignment(e, j);
          printf( "Delay: %s\n", 
            UnitDefinition_printUnits(EventAssignment_getDerivedUnitDefinition(ea), 0));
-      printf( "        undeclared units: %s\n", 
+      printf( "        undeclared units: %s", 
         (EventAssignment_containsUndeclaredUnits(ea) ? "yes\n" : "no\n"));
     }
   }
@@ -124,7 +125,7 @@ main (int argc, char *argv[])
       KineticLaw_t *kl = Reaction_getKineticLaw(r);
       printf( "Kinetic Law: %s\n", 
         UnitDefinition_printUnits(KineticLaw_getDerivedUnitDefinition(kl), 0));
-      printf( "        undeclared units: %s\n", 
+      printf( "        undeclared units: %s", 
         (KineticLaw_containsUndeclaredUnits(kl) ? "yes\n" : "no\n"));
     }
 
@@ -138,7 +139,7 @@ main (int argc, char *argv[])
         printf( "Reactant stoichiometryMath %d: %s\n", 
           j, 
           UnitDefinition_printUnits(StoichiometryMath_getDerivedUnitDefinition(sm), 0));
-        printf( "        undeclared units: %s\n", 
+        printf( "        undeclared units: %s", 
           (StoichiometryMath_containsUndeclaredUnits(sm) ? "yes\n" : "no\n"));
       }
     }
@@ -153,7 +154,7 @@ main (int argc, char *argv[])
         printf( "Product stoichiometryMath %d: %s\n", 
           j, 
           UnitDefinition_printUnits(StoichiometryMath_getDerivedUnitDefinition(sm), 0));
-        printf( "        undeclared units: %s\n", 
+        printf( "        undeclared units: %s", 
           (StoichiometryMath_containsUndeclaredUnits(sm) ? "yes\n" : "no\n"));
       }
     }
@@ -166,7 +167,7 @@ main (int argc, char *argv[])
    printf( "Rule %d: %s\n", 
      j, 
      UnitDefinition_printUnits(Rule_getDerivedUnitDefinition(r), 0));
-   printf( "        undeclared units: %s\n", 
+   printf( "        undeclared units: %s", 
      (Rule_containsUndeclaredUnits(r) ? "yes\n" : "no\n"));
   }
 
