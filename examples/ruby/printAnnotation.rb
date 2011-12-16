@@ -40,9 +40,7 @@ document = LibSBML::readSBML(filename)
   
 errors = document.getNumErrors
   
-puts "\n"
 puts "filename: ", filename, "\n"
-puts "\n"
   
 if errors > 0
   document.printErrors

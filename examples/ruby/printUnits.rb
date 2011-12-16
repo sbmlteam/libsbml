@@ -36,19 +36,19 @@ if (model == nil)
 end
 model.getNumSpecies.times do |i|
     s = model.getSpecies(i)
-    puts "Species #{i}: #{LibSBML::UnitDefinition.printUnits(s.getDerivedUnitDefinition)}"
+    puts "Species #{i}: #{LibSBML::UnitDefinition.printUnits(s.getDerivedUnitDefinition)}\n"
 end
 model.getNumCompartments.times do |i|
     c = model.getCompartment(i)
-    puts "Compartment #{i}: #{LibSBML::UnitDefinition.printUnits(c.getDerivedUnitDefinition)}"
+    puts "Compartment #{i}: #{LibSBML::UnitDefinition.printUnits(c.getDerivedUnitDefinition)}\n"
 end
 model.getNumParameters.times do |i|
     p = model.getParameter(i)
-    puts "Parameter #{i}: #{LibSBML::UnitDefinition.printUnits(p.getDerivedUnitDefinition)}"
+    puts "Parameter #{i}: #{LibSBML::UnitDefinition.printUnits(p.getDerivedUnitDefinition)}\n"
 end
 model.getNumInitialAssignments.times do |i|
     ia = model.getInitialAssignment(i)
-    print("InitialAssignment #{i}: #{LibSBML::UnitDefinition.printUnits(ia.getDerivedUnitDefinition)}")
+    print("InitialAssignment #{i}: #{LibSBML::UnitDefinition.printUnits(ia.getDerivedUnitDefinition)}\n")
     tmp = "no"
     if (ia.containsUndeclaredUnits)
 	  tmp = "yes"
@@ -60,7 +60,7 @@ model.getNumEvents.times do |i|
     puts "Event #{i}: "
 
     if (e.isSetDelay)
-        print("\n\tDelay: #{LibSBML::UnitDefinition.printUnits(e.getDelay.getDerivedUnitDefinition)}")
+        print("\n\tDelay: #{LibSBML::UnitDefinition.printUnits(e.getDelay.getDerivedUnitDefinition)}\n")
         tmp = "no"
         if (e.getDelay.containsUndeclaredUnits)
 	      tmp = "yes"
@@ -69,7 +69,7 @@ model.getNumEvents.times do |i|
     end
     e.getNumEventAssignments.times do |j|
         ea = e.getEventAssignment(j)
-        print("\n\tEventAssignment #{j}: #{LibSBML::UnitDefinition.printUnits(ea.getDerivedUnitDefinition)}")
+        print("\n\tEventAssignment #{j}: #{LibSBML::UnitDefinition.printUnits(ea.getDerivedUnitDefinition)}\n")
         tmp = "no"
         if (ea.containsUndeclaredUnits)
 	      tmp = "yes"
@@ -83,7 +83,7 @@ model.getNumReactions.times do |i|
     print("\nReaction #{i}: ")
 
     if (r.isSetKineticLaw)
-        print("Kinetic Law: #{LibSBML::UnitDefinition.printUnits(r.getKineticLaw.getDerivedUnitDefinition)}")
+        print("Kinetic Law: #{LibSBML::UnitDefinition.printUnits(r.getKineticLaw.getDerivedUnitDefinition)}\n")
         tmp = "no"
         if (r.getKineticLaw.containsUndeclaredUnits)
 	      tmp = "yes"
@@ -94,7 +94,7 @@ model.getNumReactions.times do |i|
         sr = r.getReactant(j)
 
         if (sr.isSetStoichiometryMath)
-            print("Reactant stoichiometryMath #{j}: #{LibSBML::UnitDefinition.printUnits(sr.getStoichiometryMath.getDerivedUnitDefinition)}")
+            print("Reactant stoichiometryMath #{j}: #{LibSBML::UnitDefinition.printUnits(sr.getStoichiometryMath.getDerivedUnitDefinition)}\n")
             tmp = "no"
             if (sr.getStoichiometryMath.containsUndeclaredUnits)
 	          tmp = "yes"
@@ -106,7 +106,7 @@ model.getNumReactions.times do |i|
         sr = r.getProduct(j)
 
         if (sr.isSetStoichiometryMath)
-            print("Product stoichiometryMath #{j}: #{LibSBML::UnitDefinition.printUnits(sr.getStoichiometryMath.getDerivedUnitDefinition)}")
+            print("Product stoichiometryMath #{j}: #{LibSBML::UnitDefinition.printUnits(sr.getStoichiometryMath.getDerivedUnitDefinition)}\n")
             tmp = "no"
             if (sr.getStoichiometryMath.containsUndeclaredUnits)
 	          tmp = "yes"
@@ -117,7 +117,7 @@ model.getNumReactions.times do |i|
 end
 model.getNumRules.times do |i|
     r = model.getRule(i)
-    print("\nRule #{i}: #{LibSBML::UnitDefinition.printUnits(r.getDerivedUnitDefinition)}")
+    print("\nRule #{i}: #{LibSBML::UnitDefinition.printUnits(r.getDerivedUnitDefinition)}\n")
     tmp = "no"
     if (r.getStoichiometryMath.containsUndeclaredUnits)
 	  tmp = "yes"

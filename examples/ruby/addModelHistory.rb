@@ -25,7 +25,7 @@ def printStatus(message, status)
   else
     statusString = "unknown";          
   end
-  puts message, statusString, "\n"
+  puts "#{message} #{statusString}"
 end
 
 
@@ -42,7 +42,7 @@ if errors > 0
     print("Read Error(s):" + "\n");
     d.printErrors();  
     print("Correct the above and re-run." + "\n");
-	exit(errors);
+    exit(errors);
 end
 
 h = LibSBML::ModelHistory.new
