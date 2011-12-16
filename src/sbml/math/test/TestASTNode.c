@@ -32,6 +32,7 @@
 #include <sbml/math/FormulaParser.h>
 #include <sbml/EventAssignment.h>
 #include <sbml/Model.h>
+#include <sbml/SBMLDocument.h>
 #include <sbml/xml/XMLNode.h>
 
 #include <limits.h>
@@ -2259,7 +2260,7 @@ START_TEST (test_ASTNode_accessWithNULL)
   fail_unless( ASTNode_hasUnits (NULL) == 0);
   fail_unless( ASTNode_insertChild (NULL, 0, NULL) == LIBSBML_INVALID_OBJECT);
   fail_unless( ASTNode_isBoolean (NULL) == 0);
-  fail_unless( ASTNode_isBooleanFor (NULL, NULL) == 0);
+  fail_unless( ASTNode_returnsBoolean (NULL) == 0);
   fail_unless( ASTNode_isConstant (NULL) == 0);
   fail_unless( ASTNode_isFunction (NULL) == 0);
   fail_unless( ASTNode_isInfinity (NULL) == 0);
@@ -2510,35 +2511,55 @@ START_TEST (test_ASTNode_isBoolean)
 }
 END_TEST
 
-START_TEST (test_ASTNode_isBooleanFor)
+START_TEST (test_ASTNode_returnsBoolean)
 {
+
   ASTNode_t *n = ASTNode_create();
-  ASTNode_setName(n, "func1");
-  ASTNode_setType(n, AST_FUNCTION);
+  const ASTNode_t *math;
 
-  fail_unless(ASTNode_isBooleanFor(n, NULL) == 0);
+  // boolean function
+  n = SBML_parseFormula("geq(a,b)");
+  fail_unless(ASTNode_returnsBoolean(n) == 1);
 
-  Model_t* model = Model_create(3,1);
+  // not boolean function
+  n = SBML_parseFormula("times(a,b)");
+  fail_unless(ASTNode_returnsBoolean(n) == 0);
+
+  // piecewise with bool
+  n = SBML_parseFormula("piecewise(true, geq(X, T), false)");
+  fail_unless(ASTNode_returnsBoolean(n) == 1);
+
+  // piecewise no boolean
+  n = SBML_parseFormula("piecewise(true, geq(X, T), 5)");
+  fail_unless(ASTNode_returnsBoolean(n) == 0);
+
+  // func with no model
+  n = SBML_parseFormula("func1(X)");
+  fail_unless(ASTNode_returnsBoolean(n) == 0);
+
+  // func with model that does not contain that func
+  SBMLDocument_t *doc = SBMLDocument_createWithLevelAndVersion(3,1);
+  Model_t* model = SBMLDocument_createModel(doc);
+  Constraint *c = Model_createConstraint(model);
+  Constraint_setMath(c, n);
+
+  math = Constraint_getMath(c);
+  fail_unless(ASTNode_returnsBoolean(math) == 0);
+
+  // func with model but func has no math
   FunctionDefinition_t* fd = Model_createFunctionDefinition(model);
   FunctionDefinition_setId(fd, "func1");
+  fail_unless(ASTNode_returnsBoolean(math) == 0);
+
+  // func with model func returns boolean
   FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, true)"));
-  fail_unless(ASTNode_isBooleanFor(n, model));
+  fail_unless(ASTNode_returnsBoolean(math) == 1);
 
-  ASTNode_setName(n, "func2");
-  fd = Model_createFunctionDefinition(model);
-  FunctionDefinition_setId(fd, "func2");
+  // func with model func returns number
   FunctionDefinition_setMath(fd, SBML_parseFormula("lambda(x, 6)"));
-  fail_unless(!ASTNode_isBooleanFor(n, model));
+  fail_unless(ASTNode_returnsBoolean(math) == 0);
   ASTNode_free(n);
-
-  n = SBML_parseFormula("piecewise(true, geq(X, T), false)");
-  fail_unless(ASTNode_isBooleanFor(n, model));
-  ASTNode_free(n);
-
-  n = SBML_parseFormula("piecewise(true, geq(X, T), 5)");
-  fail_unless(!ASTNode_isBooleanFor(n, model));
-  ASTNode_free(n);
-
+  SBMLDocument_free(doc);
 }
 END_TEST
 
@@ -2595,7 +2616,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_avogadro_bug            );
   tcase_add_test( tcase, test_ASTNode_accessWithNULL          );
   tcase_add_test( tcase, test_ASTNode_isBoolean               );
-  tcase_add_test( tcase, test_ASTNode_isBooleanFor            );
+  tcase_add_test( tcase, test_ASTNode_returnsBoolean            );
 
   suite_add_tcase(suite, tcase);
 

@@ -968,15 +968,23 @@ public:
 
 
   /**
-   * Predicate returning @c true (non-zero) if this node has a boolean type
-   * (a logical operator, a relational operator, or the constants @c true
-   * or @c false), or if it is a piecewise function that always returns a
-   * boolean, or if it is a function definition that returns a boolean.
+   * Predicate returning @c true (non-zero) if this node returns a boolean type
+   * or @c false (zero) otherwise.
+   *
+   * This function looks at the whole ASTNode rather than just the top 
+   * level of the ASTNode. Thus it will consider return values from
+   * piecewise statements.  In addition, if this ASTNode uses a function
+   * call, the return value of the functionDefinition will be determined.
+   * Note that this is only possible where the ASTNode can trace its parent
+   * Model, that is, the ASTNode must represent the math element of some
+   * SBML object that has already been added to an instance of an SBMLDocument.
+   *
+   * @see isBoolean()
    *
    * @return true if this ASTNode returns a boolean, false otherwise.
    */
   LIBSBML_EXTERN
-  bool isBooleanFor (const Model* model) const;
+  bool returnsBoolean () const;
 
 
   /**
@@ -2111,7 +2119,7 @@ ASTNode_isBoolean (const ASTNode_t * node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_isBooleanFor (const ASTNode_t *node, const Model_t* model);
+ASTNode_returnsBoolean (const ASTNode_t *node);
 
 
 /**
