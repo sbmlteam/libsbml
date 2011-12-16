@@ -6,7 +6,7 @@
  * @author  Sarah Keating
  * @author  Frank Bergmann
  * 
- * This file is part of libSBML.  Please visit http: *sbml.org for more
+ * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  */
 
@@ -49,7 +49,7 @@ const unsigned int Version = 4;
  *  SBML" in Section 7 of the SBML Level 2 Version 4 specification(*). 
  *
  *   (*) The specification document is available at the following URL:
- *       http: *sbml.org/Documents/Specifications
+ *       http://sbml.org/Documents/Specifications
  *
  *===============================================================================*/
 int
@@ -349,7 +349,7 @@ SBMLDocument_t* createExampleEnzymaticReaction()
     * Creates an ASTNode object which represents the following math of the
     * KineticLaw.
     *
-    *      <math xmlns="http: *www.w3.org/1998/Math/MathML">
+    *      <math xmlns="http://www.w3.org/1998/Math/MathML">
     *        <apply>
     *          <times/>
     *          <ci> cytosol </ci>
@@ -440,7 +440,7 @@ SBMLDocument_t* createExampleEnzymaticReaction()
     * as a binary tree.
     *
     * Please see "Converting between ASTs and text strings" described
-    * at http: *sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
+    * at http://sbml.org/Software/libSBML/docs/cpp-api/class_a_s_t_node.html
     * for the detailed information.
     *
     *--------------------------------------------*/
@@ -592,7 +592,7 @@ SBMLDocument_t* createExampleEnzymaticReaction()
    * (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
    * by hand, so in a real program, we would not really want to do it this way.)*/
 
-  mathXMLString = "<math xmlns=\"http: *www.w3.org/1998/Math/MathML\">"
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
                          "  <apply>"
                          "    <times/>"
                          "    <ci> cytosol </ci>"
@@ -684,7 +684,7 @@ SBMLDocument_t* createExampleInvolvingUnits()
    * created by SBMLDocument only declares the SBML XML namespace.)*/
 
   xmlns = (XMLNamespaces_t*) SBMLDocument_getNamespaces(sbmlDoc);
-  XMLNamespaces_add(xmlns, "http: *www.w3.org/1999/xhtml", "xhtml");
+  XMLNamespaces_add(xmlns, "http://www.w3.org/1999/xhtml", "xhtml");
 
   /*---------------------------------------------------------------------------
    *
@@ -916,7 +916,7 @@ SBMLDocument_t* createExampleInvolvingUnits()
   /*---------------------------------------------------------------------------
    * Creates an ASTNode object which represents the following KineticLaw object.
    *
-   *  <math xmlns=\"http: *www.w3.org/1998/Math/MathML\">
+   *  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">
    *   <apply>
    *     <times/>
    *     <apply>
@@ -1048,7 +1048,7 @@ SBMLDocument_t* createExampleInvolvingUnits()
    * (This is a bit dangerous; it's very easy to make mistakes when writing MathML 
    * by hand, so in a real program, we would not really want to do it this way.)*/
 
-  mathXMLString = "<math xmlns=\"http: *www.w3.org/1998/Math/MathML\">"
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
                          "  <apply>"
                          "    <times/>"
                          "    <apply>"
@@ -1115,7 +1115,7 @@ SBMLDocument_t* createExampleInvolvingUnits()
    * Sets a math (ASTNode object) to the KineticLaw object.
    *---------------------------------------------------------------------------*/
 
-  mathXMLString = "<math xmlns=\"http: *www.w3.org/1998/Math/MathML\">"
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
                   "  <apply>"
                   "    <times/>"
                   "    <apply>"
@@ -1213,7 +1213,7 @@ SBMLDocument_t* createExampleInvolvingFunctionDefinitions()
 
   /* Sets a math (ASTNode object) to the FunctionDefinition object.*/
 
-  mathXMLString = "<math xmlns=\"http: *www.w3.org/1998/Math/MathML\">"
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
                          "  <lambda>"
                          "    <bvar>"
                          "      <ci> x </ci>"
@@ -1353,7 +1353,7 @@ SBMLDocument_t* createExampleInvolvingFunctionDefinitions()
    * Sets a math (ASTNode object) to the KineticLaw object.
    *---------------------------------------------------------------------------*/
 
-  mathXMLString = "<math xmlns=\"http: *www.w3.org/1998/Math/MathML\">"
+  mathXMLString = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
                   "  <apply>"
                   "  <divide/>"
                   "    <apply>"
