@@ -12,14 +12,19 @@ STABLE RELEASE
     have been improved to provide information about why the
     structure is invalid.
     
-  - There is a new virtual function on an SBase object 'setElementText'
-    that will allow a user to read/write and manipulate text within an 
-    XML element.
+  - There is a new virtual function on an SBase object 'setElementText'. 
+    This enables a user to store text that the read functions encounter
+    within an XML element.  Previously such text was ignored as no such
+    text existed as a part of an SBML Core element.  Some L3 packages
+    may use this XML feature and can thus utilize this function.
     
   - There is a new function on an ASTNode 'returnsBoolean' that returns
     a predicate indicating that the math of the ASTNode will return a 
-    boolean result or not. Note this check is done in the context of the
-    parent Model of the particular ASTNode.
+    boolean result or not.  The function has an argument of type Model 
+    with a default value of NULL. Where necessary, that is, when the
+    ASTNode involves a call to a user defined function, the check is 
+    done in the context of the supplied argument Model or the parent 
+    Model of the particular ASTNode if no argument is supplied.
     
   - There are new functions to facilitate the use of packages. The 
     SBMLExtensionRegistry has a 'disableUnusedPackages' function which
