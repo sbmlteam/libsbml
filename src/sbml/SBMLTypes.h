@@ -82,7 +82,6 @@
 
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/SBaseExtensionPoint.h>
-#include <sbml/extension/SBasePluginCreator.h>
 #include <sbml/extension/SBMLDocumentPlugin.h>
 #include <sbml/extension/SBMLExtension.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>

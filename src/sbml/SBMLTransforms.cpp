@@ -26,8 +26,11 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/SBMLTransforms.h>
+#include <sbml/SBMLTypes.h>
+
 #include <cstring>
 #include <math.h>
+
 #include "validator/constraints/IdList.h"
 
 /** @cond doxygen-ignored */

@@ -42,7 +42,6 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/FunctionDefinition.h>
 #include <sbml/InitialAssignment.h>
-#include <sbml/SBMLTypes.h>
 #include <sbml/SpeciesReference.h>
 
 #ifdef __cplusplus
