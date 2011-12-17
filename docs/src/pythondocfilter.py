@@ -143,12 +143,6 @@ def filterDocStrings (contents):
 def filterContents(contents):
   """
   filterContents(contents) -> contents
-
-  Makes overall adjustments to Python definitions in the input, to allow
-  Doxygen to recognize the content correctly.  This method handles things
-  outside the docstrings; see filterDocStrings() for the method that
-  handles the contents of docstrings.  These adjustments are really only
-  needed because Doxygen is quirky about how it looks for some things.
   """
 
   # The following removes the space after the ':' in an __init__ definition
@@ -157,7 +151,25 @@ def filterContents(contents):
   contents = re.sub('def __init__\(([^)]+)\): \n',
                     r'def __init__(\1):\n', contents)
 
-  return contents
+  # The following removes class and method definitions that are @internal.
+
+  newContents     = ""
+  pattern         = r'^\s*(def|class) \w+\([^)]*\):\n +"""(.*?)"""'
+  inInternalClass = False
+
+  for m in re.finditer(pattern, contents, flags=re.MULTILINE|re.DOTALL):
+    if m.group(1) == 'class':
+      if re.search('@internal', m.group(2)) != None:
+        # Notice we won't even write this class or its methods out.
+        inInternalClass = True
+      else:
+        inInternalClass = False
+        newContents += m.group(0) + '\n'
+    else:                               # it's a def
+      if not inInternalClass and re.search('@internal', m.group(2)) == None:
+        newContents += m.group(0) + '\n'
+
+  return newContents
 
 
 def filterForDoxygen (contents):
