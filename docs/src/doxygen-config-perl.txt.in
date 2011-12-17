@@ -17,13 +17,13 @@
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = "@PACKAGE_NAME@ Perl Public API"
+PROJECT_NAME           = "@PACKAGE_NAME@ Perl API"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. 
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Perl Public API"
+PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Perl API"
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
