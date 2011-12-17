@@ -4,7 +4,7 @@ body {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 12px;
   line-height: 140%;
-  margin: 0 0 10px 0;
+  margin: 0px 1px 10px 1px;
 }
 
 .contents {
@@ -967,7 +967,7 @@ body div.contents ol li {
 .papers {
   border: 1px solid #cbb;
   padding: 4px;
-  width: 85%;
+  margin: 1.5em 4em 1.5em 4em;
   text-align: left;
   background-color: #edd;
   -webkit-border-top-left-radius: 8px;
