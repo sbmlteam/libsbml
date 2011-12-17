@@ -58,21 +58,21 @@ main (int argc, char *argv[])
       /* check that the reaction has a metaid
        * no CVTerms will be added if there is no metaid to reference
        */
-      if (SBase_isSetMetaId(r))
-        SBase_setMetaId(r, "metaid_0000052");
+      if (SBase_isSetMetaId((SBase_t*)r))
+        SBase_setMetaId((SBase_t*)r, "metaid_0000052");
 
       cv1 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
       CVTerm_setBiologicalQualifierType(cv1, BQB_IS_DESCRIBED_BY);
       CVTerm_addResource(cv1, "urn:miriam:obo.eco:ECO%3A0000183");
 
-      SBase_addCVTerm(r, cv1);
+      SBase_addCVTerm((SBase_t*)r, cv1);
 
       cv2 = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
       CVTerm_setBiologicalQualifierType(cv2, BQB_IS);
       CVTerm_addResource(cv2, "urn:miriam:kegg.reaction:R00756");
       CVTerm_addResource(cv2, "urn:miriam:reactome:REACT_736");
       
-      SBase_addCVTerm(r, cv2);
+      SBase_addCVTerm((SBase_t*)r, cv2);
 
       writeSBML(d, argv[2]);
     }

@@ -28,7 +28,7 @@ main (int argc, char *argv[])
 {
   char         *line;
   char         *result;
-  char         *buffer  = calloc( 1, sizeof(char) );
+  char         *buffer  = (char*)calloc( 1, sizeof(char) );
   int           reading = 1;
   unsigned long len;
 
@@ -48,7 +48,7 @@ main (int argc, char *argv[])
     do
     {
       line = trim_whitespace(get_line(stdin));
-      len  = strlen(line);
+      len  = (unsigned int)strlen(line);
 
       if (len > 0)
       {
