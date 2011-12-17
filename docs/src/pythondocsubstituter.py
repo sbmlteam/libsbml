@@ -17,7 +17,17 @@ def getFunctionNames(filename):
 
 def main (args):
     """Usage:
-        pythondocsubstituter.py sourcelibsbml.py outputlibsbml.py FILE FILE FILE ...
+        pythondocpreprocessor.py sourcelibsbml.py outputlibsbml.py FILE FILE ...
+
+    Each FILE is assumed to have the same name as a class (minus the .py
+    file extension).  For each FILE, this program first removes the class
+    definition from sourcelibsbml.py, appends the contents of FILE, and
+    writes the result to outputlibsbml.py.  If FILE is empty, this has the
+    effect of removing a class completely.  If FILE is a name that has
+    equivalent in sourcelibsbml.py, the result is to add new content.
+
+    Special case: the file libsbml.py is examined for function definitions
+    to remove from the top level; it is not used as a class named 'libsbml'.
     """
 
     if len(sys.argv) < 4:
@@ -27,6 +37,11 @@ def main (args):
     input     = open(args[1], 'r')
     output    = open(args[2], 'w')
     filenames = args[3:]
+
+    contents  = ""
+
+    # Remove classes and functions that are being replaced (or just
+    # removed outright).
 
     classes   = []
     functions = []
@@ -58,14 +73,34 @@ def main (args):
         if skipping:
             continue
         else:
-            output.write(line)
+            contents += line
 
-    print "Will substitute the contents from the following files: " + " ".join(filenames)
+    # Remove classes and functions marked @internal
+
+    newContents     = ""
+    pattern         = r'^\s*(def|class) \w+\([^)]*\):\n +"""(.*?)"""'
+    inInternalClass = False
+
+    for m in re.finditer(pattern, contents, flags=re.MULTILINE|re.DOTALL):
+        if m.group(1) == 'class':
+            if re.search('@internal', m.group(2)) != None:
+                # Notice we won't even write this class or its methods out.
+                inInternalClass = True
+            else:
+                inInternalClass = False
+                newContents += m.group(0) + '\n'
+        else:                               # it's a def
+            if not inInternalClass and re.search('@internal', m.group(2)) == None:
+                newContents += m.group(0) + '\n'
+
+    # Append the contents of files we're using for substitutions.
+
+    print "Will append the contents of the following files: " + " ".join(filenames)
     for f in filenames:
-        contents = open(f, 'r').read()
-        output.write(contents)
+        newContents += open(f, 'r').read() + '\n'
 
-    print "Output left in " + args[2]
+    print "Writing output to " + args[2]
+    output.write(newContents)
 
 
 if __name__ == '__main__':
