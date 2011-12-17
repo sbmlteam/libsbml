@@ -1,102 +1,154 @@
-/* tabs styles, based on http://www.alistapart.com/articles/slidingdoors */
+/* new */
 
-DIV.tabs
-{
-   float            : left;
-   width            : 100%;
-   background       : url("tab_b.gif") repeat-x bottom;
-   margin-bottom    : 15px;
+.tabsearch {
+  top: 0px;
+  left: 10px;
+  height: 36px;
+  background-image: url('tab_b.png');
+  z-index: 101;
+  overflow: hidden;
+  font-size: 13px;
 }
 
-DIV.tabs UL
-{
-   margin           : 0px;
-   padding-left     : 10px;
-   list-style       : none;
+div.navigation {
+  width: 100%;
+  border-bottom: 1px solid #888;
 }
 
-DIV.tabs LI, DIV.tabs FORM
+div.navigation ul
 {
-   display          : inline;
-   margin           : 0px;
-   padding          : 0px;
+  font-size: 11px;
+  background: -moz-linear-gradient(-90deg, whiteSmoke, #CCC);
+  background: -webkit-gradient(linear, left top, left bottom, from(whiteSmoke), to(#CCC));
+  height: 30px;
+  line-height: 30px;
+  color: #333;
+  border-top: solid 1px #CCC;
+  border-left: solid 1px #CCC;
+  border-right: solid 1px #CCC;
+  border-bottom: none;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  padding-bottom: 5px;
 }
 
-DIV.tabs FORM
+div.navigation li
 {
-   float            : right;
+  list-style-type: none;
+  float: left;
+  padding: auto 10px;
+  color: #374E7C;
+  text-align: center;
 }
 
-DIV.tabs A
+div.navigation li.navelem a
 {
-   float            : left;
-   background       : url("tab_r.gif") no-repeat right top;
-   border-bottom    : 1px solid #84B0C7;
-   font-size        : x-small;
-   font-weight      : bold;
-   text-decoration  : none;
+  height: 32px;
+  display: block;
+  text-decoration: none;
+  outline: none;
+  color: #333;
 }
 
-DIV.tabs A:hover
+div.navigation li.navelem a:hover
 {
-   background-position: 100% -150px;
+  color: #6985BC;
+  text-shadow: none;
 }
 
-DIV.tabs A:link, DIV.tabs A:visited,
-DIV.tabs A:active, DIV.tabs A:hover
+div.navigation li.footer
 {
-       color: #1A419D;
+  list-style-type: none;
+  float: right;
+  padding: auto 10px;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: right;
+  color: #374E7C;
+  font-size: 8pt;
 }
 
-DIV.tabs SPAN
-{
-   float            : left;
-   display          : block;
-   background       : url("tab_l.gif") no-repeat left top;
-   padding          : 5px 9px;
-   white-space      : nowrap;
+.tabs, .tabs2, .tabs3 {
+  background-image: url('tab_b.png');
+  width: 100%;
+  z-index: 101;
+  font-size: 13px;
 }
 
-DIV.tabs INPUT
-{
-   float            : right;
-   display          : inline;
-   font-size        : 1em;
+.tabs2 {
+  font-size: 10px;
+}
+.tabs3 {
+  font-size: 9px;
 }
 
-DIV.tabs TD
-{
-   font-size        : x-small;
-   font-weight      : bold;
-   text-decoration  : none;
+.navigation {
+  margin: 0;
+  padding: 0;
+  display: table;
 }
 
-
-
-/* Commented Backslash Hack hides rule from IE5-Mac \*/
-DIV.tabs SPAN {float : none;}
-/* End IE5-Mac hack */
-
-DIV.tabs A:hover SPAN
-{
-   background-position: 0% -150px;
+.navigation li {
+  float: left;
+  display: table-cell;
+  line-height: 36px;
+  list-style: none;
 }
 
-DIV.tabs LI#current A
-{
-   background-position: 100% -150px;
-   border-width     : 0px;
+.navigation a {
+  display: block;
+  padding: 0 20px;
+  font-weight: bold;
+  background-image: url('tab_s.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  color: #293A5C;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  outline: none;
 }
 
-DIV.tabs LI#current SPAN
-{
-   background-position: 0% -150px;
-   padding-bottom   : 6px;
+.tabs3 .navigation a {
+  padding: 0 10px;
 }
 
-DIV.nav
+.navigation a:hover {
+  background-image: url('tab_h.png');
+  background-repeat: repeat-x;
+  color: #fff;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);
+  text-decoration: none;
+}
+
+.navigation li.current a {
+  background-image: url('tab_a.png');
+  background-repeat:repeat-x;
+  color: #fff;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 1.0);
+}
+
+.navigation li.current {
+  border: none;
+}
+
+li a[href="main.html"],
+li a[href="pages.html"],
+li a[href="annotated.html"],
+li a[href="files.html"],
+li a[href="globals.html"],
+li a[href="classes.html"],
+li a[href="hierarchy.html"],
+li a[href="functions.html"]
 {
-   background       : none;
-   border           : none;
-   border-bottom    : 1px solid #84B0C7;
+  width: 90px;
+}
+
+li a[href="globals*"]
+{
+  width: 40px;
+}
+
+.tags:first-child {
+  background-color: red;
 }

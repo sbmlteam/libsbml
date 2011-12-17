@@ -4,8 +4,13 @@ body {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 12px;
   line-height: 140%;
+  margin: 0 0 10px 0;
+}
+
+.contents {
   margin-right: 20px;
   margin-left: 20px;
+  margin-top: 10px;
 }
 
 pre { 
@@ -37,6 +42,11 @@ code {
 .footer {
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
   font-size: 12px;
+  margin: 20px;
+}
+
+.footer img {
+  margin-left: 20px;
 }
 
 li { 
@@ -175,6 +185,7 @@ td.footer {
   font-size: x-small;
   font-style: italic;
   color: #555555;
+  margin: 20px;
 }
 
 h1 {
@@ -229,6 +240,10 @@ h3 a code {
 
 .version {
   border-bottom: none;
+  text-align: center;
+  border-top: 1px solid #dcc;
+  border-bottom: 1px solid #dcc;
+  padding-bottom: 8px;
 }
 
 h4 {
@@ -244,8 +259,8 @@ h4 code {
 
 div.qindex {
   width: 100%;
-  background-color: #eeeeff;
-  border: 4px solid #eeeeff;
+  background-color: #eee;
+  border: 4px solid #eee;
   text-align: left;
   margin-bottom: 2px;
   font-family: Lucida Sans, Tahoma, Helvetica, Arial, Sans, sans-serif;
@@ -351,12 +366,11 @@ pre.fragment {
 div.fragment {
   font-family: "Courier New", Courier, monospace, fixed;
   font-weight: bold;
-  width: 92%;
-  border: 1px solid #aaa;
-  background-color: #c4c4c4;
+  border: 1px solid orange;
+  background-color: #f0f0f0;
   color: #222;
   padding: 5px;
-  margin: 6px;
+  margin: 15px;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
   -moz-border-radius-topleft: 8px;
@@ -417,7 +431,7 @@ div.contents hr {
 
 .memdoc { 
   padding: 5pt;
-  background-color: #f8f8f8;
+  background-color: #fff;
   border: 1px solid #b5b5b5;
   -webkit-border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
@@ -458,20 +472,21 @@ div.contents hr {
   border-bottom: 1px solid #cccccc;
   background-color: #e5e9e7;
 */
-  background-color: #ddd;
+  background-color: #dfdfdf;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
   -moz-border-radius-topleft: 8px;
   -moz-border-radius-topright: 8px;
   -moz-box-shadow: 5px 5px 5px #bbb;
   -webkit-box-shadow: 5px 5px 5px #bbb;
+  background: -moz-linear-gradient(top, #e5e5e5, #ccc); 
+  background: -webkit-gradient(linear, left top, left bottom, from(#e5e5e5), to(#bbb)); 
 }
 
 table.memname { 
   font-weight: bold;
   font-size: 10pt;
   text-align: left;
-  background-color: #ddd;
   color: #222;
 }
 
@@ -483,19 +498,16 @@ td.md, td.memname, td.paramtype {
   font-family: "Courier New", Courier, monospace, fixed;
   font-weight: bold;
   font-size: 10pt;
-  background-color: #ddd;
   white-space: nowrap;
 }
 
 td.mdname1 {
-  background-color: #ddd;
   font-weight: bold;
   font-size: 10pt;
   color: #602020;
 }
 
 td.mdname, td.paramname {
-  background-color: #ddd;
   font-weight: bold;
   font-size: 10pt;
   color: #602020;
@@ -766,7 +778,7 @@ dd table tr {
   height: 20px;
 }
 
-.directory { font-size: 9px; font-weight: bold; }
+.directory { font-size: 9px; font-weight: bold; margin: 10px;}
 .directory a.el { font-size: 11px; }
 .directory h3 { margin: 0px; margin-top: 0.8em; font-size: 12px; border-bottom: none; }
 .directory p { margin: 0px; white-space: nowrap; ; font-size: 12px; }
@@ -924,4 +936,46 @@ body > dl {
 
 body div.contents ol li {
   margin-bottom: 0.5em;
+}
+
+
+/* New */
+
+.navpath {
+  margin: 5px auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.center img { 
+  margin-bottom: 10px;
+}
+
+.toptitle {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-weight: bold;
+  font-size: 12px;
+  width: 200px;
+  line-height: 110%;
+  text-align: right;
+}
+
+.papers {
+  border: 1px solid #cbb;
+  padding: 4px;
+  width: 85%;
+  text-align: left;
+  background-color: #edd;
+  -webkit-border-top-left-radius: 8px;
+  -webkit-border-top-right-radius: 8px;
+  -webkit-border-bottom-left-radius: 8px;
+  -webkit-border-bottom-right-radius: 8px;
+  moz-border-radius-topleft: 8px;
+  moz-border-radius-topright: 8px;
+  moz-border-radius-bottomleft: 8px;
+  moz-border-radius-bottomright: 8px;
 }
