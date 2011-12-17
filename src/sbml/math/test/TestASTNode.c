@@ -2540,7 +2540,7 @@ START_TEST (test_ASTNode_returnsBoolean)
   // func with model that does not contain that func
   SBMLDocument_t *doc = SBMLDocument_createWithLevelAndVersion(3,1);
   Model_t* model = SBMLDocument_createModel(doc);
-  Constraint *c = Model_createConstraint(model);
+  Constraint_t *c = Model_createConstraint(model);
   Constraint_setMath(c, n);
 
   math = Constraint_getMath(c);
