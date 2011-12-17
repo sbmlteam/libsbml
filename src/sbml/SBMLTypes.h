@@ -78,4 +78,13 @@
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/MathML.h>
 
+/* also include the extension types so they don't have to be added */
+
+#include <sbml/extension/SBasePlugin.h>
+#include <sbml/extension/SBaseExtensionPoint.h>
+#include <sbml/extension/SBasePluginCreator.h>
+#include <sbml/extension/SBMLDocumentPlugin.h>
+#include <sbml/extension/SBMLExtension.h>
+#include <sbml/extension/SBMLExtensionRegistry.h>
+
 #endif  /* SBMLTypes_h */
