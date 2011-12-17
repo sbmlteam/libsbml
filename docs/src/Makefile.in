@@ -177,27 +177,27 @@ distfiles =                                                  \
         force-serif-font-on.html                             \
         graphics/astnode-illustration.jpg                    \
         graphics/built-in-units.jpg                          \
-        graphics/compartment-size.jpg                        \
-        graphics/enzymatic-reaction.jpg                      \
-        graphics/hellojsp-screenshot.png                     \
         graphics/cmake-configure-macos.png                   \
         graphics/cmake-configure-windows.png                 \
         graphics/cmake-empty-screenshot.png                  \
         graphics/cmake-empty-windows.png                     \
         graphics/cmake-options-red-windows.png               \
         graphics/cmake-options-red.png                       \
+        graphics/compartment-size.jpg                        \
+        graphics/enzymatic-reaction.jpg                      \
+        graphics/hellojsp-screenshot.png                     \
         graphics/listof-illustration.jpg                     \
-        graphics/right-arrow.gif                             \
         graphics/math-formula-precedence.jpg                 \
         graphics/math-string-functions.jpg                   \
+        graphics/official-sbml-supported-40.jpg              \
+        graphics/right-arrow.gif                             \
         graphics/sbase-species.eps                           \
         graphics/sbase-species.pdf                           \
         graphics/sbase-species.vthought                      \
         graphics/sbase.eps                                   \
         graphics/sbase.pdf                                   \
         graphics/sbase.vtt                                   \
-        graphics/official-sbml-supported-40.jpg              \
-	graphics/solution-explorer-windows.png               \
+        graphics/solution-explorer-windows.png               \
         graphics/species-boundarycondition.jpg               \
         graphics/species-hasonlysubstance.jpg                \
         graphics/species.eps                                 \
@@ -205,6 +205,10 @@ distfiles =                                                  \
         graphics/species.vtt                                 \
         graphics/string-functions.jpg                        \
         graphics/string-syntax.jpg                           \
+        graphics/tab_a.png                                   \
+        graphics/tab_b.png                                   \
+        graphics/tab_h.png                                   \
+        graphics/tab_s.png                                   \
         graphics/top-level.eps                               \
         graphics/top-level.pdf                               \
         graphics/top-level.vtt                               \
@@ -388,7 +392,7 @@ doxygen-minor-version = $(shell $(DOXYGEN) --version | cut -f2 -d'.')
 
 define postprocess_doxygen
   cp $(logo-file) $(1)
-  cp graphics/right-arrow.gif $(1)
+  cp graphics/*.gif $(1)
   cp graphics/*.png $(1)
   cp common-text/simple-ast.svg $(1)
   cp sbml.js $(1)
