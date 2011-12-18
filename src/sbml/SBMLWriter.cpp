@@ -228,7 +228,7 @@ SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 }
 
 
-/**
+/*
  * Writes the given SBML document to the output stream.
  *
  * @return true on success and false if one of the underlying parser
@@ -296,7 +296,7 @@ SBMLWriter::writeSBMLToFile (const SBMLDocument* d, const std::string& filename)
 }
 
 
-/**
+/*
  * Predicate returning @c true if
  * underlying libSBML is linked with zlib.
  *
@@ -309,7 +309,7 @@ SBMLWriter::hasZlib()
 }
 
 
-/**
+/*
  * Predicate returning @c true if
  * underlying libSBML is linked with bzip2.
  *
