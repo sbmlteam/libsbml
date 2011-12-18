@@ -233,9 +233,17 @@ LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
   if ( getURI() != LayoutExtension::getXmlnsL2() ) return;
 
   Model *parent = static_cast<Model*>(const_cast<SBase*>(getParentSBMLObject()));
-  if (!parent) return;
+  if (parent == NULL) return;
 
-  XMLNode *annt = parseLayouts(parent);  
+
+  XMLNode *parentAnnotation = parent->getAnnotation();
+  if (parentAnnotation != NULL && parentAnnotation->getNumChildren() > 0)
+  {
+    parentAnnotation = deleteLayoutAnnotation(parentAnnotation);
+    parent->setAnnotation(parentAnnotation);
+  }
+
+  XMLNode *annt = parseLayouts(parent);
   if (annt && annt->getNumChildren() > 0)
   {
     parent->appendAnnotation(annt);
