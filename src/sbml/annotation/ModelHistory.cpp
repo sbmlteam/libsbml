@@ -40,9 +40,9 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
-/**
-  * creates a date from the individual fields entered as numbers
-  */
+/*
+ * creates a date from the individual fields entered as numbers
+ */
 Date::Date(unsigned int year, unsigned int month, 
     unsigned int day, unsigned int hour, 
     unsigned int minute, unsigned int second,
@@ -80,9 +80,9 @@ Date::Date (const std::string& date)
 
 Date::~Date() {}
 
-/**
-* Copy constructor.
-*/
+/*
+ * Copy constructor.
+ */
 Date::Date(const Date& orig)
 {
   if (&orig == NULL)
@@ -106,9 +106,9 @@ Date::Date(const Date& orig)
   }
 }
 
-/**
-  * Assignment operator
-  */
+/*
+ * Assignment operator
+ */
 Date& Date::operator=(const Date& rhs)
 {
   if (&rhs == NULL)
@@ -134,9 +134,9 @@ Date& Date::operator=(const Date& rhs)
   return *this;
 }
 
-/**
-  * @return a (deep) copy of this Date.
-  */
+/*
+ * @return a (deep) copy of this Date.
+ */
 Date* Date::clone () const
 {
   return new Date(*this);
@@ -709,9 +709,9 @@ ModelCreator::~ModelCreator()
 }
 
 
-/**
-* Copy constructor.
-*/
+/*
+ * Copy constructor.
+ */
 ModelCreator::ModelCreator(const ModelCreator& orig)
 {
   if (&orig == NULL)
@@ -733,9 +733,9 @@ ModelCreator::ModelCreator(const ModelCreator& orig)
 }
 
 
-/**
-  * Assignment operator
-  */
+/*
+ * Assignment operator
+ */
 ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
 {
   if (&rhs == NULL)
@@ -760,9 +760,9 @@ ModelCreator& ModelCreator::operator=(const ModelCreator& rhs)
 }
 
 
-/**
-  * @return a (deep) copy of this ModelCreator.
-  */
+/*
+ * @return a (deep) copy of this ModelCreator.
+ */
 ModelCreator* ModelCreator::clone () const
 {
   return new ModelCreator(*this);
@@ -1011,9 +1011,9 @@ ModelHistory::~ModelHistory()
 }
 
 
-/**
-* Copy constructor.
-*/
+/*
+ * Copy constructor.
+ */
 ModelHistory::ModelHistory(const ModelHistory& orig)
 {
   if (&orig == NULL)
@@ -1045,9 +1045,9 @@ ModelHistory::ModelHistory(const ModelHistory& orig)
 }
 
 
-/**
-  * Assignment operator
-  */
+/*
+ * Assignment operator
+ */
 ModelHistory& 
 ModelHistory::operator=(const ModelHistory& rhs)
 {
@@ -1100,9 +1100,9 @@ ModelHistory::operator=(const ModelHistory& rhs)
 }
 
 
-/**
-  * @return a (deep) copy of this ModelHistory.
-  */
+/*
+ * @return a (deep) copy of this ModelHistory.
+ */
 ModelHistory* 
 ModelHistory::clone() const
 {
@@ -1132,9 +1132,9 @@ ModelHistory::addCreator(ModelCreator * creator)
 }
 
 
-/**
-  * sets the created date
-  */
+/*
+ * sets the created date
+ */
 int 
 ModelHistory::setCreatedDate(Date* date)
 {
@@ -1161,15 +1161,16 @@ ModelHistory::setCreatedDate(Date* date)
 }
 
 
-/**
-  * sets teh modiefied date
-  */
+/*
+ * sets teh modiefied date
+ */
 int 
 ModelHistory::setModifiedDate(Date* date)
 {
   //mModifiedDate = date->clone();
   return addModifiedDate(date);
 }
+
 /*
  * adds a modifieddate to the model history
  */
@@ -1242,9 +1243,9 @@ ModelHistory::getModifiedDate(unsigned int n)
 }
 
 
-/**
-  * @return number in List of Creator
-  */
+/*
+ * @return number in List of Creator
+ */
 unsigned int 
 ModelHistory::getNumCreators()
 {
@@ -1252,18 +1253,18 @@ ModelHistory::getNumCreators()
 }
 
 
-/**
-  * @return number in List of modified dates
-  */
+/*
+ * @return number in List of modified dates
+ */
 unsigned int 
 ModelHistory::getNumModifiedDates()
 {
   return mModifiedDates->getSize();
 }
 
-/**
-  * @return nth Creator
-  */
+/*
+ * @return nth Creator
+ */
 ModelCreator* 
 ModelHistory::getCreator(unsigned int n)
 {
@@ -1271,10 +1272,10 @@ ModelHistory::getCreator(unsigned int n)
 }
 
 
-/**
-  * @return true if the created Date has been set, false
-  * otherwise.
-  */
+/*
+ * @return true if the created Date has been set, false
+ * otherwise.
+ */
 bool 
 ModelHistory::isSetCreatedDate()
 {
@@ -1282,10 +1283,10 @@ ModelHistory::isSetCreatedDate()
 }
 
 
-/**
-  * @return true if the modified Date has been set, false
-  * otherwise.
-  */
+/*
+ * @return true if the modified Date has been set, false
+ * otherwise.
+ */
 bool 
 ModelHistory::isSetModifiedDate()
 {
