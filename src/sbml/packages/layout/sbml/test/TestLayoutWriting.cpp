@@ -45,6 +45,7 @@
 
 
 #include <iostream>
+#include <string>
 
 #include <locale.h>
 
@@ -69,6 +70,7 @@
 #include <sbml/Model.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLWriter.h>
+#include <sbml/SBMLTypes.h>
 
 #include <check.h>
 
@@ -77,6 +79,8 @@
 #include <sbml/xml/XMLNode.h>
 #include "utility.h"
 
+
+using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
@@ -2417,7 +2421,37 @@ START_TEST (test_LayoutWriting)
 }
 END_TEST
 
-  Suite *
+START_TEST(test_LayoutWriting_multipleTimes)
+{
+  LayoutPkgNamespaces ns (2,1);
+  SBMLDocument doc(&ns);
+  doc.setPkgRequired("layout", false);
+  
+  Model* model = doc.createModel();
+  model->setId("test1");
+  
+  LayoutModelPlugin* lPlugin = (LayoutModelPlugin*) model->getPlugin("layout");
+  fail_unless(lPlugin != NULL);
+  
+  Layout* layout = lPlugin->createLayout();
+  layout->setId("layout1");
+
+  // we should not have an annotation to begin with ... 
+  fail_unless(model->getAnnotation() == NULL);
+  string model1 = writeSBMLToString(&doc);
+  
+  // writing should create that annotation ... 
+  int numAnnotation = model->getAnnotation()->getNumChildren();
+  
+  // however, writing it again should not create multiple annotation
+  string model2 = writeSBMLToString(&doc);
+  fail_unless(numAnnotation == model->getAnnotation()->getNumChildren());
+  
+}
+END_TEST
+
+
+Suite *
 create_suite_LayoutWriting (void)
 {
   Suite *suite = suite_create("LayoutWriting");
@@ -2427,7 +2461,7 @@ create_suite_LayoutWriting (void)
       LayoutWritingTest_setup,
       LayoutWritingTest_teardown );
 
-
+  tcase_add_test( tcase, test_LayoutWriting_multipleTimes              );
   tcase_add_test( tcase, test_LayoutWriting                            );
   suite_add_tcase(suite, tcase);
 
