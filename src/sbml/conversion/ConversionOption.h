@@ -31,7 +31,7 @@
  * @htmlinclude libsbml-facility-only-warning.html
  *
  * LibSBML provides a number of converters that can perform transformations
- * of SBML documents.  These converters allow their behaviors to be
+ * on SBML documents.  These converters allow their behaviors to be
  * controlled by setting property values.  Converter properties are
  * communicated using objects of class ConversionProperties, and within
  * such objects, individual options are encapsulated using ConversionOption
@@ -197,7 +197,7 @@ public:
   /**
    * Copy constructor; creates a copy of an ConversionOption object.
    *
-   * @param option the ConversionOption object to copy.
+   * @param orig the ConversionOption object to copy.
    * 
    * @throws @if python ValueError @else SBMLConstructorException @endif
    * Thrown if the argument @p orig is @c NULL.
@@ -214,7 +214,7 @@ public:
    * @throws @if python ValueError @else SBMLConstructorException @endif
    * Thrown if the argument @p rhs is @c NULL.
    */
-  ConversionOption& operator=(const ConversionOption& option);
+  ConversionOption& operator=(const ConversionOption& rhs);
 
 
   /**
