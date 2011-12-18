@@ -276,7 +276,7 @@ distfiles =                                                  \
         plain-font-off.html                                  \
         plain-font-on.html                                   \
         pythondocfilter.py                                   \
-        pythondocsubstituter.py                              \
+        pythondocpreprocessor.py                             \
         search.css                                           \
         search.png                                           \
         sbml.js                                              \
@@ -447,7 +447,7 @@ python-subst-dir = python-substitutions
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	mkdir -p $(python-manual)
-	./pythondocsubstituter.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
+	./pythondocpreprocessor.py $(python-sources) libsbml.py $(wildcard $(python-subst-dir)/*.py)
 	$(DOXYGEN) doxygen-config-python.txt
 	$(call postprocess_doxygen,$(python-manual))
 endif
