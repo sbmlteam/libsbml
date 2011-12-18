@@ -1267,7 +1267,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
                         mSpatialDimensionsDouble, getErrorLog(), false);
   
-  // keep integer value as record if spatial dimesnions is 0, 1, 2, 3 
+  // keep integer value as record if spatial dimensions is 0, 1, 2, 3 
   if (mIsSetSpatialDimensions == true)
   {
     mSpatialDimensions = (int) (mSpatialDimensionsDouble);
