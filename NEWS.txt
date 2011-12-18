@@ -61,15 +61,25 @@ STABLE RELEASE
     explicilty excluding these classes.  Thanks to  Totte Karlsson 
     for reporting this.
    
+  - The documentation for Python did not omit internal libSBML
+    methods.  This is now fixed, and the docs more properly reflect
+    the public libSBML API.
+
 * Miscellaneous
+    
+  - The libSBML examples code has been ported to all language bindings;
+    so all examples exist in each language. 
 
   - Python bindings: we have fixed a number of errors in the API
     documentation, such as return values being reported as "char" when
     in fact they were strings, and have filled out more of the missing
     documentation.
-    
-  - The libSBML examples code has been ported to all language bindings;
-    so all examples exist in each language. 
+
+  - The API manuals for languages besides Java now feature a more
+    modern and attractive appearance.
+
+  - We have fixed many other small documentation bugs and filled out
+    more of the missing documentation.
 
 * Configuration/build system changes
 
