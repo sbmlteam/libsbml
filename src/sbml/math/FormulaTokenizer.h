@@ -53,6 +53,8 @@
  * are only meant to be passed around between the functions of the formula
  * tokenizer system, such as FormulaTokenizer_createFromFormula() and
  * FormulaTokenizer_getName().
+ * 
+ * @warning @htmlinclude L1-math-syntax-warning.html
  */
 
 #ifndef FormulaTokenizer_h
@@ -66,7 +68,22 @@ BEGIN_C_DECLS
 
 
 /**
+ * @struct FormulaTokenizer_t
  * Structure used to track the state of tokenizing a string.
+ *
+ * SBML Level 1 uses a simple text-string representation of mathematical
+ * formulas, rather than the MathML-based representation used in SBML
+ * Levels&nbsp;2 and&nbsp;3.  LibSBML implements a parser and converter to
+ * translate formulas between this text-string representation and MathML.
+ * The principal entry points to the translation system are
+ * @if java <code><a href="libsbml.html#formulaToString(org.sbml.libsbml.ASTNode)">libsbml.formulaToString()</a></code>@else SBML_formulaToString()@endif
+ * and @if java <code><a href="libsbml.html#parseFormula(java.lang.String)">libsbml.parseFormula()</a></code>@else SBML_parseFormula()@endif.
+ *
+ * LibSBML also provides a lower-level interface to the formula parser.
+ * This takes the form of the C functions
+ * FormulaTokenizer_createFromFormula() and FormulaTokenizer_nextToken().
+ * The structure FormulaTokenizer_t is used to store the current parser
+ * state when callers invoke these methods.
  * 
  * An instance of a FormulaTokenizer_t maintains its own internal copy of
  * the formula being tokenized and the current position within the formula
@@ -77,12 +94,13 @@ BEGIN_C_DECLS
  */
 typedef struct
 {
-  char         *formula;
-  unsigned int  pos;
+  char         *formula; /*!< Field used to store the formula string. */
+  unsigned int  pos;     /*!< Field used to store the current parsing position. */
 } FormulaTokenizer_t;
 
 
 /**
+ * @enum TokenType_t
  * Enumeration of possible token types.
  * 
  * "TT" is short for "TokenType".
@@ -109,9 +127,13 @@ typedef enum
 
 
 /**
- * A token has a @c type and a @c value.  The @c value field is a union of
- * different possible members; the member that holds the value for a given
- * token (and thus the name of the member that is to be accessed
+ * @struct Token_t
+ * Structure used to store a token returned by
+ * FormulaTokenizer_nextToken().
+ * 
+ * A Token_t token has a @c type and a @c value.  The @c value field is a
+ * union of different possible members; the member that holds the value for
+ * a given token (and thus the name of the member that is to be accessed
  * programmatically) depends on the value of the @c TokenType_t field @c
  * type.  The following table lists the possible scenarios:
  *
@@ -164,11 +186,27 @@ typedef struct
  * Creates a new FormulaTokenizer_t object for the given @p formula string
  * and returns a pointer to it the object.
  *
+ * SBML Level 1 uses a simple text-string representation of mathematical
+ * formulas, rather than the MathML-based representation used in SBML
+ * Levels&nbsp;2 and&nbsp;3.  LibSBML implements a parser and converter to
+ * translate formulas between this text-string representation and MathML.
+ * The first entry point is the function
+ * FormulaTokenizer_createFromFormula(), which returns a FormulaTokenizer_t
+ * structure.  The structure tracks the current position in the string to
+ * be tokenized, and can be handed to other functions such as
+ * FormulaTokenizer_nextToken().  Tokens are returned as Token_t
+ * structures.
+ *
  * @param formula the text string that contains the mathematical formula to
  * be tokenized.
  * 
  * @return a FormulaTokenizer_t object that tracks the state of tokenizing
  * the string.
+ *
+ * @see FormulaTokenizer_nextToken()
+ * @see FormulaTokenizer_free()
+ *
+ * @warning @htmlinclude L1-math-syntax-warning.html
  */
 LIBSBML_EXTERN
 FormulaTokenizer_t *
@@ -186,13 +224,36 @@ FormulaTokenizer_free (FormulaTokenizer_t *ft);
 /**
  * Returns the next token in the formula string.
  *
- * If no more tokens are available, the token type will be @c TT_END.
- * Please consult the documentation for the structure Token_t for
- * more information about the possible data values it can hold.
+ * SBML Level 1 uses a simple text-string representation of mathematical
+ * formulas, rather than the MathML-based representation used in SBML
+ * Levels&nbsp;2 and&nbsp;3.  LibSBML implements a parser and converter to
+ * translate formulas between this text-string representation and MathML.
+ * The first entry point is the function
+ * FormulaTokenizer_createFromFormula(), which returns a FormulaTokenizer_t
+ * structure.  The structure tracks the current position in the string to
+ * be tokenized, and can be handed to other functions such as
+ * FormulaTokenizer_nextToken().  Tokens are returned as Token_t
+ * structures.
+ *
+ * An instance of a FormulaTokenizer_t maintains its own internal copy of
+ * the formula being tokenized and the current position within the formula
+ * string.  Callers do not need to manipulate the fields of a
+ * FormulaTokenizer_t structure themselves; instances of FormulaTokenizer_t
+ * are only meant to be passed around between the functions of the formula
+ * tokenizer system, such as FormulaTokenizer_createFromFormula() and
+ * FormulaTokenizer_getName().
  *
  * @param ft the object tracking the current tokenization state.
  *
- * @return a pointer to a token.
+ * @return a pointer to a token.  If no more tokens are available, the
+ * token type will be @c TT_END.  Please consult the documentation for the
+ * structure Token_t for more information about the possible data values it
+ * can hold.
+ *
+ * @see FormulaTokenizer_free()
+ * @see FormulaTokenizer_createFromFormula()
+ *
+ * @warning @htmlinclude L1-math-syntax-warning.html
  */
 LIBSBML_EXTERN
 Token_t *
