@@ -30,11 +30,25 @@
  *
  * @htmlinclude not-sbml-warning.html
  *
- * LibSBML implements facilities for verifying that a given SBML document is
- * valid according to the SBML specifications; it also exposes the validation
- * interface so that user programs and SBML Level&nbsp;3 package authors may
- * use the facilities to implement new validators.  The entry point for this
- * is the SBMLValidator class.
+ * LibSBML implements facilities for verifying that a given SBML document
+ * is valid according to the SBML specifications; it also exposes the
+ * validation interface so that user programs and SBML Level&nbsp;3 package
+ * authors may use the facilities to implement new validators.  There are
+ * two main interfaces to libSBML's validation facilities, based on the
+ * classes Validator and SBMLValidator.
+ *
+ * The Validator class is the basis of the system for validating an SBML
+ * document against the validation rules defined in the SBML
+ * specifications.  The scheme used by Validator relies is compact and uses
+ * the @em visitor programming pattern, but it relies on C/C++ features and
+ * is not directly accessible from language bindings.  SBMLValidator offers
+ * a framework for straightforward class-based extensibility, so that user
+ * code can subclass SBMLValidator to implement new validation systems,
+ * different validators can be introduced or turned off at run-time, and
+ * interfaces can be provided in the libSBML language bindings.
+ * SBMLValidator can call Validator functionality internally (as is the
+ * case in the current implementation of SBMLInternalValidator) or use
+ * entirely different implementation approaches, as necessary.
  *
  * Users of libSBML may already be familiar with the facilities encompassed
  * by the validation system, in the form of the consistency-checking methods

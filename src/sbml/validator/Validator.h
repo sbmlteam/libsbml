@@ -26,10 +26,29 @@
  * ---------------------------------------------------------------------- -->
  *
  * @class Validator
- * @brief Entry point for libSBML's implementation of SBML validation
+ * @brief Entry point for libSBML's implementation of SBML validation rules.
  * 
  * @htmlinclude not-sbml-warning.html
  *
+ * LibSBML implements facilities for verifying that a given SBML document
+ * is valid according to the SBML specifications; it also exposes the
+ * validation interface so that user programs and SBML Level&nbsp;3 package
+ * authors may use the facilities to implement new validators.  There are
+ * two main interfaces to libSBML's validation facilities, based on the
+ * classes Validator and SBMLValidator.
+ *
+ * The Validator class is the basis of the system for validating an SBML
+ * document against the validation rules defined in the SBML
+ * specifications.  The scheme used by Validator relies is compact and uses
+ * the @em visitor programming pattern, but it relies on C/C++ features and
+ * is not directly accessible from language bindings.  SBMLValidator offers
+ * a framework for straightforward class-based extensibility, so that user
+ * code can subclass SBMLValidator to implement new validation systems,
+ * different validators can be introduced or turned off at run-time, and
+ * interfaces can be provided in the libSBML language bindings.
+ * SBMLValidator can call Validator functionality internally (as is the
+ * case in the current implementation of SBMLInternalValidator) or use
+ * entirely different implementation approaches, as necessary.
  */
 
 #ifndef Validator_h
@@ -60,28 +79,48 @@ class Validator
 {
 public:
 
+  /**
+   * Constructor; creates a new Validator object for the given
+   * category of validation.
+   *
+   * @param category code indicating the kind of validations that this
+   * validator will perform.  The category code value must be
+   * @if clike taken from the enumeration #SBMLErrorCategory_t @endif
+   * @if java one of of the values from the set of constants whose names
+   * begin with the characters <code>LIBSBML_CAT_</code> in the interface
+   * class {@link libsbmlConstants}.@endif
+   * @if python one of of the values from the set of constants whose names
+   * begin with the characters <code>LIBSBML_CAT_</code> in the interface
+   * class @link libsbml libsbml@endlink.@endif
+   */
   Validator ( SBMLErrorCategory_t category = LIBSBML_CAT_SBML );
 
+
+  /**
+   * Destroys this Validator object.
+   */
   virtual ~Validator ();
 
 
   /**
-   * Initializes this Validator with a set of Constraints.
+   * Initializes this Validator object.
    *
    * When creating a subclass of Validator, override this method to add
-   * your own Constraints.
+   * your own validation code.
    */
   virtual void init () = 0;
 
 
   /**
-   * Adds the given Contraint to this validator.
+   * Adds the given VContraint object to this validator.
+   *
+   * @param c the VConstraint ("validator constraint") object to add.
    */
   void addConstraint (VConstraint* c);
 
 
   /**
-   * Clears the Validator's list of failures.
+   * Clears this Validator's list of validation failures.
    *
    * If you are validating multiple SBML documents with the same Validator,
    * call this method after you have processed the list of failures from
@@ -111,24 +150,30 @@ public:
 
   /**
    * Adds the given failure to this list of Validators failures.
+   *
+   * @param err the SBMLError object to append.
    */
-  void logFailure (const SBMLError& msg);
+  void logFailure (const SBMLError& err);
 
 
   /**
-   * Validates the given SBMLDocument.  Failures logged during
-   * validation may be retrieved via getFailures().
+   * Validates the given SBML document.
    *
-   * @return the number of validation errors that occurred.
+   * @param d the SBMLDocument object to be validated.
+   *
+   * @return the number of validation failures that occurred.  The objects
+   * describing the actual failures can be retrieved using getFailures().
    */
   unsigned int validate (const SBMLDocument& d);
 
 
   /**
-   * Validates the given SBMLDocument.  Failures logged during
-   * validation may be retrieved via getFailures().
+   * Validates the SBML document located at the given file name.
    *
-   * @return the number of validation errors that occurred.
+   * @param filename the path to the file to be read and validated.
+   *
+   * @return the number of validation failures that occurred.  The objects
+   * describing the actual failures can be retrieved using getFailures().
    */
   unsigned int validate (const std::string& filename);
 

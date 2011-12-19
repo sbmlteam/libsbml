@@ -668,13 +668,7 @@ Validator::clearFailures ()
 
 
 /*
- * @return the category covered by this Validator.  A category is a
- * string, similiar in spirit to an XML namespace, which partitions error
- * failures to prevent id conflicts.  Example categories include:
- *
- *   http://sbml.org/validator/consistency
- *   http://sbml.org/validator/consistency/units
- *   http://sbml.org/validator/compatibility/L1
+ * @return the category covered by this Validator.
  */
 const unsigned int
 Validator::getCategory () const

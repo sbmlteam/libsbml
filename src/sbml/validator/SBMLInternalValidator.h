@@ -1,31 +1,55 @@
 /**
-* @file    SBMLInternalValidator.h
-* @brief   Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML.
-* @author  Frank Bergmann
-* 
-* <!--------------------------------------------------------------------------
-* This file is part of libSBML.  Please visit http://sbml.org for more
-* information about SBML, and the latest version of libSBML.
-*
-* Copyright (C) 2009-2011 jointly by the following organizations: 
-*     1. California Institute of Technology, Pasadena, CA, USA
-*     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-*  
-* Copyright (C) 2006-2008 by the California Institute of Technology,
-*     Pasadena, CA, USA 
-*  
-* Copyright (C) 2002-2005 jointly by the following organizations: 
-*     1. California Institute of Technology, Pasadena, CA, USA
-*     2. Japan Science and Technology Agency, Japan
-* 
-* This library is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation.  A copy of the license agreement is provided
-* in the file named "LICENSE.txt" included with this software distribution
-* and also available online as http://sbml.org/software/libsbml/license.html
-* ------------------------------------------------------------------------ -->
-*/
-
+ * @file    SBMLInternalValidator.h
+ * @brief   Definition of SBMLInternalValidator, the validator for all internal validation performed by libSBML.
+ * @author  Frank Bergmann
+ * 
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright (C) 2009-2011 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ *  
+ * Copyright (C) 2006-2008 by the California Institute of Technology,
+ *     Pasadena, CA, USA 
+ *  
+ * Copyright (C) 2002-2005 jointly by the following organizations: 
+ *     1. California Institute of Technology, Pasadena, CA, USA
+ *     2. Japan Science and Technology Agency, Japan
+ * 
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
+ *
+ * @class SBMLInternalValidator
+ * @brief Implementation of basic SBML consistency checks and other validations.
+ *
+ * @htmlinclude not-sbml-warning.html
+ *
+ * LibSBML implements facilities for verifying that a given SBML document is
+ * valid according to the SBML specifications; it also exposes the validation
+ * interface so that user programs and SBML Level&nbsp;3 package authors may
+ * use the facilities to implement new validators.  The entry point for this
+ * is the SBMLValidator class.
+ *
+ * The subclass SBMLInternalValidator embodies the implementation of the
+ * consistency-checking methods defined on SBMLDocument.  The methods
+ * SBMLDocument::setConsistencyChecks(), SBMLDocument::checkConsistency(),
+ * SBMLDocument::checkInternalConsistency() and other method of that sort
+ * are in fact implemented by SBMLInternalValidator.  These validations
+ * are all performed on the internal (in-memory) representation of an SBML
+ * model.
+ *
+ * Users should not need to call SBMLInternalValidator methods directly,
+ * since the interface is already provided on SBMLDocument.  However, this
+ * class is exposed in case users would like to implement new or additional
+ * validations by extending this class (SBMLInternalValidator) or using
+ * this class as an example of how to implement such validators.
+ */
 
 #ifndef SBMLInternalValidator_h
 #define SBMLInternalValidator_h
@@ -151,6 +175,7 @@ public:
    */
   void setConsistencyChecks(SBMLErrorCategory_t category, bool apply);
 
+
   /**
    * Controls the consistency checks that are performed when
    * SBMLDocument::setLevelAndVersion(@if java long lev, long ver, boolean strict@endif) is called.
@@ -258,6 +283,7 @@ public:
    */
   void setConsistencyChecksForConversion(SBMLErrorCategory_t category, 
                                          bool apply);
+
 
   /**
    * Performs consistency checking and validation on this SBML document.
@@ -374,15 +400,18 @@ public:
    */
   unsigned int checkL3v1Compatibility ();
 
+
   /** 
    * @return the current list of selected validators
    */
   unsigned char getApplicableValidators() const;
 
+
   /** 
    * @return the current list of selected validators for conversion
    */
   unsigned char getConversionValidators() const;
+
 
   /** 
    * Set the current list of validators to be applied
@@ -392,6 +421,7 @@ public:
    */  
   void setApplicableValidators(unsigned char appl);
 
+
   /** 
    * Set the current list of conversion validators to be applied
    *
@@ -399,12 +429,6 @@ public:
    *
    */
   void setConversionValidators(unsigned char appl);
-
-
-  /** @cond doxygen-libsbml-internal */
-  
-
-  /** @endcond */
 
 
   /**
@@ -425,12 +449,14 @@ public:
    */
   virtual SBMLValidator* clone() const;
 
+
   /** 
    * the actual conversion 
    * 
    * @return status code represeting success/failure/conversion impossible
    */
   virtual unsigned int validate();
+
 
 protected:
 
