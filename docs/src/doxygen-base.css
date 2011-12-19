@@ -7,6 +7,14 @@ body {
   margin: 0px 1px 10px 1px;
 }
 
+/* Hackacious correction for Javadoc, which doesn't have .contents.
+   This uses the fact that Javadoc (but not doxygen) adds a bgcolor attrib. */
+
+body[bgcolor="white"] {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
 .contents {
   margin-right: 20px;
   margin-left: 20px;
@@ -90,7 +98,7 @@ body > table {
   margin-top: 2em;
 }
 
-table[summary] {
+table[summary=""] {
   margin-top: 0;
 }
 
@@ -159,6 +167,8 @@ tr.TableHeadingColor th {
   border: 1px solid #ccc;
   background: -moz-linear-gradient(top, #eee, #ccc); 
   background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#bbb)); 
+  background-image: linear-gradient(top, #eee, #ccc); 
+  background-color: #eee;
   line-height: 150%;
 
 }
@@ -196,7 +206,7 @@ h1 {
 }
 
 
-h2 {
+.contents h2 {
   color: #443;
   font-size: 18px;
   font-weight: bold;
@@ -433,10 +443,13 @@ div.contents hr {
   padding: 5pt;
   background-color: #fff;
   border: 1px solid #b5b5b5;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   -webkit-border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
   -moz-border-radius-bottomleft: 8px;
   -moz-border-radius-bottomright: 8px;
+  box-shadow: 4px 4px 4px #bbb;
   -moz-box-shadow: 4px 4px 4px #bbb;
   -webkit-box-shadow: 4px 4px 4px #bbb;
 }
@@ -481,6 +494,8 @@ div.contents hr {
   -webkit-box-shadow: 5px 5px 5px #bbb;
   background: -moz-linear-gradient(top, #e5e5e5, #ccc); 
   background: -webkit-gradient(linear, left top, left bottom, from(#e5e5e5), to(#bbb)); 
+  background-image: linear-gradient(top, #e5e5e5, #ccc);
+  background-color: #e5e5e5;
 }
 
 table.memname { 
@@ -637,6 +652,7 @@ SPAN.charliteral   { color: #008080 }
   font-weight: bold;
   font-size: 12px;
   color: black;
+  background-color: #eee;
 }
 
 .memItemRight {
