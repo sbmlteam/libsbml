@@ -1085,6 +1085,10 @@ public:
    * the output should be printed.
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
+   *
+   * @see getNumErrors()
+   * @see getErrorLog()
+   * @see SBMLDocument::getError(unsigned int n)
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
@@ -1193,8 +1197,9 @@ public:
    */
   SBMLErrorLog* getErrorLog ();
 
+
   /**
-   * Returns a constent pointer to the list of errors or warnings 
+   * Returns a constant pointer to the list of errors or warnings 
    * logged during parsing, consistency checking, or attempted translation 
    * of this model.
    * 

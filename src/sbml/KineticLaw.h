@@ -1055,6 +1055,7 @@ public:
    */
   virtual bool hasRequiredElements() const ;
 
+
   /**
    * Finds this KineticLaw's Reaction parent and calls unsetKineticLaw() on it, indirectly deleting itself.  Overridden from the SBase function since the parent is not a ListOf.
    *
@@ -1066,6 +1067,7 @@ public:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    */
   virtual int removeFromParentAndDelete();
+
 
   /**
    * Renames all the SIdRef attributes on this element, including any found in MathML

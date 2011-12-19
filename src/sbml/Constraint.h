@@ -447,7 +447,7 @@ public:
    * have been set.
    *
    * @note The required elements for a Constraint object are:
-   * @li "math"
+   * @li 'math'
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.

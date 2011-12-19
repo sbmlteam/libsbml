@@ -524,6 +524,7 @@ public:
    */
   virtual bool hasRequiredElements() const ;
 
+
   /**
    * Renames all the UnitSIdRef attributes on this element
    */

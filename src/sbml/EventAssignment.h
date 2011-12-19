@@ -598,6 +598,7 @@ public:
    */
   virtual bool hasRequiredElements() const ;
 
+
   /** @cond doxygen-libsbml-internal */
   /*
    * Return the variable attribute of this object.

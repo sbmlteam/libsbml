@@ -223,7 +223,7 @@ public:
    *
    * @param sbmlns an SBMLNamespaces object.
    *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * @throws @if python ValueError @else SBMLConstructorException @endif 
    * Thrown if the given @p level and @p version combination, or this kind
    * of SBML object, are either invalid or mismatched with respect to the
    * parent SBMLDocument object.
@@ -398,7 +398,7 @@ public:
    * have been set.
    *
    * @note The required elements for a Priority object are:
-   * math
+   * @li "math"
    *
    * @return a boolean value indicating whether all the required
    * elements for this object have been defined.
@@ -418,14 +418,15 @@ public:
    */
   virtual int removeFromParentAndDelete();
 
+
  /**
-   * Renames all the SIdRef attributes on this element, including any found in MathML
+   * Renames all the SIdRef attributes on this element, including any found in MathML.
    */
   virtual void renameSIdRefs(std::string oldid, std::string newid);
 
 
   /**
-   * Renames all the UnitSIdRef attributes on this element
+   * Renames all the UnitSIdRef attributes on this element.
    */
   virtual void renameUnitSIdRefs(std::string oldid, std::string newid);
 
