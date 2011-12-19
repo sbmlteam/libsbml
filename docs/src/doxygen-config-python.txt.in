@@ -150,5 +150,6 @@ EXCLUDE_SYMBOLS =                      \
   swig_import_helper                   \
   weakref_proxy                        \
   _newclass                            \
+  accept                               \
   string
 
