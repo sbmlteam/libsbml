@@ -52,7 +52,7 @@
  *
  * Users of libSBML may already be familiar with the facilities encompassed
  * by the validation system, in the form of the consistency-checking methods
- * defined on SBMLDocument.  The methods SBMLDocument::setConsistencyChecks(),
+ * defined on SBMLDocument.  The methods SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif),
  * SBMLDocument::checkConsistency(), SBMLDocument::checkInternalConsistency()
  * and other method of that sort are in fact implemented via SBMLValidator,
  * specifically as methods on the class SBMLInternalValidator.
@@ -176,7 +176,7 @@ public:
    * call this method after you have processed the list of failures from
    * the last validation run and before validating the next document.
    *
-   * @see getFailures()
+   * @if clike @see getFailures() @endif
    */
   virtual void clearFailures ();
 
@@ -198,7 +198,7 @@ public:
    *
    * @param err an SBMLError object representing an error or warning
    *
-   * @see getFailures()
+   * @if clike @see getFailures() @endif
    */
   void logFailure (const SBMLError& err);
 
@@ -242,7 +242,7 @@ public:
    * 
    * @return the SBMLErrorLog used for the SBMLDocument
    * 
-   * @see getFailures()
+   * @if clike @see getFailures() @endif
    */
   SBMLErrorLog* getErrorLog ();
 
