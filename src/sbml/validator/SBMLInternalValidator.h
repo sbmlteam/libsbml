@@ -417,7 +417,6 @@ public:
    * Set the current list of validators to be applied
    *
    * @param appl the mask of validators to be applied
-   * 
    */  
   void setApplicableValidators(unsigned char appl);
 
@@ -426,7 +425,6 @@ public:
    * Set the current list of conversion validators to be applied
    *
    * @param appl the mask of validators to be applied
-   *
    */
   void setConversionValidators(unsigned char appl);
 
@@ -438,9 +436,15 @@ public:
 
 
   /**
-   * Copy constructor.
+   * Copy constructor; creates a copy of an SBMLInternalValidator object.
+   *
+   * @param orig the object to copy.
+   * 
+   * @throws @if python ValueError @else SBMLConstructorException @endif
+   * Thrown if the argument @p orig is @c NULL.
    */
-  SBMLInternalValidator(const SBMLInternalValidator&);
+  SBMLInternalValidator(const SBMLInternalValidator& orig);
+
 
   /**
    * Creates and returns a deep copy of this validator.
@@ -451,9 +455,13 @@ public:
 
 
   /** 
-   * the actual conversion 
+   * Runs the validations.
    * 
-   * @return status code represeting success/failure/conversion impossible
+   * This runs the validations that were previously enabled via methods such as
+   * SBMLDocument::setConsistencyChecks(@if java int categ, boolean onoff@endif).
+   *
+   * @return the number of validation failures that occurred.  The objects
+   * describing the actual failures can be retrieved using getFailures().
    */
   virtual unsigned int validate();
 
