@@ -427,6 +427,12 @@ LIBSBML_CPP_NAMESPACE_USE
 
 %extend SBasePlugin
 {
+        /**
+         * Returns a list of all child SBase objects, including those nested to
+         * an arbitrary depth.
+         *
+         * @return SBaseList
+         */
 	ListWrapper<SBase>* getListOfAllElements()
 	{
 		List* list = $self->getAllElements();
@@ -436,12 +442,28 @@ LIBSBML_CPP_NAMESPACE_USE
 
 %extend SBase
 {
+        /**
+         * Returns a list of all child SBase objects, including those nested to
+         * an arbitrary depth.
+         *
+         * @return SBaseList
+         */
 	ListWrapper<SBase>* getListOfAllElements()
 	{
 		List* list = $self->getAllElements();
 		return new ListWrapper<SBase>(list);
 	}
 
+        /**
+         * Returns a List of all child SBase objects contained in SBML package
+         * plugins.
+         *
+         * This method walks down the list of all packages used by the model and
+         * returns all objects contained in them.
+         *
+         * @return a pointer to a List of pointers to all children objects from
+         * plugins.
+	 */
 	ListWrapper<SBase>* getListOfAllElementsFromPlugins()
 	{
 		List* list = $self->getAllElementsFromPlugins();
