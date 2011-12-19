@@ -49,7 +49,7 @@ STABLE RELEASE
   - There was a slight discrepancy in how the assignment operator 
     for the SBMLExtensionNamespaces was behaving depending on OS.
     This has been sorted so that behaviour is the same for all.
-    
+      
   - Tracker issue #3438777
     The XercesParser was failing to find the line and column number
     definitions with some compilers. This is now fixed.  Thanks to
@@ -60,7 +60,16 @@ STABLE RELEASE
     conflict with MS MFC and GDI classes.  This has been fixed by 
     explicilty excluding these classes.  Thanks to  Totte Karlsson 
     for reporting this.
-   
+
+  - Tracker issue #3461400
+    Writing out an L2 model with Layout annotation caused duplicate
+    annotations to be written out.  This has been fixed.  Thanks to
+    Raimund Rönn for reporting the problem.
+
+  - Tracker issue #3462055  
+    A couple of typos have been corrected.  Thanks to Raimund Rönn 
+    for taking the time to report these.
+       
   - The documentation for Python did not omit internal libSBML
     methods.  This is now fixed, and the docs more properly reflect
     the public libSBML API.
