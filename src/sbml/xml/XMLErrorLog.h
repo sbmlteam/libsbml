@@ -40,10 +40,10 @@
  * mismatched tags or other problems).
  *
  * A typical approach for using this error log is to first use
- * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif to inquire how many XMLError
- * object instances it contains, and then to iterate over the list of
- * objects one at a time using getError(unsigned int n) const.  Indexing in
- * the list begins at 0.
+ * @if java XMLErrorLog::getNumErrors()@else getNumErrors()@endif
+ * to inquire how many XMLError object instances it contains, and then to
+ * iterate over the list of objects one at a time using
+ * getError(unsigned int n) const.  Indexing in the list begins at 0.
  *
  * In normal circumstances, programs using libSBML will actually obtain an
  * SBMLErrorLog rather than an XMLErrorLog.  The former is subclassed from
@@ -80,7 +80,7 @@ public:
    * Returns the number of errors that have been logged.
    *
    * To retrieve individual errors from the log, callers may use
-   * XMLErrorLog::getError(@if java long n@endif) const.
+   * @if clike getError() @else XMLErrorLog::getError(unsigned int n) @endif.
    *
    * @return the number of errors that have been logged.
    */
@@ -166,14 +166,20 @@ public:
 
   /** @endcond */
 
+
   /** 
-   * Writes all errors contained in this log to a string and returns it. 
+   * Writes all errors contained in this log to a string and returns it.
    *
-   * @return a string containing all logged errors.
+   * This method uses printErrors() to format the diagnostic messages.
+   * Please consult that method for information about the organization
+   * of the messages in the string returned by this method.
    *
-   *  @see printErrors
+   * @return a string containing all logged errors and warnings.
+   *
+   * @see printErrors()
    */
   std::string toString() const;
+
 
   /**
    * Prints all the errors or warnings stored in this error log
