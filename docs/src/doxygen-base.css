@@ -876,7 +876,8 @@ caption {
 }
 
 .ftvtree { 
-  background-color: #efefef
+  background-color: #efefef;
+  width: 209px;
 }
 
 #main-page-sections H2,

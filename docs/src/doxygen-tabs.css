@@ -98,7 +98,7 @@ div.navigation li.footer
 
 .navigation a {
   display: block;
-  padding: 0 20px;
+  padding: 0 5px; 
   font-weight: bold;
   background-image: url('tab_s.png');
   background-repeat: no-repeat;
@@ -107,6 +107,12 @@ div.navigation li.footer
   text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
   text-decoration: none;
   outline: none;
+}
+
+.navpath a {
+  display: inline;
+  background-image: none;
+  padding: 5px;
 }
 
 .tabs3 .navigation a {
@@ -139,16 +145,8 @@ li a[href="files.html"],
 li a[href="globals.html"],
 li a[href="classes.html"],
 li a[href="hierarchy.html"],
+li a[href="namespaces.html"],
 li a[href="functions.html"]
 {
-  width: 90px;
-}
-
-li a[href="globals*"]
-{
-  width: 40px;
-}
-
-.tags:first-child {
-  background-color: red;
+  width: 100px;
 }
