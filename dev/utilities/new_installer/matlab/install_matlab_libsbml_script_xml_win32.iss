@@ -1,19 +1,19 @@
-; Version No is currently 5.2.0
+; Version No is currently 5.3.0
 ; Check before use
 
 
 [Setup]
 AppName=libSBML MATLAB Interface
-AppVerName=MATLAB Interface of libSBML 5.2.0
+AppVerName=MATLAB Interface of libSBML 5.3.0
 AppPublisher=SBML Team
 AppPublisherURL=http://sbml.org
 AppSupportURL=http://sbml.org
 AppUpdatesURL=http://sbml.org
-DefaultDirName={pf}\SBML\libSBML-5.2.0-libxml2-x86\bindings\matlab
+DefaultDirName={pf}\SBML\libSBML-5.3.0-libxml2-x86\bindings\matlab
 DefaultGroupName=libSBML-matlab
 DisableProgramGroupPage=yes
 OutputDir=.\Output
-OutputBaseFilename=libSBML-5.2.0-win-matlab-x86
+OutputBaseFilename=libSBML-5.3.0-win-matlab-x86
 WizardSmallImageFile=..\graphics\libsbml-installer-mini-logo.bmp
 WizardImageFile=..\graphics\libsbml-matlab-installer-graphic.bmp
 UsePreviousAppDir=no
@@ -31,7 +31,7 @@ Root: HKCU; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKCU; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\SBML; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: Version; ValueData: 5.2.0
+Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: Version; ValueData: 5.3.0
 Root: HKLM; Subkey: Software\SBML\libSBML\MATLAB; ValueType: string; ValueName: InstallPath; ValueData: {app}
 
 [Code]
@@ -125,7 +125,7 @@ begin
 
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows version of the MATLAB binding of libSBML 5.2.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows version of the MATLAB binding of libSBML 5.3.0 built using the libxml2 2.7.3 XML Parser library. All the necessary libraries are included. The source code is available as a separate download.', mbInformation, mb_Ok);
  end;
 
 

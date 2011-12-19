@@ -28,7 +28,7 @@ basepath = '../../../win32/'
 from distutils.core import setup, Extension
 
 setup(name             = "libsbml", 
-      version          = "5.2.0",
+      version          = "5.3.0",
       description      = "LibSBML Python API",
       long_description = ("LibSBML is a library for reading, writing and "+
                           "manipulating the Systems Biology Markup Language "+
