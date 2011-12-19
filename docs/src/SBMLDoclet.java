@@ -388,15 +388,22 @@ public class SBMLDoclet extends Doclet
                         if (isDeleteMethod((Doc)entry))
                         {
                             ((Doc) entry).setRawCommentText(
-                                 "Explicit destructor." +
+                                 "Explicitly deletes the underlying native object." +
                                  "<p>" +
-                                 "This method will be called automatically by the Java " +
-                                 "garbage collector when this object is no longer being used. " +
-                                 "However, if callers want to delete the object earlier, they may " +
-                                 "invoke this method.  A possible situation might be when a program " +
-                                 "is processing a large amount of SBML data in a loop, and needs " +
-                                 "to conserve memory by freeing objects as soon as they are known " +
-                                 "to be no longer needed.");
+                                 "In general, application software will not need to call this method " +
+                                 "directly.  The Java language binding for libSBML is implemented as a " +
+                                 "language wrapper that provides a Java interface to libSBML's " +
+                                 "underlying C++/C code.  Some of the Java methods return objects that " +
+                                 "are linked to objects created not by Java code, but by C++ code.  The " +
+                                 "Java objects wrapped around them will be deleted when the garbage " +
+                                 "collector invokes the corresponding C++ <code>finalize()</code> methods for the " +
+                                 "objects.  The <code>finalize()</code> methods in turn call " +
+                                 "the {@link #delete()} method on the libSBML object. " +
+                                 "<p>" +
+                                 "This method is exposed in case calling programs want to ensure that " +
+                                 "the underlying object is freed immediately, and not at some arbitrary " +
+                                 "time determined by the Java garbage collector.  In normal usage, " +
+                                 "callers do not need to invoke {@link #delete()} themselves.");
                         }
                     }
                     list.add(process(entry, componentType));
