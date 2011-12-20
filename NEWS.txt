@@ -84,6 +84,16 @@ STABLE RELEASE
 
 * Miscellaneous
     
+  - The matlab binding contains a function 'isSBML_Model' that checks
+    that the structure contains all the fields that are expected
+    in an SBML model.  This function is used by OutputSBML to determine
+    if the model can be written out.  Previously this function would
+    only report that a model was valid if each of the substructures had 
+    the expected fields and no additional fields.  This behaviour has 
+    changed to allow users to include extra information within the 
+    structure. Thus a model is considered invalid if it does not have 
+    all the expected fields; additional fields are ignored.   
+  
   - The libSBML examples code has been ported to all language bindings;
     so all examples exist in each language. 
 
