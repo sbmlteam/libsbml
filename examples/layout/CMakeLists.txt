@@ -18,10 +18,6 @@ foreach(example
 	example3-L3
 	example3
 
-        addRenderInformation
-        removeRenderInformation
-        printRenderInformation
-
 )
 	add_executable(example_layout_${example} ${example}.cpp)
 	set_target_properties(example_layout_${example} PROPERTIES  OUTPUT_NAME ${example})
