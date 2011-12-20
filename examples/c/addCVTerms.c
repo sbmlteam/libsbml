@@ -67,9 +67,9 @@ main (int argc, char *argv[])
       CVTerm_setBiologicalQualifierType(cv1, BQB_IS_VERSION_OF);
       CVTerm_addResource(cv1, "http://www.ebi.ac.uk/interpro/#IPR002394");
 
-      SBase_addCVTerm(s, cv);
-      SBase_addCVTerm(s, cv2);
-      SBase_addCVTerm(s, cv1);
+      SBase_addCVTerm((SBase_t*)s, cv);
+      SBase_addCVTerm((SBase_t*)s, cv2);
+      SBase_addCVTerm((SBase_t*)s, cv1);
 
       writeSBML(d, argv[2]);
     }

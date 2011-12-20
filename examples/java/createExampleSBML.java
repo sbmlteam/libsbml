@@ -14,7 +14,6 @@ import org.sbml.libsbml.Compartment;
 import org.sbml.libsbml.FunctionDefinition;
 import org.sbml.libsbml.KineticLaw;
 import org.sbml.libsbml.Model;
-import org.sbml.libsbml.OStringStream;
 import org.sbml.libsbml.Parameter;
 import org.sbml.libsbml.Reaction;
 import org.sbml.libsbml.SBMLDocument;
@@ -1372,9 +1371,8 @@ public class createExampleSBML {
 					++numConsistencyWarnings;
 				}
 			}
-			OStringStream oss = new OStringStream();
-			sbmlDoc.printErrors(oss);
-			consistencyMessages = oss.str();
+			
+			consistencyMessages = sbmlDoc.getErrorLog().toString();
 		}
 
 		// If the internal checks fail, it makes little sense to attempt
@@ -1395,9 +1393,7 @@ public class createExampleSBML {
 						++numValidationWarnings;
 					}
 				}
-				OStringStream oss = new OStringStream();
-				sbmlDoc.printErrors(oss);
-				validationMessages = oss.str();
+				validationMessages = sbmlDoc.getErrorLog().toString();
 			}
 		}
 

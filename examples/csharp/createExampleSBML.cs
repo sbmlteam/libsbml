@@ -18,15 +18,6 @@ using libsbmlcs;
 public class CreateExampleSBML
 {
 
-
-    //
-    // These variables are used in writeExampleSBML when writing an SBML
-    // document.  They are handed to libSBML functions in order to include
-    // the program information into comments within the SBML file.
-    //
-    private static string ProgramName = "createExampleModels";
-    private static string ProgramVersion = "1.0.0";
-
     //
     // The SBML Level and Version of the example SBML models.
     //
@@ -1372,9 +1363,7 @@ public class CreateExampleSBML
                     ++numConsistencyWarnings;
                 }
             }
-            OStringStream oss = new OStringStream();
-            sbmlDoc.printErrors(oss);
-            consistencyMessages = oss.str();
+            consistencyMessages = sbmlDoc.getErrorLog().toString();
         }
 
         // If the internal checks fail, it makes little sense to attempt
@@ -1405,9 +1394,8 @@ public class CreateExampleSBML
                         ++numValidationWarnings;
                     }
                 }
-                OStringStream oss = new OStringStream();
-                sbmlDoc.printErrors(oss);
-                validationMessages = oss.str();
+				
+				validationMessages = sbmlDoc.getErrorLog().toString();
             }
         }
 

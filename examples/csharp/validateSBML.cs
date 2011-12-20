@@ -111,10 +111,8 @@ namespace LibSBMLCSExample
             ++numReadWarnings;
           }
         }
-
-        OStringStream oss = new OStringStream();
-        sbmlDoc.printErrors(oss);
-        errMsgRead = oss.str();     
+        
+        errMsgRead = sbmlDoc.getErrorLog().toString();
       }
 
       // If serious errors are encountered while reading an SBML document, it
@@ -165,9 +163,7 @@ namespace LibSBMLCSExample
             ++NumInvalid;
           }
 
-          OStringStream oss = new OStringStream();
-          sbmlDoc.printErrors(oss);
-          errMsgCC = oss.str();     
+          errMsgCC = sbmlDoc.getErrorLog().toString();
         }
       }
 
