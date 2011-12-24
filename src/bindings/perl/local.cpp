@@ -97,16 +97,28 @@ GetDowncastSwigType (SBasePlugin* sbp)
 }
 
 
+struct swig_type_info*
+GetDowncastSwigTypeForPackage (SBase* sb, const std::string &pkgName);
+
 /**
  * @return the most specific Swig type for the given SBase object.
  */
 struct swig_type_info*
 GetDowncastSwigType (SBase* sb)
 {
-	if (sb == 0) return SWIGTYPE_p_SBase;
-	
-	const std::string pkgName = sb->getPackageName();
-	std::string name;
+  if (sb == 0) return SWIGTYPE_p_SBase;  
+  const std::string pkgName = sb->getPackageName();
+  return GetDowncastSwigTypeForPackage(sb, pkgName);
+}
+/**
+ * @return the most specific Swig type for the given SBase object.
+ */
+struct swig_type_info*
+GetDowncastSwigTypeForPackage (SBase* sb, const std::string &pkgName)
+{
+  if (sb == 0) return SWIGTYPE_p_SBase;
+  
+  std::string name;
 	
 	if (pkgName == "core")
 	{
