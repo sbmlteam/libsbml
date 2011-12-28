@@ -381,12 +381,24 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     string url;
     element.getAttributes().readInto("definitionURL", url);
 
-    if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
-    else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
-    else if ( url == URL_AVOGADRO  ) node.setType(AST_NAME_AVOGADRO);
-    else 
+    if (stream.getSBMLNamespaces()->getLevel() < 3)
     {
-      logError(stream, element, BadCsymbolDefinitionURLValue);      
+      if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
+      else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
+      else 
+      {
+        logError(stream, element, BadCsymbolDefinitionURLValue);      
+      }
+    }
+    else
+    {
+      if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
+      else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
+      else if ( url == URL_AVOGADRO  ) node.setType(AST_NAME_AVOGADRO);
+      else 
+      {
+        logError(stream, element, BadCsymbolDefinitionURLValue);      
+      }
     }
   }
   else if (element.getName() == "ci")
