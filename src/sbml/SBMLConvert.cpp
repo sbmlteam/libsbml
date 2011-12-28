@@ -1122,12 +1122,11 @@ Model::dealWithModelUnits()
     }
     else
     {
-      Unit *u = new Unit(getSBMLNamespaces());
-      u->initDefaults();
-      u->setKind(UnitKind_forName(time.c_str()));
       ud = new UnitDefinition(getSBMLNamespaces());
       ud->setId("time");
-      ud->addUnit(u);
+      Unit *u = ud->createUnit();
+      u->initDefaults();
+      u->setKind(UnitKind_forName(time.c_str()));
     }
     addUnitDefinition(ud);
   }
