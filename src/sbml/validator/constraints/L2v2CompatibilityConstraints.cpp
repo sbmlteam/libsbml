@@ -290,6 +290,139 @@ START_CONSTRAINT (91017, Model, x)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (91018, Model, x)
+{
+  pre (m.getLevel() > 2);
+
+  std::string units;
+  bool allCorrect = true;
+
+  if (m.isSetExtentUnits() == true)
+  {
+    units = m.getExtentUnits();
+    if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                       m.getLevel(), m.getVersion()) == 0)
+    {
+      const UnitDefinition * ud = m.getUnitDefinition(units);
+      if (ud != NULL)
+      {
+        if (ud->hasRequiredElements() == false)
+        {
+          allCorrect = false;
+        }
+      }
+      else
+      {
+        allCorrect = false;
+      }
+    }
+  }
+  if (m.isSetTimeUnits() == true)
+  {
+    units = m.getTimeUnits();
+    if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                       m.getLevel(), m.getVersion()) == 0)
+    {
+      const UnitDefinition * ud = m.getUnitDefinition(units);
+      if (ud != NULL)
+      {
+        if (ud->hasRequiredElements() == false)
+        {
+          allCorrect = false;
+        }
+      }
+      else
+      {
+        allCorrect = false;
+      }
+    }
+  }
+  if (m.isSetSubstanceUnits() == true)
+  {
+    units = m.getSubstanceUnits();
+    if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                       m.getLevel(), m.getVersion()) == 0)
+    {
+      const UnitDefinition * ud = m.getUnitDefinition(units);
+      if (ud != NULL)
+      {
+        if (ud->hasRequiredElements() == false)
+        {
+          allCorrect = false;
+        }
+      }
+      else
+      {
+        allCorrect = false;
+      }
+    }
+  }
+  if (m.isSetVolumeUnits() == true)
+  {
+    units = m.getVolumeUnits();
+    if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                       m.getLevel(), m.getVersion()) == 0)
+    {
+      const UnitDefinition * ud = m.getUnitDefinition(units);
+      if (ud != NULL)
+      {
+        if (ud->hasRequiredElements() == false)
+        {
+          allCorrect = false;
+        }
+      }
+      else
+      {
+        allCorrect = false;
+      }
+    }
+  }
+  if (m.isSetAreaUnits() == true)
+  {
+    units = m.getAreaUnits();
+    if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                       m.getLevel(), m.getVersion()) == 0)
+    {
+      const UnitDefinition * ud = m.getUnitDefinition(units);
+      if (ud != NULL)
+      {
+        if (ud->hasRequiredElements() == false)
+        {
+          allCorrect = false;
+        }
+      }
+      else
+      {
+        allCorrect = false;
+      }
+    }
+  }
+  if (m.isSetLengthUnits() == true)
+  {
+    units = m.getLengthUnits();
+    if (UnitKind_isValidUnitKindString(units.c_str(), 
+                                       m.getLevel(), m.getVersion()) == 0)
+    {
+      const UnitDefinition * ud = m.getUnitDefinition(units);
+      if (ud != NULL)
+      {
+        if (ud->hasRequiredElements() == false)
+        {
+          allCorrect = false;
+        }
+      }
+      else
+      {
+        allCorrect = false;
+      }
+    }
+  }
+
+  inv (allCorrect == true);
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (92011, Event, e)
 {
   pre (e.getLevel() > 2);

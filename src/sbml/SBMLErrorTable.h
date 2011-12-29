@@ -6961,6 +6961,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "variant of substance",
   },
 
+  //91018
+  {
+    GlobalUnitsNotDeclared,
+    "Global units must be refer to unit kind or unitDefinition.",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Conversion to SBML Levels 1 and 2 requires that any global units "
+    "must refer to a valid unit kind or the id of "
+    "a valid unitDefinition.",
+  },
+
   /* --------------------------------------------------------------------------
    * L2 compatibility.
    * ----------------------------------------------------------------------- */

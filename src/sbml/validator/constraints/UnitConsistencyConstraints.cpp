@@ -214,12 +214,21 @@ START_CONSTRAINT (99505, Priority, e)
 
   pre ( formulaUnits != NULL );
 
-  char * formula = SBML_formulaToString(e.getMath());
-  msg = "The units of the <event> <priority> expression '";
-  msg += formula;
-  msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
-  msg += "or further unit errors related to this object may not be accurate.";
-  safe_free(formula);
+  if (e.isSetMath() == true)
+  {
+    char * formula = SBML_formulaToString(e.getMath());
+    msg = "The units of the <event> <priority> expression '";
+    msg += formula;
+    msg += "' cannot be fully checked. Unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+    safe_free(formula);
+  }
+  else
+  {
+    msg = "The <event> <priority> has no defined math expression. ";
+    msg += "Thus unit consistency reported as either no errors ";
+    msg += "or further unit errors related to this object may not be accurate.";
+  }
 
   inv( !formulaUnits->getContainsUndeclaredUnits());
 }

@@ -658,9 +658,28 @@ SBMLLevelVersionConverter::convert()
           case 2:
             if (!conversion_errors(mDocument->checkL1Compatibility(), strictUnits))
             {
-              mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-              currentModel->convertL3ToL1();
-              conversion = true;
+              doConversion = true;
+              if (!hasStrictUnits())
+              {
+                if (strict == false)
+                {
+                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
+                }
+                else
+                {
+                  if (strictUnits == true)
+                  {
+                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
+                    doConversion = false;
+                  }
+                }
+              }
+              if (doConversion == true)
+              {
+                mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+                currentModel->convertL3ToL1();
+                conversion = true;
+              }
             }
             break;
           default:
@@ -675,18 +694,93 @@ SBMLLevelVersionConverter::convert()
             if (!conversion_errors(mDocument->checkL2v1Compatibility(), strictUnits))
             {
               doConversion = true;
-            }
+               if (!hasStrictUnits())
+              {
+                if (strict == false)
+                {
+                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
+                }
+                else
+                {
+                  if (strictUnits == true)
+                  {
+                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
+                    doConversion = false;
+                  }
+                }
+              }
+           }
             break;
           case 2:
             if (!conversion_errors(mDocument->checkL2v2Compatibility(), strictUnits))
             {
               doConversion = true;
-            }
+              if (!hasStrictUnits())
+              {
+                if (strict == false)
+                {
+                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
+                }
+                else
+                {
+                  if (strictUnits == true)
+                  {
+                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
+                    doConversion = false;
+                  }
+                }
+              }
+              if (!hasStrictSBO())
+              {
+                if (strict == false)
+                {
+                  mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
+                }
+                else
+                {
+                  if (strictUnits == true)
+                  {
+                    mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
+                    doConversion = false;
+                  }
+                }
+              }
+           }
             break;
           case 3:
             if (!conversion_errors(mDocument->checkL2v3Compatibility(), strictUnits))
             {
               doConversion = true;
+              if (!hasStrictUnits())
+              {
+                if (strict == false)
+                {
+                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
+                }
+                else
+                {
+                  if (strictUnits == true)
+                  {
+                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
+                    doConversion = false;
+                  }
+                }
+              }
+              if (!hasStrictSBO())
+              {
+                if (strict == false)
+                {
+                  mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
+                }
+                else
+                {
+                  if (strictUnits == true)
+                  {
+                    mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
+                    doConversion = false;
+                  }
+                }
+              }
             }
             break;
           case 4:
