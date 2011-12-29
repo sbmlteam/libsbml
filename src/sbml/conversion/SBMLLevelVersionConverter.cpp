@@ -244,7 +244,7 @@ SBMLLevelVersionConverter::convert()
    */
   /* see whether the unit validator is on */
   //bool strictSBO   = ((convValidators & 0x04) == 0x04);
-  bool strictUnits = ((convValidators & 0x10) == 0x10);
+  bool strictUnits = strict && ((convValidators & 0x10) == 0x10);
   
   if (strict == true)
   {
@@ -894,6 +894,7 @@ SBMLLevelVersionConverter::conversion_errors(unsigned int errors, bool strictUni
         mDocument->getErrorLog()->remove(IntegerSpatialDimensions);
       }
     }
+    mDocument->getErrorLog()->remove(GlobalUnitsNotDeclared);
   }
   /** 
    * changed this code in line with the rest of the validation 

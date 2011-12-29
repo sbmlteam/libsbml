@@ -126,6 +126,16 @@ Model::convertL2ToL1 (bool strict)
 void 
 Model::convertL3ToL1 ()
 {
+  //
+  // Level 3 allows a model to be specified without a Compartment.  However
+  // this is not valid in Level 1.  Thus if a L3 model has no Compartment
+  // one must be included 
+  //
+  if (getNumCompartments() == 0)
+  {
+    createCompartment()->setId(ASSIGNED_COMPARTMENT);
+
+  }
   dealWithModelUnits();
 }
 
