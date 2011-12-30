@@ -918,7 +918,7 @@ Layout::getCompartmentGlyph (const std::string& id) const
 
 /**
  * Returns the species glyph that has the given id, or NULL if no
- * compartment glyph has the id.
+ * species glyph has the id.
  */
 const SpeciesGlyph*
 Layout::getSpeciesGlyph (const std::string& id) const
@@ -928,7 +928,7 @@ Layout::getSpeciesGlyph (const std::string& id) const
 
 /**
  * Returns the species glyph that has the given id, or NULL if no
- * compartment glyph has the id.
+ * species glyph has the id.
  */
 SpeciesGlyph*
 Layout::getSpeciesGlyph (const std::string& id) 
@@ -939,7 +939,7 @@ Layout::getSpeciesGlyph (const std::string& id)
 
 /**
  * Returns the reaction glyph that has the given id, or NULL if no
- * compartment glyph has the id.
+ * reaction glyph has the id.
  */
 const ReactionGlyph*
 Layout::getReactionGlyph (const std::string& id) const
@@ -949,7 +949,7 @@ Layout::getReactionGlyph (const std::string& id) const
 
 /**
  * Returns the reaction glyph that has the given id, or NULL if no
- * compartment glyph has the id.
+ * reaction glyph has the id.
  */
 ReactionGlyph*
 Layout::getReactionGlyph (const std::string& id) 
