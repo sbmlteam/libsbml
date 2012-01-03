@@ -101,6 +101,10 @@ if(NOT UNIX)
 endif()
 
 
+if (NOT EXISTS "${PYTHON_EXECUTABLE}")
+	message(FATAL_ERROR "The java language bindings require PYTHON_EXECUTABLE to be set to the python command.")
+endif()
+
 file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/csharp-files LIBSBML_CS_FILES)
 
 MAKE_DIRECTORY(${CMAKE_CURRENT_BINARY_DIR}/csharp-files)
