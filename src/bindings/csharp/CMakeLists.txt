@@ -46,6 +46,7 @@ endforeach()
 # 
 
 file(GLOB SWIG_DEPENDENCIES 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
@@ -133,7 +134,8 @@ ADD_CUSTOM_COMMAND(
 	     ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt	        
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt	    
+            ${SWIG_DEPENDENCIES}    
     COMMENT "Swig C# source") 
 
 add_custom_target(binding_csharp_swig ALL DEPENDS ${SWIG_DEPENDENCIES})
@@ -190,7 +192,7 @@ ADD_CUSTOM_COMMAND(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 			${CMAKE_CURRENT_SOURCE_DIR}/compile-native-files.cmake
 			${CMAKE_CURRENT_BINARY_DIR}/csharp-files/libsbml.cs
-	
+	        ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 	WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
     COMMENT "Build csharp files"
 	) 

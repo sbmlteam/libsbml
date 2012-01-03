@@ -953,6 +953,9 @@ COVARIANT_GETID(InitialAssignment)
   catch (const SBMLConstructorException &e) {
     SWIG_CSharpSetPendingExceptionCustom(e.what(),0);
   }
+  catch (const SBMLExtensionException &e) {
+    SWIG_CSharpSetPendingExceptionCustom(e.what(),0);
+  }
 %}
 %enddef
 
@@ -983,6 +986,8 @@ SBMLCONSTRUCTOR_EXCEPTION(Trigger)
 SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLNamespaces)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLExtensionNamespaces)
 
 %define XMLCONSTRUCTOR_EXCEPTION(SBASE_CLASS_NAME)
 %exception SBASE_CLASS_NAME
