@@ -427,6 +427,10 @@ TAKEOVER_OWNERSHIP(ASTNode::addSemanticsAnnotation(XMLNode*),1)
     PyErr_SetString(PyExc_ValueError, const_cast<char*>(e.what()));
     return NULL;
   }
+  catch (SBMLExtensionException &e) {
+    PyErr_SetString(PyExc_ValueError, const_cast<char*>(e.what()));
+    return NULL;
+  }
 }
 %enddef
 
@@ -456,6 +460,8 @@ SBMLCONSTRUCTOR_EXCEPTION(Trigger)
 SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLNamespaces)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLExtensionNamespaces)
 
 /**
  *
