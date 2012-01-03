@@ -212,6 +212,13 @@ COVARIANT_RTYPE_LISTOF_GET_REMOVE(Unit)
       jenv->ThrowNew(clazz, e.what());
     return $null;
   }
+  catch (const SBMLExtensionException &e) {
+    jenv->ExceptionClear();
+    jclass clazz = jenv->FindClass("org/sbml/libsbml/SBMLConstructorException");
+    if (clazz)
+      jenv->ThrowNew(clazz, e.what());
+    return $null;
+  }
 %}
 %enddef
 
@@ -242,6 +249,8 @@ SBMLCONSTRUCTOR_EXCEPTION(Trigger)
 SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLNamespaces)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLExtensionNamespaces)
 
 /**
  * Wraps the XMLConstructorException

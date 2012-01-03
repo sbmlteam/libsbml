@@ -172,12 +172,19 @@ add_custom_target(binding_java_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libs
 
 	
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-include_directories(${JNI_INCLUDE_DIRS})
-include_directories(${JAVA_INCLUDE_PATH})
-include_directories(${JAVA_INCLUDE_PATH2})
-include_directories(${JAVA_INCLUDE_PATH2})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../swig)
 include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# if additional directories are set be sure to include them
+if (JNI_INCLUDE_DIRS)
+include_directories(${JNI_INCLUDE_DIRS})
+endif(JNI_INCLUDE_DIRS)
+if (JAVA_INCLUDE_PATH)
+include_directories(${JAVA_INCLUDE_PATH})
+endif(JAVA_INCLUDE_PATH)
+if (JAVA_INCLUDE_PATH2)
+include_directories(${JAVA_INCLUDE_PATH2})
+endif(JAVA_INCLUDE_PATH2)
 
 
 add_library(binding_java_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp )
