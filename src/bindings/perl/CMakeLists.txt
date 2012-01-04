@@ -54,6 +54,12 @@ file(GLOB SWIG_DEPENDENCIES
 	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
 	)
 
+# fail if we don't have python interpreter
+if (NOT EXISTS "${PYTHON_EXECUTABLE}")
+	message(FATAL_ERROR "The perl language bindings require PYTHON_EXECUTABLE to be set to the python command.")
+endif()
+
+	
 
 ####################################################################
 #
