@@ -285,6 +285,10 @@ namespace std
     static VALUE cpperror = rb_define_class("SBMLConstructorException", rb_eArgError);
     rb_raise(cpperror, e.what());    
   }
+  catch (const SBMLExtensionException &e){
+    static VALUE cpperror = rb_define_class("SBMLConstructorException", rb_eArgError);
+    rb_raise(cpperror, e.what());    
+  }
 }
 %enddef
 
@@ -314,7 +318,8 @@ SBMLCONSTRUCTOR_EXCEPTION(Trigger)
 SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
-
+SBMLCONSTRUCTOR_EXCEPTION(SBMLNamespaces)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLExtensionNamespaces)
 
 /**
  * Wraps the XMLConstructorException

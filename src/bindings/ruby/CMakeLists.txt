@@ -42,6 +42,19 @@ endforeach()
 
 ####################################################################
 #
+# determine local dependencies, so as to re-swig if one of them changed
+# 
+
+file(GLOB SWIG_DEPENDENCIES 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.h 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
+	)
+
+####################################################################
+#
 # generate files that include all packages: 
 #
 
@@ -102,6 +115,7 @@ ADD_CUSTOM_COMMAND(
 			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
+	DEPENDS ${SWIG_DEPENDENCIES}
     COMMENT "Swig Ruby source") 
 
 add_custom_target(binding_ruby_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
@@ -122,7 +136,7 @@ include_directories(${RUBY_INCLUDE_DIRS})
 include_directories(${RUBY_HDR_DIR})
 
 
-add_library(binding_ruby_lib SHARED libsbml_wrap.cpp)
+add_library(binding_ruby_lib SHARED ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp)
 add_dependencies(binding_ruby_lib binding_ruby_swig)
 
 # 
