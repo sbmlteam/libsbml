@@ -27,6 +27,8 @@
 
 
 find_package(SWIG REQUIRED)
+include(FindPythonInterp)
+
 include(${SWIG_USE_FILE})
 
 
