@@ -41,6 +41,19 @@ foreach(package ${PACKAGE_OPTIONS})
 	include(${package})
 endforeach()
 
+####################################################################
+#
+# determine local dependencies, so as to re-swig if one of them changed
+# 
+
+file(GLOB SWIG_DEPENDENCIES 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.i 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.h 
+	${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.i
+	${CMAKE_CURRENT_SOURCE_DIR}/../swig/*.h
+	)
+
 
 ####################################################################
 #
@@ -114,6 +127,8 @@ ADD_CUSTOM_COMMAND(
 			-o ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp 
 			${CMAKE_CURRENT_SOURCE_DIR}/LibSBML.i
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/LibSBML.i
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
+	        ${SWIG_DEPENDENCIES}
     COMMENT "Swig Perl bindings source") 
 
 add_custom_target(binding_perl_swig ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.pod)
@@ -175,7 +190,8 @@ if(APPLE)
 	#add_definitions(-DPERL_DARWIN)
 endif()
 
-add_library(binding_perl_lib MODULE LibSBML.cpp)
+add_library(binding_perl_lib MODULE ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp
+       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp)
 add_dependencies(binding_perl_lib binding_perl_swig)
 target_link_libraries(binding_perl_lib ${LIBSBML_LIBRARY}-static ${PERL_LIBRARY})
 

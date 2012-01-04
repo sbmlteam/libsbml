@@ -239,6 +239,9 @@ extern std::ostream clog;
   catch (SBMLConstructorException &e){
     croak("%s", e.what());
   }
+  catch (SBMLExtensionException &e){
+    croak("%s", e.what());
+  }
 }
 %enddef
 
@@ -268,7 +271,8 @@ SBMLCONSTRUCTOR_EXCEPTION(Trigger)
 SBMLCONSTRUCTOR_EXCEPTION(Unit)
 SBMLCONSTRUCTOR_EXCEPTION(UnitDefinition)
 SBMLCONSTRUCTOR_EXCEPTION(SBMLDocument)
-
+SBMLCONSTRUCTOR_EXCEPTION(SBMLNamespaces)
+SBMLCONSTRUCTOR_EXCEPTION(SBMLExtensionNamespaces)
 
 /**
  * Wraps the XMLConstructorException
@@ -309,3 +313,4 @@ XMLCONSTRUCTOR_EXCEPTION(XMLOutputStream)
 XMLCONSTRUCTOR_EXCEPTION(XMLToken)
 XMLCONSTRUCTOR_EXCEPTION(XMLTripple)
 
+%include "local-packages.i"
