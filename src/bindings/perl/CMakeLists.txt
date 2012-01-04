@@ -196,8 +196,9 @@ if(APPLE)
 	#add_definitions(-DPERL_DARWIN)
 endif()
 
-add_library(binding_perl_lib MODULE ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp
-       DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp)
+add_library(binding_perl_lib MODULE ${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp)
+set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/LibSBML.cpp 
+      PROPERTIES OBJECT_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LibSBML_wrap.cpp)
 add_dependencies(binding_perl_lib binding_perl_swig)
 target_link_libraries(binding_perl_lib ${LIBSBML_LIBRARY}-static ${PERL_LIBRARY})
 
