@@ -47,6 +47,8 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 ListOf::ListOf (unsigned int level, unsigned int version)
 : SBase(level,version)
 {
+    if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
@@ -56,6 +58,8 @@ ListOf::ListOf (unsigned int level, unsigned int version)
 ListOf::ListOf (SBMLNamespaces* sbmlns)
 : SBase(sbmlns)
 {
+    if (!hasValidLevelVersionNamespaceCombination())
+    throw SBMLConstructorException();
 }
 
 
