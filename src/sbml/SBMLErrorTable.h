@@ -6978,6 +6978,23 @@ static const sbmlErrorTableEntry errorTable[] =
     "a valid unitDefinition.",
   },
 
+  //91019
+  {
+    HasOnlySubstanceUnitsNotinL1,
+    "The concept of hasOnlySubstanceUnits was not available in SBML Level 1.",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_ERROR,
+    "The concept of a Species having only substance units "
+    "and not units of concentration cannot be correctly interpreted "
+    "in SBML Level 1 without alteration of any mathematical formula. "
+    "LibSBML does not do this alteration",
+  },
   /* --------------------------------------------------------------------------
    * L2 compatibility.
    * ----------------------------------------------------------------------- */

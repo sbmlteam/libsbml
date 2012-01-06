@@ -509,4 +509,11 @@ START_CONSTRAINT (99926, Compartment, c)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (91019, Species, s)
+{
+  inv( s.getHasOnlySubstanceUnits() == false );
+}
+END_CONSTRAINT
+
+
 /** @endcond */
