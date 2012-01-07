@@ -525,135 +525,135 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_PLUS:
-    result = evaluateASTNode(node->getChild(0)) + 
-             evaluateASTNode(node->getChild(1)) ;
+    result = evaluateASTNode(node->getChild(0), m) + 
+             evaluateASTNode(node->getChild(1), m) ;
     break;
 
   case AST_MINUS:
     if(node->getNumChildren() == 1)
-      result = - (evaluateASTNode(node->getChild(0)));
+      result = - (evaluateASTNode(node->getChild(0), m));
     else
-    result = evaluateASTNode(node->getChild(0)) - 
-             evaluateASTNode(node->getChild(1)) ;
+    result = evaluateASTNode(node->getChild(0), m) - 
+             evaluateASTNode(node->getChild(1), m) ;
     break;
 
   case AST_TIMES:
-    result = evaluateASTNode(node->getChild(0)) * 
-             evaluateASTNode(node->getChild(1)) ;
+    result = evaluateASTNode(node->getChild(0), m) * 
+             evaluateASTNode(node->getChild(1), m) ;
     break;
 
   case AST_DIVIDE:
-    result = evaluateASTNode(node->getChild(0)) / 
-             evaluateASTNode(node->getChild(1)) ;
+    result = evaluateASTNode(node->getChild(0), m) / 
+             evaluateASTNode(node->getChild(1), m) ;
     break;
 
   case AST_POWER:
   case AST_FUNCTION_POWER:
-    result = pow(evaluateASTNode(node->getChild(0)), 
-             evaluateASTNode(node->getChild(1))) ;
+    result = pow(evaluateASTNode(node->getChild(0), m), 
+             evaluateASTNode(node->getChild(1), m)) ;
     break;
 
   case AST_FUNCTION_ABS:
-    result = (double) (fabs((double)(evaluateASTNode(node->getChild(0)))));
+    result = (double) (fabs((double)(evaluateASTNode(node->getChild(0), m))));
     break;
 
   case AST_FUNCTION_ARCCOS:
-    result = acos(evaluateASTNode(node->getChild(0)));
+    result = acos(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCCOSH:
     /* arccosh(x) = ln(x + sqrt(x-1).sqrt(x+1)) */
-    result = log(evaluateASTNode(node->getChild(0))
-      + pow((evaluateASTNode(node->getChild(0))-1), 0.5)
-      * pow((evaluateASTNode(node->getChild(0))+1), 0.5));
+    result = log(evaluateASTNode(node->getChild(0), m)
+      + pow((evaluateASTNode(node->getChild(0), m)-1), 0.5)
+      * pow((evaluateASTNode(node->getChild(0), m)+1), 0.5));
     break;
 
   case AST_FUNCTION_ARCCOT:
     /* arccot x =  arctan (1 / x) */
-    result = atan(1.0/evaluateASTNode(node->getChild(0)));
+    result = atan(1.0/evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCCOTH:
     /* arccoth x = 1/2 * ln((x+1)/(x-1)) */
-    result = ((1.0/2.0) * log((evaluateASTNode(node->getChild(0)) + 1.0)
-                             /(evaluateASTNode(node->getChild(0)) - 1.0)) );
+    result = ((1.0/2.0) * log((evaluateASTNode(node->getChild(0), m) + 1.0)
+                             /(evaluateASTNode(node->getChild(0), m) - 1.0)) );
     break;
 
   case AST_FUNCTION_ARCCSC:
     /* arccsc(x) = Arcsin(1 / x) */
-    result = asin( 1.0/evaluateASTNode(node->getChild(0)));
+    result = asin( 1.0/evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCCSCH:
     /* arccsch(x) = ln((1 + sqrt(1 + x^2)) / x) */
     result = log((1.0 + pow(1.0 + 
-      pow(evaluateASTNode(node->getChild(0)), 2), 0.5))
-      /evaluateASTNode(node->getChild(0)));
+      pow(evaluateASTNode(node->getChild(0), m), 2), 0.5))
+      /evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCSEC:
     /* arcsec(x) = arccos(1/x) */
-    result = acos(1.0/evaluateASTNode(node->getChild(0)));
+    result = acos(1.0/evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCSECH:
     /* arcsech(x) = ln((1 + sqrt(1 - x^2)) / x) */
     result = log((1.0 + pow((1.0 - 
-      pow(evaluateASTNode(node->getChild(0)), 2)), 0.5))
-      /evaluateASTNode(node->getChild(0)));
+      pow(evaluateASTNode(node->getChild(0), m), 2)), 0.5))
+      /evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCSIN:
-    result = asin(evaluateASTNode(node->getChild(0)));
+    result = asin(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCSINH:
     /* arcsinh(x) = ln(x + sqrt(1 + x^2)) */
-    result = log(evaluateASTNode(node->getChild(0))
-      + pow((1.0+pow(evaluateASTNode(node->getChild(0)), 2)), 0.5));
+    result = log(evaluateASTNode(node->getChild(0), m)
+      + pow((1.0+pow(evaluateASTNode(node->getChild(0), m), 2)), 0.5));
     break;
 
   case AST_FUNCTION_ARCTAN:
-    result = atan(evaluateASTNode(node->getChild(0)));
+    result = atan(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_ARCTANH:
     /* arctanh = 0.5 * ln((1+x)/(1-x)) */
-    result = 0.5 * log((1.0 + evaluateASTNode(node->getChild(0)))
-      /(1.0 - evaluateASTNode(node->getChild(0))));
+    result = 0.5 * log((1.0 + evaluateASTNode(node->getChild(0), m))
+      /(1.0 - evaluateASTNode(node->getChild(0), m)));
     break;
 
   case AST_FUNCTION_CEILING:
-    result = ceil(evaluateASTNode(node->getChild(0)));
+    result = ceil(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_COS:
-    result = cos(evaluateASTNode(node->getChild(0)));
+    result = cos(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_COSH:
-    result = cosh(evaluateASTNode(node->getChild(0)));
+    result = cosh(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_COT:
     /* cot x = 1 / tan x */
-    result = (1.0/tan(evaluateASTNode(node->getChild(0))));
+    result = (1.0/tan(evaluateASTNode(node->getChild(0), m)));
     break;
 
   case AST_FUNCTION_COTH:
     /* coth x = cosh x / sinh x */
-    result = cosh(evaluateASTNode(node->getChild(0))) / 
-             sinh(evaluateASTNode(node->getChild(0)));
+    result = cosh(evaluateASTNode(node->getChild(0), m)) / 
+             sinh(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_CSC:
     /* csc x = 1 / sin x */
-    result = (1.0/sin(evaluateASTNode(node->getChild(0))));
+    result = (1.0/sin(evaluateASTNode(node->getChild(0), m)));
     break;
 
   case AST_FUNCTION_CSCH:
     /* csch x = 1 / sinh x  */
-    result = (1.0/sinh(evaluateASTNode(node->getChild(0))));
+    result = (1.0/sinh(evaluateASTNode(node->getChild(0), m)));
     break;
 
   case AST_FUNCTION_DELAY:
@@ -661,11 +661,11 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_FUNCTION_EXP:
-    result = exp(evaluateASTNode(node->getChild(0)));
+    result = exp(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_FACTORIAL:
-    i = (int) (floor(evaluateASTNode(node->getChild(0))));
+    i = (int) (floor(evaluateASTNode(node->getChild(0), m)));
     for(result=1; i>1; --i)
     {
       result *= i;
@@ -673,15 +673,15 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_FUNCTION_FLOOR:
-    result = floor(evaluateASTNode(node->getChild(0)));
+    result = floor(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_LN:
-    result = log(evaluateASTNode(node->getChild(0)));
+    result = log(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_LOG:
-    result = log10(evaluateASTNode(node->getChild(1)));
+    result = log10(evaluateASTNode(node->getChild(1), m));
     break;
 
   case AST_FUNCTION_PIECEWISE:
@@ -690,85 +690,85 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_FUNCTION_ROOT:
-    result = pow(evaluateASTNode(node->getChild(1)),
-      (1.0/evaluateASTNode(node->getChild(0))));
+    result = pow(evaluateASTNode(node->getChild(1), m),
+      (1.0/evaluateASTNode(node->getChild(0), m)));
     break;
 
   case AST_FUNCTION_SEC:
     /* sec x = 1 / cos x */
-    result = 1.0/cos(evaluateASTNode(node->getChild(0)));
+    result = 1.0/cos(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_SECH:
     /* sech x = 1 / cosh x */
-    result = 1.0/cosh(evaluateASTNode(node->getChild(0)));
+    result = 1.0/cosh(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_SIN:
-    result = sin(evaluateASTNode(node->getChild(0)));
+    result = sin(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_SINH:
-    result = sinh(evaluateASTNode(node->getChild(0)));
+    result = sinh(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_TAN:
-    result = tan(evaluateASTNode(node->getChild(0)));
+    result = tan(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_FUNCTION_TANH:
-    result = tanh(evaluateASTNode(node->getChild(0)));
+    result = tanh(evaluateASTNode(node->getChild(0), m));
     break;
 
   case AST_LOGICAL_AND:
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      && (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      && (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_LOGICAL_NOT:
-    result = (double) (!(evaluateASTNode(node->getChild(0))));
+    result = (double) (!(evaluateASTNode(node->getChild(0), m)));
     break;
 
   case AST_LOGICAL_OR:
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      || (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      || (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_LOGICAL_XOR:
-    result = (double) ((!(evaluateASTNode(node->getChild(0))) 
-                       && (evaluateASTNode(node->getChild(1))))
-      || ((evaluateASTNode(node->getChild(0))) 
-                       && !(evaluateASTNode(node->getChild(1)))));
+    result = (double) ((!(evaluateASTNode(node->getChild(0), m)) 
+                       && (evaluateASTNode(node->getChild(1), m)))
+      || ((evaluateASTNode(node->getChild(0), m)) 
+                       && !(evaluateASTNode(node->getChild(1), m))));
     break;
 
   case AST_RELATIONAL_EQ :
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      == (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      == (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_RELATIONAL_GEQ:
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      >= (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      >= (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_RELATIONAL_GT:
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      > (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      > (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_RELATIONAL_LEQ:
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      <= (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      <= (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_RELATIONAL_LT :
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      < (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      < (evaluateASTNode(node->getChild(1), m)));
     break;
 
   case AST_RELATIONAL_NEQ :
-    result = (double) ((evaluateASTNode(node->getChild(0))) 
-      != (evaluateASTNode(node->getChild(1))));
+    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+      != (evaluateASTNode(node->getChild(1), m)));
     break;
 
   default:
@@ -899,7 +899,7 @@ SBMLTransforms::expandInitialAssignment(Compartment * c,
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
-  double value = evaluateASTNode(ia->getMath());
+  double value = evaluateASTNode(ia->getMath(), c->getModel());
   if (!isnan(value))
   {
     c->setSize(value);
@@ -920,7 +920,7 @@ SBMLTransforms::expandInitialAssignment(Parameter * p,
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
-  double value = evaluateASTNode(ia->getMath());
+  double value = evaluateASTNode(ia->getMath(), p->getModel());
   if (!isnan(value))
   {
     p->setValue(value);
@@ -941,7 +941,7 @@ SBMLTransforms::expandInitialAssignment(SpeciesReference * sr,
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
-  double value = evaluateASTNode(ia->getMath());
+  double value = evaluateASTNode(ia->getMath(), sr->getModel());
   if (!isnan(value))
   {
     sr->setStoichiometry(value);
@@ -962,7 +962,7 @@ SBMLTransforms::expandInitialAssignment(Species * s,
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
-  double value = evaluateASTNode(ia->getMath());
+  double value = evaluateASTNode(ia->getMath(), s->getModel());
   if (!isnan(value))
   {
     if (s->getHasOnlySubstanceUnits())
