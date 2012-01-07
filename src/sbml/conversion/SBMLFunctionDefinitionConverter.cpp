@@ -203,6 +203,15 @@ SBMLFunctionDefinitionConverter::convert()
           mModel->getListOfFunctionDefinitions());
       }
     }
+    if (mModel->getEvent(i)->isSetPriority())
+    {
+      if (mModel->getEvent(i)->getPriority()->isSetMath())
+      {
+        SBMLTransforms::replaceFD(const_cast <ASTNode *> (mModel
+          ->getEvent(i)->getPriority()->getMath()),
+          mModel->getListOfFunctionDefinitions());
+      }
+    }
 
     for(j = 0; j < mModel->getEvent(i)->getNumEventAssignments(); j++)
     {

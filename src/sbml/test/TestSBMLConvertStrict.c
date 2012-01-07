@@ -147,7 +147,7 @@ END_TEST
 
 START_TEST (test_SBMLConvertStrict_convertToL1)
 {
-  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
   
   /* create model with metaid */
   Model_t * m = SBMLDocument_createModel(d);
@@ -162,7 +162,6 @@ START_TEST (test_SBMLConvertStrict_convertToL1)
   Species_t *s = Model_createSpecies(m);
   Species_setId(s, "s");
   Species_setCompartment(s, "c");
-  Species_setHasOnlySubstanceUnits(s, 1);
 
   fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
@@ -176,10 +175,6 @@ START_TEST (test_SBMLConvertStrict_convertToL1)
   Compartment_t *c1 = Model_getCompartment(m1, 0);
 
   fail_unless (SBase_getSBOTerm((SBase_t *) (c1)) == -1, NULL );
-
-  Species_t *s1 = Model_getSpecies(m1, 0);
-
-  fail_unless (Species_getHasOnlySubstanceUnits(s1) == 0);
 
   SBMLDocument_free(d);
 }
@@ -856,6 +851,44 @@ START_TEST (test_SBMLConvertStrict_convertFromL3_spatialDim5)
 END_TEST
 
 
+START_TEST (test_SBMLConvertStrict_convertFuncDefsToL1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  
+  /* create model */
+  Model_t * m = SBMLDocument_createModel(d);
+  
+  FunctionDefinition_t * fd = Model_createFunctionDefinition(m);
+  FunctionDefinition_setId(fd, "fd");
+  ASTNode_t *math = SBML_parseFormula("lambda(x, x+2)");
+  FunctionDefinition_setMath(fd, math);
+
+  /* create a parameter with sbo*/
+  Compartment_t * c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+
+  Rule_t * ar = Model_createAssignmentRule(m);
+  ASTNode_t *math1 = SBML_parseFormula("fd(3)");
+  Rule_setMath(ar, math1);
+  fail_unless (Model_getNumFunctionDefinitions(m) == 1);
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
+
+  Model_t * m1 = SBMLDocument_getModel(d);
+
+  fail_unless (Model_getNumFunctionDefinitions(m1) == 0);
+
+  Rule_t *ar1 = Model_getRule(m1, 0);
+
+  fail_unless (Rule_getFormula(ar1) == "3+2");
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvertStrict (void) 
 { 
@@ -885,6 +918,7 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim3 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim4 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim5 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFuncDefsToL1 );
 
   suite_add_tcase(suite, tcase);
 

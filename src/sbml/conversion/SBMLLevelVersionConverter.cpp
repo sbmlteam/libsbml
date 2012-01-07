@@ -303,7 +303,7 @@ SBMLLevelVersionConverter::convert()
     if (strict)
     {
       /* here we are strict and only want to do
-       * contargetVersion if output will be valid
+       * conversion if output will be valid
        *
        * save a copy of the model so it can be restored
        */
@@ -441,6 +441,7 @@ SBMLLevelVersionConverter::convert()
         }
         if (doConversion == true)
         {
+          mDocument->expandFunctionDefinitions();
           currentModel->convertL2ToL1(strict);
           mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
           conversion = true;
@@ -676,6 +677,7 @@ SBMLLevelVersionConverter::convert()
               }
               if (doConversion == true)
               {
+                mDocument->expandFunctionDefinitions();
                 mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
                 currentModel->convertL3ToL1();
                 conversion = true;

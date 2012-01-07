@@ -6711,13 +6711,14 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_CAT_SBML_L1_COMPAT,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "Conversion of a model with <functionDefinition>s to SBML Level 1 is not "
-    "yet supported."
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "SBML Level 1 does not have <functionDefinitions>. The "
+    "<functionDefinitions> in the original model have been "
+    "replaced by appropriate formula."
   },
 
   //91003
