@@ -64,8 +64,9 @@
 
 #include <sbml/xml/XMLAttributes.h>
 
+#ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/annotation/ModelHistory.h>
-
+#endif
 
 #ifdef __cplusplus
 
@@ -77,6 +78,12 @@
 #include <cstdlib>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
+
+#ifdef LIBSBML_USE_STRICT_INCLUDES
+class ModelHistory;
+class ModelCreator;
+class Date;
+#endif
 
 class LIBSBML_EXTERN RDFAnnotationParser
 {

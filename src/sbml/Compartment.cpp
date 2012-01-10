@@ -1437,7 +1437,7 @@ ListOfCompartments::ListOfCompartments (unsigned int level, unsigned int version
  */
 ListOfCompartments::ListOfCompartments (SBMLNamespaces* sbmlns)
   : ListOf(sbmlns)
-{
+{    
   loadPlugins(sbmlns);
 }
 

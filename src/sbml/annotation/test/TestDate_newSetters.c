@@ -29,6 +29,8 @@
 #include <sbml/common/extern.h>
 #include <sbml/util/List.h>
 #include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
 #include <sbml/xml/XMLNode.h>
 
 

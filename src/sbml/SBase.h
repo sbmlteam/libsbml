@@ -134,6 +134,7 @@
 #include <sbml/SyntaxChecker.h>
 #include <sbml/SBMLConstructorException.h>
 #include <sbml/ExpectedAttributes.h>
+#include <sbml/xml/XMLNode.h>
 
 #ifdef __cplusplus
 
@@ -153,7 +154,6 @@ class List;
 
 class XMLAttributes;
 class XMLInputStream;
-class XMLNode;
 class XMLNamespaces;
 class XMLOutputStream;
 class XMLToken;

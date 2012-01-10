@@ -27,6 +27,10 @@
 
 #include <sbml/common/common.h>
 
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
+
 #include <sbml/SBase.h>
 #include <sbml/Species.h>
 #include <sbml/xml/XMLNamespaces.h>

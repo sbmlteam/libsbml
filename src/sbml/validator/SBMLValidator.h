@@ -66,7 +66,9 @@
 #define SBMLValidator_h
 
 #include <sbml/SBMLNamespaces.h>
+#ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLTypes.h>
+#endif
 
 
 #ifdef __cplusplus
@@ -74,6 +76,7 @@
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+  class SBMLErrorLog;
 
 class LIBSBML_EXTERN SBMLValidator
 {

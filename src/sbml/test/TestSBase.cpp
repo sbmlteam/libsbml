@@ -33,6 +33,9 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLWriter.h>
 #include <sbml/annotation/CVTerm.h>
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
 
 #include <check.h>
 

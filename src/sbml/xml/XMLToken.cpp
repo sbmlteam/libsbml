@@ -30,6 +30,7 @@
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/util/util.h>
+#include <sbml/xml/XMLConstructorException.h>
 /** @endcond */
 #include <sbml/xml/XMLToken.h>
 

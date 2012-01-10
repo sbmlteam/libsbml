@@ -33,6 +33,7 @@
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLConstructorException.h>
 #include <sbml/util/util.h>
 #include <sbml/common/common.h>
 #include <sbml/common/libsbml-version.h>

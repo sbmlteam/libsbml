@@ -32,6 +32,7 @@
 #include <sstream>
 
 #include <sbml/xml/XMLErrorLog.h>
+#include <sbml/xml/XMLConstructorException.h>
 #include <sbml/xml/XMLAttributes.h>
 /** @cond doxygen-libsbml-internal */
 #include <sbml/xml/XMLOutputStream.h>
@@ -45,16 +46,6 @@ using namespace std;
 /** @endcond */
 
 LIBSBML_CPP_NAMESPACE_BEGIN
-/** @cond doxygen-libsbml-internal */
-
-XMLConstructorException::XMLConstructorException(std::string message):
-      std::invalid_argument(message)
-{
-}
-
-
-/** @endcond */
-
 /*
  * @return s with whitespace removed from the beginning and end.
  */

@@ -226,6 +226,7 @@ set(XML_SOURCES)
 set(XML_SOURCES ${XML_SOURCES} 
   sbml/xml/XMLAttributes.cpp    
   sbml/xml/XMLBuffer.cpp        
+  sbml/xml/XMLConstructorException.cpp    
   sbml/xml/XMLError.cpp         
   sbml/xml/XMLErrorLog.cpp      
   sbml/xml/XMLFileBuffer.cpp    
@@ -241,6 +242,7 @@ set(XML_SOURCES ${XML_SOURCES}
   sbml/xml/XMLTriple.cpp
   sbml/xml/XMLAttributes.h    
   sbml/xml/XMLBuffer.h        
+  sbml/xml/XMLConstructorException.h         
   sbml/xml/XMLError.h         
   sbml/xml/XMLErrorLog.h      
   sbml/xml/XMLFileBuffer.h    

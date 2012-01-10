@@ -27,6 +27,7 @@
  */
 
 #include <sbml/conversion/SBMLConverter.h>
+#include <sbml/SBMLConstructorException.h>
 
 #ifdef __cplusplus
 

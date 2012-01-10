@@ -78,6 +78,10 @@
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/MathML.h>
 
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
+
 /* also include the extension types so they don't have to be added */
 /*
 #include <sbml/extension/SBasePlugin.h>

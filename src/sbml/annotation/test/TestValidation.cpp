@@ -37,7 +37,8 @@
 
 #include <sbml/annotation/RDFAnnotation.h>
 #include <sbml/annotation/ModelHistory.h>
-
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
 #include <check.h>
 
 LIBSBML_CPP_NAMESPACE_USE

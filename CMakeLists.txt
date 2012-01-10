@@ -155,6 +155,15 @@ if(WITH_WALL)
     endif()
 endif()
 
+# Add an option to instruct libSBML to not include SBMLTypes.h and other files internally.
+option(LIBSBML_USE_STRICT_INCLUDES     "Compile using strict includes (this will mean libSBML header files won't use SBMLTypes.h among others)" OFF)
+if(LIBSBML_USE_STRICT_INCLUDES)
+	add_definitions(-DLIBSBML_USE_STRICT_INCLUDES)
+endif(LIBSBML_USE_STRICT_INCLUDES)
+mark_as_advanced(LIBSBML_USE_STRICT_INCLUDES)
+
+
+
 # When allocation of memory fails or the libSBML C API is unable to open
 # a file, libSBML can exit the current process. By default this behavior 
 # is disabled. 

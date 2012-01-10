@@ -39,6 +39,8 @@
 #include <sbml/util/List.h>
 
 #include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
 #include <sbml/annotation/RDFAnnotation.h>
 
 /** @cond doxygen-ignored */

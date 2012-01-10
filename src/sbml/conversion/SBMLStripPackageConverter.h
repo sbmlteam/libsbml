@@ -48,8 +48,6 @@
 #include <sbml/SBMLNamespaces.h>
 #include <sbml/conversion/SBMLConverter.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
-#include <sbml/SBMLTypes.h>
-
 
 #ifdef __cplusplus
 

@@ -47,6 +47,7 @@
 #include <sbml/SBase.h>
 
 #include <sbml/extension/SBasePlugin.h>
+#include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBMLExtensionException.h>
 
@@ -3138,6 +3139,12 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
         break;
     }
   }
+
+  // if this is an extension namespace, this method will return the wrong answer, 
+  // so instead return true
+  ISBMLExtensionNamespaces* test = dynamic_cast<ISBMLExtensionNamespaces*> (mSBMLNamespaces);
+  if (!valid && test != NULL)
+    return true;
 
   return valid;
 }

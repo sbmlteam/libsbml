@@ -30,6 +30,8 @@
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
 
+#include <sbml/SBMLTypes.h>
+
 #ifdef __cplusplus
 
 #include <algorithm>

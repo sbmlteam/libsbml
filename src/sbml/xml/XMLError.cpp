@@ -32,6 +32,7 @@
 #include <sbml/common/common.h>
 #include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLConstructorException.h>
 
 /** @cond doxygen-ignored */
 

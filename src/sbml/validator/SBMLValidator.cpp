@@ -27,6 +27,9 @@
  */
 
 #include <sbml/validator/SBMLValidator.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
+#include <sbml/SBMLReader.h>
 
 #ifdef __cplusplus
 

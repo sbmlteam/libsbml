@@ -52,11 +52,15 @@ thisdir   = src/sbml/annotation
 
 common_headers = \
   CVTerm.h     \
+  ModelCreator.h \
+  Date.h \
   ModelHistory.h \
   RDFAnnotation.h
 
 common_sources = \
   CVTerm.cpp     \
+  ModelCreator.cpp  \
+  Date.cpp  \
   ModelHistory.cpp  \
   RDFAnnotation.cpp
 

@@ -31,7 +31,8 @@
 #include <sbml/conversion/SBMLRuleConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
-#include <sbml/Rule.h>
+
+#include <sbml/SBMLTypes.h>
 
 #ifdef __cplusplus
 

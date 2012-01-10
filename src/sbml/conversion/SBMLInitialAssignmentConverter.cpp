@@ -30,6 +30,7 @@
 #include <sbml/conversion/SBMLInitialAssignmentConverter.h>
 #include <sbml/conversion/SBMLConverterRegistry.h>
 #include <sbml/conversion/SBMLConverterRegister.h>
+#include <sbml/SBMLTypes.h>
 
 #ifdef __cplusplus
 

@@ -33,6 +33,7 @@
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLConstructorException.h>
 
 
 /** @cond doxygen-ignored */

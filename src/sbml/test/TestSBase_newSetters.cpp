@@ -31,6 +31,9 @@
 #include <sbml/SBase.h>
 #include <sbml/Model.h>
 #include <sbml/annotation/CVTerm.h>
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/ModelCreator.h>
+#include <sbml/annotation/Date.h>
 
 #include <check.h>
 #include <limits.h>

@@ -79,20 +79,6 @@ class XMLErrorLog;
 class XMLOutputStream;
 /** @endcond */
 
-class LIBSBML_EXTERN XMLConstructorException : public std::invalid_argument
-{
-public:
-
-  /** @cond doxygen-libsbml-internal */
-
-  /* constructor */
-  XMLConstructorException (std::string 
-                    message="NULL reference in XML constructor");
-
-  /** @endcond */
-};
-
-
 class LIBLAX_EXTERN XMLAttributes
 {
 public:

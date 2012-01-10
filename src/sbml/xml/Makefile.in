@@ -44,77 +44,79 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir    = @srcdir@
 thisdir   = src/sbml/xml
 
-common_headers =       \
-  XMLAttributes.h      \
-  XMLBuffer.h          \
-  XMLError.h           \
-  XMLErrorLog.h        \
-  XMLExtern.h          \
-  XMLFileBuffer.h      \
-  XMLHandler.h         \
-  XMLInputStream.h     \
-  XMLMemoryBuffer.h    \
-  XMLNamespaces.h      \
-  XMLNode.h            \
-  XMLOutputStream.h    \
-  XMLParser.h          \
-  XMLToken.h           \
-  XMLTokenizer.h       \
+common_headers =              \
+  XMLAttributes.h             \
+  XMLBuffer.h                 \
+  XMLConstructorException.h   \
+  XMLError.h                  \
+  XMLErrorLog.h               \
+  XMLExtern.h                 \
+  XMLFileBuffer.h             \
+  XMLHandler.h                \
+  XMLInputStream.h            \
+  XMLMemoryBuffer.h           \
+  XMLNamespaces.h             \
+  XMLNode.h                   \
+  XMLOutputStream.h           \
+  XMLParser.h                 \
+  XMLToken.h                  \
+  XMLTokenizer.h              \
   XMLTriple.h
 
-common_sources =       \
-  XMLAttributes.cpp    \
-  XMLBuffer.cpp        \
-  XMLError.cpp         \
-  XMLErrorLog.cpp      \
-  XMLFileBuffer.cpp    \
-  XMLHandler.cpp       \
-  XMLInputStream.cpp   \
-  XMLMemoryBuffer.cpp  \
-  XMLNamespaces.cpp    \
-  XMLNode.cpp          \
-  XMLOutputStream.cpp  \
-  XMLParser.cpp        \
-  XMLToken.cpp         \
-  XMLTokenizer.cpp     \
+common_sources =              \
+  XMLAttributes.cpp           \
+  XMLBuffer.cpp               \
+  XMLConstructorException.cpp \
+  XMLError.cpp                \
+  XMLErrorLog.cpp             \
+  XMLFileBuffer.cpp           \
+  XMLHandler.cpp              \
+  XMLInputStream.cpp          \
+  XMLMemoryBuffer.cpp         \
+  XMLNamespaces.cpp           \
+  XMLNode.cpp                 \
+  XMLOutputStream.cpp         \
+  XMLParser.cpp               \
+  XMLToken.cpp                \
+  XMLTokenizer.cpp            \
   XMLTriple.cpp
 
-xerces_headers =       \
-  XercesAttributes.h   \
-  XercesHandler.h      \
-  XercesNamespaces.h   \
-  XercesParser.h       \
+xerces_headers =              \
+  XercesAttributes.h          \
+  XercesHandler.h             \
+  XercesNamespaces.h          \
+  XercesParser.h              \
   XercesTranscode.h
 
-xerces_sources =       \
-  XercesAttributes.cpp \
-  XercesHandler.cpp    \
-  XercesNamespaces.cpp \
-  XercesParser.cpp \
+xerces_sources =              \
+  XercesAttributes.cpp        \
+  XercesHandler.cpp           \
+  XercesNamespaces.cpp        \
+  XercesParser.cpp            \
   XercesTranscode.cpp
 
-expat_headers =        \
-  ExpatAttributes.h    \
-  ExpatHandler.h       \
+expat_headers =               \
+  ExpatAttributes.h           \
+  ExpatHandler.h              \
   ExpatParser.h
 
-expat_sources =        \
-  ExpatAttributes.cpp  \
-  ExpatHandler.cpp     \
+expat_sources =               \
+  ExpatAttributes.cpp         \
+  ExpatHandler.cpp            \
   ExpatParser.cpp
 
-libxml_headers =       \
-  LibXMLAttributes.h   \
-  LibXMLHandler.h      \
-  LibXMLNamespaces.h   \
-  LibXMLParser.h       \
+libxml_headers =              \
+  LibXMLAttributes.h          \
+  LibXMLHandler.h             \
+  LibXMLNamespaces.h          \
+  LibXMLParser.h              \
   LibXMLTranscode.h
 
-libxml_sources =       \
-  LibXMLAttributes.cpp \
-  LibXMLHandler.cpp    \
-  LibXMLNamespaces.cpp \
-  LibXMLParser.cpp \
+libxml_sources =              \
+  LibXMLAttributes.cpp        \
+  LibXMLHandler.cpp           \
+  LibXMLNamespaces.cpp        \
+  LibXMLParser.cpp            \
   LibXMLTranscode.cpp
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',

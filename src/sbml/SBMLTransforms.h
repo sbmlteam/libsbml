@@ -42,7 +42,9 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/FunctionDefinition.h>
 #include <sbml/InitialAssignment.h>
+#ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/SBMLTypes.h>
+#endif
 #include <sbml/SpeciesReference.h>
 
 #ifdef __cplusplus
@@ -54,6 +56,16 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 class IdList;
 
+#ifdef LIBSBML_USE_STRICT_INCLUDES
+class ASTNode;
+class FunctionDefinition;
+class InitialAssignment;
+class Model;
+class Species;
+class SpeciesReference;
+class Compartment;
+class Parameter;
+#endif 
 
 class LIBSBML_EXTERN SBMLTransforms
 {
