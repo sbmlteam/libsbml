@@ -90,6 +90,7 @@
 
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLNamespaces.h>
+#include <sbml/xml/XMLConstructorException.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLTriple.h>
@@ -102,6 +103,8 @@
 #include <sbml/xml/XMLTokenizer.h>
 
 #include <sbml/annotation/CVTerm.h>
+#include <sbml/annotation/Date.h>
+#include <sbml/annotation/ModelCreator.h>
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/RDFAnnotation.h>
 

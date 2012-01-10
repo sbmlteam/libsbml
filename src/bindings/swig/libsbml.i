@@ -29,7 +29,7 @@
 %feature("director") SBMLValidator;  
 %feature("director") SBMLConverter;  
 
-#pragma SWIG nowarn=473,401,844
+//#pragma SWIG nowarn=473,401,844
 
 %pragma(java) moduleclassmodifiers="
 /**
@@ -567,6 +567,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/math/FormulaFormatter.h
 
 %include sbml/xml/XMLAttributes.h
+%include sbml/xml/XMLConstructorException.h
 %include sbml/xml/XMLNamespaces.h
 %include sbml/xml/XMLToken.h
 %include sbml/xml/XMLNode.h
@@ -580,6 +581,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/SBMLError.h
 
 %include sbml/annotation/CVTerm.h
+%include sbml/annotation/Date.h
+%include sbml/annotation/ModelCreator.h
 %include sbml/annotation/ModelHistory.h
 %include sbml/annotation/RDFAnnotation.h
 
