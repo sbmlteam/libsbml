@@ -1437,7 +1437,7 @@ Layout::getTypeCode () const
 }
 
 
-SBase*
+Layout*
 Layout::clone() const
 {
     return new Layout(*this);
@@ -1547,7 +1547,7 @@ ListOfLayouts::ListOfLayouts(unsigned int level, unsigned int version, unsigned 
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfLayouts*
 ListOfLayouts::clone () const
 {
   return new ListOfLayouts(*this);
@@ -1769,7 +1769,7 @@ ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(unsigned int level, unsigned in
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfCompartmentGlyphs*
 ListOfCompartmentGlyphs::clone () const
 {
   return new ListOfCompartmentGlyphs(*this);
@@ -1950,7 +1950,7 @@ ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(unsigned int level, unsigned int versio
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfSpeciesGlyphs*
 ListOfSpeciesGlyphs::clone () const
 {
   return new ListOfSpeciesGlyphs(*this);
@@ -2128,7 +2128,7 @@ ListOfReactionGlyphs::ListOfReactionGlyphs(unsigned int level, unsigned int vers
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfReactionGlyphs*
 ListOfReactionGlyphs::clone () const
 {
   return new ListOfReactionGlyphs(*this);
@@ -2306,7 +2306,7 @@ ListOfTextGlyphs::ListOfTextGlyphs(unsigned int level, unsigned int version, uns
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfTextGlyphs*
 ListOfTextGlyphs::clone () const
 {
   return new ListOfTextGlyphs(*this);
@@ -2484,7 +2484,7 @@ ListOfGraphicalObjects::ListOfGraphicalObjects(unsigned int level, unsigned int 
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfGraphicalObjects*
 ListOfGraphicalObjects::clone () const
 {
   return new ListOfGraphicalObjects(*this);

@@ -76,7 +76,7 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
   /**
    * @return a (deep) copy of this ListOfLineSegments.
    */
-  virtual SBase* clone () const;
+  virtual ListOfLineSegments* clone () const;
 
 
   /**
@@ -282,9 +282,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this Curve.
    */
-  virtual SBase* clone () const;
+  virtual Curve* clone () const;
 
 
   /**

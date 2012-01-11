@@ -473,7 +473,7 @@ const std::string& SpeciesReferenceGlyph::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+SpeciesReferenceGlyph* 
 SpeciesReferenceGlyph::clone () const
 {
     return new SpeciesReferenceGlyph(*this);

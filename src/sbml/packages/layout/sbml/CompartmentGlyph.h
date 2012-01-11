@@ -178,7 +178,7 @@ public:
   /**
    * @return a (deep) copy of this Model.
    */
-  virtual SBase* clone () const;
+  virtual CompartmentGlyph* clone () const;
 
 
   /**

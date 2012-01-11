@@ -341,7 +341,7 @@ const std::string& TextGlyph::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+TextGlyph* 
 TextGlyph::clone () const
 {
     return new TextGlyph(*this);

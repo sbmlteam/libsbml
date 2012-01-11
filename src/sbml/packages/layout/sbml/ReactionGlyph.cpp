@@ -556,7 +556,7 @@ const std::string& ReactionGlyph::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+ReactionGlyph* 
 ReactionGlyph::clone () const
 {
     return new ReactionGlyph(*this);
@@ -759,7 +759,7 @@ ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(LayoutPkgNamespaces* 
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfSpeciesReferenceGlyphs*
 ListOfSpeciesReferenceGlyphs::clone () const
 {
   return new ListOfSpeciesReferenceGlyphs(*this);

@@ -77,7 +77,7 @@ public:
   /**
    * @return a (deep) copy of this ListOfSpeciesReferenceGlyphs.
    */
-  virtual SBase* clone () const;
+  virtual ListOfSpeciesReferenceGlyphs* clone () const;
 
   /**
    * Ctor.
@@ -434,9 +434,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this ReactionGlyph.
    */
-  virtual SBase* clone () const;
+  virtual ReactionGlyph* clone () const;
 
 
   /**

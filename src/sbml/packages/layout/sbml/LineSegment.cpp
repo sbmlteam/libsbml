@@ -377,7 +377,7 @@ const std::string& LineSegment::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+LineSegment* 
 LineSegment::clone () const
 {
     return new LineSegment(*this);

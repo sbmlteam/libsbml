@@ -265,7 +265,7 @@ const std::string& SpeciesGlyph::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+SpeciesGlyph* 
 SpeciesGlyph::clone () const
 {
     return new SpeciesGlyph(*this);

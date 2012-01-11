@@ -566,7 +566,7 @@ const std::string& BoundingBox::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+BoundingBox* 
 BoundingBox::clone () const
 {
     return new BoundingBox(*this);

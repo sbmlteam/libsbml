@@ -392,9 +392,9 @@ const std::string& Dimensions::getElementName () const
 }
 
 /**
- * @return a (deep) copy of this Model.
+ * @return a (deep) copy of this Dimensions object.
  */
-SBase* 
+Dimensions* 
 Dimensions::clone () const
 {
     return new Dimensions(*this);

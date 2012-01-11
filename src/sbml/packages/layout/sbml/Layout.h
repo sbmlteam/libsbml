@@ -81,9 +81,9 @@ class LIBSBML_EXTERN ListOfCompartmentGlyphs : public ListOf
 public:
 
   /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return a (deep) copy of this ListOfCompartmentGlyphs.
    */
-  virtual SBase* clone () const;
+  virtual ListOfCompartmentGlyphs* clone () const;
 
 
   /**
@@ -218,9 +218,9 @@ class LIBSBML_EXTERN ListOfSpeciesGlyphs : public ListOf
 public:
 
   /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return a (deep) copy of this ListOfSpeciesGlyphs.
    */
-  virtual SBase* clone () const;
+  virtual ListOfSpeciesGlyphs* clone () const;
 
 
   /**
@@ -354,9 +354,9 @@ class LIBSBML_EXTERN ListOfReactionGlyphs : public ListOf
 public:
 
   /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return a (deep) copy of this ListOfReactionGlyphs.
    */
-  virtual SBase* clone () const;
+  virtual ListOfReactionGlyphs* clone () const;
 
 
   /**
@@ -490,9 +490,9 @@ class LIBSBML_EXTERN ListOfTextGlyphs : public ListOf
 public:
 
   /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return a (deep) copy of this ListOfTextGlyphs.
    */
-  virtual SBase* clone () const;
+  virtual ListOfTextGlyphs* clone () const;
 
 
   /**
@@ -626,9 +626,9 @@ class LIBSBML_EXTERN ListOfGraphicalObjects : public ListOf
 public:
 
   /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return a (deep) copy of this ListOfGraphicalObjects.
    */
-  virtual SBase* clone () const;
+  virtual ListOfGraphicalObjects* clone () const;
 
 
   /**
@@ -1327,9 +1327,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this Layout.
    */
-  virtual SBase* clone () const;
+  virtual Layout* clone () const;
 
 
   /**
@@ -1460,9 +1460,9 @@ class LIBSBML_EXTERN ListOfLayouts : public ListOf
 public:
 
   /**
-   * @return a (deep) copy of this ListOfUnitDefinitions.
+   * @return a (deep) copy of this ListOfLayouts.
    */
-  virtual SBase* clone () const;
+  virtual ListOfLayouts* clone () const;
 
 
   /**

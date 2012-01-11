@@ -163,7 +163,7 @@ public:
    * 
    * @return a (deep) copy of this ListOf.
    */
-  virtual SBase* clone () const;
+  virtual ListOf* clone () const;
 
 
   /**

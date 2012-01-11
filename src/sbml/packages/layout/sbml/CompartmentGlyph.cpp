@@ -287,7 +287,7 @@ const std::string& CompartmentGlyph::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+CompartmentGlyph* 
 CompartmentGlyph::clone () const
 {
     return new CompartmentGlyph(*this);

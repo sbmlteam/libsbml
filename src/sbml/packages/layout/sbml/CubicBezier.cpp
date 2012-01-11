@@ -463,7 +463,7 @@ const std::string& CubicBezier::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+CubicBezier* 
 CubicBezier::clone () const
 {
     return new CubicBezier(*this);

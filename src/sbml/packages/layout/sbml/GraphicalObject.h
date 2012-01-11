@@ -239,9 +239,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this GraphicalObject.
    */
-  virtual SBase* clone () const;
+  virtual GraphicalObject* clone () const;
 
 
   /**

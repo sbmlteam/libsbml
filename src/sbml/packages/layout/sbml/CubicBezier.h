@@ -245,9 +245,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this CubicBezier.
    */
-  virtual SBase* clone () const;
+  virtual CubicBezier* clone () const;
 
 
   /**

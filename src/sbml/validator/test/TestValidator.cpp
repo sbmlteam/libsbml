@@ -123,7 +123,7 @@ TestValidator::test (const TestFile& file)
   }
 
 
-  unsigned int same = count_if(begin, end, HasId(id));
+  unsigned int same = (unsigned int)count_if(begin, end, HasId(id));
   vector<unsigned int> ids;
 
   if (expected != same && actual != same)

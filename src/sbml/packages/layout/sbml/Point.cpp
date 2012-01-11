@@ -468,7 +468,7 @@ const std::string& Point::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+Point* 
 Point::clone () const
 {
     return new Point(*this);

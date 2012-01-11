@@ -362,7 +362,7 @@ const std::string& Curve::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+Curve* 
 Curve::clone () const
 {
     return new Curve(*this);
@@ -559,7 +559,7 @@ Curve::enablePackageInternal(const std::string& pkgURI,
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
-SBase*
+ListOfLineSegments*
 ListOfLineSegments::clone () const
 {
   return new ListOfLineSegments(*this);

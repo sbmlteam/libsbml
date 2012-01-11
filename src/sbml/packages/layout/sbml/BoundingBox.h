@@ -324,9 +324,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this BoundingBox.
    */
-  virtual SBase* clone () const;
+  virtual BoundingBox* clone () const;
 
 
   /**

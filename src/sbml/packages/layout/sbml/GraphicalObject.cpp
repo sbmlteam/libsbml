@@ -401,7 +401,7 @@ const std::string& GraphicalObject::getElementName () const
 /**
  * @return a (deep) copy of this Model.
  */
-SBase* 
+GraphicalObject* 
 GraphicalObject::clone () const
 {
     return new GraphicalObject(*this);

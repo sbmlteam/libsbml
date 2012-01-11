@@ -205,9 +205,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this LineSegment.
    */
-  virtual SBase* clone () const;
+  virtual LineSegment* clone () const;
 
 
   /**

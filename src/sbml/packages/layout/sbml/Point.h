@@ -255,9 +255,9 @@ public:
 
   
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this Point.
    */
-  virtual SBase* clone () const;
+  virtual Point* clone () const;
 
 
   /**

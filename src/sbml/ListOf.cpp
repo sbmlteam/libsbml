@@ -136,7 +136,7 @@ ListOf::accept (SBMLVisitor& v) const
 /*
  * @return a (deep) copy of this ListOf items.
  */
-SBase*
+ListOf*
 ListOf::clone () const
 {
   return new ListOf(*this);

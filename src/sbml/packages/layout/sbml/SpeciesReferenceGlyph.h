@@ -278,9 +278,9 @@ public:
   virtual const std::string& getElementName () const ;
 
   /**
-   * @return a (deep) copy of this Model.
+   * @return a (deep) copy of this SpeciesReferenceGlyph.
    */
-  virtual SBase* clone () const;
+  virtual SpeciesReferenceGlyph* clone () const;
 
 
   /**
