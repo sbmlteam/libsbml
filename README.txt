@@ -344,7 +344,7 @@ src/compress/00README.txt for more information about MiniZip
 
 Licensing and Distribution Terms for libSBML:
 
-Copyright (C) 2009-2011 jointly by the following organizations: 
+Copyright (C) 2009-2012 jointly by the following organizations: 
     1. California Institute of Technology, Pasadena, CA, USA
     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
  
