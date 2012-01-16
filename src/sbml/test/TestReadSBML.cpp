@@ -117,8 +117,6 @@ START_TEST (test_ReadSBML_SBML_ONLY)
 }
 END_TEST
 
-
-  
 START_TEST (test_ReadSBML_Model)
 {
   const char* s = wrapXML
@@ -136,6 +134,36 @@ START_TEST (test_ReadSBML_Model)
 }
 END_TEST
 
+START_TEST (test_ReadSBML_Model_withoutEncoding)
+{
+  
+  const char* s = 
+    "<sbml level='2' version='1' xmlns='http://www.sbml.org/sbml/level2'>"
+    "  <model id='testModel'></model>"
+    "</sbml>";
+
+
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( !strcmp(Model_getId(M), "testModel") );
+  fail_unless (SBMLDocument_getNumErrors(D) == 0);
+
+  const char* s2 = 
+    "<?xml version='1.0' encoding='UTF-8'?>\n"
+    "<sbml level='2' version='1' xmlns='http://www.sbml.org/sbml/level2'>"
+    "  <model id='testModel'></model>"
+    "</sbml>";
+
+
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( !strcmp(Model_getId(M), "testModel") );
+  fail_unless (SBMLDocument_getNumErrors(D) == 0);
+
+}
+END_TEST
 
 START_TEST (test_ReadSBML_Model_L2)
 {
@@ -2629,6 +2657,7 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_SBML      );
   tcase_add_test( tcase, test_ReadSBML_SBML_ONLY );
   tcase_add_test( tcase, test_ReadSBML_Model     );
+  tcase_add_test( tcase, test_ReadSBML_Model_withoutEncoding);
   tcase_add_test( tcase, test_ReadSBML_Model_L2  );
 
   tcase_add_test( tcase, test_ReadSBML_FunctionDefinition  );
