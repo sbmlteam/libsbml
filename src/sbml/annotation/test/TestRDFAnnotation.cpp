@@ -434,6 +434,37 @@ START_TEST (test_RDFAnnotation_recreateWithOutOther)
 }
 END_TEST
 
+#include <sbml/SBMLTypes.h>
+
+START_TEST (test_RDFAnnotation_testMissingMetaId)
+{
+
+  SBMLDocument doc(3, 1);
+  Model* model = doc.createModel();
+  fail_unless(model != NULL);
+  
+  model->setId("test1");
+    
+  CVTerm term (MODEL_QUALIFIER);
+  term.addResource("testResource");
+  term.setModelQualifierType(BQM_IS);
+  
+  model->setMetaId("t1");
+  model->addCVTerm(&term);
+  
+  // unset metaid ... now we have potentially dangling RDF
+  model->setMetaId("");
+  std::string test = model->toSBML();
+
+  //// this should be the test
+  //fail_unless(test.find("testResource") == std::string::npos); 
+
+  // but current pehavior is
+  fail_unless(test.find("testResource") != std::string::npos); 
+
+}
+END_TEST
+
 Suite *
 create_suite_RDFAnnotation (void)
 {
@@ -444,6 +475,7 @@ create_suite_RDFAnnotation (void)
                             RDFAnnotation_setup,
                             RDFAnnotation_teardown);
 
+  tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
   tcase_add_test(tcase, test_RDFAnnotation_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
