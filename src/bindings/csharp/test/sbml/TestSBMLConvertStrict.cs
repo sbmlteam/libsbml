@@ -2,7 +2,8 @@
 ///  @brief   SBMLConvert unit tests for strict conversion
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating 
+///  @author  Sarah Keating
+ 
 /// 
 /// 
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
@@ -236,7 +237,6 @@ namespace LibSBMLCSTest.sbml {
       Species s = m.createSpecies();
       s.setId( "s");
       s.setCompartment( "c");
-      s.setHasOnlySubstanceUnits(true);
       assertTrue( d.setLevelAndVersion(1,2,true) == true );
       assertTrue( d.getLevel() == 1 );
       assertTrue( d.getVersion() == 2 );

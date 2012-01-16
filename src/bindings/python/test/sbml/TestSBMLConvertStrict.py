@@ -3,7 +3,8 @@
 # @brief   SBMLConvert unit tests for strict conversion
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating
+ 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #
@@ -140,7 +141,6 @@ class TestSBMLConvertStrict(unittest.TestCase):
     s = m.createSpecies()
     s.setId( "s")
     s.setCompartment( "c")
-    s.setHasOnlySubstanceUnits(True)
     self.assert_( d.setLevelAndVersion(1,2,True) == True )
     self.assert_( d.getLevel() == 1 )
     self.assert_( d.getVersion() == 2 )

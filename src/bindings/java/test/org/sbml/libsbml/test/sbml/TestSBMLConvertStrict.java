@@ -3,7 +3,8 @@
  * @brief   SBMLConvert unit tests for strict conversion
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating
+ 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
@@ -226,7 +227,6 @@ public class TestSBMLConvertStrict {
     Species s = m.createSpecies();
     s.setId( "s");
     s.setCompartment( "c");
-    s.setHasOnlySubstanceUnits(true);
     assertTrue( d.setLevelAndVersion(1,2,true) == true );
     assertTrue( d.getLevel() == 1 );
     assertTrue( d.getVersion() == 2 );

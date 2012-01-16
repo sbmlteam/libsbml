@@ -136,7 +136,6 @@ class TestSBMLConvertStrict < Test::Unit::TestCase
     s = m.createSpecies()
     s.setId( "s")
     s.setCompartment( "c")
-    s.setHasOnlySubstanceUnits(true)
     assert( d.setLevelAndVersion(1,2,true) == true )
     assert( d.getLevel() == 1 )
     assert( d.getVersion() == 2 )
