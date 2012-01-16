@@ -250,6 +250,7 @@ START_TEST (test_FunctionDefinition_setMath)
   fail_unless( !strcmp(formula, "lambda(x, x^3)") );
   fail_unless( FunctionDefinition_getMath(FD) != math );
   fail_unless( FunctionDefinition_isSetMath(FD) );
+  fail_unless( FunctionDefinition_isSetBody(FD) );
 
   /* Reflexive case (pathological) */
   FunctionDefinition_setMath(FD, (ASTNode_t *) FunctionDefinition_getMath(FD));
@@ -263,11 +264,13 @@ START_TEST (test_FunctionDefinition_setMath)
 
   FunctionDefinition_setMath(FD, NULL);
   fail_unless( !FunctionDefinition_isSetMath(FD) );
+  fail_unless( !FunctionDefinition_isSetBody(FD) );
 
   if (FunctionDefinition_getMath(FD) != NULL)
   {
     fail("FunctionDefinition_setMath(FD, NULL) did not clear ASTNode.");
   }
+
 }
 END_TEST
 

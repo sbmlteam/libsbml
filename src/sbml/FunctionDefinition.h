@@ -438,6 +438,16 @@ public:
 
 
   /**
+   * Predicate returning @c true if the body of this
+   * FunctionDefinition has set.
+   *
+   * @return @c true if the body of this FunctionDefinition is 
+   * set, @c false otherwise.
+   */
+  bool isSetBody () const;
+
+
+  /**
    * Get the number of arguments (bound variables) taken by this
    * FunctionDefinition.
    *
@@ -943,6 +953,11 @@ FunctionDefinition_getArgumentByName (  FunctionDefinition_t *fd
 LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getBody (const FunctionDefinition_t *fd);
+
+
+LIBSBML_EXTERN
+int
+FunctionDefinition_isSetBody (const FunctionDefinition_t *fd);
 
 
 LIBSBML_EXTERN

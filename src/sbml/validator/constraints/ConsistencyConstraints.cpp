@@ -296,7 +296,7 @@ START_CONSTRAINT (20303, FunctionDefinition, fd)
   //only applies to level 2
   pre( fd.getLevel() > 1        );
   pre( fd.isSetMath()            );
-  pre( fd.getBody() != NULL      );
+  pre( fd.isSetBody() == true      );
   pre( fd.getNumArguments() != 0 );
   
   const string  id = fd.getId();
@@ -341,7 +341,7 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
   //only applies to level 2
   pre( fd.getLevel() > 1        );
   pre( fd.isSetMath()           );
-  pre( fd.getBody() != NULL      );
+  pre( fd.isSetBody() == true      );
 
   /**
    * need to look at the special case where the body of the lambda function
@@ -415,7 +415,7 @@ START_CONSTRAINT (99301, FunctionDefinition, fd)
   // csymbol time shouldnt be used in function
   pre( fd.getLevel() > 1        );
   pre( fd.isSetMath()            );
-  pre( fd.getBody() != NULL      );
+  pre( fd.isSetBody() == true      );
   
   const string  id = fd.getId();
 
@@ -452,7 +452,7 @@ START_CONSTRAINT (99302, FunctionDefinition, fd)
   pre( fd.isSetMath()            );
   pre( fd.getMath()->isLambda() );
   
-  inv( fd.getBody() != NULL );
+  inv( fd.isSetBody() == true      );
 }
 END_CONSTRAINT
 

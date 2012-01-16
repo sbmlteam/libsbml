@@ -454,6 +454,16 @@ FunctionDefinition::getBody ()
 
 
 /*
+ * @return the true if the body of this FunctionDefinition is set
+ */
+bool
+FunctionDefinition::isSetBody () const
+{
+  return (getBody() == NULL) ? false : true;
+}
+
+
+/*
  * @return the number of arguments (bound variables) that must be passed
  * to this FunctionDefinition.
  */
@@ -1372,6 +1382,25 @@ FunctionDefinition_getBody (const FunctionDefinition_t *fd)
 {
   return (fd != NULL) ? fd->getBody() : NULL;
 }
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether the given
+ * FunctionDefinition_t structure's "math" subelement has a body.
+ *
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @return nonzero if the body of this
+ * FunctionDefinition is set, zero (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+FunctionDefinition_isSetBody (const FunctionDefinition_t *fd)
+{
+  return (fd != NULL) ? static_cast<int>( fd->isSetBody() ) : 0;
+}
+
+
 
 
 /**
