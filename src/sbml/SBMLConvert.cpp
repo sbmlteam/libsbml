@@ -137,6 +137,21 @@ Model::convertL3ToL1 ()
 
   }
   dealWithModelUnits();
+  
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    Reaction *r = getReaction(i);
+    if (r->isSetKineticLaw())
+    {
+      KineticLaw *kl = r->getKineticLaw();
+      for (unsigned int j = 0; j < kl->getNumLocalParameters(); j++)
+      {
+        Parameter *lp = new Parameter(getLevel(), getVersion());
+        (*lp) = *(kl->getLocalParameter(j));
+        kl->addParameter(lp);
+      }
+    }
+  }
 }
 
 
@@ -149,6 +164,21 @@ Model::convertL3ToL2 (bool strict)
   dealWithStoichiometry();
 
   dealWithEvents(strict);
+
+  for (unsigned int i = 0; i < getNumReactions(); i++)
+  {
+    Reaction *r = getReaction(i);
+    if (r->isSetKineticLaw())
+    {
+      KineticLaw *kl = r->getKineticLaw();
+      for (unsigned int j = 0; j < kl->getNumLocalParameters(); j++)
+      {
+        Parameter *lp = new Parameter(getLevel(), getVersion());
+        (*lp) = *(kl->getLocalParameter(j));
+        kl->addParameter(lp);
+      }
+    }
+  }
 }
 
 
