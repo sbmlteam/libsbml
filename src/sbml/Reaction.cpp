@@ -33,6 +33,8 @@
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SpeciesReference.h>
+#include <sbml/SimpleSpeciesReference.h>
+#include <sbml/ModifierSpeciesReference.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLError.h>

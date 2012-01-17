@@ -55,6 +55,7 @@
 #include <sbml/Compartment.h>
 #include <sbml/Species.h>
 #include <sbml/SpeciesReference.h>
+#include <sbml/ModifierSpeciesReference.h>
 
 #include <sbml/packages/layout/sbml/Layout.h>
 #include <sbml/packages/layout/sbml/Dimensions.h>

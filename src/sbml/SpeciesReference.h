@@ -1,7 +1,6 @@
 /**
  * @file    SpeciesReference.h
- * @brief   Definitions of SimpleSpeciesReference, SpeciesReference,
- *          ModifierSpeciesReference, and ListOfSpeciesReferences. 
+ * @brief   Definitions of SpeciesReference and ListOfSpeciesReferences. 
  * @author  Ben Bornstein
  *
  *
@@ -26,43 +25,6 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ------------------------------------------------------------------------ -->
- *
- * @class SimpleSpeciesReference
- * @brief LibSBML implementation of %SBML's %SimpleSpeciesReference construct.
- *
- * As mentioned in the description of Reaction, every species that enters
- * into a given reaction must appear in that reaction's lists of reactants,
- * products and/or modifiers.  In an SBML model, all species that may
- * participate in any reaction are listed in the "listOfSpecies" element of
- * the top-level Model object.  Lists of products, reactants and modifiers
- * in Reaction objects do not introduce new species, but rather, they refer
- * back to those listed in the model's top-level "listOfSpecies".  For
- * reactants and products, the connection is made using SpeciesReference
- * objects; for modifiers, it is made using ModifierSpeciesReference
- * objects.  SimpleSpeciesReference is an abstract type that serves as the
- * parent class of both SpeciesReference and ModifierSpeciesReference.  It
- * is used simply to hold the attributes and elements that are common to
- * the latter two structures.
- *
- * The SimpleSpeciesReference structure has a mandatory attribute,
- * "species", which must be a text string conforming to the identifer
- * syntax permitted in %SBML.  This attribute is inherited by the
- * SpeciesReference and ModifierSpeciesReference subclasses derived from
- * SimpleSpeciesReference.  The value of the "species" attribute must be
- * the identifier of a species defined in the enclosing Model.  The species
- * is thereby declared as participating in the reaction being defined.  The
- * precise role of that species as a reactant, product, or modifier in the
- * reaction is determined by the subclass of SimpleSpeciesReference (i.e.,
- * either SpeciesReference or ModifierSpeciesReference) in which the
- * identifier appears.
- * 
- * SimpleSpeciesReference also contains an optional attribute, "id",
- * allowing instances to be referenced from other structures.  No SBML
- * structures currently do this; however, such structures are anticipated
- * in future SBML Levels.
- *
- * 
- * <!---------------------------------------------------------------------- -->
  *
  * @class SpeciesReference
  * @brief LibSBML implementation of %SBML's %SpeciesReference construct.
@@ -264,34 +226,6 @@
  * model-wide unit of time set on the Model object.
  *
  * </ul>
- *
- * <!---------------------------------------------------------------------- -->
- *
- * @class ModifierSpeciesReference
- * @brief LibSBML implementation of %SBML's %ModifierSpeciesReference construct.
- *
- * Sometimes a species appears in the kinetic rate formula of a reaction
- * but is itself neither created nor destroyed in that reaction (for
- * example, because it acts as a catalyst or inhibitor).  In SBML, all such
- * species are simply called @em modifiers without regard to the detailed
- * role of those species in the model.  The Reaction structure provides a
- * way to express which species act as modifiers in a given reaction.  This
- * is the purpose of the list of modifiers available in Reaction.  The list
- * contains instances of ModifierSpeciesReference structures.
- *
- * The ModifierSpeciesReference structure inherits the mandatory attribute
- * "species" and optional attributes "id" and "name" from the parent class
- * SimpleSpeciesReference.  See the description of SimpleSpeciesReference
- * for more information about these.
- *
- * The value of the "species" attribute must be the identifier of a species
- * defined in the enclosing Model; this species is designated as a modifier
- * for the current reaction.  A reaction may have any number of modifiers.
- * It is permissible for a modifier species to appear simultaneously in the
- * list of reactants and products of the same reaction where it is
- * designated as a modifier, as well as to appear in the list of reactants,
- * products and modifiers of other reactions in the model.
- *
  * 
  * <!---------------------------------------------------------------------- -->
  *
@@ -324,295 +258,20 @@
 
 #include <string>
 
+#include <sbml/ExpectedAttributes.h>
 #include <sbml/SBase.h>
+#include <sbml/SimpleSpeciesReference.h>
+#include <sbml/SBMLVisitor.h>
 #include <sbml/StoichiometryMath.h>
 #include <sbml/ListOf.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
 class StoichiometryMath;
-class ASTNode;
-class SBMLVisitor;
-
-
-class LIBSBML_EXTERN SimpleSpeciesReference : public SBase
-{
-public:
-
-  /**
-   * Creates a new SimpleSpeciesReference using the given SBML @p level and @p version
-   * values.
-   *
-   * @param level an unsigned int, the SBML Level to assign to this SimpleSpeciesReference
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * SimpleSpeciesReference
-   *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
-   * Thrown if the given @p level and @p version combination, or this kind
-   * of SBML object, are either invalid or mismatched with respect to the
-   * parent SBMLDocument object.
-   */
-  SimpleSpeciesReference (unsigned int level, unsigned int version);
-
-
-  /**
-   * Destroys this SimpleSpeciesReference.
-   */
-  virtual ~SimpleSpeciesReference ();
-
-
-  /**
-   * Copy constructor; creates a copy of this SimpleSpeciesReference.
-   *
-   * @param orig the object to copy.
-   * 
-   * @throws @if python ValueError @else SBMLConstructorException @endif
-   * Thrown if the argument @p orig is @c NULL.
-   */
-  SimpleSpeciesReference(const SimpleSpeciesReference& orig);
-
-
-  /**
-   * Assignment operator. 
-   *
-   * @param rhs The object whose values are used as the basis of the
-   * assignment.
-   *
-   * @throws @if python ValueError @else SBMLConstructorException @endif
-   * Thrown if the argument @p rhs is @c NULL.
-   */
-  SimpleSpeciesReference& operator=(const SimpleSpeciesReference& rhs);
-
-
-  /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @param v the SBMLVisitor instance to be used.
-   *
-   * @return the result of calling <code>v.visit()</code>.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-
-  /**
-   * Returns the value of the "id" attribute of this SimpleSpeciesReference.
-   * 
-   * @return the id of this SimpleSpeciesReference.
-   */
-  virtual const std::string& getId () const;
-
-
-  /**
-   * Returns the value of the "name" attribute of this SimpleSpeciesReference.
-   * 
-   * @return the name of this SimpleSpeciesReference.
-   */
-  virtual const std::string& getName () const;
-
-
-  /**
-   * Get the value of the "species" attribute.
-   * 
-   * @return the value of the attribute "species" for this
-   * SimpleSpeciesReference.
-   */
-  const std::string& getSpecies () const;
-
-
-  /**
-   * Predicate returning @c true if this
-   * SimpleSpeciesReference's "id" attribute is set.
-   *
-   * @return @c true if the "id" attribute of this SimpleSpeciesReference is
-   * set, @c false otherwise.
-   */
-  virtual bool isSetId () const;
-
-
-  /**
-   * Predicate returning @c true if this
-   * SimpleSpeciesReference's "name" attribute is set.
-   *
-   * @return @c true if the "name" attribute of this SimpleSpeciesReference is
-   * set, @c false otherwise.
-   */
-  virtual bool isSetName () const;
-
-
-  /**
-   * Predicate returning @c true if this
-   * SimpleSpeciesReference's "species" attribute is set.
-   * 
-   * @return @c true if the "species" attribute of this
-   * SimpleSpeciesReference is set, @c false otherwise.
-   */
-  bool isSetSpecies () const;
-
-
-  /**
-   * Sets the "species" attribute of this SimpleSpeciesReference.
-   *
-   * The identifier string passed in @p sid is copied.
-   *
-   * @param sid the identifier of a species defined in the enclosing
-   * Model's ListOfSpecies.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   */
-  int setSpecies (const std::string& sid);
-
-
-  /**
-   * Sets the value of the "id" attribute of this SimpleSpeciesReference.
-   *
-   * The string @p sid is copied.  Note that SBML has strict requirements
-   * for the syntax of identifiers.  @htmlinclude id-syntax.html
-   *
-   * @param sid the string to use as the identifier of this SimpleSpeciesReference
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   */
-  virtual int setId (const std::string& sid);
-
-
-  /**
-   * Sets the value of the "name" attribute of this SimpleSpeciesReference.
-   *
-   * The string in @p name is copied.
-   *
-   * @param name the new name for the SimpleSpeciesReference
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_UNEXPECTED_ATTRIBUTE LIBSBML_UNEXPECTED_ATTRIBUTE @endlink
-   */
-  virtual int setName (const std::string& name);
-
-
-  /**
-   * Unsets the value of the "id" attribute of this SimpleSpeciesReference.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   */
-  virtual int unsetId ();
-
-
-  /**
-   * Unsets the value of the "name" attribute of this SimpleSpeciesReference.
-   *
-   * @return integer value indicating success/failure of the
-   * function.  The possible values
-   * returned by this function are:
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
-   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
-   */
-  virtual int unsetName ();
-
-
-  /**
-   * Predicate returning @c true if this
-   * is a ModifierSpeciesReference.
-   * 
-   * @return @c true if this SimpleSpeciesReference's subclass is
-   * ModiferSpeciesReference, @c false if it is a plain SpeciesReference.
-   */
-  bool isModifier () const;
-
-
-  /**
-   * Renames all the SIdRef attributes on this element, including any found in MathML
-   */
-  virtual void renameSIdRefs(std::string oldid, std::string newid);
-
-
-
-protected:
-  /** @cond doxygen-libsbml-internal */
-
-  virtual bool hasRequiredAttributes() const ;
-
-  /**
-   * Creates a new SimpleSpeciesReference using the given SBMLNamespaces object
-   * @p sbmlns.
-   *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
-   * A common approach to using this class constructor is to create an
-   * SBMLNamespaces object somewhere in a program, once, then pass it to
-   * object constructors such as this one when needed.
-   *
-   * @param sbmlns an SBMLNamespaces object.
-   *
-   * @note Upon the addition of a SimpleSpeciesReference object to an
-   * SBMLDocument (e.g., using Model::addSimpleSpeciesReference()), the
-   * SBML XML namespace of the document @em overrides the value used when
-   * creating the SimpleSpeciesReference object via this constructor.  This
-   * is necessary to ensure that an SBML document is a consistent
-   * structure.  Nevertheless, the ability to supply the values at the time
-   * of creation of a SimpleSpeciesReference is an important aid to
-   * producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
-   */
-  SimpleSpeciesReference (SBMLNamespaces* sbmlns);
-
-
-  /**
-   * Subclasses should override this method to get the list of
-   * expected attributes.
-   * This function is invoked from corresponding readAttributes()
-   * function.
-   */
-  virtual void addExpectedAttributes(ExpectedAttributes& attributes);
-
-
-  /**
-   * Subclasses should override this method to read values from the given
-   * XMLAttributes set into their specific fields.  Be sure to call your
-   * parents implementation of this method as well.
-   */
-  virtual void readAttributes (const XMLAttributes& attributes,
-                               const ExpectedAttributes& expectedAttributes);
-
-  void readL1Attributes (const XMLAttributes& attributes);
-
-  void readL2Attributes (const XMLAttributes& attributes);
-
-  void readL3Attributes (const XMLAttributes& attributes);
-
-  /**
-   * Subclasses should override this method to write their XML attributes
-   * to the XMLOutputStream.  Be sure to call your parents implementation
-   * of this method as well.
-   */
-  virtual void writeAttributes (XMLOutputStream& stream) const;
-
-  std::string  mId;
-  std::string  mName;
-  std::string  mSpecies;
-
-  /** @endcond */
-};
-
+class SBMLNamespaces;
+class XMLNode;
 
 
 class LIBSBML_EXTERN SpeciesReference : public SimpleSpeciesReference
@@ -1362,159 +1021,6 @@ protected:
 };
 
 
-
-class LIBSBML_EXTERN ModifierSpeciesReference : public SimpleSpeciesReference
-{
-public:
-
-  /**
-   * Creates a new ModifierSpeciesReference using the given SBML @p level and @p version
-   * values.
-   *
-   * @param level an unsigned int, the SBML Level to assign to this ModifierSpeciesReference
-   *
-   * @param version an unsigned int, the SBML Version to assign to this
-   * ModifierSpeciesReference
-   * 
-   * @note Upon the addition of a ModifierSpeciesReference object to an
-   * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
-   * SBML Level, SBML Version and XML namespace of the document @em
-   * override the values used when creating the ModifierSpeciesReference
-   * object via this constructor.  This is necessary to ensure that an SBML
-   * document is a consistent structure.  Nevertheless, the ability to
-   * supply the values at the time of creation of a
-   * ModifierSpeciesReference is an important aid to producing valid SBML.
-   * Knowledge of the intented SBML Level and Version determine whether it
-   * is valid to assign a particular value to an attribute, or whether it
-   * is valid to add an object to an existing SBMLDocument.
-   */
-  ModifierSpeciesReference (unsigned int level, unsigned int version);
-
-
-  /**
-   * Creates a new ModifierSpeciesReference using the given SBMLNamespaces object
-   * @p sbmlns.
-   *
-   * @param sbmlns an SBMLNamespaces object.
-   *
-   * @note Upon the addition of a ModifierSpeciesReference object to an
-   * SBMLDocument (e.g., using Reaction::addModifier(@if java ModifierSpeciesReference msr@endif)), the
-   * SBML XML namespace of the document @em overrides the value used when
-   * creating the ModifierSpeciesReference object via this constructor.
-   * This is necessary to ensure that an SBML document is a consistent
-   * structure.  Nevertheless, the ability to supply the values at the time
-   * of creation of a ModifierSpeciesReference is an important aid to
-   * producing valid SBML.  Knowledge of the intented SBML Level and
-   * Version determine whether it is valid to assign a particular value to
-   * an attribute, or whether it is valid to add an object to an existing
-   * SBMLDocument.
-   */
-  ModifierSpeciesReference (SBMLNamespaces* sbmlns);
-
-
-  /**
-   * Destroys this ModifierSpeciesReference.
-   */
-  virtual ~ModifierSpeciesReference();
-
-
-  /**
-   * Accepts the given SBMLVisitor.
-   *
-   * @param v the SBMLVisitor instance to be used.
-   *
-   * @return the result of calling <code>v.visit()</code>.
-   */
-  virtual bool accept (SBMLVisitor& v) const;
-
-
-  /**
-   * Creates and returns a deep copy of this ModifierSpeciesReference
-   * instance.
-   *
-   * @return a (deep) copy of this ModifierSpeciesReference.
-   */
-  virtual ModifierSpeciesReference* clone () const;
-
-
-  /**
-   * Returns the libSBML type code for this %SBML object.
-   * 
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
-   * possible type codes is defined in the enumeration #SBMLTypeCode_t.
-   * The names of the type codes all begin with the characters @c
-   * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
-   * other languages, the set of type codes is stored in an enumeration; in
-   * the Java language interface for libSBML, the type codes are defined as
-   * static integer constants in the interface class {@link
-   * libsbmlConstants}.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the Python language interface for libSBML, the type
-   * codes are defined as static integer constants in the interface class
-   * @link libsbml@endlink.  The names of the type codes all begin with the
-   * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
-   * codes</em>.  In the C# language interface for libSBML, the type codes
-   * are defined as static integer constants in the interface class @link
-   * libsbmlcs.libsbml@endlink.  The names of the type codes all begin with
-   * the characters @c SBML_. @endif
-   *
-   * @return the SBML type code for this object, or @link SBMLTypeCode_t#SBML_UNKNOWN SBML_UNKNOWN@endlink (default).
-   *
-   * @see getElementName()
-   */
-  virtual int getTypeCode () const;
-
-
-  /**
-   * Returns the XML element name of this object, which for Species, is
-   * always @c "modifierSpeciesReference".
-   * 
-   * @return the name of this element, i.e., @c "modifierSpeciesReference".
-   */
-  virtual const std::string& getElementName () const;
-
-
-  /**
-   * Predicate returning @c true if
-   * all the required attributes for this ModifierSpeciesReference object
-   * have been set.
-   *
-   * @note The required attributes for a ModifierSpeciesReference object are:
-   * species
-   */
-  virtual bool hasRequiredAttributes() const ;
-
-
-protected:
-  /** @cond doxygen-libsbml-internal */
-
-  /* the validator classes need to be friends to access the 
-   * protected constructor that takes no arguments
-   */
-  friend class Validator;
-  friend class ConsistencyValidator;
-  friend class IdentifierConsistencyValidator;
-  friend class InternalConsistencyValidator;
-  friend class L1CompatibilityValidator;
-  friend class L2v1CompatibilityValidator;
-  friend class L2v2CompatibilityValidator;
-  friend class L2v3CompatibilityValidator;
-  friend class L2v4CompatibilityValidator;
-  friend class MathMLConsistencyValidator;
-  friend class ModelingPracticeValidator;
-  friend class OverdeterminedValidator;
-  friend class SBOConsistencyValidator;
-  friend class UnitConsistencyValidator;
-
-  /** @endcond */
-};
-
-
-
 class LIBSBML_EXTERN ListOfSpeciesReferences : public ListOf
 {
 public:
@@ -1963,4 +1469,9 @@ END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END
 
 #endif  /* !SWIG */
+
+#ifndef LIBSBML_USE_STRICT_INCLUDES
+#include <sbml/ModifierSpeciesReference.h>
+#endif 
+
 #endif  /* SpeciesReference_h */

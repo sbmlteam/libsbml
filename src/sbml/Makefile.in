@@ -51,6 +51,8 @@ thisdir = src/sbml
 # to distribute and install.
 
 headers =                    \
+  AlgebraicRule.h            \
+  AssignmentRule.h           \
   Compartment.h              \
   CompartmentType.h          \
   Constraint.h               \
@@ -64,8 +66,10 @@ headers =                    \
   ListOf.h                   \
   LocalParameter.h           \
   Model.h                    \
+  ModifierSpeciesReference.h \
   Parameter.h                \
   Priority.h                 \
+  RateRule.h                 \
   Reaction.h                 \
   Rule.h                     \
   SBMLConstructorException.h \
@@ -81,6 +85,7 @@ headers =                    \
   SBMLVisitor.h              \
   SBMLWriter.h               \
   SBO.h		                 \
+  SimpleSpeciesReference.h   \
   SBase.h                    \
   Species.h                  \
   SpeciesReference.h         \
@@ -93,6 +98,8 @@ headers =                    \
   UnitKind.h
 
 sources =                      \
+  AlgebraicRule.cpp            \
+  AssignmentRule.cpp           \
   Compartment.cpp              \
   CompartmentType.cpp          \
   Constraint.cpp               \
@@ -106,8 +113,10 @@ sources =                      \
   ListOf.cpp                   \
   LocalParameter.cpp           \
   Model.cpp                    \
+  ModifierSpeciesReference.cpp \
   Parameter.cpp                \
   Priority.cpp                 \
+  RateRule.cpp                 \
   Reaction.cpp                 \
   Rule.cpp                     \
   SBMLConvert.cpp              \
@@ -122,6 +131,7 @@ sources =                      \
   SBMLVisitor.cpp              \
   SBMLWriter.cpp               \
   SBO.cpp                      \
+  SimpleSpeciesReference.cpp   \
   SBase.cpp                    \
   Species.cpp                  \
   SpeciesReference.cpp         \

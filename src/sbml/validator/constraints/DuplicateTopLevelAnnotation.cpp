@@ -28,6 +28,7 @@
  * ---------------------------------------------------------------------- -->*/
 
 #include <sbml/Model.h>
+#include <sbml/ModifierSpeciesReference.h>
 #include <sbml/Rule.h>
 #include <sbml/Event.h>
 #include <sbml/EventAssignment.h>

@@ -37,7 +37,16 @@
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLError.h>
 #include <sbml/KineticLaw.h>
+
 #include <sbml/Model.h>
+
+#include <sbml/ModifierSpeciesReference.h>
+#include <sbml/SimpleSpeciesReference.h>
+
+#include <sbml/AlgebraicRule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
+
 
 #include <sbml/extension/SBMLExtensionRegistry.h>
 #include <sbml/extension/SBasePlugin.h>

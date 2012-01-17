@@ -44,10 +44,15 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/Species.h>
 #include <sbml/SpeciesReference.h>
+#include <sbml/ModifierSpeciesReference.h>
 #include <sbml/SpeciesType.h>
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
 #include <sbml/units/FormulaUnitsData.h>
+
+#include <sbml/AlgebraicRule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
 
 #include <sbml/math/ASTNode.h>
 

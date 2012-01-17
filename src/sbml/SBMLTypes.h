@@ -58,8 +58,13 @@
 #include <sbml/Reaction.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/SpeciesReference.h>
+#include <sbml/SimpleSpeciesReference.h>
+#include <sbml/ModifierSpeciesReference.h>
 
 #include <sbml/Rule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/AlgebraicRule.h>
+#include <sbml/RateRule.h>
 
 #include <sbml/Constraint.h>
 

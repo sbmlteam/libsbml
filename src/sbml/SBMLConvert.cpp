@@ -31,7 +31,14 @@
 #include <sbml/Model.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/Compartment.h>
+
 #include <sbml/SpeciesReference.h>
+#include <sbml/SimpleSpeciesReference.h>
+#include <sbml/ModifierSpeciesReference.h>
+
+#include <sbml/AlgebraicRule.h>
+#include <sbml/AssignmentRule.h>
+#include <sbml/RateRule.h>
 
 #include <sbml/validator/constraints/IdList.h>
 

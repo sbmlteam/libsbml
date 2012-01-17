@@ -32,6 +32,8 @@
 #include <sbml/util/List.h>
 #include <sbml/math/ASTNode.h>
 
+#include <sbml/ModifierSpeciesReference.h>
+
 #include "KineticLawVars.h"
 
 /** @cond doxygen-ignored */
