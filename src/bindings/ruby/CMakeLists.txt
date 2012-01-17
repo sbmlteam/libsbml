@@ -174,14 +174,21 @@ if(WITH_CHECK)
 	file(TO_NATIVE_PATH ${CMAKE_CURRENT_BINARY_DIR}/test.rb test_runner)
 
 	# run ruby tests
-	add_test(test_ruby_binding ${RUBY_EXECUTABLE} -I. ${test_runner} 
+	add_test(test_ruby_binding ${RUBY_EXECUTABLE} -I. -I${CMAKE_CURRENT_SOURCE_DIR} ${test_runner} 
 	       -b ${CMAKE_CURRENT_SOURCE_DIR}/test -p ${CTEST_CONFIGURATION_TYPE})
 
 	# specify that tests have passed if we find only dots	
 	set_tests_properties(test_ruby_binding PROPERTIES PASS_REGULAR_EXPRESSION "[.]+" )
 	# specify that tests have failed in case there was one of the words below in the output
 	set_tests_properties(test_ruby_binding PROPERTIES FAIL_REGULAR_EXPRESSION "Error;ERROR;Failed")	
-	
+
+	if(UNIX)
+		if(APPLE)
+			set_tests_properties(test_ruby_binding PROPERTIES ENVIRONMENT "DYLD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_BINARY_DIR}/../..:$ENV{DYLD_LIBRARY_PATH}")
+		else()
+			set_tests_properties(test_ruby_binding PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=/usr/lib/:${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_CURRENT_BINARY_DIR}/../..:$ENV{LD_LIBRARY_PATH}")
+		endif()
+	endif()	
 	
 endif()
 
