@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'libSBML'
 
 test_base = "./test"
 
