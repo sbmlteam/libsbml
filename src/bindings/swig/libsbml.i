@@ -537,8 +537,8 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/Constraint.h
 %include sbml/Reaction.h
 %include sbml/KineticLaw.h
-%include sbml/SpeciesReference.h
 %include sbml/SimpleSpeciesReference.h
+%include sbml/SpeciesReference.h
 %include sbml/ModifierSpeciesReference.h
 %include sbml/Event.h
 %include sbml/EventAssignment.h
