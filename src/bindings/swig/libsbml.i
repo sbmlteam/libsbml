@@ -531,10 +531,15 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/LocalParameter.h
 %include sbml/InitialAssignment.h
 %include sbml/Rule.h
+%include sbml/AlgebraicRule.h
+%include sbml/AssignmentRule.h
+%include sbml/RateRule.h
 %include sbml/Constraint.h
 %include sbml/Reaction.h
 %include sbml/KineticLaw.h
 %include sbml/SpeciesReference.h
+%include sbml/SimpleSpeciesReference.h
+%include sbml/ModifierSpeciesReference.h
 %include sbml/Event.h
 %include sbml/EventAssignment.h
 %include sbml/Trigger.h
