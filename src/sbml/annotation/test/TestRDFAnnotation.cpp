@@ -338,7 +338,7 @@ START_TEST (test_RDFAnnotation_recreate)
   Compartment* c = m->getCompartment(1);
 
   const char * expected =
-    "<compartment id=\"A\">\n"
+    "<compartment metaid=\"_000003\" id=\"A\">\n"
     "  <annotation>\n"
 		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
 		"      <jd2:header>\n"
@@ -348,7 +348,7 @@ START_TEST (test_RDFAnnotation_recreate)
 		"      </jd2:header>\n"
 		"    </jd2:JDesignerLayout>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#\">\n"
+		"      <rdf:Description rdf:about=\"#_000003\">\n"
 		"        <bqbiol:is>\n"
 		"          <rdf:Bag>\n"
 		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
@@ -368,10 +368,10 @@ START_TEST (test_RDFAnnotation_recreateFromEmpty)
   Compartment* c = m->getCompartment(3);
 
   const char * expected =
-    "<compartment id=\"C\">\n"
+    "<compartment metaid=\"_000004\" id=\"C\">\n"
     "  <annotation>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
 		"        <bqbiol:is>\n"
 		"          <rdf:Bag>\n"
 		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
@@ -456,11 +456,8 @@ START_TEST (test_RDFAnnotation_testMissingMetaId)
   model->setMetaId("");
   std::string test = model->toSBML();
 
-  //// this should be the test
-  //fail_unless(test.find("testResource") == std::string::npos); 
-
-  // but current pehavior is
-  fail_unless(test.find("testResource") != std::string::npos); 
+  // this should be the test
+  fail_unless(test.find("testResource") == std::string::npos);   
 
 }
 END_TEST

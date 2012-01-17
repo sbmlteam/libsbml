@@ -45,10 +45,10 @@
 					</rdf:RDF>
 				</annotation>
 			</compartment>
-			<compartment id="A">
+			<compartment id="A" metaid="_000003">
 				<annotation>
 					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-						<rdf:Description rdf:about="#_000001">
+						<rdf:Description rdf:about="#_000003">
 							<bqbiol:is>
 								<rdf:Bag>
 									<rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
@@ -76,10 +76,10 @@
 					</jd2:JDesignerLayout>
 				</annotation>
 			</compartment>
-			<compartment id="C">
+			<compartment id="C" metaid="_000004">
 				<annotation>
 					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
-						<rdf:Description rdf:about="#_000001">
+						<rdf:Description rdf:about="#_000004">
 							<bqbiol:is>
 								<rdf:Bag>
 									<rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>

@@ -279,7 +279,7 @@ START_TEST (test_L3ModelHistory_recreate)
   Compartment* c = m->getCompartment(1);
 
   const char * expected =
-    "<compartment id=\"A\" constant=\"true\">\n"
+    "<compartment metaid=\"_000003\" id=\"A\" constant=\"true\">\n"
     "  <annotation>\n"
 		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
 		"      <jd2:header>\n"
@@ -289,7 +289,7 @@ START_TEST (test_L3ModelHistory_recreate)
 		"      </jd2:header>\n"
 		"    </jd2:JDesignerLayout>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#\">\n"
+		"      <rdf:Description rdf:about=\"#_000003\">\n"
     "        <dc:creator>\n"
 		"          <rdf:Bag>\n"
 		"            <rdf:li rdf:parseType=\"Resource\">\n"
@@ -329,10 +329,10 @@ START_TEST (test_L3ModelHistory_recreateFromEmpty)
   Compartment* c = m->getCompartment(3);
 
   const char * expected =
-    "<compartment id=\"C\" constant=\"true\">\n"
+    "<compartment metaid=\"_000004\" id=\"C\" constant=\"true\">\n"
     "  <annotation>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
     "        <dc:creator>\n"
 		"          <rdf:Bag>\n"
 		"            <rdf:li rdf:parseType=\"Resource\">\n"

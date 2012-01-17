@@ -360,7 +360,8 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 
   if (object == NULL || 
 	  object->getCVTerms() == NULL || 
-	  object->getCVTerms()->getSize() == 0)
+	  object->getCVTerms()->getSize() == 0 ||
+    !object->isSetMetaId())
   {
     return NULL;
   }
@@ -483,7 +484,8 @@ XMLNode *
 RDFAnnotationParser::parseModelHistory(const SBase *object)
 {
   if (object == NULL  || 
-		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL))
+		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
+    !object->isSetMetaId())
   {
     return NULL;
   }
