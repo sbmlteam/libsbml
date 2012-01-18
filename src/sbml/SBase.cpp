@@ -4777,7 +4777,7 @@ SBase::checkListOfPopulated(SBase* object)
         error = EmptyListInKineticLaw;
         break;
       case SBML_EVENT_ASSIGNMENT:
-        if (object->getLevel() > 2)
+        if (object->getLevel() < 3)
           error = MissingEventAssignment;
         break;
 
