@@ -2517,11 +2517,6 @@ START_TEST (test_internal_consistency_check_21203)
   d->getErrorLog()->clearLog();
   errors = d->checkInternalConsistency();
 
-  // actually in l3 it is not an error to have  no listOfEventAssignments
-  // this bug was fixed 18th oct 2011
-  //fail_unless(errors == 1);
-  //fail_unless(d->getError(0)->getErrorId() == 21203);
-
   fail_unless(errors == 0);
 
   EventAssignment *ea = r->createEventAssignment();
@@ -2536,6 +2531,38 @@ START_TEST (test_internal_consistency_check_21203)
 }
 END_TEST
 
+START_TEST (test_internal_consistency_check_21203_l2v4)
+{
+  SBMLDocument*     d = new SBMLDocument(2, 4);
+  unsigned int errors;
+  Model *m = d->createModel();
+  Event *r = m->createEvent();
+  r->setUseValuesFromTriggerTime(true);
+  ASTNode *ast = SBML_parseFormula("2*x");
+
+  Trigger *t = r->createTrigger();
+  t->setMath(ast);
+  t->setPersistent(true);
+  t->setInitialValue(false);
+
+  d->getErrorLog()->clearLog();
+  errors = d->checkInternalConsistency();
+
+  // in l2v4 this is an error
+  fail_unless(errors == 1);
+  fail_unless(d->getError(0)->getErrorId() == 21203);
+  
+  EventAssignment *ea = r->createEventAssignment();
+  ea->setVariable("ea");
+  ea->setMath(ast);
+
+  d->getErrorLog()->clearLog();
+  errors = d->checkInternalConsistency();
+
+  fail_unless(errors == 0);
+  delete d;
+}
+END_TEST
 
 START_TEST (test_internal_consistency_check_21209)
 {
@@ -2866,6 +2893,7 @@ create_suite_TestInternalConsistencyChecks (void)
   tcase_add_test(tcase, test_internal_consistency_check_21172);
   tcase_add_test(tcase, test_internal_consistency_check_21201);
   tcase_add_test(tcase, test_internal_consistency_check_21203);
+  tcase_add_test(tcase, test_internal_consistency_check_21203_l2v4);
   tcase_add_test(tcase, test_internal_consistency_check_21209);
   tcase_add_test(tcase, test_internal_consistency_check_21210);
   tcase_add_test(tcase, test_internal_consistency_check_21213);
