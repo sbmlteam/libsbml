@@ -457,7 +457,7 @@ START_TEST (test_RDFAnnotation_testMissingMetaId)
   std::string test = model->toSBML();
 
   // this should be the test
-  fail_unless(test.find("testResource") == std::string::npos);   
+  fail_unless(test == "<model id=\"test1\"/>");   
 
 }
 END_TEST
