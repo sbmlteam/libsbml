@@ -774,6 +774,7 @@ END_CONSTRAINT
 
 START_CONSTRAINT (21203, Event, e)
 {
+  pre( e.getLevel() < 3 );
   inv( e.getNumEventAssignments() > 0 );
 }
 END_CONSTRAINT
