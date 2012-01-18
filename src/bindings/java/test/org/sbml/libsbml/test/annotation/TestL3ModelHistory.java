@@ -511,7 +511,7 @@ public class TestL3ModelHistory {
   public void test_L3ModelHistory_recreateFromEmpty_Model()
   {
     String ann = m.getAnnotationString();
-    m.setAnnotation(null);
+    m.setAnnotation((XMLNode)null);
     XMLNode n1 = m.getAnnotation();
     assertTrue( n1 == null );
     m.setAnnotation(ann);
