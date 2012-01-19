@@ -1425,17 +1425,17 @@ KineticLaw::readL1Attributes (const XMLAttributes& attributes)
   //
   // formula: string  { use="required" }  (L1v1->)
   //
-  attributes.readInto("formula", mFormula, getErrorLog(), true);
+  attributes.readInto("formula", mFormula, getErrorLog(), true, getLine(), getColumn());
 
   //
   // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  attributes.readInto("timeUnits", mTimeUnits);
+  attributes.readInto("timeUnits", mTimeUnits, getErrorLog(), false, getLine(), getColumn());
 
   //
   // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  attributes.readInto("substanceUnits", mSubstanceUnits);
+  attributes.readInto("substanceUnits", mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
 
 }
 /** @endcond */
@@ -1458,12 +1458,12 @@ KineticLaw::readL2Attributes (const XMLAttributes& attributes)
     //
     // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
     //
-    attributes.readInto("timeUnits", mTimeUnits);
+    attributes.readInto("timeUnits", mTimeUnits, getErrorLog(), false, getLine(), getColumn());
 
     //
     // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
     //
-    attributes.readInto("substanceUnits", mSubstanceUnits);
+    attributes.readInto("substanceUnits", mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
   }
 
   //

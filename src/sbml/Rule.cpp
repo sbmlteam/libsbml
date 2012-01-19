@@ -1039,7 +1039,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  attributes.readInto("formula", mFormula, getErrorLog(), true);
+  attributes.readInto("formula", mFormula, getErrorLog(), true, getLine(), getColumn());
 
   //
   // type { use="optional" default="scalar" }  (L1v1, L1v2)
@@ -1054,7 +1054,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     // species: SName   { use="required" }  (L1v2)
     //
     const string s = (level == 1 && version == 1) ? "specie" : "species";
-    bool assigned = attributes.readInto(s, mVariable, getErrorLog(), true);
+    bool assigned = attributes.readInto(s, mVariable, getErrorLog(), true, getLine(), getColumn());
     if (assigned && mVariable.size() == 0)
     {
       logEmptyString(s, level, version, "<rule>");
@@ -1067,7 +1067,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     //
     // compartment: SName  { use="required" }  (L1v1, L1v2)
     //
-    bool assigned = attributes.readInto("compartment", mVariable, getErrorLog(), true);
+    bool assigned = attributes.readInto("compartment", mVariable, getErrorLog(), true, getLine(), getColumn());
     if (assigned && mVariable.size() == 0)
     {
       logEmptyString("compartment", level, version, "<rule>");
@@ -1080,7 +1080,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     //
     // name: SName  { use="required" } (L1v1, L1v2)
     //
-    bool assigned = attributes.readInto("name", mVariable, getErrorLog(), true);
+    bool assigned = attributes.readInto("name", mVariable, getErrorLog(), true, getLine(), getColumn());
     if (assigned && mVariable.size() == 0)
     {
       logEmptyString("name", level, version, "<rule>");
@@ -1091,7 +1091,7 @@ Rule::readL1Attributes (const XMLAttributes& attributes)
     //
     // units  { use="optional" }  (L1v1, L1v2);
     //
-    attributes.readInto("units", mUnits);
+    attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
 
   }
 }
@@ -1115,7 +1115,7 @@ Rule::readL2Attributes (const XMLAttributes& attributes)
     //
     // variable: SId  { use="required" }  (L2v1 ->)
     //
-    bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true);
+    bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true, getLine(), getColumn());
     if (assigned && mVariable.size() == 0)
     {
       logEmptyString("variable", level, version, "<rule>");
@@ -1151,7 +1151,7 @@ Rule::readL3Attributes (const XMLAttributes& attributes)
     //
     // variable: SId  { use="required" }  (L2v1 ->)
     //
-    bool assigned = attributes.readInto("variable", mVariable, getErrorLog());
+    bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), false, getLine(), getColumn());
     if (!assigned)
     {
       if (isAssignment())

@@ -624,7 +624,7 @@ EventAssignment::readL2Attributes (const XMLAttributes& attributes)
   //
   // variable: SId  { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true);
+  bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mVariable.size() == 0)
   {
     logEmptyString("variable", level, version, "<eventAssignment>");
@@ -657,7 +657,7 @@ EventAssignment::readL3Attributes (const XMLAttributes& attributes)
   //
   // variable: SId  { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("variable", mVariable);
+  bool assigned = attributes.readInto("variable", mVariable, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnEventAssignment, level, version);

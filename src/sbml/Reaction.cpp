@@ -1619,7 +1619,7 @@ Reaction::readL1Attributes (const XMLAttributes& attributes)
   //
   // name: SName  { use="required" }  (L1v1, L1v2)
   //
-  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("name", level, version, "<reaction>");
@@ -1630,13 +1630,13 @@ Reaction::readL1Attributes (const XMLAttributes& attributes)
   // reversible: boolean  { use="optional"  default="true" }
   // (L1v1, L1v2, L2v1->)
   //
-  mExplicitlySetReversible = attributes.readInto("reversible", mReversible);
+  mExplicitlySetReversible = attributes.readInto("reversible", mReversible, getErrorLog(), false, getLine(), getColumn());
 
   //
   // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
   // fast: boolean  { use="optional" }                  (L2v1 ->)
   //
-  mIsSetFast = attributes.readInto("fast", mFast);
+  mIsSetFast = attributes.readInto("fast", mFast, getErrorLog(), false, getLine(), getColumn());
   mExplicitlySetFast = mIsSetFast;
 }
 /** @endcond */
@@ -1657,7 +1657,7 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
   //
   //   id: SId    { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<reaction>");
@@ -1669,18 +1669,18 @@ Reaction::readL2Attributes (const XMLAttributes& attributes)
   // (L1v1, L1v2, L2v1->)
   // reversible: boolean  { use="required"} (L3v1->)
   //
-  mExplicitlySetReversible = attributes.readInto("reversible", mReversible);
+  mExplicitlySetReversible = attributes.readInto("reversible", mReversible, getErrorLog(), false, getLine(), getColumn());
 
   //
   // fast: boolean  { use="optional" }                  (L2v1 ->)
   //
-  mIsSetFast = attributes.readInto("fast", mFast);
+  mIsSetFast = attributes.readInto("fast", mFast, getErrorLog(), false, getLine(), getColumn());
   mExplicitlySetFast = mIsSetFast;
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
   
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -1708,7 +1708,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId    { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnReaction, level, version);
@@ -1722,7 +1722,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   //
   // reversible: boolean  { use="required"} (L3v1->)
   //
-  mIsSetReversible = attributes.readInto("reversible", mReversible);
+  mIsSetReversible = attributes.readInto("reversible", mReversible, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetReversible)
   {
     logError(AllowedAttributesOnReaction, level, version);
@@ -1731,7 +1731,7 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   //
   // fast: boolean  { use="required" }                  (L3v1 ->)
   //
-  mIsSetFast = attributes.readInto("fast", mFast);
+  mIsSetFast = attributes.readInto("fast", mFast, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetFast)
   {
     logError(AllowedAttributesOnReaction, level, version);
@@ -1740,12 +1740,12 @@ Reaction::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // compartment: string { use="optional" } (L3v1 -> )
   //
-  assigned = attributes.readInto("compartment", mCompartment);
+  assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mCompartment.size() == 0)
   {
     logEmptyString("compartment", level, version, "<reaction>");

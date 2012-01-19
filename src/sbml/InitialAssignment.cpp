@@ -624,7 +624,7 @@ InitialAssignment::readL2Attributes (const XMLAttributes& attributes)
   //
   // symbol: SId  { use="required" }  (L2v2 -> )
   //
-  bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog(), true);
+  bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mSymbol.size() == 0)
   {
     logEmptyString("symbol", level, version, "<initialAssignment>");
@@ -656,7 +656,7 @@ InitialAssignment::readL3Attributes (const XMLAttributes& attributes)
   //
   // symbol: SId  { use="required" }  (L2v2 -> )
   //
-  bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog());
+  bool assigned = attributes.readInto("symbol", mSymbol, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnInitialAssign, level, version);

@@ -746,7 +746,7 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
 
   // name: SName   { use="required" }  (L1v1, L1v2)
   //
-  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("name", level, version, "<parameter>");
@@ -759,17 +759,17 @@ Parameter::readL1Attributes (const XMLAttributes& attributes)
   //
   if (version == 1)
   {
-    mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), true);
+    mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), true, getLine(), getColumn());
   }
   else
   {
-    mIsSetValue = attributes.readInto("value", mValue);
+    mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), false, getLine(), getColumn());
   }
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
   //
-  assigned = attributes.readInto("units", mUnits);
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<parameter>");
@@ -798,7 +798,7 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
 
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<parameter>");
@@ -808,12 +808,12 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   //
   // value: double  { use="optional" }  (L1v2->)
   //
-  mIsSetValue = attributes.readInto("value", mValue);
+  mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), false, getLine(), getColumn());
 
   //
   // units: SId    { use="optional" }  (L2v1, L2v2)
   //
-  assigned = attributes.readInto("units", mUnits);
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<parameter>");
@@ -826,12 +826,12 @@ Parameter::readL2Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // constant: boolean  { use="optional" default="true" }  (L2v1->)
   //
-  mExplicitlySetConstant = attributes.readInto("constant", mConstant);
+  mExplicitlySetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2->)
@@ -860,7 +860,7 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
 
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     if (this->getTypeCode() == SBML_PARAMETER)
@@ -882,12 +882,12 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   //
   // value: double  { use="optional" }  (L1v2->)
   //
-  mIsSetValue = attributes.readInto("value", mValue);
+  mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), false, getLine(), getColumn());
 
   //
   // units: SId    { use="optional" }  (L2v1, L2v2)
   //
-  assigned = attributes.readInto("units", mUnits);
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<parameter>");
@@ -900,12 +900,12 @@ Parameter::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   if (this->getTypeCode() == SBML_PARAMETER)
   {
     mIsSetConstant = attributes.readInto("constant", mConstant,
-                                          getErrorLog());
+                                          getErrorLog(), false, getLine(), getColumn());
     if (!mIsSetConstant)
     {
       logError(AllowedAttributesOnParameter, level, version);

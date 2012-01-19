@@ -619,7 +619,7 @@ void ReactionGlyph::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("reaction", mReaction);
+  bool assigned = attributes.readInto("reaction", mReaction, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mReaction.empty())
   {
     logEmptyString(mReaction, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");

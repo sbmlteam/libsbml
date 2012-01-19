@@ -250,6 +250,20 @@ SBasePlugin::getVersion() const
 }
 
 
+unsigned int 
+SBasePlugin::getLine() const
+{
+  if (mParent == NULL) return 0;
+  return mParent->getLine();
+}
+
+unsigned int 
+SBasePlugin::getColumn() const
+{
+  if (mParent == NULL) return 0;
+  return mParent->getColumn();
+}
+
 /*
  * Returns the package version of this plugin object.
  *

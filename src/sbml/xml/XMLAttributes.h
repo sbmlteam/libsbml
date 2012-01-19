@@ -512,6 +512,8 @@ public:
    * @param value a boolean, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -525,7 +527,9 @@ public:
   bool readInto (  const std::string&  name
                  , bool&               value
                  , XMLErrorLog*        log      = NULL
-                 , bool                required = false ) const;
+                 , bool                required = false 
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -545,6 +549,8 @@ public:
    * @param value a boolean, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -553,7 +559,9 @@ public:
   bool readInto (  const XMLTriple& triple
                  , bool&        value
                  , XMLErrorLog* log      = NULL
-                 , bool         required = false ) const;
+                 , bool         required = false 
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
 
@@ -574,6 +582,8 @@ public:
    * @param value a double, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -587,7 +597,9 @@ public:
   bool readInto (  const std::string&  name
                  , double&             value
                  , XMLErrorLog*        log      = NULL
-                 , bool                required = false ) const;
+                 , bool                required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -607,6 +619,8 @@ public:
    * @param value a double, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -615,7 +629,9 @@ public:
   bool readInto (  const XMLTriple&  triple
                  , double&           value
                  , XMLErrorLog*      log      = NULL
-                 , bool              required = false ) const;
+                 , bool              required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -635,6 +651,8 @@ public:
    * @param value a long, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -648,7 +666,9 @@ public:
   bool readInto (  const std::string&  name
                  , long&               value
                  , XMLErrorLog*        log      = NULL
-                 , bool                required = false ) const;
+                 , bool                required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -668,6 +688,8 @@ public:
    * @param value a long, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -676,7 +698,9 @@ public:
   bool readInto (  const XMLTriple& triple
                  , long&            value
                  , XMLErrorLog*     log      = NULL
-                 , bool             required = false ) const;
+                 , bool             required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -696,6 +720,8 @@ public:
    * @param value an integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -709,7 +735,9 @@ public:
   bool readInto (  const std::string&  name
                  , int&                value
                  , XMLErrorLog*        log      = NULL
-                 , bool                required = false ) const;
+                 , bool                required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -729,6 +757,8 @@ public:
    * @param value an integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -737,7 +767,9 @@ public:
   bool readInto (  const XMLTriple& triple
                  , int&             value
                  , XMLErrorLog*     log      = NULL
-                 , bool             required = false ) const;
+                 , bool             required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -757,6 +789,8 @@ public:
    * @param value an unsigned integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -770,7 +804,9 @@ public:
   bool readInto (  const std::string&  name
                  , unsigned int&       value
                  , XMLErrorLog*        log      = NULL
-                 , bool                required = false ) const;
+                 , bool                required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -790,6 +826,8 @@ public:
    * @param value an unsigned integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -798,7 +836,9 @@ public:
   bool readInto (  const XMLTriple& triple
                  , unsigned int&    value
                  , XMLErrorLog*     log      = NULL
-                 , bool             required = false ) const;
+                 , bool             required = false 
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -812,6 +852,8 @@ public:
    * @param value a string, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -825,7 +867,9 @@ public:
   bool readInto (  const std::string&  name
                  , std::string&        value
                  , XMLErrorLog*        log      = NULL
-                 , bool                required = false ) const;
+                 , bool                required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -839,6 +883,8 @@ public:
    * @param value a string, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    *
@@ -847,7 +893,9 @@ public:
   bool readInto (  const XMLTriple& triple
                  , std::string&     value
                  , XMLErrorLog*     log       = NULL
-                 , bool              required = false ) const;
+                 , bool              required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /** @cond doxygen-libsbml-internal */
@@ -913,10 +961,14 @@ protected:
    * @param name  name of the attribute
    * @param type  the datatype of the attribute value.
    * @param log   the XMLErrorLog where the error should be logged
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    */
   void attributeTypeError (  const std::string& name
 			   , DataType           type
-			   , XMLErrorLog*       log ) const;
+			   , XMLErrorLog*       log
+         , const unsigned int line     = 0
+         , const unsigned int column   = 0) const;
 
 
   /**
@@ -925,8 +977,13 @@ protected:
    * 
    * @param name  name of the attribute
    * @param log   the XMLErrorLog where the error should be logged
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    */
-  void attributeRequiredError ( const std::string& name, XMLErrorLog* log ) const;
+  void attributeRequiredError ( const std::string& name
+        , XMLErrorLog* log 
+        , const unsigned int line     = 0
+        , const unsigned int column   = 0) const;
 
 
   /**
@@ -948,14 +1005,18 @@ protected:
    * @param value a boolean, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , bool&        value
                  , XMLErrorLog* log      = NULL
-                 , bool         required = false ) const;
+                 , bool         required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -977,14 +1038,18 @@ protected:
    * @param value a double, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , double&      value
                  , XMLErrorLog*  log      = NULL
-                 , bool          required = false ) const;
+                 , bool          required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -1006,14 +1071,18 @@ protected:
    * @param value a long, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , long&         value
                  , XMLErrorLog*  log      = NULL
-                 , bool          required = false ) const;
+                 , bool          required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -1035,14 +1104,18 @@ protected:
    * @param value an integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , int&         value
                  , XMLErrorLog*  log      = NULL
-                 , bool          required = false ) const;
+                 , bool          required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -1064,14 +1137,18 @@ protected:
    * @param value an unsigned integer, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int           index
-	         , const std::string&  name
+                 , const std::string&  name
                  , unsigned int& value
                  , XMLErrorLog*  log      = NULL
-                 , bool          required = false ) const;
+                 , bool          required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
   /**
@@ -1087,14 +1164,18 @@ protected:
    * @param value a string, the value of the attribute.
    * @param log an XMLErrorLog, the error log.
    * @param required a boolean, indicating whether the attribute is required.
+   * @param line an unsigned int, the line number at which the error occured.
+   * @param column an unsigned int, the column number at which the error occured.
    *
    * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  int          index
-	         , const std::string&  name
+                 , const std::string&  name
                  , std::string& value
                  , XMLErrorLog* log      = NULL
-                 , bool         required = false ) const;
+                 , bool         required = false
+                 , const unsigned int line     = 0
+                 , const unsigned int column   = 0) const;
 
 
 

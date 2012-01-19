@@ -4201,7 +4201,7 @@ SBase::readAttributes (const XMLAttributes& attributes,
 
   if (level > 1)
   {
-    bool assigned = attributes.readInto("metaid", mMetaId);
+    bool assigned = attributes.readInto("metaid", mMetaId, getErrorLog(), false, getLine(), getColumn());
   
     if (assigned && mMetaId.empty())
     {

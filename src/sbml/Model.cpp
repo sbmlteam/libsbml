@@ -4170,7 +4170,7 @@ Model::readL1Attributes (const XMLAttributes& attributes)
   // name: SName  { use="optional" }  (L1v1, L1v2)
   //   id: SId    { use="optional" }  (L2v1 -> )
   //
-  bool assigned = attributes.readInto("name", mId, getErrorLog(), false);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("name", level, version, "<model>");
@@ -4196,7 +4196,7 @@ Model::readL2Attributes (const XMLAttributes& attributes)
   //
   //   id: SId    { use="optional" }  (L2v1 -> )
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<model>");
@@ -4206,7 +4206,7 @@ Model::readL2Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -4234,7 +4234,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId    { use="optional" }  (L2v1 -> )
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<model>");
@@ -4245,12 +4245,12 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // substanceUnits: string  { use="optional" }  (L3v1 ->)
   //
-  assigned = attributes.readInto("substanceUnits", mSubstanceUnits);
+  assigned = attributes.readInto("substanceUnits", mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSubstanceUnits.size() == 0)
   {
     logEmptyString("substanceUnits", level, version, "<model>");
@@ -4263,7 +4263,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // timeUnits: string  { use="optional" }  (L3v1 ->)
   //
-  assigned = attributes.readInto("timeUnits", mTimeUnits);
+  assigned = attributes.readInto("timeUnits", mTimeUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mTimeUnits.size() == 0)
   {
     logEmptyString("timeUnits", level, version, "<model>");
@@ -4276,7 +4276,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // volumeUnits: string  { use="optional" }  (L3v1 ->)
   //
-  assigned = attributes.readInto("volumeUnits", mVolumeUnits);
+  assigned = attributes.readInto("volumeUnits", mVolumeUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mVolumeUnits.size() == 0)
   {
     logEmptyString("volumeUnits", level, version, "<model>");
@@ -4289,7 +4289,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // areaUnits: string  { use="optional" }  (L3v1 ->)
   //
-  assigned = attributes.readInto("areaUnits", mAreaUnits);
+  assigned = attributes.readInto("areaUnits", mAreaUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mAreaUnits.size() == 0)
   {
     logEmptyString("areaUnits", level, version, "<model>");
@@ -4302,7 +4302,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // lengthUnits: string  { use="optional" }  (L3v1 ->)
   //
-  assigned = attributes.readInto("lengthUnits", mLengthUnits);
+  assigned = attributes.readInto("lengthUnits", mLengthUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mLengthUnits.size() == 0)
   {
     logEmptyString("lengthUnits", level, version, "<model>");
@@ -4315,7 +4315,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // extentUnits: string  { use="optional" }  (L3v1 ->)
   //
-  assigned = attributes.readInto("extentUnits", mExtentUnits);
+  assigned = attributes.readInto("extentUnits", mExtentUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mExtentUnits.size() == 0)
   {
     logEmptyString("extentUnits", level, version, "<model>");
@@ -4328,7 +4328,7 @@ Model::readL3Attributes (const XMLAttributes& attributes)
   //
   // conversionFactor: string  { use="optional" }  (L3v1 ->)
   //
-  attributes.readInto("conversionFactor", mConversionFactor);
+  attributes.readInto("conversionFactor", mConversionFactor, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 

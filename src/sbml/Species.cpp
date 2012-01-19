@@ -1331,7 +1331,7 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //
-  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("name", level, version, "<species>");
@@ -1341,18 +1341,18 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
   //
-  attributes.readInto("compartment", mCompartment, getErrorLog(), true);
+  attributes.readInto("compartment", mCompartment, getErrorLog(), true, getLine(), getColumn());
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
   //
   mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount,
-                                                  getErrorLog(), true);
+                                                  getErrorLog(), true, getLine(), getColumn());
 
   //
   //          units: SName  { use="optional" }  (L1v1, L1v2)
   //
-  assigned = attributes.readInto("units", mSubstanceUnits);
+  assigned = attributes.readInto("units", mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSubstanceUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<species>");
@@ -1367,12 +1367,12 @@ Species::readL1Attributes (const XMLAttributes& attributes)
   // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
   //
   mExplicitlySetBoundaryCondition = 
-                 attributes.readInto("boundaryCondition", mBoundaryCondition);
+                 attributes.readInto("boundaryCondition", mBoundaryCondition, getErrorLog(), false, getLine(), getColumn());
 
   //
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  mIsSetCharge = attributes.readInto("charge", mCharge);
+  mIsSetCharge = attributes.readInto("charge", mCharge, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -1391,7 +1391,7 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<species>");
@@ -1401,17 +1401,17 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   //
   // compartment: SId    { use="required" }  (L2v1->)
   //
-  attributes.readInto("compartment", mCompartment, getErrorLog(), true);
+  attributes.readInto("compartment", mCompartment, getErrorLog(), true, getLine(), getColumn());
 
   //
   // initialAmount: double  { use="optional" }  (L2v1->)
   //
-  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount, getErrorLog(), false, getLine(), getColumn());
 
   //
   // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
-  assigned = attributes.readInto("substanceUnits", mSubstanceUnits);
+  assigned = attributes.readInto("substanceUnits", mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSubstanceUnits.size() == 0)
   {
     logEmptyString("substanceUnits", level, version, "<species>");
@@ -1426,39 +1426,39 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   // { use="optional" default="false" }  (L1v1, L1v2, L2v1->)
   //
   mExplicitlySetBoundaryCondition = 
-             attributes.readInto("boundaryCondition", mBoundaryCondition);
+             attributes.readInto("boundaryCondition", mBoundaryCondition, getErrorLog(), false, getLine(), getColumn());
 
   //
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
   // charge: integer  { use="optional" }  deprecated (L2v2)
   //
-  mIsSetCharge = attributes.readInto("charge", mCharge);
+  mIsSetCharge = attributes.readInto("charge", mCharge, getErrorLog(), false, getLine(), getColumn());
 
   //
   // name: string  { use="optional" }  (L2v1->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // speciesType: SId  { use="optional" }  (L2v2-> L2v4)
   //
   if (version > 1)
   {
-    attributes.readInto("speciesType", mSpeciesType);
+    attributes.readInto("speciesType", mSpeciesType, getErrorLog(), false, getLine(), getColumn());
   }
 
   //
   // initialConcentration: double  { use="optional" }  (L2v1->)
   //
   mIsSetInitialConcentration =
-      attributes.readInto("initialConcentration", mInitialConcentration);
+      attributes.readInto("initialConcentration", mInitialConcentration, getErrorLog(),false, getLine(), getColumn());
 
   //
   // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
   //
   if (version < 3)
   {
-    assigned = attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+    assigned = attributes.readInto("spatialSizeUnits", mSpatialSizeUnits, getErrorLog(), false, getLine(), getColumn());
     if (assigned && mSpatialSizeUnits.size() == 0)
     {
       logEmptyString("spatialSizeUnits", level, version, "<species>");
@@ -1474,12 +1474,12 @@ Species::readL2Attributes (const XMLAttributes& attributes)
   // { use="optional" default="false" }  (L2v1->)
   //
   mExplicitlySetHasOnlySubsUnits = 
-    attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
+    attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits, getErrorLog(), false, getLine(), getColumn());
 
   //
   // constant: boolean  { use="optional" default="false" }  (L2v1->)
   //
-  mExplicitlySetConstant = attributes.readInto("constant", mConstant);
+  mExplicitlySetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -1499,7 +1499,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnSpecies, level, version);
@@ -1513,7 +1513,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // compartment: SId    { use="required" }  (L2v1->)
   //
-  assigned = attributes.readInto("compartment", mCompartment, getErrorLog());
+  assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(MissingSpeciesCompartment, level, version);
@@ -1522,13 +1522,13 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // initialAmount: double  { use="optional" }  (L2v1->)
   //
-  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount, getErrorLog(), false, getLine(), getColumn());
 
   //
   // substanceUntis: SId    { use="optional" }  (L2v1->)
   //
   const string units = (level == 1) ? "units" : "substanceUnits";
-  assigned = attributes.readInto(units, mSubstanceUnits);
+  assigned = attributes.readInto(units, mSubstanceUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSubstanceUnits.size() == 0)
   {
     logEmptyString("substanceUnits", level, version, "<species>");
@@ -1543,7 +1543,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   // { use="required" }  (L3v1->)
   //
   mIsSetBoundaryCondition = attributes.readInto("boundaryCondition", 
-                               mBoundaryCondition, getErrorLog());
+                               mBoundaryCondition, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetBoundaryCondition)
   {
     logError(AllowedAttributesOnSpecies, level, version);
@@ -1552,20 +1552,20 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // initialConcentration: double  { use="optional" }  (L2v1->)
   //
   mIsSetInitialConcentration =
-        attributes.readInto("initialConcentration", mInitialConcentration);
+        attributes.readInto("initialConcentration", mInitialConcentration, getErrorLog(), false, getLine(), getColumn());
 
   //
   // hasOnlySubstanceUnits: boolean
   // { use="required" } (L3v1 -> )
   mIsSetHasOnlySubstanceUnits = attributes.readInto(
                          "hasOnlySubstanceUnits", mHasOnlySubstanceUnits,
-                          getErrorLog());
+                          getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetHasOnlySubstanceUnits)
   {
     logError(AllowedAttributesOnSpecies, level, version);
@@ -1574,7 +1574,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // constant: boolean  { use="required" }  (L3v1->)
   //
-  mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog());
+  mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnSpecies, level, version);
@@ -1583,7 +1583,7 @@ Species::readL3Attributes (const XMLAttributes& attributes)
   //
   // conversionFactor: SIdRef {use="optional" } (L3v1 ->)
   //
-  assigned = attributes.readInto("conversionFactor", mConversionFactor);
+  assigned = attributes.readInto("conversionFactor", mConversionFactor, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mConversionFactor.size() == 0)
   {
     logEmptyString("conversionFactor", level, version, "<species>");

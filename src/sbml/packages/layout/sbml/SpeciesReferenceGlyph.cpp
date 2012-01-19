@@ -534,14 +534,14 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("speciesReference", mSpeciesReference);
+  bool assigned = attributes.readInto("speciesReference", mSpeciesReference, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSpeciesReference.empty())
   {
     logEmptyString(mSpeciesReference, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
   }
   if (!SyntaxChecker::isValidInternalSId(mSpeciesReference)) logError(InvalidIdSyntax);
 
-  assigned = attributes.readInto("speciesGlyph", mSpeciesGlyph);
+  assigned = attributes.readInto("speciesGlyph", mSpeciesGlyph, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSpeciesGlyph.empty())
   {
     logEmptyString(mSpeciesGlyph, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
@@ -549,7 +549,7 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes,
   if (!SyntaxChecker::isValidInternalSId(mSpeciesGlyph)) logError(InvalidIdSyntax);  
   
   std::string role;
-  if(attributes.readInto("role", role))
+  if(attributes.readInto("role", role, getErrorLog(), false, getLine(), getColumn()))
   {
     this->setRole(role);
   }

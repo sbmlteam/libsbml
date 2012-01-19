@@ -456,7 +456,7 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString(mId, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");

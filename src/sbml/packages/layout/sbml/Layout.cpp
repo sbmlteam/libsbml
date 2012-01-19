@@ -1312,7 +1312,7 @@ Layout::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.empty())
   {
     logEmptyString(mId, sbmlLevel, sbmlVersion, "<layout>");

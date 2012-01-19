@@ -315,7 +315,7 @@ void SpeciesGlyph::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("species", mSpecies);
+  bool assigned = attributes.readInto("species", mSpecies, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mSpecies.empty())
   {
     logEmptyString(mSpecies, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");

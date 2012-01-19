@@ -690,7 +690,7 @@ FunctionDefinition::readL2Attributes (const XMLAttributes& attributes)
   // id: SId  { use="required" }  (L2v1 ->)
   //
   bool assigned;
-  assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<functionDefinition>");
@@ -700,7 +700,7 @@ FunctionDefinition::readL2Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2 ->)
@@ -729,7 +729,7 @@ FunctionDefinition::readL3Attributes (const XMLAttributes& attributes)
   // id: SId  { use="required" }  (L2v1 ->)
   //
   bool assigned;
-  assigned = attributes.readInto("id", mId, getErrorLog());
+  assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnFunc, level, version);
@@ -743,7 +743,7 @@ FunctionDefinition::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
 }
 /** @endcond */

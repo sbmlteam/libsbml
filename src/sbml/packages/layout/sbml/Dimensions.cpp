@@ -447,20 +447,20 @@ void Dimensions::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("id", mId);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.empty())
   {
     logEmptyString(mId, sbmlLevel, sbmlVersion, "<dimension>");
   }
   if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
-  attributes.readInto(std::string("width"),  mW, getErrorLog(),true);
-  attributes.readInto(std::string("height"), mH, getErrorLog(),true);
+  attributes.readInto(std::string("width"),  mW, getErrorLog(),true, getLine(), getColumn());
+  attributes.readInto(std::string("height"), mH, getErrorLog(),true, getLine(), getColumn());
 
   //
   // (TODO) default value should be allowd in package of Level 3?
   //
-  if(!attributes.readInto("depth", mD))
+  if(!attributes.readInto("depth", mD, getErrorLog(), false, getLine(), getColumn()))
   {
       this->mD=0.0;
   }

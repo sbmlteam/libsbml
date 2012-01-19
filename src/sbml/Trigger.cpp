@@ -563,7 +563,7 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
   // initailValue { use="required"}  (L3v1 ->)
   //
   mIsSetInitialValue = attributes.readInto("initialValue", 
-                        mInitialValue, getErrorLog());
+                        mInitialValue, getErrorLog(), false, getLine(), getColumn());
 
   if (!mIsSetInitialValue)
   {
@@ -574,7 +574,7 @@ Trigger::readL3Attributes (const XMLAttributes& attributes)
   // persistent { use="required"}  (L3v1 ->)
   //
   mIsSetPersistent = attributes.readInto("persistent", 
-                        mPersistent, getErrorLog());
+                        mPersistent, getErrorLog(), false, getLine(), getColumn());
 
   if (!mIsSetPersistent)
   {

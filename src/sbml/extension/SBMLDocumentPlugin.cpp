@@ -136,7 +136,7 @@ SBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   if ( mSBMLExt->getLevel(mURI) > 2)
   {    
     XMLTriple tripleRequired("required", mURI, mPrefix);
-    attributes.readInto(tripleRequired, mRequired, getErrorLog(), true);
+    attributes.readInto(tripleRequired, mRequired, getErrorLog(), true, getLine(), getColumn());
   }
 }
 

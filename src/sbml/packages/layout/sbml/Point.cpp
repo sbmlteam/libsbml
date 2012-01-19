@@ -521,16 +521,16 @@ void Point::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("id", mId);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.empty())
     {
       logEmptyString(mId, sbmlLevel, sbmlVersion, "<point>");
     }
   if (!SyntaxChecker::isValidInternalSId(mId)) logError(InvalidIdSyntax);
 
-  attributes.readInto("x", mXOffset,getErrorLog(),true);
-  attributes.readInto("y", mYOffset,getErrorLog(),true);
-  if(!attributes.readInto("z", mZOffset))
+  attributes.readInto("x", mXOffset,getErrorLog(),true, getLine(), getColumn());
+  attributes.readInto("y", mYOffset,getErrorLog(),true, getLine(), getColumn());
+  if(!attributes.readInto("z", mZOffset, getErrorLog(), false, getLine(), getColumn()))
   {
       this->mZOffset=0.0;
   }

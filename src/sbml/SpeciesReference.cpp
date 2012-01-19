@@ -920,7 +920,7 @@ SpeciesReference::readL1Attributes (const XMLAttributes& attributes)
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
-  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
+  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetStoichiometry)
   {
     //  
@@ -937,7 +937,7 @@ SpeciesReference::readL1Attributes (const XMLAttributes& attributes)
   //
   // denominator: integer  { use="optional" default="1" }  (L1v1, L1v2)
   //
-  mExplicitlySetDenominator = attributes.readInto("denominator", mDenominator);
+  mExplicitlySetDenominator = attributes.readInto("denominator", mDenominator,getErrorLog(), false, getLine(), getColumn());
 
 }
 /** @endcond */
@@ -954,7 +954,7 @@ SpeciesReference::readL2Attributes (const XMLAttributes& attributes)
 {
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
-  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
+  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry, getErrorLog(), false, getLine(), getColumn());
   mExplicitlySetStoichiometry = mIsSetStoichiometry;
 }
 /** @endcond */
@@ -974,12 +974,12 @@ SpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   //
   // stoichiometry: double   { use="optional" default="1" }  (L2v1->)
   //
-  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry);
+  mIsSetStoichiometry = attributes.readInto("stoichiometry", mStoichiometry, getErrorLog(), false, getLine(), getColumn());
 
   //
   // constant: bool { use="required" } (L3v1 -> )
   //
-  mIsSetConstant = attributes.readInto("constant", mConstant);
+  mIsSetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetConstant && !isModifier())
   {
     logError(AllowedAttributesOnSpeciesReference, level, version);

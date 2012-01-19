@@ -1092,7 +1092,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //
-  bool assigned = attributes.readInto("name", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("name", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("name", level, version, "<compartment>");
@@ -1102,12 +1102,12 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
   //
-  mIsSetSize = attributes.readInto("volume", mSize, getErrorLog(), false);
+  mIsSetSize = attributes.readInto("volume", mSize, getErrorLog(), false, getLine(), getColumn());
 
   //
   // units  { use="optional" }  (L1v1 ->)
   //
-  assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<compartment>");
@@ -1120,7 +1120,7 @@ Compartment::readL1Attributes (const XMLAttributes& attributes)
   //
   // outside  { use="optional" }  (L1v1 -> L2v4)
   //
-  attributes.readInto("outside", mOutside, getErrorLog(), false);
+  attributes.readInto("outside", mOutside, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -1140,7 +1140,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<compartment>");
@@ -1150,12 +1150,12 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   //
   // size    { use="optional" }              (L2v1 ->)
   //
-  mIsSetSize = attributes.readInto("size", mSize, getErrorLog(), false);
+  mIsSetSize = attributes.readInto("size", mSize, getErrorLog(), false, getLine(), getColumn());
 
   //
   // units  { use="optional" }  (L1v1 ->)
   //
-  assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<compartment>");
@@ -1168,18 +1168,18 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   //
   // outside  { use="optional" }  (L1v1 -> L2v4)
   //
-  attributes.readInto("outside", mOutside, getErrorLog(), false);
+  attributes.readInto("outside", mOutside, getErrorLog(), false, getLine(), getColumn());
 
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName, getErrorLog(), false);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
   
   //
   // spatialDimensions { maxInclusive="3" minInclusive="0" use="optional"
   //                     default="3" }  (L2v1 ->)
   mExplicitlySetSpatialDimensions = attributes.readInto("spatialDimensions", 
-                                    mSpatialDimensions, getErrorLog(), false);
+                                    mSpatialDimensions, getErrorLog(), false, getLine(), getColumn());
   if (mSpatialDimensions < 0 || mSpatialDimensions > 3)
   {
     std::string message = "The spatialDimensions attribute on ";
@@ -1197,7 +1197,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   //
   // constant  { use="optional" default="true" }  (L2v1 ->)
   //
-  mExplicitlySetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false);
+  mExplicitlySetConstant = attributes.readInto("constant", mConstant, getErrorLog(), false, getLine(), getColumn());
 
   //
   // compartmentType: SId  { use="optional" }  (L2v2 -> L2v4)
@@ -1205,7 +1205,7 @@ Compartment::readL2Attributes (const XMLAttributes& attributes)
   if (version != 1)
   {
     attributes.readInto("compartmentType", mCompartmentType, 
-                                        getErrorLog(), false);
+                                        getErrorLog(), false, getLine(), getColumn());
   }
 }
 /** @endcond */
@@ -1226,7 +1226,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   //   id: SId     { use="required" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog());
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnCompartment, level, version);
@@ -1240,12 +1240,12 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   // size    { use="optional" }              (L2v1 ->)
   //
-  mIsSetSize = attributes.readInto("size", mSize, getErrorLog(), false);
+  mIsSetSize = attributes.readInto("size", mSize, getErrorLog(), false, getLine(), getColumn());
 
   //
   // units  { use="optional" }  (L1v1 ->)
   //
-  assigned = attributes.readInto("units", mUnits, getErrorLog(), false);
+  assigned = attributes.readInto("units", mUnits, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mUnits.size() == 0)
   {
     logEmptyString("units", level, version, "<compartment>");
@@ -1259,13 +1259,13 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName, getErrorLog(), false);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
    
   //
   // spatialDimensions { use="optional"}  (L3v1 ->)
   //
   mIsSetSpatialDimensions = attributes.readInto("spatialDimensions", 
-                        mSpatialDimensionsDouble, getErrorLog(), false);
+                        mSpatialDimensionsDouble, getErrorLog(), false, getLine(), getColumn());
   
   // keep integer value as record if spatial dimensions is 0, 1, 2, 3 
   if (mIsSetSpatialDimensions == true)
@@ -1277,7 +1277,7 @@ Compartment::readL3Attributes (const XMLAttributes& attributes)
   // constant  { use="required" }  (L3v1 ->)
   //
   mIsSetConstant = attributes.readInto("constant", mConstant, 
-                                          getErrorLog());
+                                          getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetConstant)
   {
     logError(AllowedAttributesOnCompartment, level, version);

@@ -1483,7 +1483,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   //
   // id: SId  { use="optional" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), false);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<event>");
@@ -1493,7 +1493,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
@@ -1501,7 +1501,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   //
   if (version < 3)
   {
-    assigned = attributes.readInto("timeUnits", mTimeUnits);
+    assigned = attributes.readInto("timeUnits", mTimeUnits, getErrorLog(), false, getLine(), getColumn());
     if (assigned && mTimeUnits.size() == 0)
     {
       logEmptyString("timeUnits", level, version, "<event>");
@@ -1526,7 +1526,7 @@ Event::readL2Attributes (const XMLAttributes& attributes)
   if (version  == 4)
   {
     mExplicitlySetUVFTT = attributes.readInto("useValuesFromTriggerTime", 
-                                                mUseValuesFromTriggerTime);
+                                                mUseValuesFromTriggerTime, getErrorLog(), false, getLine(), getColumn());
   }
 }
 
@@ -1548,7 +1548,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   //
   // id: SId  { use="optional" }  (L2v1 ->)
   //
-  bool assigned = attributes.readInto("id", mId);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<event>");
@@ -1558,7 +1558,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 
   //
   //
@@ -1566,7 +1566,7 @@ Event::readL3Attributes (const XMLAttributes& attributes)
   //
   mIsSetUseValuesFromTriggerTime = attributes.readInto(
       "useValuesFromTriggerTime", mUseValuesFromTriggerTime, 
-       getErrorLog());
+       getErrorLog(),false, getLine(), getColumn());
  
   if (!mIsSetUseValuesFromTriggerTime)
   {

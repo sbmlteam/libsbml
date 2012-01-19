@@ -1184,14 +1184,14 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
   // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
   //
-  bool levelRead = attributes.readInto("level", mLevel, getErrorLog(), false);
+  bool levelRead = attributes.readInto("level", mLevel, getErrorLog(), false, getLine(), getColumn());
 
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
   // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
-  bool versionRead = attributes.readInto("version", mVersion, getErrorLog(), false);
+  bool versionRead = attributes.readInto("version", mVersion, getErrorLog(), false, getLine(), getColumn());
 
   // 
   // (EXTENSION)  SBMLDocument specific code
@@ -1447,7 +1447,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes,
 //       if (sbmlext && sbmlext->isEnabled())
 //       {
 //         XMLTriple triple("required", uri, prefix);
-//         attributes.readInto(triple, reqd, getErrorLog(), true);
+//         attributes.readInto(triple, reqd, getErrorLog(), true, getLine(), getColumn());
 //         mPkgRequiredMap.insert(pair<string,bool>(uri,reqd));
 //         cout << "[DEBUG] SBMLDocument::readAttributes" << uri << endl;
 //       }

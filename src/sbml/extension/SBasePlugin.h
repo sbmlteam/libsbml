@@ -637,7 +637,59 @@ public:
   virtual int prependStringToAllIdentifiers(const std::string& prefix);
   /** @endcond */
   
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Returns the line number on which this object first appears in the XML
+   * representation of the SBML document.
+   * 
+   * @return the line number of the underlying SBML object.
+   *
+   * @note The line number for each construct in an SBML model is set upon
+   * reading the model.  The accuracy of the line number depends on the
+   * correctness of the XML representation of the model, and on the
+   * particular XML parser library being used.  The former limitation
+   * relates to the following problem: if the model is actually invalid
+   * XML, then the parser may not be able to interpret the data correctly
+   * and consequently may not be able to establish the real line number.
+   * The latter limitation is simply that different parsers seem to have
+   * their own accuracy limitations, and out of all the parsers supported
+   * by libSBML, none have been 100% accurate in all situations. (At this
+   * time, libSBML supports the use of <a target="_blank"
+   * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
+   * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
+   * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
+   *
+   * @see getColumn()
+   */
+  unsigned int getLine() const;
+  /** @endcond */
 
+  /** @cond doxygen-libsbml-internal */
+  /**
+   * Returns the column number on which this object first appears in the XML
+   * representation of the SBML document.
+   * 
+   * @return the column number of the underlying SBML object.
+   * 
+   * @note The column number for each construct in an SBML model is set
+   * upon reading the model.  The accuracy of the column number depends on
+   * the correctness of the XML representation of the model, and on the
+   * particular XML parser library being used.  The former limitation
+   * relates to the following problem: if the model is actually invalid
+   * XML, then the parser may not be able to interpret the data correctly
+   * and consequently may not be able to establish the real column number.
+   * The latter limitation is simply that different parsers seem to have
+   * their own accuracy limitations, and out of all the parsers supported
+   * by libSBML, none have been 100% accurate in all situations. (At this
+   * time, libSBML supports the use of <a target="_blank"
+   * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
+   * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
+   * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
+   * 
+   * @see getLine()
+   */
+  unsigned int getColumn() const;
+  /** @endcond */
 
 protected:
   /** @cond doxygen-libsbml-internal */

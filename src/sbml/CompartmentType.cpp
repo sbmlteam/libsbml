@@ -407,7 +407,7 @@ CompartmentType::readL2Attributes (const XMLAttributes& attributes)
   //
   // id: SId  { use="required" }  (L2v2 ->)
   //
-  bool assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  bool assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<compartmentType>");
@@ -417,7 +417,7 @@ CompartmentType::readL2Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v2 ->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 

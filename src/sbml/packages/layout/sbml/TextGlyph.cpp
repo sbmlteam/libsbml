@@ -393,21 +393,21 @@ void TextGlyph::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("graphicalObject", mGraphicalObject);
+  bool assigned = attributes.readInto("graphicalObject", mGraphicalObject, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mGraphicalObject.empty())
   {
     logEmptyString(mGraphicalObject, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
   }
   if (!SyntaxChecker::isValidInternalSId(mGraphicalObject)) logError(InvalidIdSyntax);
 
-  assigned = attributes.readInto("originOfText", mOriginOfText);
+  assigned = attributes.readInto("originOfText", mOriginOfText, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mOriginOfText.empty())
   {
     logEmptyString(mOriginOfText, sbmlLevel, sbmlVersion, "<" + getElementName() + ">");
   }
   if (!SyntaxChecker::isValidInternalSId(mOriginOfText)) logError(InvalidIdSyntax);  
 
-  attributes.readInto("text", mText);
+  attributes.readInto("text", mText, getErrorLog(), false, getLine(), getColumn());
 }
 
 /**

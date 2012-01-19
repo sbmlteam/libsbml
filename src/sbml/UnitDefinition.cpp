@@ -1423,7 +1423,7 @@ UnitDefinition::readL1Attributes (const XMLAttributes& attributes)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   bool assigned;
-  assigned = attributes.readInto("name", mId, getErrorLog(), true);
+  assigned = attributes.readInto("name", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("name", level, version, "<unitDefinition>");
@@ -1449,7 +1449,7 @@ UnitDefinition::readL2Attributes (const XMLAttributes& attributes)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   bool assigned;
-  assigned = attributes.readInto("id", mId, getErrorLog(), true);
+  assigned = attributes.readInto("id", mId, getErrorLog(), true, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<unitDefinition>");
@@ -1459,7 +1459,7 @@ UnitDefinition::readL2Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -1480,7 +1480,7 @@ UnitDefinition::readL3Attributes (const XMLAttributes& attributes)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   bool assigned;
-  assigned = attributes.readInto("id", mId);
+  assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     logError(AllowedAttributesOnUnitDefinition, level, version);
@@ -1494,7 +1494,7 @@ UnitDefinition::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v1->)
   //
-  attributes.readInto("name", mName);
+  attributes.readInto("name", mName, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 

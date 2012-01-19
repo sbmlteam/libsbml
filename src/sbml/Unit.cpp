@@ -1710,7 +1710,7 @@ Unit::readL1Attributes (const XMLAttributes& attributes)
   //
   string kind;
 
-  if ( attributes.readInto("kind", kind, getErrorLog(), true) )
+  if ( attributes.readInto("kind", kind, getErrorLog(), true, getLine(), getColumn()) )
   {
     mKind = UnitKind_forName( kind.c_str() );
     if (mKind == UNIT_KIND_CELSIUS)
@@ -1728,7 +1728,7 @@ Unit::readL1Attributes (const XMLAttributes& attributes)
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
   // exponent  { use="required" }  (L3v1 ->)
   //
-  if (attributes.readInto("exponent", mExponent, getErrorLog()))
+  if (attributes.readInto("exponent", mExponent, getErrorLog(), false, getLine(), getColumn()))
   {
     mExponentDouble = (double)(mExponent);
     mIsSetExponent = true;
@@ -1741,7 +1741,7 @@ Unit::readL1Attributes (const XMLAttributes& attributes)
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
   // scale  { use="required" }  (L3v1->)
   //
-  mExplicitlySetScale = attributes.readInto("scale", mScale, getErrorLog());
+  mExplicitlySetScale = attributes.readInto("scale", mScale, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -1762,7 +1762,7 @@ Unit::readL2Attributes (const XMLAttributes& attributes)
   // kind: UnitKind  (L1v1, L1v2, L2v1->)
   //
   string kind;
-  if ( attributes.readInto("kind", kind, getErrorLog(), true) )
+  if ( attributes.readInto("kind", kind, getErrorLog(), true, getLine(), getColumn()) )
   {
     mKind = UnitKind_forName( kind.c_str() );
     if (mKind == UNIT_KIND_CELSIUS)
@@ -1780,7 +1780,7 @@ Unit::readL2Attributes (const XMLAttributes& attributes)
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1->)
   // exponent  { use="required" }  (L3v1 ->)
   //
-  if (attributes.readInto("exponent", mExponent, getErrorLog()))
+  if (attributes.readInto("exponent", mExponent, getErrorLog(), false, getLine(), getColumn()))
   {
     mExponentDouble = (double)(mExponent);
     mIsSetExponent = true;
@@ -1791,19 +1791,19 @@ Unit::readL2Attributes (const XMLAttributes& attributes)
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1->)
   // scale  { use="required" }  (L3v1->)
   //
-  mExplicitlySetScale = attributes.readInto("scale", mScale, getErrorLog());
+  mExplicitlySetScale = attributes.readInto("scale", mScale, getErrorLog(), false, getLine(), getColumn());
 
   //
   // multiplier  { use="optional" default="1" }  (L2v1-> )
   // multiplier  { use="required" }  (L3v1-> )
   //
-  mExplicitlySetMultiplier = attributes.readInto("multiplier", mMultiplier, getErrorLog());
+  mExplicitlySetMultiplier = attributes.readInto("multiplier", mMultiplier, getErrorLog(), false, getLine(), getColumn());
 
   //
   // offset  { use="optional" default="0" }  (L2v1)
   //
   if (version == 1)
-    mExplicitlySetOffset = attributes.readInto("offset", mOffset, getErrorLog());
+    mExplicitlySetOffset = attributes.readInto("offset", mOffset, getErrorLog(), false, getLine(), getColumn());
 }
 /** @endcond */
 
@@ -1825,7 +1825,7 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   //
   string kind;
   bool assigned;
-  assigned = attributes.readInto("kind", kind, getErrorLog());
+  assigned = attributes.readInto("kind", kind, getErrorLog(), false, getLine(), getColumn());
   if ( assigned)
   {
     mKind = UnitKind_forName( kind.c_str() );
@@ -1848,7 +1848,7 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   // exponent  { use="required" }  (L3v1 ->)
   //
   mIsSetExponent = attributes.readInto("exponent", mExponentDouble, 
-                                        getErrorLog());
+                                        getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetExponent)
   {
     logError(AllowedAttributesOnUnit, level, version);
@@ -1857,7 +1857,7 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   //
   // scale  { use="required" }  (L3v1->)
   //
-  mIsSetScale = attributes.readInto("scale", mScale, getErrorLog());
+  mIsSetScale = attributes.readInto("scale", mScale, getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetScale)
   {
     logError(AllowedAttributesOnUnit, level, version);
@@ -1867,7 +1867,7 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   // multiplier  { use="required" }  (L3v1-> )
   //
   mIsSetMultiplier = attributes.readInto("multiplier", mMultiplier, 
-                                          getErrorLog());
+                                          getErrorLog(), false, getLine(), getColumn());
   if (!mIsSetMultiplier)
   {
     logError(AllowedAttributesOnUnit, level, version);

@@ -464,7 +464,7 @@ SimpleSpeciesReference::readL1Attributes (const XMLAttributes& attributes)
   // species: SName   { use="required" }  (L1v2, L2v1->)
   //
   const string s = (version == 1) ? "specie" : "species";
-  attributes.readInto(s , mSpecies, getErrorLog(), true);
+  attributes.readInto(s , mSpecies, getErrorLog(), true, getLine(), getColumn());
 }
 
 
@@ -476,14 +476,14 @@ SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
   //
   // species: SName   { use="required" }  (L1v2, L2v1->)
   //
-  attributes.readInto("species" , mSpecies, getErrorLog(), true);
+  attributes.readInto("species" , mSpecies, getErrorLog(), true, getLine(), getColumn());
   
   if (version > 1)
   {
     //
     // id: SId  { use="optional" }  (L2v2->)
     //
-    bool assigned = attributes.readInto("id", mId, getErrorLog());
+    bool assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
     if (assigned && mId.size() == 0)
     {
       logEmptyString("id", level, version, "<speciesReference>");
@@ -493,7 +493,7 @@ SimpleSpeciesReference::readL2Attributes (const XMLAttributes& attributes)
     //
     // name: string  { use="optional" }  (L2v2->)
     //
-    attributes.readInto("name" , mName);
+    attributes.readInto("name" , mName, getErrorLog(), false, getLine(), getColumn());
   }
   if (version == 2)
   {
@@ -515,7 +515,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   //
   // species: SName   { use="required" }  (L1v2, L2v1->)
   //
-  bool assigned = attributes.readInto("species" , mSpecies);
+  bool assigned = attributes.readInto("species" , mSpecies, getErrorLog(), false, getLine(), getColumn());
   if (!assigned)
   {
     if (isModifier())
@@ -529,7 +529,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   //
   // id: SId  { use="optional" }  (L2v2->)
   //
-  assigned = attributes.readInto("id", mId, getErrorLog());
+  assigned = attributes.readInto("id", mId, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mId.size() == 0)
   {
     logEmptyString("id", level, version, "<speciesReference>");
@@ -539,7 +539,7 @@ SimpleSpeciesReference::readL3Attributes (const XMLAttributes& attributes)
   //
   // name: string  { use="optional" }  (L2v2->)
   //
-  attributes.readInto("name" , mName);
+  attributes.readInto("name" , mName, getErrorLog(), false, getLine(), getColumn());
 
 }
 /** @endcond */

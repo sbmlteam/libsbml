@@ -520,7 +520,9 @@ XMLAttributes::readInto (  int          index
                          , const std::string& name
                          , bool&        value
                          , XMLErrorLog* log
-                         , bool         required ) const
+                         , bool         required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   bool assigned = false;
   bool missing  = true;
@@ -549,8 +551,8 @@ XMLAttributes::readInto (  int          index
 
   if ( log != NULL && !assigned && &name != NULL)
   {
-    if ( !missing ) attributeTypeError(name, Boolean, log);
-    else if ( required ) attributeRequiredError (name, log);
+    if ( !missing ) attributeTypeError(name, Boolean, log, line, column);
+    else if ( required ) attributeRequiredError (name, log, line, column);
   }
 
   return assigned;
@@ -576,9 +578,11 @@ bool
 XMLAttributes::readInto (  const std::string&   name
                          , bool&                value
                          , XMLErrorLog*         log
-                         , bool                 required ) const
+                         , bool                 required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-   return readInto(getIndex(name), name, value, log, required);
+   return readInto(getIndex(name), name, value, log, required, line, column);
 }
 
 
@@ -599,10 +603,12 @@ bool
 XMLAttributes::readInto (  const XMLTriple& triple
                          , bool&            value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   if (&triple == NULL || &value == NULL) return (int)false;
-   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
+   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required, line, column);
 }
 
 
@@ -625,10 +631,12 @@ XMLAttributes::readInto (  const XMLTriple& triple
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+                         , const std::string& name
                          , double&      value
                          , XMLErrorLog* log
-                         , bool         required ) const
+                         , bool         required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   bool assigned = false;
   bool missing  = true;
@@ -682,8 +690,8 @@ XMLAttributes::readInto (  int          index
 
   if ( log != NULL && !assigned && &name != NULL)
   {
-    if ( !missing ) attributeTypeError(name, Double, log);
-    else if ( required ) attributeRequiredError (name, log);
+    if ( !missing ) attributeTypeError(name, Double, log, line, column);
+    else if ( required ) attributeRequiredError (name, log, line, column);
   }
 
   return assigned;
@@ -711,9 +719,11 @@ bool
 XMLAttributes::readInto (  const XMLTriple& triple
                          , double&          value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
+  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required, line, column);
 }
 
 
@@ -736,9 +746,11 @@ bool
 XMLAttributes::readInto (  const std::string&   name
                          , double&          value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-  return readInto(getIndex(name), name, value, log, required);
+  return readInto(getIndex(name), name, value, log, required, line, column);
 }
 
 
@@ -761,10 +773,12 @@ XMLAttributes::readInto (  const std::string&   name
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+			                   , const std::string& name
                          , long&        value
                          , XMLErrorLog* log
-                         , bool         required ) const
+                         , bool         required 
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   bool assigned = false;
   bool missing  = true;
@@ -794,8 +808,8 @@ XMLAttributes::readInto (  int          index
 
   if ( log != NULL && !assigned && &name != NULL )
   {
-    if ( !missing ) attributeTypeError(name, Integer, log);
-    else if ( required ) attributeRequiredError (name, log);
+    if ( !missing ) attributeTypeError(name, Integer, log, line, column);
+    else if ( required ) attributeRequiredError (name, log, line, column);
   }
 
   return assigned;
@@ -823,10 +837,12 @@ bool
 XMLAttributes::readInto (  const XMLTriple& triple
                          , long&            value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   if (&triple == NULL) return false;
-  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
+  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required, line, column);
 }
 
 /*
@@ -847,9 +863,11 @@ bool
 XMLAttributes::readInto (  const std::string& name
                          , long&              value
                          , XMLErrorLog*       log
-                         , bool               required ) const
+                         , bool               required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-  return readInto(getIndex(name), name, value, log, required);
+  return readInto(getIndex(name), name, value, log, required, line, column);
 }
 
 
@@ -872,13 +890,15 @@ XMLAttributes::readInto (  const std::string& name
  */
 bool
 XMLAttributes::readInto (  int          index
-			 , const std::string& name
+			                   , const std::string& name
                          , int&         value
                          , XMLErrorLog* log
-                         , bool         required ) const
+                         , bool         required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   long  temp;
-  bool  assigned = readInto(index, name, temp, log, required);
+  bool  assigned = readInto(index, name, temp, log, required, line, column);
 
   if (assigned) value = temp;
   return assigned;
@@ -906,10 +926,12 @@ bool
 XMLAttributes::readInto (  const XMLTriple& triple
                          , int&             value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   if (&triple == NULL) return false;
-   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);    
+   return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required, line, column);    
 }
 
 
@@ -931,9 +953,11 @@ bool
 XMLAttributes::readInto (  const std::string&  name
                          , int&                value
                          , XMLErrorLog*        log
-                         , bool                required ) const
+                         , bool                required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-  return readInto(getIndex(name), name, value, log, required);
+  return readInto(getIndex(name), name, value, log, required, line, column);
 }
 
 
@@ -956,13 +980,15 @@ XMLAttributes::readInto (  const std::string&  name
  */
 bool
 XMLAttributes::readInto (  int           index
-			 , const std::string& name
+			                   , const std::string& name
                          , unsigned int& value
                          , XMLErrorLog*  log
-                         , bool          required ) const
+                         , bool          required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   long  temp;
-  bool  assigned = readInto(index, name, temp, log, required);
+  bool  assigned = readInto(index, name, temp, log, required, line, column);
 
   if (assigned && temp >= 0) value = temp;
   else assigned = false;
@@ -992,10 +1018,12 @@ bool
 XMLAttributes::readInto (  const XMLTriple& triple
                          , unsigned int&    value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   if (&triple == NULL) return false;
-  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
+  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required, line, column);
 }
 
 
@@ -1018,9 +1046,11 @@ bool
 XMLAttributes::readInto (  const std::string&  name
                          , unsigned int&       value
                          , XMLErrorLog*        log
-                         , bool                required ) const
+                         , bool                required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-  return readInto(getIndex(name), name, value, log, required);
+  return readInto(getIndex(name), name, value, log, required, line, column);
 }
 
 
@@ -1040,7 +1070,9 @@ XMLAttributes::readInto (  int          index
                          , const std::string& name
                          , std::string& value
                          , XMLErrorLog* log
-                         , bool         required ) const
+                         , bool         required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   bool assigned = false;
 
@@ -1054,7 +1086,7 @@ XMLAttributes::readInto (  int          index
 
   if ( log != NULL && !assigned && required && &name != NULL )
   {
-    attributeRequiredError(name, log);
+    attributeRequiredError(name, log, line, column);
   }
 
   return assigned;
@@ -1074,12 +1106,14 @@ XMLAttributes::readInto (  int          index
  */
 bool
 XMLAttributes::readInto (  const XMLTriple& triple
-			 , std::string&     value
+			                   , std::string&     value
                          , XMLErrorLog*     log
-                         , bool             required ) const
+                         , bool             required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
   if (&triple == NULL) return false;
-  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required);
+  return readInto(getIndex(triple), triple.getPrefixedName(), value, log, required, line, column);
 }
 
 
@@ -1094,11 +1128,13 @@ XMLAttributes::readInto (  const XMLTriple& triple
  */
 bool
 XMLAttributes::readInto (  const std::string& name
-			 , std::string&       value
+                         , std::string&       value
                          , XMLErrorLog*       log
-                         , bool               required ) const
+                         , bool               required
+                         , const unsigned int line     
+                         , const unsigned int column   ) const
 {
-  return readInto(getIndex(name), name, value, log, required);
+  return readInto(getIndex(name), name, value, log, required, line, column);
 }
 
 
@@ -1135,7 +1171,9 @@ XMLAttributes::write (XMLOutputStream& stream) const
 void
 XMLAttributes::attributeTypeError (  const std::string& name
 				   , DataType           type
-				   , XMLErrorLog*       log ) const
+				   , XMLErrorLog*       log
+           , const unsigned int line     
+           , const unsigned int column   ) const
 {
   ostringstream message;
 
@@ -1171,7 +1209,7 @@ XMLAttributes::attributeTypeError (  const std::string& name
       break;
   }
 
-  log->add( XMLError(XMLAttributeTypeMismatch, message.str()) );
+  log->add( XMLError(XMLAttributeTypeMismatch, message.str(), line, column) );
 }
 
 
@@ -1181,8 +1219,10 @@ XMLAttributes::attributeTypeError (  const std::string& name
  * @param  name  Name of the attribute
  */
 void
-XMLAttributes::attributeRequiredError (const std::string&  name,
-				       XMLErrorLog*        log) const
+XMLAttributes::attributeRequiredError (const std::string&  name
+				       , XMLErrorLog*        log
+               , const unsigned int line     
+               , const unsigned int column   ) const
 {
   ostringstream message;
 
@@ -1193,7 +1233,7 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
   if ( !mElementName.empty() ) message << mElementName << ' ';
   message << "attribute '" << name << "' is required.";
 
-  log->add( XMLError(MissingXMLRequiredAttribute, message.str()) );
+  log->add( XMLError(MissingXMLRequiredAttribute, message.str(), line, column) );
 }
 
 /** @endcond */

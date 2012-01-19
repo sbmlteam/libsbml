@@ -338,7 +338,7 @@ void CompartmentGlyph::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlLevel   = getLevel  ();
   const unsigned int sbmlVersion = getVersion();
 
-  bool assigned = attributes.readInto("compartment", mCompartment);
+  bool assigned = attributes.readInto("compartment", mCompartment, getErrorLog(), false, getLine(), getColumn());
   if (assigned && mCompartment.empty())
     {
       logEmptyString(mCompartment, sbmlLevel, sbmlVersion, "<compartmentGlyph>");
