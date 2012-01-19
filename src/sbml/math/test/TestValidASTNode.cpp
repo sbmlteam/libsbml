@@ -49,7 +49,7 @@ LIBSBML_CPP_NAMESPACE_USE
 CK_CPPSTART
 
 
-START_TEST (test_ValidASTNode_infix_nary_plus)
+START_TEST (test_ValidASTNode_infix_nary_plus0)
 {
   ASTNode *n = readMathMLFromString(
      "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
@@ -72,12 +72,61 @@ START_TEST (test_ValidASTNode_infix_nary_plus)
 }
 END_TEST
 
-START_TEST (test_ValidASTNode_infix_nary_times)
+START_TEST (test_ValidASTNode_infix_nary_plus1)
+{
+  ASTNode *n = readMathMLFromString(
+     "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+     "  <apply>"
+     "    <plus/>"
+     "    <cn> 0 </cn>"
+     "  </apply>"
+     "</math>"
+    );
+
+  fail_unless( n != NULL );
+
+  string formula = SBML_formulaToString(n);
+
+  ASTNode *node = SBML_parseFormula(formula.c_str());
+
+  fail_unless( node != NULL );
+
+  delete n;
+  delete node;
+}
+END_TEST
+
+START_TEST (test_ValidASTNode_infix_nary_times0)
 {
    ASTNode *n = readMathMLFromString(
      "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
      "  <apply>"
      "    <times/>"
+     "  </apply>"
+     "</math>"
+    );
+
+  fail_unless( n != NULL );
+
+  string formula = SBML_formulaToString(n);
+
+  ASTNode *node = SBML_parseFormula(formula.c_str());
+
+  fail_unless( node != NULL );
+
+  delete n;
+  delete node;
+}
+END_TEST
+
+
+START_TEST (test_ValidASTNode_infix_nary_times1)
+{
+   ASTNode *n = readMathMLFromString(
+     "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+     "  <apply>"
+     "    <times/>"
+     "    <cn> 0 </cn>"
      "  </apply>"
      "</math>"
     );
@@ -326,17 +375,19 @@ create_suite_TestValidASTNode ()
   Suite *suite = suite_create("TestValidASTNode");
   TCase *tcase = tcase_create("TestValidASTNode");
 
-  tcase_add_test( tcase, test_ValidASTNode_infix_nary_plus  );
-  tcase_add_test( tcase, test_ValidASTNode_infix_nary_times );
-  tcase_add_test( tcase, test_ValidASTNode_Number           );
-  tcase_add_test( tcase, test_ValidASTNode_returnsBoolean   );
-  tcase_add_test( tcase, test_ValidASTNode_Name             );
-  tcase_add_test( tcase, test_ValidASTNode_unary            );
-  tcase_add_test( tcase, test_ValidASTNode_binary           );
-  tcase_add_test( tcase, test_ValidASTNode_nary             );
-  tcase_add_test( tcase, test_ValidASTNode_root             );
-  tcase_add_test( tcase, test_ValidASTNode_lambda           );
-  tcase_add_test( tcase, test_ValidASTNode_setType          );
+  tcase_add_test( tcase, test_ValidASTNode_infix_nary_plus0  );
+  tcase_add_test( tcase, test_ValidASTNode_infix_nary_plus1  );
+  tcase_add_test( tcase, test_ValidASTNode_infix_nary_times0 );
+  tcase_add_test( tcase, test_ValidASTNode_infix_nary_times1 );
+  tcase_add_test( tcase, test_ValidASTNode_Number            );
+  tcase_add_test( tcase, test_ValidASTNode_returnsBoolean    );
+  tcase_add_test( tcase, test_ValidASTNode_Name              );
+  tcase_add_test( tcase, test_ValidASTNode_unary             );
+  tcase_add_test( tcase, test_ValidASTNode_binary            );
+  tcase_add_test( tcase, test_ValidASTNode_nary              );
+  tcase_add_test( tcase, test_ValidASTNode_root              );
+  tcase_add_test( tcase, test_ValidASTNode_lambda            );
+  tcase_add_test( tcase, test_ValidASTNode_setType           );
 
   suite_add_tcase(suite, tcase);
 

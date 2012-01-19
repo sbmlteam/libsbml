@@ -381,6 +381,11 @@ int ASTNode_isTimes0(const ASTNode_t *node)
   return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 0;
 }
 
+int ASTNode_isTimes1(const ASTNode_t *node)
+{
+  return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 1;
+}
+
 /**
  * Visits the given ASTNode node.  This function is really just a
  * dispatcher to either SBML_formulaToString_visitFunction() or
@@ -408,7 +413,7 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
   {
     FormulaFormatter_visitUMinus(parent, node, sb);
   }
-  else if (ASTNode_isUPlus(node))
+  else if (ASTNode_isUPlus(node) || ASTNode_isTimes1(node))
   {
     FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
   }
