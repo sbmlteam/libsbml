@@ -371,6 +371,15 @@ FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node)
   }
 }
 
+int ASTNode_isPlus0(const ASTNode_t *node)
+{
+  return ASTNode_getType(node) == AST_PLUS && ASTNode_getNumChildren(node) == 0;
+}
+
+int ASTNode_isTimes0(const ASTNode_t *node)
+{
+  return ASTNode_getType(node) == AST_TIMES && ASTNode_getNumChildren(node) == 0;
+}
 
 /**
  * Visits the given ASTNode node.  This function is really just a
@@ -402,6 +411,14 @@ FormulaFormatter_visit ( const ASTNode_t *parent,
   else if (ASTNode_isUPlus(node))
   {
     FormulaFormatter_visit(node, ASTNode_getChild(node, 0), sb);
+  }
+  else if (ASTNode_isPlus0(node))
+  {
+    StringBuffer_appendInt(sb, 0);
+  }
+  else if (ASTNode_isTimes0(node))
+  {
+    StringBuffer_appendInt(sb, 1);
   }
   else
   {
