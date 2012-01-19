@@ -146,6 +146,7 @@ END_TEST
 START_TEST(test_SBMLTransforms_evaluateAST)
 {
   double temp;
+  const char * mathml;
   ASTNode * node = new ASTNode();
   node->setValue((int)(2));
   
@@ -462,6 +463,38 @@ START_TEST(test_SBMLTransforms_evaluateAST)
 
   fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), 2));
   
+  mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+           "<apply><plus/></apply></math>";
+  
+  node = readMathMLFromString(mathml);
+
+  temp = 0;
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
+
+  mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+           "<apply><plus/><cn>2.3</cn></apply></math>";
+  
+  node = readMathMLFromString(mathml);
+
+  temp = 2.3;
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
+
+  mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+           "<apply><times/></apply></math>";
+  
+  node = readMathMLFromString(mathml);
+
+  temp = 1.0;
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
+
+  mathml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+           "<apply><times/><cn>6.5</cn></apply></math>";
+  
+  node = readMathMLFromString(mathml);
+
+  temp = 6.5;
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
+
 }
 END_TEST
 

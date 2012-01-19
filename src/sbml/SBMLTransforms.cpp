@@ -525,8 +525,19 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_PLUS:
-    result = evaluateASTNode(node->getChild(0), m) + 
-             evaluateASTNode(node->getChild(1), m) ;
+    if (node->getNumChildren() == 0)
+    {
+      result = 0.0;
+    }
+    else if (node->getNumChildren() == 1)
+    {
+      result = evaluateASTNode(node->getChild(0), m);
+    }
+    else
+    {
+      result = evaluateASTNode(node->getChild(0), m) + 
+               evaluateASTNode(node->getChild(1), m) ;
+    }
     break;
 
   case AST_MINUS:
@@ -538,8 +549,19 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_TIMES:
-    result = evaluateASTNode(node->getChild(0), m) * 
-             evaluateASTNode(node->getChild(1), m) ;
+    if (node->getNumChildren() == 0)
+    {
+      result = 1.0;
+    }
+    else if (node->getNumChildren() == 1)
+    {
+      result = evaluateASTNode(node->getChild(0), m);
+    }
+    else
+    {
+      result = evaluateASTNode(node->getChild(0), m) * 
+               evaluateASTNode(node->getChild(1), m) ;
+    }
     break;
 
   case AST_DIVIDE:
