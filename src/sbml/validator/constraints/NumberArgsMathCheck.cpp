@@ -140,19 +140,22 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
     checkBinary(m, node, sb);
       break;
 
+      //n-ary 0 or more arguments
     case AST_TIMES:
     case AST_PLUS:
     case AST_LOGICAL_AND:
     case AST_LOGICAL_OR:
     case AST_LOGICAL_XOR:
+      checkChildren(m, node, sb);
+      break;
+
     case AST_RELATIONAL_EQ:
     case AST_RELATIONAL_GEQ:
     case AST_RELATIONAL_GT:
     case AST_RELATIONAL_LEQ:
     case AST_RELATIONAL_LT:
     case AST_FUNCTION_PIECEWISE:
-
-     checkNary(m, node, sb);
+      checkAtLeast2Args(m, node, sb);
       break;
 
     case AST_FUNCTION_ROOT:
@@ -230,23 +233,6 @@ void NumberArgsMathCheck::checkBinary(const Model& m,
 }
 
 /**
-  * Checks that the function at least two arguments
-  */
-void NumberArgsMathCheck::checkNary(const Model& m, 
-                                    const ASTNode& node, const SBase & sb)
-{
-  if (node.getNumChildren() < 2)
-  {
-    logMathConflict(node, sb);
-  }
-
-  for (unsigned int n = 0; n < node.getNumChildren(); n++)
-  {
-    checkMath(m, *node.getChild(n), sb);
-  }
-}
-
-/**
   * Checks that the functions have either one or two arguments
   */
 void NumberArgsMathCheck::checkSpecialCases(const Model& m, 
@@ -263,6 +249,22 @@ void NumberArgsMathCheck::checkSpecialCases(const Model& m,
   }
 }
 
+/**
+  * Checks that the function has at least two arguments
+  */
+void NumberArgsMathCheck::checkAtLeast2Args(const Model& m, 
+                                    const ASTNode& node, const SBase & sb)
+{
+  if (node.getNumChildren() < 2)
+  {
+    logMathConflict(node, sb);
+  }
+
+  for (unsigned int n = 0; n < node.getNumChildren(); n++)
+  {
+    checkMath(m, *node.getChild(n), sb);
+  }
+}
 
   
 /**

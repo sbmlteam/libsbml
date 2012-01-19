@@ -82,15 +82,15 @@ protected:
    */
   void checkBinary(const Model& m, const ASTNode& node, const SBase & sb);
 
-  /**
-   * Checks that the function at least two arguments
-   */
-  void checkNary(const Model& m, const ASTNode& node, const SBase & sb);
-
-  /**
+   /**
    * Checks that the functions have either one or two arguments
    */
   void checkSpecialCases(const Model& m, const ASTNode& node, const SBase & sb);
+
+  /**
+   * Checks that the function at least two arguments
+   */
+  void checkAtLeast2Args(const Model& m, const ASTNode& node, const SBase & sb);
 
   /**
    * @return the preamble to use when logging constraint violations.  The

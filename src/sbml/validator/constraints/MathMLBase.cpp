@@ -358,6 +358,11 @@ MathMLBase::returnsNumeric(const Model & m, const ASTNode* node)
     {
       numeric = checkNumericFunction(m, node);
     }
+    /* or possibly a plus/times with no arguments */
+    else if (type == AST_PLUS || type == AST_TIMES)
+    {
+      numeric = true;
+    }
     else
     {
       numeric = false;
