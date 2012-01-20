@@ -1,5 +1,57 @@
            libSBML NEWS -- History of user-visible changes
 
+
+======================================================================
+Version 5.4.0 (Coming soon)
+======================================================================
+
+STABLE RELEASE
+
+* New features
+
+  - Conversion of a model containing FunctionDefinitions to L1
+    is now supported.
+    
+  - There is a new isSetBody() function for the FunctionDefinition
+    class that returns true if the body of the lambda function
+    has been set.
+    
+* Bug fixes
+
+  - Validation failed to notice that csymbol avogadro was not valid
+    in Level 2. This is fixed.
+    
+  - Tracker issue #3471902
+    The documentation for the readSBMLFromString function claimed it
+    prepend teh xml encoding if it was not present. In fact, the 
+    function did not do this. This has been corrected. Thanks to
+    Raimund Rönn for reporting it.  
+    
+  - Tracker issue #3466104
+    Fixed inaccuracies in the documentation. Thanks to Raimund Rönn
+    for his careful reading and taking the time to report the errors.
+    
+  - Exceptions were not being correctly wrapped for language bindings
+    causing potential code crashes.  This has been corrected.
+    
+  - A number of minor issues with regard to conversion between levels
+    and versions have been fixed. These include conversion from L3 to 
+    L1 failing to include a compartment; stopping conversion of models
+    with hasOnlySubstanceUnits = true to L1 and correcting conversion of 
+    L3 models with localParameters.
+
+* Miscellaneous
+    
+
+* Configuration/build system changes
+
+ 
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+
 ======================================================================
 Version 5.3.0 (2011-12-23)
 ======================================================================
