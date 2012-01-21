@@ -171,7 +171,10 @@ bool
 KineticLaw::accept (SBMLVisitor& v) const
 {
   v.visit(*this);
-  mParameters.accept(v);
+  if (getLevel() > 2)
+    mLocalParameters.accept(v);
+  else
+    mParameters.accept(v);
   v.leave(*this);
 
   return true;
