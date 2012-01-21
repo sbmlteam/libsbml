@@ -367,25 +367,38 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node,
   unsigned int i;
   unsigned int currentIgnore = mCanIgnoreUndeclaredUnits;
 
-  ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
-  if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
-
-  if (ud)
+  if (numChildren == 0)
   {
-    for(n = 1; n < numChildren; n++)
-    {
-      tempUD = getUnitDefinition(node->getChild(n), inKL, reactNo);
-      if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
-      for (i = 0; i < tempUD->getNumUnits(); i++)
-      {
-        ud->addUnit(tempUD->getUnit(i));
-      }
-      delete tempUD;
-    }
+    /* times with no arguments is the identity which is 1 dimensionless */
+    Unit * u = new Unit(model->getSBMLNamespaces());
+    u->initDefaults();
+    u->setKind(UNIT_KIND_DIMENSIONLESS);
+    ud = new UnitDefinition(model->getSBMLNamespaces());
+    ud->addUnit(u);
+    delete u;
   }
   else
   {
-    ud = new UnitDefinition(model->getSBMLNamespaces());
+    ud = getUnitDefinition(node->getChild(n), inKL, reactNo);
+    if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
+
+    if (ud)
+    {
+      for(n = 1; n < numChildren; n++)
+      {
+        tempUD = getUnitDefinition(node->getChild(n), inKL, reactNo);
+        if (mCanIgnoreUndeclaredUnits == 0) currentIgnore = 0;
+        for (i = 0; i < tempUD->getNumUnits(); i++)
+        {
+          ud->addUnit(tempUD->getUnit(i));
+        }
+        delete tempUD;
+      }
+    }
+    else
+    {
+      ud = new UnitDefinition(model->getSBMLNamespaces());
+    }
   }
 
   mCanIgnoreUndeclaredUnits = currentIgnore;
@@ -785,12 +798,14 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction
 
   /* get first arg that is not a parameter with undeclared units */
   ud = getUnitDefinition(node->getChild(i), inKL, reactNo);
-  while (getContainsUndeclaredUnits() && i < node->getNumChildren()-1)
+  while (getContainsUndeclaredUnits() && mCanIgnoreUndeclaredUnits != 1
+    && i < node->getNumChildren()-1)
   {
     if (originalUndeclaredValue == 1)
       currentIgnore = 0;
     else
       currentIgnore = 1;
+
 
     currentUndeclared = 1;
 

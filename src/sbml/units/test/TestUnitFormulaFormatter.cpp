@@ -177,17 +177,33 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
-   /* check an invalid node */
-  delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
-  ASTNode *node = new ASTNode(AST_PLUS);
+  /* check plus with no arguments*/
+  /* plus() = 0 undeclared units */
+  uff->resetFlags();
+  ud = uff->getUnitDefinition(m->getRule(16)->getMath());
+
+  fail_unless(ud->getNumUnits() == 0);
   
-  ud1 = uff->getUnitDefinition(node);
+  fail_unless(uff->getContainsUndeclaredUnits() == true);
 
-  fail_unless (ud1->getNumUnits() == 0);
 
-  delete ud1;
-  delete node;
+  /* check plus with one arguments*/
+  /* plus(k) = k with units of k */
+  uff->resetFlags();
+  ud = uff->getUnitDefinition(m->getRule(17)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+  
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+
+  delete ud;
+
 }
 END_TEST
 
@@ -246,17 +262,38 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
-  /* check an invalid node */
-  delete ud;
-  UnitDefinition * ud1 = new UnitDefinition(m->getLevel(), m->getVersion());
-  ASTNode *node = new ASTNode(AST_TIMES);
+  /* check times with no arguments*/
+  /* times() = 1 dimensionless */
+  uff->resetFlags();
+  ud = uff->getUnitDefinition(m->getRule(14)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
   
-  ud1 = uff->getUnitDefinition(node);
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
-  fail_unless (ud1->getNumUnits() == 0);
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
 
-  delete ud1;
-  delete node;
+
+  /* check times with one arguments*/
+  /* times(k) = k with units of k */
+  uff->resetFlags();
+  ud = uff->getUnitDefinition(m->getRule(15)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+  
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  fail_unless(uff->getContainsUndeclaredUnits() == false);
+
+  delete ud;
 
 }
 END_TEST
