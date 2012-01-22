@@ -147,94 +147,6 @@ START_CONSTRAINT (20216, Model, x)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (20217, Model, x)
-{
-  // level 3
-  pre( m.getLevel() > 2);
-  pre( m.isSetTimeUnits());
-
-  const string&         units = m.getTimeUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  inv_or( units == "second" );
-  inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfTime() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (20218, Model, x)
-{
-  // level 3
-  pre( m.getLevel() > 2);
-  pre( m.isSetVolumeUnits());
-
-  const string&         units = m.getVolumeUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  inv_or( units == "litre" );
-  inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfVolume() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (20219, Model, x)
-{
-  // level 3
-  pre( m.getLevel() > 2);
-  pre( m.isSetAreaUnits());
-
-  const string&         units = m.getAreaUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfArea() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (20220, Model, x)
-{
-  // level 3
-  pre( m.getLevel() > 2);
-  pre( m.isSetLengthUnits());
-
-  const string&         units = m.getLengthUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  inv_or( units == "metre" );
-  inv_or( units == "dimensionless"  );
-  inv_or( defn  != NULL && defn->isVariantOfLength() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (20221, Model, x)
-{
-  // level 3
-  pre( m.getLevel() > 2);
-  pre( m.isSetExtentUnits());
-
-  const string&         units = m.getExtentUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  inv_or( units == "mole" );
-  inv_or( units == "item" );
-  inv_or( units == "dimensionless"  );
-  inv_or( units == "avogadro" );
-  inv_or( units == "kilogram" );
-  inv_or( units == "gram" );
-  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (20705, Model, x)
 {
   // level 3
@@ -1127,53 +1039,6 @@ START_CONSTRAINT (20508, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (20509, Compartment, c)
-{
-  pre( c.getSpatialDimensions() == 3 );
-  pre( c.isSetUnits()                );
-
-  if (  c.getLevel() == 1 
-    || (c.getLevel() == 2 &&  c.getVersion() == 1))
-  {
-    msg =
-      "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
-      "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
-      "'exponent' equal to '3').";
-  }
-  else
-  {
-    msg =
-      "The value of the 'units' attribute on a <compartment> having "
-      "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
-      "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
-      "'exponent' equal to '3'), or 'dimensionless'.";
-  }
-
-  const string&         units = c.getUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  /* dimensionless is allowable in L2V2 */
-  if ( c.getLevel() == 1
-    || (c.getLevel() == 2 && c.getVersion() == 1))
-  {
-    inv_or( units == "volume" );
-    inv_or( units == "litre"  );
-    inv_or( units == "liter" && c.getLevel() == 1 );
-    inv_or( defn  != NULL && defn->isVariantOfVolume() );
-  }
-  else
-  {
-    inv_or( units == "volume" );
-    inv_or( units == "litre"  );
-    inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfVolume() );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (20510, Compartment, c)
 {
   pre( c.getLevel() > 1);
@@ -1411,93 +1276,6 @@ START_CONSTRAINT (20607, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (20608, Species, s)
-{
-  pre( s.isSetSubstanceUnits() );
-
-  if (s.getLevel() == 1)
-  {
-    msg =
-      "The value of a <species>'s 'units' attribute can only be one "
-      "of the following: 'substance', "
-      "or the identifier of a <unitDefinition> derived from "
-      "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
-      "of '1').";
-  }
-  else if (s.getLevel() == 2)
-  {
-    if (s.getVersion() == 1)
-    {
-      msg =
-        "The value of a <species>'s 'substanceUnits' attribute can only be one "
-        "of the following: 'substance', 'mole' or 'item' "
-        "or the identifier of a <unitDefinition> derived from "
-        "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
-        "of '1').";
-    }
-    else
-    {
-      msg =
-        "The value of a <species>'s 'substanceUnits' attribute can only be one "
-        "of the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
-        "'dimensionless', or the identifier of a <unitDefinition> derived from "
-        "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
-        ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
-        "of '1'), or 'dimensionless'.";
-    }
-  }
-  else
-  {
-    msg =
-      "The value of a <species>'s 'substanceUnits' attribute can only be one "
-      "of the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
-      "'dimensionless', 'avogadro' or the identifier of a <unitDefinition> derived from "
-      "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
-      ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
-      "of '1'), 'avogadro' (with an 'exponent' of '1') or 'dimensionless'.";
-  }
-
-  const string&         units = s.getSubstanceUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  /* dimensionless/gram/kilogram are allowable in L2V2 */
-  if (s.getLevel() == 1 
-    || (s.getLevel() == 2 &&  s.getVersion() == 1))
-  {
-    inv_or( units == "substance" );
-    inv_or( units == "item"      );
-    inv_or( units == "mole"      );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  }
-  else if (s.getLevel() == 2)
-  {
-    inv_or( units == "substance"      );
-    inv_or( units == "item"           );
-    inv_or( units == "mole"           );
-    inv_or( units == "dimensionless"  );
-    inv_or( units == "gram"           );
-    inv_or( units == "kilogram"       );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-    inv_or( defn  != NULL && defn->isVariantOfMass()          );
-  }
-  else if (s.getLevel() == 3)
-  {
-    inv_or( units == "substance"      );
-    inv_or( units == "item"           );
-    inv_or( units == "mole"           );
-    inv_or( units == "dimensionless"  );
-    inv_or( units == "gram"           );
-    inv_or( units == "kilogram"       );
-    inv_or( units == "avogadro"       );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-    inv_or( defn  != NULL && defn->isVariantOfMass()          );
-  }
-}
-END_CONSTRAINT
-
-
 START_CONSTRAINT (20609, Species, s)
 {
   pre ( s.getLevel() > 1);
@@ -1631,25 +1409,6 @@ END_CONSTRAINT
 
 
 // Parameter validation
-
-START_CONSTRAINT (20701, Parameter, p)
-{
-  pre( p.isSetUnits() );
-
-  //msg =
-  //  "The 'units' in a <parameter> definition must be a value chosen from "
-  //  "among the following: a value from the 'UnitKind' enumeration (e.g., "
-  //  "'litre', 'mole', 'metre', etc.), a built-in unit (e.g., 'substance', "
-  //  "'time', etc.), or the identifier of a <unitDefinition> in the model. "
-  //  "(References: L2V1 Section 4.7.3; L2V2 Section 4.9.3; L2V3 Section 4.9.3.)";
-
-  const string& units = p.getUnits();
-
-  inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
-  inv_or( Unit::isBuiltIn(units, p.getLevel())     );
-  inv_or( m.getUnitDefinition(units) );
-}
-END_CONSTRAINT
 
 /* moved to unit validator */
 //START_CONSTRAINT (20702, Parameter, p)

@@ -220,6 +220,14 @@ public:
   void remove (const unsigned int errorId);
 
 
+  /**
+   * Returns true if SBMLErrorLog contains an errorId
+   *
+   * @param errorId the error identifier of the error to be found.
+   */
+  bool contains (const unsigned int errorId);
+
+
   /** @endcond */
 };
 

@@ -319,11 +319,50 @@ SBMLInternalValidator::checkConsistency ()
   {
     id_validator.init();
     nerrors = id_validator.validate(*getDocument());
-    total_errors += nerrors;
     if (nerrors > 0) 
     {
+      unsigned int origNum = getErrorLog()->getNumErrors();
       getErrorLog()->add( id_validator.getFailures() );
-      return total_errors;
+
+      if (origNum > 0 && getErrorLog()->contains(InvalidUnitIdSyntax) == true)
+      {
+        /* do not log dangling ref */
+        while (getErrorLog()->contains(DanglingUnitSIdRef) == true)
+        {
+          getErrorLog()->remove(DanglingUnitSIdRef);
+          nerrors--;
+        }
+        
+        total_errors += nerrors;
+        if (nerrors > 0)
+        {
+          return total_errors;
+        }
+      }
+      else if (getErrorLog()->contains(DanglingUnitSIdRef) == false)
+      {
+        total_errors += nerrors;
+        return total_errors;
+      }
+      else
+      {
+        bool onlyDangRef = true;
+        for (unsigned int a = 0; a < getErrorLog()->getNumErrors(); a++)
+        {
+          if (getErrorLog()->getError(a)->getErrorId() != DanglingUnitSIdRef)
+          {
+            onlyDangRef = false;
+            break;
+          }
+        }
+        total_errors += nerrors;
+
+        if (onlyDangRef == false)
+        {
+          return total_errors;
+        }
+      }
+
     }
   }
 

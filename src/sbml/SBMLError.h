@@ -792,6 +792,7 @@ typedef enum
 , SubsUnitsAllowedInKL                  = 99127 /*!< Disallowed value for attribute 'substanceUnits' on KineticLaw object. */
 , TimeUnitsAllowedInKL                  = 99128 /*!< Disallowed value for attribute 'timeUnits' on KineticLaw object. */
 , FormulaInLevel1KL                     = 99129 /*!< Only predefined functions are allowed in SBML Level 1 formulas. */
+, L3SubstanceUnitsOnModel               = 99130 /*!< Invalid 'substanceUnits' attribute value. */
 , TimeUnitsRemoved                      = 99206 /*!< This Level+Version of SBML does not support the 'timeUnits' attribute on Event objects. */
 , BadMathML                             = 99219 /*!< Invalid MathML expression. */
 , FailedMathMLReadOfDouble              = 99220 /*!< Missing or invalid floating-point number in MathML expression. */
@@ -801,6 +802,7 @@ typedef enum
 , BadMathMLNodeType                     = 99224 /*!< Invalid MathML element. */
 , NoTimeSymbolInFunctionDef             = 99301 /*!< Use of <code>&lt;csymbol&gt;</code> for 'time' not allowed within FunctionDefinition objects. */
 , NoBodyInFunctionDef                   = 99302 /*!< There must be a <code>&lt;lambda&gt;</code> body within the <code>&lt;math&gt;</code> element of a FunctionDefinition object. */
+, DanglingUnitSIdRef                    = 99303
 , InconsistentArgUnitsWarnings          = 99502
 , InconsistentPowerUnitsWarnings        = 99503
 , InconsistentExponUnitsWarnings        = 99504

@@ -4432,7 +4432,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
     LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
+    LIBSBML_SEV_WARNING,
     "The 'units' in a <Parameter> definition must be a value chosen from "
     "among the following: a predefined unit (e.g., 'substance', 'time', "
     "etc.), the identifier of a <UnitDefinition> in the model, or one of the "
@@ -8056,6 +8056,31 @@ static const sbmlErrorTableEntry errorTable[] =
     "within the formula. (L1V2 Appendix C) "
   },
 
+  //99130
+  // should be in the spec but is not
+  {
+    L3SubstanceUnitsOnModel,
+    "Invalid 'substanceUnits' attribute value",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_WARNING,
+    "The value of the attribute substanceUnits on a Model object should be "
+    "either the units 'mole', 'item', 'avogadro', 'dimensionless', "
+    "'kilogram', 'gram', or the identifier of a UnitDefinition object "
+    "based on these units.",
+    {"",
+     "",
+     "",
+     "",
+     "",
+     "L3V1 Section 4.2.6"}
+  },
+
   //99206
   {
     TimeUnitsRemoved,
@@ -8199,6 +8224,40 @@ static const sbmlErrorTableEntry errorTable[] =
     "The <lambda> element of a FunctionDefinition object must contain a function "
     "body in addition to zero or more arguments."
   },
+
+  //99301
+  {   
+    NoTimeSymbolInFunctionDef,   
+    "Use of <csymbol> for 'time' not allowed within FunctionDefinition objects",
+    LIBSBML_CAT_GENERAL_CONSISTENCY,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_GENERAL_WARNING,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,   
+    LIBSBML_SEV_ERROR,
+    "The csymbol 'time' should not be used within a the <math> element "
+    "of a <FunctionDefinition>. (References: L2V3 Section 4.3.2; " 
+    "L2V4 Section 4.3.2)"
+  },
+
+  //99303
+  {   
+    DanglingUnitSIdRef,   
+    "Units must refer to valid unit or unitDefinition",
+    LIBSBML_CAT_IDENTIFIER_CONSISTENCY,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "Where a component has an attribute that refers to a unit identifier, " 
+    "that attribute must refer to a unit defined in SBML or be the id "
+    "of a UnitDefinition in the model."
+   },
 
   /* --------------------------------------------------------------------------
    * These are internal errors that reverts to 10501.
@@ -8825,6 +8884,31 @@ static const sbmlErrorTableEntry errorTable[] =
     "The 'spatialDimensions' attribute on <compartment> was left unset on "
     "the SBML Level 3 model.  Conversion will apply a default value of '3'."
   }, 
+
+  ////99927
+  //// should be in the spec but is not
+  //{
+  //  L3SubstanceUnitsOnModel,
+  //  "Invalid 'substanceUnits' attribute value",
+  //  LIBSBML_CAT_GENERAL_CONSISTENCY,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_NOT_APPLICABLE,
+  //  LIBSBML_SEV_WARNING,
+  //  "The value of the attribute substanceUnits on a Model object should be "
+  //  "either the units 'mole', 'item', 'avogadro', 'dimensionless', "
+  //  "'kilogram', 'gram', or the identifier of a UnitDefinition object "
+  //  "based on these units.",
+  //  {"",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "L3V1 Section 4.2.6"}
+  //},
 
   //99996
   {   
