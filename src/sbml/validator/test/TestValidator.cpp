@@ -104,6 +104,12 @@ TestValidator::test (const TestFile& file)
 
   unsigned int expected = file.getNumFailures();
   unsigned int others   = file.getAdditionalFailId();
+  /* for 10311 called using just the id validator you will get 99303 */
+  if (id == 10311 && expected == 1)
+  {
+    expected = 2;
+    others = 99303;
+  }
 
   unsigned int actual   = mValidator.validate( file.getFullname() );
 

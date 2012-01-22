@@ -421,7 +421,7 @@ main (int argc, char* argv[])
 
   testThisDataDir = testDataDir + "/" + "sbml-identifier-constraints";
   failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
-		      testThisDataDir, 10300, 10399, runIdTest, library);
+		      testThisDataDir, 0, 0, runIdTest, library);
 
   testThisDataDir = testDataDir + "/" + "sbml-annotation-constraints";
   failed += runTests( "Testing General Annotation Consistency Constraints (10400 - 10499)",
@@ -429,7 +429,7 @@ main (int argc, char* argv[])
 
   testThisDataDir = testDataDir + "/" + "sbml-unit-constraints";
   failed += runTests( "Testing Unit Consistency Constraints (10500 - 10599)",
-		      testThisDataDir, 10500, 10599, runUnitTest, library);
+		      testThisDataDir, 0, 0, runUnitTest, library);
 
   testThisDataDir = testDataDir + "/" + "sbml-modeldefinition-constraints";
   failed += runTests( "Testing Overdetermined Constraints (10600 - 10699)",
