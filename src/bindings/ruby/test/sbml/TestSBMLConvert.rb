@@ -153,10 +153,10 @@ class TestSBMLConvert < Test::Unit::TestCase
     p = e.createPriority()
     assert( d.setLevelAndVersion(1,1,false) == false )
     assert( d.setLevelAndVersion(1,2,false) == false )
-    assert( d.setLevelAndVersion(2,1,false) == true )
-    assert( d.setLevelAndVersion(2,2,false) == true )
-    assert( d.setLevelAndVersion(2,3,false) == true )
-    assert( d.setLevelAndVersion(2,4,false) == true )
+    assert( d.setLevelAndVersion(2,1,false) == false )
+    assert( d.setLevelAndVersion(2,2,false) == false )
+    assert( d.setLevelAndVersion(2,3,false) == false )
+    assert( d.setLevelAndVersion(2,4,false) == false )
     assert( d.setLevelAndVersion(3,1,false) == true )
   end
 

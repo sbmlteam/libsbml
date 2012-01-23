@@ -157,10 +157,10 @@ class TestSBMLConvert(unittest.TestCase):
     p = e.createPriority()
     self.assert_( d.setLevelAndVersion(1,1,False) == False )
     self.assert_( d.setLevelAndVersion(1,2,False) == False )
-    self.assert_( d.setLevelAndVersion(2,1,False) == True )
-    self.assert_( d.setLevelAndVersion(2,2,False) == True )
-    self.assert_( d.setLevelAndVersion(2,3,False) == True )
-    self.assert_( d.setLevelAndVersion(2,4,False) == True )
+    self.assert_( d.setLevelAndVersion(2,1,False) == False )
+    self.assert_( d.setLevelAndVersion(2,2,False) == False )
+    self.assert_( d.setLevelAndVersion(2,3,False) == False )
+    self.assert_( d.setLevelAndVersion(2,4,False) == False )
     self.assert_( d.setLevelAndVersion(3,1,False) == True )
     pass  
 

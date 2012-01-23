@@ -266,8 +266,8 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_UnitDefinition_newSetters     () );
   srunner_add_suite( runner, create_suite_UnitKind                      () );
   srunner_add_suite( runner, create_suite_CopyAndClone                  () );
-  //srunner_add_suite( runner, create_suite_SBMLConvert                   () );
-  //srunner_add_suite( runner, create_suite_SBMLConvertStrict             () );
+  srunner_add_suite( runner, create_suite_SBMLConvert                   () );
+  srunner_add_suite( runner, create_suite_SBMLConvertStrict             () );
   srunner_add_suite( runner, create_suite_SBMLDocument                  () );
   srunner_add_suite( runner, create_suite_SBMLError                     () );
   srunner_add_suite( runner, create_suite_TestReadFromFile1             () );
