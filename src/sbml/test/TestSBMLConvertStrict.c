@@ -815,10 +815,14 @@ START_TEST (test_SBMLConvertStrict_convertFuncDefsToL1)
   /* create a parameter with sbo*/
   Compartment_t * c = Model_createCompartment(m);
   Compartment_setId(c, "c");
+  Compartment_setConstant(c, 0);
+  Compartment_setSize(c, 1);
 
   Rule_t * ar = Model_createAssignmentRule(m);
   ASTNode_t *math1 = SBML_parseFormula("fd(3)");
   Rule_setMath(ar, math1);
+  Rule_setVariable(ar, "c");
+
   fail_unless (Model_getNumFunctionDefinitions(m) == 1);
 
   fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1 );
@@ -831,7 +835,7 @@ START_TEST (test_SBMLConvertStrict_convertFuncDefsToL1)
 
   Rule_t *ar1 = Model_getRule(m1, 0);
 
-  fail_unless (Rule_getFormula(ar1) == "3+2");
+  fail_unless (!strcmp(Rule_getFormula(ar1), "3 + 2"));
 
   SBMLDocument_free(d);
 }
