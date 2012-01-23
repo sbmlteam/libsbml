@@ -224,6 +224,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
       {
         SBMLTransforms::mapComponentValues(&m);
         double value = SBMLTransforms::evaluateASTNode(child);
+        SBMLTransforms::clearComponentValues();
         if (!isnan(value))
         {
           if (floor(value) != value)
@@ -309,6 +310,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
         // stoichiometry is dimensionless
         SBMLTransforms::mapComponentValues(&m);
         double value = SBMLTransforms::evaluateASTNode(child, &m);
+        SBMLTransforms::clearComponentValues();
         // but it may not be an integer
         if (isnan(value))
           // we cant check

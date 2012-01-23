@@ -515,6 +515,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
           {
             SBMLTransforms::mapComponentValues(model);
             value = SBMLTransforms::evaluateASTNode(child, model);
+            SBMLTransforms::clearComponentValues();
           }
           else
           {
@@ -527,6 +528,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
           {
             SBMLTransforms::mapComponentValues(model);
             value = SBMLTransforms::evaluateASTNode(child, model);
+            SBMLTransforms::clearComponentValues();
           }
           else
           {
@@ -562,6 +564,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
       {
         SBMLTransforms::mapComponentValues(model);
         value = SBMLTransforms::evaluateASTNode(child);
+        SBMLTransforms::clearComponentValues();
         if (!isnan(value))
         {
           if (floor(value) != value)
@@ -696,6 +699,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node,
         {
           SBMLTransforms::mapComponentValues(model);
           double value = SBMLTransforms::evaluateASTNode(child);
+          SBMLTransforms::clearComponentValues();
           if (!isnan(value))
           {
             double doubleExponent = 

@@ -429,6 +429,15 @@ SBMLTransforms::mapComponentValues(const Model * m)
   return ids;
 }
 
+
+void 
+SBMLTransforms::clearComponentValues()
+{
+  mValues.clear();
+}
+
+
+
 double
 SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
 {
@@ -908,7 +917,11 @@ SBMLTransforms::expandInitialAssignments(Model * m)
       needToBail = true;
     }
   }
-  while(m->getNumInitialAssignments() > 0 && !needToBail);
+  while(m->getNumInitialAssignments() > 0 && needToBail == false);
+
+  // clear the internal map of values
+  mValues.clear();
+
   return true;
 }
 

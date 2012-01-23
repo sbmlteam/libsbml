@@ -120,6 +120,8 @@ public:
   
   static IdList mapComponentValues(const Model * m);
 
+  static void clearComponentValues();
+
 
 protected:  
   static void replaceBvars(ASTNode * math, const FunctionDefinition * fd);
