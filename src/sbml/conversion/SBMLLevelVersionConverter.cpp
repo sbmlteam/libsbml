@@ -298,7 +298,6 @@ SBMLLevelVersionConverter::convert()
 
   if (currentModel != NULL)
   {
-    bool doConversion = false;
     unsigned int origLevel;
     unsigned int origVersion;
     Model *origModel;
@@ -313,515 +312,8 @@ SBMLLevelVersionConverter::convert()
       origVersion = currentVersion;
       origModel = currentModel->clone();
     }
-      
-    if (currentLevel == 1)
-    {
-      switch (targetLevel)
-      {
-      case 1:
-        switch (targetVersion)
-        {
-        case 1:
-          mDocument->getErrorLog()->logError(CannotConvertToL1V1);
-          break;
-        case 2:
-          mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-          conversion = true;
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
-        break;
-      case 2:    
-        switch (targetVersion)
-        {
-        case 1:
-          if (!conversion_errors(mDocument->checkL2v1Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        case 2:
-          if (!conversion_errors(mDocument->checkL2v2Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        case 3:
-          if (!conversion_errors(mDocument->checkL2v3Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        case 4:
-          if (!conversion_errors(mDocument->checkL2v4Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          currentModel->removeParameterRuleUnits(strict);
-          mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-          currentModel->convertL1ToL2();
-          conversion = true;
-        }
-        break;
-      case 3:
-        switch (targetVersion)
-        {
-        case 1:
-          if (!conversion_errors(mDocument->checkL3v1Compatibility()))
-          {
-            doConversion = true;
-          }
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          currentModel->removeParameterRuleUnits(strict);
-          currentModel->convertParametersToLocals(targetLevel, targetVersion);
-          mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-          currentModel->convertL1ToL3();
-          conversion = true;
-        }
-        break;
-      default:
-        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-        break;
-      }
-    }
-    else if (currentLevel == 2)
-    {
-      switch (targetLevel)
-      {
-      case 1:
-        switch (targetVersion)
-        {
-        case 1:
-          mDocument->getErrorLog()->logError(CannotConvertToL1V1);
-          break;
-        case 2:
-          if (!conversion_errors(mDocument->checkL1Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to mDocument->check that
-            * units are strict
-            */
-            if (currentVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
-                  doConversion = false;
-                }
-              }
-            }
-            else
-            {
-              doConversion = true;
-            }
-          }
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          mDocument->expandFunctionDefinitions();
-          currentModel->convertL2ToL1(strict);
-          mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-          conversion = true;
-        }
-        break;
-      case 2:
-        switch (targetVersion)
-        {
-        case 1:
-          if (!conversion_errors(mDocument->checkL2v1Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to mDocument->check that
-            * units are strict
-            */
-            if (currentVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
-                  doConversion = false;
-                }
-              }
-            }
-            else
-            {
-              doConversion = true;
-            }
-          }
-          break;
-        case 2:
-          if (!conversion_errors(mDocument->checkL2v2Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to mDocument->check that
-            * units are strict
-            */
-            if (currentVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
-                  doConversion = false;
-                }
-              }
-            }
-            
-            if (currentVersion == 4 && !hasStrictSBO())
-            {
-              if (strict == false)
-              {
-                mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
-                  doConversion = false;
-                }
-              }
-            }
-            // look for duplicate top targetLevel annotations
-            for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
-            {
-              if (mDocument->getErrorLog()->getError(i)->getErrorId() 
-                                  == DuplicateAnnotationInvalidInL2v2)
-                duplicateAnn = true;
-            }
-           }
-          break;
-        case 3:
-          if (!conversion_errors(mDocument->checkL2v3Compatibility()))
-          {
-            doConversion = true;
-            /* if existing model is L2V4 need to mDocument->check that
-            * units are strict
-            */
-            if (currentVersion == 4 && !hasStrictUnits())
-            {
-              if (strict == false)
-              {
-                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
-                  doConversion = false;
-                }
-              }
-            }
-            
-            if (currentVersion == 4 && !hasStrictSBO())
-            {
-              if (strict == false)
-              {
-                mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
-              }
-              else
-              {
-                if (strictUnits == true)
-                {
-                  mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
-                  doConversion = false;
-                }
-              }
-            }
-            // look for duplicate top targetLevel annotations
-            for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
-            {
-              if (mDocument->getErrorLog()->getError(i)->getErrorId() 
-                              == DuplicateAnnotationInvalidInL2v3)
-                duplicateAnn = true;
-            }
-           }
-          break;
-        case 4:
-          if (!conversion_errors(mDocument->checkL2v4Compatibility()))
-          {
-            doConversion = true;
-            // look for duplicate top targetLevel annotations
-            for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
-            {
-              if (mDocument->getErrorLog()->getError(i)->getErrorId() 
-                              == DuplicateAnnotationInvalidInL2v4)
-                duplicateAnn = true;
-            }
-          }
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          if (duplicateAnn == true)
-          {
-            mDocument->removeDuplicateAnnotations();
-            currentModel->removeDuplicateTopLevelAnnotations();
-          }
-          if (targetVersion == 1)
-          {
-            currentModel->removeSBOTerms(strict);
-          }
-          else if (targetVersion == 2)
-          {
-            currentModel->removeSBOTermsNotInL2V2(strict);
-          }
-          mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-          conversion = true;
-        }
-        break;
-      case 3:
-        switch (targetVersion)
-        {
-        case 1:
-          if (!conversion_errors(mDocument->checkL3v1Compatibility()))
-          {
-            doConversion = true;
-            // look for duplicate top targetLevel annotations
-            for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
-            {
-              if (mDocument->getErrorLog()->getError(i)->getErrorId() 
-                              == DuplicateAnnotationInvalidInL2v4)
-                duplicateAnn = true;
-            }
-          }
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
-        if (doConversion == true)
-        {
-          if (duplicateAnn == true)
-          {
-            mDocument->removeDuplicateAnnotations();
-            currentModel->removeDuplicateTopLevelAnnotations();
-          }
-          currentModel->convertParametersToLocals(targetLevel, targetVersion);
-          mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-          currentModel->convertL2ToL3();
-          conversion = true;
-        }
-        break;
-      default:
-        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-        break;
-      }      
-    }
-    else if (currentLevel == 3)
-      {
-        switch (targetLevel)
-        {
-        case 1:
-          switch (targetVersion)
-          {
-          case 1:
-            mDocument->getErrorLog()->logError(CannotConvertToL1V1);
-            break;
-          case 2:
-            if (!conversion_errors(mDocument->checkL1Compatibility(), strictUnits))
-            {
-              doConversion = true;
-              if (!hasStrictUnits())
-              {
-                if (strict == false)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
-                }
-                else
-                {
-                  if (strictUnits == true)
-                  {
-                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
-                    doConversion = false;
-                  }
-                }
-              }
-              if (doConversion == true)
-              {
-                mDocument->expandFunctionDefinitions();
-                mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-                currentModel->convertL3ToL1();
-                conversion = true;
-              }
-            }
-            break;
-          default:
-            mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-            break;
-          }
-          break;
-        case 2:
-          switch (targetVersion)
-          {
-          case 1:
-            if (!conversion_errors(mDocument->checkL2v1Compatibility(), strictUnits))
-            {
-              doConversion = true;
-               if (!hasStrictUnits())
-              {
-                if (strict == false)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
-                }
-                else
-                {
-                  if (strictUnits == true)
-                  {
-                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
-                    doConversion = false;
-                  }
-                }
-              }
-           }
-            break;
-          case 2:
-            if (!conversion_errors(mDocument->checkL2v2Compatibility(), strictUnits))
-            {
-              doConversion = true;
-              if (!hasStrictUnits())
-              {
-                if (strict == false)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
-                }
-                else
-                {
-                  if (strictUnits == true)
-                  {
-                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
-                    doConversion = false;
-                  }
-                }
-              }
-              if (!hasStrictSBO())
-              {
-                if (strict == false)
-                {
-                  mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
-                }
-                else
-                {
-                  if (strictUnits == true)
-                  {
-                    mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
-                    doConversion = false;
-                  }
-                }
-              }
-           }
-            break;
-          case 3:
-            if (!conversion_errors(mDocument->checkL2v3Compatibility(), strictUnits))
-            {
-              doConversion = true;
-              if (!hasStrictUnits())
-              {
-                if (strict == false)
-                {
-                  mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
-                }
-                else
-                {
-                  if (strictUnits == true)
-                  {
-                    mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
-                    doConversion = false;
-                  }
-                }
-              }
-              if (!hasStrictSBO())
-              {
-                if (strict == false)
-                {
-                  mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
-                }
-                else
-                {
-                  if (strictUnits == true)
-                  {
-                    mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
-                    doConversion = false;
-                  }
-                }
-              }
-            }
-            break;
-          case 4:
-            if (!conversion_errors(mDocument->checkL2v4Compatibility(), strictUnits))
-            {
-              doConversion = true;
-            }
-            break;
-          default:
-            mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-            break;
-          }
-          if (doConversion == true)
-          {
-            mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
-            currentModel->convertL3ToL2(strict);
-            conversion = true;
-          }
-          break;
-        case 3:
-          switch (targetVersion)
-          {
-          case 1:
-            conversion = true;
-            break;
-          default:
-            mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-            break;
-          }
-          break;
-        default:
-          mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
-          break;
-        }
 
-      }
-
+    conversion = performConversion(strict, strictUnits, duplicateAnn);
       
     if (conversion == false)
     {
@@ -876,7 +368,545 @@ SBMLLevelVersionConverter::convert()
   else
     return LIBSBML_OPERATION_FAILED;
 }
+ 
+
+/** @cond doxygen-libsbml-internal */
+bool
+SBMLLevelVersionConverter::performConversion(bool strict, bool strictUnits, 
+                                        bool duplicateAnn)
+{
+  bool conversion = false;
+ 
+  bool doConversion = false;
   
+  unsigned int currentLevel = mDocument->getLevel();
+  unsigned int currentVersion = mDocument->getVersion();
+  unsigned int targetLevel = getTargetLevel(); 
+  unsigned int targetVersion = getTargetVersion();
+  Model * currentModel = mDocument->getModel();
+
+  unsigned int i = 0;
+
+  if (currentLevel == 1)
+  {
+    switch (targetLevel)
+    {
+    case 1:
+      switch (targetVersion)
+      {
+      case 1:
+        mDocument->getErrorLog()->logError(CannotConvertToL1V1);
+        break;
+      case 2:
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        conversion = true;
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      break;
+    case 2:    
+      switch (targetVersion)
+      {
+      case 1:
+        if (!conversion_errors(mDocument->checkL2v1Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL2v2Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
+      case 3:
+        if (!conversion_errors(mDocument->checkL2v3Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
+      case 4:
+        if (!conversion_errors(mDocument->checkL2v4Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      if (doConversion == true)
+      {
+        currentModel->removeParameterRuleUnits(strict);
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        currentModel->convertL1ToL2();
+        conversion = true;
+      }
+      break;
+    case 3:
+      switch (targetVersion)
+      {
+      case 1:
+        if (!conversion_errors(mDocument->checkL3v1Compatibility()))
+        {
+          doConversion = true;
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      if (doConversion == true)
+      {
+        currentModel->removeParameterRuleUnits(strict);
+        currentModel->convertParametersToLocals(targetLevel, targetVersion);
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        currentModel->convertL1ToL3();
+        conversion = true;
+      }
+      break;
+    default:
+      mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+      break;
+    }
+  }
+  else if (currentLevel == 2)
+  {
+    switch (targetLevel)
+    {
+    case 1:
+      switch (targetVersion)
+      {
+      case 1:
+        mDocument->getErrorLog()->logError(CannotConvertToL1V1);
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL1Compatibility()))
+        {
+          doConversion = true;
+          /* if existing model is L2V4 need to mDocument->check that
+          * units are strict
+          */
+          if (currentVersion == 4 && !hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
+                doConversion = false;
+              }
+            }
+          }
+          else
+          {
+            doConversion = true;
+          }
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      if (doConversion == true)
+      {
+        mDocument->expandFunctionDefinitions();
+        mDocument->expandInitialAssignments();
+        currentModel->convertL2ToL1(strict);
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        conversion = true;
+      }
+      break;
+    case 2:
+      switch (targetVersion)
+      {
+      case 1:
+        if (!conversion_errors(mDocument->checkL2v1Compatibility()))
+        {
+          doConversion = true;
+          /* if existing model is L2V4 need to mDocument->check that
+          * units are strict
+          */
+          if (currentVersion == 4 && !hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
+                doConversion = false;
+              }
+            }
+          }
+          else
+          {
+            doConversion = true;
+          }
+        }
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL2v2Compatibility()))
+        {
+          doConversion = true;
+          /* if existing model is L2V4 need to mDocument->check that
+          * units are strict
+          */
+          if (currentVersion == 4 && !hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
+                doConversion = false;
+              }
+            }
+          }
+          
+          if (currentVersion == 4 && !hasStrictSBO())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
+                doConversion = false;
+              }
+            }
+          }
+          // look for duplicate top targetLevel annotations
+          for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+          {
+            if (mDocument->getErrorLog()->getError(i)->getErrorId() 
+                                == DuplicateAnnotationInvalidInL2v2)
+              duplicateAnn = true;
+          }
+         }
+        break;
+      case 3:
+        if (!conversion_errors(mDocument->checkL2v3Compatibility()))
+        {
+          doConversion = true;
+          /* if existing model is L2V4 need to mDocument->check that
+          * units are strict
+          */
+          if (currentVersion == 4 && !hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
+                doConversion = false;
+              }
+            }
+          }
+          
+          if (currentVersion == 4 && !hasStrictSBO())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
+                doConversion = false;
+              }
+            }
+          }
+          // look for duplicate top targetLevel annotations
+          for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+          {
+            if (mDocument->getErrorLog()->getError(i)->getErrorId() 
+                            == DuplicateAnnotationInvalidInL2v3)
+              duplicateAnn = true;
+          }
+         }
+        break;
+      case 4:
+        if (!conversion_errors(mDocument->checkL2v4Compatibility()))
+        {
+          doConversion = true;
+          // look for duplicate top targetLevel annotations
+          for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+          {
+            if (mDocument->getErrorLog()->getError(i)->getErrorId() 
+                            == DuplicateAnnotationInvalidInL2v4)
+              duplicateAnn = true;
+          }
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      if (doConversion == true)
+      {
+        if (duplicateAnn == true)
+        {
+          mDocument->removeDuplicateAnnotations();
+          currentModel->removeDuplicateTopLevelAnnotations();
+        }
+        if (targetVersion == 1)
+        {
+          currentModel->removeSBOTerms(strict);
+          mDocument->expandInitialAssignments();
+        }
+        else if (targetVersion == 2)
+        {
+          currentModel->removeSBOTermsNotInL2V2(strict);
+        }
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        conversion = true;
+      }
+      break;
+    case 3:
+      switch (targetVersion)
+      {
+      case 1:
+        if (!conversion_errors(mDocument->checkL3v1Compatibility()))
+        {
+          doConversion = true;
+          // look for duplicate top targetLevel annotations
+          for (i = 0; i < mDocument->getErrorLog()->getNumErrors(); i++)
+          {
+            if (mDocument->getErrorLog()->getError(i)->getErrorId() 
+                            == DuplicateAnnotationInvalidInL2v4)
+              duplicateAnn = true;
+          }
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      if (doConversion == true)
+      {
+        if (duplicateAnn == true)
+        {
+          mDocument->removeDuplicateAnnotations();
+          currentModel->removeDuplicateTopLevelAnnotations();
+        }
+        currentModel->convertParametersToLocals(targetLevel, targetVersion);
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        currentModel->convertL2ToL3();
+        conversion = true;
+      }
+      break;
+    default:
+      mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+      break;
+    }      
+  }
+  else if (currentLevel == 3)
+  {
+    switch (targetLevel)
+    {
+    case 1:
+      switch (targetVersion)
+      {
+      case 1:
+        mDocument->getErrorLog()->logError(CannotConvertToL1V1);
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL1Compatibility(), strictUnits))
+        {
+          doConversion = true;
+          if (!hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL1);
+                doConversion = false;
+              }
+            }
+          }
+          if (doConversion == true)
+          {
+            mDocument->expandFunctionDefinitions();
+            mDocument->expandInitialAssignments();
+            mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+            currentModel->convertL3ToL1();
+            conversion = true;
+          }
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      break;
+    case 2:
+      switch (targetVersion)
+      {
+      case 1:
+        if (!conversion_errors(mDocument->checkL2v1Compatibility(), strictUnits))
+        {
+          doConversion = true;
+           if (!hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v1);
+                doConversion = false;
+              }
+            }
+          }
+       }
+        break;
+      case 2:
+        if (!conversion_errors(mDocument->checkL2v2Compatibility(), strictUnits))
+        {
+          doConversion = true;
+          if (!hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v2);
+                doConversion = false;
+              }
+            }
+          }
+          if (!hasStrictSBO())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictSBORequiredInL2v2);
+                doConversion = false;
+              }
+            }
+          }
+       }
+        break;
+      case 3:
+        if (!conversion_errors(mDocument->checkL2v3Compatibility(), strictUnits))
+        {
+          doConversion = true;
+          if (!hasStrictUnits())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictUnitsRequiredInL2v3);
+                doConversion = false;
+              }
+            }
+          }
+          if (!hasStrictSBO())
+          {
+            if (strict == false)
+            {
+              mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
+            }
+            else
+            {
+              if (strictUnits == true)
+              {
+                mDocument->getErrorLog()->logError(StrictSBORequiredInL2v3);
+                doConversion = false;
+              }
+            }
+          }
+        }
+        break;
+      case 4:
+        if (!conversion_errors(mDocument->checkL2v4Compatibility(), strictUnits))
+        {
+          doConversion = true;
+        }
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      if (doConversion == true)
+      {
+        if (targetVersion == 1)
+          mDocument->expandInitialAssignments();
+        mDocument->updateSBMLNamespace("core", targetLevel, targetVersion);
+        currentModel->convertL3ToL2(strict);
+        conversion = true;
+      }
+      break;
+    case 3:
+      switch (targetVersion)
+      {
+      case 1:
+        conversion = true;
+        break;
+      default:
+        mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+        break;
+      }
+      break;
+    default:
+      mDocument->getErrorLog()->logError(InvalidTargetLevelVersion, currentLevel, currentVersion);
+      break;
+    }
+
+  }
+
+  return conversion;
+
+}
+
+/** @endcond */
+
+
 /** @cond doxygen-libsbml-internal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.

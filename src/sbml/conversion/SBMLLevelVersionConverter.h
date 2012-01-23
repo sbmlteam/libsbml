@@ -230,6 +230,10 @@ private:
    */
   bool hasStrictSBO();
 
+  /*
+   * do actual conversion
+   */  
+  bool performConversion(bool strict, bool strictUnits, bool duplicateAnn);  
 
   /** @endcond */
 };

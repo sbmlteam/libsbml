@@ -6745,12 +6745,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "Conversion of a model with <initialAssignment>s to SBML Level 1 is not "
-    "yet supported."
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "SBML Level 1 does not have <initialAssignments>. The "
+    "<initialAssignments> in the original model have been "
+    "replaced by appropriate values."
   },
 
   //91005
@@ -7024,12 +7025,13 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    LIBSBML_SEV_ERROR,
-    "Conversion of a model with <initialAssignments> to SBML Level 2 Version 1 "
-    "is not yet supported."
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    LIBSBML_SEV_WARNING,
+    "SBML Level 2 Version 1 does not have <initialAssignments>. The "
+    "<initialAssignments> in the original model have been "
+    "replaced by appropriate values."
   },
 
   //92003
