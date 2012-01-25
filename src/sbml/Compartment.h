@@ -314,7 +314,9 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#ifndef LIBSBML_USE_STRICT_INCLUDES
 #include <sbml/annotation/RDFAnnotation.h>
+#endif
 #include <sbml/common/operationReturnValues.h>
 
 #ifdef __cplusplus

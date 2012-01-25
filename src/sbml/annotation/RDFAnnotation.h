@@ -85,6 +85,8 @@ class ModelCreator;
 class Date;
 #endif
 
+class XMLErrorLog;
+
 class LIBSBML_EXTERN RDFAnnotationParser
 {
 public:
@@ -100,10 +102,12 @@ public:
    * @param annotation XMLNode containing the annotation.
    * 
    * @param CVTerms list of CVTerm objects to be created.
+   * @param log optional error log to add warnings to.
+   * @param metaId optional metaId, if set only the rdf annotation for this metaId will be returned.
    *
    * @see @if clike parseRDFAnnotation(const XMLNode *annotation) @else RDFAnnotationParser::parseRDFAnnotation(const XMLNode *annotation) @endif
    */
-  static void parseRDFAnnotation(const XMLNode *annotation, List *CVTerms);
+  static void parseRDFAnnotation(const XMLNode *annotation, List *CVTerms, XMLErrorLog* log = NULL, const char* metaId = NULL);
 
 
   /**
@@ -114,10 +118,12 @@ public:
    * information, and create a list of corresponding CVTerm objects.
    *
    * @param annotation XMLNode containing the annotation.
+   * @param log optional error log to add warnings to.
+   * @param metaId optional metaId, if set only the rdf annotation for this metaId will be returned.
    *
    * @return a pointer to the ModelHistory created.
    */
-  static ModelHistory* parseRDFAnnotation(const XMLNode *annotation);
+  static ModelHistory* parseRDFAnnotation(const XMLNode *annotation, XMLErrorLog* log = NULL, const char* metaId = NULL);
 
 
   /**

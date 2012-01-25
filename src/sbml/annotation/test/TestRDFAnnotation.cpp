@@ -436,6 +436,119 @@ END_TEST
 
 #include <sbml/SBMLTypes.h>
 
+START_TEST (test_RDFAnnotation_testAnnotationForMetaId)
+{
+
+  SBMLDocument doc(3, 1);
+  Model* model = doc.createModel();
+  fail_unless(model != NULL);
+  
+  model->setId("test1");
+    
+  CVTerm term (MODEL_QUALIFIER);
+  term.addResource("testResource");
+  term.setModelQualifierType(BQM_IS);
+  
+  model->setMetaId("t1");
+  model->addCVTerm(&term);
+  
+  // unset metaid ... now we have potentially dangling RDF
+  model->setMetaId("");
+  std::string test = model->toSBML();
+
+  // this should be the test
+  fail_unless(test == "<model id=\"test1\"/>");   
+
+}
+END_TEST
+
+#include <sbml/xml/XMLInputStream.h>
+  
+START_TEST (test_RDFAnnotation_testMissingAbout)
+{
+
+ const char * withAbout =
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * emptyAbout =
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noAbout =
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ List *cvTerms = new List();
+ XMLNode node(XMLInputStream(withAbout,false));
+ RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms );
+
+ // regular parsing
+ fail_unless( cvTerms->getSize() == 1 );
+ 
+ // test parsing for specific meta id
+ delete cvTerms;
+ cvTerms = new List();
+ RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, NULL, "_000004" );
+ fail_unless( cvTerms->getSize() == 1 );
+
+ // test parsing for a non-existing meta id
+ delete cvTerms;
+ cvTerms = new List();
+ RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, NULL, "badMetaId" );
+ fail_unless( cvTerms->getSize() == 0 );
+
+
+ // now the test with empty about 
+ delete cvTerms;
+ cvTerms = new List();
+
+ XMLNode node1(XMLInputStream(emptyAbout,false));
+ RDFAnnotationParser::parseRDFAnnotation( &node1, cvTerms );
+
+ fail_unless( cvTerms->getSize() == 0 );
+ 
+ // now the test with empty about 
+ delete cvTerms;
+ cvTerms = new List();
+
+ XMLNode node2(XMLInputStream(noAbout,false));
+ RDFAnnotationParser::parseRDFAnnotation( &node2, cvTerms );
+
+ fail_unless( cvTerms->getSize() == 0 );
+
+ delete cvTerms;
+}
+END_TEST
+
+
 START_TEST (test_RDFAnnotation_testMissingMetaId)
 {
 
@@ -473,6 +586,8 @@ create_suite_RDFAnnotation (void)
                             RDFAnnotation_teardown);
 
   tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
+  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
+  tcase_add_test(tcase, test_RDFAnnotation_testAnnotationForMetaId );
   tcase_add_test(tcase, test_RDFAnnotation_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );

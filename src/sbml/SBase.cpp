@@ -1116,14 +1116,14 @@ SBase::setAnnotation (const XMLNode* annotation)
   {
     // parse mAnnotation (if any) and set mCVTerms 
     mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, NULL, getMetaId().c_str());
   }
 
   if(getLevel() > 2 && mAnnotation != NULL 
      && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
   {
     // parse mAnnotation (if any) and set mHistory
-    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, NULL, getMetaId().c_str());
   }
 
   for (size_t i=0; i < mPlugins.size(); i++)
@@ -1221,7 +1221,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
   // parse new_annotation and add mCVTerms (if any) 
   if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
   {
-    RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
+    RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms, NULL, getMetaId().c_str());
   }
 
   // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 
@@ -3567,7 +3567,7 @@ SBase::readAnnotation (XMLInputStream& stream)
       delete mHistory;
       if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
       {
-        mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+        mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, NULL, getMetaId().c_str());
         setModelHistory(mHistory);
       }
       else
@@ -3576,7 +3576,7 @@ SBase::readAnnotation (XMLInputStream& stream)
       }
     }
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
-      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, NULL, getMetaId().c_str());
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;

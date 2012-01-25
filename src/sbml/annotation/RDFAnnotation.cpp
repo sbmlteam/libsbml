@@ -57,10 +57,18 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * and creates a List of CVTerms from the annotation
  */
 void 
-RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms)
+RDFAnnotationParser::parseRDFAnnotation(
+     const XMLNode * annotation, 
+     List * CVTerms, 
+     XMLErrorLog* log /*= NULL*/, 
+     const char* metaId /*= NULL*/)
 {
   if (annotation == NULL) return;
 
+  static const XMLTriple& rdfAbout = XMLTriple(
+                "about", 
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "rdf");
   const string&  name = annotation->getName();
   const XMLNode*  RDFTop = NULL;
   unsigned int n = 0;
@@ -78,10 +86,33 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
       {
 	      if (annotation->getChild(n).getNumChildren() > 0)
 	      {
-          if (annotation->getChild(n).getChild(0).getName() == "Description")
+          const XMLNode& current = annotation->getChild(n).getChild(0);
+          if (current.getName() == "Description")
           {
-	          RDFTop = &(annotation->getChild(n).getChild(0));
-	          break;
+            if (current.hasAttr(rdfAbout))
+            {
+              string about = current.getAttrValue(rdfAbout);
+              if (!about.empty())
+              {
+  	            if (metaId == NULL || about.find(metaId) != string::npos)
+                {
+  	              RDFTop = &current;
+	                break;
+                }
+              }
+            }
+            else if (current.hasAttr("rdf:about"))
+            {
+              string about = current.getAttrValue("rdf:about");
+              if (!about.empty())
+              {
+  	            if (metaId == NULL || about.find(metaId) != string::npos)
+                {
+  	              RDFTop = &current;
+	                break;
+                }
+              }
+            }
           }
 	      }
       }
@@ -206,10 +237,16 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
  */
 
 ModelHistory*
-RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
+RDFAnnotationParser::parseRDFAnnotation(
+     const XMLNode * annotation, 
+     XMLErrorLog* log /*= NULL*/, 
+     const char* metaId /*= NULL*/)
 {
   if (annotation == NULL) return NULL;
-
+  static const XMLTriple& rdfAbout = XMLTriple(
+                "about", 
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "rdf");
   const string&  name = annotation->getName();
   const XMLNode*  RDFTop = NULL;
   ModelHistory * history = NULL;
@@ -230,11 +267,34 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
 	      {
 	        if (name1 == "RDF")
 	        {
-	          if (annotation->getChild(n).getNumChildren() > 0)
-	          {
-	            RDFTop = &(annotation->getChild(n).getChild(0));
-	            break;
-	          }
+	          const XMLNode& current = annotation->getChild(n).getChild(0);
+            if (current.getName() == "Description")
+            {
+              if (current.hasAttr(rdfAbout))
+              {
+                string about = current.getAttrValue(rdfAbout);
+                if (!about.empty())
+                {
+                  if (metaId == NULL || about.find(metaId) != string::npos)
+                  {
+  	                RDFTop = &current;
+	                  break;
+                  }
+                }
+              }
+              else if (current.hasAttr("rdf:about"))
+              {
+                string about = current.getAttrValue("rdf:about");
+                if (!about.empty())
+                {
+  	              if (metaId == NULL || about.find(metaId) != string::npos)
+                  {
+  	                RDFTop = &current;
+	                  break;
+                  }
+                }
+              }
+            }
 	        }
 	      }
 	      n++;

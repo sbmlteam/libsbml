@@ -32,6 +32,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/annotation/RDFAnnotation.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/MathML.h>
 #include <sbml/math/ASTNode.h>
@@ -831,7 +832,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       delete mCVTerms;
     }
     mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, NULL, getMetaId().c_str());
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;

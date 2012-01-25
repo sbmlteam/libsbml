@@ -30,6 +30,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/annotation/RDFAnnotation.h>
 #include <sbml/math/ASTNode.h>
 
 #include <sbml/SBMLDocument.h>
@@ -2180,7 +2181,7 @@ Model::setAnnotation (const XMLNode* annotation)
        && RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
     {
       // parse mAnnotation (if any) and set mHistory
-      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, NULL, getMetaId().c_str());
     }
   }
 
@@ -2250,7 +2251,7 @@ Model::appendAnnotation (const XMLNode* annotation)
   // parse new_annotation and reset mHistory 
   if (RDFAnnotationParser::hasHistoryRDFAnnotation(new_annotation))
   {
-    ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
+    ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation, NULL, getMetaId().c_str());
     if(new_mhistory != NULL)
     {
       delete mHistory;
@@ -3816,13 +3817,13 @@ Model::readOtherXML (XMLInputStream& stream)
     delete mHistory;
     if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
     {
-      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, NULL, getMetaId().c_str());
       setModelHistory(mHistory);
     }
     else
       mHistory = NULL;
     if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
-      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, NULL, getMetaId().c_str());
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;
