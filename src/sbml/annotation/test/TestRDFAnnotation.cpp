@@ -515,13 +515,14 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
  fail_unless( cvTerms->getSize() == 1 );
  
  // test parsing for specific meta id
- delete cvTerms;
  cvTerms = new List();
  RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, NULL, "_000004" );
  fail_unless( cvTerms->getSize() == 1 );
 
  // test parsing for a non-existing meta id
  delete cvTerms;
+ cvTerms=NULL;
+
  cvTerms = new List();
  RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms, NULL, "badMetaId" );
  fail_unless( cvTerms->getSize() == 0 );
@@ -529,6 +530,8 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
 
  // now the test with empty about 
  delete cvTerms;
+ cvTerms=NULL;
+
  cvTerms = new List();
 
  XMLInputStream stream1(emptyAbout,false);
@@ -539,6 +542,8 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
  
  // now the test with empty about 
  delete cvTerms;
+ cvTerms=NULL;
+
  cvTerms = new List();
 
  XMLInputStream stream2(noAbout,false);
@@ -548,6 +553,8 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
  fail_unless( cvTerms->getSize() == 0 );
 
  delete cvTerms;
+ cvTerms=NULL;
+
 }
 END_TEST
 
