@@ -83,7 +83,7 @@ void GetStoichiometryMath			( mxArray *, unsigned int, unsigned int, SpeciesRefe
 void GetParameterFromKineticLaw ( mxArray *, unsigned int, unsigned int, KineticLaw_t * );
 
 
-mxArray * mxModel[1];
+mxArray * mxModel[2];
 
 void FreeMem(void)
 {
@@ -172,7 +172,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
       mexErrMsgTxt("Octave requires the filename to be specified\n"
                    "USAGE: OutputSBML(SBMLModel, filename)");
   }
-  if (nrhs > 2)
+  if (nrhs > 3)
   {
     inInstaller = 1;
   }
@@ -184,6 +184,19 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     mexMakeArrayPersistent(mxModel[0]);
 	mexAtExit(FreeMem);
 
+/**
+ * we know have the option of a third argument that indicates that we
+ * want teh structure to ONLY contain expected fields or not
+ */
+if (nrhs > 2)
+{
+  mxModel[1] = prhs[2];
+}  
+else
+{
+  mxModel[1] = mxCreateDoubleScalar(0);
+}
+  
 /**
 	* check number and type of output arguments
 	* SHOULDNT BE ANY
@@ -200,13 +213,13 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	* and optionally the filename
 	*/
   
-	if (nrhs > 3)
+	if (nrhs > 4)
 	{
 		mexErrMsgTxt("Too many input arguments\n"
-                 "USAGE: OutputSBML(SBMLModel, (filename))");
+                 "USAGE: OutputSBML(SBMLModel, (filename), (exclusive))");
 	}
   
-	nStatus = mexCallMATLAB(2, mxCheckStructure, 1, mxModel, "isSBML_Model");
+	nStatus = mexCallMATLAB(2, mxCheckStructure, 2, mxModel, "isSBML_Model");
 	
 	if ((nStatus != 0) || (mxIsLogicalScalarTrue(mxCheckStructure[0]) != 1))
 	{

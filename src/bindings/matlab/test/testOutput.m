@@ -54,7 +54,7 @@ for i=1:length(files)
     model = TranslateSBML(['test-data', filesep, files(i).name]);
     if (~isempty(model))
       if (in_installer == 1)
-        OutputSBML(model, [outdir, filesep, files(i).name], in_installer);
+        OutputSBML(model, [outdir, filesep, files(i).name], 0, in_installer);
       else
         OutputSBML(model, [outdir, filesep, files(i).name]);
       end;
