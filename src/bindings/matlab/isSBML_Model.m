@@ -1,9 +1,12 @@
-function [valid, message] = isSBML_Model(SBMLStructure)
+function [valid, message] = isSBML_Model(varargin)
 % [valid, message] = isSBML_Model(SBMLModel)
 %
 % Takes
 %
 % 1. SBMLModel, an SBML Model structure
+% 2. exclusive =
+%   - 1, structures should contain ONLY required fields
+%   - 0, structres may contain additional fields
 %
 % Returns
 %
@@ -14,36 +17,44 @@ function [valid, message] = isSBML_Model(SBMLStructure)
 %   - 0, otherwise
 % 2. a message explaining any failure
 %
-% *NOTE:* The fields present in a MATLAB_SBML Model structure of the appropriate
-% level and version can be found using getModelFieldnames(level, version)
 
 %<!---------------------------------------------------------------------------
-% This file is part of SBMLToolbox.  Please visit http://sbml.org for more
-% information about SBML, and the latest version of SBMLToolbox.
+% This file is part of libSBML.  Please visit http://sbml.org for more
+% information about SBML, and the latest version of libSBML.
 %
 % Copyright (C) 2009-2012 jointly by the following organizations: 
 %     1. California Institute of Technology, Pasadena, CA, USA
 %     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-%
-% Copyright (C) 2006-2008 jointly by the following organizations: 
+%  
+% Copyright (C) 2006-2008 by the California Institute of Technology,
+%     Pasadena, CA, USA 
+%  
+% Copyright (C) 2002-2005 jointly by the following organizations: 
 %     1. California Institute of Technology, Pasadena, CA, USA
-%     2. University of Hertfordshire, Hatfield, UK
-%
-% Copyright (C) 2003-2005 jointly by the following organizations: 
-%     1. California Institute of Technology, Pasadena, CA, USA 
 %     2. Japan Science and Technology Agency, Japan
-%     3. University of Hertfordshire, Hatfield, UK
-%
-% SBMLToolbox is free software; you can redistribute it and/or modify it
-% under the terms of the GNU Lesser General Public License as published by
-% the Free Software Foundation.  A copy of the license agreement is provided
-% in the file named "LICENSE.txt" included with this software distribution.
+% 
+% This library is free software; you can redistribute it and/or modify
+% it under the terms of the GNU Lesser General Public License as
+% published by the Free Software Foundation.  A copy of the license
+% agreement is provided in the file named "LICENSE.txt" included with
+% this software distribution and also available online as
+% http://sbml.org/software/libsbml/license.html
 %----------------------------------------------------------------------- -->
 
 
-
-
 %check the input arguments are appropriate
+if (nargin < 1)
+  error('isSBML_Model needs at least one argument');
+elseif (nargin == 1)
+  SBMLStructure = varargin{1};
+  exclusive = 0;
+elseif (nargin == 2)
+  SBMLStructure = varargin{1};
+  exclusive = varargin{2};
+else
+  error('too many arguments to isSBML_Model');
+end;
+     
 
 if (length(SBMLStructure) > 1)
   valid = 0;
@@ -114,9 +125,9 @@ end;
 if (valid == 1 && level > 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.functionDefinition))
-    [valid, message] = isSBML_FunctionDefinition( ...
+    [valid, message] = isSBML_Struct('SBML_FUNCTION_DEFINITION', ...
                                   SBMLStructure.functionDefinition(index), ...
-                                  level, version);
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -125,9 +136,9 @@ end;
 if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.unitDefinition))
-    [valid, message] = isSBML_UnitDefinition( ...
+    [valid, message] = isSBML_Struct('SBML_UNIT_DEFINITION', ...
                                   SBMLStructure.unitDefinition(index), ...
-                                  level, version);
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -136,8 +147,9 @@ end;
 if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.compartment))
-    [valid, message] = isSBML_Compartment(SBMLStructure.compartment(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_COMPARTMENT', ...
+                                  SBMLStructure.compartment(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -146,8 +158,9 @@ end;
 if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.species))
-    [valid, message] = isSBML_Species(SBMLStructure.species(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_SPECIES', ...
+                                  SBMLStructure.species(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -156,8 +169,9 @@ end;
 if (valid == 1 && level == 2 && version > 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.compartmentType))
-    [valid, message] = isSBML_CompartmentType(SBMLStructure.compartmentType(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_COMPARTMENT_TYPE', ...
+                                  SBMLStructure.compartmentType(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -166,8 +180,9 @@ end;
 if (valid == 1 && level == 2 && version > 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.speciesType))
-    [valid, message] = isSBML_SpeciesType(SBMLStructure.speciesType(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_SPECIES_TYPE', ...
+                                  SBMLStructure.speciesType(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -176,8 +191,9 @@ end;
 if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.parameter))
-    [valid, message] = isSBML_Parameter(SBMLStructure.parameter(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_PARAMETER', ...
+                                  SBMLStructure.parameter(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -186,9 +202,9 @@ end;
 if (valid == 1 && (level > 2 || (level == 2 && version > 1)))
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.initialAssignment))
-    [valid, message] = isSBML_InitialAssignment( ...
+    [valid, message] = isSBML_Struct('SBML_INITIAL_ASSIGNMENT', ...
                                   SBMLStructure.initialAssignment(index), ...
-                                  level, version);
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -198,7 +214,7 @@ if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.rule))
     [valid, message] = isSBML_Rule(SBMLStructure.rule(index), ...
-                                  level, version);
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -207,9 +223,9 @@ end;
 if (valid == 1 && (level > 2 || (level == 2 && version > 1)))
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.constraint))
-    [valid, message] = isSBML_Constraint( ...
+    [valid, message] = isSBML_Struct('SBML_CONSTRAINT', ...
                                   SBMLStructure.constraint(index), ...
-                                  level, version);
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -218,8 +234,9 @@ end;
 if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.reaction))
-    [valid, message] = isSBML_Reaction(SBMLStructure.reaction(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_REACTION', ...
+                                  SBMLStructure.reaction(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -228,8 +245,9 @@ end;
 if (valid == 1 && level > 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.event))
-    [valid, message] = isSBML_Event(SBMLStructure.event(index), ...
-                                  level, version);
+    [valid, message] = isSBML_Struct('SBML_EVENT', ...
+                                  SBMLStructure.event(index), ...
+                                  level, version, exclusive);
     index = index + 1;
   end;
 end;
@@ -239,35 +257,17 @@ end;
 if (valid == 0)
 	message = sprintf('Invalid Model structure\n%s\n', message);
 end;
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [valid, message] = isSBML_AlgebraicRule(varargin)
+function [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, exclusive)
 
 
 
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
   valid = 0;
   message = 'cannot deal with arrays of structures';
   return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
 end;
 
 isValidLevelVersionCombination(level, version);
@@ -278,7 +278,6 @@ message = '';
 valid = isstruct(SBMLStructure);
 
 % check the typecode
-typecode = 'SBML_ALGEBRAIC_RULE';
 if (valid == 1 && ~isempty(SBMLStructure))
   if isfield(SBMLStructure, 'typecode')
     if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
@@ -289,111 +288,6 @@ if (valid == 1 && ~isempty(SBMLStructure))
   else
     valid = 0;
     message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_ALGEBRAIC_RULE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid AlgebraicRule\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_AssignmentRule(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_ASSIGNMENT_RULE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (level > 1)
-      if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-        valid = 0;
-        message = 'typecode mismatch';
-        return;
-      end;
-    else
-      % check L1 types
-      typecode = SBMLStructure.typecode;
-      cvr = strcmp(typecode, 'SBML_COMPARTMENT_VOLUME_RULE');
-      pr = strcmp(typecode, 'SBML_PARAMETER_RULE');
-      scr = strcmp(typecode, 'SBML_SPECIES_CONCENTRATION_RULE');
-      if (cvr ~= 1 && pr ~= 1 && scr ~= 1)
-        valid = 0;
-        message = 'typecode mismatch';
-        return;
-      elseif (strcmp(SBMLStructure.type, 'scalar') ~= 1)
-        valid = 0;
-        message = 'expected scalar type';
-        return;
-      end;      
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode';
     return;
   end;
 end;
@@ -429,1668 +323,186 @@ while (valid == 1 && index <= numFields)
 	index = index + 1;
 end;
 
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid AssignmentRule\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Compartment(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_COMPARTMENT';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
+if (exclusive == 1)
+  % check that the structure contains ONLY the expected fields
+  if (valid == 1)
+    if (numFields ~= length(fieldnames(SBMLStructure))-2)
       valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_COMPARTMENT', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Compartment\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_CompartmentType(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_COMPARTMENT_TYPE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_COMPARTMENT_TYPE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid CompartmentType\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_CompartmentVolumeRule(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_COMPARTMENT_VOLUME_RULE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_COMPARTMENT_VOLUME_RULE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid CompartmentVolumeRule\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Constraint(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_CONSTRAINT';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_CONSTRAINT', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Constraint\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Delay(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_DELAY';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_DELAY', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Delay\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Event(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_EVENT';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_EVENT', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-%check that any nested structures are appropriate
-
-% eventAssignments
-if (valid == 1)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.eventAssignment))
-    [valid, message] = isSBML_EventAssignment( ...
-                                  SBMLStructure.eventAssignment(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-% trigger/delay/priority
-% these are level and version dependent
-if (valid == 1)
-  if (level == 2 && version > 2)
-    if (length(SBMLStructure.trigger) > 1)
-      valid = 0;
-      message = 'multiple trigger elements encountered';
-    elseif (length(SBMLStructure.delay) > 1)
-      valid = 0;
-      message = 'multiple delay elements encountered';
-    end;
-    if (valid == 1 && length(SBMLStructure.trigger) == 1)
-      [valid, message] = isSBML_Trigger(SBMLStructure.trigger, level, version);
-    end;
-    if (valid == 1 && length(SBMLStructure.delay) == 1)
-      [valid, message] = isSBML_Delay(SBMLStructure.delay, level, version);
-    end;
-  elseif (level > 2)
-    if (length(SBMLStructure.trigger) > 1)
-      valid = 0;
-      message = 'multiple trigger elements encountered';
-    elseif (length(SBMLStructure.delay) > 1)
-      valid = 0;
-      message = 'multiple delay elements encountered';
-    elseif (length(SBMLStructure.priority) > 1)
-      valid = 0;
-      message = 'multiple priority elements encountered';
-    end;
-    if (valid == 1 && length(SBMLStructure.trigger) == 1)
-      [valid, message] = isSBML_Trigger(SBMLStructure.trigger, level, version);
-    end;
-    if (valid == 1 && length(SBMLStructure.delay) == 1)
-      [valid, message] = isSBML_Delay(SBMLStructure.delay, level, version);
-    end;
-    if (valid == 1 && length(SBMLStructure.priority) == 1)
-      [valid, message] = isSBML_Priority(SBMLStructure.priority, level, version);
+      message = sprintf('Unexpected field detected');
     end;
   end;
 end;
 
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Event\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_EventAssignment(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_EVENT_ASSIGNMENT';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_EVENT_ASSIGNMENT', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid EventAssignment\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_FunctionDefinition(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_FUNCTION_DEFINITION';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_FUNCTION_DEFINITION', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid FunctionDefinition\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_InitialAssignment(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_INITIAL_ASSIGNMENT';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_INITIAL_ASSIGNMENT', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid InitialAssignment\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_KineticLaw(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_KINETIC_LAW';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_KINETIC_LAW', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-%check that any nested structures are appropriate
-
-% parameters
-if (valid == 1 && level < 3)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.parameter))
-    [valid, message] = isSBML_Parameter(SBMLStructure.parameter(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-%check that any nested structures are appropriate
-
-% localParameters
-if (valid == 1 && level > 2)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.localParameter))
-    [valid, message] = isSBML_LocalParameter(SBMLStructure.localParameter(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid KineticLaw\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_LocalParameter(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_LOCAL_PARAMETER';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_LOCAL_PARAMETER', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid LocalParameter\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_ModifierSpeciesReference(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_MODIFIER_SPECIES_REFERENCE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_MODIFIER_SPECIES_REFERENCE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid ModifierSpeciesReference\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Parameter(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_PARAMETER';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_PARAMETER', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Parameter\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_ParameterRule(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_PARAMETER_RULE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_PARAMETER_RULE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid ParameterRule\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Priority(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_PRIORITY';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_PRIORITY', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Priority\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_RateRule(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_RATE_RULE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (level > 1)
-      if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-        valid = 0;
-        message = 'typecode mismatch';
-        return;
+% some structures have child structures
+switch (typecode)
+  case 'SBML_EVENT'
+    % eventAssignments
+    if (valid == 1)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.eventAssignment))
+        [valid, message] = isSBML_Struct('SBML_EVENT_ASSIGNMENT', ...
+                                      SBMLStructure.eventAssignment(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
       end;
-    else
-      % check L1 types
-      typecode = SBMLStructure.typecode;
-      cvr = strcmp(typecode, 'SBML_COMPARTMENT_VOLUME_RULE');
-      pr = strcmp(typecode, 'SBML_PARAMETER_RULE');
-      scr = strcmp(typecode, 'SBML_SPECIES_CONCENTRATION_RULE');
-      if (cvr ~= 1 && pr ~= 1 && scr ~= 1)
-        valid = 0;
-        message = 'typecode mismatch';
-        return;
-      elseif (strcmp(SBMLStructure.type, 'rate') ~= 1)
-        valid = 0;
-        message = 'expected rate type';
-        return;
-      end;      
     end;
-  else
-    valid = 0;
-    message = 'missing typecode';
-    return;
-  end;
-end;
 
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
+    % trigger/delay/priority
+    % these are level and version dependent
+    if (valid == 1)
+      if (level == 2 && version > 2)
+        if (length(SBMLStructure.trigger) > 1)
+          valid = 0;
+          message = 'multiple trigger elements encountered';
+        elseif (length(SBMLStructure.delay) > 1)
+          valid = 0;
+          message = 'multiple delay elements encountered';
+        end;
+        if (valid == 1 && length(SBMLStructure.trigger) == 1)
+          [valid, message] = isSBML_Struct('SBML_TRIGGER', ...
+                                            SBMLStructure.trigger, ...
+                                            level, version, exclusive);
+        end;
+        if (valid == 1 && length(SBMLStructure.delay) == 1)
+          [valid, message] = isSBML_Struct('SBML_DELAY', ...
+                                            SBMLStructure.delay, ...
+                                            level, version, exclusive);
+       end;
+      elseif (level > 2)
+        if (length(SBMLStructure.trigger) > 1)
+          valid = 0;
+          message = 'multiple trigger elements encountered';
+        elseif (length(SBMLStructure.delay) > 1)
+          valid = 0;
+          message = 'multiple delay elements encountered';
+        elseif (length(SBMLStructure.priority) > 1)
+          valid = 0;
+          message = 'multiple priority elements encountered';
+        end;
+        if (valid == 1 && length(SBMLStructure.trigger) == 1)
+          [valid, message] = isSBML_Struct('SBML_TRIGGER', ...
+                                            SBMLStructure.trigger, ...
+                                            level, version, exclusive);
+        end;
+        if (valid == 1 && length(SBMLStructure.delay) == 1)
+          [valid, message] = isSBML_Struct('SBML_DELAY', ...
+                                            SBMLStructure.delay, ...
+                                            level, version, exclusive);
+        end;
+        if (valid == 1 && length(SBMLStructure.priority) == 1)
+          [valid, message] = isSBML_Struct('SBML_PRIORITY', ...
+                                            SBMLStructure.priority, ...
+                                            level, version, exclusive);
+        end;
+      end;
+    end;
 
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames(typecode, level, version);
+  case 'SBML_KINETIC_LAW'
+    % parameters
+    if (valid == 1 && level < 3)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.parameter))
+        [valid, message] = isSBML_Struct('SBML_PARAMETER', ...
+                                      SBMLStructure.parameter(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
+      end;
+    end;
 
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
+    %check that any nested structures are appropriate
 
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
+    % localParameters
+    if (valid == 1 && level > 2)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.localParameter))
+        [valid, message] = isSBML_Struct('SBML_LOCAL_PARAMETER', ...
+                                      SBMLStructure.localParameter(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
+      end;
+    end;
+
+  case 'SBML_REACTION'
+    % reactants
+    if (valid == 1)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.reactant))
+        [valid, message] = isSBML_Struct('SBML_SPECIES_REFERENCE', ...
+                                      SBMLStructure.reactant(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
+      end;
+    end;
+
+    % products
+    if (valid == 1)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.product))
+        [valid, message] = isSBML_Struct('SBML_SPECIES_REFERENCE', ...
+                                      SBMLStructure.reactant(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
+      end;
+    end;
+
+    % modifiers
+    if (valid == 1 && level > 1)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.modifier))
+        [valid, message] = isSBML_Struct('SBML_MODIFIER_SPECIES_REFERENCE', ...
+                                      SBMLStructure.modifier(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
+      end;
+    end;
+
+    % kineticLaw
+    if (valid == 1 && length(SBMLStructure.kineticLaw) == 1)
+      [valid, message] = isSBML_Struct('SBML_KINETIC_LAW', ...
+                                    SBMLStructure.kineticLaw, level, version, exclusive);
+    end;
+
+  case 'SBML_UNIT_DEFINITION'
+    % unit
+    if (valid == 1)
+      index = 1;
+      while (valid == 1 && index <= length(SBMLStructure.unit))
+        [valid, message] = isSBML_Struct('SBML_UNIT', ...
+                                      SBMLStructure.unit(index), ...
+                                      level, version, exclusive);
+        index = index + 1;
+      end;
+    end;
+
+  case 'SBML_SPECIES_REFERENCE'
+    % stoichiometryMath
+    if (level == 2 && version > 2)
+      if (valid == 1 && length(SBMLStructure.stoichiometryMath) == 1)
+        [valid, message] = isSBML_Struct('SBML_STOICHIOMETRY_MATH', ...
+                                      SBMLStructure.stoichiometryMath, ...
+                                      level, version, exclusive);
+      end;
+    end;
+      
 end;
 
 % report failure
 if (valid == 0)
-	message = sprintf('Invalid RateRule\n%s\n', message);
+	message = sprintf('Invalid %s\n%s\n', typecode, message);
 end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [valid, message] = isSBML_Reaction(varargin)
+function [valid, message] = isSBML_Rule(SBMLStructure, ...
+                                  level, version, exclusive)
 
 
 
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
 
 if (length(SBMLStructure) > 1)
   valid = 0;
   message = 'cannot deal with arrays of structures';
   return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_REACTION';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_REACTION', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-%check that any nested structures are appropriate
-
-% reactants
-if (valid == 1)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.reactant))
-    [valid, message] = isSBML_SpeciesReference(SBMLStructure.reactant(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-% products
-if (valid == 1)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.product))
-    [valid, message] = isSBML_SpeciesReference(SBMLStructure.product(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-% modifiers
-if (valid == 1 && level > 1)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.modifier))
-    [valid, message] = isSBML_ModifierSpeciesReference( ...
-                                  SBMLStructure.modifier(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-% kineticLaw
-if (valid == 1 && length(SBMLStructure.kineticLaw) == 1)
-  [valid, message] = isSBML_KineticLaw(SBMLStructure.kineticLaw, level, version);
-end;
-
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Reaction\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Rule(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
 end;
 
 isValidLevelVersionCombination(level, version);
@@ -2110,27 +522,19 @@ else
 end;
 
 switch (typecode)
-  case 'SBML_ALGEBRAIC_RULE'
-    [valid, message] = isSBML_AlgebraicRule(SBMLStructure, level, version);
-  case 'SBML_ASSIGNMENT_RULE'
-    [valid, message] = isSBML_AssignmentRule(SBMLStructure, level, version);
-  case 'SBML_COMPARTMENT_VOLUME_RULE'
-    [valid, message] = isSBML_CompartmentVolumeRule(SBMLStructure, level, version);
-  case 'SBML_PARAMETER_RULE'
-    [valid, message] = isSBML_ParameterRule(SBMLStructure, level, version);
-  case 'SBML_RATE_RULE'
-    [valid, message] = isSBML_RateRule(SBMLStructure, level, version);
-  case 'SBML_SPECIES_CONCENTRATION_RULE'
-    [valid, message] = isSBML_SpeciesConcentrationRule(SBMLStructure, level, version);
+  case {'SBML_ALGEBRAIC_RULE', 'SBML_ASSIGNMENT_RULE', ...
+      'SBML_COMPARTMENT_VOLUME_RULE', 'SBML_PARAMETER_RULE', ...
+      'SBML_RATE_RULE', 'SBML_SPECIES_CONCENTRATION_RULE'}
+    [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, exclusive);
   case 'SBML_RULE'
-    [valid, message] = checkRule(SBMLStructure, level, version);
+    [valid, message] = checkRule(SBMLStructure, level, version, exclusive);
   otherwise
     valid = 0;
     message = 'Incorrect rule typecode';
  end;
  
 
-function [valid, message] = checkRule(SBMLStructure, level, version)
+function [valid, message] = checkRule(SBMLStructure, level, version, exclusive)
 
 
 message = '';
@@ -2178,6 +582,16 @@ while (valid == 1 && index <= numFields)
 	index = index + 1;
 end;
 
+if (exclusive == 1)
+  % check that the structure contains ONLY the expected fields
+  if (valid == 1)
+    if (numFields ~= length(fieldnames(SBMLStructure))-2)
+      valid = 0;
+      message = sprintf('Unexpected field detected');
+    end;
+  end;
+end;
+
 % report failure
 if (valid == 0)
 	message = sprintf('Invalid Rule\n%s\n', message);
@@ -2186,733 +600,7 @@ end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [valid, message] = isSBML_Species(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_SPECIES';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_SPECIES', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Species\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_SpeciesConcentrationRule(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_SPECIES_CONCENTRATION_RULE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_SPECIES_CONCENTRATION_RULE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid SpeciesConcentrationRule\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_SpeciesReference(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_SPECIES_REFERENCE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_SPECIES_REFERENCE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid SpeciesReference\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_SpeciesType(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_SPECIES_TYPE';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_SPECIES_TYPE', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid SpeciesType\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_StoichiometryMath(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_STOICHIOMETRY_MATH';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_STOICHIOMETRY_MATH', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid StoichiometryMath\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Trigger(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_TRIGGER';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_TRIGGER', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Trigger\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_Unit(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_UNIT';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_UNIT', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid Unit\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function [valid, message] = isSBML_UnitDefinition(varargin)
-
-
-
-
-%check the input arguments are appropriate
-
-if (nargin < 2 || nargin > 3)
-	error('wrong number of input arguments');
-end;
-
-SBMLStructure = varargin{1};
-
-if (length(SBMLStructure) > 1)
-  valid = 0;
-  message = 'cannot deal with arrays of structures';
-  return;
-end;
-
-level = varargin{2};
-
-if (nargin == 3)
-	version = varargin{3};
-else
-	version = 1;
-end;
-
-isValidLevelVersionCombination(level, version);
-
-message = '';
-
-% check that argument is a structure
-valid = isstruct(SBMLStructure);
-
-% check the typecode
-typecode = 'SBML_UNIT_DEFINITION';
-if (valid == 1 && ~isempty(SBMLStructure))
-  if isfield(SBMLStructure, 'typecode')
-    if (strcmp(typecode, SBMLStructure.typecode) ~= 1)
-      valid = 0;
-      message = 'typecode mismatch';
-      return;
-    end;
-  else
-    valid = 0;
-    message = 'missing typecode field';
-    return;
-  end;
-end;
-
-% if the level and version fields exist they must match
-if (valid == 1 && isfield(SBMLStructure, 'level') && ~isempty(SBMLStructure))
-	if ~isequal(level, SBMLStructure.level)
-		valid = 0;
-		message = 'level mismatch';
-	end;
-end;
-if (valid == 1 && isfield(SBMLStructure, 'version') && ~isempty(SBMLStructure))
-	if ~isequal(version, SBMLStructure.version)
-		valid = 0;
-		message = 'version mismatch';
-	end;
-end;
-
-% check that structure contains all the necessary fields
-[SBMLfieldnames, numFields] = getFieldnames('SBML_UNIT_DEFINITION', level, version);
-
-if (numFields ==0)
-	valid = 0;
-	message = 'invalid level/version';
-end;
-
-index = 1;
-while (valid == 1 && index <= numFields)
-	valid = isfield(SBMLStructure, char(SBMLfieldnames(index)));
-	if (valid == 0);
-		message = sprintf('%s field missing', char(SBMLfieldnames(index)));
-	end;
-	index = index + 1;
-end;
-
-%check that any nested structures are appropriate
-
-% unit
-if (valid == 1)
-  index = 1;
-  while (valid == 1 && index <= length(SBMLStructure.unit))
-    [valid, message] = isSBML_Unit(SBMLStructure.unit(index), ...
-                                  level, version);
-    index = index + 1;
-  end;
-end;
-
-
-% report failure
-if (valid == 0)
-	message = sprintf('Invalid UnitDefinition\n%s\n', message);
-end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 function valid = isValidLevelVersionCombination(level, version)
-
-
-
-
-
-
-
-
-
 
 valid = 1;
 
