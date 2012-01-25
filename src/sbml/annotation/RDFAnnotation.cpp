@@ -65,7 +65,7 @@ RDFAnnotationParser::parseRDFAnnotation(
 {
   if (annotation == NULL) return;
 
-  static const XMLTriple& rdfAbout = XMLTriple(
+  const XMLTriple rdfAbout(
                 "about", 
                 "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                 "rdf");
@@ -243,7 +243,7 @@ RDFAnnotationParser::parseRDFAnnotation(
      const char* metaId /*= NULL*/)
 {
   if (annotation == NULL) return NULL;
-  static const XMLTriple& rdfAbout = XMLTriple(
+  const XMLTriple rdfAbout(
                 "about", 
                 "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                 "rdf");
