@@ -507,7 +507,8 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
     "  </annotation>";
 
  List *cvTerms = new List();
- XMLNode node(XMLInputStream(withAbout,false));
+ XMLInputStream stream(withAbout,false);
+ XMLNode node(stream);
  RDFAnnotationParser::parseRDFAnnotation( &node, cvTerms );
 
  // regular parsing
@@ -530,7 +531,8 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
  delete cvTerms;
  cvTerms = new List();
 
- XMLNode node1(XMLInputStream(emptyAbout,false));
+ XMLInputStream stream1(emptyAbout,false);
+ XMLNode node1(stream1);
  RDFAnnotationParser::parseRDFAnnotation( &node1, cvTerms );
 
  fail_unless( cvTerms->getSize() == 0 );
@@ -539,7 +541,8 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
  delete cvTerms;
  cvTerms = new List();
 
- XMLNode node2(XMLInputStream(noAbout,false));
+ XMLInputStream stream2(noAbout,false);
+ XMLNode node2(stream2);
  RDFAnnotationParser::parseRDFAnnotation( &node2, cvTerms );
 
  fail_unless( cvTerms->getSize() == 0 );
