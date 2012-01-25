@@ -52,6 +52,7 @@ try
   if (install == 0)
     Totalfail = Totalfail + testReadFlags(install);
   end;
+  Totalfail = Totalfail + testIsSBMLModel(install);
 
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0);
