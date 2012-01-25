@@ -860,17 +860,17 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL1)
   Parameter_setId(p3, "p3");
 
   /* create initialAssignments */
-  InitialAssignment *ia1 = Model_createInitialAssignment(m);
+  InitialAssignment_t *ia1 = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia1, "p1");
   ASTNode_t *math = SBML_parseFormula("3/3");
   InitialAssignment_setMath(ia1, math);
 
-  InitialAssignment *ia2 = Model_createInitialAssignment(m);
+  InitialAssignment_t *ia2 = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia2, "p2");
   ASTNode_t *math1 = SBML_parseFormula("3 + 2");
   InitialAssignment_setMath(ia2, math1);
 
-  InitialAssignment *ia3 = Model_createInitialAssignment(m);
+  InitialAssignment_t *ia3 = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia3, "p3");
   ASTNode_t *math2 = SBML_parseFormula("pow(2,3)");
   InitialAssignment_setMath(ia3, math2);
