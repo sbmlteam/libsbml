@@ -655,7 +655,7 @@ the error or warning for the issue reported by libSBML.
 @section rf-writing OutputSBML
 
 The function @c OutputSBML is the converse of @c TranslateSBML: it writes
-an @em MATLAB_SBML structure to an XML file.  It accepts two arguments:
+an @em MATLAB_SBML structure to an XML file.  It accepts three arguments:
 
 @li @em model: This argument must be a @em MATLAB_SBML structure
 representing the model to be written out to a file.  Note that the
@@ -666,6 +666,15 @@ structure), but nothing more.
 
 @li @em filename: The name of the file where the SBML content should 
 be written.
+
+@li @em extensions_allowed: An optional argument indicating that when 
+determining whether the @em MATLAB_SBML structure represents a valid 
+structure any additional fields are ignored. The default value is @c 1.
+If this argument is set to @c 0, a structure will be considered 
+valid if it contains only the expected fields and no additional fields.
+ 
+
+
 
 @section rf-matlab-sbml The MATLAB_SBML structure
 
@@ -712,11 +721,14 @@ LibSBML's Octave interface comes with a few other scripts that are called
 internally by @c TranslateSBML and @c OutputSBML, but may also be useful
 independently:
 
-@li <code>isSBML_Model(model)</code> returns true (@c 1) or false (@c 0),
-depending on whether the @em model supplied as argument matches the
-expected form of a @em MATLAB_SBML structure.  (@c OutputSBML uses this
-function to determine whether it can proceed with writing out a given
-structure.)
+@li <code>isSBML_Model(model, extensions_allowed)</code> returns true 
+(@c 1) or false (@c 0), depending on whether the @em model supplied as 
+argument matches the expected form of a @em MATLAB_SBML structure. The
+optional argument @em extensions_allowed (default = @c 1) determines
+whether additional fields are ignored. This argument is described in more
+detail in teh text on OutputSBML above. 
+(@c OutputSBML uses this function to determine whether it can proceed 
+with writing out a given structure.)
 
 @li <code>isoctave()</code> returns true (@c 1) or false (@c 0), depending
 on whether the run-time environment is Octave or MATLAB.
