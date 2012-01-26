@@ -85,8 +85,55 @@ ReadSBML_teardown ()
   SBMLDocument_free(D);
 }
 
+START_TEST (test_ReadSBML_prefix)
+{
+  const char* unprefixed = 
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<sbml xmlns='http://www.sbml.org/sbml/level2/version4' level='2' version='4'>"
+    "  <model id='Model1' name='New Model'>"
+    "    <listOfCompartments>"
+    "      <compartment id='compartment_2' name='compartment_2' size='1'/>"
+    "    </listOfCompartments>"
+    "    <listOfSpecies>"
+    "      <species id='species_2' name='species_2' compartment='compartment_2' initialConcentration='1'/>"
+    "    </listOfSpecies>"
+    "  </model>"
+    "</sbml>";
+  
+  const char* prefixed = 
+    "<?xml version='1.0' encoding='UTF-8'?>"
+    "<sbml:sbml xmlns:sbml='http://www.sbml.org/sbml/level2/version4' sbml:level='2' sbml:version='4'>"
+    "  <sbml:model sbml:id='Model1' sbml:name='New Model'>"
+    "    <sbml:listOfCompartments>"
+    "      <sbml:compartment sbml:id='compartment_1' sbml:name='compartment_1' sbml:size='1'/>"
+    "    </sbml:listOfCompartments>"
+    "    <sbml:listOfSpecies>"
+    "      <sbml:species sbml:id='species_1' sbml:name='species_1' sbml:compartment='compartment_1' sbml:initialConcentration='1'/>"
+    "    </sbml:listOfSpecies>"
+    "  </sbml:model>"
+    "</sbml:sbml>";
+    
 
+  SBMLDocument *doc1 = readSBMLFromString(unprefixed);
+  SBMLDocument *doc2 = readSBMLFromString(prefixed);
 
+  Model *model1 = doc1->getModel();
+  Model *model2 = doc2->getModel();
+
+  fail_unless(model1 != NULL);
+  fail_unless(model2 != NULL);
+  
+  fail_unless(model1->addCompartment(model2->getCompartment(0)) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(model1->addSpecies(model2->getSpecies(0)) == LIBSBML_OPERATION_SUCCESS);
+
+  fail_unless(model2->addCompartment(model1->getCompartment(0)) == LIBSBML_OPERATION_SUCCESS);
+  fail_unless(model2->addSpecies(model1->getSpecies(0)) == LIBSBML_OPERATION_SUCCESS);
+  
+  delete doc1;
+  delete doc2;
+
+}
+END_TEST
 
 START_TEST (test_ReadSBML_SBML)
 {
@@ -2659,6 +2706,7 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_Model     );
   tcase_add_test( tcase, test_ReadSBML_Model_withoutEncoding);
   tcase_add_test( tcase, test_ReadSBML_Model_L2  );
+  tcase_add_test( tcase, test_ReadSBML_prefix  );
 
   tcase_add_test( tcase, test_ReadSBML_FunctionDefinition  );
   tcase_add_test( tcase, test_ReadSBML_FunctionDefinition_MathReturnsCN  );
