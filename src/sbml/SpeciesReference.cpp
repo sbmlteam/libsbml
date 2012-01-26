@@ -338,6 +338,7 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
   else if (mStoichiometryMath == math) 
   {
     mIsSetStoichiometry = false;
+    mExplicitlySetStoichiometry = false;
     mStoichiometry = 1.0;
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -444,6 +445,7 @@ SpeciesReference::unsetStoichiometry ()
   {
     mStoichiometry      = numeric_limits<double>::quiet_NaN();
     mIsSetStoichiometry = false;
+    mExplicitlySetStoichiometry = false;
     if (!isSetStoichiometry())
     {
       return LIBSBML_OPERATION_SUCCESS;
@@ -471,6 +473,7 @@ SpeciesReference::unsetStoichiometry ()
       else
       {
         mIsSetStoichiometry = false;
+        mExplicitlySetStoichiometry = false;
       }
     }
     else
@@ -515,6 +518,7 @@ SpeciesReference::createStoichiometryMath ()
     /* this should unset the stoichiometry */
     mStoichiometry = 1.0;
     mIsSetStoichiometry = false;
+    mExplicitlySetStoichiometry = false;
   }
 
   return mStoichiometryMath;
@@ -1019,8 +1023,8 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
     //
     // stoichiometry: double   { use="optional" default="1" }  (L2v1, L2v2)
     //
-    if ((mDenominator == 1) && (mStoichiometry != 1 || 
-         isExplicitlySetStoichiometry()))
+    if ((mDenominator == 1) && 
+      (mStoichiometry != 1 || isExplicitlySetStoichiometry()))
     {
       stream.writeAttribute("stoichiometry", mStoichiometry);
     }
