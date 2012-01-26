@@ -11,7 +11,7 @@ function y = testIsSBMLModel(silent)
       disp('l1v2-all Model failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 0)
       fail = fail + 1;
       disp('l1v2-all Model exclusive failed:');
@@ -28,7 +28,7 @@ function y = testIsSBMLModel(silent)
       disp(message);
   end;
 
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l1v2-all unit extra exclusive failed');
@@ -44,7 +44,7 @@ function y = testIsSBMLModel(silent)
       disp('l1v2-all algebraicRule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l1v2-all algebraicRule extra exclusive failed');
@@ -60,7 +60,7 @@ function y = testIsSBMLModel(silent)
       disp('l1v2-all species conc rule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l1v2-all species conc rule extra exclusive failed');
@@ -76,7 +76,7 @@ function y = testIsSBMLModel(silent)
       disp('l1v2-all comp vol rule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l1v2-all comp vol rule extra exclusive failed');
@@ -92,7 +92,7 @@ function y = testIsSBMLModel(silent)
       disp('l1v2-all param rule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l1v2-all param rule extra exclusive failed');
@@ -108,7 +108,7 @@ function y = testIsSBMLModel(silent)
       disp('l1v2-all unitDefinition extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l1v2-all unitDefinition extra exclusive failed');
@@ -123,7 +123,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all Model failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 0)
       fail = fail + 1;
       disp('l2v1-all Model exclusive failed:');
@@ -140,7 +140,7 @@ function y = testIsSBMLModel(silent)
       disp(message);
   end;
 
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all functionDefinition extra exclusive failed');
@@ -156,7 +156,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all compartment extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all compartment extra exclusive failed');
@@ -172,7 +172,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all species extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all species extra exclusive failed');
@@ -188,7 +188,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all parameter extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all parameter extra exclusive failed');
@@ -204,7 +204,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all algebraicRule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all algebraicRule extra exclusive failed');
@@ -220,7 +220,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all assignmentRule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all assignmentRule extra exclusive failed');
@@ -236,7 +236,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all rateRule extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all rateRule extra exclusive failed');
@@ -252,7 +252,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all reaction extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all reaction extra exclusive failed');
@@ -269,7 +269,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v1-all event extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v1-all event extra exclusive failed');
@@ -284,7 +284,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents Model failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 0)
       fail = fail + 1;
       disp('l2v2-newComponents Model exclusive failed:');
@@ -301,7 +301,7 @@ function y = testIsSBMLModel(silent)
       disp(message);
   end;
 
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents compartmentType extra exclusive failed');
@@ -317,7 +317,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents speciesType extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents speciesType extra exclusive failed');
@@ -333,7 +333,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents initialAssignment extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents initialAssignment extra exclusive failed');
@@ -350,7 +350,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents constraint extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents constraint extra exclusive failed');
@@ -366,7 +366,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents reactant extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents reactant extra exclusive failed');
@@ -382,7 +382,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents kineticLaw extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents kineticLaw extra exclusive failed');
@@ -398,7 +398,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v2-newComponents local parameter extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v2-newComponents local parameter extra exclusive failed');
@@ -413,7 +413,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v3-all Model failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 0)
       fail = fail + 1;
       disp('l2v3-all Model exclusive failed:');
@@ -430,7 +430,7 @@ function y = testIsSBMLModel(silent)
       disp(message);
   end;
 
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v3-all stochiometryMath extra exclusive failed');
@@ -446,7 +446,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v3-all trigger extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v3-all trigger extra exclusive failed');
@@ -462,7 +462,7 @@ function y = testIsSBMLModel(silent)
       disp('l2v3-all eventAssignment extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l2v3-all eventAssignment extra exclusive failed');
@@ -478,7 +478,7 @@ function y = testIsSBMLModel(silent)
       disp('l3v1core Model failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 0)
       fail = fail + 1;
       disp('l3v1core Model exclusive failed:');
@@ -495,7 +495,7 @@ function y = testIsSBMLModel(silent)
       disp(message);
   end;
 
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l3v1core localParameter extra exclusive failed');
@@ -511,7 +511,7 @@ function y = testIsSBMLModel(silent)
       disp('l3v1core delay extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l3v1core delay extra exclusive failed');
@@ -527,7 +527,7 @@ function y = testIsSBMLModel(silent)
       disp('l3v1core priority extra failed');
       disp(message);
   end;
-  [pass, message] = isSBML_Model(m, 1);
+  [pass, message] = isSBML_Model(m, 0);
   if (pass == 1)
       fail = fail + 1;
       disp('l3v1core priority extra exclusive failed');

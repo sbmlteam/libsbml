@@ -194,7 +194,7 @@ if (nrhs > 2)
 }  
 else
 {
-  mxModel[1] = mxCreateDoubleScalar(0);
+  mxModel[1] = mxCreateDoubleScalar(1);
 }
   
 /**

@@ -4,9 +4,9 @@ function [valid, message] = isSBML_Model(varargin)
 % Takes
 %
 % 1. SBMLModel, an SBML Model structure
-% 2. exclusive =
-%   - 1, structures should contain ONLY required fields
-%   - 0, structres may contain additional fields
+% 2. extensions_allowed =
+%   - 0, structures should contain ONLY required fields
+%   - 1, structres may contain additional fields
 %
 % Returns
 %
@@ -47,10 +47,10 @@ if (nargin < 1)
   error('isSBML_Model needs at least one argument');
 elseif (nargin == 1)
   SBMLStructure = varargin{1};
-  exclusive = 0;
+  extensions_allowed = 1;
 elseif (nargin == 2)
   SBMLStructure = varargin{1};
-  exclusive = varargin{2};
+  extensions_allowed = varargin{2};
 else
   error('too many arguments to isSBML_Model');
 end;
@@ -127,7 +127,7 @@ if (valid == 1 && level > 1)
   while (valid == 1 && index <= length(SBMLStructure.functionDefinition))
     [valid, message] = isSBML_Struct('SBML_FUNCTION_DEFINITION', ...
                                   SBMLStructure.functionDefinition(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -138,7 +138,7 @@ if (valid == 1)
   while (valid == 1 && index <= length(SBMLStructure.unitDefinition))
     [valid, message] = isSBML_Struct('SBML_UNIT_DEFINITION', ...
                                   SBMLStructure.unitDefinition(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -149,7 +149,7 @@ if (valid == 1)
   while (valid == 1 && index <= length(SBMLStructure.compartment))
     [valid, message] = isSBML_Struct('SBML_COMPARTMENT', ...
                                   SBMLStructure.compartment(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -160,7 +160,7 @@ if (valid == 1)
   while (valid == 1 && index <= length(SBMLStructure.species))
     [valid, message] = isSBML_Struct('SBML_SPECIES', ...
                                   SBMLStructure.species(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -171,7 +171,7 @@ if (valid == 1 && level == 2 && version > 1)
   while (valid == 1 && index <= length(SBMLStructure.compartmentType))
     [valid, message] = isSBML_Struct('SBML_COMPARTMENT_TYPE', ...
                                   SBMLStructure.compartmentType(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -182,7 +182,7 @@ if (valid == 1 && level == 2 && version > 1)
   while (valid == 1 && index <= length(SBMLStructure.speciesType))
     [valid, message] = isSBML_Struct('SBML_SPECIES_TYPE', ...
                                   SBMLStructure.speciesType(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -193,7 +193,7 @@ if (valid == 1)
   while (valid == 1 && index <= length(SBMLStructure.parameter))
     [valid, message] = isSBML_Struct('SBML_PARAMETER', ...
                                   SBMLStructure.parameter(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -204,7 +204,7 @@ if (valid == 1 && (level > 2 || (level == 2 && version > 1)))
   while (valid == 1 && index <= length(SBMLStructure.initialAssignment))
     [valid, message] = isSBML_Struct('SBML_INITIAL_ASSIGNMENT', ...
                                   SBMLStructure.initialAssignment(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -214,7 +214,7 @@ if (valid == 1)
   index = 1;
   while (valid == 1 && index <= length(SBMLStructure.rule))
     [valid, message] = isSBML_Rule(SBMLStructure.rule(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -225,7 +225,7 @@ if (valid == 1 && (level > 2 || (level == 2 && version > 1)))
   while (valid == 1 && index <= length(SBMLStructure.constraint))
     [valid, message] = isSBML_Struct('SBML_CONSTRAINT', ...
                                   SBMLStructure.constraint(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -236,7 +236,7 @@ if (valid == 1)
   while (valid == 1 && index <= length(SBMLStructure.reaction))
     [valid, message] = isSBML_Struct('SBML_REACTION', ...
                                   SBMLStructure.reaction(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -247,7 +247,7 @@ if (valid == 1 && level > 1)
   while (valid == 1 && index <= length(SBMLStructure.event))
     [valid, message] = isSBML_Struct('SBML_EVENT', ...
                                   SBMLStructure.event(index), ...
-                                  level, version, exclusive);
+                                  level, version, extensions_allowed);
     index = index + 1;
   end;
 end;
@@ -259,7 +259,7 @@ if (valid == 0)
 end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, exclusive)
+function [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, extensions_allowed)
 
 
 
@@ -323,7 +323,7 @@ while (valid == 1 && index <= numFields)
 	index = index + 1;
 end;
 
-if (exclusive == 1)
+if (extensions_allowed == 0)
   % check that the structure contains ONLY the expected fields
   if (valid == 1)
     if (numFields ~= length(fieldnames(SBMLStructure))-2)
@@ -342,7 +342,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.eventAssignment))
         [valid, message] = isSBML_Struct('SBML_EVENT_ASSIGNMENT', ...
                                       SBMLStructure.eventAssignment(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -361,12 +361,12 @@ switch (typecode)
         if (valid == 1 && length(SBMLStructure.trigger) == 1)
           [valid, message] = isSBML_Struct('SBML_TRIGGER', ...
                                             SBMLStructure.trigger, ...
-                                            level, version, exclusive);
+                                            level, version, extensions_allowed);
         end;
         if (valid == 1 && length(SBMLStructure.delay) == 1)
           [valid, message] = isSBML_Struct('SBML_DELAY', ...
                                             SBMLStructure.delay, ...
-                                            level, version, exclusive);
+                                            level, version, extensions_allowed);
        end;
       elseif (level > 2)
         if (length(SBMLStructure.trigger) > 1)
@@ -382,17 +382,17 @@ switch (typecode)
         if (valid == 1 && length(SBMLStructure.trigger) == 1)
           [valid, message] = isSBML_Struct('SBML_TRIGGER', ...
                                             SBMLStructure.trigger, ...
-                                            level, version, exclusive);
+                                            level, version, extensions_allowed);
         end;
         if (valid == 1 && length(SBMLStructure.delay) == 1)
           [valid, message] = isSBML_Struct('SBML_DELAY', ...
                                             SBMLStructure.delay, ...
-                                            level, version, exclusive);
+                                            level, version, extensions_allowed);
         end;
         if (valid == 1 && length(SBMLStructure.priority) == 1)
           [valid, message] = isSBML_Struct('SBML_PRIORITY', ...
                                             SBMLStructure.priority, ...
-                                            level, version, exclusive);
+                                            level, version, extensions_allowed);
         end;
       end;
     end;
@@ -404,7 +404,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.parameter))
         [valid, message] = isSBML_Struct('SBML_PARAMETER', ...
                                       SBMLStructure.parameter(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -417,7 +417,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.localParameter))
         [valid, message] = isSBML_Struct('SBML_LOCAL_PARAMETER', ...
                                       SBMLStructure.localParameter(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -429,7 +429,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.reactant))
         [valid, message] = isSBML_Struct('SBML_SPECIES_REFERENCE', ...
                                       SBMLStructure.reactant(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -440,7 +440,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.product))
         [valid, message] = isSBML_Struct('SBML_SPECIES_REFERENCE', ...
                                       SBMLStructure.reactant(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -451,7 +451,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.modifier))
         [valid, message] = isSBML_Struct('SBML_MODIFIER_SPECIES_REFERENCE', ...
                                       SBMLStructure.modifier(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -459,7 +459,7 @@ switch (typecode)
     % kineticLaw
     if (valid == 1 && length(SBMLStructure.kineticLaw) == 1)
       [valid, message] = isSBML_Struct('SBML_KINETIC_LAW', ...
-                                    SBMLStructure.kineticLaw, level, version, exclusive);
+                                    SBMLStructure.kineticLaw, level, version, extensions_allowed);
     end;
 
   case 'SBML_UNIT_DEFINITION'
@@ -469,7 +469,7 @@ switch (typecode)
       while (valid == 1 && index <= length(SBMLStructure.unit))
         [valid, message] = isSBML_Struct('SBML_UNIT', ...
                                       SBMLStructure.unit(index), ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
         index = index + 1;
       end;
     end;
@@ -480,7 +480,7 @@ switch (typecode)
       if (valid == 1 && length(SBMLStructure.stoichiometryMath) == 1)
         [valid, message] = isSBML_Struct('SBML_STOICHIOMETRY_MATH', ...
                                       SBMLStructure.stoichiometryMath, ...
-                                      level, version, exclusive);
+                                      level, version, extensions_allowed);
       end;
     end;
       
@@ -494,7 +494,7 @@ end;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [valid, message] = isSBML_Rule(SBMLStructure, ...
-                                  level, version, exclusive)
+                                  level, version, extensions_allowed)
 
 
 
@@ -525,16 +525,16 @@ switch (typecode)
   case {'SBML_ALGEBRAIC_RULE', 'SBML_ASSIGNMENT_RULE', ...
       'SBML_COMPARTMENT_VOLUME_RULE', 'SBML_PARAMETER_RULE', ...
       'SBML_RATE_RULE', 'SBML_SPECIES_CONCENTRATION_RULE'}
-    [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, exclusive);
+    [valid, message] = isSBML_Struct(typecode, SBMLStructure, level, version, extensions_allowed);
   case 'SBML_RULE'
-    [valid, message] = checkRule(SBMLStructure, level, version, exclusive);
+    [valid, message] = checkRule(SBMLStructure, level, version, extensions_allowed);
   otherwise
     valid = 0;
     message = 'Incorrect rule typecode';
  end;
  
 
-function [valid, message] = checkRule(SBMLStructure, level, version, exclusive)
+function [valid, message] = checkRule(SBMLStructure, level, version, extensions_allowed)
 
 
 message = '';
@@ -582,7 +582,7 @@ while (valid == 1 && index <= numFields)
 	index = index + 1;
 end;
 
-if (exclusive == 1)
+if (extensions_allowed == 0)
   % check that the structure contains ONLY the expected fields
   if (valid == 1)
     if (numFields ~= length(fieldnames(SBMLStructure))-2)
@@ -1409,87 +1409,66 @@ done = 1;
 
 switch (typecode)
   case {'SBML_ALGEBRAIC_RULE', 'AlgebraicRule', 'algebraicRule'}
-    fhandle = str2func('getAlgebraicRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getAlgebraicRuleFieldnames(level, version);
   case {'SBML_ASSIGNMENT_RULE', 'AssignmentRule', 'assignmentRule'}
-    fhandle = str2func('getAssignmentRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getAssignmentRuleFieldnames(level, version);
   case {'SBML_COMPARTMENT', 'Compartment', 'compartment'}
-    fhandle = str2func('getCompartmentFieldnames');
+    [SBMLfieldnames, nNumberFields] = getCompartmentFieldnames(level, version);
   case {'SBML_COMPARTMENT_TYPE', 'CompartmentType', 'compartmentType'}
-    fhandle = str2func('getCompartmentTypeFieldnames');
+    [SBMLfieldnames, nNumberFields] = getCompartmentTypeFieldnames(level, version);
   case {'SBML_COMPARTMENT_VOLUME_RULE', 'CompartmentVolumeRule', 'compartmentVolumeRule'}
-    fhandle = str2func('getCompartmentVolumeRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getCompartmentVolumeRuleFieldnames(level, version);
   case {'SBML_CONSTRAINT', 'Constraint', 'constraint'}
-    fhandle = str2func('getConstraintFieldnames');
+    [SBMLfieldnames, nNumberFields] = getConstraintFieldnames(level, version);
   case {'SBML_DELAY', 'Delay', 'delay'}
-    fhandle = str2func('getDelayFieldnames');
+    [SBMLfieldnames, nNumberFields] = getDelayFieldnames(level, version);
   case {'SBML_EVENT', 'Event', 'event'}
-    fhandle = str2func('getEventFieldnames');
+    [SBMLfieldnames, nNumberFields] = getEventFieldnames(level, version);
   case {'SBML_EVENT_ASSIGNMENT', 'EventAssignment', 'eventAssignment'}
-    fhandle = str2func('getEventAssignmentFieldnames');
+    [SBMLfieldnames, nNumberFields] = getEventAssignmentFieldnames(level, version);
   case {'SBML_FUNCTION_DEFINITION', 'FunctionDefinition', 'functionDefinition'}
-    fhandle = str2func('getFunctionDefinitionFieldnames');
+    [SBMLfieldnames, nNumberFields] = getFunctionDefinitionFieldnames(level, version);
   case {'SBML_INITIAL_ASSIGNMENT', 'InitialAssignment', 'initialAssignment'}
-    fhandle = str2func('getInitialAssignmentFieldnames');
+    [SBMLfieldnames, nNumberFields] = getInitialAssignmentFieldnames(level, version);
   case {'SBML_KINETIC_LAW', 'KineticLaw', 'kineticLaw'}
-    fhandle = str2func('getKineticLawFieldnames');
+    [SBMLfieldnames, nNumberFields] = getKineticLawFieldnames(level, version);
   case {'SBML_LOCAL_PARAMETER', 'LocalParameter', 'localParameter'}
-    fhandle = str2func('getLocalParameterFieldnames');
+    [SBMLfieldnames, nNumberFields] = getLocalParameterFieldnames(level, version);
   case {'SBML_MODEL', 'Model', 'model'}
-    fhandle = str2func('getModelFieldnames');
+    [SBMLfieldnames, nNumberFields] = getModelFieldnames(level, version);
   case {'SBML_MODIFIER_SPECIES_REFERENCE', 'ModifierSpeciesReference', 'modifierSpeciesReference'}
-    fhandle = str2func('getModifierSpeciesReferenceFieldnames');
+    [SBMLfieldnames, nNumberFields] = getModifierSpeciesReferenceFieldnames(level, version);
   case {'SBML_PARAMETER', 'Parameter', 'parameter'}
-    fhandle = str2func('getParameterFieldnames');
+    [SBMLfieldnames, nNumberFields] = getParameterFieldnames(level, version);
   case {'SBML_PARAMETER_RULE', 'ParameterRule', 'parameterRule'}
-    fhandle = str2func('getParameterRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getParameterRuleFieldnames(level, version);
   case {'SBML_PRIORITY', 'Priority', 'priority'}
-    fhandle = str2func('getPriorityFieldnames');
+    [SBMLfieldnames, nNumberFields] = getPriorityFieldnames(level, version);
   case {'SBML_RATE_RULE', 'RateRule', 'ruleRule'}
-    fhandle = str2func('getRateRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getRateRuleFieldnames(level, version);
   case {'SBML_REACTION', 'Reaction', 'reaction'}
-    fhandle = str2func('getReactionFieldnames');
+    [SBMLfieldnames, nNumberFields] = getReactionFieldnames(level, version);
   case {'SBML_SPECIES', 'Species', 'species'}
-    fhandle = str2func('getSpeciesFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesFieldnames(level, version);
   case {'SBML_SPECIES_CONCENTRATION_RULE', 'SpeciesConcentrationRule', 'speciesConcentrationRule'}
-    fhandle = str2func('getSpeciesConcentrationRuleFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesConcentrationRuleFieldnames(level, version);
   case {'SBML_SPECIES_REFERENCE', 'SpeciesReference', 'speciesReference'}
-    fhandle = str2func('getSpeciesReferenceFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesReferenceFieldnames(level, version);
   case {'SBML_SPECIES_TYPE', 'SpeciesType', 'speciesType'}
-    fhandle = str2func('getSpeciesTypeFieldnames');
+    [SBMLfieldnames, nNumberFields] = getSpeciesTypeFieldnames(level, version);
   case {'SBML_STOICHIOMETRY_MATH', 'StoichiometryMath', 'stoichiometryMath'}
-    fhandle = str2func('getStoichiometryMathFieldnames');
+    [SBMLfieldnames, nNumberFields] = getStoichiometryMathFieldnames(level, version);
   case {'SBML_TRIGGER', 'Trigger', 'trigger'}
-    fhandle = str2func('getTriggerFieldnames');
+    [SBMLfieldnames, nNumberFields] = getTriggerFieldnames(level, version);
   case {'SBML_UNIT', 'Unit', 'unit'}
-    fhandle = str2func('getUnitFieldnames');
+    [SBMLfieldnames, nNumberFields] = getUnitFieldnames(level, version);
   case {'SBML_UNIT_DEFINITION', 'UnitDefinition', 'unitDefinition'}
-    fhandle = str2func('getUnitDefinitionFieldnames');
+    [SBMLfieldnames, nNumberFields] = getUnitDefinitionFieldnames(level, version);
   otherwise
-    done = 0;  
+    error('%s\n%s', ...
+      'getFieldnames(typecode, level, version', ...
+      'typecode not recognised');    
 end;
-
-if done == 1
-  [SBMLfieldnames, nNumberFields] = feval(fhandle, level, version);
-else
-  switch (typecode)
-    case {'SBML_FBC_FLUXBOUND', 'FluxBound', 'fluxBound'}
-      fhandle = str2func('getFluxBoundFieldnames');
-    case {'SBML_FBC_FLUXOBJECTIVE', 'FluxObjective', 'fluxObjective'}
-      fhandle = str2func('getFluxObjectiveFieldnames');
-    case {'SBML_FBC_OBJECTIVE', 'Objective', 'objective'}
-      fhandle = str2func('getObjectiveFieldnames');
-    case {'SBML_FBC_MODEL', 'FBCModel'}
-      fhandle = str2func('getFBCModelFieldnames');
-    case {'SBML_FBC_SPECIES', 'FBCSpecies'}
-      fhandle = str2func('getFBCSpeciesFieldnames');
-    otherwise
-      error('%s\n%s', ...
-        'getFieldnames(typecode, level, version', ...
-        'typecode not recognised');    
-  end;
-  [SBMLfieldnames, nNumberFields] = feval(fhandle, level, version, 1);
-end;
- 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
