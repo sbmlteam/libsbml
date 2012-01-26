@@ -379,7 +379,12 @@ XMLNamespaces::containIdenticalSetNS(XMLNamespaces* rhs)
 
   while(i < getNumNamespaces() && equivalent == true)
   {
-    if (!rhs->hasNS(getURI(i), getPrefix(i)))
+    // in order for namespaces to be identical, the namespace prefixes don't 
+    // necessarily have to match, the only requirement is that the uri's match
+    //
+    // if (!rhs->hasNS(getURI(i), getPrefix(i)))
+    //
+    if (!rhs->hasURI(getURI(i)))
     {
       equivalent = false;
     }
