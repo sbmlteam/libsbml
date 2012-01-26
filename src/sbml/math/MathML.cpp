@@ -1313,8 +1313,18 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmln
 {
   if (&node == NULL || &stream == NULL) return;
 
+  bool bodyPresent = true;
   unsigned int bvars = node.getNumChildren() - 1;
-  unsigned int n;
+  unsigned int n = bvars;
+
+  /* look for the case where the element is missing a body- 
+   * not valid I know but it messes up roundtripping
+   */
+  if (node.getChild(n)->isBvar() == true)
+  {
+    bvars = bvars + 1;
+    bodyPresent = false;
+  }
 
   stream.startElement("lambda");
 
@@ -1324,8 +1334,10 @@ writeLambda (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces *sbmln
     writeNode(*node.getChild(n), stream, sbmlns);
     stream.endElement("bvar");
   }
-
-  writeNode( *node.getChild(n), stream, sbmlns);
+  if (bodyPresent == true)
+  {
+    writeNode( *node.getChild(n), stream, sbmlns);
+  }
 
   stream.endElement("lambda");
 }
