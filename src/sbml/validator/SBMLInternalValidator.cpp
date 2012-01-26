@@ -278,7 +278,7 @@ SBMLInternalValidator::setConsistencyChecksForConversion(SBMLErrorCategory_t cat
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLInternalValidator::checkConsistency ()
+SBMLInternalValidator::checkConsistency (bool writeDocument)
 {
   unsigned int nerrors = 0;
   unsigned int total_errors = 0;
@@ -312,44 +312,63 @@ SBMLInternalValidator::checkConsistency ()
   OverdeterminedValidator over_validator;
   ModelingPracticeValidator practice_validator;
 
+  SBMLDocument *doc;
+  SBMLErrorLog *log = getErrorLog();
+  
+  if (writeDocument)
+  {
+    char* sbmlString = writeSBMLToString(getDocument());
+    log->clearLog();
+    doc = readSBMLFromString(sbmlString);
+    free (sbmlString);  
+  }
+  else
+  {
+    doc = getDocument();
+  }
+
   /* calls each specified validator in turn 
    * - stopping when errors are encountered */
 
   if (id)
   {
     id_validator.init();
-    nerrors = id_validator.validate(*getDocument());
+    nerrors = id_validator.validate(*doc);
     if (nerrors > 0) 
     {
-      unsigned int origNum = getErrorLog()->getNumErrors();
-      getErrorLog()->add( id_validator.getFailures() );
+      unsigned int origNum = log->getNumErrors();
+      log->add( id_validator.getFailures() );
 
-      if (origNum > 0 && getErrorLog()->contains(InvalidUnitIdSyntax) == true)
+      if (origNum > 0 && log->contains(InvalidUnitIdSyntax) == true)
       {
         /* do not log dangling ref */
-        while (getErrorLog()->contains(DanglingUnitSIdRef) == true)
+        while (log->contains(DanglingUnitSIdRef) == true)
         {
-          getErrorLog()->remove(DanglingUnitSIdRef);
+          log->remove(DanglingUnitSIdRef);
           nerrors--;
         }
         
         total_errors += nerrors;
         if (nerrors > 0)
         {
+          if (writeDocument)
+            SBMLDocument_free(doc);
           return total_errors;
         }
       }
-      else if (getErrorLog()->contains(DanglingUnitSIdRef) == false)
+      else if (log->contains(DanglingUnitSIdRef) == false)
       {
         total_errors += nerrors;
+        if (writeDocument)
+          SBMLDocument_free(doc);
         return total_errors;
       }
       else
       {
         bool onlyDangRef = true;
-        for (unsigned int a = 0; a < getErrorLog()->getNumErrors(); a++)
+        for (unsigned int a = 0; a < log->getNumErrors(); a++)
         {
-          if (getErrorLog()->getError(a)->getErrorId() != DanglingUnitSIdRef)
+          if (log->getError(a)->getErrorId() != DanglingUnitSIdRef)
           {
             onlyDangRef = false;
             break;
@@ -359,52 +378,63 @@ SBMLInternalValidator::checkConsistency ()
 
         if (onlyDangRef == false)
         {
+          if (writeDocument)
+            SBMLDocument_free(doc);
           return total_errors;
         }
       }
-
     }
   }
 
   if (sbml)
   {
     validator.init();
-    nerrors = validator.validate(*getDocument());
+    nerrors = validator.validate(*doc);
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      getErrorLog()->add( validator.getFailures() );
+      log->add( validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        if (writeDocument)
+          SBMLDocument_free(doc);
         return total_errors;
+      }
     }
   }
 
   if (sbo)
   {
     sbo_validator.init();
-    nerrors = sbo_validator.validate(*getDocument());
+    nerrors = sbo_validator.validate(*doc);
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      getErrorLog()->add( sbo_validator.getFailures() );
+      log->add( sbo_validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        if (writeDocument)
+          SBMLDocument_free(doc);
         return total_errors;
+      }
     }
   }
 
   if (math)
   {
     math_validator.init();
-    nerrors = math_validator.validate(*getDocument());
+    nerrors = math_validator.validate(*doc);
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      getErrorLog()->add( math_validator.getFailures() );
+      log->add( math_validator.getFailures() );
       /* at this point bail if any problems
        * unit checks may crash if there have been math errors/warnings
        */
+      if (writeDocument)
+        SBMLDocument_free(doc);
       return total_errors;
     }
   }
@@ -413,14 +443,18 @@ SBMLInternalValidator::checkConsistency ()
   if (units)
   {
     unit_validator.init();
-    nerrors = unit_validator.validate(*getDocument());
+    nerrors = unit_validator.validate(*doc);
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      getErrorLog()->add( unit_validator.getFailures() );
+      log->add( unit_validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        if (writeDocument)
+          SBMLDocument_free(doc);
         return total_errors;
+      }
     }
   }
 
@@ -429,21 +463,25 @@ SBMLInternalValidator::checkConsistency ()
   if (over)
   {
     over_validator.init();
-    nerrors = over_validator.validate(*getDocument());
+    nerrors = over_validator.validate(*doc);
     total_errors += nerrors;
     if (nerrors > 0) 
     {
-      getErrorLog()->add( over_validator.getFailures() );
+      log->add( over_validator.getFailures() );
       /* only want to bail if errors not warnings */
-      if (getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      if (log->getNumFailsWithSeverity(LIBSBML_SEV_ERROR) > 0)
+      {
+        if (writeDocument)
+          SBMLDocument_free(doc);
         return total_errors;
+      }
     }
   }
 
   if (practice)
   {
     practice_validator.init();
-    nerrors = practice_validator.validate(*getDocument());
+    nerrors = practice_validator.validate(*doc);
     if (nerrors > 0) 
     {
       unsigned int errorsAdded = 0;
@@ -454,14 +492,14 @@ SBMLInternalValidator::checkConsistency ()
       {
         if (SBMLError(*iter).getErrorId() != 80701)
         {
-          getErrorLog()->add( SBMLError(*iter) );
+          log->add( SBMLError(*iter) );
           errorsAdded++;
         }
         else
         {
           if (units) 
           {
-            getErrorLog()->add( SBMLError(*iter) );
+            log->add( SBMLError(*iter) );
             errorsAdded++;
           }
         }
@@ -471,7 +509,8 @@ SBMLInternalValidator::checkConsistency ()
     }
   }
 
-
+  if (writeDocument)
+    SBMLDocument_free(doc);
   return total_errors;
 }
 

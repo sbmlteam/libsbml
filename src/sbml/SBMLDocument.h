@@ -928,11 +928,17 @@ public:
    * flag in the individual SBMLError objects returned by
    * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
    *
+   * @param writeDocument by default checkConsistency will write the document
+   *                      in order to determine all errors for the document. 
+   *                      This will also clear the error log. Setting this
+   *                      parameter to false will skip this additional step
+   *                      but might not find all errors.
+   *
    * @return the number of failed checks (errors) encountered.
    *
    * @see SBMLDocument::checkInternalConsistency()
    */
-  unsigned int checkConsistency ();
+  unsigned int checkConsistency (bool writeDocument=true);
 
 
   /**

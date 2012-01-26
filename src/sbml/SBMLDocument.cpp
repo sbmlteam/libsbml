@@ -656,9 +656,9 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistency ()
+SBMLDocument::checkConsistency (bool writeDocument)
 {
-  unsigned int numErrors = mInternalValidator->checkConsistency();
+  unsigned int numErrors = mInternalValidator->checkConsistency(writeDocument);
 
   list<SBMLValidator*>::iterator it;
   for (it = mValidators.begin(); it != mValidators.end(); it++)
@@ -1737,7 +1737,9 @@ LIBSBML_EXTERN
 void
 SBMLDocument_free (SBMLDocument_t *d)
 {
-  delete d;
+  if (d != NULL)
+    delete d;
+  d = NULL;
 }
 
 
