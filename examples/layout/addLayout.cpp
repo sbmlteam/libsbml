@@ -9,28 +9,10 @@
 #include <iostream>
 #include <string>
 
-#include <sbml/SBMLDocument.h>
-#include <sbml/Model.h>
-#include <sbml/Compartment.h>
-#include <sbml/Species.h>
-#include <sbml/SpeciesReference.h>
-#include <sbml/Reaction.h>
 
-#include <sbml/packages/layout/sbml/Layout.h>
-#include <sbml/packages/layout/sbml/CompartmentGlyph.h>
-#include <sbml/packages/layout/sbml/SpeciesGlyph.h>
-#include <sbml/packages/layout/sbml/ReactionGlyph.h>
-#include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
-#include <sbml/packages/layout/sbml/SpeciesReferenceGlyph.h>
-#include <sbml/packages/layout/extension/LayoutExtension.h>
-#include <sbml/packages/layout/extension/LayoutModelPlugin.h>
-#include <sbml/packages/layout/sbml/Curve.h>
-#include <sbml/packages/layout/sbml/Dimensions.h>
-#include <sbml/packages/layout/sbml/BoundingBox.h>
-#include <sbml/packages/layout/sbml/Point.h>
-#include <sbml/packages/layout/sbml/LineSegment.h>
-#include <sbml/packages/layout/sbml/CubicBezier.h>
-#include <sbml/SBMLWriter.h>
+#include "sbml/SBMLTypes.h"
+#include "sbml/packages/layout/common/LayoutExtensionTypes.h"
+
 
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
