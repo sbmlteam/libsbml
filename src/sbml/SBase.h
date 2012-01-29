@@ -942,7 +942,7 @@ public:
    * time, libSBML supports the use of <a target="_blank"
    * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
    * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
-   * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
+   * href="http://xerces.apache.org/xerces-c/">Xerces</a>.)
    *
    * @see getColumn()
    */
@@ -968,7 +968,7 @@ public:
    * time, libSBML supports the use of <a target="_blank"
    * href="http://xmlsoft.org">libxml2</a>, <a target="_blank"
    * href="http://expat.sourceforge.net/">Expat</a> and <a target="_blank"
-   * href="http://http://xerces.apache.org/xerces-c/">Xerces</a>.)
+   * href="http://xerces.apache.org/xerces-c/">Xerces</a>.)
    * 
    * @see getLine()
    */
