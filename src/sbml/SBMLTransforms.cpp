@@ -752,8 +752,13 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_LOGICAL_AND:
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      && (evaluateASTNode(node->getChild(1), m)));
+    {
+      if (node->getNumChildren() == 0)
+        result = 1.0;
+      else
+        result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+        && (evaluateASTNode(node->getChild(1), m)));
+    }
     break;
 
   case AST_LOGICAL_NOT:
@@ -761,15 +766,25 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     break;
 
   case AST_LOGICAL_OR:
-    result = (double) ((evaluateASTNode(node->getChild(0), m)) 
-      || (evaluateASTNode(node->getChild(1), m)));
+    {
+      if (node->getNumChildren() == 0)
+        result = 0.0;
+      else
+        result = (double) ((evaluateASTNode(node->getChild(0), m)) 
+        || (evaluateASTNode(node->getChild(1), m)));
+    }
     break;
 
   case AST_LOGICAL_XOR:
-    result = (double) ((!(evaluateASTNode(node->getChild(0), m)) 
+    {
+      if (node->getNumChildren() == 0)
+        result = 0.0;
+      else
+        result = (double) ((!(evaluateASTNode(node->getChild(0), m)) 
                        && (evaluateASTNode(node->getChild(1), m)))
-      || ((evaluateASTNode(node->getChild(0), m)) 
+        || ((evaluateASTNode(node->getChild(0), m)) 
                        && !(evaluateASTNode(node->getChild(1), m))));
+    }
     break;
 
   case AST_RELATIONAL_EQ :
