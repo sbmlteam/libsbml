@@ -3,7 +3,7 @@
  * @brief   Rule unit tests for new set function API
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
@@ -180,7 +180,7 @@ public class TestRule_newSetters {
 
   public void test_Rule_setMath2()
   {
-    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    ASTNode math = new  ASTNode(libsbml.AST_DIVIDE);
     ASTNode a = new  ASTNode();
     a.setName( "a");
     math.addChild(a);
@@ -322,4 +322,3 @@ public class TestRule_newSetters {
     }
   }
 }
-

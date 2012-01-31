@@ -205,7 +205,7 @@ public class TestStoichiometryMath {
 
   public void test_StoichiometryMath_setMath2()
   {
-    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    ASTNode math = new  ASTNode(libsbml.AST_DIVIDE);
     int i = D.setMath(math);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
     assertEquals( false, D.isSetMath() );

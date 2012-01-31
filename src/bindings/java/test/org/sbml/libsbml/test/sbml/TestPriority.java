@@ -205,7 +205,7 @@ public class TestPriority {
 
   public void test_Priority_setMath2()
   {
-    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    ASTNode math = new  ASTNode(libsbml.AST_DIVIDE);
     int i = P.setMath(math);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
     assertEquals( false, P.isSetMath() );

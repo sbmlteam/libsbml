@@ -3,7 +3,7 @@
  * @brief   InitialAssignment unit tests for new set function API
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
@@ -148,7 +148,7 @@ public class TestInitialAssignment_newSetters {
 
   public void test_InitialAssignment_setMath2()
   {
-    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    ASTNode math = new  ASTNode(libsbml.AST_DIVIDE);
     int i = E.setMath(math);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
     assertEquals( false, E.isSetMath() );
@@ -228,4 +228,3 @@ public class TestInitialAssignment_newSetters {
     }
   }
 }
-

@@ -205,7 +205,7 @@ public class TestDelay {
 
   public void test_Delay_setMath2()
   {
-    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    ASTNode math = new  ASTNode(libsbml.AST_DIVIDE);
     int i = D.setMath(math);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
     assertEquals( false, D.isSetMath() );

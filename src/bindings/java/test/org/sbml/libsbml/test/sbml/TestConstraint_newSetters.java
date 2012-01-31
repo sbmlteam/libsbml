@@ -3,7 +3,7 @@
  * @brief   Constraint unit tests for new set function API
  *
  * @author  Akiya Jouraku (Java conversion)
- * @author  Sarah Keating 
+ * @author  Sarah Keating 
  * 
  * ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
  *
@@ -148,7 +148,7 @@ public class TestConstraint_newSetters {
 
   public void test_Constraint_setMath2()
   {
-    ASTNode math = new  ASTNode(libsbml.AST_TIMES);
+    ASTNode math = new  ASTNode(libsbml.AST_DIVIDE);
     int i = C.setMath(math);
     assertTrue( i == libsbml.LIBSBML_INVALID_OBJECT );
     assertEquals( false, C.isSetMath() );
@@ -248,4 +248,3 @@ public class TestConstraint_newSetters {
     }
   }
 }
-
