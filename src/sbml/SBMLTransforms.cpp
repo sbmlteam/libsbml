@@ -728,13 +728,29 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
           double boolean = evaluateASTNode(node->getChild(i+1), m);
           if (boolean == 1.0)
           {
-            result = boolean;
-            assigned = true;
+            // we might have two true piece statements
+            // if the values are the same - fine
+            // if not then the result is undefined
+            if (assigned == true)
+            {
+              if (value == result)
+              {
+                continue;
+              }
+              else
+              {
+                result = numeric_limits<double>::quiet_NaN();
+              }
+            }
+            else
+            {
+              result = value;
+              assigned = true;
+            }
           }
         }
         if (!assigned)
         {
-          // compute otherwise
           result = numeric_limits<double>::quiet_NaN();
         }
       }
@@ -748,9 +764,26 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
           double boolean = evaluateASTNode(node->getChild(i+1), m);
           if (boolean == 1.0)
           {
-            result = boolean;
-            assigned = true;
-          }
+            // we might have two true piece statements
+            // if the values are the same - fine
+            // if not then the result is undefined
+            if (assigned == true)
+            {
+              if (value == result)
+              {
+                continue;
+              }
+              else
+              {
+                result = numeric_limits<double>::quiet_NaN();
+              }
+            }
+            else
+            {
+              result = value;
+              assigned = true;
+            }
+           }
         }
         if (!assigned)
         {
