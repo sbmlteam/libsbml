@@ -861,6 +861,19 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL2)
   Parameter_setId(p3, "p3");
   Parameter_setConstant(p3, 1);
 
+  Parameter_t * p4 = Model_createParameter(m);
+  Parameter_setId(p4, "p4");
+  Parameter_setConstant(p4, 1);
+
+  Parameter_t * p5 = Model_createParameter(m);
+  Parameter_setId(p5, "p5");
+  Parameter_setConstant(p5, 1);
+
+  Parameter_t * p6 = Model_createParameter(m);
+  Parameter_setId(p6, "p6");
+  Parameter_setConstant(p6, 1);
+
+
   /* create initialAssignments */
   InitialAssignment_t *ia1 = Model_createInitialAssignment(m);
   InitialAssignment_setSymbol(ia1, "p1");
@@ -877,8 +890,22 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL2)
   ASTNode_t *math2 = SBML_parseFormula("piecewise(1, xor(),  0)");
   InitialAssignment_setMath(ia3, math2);
 
+ InitialAssignment_t *ia4 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia4, "p4");
+  ASTNode_t *math3 = SBML_parseFormula("piecewise(1, and(true), 0)");
+  InitialAssignment_setMath(ia4, math3);
 
-  fail_unless (Model_getNumInitialAssignments(m) == 3);
+  InitialAssignment_t *ia5 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia5, "p5");
+  ASTNode_t *math4 = SBML_parseFormula("piecewise(1, or(false), 0)");
+  InitialAssignment_setMath(ia5, math4);
+
+  InitialAssignment_t *ia6 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia6, "p6");
+  ASTNode_t *math5 = SBML_parseFormula("piecewise(1, xor(true),  0)");
+  InitialAssignment_setMath(ia6, math5);
+
+  fail_unless (Model_getNumInitialAssignments(m) == 6);
 
   fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 1 );
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
@@ -892,6 +919,9 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL2)
   fail_unless (Parameter_getValue(Model_getParameter(m1, 1)) == 0);
   fail_unless (Parameter_isSetValue(Model_getParameter(m1, 2)) == 1);
   fail_unless (Parameter_getValue(Model_getParameter(m1, 2)) == 0);
+  fail_unless (Parameter_getValue(Model_getParameter(m1, 3)) == 1);
+  fail_unless (Parameter_getValue(Model_getParameter(m1, 4)) == 0);
+  fail_unless (Parameter_getValue(Model_getParameter(m1, 5)) == 1);
 
   SBMLDocument_free(d);
 }
