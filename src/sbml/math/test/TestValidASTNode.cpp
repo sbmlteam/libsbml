@@ -222,7 +222,9 @@ END_TEST
 START_TEST (test_ValidASTNode_nary)
 {
   ASTNode *n = new ASTNode(AST_TIMES);
+  fail_unless( (n->isWellFormedASTNode()) );
 
+  n = new ASTNode(AST_DIVIDE);
   fail_unless( !(n->isWellFormedASTNode()) );
 
   ASTNode *c = SBML_parseFormula("c");
