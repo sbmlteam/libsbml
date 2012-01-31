@@ -726,7 +726,7 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
       else
       {
         bool assigned = false;
-        for (int i = 0; i < numChildren-1; i+=2)
+        for (unsigned int i = 0; i < numChildren-1; i+=2)
         {
           // compute piece
           double value = evaluateASTNode(node->getChild(i), m);
