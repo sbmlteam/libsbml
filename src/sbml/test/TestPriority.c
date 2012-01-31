@@ -142,7 +142,7 @@ END_TEST
 
 START_TEST (test_Priority_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
 
   int i = Priority_setMath(P, math);
 

@@ -841,6 +841,62 @@ START_TEST (test_SBMLConvertStrict_convertFuncDefsToL1)
 }
 END_TEST
 
+START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL2)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  
+  /* create model */
+  Model_t * m = SBMLDocument_createModel(d);
+  
+  /* create three parameters*/
+  Parameter_t * p1 = Model_createParameter(m);
+  Parameter_setId(p1, "p1");
+  Parameter_setConstant(p1, 1);
+  Parameter_setValue(p1, 1);
+  Parameter_t * p2 = Model_createParameter(m);
+  Parameter_setId(p2, "p2");
+  Parameter_setConstant(p2, 1);
+  Parameter_setValue(p2, 4.6);
+  Parameter_t * p3 = Model_createParameter(m);
+  Parameter_setId(p3, "p3");
+  Parameter_setConstant(p3, 1);
+
+  /* create initialAssignments */
+  InitialAssignment_t *ia1 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia1, "p1");
+  ASTNode_t *math = SBML_parseFormula("piecewise(1, and(), 0)");
+  InitialAssignment_setMath(ia1, math);
+
+  InitialAssignment_t *ia2 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia2, "p2");
+  ASTNode_t *math1 = SBML_parseFormula("piecewise(1, or(), 0)");
+  InitialAssignment_setMath(ia2, math1);
+
+  InitialAssignment_t *ia3 = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia3, "p3");
+  ASTNode_t *math2 = SBML_parseFormula("piecewise(1, xor(),  0)");
+  InitialAssignment_setMath(ia3, math2);
+
+
+  fail_unless (Model_getNumInitialAssignments(m) == 3);
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 2, 1) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
+
+  Model_t * m1 = SBMLDocument_getModel(d);
+
+  fail_unless (Model_getNumInitialAssignments(m1) == 0);
+
+  fail_unless (Parameter_getValue(Model_getParameter(m1, 0)) == 1);
+  fail_unless (Parameter_getValue(Model_getParameter(m1, 1)) == 0);
+  fail_unless (Parameter_isSetValue(Model_getParameter(m1, 2)) == 1);
+  fail_unless (Parameter_getValue(Model_getParameter(m1, 2)) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
 
 START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL1)
 {
@@ -932,6 +988,7 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_spatialDim5 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFuncDefsToL1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsToL1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsToL2 );
   suite_add_tcase(suite, tcase);
 
   return suite;

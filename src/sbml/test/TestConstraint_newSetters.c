@@ -89,7 +89,7 @@ END_TEST
 
 START_TEST (test_Constraint_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
 
   int i = Constraint_setMath(C, math);
 

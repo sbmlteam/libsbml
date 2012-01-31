@@ -2161,6 +2161,9 @@ ASTNode::hasCorrectNumberArguments() const
     case AST_LOGICAL_AND:
     case AST_LOGICAL_OR:
     case AST_LOGICAL_XOR:
+      correctNum = true;
+      break;
+
     case AST_RELATIONAL_EQ:
     case AST_RELATIONAL_GEQ:
     case AST_RELATIONAL_GT:

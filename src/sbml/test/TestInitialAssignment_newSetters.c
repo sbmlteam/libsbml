@@ -118,7 +118,7 @@ END_TEST
 
 START_TEST (test_InitialAssignment_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
 
   int i = InitialAssignment_setMath(E, math);
 

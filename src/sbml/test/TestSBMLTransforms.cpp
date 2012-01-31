@@ -424,6 +424,14 @@ START_TEST(test_SBMLTransforms_evaluateAST)
   temp = 0.5 * log(3.0);
   fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
 
+  node = SBML_parseFormula("piecewise(1.0, true, 0.0)");
+  temp = 1.0;
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
+
+  node = SBML_parseFormula("piecewise(1.0, false, 0.0)");
+  temp = 0.0;
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), temp));
+
   node = SBML_parseFormula("arcsech(0.2)");
 
   temp = log(2*pow(6, 0.5)+5);
@@ -455,7 +463,7 @@ START_TEST(test_SBMLTransforms_evaluateAST)
 
   fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), 6));
   
-  node->setType(AST_FUNCTION_PIECEWISE);
+  node= SBML_parseFormula("piecewise()");
 
   fail_unless(isnan(SBMLTransforms::evaluateASTNode(node)));
 

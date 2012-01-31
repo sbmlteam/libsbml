@@ -173,7 +173,7 @@ END_TEST
 
 START_TEST (test_StoichiometryMath_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
 
   int i = StoichiometryMath_setMath(D, math);
 

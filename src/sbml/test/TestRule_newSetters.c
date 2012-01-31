@@ -133,7 +133,7 @@ END_TEST
 
 START_TEST (test_Rule_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
   ASTNode_t *a = ASTNode_create();
   ASTNode_setName(a, "a");
   ASTNode_addChild(math, a);

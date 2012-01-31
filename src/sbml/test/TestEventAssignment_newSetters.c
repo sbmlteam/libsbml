@@ -118,7 +118,7 @@ END_TEST
 
 START_TEST (test_EventAssignment_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
 
   int i = EventAssignment_setMath(E, math);
 

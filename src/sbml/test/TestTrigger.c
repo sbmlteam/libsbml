@@ -171,7 +171,7 @@ END_TEST
 
 START_TEST (test_Trigger_setMath2)
 {
-  ASTNode_t *math = ASTNode_createWithType(AST_TIMES);
+  ASTNode_t *math = ASTNode_createWithType(AST_DIVIDE);
 
   int i = Trigger_setMath(D, math);
 
