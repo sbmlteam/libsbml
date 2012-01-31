@@ -221,16 +221,26 @@ END_TEST
 
 START_TEST (test_ValidASTNode_nary)
 {
-  ASTNode *n = new ASTNode(AST_TIMES);
+  ASTNode *n = new ASTNode(AST_DIVIDE);
+  fail_unless( !(n->isWellFormedASTNode()) );
+  
+  ASTNode *c = SBML_parseFormula("c");
+
+  n->addChild(c);
+  fail_unless( !(n->isWellFormedASTNode()) );
+
+  n->addChild(c);
   fail_unless( (n->isWellFormedASTNode()) );
 
-  n = new ASTNode(AST_DIVIDE);
+  n->addChild(c);
   fail_unless( !(n->isWellFormedASTNode()) );
 
-  ASTNode *c = SBML_parseFormula("c");
+  n = new ASTNode(AST_TIMES);
+  fail_unless( (n->isWellFormedASTNode()) );
+
   n->addChild(c);
 
-  fail_unless( !(n->isWellFormedASTNode()) );
+  fail_unless( (n->isWellFormedASTNode()) );
 
   ASTNode *d = SBML_parseFormula("d");
   n->addChild(d);
