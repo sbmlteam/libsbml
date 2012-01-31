@@ -226,13 +226,13 @@ START_TEST (test_ValidASTNode_nary)
   
   ASTNode *c = SBML_parseFormula("c");
 
-  n->addChild(c);
+  n->addChild(c->deepCopy());
   fail_unless( !(n->isWellFormedASTNode()) );
 
-  n->addChild(c);
+  n->addChild(c->deepCopy());
   fail_unless( (n->isWellFormedASTNode()) );
 
-  n->addChild(c);
+  n->addChild(c->deepCopy());
   fail_unless( !(n->isWellFormedASTNode()) );
 
   n = new ASTNode(AST_TIMES);
