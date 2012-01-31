@@ -154,9 +154,13 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
     case AST_RELATIONAL_GT:
     case AST_RELATIONAL_LEQ:
     case AST_RELATIONAL_LT:
-    case AST_FUNCTION_PIECEWISE:
       checkAtLeast2Args(m, node, sb);
       break;
+
+    case AST_FUNCTION_PIECEWISE:
+      checkPiecewise(m, node, sb);
+      break;
+
 
     case AST_FUNCTION_ROOT:
     case AST_MINUS:
@@ -267,6 +271,15 @@ void NumberArgsMathCheck::checkAtLeast2Args(const Model& m,
 }
 
   
+void NumberArgsMathCheck::checkPiecewise(const Model& m, 
+                                    const ASTNode& node, const SBase & sb)
+{
+  if (node.getNumChildren() == 0)
+  {
+    logMathConflict(node, sb);
+  }
+
+}
 /**
  * @return the error message to use when logging constraint violations.
  * This method is called by logFailure.

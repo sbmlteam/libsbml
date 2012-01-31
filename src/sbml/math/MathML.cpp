@@ -803,12 +803,13 @@ readMathML (ASTNode& node, XMLInputStream& stream, std::string reqd_prefix)
     else
     {
       /* catch case where there is no otherwise
+       * BUT do not return if we are dealing with <piecewise/>
        */
-      if (elem.isEnd()) 
-      {
-        //node = NULL;
-        return;
-      }
+      //if (elem.isEnd()) 
+      //{
+      //  //node = NULL;
+      //  return;
+      //}
       node.setType(AST_FUNCTION_PIECEWISE);
     }
 

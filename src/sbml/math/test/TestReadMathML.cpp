@@ -1109,6 +1109,65 @@ START_TEST (test_element_piecewise_otherwise)
 END_TEST
 
 
+START_TEST (test_element_piecewise_no_args_1)
+{
+  const char* s = wrapMathML
+  (
+    "<piecewise>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "piecewise()"),
+               NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_piecewise_no_args_2)
+{
+  const char* s = wrapMathML
+  (
+    "<piecewise/>"
+  );
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "piecewise()"),
+               NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_piecewise_one_arg)
+{
+  const char* s = wrapMathML
+  (
+    "<piecewise>"
+    "  <otherwise>"
+    "    <ci>x</ci>"
+    "  </otherwise>"
+    "</piecewise>"
+  );
+
+  N = readMathMLFromString(s);
+
+  fail_unless( N != NULL );
+
+  F = SBML_formulaToString(N);
+  fail_unless( !strcmp(F, "piecewise(x)"),
+               NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_power)
 {
   const char* s = wrapMathML("<apply><power/> <ci>x</ci> <cn>3</cn> </apply>");
@@ -1987,6 +2046,9 @@ create_suite_ReadMathML ()
   tcase_add_test( tcase, test_element_or                        );
   tcase_add_test( tcase, test_element_piecewise                 );
   tcase_add_test( tcase, test_element_piecewise_otherwise       );
+  tcase_add_test( tcase, test_element_piecewise_no_args_1       );
+  tcase_add_test( tcase, test_element_piecewise_no_args_2       );
+  tcase_add_test( tcase, test_element_piecewise_one_arg         );
   tcase_add_test( tcase, test_element_power                     );
   tcase_add_test( tcase, test_element_root_1                    );
   tcase_add_test( tcase, test_element_root_2                    );
