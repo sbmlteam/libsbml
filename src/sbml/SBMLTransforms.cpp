@@ -781,6 +781,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     {
       if (node->getNumChildren() == 0)
         result = 1.0;
+      else if (node->getNumChildren() == 1)
+        result = evaluateASTNode(node->getChild(0), m);
       else
         result = (double) ((evaluateASTNode(node->getChild(0), m)) 
         && (evaluateASTNode(node->getChild(1), m)));
@@ -795,6 +797,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     {
       if (node->getNumChildren() == 0)
         result = 0.0;
+      else if (node->getNumChildren() == 1)
+        result = evaluateASTNode(node->getChild(0), m);
       else
         result = (double) ((evaluateASTNode(node->getChild(0), m)) 
         || (evaluateASTNode(node->getChild(1), m)));
@@ -805,6 +809,8 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
     {
       if (node->getNumChildren() == 0)
         result = 0.0;
+      else if (node->getNumChildren() == 1)
+        result = evaluateASTNode(node->getChild(0), m);
       else
         result = (double) ((!(evaluateASTNode(node->getChild(0), m)) 
                        && (evaluateASTNode(node->getChild(1), m)))
