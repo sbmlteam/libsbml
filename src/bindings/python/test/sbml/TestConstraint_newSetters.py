@@ -3,7 +3,7 @@
 # @brief   Constraint unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #
@@ -63,7 +63,7 @@ class TestConstraint_newSetters(unittest.TestCase):
     pass  
 
   def test_Constraint_setMath2(self):
-    math = libsbml.ASTNode(libsbml.AST_TIMES)
+    math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.C.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.C.isSetMath() )

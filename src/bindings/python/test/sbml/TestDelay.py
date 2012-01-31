@@ -114,7 +114,7 @@ class TestDelay(unittest.TestCase):
     pass  
 
   def test_Delay_setMath2(self):
-    math = libsbml.ASTNode(libsbml.AST_TIMES)
+    math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     i = self.D.setMath(math)
     self.assert_( i == libsbml.LIBSBML_INVALID_OBJECT )
     self.assertEqual( False, self.D.isSetMath() )
@@ -132,4 +132,3 @@ if __name__ == "__main__":
     sys.exit(0)
   else:
     sys.exit(1)
-

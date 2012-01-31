@@ -3,7 +3,7 @@
 # @brief   KineticLaw unit tests for new set function API
 #
 # @author  Akiya Jouraku (Python conversion)
-# @author  Sarah Keating 
+# @author  Sarah Keating 
 # 
 # ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 #
@@ -143,7 +143,7 @@ class TestKineticLaw_newSetters(unittest.TestCase):
     pass  
 
   def test_KineticLaw_setMath2(self):
-    math = libsbml.ASTNode(libsbml.AST_TIMES)
+    math = libsbml.ASTNode(libsbml.AST_DIVIDE)
     a = libsbml.ASTNode()
     a.setName( "a")
     math.addChild(a)
@@ -248,4 +248,3 @@ if __name__ == "__main__":
     sys.exit(0)
   else:
     sys.exit(1)
-
