@@ -61,9 +61,9 @@ START_TEST (test_ValidASTNode_infix_nary_plus0)
 
   fail_unless( n != NULL );
 
-  string formula = SBML_formulaToString(n);
+  char* formula = SBML_formulaToString(n);
 
-  ASTNode *node = SBML_parseFormula(formula.c_str());
+  ASTNode *node = SBML_parseFormula(formula);
 
   fail_unless( node != NULL );
 
@@ -85,9 +85,9 @@ START_TEST (test_ValidASTNode_infix_nary_plus1)
 
   fail_unless( n != NULL );
 
-  string formula = SBML_formulaToString(n);
+  char* formula = SBML_formulaToString(n);
 
-  ASTNode *node = SBML_parseFormula(formula.c_str());
+  ASTNode *node = SBML_parseFormula(formula);
 
   fail_unless( node != NULL );
 
@@ -108,9 +108,9 @@ START_TEST (test_ValidASTNode_infix_nary_times0)
 
   fail_unless( n != NULL );
 
-  string formula = SBML_formulaToString(n);
+  char* formula = SBML_formulaToString(n);
 
-  ASTNode *node = SBML_parseFormula(formula.c_str());
+  ASTNode *node = SBML_parseFormula(formula);
 
   fail_unless( node != NULL );
 
@@ -133,9 +133,9 @@ START_TEST (test_ValidASTNode_infix_nary_times1)
 
   fail_unless( n != NULL );
 
-  string formula = SBML_formulaToString(n);
+  char* formula = SBML_formulaToString(n);
 
-  ASTNode *node = SBML_parseFormula(formula.c_str());
+  ASTNode *node = SBML_parseFormula(formula);
 
   fail_unless( node != NULL );
 
