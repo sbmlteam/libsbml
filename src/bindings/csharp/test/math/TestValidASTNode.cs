@@ -2,8 +2,7 @@
 ///  @brief   Test the isWellFormedASTNode function
 ///  @author  Frank Bergmann (Csharp conversion)
 ///  @author  Akiya Jouraku (Csharp conversion)
-///  @author  Sarah Keating
- 
+///  @author  Sarah Keating 
 ///  
 ///  ====== WARNING ===== WARNING ===== WARNING ===== WARNING ===== WARNING ======
 /// 
@@ -161,6 +160,68 @@ namespace LibSBMLCSTest.math {
       n = null;
     }
 
+    public void test_ValidASTNode_infix_nary_plus0()
+    {
+      ASTNode n = libsbml.readMathMLFromString("<math xmlns='http://www.w3.org/1998/Math/MathML'>" + 
+    "  <apply>" + 
+    "    <plus/>" + 
+    "  </apply>" + 
+    "</math>");
+      assertTrue( n != null );
+      string formula = libsbml.formulaToString(n);
+      ASTNode node = libsbml.parseFormula(formula);
+      assertTrue( node != null );
+      n = null;
+      node = null;
+    }
+
+    public void test_ValidASTNode_infix_nary_plus1()
+    {
+      ASTNode n = libsbml.readMathMLFromString("<math xmlns='http://www.w3.org/1998/Math/MathML'>" + 
+    "  <apply>" + 
+    "    <plus/>" + 
+    "    <cn> 0 </cn>" + 
+    "  </apply>" + 
+    "</math>");
+      assertTrue( n != null );
+      string formula = libsbml.formulaToString(n);
+      ASTNode node = libsbml.parseFormula(formula);
+      assertTrue( node != null );
+      n = null;
+      node = null;
+    }
+
+    public void test_ValidASTNode_infix_nary_times0()
+    {
+      ASTNode n = libsbml.readMathMLFromString("<math xmlns='http://www.w3.org/1998/Math/MathML'>" + 
+    "  <apply>" + 
+    "    <times/>" + 
+    "  </apply>" + 
+    "</math>");
+      assertTrue( n != null );
+      string formula = libsbml.formulaToString(n);
+      ASTNode node = libsbml.parseFormula(formula);
+      assertTrue( node != null );
+      n = null;
+      node = null;
+    }
+
+    public void test_ValidASTNode_infix_nary_times1()
+    {
+      ASTNode n = libsbml.readMathMLFromString("<math xmlns='http://www.w3.org/1998/Math/MathML'>" + 
+    "  <apply>" + 
+    "    <times/>" + 
+    "    <cn> 0 </cn>" + 
+    "  </apply>" + 
+    "</math>");
+      assertTrue( n != null );
+      string formula = libsbml.formulaToString(n);
+      ASTNode node = libsbml.parseFormula(formula);
+      assertTrue( node != null );
+      n = null;
+      node = null;
+    }
+
     public void test_ValidASTNode_lambda()
     {
       ASTNode n = new ASTNode(libsbml.AST_LAMBDA);
@@ -179,11 +240,19 @@ namespace LibSBMLCSTest.math {
 
     public void test_ValidASTNode_nary()
     {
-      ASTNode n = new ASTNode(libsbml.AST_TIMES);
+      ASTNode n = new ASTNode(libsbml.AST_DIVIDE);
       assertEquals( false, (n.isWellFormedASTNode()) );
       ASTNode c = libsbml.parseFormula("c");
-      n.addChild(c);
+      n.addChild(c.deepCopy());
       assertEquals( false, (n.isWellFormedASTNode()) );
+      n.addChild(c.deepCopy());
+      assertEquals( true, (n.isWellFormedASTNode()) );
+      n.addChild(c.deepCopy());
+      assertEquals( false, (n.isWellFormedASTNode()) );
+      n = new ASTNode(libsbml.AST_TIMES);
+      assertEquals( true, (n.isWellFormedASTNode()) );
+      n.addChild(c);
+      assertEquals( true, (n.isWellFormedASTNode()) );
       ASTNode d = libsbml.parseFormula("d");
       n.addChild(d);
       assertEquals( true, n.isWellFormedASTNode() );
@@ -191,6 +260,36 @@ namespace LibSBMLCSTest.math {
       n.addChild(e);
       assertEquals( true, n.isWellFormedASTNode() );
       n = null;
+    }
+
+    public void test_ValidASTNode_returnsBoolean()
+    {
+      ASTNode node = new ASTNode ( libsbml.AST_LOGICAL_AND );
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_LOGICAL_NOT);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_LOGICAL_OR);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_LOGICAL_XOR);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_FUNCTION_PIECEWISE);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_RELATIONAL_EQ);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_RELATIONAL_GEQ);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_RELATIONAL_GT);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_RELATIONAL_LEQ);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_RELATIONAL_LT);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_RELATIONAL_NEQ);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_CONSTANT_TRUE);
+      assertEquals( true, node.returnsBoolean() );
+      node.setType(libsbml.AST_CONSTANT_FALSE);
+      assertEquals( true, node.returnsBoolean() );
     }
 
     public void test_ValidASTNode_root()
@@ -218,8 +317,7 @@ namespace LibSBMLCSTest.math {
       i = n.setType(libsbml.AST_PLUS);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( n.getType() == libsbml.AST_PLUS );
-      string s = "" + n.getCharacter();
-      assertTrue((   "+"  == s ));
+      assertTrue( n.getCharacter() ==  '+'  );
       i = n.setType(libsbml.AST_FUNCTION_ARCCOSH);
       assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
       assertTrue( n.getType() == libsbml.AST_FUNCTION_ARCCOSH );
@@ -244,4 +342,3 @@ namespace LibSBMLCSTest.math {
 
   }
 }
-
