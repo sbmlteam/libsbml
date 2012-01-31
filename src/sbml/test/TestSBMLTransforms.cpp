@@ -467,6 +467,13 @@ START_TEST(test_SBMLTransforms_evaluateAST)
 
   fail_unless(isnan(SBMLTransforms::evaluateASTNode(node)));
 
+  node= SBML_parseFormula("piecewise(1,false)");
+  fail_unless(isnan(SBMLTransforms::evaluateASTNode(node)));
+
+  node= SBML_parseFormula("piecewise(1,true)");
+  fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), 1));
+
+
   node = SBML_parseFormula("root(2, 4)");
 
   fail_unless(equalDouble(SBMLTransforms::evaluateASTNode(node), 2));

@@ -718,10 +718,25 @@ SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
   case AST_FUNCTION_PIECEWISE:    
     {
       unsigned int numChildren = node->getNumChildren();
-      if ( numChildren == 0 || numChildren  == 2)
+      if ( numChildren % 2 == 0)
       {
-        /* cannot do this */
-        result = numeric_limits<double>::quiet_NaN();
+        bool assigned = false;
+        for (unsigned int i = 0; i < numChildren; i+=2)
+        {
+          // compute piece
+          double value = evaluateASTNode(node->getChild(i), m);
+          double boolean = evaluateASTNode(node->getChild(i+1), m);
+          if (boolean == 1.0)
+          {
+            result = boolean;
+            assigned = true;
+          }
+        }
+        if (!assigned)
+        {
+          // compute otherwise
+          result = numeric_limits<double>::quiet_NaN();
+        }
       }
       else
       {
