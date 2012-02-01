@@ -597,7 +597,7 @@ CubicBezier::accept (SBMLVisitor& v) const
 void
 CubicBezier::setSBMLDocument (SBMLDocument* d)
 {
-  SBase::setSBMLDocument(d);
+  LineSegment::setSBMLDocument(d);
 
   mBasePoint1.setSBMLDocument(d);
   mBasePoint2.setSBMLDocument(d);
@@ -611,6 +611,7 @@ CubicBezier::setSBMLDocument (SBMLDocument* d)
 void
 CubicBezier::connectToChild()
 {
+  LineSegment::connectToChild();
   mBasePoint1.connectToParent(this);
   mBasePoint2.connectToParent(this);
 }
@@ -625,7 +626,7 @@ void
 CubicBezier::enablePackageInternal(const std::string& pkgURI,
                                    const std::string& pkgPrefix, bool flag)
 {
-  SBase::enablePackageInternal(pkgURI,pkgPrefix,flag);
+  LineSegment::enablePackageInternal(pkgURI,pkgPrefix,flag);
 
   mBasePoint1.enablePackageInternal(pkgURI,pkgPrefix,flag);
   mBasePoint2.enablePackageInternal(pkgURI,pkgPrefix,flag);

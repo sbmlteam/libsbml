@@ -213,7 +213,7 @@ Point::Point(const XMLNode& node, unsigned int l2version)
   , mXOffset(0.0)
   , mYOffset(0.0)
   , mZOffset(0.0)
-  , mElementName("")
+  , mElementName(node.getName())
 {
     const XMLAttributes& attributes=node.getAttributes();
     const XMLNode* child;
