@@ -184,6 +184,28 @@ SBasePlugin::connectToParent (SBase* sbase)
 /** @endcond */
 
 
+
+/**
+ *
+ * (Extension)
+ *
+ * Sets the XML namespace to which this element belogns to.
+ * For example, all elements that belong to SBML Level 3 Version 1 Core
+ * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core";
+ * all elements that belong to Layout Extension Version 1 for SBML Level 3
+ * Version 1 Core must set the namespace to
+ * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+ *
+ */
+int
+SBasePlugin::setElementNamespace(const std::string &uri)
+{
+//  cout << "[DEBUG] SBasePlugin::setElementNamespace() " << uri << endl;
+  mURI = uri;
+
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 /*
  * Returns the parent element.
  */

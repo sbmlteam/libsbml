@@ -573,6 +573,23 @@ public:
    */
   const SBase* getParentSBMLObject () const;
 
+  
+  /**
+   * Sets the XML namespace to which this element belongs to.
+   * For example, all elements that belong to SBML Level 3 Version 1 Core
+   * must set the namespace to "http://www.sbml.org/sbml/level3/version1/core"; 
+   * all elements that belong to Layout Extension Version 1 for SBML Level 3
+   * Version 1 Core must set the namespace to 
+   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_ATTRIBUTE_VALUE LIBSBML_INVALID_ATTRIBUTE_VALUE @endlink
+   */
+  int setElementNamespace(const std::string &uri);
 
   /**
    * Returns the SBML level of the package extension of 
