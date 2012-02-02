@@ -483,7 +483,7 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version,
 {
   ConversionProperties prop(new SBMLNamespaces(level, version));
   prop.addOption("strict", strict, "should validity be preserved");
-  prop.addOption("setLevelAndVersion", true, "this is checked by matchProperties");
+  prop.addOption("setLevelAndVersion", true, "convert the document to the given level and version");
 
   if (convert(prop) == LIBSBML_OPERATION_SUCCESS)
     return true;
@@ -1073,7 +1073,7 @@ SBMLDocument::getPackageRequired(const std::string& package)
       //
       // (NOTE) objects in mPlugins must be derived
       //        from SBMLDocumentPlugin to invoke the corresponding
-      //        setReuired(), getRequired() functions
+      //        setRequired(), getRequired() functions
       //
       return static_cast<SBMLDocumentPlugin*>(mPlugins[i])->getRequired();
     }
@@ -1099,8 +1099,9 @@ SBMLDocument::isSetPackageRequired(const std::string& package)
 {
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    std::string uri = mPlugins[i]->getURI();
+    std::string uri = mPlugins[i]->getURI();    
     const SBMLExtension* sbext = SBMLExtensionRegistry::getInstance().getExtensionInternal(uri);
+
     if (   (uri == package)
         || (sbext && (sbext->getName() == package) )
        )

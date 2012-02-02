@@ -4652,31 +4652,25 @@ SBase::syncAnnotation ()
     }
   }
 
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
+  // if we don't have an annotation create a temporary one 
+  if (mAnnotation == NULL)
+  {
+    XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
                                       XMLAttributes());
-  XMLNode *annotation = new XMLNode(ann_token);
+    mAnnotation = new XMLNode(ann_token);
+  }
 
   // sync annotations of plugins
   for (size_t i=0; i < mPlugins.size(); i++)
   {
-    mPlugins[i]->syncAnnotation(this, annotation);
+    mPlugins[i]->syncAnnotation(this, mAnnotation);
   }
 
-  // if we have new annotations add them to the current one
-  if (mAnnotation == NULL)
+  // if annotation still empty delete the annotation
+  if (mAnnotation != NULL && mAnnotation->getNumChildren() == 0)
   {
-    if (annotation->getNumChildren() > 0)
-      mAnnotation = annotation;
-    else
-      delete annotation;
-  }
-  else
-  {
-    for (unsigned int i = 0; i < annotation->getNumChildren(); i++)
-    {
-      mAnnotation->addChild(annotation->getChild(i));
-    }
-    delete annotation;
+    delete mAnnotation
+    mAnnotation = NULL;
   }
 
 }
