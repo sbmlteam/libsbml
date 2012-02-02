@@ -92,7 +92,8 @@ public:
     plugin->setElementNamespace(layoutNsUri);
     
     SBMLDocumentPlugin *docPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("layout");
-    docPlugin->setElementNamespace(layoutNsUri);
+    if (docPlugin != NULL)
+      docPlugin->setElementNamespace(layoutNsUri);
     
     
     updateNs(plugin->getListOfLayouts());
@@ -101,7 +102,8 @@ public:
 
 #ifdef CONVERT_RENDER
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
-    rdocPlugin->setElementNamespace(renderNsUri);
+    if (rdocPlugin!= NULL)
+      rdocPlugin->setElementNamespace(renderNsUri);
     _doc->getSBMLNamespaces()->removePackageNamespace(3, 1, "render", 1);        
 #endif
   }
@@ -135,7 +137,8 @@ public:
     plugin->setElementNamespace(layoutNsUri);
 
     SBMLDocumentPlugin *docPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("layout");
-    docPlugin->setElementNamespace(layoutNsUri);
+    if (docPlugin != NULL)
+      docPlugin->setElementNamespace(layoutNsUri);
 
     updateNs(plugin->getListOfLayouts());
     
@@ -144,7 +147,8 @@ public:
 
 #ifdef CONVERT_RENDER
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
-    rdocPlugin->setElementNamespace(renderNsUri);
+    if (rdocPlugin != NULL)
+      rdocPlugin->setElementNamespace(renderNsUri);
     _doc->getSBMLNamespaces()->addPackageNamespace("render", 1);
     _doc->setPackageRequired("render", false);
 #endif
