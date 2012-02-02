@@ -209,8 +209,10 @@ SBMLLevelVersionConverter::convert()
 
   bool conversion = false;
 
+  bool ignorePackages = getProperties()->getBoolValue("ignorePackages");
+
   /* if model has extensions we cannot convert */
-  if (mDocument->getNumPlugins() > 0)
+  if (!ignorePackages && mDocument->getNumPlugins() > 0)
   {
 
     // disable all unused packages
