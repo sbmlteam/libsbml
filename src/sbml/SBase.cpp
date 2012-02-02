@@ -4669,7 +4669,7 @@ SBase::syncAnnotation ()
   // if annotation still empty delete the annotation
   if (mAnnotation != NULL && mAnnotation->getNumChildren() == 0)
   {
-    delete mAnnotation
+    delete mAnnotation;
     mAnnotation = NULL;
   }
 
