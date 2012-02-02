@@ -16,6 +16,7 @@ foreach(example
 	example2-L3
 	example2
 	example3-L3
+	convertLayout
 	example3
 
 )
