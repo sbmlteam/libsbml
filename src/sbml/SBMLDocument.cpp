@@ -656,9 +656,44 @@ SBMLDocument::setConsistencyChecksForConversion(SBMLErrorCategory_t category,
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistency (bool writeDocument)
+SBMLDocument::checkConsistency ()
 {
-  unsigned int numErrors = mInternalValidator->checkConsistency(writeDocument);
+  unsigned int numErrors = mInternalValidator->checkConsistency(false);
+
+  list<SBMLValidator*>::iterator it;
+  for (it = mValidators.begin(); it != mValidators.end(); it++)
+  {
+    long newErrors = (*it)->validate(*this);
+    if (newErrors > 0)
+    {
+      mErrorLog.add((*it)->getFailures());
+      numErrors += newErrors;
+    }
+  }
+
+  return numErrors;
+}
+
+/**
+ * Performs consistency checking and validation on this SBML document.
+ *
+ * If this method returns a nonzero value (meaning, one or more
+ * consistency checks have failed for SBML document), the failures may be
+ * due to warnings @em or errors.  Callers should inspect the severity
+ * flag in the individual SBMLError objects returned by
+ * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
+ *
+ * @note unlike checkConsistency this method will write the document
+ *       in order to determine all errors for the document. This will 
+ *       also clear the error log. 
+ *
+ * @return the number of failed checks (errors) encountered.
+ *
+ * @see SBMLDocument::checkConsistency()
+ */
+unsigned int SBMLDocument::validateSBML ()
+{
+  unsigned int numErrors = mInternalValidator->checkConsistency(true);
 
   list<SBMLValidator*>::iterator it;
   for (it = mValidators.begin(); it != mValidators.end(); it++)

@@ -304,7 +304,7 @@ public:
    *
    * @see SBMLDocument::checkInternalConsistency()
    */
-  unsigned int checkConsistency (bool writeDocument=true);
+  unsigned int checkConsistency (bool writeDocument=false);
 
   
   /**

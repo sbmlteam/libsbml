@@ -928,18 +928,30 @@ public:
    * flag in the individual SBMLError objects returned by
    * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
    *
-   * @param writeDocument by default checkConsistency will write the document
-   *                      in order to determine all errors for the document. 
-   *                      This will also clear the error log. Setting this
-   *                      parameter to false will skip this additional step
-   *                      but might not find all errors.
-   *
    * @return the number of failed checks (errors) encountered.
    *
    * @see SBMLDocument::checkInternalConsistency()
    */
-  unsigned int checkConsistency (bool writeDocument=true);
+  unsigned int checkConsistency ();
 
+  /**
+   * Performs consistency checking and validation on this SBML document.
+   *
+   * If this method returns a nonzero value (meaning, one or more
+   * consistency checks have failed for SBML document), the failures may be
+   * due to warnings @em or errors.  Callers should inspect the severity
+   * flag in the individual SBMLError objects returned by
+   * SBMLDocument::getError(@if java long n@endif) to determine the nature of the failures.
+   *
+   * @note unlike checkConsistency this method will write the document
+   *       in order to determine all errors for the document. This will 
+   *       also clear the error log. 
+   *
+   * @return the number of failed checks (errors) encountered.
+   *
+   * @see SBMLDocument::checkConsistency()
+   */
+  unsigned int validateSBML ();
 
   /**
    * Performs consistency checking on libSBML's internal representation of 
@@ -1637,6 +1649,11 @@ SBMLDocument_setConsistencyChecksForConversion(SBMLDocument_t *d,
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_checkConsistency (SBMLDocument_t *d);
+
+
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_validateSBML (SBMLDocument_t *d);
 
 
 LIBSBML_EXTERN
