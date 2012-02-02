@@ -836,7 +836,8 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       delete mCVTerms;
     }
     mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, NULL, getMetaId().c_str());
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
+                                            &(stream), getMetaId().c_str());
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;

@@ -595,9 +595,6 @@ create_suite_RDFAnnotation (void)
                             RDFAnnotation_setup,
                             RDFAnnotation_teardown);
 
-  tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
-  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
-  tcase_add_test(tcase, test_RDFAnnotation_testAnnotationForMetaId );
   tcase_add_test(tcase, test_RDFAnnotation_getModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseModelHistory );
   tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
@@ -607,6 +604,9 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_recreateFromEmpty );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOutOther );
   tcase_add_test(tcase, test_RDFAnnotation_recreateWithOutOther );
+  tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
+  tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
+  tcase_add_test(tcase, test_RDFAnnotation_testAnnotationForMetaId );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -51,6 +51,45 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+/**
+ * logs the given erroron the error log of the stream.
+ * 
+ * @param stream the stream to log the error on
+ * @param element the element to log the error for
+ * @param code the error code to log
+ * @param msg optional message
+ */
+static void
+logError (XMLInputStream* stream, const XMLToken& element, SBMLErrorCode_t code,
+          const std::string& msg = "")
+{
+  if (&element == NULL || &stream == NULL) return;
+
+  SBMLNamespaces* ns = stream->getSBMLNamespaces();
+  if (ns != NULL)
+  {
+    static_cast <SBMLErrorLog*>
+      (stream->getErrorLog())->logError(
+      code,
+      ns->getLevel(), 
+      ns->getVersion(),
+      msg, 
+      element.getLine(), 
+      element.getColumn());
+  }
+  else
+  {
+    static_cast <SBMLErrorLog*>
+      (stream->getErrorLog())->logError(
+      code, 
+      SBML_DEFAULT_LEVEL, 
+      SBML_DEFAULT_VERSION, 
+      msg, 
+      element.getLine(), 
+      element.getColumn());
+  }
+}
+
 /*
  * takes an annotation that has been read into the model
  * identifies the RDF elements
@@ -60,7 +99,7 @@ void
 RDFAnnotationParser::parseRDFAnnotation(
      const XMLNode * annotation, 
      List * CVTerms, 
-     XMLErrorLog* log /*= NULL*/, 
+     XMLInputStream* stream /*= NULL*/, 
      const char* metaId /*= NULL*/)
 {
   if (annotation == NULL) return;
@@ -94,10 +133,24 @@ RDFAnnotationParser::parseRDFAnnotation(
               string about = current.getAttrValue(rdfAbout);
               if (!about.empty())
               {
-  	            if (metaId == NULL || about.find(metaId) != string::npos)
+	              if (metaId == NULL || about.find(metaId) != string::npos)
                 {
-  	              RDFTop = &current;
-	                break;
+                  RDFTop = &current;
+                  break;
+                }
+                else
+                {
+                  if (stream != NULL)
+                  {
+	                  logError(stream, current, RDFAboutTagNotMetaid);
+                  }
+                }
+              }
+              else
+              {
+                if (stream != NULL)
+                {
+                  logError(stream, current, RDFEmptyAboutTag);
                 }
               }
             }
@@ -106,11 +159,32 @@ RDFAnnotationParser::parseRDFAnnotation(
               string about = current.getAttrValue("rdf:about");
               if (!about.empty())
               {
-  	            if (metaId == NULL || about.find(metaId) != string::npos)
+	              if (metaId == NULL || about.find(metaId) != string::npos)
                 {
-  	              RDFTop = &current;
-	                break;
+                  RDFTop = &current;
+                  break;
                 }
+                else
+                {
+                  if (stream != NULL)
+                  {
+	                  logError(stream, current, RDFAboutTagNotMetaid);
+                  }
+                }
+              }
+              else
+              {
+                if (stream != NULL)
+                {
+                  logError(stream, current, RDFEmptyAboutTag);
+                }
+              }
+            }
+            else
+            {
+              if (stream != NULL)
+              {
+                logError(stream, current, RDFMissingAboutTag);
               }
             }
           }
@@ -239,7 +313,7 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 ModelHistory*
 RDFAnnotationParser::parseRDFAnnotation(
      const XMLNode * annotation, 
-     XMLErrorLog* log /*= NULL*/, 
+     XMLInputStream* stream /*= NULL*/, 
      const char* metaId /*= NULL*/)
 {
   if (annotation == NULL) return NULL;
@@ -275,10 +349,24 @@ RDFAnnotationParser::parseRDFAnnotation(
                 string about = current.getAttrValue(rdfAbout);
                 if (!about.empty())
                 {
-                  if (metaId == NULL || about.find(metaId) != string::npos)
+	                if (metaId == NULL || about.find(metaId) != string::npos)
                   {
-  	                RDFTop = &current;
-	                  break;
+                    RDFTop = &current;
+                    break;
+                  }
+                  else
+                  {
+                    if (stream != NULL)
+                    {
+	                    logError(stream, current, RDFAboutTagNotMetaid);
+                    }
+                  }
+                }
+                else
+                {
+                  if (stream != NULL)
+                  {
+                    logError(stream, current, RDFEmptyAboutTag);
                   }
                 }
               }
@@ -287,11 +375,32 @@ RDFAnnotationParser::parseRDFAnnotation(
                 string about = current.getAttrValue("rdf:about");
                 if (!about.empty())
                 {
-  	              if (metaId == NULL || about.find(metaId) != string::npos)
+	                if (metaId == NULL || about.find(metaId) != string::npos)
                   {
-  	                RDFTop = &current;
-	                  break;
+                    RDFTop = &current;
+                    break;
                   }
+                  else
+                  {
+                    if (stream != NULL)
+                    {
+	                    logError(stream, current, RDFAboutTagNotMetaid);
+                    }
+                  }
+                }
+                else
+                {
+                  if (stream != NULL)
+                  {
+                    logError(stream, current, RDFEmptyAboutTag);
+                  }
+                 }
+              }
+              else
+              {
+                if (stream != NULL)
+                {
+                  logError(stream, current, RDFMissingAboutTag);
                 }
               }
             }

@@ -802,7 +802,10 @@ typedef enum
 , BadMathMLNodeType                     = 99224 /*!< Invalid MathML element. */
 , NoTimeSymbolInFunctionDef             = 99301 /*!< Use of <code>&lt;csymbol&gt;</code> for 'time' not allowed within FunctionDefinition objects. */
 , NoBodyInFunctionDef                   = 99302 /*!< There must be a <code>&lt;lambda&gt;</code> body within the <code>&lt;math&gt;</code> element of a FunctionDefinition object. */
-, DanglingUnitSIdRef                    = 99303
+, DanglingUnitSIdRef                    = 99303 /*!< Units must refer to valid unit or unitDefinition. */
+, RDFMissingAboutTag                    = 99401 /*!< RDF missing the <about> tag. */
+, RDFEmptyAboutTag                      = 99402 /*!< RDF empty <about> tag. */
+, RDFAboutTagNotMetaid                  = 99403 /*!< RDF <about> tag is not metaid. */
 , InconsistentArgUnitsWarnings          = 99502
 , InconsistentPowerUnitsWarnings        = 99503
 , InconsistentExponUnitsWarnings        = 99504

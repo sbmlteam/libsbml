@@ -8260,6 +8260,76 @@ static const sbmlErrorTableEntry errorTable[] =
     "of a UnitDefinition in the model."
    },
 
+  //99401
+  {   
+    RDFMissingAboutTag,   
+    "RDF missing the <about> tag.",
+    LIBSBML_CAT_SBML,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "In order to follow the general syntax for a standard SBML RDF annotation "
+    "the first element of RDF element must be a Description element with an "
+    "about attribute.",
+    {"",
+     "",
+     "L2V2 Section 6.3",
+     "L2V3 Section 6.3",
+     "L2V4 Section 6.3",
+     "L3V1 Section 6.3"}
+   },
+
+  //99402
+  {   
+    RDFEmptyAboutTag,   
+    "RDF empty <about> tag.",
+    LIBSBML_CAT_SBML,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "In order to follow the general syntax for a standard SBML RDF annotation "
+    "the about attribute of the Description element must be of the form "
+    "#<string>. ",
+    {"",
+     "",
+     "L2V2 Section 6.3",
+     "L2V3 Section 6.3",
+     "L2V4 Section 6.3",
+     "L3V1 Section 6.3"}
+   },
+
+  //99403
+  {   
+    RDFAboutTagNotMetaid,   
+    "RDF <about> tag is not metaid.",
+    LIBSBML_CAT_SBML,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "In order to follow the general syntax for a standard SBML RDF annotation "
+    "the about attribute of the Description element must be of the form "
+    "#<string> where the string component is equal to the value of the "
+    "metaid attribute of the containing SBML element. ",
+    {"",
+     "",
+     "L2V2 Section 6.3",
+     "L2V3 Section 6.3",
+     "L2V4 Section 6.3",
+     "L3V1 Section 6.3"}
+   },
+
   /* --------------------------------------------------------------------------
    * These are internal errors that reverts to 10501.
    * ----------------------------------------------------------------------- */
