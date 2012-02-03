@@ -129,8 +129,6 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
 
   const string&  name = pAnnotation->getName();
   unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), pAnnotation->getAttributes(),pAnnotation->getNamespaces());
-  XMLNode *newAnnotation = new XMLNode(ann_token);
 
   // need to find each annotation and remove it if it is an RDF
   if (name == "annotation" && pAnnotation->getNumChildren() > 0)
@@ -138,15 +136,17 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
     while (n < pAnnotation->getNumChildren())
     {
       const string &name1 = pAnnotation->getChild(n).getName();
-      if (name1 != "listOfLayouts" || pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")==-1)
+      if (name1 == "listOfLayouts" || 
+        pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")!=-1)
       {
-        newAnnotation->addChild(pAnnotation->getChild(n));
+        pAnnotation->removeChild(n);
+        continue;
       }
       n++;
     }
   }
 
-  return newAnnotation;
+  return pAnnotation;
 }
 
 /**
@@ -223,8 +223,6 @@ XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
 
   const string&  name = pAnnotation->getName();
   unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-  XMLNode *newAnnotation = new XMLNode(ann_token);
 
   // need to find the layoutId annotation
   if (name == "annotation" && pAnnotation->getNumChildren() > 0)
@@ -232,15 +230,17 @@ XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
     while (n < pAnnotation->getNumChildren())
     {
       const string &name1 = pAnnotation->getChild(n).getName();
-      if (name1 != "layoutId" || pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")==-1)
+      if (name1 == "layoutId" || 
+        pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")!=-1)
       {
-        newAnnotation->addChild(pAnnotation->getChild(n));
+        pAnnotation->removeChild(n);
+        continue;
       }
       n++;
     }
   }
 
-  return newAnnotation;
+  return pAnnotation;
 }
 
 /**

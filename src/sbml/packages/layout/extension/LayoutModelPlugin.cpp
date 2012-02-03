@@ -239,8 +239,7 @@ LayoutModelPlugin::writeAttributes (XMLOutputStream& stream) const
   XMLNode *parentAnnotation = parent->getAnnotation();
   if (parentAnnotation != NULL && parentAnnotation->getNumChildren() > 0)
   {
-    parentAnnotation = deleteLayoutAnnotation(parentAnnotation);
-    parent->setAnnotation(parentAnnotation);
+    deleteLayoutAnnotation(parentAnnotation);
   }
 
   XMLNode *annt = parseLayouts(parent);
