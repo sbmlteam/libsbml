@@ -9,18 +9,42 @@ STABLE RELEASE
 
 * New features
 
+  - It has been noted that unless the checkConsistency function
+    is called directly following a read it does not report all
+    potential errors.  Since users may wish to apply the
+    function to a model being constructed this seems to be
+    a disadvantage of the function.  However, as this function
+    has been in libSBML for many years it was decided not to alter
+    the functionality but to add a new function 'validateSBML' 
+    which when called from a document object will
+    force a write and read of the in memory object and report
+    validation errors for the object as written.  Thus all errors
+    will be reported with line numbers that would correspond
+    to the document if written out.
+
   - Conversion of a model containing FunctionDefinitions to L1
     is now supported.
+    
+  - Conversion of a model containing InitialAssignments to L2V1 
+    and L1 is now supported.
     
   - There is a new isSetBody() function for the FunctionDefinition
     class that returns true if the body of the lambda function
     has been set.
     
+  - The MATLAB/Octave binding function OutputSBML now takes an 
+    additional optional flag (extensions_allowed defaulting to true) 
+    that allows a user to specify whether the MATLAB_SBML structure 
+    should be considered valid if it contains any additional fields.
+    
 * Bug fixes
 
-  - Validation failed to notice that csymbol avogadro was not valid
-    in Level 2. This is fixed.
-    
+  - Tracker issue #3472034
+    Line numbers were not being reported as accurately for L2 models 
+    as for L3 models. We have overviewed all the code relating
+    to line numbers and improved the accuracy and consistency
+    of line numbers reported. Thanks to Raimund Rönn for the report.  
+
   - Tracker issue #3471902
     The documentation for the readSBMLFromString function claimed it
     prepend teh xml encoding if it was not present. In fact, the 
@@ -31,19 +55,65 @@ STABLE RELEASE
     Fixed inaccuracies in the documentation. Thanks to Raimund Rönn
     for his careful reading and taking the time to report the errors.
     
+  - Validation failed to notice that csymbol avogadro was not valid
+    in Level 2. This is fixed.
+
   - Exceptions were not being correctly wrapped for language bindings
     causing potential code crashes.  This has been corrected.
     
   - A number of minor issues with regard to conversion between levels
     and versions have been fixed. These include conversion from L3 to 
     L1 failing to include a compartment; stopping conversion of models
-    with hasOnlySubstanceUnits = true to L1 and correcting conversion of 
-    L3 models with localParameters.
+    with hasOnlySubstanceUnits = true to L1; correcting conversion of 
+    L3 models with localParameters and preventing conversion of L3 
+    models where Events had Priorities.
+    
+  - The internalConsistency validator was incorrectly reporting that
+    the an Event must have a listOfEventAssignments in a level 3 model.
+    This restriction was actually removed in SBML Level 3.
+    
+  - The MathML subset used by SBML has plus/times/and/or/xor.  In the 
+    MathML specification all these functions are nary functions i.e.
+    they are permitted to have any number of arguments including zero.
+    LibSBML had in fact restricted these functions to two or more
+    arguments.  This inconsistency has been corrected.
+    
+  - Validation was failing to apply constraints to L3 LocalParameters.
+    This has been corrected.
+    
+  - Using a value for a units attribute that was not a builtin unit or
+    the identifier of a UnitDefinition is invalid.  However, the way in
+    which this was reported varied according to which unit attribute
+    caused the issue.  This has been standardized to produce an id
+    warning about a dangling UnitSIdRef and (if selected) unit warnings
+    relating to the impact of the actual attribute.
+    
+  - In certain situations libSBML would write out both the stoichiometry
+    attribute and a stoichiometryMath element. Since these are mutually
+    exclusive this should not happen.  It has been fixed.
+    
+  - The code that checked for consistent namespaces when adding one
+    object to another was too restrictive.  This has been sorted.  Thanks
+    to Chris Myers for reporting it.
 
 * Miscellaneous
     
 
 * Configuration/build system changes
+
+  - As libSBML has evolved over the years the header files 
+    included by a given code file have expanded. This makes it 
+    necessary to recompile many files when only a single header 
+    file has been altered.  In an attempt to eliminate unnecessary 
+    dependencies we have done an overview of the code. However, 
+    merely replacing existing include files with those that are 
+    actually required may cause build issues for other users. Thus we have 
+    introduced a LIBSBML_USE_STRICT_INCLUDES flag. This flag is 
+    not defined by default and thus no includes will change. Defining 
+    the flag means that code will only include the minimum number of 
+    necessary header files. We encourage people to consider using this 
+    flag as it may become the default behaviour in later versions of 
+    libSBML.  The flag is available via the CMake build interface.
 
  
 
