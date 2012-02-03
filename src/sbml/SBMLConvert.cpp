@@ -56,6 +56,12 @@ void createParameterAsRateRule(Model &m, SpeciesReference &sr, Rule &rr,
 
 void useStoichMath(Model & m, SpeciesReference &sr, bool isRule);
 
+/* functions used in adjusting L1 -> L2 stoichiometryMath */
+
+void dealWithL1Stoichiometry(Model & m, bool l2 = true);
+
+void dealWithAssigningL1Stoichiometry(Model & m, bool l2 = true);
+
 /*
  * Converts the model to a from SBML L1 to L2.  Most of the necessary
  * changes occur during the various writeAttributes() methods, however
@@ -68,6 +74,8 @@ Model::convertL1ToL2 ()
   addModifiers();
 
   addConstantAttribute();
+
+  dealWithL1Stoichiometry(*this);
 }
 
 /* convert from L1 to L3 */
@@ -83,6 +91,8 @@ Model::convertL1ToL3 ()
   addDefinitionsForDefaultUnits();
 
   assignRequiredValues();
+
+  dealWithL1Stoichiometry(*this, false);
 }
 
 
@@ -120,6 +130,7 @@ Model::convertL2ToL1 (bool strict)
 
   }
 
+  dealWithAssigningL1Stoichiometry(*this, true);
   /* make sure underlying model is correct */
   if (strict)
   {
@@ -145,6 +156,7 @@ Model::convertL3ToL1 ()
   }
   dealWithModelUnits();
   
+  dealWithAssigningL1Stoichiometry(*this, false);
   for (unsigned int i = 0; i < getNumReactions(); i++)
   {
     Reaction *r = getReaction(i);
@@ -547,7 +559,7 @@ Model::removeMetaId()
     {
       getReaction(n)->getReactant(i)->unsetMetaId();
     }
-    for (i = 0; i < getReaction(n)->getNumReactants(); i++)
+    for (i = 0; i < getReaction(n)->getNumProducts(); i++)
     {
       getReaction(n)->getProduct(i)->unsetMetaId();
     }
@@ -1394,6 +1406,146 @@ useStoichMath(Model & m, SpeciesReference &sr, bool isRule)
     {
       sm->setMath(m.getInitialAssignment(sr.getId())->getMath());
       m.removeInitialAssignment(sr.getId());
+    }
+  }
+}
+
+void dealWithL1Stoichiometry(Model & m, bool l2)
+{
+  unsigned int idCount = 0;
+  char newid[15];
+  std::string id;
+
+  for (unsigned int i = 0; i < m.getNumReactions(); i++)
+  {
+    Reaction *r = m.getReaction(i);
+    unsigned int j;
+
+    for (j = 0; j < r->getNumReactants(); j++)
+    {
+      SpeciesReference *sr = r->getReactant(j);
+      if (sr->getDenominator() != 1)
+      {
+        long stoich = static_cast<long>(sr->getStoichiometry());
+        int denom = sr->getDenominator();
+        ASTNode *node = new ASTNode();
+        node->setValue(stoich, denom);   
+        if (l2 == true)
+        {
+          StoichiometryMath * sm = sr->createStoichiometryMath();
+          sm->setMath(node);
+        }
+        else
+        {
+          sprintf(newid, "speciesRefId_%u", idCount);
+          id.assign(newid);
+          idCount++;
+          sr->setId(id);
+          InitialAssignment * ar = m.createInitialAssignment();
+          ar->setSymbol(id);
+          ar->setMath(node);
+          sr->unsetStoichiometry();
+        }
+      }
+    }
+    for (j = 0; j < r->getNumProducts(); j++)
+    {
+      SpeciesReference *sr = r->getProduct(j);
+      if (sr->getDenominator() != 1)
+      {
+        long stoich = static_cast<long>(sr->getStoichiometry());
+        int denom = sr->getDenominator();
+        ASTNode *node = new ASTNode();
+        node->setValue(stoich, denom);   
+        if (l2 == true)
+        {
+          StoichiometryMath * sm = sr->createStoichiometryMath();
+          sm->setMath(node);
+        }
+        else
+        {
+          sprintf(newid, "speciesRefId_%u", idCount);
+          id.assign(newid);
+          idCount++;
+          sr->setId(id);
+          InitialAssignment * ar = m.createInitialAssignment();
+          ar->setSymbol(id);
+          ar->setMath(node);
+          sr->unsetStoichiometry();
+        }
+      }
+    }
+  }
+}
+
+void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
+{
+  unsigned int idCount = 0;
+  char newid[15];
+  std::string id;
+
+  for (unsigned int i = 0; i < m.getNumReactions(); i++)
+  {
+    Reaction *r = m.getReaction(i);
+    unsigned int j;
+
+    for (j = 0; j < r->getNumReactants(); j++)
+    {
+      SpeciesReference *sr = r->getReactant(j);
+      // we do not get here unless the stoichiometryMath is an integer
+      // or a rational 
+      if (l2 == true && sr->isSetStoichiometryMath() == true)
+      {
+        const ASTNode* ast = sr->getStoichiometryMath()->getMath();
+        if (ast->isInteger())
+        {
+          int num = ast->getInteger();
+          sr->setStoichiometry(num);
+          sr->setDenominator(1);
+        }
+        else
+        {
+          int num = ast->getNumerator();
+          int denom = ast->getDenominator();
+          sr->setStoichiometry(num);
+          sr->setDenominator(denom);
+        }
+        sr->unsetStoichiometryMath();
+      }
+      else
+      {
+        sr->setStoichiometry(sr->getStoichiometry());
+        sr->setDenominator(1);
+      }
+    }
+    for (j = 0; j < r->getNumProducts(); j++)
+    {
+      SpeciesReference *sr = r->getProduct(j);
+      // we do not get here unless the stoichiometryMath is an integer
+      // or a rational 
+      if (l2 == true && sr->isSetStoichiometryMath() == true)
+      {
+        const ASTNode* ast = sr->getStoichiometryMath()->getMath();
+        if (ast->isInteger())
+        {
+          int num = ast->getInteger();
+          sr->setStoichiometry(num);
+          sr->setDenominator(1);
+        }
+        else
+        {
+          int num = ast->getNumerator();
+          int denom = ast->getDenominator();
+          sr->setStoichiometry(num);
+          sr->setDenominator(denom);
+        }
+        sr->unsetStoichiometryMath();
+      }
+      else
+      {
+        sr->setStoichiometry(sr->getStoichiometry());
+        sr->setDenominator(1);
+      }
     }
   }
 }

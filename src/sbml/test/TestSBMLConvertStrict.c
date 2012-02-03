@@ -988,6 +988,826 @@ START_TEST (test_SBMLConvertStrict_convertInitialAssignmentsToL1)
 END_TEST
 
 
+START_TEST (test_SBMLConvertStrict_convertFromL2_L3_stoich)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
+  
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setStoichiometry(sr, 3.2);
+
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 3, 1) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 3, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
+
+  m = SBMLDocument_getModel(d);
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 3.2);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L3_stoich1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
+  
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Parameter_t      *p = Model_createParameter(m);
+  Parameter_setId(p, "p");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setId(sr, "XREF");
+  StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
+  StoichiometryMath_setMath(sm, SBML_parseFormula("p"));
+
+  fail_unless( Model_getNumRules(m) == 0);
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 3, 1) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 3, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
+
+  m = SBMLDocument_getModel(d);
+
+  fail_unless( Model_getNumRules(m) == 1);
+  fail_unless( strcmp(Rule_getVariable(Model_getRule(m, 0)), "XREF") == 0 );
+  
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometry(sr) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L3_stoich2)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 4);
+  
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Parameter_t      *p = Model_createParameter(m);
+  Parameter_setId(p, "p");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
+  StoichiometryMath_setMath(sm, SBML_parseFormula("p"));
+
+  fail_unless( Model_getNumRules(m) == 0);
+  fail_unless( SpeciesReference_isSetId(sr) == 0);
+
+  fail_unless( SBMLDocument_setLevelAndVersionStrict(d, 3, 1) == 1 );
+  fail_unless( SBMLDocument_getLevel  (d) == 3, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
+
+  m = SBMLDocument_getModel(d);
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless( Model_getNumRules(m) == 1);
+  fail_unless( strcmp(Rule_getVariable(Model_getRule(m, 0)), 
+    SpeciesReference_getId(sr)) == 0 );
+  
+  fail_unless( SpeciesReference_isSetId(sr) == 1);
+  fail_unless(SpeciesReference_isSetStoichiometry(sr) == 0);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL1_L2_stoich)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 3);
+  SpeciesReference_setDenominator(sr, 2);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  fail_unless(strcmp(SBML_formulaToString(StoichiometryMath_getMath(
+    SpeciesReference_getStoichiometryMath(sr))), "(3/2)") == 0);
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 1);
+  fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL1_L2_stoich1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 3);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 2, 4) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 3);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL1_L3_stoich)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 3);
+  SpeciesReference_setDenominator(sr, 2);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 3, 1) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetId(sr) == 1);
+  fail_unless(strcmp(SBML_formulaToString(InitialAssignment_getMath(
+              Model_getInitialAssignment(m, 0))), "(3/2)") == 0);
+  fail_unless(strcmp(SpeciesReference_getId(sr), 
+              InitialAssignment_getSymbol(Model_getInitialAssignment(m, 0))) == 0);
+  fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL1_L3_stoich1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 3);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 3, 1) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetId(sr) == 0);
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 3);
+  fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 2);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 2);
+  fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
+  ASTNode_t *ast = ASTNode_create();
+  ASTNode_setRational(ast, 5, 2);
+  StoichiometryMath_setMath(sm, ast);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 5);
+  fail_unless(SpeciesReference_getDenominator(sr) == 2);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich2)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setStoichiometry(sr, 2.5);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_getStoichiometry(sr) == 5);
+  //fail_unless(SpeciesReference_getDenominator(sr) == 2);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich3)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
+  ASTNode_t *ast = ASTNode_create();
+  ASTNode_setInteger(ast, 5);
+  StoichiometryMath_setMath(sm, ast);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 5);
+  fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL2_L1_stoich4)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  StoichiometryMath_t *sm = SpeciesReference_createStoichiometryMath(sr);
+  StoichiometryMath_setMath(sm, SBML_parseFormula("5/2"));
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  //fail_unless(SpeciesReference_getStoichiometry(sr) == 5);
+  //fail_unless(SpeciesReference_getDenominator(sr) == 2);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  Rule_t *rule = Rule_createRate(3,1);
+  Rule_setVariable(rule, "XREF");
+  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  Model_addRule(m, rule);
+
+  
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //fail_unless(Model_getNumParameters(m) == 1);
+
+  //Parameter_t *p = Model_getParameter(m, 0);
+
+  //fail_unless(!strcmp(Parameter_getId(p), "parameterId_0"));
+  //fail_unless(Parameter_getConstant(p) == 0);
+
+  //fail_unless(!strcmp(Rule_getVariable(Model_getRule(m, 0)), "parameterId_0"));
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
+  //  SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath2)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  SpeciesReference_setStoichiometry(sr, 1.0);
+  Rule_t *rule = Rule_createRate(3,1);
+  Rule_setVariable(rule, "XREF");
+  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  Model_addRule(m, rule);
+
+  
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //fail_unless(Model_getNumParameters(m) == 1);
+
+  //Parameter_t *p = Model_getParameter(m, 0);
+
+  //fail_unless(!strcmp(Parameter_getId(p), "parameterId_0"));
+  //fail_unless(Parameter_getConstant(p) == 0);
+
+  //fail_unless(!strcmp(Rule_getVariable(Model_getRule(m, 0)), "parameterId_0"));
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
+  //  SpeciesReference_getStoichiometryMath(sr))), "parameterId_0"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath3)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 1);
+  SpeciesReference_setStoichiometry(sr, 1.0);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 1);
+
+  m = SBMLDocument_getModel(d);
+
+  sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  fail_unless(SpeciesReference_getStoichiometry(sr) == 1);
+  fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath4)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 1);
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  //fail_unless(SpeciesReference_getStoichiometry(sr) == 1);
+  //fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath5)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  Rule_t *rule = Rule_createAssignment(3,1);
+  Rule_setVariable(rule, "XREF");
+  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  Model_addRule(m, rule);
+
+  
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //fail_unless(Model_getNumRules(m) == 0);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
+  //  SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath6)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  SpeciesReference_setStoichiometry(sr, 1.0);
+  Rule_t *rule = Rule_createAssignment(3,1);
+  Rule_setVariable(rule, "XREF");
+  Rule_setMath(rule, SBML_parseFormula("0.001"));
+  Model_addRule(m, rule);
+
+  
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //fail_unless(Model_getNumRules(m) == 0);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
+  //  SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath7)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  InitialAssignment_t *ia = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia, "XREF");
+  InitialAssignment_setMath(ia, SBML_parseFormula("0.001"));
+
+  
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //fail_unless(Model_getNumInitialAssignments(m) == 0);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  //fail_unless(SpeciesReference_getStoichiometry(sr) == 1);
+  //fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath8)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setId(sr, "XREF");
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 0);
+  SpeciesReference_setStoichiometry(sr, 1.0);
+  InitialAssignment_t *ia = Model_createInitialAssignment(m);
+  InitialAssignment_setSymbol(ia, "XREF");
+  InitialAssignment_setMath(ia, SBML_parseFormula("0.001"));
+
+  
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+  //fail_unless(Model_getNumInitialAssignments(m) == 0);
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 1);
+  //fail_unless(!strcmp(SBML_formulaToString(StoichiometryMath_getMath(
+  //  SpeciesReference_getStoichiometryMath(sr))), "0.001"));
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvertStrict_convertFromL3_L1_stoichMath9)
+{
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(3, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  Compartment_t  *c = Model_createCompartment(m);
+  Compartment_setId(c, "c");
+  Compartment_setSpatialDimensions(c, 3);
+  Compartment_setConstant(c, 1);
+  Species_t      *s = Model_createSpecies(m);
+  Species_setId(s, "s");
+  Species_setCompartment(s, "c");
+  Species_setHasOnlySubstanceUnits(s, 0);
+  Species_setBoundaryCondition(s, 0);
+  Species_setConstant(s, 0);
+  Reaction_t *r = Model_createReaction(m);
+  Reaction_setId(r, "r");
+  Reaction_setReversible(r, 0);
+  Reaction_setFast(r, 0);
+  SpeciesReference_t *sr = Reaction_createReactant(r);
+  SpeciesReference_setSpecies(sr, "s");
+  SpeciesReference_setConstant(sr, 1);
+  SpeciesReference_setId(sr, "XREF");
+
+  fail_unless(SBMLDocument_setLevelAndVersionStrict(d, 1, 2) == 0);
+
+  //m = SBMLDocument_getModel(d);
+
+
+  //sr = Reaction_getReactant(Model_getReaction(m, 0), 0);
+
+  //fail_unless(SpeciesReference_isSetStoichiometryMath(sr) == 0);
+  //fail_unless(SpeciesReference_getStoichiometry(sr) == 1);
+  //fail_unless(SpeciesReference_getDenominator(sr) == 1);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvertStrict (void) 
 { 
@@ -1019,6 +1839,27 @@ create_suite_SBMLConvertStrict (void)
   tcase_add_test( tcase, test_SBMLConvertStrict_convertFuncDefsToL1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsToL1 );
   tcase_add_test( tcase, test_SBMLConvertStrict_convertInitialAssignmentsToL2 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoich );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoich1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L3_stoich2 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL1_L2_stoich );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL1_L2_stoich1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL1_L3_stoich );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL1_L3_stoich1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L1_stoich );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L1_stoich1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L1_stoich2 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L1_stoich3 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL2_L1_stoich4 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath1 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath2 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath3 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath4 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath5 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath6 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath7 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath8 );
+  tcase_add_test( tcase, test_SBMLConvertStrict_convertFromL3_L1_stoichMath9 );
   suite_add_tcase(suite, tcase);
 
   return suite;

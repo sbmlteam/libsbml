@@ -340,6 +340,7 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
     mIsSetStoichiometry = false;
     mExplicitlySetStoichiometry = false;
     mStoichiometry = 1.0;
+    mDenominator = 1;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (math == NULL)
@@ -359,6 +360,7 @@ SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
     mIsSetStoichiometry = false;
     mExplicitlySetStoichiometry = false;
     mStoichiometry      = 1.0;
+    mDenominator        = 1;
 
     delete mStoichiometryMath;
     mStoichiometryMath = static_cast<StoichiometryMath*>(math->clone());
@@ -423,6 +425,7 @@ SpeciesReference::unsetStoichiometryMath ()
     //
     mIsSetStoichiometry = true;
     mStoichiometry = 1.0;
+    mDenominator = 1;
   }
 
   if (mStoichiometryMath == NULL)
@@ -444,6 +447,7 @@ SpeciesReference::unsetStoichiometry ()
   if ( level > 2 )
   {
     mStoichiometry      = numeric_limits<double>::quiet_NaN();
+    mDenominator = 1;
     mIsSetStoichiometry = false;
     mExplicitlySetStoichiometry = false;
     if (!isSetStoichiometry())
@@ -458,6 +462,7 @@ SpeciesReference::unsetStoichiometry ()
   else
   {
     mStoichiometry      = 1.0;
+    mDenominator = 1;
 
     if ( level == 2 ) 
     {
@@ -517,6 +522,7 @@ SpeciesReference::createStoichiometryMath ()
     mStoichiometryMath->connectToParent(this);
     /* this should unset the stoichiometry */
     mStoichiometry = 1.0;
+    mDenominator = 1;
     mIsSetStoichiometry = false;
     mExplicitlySetStoichiometry = false;
   }
