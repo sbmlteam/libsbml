@@ -72,6 +72,7 @@ public:
     layoutNs = new LayoutPkgNamespaces(2, 1);
 
 #ifdef CONVERT_RENDER
+    foundRenderElements = false;
     renderNsUri = "http://projects.eml.org/bcb/sbml/render/level2";
     renderNs = new RenderPkgNamespaces(2, 1);
 #endif
@@ -118,6 +119,7 @@ public:
     layoutNs = new LayoutPkgNamespaces(3, 1, 1);
 
 #ifdef CONVERT_RENDER
+    foundRenderElements = false;
     renderNsUri = "http://www.sbml.org/sbml/level3/version1/render/version1";
     renderNs = new RenderPkgNamespaces(3, 1, 1);
 #endif
@@ -146,11 +148,21 @@ public:
     _doc->setPackageRequired("layout", false);
 
 #ifdef CONVERT_RENDER
+    if (!foundRenderElements)
+      return;
+    
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
     if (rdocPlugin != NULL)
-      rdocPlugin->setElementNamespace(renderNsUri);
-    _doc->getSBMLNamespaces()->addPackageNamespace("render", 1);
+    {
+      rdocPlugin->setElementNamespace(renderNsUri);      
+      _doc->getSBMLNamespaces()->addPackageNamespace("render", 1);    
+    }
+    else
+    {
+      _doc->enablePackage(renderNsUri, "render", true);
+    }
     _doc->setPackageRequired("render", false);
+   
 #endif
 
   }
@@ -195,6 +207,8 @@ public:
 
   void updateNs(GlobalRenderInformation *info)
   {
+    foundRenderElements = true;
+
     info->setSBMLNamespaces(renderNs);
 
     updateNs(info->getListOfColorDefinitions());
@@ -207,6 +221,8 @@ public:
   
   void updateNs(LocalRenderInformation *info)
   {
+    foundRenderElements = true;
+
     info->setSBMLNamespaces(renderNs);
 
     updateNs(info->getListOfColorDefinitions());
@@ -552,8 +568,9 @@ protected:
 #ifdef CONVERT_RENDER
   string renderNsUri;
   SBMLNamespaces *renderNs;
+  bool foundRenderElements;
 #endif
-
+  
   string layoutNsUri; 
   SBMLNamespaces *layoutNs;
 
@@ -564,7 +581,7 @@ int main(int argc,char** argv)
 
   if (argc != 3)
   {
-    cerr << "usage convertLayout <input> <output>";
+    cerr << "usage convertLayout <input> <output>" << endl << endl;
     exit(1);
   }
 
