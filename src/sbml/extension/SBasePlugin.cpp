@@ -256,7 +256,7 @@ SBasePlugin::stripPackage(const std::string& pkgPrefix, bool flag)
 unsigned int 
 SBasePlugin::getLevel() const
 {
-  return mSBMLExt->getLevel(mURI);
+  return mSBMLExt->getLevel(getURI());
 }
 
 
@@ -268,7 +268,7 @@ SBasePlugin::getLevel() const
 unsigned int 
 SBasePlugin::getVersion() const
 {
-  return mSBMLExt->getVersion(mURI);
+  return mSBMLExt->getVersion(getURI());
 }
 
 
@@ -294,7 +294,7 @@ SBasePlugin::getColumn() const
 unsigned int 
 SBasePlugin::getPackageVersion() const
 {
-  return mSBMLExt->getPackageVersion(mURI);
+  return mSBMLExt->getPackageVersion(getURI());
 }
 
 
