@@ -655,6 +655,29 @@ SBase::getAnnotation ()
   return mAnnotation;
 }
 
+std::string 
+SBase::getURI() const
+{
+  const string &package = getPackageName();
+  const SBMLDocument* doc = getSBMLDocument();
+
+  if (doc == NULL)
+    return getElementNamespace();
+  
+  SBMLNamespaces* sbmlns = doc->getSBMLNamespaces();
+
+  if (sbmlns == NULL)
+    return getElementNamespace();
+
+  if (package == "" || package == "core")
+    return sbmlns->getURI();
+
+  string packageURI = sbmlns->getNamespaces()->getURI(package);
+  if (!packageURI.empty())
+    return packageURI;
+
+  return getElementNamespace();
+}
 
 /*
  * @return the annotation of this SBML object by string.

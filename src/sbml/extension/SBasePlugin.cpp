@@ -339,11 +339,34 @@ SBasePlugin::prependStringToAllIdentifiers(const std::string& prefix)
  * Returns the namespace URI of this element.
  */
 const std::string& 
-SBasePlugin::getURI() const
+SBasePlugin::getElementNamespace() const
 {
   return mURI;  
 }
 
+std::string 
+SBasePlugin::getURI() const
+{
+  const std::string &package = getPackageName();
+  const SBMLDocument* doc = getSBMLDocument();
+
+  if (doc == NULL)
+    return getElementNamespace();
+  
+  SBMLNamespaces* sbmlns = doc->getSBMLNamespaces();
+
+  if (sbmlns == NULL)
+    return getElementNamespace();
+
+  if (package == "" || package == "core")
+    return sbmlns->getURI();
+
+  std::string packageURI = sbmlns->getNamespaces()->getURI(package);
+  if (!packageURI.empty())
+    return packageURI;
+
+  return getElementNamespace();
+}
 
 /*
  * Returns the prefix bound to this element.
@@ -691,7 +714,7 @@ const char*
 SBasePlugin_getURI(SBasePlugin_t* plugin)
 {
   if (plugin == NULL) return NULL;
-  return plugin->getURI().c_str();
+  return plugin->getElementNamespace().c_str();
 }
 
 /**

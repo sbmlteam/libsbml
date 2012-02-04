@@ -46,10 +46,39 @@ LIBSBML_CPP_NAMESPACE_USE
 
 BEGIN_C_DECLS
 
-START_TEST (test_SBasePlugin_create)
+START_TEST (test_SBasePlugin_getUri)
 {
 	TestPkgNamespaces ns(3, 1, 1);
 	string uri = TestExtension::getXmlnsL3V1V1();
+	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
+	TestModelPlugin plugin(uri, "test", &ns);
+
+	fail_unless(strcmp(plugin.getURI().c_str(), uri.c_str()) == 0);
+  fail_unless(strcmp(plugin.getElementNamespace().c_str(), uri.c_str()) == 0);
+	fail_unless(plugin.getParentSBMLObject() == NULL);
+	fail_unless(plugin.getSBMLDocument() == NULL);
+
+  SBMLDocument doc (&ns);
+  fail_unless(doc.getSBMLNamespaces()->getNamespaces()->getURI("test") != "");
+  plugin.setSBMLDocument(&doc);
+  fail_unless(plugin.getURI() == uri);
+  doc.getSBMLNamespaces()->getNamespaces()->remove("test");
+  fail_unless(plugin.getURI() == uri);
+  doc.getSBMLNamespaces()->getNamespaces()->add("http://different/uri", "test");
+  fail_unless(plugin.getURI() != uri);
+  plugin.setSBMLDocument(NULL);
+  fail_unless(plugin.getURI() == uri);
+
+
+	delete ext;
+
+}
+END_TEST
+
+START_TEST (test_SBasePlugin_create)
+{
+  TestPkgNamespaces ns(3, 1, 1);
+  string uri = TestExtension::getXmlnsL3V1V1();
 	TestExtension* ext = (TestExtension*)SBMLExtensionRegistry::getInstance().getExtension(uri);
 	TestModelPlugin plugin(uri, "prefix", &ns);
 
@@ -59,7 +88,6 @@ START_TEST (test_SBasePlugin_create)
 	fail_unless(plugin.getSBMLDocument() == NULL);
 
 	delete ext;
-
 }
 END_TEST
 
@@ -99,6 +127,7 @@ create_suite_SBasePlugin (void)
 	
   tcase_add_test( tcase, test_SBasePlugin_create );
   tcase_add_test( tcase, test_SBasePlugin_c_api );
+  tcase_add_test( tcase, test_SBasePlugin_getUri );
   
   suite_add_tcase(suite, tcase);
 

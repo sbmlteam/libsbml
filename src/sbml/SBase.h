@@ -3097,6 +3097,27 @@ protected:
    */
   const std::string& getElementNamespace() const;
 
+  /**
+   * Gets the URI to which this element belongs to.
+   * For example, all elements that belong to SBML Level 3 Version 1 Core
+   * must would have the URI "http://www.sbml.org/sbml/level3/version1/core"; 
+   * all elements that belong to Layout Extension Version 1 for SBML Level 3
+   * Version 1 Core must would have the URI
+   * "http://www.sbml.org/sbml/level3/version1/layout/version1/"
+   *
+   * Unlike getElementNamespace, this function first returns the URI for this 
+   * element by looking into the SBMLNamespaces object of the document with 
+   * the its package name. if not found it will return the result of 
+   * getElementNamespace
+   *
+   * @return the URI this elements  
+   *
+   * @see getPackageName
+   * @see getElementNamespace
+   * @see getSBMLNamespaces
+   * @see getSBMLDocument
+   */
+  std::string getURI() const;
 
   /**
    * Read attributes of package extensions from the given XMLAttributes 
