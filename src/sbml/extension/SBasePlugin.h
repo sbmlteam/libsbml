@@ -553,7 +553,7 @@ public:
    */
   const SBMLDocument* getSBMLDocument () const;
 
-    /**
+  /**
    * Gets the URI to which this element belongs to.
    * For example, all elements that belong to SBML Level 3 Version 1 Core
    * must would have the URI "http://www.sbml.org/sbml/level3/version1/core"; 

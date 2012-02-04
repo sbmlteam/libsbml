@@ -347,7 +347,7 @@ SBasePlugin::getElementNamespace() const
 std::string 
 SBasePlugin::getURI() const
 {
-  const std::string &package = getPackageName();
+  const std::string &package = mSBMLExt->getName();
   const SBMLDocument* doc = getSBMLDocument();
 
   if (doc == NULL)
@@ -374,6 +374,7 @@ SBasePlugin::getURI() const
 const std::string& 
 SBasePlugin::getPrefix() const
 {
+  
   return mPrefix;
 }
 

@@ -2539,7 +2539,7 @@ SBase::getPackageVersion () const
  */
 const std::string&
 SBase::getPackageName () const
-{
+{  
   if (SBMLNamespaces::isSBMLNamespace(mURI))
   {
     static const std::string pkgName = "core";
@@ -4399,10 +4399,10 @@ SBase::getPrefix() const
   std::string prefix = "";
 
   XMLNamespaces *xmlns = getNamespaces();
-
-  if(xmlns && mSBML && !mSBML->isEnabledDefaultNS(mURI))
+  string uri = getURI();
+  if(xmlns && mSBML && !mSBML->isEnabledDefaultNS(uri))
   {
-    prefix = xmlns->getPrefix(mURI);  
+    prefix = xmlns->getPrefix(uri);  
 #if 0
     std::cout << "[DEBUG] SBase::getPrefix() " << prefix << " URI " << mURI 
               << " element " << getElementName() << std::endl;
