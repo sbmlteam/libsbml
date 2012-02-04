@@ -1,9 +1,20 @@
 /**
- * @file    convertLayout.cpp
- * @brief   Converts SBML Layout and Render Information from L2 to L3 and vice versa
- * @author  Frank Bergmann
- *
- */
+* @file    convertLayout.cpp
+* @brief   Converts SBML Layout and Render Information from L2 to L3 and vice versa
+* @author  Frank Bergmann
+*
+* This example implements two ways of converting the Layout / Render information
+* contained in the SBML file. 
+* 
+* method 1: Is implemented in the LayoutConverter class, it navigates through
+*           all classes of the Layout / Render extension and sets their element
+*           namespace to the new one. 
+* 
+* method 2: Is implemented in the SimpleLayoutConverter class. This class makes
+*           use of the new functionality of the elements reporting the namespace
+*           of the parent document when possible. 
+*  
+*/
 
 
 #include <iostream>
@@ -29,19 +40,18 @@
 using namespace std;
 LIBSBML_CPP_NAMESPACE_USE
 
-
 class LayoutConverter
 {
 public:
-  
+
   LayoutConverter(SBMLDocument *doc) {
     _doc = doc;
   }
-  
+
   LayoutConverter(const char* filename) {
     _doc = readSBMLFromFile(filename);
   }
-  
+
   ~LayoutConverter(){
     delete _doc;
   }
@@ -82,23 +92,23 @@ public:
       return;
 
 
-     ConversionProperties prop(new SBMLNamespaces(2, 4));
-     prop.addOption("strict", false);
-     prop.addOption("setLevelAndVersion", true);
-     prop.addOption("ignorePackages", true);
+    ConversionProperties prop(new SBMLNamespaces(2, 4));
+    prop.addOption("strict", false);
+    prop.addOption("setLevelAndVersion", true);
+    prop.addOption("ignorePackages", true);
 
-     _doc->convert(prop);
+    _doc->convert(prop);
 
 
     plugin->setElementNamespace(layoutNsUri);
-    
+
     SBMLDocumentPlugin *docPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("layout");
     if (docPlugin != NULL)
       docPlugin->setElementNamespace(layoutNsUri);
-    
-    
+
+
     updateNs(plugin->getListOfLayouts());
-    
+
     _doc->getSBMLNamespaces()->removePackageNamespace(3, 1, "layout", 1);        
 
 #ifdef CONVERT_RENDER
@@ -143,14 +153,14 @@ public:
       docPlugin->setElementNamespace(layoutNsUri);
 
     updateNs(plugin->getListOfLayouts());
-    
+
     _doc->getSBMLNamespaces()->addPackageNamespace("layout", 1);
     _doc->setPackageRequired("layout", false);
 
 #ifdef CONVERT_RENDER
     if (!foundRenderElements)
       return;
-    
+
     SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
     if (rdocPlugin != NULL)
     {
@@ -162,7 +172,7 @@ public:
       _doc->enablePackage(renderNsUri, "render", true);
     }
     _doc->setPackageRequired("render", false);
-   
+
 #endif
 
   }
@@ -188,7 +198,7 @@ public:
   }
 
 #ifdef CONVERT_RENDER
-  
+
   void updateNs(ListOfGlobalRenderInformation *list)
   {
     list->setSBMLNamespaces(renderNs);
@@ -196,7 +206,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((GlobalRenderInformation*)(list->get(i)));
   }
-  
+
   void updateNs(ListOfLocalRenderInformation *list)
   {
     list->setSBMLNamespaces(renderNs);
@@ -218,7 +228,7 @@ public:
 
   }
 
-  
+
   void updateNs(LocalRenderInformation *info)
   {
     foundRenderElements = true;
@@ -239,7 +249,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((ColorDefinition*)(list->get(i)));
   }
-  
+
   void updateNs(ColorDefinition *color)
   {
     color->setSBMLNamespaces(renderNs);
@@ -264,7 +274,7 @@ public:
     gradient->setSBMLNamespaces(renderNs);
     updateNs(gradient->getListOfGradientStops());
   }
-  
+
   void updateNs(ListOfGradientStops *list)
   {
     list->setSBMLNamespaces(renderNs);
@@ -272,7 +282,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((GradientStop*)(list->get(i)));
   }
-  
+
   void updateNs(GradientStop *stop)
   {
     stop->setSBMLNamespaces(renderNs);
@@ -285,7 +295,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((LineEnding*)(list->get(i)));
   }
-    
+
   void updateNs(LineEnding *line)
   {
     line->setSBMLNamespaces(renderNs);
@@ -300,7 +310,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((GlobalStyle*)(list->get(i)));
   }
-  
+
   void updateNs(GlobalStyle *style)
   {
     style->setSBMLNamespaces(renderNs);
@@ -352,7 +362,7 @@ public:
       }      
     }
   }
-  
+
   void updateNs(RenderCurve *curve)
   {
     curve->setSBMLNamespaces(renderNs);
@@ -363,7 +373,7 @@ public:
   {
     element->setSBMLNamespaces(renderNs);    
   }
-  
+
   void updateNs(Polygon *element)
   {
     element->setSBMLNamespaces(renderNs);    
@@ -377,7 +387,7 @@ public:
     for (unsigned int i = 0; i < list->size(); i++)
       updateNs((RenderPoint*)(list->get(i)));
   }
-    
+
   void updateNs(RenderPoint *element)
   {
     element->setSBMLNamespaces(renderNs);    
@@ -570,11 +580,158 @@ protected:
   SBMLNamespaces *renderNs;
   bool foundRenderElements;
 #endif
-  
+
   string layoutNsUri; 
   SBMLNamespaces *layoutNs;
 
 };
+
+class SimpleLayoutConverter
+{
+public:
+
+  SimpleLayoutConverter(SBMLDocument *doc) {
+    _doc = doc;
+  }
+
+  SimpleLayoutConverter(const char* filename) {
+    _doc = readSBMLFromFile(filename);
+  }
+
+  ~SimpleLayoutConverter(){
+    delete _doc;
+  }
+
+  SBMLDocument* getDocument() const { return _doc; }
+
+  void convertLayout()
+  {
+    if (_doc == NULL || _doc->getModel() == NULL)
+      return;
+
+    // if layout is not used bail
+    if (_doc->getPlugin("layout") == NULL) 
+      return;
+
+    if (_doc->getLevel() == 3)
+      convertLayoutToL2();
+    else
+      convertLayoutToL3();
+  }
+
+  void convertLayoutToL2()
+  {    
+    if (_doc == NULL || _doc->getModel() == NULL)
+      return;
+
+    layoutNsUri = "http://projects.eml.org/bcb/sbml/level2";
+    layoutNs = new LayoutPkgNamespaces(2, 1);
+
+#ifdef CONVERT_RENDER
+    renderNsUri = "http://projects.eml.org/bcb/sbml/render/level2";
+    renderNs = new RenderPkgNamespaces(2, 1);
+#endif
+
+    LayoutModelPlugin* plugin = (LayoutModelPlugin*)_doc->getModel()->getPlugin("layout");
+    if (plugin == NULL) 
+      return;
+
+
+    ConversionProperties prop(new SBMLNamespaces(2, 4));
+    prop.addOption("strict", false);
+    prop.addOption("setLevelAndVersion", true);
+    prop.addOption("ignorePackages", true);
+
+    _doc->convert(prop);
+
+    SBMLDocumentPlugin *docPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("layout");
+    if (docPlugin != NULL)
+      docPlugin->setElementNamespace(layoutNsUri);
+
+
+
+    _doc->getSBMLNamespaces()->removePackageNamespace(3, 1, "layout", 1);        
+    _doc->getSBMLNamespaces()->addPackageNamespace("layout", 1);        
+
+#ifdef CONVERT_RENDER
+    SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
+    if (rdocPlugin!= NULL)
+      rdocPlugin->setElementNamespace(renderNsUri);
+    _doc->getSBMLNamespaces()->removePackageNamespace(3, 1, "render", 1);        
+    _doc->getSBMLNamespaces()->addPackageNamespace("render", 1);        
+#endif
+
+  }
+
+  void convertLayoutToL3()
+  {
+    if (_doc == NULL || _doc->getModel() == NULL)
+      return;
+
+
+    layoutNsUri = "http://www.sbml.org/sbml/level3/version1/layout/version1";
+    layoutNs = new LayoutPkgNamespaces(3, 1, 1);
+
+#ifdef CONVERT_RENDER
+    renderNsUri = "http://www.sbml.org/sbml/level3/version1/render/version1";
+    renderNs = new RenderPkgNamespaces(3, 1, 1);
+#endif
+
+    LayoutModelPlugin* plugin = (LayoutModelPlugin*)_doc->getModel()->getPlugin("layout");
+    if (plugin == NULL) 
+      return;
+
+
+    ConversionProperties prop(new SBMLNamespaces(3, 1));
+    prop.addOption("strict", false);
+    prop.addOption("setLevelAndVersion", true);
+    prop.addOption("ignorePackages", true);
+
+    _doc->convert(prop);
+
+    //plugin->setElementNamespace(layoutNsUri);
+
+    SBMLDocumentPlugin *docPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("layout");
+    if (docPlugin != NULL)
+      docPlugin->setElementNamespace(layoutNsUri);
+
+
+    _doc->getSBMLNamespaces()->addPackageNamespace("layout", 1);
+    _doc->setPackageRequired("layout", false);
+
+#ifdef CONVERT_RENDER
+
+    SBMLDocumentPlugin *rdocPlugin = (SBMLDocumentPlugin*)_doc->getPlugin("render");
+    if (rdocPlugin != NULL)
+    {
+      //rdocPlugin->setElementNamespace(renderNsUri);      
+      _doc->getSBMLNamespaces()->addPackageNamespace("render", 1);    
+    }
+    else
+    {
+      _doc->enablePackage(renderNsUri, "render", true);
+    }
+    _doc->setPackageRequired("render", false);
+
+#endif
+
+  }
+
+
+protected:
+
+  SBMLDocument* _doc;
+
+#ifdef CONVERT_RENDER
+  string renderNsUri;
+  SBMLNamespaces *renderNs;
+#endif
+
+  string layoutNsUri; 
+  SBMLNamespaces *layoutNs;
+
+};
+
 
 int main(int argc,char** argv)
 {
@@ -586,11 +743,16 @@ int main(int argc,char** argv)
   }
 
   // read document
-  LayoutConverter converter(argv[1]);  
   
+  // method 1: iterate through all elements
+  // LayoutConverter converter(argv[1]);  
+
+  // method 2: set only the document namespaces
+  SimpleLayoutConverter converter(argv[1]);  
+
   // convert from L3 -> L2 or L2 -> L3
   converter.convertLayout();
-  
+
 
   char* sbml = writeSBMLToString(converter.getDocument());
 
