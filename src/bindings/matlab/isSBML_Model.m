@@ -6,7 +6,7 @@ function [valid, message] = isSBML_Model(varargin)
 % 1. SBMLModel, an SBML Model structure
 % 2. extensions_allowed (optional) =
 %   - 0, structures should contain ONLY required fields
-%   - 1, structrres may contain additional fields (default)
+%   - 1, structures may contain additional fields (default)
 %
 % Returns
 %
