@@ -49,6 +49,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 /**
  * ASTNodeType predicates
  */
+#define ASTNodeType_isAvogadro(t) \
+  (t == AST_NAME_AVOGADRO)
+
 #define ASTNodeType_isConstant(t) \
   (((t >= AST_CONSTANT_E) && (t <= AST_CONSTANT_TRUE)) || t == AST_NAME_AVOGADRO)
 
@@ -1214,6 +1217,18 @@ ASTNode::getUnits() const
 {
   return mUnits;
 }
+
+/*
+ * @return true if this ASTNode is a boolean (a logical operator, a
+ * relational operator, or the constants true or false), false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isAvogadro () const
+{
+  return ASTNodeType_isAvogadro(mType);
+}
+
 
 /*
  * @return true if this ASTNode is a boolean (a logical operator, a
@@ -2830,6 +2845,19 @@ ASTNode_getUnits(const ASTNode_t * node)
 {
   if (node == NULL) return NULL;
   return safe_strdup(node->getUnits().c_str());
+}
+
+
+/**
+ * @return true (non-zero) if this ASTNode is the special symbol
+ * avogadro, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isAvogadro (const ASTNode_t *node)
+{
+  if (node == NULL) return (int) false;
+  return (int) static_cast<const ASTNode*>(node)->isAvogadro();
 }
 
 

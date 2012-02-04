@@ -734,6 +734,7 @@ typedef enum
 , ExtentUnitsNotSubstance               = 91017 /*!< Units of extent must be compatible with units of substance. */
 , GlobalUnitsNotDeclared                = 91018 /*!< Global units must be refer to unit kind or unitDefinition. */
 , HasOnlySubstanceUnitsNotinL1          = 91019 /*!< The concept of hasOnlySubstanceUnits was not available in SBML Level 1. */
+, AvogadroNotSupported                  = 91020 /*!< Avogadro not supported in Levels 2 and 1. */
 , NoConstraintsInL2v1                   = 92001 /*!< SBML Level 2 Version 1 does not support Constraint objects. */
 , NoInitialAssignmentsInL2v1            = 92002 /*!< SBML Level 2 Version 1 does not support InitialAssignment objects. */
 , NoSpeciesTypeInL2v1                   = 92003 /*!< SBML Level 2 Version 1 does not support SpeciesType objects. */

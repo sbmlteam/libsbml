@@ -957,6 +957,16 @@ public:
 
 
   /**
+   * Predicate returning @c true (non-zero) if this node is the special 
+   * symbol @c avogadro.  The predicate returns @c false (zero) otherwise.
+   * 
+   * @return @c true if this ASTNode is the special symbol avogadro.
+   */
+  LIBSBML_EXTERN
+  bool isAvogadro () const;
+
+
+  /**
    * Predicate returning @c true (non-zero) if this node has a boolean type
    * (a logical operator, a relational operator, or the constants @c true
    * or @c false).
@@ -2103,6 +2113,11 @@ ASTNode_getStyle(const ASTNode_t * node);
 LIBSBML_EXTERN
 const char *
 ASTNode_getUnits(const ASTNode_t * node);
+
+
+LIBSBML_EXTERN
+int
+ASTNode_isAvogadro (const ASTNode_t * node);
 
 
 /**

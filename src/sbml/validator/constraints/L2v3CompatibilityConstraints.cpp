@@ -380,5 +380,114 @@ START_CONSTRAINT (99926, Compartment, c)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (91020, Reaction, r)
+{
+  pre (r.isSetKineticLaw() == true);
+  pre (r.getKineticLaw()->isSetMath() == true);
+
+  List * names = r.getKineticLaw()->getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, AssignmentRule, r)
+{
+  pre (r.isSetMath() == true);
+
+  List * names = r.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, RateRule, r)
+{
+  pre (r.isSetMath() == true);
+
+  List * names = r.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, AlgebraicRule, r)
+{
+  pre (r.isSetMath() == true);
+
+  List * names = r.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, EventAssignment, ea)
+{
+  pre (ea.isSetMath() == true);
+
+  List * names = ea.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, Trigger, t)
+{
+  pre (t.isSetMath() == true);
+
+  List * names = t.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, Delay, d)
+{
+  pre (d.isSetMath() == true);
+
+  List * names = d.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, InitialAssignment, ia)
+{
+  pre (ia.isSetMath() == true);
+
+  List * names = ia.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, Constraint, c)
+{
+  pre (c.isSetMath() == true);
+
+  List * names = c.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
 /** @endcond */
 

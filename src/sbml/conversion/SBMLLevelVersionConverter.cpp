@@ -334,7 +334,7 @@ SBMLLevelVersionConverter::convert()
       {
         /* now we want to mDocument->check whether the resulting model is valid
          */
-        mDocument->checkConsistency();
+        mDocument->validateSBML();
         unsigned int errors = 
            mDocument->getErrorLog()->getNumFailsWithSeverity(LIBSBML_SEV_ERROR);
         if (errors > 0)

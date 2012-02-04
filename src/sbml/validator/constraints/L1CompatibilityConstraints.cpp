@@ -516,4 +516,53 @@ START_CONSTRAINT (91019, Species, s)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (91020, Reaction, r)
+{
+  pre (r.isSetKineticLaw() == true);
+  pre (r.getKineticLaw()->isSetMath() == true);
+
+  List * names = r.getKineticLaw()->getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, AssignmentRule, r)
+{
+  pre (r.isSetMath() == true);
+
+  List * names = r.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, RateRule, r)
+{
+  pre (r.isSetMath() == true);
+
+  List * names = r.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91020, AlgebraicRule, r)
+{
+  pre (r.isSetMath() == true);
+
+  List * names = r.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
 /** @endcond */

@@ -6997,6 +6997,21 @@ static const sbmlErrorTableEntry errorTable[] =
     "in SBML Level 1 without alteration of any mathematical formula. "
     "LibSBML does not do this alteration",
   },
+
+  //91020
+  {
+    AvogadroNotSupported,
+    "Avogadro not supported in Levels 2 and 1.",
+    LIBSBML_CAT_SBML_L1_COMPAT,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_NOT_APPLICABLE,
+    LIBSBML_SEV_ERROR,
+    "Conversion of the csymbol avogadro is not yet supported.",
+  },
   /* --------------------------------------------------------------------------
    * L2 compatibility.
    * ----------------------------------------------------------------------- */
