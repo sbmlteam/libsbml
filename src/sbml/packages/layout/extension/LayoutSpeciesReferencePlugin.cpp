@@ -139,22 +139,10 @@ LayoutSpeciesReferencePlugin::readOtherXML (SBase* parentObject, XMLInputStream&
         // of parent element (pAnnotation) and then set the new annotation 
         // (newAnnotation) to the parent element.
         //
-        XMLNode *newAnnotation = deleteLayoutIdAnnotation(pAnnotation);
-        parentObject->setAnnotation(newAnnotation);
-       
-        delete newAnnotation;
-      }
-      else
-      {
-        //
-        // No layout annotation is included in the read annotation 
-        // (pAnnotation) and thus just set the annotation to the parent
-        // element.
-        //
-        parentObject->setAnnotation(pAnnotation);
+        deleteLayoutIdAnnotation(pAnnotation);        
       }
 
-      delete pAnnotation;
+      parentObject->setAnnotation(pAnnotation);
 
       readAnnotationFromStream = true;
     }
@@ -180,10 +168,7 @@ LayoutSpeciesReferencePlugin::readOtherXML (SBase* parentObject, XMLInputStream&
       // of parent element (pAnnotation) and then set the new annotation 
       // (newAnnotation) to the parent element.
       //
-      XMLNode *newAnnotation = deleteLayoutIdAnnotation(pAnnotation);
-      parentObject->setAnnotation(newAnnotation);
-
-      delete newAnnotation;
+      deleteLayoutIdAnnotation(pAnnotation);      
     }
     readAnnotationFromStream = true;
   }

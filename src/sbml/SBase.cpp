@@ -670,7 +670,7 @@ SBase::getURI() const
     return getElementNamespace();
 
   if (package == "" || package == "core")
-    return sbmlns->getURI();
+    return getElementNamespace();
 
   string packageURI = sbmlns->getNamespaces()->getURI(package);
   if (!packageURI.empty())
