@@ -1481,7 +1481,7 @@ void dealWithL1Stoichiometry(Model & m, bool l2)
 void dealWithAssigningL1Stoichiometry(Model & m, bool l2)
 {
   unsigned int idCount = 0;
-  char newid[15];
+  //char newid[15];
   std::string id;
 
   for (unsigned int i = 0; i < m.getNumReactions(); i++)
