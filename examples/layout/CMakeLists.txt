@@ -16,7 +16,6 @@ foreach(example
 	example2-L3
 	example2
 	example3-L3
-	convertLayout
 	example3
 
 )
@@ -26,4 +25,15 @@ foreach(example
 
 endforeach()
 
+
+add_executable(example_layout_convertLayout convertLayout.cpp)
+set_target_properties(example_layout_convertLayout PROPERTIES  OUTPUT_NAME convertLayout)
+
+if(ENABLE_RENDER)
+  # if we have the render extension available have the example also 
+  # convert the render information
+  add_definitions(-DCONVERT_RENDER)
+endif(USE_RENDER)
+
+target_link_libraries(example_layout_convertLayout convertLayout-static)
 

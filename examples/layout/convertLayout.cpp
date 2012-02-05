@@ -24,10 +24,6 @@
 
 #include <stdlib.h>
 
-
-#define CONVERT_RENDER
-
-
 #include "sbml/SBMLTypes.h"
 #include "sbml/extension/SBMLDocumentPlugin.h"
 #include "sbml/conversion/ConversionProperties.h"
