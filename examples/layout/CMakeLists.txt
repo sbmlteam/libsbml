@@ -35,5 +35,5 @@ if(ENABLE_RENDER)
   add_definitions(-DCONVERT_RENDER)
 endif(USE_RENDER)
 
-target_link_libraries(example_layout_convertLayout convertLayout-static)
+target_link_libraries(example_layout_convertLayout ${LIBSBML_LIBRARY}-static)
 
