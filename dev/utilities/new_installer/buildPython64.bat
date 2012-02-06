@@ -15,13 +15,17 @@ REM check argument
 SET PYTHON_INTERP=%1
 if "%PYTHON_INTERP%" == "" goto MISSING_INTERP
 
+
+SET DEP_DIR=%2
+if "%DEP_DIR%" == "" SET DEP_DIR=../../../win64/
+
 REM goto path
 cd  /d %BASE_DIR%
 
 REM create build dir
 mkdir b64
 cd b64
-cmake -G "Visual Studio 10 Win64" -DPYTHON_EXECUTABLE="%PYTHON_INTERP%" ..
+cmake -G "Visual Studio 10 Win64" -DPYTHON_EXECUTABLE="%PYTHON_INTERP%"  -DDEP_DIR="%DEP_DIR%" ..
 devenv _libsbml.sln /build RelWithDebInfo
 
 goto ALL_DONE

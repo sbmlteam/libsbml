@@ -15,13 +15,16 @@ REM check argument
 SET PYTHON_INTERP=%1
 if "%PYTHON_INTERP%" == "" goto MISSING_INTERP
 
+SET DEP_DIR=%2
+if "%DEP_DIR%" == "" SET DEP_DIR=../../../win32/
+
 REM goto path
 cd  /d %BASE_DIR%
 
 REM create build dir
 mkdir b32
 cd b32
-cmake -G "NMake Makefiles"  -DPYTHON_EXECUTABLE="%PYTHON_INTERP%" ..
+cmake -G "NMake Makefiles"  -DPYTHON_EXECUTABLE="%PYTHON_INTERP%" -DDEP_DIR="%DEP_DIR%" ..
 nmake
 
 goto ALL_DONE

@@ -44,6 +44,7 @@ else()
 include_directories(${CMAKE_SOURCE_DIR}/../../../win64/include)
 endif()
 include_directories(${PYTHON_INCLUDE_DIRS})
+include_directories(${DEP_DIR}/include)
 
 add_definitions(-DUSE_LAYOUT)
 
@@ -136,24 +137,24 @@ endif()
 
 find_library(SBML_LIBRARY 
 	NAMES libsbml-static.lib
-	PATHS ${LIB_PATH}
+	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 find_library(XML_LIBRARY 
 	NAMES libxml2.lib
-	PATHS ${LIB_PATH}
+	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 find_library(ICONV_LIBRARY 
 	NAMES libiconv.lib iconv.lib
-	PATHS ${LIB_PATH}
+	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 find_library(BZ2_LIBRARY 
 	NAMES libbz2.lib bzip2.lib
-	PATHS ${LIB_PATH}
+	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 
 find_library(ZLIB_LIBRARY 
 	NAMES zdll.lib zlib.lib
-	PATHS ${LIB_PATH}
+	PATHS ${LIB_PATH} ${DEP_DIR}/lib
 )
 
 set(LIBS 

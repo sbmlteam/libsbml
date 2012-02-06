@@ -27,7 +27,7 @@ cd /d "%TEST_DIR%"
 
 echo.
 echo Testing Python bindings from: %PYTHON_BUILD%
-echo wyth python:                  %PYTHON_INTERP%
+echo with python:                  %PYTHON_INTERP%
 echo.
 SET PYTHONPATH=%PYTHON_BUILD%;%PYTHON_BUILD%\libsbml;%TEST_DIR%;%TEST_DIR%\test;.;test;test\sbml;test\annotation;test\math;test\xml
 "%PYTHON_INTERP%" test.py
