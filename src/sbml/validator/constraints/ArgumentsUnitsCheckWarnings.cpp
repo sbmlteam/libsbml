@@ -186,7 +186,8 @@ ArgumentsUnitsCheckWarnings::checkDimensionlessArgs (const Model& m,
   tempUD = unitFormat->getUnitDefinition(node.getChild(0), inKL, reactNo);
   
   if (tempUD->getNumUnits() != 0 && 
-    !UnitDefinition::areEquivalent(dim, tempUD)) 
+    ( unitFormat->getContainsUndeclaredUnits() == false &&
+    UnitDefinition::areEquivalent(dim, tempUD) == false))
   {
     logInconsistentDimensionless(node, sb);
   }
