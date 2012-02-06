@@ -807,6 +807,8 @@ typedef enum
 , RDFMissingAboutTag                    = 99401 /*!< RDF missing the <about> tag. */
 , RDFEmptyAboutTag                      = 99402 /*!< RDF empty <about> tag. */
 , RDFAboutTagNotMetaid                  = 99403 /*!< RDF <about> tag is not metaid. */
+, RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory. */
+, RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory. */
 , InconsistentArgUnitsWarnings          = 99502
 , InconsistentPowerUnitsWarnings        = 99503
 , InconsistentExponUnitsWarnings        = 99504

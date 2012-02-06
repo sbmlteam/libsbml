@@ -3592,6 +3592,11 @@ SBase::readAnnotation (XMLInputStream& stream)
       {
         mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, 
                                                 &(stream), getMetaId().c_str());
+        if (mHistory->hasRequiredAttributes() == false)
+        {
+          logError(RDFNotCompleteModelHistory, getLevel(), getVersion(),
+            "An invalid ModelHistory element has been stored.");
+        }
         setModelHistory(mHistory);
       }
       else

@@ -8345,6 +8345,55 @@ static const sbmlErrorTableEntry errorTable[] =
      "L3V1 Section 6.3"}
    },
 
+  //99404
+  {   
+    RDFNotCompleteModelHistory,   
+    "RDF does not contain valid ModelHistory.",
+    LIBSBML_CAT_SBML,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "LibSBML expected to read the annotation into a ModelHistory "
+    "object. Unfortunately some attributes were not present or correct "
+    "and the resulting ModelHistory object will not correctly "
+    "produce the annotation.  This functionality will be improved in "
+    "later versions of libSBML. ",
+    {"",
+     "",
+     "L2V2 Section 6.3",
+     "L2V3 Section 6.3",
+     "L2V4 Section 6.3",
+     "L3V1 Section 6.3"}
+   },
+
+  //99405
+  {   
+    RDFNotModelHistory,   
+    "RDF does not result in a ModelHistory.",
+    LIBSBML_CAT_SBML,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_NOT_APPLICABLE,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,   
+    LIBSBML_SEV_WARNING,
+    "LibSBML expected to read the annotation into a ModelHistory "
+    "object. Unfortunately some attributes were not present or correct "
+    "and the resulting ModelHistory object is NULL. Thus it will fail to "
+    "produce the annotation.  This functionality will be improved in "
+    "later versions of libSBML. ",
+    {"",
+     "",
+     "L2V2 Section 6.3",
+     "L2V3 Section 6.3",
+     "L2V4 Section 6.3",
+     "L3V1 Section 6.3"}
+   },
   /* --------------------------------------------------------------------------
    * These are internal errors that reverts to 10501.
    * ----------------------------------------------------------------------- */

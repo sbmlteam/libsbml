@@ -1041,9 +1041,18 @@ RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
 
   // check whether the annotation relates to Model History
   ModelHistory *temp = parseRDFAnnotation(annotation);
-  if (temp && temp->getNumCreators() > 0)
+  /* ok I relaxed the test so that an invalid model could be stored
+   * but need to check that it resembles an model history in some 
+   * way otherwise any RDF could be a model history
+   */
+  if (temp != NULL) // && temp->getNumCreators() > 0)
   {
-    hasHistoryRDF = true;
+    if (temp->getNumCreators() > 0 
+      || temp->isSetCreatedDate() == true
+      || temp->isSetModifiedDate() == true )
+    {
+      hasHistoryRDF = true;
+    }
   }
   delete temp;
 
