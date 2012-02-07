@@ -142,7 +142,7 @@ if (WITH_CHECK)
 	file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../matlab/test/test-data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}  )
 
 
-	add_test(test_octave_binding "${OCTAVE_EXECUTABLE}" -p . -p .. -p test  -p ${CMAKE_CURRENT_BINARY_DIR} --eval testBinding.m)
+	add_test(test_octave_binding "${OCTAVE_EXECUTABLE}" -p . -p .. -p test  -p ${CMAKE_CURRENT_BINARY_DIR} --eval testBinding)
 	
 	if(UNIX)
 		if(APPLE)
