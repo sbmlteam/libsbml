@@ -86,6 +86,8 @@ try
   Totalfail = Totalfail + testReadFromFile14(install);
   Totalfail = Totalfail + testReadFromFile15(install);
 
+  Totalfail = Totalfail + testIsSBMLModel(install);
+  
   if (install == 0)
     Totalfail = Totalfail + testOutput('Out-test1', 0);
   end;
