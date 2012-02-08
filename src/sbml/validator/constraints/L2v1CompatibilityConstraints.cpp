@@ -612,4 +612,16 @@ START_CONSTRAINT (91020, Delay, d)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (91020, InitialAssignment, ia)
+{
+  pre (ia.isSetMath() == true);
+
+  List * names = ia.getMath()
+                     ->getListOfNodes((ASTNodePredicate) ASTNode_isAvogadro);
+
+  inv( names->getSize() == 0 );
+}
+END_CONSTRAINT
+
+
 /** @endcond */
