@@ -126,12 +126,17 @@ public:
    * An XMLNamespaces object stores a list of pairs of namespaces and their
    * prefixes.  If there is an XML namespace with the given @p uri prefix
    * in this list, then its corresponding URI will be overwritten by the
-   * new @p uri.  Calling programs could use one of the other XMLNamespaces
+   * new @p uri unless the uri represents the core sbml namespace.
+   * Calling programs could use one of the other XMLNamespaces
    * methods, such as
    * XMLNamespaces::hasPrefix(@if java String@endif) and 
    * XMLNamespaces::hasURI(@if java String@endif) to
    * inquire whether a given prefix and/or URI
    * is already present in this XMLNamespaces object.
+   * If the @p uri represents the sbml namespaces then it will not be
+   * overwritten, as this has potentially serious consequences. If it
+   * is necessary to replace the sbml namespace the namespace should be removed
+   * prior to adding the new namespace.
    *
    * @param uri a string, the uri for the namespace
    * @param prefix a string, the prefix for the namespace
@@ -140,6 +145,8 @@ public:
    * function.   The possible values
    * returned by this function are:
    * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_INVALID_OBJECT LIBSBML_INVALID_OBJECT @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
    *
    * @if notcpp @docnote @htmlinclude warn-default-args-in-docs.html @endif
    */

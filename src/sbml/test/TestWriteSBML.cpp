@@ -239,6 +239,150 @@ START_TEST (test_WriteSBML_SBMLDocument_L2v2)
 END_TEST
 
 
+START_TEST (test_WriteSBML_SBMLDocument_updateNamespace_1)
+{
+  const char* input = wrapXML
+  (
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
+    "level=\"1\" version=\"2\"/>\n"
+  );
+ 
+  SBMLDocument *d = readSBMLFromString(input);
+
+  d->updateSBMLNamespace("", 2, 1);
+
+  const char* expected = wrapXML
+  (
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
+    "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  S = writeSBMLToString(d);
+
+  fail_unless( equals(expected, S) );
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SBMLDocument_updateNamespace_2)
+{
+  // note this is invalid but we would fix it
+  const char* input = wrapXML
+  (
+  "<sbml xmlns:foo=\"http://www.sbml.org/sbml/level2/version4\" "
+    "level=\"2\" version=\"4\"/>\n"
+  );
+ 
+  SBMLDocument *d = readSBMLFromString(input);
+
+  d->updateSBMLNamespace("", 2, 1);
+
+  const char* expected = wrapXML
+  (
+  "<foo:sbml xmlns:foo=\"http://www.sbml.org/sbml/level2\" "
+    "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  S = writeSBMLToString(d);
+
+  fail_unless( equals(expected, S) );
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SBMLDocument_updateNamespace_3)
+{
+  const char* input = wrapXML
+  (
+  "<foo:sbml xmlns:foo=\"http://www.sbml.org/sbml/level3/version1/core\" "
+  "level=\"3\" version=\"1\"/>\n"
+  );
+ 
+  SBMLDocument *d = readSBMLFromString(input);
+
+  d->updateSBMLNamespace("", 2, 1);
+
+  const char* expected = wrapXML
+  (
+  "<foo:sbml xmlns:foo=\"http://www.sbml.org/sbml/level2\" "
+  "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  S = writeSBMLToString(d);
+
+  fail_unless( equals(expected, S) );
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SBMLDocument_updateNamespace_4)
+{
+  const char* input = wrapXML
+  (
+  "<sbml xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" "
+  "xmlns:foo=\"http://www.sbml.org/sbml/level3/version1/core\" "
+  "level=\"3\" version=\"1\"/>\n"
+  );
+ 
+  SBMLDocument *d = readSBMLFromString(input);
+
+  d->updateSBMLNamespace("", 2, 1);
+
+  const char* expected = wrapXML
+  (
+  "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
+  "xmlns:foo=\"http://www.sbml.org/sbml/level2\" "
+  "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  S = writeSBMLToString(d);
+
+  fail_unless( equals(expected, S) );
+
+  delete d;
+}
+END_TEST
+
+
+START_TEST (test_WriteSBML_SBMLDocument_updateNamespace_5)
+{
+  const char* input = wrapXML
+  (
+  "<foo:sbml xmlns:foo=\"http://www.sbml.org/sbml/level3/version1/core\" "
+  "xmlns=\"http://www.sbml.org/sbml/level3/version1/core\" "
+  "level=\"3\" version=\"1\"/>\n"
+  );
+ 
+  SBMLDocument *d = readSBMLFromString(input);
+
+  d->updateSBMLNamespace("", 2, 1);
+
+  const char* expected = wrapXML
+  (
+  "<foo:sbml xmlns:foo=\"http://www.sbml.org/sbml/level2\" "
+  "xmlns=\"http://www.sbml.org/sbml/level2\" "
+  "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  S = writeSBMLToString(d);
+
+  fail_unless( equals(expected, S) );
+
+  delete d;
+}
+END_TEST
+
 
 START_TEST (test_WriteSBML_Model)
 {
@@ -2870,6 +3014,11 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_SBMLDocument_L1v2 );
   tcase_add_test( tcase, test_WriteSBML_SBMLDocument_L2v1 );
   tcase_add_test( tcase, test_WriteSBML_SBMLDocument_L2v2 );
+  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_updateNamespace_1 );
+  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_updateNamespace_2 );
+  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_updateNamespace_3 );
+  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_updateNamespace_4 );
+  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_updateNamespace_5 );
 
 
   // Model

@@ -504,10 +504,10 @@ SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level
   std::string currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()->
     getPrefix(currentSBMLCoreURI);
 
-  bool sbmlDecl = false;
+  //bool sbmlDecl = false;
 
-  if (currentSBMLCorePrefix.empty() == false)
-    sbmlDecl = true;
+  //if (currentSBMLCorePrefix.empty() == false)
+  //  sbmlDecl = true;
 
   mLevel   = level;
   mVersion = version;
@@ -553,11 +553,24 @@ SBMLDocument::updateSBMLNamespace(const std::string& package, unsigned int level
   }
 
 
-  mSBMLNamespaces->getNamespaces()->add(uri);
-  if (sbmlDecl)
+  mSBMLNamespaces->getNamespaces()->remove(currentSBMLCorePrefix);
+  mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
+  // it is possible that the ns exists unprefixed as well as prefixed
+  // the code will return the first it encounters
+  // so check if the original ns is still there
+  if (mSBMLNamespaces->getNamespaces()->containsUri(currentSBMLCoreURI) == true)
   {
+    currentSBMLCorePrefix = mSBMLNamespaces->getNamespaces()
+      ->getPrefix(currentSBMLCoreURI);
+    mSBMLNamespaces->getNamespaces()->remove(currentSBMLCorePrefix);
     mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
   }
+
+
+  //if (sbmlDecl)
+  //{
+  //  mSBMLNamespaces->getNamespaces()->add(uri, currentSBMLCorePrefix);
+  //}
   mSBMLNamespaces->setLevel(mLevel);
   mSBMLNamespaces->setVersion(mVersion);
   setElementNamespace(uri); // this needs to propagate

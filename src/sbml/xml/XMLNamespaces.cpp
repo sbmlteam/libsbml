@@ -34,6 +34,8 @@
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLConstructorException.h>
+#include <sbml/SBMLNamespaces.h>
+#include <sbml/util/List.h>
 
 
 /** @cond doxygen-ignored */
@@ -118,12 +120,38 @@ XMLNamespaces::add (const std::string& uri, const std::string& prefix)
   if (&uri == NULL || &prefix == NULL) return LIBSBML_INVALID_OBJECT;
   //
   // avoids duplicate prefix
+  // BUT do not replace the sbml core ns
   //
-  if ( prefix.empty()    ) removeDefault();
-  if ( hasPrefix(prefix) ) remove(prefix);
+  bool sbmlCoreNS = false;
+  if (getURI(prefix).empty() == false)
+  {
+    // there is already a uri with this prefix
+    // is it the sbml ns
+    const List * supportedNS = SBMLNamespaces::getSupportedNamespaces();
+    for (unsigned int i = 0; i < supportedNS->getSize(); i++)
+    {
+      const SBMLNamespaces * current = (const SBMLNamespaces *) supportedNS->get(i);
+      if (getURI(prefix) == current->getURI())
+      {
+        sbmlCoreNS = true;
+        break;
+      }
+    }
 
-  mNamespaces.push_back( make_pair(prefix, uri) );
-  return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  if (sbmlCoreNS == true)
+  {
+    return LIBSBML_OPERATION_FAILED;
+  }
+  else
+  {
+    if ( prefix.empty()    ) removeDefault();
+    if ( hasPrefix(prefix) ) remove(prefix);
+
+    mNamespaces.push_back( make_pair(prefix, uri) );
+    return LIBSBML_OPERATION_SUCCESS;
+  }
 }
 
 
@@ -495,6 +523,7 @@ XMLNamespaces_clone (const XMLNamespaces_t* ns)
  * returned by this function are:
  * @li LIBSBML_OPERATION_SUCCESS
  * @li LIBSBML_INVALID_OBJECT
+ * @li LIBSBML_OPERATION_FAILED
  */
 LIBLAX_EXTERN
 int
