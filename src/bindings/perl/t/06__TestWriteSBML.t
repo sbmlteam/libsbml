@@ -93,13 +93,19 @@ sub setUp {
 }
 
 #---
-sub util_NaN { use Math::BigInt; return Math::BigInt->new('foo') }
+sub util_NaN { #use Math::BigInt; return Math::BigInt->bnan() 
+  return -sin(9**9**9)
+}
 
 #---
-sub util_PosInf { use Math::BigInt; return Math::BigInt->binf() }
+sub util_PosInf { #use Math::BigInt; return Math::BigInt->binf() 
+  return 9**9**9
+}
 
 #---
-sub util_NegInf { use Math::BigInt; return Math::BigInt->binf('-') }
+sub util_NegInf { #use Math::BigInt; return Math::BigInt->binf('-') 
+  return -9**9**9
+}
 
 #---
 sub readSBMLFromString {
@@ -1169,7 +1175,7 @@ sub test_WriteSBML_INF {
  my $p = new LibSBML::Parameter($level,$version);
  $p->setId("p");
  $p->setValue(util_PosInf());
- ok( $expected, $p->toSBML());
+ ok( $expected, $p->toSBML()); 
 }
 
 #---
@@ -1179,7 +1185,7 @@ sub test_WriteSBML_NegINF {
  my $p = new LibSBML::Parameter($level,$version);
  $p->setId("p");
  $p->setValue(util_NegInf());
- ok( $expected, $p->toSBML());
+ ok( $expected, $p->toSBML()); 
 }
 
 #---
