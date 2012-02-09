@@ -33,7 +33,7 @@ if(ENABLE_RENDER)
   # if we have the render extension available have the example also 
   # convert the render information
   add_definitions(-DCONVERT_RENDER)
-endif(USE_RENDER)
+endif(ENABLE_RENDER)
 
 target_link_libraries(example_layout_convertLayout ${LIBSBML_LIBRARY}-static)
 
