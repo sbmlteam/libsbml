@@ -23,12 +23,12 @@
 import platform
 
 # figure out whether this is a 64bit or 32 bit installation
-basepath = '../../../win32/'
+basepath = '../../../win64/'
 
 from distutils.core import setup, Extension
 
 setup(name             = "libsbml", 
-      version          = "5.3.0",
+      version          = "@PACKAGE_VERSION@",
       description      = "LibSBML Python API",
       long_description = ("LibSBML is a library for reading, writing and "+
                           "manipulating the Systems Biology Markup Language "+

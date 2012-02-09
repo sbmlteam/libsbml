@@ -86,4 +86,21 @@ configure_file(
 	${CMAKE_CURRENT_SOURCE_DIR}/install_libsbml_script_xml_win64.iss
 )
 
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/matlab/install_matlab_libsbml_script_xml_win32.in
+	${CMAKE_CURRENT_SOURCE_DIR}/matlab/install_matlab_libsbml_script_xml_win32.iss
+)
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/matlab/install_matlab_libsbml_script_xml_win64.in
+	${CMAKE_CURRENT_SOURCE_DIR}/matlab/install_matlab_libsbml_script_xml_win64.iss
+)
 
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/python/setup32.in
+	${CMAKE_CURRENT_SOURCE_DIR}/python/setup32.py
+)
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/python/setup64.in
+	${CMAKE_CURRENT_SOURCE_DIR}/python/setup64.py
+)
