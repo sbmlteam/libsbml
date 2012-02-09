@@ -707,7 +707,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
         mxDestroyArray(mxErrors[0]);
         pacReply = (char *)mxCalloc(3,sizeof(char));
-        pacReply = "n";
+        pacReply = "y";
       }
       else
       {
