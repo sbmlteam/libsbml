@@ -58,6 +58,18 @@ STABLE RELEASE
     to be replaced it can be done by using the remove function before
     adding the new namespace.
     
+  - SBase objects that occur in Level 3 package code need to keep
+    track of the namespace of the package to which they belong. However,
+    a conversion might alter the namespace; for example with layout
+    where the level 2 layout annotation has its own namespace.  
+    The getURI function has been altered to adopt the approach used for 
+    tracking the core sbml namespace of any object i.e. the namespaces of 
+    the containing document take precedence and the namespace stored on 
+    an actual object is only considered if it does not belong to a document. 
+    An additional function getElementNamespace() can be used to obtain
+    the namespace stored on the actual object. 
+    
+ 
 * Bug fixes
 
   - Tracker issue #3472034
@@ -121,10 +133,9 @@ STABLE RELEASE
   - Conversion between levels was inconsistent when it came to dealing
     with rational stoichiometry.  This has been fixed.
     
-  - The Perl bindings use of BigInt caused ActivePerl to crash on a
-    Windows system. A workaround to prevent this has been put in place.
-
-* Miscellaneous
+  - The tests for the Perl bindings use of BigInt caused ActivePerl 
+    to crash on a Windows system. A workaround to prevent this has 
+    been put in place.
 
   - LibSBML class constructors currently throw exceptions rather than
     create objects with invalid SBML namespace/level/version
@@ -133,16 +144,16 @@ STABLE RELEASE
     rigorously tested and measures put in place to prevent such
     crashes from happening.
     
-  - SBase objects that occur in Level 3 package code need to keep
-    track of the namespace of the package to which they belong. However,
-    a conversion might alter the namespace; for example with layout
-    where the level 2 layout annotation has its own namespace.  
-    Functionality to determine and alter the namespace of an object 
-    has been added mimicing the approach used for tracking the core
-    sbml namespace of any object i.e. the namespaces of the containing 
-    document take precedence and the namespace stored on an actual object
-    is only considered if it does not belong to a document.
+  - The SBMLTransforms class now correctly evaluates piecewise
+    expressions.
     
+  - The MathML infix converter now deals correctly with unary plus
+    and times. 
+    
+    
+
+* Miscellaneous
+
 
 * Configuration/build system changes
 
@@ -165,6 +176,18 @@ STABLE RELEASE
 EXPERIMENTAL RELEASE
 
 * New features
+
+ - Code for the 'render' extension is now available.
+
+ - All package code has been updated to use the new line/column 
+   number reporting mechanism.
+   
+ - Package language bindings have been updated to properly wrap
+   exceptions and use covariant return types.
+   
+ - There is a new example with the 'layout' package that demonstrates
+   conversion between the layout and render L3 package representation
+   and the L2 annotation representation.
 
 
 ======================================================================
