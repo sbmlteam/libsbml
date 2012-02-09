@@ -1,12 +1,12 @@
 The following is a summary of the definition of the SBML identifier type 
 <code>SId</code>, which defines the permitted syntax of identifiers.  We
 express the syntax using an extended form of BNF notation: 
-<p>
-<code style="margin-left: 2em">letter ::= 'a'..'z','A'..'Z'</code><br>
-<code style="margin-left: 2em">digit  ::= '0'..'9'</code><br>
-<code style="margin-left: 2em">idChar ::= letter | digit | '_'</code><br>
-<code style="margin-left: 2em">SId    ::= ( letter | '_' ) idChar*</code><br>
-<p>
+<pre style="margin-left: 2em; border: none; font-weight: bold; font-size: 13px; color: black">
+letter ::= 'a'..'z','A'..'Z'
+digit  ::= '0'..'9'
+idChar ::= letter | digit | '_'
+SId    ::= ( letter | '_' ) idChar*
+</pre>
 The characters <code>(</code> and <code>)</code> are used for grouping, the
 character <code>*</code> "zero or more times", and the character
 <code>|</code> indicates logical "or".  The equality of SBML identifiers is
