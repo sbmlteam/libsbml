@@ -2,12 +2,21 @@
 
 
 ======================================================================
-Version 5.4.0 (Coming soon)
+Version 5.4.0 (2012-02-16)
 ======================================================================
 
 STABLE RELEASE
 
 * New features
+
+  - Basic validation of MIRIAM compliant RDF annotations that 
+    are parsed into ModelHistory or CVTerm objects has been
+    added to facilitate the use of annotations that are not
+    yet quite complete.  Warnings are now issued relating to 
+    whether or not the rdf:about attribute accurately points to
+    the metaid of the containing object and whether the object
+    that was created was consisdered a valid object in the
+    attributes and subelements that are required.
 
   - It has been noted that unless the checkConsistency function
     is called directly following a read it does not report all
@@ -37,6 +46,18 @@ STABLE RELEASE
     that allows a user to specify whether the MATLAB_SBML structure 
     should be considered valid if it contains any additional fields.
     
+  - Multiple namespaces using the same prefix are not allowed in XML.
+    The function that added XMLNamespaces in libSBML checks for an
+    existing namespace with the prefix of the namespace being added
+    and overwrites the original if a duplicate is found.  This 
+    behaviour meant that it was possible to unintentionally remove
+    the sbml namespace.  The behaviour of the function has been altered
+    such that if the namespace being added has a prefix that duplicates
+    that of the existing sbml namepace then the function returns failure
+    and the new namespace is not added.  Should the sbml namespace need
+    to be replaced it can be done by using the remove function before
+    adding the new namespace.
+    
 * Bug fixes
 
   - Tracker issue #3472034
@@ -47,7 +68,7 @@ STABLE RELEASE
 
   - Tracker issue #3471902
     The documentation for the readSBMLFromString function claimed it
-    prepend teh xml encoding if it was not present. In fact, the 
+    prepend the xml encoding if it was not present. In fact, the 
     function did not do this. This has been corrected. Thanks to
     Raimund Rönn for reporting it.  
     
@@ -66,7 +87,8 @@ STABLE RELEASE
     L1 failing to include a compartment; stopping conversion of models
     with hasOnlySubstanceUnits = true to L1; correcting conversion of 
     L3 models with localParameters and preventing conversion of L3 
-    models where Events had Priorities.
+    models where Events had Priorities or where the csymbol avogadro
+    had been used.
     
   - The internalConsistency validator was incorrectly reporting that
     the an Event must have a listOfEventAssignments in a level 3 model.
@@ -95,8 +117,31 @@ STABLE RELEASE
   - The code that checked for consistent namespaces when adding one
     object to another was too restrictive.  This has been sorted.  Thanks
     to Chris Myers for reporting it.
+    
+  - Conversion between levels was inconsistent when it came to dealing
+    with rational stoichiometry.  This has been fixed.
+    
+  - The Perl bindings use of BigInt caused ActivePerl to crash on a
+    Windows system. A workaround to prevent this has been put in place.
 
 * Miscellaneous
+
+  - LibSBML class constructors currently throw exceptions rather than
+    create objects with invalid SBML namespace/level/version
+    information.  This could potential result in code crashing
+    when using one of the language bindings.  These have now been
+    rigorously tested and measures put in place to prevent such
+    crashes from happening.
+    
+  - SBase objects that occur in Level 3 package code need to keep
+    track of the namespace of the package to which they belong. However,
+    a conversion might alter the namespace; for example with layout
+    where the level 2 layout annotation has its own namespace.  
+    Functionality to determine and alter the namespace of an object 
+    has been added mimicing the approach used for tracking the core
+    sbml namespace of any object i.e. the namespaces of the containing 
+    document take precedence and the namespace stored on an actual object
+    is only considered if it does not belong to a document.
     
 
 * Configuration/build system changes
