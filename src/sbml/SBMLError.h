@@ -804,11 +804,11 @@ typedef enum
 , NoTimeSymbolInFunctionDef             = 99301 /*!< Use of <code>&lt;csymbol&gt;</code> for 'time' not allowed within FunctionDefinition objects. */
 , NoBodyInFunctionDef                   = 99302 /*!< There must be a <code>&lt;lambda&gt;</code> body within the <code>&lt;math&gt;</code> element of a FunctionDefinition object. */
 , DanglingUnitSIdRef                    = 99303 /*!< Units must refer to valid unit or unitDefinition. */
-, RDFMissingAboutTag                    = 99401 /*!< RDF missing the <about> tag. */
-, RDFEmptyAboutTag                      = 99402 /*!< RDF empty <about> tag. */
-, RDFAboutTagNotMetaid                  = 99403 /*!< RDF <about> tag is not metaid. */
-, RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory. */
-, RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory. */
+, RDFMissingAboutTag                    = 99401 /*!< RDF missing the <code>&lt;about&gt;</code> tag.. */
+, RDFEmptyAboutTag                      = 99402 /*!< RDF empty <code>&lt;about&gt;</code> tag.. */
+, RDFAboutTagNotMetaid                  = 99403 /*!< RDF <code>&lt;about&gt;</code> tag is not metaid.. */
+, RDFNotCompleteModelHistory            = 99404 /*!< RDF does not contain valid ModelHistory.. */
+, RDFNotModelHistory                    = 99405 /*!< RDF does not result in a ModelHistory.. */
 , InconsistentArgUnitsWarnings          = 99502
 , InconsistentPowerUnitsWarnings        = 99503
 , InconsistentExponUnitsWarnings        = 99504
