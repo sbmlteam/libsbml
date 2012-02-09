@@ -135,6 +135,7 @@ function copied = copyMatlabDir(orig_dir, target_dir)
     copyfile('testOutput.m', new_dir);
     copyfile('compareFiles.m', new_dir);
     copyfile('testIsSBMLModel.m', new_dir);
+    copyfile('testReadFlags.m', new_dir);
     
     % create test-data dir
     cd(new_dir);
