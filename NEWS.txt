@@ -155,6 +155,9 @@ STABLE RELEASE
     the marked-up text and produce plain-text documentation strings in
     the Python library.  Users can now use the standard Python 'help'
     function to obtain help as expected.
+    
+  - The StripPackageConverter was not working as expected. This has been
+    fixed.
 
 * Miscellaneous
 
