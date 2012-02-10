@@ -144,10 +144,14 @@ SBMLStripPackageConverter::convert()
 
   std::string pkgURI = 
     mDocument->getSBMLNamespaces()->getNamespaces()->getURI(packageToStrip);
-  if (conversion == true)
+  if (pkgURI.empty() == false)
   {
     // disabling the package will literally strip the pkg info
     mDocument->enablePackage(pkgURI, packageToStrip, false);
+
+    // check it is disabled
+    if (mDocument->isPkgEnabled(packageToStrip) == false)
+      conversion = true;
   }
 
 
