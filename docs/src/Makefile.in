@@ -143,12 +143,17 @@ distfiles =                                                  \
         common-text/sbmlerror-table.html                     \
         common-text/simple-ast.graffle                       \
         common-text/simple-ast.svg                           \
+        common-text/rules-additional-restrictions.html       \
+        common-text/rules-additional-restrictions.txt        \
+        common-text/rules-general-summary.html               \
+        common-text/rules-general-summary.txt                \
         common-text/species-boundarycondition.html           \
         common-text/species-hasonlysubstance.html            \
         common-text/string-functions-table.html              \
         common-text/unassigned-units-are-not-a-default.html  \
         common-text/unitid-syntax.html                       \
         common-text/unitkind-table.html                     \
+        common-text/unitkind-table.txt                      \
         common-text/warn-default-args-in-docs.html          \
         common-text/xmlid-syntax.html                       \
         csdocfilter.py                                      \
@@ -190,6 +195,7 @@ distfiles =                                                  \
         graphics/ftv2folderopen.png                         \
         graphics/hellojsp-screenshot.png                    \
         graphics/listof-illustration.jpg                    \
+        graphics/listof-illustration.txt                    \
         graphics/math-formula-precedence.jpg                \
         graphics/math-string-functions.jpg                  \
         graphics/official-sbml-supported-40.jpg             \
