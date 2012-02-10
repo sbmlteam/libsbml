@@ -332,6 +332,9 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     p = re.compile(r'<span.*?>(.+?)</span>', re.DOTALL|re.IGNORECASE)
     body = p.sub(r'\1', body)
 
+    p = re.compile(r'<div.*?>(.+?)</div>', re.DOTALL|re.IGNORECASE)
+    body = p.sub(r'\1', body)
+
     p = re.compile(r'<sub>(.+?)</sub>', re.DOTALL|re.IGNORECASE)
     body = p.sub(r'_\1', body)
 
