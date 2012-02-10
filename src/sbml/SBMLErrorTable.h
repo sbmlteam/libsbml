@@ -8289,7 +8289,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     "In order to follow the general syntax for a standard SBML RDF annotation "
     "the first element of RDF element must be a Description element with an "
-    "about attribute.",
+    "'about' attribute.",
     {"",
      "",
      "L2V2 Section 6.3",
@@ -8310,9 +8310,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,
-    "In order to follow the general syntax for a standard SBML RDF annotation "
-    "the about attribute of the Description element must be of the form "
-    "#<string>. ",
+    "In order to follow the general syntax for a standard SBML RDF annotation, "
+    "the 'about' attribute of the Description element must be of the form "
+    "#string. ",
     {"",
      "",
      "L2V2 Section 6.3",
@@ -8333,9 +8333,9 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,
-    "In order to follow the general syntax for a standard SBML RDF annotation "
-    "the about attribute of the Description element must be of the form "
-    "#<string> where the string component is equal to the value of the "
+    "In order to follow the general syntax for a standard SBML RDF annotation, "
+    "the 'about' attribute of the Description element must be of the form "
+    "#string, where the string component is equal to the value of the "
     "metaid attribute of the containing SBML element. ",
     {"",
      "",
@@ -8358,7 +8358,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,
     "LibSBML expected to read the annotation into a ModelHistory "
-    "object. Unfortunately some attributes were not present or correct "
+    "object. Unfortunately, some attributes were not present or correct "
     "and the resulting ModelHistory object will not correctly "
     "produce the annotation.  This functionality will be improved in "
     "later versions of libSBML. ",
@@ -8383,7 +8383,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,   
     LIBSBML_SEV_WARNING,
     "LibSBML expected to read the annotation into a ModelHistory "
-    "object. Unfortunately some attributes were not present or correct "
+    "object. Unfortunately, some attributes were not present or correct "
     "and the resulting ModelHistory object is NULL. Thus it will fail to "
     "produce the annotation.  This functionality will be improved in "
     "later versions of libSBML. ",
@@ -8458,7 +8458,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
     LIBSBML_SEV_WARNING,
-    "In situations when a mathematical expression contains literal numbers "
+    "In situations where a mathematical expression contains literal numbers "
     "or parameters whose units have not been declared, it is not possible "
     "to verify accurately the consistency of the units in the expression. "
   },
@@ -8475,7 +8475,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "In situations when a mathematical expression refers to time, the units "
+    "In situations where a mathematical expression refers to time, the units "
     "of time should be consistent with the global time units of the model. "
     "In models where the 'timeUnits' attribute has not been declared, libSBML "
     "does not yet have the functionality to verify accurately the consistency "
@@ -8494,7 +8494,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "In situations when a mathematical expression refers to extent, the units "
+    "In situations where a mathematical expression refers to extent, the units "
     "of extent should be consistent with the global extent units of the model. "
     "In models where the 'extentUnits' attribute has not been declared, libSBML "
     "does not yet have the functionality to verify accurately the consistency "
@@ -8513,7 +8513,7 @@ static const sbmlErrorTableEntry errorTable[] =
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_NOT_APPLICABLE,
     LIBSBML_SEV_WARNING,
-    "In situations when a mathematical expression refers to a compartment, "
+    "In situations where a mathematical expression refers to a compartment, "
     "species or parameter, it is necessary to know the units "
     "of the object to establish unit consistency. "
     "In models where the units of an object have not been declared, libSBML "
