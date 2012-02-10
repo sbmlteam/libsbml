@@ -18,18 +18,17 @@ STABLE RELEASE
     that was created was consisdered a valid object in the
     attributes and subelements that are required.
 
-  - It has been noted that unless the checkConsistency function
-    is called directly following a read it does not report all
-    potential errors.  Since users may wish to apply the
-    function to a model being constructed this seems to be
-    a disadvantage of the function.  However, as this function
-    has been in libSBML for many years it was decided not to alter
-    the functionality but to add a new function 'validateSBML' 
-    which when called from a document object will
-    force a write and read of the in memory object and report
-    validation errors for the object as written.  Thus all errors
-    will be reported with line numbers that would correspond
-    to the document if written out.
+  - It has been noted that unless the checkConsistency function is
+    called immediately after reading an SBML document, it does not
+    report all potential errors.  Since users may wish to apply the
+    function to a model being constructed this seems to be a
+    disadvantage of the function.  However, as this function has been
+    in libSBML for many years it was decided not to alter the
+    functionality but to add a new function 'validateSBML' which, when
+    called from a document object, will force a write and read of the
+    in memory object and report validation errors for the object as
+    written.  Thus, all errors will be reported with line numbers that
+    would correspond to the document if written out.
 
   - Conversion of a model containing FunctionDefinitions to L1
     is now supported.
@@ -150,7 +149,12 @@ STABLE RELEASE
   - The MathML infix converter now deals correctly with unary plus
     and times. 
     
-    
+  - The help text for classes and methods in the Python library were
+    previously unformatted, marked-up Doxygen input text, making the
+    help text unhelpful.  We wrote a new conversion program to process
+    the marked-up text and produce plain-text documentation strings in
+    the Python library.  Users can now use the standard Python 'help'
+    function to obtain help as expected.
 
 * Miscellaneous
 
