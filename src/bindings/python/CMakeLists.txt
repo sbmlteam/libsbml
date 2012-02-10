@@ -112,7 +112,15 @@ ADD_CUSTOM_COMMAND(
 			-I"${CMAKE_CURRENT_SOURCE_DIR}/../.."
 			-D"${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src"
 			"${CMAKE_CURRENT_SOURCE_DIR}/../swig/libsbml.i"
-			"${CMAKE_CURRENT_BINARY_DIR}/pydoc.i"
+			"${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
+    COMMAND "${PYTHON_EXECUTABLE}"
+	ARGS	"${CMAKE_CURRENT_SOURCE_DIR}/doc-converter/rewrite_pydoc.py"
+			-f "${CMAKE_CURRENT_BINARY_DIR}/pydoc-doxygen.i"
+			-o "${CMAKE_CURRENT_BINARY_DIR}/pydoc-normal.i"
+			-i ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/common-text
+			-g ${CMAKE_CURRENT_SOURCE_DIR}/../../../docs/src/graphics
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS    -E rename pydoc-doxygen.i pydoc.i
     COMMAND "${SWIG_EXECUTABLE}"
     ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
 			-I${CMAKE_CURRENT_SOURCE_DIR} 
@@ -124,6 +132,25 @@ ADD_CUSTOM_COMMAND(
 			${SWIG_EXTRA_ARGS}		 
 			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
 			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS    -E rename pydoc.i pydoc-doxygen.i
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS    -E rename libsbml.py libsbml-doxygen.py
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS    -E rename pydoc-normal.i pydoc.i
+    COMMAND "${SWIG_EXECUTABLE}"
+    ARGS	-I${CMAKE_CURRENT_SOURCE_DIR}/../swig/
+			-I${CMAKE_CURRENT_SOURCE_DIR} 
+			-I${CMAKE_CURRENT_BINARY_DIR} 
+			-I${CMAKE_SOURCE_DIR}/src
+			-I${CMAKE_SOURCE_DIR}/include
+			-c++
+			-python		
+			${SWIG_EXTRA_ARGS}		 
+			-o ${CMAKE_CURRENT_BINARY_DIR}/libsbml_wrap.cpp 
+			${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
+	COMMAND "${CMAKE_COMMAND}"
+	ARGS    -E rename pydoc.i pydoc-normal.i 
     MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/libsbml.i
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
 	        ${SWIG_DEPENDENCIES}
