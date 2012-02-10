@@ -51,18 +51,21 @@ thisdir = src/bindings/python
 # handled explicitly below.  However, to maintain some resemblance to the
 # other libSBML build organization, we still use the name `sources'.
 
-sources       = libsbml.py libsbml_wrap.cpp libsbml_wrap.h pydoc.i
-extra_sources =  libsbml.i \
-                 local.cpp \
-				 local.i \
-				 local-downcast-extension-layout.cpp \
-				 local-downcast-extension.cpp \
-				 local-downcast-namespaces-layout.cpp \
-				 local-downcast-namespaces.cpp \
-				 local-downcast-plugins-layout.cpp \
-				 local-downcast-plugins.cpp \
-				 local-downcast-packages-layout.cpp \
-				 local-downcast.cpp
+sources       = libsbml.py libsbml_wrap.cpp libsbml_wrap.h
+
+extra_sources = libsbml.i                            \
+                local.cpp                            \
+                local.i                              \
+                local-downcast-extension-layout.cpp  \
+                local-downcast-extension.cpp         \
+                local-downcast-namespaces-layout.cpp \
+                local-downcast-namespaces.cpp        \
+                local-downcast-plugins-layout.cpp    \
+                local-downcast-plugins.cpp           \
+                local-downcast-packages-layout.cpp   \
+                local-downcast.cpp                   \
+                pydoc-normal.i                       \
+                pydoc-doxygen.i
 
 # `libraries' is what we're building: a module for use with Python.
 # (The leading underscore in the name below is a Python convention.)
@@ -73,9 +76,7 @@ libraries = _libsbml.$(PYTHON_EXT)
 # of the libSBML distributions; only developers should need to regenerate
 # them.  The conditions for this are handled later below.
 
-swig_sources = ../swig/libsbml.h \
-	       ../swig/libsbml.i \
-	       local.i 
+swig_sources = ../swig/libsbml.h ../swig/libsbml.i local.i 
 
 ifdef USE_LAYOUT
   swig_sources += ../swig/layout-package.i
@@ -278,14 +279,29 @@ endif
 
 libsbml.py: libsbml_wrap.cpp
 
-pydoc.i: $(swig_sources) $(main_sources) ../swig/swigdoc.py $(wildcard ../swig/*.i)
-	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc.i
+pydoc-doxygen.i: $(swig_sources) $(main_sources) ../swig/swigdoc.py doc-converter/rewrite_pydoc.py $(wildcard ../swig/*.i)
+	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc-doxygen.i
 
-libsbml_wrap.cpp: pydoc.i $(swig_sources) $(main_sources) $(shell $(call check_layout))
+pydoc-normal.i: pydoc-doxygen.i
+	./doc-converter/rewrite_pydoc.py -f pydoc-doxygen.i -o pydoc-normal.i \
+		-i ../../../docs/src/common-text -g ../../../docs/src/graphics
+
+# Swig gets run twice, once with documentation strings whose format are
+# suitable for use within Python (e.g., for the 'help' command), and once
+# with documentation strings suitable for use with our Doxygen-based
+# document generation system in ../../../docs/src/.
+
+libsbml_wrap.cpp: pydoc-doxygen.i pydoc-normal.i $(swig_sources) $(main_sources) $(shell $(call check_layout))
 	@top_srcdir@/config/chk_swig_version.sh || exit
-	$(SWIG) $(SWIGFLAGS) \
-	        $(sort $(default_includes) $(INCLUDES)) \
+	mv pydoc-doxygen.i pydoc.i
+	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -python -o libsbml_wrap.cpp libsbml.i
+	mv pydoc.i pydoc-doxygen.i
+	mv libsbml.py libsbml-doxygen.py
+	mv pydoc-normal.i pydoc.i
+	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
+		-c++ -python -o libsbml_wrap.cpp libsbml.i
+	mv pydoc.i pydoc-normal.i
 	mv libsbml.py libsbml.pyc
 	echo 'from __future__ import generators' > libsbml.py
 	cat libsbml.pyc >> libsbml.py
