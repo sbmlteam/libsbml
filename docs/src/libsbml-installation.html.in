@@ -146,7 +146,7 @@ You may need to iterate between setting options and clicking the
 <p> Next, click on the <b>Generate</b> button.  This will cause CMake to
 create configuration files for the compilation environment you selected in
 the beginning (e.g., Visual Studio under Windows, or regular Unix makefiles
-under MacOS or Linux, and so on).  The files will be placed in the "build"
+under Mac&nbsp;OS or Linux, and so on).  The files will be placed in the "build"
 directory you indicated in the second line of the CMake GUI.
 
 <p> Now please proceed to Section 2.3, <a
@@ -270,7 +270,7 @@ options to <code>configure</code>.  These options are
 <nobr><code>--with-python</code></nobr>, <nobr><code>--with-matlab</code></nobr>,
 <nobr><code>--with-octave</code></nobr>, and <nobr><code>--with-ruby</code></nobr>, respectively.  As
 with other configure options discussed above, all of these accept an
-optional prefix argument; for example, on a MacOS 10.5 Intel-based system
+optional prefix argument; for example, on a Mac&nbsp;OS 10.5 Intel-based system
 with MATLAB version R2010a installed in its default location of
 <code>/Applications/MATLAB_R2010a.app</code>, the proper argument would be
 
@@ -366,10 +366,10 @@ specify the optional argument
 </pre></div>
 
 <p>
-By default, on MacOS 10.5, the libSBML option above will construct a
+By default, on Mac&nbsp;OS 10.5, the libSBML option above will construct a
 universal binary containing 32-bit PowerPC and 32-bit Intel x86 binaries;
-on MacOS&nbsp;10.6, this becomes 32-bit PowerPC, 32-bit x86, and 64-bit x86
-binaries.  If you want to build universal binaries with a different
+on Mac&nbsp;OS&nbsp;10.6, this becomes 32-bit PowerPC, 32-bit x86, and
+64-bit x86 binaries.  If you want to build universal binaries with a different
 combination of CPU architectures, then you can specify it as an optional
 argument to the <nobr><code>--enable-universal-binary</nobr></code> option.
 For example, universal binaries will be built with i386, ppc, x86_64 and
