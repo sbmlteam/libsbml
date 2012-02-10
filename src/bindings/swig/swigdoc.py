@@ -1020,6 +1020,8 @@ def rewriteDocstringForPython (docstring):
   docstring = docstring.replace(r'const std::string', 'string')
   docstring = docstring.replace(r'std::string', 'string')
   docstring = docstring.replace(r'NULL', 'None')
+  docstring = docstring.replace(r'@c true', '@c True')
+  docstring = docstring.replace(r'@c false', '@c False')
 
   # Also use Python syntax instead of "const XMLNode*" etc.
 
@@ -1139,7 +1141,7 @@ def processClassMethods(ostream, cclass):
           continue
 
         newdoc = ' This method has multiple variants that differ in the' + \
-                 ' arguments they accept.  Each is described separately' + \
+                 ' arguments\n they accept.  Each is described separately' + \
                  ' below.\n'
 
         for argVariant in cclass.methodVariants[m.name].values():
@@ -1200,11 +1202,11 @@ def formatMethodDocString (methodname, classname, docstring, isInternal, args=No
     output += classname + '::'
 
   if language == 'perl':
-    output += '%s\n\n%s%s\n\n\n'   % (methodname, docstring, post)
+    output += '%s\n\n%s%s\n\n\n'   % (methodname, docstring.strip(), post)
   elif language == 'python':
-    output += '%s "\n%s%s";\n\n\n' % (methodname, docstring, post)
+    output += '%s "\n %s%s\n";\n\n\n' % (methodname, docstring.strip(), post)
   else:
-    output += '%s%s "\n%s%s";\n\n\n' % (methodname, args, docstring, post)
+    output += '%s%s "\n%s%s\n";\n\n\n' % (methodname, args, docstring.strip(), post)
 
   return output
 
@@ -1226,22 +1228,22 @@ def generateFunctionDocString (methodname, docstring, args, isInternal):
 def generateClassDocString (docstring, classname):
   if language == 'java':
     pre = '%typemap(javaimports) '
-    docstring = rewriteDocstringForJava(docstring)    
-    output = pre + classname + ' "\n' + docstring + '"\n\n'
+    docstring = rewriteDocstringForJava(docstring).strip()
+    output = pre + classname + ' "\n' + docstring + '\n"\n\n\n'
 
   elif language == 'csharp':
     pre = '%typemap(csimports) '
-    docstring = rewriteDocstringForCSharp(docstring)    
-    output = pre + classname + ' "\n using System;\n using System.Runtime.InteropServices;\n\n' + docstring + '"\n\n'    
+    docstring = rewriteDocstringForCSharp(docstring).strip()
+    output = pre + classname + ' "\n using System;\n using System.Runtime.InteropServices;\n\n' + docstring + '\n"\n\n\n'
 
   elif language == 'python':
     pre = '%feature("docstring") '
-    docstring = rewriteDocstringForPython(docstring)
-    output = pre + classname + ' "\n' + docstring + '"\n\n'
+    docstring = rewriteDocstringForPython(docstring).strip()
+    output = pre + classname + ' "\n ' + docstring + '\n";\n\n\n'
 
   elif language == 'perl':
-    docstring = rewriteDocstringForPerl(docstring)
-    output = '=back\n\n=head2 ' + classname + '\n\n' + docstring + '\n\n=over\n\n'
+    docstring = rewriteDocstringForPerl(docstring).strip()
+    output = '=back\n\n=head2 ' + classname + '\n\n' + docstring + '\n\n=over\n\n\n'
 
   return output
 
