@@ -134,6 +134,11 @@ SBMLStripPackageConverter::convert()
     return LIBSBML_INVALID_ATTRIBUTE_VALUE;
   }
 
+  if (mDocument->isPkgEnabled(packageToStrip) == false)
+  {
+    return LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN;
+  }
+
 // TO DO - SK Comment
   // pass control to package code to see if needs to do more 
   // additional boolean flag is to do with preseving info

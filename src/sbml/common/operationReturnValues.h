@@ -207,6 +207,17 @@ typedef enum
     /*!< Conversion with the given properties is not yet available. 
      */
 
+  , LIBSBML_CONV_PKG_CONSIDERED_UNKNOWN = -34
+    /*!< The package that is being stripped is not an enabled
+     * package but considered by libSBML to be an unrecognized
+     * package.  This error is typically returned when calling
+     * the StripPackage converter requesting that a package
+     * for which code is not available be stripped. Thus the
+     * containing document will not be altered as the elements 
+     * and attributes for this package are stored as unknown package 
+     * information and will be written out as such. 
+     */
+
 } OperationReturnValues_t;
 
 LIBSBML_CPP_NAMESPACE_END
