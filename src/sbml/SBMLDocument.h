@@ -140,47 +140,35 @@
  *
  * These methods have slightly different relevance depending on whether a
  * model is created programmaticaly from scratch, or whether it is read in
- * from a file or data stream.  The following table summarizes the possible
+ * from a file or data stream.  The following list summarizes the possible
  * scenarios.
  *
- * <center>
- * <table border="0" class="text-table width80 normal-font alt-row-colors">
- *  <tr style="background: lightgray; font-size: 14px;">
- *      <th align="left" width="200">Scenario</th>
- *      <th align="left">Relevant methods</th>
- *  </tr>
- * <tr><td>Creating a model from scratch</td>
- * <td>Before writing out the model:<ol>
+ * <em>Scenario 1: Creating a model from scratch</em>.  Before writing out
+ * the model, 
+ *
+ * @li Call SBMLDocument::checkInternalConsistency(), then inquire about
+ * the results by calling SBMLDocument::getNumErrors()
+ *
+ * @li Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean
+ * onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure
+ * which checks will be performed by SBMLDocument::checkConsistency()
+ *
+ * @li Call SBMLDocument::checkConsistency(), then inquire about the results by
+ * calling SBMLDocument::getNumErrors()
+ *
+ * <em>Scenario 2: Reading a model from a file or data stream.</em> After
+ * reading the model,
  * 
- * <li style="margin-bottom: 0.5em">Call
- * SBMLDocument::checkInternalConsistency(), then inquire about the results by
- * calling SBMLDocument::getNumErrors()</li>
+ * @li Basic consistency checks will have been performed automatically by
+ * libSBML upon reading the content, so you only need to inquire about the
+ * results by using SBMLDocument::getNumErrors()
  * 
- * <li style="margin-bottom: 0.5em">
- * Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure which checks
- * will be performed by SBMLDocument::checkConsistency()</li>
+ * @li Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean
+ * onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure
+ * which checks are performed by SBMLDocument::checkConsistency()
  * 
- * <li>Call SBMLDocument::checkConsistency(), then inquire about the results by
- * calling SBMLDocument::getNumErrors()</li>
- * </ol>
- * </td>
- * <tr><td>Reading a model from a file or data stream</td>
- * <td>After reading the model:<ol>
- * 
- * <li style="margin-bottom: 0.5em">Basic consistency checks will have been
- * performed automatically by libSBML upon reading the content&mdash;only need
- * to inquire about the results by using SBMLDocument::getNumErrors()</li>
- * 
- * <li style="margin-bottom: 0.5em">
- * Call @if java SBMLDocument::setConsistencyChecks(int categ, boolean onoff) @else SBMLDocument::setConsistencyChecks() @endif to configure which
- * checks are performed by SBMLDocument::checkConsistency()</li>
- * 
- * <li>Call SBMLDocument::checkConsistency(), then inquire about the results
- * by calling SBMLDocument::getNumErrors()</li>
- * </ol>
- * </td>
- * </table>
- * </center>
+ * @li Call SBMLDocument::checkConsistency(), then inquire about the results
+ * by calling SBMLDocument::getNumErrors()
  *
  * @if clike An example of using the consistency-checking
  * and validation facilities is provided in this manual in the
