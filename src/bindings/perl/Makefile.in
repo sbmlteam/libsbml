@@ -72,18 +72,20 @@ sources = LibSBML.i LibSBML.pod LibSBML_wrap.cxx LibSBML.pm
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles =                        \
-  $(sources)                       \
-  CMakeLists.txt                   \
-  LibSBML.i                        \
-  LibSBML.pm                       \
-  LibSBML.pod                      \
-  LibSBML.txt                      \
-  LibSBML_wrap.cxx                 \
-  list_of_fix.i                    \
-  list_get_fix.i                   \
-  local.cpp                        \
-  local.i                          \
+distfiles =                            \
+  $(sources)                           \
+  CMakeLists.txt                       \
+  LibSBML.i                            \
+  LibSBML.pm                           \
+  LibSBML.pod                          \
+  LibSBML.txt                          \
+  LibSBML_wrap.cxx                     \
+  list_of_fix.i                        \
+  list_get_fix.i                       \
+  local.cpp                            \
+  local.i                              \
+  local-layout.i                       \
+  local-packages.i                     \
   local-downcast-extension-layout.cpp  \
   local-downcast-extension.cpp         \
   local-downcast-namespaces-layout.cpp \
@@ -92,51 +94,51 @@ distfiles =                        \
   local-downcast-plugins.cpp           \
   local-downcast-packages-layout.cpp   \
   local-downcast.cpp                   \
-  Makefile.in                      \
-  Makefile.PL.in                   \
-  MANIFEST                         \
-  README.txt                       \
-  t/01__LoadModule.t                 \
-  t/02__CreateDocument.t             \
-  t/02__ReadFromFile.t               \
-  t/02__ReadFromFileL3.t             \
-  t/02__WriteToFile.t                \
-  t/02__WriteToFileL3.t              \
-  t/03__ChangeValues.t               \
-  t/03__DowncastRule.t               \
-  t/03__DowncastSBase.t              \
-  t/03__DowncastSBaseL3.t            \
-  t/04__ListOf.t                     \
-  t/04__ListOfL3.t                   \
-  t/05__AlgebraicRule.t              \
-  t/05__AssignmentRule.t             \
-  t/05__AssignmentRuleL3.t           \
-  t/05__Compartment.t                \
-  t/05__CompartmentL3.t              \
-  t/05__CompartmentVolumeRule.t      \
-  t/05__EventAssignment.t            \
-  t/05__Event.t                      \
-  t/05__EventL3.t                    \
-  t/05__Formula.t                    \
-  t/05__FunctionDefinition.t         \
-  t/05__KineticLaw.t                 \
-  t/05__KineticLawL3.t               \
-  t/05__Model.t                      \
-  t/05__ModelL3.t                    \
-  t/05__ModifierSpeciesReference.t   \
-  t/05__ParameterRule.t              \
-  t/05__Parameter.t                  \
-  t/05__ParameterL3.t                \
-  t/05__RateRule.t                   \
-  t/05__SBMLDocument.t               \
-  t/05__SBMLDocumentVerbose.t        \
-  t/06__TestReadSBML.t               \
-  t/06__TestReadSBMLL3.t             \
-  t/06__TestWriteSBMLL3.t            \
-  t/06__TestWriteSBML.t              \
-  t/07__TestCVTerms.t                \
-  t/07__TestModelHistory.t           \
-  t/07__TestRDFAnnotation2.t         \
+  Makefile.in                          \
+  Makefile.PL.in                       \
+  MANIFEST                             \
+  README.txt                           \
+  t/01__LoadModule.t                   \
+  t/02__CreateDocument.t               \
+  t/02__ReadFromFile.t                 \
+  t/02__ReadFromFileL3.t               \
+  t/02__WriteToFile.t                  \
+  t/02__WriteToFileL3.t                \
+  t/03__ChangeValues.t                 \
+  t/03__DowncastRule.t                 \
+  t/03__DowncastSBase.t                \
+  t/03__DowncastSBaseL3.t              \
+  t/04__ListOf.t                       \
+  t/04__ListOfL3.t                     \
+  t/05__AlgebraicRule.t                \
+  t/05__AssignmentRule.t               \
+  t/05__AssignmentRuleL3.t             \
+  t/05__Compartment.t                  \
+  t/05__CompartmentL3.t                \
+  t/05__CompartmentVolumeRule.t        \
+  t/05__EventAssignment.t              \
+  t/05__Event.t                        \
+  t/05__EventL3.t                      \
+  t/05__Formula.t                      \
+  t/05__FunctionDefinition.t           \
+  t/05__KineticLaw.t                   \
+  t/05__KineticLawL3.t                 \
+  t/05__Model.t                        \
+  t/05__ModelL3.t                      \
+  t/05__ModifierSpeciesReference.t     \
+  t/05__ParameterRule.t                \
+  t/05__Parameter.t                    \
+  t/05__ParameterL3.t                  \
+  t/05__RateRule.t                     \
+  t/05__SBMLDocument.t                 \
+  t/05__SBMLDocumentVerbose.t          \
+  t/06__TestReadSBML.t                 \
+  t/06__TestReadSBMLL3.t               \
+  t/06__TestWriteSBMLL3.t              \
+  t/06__TestWriteSBML.t                \
+  t/07__TestCVTerms.t                  \
+  t/07__TestModelHistory.t             \
+  t/07__TestRDFAnnotation2.t           \
   t/l1v1-branch.xml
 
 extra_distclean = Makefile-perl Makefile-perl.old
