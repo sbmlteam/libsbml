@@ -1,5 +1,5 @@
 /**
- * @file    local.i
+ * @file    local-normal.i
  * @brief   Python-specific SWIG directives for wrapping libSBML API
  * @author  Ben Bornstein
  * @author  Ben Kovitz
@@ -569,26 +569,25 @@ SBMLReader::readSBML(const std::string&)
 
     This method is identical to readSBMLFromFile().
 
-    If the file named @p filename does not exist or its content is not
+    If the file named 'filename' does not exist or its content is not
     valid SBML, one or more errors will be logged with the SBMLDocument
     object returned by this method.  Callers can use the methods on
     SBMLDocument such as SBMLDocument.getNumErrors() and
-    @if clike SBMLDocument.getError() @endif@if python SBMLDocument.getError() @endif@if java SBMLDocument.getError() @endif to get the errors.  The object returned by
-    @if clike SBMLDocument.getError() @endif@if python SBMLDocument.getError() @endif@if java SBMLDocument.getError() @endif is an SBMLError object, and it has methods to
+    SBMLDocument.getError() to get the errors.  The object returned by
+    SBMLDocument.getError() is an SBMLError object, and it has methods to
     get the error code, category, and severity level of the problem, as
     well as a textual description of the problem.  The possible severity
     levels range from informational messages to fatal errors; see the
     documentation for SBMLError for more information.
 
-    If the file @p filename could not be read, the file-reading error will
-    appear first.  The error code (a value drawn from the enumeration
-    #XMLErrorCode_t) can provide a clue about what happened.  For example,
-    a file might be unreadable (either because it does not actually exist
-    or because the user does not have the necessary access priviledges to
-    read it) or some sort of file operation error may have been reported
-    by the underlying operating system.  Callers can check for these
-    situations using a program fragment such as the following:
-     @verbatim
+    If the file 'filename' could not be read, the file-reading error will
+    appear first.  The error code can provide a clue about what happened.
+    For example, a file might be unreadable (either because it does not
+    actually exist or because the user does not have the necessary access
+    priviledges to read it) or some sort of file operation error may have
+    been reported by the underlying operating system.  Callers can check
+    for these situations using a program fragment such as the following:
+
      reader = SBMLReader()
      doc    = reader.readSBML(filename)
 
@@ -599,27 +598,33 @@ SBMLReader::readSBML(const std::string&)
          # Handle case of other file error here.
        else:
          # Handle other error cases here.
-     @endverbatim
 
-    If the given filename ends with the suffix @c '.gz' (for example, @c
-    'myfile.xml.gz'), the file is assumed to be compressed in @em gzip
-    format and will be automatically decompressed upon reading.
-    Similarly, if the given filename ends with @c '.zip' or @c '.bz2', the
-    file is assumed to be compressed in @em zip or @em bzip2 format
-    (respectively).  Files whose names lack these suffixes will be read
-    uncompressed.  Note that if the file is in @em zip format but the
-    archive contains more than one file, only the first file in the
-    archive will be read and the rest ignored.
+    If the given filename ends with the suffix \".gz\" (for example,
+    \"myfile.xml.gz\"), the file is assumed to be compressed in gzip format
+    and will be automatically decompressed upon reading.  Similarly, if the
+    given filename ends with \".zip\" or \".bz2\", the file is assumed to be
+    compressed in zip or bzip2 format (respectively).  Files whose names
+    lack these suffixes will be read uncompressed.  Note that if the file
+    is in zip format but the archive contains more than one file, only the
+    first file in the archive will be read and the rest ignored.
 
-    @htmlinclude note-reading-zipped-files.html
+    To read a gzip/zip file, libSBML needs to be configured and linked with
+    the zlib library at compile time.  It also needs to be linked with the
+    bzip2 library to read files in bzip2 format.  (Both of these are the
+    default configurations for libSBML.)  Errors about unreadable files
+    will be logged if a compressed filename is given and libSBML was not
+    linked with the corresponding required library.
 
-    @param filename the name or full pathname of the file to be read.
+    Parameter 'filename is the name or full pathname of the file to be
+    read.
 
-    @return a pointer to the SBMLDocument created from the SBML content.
+    Returns a pointer to the SBMLDocument created from the SBML content.
 
-    @see SBMLError
+    See also SBMLError.
 
-    @note LibSBML versions 2.x and later versions behave differently in
+    Note:
+
+    LibSBML versions 2.x and later versions behave differently in
     error handling in several respects.  One difference is how early some
     errors are caught and whether libSBML continues processing a file in
     the face of some early errors.  In general, libSBML versions after 2.x
@@ -649,30 +654,29 @@ SBMLReader::readSBMLFromFile(const std::string&)
 
     Reads an SBML document from a file.
 
-    This method is identical to readSBML().
+    This method is identical to readSBMLFromFile().
 
-    If the file named @p filename does not exist or its content is not
+    If the file named 'filename' does not exist or its content is not
     valid SBML, one or more errors will be logged with the SBMLDocument
     object returned by this method.  Callers can use the methods on
     SBMLDocument such as SBMLDocument.getNumErrors() and
-    @if clike SBMLDocument.getError() @endif@if python SBMLDocument.getError() @endif@if java SBMLDocument.getError() @endif to get the errors.  The object returned by
-    @if clike SBMLDocument.getError() @endif@if python SBMLDocument.getError() @endif@if java SBMLDocument.getError() @endif is an SBMLError object, and it has methods to
+    SBMLDocument.getError() to get the errors.  The object returned by
+    SBMLDocument.getError() is an SBMLError object, and it has methods to
     get the error code, category, and severity level of the problem, as
     well as a textual description of the problem.  The possible severity
     levels range from informational messages to fatal errors; see the
     documentation for SBMLError for more information.
 
-    If the file @p filename could not be read, the file-reading error will
-    appear first.  The error code (a value drawn from the enumeration
-    #XMLErrorCode_t) can provide a clue about what happened.  For example,
-    a file might be unreadable (either because it does not actually exist
-    or because the user does not have the necessary access priviledges to
-    read it) or some sort of file operation error may have been reported
-    by the underlying operating system.  Callers can check for these
-    situations using a program fragment such as the following:
-     @verbatim
+    If the file 'filename' could not be read, the file-reading error will
+    appear first.  The error code can provide a clue about what happened.
+    For example, a file might be unreadable (either because it does not
+    actually exist or because the user does not have the necessary access
+    priviledges to read it) or some sort of file operation error may have
+    been reported by the underlying operating system.  Callers can check
+    for these situations using a program fragment such as the following:
+
      reader = SBMLReader()
-     doc    = reader.readSBMLFromFile(filename)
+     doc    = reader.readSBML(filename)
 
      if doc.getNumErrors() > 0:
        if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
@@ -681,27 +685,33 @@ SBMLReader::readSBMLFromFile(const std::string&)
          # Handle case of other file error here.
        else:
          # Handle other error cases here.
-     @endverbatim
 
-    If the given filename ends with the suffix @c '.gz' (for example, @c
-    'myfile.xml.gz'), the file is assumed to be compressed in @em gzip
-    format and will be automatically decompressed upon reading.
-    Similarly, if the given filename ends with @c '.zip' or @c '.bz2', the
-    file is assumed to be compressed in @em zip or @em bzip2 format
-    (respectively).  Files whose names lack these suffixes will be read
-    uncompressed.  Note that if the file is in @em zip format but the
-    archive contains more than one file, only the first file in the
-    archive will be read and the rest ignored.
+    If the given filename ends with the suffix \".gz\" (for example,
+    \"myfile.xml.gz\"), the file is assumed to be compressed in gzip format
+    and will be automatically decompressed upon reading.  Similarly, if the
+    given filename ends with \".zip\" or \".bz2\", the file is assumed to be
+    compressed in zip or bzip2 format (respectively).  Files whose names
+    lack these suffixes will be read uncompressed.  Note that if the file
+    is in zip format but the archive contains more than one file, only the
+    first file in the archive will be read and the rest ignored.
 
-    @htmlinclude note-reading-zipped-files.html
+    To read a gzip/zip file, libSBML needs to be configured and linked with
+    the zlib library at compile time.  It also needs to be linked with the
+    bzip2 library to read files in bzip2 format.  (Both of these are the
+    default configurations for libSBML.)  Errors about unreadable files
+    will be logged if a compressed filename is given and libSBML was not
+    linked with the corresponding required library.
 
-    @param filename the name or full pathname of the file to be read.
+    Parameter 'filename is the name or full pathname of the file to be
+    read.
 
-    @return a pointer to the SBMLDocument created from the SBML content.
+    Returns a pointer to the SBMLDocument created from the SBML content.
 
-    @see SBMLError
+    See also SBMLError.
 
-    @note LibSBML versions 2.x and later versions behave differently in
+    Note:
+
+    LibSBML versions 2.x and later versions behave differently in
     error handling in several respects.  One difference is how early some
     errors are caught and whether libSBML continues processing a file in
     the face of some early errors.  In general, libSBML versions after 2.x
@@ -742,27 +752,29 @@ def readSBML(*args):
 
   Reads an SBML document from a file.
 
-  If the file named @p filename does not exist or its content is not
+  This method is identical to readSBMLFromFile().
+
+  If the file named 'filename' does not exist or its content is not
   valid SBML, one or more errors will be logged with the SBMLDocument
   object returned by this method.  Callers can use the methods on
   SBMLDocument such as SBMLDocument.getNumErrors() and
-  @if clike SBMLDocument.getError() @endif@if python SBMLDocument.getError() @endif@if java SBMLDocument.getError() @endif to get the errors.  The object returned by
-  @if clike SBMLDocument.getError() @endif@if python SBMLDocument.getError() @endif@if java SBMLDocument.getError() @endif is an SBMLError object, and it has methods to
+  SBMLDocument.getError() to get the errors.  The object returned by
+  SBMLDocument.getError() is an SBMLError object, and it has methods to
   get the error code, category, and severity level of the problem, as
   well as a textual description of the problem.  The possible severity
   levels range from informational messages to fatal errors; see the
   documentation for SBMLError for more information.
 
-  If the file @p filename could not be read, the file-reading error will
-  appear first.  The error code (a value drawn from the enumeration
-  #XMLErrorCode_t) can provide a clue about what happened.  For example,
-  a file might be unreadable (either because it does not actually exist
-  or because the user does not have the necessary access priviledges to
-  read it) or some sort of file operation error may have been reported
-  by the underlying operating system.  Callers can check for these
-  situations using a program fragment such as the following:
-   @verbatim
-   doc    = readSBML(filename)
+  If the file 'filename' could not be read, the file-reading error will
+  appear first.  The error code can provide a clue about what happened.
+  For example, a file might be unreadable (either because it does not
+  actually exist or because the user does not have the necessary access
+  priviledges to read it) or some sort of file operation error may have
+  been reported by the underlying operating system.  Callers can check
+  for these situations using a program fragment such as the following:
+
+   reader = SBMLReader()
+   doc    = reader.readSBML(filename)
 
    if doc.getNumErrors() > 0:
      if doc.getError(0).getErrorId() == libsbml.XMLFileUnreadable:
@@ -771,28 +783,33 @@ def readSBML(*args):
        # Handle case of other file error here.
      else:
        # Handle other error cases here.
-     
-   @endverbatim
 
-  If the given filename ends with the suffix @c '.gz' (for example, @c
-  'myfile.xml.gz'), the file is assumed to be compressed in @em gzip
-  format and will be automatically decompressed upon reading.
-  Similarly, if the given filename ends with @c '.zip' or @c '.bz2', the
-  file is assumed to be compressed in @em zip or @em bzip2 format
-  (respectively).  Files whose names lack these suffixes will be read
-  uncompressed.  Note that if the file is in @em zip format but the
-  archive contains more than one file, only the first file in the
-  archive will be read and the rest ignored.
+  If the given filename ends with the suffix \".gz\" (for example,
+  \"myfile.xml.gz\"), the file is assumed to be compressed in gzip format
+  and will be automatically decompressed upon reading.  Similarly, if the
+  given filename ends with \".zip\" or \".bz2\", the file is assumed to be
+  compressed in zip or bzip2 format (respectively).  Files whose names
+  lack these suffixes will be read uncompressed.  Note that if the file
+  is in zip format but the archive contains more than one file, only the
+  first file in the archive will be read and the rest ignored.
 
-  @htmlinclude note-reading-zipped-files.html
+  To read a gzip/zip file, libSBML needs to be configured and linked with
+  the zlib library at compile time.  It also needs to be linked with the
+  bzip2 library to read files in bzip2 format.  (Both of these are the
+  default configurations for libSBML.)  Errors about unreadable files
+  will be logged if a compressed filename is given and libSBML was not
+  linked with the corresponding required library.
 
-  @param filename the name or full pathname of the file to be read.
+  Parameter 'filename is the name or full pathname of the file to be
+  read.
 
-  @return a pointer to the SBMLDocument created from the SBML content.
+  Returns a pointer to the SBMLDocument created from the SBML content.
 
-  @see SBMLError
+  See also SBMLError.
 
-  @note LibSBML versions 2.x and later versions behave differently in
+  Note:
+
+  LibSBML versions 2.x and later versions behave differently in
   error handling in several respects.  One difference is how early some
   errors are caught and whether libSBML continues processing a file in
   the face of some early errors.  In general, libSBML versions after 2.x
@@ -842,7 +859,7 @@ SBMLNamespaces::getSupportedNamespaces
     Get the List of supported SBMLNamespaces for this 
     version of LibSBML.
 
-    @return the supported list of SBMLNamespaces.
+    Returns the supported list of SBMLNamespaces.
           
 
     """
@@ -871,7 +888,7 @@ ModelHistory::getListCreators
     Get the ModelCreatorList of ModelCreator objects in this 
     ModelHistory.
 
-    @return the ModelCreatorList for this ModelHistory.
+    Returns the ModelCreatorList for this ModelHistory.
           
 
     """
@@ -900,7 +917,7 @@ ModelHistory::getListModifiedDates
 
     Get the DateList of Date objects in this ModelHistory.
 
-    @return the DateList for this ModelHistory.
+    Returns the DateList for this ModelHistory.
           
 
     """
@@ -928,7 +945,7 @@ SBase::getCVTerms
 
     Get the CVTermList of CVTerm objects in this SBase.
 
-    @return the CVTermList for this SBase.
+    Returns the CVTermList for this SBase.
 
 
     """
