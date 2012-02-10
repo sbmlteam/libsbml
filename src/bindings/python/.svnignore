@@ -12,6 +12,8 @@ setup.py
 build
 _libsbml.so
 pydoc.i
+pydoc-normal.i
+pydoc-doxygen.i
 libsbml.py
 libsbml.pyc
 libsbml_wrap.cpp
