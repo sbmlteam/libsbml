@@ -443,7 +443,7 @@ c-manual $(c-manual): doxygen-config-c.txt $(core-sources)
 	$(call postprocess_doxygen,$(c-manual))
 
 ifdef USE_PYTHON
-python-sources   = ../../src/bindings/python/libsbml.py
+python-sources   = ../../src/bindings/python/libsbml-doxygen.py
 python-subst-dir = python-substitutions
 
 python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
