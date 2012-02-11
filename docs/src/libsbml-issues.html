@@ -12,7 +12,8 @@ possible pitfalls in using libSBML:
 <li><a href="#conv-l1v1">Conversion to/from SBML Level 1 Version 1 is not supported</a></li>
 <li><a href="#line-numbers">Line/column numbers are not always accurate</a></li>
 <li><a href="#libsbml_wrap">Sometimes, the libsbml_wrap.cpp files are not recreated</a></li>
-<li><a href="#matlab-linux">Some versions of MATLAB use libstdc++ that conflicts</a></li>
+<li><a href="#matlab-linux">Some versions of MATLAB include a conflicting version of libstdc++</a></li>
+<li><a href="#doxygen-version">Only version 1.6.3 of Doxygen is currently supported</a></li>
 </ul>
 
 
@@ -264,7 +265,7 @@ libSBML, only the libSBML developers and those are are venturing into
 developing new features in libSBML.
 
 
-<h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB use libstdc++ that conflicts</a></h2>
+<h2><a class="anchor" name="matlab-linux"/>Some versions of MATLAB include a conflicting version of libstdc++</a></h2>
   
 Some versions of MATLAB produced for Linux include a version of the stdc++
 library that conflicts with the version provided by the operating
@@ -291,3 +292,26 @@ setenv LD_PRELOAD /path/to/system/libstdc++</code>
 for <i>csh</i>-based shells.
 
 <p>
+
+
+<h2><a class="anchor" name="doxygen-version"/>Only version 1.6.3 of Doxygen is currently supported</a></h2>
+
+The libSBML API documentation is produced using <a target="_blank"
+href="http://www.doxygen.org">Doxygen</a>.  However, at this time, only
+version 1.6.3 of Doxygen is supported.  Note in particular that later
+versions such as the 1.7.x series <strong>will not work</strong>, and will
+result in errors such as the following, during a <code>make doc</code>:
+
+<div class="fragment"><pre class="fragment">
+sed -is 's/libSBML MATLAB Public API //' ../formatted/cpp-api/tree.html; sed
+-is 's/libSBML Octave Public API //' ../formatted/cpp-api/tree.html; fi
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+sed: ../formatted/cpp-api/tree.html: No such file or directory
+</pre></div>
+
+
