@@ -54,6 +54,7 @@ thisdir = src/bindings/python
 sources       = libsbml.py libsbml_wrap.cpp libsbml_wrap.h
 
 extra_sources = libsbml.i                            \
+                libsbml-doxygen.py                   \
                 local.cpp                            \
                 local.i                              \
                 local-downcast-extension-layout.cpp  \
