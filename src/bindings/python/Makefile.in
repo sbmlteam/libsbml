@@ -53,7 +53,7 @@ thisdir = src/bindings/python
 
 sources       = libsbml.py libsbml_wrap.cpp libsbml_wrap.h
 
-extra_sources = libsbml.i              \
+extra_sources = libsbml.i                        \
             libsbml-doxygen.py                   \
             local.cpp                            \
             local.i                              \
@@ -166,9 +166,9 @@ distfiles =                                \
             local-layout.i                 \
             setup.cfg                      \
             setup.py.in                    \
-            doc-converter/argparse.py      \            
+            doc-converter/argparse.py      \
             doc-converter/rewrite_pydoc.py \
-            doc-converter/README.txt       \            
+            doc-converter/README.txt       \
             $(sources)                     \
             $(extra_sources)               \
             $(python_test_files)
@@ -188,8 +188,8 @@ extra_distclean = libsbml.pyc setup.py $(installed_files_list)
 # to be listed in the following 'otherdirs' variable.
 
 otherdirs = ../../sbml/common ../../sbml/util ../../sbml/xml \
-	    ../../sbml/math ../../sbml/validator ../../sbml/validator/constraints \
-	    ../../sbml/units ../../sbml/annotation ../../sbml/compress \
+        ../../sbml/math ../../sbml/validator ../../sbml/validator/constraints \
+        ../../sbml/units ../../sbml/annotation ../../sbml/compress \
             ../../sbml/ ../../sbml/extension ../../sbml/conversion
 
 ifdef USE_LAYOUT
@@ -207,7 +207,7 @@ objfiles  = libsbml_wrap.lo $(wildcard $(addsuffix /*.lo,$(otherdirs)))
 ifeq "$(HOST_TYPE)" "darwin"
   export MACOSX_DEPLOYMENT_TARGET=$(MACOS_VERSION)
 %.so: $(objfiles)
-	$(call link_dl_lib,$@)
+    $(call link_dl_lib,$@)
 endif
 
 # The libSBML Python API library on MacOS X has to be built as a "bundle"
@@ -239,14 +239,14 @@ ifdef USE_PYTHON
   all: Makefile libsbml.py libsbml_wrap.cpp $(libraries)
 else
   all:
-	@echo
-	@echo "Reconfigure libSBML using --with-python to enable Python support.";
-	@echo
-	@exit 1
+    @echo
+    @echo "Reconfigure libSBML using --with-python to enable Python support.";
+    @echo
+    @exit 1
 endif
 
 setup.py: setup.py.in
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/setup.py
+    cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/setup.py
 
 # Rummage through ../swig/libsbml.i to figure out the core libSBML files that
 # are our dependencies.
@@ -284,11 +284,11 @@ endif
 libsbml.py: libsbml_wrap.cpp
 
 pydoc-doxygen.i: $(swig_sources) $(main_sources) ../swig/swigdoc.py doc-converter/rewrite_pydoc.py $(wildcard ../swig/*.i)
-	../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc-doxygen.i
+    ../swig/swigdoc.py python -I../.. -D../../../docs/src ../swig/libsbml.i pydoc-doxygen.i
 
 pydoc-normal.i: pydoc-doxygen.i
-	./doc-converter/rewrite_pydoc.py -f pydoc-doxygen.i -o pydoc-normal.i \
-		-i ../../../docs/src/common-text -g ../../../docs/src/graphics
+    ./doc-converter/rewrite_pydoc.py -f pydoc-doxygen.i -o pydoc-normal.i \
+        -i ../../../docs/src/common-text -g ../../../docs/src/graphics
 
 # Swig gets run twice, once with documentation strings whose format are
 # suitable for use within Python (e.g., for the 'help' command), and once
@@ -296,25 +296,25 @@ pydoc-normal.i: pydoc-doxygen.i
 # document generation system in ../../../docs/src/.
 
 libsbml_wrap.cpp: pydoc-doxygen.i pydoc-normal.i $(swig_sources) $(main_sources) $(shell $(call check_layout))
-	@top_srcdir@/config/chk_swig_version.sh || exit
-	mv pydoc-doxygen.i pydoc.i
-	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
-		-c++ -python -o libsbml_wrap.cpp libsbml.i
-	mv pydoc.i pydoc-doxygen.i
-	mv libsbml.py libsbml-doxygen.py
-	mv pydoc-normal.i pydoc.i
-	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
-		-c++ -python -o libsbml_wrap.cpp libsbml.i
-	mv pydoc.i pydoc-normal.i
-	mv libsbml.py libsbml.pyc
-	echo 'from __future__ import generators' > libsbml.py
-	cat libsbml.pyc >> libsbml.py
-	if $(SWIG) -version | grep -q '1.3.39' ; then \
-	  mv libsbml_wrap.cpp libsbml_wrap.cpp.org; \
-	  sed -e \
-	  's/PyBytes_AsStringAndSize(str, \&cstr, \&len);/PyBytes_AsStringAndSize(str, \&cstr, (Py_ssize_t*)\&len);/' \
-	  libsbml_wrap.cpp.org > libsbml_wrap.cpp; \
-	fi 	
+    @top_srcdir@/config/chk_swig_version.sh || exit
+    mv pydoc-doxygen.i pydoc.i
+    $(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
+        -c++ -python -o libsbml_wrap.cpp libsbml.i
+    mv pydoc.i pydoc-doxygen.i
+    mv libsbml.py libsbml-doxygen.py
+    mv pydoc-normal.i pydoc.i
+    $(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
+        -c++ -python -o libsbml_wrap.cpp libsbml.i
+    mv pydoc.i pydoc-normal.i
+    mv libsbml.py libsbml.pyc
+    echo 'from __future__ import generators' > libsbml.py
+    cat libsbml.pyc >> libsbml.py
+    if $(SWIG) -version | grep -q '1.3.39' ; then \
+      mv libsbml_wrap.cpp libsbml_wrap.cpp.org; \
+      sed -e \
+      's/PyBytes_AsStringAndSize(str, \&cstr, \&len);/PyBytes_AsStringAndSize(str, \&cstr, (Py_ssize_t*)\&len);/' \
+      libsbml_wrap.cpp.org > libsbml_wrap.cpp; \
+    fi     
 
 
 # -----------------------------------------------------------------------------
@@ -324,14 +324,14 @@ libsbml_wrap.cpp: pydoc-doxygen.i pydoc-normal.i $(swig_sources) $(main_sources)
 test_subdir_path = test/sbml:test/xml:test/annotation:test/math:test/layout
 
 check: $(libraries) $(shell $(call check_layout))
-	@echo
-	@echo
-	@echo Running Tests in $(thisdir)
-	@echo -----------------------------------------------------------------
-	$(call libsbmlrun, env PYTHONPATH=.:$(test_subdir_path) $(PYTHON) ./test.py)
-	@echo -----------------------------------------------------------------
-	@echo All tests passed
-	@echo
+    @echo
+    @echo
+    @echo Running Tests in $(thisdir)
+    @echo -----------------------------------------------------------------
+    $(call libsbmlrun, env PYTHONPATH=.:$(test_subdir_path) $(PYTHON) ./test.py)
+    @echo -----------------------------------------------------------------
+    @echo All tests passed
+    @echo
 
 #
 # 'make test-files' will reconstruct the test files.  This is not made part
@@ -339,7 +339,7 @@ check: $(libraries) $(shell $(call check_layout))
 #
 
 test-files:
-	$(call test_translator,p,xml math annotation sbml,test)
+    $(call test_translator,p,xml math annotation sbml,test)
 
 
 # -----------------------------------------------------------------------------
@@ -374,24 +374,24 @@ endif
 
 install: setup.py create-build-dir
 ifeq "$(HOST_TYPE)" "darwin"
-	env MACOSX_DEPLOYMENT_TARGET='' $(PYTHON) $(install-cmd)
+    env MACOSX_DEPLOYMENT_TARGET='' $(PYTHON) $(install-cmd)
 else
-	$(PYTHON) $(install-cmd)
+    $(PYTHON) $(install-cmd)
 endif
 
 create-build-dir: $(libraries)
-	mkdir -p build build/libsbml
-	echo "libsbml" > build/libsbml.pth
-	cp $(libraries)  build/libsbml
-	cp libsbml.py    build/libsbml/__init__.py
+    mkdir -p build build/libsbml
+    echo "libsbml" > build/libsbml.pth
+    cp $(libraries)  build/libsbml
+    cp libsbml.py    build/libsbml/__init__.py
 
 installcheck:
 
 uninstall: 
-	for i in `cat $(installed_files_list)`; do \
-	  d=`dirname $$i`; f=`echo $$i | sed 's,.*/,,'`; \
-	  find $$d -name "$$f" -o -name "libsbml.pth" | xargs -t /bin/rm -f ; \
-	done ; \
+    for i in `cat $(installed_files_list)`; do \
+      d=`dirname $$i`; f=`echo $$i | sed 's,.*/,,'`; \
+      find $$d -name "$$f" -o -name "libsbml.pth" | xargs -t /bin/rm -f ; \
+    done ; \
 
 
 # -----------------------------------------------------------------------------
