@@ -84,21 +84,18 @@
  * problem occurred in the XML content.  The values can be retrieved using
  * the methods XMLError::getLine() and XMLError::getColumn().  We say "near
  * where the problem occurred", because many factors affect how accurate
- * the line/column information ultimately is.  For example, different XML
- * parsers have different conventions for which line and column number they
- * report for a particular problem (which in turn makes a difference when a
- * problem involves an opening XML tag on one line and a closing tag on
- * another line).  In some situations, some parsers report invalid line
- * and/or column numbers altogether.  If this occurs, libSBML sets the line
- * and/or column number in the XMLError object to the the value of the
- * maximum unsigned long integer representable on the platform where
- * libSBML is running.  (This is equal to the constant named
- * <code>ULONG_MAX</code> in C and C++.)  The probability that a true line
- * or column number in an SBML model would equal this value is vanishingly
- * small; thus, if an application encounters these values in an XMLError
- * object, it can assume no valid line/column number could be provided by
- * libSBML in that situation.
- *
+ * the line/column information ultimately is.  For example, sometimes, the
+ * underlying XML parsers can only report such information for the parent
+ * XML element where an error occurs, and not for the specific point where
+ * the problem occurs.  In other situations, some parsers report invalid
+ * line and/or column numbers altogether.  If this occurs, libSBML sets the
+ * line and/or column number in the XMLError object to either
+ * <code>0</code> or the value of the maximum unsigned long integer
+ * representable on the platform where libSBML is running.  The probability
+ * that a true line or column number in an SBML model would equal this
+ * value is vanishingly small; thus, if an application encounters these
+ * values in an XMLError object, it can assume no valid line/column number
+ * could be provided by libSBML in that situation.
  * 
  * @if clike
  * <h3><a class="anchor" name="XMLErrorCode_t">XMLErrorCode_t</a></h3>
@@ -733,17 +730,15 @@ public:
    *
    * We say "near where the problem occurred", because many factors affect
    * how accurate the line/column information ultimately is.  For example,
-   * different XML parsers have different conventions for which line and
-   * column number they report for a particular problem (which in turn
-   * makes a difference when a problem involves an opening XML tag on one
-   * line and a closing tag on another line).  In some situations, some
+   * sometimes, the underlying XML parsers can only report such information
+   * for the parent XML element where an error occurs, and not for the
+   * specific point where the problem occurs.  In other situations, some
    * parsers report invalid line and/or column numbers altogether.  If this
-   * occurs, the line and/or column number in the XMLError object will be
-   * set to the the value of the maximum unsigned integer declared for SBML.
-   * (We use this rather than a machine specific constant as it guarantees
-   * uniformity.)  The
-   * probability that a true line or column number in an SBML model would
-   * equal this value is vanishingly small; thus, if an application
+   * occurs, libSBML sets the line and/or column number in the XMLError
+   * object to either <code>0</code> or the value of the maximum unsigned
+   * long integer representable on the platform where libSBML is running.
+   * The probability that a true line or column number in an SBML model
+   * would equal this value is vanishingly small; thus, if an application
    * encounters these values in an XMLError object, it can assume no valid
    * line/column number could be provided by libSBML in that situation.
    *
@@ -760,17 +755,15 @@ public:
    *
    * We say "near where the problem occurred", because many factors affect
    * how accurate the line/column information ultimately is.  For example,
-   * different XML parsers have different conventions for which line and
-   * column number they report for a particular problem (which in turn
-   * makes a difference when a problem involves an opening XML tag on one
-   * line and a closing tag on another line).  In some situations, some
+   * sometimes, the underlying XML parsers can only report such information
+   * for the parent XML element where an error occurs, and not for the
+   * specific point where the problem occurs.  In other situations, some
    * parsers report invalid line and/or column numbers altogether.  If this
-   * occurs, the line and/or column number in the XMLError object will be
-   * set to the the value of the maximum unsigned integer declared for SBML.
-   * (We use this rather than a machine specific constant as it guarantees
-   * uniformity.)  The
-   * probability that a true line or column number in an SBML model would
-   * equal this value is vanishingly small; thus, if an application
+   * occurs, libSBML sets the line and/or column number in the XMLError
+   * object to either <code>0</code> or the value of the maximum unsigned
+   * long integer representable on the platform where libSBML is running.
+   * The probability that a true line or column number in an SBML model
+   * would equal this value is vanishingly small; thus, if an application
    * encounters these values in an XMLError object, it can assume no valid
    * line/column number could be provided by libSBML in that situation.
    *

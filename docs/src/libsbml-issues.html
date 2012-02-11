@@ -211,13 +211,13 @@ the parent XML element where an error occurs, and not for the specific
 point where the problem occurs.  In other situations, some parsers report
 invalid line and/or column numbers altogether.  If this occurs and libSBML
 can detect that it has occurred, the line and/or column number reported by
-<code>SBMLError</code> and <code>XMLError</code> will be set to the value
-of the maximum unsigned long integer representable on the platform where
-libSBML is running.  The probability that a <em>true</em> line or column
-number in a real-life SBML model would equal this value is vanishingly
-small; thus, if an application encounters these values in an XMLError
-object, it can assume no valid line/column number could be provided by
-libSBML in that situation.
+<code>SBMLError</code> and <code>XMLError</code> will be set to either
+<code>0</code> or the value of the maximum unsigned long integer
+representable on the platform where libSBML is running.  The probability
+that a <em>true</em> line or column number in a real-life SBML model would
+equal this value is vanishingly small; thus, if an application encounters
+these values in an XMLError object, it can assume no valid line/column
+number could be provided by libSBML in that situation.
 
 
 <h2><a class="anchor" name="libsbml_wrap"/>Sometimes, the libsbml_wrap.cpp files are not recreated</a></h2>
