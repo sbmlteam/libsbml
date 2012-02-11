@@ -66,7 +66,7 @@ octave-manual = $(formatted)/octave-api
 # so doesn't require doxygen).
 
 ifneq "$(USE_DOXYGEN)" ""
-  docs = $(cpp-manual) $(c-manual)
+  docs = $(cpp-manual)  # $(c-manual) Skip C because it's so out of date.
 else
   docs = 
 endif
@@ -152,62 +152,62 @@ distfiles =                                                  \
         common-text/string-functions-table.html              \
         common-text/unassigned-units-are-not-a-default.html  \
         common-text/unitid-syntax.html                       \
-        common-text/unitkind-table.html                     \
-        common-text/unitkind-table.txt                      \
-        common-text/warn-default-args-in-docs.html          \
-        common-text/xmlid-syntax.html                       \
-        csdocfilter.py                                      \
-        doxygen-base.css                                    \
-        doxygen-config-c.txt.cmake                          \
-        doxygen-config-c.txt.in                             \
-        doxygen-config-common.txt                           \
-        doxygen-config-common.txt.cmake                     \
-        doxygen-config-cpp.txt.cmake                        \
-        doxygen-config-cpp.txt.in                           \
-        doxygen-config-csharp.txt.in                        \
-        doxygen-config-matlab.txt.in                        \
-        doxygen-config-octave.txt.in                        \
-        doxygen-config-perl.txt.cmake                       \
-        doxygen-config-perl.txt.in                          \
-        doxygen-config-python.txt.cmake                     \
-        doxygen-config-python.txt.in                        \
-        doxygen-footer.html                                 \
-        doxygen-header.html                                 \
-        doxygen-tabs.css                                    \
-        doxygen-tree.css                                    \
-        examples/readmath.cpp                               \
-        examples/readSBML.java                              \
-        examples/simpleread.cpp                             \
-        force-serif-font-off.html                           \
-        force-serif-font-on.html                            \
-        graphics/astnode-illustration.jpg                   \
-        graphics/built-in-units.jpg                         \
-        graphics/cmake-configure-macos.png                  \
-        graphics/cmake-configure-windows.png                \
-        graphics/cmake-empty-screenshot.png                 \
-        graphics/cmake-empty-windows.png                    \
-        graphics/cmake-options-red-windows.png              \
-        graphics/cmake-options-red.png                      \
-        graphics/compartment-size.jpg                       \
-        graphics/enzymatic-reaction.jpg                     \
-        graphics/ftv2doc.png                                \
-        graphics/ftv2folderclosed.png                       \
-        graphics/ftv2folderopen.png                         \
-        graphics/hellojsp-screenshot.png                    \
-        graphics/listof-illustration.jpg                    \
-        graphics/listof-illustration.txt                    \
-        graphics/math-formula-precedence.jpg                \
-        graphics/math-string-functions.jpg                  \
-        graphics/official-sbml-supported-40.jpg             \
-        graphics/right-arrow.gif                            \
-        graphics/sbase-species.eps                          \
-        graphics/sbase-species.pdf                          \
-        graphics/sbase-species.vthought                     \
-        graphics/sbase.eps                                  \
-        graphics/sbase.pdf                                  \
-        graphics/sbase.vtt                                  \
-        graphics/solution-explorer-windows.png              \
-        graphics/species-boundarycondition.jpg              \
+        common-text/unitkind-table.html                      \
+        common-text/unitkind-table.txt                       \
+        common-text/warn-default-args-in-docs.html           \
+        common-text/xmlid-syntax.html                        \
+        csdocfilter.py                                       \
+        doxygen-base.css                                     \
+        doxygen-config-c.txt.cmake                           \
+        doxygen-config-c.txt.in                              \
+        doxygen-config-common.txt                            \
+        doxygen-config-common.txt.cmake                      \
+        doxygen-config-cpp.txt.cmake                         \
+        doxygen-config-cpp.txt.in                            \
+        doxygen-config-csharp.txt.in                         \
+        doxygen-config-matlab.txt.in                         \
+        doxygen-config-octave.txt.in                         \
+        doxygen-config-perl.txt.cmake                        \
+        doxygen-config-perl.txt.in                           \
+        doxygen-config-python.txt.cmake                      \
+        doxygen-config-python.txt.in                         \
+        doxygen-footer.html                                  \
+        doxygen-header.html                                  \
+        doxygen-tabs.css                                     \
+        doxygen-tree.css                                     \
+        examples/readmath.cpp                                \
+        examples/readSBML.java                               \
+        examples/simpleread.cpp                              \
+        force-serif-font-off.html                            \
+        force-serif-font-on.html                             \
+        graphics/astnode-illustration.jpg                    \
+        graphics/built-in-units.jpg                          \
+        graphics/cmake-configure-macos.png                   \
+        graphics/cmake-configure-windows.png                 \
+        graphics/cmake-empty-screenshot.png                  \
+        graphics/cmake-empty-windows.png                     \
+        graphics/cmake-options-red-windows.png               \
+        graphics/cmake-options-red.png                       \
+        graphics/compartment-size.jpg                        \
+        graphics/enzymatic-reaction.jpg                      \
+        graphics/ftv2doc.png                                 \
+        graphics/ftv2folderclosed.png                        \
+        graphics/ftv2folderopen.png                          \
+        graphics/hellojsp-screenshot.png                     \
+        graphics/listof-illustration.jpg                     \
+        graphics/listof-illustration.txt                     \
+        graphics/math-formula-precedence.jpg                 \
+        graphics/math-string-functions.jpg                   \
+        graphics/official-sbml-supported-40.jpg              \
+        graphics/right-arrow.gif                             \
+        graphics/sbase-species.eps                           \
+        graphics/sbase-species.pdf                           \
+        graphics/sbase-species.vthought                      \
+        graphics/sbase.eps                                   \
+        graphics/sbase.pdf                                   \
+        graphics/sbase.vtt                                   \
+        graphics/solution-explorer-windows.png               \
+        graphics/species-boundarycondition.jpg               \
         graphics/species-hasonlysubstance.jpg                \
         graphics/species.eps                                 \
         graphics/species.pdf                                 \
@@ -248,8 +248,10 @@ distfiles =                                                  \
         libsbml-csharp-math.txt                              \
         libsbml-csharp-reading-files.txt                     \
         libsbml-example.txt                                  \
+        libsbml-extension-support-classes.txt                \
         libsbml-features.html                                \
         libsbml-features.txt                                 \
+        libsbml-howto-implement-extension.txt                \
         libsbml-installation.html.in                         \
         libsbml-installation.txt                             \
         libsbml-issues.html                                  \
@@ -281,6 +283,21 @@ distfiles =                                                  \
         libsbml-uninstallation.txt                           \
         plain-font-off.html                                  \
         plain-font-on.html                                   \
+        python-substitutions/ASTNodeList.py                  \
+        python-substitutions/CVTermList.py                   \
+        python-substitutions/DateList.py                     \
+        python-substitutions/ISBMLExtensionNamespaces.py     \
+        python-substitutions/libsbml.py                      \
+        python-substitutions/ModelCreatorList.py             \
+        python-substitutions/SBaseExtensionPoint.py          \
+        python-substitutions/SBaseList.py                    \
+        python-substitutions/SBMLExtension.py                \
+        python-substitutions/SBMLNamespacesList.py           \
+        python-substitutions/SBMLTransforms.py               \
+        python-substitutions/string.py                       \
+        python-substitutions/SwigPyIterator.py               \
+        python-substitutions/XMLInputStream.py               \
+        python-substitutions/XMLOutputStream.py              \
         pythondocfilter.py                                   \
         pythondocpreprocessor.py                             \
         search.css                                           \
