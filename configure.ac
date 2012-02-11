@@ -208,7 +208,7 @@ CONFIG_PROG_SWIG(2.0.0)
 dnl Make sure to test doxygen *after* java, because there's a dependency
 dnl in CONFIG_PROG_DOXYGEN on whether --with-java was also given.
 
-CONFIG_PROG_DOXYGEN(1.6.3)
+CONFIG_PROG_DOXYGEN(1.6.3,1.6.3)
 
 dnl Do this one last, because some earlier config options may end up changing
 dnl things like CFLAGS, which in turn affects the libtool script that the
@@ -532,7 +532,7 @@ echo "  Installation \$prefix          = $prefix"
 
 print_flag "libcheck"  	$with_libcheck	$with_check
 print_flag "SWIG"   	$with_swig	$SWIG
-print_flag "doxygen"    $with_doxygen   $with_doxygen
+print_flag "doxygen"    $with_doxygen   $DOXYGEN
 print_flag "Java"   	$with_java	$JAVA
 print_flag "Python" 	$with_python	$PYTHON
 print_flag "Perl"   	$with_perl	$PERL

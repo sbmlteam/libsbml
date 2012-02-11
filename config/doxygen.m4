@@ -52,44 +52,61 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
       with_doxygen=`echo $with_doxygen | sed -e 's,\(.*\)/$,\1,g'`
   
       AC_PATH_PROG([DOXYGEN], [doxygen], [no], 
-                   [$with_doxygen/bin $with_doxygen/Contents/Resources $with_doxygen])
+                   [$with_doxygen/bin $with_doxygen/Contents/Resources $with_doxygen/.. $with_doxygen])
       AC_SUBST(DOXYGEN_CONFIG_OPT,[=$with_doxygen])
     else
       dnl Nothing supplied -- look for doxygen on the user's path.
       AC_PATH_PROG([DOXYGEN], [doxygen])
     fi
-  fi
-  
-  if test -n "$DOXYGEN" -a "$DOXYGEN" != "no"; then
+
+    if test -z "$DOXYGEN" -o "$DOXYGEN" = "no"; then
+      AC_MSG_ERROR([Could not find 'doxygen' executable for Doxygen.])
+    fi
+
     dnl We've found a copy of doxygen.
     dnl Check the version if required.
 
-    m4_ifvaln([$1], [
+    DOXYGEN_MIN_VERSION=$1
+    DOXYGEN_MAX_VERSION=$2
+
+    m4_ifvaln([$DOXYGEN_MIN_VERSION], [
       AC_MSG_CHECKING($DOXYGEN version >= $1)
 
-      changequote(<<, >>)
-
-      rx=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
-      ry=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
-      rz=`echo $1 | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
-	
       version=`"$DOXYGEN" --version | tr -d '\015'`
+
+      changequote(<<, >>)
 
       dx=`echo $version | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
       dy=`echo $version | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
       dz=`echo $version | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
 
+      doxygen_version=`printf "%02d%02d%02d" $dx $dy $dz`
+
+      minx=`echo $DOXYGEN_MIN_VERSION | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      miny=`echo $DOXYGEN_MIN_VERSION | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
+      minz=`echo $DOXYGEN_MIN_VERSION | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
+	
+      min_version=`printf "%d%02d%02d" $minx $miny $minz`
+
+      maxx=`echo $DOXYGEN_MAX_VERSION | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\1/'`
+      maxy=`echo $DOXYGEN_MAX_VERSION | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\2/'`
+      maxz=`echo $DOXYGEN_MAX_VERSION | sed -e 's/\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\).*/\3/'`
+	
+      max_version=`printf "%d%02d%02d" $maxx $maxy $maxz`
+
       changequote([, ])
 
-      if test $dx -gt $rx \
-         || (test $dx -eq $rx -a $dy -gt $ry) \
-         || (test $dx -eq $rx -a $dy -eq $ry -a $dz -ge $rz); then
+      if test $doxygen_version -gt $max_version; then
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR([Doxygen version cannot be greater than $DOXYGEN_MAX_VERSION, but found version $dx.$dy.$dz.])
+      fi
+
+      if test $doxygen_version -ge $min_version; then
         AC_MSG_RESULT(yes (found $dx.$dy.$dz))
       else
         AC_MSG_RESULT(no)
-        AC_MSG_ERROR([Need DOXYGEN version $1, but only found version $dx.$dy.$dz.])
+        AC_MSG_ERROR([Doxygen version must be at least $DOXYGEN_MIN_VERSION, but found only version $dx.$dy.$dz.])
       fi
-
     ])
 
     AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])
