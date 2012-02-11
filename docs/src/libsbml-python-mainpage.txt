@@ -10,6 +10,11 @@ manipulating the Systems Biology Markup Language (SBML).
 
 @htmlinclude libsbml-conversion-warnings.html
 
+The libSBML Python library makes much of this API documentation accessible
+using the Python interactive help system.  As an example, try typing
+<code>help(SBMLDocument)</code> to a Python interpreter (after having
+imported the libsbml library).
+
 @htmlinclude plain-font-on.html
 @section main-general General information
 - @subpage libsbml-installation
