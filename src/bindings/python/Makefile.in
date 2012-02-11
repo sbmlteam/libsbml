@@ -53,20 +53,20 @@ thisdir = src/bindings/python
 
 sources       = libsbml.py libsbml_wrap.cpp libsbml_wrap.h
 
-extra_sources = libsbml.i                            \
-                libsbml-doxygen.py                   \
-                local.cpp                            \
-                local.i                              \
-                local-downcast-extension-layout.cpp  \
-                local-downcast-extension.cpp         \
-                local-downcast-namespaces-layout.cpp \
-                local-downcast-namespaces.cpp        \
-                local-downcast-plugins-layout.cpp    \
-                local-downcast-plugins.cpp           \
-                local-downcast-packages-layout.cpp   \
-                local-downcast.cpp                   \
-                pydoc-normal.i                       \
-                pydoc-doxygen.i
+extra_sources = libsbml.i              \
+            libsbml-doxygen.py                   \
+            local.cpp                            \
+            local.i                              \
+            local-downcast-extension-layout.cpp  \
+            local-downcast-extension.cpp         \
+            local-downcast-namespaces-layout.cpp \
+            local-downcast-namespaces.cpp        \
+            local-downcast-plugins-layout.cpp    \
+            local-downcast-plugins.cpp           \
+            local-downcast-packages-layout.cpp   \
+            local-downcast.cpp                   \
+            pydoc-normal.i                       \
+            pydoc-doxygen.i
 
 # `libraries' is what we're building: a module for use with Python.
 # (The leading underscore in the name below is a Python convention.)
