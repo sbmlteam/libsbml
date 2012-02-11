@@ -193,6 +193,8 @@ public:
   void add (const SBMLError& error);
 
 
+  /** @cond doxygen-cpp-only */
+
   /**
    * Adds (copies) the SBMLErrors in the given SBMLError list to this
    * SBMLErrorLog.
@@ -201,6 +203,7 @@ public:
    */
   void add (const std::list<SBMLError>& errors);
 
+
   /**
    * Adds (copies) the SBMLErrors in the given SBMLError vector to this
    * SBMLErrorLog.
@@ -208,6 +211,9 @@ public:
    * @param errors vector, a vector of SBMLError to be added to the log.
    */
   void add (const std::vector<SBMLError>& errors);
+
+  /** @endcond */
+
 
   /**
    * Removes an error having errorId from the SBMLError list.
