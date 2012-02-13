@@ -66,7 +66,7 @@ matlab_sources =                      \
         mexopts-R2007.sh              \
         mexopts-R2008.sh              \
         mexopts-R2009-R2010.sh        \
-	test.xml                      
+        test.xml                      
 
 compiled_sources = TranslateSBML.c \
 	 OutputSBML.c
@@ -83,7 +83,7 @@ subdirs = test
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = Makefile.in CMakeLists.txt FindOctave.cmake
+distfiles = Makefile.in CMakeLists.txt FindOctave.cmake buildLibSBMLOctave.m
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
