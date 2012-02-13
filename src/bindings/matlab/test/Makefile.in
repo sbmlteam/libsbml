@@ -54,6 +54,7 @@ distfiles =                  \
         testBinding.m        \
         testBinding.m        \
         testIsSBMLModel.m    \
+        testReadFromFile1.m  \
         testReadFromFile2.m  \
         testReadFromFile3.m  \
         testReadFromFile4.m  \
