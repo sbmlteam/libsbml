@@ -67,6 +67,7 @@ distfiles =                      \
         TranslateSBML.m          \
         buildSBML.m              \
         isSBML_Model.m           \
+        installSBML.m            \
         isoctave.m               \
         matlab-tags-regexp.txt   \
         mexopts-R2007.sh         \
