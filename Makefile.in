@@ -64,6 +64,7 @@ examples =                                                          \
   examples/c/addModelHistory.c                                      \
   examples/c/appendAnnotation.c                                     \
   examples/c/convertSBML.c                                          \
+  examples/c/createExampleSBML.c                                    \
   examples/c/drawMath.c                                             \
   examples/c/echoSBML.c                                             \
   examples/c/evaluateMath.c                                         \
@@ -113,6 +114,7 @@ examples =                                                          \
   examples/csharp/addingEvidenceCodes_2.cs                          \
   examples/csharp/addModelHistory.cs                                \
   examples/csharp/appendAnnotation.cs                               \
+  examples/csharp/callExternalValidator.cs                          \
   examples/csharp/convertSBML.cs                                    \
   examples/csharp/createExampleSBML.cs                              \
   examples/csharp/echoSBML.cs                                       \
@@ -155,6 +157,7 @@ examples =                                                          \
   examples/java/validateSBML.java                                   \
   examples/layout/Makefile.in                                       \
   examples/layout/addLayout.cpp                                     \
+  examples/layout/convertLayout.cpp                                 \
   examples/layout/example1.cpp                                      \
   examples/layout/example1-L3.cpp                                   \
   examples/layout/example1.java                                     \
