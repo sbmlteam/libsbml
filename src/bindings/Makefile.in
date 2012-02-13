@@ -76,17 +76,18 @@ else
   subdirs = java matlab octave python perl ruby csharp
 endif
 
-swig_extras =    \
-  swig/layout-package.h  \
-  swig/layout-package.i  \
-  swig/libsbml.h \
-  swig/libsbml.i \
+swig_extras =             \
+  swig/layout-package.h   \
+  swig/layout-package.i   \
+  swig/libsbml.h          \
+  swig/libsbml.i          \
   swig/libsbml-packages.h \
   swig/libsbml-packages.i \
-  swig/swigdoc.py \
-  swig/ListWrapper.h \
-  swig/OStream.cpp \
-  swig/OStream.h \
+  swig/swigdoc.py         \
+  swig/ListWrapper.h      \
+  swig/OStream.cpp        \
+  swig/OStream.h          \
+  swig/std_set.i          \
   CMakeLists.txt
   
 
