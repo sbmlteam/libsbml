@@ -7,4 +7,6 @@ include
 TAGS
 CTAGS
 libsbml.pc
+libsbml-packages.h
+libsbml-packages.i
 *.o
