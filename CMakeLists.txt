@@ -7,17 +7,17 @@
 # This file is part of libSBML.  Please visit http://sbml.org for more
 # information about SBML, and the latest version of libSBML.
 #
-# Copyright (C) 2009-2012 jointly by the following organizations: 
+# Copyright (C) 2009-2012 jointly by the following organizations:
 #     1. California Institute of Technology, Pasadena, CA, USA
 #     2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
-#  
+#
 # Copyright (C) 2006-2008 by the California Institute of Technology,
-#     Pasadena, CA, USA 
-#  
-# Copyright (C) 2002-2005 jointly by the following organizations: 
+#     Pasadena, CA, USA
+#
+# Copyright (C) 2002-2005 jointly by the following organizations:
 #     1. California Institute of Technology, Pasadena, CA, USA
 #     2. Japan Science and Technology Agency, Japan
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation.  A copy of the license agreement is provided
@@ -61,11 +61,11 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
     list(GET VersionString 0 LIBSBML_VERSION_MAJOR )
     list(GET VersionString 1 LIBSBML_VERSION_MINOR )
     list(GET VersionString 2 LIBSBML_VERSION_PATCH )
-    
+
     if(${versionLength} GREATER 3)
         list(GET VersionString 3 LIBSBML_VERSION_RELEASE )
-    endif() 
-    
+    endif()
+
 endif()
 
 set(LIBSBML_VERSION_NUMERIC 50000)
@@ -78,7 +78,7 @@ configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/docs/src/common-text/libsbml-version.html
 )
 
-# add make dist and make check target as they are already familiar for 
+# add make dist and make check target as they are already familiar for
 # everyone using the gnumake build
 add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 add_custom_target(check COMMAND ${CMAKE_MAKE_PROGRAM} test)
@@ -109,7 +109,7 @@ set(CPACK_SOURCE_IGNORE_FILES "${CMAKE_CURRENT_BINARY_DIR};/.svn/;/.libs/;/.deps
 
 if(UNIX)
     set(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
-    set(CPACK_SET_DESTDIR "ON") 
+    set(CPACK_SET_DESTDIR "ON")
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -165,18 +165,18 @@ mark_as_advanced(LIBSBML_USE_STRICT_INCLUDES)
 
 
 # When allocation of memory fails or the libSBML C API is unable to open
-# a file, libSBML can exit the current process. By default this behavior 
-# is disabled. 
+# a file, libSBML can exit the current process. By default this behavior
+# is disabled.
 #
 option (EXIT_ON_ERROR "Call exit(-1) in case of allocation or file error." OFF)
 mark_as_advanced(EXIT_ON_ERROR)
 
-# Use the version number in the shared library. 
+# Use the version number in the shared library.
 #
 option (LIBSBML_SHARED_VERSION "Build the libsbml shared library with version information" ON)
 mark_as_advanced(LIBSBML_SHARED_VERSION)
 
-# Enable the generation of unit tests. If enabled, all test runners 
+# Enable the generation of unit tests. If enabled, all test runners
 # will be created and can be run with "make test" or ctest.
 # This won't work in Visual Studio 2003, so we disable this option there.
 #
@@ -197,7 +197,7 @@ option(WITH_DOXYGEN  "Generate documentation for libSBML using Doxygen."  OFF )
 
 # Re-generate the swig bindings? This really should be on by default
 # otherwise one might have the wrong wrapper code without support for
-# the libsbml packages one wants. 
+# the libsbml packages one wants.
 option(WITH_SWIG     "Regenerate SWIG-based language bindings."  ON )
 
 # Set build type default.
@@ -206,7 +206,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING
      CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel.")
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-  "Choose the build type. The options are: None (CMAKE_CXX_FLAGS or 
+  "Choose the build type. The options are: None (CMAKE_CXX_FLAGS or
   CMAKE_C_FLAGS are used), Debug, Release, RelWithDebInfo, MinSizeRel." FORCE)
 endif()
 
@@ -254,28 +254,28 @@ set(LIBSBML_XML_LIBRARY_INCLUDE)
 set(LIBSBML_XML_LIBRARY_LIBS)
 
 if(WITH_EXPAT)
-    find_library(LIBEXPAT_LIBRARY 
+    find_library(LIBEXPAT_LIBRARY
         NAMES libexpat.lib expat
-        PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
+        PATHS /usr/lib /usr/local/lib
+              ${CMAKE_SOURCE_DIR}
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the Expat library."
                 )
-    
+
     find_path(LIBEXPAT_INCLUDE_DIR
         NAMES expat.h
-        PATHS /usr/include /usr/local/include 
-              ${CMAKE_SOURCE_DIR}/include 
+        PATHS /usr/include /usr/local/include
+              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the Expat include files."
-              )     
+              )
 
     add_definitions( -DUSE_EXPAT )
 
     set(LIBSBML_XML_LIBRARY "expat")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${LIBEXPAT_INCLUDE_DIR})
     set(LIBSBML_XML_LIBRARY_LIBS ${LIBEXPAT_LIBRARY})
-    
+
     if(NOT EXISTS "${LIBEXPAT_INCLUDE_DIR}/expat.h")
         message(FATAL_ERROR "The include directory specified for Expat appears to be invalid.  It should contain the file expat.h, but it does not.")
     endif()
@@ -288,23 +288,23 @@ endif(WITH_EXPAT)
 #
 
 if(WITH_LIBXML)
-    find_library(LIBXML_LIBRARY 
+    find_library(LIBXML_LIBRARY
         NAMES libxml2.lib xml2
-        PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
+        PATHS /usr/lib /usr/local/lib
+              ${CMAKE_SOURCE_DIR}
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the libxml2 library."
                 )
-    
+
     find_path(LIBXML_INCLUDE_DIR
-        NAMES libxml/parser.h 
-        PATHS /usr/include /usr/local/include 
+        NAMES libxml/parser.h
+        PATHS /usr/include /usr/local/include
               /usr/include/libxml2
               /usr/local/include/libxml2
-              ${CMAKE_SOURCE_DIR}/include 
+              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the libxml2 include files."
-              )     
+              )
 
     add_definitions( -DUSE_LIBXML )
 
@@ -325,23 +325,23 @@ endif(WITH_LIBXML)
 
 if(WITH_XERCES)
     add_definitions( -DUSE_XERCES )
-    find_library(XERCES_LIBRARY 
+    find_library(XERCES_LIBRARY
         NAMES xerces-c_3.lib xerces-c
-        PATHS /usr/lib /usr/local/lib 
-              ${CMAKE_SOURCE_DIR} 
+        PATHS /usr/lib /usr/local/lib
+              ${CMAKE_SOURCE_DIR}
               ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the Xerces library."
                 )
-    
+
     find_path(XERCES_INCLUDE_DIR
-        NAMES xercesc/parsers/XercesDOMParser.hpp 
-        PATHS /usr/include /usr/local/include 
+        NAMES xercesc/parsers/XercesDOMParser.hpp
+        PATHS /usr/include /usr/local/include
               /usr/include/xercesc
               /usr/local/include/xercesc
-              ${CMAKE_SOURCE_DIR}/include 
+              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the Xerces include files."
-              )     
+              )
 
     set(LIBSBML_XML_LIBRARY "xerces-c")
     set(LIBSBML_XML_LIBRARY_INCLUDE ${XERCES_INCLUDE_DIR})
@@ -350,7 +350,7 @@ if(WITH_XERCES)
     if(NOT EXISTS "${XERCES_INCLUDE_DIR}/xercesc/parsers/XercesDOMParser.hpp")
         message(FATAL_ERROR "The include directory specified for Xerces appears to be invalid.  It should contain the file xercesc/parsers/XercesDOMParser.hpp, but it does not.")
     endif()
-              
+
 endif(WITH_XERCES)
 
 
@@ -360,10 +360,10 @@ endif(WITH_XERCES)
 #
 
 set(BZIP_INITIAL_VALUE)
-find_library(LIBBZ_LIBRARY 
+find_library(LIBBZ_LIBRARY
     NAMES bzip2.lib bz2 libbz2.lib
-    PATHS /usr/lib /usr/local/lib 
-          ${CMAKE_SOURCE_DIR} 
+    PATHS /usr/lib /usr/local/lib
+          ${CMAKE_SOURCE_DIR}
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the bzip2 library."
 )
@@ -372,42 +372,42 @@ if(EXISTS ${LIBBZ_LIBRARY})
     set(BZIP_INITIAL_VALUE ON)
 else()
     set(BZIP_INITIAL_VALUE OFF)
-endif() 
+endif()
 
 option(WITH_BZIP2    "Enable the use of bzip2 compression."  ${BZIP_INITIAL_VALUE})
 if(WITH_BZIP2)
 
     find_path(LIBBZ_INCLUDE_DIR
         NAMES bzlib.h bzip2/bzlib.h
-        PATHS /usr/include /usr/local/include 
-              ${CMAKE_SOURCE_DIR}/include 
+        PATHS /usr/include /usr/local/include
+              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the bzip2 include files."
-              )     
+              )
 
-    add_definitions( -DUSE_BZ2 )    
-    
-    # make sure that we have a valid bzip2 library  
+    add_definitions( -DUSE_BZ2 )
+
+    # make sure that we have a valid bzip2 library
     check_library_exists("${LIBBZ_LIBRARY}" "BZ2_bzCompressInit" "" LIBBZ_FOUND_SYMBOL)
     if(NOT LIBBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING "The bz2 library does not appear to be valid because it is missing some required symbols. Please check that ${LIBBZ_LIBRARY} is the bzip2 library. For details about the error, please see ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")     
+            message(WARNING "The bz2 library does not appear to be valid because it is missing some required symbols. Please check that ${LIBBZ_LIBRARY} is the bzip2 library. For details about the error, please see ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
     if(NOT EXISTS "${LIBBZ_INCLUDE_DIR}/bzlib.h")
         message(FATAL_ERROR "The bz2 include directory does not appear to be valid.  It should contain the file bzlib.h, but it does not.")
     endif()
 
-    
+
 endif(WITH_BZIP2)
 
 
 ###############################################################################
 #
-# list of additional files to link against. 
+# list of additional files to link against.
 #
 
 set(EXTRA_LIBS "" CACHE STRING "List of additional libraries to link against." )
@@ -419,10 +419,10 @@ set(EXTRA_LIBS "" CACHE STRING "List of additional libraries to link against." )
 #
 
 set(ZLIB_INITIAL_VALUE)
-find_library(LIBZ_LIBRARY 
+find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
-    PATHS /usr/lib /usr/local/lib 
-          ${CMAKE_SOURCE_DIR} 
+    PATHS /usr/lib /usr/local/lib
+          ${CMAKE_SOURCE_DIR}
           ${LIBSBML_DEPENDENCY_DIR}/lib
     DOC "The file name of the zip compression library."
     )
@@ -438,29 +438,29 @@ if(WITH_ZLIB)
 
     find_path(LIBZ_INCLUDE_DIR
         NAMES zlib.h zlib/zlib.h
-        PATHS /usr/include /usr/local/include 
-              ${CMAKE_SOURCE_DIR}/include 
+        PATHS /usr/include /usr/local/include
+              ${CMAKE_SOURCE_DIR}/include
               ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the zlib include files."
-              )     
+              )
 
     add_definitions( -DUSE_ZLIB )
-    
-    # make sure that we have a valid zip library    
+
+    # make sure that we have a valid zip library
     check_library_exists("${LIBZ_LIBRARY}" "gzopen" "" LIBZ_FOUND_SYMBOL)
     if(NOT LIBZ_FOUND_SYMBOL)
         # this is odd, but on windows this check always fails! must be a
         # bug in the current cmake version so for now only issue this
         # warning on linux
         if(UNIX)
-            message(WARNING "The zlib library does not appear to be valid because it is missing certain required symbols. Please check that ${LIBZ_LIBRARY} is the zlib library. For details about the error, please see ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")      
+            message(WARNING "The zlib library does not appear to be valid because it is missing certain required symbols. Please check that ${LIBZ_LIBRARY} is the zlib library. For details about the error, please see ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log")
         endif()
     endif()
 
     if(NOT EXISTS "${LIBZ_INCLUDE_DIR}/zlib.h")
         message(FATAL_ERROR "The zlib include directory does not appear to be valid. It should contain the file zlib.h, but it does not.")
     endif()
-    
+
 endif(WITH_ZLIB)
 
 
@@ -478,11 +478,11 @@ if(WITH_CSHARP)
     if(UNIX)
     else()
         if(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
-            # mark libsbml library as x86 
+            # mark libsbml library as x86
             set(CSHARP_EXTRA_ARGS -platform:x86 )
         elseif(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
             # mark libsbml library as x64
-            set(CSHARP_EXTRA_ARGS -platform:x64 )       
+            set(CSHARP_EXTRA_ARGS -platform:x64 )
         endif()
     endif()
 
@@ -491,29 +491,29 @@ endif(WITH_CSHARP)
 
 ###############################################################################
 #
-# Enable support for testing ... can be invoked by running ctest 
+# Enable support for testing ... can be invoked by running ctest
 # or make test
 #
 
 if(WITH_CHECK)
 
-    # we do use tests, that require 2.8.4 
+    # we do use tests, that require 2.8.4
     cmake_minimum_required(VERSION 2.8.4)
 
     enable_testing()
-    
+
     find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
         PATHS /usr/lib /usr/local/lib ${LIBSBML_DEPENDENCY_DIR}/lib
         DOC "The file name of the libcheck library."
     )
-    
+
     find_path(LIBCHECK_INCLUDE_DIR
         NAMES check.h
         PATHS /usr/include /usr/local/include  ${LIBSBML_DEPENDENCY_DIR}/include
         DOC "The directory containing the libcheck include files."
               )
-    
+
     if(NOT EXISTS "${LIBCHECK_INCLUDE_DIR}/check.h")
         message(FATAL_ERROR "The 'check' include directory appears to be invalid. It should contain the file check.h, but it does not.")
     endif()
@@ -521,16 +521,16 @@ if(WITH_CHECK)
     if(${CMAKE_GENERATOR} MATCHES "Visual Studio 6" OR ${CMAKE_GENERATOR} MATCHES "Visual Studio 7")
         message(WARNING "Libcheck is not compatible with Visual Studio 2003 (or earlier versions).")
     endif()
-    
-              
+
+
 endif(WITH_CHECK)
 
 
 ###############################################################################
 #
-# Need some variables set up, such as the name for the libSBML 
-# library and the Path and file separator characters. The 
-# MISC_PREFIX variable will cause libsbml bindings, examples and 
+# Need some variables set up, such as the name for the libSBML
+# library and the Path and file separator characters. The
+# MISC_PREFIX variable will cause libsbml bindings, examples and
 # documentation to be installed in PREFIX/${MISC_PREFIX}.
 #
 
@@ -552,7 +552,7 @@ else()
 endif()
 
 # On some Linux systems the libraries should be installed into lib64 rather
-# than lib. It will default to 'lib' but can be overwritten. 
+# than lib. It will default to 'lib' but can be overwritten.
 
 SET(CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib CACHE PATH "Full path to the library output directory")
 
@@ -567,19 +567,19 @@ if(UNIX)
     if(APPLE)
         add_definitions(-DMACOSX)
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DMACOSX")
-        
+
         # On OSX it is common to build universal binaries to support multiple
-        # processor architectures. The default behavior is not to build 
-        # multiple architectures, as most users might not need that. 
+        # processor architectures. The default behavior is not to build
+        # multiple architectures, as most users might not need that.
         option(ENABLE_UNIVERSAL "Create universal binaries on Mac OS X." OFF)
-        
+
         set(CMAKE_OSX_ARCHITECTURES "${CMAKE_OSX_ARCHITECTURES}" CACHE STRING
            "A semicolon-separated list of build architectures to be used.")
         if(ENABLE_UNIVERSAL)
             # if universal binaries are requested and none defined so far
-            # overwrite them with all three common architectures. If the user 
+            # overwrite them with all three common architectures. If the user
             # specified their own list of architectures do not touch!
-            if(CMAKE_OSX_ARCHITECTURES STREQUAL "")  
+            if(CMAKE_OSX_ARCHITECTURES STREQUAL "")
                 STRING(REGEX REPLACE "^.*MacOSX([0-9]*\\.[0-9]*)\\.sdk$" "\\1"
                        OSX_SDK_VERSION "${CMAKE_OSX_SYSROOT}")
                 if(OSX_SDK_VERSION  VERSION_EQUAL "10.7" )
@@ -594,13 +594,13 @@ if(UNIX)
         endif(ENABLE_UNIVERSAL)
     else(APPLE)
         add_definitions(-DLINUX)
-        
+
         if(NOT CYGWIN)
             # on cygwin all code is position independent so -fPIC is not needed
             set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -fPIC")
             set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-strict-aliasing -fPIC")
         endif()
-        
+
         set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DLINUX")
     endif(APPLE)
 
@@ -621,14 +621,14 @@ else(UNIX)
                 CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
                 CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
                 CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
-        
+
                 if(${flag_var} MATCHES "/MD")
                     string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
                 endif(${flag_var} MATCHES "/MD")
             endforeach(flag_var)
         add_definitions( -D_MT)
         endif(WITH_STATIC_RUNTIME)
-    
+
         file(GLOB WIN32_BINARIES ${LIBSBML_DEPENDENCY_DIR}/bin/*.dll)
         INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
         file(GLOB WIN32_DEPENDENCIES ${LIBSBML_DEPENDENCY_DIR}/lib/*.lib)
@@ -636,14 +636,14 @@ else(UNIX)
         if(WITH_LIBXML AND WITH_STATIC_RUNTIME)
 		  if (EXTRA_LIBS STREQUAL "")
 		  # populate EXTRA_LIBS variable
-          find_library(LIBICONV_LIBRARY 
+          find_library(LIBICONV_LIBRARY
               NAMES libiconv.lib iconv.lib iconv
-              PATHS /usr/lib /usr/local/lib 
-                    ${CMAKE_SOURCE_DIR} 
+              PATHS /usr/lib /usr/local/lib
+                    ${CMAKE_SOURCE_DIR}
                     ${LIBSBML_DEPENDENCY_DIR}/lib
               DOC "The file name of the libiconv compression library."
               )
-		  set(EXTRA_LIBS "WS_32.lib;${LIBICONV_LIBRARY};${LIBZ_LIBRARY};" CACHE STRING "List of additional libraries to link against." FORCE)
+		  set(EXTRA_LIBS "WS2_32.lib;${LIBICONV_LIBRARY};${LIBZ_LIBRARY};" CACHE STRING "List of additional libraries to link against." FORCE)
 		  endif()
 		endif()
     elseif(CYGWIN)
@@ -655,7 +655,7 @@ else(UNIX)
             add_definitions(-DLIBXML_STATIC)
         endif(WITH_LIBXML)
     endif(MSVC)
-    
+
 endif(UNIX)
 
 
@@ -763,34 +763,34 @@ message(STATUS "
 libSBML version ${PACKAGE_VERSION}
 ----------------------------------------------------------------------
 
-More information and the latest version are available online at
-http://sbml.org/Software/libSBML
+   More information and the latest version are available online at
+   http://sbml.org/Software/libSBML
 
-Please report problems using the issue tracker at
-http://sbml.org/Software/libsbml/issue-tracker
+   Please report problems using the issue tracker at
+   http://sbml.org/Software/libsbml/issue-tracker
 
-To contact the developers directly, email libsbml-team@caltech.edu
+   To contact the developers directly, email libsbml-team@caltech.edu
 
-Configured on host "$ENV{COMPUTERNAME}" ${HOSTNAME}
-  host type                     = ${CMAKE_SYSTEM_NAME}
-  host operating system         = ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}
-  host CPU architecture         = ${CMAKE_SYSTEM_PROCESSOR}
+   Configured on host "$ENV{COMPUTERNAME}" ${HOSTNAME}
+     host type                     = ${CMAKE_SYSTEM_NAME}
+     host operating system         = ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}
+     host CPU architecture         = ${CMAKE_SYSTEM_PROCESSOR}
 
-General build flags:
-  CC                            = ${CMAKE_C_COMPILER}
-  CXX                           = ${CMAKE_CXX_COMPILER}
-  CPPFLAGS                      = ${BUILD_DEFINITIONS}
-  CFLAGS                        = ${CMAKE_C_FLAGS}
-  CXXFLAGS                      = ${CMAKE_CXX_FLAGS}
-  LDFLAGS                       = ${CMAKE_EXE_LINKER_FLAGS}
+   General build flags:
+     CC                            = ${CMAKE_C_COMPILER}
+     CXX                           = ${CMAKE_CXX_COMPILER}
+     CPPFLAGS                      = ${BUILD_DEFINITIONS}
+     CFLAGS                        = ${CMAKE_C_FLAGS}
+     CXXFLAGS                      = ${CMAKE_CXX_FLAGS}
+     LDFLAGS                       = ${CMAKE_EXE_LINKER_FLAGS}
 
-XML parser library configuration:
-  XML library                   = ${LIBSBML_XML_LIBRARY}
-  CPPFLAGS for XML              = -I${LIBSBML_XML_LIBRARY_INCLUDE}
-  LIBS for XML                  = ${LIBSBML_XML_LIBRARY_LIBS}
+   XML parser library configuration:
+     XML library                   = ${LIBSBML_XML_LIBRARY}
+     CPPFLAGS for XML              = -I${LIBSBML_XML_LIBRARY_INCLUDE}
+     LIBS for XML                  = ${LIBSBML_XML_LIBRARY_LIBS}
 
-Other libSBML configuration settings:
-  Installation $prefix          = ${CMAKE_INSTALL_PREFIX}")
+  Other libSBML configuration settings:
+     Installation $prefix          = ${CMAKE_INSTALL_PREFIX}")
 
 
 
@@ -851,7 +851,7 @@ if(APPLE)
     if(CMAKE_OSX_ARCHITECTURES STREQUAL "")
         message(STATUS "  Building universal binaries               = no (using native arch)")
     else()
-        list(REMOVE_DUPLICATES CMAKE_OSX_ARCHITECTURES) 
+        list(REMOVE_DUPLICATES CMAKE_OSX_ARCHITECTURES)
         list(REMOVE_ITEM CMAKE_OSX_ARCHITECTURES "")
         list(SORT CMAKE_OSX_ARCHITECTURES)
         list(LENGTH CMAKE_OSX_ARCHITECTURES NUM_ARCHS)
@@ -880,7 +880,7 @@ if(EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
                     message(STATUS "  ${last_line} = no")
                 endif()
             endif()
-        
+
             math(EXPR length_minus_two "${length} - 2")
             if(${length_minus_two} GREATER 3)
 	        math(EXPR length_minus_one "${length} - 1")
@@ -891,11 +891,11 @@ if(EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
                 else()
                     string(SUBSTRING "${line}" 2 ${length_minus_two} last_line)
                 endif()
-            endif() 
+            endif()
         else()
             set(last_line "")
-            message(${line})
-        endif() 
+            message("")
+        endif()
     endforeach()
 
 endif()
@@ -927,7 +927,7 @@ message(STATUS "
 ----------------------------------------------------------------------")
 
 
-## To compile a test program simply comment out the lines below ... 
+## To compile a test program simply comment out the lines below ...
 #
 #OPTION(WITH_TEST_PROGRAM " COMPILE SMALL TEST PROGRAM " ON)
 #
