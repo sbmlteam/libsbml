@@ -415,6 +415,39 @@ if test -d dev; then
 fi
 
 dnl ---------------------------------------------------------------------------
+dnl package system files that include the layout package
+dnl ---------------------------------------------------------------------------
+
+  AC_CONFIG_FILES([src/bindings/csharp/local-downcast-extension.i])
+  AC_CONFIG_FILES([src/bindings/csharp/local-downcast-namespaces.i])
+  AC_CONFIG_FILES([src/bindings/csharp/local-packages.i])
+
+  AC_CONFIG_FILES([src/bindings/java/local-downcast-extension.i])
+  AC_CONFIG_FILES([src/bindings/java/local-downcast-namespaces.i])
+  AC_CONFIG_FILES([src/bindings/java/local-packages.i])
+
+  AC_CONFIG_FILES([src/bindings/perl/local-downcast.cpp])
+  AC_CONFIG_FILES([src/bindings/perl/local-downcast-extension.cpp])
+  AC_CONFIG_FILES([src/bindings/perl/local-downcast-namespaces.cpp])
+  AC_CONFIG_FILES([src/bindings/perl/local-downcast-plugins.cpp])
+  AC_CONFIG_FILES([src/bindings/perl/local-packages.i])
+
+  AC_CONFIG_FILES([src/bindings/python/local-downcast.cpp])
+  AC_CONFIG_FILES([src/bindings/python/local-downcast-extension.cpp])
+  AC_CONFIG_FILES([src/bindings/python/local-downcast-namespaces.cpp])
+  AC_CONFIG_FILES([src/bindings/python/local-downcast-plugins.cpp])
+  AC_CONFIG_FILES([src/bindings/python/local-packages.i])
+  
+  AC_CONFIG_FILES([src/bindings/ruby/local-downcast.cpp])
+  AC_CONFIG_FILES([src/bindings/ruby/local-downcast-extension.cpp])
+  AC_CONFIG_FILES([src/bindings/ruby/local-downcast-namespaces.cpp])
+  AC_CONFIG_FILES([src/bindings/ruby/local-downcast-plugins.cpp])
+  AC_CONFIG_FILES([src/bindings/ruby/local-packages.i])
+  
+  AC_CONFIG_FILES([src/bindings/swig/libsbml-packages.h])
+  AC_CONFIG_FILES([src/bindings/swig/libsbml-packages.i])
+  
+dnl ---------------------------------------------------------------------------
 
 AC_CONFIG_FILES([macosx/Makefile])
 AC_CONFIG_FILES([macosx/build.sh], [chmod a+x macosx/build.sh])
