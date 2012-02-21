@@ -418,6 +418,9 @@ dnl ---------------------------------------------------------------------------
 dnl package system files that include the layout package
 dnl ---------------------------------------------------------------------------
 
+  AC_CONFIG_FILES([src/sbml/extensions/RegisterExtensions.h])
+  AC_CONFIG_FILES([src/sbml/extensions/RegisterExtensions.cxx])
+
   AC_CONFIG_FILES([src/bindings/csharp/local-downcast-extension.i])
   AC_CONFIG_FILES([src/bindings/csharp/local-downcast-namespaces.i])
   AC_CONFIG_FILES([src/bindings/csharp/local-packages.i])
