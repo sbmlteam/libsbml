@@ -169,15 +169,17 @@ check: all check-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: all install-translatesbml install-outputsbml \
-	 install-checkandconvert install-isoctave install-issbmlmodel \
-	 install-convertformula
+install: all install-translatesbml install-outputsbml                  \
+	 install-checkandconvert install-isoctave install-issbmlmodel      \
+	 install-convertformula install-m-contents install-m-translatesbml \
+	 install-m-outputsbml install-m-installsbml
 
 installdirs: 
 
-uninstall: uninstall-translatesbml uninstall-outputsbml \
-	   uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel \
-	   uninstall-convertformula
+uninstall: uninstall-translatesbml uninstall-outputsbml                        \
+	   uninstall-checkandconvert uninstall-isoctave uninstall-issbmlmodel      \
+	   uninstall-convertformula uninstall-m-contents uninstall-m-translatesbml \
+	   uninstall-m-outputsbml uninstall-m-installsbml
 
 install-translatesbml:
 	$(INSTALL_SH) -m 644 TranslateSBML.$(mexext) "$(DESTDIR)$(LIBDIR)"
@@ -194,6 +196,46 @@ install-outputsbml:
 
 uninstall-outputsbml:
 	@target="$(DESTDIR)$(LIBDIR)/OutputSBML.$(mexext)"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
+install-m-installsbml:
+	$(INSTALL_SH) -m 644 installSBML.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-m-installsbml:
+	@target="$(DESTDIR)$(LIBDIR)/installSBML.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
+install-m-outputsbml:
+	$(INSTALL_SH) -m 644 OutputSBML.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-m-outputsbml:
+	@target="$(DESTDIR)$(LIBDIR)/OutputSBML.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
+install-m-translatesbml:
+	$(INSTALL_SH) -m 644 TranslateSBML.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-m-translatesbml:
+	@target="$(DESTDIR)$(LIBDIR)/TranslateSBML.m"; \
+	if test -f $$target ; then \
+	  echo rm $$target; \
+	  rm $$target; \
+	fi;
+
+install-m-contents:
+	$(INSTALL_SH) -m 644 Contents.m "$(DESTDIR)$(LIBDIR)"
+
+uninstall-m-contents:
+	@target="$(DESTDIR)$(LIBDIR)/Contents.m"; \
 	if test -f $$target ; then \
 	  echo rm $$target; \
 	  rm $$target; \
