@@ -35,6 +35,9 @@
 #include <iostream>
 #include <string>
 
+#include "RegisterExtensions.h"
+
+
 #ifdef __cplusplus
 
 #include <sbml/validator/constraints/IdList.h>
@@ -43,6 +46,7 @@ using namespace std;
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
+bool SBMLExtensionRegistry::registered = false;
 
 /*
  *
@@ -51,8 +55,18 @@ SBMLExtensionRegistry&
 SBMLExtensionRegistry::getInstance()
 {
   static SBMLExtensionRegistry singletonObj;
+  if (!registered)
+  {
+    registered = true;
+    #include "RegisterExtensions.cxx"
+  }
   return singletonObj;
 }
+
+SBMLExtensionRegistry::SBMLExtensionRegistry()
+{
+}
+
 
 SBMLExtensionRegistry::SBMLExtensionRegistry(const SBMLExtensionRegistry& orig)
 {
