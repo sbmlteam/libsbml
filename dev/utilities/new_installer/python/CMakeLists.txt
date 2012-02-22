@@ -164,8 +164,9 @@ set(LIBS
 )
 
 #add_definitions(-DUSE_LAYOUT)
-add_definitions(-DUSE_GROUPS)
-add_definitions(-DUSE_REQUIREDELEMENTS)
+#add_definitions(-DUSE_GROUPS)
+#add_definitions(-DUSE_REQUIREDELEMENTS)
+
 add_library(binding_python_lib SHARED libsbml_wrap.cpp)
 
 set_target_properties (binding_python_lib PROPERTIES OUTPUT_NAME "_libsbml")
