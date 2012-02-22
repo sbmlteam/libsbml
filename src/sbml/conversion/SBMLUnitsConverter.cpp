@@ -487,8 +487,8 @@ SBMLUnitsConverter::convertUnits(SBase &sb, Model &m,
  
   UnitDefinition *siud = UnitDefinition::convertToSI(ud);
   /* catch in case things have gone wrong */
-  //if (siud->getNumUnits() == 0)
-  //  return false;
+  if (ud == NULL || siud == NULL)
+    return false;
 
   /* if we are dealing in substance only then we need to use substance
    * units when calculating the newvalue 
