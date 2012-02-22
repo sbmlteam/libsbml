@@ -318,13 +318,13 @@ Model::getElementBySId(std::string id)
   if (obj != NULL) return obj;
   obj = mParameters.getElementBySId(id);
   if (obj != NULL) return obj;
+  obj = mReactions.getElementBySId(id);
+  if (obj != NULL) return obj;
   obj = mInitialAssignments.getElementBySId(id);
   if (obj != NULL) return obj;
   obj = mRules.getElementBySId(id);
   if (obj != NULL) return obj;
   obj = mConstraints.getElementBySId(id);
-  if (obj != NULL) return obj;
-  obj = mReactions.getElementBySId(id);
   if (obj != NULL) return obj;
   obj = mEvents.getElementBySId(id);
   if (obj != NULL) return obj;

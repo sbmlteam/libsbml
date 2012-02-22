@@ -1124,6 +1124,16 @@ public:
 
 
   /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.  Note that AssignmentRules and RateRules do not actually have IDs, but the libsbml interface pretends that they do:  no assignment rule or rate rule is returned by this function.
+   *
+   * @param id string representing the id of objects to find
+   *
+   * @return pointer to the first element found with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
+  /**
    * Removes item in this ListOfRules items with the given identifier.
    *
    * The caller owns the returned item and is responsible for deleting it.

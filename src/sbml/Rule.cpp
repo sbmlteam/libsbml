@@ -1397,6 +1397,20 @@ ListOfRules::remove (unsigned int n)
    return static_cast<Rule*>(ListOf::remove(n));
 }
 
+SBase* 
+ListOfRules::getElementBySId(std::string id)
+{
+  for (unsigned int i = 0; i < size(); i++)
+  {
+    SBase* obj = get(i);
+    //No rule is in the SId namespace, so don't check 'getId'.  However, their children (through plugins) may have the element we are looking for, so we still need to check all of them.
+    obj = obj->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+
+  return getElementFromPluginsBySId(id);
+}
+  
 
 /* Removes item in this list by id */
 Rule*

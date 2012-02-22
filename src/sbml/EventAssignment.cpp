@@ -852,6 +852,20 @@ ListOfEventAssignments::remove (const std::string& sid)
 }
 
 
+SBase*
+ListOfEventAssignments::getElementBySId(std::string id)
+{
+  for (unsigned int i = 0; i < size(); i++)
+  {
+    SBase* obj = get(i);
+    //Event Assignments are not in the SId namespace, so don't check 'getId'.  However, their children (through plugins) may have the element we are looking for, so we still need to check all of them.
+    obj = obj->getElementBySId(id);
+    if (obj != NULL) return obj;
+  }
+
+  return getElementFromPluginsBySId(id);
+}
+  
 /** @cond doxygen-libsbml-internal */
 /*
  * @return the ordinal position of the element with respect to its

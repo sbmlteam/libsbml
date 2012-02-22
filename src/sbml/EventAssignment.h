@@ -909,6 +909,16 @@ public:
   virtual EventAssignment* remove (const std::string& sid);
 
 
+  /**
+   * Returns the first child element found that has the given id in the model-wide SId namespace, or NULL if no such object is found.  Note that EventAssignments do not actually have IDs, but the libsbml interface pretends that they do:  no event assignment is returned by this function.
+   *
+   * @param id string representing the id of objects to find
+   *
+   * @return pointer to the first element found with the given id.
+   */
+  virtual SBase* getElementBySId(std::string id);
+  
+  
   /** @cond doxygen-libsbml-internal */
 
   /**

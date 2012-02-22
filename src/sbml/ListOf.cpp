@@ -256,7 +256,7 @@ ListOf::getElementBySId(std::string id)
   for (unsigned int i = 0; i < size(); i++)
   {
     SBase* obj = get(i);
-    if (obj->getId() == id)
+    if (obj->isSetId() && obj->getId() == id)
     {
       return obj;
     }

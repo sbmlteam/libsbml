@@ -337,6 +337,52 @@ START_TEST (test_GetMultipleObjects_noUnits)
 END_TEST
 
 
+START_TEST (test_GetMultipleObjects_noAssignments)
+{
+  SBMLReader        reader;
+  SBMLDocument*     d;
+
+  std::string filename(TestDataDirectory);
+  filename += "assignments-invalid.xml";
+
+
+  d = reader.readSBML(filename);
+
+ if (d->getModel() == NULL)
+  {
+    fail("readSBML(\"assignments-invalid.xml\") returned an empty model.");
+  }
+
+  SBase* obj = d->getElementBySId("ia");
+  fail_unless(obj == NULL);
+  obj = d->getElementByMetaId("ia_meta");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_INITIAL_ASSIGNMENT);
+
+  obj = d->getElementBySId("ar");
+  fail_unless(obj == NULL);
+  obj = d->getElementByMetaId("ar_meta");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_ASSIGNMENT_RULE);
+
+  obj = d->getElementBySId("rr");
+  fail_unless(obj == NULL);
+  obj = d->getElementByMetaId("rr_meta");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_RATE_RULE);
+
+  obj = d->getElementBySId("ea");
+  fail_unless(obj == NULL);
+  obj = d->getElementByMetaId("ea_meta");
+  fail_unless(obj != NULL);
+  fail_unless(obj->getTypeCode() == SBML_EVENT_ASSIGNMENT);
+
+
+  delete d;
+}
+END_TEST
+
+
 START_TEST (test_GetMultipleObjects_allElements)
 {
   SBMLReader        reader;
@@ -372,6 +418,7 @@ create_suite_GetMultipleObjects (void)
   tcase_add_test(tcase, test_GetMultipleObjects_getMetaId);
   tcase_add_test(tcase, test_GetMultipleObjects_noLocalParameters);
   tcase_add_test(tcase, test_GetMultipleObjects_noUnits);
+  tcase_add_test(tcase, test_GetMultipleObjects_noAssignments);
   tcase_add_test(tcase, test_GetMultipleObjects_allElements);
 
 
