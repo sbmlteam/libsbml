@@ -468,6 +468,7 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
 {
 
  const char * withAbout =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "  <annotation>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"      <rdf:Description rdf:about=\"#_000004\">\n"
@@ -481,6 +482,7 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
     "  </annotation>";
 
   const char * emptyAbout =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "  <annotation>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"      <rdf:Description rdf:about=\"\">\n"
@@ -494,6 +496,7 @@ START_TEST (test_RDFAnnotation_testMissingAbout)
     "  </annotation>";
 
   const char * noAbout =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "  <annotation>\n"
 		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
 		"      <rdf:Description>\n"
