@@ -99,7 +99,7 @@ subdirs = test
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) Makefile.in
+distfiles = $(sources) $(headers) Makefile.in RegisterExtensions.cxx.in RegisterExtensions.h.in
 
 
 # -----------------------------------------------------------------------------

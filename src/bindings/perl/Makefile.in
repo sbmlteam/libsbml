@@ -85,15 +85,15 @@ distfiles =                            \
   local.cpp                            \
   local.i                              \
   local-layout.i                       \
-  local-packages.i                     \
+  local-packages.i.in                  \
   local-downcast-extension-layout.cpp  \
-  local-downcast-extension.cpp         \
+  local-downcast-extension.cpp.in      \
   local-downcast-namespaces-layout.cpp \
-  local-downcast-namespaces.cpp        \
+  local-downcast-namespaces.cpp.in     \
   local-downcast-plugins-layout.cpp    \
-  local-downcast-plugins.cpp           \
+  local-downcast-plugins.cpp.in        \
   local-downcast-packages-layout.cpp   \
-  local-downcast.cpp                   \
+  local-downcast.cpp.in                \
   Makefile.in                          \
   Makefile.PL.in                       \
   MANIFEST                             \

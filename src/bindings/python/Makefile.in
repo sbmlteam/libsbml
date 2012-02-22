@@ -58,13 +58,13 @@ extra_sources = libsbml.i                            \
                 local.cpp                            \
                 local.i                              \
                 local-downcast-extension-layout.cpp  \
-                local-downcast-extension.cpp         \
+                local-downcast-extension.cpp.in      \
                 local-downcast-namespaces-layout.cpp \
-                local-downcast-namespaces.cpp        \
+                local-downcast-namespaces.cpp.in     \
                 local-downcast-plugins-layout.cpp    \
-                local-downcast-plugins.cpp           \
+                local-downcast-plugins.cpp.in        \
                 local-downcast-packages-layout.cpp   \
-                local-downcast.cpp                   \
+                local-downcast.cpp.in                \
                 pydoc-normal.i                       \
                 pydoc-doxygen.i
 
@@ -162,7 +162,7 @@ distfiles =                                \
             Makefile.in                    \
             CMakeLists.txt                 \
             test.py                        \
-            local-packages.i               \
+            local-packages.i.in            \
             local-layout.i                 \
             setup.cfg                      \
             setup.py.in                    \

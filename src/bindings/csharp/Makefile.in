@@ -85,11 +85,11 @@ extra_sources     = \
                      local.cpp \
                      local.i \
 					 local-downcast-extension-layout.i \
-					 local-downcast-extension.i \
+					 local-downcast-extension.i.in \
 					 local-downcast-namespaces-layout.i \
-					 local-downcast-namespaces.i \
+					 local-downcast-namespaces.i.in \
 					 local-packages-layout.i \
-					 local-packages.i
+					 local-packages.i.in
 
 test_dir          = test
 test_source_path  = $(test_dir)

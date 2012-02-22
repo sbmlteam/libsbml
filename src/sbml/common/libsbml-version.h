@@ -37,7 +37,7 @@
  *
  * A version string of the form "1.2.3".
  */
-#define LIBSBML_DOTTED_VERSION	"5.4.1"
+#define LIBSBML_DOTTED_VERSION	"5.4.0"
 
 
 /**
@@ -48,7 +48,7 @@
  * libSBML is released, making it easy to use less-than and greater-than
  * comparisons when testing versions numbers.
  */
-#define LIBSBML_VERSION		50401
+#define LIBSBML_VERSION		50400
 
 
 /**
@@ -56,7 +56,7 @@
  *
  * The numeric version as a string: version 1.2.3 becomes "10203".
  */
-#define LIBSBML_VERSION_STRING	"50401"
+#define LIBSBML_VERSION_STRING	"50400"
 
 
 LIBSBML_CPP_NAMESPACE_BEGIN

@@ -51,18 +51,18 @@ thisdir = src/bindings/ruby
 
 sources       =  libsbml_wrap.cpp libsbml_wrap.h
 extra_sources =  libsbml.i \
-                 local-packages.i \
+                 local-packages.i.in \
 				 local-layout.i \
                  local.cpp \
 				 local.i \
 				 local-downcast-extension-layout.cpp \
-				 local-downcast-extension.cpp \
+				 local-downcast-extension.cpp.in \
 				 local-downcast-namespaces-layout.cpp \
-				 local-downcast-namespaces.cpp \
+				 local-downcast-namespaces.cpp.in \
 				 local-downcast-plugins-layout.cpp \
-				 local-downcast-plugins.cpp \
+				 local-downcast-plugins.cpp.in \
 				 local-downcast-packages-layout.cpp \
-				 local-downcast.cpp
+				 local-downcast.cpp.in
 
 # The SWIG interface files should not need to be regenerated for recipients
 # of the libSBML distributions; only developers should need to regenerate

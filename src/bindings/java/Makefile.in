@@ -58,11 +58,11 @@ extra_sources     = libsbml.i                          \
                     local.i                            \
                     local-doc-extras.i                 \
                     local-downcast-extension-layout.i  \
-                    local-downcast-extension.i         \
+                    local-downcast-extension.i.in      \
                     local-downcast-namespaces-layout.i \
-                    local-downcast-namespaces.i        \
+                    local-downcast-namespaces.i.in     \
                     local-packages-layout.i            \
-                    local-packages.i
+                    local-packages.i.in
 
 # The SWIG interface files should not need to be regenerated for recipients
 # of the libSBML distributions; only developers should need to regenerate
