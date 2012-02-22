@@ -1,6 +1,35 @@
            libSBML NEWS -- History of user-visible changes
 
+======================================================================
+Version 5.4.1 (2012-02-24)
+======================================================================
 
+STABLE RELEASE
+
+* Bug fixes
+
+  - The MATLAB binding function isSBML_Model had a subtle bug
+    that meant it could crash in certain circumstances.  This has 
+    been addressed.  Thanks to Ying Zhang for the report.
+
+  - When determining units from rate rules unit checking failed 
+    to catch the case where time had been redefined as dimensionless.
+    This is now fixed.  Thanks to Kieran Smallbone for reporting it.
+
+  - Documentation files for MATLAB were missing from the dmg 
+    installers for MacOS.  This has been fixed.
+
+EXPERIMENTAL RELEASE
+
+* Bug fixes
+
+  - LibSBML will now automatically register any packages that are 
+    enabled in code. Previously libSBML could be built including 
+    package code but users needed to perform an additional step
+    to actually use it. This was causing some confusion.
+    
+     
+  
 ======================================================================
 Version 5.4.0 (2012-02-16)
 ======================================================================
