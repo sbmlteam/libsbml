@@ -5175,12 +5175,42 @@ Model::populateListFormulaUnitsData()
         ud = new UnitDefinition(getSBMLNamespaces());
         for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
           ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        u = new Unit(getSBMLNamespaces());
-        u->setKind(UNIT_KIND_SECOND);
-        u->initDefaults();
-        u->setExponent(-1);
-        ud->addUnit(u);
-        delete u;
+        // unless time has been overridden
+        if (getUnitDefinition("time") != NULL)
+        {
+          for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
+          {
+            // need to prevent level/version mismatches
+            // ud will have default level and veersion
+            uFromModel = getUnitDefinition("time")->getUnit(ii);
+            if (uFromModel  != NULL)
+            {
+              u = new Unit(uFromModel->getSBMLNamespaces());
+              u->setKind(uFromModel->getKind());
+              u->setExponent(-1 * uFromModel->getExponent());
+              u->setScale(uFromModel->getScale());
+              u->setMultiplier(uFromModel->getMultiplier());
+              ud->addUnit(u);
+              delete u;
+            }
+          }
+        }
+        else
+        {
+          u = new Unit(getSBMLNamespaces());
+          u->setKind(UNIT_KIND_SECOND);
+          u->initDefaults();
+          u->setExponent(-1);
+          ud->addUnit(u);
+          delete u;
+        }
+        UnitDefinition::simplify(ud);
+        //u = new Unit(getSBMLNamespaces());
+        //u->setKind(UNIT_KIND_SECOND);
+        //u->initDefaults();
+        //u->setExponent(-1);
+        //ud->addUnit(u);
+        //delete u;
       }
       else
       {
@@ -5276,12 +5306,42 @@ Model::populateListFormulaUnitsData()
         ud = new UnitDefinition(getSBMLNamespaces());
         for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
           ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        u = new Unit(getSBMLNamespaces());
-        u->setKind(UNIT_KIND_SECOND);
-        u->initDefaults();
-        u->setExponent(-1);
-        ud->addUnit(u);
-        delete u;
+        // unless time has been overridden
+        if (getUnitDefinition("time") != NULL)
+        {
+          for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
+          {
+            // need to prevent level/version mismatches
+            // ud will have default level and veersion
+            uFromModel = getUnitDefinition("time")->getUnit(ii);
+            if (uFromModel  != NULL)
+            {
+              u = new Unit(uFromModel->getSBMLNamespaces());
+              u->setKind(uFromModel->getKind());
+              u->setExponent(-1 * uFromModel->getExponent());
+              u->setScale(uFromModel->getScale());
+              u->setMultiplier(uFromModel->getMultiplier());
+              ud->addUnit(u);
+              delete u;
+            }
+          }
+        }
+        else
+        {
+          u = new Unit(getSBMLNamespaces());
+          u->setKind(UNIT_KIND_SECOND);
+          u->initDefaults();
+          u->setExponent(-1);
+          ud->addUnit(u);
+          delete u;
+        }
+        UnitDefinition::simplify(ud);
+        //u = new Unit(getSBMLNamespaces());
+        //u->setKind(UNIT_KIND_SECOND);
+        //u->initDefaults();
+        //u->setExponent(-1);
+        //ud->addUnit(u);
+        //delete u;
       }
       else
       {
@@ -5416,13 +5476,41 @@ Model::populateListFormulaUnitsData()
         ud = new UnitDefinition(getSBMLNamespaces());
         for (j = 0; j < fud->getUnitDefinition()->getNumUnits(); j++)
           ud->addUnit(fud->getUnitDefinition()->getUnit(j));
-        u = new Unit(getSBMLNamespaces());
-        u->setKind(UNIT_KIND_SECOND);
-        u->initDefaults();
-        u->setExponent(-1);
-        ud->addUnit(u);
+        // unless time has been overridden
+        if (getUnitDefinition("time") != NULL)
+        {
+          for (unsigned int ii = 0; ii < getUnitDefinition("time")->getNumUnits(); ii++)
+          {
+            // need to prevent level/version mismatches
+            // ud will have default level and veersion
+            uFromModel = getUnitDefinition("time")->getUnit(ii);
+            if (uFromModel  != NULL)
+            {
+              u = new Unit(uFromModel->getSBMLNamespaces());
+              u->setKind(uFromModel->getKind());
+              u->setExponent(-1 * uFromModel->getExponent());
+              u->setScale(uFromModel->getScale());
+              u->setMultiplier(uFromModel->getMultiplier());
+              ud->addUnit(u);
+              delete u;
+            }
+          }
+        }
+        else
+        {
+          u = new Unit(getSBMLNamespaces());
+          u->setKind(UNIT_KIND_SECOND);
+          u->initDefaults();
+          u->setExponent(-1);
+          ud->addUnit(u);
+          delete u;
+        }
+        //u = new Unit(getSBMLNamespaces());
+        //u->setKind(UNIT_KIND_SECOND);
+        //u->initDefaults();
+        //u->setExponent(-1);
+        //ud->addUnit(u);
         UnitDefinition::simplify(ud);
-        delete u;
       }
       else
       {
