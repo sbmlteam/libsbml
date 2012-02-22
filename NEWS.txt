@@ -19,6 +19,11 @@ STABLE RELEASE
   - Documentation files for MATLAB were missing from the dmg 
     installers for MacOS.  This has been fixed.
 
+  - 'getElementBySId' could potentially return initial assignments,
+    event assignments, assignment rules, and rate rules that assigned
+    *to* the SId in question, instead of returning the actual element
+    with the SId.  This has been fixed.
+
 EXPERIMENTAL RELEASE
 
 * Bug fixes
