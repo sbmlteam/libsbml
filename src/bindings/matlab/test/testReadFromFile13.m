@@ -365,6 +365,7 @@ test = test + 10;
 %         </listOfReactants>
 %         <listOfProducts>
 %           <speciesReference metaid="_0" species="s2" constant="false" sboTerm="SBO:0000001"/>
+%           <speciesReference species="s1" constant="false" sboTerm="SBO:0000001"/>
 %         </listOfProducts>
 %         <kineticLaw>
 %           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -395,7 +396,7 @@ test = test + 10;
   Totalfail = Totalfail + fail_unless( isempty(m.reaction(1).metaid));
     
   Totalfail = Totalfail + fail_unless( length(m.reaction.reactant) == 1);
-  Totalfail = Totalfail + fail_unless( length(m.reaction.product) == 1);
+  Totalfail = Totalfail + fail_unless( length(m.reaction.product) == 2);
   Totalfail = Totalfail + fail_unless( length(m.reaction.modifier) == 0);
 
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction.reactant.species, 's'));
@@ -406,14 +407,14 @@ test = test + 10;
   Totalfail = Totalfail + fail_unless( m.reaction.reactant.constant == 0 );
   Totalfail = Totalfail + fail_unless( m.reaction.reactant.isSetStoichiometry == 0 );
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.product.species, 's2'));
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.product.metaid, '_0'));
-  Totalfail = Totalfail + fail_unless( isempty(m.reaction.product.id));
-  Totalfail = Totalfail + fail_unless( isempty(m.reaction.product.name));
-  Totalfail = Totalfail + fail_unless( m.reaction.product.sboTerm == 1 );
-  Totalfail = Totalfail + fail_unless( m.reaction.product.constant == 0 );
-  Totalfail = Totalfail + fail_unless( m.reaction.product.isSetStoichiometry == 1 );
-  Totalfail = Totalfail + fail_unless( m.reaction.product.stoichiometry == 1 );
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.product(1).species, 's2'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction.product(1).metaid, '_0'));
+  Totalfail = Totalfail + fail_unless( isempty(m.reaction.product(1).id));
+  Totalfail = Totalfail + fail_unless( isempty(m.reaction.product(1).name));
+  Totalfail = Totalfail + fail_unless( m.reaction.product(1).sboTerm == 1 );
+  Totalfail = Totalfail + fail_unless( m.reaction.product(1).constant == 0 );
+  Totalfail = Totalfail + fail_unless( m.reaction.product(1).isSetStoichiometry == 1 );
+  Totalfail = Totalfail + fail_unless( m.reaction.product(1).stoichiometry == 1 );
 
   Totalfail = Totalfail + fail_unless( strcmp(m.reaction.kineticLaw.math, 's*k/p'));
   Totalfail = Totalfail + fail_unless( length(m.reaction.kineticLaw.localParameter) == 1);
