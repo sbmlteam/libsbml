@@ -128,6 +128,7 @@
         </listOfReactants>
         <listOfProducts>
           <speciesReference metaid="_0" sboTerm="SBO:0000001" species="s2" stoichiometry="1" constant="false"/>
+          <speciesReference sboTerm="SBO:0000001" species="s1" stoichiometry="1" constant="false"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
