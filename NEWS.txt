@@ -32,6 +32,11 @@ EXPERIMENTAL RELEASE
     enabled in code. Previously libSBML could be built including 
     package code but users needed to perform an additional step
     to actually use it. This was causing some confusion.
+
+  - In the Hierarchical Model Composition package (comp), flattening
+    routines have been made more robust, and now should handle
+    arbitrarily-deep nested models, both for simple aggregation, and
+    for replacements of arbitrarily-deep elements.
     
      
   
