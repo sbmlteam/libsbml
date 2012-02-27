@@ -77,9 +77,10 @@ endif
 ifdef USE_PYTHON
   docs += $(python-manual)
 endif
-ifdef USE_PERL
-  docs += $(perl-manual)
-endif
+# Currently, the Perl docs aren't ready.  So let's not make them.
+# ifdef USE_PERL
+#   docs += $(perl-manual)
+# endif
 ifdef USE_CSHARP
   docs += $(csharp-manual)
 endif
