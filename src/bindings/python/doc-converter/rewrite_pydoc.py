@@ -1,9 +1,82 @@
 #!/usr/bin/env python
 ##
 ## @file    rewrite_pydoc.py
-## @brief   Convert libSBML Python doc file to something usable for doc strings
+## @brief   Convert libSBML Python doc file to something readable as docstrings
 ## @author  Mike Hucka
+##
+## Purpose:
 ## 
+## The comments in the libSBML source code use Doxygen mark-up; this
+## content is read by Doxygen and Javadoc, in combination with other
+## scripts, to produce the libSBML API documentation in the libSBML "docs"
+## directory.  When creating the Python language interface, SWIG takes the
+## comments and inserts them as documentation strings in the Python code,
+## which is good from the perspective of being an easy way to provide help
+## for the Python interface classes and methods, but bad from the
+## perspective that it is full of Doxygen markup and not suitable for
+## direct reading by humans.
+## 
+## This program converts the Doxygen-based documentation strings by
+## rewriting them to plain text.  This plain text can then be included in
+## the final Python bindings for libSBML, so that users can use the Python
+## interactive help system to view the documentation.
+## 
+## This program is not a general converter; it is designed specifically to
+## work with the way that we generate the libSBML python bindings.
+## However, it should not be too difficult to adapt to other similar
+## software projects.
+## 
+## The main hardwired assumptions are the following:
+## 
+## * The input file to rewrite_pydoc.py is the output produced by our
+##   ../../swig/swigdoc.py, which produces documentation definitions for
+##   swig.  These have the form shown in the following example:
+## 
+##      %feature("docstring") SBMLReader::SBMLReader "
+##      Creates a new SBMLReader and returns it. 
+## 
+##      The libSBML SBMLReader objects offer methods for reading SBML in
+##      XML form from files and text strings.
+##      ";
+## 
+##   The output of rewrite_pydoc.py is another .i file in which all Doxygen
+##   tags have been translated and the docstring contents have been
+##   reformatted for use in the python plain-text interactive help system.
+## 
+## * In our process for producing the libSBML Python bindings, we take the
+##   output of rewrite_pydoc.py and include it in the input to swig.  This
+##   is done via an %include command in the ../local.i file.  The
+##   consequence is that swig reads these %feature commands, and uses them
+##   when it produces a file named "libsbml.py" containing the Python code
+##   for the libSBML interface.  The objects and methods in "libsbml.py"
+##   contain Python-style "docstrings" that are a combination of we defined
+##   in the .i file and what swig itself constructs.  (In particular, swig
+##   adds documentation about the method signatures, because the methods
+##   are interfaces to native code and Python introspection cannot reveal
+##   the data types of the parameters.)
+##
+## * The Doxygen markup understood by rewrite_pydoc.py is not the complete
+##   set of all possible Doxygen tags.  We don't use all possible Doxygen
+##   tags in the libSBML documentation, and so this program only looks for
+##   the ones we have been using.
+##
+##
+## Special features:
+##
+## * When looking for @htmlinclude files, it first checks to see if a
+##   version of the file with a .txt extension exists in the same location
+##   where it finds the .html file.  If the .txt eversion exists, it
+##   includes that instead of the .html file.  (This allows hand-formatted
+##   text files to be used, which is useful for files containing tables,
+##   because the Python HTML parser library doesn't handle tables.)
+##
+## * When expanding @image directives, it looks for a file with the
+##   extension .txt in the same directory where it finds the .jpg file.  If
+##   the .txt version exists, it includes that; if it doesn't exist, it
+##   does not include anything.  (Since the docstrings are plain-text, no
+##   other action seems sensible in this context.)
+##
+##
 ## <!--------------------------------------------------------------------------
 ## This file is part of libSBML.  Please visit http://sbml.org for more
 ## information about SBML, and the latest version of libSBML.
@@ -164,102 +237,33 @@ class RewritePydocHTMLParser(HTMLParser):
 # Body
 # -----------------------------------------------------------------------------
 
-def expanded_path(path):
-    if path: return os.path.expanduser(os.path.expandvars(path))
-    else:    return None
+def rewrite(contents, include_dir, graphics_dir, quietly=False):
+    """Rewrite every docstring in the string argument 'contents', looking for
+    @htmlinclude'd files in 'include_dir' and @image files in 'graphics_dir'.
+    Print messages about errors unless parameter 'quietly' is True."""
 
-
-def read_file_contents(file):
-    istream  = open(file, 'r')
-    contents = istream.read()
-    istream.close()
-    return contents
-
-
-def write_output_file(file, contents):
-    output = open(file, 'w')
-    output.write(contents)
-    output.close()
-
-
-def valid_file(file, quiet=False):
-    if not os.path.exists(file):
-        return False
-    elif not os.path.isfile(file):
-        return False
-    else:
-        return True
-
-
-def valid_directory(dir, quiet=False):
-    if not os.path.exists(dir):
-        return False
-    elif not os.path.isdir(dir):
-        return False
-    else:
-        return True
-    
-
-# The following came from a StackOverflow posting by "Soldier.moth" in 2011:
-# http://stackoverflow.com/questions/930303/python-string-cleanup-manipulation-accented-characters
-
-def latin1_to_ascii (unicrap):
-    """This replaces UNICODE Latin-1 characters with
-    something equivalent in 7-bit ASCII. All characters in the standard
-    7-bit ASCII range are preserved. In the 8th bit range all the Latin-1
-    accented letters are stripped of their accents. Most symbol characters
-    are converted to something meaningful. Anything not converted is deleted.
-    """
-    xlate = {
-        0xc0:'A', 0xc1:'A', 0xc2:'A', 0xc3:'A', 0xc4:'A', 0xc5:'A',
-        0xc6:'Ae', 0xc7:'C', 0xc8:'E', 0xc9:'E', 0xca:'E', 0xcb:'E',
-        0xcc:'I', 0xcd:'I', 0xce:'I', 0xcf:'I', 0xd0:'Th', 0xd1:'N',
-        0xd2:'O', 0xd3:'O', 0xd4:'O', 0xd5:'O', 0xd6:'O', 0xd8:'O',
-        0xd9:'U', 0xda:'U', 0xdb:'U', 0xdc:'U', 0xdd:'Y', 0xde:'th',
-        0xdf:'ss', 0xe0:'a', 0xe1:'a', 0xe2:'a', 0xe3:'a', 0xe4:'a',
-        0xe5:'a', 0xe6:'ae', 0xe7:'c', 0xe8:'e', 0xe9:'e', 0xea:'e',
-        0xeb:'e', 0xec:'i', 0xed:'i', 0xee:'i', 0xef:'i', 0xf0:'th',
-        0xf1:'n', 0xf2:'o', 0xf3:'o', 0xf4:'o', 0xf5:'o', 0xf6:'o',
-        0xf8:'o', 0xf9:'u', 0xfa:'u', 0xfb:'u', 0xfc:'u', 0xfd:'y',
-        0xfe:'th', 0xff:'y', 0xa0: ' ', 0xa1:'!', 0xa2:'{cent}',
-        0xa3:'{pound}', 0xa4:'{currency}', 0xa5:'{yen}', 0xa6:'|',
-        0xa7:'{section}', 0xa8:'{umlaut}', 0xa9:'{C}', 0xaa:'{^a}',
-        0xab:'<<', 0xac:'{not}', 0xad:'-', 0xae:'{R}', 0xaf:'_',
-        0xb0:'{degrees}', 0xb1:'{+/-}', 0xb2:'{^2}', 0xb3:'{^3}', 0xb4:"'",
-        0xb5:'{micro}', 0xb6:'{paragraph}', 0xb7:'*', 0xb8:'{cedilla}',
-        0xb9:'{^1}', 0xba:'{^o}', 0xbb:'>>', 0xbc:'{1/4}', 0xbd:'{1/2}',
-        0xbe:'{3/4}', 0xbf:'?', 0xd7:'*', 0xf7:'/'
-        }
-
-    r = ''
-    for i in unicrap:
-        if xlate.has_key(ord(i)):
-            r += xlate[ord(i)]
-        elif ord(i) >= 0x80:
-            pass
-        else:
-            r += i
-    return r
-
-
-def rewrite(contents, include_dir, graphics_dir, quietly):
     p = re.compile('(%feature\("docstring"\) \S+ "\n)(.*?)(^";\n\s*)', re.DOTALL|re.MULTILINE)
-    return p.sub(lambda text: rewrite_each(text, include_dir, graphics_dir, quietly), contents)
+    return p.sub(lambda match: rewrite_each(match, include_dir, graphics_dir, quietly), contents)
 
 
 def rewrite_each(match, include_dir, graphics_dir, quietly):
+    """Called by 'rewrite' to translate a single instannce of a docstring.
+    'match' is the regular expression match."""
+
     feature_line = match.group(1)
-    doc_body     = match.group(2)
+    body         = match.group(2)
     tail         = match.group(3)
 
-    if re.search('@internal', doc_body):   # Skip everything if it's internal.
-        doc_body = " Internal implementation method.\n"
+    if re.search('@internal', body):   # Skip everything if it's internal.
+        body = " Internal implementation method.\n"
     else:        
-        doc_body = rewrite_one_body(doc_body, include_dir, graphics_dir, quietly)
-    return feature_line + doc_body + tail
+        body = rewrite_one_body(body, include_dir, graphics_dir, quietly)
+    return feature_line + body + tail
 
 
 def rewrite_one_body(body, include_dir, graphics_dir, quietly):
+    """Rewrite one docstring."""
+
     # First, some configurable values, to help improve consistency.
 
     line_width  = 70
@@ -317,35 +321,30 @@ def rewrite_one_body(body, include_dir, graphics_dir, quietly):
     p = re.compile(r'<!--(.+?) -->', re.DOTALL) # HTML comments get removed.
     body = p.sub(r'', body)
 
-    body = re.sub(r'&nbsp;',     ' ',                           body)
-    body = re.sub(r'&ndash;',    '-',                           body)
-    body = re.sub(r'&mdash;',    ' -- ',                        body)
-    body = re.sub(r'</?[bpi]>',  '',                            body)
-    body = re.sub(r'<br>',       '\n',                          body)
-    body = re.sub(r'<ul>',       '\n',                          body)
-    body = re.sub(r'</ul>',      '',                            body)
-    body = re.sub(r'<li.*?>',    '\n' + ' '*list_indent + '* ', body)
+    body = re.sub(r'&nbsp;',          ' ',                           body)
+    body = re.sub(r'&ndash;',         '-',                           body)
+    body = re.sub(r'&mdash;',         ' -- ',                        body)
+    body = re.sub(r'</?([bpi]|em)>',  '',                            body)
+    body = re.sub(r'<br>',            '\n',                          body)
+    body = re.sub(r'<ul>',            '\n',                          body)
+    body = re.sub(r'</ul>',           '',                            body)
+    body = re.sub(r'<li.*?>',         '\n' + ' '*list_indent + '* ', body)
 
-    p = re.compile(r'<code>(.+?)</code>', re.DOTALL|re.IGNORECASE)
-    body = p.sub(r'\1', body)
+    # The following needs to be done repeatedly because the elements may be nested
+    # in arbitrary order.
 
-    p = re.compile(r'<span.*?>(.+?)</span>', re.DOTALL|re.IGNORECASE)
-    body = p.sub(r'\1', body)
+    for i in range(0,4):
+        p = re.compile(r'<(?P<tag>code|span|div|a).*?>(.+?)</(?P=tag)>', re.DOTALL|re.IGNORECASE)
+        body = p.sub(r'\2', body)
 
-    p = re.compile(r'<div.*?>(.+?)</div>', re.DOTALL|re.IGNORECASE)
-    body = p.sub(r'\1', body)
+    # We probably should do <sub> and <sup> repeatedly too, but in our docs
+    # we've never nested them.
 
     p = re.compile(r'<sub>(.+?)</sub>', re.DOTALL|re.IGNORECASE)
     body = p.sub(r'_\1', body)
 
     p = re.compile(r'<sup>\s*(.+?)\s*</sup>', re.DOTALL|re.IGNORECASE)
     body = p.sub(r'^\1', body)
-
-    p = re.compile(r'<em>(.+?)</em>', re.DOTALL|re.IGNORECASE)
-    body = p.sub(r'\1', body)
-
-    p = re.compile(r'<a.+?>(.+?)</a>', re.DOTALL|re.IGNORECASE)
-    body = p.sub(r'\1', body)
 
     # Next, rewrite most Doxygen tags.
 
@@ -488,6 +487,13 @@ def rewrite_section_heading(match, line_width):
     return heading_text + "\n " + underline_char*70 + tail_whitespace
 
 
+# When expanding @htmlinclude directives, it first checks to see if a
+# version of the named file, but with a .txt extension, exists in the same
+# location where it finds the .html file.  If the .txt eversion exists, it
+# includes that instead of the .html file.  (This allows hand-formatted
+# text files to be used, which is useful for files containing tables,
+# because the Python HTML parser doesn't handle tables.)
+
 def rewrite_htmlinclude(match, include_dir, quietly):
     file_path = os.path.join(include_dir, match.group(1))    
     trailing_char = match.group(2)
@@ -501,12 +507,8 @@ def rewrite_htmlinclude(match, include_dir, quietly):
 
     txt_file = re.sub(r'html', 'txt', file_path, re.IGNORECASE)
     if valid_file(txt_file):
-        file = open(txt_file, 'r')
-        contents = file.read()
-        file.close()
-        contents = re.sub('\n', '\n ', contents) # Indent ever line.
-        contents = re.sub(r'"', '\\"', contents) # Quote all double quotes.
-        return contents + trailing_char
+        contents = read_file_contents(txt_file)
+        return rewrite_included_contents(contents) + trailing_char
     else:                               # No txt file; proceed with .html file.
         file = open(file_path, 'r')
 
@@ -516,13 +518,14 @@ def rewrite_htmlinclude(match, include_dir, quietly):
         parser.close()
         file.close()
 
-        text = writer.get_text()
-        text = re.sub(r'\n', '\n ', text)   # Add leading space to every line.
-        text = re.sub(r'"', '\\"', text)    # Quote all double quotes.
-        text += trailing_char
+        return rewrite_included_contents(writer.get_text()) + trailing_char
 
-        return text
 
+# When expanding @image directives, it looks for a file with the extension
+# .txt in the same directory where it finds the .jpg file.  If the .txt
+# version exists, it includes that; if it doesn't exist, it does not
+# include anything.  (Since the docstrings are plain-text, no other action
+# seems sensible in this context.)
 
 def rewrite_image(match, graphics_dir, quietly):
     file_name      = match.group(1)
@@ -535,13 +538,14 @@ def rewrite_image(match, graphics_dir, quietly):
             print "Warning: unable to open @image txt file for '" + file_name + "'"
         return ''
 
-    file = open(file_path, 'r')
-    contents = file.read()
-    file.close()
+    contents = read_file_contents(file_path)
+    return rewrite_included_contents(contents) + trailing_space
+
+
+def rewrite_included_contents(contents):
     contents = re.sub('\n', '\n ', contents) # Indent every line.
     contents = re.sub(r'"', '\\"', contents) # Quote all double quotes.
-
-    return contents + trailing_space
+    return contents
 
 
 def rewrite_fill_paragraph(match, line_width):
@@ -551,6 +555,86 @@ def rewrite_fill_paragraph(match, line_width):
 
 def wrap_paragraph(text, line_width):
     return textwrap.fill(text, subsequent_indent = ' ', width = line_width) + '\n\n'
+
+
+def expanded_path(path):
+    if path: return os.path.expanduser(os.path.expandvars(path))
+    else:    return None
+
+
+def read_file_contents(file):
+    file_stream  = open(file, 'r')
+    contents = file_stream.read()
+    file_stream.close()
+    return contents
+
+
+def write_output_file(file, contents):
+    output = open(file, 'w')
+    output.write(contents)
+    output.close()
+
+
+def valid_file(file, quiet=False):
+    if not os.path.exists(file):
+        return False
+    elif not os.path.isfile(file):
+        return False
+    else:
+        return True
+
+
+def valid_directory(dir, quiet=False):
+    if not os.path.exists(dir):
+        return False
+    elif not os.path.isdir(dir):
+        return False
+    else:
+        return True
+    
+
+# The following came from a StackOverflow posting by "Soldier.moth" in 2011:
+# http://stackoverflow.com/questions/930303/python-string-cleanup-manipulation-accented-characters
+# I added 0xa0, which is unbreakable space, because the Python HTML parser was
+# producing that character.
+
+def latin1_to_ascii (unicrap):
+    """This replaces UNICODE Latin-1 characters with
+    something equivalent in 7-bit ASCII. All characters in the standard
+    7-bit ASCII range are preserved. In the 8th bit range all the Latin-1
+    accented letters are stripped of their accents. Most symbol characters
+    are converted to something meaningful. Anything not converted is deleted.
+    """
+    xlate = {
+        0xc0:'A', 0xc1:'A', 0xc2:'A', 0xc3:'A', 0xc4:'A', 0xc5:'A',
+        0xc6:'Ae', 0xc7:'C', 0xc8:'E', 0xc9:'E', 0xca:'E', 0xcb:'E',
+        0xcc:'I', 0xcd:'I', 0xce:'I', 0xcf:'I', 0xd0:'Th', 0xd1:'N',
+        0xd2:'O', 0xd3:'O', 0xd4:'O', 0xd5:'O', 0xd6:'O', 0xd8:'O',
+        0xd9:'U', 0xda:'U', 0xdb:'U', 0xdc:'U', 0xdd:'Y', 0xde:'th',
+        0xdf:'ss', 0xe0:'a', 0xe1:'a', 0xe2:'a', 0xe3:'a', 0xe4:'a',
+        0xe5:'a', 0xe6:'ae', 0xe7:'c', 0xe8:'e', 0xe9:'e', 0xea:'e',
+        0xeb:'e', 0xec:'i', 0xed:'i', 0xee:'i', 0xef:'i', 0xf0:'th',
+        0xf1:'n', 0xf2:'o', 0xf3:'o', 0xf4:'o', 0xf5:'o', 0xf6:'o',
+        0xf8:'o', 0xf9:'u', 0xfa:'u', 0xfb:'u', 0xfc:'u', 0xfd:'y',
+        0xfe:'th', 0xff:'y', 0xa0: ' ', 0xa1:'!', 0xa2:'{cent}',
+        0xa3:'{pound}', 0xa4:'{currency}', 0xa5:'{yen}', 0xa6:'|',
+        0xa7:'{section}', 0xa8:'{umlaut}', 0xa9:'{C}', 0xaa:'{^a}',
+        0xab:'<<', 0xac:'{not}', 0xad:'-', 0xae:'{R}', 0xaf:'_',
+        0xb0:'{degrees}', 0xb1:'{+/-}', 0xb2:'{^2}', 0xb3:'{^3}', 0xb4:"'",
+        0xb5:'{micro}', 0xb6:'{paragraph}', 0xb7:'*', 0xb8:'{cedilla}',
+        0xb9:'{^1}', 0xba:'{^o}', 0xbb:'>>', 0xbc:'{1/4}', 0xbd:'{1/2}',
+        0xbe:'{3/4}', 0xbf:'?', 0xd7:'*', 0xf7:'/'
+        }
+
+    r = ''
+    for i in unicrap:
+        if xlate.has_key(ord(i)):
+            r += xlate[ord(i)]
+        elif ord(i) >= 0x80:
+            pass
+        else:
+            r += i
+    return r
 
 
 def main():
@@ -564,16 +648,13 @@ def main():
     # Sanity-check the arguments.
 
     if not valid_file(input_file, quietly):
-        if not quietly:
-            if not quietly: print "Error: cannot read file '" + input_file + "'"
+        if not quietly: print "Error: cannot read file '" + input_file + "'"
         sys.exit(1)
     elif include_dir and not valid_directory(include_dir, quietly):
-        if not quietly:
-            if not quietly: print "Error: cannot access directory '" + input_file + "'"
+        if not quietly: print "Error: cannot access directory '" + input_file + "'"
         sys.exit(1)
     elif graphics_dir and not valid_directory(graphics_dir, quietly):
-        if not quietly:
-            if not quietly: print "Error: cannot access directory '" + input_file + "'"
+        if not quietly: print "Error: cannot access directory '" + input_file + "'"
         sys.exit(1)
 
     # Let's do this thing.
