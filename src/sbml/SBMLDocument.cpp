@@ -127,6 +127,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mLevel   ( level   )
  , mVersion ( version )
  , mModel   ( NULL       )
+ , mURI     ("")
 {
 
   mInternalValidator = new SBMLInternalValidator();
@@ -157,8 +158,9 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 
 
 SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
-   SBase (sbmlns)
- , mModel   ( NULL       )
+   SBase  (sbmlns)
+ , mModel ( NULL       )
+ , mURI   ("")
 {
 
   mInternalValidator = new SBMLInternalValidator();
@@ -240,8 +242,9 @@ SBMLDocument::~SBMLDocument ()
  * Creates a copy of this SBMLDocument.
  */
 SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
-   SBase    ( orig          )
- , mModel   ( NULL             )
+   SBase  ( orig          )
+ , mModel ( NULL          )
+ , mURI   (orig.mURI )
 {
   if (&orig == NULL)
   {
@@ -293,6 +296,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 
     mLevel                             = rhs.mLevel;
     mVersion                           = rhs.mVersion;
+    mURI                               = rhs.mURI;
 
     mInternalValidator = (SBMLInternalValidator*)rhs.mInternalValidator->clone();
     mInternalValidator->setDocument(this);
@@ -643,6 +647,20 @@ SBMLDocument::createModel (const std::string& sid)
     mModel->connectToParent(this);
   }
   return mModel;
+}
+
+
+void 
+SBMLDocument::setURI (const std::string& uri)
+{
+  mURI = uri;
+}
+
+
+std::string 
+SBMLDocument::getURI()
+{
+  return mURI;
 }
 
 
@@ -2122,6 +2140,21 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 {
   return (d != NULL) ? d->createModel() : NULL;
 }
+
+LIBSBML_EXTERN
+void 
+SBMLDocument_setURI (SBMLDocument_t *d, const std::string& location)
+{
+  if (d != NULL) d->setURI(location);
+}
+
+LIBSBML_EXTERN
+char*
+SBMLDocument_getURI(SBMLDocument_t *d)
+{
+  return (d != NULL) ? safe_strdup( d->getURI().c_str() ) : NULL;
+}
+
 
 /**
  * Allows particular validators to be turned on or off prior to

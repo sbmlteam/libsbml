@@ -103,7 +103,7 @@ SBMLReader::readSBML (const std::string& filename)
 
 
 /*
- * Reads an SBML document from the given XML string.
+ * Reads an SBML document from the given filename.
  */
 SBMLDocument*
 SBMLReader::readSBMLFromFile (const std::string& filename)
@@ -215,6 +215,9 @@ SBMLDocument*
 SBMLReader::readInternal (const char* content, bool isFile)
 {
   SBMLDocument* d = new SBMLDocument();
+  if (isFile) {
+    d->setURI(string("file:") + content);
+  }
 
   if (isFile && content != NULL && (util_file_exists(content) == false))
   {
