@@ -693,16 +693,15 @@ public:
   /**
    * Sets the location of this SBMLDocument.  Called automatically when
    * readSBMLFromFile is used, but may be set manually as well.
-   *
    */
-  void setURI (const std::string& uri);
+  void setLocationURI (const std::string& uri);
 
   /**
-   * Get the location of this SBMLDocument.  If this document was written to a 
-   * file, read from a file, or had its location set manually, that filename
+   * Get the location of this SBMLDocument.  If this document was 
+   * read from a file or had its location set manually, that filename
    * or set location will be returned, otherwise, an empty string is returned.
    */
-  std::string getURI();
+  std::string getLocationURI();
 
   /**
    * Controls the consistency checks that are performed when
@@ -1522,7 +1521,7 @@ protected:
   int mVersion;
 
   Model* mModel;
-  std::string mURI;
+  std::string mLocationURI;
 
   SBMLErrorLog mErrorLog;
 
@@ -1638,11 +1637,11 @@ SBMLDocument_createModel (SBMLDocument_t *d);
 
 LIBSBML_EXTERN
 void 
-SBMLDocument_setURI (SBMLDocument_t *d, const char* location);
+SBMLDocument_setLocationURI (SBMLDocument_t *d, const char* location);
 
 LIBSBML_EXTERN
 char*
-SBMLDocument_getURI(SBMLDocument_t *d);
+SBMLDocument_getLocationURI(SBMLDocument_t *d);
 
 LIBSBML_EXTERN
 void

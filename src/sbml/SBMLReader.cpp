@@ -216,7 +216,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 {
   SBMLDocument* d = new SBMLDocument();
   if (isFile) {
-    d->setURI(string("file:") + content);
+    d->setLocationURI(string("file:") + content);
   }
 
   if (isFile && content != NULL && (util_file_exists(content) == false))

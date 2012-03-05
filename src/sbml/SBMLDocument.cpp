@@ -127,7 +127,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  , mLevel   ( level   )
  , mVersion ( version )
  , mModel   ( NULL       )
- , mURI     ("")
+ , mLocationURI     ("")
 {
 
   mInternalValidator = new SBMLInternalValidator();
@@ -160,7 +160,7 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 SBMLDocument::SBMLDocument (SBMLNamespaces* sbmlns) :
    SBase  (sbmlns)
  , mModel ( NULL       )
- , mURI   ("")
+ , mLocationURI ("")
 {
 
   mInternalValidator = new SBMLInternalValidator();
@@ -244,7 +244,7 @@ SBMLDocument::~SBMLDocument ()
 SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
    SBase  ( orig          )
  , mModel ( NULL          )
- , mURI   (orig.mURI )
+ , mLocationURI (orig.mLocationURI )
 {
   if (&orig == NULL)
   {
@@ -296,7 +296,7 @@ SBMLDocument& SBMLDocument::operator=(const SBMLDocument& rhs)
 
     mLevel                             = rhs.mLevel;
     mVersion                           = rhs.mVersion;
-    mURI                               = rhs.mURI;
+    mLocationURI                       = rhs.mLocationURI;
 
     mInternalValidator = (SBMLInternalValidator*)rhs.mInternalValidator->clone();
     mInternalValidator->setDocument(this);
@@ -651,16 +651,16 @@ SBMLDocument::createModel (const std::string& sid)
 
 
 void 
-SBMLDocument::setURI (const std::string& uri)
+SBMLDocument::setLocationURI (const std::string& uri)
 {
-  mURI = uri;
+  mLocationURI = uri;
 }
 
 
 std::string 
-SBMLDocument::getURI()
+SBMLDocument::getLocationURI()
 {
-  return mURI;
+  return mLocationURI;
 }
 
 
@@ -2143,16 +2143,16 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 
 LIBSBML_EXTERN
 void 
-SBMLDocument_setURI (SBMLDocument_t *d, const std::string& location)
+SBMLDocument_setLocationURI (SBMLDocument_t *d, const std::string& location)
 {
-  if (d != NULL) d->setURI(location);
+  if (d != NULL) d->setLocationURI(location);
 }
 
 LIBSBML_EXTERN
 char*
-SBMLDocument_getURI(SBMLDocument_t *d)
+SBMLDocument_getLocationURI(SBMLDocument_t *d)
 {
-  return (d != NULL) ? safe_strdup( d->getURI().c_str() ) : NULL;
+  return (d != NULL) ? safe_strdup( d->getLocationURI().c_str() ) : NULL;
 }
 
 
