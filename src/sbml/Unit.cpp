@@ -1853,6 +1853,10 @@ Unit::readL3Attributes (const XMLAttributes& attributes)
   {
     logError(AllowedAttributesOnUnit, level, version);
   }
+  else
+  {
+    mExponent = (int)(mExponentDouble);
+  }
 
   //
   // scale  { use="required" }  (L3v1->)
