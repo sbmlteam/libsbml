@@ -6527,7 +6527,7 @@ LIBSBML_EXTERN
 unsigned int
 SBase_getLine (const SBase_t *sb)
 {
-  return (sb != NULL) ? sb->getLine() : SBML_INT_MAX;
+  return (sb != NULL) ? sb->getLine() : 0;
 }
 
 
@@ -6545,7 +6545,7 @@ LIBSBML_EXTERN
 unsigned int
 SBase_getColumn (const SBase_t *sb)
 {
-  return (sb != NULL) ? sb->getColumn() : SBML_INT_MAX;
+  return (sb != NULL) ? sb->getColumn() : 0;
 }
 
 

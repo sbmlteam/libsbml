@@ -2565,6 +2565,21 @@ START_TEST (test_ReadSBML_line_col_numbers)
   fail_unless ( SBase_getLine  (sb) ==  4 );
   fail_unless ( SBase_getColumn(sb) == 34 );
 #endif
+
+  /* NULL test */
+  sb = NULL;
+#ifdef USE_EXPAT
+  fail_unless ( SBase_getLine  (sb) == 0 );
+  fail_unless ( SBase_getColumn(sb) == 0 );
+#endif
+#ifdef USE_LIBXML
+  fail_unless ( SBase_getLine  (sb) == 0 );
+  fail_unless ( SBase_getColumn(sb) == 0 ); 
+#endif
+#ifdef USE_XERCES
+  fail_unless ( SBase_getLine  (sb) ==  0 );
+  fail_unless ( SBase_getColumn(sb) == 0 );
+#endif
 }
 END_TEST
 
