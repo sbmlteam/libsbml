@@ -57,6 +57,7 @@ test_sources =           \
   TestFormulaTokenizer.c \
   TestReadMathML.cpp     \
   TestWriteMathML.cpp    \
+  TestWriteMathMLFromAST.cpp    \
   TestReadFromFile1.cpp  \
   TestReadFromFile2.cpp  \
   TestValidASTNode.cpp   \

@@ -1356,6 +1356,7 @@ writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces 
   ASTNodeType_t type  = node.getType();
   ASTNode*      left  = node.getLeftChild();
   ASTNode*      right = node.getRightChild();
+  unsigned int num = node.getNumChildren();
 
 
   //
@@ -1366,24 +1367,44 @@ writeOperatorArgs (const ASTNode& node, XMLOutputStream& stream, SBMLNamespaces 
   // multiple levels of binary AST_PLUS or AST_TIMES nodes into an n-ary
   // expression.
   //
+
+  // BUT whilst it is true that the MathML reader will always create
+  // binary nodes; it is possible to create a PLUS or TIMES ASTNode with
+  // more than 2 children - need to deal with this as the function
+  // loses a child when written out
+
   if (type == AST_PLUS || type == AST_TIMES)
   {
-    if (left)
+    if (num <= 2)
     {
-      if (left->getType() == type) writeOperatorArgs(*left, stream, sbmlns);
-      else writeNode(*left, stream, sbmlns);
+      // two or less children - do what we always did
+      if (left != NULL)
+      {
+        if (left->getType() == type) writeOperatorArgs(*left, stream, sbmlns);
+        else writeNode(*left, stream, sbmlns);
+      }
+
+      if (right != NULL)
+      {
+        if (right->getType() == type) writeOperatorArgs(*right, stream, sbmlns);
+        else writeNode(*right, stream, sbmlns);
+      }
+    }
+    else
+    {
+      // more than two children that might or might not be functions
+      for (unsigned int n = 0; n < num; n++)
+      {
+        writeNode(*(node.getChild(n)), stream, sbmlns);
+      }
+
     }
 
-    if (right)
-    {
-      if (right->getType() == type) writeOperatorArgs(*right, stream, sbmlns);
-      else writeNode(*right, stream, sbmlns);
-    }
   }
   else
   {
-    if (left)  writeNode(*left , stream, sbmlns);
-    if (right) writeNode(*right, stream, sbmlns);
+    if (left != NULL)  writeNode(*left , stream, sbmlns);
+    if (right != NULL) writeNode(*right, stream, sbmlns);
   }
 }
 
