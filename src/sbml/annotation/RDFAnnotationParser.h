@@ -407,11 +407,17 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
 
   static bool hasHistoryRDFAnnotation(const XMLNode *annotation);
 
-  
-  static void deriveCVTerms(const XMLNode *annotation, List *CVTerms);
+  /** @endcond */
+
+  protected:
+
+  /** @cond doxygen-libsbml-internal */
 
   
-  static ModelHistory* deriveHistory(const XMLNode *annotation);
+  static void deriveCVTermsFromAnnotation(const XMLNode *annotation, List *CVTerms);
+
+  
+  static ModelHistory* deriveHistoryFromAnnotation(const XMLNode *annotation);
 
    /** @endcond */
 };

@@ -102,126 +102,74 @@ RDFAnnotationParser::parseRDFAnnotation(
      XMLInputStream* stream /*= NULL*/, 
      const char* metaId /*= NULL*/)
 {
-  if (annotation == NULL) return;
+  if (annotation == NULL) 
+    return;
 
   const XMLTriple rdfAbout(
                 "about", 
                 "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
                 "rdf");
-  const string&  name = annotation->getName();
-  const XMLNode*  RDFTop = NULL;
-  unsigned int n = 0;
-  CVTerm * term;
-  if (CVTerms == NULL)
-    CVTerms = new List();
+  const XMLNode* RDFDesc = NULL;
+  const XMLNode& current = 
+                 annotation->getChild("RDF").getChild("Description");
 
-  // need to find the RDF desciption opening annotation
-  if (name == "annotation" && annotation->getNumChildren() > 0)
+  if (current.hasAttr(rdfAbout) || current.hasAttr("rdf:about"))
   {
-    while (n < annotation->getNumChildren())
+    string about;
+    if (current.hasAttr(rdfAbout))
     {
-      const string &name1 = annotation->getChild(n).getName();
-      if (name1 == "RDF")
+      about = current.getAttrValue(rdfAbout);
+    }
+    else
+    {
+      about = current.getAttrValue("rdf:about");
+    }
+
+    if (!about.empty())
+    {
+      if (metaId == NULL || about.find(metaId) != string::npos)
       {
-	      if (annotation->getChild(n).getNumChildren() > 0)
-	      {
-          const XMLNode& current = annotation->getChild(n).getChild(0);
-          if (current.getName() == "Description")
-          {
-            if (current.hasAttr(rdfAbout))
-            {
-              string about = current.getAttrValue(rdfAbout);
-              if (!about.empty())
-              {
-	              if (metaId == NULL || about.find(metaId) != string::npos)
-                {
-                  RDFTop = &current;
-                  break;
-                }
-                else
-                {
-                  if (stream != NULL)
-                  {
-	                  logError(stream, current, RDFAboutTagNotMetaid);
-                  }
-                }
-              }
-              else
-              {
-                if (stream != NULL)
-                {
-                  logError(stream, current, RDFEmptyAboutTag);
-                }
-              }
-            }
-            else if (current.hasAttr("rdf:about"))
-            {
-              string about = current.getAttrValue("rdf:about");
-              if (!about.empty())
-              {
-	              if (metaId == NULL || about.find(metaId) != string::npos)
-                {
-                  RDFTop = &current;
-                  break;
-                }
-                else
-                {
-                  if (stream != NULL)
-                  {
-	                  logError(stream, current, RDFAboutTagNotMetaid);
-                  }
-                }
-              }
-              else
-              {
-                if (stream != NULL)
-                {
-                  logError(stream, current, RDFEmptyAboutTag);
-                }
-              }
-            }
-            else
-            {
-              if (stream != NULL)
-              {
-                logError(stream, current, RDFMissingAboutTag);
-              }
-            }
-          }
-	      }
+        RDFDesc = &current;
       }
-      n++;
+      else
+      {
+        if (stream != NULL)
+        {
+          logError(stream, current, RDFAboutTagNotMetaid);
+        }
+      }
+    }
+    else
+    {
+      if (stream != NULL)
+      {
+        logError(stream, current, RDFEmptyAboutTag);
+      }
+    }
+  }
+  else
+  {
+    if (stream != NULL)
+    {
+      logError(stream, current, RDFMissingAboutTag);
     }
   }
 
-  // find qualifier nodes and create CVTerms
-  
-  n = 0;
-  if (RDFTop != NULL)
+  // if no error logged create CVTerms
+  if (RDFDesc != NULL)
   {
-    while (n < RDFTop->getNumChildren())
-    {
-      const string &name2 = RDFTop->getChild(n).getPrefix();
-      if (name2 == "bqbiol" || name2 == "bqmodel")
-      {
-        term = new CVTerm(RDFTop->getChild(n));
-        if (term->getResources()->getLength() > 0)
-          CVTerms->add((void *)term);
-      }
-      n++;
-    }
+    deriveCVTermsFromAnnotation(annotation, CVTerms);
   }
-  
 }
+
+/** @cond doxygen-libsbml-internal */
 
 
 /*
- * takes an annotation that has been read into the model
- * identifies the RDF elements
- * and creates a List of CVTerms from the annotation
+ * internal sub function that derives the cvterms from the annotation
  */
 void 
-RDFAnnotationParser::deriveCVTerms(
+RDFAnnotationParser::deriveCVTermsFromAnnotation(
      const XMLNode * annotation, 
      List * CVTerms)
 {
@@ -232,19 +180,20 @@ RDFAnnotationParser::deriveCVTerms(
   if (CVTerms == NULL)
     CVTerms = new List();
 
-  const XMLNode*  RDFTop = &(annotation->getChild("RDF").getChild("Description"));
+  const XMLNode* RDFDesc = 
+                 &(annotation->getChild("RDF").getChild("Description"));
   
   // find qualifier nodes and create CVTerms
   
   unsigned int n = 0;
-  if (RDFTop != NULL)
+  if (RDFDesc != NULL)
   {
-    while (n < RDFTop->getNumChildren())
+    while (n < RDFDesc->getNumChildren())
     {
-      const string &name2 = RDFTop->getChild(n).getPrefix();
+      const string &name2 = RDFDesc->getChild(n).getPrefix();
       if (name2 == "bqbiol" || name2 == "bqmodel")
       {
-        term = new CVTerm(RDFTop->getChild(n));
+        term = new CVTerm(RDFDesc->getChild(n));
         if (term->getResources()->getLength() > 0)
           CVTerms->add((void *)term);
       }
@@ -254,6 +203,210 @@ RDFAnnotationParser::deriveCVTerms(
   
 }
 
+/** @endcond */
+
+/*
+ * takes an annotation that has been read into the model
+ * identifies the RDF elements
+ * and creates a Model History from the annotation
+ */
+
+ModelHistory*
+RDFAnnotationParser::parseRDFAnnotation(
+     const XMLNode * annotation, 
+     XMLInputStream* stream /*= NULL*/, 
+     const char* metaId /*= NULL*/)
+{
+  ModelHistory * history = NULL;
+
+  if (annotation == NULL) 
+    return history;
+
+  const XMLTriple rdfAbout(
+                "about", 
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "rdf");
+  const XMLNode* RDFDesc = NULL;
+  const XMLNode& current = 
+                 annotation->getChild("RDF").getChild("Description");
+
+  if (current.hasAttr(rdfAbout) || current.hasAttr("rdf:about"))
+  {
+    string about;
+    if (current.hasAttr(rdfAbout))
+    {
+      about = current.getAttrValue(rdfAbout);
+    }
+    else
+    {
+      about = current.getAttrValue("rdf:about");
+    }
+
+    if (!about.empty())
+    {
+      if (metaId == NULL || about.find(metaId) != string::npos)
+      {
+        RDFDesc = &current;
+      }
+      else
+      {
+        if (stream != NULL)
+        {
+          logError(stream, current, RDFAboutTagNotMetaid);
+        }
+      }
+    }
+    else
+    {
+      if (stream != NULL)
+      {
+        logError(stream, current, RDFEmptyAboutTag);
+      }
+    }
+  }
+  else
+  {
+    if (stream != NULL)
+    {
+      logError(stream, current, RDFMissingAboutTag);
+    }
+  }
+
+  // if no error logged create history
+  if (RDFDesc != NULL)
+  {
+	  history = deriveHistoryFromAnnotation(annotation);
+  }
+  
+  return history;
+}
+
+
+
+/** @cond doxygen-libsbml-internal */
+
+
+/*
+ * internal sub function that derives the cvterms from the annotation
+ */
+
+ModelHistory*
+RDFAnnotationParser::deriveHistoryFromAnnotation(
+     const XMLNode * annotation)
+{
+  ModelHistory * history = NULL;
+
+  if (annotation == NULL)
+    return history;
+
+  const XMLNode*  RDFDesc = &(annotation->getChild("RDF").getChild("Description"));
+
+  ModelCreator* creator = NULL;
+  Date * modified = NULL;
+  Date * created = NULL;
+	static const XMLNode outOfRange;
+
+  // find creation nodes and create history
+  
+  if (RDFDesc != NULL)
+  {
+	  history = new ModelHistory();
+
+    const XMLNode *creatorNode = &(RDFDesc->getChild("creator").getChild("Bag"));
+    if (creatorNode->equals(outOfRange) == false)
+    {
+      for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
+      {
+        creator = new ModelCreator(creatorNode->getChild(c));
+        history->addCreator(creator);
+        delete creator;
+      }
+    }
+ 
+    const XMLNode *createdNode = &(RDFDesc->getChild("created").getChild("W3CDTF"));
+    if (createdNode->equals(outOfRange) == false)
+    {
+      if (createdNode->getChild(0).isText() == true)
+      {
+        created = new Date(createdNode->getChild(0).getCharacters());
+        history->setCreatedDate(created);
+        delete created;
+      }
+    }
+
+    /* there are possibly more than one modified elements */
+    for (unsigned int n = 0; n < RDFDesc->getNumChildren(); n++)
+    {
+      if (RDFDesc->getChild(n).getName() == "modified")
+      {
+        const XMLNode *modifiedNode = &(RDFDesc->getChild(n).getChild("W3CDTF"));
+        if (modifiedNode->equals(outOfRange) == false)
+        {
+          if (modifiedNode->getChild(0).isText() == true)
+          {
+            modified = new Date(modifiedNode->getChild(0).getCharacters());
+            history->addModifiedDate(modified);
+            delete modified;
+          }
+        }
+      }
+    }
+    //while (n < RDFDesc->getNumChildren())
+    //{
+    //  const string &prefix = RDFDesc->getChild(n).getPrefix();
+    //  if (!prefix.empty())
+    //  {
+	   //   if (prefix == "dc")
+	   //   {
+    //      // this should be the Bag node containing the list of creators
+    //      const XMLNode *creatorNode = &(RDFDesc->getChild(n).getChild(0));
+    //      for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
+    //      {
+	   //       creator = new ModelCreator(creatorNode->getChild(c));
+	   //       history->addCreator(creator);
+    //        delete creator;
+    //      }
+	   //   }
+	   //   else if (prefix == "dcterms")
+	   //   {
+	   //     const string &name2 = RDFDesc->getChild(n).getName();
+	   //     if (!name2.empty())
+	   //     {
+	   //       if (RDFDesc->getChild(n).getNumChildren() > 0
+		  //        && RDFDesc->getChild(n).getChild(0).getNumChildren() > 0)
+	   //       {
+	   //         if (name2 == "created")
+	   //         {
+		  //          created = new Date(RDFDesc->getChild(n).getChild(0).
+				//              getChild(0).getCharacters());
+		  //          history->setCreatedDate(created);
+    //            delete created;
+	   //         }
+	   //         else if (name2 == "modified")
+	   //         {
+		  //          modified = new Date(RDFDesc->getChild(n).getChild(0).
+				//                getChild(0).getCharacters());
+		  //          history->addModifiedDate(modified);
+    //            delete modified;
+	   //         }
+	   //       }
+	   //     }
+	   //   }
+    //  }
+    //  n++;
+    //}
+  }
+  
+
+  return history;
+
+}
+
+
+
+
+
+/** @endcond */
 
 XMLNode *
 RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
@@ -579,244 +732,6 @@ RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
   }
   return newAnnotation;
 }
-
-/*
- * takes an annotation that has been read into the model
- * identifies the RDF elements
- * and creates a Model History from the annotation
- */
-
-ModelHistory*
-RDFAnnotationParser::parseRDFAnnotation(
-     const XMLNode * annotation, 
-     XMLInputStream* stream /*= NULL*/, 
-     const char* metaId /*= NULL*/)
-{
-  if (annotation == NULL) return NULL;
-  const XMLTriple rdfAbout(
-                "about", 
-                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                "rdf");
-  const string&  name = annotation->getName();
-  const XMLNode*  RDFTop = NULL;
-  ModelHistory * history = NULL;
-  ModelCreator* creator = NULL;
-  Date * modified = NULL;
-  Date * created = NULL;
-  unsigned int n = 0;
-
-  // need to find the RDF description opening annotation
-  if (!name.empty())
-  {
-    if (name == "annotation" && annotation->getNumChildren() > 0)
-    {
-      while (n < annotation->getNumChildren())
-      {
-	      const string &name1 = annotation->getChild(n).getName();
-	      if (!name1.empty())
-	      {
-	        if (name1 == "RDF")
-	        {
-	          const XMLNode& current = annotation->getChild(n).getChild(0);
-            if (current.getName() == "Description")
-            {
-              if (current.hasAttr(rdfAbout))
-              {
-                string about = current.getAttrValue(rdfAbout);
-                if (!about.empty())
-                {
-	                if (metaId == NULL || about.find(metaId) != string::npos)
-                  {
-                    RDFTop = &current;
-                    break;
-                  }
-                  else
-                  {
-                    if (stream != NULL)
-                    {
-	                    logError(stream, current, RDFAboutTagNotMetaid);
-                    }
-                  }
-                }
-                else
-                {
-                  if (stream != NULL)
-                  {
-                    logError(stream, current, RDFEmptyAboutTag);
-                  }
-                }
-              }
-              else if (current.hasAttr("rdf:about"))
-              {
-                string about = current.getAttrValue("rdf:about");
-                if (!about.empty())
-                {
-	                if (metaId == NULL || about.find(metaId) != string::npos)
-                  {
-                    RDFTop = &current;
-                    break;
-                  }
-                  else
-                  {
-                    if (stream != NULL)
-                    {
-	                    logError(stream, current, RDFAboutTagNotMetaid);
-                    }
-                  }
-                }
-                else
-                {
-                  if (stream != NULL)
-                  {
-                    logError(stream, current, RDFEmptyAboutTag);
-                  }
-                 }
-              }
-              else
-              {
-                if (stream != NULL)
-                {
-                  logError(stream, current, RDFMissingAboutTag);
-                }
-              }
-            }
-	        }
-	      }
-	      n++;
-      }
-    }
-  }
-
-  // find creation nodes and create history
-  
-  n = 0;
-  if (RDFTop != NULL)
-  {
-	  history = new ModelHistory();
-    while (n < RDFTop->getNumChildren())
-    {
-      const string &prefix = RDFTop->getChild(n).getPrefix();
-      if (!prefix.empty())
-      {
-	      if (prefix == "dc")
-	      {
-          // this should be the Bag node containing the list of creators
-          const XMLNode *creatorNode = &(RDFTop->getChild(n).getChild(0));
-          for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
-          {
-	          creator = new ModelCreator(creatorNode->getChild(c));
-	          history->addCreator(creator);
-                  delete creator;
-          }
-	      }
-	      else if (prefix == "dcterms")
-	      {
-	        const string &name2 = RDFTop->getChild(n).getName();
-	        if (!name2.empty())
-	        {
-	          if (RDFTop->getChild(n).getNumChildren() > 0
-		          && RDFTop->getChild(n).getChild(0).getNumChildren() > 0)
-	          {
-	            if (name2 == "created")
-	            {
-		            created = new Date(RDFTop->getChild(n).getChild(0).
-				              getChild(0).getCharacters());
-		            history->setCreatedDate(created);
-                            delete created;
-	            }
-	            else if (name2 == "modified")
-	            {
-		            modified = new Date(RDFTop->getChild(n).getChild(0).
-				                getChild(0).getCharacters());
-		            history->addModifiedDate(modified);
-                            delete modified;
-	            }
-	          }
-	        }
-	      }
-      }
-      n++;
-    }
-  }
-  
-
-  return history;
-
-}
-
-
-ModelHistory*
-RDFAnnotationParser::deriveHistory(
-     const XMLNode * annotation)
-{
-  ModelHistory * history = NULL;
-
-  if (annotation == NULL)
-    return history;
-
-  const XMLNode*  RDFTop = &(annotation->getChild("RDF").getChild("Description"));
-
-  ModelCreator* creator = NULL;
-  Date * modified = NULL;
-  Date * created = NULL;
-  unsigned int n = 0;
-
-  // find creation nodes and create history
-  
-  if (RDFTop != NULL)
-  {
-	  history = new ModelHistory();
-    while (n < RDFTop->getNumChildren())
-    {
-      const string &prefix = RDFTop->getChild(n).getPrefix();
-      if (!prefix.empty())
-      {
-	      if (prefix == "dc")
-	      {
-          // this should be the Bag node containing the list of creators
-          const XMLNode *creatorNode = &(RDFTop->getChild(n).getChild(0));
-          for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
-          {
-	          creator = new ModelCreator(creatorNode->getChild(c));
-	          history->addCreator(creator);
-                  delete creator;
-          }
-	      }
-	      else if (prefix == "dcterms")
-	      {
-	        const string &name2 = RDFTop->getChild(n).getName();
-	        if (!name2.empty())
-	        {
-	          if (RDFTop->getChild(n).getNumChildren() > 0
-		          && RDFTop->getChild(n).getChild(0).getNumChildren() > 0)
-	          {
-	            if (name2 == "created")
-	            {
-		            created = new Date(RDFTop->getChild(n).getChild(0).
-				              getChild(0).getCharacters());
-		            history->setCreatedDate(created);
-                            delete created;
-	            }
-	            else if (name2 == "modified")
-	            {
-		            modified = new Date(RDFTop->getChild(n).getChild(0).
-				                getChild(0).getCharacters());
-		            history->addModifiedDate(modified);
-                            delete modified;
-	            }
-	          }
-	        }
-	      }
-      }
-      n++;
-    }
-  }
-  
-
-  return history;
-
-}
-
 
 XMLNode * 
 RDFAnnotationParser::createAnnotation()
@@ -1620,7 +1535,7 @@ RDFAnnotationParser::hasCVTermRDFAnnotation(const XMLNode *annotation)
 
   // check whether the annotation relates to CVTerms
   List * tempCVTerms = new List();
-  deriveCVTerms(annotation, tempCVTerms);
+  deriveCVTermsFromAnnotation(annotation, tempCVTerms);
   if (tempCVTerms && tempCVTerms->getSize() > 0)
   {
     hasCVTermRDF = true;
@@ -1649,7 +1564,7 @@ RDFAnnotationParser::hasHistoryRDFAnnotation(const XMLNode *annotation)
   }
 
   // check whether the annotation relates to Model History
-  ModelHistory *temp = deriveHistory(annotation);
+  ModelHistory *temp = deriveHistoryFromAnnotation(annotation);
   /* ok I relaxed the test so that an invalid model could be stored
    * but need to check that it resembles an model history in some 
    * way otherwise any RDF could be a model history

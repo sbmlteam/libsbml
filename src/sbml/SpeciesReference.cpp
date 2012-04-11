@@ -842,8 +842,24 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       delete mCVTerms;
     }
     mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
+    delete mHistory;
+    if (RDFAnnotationParser::hasHistoryRDFAnnotation(mAnnotation))
+    {
+      mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation, 
                                             &(stream), getMetaId().c_str());
+
+      if (mHistory != NULL && mHistory->hasRequiredAttributes() == false)
+      {
+        logError(RDFNotCompleteModelHistory, getLevel(), getVersion(),
+          "An invalid ModelHistory element has been stored.");
+      }
+      setModelHistory(mHistory);
+    }
+    else
+      mHistory = NULL;
+    if (RDFAnnotationParser::hasCVTermRDFAnnotation(mAnnotation))
+      RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms, 
+                                                 &(stream), getMetaId().c_str());
 //    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 //    delete mAnnotation;
 //    mAnnotation = new_annotation;
