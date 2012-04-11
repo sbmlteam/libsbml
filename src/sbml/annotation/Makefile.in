@@ -55,6 +55,7 @@ common_headers = \
   ModelCreator.h \
   Date.h \
   ModelHistory.h \
+  RDFAnnotationParser.h \
   RDFAnnotation.h
 
 common_sources = \
@@ -62,7 +63,7 @@ common_sources = \
   ModelCreator.cpp  \
   Date.cpp  \
   ModelHistory.cpp  \
-  RDFAnnotation.cpp
+  RDFAnnotationParser.cpp
 
 sources = $(common_sources)
 headers = $(common_headers)

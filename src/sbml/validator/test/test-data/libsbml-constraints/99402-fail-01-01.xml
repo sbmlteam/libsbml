@@ -24,33 +24,7 @@
         <dcterms:modified rdf:parseType="Resource">
           <dcterms:W3CDTF>2010-07-23T17:43:40Z</dcterms:W3CDTF>
         </dcterms:modified>
-        <bqmodel:is>
-          <rdf:Bag>
-            <rdf:li rdf:resource="urn:miriam:biomodels.db:BIOMD0000000001"/>
-          </rdf:Bag>
-        </bqmodel:is>
-        <bqmodel:is>
-          <rdf:Bag>
-            <rdf:li rdf:resource="urn:miriam:biomodels.db:MODEL6613849442"/>
-          </rdf:Bag>
-        </bqmodel:is>
-        <bqmodel:isDescribedBy>
-          <rdf:Bag>
-            <rdf:li rdf:resource="urn:miriam:pubmed:8983160"/>
-          </rdf:Bag>
-        </bqmodel:isDescribedBy>
-        <bqbiol:isVersionOf>
-          <rdf:Bag>
-            <rdf:li rdf:resource="urn:miriam:obo.go:GO%3A0007274"/>
-            <rdf:li rdf:resource="urn:miriam:obo.go:GO%3A0007166"/>
-          </rdf:Bag>
-        </bqbiol:isVersionOf>
-        <bqbiol:is>
-          <rdf:Bag>
-            <rdf:li rdf:resource="urn:miriam:taxonomy:7787"/>
-          </rdf:Bag>
-        </bqbiol:is>
-      </rdf:Description>
+     </rdf:Description>
     </rdf:RDF>
   </annotation>
 </model>

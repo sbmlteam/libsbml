@@ -2256,6 +2256,7 @@ Model::appendAnnotation (const XMLNode* annotation)
     {
       delete mHistory;
       mHistory = new_mhistory;
+      mHistoryChanged = true;
     }
   }
 
@@ -2304,72 +2305,83 @@ Model::appendAnnotation (const std::string& annotation)
 void
 Model::syncAnnotation ()
 {
-  bool hasRDF = false;
-  bool hasAdditionalRDF = false;
-  // determine status of existing annotation before doing anything
-  if (mAnnotation != NULL)
-  {
-    hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
-    hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
-  }
+  //if (mAnnotationChanged == false)
+  //  return;
 
-  XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
-
-  if(mAnnotation != NULL && hasRDF)
-  {
-    XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    if(new_annotation == NULL)
-    {
-      XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-      new_annotation = new XMLNode(ann_token);
-      new_annotation->addChild(*mAnnotation);
-    }
-    *mAnnotation = *new_annotation;
-    delete new_annotation;
-  }
-
-  if (history != NULL)
-  {
-    if (mAnnotation == NULL)
-    {
-      mAnnotation = history;
-    }
-    else
-    {
-      if (mAnnotation->isEnd())
-      {
-        mAnnotation->unsetEnd();
-      }
-      if (hasAdditionalRDF)
-      {
-        //need to insert the history into existing RDF
-        unsigned int n = 0;
-        while (n < mAnnotation->getNumChildren())
-        {
-          if (mAnnotation->getChild(n).getName() == "RDF")
-          {
-            mAnnotation->getChild(n).insertChild(0, 
-              history->getChild(0).getChild(0));
-            break;
-          }
-          n++;
-        }
-      }
-      else
-      {
-        mAnnotation->addChild(history->getChild(0));
-      }
-      delete history;
-    }
-  }
+  if (mHistoryChanged == false && mCVTermsChanged == false)
+    return;
   else
-  {
-    // Annotations for CVTerm are added by the above RDFAnnotationParser::parseModelHistory(this)
-    // if and only if mHistory is not NULL.
-    // Thus, annotations for CVTerm (if any) needs to be added here if history (mHistory) is NULL.
-    SBase::syncAnnotation();
-  }
+    reconstructRDFAnnotation();
+
+  //bool hasRDF = false;
+  //bool hasAdditionalRDF = false;
+  //// determine status of existing annotation before doing anything
+  //if (mAnnotation != NULL)
+  //{
+  //  hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
+  //  hasAdditionalRDF = 
+  //    RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+  //}
+
+  //XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
+
+  //if(mAnnotation != NULL && hasRDF && mHistoryChanged == true)
+  //{
+  //  XMLNode* new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+  //  if(new_annotation == NULL)
+  //  {
+  //    XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  //    new_annotation = new XMLNode(ann_token);
+  //    new_annotation->addChild(*mAnnotation);
+  //  }
+  //  *mAnnotation = *new_annotation;
+  //  delete new_annotation;
+  //}
+
+  //if (history != NULL)
+  //{
+  //  if (mHistoryChanged == true)
+  //  {
+  //    if (mAnnotation == NULL)
+  //    {
+  //      mAnnotation = history;
+  //    }
+  //    else
+  //    {
+  //      if (mAnnotation->isEnd())
+  //      {
+  //        mAnnotation->unsetEnd();
+  //      }
+  //      if (hasAdditionalRDF)
+  //      {
+  //        //need to insert the history into existing RDF
+  //        unsigned int n = 0;
+  //        while (n < mAnnotation->getNumChildren())
+  //        {
+  //          if (mAnnotation->getChild(n).getName() == "RDF")
+  //          {
+  //            mAnnotation->getChild(n).insertChild(0, 
+  //              history->getChild(0).getChild(0));
+  //            break;
+  //          }
+  //          n++;
+  //        }
+  //      }
+  //      else
+  //      {
+  //        mAnnotation->addChild(history->getChild(0));
+  //      }
+  //      delete history;
+  //    }
+  //  }
+  //}
+  //else
+  //{
+  //  // Annotations for CVTerm are added by the above RDFAnnotationParser::parseModelHistory(this)
+  //  // if and only if mHistory is not NULL.
+  //  // Thus, annotations for CVTerm (if any) needs to be added here if history (mHistory) is NULL.
+  //  SBase::syncAnnotation();
+  //}
 
 }
 /** @endcond */

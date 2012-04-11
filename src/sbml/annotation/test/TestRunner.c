@@ -56,6 +56,7 @@ Suite *create_suite_CopyAndClone (void);
 Suite *create_suite_Validation (void);
 Suite *create_suite_RDFAnnotation_C (void);
 Suite *create_suite_L3ModelHistory (void);
+Suite *create_suite_SyncAnnotation (void);
 
 /**
  * Global.
@@ -112,6 +113,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_Validation () );
   srunner_add_suite( runner, create_suite_RDFAnnotation_C () );
   srunner_add_suite( runner, create_suite_L3ModelHistory  () );
+  srunner_add_suite( runner, create_suite_SyncAnnotation  () );
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {

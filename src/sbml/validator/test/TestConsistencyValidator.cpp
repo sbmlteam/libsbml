@@ -475,6 +475,9 @@ main (int argc, char* argv[])
   failed += runTests("Testing Additional SBML Constraints (99300 - 99399)",
 		     testThisDataDir, 99300, 99399, runAdditionalSBMLTest, library);
 
+  failed += runTests("Testing Additional Annotation Constraints (99400 - 99499)",
+		     testThisDataDir, 99400, 99499, runAdditionalSBMLTest, library);
+
   failed += runTests("Testing Additional Unit Constraints (99500 - 99599)",
 		     testThisDataDir, 99500, 99599, runAdditionalUnitTest, library);
 

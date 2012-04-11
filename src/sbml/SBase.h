@@ -2987,6 +2987,8 @@ protected:
    */
   virtual void syncAnnotation();
 
+  void reconstructRDFAnnotation();
+
 
   /**
    * Checks that the SBML element appears in the expected order.
@@ -3280,6 +3282,11 @@ SBase.readExtensionAttributes(attributes);
   // (i.e. used in getPrefix function)
   //
   std::string mURI;
+
+  // boolean to keep track of whether the user has touched an annotation
+  //bool            mAnnotationChanged;
+  bool            mHistoryChanged;
+  bool            mCVTermsChanged;
 
   //
   // XMLAttributes object containing attributes of unknown pacakges

@@ -234,6 +234,8 @@ SBase::SBase (unsigned int level, unsigned int version) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
  , mURI("")
+ , mHistoryChanged (false)
+ , mCVTermsChanged (false)
 {
   mSBMLNamespaces = new SBMLNamespaces(level, version);
 
@@ -271,6 +273,8 @@ SBase::SBase (SBMLNamespaces *sbmlns) :
  , mHasBeenDeleted (false)
  , mEmptyString ("")
  , mURI("")
+ , mHistoryChanged (false)
+ , mCVTermsChanged (false)
 {
   if (!sbmlns) 
   {
@@ -374,6 +378,10 @@ SBase::SBase(const SBase& orig)
   {
     mPlugins[i]->connectToParent(this);
   }
+
+  this->mHistoryChanged = orig.mHistoryChanged;
+  this->mCVTermsChanged = orig.mCVTermsChanged;
+
 }
 /** @endcond */
 
@@ -475,6 +483,8 @@ SBase& SBase::operator=(const SBase& rhs)
 
     this->mHasBeenDeleted = rhs.mHasBeenDeleted;
     this->mURI = rhs.mURI;
+    this->mHistoryChanged = rhs.mHistoryChanged;
+    this->mCVTermsChanged = rhs.mCVTermsChanged;
 
     for_each( mPlugins.begin(), mPlugins.end(), DeletePluginEntity() );
     mPlugins.resize( rhs.mPlugins.size() );
@@ -1140,6 +1150,7 @@ SBase::setAnnotation (const XMLNode* annotation)
     // parse mAnnotation (if any) and set mCVTerms 
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    mCVTermsChanged = true;
   }
 
   if(getLevel() > 2 && mAnnotation != NULL 
@@ -1147,12 +1158,17 @@ SBase::setAnnotation (const XMLNode* annotation)
   {
     // parse mAnnotation (if any) and set mHistory
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+    mHistoryChanged = true;
   }
 
   for (size_t i=0; i < mPlugins.size(); i++)
   {
     mPlugins[i]->parseAnnotation(this, mAnnotation);
   }
+
+  
+  //mAnnotationChanged = true;
+
 
   return LIBSBML_OPERATION_SUCCESS;
 }
@@ -1245,6 +1261,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
   if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
   {
     RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
+    mCVTermsChanged = true;
   }
 
   // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 
@@ -1851,6 +1868,7 @@ SBase::setModelHistory(ModelHistory * history)
   {
     delete mHistory;
     mHistory = NULL;
+    mHistoryChanged = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
   else if (!(history->hasRequiredAttributes()))
@@ -1863,6 +1881,7 @@ SBase::setModelHistory(ModelHistory * history)
   {
     delete mHistory;
     mHistory = static_cast<ModelHistory*>( history->clone() );
+    mHistoryChanged = true;
     return LIBSBML_OPERATION_SUCCESS;
   }
 }
@@ -2291,6 +2310,7 @@ SBase::addCVTerm(CVTerm * term, bool newBag)
   }
 
   delete copyTerm;
+  mCVTermsChanged = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
 
@@ -2361,6 +2381,7 @@ SBase::unsetCVTerms()
     unsigned int size = mCVTerms->getSize();
     while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
     delete mCVTerms;
+    mCVTermsChanged = true;
   }
   mCVTerms = NULL;
   
@@ -2374,6 +2395,9 @@ SBase::unsetCVTerms()
 int 
 SBase::unsetModelHistory()
 {
+  if (mHistory != NULL)
+    mHistoryChanged = true;
+
   delete mHistory;
   mHistory = NULL;
 
@@ -3523,7 +3547,8 @@ SBase::readOtherXML (XMLInputStream& stream)
 
   bool read = false;
 
-  for (size_t i=0; i < mPlugins.size(); i++)
+//  for (size_t i=0; i < mPlugins.size(); i++)
+  for (size_t i=0; i < 0; i++)
   {
     if (mPlugins[i]->readOtherXML(this, stream))
       read = true;
@@ -4558,131 +4583,354 @@ SBase::writeExtensionAttributes (XMLOutputStream& stream) const
 void
 SBase::syncAnnotation ()
 {
-  bool hasRDF = false;
-  bool hasAdditionalRDF = false;
+  // TO DO - change this so plugins get called
 
-  //
-  // (*NOTICE*) 
-  //
-  // syncAnnotation() must not exit here even if the CVTerm objects (mCVTerms) 
-  // in this SBase object is null or empty (0 CVTerm object).
-  // The reason is that syncAnnotation updates the mAnnotation (an XMLNode object 
-  // of annotation element in this SBase object) as follows:
-  //
-  //   (1) removes XMLNode elements corresponding to CVTerm and/or ModelHistory 
-  //       objects from the mAnnotation, and
-  //   (2) converts the current mCVTerms object (and mHistory objcect in 
-  //       Model::syncAnnotation()) into corresponding temporary XMLNode objects,
-  //       and
-  //   (3) merges the temporary XMLNode objects into the mAnnotation 
-  //
-  // For example, an SBase object with null or empty mCVTerms needs to be updated
-  // if mAnnotation contains XMLNode objects corresponding to CVTerm. 
-  // (This can happen when unsetCVTerms() function invoked after addCVTerm() function.)
-  //
-
-  // determine status of existing annotation before doing anything
-  if (mAnnotation != NULL)
+  if (mHistoryChanged == true || mCVTermsChanged == true)
   {
-    hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
-    hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+    reconstructRDFAnnotation();
   }
 
-  if(mAnnotation != NULL && hasRDF)
-  {
-    XMLNode* new_annotation = 
-      RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    
-    if(new_annotation == NULL)
-    {
-        XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
-                                      XMLAttributes());
-        new_annotation = new XMLNode(ann_token);
-        new_annotation->addChild(*mAnnotation);
-    }
-    *mAnnotation = *new_annotation;
-    delete new_annotation;
-  }
+  //bool hasRDF = false;
+  //bool hasAdditionalRDF = false;
 
-  XMLNode * history = NULL;
-  if (getTypeCode() != SBML_MODEL)
-  {
-    history = RDFAnnotationParser::parseModelHistory(this);
-  }
+  //// determine status of existing annotation before doing anything
+  //if (mAnnotation != NULL)
+  //{
+  //  hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
+  //  hasAdditionalRDF = 
+  //    RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+  //}
 
-  XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
+  //// look at whether the user has changed the RDF elements 
+  //if(mAnnotation != NULL && hasRDF)
+  //{
+  //  XMLNode* new_annotation = NULL;
+  //  if (mHistoryChanged == true)
+  //  {
+  //    if (mCVTermsChanged == true)
+  //    {
+  //      new_annotation = 
+  //        RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+  //    }
+  //    else
+  //    {
+  //      new_annotation = 
+  //        RDFAnnotationParser::deleteRDFHistoryAnnotation(mAnnotation);
+  //    }
+  //  }
+  //  else
+  //  {
+  //    if (mCVTermsChanged == true)
+  //    {
+  //      new_annotation = 
+  //        RDFAnnotationParser::deleteRDFCVTermAnnotation(mAnnotation);
+  //    }
+  //  }
+  //  
+  //  if(new_annotation != NULL)
+  //  {
+  //    *mAnnotation = *new_annotation;
+  //    delete new_annotation;
+  //  }
+  //}
 
-  if (history != NULL)
-  {
-    if (mAnnotation == NULL)
-    {
-      mAnnotation = history;
-    }
-    else
-    {
-      if (mAnnotation->isEnd())
-      {
-        mAnnotation->unsetEnd();
-      }
-      if (hasAdditionalRDF)
-      {
-        //need to insert the history into existing RDF
-        unsigned int n = 0;
-        while (n < mAnnotation->getNumChildren())
-        {
-          if (mAnnotation->getChild(n).getName() == "RDF")
-          {
-            mAnnotation->getChild(n).insertChild(0, 
-              history->getChild(0).getChild(0));
-            break;
-          }
-          n++;
-        }
-      }
-      else
-      {
-        mAnnotation->addChild(history->getChild(0));
-      }
-      delete history;
-    }
-  }
-  else if (cvTerms != NULL)
-  {
-    if (mAnnotation == NULL)
-    {
-      mAnnotation = cvTerms;
-    }
-    else
-    {
-      if (mAnnotation->isEnd())
-      {
-        mAnnotation->unsetEnd();
-      }
-      if (hasAdditionalRDF)
-      {
-        //need to insert the CVTerms into existing RDF
-        unsigned int n = 0;
-        while (n < mAnnotation->getNumChildren())
-        {
-          if (mAnnotation->getChild(n).getName() == "RDF")
-          {
-            mAnnotation->getChild(n).insertChild(0, 
-              cvTerms->getChild(0).getChild(0));
-            break;
-          }
-          n++;
-        }
-      }
-      else
-      {
-        mAnnotation->addChild(cvTerms->getChild(0));
-      }
-      delete cvTerms;
-    }
-  }
+  ///* get the history and cvterm annotations from the element */
+  //XMLNode * history = NULL;
+  //if (getTypeCode() != SBML_MODEL)
+  //{
+  //  history = RDFAnnotationParser::parseOnlyModelHistory(this);
+  //}
 
-  // if we don't have an annotation create a temporary one 
+  //XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
+
+  //if (history != NULL &&  mHistoryChanged == true && mCVTermsChanged == false)
+  //{
+  //  if (cvTerms == NULL)
+  //  {
+  //    if (mAnnotation == NULL)
+  //    {
+  //      // if there was no annotation before a user added history/cvterms
+  //      mAnnotation = history; //noannot.xml
+  //    }
+  //    else
+  //    {
+  //      if (mAnnotation->isEnd())
+  //      {
+  //        // if the original annotation had only history when it was removed
+  //        // it would have left <annotation/> as the annotation
+  //        // need this not to be an end element
+  //        mAnnotation->unsetEnd(); // histOnly.xml
+  //      }
+
+  //      if (hasAdditionalRDF)
+  //      {
+  //        // here the annotation after removing history has an RDF top level
+  //        // element - the history needs to go into the RDF as the first 
+  //        // description element
+  //        // <rdf><some-non-miriam-rdf> needs to become
+  //        // <rdf><History/><some-non-...
+  //        // test file histAddRDF
+  //        mAnnotation->getChild("RDF").insertChild(0, 
+  //          history->getChild("RDF").getChild("Description"));
+  //      }
+  //      else
+  //      {
+  //        // here the annotation after removing history has either an
+  //        // empty annotation element OR one with other top level annotations
+  //        // <annotation/> OR <annotation><someAnnotations/>
+  //        // just add the whole history RDF annotation
+  //        // test files histOnly + histOther
+  //        mAnnotation->addChild(history->getChild("RDF"));
+  //      }
+  //    }
+  //  }
+  //  else
+  //  {
+  //    // here the annotation after removing history has an RDF top level
+  //    // element with CVTerms and (possibly)other rdf 
+  //    // - the history needs to go into the first RDF decsription element
+  //    // that already has CVTerms 
+  //    // <rdf><Description-withCVTerms/><some-non-miriam-rdf> needs to become
+  //    // <rdf><Description with ModelHistory and CVTerms/><some-non-...
+  //    // NOTE: The History Description element has three children
+  //    // creator/created and modified
+  //    // test file: histCVAddRDF/histCVOnly/histCVOther
+  //    unsigned int noChild 
+  //      = history->getChild("RDF").getChild("Description").getNumChildren(); 
+  //    for (unsigned int i = noChild; i > 0; i--) 
+  //    {
+  //      ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
+  //        0, history->getChild("RDF").getChild("Description").getChild(i-1));
+  //    }
+  //  }
+  //}
+
+  //if (cvTerms != NULL &&  mCVTermsChanged == true && mHistoryChanged == false)
+  //{
+  //  if (history == NULL)
+  //  {
+  //    if (mAnnotation == NULL)
+  //    {
+  //      // if there was no annotation before a user added history/cvterms
+  //      mAnnotation = cvTerms->clone(); //noannot.xml
+  //    }
+  //    else
+  //    {
+  //      if (mAnnotation->isEnd())
+  //      {
+  //        // if the original annotation had only CVTerms when it was removed
+  //        // it would have left <annotation/> as the annotation
+  //        // need this not to be an end element
+  //        mAnnotation->unsetEnd(); // CVOnly.xml
+  //      }
+
+  //      if (hasAdditionalRDF)
+  //      {
+  //        // here the annotation after removing history has an RDF top level
+  //        // element - the history needs to go into the RDF as the first 
+  //        // description element
+  //        // <rdf><some-non-miriam-rdf> needs to become
+  //        // <rdf><History/><some-non-...
+  //        // test file histAddRDF
+  //        mAnnotation->getChild("RDF").insertChild(0, 
+  //          cvTerms->getChild("RDF").getChild("Description"));
+  //      }
+  //      else
+  //      {
+  //        // here the annotation after removing CVTerms has either an
+  //        // empty annotation element OR one with other top level annotations
+  //        // <annotation/> OR <annotation><someAnnotations/>
+  //        // just add the whole CVTerm RDF annotation
+  //        // test files CVOnly + CVOther
+  //        mAnnotation->addChild(cvTerms->getChild("RDF"));
+  //      }
+  //    }
+  //  }
+  //  else
+  //  {
+  //    // here the annotation after removing cvterms has an RDF top level
+  //    // element with history and (possibly)other rdf 
+  //    // - the cvterms needs to go into the first RDF decsription element
+  //    // that already has history but after it
+  //    // <rdf><Description-withHistory/><some-non-miriam-rdf> needs to become
+  //    // <rdf><Description with History and CVTerms/><some-non-...
+  //    // NOTE: The History Description element has three children
+  //    // creator/created and modified
+  //    // test file: histCVAddRDF/histCVOnly/histCVOther
+  //    unsigned int noChild 
+  //      = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+  //    for (unsigned int i = 0; i < noChild; i++) 
+  //    {
+  //      ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+  //        cvTerms->getChild("RDF").getChild("Description").getChild(i));
+  //    }
+  //  }
+  //}
+
+  //if (mCVTermsChanged == true && mHistoryChanged == true)
+  //{
+  //    if (mAnnotation == NULL)
+  //    {
+  //      // if there was no annotation before a user changed history/cvterms
+  //      // need to catch case where user in fact unset history/cvterms
+  //      // test file noannot.xml
+  //      if (history != NULL)
+  //      {
+  //        mAnnotation = history->clone();
+  //        if (cvTerms != NULL)
+  //        {
+  //          unsigned int noChild 
+  //            = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+  //          for (unsigned int i = 0; i < noChild; i++) 
+  //          {
+  //            ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+  //              cvTerms->getChild("RDF").getChild("Description").getChild(i));
+  //          }
+  //        }
+  //      }
+  //      else
+  //      {
+  //        if (cvTerms != NULL)
+  //        {
+  //          mAnnotation = cvTerms->clone();
+  //        }
+  //      }
+
+  //    }
+  //    else
+  //    {
+  //      if (mAnnotation->isEnd())
+  //      {
+  //        // if the original annotation had only the miriam-rdf when it was removed
+  //        // it would have left <annotation/> as the annotation
+  //        // need this not to be an end element
+  //        mAnnotation->unsetEnd(); 
+  //      }
+  //      
+  //      if (hasAdditionalRDF)
+  //      {
+  //        ////////////still to do
+  //        // here the annotation after removing miriam-rdf has an RDF top level
+  //        // element - the history and cvterms need to go into the RDF as the first 
+  //        // description element
+  //        // <rdf><some-non-miriam-rdf> needs to become
+  //        // <rdf><HistoryAndCVTerms/><some-non-...
+  //        if (history != NULL)
+  //        {
+  //          mAnnotation->getChild("RDF").insertChild(0, 
+  //            history->getChild("RDF").getChild("Description"));
+  //          if (cvTerms != NULL)
+  //          {
+  //            unsigned int noChild 
+  //              = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+  //            for (unsigned int i = 0; i < noChild; i++) 
+  //            {
+  //              ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+  //                cvTerms->getChild("RDF").getChild("Description").getChild(i));
+  //            }
+  //          }
+  //        }
+  //        else
+  //        {
+  //          if (cvTerms != NULL)
+  //          {
+  //           mAnnotation->getChild("RDF").insertChild(0, 
+  //            cvTerms->getChild("RDF").getChild("Description"));
+  //         }
+  //        }
+  //      }
+  //      else
+  //      {
+  //        // here the annotation after removing miriam-rdf has either an
+  //        // empty annotation element OR one with other top level annotations
+  //        // <annotation/> OR <annotation><someAnnotations/>
+  //        // just add the whole history and cvterms 
+  //        if (history != NULL)
+  //        {
+  //          mAnnotation->addChild(history->getChild("RDF"));
+  //          if (cvTerms != NULL)
+  //          {
+  //            unsigned int noChild 
+  //              = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+  //            for (unsigned int i = 0; i < noChild; i++) 
+  //            {
+  //              ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+  //                cvTerms->getChild("RDF").getChild("Description").getChild(i));
+  //            }
+  //          }
+  //        }
+  //        else
+  //        {
+  //          if (cvTerms != NULL)
+  //          {
+  //            mAnnotation->addChild(cvTerms->getChild("RDF"));
+  //          }
+  //        }
+  //        
+  //      }
+  //   }
+
+   //if (history == NULL)
+    //{
+    //  if (mAnnotation == NULL)
+    //  {
+    //    // if there was no annotation before a user added history/cvterms
+    //    mAnnotation = cvTerms->clone(); //noannot.xml
+    //  }
+    //  else
+    //  {
+    //    if (mAnnotation->isEnd())
+    //    {
+    //      // if the original annotation had only CVTerms when it was removed
+    //      // it would have left <annotation/> as the annotation
+    //      // need this not to be an end element
+    //      mAnnotation->unsetEnd(); // CVOnly.xml
+    //    }
+
+    //    if (hasAdditionalRDF)
+    //    {
+    //      // here the annotation after removing history has an RDF top level
+    //      // element - the history needs to go into the RDF as the first 
+    //      // description element
+    //      // <rdf><some-non-miriam-rdf> needs to become
+    //      // <rdf><History/><some-non-...
+    //      // test file histAddRDF
+    //      mAnnotation->getChild("RDF").insertChild(0, 
+    //        cvTerms->getChild("RDF").getChild("Description"));
+    //    }
+    //    else
+    //    {
+    //      // here the annotation after removing CVTerms has either an
+    //      // empty annotation element OR one with other top level annotations
+    //      // <annotation/> OR <annotation><someAnnotations/>
+    //      // just add the whole CVTerm RDF annotation
+    //      // test files CVOnly + CVOther
+    //      mAnnotation->addChild(cvTerms->getChild("RDF"));
+    //    }
+    //  }
+    //}
+    //else
+    //{
+    //  // here the annotation after removing cvterms has an RDF top level
+    //  // element with history and (possibly)other rdf 
+    //  // - the cvterms needs to go into the first RDF decsription element
+    //  // that already has history but after it
+    //  // <rdf><Description-withHistory/><some-non-miriam-rdf> needs to become
+    //  // <rdf><Description with History and CVTerms/><some-non-...
+    //  // NOTE: The History Description element has three children
+    //  // creator/created and modified
+    //  // test file: histCVAddRDF/histCVOnly/histCVOther
+    //  unsigned int noChild 
+    //    = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+    //  for (unsigned int i = 0; i < noChild; i++) 
+    //  {
+    //    ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+    //      cvTerms->getChild("RDF").getChild("Description").getChild(i));
+    //  }
+    //}
+    //delete cvTerms;
+  
+
   if (mAnnotation == NULL)
   {
     XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
@@ -4706,7 +4954,290 @@ SBase::syncAnnotation ()
 }
 /** @endcond */
 
+void
+SBase::reconstructRDFAnnotation()
+{
+  bool hasRDF = false;
+  bool hasAdditionalRDF = false;
 
+  // determine status of existing annotation before doing anything
+  if (mAnnotation != NULL)
+  {
+    hasRDF = RDFAnnotationParser::hasRDFAnnotation(mAnnotation);
+    hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(mAnnotation);
+  }
+
+  // look at whether the user has changed the RDF elements 
+  if(mAnnotation != NULL && hasRDF)
+  {
+    XMLNode* new_annotation = NULL;
+    if (mHistoryChanged == true)
+    {
+      if (mCVTermsChanged == true)
+      {
+        new_annotation = 
+          RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+      }
+      else
+      {
+        new_annotation = 
+          RDFAnnotationParser::deleteRDFHistoryAnnotation(mAnnotation);
+      }
+    }
+    else
+    {
+      if (mCVTermsChanged == true)
+      {
+        new_annotation = 
+          RDFAnnotationParser::deleteRDFCVTermAnnotation(mAnnotation);
+      }
+    }
+    
+    if(new_annotation != NULL)
+    {
+      *mAnnotation = *new_annotation;
+      delete new_annotation;
+    }
+  }
+
+  /* get the history and cvterm annotations from the element */
+  XMLNode * history = RDFAnnotationParser::parseOnlyModelHistory(this);
+
+  XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
+
+  if (history != NULL &&  mHistoryChanged == true && mCVTermsChanged == false)
+  {
+    if (cvTerms == NULL)
+    {
+      if (mAnnotation == NULL)
+      {
+        // if there was no annotation before a user added history/cvterms
+        mAnnotation = history->clone(); //noannot.xml
+      }
+      else
+      {
+        if (mAnnotation->isEnd())
+        {
+          // if the original annotation had only history when it was removed
+          // it would have left <annotation/> as the annotation
+          // need this not to be an end element
+          mAnnotation->unsetEnd(); // histOnly.xml
+        }
+
+        if (hasAdditionalRDF)
+        {
+          // here the annotation after removing history has an RDF top level
+          // element - the history needs to go into the RDF as the first 
+          // description element
+          // <rdf><some-non-miriam-rdf> needs to become
+          // <rdf><History/><some-non-...
+          // test file histAddRDF
+          mAnnotation->getChild("RDF").insertChild(0, 
+            history->getChild("RDF").getChild("Description"));
+        }
+        else
+        {
+          // here the annotation after removing history has either an
+          // empty annotation element OR one with other top level annotations
+          // <annotation/> OR <annotation><someAnnotations/>
+          // just add the whole history RDF annotation
+          // test files histOnly + histOther
+          mAnnotation->addChild(history->getChild("RDF"));
+        }
+      }
+    }
+    else
+    {
+      // here the annotation after removing history has an RDF top level
+      // element with CVTerms and (possibly)other rdf 
+      // - the history needs to go into the first RDF decsription element
+      // that already has CVTerms 
+      // <rdf><Description-withCVTerms/><some-non-miriam-rdf> needs to become
+      // <rdf><Description with ModelHistory and CVTerms/><some-non-...
+      // NOTE: The History Description element has three children
+      // creator/created and modified
+      // test file: histCVAddRDF/histCVOnly/histCVOther
+      unsigned int noChild 
+        = history->getChild("RDF").getChild("Description").getNumChildren(); 
+      for (unsigned int i = noChild; i > 0; i--) 
+      {
+        ((mAnnotation->getChild("RDF")).getChild("Description")).insertChild(
+          0, history->getChild("RDF").getChild("Description").getChild(i-1));
+      }
+    }
+  }
+
+  if (cvTerms != NULL &&  mCVTermsChanged == true && mHistoryChanged == false)
+  {
+    if (history == NULL)
+    {
+      if (mAnnotation == NULL)
+      {
+        // if there was no annotation before a user added history/cvterms
+        mAnnotation = cvTerms->clone(); //noannot.xml
+      }
+      else
+      {
+        if (mAnnotation->isEnd())
+        {
+          // if the original annotation had only CVTerms when it was removed
+          // it would have left <annotation/> as the annotation
+          // need this not to be an end element
+          mAnnotation->unsetEnd(); // CVOnly.xml
+        }
+
+        if (hasAdditionalRDF)
+        {
+          // here the annotation after removing cvterms has an RDF top level
+          // element - the cvterms needs to go into the RDF as the first 
+          // description element
+          // <rdf><some-non-miriam-rdf> needs to become
+          // <rdf><cvterms/><some-non-...
+          // test file histAddRDF
+          mAnnotation->getChild("RDF").insertChild(0, 
+            cvTerms->getChild("RDF").getChild("Description"));
+        }
+        else
+        {
+          // here the annotation after removing CVTerms has either an
+          // empty annotation element OR one with other top level annotations
+          // <annotation/> OR <annotation><someAnnotations/>
+          // just add the whole CVTerm RDF annotation
+          // test files CVOnly + CVOther
+          mAnnotation->addChild(cvTerms->getChild("RDF"));
+        }
+      }
+    }
+    else
+    {
+      // here the annotation after removing cvterms has an RDF top level
+      // element with history and (possibly)other rdf 
+      // - the cvterms needs to go into the first RDF decsription element
+      // that already has history but after it
+      // <rdf><Description-withHistory/><some-non-miriam-rdf> needs to become
+      // <rdf><Description with History and CVTerms/><some-non-...
+      // NOTE: The History Description element has three children
+      // creator/created and modified
+      // test file: histCVAddRDF/histCVOnly/histCVOther
+      unsigned int noChild 
+        = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+      for (unsigned int i = 0; i < noChild; i++) 
+      {
+        ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+          cvTerms->getChild("RDF").getChild("Description").getChild(i));
+      }
+    }
+  }
+
+  if (mCVTermsChanged == true && mHistoryChanged == true)
+  {
+    if (mAnnotation == NULL)
+    {
+      // if there was no annotation before a user changed history/cvterms
+      // need to catch case where user in fact unset history/cvterms
+      // test file noannot.xml
+      if (history != NULL)
+      {
+        mAnnotation = history->clone();
+        if (cvTerms != NULL)
+        {
+          unsigned int noChild 
+            = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+          for (unsigned int i = 0; i < noChild; i++) 
+          {
+            ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+              cvTerms->getChild("RDF").getChild("Description").getChild(i));
+          }
+        }
+      }
+      else
+      {
+        if (cvTerms != NULL)
+        {
+          mAnnotation = cvTerms->clone();
+        }
+      }
+
+    }
+    else
+    {
+      if (mAnnotation->isEnd())
+      {
+        // if the original annotation had only the miriam-rdf when it was removed
+        // it would have left <annotation/> as the annotation
+        // need this not to be an end element
+        mAnnotation->unsetEnd(); 
+      }
+      
+      if (hasAdditionalRDF)
+      {
+        ////////////still to do
+        // here the annotation after removing miriam-rdf has an RDF top level
+        // element - the history and cvterms need to go into the RDF as the first 
+        // description element
+        // <rdf><some-non-miriam-rdf> needs to become
+        // <rdf><HistoryAndCVTerms/><some-non-...
+        if (history != NULL)
+        {
+          mAnnotation->getChild("RDF").insertChild(0, 
+            history->getChild("RDF").getChild("Description"));
+          if (cvTerms != NULL)
+          {
+            unsigned int noChild 
+              = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+            for (unsigned int i = 0; i < noChild; i++) 
+            {
+              ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+                cvTerms->getChild("RDF").getChild("Description").getChild(i));
+            }
+          }
+        }
+        else
+        {
+          if (cvTerms != NULL)
+          {
+           mAnnotation->getChild("RDF").insertChild(0, 
+            cvTerms->getChild("RDF").getChild("Description"));
+         }
+        }
+      }
+      else
+      {
+        // here the annotation after removing miriam-rdf has either an
+        // empty annotation element OR one with other top level annotations
+        // <annotation/> OR <annotation><someAnnotations/>
+        // just add the whole history and cvterms 
+        if (history != NULL)
+        {
+          mAnnotation->addChild(history->getChild("RDF"));
+          if (cvTerms != NULL)
+          {
+            unsigned int noChild 
+              = cvTerms->getChild("RDF").getChild("Description").getNumChildren(); 
+            for (unsigned int i = 0; i < noChild; i++) 
+            {
+              ((mAnnotation->getChild("RDF")).getChild("Description")).addChild(
+                cvTerms->getChild("RDF").getChild("Description").getChild(i));
+            }
+          }
+        }
+        else
+        {
+          if (cvTerms != NULL)
+          {
+            mAnnotation->addChild(cvTerms->getChild("RDF"));
+          }
+        }
+        
+      }
+   }
+}
+
+
+  if (history != NULL) delete history;
+  if (cvTerms != NULL) delete cvTerms;
+}
 /** @cond doxygen-libsbml-internal */
 /*
  * Checks that SBML element has been read in the proper order.  If object

@@ -588,6 +588,1061 @@ START_TEST (test_RDFAnnotation_testMissingMetaId)
 }
 END_TEST
 
+
+START_TEST (test_RDFAnnotation_testHasRDFAnnotation)
+{
+
+ const char * notAnnotation =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <ann>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </ann>";
+
+  const char * withRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+    "    <otherns/>\n"
+    "  </annotation>";
+
+  fail_unless(RDFAnnotationParser::hasRDFAnnotation(NULL) == false);
+
+  XMLInputStream stream(notAnnotation,false);
+  XMLNode node(stream);
+
+  fail_unless(RDFAnnotationParser::hasRDFAnnotation(&node) == false);
+
+  XMLInputStream stream1(withRDF,false);
+  XMLNode node1(stream1);
+
+  fail_unless(RDFAnnotationParser::hasRDFAnnotation(&node1) == true);
+  
+  XMLInputStream stream2(noRDF,false);
+  XMLNode node2(stream2);
+
+  fail_unless(RDFAnnotationParser::hasRDFAnnotation(&node2) == false);
+
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_testHasAdditionalRDFAnnotation)
+{
+
+ const char * addRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * otherRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+    "    <otherns/>\n"
+    "  </annotation>";
+
+  fail_unless(RDFAnnotationParser::hasAdditionalRDFAnnotation(NULL) == false);
+
+  XMLInputStream stream(noRDF,false);
+  XMLNode node(stream);
+
+  fail_unless(RDFAnnotationParser::hasAdditionalRDFAnnotation(&node) == false);
+
+  XMLInputStream stream1(withRDF,false);
+  XMLNode node1(stream1);
+
+  fail_unless(RDFAnnotationParser::hasAdditionalRDFAnnotation(&node1) == false);
+  
+  XMLInputStream stream2(withRDF1,false);
+  XMLNode node2(stream2);
+
+  fail_unless(RDFAnnotationParser::hasAdditionalRDFAnnotation(&node2) == false);
+
+  XMLInputStream stream3(addRDF,false);
+  XMLNode node3(stream3);
+
+  fail_unless(RDFAnnotationParser::hasAdditionalRDFAnnotation(&node3) == true);
+
+  XMLInputStream stream4(otherRDF,false);
+  XMLNode node4(stream4);
+
+  fail_unless(RDFAnnotationParser::hasAdditionalRDFAnnotation(&node4) == true);
+
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_testHasCVTermRDFAnnotation)
+{
+
+ const char * addRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * withRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * otherRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+    "    <otherns/>\n"
+    "  </annotation>";
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(NULL) == false);
+
+  XMLInputStream stream(noRDF,false);
+  XMLNode node(stream);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node) == false);
+
+  XMLInputStream stream1(withRDF,false);
+  XMLNode node1(stream1);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node1) == true);
+  
+  XMLInputStream stream2(withRDF1,false);
+  XMLNode node2(stream2);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node2) == false);
+
+  XMLInputStream stream3(addRDF,false);
+  XMLNode node3(stream3);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node3) == true);
+
+  XMLInputStream stream4(otherRDF,false);
+  XMLNode node4(stream4);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node4) == false);
+
+  XMLInputStream stream5(addRDF1,false);
+  XMLNode node5(stream5);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node5) == false);
+
+  XMLInputStream stream6(addRDF2,false);
+  XMLNode node6(stream6);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node6) == true);
+
+  XMLInputStream stream7(withRDF2,false);
+  XMLNode node7(stream7);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node7) == true);
+
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_testHasHistoryRDFAnnotation)
+{
+
+ const char * addRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * withRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#_000004\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * otherRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"a\">\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+    "    <otherns/>\n"
+    "  </annotation>";
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(NULL) == false);
+
+  XMLInputStream stream(noRDF,false);
+  XMLNode node(stream);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node) == false);
+
+  XMLInputStream stream1(withRDF,false);
+  XMLNode node1(stream1);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node1) == false);
+  
+  XMLInputStream stream2(withRDF1,false);
+  XMLNode node2(stream2);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node2) == true);
+
+  XMLInputStream stream3(addRDF,false);
+  XMLNode node3(stream3);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node3) == false);
+
+  XMLInputStream stream4(otherRDF,false);
+  XMLNode node4(stream4);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node4) == false);
+
+  XMLInputStream stream5(addRDF1,false);
+  XMLNode node5(stream5);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node5) == true);
+
+    XMLInputStream stream6(addRDF2,false);
+  XMLNode node6(stream6);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node6) == true);
+
+  XMLInputStream stream7(withRDF2,false);
+  XMLNode node7(stream7);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node7) == true);
+
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_testHasCVTermRDFAnnotationBadAbout)
+{
+
+ const char * addRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * withRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * otherRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+    "    <otherns/>\n"
+    "  </annotation>";
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(NULL) == false);
+
+  XMLInputStream stream(noRDF,false);
+  XMLNode node(stream);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node) == false);
+
+  XMLInputStream stream1(withRDF,false);
+  XMLNode node1(stream1);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node1) == true);
+  
+  XMLInputStream stream2(withRDF1,false);
+  XMLNode node2(stream2);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node2) == false);
+
+  XMLInputStream stream3(addRDF,false);
+  XMLNode node3(stream3);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node3) == true);
+
+  XMLInputStream stream4(otherRDF,false);
+  XMLNode node4(stream4);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node4) == false);
+
+  XMLInputStream stream5(addRDF1,false);
+  XMLNode node5(stream5);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node5) == false);
+
+  XMLInputStream stream6(addRDF2,false);
+  XMLNode node6(stream6);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node6) == true);
+
+  XMLInputStream stream7(withRDF2,false);
+  XMLNode node7(stream7);
+
+  fail_unless(RDFAnnotationParser::hasCVTermRDFAnnotation(&node7) == true);
+
+}
+END_TEST
+
+
+START_TEST (test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout)
+{
+
+ const char * addRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * addRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"      <rdf:Description/>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * withRDF1 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+ const char * withRDF2 =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"\">\n"
+    "        <dc:creator>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:parseType=\"Resource\">\n"
+    "              <vCard:N rdf:parseType=\"Resource\">\n"
+		"                <vCard:Family>Le Novere</vCard:Family>\n"
+		"                <vCard:Given>Nicolas</vCard:Given>\n"
+		"              </vCard:N>\n"
+		"              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n"
+		"              <vCard:ORG rdf:parseType=\"Resource\">\n"
+		"                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n"
+		"              </vCard:ORG>\n"
+		"            </rdf:li>\n"
+		"          </rdf:Bag>\n"
+		"        </dc:creator>\n"
+		"        <dcterms:created rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n"
+		"        </dcterms:created>\n"
+		"        <dcterms:modified rdf:parseType=\"Resource\">\n"
+		"          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n"
+		"        </dcterms:modified>\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * otherRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>";
+
+  const char * noRDF =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "  <annotation>\n"
+    "    <otherns/>\n"
+    "  </annotation>";
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(NULL) == false);
+
+  XMLInputStream stream(noRDF,false);
+  XMLNode node(stream);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node) == false);
+
+  XMLInputStream stream1(withRDF,false);
+  XMLNode node1(stream1);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node1) == false);
+  
+  XMLInputStream stream2(withRDF1,false);
+  XMLNode node2(stream2);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node2) == true);
+
+  XMLInputStream stream3(addRDF,false);
+  XMLNode node3(stream3);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node3) == false);
+
+  XMLInputStream stream4(otherRDF,false);
+  XMLNode node4(stream4);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node4) == false);
+
+  XMLInputStream stream5(addRDF1,false);
+  XMLNode node5(stream5);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node5) == true);
+
+    XMLInputStream stream6(addRDF2,false);
+  XMLNode node6(stream6);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node6) == true);
+
+  XMLInputStream stream7(withRDF2,false);
+  XMLNode node7(stream7);
+
+  fail_unless(RDFAnnotationParser::hasHistoryRDFAnnotation(&node7) == true);
+
+}
+END_TEST
+
+
+
+/* when I rewrote the parsing an annotation that has not been touched
+ * does not get "recreated" - so I took out these tests
+ */
+
 Suite *
 create_suite_RDFAnnotation (void)
 {
@@ -603,13 +1658,19 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_parseCVTerms );
   tcase_add_test(tcase, test_RDFAnnotation_delete );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOther );
-  tcase_add_test(tcase, test_RDFAnnotation_recreate );
-  tcase_add_test(tcase, test_RDFAnnotation_recreateFromEmpty );
+//  tcase_add_test(tcase, test_RDFAnnotation_recreate );
+//  tcase_add_test(tcase, test_RDFAnnotation_recreateFromEmpty );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOutOther );
-  tcase_add_test(tcase, test_RDFAnnotation_recreateWithOutOther );
+//  tcase_add_test(tcase, test_RDFAnnotation_recreateWithOutOther );
   tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
   tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testAnnotationForMetaId );
+  tcase_add_test(tcase, test_RDFAnnotation_testHasRDFAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_testHasAdditionalRDFAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_testHasCVTermRDFAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotation );
+  tcase_add_test(tcase, test_RDFAnnotation_testHasCVTermRDFAnnotationBadAbout );
+  tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout );
   suite_add_tcase(suite, tcase);
 
   return suite;
