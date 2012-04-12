@@ -287,7 +287,7 @@ RDFAnnotationParser::parseRDFAnnotation(
 
 
 /*
- * internal sub function that derives the cvterms from the annotation
+ * internal sub function that derives the hiostory from the annotation
  */
 
 ModelHistory*
@@ -351,387 +351,14 @@ RDFAnnotationParser::deriveHistoryFromAnnotation(
         }
       }
     }
-    //while (n < RDFDesc->getNumChildren())
-    //{
-    //  const string &prefix = RDFDesc->getChild(n).getPrefix();
-    //  if (!prefix.empty())
-    //  {
-	   //   if (prefix == "dc")
-	   //   {
-    //      // this should be the Bag node containing the list of creators
-    //      const XMLNode *creatorNode = &(RDFDesc->getChild(n).getChild(0));
-    //      for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
-    //      {
-	   //       creator = new ModelCreator(creatorNode->getChild(c));
-	   //       history->addCreator(creator);
-    //        delete creator;
-    //      }
-	   //   }
-	   //   else if (prefix == "dcterms")
-	   //   {
-	   //     const string &name2 = RDFDesc->getChild(n).getName();
-	   //     if (!name2.empty())
-	   //     {
-	   //       if (RDFDesc->getChild(n).getNumChildren() > 0
-		  //        && RDFDesc->getChild(n).getChild(0).getNumChildren() > 0)
-	   //       {
-	   //         if (name2 == "created")
-	   //         {
-		  //          created = new Date(RDFDesc->getChild(n).getChild(0).
-				//              getChild(0).getCharacters());
-		  //          history->setCreatedDate(created);
-    //            delete created;
-	   //         }
-	   //         else if (name2 == "modified")
-	   //         {
-		  //          modified = new Date(RDFDesc->getChild(n).getChild(0).
-				//                getChild(0).getCharacters());
-		  //          history->addModifiedDate(modified);
-    //            delete modified;
-	   //         }
-	   //       }
-	   //     }
-	   //   }
-    //  }
-    //  n++;
-    //}
   }
-  
 
   return history;
-
 }
-
-
-
 
 
 /** @endcond */
 
-XMLNode *
-RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
-{
-  if (annotation == NULL) return NULL; 
-
-  const string&  name = annotation->getName();
-  unsigned int children = annotation->getNumChildren();
-  unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), annotation->getAttributes(),annotation->getNamespaces());
-  XMLNode * newAnnotation = NULL;
-  XMLNode rdfAnnotation;
-  bool hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
-  bool hasCVTermRDF = 
-      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
-  bool hasHistoryRDF = 
-    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
-
-  if (name != "annotation")
-  {
-    return NULL;
-  }
-
-
-  
-  if (children > 1)
-  {
-    newAnnotation = new XMLNode(ann_token);
-  
-    // need to find each annotation and add if not RDF
-    while (n < children)
-    {
-      const string &name1 = annotation->getChild(n).getName();
-      if (name1 != "RDF")
-      {
-        newAnnotation->addChild(annotation->getChild(n));
-      }
-      else
-      {
-        // is RDF - if there is additional rdf preserve this
-        if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
-        {
-          rdfAnnotation = annotation->getChild(n);
-          *(rdfAnnotation).removeChild(0);
-          newAnnotation->addChild(rdfAnnotation);
-        }
-        else if (hasAdditionalRDF)
-        {
-          rdfAnnotation = annotation->getChild(n);
-          newAnnotation->addChild(rdfAnnotation);
-        }
-
-      }
-      n++;
-    }
-  }
-  else
-  {
-    if (children == 1 && annotation->getChild(0).getName() != "RDF")
-    {
-      newAnnotation = new XMLNode(ann_token);
-      newAnnotation->addChild(annotation->getChild(0));
-    }
-    else
-    {
-      if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
-      {
-        rdfAnnotation = annotation->getChild(0);
-        *(rdfAnnotation).removeChild(0);
-        newAnnotation = new XMLNode(ann_token);
-        newAnnotation->addChild(rdfAnnotation);
-      }
-      else if (hasAdditionalRDF)
-      {
-        rdfAnnotation = annotation->getChild(0);
-        newAnnotation = new XMLNode(ann_token);
-        newAnnotation->addChild(rdfAnnotation);
-      }
-      else
-      {
-        ann_token.setEnd();
-        newAnnotation = new XMLNode(ann_token);
-      }
-    }
-  }
-
-  return newAnnotation;
-}
-
-
-XMLNode *
-RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
-{
-  if (annotation == NULL) return NULL; 
-
-  const string&  name = annotation->getName();
-  unsigned int children = annotation->getNumChildren();
-  unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
-    annotation->getAttributes(),annotation->getNamespaces());
-  XMLNode * newAnnotation = NULL;
-  XMLNode rdfAnnotation;
-  bool hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
-  bool hasCVTermRDF = 
-      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
-  bool hasHistoryRDF = 
-    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
-  const XMLTriple rdfAbout(
-                "about", 
-                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                "rdf");
-
-  if (name != "annotation")
-  {
-    return NULL;
-  }
-
-  // if there is no history element just return the whole annotation
-  if (hasHistoryRDF == false)
-  {
-     newAnnotation = new XMLNode(ann_token);
-     for (unsigned int i = 0; i < children; i++)
-     {
-       newAnnotation->addChild(annotation->getChild(i));
-     }
-  }
-  else
-  {  
-    unsigned int rdfPosition = 0;
-    if (children > 1)
-    {
-      newAnnotation = new XMLNode(ann_token);
-    
-      // need to find each annotation and add if not RDF
-      while (n < children)
-      {
-        const string &name1 = annotation->getChild(n).getName();
-        if (name1 != "RDF")
-        {
-          newAnnotation->addChild(annotation->getChild(n));
-        }
-        else
-        {
-          rdfPosition = n;
-        }
-        n++;
-      }
-    }
-
-    // we want to remove ONLY the History bit
-    rdfAnnotation = annotation->getChild(rdfPosition);
-
-
-    // remove the first description element keeping a copy
-    // assume that the annotation is proper sbml-miriam
-    XMLNode descr = *(rdfAnnotation).removeChild(0);
-    if (hasCVTermRDF == false)
-    {
-      //we have a history, no cvterms and possibly other rdf
-      // so removing the first decription element will have removed history
-      // check for additional rdf and add back if it is there
-      if (rdfAnnotation.getNumChildren() > 0)
-      {
-        if (newAnnotation == NULL)
-        {
-          newAnnotation = new XMLNode(ann_token);
-        }
-        newAnnotation->addChild(rdfAnnotation);
-      }
-      else
-      {
-        if (newAnnotation == NULL)
-        {
-          ann_token.setEnd();
-          newAnnotation = new XMLNode(ann_token);
-        }
-      }
-
-    }
-    else
-    {
-      // we have history and cvterms with possible other rdf
-      // so remove history elements from the description element
-      unsigned int nn = descr.getNumChildren();
-      for (unsigned int i = nn; i > 0; i--)
-      {
-        XMLNode child = descr.getChild(i-1);
-        if ((child.getName() == "creator") ||
-          (child.getName() == "created") ||
-          (child.getName() == "modified"))
-        {
-          descr.removeChild(i-1);
-        }
-      }
-      rdfAnnotation.insertChild(0, descr);
-      if (newAnnotation == NULL)
-      {
-        newAnnotation = new XMLNode(ann_token);
-      }
-      newAnnotation->insertChild(rdfPosition, rdfAnnotation);
-    }
-
-  }
-  return newAnnotation;
-}
-
-
-XMLNode *
-RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
-{
-  if (annotation == NULL) return NULL; 
-
-  const string&  name = annotation->getName();
-  unsigned int children = annotation->getNumChildren();
-  unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
-    annotation->getAttributes(),annotation->getNamespaces());
-  XMLNode * newAnnotation = NULL;
-  XMLNode rdfAnnotation;
-  bool hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
-  bool hasCVTermRDF = 
-      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
-  bool hasHistoryRDF = 
-    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
-  const XMLTriple rdfAbout(
-                "about", 
-                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                "rdf");
-
-  if (name != "annotation")
-  {
-    return NULL;
-  }
-
-  // if there is no cv terms just return the whole annotation
-  if (hasCVTermRDF == false)
-  {
-     newAnnotation = new XMLNode(ann_token);
-     for (unsigned int i = 0; i < children; i++)
-     {
-       newAnnotation->addChild(annotation->getChild(i));
-     }
-  }
-  else
-  {  
-    unsigned int rdfPosition = 0;
-    if (children > 1)
-    {
-      newAnnotation = new XMLNode(ann_token);
-    
-      // need to find each annotation and add if not RDF
-      while (n < children)
-      {
-        const string &name1 = annotation->getChild(n).getName();
-        if (name1 != "RDF")
-        {
-          newAnnotation->addChild(annotation->getChild(n));
-        }
-        else
-        {
-          rdfPosition = n;
-        }
-        n++;
-      }
-    }
-
-    // we want to remove ONLY the CVTerm bit
-    rdfAnnotation = annotation->getChild(rdfPosition);
-
-
-    // remove the first description element keeping a copy
-    // assume that the annotation is proper sbml-miriam
-    XMLNode descr = *(rdfAnnotation).removeChild(0);
-    if (hasHistoryRDF == false)
-    {
-      //we have cvterms no history and possibly other rdf
-      // so removing the first decription element will have removed cvterms
-      // check for additional rdf and add back if it is there
-      if (rdfAnnotation.getNumChildren() > 0)
-      {
-        if (newAnnotation == NULL)
-        {
-          newAnnotation = new XMLNode(ann_token);
-        }
-        newAnnotation->addChild(rdfAnnotation);
-      }
-      else
-      {
-        if (newAnnotation == NULL)
-        {
-          ann_token.setEnd();
-          newAnnotation = new XMLNode(ann_token);
-        }
-      }
-
-    }
-    else
-    {
-      // we have history and cvterms with possible other rdf
-      // so remove cvterms elements from the description element
-      unsigned int nn = descr.getNumChildren();
-      for (unsigned int i = nn; i > 0; i--)
-      {
-        XMLNode child = descr.getChild(i-1);
-        if ((child.getName() != "creator") &&
-          (child.getName() != "created") &&
-          (child.getName() != "modified"))
-        {
-          descr.removeChild(i-1);
-        }
-      }
-      rdfAnnotation.insertChild(0, descr);
-      if (newAnnotation == NULL)
-      {
-        newAnnotation = new XMLNode(ann_token);
-      }
-      newAnnotation->insertChild(rdfPosition, rdfAnnotation);
-    }
-
-  }
-  return newAnnotation;
-}
 
 XMLNode * 
 RDFAnnotationParser::createAnnotation()
@@ -767,16 +394,20 @@ RDFAnnotationParser::createRDFAnnotation()
 XMLNode * 
 RDFAnnotationParser::createRDFDescription(const SBase *object)
 {
-  if (object == NULL) return NULL;
+  if (object == NULL) 
+    return NULL;
 
   return createRDFDescription(object->getMetaId());
 }
 
 
+/** @cond doxygen-libsbml-internal */
+
 XMLNode * 
 RDFAnnotationParser::createRDFDescription(const std::string & metaid)
 {
-  if (metaid.empty() == true) return NULL;
+  if (metaid.empty() == true) 
+    return NULL;
 
   XMLTriple descrip_triple = XMLTriple("Description", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -790,16 +421,16 @@ RDFAnnotationParser::createRDFDescription(const std::string & metaid)
   return new XMLNode(descrip_token);
 }
 
+/** endcond */
 
 /*
  * takes a List of CVTerms
- * and creates the RDF annotation
+ * and creates the RDF description element 
  */
 
 XMLNode * 
-RDFAnnotationParser::parseCVTerms(const SBase * object)
+RDFAnnotationParser::createCVTerms(const SBase * object)
 {
-
   if (object == NULL || 
 	  object->getCVTerms() == NULL || 
 	  object->getCVTerms()->getSize() == 0 ||
@@ -807,28 +438,6 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
   {
     return NULL;
   }
-
-
-  XMLNode *CVTerms = createCVTerms(object);
-
-  XMLNode * RDF = createRDFAnnotation();
-  RDF->addChild(*CVTerms);
-
-  delete CVTerms;
-
-  XMLNode *ann = createAnnotation();
-  ann->addChild(*RDF);
-
-  delete RDF;
-
-  return ann;
-}
-
-
-XMLNode * 
-RDFAnnotationParser::createCVTerms(const SBase * object)
-{
-  if (object == NULL) return NULL;
 
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
@@ -915,6 +524,41 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 
   }
   return description;
+}
+
+
+
+/*
+ * takes a List of CVTerms
+ * and creates the RDF annotation
+ */
+
+XMLNode * 
+RDFAnnotationParser::parseCVTerms(const SBase * object)
+{
+
+  if (object == NULL || 
+	  object->getCVTerms() == NULL || 
+	  object->getCVTerms()->getSize() == 0 ||
+    !object->isSetMetaId())
+  {
+    return NULL;
+  }
+
+
+  XMLNode *CVTerms = createCVTerms(object);
+
+  XMLNode * RDF = createRDFAnnotation();
+  RDF->addChild(*CVTerms);
+
+  delete CVTerms;
+
+  XMLNode *ann = createAnnotation();
+  ann->addChild(*RDF);
+
+  delete RDF;
+
+  return ann;
 }
 
 
@@ -1431,6 +1075,333 @@ RDFAnnotationParser::parseOnlyModelHistory(const SBase *object)
   delete RDF;
 
   return ann;
+}
+
+
+
+XMLNode *
+RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
+{
+  if (annotation == NULL) return NULL; 
+
+  const string&  name = annotation->getName();
+  unsigned int children = annotation->getNumChildren();
+  unsigned int n = 0;
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), annotation->getAttributes(),annotation->getNamespaces());
+  XMLNode * newAnnotation = NULL;
+  XMLNode rdfAnnotation;
+  bool hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
+  bool hasCVTermRDF = 
+      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
+  bool hasHistoryRDF = 
+    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
+
+  if (name != "annotation")
+  {
+    return NULL;
+  }
+
+
+  
+  if (children > 1)
+  {
+    newAnnotation = new XMLNode(ann_token);
+  
+    // need to find each annotation and add if not RDF
+    while (n < children)
+    {
+      const string &name1 = annotation->getChild(n).getName();
+      if (name1 != "RDF")
+      {
+        newAnnotation->addChild(annotation->getChild(n));
+      }
+      else
+      {
+        // is RDF - if there is additional rdf preserve this
+        if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
+        {
+          rdfAnnotation = annotation->getChild(n);
+          *(rdfAnnotation).removeChild(0);
+          newAnnotation->addChild(rdfAnnotation);
+        }
+        else if (hasAdditionalRDF)
+        {
+          rdfAnnotation = annotation->getChild(n);
+          newAnnotation->addChild(rdfAnnotation);
+        }
+
+      }
+      n++;
+    }
+  }
+  else
+  {
+    if (children == 1 && annotation->getChild(0).getName() != "RDF")
+    {
+      newAnnotation = new XMLNode(ann_token);
+      newAnnotation->addChild(annotation->getChild(0));
+    }
+    else
+    {
+      if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
+      {
+        rdfAnnotation = annotation->getChild(0);
+        *(rdfAnnotation).removeChild(0);
+        newAnnotation = new XMLNode(ann_token);
+        newAnnotation->addChild(rdfAnnotation);
+      }
+      else if (hasAdditionalRDF)
+      {
+        rdfAnnotation = annotation->getChild(0);
+        newAnnotation = new XMLNode(ann_token);
+        newAnnotation->addChild(rdfAnnotation);
+      }
+      else
+      {
+        ann_token.setEnd();
+        newAnnotation = new XMLNode(ann_token);
+      }
+    }
+  }
+
+  return newAnnotation;
+}
+
+
+XMLNode *
+RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
+{
+  if (annotation == NULL) return NULL; 
+
+  const string&  name = annotation->getName();
+  unsigned int children = annotation->getNumChildren();
+  unsigned int n = 0;
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
+    annotation->getAttributes(),annotation->getNamespaces());
+  XMLNode * newAnnotation = NULL;
+  XMLNode rdfAnnotation;
+  bool hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
+  bool hasCVTermRDF = 
+      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
+  bool hasHistoryRDF = 
+    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
+  const XMLTriple rdfAbout(
+                "about", 
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "rdf");
+
+  if (name != "annotation")
+  {
+    return NULL;
+  }
+
+  // if there is no history element just return the whole annotation
+  if (hasHistoryRDF == false)
+  {
+     newAnnotation = new XMLNode(ann_token);
+     for (unsigned int i = 0; i < children; i++)
+     {
+       newAnnotation->addChild(annotation->getChild(i));
+     }
+  }
+  else
+  {  
+    unsigned int rdfPosition = 0;
+    if (children > 1)
+    {
+      newAnnotation = new XMLNode(ann_token);
+    
+      // need to find each annotation and add if not RDF
+      while (n < children)
+      {
+        const string &name1 = annotation->getChild(n).getName();
+        if (name1 != "RDF")
+        {
+          newAnnotation->addChild(annotation->getChild(n));
+        }
+        else
+        {
+          rdfPosition = n;
+        }
+        n++;
+      }
+    }
+
+    // we want to remove ONLY the History bit
+    rdfAnnotation = annotation->getChild(rdfPosition);
+
+
+    // remove the first description element keeping a copy
+    // assume that the annotation is proper sbml-miriam
+    XMLNode descr = *(rdfAnnotation).removeChild(0);
+    if (hasCVTermRDF == false)
+    {
+      //we have a history, no cvterms and possibly other rdf
+      // so removing the first decription element will have removed history
+      // check for additional rdf and add back if it is there
+      if (rdfAnnotation.getNumChildren() > 0)
+      {
+        if (newAnnotation == NULL)
+        {
+          newAnnotation = new XMLNode(ann_token);
+        }
+        newAnnotation->addChild(rdfAnnotation);
+      }
+      else
+      {
+        if (newAnnotation == NULL)
+        {
+          ann_token.setEnd();
+          newAnnotation = new XMLNode(ann_token);
+        }
+      }
+
+    }
+    else
+    {
+      // we have history and cvterms with possible other rdf
+      // so remove history elements from the description element
+      unsigned int nn = descr.getNumChildren();
+      for (unsigned int i = nn; i > 0; i--)
+      {
+        XMLNode child = descr.getChild(i-1);
+        if ((child.getName() == "creator") ||
+          (child.getName() == "created") ||
+          (child.getName() == "modified"))
+        {
+          descr.removeChild(i-1);
+        }
+      }
+      rdfAnnotation.insertChild(0, descr);
+      if (newAnnotation == NULL)
+      {
+        newAnnotation = new XMLNode(ann_token);
+      }
+      newAnnotation->insertChild(rdfPosition, rdfAnnotation);
+    }
+
+  }
+  return newAnnotation;
+}
+
+
+XMLNode *
+RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
+{
+  if (annotation == NULL) return NULL; 
+
+  const string&  name = annotation->getName();
+  unsigned int children = annotation->getNumChildren();
+  unsigned int n = 0;
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), 
+    annotation->getAttributes(),annotation->getNamespaces());
+  XMLNode * newAnnotation = NULL;
+  XMLNode rdfAnnotation;
+  bool hasAdditionalRDF = 
+      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
+  bool hasCVTermRDF = 
+      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
+  bool hasHistoryRDF = 
+    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
+  const XMLTriple rdfAbout(
+                "about", 
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                "rdf");
+
+  if (name != "annotation")
+  {
+    return NULL;
+  }
+
+  // if there is no cv terms just return the whole annotation
+  if (hasCVTermRDF == false)
+  {
+     newAnnotation = new XMLNode(ann_token);
+     for (unsigned int i = 0; i < children; i++)
+     {
+       newAnnotation->addChild(annotation->getChild(i));
+     }
+  }
+  else
+  {  
+    unsigned int rdfPosition = 0;
+    if (children > 1)
+    {
+      newAnnotation = new XMLNode(ann_token);
+    
+      // need to find each annotation and add if not RDF
+      while (n < children)
+      {
+        const string &name1 = annotation->getChild(n).getName();
+        if (name1 != "RDF")
+        {
+          newAnnotation->addChild(annotation->getChild(n));
+        }
+        else
+        {
+          rdfPosition = n;
+        }
+        n++;
+      }
+    }
+
+    // we want to remove ONLY the CVTerm bit
+    rdfAnnotation = annotation->getChild(rdfPosition);
+
+
+    // remove the first description element keeping a copy
+    // assume that the annotation is proper sbml-miriam
+    XMLNode descr = *(rdfAnnotation).removeChild(0);
+    if (hasHistoryRDF == false)
+    {
+      //we have cvterms no history and possibly other rdf
+      // so removing the first decription element will have removed cvterms
+      // check for additional rdf and add back if it is there
+      if (rdfAnnotation.getNumChildren() > 0)
+      {
+        if (newAnnotation == NULL)
+        {
+          newAnnotation = new XMLNode(ann_token);
+        }
+        newAnnotation->addChild(rdfAnnotation);
+      }
+      else
+      {
+        if (newAnnotation == NULL)
+        {
+          ann_token.setEnd();
+          newAnnotation = new XMLNode(ann_token);
+        }
+      }
+
+    }
+    else
+    {
+      // we have history and cvterms with possible other rdf
+      // so remove cvterms elements from the description element
+      unsigned int nn = descr.getNumChildren();
+      for (unsigned int i = nn; i > 0; i--)
+      {
+        XMLNode child = descr.getChild(i-1);
+        if ((child.getName() != "creator") &&
+          (child.getName() != "created") &&
+          (child.getName() != "modified"))
+        {
+          descr.removeChild(i-1);
+        }
+      }
+      rdfAnnotation.insertChild(0, descr);
+      if (newAnnotation == NULL)
+      {
+        newAnnotation = new XMLNode(ann_token);
+      }
+      newAnnotation->insertChild(rdfPosition, rdfAnnotation);
+    }
+
+  }
+  return newAnnotation;
 }
 
 

@@ -1637,7 +1637,85 @@ START_TEST (test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout)
 }
 END_TEST
 
+START_TEST (test_RDFAnnotation_testCreateAnnotations)
+{
+  XMLNode *ann = RDFAnnotationParser::createAnnotation();
 
+  fail_unless(ann != NULL);
+  fail_unless(ann->getName() == "annotation");
+  fail_unless(ann->getAttributes().getLength() == 0);
+  fail_unless(ann->getNumChildren() == 0);
+
+  delete ann;
+
+  XMLNode * ann1 = RDFAnnotationParser::createRDFAnnotation();
+  
+  fail_unless(ann1 != NULL);
+  fail_unless(ann1->getName() == "RDF");
+  fail_unless(ann1->getPrefix() == "rdf");
+  fail_unless(ann1->getAttributes().getLength() == 0);
+  fail_unless(ann1->getNumChildren() == 0);
+  fail_unless(ann1->getNamespaces().getLength() == 6);
+  fail_unless(ann1->getNamespaceURI(0) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+  fail_unless(ann1->getNamespaceURI(1) == "http://purl.org/dc/elements/1.1/");
+  fail_unless(ann1->getNamespaceURI(2) == "http://purl.org/dc/terms/");
+  fail_unless(ann1->getNamespaceURI(3) == "http://www.w3.org/2001/vcard-rdf/3.0#");
+  fail_unless(ann1->getNamespaceURI(4) == "http://biomodels.net/biology-qualifiers/");
+  fail_unless(ann1->getNamespaceURI(5) == "http://biomodels.net/model-qualifiers/");
+  fail_unless(ann1->getNamespacePrefix(0) == "rdf");
+  fail_unless(ann1->getNamespacePrefix(1) == "dc");
+  fail_unless(ann1->getNamespacePrefix(2) == "dcterms");
+  fail_unless(ann1->getNamespacePrefix(3) == "vCard");
+  fail_unless(ann1->getNamespacePrefix(4) == "bqbiol");
+  fail_unless(ann1->getNamespacePrefix(5) == "bqmodel");
+
+  delete ann1;
+
+  XMLNode * ann2 = RDFAnnotationParser::createRDFDescription(NULL);
+  
+  fail_unless(ann2 == NULL);
+
+  Model * m = new Model(3,1);
+  ann2 = RDFAnnotationParser::createRDFDescription(m);
+  
+  fail_unless(ann2 == NULL);
+
+  m->setMetaId("_001");
+  ann2 = RDFAnnotationParser::createRDFDescription(m);
+  
+  fail_unless(ann2 != NULL);
+  fail_unless(ann2->getName() == "Description");
+  fail_unless(ann2->getNumChildren() == 0);
+  fail_unless(ann2->getURI() == "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+  fail_unless(ann2->getPrefix() == "rdf");
+  fail_unless(ann2->getAttributes().getLength() == 1);
+  fail_unless(ann2->getAttrName(0) == "rdf:about");
+  fail_unless(ann2->getAttrPrefix(0) == "");
+  fail_unless(ann2->getAttrValue(0) == "#_001");
+
+  delete ann2;
+  delete m;
+
+  //XMLNode * ann3 = RDFAnnotationParser::createRDFDescription("");
+
+  //fail_unless(ann3 == NULL);
+
+  //ann3 = RDFAnnotationParser::createRDFDescription("001");
+  //
+  //fail_unless(ann3 != NULL);
+  //fail_unless(ann3->getName() == "Description");
+  //fail_unless(ann3->getNumChildren() == 0);
+  //fail_unless(ann3->getNamespaces().getLength() == 1);
+  //fail_unless(ann3->getNamespaceURI(0) == "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+  //fail_unless(ann3->getNamespacePrefix(0) == "rdf");
+  //fail_unless(ann3->getAttributes().getLength() == 1);
+  //fail_unless(ann3->getAttrName(0) == "about");
+  //fail_unless(ann3->getAttrPrefix(0) == "rdf");
+  //fail_unless(ann3->getAttrValue(0) == "#001");
+
+  //delete ann3;
+}
+END_TEST
 
 /* when I rewrote the parsing an annotation that has not been touched
  * does not get "recreated" - so I took out these tests
@@ -1671,6 +1749,7 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotation );
   tcase_add_test(tcase, test_RDFAnnotation_testHasCVTermRDFAnnotationBadAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout );
+  tcase_add_test(tcase, test_RDFAnnotation_testCreateAnnotations );
   suite_add_tcase(suite, tcase);
 
   return suite;

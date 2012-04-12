@@ -251,34 +251,6 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
 
 
   /**
-   * Deletes any RDF annotation found in the given XMLNode tree and returns
-   * any remaining annotation content.
-   *
-   * The name of the XMLNode given as parameter @p annotation must be
-   * "annotation", or else this method returns @c NULL.  The method will
-   * walk down the XML structure looking for elements that are in the
-   * RDF XML namespace, and remove them.
-   *
-   * @param annotation the XMLNode tree within which the RDF annotation is
-   * to be found and deleted
-   *
-   * @return the XMLNode structure that is left after RDF annotations are
-   * deleted.
-   *
-   * @if notclike @note Because this is a @em static method, the non-C++
-   * language interfaces for libSBML will contain two variants.  One will
-   * be a static method on the class (i.e., RDFAnnotationParser), and the
-   * other will be a standalone top-level function with the name
-   * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
-   * identical. @endif
-   */
-  static XMLNode * deleteRDFAnnotation(const XMLNode *annotation);
-
-
-  static XMLNode * deleteRDFHistoryAnnotation(const XMLNode *annotation);
-
-  static XMLNode * deleteRDFCVTermAnnotation(const XMLNode *annotation);
-  /**
    * Takes an SBML object and creates an empty XMLNode corresponding to an
    * RDF "Description" element.
    *
@@ -318,7 +290,6 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
   static XMLNode * createRDFDescription(const SBase *obj);
 
 
-  static XMLNode * createRDFDescription(const std::string& metaid);
   /**
    * Takes a list of CVTerm objects and creates a the RDF "Description"
    * element.
@@ -393,6 +364,35 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
   static XMLNode * parseOnlyModelHistory(const SBase * obj);
 
 
+  /**
+   * Deletes any RDF annotation found in the given XMLNode tree and returns
+   * any remaining annotation content.
+   *
+   * The name of the XMLNode given as parameter @p annotation must be
+   * "annotation", or else this method returns @c NULL.  The method will
+   * walk down the XML structure looking for elements that are in the
+   * RDF XML namespace, and remove them.
+   *
+   * @param annotation the XMLNode tree within which the RDF annotation is
+   * to be found and deleted
+   *
+   * @return the XMLNode structure that is left after RDF annotations are
+   * deleted.
+   *
+   * @if notclike @note Because this is a @em static method, the non-C++
+   * language interfaces for libSBML will contain two variants.  One will
+   * be a static method on the class (i.e., RDFAnnotationParser), and the
+   * other will be a standalone top-level function with the name
+   * RDFAnnotationParser_deleteRDFAnnotation(). They are functionally
+   * identical. @endif
+   */
+  static XMLNode * deleteRDFAnnotation(const XMLNode *annotation);
+
+
+  static XMLNode * deleteRDFHistoryAnnotation(const XMLNode *annotation);
+
+  static XMLNode * deleteRDFCVTermAnnotation(const XMLNode *annotation);
+
   /** @cond doxygen-libsbml-internal */
 
   
@@ -412,6 +412,8 @@ success = sbmlObject.setAnnotation(annot)           # Set object's annotation to
   protected:
 
   /** @cond doxygen-libsbml-internal */
+
+  static XMLNode * createRDFDescription(const std::string& metaid);
 
   
   static void deriveCVTermsFromAnnotation(const XMLNode *annotation, List *CVTerms);
