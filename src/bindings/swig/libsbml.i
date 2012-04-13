@@ -291,6 +291,11 @@ LIBSBML_CPP_NAMESPACE_USE
 %ignore RDFAnnotationParser::hasAdditionalRDFAnnotation;
 %ignore RDFAnnotationParser::hasCVTermRDFAnnotation;
 %ignore RDFAnnotationParser::hasHistoryRDFAnnotation;
+%ignore RDFAnnotationParser::createRDFDescription;
+%ignore RDFAnnotationParser::createRDFDescriptionWithCVTerms;
+%ignore RDFAnnotationParser::createRDFDescriptionWithHistory;
+%ignore RDFAnnotationParser::deriveCVTermsFromAnnotation;
+%ignore RDFAnnotationParser::deriveHistoryFromAnnotation;
 
 /**
  * Ignore internal implementation methods in SyntaxChecer
@@ -590,7 +595,7 @@ LIBSBML_CPP_NAMESPACE_USE
 %include sbml/annotation/Date.h
 %include sbml/annotation/ModelCreator.h
 %include sbml/annotation/ModelHistory.h
-%include sbml/annotation/RDFAnnotation.h
+%include sbml/annotation/RDFAnnotationParser.h
 
 %include sbml/extension/ISBMLExtensionNamespaces.h
 %include sbml/extension/SBaseExtensionPoint.h

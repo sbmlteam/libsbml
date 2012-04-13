@@ -111,7 +111,7 @@
 #include <sbml/annotation/Date.h>
 #include <sbml/annotation/ModelCreator.h>
 #include <sbml/annotation/ModelHistory.h>
-#include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/RDFAnnotationParser.h>
 
 #include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBaseExtensionPoint.h>

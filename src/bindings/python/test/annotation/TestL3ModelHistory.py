@@ -271,7 +271,7 @@ class TestL3ModelHistory(unittest.TestCase):
     self.assert_((  "Description" == desc.getName() ))
     self.assert_((  "rdf" == desc.getPrefix() ))
     self.assert_((  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" == desc.getURI() ))
-    self.assert_( desc.getNumChildren() == 3 )
+    self.assert_( desc.getNumChildren() == 4 )
     creator = desc.getChild(0)
     self.assert_((  "creator" == creator.getName() ))
     self.assert_((  "dc" == creator.getPrefix() ))
@@ -340,140 +340,6 @@ class TestL3ModelHistory(unittest.TestCase):
     node = None
     pass  
 
-  def test_L3ModelHistory_recreate(self):
-    self.c = self.m.getCompartment(1)
-    expected = wrapString("<compartment metaid=\"_000003\" id=\"A\" constant=\"true\">\n" + 
-    "  <annotation>\n" + 
-    "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
-    "      <jd2:header>\n" + 
-    "        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
-    "        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
-    "      </jd2:header>\n" + 
-    "    </jd2:JDesignerLayout>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"#_000003\">\n" + 
-    "        <dc:creator>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:parseType=\"Resource\">\n" + 
-    "              <vCard:N rdf:parseType=\"Resource\">\n" + 
-    "                <vCard:Family>Le Novere</vCard:Family>\n" + 
-    "                <vCard:Given>Nicolas</vCard:Given>\n" + 
-    "              </vCard:N>\n" + 
-    "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
-    "              <vCard:ORG rdf:parseType=\"Resource\">\n" + 
-    "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
-    "              </vCard:ORG>\n" + 
-    "            </rdf:li>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </dc:creator>\n" + 
-    "        <dcterms:created rdf:parseType=\"Resource\">\n" + 
-    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
-    "        </dcterms:created>\n" + 
-    "        <dcterms:modified rdf:parseType=\"Resource\">\n" + 
-    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n" + 
-    "        </dcterms:modified>\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
-    "  </annotation>\n" + 
-    "</compartment>")
-    self.assertEqual( True, self.equals(expected,self.c.toSBML()) )
-    pass  
-
-  def test_L3ModelHistory_recreateFromEmpty(self):
-    self.c = self.m.getCompartment(3)
-    expected = wrapString("<compartment metaid=\"_000004\" id=\"C\" constant=\"true\">\n" + 
-    "  <annotation>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"#_000004\">\n" + 
-    "        <dc:creator>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:parseType=\"Resource\">\n" + 
-    "              <vCard:N rdf:parseType=\"Resource\">\n" + 
-    "                <vCard:Family>Le Novere</vCard:Family>\n" + 
-    "                <vCard:Given>Nicolas</vCard:Given>\n" + 
-    "              </vCard:N>\n" + 
-    "              <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
-    "              <vCard:ORG rdf:parseType=\"Resource\">\n" + 
-    "                <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
-    "              </vCard:ORG>\n" + 
-    "            </rdf:li>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </dc:creator>\n" + 
-    "        <dcterms:created rdf:parseType=\"Resource\">\n" + 
-    "          <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
-    "        </dcterms:created>\n" + 
-    "        <dcterms:modified rdf:parseType=\"Resource\">\n" + 
-    "          <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n" + 
-    "        </dcterms:modified>\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
-    "  </annotation>\n" + 
-    "</compartment>")
-    self.assertEqual( True, self.equals(expected,self.c.toSBML()) )
-    pass  
-
-  def test_L3ModelHistory_recreateFromEmpty_Model(self):
-    ann = self.m.getAnnotationString()
-    self.m.setAnnotation(None)
-    n1 = self.m.getAnnotation()
-    self.assert_( n1 == None )
-    self.m.setAnnotation(ann)
-    n1 = self.m.getAnnotation()
-    expected = wrapString("<annotation>\n" + 
-    "  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "    <rdf:Description rdf:about=\"#_000001\">\n" + 
-    "      <dc:creator>\n" + 
-    "        <rdf:Bag>\n" + 
-    "          <rdf:li rdf:parseType=\"Resource\">\n" + 
-    "            <vCard:N rdf:parseType=\"Resource\">\n" + 
-    "              <vCard:Family>Le Novere</vCard:Family>\n" + 
-    "              <vCard:Given>Nicolas</vCard:Given>\n" + 
-    "            </vCard:N>\n" + 
-    "            <vCard:EMAIL>lenov@ebi.ac.uk</vCard:EMAIL>\n" + 
-    "            <vCard:ORG rdf:parseType=\"Resource\">\n" + 
-    "              <vCard:Orgname>EMBL-EBI</vCard:Orgname>\n" + 
-    "            </vCard:ORG>\n" + 
-    "          </rdf:li>\n" + 
-    "        </rdf:Bag>\n" + 
-    "      </dc:creator>\n" + 
-    "      <dcterms:created rdf:parseType=\"Resource\">\n" + 
-    "        <dcterms:W3CDTF>2005-02-02T14:56:11Z</dcterms:W3CDTF>\n" + 
-    "      </dcterms:created>\n" + 
-    "      <dcterms:modified rdf:parseType=\"Resource\">\n" + 
-    "        <dcterms:W3CDTF>2006-05-30T10:46:02Z</dcterms:W3CDTF>\n" + 
-    "      </dcterms:modified>\n" + 
-    "    </rdf:Description>\n" + 
-    "  </rdf:RDF>\n" + 
-    "</annotation>")
-    self.assertEqual( True, self.equals(expected,n1.toXMLString()) )
-    pass  
-
-  def test_L3ModelHistory_recreateWithOutOther(self):
-    self.c = self.m.getCompartment(2)
-    expected = wrapString("<compartment id=\"B\" constant=\"true\">\n" + 
-    "  <annotation>\n" + 
-    "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
-    "      <jd2:header>\n" + 
-    "        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
-    "        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
-    "      </jd2:header>\n" + 
-    "    </jd2:JDesignerLayout>\n" + 
-    "  </annotation>\n" + 
-    "</compartment>")
-    self.assertEqual( True, self.equals(expected,self.c.toSBML()) )
-    pass  
 
 def suite():
   suite = unittest.TestSuite()

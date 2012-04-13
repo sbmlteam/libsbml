@@ -372,68 +372,6 @@ namespace LibSBMLCSTest.annotation {
       node = null;
     }
 
-    public void test_RDFAnnotation_recreate()
-    {
-      Compartment c = m.getCompartment(1);
-      string expected = "<compartment metaid=\"_000003\" id=\"A\">\n" + 
-    "  <annotation>\n" + 
-    "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
-    "      <jd2:header>\n" + 
-    "        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
-    "        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
-    "      </jd2:header>\n" + 
-    "    </jd2:JDesignerLayout>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"#_000003\">\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
-    "  </annotation>\n" + 
-    "</compartment>";
-      assertEquals( true, equals(expected,c.toSBML()) );
-    }
-
-    public void test_RDFAnnotation_recreateFromEmpty()
-    {
-      Compartment c = m.getCompartment(3);
-      string expected = "<compartment metaid=\"_000004\" id=\"C\">\n" + 
-    "  <annotation>\n" + 
-    "    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n" + 
-    "      <rdf:Description rdf:about=\"#_000004\">\n" + 
-    "        <bqbiol:is>\n" + 
-    "          <rdf:Bag>\n" + 
-    "            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n" + 
-    "          </rdf:Bag>\n" + 
-    "        </bqbiol:is>\n" + 
-    "      </rdf:Description>\n" + 
-    "    </rdf:RDF>\n" + 
-    "  </annotation>\n" + 
-    "</compartment>";
-      assertEquals( true, equals(expected,c.toSBML()) );
-    }
-
-    public void test_RDFAnnotation_recreateWithOutOther()
-    {
-      Compartment c = m.getCompartment(2);
-      string expected = "<compartment id=\"B\">\n" + 
-    "  <annotation>\n" + 
-    "    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n" + 
-    "      <jd2:header>\n" + 
-    "        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n" + 
-    "        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n" + 
-    "        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n" + 
-    "      </jd2:header>\n" + 
-    "    </jd2:JDesignerLayout>\n" + 
-    "  </annotation>\n" + 
-    "</compartment>";
-      assertEquals( true, equals(expected,c.toSBML()) );
-    }
-
     public void test_RDFAnnotation_testMissingMetaId()
     {
       SBMLDocument doc = new SBMLDocument ( 3,1 );
