@@ -1261,7 +1261,7 @@ SBase::appendAnnotation (const XMLNode* annotation)
   if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
   {
     RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
-    mCVTermsChanged = true;
+//    mCVTermsChanged = true;
   }
 
   // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 

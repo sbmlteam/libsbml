@@ -292,6 +292,71 @@ START_TEST (test_RDFAnnotation_parseCVTerms)
   fail_unless(XMLNode_getNumChildren(li3) == 0);
 
   delete node;
+
+  XMLNode* node1 = RDFAnnotationParser::parseCVTerms(NULL);
+
+  fail_unless(node1 == NULL);
+
+  node1 = RDFAnnotationParser::createCVTerms(NULL);
+
+  fail_unless(node1 == NULL);  
+  
+  // no metaid
+  node1 = RDFAnnotationParser::parseCVTerms(m->getCompartment(2));
+
+  fail_unless(node1 == NULL);
+
+  node1 = RDFAnnotationParser::createCVTerms(m->getCompartment(2));
+
+  fail_unless(node1 == NULL);
+
+  // no cvterms
+  node1 = RDFAnnotationParser::parseCVTerms(m);
+
+  fail_unless(node1 == NULL);
+
+  node1 = RDFAnnotationParser::createCVTerms(m);
+
+  fail_unless(node1 == NULL);
+
+  // null cvterms
+  Compartment *c = new Compartment(3,1);
+  c->setMetaId("_002");
+
+  node1 = RDFAnnotationParser::parseCVTerms(c);
+
+  fail_unless(node1 == NULL);
+
+  node1 = RDFAnnotationParser::createCVTerms(c);
+
+  fail_unless(node1 == NULL);
+
+  CVTerm *cv = new CVTerm(BIOLOGICAL_QUALIFIER);
+  cv->setBiologicalQualifierType(BiolQualifierType_t(23));
+  cv->addResource("http://myres");
+
+  c->addCVTerm(cv);
+
+  node1 = RDFAnnotationParser::createCVTerms(c);
+
+  fail_unless(node1 == NULL);
+
+  delete c;
+
+  Model *m1 = new Model(3,1);
+  m1->setMetaId("_002");
+
+  cv = new CVTerm(MODEL_QUALIFIER);
+  cv->setModelQualifierType(ModelQualifierType_t(23));
+  cv->addResource("http://myres");
+
+  m1->addCVTerm(cv);
+
+  node1 = RDFAnnotationParser::createCVTerms(m1);
+
+  fail_unless(node1 == NULL);
+
+
 }
 END_TEST
 
@@ -333,61 +398,6 @@ START_TEST (test_RDFAnnotation_deleteWithOther)
 }
 END_TEST
 
-START_TEST (test_RDFAnnotation_recreate)
-{
-  Compartment* c = m->getCompartment(1);
-
-  const char * expected =
-    "<compartment metaid=\"_000003\" id=\"A\">\n"
-    "  <annotation>\n"
-		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
-		"      <jd2:header>\n"
-		"        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
-		"        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
-		"        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
-		"      </jd2:header>\n"
-		"    </jd2:JDesignerLayout>\n"
-		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#_000003\">\n"
-		"        <bqbiol:is>\n"
-		"          <rdf:Bag>\n"
-		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
-		"          </rdf:Bag>\n"
-		"        </bqbiol:is>\n"
-		"      </rdf:Description>\n"
-		"    </rdf:RDF>\n"
-    "  </annotation>\n"
-    "</compartment>";
-  fail_unless( equals(expected, c->toSBML()) );
-
-}
-END_TEST
-
-START_TEST (test_RDFAnnotation_recreateFromEmpty)
-{
-  Compartment* c = m->getCompartment(3);
-
-  const char * expected =
-    "<compartment metaid=\"_000004\" id=\"C\">\n"
-    "  <annotation>\n"
-		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#_000004\">\n"
-		"        <bqbiol:is>\n"
-		"          <rdf:Bag>\n"
-		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
-		"          </rdf:Bag>\n"
-		"        </bqbiol:is>\n"
-		"      </rdf:Description>\n"
-		"    </rdf:RDF>\n"
-    "  </annotation>\n"
-    "</compartment>";
-
-
-  fail_unless( equals(expected, c->toSBML()) );
-
-}
-END_TEST
-
 
 START_TEST (test_RDFAnnotation_deleteWithOutOther)
 {
@@ -411,28 +421,32 @@ START_TEST (test_RDFAnnotation_deleteWithOutOther)
 END_TEST
 
 
-START_TEST (test_RDFAnnotation_recreateWithOutOther)
+START_TEST (test_RDFAnnotation_deleteWithOtherRDF)
 {
-  Compartment* c = m->getCompartment(2);
+  Compartment* c = m->getCompartment(5);
 
-  const char * expected =
-    "<compartment id=\"B\">\n"
-    "  <annotation>\n"
-		"    <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
-		"      <jd2:header>\n"
-		"        <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
-		"        <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
-		"        <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
-		"      </jd2:header>\n"
-		"    </jd2:JDesignerLayout>\n"
-    "  </annotation>\n"
-    "</compartment>";
+  XMLNode* node = c->getAnnotation();
+  const char * expected = "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"    <rdf:Description>\n"
+    "      <rdf:other/>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
 
 
-  fail_unless( equals(expected, c->toSBML()) );
+  fail_unless( equals(expected, node->toXMLString().c_str()) );
 
 }
 END_TEST
+
 
 #include <sbml/SBMLTypes.h>
 
@@ -1717,6 +1731,73 @@ START_TEST (test_RDFAnnotation_testCreateAnnotations)
 }
 END_TEST
 
+START_TEST (test_RDFAnnotation_deleteCVTerms)
+{
+  XMLNode* node = m->getCompartment(0)->getAnnotation();
+
+  XMLNode* n1 = NULL;
+
+  const char * empty = "<annotation/>";
+  const char * noRDF = "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+    "</annotation>";
+  const char * otherRDF =
+    "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"    <rdf:Description>\n"
+    "      <rdf:other/>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
+
+  n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(NULL);
+
+  fail_unless (n1 == NULL);
+
+  n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
+
+  fail_unless(n1->getNumChildren() == 0);
+  fail_unless(n1->getName() == "annotation");
+
+  fail_unless( equals(empty, n1->toXMLString().c_str()) );
+
+  node = m->getCompartment(2)->getAnnotation();
+  n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
+
+  fail_unless( equals(noRDF, n1->toXMLString().c_str()) );
+
+  node = m->getCompartment(1)->getAnnotation();
+  n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
+
+  fail_unless( equals(noRDF, n1->toXMLString().c_str()) );
+
+  node = m->getCompartment(4)->getAnnotation();
+  n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
+
+  fail_unless( equals(otherRDF, n1->toXMLString().c_str()) );
+  
+  node = XMLNode::convertStringToXMLNode("<notannotatio/>");
+  n1 = RDFAnnotationParser::deleteRDFCVTermAnnotation(node);
+
+  fail_unless (n1 == NULL);
+}
+END_TEST
+
+
+
 /* when I rewrote the parsing an annotation that has not been touched
  * does not get "recreated" - so I took out these tests
  */
@@ -1739,6 +1820,7 @@ create_suite_RDFAnnotation (void)
 //  tcase_add_test(tcase, test_RDFAnnotation_recreate );
 //  tcase_add_test(tcase, test_RDFAnnotation_recreateFromEmpty );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOutOther );
+  tcase_add_test(tcase, test_RDFAnnotation_deleteWithOtherRDF );
 //  tcase_add_test(tcase, test_RDFAnnotation_recreateWithOutOther );
   tcase_add_test(tcase, test_RDFAnnotation_testMissingMetaId );
   tcase_add_test(tcase, test_RDFAnnotation_testMissingAbout );
@@ -1750,6 +1832,7 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_testHasCVTermRDFAnnotationBadAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testHasHistoryRDFAnnotationBadAbout );
   tcase_add_test(tcase, test_RDFAnnotation_testCreateAnnotations );
+  tcase_add_test(tcase, test_RDFAnnotation_deleteCVTerms );
   suite_add_tcase(suite, tcase);
 
   return suite;

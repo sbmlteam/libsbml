@@ -424,12 +424,55 @@ RDFAnnotationParser::createRDFDescription(const std::string & metaid)
 /** endcond */
 
 /*
- * takes a List of CVTerms
- * and creates the RDF description element 
+ * this is here because we originally exposed the function
+ * with this name so we have to leave it
  */
 
 XMLNode * 
 RDFAnnotationParser::createCVTerms(const SBase * object)
+{
+  return createRDFDescriptionWithCVTerms(object);
+}
+
+
+/*
+ * takes a List of CVTerms
+ * and creates the RDF annotation
+ */
+
+XMLNode * 
+RDFAnnotationParser::parseCVTerms(const SBase * object)
+{
+
+  if (object == NULL || 
+	  object->getCVTerms() == NULL || 
+	  object->getCVTerms()->getSize() == 0 ||
+    !object->isSetMetaId())
+  {
+    return NULL;
+  }
+
+
+  XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
+
+  XMLNode * RDF = createRDFAnnotation();
+  RDF->addChild(*CVTerms);
+
+  delete CVTerms;
+
+  XMLNode *ann = createAnnotation();
+  ann->addChild(*RDF);
+
+  delete RDF;
+
+  return ann;
+}
+
+
+/** @cond doxygen-libsbml-internal */
+
+XMLNode * 
+RDFAnnotationParser::createRDFDescriptionWithCVTerms(const SBase * object)
 {
   if (object == NULL || 
 	  object->getCVTerms() == NULL || 
@@ -477,7 +520,8 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
        
         const char* term = ModelQualifierType_toString(
           current->getModelQualifierType());
-        if (term == NULL) return NULL;
+        if (term == NULL) 
+          return NULL;
 
         name = term;
         
@@ -490,7 +534,8 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
 
         const char* term = BiolQualifierType_toString(
             current->getBiologicalQualifierType());
-        if (term == NULL) return NULL;
+        if (term == NULL) 
+          return NULL;
         name = term;        
       }
       else
@@ -526,41 +571,7 @@ RDFAnnotationParser::createCVTerms(const SBase * object)
   return description;
 }
 
-
-
-/*
- * takes a List of CVTerms
- * and creates the RDF annotation
- */
-
-XMLNode * 
-RDFAnnotationParser::parseCVTerms(const SBase * object)
-{
-
-  if (object == NULL || 
-	  object->getCVTerms() == NULL || 
-	  object->getCVTerms()->getSize() == 0 ||
-    !object->isSetMetaId())
-  {
-    return NULL;
-  }
-
-
-  XMLNode *CVTerms = createCVTerms(object);
-
-  XMLNode * RDF = createRDFAnnotation();
-  RDF->addChild(*CVTerms);
-
-  delete CVTerms;
-
-  XMLNode *ann = createAnnotation();
-  ann->addChild(*RDF);
-
-  delete RDF;
-
-  return ann;
-}
-
+/** endcond */
 
 /*
  * takes a Model creator information
@@ -582,231 +593,10 @@ RDFAnnotationParser::parseModelHistory(const SBase *object)
     return NULL;
   }
 
-  XMLNode *description = createRDFDescription(object);
+  XMLNode *description = createRDFDescriptionWithHistory(object);
 
-  /* create the basic triples */
-  XMLTriple li_triple = XMLTriple("li", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  XMLTriple bag_triple = XMLTriple("Bag", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  XMLTriple creator_triple = XMLTriple("creator",
-    "http://purl.org/dc/elements/1.1/",
-    "dc");
-  XMLTriple N_triple = XMLTriple("N",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Family_triple = XMLTriple("Family",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Given_triple = XMLTriple("Given",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Email_triple = XMLTriple("EMAIL",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Org_triple = XMLTriple("ORG",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple Orgname_triple = XMLTriple("Orgname",
-    "http://www.w3.org/2001/vcard-rdf/3.0#",
-    "vCard");
-  XMLTriple created_triple = XMLTriple("created",
-    "http://purl.org/dc/terms/",
-    "dcterms");
-  XMLTriple modified_triple = XMLTriple("modified",
-    "http://purl.org/dc/terms/",
-    "dcterms");
-  XMLTriple W3CDTF_triple = XMLTriple("W3CDTF",
-    "http://purl.org/dc/terms/",
-    "dcterms");
-  XMLTriple empty_triple = XMLTriple( "", "", "");
+  XMLNode *CVTerms = createRDFDescriptionWithCVTerms(object);
 
-  
-  /* attributes */
-  XMLAttributes blank_att = XMLAttributes();
-  XMLAttributes parseType_att = XMLAttributes();
-  parseType_att.add("rdf:parseType", "Resource");
- 
-  /* tokens */
-  XMLToken bag_token      = XMLToken(bag_triple,      blank_att);
-  XMLToken li_token       = XMLToken(li_triple,       parseType_att);
-  // for L2V4 it was realised that it was invalid for the creator 
-  // to have a parseType attribute
-  XMLToken creator_token;
-  if (object->getLevel() > 2 || 
-    (object->getLevel() == 2 && object->getVersion() > 3))
-  {
-    creator_token  = XMLToken(creator_triple,  blank_att);
-  }
-  else
-  {
-    creator_token  = XMLToken(creator_triple,  parseType_att);
-  }
-  XMLToken N_token        = XMLToken(N_triple,        parseType_att);
-  XMLToken created_token  = XMLToken(created_triple,  parseType_att);
-  XMLToken modified_token = XMLToken(modified_triple,  parseType_att);
-  XMLToken Family_token   = XMLToken(Family_triple,   blank_att);
-  XMLToken Given_token    = XMLToken(Given_triple,    blank_att);
-  XMLToken Email_token    = XMLToken(Email_triple,    blank_att);
-  // for L2V4 it was realised that the VCard:ORG 
-  // should  have a parseType attribute
-  XMLToken Org_token;
-  if (object->getLevel() > 2 || 
-    (object->getLevel() == 2 && object->getVersion() > 3))
-  {
-    Org_token  = XMLToken(Org_triple,  parseType_att);
-  }
-  else
-  {
-    Org_token  = XMLToken(Org_triple,  blank_att);
-  }
-  XMLToken Orgname_token  = XMLToken(Orgname_triple,  blank_att);
-  XMLToken W3CDTF1_token  = XMLToken(W3CDTF_triple,   blank_att);
-  XMLToken W3CDTF2_token  = XMLToken(W3CDTF_triple,   blank_att);
-  XMLToken empty_token    = XMLToken("");
-
-  /* nodes */
-  XMLNode bag     = XMLNode(bag_token);
-  XMLNode created = XMLNode(created_token);
-  XMLNode modified= XMLNode(modified_token);
-  XMLNode W3CDTF1 = XMLNode(W3CDTF1_token);
-  XMLNode W3CDTF2 = XMLNode(W3CDTF2_token);
-  //
-  // The following XMLNode objects are used only
-  // in the for loop below (for each ModelCreator object
-  // in ModelHistory object) and reset in each step.
-  // Thus, they are defined only in the block in which 
-  // they are used to avoid a memory leak.
-  //  
-  //  XMLNode * N
-  //  XMLNode * Email
-  //  XMLNode * Org
-  //  XMLNode Family;
-  //  XMLNode Given
-  //  XMLNode Orgname
-  //  XMLNode li
-  //
-
-  /* now add the data from the ModelHistory */
-
-  for (unsigned int n = 0; n < history->getNumCreators(); n++)
-  {
-    XMLNode * N     = 0;
-    XMLNode * Email = 0;
-    XMLNode * Org   = 0;
-
-    ModelCreator* c = history->getCreator(n);
-    if (c->isSetFamilyName())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getFamilyName());
-
-      XMLNode Family(Family_token);
-      Family.addChild(empty);
-
-      N = new XMLNode(N_token);
-      N->addChild(Family);
-    }
-
-    if (c->isSetGivenName())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getGivenName());
-
-      XMLNode Given(Given_token);
-      Given.addChild(empty);
-
-      if (N == NULL)
-      {
-        N = new XMLNode(N_token);
-      }
-      N->addChild(Given);
-    }
-
-    if (c->isSetEmail())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getEmail());
-
-      Email = new XMLNode(Email_token);
-      Email->addChild(empty);
-    }
-
-    if (c->isSetOrganisation())
-    {
-      XMLNode empty(empty_token);
-      empty.append(c->getOrganisation());
-      XMLNode Orgname(Orgname_token);
-      Orgname.addChild(empty);
-
-      Org = new XMLNode(Org_token);
-      Org->addChild(Orgname);
-    }
-
-    XMLNode li(li_token);
-    if (N != NULL)
-    {
-      li.addChild(*N);
-      delete N;
-    }
-    if (Email != NULL)
-    {
-      li.addChild(*Email);
-      delete Email;
-    }
-    if (Org != NULL)
-    {
-      li.addChild(*Org);
-      delete Org;
-    }
-    if (c->getAdditionalRDF() != NULL)
-    {
-      li.addChild(*(c->getAdditionalRDF()));
-    }
-
-    bag.addChild(li);
-  }
-
-  XMLNode creator(creator_token);
-  creator.addChild(bag);
-  description->addChild(creator);
-  
-  /* created date */
-  if (history->isSetCreatedDate())
-  {
-    XMLNode empty(empty_token);
-    empty.append(history->getCreatedDate()->getDateAsString());
-    W3CDTF1.addChild(empty);
-    created.addChild(W3CDTF1);
-    description->addChild(created);
-  }
-
-  /* modified date */
-  if (history->isSetModifiedDate())
-  {
-    XMLNode empty(empty_token);
-    empty.append(history->getModifiedDate(0)->getDateAsString());
-    W3CDTF2.addChild(empty);
-    modified.addChild(W3CDTF2);
-    description->addChild(modified);
-
-    for (unsigned int n = 1; n < history->getNumModifiedDates(); n++)
-    {
-      XMLNode empty(empty_token);
-      W3CDTF2.removeChildren();
-      modified.removeChildren();
-      empty.append(history->getModifiedDate(n)->getDateAsString());
-      W3CDTF2.addChild(empty);
-      modified.addChild(W3CDTF2);
-      description->addChild(modified);
-    }
-  }
-
-  // add CVTerms here
-
-  XMLNode *CVTerms = createCVTerms(object);
   if (CVTerms != NULL)
   {
     for (unsigned int i = 0; i < CVTerms->getNumChildren(); i++)
@@ -844,6 +634,37 @@ RDFAnnotationParser::parseOnlyModelHistory(const SBase *object)
     return NULL;
   }
 
+  XMLNode *description = createRDFDescriptionWithHistory(object);
+
+  XMLNode * RDF = createRDFAnnotation();
+  RDF->addChild(*description);
+  delete description;
+
+  XMLNode *ann = createAnnotation();
+  ann->addChild(*RDF);
+  delete RDF;
+
+  return ann;
+}
+
+/** @cond doxygen-libsbml-internal */
+
+XMLNode * 
+RDFAnnotationParser::createRDFDescriptionWithHistory(const SBase * object)
+{
+    if (object == NULL  || 
+		(object->getLevel() < 3 && object->getTypeCode() != SBML_MODEL) ||
+    !object->isSetMetaId())
+  {
+    return NULL;
+  }
+  
+  ModelHistory * history = object->getModelHistory();
+  if (history == NULL)
+  {
+    return NULL;
+  }
+
   XMLNode *description = createRDFDescription(object);
 
   /* create the basic triples */
@@ -1066,104 +887,28 @@ RDFAnnotationParser::parseOnlyModelHistory(const SBase *object)
     }
   }
 
-  XMLNode * RDF = createRDFAnnotation();
-  RDF->addChild(*description);
-  delete description;
-
-  XMLNode *ann = createAnnotation();
-  ann->addChild(*RDF);
-  delete RDF;
-
-  return ann;
+  return description;
 }
 
+/** endcond */
 
 
 XMLNode *
 RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 {
-  if (annotation == NULL) return NULL; 
+  if (annotation == NULL) 
+    return NULL; 
 
   const string&  name = annotation->getName();
-  unsigned int children = annotation->getNumChildren();
-  unsigned int n = 0;
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), annotation->getAttributes(),annotation->getNamespaces());
-  XMLNode * newAnnotation = NULL;
-  XMLNode rdfAnnotation;
-  bool hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
-  bool hasCVTermRDF = 
-      RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
-  bool hasHistoryRDF = 
-    RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
 
   if (name != "annotation")
   {
     return NULL;
   }
 
+  XMLNode * halfAnnotation = deleteRDFHistoryAnnotation(annotation);
+  XMLNode * newAnnotation = deleteRDFCVTermAnnotation(halfAnnotation);
 
-  
-  if (children > 1)
-  {
-    newAnnotation = new XMLNode(ann_token);
-  
-    // need to find each annotation and add if not RDF
-    while (n < children)
-    {
-      const string &name1 = annotation->getChild(n).getName();
-      if (name1 != "RDF")
-      {
-        newAnnotation->addChild(annotation->getChild(n));
-      }
-      else
-      {
-        // is RDF - if there is additional rdf preserve this
-        if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
-        {
-          rdfAnnotation = annotation->getChild(n);
-          *(rdfAnnotation).removeChild(0);
-          newAnnotation->addChild(rdfAnnotation);
-        }
-        else if (hasAdditionalRDF)
-        {
-          rdfAnnotation = annotation->getChild(n);
-          newAnnotation->addChild(rdfAnnotation);
-        }
-
-      }
-      n++;
-    }
-  }
-  else
-  {
-    if (children == 1 && annotation->getChild(0).getName() != "RDF")
-    {
-      newAnnotation = new XMLNode(ann_token);
-      newAnnotation->addChild(annotation->getChild(0));
-    }
-    else
-    {
-      if ((hasCVTermRDF || hasHistoryRDF) && hasAdditionalRDF)
-      {
-        rdfAnnotation = annotation->getChild(0);
-        *(rdfAnnotation).removeChild(0);
-        newAnnotation = new XMLNode(ann_token);
-        newAnnotation->addChild(rdfAnnotation);
-      }
-      else if (hasAdditionalRDF)
-      {
-        rdfAnnotation = annotation->getChild(0);
-        newAnnotation = new XMLNode(ann_token);
-        newAnnotation->addChild(rdfAnnotation);
-      }
-      else
-      {
-        ann_token.setEnd();
-        newAnnotation = new XMLNode(ann_token);
-      }
-    }
-  }
 
   return newAnnotation;
 }
@@ -1172,7 +917,8 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 XMLNode *
 RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
 {
-  if (annotation == NULL) return NULL; 
+  if (annotation == NULL) 
+    return NULL; 
 
   const string&  name = annotation->getName();
   unsigned int children = annotation->getNumChildren();
@@ -1181,16 +927,10 @@ RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
     annotation->getAttributes(),annotation->getNamespaces());
   XMLNode * newAnnotation = NULL;
   XMLNode rdfAnnotation;
-  bool hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
   bool hasCVTermRDF = 
       RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
   bool hasHistoryRDF = 
     RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
-  const XMLTriple rdfAbout(
-                "about", 
-                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                "rdf");
 
   if (name != "annotation")
   {
@@ -1235,7 +975,8 @@ RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
 
     // remove the first description element keeping a copy
     // assume that the annotation is proper sbml-miriam
-    XMLNode descr = *(rdfAnnotation).removeChild(0);
+    XMLNode descr = *(rdfAnnotation).removeChild(
+                      rdfAnnotation.getIndex("Description"));
     if (hasCVTermRDF == false)
     {
       //we have a history, no cvterms and possibly other rdf
@@ -1290,7 +1031,8 @@ RDFAnnotationParser::deleteRDFHistoryAnnotation(const XMLNode * annotation)
 XMLNode *
 RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
 {
-  if (annotation == NULL) return NULL; 
+  if (annotation == NULL) 
+    return NULL; 
 
   const string&  name = annotation->getName();
   unsigned int children = annotation->getNumChildren();
@@ -1299,16 +1041,10 @@ RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
     annotation->getAttributes(),annotation->getNamespaces());
   XMLNode * newAnnotation = NULL;
   XMLNode rdfAnnotation;
-  bool hasAdditionalRDF = 
-      RDFAnnotationParser::hasAdditionalRDFAnnotation(annotation);
   bool hasCVTermRDF = 
       RDFAnnotationParser::hasCVTermRDFAnnotation(annotation);
   bool hasHistoryRDF = 
     RDFAnnotationParser::hasHistoryRDFAnnotation(annotation);
-  const XMLTriple rdfAbout(
-                "about", 
-                "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-                "rdf");
 
   if (name != "annotation")
   {
@@ -1353,7 +1089,8 @@ RDFAnnotationParser::deleteRDFCVTermAnnotation(const XMLNode * annotation)
 
     // remove the first description element keeping a copy
     // assume that the annotation is proper sbml-miriam
-    XMLNode descr = *(rdfAnnotation).removeChild(0);
+    XMLNode descr = *(rdfAnnotation).removeChild(
+                      rdfAnnotation.getIndex("Description"));
     if (hasHistoryRDF == false)
     {
       //we have cvterms no history and possibly other rdf
@@ -1708,7 +1445,7 @@ RDFAnnotationParser_createCVTerms(const SBase_t * object)
   * Takes a list of CVTerms from an SBML object and creates a 
   * complete SBML annotation around it.
   *
-  * This essentially takes the given SBML object, calls createCVTerms
+  * This essentially takes the given SBML object, calls createRDFDescriptionWithCVTerms
   * to read out the CVTerms
   * attached to it, calls createRDFAnnotation() to create an RDF
   * annotation to hold the terms, and finally calls createAnnotation() to

@@ -2256,7 +2256,7 @@ Model::appendAnnotation (const XMLNode* annotation)
     {
       delete mHistory;
       mHistory = new_mhistory;
-      mHistoryChanged = true;
+//      mHistoryChanged = true;
     }
   }
 

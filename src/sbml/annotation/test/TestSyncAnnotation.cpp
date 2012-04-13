@@ -219,6 +219,37 @@ START_TEST (test_SyncAnnotation_deleteModelOnly)
 END_TEST
 
 
+START_TEST (test_SyncAnnotation_deleteModelOnly_1)
+{
+  Compartment* c = m->getCompartment(7);
+  XMLNode * xml = RDFAnnotationParser::deleteRDFHistoryAnnotation(
+    c->getAnnotation());
+  
+  const char * expected =
+    "<annotation>\n"
+		"  <jd2:JDesignerLayout version=\"2.0\" MajorVersion=\"2\" MinorVersion=\"0\" BuildVersion=\"41\">\n"
+		"    <jd2:header>\n"
+		"      <jd2:VersionHeader JDesignerVersion=\"2.0\"/>\n"
+		"      <jd2:ModelHeader Author=\"Mr Untitled\" ModelVersion=\"0.0\" ModelTitle=\"untitled\"/>\n"
+		"      <jd2:TimeCourseDetails timeStart=\"0\" timeEnd=\"10\" numberOfPoints=\"1000\"/>\n"
+		"    </jd2:header>\n"
+		"  </jd2:JDesignerLayout>\n"
+    "</annotation>";
+
+  fail_unless( equals(expected, xml->toXMLString().c_str()) );
+
+  xml = RDFAnnotationParser::deleteRDFHistoryAnnotation(NULL);
+
+  fail_unless (xml == NULL);
+
+  xml = RDFAnnotationParser::deleteRDFHistoryAnnotation(
+    XMLNode::convertStringToXMLNode("<notannotatio/>"));
+
+  fail_unless (xml == NULL);
+}
+END_TEST
+
+
 START_TEST (test_SyncAnnotation_deleteCVTerms)
 {
   Compartment* c = m->getCompartment(1);
@@ -1006,6 +1037,7 @@ create_suite_SyncAnnotation (void)
   tcase_add_test(tcase, test_SyncAnnotation_noChanges_1 );
   tcase_add_test(tcase, test_SyncAnnotation_noChanges_2 );
   tcase_add_test(tcase, test_SyncAnnotation_deleteModelOnly );
+  tcase_add_test(tcase, test_SyncAnnotation_deleteModelOnly_1 );
   tcase_add_test(tcase, test_SyncAnnotation_deleteCVTerms );
   tcase_add_test(tcase, test_SyncAnnotation_modifyHistory_1 );
   tcase_add_test(tcase, test_SyncAnnotation_modifyHistory_2 );

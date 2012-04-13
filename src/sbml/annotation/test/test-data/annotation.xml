@@ -89,6 +89,45 @@
 					</rdf:RDF>
 				</annotation>
 			</compartment>
+			<compartment id="D" metaid="_000005">
+				<annotation>
+					<jd2:JDesignerLayout version="2.0" MajorVersion="2" MinorVersion="0" BuildVersion="41">
+						<jd2:header>
+							<jd2:VersionHeader JDesignerVersion="2.0"/>
+							<jd2:ModelHeader Author="Mr Untitled" ModelVersion="0.0" ModelTitle="untitled"/>
+							<jd2:TimeCourseDetails timeStart="0" timeEnd="10" numberOfPoints="1000"/>
+						</jd2:header>
+					</jd2:JDesignerLayout>
+					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+						<rdf:Description rdf:about="#_000005">
+							<bqbiol:is>
+								<rdf:Bag>
+									<rdf:li rdf:resource="http://www.geneontology.org/#GO:0007274"/>
+								</rdf:Bag>
+							</bqbiol:is>
+						</rdf:Description>
+						<rdf:Description>
+							<rdf:other/>
+						</rdf:Description>
+					</rdf:RDF>
+				</annotation>
+			</compartment>
+			<compartment id="E" metaid="_000006">
+				<annotation>
+					<jd2:JDesignerLayout version="2.0" MajorVersion="2" MinorVersion="0" BuildVersion="41">
+						<jd2:header>
+							<jd2:VersionHeader JDesignerVersion="2.0"/>
+							<jd2:ModelHeader Author="Mr Untitled" ModelVersion="0.0" ModelTitle="untitled"/>
+							<jd2:TimeCourseDetails timeStart="0" timeEnd="10" numberOfPoints="1000"/>
+						</jd2:header>
+					</jd2:JDesignerLayout>
+					<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+						<rdf:Description>
+							<rdf:other/>
+						</rdf:Description>
+					</rdf:RDF>
+				</annotation>
+			</compartment>
 		</listOfCompartments>
 	</model>
 </sbml>
