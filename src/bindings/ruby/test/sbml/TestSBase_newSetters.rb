@@ -70,31 +70,51 @@ class TestSBase_newSetters < Test::Unit::TestCase
   end
 
   def test_SBase_appendAnnotation
+    triple = LibSBML::XMLTriple.new("any", "", "pr");
+    att = LibSBML::XMLAttributes.new();
+    ns = LibSBML::XMLNamespaces.new();
+    ns.add("http://www.any", "pr");
+    triple1 = LibSBML::XMLTriple.new("anyOther", "", "prOther");
+    ns1 = LibSBML::XMLNamespaces.new();
+    ns1.add("http://www.any.other", "prOther");
     token = LibSBML::XMLToken.new("This is a test note")
     node = LibSBML::XMLNode.new(token)
     token1 = LibSBML::XMLToken.new("This is additional")
     node1 = LibSBML::XMLNode.new(token1)
-    i = @@s.setAnnotation(node)
+    token_top = LibSBML::XMLToken.new(triple, att, ns);
+    node_top = LibSBML::XMLNode.new(token_top);
+    node_top.addChild(node);
+    token_top1 = LibSBML::XMLToken.new(triple1, att, ns1);
+    node_top1 = LibSBML::XMLNode.new(token_top1);
+    node_top1.addChild(node1);
+    i = @@s.setAnnotation(node_top)
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
-    i = @@s.appendAnnotation(node1)
+    i = @@s.appendAnnotation(nodeTop1)
     t1 = @@s.getAnnotation()
     assert( t1.getNumChildren() == 2 )
-    assert ((     "This is a test note" == t1.getChild(0).getCharacters() ))
-    assert ((     "This is additional" == t1.getChild(1).getCharacters() ))
+    assert ((     "This is a test note" == t1.getChild(0).getChild(0).getCharacters() ))
+    assert ((     "This is additional" == t1.getChild(1).getChild(0).getCharacters() ))
   end
 
   def test_SBase_appendAnnotationString
     token = LibSBML::XMLToken.new("This is a test note")
     node = LibSBML::XMLNode.new(token)
-    i = @@s.setAnnotation(node)
+    triple = LibSBML::XMLTriple.new("any", "", "pr");
+    att = LibSBML::XMLAttributes.new();
+    ns = LibSBML::XMLNamespaces.new();
+    ns.add("http://www.any", "pr");
+    token_top = LibSBML::XMLToken.new(triple, att, ns);
+    node_top = LibSBML::XMLNode.new(token_top);
+    node_top.addChild(node);
+    i = @@s.setAnnotation(node_top)
     assert( i == LibSBML::LIBSBML_OPERATION_SUCCESS )
-    i = @@s.appendAnnotation( "This is additional")
+    i = @@s.appendAnnotation("<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>");
     t1 = @@s.getAnnotation()
     assert( t1.getNumChildren() == 2 )
-    assert ((     "This is a test note" == t1.getChild(0).getCharacters() ))
+    assert ((     "This is a test note" == t1.getChild(0).getChild(0).getCharacters() ))
     c1 = t1.getChild(1)
-    assert( c1.getNumChildren() == 0 )
-    assert ((  "This is additional" == c1.getCharacters() ))
+    assert( c1.getNumChildren() == 1 )
+    assert ((  "This is additional" == c1.getChild(0).getCharacters() ))
   end
 
   def test_SBase_appendNotes

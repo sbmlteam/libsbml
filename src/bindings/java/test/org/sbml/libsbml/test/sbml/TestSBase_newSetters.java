@@ -164,17 +164,34 @@ public class TestSBase_newSetters {
     XMLNode node;
     XMLToken token1;
     XMLNode node1;
+    XMLToken token_top;
+    XMLNode node_top;
+    XMLTriple triple = new XMLTriple("any", "", "pr");
+    XMLAttributes att = new XMLAttributes();
+    XMLNamespaces ns = new XMLNamespaces();
+    ns.add("http://www.any", "pr");
+    XMLToken token_top1;
+    XMLNode node_top1;
+    XMLTriple triple1 = new XMLTriple("anyOther", "", "prOther");
+    XMLNamespaces ns1 = new XMLNamespaces();
+    ns1.add("http://www.any.other", "prOther");
     token = new  XMLToken("This is a test note");
     node = new XMLNode(token);
     token1 = new  XMLToken("This is additional");
     node1 = new XMLNode(token1);
-    int i = S.setAnnotation(node);
+    token_top = new XMLToken(triple, att, ns);
+    node_top = new XMLNode(token_top);
+    node_top.addChild(node);
+    token_top1 = new XMLToken(triple1, att, ns1);
+    node_top1 = new XMLNode(token_top1);
+    node_top1.addChild(node1);
+    int i = S.setAnnotation(node_top);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    i = S.appendAnnotation(node1);
+    i = S.appendAnnotation(node_top1);
     XMLNode t1 = S.getAnnotation();
     assertTrue( t1.getNumChildren() == 2 );
-    assertTrue(t1.getChild(0).getCharacters().equals(    "This is a test note"));
-    assertTrue(t1.getChild(1).getCharacters().equals(    "This is additional"));
+    assertTrue(t1.getChild(0).getChild(0).getCharacters().equals(    "This is a test note"));
+    assertTrue(t1.getChild(1).getChild(0).getCharacters().equals(    "This is additional"));
   }
 
   public void test_SBase_appendAnnotationString()
@@ -183,15 +200,24 @@ public class TestSBase_newSetters {
     XMLNode node;
     token = new  XMLToken("This is a test note");
     node = new XMLNode(token);
-    int i = S.setAnnotation(node);
+    XMLToken token_top;
+    XMLNode node_top;
+    XMLTriple triple = new XMLTriple("any", "", "pr");
+    XMLAttributes att = new XMLAttributes();
+    XMLNamespaces ns = new XMLNamespaces();
+    ns.add("http://www.any", "pr");
+    token_top = new XMLToken(triple, att, ns);
+    node_top = new XMLNode(token_top);
+    node_top.addChild(node);
+    int i = S.setAnnotation(node_top);
     assertTrue( i == libsbml.LIBSBML_OPERATION_SUCCESS );
-    i = S.appendAnnotation( "This is additional");
+    i = S.appendAnnotation("<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>");
     XMLNode t1 = S.getAnnotation();
     assertTrue( t1.getNumChildren() == 2 );
-    assertTrue(t1.getChild(0).getCharacters().equals(    "This is a test note"));
+    assertTrue(t1.getChild(0)..getChild(0).getCharacters().equals(    "This is a test note"));
     XMLNode c1 = t1.getChild(1);
-    assertTrue( c1.getNumChildren() == 0 );
-    assertTrue(c1.getCharacters().equals( "This is additional"));
+    assertTrue( c1.getNumChildren() == 1 );
+    assertTrue(c1.getChild(0).getCharacters().equals( "This is additional"));
   }
 
   public void test_SBase_appendNotes()

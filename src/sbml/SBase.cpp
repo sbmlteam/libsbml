@@ -46,6 +46,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBase.h>
 
+#include <sbml/validator/constraints/IdList.h>
 #include <sbml/extension/SBasePlugin.h>
 #include <sbml/extension/ISBMLExtensionNamespaces.h>
 #include <sbml/extension/SBMLExtensionRegistry.h>
@@ -1232,6 +1233,7 @@ int
 SBase::appendAnnotation (const XMLNode* annotation)
 {
   int success = LIBSBML_OPERATION_FAILED;
+  unsigned int duplicates = 0;
 
   //
   // (*NOTICE*)
@@ -1240,7 +1242,8 @@ SBase::appendAnnotation (const XMLNode* annotation)
   // existing mCVTerm objects are properly merged in the following code.
   //
 
-  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
+  if(annotation == NULL) 
+    return LIBSBML_OPERATION_SUCCESS;
 
   XMLNode* new_annotation = NULL;
   const string&  name = annotation->getName();
@@ -1257,12 +1260,14 @@ SBase::appendAnnotation (const XMLNode* annotation)
     new_annotation = annotation->clone();
   }
 
-  // parse new_annotation and add mCVTerms (if any) 
-  if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
-  {
-    RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
-//    mCVTermsChanged = true;
-  }
+  // take out an attempt to merge rdf
+//
+//  // parse new_annotation and add mCVTerms (if any) 
+//  if (RDFAnnotationParser::hasCVTermRDFAnnotation(new_annotation))
+//  {
+//    RDFAnnotationParser::parseRDFAnnotation(new_annotation,mCVTerms);
+////    mCVTermsChanged = true;
+//  }
 
   // delete RDFAnnotation (CVTerm and ModelHistory) from new_annotation 
 //  XMLNode* tmp_annotation = RDFAnnotationParser::deleteRDFAnnotation(new_annotation);
@@ -1278,34 +1283,57 @@ SBase::appendAnnotation (const XMLNode* annotation)
       mAnnotation->unsetEnd();
     }
 
-    for(unsigned int i=0; i < new_annotation->getNumChildren(); i++)
+    //for(unsigned int i=0; i < new_annotation->getNumChildren(); i++)
+    //{
+    //  if (new_annotation->getChild(i).getName() == "RDF")
+    //  {
+    //    if (RDFAnnotationParser::hasRDFAnnotation(mAnnotation))
+    //    {
+    //      unsigned int n = 0;
+    //      while(n < mAnnotation->getNumChildren())
+    //      {
+    //        if (mAnnotation->getChild(n).getName() == "RDF")
+    //        {
+    //          break;
+    //        }
+    //        n++;
+    //      }
+    //      success = mAnnotation->getChild(n).addChild(
+    //                                new_annotation->getChild(i).getChild(0));
+    //    }
+    //    else
+    //    {
+    //      success = mAnnotation->addChild(new_annotation->getChild(i));
+    //    }
+    //  }
+    //  else
+    //  {
+    //    success = mAnnotation->addChild(new_annotation->getChild(i));
+    //  }
+    //}
+
+    // create a list of existing top level ns
+    IdList topLevelNs;
+    unsigned int i = 0;
+    for(i = 0; i < mAnnotation->getNumChildren(); i++)
     {
-      if (new_annotation->getChild(i).getName() == "RDF")
-      {
-        if (RDFAnnotationParser::hasRDFAnnotation(mAnnotation))
-        {
-          unsigned int n = 0;
-          while(n < mAnnotation->getNumChildren())
-          {
-            if (mAnnotation->getChild(n).getName() == "RDF")
-            {
-              break;
-            }
-            n++;
-          }
-          success = mAnnotation->getChild(n).addChild(
-                                    new_annotation->getChild(i).getChild(0));
-        }
-        else
-        {
-          success = mAnnotation->addChild(new_annotation->getChild(i));
-        }
-      }
-      else
+      topLevelNs.append(mAnnotation->getChild(i).getName());
+    }
+
+
+
+    for(i = 0; i < new_annotation->getNumChildren(); i++)
+    {
+      if (topLevelNs.contains(new_annotation->getChild(i).getName()) == false)
       {
         success = mAnnotation->addChild(new_annotation->getChild(i));
       }
+      else
+      {
+        duplicates++;
+      }
     }
+
   }
   else
   {
@@ -1313,6 +1341,11 @@ SBase::appendAnnotation (const XMLNode* annotation)
   }
 
   delete new_annotation;
+
+  if (duplicates > 0)
+  {
+    success = LIBSBML_DUPLICATE_ANNOTATION_NS;
+  }
 
   return success;
 }

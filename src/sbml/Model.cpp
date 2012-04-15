@@ -2230,41 +2230,45 @@ Model::setAnnotation (const std::string& annotation)
 int
 Model::appendAnnotation (const XMLNode* annotation)
 {
-  int success = LIBSBML_OPERATION_FAILED;
-  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
+  // take out any attempt to merge RDF
 
-  XMLNode* new_annotation = NULL;
-  const string&  name = annotation->getName();
+  return SBase::appendAnnotation(annotation);
 
-  // check for annotation tags and add if necessary
-  if (name != "annotation")
-  {
-    XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-    new_annotation = new XMLNode(ann_t);
-    new_annotation->addChild(*annotation);
-  }
-  else
-  {
-    new_annotation = annotation->clone();
-  }
-
-  // parse new_annotation and reset mHistory 
-  if (RDFAnnotationParser::hasHistoryRDFAnnotation(new_annotation))
-  {
-    ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
-    if(new_mhistory != NULL)
-    {
-      delete mHistory;
-      mHistory = new_mhistory;
-//      mHistoryChanged = true;
-    }
-  }
-
-  success = SBase::appendAnnotation(new_annotation);
-
-  delete new_annotation;
-
-  return success;
+//  int success = LIBSBML_OPERATION_FAILED;
+//  if(annotation == NULL) return LIBSBML_OPERATION_SUCCESS;
+//
+//  XMLNode* new_annotation = NULL;
+//  const string&  name = annotation->getName();
+//
+//  // check for annotation tags and add if necessary
+//  if (name != "annotation")
+//  {
+//    XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+//    new_annotation = new XMLNode(ann_t);
+//    new_annotation->addChild(*annotation);
+//  }
+//  else
+//  {
+//    new_annotation = annotation->clone();
+//  }
+//
+//  // parse new_annotation and reset mHistory 
+//  if (RDFAnnotationParser::hasHistoryRDFAnnotation(new_annotation))
+//  {
+//    ModelHistory* new_mhistory = RDFAnnotationParser::parseRDFAnnotation(new_annotation);
+//    if(new_mhistory != NULL)
+//    {
+//      delete mHistory;
+//      mHistory = new_mhistory;
+////      mHistoryChanged = true;
+//    }
+//  }
+//
+//  success = SBase::appendAnnotation(new_annotation);
+//
+//  delete new_annotation;
+//
+//  return success;
 }
 
 

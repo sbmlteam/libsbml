@@ -403,25 +403,212 @@ START_TEST (test_SBase_appendAnnotation)
   XMLNode_t *node;
   XMLToken_t *token1;
   XMLNode_t *node1;
+  XMLToken_t *token_top;
+  XMLNode_t *node_top;
+  XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.any", "pr");
+  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node_top = XMLNode_createFromToken(token_top);
+  XMLToken_t *token_top1;
+  XMLNode_t *node_top1;
+  XMLTriple_t *triple1 = XMLTriple_createWith("anyOther", "", "prOther");
+  XMLNamespaces_t *ns1 = XMLNamespaces_create();
+  XMLNamespaces_add(ns1, "http://www.any.other", "prOther");
+  token_top1 = XMLToken_createWithTripleAttrNS(triple1, att, ns1);
+  node_top1 = XMLNode_createFromToken(token_top1);
 
   token = XMLToken_createWithText("This is a test note");
   node = XMLNode_createFromToken(token);
+  XMLNode_addChild(node_top, node);
+
+ 
+  int i = SBase_setAnnotation(S, node_top);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
 
   token1 = XMLToken_createWithText("This is additional");
   node1 = XMLNode_createFromToken(token1);
- 
-  int i = SBase_setAnnotation(S, node);
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+  XMLNode_addChild(node_top1, node1);
 
-  i = SBase_appendAnnotation(S, node1);
+  i = SBase_appendAnnotation(S, node_top1);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
 
   XMLNode_t *t1 = SBase_getAnnotation(S);
 
   fail_unless(XMLNode_getNumChildren(t1) == 2);
-  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t1,0)),
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
     "This is a test note"));
-  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t1,1)),
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 1),0)),
     "This is additional"));
+
+  i = SBase_appendAnnotation(S, NULL);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 2);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
+    "This is a test note"));
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 1),0)),
+    "This is additional"));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendAnnotation1)
+{
+  XMLToken_t *token;
+  XMLNode_t *node;
+  XMLToken_t *token1;
+  XMLNode_t *node1;
+  XMLToken_t *token_top;
+  XMLNode_t *node_top;
+  XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.any", "pr");
+  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node_top = XMLNode_createFromToken(token_top);
+  XMLToken_t *token_top1;
+  XMLNode_t *node_top1;
+  XMLTriple_t *triple1 = XMLTriple_createWith("anyOther", "", "prOther");
+  XMLNamespaces_t *ns1 = XMLNamespaces_create();
+  XMLNamespaces_add(ns1, "http://www.any.other", "prOther");
+  token_top1 = XMLToken_createWithTripleAttrNS(triple1, att, ns1);
+  node_top1 = XMLNode_createFromToken(token_top1);
+
+  token = XMLToken_createWithText("This is a test note");
+  node = XMLNode_createFromToken(token);
+  XMLNode_addChild(node_top, node);
+
+ 
+  int i = SBase_setAnnotation(S, NULL);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  token1 = XMLToken_createWithText("This is additional");
+  node1 = XMLNode_createFromToken(token1);
+  XMLNode_addChild(node_top1, node1);
+
+  i = SBase_appendAnnotation(S, node_top1);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  XMLNode_t *t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
+    "This is additional"));
+
+  token1 = XMLToken_createWithText("This is a repeat");
+  node1 = XMLNode_createFromToken(token1);
+  node_top1 = XMLNode_createFromToken(token_top1);
+  XMLNode_addChild(node_top1, node1);
+
+  i = SBase_appendAnnotation(S, node_top1);
+  fail_unless( i == LIBSBML_DUPLICATE_ANNOTATION_NS);
+
+  t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 1);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
+    "This is additional"));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendAnnotation2)
+{
+  XMLToken_t *token;
+  XMLNode_t *node;
+  XMLToken_t *token_top;
+  XMLNode_t *node_top;
+  XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.any", "pr");
+  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node_top = XMLNode_createFromToken(token_top);
+
+  token = XMLToken_createWithText("This is a test note");
+  node = XMLNode_createFromToken(token);
+  XMLNode_addChild(node_top, node);
+
+ 
+  int i = SBase_setAnnotation(S, node_top);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = SBase_appendAnnotationString(S, "<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>");
+
+  XMLNode_t *t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 2);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
+    "This is a test note"));
+
+  const XMLNode_t *c1 = XMLNode_getChild(XMLNode_getChild(t1, 1), 0);
+
+  fail_unless(XMLNode_getNumChildren(c1) == 0);
+  fail_unless(!strcmp(XMLNode_getCharacters(c1), "This is additional"));
+
+  char * newann =
+    "<annotation>"
+    "<prA:other xmlns:prA=\"http://some\">This is additional repeat</prA:other>"
+    "<rdf:RDF xmlns:rdf=\"http://rdf\">This is a new annotation</rdf:RDF>"
+    "</annotation>";
+
+  i = SBase_appendAnnotationString(S, newann);
+
+  fail_unless( i == LIBSBML_DUPLICATE_ANNOTATION_NS);
+
+  t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 3);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
+    "This is a test note"));
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 1),0)),
+    "This is additional"));
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 2),0)),
+    "This is a new annotation"));
+
+}
+END_TEST
+
+
+START_TEST (test_SBase_appendAnnotationString)
+{
+  XMLToken_t *token;
+  XMLNode_t *node;
+  XMLToken_t *token_top;
+  XMLNode_t *node_top;
+  XMLTriple_t *triple = XMLTriple_createWith("any", "", "pr");
+  XMLAttributes_t * att = XMLAttributes_create ();
+  XMLNamespaces_t *ns = XMLNamespaces_create();
+  XMLNamespaces_add(ns, "http://www.any", "pr");
+  token_top = XMLToken_createWithTripleAttrNS(triple, att, ns);
+  node_top = XMLNode_createFromToken(token_top);
+
+  token = XMLToken_createWithText("This is a test note");
+  node = XMLNode_createFromToken(token);
+  XMLNode_addChild(node_top, node);
+
+ 
+  int i = SBase_setAnnotation(S, node_top);
+  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
+
+  i = SBase_appendAnnotationString(S, "<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>");
+
+  XMLNode_t *t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 2);
+  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(t1, 0),0)),
+    "This is a test note"));
+
+  const XMLNode_t *c1 = XMLNode_getChild(XMLNode_getChild(t1, 1), 0);
+
+  fail_unless(XMLNode_getNumChildren(c1) == 0);
+  fail_unless(!strcmp(XMLNode_getCharacters(c1), "This is additional"));
 }
 END_TEST
 
@@ -1254,33 +1441,6 @@ START_TEST (test_SBase_appendNotes8)
 END_TEST
 
 
-START_TEST (test_SBase_appendAnnotationString)
-{
-  XMLToken_t *token;
-  XMLNode_t *node;
-
-  token = XMLToken_createWithText("This is a test note");
-  node = XMLNode_createFromToken(token);
-
-  int i = SBase_setAnnotation(S, node);
-  fail_unless( i == LIBSBML_OPERATION_SUCCESS);
-
-  i = SBase_appendAnnotationString(S, "This is additional");
-
-  XMLNode_t *t1 = SBase_getAnnotation(S);
-
-  fail_unless(XMLNode_getNumChildren(t1) == 2);
-  fail_unless(!strcmp(XMLNode_getCharacters(XMLNode_getChild(t1,0)),
-    "This is a test note"));
-
-  const XMLNode_t *c1 = XMLNode_getChild(t1, 1);
-
-  fail_unless(XMLNode_getNumChildren(c1) == 0);
-  fail_unless(!strcmp(XMLNode_getCharacters(c1), "This is additional"));
-}
-END_TEST
-
-
 START_TEST (test_SBase_appendNotesString)
 {
   char * notes = "<p xmlns=\"http://www.w3.org/1999/xhtml\">This is a test note </p>";
@@ -2000,6 +2160,9 @@ create_suite_SBase_newSetters (void)
   tcase_add_test(tcase, test_SBase_setNotesString);
   tcase_add_test(tcase, test_SBase_setAnnotationString);
   tcase_add_test(tcase, test_SBase_appendAnnotation );
+  tcase_add_test(tcase, test_SBase_appendAnnotation1 );
+  tcase_add_test(tcase, test_SBase_appendAnnotation2 );
+  tcase_add_test(tcase, test_SBase_appendAnnotationString );
   tcase_add_test(tcase, test_SBase_appendNotes );
   tcase_add_test(tcase, test_SBase_appendNotes1 );
   tcase_add_test(tcase, test_SBase_appendNotes2 );
@@ -2009,7 +2172,6 @@ create_suite_SBase_newSetters (void)
   tcase_add_test(tcase, test_SBase_appendNotes6 );
   tcase_add_test(tcase, test_SBase_appendNotes7 );
   tcase_add_test(tcase, test_SBase_appendNotes8 );
-  tcase_add_test(tcase, test_SBase_appendAnnotationString );
   tcase_add_test(tcase, test_SBase_appendNotesString );
   tcase_add_test(tcase, test_SBase_appendNotesString1);
   tcase_add_test(tcase, test_SBase_appendNotesString2);

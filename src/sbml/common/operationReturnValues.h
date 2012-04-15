@@ -109,10 +109,19 @@ typedef enum
      * XML in an invalid way.  */
 
   , LIBSBML_NAMESPACES_MISMATCH   = -10
-    /*!< The XML operation attempted is not valid for the object or context
-     * involved.  This error is typically returned by the XML interface layer
-     * of libSBML, when a calling program attempts to construct or manipulate
-     * XML in an invalid way.  */
+    /*!< The SBML Namespaces associated with the object
+     * do not match the SBML Namespaces of the parent object.  This error can
+     * happen when an SBML component such as a species or compartment object
+     * is created outside of a model and a calling program then attempts to
+     * add the object to a model that has a different SBML Namespaces
+     * combination. */
+
+  , LIBSBML_DUPLICATE_ANNOTATION_NS   = -11
+    /*!< There already exists a top level annotation with the same namespace as
+     * annoation being appended.  This error is
+     * typically returned in situations where the appendAnnotation function
+     * is being used to add an annotation that has a namespace that is already
+     * present in the existing annotation. */
 
    /* ---------------------------------------------------------------------------
     *   

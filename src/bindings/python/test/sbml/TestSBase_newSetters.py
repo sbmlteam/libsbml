@@ -80,31 +80,51 @@ class TestSBase_newSetters(unittest.TestCase):
     pass  
 
   def test_SBase_appendAnnotation(self):
+    triple = libsbml.XMLTriple("any", "", "pr");
+    att = libsbml.XMLAttributes();
+    ns = libsbml.XMLNamespaces();
+    ns.add("http://www.any", "pr");
+    triple1 = libsbml.XMLTriple("anyOther", "", "prOther");
+    ns1 = libsbml.XMLNamespaces();
+    ns1.add("http://www.any.other", "prOther");
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
     token1 = libsbml.XMLToken("This is additional")
     node1 = libsbml.XMLNode(token1)
-    i = self.S.setAnnotation(node)
+    token_top = libsbml.XMLToken(triple, att, ns);
+    node_top = libsbml.XMLNode(token_top);
+    node_top.addChild(node);
+    token_top1 = libsbml.XMLToken(triple1, att, ns1);
+    node_top1 = libsbml.XMLNode(token_top1);
+    node_top1.addChild(node1);
+    i = self.S.setAnnotation(node_top)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    i = self.S.appendAnnotation(node1)
+    i = self.S.appendAnnotation(node_top1)
     t1 = self.S.getAnnotation()
     self.assert_( t1.getNumChildren() == 2 )
-    self.assert_((     "This is a test note" == t1.getChild(0).getCharacters() ))
-    self.assert_((     "This is additional" == t1.getChild(1).getCharacters() ))
+    self.assert_((     "This is a test note" == t1.getChild(0).getChild(0).getCharacters() ))
+    self.assert_((     "This is additional" == t1.getChild(1).getChild(0).getCharacters() ))
     pass  
 
   def test_SBase_appendAnnotationString(self):
     token = libsbml.XMLToken("This is a test note")
     node = libsbml.XMLNode(token)
-    i = self.S.setAnnotation(node)
+    triple = libsbml.XMLTriple("any", "", "pr");
+    att = libsbml.XMLAttributes();
+    ns = libsbml.XMLNamespaces();
+    ns.add("http://www.any", "pr");
+    token_top = libsbml.XMLToken(triple, att, ns);
+    node_top = libsbml.XMLNode(token_top);
+    node_top.addChild(node);
+    i = self.S.setAnnotation(node_top)
     self.assert_( i == libsbml.LIBSBML_OPERATION_SUCCESS )
-    i = self.S.appendAnnotation( "This is additional")
+    i = self.S.appendAnnotation("<prA:other xmlns:prA=\"http://some\">This is additional</prA:other>");
     t1 = self.S.getAnnotation()
     self.assert_( t1.getNumChildren() == 2 )
-    self.assert_((     "This is a test note" == t1.getChild(0).getCharacters() ))
+    self.assert_((     "This is a test note" == t1.getChild(0).getChild(0).getCharacters() ))
     c1 = t1.getChild(1)
-    self.assert_( c1.getNumChildren() == 0 )
-    self.assert_((  "This is additional" == c1.getCharacters() ))
+    self.assert_( c1.getNumChildren() == 1 )
+    self.assert_((  "This is additional" == c1.getChild(0).getCharacters() ))
     pass  
 
   def test_SBase_appendNotes(self):
