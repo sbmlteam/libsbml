@@ -1,5 +1,68 @@
            libSBML NEWS -- History of user-visible changes
 
+
+====================================================================
+Version 5.5.0 (Coming soon)
+====================================================================
+
+STABLE RELEASE
+
+* Revision of annotation and SBML MIRIAM RDF
+
+  Following discussions on the libsbml-development mailing list
+  we have adjusted the way functions affecting annotations interact
+  with the SBML MIRIAM RDF classes for History and CVTerms.  
+  
+    - Previously any annotation was assessed and if it contained 
+      MIRIAM RDF the corresponding classes were created and the original 
+      annotation XMLNodes relating to these objects was removed from the 
+      annotation. When the annotation was retrieved the xml was reconstructed
+      from the History and CVTerm classes.  This is no longer the case.
+      In 5.5 we have changed the code so that the MIRIAM objects are
+      created BUT the original annotation remains intact. It is only 
+      reconstructed if the code has directly altered the History or CVTerm 
+      classes via the class API, otherwise the original annotation
+      is returned.
+      
+    - We reassesed the use of the appendAnnotation function. Previously
+      any annotation was appended regardless of whether the existing
+      annotation already contained a top level element with the same
+      namespace.  We considered this to be a bug, since it would result
+      in invalid SBML. Thus, the appendAnnotation function now checks
+      whether there is an existing top-level element with the same
+      namespace of any it is to append and does not append if it 
+      encounters a duplicate. It returns an OperationReturnValue of
+      LIBSBML_DUPLICATE_ANNOTATION_NS to indicate this to the user.
+      
+    - In our reassessment of appendAnnotation we came to the conclusion
+      that it was virtually impossible to correctly determine the intent
+      of the user in cases where both the existing and appending annotation
+      contained RDF that complied with the SBML MIRIAM RDF History or
+      CVTerms. Thus the appendAnnotation function no longer treats RDF
+      as a "special" case.  If there is existing RDF, no further RDF will 
+      be appended. Users wishing to alter existing History or CVTerms should
+      use the API provided or contruct their own annotation and use the
+      setAnnotation function. 
+
+* New features
+
+* Bug fixes
+
+* Miscellaneous
+
+* Configuration/build system changes
+
+EXPERIMENTAL RELEASE
+
+* New features
+
+* Bug fixes
+
+* Miscellaneous
+
+* Configuration/build system changes
+
+
 ======================================================================
 Version 5.4.1 (2012-02-24)
 ======================================================================
