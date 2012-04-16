@@ -138,17 +138,6 @@ public:
 
   /**
    *
-   * Returns the bool value of "required" attribute of corresponding 
-   * package in SBMLDocument element.
-   *
-   * @return the bool value of "required" attribute of corresponding
-   * package in SBMLDocument element.
-   */
-  virtual bool getRequired() const;
-  
-
-  /**
-   *
    * Sets the bool value of "required" attribute of corresponding package
    * in SBMLDocument element.
    *
@@ -164,12 +153,55 @@ public:
   virtual int setRequired(bool value);
 
 
+  /**
+   *
+   * Returns the bool value of "required" attribute of corresponding 
+   * package in SBMLDocument element.
+   *
+   * @return the bool value of "required" attribute of corresponding
+   * package in SBMLDocument element.
+   */
+  virtual bool getRequired() const;
+
+
+  /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SBMLDocumentPlugin's "required" attribute has been set.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   * 
+   * @return @c true if the "required" attribute of this SBMLDocument has been
+   * set, @c false otherwise.
+   */
+  virtual bool isSetRequired() const;
+
+
+  /**
+   * Unsets the value of the "required" attribute of this SBMLDocumentPlugin.
+   *
+   * @htmlinclude libsbml-comment-set-methods.html
+   *
+   * @return integer value indicating success/failure of the
+   * function.  @if clike The value is drawn from the
+   * enumeration #OperationReturnValues_t. @endif The possible values
+   * returned by this function are:
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_SUCCESS LIBSBML_OPERATION_SUCCESS @endlink
+   * @li @link OperationReturnValues_t#LIBSBML_OPERATION_FAILED LIBSBML_OPERATION_FAILED @endlink
+   */
+  virtual int unsetRequired();
+
+
+  
+
+
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
   /*-- data members --*/
 
   bool mRequired;
+  bool mIsSetRequired;
 
   /** @endcond */
 
@@ -219,6 +251,16 @@ SBMLDocumentPlugin_getRequired(SBMLDocumentPlugin_t* plugin);
 LIBSBML_EXTERN
 int
 SBMLDocumentPlugin_setRequired(SBMLDocumentPlugin_t* plugin, int required);
+
+
+LIBSBML_EXTERN
+int
+SBMLDocumentPlugin_isSetRequired(SBMLDocumentPlugin_t* plugin);
+
+
+LIBSBML_EXTERN
+int
+SBMLDocumentPlugin_unsetRequired(SBMLDocumentPlugin_t* plugin);
 
 END_C_DECLS
 LIBSBML_CPP_NAMESPACE_END

@@ -107,9 +107,15 @@ START_TEST (test_SBMLDocumentPlugin_c_api)
 
   SBMLDocumentPlugin_t* plugin = SBMLDocumentPlugin_create(uri.c_str(), prefix.c_str(), &ns);
 	fail_unless(plugin != NULL);
-  fail_unless(SBMLDocumentPlugin_getRequired(plugin) == (int)false);
+  fail_unless(SBMLDocumentPlugin_isSetRequired(plugin) == (int)false);
   SBMLDocumentPlugin_setRequired(plugin, (int)true); 
+  fail_unless(SBMLDocumentPlugin_isSetRequired(plugin) == (int)true);
   fail_unless(SBMLDocumentPlugin_getRequired(plugin) == (int)true);
+  SBMLDocumentPlugin_setRequired(plugin, (int)false); 
+  fail_unless(SBMLDocumentPlugin_isSetRequired(plugin) == (int)true);
+  fail_unless(SBMLDocumentPlugin_getRequired(plugin) == (int)false);
+  SBMLDocumentPlugin_unsetRequired(plugin);
+  fail_unless(SBMLDocumentPlugin_isSetRequired(plugin) == (int)false);
 
   fail_unless(SBMLDocumentPlugin_create(NULL, NULL, NULL) == NULL);
   fail_unless(SBMLDocumentPlugin_getRequired(NULL) == LIBSBML_INVALID_OBJECT);

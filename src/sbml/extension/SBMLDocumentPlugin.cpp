@@ -46,6 +46,7 @@ SBMLDocumentPlugin::SBMLDocumentPlugin (const std::string &uri,
                                         SBMLNamespaces *sbmlns)
   : SBasePlugin(uri,prefix,sbmlns)
   , mRequired(false)
+  , mIsSetRequired(false)
 {
 }
 
@@ -56,6 +57,7 @@ SBMLDocumentPlugin::SBMLDocumentPlugin (const std::string &uri,
 SBMLDocumentPlugin::SBMLDocumentPlugin(const SBMLDocumentPlugin& orig)
   : SBasePlugin(orig)
   , mRequired(orig.mRequired)
+  , mIsSetRequired(orig.mIsSetRequired)
 {
 }
 
@@ -75,6 +77,7 @@ SBMLDocumentPlugin::operator=(const SBMLDocumentPlugin& orig)
   {
     this->SBasePlugin::operator =(orig);
     mRequired = orig.mRequired;
+    mIsSetRequired = orig.mIsSetRequired;
   }    
 
   return *this;
@@ -136,7 +139,9 @@ SBMLDocumentPlugin::readAttributes (const XMLAttributes& attributes,
   if ( mSBMLExt->getLevel(mURI) > 2)
   {    
     XMLTriple tripleRequired("required", mURI, mPrefix);
-    attributes.readInto(tripleRequired, mRequired, getErrorLog(), true, getLine(), getColumn());
+    if (attributes.readInto(tripleRequired, mRequired, getErrorLog(), true, getLine(), getColumn())) {
+      mIsSetRequired = true;
+    }
   }
 }
 
@@ -173,9 +178,15 @@ SBMLDocumentPlugin::writeAttributes (XMLOutputStream& stream) const
 bool 
 SBMLDocumentPlugin::getRequired() const
 {
-  return mRequired;  
+  return mRequired;
 }
 
+
+bool 
+SBMLDocumentPlugin::isSetRequired() const
+{
+  return mIsSetRequired;
+}
 
 int 
 SBMLDocumentPlugin::setRequired(bool required)
@@ -183,12 +194,24 @@ SBMLDocumentPlugin::setRequired(bool required)
   //
   // required attribute is not defined for SBML Level 2 .
   //
-  if ( mSBMLExt->getLevel(mURI) < 3)
+  if ( mSBMLExt->getLevel(mURI) < 3) {
     return LIBSBML_UNEXPECTED_ATTRIBUTE;
+  }
 
   mRequired = required;
+  mIsSetRequired = true;
   return LIBSBML_OPERATION_SUCCESS;
 }
+
+
+int 
+SBMLDocumentPlugin::unsetRequired()
+{
+  mRequired = false;
+  mIsSetRequired = false;
+  return LIBSBML_OPERATION_SUCCESS;
+}
+
 
 /**
  * Creates a new SBMLDocumentPlugin_t structure with the given package
@@ -343,6 +366,24 @@ SBMLDocumentPlugin_setRequired(SBMLDocumentPlugin_t* plugin, int required)
 {
   if (plugin == NULL) return LIBSBML_INVALID_OBJECT;
   return plugin->setRequired((bool)required);
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLDocumentPlugin_isSetRequired(SBMLDocumentPlugin_t* plugin)
+{
+  if (plugin == NULL) return LIBSBML_INVALID_OBJECT;
+  return plugin->isSetRequired();
+}
+
+
+LIBSBML_EXTERN
+int
+SBMLDocumentPlugin_unsetRequired(SBMLDocumentPlugin_t* plugin)
+{
+  if (plugin == NULL) return LIBSBML_INVALID_OBJECT;
+  return plugin->unsetRequired();
 }
 
 
