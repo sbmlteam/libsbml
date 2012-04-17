@@ -40,7 +40,7 @@
  * separate header file is not necessary and only adds a maintenance burden
  * to keep the two files synchronized.
  */
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -114,7 +114,7 @@ main (void)
   return num_failed;
 }
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif
 

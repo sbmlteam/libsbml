@@ -25,7 +25,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#if __cplusplus
+#if defined(__cplusplus)
 #include <iostream>
 #endif
 

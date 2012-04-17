@@ -32,7 +32,7 @@
 
 #include <check.h>
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -465,7 +465,7 @@ create_suite_FormulaTokenizer (void)
   return suite;
 }
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif
 

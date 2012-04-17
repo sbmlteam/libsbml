@@ -37,7 +37,7 @@
 #include <check.h>
 
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -403,7 +403,7 @@ create_suite_Date_newSetters (void)
 }
 
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif
 

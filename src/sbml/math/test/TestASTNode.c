@@ -45,7 +45,7 @@ extern int isinf(double x);
 extern int finite(double x);
 #endif
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -2830,7 +2830,7 @@ create_suite_ASTNode (void)
   return suite;
 }
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif
 

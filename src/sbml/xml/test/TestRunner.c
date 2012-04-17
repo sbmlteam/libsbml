@@ -28,7 +28,7 @@
 #include <string.h>
 #include <check.h>
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -82,6 +82,6 @@ main (int argc, char* argv[])
   return num_failed;
 }
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif

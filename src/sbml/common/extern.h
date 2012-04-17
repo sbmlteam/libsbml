@@ -90,7 +90,7 @@
 #endif  /* WIN32 */
 
 
-#if __cplusplus
+#if defined(__cplusplus)
 #  define BEGIN_C_DECLS extern "C" {
 #  define END_C_DECLS   }
 #else

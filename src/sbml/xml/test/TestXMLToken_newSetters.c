@@ -25,7 +25,7 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  * ---------------------------------------------------------------------- -->*/
 
-#if __cplusplus
+#if defined(__cplusplus)
 #include <iostream>
 #endif
 
@@ -39,7 +39,7 @@
 
 #include <sbml/common/extern.h>
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -641,7 +641,7 @@ create_suite_XMLToken_newSetters (void)
   return suite;
 }
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif
 

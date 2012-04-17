@@ -44,7 +44,7 @@
 
 #include <sbml/common/extern.h>
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -870,6 +870,6 @@ create_suite_XMLAttributes_C (void)
   return suite;
 }
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif

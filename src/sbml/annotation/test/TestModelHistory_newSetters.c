@@ -36,7 +36,7 @@
 
 #include <check.h>
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPSTART
 #endif
 
@@ -205,7 +205,7 @@ create_suite_ModelHistory_newSetters (void)
 }
 
 
-#if __cplusplus
+#if defined(__cplusplus)
 CK_CPPEND
 #endif
 
