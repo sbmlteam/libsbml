@@ -43,6 +43,11 @@
 #  define finite(d) isfinite(d)
 #endif
 
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+#  include <float.h>
+#  define finite(d) _finite(d)
+#  define isnan(d)  _isnan(d)
+#endif
 
 /** @cond doxygen-libsbml-internal */
 
@@ -504,10 +509,6 @@ LIBSBML_EXTERN
 int
 util_isInf (double d)
 {
-#ifdef _MSC_VER
-#  define finite(d) _finite(d)
-#  define isnan(d)  _isnan(d)
-#endif
 
   if ( !(finite(d) || isnan(d)) )
   {

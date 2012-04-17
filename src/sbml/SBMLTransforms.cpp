@@ -31,6 +31,10 @@
 #include <cstring>
 #include <math.h>
 
+#if __BORLANDC__
+#include <float.h>
+#endif
+
 #include "validator/constraints/IdList.h"
 
 /** @cond doxygen-ignored */
@@ -441,7 +445,7 @@ SBMLTransforms::clearComponentValues()
 double
 SBMLTransforms::evaluateASTNode(const ASTNode *node, const Model *m)
 {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 #  define isnan(d)  _isnan(d)
 #endif
 
@@ -1025,7 +1029,7 @@ bool
 SBMLTransforms::expandInitialAssignment(Compartment * c, 
     const InitialAssignment *ia)
 {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
@@ -1046,7 +1050,7 @@ bool
 SBMLTransforms::expandInitialAssignment(Parameter * p, 
     const InitialAssignment *ia)
 {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
@@ -1067,7 +1071,7 @@ bool
 SBMLTransforms::expandInitialAssignment(SpeciesReference * sr, 
     const InitialAssignment *ia)
 {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 
@@ -1088,7 +1092,7 @@ bool
 SBMLTransforms::expandInitialAssignment(Species * s, 
     const InitialAssignment *ia)
 {
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__BORLANDC__)
 #  define isnan(d)  _isnan(d)
 #endif
   bool success = false; 

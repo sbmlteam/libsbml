@@ -179,7 +179,7 @@ SBO::intToString (int sboTerm)
   * functions for checking the SBO term is from correct part of SBO
   * Unary Functor returns the parent portion of a ParentMap pair.
   */
-struct GetParent : public unary_function<const pair<const int, int>, int>
+struct GetSecond : public unary_function<const pair<const int, int>, int>
 {
   int operator() (const pair<const int, int>& pair) { return pair.second; }
 };
@@ -203,7 +203,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
 
 
   // Copy parents of term to nodes.
-  transform(range.first, range.second, back_inserter(nodes), GetParent());
+  transform(range.first, range.second, back_inserter(nodes), GetSecond());
 
   // Search nodes DFS for parent.
   // (For BFS, change back() and pop_back() to front() and pop_front().)
@@ -220,7 +220,7 @@ SBO::isChildOf(unsigned int term, unsigned int parent)
 
     // Copy parents of p to nodes and continue search.
     range = mParent.equal_range(p);
-    transform(range.first, range.second, back_inserter(nodes), GetParent());
+    transform(range.first, range.second, back_inserter(nodes), GetSecond());
   }
 
   return result;

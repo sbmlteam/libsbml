@@ -57,7 +57,7 @@ trim (const std::string& s)
   std::string::size_type begin = s.find_first_not_of(whitespace);
   std::string::size_type end   = s.find_last_not_of (whitespace);
 
-  return (begin == std::string::npos) ? "" : s.substr(begin, end - begin + 1);
+  return (begin == std::string::npos) ? std::string() : s.substr(begin, end - begin + 1);
 }
 
 
@@ -348,7 +348,7 @@ XMLAttributes::getNumAttributes () const
 std::string
 XMLAttributes::getName (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mNames[index].getName();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getName();
 }
 
 
@@ -360,7 +360,7 @@ XMLAttributes::getName (int index) const
 std::string
 XMLAttributes::getPrefix (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mNames[index].getPrefix();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getPrefix();
 }
 
 
@@ -373,7 +373,7 @@ XMLAttributes::getPrefix (int index) const
 std::string
 XMLAttributes::getPrefixedName (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mNames[index].getPrefixedName();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getPrefixedName();
 }
 
 
@@ -385,7 +385,7 @@ XMLAttributes::getPrefixedName (int index) const
 std::string
 XMLAttributes::getURI (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mNames[index].getURI();
+  return (index < 0 || index >= getLength()) ? std::string() : mNames[index].getURI();
 }
 
 
@@ -397,7 +397,7 @@ XMLAttributes::getURI (int index) const
 std::string
 XMLAttributes::getValue (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mValues[index];
+  return (index < 0 || index >= getLength()) ? std::string() : mValues[index];
 }
 
 

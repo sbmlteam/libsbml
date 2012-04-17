@@ -511,7 +511,7 @@ SBasePlugin::readAttributes (const XMLAttributes& attributes,
   const unsigned int sbmlVersion = getVersion();
   const unsigned int pkgVersion  = getPackageVersion();
 
-   std::string element = (mParent) ? mParent->getElementName() : "";
+   std::string element = (mParent) ? mParent->getElementName() : std::string();
 
   //
   // (NOTE)

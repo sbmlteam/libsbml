@@ -3809,10 +3809,11 @@ SBase::readNotes (XMLInputStream& stream)
 }
 
 bool
-SBase::getHasBeenDeleted()
+SBase::getHasBeenDeleted() const
 {
   return mHasBeenDeleted;
 }
+
 
 /** @endcond */
 

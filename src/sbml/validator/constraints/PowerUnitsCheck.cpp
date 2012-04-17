@@ -47,6 +47,13 @@
 
 #include "PowerUnitsCheck.h"
 
+
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+#  include <float.h>
+#  define isnan(d)  _isnan(d)
+#endif
+
+
 /** @cond doxygen-ignored */
 
 using namespace std;
@@ -144,9 +151,6 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb, bool inKL, int reactNo)
 {
-#ifdef _MSC_VER
-#  define isnan(d)  _isnan(d)
-#endif
 
   /* check that node has 2 children */
   if (node.getNumChildren() != 2)

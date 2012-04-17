@@ -344,7 +344,7 @@ SBMLExternalValidator::getNumArguments() const
 std::string 
 SBMLExternalValidator::getArgument(unsigned int n) const
 {
-  return (n < mArguments.size()) ? mArguments[n] : "";
+  return (n < mArguments.size()) ? mArguments[n] : std::string();
 }
 
 

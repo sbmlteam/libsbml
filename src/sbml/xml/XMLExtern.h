@@ -40,7 +40,7 @@
  * sees symbols defined with this macro as being exported.
  */
 # if (defined(WIN32) && ! defined CYGWIN && ! defined LIBLAX_STATIC )
-#   if LIBLAX_EXPORTS
+#   if defined(LIBLAX_EXPORTS)
 #     define LIBLAX_EXTERN __declspec(dllexport)
 #   else
 #     define LIBLAX_EXTERN __declspec(dllimport)

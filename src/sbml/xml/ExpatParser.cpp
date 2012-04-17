@@ -127,7 +127,7 @@ ExpatParser::reportError (const XMLErrorCode_t code,
 			  const unsigned int   column)
 {
   if (mErrorLog != NULL)
-    mErrorLog->add(XMLError( code, extraMsg, line, column) );
+    mErrorLog->add((const XMLError&)XMLError( code, extraMsg, line, column) );
   else
   {
     // We have no error log, but we shouldn't gloss over this error.  Use
@@ -353,7 +353,7 @@ ExpatParser::parseNext ()
   }
   else if ( mHandler.error() )
   {
-    if (mErrorLog != NULL) mErrorLog->add(static_cast<XMLError&>(*mHandler.error()));
+    if (mErrorLog != NULL) mErrorLog->add(static_cast<const XMLError&>(*mHandler.error()));
     return false;
   }
 

@@ -58,7 +58,7 @@ public:
 
   std::string get(unsigned int i) const
   {
-    return (mAttributes.size() < i) ? mAttributes[i] : ""; 
+    return (mAttributes.size() < i) ? mAttributes[i] : std::string(); 
   }
 
   bool hasAttribute(const std::string& attribute) const

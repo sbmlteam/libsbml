@@ -57,7 +57,7 @@ trim (const string& s)
   string::size_type begin = s.find_first_not_of(whitespace);
   string::size_type end   = s.find_last_not_of (whitespace);
 
-  return (begin == string::npos) ? "" : s.substr(begin, end - begin + 1);
+  return (begin == string::npos) ? std::string() : s.substr(begin, end - begin + 1);
 }
 
 

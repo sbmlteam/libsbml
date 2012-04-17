@@ -141,6 +141,11 @@ public:
   int getNumConverters() const;
   
 
+  /** 
+   * Destructor
+   */
+  virtual ~SBMLConverterRegistry();
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
@@ -150,10 +155,6 @@ protected:
   SBMLConverterRegistry();
 
 
-  /** 
-   * Destructor
-   */
-  virtual ~SBMLConverterRegistry();
 
 protected: 
   std::vector<const SBMLConverter*>  mConverters;

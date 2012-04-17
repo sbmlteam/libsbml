@@ -62,7 +62,11 @@ static const int BUFFER_SIZE = 8192;
  * http://stuff.mit.edu/afs/sipb/project/php/share/gtk-doc/html/libxml2/libxml2-parser.html
  */ 
 static struct libxmlErrors {
+#ifdef __BORLANDC__
+  int      libxmlCode;
+#else
   const int      libxmlCode;
+#endif  
   XMLErrorCode_t ourCode;
 } libxmlErrorTable[] = {
   { XML_ERR_INTERNAL_ERROR, 	       BadlyFormedXML},

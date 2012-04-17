@@ -279,7 +279,7 @@ XMLNamespaces::getNumNamespaces () const
 std::string
 XMLNamespaces::getPrefix (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mNamespaces[index].first;
+  return (index < 0 || index >= getLength()) ? std::string() : mNamespaces[index].first;
 }
 
 
@@ -302,7 +302,7 @@ XMLNamespaces::getPrefix (const std::string& uri) const
 std::string
 XMLNamespaces::getURI (int index) const
 {
-  return (index < 0 || index >= getLength()) ? "" : mNamespaces[index].second;
+  return (index < 0 || index >= getLength()) ? std::string() : mNamespaces[index].second;
 }
 
 
@@ -314,13 +314,13 @@ XMLNamespaces::getURI (int index) const
 std::string
 XMLNamespaces::getURI (const std::string& prefix) const
 {
-  if (&prefix == NULL) return "";
+  if (&prefix == NULL) return std::string();
   for (int index = 0; index < getLength(); ++index)
   {
     if (getPrefix(index) == prefix) return getURI(index);
   }
   
-  return "";
+  return std::string();
 }
 
 

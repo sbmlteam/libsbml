@@ -135,7 +135,8 @@ SBasePluginCreatorBase::getNumOfSupportedPackageURI() const
 std::string
 SBasePluginCreatorBase::getSupportedPackageURI(unsigned int i) const
 {
-  return (i < mSupportedPackageURI.size()) ? mSupportedPackageURI[i] : "";
+  return (i < mSupportedPackageURI.size()) ? mSupportedPackageURI[i] : std::string();
+  return (i < mSupportedPackageURI.size()) ? mSupportedPackageURI[i] : std::string("");
 }
 /** @endcond */
 

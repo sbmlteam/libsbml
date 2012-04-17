@@ -31,6 +31,11 @@
 #include <sbml/SBMLTransforms.h>
 #include "../validator/constraints/IdList.h"
 
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+#  include <float.h>
+#  define isnan(d)  _isnan(d)
+#endif
+
 
 LIBSBML_CPP_NAMESPACE_BEGIN
 
@@ -448,9 +453,6 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
                                                  bool inKL, int reactNo)
 { 
-#ifdef _MSC_VER
-#  define isnan(d)  _isnan(d)
-#endif
 
   UnitDefinition * ud;
   /* this only works is the exponent is an integer - 
@@ -641,10 +643,6 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node, 
                                         bool inKL, int reactNo)
 { 
-#ifdef _MSC_VER
-#  define isnan(d)  _isnan(d)
-#endif
-
   UnitDefinition * ud;
 /* this only works is the exponent is an integer - 
    * since a unit can only have an integral exponent 

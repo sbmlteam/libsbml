@@ -46,7 +46,12 @@
 #undef inv
 #undef inv_or
 #undef fail
-
+ 
+#ifdef __BORLANDC__
+// borland fails to compile because of too many warnings in the below
+// 8008: Condition is always false in function
+#pragma option -w-8066 -w-8008
+#endif
 
 #ifndef AddingConstraintsToValidator
 

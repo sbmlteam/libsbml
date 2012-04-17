@@ -28,9 +28,10 @@
 #include <sbml/common/common.h>
 #include <sbml/math/FormulaFormatter.h>
 
-
-#ifdef _MSC_VER
-#  define isnan _isnan
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+#  include <float.h>
+#  define finite(d) _finite(d)
+#  define isnan(d)  _isnan(d)
 #endif
 
 /**

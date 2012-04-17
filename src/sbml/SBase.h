@@ -3314,6 +3314,9 @@ SBase.readExtensionAttributes(attributes);
 
   //-----------------------------------------------------------------------------
 
+  
+  bool getHasBeenDeleted() const;
+  
   /** @endcond */
 
 private:
@@ -3347,7 +3350,6 @@ private:
    */
   bool readNotes (XMLInputStream& stream);
 
-  bool getHasBeenDeleted();
 
   /** @endcond */
 };
