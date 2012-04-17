@@ -29,7 +29,7 @@
 %feature("director") SBMLValidator;  
 %feature("director") SBMLConverter;  
 
-#pragma SWIG nowarn=473,401,844
+%pragma SWIG nowarn=473,401,844
 
 %pragma(java) moduleclassmodifiers="
 /**
